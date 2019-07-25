@@ -30,5 +30,6 @@ module.exports = {
         'unlimitedStorage',
         'contextMenus',
         'cookies',
+        'proxy',
     ],
 };

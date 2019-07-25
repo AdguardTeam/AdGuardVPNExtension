@@ -1,30 +1,24 @@
 import browser from 'webextension-polyfill';
 import log from '../lib/logger';
 
-const pacScript = `
-    function FindProxyForURL(url, host) {
-        if (host.indexOf('jira.adguard.com') !== -1
-            || host.indexOf('jira.performix.ru') !== -1
-            || host.indexOf('bit.adguard.com') !== -1) {
-            return 'DIRECT';
-        }
-        return 'HTTPS local.msk2.ru.adguard.io:443';
-    }`;
-
 const errorHandler = (details) => {
     log.error(details);
 };
 
 const turnOn = async () => {
     const config = {
-        mode: 'pac_script',
-        pacScript: {
-            data: pacScript,
-            mandatory: true,
+        mode: 'fixed_servers',
+        rules: {
+            singleProxy: {
+                scheme: 'https',
+                host: 'local.msk2.ru.adguard.io',
+                port: 443,
+            },
         },
     };
     try {
-        await browser.proxy.settings.set({ value: config, scope: 'regular' });
+        const result = await browser.proxy.settings.set({ value: config, scope: 'regular' });
+        log.info(result);
     } catch (e) {
         log.error(`Unable to turn on proxy because of error, ${e.message}`);
     }

@@ -1,28 +1,17 @@
 import browser from 'webextension-polyfill';
 
-class Background {
-    constructor() {
-        this.backgroundContext = null;
-    }
+const getBackgroundContext = async () => {
+    const backgroundWindow = await browser.runtime.getBackgroundPage();
+    return backgroundWindow.background;
+};
 
-    async getBackgroundContext() {
-        if (!this.backgroundContext) {
-            try {
-                const backgroundWindow = await browser.runtime.getBackgroundPage();
-                this.backgroundContext = backgroundWindow.background;
-            } catch (e) {
-                console.log(e.message);
-            }
-        }
-        return Promise.resolve(this.backgroundContext);
-    }
+const getSettings = async () => {
+    const backgroundContext = await getBackgroundContext();
+    return backgroundContext.settings;
+};
 
-    async getSettings() {
-        const backgroundContext = await this.getBackgroundContext();
-        return backgroundContext.settings;
-    }
-}
-
-const background = new Background();
+const background = {
+    getSettings,
+};
 
 export default background;

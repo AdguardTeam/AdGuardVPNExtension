@@ -11,5 +11,6 @@ module.exports = {
         'contextMenus',
         'cookies',
         'privacy',
+        'proxy',
     ],
 };
