@@ -1,7 +1,10 @@
+import log from '../lib/logger';
+import proxy from './proxy';
+
 const SETTINGS = {
     globalProxyEnabled: {
         id: 'globalProxyEnabled',
-        value: true,
+        value: false,
     },
     // TODO move this setting into whitelist
     currentUrlProxyEnabled: {
@@ -20,14 +23,36 @@ const SETTINGS = {
 
 const getSetting = settingId => SETTINGS[settingId];
 
-const setSetting = (settingId, value) => {
-    const setting = SETTINGS[settingId];
-    if (setting.value !== value) {
-        SETTINGS[settingId].value = value;
-        console.log(`Setting ${settingId} value was set to: ${value}`);
-        return true;
+const globalProxyEnabledHandler = async (value) => {
+    if (value) {
+        await proxy.turnOn();
+    } else {
+        await proxy.turnOff();
     }
-    return false;
+};
+
+const getHandler = (settingId) => {
+    switch (settingId) {
+        case 'globalProxyEnabled': {
+            return globalProxyEnabledHandler;
+        }
+        default:
+            throw new Error(`There is no handler suitable to setting with id: ${settingId}`);
+    }
+};
+
+const setSetting = async (settingId, value) => {
+    const setting = SETTINGS[settingId];
+    // No need to change value
+    if (setting.value === value) {
+        return false;
+    }
+    const handler = getHandler(settingId);
+
+    await handler(value);
+    SETTINGS[settingId].value = value;
+    log.info(`Setting ${settingId} value was set to: ${value}`);
+    return true;
 };
 
 /**
@@ -36,6 +61,13 @@ const setSetting = (settingId, value) => {
  * @returns {*}
  */
 const getSettingsByIds = settingsIds => settingsIds.map(getSetting);
+
+const init = async () => {
+    await globalProxyEnabledHandler(SETTINGS.globalProxyEnabled.value);
+};
+
+// init default settings
+init();
 
 const settings = {
     getSetting,

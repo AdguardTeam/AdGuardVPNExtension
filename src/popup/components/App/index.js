@@ -19,7 +19,6 @@ class App extends Component {
     }
 
     handleGlobalStatus = async (newGlobalStatus) => {
-        console.log(newGlobalStatus);
         let changed;
         try {
             const settings = await background.getSettings();

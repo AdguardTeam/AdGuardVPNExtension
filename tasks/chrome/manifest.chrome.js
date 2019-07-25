@@ -11,6 +11,7 @@ module.exports = {
         'unlimitedStorage',
         'contextMenus',
         'cookies',
+        'proxy',
     ],
     optional_permissions: [
         'privacy',

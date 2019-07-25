@@ -45,6 +45,7 @@
         "storage",
         "unlimitedStorage",
         "contextMenus",
-        "cookies"
+        "cookies",
+        "proxy"
     ]
 }
