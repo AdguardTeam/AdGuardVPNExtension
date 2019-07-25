@@ -1,0 +1,11 @@
+{
+    "name": {
+        "message": "AdGuard шаблон для расширений"
+    },
+    "description": {
+        "message": "AdGuard описание шаблона для расширений"
+    },
+    "short_name": {
+        "message": "AG шаблон для расширений"
+    }
+}

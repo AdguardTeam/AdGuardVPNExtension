@@ -1,0 +1,11 @@
+{
+    "name": {
+        "message": "AdGuard extension boilerplate"
+    },
+    "description": {
+        "message": "AdGuard extension boilerplate description"
+    },
+    "short_name": {
+        "message": "AG extension boilerplate"
+    }
+}
