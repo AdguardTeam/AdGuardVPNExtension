@@ -1,8 +1,8 @@
 import browser from 'webextension-polyfill';
-import log from '../lib/logger';
+import log from '../../../lib/logger';
 
 const errorHandler = (details) => {
-    log.error(details);
+    log.error(JSON.stringify(details));
 };
 
 const turnOn = async () => {

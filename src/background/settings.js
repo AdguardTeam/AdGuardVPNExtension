@@ -1,5 +1,5 @@
 import log from '../lib/logger';
-import proxy from './proxy';
+import { proxy } from './proxy';
 
 const SETTINGS = {
     globalProxyEnabled: {

@@ -10,9 +10,9 @@
         "dev": "NODE_ENV=development run-p build:*",
         "beta": "NODE_ENV=beta run-p build:*",
         "release": "NODE_ENV=release run-p build:*",
-        "build:chrome": "webpack --config tasks/chrome/webpack.chrome.js",
-        "build:firefox": "webpack --config tasks/firefox/webpack.firefox.js",
-        "build:edge": "webpack --config tasks/edge/webpack.edge.js",
+        "build:chrome": "BROWSER=chrome webpack --config tasks/chrome/webpack.chrome.js",
+        "build:firefox": "BROWSER=firefox webpack --config tasks/firefox/webpack.firefox.js",
+        "build:edge": "BROWSER=edge webpack --config tasks/edge/webpack.edge.js",
         "test:build": "webpack --config tests/webpack.test.config.js",
         "test:watch": "webpack --config tests/webpack.test.config.js --watch",
         "test:puppeteer": "node tests/puppeteer.js",
@@ -52,6 +52,7 @@
         "style-loader": "^0.23.1",
         "webpack": "^4.37.0",
         "webpack-cli": "^3.3.6",
+        "webpack-conditional-loader": "^1.0.12",
         "webpack-merge": "^4.2.1"
     },
     "dependencies": {

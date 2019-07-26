@@ -42,8 +42,7 @@ const config = {
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader',
-                options: { babelrc: true },
+                use: [{ loader: 'babel-loader', options: { babelrc: true } }, 'webpack-conditional-loader'],
             },
             {
                 test: /\.(css|pcss)$/,
