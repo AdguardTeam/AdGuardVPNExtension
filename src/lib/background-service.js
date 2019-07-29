@@ -5,13 +5,13 @@ const getBackgroundContext = async () => {
     return backgroundWindow.background;
 };
 
-const getSettings = async () => {
+const getSettingsModule = async () => {
     const backgroundContext = await getBackgroundContext();
     return backgroundContext.settings;
 };
 
 const background = {
-    getSettings,
+    getSettingsModule,
 };
 
 export default background;

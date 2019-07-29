@@ -10,6 +10,7 @@ const BYPASS_LIST = [
     '::1/128',
     'localhost',
     '*.local',
+    'bit.adguard.com',
 ];
 
 const proxyGetAsync = (config = {}) => new Promise((resolve) => {

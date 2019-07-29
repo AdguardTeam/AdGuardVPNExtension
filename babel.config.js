@@ -10,9 +10,9 @@ module.exports = (api) => {
             },
         }], '@babel/preset-react'],
         plugins: [
-            '@babel/plugin-proposal-class-properties',
+            ['@babel/plugin-proposal-decorators', { legacy: true }],
+            ['@babel/plugin-proposal-class-properties', { loose: true }],
             '@babel/plugin-transform-runtime',
-            '@babel/plugin-syntax-dynamic-import',
         ],
     };
 };

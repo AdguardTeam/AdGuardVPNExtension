@@ -1,38 +1,24 @@
 import React, { Fragment, Component } from 'react';
+import { observer } from 'mobx-react';
 import Header from '../Header';
 import Map from '../Map';
 import Settings from '../Settings';
 import Footer from '../Footer';
-import background from '../../../lib/background-service';
+import settingsStore from '../../stores/settingsStore';
 
-const globalProxyEnabledId = 'globalProxyEnabled';
-
+@observer
 class App extends Component {
-    state = {
-        globalProxyEnabled: false,
-    };
-
     async componentDidMount() {
-        const settings = await background.getSettings();
-        const globalProxyEnabled = settings.getSetting(globalProxyEnabledId);
-        this.setState({ globalProxyEnabled: globalProxyEnabled.value });
+        await settingsStore.getGlobalProxyEnabled();
     }
 
-    handleGlobalStatus = async (newGlobalStatus) => {
-        let changed;
-        try {
-            const settings = await background.getSettings();
-            changed = settings.setSetting(globalProxyEnabledId, newGlobalStatus);
-        } catch (e) {
-            console.log(e);
-        }
-        if (changed) {
-            this.setState({ globalProxyEnabled: newGlobalStatus });
-        }
+    handleGlobalStatus = async (value) => {
+        await settingsStore.setGlobalProxyEnabled(value);
     };
 
     render() {
-        const { globalProxyEnabled } = this.state;
+        const { globalProxyEnabled } = settingsStore;
+        console.log(globalProxyEnabled);
         return (
             <Fragment>
                 <Header
