@@ -52,6 +52,7 @@
                 "ignoreClassFields": true
             }
         ],
-        "react/prop-types": "off" // TODO remove this rule when app will grow bigger
+        "react/prop-types": "off", // TODO remove this rule when app will grow bigger
+        "class-methods-use-this": "off"
     }
 }

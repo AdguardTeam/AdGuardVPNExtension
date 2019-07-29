@@ -10,8 +10,14 @@ const getSettingsModule = async () => {
     return backgroundContext.settings;
 };
 
+const getActionsModule = async () => {
+    const backgroundContext = await getBackgroundContext();
+    return backgroundContext.actions;
+};
+
 const background = {
     getSettingsModule,
+    getActionsModule,
 };
 
 export default background;

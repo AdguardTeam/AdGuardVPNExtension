@@ -24,9 +24,12 @@ class App extends Component {
                     handleGlobalStatus={this.handleGlobalStatus}
                     globalProxyEnabled={globalProxyEnabled}
                 />
-                <Map />
-                <Settings />
-                <Footer />
+                <Map globalProxyEnabled={globalProxyEnabled} />
+                <Settings
+                    globalProxyEnabled={globalProxyEnabled}
+                    handleGlobalStatus={this.handleGlobalStatus}
+                />
+                {globalProxyEnabled && <Footer />}
             </Fragment>
         );
     }

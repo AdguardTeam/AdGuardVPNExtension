@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import log from '../../../lib/logger';
+import background from '../../../lib/background-service';
 import './header.pcss';
 
 class Header extends Component {
@@ -11,27 +13,33 @@ class Header extends Component {
     renderGlobalStatusButton = (status) => {
         const buttonClasses = {
             button: true,
-            global_status: true,
+            button_icon: true,
         };
-        let text;
 
         if (status) {
-            buttonClasses.global_status__pause = true;
-            text = 'pause';
+            buttonClasses.button_icon__pause = true;
         } else {
-            buttonClasses.global_status__start = true;
-            text = 'start';
+            buttonClasses.button_icon__start = true;
         }
 
         return (
-            <button
+            <i
+                role="button"
+                tabIndex="0"
                 className={classNames(buttonClasses)}
                 onClick={this.handleGlobalStatusChange(status)}
-            >
-                {text}
-            </button>
+            />
         );
     };
+
+    async handleSettingsClick() {
+        const actions = await background.getActionsModule();
+        try {
+            await actions.openOptionsPage();
+        } catch (e) {
+            log.error(e);
+        }
+    }
 
     render() {
         const { globalProxyEnabled } = this.props;
@@ -40,7 +48,12 @@ class Header extends Component {
                 <div className="title">AdGuard VPN</div>
                 <div className="buttons">
                     {this.renderGlobalStatusButton(globalProxyEnabled)}
-                    <button className="button settings">settings</button>
+                    <i
+                        role="button"
+                        tabIndex="0"
+                        className="button button_icon button_icon__settings"
+                        onClick={this.handleSettingsClick}
+                    />
                 </div>
             </div>
         );
