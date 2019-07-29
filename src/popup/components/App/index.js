@@ -18,7 +18,6 @@ class App extends Component {
 
     render() {
         const { globalProxyEnabled } = settingsStore;
-        console.log(globalProxyEnabled);
         return (
             <Fragment>
                 <Header

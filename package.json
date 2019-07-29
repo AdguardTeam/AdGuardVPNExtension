@@ -7,6 +7,7 @@
     "scripts": {
         "lint": "eslint .",
         "watch": "NODE_ENV=development run-s \"build:chrome --watch\"",
+        "watch:firefox": "NODE_ENV=development run-s \"build:firefox --watch\"",
         "dev": "NODE_ENV=development run-p build:*",
         "beta": "NODE_ENV=beta run-p build:*",
         "release": "NODE_ENV=release run-p build:*",

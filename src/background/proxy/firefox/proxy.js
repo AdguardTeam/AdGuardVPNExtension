@@ -1,45 +1,86 @@
 import browser from 'webextension-polyfill';
 import log from '../../../lib/logger';
 
-const errorHandler = (details) => {
-    log.error(JSON.stringify(details));
-};
+// TODO [maximtop] complete this list with values from https://tools.ietf.org/html/rfc3330
+const BYPASS_LIST = [
+    '10.0.0.0/8',
+    '127.0.0.0/8',
+    '172.16.0.0/12',
+    '192.168.0.0/16',
+    '::1/128',
+    'localhost',
+    '*.local',
+    'adguard.com',
+    'performix.ru',
+];
 
-const turnOn = async () => {
-    const config = {
-        mode: 'fixed_servers',
-        rules: {
-            singleProxy: {
-                scheme: 'https',
-                host: 'local.msk2.ru.adguard.io',
-                port: 443,
-            },
-        },
-    };
-    try {
-        const result = await browser.proxy.settings.set({ value: config, scope: 'regular' });
-        log.info(result);
-    } catch (e) {
-        log.error(`Unable to turn on proxy because of error, ${e.message}`);
+const proxyGetAsync = (config = {}) => browser.proxy.settings.get(config);
+
+const proxySetAsync = (config = {}) => browser.proxy.settings.set(config);
+
+const checkProxyStatus = async () => {
+    const { levelOfControl } = await proxyGetAsync();
+    switch (levelOfControl) {
+        case 'not_controllable':
+        case 'controlled_by_other_extensions': {
+            return { canSetProxy: false, cause: levelOfControl };
+        }
+        default:
+            return { canSetProxy: true };
     }
-    log.info('Proxy turned on');
-    browser.proxy.onProxyError.addListener(errorHandler);
 };
 
-const turnOff = async () => {
-    try {
-        await browser.proxy.settings.clear({ scope: 'regular' });
-    } catch (e) {
-        log.error(`Failed to turn off proxy due to error: ${e.message}`);
+class Proxy {
+    constructor() {
+        this.moscowConfig = {
+            proxyType: 'manual',
+            ssl: 'https://local.msk2.ru.adguard.io:443',
+        };
+        this.systemConfig = {
+            proxyType: 'system',
+        };
     }
 
-    log.info('Proxy turned off');
-    browser.proxy.onProxyError.removeListener(errorHandler);
-};
+    async turnOn() {
+        const status = await checkProxyStatus();
+        const { canSetProxy, cause } = status;
 
-const proxy = {
-    turnOn,
-    turnOff,
-};
+        if (!canSetProxy) {
+            log.warn(`Can't set proxy due to: ${cause}`);
+            return;
+        }
 
-export default proxy;
+        try {
+            await proxySetAsync({ value: this.moscowConfig });
+        } catch (e) {
+            log.error(`Unable to turn on proxy because of error, ${e.message}`);
+        }
+
+        log.info('Proxy turned on');
+        browser.proxy.onError.addListener(Proxy.errorHandler);
+    }
+
+    async turnOff() {
+        const { canSetProxy, cause } = await checkProxyStatus();
+
+        if (!canSetProxy) {
+            log.warn(`Can't set proxy due to: ${cause}`);
+            return;
+        }
+
+        try {
+            await proxySetAsync({ value: this.systemConfig });
+        } catch (e) {
+            log.error(`Failed to turn off proxy due to error: ${e.message}`);
+        }
+
+        log.info('Proxy turned off');
+        browser.proxy.onError.removeListener(Proxy.errorHandler);
+    }
+
+    static errorHandler(details) {
+        log.error(JSON.stringify(details));
+    }
+}
+
+export const proxy = new Proxy();
