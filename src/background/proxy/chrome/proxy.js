@@ -25,18 +25,6 @@ const proxySetAsync = config => new Promise((resolve) => {
     });
 });
 
-const checkProxyStatus = async () => {
-    const { levelOfControl } = await proxyGetAsync();
-    switch (levelOfControl) {
-        case 'not_controllable':
-        case 'controlled_by_other_extensions': {
-            return { canSetProxy: false, cause: levelOfControl };
-        }
-        default:
-            return { canSetProxy: true };
-    }
-};
-
 class Proxy {
     constructor() {
         this.moscowConfig = {
@@ -56,17 +44,16 @@ class Proxy {
     }
 
     async turnOn() {
-        const { canSetProxy, cause } = await checkProxyStatus();
+        const { canControlProxy, cause } = await this.canControlProxy();
 
-        if (!canSetProxy) {
-            log.warn(`Can't set proxy due to: ${cause}`);
-            return;
+        if (!canControlProxy) {
+            throw new Error(`Can't set proxy due to: ${cause}`);
         }
 
         try {
             await proxySetAsync({ value: this.moscowConfig, scope: 'regular' });
         } catch (e) {
-            log.error(`Unable to turn on proxy because of error, ${e.message}`);
+            throw new Error(`Unable to turn on proxy because of error, ${e.message}`);
         }
 
         log.info('Proxy turned on');
@@ -74,21 +61,32 @@ class Proxy {
     }
 
     async turnOff() {
-        const { canSetProxy, cause } = await checkProxyStatus();
+        const { canControlProxy, cause } = await this.canControlProxy();
 
-        if (!canSetProxy) {
-            log.warn(`Can't set proxy due to: ${cause}`);
-            return;
+        if (!canControlProxy) {
+            throw new Error(`Can't set proxy due to: ${cause}`);
         }
 
         try {
             await proxySetAsync({ value: this.systemConfig, scope: 'regular' });
         } catch (e) {
-            log.error(`Failed to turn off proxy due to error: ${e.message}`);
+            throw new Error(`Failed to turn off proxy due to error: ${e.message}`);
         }
 
         log.info('Proxy turned off');
         browser.proxy.onProxyError.removeListener(Proxy.errorHandler);
+    }
+
+    async canControlProxy() {
+        const { levelOfControl } = await proxyGetAsync();
+        switch (levelOfControl) {
+            case 'not_controllable':
+            case 'controlled_by_other_extensions': {
+                return { canControlProxy: false, cause: levelOfControl };
+            }
+            default:
+                return { canControlProxy: true };
+        }
     }
 
     static errorHandler(details) {

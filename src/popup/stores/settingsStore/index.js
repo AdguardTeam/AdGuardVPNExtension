@@ -4,16 +4,19 @@ import {
     configure,
     runInAction,
 } from 'mobx';
+
 import log from '../../../lib/logger';
 import background from '../../../lib/background-service';
 
-const globalProxyEnabledId = 'globalProxyEnabled';
+const extensionEnabledSettingId = 'extensionEnabled';
 
 // Do not allow actions outside of store
 configure({ enforceActions: 'observed' });
 
 class SettingsStore {
-    @observable globalProxyEnabled = false;
+    @observable extensionEnabled = false;
+
+    @observable canControlProxy = false;
 
     async getSettingValue(settingId) {
         const settings = await background.getSettingsModule();
@@ -21,10 +24,19 @@ class SettingsStore {
     }
 
     @action
-    async getGlobalProxyEnabled() {
-        const globalProxyEnabledSetting = await this.getSettingValue(globalProxyEnabledId);
+    async checkProxyControl() {
+        const proxy = await background.getProxyModule();
+        const { canControlProxy } = await proxy.canControlProxy();
         runInAction(() => {
-            this.globalProxyEnabled = globalProxyEnabledSetting.value;
+            this.canControlProxy = canControlProxy;
+        });
+    }
+
+    @action
+    async getGlobalProxyEnabled() {
+        const globalProxyEnabledSetting = await this.getSettingValue(extensionEnabledSettingId);
+        runInAction(() => {
+            this.extensionEnabled = globalProxyEnabledSetting.value;
         });
     }
 
@@ -37,13 +49,13 @@ class SettingsStore {
     async setGlobalProxyEnabled(value) {
         let changed;
         try {
-            changed = await this.updateSetting(globalProxyEnabledId, value);
+            changed = await this.updateSetting(extensionEnabledSettingId, value);
         } catch (e) {
             log.error(e);
         }
         if (changed) {
             runInAction(() => {
-                this.globalProxyEnabled = value;
+                this.extensionEnabled = value;
             });
         }
     }

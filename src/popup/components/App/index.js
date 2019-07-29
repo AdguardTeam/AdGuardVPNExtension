@@ -10,6 +10,7 @@ import settingsStore from '../../stores/settingsStore';
 class App extends Component {
     async componentDidMount() {
         await settingsStore.getGlobalProxyEnabled();
+        await settingsStore.checkProxyControl();
     }
 
     handleGlobalStatus = async (value) => {
@@ -17,19 +18,23 @@ class App extends Component {
     };
 
     render() {
-        const { globalProxyEnabled } = settingsStore;
+        const {
+            extensionEnabled,
+            canControlProxy,
+        } = settingsStore;
         return (
             <Fragment>
                 <Header
                     handleGlobalStatus={this.handleGlobalStatus}
-                    globalProxyEnabled={globalProxyEnabled}
+                    globalProxyEnabled={extensionEnabled}
                 />
-                <Map globalProxyEnabled={globalProxyEnabled} />
+                <Map globalProxyEnabled={extensionEnabled} />
                 <Settings
-                    globalProxyEnabled={globalProxyEnabled}
+                    canControlProxy={canControlProxy}
+                    globalProxyEnabled={extensionEnabled}
                     handleGlobalStatus={this.handleGlobalStatus}
                 />
-                {globalProxyEnabled && <Footer />}
+                {extensionEnabled && canControlProxy && <Footer />}
             </Fragment>
         );
     }

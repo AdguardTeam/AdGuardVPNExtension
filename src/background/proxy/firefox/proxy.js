@@ -23,10 +23,10 @@ const checkProxyStatus = async () => {
     switch (levelOfControl) {
         case 'not_controllable':
         case 'controlled_by_other_extensions': {
-            return { canSetProxy: false, cause: levelOfControl };
+            return { canControlProxy: false, cause: levelOfControl };
         }
         default:
-            return { canSetProxy: true };
+            return { canControlProxy: true };
     }
 };
 

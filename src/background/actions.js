@@ -1,7 +1,6 @@
 import browser from 'webextension-polyfill';
 
 const openOptionsPage = async () => {
-    console.log(browser.runtime);
     await browser.runtime.openOptionsPage();
 };
 

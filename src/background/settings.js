@@ -2,8 +2,8 @@ import log from '../lib/logger';
 import { proxy } from './proxy';
 
 const SETTINGS = {
-    globalProxyEnabled: {
-        id: 'globalProxyEnabled',
+    extensionEnabled: {
+        id: 'extensionEnabled',
         value: false,
     },
     // TODO move this setting into whitelist
@@ -23,7 +23,7 @@ const SETTINGS = {
 
 const getSetting = settingId => SETTINGS[settingId];
 
-const globalProxyEnabledHandler = async (value) => {
+const extensionEnabledHandler = async (value) => {
     if (value) {
         await proxy.turnOn();
     } else {
@@ -33,8 +33,8 @@ const globalProxyEnabledHandler = async (value) => {
 
 const getHandler = (settingId) => {
     switch (settingId) {
-        case 'globalProxyEnabled': {
-            return globalProxyEnabledHandler;
+        case 'extensionEnabled': {
+            return extensionEnabledHandler;
         }
         default:
             throw new Error(`There is no handler suitable to setting with id: ${settingId}`);
@@ -63,7 +63,11 @@ const setSetting = async (settingId, value) => {
 const getSettingsByIds = settingsIds => settingsIds.map(getSetting);
 
 const init = async () => {
-    await globalProxyEnabledHandler(SETTINGS.globalProxyEnabled.value);
+    try {
+        await extensionEnabledHandler(SETTINGS.extensionEnabled.value);
+    } catch (e) {
+        log.info(e.message);
+    }
 };
 
 // init default settings

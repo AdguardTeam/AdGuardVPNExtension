@@ -47,12 +47,26 @@ class Settings extends Component {
     );
 
     render() {
-        const { globalProxyEnabled } = this.props;
+        const { globalProxyEnabled, canControlProxy } = this.props;
+
         const settingsClasses = classnames({
             settings: true,
             settings_row: !globalProxyEnabled,
             settings_col: globalProxyEnabled,
         });
+
+        if (!canControlProxy) {
+            const settingsClasses = classnames({
+                settings: true,
+                settings_col: true,
+            });
+            return (
+                <div className={settingsClasses}>
+                    <p>Other extension prevents us from setting up the tunnel.</p>
+                    <p>Please disable it in browser settings</p>
+                </div>
+            );
+        }
         return (
             <div className={settingsClasses}>
                 {globalProxyEnabled ? this.renderSettings() : this.renderEnableButton()}
