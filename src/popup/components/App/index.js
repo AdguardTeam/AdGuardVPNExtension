@@ -5,6 +5,8 @@ import Map from '../Map';
 import Settings from '../Settings';
 import Footer from '../Footer';
 import settingsStore from '../../stores/settingsStore';
+import uiStore from '../../stores/uiStore';
+import Endpoints from '../Endpoints';
 
 @observer
 class App extends Component {
@@ -22,6 +24,18 @@ class App extends Component {
             extensionEnabled,
             canControlProxy,
         } = settingsStore;
+        const { showEndpoints } = uiStore;
+        if (showEndpoints) {
+            return (
+                <Fragment>
+                    <Header
+                        handleGlobalStatus={this.handleGlobalStatus}
+                        globalProxyEnabled={extensionEnabled}
+                    />
+                    <Endpoints />
+                </Fragment>
+            );
+        }
         return (
             <Fragment>
                 <Header

@@ -20,10 +20,22 @@ const getProxyModule = async () => {
     return backgroundContext.proxy;
 };
 
+const getApiModule = async () => {
+    const backgroundContext = await getBackgroundContext();
+    return backgroundContext.api;
+};
+
+const getProviderModule = async () => {
+    const backgroundContext = await getBackgroundContext();
+    return backgroundContext.provider;
+};
+
 const background = {
     getSettingsModule,
     getActionsModule,
     getProxyModule,
+    getApiModule,
+    getProviderModule,
 };
 
 export default background;

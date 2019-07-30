@@ -3,6 +3,7 @@ import {
     observable,
     configure,
     runInAction,
+    computed,
 } from 'mobx';
 
 import log from '../../../lib/logger';
@@ -13,10 +14,63 @@ const extensionEnabledSettingId = 'extensionEnabled';
 // Do not allow actions outside of store
 configure({ enforceActions: 'observed' });
 
+const REQUEST_STATES = {
+    DONE: 'done',
+    PENDING: 'pending',
+    ERROR: 'error',
+};
+
 class SettingsStore {
     @observable extensionEnabled = false;
 
     @observable canControlProxy = false;
+
+    @observable endpoints = [];
+
+    @observable gettingEndpointsState;
+
+    @observable selectedEndpoint;
+
+    @observable searchValue;
+
+    @action
+    setSearchValue = (value) => {
+        // TODO [maximtop] validate value, do not set if equal
+        this.searchValue = value;
+        console.log(value);
+    };
+
+    @action
+    getEndpoints = async () => {
+        // TODO [maximtop] consider moving this code into bg page
+        this.gettingEndpointsState = REQUEST_STATES.PENDING;
+        this.endpoints = [];
+        try {
+            const provider = await background.getProviderModule();
+            const endpoints = await provider.getEndpoints();
+            runInAction(() => {
+                this.gettingEndpointsState = REQUEST_STATES.DONE;
+                this.endpoints = endpoints;
+            });
+        } catch (e) {
+            this.gettingEndpointsState = REQUEST_STATES.ERROR;
+            console.log(e);
+        }
+    };
+
+    @computed
+    get filteredEndpoints() {
+        const filteredEndpoints = Object.values(this.endpoints).filter((endpoint) => {
+            const regex = new RegExp(this.searchValue, 'ig');
+            return endpoint.city.match(regex);
+        });
+        return filteredEndpoints;
+    }
+
+    @action
+    setSelectedEndpoint = (id) => {
+        this.selectedEndpoint = id;
+    };
 
     async getSettingValue(settingId) {
         const settings = await background.getSettingsModule();
