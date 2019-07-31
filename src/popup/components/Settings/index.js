@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
+import uiStore from '../../stores/uiStore';
 import Checkbox from './Checkbox';
 
 import './settings.pcss';
+import settingsStore from '../../stores/settingsStore';
 
 const SETTINGS_META = {
-    currentUrlProxyEnabled: {
-        id: 'currentUrlProxyEnabled',
-        title: 'Use VPN for lenta.ru',
-    },
     onlineTrackingPrevention: {
         id: 'onlineTrackingPrevention',
         title: 'Online tracking prevention',
@@ -19,7 +17,14 @@ const SETTINGS_META = {
     },
 };
 
-const SETTINGS_ORDER = ['currentUrlProxyEnabled', 'onlineTrackingPrevention', 'malwareProtection'];
+const SETTINGS_ORDER = ['onlineTrackingPrevention', 'malwareProtection'];
+
+const getStatusMessage = (extensionEnabled) => {
+    if (extensionEnabled) {
+        return 'Connected';
+    }
+    return 'Disabled';
+};
 
 class Settings extends Component {
     renderSettings = () => SETTINGS_ORDER.map((settingId) => {
@@ -31,45 +36,58 @@ class Settings extends Component {
         );
     });
 
-    handleEnableButtonClick = () => {
-        const { handleGlobalStatus } = this.props;
-        handleGlobalStatus(true);
+    handleEndpointSelectorClick = () => {
+        uiStore.openEndpointsSearch();
     };
 
-    renderEnableButton = () => (
-        <div
-            className="tunnel-switcher"
-            onClick={this.handleEnableButtonClick}
-        >
-            <i className="button button_icon button_icon__start" />
-            <div className="button">Turn on the tunnel</div>
-        </div>
-    );
+    handleSwitchChange = async (e) => {
+        const { checked } = e.target;
+        await settingsStore.setGlobalProxyEnabled(checked);
+    };
 
     render() {
-        const { globalProxyEnabled, canControlProxy } = this.props;
+        const { canControlProxy } = this.props;
+        const { extensionEnabled } = settingsStore;
 
-        const settingsClasses = classnames({
-            settings: true,
-            settings_row: !globalProxyEnabled,
-            settings_col: globalProxyEnabled,
+        const extraSettingsClassNames = classnames({
+            extra_settings: true,
+            extra_settings__enabled: extensionEnabled,
         });
 
         if (!canControlProxy) {
-            const settingsClasses = classnames({
-                settings: true,
-                settings_col: true,
-            });
             return (
-                <div className={settingsClasses}>
+                <div className="settings">
                     <p>Other extension prevents us from setting up the tunnel.</p>
                     <p>Please disable it in browser settings</p>
                 </div>
             );
         }
+        const downArrow = '\u02C5';
         return (
-            <div className={settingsClasses}>
-                {globalProxyEnabled ? this.renderSettings() : this.renderEnableButton()}
+            <div className="settings">
+                <div className="main_settings">
+                    <div className="endpoint_selector">
+                        <div
+                            className="endpoint_selector"
+                            onClick={this.handleEndpointSelectorClick}
+                        >
+                            Germany
+                            {' '}
+                            {downArrow}
+                        </div>
+                        <div className="status">{getStatusMessage(extensionEnabled)}</div>
+                    </div>
+                    <div className="global_switcher">
+                        <input
+                            type="checkbox"
+                            onChange={this.handleSwitchChange}
+                            checked={settingsStore.extensionEnabled}
+                        />
+                    </div>
+                </div>
+                <div className={extraSettingsClassNames}>
+                    {this.renderSettings()}
+                </div>
             </div>
         );
     }

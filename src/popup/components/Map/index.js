@@ -6,8 +6,8 @@ import './map.pcss';
 @observer
 class Map extends Component {
     handleChangeLocation() {
-        const { setShowEndpoints } = uiStore;
-        setShowEndpoints(true);
+        const { openEndpointsSearch } = uiStore;
+        setDisplayEndpoints(true);
     }
 
     renderGlobalStatus(status) {
@@ -19,18 +19,7 @@ class Map extends Component {
         const { globalProxyEnabled } = this.props;
         return (
             <div className="map">
-                {this.renderGlobalStatus(globalProxyEnabled)}
-                <div className="current-location">via Moscow, Russia</div>
-                <div className="location-selector">
-                    <div
-                        className="button change-location"
-                        role="button"
-                        tabIndex="0"
-                        onClick={this.handleChangeLocation}
-                    >
-                        Change location
-                    </div>
-                </div>
+                <h1>Map</h1>
             </div>
         );
     }

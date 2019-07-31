@@ -1,11 +1,28 @@
 import { action, observable } from 'mobx';
 
 class UiStore {
-    @observable showEndpoints = false;
+    @observable isOpenEndpointsSearch = false;
+
+    @observable isOpenOptionsModal = false;
 
     @action
-    setShowEndpoints = (value) => {
-        this.showEndpoints = value;
+    openEndpointsSearch = () => {
+        this.isOpenEndpointsSearch = true;
+    };
+
+    @action
+    closeEndpointsSearch = () => {
+        this.isOpenEndpointsSearch = false;
+    };
+
+    @action
+    openOptionsModal = () => {
+        this.isOpenOptionsModal = true;
+    };
+
+    @action
+    closeOptionsModal = () => {
+        this.isOpenOptionsModal = false;
     }
 }
 

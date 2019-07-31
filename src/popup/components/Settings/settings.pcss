@@ -1,12 +1,5 @@
 .settings {
     display: flex;
-}
-
-.settings_row {
-    flex-direction: row;
-}
-
-.settings_col {
     flex-direction: column;
 }
 
@@ -14,11 +7,15 @@
     padding: 10px 0;
 }
 
-.tunnel-switcher {
+.main_settings {
     display: flex;
-    margin: auto;
-    justify-content: space-around;
-    align-items: center;
-    width: 150px;
-    align-self: center;
+    justify-content: space-between;
+}
+
+.extra_settings {
+    opacity: 0.5;
+}
+
+.extra_settings__enabled {
+    opacity: 1;
 }

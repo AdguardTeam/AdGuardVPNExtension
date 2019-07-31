@@ -4,9 +4,10 @@ import Header from '../Header';
 import Map from '../Map';
 import Settings from '../Settings';
 import Footer from '../Footer';
-import settingsStore from '../../stores/settingsStore';
-import uiStore from '../../stores/uiStore';
+import { uiStore, settingsStore } from '../../stores';
 import Endpoints from '../Endpoints';
+import SignIn from '../SignIn';
+import OptionsModal from '../OptionsPopup';
 
 @observer
 class App extends Component {
@@ -23,9 +24,21 @@ class App extends Component {
         const {
             extensionEnabled,
             canControlProxy,
+            signedIn,
         } = settingsStore;
-        const { showEndpoints } = uiStore;
-        if (showEndpoints) {
+        const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
+        if (!signedIn) {
+            return (
+                <Fragment>
+                    <Header
+                        handleGlobalStatus={this.handleGlobalStatus}
+                        globalProxyEnabled={extensionEnabled}
+                    />
+                    <SignIn />
+                </Fragment>
+            );
+        }
+        if (isOpenEndpointsSearch) {
             return (
                 <Fragment>
                     <Header
@@ -38,17 +51,15 @@ class App extends Component {
         }
         return (
             <Fragment>
-                <Header
-                    handleGlobalStatus={this.handleGlobalStatus}
-                    globalProxyEnabled={extensionEnabled}
-                />
+                {isOpenOptionsModal && <OptionsModal />}
+                <Header />
                 <Map globalProxyEnabled={extensionEnabled} />
                 <Settings
                     canControlProxy={canControlProxy}
                     globalProxyEnabled={extensionEnabled}
                     handleGlobalStatus={this.handleGlobalStatus}
                 />
-                {extensionEnabled && canControlProxy && <Footer />}
+                <Footer />
             </Fragment>
         );
     }

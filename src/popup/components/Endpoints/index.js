@@ -17,7 +17,7 @@ class Endpoints extends Component {
     };
 
     handleCloseEndpoints = () => {
-        uiStore.setShowEndpoints(false);
+        uiStore.closeEndpointsSearch();
         settingsStore.setSearchValue('');
     };
 

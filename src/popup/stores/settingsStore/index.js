@@ -33,11 +33,17 @@ class SettingsStore {
 
     @observable searchValue;
 
+    @observable signedIn = false;
+
+    @action
+    setSignedIn = (value) => {
+        this.signedIn = value;
+    };
+
     @action
     setSearchValue = (value) => {
         // TODO [maximtop] validate value, do not set if equal
         this.searchValue = value;
-        console.log(value);
     };
 
     @action

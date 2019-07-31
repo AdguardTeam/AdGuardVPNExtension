@@ -12,13 +12,6 @@ class Checkbox extends Component {
             <div
                 className="checkbox"
             >
-                <label
-                    htmlFor={id}
-                    className="checkbox__label"
-                >
-                    {title}
-                </label>
-
                 <input
                     type="checkbox"
                     name={id}
@@ -27,6 +20,12 @@ class Checkbox extends Component {
                     id={id}
                     className="checkbox__in"
                 />
+                <label
+                    htmlFor={id}
+                    className="checkbox__label"
+                >
+                    {title}
+                </label>
 
             </div>
         );
