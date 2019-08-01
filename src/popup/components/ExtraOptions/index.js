@@ -3,15 +3,14 @@ import Modal from 'react-modal';
 import './extra-options.pcss';
 import { observer } from 'mobx-react';
 import { uiStore, settingsStore } from '../../stores';
-import background from '../../../lib/background-service';
+import bgProvider from '../../../lib/background-provider';
 
 Modal.setAppElement('#root');
 
 @observer
 class ExtraOptions extends Component {
     openSettings = async () => {
-        const actions = await background.getActionsModule();
-        await actions.openOptionsPage();
+        await bgProvider.actions.openOptionsPage();
     };
 
     async addToWhitelist() {
