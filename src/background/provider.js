@@ -11,6 +11,7 @@ const addExampleEndpoints = (data) => {
         },
         us: {
             city: 'United States',
+            premiumOnly: true,
         },
     };
     return {
@@ -23,12 +24,16 @@ const getEndpoints = async () => {
     const endpointsObj = await api.getEndpoints();
     const { endpoints } = endpointsObj;
     const normalizedEndpoints = endpoints.reduce((acc, endpoint) => {
-        const { domain_name: domainName } = endpoint;
+        const {
+            domain_name: domainName,
+            premium_only: premiumOnly,
+        } = endpoint;
         return {
             ...acc,
             [domainName]: {
                 ...endpoint,
                 id: domainName,
+                premiumOnly,
             },
         };
     }, {});
