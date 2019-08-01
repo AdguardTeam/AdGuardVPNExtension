@@ -30,9 +30,9 @@ const checkProxyStatus = async () => {
     }
 };
 
-class Proxy {
+class ExtensionProxy {
     constructor() {
-        this.moscowConfig = {
+        this.currentConfig = {
             proxyType: 'manual',
             ssl: 'https://local.msk2.ru.adguard.io:443',
         };
@@ -57,7 +57,7 @@ class Proxy {
         }
 
         log.info('Proxy turned on');
-        browser.proxy.onError.addListener(Proxy.errorHandler);
+        browser.proxy.onError.addListener(ExtensionProxy.errorHandler);
     }
 
     async turnOff() {
@@ -75,7 +75,7 @@ class Proxy {
         }
 
         log.info('Proxy turned off');
-        browser.proxy.onError.removeListener(Proxy.errorHandler);
+        browser.proxy.onError.removeListener(ExtensionProxy.errorHandler);
     }
 
     static errorHandler(details) {
@@ -83,4 +83,4 @@ class Proxy {
     }
 }
 
-export const proxy = new Proxy();
+export const proxy = new ExtensionProxy();

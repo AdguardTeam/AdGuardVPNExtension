@@ -25,22 +25,15 @@ const proxySetAsync = config => new Promise((resolve) => {
     });
 });
 
-class Proxy {
+class ExtensionProxy {
     constructor() {
-        this.moscowConfig = {
-            mode: 'fixed_servers',
-            rules: {
-                bypassList: BYPASS_LIST,
-                singleProxy: {
-                    scheme: 'https',
-                    host: 'local.msk2.ru.adguard.io',
-                    port: 443,
-                },
-            },
-        };
+        this.isActive = false;
+        this.currentConfig = this.getConfig();
         this.systemConfig = {
             mode: 'system',
         };
+
+        this.bypassWhitelist = [];
     }
 
     async turnOn() {
@@ -51,13 +44,14 @@ class Proxy {
         }
 
         try {
-            await proxySetAsync({ value: this.moscowConfig, scope: 'regular' });
+            await proxySetAsync({ value: this.currentConfig, scope: 'regular' });
+            this.isActive = true;
         } catch (e) {
-            throw new Error(`Unable to turn on proxy because of error, ${e.message}`);
+            throw new Error(`Failed to turn on proxy with config: ${JSON.stringify(this.currentConfig)} because of error, ${e.message}`);
         }
 
         log.info('Proxy turned on');
-        browser.proxy.onProxyError.addListener(Proxy.errorHandler);
+        browser.proxy.onProxyError.addListener(ExtensionProxy.errorHandler);
     }
 
     async turnOff() {
@@ -69,12 +63,13 @@ class Proxy {
 
         try {
             await proxySetAsync({ value: this.systemConfig, scope: 'regular' });
+            this.isActive = false;
         } catch (e) {
             throw new Error(`Failed to turn off proxy due to error: ${e.message}`);
         }
 
         log.info('Proxy turned off');
-        browser.proxy.onProxyError.removeListener(Proxy.errorHandler);
+        browser.proxy.onProxyError.removeListener(ExtensionProxy.errorHandler);
     }
 
     async canControlProxy() {
@@ -92,6 +87,50 @@ class Proxy {
     static errorHandler(details) {
         log.error(JSON.stringify(details));
     }
+
+    getConfig() {
+        const bypassList = this.getBypassList();
+        const proxy = {
+            scheme: 'https',
+            host: 'local.msk2.ru.adguard.io',
+            port: 443,
+        };
+
+        return {
+            mode: 'fixed_servers',
+            rules: {
+                bypassList,
+                singleProxy: proxy,
+            },
+        };
+    }
+
+    updateConfig() {
+        this.currentConfig = this.getConfig();
+    }
+
+    async restartProxy() {
+        this.updateConfig();
+        if (this.isActive) {
+            await this.turnOn();
+        } else {
+            await this.turnOff();
+        }
+    }
+
+    getBypassList() {
+        if (this.bypassWhitelist) {
+            return [...BYPASS_LIST, ...this.bypassWhitelist];
+        }
+        return [...BYPASS_LIST];
+    }
+
+    async setBypassWhitelist(whitelist) {
+        this.bypassWhitelist = whitelist;
+        await this.restartProxy();
+    }
 }
 
-export const proxy = new Proxy();
+const proxy = new ExtensionProxy();
+// eslint-disable-next-line import/prefer-default-export
+export { proxy };

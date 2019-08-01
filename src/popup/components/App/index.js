@@ -7,13 +7,14 @@ import Footer from '../Footer';
 import { uiStore, settingsStore } from '../../stores';
 import Endpoints from '../Endpoints';
 import SignIn from '../SignIn';
-import OptionsModal from '../OptionsPopup';
+import ExtraOptions from '../ExtraOptions';
 
 @observer
 class App extends Component {
     async componentDidMount() {
         await settingsStore.getGlobalProxyEnabled();
         await settingsStore.checkProxyControl();
+        await settingsStore.checkIsWhitelisted();
     }
 
     handleGlobalStatus = async (value) => {
@@ -51,7 +52,7 @@ class App extends Component {
         }
         return (
             <Fragment>
-                {isOpenOptionsModal && <OptionsModal />}
+                {isOpenOptionsModal && <ExtraOptions />}
                 <Header />
                 <Map globalProxyEnabled={extensionEnabled} />
                 <Settings

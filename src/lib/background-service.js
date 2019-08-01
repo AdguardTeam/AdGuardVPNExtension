@@ -30,12 +30,24 @@ const getProviderModule = async () => {
     return backgroundContext.provider;
 };
 
+const getWhitelistModule = async () => {
+    const backgroundContext = await getBackgroundContext();
+    return backgroundContext.whitelist;
+};
+
+const getTabsModule = async () => {
+    const backgroundContext = await getBackgroundContext();
+    return backgroundContext.tabs;
+};
+
 const background = {
     getSettingsModule,
     getActionsModule,
     getProxyModule,
     getApiModule,
     getProviderModule,
+    getWhitelistModule,
+    getTabsModule,
 };
 
 export default background;

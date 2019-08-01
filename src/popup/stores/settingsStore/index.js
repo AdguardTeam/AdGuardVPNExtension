@@ -35,6 +35,10 @@ class SettingsStore {
 
     @observable signedIn = false;
 
+    @observable isWhitelisted;
+
+    @observable currentTabUrl;
+
     @action
     setSignedIn = (value) => {
         this.signedIn = value;
@@ -117,6 +121,57 @@ class SettingsStore {
             runInAction(() => {
                 this.extensionEnabled = value;
             });
+        }
+    }
+
+    @action
+    async addToWhitelist() {
+        const whitelist = await background.getWhitelistModule();
+        try {
+            await whitelist.addToWhitelist(this.currentTabUrl);
+            runInAction(() => {
+                this.isWhitelisted = true;
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    @action
+    async removeFromWhitelist() {
+        const whitelist = await background.getWhitelistModule();
+        try {
+            await whitelist.removeFromWhitelist(this.currentTabUrl);
+            runInAction(() => {
+                this.isWhitelisted = false;
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    @action async checkIsWhitelisted() {
+        try {
+            await this.getCurrentTabUrl();
+            const whitelist = await background.getWhitelistModule();
+            const result = await whitelist.isWhitelisted(this.currentTabUrl);
+            runInAction(() => {
+                this.isWhitelisted = result;
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    @action async getCurrentTabUrl() {
+        try {
+            const tabs = await background.getTabsModule();
+            const result = await tabs.getCurrentTabUrl();
+            runInAction(() => {
+                this.currentTabUrl = result;
+            });
+        } catch (e) {
+            console.log(e);
         }
     }
 }
