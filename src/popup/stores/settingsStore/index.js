@@ -7,7 +7,7 @@ import {
 } from 'mobx';
 
 import log from '../../../lib/logger';
-import background from '../../../lib/background-service';
+import bgProvider from '../../../lib/background-provider';
 
 const extensionEnabledSettingId = 'extensionEnabled';
 
@@ -56,8 +56,7 @@ class SettingsStore {
         this.gettingEndpointsState = REQUEST_STATES.PENDING;
         this.endpoints = [];
         try {
-            const provider = await background.getProviderModule();
-            const endpoints = await provider.getEndpoints();
+            const endpoints = await bgProvider.provider.getEndpoints();
             runInAction(() => {
                 this.gettingEndpointsState = REQUEST_STATES.DONE;
                 this.endpoints = endpoints;
@@ -82,15 +81,9 @@ class SettingsStore {
         this.selectedEndpoint = id;
     };
 
-    async getSettingValue(settingId) {
-        const settings = await background.getSettingsModule();
-        return settings.getSetting(settingId);
-    }
-
     @action
     async checkProxyControl() {
-        const proxy = await background.getProxyModule();
-        const { canControlProxy } = await proxy.canControlProxy();
+        const { canControlProxy } = await bgProvider.proxy.canControlProxy();
         runInAction(() => {
             this.canControlProxy = canControlProxy;
         });
@@ -98,22 +91,18 @@ class SettingsStore {
 
     @action
     async getGlobalProxyEnabled() {
-        const globalProxyEnabledSetting = await this.getSettingValue(extensionEnabledSettingId);
+        const globalProxyEnabledSetting = await bgProvider.settings
+            .getSetting(extensionEnabledSettingId);
         runInAction(() => {
             this.extensionEnabled = globalProxyEnabledSetting.value;
         });
-    }
-
-    async updateSetting(settingId, value) {
-        const settings = await background.getSettingsModule();
-        return settings.setSetting(settingId, value);
     }
 
     @action
     async setGlobalProxyEnabled(value) {
         let changed;
         try {
-            changed = await this.updateSetting(extensionEnabledSettingId, value);
+            changed = await bgProvider.settings.setSetting(extensionEnabledSettingId, value);
         } catch (e) {
             log.error(e);
         }
@@ -126,9 +115,8 @@ class SettingsStore {
 
     @action
     async addToWhitelist() {
-        const whitelist = await background.getWhitelistModule();
         try {
-            await whitelist.addToWhitelist(this.currentTabUrl);
+            await bgProvider.whitelist.addToWhitelist(this.currentTabUrl);
             runInAction(() => {
                 this.isWhitelisted = true;
             });
@@ -139,9 +127,8 @@ class SettingsStore {
 
     @action
     async removeFromWhitelist() {
-        const whitelist = await background.getWhitelistModule();
         try {
-            await whitelist.removeFromWhitelist(this.currentTabUrl);
+            await bgProvider.whitelist.removeFromWhitelist(this.currentTabUrl);
             runInAction(() => {
                 this.isWhitelisted = false;
             });
@@ -153,8 +140,7 @@ class SettingsStore {
     @action async checkIsWhitelisted() {
         try {
             await this.getCurrentTabUrl();
-            const whitelist = await background.getWhitelistModule();
-            const result = await whitelist.isWhitelisted(this.currentTabUrl);
+            const result = await bgProvider.whitelist.isWhitelisted(this.currentTabUrl);
             runInAction(() => {
                 this.isWhitelisted = result;
             });
@@ -165,8 +151,7 @@ class SettingsStore {
 
     @action async getCurrentTabUrl() {
         try {
-            const tabs = await background.getTabsModule();
-            const result = await tabs.getCurrentTabUrl();
+            const result = await bgProvider.tabs.getCurrentTabUrl();
             runInAction(() => {
                 this.currentTabUrl = result;
             });
