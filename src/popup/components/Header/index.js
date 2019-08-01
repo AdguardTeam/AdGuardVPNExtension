@@ -10,15 +10,17 @@ class Header extends Component {
     render() {
         return (
             <div className="header">
-                <div className="title">AdGuard VPN</div>
-                <div className="buttons">
-                    <i
-                        role="button"
-                        tabIndex="0"
-                        className="button button_icon button_icon__settings"
-                        onClick={this.handleSettingsClick}
-                    />
+                <div className="header__title">
+                    <div className="header__logo" />
+                    <div className="header__text">
+                        <span className="header__text-mark">AdGuard</span> VPN
+                    </div>
                 </div>
+                <button className="button header__setting"
+                    role="button"
+                    tabIndex="0"
+                    onClick={this.handleSettingsClick}
+                />
             </div>
         );
     }

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './sign-in.pcss';
 import settingsStore from '../../stores/settingsStore';
+import SocialIcons from '../SocialIcons';
+import SignInForm from './SignInForm';
 
 class SignIn extends Component {
     handleSubmit = (e) => {
@@ -14,26 +16,16 @@ class SignIn extends Component {
 
     render() {
         return (
-            <div className="sign_in">
-                <h1 onClick={this.handleFakeSignIn}>Sign in</h1>
-                <div className="social-icons">
-                    <div className="twitter" />
-                    <div className="google" />
-                    <div className="yandex" />
-                    <div className="vk" />
+            <div className="sign-in">
+                <div className="sign-in__header">
+                    <h1 className="sign-in__title"
+                        onClick={this.handleFakeSignIn}
+                    >
+                        Sign in
+                    </h1>
+                    <SocialIcons />
                 </div>
-                <form className="form" onSubmit={this.handleSubmit}>
-                    <label htmlFor="email">
-                        Email:
-                        <input type="text" name="email" placeholder="example@mail.com" />
-                    </label>
-                    <label htmlFor="password">
-                        Password:
-                        <input type="text" name="password" />
-                    </label>
-                    <input type="submit" value="Submit" />
-                    <div>Register</div>
-                </form>
+                <SignInForm handleSubmit={this.handleSubmit} />
             </div>
         );
     }

@@ -1,0 +1,51 @@
+.form {
+    &__label {
+        color: var(--gray88);
+        font-size: 12px;
+        line-height: 16px;
+        display: inline-block;
+        margin-bottom: 8px;
+    }
+
+    &__item {
+        margin-bottom: 20px;
+    }
+
+    &__inline-btn {
+        margin-bottom: 8px;
+    }
+
+    &__item-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__input {
+        width: 100%;
+        border-radius: 6px;
+        border: 1px solid #888888;
+        outline: none;
+        height: 40px;
+        padding: 10px 15px;
+
+        &:focus,
+        &:active {
+            border-color: var(--gray-base);
+        }
+    }
+
+    &__btns {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    &__btn {
+        line-height: 16px;
+        font-size: 16px;
+
+        &--reg {
+            margin-top: 40px;
+        }
+    }
+}

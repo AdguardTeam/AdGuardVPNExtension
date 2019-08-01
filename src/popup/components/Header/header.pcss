@@ -1,26 +1,30 @@
 .header {
     display: flex;
     flex-direction: row;
-    font-size: 24px;
-    padding: 0 10px;
+    font-size: 18px;
+    line-height: 13px;
+    padding: 15px;
     justify-content: space-between;
-}
 
-.buttons {
-    display: flex;
-    width: 60px;
-    justify-content: space-between;
-}
+    &__title {
+        display: flex;
+        align-items: center;
+    }
 
-.button_icon {
-    border: none;
-    width: 24px;
-    height: 24px;
-    background-repeat: no-repeat;
-    background-position: center;
-    cursor: pointer;
-}
+    &__logo {
+        width: 28px;
+        height: 28px;
+        background-image: url("../../../assets/images/header-logo.svg");
+        margin-right: 6px;
+    }
 
-.button_icon__settings {
-    background-image: url("../../../assets/images/icon-settings.svg");
+    &__text-mark {
+        font-weight: 700;
+    }
+
+    &__setting {
+        width: 24px;
+        height: 24px;
+        background: url("../../../assets/images/icon-settings.svg") no-repeat 50%;
+    }
 }

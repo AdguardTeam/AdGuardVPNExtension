@@ -1,6 +1,54 @@
 .button {
     cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    border: 0;
+    outline: none;
+    background-color: transparent;
+    padding: 0;
+
+    &--inline {
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &--inline-green {
+        color: var(--green74);
+    }
+
+    &--hundred {
+        width: 100%;
+    }
+
+    &--m {
+        border-radius: 8px;
+        padding: 15px;
+    }
+
+    &--green {
+        color: #fff;
+        background-color: var(--green74);
+    }
+
+    &--social {
+        width: 24px;
+        height: 24px;
+    }
+
+    &--twitter {
+        background-image: url("../../assets/images/social-tw.svg");
+    }
+
+    &--google {
+        background-image: url("../../assets/images/social-gl.svg");
+    }
+
+    &--vk {
+        background-image: url("../../assets/images/social-vk.svg");
+    }
 }
+
 .button_icon {
     border: none;
     width: 24px;

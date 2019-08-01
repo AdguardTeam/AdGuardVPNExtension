@@ -62,8 +62,10 @@
     "dependencies": {
         "@babel/runtime": "^7.5.5",
         "classnames": "^2.2.6",
+        "file-loader": "^4.1.0",
         "mobx": "^5.13.0",
         "mobx-react": "^6.1.1",
+        "prop-types": "^15.7.2",
         "react": "^16.8.6",
         "react-dom": "^16.8.6",
         "react-modal": "^3.9.1",
