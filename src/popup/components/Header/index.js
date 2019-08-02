@@ -8,22 +8,31 @@ class Header extends Component {
     }
 
     render() {
+        const { signedIn } = this.props;
         return (
             <div className="header">
                 <div className="header__title">
                     <div className="header__logo" />
                     <div className="header__text">
-                        <span className="header__text-mark">AdGuard</span> VPN
+                        <span className="header__text-mark">AdGuard</span>
+                        VPN
                     </div>
                 </div>
-                <button className="button header__setting"
+                {signedIn && (
+                <button
+                    className="button header__setting"
                     role="button"
                     tabIndex="0"
                     onClick={this.handleSettingsClick}
                 />
+                )}
             </div>
         );
     }
 }
+
+Header.defaultProps = {
+    signedIn: false,
+};
 
 export default Header;

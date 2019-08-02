@@ -31,7 +31,7 @@ class SettingsStore {
 
     @observable selectedEndpoint;
 
-    @observable searchValue;
+    @observable searchValue = '';
 
     @observable signedIn = false;
 
@@ -46,8 +46,10 @@ class SettingsStore {
 
     @action
     setSearchValue = (value) => {
-        // TODO [maximtop] validate value, do not set if equal
-        this.searchValue = value;
+        const trimmed = value.trim();
+        if (trimmed !== this.searchValue) {
+            this.searchValue = value;
+        }
     };
 
     @action
@@ -70,8 +72,11 @@ class SettingsStore {
     @computed
     get filteredEndpoints() {
         const filteredEndpoints = Object.values(this.endpoints).filter((endpoint) => {
+            if (this.searchValue.length === 0) {
+                return true;
+            }
             const regex = new RegExp(this.searchValue, 'ig');
-            return endpoint.city.match(regex);
+            return endpoint.cityName.match(regex);
         });
         return filteredEndpoints;
     }
@@ -79,6 +84,7 @@ class SettingsStore {
     @action
     setSelectedEndpoint = (id) => {
         this.selectedEndpoint = id;
+        console.log(this.selectedEndpoint);
     };
 
     @action

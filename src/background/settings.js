@@ -6,7 +6,6 @@ const SETTINGS = {
         id: 'extensionEnabled',
         value: false,
     },
-    // TODO move this setting into whitelist
     currentUrlProxyEnabled: {
         id: 'currentUrlProxyEnabled',
         value: true,
@@ -62,21 +61,27 @@ const setSetting = async (settingId, value) => {
  */
 const getSettingsByIds = settingsIds => settingsIds.map(getSetting);
 
-const init = async () => {
+// init default settings
+let settingsReadyStatus = false;
+
+const initDefaults = async () => {
     try {
         await extensionEnabledHandler(SETTINGS.extensionEnabled.value);
     } catch (e) {
         log.info(e.message);
     }
+    settingsReadyStatus = true;
 };
 
-// init default settings
-init();
+initDefaults();
+
+const areSettingsReady = () => settingsReadyStatus;
 
 const settings = {
     getSetting,
     setSetting,
     getSettingsByIds,
+    areSettingsReady,
 };
 
 export default settings;
