@@ -47,6 +47,9 @@ class Endpoints extends Component {
 
     render() {
         const endpoints = settingsStore.filteredEndpoints;
+        const endpointsCrossClassNames = classnames({
+            'endpoints__cross--active': settingsStore.searchValue.length > 0,
+        });
         return (
             <div className="endpoints">
                 <div className="endpoints__header">
@@ -59,11 +62,15 @@ class Endpoints extends Component {
                         <input
                             className="endpoints__search-in"
                             type="text"
+                            value={settingsStore.searchValue}
                             onChange={this.handleSearchInput}
                         />
                         <button
+                            onClick={() => {
+                                settingsStore.setSearchValue('');
+                            }}
                             type="button"
-                            className="button endpoints__cross"
+                            className={`button endpoints__cross ${endpointsCrossClassNames}`}
                         />
                     </div>
                 </div>
