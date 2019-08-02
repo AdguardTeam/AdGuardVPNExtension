@@ -1,62 +1,43 @@
 import browser from 'webextension-polyfill';
 
-const getBackground = async () => {
-    const backgroundWindow = await browser.runtime.getBackgroundPage();
-    return backgroundWindow.background;
+const asyncProvideBg = func => async (...args) => {
+    const { background } = await browser.runtime.getBackgroundPage();
+    return func(...args, background);
 };
 
 const provider = {
-    getEndpoints: async () => {
-        const background = await getBackground();
-        return background.provider.getEndpoints();
-    },
+    getEndpoints: asyncProvideBg(background => background.provider.getEndpoints()),
 };
 
 const settings = {
-    getSetting: async (id) => {
-        const background = await getBackground();
-        return background.settings.getSetting(id);
-    },
-    setSetting: async (id, value) => {
-        const background = await getBackground();
-        return background.settings.setSetting(id, value);
-    },
+    getSetting: asyncProvideBg((id, background) => background.settings.getSetting(id)),
+    setSetting: asyncProvideBg(
+        (id, value, background) => background.settings.setSetting(id, value)
+    ),
 };
 
 const proxy = {
-    canControlProxy: async () => {
-        const background = await getBackground();
-        return background.proxy.canControlProxy();
-    },
+    canControlProxy: asyncProvideBg(background => background.proxy.canControlProxy()),
 };
 
 const whitelist = {
-    addToWhitelist: async (url) => {
-        const background = await getBackground();
-        return background.whitelist.addToWhitelist(url);
-    },
-    removeFromWhitelist: async (url) => {
-        const background = await getBackground();
-        return background.whitelist.removeFromWhitelist(url);
-    },
-    isWhitelisted: async (url) => {
-        const background = await getBackground();
-        return background.whitelist.isWhitelisted(url);
-    },
+    addToWhitelist: asyncProvideBg(
+        (url, background) => background.whitelist.addToWhitelist(url)
+    ),
+    removeFromWhitelist: asyncProvideBg(
+        (url, background) => background.whitelist.removeFromWhitelist(url)
+    ),
+    isWhitelisted: asyncProvideBg(
+        (url, background) => background.whitelist.isWhitelisted(url)
+    ),
 };
 
 const tabs = {
-    getCurrentTabUrl: async () => {
-        const background = await getBackground();
-        return background.tabs.getCurrentTabUrl();
-    },
+    getCurrentTabUrl: asyncProvideBg(background => background.tabs.getCurrentTabUrl()),
 };
 
 const actions = {
-    openOptionsPage: async () => {
-        const background = await getBackground();
-        return background.actions.openOptionsPage();
-    },
+    openOptionsPage: asyncProvideBg(background => background.actions.openOptionsPage()),
 };
 
 const bgProvider = {

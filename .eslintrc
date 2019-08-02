@@ -53,6 +53,16 @@
             }
         ],
         "react/prop-types": "off", // TODO remove this rule when app will grow bigger
-        "class-methods-use-this": "off"
+        "class-methods-use-this": "off",
+        "comma-dangle": [
+            "error",
+            {
+                "functions": "never",
+                "arrays": "always-multiline",
+                "exports": "always-multiline",
+                "imports": "always-multiline",
+                "objects": "always-multiline"
+            }
+        ]
     }
 }

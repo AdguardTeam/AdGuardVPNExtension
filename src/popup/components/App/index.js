@@ -31,10 +31,7 @@ class App extends Component {
         if (!signedIn) {
             return (
                 <Fragment>
-                    <Header
-                        handleGlobalStatus={this.handleGlobalStatus}
-                        globalProxyEnabled={extensionEnabled}
-                    />
+                    <Header signedIn={signedIn} />
                     <SignIn />
                 </Fragment>
             );
@@ -42,10 +39,7 @@ class App extends Component {
         if (isOpenEndpointsSearch) {
             return (
                 <Fragment>
-                    <Header
-                        handleGlobalStatus={this.handleGlobalStatus}
-                        globalProxyEnabled={extensionEnabled}
-                    />
+                    <Header signedIn={signedIn} />
                     <Endpoints />
                 </Fragment>
             );
@@ -53,7 +47,7 @@ class App extends Component {
         return (
             <Fragment>
                 {isOpenOptionsModal && <ExtraOptions />}
-                <Header />
+                <Header signedIn={signedIn} />
                 <Map globalProxyEnabled={extensionEnabled} />
                 <Settings
                     canControlProxy={canControlProxy}

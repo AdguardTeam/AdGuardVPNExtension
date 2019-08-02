@@ -4,13 +4,16 @@ import api from './api';
 const addExampleEndpoints = (data) => {
     const exampleEndpoints = {
         uk: {
-            city: 'London',
+            id: 'uk',
+            cityName: 'London',
         },
         ja: {
-            city: 'Tokio',
+            id: 'ja',
+            cityName: 'Tokio',
         },
         us: {
-            city: 'United States',
+            id: 'us',
+            cityName: 'United States',
             premiumOnly: true,
         },
     };
@@ -27,6 +30,7 @@ const getEndpoints = async () => {
         const {
             domain_name: domainName,
             premium_only: premiumOnly,
+            city_name: cityName,
         } = endpoint;
         return {
             ...acc,
@@ -34,6 +38,7 @@ const getEndpoints = async () => {
                 ...endpoint,
                 id: domainName,
                 premiumOnly,
+                cityName,
             },
         };
     }, {});

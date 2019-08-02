@@ -22,7 +22,7 @@ class Endpoints extends Component {
     };
 
     renderEndpoints = endpoints => endpoints.map((endpoint) => {
-        const { city, activated, id } = endpoint;
+        const { cityName, activated, id } = endpoint;
         const endpointClassNames = classnames({
             endpoint: true,
             endpoint__selected: activated,
@@ -35,7 +35,7 @@ class Endpoints extends Component {
             >
                 <i className="icon_selected" />
                 <div className="endpoint-city">
-                    {city}
+                    {cityName}
                 </div>
             </div>
         );

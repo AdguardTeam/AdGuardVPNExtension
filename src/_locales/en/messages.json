@@ -1,11 +1,11 @@
 {
     "name": {
-        "message": "AdGuard extension boilerplate"
+        "message": "AdGuard VPN extension"
     },
     "description": {
-        "message": "AdGuard extension boilerplate description"
+        "message": "Extension providing VPN services"
     },
     "short_name": {
-        "message": "AG extension boilerplate"
+        "message": "AdGuard VPN"
     }
 }
