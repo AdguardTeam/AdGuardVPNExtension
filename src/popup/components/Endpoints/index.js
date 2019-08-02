@@ -22,9 +22,9 @@ class Endpoints extends Component {
     };
 
     renderEndpoints = endpoints => endpoints.map((endpoint) => {
-        const { cityName, activated, id } = endpoint;
+        const { cityName, id } = endpoint;
         const endpointClassNames = classnames({
-            'endpoints__item--selected': activated,
+            'endpoints__item--selected': id === settingsStore.selectedEndpoint,
         });
         return (
             <div
