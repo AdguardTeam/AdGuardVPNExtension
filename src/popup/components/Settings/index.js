@@ -5,7 +5,7 @@ import Checkbox from './Checkbox';
 
 import './settings.pcss';
 import settingsStore from '../../stores/settingsStore';
-import Endpoint from './Endpoint';
+import CurrentEndpoint from './CurrentEndpoint';
 import GlobalSwitcher from './GlobalSwitcher';
 
 const SETTINGS_META = {
@@ -67,7 +67,7 @@ class Settings extends Component {
         return (
             <div className="settings">
                 <div className="settings__main">
-                    <Endpoint
+                    <CurrentEndpoint
                         handle={this.handleEndpointSelectorClick}
                         status={getStatusMessage(extensionEnabled)}
                     />

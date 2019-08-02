@@ -1,7 +1,7 @@
 import React from 'react';
 import './endpoint.pcss';
 
-function Endpoint(props) {
+function CurrentEndpoint(props) {
     const { handle, status } = props;
     return (
         <div className="endpoint">
@@ -19,4 +19,4 @@ function Endpoint(props) {
     );
 }
 
-export default Endpoint;
+export default CurrentEndpoint;
