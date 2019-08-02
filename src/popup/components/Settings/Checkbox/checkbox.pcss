@@ -1,0 +1,31 @@
+.checkbox {
+    &__in {
+        display: none;
+
+        &:checked + .checkbox__label {
+            background-image: url(../../../../assets/images/check.svg);
+        }
+    }
+
+    &__label {
+        cursor: pointer;
+        position: relative;
+        width: 20px;
+        height: 20px;
+        border-radius: 3px;
+        background-position: 50%;
+        background-size: 12px 9px;
+        background-color: var(--green33);
+        background-repeat: no-repeat;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    &__title {
+        display: inline-block;
+        vertical-align: middle;
+        padding-left: 15px;
+        font-size: 14px;
+        color: var(--gray-base);
+    }
+}

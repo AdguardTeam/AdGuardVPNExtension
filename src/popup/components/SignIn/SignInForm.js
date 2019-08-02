@@ -22,18 +22,17 @@ function SignInForm (props) {
             </div>
             <div className="form__item">
                 <div className="form__item-header">
-                    <label className="form__label" htmlFor="password"
-                    >
+                    <label className="form__label" htmlFor="password">
                         Password:
                     </label>
-                    <button className="form__inline-btn button button--inline button--inline-green">
+                    <button type="button" className="form__inline-btn button button--inline button--inline-green">
                         Lost the password?
                     </button>
                 </div>
                 <input
                     id="password"
                     className="form__input"
-                    type="text"
+                    type="password"
                     name="password"
                 />
             </div>

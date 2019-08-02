@@ -1,21 +1,35 @@
 .settings {
-    display: flex;
-    flex-direction: column;
-}
+    &__main {
+        padding: 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--greyf3);
+    }
 
-.setting {
-    padding: 10px 0;
-}
+    &__extra {
+        padding: 25px;
 
-.main_settings {
-    display: flex;
-    justify-content: space-between;
-}
+        &--disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    }
 
-.extra_settings {
-    opacity: 0.5;
-}
+    &__item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
 
-.extra_settings__enabled {
-    opacity: 1;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__info {
+        width: 20px;
+        height: 20px;
+        background-image: url(../../../assets/images/info.svg);
+    }
 }

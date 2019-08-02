@@ -24,8 +24,8 @@ class Endpoints extends Component {
     renderEndpoints = endpoints => endpoints.map((endpoint) => {
         const { city, activated, id } = endpoint;
         const endpointClassNames = classnames({
-            endpoint: true,
-            endpoint__selected: activated,
+            endpoints: true,
+            endpoints__selected: activated,
         });
         return (
             <div

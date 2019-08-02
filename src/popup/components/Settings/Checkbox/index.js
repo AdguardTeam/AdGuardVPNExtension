@@ -23,10 +23,10 @@ class Checkbox extends Component {
                 <label
                     htmlFor={id}
                     className="checkbox__label"
-                >
+                />
+                <span className="checkbox__title">
                     {title}
-                </label>
-
+                </span>
             </div>
         );
     }

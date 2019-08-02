@@ -5,6 +5,8 @@ import Checkbox from './Checkbox';
 
 import './settings.pcss';
 import settingsStore from '../../stores/settingsStore';
+import Endpoint from './Endpoint';
+import GlobalSwitcher from './GlobalSwitcher';
 
 const SETTINGS_META = {
     onlineTrackingPrevention: {
@@ -30,8 +32,9 @@ class Settings extends Component {
     renderSettings = () => SETTINGS_ORDER.map((settingId) => {
         const setting = SETTINGS_META[settingId];
         return (
-            <div key={setting.id} className="setting">
+            <div key={setting.id} className="settings__item">
                 <Checkbox key={setting.id} setting={setting} />
+                <div className="settings__info" />
             </div>
         );
     });
@@ -50,8 +53,7 @@ class Settings extends Component {
         const { extensionEnabled } = settingsStore;
 
         const extraSettingsClassNames = classnames({
-            extra_settings: true,
-            extra_settings__enabled: extensionEnabled,
+            'settings__extra--disabled': !extensionEnabled,
         });
 
         if (!canControlProxy) {
@@ -62,30 +64,19 @@ class Settings extends Component {
                 </div>
             );
         }
-        const downArrow = '\u02C5';
         return (
             <div className="settings">
-                <div className="main_settings">
-                    <div className="endpoint_selector">
-                        <div
-                            className="endpoint_selector"
-                            onClick={this.handleEndpointSelectorClick}
-                        >
-                            Germany
-                            {' '}
-                            {downArrow}
-                        </div>
-                        <div className="status">{getStatusMessage(extensionEnabled)}</div>
-                    </div>
-                    <div className="global_switcher">
-                        <input
-                            type="checkbox"
-                            onChange={this.handleSwitchChange}
-                            checked={settingsStore.extensionEnabled}
-                        />
-                    </div>
+                <div className="settings__main">
+                    <Endpoint
+                        handle={this.handleEndpointSelectorClick}
+                        status={getStatusMessage(extensionEnabled)}
+                    />
+                    <GlobalSwitcher
+                        handle={this.handleSwitchChange}
+                        checked={settingsStore.extensionEnabled}
+                    />
                 </div>
-                <div className={extraSettingsClassNames}>
+                <div className={`settings__extra ${extraSettingsClassNames}`}>
                     {this.renderSettings()}
                 </div>
             </div>
