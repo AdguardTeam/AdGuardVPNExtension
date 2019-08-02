@@ -1,19 +1,19 @@
 import React from 'react';
-import './alert.pcss';
+import './info-message.pcss';
 
-function Alert() {
+function InfoMessage() {
     return (
-        <div className="alert">
-            <div className="alert__info">
+        <div className="info-message">
+            <div className="info-message__info">
                 Your speed is limited to
-                <span className="alert__mark">
+                <span className="info-message__mark">
                     &nbsp;1 Mbps
                 </span>
             </div>
             <a
                 href="#"
                 type="button"
-                className="alert__btn button button--orange"
+                className="info-message__btn button button--orange"
             >
                 Lift the limit
             </a>
@@ -21,4 +21,4 @@ function Alert() {
     );
 }
 
-export default Alert;
+export default InfoMessage;

@@ -27,7 +27,7 @@ class ExtraOptions extends Component {
             if (isWhitelisted) {
                 return (
                     <div
-                        className="popup_setting"
+                        className="button button--inline extra-options__item"
                         onClick={this.removeFromWhitelist}
                     >
                         Remove this site from a whitelist
@@ -36,7 +36,7 @@ class ExtraOptions extends Component {
             }
             return (
                 <div
-                    className="popup_setting"
+                    className="button button--inline extra-options__item"
                     onClick={this.addToWhitelist}
                 >
                     Add this site in a whitelist
@@ -48,13 +48,22 @@ class ExtraOptions extends Component {
                 isOpen={uiStore.isOpenOptionsModal}
                 shouldCloseOnOverlayClick
                 onRequestClose={uiStore.closeOptionsModal}
-                className="options_modal"
-                overlayClassName="options_modal_overlay"
+                className="extra-options"
+                overlayClassName="extra-options__overlay"
             >
                 {renderWhitelistSetting(isWhitelisted)}
-                <div className="popup_setting">Buy a licence</div>
-                <div className="popup_setting">Other products</div>
-                <div className="popup_setting" onClick={this.openSettings}>Settings</div>
+                <a href="#" className="button button--inline extra-options__item">
+                    Buy a licence
+                </a>
+                <a href="#" className="button button--inline extra-options__item">
+                    Other products
+                </a>
+                <div
+                    className="button button--inline extra-options__item"
+                    onClick={this.openSettings}
+                >
+                    Settings
+                </div>
             </Modal>
         );
     }

@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import Header from '../Header';
 import Map from '../Map';
 import Settings from '../Settings';
-import CallToAction from '../CallToAction';
+import InfoMessage from '../InfoMessage';
 import { uiStore, settingsStore } from '../../stores';
 import Endpoints from '../Endpoints';
 import SignIn from '../SignIn';
@@ -54,7 +54,7 @@ class App extends Component {
                     globalProxyEnabled={extensionEnabled}
                     handleGlobalStatus={this.handleGlobalStatus}
                 />
-                <CallToAction />
+                <InfoMessage />
             </Fragment>
         );
     }
