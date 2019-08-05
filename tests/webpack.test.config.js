@@ -3,8 +3,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
+const IS_DEV = process.env.NODE_ENV === 'development';
+const cleanOptions = IS_DEV ? { cleanAfterEveryBuildPatterns: ['!qunit/**/*'] } : {};
+
 module.exports = {
     mode: 'production',
+    devtool: 'cheap-module-source-map',
     entry: path.resolve(__dirname, './index.test.js'),
     output: {
         path: path.resolve(__dirname, './dist'),
@@ -15,7 +19,6 @@ module.exports = {
     },
     resolve: {
         extensions: ['*', '.js', '.jsx'],
-
     },
     module: {
         rules: [
@@ -32,15 +35,15 @@ module.exports = {
         ],
     },
     plugins: [
-        new CleanWebpackPlugin(),
+        new CleanWebpackPlugin(cleanOptions),
         new CopyWebpackPlugin([
             {
                 from: 'node_modules/qunit/qunit/qunit.js',
-                to: '.',
+                to: './qunit',
             },
             {
                 from: 'node_modules/qunit/qunit/qunit.css',
-                to: '.',
+                to: './qunit',
             },
         ]),
         new HtmlWebpackPlugin({

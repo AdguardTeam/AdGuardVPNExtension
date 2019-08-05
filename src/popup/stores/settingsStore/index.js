@@ -8,8 +8,9 @@ import {
 
 import log from '../../../lib/logger';
 import bgProvider from '../../../lib/background-provider';
+import { SETTINGS_IDS } from '../../../background/settings';
 
-const extensionEnabledSettingId = 'extensionEnabled';
+const extensionEnabledSettingId = SETTINGS_IDS.PROXY_ENABLED;
 
 // Do not allow actions outside of store
 configure({ enforceActions: 'observed' });

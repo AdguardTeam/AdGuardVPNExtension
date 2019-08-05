@@ -6,6 +6,7 @@ import tabs from './tabs';
 import whitelist from './whitelist';
 import { proxy } from './proxy';
 
+
 global.background = {
     settings,
     actions,

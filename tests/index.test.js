@@ -1,2 +1,2 @@
 /* eslint-disable no-unused-vars */
-import * as halfTest from './half.test';
+import * as notifierTest from './notifier.test';
