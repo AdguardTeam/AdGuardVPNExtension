@@ -5,6 +5,8 @@ class UiStore {
 
     @observable isOpenOptionsModal = false;
 
+    @observable isOpenRecovery = false;
+
     @action
     openEndpointsSearch = () => {
         this.isOpenEndpointsSearch = true;
@@ -23,7 +25,7 @@ class UiStore {
     @action
     closeOptionsModal = () => {
         this.isOpenOptionsModal = false;
-    }
+    };
 }
 
 const uiStore = new UiStore();

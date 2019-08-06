@@ -1,12 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import settingsStore from '../../stores/settingsStore';
+import popupActions from '../../actions/popupActions';
 
-function SignInForm (props) {
-    const { handleSubmit } = props;
+function SignInForm() {
+    const submitHandler = async (e) => {
+        e.preventDefault();
+        const { target } = e;
+        // const email = target.email.value;
+        // const password = target.password.value;
+        const email = 'maximtop@gmail.com';
+        const password = 'AijGrVhFxo7CWArv';
+        await popupActions.authenticate({ email, password });
+    };
     return (
         <form
             className="form"
-            onSubmit={handleSubmit}
+            onSubmit={submitHandler}
         >
             <div className="form__item">
                 <label className="form__label" htmlFor="email">
@@ -25,7 +35,11 @@ function SignInForm (props) {
                     <label className="form__label" htmlFor="password">
                         Password:
                     </label>
-                    <button type="button" className="form__inline-btn button button--inline button--inline-green">
+                    <button
+                        type="button"
+                        className="form__inline-btn button button--inline button--inline-green"
+                        onClick={popupActions.openRecovery}
+                    >
                         Lost the password?
                     </button>
                 </div>
@@ -51,8 +65,8 @@ function SignInForm (props) {
     );
 }
 
-SignInForm.propTypes = {
-    handleSubmit: PropTypes.func.isRequired,
-};
+// SignInForm.propTypes = {
+//     handleSubmit: PropTypes.func.isRequired,
+// };
 
 export default SignInForm;

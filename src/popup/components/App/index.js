@@ -8,6 +8,7 @@ import { uiStore, settingsStore } from '../../stores';
 import Endpoints from '../Endpoints';
 import SignIn from '../SignIn';
 import ExtraOptions from '../ExtraOptions';
+import Stats from '../Stats';
 
 @observer
 class App extends Component {
@@ -49,11 +50,7 @@ class App extends Component {
                 {isOpenOptionsModal && <ExtraOptions />}
                 <Header signedIn={signedIn} />
                 <Map globalProxyEnabled={extensionEnabled} />
-                <Settings
-                    canControlProxy={canControlProxy}
-                    globalProxyEnabled={extensionEnabled}
-                    handleGlobalStatus={this.handleGlobalStatus}
-                />
+                <Stats />
                 <InfoMessage />
             </Fragment>
         );

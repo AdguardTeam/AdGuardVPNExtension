@@ -7,6 +7,7 @@ const asyncProvideBg = func => async (...args) => {
 
 const provider = {
     getEndpoints: asyncProvideBg(background => background.provider.getEndpoints()),
+    getStats: asyncProvideBg(background => background.provider.getStats()),
 };
 
 const settings = {
@@ -34,6 +35,18 @@ const whitelist = {
 
 const tabs = {
     getCurrentTabUrl: asyncProvideBg(background => background.tabs.getCurrentTabUrl()),
+    openAuthWindow: asyncProvideBg(background => background.tabs.openAuthWindow()),
+    closePopup: asyncProvideBg(background => background.tabs.closePopup()),
+    openRecovery: asyncProvideBg(background => background.tabs.openRecovery()),
+    openSocialAuth: asyncProvideBg(
+        (socialProvider, background) => background.tabs.openSocialAuth(socialProvider)
+    ),
+};
+
+const auth = {
+    authenticate: asyncProvideBg(
+        (credentials, background) => background.auth.authenticate(credentials)
+    ),
 };
 
 const actions = {
@@ -47,6 +60,7 @@ const bgProvider = {
     whitelist,
     tabs,
     actions,
+    auth,
 };
 
 export default bgProvider;

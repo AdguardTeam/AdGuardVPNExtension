@@ -1,6 +1,6 @@
-import api from './api';
+import { proxyApi } from './api';
 
-// TODO [maximtop] remove when will be added
+// TODO [maximtop] remove when api will return data correctly
 const addExampleEndpoints = (data) => {
     const exampleEndpoints = {
         uk: {
@@ -24,7 +24,7 @@ const addExampleEndpoints = (data) => {
 };
 
 const getEndpoints = async () => {
-    const endpointsObj = await api.getEndpoints();
+    const endpointsObj = await proxyApi.getEndpoints();
     const { endpoints } = endpointsObj;
     const normalizedEndpoints = endpoints.reduce((acc, endpoint) => {
         const {
@@ -42,12 +42,14 @@ const getEndpoints = async () => {
             },
         };
     }, {});
-    console.log(normalizedEndpoints);
     return addExampleEndpoints(normalizedEndpoints);
 };
 
+const getStats = () => proxyApi.getStats();
+
 const provider = {
     getEndpoints,
+    getStats,
 };
 
 export default provider;

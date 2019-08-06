@@ -40,6 +40,8 @@ class SettingsStore {
 
     @observable currentTabUrl;
 
+    @observable proxyStats;
+
     @action
     setSignedIn = (value) => {
         this.signedIn = value;
@@ -161,6 +163,18 @@ class SettingsStore {
             const result = await bgProvider.tabs.getCurrentTabUrl();
             runInAction(() => {
                 this.currentTabUrl = result;
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    @action async getProxyStats() {
+        try {
+            const stats = await bgProvider.provider.getStats();
+            console.log(stats);
+            runInAction(() => {
+                this.proxyStats = stats;
             });
         } catch (e) {
             console.log(e);
