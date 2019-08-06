@@ -9,6 +9,7 @@ const BACKGROUND_PATH = path.resolve(__dirname, SRC_PATH, 'background');
 const OPTIONS_PATH = path.resolve(__dirname, SRC_PATH, 'options');
 const POPUP_PATH = path.resolve(__dirname, SRC_PATH, 'popup');
 const CONTENT_SCRIPTS_PATH = path.resolve(__dirname, SRC_PATH, 'content-scripts');
+const AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/auth.js');
 
 const IS_DEV = process.env.NODE_ENV === 'development';
 
@@ -29,6 +30,7 @@ const config = {
         options: OPTIONS_PATH,
         popup: POPUP_PATH,
         'content-scripts': CONTENT_SCRIPTS_PATH,
+        auth: AUTH_SCRIPT,
     },
     output: {
         path: path.resolve(__dirname, BUILD_PATH, OUTPUT_PATH),

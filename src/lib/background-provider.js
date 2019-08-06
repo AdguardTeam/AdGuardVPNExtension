@@ -47,6 +47,9 @@ const auth = {
     authenticate: asyncProvideBg(
         (credentials, background) => background.auth.authenticate(credentials)
     ),
+    authenticateSocial: asyncProvideBg(
+        (querystring, background) => background.auth.authenticateSocial()
+    ),
 };
 
 const actions = {
