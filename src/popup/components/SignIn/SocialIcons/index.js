@@ -20,6 +20,11 @@ function SocialIcons() {
             />
             <button
                 type="button"
+                onClick={socialAuthClickHandler('yandex')}
+                className="social-icons__item button button--social button--yd"
+            />
+            <button
+                type="button"
                 onClick={socialAuthClickHandler('vk')}
                 className="social-icons__item button button--social button--vk"
             />
