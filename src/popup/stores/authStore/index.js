@@ -6,6 +6,7 @@ class AuthStore {
     @observable credentials = {
         username: '',
         password: '',
+        twoFA: '',
     };
 
     @observable authenticated = false;
@@ -16,22 +17,28 @@ class AuthStore {
 
     @observable errorDescription;
 
-    @action setCredentials(credentials) {
-        this.credentials = credentials;
-    }
+    updateCredentials = (credentials) => {
+        const { password, username, twoFA } = credentials;
+        const updatedCredentials = {};
+
+        updatedCredentials.password = password || '';
+        updatedCredentials.username = username || '';
+        updatedCredentials.twoFA = twoFA || '';
+
+        return updatedCredentials;
+    };
 
     @action onCredentialsChange = (field, value) => {
         this.credentials[field] = value;
     };
 
-    @action authenticate = async (credentials) => {
-        const response = await bgProvider.auth.authenticate(credentials);
+    @action authenticate = async () => {
+        const response = await bgProvider.auth.authenticate(this.credentials);
 
         if (response.error) {
             runInAction(() => {
                 this.error = true;
                 this.errorDescription = response.errorDescription;
-                this.setCredentials(credentials);
             });
             return;
         }
@@ -39,24 +46,27 @@ class AuthStore {
         if (response.status === 'ok') {
             runInAction(() => {
                 this.authenticated = true;
-                this.credentials = {
-                    username: '',
-                    password: '',
-                };
+                this.need2fa = false;
+                this.credentials = this.updateCredentials();
             });
             return;
         }
 
-        if (response.status === 'need2fa') {
-            this.setCredentials(credentials);
+        if (response.status === '2fa_required') {
+            runInAction(() => {
+                this.need2fa = true;
+            });
         }
     };
 
     // TODO [maximtop] remove method with test credentials
     @action fakeAuthenticate = async () => {
-        await this.authenticate({
-            username: 'maximtop@gmail.com',
-            password: 'AijGrVhFxo7CWArv',
+        runInAction(async () => {
+            this.credentials = {
+                username: 'maximtop@gmail.com',
+                password: 'AijGrVhFxo7CWArv',
+            };
+            await this.authenticate();
         });
     };
 

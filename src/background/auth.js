@@ -12,6 +12,9 @@ class Auth {
             data = await authApi.getAccessToken(credentials);
         } catch (e) {
             const { error, error_description: errorDescription } = JSON.parse(e.message);
+            if (error === '2fa_required') {
+                return { status: error };
+            }
             return { error, errorDescription };
         }
         const {

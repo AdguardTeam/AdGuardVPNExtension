@@ -7,8 +7,7 @@ import authStore from '../../stores/authStore';
 class SignInForm extends Component {
     submitHandler = async (e) => {
         e.preventDefault();
-        const { target: { username, password } } = e;
-        await authStore.authenticate({ username: username.value, password: password.value });
+        await authStore.authenticate();
     };
 
     inputChangeHandler = (e) => {
@@ -64,6 +63,21 @@ class SignInForm extends Component {
                         value={authStore.credentials.password}
                     />
                 </div>
+                { authStore.need2fa && (
+                <div className="form__item">
+                    <label className="form__label" htmlFor="twoFA">
+                        Enter 2fa code
+                    </label>
+                    <input
+                        id="twoFA"
+                        className="form__input"
+                        type="text"
+                        name="twoFA"
+                        value={authStore.credentials.twoFA}
+                        onChange={this.inputChangeHandler}
+                    />
+                </div>
+                ) }
                 <div className="form__btns">
                     <button
                         className="form__btn button button--m button--hundred button--green"

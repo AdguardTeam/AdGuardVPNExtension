@@ -6,8 +6,8 @@ import SignInForm from './SignInForm';
 
 class SignIn extends Component {
     // TODO [maximtop] remove this method before publishing extension
-    handleFakeAuthentication = () => {
-        authStore.fakeAuthenticate();
+    handleFakeAuthentication = async () => {
+        await authStore.fakeAuthenticate();
     };
 
     render() {
