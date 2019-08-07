@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import settingsStore from '../../stores/settingsStore';
-import './stats.pcss'
+import './stats.pcss';
 
 @observer
 class Stats extends Component {
