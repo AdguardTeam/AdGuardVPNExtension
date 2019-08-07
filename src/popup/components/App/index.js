@@ -8,6 +8,7 @@ import Endpoints from '../Endpoints';
 import SignIn from '../SignIn';
 import ExtraOptions from '../ExtraOptions';
 import Stats from '../Stats';
+import Settings from '../Settings';
 
 @observer
 class App extends Component {
@@ -20,6 +21,7 @@ class App extends Component {
     render() {
         const {
             extensionEnabled,
+            canControlProxy,
         } = settingsStore;
 
         const { authenticated } = authStore;
@@ -48,6 +50,10 @@ class App extends Component {
                 {isOpenOptionsModal && <ExtraOptions />}
                 <Header authenticated={authenticated} />
                 <Map globalProxyEnabled={extensionEnabled} />
+                <Settings
+                    canControlProxy={canControlProxy}
+                    globalProxyEnabled={extensionEnabled}
+                />
                 <Stats />
                 <InfoMessage />
             </Fragment>

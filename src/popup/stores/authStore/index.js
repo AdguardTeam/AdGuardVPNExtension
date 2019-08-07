@@ -61,13 +61,16 @@ class AuthStore {
 
     // TODO [maximtop] remove method with test credentials
     @action fakeAuthenticate = async () => {
-        runInAction(async () => {
-            this.credentials = {
-                username: 'maximtop@gmail.com',
-                password: 'AijGrVhFxo7CWArv',
-            };
-            await this.authenticate();
-        });
+        // runInAction(async () => {
+        //     this.credentials = {
+        //         username: 'maximtop@gmail.com',
+        //         password: 'AijGrVhFxo7CWArv',
+        //     };
+        //     await this.authenticate();
+        // });
+        runInAction(() => {
+            this.authenticated = true;
+        })
     };
 
     @action isAuthenticated = async () => {
