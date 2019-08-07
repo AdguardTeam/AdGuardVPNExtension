@@ -2,9 +2,8 @@ import React, { Fragment, Component } from 'react';
 import { observer } from 'mobx-react';
 import Header from '../Header';
 import Map from '../Map';
-import Settings from '../Settings';
 import InfoMessage from '../InfoMessage';
-import { uiStore, settingsStore } from '../../stores';
+import { uiStore, settingsStore, authStore } from '../../stores';
 import Endpoints from '../Endpoints';
 import SignIn from '../SignIn';
 import ExtraOptions from '../ExtraOptions';
@@ -18,37 +17,36 @@ class App extends Component {
         await settingsStore.checkIsWhitelisted();
     }
 
-    handleGlobalStatus = async (value) => {
-        await settingsStore.setGlobalProxyEnabled(value);
-    };
-
     render() {
         const {
             extensionEnabled,
-            canControlProxy,
-            signedIn,
         } = settingsStore;
+
+        const { authenticated } = authStore;
         const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
-        if (!signedIn) {
+
+        if (!authenticated) {
             return (
                 <Fragment>
-                    <Header signedIn={signedIn} />
+                    <Header authenticated={authenticated} />
                     <SignIn />
                 </Fragment>
             );
         }
+
         if (isOpenEndpointsSearch) {
             return (
                 <Fragment>
-                    <Header signedIn={signedIn} />
+                    <Header authenticated={authenticated} />
                     <Endpoints />
                 </Fragment>
             );
         }
+
         return (
             <Fragment>
                 {isOpenOptionsModal && <ExtraOptions />}
-                <Header signedIn={signedIn} />
+                <Header authenticated={authenticated} />
                 <Map globalProxyEnabled={extensionEnabled} />
                 <Stats />
                 <InfoMessage />

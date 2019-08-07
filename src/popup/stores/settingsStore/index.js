@@ -34,18 +34,11 @@ class SettingsStore {
 
     @observable searchValue = '';
 
-    @observable signedIn = false;
-
     @observable isWhitelisted;
 
     @observable currentTabUrl;
 
     @observable proxyStats;
-
-    @action
-    setSignedIn = (value) => {
-        this.signedIn = value;
-    };
 
     @action
     setSearchValue = (value) => {

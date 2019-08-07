@@ -18,9 +18,9 @@ class Api {
             log.error(error);
             const errorPath = `${this.baseUrl}/${path}`;
             if (error.response) {
-                throw new Error(`${errorPath} | ${error.response.data} | ${error.response.status}`);
+                throw new Error(JSON.stringify(error.response.data));
             }
-            throw new Error(`${errorPath} | ${error.message ? error.message : error}`);
+            throw new Error(`${errorPath} | ${error.message || error}`);
         }
     }
 }

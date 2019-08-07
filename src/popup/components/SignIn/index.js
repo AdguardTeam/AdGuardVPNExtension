@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import './sign-in.pcss';
-import settingsStore from '../../stores/settingsStore';
+import { authStore } from '../../stores';
 import SocialIcons from './SocialIcons';
 import SignInForm from './SignInForm';
 
 class SignIn extends Component {
-    // handleSubmit = (e) => {
-    //     console.log(e);
-    // };
-
-    // TODO remove this method after sign in
-    handleFakeSignIn = () => {
-        settingsStore.setSignedIn(true);
+    // TODO [maximtop] remove this method before publishing extension
+    handleFakeAuthentication = () => {
+        authStore.fakeAuthenticate();
     };
 
     render() {
@@ -20,7 +16,7 @@ class SignIn extends Component {
                 <div className="sign-in__header">
                     <h1
                         className="sign-in__title"
-                        onClick={this.handleFakeSignIn}
+                        onClick={this.handleFakeAuthentication}
                     >
                         Sign in
                     </h1>

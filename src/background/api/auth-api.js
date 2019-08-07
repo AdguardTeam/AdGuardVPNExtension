@@ -7,14 +7,15 @@ class AuthApi extends Api {
     GET_TOKEN = { path: 'token', method: 'POST' };
 
     getAccessToken(credentials) {
-        const { email, password } = credentials;
+        const { username, password } = credentials;
         const { path, method } = this.GET_TOKEN;
 
         const data = {
-            username: email,
+            username,
             password,
             scope: 'trust',
-            grant_type: 'password',
+            grant_type: 'password_2fa',
+            client_id: 'adguard-vpn-extension',
         };
 
         const config = {

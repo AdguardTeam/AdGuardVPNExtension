@@ -11,10 +11,6 @@ class PopupActions {
         await bgProvider.tabs.openSocialAuth(social);
         await bgProvider.tabs.closePopup();
     };
-
-    @action authenticate = async (credentials) => {
-        await bgProvider.auth.authenticate(credentials);
-    };
 }
 
 const popupActions = new PopupActions();

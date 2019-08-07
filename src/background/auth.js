@@ -6,7 +6,14 @@ class Auth {
     accessTokenKey = 'accessToken';
 
     async authenticate(credentials) {
-        const data = await authApi.getAccessToken(credentials);
+        let data;
+        try {
+            // TODO [maximtop] prepare returned data in the provider
+            data = await authApi.getAccessToken(credentials);
+        } catch (e) {
+            const { error, error_description: errorDescription } = JSON.parse(e.message);
+            return { error, errorDescription };
+        }
         const {
             access_token: accessToken,
             expires_in: expiresIn,
@@ -19,6 +26,7 @@ class Auth {
             scope,
             tokenType,
         });
+        return { status: 'ok' };
     }
 
     async isAuthenticated() {
@@ -31,18 +39,18 @@ class Auth {
     // TODO [maximtop] when ready api for social auth fix it
     async authenticateSocial(queryString) {
         const data = qs.parse(queryString);
+        console.log(data);
         const {
             access_token: accessToken,
             expires_in: expiresIn,
-            scope,
             token_type: tokenType,
         } = data;
         await storage.set(this.accessTokenKey, {
             accessToken,
             expiresIn,
-            scope,
             tokenType,
         });
+        // TODO [maximtop] close auth redirect page
     }
 }
 

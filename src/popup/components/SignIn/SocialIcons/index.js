@@ -6,6 +6,7 @@ function SocialIcons() {
     const socialAuthClickHandler = social => async () => {
         await popupActions.openSocialAuth(social);
     };
+    // TODO [maximtop] add yandex icon
     return (
         <div className="social-icons">
             <button

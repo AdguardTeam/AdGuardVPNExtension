@@ -8,7 +8,7 @@ class Header extends Component {
     }
 
     render() {
-        const { signedIn } = this.props;
+        const { authenticated } = this.props;
         return (
             <div className="header">
                 <div className="header__title">
@@ -18,7 +18,7 @@ class Header extends Component {
                         VPN
                     </div>
                 </div>
-                {signedIn && (
+                {authenticated && (
                 <button
                     className="button header__setting"
                     role="button"
@@ -32,7 +32,7 @@ class Header extends Component {
 }
 
 Header.defaultProps = {
-    signedIn: false,
+    authenticated: false,
 };
 
 export default Header;
