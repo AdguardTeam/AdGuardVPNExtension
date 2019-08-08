@@ -91,7 +91,12 @@ class AuthStore {
         runInAction(() => {
             this.setDefaults();
         });
-    }
+    };
+
+    @action openSocialAuth = async (social) => {
+        await bgProvider.auth.startSocialAuth(social);
+        await bgProvider.tabs.closePopup();
+    };
 }
 
 const authStore = new AuthStore();

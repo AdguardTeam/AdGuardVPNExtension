@@ -1,8 +1,6 @@
 import qs from 'qs';
 import Api from './Api';
 
-// curl -X POST https://testauth.adguard.com/oauth/token -H 'Authorization: Basic YWRndWFyZC12cG4tZXh0ZW5zaW9uOg==' -d 'grant_type=password' -d 'scope=trust' -d 'username=...'  -d 'password=...'
-
 class AuthApi extends Api {
     GET_TOKEN = { path: 'token', method: 'POST' };
 
@@ -24,7 +22,6 @@ class AuthApi extends Api {
 
         const config = {
             data: qs.stringify(data),
-            headers: { Authorization: 'Basic YWRndWFyZC12cG4tZXh0ZW5zaW9uOg==' },
         };
 
         return this.makeRequest(path, method, config);

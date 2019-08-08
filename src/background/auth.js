@@ -1,11 +1,20 @@
 import qs from 'qs';
 import isEmpty from 'lodash/isEmpty';
+import nanoid from 'nanoid';
 import { authApi } from './api';
 import storage from './storage';
 import tabs from './tabs';
 
 class Auth {
     accessTokenKey = 'accessToken';
+
+    CLIENT_ID = 'adguard-vpn-extension';
+
+    BASE_AUTH_URL = 'https://testauth.adguard.com/oauth/authorize';
+
+    REDIRECT_URI = 'https://testauth.adguard.com/oauth.html';
+
+    socialAuthState = null;
 
     async authenticate(credentials) {
         let data;
@@ -39,22 +48,67 @@ class Auth {
         return !isEmpty(accessToken);
     }
 
+    async startSocialAuth(socialProvider) {
+        // Generates uniq state id, which will be checked on the auth end
+        this.socialAuthState = nanoid();
+        const authUrl = this.getImplicitAuthUrl(socialProvider);
+        await tabs.openSocialAuthTab(authUrl);
+    }
+
+    getImplicitAuthUrl(socialProvider) {
+        const params = {
+            response_type: 'token',
+            client_id: this.CLIENT_ID,
+            redirect_uri: this.REDIRECT_URI,
+            scope: 'trust',
+            state: this.socialAuthState,
+        };
+
+        switch (socialProvider) {
+            case 'google': {
+                params.social_provider = 'google';
+                break;
+            }
+            case 'twitter': {
+                params.social_provider = 'twitter';
+                break;
+            }
+            case 'vk': {
+                params.social_provider = 'vk';
+                break;
+            }
+            case 'yandex': {
+                params.social_provider = 'yandex';
+                break;
+            }
+            default:
+                throw new Error(`There is no such provider: "${socialProvider}"`);
+        }
+
+        return `${this.BASE_AUTH_URL}?${qs.stringify(params)}`;
+    }
+
     async authenticateSocial(queryString, tabId) {
         const data = qs.parse(queryString);
         const {
             access_token: accessToken,
             expires_in: expiresIn,
             token_type: tokenType,
+            state,
         } = data;
-        await storage.set(this.accessTokenKey, {
-            accessToken,
-            expiresIn,
-            tokenType,
-        });
-        await tabs.closeTab(tabId);
+        if (state && state === this.socialAuthState) {
+            await storage.set(this.accessTokenKey, {
+                accessToken,
+                expiresIn,
+                tokenType,
+            });
+            await tabs.closeTab(tabId);
+            this.socialAuthState = null;
+        }
         // TODO show notification about successful authentication
     }
 
+    // TODO [maximtop] revoke accessToken from the api
     async deauthenticate() {
         await storage.remove(this.accessTokenKey);
     }

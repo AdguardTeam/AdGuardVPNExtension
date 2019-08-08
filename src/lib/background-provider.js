@@ -40,7 +40,6 @@ const tabs = {
     getCurrentTabUrl: background => background.tabs.getCurrentTabUrl(),
     closePopup: background => background.tabs.closePopup(),
     openRecovery: background => background.tabs.openRecovery(),
-    openSocialAuth: (socialProvider, background) => background.tabs.openSocialAuth(socialProvider),
 };
 
 const auth = {
@@ -48,6 +47,7 @@ const auth = {
     authenticateSocial: (querystring, background) => background.auth.authenticateSocial(),
     isAuthenticated: background => background.auth.isAuthenticated(),
     deauthenticate: background => background.auth.deauthenticate(),
+    startSocialAuth: (socialProvider, background) => background.auth.startSocialAuth(socialProvider),
 };
 
 const actions = {

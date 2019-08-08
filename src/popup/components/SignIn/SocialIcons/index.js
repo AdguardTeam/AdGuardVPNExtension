@@ -1,10 +1,11 @@
 import React from 'react';
-import popupActions from '../../../actions/popupActions';
+import { authStore } from '../../../stores';
+
 import './social-icons.pcss';
 
 function SocialIcons() {
     const socialAuthClickHandler = social => async () => {
-        await popupActions.openSocialAuth(social);
+        await authStore.openSocialAuth(social);
     };
     return (
         <div className="social-icons">

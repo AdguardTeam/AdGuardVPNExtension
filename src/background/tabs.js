@@ -1,6 +1,4 @@
 import browser from 'webextension-polyfill';
-import qs from 'qs';
-import log from '../lib/logger';
 
 class Tabs {
     async getCurrent() {
@@ -18,6 +16,7 @@ class Tabs {
         return browser.browserAction.getPopup();
     }
 
+    // TODO [maximtop] change when get recovery url
     async openRecovery() {
         const recoveryUrl = 'http://example.org#recovery';
         await browser.tabs.create({ url: recoveryUrl });
@@ -41,40 +40,8 @@ class Tabs {
         popup.close();
     }
 
-    async openSocialAuth(socialProvider) {
-        const baseAuthUrl = 'https://testauth.adguard.com/oauth/authorize';
-        const redirectUri = 'https://testauth.adguard.com/oauth.html';
-
-        const params = {
-            response_type: 'token',
-            client_id: 'adguard-vpn-extension',
-            redirect_uri: redirectUri,
-            scope: 'trust',
-        };
-
-        switch (socialProvider) {
-            case 'google': {
-                params.social_provider = 'google';
-                break;
-            }
-            case 'twitter': {
-                params.social_provider = 'twitter';
-                break;
-            }
-            case 'vk': {
-                params.social_provider = 'vk';
-                break;
-            }
-            case 'yandex': {
-                params.social_provider = 'yandex';
-                break;
-            }
-            default:
-                throw new Error(`There is no such provider: "${socialProvider}"`);
-        }
-
-        const builtAuthUrl = `${baseAuthUrl}?${qs.stringify(params)}`;
-        await this.openTab(builtAuthUrl);
+    async openSocialAuthTab(authUrl) {
+        await this.openTab(authUrl);
     }
 }
 
