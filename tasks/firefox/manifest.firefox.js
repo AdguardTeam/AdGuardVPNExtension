@@ -21,15 +21,8 @@ module.exports = {
     },
     permissions: [
         'tabs',
-        'http://*/*',
-        'https://*/*',
-        'webRequest',
-        'webRequestBlocking',
-        'webNavigation',
         'storage',
         'unlimitedStorage',
-        'contextMenus',
-        'cookies',
         'proxy',
     ],
 };

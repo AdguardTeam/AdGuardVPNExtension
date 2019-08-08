@@ -3,14 +3,7 @@ module.exports = {
     options_page: 'options.html',
     permissions: [
         'tabs',
-        '<all_urls>',
-        'webRequest',
-        'webRequestBlocking',
-        'webNavigation',
         'storage',
-        'contextMenus',
-        'cookies',
-        'privacy',
         'proxy',
     ],
 };
