@@ -65,6 +65,10 @@ class Tabs {
                 params.social_provider = 'vk';
                 break;
             }
+            case 'yandex': {
+                params.social_provider = 'yandex';
+                break;
+            }
             default:
                 throw new Error(`There is no such provider: "${socialProvider}"`);
         }

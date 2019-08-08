@@ -1,25 +1,10 @@
 import React, { Component } from 'react';
-import classnames from 'classnames';
 import uiStore from '../../stores/uiStore';
-import Checkbox from './Checkbox';
 
 import './settings.pcss';
 import settingsStore from '../../stores/settingsStore';
 import CurrentEndpoint from './CurrentEndpoint';
 import GlobalSwitcher from './GlobalSwitcher';
-
-const SETTINGS_META = {
-    onlineTrackingPrevention: {
-        id: 'onlineTrackingPrevention',
-        title: 'Online tracking prevention',
-    },
-    malwareProtection: {
-        id: 'malwareProtection',
-        title: 'Malware protection',
-    },
-};
-
-const SETTINGS_ORDER = ['onlineTrackingPrevention', 'malwareProtection'];
 
 const getStatusMessage = (extensionEnabled) => {
     if (extensionEnabled) {
@@ -29,16 +14,6 @@ const getStatusMessage = (extensionEnabled) => {
 };
 
 class Settings extends Component {
-    renderSettings = () => SETTINGS_ORDER.map((settingId) => {
-        const setting = SETTINGS_META[settingId];
-        return (
-            <div key={setting.id} className="settings__item">
-                <Checkbox key={setting.id} setting={setting} />
-                <div className="settings__info" />
-            </div>
-        );
-    });
-
     handleEndpointSelectorClick = () => {
         uiStore.openEndpointsSearch();
     };
@@ -51,10 +26,6 @@ class Settings extends Component {
     render() {
         const { canControlProxy } = this.props;
         const { extensionEnabled } = settingsStore;
-
-        const extraSettingsClassNames = classnames({
-            'settings__extra--disabled': !extensionEnabled,
-        });
 
         if (!canControlProxy) {
             return (
@@ -75,9 +46,6 @@ class Settings extends Component {
                         handle={this.handleSwitchChange}
                         checked={settingsStore.extensionEnabled}
                     />
-                </div>
-                <div className={`settings__extra ${extraSettingsClassNames}`}>
-                    {this.renderSettings()}
                 </div>
             </div>
         );

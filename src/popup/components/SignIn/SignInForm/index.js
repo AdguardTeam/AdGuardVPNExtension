@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import popupActions from '../../actions/popupActions';
-import authStore from '../../stores/authStore';
+import popupActions from '../../../actions/popupActions';
+import authStore from '../../../stores/authStore';
 
 @observer
 class SignInForm extends Component {
@@ -64,19 +64,19 @@ class SignInForm extends Component {
                     />
                 </div>
                 { authStore.need2fa && (
-                <div className="form__item">
-                    <label className="form__label" htmlFor="twoFA">
-                        Enter 2fa code
-                    </label>
-                    <input
-                        id="twoFA"
-                        className="form__input"
-                        type="text"
-                        name="twoFA"
-                        value={authStore.credentials.twoFA}
-                        onChange={this.inputChangeHandler}
-                    />
-                </div>
+                    <div className="form__item">
+                        <label className="form__label" htmlFor="twoFA">
+                            Enter 2fa code
+                        </label>
+                        <input
+                            id="twoFA"
+                            className="form__input"
+                            type="text"
+                            name="twoFA"
+                            value={authStore.credentials.twoFA}
+                            onChange={this.inputChangeHandler}
+                        />
+                    </div>
                 ) }
                 <div className="form__btns">
                     <button
