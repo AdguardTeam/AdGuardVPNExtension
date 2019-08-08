@@ -7,7 +7,7 @@ class AuthApi extends Api {
     GET_TOKEN = { path: 'token', method: 'POST' };
 
     getAccessToken(credentials) {
-        const { username, password } = credentials;
+        const { username, password, twoFA } = credentials;
         const { path, method } = this.GET_TOKEN;
 
         const data = {
@@ -17,6 +17,10 @@ class AuthApi extends Api {
             grant_type: 'password_2fa',
             client_id: 'adguard-vpn-extension',
         };
+
+        if (twoFA) {
+            data['2fa_token'] = twoFA;
+        }
 
         const config = {
             data: qs.stringify(data),

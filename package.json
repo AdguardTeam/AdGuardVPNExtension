@@ -63,6 +63,7 @@
         "@babel/runtime": "^7.5.5",
         "classnames": "^2.2.6",
         "file-loader": "^4.1.0",
+        "lodash": "^4.17.15",
         "mobx": "^5.13.0",
         "mobx-react": "^6.1.1",
         "prop-types": "^15.7.2",

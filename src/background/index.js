@@ -25,8 +25,9 @@ browser.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     const { type } = request;
     switch (type) {
         case 'authenticateSocial': {
+            const { tab: { id } } = sender;
             const { queryString } = request;
-            await auth.authenticateSocial(queryString);
+            await auth.authenticateSocial(queryString, id);
             break;
         }
         default:

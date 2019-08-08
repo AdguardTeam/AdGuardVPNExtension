@@ -1,31 +1,38 @@
-import { observable, action, runInAction } from 'mobx';
+import {
+    observable, action, runInAction,
+} from 'mobx';
 import bgProvider from '../../../lib/background-provider';
 
-// TODO [maximtop] add validation
-class AuthStore {
-    @observable credentials = {
+const DEFAULTS = {
+    credentials: {
         username: '',
         password: '',
         twoFA: '',
-    };
+    },
+    authenticated: false,
+    need2fa: false,
+    error: false,
+    errorDescription: '',
+};
 
-    @observable authenticated = false;
+// TODO [maximtop] add validation
+class AuthStore {
+    @observable credentials = DEFAULTS.credentials;
 
-    @observable need2fa = false;
+    @observable authenticated = DEFAULTS.authenticated;
 
-    @observable error = false;
+    @observable need2fa = DEFAULTS.need2fa;
 
-    @observable errorDescription;
+    @observable error = DEFAULTS.error;
 
-    updateCredentials = (credentials) => {
-        const { password, username, twoFA } = credentials;
-        const updatedCredentials = {};
+    @observable errorDescription = DEFAULTS.errorDescription;
 
-        updatedCredentials.password = password || '';
-        updatedCredentials.username = username || '';
-        updatedCredentials.twoFA = twoFA || '';
-
-        return updatedCredentials;
+    setDefaults = () => {
+        this.credentials = DEFAULTS.credentials;
+        this.authenticated = DEFAULTS.authenticated;
+        this.need2fa = DEFAULTS.need2fa;
+        this.error = DEFAULTS.error;
+        this.errorDescription = DEFAULTS.errorDescription;
     };
 
     @action onCredentialsChange = (field, value) => {
@@ -47,7 +54,7 @@ class AuthStore {
             runInAction(() => {
                 this.authenticated = true;
                 this.need2fa = false;
-                this.credentials = this.updateCredentials();
+                this.credentials = DEFAULTS.credentials;
             });
             return;
         }
@@ -61,16 +68,13 @@ class AuthStore {
 
     // TODO [maximtop] remove method with test credentials
     @action fakeAuthenticate = async () => {
-        // runInAction(async () => {
-        //     this.credentials = {
-        //         username: 'maximtop@gmail.com',
-        //         password: 'AijGrVhFxo7CWArv',
-        //     };
-        //     await this.authenticate();
-        // });
-        runInAction(() => {
-            this.authenticated = true;
-        })
+        runInAction(async () => {
+            this.credentials = {
+                username: 'maximtop@gmail.com',
+                password: 'AijGrVhFxo7CWArv',
+            };
+            await this.authenticate();
+        });
     };
 
     @action isAuthenticated = async () => {
@@ -80,6 +84,13 @@ class AuthStore {
                 this.authenticated = true;
             });
         }
+    };
+
+    @action deauthenticate = async () => {
+        await bgProvider.auth.deauthenticate();
+        runInAction(() => {
+            this.setDefaults();
+        });
     }
 }
 

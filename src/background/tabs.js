@@ -14,22 +14,6 @@ class Tabs {
         return tab.url;
     }
 
-    async openAuthWindow() {
-        const authUrl = 'http://testauth.adguard.com/oauth/authorize?response_type=token&client_id=adguard-vpn-extension&redirect_uri=https://testauth.adguard.com/oauth.html&scope=trust';
-        try {
-            await browser.windows.create({
-                url: authUrl,
-                width: 750,
-                height: 750,
-                focused: true,
-                type: 'popup',
-            });
-        } catch (e) {
-            log.error(e.message);
-            throw e;
-        }
-    }
-
     async getPopup() {
         return browser.browserAction.getPopup();
     }
@@ -41,6 +25,15 @@ class Tabs {
 
     async openTab(url) {
         await browser.tabs.create({ url, active: true });
+    }
+
+    /**
+     * Closes one or more tabs.
+     * @param {(number|number[])} tabsIds
+     * @returns {Promise<void>}
+     */
+    async closeTab(tabsIds) {
+        await browser.tabs.remove(tabsIds);
     }
 
     async closePopup() {

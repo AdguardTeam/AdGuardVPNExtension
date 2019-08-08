@@ -5,65 +5,63 @@ const asyncProvideBg = func => async (...args) => {
     return func(...args, background);
 };
 
+const wrapMethods = (obj, wrapper) => {
+    Object.keys(obj).forEach((key) => {
+        const property = obj[key];
+        if (typeof property === 'function') {
+            // eslint-disable-next-line no-param-reassign
+            obj[key] = wrapper(property);
+        }
+    });
+    return obj;
+};
+
 const provider = {
-    getEndpoints: asyncProvideBg(background => background.provider.getEndpoints()),
-    getStats: asyncProvideBg(background => background.provider.getStats()),
+    getEndpoints: background => background.provider.getEndpoints(),
+    getStats: background => background.provider.getStats(),
 };
 
 const settings = {
-    getSetting: asyncProvideBg((id, background) => background.settings.getSetting(id)),
-    setSetting: asyncProvideBg(
-        (id, value, background) => background.settings.setSetting(id, value)
-    ),
+    getSetting: (id, background) => background.settings.getSetting(id),
+    setSetting: (id, value, background) => background.settings.setSetting(id, value),
 };
 
 const proxy = {
-    canControlProxy: asyncProvideBg(background => background.proxy.canControlProxy()),
+    canControlProxy: background => background.proxy.canControlProxy(),
 };
 
 const whitelist = {
-    addToWhitelist: asyncProvideBg(
-        (url, background) => background.whitelist.addToWhitelist(url)
-    ),
-    removeFromWhitelist: asyncProvideBg(
-        (url, background) => background.whitelist.removeFromWhitelist(url)
-    ),
-    isWhitelisted: asyncProvideBg(
-        (url, background) => background.whitelist.isWhitelisted(url)
-    ),
+    addToWhitelist: (url, background) => background.whitelist.addToWhitelist(url),
+    removeFromWhitelist: (url, background) => background.whitelist.removeFromWhitelist(url),
+    isWhitelisted: (url, background) => background.whitelist.isWhitelisted(url),
 };
 
 const tabs = {
-    getCurrentTabUrl: asyncProvideBg(background => background.tabs.getCurrentTabUrl()),
-    openAuthWindow: asyncProvideBg(background => background.tabs.openAuthWindow()),
-    closePopup: asyncProvideBg(background => background.tabs.closePopup()),
-    openRecovery: asyncProvideBg(background => background.tabs.openRecovery()),
-    openSocialAuth: asyncProvideBg(
-        (socialProvider, background) => background.tabs.openSocialAuth(socialProvider)
-    ),
+    getCurrentTabUrl: background => background.tabs.getCurrentTabUrl(),
+    closePopup: background => background.tabs.closePopup(),
+    openRecovery: background => background.tabs.openRecovery(),
+    openSocialAuth: (socialProvider, background) => background.tabs.openSocialAuth(socialProvider),
 };
 
 const auth = {
-    authenticate: asyncProvideBg(
-        (credentials, background) => background.auth.authenticate(credentials)
-    ),
-    authenticateSocial: asyncProvideBg(
-        (querystring, background) => background.auth.authenticateSocial()
-    ),
+    authenticate: (credentials, background) => background.auth.authenticate(credentials),
+    authenticateSocial: (querystring, background) => background.auth.authenticateSocial(),
+    isAuthenticated: background => background.auth.isAuthenticated(),
+    deauthenticate: background => background.auth.deauthenticate(),
 };
 
 const actions = {
-    openOptionsPage: asyncProvideBg(background => background.actions.openOptionsPage()),
+    openOptionsPage: background => background.actions.openOptionsPage(),
 };
 
 const bgProvider = {
-    provider,
-    settings,
-    proxy,
-    whitelist,
-    tabs,
-    actions,
-    auth,
+    provider: wrapMethods(provider, asyncProvideBg),
+    settings: wrapMethods(settings, asyncProvideBg),
+    proxy: wrapMethods(proxy, asyncProvideBg),
+    whitelist: wrapMethods(whitelist, asyncProvideBg),
+    tabs: wrapMethods(tabs, asyncProvideBg),
+    actions: wrapMethods(actions, asyncProvideBg),
+    auth: wrapMethods(auth, asyncProvideBg),
 };
 
 export default bgProvider;

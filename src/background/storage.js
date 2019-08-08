@@ -12,6 +12,10 @@ class Storage {
     async get(key) {
         return this.vault.get([key]);
     }
+
+    async remove(key) {
+        return this.vault.remove([key]);
+    }
 }
 
 const storage = new Storage();

@@ -1,6 +1,8 @@
 import qs from 'qs';
+import isEmpty from 'lodash/isEmpty';
 import { authApi } from './api';
 import storage from './storage';
+import tabs from './tabs';
 
 class Auth {
     accessTokenKey = 'accessToken';
@@ -34,15 +36,11 @@ class Auth {
 
     async isAuthenticated() {
         const accessToken = await storage.get(this.accessTokenKey);
-        if (accessToken) {
-            return true;
-        }
+        return !isEmpty(accessToken);
     }
 
-    // TODO [maximtop] when ready api for social auth fix it
-    async authenticateSocial(queryString) {
+    async authenticateSocial(queryString, tabId) {
         const data = qs.parse(queryString);
-        console.log(data);
         const {
             access_token: accessToken,
             expires_in: expiresIn,
@@ -53,7 +51,12 @@ class Auth {
             expiresIn,
             tokenType,
         });
-        // TODO [maximtop] close auth redirect page
+        await tabs.closeTab(tabId);
+        // TODO show notification about successful authentication
+    }
+
+    async deauthenticate() {
+        await storage.remove(this.accessTokenKey);
     }
 }
 

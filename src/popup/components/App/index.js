@@ -16,6 +16,7 @@ class App extends Component {
         await settingsStore.getGlobalProxyEnabled();
         await settingsStore.checkProxyControl();
         await settingsStore.checkIsWhitelisted();
+        await authStore.isAuthenticated();
     }
 
     render() {
