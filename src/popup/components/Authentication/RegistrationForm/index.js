@@ -12,7 +12,6 @@ class RegistrationForm extends Component {
 
     inputChangeHandler = (e) => {
         const { target: { name, value } } = e;
-        console.log(name, value);
         authStore.onCredentialsChange(name, value);
     };
 
