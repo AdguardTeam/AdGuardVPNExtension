@@ -5,5 +5,6 @@ module.exports = {
         'tabs',
         'storage',
         'proxy',
+        'notifications',
     ],
 };

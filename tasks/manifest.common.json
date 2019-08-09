@@ -24,18 +24,6 @@
     },
     "content_scripts": [
         {
-            "all_frames": true,
-            "js": [
-                "content-scripts.js"
-            ],
-            "matches": [
-                "http://*/*",
-                "https://*/*"
-            ],
-            "match_about_blank": true,
-            "run_at": "document_start"
-        },
-        {
             "matches":["https://testauth.adguard.com/oauth.html*"],
             "js":["auth.js"],
             "run_at":"document_start"

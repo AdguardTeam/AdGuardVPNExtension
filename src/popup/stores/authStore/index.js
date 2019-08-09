@@ -18,6 +18,7 @@ const DEFAULTS = {
     need2fa: false,
     error: false,
     errorDescription: '',
+    field: '',
     step: AUTH_STEPS.SIGN_IN,
     agreement: true,
     marketingConsent: false,
@@ -34,6 +35,9 @@ class AuthStore {
     @observable error = DEFAULTS.error;
 
     @observable errorDescription = DEFAULTS.errorDescription;
+
+    // TODO [maximtop] refactor to better name
+    @observable field = DEFAULTS.field;
 
     @observable step = DEFAULTS.step;
 
@@ -87,6 +91,7 @@ class AuthStore {
             runInAction(() => {
                 this.error = true;
                 this.errorDescription = response.errorDescription;
+                this.field = response.field;
             });
             return;
         }

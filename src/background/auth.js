@@ -4,6 +4,7 @@ import nanoid from 'nanoid';
 import { authApi } from './api';
 import storage from './storage';
 import tabs from './tabs';
+import notifications from './notifications';
 
 class Auth {
     accessTokenKey = 'accessToken';
@@ -105,7 +106,7 @@ class Auth {
             await tabs.closeTab(tabId);
             this.socialAuthState = null;
         }
-        // TODO show notification about successful authentication
+        await notifications.create({ message: 'Successfully authenticated' });
     }
 
     // TODO [maximtop] revoke accessToken from the api
@@ -119,14 +120,13 @@ class Auth {
         const locale = navigator.language;
         try {
             // TODO [maximtop] prepare returned data in the provider
-            data = await authApi.getAccessToken({ ...credentials, locale });
+            data = await authApi.register({ ...credentials, locale });
         } catch (e) {
-            const { error, error_description: errorDescription } = JSON.parse(e.message);
-            if (error === '2fa_required') {
-                return { status: error };
-            }
-            return { error, errorDescription };
+            const { error, errorMessage: errorDescription, field } = JSON.parse(e.message);
+            const extensionField = field === 'email' ? 'username' : field;
+            return { error, errorDescription, field: extensionField };
         }
+        // TODO [maximtop] registration returns empty object, consider how to handle it
         const {
             access_token: accessToken,
             expires_in: expiresIn,

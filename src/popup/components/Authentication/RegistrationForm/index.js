@@ -15,18 +15,36 @@ class RegistrationForm extends Component {
         authStore.onCredentialsChange(name, value);
     };
 
+    showEmailError = () => {
+        if (authStore.error && (authStore.field === 'username' || authStore.field === '')) {
+            return (
+                <div className="form__item-error">
+                    {authStore.errorDescription}
+                </div>
+            );
+        }
+        return '';
+    };
+
+    showPasswordError = () => {
+        if (authStore.error && authStore.field === 'password') {
+            return (
+                <div className="form__item-error">
+                    {authStore.errorDescription}
+                </div>
+            );
+        }
+        return '';
+    };
+
     render() {
+        console.log(authStore.field);
         return (
             <form
                 className="form"
                 onSubmit={this.submitHandler}
             >
-                {authStore.error
-                && (
-                    <div className="form__item-error">
-                        {authStore.errorDescription}
-                    </div>
-                )}
+                {this.showEmailError()}
                 <div className="form__item">
                     <label className="form__label" htmlFor="username">
                         Email:
@@ -41,6 +59,7 @@ class RegistrationForm extends Component {
                         onChange={this.inputChangeHandler}
                     />
                 </div>
+                {this.showPasswordError()}
                 <div className="form__item">
                     <div className="form__item-header">
                         <label className="form__label" htmlFor="password">

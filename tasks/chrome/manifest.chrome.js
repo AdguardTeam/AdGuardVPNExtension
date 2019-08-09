@@ -6,5 +6,6 @@ module.exports = {
         'storage',
         'unlimitedStorage',
         'proxy',
+        'notifications',
     ],
 };

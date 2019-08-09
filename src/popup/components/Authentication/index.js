@@ -22,8 +22,6 @@ class Authentication extends Component {
     };
 
     getForm = (step) => {
-        console.log(step);
-        console.log(authStore.STEPS.REGISTRATION);
         if (step === authStore.STEPS.REGISTRATION) {
             return <RegistrationForm />;
         }
