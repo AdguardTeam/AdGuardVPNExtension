@@ -15,7 +15,7 @@ class Authentication extends Component {
 
     getTitle = (step) => {
         const titleMaps = {
-            signIn: 'Sign in',
+            signIn: 'Unlimited VPN',
             registration: 'Registration',
         };
         return titleMaps[step] || titleMaps.signIn;
@@ -33,24 +33,28 @@ class Authentication extends Component {
     render() {
         const { step } = authStore;
         return (
-            <div className="sign-in">
-                <div className="sign-in__header">
-                    {step !== authStore.STEPS.SIGN_IN && (
-                        <div
-                            className="back"
-                            role="button"
-                            onClick={authStore.showSignIn}
-                        >
-                            back
+            <div className="authentication">
+                <div className="authentication__header">
+                    {step === authStore.STEPS.SIGN_IN ? (
+                        <div className="authentication__presentation">
+                            Free
                         </div>
+                    ) : (
+                            <div
+                                className="back"
+                                role="button"
+                                onClick={authStore.showSignIn}
+                            >
+                                back
+                            </div>
                     )}
-                    <h1
-                        className="sign-in__title"
+                    <div
+                        className="authentication__title"
                         onClick={this.handleFakeAuthentication}
                     >
                         {this.getTitle(step)}
-                    </h1>
-                    {step === authStore.STEPS.SIGN_IN && <SocialIcons />}
+                    </div>
+                    {step === authStore.STEPS.SIGN_IN && <SocialIcons title="Login to start:" />}
                 </div>
                 {this.getForm(step)}
             </div>

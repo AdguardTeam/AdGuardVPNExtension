@@ -3,12 +3,17 @@ import { authStore } from '../../../stores';
 
 import './social-icons.pcss';
 
-function SocialIcons() {
+function SocialIcons(props) {
     const socialAuthClickHandler = social => async () => {
         await authStore.openSocialAuth(social);
     };
+    const { title } = props;
+
     return (
         <div className="social-icons">
+            <div className="social-icons__title">
+                { title }
+            </div>
             <button
                 type="button"
                 onClick={socialAuthClickHandler('twitter')}
