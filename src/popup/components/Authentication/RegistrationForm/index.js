@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import authStore from '../../../stores/authStore';
+import Checkbox from '../../Settings/Checkbox';
 
 @observer
 class RegistrationForm extends Component {
@@ -11,6 +12,7 @@ class RegistrationForm extends Component {
 
     inputChangeHandler = (e) => {
         const { target: { name, value } } = e;
+        console.log(name, value);
         authStore.onCredentialsChange(name, value);
     };
 
@@ -56,33 +58,20 @@ class RegistrationForm extends Component {
                     />
                 </div>
                 <div className="form__item">
-                    <div className="form__item-header">
-                        <label className="form__label" htmlFor="agreement">
-                            {"I agree to abide by AdGuard's Terms and Conditions"}
-                        </label>
-                    </div>
-                    <input
+                    <Checkbox
+                        title="I agree to abide by AdGuard's Terms and Conditions"
                         id="agreement"
-                        className="form__input"
-                        type="checkbox"
-                        name="agreement"
-                        onChange={this.inputChangeHandler}
+                        handler={this.inputChangeHandler}
                         value={authStore.credentials.agreement}
                     />
                 </div>
                 <div className="form__item">
-                    <div className="form__item-header">
-                        <label className="form__label" htmlFor="marketingConsent">
-                            {'Do you allow us to send you infrequent updates on AdGuard? You can unsubscribe any time'}
-                        </label>
-                    </div>
-                    <input
+                    <Checkbox
+                        title="Do you allow us to send you infrequent updates on AdGuard? You can unsubscribe any time"
                         id="marketingConsent"
-                        className="form__input"
-                        type="checkbox"
-                        name="marketingConsent"
-                        onChange={this.inputChangeHandler}
+                        handler={this.inputChangeHandler}
                         value={authStore.credentials.marketingConsent}
+                        mod="checkbox--grey"
                     />
                 </div>
 
