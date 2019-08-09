@@ -5,7 +5,7 @@ import Map from '../Map';
 import InfoMessage from '../InfoMessage';
 import { uiStore, settingsStore, authStore } from '../../stores';
 import Endpoints from '../Endpoints';
-import SignIn from '../SignIn';
+import Authentication from '../Authentication';
 import ExtraOptions from '../ExtraOptions';
 import Stats from '../Stats';
 import Settings from '../Settings';
@@ -32,7 +32,7 @@ class App extends Component {
             return (
                 <Fragment>
                     <Header authenticated={authenticated} />
-                    <SignIn />
+                    <Authentication />
                 </Fragment>
             );
         }

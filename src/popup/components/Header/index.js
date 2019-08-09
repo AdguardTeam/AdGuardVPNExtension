@@ -1,23 +1,19 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import './header.pcss';
-import { uiStore, authStore } from '../../stores';
+import { uiStore } from '../../stores';
 
 @observer
 class Header extends Component {
-    handleSettingsClick() {
+    handleSettingsClick = () => {
         uiStore.openOptionsModal(true);
-    }
-
-    async handleFakeDeauthentication() {
-        await authStore.deauthenticate();
-    }
+    };
 
     render() {
         const { authenticated } = this.props;
         return (
             <div className="header">
-                <div className="header__title" onClick={this.handleFakeDeauthentication}>
+                <div className="header__title">
                     <div className="header__logo" />
                     <div className="header__text">
                         <span className="header__text-mark">AdGuard</span>

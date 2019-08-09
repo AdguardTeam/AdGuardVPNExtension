@@ -109,8 +109,37 @@ class Auth {
     }
 
     // TODO [maximtop] revoke accessToken from the api
+    // TODO [maximtop] set default values to proxy
     async deauthenticate() {
         await storage.remove(this.accessTokenKey);
+    }
+
+    async register(credentials) {
+        let data;
+        const locale = navigator.language;
+        try {
+            // TODO [maximtop] prepare returned data in the provider
+            data = await authApi.getAccessToken({ ...credentials, locale });
+        } catch (e) {
+            const { error, error_description: errorDescription } = JSON.parse(e.message);
+            if (error === '2fa_required') {
+                return { status: error };
+            }
+            return { error, errorDescription };
+        }
+        const {
+            access_token: accessToken,
+            expires_in: expiresIn,
+            scope,
+            token_type: tokenType,
+        } = data;
+        await storage.set(this.accessTokenKey, {
+            accessToken,
+            expiresIn,
+            scope,
+            tokenType,
+        });
+        return { status: 'ok' };
     }
 }
 

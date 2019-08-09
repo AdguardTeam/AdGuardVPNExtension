@@ -15,6 +15,10 @@ class SignInForm extends Component {
         authStore.onCredentialsChange(name, value);
     };
 
+    handleRegisterClick = () => {
+        authStore.showRegistration('register');
+    };
+
     render() {
         return (
             <form
@@ -85,7 +89,11 @@ class SignInForm extends Component {
                     >
                         Login
                     </button>
-                    <button className="form__btn form__btn--reg button button--inline button--inline-green">
+                    <button
+                        className="form__btn form__btn--reg button button--inline button--inline-green"
+                        type="button"
+                        onClick={this.handleRegisterClick}
+                    >
                         Register
                     </button>
                 </div>

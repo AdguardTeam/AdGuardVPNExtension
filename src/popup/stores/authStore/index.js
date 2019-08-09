@@ -3,6 +3,11 @@ import {
 } from 'mobx';
 import bgProvider from '../../../lib/background-provider';
 
+const AUTH_STEPS = {
+    SIGN_IN: 'signIn',
+    REGISTRATION: 'registration',
+};
+
 const DEFAULTS = {
     credentials: {
         username: '',
@@ -13,6 +18,9 @@ const DEFAULTS = {
     need2fa: false,
     error: false,
     errorDescription: '',
+    step: AUTH_STEPS.SIGN_IN,
+    agreement: true,
+    marketingConsent: false,
 };
 
 // TODO [maximtop] add validation
@@ -27,12 +35,19 @@ class AuthStore {
 
     @observable errorDescription = DEFAULTS.errorDescription;
 
+    @observable step = DEFAULTS.step;
+
+    @observable authData = DEFAULTS;
+
+    STEPS = AUTH_STEPS;
+
     setDefaults = () => {
         this.credentials = DEFAULTS.credentials;
         this.authenticated = DEFAULTS.authenticated;
         this.need2fa = DEFAULTS.need2fa;
         this.error = DEFAULTS.error;
         this.errorDescription = DEFAULTS.errorDescription;
+        this.step = DEFAULTS.step;
     };
 
     @action onCredentialsChange = (field, value) => {
@@ -62,6 +77,23 @@ class AuthStore {
         if (response.status === '2fa_required') {
             runInAction(() => {
                 this.need2fa = true;
+            });
+        }
+    };
+
+    @action register = async () => {
+        const response = await bgProvider.auth.register(this.credentials);
+        if (response.error) {
+            runInAction(() => {
+                this.error = true;
+                this.errorDescription = response.errorDescription;
+            });
+            return;
+        }
+        if (response.status === 'ok') {
+            runInAction(() => {
+                this.authenticated = true;
+                this.credentials = DEFAULTS.credentials;
             });
         }
     };
@@ -96,6 +128,18 @@ class AuthStore {
     @action openSocialAuth = async (social) => {
         await bgProvider.auth.startSocialAuth(social);
         await bgProvider.tabs.closePopup();
+    };
+
+    @action switchStep = (step) => {
+        this.step = step;
+    };
+
+    @action showRegistration = () => {
+        this.switchStep(AUTH_STEPS.REGISTRATION);
+    };
+
+    @action showSignIn = () => {
+        this.switchStep(AUTH_STEPS.SIGN_IN);
     };
 }
 

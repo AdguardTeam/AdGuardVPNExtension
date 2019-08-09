@@ -47,7 +47,9 @@ const auth = {
     authenticateSocial: (querystring, background) => background.auth.authenticateSocial(),
     isAuthenticated: background => background.auth.isAuthenticated(),
     deauthenticate: background => background.auth.deauthenticate(),
+    // eslint-disable-next-line max-len
     startSocialAuth: (socialProvider, background) => background.auth.startSocialAuth(socialProvider),
+    register: (socialProvider, background) => background.auth.register(socialProvider),
 };
 
 const actions = {

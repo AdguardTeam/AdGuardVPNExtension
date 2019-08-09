@@ -4,6 +4,7 @@ import './extra-options.pcss';
 import { observer } from 'mobx-react';
 import { uiStore, settingsStore } from '../../stores';
 import bgProvider from '../../../lib/background-provider';
+import authStore from '../../stores/authStore';
 
 Modal.setAppElement('#root');
 
@@ -13,13 +14,17 @@ class ExtraOptions extends Component {
         await bgProvider.actions.openOptionsPage();
     };
 
-    async addToWhitelist() {
+    addToWhitelist = async () => {
         await settingsStore.addToWhitelist();
-    }
+    };
 
-    async removeFromWhitelist() {
+    removeFromWhitelist = async () => {
         await settingsStore.removeFromWhitelist();
-    }
+    };
+
+    signOut = async () => {
+        await authStore.deauthenticate();
+    };
 
     render() {
         const { isWhitelisted } = settingsStore;
@@ -63,6 +68,12 @@ class ExtraOptions extends Component {
                     onClick={this.openSettings}
                 >
                     Settings
+                </div>
+                <div
+                    className="button button--inline extra-options__item"
+                    onClick={this.signOut}
+                >
+                    Sign out
                 </div>
             </Modal>
         );
