@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import uiStore from '../../stores/uiStore';
+import { uiStore, settingsStore } from '../../stores';
 
 import './settings.pcss';
-import settingsStore from '../../stores/settingsStore';
 import CurrentEndpoint from './CurrentEndpoint';
 import GlobalSwitcher from './GlobalSwitcher';
 

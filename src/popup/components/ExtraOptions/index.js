@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import './extra-options.pcss';
 import { observer } from 'mobx-react';
-import { uiStore, settingsStore } from '../../stores';
+import { uiStore, settingsStore, authStore } from '../../stores';
 import bgProvider from '../../../lib/background-provider';
-import authStore from '../../stores/authStore';
 
 Modal.setAppElement('#root');
 

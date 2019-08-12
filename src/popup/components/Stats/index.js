@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import settingsStore from '../../stores/settingsStore';
+import { settingsStore } from '../../stores';
 import './stats.pcss';
 
 @observer

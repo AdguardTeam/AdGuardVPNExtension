@@ -1,30 +1,25 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
-import settingsStore from '../../stores/settingsStore';
-import uiStore from '../../stores/uiStore';
+import { uiStore, mapStore } from '../../stores';
 import './endpoints.pcss';
 
 @observer
 class Endpoints extends Component {
-    async componentDidMount() {
-        await settingsStore.getEndpoints();
-    }
-
     handleEndpointSelect = id => (e) => {
         e.preventDefault();
-        settingsStore.setSelectedEndpoint(id);
+        mapStore.setSelectedEndpoint(id);
     };
 
     handleCloseEndpoints = () => {
         uiStore.closeEndpointsSearch();
-        settingsStore.setSearchValue('');
+        mapStore.setSearchValue('');
     };
 
     renderEndpoints = endpoints => endpoints.map((endpoint) => {
-        const { cityName, id } = endpoint;
+        const { cityName, id, selected } = endpoint;
         const endpointClassNames = classnames({
-            'endpoints__item--selected': id === settingsStore.selectedEndpoint,
+            'endpoints__item--selected': selected,
         });
         return (
             <div
@@ -42,13 +37,13 @@ class Endpoints extends Component {
 
     handleSearchInput = (e) => {
         const { value } = e.target;
-        settingsStore.setSearchValue(value);
+        mapStore.setSearchValue(value);
     };
 
     render() {
-        const endpoints = settingsStore.filteredEndpoints;
+        const endpoints = mapStore.filteredEndpoints;
         const endpointsCrossClassNames = classnames({
-            'endpoints__cross--active': settingsStore.searchValue.length > 0,
+            'endpoints__cross--active': mapStore.searchValue.length > 0,
         });
         return (
             <div className="endpoints">
@@ -62,12 +57,12 @@ class Endpoints extends Component {
                         <input
                             className="endpoints__search-in"
                             type="text"
-                            value={settingsStore.searchValue}
+                            value={mapStore.searchValue}
                             onChange={this.handleSearchInput}
                         />
                         <button
                             onClick={() => {
-                                settingsStore.setSearchValue('');
+                                mapStore.setSearchValue('');
                             }}
                             type="button"
                             className={`button endpoints__cross ${endpointsCrossClassNames}`}

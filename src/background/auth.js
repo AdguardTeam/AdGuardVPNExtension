@@ -116,30 +116,16 @@ class Auth {
     }
 
     async register(credentials) {
-        let data;
         const locale = navigator.language;
         try {
             // TODO [maximtop] prepare returned data in the provider
-            data = await authApi.register({ ...credentials, locale });
+            await authApi.register({ ...credentials, locale });
         } catch (e) {
             const { error, errorMessage: errorDescription, field } = JSON.parse(e.message);
             const extensionField = field === 'email' ? 'username' : field;
             return { error, errorDescription, field: extensionField };
         }
-        // TODO [maximtop] registration returns empty object, consider how to handle it
-        const {
-            access_token: accessToken,
-            expires_in: expiresIn,
-            scope,
-            token_type: tokenType,
-        } = data;
-        await storage.set(this.accessTokenKey, {
-            accessToken,
-            expiresIn,
-            scope,
-            tokenType,
-        });
-        return { status: 'ok' };
+        return this.authenticate(credentials);
     }
 }
 

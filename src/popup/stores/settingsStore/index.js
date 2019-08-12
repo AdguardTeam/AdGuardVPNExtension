@@ -3,7 +3,6 @@ import {
     observable,
     configure,
     runInAction,
-    computed,
 } from 'mobx';
 
 import log from '../../../lib/logger';
@@ -12,76 +11,21 @@ import { SETTINGS_IDS } from '../../../background/settings';
 
 const extensionEnabledSettingId = SETTINGS_IDS.PROXY_ENABLED;
 
-// Do not allow actions outside of store
+// Do not allow property change outside of store actions
 configure({ enforceActions: 'observed' });
-
-const REQUEST_STATES = {
-    DONE: 'done',
-    PENDING: 'pending',
-    ERROR: 'error',
-};
 
 class SettingsStore {
     @observable extensionEnabled = false;
 
     @observable canControlProxy = false;
 
-    @observable endpoints = [];
-
     @observable gettingEndpointsState;
-
-    @observable selectedEndpoint;
-
-    @observable searchValue = '';
 
     @observable isWhitelisted;
 
     @observable currentTabUrl;
 
     @observable proxyStats;
-
-    @action
-    setSearchValue = (value) => {
-        const trimmed = value.trim();
-        if (trimmed !== this.searchValue) {
-            this.searchValue = value;
-        }
-    };
-
-    @action
-    getEndpoints = async () => {
-        // TODO [maximtop] consider moving this code into bg page
-        this.gettingEndpointsState = REQUEST_STATES.PENDING;
-        this.endpoints = [];
-        try {
-            const endpoints = await bgProvider.provider.getEndpoints();
-            runInAction(() => {
-                this.gettingEndpointsState = REQUEST_STATES.DONE;
-                this.endpoints = endpoints;
-            });
-        } catch (e) {
-            this.gettingEndpointsState = REQUEST_STATES.ERROR;
-            console.log(e);
-        }
-    };
-
-    @computed
-    get filteredEndpoints() {
-        const filteredEndpoints = Object.values(this.endpoints).filter((endpoint) => {
-            if (this.searchValue.length === 0) {
-                return true;
-            }
-            const regex = new RegExp(this.searchValue, 'ig');
-            return endpoint.cityName.match(regex);
-        });
-        return filteredEndpoints;
-    }
-
-    @action
-    setSelectedEndpoint = (id) => {
-        this.selectedEndpoint = id;
-        console.log(this.selectedEndpoint);
-    };
 
     @action
     async checkProxyControl() {

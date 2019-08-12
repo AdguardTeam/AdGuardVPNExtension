@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import authStore from '../../../stores/authStore';
+import { authStore } from '../../../stores';
 import Checkbox from '../../Settings/Checkbox';
 
 @observer

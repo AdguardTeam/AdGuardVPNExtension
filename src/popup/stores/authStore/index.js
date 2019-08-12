@@ -1,7 +1,10 @@
 import {
-    observable, action, runInAction,
+    observable, action, runInAction, configure,
 } from 'mobx';
 import bgProvider from '../../../lib/background-provider';
+
+// Do not allow property change outside of store actions
+configure({ enforceActions: 'observed' });
 
 const AUTH_STEPS = {
     SIGN_IN: 'signIn',

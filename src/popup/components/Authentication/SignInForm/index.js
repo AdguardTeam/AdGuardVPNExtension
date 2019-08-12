@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import popupActions from '../../../actions/popupActions';
-import authStore from '../../../stores/authStore';
+import { authStore } from '../../../stores';
 
 @observer
 class SignInForm extends Component {

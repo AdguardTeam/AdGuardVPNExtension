@@ -38,11 +38,11 @@ class Authentication extends Component {
                             Free
                         </div>
                     ) : (
-                            <button
-                                className="button button--back"
-                                role="button"
-                                onClick={authStore.showSignIn}
-                            />
+                        <button
+                            className="button button--back"
+                            role="button"
+                            onClick={authStore.showSignIn}
+                        />
                     )}
                     <div
                         className="authentication__title"
