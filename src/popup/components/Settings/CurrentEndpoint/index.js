@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import './endpoint.pcss';
 import { observer } from 'mobx-react';
-import { mapStore } from '../../../stores';
+import { endpointsStore } from '../../../stores';
 
 @observer
 class CurrentEndpoint extends Component {
+    async componentDidMount() {
+        await endpointsStore.getSelectedEndpoint();
+    }
+
     render() {
         // TODO [maximtop] consider default city name
-        const selectedEndpoint = (mapStore.selectedEndpoint && mapStore.selectedEndpoint.cityName) || 'default city';
+        const selectedEndpoint = (endpointsStore.selectedEndpoint && endpointsStore.selectedEndpoint.cityName) || 'default city';
         const { handle, status } = this.props;
         return (
             <div className="endpoint">

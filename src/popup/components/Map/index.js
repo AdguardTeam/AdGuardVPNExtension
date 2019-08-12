@@ -10,7 +10,7 @@ import {
 import { Motion, spring } from 'react-motion';
 import { observer } from 'mobx-react';
 import jsonMap from './110m.json';
-import { mapStore } from '../../stores';
+import { endpointsStore } from '../../stores';
 
 const mapStyles = {
     width: '90%',
@@ -22,7 +22,7 @@ const mapStyles = {
 @observer
 class Map extends Component {
     async componentDidMount() {
-        await mapStore.fetchEndpoints();
+        await endpointsStore.fetchEndpoints();
     }
 
     renderMarkers = (endpoints) => {
@@ -59,7 +59,7 @@ class Map extends Component {
     };
 
     render() {
-        const { endpoints, selectedEndpoint } = mapStore;
+        const { endpoints, selectedEndpoint } = endpointsStore;
         const center = (selectedEndpoint && selectedEndpoint.coordinates) || [0, 0];
         return (
             <div>

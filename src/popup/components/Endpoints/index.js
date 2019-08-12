@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
-import { uiStore, mapStore } from '../../stores';
+import { uiStore, endpointsStore } from '../../stores';
 import './endpoints.pcss';
 
 @observer
 class Endpoints extends Component {
     handleEndpointSelect = id => (e) => {
         e.preventDefault();
-        mapStore.setSelectedEndpoint(id);
+        endpointsStore.setSelectedEndpoint(id);
     };
 
     handleCloseEndpoints = () => {
         uiStore.closeEndpointsSearch();
-        mapStore.setSearchValue('');
+        endpointsStore.setSearchValue('');
     };
 
     renderEndpoints = endpoints => endpoints.map((endpoint) => {
@@ -37,13 +37,13 @@ class Endpoints extends Component {
 
     handleSearchInput = (e) => {
         const { value } = e.target;
-        mapStore.setSearchValue(value);
+        endpointsStore.setSearchValue(value);
     };
 
     render() {
-        const endpoints = mapStore.filteredEndpoints;
+        const endpoints = endpointsStore.filteredEndpoints;
         const endpointsCrossClassNames = classnames({
-            'endpoints__cross--active': mapStore.searchValue.length > 0,
+            'endpoints__cross--active': endpointsStore.searchValue.length > 0,
         });
         return (
             <div className="endpoints">
@@ -57,12 +57,12 @@ class Endpoints extends Component {
                         <input
                             className="endpoints__search-in"
                             type="text"
-                            value={mapStore.searchValue}
+                            value={endpointsStore.searchValue}
                             onChange={this.handleSearchInput}
                         />
                         <button
                             onClick={() => {
-                                mapStore.setSearchValue('');
+                                endpointsStore.setSearchValue('');
                             }}
                             type="button"
                             className={`button endpoints__cross ${endpointsCrossClassNames}`}

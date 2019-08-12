@@ -10,7 +10,8 @@ class Storage {
     }
 
     async get(key) {
-        return this.vault.get([key]);
+        const value = await this.vault.get([key]);
+        return value[key];
     }
 
     async remove(key) {

@@ -10,7 +10,7 @@ import { REQUEST_STATES } from '../utilities';
 // Do not allow property change outside of store actions
 configure({ enforceActions: 'observed' });
 
-class MapStore {
+class EndpointsStore {
     @observable endpoints;
 
     @observable endpointsGetState;
@@ -42,9 +42,21 @@ class MapStore {
     };
 
     @action
-    setSelectedEndpoint = (id) => {
-        this.selectedEndpoint = this.endpoints[id];
+    setSelectedEndpoint = async (id) => {
+        runInAction(() => {
+            this.selectedEndpoint = this.endpoints[id];
+        });
         console.log(this.selectedEndpoint);
+        await bgProvider.proxy.setCurrentEndpoint(this.selectedEndpoint);
+    };
+
+    @action
+    getSelectedEndpoint = async () => {
+        const endpoint = await bgProvider.proxy.getCurrentEndpoint();
+        console.log(endpoint);
+        runInAction(() => {
+            this.selectedEndpoint = endpoint;
+        });
     };
 
     @computed
@@ -67,6 +79,6 @@ class MapStore {
     }
 }
 
-const mapStore = new MapStore();
+const endpointsStore = new EndpointsStore();
 
-export default mapStore;
+export default endpointsStore;

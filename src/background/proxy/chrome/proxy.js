@@ -1,5 +1,6 @@
 import browser from 'webextension-polyfill';
 import log from '../../../lib/logger';
+import storage from '../../storage';
 
 // TODO complete this list with values from https://tools.ietf.org/html/rfc3330
 const BYPASS_LIST = [
@@ -12,6 +13,8 @@ const BYPASS_LIST = [
     '*.local',
     'bit.adguard.com',
 ];
+
+const CURRENT_ENDPOINT_KEY = 'proxyCurrentEndpoint';
 
 const proxyGetAsync = (config = {}) => new Promise((resolve) => {
     browser.proxy.settings.get(config, (details) => {
@@ -129,6 +132,14 @@ class ExtensionProxy {
         this.bypassWhitelist = whitelist;
         await this.restartProxy();
     }
+
+    setCurrentEndpoint = async (endpoint) => {
+        return storage.set(CURRENT_ENDPOINT_KEY, endpoint);
+    };
+
+    getCurrentEndpoint = async () => {
+        return storage.get(CURRENT_ENDPOINT_KEY);
+    };
 }
 
 const proxy = new ExtensionProxy();

@@ -28,6 +28,8 @@ const settings = {
 
 const proxy = {
     canControlProxy: background => background.proxy.canControlProxy(),
+    setCurrentEndpoint: (endpoint, background) => background.proxy.setCurrentEndpoint(endpoint),
+    getCurrentEndpoint: background => background.proxy.getCurrentEndpoint(),
 };
 
 const whitelist = {
