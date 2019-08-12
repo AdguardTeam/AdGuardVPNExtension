@@ -11,12 +11,47 @@ import { Motion, spring } from 'react-motion';
 import { observer } from 'mobx-react';
 import jsonMap from './110m.json';
 import { endpointsStore } from '../../stores';
+import './map.pcss';
 
 const mapStyles = {
-    width: '90%',
+    width: '500px',
+    position: 'absolute',
     margin: '0 auto',
     display: 'block',
     height: 'auto',
+};
+
+const renderMarkers = (endpoints) => {
+    if (!endpoints) {
+        return '';
+    }
+
+    const markers = Object.values(endpoints).map(({ coordinates, id }) => {
+        if (coordinates) {
+            return { coordinates, id };
+        }
+        return null;
+    }).filter(i => i);
+
+    if (!markers) {
+        return '';
+    }
+
+    return (
+        <Markers>
+            {markers.map(marker => (
+                <Marker
+                    key={marker.id}
+                    marker={marker}
+                    style={{
+                        hidden: { display: 'none' },
+                    }}
+                >
+                    <circle cx={0} cy={0} r={6} fill="#FF5722" stroke="#FFF" />
+                </Marker>
+            ))}
+        </Markers>
+    );
 };
 
 @observer
@@ -25,44 +60,11 @@ class Map extends Component {
         await endpointsStore.fetchEndpoints();
     }
 
-    renderMarkers = (endpoints) => {
-        if (!endpoints) {
-            return '';
-        }
-
-        const markers = Object.values(endpoints).map(({ coordinates, id }) => {
-            if (coordinates) {
-                return { coordinates, id };
-            }
-            return null;
-        }).filter(i => i);
-
-        if (!markers) {
-            return '';
-        }
-
-        return (
-            <Markers>
-                {markers.map(marker => (
-                    <Marker
-                        key={marker.id}
-                        marker={marker}
-                        style={{
-                            hidden: { display: 'none' },
-                        }}
-                    >
-                        <circle cx={0} cy={0} r={6} fill="#FF5722" stroke="#FFF" />
-                    </Marker>
-                ))}
-            </Markers>
-        );
-    };
-
     render() {
         const { endpoints, selectedEndpoint } = endpointsStore;
         const center = (selectedEndpoint && selectedEndpoint.coordinates) || [0, 0];
         return (
-            <div>
+            <div className="map">
                 <Motion
                     defaultStyle={{
                         x: center[0],
@@ -105,7 +107,7 @@ class Map extends Component {
                                     ))
                                     }
                                 </Geographies>
-                                {this.renderMarkers(endpoints)}
+                                {renderMarkers(endpoints)}
                             </ZoomableGlobe>
                         </ComposableMap>
                     )}
