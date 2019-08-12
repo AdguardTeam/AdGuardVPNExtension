@@ -53,7 +53,6 @@ class EndpointsStore {
     @action
     getSelectedEndpoint = async () => {
         const endpoint = await bgProvider.proxy.getCurrentEndpoint();
-        console.log(endpoint);
         runInAction(() => {
             this.selectedEndpoint = endpoint;
         });

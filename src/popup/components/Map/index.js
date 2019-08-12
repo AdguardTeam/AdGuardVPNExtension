@@ -21,14 +21,15 @@ const mapStyles = {
     height: 'auto',
 };
 
-const renderMarkers = (endpoints) => {
+const renderMarkers = (endpoints, selectedEndpoint) => {
     if (!endpoints) {
         return '';
     }
 
-    const markers = Object.values(endpoints).map(({ coordinates, id }) => {
+    const markers = Object.values(endpoints).map((endpoint) => {
+        const { coordinates } = endpoint;
         if (coordinates) {
-            return { coordinates, id };
+            return endpoint;
         }
         return null;
     }).filter(i => i);
@@ -36,6 +37,27 @@ const renderMarkers = (endpoints) => {
     if (!markers) {
         return '';
     }
+
+    const renderCityName = (markerId, selectedEndpoint) => {
+        if (!selectedEndpoint) {
+            return '';
+        }
+        if (markerId === selectedEndpoint.id) {
+            return (
+                <text
+                    textAnchor="middle"
+                    y="20px"
+                    style={{
+                        fontFamily: 'Roboto, sans-serif',
+                        fill: '#607D8B',
+                    }}
+                >
+                    {selectedEndpoint.cityName}
+                </text>
+            );
+        }
+        return '';
+    };
 
     return (
         <Markers>
@@ -48,6 +70,7 @@ const renderMarkers = (endpoints) => {
                     }}
                 >
                     <circle cx={0} cy={0} r={6} fill="#FF5722" stroke="#FFF" />
+                    {renderCityName(marker.id, selectedEndpoint)}
                 </Marker>
             ))}
         </Markers>
@@ -95,11 +118,11 @@ class Map extends Component {
                                     disableOptimization
                                     geography={jsonMap}
                                 >
-                                    {(geos, proj) => geos.map((geo, i) => (
+                                    {(geos, projection) => geos.map((geo, i) => (
                                         <Geography
-                                            key={geo.id + i}
+                                            key={`geography-${i}`}
                                             geography={geo}
-                                            projection={proj}
+                                            projection={projection}
                                             style={{
                                                 default: { fill: '#CFD8DC' },
                                             }}
@@ -107,7 +130,7 @@ class Map extends Component {
                                     ))
                                     }
                                 </Geographies>
-                                {renderMarkers(endpoints)}
+                                {renderMarkers(endpoints, selectedEndpoint)}
                             </ZoomableGlobe>
                         </ComposableMap>
                     )}
