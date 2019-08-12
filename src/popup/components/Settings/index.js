@@ -26,14 +26,6 @@ class Settings extends Component {
         const { canControlProxy } = this.props;
         const { extensionEnabled } = settingsStore;
 
-        if (!canControlProxy) {
-            return (
-                <div className="settings">
-                    <p>Other extension prevents us from setting up the tunnel.</p>
-                    <p>Please disable it in browser settings</p>
-                </div>
-            );
-        }
         return (
             <div className="settings">
                 <div className="settings__main">
@@ -46,6 +38,12 @@ class Settings extends Component {
                         checked={settingsStore.extensionEnabled}
                     />
                 </div>
+                {!canControlProxy && (
+                    <div>
+                        <p>Other extension prevents us from setting up the tunnel.</p>
+                        <p>Please disable it in browser settings</p>
+                    </div>
+                )}
             </div>
         );
     }

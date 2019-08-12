@@ -55,8 +55,8 @@ class App extends Component {
                     canControlProxy={canControlProxy}
                     globalProxyEnabled={extensionEnabled}
                 />
-                <Stats />
-                <InfoMessage />
+                {canControlProxy && <Stats />}
+                {canControlProxy && <InfoMessage />}
             </Fragment>
         );
     }
