@@ -13,15 +13,7 @@ import jsonMap from './110m.json';
 import { endpointsStore } from '../../stores';
 import './map.pcss';
 
-const mapStyles = {
-    width: '500px',
-    position: 'absolute',
-    margin: '0 auto',
-    display: 'block',
-    height: 'auto',
-};
-
-const renderMarkers = (endpoints, selectedEndpoint) => {
+const renderMarkers = (endpoints, selectedEndpoint, globalProxyEnabled) => {
     if (!endpoints) {
         return '';
     }
@@ -49,7 +41,7 @@ const renderMarkers = (endpoints, selectedEndpoint) => {
                     y="20px"
                     style={{
                         fontFamily: 'Roboto, sans-serif',
-                        fill: '#607D8B',
+                        fill: globalProxyEnabled ? '#004C33' : '#323232',
                     }}
                 >
                     {selectedEndpoint.cityName}
@@ -69,7 +61,7 @@ const renderMarkers = (endpoints, selectedEndpoint) => {
                         hidden: { display: 'none' },
                     }}
                 >
-                    <circle cx={0} cy={0} r={6} fill="#FF5722" stroke="#FFF" />
+                    <circle cx={0} cy={0} r={6} fill={globalProxyEnabled ? 'rgba(0, 76, 51, 0.5)' : 'rgba(50, 50, 50, 0.5)'} stroke="#FFF" />
                     {renderCityName(marker.id, selectedEndpoint)}
                 </Marker>
             ))}
@@ -84,6 +76,23 @@ class Map extends Component {
     }
 
     render() {
+        const { globalProxyEnabled } = this.props;
+        const mapStyles = {
+            width: '500px',
+            position: 'absolute',
+            margin: '0 auto',
+            display: 'block',
+            height: 'auto',
+            backgroundColor: globalProxyEnabled ? '#C5f0ff' : '#e5e5e5',
+        };
+
+        const geographyStyleDef = {
+            fill: globalProxyEnabled ? '#F0FFF3' : '#F9F9F9',
+            stroke: '#BABABA',
+            strokeWidth: 0.5,
+            outline: 'none',
+        };
+
         const { endpoints, selectedEndpoint } = endpointsStore;
         const center = (selectedEndpoint && selectedEndpoint.coordinates) || [0, 0];
         return (
@@ -124,13 +133,15 @@ class Map extends Component {
                                             geography={geo}
                                             projection={projection}
                                             style={{
-                                                default: { fill: '#CFD8DC' },
+                                                default: geographyStyleDef,
+                                                hover: geographyStyleDef,
+                                                pressed: geographyStyleDef,
                                             }}
                                         />
                                     ))
                                     }
                                 </Geographies>
-                                {renderMarkers(endpoints, selectedEndpoint)}
+                                {renderMarkers(endpoints, selectedEndpoint, globalProxyEnabled)}
                             </ZoomableGlobe>
                         </ComposableMap>
                     )}
