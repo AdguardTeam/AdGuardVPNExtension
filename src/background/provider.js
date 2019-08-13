@@ -1,4 +1,4 @@
-import { proxyApi } from './api';
+import { vpnApi } from './api';
 
 // TODO [maximtop] remove when api will return data correctly
 const addExampleEndpoints = (data) => {
@@ -47,7 +47,7 @@ const addExampleEndpoints = (data) => {
 };
 
 const getEndpoints = async () => {
-    // const endpointsObj = await proxyApi.getEndpoints();
+    // const endpointsObj = await vpnApi.getEndpoints();
     // const { endpoints } = endpointsObj;
     // const normalizedEndpoints = endpoints.reduce((acc, endpoint) => {
     //     const {
@@ -69,7 +69,7 @@ const getEndpoints = async () => {
     return addExampleEndpoints(normalizedEndpoints);
 };
 
-const getStats = () => proxyApi.getStats();
+const getStats = () => vpnApi.getStats();
 
 const provider = {
     getEndpoints,

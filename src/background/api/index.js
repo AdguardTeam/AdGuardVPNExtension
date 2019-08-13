@@ -1,2 +1,3 @@
-export proxyApi from './proxy-api';
-export authApi from './auth-api';
+export vpnApi from './vpnApi';
+export authApi from './authApi';
+export accountApi from './accountApi';

@@ -58,6 +58,6 @@ class AuthApi extends Api {
 
 const AUTH_BASE_URL = 'https://testauth.adguard.com';
 
-const proxyApi = new AuthApi(AUTH_BASE_URL);
+const vpnApi = new AuthApi(AUTH_BASE_URL);
 
-export default proxyApi;
+export default vpnApi;

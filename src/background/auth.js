@@ -7,7 +7,7 @@ import tabs from './tabs';
 import notifications from './notifications';
 
 class Auth {
-    accessTokenKey = 'accessToken';
+    ACCESS_TOKEN_KEY = 'auth.access.token';
 
     CLIENT_ID = 'adguard-vpn-extension';
 
@@ -18,10 +18,10 @@ class Auth {
     socialAuthState = null;
 
     async authenticate(credentials) {
-        let data;
+        let accessTokenData;
         try {
-            // TODO [maximtop] prepare returned data in the provider
-            data = await authApi.getAccessToken(credentials);
+            // TODO [maximtop] prepare returned accessTokenData in the provider
+            accessTokenData = await authApi.getAccessToken(credentials);
         } catch (e) {
             const { error, error_description: errorDescription } = JSON.parse(e.message);
             if (error === '2fa_required') {
@@ -29,23 +29,26 @@ class Auth {
             }
             return { error, errorDescription };
         }
+
         const {
             access_token: accessToken,
             expires_in: expiresIn,
-            scope,
             token_type: tokenType,
-        } = data;
-        await storage.set(this.accessTokenKey, {
+            scope,
+        } = accessTokenData;
+
+        await storage.set(this.ACCESS_TOKEN_KEY, {
             accessToken,
             expiresIn,
             scope,
             tokenType,
         });
+
         return { status: 'ok' };
     }
 
     async isAuthenticated() {
-        const accessToken = await storage.get(this.accessTokenKey);
+        const accessToken = await storage.get(this.ACCESS_TOKEN_KEY);
         return !isEmpty(accessToken);
     }
 
@@ -97,8 +100,9 @@ class Auth {
             token_type: tokenType,
             state,
         } = data;
+
         if (state && state === this.socialAuthState) {
-            await storage.set(this.accessTokenKey, {
+            await storage.set(this.ACCESS_TOKEN_KEY, {
                 accessToken,
                 expiresIn,
                 tokenType,
@@ -106,13 +110,14 @@ class Auth {
             await tabs.closeTab(tabId);
             this.socialAuthState = null;
         }
+
         await notifications.create({ message: 'Successfully authenticated' });
     }
 
     // TODO [maximtop] revoke accessToken from the api
     // TODO [maximtop] set default values to proxy
     async deauthenticate() {
-        await storage.remove(this.accessTokenKey);
+        await storage.remove(this.ACCESS_TOKEN_KEY);
     }
 
     async register(credentials) {
@@ -126,6 +131,14 @@ class Auth {
             return { error, errorDescription, field: extensionField };
         }
         return this.authenticate(credentials);
+    }
+
+    async getAccessToken() {
+        const accessTokenData = await storage.get(this.ACCESS_TOKEN_KEY);
+        if (accessTokenData && accessTokenData.accessToken) {
+            return accessTokenData.accessToken;
+        }
+        return null;
     }
 }
 

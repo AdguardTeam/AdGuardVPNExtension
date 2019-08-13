@@ -4,5 +4,5 @@ export { proxy } from './chrome/proxy';
 // #endif
 
 // #if process.env.BROWSER === 'firefox'
-export { proxy } from './firefox/proxy';
+// export { proxy } from './firefox/proxy';
 // #endif

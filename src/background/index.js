@@ -2,23 +2,27 @@ import browser from 'webextension-polyfill';
 
 import settings from './settings';
 import actions from './actions';
-import { proxyApi } from './api';
+import { vpnApi } from './api';
 import provider from './provider';
 import tabs from './tabs';
 import whitelist from './whitelist';
 import auth from './auth';
+import credentials from './credentials';
 import { proxy } from './proxy';
 
 global.background = {
     settings,
     actions,
     proxy,
-    proxyApi,
+    vpnApi,
     provider,
     tabs,
     whitelist,
     auth,
 };
+
+// TODO [maximtop] move credentials dependency into UI
+credentials.gainVpnCredentials().then(res => console.log(res));
 
 // message handler used for message exchange with content pages, for other cases use bgProvider
 browser.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
