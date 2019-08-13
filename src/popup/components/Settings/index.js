@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Warning from './Warning'
 import { uiStore, settingsStore } from '../../stores';
 
 import './settings.pcss';
@@ -39,10 +40,10 @@ class Settings extends Component {
                     />
                 </div>
                 {!canControlProxy && (
-                    <div>
-                        <p>Other extension prevents us from setting up the tunnel.</p>
-                        <p>Please disable it in browser settings</p>
-                    </div>
+                    <Warning
+                        mod="exclamation"
+                        desc="Other extension prevents us from setting up the tunnel. Please disable it in browser settings."
+                    />
                 )}
             </div>
         );

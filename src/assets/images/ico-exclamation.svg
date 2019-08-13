@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.3 (81716) - https://sketch.com -->
+    <title>Icons/24/logocheck bold</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Extension-1.00" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="AnotherExtGreen" transform="translate(-25.000000, -520.000000)">
+            <g id="Group-3" transform="translate(24.000000, 515.000000)">
+                <g id="Icons/24/logocheck-bold" transform="translate(0.000000, 4.000000)">
+                    <g id="Group-8" transform="translate(16.166667, 15.833333) scale(1, -1) translate(-16.166667, -15.833333) translate(2.666667, 2.333333)" stroke="#DF3812" stroke-width="2">
+                        <circle id="Oval" cx="13.3333333" cy="13.3333333" r="13.3333333"></circle>
+                    </g>
+                    <g id="Group" transform="translate(16.333333, 16.500000) scale(1, -1) translate(-16.333333, -16.500000) translate(11.333333, 9.000000)">
+                        <g id="Group-2">
+                            <path d="M1.36683502,13.2998316 L7.96649831,6.70016835" id="Line" stroke="#DF3812" stroke-width="2" stroke-linecap="round" transform="translate(4.666667, 10.000000) rotate(-225.000000) translate(-4.666667, -10.000000) "></path>
+                            <circle id="Oval" fill="#DF3812" cx="4.66666667" cy="1.33333333" r="1.33333333"></circle>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
