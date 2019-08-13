@@ -1,7 +1,7 @@
 import React from 'react';
 import './warning.pcss';
 
-function Checkbox(props) {
+function Warning(props) {
     const {
         desc,
         mod,
@@ -14,4 +14,4 @@ function Checkbox(props) {
     );
 }
 
-export default Checkbox;
+export default Warning;
