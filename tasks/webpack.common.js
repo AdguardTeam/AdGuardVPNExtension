@@ -54,6 +54,13 @@ const config = {
                 ],
             },
             {
+                test: /\.proto$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'protobufjs-loader-webpack4', // TODO fork or copy this package and fix console.log and options issues
+                },
+            },
+            {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
                 use: [
                     'file-loader',

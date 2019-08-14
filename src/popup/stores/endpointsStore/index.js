@@ -43,11 +43,11 @@ class EndpointsStore {
 
     @action
     setSelectedEndpoint = async (id) => {
+        const selectedEndpoint = this.endpoints[id];
+        await bgProvider.proxy.setCurrentEndpoint(selectedEndpoint);
         runInAction(() => {
-            this.selectedEndpoint = this.endpoints[id];
+            this.selectedEndpoint = selectedEndpoint;
         });
-        console.log(this.selectedEndpoint);
-        await bgProvider.proxy.setCurrentEndpoint(this.selectedEndpoint);
     };
 
     @action

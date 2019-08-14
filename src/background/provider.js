@@ -47,25 +47,24 @@ const addExampleEndpoints = (data) => {
 };
 
 const getEndpoints = async () => {
-    // const endpointsObj = await vpnApi.getEndpoints();
-    // const { endpoints } = endpointsObj;
-    // const normalizedEndpoints = endpoints.reduce((acc, endpoint) => {
-    //     const {
-    //         domain_name: domainName,
-    //         premium_only: premiumOnly,
-    //         city_name: cityName,
-    //     } = endpoint;
-    //     return {
-    //         ...acc,
-    //         [domainName]: {
-    //             ...endpoint,
-    //             id: domainName,
-    //             premiumOnly,
-    //             cityName,
-    //         },
-    //     };
-    // }, {});
-    const normalizedEndpoints = {};
+    const endpointsObj = await vpnApi.getEndpoints();
+    const { endpoints } = endpointsObj;
+    const normalizedEndpoints = endpoints.reduce((acc, endpoint) => {
+        const {
+            domain_name: domainName,
+            premium_only: premiumOnly,
+            city_name: cityName,
+        } = endpoint;
+        return {
+            ...acc,
+            [domainName]: {
+                ...endpoint,
+                id: domainName,
+                premiumOnly,
+                cityName,
+            },
+        };
+    }, {});
     return addExampleEndpoints(normalizedEndpoints);
 };
 

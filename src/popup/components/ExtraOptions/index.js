@@ -22,6 +22,7 @@ class ExtraOptions extends Component {
     };
 
     signOut = async () => {
+        uiStore.closeOptionsModal();
         await authStore.deauthenticate();
     };
 

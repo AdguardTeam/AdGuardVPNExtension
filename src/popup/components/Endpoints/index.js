@@ -6,9 +6,10 @@ import './endpoints.pcss';
 
 @observer
 class Endpoints extends Component {
-    handleEndpointSelect = id => (e) => {
+    handleEndpointSelect = id => async (e) => {
         e.preventDefault();
-        endpointsStore.setSelectedEndpoint(id);
+        await endpointsStore.setSelectedEndpoint(id);
+        uiStore.closeEndpointsSearch();
     };
 
     handleCloseEndpoints = () => {
