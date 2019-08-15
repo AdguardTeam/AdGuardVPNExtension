@@ -1,6 +1,8 @@
+import ReconnectingWebSocket from 'reconnecting-websocket';
+
 class WebsocketApi {
     constructor(url) {
-        const ws = new WebSocket(url);
+        const ws = new ReconnectingWebSocket(url);
         ws.binaryType = 'arraybuffer';
         this.ws = ws;
     }
@@ -14,7 +16,9 @@ class WebsocketApi {
     }
 
     send(message) {
-        this.ws.send(message);
+        if (this.ws.readyState === WebSocket.OPEN) {
+            this.ws.send(message);
+        }
     }
 
     onMessage(handler) {
