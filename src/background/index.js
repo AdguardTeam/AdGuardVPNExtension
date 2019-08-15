@@ -9,7 +9,7 @@ import whitelist from './whitelist';
 import auth from './auth';
 import credentials from './credentials';
 import { proxy } from './proxy';
-import connectToStats from './stats/stats';
+import stats from './stats/stats';
 
 global.background = {
     settings,
@@ -20,13 +20,11 @@ global.background = {
     tabs,
     whitelist,
     auth,
+    stats,
 };
 
 // TODO [maximtop] move credentials dependency into UI
 credentials.gainVpnCredentials().then(res => console.log(res));
-
-// TODO [maximtop] remove
-connectToStats();
 
 // message handler used for message exchange with content pages, for other cases use bgProvider
 browser.runtime.onMessage.addListener(async (request, sender, sendResponse) => {

@@ -1,14 +1,11 @@
 import {
     action,
-    computed, configure,
+    computed,
     observable,
     runInAction,
 } from 'mobx';
 import bgProvider from '../../../lib/background-provider';
 import { REQUEST_STATES } from '../utilities';
-
-// Do not allow property change outside of store actions
-configure({ enforceActions: 'observed' });
 
 class EndpointsStore {
     @observable endpoints;

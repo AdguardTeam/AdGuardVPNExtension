@@ -58,6 +58,10 @@ const actions = {
     openOptionsPage: background => background.actions.openOptionsPage(),
 };
 
+const stats = {
+    setPingCallback: (pingCallback, background) => background.stats.setPingCallback(pingCallback),
+};
+
 const bgProvider = {
     provider: wrapMethods(provider, asyncProvideBg),
     settings: wrapMethods(settings, asyncProvideBg),
@@ -66,6 +70,7 @@ const bgProvider = {
     tabs: wrapMethods(tabs, asyncProvideBg),
     actions: wrapMethods(actions, asyncProvideBg),
     auth: wrapMethods(auth, asyncProvideBg),
+    stats: wrapMethods(stats, asyncProvideBg),
 };
 
 export default bgProvider;

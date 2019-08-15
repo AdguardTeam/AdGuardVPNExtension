@@ -1,7 +1,6 @@
 import {
     action,
     observable,
-    configure,
     runInAction,
 } from 'mobx';
 
@@ -10,9 +9,6 @@ import bgProvider from '../../../lib/background-provider';
 import { SETTINGS_IDS } from '../../../background/settings';
 
 const extensionEnabledSettingId = SETTINGS_IDS.PROXY_ENABLED;
-
-// Do not allow property change outside of store actions
-configure({ enforceActions: 'observed' });
 
 class SettingsStore {
     @observable extensionEnabled = false;
@@ -27,6 +23,21 @@ class SettingsStore {
 
     @observable proxyStats;
 
+    @observable ping = 0;
+
+    @action
+    setPing = (ping) => {
+        this.ping = ping;
+    };
+
+    startGettingPing = async () => {
+        await bgProvider.stats.setPingCallback(this.setPing);
+    };
+
+    stopGettingPing = async () => {
+        await bgProvider.stats.setPingCallback(null);
+    };
+
     @action
     async checkProxyControl() {
         const { canControlProxy } = await bgProvider.proxy.canControlProxy();
@@ -35,12 +46,30 @@ class SettingsStore {
         });
     }
 
+    enableExtension = async () => {
+        this.extensionEnabled = true;
+        await this.startGettingPing();
+    };
+
+    disableExtension = async () => {
+        this.extensionEnabled = false;
+        await this.stopGettingPing();
+    };
+
+    toggleEnabled = async (value) => {
+        if (value) {
+            await this.enableExtension();
+        } else {
+            await this.disableExtension();
+        }
+    };
+
     @action
     async getGlobalProxyEnabled() {
         const globalProxyEnabledSetting = await bgProvider.settings
             .getSetting(extensionEnabledSettingId);
-        runInAction(() => {
-            this.extensionEnabled = globalProxyEnabledSetting.value;
+        runInAction(async () => {
+            await this.toggleEnabled(globalProxyEnabledSetting.value);
         });
     }
 
@@ -53,8 +82,8 @@ class SettingsStore {
             log.error(e);
         }
         if (changed) {
-            runInAction(() => {
-                this.extensionEnabled = value;
+            runInAction(async () => {
+                await this.toggleEnabled(value);
             });
         }
     }

@@ -2,32 +2,53 @@
 // https://github.com/protobufjs/protobuf.js#using-generated-static-code
 // see webpack proto-loader https://github.com/PermissionData/protobufjs-loader
 import { PingMsg, ProtocolMsg } from './stats.proto';
+import websocketApi from '../api/websocketApi';
+import log from '../../lib/logger';
 
-// this code is an prove of evidence that work with proto is possible
-const currentTime = Date.now();
-const pingMsg = PingMsg.create({ requestTime: currentTime });
-const protocolMsg = ProtocolMsg.create({ pingMsg });
-const buffer = ProtocolMsg.encode(protocolMsg).finish();
+class Stats {
+    PING_GET_INTERVAL_MS = 1000;
 
-const connectToStats = () => {
-    // Create WebSocket connection.
-    const socket = new WebSocket('ws://192.168.11.191:8182/user_metrics');
+    constructor() {
+        this.startGettingPing((ping) => {
+            if (this.pingCallback && typeof this.pingCallback === 'function') {
+                try {
+                    this.pingCallback(ping);
+                } catch (e) {
+                    // Usually error happens only on popup close
+                    // TODO [maximtop] figure out how to disconnect this callback after popup closed
+                    log.error(e.message);
+                }
+            }
+        });
+    }
 
-    socket.binaryType = 'arraybuffer';
+    createMessage = (currentTime) => {
+        const pingMsg = PingMsg.create({ requestTime: currentTime });
+        const protocolMsg = ProtocolMsg.create({ pingMsg });
+        return ProtocolMsg.encode(protocolMsg).finish();
+    };
 
-    // Connection opened
-    socket.addEventListener('open', (event) => {
-        socket.send(buffer);
-    });
+    startGettingPing = (callback) => {
+        setInterval(() => {
+            const buffer = this.createMessage(Date.now());
+            websocketApi.send(buffer);
+        }, this.PING_GET_INTERVAL_MS);
 
-    // Listen for messages
-    socket.addEventListener('message', (event) => {
-        const message = ProtocolMsg.decode(new Uint8Array(event.data));
-        const messageObj = ProtocolMsg.toObject(message);
-        const { pingMsg: { requestTime } } = messageObj;
-        const receivedTime = Date.now();
-        console.log(receivedTime - requestTime);
-    });
-};
+        websocketApi.onMessage((event) => {
+            const receivedTime = Date.now();
+            const message = ProtocolMsg.decode(new Uint8Array(event.data));
+            const messageObj = ProtocolMsg.toObject(message);
+            const { pingMsg: { requestTime } } = messageObj;
+            const ping = receivedTime - requestTime;
+            callback(ping);
+        });
+    };
 
-export default connectToStats;
+    setPingCallback = (pingCallback) => {
+        this.pingCallback = pingCallback;
+    };
+}
+
+const stats = new Stats();
+
+export default stats;

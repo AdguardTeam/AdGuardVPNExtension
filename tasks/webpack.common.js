@@ -57,7 +57,7 @@ const config = {
                 test: /\.proto$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: 'protobufjs-loader-webpack4', // TODO fork or copy this package and fix console.log and options issues
+                    loader: path.resolve(__dirname, './loaders/protobuf-loader.js'), // TODO fork or copy this package and fix console.log and options issues
                 },
             },
             {
