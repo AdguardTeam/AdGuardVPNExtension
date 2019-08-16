@@ -1,65 +1,67 @@
-import React, { Fragment, Component } from 'react';
+import React, {
+    Fragment,
+    useContext,
+    useState,
+} from 'react';
 import { observer } from 'mobx-react';
 import Header from '../Header';
 import Map from '../Map';
 import InfoMessage from '../InfoMessage';
-import { uiStore, settingsStore, authStore } from '../../stores';
 import Endpoints from '../Endpoints';
 import Authentication from '../Authentication';
 import ExtraOptions from '../ExtraOptions';
 import Stats from '../Stats';
 import Settings from '../Settings';
+import rootStore from '../../stores';
 
-@observer
-class App extends Component {
-    async componentDidMount() {
+const App = observer(() => {
+    const { settingsStore, authStore, uiStore } = useContext(rootStore);
+    useState(async () => {
         await settingsStore.getGlobalProxyEnabled();
         await settingsStore.checkProxyControl();
         await settingsStore.checkIsWhitelisted();
         await authStore.isAuthenticated();
-    }
+    });
 
-    render() {
-        const {
-            extensionEnabled,
-            canControlProxy,
-        } = settingsStore;
+    const {
+        extensionEnabled,
+        canControlProxy,
+    } = settingsStore;
 
-        const { authenticated } = authStore;
-        const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
+    const { authenticated } = authStore;
+    const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
 
-        if (!authenticated) {
-            return (
-                <Fragment>
-                    <Header authenticated={authenticated} />
-                    <Authentication />
-                </Fragment>
-            );
-        }
-
-        if (isOpenEndpointsSearch) {
-            return (
-                <Fragment>
-                    <Header authenticated={authenticated} />
-                    <Endpoints />
-                </Fragment>
-            );
-        }
-
+    if (!authenticated) {
         return (
             <Fragment>
-                {isOpenOptionsModal && <ExtraOptions />}
                 <Header authenticated={authenticated} />
-                <Map globalProxyEnabled={extensionEnabled} />
-                <Settings
-                    canControlProxy={canControlProxy}
-                    globalProxyEnabled={extensionEnabled}
-                />
-                {canControlProxy && <Stats />}
-                {canControlProxy && <InfoMessage />}
+                <Authentication />
             </Fragment>
         );
     }
-}
+
+    if (isOpenEndpointsSearch) {
+        return (
+            <Fragment>
+                <Header authenticated={authenticated} />
+                <Endpoints />
+            </Fragment>
+        );
+    }
+
+    return (
+        <Fragment>
+            {isOpenOptionsModal && <ExtraOptions />}
+            <Header authenticated={authenticated} />
+            <Map globalProxyEnabled={extensionEnabled} />
+            <Settings
+                canControlProxy={canControlProxy}
+                globalProxyEnabled={extensionEnabled}
+            />
+            {canControlProxy && <Stats />}
+            {canControlProxy && <InfoMessage />}
+        </Fragment>
+    );
+});
 
 export default App;

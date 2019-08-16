@@ -5,7 +5,7 @@ import {
     runInAction,
 } from 'mobx';
 import bgProvider from '../../../lib/background-provider';
-import { REQUEST_STATES } from '../utilities';
+import { REQUEST_STATES } from '../consts';
 
 class EndpointsStore {
     @observable endpoints;
@@ -65,7 +65,7 @@ class EndpointsStore {
                 return true;
             }
             const regex = new RegExp(this.searchValue, 'ig');
-            return endpoint.cityName.match(regex);
+            return endpoint.cityName && endpoint.cityName.match(regex);
         }).map((endpoint) => {
             if (this.selectedEndpoint && this.selectedEndpoint.id === endpoint.id) {
                 return { ...endpoint, selected: true };
@@ -75,6 +75,6 @@ class EndpointsStore {
     }
 }
 
-const endpointsStore = new EndpointsStore();
+// const endpointsStore = new EndpointsStore();
 
-export default endpointsStore;
+export default EndpointsStore;

@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
+import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import './authentication.pcss';
-import { authStore } from '../../stores';
+import rootStore from '../../stores';
 import SocialIcons from './SocialIcons';
 import SignInForm from './SignInForm';
 import RegistrationForm from './RegistrationForm';
 
-@observer
-class Authentication extends Component {
+const Authentication = observer(() => {
+    const { authStore } = useContext(rootStore);
     // TODO [maximtop] remove this method before publishing extension
-    handleFakeAuthentication = async () => {
+    const handleFakeAuthentication = async () => {
         await authStore.fakeAuthenticate();
     };
 
-    getTitle = (step) => {
+    const getTitle = (step) => {
         const titleMaps = {
             signIn: 'Unlimited VPN',
             registration: 'Registration',
@@ -21,41 +21,39 @@ class Authentication extends Component {
         return titleMaps[step] || titleMaps.signIn;
     };
 
-    getForm = (step) => {
+    const getForm = (step) => {
         if (step === authStore.STEPS.REGISTRATION) {
             return <RegistrationForm />;
         }
         return <SignInForm />;
     };
 
-    render() {
-        const { step } = authStore;
-        return (
-            <div className="authentication">
-                <div className="authentication__header">
-                    {step === authStore.STEPS.SIGN_IN ? (
-                        <div className="authentication__presentation">
+    const { step } = authStore;
+    return (
+        <div className="authentication">
+            <div className="authentication__header">
+                {step === authStore.STEPS.SIGN_IN ? (
+                    <div className="authentication__presentation">
                             Free
-                        </div>
-                    ) : (
-                        <button
-                            className="button button--back"
-                            role="button"
-                            onClick={authStore.showSignIn}
-                        />
-                    )}
-                    <div
-                        className="authentication__title"
-                        onClick={this.handleFakeAuthentication}
-                    >
-                        {this.getTitle(step)}
                     </div>
-                    {step === authStore.STEPS.SIGN_IN && <SocialIcons title="Login to start:" />}
+                ) : (
+                    <button
+                        className="button button--back"
+                        role="button"
+                        onClick={authStore.showSignIn}
+                    />
+                )}
+                <div
+                    className="authentication__title"
+                    onClick={handleFakeAuthentication}
+                >
+                    {getTitle(step)}
                 </div>
-                {this.getForm(step)}
+                {step === authStore.STEPS.SIGN_IN && <SocialIcons title="Login to start:" />}
             </div>
-        );
-    }
-}
+            {getForm(step)}
+        </div>
+    );
+});
 
 export default Authentication;

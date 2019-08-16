@@ -147,6 +147,6 @@ class SettingsStore {
     }
 }
 
-const settingsStore = new SettingsStore();
+// const settingsStore = new SettingsStore();
 
-export default settingsStore;
+export default SettingsStore;

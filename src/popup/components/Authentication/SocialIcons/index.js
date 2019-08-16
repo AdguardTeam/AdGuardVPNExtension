@@ -1,12 +1,15 @@
-import React from 'react';
-import { authStore } from '../../../stores';
+import React, { useContext } from 'react';
+import rootStore from '../../../stores';
 
 import './social-icons.pcss';
 
 function SocialIcons(props) {
+    const { authStore } = useContext(rootStore);
+
     const socialAuthClickHandler = social => async () => {
         await authStore.openSocialAuth(social);
     };
+
     const { title } = props;
 
     return (
