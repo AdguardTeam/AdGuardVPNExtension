@@ -42,26 +42,35 @@ const addExampleEndpoints = (data) => {
     };
     return {
         ...data,
-        ...exampleEndpoints,
+        // ...exampleEndpoints,
     };
 };
 
 const getEndpoints = async () => {
     const endpointsObj = await vpnApi.getEndpoints();
     const { endpoints } = endpointsObj;
+    console.log(endpoints);
     const normalizedEndpoints = endpoints.reduce((acc, endpoint) => {
         const {
-            domain_name: domainName,
-            premium_only: premiumOnly,
             city_name: cityName,
+            country_code: countryCode,
+            domain_name: domainName,
+            latitude,
+            longitude,
+            premium_only: premiumOnly,
+            public_key: publicKey,
         } = endpoint;
         return {
             ...acc,
             [domainName]: {
                 ...endpoint,
                 id: domainName,
-                premiumOnly,
                 cityName,
+                countryCode,
+                domainName,
+                coordinates: [longitude, latitude],
+                premiumOnly,
+                publicKey,
             },
         };
     }, {});

@@ -26,9 +26,9 @@ class WebsocketApi {
 }
 
 
-let websocketApi = new WebsocketApi('ws://192.168.11.191:8182/user_metrics');
+// let websocketApi = new WebsocketApi('ws://192.168.11.191:8182/user_metrics');
 // TODO [maximtop] use line from the up
-websocketApi = {
+const websocketApi = {
     onMessage: () => {},
     send: () => {},
 };
