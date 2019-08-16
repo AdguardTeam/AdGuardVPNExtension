@@ -63,6 +63,15 @@
         &--selected .endpoints__item-ico{
             background-image: url(../../../assets/images/radio-active.svg);
         }
+
+        &--lock {
+            cursor: default;
+            pointer-events: none;
+
+            & .endpoints__item-ico{
+                background-image: url(../../../assets/images/lock.svg);
+            }
+        }
     }
 
     &__item-ico {
@@ -70,5 +79,7 @@
         height: 20px;
         margin-right: 15px;
         background-image: url(../../../assets/images/radio.svg);
+        background-repeat: no-repeat;
+        background-position: 50%;
     }
 }

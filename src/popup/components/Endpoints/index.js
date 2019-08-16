@@ -19,9 +19,15 @@ const Endpoints = observer(() => {
     };
 
     const renderEndpoints = endpoints => endpoints.map((endpoint) => {
-        const { cityName, id, selected } = endpoint;
+        const {
+            cityName,
+            id,
+            selected,
+            premiumOnly,
+        } = endpoint;
         const endpointClassNames = classnames({
             'endpoints__item--selected': selected,
+            'endpoints__item--lock': premiumOnly,
         });
         return (
             <div
