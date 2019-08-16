@@ -41,6 +41,12 @@
         }
     }
 
+    &__list {
+        max-height: 445px;
+        margin-top: 25px;
+        overflow-y: auto;
+    }
+
     &__item {
         display: flex;
         align-items: center;
@@ -49,6 +55,10 @@
         line-height: 26px;
         color: var(--gray-base);
         margin-top: 25px;
+
+        &:first-child {
+            margin-top: 0;
+        }
 
         &--selected .endpoints__item-ico{
             background-image: url(../../../assets/images/radio-active.svg);
