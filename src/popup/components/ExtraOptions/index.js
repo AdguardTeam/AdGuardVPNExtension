@@ -48,6 +48,7 @@ const ExtraOptions = observer(() => {
             </div>
         );
     };
+    console.log(uiStore.isOpenOptionsModal);
     return (
         <Modal
             isOpen={uiStore.isOpenOptionsModal}

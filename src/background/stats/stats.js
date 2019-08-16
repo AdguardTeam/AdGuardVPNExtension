@@ -31,6 +31,7 @@ class Stats {
     startGettingPing = (callback) => {
         setInterval(() => {
             const buffer = this.createMessage(Date.now());
+            // TODO [maximtop] uncomment
             websocketApi.send(buffer);
         }, this.PING_GET_INTERVAL_MS);
 

@@ -5,7 +5,10 @@ import rootStore from '../../stores';
 
 const Header = observer(({ authenticated }) => {
     const { uiStore } = useContext(rootStore);
-    uiStore.openOptionsModal(true);
+
+    const handleOpenModal = () => {
+        uiStore.openOptionsModal(true);
+    };
 
     return (
         <div className="header">
@@ -21,7 +24,7 @@ const Header = observer(({ authenticated }) => {
                     className="button header__setting"
                     role="button"
                     tabIndex="0"
-                    onClick={uiStore.openOptionsModal(true)}
+                    onClick={handleOpenModal}
                 />
             )}
         </div>

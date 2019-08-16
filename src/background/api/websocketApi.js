@@ -11,7 +11,6 @@ class WebsocketApi {
         return new Promise((resolve) => {
             this.ws.addEventListener('open', resolve);
         });
-
         // TODO [maximtop] reconnect on websocket disconnect
     }
 
@@ -26,6 +25,11 @@ class WebsocketApi {
     }
 }
 
-const websocketApi = new WebsocketApi('ws://192.168.11.191:8182/user_metrics');
 
+let websocketApi = new WebsocketApi('ws://192.168.11.191:8182/user_metrics');
+// TODO [maximtop] use line from the up
+websocketApi = {
+    onMessage: () => {},
+    send: () => {},
+};
 export default websocketApi;
