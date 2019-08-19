@@ -61,7 +61,11 @@ class ExtensionProxy {
         const { canControlProxy, cause } = await this.canControlProxy();
 
         if (!canControlProxy) {
-            throw new Error(`Can't set proxy due to: ${cause}`);
+            // set state to turned off
+            this.isActive = false;
+            browser.proxy.onProxyError.removeListener(ExtensionProxy.errorHandler);
+            log.info(`Proxy cant be controlled due to: ${cause}`);
+            log.info('Set state to turned off');
         }
 
         try {

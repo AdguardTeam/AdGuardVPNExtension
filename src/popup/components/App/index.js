@@ -47,6 +47,7 @@ const App = observer(() => {
             <Fragment>
                 <Header authenticated={authenticated} />
                 <Endpoints />
+                {canControlProxy && <InfoMessage />}
             </Fragment>
         );
     }

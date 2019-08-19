@@ -62,6 +62,10 @@ const stats = {
     setPingCallback: (pingCallback, background) => background.stats.setPingCallback(pingCallback),
 };
 
+const appManager = {
+    getAppStatus: background => background.appManager.getAppStatus(),
+};
+
 const bgProvider = {
     provider: wrapMethods(provider, asyncProvideBg),
     settings: wrapMethods(settings, asyncProvideBg),
@@ -71,6 +75,7 @@ const bgProvider = {
     actions: wrapMethods(actions, asyncProvideBg),
     auth: wrapMethods(auth, asyncProvideBg),
     stats: wrapMethods(stats, asyncProvideBg),
+    appManager: wrapMethods(appManager, asyncProvideBg),
 };
 
 export default bgProvider;
