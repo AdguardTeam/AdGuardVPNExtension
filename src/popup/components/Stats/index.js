@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import rootStore from '../../stores';
 import './stats.pcss';
@@ -6,10 +6,11 @@ import './stats.pcss';
 const Stats = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
-    useState(async () => {
-        await settingsStore.getProxyStats();
-    });
-
+    useEffect(() => {
+        (async () => {
+            await settingsStore.getProxyStats();
+        })();
+    }, []);
 
     if (!settingsStore.proxyStats) {
         return '';

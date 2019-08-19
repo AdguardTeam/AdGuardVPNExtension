@@ -1,14 +1,16 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import './endpoint.pcss';
 import { observer } from 'mobx-react';
 import rootStore from '../../../stores';
 
 const CurrentEndpoint = observer((props) => {
     const { endpointsStore, settingsStore } = useContext(rootStore);
-    useState(async () => {
-        await endpointsStore.getSelectedEndpoint();
-        await settingsStore.startGettingPing();
-    });
+    useEffect(() => {
+        (async () => {
+            await endpointsStore.getSelectedEndpoint();
+            await settingsStore.startGettingPing();
+        })();
+    }, []);
 
     const renderStatus = () => {
         if (!settingsStore.extensionEnabled) {

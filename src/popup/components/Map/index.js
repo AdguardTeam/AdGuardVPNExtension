@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
     ComposableMap,
     ZoomableGlobe,
@@ -72,9 +72,12 @@ const renderMarkers = (endpoints, selectedEndpoint, globalProxyEnabled) => {
 
 const Map = observer((props) => {
     const { endpointsStore } = useContext(rootStore);
-    useState(async () => {
-        await endpointsStore.fetchEndpoints();
-    });
+
+    useEffect(() => {
+        (async () => {
+            await endpointsStore.fetchEndpoints();
+        })();
+    }, []);
 
 
     const { globalProxyEnabled } = props;

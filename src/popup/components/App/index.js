@@ -1,7 +1,7 @@
 import React, {
     Fragment,
     useContext,
-    useState,
+    useEffect,
 } from 'react';
 import { observer } from 'mobx-react';
 import Header from '../Header';
@@ -16,12 +16,14 @@ import rootStore from '../../stores';
 
 const App = observer(() => {
     const { settingsStore, authStore, uiStore } = useContext(rootStore);
-    useState(async () => {
-        await settingsStore.getGlobalProxyEnabled();
-        await settingsStore.checkProxyControl();
-        await settingsStore.checkIsWhitelisted();
-        await authStore.isAuthenticated();
-    });
+    useEffect(() => {
+        (async () => {
+            await settingsStore.getGlobalProxyEnabled();
+            await settingsStore.checkProxyControl();
+            await settingsStore.checkIsWhitelisted();
+            await authStore.isAuthenticated();
+        })();
+    }, []);
 
     const {
         extensionEnabled,
