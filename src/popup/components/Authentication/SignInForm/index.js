@@ -23,15 +23,9 @@ const SignInForm = observer(() => {
 
     return (
         <form
-            className="form"
+            className={`form form--login${authStore.error && ' form--error'}`}
             onSubmit={submitHandler}
         >
-            {authStore.error
-            && (
-                <div className="form__item-error">
-                    {authStore.errorDescription}
-                </div>
-            )}
             <div className="form__item">
                 <label className="form__label" htmlFor="username">
                     Email:
@@ -53,10 +47,10 @@ const SignInForm = observer(() => {
                     </label>
                     <button
                         type="button"
-                        className="form__inline-btn button button--inline button--inline-green"
+                        className="form__inline-btn button button--inline button--inline-orange"
                         onClick={popupActions.openRecovery}
                     >
-                        Lost the password?
+                        Lost it?
                     </button>
                 </div>
                 <input
@@ -67,6 +61,13 @@ const SignInForm = observer(() => {
                     onChange={inputChangeHandler}
                     value={authStore.credentials.password}
                 />
+                {authStore.error
+                && (
+                    <div className="form__item-error">
+                        {authStore.errorDescription}
+                    </div>
+                )
+                }
             </div>
             {authStore.need2fa && (
                 <div className="form__item">
@@ -85,18 +86,18 @@ const SignInForm = observer(() => {
             )}
             <div className="form__btns">
                 <button
-                    className="form__btn button button--m button--hundred button--green"
+                    className="form__btn button button--uppercase button--m button--hundred button--green"
                     type="submit"
                 >
-                    Login
+                    Log in
                 </button>
-                <button
-                    className="form__btn form__btn--reg button button--inline button--inline-green"
-                    type="button"
+                <div
+                    className="form__btn form__btn--reg"
                     onClick={handleRegisterClick}
                 >
-                    Register
-                </button>
+                    Don’t have an account?
+                    <button type="button" className="button button--inline button--inline-green">Register</button>
+                </div>
             </div>
         </form>
     );

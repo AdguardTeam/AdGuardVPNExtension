@@ -5,6 +5,7 @@
     border: 0;
     outline: none;
     background-color: transparent;
+    font-size: inherit;
 
     &--back {
         width: 24px;
@@ -16,6 +17,8 @@
     }
 
     &--inline {
+        color: inherit;
+
         &:hover {
             text-decoration: underline;
         }
@@ -23,6 +26,10 @@
 
     &--inline-green {
         color: var(--green74);
+    }
+
+    &--inline-orange {
+        color: var(--orange);
     }
 
     &--hundred {
@@ -63,6 +70,10 @@
 
     &--yd {
         background-image: url("../../assets/images/social-yd.svg");
+    }
+
+    &--uppercase {
+        text-transform: uppercase;
     }
 }
 

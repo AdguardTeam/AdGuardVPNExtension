@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { observer } from 'mobx-react';
 import './authentication.pcss';
 import rootStore from '../../stores';
@@ -15,7 +15,16 @@ const Authentication = observer(() => {
 
     const getTitle = (step) => {
         const titleMaps = {
-            signIn: 'Unlimited VPN',
+            signIn: (
+                <Fragment>
+                    <span className="authentication__presentation">
+                        Free&nbsp;
+                    </span>
+                    <span>
+                        Unlimited VPN
+                    </span>
+                </Fragment>
+            ),
             registration: 'Registration',
         };
         return titleMaps[step] || titleMaps.signIn;
@@ -32,11 +41,7 @@ const Authentication = observer(() => {
     return (
         <div className="authentication">
             <div className="authentication__header">
-                {step === authStore.STEPS.SIGN_IN ? (
-                    <div className="authentication__presentation">
-                            Free
-                    </div>
-                ) : (
+                {step !== authStore.STEPS.SIGN_IN && (
                     <button
                         className="button button--back"
                         role="button"
@@ -49,9 +54,23 @@ const Authentication = observer(() => {
                 >
                     {getTitle(step)}
                 </div>
-                {step === authStore.STEPS.SIGN_IN && <SocialIcons title="Login to start:" />}
+                {step === authStore.STEPS.SIGN_IN && (
+                    <div className="authentication__privacy">
+                        By continuing you accept the&nbsp;
+                        <div>
+                            <a href="#" className="authentication__privacy-link">
+                                Terms and Conditions
+                            </a>
+                            &nbsp;and&nbsp;
+                            <a href="#" className="authentication__privacy-link">
+                                EULA
+                            </a>
+                        </div>
+                    </div>
+                )}
             </div>
             {getForm(step)}
+            {step === authStore.STEPS.SIGN_IN && <SocialIcons />}
         </div>
     );
 });

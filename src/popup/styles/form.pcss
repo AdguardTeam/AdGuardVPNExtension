@@ -1,4 +1,10 @@
 .form {
+    &--error {
+        & .form__input {
+            border: 1px solid var(--red);
+        }
+    }
+
     &__label {
         color: var(--gray88);
         font-size: 12px;
@@ -8,6 +14,7 @@
     }
 
     &__item {
+        position: relative;
         margin-bottom: 20px;
     }
 
@@ -47,5 +54,12 @@
         &--reg {
             margin-top: 25px;
         }
+    }
+
+    &__item-error {
+        position: absolute;
+        color: var(--red);
+        bottom: -34px;
+        left: 0;
     }
 }
