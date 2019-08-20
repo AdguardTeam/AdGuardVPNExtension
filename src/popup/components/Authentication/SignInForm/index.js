@@ -15,6 +15,9 @@ const SignInForm = observer(() => {
     const inputChangeHandler = (e) => {
         const { target: { name, value } } = e;
         authStore.onCredentialsChange(name, value);
+        if (authStore.error) {
+            authStore.setDefaults();
+        }
     };
 
     const handleRegisterClick = () => {

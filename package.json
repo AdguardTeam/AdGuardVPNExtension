@@ -76,6 +76,7 @@
         "react-modal": "^3.9.1",
         "react-motion": "^0.5.2",
         "react-simple-maps": "^0.12.1",
+        "react-tooltip": "^3.10.0",
         "reconnecting-websocket": "^4.1.10",
         "tmp-promise": "^2.0.2",
         "webextension-polyfill": "^0.4.0"

@@ -48,7 +48,7 @@ class AuthStore {
 
     STEPS = AUTH_STEPS;
 
-    setDefaults = () => {
+    @action setDefaults = () => {
         this.credentials = DEFAULTS.credentials;
         this.authenticated = DEFAULTS.authenticated;
         this.need2fa = DEFAULTS.need2fa;
