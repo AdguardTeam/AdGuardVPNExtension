@@ -10,6 +10,7 @@ import auth from './auth';
 import credentials from './credentials';
 import { proxy } from './proxy';
 import stats from './stats/stats';
+import appManager from './appManager';
 
 global.background = {
     settings,
@@ -21,6 +22,7 @@ global.background = {
     whitelist,
     auth,
     stats,
+    appManager,
 };
 
 // TODO [maximtop] move credentials dependency into UI

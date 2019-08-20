@@ -40,7 +40,7 @@ class SettingsStore {
 
     @action
     async checkProxyControl() {
-        const { canControlProxy } = await bgProvider.proxy.canControlProxy();
+        const { canControlProxy } = await bgProvider.appManager.getAppStatus();
         runInAction(() => {
             this.canControlProxy = canControlProxy;
         });

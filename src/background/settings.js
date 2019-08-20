@@ -63,6 +63,15 @@ const setSetting = async (id, value, force) => {
     return true;
 };
 
+const disableProxy = async () => {
+    await setSetting(SETTINGS_IDS.PROXY_ENABLED, false);
+};
+
+const isProxyEnabled = () => {
+    const setting = getSetting(SETTINGS_IDS.PROXY_ENABLED);
+    return setting.value === true;
+};
+
 /**
  * Returns setting ids
  * @param settingsIds and array with settings ids
@@ -95,6 +104,8 @@ const settings = {
     setSetting,
     getSettingsByIds,
     areSettingsReady,
+    disableProxy,
+    isProxyEnabled,
 };
 
 export default settings;

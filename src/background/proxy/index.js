@@ -1,4 +1,4 @@
-// TODO [maximtop] find better way to handle double api for different browsers
+// TODO [maximtop] find better way to handle different browsers apis
 // #if process.env.BROWSER === 'chrome'
 export { proxy } from './chrome/proxy';
 // #endif

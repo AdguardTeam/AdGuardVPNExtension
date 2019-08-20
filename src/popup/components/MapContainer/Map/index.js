@@ -10,7 +10,7 @@ import {
 import { Motion, spring } from 'react-motion';
 import { observer } from 'mobx-react';
 import jsonMap from './110m.json';
-import rootStore from '../../stores';
+import rootStore from '../../../stores';
 import './map.pcss';
 
 const renderMarkers = (endpoints, selectedEndpoint, globalProxyEnabled) => {

@@ -64,6 +64,7 @@ const Endpoints = observer(() => {
                     <input
                         className="endpoints__search-in"
                         type="text"
+                        placeholder="search country"
                         value={endpointsStore.searchValue}
                         onChange={handleSearchInput}
                     />
