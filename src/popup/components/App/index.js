@@ -4,8 +4,9 @@ import React, {
     useEffect,
 } from 'react';
 import { observer } from 'mobx-react';
+import Modal from 'react-modal';
 import Header from '../Header';
-import Map from '../Map';
+import MapContainer from '../MapContainer';
 import InfoMessage from '../InfoMessage';
 import Endpoints from '../Endpoints';
 import Authentication from '../Authentication';
@@ -13,6 +14,9 @@ import ExtraOptions from '../ExtraOptions';
 import Stats from '../Stats';
 import Settings from '../Settings';
 import rootStore from '../../stores';
+
+// Set modal app element in the app module because we use multiple modal
+Modal.setAppElement('#root');
 
 const App = observer(() => {
     const { settingsStore, authStore, uiStore } = useContext(rootStore);
@@ -56,7 +60,7 @@ const App = observer(() => {
         <Fragment>
             {isOpenOptionsModal && <ExtraOptions />}
             <Header authenticated={authenticated} />
-            <Map globalProxyEnabled={extensionEnabled} />
+            <MapContainer globalProxyEnabled={extensionEnabled} />
             <Settings
                 canControlProxy={canControlProxy}
                 globalProxyEnabled={extensionEnabled}

@@ -5,8 +5,6 @@ import { observer } from 'mobx-react';
 import rootStore from '../../stores';
 import bgProvider from '../../../lib/background-provider';
 
-Modal.setAppElement('#root');
-
 const ExtraOptions = observer(() => {
     const { uiStore, settingsStore, authStore } = useContext(rootStore);
     const openSettings = async () => {
@@ -48,7 +46,7 @@ const ExtraOptions = observer(() => {
             </div>
         );
     };
-    console.log(uiStore.isOpenOptionsModal);
+
     return (
         <Modal
             isOpen={uiStore.isOpenOptionsModal}
