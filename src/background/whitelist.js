@@ -7,23 +7,23 @@ const getHostname = (url) => {
 
 class Whitelist {
     constructor() {
-        this.whitelistHostnames = [];
+        this.whitelisted = [];
     }
 
     async addToWhitelist(url) {
-        this.whitelistHostnames = [...this.whitelistHostnames, getHostname(url)];
-        await proxy.setBypassWhitelist(this.whitelistHostnames);
+        this.whitelisted = [...this.whitelisted, getHostname(url)];
+        await proxy.setBypassWhitelist(this.whitelisted);
     }
 
     async removeFromWhitelist(url) {
-        this.whitelistHostnames = this.whitelistHostnames
+        this.whitelisted = this.whitelisted
             .filter(hostname => hostname !== getHostname(url));
-        await proxy.setBypassWhitelist(this.whitelistHostnames);
+        await proxy.setBypassWhitelist(this.whitelisted);
     }
 
     isWhitelisted = async (url) => {
         if (url) {
-            return this.whitelistHostnames.includes(getHostname(url));
+            return this.whitelisted.includes(getHostname(url));
         }
         return false;
     }

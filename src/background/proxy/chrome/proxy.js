@@ -1,18 +1,7 @@
 import browser from 'webextension-polyfill';
 import log from '../../../lib/logger';
 import storage from '../../storage';
-
-// TODO complete this list with values from https://tools.ietf.org/html/rfc3330
-const BYPASS_LIST = [
-    '10.0.0.0/8',
-    '127.0.0.0/8',
-    '172.16.0.0/12',
-    '192.168.0.0/16',
-    '::1/128',
-    'localhost',
-    '*.local',
-    'bit.adguard.com',
-];
+import { NON_ROUTABLE_NETS } from '../../ip';
 
 const CURRENT_ENDPOINT_KEY = 'proxyCurrentEndpoint';
 
@@ -127,9 +116,9 @@ class ExtensionProxy {
 
     getBypassList() {
         if (this.bypassWhitelist) {
-            return [...BYPASS_LIST, ...this.bypassWhitelist];
+            return [...NON_ROUTABLE_NETS, ...this.bypassWhitelist];
         }
-        return [...BYPASS_LIST];
+        return [...NON_ROUTABLE_NETS];
     }
 
     async setBypassWhitelist(whitelist) {

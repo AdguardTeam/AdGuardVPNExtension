@@ -28,6 +28,4 @@ class UiStore {
     };
 }
 
-// const uiStore = new UiStore();
-
 export default UiStore;

@@ -25,6 +25,8 @@ class SettingsStore {
 
     @observable ping = 0;
 
+    @observable isRoutable = true;
+
     @action
     setPing = (ping) => {
         this.ping = ping;
@@ -145,8 +147,17 @@ class SettingsStore {
             console.log(e);
         }
     }
-}
 
-// const settingsStore = new SettingsStore();
+    @action isTabRoutable = async () => {
+        try {
+            const isRoutable = await bgProvider.tabsContext.isCurrentTabRoutable();
+            runInAction(() => {
+                this.isRoutable = isRoutable;
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+}
 
 export default SettingsStore;
