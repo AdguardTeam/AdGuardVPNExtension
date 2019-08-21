@@ -4,6 +4,7 @@ import {
     runInAction,
 } from 'mobx';
 
+import tabs from '../../../background/tabs';
 import log from '../../../lib/logger';
 import bgProvider from '../../../lib/background-provider';
 import { SETTINGS_IDS } from '../../../background/settings';
@@ -128,9 +129,9 @@ class SettingsStore {
 
     @action async getCurrentTabUrl() {
         try {
-            const result = await bgProvider.tabs.getCurrentTabUrl();
+            const result = await tabs.getCurrent();
             runInAction(() => {
-                this.currentTabUrl = result;
+                this.currentTabUrl = result.url;
             });
         } catch (e) {
             console.log(e);
@@ -150,7 +151,8 @@ class SettingsStore {
 
     @action isTabRoutable = async () => {
         try {
-            const isRoutable = await bgProvider.tabsContext.isCurrentTabRoutable();
+            const currentTab = await tabs.getCurrent();
+            const isRoutable = await bgProvider.tabsContext.isTabRoutable(currentTab.id);
             runInAction(() => {
                 this.isRoutable = isRoutable;
             });

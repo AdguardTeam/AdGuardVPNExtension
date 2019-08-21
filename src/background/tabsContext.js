@@ -44,7 +44,6 @@ const handleTabsUpdate = (tab, changeInfo) => {
     updateTabData(id, { url });
 };
 
-
 const extractIp = (details) => {
     const {
         ip, initiator, url, type,
@@ -78,7 +77,23 @@ const listenUpdates = () => {
     webRequest.onResponseStarted(handleRequestEventsWithIp);
 };
 
-const initTabs = async () => {
+const getTabIp = (tabId) => {
+    if (!tabId) {
+        return undefined;
+    }
+    const tabData = tabsMap[tabId];
+    return tabData && tabData.ip;
+};
+
+const isTabRoutable = async (currentTabId) => {
+    const tabIp = getTabIp(currentTabId);
+    if (!tabIp) {
+        return true;
+    }
+    return ip.isIpRoutable(tabIp);
+};
+
+const initTabsContext = async () => {
     const allTabs = await tabs.getAllTabs();
     allTabs.forEach(({ url, id }) => {
         tabsMap[id] = { id, url };
@@ -86,24 +101,9 @@ const initTabs = async () => {
     listenUpdates();
 };
 
-const getCurrentTabIp = async () => {
-    const currentTab = await tabs.getCurrent();
-    const { id } = currentTab;
-    const tabData = tabsMap[id];
-    return tabData && tabData.ip;
-};
-
-const isCurrentTabRoutable = async () => {
-    const currentTabIp = await getCurrentTabIp();
-    if (!currentTabIp) {
-        return true;
-    }
-    return ip.isIpRoutable(currentTabIp);
-};
-
 // Init tabs context
 (async () => {
-    await initTabs();
+    await initTabsContext();
 })();
 
-export default { isCurrentTabRoutable };
+export default { isTabRoutable };

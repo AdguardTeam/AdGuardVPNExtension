@@ -39,7 +39,6 @@ const whitelist = {
 };
 
 const tabs = {
-    getCurrentTabUrl: background => background.tabs.getCurrentTabUrl(),
     closePopup: background => background.tabs.closePopup(),
     openRecovery: background => background.tabs.openRecovery(),
 };
@@ -67,7 +66,8 @@ const appManager = {
 };
 
 const tabsContext = {
-    isCurrentTabRoutable: background => background.tabsContext.isCurrentTabRoutable(),
+    isTabRoutable: (tabId, background) => background.tabsContext.isTabRoutable(tabId),
+    getActiveTabUrl: background => background.tabsContext.getActiveTabUrl(),
 };
 
 const bgProvider = {
