@@ -12,37 +12,65 @@ const SiteInfo = observer(() => {
         })();
     }, []);
 
-    if (!settingsStore.isRoutable) {
-        console.log('SHOW APPROPRIATE COMPONENT');
-    }
-
-    if (!settingsStore.isWhitelisted) {
-        return null;
-    }
-
-        const getSiteUrl = () => settingsStore.currentTabUrl;
+    const getSiteUrl = () => settingsStore.currentTabUrl;
 
     const removeFromWhitelist = async () => {
         await settingsStore.removeFromWhitelist();
     };
 
-    return (
-        <Modal
-            isOpen
-            shouldCloseOnOverlayClick
-            className="popup-info__in"
-            overlayClassName="popup-info"
-        >
-            <div className="popup-info__title popup-info__title--domain">{getSiteUrl()}</div>
-            <div className="popup-info__status popup-info__status--succeed">is whitelisted</div>
-            <div className="popup-info__desc">
-                You can
-                <button className="button popup-info__link" onClick={removeFromWhitelist}>remove it from whitelist</button>
-                {' '}
-                or just switch on VPN once
-            </div>
-        </Modal>
-    );
+    if (!settingsStore.isRoutable) {
+        return (
+            <Modal
+                isOpen
+                shouldCloseOnOverlayClick
+                className="popup-info__in"
+                overlayClassName="popup-info"
+            >
+                <div className="popup-info__title popup-info__title--domain">{getSiteUrl()}</div>
+                <div className="popup-info__status popup-info__status--warning">
+                    that seems to be located in your local network and is not accessible through VPN
+                </div>
+                <div className="popup-info__desc">
+                    You can
+                    &nbsp;
+                    <button className="button popup-info__link" onClick={removeFromWhitelist}>remove it from whitelist</button>
+                    &nbsp;
+                    or just switch on VPN once
+                </div>
+                <div className="popup-info__desc">
+                    <button
+                        className="button popup-info__link"
+                        onClick={() => { console.log('Don’t remind me about this site'); }}
+                    >
+                        Don’t remind me about this site
+                    </button>
+                </div>
+            </Modal>
+        );
+    }
+
+    if (settingsStore.isWhitelisted) {
+        return (
+            <Modal
+                isOpen
+                shouldCloseOnOverlayClick
+                className="popup-info__in"
+                overlayClassName="popup-info"
+            >
+                <div className="popup-info__title popup-info__title--domain">{getSiteUrl()}</div>
+                <div className="popup-info__status popup-info__status--succeed">is whitelisted</div>
+                <div className="popup-info__desc">
+                    You can
+                    &nbsp;
+                    <button className="button popup-info__link" onClick={removeFromWhitelist}>remove it from whitelist</button>
+                    &nbsp;
+                    or just switch on VPN once
+                </div>
+            </Modal>
+        );
+    }
+
+    return null;
 });
 
 export default SiteInfo;

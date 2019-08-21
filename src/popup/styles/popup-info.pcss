@@ -31,6 +31,8 @@
     &__link {
         color: inherit;
         text-decoration: underline;
+        text-align: left;
+        padding: 0;
     }
 
     &__status {
@@ -45,14 +47,14 @@
         &--warning {
             color: var(--orange);
         }
+    }
 
-        &__desc {
-            line-height: 18;
-            margin-bottom: 15px;
+    &__desc {
+        line-height: 18px;
+        margin-bottom: 15px;
 
-            &:last-child {
-                margin-bottom: 0;
-            }
+        &:last-child {
+            margin-bottom: 0;
         }
     }
 }
