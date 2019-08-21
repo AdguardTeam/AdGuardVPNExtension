@@ -9,5 +9,7 @@ module.exports = {
         'notifications',
         'http://10.7.143.216:8181/*',
         'http://10.7.144.39:8181/*',
+        'webRequest',
+        '<all_urls>',
     ],
 };

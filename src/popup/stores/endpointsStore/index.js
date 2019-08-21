@@ -75,6 +75,4 @@ class EndpointsStore {
     }
 }
 
-// const endpointsStore = new EndpointsStore();
-
 export default EndpointsStore;

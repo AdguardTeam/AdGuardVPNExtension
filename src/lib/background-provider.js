@@ -66,6 +66,10 @@ const appManager = {
     getAppStatus: background => background.appManager.getAppStatus(),
 };
 
+const tabsContext = {
+    isCurrentTabRoutable: background => background.tabsContext.isCurrentTabRoutable(),
+};
+
 const bgProvider = {
     provider: wrapMethods(provider, asyncProvideBg),
     settings: wrapMethods(settings, asyncProvideBg),
@@ -76,6 +80,7 @@ const bgProvider = {
     auth: wrapMethods(auth, asyncProvideBg),
     stats: wrapMethods(stats, asyncProvideBg),
     appManager: wrapMethods(appManager, asyncProvideBg),
+    tabsContext: wrapMethods(tabsContext, asyncProvideBg),
 };
 
 export default bgProvider;

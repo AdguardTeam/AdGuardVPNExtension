@@ -11,6 +11,7 @@ import credentials from './credentials';
 import { proxy } from './proxy';
 import stats from './stats/stats';
 import appManager from './appManager';
+import tabsContext from './tabsContext';
 
 global.background = {
     settings,
@@ -23,6 +24,7 @@ global.background = {
     auth,
     stats,
     appManager,
+    tabsContext,
 };
 
 // TODO [maximtop] move credentials dependency into UI

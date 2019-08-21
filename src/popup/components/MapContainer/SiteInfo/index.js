@@ -1,10 +1,20 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 import rootStore from '../../../stores';
 
 const SiteInfo = observer(() => {
     const { settingsStore } = useContext(rootStore);
+
+    useEffect(() => {
+        (async () => {
+            await settingsStore.isTabRoutable();
+        })();
+    }, []);
+
+    if (!settingsStore.isRoutable) {
+        console.log('SHOW APPROPRIATE COMPONENT');
+    }
 
     if (!settingsStore.isWhitelisted) {
         return null;
