@@ -10,7 +10,7 @@ const SiteInfo = observer(() => {
         return null;
     }
 
-    const getSiteUrl = () => settingsStore.currentTabUrl;
+        const getSiteUrl = () => settingsStore.currentTabUrl;
 
     const removeFromWhitelist = async () => {
         await settingsStore.removeFromWhitelist();
@@ -20,14 +20,14 @@ const SiteInfo = observer(() => {
         <Modal
             isOpen
             shouldCloseOnOverlayClick
-            className="site-info"
-            overlayClassName="site-info__overlay"
+            className="popup-info__in"
+            overlayClassName="popup-info"
         >
-            <div className="site">{getSiteUrl()}</div>
-            <div className="message">is whitelisted</div>
-            <div className="actions">
+            <div className="popup-info__title popup-info__title--domain">{getSiteUrl()}</div>
+            <div className="popup-info__status popup-info__status--succeed">is whitelisted</div>
+            <div className="popup-info__desc">
                 You can
-                <button onClick={removeFromWhitelist}>remove it from whitelist</button>
+                <button className="button popup-info__link" onClick={removeFromWhitelist}>remove it from whitelist</button>
                 {' '}
                 or just switch on VPN once
             </div>
