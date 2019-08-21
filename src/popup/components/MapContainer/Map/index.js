@@ -38,7 +38,7 @@ const renderMarkers = (endpoints, selectedEndpoint, globalProxyEnabled) => {
             return (
                 <text
                     textAnchor="middle"
-                    y="20px"
+                    y="25px"
                     style={{
                         fontFamily: 'Roboto, sans-serif',
                         fill: globalProxyEnabled ? '#004C33' : '#323232',
@@ -61,7 +61,8 @@ const renderMarkers = (endpoints, selectedEndpoint, globalProxyEnabled) => {
                         hidden: { display: 'none' },
                     }}
                 >
-                    <circle cx={0} cy={0} r={6} fill={globalProxyEnabled ? 'rgba(0, 76, 51, 0.5)' : 'rgba(50, 50, 50, 0.5)'} stroke="#FFF" />
+                    <circle cx={0} cy={0} r={12} fill={globalProxyEnabled ? 'rgba(0, 76, 51, 0.2)' : 'rgba(50, 50, 50, 0.2)'} />
+                    <circle cx={0} cy={0} r={6} fill={globalProxyEnabled ? 'rgba(0, 76, 51, 0.5)' : 'rgba(50, 50, 50, 0.5)'} />
                     {renderCityName(marker.id, selectedEndpoint)}
                 </Marker>
             ))}
