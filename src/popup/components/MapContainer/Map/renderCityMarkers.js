@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import { Markers, Marker } from 'react-simple-maps';
 
 const CityMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMarkerClicked) => {
@@ -50,18 +50,39 @@ const CityMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMarkerCl
                     }}
                     onClick={onMarkerClicked}
                 >
-                    <circle
-                        cx={0}
-                        cy={0}
-                        r={12}
-                        fill={globalProxyEnabled ? 'rgba(0, 76, 51, 0.2)' : 'rgba(50, 50, 50, 0.2)'}
-                    />
-                    <circle
-                        cx={0}
-                        cy={0}
-                        r={6}
-                        fill={globalProxyEnabled ? 'rgba(0, 76, 51, 0.5)' : 'rgba(50, 50, 50, 0.5)'}
-                    />
+                    {
+                        marker.id === selectedEndpoint.id ? (
+                            <Fragment>
+                                <circle
+                                    cx={0}
+                                    cy={0}
+                                    r={14}
+                                    fill={globalProxyEnabled ? '#004C33' : '#323232'}
+                                />
+                                <circle
+                                    cx={0}
+                                    cy={0}
+                                    r={5}
+                                    fill="#F0F0F0"
+                                />
+                            </Fragment>
+                        ) : (
+                            <Fragment>
+                                <circle
+                                    cx={0}
+                                    cy={0}
+                                    r={12}
+                                    fill={globalProxyEnabled ? 'rgba(0, 76, 51, 0.2)' : 'rgba(50, 50, 50, 0.2)'}
+                                />
+                                <circle
+                                    cx={0}
+                                    cy={0}
+                                    r={6}
+                                    fill={globalProxyEnabled ? 'rgba(0, 76, 51, 0.5)' : 'rgba(50, 50, 50, 0.5)'}
+                                />
+                            </Fragment>
+                        )
+                    }
                     {renderCityName(marker.id, selectedEndpoint)}
                 </Marker>
             ))}

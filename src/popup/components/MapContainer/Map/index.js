@@ -5,7 +5,6 @@ import {
     Geographies,
     Geography,
 } from 'react-simple-maps';
-import { Motion, spring } from 'react-motion';
 import { observer } from 'mobx-react';
 import renderCityMarkers from './renderCityMarkers';
 import Tooltip from '../Tooltip';
