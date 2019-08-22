@@ -8,6 +8,10 @@ import bgProvider from '../../../lib/background-provider';
 import { REQUEST_STATES } from '../consts';
 
 class EndpointsStore {
+    constructor(rootStore) {
+        this.rootStore = rootStore;
+    }
+
     @observable endpoints;
 
     @observable endpointsGetState;
@@ -44,6 +48,7 @@ class EndpointsStore {
         await bgProvider.proxy.setCurrentEndpoint(selectedEndpoint);
         runInAction(() => {
             this.selectedEndpoint = selectedEndpoint;
+            this.rootStore.tooltipStore.setMapCoordinatesDefault();
         });
     };
 

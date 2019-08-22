@@ -27,6 +27,14 @@ const Map = observer((props) => {
         tooltipStore.openTooltip(e);
     };
 
+    const onGlobeMoveStart = () => {
+        tooltipStore.closeTooltip();
+    };
+
+    const onGlobeMoveEnd = (coordinates) => {
+        tooltipStore.setMapCoordinates(coordinates);
+    };
+
     const { globalProxyEnabled } = props;
     const mapStyles = {
         width: '500px',
@@ -45,64 +53,66 @@ const Map = observer((props) => {
     };
 
     const { endpoints, selectedEndpoint } = endpointsStore;
-    const center = (selectedEndpoint && selectedEndpoint.coordinates) || [0, 0];
+    const determineCenter = (endpointsStore, tooltipStore) => {
+        if (tooltipStore.isTooltipOpen) {
+            const { coordinates: [x, y] } = tooltipStore.tooltipContent;
+            return [x, y + 3];
+        }
+        if (!tooltipStore.hasDefaultMapCoordinates) {
+            return tooltipStore.mapCoordinates;
+        }
+        return (selectedEndpoint && selectedEndpoint.coordinates) || [0, 0];
+    };
+
+    const center = determineCenter(endpointsStore, tooltipStore);
     return (
         <div className="map">
-            <Motion
-                defaultStyle={{
-                    x: center[0],
-                    y: center[1],
-                }}
-                style={{
-                    x: spring(center[0]),
-                    y: spring(center[1]),
-                }}
+            <ComposableMap
+                width={400}
+                height={400}
+                projection="orthographic"
+                projectionConfig={{ scale: 200 }}
+                style={mapStyles}
             >
-                {({ x, y }) => (
-                    <ComposableMap
-                        width={400}
-                        height={400}
-                        projection="orthographic"
-                        projectionConfig={{ scale: 200 }}
-                        style={mapStyles}
+                <ZoomableGlobe
+                    center={center}
+                    onMoveStart={onGlobeMoveStart}
+                    onMoveEnd={onGlobeMoveEnd}
+                >
+                    <circle
+                        cx={200}
+                        cy={200}
+                        r={200}
+                        fill="transparent"
+                        stroke="#CFD8DC"
+                    />
+                    <Geographies
+                        disableOptimization
+                        geography={jsonMap}
                     >
-                        <ZoomableGlobe center={[x, y]}>
-                            <circle
-                                cx={200}
-                                cy={200}
-                                r={200}
-                                fill="transparent"
-                                stroke="#CFD8DC"
+                        {(geos, projection) => geos.map((geo, i) => (
+                            <Geography
+                                key={`geography-${i}`}
+                                geography={geo}
+                                projection={projection}
+                                style={{
+                                    default: geographyStyleDef,
+                                    hover: geographyStyleDef,
+                                    pressed: geographyStyleDef,
+                                }}
                             />
-                            <Geographies
-                                disableOptimization
-                                geography={jsonMap}
-                            >
-                                {(geos, projection) => geos.map((geo, i) => (
-                                    <Geography
-                                        key={`geography-${i}`}
-                                        geography={geo}
-                                        projection={projection}
-                                        style={{
-                                            default: geographyStyleDef,
-                                            hover: geographyStyleDef,
-                                            pressed: geographyStyleDef,
-                                        }}
-                                    />
-                                ))
+                        ))
                                     }
-                            </Geographies>
-                            {renderCityMarkers(
-                                endpoints,
-                                selectedEndpoint,
-                                globalProxyEnabled,
-                                onMarkerClick
-                            )
+                    </Geographies>
+                    {renderCityMarkers(
+                        endpoints,
+                        selectedEndpoint,
+                        globalProxyEnabled,
+                        onMarkerClick
+                    )
                             }
-                        </ZoomableGlobe>
-                    </ComposableMap>
-                )}
-            </Motion>
+                </ZoomableGlobe>
+            </ComposableMap>
             <Tooltip />
         </div>
     );
