@@ -9,11 +9,12 @@ import {
 } from 'react-simple-maps';
 import { Motion, spring } from 'react-motion';
 import { observer } from 'mobx-react';
+import Tooltip from '../Tooltip';
 import jsonMap from './110m.json';
 import rootStore from '../../../stores';
 import './map.pcss';
 
-const renderMarkers = (endpoints, selectedEndpoint, globalProxyEnabled) => {
+const renderMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMarkerClicked) => {
     if (!endpoints) {
         return '';
     }
@@ -60,6 +61,7 @@ const renderMarkers = (endpoints, selectedEndpoint, globalProxyEnabled) => {
                     style={{
                         hidden: { display: 'none' },
                     }}
+                    onClick={onMarkerClicked}
                 >
                     <circle cx={0} cy={0} r={12} fill={globalProxyEnabled ? 'rgba(0, 76, 51, 0.2)' : 'rgba(50, 50, 50, 0.2)'} />
                     <circle cx={0} cy={0} r={6} fill={globalProxyEnabled ? 'rgba(0, 76, 51, 0.5)' : 'rgba(50, 50, 50, 0.5)'} />
@@ -80,6 +82,10 @@ const Map = observer((props) => {
         })();
     }, []);
 
+    const onMarkerClick = (e) => {
+        // TODO [maximtop] center map
+        console.log(e);
+    };
 
     const { globalProxyEnabled } = props;
     const mapStyles = {
@@ -146,11 +152,12 @@ const Map = observer((props) => {
                                 ))
                                     }
                             </Geographies>
-                            {renderMarkers(endpoints, selectedEndpoint, globalProxyEnabled)}
+                            {renderMarkers(endpoints, selectedEndpoint, globalProxyEnabled, onMarkerClick)}
                         </ZoomableGlobe>
                     </ComposableMap>
                 )}
             </Motion>
+            <Tooltip />
         </div>
     );
 });
