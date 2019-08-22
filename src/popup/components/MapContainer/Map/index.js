@@ -24,7 +24,7 @@ const Map = observer((props) => {
 
     const onMarkerClick = (e) => {
         // TODO [maximtop] center map
-        tooltipStore.openTooltip();
+        tooltipStore.openTooltip(e);
     };
 
     const { globalProxyEnabled } = props;

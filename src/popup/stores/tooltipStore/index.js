@@ -1,16 +1,16 @@
 import { action, observable } from 'mobx';
 
 class TooltipStore {
-    @observable isTooltipOpen = false;
+    @observable tooltipContent = false;
 
     @action
-    openTooltip = () => {
-        this.isTooltipOpen = true;
+    openTooltip = (e) => {
+        this.tooltipContent = e;
     };
 
     @action
     closeTooltip = () => {
-        this.isTooltipOpen = false;
+        this.tooltipContent = false;
     };
 }
 
