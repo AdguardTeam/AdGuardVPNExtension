@@ -4,77 +4,17 @@ import {
     ZoomableGlobe,
     Geographies,
     Geography,
-    Marker,
-    Markers,
 } from 'react-simple-maps';
 import { Motion, spring } from 'react-motion';
 import { observer } from 'mobx-react';
+import renderCityMarkers from './renderCityMarkers';
 import Tooltip from '../Tooltip';
 import jsonMap from './110m.json';
 import rootStore from '../../../stores';
 import './map.pcss';
 
-const renderMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMarkerClicked) => {
-    if (!endpoints) {
-        return '';
-    }
-
-    const markers = Object.values(endpoints).map((endpoint) => {
-        const { coordinates } = endpoint;
-        if (coordinates) {
-            return endpoint;
-        }
-        return null;
-    }).filter(i => i);
-
-    if (!markers) {
-        return '';
-    }
-
-    const renderCityName = (markerId, selectedEndpoint) => {
-        if (!selectedEndpoint) {
-            return '';
-        }
-        if (markerId === selectedEndpoint.id) {
-            return (
-                <text
-                    textAnchor="middle"
-                    y="25px"
-                    style={{
-                        fontFamily: 'Roboto, sans-serif',
-                        fill: globalProxyEnabled ? '#004C33' : '#323232',
-                    }}
-                >
-                    {selectedEndpoint.cityName}
-                </text>
-            );
-        }
-        return '';
-    };
-
-    return (
-        <Markers>
-            {markers.map(marker => (
-                <Marker
-                    key={marker.id}
-                    marker={marker}
-                    style={{
-                        hidden: { display: 'none' },
-                    }}
-                    onClick={onMarkerClicked}
-                >
-                    <circle cx={0} cy={0} r={12} fill={globalProxyEnabled ? 'rgba(0, 76, 51, 0.2)' : 'rgba(50, 50, 50, 0.2)'} />
-                    <circle cx={0} cy={0} r={6} fill={globalProxyEnabled ? 'rgba(0, 76, 51, 0.5)' : 'rgba(50, 50, 50, 0.5)'} />
-                    {renderCityName(marker.id, selectedEndpoint)}
-                </Marker>
-            ))}
-        </Markers>
-    );
-};
-
-
 const Map = observer((props) => {
-    const { endpointsStore } = useContext(rootStore);
+    const { endpointsStore, tooltipStore } = useContext(rootStore);
 
     useEffect(() => {
         (async () => {
@@ -84,7 +24,7 @@ const Map = observer((props) => {
 
     const onMarkerClick = (e) => {
         // TODO [maximtop] center map
-        console.log(e);
+        tooltipStore.openTooltip();
     };
 
     const { globalProxyEnabled } = props;
@@ -152,7 +92,13 @@ const Map = observer((props) => {
                                 ))
                                     }
                             </Geographies>
-                            {renderMarkers(endpoints, selectedEndpoint, globalProxyEnabled, onMarkerClick)}
+                            {renderCityMarkers(
+                                endpoints,
+                                selectedEndpoint,
+                                globalProxyEnabled,
+                                onMarkerClick
+                            )
+                            }
                         </ZoomableGlobe>
                     </ComposableMap>
                 )}
