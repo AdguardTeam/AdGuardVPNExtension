@@ -12,10 +12,12 @@ const ExtraOptions = observer(() => {
     };
 
     const addToWhitelist = async () => {
+        uiStore.closeOptionsModal();
         await settingsStore.addToWhitelist();
     };
 
     const removeFromWhitelist = async () => {
+        uiStore.closeOptionsModal();
         await settingsStore.removeFromWhitelist();
     };
 

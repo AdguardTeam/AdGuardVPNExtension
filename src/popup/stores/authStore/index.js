@@ -57,6 +57,11 @@ class AuthStore {
         this.step = DEFAULTS.step;
     };
 
+    @action setDefaultsError = () => {
+        this.error = DEFAULTS.error;
+        this.errorDescription = DEFAULTS.errorDescription;
+    };
+
     @action onCredentialsChange = (field, value) => {
         this.credentials[field] = value;
     };
