@@ -67,18 +67,20 @@ const Authentication = observer(() => {
                 >
                     {getTitle(step)}
                 </div>
-                <div className="authentication__privacy">
-                    By continuing you accept the&nbsp;
-                    <div>
-                        <a href="#" className="authentication__privacy-link">
-                            Terms and Conditions
-                        </a>
-                        &nbsp;and&nbsp;
-                        <a href="#" className="authentication__privacy-link">
-                            EULA
-                        </a>
+                {step !== authStore.STEPS.TWO_FACTOR && (
+                    <div className="authentication__privacy">
+                        By continuing you accept the&nbsp;
+                        <div>
+                            <a href="#" className="authentication__privacy-link">
+                                Terms and Conditions
+                            </a>
+                            &nbsp;and&nbsp;
+                            <a href="#" className="authentication__privacy-link">
+                                EULA
+                            </a>
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
             {getForm(step)}
             {step === authStore.STEPS.SIGN_IN && <SocialIcons />}

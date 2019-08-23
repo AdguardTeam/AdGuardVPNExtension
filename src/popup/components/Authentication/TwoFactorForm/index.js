@@ -20,9 +20,9 @@ const TwoFactorForm = observer(() => {
             onSubmit={submitHandler}
         >
             <div className="form__inputs">
-                <div className={`form__item${authStore.error && (authStore.field === 'username' || authStore.field === '') ? ' form__item--error' : ''}`}>
+                <div className="form__item">
                     <label className="form__label" htmlFor="twoFactor">
-                        Enter the verification code:
+                        Code from app:
                     </label>
                     <input
                         id="twoFactor"
@@ -44,10 +44,10 @@ const TwoFactorForm = observer(() => {
 
             <div className="form__btns">
                 <button
-                    className="form__btn button button--m button--hundred button--green"
+                    className="form__btn button--uppercase button button--m button--hundred button--green"
                     type="submit"
                 >
-                    Register
+                    Confirm
                 </button>
             </div>
         </form>

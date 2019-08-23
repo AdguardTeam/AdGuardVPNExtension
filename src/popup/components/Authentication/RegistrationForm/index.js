@@ -75,7 +75,7 @@ const RegistrationForm = observer(() => {
 
             <div className="form__btns">
                 <button
-                    className="form__btn button button--m button--hundred button--green"
+                    className="form__btn button--uppercase button button--m button--hundred button--green"
                     type="submit"
                 >
                         Register
