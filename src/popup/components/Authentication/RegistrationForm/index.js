@@ -53,17 +53,17 @@ const RegistrationForm = observer(() => {
                 </div>
                 <div className="form__item">
                     <div className="form__item-header">
-                        <label className="form__label" htmlFor="password_again">
+                        <label className="form__label" htmlFor="passwordAgain">
                             Password again:
                         </label>
                     </div>
                     <input
-                        id="password_again"
+                        id="passwordAgain"
                         className="form__input"
                         type="password"
-                        name="password_again"
+                        name="passwordAgain"
                         onChange={inputChangeHandler}
-                        value={authStore.credentials.password_again}
+                        value={authStore.credentials.passwordAgain}
                     />
                 </div>
                 { authStore.error
@@ -78,7 +78,7 @@ const RegistrationForm = observer(() => {
                 <button
                     className="form__btn button--uppercase button button--m button--hundred button--green"
                     type="submit"
-                    disabled={authStore.canRegister}
+                    disabled={authStore.disableRegister}
                 >
                         Register
                 </button>

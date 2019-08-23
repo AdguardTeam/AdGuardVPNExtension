@@ -18,7 +18,7 @@ const DEFAULTS = {
     credentials: {
         username: '',
         password: '',
-        password_again: '',
+        passwordAgain: '',
         twoFactor: '',
     },
     authenticated: false,
@@ -64,7 +64,7 @@ class AuthStore {
     };
 
     validate = debounce((field, value) => {
-        if (field === 'password_again') {
+        if (field === 'passwordAgain') {
             if (value !== this.credentials.password) {
                 runInAction(() => {
                     this.error = true;
@@ -81,9 +81,15 @@ class AuthStore {
     };
 
     @computed
-    get canRegister() {
-        return this.credentials.username.length > 0
-            && this.credentials.password === this.credentials.password_again;
+    get disableRegister() {
+        const { username, password, passwordAgain } = this.credentials;
+        if (!username || !password || !passwordAgain) {
+            return true;
+        }
+        if (password !== passwordAgain) {
+            return true;
+        }
+        return false;
     }
 
     @action authenticate = async () => {
