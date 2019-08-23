@@ -3,12 +3,14 @@ import {
     action,
     runInAction,
 } from 'mobx';
+import debounce from 'lodash/debounce';
 
 import bgProvider from '../../../lib/background-provider';
 
 const AUTH_STEPS = {
     SIGN_IN: 'signIn',
     REGISTRATION: 'registration',
+    TWO_FACTOR: 'twoFactor',
 };
 
 const DEFAULTS = {
@@ -16,7 +18,7 @@ const DEFAULTS = {
         username: '',
         password: '',
         password_again: '',
-        twoFA: '',
+        twoFactor: '',
     },
     authenticated: false,
     need2fa: false,
@@ -40,12 +42,9 @@ class AuthStore {
 
     @observable errorDescription = DEFAULTS.errorDescription;
 
-    // TODO [maximtop] refactor to better name
     @observable field = DEFAULTS.field;
 
     @observable step = DEFAULTS.step;
-
-    @observable authData = DEFAULTS;
 
     STEPS = AUTH_STEPS;
 
@@ -63,8 +62,21 @@ class AuthStore {
         this.errorDescription = DEFAULTS.errorDescription;
     };
 
+    validate = debounce((field, value) => {
+        if (field === 'password_again') {
+            if (value && value !== this.credentials.password) {
+                runInAction(() => {
+                    this.error = true;
+                    this.errorDescription = 'Password and confirm password does not match';
+                });
+            }
+        }
+    }, 500);
+
     @action onCredentialsChange = (field, value) => {
+        this.setDefaultsError();
         this.credentials[field] = value;
+        this.validate(field, value);
     };
 
     @action authenticate = async () => {
@@ -90,6 +102,7 @@ class AuthStore {
         if (response.status === '2fa_required') {
             runInAction(() => {
                 this.need2fa = true;
+                this.switchStep(this.STEPS.TWO_FACTOR);
             });
         }
     };
@@ -146,6 +159,7 @@ class AuthStore {
 
     @action switchStep = (step) => {
         this.step = step;
+        this.setDefaultsError();
     };
 
     @action showRegistration = () => {

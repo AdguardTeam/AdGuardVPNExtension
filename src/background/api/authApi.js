@@ -8,7 +8,7 @@ class AuthApi extends Api {
     REGISTER_USER = { path: 'api/1.0/registration', method: 'POST' };
 
     getAccessToken(credentials) {
-        const { username, password, twoFA } = credentials;
+        const { username, password, twoFactor } = credentials;
         const { path, method } = this.GET_TOKEN;
 
         const data = {
@@ -19,8 +19,8 @@ class AuthApi extends Api {
             client_id: 'adguard-vpn-extension',
         };
 
-        if (twoFA) {
-            data['2fa_token'] = twoFA;
+        if (twoFactor) {
+            data['2fa_token'] = twoFactor;
         }
 
         const config = {

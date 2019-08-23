@@ -5,6 +5,7 @@ import rootStore from '../../stores';
 import SocialIcons from './SocialIcons';
 import SignInForm from './SignInForm';
 import RegistrationForm from './RegistrationForm';
+import TwoFactorForm from './TwoFactorForm';
 
 const Authentication = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -26,20 +27,27 @@ const Authentication = observer(() => {
                 </Fragment>
             ),
             registration: 'Registration',
+            twoFactor: 'Confirmation',
         };
         return titleMaps[step] || titleMaps.signIn;
     };
 
     const getForm = (step) => {
-        if (step === authStore.STEPS.REGISTRATION) {
-            return <RegistrationForm />;
+        switch (step) {
+            case authStore.STEPS.REGISTRATION: {
+                return <RegistrationForm />;
+            }
+            case authStore.STEPS.TWO_FACTOR: {
+                return <TwoFactorForm />;
+            }
+            default: {
+                return <SignInForm />;
+            }
         }
-        return <SignInForm />;
     };
 
     const handleBackClick = () => {
         authStore.showSignIn();
-        authStore.setDefaultsError();
     };
 
     const { step } = authStore;

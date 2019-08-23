@@ -15,14 +15,10 @@ const SignInForm = observer(() => {
     const inputChangeHandler = (e) => {
         const { target: { name, value } } = e;
         authStore.onCredentialsChange(name, value);
-        if (authStore.error) {
-            authStore.setDefaultsError();
-        }
     };
 
     const handleRegisterClick = () => {
         authStore.showRegistration('register');
-        authStore.setDefaultsError();
     };
 
     return (
@@ -67,21 +63,6 @@ const SignInForm = observer(() => {
                         value={authStore.credentials.password}
                     />
                 </div>
-                {authStore.need2fa && (
-                    <div className="form__item">
-                        <label className="form__label" htmlFor="twoFA">
-                            Enter 2fa code
-                        </label>
-                        <input
-                            id="twoFA"
-                            className="form__input"
-                            type="text"
-                            name="twoFA"
-                            value={authStore.credentials.twoFA}
-                            onChange={inputChangeHandler}
-                        />
-                    </div>
-                )}
                 { authStore.error
                     && (
                         <div className="form__item-error">

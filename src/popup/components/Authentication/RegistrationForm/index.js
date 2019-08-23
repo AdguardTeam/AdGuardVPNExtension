@@ -12,9 +12,6 @@ const RegistrationForm = observer(() => {
     const inputChangeHandler = (e) => {
         const { target: { name, value } } = e;
         authStore.onCredentialsChange(name, value);
-        if (authStore.error) {
-            authStore.setDefaultsError();
-        }
     };
 
 
@@ -70,11 +67,10 @@ const RegistrationForm = observer(() => {
                 </div>
                 { authStore.error
                 && (
-                    <div className="form__item-error">
-                        {authStore.errorDescription}
-                    </div>
-                )
-                }
+                <div className="form__item-error">
+                    {authStore.errorDescription}
+                </div>
+                )}
             </div>
 
             <div className="form__btns">
