@@ -81,8 +81,9 @@ class AuthStore {
     };
 
     @computed
-    get canAuthenticate() {
-        return this.credentials.password === this.credentials.password_again;
+    get canRegister() {
+        return this.credentials.username.length > 0
+            && this.credentials.password === this.credentials.password_again;
     }
 
     @action authenticate = async () => {

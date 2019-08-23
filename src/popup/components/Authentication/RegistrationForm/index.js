@@ -78,7 +78,7 @@ const RegistrationForm = observer(() => {
                 <button
                     className="form__btn button--uppercase button button--m button--hundred button--green"
                     type="submit"
-                    disabled={authStore.canAuthenticate}
+                    disabled={authStore.canRegister}
                 >
                         Register
                 </button>
