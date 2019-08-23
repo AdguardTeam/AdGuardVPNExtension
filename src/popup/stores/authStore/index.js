@@ -15,6 +15,7 @@ const DEFAULTS = {
     credentials: {
         username: '',
         password: '',
+        password_again: '',
         twoFA: '',
     },
     authenticated: false,

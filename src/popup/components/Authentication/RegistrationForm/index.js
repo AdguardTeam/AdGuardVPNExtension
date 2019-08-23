@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import rootStore from '../../../stores';
-import Checkbox from '../../Settings/Checkbox';
 
 const RegistrationForm = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -13,28 +12,9 @@ const RegistrationForm = observer(() => {
     const inputChangeHandler = (e) => {
         const { target: { name, value } } = e;
         authStore.onCredentialsChange(name, value);
-    };
-
-    const showEmailError = () => {
-        if (authStore.error && (authStore.field === 'username' || authStore.field === '')) {
-            return (
-                <div className="form__item-error">
-                    {authStore.errorDescription}
-                </div>
-            );
+        if (authStore.error) {
+            authStore.setDefaultsError();
         }
-        return '';
-    };
-
-    const showPasswordError = () => {
-        if (authStore.error && authStore.field === 'password') {
-            return (
-                <div className="form__item-error">
-                    {authStore.errorDescription}
-                </div>
-            );
-        }
-        return '';
     };
 
 
@@ -43,53 +23,58 @@ const RegistrationForm = observer(() => {
             className="form"
             onSubmit={submitHandler}
         >
-            {showEmailError()}
-            <div className="form__item">
-                <label className="form__label" htmlFor="username">
+            <div className="form__inputs">
+                <div className={`form__item${authStore.error && (authStore.field === 'username' || authStore.field === '') ? ' form__item--error' : ''}`}>
+                    <label className="form__label" htmlFor="username">
                         Email:
-                </label>
-                <input
-                    id="username"
-                    className="form__input"
-                    type="text"
-                    name="username"
-                    placeholder="example@mail.com"
-                    value={authStore.credentials.username}
-                    onChange={inputChangeHandler}
-                />
-            </div>
-            {showPasswordError()}
-            <div className="form__item">
-                <div className="form__item-header">
-                    <label className="form__label" htmlFor="password">
-                            Password:
                     </label>
+                    <input
+                        id="username"
+                        className="form__input"
+                        type="text"
+                        name="username"
+                        placeholder="example@mail.com"
+                        value={authStore.credentials.username}
+                        onChange={inputChangeHandler}
+                    />
                 </div>
-                <input
-                    id="password"
-                    className="form__input"
-                    type="password"
-                    name="password"
-                    onChange={inputChangeHandler}
-                    value={authStore.credentials.password}
-                />
-            </div>
-            <div className="form__item">
-                <Checkbox
-                    title="I agree to abide by AdGuard's Terms and Conditions"
-                    id="agreement"
-                    handler={inputChangeHandler}
-                    value={authStore.credentials.agreement}
-                />
-            </div>
-            <div className="form__item">
-                <Checkbox
-                    title="Do you allow us to send you infrequent updates on AdGuard? You can unsubscribe any time"
-                    id="marketingConsent"
-                    handler={inputChangeHandler}
-                    value={authStore.credentials.marketingConsent}
-                    mod="checkbox--grey"
-                />
+                <div className={`form__item${authStore.error && authStore.field === 'password' ? ' form__item--error' : ''}`}>
+                    <div className="form__item-header">
+                        <label className="form__label" htmlFor="password">
+                            Password:
+                        </label>
+                    </div>
+                    <input
+                        id="password"
+                        className="form__input"
+                        type="password"
+                        name="password"
+                        onChange={inputChangeHandler}
+                        value={authStore.credentials.password}
+                    />
+                </div>
+                <div className="form__item">
+                    <div className="form__item-header">
+                        <label className="form__label" htmlFor="password_again">
+                            Password again:
+                        </label>
+                    </div>
+                    <input
+                        id="password_again"
+                        className="form__input"
+                        type="password"
+                        name="password_again"
+                        onChange={inputChangeHandler}
+                        value={authStore.credentials.password_again}
+                    />
+                </div>
+                { authStore.error
+                && (
+                    <div className="form__item-error">
+                        {authStore.errorDescription}
+                    </div>
+                )
+                }
             </div>
 
             <div className="form__btns">

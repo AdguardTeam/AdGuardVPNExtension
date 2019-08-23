@@ -16,6 +16,12 @@
     &__item {
         position: relative;
         margin-bottom: 20px;
+
+        &--error {
+            & .form__input {
+                border: 1px solid var(--red);
+            }
+        }
     }
 
     &__inline-btn {
@@ -63,7 +69,8 @@
     &__item-error {
         position: absolute;
         color: var(--red);
-        bottom: -20px;
-        left: 0;
+        top: calc(100% + 13px);
+        width: 100%;
+        text-align: center;
     }
 }

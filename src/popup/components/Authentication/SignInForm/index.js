@@ -22,6 +22,7 @@ const SignInForm = observer(() => {
 
     const handleRegisterClick = () => {
         authStore.showRegistration('register');
+        authStore.setDefaultsError();
     };
 
     return (

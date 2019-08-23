@@ -37,6 +37,11 @@ const Authentication = observer(() => {
         return <SignInForm />;
     };
 
+    const handleBackClick = () => {
+        authStore.showSignIn();
+        authStore.setDefaultsError();
+    };
+
     const { step } = authStore;
     return (
         <div className="authentication">
@@ -45,7 +50,7 @@ const Authentication = observer(() => {
                     <button
                         className="button button--back"
                         role="button"
-                        onClick={authStore.showSignIn}
+                        onClick={handleBackClick}
                     />
                 )}
                 <div
@@ -54,20 +59,18 @@ const Authentication = observer(() => {
                 >
                     {getTitle(step)}
                 </div>
-                {step === authStore.STEPS.SIGN_IN && (
-                    <div className="authentication__privacy">
-                        By continuing you accept the&nbsp;
-                        <div>
-                            <a href="#" className="authentication__privacy-link">
-                                Terms and Conditions
-                            </a>
-                            &nbsp;and&nbsp;
-                            <a href="#" className="authentication__privacy-link">
-                                EULA
-                            </a>
-                        </div>
+                <div className="authentication__privacy">
+                    By continuing you accept the&nbsp;
+                    <div>
+                        <a href="#" className="authentication__privacy-link">
+                            Terms and Conditions
+                        </a>
+                        &nbsp;and&nbsp;
+                        <a href="#" className="authentication__privacy-link">
+                            EULA
+                        </a>
                     </div>
-                )}
+                </div>
             </div>
             {getForm(step)}
             {step === authStore.STEPS.SIGN_IN && <SocialIcons />}
