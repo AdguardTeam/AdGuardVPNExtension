@@ -16,7 +16,7 @@ const TwoFactorForm = observer(() => {
 
     return (
         <form
-            className="form"
+            className={`form${authStore.error && ' form--error'}`}
             onSubmit={submitHandler}
         >
             <div className="form__inputs">
