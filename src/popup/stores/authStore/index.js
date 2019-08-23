@@ -2,6 +2,7 @@ import {
     observable,
     action,
     runInAction,
+    computed,
 } from 'mobx';
 import debounce from 'lodash/debounce';
 
@@ -64,7 +65,7 @@ class AuthStore {
 
     validate = debounce((field, value) => {
         if (field === 'password_again') {
-            if (value && value !== this.credentials.password) {
+            if (value !== this.credentials.password) {
                 runInAction(() => {
                     this.error = true;
                     this.errorDescription = 'Password and confirm password does not match';
@@ -78,6 +79,11 @@ class AuthStore {
         this.credentials[field] = value;
         this.validate(field, value);
     };
+
+    @computed
+    get canAuthenticate() {
+        return this.credentials.password === this.credentials.password_again;
+    }
 
     @action authenticate = async () => {
         const response = await bgProvider.auth.authenticate(this.credentials);
