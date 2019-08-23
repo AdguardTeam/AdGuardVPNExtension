@@ -72,10 +72,13 @@
     }
 
     &__item-error {
-        position: absolute;
+        margin-bottom: -25px;
         color: var(--red);
-        top: calc(100% + 13px);
         width: 100%;
         text-align: center;
+
+        & a {
+            color: var(--green74);
+        }
     }
 }

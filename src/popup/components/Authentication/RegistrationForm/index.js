@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
+import ReactHtmlParser from 'react-html-parser';
 import rootStore from '../../../stores';
 
 const RegistrationForm = observer(() => {
@@ -68,7 +69,7 @@ const RegistrationForm = observer(() => {
                 { authStore.error
                 && (
                 <div className="form__item-error">
-                    {authStore.errorDescription}
+                    { ReactHtmlParser(authStore.errorDescription) }
                 </div>
                 )}
             </div>
