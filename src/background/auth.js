@@ -85,6 +85,10 @@ class Auth {
                 params.social_provider = 'yandex';
                 break;
             }
+            case 'facebook': {
+                params.social_provider = 'facebook';
+                break;
+            }
             default:
                 throw new Error(`There is no such provider: "${socialProvider}"`);
         }

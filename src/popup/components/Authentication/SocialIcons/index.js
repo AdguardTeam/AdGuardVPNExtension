@@ -36,6 +36,11 @@ function SocialIcons() {
                     onClick={socialAuthClickHandler('vk')}
                     className="social-icons__item button button--social button--vk"
                 />
+                <button
+                    type="button"
+                    onClick={socialAuthClickHandler('facebook')}
+                    className="social-icons__item button button--social button--facebook"
+                />
             </div>
         </div>
     );
