@@ -3,54 +3,99 @@
 // see webpack proto-loader https://github.com/PermissionData/protobufjs-loader
 import { WsPingMsg, WsConnectivityMsg } from './stats.proto';
 import { websocketApi } from '../api/websocketApi';
-import log from '../../lib/logger';
 
 class Stats {
-    // TODO [maximtop] change this to request ping once per minute
-    PING_GET_INTERVAL_MS = 1000;
+    // TODO [maximtop] change this to update ping once per minute
+    PING_UPDATE_INTERVAL_MS = 1000 * 5;
 
     constructor() {
-        this.startGettingPing((ping) => {
-            if (this.pingCallback && typeof this.pingCallback === 'function') {
-                try {
-                    this.pingCallback(ping);
-                } catch (e) {
-                    // Usually error happens only on popup close
-                    // TODO [maximtop] figure out how to disconnect this callback after popup closed
-                    log.error(e.message);
-                }
-            }
-        });
+        this.init();
     }
 
-    createPingMessage = (currentTime) => {
+    init = async () => {
+        await websocketApi.open();
+        await this.startGettingPing();
+        this.startGettingStats();
+    };
+
+    preparePingMessage = (currentTime) => {
         const pingMsg = WsPingMsg.create({ requestTime: currentTime });
         const protocolMsg = WsConnectivityMsg.create({ pingMsg });
         return WsConnectivityMsg.encode(protocolMsg).finish();
     };
 
-    startGettingPing = (callback) => {
-        setInterval(() => {
-            const buffer = this.createPingMessage(Date.now());
-            websocketApi.send(buffer);
-        }, this.PING_GET_INTERVAL_MS);
+    decodeMessage = (arrBufMessage) => {
+        const message = WsConnectivityMsg.decode(new Uint8Array(arrBufMessage));
+        return WsConnectivityMsg.toObject(message);
+    };
 
-        websocketApi.onMessage((event) => {
+    pollPing = () => new Promise((resolve) => {
+        const arrBufMessage = this.preparePingMessage(Date.now());
+        websocketApi.send(arrBufMessage);
+
+        const messageHandler = (event) => {
             const receivedTime = Date.now();
-            const message = WsConnectivityMsg.decode(new Uint8Array(event.data));
-            const messageObj = WsConnectivityMsg.toObject(message);
-            const { pingMsg } = messageObj;
+            const { pingMsg, connectivityInfoMsg } = this.decodeMessage(event.data);
             if (pingMsg) {
                 const { requestTime } = pingMsg;
                 const ping = receivedTime - requestTime;
-                callback(ping);
+                websocketApi.removeMessageListener(messageHandler);
+                resolve(ping);
             }
-        });
+            if (connectivityInfoMsg) {
+                this.updateStats(connectivityInfoMsg);
+            }
+        };
+
+        websocketApi.onMessage(messageHandler);
+    });
+
+    getAveragePing = async () => {
+        const POLLS_NUM = 3;
+        const results = [];
+        for (let i = 0; i < POLLS_NUM; i += 1) {
+            // eslint-disable-next-line no-await-in-loop
+            const result = await this.pollPing();
+            results.push(result);
+        }
+        const sum = results.reduce((prev, next) => prev + next);
+        return Math.floor(sum / POLLS_NUM);
     };
 
-    setPingCallback = (pingCallback) => {
-        this.pingCallback = pingCallback;
+    updatePingValue = (ping) => {
+        console.log(ping);
+        this.ping = ping;
     };
+
+    startGettingPing = async () => {
+        const averagePing = await this.getAveragePing();
+        this.updatePingValue(averagePing);
+
+        setInterval(async () => {
+            const averagePing = await this.getAveragePing();
+            this.updatePingValue(averagePing);
+        }, this.PING_UPDATE_INTERVAL_MS);
+    };
+
+    updateStats = (stats) => {
+        console.log(stats);
+        this.stats = stats;
+    };
+
+    startGettingStats = () => {
+        const messageHandler = (event) => {
+            const { connectivityInfoMsg } = this.decodeMessage(event.data);
+            if (connectivityInfoMsg) {
+                this.updateStats(connectivityInfoMsg);
+            }
+        };
+
+        websocketApi.onMessage(messageHandler);
+    };
+
+    getPing = () => this.ping;
+
+    getStats = () => this.stats;
 }
 
 const stats = new Stats();

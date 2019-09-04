@@ -11,9 +11,9 @@ class Auth {
 
     CLIENT_ID = 'adguard-vpn-extension';
 
-    BASE_AUTH_URL = 'https://testauth.adguard.com/oauth/authorize';
+    BASE_AUTH_URL = 'https://auth.adguard.com/oauth/authorize';
 
-    REDIRECT_URI = 'https://testauth.adguard.com/oauth.html';
+    REDIRECT_URI = 'https://auth.adguard.com/oauth.html';
 
     socialAuthState = null;
 

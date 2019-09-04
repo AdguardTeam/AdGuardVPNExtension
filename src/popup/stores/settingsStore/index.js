@@ -34,11 +34,11 @@ class SettingsStore {
     };
 
     startGettingPing = async () => {
-        await bgProvider.stats.setPingCallback(this.setPing);
+        // await bgProvider.stats.setPingCallback(this.setPing);
     };
 
     stopGettingPing = async () => {
-        await bgProvider.stats.setPingCallback(null);
+        // await bgProvider.stats.setPingCallback(null);
     };
 
     @action

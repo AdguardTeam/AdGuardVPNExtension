@@ -1,5 +1,6 @@
 import qs from 'qs';
 import Api from './Api';
+import { AUTH_API_URL } from './config';
 
 class AuthApi extends Api {
     // API ENDPOINTS
@@ -56,8 +57,6 @@ class AuthApi extends Api {
     }
 }
 
-const AUTH_BASE_URL = 'https://testauth.adguard.com';
-
-const vpnApi = new AuthApi(AUTH_BASE_URL);
+const vpnApi = new AuthApi(AUTH_API_URL);
 
 export default vpnApi;

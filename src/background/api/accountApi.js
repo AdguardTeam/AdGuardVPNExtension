@@ -1,3 +1,4 @@
+import { ACCOUNT_API_URL } from './config';
 import Api from './Api';
 
 class AccountApi extends Api {
@@ -12,9 +13,6 @@ class AccountApi extends Api {
     }
 }
 
-// check that this url is presented in the manifest file
-const ACCOUNT_BASE_URL = 'http://10.7.143.216:8181/api/1.0';
-
-const accountApi = new AccountApi(ACCOUNT_BASE_URL);
+const accountApi = new AccountApi(ACCOUNT_API_URL);
 
 export default accountApi;

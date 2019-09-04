@@ -1,8 +1,9 @@
 import qs from 'qs';
 import Api from './Api';
+import { VPN_API_URL } from './config';
 
 class VpnApi extends Api {
-    GET_ENDPOINTS = { path: 'endpoints?only_connected=false', method: 'GET' };
+    GET_ENDPOINTS = { path: 'endpoints', method: 'GET' };
 
     GET_STATS = { path: 'stats', method: 'GET' };
 
@@ -33,8 +34,6 @@ class VpnApi extends Api {
         return this.makeRequest(path, method, config);
     }
 }
-
-const VPN_API_URL = 'http://10.7.144.39:8181/api/v1';
 
 const vpnApi = new VpnApi(VPN_API_URL);
 

@@ -51,7 +51,7 @@ const CityMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMarkerCl
                     onClick={onMarkerClicked}
                 >
                     {
-                        marker.id === selectedEndpoint.id ? (
+                        selectedEndpoint && selectedEndpoint.id === marker.id ? (
                             <Fragment>
                                 <circle
                                     cx={0}
