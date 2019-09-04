@@ -11,7 +11,6 @@ class WebsocketApi {
         return new Promise((resolve) => {
             this.ws.addEventListener('open', resolve);
         });
-        // TODO [maximtop] reconnect on websocket disconnect
     }
 
     send(message) {
@@ -25,11 +24,8 @@ class WebsocketApi {
     }
 }
 
+const websocketApi = new WebsocketApi('wss://msk2.ru.adguard.io:8080/user_metrics');
+websocketApi.open();
 
-// let websocketApi = new WebsocketApi('ws://192.168.11.191:8182/user_metrics');
-// TODO [maximtop] use line from the up
-const websocketApi = {
-    onMessage: () => {},
-    send: () => {},
-};
-export default websocketApi;
+// eslint-disable-next-line import/prefer-default-export
+export { websocketApi };

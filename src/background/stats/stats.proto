@@ -3,22 +3,21 @@ option java_multiple_files = true;
 option java_package = "com.adguard.vpn.endpoint.generated";
 option java_outer_classname = "UserMetricsProto";
 option objc_class_prefix = "VPN";
-message PingMsg {
+message WsPingMsg {
     // used to measure ping, it doesn't matter what time unit is used and handling by client
     int64 requestTime = 1;
+    bytes token = 2;
 }
-message UserMetrics {
-    float downloadMbytes = 1;
-    float uploadMbytes = 2;
-    float bandWidthMbytes = 3;
-    float speedMbytesPerSecond = 4;
+message WsConnectivityInfoMsg {
+    bytes token = 1;
+    float mbytesDownloaded = 2;
+    float mbytesUploaded = 3;
+    float downloadSpeedMbytesPerSec = 4;
+    float uploadSpeedMbytesPerSec = 5;
 }
-message UserMetricsRequest {
-}
-message ProtocolMsg {
+message WsConnectivityMsg {
     oneof payload {
-        PingMsg pingMsg = 1;
-        UserMetrics userRequest = 2;
-        UserMetricsRequest userMetricRequest = 3;
+        WsPingMsg pingMsg = 1;
+        WsConnectivityInfoMsg connectivityInfoMsg = 2;
     }
 }

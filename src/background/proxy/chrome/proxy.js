@@ -88,8 +88,8 @@ class ExtensionProxy {
         const bypassList = this.getBypassList();
         const proxy = {
             scheme: 'https',
-            host: 'local.msk2.ru.adguard.io',
-            port: 443,
+            host: '21ea2c9c6c1ba23efaf7efaeb118a065.msk2.ru.adguard.io',
+            port: 8443,
         };
 
         return {

@@ -2,7 +2,7 @@ import qs from 'qs';
 import Api from './Api';
 
 class VpnApi extends Api {
-    GET_ENDPOINTS = { path: 'endpoints', method: 'GET' };
+    GET_ENDPOINTS = { path: 'endpoints?only_connected=false', method: 'GET' };
 
     GET_STATS = { path: 'stats', method: 'GET' };
 
@@ -10,6 +10,7 @@ class VpnApi extends Api {
 
     getEndpoints() {
         const { path, method } = this.GET_ENDPOINTS;
+
         return this.makeRequest(path, method);
     }
 
