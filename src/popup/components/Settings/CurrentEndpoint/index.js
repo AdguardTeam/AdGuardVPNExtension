@@ -5,11 +5,15 @@ import rootStore from '../../../stores';
 
 const CurrentEndpoint = observer((props) => {
     const { endpointsStore, settingsStore } = useContext(rootStore);
+
     useEffect(() => {
         (async () => {
             await endpointsStore.getSelectedEndpoint();
-            await settingsStore.startGettingPing();
         })();
+        const intervalId = setInterval(async () => {
+            await settingsStore.getProxyPing();
+        }, 1000);
+        return () => clearInterval(intervalId);
     }, []);
 
     const renderStatus = () => {

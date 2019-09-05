@@ -33,12 +33,9 @@ class SettingsStore {
         this.ping = ping;
     };
 
-    startGettingPing = async () => {
-        // await bgProvider.stats.setPingCallback(this.setPing);
-    };
-
-    stopGettingPing = async () => {
-        // await bgProvider.stats.setPingCallback(null);
+    getProxyPing = async () => {
+        const ping = await bgProvider.stats.getPing();
+        this.setPing(ping);
     };
 
     @action
@@ -51,12 +48,10 @@ class SettingsStore {
 
     enableExtension = async () => {
         this.extensionEnabled = true;
-        await this.startGettingPing();
     };
 
     disableExtension = async () => {
         this.extensionEnabled = false;
-        await this.stopGettingPing();
     };
 
     toggleEnabled = async (value) => {

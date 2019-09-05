@@ -13,11 +13,7 @@ const Stats = observer(() => {
         return () => clearInterval(intervalId);
     }, []);
 
-    if (!settingsStore.proxyStats) {
-        return '';
-    }
-
-    const { mbytesDownloaded, downloadSpeedMbytesPerSec } = settingsStore.proxyStats;
+    const { mbytesDownloaded = '...', downloadSpeedMbytesPerSec = '...' } = settingsStore.proxyStats || {};
     return (
         <div className="stats">
             <div className="stats__col">

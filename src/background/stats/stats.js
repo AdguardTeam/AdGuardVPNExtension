@@ -99,7 +99,9 @@ class Stats {
         if (!this.stats) {
             return null;
         }
-        const { mbytesDownloaded, downloadSpeedMbytesPerSec } = this.stats;
+        let { mbytesDownloaded, downloadSpeedMbytesPerSec } = this.stats;
+        mbytesDownloaded = mbytesDownloaded.toFixed(2);
+        downloadSpeedMbytesPerSec = downloadSpeedMbytesPerSec.toFixed(2);
         return { mbytesDownloaded, downloadSpeedMbytesPerSec };
     }
 }
