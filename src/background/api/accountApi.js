@@ -1,4 +1,4 @@
-import { ACCOUNT_API_URL } from './config';
+import { ACCOUNT_API_URL } from '../config';
 import Api from './Api';
 
 class AccountApi extends Api {

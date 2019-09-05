@@ -1,5 +1,5 @@
 import ReconnectingWebSocket from 'reconnecting-websocket';
-import { WEBSOCKET_API_URL } from './config';
+import { WEBSOCKET_API_URL } from '../config';
 
 class WebsocketApi {
     constructor(url) {

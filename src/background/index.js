@@ -28,7 +28,14 @@ global.background = {
 };
 
 // TODO [maximtop] move credentials dependency into UI
-credentials.gainVpnCredentials().then(res => console.log(res));
+(async () => {
+    try {
+        const res = await credentials.gainVpnCredentials();
+        console.log(res);
+    } catch (e) {
+        console.log(e);
+    }
+})();
 
 // message handler used for message exchange with content pages, for other cases use bgProvider
 browser.runtime.onMessage.addListener(async (request, sender, sendResponse) => {

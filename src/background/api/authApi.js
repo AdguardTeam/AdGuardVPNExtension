@@ -1,6 +1,6 @@
 import qs from 'qs';
 import Api from './Api';
-import { AUTH_API_URL } from './config';
+import { AUTH_API_URL } from '../config';
 
 class AuthApi extends Api {
     // API ENDPOINTS

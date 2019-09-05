@@ -5,16 +5,14 @@ import { authApi } from './api';
 import storage from './storage';
 import tabs from './tabs';
 import notifications from './notifications';
+import {
+    AUTH_ACCESS_TOKEN_KEY,
+    AUTH_CLIENT_ID,
+    AUTH_BASE_URL,
+    AUTH_REDIRECT_URI,
+} from './config';
 
 class Auth {
-    ACCESS_TOKEN_KEY = 'auth.access.token';
-
-    CLIENT_ID = 'adguard-vpn-extension';
-
-    BASE_AUTH_URL = 'https://auth.adguard.com/oauth/authorize';
-
-    REDIRECT_URI = 'https://auth.adguard.com/oauth.html';
-
     socialAuthState = null;
 
     async authenticate(credentials) {
@@ -37,7 +35,7 @@ class Auth {
             scope,
         } = accessTokenData;
 
-        await storage.set(this.ACCESS_TOKEN_KEY, {
+        await storage.set(AUTH_ACCESS_TOKEN_KEY, {
             accessToken,
             expiresIn,
             scope,
@@ -48,7 +46,7 @@ class Auth {
     }
 
     async isAuthenticated() {
-        const accessToken = await storage.get(this.ACCESS_TOKEN_KEY);
+        const accessToken = await storage.get(AUTH_ACCESS_TOKEN_KEY);
         return !isEmpty(accessToken);
     }
 
@@ -62,8 +60,8 @@ class Auth {
     getImplicitAuthUrl(socialProvider) {
         const params = {
             response_type: 'token',
-            client_id: this.CLIENT_ID,
-            redirect_uri: this.REDIRECT_URI,
+            client_id: AUTH_CLIENT_ID,
+            redirect_uri: AUTH_REDIRECT_URI,
             scope: 'trust',
             state: this.socialAuthState,
         };
@@ -93,7 +91,7 @@ class Auth {
                 throw new Error(`There is no such provider: "${socialProvider}"`);
         }
 
-        return `${this.BASE_AUTH_URL}?${qs.stringify(params)}`;
+        return `${AUTH_BASE_URL}?${qs.stringify(params)}`;
     }
 
     async authenticateSocial(queryString, tabId) {
@@ -106,7 +104,7 @@ class Auth {
         } = data;
 
         if (state && state === this.socialAuthState) {
-            await storage.set(this.ACCESS_TOKEN_KEY, {
+            await storage.set(AUTH_ACCESS_TOKEN_KEY, {
                 accessToken,
                 expiresIn,
                 tokenType,
@@ -121,7 +119,7 @@ class Auth {
     // TODO [maximtop] revoke accessToken from the api
     // TODO [maximtop] set default values to proxy
     async deauthenticate() {
-        await storage.remove(this.ACCESS_TOKEN_KEY);
+        await storage.remove(AUTH_ACCESS_TOKEN_KEY);
     }
 
     async register(credentials) {
@@ -138,7 +136,7 @@ class Auth {
     }
 
     async getAccessToken() {
-        const accessTokenData = await storage.get(this.ACCESS_TOKEN_KEY);
+        const accessTokenData = await storage.get(AUTH_ACCESS_TOKEN_KEY);
         if (accessTokenData && accessTokenData.accessToken) {
             return accessTokenData.accessToken;
         }

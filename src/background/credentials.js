@@ -22,7 +22,16 @@ class Credentials {
 
     async getVpnTokenRemote() {
         const accessToken = await auth.getAccessToken();
-        const vpnTokenData = await accountApi.getVpnToken(accessToken);
+        if (!accessToken) {
+            throw new Error('user is not authenticated yet');
+        }
+        let vpnTokenData;
+        try {
+            vpnTokenData = await accountApi.getVpnToken(accessToken);
+        } catch (e) {
+            log(e.message);
+            throw new Error(`unable to get vpn token from: ${e.message}`);
+        }
         const vpnToken = vpnTokenData.tokens.find(token => token.token === vpnTokenData.token);
         await storage.set(this.VPN_TOKEN_KEY, vpnToken);
         return vpnToken;
@@ -39,7 +48,17 @@ class Credentials {
     async getVpnCredentialsRemote() {
         const appId = await this.getAppId();
         const vpnToken = await this.gainVpnToken();
-        return vpnApi.getVpnCredentials(appId, vpnToken.token);
+        let credentials;
+        if (!(vpnToken && vpnToken.token)) {
+            throw new Error('was unable to gain vpn token');
+        }
+        try {
+            credentials = vpnApi.getVpnCredentials(appId, vpnToken.token);
+        } catch (e) {
+            log(e.message);
+            throw new Error('was unable to get vpn credentials: ', e.message);
+        }
+        return credentials;
     }
 
     async getVpnCredentialsLocal() {

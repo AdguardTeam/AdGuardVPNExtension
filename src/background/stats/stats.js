@@ -5,8 +5,7 @@ import { WsPingMsg, WsConnectivityMsg } from './stats.proto';
 import { websocketApi } from '../api/websocketApi';
 
 class Stats {
-    // TODO [maximtop] change this to update ping once per minute
-    PING_UPDATE_INTERVAL_MS = 1000 * 5;
+    PING_UPDATE_INTERVAL_MS = 1000 * 60;
 
     constructor() {
         this.init();

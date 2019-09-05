@@ -1,11 +1,9 @@
 import qs from 'qs';
 import Api from './Api';
-import { VPN_API_URL } from './config';
+import { VPN_API_URL } from '../config';
 
 class VpnApi extends Api {
     GET_ENDPOINTS = { path: 'endpoints', method: 'GET' };
-
-    GET_STATS = { path: 'stats', method: 'GET' };
 
     GET_VPN_CREDENTIALS = { path: 'proxy_credentials', method: 'POST' };
 
@@ -13,13 +11,6 @@ class VpnApi extends Api {
         const { path, method } = this.GET_ENDPOINTS;
 
         return this.makeRequest(path, method);
-    }
-
-    // TODO [maximtop] waits API being ready
-    getStats() {
-        const { path, method } = this.GET_STATS;
-        return { bandwidth: '72.16', speed: '0.97' };
-        // return this.makeRequest(path, method);
     }
 
     getVpnCredentials(appId, vpnToken) {
