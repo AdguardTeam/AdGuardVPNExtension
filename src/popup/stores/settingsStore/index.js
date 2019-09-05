@@ -140,7 +140,7 @@ class SettingsStore {
 
     @action async getProxyStats() {
         try {
-            const stats = await bgProvider.provider.getStats();
+            const stats = await bgProvider.stats.getStats();
             runInAction(() => {
                 this.proxyStats = stats;
             });

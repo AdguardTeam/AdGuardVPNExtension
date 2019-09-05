@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 import { Markers, Marker } from 'react-simple-maps';
 
 const CityMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMarkerClicked) => {

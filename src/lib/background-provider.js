@@ -18,7 +18,6 @@ const wrapMethods = (obj, wrapper) => {
 
 const provider = {
     getEndpoints: background => background.provider.getEndpoints(),
-    getStats: background => background.provider.getStats(),
 };
 
 const settings = {
@@ -58,7 +57,8 @@ const actions = {
 };
 
 const stats = {
-    setPingCallback: (pingCallback, background) => background.stats.setPingCallback(pingCallback),
+    getPing: background => background.stats.getPing(),
+    getStats: background => background.stats.getStats(),
 };
 
 const appManager = {

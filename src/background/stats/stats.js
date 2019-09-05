@@ -93,9 +93,15 @@ class Stats {
         websocketApi.onMessage(messageHandler);
     };
 
-    getPing = () => this.ping;
+    getPing = () => this.ping || null;
 
-    getStats = () => this.stats;
+    getStats = () => {
+        if (!this.stats) {
+            return null;
+        }
+        const { mbytesDownloaded, downloadSpeedMbytesPerSec } = this.stats;
+        return { mbytesDownloaded, downloadSpeedMbytesPerSec };
+    }
 }
 
 const stats = new Stats();

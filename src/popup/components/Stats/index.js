@@ -7,21 +7,22 @@ const Stats = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
     useEffect(() => {
-        (async () => {
+        const intervalId = setInterval(async () => {
             await settingsStore.getProxyStats();
-        })();
+        }, 1000);
+        return () => clearInterval(intervalId);
     }, []);
 
     if (!settingsStore.proxyStats) {
         return '';
     }
 
-    const { speed, bandwidth } = settingsStore.proxyStats;
+    const { mbytesDownloaded, downloadSpeedMbytesPerSec } = settingsStore.proxyStats;
     return (
         <div className="stats">
             <div className="stats__col">
                 <div className="stats__value">
-                    {speed}
+                    {mbytesDownloaded}
                 </div>
                 <div className="stats__units">
                         Bandwidth, Mb
@@ -29,7 +30,7 @@ const Stats = observer(() => {
             </div>
             <div className="stats__col">
                 <div className="stats__value">
-                    {bandwidth}
+                    {downloadSpeedMbytesPerSec}
                 </div>
                 <div className="stats__units">
                         Speed, Mbps
