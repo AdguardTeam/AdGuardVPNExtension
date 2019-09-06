@@ -1,4 +1,5 @@
 import browser from 'webextension-polyfill';
+import { PASSWORD_RECOVERY_URL } from './config';
 
 class Tabs {
     async getCurrent() {
@@ -13,8 +14,7 @@ class Tabs {
 
     // TODO [maximtop] change when get recovery url
     async openRecovery() {
-        const recoveryUrl = 'http://example.org#recovery';
-        await browser.tabs.create({ url: recoveryUrl });
+        await browser.tabs.create({ url: PASSWORD_RECOVERY_URL });
     }
 
     async openTab(url) {

@@ -41,7 +41,7 @@ const Map = observer((props) => {
         margin: '0 auto',
         display: 'block',
         height: 'auto',
-        backgroundColor: globalProxyEnabled ? '#C5f0ff' : '#e5e5e5',
+        backgroundColor: globalProxyEnabled ? '#C5F0FF' : '#E5E5E5',
     };
 
     const geographyStyleDef = {

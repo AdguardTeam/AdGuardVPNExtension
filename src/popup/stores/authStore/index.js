@@ -138,17 +138,6 @@ class AuthStore {
         }
     };
 
-    // TODO [maximtop] remove method with test credentials
-    @action fakeAuthenticate = async () => {
-        runInAction(async () => {
-            this.credentials = {
-                username: 'maximtop@gmail.com',
-                password: 'AijGrVhFxo7CWArv',
-            };
-            await this.authenticate();
-        });
-    };
-
     @action isAuthenticated = async () => {
         const result = await bgProvider.auth.isAuthenticated();
         if (result) {

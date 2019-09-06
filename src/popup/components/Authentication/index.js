@@ -9,10 +9,6 @@ import TwoFactorForm from './TwoFactorForm';
 
 const Authentication = observer(() => {
     const { authStore } = useContext(rootStore);
-    // TODO [maximtop] remove this method before publishing extension
-    const handleFakeAuthentication = async () => {
-        await authStore.fakeAuthenticate();
-    };
 
     const getTitle = (step) => {
         const titleMaps = {
@@ -63,7 +59,6 @@ const Authentication = observer(() => {
                 )}
                 <div
                     className="authentication__title"
-                    onClick={handleFakeAuthentication}
                 >
                     {getTitle(step)}
                 </div>

@@ -1,4 +1,5 @@
-// TODO [maximtop] find better way to handle different browsers apis
+// TODO [maximtop] check if this method is suitable
+//  https://webpack.js.org/plugins/normal-module-replacement-plugin/
 // #if process.env.BROWSER === 'chrome'
 export { proxy } from './chrome/proxy';
 // #endif

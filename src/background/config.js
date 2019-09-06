@@ -14,3 +14,4 @@ export const AUTH_ACCESS_TOKEN_KEY = 'auth.access.token';
 export const AUTH_CLIENT_ID = 'adguard-vpn-extension';
 export const AUTH_BASE_URL = 'https://auth.adguard.com/oauth/authorize';
 export const AUTH_REDIRECT_URI = 'https://auth.adguard.com/oauth.html';
+export const PASSWORD_RECOVERY_URL = 'https://auth.adguard.com/account/recovery_password.html';
