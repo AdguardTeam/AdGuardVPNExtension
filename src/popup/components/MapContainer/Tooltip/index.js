@@ -11,6 +11,7 @@ const Tooltip = observer(() => {
     }
 
     const {
+        id: tooltipEndpointId,
         cityName,
         premiumOnly,
     } = tooltipStore.tooltipContent;
@@ -27,13 +28,52 @@ const Tooltip = observer(() => {
         tooltipStore.closeTooltip();
     };
 
-    const renderButton = (premiumOnly) => {
-        const handler = premiumOnly ? unblockLocationHandler : createConnectionHandler;
-        const buttonType = premiumOnly ? 'premium' : 'regular';
+    const disconnectHandler = async () => {
+        await settingsStore.setGlobalProxyEnabled(false);
+        tooltipStore.closeTooltip();
+    };
+
+    const isTooltipEndpointEnabled = settingsStore.extensionEnabled
+        && tooltipEndpointId === endpointsStore.selectedEndpoint.id;
+
+    const PREMIUM_STATE = 'premium';
+    const ENABLED_STATE = 'enabled';
+    const DISABLED_STATE = 'disabled';
+
+    let currentState;
+
+    if (premiumOnly) {
+        currentState = PREMIUM_STATE;
+    } else if (isTooltipEndpointEnabled) {
+        currentState = ENABLED_STATE;
+    } else {
+        currentState = DISABLED_STATE;
+    }
+
+    const statesMap = {
+        [PREMIUM_STATE]: {
+            handler: unblockLocationHandler,
+            buttonType: 'premium',
+            buttonText: 'Unblock location',
+        },
+        [ENABLED_STATE]: {
+            handler: disconnectHandler,
+            buttonType: 'regular',
+            buttonText: 'Disconnect location',
+        },
+        [DISABLED_STATE]: {
+            handler: createConnectionHandler,
+            buttonType: 'regular',
+            buttonText: 'Create connection',
+        },
+    };
+
+    const renderButton = () => {
+        const currentStateData = statesMap[currentState];
+        const { handler, buttonType, buttonText } = currentStateData;
         const buttonClassNames = classnames(
             'button', 'tooltip__btn', `tooltip__btn--${buttonType}`
         );
-        const buttonText = premiumOnly ? 'Unblock location' : 'Create connection';
         return (
             <button
                 type="button"
