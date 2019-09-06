@@ -83,7 +83,7 @@ const SignInForm = observer(() => {
                     onClick={handleRegisterClick}
                 >
                     Don’t have an account?
-                    <button type="button" className="button button--inline button--inline-green">Register</button>
+                    <button type="button" className="button button--inline button--inline-green form__btn">Register</button>
                 </div>
             </div>
         </form>

@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import './endpoint.pcss';
 import { observer } from 'mobx-react';
 import rootStore from '../../../stores';
+import classnames from "classnames";
 
 const CurrentEndpoint = observer((props) => {
     const { endpointsStore, settingsStore } = useContext(rootStore);
@@ -16,6 +17,11 @@ const CurrentEndpoint = observer((props) => {
         }, 1000);
         return () => clearInterval(intervalId);
     }, []);
+
+    const endpointStatus = classnames({
+        'endpoint__status--disabled': !settingsStore.extensionEnabled,
+        'endpoint__status--success': settingsStore.ping,
+    });
 
     const renderStatus = () => {
         if (!settingsStore.extensionEnabled) {
@@ -40,10 +46,10 @@ const CurrentEndpoint = observer((props) => {
             >
                 {countryNameToDisplay}
             </button>
-            <div>
+            <div className="endpoint__desc">
                 {cityNameToDisplay}
             </div>
-            <div className="endpoint__status">
+            <div className={`endpoint__status ${endpointStatus}`}>
                 {renderStatus()}
             </div>
         </div>
