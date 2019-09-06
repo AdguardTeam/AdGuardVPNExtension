@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Markers, Marker } from 'react-simple-maps';
 
-const CityMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMarkerClicked) => {
+const renderCityMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMarkerClicked) => {
     if (!endpoints) {
         return null;
     }
@@ -56,13 +56,13 @@ const CityMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMarkerCl
                                 <circle
                                     cx={0}
                                     cy={0}
-                                    r={14}
+                                    r={10}
                                     fill={globalProxyEnabled ? '#004C33' : '#323232'}
                                 />
                                 <circle
                                     cx={0}
                                     cy={0}
-                                    r={5}
+                                    r={4}
                                     fill="#F0F0F0"
                                 />
                             </Fragment>
@@ -71,13 +71,13 @@ const CityMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMarkerCl
                                 <circle
                                     cx={0}
                                     cy={0}
-                                    r={12}
+                                    r={8}
                                     fill={globalProxyEnabled ? 'rgba(0, 76, 51, 0.2)' : 'rgba(50, 50, 50, 0.2)'}
                                 />
                                 <circle
                                     cx={0}
                                     cy={0}
-                                    r={6}
+                                    r={4}
                                     fill={globalProxyEnabled ? 'rgba(0, 76, 51, 0.5)' : 'rgba(50, 50, 50, 0.5)'}
                                 />
                             </Fragment>
@@ -90,4 +90,4 @@ const CityMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMarkerCl
     );
 };
 
-export default CityMarkers;
+export default renderCityMarkers;

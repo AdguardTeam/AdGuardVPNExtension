@@ -20,6 +20,8 @@ class EndpointsStore {
 
     @observable searchValue = '';
 
+    @observable currentLocation;
+
     @action
     setSearchValue = (value) => {
         const trimmed = value.trim();
@@ -76,6 +78,21 @@ class EndpointsStore {
                 return { ...endpoint, selected: true };
             }
             return endpoint;
+        });
+    }
+
+    @computed
+    get cityNameToDisplay() {
+        const selectedCityName = this.selectedEndpoint && this.selectedEndpoint.cityName;
+        const currentCityName = this.currentLocation && this.currentLocation.cityName;
+        return selectedCityName || currentCityName || 'Loading...';
+    }
+
+    @action
+    getCurrentLocation = async () => {
+        const currentLocation = await bgProvider.provider.getCurrentLocation();
+        runInAction(() => {
+            this.currentLocation = currentLocation;
         });
     }
 }

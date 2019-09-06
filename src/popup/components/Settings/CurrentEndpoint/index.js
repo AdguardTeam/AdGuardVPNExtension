@@ -9,6 +9,7 @@ const CurrentEndpoint = observer((props) => {
     useEffect(() => {
         (async () => {
             await endpointsStore.getSelectedEndpoint();
+            await endpointsStore.getCurrentLocation();
         })();
         const intervalId = setInterval(async () => {
             await settingsStore.getProxyPing();
@@ -27,7 +28,7 @@ const CurrentEndpoint = observer((props) => {
     };
 
     // TODO [maximtop] get default city name
-    const selectedEndpoint = (endpointsStore.selectedEndpoint && endpointsStore.selectedEndpoint.cityName) || 'default city';
+    const selectedEndpoint = endpointsStore.cityNameToDisplay;
     const { handle } = props;
     return (
         <div className="endpoint">
