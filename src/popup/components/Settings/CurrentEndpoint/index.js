@@ -28,7 +28,8 @@ const CurrentEndpoint = observer((props) => {
     };
 
     // TODO [maximtop] get default city name
-    const selectedEndpoint = endpointsStore.cityNameToDisplay;
+    const { countryNameToDisplay } = endpointsStore;
+    const { cityNameToDisplay } = endpointsStore;
     const { handle } = props;
     return (
         <div className="endpoint">
@@ -37,8 +38,11 @@ const CurrentEndpoint = observer((props) => {
                 className="button endpoint__btn"
                 onClick={handle}
             >
-                {selectedEndpoint}
+                {countryNameToDisplay}
             </button>
+            <div>
+                {cityNameToDisplay}
+            </div>
             <div className="endpoint__status">
                 {renderStatus()}
             </div>

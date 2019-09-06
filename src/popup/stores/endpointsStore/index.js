@@ -82,10 +82,17 @@ class EndpointsStore {
     }
 
     @computed
+    get countryNameToDisplay() {
+        const selectedCountryName = this.selectedEndpoint && this.selectedEndpoint.countryName;
+        const currentCountryName = this.currentLocation && this.currentLocation.countryName;
+        return selectedCountryName || currentCountryName || 'Select country';
+    }
+
+    @computed
     get cityNameToDisplay() {
         const selectedCityName = this.selectedEndpoint && this.selectedEndpoint.cityName;
         const currentCityName = this.currentLocation && this.currentLocation.cityName;
-        return selectedCityName || currentCityName || 'Loading...';
+        return selectedCityName || currentCityName || '';
     }
 
     @action
