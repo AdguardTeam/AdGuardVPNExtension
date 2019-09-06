@@ -1,9 +1,8 @@
-import ReconnectingWebSocket from 'reconnecting-websocket';
 import { WEBSOCKET_API_URL } from '../config';
 
 class WebsocketApi {
     constructor(url) {
-        const ws = new ReconnectingWebSocket(url);
+        const ws = new WebSocket(url);
         ws.binaryType = 'arraybuffer';
         this.ws = ws;
     }
