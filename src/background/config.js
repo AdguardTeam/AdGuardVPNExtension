@@ -6,6 +6,9 @@ export const VPN_API_URL = 'http://backend.adguard.io/api/v1';
 
 export const AUTH_API_URL = 'https://auth.adguard.com';
 
+// Websocket
+export const WS_API_URL_TEMPLATE = 'wss://{{host}}:8443/user_metrics';
+
 // Auth section
 export const AUTH_ACCESS_TOKEN_KEY = 'auth.access.token';
 export const AUTH_CLIENT_ID = 'adguard-vpn-extension';

@@ -3,7 +3,8 @@
 // see webpack proto-loader https://github.com/PermissionData/protobufjs-loader
 import { WsPingMsg, WsConnectivityMsg } from './stats.proto';
 import wsFactory from '../api/websocketApi';
-import log from '../../lib/logger';
+import { WS_API_URL_TEMPLATE } from '../config';
+import { renderTemplate } from '../../lib/string-utils';
 
 const STATS_STATES = {
     WORKING: 'working',
@@ -19,7 +20,7 @@ class Stats {
 
     async setHost(host) {
         this.stop();
-        const websocketUrl = `wss://${host}:8080/user_metrics`;
+        const websocketUrl = renderTemplate(WS_API_URL_TEMPLATE, { host });
 
         try {
             this.ws = await wsFactory.getWebsocket(websocketUrl);

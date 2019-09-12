@@ -94,7 +94,7 @@ class ExtensionProxy {
         const proxy = {
             scheme: 'https',
             host: this.currentHost,
-            port: 8443,
+            port: 443,
         };
 
         return {
