@@ -1,12 +1,9 @@
 import log from '../lib/logger';
 import notifier from '../lib/notifier';
 import { proxy } from './proxy';
-
-export const SETTINGS_IDS = {
-    PROXY_ENABLED: 'proxy.enabled',
-    TRACKING_PREVENTION: 'tracking.prevention',
-    MALWARE_PROTECTION: 'malware.protection',
-};
+import credentials from './credentials';
+import stats from './stats/stats';
+import { SETTINGS_IDS } from '../lib/constants';
 
 const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.PROXY_ENABLED]: false,
@@ -25,11 +22,19 @@ const SETTINGS = Object.entries(DEFAULT_SETTINGS)
 
 const getSetting = settingId => SETTINGS[settingId];
 
-// TODO [maximtop] move this in the separate file
+// TODO [maximtop] move this handler in the separate file
 const proxyEnabledHandler = async (value) => {
     if (value) {
-        await proxy.turnOn();
+        try {
+            const hostPrefix = await credentials.getHostPrefix();
+            const host = await proxy.updateCurrentHost(hostPrefix);
+            await stats.setHost(host);
+            await proxy.turnOn();
+        } catch (e) {
+            log(e.message);
+        }
     } else {
+        stats.stop();
         await proxy.turnOff();
     }
 };
@@ -46,7 +51,7 @@ const getHandler = (settingId) => {
 
 const setSetting = async (id, value, force) => {
     const setting = SETTINGS[id];
-    // No need to change value unless is not force set
+    // No need to change same value unless is not force set
     if (setting.value === value && !force) {
         return false;
     }
@@ -106,6 +111,7 @@ const settings = {
     areSettingsReady,
     disableProxy,
     isProxyEnabled,
+    SETTINGS_IDS,
 };
 
 export default settings;

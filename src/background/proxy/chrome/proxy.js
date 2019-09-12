@@ -26,6 +26,10 @@ class ExtensionProxy {
         };
 
         this.bypassWhitelist = [];
+
+        this.currentEndpoint = '';
+
+        this.currentHost = '';
     }
 
     async turnOn() {
@@ -86,9 +90,10 @@ class ExtensionProxy {
 
     getConfig() {
         const bypassList = this.getBypassList();
+
         const proxy = {
             scheme: 'https',
-            host: '21ea2c9c6c1ba23efaf7efaeb118a065.msk2.ru.adguard.io',
+            host: this.currentHost,
             port: 8443,
         };
 
@@ -126,12 +131,31 @@ class ExtensionProxy {
         await this.restartProxy();
     }
 
+    setHost = (host) => {
+        this.currentHost = host;
+        this.updateConfig();
+    };
+
+    updateCurrentHost = async (domainPrefix) => {
+        const endpoint = await this.getCurrentEndpoint();
+        const { domainName } = endpoint;
+        const host = `${domainPrefix}.${domainName}`;
+        this.setHost(host);
+        return host;
+    };
+
     setCurrentEndpoint = async (endpoint) => {
+        this.currentEndpoint = endpoint;
         return storage.set(CURRENT_ENDPOINT_KEY, endpoint);
     };
 
     getCurrentEndpoint = async () => {
-        return storage.get(CURRENT_ENDPOINT_KEY);
+        let result = this.currentEndpoint;
+        if (!result) {
+            result = await storage.get(CURRENT_ENDPOINT_KEY);
+            this.currentEndpoint = result;
+        }
+        return result;
     };
 }
 

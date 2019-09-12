@@ -2,9 +2,10 @@ import browser from 'webextension-polyfill';
 import { vpnApi } from './api';
 
 const getEndpoints = async () => {
+    // TODO [maximtop] normalize data in provider
     const endpointsObj = await vpnApi.getEndpoints();
+    console.log(endpointsObj);
     const { endpoints } = endpointsObj;
-    console.log('endpoints', endpoints);
     const normalizedEndpoints = endpoints.reduce((acc, endpoint) => {
         const {
             city_name: cityName,
@@ -51,13 +52,16 @@ const getLocaleFirstPart = (localeCode, splitter) => {
 };
 
 const getLocalizedName = (names, locale) => {
+    if (!names) {
+        return null;
+    }
     const DEFAULT_LOCALE = 'en';
     // eslint-disable-next-line no-param-reassign
     locale = locale || DEFAULT_LOCALE;
 
     const name = names.find(localizedName => locale === localizedName.locale);
     if (name) {
-        return name;
+        return name.name;
     }
 
     const splitter = getSplitter(locale);
@@ -81,12 +85,12 @@ const getCurrentLocation = async () => {
     } = currentLocation;
 
     const locale = browser.i18n.getUILanguage();
-    const localizedCityName = getLocalizedName(city.names, locale);
-    const localizedCountryName = getLocalizedName(country.names, locale);
+    const localizedCityName = city ? getLocalizedName(city.names, locale) : null;
+    const localizedCountryName = country ? getLocalizedName(country.names, locale) : null;
 
     return {
-        cityName: localizedCityName.name,
-        countryName: localizedCountryName.name,
+        cityName: localizedCityName,
+        countryName: localizedCountryName,
         countryCode,
         ip,
         coordinates: [longitude, latitude],

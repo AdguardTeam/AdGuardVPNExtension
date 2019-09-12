@@ -18,14 +18,20 @@ class Auth {
     async authenticate(credentials) {
         let accessTokenData;
         try {
-            // TODO [maximtop] prepare returned accessTokenData in the provider
+            // TODO [maximtop] prepare returned accessTokenData in the providers
             accessTokenData = await authApi.getAccessToken(credentials);
         } catch (e) {
-            const { error, error_description: errorDescription } = JSON.parse(e.message);
-            if (error === '2fa_required') {
-                return { status: error };
+            const {
+                error,
+                error_description: errorDescription,
+                error_code: errorCode,
+            } = JSON.parse(e.message);
+
+            if (errorCode === '2fa_required') {
+                return { status: errorCode };
             }
-            return { error, errorDescription };
+
+            return { error, errorCode, errorDescription };
         }
 
         const {
@@ -125,10 +131,10 @@ class Auth {
     async register(credentials) {
         const locale = navigator.language;
         try {
-            // TODO [maximtop] prepare returned data in the provider
+            // TODO [maximtop] prepare returned data in the providers
             await authApi.register({ ...credentials, locale });
         } catch (e) {
-            const { error, errorMessage: errorDescription, field } = JSON.parse(e.message);
+            const { error, error_description: errorDescription, field } = JSON.parse(e.message);
             const extensionField = field === 'email' ? 'username' : field;
             return { error, errorDescription, field: extensionField };
         }

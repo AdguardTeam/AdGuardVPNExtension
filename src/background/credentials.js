@@ -1,4 +1,5 @@
 import nanoid from 'nanoid';
+import md5 from 'crypto-js/md5';
 import { accountApi, vpnApi } from './api';
 import auth from './auth';
 import storage from './storage';
@@ -77,6 +78,12 @@ class Credentials {
         if (!vpnCredentials) {
             return false;
         }
+        // TODO [maximtop] prepare data in providers
+        const { license_status: licenseStatus, time_expires_sec: timeExpiresSec } = vpnCredentials;
+        const currentTimeSec = Math.ceil(Date.now() / 1000);
+        if (licenseStatus !== 'VALID' || timeExpiresSec < currentTimeSec) {
+            return false;
+        }
         return true;
     }
 
@@ -99,14 +106,23 @@ class Credentials {
             await storage.set(this.VPN_CREDENTIALS_KEY, vpnCredentials);
             return vpnCredentials;
         }
-        return 'error';
         // TODO [maximtop] notify user about error;
+        throw new Error('cannot get credentials');
+    }
+
+    async getHostPrefix() {
+        const vpnToken = await this.gainVpnToken();
+        const { token } = vpnToken;
+        const vpnCredentials = await this.gainVpnCredentials();
+        const { result: { credentials } } = vpnCredentials;
+        const result = md5(token + credentials).toString();
+        return result;
     }
 
     async gainAppId() {
         let appId;
         try {
-            appId = await storage.get('APP_ID_KEY');
+            appId = await storage.get(this.APP_ID_KEY);
         } catch (e) {
             log.error(e.message);
             throw e;
@@ -116,7 +132,7 @@ class Credentials {
             log.debug('generating app id');
             appId = nanoid();
             try {
-                await storage.set('APP_ID_KEY', appId);
+                await storage.set(this.APP_ID_KEY, appId);
             } catch (e) {
                 log.error(e.message);
                 throw e;
@@ -130,6 +146,6 @@ class Credentials {
     }
 }
 
-const endpoints = new Credentials();
+const credentials = new Credentials();
 
-export default endpoints;
+export default credentials;

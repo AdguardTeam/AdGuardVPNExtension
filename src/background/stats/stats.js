@@ -1,20 +1,52 @@
-// stats.proto would be converted to js object by webpack
+// stats.proto will be converted to js object by webpack
 // https://github.com/protobufjs/protobuf.js#using-generated-static-code
 // see webpack proto-loader https://github.com/PermissionData/protobufjs-loader
 import { WsPingMsg, WsConnectivityMsg } from './stats.proto';
-import { websocketApi } from '../api/websocketApi';
+import wsFactory from '../api/websocketApi';
+import log from '../../lib/logger';
+
+const STATS_STATES = {
+    WORKING: 'working',
+    PAUSED: 'paused',
+};
 
 class Stats {
     PING_UPDATE_INTERVAL_MS = 1000 * 60;
 
     constructor() {
-        this.init();
+        this.state = STATS_STATES.PAUSED;
     }
 
-    init = async () => {
-        await websocketApi.open();
-        await this.startGettingPing();
+    async setHost(host) {
+        this.stop();
+        const websocketUrl = `wss://${host}:8080/user_metrics`;
+
+        try {
+            this.ws = await wsFactory.getWebsocket(websocketUrl);
+        } catch (e) {
+            this.state = STATS_STATES.PAUSED;
+            throw new Error(`Was unable to create new websocket because of: ${JSON.stringify(e.message)}`);
+        }
+
+        this.state = STATS_STATES.WORKING;
+        this.start();
+    }
+
+    start = async () => {
+        this.pingGetInterval = await this.startGettingPing();
         this.startGettingStats();
+    };
+
+    stop = () => {
+        if (this.pingGetInterval) {
+            clearInterval(this.pingGetInterval);
+        }
+        if (this.ws) {
+            this.ws.close();
+        }
+        this.ping = null;
+        this.stats = null;
+        this.state = STATS_STATES.PAUSED;
     };
 
     preparePingMessage = (currentTime) => {
@@ -30,7 +62,7 @@ class Stats {
 
     pollPing = () => new Promise((resolve) => {
         const arrBufMessage = this.preparePingMessage(Date.now());
-        websocketApi.send(arrBufMessage);
+        this.ws.send(arrBufMessage);
 
         const messageHandler = (event) => {
             const receivedTime = Date.now();
@@ -38,7 +70,7 @@ class Stats {
             if (pingMsg) {
                 const { requestTime } = pingMsg;
                 const ping = receivedTime - requestTime;
-                websocketApi.removeMessageListener(messageHandler);
+                this.ws.removeMessageListener(messageHandler);
                 resolve(ping);
             }
             if (connectivityInfoMsg) {
@@ -46,7 +78,7 @@ class Stats {
             }
         };
 
-        websocketApi.onMessage(messageHandler);
+        this.ws.onMessage(messageHandler);
     });
 
     getAveragePing = async () => {
@@ -70,7 +102,7 @@ class Stats {
         const averagePing = await this.getAveragePing();
         this.updatePingValue(averagePing);
 
-        setInterval(async () => {
+        this.pingGetInterval = setInterval(async () => {
             const averagePing = await this.getAveragePing();
             this.updatePingValue(averagePing);
         }, this.PING_UPDATE_INTERVAL_MS);
@@ -89,13 +121,18 @@ class Stats {
             }
         };
 
-        websocketApi.onMessage(messageHandler);
+        this.ws.onMessage(messageHandler);
     };
 
-    getPing = () => this.ping || null;
+    getPing = () => {
+        if (!this.ping || this.state === STATS_STATES.PAUSED) {
+            return null;
+        }
+        return this.ping;
+    };
 
     getStats = () => {
-        if (!this.stats) {
+        if (!this.stats || this.state === STATS_STATES.PAUSED) {
             return null;
         }
         let { mbytesDownloaded, downloadSpeedMbytesPerSec } = this.stats;

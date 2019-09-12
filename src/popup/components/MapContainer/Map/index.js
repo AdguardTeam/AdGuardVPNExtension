@@ -22,7 +22,6 @@ const Map = observer((props) => {
     }, []);
 
     const onMarkerClick = (e) => {
-        // TODO [maximtop] center map
         tooltipStore.openTooltip(e);
     };
 

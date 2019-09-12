@@ -7,7 +7,6 @@ import provider from './provider';
 import tabs from './tabs';
 import whitelist from './whitelist';
 import auth from './auth';
-import credentials from './credentials';
 import { proxy } from './proxy';
 import stats from './stats/stats';
 import appManager from './appManager';
@@ -27,17 +26,8 @@ global.background = {
     tabsContext,
 };
 
-// TODO [maximtop] move credentials dependency into UI
-(async () => {
-    try {
-        const res = await credentials.gainVpnCredentials();
-        console.log(res);
-    } catch (e) {
-        console.log(e);
-    }
-})();
-
 // message handler used for message exchange with content pages, for other cases use bgProvider
+// eslint-disable-next-line no-unused-vars
 browser.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     const { type } = request;
     switch (type) {

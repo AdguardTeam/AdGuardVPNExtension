@@ -12,7 +12,6 @@ class Tabs {
         return browser.browserAction.getPopup();
     }
 
-    // TODO [maximtop] change when get recovery url
     async openRecovery() {
         await browser.tabs.create({ url: PASSWORD_RECOVERY_URL });
     }

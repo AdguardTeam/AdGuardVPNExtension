@@ -30,10 +30,7 @@ class VpnApi extends Api {
 
     getCurrentLocation() {
         const { path, method } = this.GET_CURRENT_LOCATION;
-        const config = {
-            headers: { 'X-Connecting-IP': '95.161.182.242' },
-        };
-        return this.makeRequest(path, method, config);
+        return this.makeRequest(path, method);
     }
 }
 

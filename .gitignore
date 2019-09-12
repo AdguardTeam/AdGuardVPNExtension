@@ -3,3 +3,4 @@ build
 /tests/dist/
 .DS_Store
 .idea/
+/yarn-error.log

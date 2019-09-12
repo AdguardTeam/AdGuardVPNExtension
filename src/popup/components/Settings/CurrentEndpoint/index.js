@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import './endpoint.pcss';
 import { observer } from 'mobx-react';
+import classnames from 'classnames';
 import rootStore from '../../../stores';
-import classnames from "classnames";
 
 const CurrentEndpoint = observer((props) => {
     const { endpointsStore, settingsStore } = useContext(rootStore);
@@ -33,7 +33,6 @@ const CurrentEndpoint = observer((props) => {
         return 'Connecting...';
     };
 
-    // TODO [maximtop] get default city name
     const { countryNameToDisplay } = endpointsStore;
     const { cityNameToDisplay } = endpointsStore;
     const { handle } = props;
@@ -54,7 +53,6 @@ const CurrentEndpoint = observer((props) => {
             </div>
         </div>
     );
-
 });
 
 export default CurrentEndpoint;

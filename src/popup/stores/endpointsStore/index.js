@@ -5,7 +5,7 @@ import {
     runInAction,
 } from 'mobx';
 import bgProvider from '../../../lib/background-provider';
-import { REQUEST_STATES } from '../consts';
+import { REQUEST_STATUSES } from '../consts';
 
 class EndpointsStore {
     constructor(rootStore) {
@@ -32,15 +32,15 @@ class EndpointsStore {
 
     @action fetchEndpoints = async () => {
         try {
-            this.endpointsGetState = REQUEST_STATES.PENDING;
+            this.endpointsGetState = REQUEST_STATUSES.PENDING;
             const endpointsData = await bgProvider.provider.getEndpoints();
             runInAction(() => {
                 this.endpoints = endpointsData;
-                this.endpointsGetState = REQUEST_STATES.DONE;
+                this.endpointsGetState = REQUEST_STATUSES.DONE;
             });
         } catch (e) {
             console.log(e);
-            this.endpointsGetState = REQUEST_STATES.ERROR;
+            this.endpointsGetState = REQUEST_STATUSES.ERROR;
         }
     };
 

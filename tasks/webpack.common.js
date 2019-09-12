@@ -57,7 +57,7 @@ const config = {
                 test: /\.proto$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: path.resolve(__dirname, './loaders/protobuf-loader.js')
+                    loader: path.resolve(__dirname, './loaders/protobuf-loader.js'),
                 },
             },
             {

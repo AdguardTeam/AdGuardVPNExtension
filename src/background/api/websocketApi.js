@@ -1,10 +1,18 @@
-import { WEBSOCKET_API_URL } from '../config';
+import log from '../../lib/logger';
 
 class WebsocketApi {
     constructor(url) {
-        const ws = new WebSocket(url);
-        ws.binaryType = 'arraybuffer';
-        this.ws = ws;
+        try {
+            const ws = new WebSocket(url);
+            ws.binaryType = 'arraybuffer';
+            this.ws = ws;
+        } catch (e) {
+            log(e.message);
+        }
+
+        this.onError((error) => {
+            log(error);
+        });
     }
 
     async open() {
@@ -30,13 +38,30 @@ class WebsocketApi {
     onError(cb) {
         this.ws.addEventListener('error', cb);
     }
+
+    close() {
+        this.ws.close();
+    }
 }
 
-const websocketApi = new WebsocketApi(WEBSOCKET_API_URL);
+const wsFactory = (() => {
+    let ws;
 
-websocketApi.onError((error) => {
-    console.log(error);
-});
+    const getWebsocket = async (url) => {
+        if (!url) {
+            return null;
+        }
+        if (ws) {
+            ws.close();
+        }
+        ws = new WebsocketApi(url);
+        await ws.open();
+        return ws;
+    };
 
-// eslint-disable-next-line import/prefer-default-export
-export { websocketApi };
+    return {
+        getWebsocket,
+    };
+})();
+
+export default wsFactory;

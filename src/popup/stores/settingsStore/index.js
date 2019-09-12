@@ -7,7 +7,7 @@ import {
 import tabs from '../../../background/tabs';
 import log from '../../../lib/logger';
 import bgProvider from '../../../lib/background-provider';
-import { SETTINGS_IDS } from '../../../background/settings';
+import { SETTINGS_IDS } from '../../../lib/constants';
 
 const extensionEnabledSettingId = SETTINGS_IDS.PROXY_ENABLED;
 
@@ -77,7 +77,7 @@ class SettingsStore {
         try {
             changed = await bgProvider.settings.setSetting(extensionEnabledSettingId, value);
         } catch (e) {
-            log.error(e);
+            log.error(e.message);
         }
         if (changed) {
             runInAction(async () => {
