@@ -30,7 +30,7 @@ class Credentials {
         try {
             vpnTokenData = await accountApi.getVpnToken(accessToken);
         } catch (e) {
-            log(e.message);
+            log.error(e.message);
             throw new Error(`unable to get vpn token from: ${e.message}`);
         }
         const vpnToken = vpnTokenData.tokens.find(token => token.token === vpnTokenData.token);
@@ -56,7 +56,7 @@ class Credentials {
         try {
             credentials = vpnApi.getVpnCredentials(appId, vpnToken.token);
         } catch (e) {
-            log(e.message);
+            log.error(e.message);
             throw new Error('was unable to get vpn credentials: ', e.message);
         }
         return credentials;

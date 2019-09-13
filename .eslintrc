@@ -63,6 +63,7 @@
                 "imports": "always-multiline",
                 "objects": "always-multiline"
             }
-        ]
+        ],
+        "import/prefer-default-export": "off"
     }
 }

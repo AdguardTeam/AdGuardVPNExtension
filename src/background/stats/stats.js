@@ -5,6 +5,7 @@ import { WsPingMsg, WsConnectivityMsg } from './stats.proto';
 import wsFactory from '../api/websocketApi';
 import { WS_API_URL_TEMPLATE } from '../config';
 import { renderTemplate } from '../../lib/string-utils';
+import log from '../../lib/logger';
 
 const STATS_STATES = {
     WORKING: 'working',
@@ -95,7 +96,7 @@ class Stats {
     };
 
     updatePingValue = (ping) => {
-        console.log(ping);
+        log.info(ping);
         this.ping = ping;
     };
 
@@ -110,7 +111,7 @@ class Stats {
     };
 
     updateStats = (stats) => {
-        console.log(stats);
+        log.info(stats);
         this.stats = stats;
     };
 

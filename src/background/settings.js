@@ -4,6 +4,7 @@ import { proxy } from './proxy';
 import credentials from './credentials';
 import stats from './stats/stats';
 import { SETTINGS_IDS } from '../lib/constants';
+import actions from './actions';
 
 const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.PROXY_ENABLED]: false,
@@ -30,12 +31,14 @@ const proxyEnabledHandler = async (value) => {
             const host = await proxy.updateCurrentHost(hostPrefix);
             await stats.setHost(host);
             await proxy.turnOn();
+            await actions.setIconEnabled();
         } catch (e) {
-            log(e.message);
+            log.error(e.message);
         }
     } else {
         stats.stop();
         await proxy.turnOff();
+        await actions.setIconDisabled();
     }
 };
 

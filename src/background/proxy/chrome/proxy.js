@@ -160,5 +160,5 @@ class ExtensionProxy {
 }
 
 const proxy = new ExtensionProxy();
-// eslint-disable-next-line import/prefer-default-export
+
 export { proxy };

@@ -1,12 +1,15 @@
 import browser from 'webextension-polyfill';
+import uniqBy from 'lodash/uniqBy';
 import { vpnApi } from './api';
+import log from '../lib/logger';
 
 const getEndpoints = async () => {
     // TODO [maximtop] normalize data in provider
     const endpointsObj = await vpnApi.getEndpoints();
-    console.log(endpointsObj);
+    log.info(endpointsObj);
     const { endpoints } = endpointsObj;
-    const normalizedEndpoints = endpoints.reduce((acc, endpoint) => {
+    const uniqEndpoints = uniqBy(endpoints, 'city_name');
+    const normalizedEndpoints = uniqEndpoints.reduce((acc, endpoint) => {
         const {
             city_name: cityName,
             country_code: countryCode,

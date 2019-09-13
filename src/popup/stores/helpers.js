@@ -10,5 +10,4 @@ function inject(selector, baseComponent) {
     return component;
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export { inject };

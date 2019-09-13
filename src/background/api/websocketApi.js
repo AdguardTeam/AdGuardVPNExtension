@@ -7,11 +7,15 @@ class WebsocketApi {
             ws.binaryType = 'arraybuffer';
             this.ws = ws;
         } catch (e) {
-            log(e.message);
+            log.error(e.message);
         }
 
-        this.onError((error) => {
-            log(error);
+        this.onClose((event) => {
+            log.info('websocket closed with next event code:', event.code);
+        });
+
+        this.onError((event) => {
+            log.error('there was an error with your socket:', event);
         });
     }
 
@@ -37,6 +41,10 @@ class WebsocketApi {
 
     onError(cb) {
         this.ws.addEventListener('error', cb);
+    }
+
+    onClose(cb) {
+        this.ws.addEventListener('close', cb);
     }
 
     close() {

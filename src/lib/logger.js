@@ -17,9 +17,9 @@ const print = (level, method, args) => {
     }
 
     const now = new Date();
-    const formatted = `${now.toISOString()}: ${args}`;
+    const formatted = `${now.toISOString()}:`;
     // eslint-disable-next-line no-console
-    console[method](formatted);
+    console[method](formatted, ...args);
     if (LEVELS[method] === LEVELS.ERROR) {
         throw new Error(formatted);
     }

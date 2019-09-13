@@ -5,7 +5,7 @@ class Notifications {
     create = async (options) => {
         const notificationOptions = {
             type: 'basic',
-            iconUrl: 'assets/images/icon-128.png',
+            iconUrl: 'assets/images/green-128.png',
             title: 'AdGuard VPN',
             message: options.message,
         };
