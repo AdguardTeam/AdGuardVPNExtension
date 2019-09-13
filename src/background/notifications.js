@@ -1,11 +1,12 @@
 import browser from 'webextension-polyfill';
 import nanoid from 'nanoid';
+import { Prefs } from './prefs';
 
 class Notifications {
     create = async (options) => {
         const notificationOptions = {
             type: 'basic',
-            iconUrl: 'assets/images/green-128.png',
+            iconUrl: Prefs.ICONS.GREEN['128'],
             title: 'AdGuard VPN',
             message: options.message,
         };

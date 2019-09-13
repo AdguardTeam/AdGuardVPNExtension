@@ -40,7 +40,7 @@ class Auth {
             token_type: tokenType,
             scope,
         } = accessTokenData;
-
+        
         await storage.set(AUTH_ACCESS_TOKEN_KEY, {
             accessToken,
             expiresIn,
