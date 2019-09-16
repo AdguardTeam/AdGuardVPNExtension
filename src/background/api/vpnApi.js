@@ -10,10 +10,12 @@ class VpnApi extends Api {
 
     GET_CURRENT_LOCATION = { path: 'geo_location', method: 'GET' };
 
-    getEndpoints() {
+    getEndpoints(vpnToken) {
         const { path, method } = this.GET_ENDPOINTS;
-
-        return this.makeRequest(path, method);
+        const params = {
+            token: vpnToken,
+        };
+        return this.makeRequest(path, method, { params });
     }
 
     getVpnCredentials(appId, vpnToken) {

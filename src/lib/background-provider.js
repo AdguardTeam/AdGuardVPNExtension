@@ -17,8 +17,8 @@ const wrapMethods = (obj, wrapper) => {
 };
 
 const provider = {
-    getEndpoints: background => background.provider.getEndpoints(),
-    getCurrentLocation: background => background.provider.getCurrentLocation(),
+    getEndpoints: background => background.endpoints.getEndpoints(),
+    getCurrentLocation: background => background.endpoints.getCurrentLocation(),
 };
 
 const settings = {

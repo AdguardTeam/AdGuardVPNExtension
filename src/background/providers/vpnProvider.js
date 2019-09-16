@@ -1,11 +1,10 @@
 import browser from 'webextension-polyfill';
 import uniqBy from 'lodash/uniqBy';
-import { vpnApi } from './api';
-import log from '../lib/logger';
+import { vpnApi } from '../api';
+import log from '../../lib/logger';
 
-const getEndpoints = async () => {
-    // TODO [maximtop] normalize data in provider
-    const endpointsObj = await vpnApi.getEndpoints();
+const getEndpoints = async (vpnToken) => {
+    const endpointsObj = await vpnApi.getEndpoints(vpnToken);
     log.info(endpointsObj);
     const { endpoints } = endpointsObj;
     const uniqEndpoints = uniqBy(endpoints, 'city_name');
@@ -20,6 +19,7 @@ const getEndpoints = async () => {
             premium_only: premiumOnly,
             public_key: publicKey,
         } = endpoint;
+
         return {
             ...acc,
             [domainName]: {
@@ -100,9 +100,9 @@ const getCurrentLocation = async () => {
     };
 };
 
-const provider = {
+const vpnProvider = {
     getEndpoints,
     getCurrentLocation,
 };
 
-export default provider;
+export default vpnProvider;

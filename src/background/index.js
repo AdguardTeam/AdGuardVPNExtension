@@ -3,7 +3,7 @@ import browser from 'webextension-polyfill';
 import settings from './settings';
 import actions from './actions';
 import { vpnApi } from './api';
-import provider from './provider';
+import endpoints from './endpoints';
 import tabs from './tabs';
 import whitelist from './whitelist';
 import auth from './auth';
@@ -17,7 +17,7 @@ global.background = {
     actions,
     proxy,
     vpnApi,
-    provider,
+    endpoints,
     tabs,
     whitelist,
     auth,
