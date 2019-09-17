@@ -1,0 +1,30 @@
+.extra-options {
+    padding: 25px;
+    width: 280px;
+    position: absolute;
+    top: 15px;
+    left: 35px;
+    outline: none;
+    background-color: #fff;
+    box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.2);
+    font-size: 16px;
+    line-height: 26px;
+
+    &__overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    &__item {
+        margin-bottom: 25px;
+        color: var(--gray-base);
+        width: 100%;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}

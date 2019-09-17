@@ -1,0 +1,81 @@
+.endpoint {
+    color: var(--gray-base);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    &__btn {
+        position: relative;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 20px;
+        padding: 0 27px 0 0;
+        margin-bottom: 5px;
+
+        &:after {
+            content: '';
+            position: absolute;
+            top: 6px;
+            right: 0;
+            width: 14px;
+            height: 8px;
+            background-image: url(../../../../assets/images/arrow-down.svg);
+        }
+    }
+
+    &__desc {
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+
+    &__status {
+        font-size: 14px;
+        line-height: 14px;
+        padding-left: 20px;
+        position: relative;
+        color: var(--green33);
+
+        &:after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 100%;
+            background-color: var(--green33);
+            left: 0;
+            top: 1px;
+        }
+
+        &--failed {
+            color: var(--red);
+
+            &:after {
+                background-color: var(--red);
+            }
+        }
+
+        &--success {
+            color: var(--green78);
+
+            &:after {
+                background-color: var(--green78);
+            }
+        }
+
+        &--disabled {
+            color: var(--gray88);
+
+            &:after {
+                background-color: var(--gray88);
+            }
+        }
+
+        &--warning {
+            color: var(--orange);
+
+            &:after {
+                background-color: var(--orange);
+            }
+        }
+    }
+}

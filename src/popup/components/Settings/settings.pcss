@@ -1,0 +1,35 @@
+.settings {
+    &__main {
+        padding: 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--greyf3);
+    }
+
+    &__extra {
+        padding: 25px;
+
+        &--disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    }
+
+    &__item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__info {
+        width: 20px;
+        height: 20px;
+        background-image: url(../../../assets/images/info.svg);
+    }
+}

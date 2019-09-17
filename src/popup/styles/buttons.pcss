@@ -1,0 +1,107 @@
+.button {
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    border: 0;
+    outline: none;
+    background-color: transparent;
+
+    &:disabled {
+        opacity: 0.6;
+        pointer-events: none;
+        cursor: default;
+    }
+
+    &--back {
+        width: 24px;
+        height: 24px;
+        background-image: url(../../assets/images/arrow-back.svg);
+        background-repeat: no-repeat;
+        padding: 0;
+        background-position: 50%;
+    }
+
+    &--inline {
+        color: inherit;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &--inline-green {
+        color: var(--green74);
+    }
+
+    &--inline-orange {
+        color: var(--orange);
+    }
+
+    &--hundred {
+        width: 100%;
+    }
+
+    &--m {
+        border-radius: 8px;
+        padding: 15px;
+    }
+
+    &--green {
+        color: #fff;
+        background-color: var(--green74);
+    }
+
+    &--orange {
+        color: #fff;
+        background-color: var(--orange);
+    }
+
+    &--social {
+        width: 24px;
+        height: 24px;
+    }
+
+    &--twitter {
+        background-image: url("../../assets/images/social-tw.svg");
+    }
+
+    &--google {
+        background-image: url("../../assets/images/social-gl.svg");
+    }
+
+    &--vk {
+        background-image: url("../../assets/images/social-vk.svg");
+    }
+
+    &--facebook {
+        background-image: url("../../assets/images/social-facebook.svg");
+    }
+
+    &--yd {
+        background-image: url("../../assets/images/social-yd.svg");
+    }
+
+    &--uppercase {
+        text-transform: uppercase;
+    }
+}
+
+.button_icon {
+    border: none;
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.button_icon__pause {
+    background-image: url("../../assets/images/icon-pause.svg");
+}
+
+.button_icon__start {
+    background-image: url("../../assets/images/icon-start.svg");
+}
+
+.button_icon__settings {
+    background-image: url("../../assets/images/icon-settings.svg");
+}

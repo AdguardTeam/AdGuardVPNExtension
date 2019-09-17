@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.2 (81672) - https://sketch.com -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Icons/24/BaBlack" transform="translate(-4.000000, -4.000000)" stroke="#4D4D4D" stroke-width="1.5">
+            <g id="Group-2" transform="translate(5.000000, 5.000000)">
+                <g id="Group" transform="translate(7.000000, 7.000000) scale(-1, 1) translate(-7.000000, -7.000000) ">
+                    <polyline id="Path-2" transform="translate(7.000000, 3.500000) rotate(-270.000000) translate(-7.000000, -3.500000) " points="3.5 3.16660228 10.5 -3.5 10.5 10.5"></polyline>
+                    <polyline id="Path-2" transform="translate(7.000000, 10.500000) scale(-1, 1) rotate(-90.000000) translate(-7.000000, -10.500000) " points="3.5 10.1666023 10.5 3.5 10.5 17.5"></polyline>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

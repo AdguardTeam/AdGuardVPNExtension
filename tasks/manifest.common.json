@@ -1,0 +1,38 @@
+{
+    "manifest_version": 2,
+    "name": "__MSG_name__",
+    "short_name": "__MSG_short_name__",
+    "author": "Adguard Software Ltd",
+    "version": "__version__",
+    "default_locale": "en",
+    "description": "__MSG_description__",
+    "icons": {
+        "16": "assets/images/icons/green-16.png",
+        "128": "assets/images/icons/green-128.png"
+    },
+    "browser_action": {
+        "default_icon": {
+            "19": "assets/images/icons/grey-19.png",
+            "38": "assets/images/icons/grey-38.png"
+        },
+        "default_title": "__MSG_name__",
+        "default_popup": "popup.html"
+    },
+    "background": {
+        "page": "background.html",
+        "persistent": true
+    },
+    "content_scripts": [
+        {
+            "matches":["https://auth.adguard.com/oauth.html*"],
+            "js":["auth.js"],
+            "run_at":"document_start"
+        }
+    ],
+    "permissions": [
+        "tabs",
+        "storage",
+        "unlimitedStorage",
+        "proxy"
+    ]
+}

@@ -1,0 +1,23 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option java_package = "com.adguard.vpn.endpoint.generated";
+option java_outer_classname = "UserMetricsProto";
+option objc_class_prefix = "VPN";
+message WsPingMsg {
+    // used to measure ping, it doesn't matter what time unit is used and handling by client
+    int64 requestTime = 1;
+    bytes token = 2;
+}
+message WsConnectivityInfoMsg {
+    bytes token = 1;
+    float mbytesDownloaded = 2;
+    float mbytesUploaded = 3;
+    float downloadSpeedMbytesPerSec = 4;
+    float uploadSpeedMbytesPerSec = 5;
+}
+message WsConnectivityMsg {
+    oneof payload {
+        WsPingMsg pingMsg = 1;
+        WsConnectivityInfoMsg connectivityInfoMsg = 2;
+    }
+}

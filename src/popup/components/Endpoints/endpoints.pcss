@@ -1,0 +1,85 @@
+.endpoints {
+    padding: 15px;
+    background-color: var(--greyf3);
+
+    &__header {
+        display: flex;
+        align-items: center;
+    }
+
+    &__back {
+        width: 16px;
+        height: 16px;
+        background-image: url(../../../assets/images/arrow-back.svg);
+        margin-right: 15px;
+    }
+
+    &__search {
+        position: relative;
+    }
+
+    &__search-in {
+        border-radius: 4px;
+        padding: 10px 15px;
+        font-size: 14px;
+        min-width: 250px;
+        border: 0;
+        outline: none;
+    }
+
+    &__cross {
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        top: calc(50% - 6px);
+        right: 15px;
+        background-image: url(../../../assets/images/cross.svg);
+        visibility: hidden;
+
+        &--active {
+            visibility: visible;
+        }
+    }
+
+    &__list {
+        max-height: 445px;
+        margin-top: 25px;
+        overflow-y: auto;
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        font-size: 16px;
+        line-height: 26px;
+        color: var(--gray-base);
+        margin-top: 25px;
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        &--selected .endpoints__item-ico{
+            background-image: url(../../../assets/images/radio-active.svg);
+        }
+
+        &--lock {
+            cursor: default;
+            pointer-events: none;
+
+            & .endpoints__item-ico{
+                background-image: url(../../../assets/images/lock.svg);
+            }
+        }
+    }
+
+    &__item-ico {
+        width: 20px;
+        height: 20px;
+        margin-right: 15px;
+        background-image: url(../../../assets/images/radio.svg);
+        background-repeat: no-repeat;
+        background-position: 50%;
+    }
+}

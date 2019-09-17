@@ -1,0 +1,11 @@
+{
+    "name": {
+        "message": "AdGuard VPN extension"
+    },
+    "description": {
+        "message": "Extension providing VPN services"
+    },
+    "short_name": {
+        "message": "AdGuard VPN"
+    }
+}

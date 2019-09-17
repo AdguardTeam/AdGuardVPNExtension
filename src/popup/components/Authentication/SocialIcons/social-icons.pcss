@@ -1,0 +1,27 @@
+.social-icons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--greyf3);
+    height: 60px;
+    width: calc(100% + 30px);
+    left: -15px;
+    bottom: -25px;
+    position: relative;
+    padding: 0 15px;
+
+    &__title {
+        color: var(--gray-base);
+        font-size: 16px;
+        line-height: 22px;
+    }
+
+    &__item {
+        display: inline-block;
+        margin-right: 10px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
