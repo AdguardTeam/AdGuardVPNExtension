@@ -39,12 +39,7 @@ class Credentials {
     }
 
     /**
-     * Checks if vpn token is valid
-     * vpn token has the next props
-     * {
-     *      license_status: "EXPIRED",
-     *      time_expires_sec: 1568825905
-     * }
+     * Checks if vpn token is not expired
      * @param vpnToken
      * @returns {boolean}
      */
@@ -52,14 +47,8 @@ class Credentials {
         if (!vpnToken) {
             return false;
         }
-        const { license_status: licenseStatus, time_expires_sec: timeExpiresSec } = vpnToken;
-        if (licenseStatus === 'EXPIRED') {
-            return false;
-        }
-        if (Date.now() > timeExpiresSec * 1000) {
-            return false;
-        }
-        return true;
+        const { license_status: licenseStatus } = vpnToken;
+        return licenseStatus !== 'EXPIRED';
     };
 
     async gainVpnToken() {
