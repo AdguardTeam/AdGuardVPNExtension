@@ -38,12 +38,36 @@ class Credentials {
         return vpnToken;
     }
 
+    /**
+     * Checks if vpn token is valid
+     * vpn token has the next props
+     * {
+     *      license_status: "EXPIRED",
+     *      time_expires_sec: 1568825905
+     * }
+     * @param vpnToken
+     * @returns {boolean}
+     */
+    isVpnTokenValid = (vpnToken) => {
+        const { license_status: licenseStatus, time_expires_sec: timeExpiresSec } = vpnToken;
+        if (licenseStatus === 'EXPIRED') {
+            return false;
+        }
+        if (Date.now() > timeExpiresSec * 1000) {
+            return false;
+        }
+        return true;
+    };
+
     async gainVpnToken() {
         let vpnToken = await this.getVpnTokenLocal();
-        if (!vpnToken) {
+        if (!this.isVpnTokenValid(vpnToken)) {
             vpnToken = await this.getVpnTokenRemote();
         }
-        return vpnToken;
+        if (this.isVpnTokenValid(vpnToken)) {
+            return vpnToken;
+        }
+        return null;
     }
 
     async getVpnCredentialsRemote() {
