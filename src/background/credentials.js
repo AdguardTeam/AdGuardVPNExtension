@@ -48,7 +48,7 @@ class Credentials {
             return false;
         }
         const { license_status: licenseStatus } = vpnToken;
-        return licenseStatus !== 'EXPIRED';
+        return licenseStatus === 'VALID';
     };
 
     async gainVpnToken() {
