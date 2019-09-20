@@ -49,6 +49,9 @@ class Credentials {
      * @returns {boolean}
      */
     isVpnTokenValid = (vpnToken) => {
+        if (!vpnToken) {
+            return false;
+        }
         const { license_status: licenseStatus, time_expires_sec: timeExpiresSec } = vpnToken;
         if (licenseStatus === 'EXPIRED') {
             return false;
