@@ -126,13 +126,12 @@ class Credentials {
         throw new Error('cannot get credentials');
     }
 
-    async getHostPrefix() {
+    async getAccessPrefix() {
         const vpnToken = await this.gainVpnToken();
         const { token } = vpnToken;
         const vpnCredentials = await this.gainVpnCredentials();
         const { result: { credentials } } = vpnCredentials;
-        const result = md5(token + credentials).toString();
-        return result;
+        return md5(token + credentials).toString();
     }
 
     async gainAppId() {

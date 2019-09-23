@@ -27,6 +27,8 @@ class ExtensionProxy {
 
         this.bypassWhitelist = [];
 
+        this.currentAccessPrefix = '';
+
         this.currentEndpoint = '';
 
         this.currentHost = '';
@@ -110,7 +112,7 @@ class ExtensionProxy {
         this.currentConfig = this.getConfig();
     }
 
-    async restartProxy() {
+    async applyConfig() {
         this.updateConfig();
         if (this.isActive) {
             await this.turnOn();
@@ -126,27 +128,31 @@ class ExtensionProxy {
         return [...NON_ROUTABLE_NETS];
     }
 
-    async setBypassWhitelist(whitelist) {
+    setBypassWhitelist = async (whitelist) => {
         this.bypassWhitelist = whitelist;
-        await this.restartProxy();
-    }
-
-    setHost = (host) => {
-        this.currentHost = host;
-        this.updateConfig();
+        await this.applyConfig();
     };
 
-    updateCurrentHost = async (domainPrefix) => {
+    setHost = async (host) => {
+        this.currentHost = host;
+        await this.applyConfig();
+    };
+
+    setAccessPrefix = async (accessPrefix) => {
         const endpoint = await this.getCurrentEndpoint();
         const { domainName } = endpoint;
-        const host = `${domainPrefix}.${domainName}`;
+        const host = `${accessPrefix}.${domainName}`;
+        this.currentAccessPrefix = accessPrefix;
         this.setHost(host);
         return host;
     };
 
     setCurrentEndpoint = async (endpoint) => {
         this.currentEndpoint = endpoint;
-        return storage.set(CURRENT_ENDPOINT_KEY, endpoint);
+        const { domainName } = this.currentEndpoint;
+        const host = `${this.currentAccessPrefix}.${domainName}`;
+        this.setHost(host);
+        await storage.set(CURRENT_ENDPOINT_KEY, endpoint);
     };
 
     getCurrentEndpoint = async () => {
@@ -154,6 +160,9 @@ class ExtensionProxy {
         if (!result) {
             result = await storage.get(CURRENT_ENDPOINT_KEY);
             this.currentEndpoint = result;
+        }
+        if (!result) {
+            throw new Error('current endpoint is empty');
         }
         return result;
     };
