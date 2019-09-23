@@ -20,14 +20,11 @@ const print = (level, method, args) => {
     const formatted = `${now.toISOString()}:`;
     // eslint-disable-next-line no-console
     console[method](formatted, ...args);
-    if (LEVELS[method] === LEVELS.ERROR) {
-        throw new Error(formatted);
-    }
 };
 
 const log = {
     debug(...args) {
-        print('DEBUG', 'log', args);
+        print('DEBUG', 'trace', args);
     },
 
     info(...args) {

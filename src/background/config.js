@@ -2,7 +2,7 @@
 export const ACCOUNT_API_URL = 'https://account.adguard.com/api/1.0';
 
 // https://bit.adguard.com/projects/ADGUARD/repos/adguard-vpn-backend-service/browse
-export const VPN_API_URL = 'http://backend.adguard.io/api/v1';
+export const VPN_API_URL = 'https://backend.adguard.io/api/v1';
 
 export const AUTH_API_URL = 'https://auth.adguard.com';
 

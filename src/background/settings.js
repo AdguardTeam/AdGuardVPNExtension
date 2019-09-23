@@ -34,6 +34,7 @@ const proxyEnabledHandler = async (value) => {
             await actions.setIconEnabled();
         } catch (e) {
             log.error(e.message);
+            throw e;
         }
     } else {
         stats.stop();

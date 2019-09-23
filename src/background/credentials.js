@@ -38,12 +38,28 @@ class Credentials {
         return vpnToken;
     }
 
+    /**
+     * Checks if vpn token is not expired
+     * @param vpnToken
+     * @returns {boolean}
+     */
+    isVpnTokenValid = (vpnToken) => {
+        if (!vpnToken) {
+            return false;
+        }
+        const { license_status: licenseStatus } = vpnToken;
+        return licenseStatus === 'VALID';
+    };
+
     async gainVpnToken() {
         let vpnToken = await this.getVpnTokenLocal();
-        if (!vpnToken) {
+        if (!this.isVpnTokenValid(vpnToken)) {
             vpnToken = await this.getVpnTokenRemote();
         }
-        return vpnToken;
+        if (this.isVpnTokenValid(vpnToken)) {
+            return vpnToken;
+        }
+        return null;
     }
 
     async getVpnCredentialsRemote() {
