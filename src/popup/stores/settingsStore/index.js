@@ -6,6 +6,7 @@ import {
 
 import tabs from '../../../background/tabs';
 import log from '../../../lib/logger';
+import { getHostname } from '../../../lib/helpers';
 import bgProvider from '../../../lib/background-provider';
 import { SETTINGS_IDS } from '../../../lib/constants';
 
@@ -20,7 +21,7 @@ class SettingsStore {
 
     @observable isWhitelisted;
 
-    @observable currentTabUrl;
+    @observable currentTabHostname;
 
     @observable proxyStats;
 
@@ -89,7 +90,7 @@ class SettingsStore {
     @action
     async addToWhitelist() {
         try {
-            await bgProvider.whitelist.addToWhitelist(this.currentTabUrl);
+            await bgProvider.whitelist.addToWhitelist(this.currentTabHostname);
             runInAction(() => {
                 this.isWhitelisted = true;
             });
@@ -101,7 +102,7 @@ class SettingsStore {
     @action
     async removeFromWhitelist() {
         try {
-            await bgProvider.whitelist.removeFromWhitelist(this.currentTabUrl);
+            await bgProvider.whitelist.removeFromWhitelist(this.currentTabHostname);
             runInAction(() => {
                 this.isWhitelisted = false;
             });
@@ -112,8 +113,8 @@ class SettingsStore {
 
     @action async checkIsWhitelisted() {
         try {
-            await this.getCurrentTabUrl();
-            const result = await bgProvider.whitelist.isWhitelisted(this.currentTabUrl);
+            await this.getCurrentTabHostname();
+            const result = await bgProvider.whitelist.isWhitelisted(this.currentTabHostname);
             runInAction(() => {
                 this.isWhitelisted = result;
             });
@@ -122,11 +123,11 @@ class SettingsStore {
         }
     }
 
-    @action async getCurrentTabUrl() {
+    @action async getCurrentTabHostname() {
         try {
             const result = await tabs.getCurrent();
             runInAction(() => {
-                this.currentTabUrl = result.url;
+                this.currentTabHostname = getHostname(result.url);
             });
         } catch (e) {
             console.log(e);
