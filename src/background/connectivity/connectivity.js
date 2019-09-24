@@ -1,22 +1,22 @@
-// stats.proto will be converted to js object by webpack
+// connectivity.proto will be converted to js object by webpack
 // https://github.com/protobufjs/protobuf.js#using-generated-static-code
 // see webpack proto-loader https://github.com/PermissionData/protobufjs-loader
-import { WsPingMsg, WsConnectivityMsg } from './stats.proto';
+import { WsPingMsg, WsConnectivityMsg } from './connectivity.proto';
 import wsFactory from '../api/websocketApi';
 import { WS_API_URL_TEMPLATE } from '../config';
 import { renderTemplate } from '../../lib/string-utils';
 import log from '../../lib/logger';
 
-const STATS_STATES = {
+const CONNECTIVITY_STATE = {
     WORKING: 'working',
     PAUSED: 'paused',
 };
 
-class Stats {
+class Connectivity {
     PING_UPDATE_INTERVAL_MS = 1000 * 60;
 
     constructor() {
-        this.state = STATS_STATES.PAUSED;
+        this.state = CONNECTIVITY_STATE.PAUSED;
     }
 
     async setHost(host) {
@@ -26,17 +26,17 @@ class Stats {
         try {
             this.ws = await wsFactory.getWebsocket(websocketUrl);
         } catch (e) {
-            this.state = STATS_STATES.PAUSED;
+            this.state = CONNECTIVITY_STATE.PAUSED;
             throw new Error(`Was unable to create new websocket because of: ${JSON.stringify(e.message)}`);
         }
 
-        this.state = STATS_STATES.WORKING;
+        this.state = CONNECTIVITY_STATE.WORKING;
         this.start();
     }
 
     start = async () => {
         this.pingGetInterval = await this.startGettingPing();
-        this.startGettingStats();
+        this.startGettingConnectivityInfo();
     };
 
     stop = () => {
@@ -47,8 +47,8 @@ class Stats {
             this.ws.close();
         }
         this.ping = null;
-        this.stats = null;
-        this.state = STATS_STATES.PAUSED;
+        this.connectivityInfo = null;
+        this.state = CONNECTIVITY_STATE.PAUSED;
     };
 
     preparePingMessage = (currentTime) => {
@@ -76,7 +76,7 @@ class Stats {
                 resolve(ping);
             }
             if (connectivityInfoMsg) {
-                this.updateStats(connectivityInfoMsg);
+                this.updateConnectivityInfo(connectivityInfoMsg);
             }
         };
 
@@ -110,16 +110,16 @@ class Stats {
         }, this.PING_UPDATE_INTERVAL_MS);
     };
 
-    updateStats = (stats) => {
+    updateConnectivityInfo = (stats) => {
         log.info(stats);
-        this.stats = stats;
+        this.connectivityInfo = stats;
     };
 
-    startGettingStats = () => {
+    startGettingConnectivityInfo = () => {
         const messageHandler = (event) => {
             const { connectivityInfoMsg } = this.decodeMessage(event.data);
             if (connectivityInfoMsg) {
-                this.updateStats(connectivityInfoMsg);
+                this.updateConnectivityInfo(connectivityInfoMsg);
             }
         };
 
@@ -127,23 +127,23 @@ class Stats {
     };
 
     getPing = () => {
-        if (!this.ping || this.state === STATS_STATES.PAUSED) {
+        if (!this.ping || this.state === CONNECTIVITY_STATE.PAUSED) {
             return null;
         }
         return this.ping;
     };
 
     getStats = () => {
-        if (!this.stats || this.state === STATS_STATES.PAUSED) {
+        if (!this.connectivityInfo || this.state === CONNECTIVITY_STATE.PAUSED) {
             return null;
         }
-        let { mbytesDownloaded, downloadSpeedMbytesPerSec } = this.stats;
+        let { mbytesDownloaded, downloadSpeedMbytesPerSec } = this.connectivityInfo;
         mbytesDownloaded = mbytesDownloaded.toFixed(2);
         downloadSpeedMbytesPerSec = downloadSpeedMbytesPerSec.toFixed(2);
         return { mbytesDownloaded, downloadSpeedMbytesPerSec };
-    }
+    };
 }
 
-const stats = new Stats();
+const connectivity = new Connectivity();
 
-export default stats;
+export default connectivity;

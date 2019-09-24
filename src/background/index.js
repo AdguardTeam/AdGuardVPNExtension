@@ -8,7 +8,7 @@ import tabs from './tabs';
 import whitelist from './whitelist';
 import auth from './auth';
 import { proxy } from './proxy';
-import stats from './stats/stats';
+import connectivity from './connectivity/connectivity';
 import appManager from './appManager';
 import tabsContext from './tabsContext';
 
@@ -21,7 +21,7 @@ global.background = {
     tabs,
     whitelist,
     auth,
-    stats,
+    connectivity,
     appManager,
     tabsContext,
 };

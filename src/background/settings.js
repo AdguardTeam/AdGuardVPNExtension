@@ -2,7 +2,7 @@ import log from '../lib/logger';
 import notifier from '../lib/notifier';
 import { proxy } from './proxy';
 import credentials from './credentials';
-import stats from './stats/stats';
+import connectivity from './connectivity/connectivity';
 import { SETTINGS_IDS } from '../lib/constants';
 import actions from './actions';
 
@@ -29,7 +29,7 @@ const proxyEnabledHandler = async (value) => {
         try {
             const accessPrefix = await credentials.getAccessPrefix();
             const host = await proxy.setAccessPrefix(accessPrefix);
-            await stats.setHost(host);
+            await connectivity.setHost(host);
             await proxy.turnOn();
             await actions.setIconEnabled();
         } catch (e) {
@@ -37,7 +37,7 @@ const proxyEnabledHandler = async (value) => {
             throw e;
         }
     } else {
-        stats.stop();
+        connectivity.stop();
         await proxy.turnOff();
         await actions.setIconDisabled();
     }

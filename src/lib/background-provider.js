@@ -57,9 +57,9 @@ const actions = {
     openOptionsPage: background => background.actions.openOptionsPage(),
 };
 
-const stats = {
-    getPing: background => background.stats.getPing(),
-    getStats: background => background.stats.getStats(),
+const connectivity = {
+    getPing: background => background.connectivity.getPing(),
+    getStats: background => background.connectivity.getStats(),
 };
 
 const appManager = {
@@ -79,7 +79,7 @@ const bgProvider = {
     tabs: wrapMethods(tabs, asyncProvideBg),
     actions: wrapMethods(actions, asyncProvideBg),
     auth: wrapMethods(auth, asyncProvideBg),
-    stats: wrapMethods(stats, asyncProvideBg),
+    connectivity: wrapMethods(connectivity, asyncProvideBg),
     appManager: wrapMethods(appManager, asyncProvideBg),
     tabsContext: wrapMethods(tabsContext, asyncProvideBg),
 };
