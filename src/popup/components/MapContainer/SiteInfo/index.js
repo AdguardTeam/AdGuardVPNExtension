@@ -12,8 +12,6 @@ const SiteInfo = observer(() => {
         })();
     }, []);
 
-    const getSiteUrl = () => settingsStore.currentTabHostname;
-
     const removeFromWhitelist = async () => {
         await settingsStore.removeFromWhitelist();
     };
@@ -26,7 +24,7 @@ const SiteInfo = observer(() => {
                 className="popup-info__in"
                 overlayClassName="popup-info"
             >
-                <div className="popup-info__title popup-info__title--domain">{getSiteUrl()}</div>
+                <div className="popup-info__title popup-info__title--domain">{settingsStore.currentTabHostname}</div>
                 <div className="popup-info__status popup-info__status--warning">
                     that seems to be located in your local network and is not accessible through VPN
                 </div>
@@ -57,7 +55,7 @@ const SiteInfo = observer(() => {
                 className="popup-info__in"
                 overlayClassName="popup-info"
             >
-                <div className="popup-info__title popup-info__title--domain">{getSiteUrl()}</div>
+                <div className="popup-info__title popup-info__title--domain">{settingsStore.currentTabHostname}</div>
                 <div className="popup-info__status popup-info__status--succeed">is whitelisted</div>
                 <div className="popup-info__desc">
                     You can
