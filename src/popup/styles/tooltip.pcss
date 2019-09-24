@@ -6,6 +6,7 @@
     background-color: #fff;
     padding: 15px;
     box-shadow: 1px 1px 4px 0 rgba(170, 170, 170, 0.5);
+    border-radius: 4px;
 
     &:after {
         content: '';
@@ -24,6 +25,8 @@
         position: absolute;
         right: 8px;
         top: 8px;
+        padding: 0;
+        background-position: 50%;
         background-image: url("../../assets/images/cross.svg");
         background-repeat: no-repeat;
     }
@@ -49,7 +52,9 @@
 
     &__btn {
         border-radius: 8px;
-        padding: 10px;
+        padding: 8px;
+        min-width: 208px;
+        font-size: 16px;
         text-transform: uppercase;
         color: #fff;
         font-weight: 500;

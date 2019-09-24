@@ -5,6 +5,8 @@ class UiStore {
 
     @observable isOpenOptionsModal = false;
 
+    @observable isOpenPreloaderModal = false;
+
     @observable isOpenRecovery = false;
 
     @action
