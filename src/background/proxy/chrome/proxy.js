@@ -163,7 +163,7 @@ class ExtensionProxy {
         return result;
     };
 
-    setDefaults = async () => {
+    resetSettings = async () => {
         await this.turnOff();
         await storage.remove(CURRENT_ENDPOINT_KEY);
         this.currentHost = DEFAULTS.currentHost;

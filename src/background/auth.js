@@ -101,7 +101,6 @@ class Auth {
         await notifications.create({ message: 'Successfully authenticated' });
     }
 
-    // TODO [maximtop] set default values to proxy
     async deauthenticate() {
         const token = await storage.get(AUTH_ACCESS_TOKEN_KEY);
 
@@ -115,7 +114,7 @@ class Auth {
         }
 
         // set proxy settings to default
-        await proxy.setDefaults();
+        await proxy.resetSettings();
     }
 
     async register(credentials) {

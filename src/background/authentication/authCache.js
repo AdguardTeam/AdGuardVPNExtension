@@ -1,14 +1,17 @@
-const defaultAuthStorage = {
-    username: '',
-    login: '',
-    step: '',
-};
-
 function AuthCache() {
-    let authStorage = { ...defaultAuthStorage };
+    const DEFAULTS = {
+        username: '',
+        login: '',
+        step: '',
+    };
 
+    let authStorage = { ...DEFAULTS };
+
+    /**
+     * Sets values to default
+     */
     const clearAuthCache = () => {
-        authStorage = { ...defaultAuthStorage };
+        authStorage = { ...DEFAULTS };
     };
 
     /**
@@ -20,6 +23,10 @@ function AuthCache() {
         authStorage[field] = value;
     };
 
+    /**
+     * Returns all values
+     * @returns {{step, login, username}}
+     */
     const getAuthCache = () => authStorage;
 
     return {
@@ -28,7 +35,6 @@ function AuthCache() {
         clearAuthCache,
     };
 }
-
 
 const authCache = new AuthCache();
 

@@ -2,6 +2,7 @@ import authApi from '../api/authApi';
 
 const getAccessToken = async (credentials) => {
     let accessTokenData;
+
     try {
         accessTokenData = await authApi.getAccessToken(credentials);
     } catch (e) {
