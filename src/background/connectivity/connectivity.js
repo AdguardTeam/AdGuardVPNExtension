@@ -142,6 +142,17 @@ class Connectivity {
         downloadSpeedMbytesPerSec = downloadSpeedMbytesPerSec.toFixed(2);
         return { mbytesDownloaded, downloadSpeedMbytesPerSec };
     };
+
+    shouldRefresh = () => {
+        if (!this.connectivityInfo) {
+            return null;
+        }
+        const { refreshTokens } = this.connectivityInfo;
+        if (refreshTokens) {
+            return refreshTokens;
+        }
+        return false;
+    };
 }
 
 const connectivity = new Connectivity();

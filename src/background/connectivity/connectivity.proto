@@ -17,6 +17,7 @@ message WsConnectivityInfoMsg {
     float mbytesUploaded = 3;
     float downloadSpeedMbytesPerSec = 4;
     float uploadSpeedMbytesPerSec = 5;
+    bool refreshTokens = 6;
 }
 
 message WsConnectivityMsg {
