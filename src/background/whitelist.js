@@ -1,9 +1,5 @@
 import { proxy } from './proxy';
-
-const getHostname = (url) => {
-    const urlObj = new URL(url);
-    return urlObj.hostname;
-};
+import { getHostname } from '../lib/helpers';
 
 class Whitelist {
     constructor() {
