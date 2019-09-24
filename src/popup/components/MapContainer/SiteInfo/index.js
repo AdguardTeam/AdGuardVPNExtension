@@ -12,7 +12,7 @@ const SiteInfo = observer(() => {
         })();
     }, []);
 
-    const getSiteUrl = () => settingsStore.currentTabUrl;
+    const getSiteUrl = () => settingsStore.currentTabHostname;
 
     const removeFromWhitelist = async () => {
         await settingsStore.removeFromWhitelist();
