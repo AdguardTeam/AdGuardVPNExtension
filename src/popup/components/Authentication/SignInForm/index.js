@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import popupActions from '../../../actions/popupActions';
 import rootStore from '../../../stores';
@@ -6,6 +6,12 @@ import rootStore from '../../../stores';
 
 const SignInForm = observer(() => {
     const { authStore } = useContext(rootStore);
+
+    useEffect(() => {
+        (async () => {
+            await authStore.getAuthCacheFromBackground();
+        })();
+    }, []);
 
     const submitHandler = async (e) => {
         e.preventDefault();

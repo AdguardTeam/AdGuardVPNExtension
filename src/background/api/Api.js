@@ -1,5 +1,4 @@
 import axios from 'axios';
-import log from '../../lib/logger';
 
 class Api {
     constructor(baseUrl) {
@@ -15,7 +14,6 @@ class Api {
             });
             return response.data;
         } catch (error) {
-            log.error(error);
             const errorPath = `${this.baseUrl}/${path}`;
             if (error.response) {
                 throw new Error(JSON.stringify(error.response.data));

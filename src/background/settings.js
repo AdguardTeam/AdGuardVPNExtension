@@ -68,7 +68,7 @@ const setSetting = async (id, value, force) => {
     notifier.notifyListeners(notifier.types.SETTING_UPDATED, id, value);
 
     SETTINGS[id].value = value;
-    log.debug(`Setting with id: "${id}" was set to: "${value}"`);
+    log.info(`Setting with id: "${id}" was set to: "${value}"`);
     return true;
 };
 

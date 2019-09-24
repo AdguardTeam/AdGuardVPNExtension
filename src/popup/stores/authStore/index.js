@@ -58,7 +58,7 @@ class AuthStore {
         this.step = DEFAULTS.step;
     };
 
-    @action setDefaultsError = () => {
+    @action resetError = () => {
         this.error = DEFAULTS.error;
         this.errorDescription = DEFAULTS.errorDescription;
     };
@@ -75,9 +75,21 @@ class AuthStore {
     }, 500);
 
     @action onCredentialsChange = (field, value) => {
-        this.setDefaultsError();
+        this.resetError();
         this.credentials[field] = value;
         this.validate(field, value);
+        bgProvider.authCache.updateAuthCache(field, value);
+    };
+
+    @action
+    getAuthCacheFromBackground = async () => {
+        const { username, password, step } = await bgProvider.authCache.getAuthCache();
+        runInAction(() => {
+            this.credentials = { ...this.credentials, username, password };
+            if (step) {
+                this.step = step;
+            }
+        });
     };
 
     @computed
@@ -104,6 +116,7 @@ class AuthStore {
         }
 
         if (response.status === 'ok') {
+            bgProvider.authCache.clearAuthCache();
             runInAction(() => {
                 this.authenticated = true;
                 this.need2fa = false;
@@ -161,7 +174,8 @@ class AuthStore {
 
     @action switchStep = (step) => {
         this.step = step;
-        this.setDefaultsError();
+        this.resetError();
+        bgProvider.authCache.updateAuthCache('step', step);
     };
 
     @action showRegistration = () => {
