@@ -17,6 +17,11 @@ const proxySetAsync = config => new Promise((resolve) => {
     });
 });
 
+const DEFAULTS = {
+    currentEndpoint: '',
+    currentHost: '',
+};
+
 class ExtensionProxy {
     constructor() {
         this.isActive = false;
@@ -157,6 +162,13 @@ class ExtensionProxy {
         }
         return result;
     };
+
+    setDefaults = async () => {
+        await this.turnOff();
+        await storage.remove(CURRENT_ENDPOINT_KEY);
+        this.currentHost = DEFAULTS.currentHost;
+        this.currentEndpoint = DEFAULTS.currentEndpoint;
+    }
 }
 
 const proxy = new ExtensionProxy();

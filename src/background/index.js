@@ -11,6 +11,7 @@ import { proxy } from './proxy';
 import stats from './stats/stats';
 import appManager from './appManager';
 import tabsContext from './tabsContext';
+import authCache from './authentication/authCache';
 
 global.background = {
     settings,
@@ -24,6 +25,7 @@ global.background = {
     stats,
     appManager,
     tabsContext,
+    authCache,
 };
 
 // message handler used for message exchange with content pages, for other cases use bgProvider

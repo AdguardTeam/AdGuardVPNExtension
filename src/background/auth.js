@@ -2,8 +2,10 @@ import qs from 'qs';
 import isEmpty from 'lodash/isEmpty';
 import nanoid from 'nanoid';
 import { authApi } from './api';
+import authProvider from './providers/authProvider';
 import storage from './storage';
 import tabs from './tabs';
+import { proxy } from './proxy';
 import notifications from './notifications';
 import {
     AUTH_ACCESS_TOKEN_KEY,
@@ -18,35 +20,12 @@ class Auth {
     async authenticate(credentials) {
         let accessTokenData;
         try {
-            // TODO [maximtop] prepare returned accessTokenData in the providers
-            accessTokenData = await authApi.getAccessToken(credentials);
+            accessTokenData = await authProvider.getAccessToken(credentials);
         } catch (e) {
-            const {
-                error,
-                error_description: errorDescription,
-                error_code: errorCode,
-            } = JSON.parse(e.message);
-
-            if (errorCode === '2fa_required') {
-                return { status: errorCode };
-            }
-
-            return { error, errorCode, errorDescription };
+            return JSON.parse(e.message);
         }
 
-        const {
-            access_token: accessToken,
-            expires_in: expiresIn,
-            token_type: tokenType,
-            scope,
-        } = accessTokenData;
-        
-        await storage.set(AUTH_ACCESS_TOKEN_KEY, {
-            accessToken,
-            expiresIn,
-            scope,
-            tokenType,
-        });
+        await storage.set(AUTH_ACCESS_TOKEN_KEY, accessTokenData);
 
         return { status: 'ok' };
     }
@@ -122,10 +101,21 @@ class Auth {
         await notifications.create({ message: 'Successfully authenticated' });
     }
 
-    // TODO [maximtop] revoke accessToken from the api
     // TODO [maximtop] set default values to proxy
     async deauthenticate() {
+        const token = await storage.get(AUTH_ACCESS_TOKEN_KEY);
+
+        // remove token from storage
         await storage.remove(AUTH_ACCESS_TOKEN_KEY);
+
+        // revoke token from api
+        const accessToken = token && token.accessToken;
+        if (accessToken) {
+            await authApi.revokeToken(accessToken);
+        }
+
+        // set proxy settings to default
+        await proxy.setDefaults();
     }
 
     async register(credentials) {

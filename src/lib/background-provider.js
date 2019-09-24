@@ -71,6 +71,13 @@ const tabsContext = {
     getActiveTabUrl: background => background.tabsContext.getActiveTabUrl(),
 };
 
+const authCache = {
+    // eslint-disable-next-line max-len
+    updateAuthCache: (field, value, background) => background.authCache.updateAuthCache(field, value),
+    getAuthCache: background => background.authCache.getAuthCache(),
+    clearAuthCache: background => background.authCache.clearAuthCache(),
+};
+
 const bgProvider = {
     provider: wrapMethods(provider, asyncProvideBg),
     settings: wrapMethods(settings, asyncProvideBg),
@@ -82,6 +89,7 @@ const bgProvider = {
     stats: wrapMethods(stats, asyncProvideBg),
     appManager: wrapMethods(appManager, asyncProvideBg),
     tabsContext: wrapMethods(tabsContext, asyncProvideBg),
+    authCache: wrapMethods(authCache, asyncProvideBg),
 };
 
 export default bgProvider;
