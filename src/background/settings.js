@@ -27,8 +27,8 @@ const getSetting = settingId => SETTINGS[settingId];
 const proxyEnabledHandler = async (value) => {
     if (value) {
         try {
-            const hostPrefix = await credentials.getHostPrefix();
-            const host = await proxy.updateCurrentHost(hostPrefix);
+            const accessPrefix = await credentials.getAccessPrefix();
+            const host = await proxy.setAccessPrefix(accessPrefix);
             await stats.setHost(host);
             await proxy.turnOn();
             await actions.setIconEnabled();

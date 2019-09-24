@@ -11,6 +11,7 @@ import InfoMessage from '../InfoMessage';
 import Endpoints from '../Endpoints';
 import Authentication from '../Authentication';
 import ExtraOptions from '../ExtraOptions';
+import Preloader from '../Preloader';
 import Stats from '../Stats';
 import Settings from '../Settings';
 import rootStore from '../../stores';
@@ -35,7 +36,7 @@ const App = observer(() => {
     } = settingsStore;
 
     const { authenticated } = authStore;
-    const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
+    const { isOpenEndpointsSearch, isOpenOptionsModal, isOpenPreloaderModal } = uiStore;
 
     if (!authenticated) {
         return (
@@ -59,6 +60,7 @@ const App = observer(() => {
     return (
         <Fragment>
             {isOpenOptionsModal && <ExtraOptions />}
+            {isOpenPreloaderModal && <Preloader />}
             <Header authenticated={authenticated} />
             <MapContainer globalProxyEnabled={extensionEnabled} />
             <Settings

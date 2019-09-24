@@ -54,7 +54,7 @@ const SignInForm = observer(() => {
                         </label>
                         <button
                             type="button"
-                            className="form__inline-btn button button--inline button--inline-orange"
+                            className="form__inline-btn button button--inline"
                             onClick={popupActions.openRecovery}
                         >
                             Lost it?
