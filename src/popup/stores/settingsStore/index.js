@@ -35,7 +35,7 @@ class SettingsStore {
     };
 
     getProxyPing = async () => {
-        const ping = await bgProvider.stats.getPing();
+        const ping = await bgProvider.connectivity.getPing();
         this.setPing(ping);
     };
 
@@ -136,7 +136,7 @@ class SettingsStore {
 
     @action async getProxyStats() {
         try {
-            const stats = await bgProvider.stats.getStats();
+            const stats = await bgProvider.connectivity.getStats();
             runInAction(() => {
                 this.proxyStats = stats;
             });
