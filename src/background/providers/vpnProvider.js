@@ -100,9 +100,27 @@ const getCurrentLocation = async () => {
     };
 };
 
+const getVpnExtensionInfo = async () => {
+    const info = await vpnApi.getVpnExtensionInfo();
+    const {
+        bandwidth_free_mbits: bandwidthFreeMbits,
+        premium_promo_page: premiumPromoPage,
+        premium_promo_enabled: premiumPromoEnabled,
+        refresh_tokens: refreshTokens,
+    } = info;
+
+    return {
+        bandwidthFreeMbits,
+        premiumPromoPage,
+        premiumPromoEnabled,
+        refreshTokens,
+    };
+};
+
 const vpnProvider = {
     getEndpoints,
     getCurrentLocation,
+    getVpnExtensionInfo,
 };
 
 export default vpnProvider;

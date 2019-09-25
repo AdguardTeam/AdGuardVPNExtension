@@ -12,9 +12,14 @@ const getEndpoints = async () => {
 
 const getCurrentLocation = async () => vpnProvider.getCurrentLocation();
 
+const getVpnExtensionInfo = async () => {
+    return vpnProvider.getVpnExtensionInfo();
+};
+
 const endpoints = {
     getEndpoints,
     getCurrentLocation,
+    getVpnExtensionInfo,
 };
 
 export default endpoints;
