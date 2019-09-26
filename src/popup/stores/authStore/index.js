@@ -48,7 +48,7 @@ class AuthStore {
 
     @observable step = DEFAULTS.step;
 
-    @observable state = REQUEST_STATUSES.DONE;
+    @observable state = REQUEST_STATUSES.PENDING;
 
     STEPS = AUTH_STEPS;
 
@@ -162,12 +162,16 @@ class AuthStore {
     };
 
     @action isAuthenticated = async () => {
+        this.state = REQUEST_STATUSES.PENDING;
         const result = await bgProvider.auth.isAuthenticated();
         if (result) {
             runInAction(() => {
                 this.authenticated = true;
             });
         }
+        runInAction(() => {
+            this.state = REQUEST_STATUSES.DONE;
+        });
     };
 
     @action deauthenticate = async () => {
