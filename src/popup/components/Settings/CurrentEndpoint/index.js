@@ -7,15 +7,32 @@ import rootStore from '../../../stores';
 const CurrentEndpoint = observer((props) => {
     const { endpointsStore, settingsStore } = useContext(rootStore);
 
+    const updatePing = () => {
+        const UPDATE_INTERVAL = 1000;
+        // first time get immediately
+        settingsStore.getProxyPing();
+
+        // get once per specified update interval
+        const intervalId = setInterval(async () => {
+            await settingsStore.getProxyPing();
+        }, UPDATE_INTERVAL);
+
+        const onUnmount = () => {
+            clearInterval(intervalId);
+        };
+
+        return onUnmount;
+    };
+
     useEffect(() => {
         (() => {
             endpointsStore.getSelectedEndpoint();
             endpointsStore.getCurrentLocation();
         })();
-        const intervalId = setInterval(async () => {
-            await settingsStore.getProxyPing();
-        }, 1000);
-        return () => clearInterval(intervalId);
+
+        const onUnmount = updatePing();
+
+        return onUnmount;
     }, []);
 
     const endpointStatus = classnames({
