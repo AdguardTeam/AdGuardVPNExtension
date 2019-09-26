@@ -36,18 +36,15 @@ class VpnStore {
         }
     };
 
-    @action fetchEndpoints = async () => {
-        try {
-            this.endpointsGetState = REQUEST_STATUSES.PENDING;
-            const endpointsData = await bgProvider.vpn.getEndpoints();
-            runInAction(() => {
-                this.endpoints = endpointsData;
-                this.endpointsGetState = REQUEST_STATUSES.DONE;
-            });
-        } catch (e) {
-            console.log(e);
-            this.endpointsGetState = REQUEST_STATUSES.ERROR;
-        }
+    @action getEndpoints = async () => {
+        const endpoints = await bgProvider.vpn.getEndpoints();
+        this.setEndpoints(endpoints);
+    };
+
+    @action
+    setEndpoints = (endpoints) => {
+        console.log(endpoints);
+        this.endpoints = endpoints;
     };
 
     @action

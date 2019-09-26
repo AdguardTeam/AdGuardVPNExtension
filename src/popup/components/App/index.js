@@ -39,8 +39,21 @@ const App = observer(() => {
         })();
 
         const messageHandler = (message) => {
-            if (message.type === MESSAGES_TYPES.VPN_INFO_UPDATED) {
-                vpnStore.setVpnInfo(message.data);
+            const { type, data } = message;
+
+            switch (type) {
+                case MESSAGES_TYPES.VPN_INFO_UPDATED: {
+                    vpnStore.setVpnInfo(data);
+                    break;
+                }
+                case MESSAGES_TYPES.ENDPOINTS_UPDATED: {
+                    vpnStore.setEndpoints(data);
+                    break;
+                }
+                default: {
+                    console.log('there is no such message type: ', type);
+                    break;
+                }
             }
         };
 

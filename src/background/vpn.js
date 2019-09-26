@@ -22,7 +22,7 @@ const getEndpointsRemotely = async () => {
     }
     const endpoints = await vpnProvider.getEndpoints(token);
     vpnCache.endpoints = endpoints;
-    browser.runtime.sendMessage({ type: 'vpn-saved-locally', endpoints });
+    browser.runtime.sendMessage({ type: MESSAGES_TYPES.ENDPOINTS_UPDATED, data: endpoints });
 };
 
 const getVpnInfoRemotely = async () => {

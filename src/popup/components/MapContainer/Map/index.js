@@ -16,8 +16,8 @@ const Map = observer((props) => {
     const { vpnStore, tooltipStore } = useContext(rootStore);
 
     useEffect(() => {
-        (async () => {
-            await vpnStore.fetchEndpoints();
+        (() => {
+            vpnStore.getEndpoints();
         })();
     }, []);
 
