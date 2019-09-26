@@ -15,6 +15,7 @@ import Preloader from '../Preloader';
 import Stats from '../Stats';
 import Settings from '../Settings';
 import rootStore from '../../stores';
+import { REQUEST_STATUSES } from '../../stores/consts';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -35,13 +36,15 @@ const App = observer(() => {
         canControlProxy,
     } = settingsStore;
 
-    const { state, authenticated } = authStore;
+    const { state: requestProcessState, authenticated } = authStore;
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
 
     if (!authenticated) {
         return (
             <Fragment>
-                {state === 'pending' && <Preloader />}
+                {requestProcessState === REQUEST_STATUSES.PENDING
+                    && <Preloader />
+                }
                 <Header authenticated={authenticated} />
                 <Authentication />
             </Fragment>
