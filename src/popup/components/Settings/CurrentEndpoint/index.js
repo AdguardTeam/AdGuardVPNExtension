@@ -8,9 +8,9 @@ const CurrentEndpoint = observer((props) => {
     const { endpointsStore, settingsStore } = useContext(rootStore);
 
     useEffect(() => {
-        (async () => {
-            await endpointsStore.getSelectedEndpoint();
-            await endpointsStore.getCurrentLocation();
+        (() => {
+            endpointsStore.getSelectedEndpoint();
+            endpointsStore.getCurrentLocation();
         })();
         const intervalId = setInterval(async () => {
             await settingsStore.getProxyPing();

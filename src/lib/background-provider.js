@@ -16,9 +16,10 @@ const wrapMethods = (obj, wrapper) => {
     return obj;
 };
 
-const provider = {
-    getEndpoints: background => background.endpoints.getEndpoints(),
-    getCurrentLocation: background => background.endpoints.getCurrentLocation(),
+const vpn = {
+    getVpnInfo: background => background.vpn.getVpnInfo(),
+    getEndpoints: background => background.vpn.getEndpoints(),
+    getCurrentLocation: background => background.vpn.getCurrentLocation(),
 };
 
 const settings = {
@@ -41,6 +42,7 @@ const whitelist = {
 const tabs = {
     closePopup: background => background.tabs.closePopup(),
     openRecovery: background => background.tabs.openRecovery(),
+    openTab: (url, background) => background.tabs.openTab(url),
 };
 
 const auth = {
@@ -79,7 +81,7 @@ const authCache = {
 };
 
 const bgProvider = {
-    provider: wrapMethods(provider, asyncProvideBg),
+    vpn: wrapMethods(vpn, asyncProvideBg),
     settings: wrapMethods(settings, asyncProvideBg),
     proxy: wrapMethods(proxy, asyncProvideBg),
     whitelist: wrapMethods(whitelist, asyncProvideBg),

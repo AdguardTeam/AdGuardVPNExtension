@@ -6,6 +6,7 @@ import UiStore from './uiStore';
 import AuthStore from './authStore';
 import EndpointsStore from './endpointsStore';
 import TooltipStore from './tooltipStore';
+import VpnInfoStore from './vpnInfoStore';
 
 // Do not allow property change outside of store actions
 configure({ enforceActions: 'observed' });
@@ -17,6 +18,7 @@ class RootStore {
         this.authStore = new AuthStore(this);
         this.endpointsStore = new EndpointsStore(this);
         this.tooltipStore = new TooltipStore(this);
+        this.vpnInfoStore = new VpnInfoStore(this);
     }
 }
 

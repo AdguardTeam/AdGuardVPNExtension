@@ -87,7 +87,10 @@ export class Notifier {
     }
 }
 
-const types = { SETTING_UPDATED: 'event.update.setting.value' };
+const types = {
+    SETTING_UPDATED: 'event.update.setting.value',
+
+};
 const notifier = new Notifier(types);
 
 export default notifier;

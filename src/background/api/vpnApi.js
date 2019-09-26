@@ -37,9 +37,12 @@ class VpnApi extends Api {
 
     VPN_EXTENSION_INFO = { path: 'info/extension', method: 'GET' };
 
-    getVpnExtensionInfo = () => {
+    getVpnExtensionInfo = (vpnToken) => {
         const { path, method } = this.VPN_EXTENSION_INFO;
-        return this.makeRequest(path, method);
+        const params = {
+            token: vpnToken,
+        };
+        return this.makeRequest(path, method, { params });
     };
 }
 

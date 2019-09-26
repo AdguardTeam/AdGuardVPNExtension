@@ -1,9 +1,11 @@
 import nanoid from 'nanoid';
 import md5 from 'crypto-js/md5';
-import { accountApi, vpnApi } from './api';
+import { vpnApi } from './api';
+import accountProvider from './providers/accountProvider';
 import auth from './auth';
 import storage from './storage';
 import log from '../lib/logger';
+import vpnProvider from './providers/vpnProvider';
 
 class Credentials {
     VPN_TOKEN_KEY = 'credentials.token';
@@ -26,14 +28,13 @@ class Credentials {
         if (!accessToken) {
             throw new Error('user is not authenticated yet');
         }
-        let vpnTokenData;
+        let vpnToken;
         try {
-            vpnTokenData = await accountApi.getVpnToken(accessToken);
+            vpnToken = await accountProvider.getVpnToken(accessToken);
         } catch (e) {
             log.error(e.message);
             throw new Error(`unable to get vpn token from: ${e.message}`);
         }
-        const vpnToken = vpnTokenData.tokens.find(token => token.token === vpnTokenData.token);
         await storage.set(this.VPN_TOKEN_KEY, vpnToken);
         return vpnToken;
     }
@@ -47,8 +48,7 @@ class Credentials {
         if (!vpnToken) {
             return false;
         }
-        const { license_status: licenseStatus } = vpnToken;
-        return licenseStatus === 'VALID';
+        return vpnToken.licenseStatus === 'VALID';
     };
 
     async gainVpnToken() {
@@ -70,7 +70,8 @@ class Credentials {
             throw new Error('was unable to gain vpn token');
         }
         try {
-            credentials = vpnApi.getVpnCredentials(appId, vpnToken.token);
+            credentials = await vpnApi.getVpnCredentials(appId, vpnToken.token);
+            console.log('prepare in provider:', credentials);
         } catch (e) {
             log.error(e.message);
             throw new Error('was unable to get vpn credentials: ', e.message);
@@ -103,17 +104,19 @@ class Credentials {
         return true;
     }
 
-    async gainVpnCredentials() {
+    async gainVpnCredentials(remoteForce) {
         let vpnCredentials;
 
-        if (this.areCredentialsValid(this.vpnCredentials)) {
-            return this.vpnCredentials;
-        }
+        if (!remoteForce) {
+            if (this.areCredentialsValid(this.vpnCredentials)) {
+                return this.vpnCredentials;
+            }
 
-        vpnCredentials = await this.getVpnCredentialsLocal();
-        if (this.areCredentialsValid(vpnCredentials)) {
-            this.vpnCredentials = vpnCredentials;
-            return vpnCredentials;
+            vpnCredentials = await this.getVpnCredentialsLocal();
+            if (this.areCredentialsValid(vpnCredentials)) {
+                this.vpnCredentials = vpnCredentials;
+                return vpnCredentials;
+            }
         }
 
         vpnCredentials = await this.getVpnCredentialsRemote();
@@ -122,6 +125,7 @@ class Credentials {
             await storage.set(this.VPN_CREDENTIALS_KEY, vpnCredentials);
             return vpnCredentials;
         }
+
         // TODO [maximtop] notify user about error;
         throw new Error('cannot get credentials');
     }

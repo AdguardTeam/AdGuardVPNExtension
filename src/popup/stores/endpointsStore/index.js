@@ -33,7 +33,7 @@ class EndpointsStore {
     @action fetchEndpoints = async () => {
         try {
             this.endpointsGetState = REQUEST_STATUSES.PENDING;
-            const endpointsData = await bgProvider.provider.getEndpoints();
+            const endpointsData = await bgProvider.vpn.getEndpoints();
             runInAction(() => {
                 this.endpoints = endpointsData;
                 this.endpointsGetState = REQUEST_STATUSES.DONE;
@@ -56,7 +56,12 @@ class EndpointsStore {
 
     @action
     getSelectedEndpoint = async () => {
-        const endpoint = await bgProvider.proxy.getCurrentEndpoint();
+        let endpoint;
+        try {
+            endpoint = await bgProvider.proxy.getCurrentEndpoint();
+        } catch (e) {
+            endpoint = null; // no current selected endpoint
+        }
         runInAction(() => {
             this.selectedEndpoint = endpoint;
         });
@@ -97,7 +102,7 @@ class EndpointsStore {
 
     @action
     getCurrentLocation = async () => {
-        const currentLocation = await bgProvider.provider.getCurrentLocation();
+        const currentLocation = await bgProvider.vpn.getCurrentLocation();
         runInAction(() => {
             this.currentLocation = currentLocation;
         });
