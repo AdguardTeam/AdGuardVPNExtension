@@ -5,11 +5,11 @@ import { observer } from 'mobx-react';
 import rootStore from '../../stores';
 
 const ExtraOptions = observer(() => {
-    const { uiStore } = useContext(rootStore);
+    const { authStore } = useContext(rootStore);
 
     return (
         <Modal
-            isOpen={uiStore.isOpenPreloaderModal}
+            isOpen={authStore.state === 'pending'}
             className="preloader"
             overlayClassName="preloader__overlay"
         >

@@ -35,12 +35,13 @@ const App = observer(() => {
         canControlProxy,
     } = settingsStore;
 
-    const { authenticated } = authStore;
-    const { isOpenEndpointsSearch, isOpenOptionsModal, isOpenPreloaderModal } = uiStore;
+    const { state, authenticated } = authStore;
+    const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
 
     if (!authenticated) {
         return (
             <Fragment>
+                {state === 'pending' && <Preloader />}
                 <Header authenticated={authenticated} />
                 <Authentication />
             </Fragment>
@@ -60,7 +61,6 @@ const App = observer(() => {
     return (
         <Fragment>
             {isOpenOptionsModal && <ExtraOptions />}
-            {isOpenPreloaderModal && <Preloader />}
             <Header authenticated={authenticated} />
             <MapContainer globalProxyEnabled={extensionEnabled} />
             <Settings

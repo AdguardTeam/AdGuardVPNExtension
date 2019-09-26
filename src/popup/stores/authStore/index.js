@@ -47,6 +47,8 @@ class AuthStore {
 
     @observable step = DEFAULTS.step;
 
+    @observable state = 'done';
+
     STEPS = AUTH_STEPS;
 
     @action setDefaults = () => {
@@ -105,10 +107,12 @@ class AuthStore {
     }
 
     @action authenticate = async () => {
+        this.state = 'pending';
         const response = await bgProvider.auth.authenticate(this.credentials);
 
         if (response.error) {
             runInAction(() => {
+                this.state = 'error';
                 this.error = true;
                 this.errorDescription = response.errorDescription;
             });
@@ -118,6 +122,7 @@ class AuthStore {
         if (response.status === 'ok') {
             bgProvider.authCache.clearAuthCache();
             runInAction(() => {
+                this.state = 'done';
                 this.authenticated = true;
                 this.need2fa = false;
                 this.credentials = DEFAULTS.credentials;
@@ -127,6 +132,7 @@ class AuthStore {
 
         if (response.status === '2fa_required') {
             runInAction(() => {
+                this.state = 'done';
                 this.need2fa = true;
                 this.switchStep(this.STEPS.TWO_FACTOR);
             });
@@ -134,9 +140,11 @@ class AuthStore {
     };
 
     @action register = async () => {
+        this.state = 'pending';
         const response = await bgProvider.auth.register(this.credentials);
         if (response.error) {
             runInAction(() => {
+                this.state = 'error';
                 this.error = true;
                 this.errorDescription = response.errorDescription;
                 this.field = response.field;
@@ -145,6 +153,7 @@ class AuthStore {
         }
         if (response.status === 'ok') {
             runInAction(() => {
+                this.state = 'done';
                 this.authenticated = true;
                 this.credentials = DEFAULTS.credentials;
             });
