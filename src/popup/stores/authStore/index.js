@@ -141,7 +141,7 @@ class AuthStore {
     };
 
     @action register = async () => {
-        this.state = 'pending';
+        this.state = REQUEST_STATUSES.PENDING;
         const response = await bgProvider.auth.register(this.credentials);
         if (response.error) {
             runInAction(() => {
