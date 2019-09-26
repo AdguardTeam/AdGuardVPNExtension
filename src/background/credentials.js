@@ -70,8 +70,7 @@ class Credentials {
             throw new Error('was unable to gain vpn token');
         }
         try {
-            credentials = await vpnApi.getVpnCredentials(appId, vpnToken.token);
-            console.log('prepare in provider:', credentials);
+            credentials = await vpnProvider.getVpnCredentials(appId, vpnToken.token);
         } catch (e) {
             log.error(e.message);
             throw new Error('was unable to get vpn credentials: ', e.message);
@@ -95,8 +94,7 @@ class Credentials {
         if (!vpnCredentials) {
             return false;
         }
-        // TODO [maximtop] prepare data in providers
-        const { license_status: licenseStatus, time_expires_sec: timeExpiresSec } = vpnCredentials;
+        const { licenseStatus, timeExpiresSec } = vpnCredentials;
         const currentTimeSec = Math.ceil(Date.now() / 1000);
         if (licenseStatus !== 'VALID' || timeExpiresSec < currentTimeSec) {
             return false;

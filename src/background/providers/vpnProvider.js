@@ -116,10 +116,27 @@ const getVpnExtensionInfo = async (vpnToken) => {
     };
 };
 
+const getVpnCredentials = async (appId, vpnToken) => {
+    const responseData = await vpnApi.getVpnCredentials(appId, vpnToken);
+
+    const {
+        license_status: licenseStatus,
+        result: { credentials, expires_in_sec: expiresInSec },
+        time_expires_sec: timeExpiresSec,
+    } = responseData;
+
+    return {
+        licenseStatus,
+        result: { credentials, expiresInSec },
+        timeExpiresSec,
+    };
+};
+
 const vpnProvider = {
     getEndpoints,
     getCurrentLocation,
     getVpnExtensionInfo,
+    getVpnCredentials,
 };
 
 export default vpnProvider;
