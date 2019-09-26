@@ -26,7 +26,7 @@ const App = observer(() => {
         settingsStore,
         authStore,
         uiStore,
-        vpnInfoStore,
+        vpnStore,
     } = useContext(rootStore);
 
     useEffect(() => {
@@ -35,12 +35,12 @@ const App = observer(() => {
             await settingsStore.checkProxyControl();
             settingsStore.checkIsWhitelisted();
             authStore.isAuthenticated();
-            vpnInfoStore.getVpnInfo();
+            vpnStore.getVpnInfo();
         })();
 
         const messageHandler = (message) => {
             if (message.type === MESSAGES_TYPES.VPN_INFO_UPDATED) {
-                vpnInfoStore.setVpnInfo(message.data);
+                vpnStore.setVpnInfo(message.data);
             }
         };
 

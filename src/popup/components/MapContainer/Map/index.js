@@ -13,11 +13,11 @@ import rootStore from '../../../stores';
 import './map.pcss';
 
 const Map = observer((props) => {
-    const { endpointsStore, tooltipStore } = useContext(rootStore);
+    const { vpnStore, tooltipStore } = useContext(rootStore);
 
     useEffect(() => {
         (async () => {
-            await endpointsStore.fetchEndpoints();
+            await vpnStore.fetchEndpoints();
         })();
     }, []);
 
@@ -50,8 +50,10 @@ const Map = observer((props) => {
         outline: 'none',
     };
 
-    const { endpoints, selectedEndpoint } = endpointsStore;
-    const determineCenter = (endpointsStore, tooltipStore) => {
+    const { endpoints, selectedEndpoint } = vpnStore;
+
+    const determineCenter = (vpnStore, tooltipStore) => {
+        const { selectedEndpoint } = vpnStore;
         if (tooltipStore.isTooltipOpen) {
             const { coordinates: [x, y] } = tooltipStore.tooltipContent;
             return [x, y + 3];
@@ -62,7 +64,7 @@ const Map = observer((props) => {
         return (selectedEndpoint && selectedEndpoint.coordinates) || [0, 0];
     };
 
-    const center = determineCenter(endpointsStore, tooltipStore);
+    const center = determineCenter(vpnStore, tooltipStore);
     return (
         <div className="map">
             <ComposableMap

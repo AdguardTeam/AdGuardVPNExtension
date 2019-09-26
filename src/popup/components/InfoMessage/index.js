@@ -5,9 +5,9 @@ import rootStore from '../../stores';
 import popupActions from '../../actions/popupActions';
 
 const InfoMessage = observer(() => {
-    const { vpnInfoStore } = useContext(rootStore);
+    const { vpnStore } = useContext(rootStore);
 
-    if (vpnInfoStore.premiumPromoEnabled) {
+    if (!vpnStore.premiumPromoEnabled) {
         return null;
     }
 
@@ -22,16 +22,16 @@ const InfoMessage = observer(() => {
                 Your speed is limited to
                 <span className="info-message__mark">
                     &nbsp;
-                    {vpnInfoStore.bandwidthFreeMbits}
+                    {vpnStore.bandwidthFreeMbits}
                     &nbsp;
                     Mbits
                 </span>
             </div>
             <a
-                href={vpnInfoStore.premiumPromoPage}
+                href={vpnStore.premiumPromoPage}
                 type="button"
                 className="info-message__btn button button--orange"
-                onClick={onClick(vpnInfoStore.premiumPromoPage)}
+                onClick={onClick(vpnStore.premiumPromoPage)}
             >
                 Lift the limit
             </a>
