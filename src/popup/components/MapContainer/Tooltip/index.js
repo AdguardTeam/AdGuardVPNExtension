@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import rootStore from '../../../stores';
 
 const Tooltip = observer(() => {
-    const { tooltipStore, endpointsStore, settingsStore } = useContext(rootStore);
+    const { tooltipStore, vpnStore, settingsStore } = useContext(rootStore);
 
     if (!tooltipStore.tooltipContent) {
         return null;
@@ -23,7 +23,7 @@ const Tooltip = observer(() => {
     };
 
     const createConnectionHandler = async () => {
-        await endpointsStore.setSelectedEndpoint(tooltipStore.tooltipContent.id);
+        await vpnStore.setSelectedEndpoint(tooltipStore.tooltipContent.id);
         await settingsStore.setGlobalProxyEnabled(true);
         tooltipStore.closeTooltip();
     };
@@ -34,7 +34,7 @@ const Tooltip = observer(() => {
     };
 
     const isTooltipEndpointEnabled = settingsStore.extensionEnabled
-        && tooltipEndpointId === endpointsStore.selectedEndpoint.id;
+        && tooltipEndpointId === vpnStore.selectedEndpoint.id;
 
     const PREMIUM_STATE = 'premium';
     const ENABLED_STATE = 'enabled';

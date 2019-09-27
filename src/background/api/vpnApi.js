@@ -6,19 +6,17 @@ import { VPN_API_URL } from '../config';
 class VpnApi extends Api {
     GET_ENDPOINTS = { path: 'endpoints', method: 'GET' };
 
-    GET_VPN_CREDENTIALS = { path: 'proxy_credentials', method: 'POST' };
-
-    GET_CURRENT_LOCATION = { path: 'geo_location', method: 'GET' };
-
-    getEndpoints(vpnToken) {
+    getEndpoints = (vpnToken) => {
         const { path, method } = this.GET_ENDPOINTS;
         const params = {
             token: vpnToken,
         };
         return this.makeRequest(path, method, { params });
-    }
+    };
 
-    getVpnCredentials(appId, vpnToken) {
+    GET_VPN_CREDENTIALS = { path: 'proxy_credentials', method: 'POST' };
+
+    getVpnCredentials = (appId, vpnToken) => {
         const { path, method } = this.GET_VPN_CREDENTIALS;
         const data = {
             app_id: appId,
@@ -28,12 +26,24 @@ class VpnApi extends Api {
             data: qs.stringify(data),
         };
         return this.makeRequest(path, method, config);
-    }
+    };
 
-    getCurrentLocation() {
+    GET_CURRENT_LOCATION = { path: 'geo_location', method: 'GET' };
+
+    getCurrentLocation = () => {
         const { path, method } = this.GET_CURRENT_LOCATION;
         return this.makeRequest(path, method);
-    }
+    };
+
+    VPN_EXTENSION_INFO = { path: 'info/extension', method: 'GET' };
+
+    getVpnExtensionInfo = (vpnToken) => {
+        const { path, method } = this.VPN_EXTENSION_INFO;
+        const params = {
+            token: vpnToken,
+        };
+        return this.makeRequest(path, method, { params });
+    };
 }
 
 const vpnApi = new VpnApi(VPN_API_URL);

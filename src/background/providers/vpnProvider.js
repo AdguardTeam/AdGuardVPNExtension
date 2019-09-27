@@ -8,7 +8,7 @@ const getEndpoints = async (vpnToken) => {
     log.info(endpointsObj);
     const { endpoints } = endpointsObj;
     const uniqEndpoints = uniqBy(endpoints, 'city_name');
-    const normalizedEndpoints = uniqEndpoints.reduce((acc, endpoint) => {
+    return uniqEndpoints.reduce((acc, endpoint) => {
         const {
             city_name: cityName,
             country_code: countryCode,
@@ -34,7 +34,6 @@ const getEndpoints = async (vpnToken) => {
             },
         };
     }, {});
-    return normalizedEndpoints;
 };
 
 const getSplitter = (localeCode) => {
@@ -100,9 +99,44 @@ const getCurrentLocation = async () => {
     };
 };
 
+const getVpnExtensionInfo = async (vpnToken) => {
+    const info = await vpnApi.getVpnExtensionInfo(vpnToken);
+    const {
+        bandwidth_free_mbits: bandwidthFreeMbits,
+        premium_promo_page: premiumPromoPage,
+        premium_promo_enabled: premiumPromoEnabled,
+        refresh_tokens: refreshTokens,
+    } = info;
+
+    return {
+        bandwidthFreeMbits,
+        premiumPromoPage,
+        premiumPromoEnabled,
+        refreshTokens,
+    };
+};
+
+const getVpnCredentials = async (appId, vpnToken) => {
+    const responseData = await vpnApi.getVpnCredentials(appId, vpnToken);
+
+    const {
+        license_status: licenseStatus,
+        result: { credentials, expires_in_sec: expiresInSec },
+        time_expires_sec: timeExpiresSec,
+    } = responseData;
+
+    return {
+        licenseStatus,
+        result: { credentials, expiresInSec },
+        timeExpiresSec,
+    };
+};
+
 const vpnProvider = {
     getEndpoints,
     getCurrentLocation,
+    getVpnExtensionInfo,
+    getVpnCredentials,
 };
 
 export default vpnProvider;

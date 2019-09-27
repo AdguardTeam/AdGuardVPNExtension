@@ -4,7 +4,7 @@ import { configure } from 'mobx';
 import SettingsStore from './settingsStore';
 import UiStore from './uiStore';
 import AuthStore from './authStore';
-import EndpointsStore from './endpointsStore';
+import VpnStore from './vpnStore';
 import TooltipStore from './tooltipStore';
 
 // Do not allow property change outside of store actions
@@ -15,7 +15,7 @@ class RootStore {
         this.settingsStore = new SettingsStore(this);
         this.uiStore = new UiStore(this);
         this.authStore = new AuthStore(this);
-        this.endpointsStore = new EndpointsStore(this);
+        this.vpnStore = new VpnStore(this);
         this.tooltipStore = new TooltipStore(this);
     }
 }
