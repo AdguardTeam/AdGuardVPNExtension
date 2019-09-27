@@ -1,6 +1,5 @@
 import nanoid from 'nanoid';
 import md5 from 'crypto-js/md5';
-import { vpnApi } from './api';
 import accountProvider from './providers/accountProvider';
 import auth from './auth';
 import storage from './storage';
