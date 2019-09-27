@@ -3,13 +3,14 @@ import Modal from 'react-modal';
 import './preloader.pcss';
 import { observer } from 'mobx-react';
 import rootStore from '../../stores';
+import { REQUEST_STATUSES } from '../../stores/consts';
 
 const ExtraOptions = observer(() => {
-    const { uiStore } = useContext(rootStore);
+    const { authStore } = useContext(rootStore);
 
     return (
         <Modal
-            isOpen={uiStore.isOpenPreloaderModal}
+            isOpen={authStore.state === REQUEST_STATUSES.PENDING}
             className="preloader"
             overlayClassName="preloader__overlay"
         >

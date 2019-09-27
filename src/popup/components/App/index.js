@@ -16,6 +16,7 @@ import Preloader from '../Preloader';
 import Stats from '../Stats';
 import Settings from '../Settings';
 import rootStore from '../../stores';
+import { REQUEST_STATUSES } from '../../stores/consts';
 import { MESSAGES_TYPES } from '../../../lib/constants';
 
 // Set modal app element in the app module because we use multiple modal
@@ -69,12 +70,15 @@ const App = observer(() => {
         canControlProxy,
     } = settingsStore;
 
-    const { authenticated } = authStore;
-    const { isOpenEndpointsSearch, isOpenOptionsModal, isOpenPreloaderModal } = uiStore;
+    const { state: requestProcessState, authenticated } = authStore;
+    const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
 
     if (!authenticated) {
         return (
             <Fragment>
+                {requestProcessState === REQUEST_STATUSES.PENDING
+                    && <Preloader />
+                }
                 <Header authenticated={authenticated} />
                 <Authentication />
             </Fragment>
@@ -94,7 +98,6 @@ const App = observer(() => {
     return (
         <Fragment>
             {isOpenOptionsModal && <ExtraOptions />}
-            {isOpenPreloaderModal && <Preloader />}
             <Header authenticated={authenticated} />
             <MapContainer globalProxyEnabled={extensionEnabled} />
             <Settings

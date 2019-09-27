@@ -5,6 +5,7 @@ import {
     computed,
 } from 'mobx';
 import debounce from 'lodash/debounce';
+import { REQUEST_STATUSES } from '../consts';
 
 import bgProvider from '../../../lib/background-provider';
 
@@ -46,6 +47,8 @@ class AuthStore {
     @observable field = DEFAULTS.field;
 
     @observable step = DEFAULTS.step;
+
+    @observable state = REQUEST_STATUSES.PENDING;
 
     STEPS = AUTH_STEPS;
 
@@ -105,10 +108,12 @@ class AuthStore {
     }
 
     @action authenticate = async () => {
+        this.state = REQUEST_STATUSES.PENDING;
         const response = await bgProvider.auth.authenticate(this.credentials);
 
         if (response.error) {
             runInAction(() => {
+                this.state = REQUEST_STATUSES.ERROR;
                 this.error = true;
                 this.errorDescription = response.errorDescription;
             });
@@ -118,6 +123,7 @@ class AuthStore {
         if (response.status === 'ok') {
             bgProvider.authCache.clearAuthCache();
             runInAction(() => {
+                this.state = REQUEST_STATUSES.DONE;
                 this.authenticated = true;
                 this.need2fa = false;
                 this.credentials = DEFAULTS.credentials;
@@ -127,6 +133,7 @@ class AuthStore {
 
         if (response.status === '2fa_required') {
             runInAction(() => {
+                this.state = REQUEST_STATUSES.DONE;
                 this.need2fa = true;
                 this.switchStep(this.STEPS.TWO_FACTOR);
             });
@@ -134,9 +141,11 @@ class AuthStore {
     };
 
     @action register = async () => {
+        this.state = REQUEST_STATUSES.PENDING;
         const response = await bgProvider.auth.register(this.credentials);
         if (response.error) {
             runInAction(() => {
+                this.state = REQUEST_STATUSES.ERROR;
                 this.error = true;
                 this.errorDescription = response.errorDescription;
                 this.field = response.field;
@@ -145,6 +154,7 @@ class AuthStore {
         }
         if (response.status === 'ok') {
             runInAction(() => {
+                this.state = REQUEST_STATUSES.DONE;
                 this.authenticated = true;
                 this.credentials = DEFAULTS.credentials;
             });
@@ -152,12 +162,16 @@ class AuthStore {
     };
 
     @action isAuthenticated = async () => {
+        this.state = REQUEST_STATUSES.PENDING;
         const result = await bgProvider.auth.isAuthenticated();
         if (result) {
             runInAction(() => {
                 this.authenticated = true;
             });
         }
+        runInAction(() => {
+            this.state = REQUEST_STATUSES.DONE;
+        });
     };
 
     @action deauthenticate = async () => {
