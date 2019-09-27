@@ -7,7 +7,7 @@ import {
 import bgProvider from '../../../lib/background-provider';
 import { REQUEST_STATUSES } from '../consts';
 
-class EndpointsStore {
+class VpnStore {
     constructor(rootStore) {
         this.rootStore = rootStore;
     }
@@ -22,6 +22,12 @@ class EndpointsStore {
 
     @observable currentLocation;
 
+    @observable vpnInfo = {
+        bandwidthFreeMbits: null,
+        premiumPromoEnabled: null,
+        premiumPromoPage: null,
+    };
+
     @action
     setSearchValue = (value) => {
         const trimmed = value.trim();
@@ -30,18 +36,15 @@ class EndpointsStore {
         }
     };
 
-    @action fetchEndpoints = async () => {
-        try {
-            this.endpointsGetState = REQUEST_STATUSES.PENDING;
-            const endpointsData = await bgProvider.provider.getEndpoints();
-            runInAction(() => {
-                this.endpoints = endpointsData;
-                this.endpointsGetState = REQUEST_STATUSES.DONE;
-            });
-        } catch (e) {
-            console.log(e);
-            this.endpointsGetState = REQUEST_STATUSES.ERROR;
-        }
+    @action getEndpoints = async () => {
+        const endpoints = await bgProvider.vpn.getEndpoints();
+        this.setEndpoints(endpoints);
+    };
+
+    @action
+    setEndpoints = (endpoints) => {
+        console.log(endpoints);
+        this.endpoints = endpoints;
     };
 
     @action
@@ -56,7 +59,12 @@ class EndpointsStore {
 
     @action
     getSelectedEndpoint = async () => {
-        const endpoint = await bgProvider.proxy.getCurrentEndpoint();
+        let endpoint;
+        try {
+            endpoint = await bgProvider.proxy.getCurrentEndpoint();
+        } catch (e) {
+            endpoint = null; // no current selected endpoint
+        }
         runInAction(() => {
             this.selectedEndpoint = endpoint;
         });
@@ -97,11 +105,40 @@ class EndpointsStore {
 
     @action
     getCurrentLocation = async () => {
-        const currentLocation = await bgProvider.provider.getCurrentLocation();
+        const currentLocation = await bgProvider.vpn.getCurrentLocation();
         runInAction(() => {
             this.currentLocation = currentLocation;
         });
+    };
+
+    @action
+    getVpnInfo = async () => {
+        const vpnInfo = await bgProvider.vpn.getVpnInfo();
+        this.setVpnInfo(vpnInfo);
+    };
+
+    @action
+    setVpnInfo = (vpnInfo) => {
+        if (!vpnInfo) {
+            return;
+        }
+        this.vpnInfo = vpnInfo;
+    };
+
+    @computed
+    get bandwidthFreeMbits() {
+        return this.vpnInfo.bandwidthFreeMbits;
+    }
+
+    @computed
+    get premiumPromoEnabled() {
+        return this.vpnInfo.premiumPromoEnabled;
+    }
+
+    @computed
+    get premiumPromoPage() {
+        return this.vpnInfo.premiumPromoPage;
     }
 }
 
-export default EndpointsStore;
+export default VpnStore;

@@ -6,6 +6,11 @@ class PopupActions {
         await bgProvider.tabs.openRecovery();
         await bgProvider.tabs.closePopup();
     };
+
+    @action openTab = async (url) => {
+        await bgProvider.tabs.openTab(url);
+        await bgProvider.tabs.closePopup();
+    }
 }
 
 const popupActions = new PopupActions();

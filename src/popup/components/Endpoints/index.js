@@ -5,17 +5,17 @@ import rootStore from '../../stores';
 import './endpoints.pcss';
 
 const Endpoints = observer(() => {
-    const { endpointsStore, uiStore } = useContext(rootStore);
+    const { vpnStore, uiStore } = useContext(rootStore);
 
     const handleEndpointSelect = id => async (e) => {
         e.preventDefault();
-        await endpointsStore.setSelectedEndpoint(id);
+        await vpnStore.setSelectedEndpoint(id);
         uiStore.closeEndpointsSearch();
     };
 
     const handleCloseEndpoints = () => {
         uiStore.closeEndpointsSearch();
-        endpointsStore.setSearchValue('');
+        vpnStore.setSearchValue('');
     };
 
     const renderEndpoints = endpoints => endpoints.map((endpoint) => {
@@ -45,12 +45,12 @@ const Endpoints = observer(() => {
 
     const handleSearchInput = (e) => {
         const { value } = e.target;
-        endpointsStore.setSearchValue(value);
+        vpnStore.setSearchValue(value);
     };
 
-    const endpoints = endpointsStore.filteredEndpoints;
+    const endpoints = vpnStore.filteredEndpoints;
     const endpointsCrossClassNames = classnames({
-        'endpoints__cross--active': endpointsStore.searchValue.length > 0,
+        'endpoints__cross--active': vpnStore.searchValue.length > 0,
     });
     return (
         <div className="endpoints">
@@ -65,12 +65,12 @@ const Endpoints = observer(() => {
                         className="endpoints__search-in"
                         type="text"
                         placeholder="search country"
-                        value={endpointsStore.searchValue}
+                        value={vpnStore.searchValue}
                         onChange={handleSearchInput}
                     />
                     <button
                         onClick={() => {
-                            endpointsStore.setSearchValue('');
+                            vpnStore.setSearchValue('');
                         }}
                         type="button"
                         className={`button endpoints__cross ${endpointsCrossClassNames}`}

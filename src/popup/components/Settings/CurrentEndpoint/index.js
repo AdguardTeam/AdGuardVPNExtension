@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import rootStore from '../../../stores';
 
 const CurrentEndpoint = observer((props) => {
-    const { endpointsStore, settingsStore } = useContext(rootStore);
+    const { vpnStore, settingsStore } = useContext(rootStore);
 
     const updatePing = () => {
         const UPDATE_INTERVAL = 1000;
@@ -25,9 +25,9 @@ const CurrentEndpoint = observer((props) => {
     };
 
     useEffect(() => {
-        (async () => {
-            await endpointsStore.getSelectedEndpoint();
-            await endpointsStore.getCurrentLocation();
+        (() => {
+            vpnStore.getSelectedEndpoint();
+            vpnStore.getCurrentLocation();
         })();
 
         const onUnmount = updatePing();
@@ -50,8 +50,8 @@ const CurrentEndpoint = observer((props) => {
         return 'Connecting...';
     };
 
-    const { countryNameToDisplay } = endpointsStore;
-    const { cityNameToDisplay } = endpointsStore;
+    const { countryNameToDisplay } = vpnStore;
+    const { cityNameToDisplay } = vpnStore;
     const { handle } = props;
     return (
         <div className="endpoint">
