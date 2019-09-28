@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
+import { toJS } from 'mobx';
 import classnames from 'classnames';
 import rootStore from '../../stores';
 import './endpoints.pcss';
@@ -20,7 +21,7 @@ const Endpoints = observer(() => {
 
     const renderEndpoints = endpoints => endpoints.map((endpoint) => {
         const {
-            cityName,
+            countryName,
             id,
             selected,
             premiumOnly,
@@ -37,7 +38,7 @@ const Endpoints = observer(() => {
             >
                 <div className="endpoints__item-ico" />
                 <div className="endpoints__city">
-                    {cityName}
+                    {countryName}
                 </div>
             </div>
         );
