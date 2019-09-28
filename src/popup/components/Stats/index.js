@@ -27,7 +27,7 @@ const Stats = observer(() => {
         return updateStats();
     }, []);
 
-    const { mbytesDownloaded = '...', downloadSpeedMbytesPerSec = '...' } = settingsStore.proxyStats || {};
+    const { mbytesDownloaded, mbytesUploaded } = settingsStore.stats;
     return (
         <div className="stats">
             <div className="stats__col">
@@ -35,15 +35,15 @@ const Stats = observer(() => {
                     {mbytesDownloaded}
                 </div>
                 <div className="stats__units">
-                        Bandwidth, Mb
+                    Downloaded, MB
                 </div>
             </div>
             <div className="stats__col">
                 <div className="stats__value">
-                    {downloadSpeedMbytesPerSec}
+                    {mbytesUploaded}
                 </div>
                 <div className="stats__units">
-                        Speed, Mbps
+                    Uploaded, MB
                 </div>
             </div>
         </div>
