@@ -10,8 +10,6 @@ import { getHostname } from '../../../lib/helpers';
 import bgProvider from '../../../lib/background-provider';
 import { SETTINGS_IDS } from '../../../lib/constants';
 
-const extensionEnabledSettingId = SETTINGS_IDS.PROXY_ENABLED;
-
 class SettingsStore {
     @observable extensionEnabled = false;
 
@@ -66,7 +64,7 @@ class SettingsStore {
     @action
     async getGlobalProxyEnabled() {
         const globalProxyEnabledSetting = await bgProvider.settings
-            .getSetting(extensionEnabledSettingId);
+            .getSetting(SETTINGS_IDS.PROXY_ENABLED);
         runInAction(async () => {
             await this.toggleEnabled(globalProxyEnabledSetting.value);
         });
@@ -76,7 +74,7 @@ class SettingsStore {
     setGlobalProxyEnabled = async (value) => {
         let changed;
         try {
-            changed = await bgProvider.settings.setSetting(extensionEnabledSettingId, value);
+            changed = await bgProvider.settings.setSetting(SETTINGS_IDS.PROXY_ENABLED, value);
         } catch (e) {
             log.error(e.message);
         }
