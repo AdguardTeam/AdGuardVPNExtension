@@ -34,13 +34,19 @@ const Settings = observer((props) => {
 
     const renderWarning = () => {
         if (!canControlProxy) {
+            const warningBlock = (
+                <div>
+                    { browser.i18n.getMessage('global_error_can_control') }
+                </div>
+            );
             return (
                 <Warning
                     mod="exclamation"
-                    desc="Other extension prevents us from setting up the tunnel. Please disable it in browser settings."
+                    desc={warningBlock}
                 />
             );
         }
+
         if (globalError) {
             const errorMsg = browser.i18n.getMessage('global_error_message');
             const errorBlock = (
