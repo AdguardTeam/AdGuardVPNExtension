@@ -5,6 +5,7 @@ import {
     computed,
 } from 'mobx';
 import debounce from 'lodash/debounce';
+import browser from 'webextension-polyfill';
 import { REQUEST_STATUSES } from '../consts';
 
 import bgProvider from '../../../lib/background-provider';
@@ -69,7 +70,7 @@ class AuthStore {
         if (field === 'passwordAgain') {
             if (value !== this.credentials.password) {
                 runInAction(() => {
-                    this.error = 'Password and confirm password does not match';
+                    this.error = browser.i18n.getMessage('registration_error_front_unique_validation');
                 });
             }
         }

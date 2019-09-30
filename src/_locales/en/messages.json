@@ -21,7 +21,10 @@
         "message": "The password you entered was found in a public database of compromised passwords. See more details on <a href=\"https://haveibeenpwned.com/\" target=\"_blank\" class=\"link\">haveibeenpwned.com</a>. Please, try another password."
     },
     "registration_error_unique_constraint": {
-        "message": "An error happened, try again later"
+        "message": "This value is already used"
+    },
+    "registration_error_front_unique_validation": {
+        "message": "Password and confirm password does not match"
     },
     "registration_error_default": {
         "message": "An error happened, try again later"
@@ -43,5 +46,6 @@
     },
     "authentication_error_default":  {
         "message":  "An error occurred, try again later"
-    }
+    },
+
 }
