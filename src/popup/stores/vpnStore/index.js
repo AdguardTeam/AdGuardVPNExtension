@@ -3,6 +3,7 @@ import {
     computed,
     observable,
     runInAction,
+    toJS,
 } from 'mobx';
 import bgProvider from '../../../lib/background-provider';
 import { REQUEST_STATUSES } from '../consts';
@@ -50,7 +51,7 @@ class VpnStore {
     @action
     setSelectedEndpoint = async (id) => {
         const selectedEndpoint = this.endpoints[id];
-        await bgProvider.proxy.setCurrentEndpoint(selectedEndpoint);
+        await bgProvider.proxy.setCurrentEndpoint(toJS(selectedEndpoint));
         runInAction(() => {
             this.selectedEndpoint = selectedEndpoint;
             this.rootStore.tooltipStore.setMapCoordinatesDefault();
@@ -59,12 +60,7 @@ class VpnStore {
 
     @action
     getSelectedEndpoint = async () => {
-        let endpoint;
-        try {
-            endpoint = await bgProvider.proxy.getCurrentEndpoint();
-        } catch (e) {
-            endpoint = null; // no current selected endpoint
-        }
+        const endpoint = await bgProvider.proxy.getCurrentEndpoint();
         runInAction(() => {
             this.selectedEndpoint = endpoint;
         });
