@@ -11,37 +11,30 @@ const vpnCache = {
     vpnInfo: null,
 };
 
-const handleReconnectEndpoint = async (endpoints) => {
+const reconnectEndpoint = async (endpoints) => {
     const currentEndpoint = await proxy.getCurrentEndpoint();
     const endpointsArr = Object.keys(endpoints).map(endpointKey => endpoints[endpointKey]);
     const sameCityEndpoint = endpointsArr.find((endpoint) => {
         return endpoint.cityName === currentEndpoint.cityName;
     });
     if (sameCityEndpoint) {
-        proxy.setCurrentEndpoint(sameCityEndpoint);
+        await proxy.setCurrentEndpoint(sameCityEndpoint);
         return;
     }
     const closestCityEndpoint = getClosestEndpointByCoordinates(currentEndpoint, endpointsArr);
-    proxy.setCurrentEndpoint(closestCityEndpoint);
+    await proxy.setCurrentEndpoint(closestCityEndpoint);
 };
 
-/**
- * Should be called only after getVpnInfo,
- * that's why we call this function in messaging module
- * @returns {Promise<void>}
- */
-const getEndpointsRemotely = async (reconnectEndpoint) => {
+const getEndpointsRemotely = async () => {
     const vpnToken = await credentials.gainVpnToken();
     const token = vpnToken && vpnToken.token;
     if (!token) {
         throw new Error('was unable to get vpn token');
     }
     const endpoints = await vpnProvider.getEndpoints(token);
-    if (reconnectEndpoint) {
-        handleReconnectEndpoint(endpoints);
-    }
     vpnCache.endpoints = endpoints;
     browser.runtime.sendMessage({ type: MESSAGES_TYPES.ENDPOINTS_UPDATED, data: endpoints });
+    return endpoints;
 };
 
 const vpnTokenChanged = (oldVpnToken, newVpnToken) => {
@@ -51,21 +44,23 @@ const vpnTokenChanged = (oldVpnToken, newVpnToken) => {
 const getVpnInfoRemotely = async () => {
     const vpnToken = await credentials.gainVpnToken();
     let vpnInfo = await vpnProvider.getVpnExtensionInfo(vpnToken.token);
-    let reconnectEndpoint = false;
+    let shouldReconnect = false;
 
-    // TODO [maximtop] create tests on this module
     if (vpnInfo.refreshTokens) {
         log.info('refreshing tokens');
         const updatedVpnToken = await credentials.getVpnTokenRemote();
         if (vpnTokenChanged(vpnToken, updatedVpnToken)) {
-            reconnectEndpoint = true;
+            shouldReconnect = true;
         }
         await credentials.gainVpnCredentials(true);
         vpnInfo = await vpnProvider.getVpnExtensionInfo(updatedVpnToken.token);
     }
 
     // update endpoints
-    getEndpointsRemotely(reconnectEndpoint);
+    const endpoints = await getEndpointsRemotely();
+    if (shouldReconnect) {
+        await reconnectEndpoint(endpoints);
+    }
     vpnCache.vpnInfo = vpnInfo;
     browser.runtime.sendMessage({ type: MESSAGES_TYPES.VPN_INFO_UPDATED, data: vpnInfo });
     return vpnInfo;
