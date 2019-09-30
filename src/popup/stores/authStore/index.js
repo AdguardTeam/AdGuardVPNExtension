@@ -52,6 +52,10 @@ class AuthStore {
 
     STEPS = AUTH_STEPS;
 
+    constructor(rootStore) {
+        this.rootStore = rootStore;
+    }
+
     @action setDefaults = () => {
         this.credentials = DEFAULTS.credentials;
         this.authenticated = DEFAULTS.authenticated;
@@ -176,6 +180,7 @@ class AuthStore {
 
     @action deauthenticate = async () => {
         await bgProvider.auth.deauthenticate();
+        await this.rootStore.settingsStore.setGlobalProxyEnabled(false);
         runInAction(() => {
             this.setDefaults();
         });

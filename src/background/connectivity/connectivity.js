@@ -137,10 +137,10 @@ class Connectivity {
         if (!this.connectivityInfo || this.state === CONNECTIVITY_STATE.PAUSED) {
             return null;
         }
-        let { mbytesDownloaded, downloadSpeedMbytesPerSec } = this.connectivityInfo;
+        let { mbytesDownloaded, mbytesUploaded } = this.connectivityInfo;
         mbytesDownloaded = mbytesDownloaded.toFixed(2);
-        downloadSpeedMbytesPerSec = downloadSpeedMbytesPerSec.toFixed(2);
-        return { mbytesDownloaded, downloadSpeedMbytesPerSec };
+        mbytesUploaded = mbytesUploaded.toFixed(2);
+        return { mbytesDownloaded, mbytesUploaded };
     };
 
     shouldRefresh = () => {
