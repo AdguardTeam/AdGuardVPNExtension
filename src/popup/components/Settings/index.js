@@ -1,4 +1,7 @@
 import React, { useContext } from 'react';
+import { observer } from 'mobx-react';
+import browser from 'webextension-polyfill';
+import ReactHtmlParser from 'react-html-parser';
 import Warning from './Warning';
 import rootStore from '../../stores';
 
@@ -13,7 +16,8 @@ const getStatusMessage = (extensionEnabled) => {
     return 'Disabled';
 };
 
-const Settings = (props) => {
+
+const Settings = observer((props) => {
     const { settingsStore, uiStore } = useContext(rootStore);
 
     const handleEndpointSelectorClick = () => {
@@ -26,7 +30,33 @@ const Settings = (props) => {
     };
 
     const { canControlProxy } = props;
-    const { extensionEnabled } = settingsStore;
+    const { extensionEnabled, globalError } = settingsStore;
+
+    const renderWarning = () => {
+        if (!canControlProxy) {
+            return (
+                <Warning
+                    mod="exclamation"
+                    desc="Other extension prevents us from setting up the tunnel. Please disable it in browser settings."
+                />
+            );
+        }
+        if (globalError) {
+            const errorMsg = browser.i18n.getMessage('global_error_message');
+            const errorBlock = (
+                <div>
+                    { ReactHtmlParser(errorMsg) }
+                </div>
+            );
+            return (
+                <Warning
+                    mod="exclamation"
+                    desc={errorBlock}
+                />
+            );
+        }
+        return null;
+    };
 
     return (
         <div className="settings">
@@ -40,14 +70,9 @@ const Settings = (props) => {
                     checked={settingsStore.extensionEnabled}
                 />
             </div>
-            {!canControlProxy && (
-            <Warning
-                mod="exclamation"
-                desc="Other extension prevents us from setting up the tunnel. Please disable it in browser settings."
-            />
-            )}
+            {renderWarning()}
         </div>
     );
-};
+});
 
 export default Settings;

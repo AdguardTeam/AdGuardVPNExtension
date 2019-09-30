@@ -51,6 +51,10 @@ const App = observer(() => {
                     vpnStore.setEndpoints(data);
                     break;
                 }
+                case MESSAGES_TYPES.VPN_TOKEN_NOT_FOUND: {
+                    settingsStore.setGlobalError(data);
+                    break;
+                }
                 default: {
                     console.log('there is no such message type: ', type);
                     break;
@@ -68,6 +72,7 @@ const App = observer(() => {
     const {
         extensionEnabled,
         canControlProxy,
+        globalError,
     } = settingsStore;
 
     const { state: requestProcessState, authenticated } = authStore;
@@ -95,6 +100,8 @@ const App = observer(() => {
         );
     }
 
+    const showWarning = !canControlProxy || globalError;
+
     return (
         <Fragment>
             {isOpenOptionsModal && <ExtraOptions />}
@@ -104,8 +111,8 @@ const App = observer(() => {
                 canControlProxy={canControlProxy}
                 globalProxyEnabled={extensionEnabled}
             />
-            {canControlProxy && <Stats />}
-            {canControlProxy && <InfoMessage />}
+            {!showWarning && <Stats />}
+            {!showWarning && <InfoMessage />}
         </Fragment>
     );
 });

@@ -1,10 +1,12 @@
 import nanoid from 'nanoid';
 import md5 from 'crypto-js/md5';
+import browser from 'webextension-polyfill';
 import accountProvider from './providers/accountProvider';
 import auth from './auth';
 import storage from './storage';
 import log from '../lib/logger';
 import vpnProvider from './providers/vpnProvider';
+import { MESSAGES_TYPES } from '../lib/constants';
 
 class Credentials {
     VPN_TOKEN_KEY = 'credentials.token';
@@ -31,8 +33,12 @@ class Credentials {
         try {
             vpnToken = await accountProvider.getVpnToken(accessToken);
         } catch (e) {
-            log.error(e.message);
-            throw new Error(`unable to get vpn token from: ${e.message}`);
+            log.debug(e.message);
+            browser.runtime.sendMessage({
+                type: MESSAGES_TYPES.VPN_TOKEN_NOT_FOUND,
+                data: { message: e.message },
+            });
+            throw e;
         }
         await storage.set(this.VPN_TOKEN_KEY, vpnToken);
         return vpnToken;
@@ -52,7 +58,7 @@ class Credentials {
 
     async gainVpnToken() {
         let vpnToken = await this.getVpnTokenLocal();
-        if (!this.isVpnTokenValid(vpnToken)) {
+        if (true || !this.isVpnTokenValid(vpnToken)) {
             vpnToken = await this.getVpnTokenRemote();
         }
         if (this.isVpnTokenValid(vpnToken)) {

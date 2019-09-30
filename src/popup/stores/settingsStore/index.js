@@ -27,6 +27,8 @@ class SettingsStore {
 
     @observable isRoutable = true;
 
+    @observable globalError;
+
     @action
     setPing = (ping) => {
         this.ping = ping;
@@ -163,6 +165,11 @@ class SettingsStore {
     get stats() {
         const { mbytesDownloaded = '0.00', mbytesUploaded = '0.00' } = this.proxyStats || {};
         return { mbytesDownloaded, mbytesUploaded };
+    }
+
+    @action
+    setGlobalError = (data) => {
+        this.globalError = data;
     }
 }
 
