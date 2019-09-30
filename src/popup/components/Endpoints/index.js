@@ -20,7 +20,7 @@ const Endpoints = observer(() => {
 
     const renderEndpoints = endpoints => endpoints.map((endpoint) => {
         const {
-            cityName,
+            countryName,
             id,
             selected,
             premiumOnly,
@@ -37,7 +37,7 @@ const Endpoints = observer(() => {
             >
                 <div className="endpoints__item-ico" />
                 <div className="endpoints__city">
-                    {cityName}
+                    {countryName}
                 </div>
             </div>
         );
