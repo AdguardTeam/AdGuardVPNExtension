@@ -56,10 +56,12 @@ class AuthStore {
 
     @action setDefaults = () => {
         this.credentials = DEFAULTS.credentials;
-        this.authenticated = DEFAULTS.authenticated;
         this.need2fa = DEFAULTS.need2fa;
         this.error = DEFAULTS.error;
         this.step = DEFAULTS.step;
+        runInAction(() => {
+            this.isAuthenticated();
+        });
     };
 
     @action resetError = () => {
