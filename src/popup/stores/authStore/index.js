@@ -22,7 +22,7 @@ const DEFAULTS = {
         passwordAgain: '',
         twoFactor: '',
     },
-    authenticated: false,
+    authenticated: null,
     need2fa: false,
     error: false,
     errorDescription: '',
@@ -171,6 +171,10 @@ class AuthStore {
         if (result) {
             runInAction(() => {
                 this.authenticated = true;
+            });
+        } else {
+            runInAction(() => {
+                this.authenticated = false;
             });
         }
         runInAction(() => {
