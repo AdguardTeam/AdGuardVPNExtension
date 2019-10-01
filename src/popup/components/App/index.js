@@ -73,6 +73,16 @@ const App = observer(() => {
     const { state: requestProcessState, authenticated } = authStore;
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
 
+    if (authenticated === null) {
+        return (
+            <Fragment>
+                {requestProcessState === REQUEST_STATUSES.PENDING
+                    && <Preloader />
+                }
+            </Fragment>
+        );
+    }
+
     if (!authenticated) {
         return (
             <Fragment>
