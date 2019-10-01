@@ -46,6 +46,5 @@
     },
     "authentication_error_default":  {
         "message":  "An error occurred, try again later"
-    },
-
+    }
 }
