@@ -105,7 +105,6 @@ const App = observer(() => {
         );
     }
 
-
     return (
         <Fragment>
             {isOpenOptionsModal && <ExtraOptions />}
