@@ -95,20 +95,11 @@ const App = observer(() => {
         );
     }
 
-    if (isOpenEndpointsSearch) {
-        return (
-            <Fragment>
-                <Header authenticated={authenticated} />
-                <Endpoints />
-                {canControlProxy && <InfoMessage />}
-            </Fragment>
-        );
-    }
-
     return (
         <Fragment>
             {isOpenOptionsModal && <ExtraOptions />}
             <Header authenticated={authenticated} />
+            {isOpenEndpointsSearch && <Endpoints />}
             <MapContainer globalProxyEnabled={extensionEnabled} />
             <Settings
                 canControlProxy={canControlProxy}
