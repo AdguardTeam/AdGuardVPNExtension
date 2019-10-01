@@ -120,12 +120,10 @@ class Auth {
     async register(credentials) {
         const locale = navigator.language;
         try {
-            // TODO [maximtop] prepare returned data in the providers
-            await authApi.register({ ...credentials, locale });
+            await authProvider.register({ ...credentials, locale });
         } catch (e) {
-            const { error, error_description: errorDescription, field } = JSON.parse(e.message);
-            const extensionField = field === 'email' ? 'username' : field;
-            return { error, errorDescription, field: extensionField };
+            const { error, field } = JSON.parse(e.message);
+            return { error, field };
         }
         return this.authenticate(credentials);
     }
