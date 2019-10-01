@@ -23,7 +23,8 @@ const DEFAULTS = {
         passwordAgain: '',
         twoFactor: '',
     },
-    authenticated: null,
+    authenticated: false,
+    receivedAuthenticationInfo: false,
     need2fa: false,
     error: null,
     field: '',
@@ -37,6 +38,8 @@ class AuthStore {
     @observable credentials = DEFAULTS.credentials;
 
     @observable authenticated = DEFAULTS.authenticated;
+
+    @observable receivedAuthenticationInfo = DEFAULTS.receivedAuthenticationInfo;
 
     @observable need2fa = DEFAULTS.need2fa;
 
@@ -56,12 +59,10 @@ class AuthStore {
 
     @action setDefaults = () => {
         this.credentials = DEFAULTS.credentials;
+        this.authenticated = DEFAULTS.authenticated;
         this.need2fa = DEFAULTS.need2fa;
         this.error = DEFAULTS.error;
         this.step = DEFAULTS.step;
-        runInAction(() => {
-            this.isAuthenticated();
-        });
     };
 
     @action resetError = () => {
@@ -167,13 +168,10 @@ class AuthStore {
             runInAction(() => {
                 this.authenticated = true;
             });
-        } else {
-            runInAction(() => {
-                this.authenticated = false;
-            });
         }
         runInAction(() => {
             this.state = REQUEST_STATUSES.DONE;
+            this.receivedAuthenticationInfo = true;
         });
     };
 

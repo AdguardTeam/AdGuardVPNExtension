@@ -70,10 +70,10 @@ const App = observer(() => {
         canControlProxy,
     } = settingsStore;
 
-    const { state: requestProcessState, authenticated } = authStore;
+    const { state: requestProcessState, authenticated, receivedAuthenticationInfo } = authStore;
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
 
-    if (authenticated === null) {
+    if (!receivedAuthenticationInfo) {
         return (
             <Fragment>
                 {requestProcessState === REQUEST_STATUSES.PENDING
