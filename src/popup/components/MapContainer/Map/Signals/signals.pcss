@@ -1,19 +1,20 @@
 .signals {
     &--active {
         & .signals__marker-1 {
-            animation: expansion 1.5s cubic-bezier(var(--signal-timing)) 1
+            animation: expansion 1.5s cubic-bezier(var(--signal-timing)) 0s infinite;
         }
 
         & .signals__marker-2 {
-            animation: expansion 1.3s cubic-bezier(var(--signal-timing)) 1 1.3s
+            animation: expansion 1.5s cubic-bezier(var(--signal-timing)) 1.3s infinite;
         }
 
         & .signals__marker-3 {
-            animation: expansion 1.3s cubic-bezier(var(--signal-timing)) 1 2s;
+            animation: expansion 1.5s cubic-bezier(var(--signal-timing)) 2s infinite,
+
         }
 
         & .signals__marker-4 {
-            animation: constriction 2s cubic-bezier(var(--signal-timing)) 1 0.5s;
+            animation: constriction 1.5s cubic-bezier(var(--signal-timing)) 0.5s infinite;
         }
     }
 }

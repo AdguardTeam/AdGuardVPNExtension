@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
+import { observer } from 'mobx-react';
 import classnames from 'classnames';
 import rootStore from '../../../../stores';
 import './signals.pcss';
 
-const index = (globalProxyEnabled) => {
+const index = observer((globalProxyEnabled) => {
     const { settingsStore } = useContext(rootStore);
 
     const mapSignalStatus = classnames({
@@ -44,6 +45,6 @@ const index = (globalProxyEnabled) => {
             />
         </g>
     );
-};
+});
 
 export default index;
