@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { Markers, Marker } from 'react-simple-maps';
+import Signals from './Signals';
 
 const renderCityMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMarkerClicked) => {
     if (!endpoints) {
@@ -65,6 +66,7 @@ const renderCityMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMa
                                     r={4}
                                     fill="#F0F0F0"
                                 />
+                                <Signals />
                             </Fragment>
                         ) : (
                             <Fragment>
