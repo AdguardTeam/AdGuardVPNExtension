@@ -69,7 +69,7 @@ const RegistrationForm = observer(() => {
                 { authStore.error
                 && (
                 <div className="form__item-error">
-                    { ReactHtmlParser(authStore.errorDescription) }
+                    { ReactHtmlParser(authStore.error) }
                 </div>
                 )}
             </div>

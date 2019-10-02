@@ -5,6 +5,7 @@ import { NON_ROUTABLE_NETS } from '../../ip';
 
 const CURRENT_ENDPOINT_KEY = 'proxyCurrentEndpoint';
 
+// TODO [maximtop] separate browsers api from business logic
 const proxyGetAsync = (config = {}) => new Promise((resolve) => {
     browser.proxy.settings.get(config, (details) => {
         resolve(details);
@@ -145,6 +146,9 @@ class ExtensionProxy {
 
     setAccessPrefix = async (accessPrefix) => {
         const endpoint = await this.getCurrentEndpoint();
+        if (!endpoint) {
+            throw new Error('current endpoint is empty');
+        }
         const { domainName } = endpoint;
         const host = `${accessPrefix}.${domainName}`;
         this.currentAccessPrefix = accessPrefix;
@@ -161,15 +165,10 @@ class ExtensionProxy {
     };
 
     getCurrentEndpoint = async () => {
-        let result = this.currentEndpoint;
-        if (!result) {
-            result = await storage.get(CURRENT_ENDPOINT_KEY);
-            this.currentEndpoint = result;
+        if (!this.currentEndpoint) {
+            this.currentEndpoint = await storage.get(CURRENT_ENDPOINT_KEY);
         }
-        if (!result) {
-            throw new Error('current endpoint is empty');
-        }
-        return result;
+        return this.currentEndpoint ? this.currentEndpoint : null;
     };
 
     resetSettings = async () => {

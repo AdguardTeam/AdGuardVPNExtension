@@ -1,5 +1,5 @@
 import {
-    action,
+    action, computed,
     observable,
     runInAction,
 } from 'mobx';
@@ -9,8 +9,6 @@ import log from '../../../lib/logger';
 import { getHostname } from '../../../lib/helpers';
 import bgProvider from '../../../lib/background-provider';
 import { SETTINGS_IDS } from '../../../lib/constants';
-
-const extensionEnabledSettingId = SETTINGS_IDS.PROXY_ENABLED;
 
 class SettingsStore {
     @observable extensionEnabled = false;
@@ -66,17 +64,17 @@ class SettingsStore {
     @action
     async getGlobalProxyEnabled() {
         const globalProxyEnabledSetting = await bgProvider.settings
-            .getSetting(extensionEnabledSettingId);
+            .getSetting(SETTINGS_IDS.PROXY_ENABLED);
         runInAction(async () => {
             await this.toggleEnabled(globalProxyEnabledSetting.value);
         });
     }
 
     @action
-    async setGlobalProxyEnabled(value) {
+    setGlobalProxyEnabled = async (value) => {
         let changed;
         try {
-            changed = await bgProvider.settings.setSetting(extensionEnabledSettingId, value);
+            changed = await bgProvider.settings.setSetting(SETTINGS_IDS.PROXY_ENABLED, value);
         } catch (e) {
             log.error(e.message);
         }
@@ -85,10 +83,10 @@ class SettingsStore {
                 await this.toggleEnabled(value);
             });
         }
-    }
+    };
 
     @action
-    async addToWhitelist() {
+    addToWhitelist = async () => {
         try {
             await bgProvider.whitelist.addToWhitelist(this.currentTabHostname);
             runInAction(() => {
@@ -97,10 +95,10 @@ class SettingsStore {
         } catch (e) {
             console.log(e);
         }
-    }
+    };
 
     @action
-    async removeFromWhitelist() {
+    removeFromWhitelist = async () => {
         try {
             await bgProvider.whitelist.removeFromWhitelist(this.currentTabHostname);
             runInAction(() => {
@@ -109,9 +107,10 @@ class SettingsStore {
         } catch (e) {
             console.log(e);
         }
-    }
+    };
 
-    @action async checkIsWhitelisted() {
+    @action
+    checkIsWhitelisted = async () => {
         try {
             await this.getCurrentTabHostname();
             const result = await bgProvider.whitelist.isWhitelisted(this.currentTabHostname);
@@ -121,9 +120,10 @@ class SettingsStore {
         } catch (e) {
             console.log(e);
         }
-    }
+    };
 
-    @action async getCurrentTabHostname() {
+    @action
+    getCurrentTabHostname = async () => {
         try {
             const result = await tabs.getCurrent();
             runInAction(() => {
@@ -132,9 +132,10 @@ class SettingsStore {
         } catch (e) {
             console.log(e);
         }
-    }
+    };
 
-    @action async getProxyStats() {
+    @action
+    getProxyStats = async () => {
         try {
             const stats = await bgProvider.connectivity.getStats();
             runInAction(() => {
@@ -143,9 +144,10 @@ class SettingsStore {
         } catch (e) {
             console.log(e);
         }
-    }
+    };
 
-    @action isTabRoutable = async () => {
+    @action
+    isTabRoutable = async () => {
         try {
             const currentTab = await tabs.getCurrent();
             const isRoutable = await bgProvider.tabsContext.isTabRoutable(currentTab.id);
@@ -155,6 +157,12 @@ class SettingsStore {
         } catch (e) {
             console.log(e);
         }
+    };
+
+    @computed
+    get stats() {
+        const { mbytesDownloaded = '0.00', mbytesUploaded = '0.00' } = this.proxyStats || {};
+        return { mbytesDownloaded, mbytesUploaded };
     }
 }
 
