@@ -4,14 +4,14 @@ import classnames from 'classnames';
 import rootStore from '../../../../stores';
 import './signals.pcss';
 
-const index = observer((globalProxyEnabled) => {
+const index = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
     const mapSignalStatus = classnames({
         'signals--active': settingsStore.extensionEnabled && !settingsStore.ping,
     });
 
-    const fill = globalProxyEnabled ? 'rgba(0, 76, 51, 0.2)' : 'rgba(50, 50, 50, 0.2)';
+    const fill = settingsStore.extensionEnabled ? 'rgba(0, 76, 51, 0.2)' : 'rgba(50, 50, 50, 0.2)';
 
     return (
         <g className={`signals ${mapSignalStatus}`}>
