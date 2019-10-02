@@ -66,9 +66,7 @@ const renderCityMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMa
                                     r={4}
                                     fill="#F0F0F0"
                                 />
-                                <Signals
-                                    globalProxyEnabled={globalProxyEnabled}
-                                />
+                                <Signals />
                             </Fragment>
                         ) : (
                             <Fragment>
