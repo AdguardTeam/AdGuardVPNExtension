@@ -33,6 +33,12 @@ class Credentials {
         try {
             vpnToken = await accountProvider.getVpnToken(accessToken);
         } catch (e) {
+            if (e.status === 401) {
+                log.debug('access token expired');
+                // log out user
+                await auth.deauthenticate();
+                throw e;
+            }
             log.debug(e.message);
             browser.runtime.sendMessage({
                 type: MESSAGES_TYPES.VPN_TOKEN_NOT_FOUND,
@@ -58,7 +64,7 @@ class Credentials {
 
     async gainVpnToken() {
         let vpnToken = await this.getVpnTokenLocal();
-        if (!this.isVpnTokenValid(vpnToken)) {
+        if (true || !this.isVpnTokenValid(vpnToken)) {
             vpnToken = await this.getVpnTokenRemote();
         }
         if (this.isVpnTokenValid(vpnToken)) {
