@@ -1,0 +1,41 @@
+.signals {
+    &--active {
+        & .signals__marker-1 {
+            animation: expansion 1.5s cubic-bezier(var(--signal-timing)) 1
+        }
+
+        & .signals__marker-2 {
+            animation: expansion 1.3s cubic-bezier(var(--signal-timing)) 1 1.3s
+        }
+
+        & .signals__marker-3 {
+            animation: expansion 1.3s cubic-bezier(var(--signal-timing)) 1 2s;
+        }
+
+        & .signals__marker-4 {
+            animation: constriction 2s cubic-bezier(var(--signal-timing)) 1 0.5s;
+        }
+    }
+}
+
+@keyframes expansion {
+    0% {
+        r: 0;
+        opacity: 1;
+    }
+    100% {
+        r: 80;
+        opacity: 0;
+    }
+}
+
+@keyframes constriction {
+    0% {
+        r: 30;
+        opacity: 0;
+    }
+    100% {
+        r: 0;
+        opacity: 1;
+    }
+}

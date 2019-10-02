@@ -30,7 +30,8 @@ const Endpoints = observer(() => {
             'endpoints__item--lock': premiumOnly,
         });
         return (
-            <div
+            <button
+                type="button"
                 key={id}
                 className={`endpoints__item ${endpointClassNames}`}
                 onClick={handleEndpointSelect(id)}
@@ -39,7 +40,7 @@ const Endpoints = observer(() => {
                 <div className="endpoints__city">
                     {cityName}
                 </div>
-            </div>
+            </button>
         );
     });
 
