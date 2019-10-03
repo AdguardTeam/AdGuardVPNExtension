@@ -31,21 +31,23 @@ const ExtraOptions = observer(() => {
     const renderWhitelistSetting = (isWhitelisted) => {
         if (isWhitelisted) {
             return (
-                <div
+                <button
+                    type="button"
                     className="button button--inline extra-options__item"
                     onClick={removeFromWhitelist}
                 >
                         Remove this site from a whitelist
-                </div>
+                </button>
             );
         }
         return (
-            <div
+            <button
+                type="button"
                 className="button button--inline extra-options__item"
                 onClick={addToWhitelist}
             >
                     Add this site in a whitelist
-            </div>
+            </button>
         );
     };
 
@@ -64,18 +66,20 @@ const ExtraOptions = observer(() => {
             <a href="#" className="button button--inline extra-options__item">
                     Other products
             </a>
-            <div
+            <button
+                type="button"
                 className="button button--inline extra-options__item"
                 onClick={openSettings}
             >
                     Settings
-            </div>
-            <div
+            </button>
+            <button
+                type="button"
                 className="button button--inline extra-options__item"
                 onClick={signOut}
             >
                     Sign out
-            </div>
+            </button>
         </Modal>
     );
 });

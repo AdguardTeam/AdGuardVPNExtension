@@ -81,6 +81,8 @@ module.exports = function protobufLoader(source) {
                         return iresolved;
                     }
                 }
+
+                return null;
             };
             protobuf.load(filename, root, (err, result) => {
                 if (err) {
