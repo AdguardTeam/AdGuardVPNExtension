@@ -9,27 +9,22 @@ import {
 
 const { test } = QUnit;
 
-test('lazyGet', (assert) => {
-    assert.deepEqual(lazyGet({ _x: 1 }, 'x', null), 1, 'should return existing value from the cache');
-});
-
 test('lazyGet callback', (assert) => {
-    const stub = sinon.stub();
-    const cb = stub.callsFake(() => (
-        { one: 1 }));
+    const expectedColor = 'blue';
+    const cb = sinon.fake.returns(expectedColor);
     const obj = {
-        get property() {
-            return lazyGet(obj, 'one', cb);
+        get color() {
+            return lazyGet(obj, 'color', cb);
         },
     };
-    // eslint-disable-next-line no-unused-expressions
-    obj.property;
+
+    // first property call
+    assert.strictEqual(obj.color, expectedColor, 'values should be equal');
     assert.strictEqual(cb.calledOnce, true, 'should be called if invoked for the first time');
-    // eslint-disable-next-line no-unused-expressions
-    obj.property;
+
+    // second property call
+    assert.strictEqual(obj.color, expectedColor, 'values should be equal');
     assert.strictEqual(cb.calledTwice, false, 'should NOT be called if invoked for the second time');
-    // eslint-disable-next-line no-unused-expressions
-    obj.property;
     assert.strictEqual(cb.calledOnce, true, 'should NOT be called if invoked for subsequent times');
 });
 
