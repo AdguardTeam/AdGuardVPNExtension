@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import sortBy from 'lodash/sortBy';
 
 /**
  * Returns the value of the property from the cache,
@@ -72,12 +72,13 @@ const getDistance = (coordinates1, coordinates2) => {
  * @param {{ coordinates: [number, number] }[]} endpoints
  * @returns {{ coordinates: [number, number] }}
  */
+
 export const getClosestEndpointByCoordinates = (currentEndpoint, endpoints) => {
     const { coordinates } = currentEndpoint;
     const distances = endpoints.map(endpoint => ({
         endpoint,
         distance: getDistance(coordinates, endpoint.coordinates),
     }));
-    const sortedDistances = _.sortBy(distances, 'distance');
+    const sortedDistances = sortBy(distances, 'distance');
     return sortedDistances[0].endpoint;
 };
