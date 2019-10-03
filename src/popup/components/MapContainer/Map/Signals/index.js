@@ -13,12 +13,12 @@ const index = observer(() => {
     });
 
     const fill = settingsStore.extensionEnabled ? 'rgba(0, 76, 51, 0.2)' : 'rgba(50, 50, 50, 0.2)';
-    const amountOfMarkers = 4;
+    const animationCirclesNumber = 4;
 
     return (
         <g className={`signals ${mapSignalStatus}`}>
             {
-                [...Array(amountOfMarkers)].map((e, i) => (
+                [...Array(animationCirclesNumber)].map((e, i) => (
                     <circle
                         key={nanoid()}
                         className={`signals__marker-${i}`}
