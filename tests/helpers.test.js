@@ -9,36 +9,29 @@ import {
 
 const { test } = QUnit;
 
+test('lazyGet', (assert) => {
+    assert.deepEqual(lazyGet({ _x: 1 }, 'x', null), 1, 'should return existing value from the cache');
+});
 
 test('lazyGet callback', (assert) => {
-    const path = 'path';
     const stub = sinon.stub();
-    const cb = stub.callsFake(() => ({
-        GREEN: {
-            19: `${path}/green-19.png`,
-            38: `${path}/green-38.png`,
-            128: `${path}/green-128.png`,
-        },
-    }));
-    const Prefs = {
-        get ICONS() {
-            return lazyGet(Prefs, 'ICONS', cb);
+    const cb = stub.callsFake(() => (
+        { one: 1 }));
+    const obj = {
+        get property() {
+            return lazyGet(obj, 'one', cb);
         },
     };
     // eslint-disable-next-line no-unused-expressions
-    Prefs.ICONS;
-    assert.strictEqual(cb.called, true, 'should be called if invoked for the first time');
-    cb.resetHistory();
+    obj.property;
+    assert.strictEqual(cb.calledOnce, true, 'should be called if invoked for the first time');
     // eslint-disable-next-line no-unused-expressions
-    Prefs.ICONS;
-    assert.strictEqual(cb.called, false, 'should NOT be called if invoked for subsequent times');
-    cb.resetHistory();
+    obj.property;
+    assert.strictEqual(cb.calledTwice, false, 'should NOT be called if invoked for the second time');
     // eslint-disable-next-line no-unused-expressions
-    Prefs.ICONS;
-    assert.strictEqual(cb.called, false, 'should NOT be called if invoked for subsequent times');
-
+    obj.property;
+    assert.strictEqual(cb.calledOnce, true, 'should NOT be called if invoked for subsequent times');
 });
-
 
 test('getHostname', (assert) => {
     assert.strictEqual(
