@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
+import uniqid from 'uniqid';
 import rootStore from '../../../../stores';
 import './signals.pcss';
 
@@ -12,37 +13,22 @@ const index = observer(() => {
     });
 
     const fill = settingsStore.extensionEnabled ? 'rgba(0, 76, 51, 0.2)' : 'rgba(50, 50, 50, 0.2)';
+    const amountOfMarkers = 4;
 
     return (
         <g className={`signals ${mapSignalStatus}`}>
-            <circle
-                className="signals__marker-1"
-                cx={0}
-                cy={0}
-                r={0}
-                fill={fill}
-            />
-            <circle
-                className="signals__marker-2"
-                cx={0}
-                cy={0}
-                r={0}
-                fill={fill}
-            />
-            <circle
-                className="signals__marker-3"
-                cx={0}
-                cy={0}
-                r={0}
-                fill={fill}
-            />
-            <circle
-                className="signals__marker-4"
-                cx={0}
-                cy={0}
-                r={0}
-                fill={fill}
-            />
+            {
+                [...Array(amountOfMarkers)].map((e, i) => (
+                    <circle
+                        key={uniqid()}
+                        className={`signals__marker-${i}`}
+                        cx={0}
+                        cy={0}
+                        r={0}
+                        fill={fill}
+                    />
+                ))
+            }
         </g>
     );
 });
