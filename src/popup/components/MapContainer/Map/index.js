@@ -6,7 +6,7 @@ import {
     Geography,
 } from 'react-simple-maps';
 import { observer } from 'mobx-react';
-import uniqid from 'uniqid';
+import nanoid from 'nanoid';
 import renderCityMarkers from './renderCityMarkers';
 import Tooltip from '../Tooltip';
 import jsonMap from './110m.json';
@@ -93,7 +93,7 @@ const Map = observer((props) => {
                     >
                         {(geos, projection) => geos.map(geo => (
                             <Geography
-                                key={uniqid()}
+                                key={nanoid()}
                                 geography={geo}
                                 projection={projection}
                                 style={{

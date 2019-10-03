@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
-import uniqid from 'uniqid';
+import nanoid from 'nanoid';
 import rootStore from '../../../../stores';
 import './signals.pcss';
 
@@ -20,7 +20,7 @@ const index = observer(() => {
             {
                 [...Array(amountOfMarkers)].map((e, i) => (
                     <circle
-                        key={uniqid()}
+                        key={nanoid()}
                         className={`signals__marker-${i}`}
                         cx={0}
                         cy={0}
