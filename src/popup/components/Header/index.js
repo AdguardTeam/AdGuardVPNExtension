@@ -22,7 +22,7 @@ const Header = observer(({ authenticated }) => {
             {authenticated && (
                 <button
                     className="button header__setting"
-                    role="button"
+                    type="button"
                     tabIndex="0"
                     onClick={handleOpenModal}
                 />

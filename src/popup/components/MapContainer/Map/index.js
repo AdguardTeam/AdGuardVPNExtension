@@ -6,6 +6,7 @@ import {
     Geography,
 } from 'react-simple-maps';
 import { observer } from 'mobx-react';
+import uniqid from 'uniqid';
 import renderCityMarkers from './renderCityMarkers';
 import Tooltip from '../Tooltip';
 import jsonMap from './110m.json';
@@ -90,9 +91,9 @@ const Map = observer((props) => {
                         disableOptimization
                         geography={jsonMap}
                     >
-                        {(geos, projection) => geos.map((geo, i) => (
+                        {(geos, projection) => geos.map(geo => (
                             <Geography
-                                key={`geography-${i}`}
+                                key={uniqid()}
                                 geography={geo}
                                 projection={projection}
                                 style={{
