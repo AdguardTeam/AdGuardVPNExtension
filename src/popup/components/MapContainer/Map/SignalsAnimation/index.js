@@ -21,7 +21,7 @@ const index = observer(() => {
                 [...Array(animationCirclesNumber)].map((e, i) => (
                     <circle
                         key={nanoid()}
-                        className={`signals-animation__marker-${i}`}
+                        className={`signals-animation__circle-${i}`}
                         cx={0}
                         cy={0}
                         r={0}
