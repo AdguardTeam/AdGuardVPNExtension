@@ -1,3 +1,13 @@
+import sortBy from 'lodash/sortBy';
+
+/**
+ * Returns the value of the property from the cache,
+ * otherwise, calculates it using the callback, memoizes it, and returns the value
+ * @param {object} obj
+ * @param {string} prop
+ * @param {function} func
+ * @returns {any}
+ */
 export const lazyGet = (obj, prop, func) => {
     const cachedProp = `_${prop}`;
     if (cachedProp in obj) {
@@ -27,12 +37,22 @@ export const getHostname = (url) => {
     return urlObj.hostname;
 };
 
-
-// Convert Degrees to Radians
+/**
+ * Convert Degrees to Radians
+ * @param {number} deg
+ * @returns {number}
+ */
 const Deg2Rad = (deg) => {
     return deg * Math.PI / 180;
 };
 
+
+/**
+ * Return the distance between two points
+ * @param {[number, number]} coordinates1
+ * @param {[number, number]} coordinates2
+ * @returns {number}
+ */
 const getDistance = (coordinates1, coordinates2) => {
     let [lat1, lon1] = coordinates1;
     let [lat2, lon2] = coordinates2;
@@ -45,6 +65,13 @@ const getDistance = (coordinates1, coordinates2) => {
     const y = (lat2 - lat1);
     return Math.sqrt(x * x + y * y) * EARTH_RADIUS_KM;
 };
+
+/**
+ * Returns the closest endpoint to the current coordinates
+ * @param {{ coordinates: [number, number] }} currentEndpoint
+ * @param {{ coordinates: [number, number] }[]} endpoints
+ * @returns {{ coordinates: [number, number] }}
+ */
 
 export const getClosestEndpointByCoordinates = (currentEndpoint, endpoints) => {
     const { coordinates } = currentEndpoint;
