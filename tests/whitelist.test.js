@@ -1,7 +1,7 @@
 /* global QUnit */
 
 import sinon from 'sinon';
-import { Whitelist } from '../src/background/whitelist';
+import Whitelist from '../src/background/whitelist/whitelist';
 
 const { test } = QUnit;
 

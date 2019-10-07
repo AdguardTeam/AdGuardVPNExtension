@@ -1,4 +1,4 @@
-import { proxy } from './proxy';
+import { proxy } from '../proxy';
 import Whitelist from './_whitelist';
 
 const whitelist = new Whitelist(proxy);

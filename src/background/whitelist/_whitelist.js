@@ -1,4 +1,4 @@
-import { getHostname } from '../lib/helpers';
+import { getHostname } from '../../lib/helpers';
 
 export default class Whitelist {
     constructor(proxy) {

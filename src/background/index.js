@@ -2,7 +2,7 @@ import settings from './settings';
 import actions from './actions';
 import { vpnApi } from './api';
 import tabs from './tabs';
-import whitelist from './whitelist';
+import whitelist from './whitelist/whitelist';
 import auth from './auth';
 import { proxy } from './proxy';
 import connectivity from './connectivity/connectivity';

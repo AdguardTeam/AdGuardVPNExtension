@@ -1,4 +1,4 @@
-import Whitelist from '../../src/background/_whitelist';
+import Whitelist from '../../src/background/whitelist/_whitelist';
 
 const {
     describe, it, expect,
