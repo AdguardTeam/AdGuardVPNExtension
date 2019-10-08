@@ -1,51 +1,60 @@
-/* global QUnit */
-
-import sinon from 'sinon';
 import {
     lazyGet,
     getHostname,
     getClosestEndpointByCoordinates,
 } from '../src/lib/helpers';
 
-const { test } = QUnit;
+let jest;
+const {
+    describe, it, expect,
+} = global;
 
-test('lazyGet callback', (assert) => {
+describe('lazyGet callback', () => {
     const expectedColor = 'blue';
-    const cb = sinon.fake.returns(expectedColor);
+    const cb = jest.fn(() => expectedColor);
     const obj = {
         get color() {
             return lazyGet(obj, 'color', cb);
         },
     };
-
-    // first property call
-    assert.strictEqual(obj.color, expectedColor, 'values should be equal');
-    assert.strictEqual(cb.calledOnce, true, 'should be called if invoked for the first time');
-
-    // second property call
-    assert.strictEqual(obj.color, expectedColor, 'values should be equal');
-    assert.strictEqual(cb.calledTwice, false, 'should NOT be called if invoked for the second time');
-    assert.strictEqual(cb.calledOnce, true, 'should NOT be called if invoked for subsequent times');
+    it('values should be equal', () => {
+        expect(obj.color)
+            .toEqual(expectedColor);
+    });
+    it('should be called when invoked for the first time', () => {
+        expect(cb)
+            .toHaveBeenCalledTimes(1);
+    });
+    it('values should be equal', () => {
+        expect(obj.color)
+            .toEqual(expectedColor);
+    });
+    it('should NOT be called if invoked for the second time', () => {
+        expect(cb)
+            .toHaveBeenCalledTimes(1);
+    });
+    it('should NOT be called if invoked for subsequent times', () => {
+        expect(cb)
+            .toHaveBeenCalledTimes(1);
+    });
 });
 
-test('getHostname', (assert) => {
-    assert.strictEqual(
-        getHostname('https://adguard.com/ru/welcome.html'),
-        'adguard.com',
-        'should return hostname if invoked with URL HTTPS'
-    );
-    assert.strictEqual(
-        getHostname('http://example.com'),
-        'example.com',
-        'should return hostname if invoked with URL HTTP'
-    );
-    assert.strictEqual(
-        getHostname('/en-US/docs'),
-        '/en-US/docs',
-        'should return the argument if it is incorrect URL'
-    );
+describe('getHostname', () => {
+    it('should return hostname if invoked with URL HTTPS', () => {
+        expect(getHostname('https://adguard.com/ru/welcome.html'))
+            .toEqual('adguard.com');
+    });
+    it('should return hostname if invoked with URL HTTP', () => {
+        expect(getHostname('http://example.com'))
+            .toEqual('example.com');
+    });
+    it('should return the argument if it is incorrect URL', () => {
+        expect(getHostname('/en-US/docs'))
+            .toEqual('/en-US/docs');
+    });
 });
-test('getClosestEndpointByCoordinates', (assert) => {
+
+describe('getClosestEndpointByCoordinates', () => {
     const COORDS = [
         { coordinates: [57, 2] },
         { coordinates: [34, 138] },
@@ -53,9 +62,8 @@ test('getClosestEndpointByCoordinates', (assert) => {
         { coordinates: [52, 4] },
         { coordinates: [59, 30] },
     ];
-    assert.deepEqual(
-        getClosestEndpointByCoordinates({ coordinates: [55, 37] }, COORDS),
-        { coordinates: [59, 30] },
-        'should find the closest server correctly'
-    );
+    it('should find the closest coordinates correctly', () => {
+        expect(getClosestEndpointByCoordinates({ coordinates: [55, 37] }, COORDS))
+            .toEqual({ coordinates: [59, 30] });
+    });
 });

@@ -1,6 +1,30 @@
-import { proxy } from '../proxy';
-import Whitelist from './_whitelist';
+import { getHostname } from '../../lib/helpers';
 
-const whitelist = new Whitelist(proxy);
+export default class Whitelist {
+    constructor(proxy) {
+        this.whitelisted = [];
+        this.proxy = proxy;
+    }
 
-export default whitelist;
+    _setBypassWhitelist = () => {
+        return this.proxy.setBypassWhitelist(this.whitelisted);
+    };
+
+    async addToWhitelist(url) {
+        this.whitelisted = [...this.whitelisted, getHostname(url)];
+        await this._setBypassWhitelist();
+    }
+
+    async removeFromWhitelist(url) {
+        this.whitelisted = this.whitelisted
+            .filter(hostname => hostname !== getHostname(url));
+        await this._setBypassWhitelist();
+    }
+
+    isWhitelisted = async (url) => {
+        if (url) {
+            return this.whitelisted.includes(getHostname(url));
+        }
+        return false;
+    };
+}

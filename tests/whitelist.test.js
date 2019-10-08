@@ -1,60 +1,65 @@
-/* global QUnit */
-
-import sinon from 'sinon';
 import Whitelist from '../src/background/whitelist/whitelist';
 
-const { test } = QUnit;
+const {
+    describe, it, expect,
+} = global;
 
+let jest;
 const proxy = {
-    setBypassWhitelist: sinon.fake(),
+    setBypassWhitelist: jest.fn(() => {
+    }),
 };
+
 const whitelist = new Whitelist(proxy);
-test('whitelist', async (assert) => {
-    assert.strictEqual(
-        whitelist.whitelisted.length,
-        0,
-        'should be empty before initialization'
-    );
-    assert.strictEqual(
-        await whitelist.isWhitelisted('http://example.com'),
-        false,
-        'should return false if hostname is NOT whitelisted'
-    );
 
-    await whitelist.addToWhitelist('http://example.com');
-
-    assert.strictEqual(
-        await whitelist.isWhitelisted('http://example.com'),
-        true,
-        'should return true if hostname is whitelisted'
-    );
-
-    assert.strictEqual(
-        whitelist.whitelisted.length,
-        1,
-        'should add element correctly'
-    );
-
-    await whitelist.removeFromWhitelist('http://example.com');
-
-    assert.strictEqual(
-        await whitelist.isWhitelisted('http://example.com'),
-        false,
-        'should return false if hostname is removed from whitelisted'
-    );
-
-    assert.strictEqual(
-        whitelist.whitelisted.length,
-        0,
-        'should remove element correctly'
-    );
+describe('index.proxy.setBypassWhitelist', () => {
+    it('should NOT be called before initialization', async () => {
+        expect(whitelist.proxy.setBypassWhitelist)
+            .toHaveBeenCalledTimes(0);
+    });
+    it('should be called once when adding to index', async () => {
+        await whitelist.addToWhitelist('http://example.com');
+        expect(whitelist.proxy.setBypassWhitelist)
+            .toHaveBeenCalledTimes(1);
+    });
+    it('should be called once when removing from index', async () => {
+        await whitelist.removeFromWhitelist('http://example.com');
+        expect(whitelist.proxy.setBypassWhitelist)
+            .toHaveBeenCalledTimes(2);
+    });
 });
 
-test('whitelist proxy setBypassWhitelist', async (assert) => {
-    proxy.setBypassWhitelist.resetHistory();
-    assert.strictEqual(proxy.setBypassWhitelist.notCalled, true, 'should NOT be called initially');
-    await whitelist.addToWhitelist('http://example.com');
-    assert.strictEqual(whitelist.proxy.setBypassWhitelist.calledOnce, true, 'should be called when added to whitelist');
-    await whitelist.removeFromWhitelist('http://example.com');
-    assert.strictEqual(whitelist.proxy.setBypassWhitelist.calledTwice, true, 'should be called when deleted from whitelist');
+describe('whitelist', () => {
+    it('should be empty before initialization', () => {
+        expect(whitelist.whitelisted.length)
+            .toEqual(0);
+    });
+
+    it('should return false if hostname is NOT whitelisted', async () => {
+        expect(await whitelist.isWhitelisted('http://example.com'))
+            .toEqual(false);
+    });
+
+    it('should return true if hostname is whitelisted', async () => {
+        await whitelist.addToWhitelist('http://example.com');
+
+        expect(await whitelist.isWhitelisted('http://example.com'))
+            .toEqual((true));
+    });
+
+    it('should add element correctly', () => {
+        expect(whitelist.whitelisted.length)
+            .toEqual(1);
+    });
+
+    it('should return false if hostname is removed from whitelisted', async () => {
+        await whitelist.removeFromWhitelist('http://example.com');
+        expect(await whitelist.isWhitelisted('http://example.com'))
+            .toEqual(false);
+    });
+
+    it('should remove element correctly', () => {
+        expect(whitelist.whitelisted.length)
+            .toEqual(0);
+    });
 });
