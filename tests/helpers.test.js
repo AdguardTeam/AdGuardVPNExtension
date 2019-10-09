@@ -4,11 +4,6 @@ import {
     getClosestEndpointByCoordinates,
 } from '../src/lib/helpers';
 
-let jest;
-const {
-    describe, it, expect,
-} = global;
-
 describe('lazyGet callback', () => {
     const expectedColor = 'blue';
     const cb = jest.fn(() => expectedColor);

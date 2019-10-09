@@ -1,9 +1,5 @@
 import { Notifier } from '../src/lib/notifier';
 
-const {
-    describe, it, expect, beforeAll,
-} = global;
-
 describe('notifier', () => {
     const testNotifier = new Notifier({
         SETTING_UPDATED: 'settings.updated',

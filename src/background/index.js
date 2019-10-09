@@ -2,7 +2,7 @@ import settings from './settings';
 import actions from './actions';
 import { vpnApi } from './api';
 import tabs from './tabs';
-import index from './whitelist';
+import whitelist from './whitelist';
 import auth from './auth';
 import { proxy } from './proxy';
 import connectivity from './connectivity/connectivity';
@@ -19,7 +19,7 @@ global.background = {
     vpnApi,
     endpoints: vpn,
     tabs,
-    whitelist: index,
+    whitelist,
     auth,
     connectivity,
     appManager,

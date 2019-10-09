@@ -1,10 +1,5 @@
 import Whitelist from '../src/background/whitelist/whitelist';
 
-const {
-    describe, it, expect,
-} = global;
-
-let jest;
 const proxy = {
     setBypassWhitelist: jest.fn(() => {
     }),
@@ -44,7 +39,7 @@ describe('whitelist', () => {
         await whitelist.addToWhitelist('http://example.com');
 
         expect(await whitelist.isWhitelisted('http://example.com'))
-            .toEqual((true));
+            .toEqual(true);
     });
 
     it('should add element correctly', () => {

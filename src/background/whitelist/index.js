@@ -1,6 +1,6 @@
 import { proxy } from '../proxy';
 import Whitelist from './whitelist';
 
-const index = new Whitelist(proxy);
+const whitelist = new Whitelist(proxy);
 
-export default index;
+export default whitelist;
