@@ -145,7 +145,7 @@ class Connectivity {
         if (!this.connectivityInfo || this.state === CONNECTIVITY_STATE.PAUSED) {
             return null;
         }
-        let { bytesDownloaded, bytesUploaded } = this.connectivityInfo;
+        const { bytesDownloaded, bytesUploaded } = this.connectivityInfo;
         return { bytesDownloaded, bytesUploaded };
     };
 }

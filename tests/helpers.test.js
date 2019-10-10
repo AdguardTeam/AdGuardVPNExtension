@@ -1,7 +1,8 @@
 import {
     lazyGet,
     getHostname,
-    getClosestEndpointByCoordinates, formatBytes,
+    getClosestEndpointByCoordinates,
+    formatBytes,
 } from '../src/lib/helpers';
 
 describe('lazyGet callback', () => {
