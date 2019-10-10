@@ -161,8 +161,26 @@ class SettingsStore {
 
     @computed
     get stats() {
-        const { mbytesDownloaded = '0.00', mbytesUploaded = '0.00' } = this.proxyStats || {};
-        return { mbytesDownloaded, mbytesUploaded };
+        let { bytesDownloaded, bytesUploaded } = this.proxyStats || {};
+
+        // TODO [maximtop] move in helpers
+        function formatBytes(bytes, decimals = 1) {
+            if (!bytes) {
+                return { value: 0.0, unit: 'Bytes' };
+            }
+
+            const k = 1000;
+            const dm = decimals < 0 ? 0 : decimals;
+            const units = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+            return { value: parseFloat(bytes / (k ** i)).toFixed(dm), unit: units[i] };
+        }
+
+        bytesDownloaded = formatBytes(bytesDownloaded);
+        bytesUploaded = formatBytes(bytesUploaded);
+        return { bytesDownloaded, bytesUploaded };
     }
 }
 

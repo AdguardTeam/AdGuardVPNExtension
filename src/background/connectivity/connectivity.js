@@ -19,9 +19,10 @@ class Connectivity {
         this.state = CONNECTIVITY_STATE.PAUSED;
     }
 
-    async setHost(host) {
+    async setCredentials(host, vpnToken) {
         this.stop();
         const websocketUrl = renderTemplate(WS_API_URL_TEMPLATE, { host });
+        this.vpnToken = vpnToken;
 
         try {
             this.ws = await wsFactory.getWebsocket(websocketUrl);
@@ -33,6 +34,10 @@ class Connectivity {
         this.state = CONNECTIVITY_STATE.WORKING;
         this.start();
     }
+
+    stringToUint8Array = (str) => {
+        return new TextEncoder('utf-8').encode(str);
+    };
 
     start = async () => {
         this.pingGetInterval = await this.startGettingPing();
@@ -52,7 +57,10 @@ class Connectivity {
     };
 
     preparePingMessage = (currentTime) => {
-        const pingMsg = WsPingMsg.create({ requestTime: currentTime });
+        const pingMsg = WsPingMsg.create({
+            requestTime: currentTime,
+            token: this.stringToUint8Array(this.vpnToken),
+        });
         const protocolMsg = WsConnectivityMsg.create({ pingMsg });
         return WsConnectivityMsg.encode(protocolMsg).finish();
     };
@@ -137,21 +145,8 @@ class Connectivity {
         if (!this.connectivityInfo || this.state === CONNECTIVITY_STATE.PAUSED) {
             return null;
         }
-        let { mbytesDownloaded, mbytesUploaded } = this.connectivityInfo;
-        mbytesDownloaded = mbytesDownloaded.toFixed(2);
-        mbytesUploaded = mbytesUploaded.toFixed(2);
-        return { mbytesDownloaded, mbytesUploaded };
-    };
-
-    shouldRefresh = () => {
-        if (!this.connectivityInfo) {
-            return null;
-        }
-        const { refreshTokens } = this.connectivityInfo;
-        if (refreshTokens) {
-            return refreshTokens;
-        }
-        return false;
+        let { bytesDownloaded, bytesUploaded } = this.connectivityInfo;
+        return { bytesDownloaded, bytesUploaded };
     };
 }
 
