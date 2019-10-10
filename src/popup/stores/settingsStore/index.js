@@ -6,7 +6,7 @@ import {
 
 import tabs from '../../../background/tabs';
 import log from '../../../lib/logger';
-import { getHostname } from '../../../lib/helpers';
+import { getHostname, formatBytes } from '../../../lib/helpers';
 import bgProvider from '../../../lib/background-provider';
 import { SETTINGS_IDS } from '../../../lib/constants';
 
@@ -161,8 +161,10 @@ class SettingsStore {
 
     @computed
     get stats() {
-        const { mbytesDownloaded = '0.00', mbytesUploaded = '0.00' } = this.proxyStats || {};
-        return { mbytesDownloaded, mbytesUploaded };
+        let { bytesDownloaded, bytesUploaded } = this.proxyStats || {};
+        bytesDownloaded = formatBytes(bytesDownloaded);
+        bytesUploaded = formatBytes(bytesUploaded);
+        return { bytesDownloaded, bytesUploaded };
     }
 }
 

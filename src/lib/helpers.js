@@ -72,7 +72,6 @@ const getDistance = (coordinates1, coordinates2) => {
  * @param {{ coordinates: [number, number] }[]} endpoints
  * @returns {{ coordinates: [number, number] }}
  */
-
 export const getClosestEndpointByCoordinates = (currentEndpoint, endpoints) => {
     const { coordinates } = currentEndpoint;
     const distances = endpoints.map(endpoint => ({
@@ -81,4 +80,23 @@ export const getClosestEndpointByCoordinates = (currentEndpoint, endpoints) => {
     }));
     const sortedDistances = sortBy(distances, 'distance');
     return sortedDistances[0].endpoint;
+};
+
+/**
+ * Formats bytes into units
+ * @param {number} bytes
+ * @returns {{unit: string, value: string}}
+ */
+export const formatBytes = (bytes) => {
+    if (!bytes) {
+        return { value: '0.0', unit: 'KB' };
+    }
+
+    const DECIMALS = 1;
+    const UNITS = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    const k = 1000;
+
+    const i = Math.floor(Math.log(bytes) / Math.log(k)) || 1;
+
+    return { value: parseFloat(bytes / (k ** i)).toFixed(DECIMALS), unit: UNITS[i] };
 };
