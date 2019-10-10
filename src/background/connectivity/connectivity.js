@@ -4,7 +4,7 @@
 import { WsPingMsg, WsConnectivityMsg } from './connectivity.proto';
 import wsFactory from '../api/websocketApi';
 import { WS_API_URL_TEMPLATE } from '../config';
-import { renderTemplate } from '../../lib/string-utils';
+import { renderTemplate, stringToUint8Array } from '../../lib/string-utils';
 import log from '../../lib/logger';
 
 const CONNECTIVITY_STATE = {
@@ -35,10 +35,6 @@ class Connectivity {
         this.start();
     }
 
-    stringToUint8Array = (str) => {
-        return new TextEncoder('utf-8').encode(str);
-    };
-
     start = async () => {
         this.pingGetInterval = await this.startGettingPing();
         this.startGettingConnectivityInfo();
@@ -59,7 +55,7 @@ class Connectivity {
     preparePingMessage = (currentTime) => {
         const pingMsg = WsPingMsg.create({
             requestTime: currentTime,
-            token: this.stringToUint8Array(this.vpnToken),
+            token: stringToUint8Array(this.vpnToken),
         });
         const protocolMsg = WsConnectivityMsg.create({ pingMsg });
         return WsConnectivityMsg.encode(protocolMsg).finish();
