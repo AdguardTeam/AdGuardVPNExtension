@@ -1,7 +1,7 @@
 import {
     lazyGet,
     getHostname,
-    getClosestEndpointByCoordinates,
+    getClosestEndpointByCoordinates, formatBytes,
 } from '../src/lib/helpers';
 
 describe('lazyGet callback', () => {
@@ -61,4 +61,13 @@ describe('getClosestEndpointByCoordinates', () => {
         expect(getClosestEndpointByCoordinates({ coordinates: [55, 37] }, COORDS))
             .toEqual({ coordinates: [59, 30] });
     });
+});
+
+describe('formatBytes', () => {
+    expect(formatBytes(10)).toEqual({ value: '0.0', unit: 'KB' });
+    expect(formatBytes(100)).toEqual({ value: '0.1', unit: 'KB' });
+    expect(formatBytes(1100)).toEqual({ value: '1.1', unit: 'KB' });
+    expect(formatBytes(1110000)).toEqual({ value: '1.1', unit: 'MB' });
+    expect(formatBytes(1150000000)).toEqual({ value: '1.1', unit: 'GB' });
+    expect(formatBytes(1100000000001)).toEqual({ value: '1.1', unit: 'TB' });
 });

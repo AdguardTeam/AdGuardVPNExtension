@@ -6,7 +6,7 @@ import {
 
 import tabs from '../../../background/tabs';
 import log from '../../../lib/logger';
-import { getHostname } from '../../../lib/helpers';
+import { getHostname, formatBytes } from '../../../lib/helpers';
 import bgProvider from '../../../lib/background-provider';
 import { SETTINGS_IDS } from '../../../lib/constants';
 
@@ -162,22 +162,6 @@ class SettingsStore {
     @computed
     get stats() {
         let { bytesDownloaded, bytesUploaded } = this.proxyStats || {};
-
-        // TODO [maximtop] move in helpers
-        function formatBytes(bytes, decimals = 1) {
-            if (!bytes) {
-                return { value: 0.0, unit: 'Bytes' };
-            }
-
-            const k = 1000;
-            const dm = decimals < 0 ? 0 : decimals;
-            const units = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-
-            return { value: parseFloat(bytes / (k ** i)).toFixed(dm), unit: units[i] };
-        }
-
         bytesDownloaded = formatBytes(bytesDownloaded);
         bytesUploaded = formatBytes(bytesUploaded);
         return { bytesDownloaded, bytesUploaded };
