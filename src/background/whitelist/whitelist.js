@@ -1,29 +1,60 @@
 import { getHostname } from '../../lib/helpers';
+import log from '../../lib/logger';
 
 export default class Whitelist {
-    constructor(proxy) {
-        this.whitelisted = [];
+    constructor(proxy, storage) {
         this.proxy = proxy;
+        this.storage = storage;
     }
 
-    _setBypassWhitelist = () => {
-        return this.proxy.setBypassWhitelist(this.whitelisted);
+    static get WHITELIST_KEY() {
+        return 'whitelist.storage.key';
+    }
+
+    init = async () => {
+        let whitelistedList;
+        try {
+            whitelistedList = await this.storage.get(Whitelist.WHITELIST_KEY);
+        } catch (e) {
+            log.error(e.message);
+            throw e;
+        }
+
+        this.whitelisted = whitelistedList || [];
+        await this.handleWhitelistUpdate();
+        log.info('Whitelist is ready');
     };
 
-    async addToWhitelist(url) {
-        this.whitelisted = [...this.whitelisted, getHostname(url)];
-        await this._setBypassWhitelist();
-    }
+    handleWhitelistUpdate = async () => {
+        await this.proxy.setBypassWhitelist(this.whitelisted);
+        await this.storage.set(Whitelist.WHITELIST_KEY, this.whitelisted);
+    };
 
-    async removeFromWhitelist(url) {
+    addToWhitelist = async (url) => {
+        const hostname = getHostname(url);
+
+        if (!hostname || (hostname && this.whitelisted.includes(hostname))) {
+            return;
+        }
+
+        this.whitelisted.push(hostname);
+        await this.handleWhitelistUpdate();
+    };
+
+    removeFromWhitelist = async (url) => {
+        const hostname = getHostname(url);
+        if (!hostname || (hostname && !this.whitelisted.includes(hostname))) {
+            return;
+        }
         this.whitelisted = this.whitelisted
             .filter(hostname => hostname !== getHostname(url));
-        await this._setBypassWhitelist();
-    }
+        await this.handleWhitelistUpdate();
+    };
 
-    isWhitelisted = (url) => {
-        if (url) {
-            return this.whitelisted.includes(getHostname(url));
+    isWhitelisted = async (url) => {
+        const hostname = getHostname(url);
+        if (hostname) {
+            return this.whitelisted.includes(hostname);
         }
         return false;
     };
