@@ -64,7 +64,7 @@ class Credentials {
 
     async gainVpnToken() {
         let vpnToken = await this.getVpnTokenLocal();
-        if (true || !this.isVpnTokenValid(vpnToken)) {
+        if (!this.isVpnTokenValid(vpnToken)) {
             vpnToken = await this.getVpnTokenRemote();
         }
         if (this.isVpnTokenValid(vpnToken)) {
