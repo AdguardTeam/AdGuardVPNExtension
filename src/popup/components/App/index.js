@@ -75,8 +75,18 @@ const App = observer(() => {
         globalError,
     } = settingsStore;
 
-    const { state: requestProcessState, authenticated } = authStore;
+    const { state: requestProcessState, authenticated, receivedAuthenticationInfo } = authStore;
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
+
+    if (!receivedAuthenticationInfo) {
+        return (
+            <Fragment>
+                {requestProcessState === REQUEST_STATUSES.PENDING
+                    && <Preloader />
+                }
+            </Fragment>
+        );
+    }
 
     if (!authenticated) {
         return (
@@ -90,22 +100,13 @@ const App = observer(() => {
         );
     }
 
-    if (isOpenEndpointsSearch) {
-        return (
-            <Fragment>
-                <Header authenticated={authenticated} />
-                <Endpoints />
-                {canControlProxy && <InfoMessage />}
-            </Fragment>
-        );
-    }
-
     const showWarning = !canControlProxy || globalError;
 
     return (
         <Fragment>
             {isOpenOptionsModal && <ExtraOptions />}
             <Header authenticated={authenticated} />
+            {isOpenEndpointsSearch && <Endpoints />}
             <MapContainer globalProxyEnabled={extensionEnabled} />
             <Settings
                 canControlProxy={canControlProxy}

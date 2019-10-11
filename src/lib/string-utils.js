@@ -13,6 +13,16 @@
 export const renderTemplate = (template, tags) => {
     return Object.entries(tags).reduce((acc, [key, value]) => {
         const regex = new RegExp(`{{${key}}}`, 'g');
-        return template.replace(regex, value);
+        return acc.replace(regex, value);
     }, template);
+};
+
+
+/**
+ * Converts string into Uint8Array
+ * @param str
+ * @returns {!Uint8Array}
+ */
+export const stringToUint8Array = (str) => {
+    return new TextEncoder('utf-8').encode(str);
 };

@@ -27,23 +27,27 @@ const Stats = observer(() => {
         return updateStats();
     }, []);
 
-    const { mbytesDownloaded, mbytesUploaded } = settingsStore.stats;
+    const { bytesDownloaded, bytesUploaded } = settingsStore.stats;
     return (
         <div className="stats">
             <div className="stats__col">
                 <div className="stats__value">
-                    {mbytesDownloaded}
+                    {bytesDownloaded.value}
                 </div>
                 <div className="stats__units">
-                    Downloaded, MB
+                    Downloaded,
+                    {' '}
+                    {bytesDownloaded.unit}
                 </div>
             </div>
             <div className="stats__col">
                 <div className="stats__value">
-                    {mbytesUploaded}
+                    {bytesUploaded.value}
                 </div>
                 <div className="stats__units">
-                    Uploaded, MB
+                    Uploaded,
+                    {' '}
+                    {bytesUploaded.unit}
                 </div>
             </div>
         </div>

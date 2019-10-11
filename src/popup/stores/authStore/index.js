@@ -5,6 +5,7 @@ import {
     computed,
 } from 'mobx';
 import debounce from 'lodash/debounce';
+import browser from 'webextension-polyfill';
 import { REQUEST_STATUSES } from '../consts';
 
 import bgProvider from '../../../lib/background-provider';
@@ -23,9 +24,9 @@ const DEFAULTS = {
         twoFactor: '',
     },
     authenticated: false,
+    receivedAuthenticationInfo: false,
     need2fa: false,
-    error: false,
-    errorDescription: '',
+    error: null,
     field: '',
     step: AUTH_STEPS.SIGN_IN,
     agreement: true,
@@ -38,11 +39,11 @@ class AuthStore {
 
     @observable authenticated = DEFAULTS.authenticated;
 
+    @observable receivedAuthenticationInfo = DEFAULTS.receivedAuthenticationInfo;
+
     @observable need2fa = DEFAULTS.need2fa;
 
     @observable error = DEFAULTS.error;
-
-    @observable errorDescription = DEFAULTS.errorDescription;
 
     @observable field = DEFAULTS.field;
 
@@ -61,21 +62,18 @@ class AuthStore {
         this.authenticated = DEFAULTS.authenticated;
         this.need2fa = DEFAULTS.need2fa;
         this.error = DEFAULTS.error;
-        this.errorDescription = DEFAULTS.errorDescription;
         this.step = DEFAULTS.step;
     };
 
     @action resetError = () => {
         this.error = DEFAULTS.error;
-        this.errorDescription = DEFAULTS.errorDescription;
     };
 
     validate = debounce((field, value) => {
         if (field === 'passwordAgain') {
             if (value !== this.credentials.password) {
                 runInAction(() => {
-                    this.error = true;
-                    this.errorDescription = 'Password and confirm password does not match';
+                    this.error = browser.i18n.getMessage('registration_error_front_unique_validation');
                 });
             }
         }
@@ -118,8 +116,7 @@ class AuthStore {
         if (response.error) {
             runInAction(() => {
                 this.state = REQUEST_STATUSES.ERROR;
-                this.error = true;
-                this.errorDescription = response.errorDescription;
+                this.error = response.error;
             });
             return;
         }
@@ -150,8 +147,7 @@ class AuthStore {
         if (response.error) {
             runInAction(() => {
                 this.state = REQUEST_STATUSES.ERROR;
-                this.error = true;
-                this.errorDescription = response.errorDescription;
+                this.error = response.error;
                 this.field = response.field;
             });
             return;
@@ -175,6 +171,7 @@ class AuthStore {
         }
         runInAction(() => {
             this.state = REQUEST_STATUSES.DONE;
+            this.receivedAuthenticationInfo = true;
         });
     };
 

@@ -37,7 +37,7 @@ const TwoFactorForm = observer(() => {
                 { authStore.error
                 && (
                     <div className="form__item-error">
-                        {authStore.errorDescription}
+                        {authStore.error}
                     </div>
                 )}
             </div>

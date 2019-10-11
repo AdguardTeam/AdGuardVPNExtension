@@ -53,7 +53,7 @@ const Authentication = observer(() => {
                 {step !== authStore.STEPS.SIGN_IN && (
                     <button
                         className="button button--back"
-                        role="button"
+                        type="button"
                         onClick={handleBackClick}
                     />
                 )}

@@ -31,12 +31,19 @@ const SiteInfo = observer(() => {
                 <div className="popup-info__desc">
                     You can
                     &nbsp;
-                    <button className="button popup-info__link" onClick={removeFromWhitelist}>remove it from whitelist</button>
+                    <button
+                        type="button"
+                        className="button popup-info__link"
+                        onClick={removeFromWhitelist}
+                    >
+                        remove it from whitelist
+                    </button>
                     &nbsp;
                     or just switch on VPN once
                 </div>
                 <div className="popup-info__desc">
                     <button
+                        type="button"
                         className="button popup-info__link"
                         onClick={() => { console.log('Don’t remind me about this site'); }}
                     >
@@ -60,7 +67,13 @@ const SiteInfo = observer(() => {
                 <div className="popup-info__desc">
                     You can
                     &nbsp;
-                    <button className="button popup-info__link" onClick={removeFromWhitelist}>remove it from whitelist</button>
+                    <button
+                        type="button"
+                        className="button popup-info__link"
+                        onClick={removeFromWhitelist}
+                    >
+                        remove it from whitelist
+                    </button>
                     &nbsp;
                     or just switch on VPN once
                 </div>

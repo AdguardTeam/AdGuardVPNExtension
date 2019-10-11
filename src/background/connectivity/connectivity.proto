@@ -13,11 +13,9 @@ message WsPingMsg {
 
 message WsConnectivityInfoMsg {
     bytes token = 1;
-    float mbytesDownloaded = 2;
-    float mbytesUploaded = 3;
-    float downloadSpeedMbytesPerSec = 4;
-    float uploadSpeedMbytesPerSec = 5;
     bool refreshTokens = 6;
+    float bytesDownloaded = 7;
+    float bytesUploaded = 8;
 }
 
 message WsConnectivityMsg {

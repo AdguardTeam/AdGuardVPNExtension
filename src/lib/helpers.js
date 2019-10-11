@@ -1,3 +1,13 @@
+import sortBy from 'lodash/sortBy';
+
+/**
+ * Returns the value of the property from the cache,
+ * otherwise, calculates it using the callback, memoizes it, and returns the value
+ * @param {object} obj
+ * @param {string} prop
+ * @param {function} func
+ * @returns {any}
+ */
 export const lazyGet = (obj, prop, func) => {
     const cachedProp = `_${prop}`;
     if (cachedProp in obj) {
@@ -27,12 +37,22 @@ export const getHostname = (url) => {
     return urlObj.hostname;
 };
 
-
-// Convert Degrees to Radians
+/**
+ * Convert Degrees to Radians
+ * @param {number} deg
+ * @returns {number}
+ */
 const Deg2Rad = (deg) => {
     return deg * Math.PI / 180;
 };
 
+
+/**
+ * Return the distance between two points
+ * @param {[number, number]} coordinates1
+ * @param {[number, number]} coordinates2
+ * @returns {number}
+ */
 const getDistance = (coordinates1, coordinates2) => {
     let [lat1, lon1] = coordinates1;
     let [lat2, lon2] = coordinates2;
@@ -46,6 +66,12 @@ const getDistance = (coordinates1, coordinates2) => {
     return Math.sqrt(x * x + y * y) * EARTH_RADIUS_KM;
 };
 
+/**
+ * Returns the closest endpoint to the current coordinates
+ * @param {{ coordinates: [number, number] }} currentEndpoint
+ * @param {{ coordinates: [number, number] }[]} endpoints
+ * @returns {{ coordinates: [number, number] }}
+ */
 export const getClosestEndpointByCoordinates = (currentEndpoint, endpoints) => {
     const { coordinates } = currentEndpoint;
     const distances = endpoints.map(endpoint => ({
@@ -54,4 +80,23 @@ export const getClosestEndpointByCoordinates = (currentEndpoint, endpoints) => {
     }));
     const sortedDistances = sortBy(distances, 'distance');
     return sortedDistances[0].endpoint;
+};
+
+/**
+ * Formats bytes into units
+ * @param {number} bytes
+ * @returns {{unit: string, value: string}}
+ */
+export const formatBytes = (bytes) => {
+    if (!bytes) {
+        return { value: '0.0', unit: 'KB' };
+    }
+
+    const DECIMALS = 1;
+    const UNITS = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    const k = 1000;
+
+    const i = Math.floor(Math.log(bytes) / Math.log(k)) || 1;
+
+    return { value: parseFloat(bytes / (k ** i)).toFixed(DECIMALS), unit: UNITS[i] };
 };

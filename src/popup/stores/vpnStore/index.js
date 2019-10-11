@@ -6,7 +6,6 @@ import {
     toJS,
 } from 'mobx';
 import bgProvider from '../../../lib/background-provider';
-import { REQUEST_STATUSES } from '../consts';
 
 class VpnStore {
     constructor(rootStore) {

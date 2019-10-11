@@ -4,7 +4,7 @@
 import { WsPingMsg, WsConnectivityMsg } from './connectivity.proto';
 import wsFactory from '../api/websocketApi';
 import { WS_API_URL_TEMPLATE } from '../config';
-import { renderTemplate } from '../../lib/string-utils';
+import { renderTemplate, stringToUint8Array } from '../../lib/string-utils';
 import log from '../../lib/logger';
 
 const CONNECTIVITY_STATE = {
@@ -19,9 +19,10 @@ class Connectivity {
         this.state = CONNECTIVITY_STATE.PAUSED;
     }
 
-    async setHost(host) {
+    async setCredentials(host, vpnToken) {
         this.stop();
         const websocketUrl = renderTemplate(WS_API_URL_TEMPLATE, { host });
+        this.vpnToken = vpnToken;
 
         try {
             this.ws = await wsFactory.getWebsocket(websocketUrl);
@@ -52,7 +53,10 @@ class Connectivity {
     };
 
     preparePingMessage = (currentTime) => {
-        const pingMsg = WsPingMsg.create({ requestTime: currentTime });
+        const pingMsg = WsPingMsg.create({
+            requestTime: currentTime,
+            token: stringToUint8Array(this.vpnToken),
+        });
         const protocolMsg = WsConnectivityMsg.create({ pingMsg });
         return WsConnectivityMsg.encode(protocolMsg).finish();
     };
@@ -137,21 +141,8 @@ class Connectivity {
         if (!this.connectivityInfo || this.state === CONNECTIVITY_STATE.PAUSED) {
             return null;
         }
-        let { mbytesDownloaded, mbytesUploaded } = this.connectivityInfo;
-        mbytesDownloaded = mbytesDownloaded.toFixed(2);
-        mbytesUploaded = mbytesUploaded.toFixed(2);
-        return { mbytesDownloaded, mbytesUploaded };
-    };
-
-    shouldRefresh = () => {
-        if (!this.connectivityInfo) {
-            return null;
-        }
-        const { refreshTokens } = this.connectivityInfo;
-        if (refreshTokens) {
-            return refreshTokens;
-        }
-        return false;
+        const { bytesDownloaded, bytesUploaded } = this.connectivityInfo;
+        return { bytesDownloaded, bytesUploaded };
     };
 }
 
