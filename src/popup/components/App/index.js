@@ -39,7 +39,7 @@ const App = observer(() => {
             vpnStore.getVpnInfo();
         })();
 
-        const messageHandler = (message) => {
+        const messageHandler = async (message) => {
             const { type, data } = message;
 
             switch (type) {

@@ -2,12 +2,8 @@ import { accountApi } from '../api';
 
 const getVpnToken = async (accessToken) => {
     const VALID_VPN_TOKEN_STATUS = 'VALID';
-    let vpnTokenData;
 
-    const index = accessToken.length - 1;
-    accessToken = `${accessToken.substr(0, index)}1${accessToken.substr(index + 1)}`;
-
-    vpnTokenData = await accountApi.getVpnToken(accessToken);
+    const vpnTokenData = await accountApi.getVpnToken(accessToken);
 
     const vpnToken = vpnTokenData.tokens.find(token => token.token === vpnTokenData.token);
 
