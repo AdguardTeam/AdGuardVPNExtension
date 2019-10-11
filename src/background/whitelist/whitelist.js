@@ -51,7 +51,7 @@ export default class Whitelist {
         await this.handleWhitelistUpdate();
     };
 
-    isWhitelisted = async (url) => {
+    isWhitelisted = (url) => {
         const hostname = getHostname(url);
         if (hostname) {
             return this.whitelisted.includes(hostname);
