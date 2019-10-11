@@ -1,15 +1,14 @@
 import { action } from 'mobx';
-import bgProvider from '../../../lib/background-provider';
 
 class PopupActions {
     @action openRecovery = async () => {
-        await bgProvider.tabs.openRecovery();
-        await bgProvider.tabs.closePopup();
+        await adguard.tabs.openRecovery();
+        await adguard.tabs.closePopup();
     };
 
     @action openTab = async (url) => {
-        await bgProvider.tabs.openTab(url);
-        await bgProvider.tabs.closePopup();
+        await adguard.tabs.openTab(url);
+        await adguard.tabs.closePopup();
     }
 }
 

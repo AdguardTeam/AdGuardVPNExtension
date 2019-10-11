@@ -8,8 +8,6 @@ import debounce from 'lodash/debounce';
 import browser from 'webextension-polyfill';
 import { REQUEST_STATUSES } from '../consts';
 
-import bgProvider from '../../../lib/background-provider';
-
 const AUTH_STEPS = {
     SIGN_IN: 'signIn',
     REGISTRATION: 'registration',
@@ -83,12 +81,12 @@ class AuthStore {
         this.resetError();
         this.credentials[field] = value;
         this.validate(field, value);
-        bgProvider.authCache.updateAuthCache(field, value);
+        adguard.authCache.updateAuthCache(field, value);
     };
 
     @action
-    getAuthCacheFromBackground = async () => {
-        const { username, password, step } = await bgProvider.authCache.getAuthCache();
+    getAuthCacheFromBackground = () => {
+        const { username, password, step } = adguard.authCache.getAuthCache();
         runInAction(() => {
             this.credentials = { ...this.credentials, username, password };
             if (step) {
@@ -111,7 +109,7 @@ class AuthStore {
 
     @action authenticate = async () => {
         this.state = REQUEST_STATUSES.PENDING;
-        const response = await bgProvider.auth.authenticate(this.credentials);
+        const response = await adguard.auth.authenticate(this.credentials);
 
         if (response.error) {
             runInAction(() => {
@@ -122,7 +120,7 @@ class AuthStore {
         }
 
         if (response.status === 'ok') {
-            bgProvider.authCache.clearAuthCache();
+            adguard.authCache.clearAuthCache();
             runInAction(() => {
                 this.state = REQUEST_STATUSES.DONE;
                 this.authenticated = true;
@@ -143,7 +141,7 @@ class AuthStore {
 
     @action register = async () => {
         this.state = REQUEST_STATUSES.PENDING;
-        const response = await bgProvider.auth.register(this.credentials);
+        const response = await adguard.auth.register(this.credentials);
         if (response.error) {
             runInAction(() => {
                 this.state = REQUEST_STATUSES.ERROR;
@@ -163,7 +161,7 @@ class AuthStore {
 
     @action isAuthenticated = async () => {
         this.state = REQUEST_STATUSES.PENDING;
-        const result = await bgProvider.auth.isAuthenticated();
+        const result = await adguard.auth.isAuthenticated();
         if (result) {
             runInAction(() => {
                 this.authenticated = true;
@@ -176,7 +174,7 @@ class AuthStore {
     };
 
     @action deauthenticate = async () => {
-        await bgProvider.auth.deauthenticate();
+        await adguard.auth.deauthenticate();
         await this.rootStore.settingsStore.setGlobalProxyEnabled(false);
         runInAction(() => {
             this.setDefaults();
@@ -184,14 +182,14 @@ class AuthStore {
     };
 
     @action openSocialAuth = async (social) => {
-        await bgProvider.auth.startSocialAuth(social);
-        await bgProvider.tabs.closePopup();
+        await adguard.auth.startSocialAuth(social);
+        await adguard.tabs.closePopup();
     };
 
     @action switchStep = (step) => {
         this.step = step;
         this.resetError();
-        bgProvider.authCache.updateAuthCache('step', step);
+        adguard.authCache.updateAuthCache('step', step);
     };
 
     @action showRegistration = () => {

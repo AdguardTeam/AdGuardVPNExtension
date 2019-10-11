@@ -81,7 +81,7 @@ const getEndpoints = () => {
     return null;
 };
 
-const getCurrentLocation = async () => vpnProvider.getCurrentLocation();
+const getCurrentLocation = () => vpnProvider.getCurrentLocation();
 
 const vpn = {
     getEndpoints,

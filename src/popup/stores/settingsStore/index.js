@@ -7,7 +7,6 @@ import {
 import tabs from '../../../background/tabs';
 import log from '../../../lib/logger';
 import { getHostname, formatBytes } from '../../../lib/helpers';
-import bgProvider from '../../../lib/background-provider';
 import { SETTINGS_IDS } from '../../../lib/constants';
 
 class SettingsStore {
@@ -35,13 +34,13 @@ class SettingsStore {
     };
 
     getProxyPing = async () => {
-        const ping = await bgProvider.connectivity.getPing();
+        const ping = adguard.connectivity.getPing();
         this.setPing(ping);
     };
 
     @action
     async checkProxyControl() {
-        const { canControlProxy } = await bgProvider.appManager.getAppStatus();
+        const { canControlProxy } = await adguard.appManager.getAppStatus();
         runInAction(() => {
             this.canControlProxy = canControlProxy;
         });
@@ -65,7 +64,7 @@ class SettingsStore {
 
     @action
     async getGlobalProxyEnabled() {
-        const globalProxyEnabledSetting = await bgProvider.settings
+        const globalProxyEnabledSetting = adguard.settings
             .getSetting(SETTINGS_IDS.PROXY_ENABLED);
         runInAction(async () => {
             await this.toggleEnabled(globalProxyEnabledSetting.value);
@@ -76,7 +75,7 @@ class SettingsStore {
     setGlobalProxyEnabled = async (value) => {
         let changed;
         try {
-            changed = await bgProvider.settings.setSetting(SETTINGS_IDS.PROXY_ENABLED, value);
+            changed = await adguard.settings.setSetting(SETTINGS_IDS.PROXY_ENABLED, value);
         } catch (e) {
             log.error(e.message);
         }
@@ -90,7 +89,7 @@ class SettingsStore {
     @action
     addToWhitelist = async () => {
         try {
-            await bgProvider.whitelist.addToWhitelist(this.currentTabHostname);
+            await adguard.whitelist.addToWhitelist(this.currentTabHostname);
             runInAction(() => {
                 this.isWhitelisted = true;
             });
@@ -102,7 +101,7 @@ class SettingsStore {
     @action
     removeFromWhitelist = async () => {
         try {
-            await bgProvider.whitelist.removeFromWhitelist(this.currentTabHostname);
+            await adguard.whitelist.removeFromWhitelist(this.currentTabHostname);
             runInAction(() => {
                 this.isWhitelisted = false;
             });
@@ -115,7 +114,7 @@ class SettingsStore {
     checkIsWhitelisted = async () => {
         try {
             await this.getCurrentTabHostname();
-            const result = await bgProvider.whitelist.isWhitelisted(this.currentTabHostname);
+            const result = adguard.whitelist.isWhitelisted(this.currentTabHostname);
             runInAction(() => {
                 this.isWhitelisted = result;
             });
@@ -139,7 +138,7 @@ class SettingsStore {
     @action
     getProxyStats = async () => {
         try {
-            const stats = await bgProvider.connectivity.getStats();
+            const stats = adguard.connectivity.getStats();
             runInAction(() => {
                 this.proxyStats = stats;
             });
@@ -152,7 +151,7 @@ class SettingsStore {
     isTabRoutable = async () => {
         try {
             const currentTab = await tabs.getCurrent();
-            const isRoutable = await bgProvider.tabsContext.isTabRoutable(currentTab.id);
+            const isRoutable = adguard.tabsContext.isTabRoutable(currentTab.id);
             runInAction(() => {
                 this.isRoutable = isRoutable;
             });
