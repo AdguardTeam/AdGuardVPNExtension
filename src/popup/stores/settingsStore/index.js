@@ -27,6 +27,8 @@ class SettingsStore {
 
     @observable isRoutable = true;
 
+    @observable globalError;
+
     @action
     setPing = (ping) => {
         this.ping = ping;
@@ -165,6 +167,11 @@ class SettingsStore {
         bytesDownloaded = formatBytes(bytesDownloaded);
         bytesUploaded = formatBytes(bytesUploaded);
         return { bytesDownloaded, bytesUploaded };
+    }
+
+    @action
+    setGlobalError = (data) => {
+        this.globalError = data;
     }
 }
 

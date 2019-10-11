@@ -39,7 +39,7 @@ const App = observer(() => {
             vpnStore.getVpnInfo();
         })();
 
-        const messageHandler = (message) => {
+        const messageHandler = async (message) => {
             const { type, data } = message;
 
             switch (type) {
@@ -49,6 +49,10 @@ const App = observer(() => {
                 }
                 case MESSAGES_TYPES.ENDPOINTS_UPDATED: {
                     vpnStore.setEndpoints(data);
+                    break;
+                }
+                case MESSAGES_TYPES.VPN_TOKEN_NOT_FOUND: {
+                    settingsStore.setGlobalError(data);
                     break;
                 }
                 default: {
@@ -68,6 +72,7 @@ const App = observer(() => {
     const {
         extensionEnabled,
         canControlProxy,
+        globalError,
     } = settingsStore;
 
     const { state: requestProcessState, authenticated, receivedAuthenticationInfo } = authStore;
@@ -95,6 +100,8 @@ const App = observer(() => {
         );
     }
 
+    const showWarning = !canControlProxy || globalError;
+
     return (
         <Fragment>
             {isOpenOptionsModal && <ExtraOptions />}
@@ -105,8 +112,8 @@ const App = observer(() => {
                 canControlProxy={canControlProxy}
                 globalProxyEnabled={extensionEnabled}
             />
-            {canControlProxy && <Stats />}
-            {canControlProxy && <InfoMessage />}
+            {!showWarning && <Stats />}
+            {!showWarning && <InfoMessage />}
         </Fragment>
     );
 });
