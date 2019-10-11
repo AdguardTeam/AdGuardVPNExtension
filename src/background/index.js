@@ -17,7 +17,6 @@ global.background = {
     actions,
     proxy,
     vpnApi,
-    endpoints: vpn,
     tabs,
     whitelist,
     auth,
@@ -30,3 +29,8 @@ global.background = {
 
 // init messaging
 messaging.init();
+
+// TODO [maximtop] consider if it can be useful to have some method indicate
+//  that all modules are ready
+// init whitelist
+whitelist.init();
