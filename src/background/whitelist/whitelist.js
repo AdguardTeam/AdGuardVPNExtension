@@ -21,7 +21,7 @@ export default class Whitelist {
         await this._setBypassWhitelist();
     }
 
-    isWhitelisted = async (url) => {
+    isWhitelisted = (url) => {
         if (url) {
             return this.whitelisted.includes(getHostname(url));
         }

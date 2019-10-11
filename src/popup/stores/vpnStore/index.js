@@ -5,7 +5,6 @@ import {
     runInAction,
     toJS,
 } from 'mobx';
-import bgProvider from '../../../lib/background-provider';
 
 class VpnStore {
     constructor(rootStore) {
@@ -37,7 +36,7 @@ class VpnStore {
     };
 
     @action getEndpoints = async () => {
-        const endpoints = await bgProvider.vpn.getEndpoints();
+        const endpoints = adguard.vpn.getEndpoints();
         this.setEndpoints(endpoints);
     };
 
@@ -50,7 +49,7 @@ class VpnStore {
     @action
     setSelectedEndpoint = async (id) => {
         const selectedEndpoint = this.endpoints[id];
-        await bgProvider.proxy.setCurrentEndpoint(toJS(selectedEndpoint));
+        await adguard.proxy.setCurrentEndpoint(toJS(selectedEndpoint));
         runInAction(() => {
             this.selectedEndpoint = selectedEndpoint;
             this.rootStore.tooltipStore.setMapCoordinatesDefault();
@@ -59,7 +58,7 @@ class VpnStore {
 
     @action
     getSelectedEndpoint = async () => {
-        const endpoint = await bgProvider.proxy.getCurrentEndpoint();
+        const endpoint = await adguard.proxy.getCurrentEndpoint();
         runInAction(() => {
             this.selectedEndpoint = endpoint;
         });
@@ -100,7 +99,7 @@ class VpnStore {
 
     @action
     getCurrentLocation = async () => {
-        const currentLocation = await bgProvider.vpn.getCurrentLocation();
+        const currentLocation = await adguard.vpn.getCurrentLocation();
         runInAction(() => {
             this.currentLocation = currentLocation;
         });
@@ -108,7 +107,7 @@ class VpnStore {
 
     @action
     getVpnInfo = async () => {
-        const vpnInfo = await bgProvider.vpn.getVpnInfo();
+        const vpnInfo = adguard.vpn.getVpnInfo();
         this.setVpnInfo(vpnInfo);
     };
 
