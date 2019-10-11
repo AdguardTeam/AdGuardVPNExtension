@@ -24,6 +24,7 @@ const Endpoints = observer(() => {
             id,
             selected,
             premiumOnly,
+            cityName,
         } = endpoint;
         const endpointClassNames = classnames({
             'endpoints__item--selected': selected,
@@ -38,7 +39,7 @@ const Endpoints = observer(() => {
             >
                 <div className="endpoints__item-ico" />
                 <div className="endpoints__city">
-                    {countryName}
+                    {`${countryName}, ${cityName}`}
                 </div>
             </button>
         );
