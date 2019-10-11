@@ -3,12 +3,11 @@ import Modal from 'react-modal';
 import './extra-options.pcss';
 import { observer } from 'mobx-react';
 import rootStore from '../../stores';
-import bgProvider from '../../../lib/background-provider';
 
 const ExtraOptions = observer(() => {
     const { uiStore, settingsStore, authStore } = useContext(rootStore);
     const openSettings = async () => {
-        await bgProvider.actions.openOptionsPage();
+        await adguard.actions.openOptionsPage();
     };
 
     const addToWhitelist = async () => {

@@ -12,7 +12,7 @@ import authCache from './authentication/authCache';
 import messaging from './messaging';
 import vpn from './vpn';
 
-global.background = {
+global.adguard = {
     settings,
     actions,
     proxy,

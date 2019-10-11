@@ -9,6 +9,10 @@
         "jest": true
     },
 
+    "globals": {
+        "adguard": "readonly"
+    },
+
     "settings": {
         "react": {
             "pragma": "React",

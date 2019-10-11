@@ -85,7 +85,7 @@ const getTabIp = (tabId) => {
     return tabData && tabData.ip;
 };
 
-const isTabRoutable = async (currentTabId) => {
+const isTabRoutable = (currentTabId) => {
     const tabIp = getTabIp(currentTabId);
     if (!tabIp) {
         return true;

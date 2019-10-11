@@ -13,7 +13,7 @@ class Tabs {
     }
 
     async openRecovery() {
-        await browser.tabs.create({ url: PASSWORD_RECOVERY_URL });
+        return browser.tabs.create({ url: PASSWORD_RECOVERY_URL });
     }
 
     async openTab(url) {
