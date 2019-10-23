@@ -24,7 +24,7 @@ const print = (level, method, args) => {
 
 const log = {
     debug(...args) {
-        print('DEBUG', 'trace', args);
+        print('DEBUG', 'log', args);
     },
 
     info(...args) {
