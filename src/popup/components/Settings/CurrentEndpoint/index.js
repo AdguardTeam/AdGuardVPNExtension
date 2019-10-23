@@ -17,22 +17,13 @@ const CurrentEndpoint = observer((props) => {
             await settingsStore.getProxyPing();
         }, UPDATE_INTERVAL);
 
-        const onUnmount = () => {
+        return () => {
             clearInterval(intervalId);
         };
-
-        return onUnmount;
     };
 
     useEffect(() => {
-        (() => {
-            vpnStore.getSelectedEndpoint();
-            vpnStore.getCurrentLocation();
-        })();
-
-        const onUnmount = updatePing();
-
-        return onUnmount;
+        return updatePing();
     }, []);
 
     const endpointStatus = classnames({

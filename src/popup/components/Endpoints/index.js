@@ -9,7 +9,7 @@ const Endpoints = observer(() => {
 
     const handleEndpointSelect = id => async (e) => {
         e.preventDefault();
-        await vpnStore.setSelectedEndpoint(id);
+        await vpnStore.selectEndpoint(id);
         uiStore.closeEndpointsSearch();
     };
 

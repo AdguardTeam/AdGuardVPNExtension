@@ -15,11 +15,6 @@ class Credentials {
 
     VPN_CREDENTIALS_KEY = 'credentials.vpn';
 
-    constructor() {
-        this.appId = this.gainAppId();
-        this.vpnCredentials = this.getVpnCredentialsRemote();
-    }
-
     async getVpnTokenLocal() {
         return storage.get(this.VPN_TOKEN_KEY);
     }
@@ -65,7 +60,12 @@ class Credentials {
     async gainVpnToken() {
         let vpnToken = await this.getVpnTokenLocal();
         if (!this.isVpnTokenValid(vpnToken)) {
-            vpnToken = await this.getVpnTokenRemote();
+            try {
+                vpnToken = await this.getVpnTokenRemote();
+            } catch (e) {
+                log.debug('unable to get vpn token remotely:', e.message);
+                return null;
+            }
         }
         if (this.isVpnTokenValid(vpnToken)) {
             return vpnToken;
@@ -171,6 +171,16 @@ class Credentials {
 
     getAppId() {
         return this.appId;
+    }
+
+    async init() {
+        try {
+            this.appId = await this.gainAppId();
+            this.vpnCredentials = await this.getVpnCredentialsRemote();
+        } catch (e) {
+            log.debug('unable to init credentials due: ', e.message);
+        }
+        log.info('Credentials module is ready');
     }
 }
 

@@ -1,4 +1,5 @@
 import browser from 'webextension-polyfill';
+import isEqual from 'lodash/isEqual';
 import credentials from './credentials';
 import vpnProvider from './providers/vpnProvider';
 import log from '../lib/logger';
@@ -9,6 +10,7 @@ import { getClosestEndpointByCoordinates } from '../lib/helpers';
 const vpnCache = {
     endpoints: null,
     vpnInfo: null,
+    currentLocation: null,
 };
 
 const reconnectEndpoint = async (endpoints) => {
@@ -26,14 +28,26 @@ const reconnectEndpoint = async (endpoints) => {
 };
 
 const getEndpointsRemotely = async () => {
-    const vpnToken = await credentials.gainVpnToken();
+    let vpnToken;
+    try {
+        vpnToken = await credentials.gainVpnToken();
+    } catch (e) {
+        log.debug('Unable to get vpn token because: ', e.message);
+        return null;
+    }
+
     const token = vpnToken && vpnToken.token;
     if (!token) {
-        throw new Error('was unable to get vpn token');
+        return null;
     }
+
     const endpoints = await vpnProvider.getEndpoints(token);
-    vpnCache.endpoints = endpoints;
-    browser.runtime.sendMessage({ type: MESSAGES_TYPES.ENDPOINTS_UPDATED, data: endpoints });
+
+    if (!isEqual(endpoints, vpnCache.endpoints)) {
+        vpnCache.endpoints = endpoints;
+        browser.runtime.sendMessage({ type: MESSAGES_TYPES.ENDPOINTS_UPDATED, data: endpoints });
+    }
+
     return endpoints;
 };
 
@@ -43,6 +57,10 @@ const vpnTokenChanged = (oldVpnToken, newVpnToken) => {
 
 const getVpnInfoRemotely = async () => {
     const vpnToken = await credentials.gainVpnToken();
+    if (!vpnToken) {
+        log.debug('Can not get vpn info because vpnToken is null');
+        return null;
+    }
     let vpnInfo = await vpnProvider.getVpnExtensionInfo(vpnToken.token);
     let shouldReconnect = false;
 
@@ -81,12 +99,62 @@ const getEndpoints = () => {
     return null;
 };
 
-const getCurrentLocation = () => vpnProvider.getCurrentLocation();
+const getCurrentLocationRemote = async () => {
+    const MIDDLE_OF_EUROPE = { coordinates: [51.05, 13.73] }; // Chosen approximately
+    let currentLocation;
+    try {
+        currentLocation = await vpnProvider.getCurrentLocation();
+    } catch (e) {
+        log.error(e.message);
+    }
 
-const vpn = {
+    // if current location wasn't received use predefined
+    currentLocation = currentLocation || MIDDLE_OF_EUROPE;
+
+    if (!isEqual(vpnCache.currentLocation, currentLocation)) {
+        vpnCache.currentLocation = currentLocation;
+    }
+
+    return currentLocation;
+};
+
+const getCurrentLocation = () => {
+    // update current location information in background
+    getCurrentLocationRemote();
+    if (vpnCache.currentLocation) {
+        return vpnCache.currentLocation;
+    }
+    return null;
+};
+
+const getSelectedEndpoint = async () => {
+    const proxySelectedEndpoint = await proxy.getCurrentEndpoint();
+
+    // if found return
+    if (proxySelectedEndpoint) {
+        return proxySelectedEndpoint;
+    }
+
+    const currentLocation = getCurrentLocation();
+    const endpoints = getEndpoints();
+
+    if (!currentLocation || !endpoints) {
+        return null;
+    }
+
+    const closestEndpoint = getClosestEndpointByCoordinates(
+        currentLocation,
+        Object.values(endpoints)
+    );
+
+    await proxy.setCurrentEndpoint(closestEndpoint);
+    return closestEndpoint;
+};
+
+export default {
     getEndpoints,
     getCurrentLocation,
     getVpnInfo,
+    getEndpointsRemotely,
+    getSelectedEndpoint,
 };
-
-export default vpn;
