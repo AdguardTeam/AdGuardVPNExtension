@@ -11,6 +11,8 @@ import tabsContext from './tabsContext';
 import authCache from './authentication/authCache';
 import messaging from './messaging';
 import vpn from './vpn';
+import popupData from './popupData';
+import credentials from './credentials';
 import tokensUpdater from './tokensUpdater';
 
 global.adguard = {
@@ -26,7 +28,11 @@ global.adguard = {
     tabsContext,
     authCache,
     vpn,
+    popupData,
 };
+
+// init credentials
+credentials.init();
 
 // init messaging
 messaging.init();

@@ -2,6 +2,7 @@ import browser from 'webextension-polyfill';
 import log from '../../../lib/logger';
 import storage from '../../storage';
 import { NON_ROUTABLE_NETS } from '../../ip';
+import { MESSAGES_TYPES } from '../../../lib/constants';
 
 const CURRENT_ENDPOINT_KEY = 'proxyCurrentEndpoint';
 
@@ -162,6 +163,10 @@ class ExtensionProxy {
         const host = `${this.currentAccessPrefix}.${domainName}`;
         this.setHost(host);
         await storage.set(CURRENT_ENDPOINT_KEY, endpoint);
+        browser.runtime.sendMessage({
+            type: MESSAGES_TYPES.CURRENT_ENDPOINT_UPDATED,
+            data: endpoint,
+        });
     };
 
     getCurrentEndpoint = async () => {

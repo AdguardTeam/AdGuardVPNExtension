@@ -28,12 +28,14 @@ const App = observer(() => {
         authStore,
         uiStore,
         vpnStore,
+        globalStore,
     } = useContext(rootStore);
 
     useEffect(() => {
         (async () => {
             await settingsStore.getGlobalProxyEnabled();
             await settingsStore.checkProxyControl();
+            await globalStore.init();
             settingsStore.checkIsWhitelisted();
             authStore.isAuthenticated();
             vpnStore.getVpnInfo();
@@ -49,6 +51,10 @@ const App = observer(() => {
                 }
                 case MESSAGES_TYPES.ENDPOINTS_UPDATED: {
                     vpnStore.setEndpoints(data);
+                    break;
+                }
+                case MESSAGES_TYPES.CURRENT_ENDPOINT_UPDATED: {
+                    vpnStore.setSelectedEndpoint(data);
                     break;
                 }
                 case MESSAGES_TYPES.TOKENS_UPDATE_ERROR:
@@ -78,12 +84,22 @@ const App = observer(() => {
 
     const { state: requestProcessState, authenticated, receivedAuthenticationInfo } = authStore;
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
+    const { status } = globalStore;
+
+    // TODO [maximtop] move all necessary data into globalStore init method
+    if (status === REQUEST_STATUSES.PENDING) {
+        return (
+            <Fragment>
+                <Preloader />
+            </Fragment>
+        );
+    }
 
     if (!receivedAuthenticationInfo) {
         return (
             <Fragment>
                 {requestProcessState === REQUEST_STATUSES.PENDING
-                    && <Preloader />
+                && <Preloader />
                 }
             </Fragment>
         );
@@ -93,7 +109,7 @@ const App = observer(() => {
         return (
             <Fragment>
                 {requestProcessState === REQUEST_STATUSES.PENDING
-                    && <Preloader />
+                && <Preloader />
                 }
                 <Header authenticated={authenticated} />
                 <Authentication />

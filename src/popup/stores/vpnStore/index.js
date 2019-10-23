@@ -19,8 +19,6 @@ class VpnStore {
 
     @observable searchValue = '';
 
-    @observable currentLocation;
-
     @observable vpnInfo = {
         bandwidthFreeMbits: null,
         premiumPromoEnabled: null,
@@ -42,12 +40,14 @@ class VpnStore {
 
     @action
     setEndpoints = (endpoints) => {
-        console.log(endpoints);
+        if (!endpoints) {
+            return;
+        }
         this.endpoints = endpoints;
     };
 
     @action
-    setSelectedEndpoint = async (id) => {
+    selectEndpoint = async (id) => {
         const selectedEndpoint = this.endpoints[id];
         await adguard.proxy.setCurrentEndpoint(toJS(selectedEndpoint));
         runInAction(() => {
@@ -57,11 +57,15 @@ class VpnStore {
     };
 
     @action
-    getSelectedEndpoint = async () => {
-        const endpoint = await adguard.proxy.getCurrentEndpoint();
-        runInAction(() => {
+    setSelectedEndpoint = (endpoint) => {
+        if (!endpoint) {
+            return;
+        }
+        if (!this.selectedEndpoint
+            || (this.selectedEndpoint && this.selectedEndpoint.id !== endpoint.id)) {
             this.selectedEndpoint = endpoint;
-        });
+            this.rootStore.tooltipStore.setMapCoordinates(endpoint.coordinates);
+        }
     };
 
     @computed
@@ -85,25 +89,13 @@ class VpnStore {
 
     @computed
     get countryNameToDisplay() {
-        const selectedCountryName = this.selectedEndpoint && this.selectedEndpoint.countryName;
-        const currentCountryName = this.currentLocation && this.currentLocation.countryName;
-        return selectedCountryName || currentCountryName || 'Select country';
+        return this.selectedEndpoint && this.selectedEndpoint.countryName;
     }
 
     @computed
     get cityNameToDisplay() {
-        const selectedCityName = this.selectedEndpoint && this.selectedEndpoint.cityName;
-        const currentCityName = this.currentLocation && this.currentLocation.cityName;
-        return selectedCityName || currentCityName || '';
+        return this.selectedEndpoint && this.selectedEndpoint.cityName;
     }
-
-    @action
-    getCurrentLocation = async () => {
-        const currentLocation = await adguard.vpn.getCurrentLocation();
-        runInAction(() => {
-            this.currentLocation = currentLocation;
-        });
-    };
 
     @action
     getVpnInfo = async () => {
