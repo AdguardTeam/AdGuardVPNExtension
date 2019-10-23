@@ -26,9 +26,6 @@ class Credentials {
 
     async getVpnTokenRemote() {
         const accessToken = await auth.getAccessToken();
-        if (!accessToken) {
-            throw new Error('user is not authenticated yet');
-        }
         let vpnToken;
         try {
             vpnToken = await accountProvider.getVpnToken(accessToken);
@@ -114,6 +111,7 @@ class Credentials {
     }
 
     async gainVpnCredentials(remoteForce) {
+        throw new Error('some strange error happened');
         let vpnCredentials;
 
         if (!remoteForce) {

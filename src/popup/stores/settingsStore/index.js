@@ -40,7 +40,7 @@ class SettingsStore {
 
     @action
     async checkProxyControl() {
-        const { canControlProxy } = await adguard.appManager.getAppStatus();
+        const { canControlProxy } = await adguard.appStatus.canControlProxy();
         runInAction(() => {
             this.canControlProxy = canControlProxy;
         });

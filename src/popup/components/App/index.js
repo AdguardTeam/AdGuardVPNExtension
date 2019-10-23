@@ -51,6 +51,7 @@ const App = observer(() => {
                     vpnStore.setEndpoints(data);
                     break;
                 }
+                case MESSAGES_TYPES.TOKENS_UPDATE_ERROR:
                 case MESSAGES_TYPES.VPN_TOKEN_NOT_FOUND: {
                     settingsStore.setGlobalError(data);
                     break;
