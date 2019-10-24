@@ -18,7 +18,6 @@ const Tooltip = observer(() => {
 
     // TODO [maximtop] send user to provided link
     const unblockLocationHandler = () => {
-        console.log('send users to bye something');
         tooltipStore.closeTooltip();
     };
 

@@ -13,7 +13,7 @@ const Stats = observer(() => {
 
         // next time once per second
         const intervalId = setInterval(async () => {
-            await settingsStore.getProxyStats();
+            settingsStore.getProxyStats();
         }, UPDATE_INTERVAL);
 
         const onUnmount = () => {

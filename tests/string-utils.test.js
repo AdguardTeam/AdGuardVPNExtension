@@ -2,7 +2,7 @@ import { renderTemplate } from '../src/lib/string-utils';
 
 describe('index.proxy.setBypassWhitelist', () => {
     it('should NOT be called before initialization', () => {
-        expect(renderTemplate('https://{{host}}/path', { host: 'example.org' }),)
+        expect(renderTemplate('https://{{host}}/path', { host: 'example.org' }))
             .toEqual('https://example.org/path');
     });
     it('should render templates with multiple tags', () => {

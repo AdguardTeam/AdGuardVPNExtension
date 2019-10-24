@@ -27,7 +27,7 @@ class Credentials {
         } catch (e) {
             if (e.status === 401) {
                 log.debug('access token expired');
-                // log out user
+                // deauthenticate user
                 await auth.deauthenticate();
                 throw e;
             }
@@ -42,21 +42,9 @@ class Credentials {
         return vpnToken;
     }
 
-    /**
-     * Checks if vpn token is not expired
-     * @param vpnToken
-     * @returns {boolean}
-     */
-    isVpnTokenValid = (vpnToken) => {
-        if (!vpnToken) {
-            return false;
-        }
-        return vpnToken.licenseStatus === 'VALID';
-    };
-
     async gainVpnToken() {
         let vpnToken = await this.getVpnTokenLocal();
-        if (!this.isVpnTokenValid(vpnToken)) {
+        if (!vpnToken) {
             try {
                 vpnToken = await this.getVpnTokenRemote();
             } catch (e) {
@@ -64,10 +52,7 @@ class Credentials {
                 return null;
             }
         }
-        if (this.isVpnTokenValid(vpnToken)) {
-            return vpnToken;
-        }
-        return null;
+        return vpnToken || null;
     }
 
     async getVpnCredentialsRemote() {
@@ -111,7 +96,6 @@ class Credentials {
     }
 
     async gainVpnCredentials(remoteForce) {
-        throw new Error('some strange error happened');
         let vpnCredentials;
 
         if (!remoteForce) {
