@@ -5,12 +5,14 @@ import log from '../lib/logger';
 const updatePermissions = async () => {
     await credentials.getVpnTokenRemote();
     await credentials.gainVpnCredentials(true);
+    // if no error, clear permissionError
+    appStatus.setPermissionsError(null);
     log.info('Permissions were updated successfully');
 };
 
 const updatePermissionsErrorHandler = (error) => {
     log.error('Permissions were not updated due to:', error.message);
-    appStatus.setError(error);
+    appStatus.setPermissionsError(error);
 };
 
 const scheduler = (periodicFunction, errorHandler) => {

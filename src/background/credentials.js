@@ -117,8 +117,7 @@ class Credentials {
             return vpnCredentials;
         }
 
-        // TODO [maximtop] notify user about error;
-        throw new Error('cannot get credentials');
+        throw new Error('Error: was unable to get credentials');
     }
 
     async getAccessPrefix() {

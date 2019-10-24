@@ -5,19 +5,23 @@ import browserApi from './browserApi';
 
 class AppStatus {
     constructor() {
-        this.error = null;
+        this.permissionsError = null;
     }
 
-    setError(error) {
-        this.error = error;
+    setPermissionsError(error) {
+        if (error === null) {
+            this.permissionsError = null;
+            return;
+        }
+        this.permissionsError = error;
         browserApi.sendMessage({
-            type: MESSAGES_TYPES.TOKENS_UPDATE_ERROR,
+            type: MESSAGES_TYPES.PERMISSIONS_UPDATE_ERROR,
             data: error.message,
         });
     }
 
-    getError() {
-        return this.error || null;
+    getPermissionsError() {
+        return this.permissionsError;
     }
 
     async canControlProxy() {

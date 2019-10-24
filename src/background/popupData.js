@@ -3,7 +3,7 @@ import appStatus from './appStatus';
 
 // TODO [maximtop] move other data for popup here
 const getPopupData = async () => {
-    const error = appStatus.getError();
+    const error = appStatus.getPermissionsError();
     const vpnInfo = await vpn.getVpnInfo();
     const endpoints = await vpn.getEndpoints();
     const selectedEndpoint = await vpn.getSelectedEndpoint();

@@ -15,7 +15,7 @@ class WebsocketApi {
         });
 
         this.onError((event) => {
-            log.error('there was an error with your socket:', event);
+            log.error('there was an permissionsError with your socket:', event);
         });
     }
 
