@@ -15,7 +15,7 @@ class globalStore {
 
     @action
     async init() {
-        const { rootStore: { vpnStore } } = this;
+        const { rootStore: { vpnStore, settingsStore } } = this;
 
         this.setInitStatus(REQUEST_STATUSES.PENDING);
 
@@ -24,7 +24,11 @@ class globalStore {
                 vpnInfo,
                 endpoints,
                 selectedEndpoint,
+                error,
             } = await adguard.popupData.getPopupData();
+            if (error) {
+                settingsStore.setGlobalError(error);
+            }
             vpnStore.setVpnInfo(vpnInfo);
             vpnStore.setEndpoints(endpoints);
             vpnStore.setSelectedEndpoint(selectedEndpoint);

@@ -133,7 +133,7 @@ class Auth {
         if (accessTokenData && accessTokenData.accessToken) {
             return accessTokenData.accessToken;
         }
-        return null;
+        throw new Error('user is not authenticated yet');
     }
 }
 

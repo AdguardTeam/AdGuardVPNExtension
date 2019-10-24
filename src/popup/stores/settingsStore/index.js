@@ -41,7 +41,7 @@ class SettingsStore {
 
     @action
     async checkProxyControl() {
-        const { canControlProxy } = await adguard.appManager.getAppStatus();
+        const { canControlProxy } = await adguard.appStatus.canControlProxy();
         runInAction(() => {
             this.canControlProxy = canControlProxy;
         });
@@ -95,7 +95,7 @@ class SettingsStore {
                 this.isWhitelisted = true;
             });
         } catch (e) {
-            console.log(e);
+            log.error(e);
         }
     };
 
@@ -107,7 +107,7 @@ class SettingsStore {
                 this.isWhitelisted = false;
             });
         } catch (e) {
-            console.log(e);
+            log.error(e);
         }
     };
 
@@ -120,7 +120,7 @@ class SettingsStore {
                 this.isWhitelisted = result;
             });
         } catch (e) {
-            console.log(e);
+            log.error(e);
         }
     };
 
@@ -132,20 +132,16 @@ class SettingsStore {
                 this.currentTabHostname = getHostname(result.url);
             });
         } catch (e) {
-            console.log(e);
+            log.error(e);
         }
     };
 
     @action
-    getProxyStats = async () => {
-        try {
-            const stats = adguard.connectivity.getStats();
-            runInAction(() => {
-                this.proxyStats = stats;
-            });
-        } catch (e) {
-            console.log(e);
-        }
+    getProxyStats = () => {
+        const stats = adguard.connectivity.getStats();
+        runInAction(() => {
+            this.proxyStats = stats;
+        });
     };
 
     @action
@@ -157,7 +153,7 @@ class SettingsStore {
                 this.isRoutable = isRoutable;
             });
         } catch (e) {
-            console.log(e);
+            log.error(e);
         }
     };
 

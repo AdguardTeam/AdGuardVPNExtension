@@ -18,6 +18,7 @@ import Settings from '../Settings';
 import rootStore from '../../stores';
 import { REQUEST_STATUSES } from '../../stores/consts';
 import { MESSAGES_TYPES } from '../../../lib/constants';
+import log from '../../../lib/logger';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -57,12 +58,13 @@ const App = observer(() => {
                     vpnStore.setSelectedEndpoint(data);
                     break;
                 }
+                case MESSAGES_TYPES.PERMISSIONS_UPDATE_ERROR:
                 case MESSAGES_TYPES.VPN_TOKEN_NOT_FOUND: {
                     settingsStore.setGlobalError(data);
                     break;
                 }
                 default: {
-                    console.log('there is no such message type: ', type);
+                    log.debug('there is no such message type: ', type);
                     break;
                 }
             }

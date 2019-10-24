@@ -10,4 +10,5 @@ export const MESSAGES_TYPES = {
     VPN_TOKEN_NOT_FOUND: 'vpn.token.not.found',
     VPN_INFO_UPDATED: 'vpnInfo.updated',
     AUTHENTICATE_SOCIAL: 'authenticate.social',
+    PERMISSIONS_UPDATE_ERROR: 'permissions.update.error',
 };

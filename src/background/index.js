@@ -6,13 +6,14 @@ import whitelist from './whitelist';
 import auth from './auth';
 import { proxy } from './proxy';
 import connectivity from './connectivity/connectivity';
-import appManager from './appManager';
+import appStatus from './appStatus';
 import tabsContext from './tabsContext';
 import authCache from './authentication/authCache';
 import messaging from './messaging';
 import vpn from './vpn';
 import popupData from './popupData';
 import credentials from './credentials';
+import permissionsUpdater from './permissionsUpdater';
 
 global.adguard = {
     settings,
@@ -23,7 +24,7 @@ global.adguard = {
     whitelist,
     auth,
     connectivity,
-    appManager,
+    appStatus,
     tabsContext,
     authCache,
     vpn,
@@ -40,3 +41,6 @@ messaging.init();
 //  that all modules are ready
 // init whitelist
 whitelist.init();
+
+// init tokens updater
+permissionsUpdater.init();
