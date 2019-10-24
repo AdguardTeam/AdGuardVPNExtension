@@ -3,7 +3,7 @@ import axios from 'axios';
 class ApiError extends Error {
     constructor(status, ...params) {
         super(...params);
-        // Maintains proper stack trace for where our permissionsError was thrown (only available on V8)
+        // Maintains proper stack trace for where our error was thrown (only available on V8)
         if (Error.captureStackTrace) {
             Error.captureStackTrace(this, ApiError);
         }

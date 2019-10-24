@@ -1,4 +1,4 @@
 node_modules
 build
 /tests/dist/
-/src/background/proxy/permissionsUpdaterdater.js
+/src/background/proxy/index.js
