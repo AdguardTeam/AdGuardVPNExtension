@@ -5,14 +5,13 @@ import nanoid from 'nanoid';
 import rootStore from '../../../../stores';
 import './signals-animation.pcss';
 
-const index = observer(() => {
+const SignalsAnimation = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
     const mapSignalStatus = classnames({
-        'signals-animation--active': settingsStore.extensionEnabled && !settingsStore.ping,
+        'signals-animation--active': settingsStore.proxyIsEnabling,
     });
 
-    const fill = settingsStore.extensionEnabled ? 'rgba(0, 76, 51, 0.2)' : 'rgba(50, 50, 50, 0.2)';
     const animationCirclesNumber = 4;
 
     return (
@@ -25,7 +24,7 @@ const index = observer(() => {
                         cx={0}
                         cy={0}
                         r={0}
-                        fill={fill}
+                        fill="rgba(0, 76, 51, 0.2)"
                     />
                 ))
             }
@@ -33,4 +32,4 @@ const index = observer(() => {
     );
 });
 
-export default index;
+export default SignalsAnimation;

@@ -8,7 +8,7 @@ const Stats = observer(() => {
 
     const updateStats = () => {
         const UPDATE_INTERVAL = 1000;
-        // first time run immediately;
+        // first time run immediately
         settingsStore.getProxyStats();
 
         // next time once per second
@@ -16,11 +16,9 @@ const Stats = observer(() => {
             settingsStore.getProxyStats();
         }, UPDATE_INTERVAL);
 
-        const onUnmount = () => {
+        return () => {
             clearInterval(intervalId);
         };
-
-        return onUnmount;
     };
 
     useEffect(() => {

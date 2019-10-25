@@ -20,8 +20,11 @@ class WebsocketApi {
     }
 
     async open() {
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             this.ws.addEventListener('open', resolve);
+            this.onError(() => {
+                reject(new Error('Failed to open websocket connection'));
+            });
         });
     }
 

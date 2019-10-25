@@ -9,9 +9,14 @@ import tabs from '../../../background/tabs';
 import log from '../../../lib/logger';
 import { getHostname, formatBytes } from '../../../lib/helpers';
 import { SETTINGS_IDS } from '../../../lib/constants';
+import { REQUEST_STATUSES } from '../consts';
 
 class SettingsStore {
-    @observable extensionEnabled = false;
+    @observable switcherEnabled = false;
+
+    @observable proxyEnabled = false;
+
+    @observable proxyEnablingStatus = REQUEST_STATUSES.DONE;
 
     @observable canControlProxy = false;
 
@@ -30,13 +35,8 @@ class SettingsStore {
     @observable globalError;
 
     @action
-    setPing = (ping) => {
-        this.ping = ping;
-    };
-
-    getProxyPing = async () => {
-        const ping = adguard.connectivity.getPing();
-        this.setPing(ping);
+    getProxyPing = () => {
+        this.ping = adguard.connectivity.getPing();
     };
 
     @action
@@ -47,43 +47,82 @@ class SettingsStore {
         });
     }
 
-    enableExtension = async () => {
-        this.extensionEnabled = true;
+    @action
+    enableSwitcher = () => {
+        this.switcherEnabled = true;
     };
 
-    disableExtension = async () => {
-        this.extensionEnabled = false;
+    @action
+    disableSwitcher = () => {
+        this.switcherEnabled = false;
     };
 
-    toggleEnabled = async (value) => {
+    toggleSwitcher = (value) => {
         if (value) {
-            await this.enableExtension();
+            this.enableSwitcher();
         } else {
-            await this.disableExtension();
+            this.disableSwitcher();
         }
     };
 
     @action
     async getGlobalProxyEnabled() {
-        const globalProxyEnabledSetting = adguard.settings
-            .getSetting(SETTINGS_IDS.PROXY_ENABLED);
-        runInAction(async () => {
-            await this.toggleEnabled(globalProxyEnabledSetting.value);
+        const { value } = adguard.settings.getSetting(SETTINGS_IDS.PROXY_ENABLED);
+        runInAction(() => {
+            this.proxyEnabled = value;
+            this.toggleSwitcher(value);
         });
     }
 
     @action
-    setGlobalProxyEnabled = async (value) => {
+    enableProxy = async () => {
+        const flag = true;
+        this.proxyEnablingStatus = REQUEST_STATUSES.PENDING;
+        const changed = await adguard.settings.setSetting(SETTINGS_IDS.PROXY_ENABLED, flag);
+        runInAction(() => {
+            this.proxyEnablingStatus = REQUEST_STATUSES.DONE;
+        });
+        if (changed) {
+            this.getProxyPing();
+            this.getProxyStats();
+            runInAction(() => {
+                this.proxyEnabled = flag;
+            });
+        }
+        return changed;
+    };
+
+    @action
+    disableProxy = async () => {
+        const flag = false;
+        const changed = await adguard.settings.setSetting(SETTINGS_IDS.PROXY_ENABLED, flag);
+        runInAction(() => {
+            this.proxyEnabled = flag;
+        });
+        return changed;
+    };
+
+    @action
+    setProxyEnabled = (value) => {
+        this.proxyEnabled = value;
+    };
+
+    @action
+    setGlobalSwitcherState = async (value) => {
         let changed;
+        this.toggleSwitcher(value);
         try {
-            changed = await adguard.settings.setSetting(SETTINGS_IDS.PROXY_ENABLED, value);
+            if (value) {
+                changed = await this.enableProxy();
+            } else {
+                changed = await this.disableProxy();
+            }
         } catch (e) {
             log.error(e.message);
+            this.toggleSwitcher(!value);
         }
-        if (changed) {
-            runInAction(async () => {
-                await this.toggleEnabled(value);
-            });
+        if (!changed) {
+            this.toggleSwitcher(!value);
         }
     };
 
@@ -138,10 +177,7 @@ class SettingsStore {
 
     @action
     getProxyStats = () => {
-        const stats = adguard.connectivity.getStats();
-        runInAction(() => {
-            this.proxyStats = stats;
-        });
+        this.proxyStats = adguard.connectivity.getStats();
     };
 
     @action
@@ -159,7 +195,7 @@ class SettingsStore {
 
     @computed
     get stats() {
-        let { bytesDownloaded, bytesUploaded } = this.proxyStats || {};
+        let { bytesDownloaded, bytesUploaded } = this.proxyEnabled ? this.proxyStats || {} : {};
         bytesDownloaded = formatBytes(bytesDownloaded);
         bytesUploaded = formatBytes(bytesUploaded);
         return { bytesDownloaded, bytesUploaded };
@@ -168,6 +204,11 @@ class SettingsStore {
     @action
     setGlobalError = (data) => {
         this.globalError = data;
+    }
+
+    @computed
+    get proxyIsEnabling() {
+        return this.proxyEnablingStatus === REQUEST_STATUSES.PENDING;
     }
 }
 

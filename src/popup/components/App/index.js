@@ -78,7 +78,7 @@ const App = observer(() => {
     }, []);
 
     const {
-        extensionEnabled,
+        switcherEnabled,
         canControlProxy,
         globalError,
     } = settingsStore;
@@ -125,10 +125,10 @@ const App = observer(() => {
             {isOpenOptionsModal && <ExtraOptions />}
             <Header authenticated={authenticated} />
             {isOpenEndpointsSearch && <Endpoints />}
-            <MapContainer globalProxyEnabled={extensionEnabled} />
+            <MapContainer />
             <Settings
                 canControlProxy={canControlProxy}
-                globalProxyEnabled={extensionEnabled}
+                globalProxyEnabled={switcherEnabled}
             />
             {!showWarning && <Stats />}
             {!showWarning && <InfoMessage />}
