@@ -27,6 +27,8 @@ const Tooltip = observer(() => {
         if (settingsStore.proxyEnabled) {
             await settingsStore.disableProxy();
             await settingsStore.enableProxy();
+        } else {
+            await settingsStore.setProxyState(true);
         }
     };
 

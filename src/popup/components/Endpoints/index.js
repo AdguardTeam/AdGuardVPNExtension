@@ -9,9 +9,10 @@ const Endpoints = observer(() => {
 
     const handleEndpointSelect = id => async (e) => {
         e.preventDefault();
+        const prevId = vpnStore.selectedEndpoint.id;
         await vpnStore.selectEndpoint(id);
         uiStore.closeEndpointsSearch();
-        if (settingsStore.proxyEnabled) {
+        if (settingsStore.proxyEnabled && prevId !== vpnStore.selectedEndpoint.id) {
             await settingsStore.disableProxy();
             await settingsStore.enableProxy();
         }
