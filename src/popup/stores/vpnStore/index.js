@@ -79,7 +79,8 @@ class VpnStore {
                 return true;
             }
             const regex = new RegExp(this.searchValue, 'ig');
-            return endpoint.cityName && endpoint.cityName.match(regex);
+            return (endpoint.cityName && endpoint.cityName.match(regex))
+                || (endpoint.countryName && endpoint.countryName.match(regex));
         }).map((endpoint) => {
             if (this.selectedEndpoint && this.selectedEndpoint.id === endpoint.id) {
                 return { ...endpoint, selected: true };
