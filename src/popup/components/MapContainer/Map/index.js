@@ -13,14 +13,8 @@ import jsonMap from './110m.json';
 import rootStore from '../../../stores';
 import './map.pcss';
 
-const Map = observer((props) => {
-    const { vpnStore, tooltipStore } = useContext(rootStore);
-
-    useEffect(() => {
-        (() => {
-            vpnStore.getEndpoints();
-        })();
-    }, []);
+const Map = observer(() => {
+    const { vpnStore, tooltipStore, settingsStore } = useContext(rootStore);
 
     const onMarkerClick = (e) => {
         tooltipStore.openTooltip(e);
@@ -34,18 +28,19 @@ const Map = observer((props) => {
         tooltipStore.setMapCoordinates(coordinates);
     };
 
-    const { globalProxyEnabled } = props;
+    const { proxyEnabled } = settingsStore;
+
     const mapStyles = {
         width: '500px',
         position: 'absolute',
         margin: '0 auto',
         display: 'block',
         height: 'auto',
-        backgroundColor: globalProxyEnabled ? '#C5F0FF' : '#E5E5E5',
+        backgroundColor: proxyEnabled ? '#C5F0FF' : '#E5E5E5',
     };
 
     const geographyStyleDef = {
-        fill: globalProxyEnabled ? '#F0FFF3' : '#F9F9F9',
+        fill: proxyEnabled ? '#F0FFF3' : '#F9F9F9',
         stroke: '#BABABA',
         strokeWidth: 0.5,
         outline: 'none',
@@ -108,7 +103,7 @@ const Map = observer((props) => {
                     {renderCityMarkers(
                         endpoints,
                         selectedEndpoint,
-                        globalProxyEnabled,
+                        proxyEnabled,
                         onMarkerClick
                     )
                             }

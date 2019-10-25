@@ -8,8 +8,6 @@ import actions from './actions';
 
 const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.PROXY_ENABLED]: false,
-    [SETTINGS_IDS.TRACKING_PREVENTION]: false,
-    [SETTINGS_IDS.MALWARE_PROTECTION]: false,
 };
 
 const SETTINGS = Object.entries(DEFAULT_SETTINGS)
@@ -23,7 +21,6 @@ const SETTINGS = Object.entries(DEFAULT_SETTINGS)
 
 const getSetting = settingId => SETTINGS[settingId];
 
-// TODO [maximtop] move this handler in the separate file
 const proxyEnabledHandler = async (value) => {
     if (value) {
         try {
@@ -61,9 +58,16 @@ const setSetting = async (id, value, force) => {
         return false;
     }
     const handler = getHandler(id);
-    // TODO [maximtop] check if there is no handler when all settings would have handlers
     if (handler) {
-        await handler(value);
+        try {
+            await handler(value);
+        } catch (e) {
+            log.error(e.message);
+            return false;
+        }
+    } else {
+        log.error('There is no handler with id:', id);
+        return false;
     }
 
     notifier.notifyListeners(notifier.types.SETTING_UPDATED, id, value);

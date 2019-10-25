@@ -2,12 +2,11 @@ import React, { Fragment } from 'react';
 import Map from './Map';
 import SiteInfo from './SiteInfo';
 
-const MapContainer = (props) => {
-    const { globalProxyEnabled } = props;
+const MapContainer = () => {
     return (
         <Fragment>
             <SiteInfo />
-            <Map globalProxyEnabled={globalProxyEnabled} />
+            <Map />
         </Fragment>
     );
 };

@@ -9,8 +9,8 @@ import './settings.pcss';
 import CurrentEndpoint from './CurrentEndpoint';
 import GlobalSwitcher from './GlobalSwitcher';
 
-const getStatusMessage = (extensionEnabled) => {
-    if (extensionEnabled) {
+const getStatusMessage = (proxyEnabled) => {
+    if (proxyEnabled) {
         return 'Connected';
     }
     return 'Disabled';
@@ -26,11 +26,11 @@ const Settings = observer((props) => {
 
     const handleSwitchChange = async (e) => {
         const { checked } = e.target;
-        await settingsStore.setGlobalProxyEnabled(checked);
+        await settingsStore.setGlobalSwitcherState(checked);
     };
 
     const { canControlProxy } = props;
-    const { extensionEnabled, globalError } = settingsStore;
+    const { switcherEnabled, globalError, proxyEnabled } = settingsStore;
 
     const renderWarning = () => {
         if (!canControlProxy) {
@@ -69,11 +69,11 @@ const Settings = observer((props) => {
             <div className="settings__main">
                 <CurrentEndpoint
                     handle={handleEndpointSelectorClick}
-                    status={getStatusMessage(extensionEnabled)}
+                    status={getStatusMessage(proxyEnabled)}
                 />
                 <GlobalSwitcher
                     handle={handleSwitchChange}
-                    checked={settingsStore.extensionEnabled}
+                    checked={switcherEnabled}
                 />
             </div>
             {renderWarning()}

@@ -27,12 +27,12 @@ const CurrentEndpoint = observer((props) => {
     }, []);
 
     const endpointStatus = classnames({
-        'endpoint__status--disabled': !settingsStore.extensionEnabled,
+        'endpoint__status--disabled': !settingsStore.proxyEnabled,
         'endpoint__status--success': settingsStore.ping,
     });
 
     const renderStatus = () => {
-        if (!settingsStore.extensionEnabled) {
+        if (!settingsStore.switcherEnabled) {
             return 'Disabled';
         }
         if (settingsStore.ping) {

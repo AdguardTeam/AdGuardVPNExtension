@@ -1,7 +1,7 @@
 // connectivity.proto will be converted to js object by webpack
 // https://github.com/protobufjs/protobuf.js#using-generated-static-code
 // see webpack proto-loader https://github.com/PermissionData/protobufjs-loader
-import { WsPingMsg, WsConnectivityMsg } from './connectivity.proto';
+import { WsConnectivityMsg, WsPingMsg } from './connectivity.proto';
 import wsFactory from '../api/websocketApi';
 import { WS_API_URL_TEMPLATE } from '../config';
 import { renderTemplate, stringToUint8Array } from '../../lib/string-utils';
@@ -32,12 +32,17 @@ class Connectivity {
         }
 
         this.state = CONNECTIVITY_STATE.WORKING;
-        this.start();
+        return this.start();
     }
 
     start = async () => {
-        this.pingGetInterval = await this.startGettingPing();
+        this.startGettingPing();
         this.startGettingConnectivityInfo();
+
+        // when first ping received we can connect to proxy
+        const averagePing = await this.getAveragePing();
+        this.updatePingValue(averagePing);
+        return averagePing;
     };
 
     stop = () => {
@@ -105,9 +110,6 @@ class Connectivity {
     };
 
     startGettingPing = async () => {
-        const averagePing = await this.getAveragePing();
-        this.updatePingValue(averagePing);
-
         this.pingGetInterval = setInterval(async () => {
             const averagePing = await this.getAveragePing();
             this.updatePingValue(averagePing);
