@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 import rootStore from '../../../stores';
+import awaitAsyncGenerator from '@babel/runtime/helpers/esm/awaitAsyncGenerator';
 
 const Tooltip = observer(() => {
     const { tooltipStore, vpnStore, settingsStore } = useContext(rootStore);
@@ -23,12 +24,15 @@ const Tooltip = observer(() => {
 
     const createConnectionHandler = async () => {
         await vpnStore.selectEndpoint(tooltipStore.tooltipContent.id);
-        await settingsStore.setGlobalSwitcherState(true);
         tooltipStore.closeTooltip();
+        if (settingsStore.proxyEnabled) {
+            await settingsStore.disableProxy();
+            await settingsStore.enableProxy();
+        }
     };
 
     const disconnectHandler = async () => {
-        await settingsStore.setGlobalSwitcherState(false);
+        await settingsStore.setProxyState(false);
         tooltipStore.closeTooltip();
     };
 

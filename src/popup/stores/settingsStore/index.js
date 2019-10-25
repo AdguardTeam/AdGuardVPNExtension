@@ -108,7 +108,7 @@ class SettingsStore {
     };
 
     @action
-    setGlobalSwitcherState = async (value) => {
+    setProxyState = async (value) => {
         let changed;
         this.toggleSwitcher(value);
         try {
