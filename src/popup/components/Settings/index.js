@@ -26,7 +26,7 @@ const Settings = observer((props) => {
 
     const handleSwitchChange = async (e) => {
         const { checked } = e.target;
-        await settingsStore.setGlobalSwitcherState(checked);
+        await settingsStore.setProxyState(checked);
     };
 
     const { canControlProxy } = props;

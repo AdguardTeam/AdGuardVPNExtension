@@ -23,12 +23,15 @@ const Tooltip = observer(() => {
 
     const createConnectionHandler = async () => {
         await vpnStore.selectEndpoint(tooltipStore.tooltipContent.id);
-        await settingsStore.setGlobalSwitcherState(true);
         tooltipStore.closeTooltip();
+        if (settingsStore.proxyEnabled) {
+            await settingsStore.disableProxy();
+            await settingsStore.enableProxy();
+        }
     };
 
     const disconnectHandler = async () => {
-        await settingsStore.setGlobalSwitcherState(false);
+        await settingsStore.setProxyState(false);
         tooltipStore.closeTooltip();
     };
 

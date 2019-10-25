@@ -5,12 +5,16 @@ import rootStore from '../../stores';
 import './endpoints.pcss';
 
 const Endpoints = observer(() => {
-    const { vpnStore, uiStore } = useContext(rootStore);
+    const { vpnStore, uiStore, settingsStore } = useContext(rootStore);
 
     const handleEndpointSelect = id => async (e) => {
         e.preventDefault();
         await vpnStore.selectEndpoint(id);
         uiStore.closeEndpointsSearch();
+        if (settingsStore.proxyEnabled) {
+            await settingsStore.disableProxy();
+            await settingsStore.enableProxy();
+        }
     };
 
     const handleCloseEndpoints = () => {
