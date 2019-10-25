@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 import rootStore from '../../../stores';
-import awaitAsyncGenerator from '@babel/runtime/helpers/esm/awaitAsyncGenerator';
 
 const Tooltip = observer(() => {
     const { tooltipStore, vpnStore, settingsStore } = useContext(rootStore);
