@@ -28,7 +28,7 @@ class Connectivity {
             this.ws = await wsFactory.getWebsocket(websocketUrl);
         } catch (e) {
             this.state = CONNECTIVITY_STATE.PAUSED;
-            throw new Error(`Was unable to create new websocket because of: ${JSON.stringify(e.message)}`);
+            throw new Error(`Failed to create new websocket because of: ${JSON.stringify(e.message)}`);
         }
 
         this.state = CONNECTIVITY_STATE.WORKING;

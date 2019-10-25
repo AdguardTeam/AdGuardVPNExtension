@@ -47,10 +47,12 @@ class SettingsStore {
         });
     }
 
+    @action
     enableSwitcher = () => {
         this.switcherEnabled = true;
     };
 
+    @action
     disableSwitcher = () => {
         this.switcherEnabled = false;
     };
@@ -77,12 +79,14 @@ class SettingsStore {
         const flag = true;
         this.proxyEnablingStatus = REQUEST_STATUSES.PENDING;
         const changed = await adguard.settings.setSetting(SETTINGS_IDS.PROXY_ENABLED, flag);
+        runInAction(() => {
+            this.proxyEnablingStatus = REQUEST_STATUSES.DONE;
+        });
         if (changed) {
             this.getProxyPing();
             this.getProxyStats();
             runInAction(() => {
                 this.proxyEnabled = flag;
-                this.proxyEnablingStatus = REQUEST_STATUSES.DONE;
             });
         }
         return changed;
@@ -200,6 +204,11 @@ class SettingsStore {
     @action
     setGlobalError = (data) => {
         this.globalError = data;
+    }
+
+    @computed
+    get proxyIsEnabling() {
+        return this.proxyEnablingStatus === REQUEST_STATUSES.PENDING;
     }
 }
 
