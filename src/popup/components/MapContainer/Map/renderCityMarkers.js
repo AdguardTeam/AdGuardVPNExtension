@@ -3,8 +3,6 @@ import { Markers, Marker } from 'react-simple-maps';
 import SignalsAnimation from './SignalsAnimation';
 import COLORS from './colors';
 
-const { ENABLED_MARKER_02, ENABLED_MARKER_05, DISABLED_MARKER } = COLORS;
-
 const renderCityMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMarkerClicked) => {
     if (!endpoints) {
         return null;
@@ -80,16 +78,16 @@ const renderCityMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMa
                                     cy={0}
                                     r={8}
                                     fill={globalProxyEnabled
-                                        ? ENABLED_MARKER_02
-                                        : DISABLED_MARKER}
+                                        ? COLORS.ENABLED_MARKER_02
+                                        : COLORS.DISABLED_MARKER}
                                 />
                                 <circle
                                     cx={0}
                                     cy={0}
                                     r={4}
                                     fill={globalProxyEnabled
-                                        ? ENABLED_MARKER_05
-                                        : DISABLED_MARKER}
+                                        ? COLORS.ENABLED_MARKER_05
+                                        : COLORS.DISABLED_MARKER}
                                 />
                             </Fragment>
                         )
