@@ -39,6 +39,7 @@ class AuthApi extends Api {
             password,
             marketingConsent,
             locale,
+            clientId,
         } = credentials;
 
         const { path, method } = this.REGISTER_USER;
@@ -48,6 +49,7 @@ class AuthApi extends Api {
             password,
             marketingConsent,
             locale,
+            clientId,
             source: 'EXTENSION',
         };
 

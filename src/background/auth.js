@@ -119,13 +119,24 @@ class Auth {
 
     async register(credentials) {
         const locale = navigator.language;
+        let accessToken;
         try {
-            await authProvider.register({ ...credentials, locale });
+            accessToken = await authProvider.register({
+                ...credentials,
+                locale,
+                clientId: AUTH_CLIENT_ID,
+            });
         } catch (e) {
             const { error, field } = JSON.parse(e.message);
             return { error, field };
         }
-        return this.authenticate(credentials);
+
+        if (accessToken) {
+            await storage.set(AUTH_ACCESS_TOKEN_KEY, accessToken);
+            return { status: 'ok' };
+        }
+
+        return { error: 'An error occurred, please connect with support' };
     }
 
     async getAccessToken() {
