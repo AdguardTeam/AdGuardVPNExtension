@@ -13,6 +13,7 @@ import {
     AUTH_BASE_URL,
     AUTH_REDIRECT_URI,
 } from './config';
+import browser from 'webextension-polyfill';
 
 class Auth {
     socialAuthState = null;
@@ -136,7 +137,7 @@ class Auth {
             return { status: 'ok' };
         }
 
-        return { error: 'An error occurred, please connect with support' };
+        return { error: browser.i18n.getMessage('global_error_message') };
     }
 
     async getAccessToken() {
