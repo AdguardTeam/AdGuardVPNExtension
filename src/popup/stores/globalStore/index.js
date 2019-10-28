@@ -24,10 +24,10 @@ class globalStore {
                 vpnInfo,
                 endpoints,
                 selectedEndpoint,
-                error,
+                permissionsError,
             } = await adguard.popupData.getPopupData();
-            if (error) {
-                settingsStore.setGlobalError(error);
+            if (permissionsError) {
+                settingsStore.setGlobalError(permissionsError);
             }
             vpnStore.setVpnInfo(vpnInfo);
             vpnStore.setEndpoints(endpoints);

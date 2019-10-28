@@ -39,7 +39,6 @@ const App = observer(() => {
             await globalStore.init();
             settingsStore.checkIsWhitelisted();
             authStore.isAuthenticated();
-            vpnStore.getVpnInfo();
         })();
 
         const messageHandler = async (message) => {

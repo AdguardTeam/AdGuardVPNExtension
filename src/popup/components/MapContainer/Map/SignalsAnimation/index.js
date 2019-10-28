@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import nanoid from 'nanoid';
 import rootStore from '../../../../stores';
 import './signals-animation.pcss';
+import COLORS from '../colors';
 
 const SignalsAnimation = observer(() => {
     const { settingsStore } = useContext(rootStore);
@@ -24,7 +25,7 @@ const SignalsAnimation = observer(() => {
                         cx={0}
                         cy={0}
                         r={0}
-                        fill="rgba(0, 76, 51, 0.2)"
+                        fill={COLORS.ENABLED_MARKER_02}
                     />
                 ))
             }
