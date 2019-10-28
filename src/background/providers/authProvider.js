@@ -47,7 +47,7 @@ const getAccessToken = async (credentials) => {
         throw new Error(JSON.stringify({ error }));
     }
 
-    accessTokenModel.fromRemoteToLocal(accessTokenData);
+    return accessTokenModel.fromRemoteToLocal(accessTokenData);
 };
 
 const register = async (credentials) => {
