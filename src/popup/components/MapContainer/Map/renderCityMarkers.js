@@ -1,6 +1,9 @@
 import React, { Fragment } from 'react';
 import { Markers, Marker } from 'react-simple-maps';
 import SignalsAnimation from './SignalsAnimation';
+import COLORS from './colors';
+
+const { ENABLED_MARKER_02, ENABLED_MARKER_05, DISABLED_MARKER } = COLORS;
 
 const renderCityMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMarkerClicked) => {
     if (!endpoints) {
@@ -30,7 +33,7 @@ const renderCityMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMa
                     y="25px"
                     style={{
                         fontFamily: 'Roboto, sans-serif',
-                        fill: globalProxyEnabled ? '#004C33' : '#323232',
+                        fill: globalProxyEnabled ? COLORS.ENABLED_TEXT : COLORS.DISABLED_TEXT,
                     }}
                 >
                     {selectedEndpoint.cityName}
@@ -58,7 +61,9 @@ const renderCityMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMa
                                     cx={0}
                                     cy={0}
                                     r={10}
-                                    fill={globalProxyEnabled ? '#004C33' : '#323232'}
+                                    fill={globalProxyEnabled
+                                        ? COLORS.SELECTED_ENABLED_MARKER
+                                        : COLORS.SELECTED_DISABLED_MARKER}
                                 />
                                 <circle
                                     cx={0}
@@ -74,13 +79,17 @@ const renderCityMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMa
                                     cx={0}
                                     cy={0}
                                     r={8}
-                                    fill={globalProxyEnabled ? 'rgba(0, 76, 51, 0.2)' : 'rgba(50, 50, 50, 0.2)'}
+                                    fill={globalProxyEnabled
+                                        ? ENABLED_MARKER_02
+                                        : DISABLED_MARKER}
                                 />
                                 <circle
                                     cx={0}
                                     cy={0}
                                     r={4}
-                                    fill={globalProxyEnabled ? 'rgba(0, 76, 51, 0.5)' : 'rgba(50, 50, 50, 0.5)'}
+                                    fill={globalProxyEnabled
+                                        ? ENABLED_MARKER_05
+                                        : DISABLED_MARKER}
                                 />
                             </Fragment>
                         )
