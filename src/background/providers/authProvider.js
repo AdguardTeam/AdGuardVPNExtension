@@ -1,6 +1,24 @@
 import browser from 'webextension-polyfill';
 import authApi from '../api/authApi';
 
+const accessTokenModel = {
+    fromRemoteToLocal: (remoteAccessToken) => {
+        const {
+            access_token: accessToken,
+            expires_in: expiresIn,
+            scope,
+            token_type: tokenType,
+        } = remoteAccessToken;
+
+        return {
+            accessToken,
+            expiresIn,
+            scope,
+            tokenType,
+        };
+    },
+};
+
 const getAccessToken = async (credentials) => {
     let accessTokenData;
 
@@ -29,19 +47,7 @@ const getAccessToken = async (credentials) => {
         throw new Error(JSON.stringify({ error }));
     }
 
-    const {
-        access_token: accessToken,
-        expires_in: expiresIn,
-        token_type: tokenType,
-        scope,
-    } = accessTokenData;
-
-    return {
-        accessToken,
-        expiresIn,
-        tokenType,
-        scope,
-    };
+    return accessTokenModel.fromRemoteToLocal(accessTokenData);
 };
 
 const register = async (credentials) => {
@@ -58,8 +64,9 @@ const register = async (credentials) => {
         default: browser.i18n.getMessage('registration_error_default'),
     };
 
+    let accessTokenData;
     try {
-        await authApi.register(credentials);
+        accessTokenData = await authApi.register(credentials);
     } catch (e) {
         const {
             error_code: errorCode,
@@ -70,6 +77,8 @@ const register = async (credentials) => {
         const error = errorsMap[errorCode] || errorsMap.default;
         throw new Error(JSON.stringify({ error, field: extensionField }));
     }
+
+    return accessTokenModel.fromRemoteToLocal(accessTokenData);
 };
 
 export default {

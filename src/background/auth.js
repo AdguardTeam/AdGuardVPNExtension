@@ -13,6 +13,7 @@ import {
     AUTH_BASE_URL,
     AUTH_REDIRECT_URI,
 } from './config';
+import browser from 'webextension-polyfill';
 
 class Auth {
     socialAuthState = null;
@@ -119,13 +120,24 @@ class Auth {
 
     async register(credentials) {
         const locale = navigator.language;
+        let accessToken;
         try {
-            await authProvider.register({ ...credentials, locale });
+            accessToken = await authProvider.register({
+                ...credentials,
+                locale,
+                clientId: AUTH_CLIENT_ID,
+            });
         } catch (e) {
             const { error, field } = JSON.parse(e.message);
             return { error, field };
         }
-        return this.authenticate(credentials);
+
+        if (accessToken) {
+            await storage.set(AUTH_ACCESS_TOKEN_KEY, accessToken);
+            return { status: 'ok' };
+        }
+
+        return { error: browser.i18n.getMessage('global_error_message') };
     }
 
     async getAccessToken() {
