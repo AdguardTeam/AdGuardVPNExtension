@@ -14,21 +14,31 @@ class globalStore {
     }
 
     @action
-    async init() {
+    async getPopupData(retryNum = 1) {
         const { rootStore: { vpnStore, settingsStore } } = this;
 
         this.setInitStatus(REQUEST_STATUSES.PENDING);
 
         try {
+            let popupData;
+
+            if (retryNum > 1) {
+                popupData = await adguard.popupData.getPopupDataRetry(retryNum);
+            } else {
+                popupData = await adguard.popupData.getPopupData();
+            }
+
             const {
                 vpnInfo,
                 endpoints,
                 selectedEndpoint,
                 permissionsError,
-            } = await adguard.popupData.getPopupData();
+            } = popupData;
+
             if (permissionsError) {
                 settingsStore.setGlobalError(permissionsError);
             }
+
             vpnStore.setVpnInfo(vpnInfo);
             vpnStore.setEndpoints(endpoints);
             vpnStore.setSelectedEndpoint(selectedEndpoint);
@@ -36,6 +46,11 @@ class globalStore {
         } catch (e) {
             this.setInitStatus(REQUEST_STATUSES.ERROR);
         }
+    }
+
+    @action
+    async init() {
+        await this.getPopupData();
     }
 
     @action
