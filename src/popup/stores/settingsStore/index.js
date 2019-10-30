@@ -58,11 +58,15 @@ class SettingsStore {
     };
 
     toggleSwitcher = (value) => {
-        if (value) {
-            this.enableSwitcher();
-        } else {
-            this.disableSwitcher();
+        if (this.switcherEnabled !== value) {
+            if (value) {
+                this.enableSwitcher();
+            } else {
+                this.disableSwitcher();
+            }
+            return true;
         }
+        return false;
     };
 
     @action
@@ -110,7 +114,7 @@ class SettingsStore {
     @action
     setProxyState = async (value) => {
         let changed;
-        this.toggleSwitcher(value);
+        const switched = this.toggleSwitcher(value);
         try {
             if (value) {
                 changed = await this.enableProxy();
@@ -119,9 +123,12 @@ class SettingsStore {
             }
         } catch (e) {
             log.error(e.message);
-            this.toggleSwitcher(!value);
+            if (switched) {
+                this.toggleSwitcher(!value);
+            }
+            return;
         }
-        if (!changed) {
+        if (!changed && switched) {
             this.toggleSwitcher(!value);
         }
     };

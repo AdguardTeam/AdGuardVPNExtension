@@ -121,6 +121,7 @@ class AuthStore {
 
         if (response.status === 'ok') {
             adguard.authCache.clearAuthCache();
+            await this.rootStore.globalStore.getPopupData(10);
             runInAction(() => {
                 this.state = REQUEST_STATUSES.DONE;
                 this.authenticated = true;
@@ -151,6 +152,7 @@ class AuthStore {
             return;
         }
         if (response.status === 'ok') {
+            await this.rootStore.globalStore.getPopupData(10);
             runInAction(() => {
                 this.state = REQUEST_STATUSES.DONE;
                 this.authenticated = true;
