@@ -154,7 +154,7 @@ class ExtensionProxy {
         const host = `${accessPrefix}.${domainName}`;
         this.currentAccessPrefix = accessPrefix;
         this.setHost(host);
-        return host;
+        return { host, domainName };
     };
 
     setCurrentEndpoint = async (endpoint) => {
