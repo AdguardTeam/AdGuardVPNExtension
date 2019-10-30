@@ -152,7 +152,7 @@ class AuthStore {
             return;
         }
         if (response.status === 'ok') {
-            await this.rootStore.globalStore.getPopupDataRetry(10);
+            await this.rootStore.globalStore.getPopupData(10);
             runInAction(() => {
                 this.state = REQUEST_STATUSES.DONE;
                 this.authenticated = true;
