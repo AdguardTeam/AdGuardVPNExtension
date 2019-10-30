@@ -6,6 +6,7 @@ import wsFactory from '../api/websocketApi';
 import { WS_API_URL_TEMPLATE } from '../config';
 import { renderTemplate, stringToUint8Array } from '../../lib/string-utils';
 import log from '../../lib/logger';
+import statsStorage from './statsStorage';
 
 const CONNECTIVITY_STATE = {
     WORKING: 'working',
@@ -19,10 +20,11 @@ class Connectivity {
         this.state = CONNECTIVITY_STATE.PAUSED;
     }
 
-    async setCredentials(host, vpnToken) {
+    async setCredentials(host, domainName, vpnToken) {
         this.stop();
         const websocketUrl = renderTemplate(WS_API_URL_TEMPLATE, { host });
         this.vpnToken = vpnToken;
+        this.domainName = domainName;
 
         try {
             this.ws = await wsFactory.getWebsocket(websocketUrl);
@@ -53,7 +55,6 @@ class Connectivity {
             this.ws.close();
         }
         this.ping = null;
-        this.connectivityInfo = null;
         this.state = CONNECTIVITY_STATE.PAUSED;
     };
 
@@ -116,16 +117,19 @@ class Connectivity {
         }, this.PING_UPDATE_INTERVAL_MS);
     };
 
-    updateConnectivityInfo = (stats) => {
+    updateConnectivityInfo = async (stats) => {
         log.info(stats);
-        this.connectivityInfo = stats;
+        await statsStorage.saveStats(this.domainName, {
+            downloaded: stats.bytesDownloaded,
+            uploaded: stats.bytesUploaded,
+        });
     };
 
-    startGettingConnectivityInfo = () => {
-        const messageHandler = (event) => {
+    startGettingConnectivityInfo = async () => {
+        const messageHandler = async (event) => {
             const { connectivityInfoMsg } = this.decodeMessage(event.data);
             if (connectivityInfoMsg) {
-                this.updateConnectivityInfo(connectivityInfoMsg);
+                await this.updateConnectivityInfo(connectivityInfoMsg);
             }
         };
 
@@ -139,12 +143,12 @@ class Connectivity {
         return this.ping;
     };
 
-    getStats = () => {
-        if (!this.connectivityInfo || this.state === CONNECTIVITY_STATE.PAUSED) {
+    getStats = async () => {
+        if (this.state === CONNECTIVITY_STATE.PAUSED) {
             return null;
         }
-        const { bytesDownloaded, bytesUploaded } = this.connectivityInfo;
-        return { bytesDownloaded, bytesUploaded };
+        const stats = await statsStorage.getStats(this.domainName);
+        return { bytesDownloaded: stats.downloaded, bytesUploaded: stats.uploaded };
     };
 }
 

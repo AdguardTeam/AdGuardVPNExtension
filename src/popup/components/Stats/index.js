@@ -13,7 +13,7 @@ const Stats = observer(() => {
 
         // next time once per second
         const intervalId = setInterval(async () => {
-            settingsStore.getProxyStats();
+            await settingsStore.getProxyStats();
         }, UPDATE_INTERVAL);
 
         return () => {

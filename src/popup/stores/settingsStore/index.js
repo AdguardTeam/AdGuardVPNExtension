@@ -88,7 +88,7 @@ class SettingsStore {
         });
         if (changed) {
             this.getProxyPing();
-            this.getProxyStats();
+            await this.getProxyStats();
             runInAction(() => {
                 this.proxyEnabled = flag;
             });
@@ -183,8 +183,11 @@ class SettingsStore {
     };
 
     @action
-    getProxyStats = () => {
-        this.proxyStats = adguard.connectivity.getStats();
+    getProxyStats = async () => {
+        const stats = await adguard.connectivity.getStats();
+        runInAction(() => {
+            this.proxyStats = stats;
+        });
     };
 
     @action

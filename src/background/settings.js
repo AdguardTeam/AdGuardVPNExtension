@@ -25,9 +25,9 @@ const proxyEnabledHandler = async (value) => {
     if (value) {
         try {
             const accessPrefix = await credentials.getAccessPrefix();
-            const host = await proxy.setAccessPrefix(accessPrefix);
+            const { host, domainName } = await proxy.setAccessPrefix(accessPrefix);
             const vpnToken = await credentials.gainVpnToken();
-            await connectivity.setCredentials(host, vpnToken.token);
+            await connectivity.setCredentials(host, domainName, vpnToken.token);
             await proxy.turnOn();
             await actions.setIconEnabled();
         } catch (e) {
