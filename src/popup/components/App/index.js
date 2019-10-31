@@ -38,7 +38,6 @@ const App = observer(() => {
             await settingsStore.checkProxyControl();
             await globalStore.init();
             settingsStore.checkIsWhitelisted();
-            authStore.isAuthenticated();
         })();
 
         const messageHandler = async (message) => {
@@ -82,7 +81,7 @@ const App = observer(() => {
         globalError,
     } = settingsStore;
 
-    const { state: requestProcessState, authenticated, receivedAuthenticationInfo } = authStore;
+    const { requestProcessState, authenticated } = authStore;
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
     const { status } = globalStore;
 
@@ -91,16 +90,6 @@ const App = observer(() => {
         return (
             <Fragment>
                 <Preloader />
-            </Fragment>
-        );
-    }
-
-    if (!receivedAuthenticationInfo) {
-        return (
-            <Fragment>
-                {requestProcessState === REQUEST_STATUSES.PENDING
-                && <Preloader />
-                }
             </Fragment>
         );
     }

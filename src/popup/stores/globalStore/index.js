@@ -15,7 +15,7 @@ class globalStore {
 
     @action
     async getPopupData(retryNum = 1) {
-        const { rootStore: { vpnStore, settingsStore } } = this;
+        const { rootStore: { vpnStore, settingsStore, authStore } } = this;
 
         this.setInitStatus(REQUEST_STATUSES.PENDING);
 
@@ -33,12 +33,20 @@ class globalStore {
                 endpoints,
                 selectedEndpoint,
                 permissionsError,
+                isAuthenticated,
             } = popupData;
+
+            if (!isAuthenticated) {
+                authStore.setIsAuthenticated(isAuthenticated);
+                this.setInitStatus(REQUEST_STATUSES.DONE);
+                return;
+            }
 
             if (permissionsError) {
                 settingsStore.setGlobalError(permissionsError);
             }
 
+            authStore.setIsAuthenticated(isAuthenticated);
             vpnStore.setVpnInfo(vpnInfo);
             vpnStore.setEndpoints(endpoints);
             vpnStore.setSelectedEndpoint(selectedEndpoint);
@@ -50,7 +58,7 @@ class globalStore {
 
     @action
     async init() {
-        await this.getPopupData();
+        await this.getPopupData(10);
     }
 
     @action

@@ -47,7 +47,7 @@ class AuthStore {
 
     @observable step = DEFAULTS.step;
 
-    @observable state = REQUEST_STATUSES.PENDING;
+    @observable requestProcessState = REQUEST_STATUSES.DONE;
 
     STEPS = AUTH_STEPS;
 
@@ -108,12 +108,12 @@ class AuthStore {
     }
 
     @action authenticate = async () => {
-        this.state = REQUEST_STATUSES.PENDING;
+        this.requestProcessState = REQUEST_STATUSES.PENDING;
         const response = await adguard.auth.authenticate(this.credentials);
 
         if (response.error) {
             runInAction(() => {
-                this.state = REQUEST_STATUSES.ERROR;
+                this.requestProcessState = REQUEST_STATUSES.ERROR;
                 this.error = response.error;
             });
             return;
@@ -123,7 +123,7 @@ class AuthStore {
             adguard.authCache.clearAuthCache();
             await this.rootStore.globalStore.getPopupData(10);
             runInAction(() => {
-                this.state = REQUEST_STATUSES.DONE;
+                this.requestProcessState = REQUEST_STATUSES.DONE;
                 this.authenticated = true;
                 this.need2fa = false;
                 this.credentials = DEFAULTS.credentials;
@@ -133,7 +133,7 @@ class AuthStore {
 
         if (response.status === '2fa_required') {
             runInAction(() => {
-                this.state = REQUEST_STATUSES.DONE;
+                this.requestProcessState = REQUEST_STATUSES.DONE;
                 this.need2fa = true;
                 this.switchStep(this.STEPS.TWO_FACTOR);
             });
@@ -141,20 +141,21 @@ class AuthStore {
     };
 
     @action register = async () => {
-        this.state = REQUEST_STATUSES.PENDING;
+        this.requestProcessState = REQUEST_STATUSES.PENDING;
         const response = await adguard.auth.register(this.credentials);
         if (response.error) {
             runInAction(() => {
-                this.state = REQUEST_STATUSES.ERROR;
+                this.requestProcessState = REQUEST_STATUSES.ERROR;
                 this.error = response.error;
                 this.field = response.field;
             });
             return;
         }
         if (response.status === 'ok') {
+            adguard.authCache.clearAuthCache();
             await this.rootStore.globalStore.getPopupData(10);
             runInAction(() => {
-                this.state = REQUEST_STATUSES.DONE;
+                this.requestProcessState = REQUEST_STATUSES.DONE;
                 this.authenticated = true;
                 this.credentials = DEFAULTS.credentials;
             });
@@ -162,7 +163,7 @@ class AuthStore {
     };
 
     @action isAuthenticated = async () => {
-        this.state = REQUEST_STATUSES.PENDING;
+        this.requestProcessState = REQUEST_STATUSES.PENDING;
         const result = await adguard.auth.isAuthenticated();
         if (result) {
             runInAction(() => {
@@ -170,9 +171,14 @@ class AuthStore {
             });
         }
         runInAction(() => {
-            this.state = REQUEST_STATUSES.DONE;
+            this.requestProcessState = REQUEST_STATUSES.DONE;
             this.receivedAuthenticationInfo = true;
         });
+    };
+
+    @action
+    setIsAuthenticated = (value) => {
+        this.authenticated = value;
     };
 
     @action deauthenticate = async () => {
