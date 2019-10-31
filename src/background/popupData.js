@@ -1,5 +1,6 @@
 import vpn from './vpn';
 import appStatus from './appStatus';
+import log from '../lib/logger';
 
 // TODO [maximtop] move other data for popup here
 const getPopupData = async () => {
@@ -27,6 +28,7 @@ const sleep = waitTime => new Promise((resolve) => {
 });
 
 const getPopupDataRetry = async (retryNum = 1, retryDelay = 100) => {
+    const backoffIndex = 1.5;
     const data = await getPopupData();
     if (!data.isAuthenticated) {
         return data;
@@ -37,7 +39,8 @@ const getPopupDataRetry = async (retryNum = 1, retryDelay = 100) => {
             throw new Error(`Unable to get data in ${retryNum} retries`);
         }
         await sleep(retryDelay);
-        return getPopupDataRetry(retryNum - 1);
+        log.debug('Retry get popup data again');
+        return getPopupDataRetry(retryNum - 1, retryDelay * backoffIndex);
     }
     return data;
 };
