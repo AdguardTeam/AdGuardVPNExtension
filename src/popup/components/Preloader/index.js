@@ -5,12 +5,15 @@ import { observer } from 'mobx-react';
 import rootStore from '../../stores';
 import { REQUEST_STATUSES } from '../../stores/consts';
 
-const ExtraOptions = observer(() => {
-    const { authStore } = useContext(rootStore);
+const Preloader = observer(() => {
+    const { authStore, globalStore } = useContext(rootStore);
+
+    const isOpen = globalStore.status === REQUEST_STATUSES.PENDING
+        || authStore.requestProcessState === REQUEST_STATUSES.PENDING;
 
     return (
         <Modal
-            isOpen={authStore.state === REQUEST_STATUSES.PENDING}
+            isOpen={isOpen}
             className="preloader"
             overlayClassName="preloader__overlay"
         >
@@ -19,4 +22,4 @@ const ExtraOptions = observer(() => {
     );
 });
 
-export default ExtraOptions;
+export default Preloader;
