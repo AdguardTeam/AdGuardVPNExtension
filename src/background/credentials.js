@@ -127,7 +127,6 @@ class Credentials {
         const { result: { credentials } } = vpnCredentials;
         const appId = this.getAppId();
         // format: md5(<app_id>:<token>:<creds>)
-        console.log(`${appId}:${token}:${credentials}`);
         return md5(`${appId}:${token}:${credentials}`).toString();
     }
 
