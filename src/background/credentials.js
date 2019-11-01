@@ -125,7 +125,10 @@ class Credentials {
         const { token } = vpnToken;
         const vpnCredentials = await this.gainVpnCredentials();
         const { result: { credentials } } = vpnCredentials;
-        return md5(token + credentials).toString();
+        const appId = this.getAppId();
+        // format: md5(<app_id>:<token>:<creds>)
+        console.log(`${appId}:${token}:${credentials}`);
+        return md5(`${appId}:${token}:${credentials}`).toString();
     }
 
     async gainAppId() {

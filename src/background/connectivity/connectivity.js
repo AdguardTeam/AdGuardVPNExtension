@@ -7,6 +7,7 @@ import { WS_API_URL_TEMPLATE } from '../config';
 import { renderTemplate, stringToUint8Array } from '../../lib/string-utils';
 import log from '../../lib/logger';
 import statsStorage from './statsStorage';
+import credentials from '../credentials';
 
 const CONNECTIVITY_STATE = {
     WORKING: 'working',
@@ -62,6 +63,7 @@ class Connectivity {
         const pingMsg = WsPingMsg.create({
             requestTime: currentTime,
             token: stringToUint8Array(this.vpnToken),
+            applicationId: stringToUint8Array(credentials.getAppId()),
         });
         const protocolMsg = WsConnectivityMsg.create({ pingMsg });
         return WsConnectivityMsg.encode(protocolMsg).finish();
