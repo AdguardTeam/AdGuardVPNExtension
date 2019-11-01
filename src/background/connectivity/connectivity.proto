@@ -9,6 +9,7 @@ message WsPingMsg {
     // used to measure ping, it doesn't matter what time unit is used and handling by client
     int64 requestTime = 1;
     bytes token = 2;
+    bytes applicationId = 3;
 }
 
 message WsConnectivityInfoMsg {
