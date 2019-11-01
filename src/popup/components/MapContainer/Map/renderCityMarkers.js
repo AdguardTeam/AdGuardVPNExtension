@@ -20,11 +20,23 @@ const renderCityMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMa
         return null;
     }
 
-    const renderCityName = (markerId, selectedEndpoint) => {
+    /**
+     * Checks if is same marker
+     * if not to check id and cityName, then selected endpoint blinks on map while reconnected
+     * @param marker
+     * @param selectedEndpoint
+     * @returns {boolean}
+     */
+    const isSelectedEndpointMarker = (marker, selectedEndpoint) => {
+        return marker.id === selectedEndpoint.id
+            || marker.cityName === selectedEndpoint.cityName;
+    };
+
+    const renderCityName = (marker, selectedEndpoint) => {
         if (!selectedEndpoint) {
             return '';
         }
-        if (markerId === selectedEndpoint.id) {
+        if (isSelectedEndpointMarker(marker, selectedEndpoint)) {
             return (
                 <text
                     textAnchor="middle"
@@ -53,7 +65,8 @@ const renderCityMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMa
                     onClick={onMarkerClicked}
                 >
                     {
-                        selectedEndpoint && selectedEndpoint.id === marker.id ? (
+                        selectedEndpoint
+                        && isSelectedEndpointMarker(marker, selectedEndpoint) ? (
                             <Fragment>
                                 <circle
                                     cx={0}
@@ -71,28 +84,29 @@ const renderCityMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMa
                                 />
                                 <SignalsAnimation />
                             </Fragment>
-                        ) : (
-                            <Fragment>
-                                <circle
-                                    cx={0}
-                                    cy={0}
-                                    r={8}
-                                    fill={globalProxyEnabled
-                                        ? COLORS.ENABLED_MARKER_02
-                                        : COLORS.DISABLED_MARKER}
-                                />
-                                <circle
-                                    cx={0}
-                                    cy={0}
-                                    r={4}
-                                    fill={globalProxyEnabled
-                                        ? COLORS.ENABLED_MARKER_05
-                                        : COLORS.DISABLED_MARKER}
-                                />
-                            </Fragment>
-                        )
+                            )
+                            : (
+                                <Fragment>
+                                    <circle
+                                        cx={0}
+                                        cy={0}
+                                        r={8}
+                                        fill={globalProxyEnabled
+                                            ? COLORS.ENABLED_MARKER_02
+                                            : COLORS.DISABLED_MARKER}
+                                    />
+                                    <circle
+                                        cx={0}
+                                        cy={0}
+                                        r={4}
+                                        fill={globalProxyEnabled
+                                            ? COLORS.ENABLED_MARKER_05
+                                            : COLORS.DISABLED_MARKER}
+                                    />
+                                </Fragment>
+                            )
                     }
-                    {renderCityName(marker.id, selectedEndpoint)}
+                    {renderCityName(marker, selectedEndpoint)}
                 </Marker>
             ))}
         </Markers>
