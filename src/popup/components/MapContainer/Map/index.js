@@ -7,6 +7,7 @@ import {
 } from 'react-simple-maps';
 import { observer } from 'mobx-react';
 import nanoid from 'nanoid';
+import { toJS } from 'mobx';
 import renderCityMarkers from './renderCityMarkers';
 import Tooltip from '../Tooltip';
 import jsonMap from './110m.json';
@@ -46,7 +47,9 @@ const Map = observer(() => {
         outline: 'none',
     };
 
-    const { endpoints, selectedEndpoint } = vpnStore;
+    let { endpoints, selectedEndpoint } = vpnStore;
+    endpoints = toJS(endpoints);
+    selectedEndpoint = toJS(selectedEndpoint);
 
     const determineCenter = (vpnStore, tooltipStore) => {
         const { selectedEndpoint } = vpnStore;

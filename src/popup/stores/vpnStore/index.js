@@ -34,7 +34,7 @@ class VpnStore {
     };
 
     @action
-    getEndpoints = async () => {
+    fetchEndpoints = async () => {
         const endpoints = adguard.vpn.getEndpoints();
         this.setEndpoints(endpoints);
     };

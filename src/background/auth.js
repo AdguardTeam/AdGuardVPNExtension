@@ -1,6 +1,7 @@
 import qs from 'qs';
 import isEmpty from 'lodash/isEmpty';
 import nanoid from 'nanoid';
+import browser from 'webextension-polyfill';
 import { authApi } from './api';
 import authProvider from './providers/authProvider';
 import storage from './storage';
@@ -13,7 +14,6 @@ import {
     AUTH_BASE_URL,
     AUTH_REDIRECT_URI,
 } from './config';
-import browser from 'webextension-polyfill';
 
 class Auth {
     socialAuthState = null;

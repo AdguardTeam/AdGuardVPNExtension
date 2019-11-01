@@ -6,6 +6,7 @@ import log from '../lib/logger';
 import { MESSAGES_TYPES } from '../lib/constants';
 import { proxy } from './proxy';
 import { getClosestEndpointByCoordinates } from '../lib/helpers';
+import connectivity from './connectivity/connectivity';
 
 const vpnCache = {
     endpoints: null,
@@ -13,18 +14,25 @@ const vpnCache = {
     currentLocation: null,
 };
 
-const reconnectEndpoint = async (endpoints) => {
-    const currentEndpoint = await proxy.getCurrentEndpoint();
+const reconnectEndpoint = async (endpoint) => {
+    const { host, domainName } = await proxy.setCurrentEndpoint(endpoint);
+    const vpnToken = await credentials.gainVpnToken();
+    await connectivity.setCredentials(host, domainName, vpnToken.token);
+};
+
+const getClosestEndpointAndReconnect = async (endpoints, currentEndpoint) => {
     const endpointsArr = Object.keys(endpoints).map(endpointKey => endpoints[endpointKey]);
     const sameCityEndpoint = endpointsArr.find((endpoint) => {
         return endpoint.cityName === currentEndpoint.cityName;
     });
     if (sameCityEndpoint) {
-        await proxy.setCurrentEndpoint(sameCityEndpoint);
+        await reconnectEndpoint(sameCityEndpoint);
+        log.debug(`Reconnect endpoint from ${currentEndpoint.id} to same city ${sameCityEndpoint.id}`);
         return;
     }
     const closestCityEndpoint = getClosestEndpointByCoordinates(currentEndpoint, endpointsArr);
-    await proxy.setCurrentEndpoint(closestCityEndpoint);
+    await reconnectEndpoint(closestCityEndpoint);
+    log.debug(`Reconnect endpoint from ${currentEndpoint.id} to closest city ${closestCityEndpoint.id}`);
 };
 
 const getEndpointsRemotely = async () => {
@@ -76,9 +84,25 @@ const getVpnInfoRemotely = async () => {
 
     // update endpoints
     const endpoints = await getEndpointsRemotely();
-    if (shouldReconnect) {
-        await reconnectEndpoint(endpoints);
+
+    const currentEndpoint = await proxy.getCurrentEndpoint();
+
+    if (currentEndpoint) {
+        const currentEndpointInEndpoints = currentEndpoint && Object.keys(endpoints)
+            .some(endpoint => endpoint === currentEndpoint.id);
+
+        // if there is no currently connected endpoint in the list of endpoints,
+        // get closest and reconnect
+        if (!currentEndpointInEndpoints) {
+            await getClosestEndpointAndReconnect(endpoints, currentEndpoint);
+            shouldReconnect = false;
+        }
+
+        if (shouldReconnect) {
+            await getClosestEndpointAndReconnect(endpoints, currentEndpoint);
+        }
     }
+
     vpnCache.vpnInfo = vpnInfo;
     browser.runtime.sendMessage({ type: MESSAGES_TYPES.VPN_INFO_UPDATED, data: vpnInfo });
     return vpnInfo;

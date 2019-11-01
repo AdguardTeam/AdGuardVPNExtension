@@ -167,6 +167,7 @@ class ExtensionProxy {
             type: MESSAGES_TYPES.CURRENT_ENDPOINT_UPDATED,
             data: endpoint,
         });
+        return { host, domainName };
     };
 
     getCurrentEndpoint = async () => {

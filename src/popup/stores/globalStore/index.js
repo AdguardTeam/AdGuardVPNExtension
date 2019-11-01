@@ -5,6 +5,7 @@ import {
 } from 'mobx';
 
 import { REQUEST_STATUSES } from '../consts';
+import log from '../../../lib/logger';
 
 class globalStore {
     @observable initStatus = REQUEST_STATUSES.PENDING;
@@ -52,6 +53,7 @@ class globalStore {
             vpnStore.setSelectedEndpoint(selectedEndpoint);
             this.setInitStatus(REQUEST_STATUSES.DONE);
         } catch (e) {
+            log.error(e.message);
             this.setInitStatus(REQUEST_STATUSES.ERROR);
         }
     }
