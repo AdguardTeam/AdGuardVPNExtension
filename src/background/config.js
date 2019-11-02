@@ -15,4 +15,12 @@ export const AUTH_ACCESS_TOKEN_KEY = 'auth.access.token';
 export const AUTH_CLIENT_ID = 'adguard-vpn-extension';
 export const AUTH_BASE_URL = 'https://auth.adguard.com/oauth/authorize';
 export const AUTH_REDIRECT_URI = 'https://auth.adguard.com/oauth.html';
-export const PASSWORD_RECOVERY_URL = 'https://auth.adguard.com/account/recovery_password.html';
+export const PASSWORD_RECOVERY_URL = 'https://adguard.com/forward.html?action=recovery_password&from=popup&app=vpn_extension';
+
+// Privacy and EULA
+export const PRIVACY_URL = 'https://adguard.com/forward.html?action=privacy&from=popup&app=vpn_extension';
+export const EULA_URL = 'https://adguard.com/forward.html?action=eula&from=popup&app=vpn_extension';
+
+// Commercial
+export const BUY_LICENSE_URL = 'https://adguard.com/forward.html?action=buy_license&from=popup&app=vpn_extension';
+export const OTHER_PRODUCTS_URL = 'https://adguard.com/forward.html?action=other_products&from=popup&app=vpn_extension';

@@ -6,6 +6,8 @@ import SocialIcons from './SocialIcons';
 import SignInForm from './SignInForm';
 import RegistrationForm from './RegistrationForm';
 import TwoFactorForm from './TwoFactorForm';
+import popupActions from '../../actions/popupActions';
+import { EULA_URL, PRIVACY_URL } from '../../../background/config';
 
 const Authentication = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -46,6 +48,14 @@ const Authentication = observer(() => {
         authStore.showSignIn();
     };
 
+    const handlePrivacyClick = async () => {
+        await popupActions.openTab(PRIVACY_URL);
+    };
+
+    const handleEulaClick = async () => {
+        await popupActions.openTab(EULA_URL);
+    };
+
     const { step } = authStore;
     return (
         <div className="authentication">
@@ -66,13 +76,21 @@ const Authentication = observer(() => {
                     <div className="authentication__privacy">
                         By continuing you accept the&nbsp;
                         <div>
-                            <a href="#" className="authentication__privacy-link">
+                            <button
+                                type="button"
+                                className="authentication__privacy-link"
+                                onClick={handlePrivacyClick}
+                            >
                                 Terms and Conditions
-                            </a>
+                            </button>
                             &nbsp;and&nbsp;
-                            <a href="#" className="authentication__privacy-link">
+                            <button
+                                type="button"
+                                className="authentication__privacy-link"
+                                onClick={handleEulaClick}
+                            >
                                 EULA
-                            </a>
+                            </button>
                         </div>
                     </div>
                 )}

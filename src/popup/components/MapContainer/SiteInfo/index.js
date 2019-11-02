@@ -45,7 +45,8 @@ const SiteInfo = observer(() => {
                     <button
                         type="button"
                         className="button popup-info__link"
-                        onClick={() => { console.log('Don’t remind me about this site'); }}
+                        // TODO set handler
+                        onClick={() => { }}
                     >
                         Don’t remind me about this site
                     </button>
