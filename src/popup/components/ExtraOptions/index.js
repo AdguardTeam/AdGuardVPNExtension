@@ -25,7 +25,6 @@ const ExtraOptions = observer(() => {
         await authStore.deauthenticate();
     };
 
-
     const { isWhitelisted } = settingsStore;
     const renderWhitelistSetting = (isWhitelisted) => {
         if (isWhitelisted) {
@@ -35,7 +34,7 @@ const ExtraOptions = observer(() => {
                     className="button button--inline extra-options__item"
                     onClick={removeFromWhitelist}
                 >
-                        Remove this site from a whitelist
+                    Remove this site from a whitelist
                 </button>
             );
         }
@@ -45,7 +44,7 @@ const ExtraOptions = observer(() => {
                 className="button button--inline extra-options__item"
                 onClick={addToWhitelist}
             >
-                    Add this site in a whitelist
+                Add this site in a whitelist
             </button>
         );
     };
@@ -59,25 +58,25 @@ const ExtraOptions = observer(() => {
             overlayClassName="extra-options__overlay"
         >
             {renderWhitelistSetting(isWhitelisted)}
-            <a href="#" className="button button--inline extra-options__item">
-                    Buy a licence
-            </a>
-            <a href="#" className="button button--inline extra-options__item">
-                    Other products
-            </a>
+            <button type="button" className="button button--inline extra-options__item">
+                Buy a licence
+            </button>
+            <button type="button" className="button button--inline extra-options__item">
+                Other products
+            </button>
             <button
                 type="button"
                 className="button button--inline extra-options__item"
                 onClick={openSettings}
             >
-                    Settings
+                Settings
             </button>
             <button
                 type="button"
                 className="button button--inline extra-options__item"
                 onClick={signOut}
             >
-                    Sign out
+                Sign out
             </button>
         </Modal>
     );

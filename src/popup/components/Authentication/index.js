@@ -66,13 +66,13 @@ const Authentication = observer(() => {
                     <div className="authentication__privacy">
                         By continuing you accept the&nbsp;
                         <div>
-                            <a href="#" className="authentication__privacy-link">
+                            <button type="button" className="authentication__privacy-link">
                                 Terms and Conditions
-                            </a>
+                            </button>
                             &nbsp;and&nbsp;
-                            <a href="#" className="authentication__privacy-link">
+                            <button type="button" className="authentication__privacy-link">
                                 EULA
-                            </a>
+                            </button>
                         </div>
                     </div>
                 )}
