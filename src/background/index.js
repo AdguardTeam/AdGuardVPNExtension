@@ -1,3 +1,4 @@
+import browser from 'webextension-polyfill';
 import settings from './settings';
 import actions from './actions';
 import { vpnApi } from './api';

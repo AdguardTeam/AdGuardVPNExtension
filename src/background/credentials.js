@@ -1,12 +1,12 @@
 import nanoid from 'nanoid';
 import md5 from 'crypto-js/md5';
-import browser from 'webextension-polyfill';
 import accountProvider from './providers/accountProvider';
 import auth from './auth';
 import storage from './storage';
 import log from '../lib/logger';
 import vpnProvider from './providers/vpnProvider';
 import { MESSAGES_TYPES } from '../lib/constants';
+import browserApi from './browserApi';
 
 class Credentials {
     VPN_TOKEN_KEY = 'credentials.token';
@@ -32,7 +32,7 @@ class Credentials {
                 throw e;
             }
             log.debug(e.message);
-            browser.runtime.sendMessage({
+            browserApi.runtime.sendMessage({
                 type: MESSAGES_TYPES.VPN_TOKEN_NOT_FOUND,
                 data: { message: e.message },
             });
