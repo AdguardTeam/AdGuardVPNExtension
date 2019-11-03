@@ -12,3 +12,5 @@ export const MESSAGES_TYPES = {
     AUTHENTICATE_SOCIAL: 'authenticate.social',
     PERMISSIONS_UPDATE_ERROR: 'permissions.update.error',
 };
+
+export const NETWORK_ERROR = 'network.error';

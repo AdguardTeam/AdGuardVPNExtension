@@ -1,4 +1,3 @@
-import browser from 'webextension-polyfill';
 import isEqual from 'lodash/isEqual';
 import credentials from './credentials';
 import vpnProvider from './providers/vpnProvider';
@@ -7,6 +6,7 @@ import { MESSAGES_TYPES } from '../lib/constants';
 import { proxy } from './proxy';
 import { getClosestEndpointByCoordinates } from '../lib/helpers';
 import connectivity from './connectivity/connectivity';
+import browserApi from './browserApi';
 
 const vpnCache = {
     endpoints: null,
@@ -53,7 +53,7 @@ const getEndpointsRemotely = async () => {
 
     if (!isEqual(endpoints, vpnCache.endpoints)) {
         vpnCache.endpoints = endpoints;
-        browser.runtime.sendMessage({ type: MESSAGES_TYPES.ENDPOINTS_UPDATED, data: endpoints });
+        browserApi.runtime.sendMessage({ type: MESSAGES_TYPES.ENDPOINTS_UPDATED, data: endpoints });
     }
 
     return endpoints;
@@ -104,7 +104,7 @@ const getVpnInfoRemotely = async () => {
     }
 
     vpnCache.vpnInfo = vpnInfo;
-    browser.runtime.sendMessage({ type: MESSAGES_TYPES.VPN_INFO_UPDATED, data: vpnInfo });
+    browserApi.runtime.sendMessage({ type: MESSAGES_TYPES.VPN_INFO_UPDATED, data: vpnInfo });
     return vpnInfo;
 };
 

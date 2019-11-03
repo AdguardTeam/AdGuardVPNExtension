@@ -14,7 +14,7 @@ class AppStatus {
             return;
         }
         this.permissionsError = error;
-        browserApi.sendMessage({
+        browserApi.runtime.sendMessage({
             type: MESSAGES_TYPES.PERMISSIONS_UPDATE_ERROR,
             data: error.message,
         });

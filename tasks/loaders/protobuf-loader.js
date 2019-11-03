@@ -51,7 +51,7 @@ module.exports = function protobufLoader(source) {
 
         const loadDependencies = new Promise(((resolve, reject) => {
             const root = new protobuf.Root();
-            root.resolvePath = function (origin, target) {
+            root.resolvePath = function resolvePath(origin, target) {
                 // Adapted from
                 // https://github.com/dcodeIO/protobuf.js/blob/master/cli/pbjs.js
                 const normOrigin = protobuf.util.path.normalize(origin);
