@@ -4,15 +4,18 @@ const path = require('path');
 const axios = require('axios');
 const FormData = require('form-data');
 const querystring = require('querystring');
+const twoskyConfig = require('../.twosky.json')[0];
+
+const {
+    project_id: PROJECT_ID, languages: LANGUAGES, base_locale: BASE_LOCALE,
+} = twoskyConfig;
 
 const BASE_URL = 'https://twosky.adtidy.org/api/v1';
 const BASE_DOWNLOAD_URL = `${BASE_URL}/download`;
 const BASE_UPLOAD_URL = `${BASE_URL}/upload`;
-const PROJECT_NAME = 'extension-boilerplate'; // replace with your project name
 const FORMAT = 'json';
 const FILENAME = `messages.${FORMAT}`;
-const BASE_LOCALE = 'en'; // base locale used to upload messages
-const LOCALES = ['en', 'ru', 'de']; // locales which will be downloaded
+const LOCALES = Object.keys(LANGUAGES); // locales to be downloaded
 const LOCALES_DIR = path.resolve(__dirname, '../src/_locales');
 
 /**
@@ -22,7 +25,7 @@ const LOCALES_DIR = path.resolve(__dirname, '../src/_locales');
 const getQueryString = lang => querystring.stringify({
     format: FORMAT,
     language: lang,
-    project: PROJECT_NAME,
+    project: PROJECT_ID,
     filename: FILENAME,
 });
 
@@ -35,7 +38,7 @@ const getFormData = (filePath) => {
 
     formData.append('format', FORMAT);
     formData.append('language', BASE_LOCALE);
-    formData.append('project', PROJECT_NAME);
+    formData.append('project', PROJECT_ID);
     formData.append('filename', FILENAME);
     formData.append('file', fs.createReadStream(filePath));
 
