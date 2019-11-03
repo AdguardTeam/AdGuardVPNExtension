@@ -17,7 +17,7 @@ const getStatusMessage = (proxyEnabled) => {
 };
 
 
-const Settings = observer((props) => {
+const Settings = observer(() => {
     const { settingsStore, uiStore } = useContext(rootStore);
 
     const handleEndpointSelectorClick = () => {
@@ -29,8 +29,12 @@ const Settings = observer((props) => {
         await settingsStore.setProxyState(checked);
     };
 
-    const { canControlProxy } = props;
-    const { switcherEnabled, globalError, proxyEnabled } = settingsStore;
+    const {
+        switcherEnabled,
+        globalError,
+        proxyEnabled,
+        canControlProxy,
+    } = settingsStore;
 
     const renderWarning = () => {
         if (!canControlProxy) {

@@ -1,6 +1,7 @@
 import credentials from './credentials';
 import appStatus from './appStatus';
 import log from '../lib/logger';
+import { NETWORK_ERROR } from '../lib/constants';
 
 const updatePermissions = async () => {
     await credentials.getVpnTokenRemote();
@@ -12,6 +13,10 @@ const updatePermissions = async () => {
 
 const updatePermissionsErrorHandler = (error) => {
     log.error('Permissions were not updated due to:', error.message);
+    // do not consider network error as a reason to set permission error
+    if (error.status === NETWORK_ERROR) {
+        return;
+    }
     appStatus.setPermissionsError(error);
 };
 

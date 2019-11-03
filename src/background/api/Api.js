@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { NETWORK_ERROR } from '../../lib/constants';
 
 class ApiError extends Error {
     constructor(status, ...params) {
@@ -31,7 +32,7 @@ class Api {
             if (error.response) {
                 throw new ApiError(error.status, JSON.stringify(error.response.data));
             }
-            throw new Error(`${errorPath} | ${error.message || error}`);
+            throw new ApiError(NETWORK_ERROR, `${errorPath} | ${error.message || JSON.stringify(error)}`);
         }
     }
 }
