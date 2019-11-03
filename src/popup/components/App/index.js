@@ -34,8 +34,8 @@ const App = observer(() => {
 
     useEffect(() => {
         (async () => {
-            await settingsStore.getGlobalProxyEnabled();
             await settingsStore.checkProxyControl();
+            await settingsStore.getGlobalProxyEnabled();
             await globalStore.init();
             settingsStore.checkIsWhitelisted();
         })();
@@ -76,7 +76,6 @@ const App = observer(() => {
     }, []);
 
     const {
-        switcherEnabled,
         canControlProxy,
         globalError,
     } = settingsStore;
@@ -114,10 +113,7 @@ const App = observer(() => {
             <Header authenticated={authenticated} />
             {isOpenEndpointsSearch && <Endpoints />}
             <MapContainer />
-            <Settings
-                canControlProxy={canControlProxy}
-                globalProxyEnabled={switcherEnabled}
-            />
+            <Settings />
             {!showWarning && <Stats />}
             {!showWarning && <InfoMessage />}
         </Fragment>
