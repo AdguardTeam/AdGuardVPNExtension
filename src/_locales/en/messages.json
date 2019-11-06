@@ -1,9 +1,9 @@
 {
     "name": {
-        "message": "AdGuard VPN extension"
+        "message": "AdGuard VPN — Privacy & Security"
     },
     "description": {
-        "message": "Extension providing VPN services"
+        "message": "Makes the Internet open and your data safe. Topnotch VPN from the creators of famous ad blocker."
     },
     "short_name": {
         "message": "AdGuard VPN"
