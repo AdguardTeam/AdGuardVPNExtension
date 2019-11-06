@@ -70,7 +70,7 @@ const Map = observer(() => {
                 width={400}
                 height={400}
                 projection="orthographic"
-                projectionConfig={{ scale: 200 }}
+                projectionConfig={{ scale: 400 }}
                 style={mapStyles}
             >
                 <ZoomableGlobe

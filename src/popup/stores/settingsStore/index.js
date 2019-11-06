@@ -48,6 +48,11 @@ class SettingsStore {
     }
 
     @action
+    setCanControlProxy = (canControlProxy) => {
+        this.canControlProxy = canControlProxy;
+    };
+
+    @action
     enableSwitcher = () => {
         this.switcherEnabled = true;
     };
@@ -76,6 +81,12 @@ class SettingsStore {
             this.proxyEnabled = value;
             this.toggleSwitcher(value);
         });
+    }
+
+    @action
+    setProxyEnabledStatus(isProxyEnabled) {
+        this.proxyEnabled = isProxyEnabled;
+        this.toggleSwitcher(isProxyEnabled);
     }
 
     @action

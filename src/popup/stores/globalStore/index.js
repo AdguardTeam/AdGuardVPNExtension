@@ -35,6 +35,8 @@ class globalStore {
                 selectedEndpoint,
                 permissionsError,
                 isAuthenticated,
+                canControlProxy,
+                isProxyEnabled,
             } = popupData;
 
             if (!isAuthenticated) {
@@ -51,6 +53,9 @@ class globalStore {
             vpnStore.setVpnInfo(vpnInfo);
             vpnStore.setEndpoints(endpoints);
             vpnStore.setSelectedEndpoint(selectedEndpoint);
+            settingsStore.setProxyEnabledStatus(isProxyEnabled);
+            settingsStore.setCanControlProxy(canControlProxy);
+            await settingsStore.checkIsWhitelisted();
             this.setInitStatus(REQUEST_STATUSES.DONE);
         } catch (e) {
             log.error(e.message);

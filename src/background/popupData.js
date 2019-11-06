@@ -1,8 +1,8 @@
 import vpn from './vpn';
 import appStatus from './appStatus';
 import log from '../lib/logger';
+import { SETTINGS_IDS } from '../lib/constants';
 
-// TODO [maximtop] move other data for popup here
 const getPopupData = async () => {
     const isAuthenticated = await adguard.auth.isAuthenticated();
     if (!isAuthenticated) {
@@ -14,12 +14,16 @@ const getPopupData = async () => {
     const vpnInfo = vpn.getVpnInfo();
     const endpoints = vpn.getEndpoints();
     const selectedEndpoint = await vpn.getSelectedEndpoint();
+    const canControlProxy = await adguard.appStatus.canControlProxy();
+    const { value: isProxyEnabled } = adguard.settings.getSetting(SETTINGS_IDS.PROXY_ENABLED);
     return {
         permissionsError,
         vpnInfo,
         endpoints,
         selectedEndpoint,
         isAuthenticated,
+        canControlProxy,
+        isProxyEnabled,
     };
 };
 

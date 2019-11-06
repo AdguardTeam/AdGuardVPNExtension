@@ -16,7 +16,6 @@ const getStatusMessage = (proxyEnabled) => {
     return 'Disabled';
 };
 
-
 const Settings = observer(() => {
     const { settingsStore, uiStore } = useContext(rootStore);
 
