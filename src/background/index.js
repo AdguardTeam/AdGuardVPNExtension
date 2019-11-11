@@ -7,7 +7,6 @@ import auth from './auth';
 import { proxy } from './proxy';
 import connectivity from './connectivity/connectivity';
 import appStatus from './appStatus';
-import tabsContext from './tabsContext';
 import authCache from './authentication/authCache';
 import messaging from './messaging';
 import vpn from './vpn';
@@ -26,7 +25,6 @@ global.adguard = {
     auth,
     connectivity,
     appStatus,
-    tabsContext,
     authCache,
     vpn,
     ip,

@@ -30,9 +30,11 @@
         }
     ],
     "permissions": [
-        "tabs",
+        "activeTab",
         "storage",
         "unlimitedStorage",
-        "proxy"
+        "proxy",
+        "*://*.adguard.com/*",
+        "*://*.adguard.io/*"
     ]
 }

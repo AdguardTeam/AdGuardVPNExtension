@@ -37,24 +37,6 @@ class Tabs {
     async openSocialAuthTab(authUrl) {
         await this.openTab(authUrl);
     }
-
-    async getAllTabs() {
-        return browser.tabs.query({});
-    }
-
-    onCreated(callback) {
-        browser.tabs.onCreated.addListener(callback);
-    }
-
-    onRemoved(callback) {
-        browser.tabs.onRemoved.addListener(callback);
-    }
-
-    onUpdated(callback) {
-        browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-            callback(tab, changeInfo);
-        });
-    }
 }
 
 const tabs = new Tabs();

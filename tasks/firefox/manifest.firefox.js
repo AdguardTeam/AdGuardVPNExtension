@@ -25,5 +25,8 @@ module.exports = {
         'unlimitedStorage',
         'proxy',
         'notifications',
+        'activeTab',
+        '*://*.adguard.com/*',
+        '*://*.adguard.io/*',
     ],
 };

@@ -24,14 +24,6 @@ export const NON_ROUTABLE_NETS = [
 
 const parsedCIDRList = NON_ROUTABLE_NETS.map(net => ipaddr.parseCIDR(net));
 
-const isIpRoutable = (ip) => {
-    const addr = ipaddr.parse(ip);
-    if (addr.kind() === 'ipv6') {
-        return true;
-    }
-    return !parsedCIDRList.some(parsedCIDR => addr.match(parsedCIDR));
-};
-
 const isUrlRoutable = (url) => {
     const hostname = getHostname(url);
     if (!hostname) {
@@ -57,4 +49,4 @@ const isUrlRoutable = (url) => {
     return !parsedCIDRList.some(parsedCIDR => addr.match(parsedCIDR));
 };
 
-export default { isIpRoutable, isUrlRoutable };
+export default { isUrlRoutable };

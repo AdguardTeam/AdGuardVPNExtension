@@ -6,5 +6,8 @@ module.exports = {
         'storage',
         'proxy',
         'notifications',
+        'activeTab',
+        '*://*.adguard.com/*',
+        '*://*.adguard.io/*',
     ],
 };
