@@ -202,16 +202,8 @@ class SettingsStore {
     };
 
     @action
-    isTabRoutable = async () => {
-        try {
-            const currentTab = await tabs.getCurrent();
-            const isRoutable = adguard.tabsContext.isTabRoutable(currentTab.id);
-            runInAction(() => {
-                this.isRoutable = isRoutable;
-            });
-        } catch (e) {
-            log.error(e);
-        }
+    setIsRoutable = (value) => {
+        this.isRoutable = value;
     };
 
     @computed
@@ -225,7 +217,7 @@ class SettingsStore {
     @action
     setGlobalError = (data) => {
         this.globalError = data;
-    }
+    };
 
     @computed
     get proxyIsEnabling() {

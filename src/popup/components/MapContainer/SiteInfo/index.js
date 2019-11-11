@@ -1,16 +1,10 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 import rootStore from '../../../stores';
 
 const SiteInfo = observer(() => {
     const { settingsStore } = useContext(rootStore);
-
-    useEffect(() => {
-        (async () => {
-            await settingsStore.isTabRoutable();
-        })();
-    }, []);
 
     const removeFromWhitelist = async () => {
         await settingsStore.removeFromWhitelist();
@@ -26,30 +20,22 @@ const SiteInfo = observer(() => {
             >
                 <div className="popup-info__title popup-info__title--domain">{settingsStore.currentTabHostname}</div>
                 <div className="popup-info__status popup-info__status--warning">
-                    that seems to be located in your local network and is not accessible through VPN
+                    is located in your local network and unaccessible via VPN
                 </div>
                 <div className="popup-info__desc">
                     You can
                     &nbsp;
-                    <button
+                    {/* eslint-disable-next-line max-len */}
+                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid,jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                    <a
                         type="button"
                         className="button popup-info__link"
                         onClick={removeFromWhitelist}
                     >
-                        remove it from whitelist
-                    </button>
+                        add the site to exclusions
+                    </a>
                     &nbsp;
-                    or just switch on VPN once
-                </div>
-                <div className="popup-info__desc">
-                    <button
-                        type="button"
-                        className="button popup-info__link"
-                        // TODO set handler
-                        onClick={() => { }}
-                    >
-                        Don’t remind me about this site
-                    </button>
+                    or switch off the VPN
                 </div>
             </Modal>
         );
@@ -64,19 +50,18 @@ const SiteInfo = observer(() => {
                 overlayClassName="popup-info"
             >
                 <div className="popup-info__title popup-info__title--domain">{settingsStore.currentTabHostname}</div>
-                <div className="popup-info__status popup-info__status--succeed">is whitelisted</div>
+                <div className="popup-info__status popup-info__status--succeed">added to exclusions</div>
                 <div className="popup-info__desc">
-                    You can
-                    &nbsp;
-                    <button
+                    You can &nbsp;
+                    {/* eslint-disable-next-line max-len */}
+                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid,jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                    <a
                         type="button"
                         className="button popup-info__link"
                         onClick={removeFromWhitelist}
                     >
-                        remove it from whitelist
-                    </button>
-                    &nbsp;
-                    or just switch on VPN once
+                        remove it from exclusions
+                    </a>
                 </div>
             </Modal>
         );

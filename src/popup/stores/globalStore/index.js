@@ -20,13 +20,15 @@ class globalStore {
 
         this.setInitStatus(REQUEST_STATUSES.PENDING);
 
+        const currentTab = await adguard.tabs.getCurrent();
+
         try {
             let popupData;
 
             if (retryNum > 1) {
-                popupData = await adguard.popupData.getPopupDataRetry(retryNum);
+                popupData = await adguard.popupData.getPopupDataRetry(currentTab.url, retryNum);
             } else {
-                popupData = await adguard.popupData.getPopupData();
+                popupData = await adguard.popupData.getPopupData(currentTab.url);
             }
 
             const {
@@ -37,6 +39,7 @@ class globalStore {
                 isAuthenticated,
                 canControlProxy,
                 isProxyEnabled,
+                isRoutable,
             } = popupData;
 
             if (!isAuthenticated) {
@@ -55,6 +58,7 @@ class globalStore {
             vpnStore.setSelectedEndpoint(selectedEndpoint);
             settingsStore.setProxyEnabledStatus(isProxyEnabled);
             settingsStore.setCanControlProxy(canControlProxy);
+            settingsStore.setIsRoutable(isRoutable);
             await settingsStore.checkIsWhitelisted();
             this.setInitStatus(REQUEST_STATUSES.DONE);
         } catch (e) {

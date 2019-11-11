@@ -14,6 +14,7 @@ import vpn from './vpn';
 import popupData from './popupData';
 import credentials from './credentials';
 import permissionsUpdater from './permissionsUpdater';
+import ip from './ip';
 
 global.adguard = {
     settings,
@@ -28,6 +29,7 @@ global.adguard = {
     tabsContext,
     authCache,
     vpn,
+    ip,
     popupData,
 };
 
