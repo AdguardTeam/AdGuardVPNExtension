@@ -89,10 +89,11 @@ const App = observer(() => {
         return (
             <Fragment>
                 {requestProcessState === REQUEST_STATUSES.PENDING
-                && <Preloader />
+                    && <Preloader />
                 }
                 <Header authenticated={authenticated} />
                 <Authentication />
+                <Icons />
             </Fragment>
         );
     }

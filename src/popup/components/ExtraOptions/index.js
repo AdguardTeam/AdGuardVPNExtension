@@ -4,7 +4,7 @@ import './extra-options.pcss';
 import { observer } from 'mobx-react';
 import rootStore from '../../stores';
 import popupActions from '../../actions/popupActions';
-import { BUY_LICENSE_URL, OTHER_PRODUCTS_URL } from '../../../background/config';
+import { POPUP_STORE_URL, OTHER_PRODUCTS_URL } from '../../../background/config';
 
 const ExtraOptions = observer(() => {
     const { uiStore, settingsStore, authStore } = useContext(rootStore);
@@ -27,8 +27,8 @@ const ExtraOptions = observer(() => {
         await authStore.deauthenticate();
     };
 
-    const handleBuyLicenseClick = async () => {
-        await popupActions.openTab(BUY_LICENSE_URL);
+    const handleRateUs = async () => {
+        await popupActions.openTab(POPUP_STORE_URL);
     };
 
     const handleOtherProductsClick = async () => {
@@ -44,7 +44,7 @@ const ExtraOptions = observer(() => {
                     className="button button--inline extra-options__item"
                     onClick={removeFromWhitelist}
                 >
-                    Remove this site from a whitelist
+                    Remove this site from exclusions
                 </button>
             );
         }
@@ -54,7 +54,7 @@ const ExtraOptions = observer(() => {
                 className="button button--inline extra-options__item"
                 onClick={addToWhitelist}
             >
-                Add this site in a whitelist
+                Add this site to exclusions
             </button>
         );
     };
@@ -71,16 +71,16 @@ const ExtraOptions = observer(() => {
             <button
                 type="button"
                 className="button button--inline extra-options__item"
-                onClick={handleBuyLicenseClick}
+                onClick={handleOtherProductsClick}
             >
-                Buy a licence
+                Other products
             </button>
             <button
                 type="button"
                 className="button button--inline extra-options__item"
-                onClick={handleOtherProductsClick}
+                onClick={handleRateUs}
             >
-                Other products
+                Rate us
             </button>
             <button
                 type="button"

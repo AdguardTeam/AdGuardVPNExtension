@@ -3,12 +3,13 @@
     width: 280px;
     position: absolute;
     top: 15px;
-    left: 35px;
+    left: 30px;
     outline: none;
     background-color: #fff;
-    box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
     font-size: 16px;
     line-height: 26px;
+    border-radius: 4px;
 
     &__overlay {
         position: fixed;
@@ -17,6 +18,7 @@
         left: 0;
         right: 0;
         bottom: 0;
+        z-index: var(--options-z-index);
     }
 
     &__item {
