@@ -13,11 +13,9 @@ const Header = observer(({ authenticated }) => {
     return (
         <div className="header">
             <div className="header__title">
-                <div className="header__logo" />
-                <div className="header__text">
-                    <span className="header__text-mark">AdGuard</span>
-                        VPN
-                </div>
+                <svg className="header__logo">
+                    <use xlinkHref="#logo" />
+                </svg>
             </div>
             {authenticated && (
                 <button
@@ -25,7 +23,11 @@ const Header = observer(({ authenticated }) => {
                     type="button"
                     tabIndex="0"
                     onClick={handleOpenModal}
-                />
+                >
+                    <svg className="icon icon--button icon--options">
+                        <use xlinkHref="#options" />
+                    </svg>
+                </button>
             )}
         </div>
     );

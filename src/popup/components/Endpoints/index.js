@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
+
 import rootStore from '../../stores';
 import './endpoints.pcss';
 
@@ -23,6 +24,18 @@ const Endpoints = observer(() => {
         vpnStore.setSearchValue('');
     };
 
+    const getEndpointIcon = (premiumOnly, selected) => {
+        if (premiumOnly) {
+            return 'lock';
+        }
+
+        if (selected) {
+            return 'bullet_on';
+        }
+
+        return 'bullet_off';
+    };
+
     const renderEndpoints = endpoints => endpoints.map((endpoint) => {
         const {
             countryName,
@@ -42,7 +55,9 @@ const Endpoints = observer(() => {
                 className={`endpoints__item ${endpointClassNames}`}
                 onClick={handleEndpointSelect(id)}
             >
-                <div className="endpoints__item-ico" />
+                <svg className="endpoints__item-ico">
+                    <use xlinkHref={`#${getEndpointIcon(premiumOnly, selected)}`} />
+                </svg>
                 <div className="endpoints__city">
                     {`${countryName}, ${cityName}`}
                 </div>
@@ -59,6 +74,7 @@ const Endpoints = observer(() => {
     const endpointsCrossClassNames = classnames({
         'endpoints__cross--active': vpnStore.searchValue.length > 0,
     });
+
     return (
         <div className="endpoints">
             <div className="endpoints__header">
@@ -71,7 +87,7 @@ const Endpoints = observer(() => {
                     <input
                         className="endpoints__search-in"
                         type="text"
-                        placeholder="search country"
+                        placeholder="search the country"
                         value={vpnStore.searchValue}
                         onChange={handleSearchInput}
                     />

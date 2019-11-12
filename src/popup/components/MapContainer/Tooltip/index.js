@@ -63,12 +63,12 @@ const Tooltip = observer(() => {
         [ENABLED_STATE]: {
             handler: disconnectHandler,
             buttonType: 'regular',
-            buttonText: 'Disconnect location',
+            buttonText: 'Disconnect',
         },
         [DISABLED_STATE]: {
             handler: createConnectionHandler,
             buttonType: 'regular',
-            buttonText: 'Create connection',
+            buttonText: 'Connect',
         },
     };
 

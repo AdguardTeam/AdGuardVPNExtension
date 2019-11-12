@@ -41,8 +41,7 @@ const CurrentEndpoint = observer((props) => {
         return 'Connecting...';
     };
 
-    const { countryNameToDisplay } = vpnStore;
-    const { cityNameToDisplay } = vpnStore;
+    const { countryNameToDisplay, cityNameToDisplay } = vpnStore;
     const { handle } = props;
     return (
         <div className="endpoint">

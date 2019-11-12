@@ -6,6 +6,8 @@ import React, {
 import { observer } from 'mobx-react';
 import Modal from 'react-modal';
 import browser from 'webextension-polyfill';
+import { CSSTransition } from 'react-transition-group';
+
 import Header from '../Header';
 import MapContainer from '../MapContainer';
 import InfoMessage from '../InfoMessage';
@@ -15,6 +17,8 @@ import ExtraOptions from '../ExtraOptions';
 import Preloader from '../Preloader';
 import Stats from '../Stats';
 import Settings from '../Settings';
+import Icons from '../ui/Icons';
+
 import rootStore from '../../stores';
 import { REQUEST_STATUSES } from '../../stores/consts';
 import { MESSAGES_TYPES } from '../../../lib/constants';
@@ -102,13 +106,21 @@ const App = observer(() => {
         <Fragment>
             {isOpenOptionsModal && <ExtraOptions />}
             <Header authenticated={authenticated} />
-            {isOpenEndpointsSearch && <Endpoints />}
+            <CSSTransition
+                in={isOpenEndpointsSearch}
+                timeout={300}
+                classNames="fade"
+                unmountOnExit
+            >
+                <Endpoints />
+            </CSSTransition>
             <MapContainer />
             <Settings />
             <div className="footer">
                 {!showWarning && <Stats />}
                 {!showWarning && <InfoMessage />}
             </div>
+            <Icons />
         </Fragment>
     );
 });

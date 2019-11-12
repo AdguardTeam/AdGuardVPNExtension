@@ -1,10 +1,9 @@
 .header {
     display: flex;
     flex-direction: row;
-    font-size: 18px;
-    line-height: 13px;
-    padding: 15px 24px;
+    align-items: center;
     justify-content: space-between;
+    padding: 14px;
 
     &__title {
         display: flex;
@@ -12,19 +11,14 @@
     }
 
     &__logo {
-        width: 28px;
+        width: 153px;
         height: 28px;
-        background-image: url("../../../assets/images/header-logo.svg");
-        margin-right: 6px;
-    }
-
-    &__text-mark {
-        font-weight: 700;
+        color: var(--brand-primary);
     }
 
     &__setting {
         width: 24px;
         height: 24px;
-        background: url("../../../assets/images/icon-settings.svg") no-repeat 50%;
+        padding: 0;
     }
 }
