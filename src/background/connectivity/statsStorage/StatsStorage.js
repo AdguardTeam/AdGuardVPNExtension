@@ -8,8 +8,18 @@ export default class StatsStorage {
 
     constructor(storage) {
         this.storage = storage;
+        this.sessions = new Set();
     }
 
+    /**
+     * Received stats contains the traffic gathered since the last check
+     * Method adds these values to the total stats and to the current stats
+     * (current stats reset when we save stats for the first time after startup)
+     *
+     * @param domain Proxy domain
+     * @param stats Traffic statistic
+     * @returns {Promise<void>}
+     */
     async saveStats(domain, stats) {
         const { downloaded, uploaded } = stats;
         const key = this.getKey(domain);
@@ -18,15 +28,19 @@ export default class StatsStorage {
             total: { downloaded: totalDownloaded, uploaded: totalUploaded },
             current: { downloaded: currentDownloaded, uploaded: currentUploaded },
         } = storageStats || {};
-        if (downloaded < currentDownloaded || uploaded < currentUploaded) {
-            totalDownloaded += currentDownloaded;
-            totalUploaded += currentUploaded;
-            currentDownloaded = downloaded;
-            currentUploaded = uploaded;
-        } else {
-            currentDownloaded = downloaded;
-            currentUploaded = uploaded;
+
+        // If we've just start the session then reset the current traffic counter
+        if (!this.sessions.has(domain)) {
+            this.sessions.add(domain);
+            currentDownloaded = 0;
+            currentUploaded = 0;
         }
+
+        totalDownloaded += downloaded;
+        totalUploaded += uploaded;
+        currentDownloaded += downloaded;
+        currentUploaded += uploaded;
+
         await this.storage.set(key, {
             current: { downloaded: currentDownloaded, uploaded: currentUploaded },
             total: { downloaded: totalDownloaded, uploaded: totalUploaded },
@@ -40,9 +54,19 @@ export default class StatsStorage {
     async getStats(domain) {
         const key = this.getKey(domain);
         const {
-            total: { downloaded: tDown, uploaded: tUp },
-            current: { downloaded: cDown, uploaded: cUp },
+            total: { downloaded, uploaded },
         } = await this.storage.get(key) || this.EMPTY_STATS;
-        return { downloaded: tDown + cDown, uploaded: tUp + cUp };
+        return { downloaded, uploaded };
+    }
+
+    /**
+     * Reset the stats for the proxy domain
+     * @param domain Proxy domain
+     * @returns {Promise<void>}
+     */
+    async resetStats(domain) {
+        const key = this.getKey(domain);
+        this.sessions.delete(domain);
+        await this.storage.set(key, this.EMPTY_STATS);
     }
 }
