@@ -99,7 +99,7 @@ class Auth {
             this.socialAuthState = null;
         }
 
-        await notifications.create({ message: 'Successfully authenticated' });
+        await notifications.create({ message: 'Successfully authenticated! Now you can open AdGuard VPN and switch on the tunnel.' });
     }
 
     async deauthenticate() {
