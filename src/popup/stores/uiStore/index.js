@@ -7,6 +7,18 @@ class UiStore {
 
     @observable isOpenRecovery = false;
 
+    @observable isConnecting = false;
+
+    @action
+    enableConnecting = () => {
+        this.isConnecting = true;
+    };
+
+    @action
+    disableConnecting = () => {
+        this.isConnecting = false;
+    };
+
     @action
     openEndpointsSearch = () => {
         this.isOpenEndpointsSearch = true;

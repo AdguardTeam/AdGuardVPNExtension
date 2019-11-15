@@ -4,7 +4,9 @@ import classnames from 'classnames';
 import rootStore from '../../../stores';
 
 const Tooltip = observer(() => {
-    const { tooltipStore, vpnStore, settingsStore } = useContext(rootStore);
+    const {
+        tooltipStore, vpnStore, settingsStore, uiStore,
+    } = useContext(rootStore);
 
     if (!tooltipStore.tooltipContent) {
         return null;
@@ -24,12 +26,14 @@ const Tooltip = observer(() => {
     const createConnectionHandler = async () => {
         await vpnStore.selectEndpoint(tooltipStore.tooltipContent.id);
         tooltipStore.closeTooltip();
+        uiStore.enableConnecting();
         if (settingsStore.proxyEnabled) {
             await settingsStore.disableProxy();
             await settingsStore.enableProxy();
         } else {
             await settingsStore.setProxyState(true);
         }
+        uiStore.disableConnecting();
     };
 
     const disconnectHandler = async () => {

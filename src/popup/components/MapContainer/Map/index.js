@@ -15,7 +15,9 @@ import rootStore from '../../../stores';
 import './map.pcss';
 
 const Map = observer(() => {
-    const { vpnStore, tooltipStore, settingsStore } = useContext(rootStore);
+    const {
+        vpnStore, tooltipStore, settingsStore, uiStore,
+    } = useContext(rootStore);
 
     const onMarkerClick = (e) => {
         tooltipStore.openTooltip(e);
@@ -28,6 +30,12 @@ const Map = observer(() => {
     const onGlobeMoveEnd = (coordinates) => {
         tooltipStore.setMapCoordinates(coordinates);
     };
+
+    const disableEvent = (e) => {
+        e.stopPropagation();
+    };
+
+    const disableWhileConnecting = uiStore.isConnecting ? disableEvent : undefined;
 
     const { proxyEnabled } = settingsStore;
 
@@ -65,7 +73,11 @@ const Map = observer(() => {
 
     const center = determineCenter(vpnStore, tooltipStore);
     return (
-        <div className="map">
+        <div
+            className="map"
+            onMouseDownCapture={disableWhileConnecting}
+            onClickCapture={disableWhileConnecting}
+        >
             <ComposableMap
                 width={400}
                 height={400}
