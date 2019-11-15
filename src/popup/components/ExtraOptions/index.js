@@ -19,7 +19,7 @@ const ExtraOptions = observer(() => {
 
     const removeFromWhitelist = async () => {
         uiStore.closeOptionsModal();
-        await settingsStore.removeFromWhitelist();
+        await settingsStore.removeFromExclusions();
     };
 
     const signOut = async () => {
@@ -35,9 +35,9 @@ const ExtraOptions = observer(() => {
         await popupActions.openTab(OTHER_PRODUCTS_URL);
     };
 
-    const { isWhitelisted } = settingsStore;
-    const renderWhitelistSetting = (isWhitelisted) => {
-        if (isWhitelisted) {
+    const { isExcluded } = settingsStore;
+    const renderWhitelistSetting = (isExcluded) => {
+        if (isExcluded) {
             return (
                 <button
                     type="button"
@@ -67,7 +67,7 @@ const ExtraOptions = observer(() => {
             className="extra-options"
             overlayClassName="extra-options__overlay"
         >
-            {renderWhitelistSetting(isWhitelisted)}
+            {renderWhitelistSetting(isExcluded)}
             <button
                 type="button"
                 className="button button--inline extra-options__item"

@@ -107,6 +107,15 @@ class AuthStore {
         return false;
     }
 
+    @computed
+    get disableLogin() {
+        const { username, password } = this.credentials;
+        if (!username || !password) {
+            return true;
+        }
+        return false;
+    }
+
     @action authenticate = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
         const response = await adguard.auth.authenticate(this.credentials);

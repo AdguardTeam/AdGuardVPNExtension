@@ -1,7 +1,7 @@
 function AuthCache() {
     const DEFAULTS = {
         username: '',
-        login: '',
+        password: '',
         step: '',
     };
 

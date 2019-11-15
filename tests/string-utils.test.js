@@ -1,6 +1,6 @@
 import { renderTemplate } from '../src/lib/string-utils';
 
-describe('index.proxy.setBypassWhitelist', () => {
+describe('index.proxy.setBypassList', () => {
     it('should NOT be called before initialization', () => {
         expect(renderTemplate('https://{{host}}/path', { host: 'example.org' }))
             .toEqual('https://example.org/path');

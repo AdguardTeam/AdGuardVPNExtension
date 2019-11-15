@@ -100,3 +100,14 @@ export const formatBytes = (bytes) => {
 
     return { value: parseFloat(bytes / (k ** i)).toFixed(DECIMALS), unit: UNITS[i] };
 };
+
+/**
+ * awaits given period of time
+ * @param wait
+ * @returns {Promise<unknown>}
+ */
+export const sleep = (wait) => {
+    return new Promise((resolve) => {
+        setTimeout(resolve, wait);
+    });
+};

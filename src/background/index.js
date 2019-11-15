@@ -1,8 +1,8 @@
-import settings from './settings';
+import settings from './settings/settings';
 import actions from './actions';
 import { vpnApi } from './api';
 import tabs from './tabs';
-import whitelist from './whitelist';
+import exclusions from './exclusions';
 import auth from './auth';
 import { proxy } from './proxy';
 import connectivity from './connectivity/connectivity';
@@ -14,6 +14,8 @@ import popupData from './popupData';
 import credentials from './credentials';
 import permissionsUpdater from './permissionsUpdater';
 import ip from './ip';
+import log from '../lib/logger';
+import storage from './storage';
 
 global.adguard = {
     settings,
@@ -21,7 +23,7 @@ global.adguard = {
     proxy,
     vpnApi,
     tabs,
-    whitelist,
+    exclusions,
     auth,
     connectivity,
     appStatus,
@@ -29,18 +31,16 @@ global.adguard = {
     vpn,
     ip,
     popupData,
+    credentials,
+    storage,
 };
 
-// init credentials
-credentials.init();
-
-// init messaging
-messaging.init();
-
-// TODO [maximtop] consider if it can be useful to have some method indicate
-//  that all modules are ready
-// init whitelist
-whitelist.init();
-
-// init tokens updater
-permissionsUpdater.init();
+(async () => {
+    await settings.init();
+    await credentials.init();
+    await exclusions.init();
+    await settings.applySettings(); // we have to apply settings when credentials are ready
+    messaging.init();
+    permissionsUpdater.init();
+    log.info('Extension loaded all necessary modules');
+})();

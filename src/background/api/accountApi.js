@@ -11,6 +11,16 @@ class AccountApi extends Api {
         };
         return this.makeRequest(path, method, config);
     }
+
+    GET_ACCOUNT_INFO = { path: 'account/info', method: 'GET' };
+
+    getAccountInfo(accessToken) {
+        const { path, method } = this.GET_ACCOUNT_INFO;
+        const config = {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        };
+        return this.makeRequest(path, method, config);
+    }
 }
 
 const accountApi = new AccountApi(ACCOUNT_API_URL);

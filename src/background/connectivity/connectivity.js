@@ -41,7 +41,6 @@ class Connectivity {
     start = async () => {
         this.startGettingPing();
         this.startGettingConnectivityInfo();
-
         // when first ping received we can connect to proxy
         const averagePing = await this.getAveragePing();
         this.updatePingValue(averagePing);

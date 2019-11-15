@@ -22,7 +22,7 @@ class SettingsStore {
 
     @observable gettingEndpointsState;
 
-    @observable isWhitelisted;
+    @observable isExcluded;
 
     @observable currentTabHostname;
 
@@ -76,7 +76,7 @@ class SettingsStore {
 
     @action
     async getGlobalProxyEnabled() {
-        const { value } = adguard.settings.getSetting(SETTINGS_IDS.PROXY_ENABLED);
+        const value = adguard.settings.getSetting(SETTINGS_IDS.PROXY_ENABLED);
         runInAction(() => {
             this.proxyEnabled = value;
             this.toggleSwitcher(value);
@@ -147,9 +147,9 @@ class SettingsStore {
     @action
     addToWhitelist = async () => {
         try {
-            await adguard.whitelist.addToWhitelist(this.currentTabHostname);
+            await adguard.exclusions.addToExclusions(this.currentTabHostname);
             runInAction(() => {
-                this.isWhitelisted = true;
+                this.isExcluded = true;
             });
         } catch (e) {
             log.error(e);
@@ -157,11 +157,11 @@ class SettingsStore {
     };
 
     @action
-    removeFromWhitelist = async () => {
+    removeFromExclusions = async () => {
         try {
-            await adguard.whitelist.removeFromWhitelist(this.currentTabHostname);
+            await adguard.exclusions.removeFromExclusionsByHostname(this.currentTabHostname);
             runInAction(() => {
-                this.isWhitelisted = false;
+                this.isExcluded = false;
             });
         } catch (e) {
             log.error(e);
@@ -169,12 +169,12 @@ class SettingsStore {
     };
 
     @action
-    checkIsWhitelisted = async () => {
+    checkIsExcluded = async () => {
         try {
             await this.getCurrentTabHostname();
-            const result = adguard.whitelist.isWhitelisted(this.currentTabHostname);
+            const result = adguard.exclusions.isExcluded(this.currentTabHostname);
             runInAction(() => {
-                this.isWhitelisted = result;
+                this.isExcluded = result;
             });
         } catch (e) {
             log.error(e);

@@ -17,7 +17,7 @@ const getPopupData = async (url) => {
     const endpoints = vpn.getEndpoints();
     const selectedEndpoint = await vpn.getSelectedEndpoint();
     const canControlProxy = await adguard.appStatus.canControlProxy();
-    const { value: isProxyEnabled } = adguard.settings.getSetting(SETTINGS_IDS.PROXY_ENABLED);
+    const isProxyEnabled = adguard.settings.getSetting(SETTINGS_IDS.PROXY_ENABLED);
     return {
         permissionsError,
         vpnInfo,

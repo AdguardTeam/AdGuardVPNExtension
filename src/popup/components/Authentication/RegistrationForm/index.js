@@ -15,7 +15,6 @@ const RegistrationForm = observer(() => {
         authStore.onCredentialsChange(name, value);
     };
 
-
     return (
         <form
             className="form"

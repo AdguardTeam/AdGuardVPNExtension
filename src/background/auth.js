@@ -14,6 +14,8 @@ import {
     AUTH_BASE_URL,
     AUTH_REDIRECT_URI,
 } from './config';
+import browserApi from './browserApi';
+import { MESSAGES_TYPES } from '../lib/constants';
 
 class Auth {
     socialAuthState = null;
@@ -98,6 +100,10 @@ class Auth {
             await tabs.closeTab(tabId);
             this.socialAuthState = null;
         }
+        await browserApi.runtime.sendMessage({
+            type: MESSAGES_TYPES.AUTHENTICATE_SOCIAL_SUCCESS,
+            data: true,
+        });
 
         await notifications.create({ message: 'Successfully authenticated! Now you can open AdGuard VPN and switch on the tunnel.' });
     }

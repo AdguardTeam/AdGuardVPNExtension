@@ -1,25 +1,20 @@
-import log from '../lib/logger';
-import notifier from '../lib/notifier';
-import { proxy } from './proxy';
-import credentials from './credentials';
-import connectivity from './connectivity/connectivity';
-import { SETTINGS_IDS } from '../lib/constants';
-import actions from './actions';
+import SettingsService from './SettingsService';
+import storage from '../storage';
+import log from '../../lib/logger';
+import notifier from '../../lib/notifier';
+import { proxy } from '../proxy';
+import credentials from '../credentials';
+import connectivity from '../connectivity/connectivity';
+import { SETTINGS_IDS } from '../../lib/constants';
+import actions from '../actions';
 
 const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.PROXY_ENABLED]: false,
+    [SETTINGS_IDS.RATE_SHOW]: true,
+    [SETTINGS_IDS.EXCLUSIONS]: {},
 };
 
-const SETTINGS = Object.entries(DEFAULT_SETTINGS)
-    .reduce((acc, [id, value]) => ({
-        ...acc,
-        [id]: {
-            id,
-            value,
-        },
-    }), {});
-
-const getSetting = settingId => SETTINGS[settingId];
+const settingsService = new SettingsService(storage, DEFAULT_SETTINGS);
 
 const proxyEnabledHandler = async (value) => {
     if (value) {
@@ -47,14 +42,14 @@ const getHandler = (settingId) => {
             return proxyEnabledHandler;
         }
         default:
-            return null;
+            return () => {};
     }
 };
 
 const setSetting = async (id, value, force) => {
-    const setting = SETTINGS[id];
+    const setting = settingsService.getSetting(id);
     // No need to change same value unless is not force set
-    if (setting.value === value && !force) {
+    if (setting === value && !force) {
         return false;
     }
     const handler = getHandler(id);
@@ -71,8 +66,7 @@ const setSetting = async (id, value, force) => {
     }
 
     notifier.notifyListeners(notifier.types.SETTING_UPDATED, id, value);
-
-    SETTINGS[id].value = value;
+    settingsService.setSetting(id, value);
     log.info(`Setting with id: "${id}" was set to: "${value}"`);
     return true;
 };
@@ -82,45 +76,43 @@ const disableProxy = async () => {
 };
 
 const isProxyEnabled = () => {
-    const setting = getSetting(SETTINGS_IDS.PROXY_ENABLED);
-    return setting.value === true;
+    const setting = settingsService.getSetting(SETTINGS_IDS.PROXY_ENABLED);
+    return setting === true;
 };
 
-/**
- * Returns setting ids
- * @param settingsIds and array with settings ids
- * @returns {*}
- */
-const getSettingsByIds = settingsIds => settingsIds.map(getSetting);
-
-// init default settings
-let settingsReadyStatus = false;
-
-const initDefaults = async () => {
-    try {
-        // eslint-disable-next-line no-restricted-syntax
-        for (const { id, value } of Object.values(SETTINGS)) {
-            // eslint-disable-next-line no-await-in-loop
-            await setSetting(id, value, true);
-        }
-    } catch (e) {
-        log.error(e.message);
-    }
-    settingsReadyStatus = true;
+const applySettings = async () => {
+    await proxyEnabledHandler(isProxyEnabled());
+    log.info('Settings were applied');
 };
 
-initDefaults();
+const init = async () => {
+    await settingsService.init();
+    log.info('Settings module is ready');
+};
 
-const areSettingsReady = () => settingsReadyStatus;
+const getSetting = (id) => {
+    return settingsService.getSetting(id);
+};
+
+const getExclusions = () => {
+    return settingsService.getSetting(SETTINGS_IDS.EXCLUSIONS) || {};
+};
+
+const setExclusions = (exclusions) => {
+    settingsService.setSetting(SETTINGS_IDS.EXCLUSIONS, exclusions);
+};
 
 const settings = {
+    init,
     getSetting,
     setSetting,
-    getSettingsByIds,
-    areSettingsReady,
     disableProxy,
     isProxyEnabled,
     SETTINGS_IDS,
+    settingsService,
+    applySettings,
+    getExclusions,
+    setExclusions,
 };
 
 export default settings;

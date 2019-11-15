@@ -1,0 +1,41 @@
+.footer {
+    height: var(--footer-height);
+    min-width: var(--container-width);
+    padding: 40px 0;
+    font-size: 1.6rem;
+    background-color: var(--footer-background);
+
+    &__inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: var(--container-width);
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    &__copyright {
+        text-decoration: none;
+        color: #fff;
+
+        &:hover,
+        &:focus {
+            text-decoration: underline;
+        }
+    }
+
+    &__link {
+        margin-right: 40px;
+        text-decoration: none;
+        color: #fff;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        &:hover,
+        &:focus {
+            text-decoration: underline;
+        }
+    }
+}

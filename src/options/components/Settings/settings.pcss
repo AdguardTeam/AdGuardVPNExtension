@@ -1,0 +1,73 @@
+.settings {
+    &__title {
+        margin-bottom: 30px;
+        font-size: 1.8rem;
+        font-weight: 700;
+    }
+
+    &__subtitle {
+        margin-bottom: 15px;
+    }
+
+    &__group {
+        margin-bottom: 50px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__list,
+    &__form {
+        padding-left: 30px;
+    }
+
+    &__list-item {
+        position: relative;
+        width: 100%;
+        padding: 8px 8px 8px 15px;
+
+        &:hover,
+        &:focus {
+            background-color: var(--grayF3);
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__list-remove {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 20px;
+        height: 20px;
+        background-image: url("../../../assets/images/cross.svg");
+        background-repeat: no-repeat;
+        background-position: center center;
+        border-radius: 3px;
+
+        &:hover,
+        &:focus {
+            background-color: transparent;
+        }
+    }
+
+    &__add {
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        line-height: 1;
+
+        &:focus {
+            box-shadow: none;
+        }
+    }
+
+    &__add-icon {
+        margin-right: 12px;
+    }
+}

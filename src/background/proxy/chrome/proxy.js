@@ -33,7 +33,7 @@ class ExtensionProxy {
             mode: 'system',
         };
 
-        this.bypassWhitelist = [];
+        this.bypassList = [];
 
         this.currentAccessPrefix = '';
 
@@ -130,14 +130,14 @@ class ExtensionProxy {
     }
 
     getBypassList() {
-        if (this.bypassWhitelist) {
-            return [...NON_ROUTABLE_NETS, ...this.bypassWhitelist];
+        if (this.bypassList) {
+            return [...NON_ROUTABLE_NETS, ...this.bypassList];
         }
         return [...NON_ROUTABLE_NETS];
     }
 
-    setBypassWhitelist = async (whitelist) => {
-        this.bypassWhitelist = whitelist;
+    setBypassList = async (exclusions) => {
+        this.bypassList = exclusions;
         await this.applyConfig();
     };
 

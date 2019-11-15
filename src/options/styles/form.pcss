@@ -1,0 +1,134 @@
+.form {
+    &--error {
+        & .form__input {
+            border: 1px solid var(--red);
+        }
+    }
+
+    &__group {
+        position: relative;
+        width: 100%;
+
+        &--settings {
+            display: flex;
+            padding: 5px 7px 15px 45px;
+        }
+    }
+
+    &__input {
+        width: 100%;
+        height: 40px;
+        padding: 10px 15px;
+        font-family: var(--font-stack);
+        font-size: 1.4rem;
+        border-radius: 6px;
+        border: 1px solid var(--gray88);
+        outline: none;
+
+        &::placeholder {
+            font-size: 1.4rem;
+            color: var(--grayD8);
+        }
+
+        &:focus,
+        &:active {
+            border-color: var(--gray-base);
+        }
+
+        &--transparent {
+            width: 100%;
+            height: initial;
+            padding: 0 0 2px;
+            font-size: 1.2rem;
+            color: var(--gray-base);
+            border: 0;
+            border-radius: 0;
+            background-color: transparent;
+
+            &:focus,
+            &:active {
+                border-color: transparent;
+            }
+        }
+    }
+
+    &__submit {
+        &--icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border: 0;
+            border-radius: 0;
+            color: var(--brand-primary);
+
+            &:hover,
+            &:focus {
+                background-color: var(--grayF3);
+            }
+        }
+    }
+
+    &__label {
+        color: var(--gray88);
+        font-size: 12px;
+        line-height: 16px;
+        display: inline-block;
+        margin-bottom: 8px;
+    }
+
+    &__item {
+        position: relative;
+        margin-bottom: 20px;
+
+        &--error {
+            & .form__input {
+                border: 1px solid var(--red);
+            }
+        }
+    }
+
+    &__item-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__error {
+        width: 100%;
+        margin: -10px 0 -26px;
+        font-size: 1.2rem;
+        text-align: center;
+        color: var(--red);
+    }
+
+    &__text {
+        text-align: center;
+
+        &--login {
+            margin: 35px 0 40px;
+        }
+
+        &--register {
+            margin-top: 35px;
+        }
+    }
+
+    &__link {
+        &--login,
+        &--register {
+            font-size: 1.6rem;
+            vertical-align: baseline;
+        }
+
+        &--recover {
+            font-size: 1.2rem;
+            color: var(--pink);
+        }
+    }
+
+    &__actions {
+        margin-top: 48px;
+    }
+}

@@ -1,0 +1,39 @@
+.checkbox {
+    display: flex;
+    align-items: center;
+
+    &__input {
+        display: none;
+
+        &:checked + .checkbox__label {
+            &:after {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+
+    &__label {
+        position: relative;
+        margin-right: 12px;
+        font-size: 1.2rem;
+        line-height: 1;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    &__edit {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    &__button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        border: 0;
+    }
+}

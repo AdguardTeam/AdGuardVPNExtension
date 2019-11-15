@@ -1,11 +1,13 @@
 import { proxy } from './proxy';
-import settings from './settings';
+import settings from './settings/settings';
 import { MESSAGES_TYPES } from '../lib/constants';
 import browserApi from './browserApi';
+import pJson from '../../package.json';
 
 class AppStatus {
     constructor() {
         this.permissionsError = null;
+        this.appVersion = pJson.version;
     }
 
     setPermissionsError(error) {
@@ -37,6 +39,10 @@ class AppStatus {
         }
 
         return controlStatus;
+    }
+
+    get version() {
+        return this.appVersion;
     }
 }
 

@@ -1,6 +1,6 @@
 {
     "name": "adguard-vpn",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "description": "AdGuard VPN",
     "author": "adguard@adguard.com",
     "license": "LGPL-3.0",
@@ -80,6 +80,7 @@
         "react-dom": "^16.8.6",
         "react-html-parser": "^2.0.2",
         "react-modal": "^3.9.1",
+        "react-router-dom": "^5.1.2",
         "react-simple-maps": "^0.12.1",
         "react-transition-group": "^4.3.0",
         "webextension-polyfill": "^0.4.0"

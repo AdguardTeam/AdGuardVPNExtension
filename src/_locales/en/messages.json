@@ -52,5 +52,77 @@
     },
     "global_error_can_control": {
         "message": "Other extension prevents us from setting up the tunnel. Please disable it in browser settings."
+    },
+    "about_title": {
+        "message": "About"
+    },
+    "account_title": {
+        "message": "Account"
+    },
+    "account_edit": {
+        "message": "Edit"
+    },
+    "account_sign_out": {
+        "message": "Sign out"
+    },
+    "rate_description": {
+        "message": "Hey, we are a team from AdGuard and it is very important for us to know your opinion about our product. Please rate it."
+    },
+    "rate_hide": {
+        "message": "Hide"
+    },
+    "auth_title": {
+        "message": "Get started absolutely free!"
+    },
+    "auth_description": {
+        "message": "Uncompromising online privacy protection. Over 20 Million people have already chosen AdGuard."
+    },
+    "auth_code": {
+        "message": "Code from app:"
+    },
+    "auth_confirm": {
+        "message": "Confirm"
+    },
+    "auth_social": {
+        "message": "Login by social:"
+    },
+    "auth_email": {
+        "message": "Email:"
+    },
+    "auth_password": {
+        "message": "Password:"
+    },
+    "auth_password_repeat": {
+        "message": "Password again:"
+    },
+    "auth_recover": {
+        "message": "Lost it?"
+    },
+    "auth_login": {
+        "message": "Log in"
+    },
+    "auth_account": {
+        "message": "Don’t have an account?"
+    },
+    "auth_register": {
+        "message": "Register"
+    },
+    "eula": {
+        "message": "EULA"
+    },
+    "privacy_policy": {
+        "message": "Privacy Policy"
+    },
+    "settings_title": {
+        "message": "Settings"
+    },
+    "settings_exclusion_add": {
+        "message": "Add an exclusion"
+    },
+    "settings_exclusion_title": {
+        "message": "Exclusions:"
+    },
+    "settings_exclusion_expect": {
+        "message": "Connect through VPN all sites expect of:"
     }
 }
