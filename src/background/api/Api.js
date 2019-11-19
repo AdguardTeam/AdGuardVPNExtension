@@ -1,18 +1,6 @@
 import axios from 'axios';
-import { NETWORK_ERROR } from '../../lib/constants';
-
-class ApiError extends Error {
-    constructor(status, ...params) {
-        super(...params);
-        // Maintains proper stack trace for where our error was thrown (only available on V8)
-        if (Error.captureStackTrace) {
-            Error.captureStackTrace(this, ApiError);
-        }
-        this.name = 'ApiError';
-        // Custom debugging information
-        this.status = status;
-    }
-}
+import { ERROR_STATUSES } from '../../lib/constants';
+import CustomError from '../../lib/CustomError';
 
 class Api {
     constructor(baseUrl) {
@@ -30,9 +18,9 @@ class Api {
         } catch (error) {
             const errorPath = `${this.baseUrl}/${path}`;
             if (error.response) {
-                throw new ApiError(error.status, JSON.stringify(error.response.data));
+                throw new CustomError(error.status, JSON.stringify(error.response.data));
             }
-            throw new ApiError(NETWORK_ERROR, `${errorPath} | ${error.message || JSON.stringify(error)}`);
+            throw new CustomError(ERROR_STATUSES.NETWORK_ERROR, `${errorPath} | ${error.message || JSON.stringify(error)}`);
         }
     }
 }

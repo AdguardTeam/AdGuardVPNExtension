@@ -21,7 +21,7 @@ const proxyEnabledHandler = async (value) => {
         try {
             const accessPrefix = await credentials.getAccessPrefix();
             const { host, domainName } = await proxy.setAccessPrefix(accessPrefix);
-            const vpnToken = await credentials.gainVpnToken();
+            const vpnToken = await credentials.gainValidVpnToken();
             await connectivity.setCredentials(host, domainName, vpnToken.token);
             await proxy.turnOn();
             await actions.setIconEnabled();
@@ -61,7 +61,7 @@ const setSetting = async (id, value, force) => {
             return false;
         }
     } else {
-        log.error('There is no handler with id:', id);
+        log.warn('There is no handler with id:', id);
         return false;
     }
 

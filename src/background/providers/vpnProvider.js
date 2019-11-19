@@ -106,6 +106,7 @@ const getVpnExtensionInfo = async (vpnToken) => {
         premium_promo_page: premiumPromoPage,
         premium_promo_enabled: premiumPromoEnabled,
         refresh_tokens: refreshTokens,
+        vpn_failure_page: vpnFailurePage,
     } = info;
 
     return {
@@ -113,6 +114,7 @@ const getVpnExtensionInfo = async (vpnToken) => {
         premiumPromoPage,
         premiumPromoEnabled,
         refreshTokens,
+        vpnFailurePage,
     };
 };
 

@@ -1,23 +1,23 @@
-import credentials from './credentials';
-import appStatus from './appStatus';
-import log from '../lib/logger';
-import { NETWORK_ERROR } from '../lib/constants';
+import credentials from '../credentials';
+import log from '../../lib/logger';
+import { ERROR_STATUSES } from '../../lib/constants';
+import permissionsError from './permissionsError';
 
-const updatePermissions = async () => {
+const checkPermissions = async () => {
     await credentials.getVpnTokenRemote();
     await credentials.gainVpnCredentials(true);
     // if no error, clear permissionError
-    appStatus.setPermissionsError(null);
+    permissionsError.clearError();
     log.info('Permissions were updated successfully');
 };
 
 const updatePermissionsErrorHandler = (error) => {
     log.error('Permissions were not updated due to:', error.message);
     // do not consider network error as a reason to set permission error
-    if (error.status === NETWORK_ERROR) {
+    if (error.status === ERROR_STATUSES.NETWORK_ERROR) {
         return;
     }
-    appStatus.setPermissionsError(error);
+    permissionsError.setError(error);
 };
 
 const scheduler = (periodicFunction, errorHandler) => {
@@ -41,11 +41,12 @@ const scheduler = (periodicFunction, errorHandler) => {
 
 const init = () => {
     log.info('Permissions updater was initiated');
-    scheduler(updatePermissions, updatePermissionsErrorHandler);
+    scheduler(checkPermissions, updatePermissionsErrorHandler);
 };
 
-const permissionsUpdater = {
+const permissionsChecker = {
     init,
+    checkPermissions,
 };
 
-export default permissionsUpdater;
+export default permissionsChecker;

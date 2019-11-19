@@ -1,3 +1,4 @@
+import qs from 'qs';
 import isEqual from 'lodash/isEqual';
 import credentials from './credentials';
 import vpnProvider from './providers/vpnProvider';
@@ -16,7 +17,7 @@ const vpnCache = {
 
 const reconnectEndpoint = async (endpoint) => {
     const { host, domainName } = await proxy.setCurrentEndpoint(endpoint);
-    const vpnToken = await credentials.gainVpnToken();
+    const vpnToken = await credentials.gainValidVpnToken();
     await connectivity.setCredentials(host, domainName, vpnToken.token);
 };
 
@@ -38,7 +39,7 @@ const getClosestEndpointAndReconnect = async (endpoints, currentEndpoint) => {
 const getEndpointsRemotely = async () => {
     let vpnToken;
     try {
-        vpnToken = await credentials.gainVpnToken();
+        vpnToken = await credentials.gainValidVpnToken();
     } catch (e) {
         log.debug('Unable to get vpn token because: ', e.message);
         return null;
@@ -64,11 +65,15 @@ const vpnTokenChanged = (oldVpnToken, newVpnToken) => {
 };
 
 const getVpnInfoRemotely = async () => {
-    const vpnToken = await credentials.gainVpnToken();
-    if (!vpnToken) {
-        log.debug('Can not get vpn info because vpnToken is null');
-        return null;
+    let vpnToken;
+
+    try {
+        vpnToken = await credentials.gainValidVpnToken();
+    } catch (e) {
+        log.debug('Unable to get vpn info because: ', e.message);
+        return;
     }
+
     let vpnInfo = await vpnProvider.getVpnExtensionInfo(vpnToken.token);
     let shouldReconnect = false;
 
@@ -105,7 +110,6 @@ const getVpnInfoRemotely = async () => {
 
     vpnCache.vpnInfo = vpnInfo;
     browserApi.runtime.sendMessage({ type: MESSAGES_TYPES.VPN_INFO_UPDATED, data: vpnInfo });
-    return vpnInfo;
 };
 
 const getVpnInfo = () => {
@@ -175,10 +179,33 @@ const getSelectedEndpoint = async () => {
     return closestEndpoint;
 };
 
+const getVpnFailurePage = async () => {
+    await credentials.gainVpnToken();
+    const vpnToken = await credentials.gainVpnToken();
+
+    // undefined values will be omitted in the querystring
+    const token = (vpnToken && vpnToken.token) || undefined;
+
+    let { vpnInfo } = vpnCache;
+
+    // if no vpn info, then get vpn failure url with empty token
+    if (!vpnInfo) {
+        vpnInfo = await vpnProvider.getVpnExtensionInfo(token);
+    }
+
+    const vpnFailurePage = vpnInfo && vpnInfo.vpnFailurePage;
+    const appId = credentials.getAppId();
+
+    const queryString = qs.stringify({ token, app_id: appId });
+
+    return `${vpnFailurePage}?${queryString}`;
+};
+
 export default {
     getEndpoints,
     getCurrentLocation,
     getVpnInfo,
     getEndpointsRemotely,
     getSelectedEndpoint,
+    getVpnFailurePage,
 };

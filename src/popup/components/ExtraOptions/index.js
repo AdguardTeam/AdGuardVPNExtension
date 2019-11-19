@@ -23,8 +23,9 @@ const ExtraOptions = observer(() => {
     };
 
     const signOut = async () => {
-        uiStore.closeOptionsModal();
         await authStore.deauthenticate();
+        await settingsStore.clearPermissionError();
+        uiStore.closeOptionsModal();
     };
 
     const handleRateUs = async () => {

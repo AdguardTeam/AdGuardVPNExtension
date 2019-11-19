@@ -1,0 +1,52 @@
+.global-error {
+    padding: 40px;
+    height: calc(100% - var(--header-height));
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--gray-base);
+
+    &__content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+    &__icon {
+        width: 30px;
+        height: 30px;
+        margin: 0 auto 20px;
+        background-image: url(../../../../src/assets/images/icon-warning.svg);
+    }
+
+    &__title {
+        margin-bottom: 3px;
+        font-weight: bold;
+    }
+
+    &__actions {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__button {
+        font-size: 16px;
+        font-weight: 700;
+        font-family: "Akkurat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, Arial, sans-serif;
+
+        &:first-child {
+            margin-bottom: 20px;
+        }
+
+        &.button--m {
+            padding: 8px 10px;
+        }
+    }
+}
+
+
+

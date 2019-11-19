@@ -124,5 +124,17 @@
     },
     "settings_exclusion_expect": {
         "message": "Connect through VPN all sites expect of:"
+    },
+    "global_error_title": {
+        "message": "Error occurred"
+    },
+    "global_error_description": {
+        "message": "Please contact us if you keep seeing this message"
+    },
+    "global_error_learn_more": {
+        "message": "Learn more"
+    },
+    "global_error_try_again": {
+        "message": "Try again"
     }
 }

@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import './header.pcss';
 import rootStore from '../../stores';
 
-const Header = observer(({ authenticated }) => {
+const Header = observer(({ authenticated, globalError }) => {
     const { uiStore } = useContext(rootStore);
 
     const handleOpenModal = () => {
@@ -14,7 +14,7 @@ const Header = observer(({ authenticated }) => {
 
     const headerClass = classnames({
         header: true,
-        'header--main': authenticated,
+        'header--main': authenticated && !globalError,
     });
 
     return (

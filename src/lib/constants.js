@@ -11,8 +11,11 @@ export const MESSAGES_TYPES = {
     VPN_INFO_UPDATED: 'vpnInfo.updated',
     AUTHENTICATE_SOCIAL: 'authenticate.social',
     AUTHENTICATE_SOCIAL_SUCCESS: 'authenticate.social.success',
-    PERMISSIONS_UPDATE_ERROR: 'permissions.update.error',
+    PERMISSIONS_ERROR_UPDATE: 'permissions.error.update',
     EXCLUSION_UPDATED: 'exclusions.updated',
 };
 
-export const NETWORK_ERROR = 'network.error';
+export const ERROR_STATUSES = {
+    NETWORK_ERROR: 'network.error',
+    INVALID_TOKEN_ERROR: 'invalid.token.error',
+};
