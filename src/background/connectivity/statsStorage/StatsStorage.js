@@ -21,9 +21,14 @@ export default class StatsStorage {
      * @returns {Promise<void>}
      */
     async saveStats(domain, stats) {
+        if (!stats) {
+            return;
+        }
+
         const { downloaded, uploaded } = stats;
         const key = this.getKey(domain);
-        const storageStats = (await this.storage.get(key)) || this.EMPTY_STATS;
+        const statsFromStorage = await this.storage.get(key);
+        const storageStats = statsFromStorage || this.EMPTY_STATS;
 
         let {
             total: { downloaded: totalDownloaded, uploaded: totalUploaded },
