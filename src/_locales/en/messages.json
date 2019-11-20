@@ -136,5 +136,8 @@
     },
     "global_error_try_again": {
         "message": "Try again"
+    },
+    "authentication_successful_social": {
+        "message": "Successfully authenticated! You can open AdGuard VPN and switch on the tunnel."
     }
 }
