@@ -1,17 +1,20 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { observer } from 'mobx-react';
 import browser from 'webextension-polyfill';
 
+import useOutsideClick from '../../helpers/useOutsideClick';
 import rootStore from '../../../stores';
 
 const Form = observer(() => {
+    const ref = useRef();
     const { settingsStore } = useContext(rootStore);
     const {
         isFormVisible,
         exclusionsInput,
         addToExclusions,
         onExclusionsInputChange,
-        toggleExclusionsForm,
+        openExclusionsForm,
+        closeExclusionsForm,
     } = settingsStore;
 
     const submitHandler = async (e) => {
@@ -24,16 +27,20 @@ const Form = observer(() => {
         onExclusionsInputChange(value);
     };
 
-    const toggleForm = () => {
-        toggleExclusionsForm();
+    const openForm = () => {
+        openExclusionsForm();
     };
 
+    useOutsideClick(ref, () => {
+        closeExclusionsForm();
+    });
+
     return (
-        <div className="settings__form">
+        <div className="settings__form" ref={ref}>
             <button
                 type="button"
                 className="button button--icon button--medium settings__add"
-                onClick={toggleForm}
+                onClick={openForm}
             >
                 <svg className="icon icon--button icon--checked settings__add-icon">
                     <use xlinkHref="#plus" />
@@ -42,7 +49,10 @@ const Form = observer(() => {
             </button>
 
             {isFormVisible && (
-                <form onSubmit={submitHandler} className="form__group form__group--settings">
+                <form
+                    onSubmit={submitHandler}
+                    className="form__group form__group--settings"
+                >
                     <input
                         type="text"
                         className="form__input form__input--transparent"

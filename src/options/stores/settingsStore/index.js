@@ -72,8 +72,13 @@ class SettingsStore {
     };
 
     @action
-    toggleExclusionsForm = () => {
-        this.isFormVisible = !this.isFormVisible;
+    openExclusionsForm = () => {
+        this.isFormVisible = true;
+    };
+
+    @action
+    closeExclusionsForm = () => {
+        this.isFormVisible = false;
         this.exclusionsInput = '';
     };
 
