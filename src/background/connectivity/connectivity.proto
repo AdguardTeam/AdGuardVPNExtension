@@ -19,9 +19,15 @@ message WsConnectivityInfoMsg {
     float bytesUploaded = 8;
 }
 
+message WsConnectivityErrorMsg {
+    string code = 1;
+    string payload = 2;
+}
+
 message WsConnectivityMsg {
     oneof payload {
         WsPingMsg pingMsg = 1;
         WsConnectivityInfoMsg connectivityInfoMsg = 2;
+        WsConnectivityErrorMsg connectivityErrorMsg = 3;
     }
 }

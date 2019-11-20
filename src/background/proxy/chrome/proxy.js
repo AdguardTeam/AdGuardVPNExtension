@@ -1,7 +1,7 @@
 import browser from 'webextension-polyfill';
 import log from '../../../lib/logger';
 import storage from '../../storage';
-import { NON_ROUTABLE_NETS } from '../../ip';
+import { NON_ROUTABLE_NETS } from '../../routability/nonRoutableNets';
 import { MESSAGES_TYPES } from '../../../lib/constants';
 import browserApi from '../../browserApi';
 

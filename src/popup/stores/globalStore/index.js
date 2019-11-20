@@ -6,6 +6,7 @@ import {
 
 import { REQUEST_STATUSES } from '../consts';
 import log from '../../../lib/logger';
+import tabs from '../../../background/tabs';
 
 class globalStore {
     @observable initStatus = REQUEST_STATUSES.PENDING;
@@ -20,7 +21,8 @@ class globalStore {
 
         this.setInitStatus(REQUEST_STATUSES.PENDING);
 
-        const currentTab = await adguard.tabs.getCurrent();
+        // Used tab api because calling tab api from background returns wrong result
+        const currentTab = await tabs.getCurrent();
 
         try {
             const popupData = await adguard.popupData.getPopupDataRetry(currentTab.url, retryNum);

@@ -8,6 +8,7 @@ import { renderTemplate, stringToUint8Array } from '../../lib/string-utils';
 import log from '../../lib/logger';
 import statsStorage from './statsStorage';
 import credentials from '../credentials';
+import notifier from '../../lib/notifier';
 
 const CONNECTIVITY_STATE = {
     WORKING: 'working',
@@ -126,11 +127,26 @@ class Connectivity {
         });
     };
 
+    handleErrorMsg = (connectivityErrorMsg) => {
+        const NON_ROUTABLE_CODE = 'NON_ROUTABLE';
+
+        const { code, payload } = connectivityErrorMsg;
+
+        if (code === NON_ROUTABLE_CODE) {
+            notifier.notifyListeners(notifier.types.ADD_NON_ROUTABLE_DOMAIN, payload);
+        }
+    };
+
     startGettingConnectivityInfo = async () => {
         const messageHandler = async (event) => {
-            const { connectivityInfoMsg } = this.decodeMessage(event.data);
+            const { connectivityInfoMsg, connectivityErrorMsg } = this.decodeMessage(event.data);
+
             if (connectivityInfoMsg) {
                 await this.updateConnectivityInfo(connectivityInfoMsg);
+            }
+
+            if (connectivityErrorMsg) {
+                this.handleErrorMsg(connectivityErrorMsg);
             }
         };
 

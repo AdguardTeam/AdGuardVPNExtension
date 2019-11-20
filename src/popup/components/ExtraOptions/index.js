@@ -12,9 +12,9 @@ const ExtraOptions = observer(() => {
         await adguard.actions.openOptionsPage();
     };
 
-    const addToWhitelist = async () => {
+    const addToExclusions = async () => {
         uiStore.closeOptionsModal();
-        await settingsStore.addToWhitelist();
+        await settingsStore.addToExclusions();
     };
 
     const removeFromWhitelist = async () => {
@@ -53,7 +53,7 @@ const ExtraOptions = observer(() => {
             <button
                 type="button"
                 className="button button--inline extra-options__item"
-                onClick={addToWhitelist}
+                onClick={addToExclusions}
             >
                 Add this site to exclusions
             </button>

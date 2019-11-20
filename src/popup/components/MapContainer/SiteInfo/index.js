@@ -6,11 +6,15 @@ import rootStore from '../../../stores';
 const SiteInfo = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
+    const addToExclusions = async () => {
+        await settingsStore.addToExclusions();
+    };
+
     const removeFromExclusions = async () => {
         await settingsStore.removeFromExclusions();
     };
 
-    if (!settingsStore.isRoutable) {
+    if (settingsStore.displayNonRoutable) {
         return (
             <Modal
                 isOpen
@@ -30,7 +34,7 @@ const SiteInfo = observer(() => {
                     <a
                         type="button"
                         className="button popup-info__link"
-                        onClick={removeFromExclusions}
+                        onClick={addToExclusions}
                     >
                         add the site to exclusions
                     </a>

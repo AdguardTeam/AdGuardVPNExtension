@@ -89,7 +89,9 @@ export class Notifier {
 
 const types = {
     SETTING_UPDATED: 'event.update.setting.value',
+    ADD_NON_ROUTABLE_DOMAIN: 'event.add.non.routable.domain',
 };
+
 const notifier = new Notifier(types);
 
 export default notifier;

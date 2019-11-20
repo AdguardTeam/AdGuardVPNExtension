@@ -39,16 +39,16 @@ describe('modules bound with exclusions work as expected', () => {
     });
 
     it('should be called once after initialization', async () => {
-        expect(proxy.setBypassList).toHaveBeenCalledTimes(0);
+        expect(proxy.setBypassList).toHaveBeenCalledTimes(1);
         expect(settings.getExclusions).toHaveBeenCalledTimes(1);
         await sleep(110);
-        expect(settings.setExclusions).toHaveBeenCalledTimes(0);
+        expect(settings.setExclusions).toHaveBeenCalledTimes(1);
     });
 
     it('should be called once when adding to index', async () => {
         await exclusions.addToExclusions('http://example.org');
-        expect(proxy.setBypassList).toHaveBeenCalledTimes(1);
-        expect(settings.setExclusions).toHaveBeenCalledTimes(1);
+        expect(proxy.setBypassList).toHaveBeenCalledTimes(2);
+        expect(settings.setExclusions).toHaveBeenCalledTimes(2);
         expect(settings.getExclusions).toHaveBeenCalledTimes(1);
     });
 
@@ -56,8 +56,8 @@ describe('modules bound with exclusions work as expected', () => {
         const exclusionsList = exclusions.getExclusions();
         const exclusion = exclusionsList[0];
         await exclusions.removeFromExclusions(exclusion.id);
-        expect(proxy.setBypassList).toHaveBeenCalledTimes(2);
-        expect(settings.setExclusions).toHaveBeenCalledTimes(2);
+        expect(proxy.setBypassList).toHaveBeenCalledTimes(3);
+        expect(settings.setExclusions).toHaveBeenCalledTimes(3);
         expect(settings.getExclusions).toHaveBeenCalledTimes(1);
     });
 });

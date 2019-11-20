@@ -151,7 +151,7 @@ class SettingsStore {
     };
 
     @action
-    addToWhitelist = async () => {
+    addToExclusions = async () => {
         try {
             await adguard.exclusions.addToExclusions(this.currentTabHostname);
             runInAction(() => {
@@ -247,6 +247,11 @@ class SettingsStore {
     @action clearPermissionError() {
         this.globalError = null;
         adguard.permissionsError.clearError();
+    }
+
+    @computed
+    get displayNonRoutable() {
+        return !this.isRoutable && !this.isExcluded;
     }
 }
 

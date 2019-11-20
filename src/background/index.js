@@ -14,9 +14,9 @@ import credentials from './credentials';
 import permissionsChecker from './permissionsChecker/permissionsChecker';
 import permissionsError from './permissionsChecker/permissionsError';
 import popupData from './popupData';
-import ip from './ip';
 import log from '../lib/logger';
 import storage from './storage';
+import nonRoutable from './routability/nonRoutable';
 
 global.adguard = {
     settings,
@@ -30,12 +30,12 @@ global.adguard = {
     appStatus,
     authCache,
     vpn,
-    ip,
     popupData,
     storage,
     permissionsChecker,
     permissionsError,
     credentials,
+    nonRoutable,
 };
 
 (async () => {
@@ -43,6 +43,7 @@ global.adguard = {
     await credentials.init();
     await exclusions.init();
     await settings.applySettings(); // we have to apply settings when credentials are ready
+    await nonRoutable.init();
     messaging.init();
     permissionsChecker.init();
     log.info('Extension loaded all necessary modules');

@@ -1,8 +1,8 @@
 import vpn from './vpn';
 import log from '../lib/logger';
 import { SETTINGS_IDS } from '../lib/constants';
-import ip from './ip';
 import permissionsError from './permissionsChecker/permissionsError';
+import nonRoutable from './routability/nonRoutable';
 
 const getPopupData = async (url) => {
     const isAuthenticated = await adguard.auth.isAuthenticated();
@@ -11,8 +11,8 @@ const getPopupData = async (url) => {
             isAuthenticated,
         };
     }
-    const isRoutable = ip.isUrlRoutable(url);
     const error = permissionsError.getError();
+    const isRoutable = nonRoutable.isUrlRoutable(url);
     const vpnInfo = vpn.getVpnInfo();
     const endpoints = vpn.getEndpoints();
     const selectedEndpoint = await vpn.getSelectedEndpoint();

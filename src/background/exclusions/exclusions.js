@@ -12,6 +12,8 @@ export default class Exclusions {
 
     init = async () => {
         this.exclusions = this.settings.getExclusions();
+        // update bypass list in proxy on init
+        await this.handleExclusionsUpdate();
         log.info('Exclusions list is ready');
     };
 

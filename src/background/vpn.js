@@ -92,7 +92,7 @@ const getVpnInfoRemotely = async () => {
 
     const currentEndpoint = await proxy.getCurrentEndpoint();
 
-    if (currentEndpoint) {
+    if ((endpoints && endpoints.length > 0) && currentEndpoint) {
         const currentEndpointInEndpoints = currentEndpoint && Object.keys(endpoints)
             .some(endpoint => endpoint === currentEndpoint.id);
 
