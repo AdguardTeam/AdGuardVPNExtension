@@ -1,4 +1,5 @@
 import sortBy from 'lodash/sortBy';
+import getDistance from 'geolib/es/getDistance';
 
 /**
  * Returns the value of the property from the cache,
@@ -38,35 +39,6 @@ export const getHostname = (url) => {
 };
 
 /**
- * Convert Degrees to Radians
- * @param {number} deg
- * @returns {number}
- */
-const Deg2Rad = (deg) => {
-    return deg * Math.PI / 180;
-};
-
-
-/**
- * Return the distance between two points
- * @param {[number, number]} coordinates1
- * @param {[number, number]} coordinates2
- * @returns {number}
- */
-const getDistance = (coordinates1, coordinates2) => {
-    let [lat1, lon1] = coordinates1;
-    let [lat2, lon2] = coordinates2;
-    lat1 = Deg2Rad(lat1);
-    lat2 = Deg2Rad(lat2);
-    lon1 = Deg2Rad(lon1);
-    lon2 = Deg2Rad(lon2);
-    const EARTH_RADIUS_KM = 6371;
-    const x = (lon2 - lon1) * Math.cos((lat1 + lat2) / 2);
-    const y = (lat2 - lat1);
-    return Math.sqrt(x * x + y * y) * EARTH_RADIUS_KM;
-};
-
-/**
  * Returns the closest endpoint to the current coordinates
  * @param {{ coordinates: [number, number] }} currentEndpoint
  * @param {{ coordinates: [number, number] }[]} endpoints
@@ -74,10 +46,18 @@ const getDistance = (coordinates1, coordinates2) => {
  */
 export const getClosestEndpointByCoordinates = (currentEndpoint, endpoints) => {
     const { coordinates } = currentEndpoint;
-    const distances = endpoints.map(endpoint => ({
-        endpoint,
-        distance: getDistance(coordinates, endpoint.coordinates),
-    }));
+    const distances = endpoints.map((endpoint) => {
+        const [lon1, lat1] = coordinates;
+        const [lon2, lat2] = endpoint.coordinates;
+
+        const currentCoordinates = { longitude: lon1, latitude: lat1 };
+        const endpointCoordinates = { longitude: lon2, latitude: lat2 };
+
+        return {
+            endpoint,
+            distance: getDistance(currentCoordinates, endpointCoordinates),
+        };
+    });
     const sortedDistances = sortBy(distances, 'distance');
     return sortedDistances[0].endpoint;
 };

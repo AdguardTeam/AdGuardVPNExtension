@@ -68,6 +68,7 @@
         "@babel/runtime": "^7.5.5",
         "classnames": "^2.2.6",
         "crypto-js": "^3.1.9-1",
+        "geolib": "^3.1.0",
         "ipaddr.js": "^1.9.1",
         "lodash": "^4.17.15",
         "mobx": "^5.13.0",
