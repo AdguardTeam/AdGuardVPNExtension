@@ -7,7 +7,7 @@ import {
 
 import tabs from '../../../background/tabs';
 import log from '../../../lib/logger';
-import { getHostname, formatBytes } from '../../../lib/helpers';
+import { getHostname, getProtocol, formatBytes } from '../../../lib/helpers';
 import { SETTINGS_IDS } from '../../../lib/constants';
 import { REQUEST_STATUSES } from '../consts';
 
@@ -33,6 +33,13 @@ class SettingsStore {
     @observable isRoutable = true;
 
     @observable globalError;
+
+    @observable canBeExcluded = true;
+
+    @action
+    prohibitExclusion = () => {
+        this.canBeExcluded = false;
+    };
 
     @observable checkPermissionsState = REQUEST_STATUSES.DONE;
 
@@ -191,8 +198,20 @@ class SettingsStore {
     getCurrentTabHostname = async () => {
         try {
             const result = await tabs.getCurrent();
+            const { url } = result;
             runInAction(() => {
-                this.currentTabHostname = getHostname(result.url);
+                const hostname = getHostname(url);
+                const protocol = getProtocol(url);
+                this.currentTabHostname = hostname;
+
+                switch (protocol) {
+                    case 'https:':
+                        break;
+                    case 'http:':
+                        break;
+                    default:
+                        this.prohibitExclusion();
+                }
             });
         } catch (e) {
             log.error(e);

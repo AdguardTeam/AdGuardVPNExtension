@@ -1,6 +1,7 @@
 import {
     lazyGet,
     getHostname,
+    getProtocol,
     getClosestEndpointByCoordinates,
     formatBytes,
 } from '../src/lib/helpers';
@@ -44,9 +45,36 @@ describe('getHostname', () => {
         expect(getHostname('http://example.com'))
             .toEqual('example.com');
     });
-    it('should return the argument if it is incorrect URL', () => {
-        expect(getHostname('/en-US/docs'))
-            .toEqual('/en-US/docs');
+    it('should return the hostname if it is NOT from URL in HTTP or HTTPS', () => {
+        expect(getHostname('chrome://version'))
+            .toEqual('version');
+    });
+    it('should return the argument if it is incorrect URL - null', () => {
+        expect(getHostname(null))
+            .toEqual(null);
+    });
+    it('should return the argument if it is incorrect URL - undefined', () => {
+        expect(getHostname(undefined))
+            .toEqual(undefined);
+    });
+});
+
+describe('getProtocol', () => {
+    it('should return hostname if invoked with URL HTTPS', () => {
+        expect(getProtocol('https://adguard.com/ru/welcome.html'))
+            .toEqual('https:');
+    });
+    it('should return hostname if invoked with URL HTTP', () => {
+        expect(getProtocol('http://example.com'))
+            .toEqual('http:');
+    });
+    it('should return the argument if it is incorrect URL - null', () => {
+        expect(getProtocol(null))
+            .toEqual(null);
+    });
+    it('should return the argument if it is incorrect URL - undefined', () => {
+        expect(getProtocol(undefined))
+            .toEqual(undefined);
     });
 });
 

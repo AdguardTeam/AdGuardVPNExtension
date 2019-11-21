@@ -26,7 +26,7 @@ export const lazyGet = (obj, prop, func) => {
  * @param {string} url
  * @returns {string}
  */
-export const getHostname = (url) => {
+const getUrlProperties = (url) => {
     let urlObj;
 
     try {
@@ -35,7 +35,30 @@ export const getHostname = (url) => {
         return url;
     }
 
-    return urlObj.hostname;
+    return urlObj;
+};
+
+/**
+ * Returns hostname of url if it was correct, otherwise return input url
+ * @param {string} url
+ * @returns {string}
+ */
+export const getHostname = (url) => {
+    const urlObj = getUrlProperties(url);
+    const hostname = (urlObj && urlObj.hostname) ? urlObj.hostname : url;
+    return hostname;
+};
+
+/**
+ * Returns protocol of url if it was correct, otherwise return input url
+ * @param {string} url
+ * @returns {string}
+ */
+
+export const getProtocol = (url) => {
+    const urlObj = getUrlProperties(url);
+    const protocol = (urlObj && urlObj.protocol) ? urlObj.protocol : url;
+    return protocol;
 };
 
 /**
@@ -69,7 +92,10 @@ export const getClosestEndpointByCoordinates = (currentEndpoint, endpoints) => {
  */
 export const formatBytes = (bytes) => {
     if (!bytes) {
-        return { value: '0.0', unit: 'KB' };
+        return {
+            value: '0.0',
+            unit: 'KB',
+        };
     }
 
     const DECIMALS = 1;
@@ -78,7 +104,11 @@ export const formatBytes = (bytes) => {
 
     const i = Math.floor(Math.log(bytes) / Math.log(k)) || 1;
 
-    return { value: parseFloat(bytes / (k ** i)).toFixed(DECIMALS), unit: UNITS[i] };
+    return {
+        value: parseFloat(bytes / (k ** i))
+            .toFixed(DECIMALS),
+        unit: UNITS[i],
+    };
 };
 
 /**
