@@ -1,5 +1,6 @@
 import nanoid from 'nanoid';
 import md5 from 'crypto-js/md5';
+import isEqual from 'lodash/isEqual';
 import accountProvider from './providers/accountProvider';
 import auth from './auth';
 import storage from './storage';
@@ -7,6 +8,8 @@ import log from '../lib/logger';
 import vpnProvider from './providers/vpnProvider';
 import { ERROR_STATUSES } from '../lib/constants';
 import permissionsError from './permissionsChecker/permissionsError';
+import notifier from '../lib/notifier';
+import { proxy } from './proxy';
 
 class Credentials {
     VPN_TOKEN_KEY = 'credentials.token';
@@ -148,13 +151,24 @@ class Credentials {
 
         vpnCredentials = await this.getVpnCredentialsRemote();
         if (this.areCredentialsValid(vpnCredentials)) {
-            this.vpnCredentials = vpnCredentials;
-            await storage.set(this.VPN_CREDENTIALS_KEY, vpnCredentials);
+            if (!isEqual(vpnCredentials, this.vpnCredentials)) {
+                this.vpnCredentials = vpnCredentials;
+                await storage.set(this.VPN_CREDENTIALS_KEY, vpnCredentials);
+                await this.updateProxyCredentials();
+                notifier.notifyListeners(notifier.types.CREDENTIALS_UPDATED);
+                log.info('Got new credentials');
+            }
+
             return vpnCredentials;
         }
 
         throw new Error('Unable to get vpn credentials');
     }
+
+    updateProxyCredentials = async () => {
+        const accessPrefix = await this.getAccessPrefix();
+        await proxy.setAccessPrefix(accessPrefix);
+    };
 
     async getAccessPrefix() {
         const { token } = await this.gainValidVpnToken();
@@ -206,7 +220,7 @@ class Credentials {
         try {
             this.appId = await this.gainAppId();
             this.vpnToken = await this.gainVpnToken(true);
-            this.vpnCredentials = await this.getVpnCredentialsRemote();
+            this.vpnCredentials = await this.gainVpnCredentials(true);
             this.currentUsername = await this.fetchUsername();
         } catch (e) {
             log.debug('Unable to init credential, reason:', e.message);

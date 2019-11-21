@@ -102,10 +102,10 @@ const getVpnInfoRemotely = async () => {
             await getClosestEndpointAndReconnect(endpoints, currentEndpoint);
             shouldReconnect = false;
         }
+    }
 
-        if (shouldReconnect) {
-            await getClosestEndpointAndReconnect(endpoints, currentEndpoint);
-        }
+    if (shouldReconnect) {
+        await getClosestEndpointAndReconnect(endpoints, currentEndpoint);
     }
 
     vpnCache.vpnInfo = vpnInfo;

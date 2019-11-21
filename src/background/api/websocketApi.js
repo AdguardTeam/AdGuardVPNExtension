@@ -28,7 +28,7 @@ class WebsocketApi {
         });
 
         this.onError((event) => {
-            log.warn('Error happened with socket:', event);
+            log.warn('Error occurred with socket event:', event);
         });
 
         this.onOpen((event) => {

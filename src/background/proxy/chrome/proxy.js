@@ -158,6 +158,21 @@ class ExtensionProxy {
         return { host, domainName };
     };
 
+    getHost = () => {
+        if (!this.currentHost) {
+            return null;
+        }
+        return this.currentHost;
+    };
+
+    getDomainName = async () => {
+        const endpoint = await this.getCurrentEndpoint();
+        if (!endpoint) {
+            return null;
+        }
+        return endpoint.domainName;
+    };
+
     setCurrentEndpoint = async (endpoint) => {
         this.currentEndpoint = endpoint;
         const { domainName } = this.currentEndpoint;
