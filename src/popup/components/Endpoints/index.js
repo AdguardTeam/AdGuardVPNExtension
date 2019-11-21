@@ -16,6 +16,10 @@ const Endpoints = observer(() => {
         if (settingsStore.proxyEnabled && prevId !== vpnStore.selectedEndpoint.id) {
             await settingsStore.disableProxy();
             await settingsStore.enableProxy();
+            return;
+        }
+        if (!settingsStore.proxyEnabled) {
+            await settingsStore.setProxyState(true);
         }
     };
 
