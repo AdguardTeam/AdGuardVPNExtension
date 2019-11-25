@@ -31,8 +31,8 @@ export default class StatsStorage {
         const storageStats = statsFromStorage || this.EMPTY_STATS;
 
         let {
-            total: { downloaded: totalDownloaded, uploaded: totalUploaded },
-            current: { downloaded: currentDownloaded, uploaded: currentUploaded },
+            total: { downloaded: totalDownloaded = 0, uploaded: totalUploaded = 0 },
+            current: { downloaded: currentDownloaded = 0, uploaded: currentUploaded = 0 },
         } = storageStats;
 
         // If we've just start the session then reset the current traffic counter
@@ -59,9 +59,11 @@ export default class StatsStorage {
 
     async getStats(domain) {
         const key = this.getKey(domain);
+        const statsFromStorage = await this.storage.get(key) || this.EMPTY_STATS;
+
         const {
             total: { downloaded, uploaded },
-        } = await this.storage.get(key) || this.EMPTY_STATS;
+        } = statsFromStorage;
         return { downloaded, uploaded };
     }
 

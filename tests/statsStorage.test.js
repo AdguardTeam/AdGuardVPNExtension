@@ -13,9 +13,9 @@ const storageApi = (() => {
     };
 })();
 
-const statsStorage = new StatsStorage(storageApi);
-
 describe('stats storage', () => {
+    const statsStorage = new StatsStorage(storageApi);
+
     it('saves to storage and retrieves from storage', async () => {
         const expDownloaded = 100;
         const expUploaded = 50;
@@ -122,5 +122,42 @@ describe('stats storage', () => {
         stats = await statsStorage.getStats('example.org');
         expect(stats.downloaded).toEqual(0);
         expect(stats.uploaded).toEqual(0);
+    });
+});
+
+describe('stats storage sets default values', () => {
+    const storageApi = (() => {
+        const storage = {};
+
+        let isFirstGetCall = true;
+        return {
+            set: jest.fn((key, data) => {
+                storage[key] = data;
+                return Promise.resolve();
+            }),
+            get: jest.fn((key) => {
+                const data = storage[key];
+                const existingData = isFirstGetCall
+                    ? { current: { downloaded: 500, uploaded: 500 }, total: {} }
+                    : {};
+                isFirstGetCall = false;
+                return Promise.resolve({ ...data, ...existingData });
+            }),
+        };
+    })();
+
+    const statsStorage = new StatsStorage(storageApi);
+
+    it('sets default values correctly', async () => {
+        const downloaded = 1000;
+        const uploaded = 1000;
+        await statsStorage.saveStats('example.org', {
+            downloaded,
+            uploaded,
+        });
+
+        const stats = await statsStorage.getStats('example.org');
+        expect(stats.downloaded).toEqual(downloaded);
+        expect(stats.uploaded).toEqual(uploaded);
     });
 });
