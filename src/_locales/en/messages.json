@@ -139,5 +139,14 @@
     },
     "authentication_successful_social": {
         "message": "Successfully authenticated! You can open AdGuard VPN and switch on the tunnel."
+    },
+    "control_error_title": {
+        "message": "Oops! An error occurred."
+    },
+    "control_error_description": {
+        "message": "It looks like another Chrome extension is trying to control your connection. Please disable the other extension in your browser."
+    },
+    "control_error_disable": {
+        "message": "disable"
     }
 }

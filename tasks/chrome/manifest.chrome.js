@@ -9,5 +9,6 @@ module.exports = {
         'activeTab',
         '*://*.adguard.com/*',
         '*://*.adguard.io/*',
+        'management',
     ],
 };

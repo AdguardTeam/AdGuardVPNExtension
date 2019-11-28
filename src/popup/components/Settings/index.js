@@ -1,8 +1,5 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
-import browser from 'webextension-polyfill';
-import ReactHtmlParser from 'react-html-parser';
-import Warning from './Warning';
 import rootStore from '../../stores';
 
 import './settings.pcss';
@@ -30,42 +27,8 @@ const Settings = observer(() => {
 
     const {
         switcherEnabled,
-        globalError,
         proxyEnabled,
-        canControlProxy,
     } = settingsStore;
-
-    const renderWarning = () => {
-        if (!canControlProxy) {
-            const warningBlock = (
-                <div>
-                    { browser.i18n.getMessage('global_error_can_control') }
-                </div>
-            );
-            return (
-                <Warning
-                    mod="exclamation"
-                    desc={warningBlock}
-                />
-            );
-        }
-
-        if (globalError) {
-            const errorMsg = browser.i18n.getMessage('global_error_message');
-            const errorBlock = (
-                <div>
-                    { ReactHtmlParser(errorMsg) }
-                </div>
-            );
-            return (
-                <Warning
-                    mod="exclamation"
-                    desc={errorBlock}
-                />
-            );
-        }
-        return null;
-    };
 
     return (
         <div className="settings">
@@ -79,7 +42,6 @@ const Settings = observer(() => {
                     checked={switcherEnabled}
                 />
             </div>
-            {renderWarning()}
         </div>
     );
 });

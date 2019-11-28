@@ -17,6 +17,7 @@ import popupData from './popupData';
 import log from '../lib/logger';
 import storage from './storage';
 import nonRoutable from './routability/nonRoutable';
+import management from './management';
 
 global.adguard = {
     settings,
@@ -36,6 +37,7 @@ global.adguard = {
     permissionsError,
     credentials,
     nonRoutable,
+    management,
 };
 
 (async () => {

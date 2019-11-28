@@ -272,6 +272,17 @@ class SettingsStore {
     get displayNonRoutable() {
         return !this.isRoutable && !this.isExcluded;
     }
+
+    @action
+    async disableOtherProxyExtensions() {
+        await adguard.management.turnOffProxyExtensions();
+        await this.checkProxyControl();
+    }
+
+    @computed
+    get hasGlobalError() {
+        return !!this.globalError;
+    }
 }
 
 export default SettingsStore;

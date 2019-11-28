@@ -92,36 +92,35 @@ const App = observer(() => {
                 {requestProcessState === REQUEST_STATUSES.PENDING
                 && <Preloader isOpen={requestProcessState === REQUEST_STATUSES.PENDING} />
                 }
-                <Header authenticated={authenticated} />
+                <Header showMenuButton={authenticated} />
                 <Authentication />
                 <Icons />
             </Fragment>
         );
     }
 
-    const { canControlProxy, globalError, checkPermissionsState } = settingsStore;
+    const { canControlProxy, hasGlobalError, checkPermissionsState } = settingsStore;
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
 
-    if (globalError) {
+    if (hasGlobalError || !canControlProxy) {
+        const showMenuButton = authenticated && canControlProxy;
         return (
             <Fragment>
                 {checkPermissionsState === REQUEST_STATUSES.PENDING
                 && <Preloader isOpen={checkPermissionsState === REQUEST_STATUSES.PENDING} />
                 }
                 {isOpenOptionsModal && <ExtraOptions />}
-                <Header authenticated={authenticated} globalError={globalError} />
+                <Header showMenuButton={showMenuButton} />
                 <Icons />
                 <GlobalError />
             </Fragment>
         );
     }
 
-    const showWarning = !canControlProxy;
-
     return (
         <Fragment>
             {isOpenOptionsModal && <ExtraOptions />}
-            <Header authenticated={authenticated} />
+            <Header showMenuButton={authenticated} />
             <CSSTransition
                 in={isOpenEndpointsSearch}
                 timeout={300}
@@ -133,8 +132,8 @@ const App = observer(() => {
             <MapContainer />
             <Settings />
             <div className="footer">
-                {!showWarning && <Stats />}
-                {!showWarning && <InfoMessage />}
+                <Stats />
+                <InfoMessage />
             </div>
             <Icons />
         </Fragment>

@@ -1,30 +1,24 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
-import classnames from 'classnames';
 
 import './header.pcss';
 import rootStore from '../../stores';
 
-const Header = observer(({ authenticated, globalError }) => {
+const Header = observer(({ showMenuButton }) => {
     const { uiStore } = useContext(rootStore);
 
     const handleOpenModal = () => {
         uiStore.openOptionsModal(true);
     };
 
-    const headerClass = classnames({
-        header: true,
-        'header--main': authenticated && !globalError,
-    });
-
     return (
-        <div className={headerClass}>
+        <div className="header header--main">
             <div className="header__title">
                 <svg className="header__logo">
                     <use xlinkHref="#logo" />
                 </svg>
             </div>
-            {authenticated && (
+            {showMenuButton && (
                 <button
                     className="button header__setting"
                     type="button"
