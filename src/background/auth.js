@@ -151,7 +151,7 @@ class Auth {
         if (accessTokenData && accessTokenData.accessToken) {
             return accessTokenData.accessToken;
         }
-        throw new Error('user is not authenticated yet');
+        throw new Error('User is not authenticated yet');
     }
 }
 

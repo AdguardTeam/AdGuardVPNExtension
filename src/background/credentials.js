@@ -1,6 +1,7 @@
 import nanoid from 'nanoid';
 import md5 from 'crypto-js/md5';
 import isEqual from 'lodash/isEqual';
+import lodashGet from 'lodash/get';
 import accountProvider from './providers/accountProvider';
 import auth from './auth';
 import storage from './storage';
@@ -105,8 +106,8 @@ class Credentials {
             const vpnToken = await this.gainValidVpnToken();
             credentials = await vpnProvider.getVpnCredentials(appId, vpnToken.token);
         } catch (e) {
-            log.error(e.message);
-            throw new Error(`Unable to get vpn credentials, reason: ${e.message}`);
+            log.error(`Unable to get vpn credentials remotely: ${e.message}`);
+            throw e;
         }
         return credentials;
     }
@@ -116,7 +117,7 @@ class Credentials {
         try {
             vpnCredentials = await storage.get(this.VPN_CREDENTIALS_KEY);
         } catch (e) {
-            log.error(`Unable to get vpn credentials from storage, reason: ${e.message}`);
+            log.error(`Unable to get vpn credentials from storage: ${e.message}`);
             throw e;
         }
         return vpnCredentials;
@@ -133,6 +134,26 @@ class Credentials {
         }
         return true;
     }
+
+    /**
+     * Checks if credential strings are equal
+     * credentials object example:
+     * const credentialsObject = {
+     *       licenseStatus: "VALID",
+     *       result: {
+     *           credentials: "fcofp9dhhve2nxjx",
+     *           expiresInSec: 13825,
+     *       },
+     *       timeExpiresSec: 4728282135
+     *   }
+     * @param newCred
+     * @param oldCred
+     * @returns {boolean}
+     */
+    areEqual = (newCred, oldCred) => {
+        const path = 'result.credentials';
+        return lodashGet(newCred, path) === lodashGet(oldCred, path);
+    };
 
     async gainVpnCredentials(remoteForce) {
         let vpnCredentials;
@@ -151,7 +172,7 @@ class Credentials {
 
         vpnCredentials = await this.getVpnCredentialsRemote();
         if (this.areCredentialsValid(vpnCredentials)) {
-            if (!isEqual(vpnCredentials, this.vpnCredentials)) {
+            if (!this.areEqual(vpnCredentials, this.vpnCredentials)) {
                 this.vpnCredentials = vpnCredentials;
                 await storage.set(this.VPN_CREDENTIALS_KEY, vpnCredentials);
                 await this.updateProxyCredentials();
@@ -162,7 +183,7 @@ class Credentials {
             return vpnCredentials;
         }
 
-        throw new Error('Unable to get vpn credentials');
+        throw new Error('Unable to gain vpn credentials');
     }
 
     updateProxyCredentials = async () => {

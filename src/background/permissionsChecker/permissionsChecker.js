@@ -1,7 +1,10 @@
+import throttle from 'lodash/throttle';
 import credentials from '../credentials';
 import log from '../../lib/logger';
 import { ERROR_STATUSES } from '../../lib/constants';
 import permissionsError from './permissionsError';
+
+const CHECK_THROTTLE_TIMEOUT_MS = 60 * 1000;
 
 const updatePermissionsErrorHandler = (error) => {
     log.error('Permissions were not updated due to:', error.message);
@@ -24,7 +27,9 @@ const checkPermissions = async () => {
     }
 };
 
-const scheduler = (periodicFunction) => {
+const throttledCheckPermissions = throttle(checkPermissions, CHECK_THROTTLE_TIMEOUT_MS);
+
+const scheduleCheck = () => {
     const TIME_CHECK_INTERVAL_MS = 5 * 1000; // 5 sec
     const RUN_INTERVAL_MS = 30 * 60 * 1000; // 30 minutes
 
@@ -33,15 +38,27 @@ const scheduler = (periodicFunction) => {
     setInterval(() => {
         const currTime = Date.now();
         if (currTime >= prevCheck + RUN_INTERVAL_MS) {
-            periodicFunction();
+            throttledCheckPermissions();
             prevCheck += RUN_INTERVAL_MS;
         }
     }, TIME_CHECK_INTERVAL_MS);
 };
 
+/**
+ * Listens to connection state change
+ * When browser comes online, updates permissions
+ */
+const handleConnectionChange = () => {
+    window.addEventListener('online', async () => {
+        log.info('Browser switched to online mode');
+        throttledCheckPermissions();
+    });
+};
+
 const init = () => {
     log.info('Permissions updater was initiated');
-    scheduler(checkPermissions);
+    scheduleCheck();
+    handleConnectionChange();
 };
 
 const permissionsChecker = {
