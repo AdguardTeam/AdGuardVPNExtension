@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
+import classnames from 'classnames';
 
 import './header.pcss';
 import rootStore from '../../stores';
@@ -11,8 +12,13 @@ const Header = observer(({ showMenuButton }) => {
         uiStore.openOptionsModal(true);
     };
 
+    const headerClass = classnames({
+        header: true,
+        'header--main': showMenuButton,
+    });
+
     return (
-        <div className="header header--main">
+        <div className={headerClass}>
             <div className="header__title">
                 <svg className="header__logo">
                     <use xlinkHref="#logo" />

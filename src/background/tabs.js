@@ -8,10 +8,6 @@ class Tabs {
         return tabs[0];
     }
 
-    async getPopup() {
-        return browser.browserAction.getPopup();
-    }
-
     async openRecovery() {
         return browser.tabs.create({ url: PASSWORD_RECOVERY_URL });
     }
@@ -27,11 +23,6 @@ class Tabs {
      */
     async closeTab(tabsIds) {
         await browser.tabs.remove(tabsIds);
-    }
-
-    async closePopup() {
-        const popup = await this.getPopup();
-        popup.close();
     }
 
     async openSocialAuthTab(authUrl) {

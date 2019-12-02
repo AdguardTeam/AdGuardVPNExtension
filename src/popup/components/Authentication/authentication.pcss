@@ -1,8 +1,13 @@
 .authentication {
-    padding: 20px 24px 25px 24px;
     height: calc(100% - var(--header-height));
     display: flex;
     flex-direction: column;
+
+    &__container {
+        display: flex;
+        flex-direction: column;
+        padding: 20px 24px 25px 24px;
+    }
 
     &__title {
         font-size: 24px;
@@ -25,10 +30,13 @@
         margin: 0 auto 15px;
         max-width: 190px;
         color: var(--gray88);
+        font-size: 12px;
         text-align: center;
     }
 
     &__privacy-link {
+        font-family: var(--font-stack);
+        font-size: 12px;
         color: inherit;
         background: none;
         border: none;

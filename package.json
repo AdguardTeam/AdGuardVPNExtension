@@ -6,9 +6,9 @@
     "license": "LGPL-3.0",
     "scripts": {
         "lint": "eslint .",
-        "watch": "NODE_ENV=development run-s \"build:chrome --watch\"",
-        "watch:firefox": "NODE_ENV=development run-s \"build:firefox --watch\"",
-        "dev": "NODE_ENV=development run-p build:*",
+        "watch": "NODE_ENV=dev run-p \"build:chrome --watch\" \"build:firefox --watch\"",
+        "watch:firefox": "NODE_ENV=dev run-s \"build:firefox --watch\"",
+        "dev": "NODE_ENV=dev run-p build:*",
         "beta": "NODE_ENV=beta run-p build:*",
         "release": "NODE_ENV=release run-p build:*",
         "build:chrome": "BROWSER=chrome webpack --config tasks/chrome/webpack.chrome.js",

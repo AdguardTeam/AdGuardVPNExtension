@@ -1,0 +1,40 @@
+.social-auth {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--greyf3);
+    height: 60px;
+    padding: 0 15px;
+    margin-top: auto;
+
+    &__title {
+        margin-right: 5px;
+        font-size: 14px;
+        line-height: 19px;
+        color: var(--gray-base);
+    }
+
+    &__button {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 9px;
+        padding: 0;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    &__wrap {
+        width: 25px;
+        height: 25px;
+    }
+
+    &__list {
+        flex-shrink: 0;
+    }
+}

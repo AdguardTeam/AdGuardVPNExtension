@@ -1,16 +1,15 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const { SRC_PATH } = require('./consts');
+const { SRC_PATH, IS_DEV } = require('./consts');
 const { getOutputPathByEnv } = require('./helpers');
 
 const BACKGROUND_PATH = path.resolve(__dirname, SRC_PATH, 'background');
 const OPTIONS_PATH = path.resolve(__dirname, SRC_PATH, 'options');
 const POPUP_PATH = path.resolve(__dirname, SRC_PATH, 'popup');
 const AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/auth.js');
-
-const IS_DEV = process.env.NODE_ENV === 'development';
 
 const BUILD_PATH = '../build';
 const OUTPUT_PATH = getOutputPathByEnv(process.env.NODE_ENV);
@@ -69,6 +68,17 @@ const config = {
         ],
     },
     plugins: [
+        new webpack.NormalModuleReplacementPlugin(/\.\/abstractProxyApi/, ((resource) => {
+            if (process.env.BROWSER === 'firefox') {
+                // eslint-disable-next-line no-param-reassign
+                resource.request = resource.request.replace(/\.\/abstractProxyApi/, './firefox/proxyApi');
+            } else if (process.env.BROWSER === 'chrome' || process.env.BROWSER === 'edge') {
+                // eslint-disable-next-line no-param-reassign
+                resource.request = resource.request.replace(/\.\/abstractProxyApi/, './chrome/proxyApi');
+            } else {
+                throw new Error(`There is no proxy api for browser: ${process.env.BROWSER}`);
+            }
+        })),
         new CleanWebpackPlugin(cleanOptions),
         new CopyWebpackPlugin([
             {

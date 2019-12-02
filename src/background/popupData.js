@@ -47,6 +47,10 @@ const getPopupDataRetry = async (url, retryNum = 1, retryDelay = 100) => {
     const { vpnInfo, endpoints, selectedEndpoint } = data;
     if (!vpnInfo || !endpoints || !selectedEndpoint) {
         if (retryNum <= 1) {
+            // it may be useful to disconnect proxy if we can't get data
+            if (data.isProxyEnabled) {
+                await adguard.settings.disableProxy();
+            }
             throw new Error(`Unable to get data in ${retryCounter} retries`);
         }
         await sleep(retryDelay);

@@ -201,7 +201,7 @@ class AuthStore {
 
     @action openSocialAuth = async (social) => {
         await adguard.auth.startSocialAuth(social);
-        await adguard.tabs.closePopup();
+        window.close();
     };
 
     @action switchStep = (step) => {

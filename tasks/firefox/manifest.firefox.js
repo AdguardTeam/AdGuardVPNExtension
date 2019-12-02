@@ -1,7 +1,9 @@
+const { ENVS } = require('../consts');
+
 const envMap = {
-    development: 'adguardadblockerdev@adguard.com',
-    beta: 'adguardadblockerbeta@adguard.com',
-    release: 'adguardadblocker@adguard.com',
+    [ENVS.DEV]: 'adguardadblockerdev@adguard.com',
+    [ENVS.BETA]: 'adguardadblockerbeta@adguard.com',
+    [ENVS.RELEASE]: 'adguardadblocker@adguard.com',
 };
 
 module.exports = {
@@ -20,14 +22,12 @@ module.exports = {
         open_in_tab: true,
     },
     permissions: [
-        'tabs',
         'storage',
         'unlimitedStorage',
         'proxy',
         'notifications',
         'activeTab',
-        '*://*.adguard.com/*',
-        '*://*.adguard.io/*',
+        '<all_urls>',
         'management',
     ],
 };

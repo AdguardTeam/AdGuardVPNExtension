@@ -6,6 +6,7 @@ const pJson = require('../../package');
 const common = require('../webpack.common');
 const { updateManifest } = require('../helpers');
 const chromeManifestDiff = require('./manifest.chrome');
+const { ENVS } = require('../consts');
 
 const CHROME_PATH = 'chrome';
 
@@ -18,11 +19,11 @@ const plugins = [new CopyWebpackPlugin([
     },
 ])];
 
-if (process.env.NODE_ENV === 'beta') {
+if (process.env.NODE_ENV === ENVS.BETA) {
     plugins.push(
         new ZipWebpackPlugin({
             path: '../',
-            filename: `chrome-beta-${pJson.version}.zip`,
+            filename: `chrome-${ENVS.BETA}-${pJson.version}.zip`,
         })
     );
 }
