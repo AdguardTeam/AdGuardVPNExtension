@@ -1,11 +1,1 @@
-{
-    "name": {
-        "message": "AdGuard VPN расширение"
-    },
-    "description": {
-        "message": "Расширение предоставляющее VPN услуги"
-    },
-    "short_name": {
-        "message": "AdGuard VPN"
-    }
-}
+{}

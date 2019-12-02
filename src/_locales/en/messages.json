@@ -123,7 +123,7 @@
         "message": "Exclusions:"
     },
     "settings_exclusion_expect": {
-        "message": "Connect through VPN all sites expect of:"
+        "message": "Connect through VPN all sites except of"
     },
     "global_error_title": {
         "message": "Error occurred"
