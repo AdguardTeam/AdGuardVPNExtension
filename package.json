@@ -19,6 +19,12 @@
         "test:watch": "jest --watch",
         "locales:upload": "LOCALES=UPLOAD node tasks/locales.js"
     },
+    "husky": {
+        "hooks": {
+            "pre-commit": "yarn lint",
+            "pre-push": "yarn test"
+        }
+    },
     "devDependencies": {
         "@babel/cli": "^7.5.5",
         "@babel/core": "^7.6.0",
@@ -44,6 +50,7 @@
         "file-loader": "^4.1.0",
         "form-data": "^2.5.0",
         "html-webpack-plugin": "^3.2.0",
+        "husky": "^3.1.0",
         "jest": "^24.9.0",
         "jest-puppeteer": "^4.3.0",
         "loader-utils": "^1.2.3",

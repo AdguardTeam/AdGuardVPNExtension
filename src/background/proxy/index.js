@@ -103,8 +103,6 @@ class ExtensionProxy {
         this.updateConfig();
         if (this.isActive) {
             await this.turnOn();
-        } else {
-            await this.turnOff();
         }
     }
 

@@ -1,11 +1,9 @@
 import browser from 'webextension-polyfill';
 import uniqBy from 'lodash/uniqBy';
 import { vpnApi } from '../api';
-import log from '../../lib/logger';
 
 const getEndpoints = async (vpnToken) => {
     const endpointsObj = await vpnApi.getEndpoints(vpnToken);
-    log.info(endpointsObj);
     const { endpoints } = endpointsObj;
     const uniqEndpoints = uniqBy(endpoints, 'city_name');
     return uniqEndpoints.reduce((acc, endpoint) => {

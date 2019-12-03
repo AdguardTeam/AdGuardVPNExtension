@@ -56,7 +56,12 @@ class Connectivity {
         this.domainName = domainName;
         this.host = host;
 
-        this.stop();
+        let restart = false;
+        if (this.state === CONNECTIVITY_STATE.WORKING) {
+            this.stop();
+            restart = true;
+        }
+
         const websocketUrl = renderTemplate(WS_API_URL_TEMPLATE, { host });
 
         try {
@@ -67,7 +72,11 @@ class Connectivity {
         }
 
         this.state = CONNECTIVITY_STATE.WORKING;
-        await this.start();
+
+        if (restart) {
+            log.info('Restart connectivity module');
+            await this.start();
+        }
     }
 
     start = async () => {
@@ -151,7 +160,6 @@ class Connectivity {
     };
 
     updateConnectivityInfo = async (stats) => {
-        log.info(stats);
         await statsStorage.saveStats(this.domainName, {
             downloaded: stats.bytesDownloaded,
             uploaded: stats.bytesUploaded,

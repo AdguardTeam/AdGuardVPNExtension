@@ -1,6 +1,5 @@
 import nanoid from 'nanoid';
 import md5 from 'crypto-js/md5';
-import isEqual from 'lodash/isEqual';
 import lodashGet from 'lodash/get';
 import accountProvider from './providers/accountProvider';
 import auth from './auth';

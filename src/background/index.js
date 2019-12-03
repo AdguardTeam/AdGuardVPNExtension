@@ -48,5 +48,5 @@ global.adguard = {
     await nonRoutable.init();
     messaging.init();
     permissionsChecker.init();
-    log.info('Extension loaded all necessary modules');
+    log.info('Extension is ready!');
 })();

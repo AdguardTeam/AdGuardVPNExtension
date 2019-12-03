@@ -40,7 +40,7 @@ const renderCityMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMa
         }
         if (isSelectedEndpointMarker(marker, selectedEndpoint)) {
             const markerClassNames = classnames({
-                'map__marker': true,
+                map__marker: true,
                 'map__marker--enabled': globalProxyEnabled,
             });
 
