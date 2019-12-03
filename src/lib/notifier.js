@@ -91,6 +91,8 @@ const types = {
     SETTING_UPDATED: 'event.update.setting.value',
     ADD_NON_ROUTABLE_DOMAIN: 'event.add.non.routable.domain',
     CREDENTIALS_UPDATED: 'event.credentials.updated',
+    USER_AUTHENTICATED: 'event.authentication.authenticated',
+    USER_DEAUTHENTICATED: 'event.authentication.deauthenticated',
 };
 
 const notifier = new Notifier(types);

@@ -148,7 +148,6 @@ class Connectivity {
     };
 
     updatePingValue = (ping) => {
-        log.info(ping);
         this.ping = ping;
     };
 

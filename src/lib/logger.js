@@ -7,6 +7,13 @@ const LEVELS = {
     DEBUG: 4,
 };
 
+const getLocalTimeString = (date) => {
+    const ONE_MINUTE_MS = 60 * 1000;
+    const timeZoneOffsetMs = date.getTimezoneOffset() * ONE_MINUTE_MS;
+    const localTime = new Date(date - timeZoneOffsetMs);
+    return localTime.toISOString().replace('Z', '');
+};
+
 const print = (level, method, args) => {
     // check log level
     if (LEVELS[CURRENT_LEVEL] < LEVELS[level]) {
@@ -16,8 +23,7 @@ const print = (level, method, args) => {
         return;
     }
 
-    const now = new Date();
-    const formatted = `${now.toISOString()}:`;
+    const formatted = getLocalTimeString(new Date());
     // eslint-disable-next-line no-console
     console[method](formatted, ...args);
 };

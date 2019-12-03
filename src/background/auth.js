@@ -16,19 +16,21 @@ import {
 } from './config';
 import browserApi from './browserApi';
 import { MESSAGES_TYPES } from '../lib/constants';
+import log from '../lib/logger';
+import notifier from '../lib/notifier';
 
 class Auth {
     socialAuthState = null;
 
     async authenticate(credentials) {
-        let accessTokenData;
+        let accessToken;
         try {
-            accessTokenData = await authProvider.getAccessToken(credentials);
+            accessToken = await authProvider.getAccessToken(credentials);
         } catch (e) {
             return JSON.parse(e.message);
         }
 
-        await storage.set(AUTH_ACCESS_TOKEN_KEY, accessTokenData);
+        await this.setAccessToken(accessToken);
 
         return { status: 'ok' };
     }
@@ -92,7 +94,7 @@ class Auth {
         } = data;
 
         if (state && state === this.socialAuthState) {
-            await storage.set(AUTH_ACCESS_TOKEN_KEY, {
+            await this.setAccessToken({
                 accessToken,
                 expiresIn,
                 tokenType,
@@ -122,6 +124,7 @@ class Auth {
 
         // set proxy settings to default
         await proxy.resetSettings();
+        notifier.notifyListeners(notifier.types.USER_DEAUTHENTICATED);
     }
 
     async register(credentials) {
@@ -139,19 +142,42 @@ class Auth {
         }
 
         if (accessToken) {
-            await storage.set(AUTH_ACCESS_TOKEN_KEY, accessToken);
+            await this.setAccessToken(accessToken);
             return { status: 'ok' };
         }
 
         return { error: browser.i18n.getMessage('global_error_message') };
     }
 
+    async setAccessToken(accessToken) {
+        this.accessTokenData = accessToken;
+        await storage.set(AUTH_ACCESS_TOKEN_KEY, accessToken);
+        notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
+    }
+
     async getAccessToken() {
+        if (this.accessTokenData && this.accessTokenData.accessToken) {
+            return this.accessTokenData.accessToken;
+        }
+
+        // if no access token, than try to get it from storage
         const accessTokenData = await storage.get(AUTH_ACCESS_TOKEN_KEY);
         if (accessTokenData && accessTokenData.accessToken) {
             return accessTokenData.accessToken;
         }
-        throw new Error('User is not authenticated yet');
+
+        // if no access token throw error
+        throw new Error('No access token, user is not authenticated');
+    }
+
+    async init() {
+        const accessTokenData = await storage.get(AUTH_ACCESS_TOKEN_KEY);
+        if (!accessTokenData || !accessTokenData.accessToken) {
+            return;
+        }
+        this.accessTokenData = accessTokenData;
+        notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
+        log.info('Authentication module is ready');
     }
 }
 

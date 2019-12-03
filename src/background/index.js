@@ -41,12 +41,13 @@ global.adguard = {
 };
 
 (async () => {
+    permissionsChecker.init(); // should be initiated before auth module
+    await auth.init();
     await settings.init();
     await credentials.init();
     await exclusions.init();
     await settings.applySettings(); // we have to apply settings when credentials are ready
     await nonRoutable.init();
     messaging.init();
-    permissionsChecker.init();
-    log.info('Extension is ready!');
+    log.info('Extension loaded all necessary modules');
 })();

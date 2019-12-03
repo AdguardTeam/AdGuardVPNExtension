@@ -3,6 +3,7 @@ import credentials from '../credentials';
 import log from '../../lib/logger';
 import { ERROR_STATUSES } from '../../lib/constants';
 import permissionsError from './permissionsError';
+import notifier from '../../lib/notifier';
 
 const CHECK_THROTTLE_TIMEOUT_MS = 60 * 1000;
 
@@ -29,19 +30,35 @@ const checkPermissions = async () => {
 
 const throttledCheckPermissions = throttle(checkPermissions, CHECK_THROTTLE_TIMEOUT_MS);
 
-const scheduleCheck = () => {
+let intervalId = null;
+
+const startChecker = () => {
+    log.info('Permissions interval checker started');
+
     const TIME_CHECK_INTERVAL_MS = 5 * 1000; // 5 sec
     const RUN_INTERVAL_MS = 30 * 60 * 1000; // 30 minutes
 
     let prevCheck = Date.now();
 
-    setInterval(() => {
+    if (intervalId) {
+        clearInterval(intervalId);
+    }
+
+    intervalId = setInterval(() => {
         const currTime = Date.now();
         if (currTime >= prevCheck + RUN_INTERVAL_MS) {
             throttledCheckPermissions();
             prevCheck += RUN_INTERVAL_MS;
         }
     }, TIME_CHECK_INTERVAL_MS);
+};
+
+const stopChecker = () => {
+    if (intervalId) {
+        log.info('Permissions interval checker stopped');
+        clearInterval(intervalId);
+        intervalId = null;
+    }
 };
 
 /**
@@ -55,10 +72,21 @@ const handleConnectionChange = () => {
     });
 };
 
+const handleUserAuthentication = () => {
+    permissionsError.clearError();
+    startChecker();
+};
+
+const handleUserDeauthentication = () => {
+    permissionsError.clearError();
+    stopChecker();
+};
+
 const init = () => {
-    log.info('Permissions updater was initiated');
-    scheduleCheck();
+    notifier.addSpecifiedListener(notifier.types.USER_AUTHENTICATED, handleUserAuthentication);
+    notifier.addSpecifiedListener(notifier.types.USER_DEAUTHENTICATED, handleUserDeauthentication);
     handleConnectionChange();
+    log.info('Permissions checker module initiated');
 };
 
 const permissionsChecker = {
