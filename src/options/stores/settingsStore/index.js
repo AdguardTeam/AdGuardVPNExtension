@@ -2,17 +2,27 @@ import {
     action,
     observable,
     runInAction,
+    toJS,
 } from 'mobx';
 
 import log from '../../../lib/logger';
 import { SETTINGS_IDS } from '../../../lib/constants';
 
 class SettingsStore {
-    @observable exclusions;
+    @observable exclusions = {
+        [adguard.exclusions.TYPES.WHITELIST]: [],
+        [adguard.exclusions.TYPES.BLACKLIST]: [],
+    };
 
-    @observable exclusionsInput = '';
+    @observable exclusionsInputs = {
+        [adguard.exclusions.TYPES.WHITELIST]: '',
+        [adguard.exclusions.TYPES.BLACKLIST]: '',
+    };
 
-    @observable isFormVisible = false;
+    @observable areFormsVisible = {
+        [adguard.exclusions.TYPES.WHITELIST]: false,
+        [adguard.exclusions.TYPES.BLACKLIST]: false,
+    };
 
     @observable isRateVisible = true;
 
@@ -20,46 +30,57 @@ class SettingsStore {
 
     @observable currentUsername;
 
+    @observable currentExclusionsType;
+
     // Options page actions
     @action
     getExclusions = () => {
-        this.exclusions = adguard.exclusions.getExclusions();
+        const {
+            TYPES, whitelist, blacklist, current,
+        } = adguard.exclusions;
+        this.exclusions[TYPES.BLACKLIST] = blacklist.getExclusionsList();
+        this.exclusions[TYPES.WHITELIST] = whitelist.getExclusionsList();
+        this.currentExclusionsType = current.type;
     };
 
     @action
-    removeFromExclusions = async (hostName) => {
+    removeFromExclusions = async (exclusionsType, hostName) => {
+        const handler = adguard.exclusions.getHandler(exclusionsType);
         try {
-            await adguard.exclusions.removeFromExclusions(hostName);
+            await handler.removeFromExclusions(hostName);
         } catch (e) {
             log.error(e);
         }
     };
 
     @action
-    toggleExclusion = async (id) => {
+    toggleExclusion = async (exclusionsType, id) => {
+        const handler = adguard.exclusions.getHandler(exclusionsType);
         try {
-            await adguard.exclusions.toggleExclusion(id);
+            await handler.toggleExclusion(id);
         } catch (e) {
             log.error(e);
         }
     };
 
     @action
-    renameExclusion = async (id, name) => {
+    renameExclusion = async (exclusionsType, id, name) => {
+        const handler = adguard.exclusions.getHandler(exclusionsType);
         try {
-            await adguard.exclusions.renameExclusion(id, name);
+            await handler.renameExclusion(id, name);
         } catch (e) {
             log.error(e);
         }
     };
 
     @action
-    addToExclusions = async () => {
+    addToExclusions = async (exclusionsType) => {
+        const handler = adguard.exclusions.getHandler(exclusionsType);
         try {
-            await adguard.exclusions.addToExclusions(this.exclusionsInput);
+            await handler.addToExclusions(this.exclusionsInputs[exclusionsType]);
             runInAction(() => {
-                this.isFormVisible = false;
-                this.exclusionsInput = '';
+                this.areFormsVisible[exclusionsType] = false;
+                this.exclusionsInputs[exclusionsType] = '';
             });
         } catch (e) {
             log.error(e);
@@ -67,19 +88,19 @@ class SettingsStore {
     };
 
     @action
-    onExclusionsInputChange = (value) => {
-        this.exclusionsInput = value;
+    onExclusionsInputChange = (exclusionsType, value) => {
+        this.exclusionsInputs[exclusionsType] = value;
     };
 
     @action
-    openExclusionsForm = () => {
-        this.isFormVisible = true;
+    openExclusionsForm = (exclusionsType) => {
+        this.areFormsVisible[exclusionsType] = true;
     };
 
     @action
-    closeExclusionsForm = () => {
-        this.isFormVisible = false;
-        this.exclusionsInput = '';
+    closeExclusionsForm = (exclusionsType) => {
+        this.areFormsVisible[exclusionsType] = false;
+        this.exclusionsInputs[exclusionsType] = '';
     };
 
     @action
@@ -116,6 +137,16 @@ class SettingsStore {
     disableProxy = async () => {
         await adguard.settings.setSetting(SETTINGS_IDS.PROXY_ENABLED, false);
     };
+
+    @action
+    toggleInverted = async (type) => {
+        this.currentExclusionsType = type;
+        await adguard.exclusions.setCurrentHandler(type);
+    };
+
+    exclusionsByType(exclusionsType) {
+        return toJS(this.exclusions[exclusionsType]);
+    }
 }
 
 export default SettingsStore;

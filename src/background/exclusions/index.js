@@ -1,5 +1,5 @@
 import browser from 'webextension-polyfill';
-import Exclusions from './exclusions';
+import Exclusions from './Exclusions';
 import { proxy } from '../proxy';
 import settings from '../settings/settings';
 

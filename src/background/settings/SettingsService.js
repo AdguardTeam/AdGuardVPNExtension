@@ -1,7 +1,8 @@
 import throttle from 'lodash/throttle';
 import log from '../../lib/logger';
+import { SETTINGS_IDS } from '../../lib/constants';
 
-const SCHEME_VERSION = '1';
+const SCHEME_VERSION = '2';
 const THROTTLE_TIMEOUT = 100;
 
 class SettingsService {
@@ -30,6 +31,31 @@ class SettingsService {
         this.settings = this.checkSchemeMatch(settings);
     }
 
+    migrateFrom1to2 = (oldSettings) => {
+        const exclusions = oldSettings[SETTINGS_IDS.EXCLUSIONS];
+
+        const newExclusions = {
+            inverted: false,
+            blacklist: exclusions,
+            whitelist: {},
+        };
+
+        return {
+            ...oldSettings,
+            VERSION: '2',
+            [SETTINGS_IDS.EXCLUSIONS]: newExclusions,
+        };
+    };
+
+    migrationFunctions = [this.migrateFrom1to2];
+
+    applyMigrations(newVersion, oldVersion, oldSettings) {
+        const migrationsToApply = this.migrationFunctions.slice(oldVersion - 1, newVersion - 1);
+        return migrationsToApply.reduce((acc, migration) => {
+            return migration(acc);
+        }, oldSettings);
+    }
+
     /**
      * Currently this method doesn't contain logic of migration,
      * because we never have changed the scheme yet
@@ -38,10 +64,19 @@ class SettingsService {
      */
     migrateSettings(oldSettings) {
         log.info(`Settings were converted from ${oldSettings.VERSION} to ${SCHEME_VERSION}`);
-        const newSettings = {
-            VERSION: SCHEME_VERSION,
-            ...this.defaults,
-        };
+        let newSettings;
+
+        const newVersionInt = Number.parseInt(SCHEME_VERSION, 10);
+        const oldVersionInt = Number.parseInt(oldSettings.VERSION, 10);
+        if (newVersionInt > oldVersionInt) {
+            newSettings = this.applyMigrations(newVersionInt, oldVersionInt, oldSettings);
+        } else {
+            newSettings = {
+                VERSION: SCHEME_VERSION,
+                ...this.defaults,
+            };
+        }
+
         this.persist(newSettings);
         return newSettings;
     }

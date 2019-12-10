@@ -1,5 +1,6 @@
 import browser from 'webextension-polyfill';
 import { CONNECTION_MODES } from '../proxyConsts';
+import pacGenerator from '../../../lib/pacGenerator';
 
 const proxyGet = (config = {}) => new Promise((resolve) => {
     browser.proxy.settings.get(config, (details) => {
@@ -21,6 +22,7 @@ const proxyGet = (config = {}) => new Promise((resolve) => {
  *            host: 'feabca59e815de4faab448d75a628118.do-de-fra1-01.adguard.io',
  *            port: 443,
  *            scheme: 'https',
+ *            inverted: false,
  *        };
  */
 
@@ -29,19 +31,14 @@ const proxyGet = (config = {}) => new Promise((resolve) => {
  * @type {Object}
  *
  * e.g.     const chromeConfig = {
- *               scope: 'regular',
  *               value: {
- *                   mode: 'fixed_servers',
- *                   rules: {
- *                       bypassList: ['0.0.0.0/8', '10.0.0.0/8'],
- *                       singleProxy: {
- *                           host: 'feabca59e815de4faab448d75a628118.do-de-fra1-01.adguard.io',
- *                           port: 443,
- *                           scheme: 'https',
- *                       },
- *                   },
+ *                   mode: "pac_script",
+ *                   pacScript: {
+ *                       data: "function FindProxyForURL() {return 'DIRECT';}"
+ *                   }
  *               },
- *           };
+ *               scope: "regular"
+ *           }
  */
 
 /**
@@ -51,29 +48,25 @@ const proxyGet = (config = {}) => new Promise((resolve) => {
  */
 const toChromeConfig = (proxyConfig) => {
     const {
-        mode, bypassList, host, port, scheme,
+        mode, bypassList, host, port, inverted,
     } = proxyConfig;
+
+    let pacScript;
     if (mode === CONNECTION_MODES.SYSTEM) {
-        return {
-            scope: 'regular',
-            value: {
-                mode,
-            },
-        };
+        pacScript = pacGenerator.generate();
+    } else {
+        const proxyAddress = `${host}:${port}`;
+        pacScript = pacGenerator.generate(proxyAddress, bypassList, inverted);
     }
+
     return {
-        scope: 'regular',
         value: {
-            mode,
-            rules: {
-                bypassList,
-                singleProxy: {
-                    host,
-                    port,
-                    scheme,
-                },
+            mode: 'pac_script',
+            pacScript: {
+                data: pacScript,
             },
         },
+        scope: 'regular',
     };
 };
 

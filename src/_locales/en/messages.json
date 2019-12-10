@@ -120,10 +120,13 @@
         "message": "Add an exclusion"
     },
     "settings_exclusion_title": {
-        "message": "Exclusions:"
+        "message": "Exclusions"
     },
-    "settings_exclusion_expect": {
-        "message": "Connect through VPN all sites except of"
+    "settings_exclusion_blacklist": {
+        "message": "Regular mode. AdGuard VPN does not work on the websites from this list:"
+    },
+    "settings_exclusion_whitelist": {
+        "message": "Selective mode. AdGuard VPN works only on the websites from this list:"
     },
     "global_error_title": {
         "message": "Error occurred"
@@ -148,5 +151,23 @@
     },
     "control_error_disable": {
         "message": "disable"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Enable VPN on this website"
+    },
+    "popup_settings_disable_vpn": {
+        "message": "Disable VPN on this website"
+    },
+    "popup_settings_other_products": {
+        "message": "Other products"
+    },
+    "popup_settings_rate_us": {
+        "message": "Rate us"
+    },
+    "popup_settings_open_settings": {
+        "message": "Settings"
+    },
+    "popup_settings_sign_out": {
+        "message": "Sign out"
     }
 }

@@ -16,6 +16,7 @@ import { CONNECTION_MODES, CONNECTION_TYPE_FIREFOX } from '../proxyConsts';
  *            host: 'feabca59e815de4faab448d75a628118.do-de-fra1-01.adguard.io',
  *            port: 443,
  *            scheme: 'https',
+ *            inverted: false,
  *        };
  */
 
@@ -40,7 +41,7 @@ import { CONNECTION_MODES, CONNECTION_TYPE_FIREFOX } from '../proxyConsts';
  */
 const toFirefoxConfig = (proxyConfig) => {
     const {
-        mode, bypassList, host, port, scheme,
+        mode, bypassList, host, port, scheme, inverted,
     } = proxyConfig;
     if (mode === CONNECTION_MODES.SYSTEM) {
         return {
@@ -50,6 +51,7 @@ const toFirefoxConfig = (proxyConfig) => {
         };
     }
     return {
+        inverted,
         bypassList,
         proxyConfig: {
             type: scheme,
@@ -74,9 +76,14 @@ const isBypassed = (url) => {
 
 
 const proxyHandler = (details) => {
-    if (isBypassed(details.url)) {
+    let shouldBypass = isBypassed(details.url);
+
+    shouldBypass = config.inverted ? !shouldBypass : shouldBypass;
+
+    if (shouldBypass) {
         return directConfig;
     }
+
     return config.proxyConfig;
 };
 

@@ -36,6 +36,8 @@ class SettingsStore {
 
     @observable canBeExcluded = true;
 
+    @observable exclusionsInverted;
+
     @action
     prohibitExclusion = () => {
         this.canBeExcluded = false;
@@ -160,7 +162,7 @@ class SettingsStore {
     @action
     addToExclusions = async () => {
         try {
-            await adguard.exclusions.addToExclusions(this.currentTabHostname);
+            await adguard.exclusions.current.addToExclusions(this.currentTabHostname);
             runInAction(() => {
                 this.isExcluded = true;
             });
@@ -171,8 +173,9 @@ class SettingsStore {
 
     @action
     removeFromExclusions = async () => {
+        const { current } = adguard.exclusions;
         try {
-            await adguard.exclusions.removeFromExclusionsByHostname(this.currentTabHostname);
+            await current.removeFromExclusionsByHostname(this.currentTabHostname);
             runInAction(() => {
                 this.isExcluded = false;
             });
@@ -185,13 +188,19 @@ class SettingsStore {
     checkIsExcluded = async () => {
         try {
             await this.getCurrentTabHostname();
-            const result = adguard.exclusions.isExcluded(this.currentTabHostname);
+            const result = adguard.exclusions.current.isExcluded(this.currentTabHostname);
             runInAction(() => {
                 this.isExcluded = result;
             });
         } catch (e) {
             log.error(e);
         }
+    };
+
+    @action
+    areExclusionsInverted = () => {
+        this.exclusionsInverted = adguard.exclusions.isInverted();
+        return this.exclusionsInverted;
     };
 
     @action

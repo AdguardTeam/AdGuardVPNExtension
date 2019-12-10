@@ -6,6 +6,8 @@ import rootStore from '../../../stores';
 const SiteInfo = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
+    const { canBeExcluded } = settingsStore;
+
     const addToExclusions = async () => {
         await settingsStore.addToExclusions();
     };
@@ -29,14 +31,12 @@ const SiteInfo = observer(() => {
                 <div className="popup-info__desc">
                     You can
                     &nbsp;
-                    {/* eslint-disable-next-line max-len */}
-                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid,jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                     <a
                         type="button"
                         className="button popup-info__link"
                         onClick={addToExclusions}
                     >
-                        add the site to exclusions
+                        add the website to exclusions
                     </a>
                     &nbsp;
                     or switch off the VPN
@@ -45,7 +45,31 @@ const SiteInfo = observer(() => {
         );
     }
 
-    if (settingsStore.isExcluded) {
+    if (!settingsStore.isExcluded && settingsStore.areExclusionsInverted() && canBeExcluded) {
+        return (
+            <Modal
+                isOpen
+                shouldCloseOnOverlayClick
+                className="popup-info__in"
+                overlayClassName="popup-info"
+            >
+                <div className="popup-info__title popup-info__title--domain">{settingsStore.currentTabHostname}</div>
+                <div className="popup-info__status popup-info__status--warning">VPN is disabled on this website</div>
+                <div className="popup-info__desc">
+                    You can &nbsp;
+                    <a
+                        type="button"
+                        className="button popup-info__link"
+                        onClick={addToExclusions}
+                    >
+                        enable VPN on this website
+                    </a>
+                </div>
+            </Modal>
+        );
+    }
+
+    if (settingsStore.isExcluded && !settingsStore.areExclusionsInverted()) {
         return (
             <Modal
                 isOpen
@@ -57,14 +81,12 @@ const SiteInfo = observer(() => {
                 <div className="popup-info__status popup-info__status--succeed">added to exclusions</div>
                 <div className="popup-info__desc">
                     You can &nbsp;
-                    {/* eslint-disable-next-line max-len */}
-                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid,jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                     <a
                         type="button"
                         className="button popup-info__link"
                         onClick={removeFromExclusions}
                     >
-                        remove it from exclusions
+                        enable VPN on this website
                     </a>
                 </div>
             </Modal>

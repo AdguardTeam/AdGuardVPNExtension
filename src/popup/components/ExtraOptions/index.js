@@ -5,6 +5,7 @@ import { observer } from 'mobx-react';
 import rootStore from '../../stores';
 import popupActions from '../../actions/popupActions';
 import { POPUP_STORE_URL, OTHER_PRODUCTS_URL } from '../../../background/config';
+import translator from '../../../lib/translator';
 
 const ExtraOptions = observer(() => {
     const { uiStore, settingsStore, authStore } = useContext(rootStore);
@@ -17,7 +18,7 @@ const ExtraOptions = observer(() => {
         await settingsStore.addToExclusions();
     };
 
-    const removeFromWhitelist = async () => {
+    const removeFromExclusions = async () => {
         uiStore.closeOptionsModal();
         await settingsStore.removeFromExclusions();
     };
@@ -36,26 +37,43 @@ const ExtraOptions = observer(() => {
         await popupActions.openTab(OTHER_PRODUCTS_URL);
     };
 
-    const { isExcluded, canBeExcluded } = settingsStore;
-    const renderWhitelistSetting = (isExcluded) => {
-        if (isExcluded) {
-            return (
-                <button
-                    type="button"
-                    className="button button--inline extra-options__item"
-                    onClick={removeFromWhitelist}
-                >
-                    Remove this site from exclusions
-                </button>
-            );
-        }
+    const { isExcluded, canBeExcluded, areExclusionsInverted } = settingsStore;
+
+    const exclusionsInverted = areExclusionsInverted();
+
+    const renderExclusionButton = (isExcluded, exclusionsInverted) => {
+        const texts = {
+            enable: translator.translate('popup_settings_enable_vpn'),
+            disable: translator.translate('popup_settings_disable_vpn'),
+        };
+
+        const getText = (enable) => {
+            if (enable) {
+                return texts.enable;
+            }
+            return texts.disable;
+        };
+
+        const buttonsInfo = {
+            add: {
+                text: getText(exclusionsInverted),
+                handler: addToExclusions,
+            },
+            remove: {
+                text: getText(!exclusionsInverted),
+                handler: removeFromExclusions,
+            },
+        };
+
+        const button = isExcluded ? buttonsInfo.remove : buttonsInfo.add;
+
         return (
             <button
                 type="button"
                 className="button button--inline extra-options__item"
-                onClick={addToExclusions}
+                onClick={button.handler}
             >
-                Add this site to exclusions
+                {button.text}
             </button>
         );
     };
@@ -68,34 +86,34 @@ const ExtraOptions = observer(() => {
             className="extra-options"
             overlayClassName="extra-options__overlay"
         >
-            {canBeExcluded && renderWhitelistSetting(isExcluded)}
+            {canBeExcluded && renderExclusionButton(isExcluded, exclusionsInverted)}
             <button
                 type="button"
                 className="button button--inline extra-options__item"
                 onClick={handleOtherProductsClick}
             >
-                Other products
+                {translator.translate('popup_settings_other_products')}
             </button>
             <button
                 type="button"
                 className="button button--inline extra-options__item"
                 onClick={handleRateUs}
             >
-                Rate us
+                {translator.translate('popup_settings_rate_us')}
             </button>
             <button
                 type="button"
                 className="button button--inline extra-options__item"
                 onClick={openSettings}
             >
-                Settings
+                {translator.translate('popup_settings_open_settings')}
             </button>
             <button
                 type="button"
                 className="button button--inline extra-options__item"
                 onClick={signOut}
             >
-                Sign out
+                {translator.translate('popup_settings_sign_out')}
             </button>
         </Modal>
     );

@@ -65,6 +65,17 @@ const Icons = () => (
             <rect width="18.5" height="18.5" x="2.75" y="2.75" stroke="currentColor" strokeWidth="1.5" rx="3" />
             <polyline stroke="currentColor" strokeLinecap="round" strokeWidth="1.5" points="0 2.93 3.991 7 10 0" transform="translate(7 9)" />
         </symbol>
+
+        <symbol id="bullet_on" viewBox="0 0 24 24">
+            <g fill="none" fillRule="evenodd" transform="translate(2 2)">
+                <circle cx="10" cy="10" r="9.25" stroke="currentColor" strokeWidth="1.5" />
+                <circle cx="10" cy="10" r="6" fill="currentColor" />
+            </g>
+        </symbol>
+
+        <symbol id="bullet_off" viewBox="0 0 24 24">
+            <circle cx="10" cy="10" r="9.25" fill="none" stroke="#909090" strokeWidth="1.5" transform="translate(2 2)" />
+        </symbol>
     </svg>
 );
 

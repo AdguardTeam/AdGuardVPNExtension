@@ -7,6 +7,9 @@
 
     &__subtitle {
         margin-bottom: 15px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
     }
 
     &__group {
@@ -17,9 +20,26 @@
         }
     }
 
+    &__group-ico {
+        width: 24px;
+        height: 24px;
+        margin-right: 8px;
+        background-repeat: no-repeat;
+        background-position: 50%;
+        color: var(--brand-primary);
+        position: relative;
+        top: -1px;
+    }
+
     &__list,
     &__form {
         margin-left: 30px;
+
+        &--disabled {
+            pointer-events: none;
+            cursor: auto;
+            opacity: 0.5;
+        }
     }
 
     &__list-item {

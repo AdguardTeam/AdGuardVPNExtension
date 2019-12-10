@@ -92,6 +92,7 @@ class ExtensionProxy {
             host: this.currentHost,
             port: 443,
             scheme: 'https',
+            inverted: this.inverted,
         };
     }
 
@@ -113,8 +114,9 @@ class ExtensionProxy {
         return [...NON_ROUTABLE_NETS];
     }
 
-    setBypassList = async (exclusions) => {
+    setBypassList = async (exclusions = [], inverted = false) => {
         this.bypassList = exclusions;
+        this.inverted = inverted;
         await this.applyConfig();
     };
 

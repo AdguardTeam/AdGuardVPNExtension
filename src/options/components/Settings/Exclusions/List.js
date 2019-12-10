@@ -1,29 +1,31 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
+import classnames from 'classnames';
 
 import rootStore from '../../../stores';
 import Checkbox from '../Checkbox';
 
-const Exclusions = observer(() => {
+const List = observer(({ exclusionsType, enabled }) => {
     const { settingsStore } = useContext(rootStore);
-    const {
-        exclusions,
-    } = settingsStore;
+
+    const exclusions = settingsStore.exclusionsByType(exclusionsType);
 
     const handleRemove = id => async () => {
-        await settingsStore.removeFromExclusions(id);
+        await settingsStore.removeFromExclusions(exclusionsType, id);
     };
 
     const handleToggle = id => async () => {
-        await settingsStore.toggleExclusion(id);
+        await settingsStore.toggleExclusion(exclusionsType, id);
     };
 
     const handleRename = id => async (name) => {
-        await settingsStore.renameExclusion(id, name);
+        await settingsStore.renameExclusion(exclusionsType, id, name);
     };
 
+    const listClassName = classnames('settings__list', { 'settings__list--disabled': !enabled });
+
     return (
-        <div className="settings__list">
+        <div className={listClassName}>
             {exclusions.slice().reverse().map(({ id, hostname, enabled }) => (
                 <div className="settings__list-item" key={id}>
                     <Checkbox
@@ -40,4 +42,4 @@ const Exclusions = observer(() => {
     );
 });
 
-export default Exclusions;
+export default List;
