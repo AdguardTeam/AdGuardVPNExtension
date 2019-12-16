@@ -161,13 +161,19 @@
     "popup_settings_other_products": {
         "message": "Other products"
     },
-    "popup_settings_rate_us": {
-        "message": "Rate us"
+    "popup_settings_feedback": {
+        "message": "Feedback"
     },
     "popup_settings_open_settings": {
         "message": "Settings"
     },
     "popup_settings_sign_out": {
         "message": "Sign out"
+    },
+    "popup_feedback_title": {
+        "message": "We'd love to hear your feedback"
+    },
+    "popup_feedback_button": {
+        "message": "Leave feedback"
     }
 }

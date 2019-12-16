@@ -11,6 +11,7 @@ import { CSSTransition } from 'react-transition-group';
 import Header from '../Header';
 import MapContainer from '../MapContainer';
 import InfoMessage from '../InfoMessage';
+import FeedbackMessage from '../InfoMessage/FeedbackMessage';
 import Endpoints from '../Endpoints';
 import Authentication from '../Authentication';
 import ExtraOptions from '../ExtraOptions';
@@ -134,6 +135,7 @@ const App = observer(() => {
             <div className="footer">
                 <Stats />
                 <InfoMessage />
+                <FeedbackMessage />
             </div>
             <Icons />
         </Fragment>

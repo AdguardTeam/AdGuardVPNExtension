@@ -2,11 +2,11 @@ import React, { Fragment, useContext } from 'react';
 import { observer } from 'mobx-react';
 import browser from 'webextension-polyfill';
 
-import { STORE_URL } from '../../../../background/config';
+import { STORE_URL, FEEDBACK_URL } from '../../../../background/config';
 import rootStore from '../../../stores';
 import './rate.pcss';
 
-const RATING_STARS = [1, 2, 3, 4, 5];
+const RATING_STARS = [5, 4, 3, 2, 1];
 
 const Rate = observer(() => {
     const { settingsStore } = useContext(rootStore);
@@ -19,8 +19,14 @@ const Rate = observer(() => {
         hideRate();
     };
 
-    const handleClick = () => {
-        window.open(STORE_URL, '_blank');
+    const handleChange = (e) => {
+        const { value } = e.target;
+
+        if (value && parseInt(value, 10) >= 4) {
+            window.open(STORE_URL, '_blank');
+        } else {
+            window.open(FEEDBACK_URL, '_blank');
+        }
     };
 
     return (
@@ -39,11 +45,11 @@ const Rate = observer(() => {
                                     name="rating"
                                     id={`rating-${star}`}
                                     className="rate__input"
+                                    onChange={handleChange}
                                 />
                                 <label
                                     htmlFor={`rating-${star}`}
                                     className="rate__star"
-                                    onClick={handleClick}
                                 />
                             </Fragment>
                         ))}

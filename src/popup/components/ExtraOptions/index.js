@@ -4,7 +4,7 @@ import './extra-options.pcss';
 import { observer } from 'mobx-react';
 import rootStore from '../../stores';
 import popupActions from '../../actions/popupActions';
-import { POPUP_STORE_URL, OTHER_PRODUCTS_URL } from '../../../background/config';
+import { POPUP_FEEDBACK_URL, OTHER_PRODUCTS_URL } from '../../../background/config';
 import translator from '../../../lib/translator';
 
 const ExtraOptions = observer(() => {
@@ -29,8 +29,8 @@ const ExtraOptions = observer(() => {
         uiStore.closeOptionsModal();
     };
 
-    const handleRateUs = async () => {
-        await popupActions.openTab(POPUP_STORE_URL);
+    const handleFeedback = async () => {
+        await popupActions.openTab(POPUP_FEEDBACK_URL);
     };
 
     const handleOtherProductsClick = async () => {
@@ -97,9 +97,9 @@ const ExtraOptions = observer(() => {
             <button
                 type="button"
                 className="button button--inline extra-options__item"
-                onClick={handleRateUs}
+                onClick={handleFeedback}
             >
-                {translator.translate('popup_settings_rate_us')}
+                {translator.translate('popup_settings_feedback')}
             </button>
             <button
                 type="button"
