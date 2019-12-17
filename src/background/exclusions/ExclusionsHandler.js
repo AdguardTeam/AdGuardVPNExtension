@@ -1,5 +1,6 @@
 import nanoid from 'nanoid';
 import { getHostname } from '../../lib/helpers';
+import log from '../../lib/logger';
 
 export default class ExclusionsHandler {
     constructor(updateHandler, exclusions, type) {
@@ -20,7 +21,13 @@ export default class ExclusionsHandler {
         }
     };
 
-    addToExclusions = async (url) => {
+    /**
+     * Adds url to exclusions
+     * @param {string} url
+     * @param {boolean} enable - enable if was disabled by user
+     * @returns {Promise<void>}
+     */
+    addToExclusions = async (url, enable = true) => {
         const hostname = getHostname(url);
 
         if (!hostname) {
@@ -32,18 +39,25 @@ export default class ExclusionsHandler {
             return exclusion.hostname === hostname;
         });
 
+        let shouldUpdate = false;
+
         // if it was disabled, enable, otherwise add the new one
         if (exclusion) {
-            if (!exclusion.enabled) {
+            if (!exclusion.enabled && enable) {
                 this._exclusions[exclusion.id] = { ...exclusion, enabled: true };
+                shouldUpdate = true;
             }
         } else {
             const id = nanoid();
             exclusion = { id, hostname, enabled: true };
             this._exclusions[id] = exclusion;
+            log.info(`Added to exclusions: ${hostname}`);
+            shouldUpdate = true;
         }
 
-        await this.handleExclusionsUpdate(exclusion);
+        if (shouldUpdate) {
+            await this.handleExclusionsUpdate(exclusion);
+        }
     };
 
     removeFromExclusions = async (id) => {
@@ -56,13 +70,16 @@ export default class ExclusionsHandler {
         await this.handleExclusionsUpdate(exclusion);
     };
 
-    removeFromExclusionsByHostname = async (hostname) => {
+    disableExclusionByHostname = async (hostname) => {
         const exclusion = Object.values(this._exclusions).find((val) => {
             return val.hostname === hostname;
         });
 
-        delete this._exclusions[exclusion.id];
+        if (!exclusion) {
+            return;
+        }
 
+        this._exclusions[exclusion.id] = { ...exclusion, enabled: false };
         await this.handleExclusionsUpdate(exclusion);
     };
 

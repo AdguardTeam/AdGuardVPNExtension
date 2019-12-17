@@ -1,6 +1,7 @@
 import ExclusionsHandler from './ExclusionsHandler';
 import log from '../../lib/logger';
 import { MESSAGES_TYPES } from '../../lib/constants';
+import notifier from '../../lib/notifier';
 
 class Exclusions {
     TYPES = {
@@ -20,7 +21,7 @@ class Exclusions {
         const whitelist = this.exclusions?.[this.TYPES.WHITELIST] ?? {};
         const blacklist = this.exclusions?.[this.TYPES.BLACKLIST] ?? {};
 
-        this.inverted = this.exclusions?.inverted ?? 'false';
+        this.inverted = this.exclusions?.inverted ?? false;
 
         this.whitelistHandler = new ExclusionsHandler(
             this.handleExclusionsUpdate,
@@ -37,6 +38,13 @@ class Exclusions {
         this.currentHandler = this.inverted ? this.whitelistHandler : this.blacklistHandler;
         // update bypass list in proxy on init
         await this.handleExclusionsUpdate();
+
+        notifier.addSpecifiedListener(notifier.types.ADD_NON_ROUTABLE_DOMAIN, (payload) => {
+            if (this.currentHandler.type === this.TYPES.BLACKLIST) {
+                this.currentHandler.addToExclusions(payload, false);
+            }
+        });
+
         log.info('ExclusionsHandler list is ready');
     };
 

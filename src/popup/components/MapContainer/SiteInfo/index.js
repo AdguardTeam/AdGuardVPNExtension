@@ -16,7 +16,41 @@ const SiteInfo = observer(() => {
         await settingsStore.removeFromExclusions();
     };
 
+
     if (settingsStore.displayNonRoutable) {
+        const nonRoutableActionsMap = {
+            regular: (
+                <div className="popup-info__desc">
+                    You can
+                    &nbsp;
+                    <a
+                        type="button"
+                        className="button popup-info__link"
+                        onClick={addToExclusions}
+                    >
+                        add the website to exclusions
+                    </a>
+                </div>
+            ),
+            selective: (
+                <div className="popup-info__desc">
+                    You can
+                    &nbsp;
+                    <a
+                        type="button"
+                        className="button popup-info__link"
+                        onClick={removeFromExclusions}
+                    >
+                        disable VPN on this website
+                    </a>
+                </div>
+            ),
+        };
+
+        const actionRender = settingsStore.areExclusionsInverted()
+            ? nonRoutableActionsMap.selective
+            : nonRoutableActionsMap.regular;
+
         return (
             <Modal
                 isOpen
@@ -28,19 +62,7 @@ const SiteInfo = observer(() => {
                 <div className="popup-info__status popup-info__status--warning">
                     is located in your local network and unaccessible via VPN
                 </div>
-                <div className="popup-info__desc">
-                    You can
-                    &nbsp;
-                    <a
-                        type="button"
-                        className="button popup-info__link"
-                        onClick={addToExclusions}
-                    >
-                        add the website to exclusions
-                    </a>
-                    &nbsp;
-                    or switch off the VPN
-                </div>
+                {actionRender}
             </Modal>
         );
     }
