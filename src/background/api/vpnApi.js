@@ -44,6 +44,20 @@ class VpnApi extends Api {
         };
         return this.makeRequest(path, method, { params });
     };
+
+    TRACK_EXTENSION_INSTALL = { path: 'init/extension', method: 'POST' };
+
+    postExtensionInstalled = (appId) => {
+        const { path, method } = this.TRACK_EXTENSION_INSTALL;
+
+        const config = {
+            data: qs.stringify({
+                app_id: appId,
+            }),
+        };
+
+        return this.makeRequest(path, method, config);
+    }
 }
 
 const vpnApi = new VpnApi(VPN_API_URL);

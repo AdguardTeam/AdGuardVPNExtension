@@ -132,11 +132,16 @@ const getVpnCredentials = async (appId, vpnToken) => {
     };
 };
 
+const postExtensionInstalled = async (appId) => {
+    return vpnApi.postExtensionInstalled(appId);
+};
+
 const vpnProvider = {
     getEndpoints,
     getCurrentLocation,
     getVpnExtensionInfo,
     getVpnCredentials,
+    postExtensionInstalled,
 };
 
 export default vpnProvider;

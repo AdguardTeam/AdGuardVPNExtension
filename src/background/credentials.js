@@ -236,9 +236,33 @@ class Credentials {
         return this.fetchUsername();
     }
 
-    async init() {
+    /**
+     * After every new install or update posts request to the server if wasn't posted yet
+     * @param runInfo
+     * @param appId
+     * @returns {Promise<void>}
+     */
+    async trackInstallation(runInfo, appId) {
+        const TRACKED_INSTALLATIONS_KEY = 'credentials.tracked.installations';
+        if (runInfo.isFirstRun || runInfo.isUpdate) {
+            try {
+                const tracked = await storage.get(TRACKED_INSTALLATIONS_KEY);
+                if (tracked) {
+                    return;
+                }
+                await vpnProvider.postExtensionInstalled(appId);
+                await storage.set(TRACKED_INSTALLATIONS_KEY, true);
+                log.info('Installation successfully tracked');
+            } catch (e) {
+                log.error('Error occurred during track request', e.message);
+            }
+        }
+    }
+
+    async init(runInfo) {
         try {
             this.appId = await this.gainAppId();
+            await this.trackInstallation(runInfo, this.appId);
             this.vpnToken = await this.gainVpnToken(true);
             this.vpnCredentials = await this.gainVpnCredentials(true);
             this.currentUsername = await this.fetchUsername();

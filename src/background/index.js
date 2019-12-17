@@ -18,6 +18,7 @@ import log from '../lib/logger';
 import storage from './storage';
 import nonRoutable from './routability/nonRoutable';
 import management from './management';
+import updateService from './updateService';
 
 global.adguard = {
     settings,
@@ -41,10 +42,12 @@ global.adguard = {
 };
 
 (async () => {
+    const runInfo = await updateService.getRunInfo();
+
     permissionsChecker.init(); // should be initiated before auth module
     await auth.init();
     await settings.init();
-    await credentials.init();
+    await credentials.init(runInfo);
     await exclusions.init();
     await settings.applySettings(); // we have to apply settings when credentials are ready
     await nonRoutable.init();
