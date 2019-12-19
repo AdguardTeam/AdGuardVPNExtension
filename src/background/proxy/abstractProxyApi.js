@@ -12,6 +12,7 @@ const abstractProxyApi = (() => {
     return {
         proxyGet: errorFunction,
         proxySet: errorFunction,
+        proxyClear: errorFunction,
         onProxyError: {
             addListener: errorFunction,
             removeListener: errorFunction,

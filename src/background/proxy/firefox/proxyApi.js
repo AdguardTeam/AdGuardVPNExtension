@@ -87,8 +87,6 @@ const proxyHandler = (details) => {
     return config.proxyConfig;
 };
 
-browser.proxy.onRequest.addListener(proxyHandler, { urls: ['<all_urls>'] });
-
 /**
  * Updates proxy config
  * @param {proxyConfig} proxyConfig
@@ -96,6 +94,10 @@ browser.proxy.onRequest.addListener(proxyHandler, { urls: ['<all_urls>'] });
  */
 const proxySet = async (proxyConfig) => {
     config = toFirefoxConfig(proxyConfig);
+    if (browser.proxy.onRequest.hasListener(proxyHandler)) {
+        return;
+    }
+    browser.proxy.onRequest.addListener(proxyHandler, { urls: ['<all_urls>'] });
 };
 
 const onProxyError = (() => {
@@ -115,9 +117,14 @@ const proxyGet = (config = {}) => new Promise((resolve) => {
     });
 });
 
+const proxyClear = () => {
+    browser.proxy.onRequest.removeListener(proxyHandler);
+};
+
 const proxyApi = {
     proxySet,
     proxyGet,
+    proxyClear,
     onProxyError,
 };
 

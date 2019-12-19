@@ -59,7 +59,7 @@ class ExtensionProxy {
         }
 
         try {
-            await proxyApi.proxySet({mode: CONNECTION_MODES.SYSTEM});
+            await proxyApi.proxyClear();
             this.isActive = false;
         } catch (e) {
             throw new Error(`Failed to turn off proxy due to error: ${e.message}`);
@@ -177,7 +177,7 @@ class ExtensionProxy {
         await storage.remove(CURRENT_ENDPOINT_KEY);
         this.currentHost = DEFAULTS.currentHost;
         this.currentEndpoint = DEFAULTS.currentEndpoint;
-    }
+    };
 }
 
 const proxy = new ExtensionProxy();

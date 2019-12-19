@@ -82,6 +82,16 @@ const proxySet = config => new Promise((resolve) => {
     });
 });
 
+/**
+ * Clears proxy settings
+ * @returns {Promise<void>}
+ */
+const proxyClear = () => new Promise((resolve) => {
+    browser.proxy.settings.clear({}, () => {
+        resolve();
+    });
+});
+
 const onProxyError = (() => {
     return {
         addListener: (cb) => {
@@ -96,6 +106,7 @@ const onProxyError = (() => {
 const proxyApi = {
     proxySet,
     proxyGet,
+    proxyClear,
     onProxyError,
 };
 

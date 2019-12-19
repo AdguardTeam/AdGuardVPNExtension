@@ -1,5 +1,4 @@
 import qs from 'qs';
-import isEmpty from 'lodash/isEmpty';
 import nanoid from 'nanoid';
 import browser from 'webextension-polyfill';
 import { authApi } from './api';
@@ -22,7 +21,16 @@ import notifier from '../lib/notifier';
 class Auth {
     socialAuthState = null;
 
+    accessTokenData = null;
+
     async authenticate(credentials) {
+        // turn off proxy to be sure it is not enabled before authentication
+        try {
+            await proxy.turnOff();
+        } catch (e) {
+            log.error(e.message);
+        }
+
         let accessToken;
         try {
             accessToken = await authProvider.getAccessToken(credentials);
@@ -36,11 +44,25 @@ class Auth {
     }
 
     async isAuthenticated() {
-        const accessToken = await storage.get(AUTH_ACCESS_TOKEN_KEY);
-        return !isEmpty(accessToken);
+        let accessToken;
+
+        try {
+            accessToken = await this.getAccessToken();
+        } catch (e) {
+            return false;
+        }
+
+        return accessToken;
     }
 
     async startSocialAuth(socialProvider) {
+        // turn off proxy to be sure it is not enabled before authentication
+        try {
+            await proxy.turnOff();
+        } catch (e) {
+            log.error(e.message);
+        }
+
         // Generates uniq state id, which will be checked on the auth end
         this.socialAuthState = nanoid();
         const authUrl = this.getImplicitAuthUrl(socialProvider);
@@ -111,15 +133,13 @@ class Auth {
     }
 
     async deauthenticate() {
-        const token = await storage.get(AUTH_ACCESS_TOKEN_KEY);
-
-        // remove token from storage
-        await storage.remove(AUTH_ACCESS_TOKEN_KEY);
-
-        // revoke token from api
-        const accessToken = token && token.accessToken;
-        if (accessToken) {
+        try {
+            const accessToken = await this.getAccessToken();
+            // revoke token from api
+            await this.removeAccessToken();
             await authApi.revokeToken(accessToken);
+        } catch (e) {
+            log.error('Unable to revoke token. Error: ', e.message);
         }
 
         // set proxy settings to default
@@ -155,6 +175,11 @@ class Auth {
         notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
     }
 
+    async removeAccessToken() {
+        this.accessTokenData = null;
+        await storage.remove(AUTH_ACCESS_TOKEN_KEY);
+    }
+
     async getAccessToken() {
         if (this.accessTokenData && this.accessTokenData.accessToken) {
             return this.accessTokenData.accessToken;
@@ -163,10 +188,18 @@ class Auth {
         // if no access token, than try to get it from storage
         const accessTokenData = await storage.get(AUTH_ACCESS_TOKEN_KEY);
         if (accessTokenData && accessTokenData.accessToken) {
+            this.accessTokenData = accessTokenData;
             return accessTokenData.accessToken;
         }
 
-        // if no access token throw error
+        // if no access token found
+        // 1. turn off proxy just in case
+        try {
+            await proxy.turnOff();
+        } catch (e) {
+            log.error(e.message);
+        }
+        // 2. throw error
         throw new Error('No access token, user is not authenticated');
     }
 
