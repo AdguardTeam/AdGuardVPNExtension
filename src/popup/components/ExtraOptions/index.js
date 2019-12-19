@@ -11,6 +11,7 @@ const ExtraOptions = observer(() => {
     const { uiStore, settingsStore, authStore } = useContext(rootStore);
     const openSettings = async () => {
         await adguard.actions.openOptionsPage();
+        window.close();
     };
 
     const addToExclusions = async () => {

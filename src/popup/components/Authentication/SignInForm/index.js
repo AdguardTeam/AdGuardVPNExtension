@@ -53,6 +53,7 @@ const SignInForm = observer(() => {
                             Password:
                         </label>
                         <button
+                            tabIndex={-1}
                             type="button"
                             className="form__inline-btn button button--inline"
                             onClick={popupActions.openRecovery}
