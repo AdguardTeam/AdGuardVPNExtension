@@ -5,7 +5,6 @@ import { WsConnectivityMsg, WsPingMsg } from './connectivity.proto';
 import wsFactory from '../api/websocketApi';
 import { WS_API_URL_TEMPLATE } from '../config';
 import { renderTemplate, stringToUint8Array } from '../../lib/string-utils';
-import log from '../../lib/logger';
 import statsStorage from './statsStorage';
 import credentials from '../credentials';
 import notifier from '../../lib/notifier';
@@ -51,15 +50,15 @@ class Connectivity {
         await this.setCredentials(host, domainName, vpnToken.token);
     };
 
-    async setCredentials(host, domainName, vpnToken) {
+    async setCredentials(host, domainName, vpnToken, shouldStart) {
         this.vpnToken = vpnToken;
         this.domainName = domainName;
         this.host = host;
 
         let restart = false;
         if (this.state === CONNECTIVITY_STATE.WORKING) {
-            this.stop();
             restart = true;
+            await this.stop();
         }
 
         const websocketUrl = renderTemplate(WS_API_URL_TEMPLATE, { host });
@@ -71,15 +70,16 @@ class Connectivity {
             throw new Error(`Failed to create new websocket because of: ${JSON.stringify(e.message)}`);
         }
 
-        this.state = CONNECTIVITY_STATE.WORKING;
-
-        if (restart) {
-            log.info('Restart connectivity module');
+        if (restart || shouldStart) {
             await this.start();
         }
     }
 
     start = async () => {
+        if (this.state !== CONNECTIVITY_STATE.WORKING) {
+            await this.ws.open();
+            this.state = CONNECTIVITY_STATE.WORKING;
+        }
         this.startGettingPing();
         this.startGettingConnectivityInfo();
         // when first ping received we can connect to proxy
@@ -88,12 +88,12 @@ class Connectivity {
         return averagePing;
     };
 
-    stop = () => {
+    stop = async () => {
         if (this.pingGetInterval) {
             clearInterval(this.pingGetInterval);
         }
         if (this.ws) {
-            this.ws.close();
+            await this.ws.close();
         }
         this.ping = null;
         this.state = CONNECTIVITY_STATE.PAUSED;
@@ -152,6 +152,9 @@ class Connectivity {
     };
 
     startGettingPing = async () => {
+        if (this.pingGetInterval) {
+            clearInterval(this.pingGetInterval);
+        }
         this.pingGetInterval = setInterval(async () => {
             const averagePing = await this.getAveragePing();
             this.updatePingValue(averagePing);

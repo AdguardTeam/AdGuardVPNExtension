@@ -259,8 +259,20 @@ class Credentials {
         }
     }
 
+    async handleUserDeauthentication() {
+        await this.persistVpnToken(null);
+        this.vpnCredentials = null;
+        await storage.set(this.VPN_CREDENTIALS_KEY, null);
+        this.currentUsername = null;
+    }
+
     async init(runInfo) {
         try {
+            notifier.addSpecifiedListener(
+                notifier.types.USER_DEAUTHENTICATED,
+                this.handleUserDeauthentication.bind(this)
+            );
+
             this.appId = await this.gainAppId();
             await this.trackInstallation(runInfo, this.appId);
             this.vpnToken = await this.gainVpnToken(true);

@@ -10,18 +10,14 @@ class WebsocketApi {
         connectionTimeout: 4000,
         maxRetries: Infinity,
         maxEnqueuedMessages: Infinity,
-        startClosed: false,
+        startClosed: true,
         debug: false,
     };
 
     constructor(url) {
-        try {
-            const ws = new ReconnectingWebSocket(url, [], this.RECONNECTING_OPTIONS);
-            ws.binaryType = 'arraybuffer';
-            this.ws = ws;
-        } catch (e) {
-            log.error('Unable to create websocket connection: ', e.message);
-        }
+        const ws = new ReconnectingWebSocket(url, [], this.RECONNECTING_OPTIONS);
+        ws.binaryType = 'arraybuffer';
+        this.ws = ws;
 
         this.onClose((event) => {
             log.info('WebSocket closed with next event code:', event.code);
@@ -37,12 +33,28 @@ class WebsocketApi {
         });
     }
 
-    async open() {
+    open() {
+        this.ws.reconnect();
         return new Promise((resolve, reject) => {
-            this.ws.addEventListener('open', resolve);
-            this.onError(() => {
-                reject(new Error('Failed to open websocket connection'));
-            });
+            const removeListeners = () => {
+                /* eslint-disable no-use-before-define */
+                this.ws.removeEventListener('open', resolveHandler);
+                this.ws.removeEventListener('error', rejectHandler);
+                /* eslint-enable no-use-before-define */
+            };
+
+            function rejectHandler() {
+                reject();
+                removeListeners();
+            }
+
+            function resolveHandler() {
+                resolve();
+                removeListeners();
+            }
+
+            this.ws.addEventListener('open', resolveHandler);
+            this.ws.addEventListener('error', rejectHandler);
         });
     }
 
@@ -74,6 +86,32 @@ class WebsocketApi {
 
     close() {
         this.ws.close();
+        return new Promise((resolve, reject) => {
+            // resolve immediately if is closed already
+            if (this.ws.readyState === 3) {
+                resolve();
+            }
+
+            const removeListeners = () => {
+                /* eslint-disable no-use-before-define */
+                this.ws.removeEventListener('error', rejectHandler);
+                this.ws.removeEventListener('close', resolveHandler);
+                /* eslint-enable no-use-before-define */
+            };
+
+            function rejectHandler() {
+                reject();
+                removeListeners();
+            }
+
+            function resolveHandler() {
+                resolve();
+                removeListeners();
+            }
+
+            this.ws.addEventListener('close', resolveHandler);
+            this.ws.addEventListener('error', rejectHandler);
+        });
     }
 }
 
@@ -85,10 +123,9 @@ const wsFactory = (() => {
             return null;
         }
         if (ws) {
-            ws.close();
+            await ws.close();
         }
         ws = new WebsocketApi(url);
-        await ws.open();
         return ws;
     };
 

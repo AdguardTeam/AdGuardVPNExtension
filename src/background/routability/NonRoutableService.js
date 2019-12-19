@@ -16,6 +16,8 @@ class NonRoutableService {
 
     LOCALHOST = 'localhost';
 
+    nonRoutableList = [];
+
     constructor(storage) {
         this.storage = storage;
         this.parsedCIDRList = NON_ROUTABLE_NETS.map(net => ipaddr.parseCIDR(net));
