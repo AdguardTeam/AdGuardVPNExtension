@@ -26,11 +26,14 @@ const proxyEnabledHandler = async (value) => {
             await proxy.turnOn();
             await actions.setIconEnabled();
         } catch (e) {
-            log.error(e.message);
+            await connectivity.stop();
+            await proxy.turnOff();
+            await actions.setIconDisabled();
+            log.error(e && e.message);
             throw e;
         }
     } else {
-        connectivity.stop();
+        await connectivity.stop();
         await proxy.turnOff();
         await actions.setIconDisabled();
     }
@@ -81,7 +84,11 @@ const isProxyEnabled = () => {
 };
 
 const applySettings = async () => {
-    await proxyEnabledHandler(isProxyEnabled());
+    try {
+        await proxyEnabledHandler(isProxyEnabled());
+    } catch (e) {
+        await disableProxy();
+    }
     log.info('Settings were applied');
 };
 

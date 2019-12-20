@@ -34,8 +34,9 @@ class WebsocketApi {
     }
 
     open() {
-        this.ws.reconnect();
         return new Promise((resolve, reject) => {
+            this.ws.reconnect();
+
             const removeListeners = () => {
                 /* eslint-disable no-use-before-define */
                 this.ws.removeEventListener('open', resolveHandler);
@@ -43,8 +44,8 @@ class WebsocketApi {
                 /* eslint-enable no-use-before-define */
             };
 
-            function rejectHandler() {
-                reject();
+            function rejectHandler(e) {
+                reject(e);
                 removeListeners();
             }
 
@@ -85,8 +86,8 @@ class WebsocketApi {
     }
 
     close() {
-        this.ws.close();
         return new Promise((resolve, reject) => {
+            this.ws.close();
             // resolve immediately if is closed already
             if (this.ws.readyState === 3) {
                 resolve();
@@ -99,8 +100,8 @@ class WebsocketApi {
                 /* eslint-enable no-use-before-define */
             };
 
-            function rejectHandler() {
-                reject();
+            function rejectHandler(e) {
+                reject(e);
                 removeListeners();
             }
 

@@ -42,15 +42,19 @@ global.adguard = {
 };
 
 (async () => {
-    const runInfo = await updateService.getRunInfo();
+    try {
+        const runInfo = await updateService.getRunInfo();
 
-    permissionsChecker.init(); // should be initiated before auth module
-    await auth.init();
-    await settings.init();
-    await credentials.init(runInfo);
-    await exclusions.init();
-    await settings.applySettings(); // we have to apply settings when credentials are ready
-    await nonRoutable.init();
-    messaging.init();
-    log.info('Extension loaded all necessary modules');
+        permissionsChecker.init(); // should be initiated before auth module
+        await auth.init();
+        await settings.init();
+        await credentials.init(runInfo);
+        await exclusions.init();
+        await settings.applySettings(); // we have to apply settings when credentials are ready
+        await nonRoutable.init();
+        messaging.init();
+        log.info('Extension loaded all necessary modules');
+    } catch (e) {
+        log.error('Unable to start extension because of error:', e && e.message);
+    }
 })();
