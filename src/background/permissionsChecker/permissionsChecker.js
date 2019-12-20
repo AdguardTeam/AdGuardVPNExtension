@@ -4,16 +4,25 @@ import log from '../../lib/logger';
 import { ERROR_STATUSES } from '../../lib/constants';
 import permissionsError from './permissionsError';
 import notifier from '../../lib/notifier';
+import { proxy } from '../proxy';
 
 const CHECK_THROTTLE_TIMEOUT_MS = 60 * 1000;
 
-const updatePermissionsErrorHandler = (error) => {
+const updatePermissionsErrorHandler = async (error) => {
     log.error('Permissions were not updated due to:', error.message);
     // do not consider network error as a reason to set permission error
     if (error.status === ERROR_STATUSES.NETWORK_ERROR) {
         return;
     }
     permissionsError.setError(error);
+
+    // clear proxy settings if error occurred,
+    // in order not to block connections with broken proxy
+    try {
+        await proxy.turnOff();
+    } catch (e) {
+        log.error(e.message);
+    }
 };
 
 const checkPermissions = async () => {
@@ -24,7 +33,7 @@ const checkPermissions = async () => {
         permissionsError.clearError();
         log.info('Permissions were updated successfully');
     } catch (e) {
-        updatePermissionsErrorHandler(e);
+        await updatePermissionsErrorHandler(e);
     }
 };
 
