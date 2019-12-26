@@ -57,6 +57,14 @@ const Authentication = observer(() => {
     };
 
     const { step } = authStore;
+
+    const renderSocialAuth = () => {
+        const socialAuthOnRegistration = step === authStore.STEPS.REGISTRATION && !authStore.error;
+        if (step === authStore.STEPS.SIGN_IN || socialAuthOnRegistration) {
+            return <SocialAuth />;
+        } return null;
+    };
+
     return (
         <div className="authentication">
             <div className="authentication__container">
@@ -98,7 +106,7 @@ const Authentication = observer(() => {
                 </div>
                 {getForm(step)}
             </div>
-            {step === authStore.STEPS.SIGN_IN && <SocialAuth />}
+            {renderSocialAuth()}
         </div>
     );
 });
