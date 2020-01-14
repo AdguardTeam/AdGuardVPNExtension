@@ -2,15 +2,15 @@ import browser from 'webextension-polyfill';
 import { Prefs } from './prefs';
 
 const openOptionsPage = async () => {
-    await browser.runtime.openOptionsPage();
+    return browser.runtime.openOptionsPage();
 };
 
 const setIconEnabled = async () => {
-    browser.browserAction.setIcon({ path: Prefs.ICONS.GREEN });
+    return browser.browserAction.setIcon({ path: Prefs.ICONS.GREEN });
 };
 
-const setIconDisabled = () => {
-    browser.browserAction.setIcon({ path: Prefs.ICONS.GREY });
+const setIconDisabled = async () => {
+    return browser.browserAction.setIcon({ path: Prefs.ICONS.GREY });
 };
 
 const actions = {

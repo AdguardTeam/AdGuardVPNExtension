@@ -2,11 +2,8 @@ import SettingsService from './SettingsService';
 import storage from '../storage';
 import log from '../../lib/logger';
 import notifier from '../../lib/notifier';
-import { proxy } from '../proxy';
-import credentials from '../credentials';
-import connectivity from '../connectivity/connectivity';
 import { SETTINGS_IDS } from '../../lib/constants';
-import actions from '../actions';
+import switcher from '../switcher';
 
 const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.PROXY_ENABLED]: false,
@@ -16,55 +13,25 @@ const DEFAULT_SETTINGS = {
 
 const settingsService = new SettingsService(storage, DEFAULT_SETTINGS);
 
-const proxyEnabledHandler = async (value) => {
-    if (value) {
-        try {
-            const accessPrefix = await credentials.getAccessPrefix();
-            const { host, domainName } = await proxy.setAccessPrefix(accessPrefix);
-            const vpnToken = await credentials.gainValidVpnToken();
-            await connectivity.setCredentials(host, domainName, vpnToken.token, true);
-            await proxy.turnOn();
-            await actions.setIconEnabled();
-        } catch (e) {
-            await connectivity.stop();
-            await proxy.turnOff();
-            await actions.setIconDisabled();
-            log.error(e && e.message);
-            throw e;
+const switcherHandler = async (value) => {
+    try {
+        if (value) {
+            await switcher.turnOn(true);
+        } else {
+            await switcher.turnOff(true);
         }
-    } else {
-        await connectivity.stop();
-        await proxy.turnOff();
-        await actions.setIconDisabled();
+    } catch (e) {
+        settingsService.setSetting(SETTINGS_IDS.PROXY_ENABLED, false);
+        throw (e);
     }
 };
 
-const getHandler = (settingId) => {
-    switch (settingId) {
-        case SETTINGS_IDS.PROXY_ENABLED: {
-            return proxyEnabledHandler;
-        }
-        default:
-            return () => {};
-    }
-};
-
+// TODO [maximtop] check all locations where function was run
 const setSetting = async (id, value, force) => {
     const setting = settingsService.getSetting(id);
+
     // No need to change same value unless is not force set
     if (setting === value && !force) {
-        return false;
-    }
-    const handler = getHandler(id);
-    if (handler) {
-        try {
-            await handler(value);
-        } catch (e) {
-            log.error(e.message);
-            return false;
-        }
-    } else {
-        log.warn('There is no handler with id:', id);
         return false;
     }
 
@@ -74,8 +41,32 @@ const setSetting = async (id, value, force) => {
     return true;
 };
 
-const disableProxy = async () => {
-    await setSetting(SETTINGS_IDS.PROXY_ENABLED, false);
+const disableProxy = async (force, withCancel) => {
+    const shouldApply = await setSetting(SETTINGS_IDS.PROXY_ENABLED, false, force);
+
+    if (!shouldApply) {
+        return;
+    }
+
+    try {
+        await switcher.turnOff(withCancel);
+    } catch (e) {
+        await setSetting(SETTINGS_IDS.PROXY_ENABLED, true, force);
+    }
+};
+
+const enableProxy = async (force, withCancel) => {
+    const shouldApply = await setSetting(SETTINGS_IDS.PROXY_ENABLED, true, force);
+
+    if (!shouldApply) {
+        return;
+    }
+
+    try {
+        await switcher.turnOn(withCancel);
+    } catch (e) {
+        await setSetting(SETTINGS_IDS.PROXY_ENABLED, false, force);
+    }
 };
 
 const isProxyEnabled = () => {
@@ -85,7 +76,7 @@ const isProxyEnabled = () => {
 
 const applySettings = async () => {
     try {
-        await proxyEnabledHandler(isProxyEnabled());
+        await switcherHandler(isProxyEnabled());
     } catch (e) {
         await disableProxy();
     }
@@ -114,6 +105,7 @@ const settings = {
     getSetting,
     setSetting,
     disableProxy,
+    enableProxy,
     isProxyEnabled,
     SETTINGS_IDS,
     settingsService,

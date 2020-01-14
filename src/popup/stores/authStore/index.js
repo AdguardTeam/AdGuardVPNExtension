@@ -55,7 +55,8 @@ class AuthStore {
         this.rootStore = rootStore;
     }
 
-    @action setDefaults = () => {
+    @action
+    setDefaults = () => {
         this.credentials = DEFAULTS.credentials;
         this.authenticated = DEFAULTS.authenticated;
         this.need2fa = DEFAULTS.need2fa;
@@ -63,7 +64,8 @@ class AuthStore {
         this.step = DEFAULTS.step;
     };
 
-    @action resetError = () => {
+    @action
+    resetError = () => {
         this.error = DEFAULTS.error;
     };
 
@@ -77,7 +79,8 @@ class AuthStore {
         }
     }, 500);
 
-    @action onCredentialsChange = (field, value) => {
+    @action
+    onCredentialsChange = (field, value) => {
         this.resetError();
         this.credentials[field] = value;
         this.validate(field, value);
@@ -116,7 +119,8 @@ class AuthStore {
         return false;
     }
 
-    @action authenticate = async () => {
+    @action
+    authenticate = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
         const response = await adguard.auth.authenticate(this.credentials);
 
@@ -149,7 +153,8 @@ class AuthStore {
         }
     };
 
-    @action register = async () => {
+    @action
+    register = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
         const response = await adguard.auth.register(this.credentials);
         if (response.error) {
@@ -171,7 +176,8 @@ class AuthStore {
         }
     };
 
-    @action isAuthenticated = async () => {
+    @action
+    isAuthenticated = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
         const result = await adguard.auth.isAuthenticated();
         if (result) {
@@ -190,7 +196,8 @@ class AuthStore {
         this.authenticated = value;
     };
 
-    @action deauthenticate = async () => {
+    @action
+    deauthenticate = async () => {
         await adguard.auth.deauthenticate();
         await adguard.credentials.persistVpnToken(null);
         await this.rootStore.settingsStore.setProxyState(false);
@@ -199,22 +206,26 @@ class AuthStore {
         });
     };
 
-    @action openSocialAuth = async (social) => {
+    @action
+    openSocialAuth = async (social) => {
         await adguard.auth.startSocialAuth(social);
         window.close();
     };
 
-    @action switchStep = (step) => {
+    @action
+    switchStep = (step) => {
         this.step = step;
         this.resetError();
         adguard.authCache.updateAuthCache('step', step);
     };
 
-    @action showRegistration = () => {
+    @action
+    showRegistration = () => {
         this.switchStep(AUTH_STEPS.REGISTRATION);
     };
 
-    @action showSignIn = () => {
+    @action
+    showSignIn = () => {
         this.switchStep(AUTH_STEPS.SIGN_IN);
     };
 }

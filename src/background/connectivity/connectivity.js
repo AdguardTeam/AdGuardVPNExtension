@@ -56,13 +56,13 @@ class Connectivity {
         this.host = host;
 
         let restart = false;
+
         if (this.state === CONNECTIVITY_STATE.WORKING) {
             restart = true;
             await this.stop();
         }
 
         const websocketUrl = renderTemplate(WS_API_URL_TEMPLATE, { host });
-
         try {
             this.ws = await wsFactory.getWebsocket(websocketUrl);
         } catch (e) {
@@ -92,10 +92,13 @@ class Connectivity {
         if (this.pingGetInterval) {
             clearInterval(this.pingGetInterval);
         }
+
+        this.ping = null;
+
         if (this.ws) {
             await this.ws.close();
         }
-        this.ping = null;
+
         this.state = CONNECTIVITY_STATE.PAUSED;
     };
 

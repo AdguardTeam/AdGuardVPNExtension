@@ -13,6 +13,8 @@ export const MESSAGES_TYPES = {
     AUTHENTICATE_SOCIAL_SUCCESS: 'authenticate.social.success',
     PERMISSIONS_ERROR_UPDATE: 'permissions.error.update',
     EXCLUSION_UPDATED: 'exclusions.updated',
+    EXTENSION_PROXY_ENABLED: 'proxy.extension.enabled',
+    EXTENSION_PROXY_DISABLED: 'proxy.extension.disabled',
 };
 
 export const ERROR_STATUSES = {

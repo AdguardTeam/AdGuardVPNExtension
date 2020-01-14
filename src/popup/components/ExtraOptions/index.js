@@ -26,6 +26,7 @@ const ExtraOptions = observer(() => {
 
     const signOut = async () => {
         await authStore.deauthenticate();
+        await settingsStore.setProxyState(false);
         await settingsStore.clearPermissionError();
         uiStore.closeOptionsModal();
     };

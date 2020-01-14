@@ -37,7 +37,7 @@ const Map = observer(() => {
 
     const disableWhileConnecting = uiStore.isConnecting ? disableEvent : undefined;
 
-    const { proxyEnabled } = settingsStore;
+    const { displayEnabled } = settingsStore;
 
     const mapStyles = {
         width: '500px',
@@ -45,11 +45,11 @@ const Map = observer(() => {
         margin: '0 auto',
         display: 'block',
         height: 'auto',
-        backgroundColor: proxyEnabled ? '#C5F0FF' : '#E5E5E5',
+        backgroundColor: displayEnabled ? '#C5F0FF' : '#E5E5E5',
     };
 
     const geographyStyleDef = {
-        fill: proxyEnabled ? '#F0FFF3' : '#F9F9F9',
+        fill: displayEnabled ? '#F0FFF3' : '#F9F9F9',
         stroke: '#BABABA',
         strokeWidth: 0.5,
         outline: 'none',
@@ -118,7 +118,7 @@ const Map = observer(() => {
                     {renderCityMarkers(
                         endpoints,
                         selectedEndpoint,
-                        proxyEnabled,
+                        displayEnabled,
                         onMarkerClick
                     )
                             }

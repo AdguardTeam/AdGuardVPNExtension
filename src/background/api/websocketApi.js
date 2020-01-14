@@ -44,8 +44,23 @@ class WebsocketApi {
                 /* eslint-enable no-use-before-define */
             };
 
+            // TODO [maximtop] implement own websocket reconnecting library,
+            //  or find out and fix error in the used library "reconnecting-websocket".
+            //  Currently if we call .reconnect() method right after ws constructor
+            //  to the distant endpoints, e.g. Australia, Sydney
+            //  reconnecting-websocket fails with error:
+            //  "failed: Error in connection establishment: net::ERR_SSL_PROTOCOL_ERROR"
+
+            // Uses 1 redundant attempt to avoid error described above
+            const MAX_OPEN_ATTEMPTS = 1;
+            let attempts = MAX_OPEN_ATTEMPTS;
             function rejectHandler(e) {
+                if (attempts) {
+                    attempts -= 1;
+                    return;
+                }
                 reject(e);
+                attempts = MAX_OPEN_ATTEMPTS;
                 removeListeners();
             }
 

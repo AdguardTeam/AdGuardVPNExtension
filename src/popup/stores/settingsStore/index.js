@@ -8,7 +8,6 @@ import {
 import tabs from '../../../background/tabs';
 import log from '../../../lib/logger';
 import { getHostname, getProtocol, formatBytes } from '../../../lib/helpers';
-import { SETTINGS_IDS } from '../../../lib/constants';
 import { REQUEST_STATUSES } from '../consts';
 
 class SettingsStore {
@@ -19,8 +18,6 @@ class SettingsStore {
     @observable proxyEnablingStatus = REQUEST_STATUSES.DONE;
 
     @observable canControlProxy = false;
-
-    @observable gettingEndpointsState;
 
     @observable isExcluded;
 
@@ -38,12 +35,15 @@ class SettingsStore {
 
     @observable exclusionsInverted;
 
+    @observable switcherIgnoreProxyStateChange = false;
+
+    @observable checkPermissionsState = REQUEST_STATUSES.DONE;
+
     @action
     prohibitExclusion = () => {
         this.canBeExcluded = false;
     };
 
-    @observable checkPermissionsState = REQUEST_STATUSES.DONE;
 
     constructor(rootStore) {
         this.rootStore = rootStore;
@@ -77,85 +77,62 @@ class SettingsStore {
         this.switcherEnabled = false;
     };
 
-    toggleSwitcher = (value) => {
+    setSwitcher = (value) => {
+        if (this.switcherIgnoreProxyStateChange) {
+            return;
+        }
         if (this.switcherEnabled !== value) {
             if (value) {
                 this.enableSwitcher();
             } else {
                 this.disableSwitcher();
             }
-            return true;
         }
-        return false;
     };
-
-    @action
-    async getGlobalProxyEnabled() {
-        const value = adguard.settings.getSetting(SETTINGS_IDS.PROXY_ENABLED);
-        runInAction(() => {
-            this.proxyEnabled = value;
-            this.toggleSwitcher(value);
-        });
-    }
 
     @action
     setProxyEnabledStatus(isProxyEnabled) {
         this.proxyEnabled = isProxyEnabled;
-        this.toggleSwitcher(isProxyEnabled);
+        this.setSwitcher(isProxyEnabled);
     }
 
     @action
-    enableProxy = async () => {
-        const flag = true;
+    enableProxy = async (force = false, withCancel = false) => {
         this.proxyEnablingStatus = REQUEST_STATUSES.PENDING;
-        const changed = await adguard.settings.setSetting(SETTINGS_IDS.PROXY_ENABLED, flag);
-        runInAction(() => {
-            this.proxyEnablingStatus = REQUEST_STATUSES.DONE;
-        });
-        if (changed) {
-            this.getProxyPing();
-            await this.getProxyStats();
-            runInAction(() => {
-                this.proxyEnabled = flag;
-            });
-        }
-        return changed;
+        await adguard.settings.enableProxy(force, withCancel);
     };
 
     @action
-    disableProxy = async () => {
-        const flag = false;
-        const changed = await adguard.settings.setSetting(SETTINGS_IDS.PROXY_ENABLED, flag);
-        runInAction(() => {
-            this.proxyEnabled = flag;
-        });
-        return changed;
+    disableProxy = async (force = false, withCancel = false) => {
+        this.ping = 0;
+        this.proxyStats = {};
+        this.proxyEnabled = false;
+        await adguard.settings.disableProxy(force, withCancel);
+    };
+
+    @action
+    reconnectProxy = async () => {
+        this.setSwitcherIgnoreProxyStateChange(true);
+        await this.disableProxy(true);
+        await this.enableProxy(true);
+        this.setSwitcherIgnoreProxyStateChange(false);
     };
 
     @action
     setProxyEnabled = (value) => {
         this.proxyEnabled = value;
+        if (!this.switcherIgnoreProxyStateChange) {
+            this.proxyEnablingStatus = REQUEST_STATUSES.DONE;
+        }
     };
 
     @action
     setProxyState = async (value) => {
-        let changed;
-        const switched = this.toggleSwitcher(value);
-        try {
-            if (value) {
-                changed = await this.enableProxy();
-            } else {
-                changed = await this.disableProxy();
-            }
-        } catch (e) {
-            log.error(e.message);
-            if (switched) {
-                this.toggleSwitcher(!value);
-            }
-            return;
-        }
-        if (!changed && switched) {
-            this.toggleSwitcher(!value);
+        this.setSwitcher(value);
+        if (value) {
+            await this.enableProxy(true, true);
+        } else {
+            await this.disableProxy(true, true);
         }
     };
 
@@ -241,7 +218,9 @@ class SettingsStore {
 
     @computed
     get stats() {
-        let { bytesDownloaded, bytesUploaded } = this.proxyEnabled ? this.proxyStats || {} : {};
+        let { bytesDownloaded, bytesUploaded } = this.proxyEnabled && !this.proxyIsEnabling
+            ? this.proxyStats || {}
+            : {};
         bytesDownloaded = formatBytes(bytesDownloaded);
         bytesUploaded = formatBytes(bytesUploaded);
         return { bytesDownloaded, bytesUploaded };
@@ -293,6 +272,16 @@ class SettingsStore {
     @computed
     get hasGlobalError() {
         return !!this.globalError;
+    }
+
+    @computed
+    get displayEnabled() {
+        return this.switcherEnabled && this.proxyEnabled;
+    }
+
+    @action
+    setSwitcherIgnoreProxyStateChange(value) {
+        this.switcherIgnoreProxyStateChange = value;
     }
 }
 

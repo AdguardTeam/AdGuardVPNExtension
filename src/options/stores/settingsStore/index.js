@@ -135,7 +135,7 @@ class SettingsStore {
 
     @action
     disableProxy = async () => {
-        await adguard.settings.setSetting(SETTINGS_IDS.PROXY_ENABLED, false);
+        await adguard.settings.disableProxy(true, true);
     };
 
     @action

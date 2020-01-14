@@ -27,8 +27,8 @@ const CurrentEndpoint = observer((props) => {
     }, []);
 
     const endpointStatus = classnames({
-        'endpoint__status--disabled': !settingsStore.proxyEnabled,
-        'endpoint__status--success': settingsStore.ping,
+        'endpoint__status--disabled': !settingsStore.displayEnabled,
+        'endpoint__status--success': settingsStore.displayEnabled,
     });
 
     const renderStatus = () => {

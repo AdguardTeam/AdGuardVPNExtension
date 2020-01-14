@@ -64,6 +64,17 @@ const App = observer(() => {
                     settingsStore.setGlobalError(data);
                     break;
                 }
+                case MESSAGES_TYPES.EXTENSION_PROXY_ENABLED: {
+                    await settingsStore.getProxyStats();
+                    settingsStore.getProxyPing();
+                    settingsStore.setProxyEnabled(true);
+                    break;
+                }
+                case MESSAGES_TYPES.EXTENSION_PROXY_DISABLED: {
+                    settingsStore.setProxyEnabled(false);
+                    settingsStore.setSwitcher(false);
+                    break;
+                }
                 default: {
                     log.debug('there is no such message type: ', type);
                     break;

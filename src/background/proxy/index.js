@@ -36,7 +36,6 @@ class ExtensionProxy {
         }
 
         try {
-
             await proxyApi.proxySet(this.currentConfig);
             this.isActive = true;
         } catch (e) {
