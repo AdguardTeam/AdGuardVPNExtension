@@ -62,4 +62,40 @@ describe('Pac generator', () => {
         const resultBitAdguard = await FindProxyForUrl('https://bit.adguard.com/', 'bit.adguard.com');
         expect(resultBitAdguard).toBe('DIRECT');
     });
+
+    it('supports domains w/ and w/o www', async () => {
+        const proxy = 'do-de-fra1-01.adguard.io:443';
+        let pacScript = pacGenerator.generate(proxy, ['adguard.com']);
+        let FindProxyForUrl = pac(pacScript);
+
+        let resultAdguard = await FindProxyForUrl('https://adguard.com/', 'adguard.com');
+        expect(resultAdguard).toBe('DIRECT');
+        let resultWwwAdguard = await FindProxyForUrl('https://www.adguard.com/', 'www.adguard.com');
+        expect(resultWwwAdguard).toBe('DIRECT');
+
+        pacScript = pacGenerator.generate(proxy, ['www.adguard.com']);
+        FindProxyForUrl = pac(pacScript);
+        resultAdguard = await FindProxyForUrl('https://adguard.com/', 'adguard.com');
+        expect(resultAdguard).toBe('DIRECT');
+        resultWwwAdguard = await FindProxyForUrl('https://www.adguard.com/', 'www.adguard.com');
+        expect(resultWwwAdguard).toBe('DIRECT');
+    });
+
+    it('supports domains w/ and w/o www when inverted', async () => {
+        const proxy = 'do-de-fra1-01.adguard.io:443';
+        let pacScript = pacGenerator.generate(proxy, ['adguard.com'], true);
+        let FindProxyForUrl = pac(pacScript);
+
+        let resultAdguard = await FindProxyForUrl('https://adguard.com/', 'adguard.com');
+        expect(resultAdguard).toBe(`HTTPS ${proxy}`);
+        let resultWwwAdguard = await FindProxyForUrl('https://www.adguard.com/', 'www.adguard.com');
+        expect(resultWwwAdguard).toBe(`HTTPS ${proxy}`);
+
+        pacScript = pacGenerator.generate(proxy, ['www.adguard.com'], true);
+        FindProxyForUrl = pac(pacScript);
+        resultAdguard = await FindProxyForUrl('https://adguard.com/', 'adguard.com');
+        expect(resultAdguard).toBe(`HTTPS ${proxy}`);
+        resultWwwAdguard = await FindProxyForUrl('https://www.adguard.com/', 'www.adguard.com');
+        expect(resultWwwAdguard).toBe(`HTTPS ${proxy}`);
+    });
 });

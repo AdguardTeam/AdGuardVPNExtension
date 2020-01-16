@@ -48,7 +48,7 @@
         "message": "An error occurred, try again later"
     },
     "global_error_message": {
-        "message": "Error occurred, please contact us via <a href=\"mailto:support@adguardvpn.com\" target=\"_blank\">support@adguardvpn.com</a>"
+        "message": "Error occurred, please contact us via <a href=\"mailto:support@adguard-vpn.com\" target=\"_blank\">support@adguard-vpn.com</a>"
     },
     "global_error_can_control": {
         "message": "Other extension prevents us from setting up the tunnel. Please disable it in browser settings."
@@ -120,13 +120,28 @@
         "message": "Add website"
     },
     "settings_exclusion_title": {
-        "message": "Exclusions"
+        "message": "VPN connection mode"
     },
-    "settings_exclusion_blacklist": {
-        "message": "Regular mode. AdGuard VPN does not work on the websites from this list:"
+    "settings_exclusion_regular_title": {
+        "message": "Regular mode"
     },
-    "settings_exclusion_whitelist": {
-        "message": "Selective mode. AdGuard VPN works only on the websites from this list:"
+    "settings_exclusion_regular_description": {
+        "message": "AdGuard VPN does not work on the websites from this list:"
+    },
+    "settings_exclusion_selective_title": {
+        "message": "Selective mode"
+    },
+    "settings_exclusion_selective_description": {
+        "message": "AdGuard VPN works only on the websites from this list:"
+    },
+    "settings_exclusion_subdomains_title": {
+        "message": "Subdomains"
+    },
+    "settings_exclusion_subdomains_text": {
+        "message": "You can also add subdomains like this: *.domain.com."
+    },
+    "settings_exclusion_subdomains_example": {
+        "message": "E.g: If you want to exclude not only google.com, but also mail.google.com, play.google.com, etc., add *.google.com to the list."
     },
     "global_error_title": {
         "message": "Error occurred"

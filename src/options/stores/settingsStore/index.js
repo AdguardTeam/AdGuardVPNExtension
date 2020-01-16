@@ -19,6 +19,11 @@ class SettingsStore {
         [adguard.exclusions.TYPES.BLACKLIST]: '',
     };
 
+    @observable exclusionsCheckboxes = {
+        [adguard.exclusions.TYPES.WHITELIST]: true,
+        [adguard.exclusions.TYPES.BLACKLIST]: true,
+    };
+
     @observable areFormsVisible = {
         [adguard.exclusions.TYPES.WHITELIST]: false,
         [adguard.exclusions.TYPES.BLACKLIST]: false,
@@ -77,10 +82,14 @@ class SettingsStore {
     addToExclusions = async (exclusionsType) => {
         const handler = adguard.exclusions.getHandler(exclusionsType);
         try {
-            await handler.addToExclusions(this.exclusionsInputs[exclusionsType]);
+            await handler.addToExclusions(
+                this.exclusionsInputs[exclusionsType],
+                this.exclusionsCheckboxes[exclusionsType]
+            );
             runInAction(() => {
                 this.areFormsVisible[exclusionsType] = false;
                 this.exclusionsInputs[exclusionsType] = '';
+                this.exclusionsCheckboxes[exclusionsType] = true;
             });
         } catch (e) {
             log.error(e);
@@ -93,6 +102,11 @@ class SettingsStore {
     };
 
     @action
+    onExclusionsCheckboxChange = (exclusionsType, value) => {
+        this.exclusionsCheckboxes[exclusionsType] = value;
+    };
+
+    @action
     openExclusionsForm = (exclusionsType) => {
         this.areFormsVisible[exclusionsType] = true;
     };
@@ -101,6 +115,7 @@ class SettingsStore {
     closeExclusionsForm = (exclusionsType) => {
         this.areFormsVisible[exclusionsType] = false;
         this.exclusionsInputs[exclusionsType] = '';
+        this.exclusionsCheckboxes[exclusionsType] = true;
     };
 
     @action

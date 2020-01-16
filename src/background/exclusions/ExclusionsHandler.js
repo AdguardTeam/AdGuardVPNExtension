@@ -1,5 +1,6 @@
 import nanoid from 'nanoid';
 import { getHostname } from '../../lib/helpers';
+import { areHostnamesEqual, shExpMatch } from '../../lib/string-utils';
 import log from '../../lib/logger';
 
 export default class ExclusionsHandler {
@@ -13,9 +14,9 @@ export default class ExclusionsHandler {
         return this._type;
     }
 
-    handleExclusionsUpdate = (exclusion) => {
-        if (exclusion) {
-            this.updateHandler(this._type, this._exclusions, exclusion);
+    handleExclusionsUpdate = (exclusions) => {
+        if (exclusions && exclusions.length > 0) {
+            this.updateHandler(this._type, this._exclusions, exclusions);
         } else {
             this.updateHandler(this._type, this._exclusions);
         }
@@ -24,32 +25,46 @@ export default class ExclusionsHandler {
     /**
      * Adds url to exclusions
      * @param {string} url
-     * @param {boolean} enable - enable if was disabled by user
+     * @param {boolean} [enabled] - sets state of exclusion
+     * @param {object} [options]
+     * @param {boolean} [options.considerWildcard] - used to add new exclusions without affecting
+     *      exclusions with wildcard patterns
+     * @param {boolean} [options.forceEnable] - urls added by non routable sites handler should not
+     *      enable exclusions disabled by user
      * @returns {Promise<void>}
      */
-    addToExclusions = async (url, enable = true) => {
+    addToExclusions = async (
+        url,
+        enabled = true,
+        options = {}) => {
         const hostname = getHostname(url);
 
         if (!hostname) {
             return;
         }
 
-        // check if exclusion existed
-        let exclusion = Object.values(this._exclusions).find((exclusion) => {
-            return exclusion.hostname === hostname;
-        });
+        const {
+            considerWildcard = true,
+            forceEnable = true,
+        } = options;
+
+        // check there are already exclusions for current url
+        const exclusions = this.getExclusionsByUrl(url, considerWildcard);
 
         let shouldUpdate = false;
 
+        let exclusion;
+
         // if it was disabled, enable, otherwise add the new one
-        if (exclusion) {
-            if (!exclusion.enabled && enable) {
-                this._exclusions[exclusion.id] = { ...exclusion, enabled: true };
+        if (exclusions.length > 0) {
+            [exclusion] = exclusions;
+            if (!exclusion.enabled && enabled && forceEnable) {
+                this._exclusions[exclusion.id] = { ...exclusion, enabled };
                 shouldUpdate = true;
             }
         } else {
             const id = nanoid();
-            exclusion = { id, hostname, enabled: true };
+            exclusion = { id, hostname, enabled };
             this._exclusions[id] = exclusion;
             log.info(`Added to exclusions: ${hostname}`);
             shouldUpdate = true;
@@ -71,26 +86,34 @@ export default class ExclusionsHandler {
     };
 
     disableExclusionByHostname = async (hostname) => {
-        const exclusion = Object.values(this._exclusions).find((val) => {
-            return val.hostname === hostname;
+        const exclusions = this.getExclusionsByUrl(hostname);
+
+        exclusions.forEach((exclusion) => {
+            this._exclusions[exclusion.id] = { ...exclusion, enabled: false };
         });
 
-        if (!exclusion) {
-            return;
-        }
+        await this.handleExclusionsUpdate(exclusions);
+    };
 
-        this._exclusions[exclusion.id] = { ...exclusion, enabled: false };
-        await this.handleExclusionsUpdate(exclusion);
+    /**
+     * Returns exclusion by id
+     * @param url
+     * @param includeWildcards
+     * @returns {undefined,Exclusions[]}
+     */
+    getExclusionsByUrl = (url, includeWildcards = true) => {
+        const hostname = getHostname(url);
+        if (!hostname) {
+            return undefined;
+        }
+        return Object.values(this._exclusions)
+            .filter(exclusion => areHostnamesEqual(hostname, exclusion.hostname)
+                || (includeWildcards && shExpMatch(url, exclusion.hostname)));
     };
 
     isExcluded = (url) => {
-        const hostname = getHostname(url);
-        if (hostname) {
-            const exclusion = Object.values(this._exclusions)
-                .find(exclusion => exclusion.hostname === hostname);
-            return !!(exclusion && exclusion.enabled);
-        }
-        return false;
+        const exclusions = this.getExclusionsByUrl(url);
+        return exclusions.some(exclusion => exclusion.enabled);
     };
 
     toggleExclusion = async (id) => {

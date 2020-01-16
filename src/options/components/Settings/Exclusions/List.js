@@ -22,7 +22,7 @@ const List = observer(({ exclusionsType, enabled }) => {
         await settingsStore.renameExclusion(exclusionsType, id, name);
     };
 
-    const listClassName = classnames('settings__list', { 'settings__list--disabled': !enabled });
+    const listClassName = classnames('settings__list', { 'settings__list--hidden': !enabled });
 
     return (
         <div className={listClassName}>

@@ -1,6 +1,7 @@
 import browser from 'webextension-polyfill';
 import { getHostname } from '../../../lib/helpers';
 import { CONNECTION_MODES, CONNECTION_TYPE_FIREFOX } from '../proxyConsts';
+import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
 
 /**
  * @typedef proxyConfig
@@ -70,8 +71,14 @@ let config = {
 };
 
 const isBypassed = (url) => {
+    const { bypassList } = config;
+    if (!bypassList) {
+        return true;
+    }
+
     const hostname = getHostname(url);
-    return !!(config.bypassList && config.bypassList.includes(hostname));
+    return bypassList.some(exclusionPattern => areHostnamesEqual(hostname, exclusionPattern)
+        || shExpMatch(hostname, exclusionPattern));
 };
 
 

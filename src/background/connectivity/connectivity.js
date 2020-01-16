@@ -123,15 +123,12 @@ class Connectivity {
 
         const messageHandler = (event) => {
             const receivedTime = Date.now();
-            const { pingMsg, connectivityInfoMsg } = this.decodeMessage(event.data);
+            const { pingMsg } = this.decodeMessage(event.data);
             if (pingMsg) {
                 const { requestTime } = pingMsg;
                 const ping = receivedTime - requestTime;
                 this.ws.removeMessageListener(messageHandler);
                 resolve(ping);
-            }
-            if (connectivityInfoMsg) {
-                this.updateConnectivityInfo(connectivityInfoMsg);
             }
         };
 

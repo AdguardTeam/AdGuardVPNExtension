@@ -12,6 +12,10 @@
         align-items: center;
     }
 
+    &__section {
+        padding-left: 10px;
+    }
+
     &__group {
         margin-bottom: 50px;
 
@@ -21,6 +25,7 @@
     }
 
     &__group-ico {
+        flex-shrink: 0;
         width: 24px;
         height: 24px;
         margin-right: 8px;
@@ -33,12 +38,10 @@
 
     &__list,
     &__form {
-        margin-left: 30px;
+        margin-left: 10px;
 
-        &--disabled {
-            pointer-events: none;
-            cursor: auto;
-            opacity: 0.5;
+        &--hidden {
+            display: none;
         }
     }
 
@@ -46,31 +49,17 @@
         position: relative;
         width: 100%;
         padding: 8px 8px 8px 15px;
+        border: 1px solid transparent;
+        border-radius: 4px;
 
+        &--active,
         &:hover,
         &:focus {
-            background-color: var(--grayF3);
+            border-color: #efefef;
         }
 
         &:last-child {
             margin-bottom: 0;
-        }
-    }
-
-    &__list-remove {
-        position: absolute;
-        top: 8px;
-        right: 8px;
-        width: 20px;
-        height: 20px;
-        background-image: url("../../../assets/images/cross.svg");
-        background-repeat: no-repeat;
-        background-position: center center;
-        border-radius: 3px;
-
-        &:hover,
-        &:focus {
-            background-color: transparent;
         }
     }
 
@@ -89,5 +78,16 @@
 
     &__add-icon {
         margin-right: 12px;
+    }
+
+    &__control {
+        &:first-child {
+            margin-right: 20px;
+        }
+    }
+
+    &__controls {
+        display: flex;
+        margin-bottom: 30px;
     }
 }

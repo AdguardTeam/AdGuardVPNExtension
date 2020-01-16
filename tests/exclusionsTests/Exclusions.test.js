@@ -137,3 +137,43 @@ describe('exclusions', () => {
         expect(hasWhitelistedDomain).toBeTruthy();
     });
 });
+
+describe('urls w/ www and w/o www', () => {
+    afterEach(async (done) => {
+        await exclusions.current.clearExclusions();
+        done();
+    });
+
+    it('can add strings and consider domains w/ and w/o www to be equal', async () => {
+        await exclusions.current.addToExclusions('netflix.com');
+        expect(exclusions.current.isExcluded('https://netflix.com')).toBeTruthy();
+        expect(exclusions.current.isExcluded('https://www.netflix.com')).toBeTruthy();
+
+        await exclusions.current.addToExclusions('www.example.com');
+        expect(exclusions.current.isExcluded('https://example.com')).toBeTruthy();
+        expect(exclusions.current.isExcluded('https://www.example.com')).toBeTruthy();
+
+        await exclusions.current.addToExclusions('https://www.mail.com');
+        expect(exclusions.current.isExcluded('https://mail.com')).toBeTruthy();
+        expect(exclusions.current.isExcluded('https://www.mail.com')).toBeTruthy();
+    });
+
+    it('do not add redundant exclusions', async () => {
+        await exclusions.current.addToExclusions('https://netflix.com');
+        expect(exclusions.current.getExclusionsList().length).toBe(1);
+        await exclusions.current.addToExclusions('https://www.netflix.com');
+        expect(exclusions.current.getExclusionsList().length).toBe(1);
+    });
+});
+
+describe('works with wildcards', () => {
+    it('finds simple wildcards', async () => {
+        await exclusions.current.addToExclusions('*mail.com');
+        expect(exclusions.current.isExcluded('https://mail.com')).toBeTruthy();
+        expect(exclusions.current.isExcluded('https://www.mail.com')).toBeTruthy();
+
+        await exclusions.current.addToExclusions('*.adguard.com');
+        expect(exclusions.current.isExcluded('https://bit.adguard.com')).toBeTruthy();
+        expect(exclusions.current.isExcluded('https://jira.adguard.com')).toBeTruthy();
+    });
+});

@@ -20,6 +20,11 @@
         line-height: 1;
         cursor: pointer;
         user-select: none;
+
+        &--disabled {
+            cursor: default;
+            opacity: 0.6;
+        }
     }
 
     &__edit {
@@ -35,5 +40,15 @@
         height: 24px;
         flex-shrink: 0;
         border: 0;
+    }
+
+    &__help {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    &__edit:focus + &__help {
+        opacity: 1;
+        visibility: visible;
     }
 }

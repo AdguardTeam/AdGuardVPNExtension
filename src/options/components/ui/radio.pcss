@@ -1,0 +1,28 @@
+.radio {
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+
+    &__icon {
+        flex-shrink: 0;
+        width: 24px;
+        height: 24px;
+        margin: 3px 15px 0 0;
+        color: var(--brand-primary);
+    }
+
+    &__title {
+        margin-bottom: 4px;
+        font-size: 1.6rem;
+
+        &--active {
+            font-weight: 700;
+        }
+    }
+
+    &__description {
+        font-size: 1.3rem;
+        line-height: 1.1;
+        color: var(--gray88);
+    }
+}

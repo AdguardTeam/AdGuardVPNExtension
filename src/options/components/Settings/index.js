@@ -3,6 +3,7 @@ import browser from 'webextension-polyfill';
 
 import Exclusions from './Exclusions';
 import './settings.pcss';
+import '../ui/radio.pcss';
 
 const Settings = () => (
     <Fragment>
