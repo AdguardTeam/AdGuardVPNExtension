@@ -29,5 +29,7 @@ module.exports = {
         'activeTab',
         '<all_urls>',
         'management',
+        'webRequest',
+        'webRequestBlocking',
     ],
 };

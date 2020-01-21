@@ -186,16 +186,22 @@ class Credentials {
     }
 
     updateProxyCredentials = async () => {
-        const accessPrefix = await this.getAccessPrefix();
-        await proxy.setAccessPrefix(accessPrefix);
+        const accessCredentials = await this.getAccessCredentials();
+        await proxy.setAccessCredentials(accessCredentials);
     };
 
-    async getAccessPrefix() {
+    /**
+     * Returns access password and username for proxy and websocket domain prefix
+     * @returns {Promise<{credentials: {password: string, username: string}, prefix: string}>}
+     */
+    async getAccessCredentials() {
         const { token } = await this.gainValidVpnToken();
         const { result: { credentials } } = await this.gainVpnCredentials();
         const appId = this.getAppId();
-        // format: md5(<app_id>:<token>:<creds>)
-        return md5(`${appId}:${token}:${credentials}`).toString();
+        return {
+            prefix: md5(`${appId}:${token}:${credentials}`).toString(),
+            credentials: { username: token, password: credentials },
+        };
     }
 
     async gainAppId() {

@@ -1,7 +1,31 @@
-function proxyPacScript(proxy, exclusionsList, inverted) {
-    return `function FindProxyForURL(url, host) {
+/**
+ * Returns pac script text
+ * We use pacScriptTimeToLiveMs in order to make pac script file inactive if
+ * it remained in the proxy setting after browser restart
+ * @param proxy
+ * @param exclusionsList
+ * @param inverted
+ * @param defaultExclusions
+ * @returns {string}
+ */
+function proxyPacScript(proxy, exclusionsList, inverted, defaultExclusions) {
+    const pacScriptTimeToLiveMs = 1000;
+    return `
+            let active = false;
+            const created = ${Date.now()};
+            const started = Date.now();
+
+            if ((started - ${pacScriptTimeToLiveMs}) < created) {
+              active = true;
+            }
+
+            function FindProxyForURL(url, host) {
                 const DIRECT = "DIRECT";
                 const PROXY = "HTTPS ${proxy}";
+
+                if (!active) {
+                    return DIRECT;
+                }
 
                 const areHostnamesEqual = (hostnameA, hostnameB) => {
                     const wwwRegex = /^www\\./;
@@ -12,6 +36,11 @@ function proxyPacScript(proxy, exclusionsList, inverted) {
 
                 if (isPlainHostName(host)
                     || shExpMatch(host, 'localhost')) {
+                    return DIRECT;
+                }
+
+                const defaultExclusions = [${defaultExclusions.map(l => `"${l}"`).join(', ')}];
+                if (defaultExclusions.some(el => (areHostnamesEqual(host, el) || shExpMatch(host, el)))) {
                     return DIRECT;
                 }
 
@@ -36,12 +65,12 @@ function directPacScript() {
     }`;
 }
 
-const generate = (proxy, exclusionsList = [], inverted = false) => {
+const generate = (proxy, exclusionsList = [], inverted = false, defaultExclusions = []) => {
     if (!proxy) {
         return directPacScript();
     }
 
-    return proxyPacScript(proxy, exclusionsList, inverted);
+    return proxyPacScript(proxy, exclusionsList, inverted, defaultExclusions);
 };
 
 export default { generate };

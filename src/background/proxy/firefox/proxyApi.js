@@ -11,13 +11,18 @@ import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
  * @property {string} [host] - proxy host address
  * @property {number} [port] - proxy port
  * @property {string} [scheme] - proxy scheme
+ * @property {{username: string, password: string}} credentials
  * e.g.   const config = {
  *            mode: 'system',
  *            bypassList: ['example.org', 'localhost', '0.0.0.0/8'],
- *            host: 'feabca59e815de4faab448d75a628118.do-de-fra1-01.adguard.io',
+ *            host: 'do-de-fra1-01.adguard.io',
  *            port: 443,
  *            scheme: 'https',
  *            inverted: false,
+ *            credentials: {
+ *                username: 'foo',
+ *                password: 'bar',
+ *            }
  *        };
  */
 
@@ -29,8 +34,12 @@ import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
  *              bypassList: ['example.org', 'localhost', '0.0.0.0/8'],
  *              proxyConfig: {
  *                  type: "https",
- *                  host: "137a393d3d36ddefc11adeca9e46a763.do-de-fra1-01.adguard.io",
+ *                  host: "do-de-fra1-01.adguard.io",
  *                  port: 443
+ *              },
+ *              credentials: {
+ *                  username: 'foo',
+ *                  password: 'bar',
  *              }
  *          };
  */
@@ -40,9 +49,9 @@ import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
  * @param proxyConfig
  * @returns {firefoxConfig}
  */
-const toFirefoxConfig = (proxyConfig) => {
+const convertToFirefoxConfig = (proxyConfig) => {
     const {
-        mode, bypassList, host, port, scheme, inverted,
+        mode, bypassList, host, port, scheme, inverted, credentials, defaultExclusions,
     } = proxyConfig;
     if (mode === CONNECTION_MODES.SYSTEM) {
         return {
@@ -59,6 +68,8 @@ const toFirefoxConfig = (proxyConfig) => {
             host,
             port,
         },
+        credentials,
+        defaultExclusions,
     };
 };
 
@@ -66,32 +77,54 @@ const directConfig = {
     type: CONNECTION_TYPE_FIREFOX.DIRECT,
 };
 
-let config = {
+let GLOBAL_FIREFOX_CONFIG = {
     proxyConfig: directConfig,
 };
 
-const isBypassed = (url) => {
-    const { bypassList } = config;
-    if (!bypassList) {
+const isBypassed = (url, exclusionsPatterns) => {
+    if (!exclusionsPatterns) {
         return true;
     }
-
     const hostname = getHostname(url);
-    return bypassList.some(exclusionPattern => areHostnamesEqual(hostname, exclusionPattern)
+
+    return exclusionsPatterns.some(exclusionPattern => areHostnamesEqual(hostname, exclusionPattern)
         || shExpMatch(hostname, exclusionPattern));
 };
 
+const onAuthRequiredHandler = (details) => {
+    const { challenger } = details;
+    if (challenger && challenger.host !== GLOBAL_FIREFOX_CONFIG.proxyConfig.host) {
+        return {};
+    }
+
+    return { authCredentials: GLOBAL_FIREFOX_CONFIG.credentials };
+};
+
+const addAuthHandler = () => {
+    if (browser.webRequest.onAuthRequired.hasListener(onAuthRequiredHandler)) {
+        return;
+    }
+    browser.webRequest.onAuthRequired.addListener(onAuthRequiredHandler, { urls: ['<all_urls>'] }, ['blocking']);
+};
+
+const removeAuthHandler = () => {
+    browser.webRequest.onAuthRequired.removeListener(onAuthRequiredHandler);
+};
 
 const proxyHandler = (details) => {
-    let shouldBypass = isBypassed(details.url);
+    if (isBypassed(details.url, GLOBAL_FIREFOX_CONFIG.defaultExclusions)) {
+        return directConfig;
+    }
 
-    shouldBypass = config.inverted ? !shouldBypass : shouldBypass;
+    let shouldBypass = isBypassed(details.url, GLOBAL_FIREFOX_CONFIG.bypassList);
+
+    shouldBypass = GLOBAL_FIREFOX_CONFIG.inverted ? !shouldBypass : shouldBypass;
 
     if (shouldBypass) {
         return directConfig;
     }
 
-    return config.proxyConfig;
+    return GLOBAL_FIREFOX_CONFIG.proxyConfig;
 };
 
 /**
@@ -100,11 +133,12 @@ const proxyHandler = (details) => {
  * @returns {Promise<void>}
  */
 const proxySet = async (proxyConfig) => {
-    config = toFirefoxConfig(proxyConfig);
+    GLOBAL_FIREFOX_CONFIG = convertToFirefoxConfig(proxyConfig);
     if (browser.proxy.onRequest.hasListener(proxyHandler)) {
         return;
     }
     browser.proxy.onRequest.addListener(proxyHandler, { urls: ['<all_urls>'] });
+    addAuthHandler();
 };
 
 const onProxyError = (() => {
@@ -125,7 +159,11 @@ const proxyGet = (config = {}) => new Promise((resolve) => {
 });
 
 const proxyClear = () => {
+    GLOBAL_FIREFOX_CONFIG = {
+        proxyConfig: directConfig,
+    };
     browser.proxy.onRequest.removeListener(proxyHandler);
+    removeAuthHandler();
 };
 
 const proxyApi = {
