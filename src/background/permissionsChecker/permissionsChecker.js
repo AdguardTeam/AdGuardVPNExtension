@@ -4,7 +4,7 @@ import log from '../../lib/logger';
 import { ERROR_STATUSES } from '../../lib/constants';
 import permissionsError from './permissionsError';
 import notifier from '../../lib/notifier';
-import { proxy } from '../proxy';
+import settings from '../settings/settings';
 
 const CHECK_THROTTLE_TIMEOUT_MS = 60 * 1000;
 
@@ -19,7 +19,7 @@ const updatePermissionsErrorHandler = async (error) => {
     // clear proxy settings if error occurred,
     // in order not to block connections with broken proxy
     try {
-        await proxy.turnOff();
+        await settings.disableProxy(true);
     } catch (e) {
         log.error(e.message);
     }
@@ -27,11 +27,11 @@ const updatePermissionsErrorHandler = async (error) => {
 
 const checkPermissions = async () => {
     try {
-        await credentials.getVpnTokenRemote();
-        await credentials.gainVpnCredentials(true);
+        await credentials.gainValidVpnToken(true);
+        await credentials.gainValidVpnCredentials(true);
         // if no error, clear permissionError
         permissionsError.clearError();
-        log.info('Permissions were updated successfully');
+        log.info('Permissions were checked successfully');
     } catch (e) {
         await updatePermissionsErrorHandler(e);
     }

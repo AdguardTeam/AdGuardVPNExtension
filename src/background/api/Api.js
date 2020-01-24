@@ -18,7 +18,7 @@ class Api {
         } catch (error) {
             const errorPath = `${this.baseUrl}/${path}`;
             if (error.response) {
-                throw new CustomError(error.status, JSON.stringify(error.response.data));
+                throw new CustomError(error.response.status, JSON.stringify(error.response.data));
             }
             throw new CustomError(ERROR_STATUSES.NETWORK_ERROR, `${errorPath} | ${error.message || JSON.stringify(error)}`);
         }

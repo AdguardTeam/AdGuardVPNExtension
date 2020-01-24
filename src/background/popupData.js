@@ -1,8 +1,12 @@
+import throttle from 'lodash/throttle';
 import vpn from './vpn';
 import log from '../lib/logger';
 import { SETTINGS_IDS } from '../lib/constants';
 import permissionsError from './permissionsChecker/permissionsError';
 import nonRoutable from './routability/nonRoutable';
+import permissionsChecker from './permissionsChecker/permissionsChecker';
+
+const throttledPermissionsChecker = throttle(permissionsChecker.checkPermissions, 2000);
 
 const getPopupData = async (url) => {
     const isAuthenticated = await adguard.auth.isAuthenticated();
@@ -18,6 +22,11 @@ const getPopupData = async (url) => {
     const selectedEndpoint = await vpn.getSelectedEndpoint();
     const canControlProxy = await adguard.appStatus.canControlProxy();
     const isProxyEnabled = adguard.settings.getSetting(SETTINGS_IDS.PROXY_ENABLED);
+
+    // If error check permissions when popup is opened, ignoring multiple retries
+    if (error) {
+        throttledPermissionsChecker();
+    }
 
     return {
         permissionsError: error,
@@ -36,7 +45,9 @@ const sleep = waitTime => new Promise((resolve) => {
 });
 
 let retryCounter = 0;
-const getPopupDataRetry = async (url, retryNum = 1, retryDelay = 100) => {
+
+const DEFAULT_RETRY_DELAY = 200;
+const getPopupDataRetry = async (url, retryNum = 1, retryDelay = DEFAULT_RETRY_DELAY) => {
     const backoffIndex = 1.5;
     const data = await getPopupData(url);
     retryCounter += 1;

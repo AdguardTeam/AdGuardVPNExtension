@@ -61,13 +61,13 @@ class Credentials {
         return vpnToken;
     }
 
-    async gainVpnToken(forceRemote) {
+    async gainVpnToken(forceRemote = false, useLocalFallback) {
         let vpnToken;
 
         if (forceRemote) {
             vpnToken = await this.getVpnTokenRemote();
-            // fallback if was unable to get remote
-            if (!vpnToken) {
+            // fallback if was unable to get vpn token remotely
+            if (!vpnToken && useLocalFallback) {
                 vpnToken = await this.getVpnTokenLocal();
             }
             return vpnToken;
@@ -86,11 +86,11 @@ class Credentials {
         return !!(vpnToken && vpnToken.licenseStatus === VALID_VPN_TOKEN_STATUS);
     }
 
-    async gainValidVpnToken(forceRemote) {
-        const vpnToken = await this.gainVpnToken(forceRemote);
+    async gainValidVpnToken(forceRemote, useLocalFallback = false) {
+        const vpnToken = await this.gainVpnToken(forceRemote, useLocalFallback);
 
         if (!this.isValid(vpnToken)) {
-            const error = Error(`Received token is not valid. It equals: ${JSON.stringify(vpnToken)}`);
+            const error = Error(`Vpn token is not valid. Token: ${JSON.stringify(vpnToken)}`);
             permissionsError.setError(error);
             throw error;
         }
@@ -98,27 +98,52 @@ class Credentials {
         return vpnToken;
     }
 
-    async getVpnCredentialsRemote() {
-        const appId = await this.getAppId();
-        let credentials;
-        try {
-            const vpnToken = await this.gainValidVpnToken();
-            credentials = await vpnProvider.getVpnCredentials(appId, vpnToken.token);
-        } catch (e) {
-            log.error(`Unable to get vpn credentials remotely: ${e.message}`);
-            throw e;
+    /**
+     * Returns valid vpn credentials or throws an error and sets permissionsError
+     * @param forceRemote
+     * @param useLocalFallback
+     * @returns {Promise<*>}
+     */
+    async gainValidVpnCredentials(forceRemote, useLocalFallback = false) {
+        const vpnCredentials = await this.gainVpnCredentials(forceRemote, useLocalFallback);
+
+        if (!this.areCredentialsValid(vpnCredentials)) {
+            const error = Error(`Vpn credentials are not valid: Credentials: ${JSON.stringify(vpnCredentials)}`);
+            permissionsError.setError(error);
+            throw error;
         }
-        return credentials;
+
+        return vpnCredentials;
     }
 
-    async getVpnCredentialsFromStorage() {
+    /**
+     * Returns valid vpn credentials or null
+     * @returns {Promise}
+     */
+    async getVpnCredentialsRemote() {
+        const appId = this.getAppId();
+
         let vpnCredentials;
         try {
-            vpnCredentials = await storage.get(this.VPN_CREDENTIALS_KEY);
+            const vpnToken = await this.gainValidVpnToken();
+            vpnCredentials = await vpnProvider.getVpnCredentials(appId, vpnToken.token);
         } catch (e) {
-            log.error(`Unable to get vpn credentials from storage: ${e.message}`);
-            throw e;
+            log.error('Unable to get vpn credentials remotely, due to error:', e.message);
+            return null;
         }
+
+        if (!this.areCredentialsValid(vpnCredentials)) {
+            return null;
+        }
+
+        if (!this.areEqual(vpnCredentials, this.vpnCredentials)) {
+            this.vpnCredentials = vpnCredentials;
+            await storage.set(this.VPN_CREDENTIALS_KEY, vpnCredentials);
+            await this.updateProxyCredentials();
+            notifier.notifyListeners(notifier.types.CREDENTIALS_UPDATED);
+            log.info('Got new credentials');
+        }
+
         return vpnCredentials;
     }
 
@@ -128,10 +153,7 @@ class Credentials {
         }
         const { licenseStatus, timeExpiresSec } = vpnCredentials;
         const currentTimeSec = Math.ceil(Date.now() / 1000);
-        if (licenseStatus !== 'VALID' || timeExpiresSec < currentTimeSec) {
-            return false;
-        }
-        return true;
+        return !(licenseStatus !== 'VALID' || timeExpiresSec < currentTimeSec);
     }
 
     /**
@@ -154,35 +176,34 @@ class Credentials {
         return lodashGet(newCred, path) === lodashGet(oldCred, path);
     };
 
-    async gainVpnCredentials(remoteForce) {
+    getVpnCredentialsLocal = async () => {
+        if (this.vpnCredentials) {
+            return this.vpnCredentials;
+        }
+        const vpnCredentials = await storage.get(this.VPN_CREDENTIALS_KEY);
+        this.vpnCredentials = vpnCredentials;
+        return vpnCredentials;
+    };
+
+    async gainVpnCredentials(forceRemote = false, useLocalFallback) {
         let vpnCredentials;
 
-        if (!remoteForce) {
-            if (this.areCredentialsValid(this.vpnCredentials)) {
-                return this.vpnCredentials;
+        if (forceRemote) {
+            vpnCredentials = await this.getVpnCredentialsRemote();
+            // fallback if was unable to get valid remote vpn credentials
+            if (!this.areCredentialsValid(vpnCredentials) && useLocalFallback) {
+                vpnCredentials = await this.getVpnCredentialsLocal();
             }
-
-            vpnCredentials = await this.getVpnCredentialsFromStorage();
-            if (this.areCredentialsValid(vpnCredentials)) {
-                this.vpnCredentials = vpnCredentials;
-                return vpnCredentials;
-            }
-        }
-
-        vpnCredentials = await this.getVpnCredentialsRemote();
-        if (this.areCredentialsValid(vpnCredentials)) {
-            if (!this.areEqual(vpnCredentials, this.vpnCredentials)) {
-                this.vpnCredentials = vpnCredentials;
-                await storage.set(this.VPN_CREDENTIALS_KEY, vpnCredentials);
-                await this.updateProxyCredentials();
-                notifier.notifyListeners(notifier.types.CREDENTIALS_UPDATED);
-                log.info('Got new credentials');
-            }
-
             return vpnCredentials;
         }
 
-        throw new Error('Unable to gain vpn credentials');
+        vpnCredentials = await this.getVpnCredentialsLocal();
+        // fallback if was unable to get valid local vpn credentials
+        if (!this.areCredentialsValid(vpnCredentials)) {
+            vpnCredentials = await this.getVpnCredentialsRemote();
+        }
+
+        return vpnCredentials;
     }
 
     updateProxyCredentials = async () => {
@@ -196,7 +217,7 @@ class Credentials {
      */
     async getAccessCredentials() {
         const { token } = await this.gainValidVpnToken();
-        const { result: { credentials } } = await this.gainVpnCredentials();
+        const { result: { credentials } } = await this.gainValidVpnCredentials();
         const appId = this.getAppId();
         return {
             prefix: md5(`${appId}:${token}:${credentials}`).toString(),
@@ -281,11 +302,17 @@ class Credentials {
 
             this.appId = await this.gainAppId();
             await this.trackInstallation(runInfo, this.appId);
-            this.vpnToken = await this.gainVpnToken(true);
-            this.vpnCredentials = await this.gainVpnCredentials(true);
+
+            // On extension initialisation use local fallback if was unable to get data remotely
+            // it might be useful on browser restart
+            const useLocalFallback = true;
+            const forceRemote = true;
+            this.vpnToken = await this.gainValidVpnToken(forceRemote, useLocalFallback);
+            this.vpnCredentials = await this.gainValidVpnCredentials(forceRemote, useLocalFallback);
+
             this.currentUsername = await this.fetchUsername();
         } catch (e) {
-            log.debug('Unable to init credential, reason:', e.message);
+            log.debug('Unable to init credentials module, due to error:', e.message);
         }
         log.info('Credentials module is ready');
     }

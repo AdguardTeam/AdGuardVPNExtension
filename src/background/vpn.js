@@ -83,7 +83,7 @@ const getVpnInfoRemotely = async () => {
         if (vpnTokenChanged(vpnToken, updatedVpnToken)) {
             shouldReconnect = true;
         }
-        await credentials.gainVpnCredentials(true);
+        await credentials.gainValidVpnCredentials(true);
         vpnInfo = await vpnProvider.getVpnExtensionInfo(updatedVpnToken.token);
     }
 
@@ -180,7 +180,6 @@ const getSelectedEndpoint = async () => {
 };
 
 const getVpnFailurePage = async () => {
-    await credentials.gainVpnToken();
     const vpnToken = await credentials.gainVpnToken();
 
     // undefined values will be omitted in the querystring
