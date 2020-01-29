@@ -2,6 +2,7 @@ export const SETTINGS_IDS = {
     PROXY_ENABLED: 'proxy.enabled',
     RATE_SHOW: 'rate.show',
     EXCLUSIONS: 'exclusions.list',
+    HANDLE_WEBRTC_ENABLED: 'webrtc.handle.enabled',
 };
 
 export const MESSAGES_TYPES = {

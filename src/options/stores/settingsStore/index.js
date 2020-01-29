@@ -37,6 +37,8 @@ class SettingsStore {
 
     @observable currentExclusionsType;
 
+    @observable webRTCEnabled = false;
+
     // Options page actions
     @action
     getExclusions = () => {
@@ -161,6 +163,20 @@ class SettingsStore {
 
     exclusionsByType(exclusionsType) {
         return toJS(this.exclusions[exclusionsType]);
+    }
+
+    @action
+    setWebRTC = async (value) => {
+        await adguard.settings.setSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED, value);
+        runInAction(() => {
+            this.webRTCEnabled = value;
+        });
+    };
+
+    @action
+    getWebRTCValue = async () => {
+        const value = await adguard.settings.getSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED);
+        this.setWebRTC(value);
     }
 }
 

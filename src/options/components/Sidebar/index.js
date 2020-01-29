@@ -13,6 +13,9 @@ const Sidebar = () => {
             </svg>
             <nav className="sidebar__nav">
                 <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/">
+                    {browser.i18n.getMessage('settings_exclusion_title')}
+                </NavLink>
+                <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/settings">
                     {browser.i18n.getMessage('settings_title')}
                 </NavLink>
                 <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/account">

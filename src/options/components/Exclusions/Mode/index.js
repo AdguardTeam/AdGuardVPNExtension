@@ -7,7 +7,7 @@ import Form from './Form';
 import List from './List';
 import rootStore from '../../../stores';
 
-const Exclusions = observer(() => {
+const Mode = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
     const {
@@ -79,7 +79,7 @@ const Exclusions = observer(() => {
         <Fragment>
             <div className="settings__section">
                 <div className="settings__title">
-                    {browser.i18n.getMessage('settings_exclusion_title')}
+                    {browser.i18n.getMessage('settings_connection_mode_title')}
                 </div>
                 <div className="settings__group">
                     <div className="settings__controls">
@@ -100,4 +100,4 @@ const Exclusions = observer(() => {
     );
 });
 
-export default Exclusions;
+export default Mode;

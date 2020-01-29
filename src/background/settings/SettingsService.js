@@ -2,7 +2,7 @@ import throttle from 'lodash/throttle';
 import log from '../../lib/logger';
 import { SETTINGS_IDS } from '../../lib/constants';
 
-const SCHEME_VERSION = '2';
+const SCHEME_VERSION = '3';
 const THROTTLE_TIMEOUT = 100;
 
 class SettingsService {
@@ -47,7 +47,15 @@ class SettingsService {
         };
     };
 
-    migrationFunctions = [this.migrateFrom1to2];
+    migrateFrom2to3 = (oldSettings) => {
+        return {
+            ...oldSettings,
+            VERSION: '3',
+            [SETTINGS_IDS.HANDLE_WEBRTC_ENABLED]: this.defaults[SETTINGS_IDS.HANDLE_WEBRTC_ENABLED],
+        };
+    };
+
+    migrationFunctions = [this.migrateFrom1to2, this.migrateFrom2to3];
 
     applyMigrations(newVersion, oldVersion, oldSettings) {
         const migrationsToApply = this.migrationFunctions.slice(oldVersion - 1, newVersion - 1);

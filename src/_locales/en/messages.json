@@ -116,10 +116,22 @@
     "settings_title": {
         "message": "Settings"
     },
+    "settings_webrtc_title": {
+        "message": "WebRTC"
+    },
+    "settings_webrtc_label": {
+        "message": "Block WebRTC"
+    },
+    "settings_webrtc_desc": {
+        "message": "WebRTC is a special program in most Internet browsers that can allow a third-party website to detect your real IP address and use it to identify you"
+    },
     "settings_exclusion_add": {
         "message": "Add website"
     },
     "settings_exclusion_title": {
+        "message": "Exclusions"
+    },
+    "settings_connection_mode_title": {
         "message": "VPN connection mode"
     },
     "settings_exclusion_regular_title": {

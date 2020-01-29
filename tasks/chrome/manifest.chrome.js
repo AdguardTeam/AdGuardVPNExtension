@@ -8,6 +8,7 @@ module.exports = {
         'notifications',
         'activeTab',
         'management',
+        'privacy',
         'webRequest',
         'webRequestBlocking',
         '<all_urls>',

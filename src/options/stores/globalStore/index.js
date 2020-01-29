@@ -26,6 +26,7 @@ class globalStore {
             settingsStore.getVersion();
             await settingsStore.getUsername();
             await settingsStore.checkRateStatus();
+            await settingsStore.getWebRTCValue();
             this.setInitStatus(REQUEST_STATUSES.DONE);
         } catch (e) {
             log.error(e.message);

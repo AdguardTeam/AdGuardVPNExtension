@@ -6,6 +6,7 @@ import actions from './actions';
 import log from '../lib/logger';
 import browserApi from './browserApi';
 import { MESSAGES_TYPES } from '../lib/constants';
+import webrtc from './browserApi/webrtc';
 
 function* turnOnProxy() {
     try {
@@ -14,11 +15,13 @@ function* turnOnProxy() {
         const vpnToken = yield credentials.gainValidVpnToken();
         yield connectivity.setCredentials(host, domainName, vpnToken.token, true);
         yield proxy.turnOn();
+        webrtc.blockWebRTC();
         yield actions.setIconEnabled();
         browserApi.runtime.sendMessage({ type: MESSAGES_TYPES.EXTENSION_PROXY_ENABLED });
     } catch (e) {
         yield connectivity.stop();
         yield proxy.turnOff();
+        webrtc.unblockWebRTC();
         yield actions.setIconDisabled();
         browserApi.runtime.sendMessage({ type: MESSAGES_TYPES.EXTENSION_PROXY_DISABLED });
         log.error(e && e.message);
@@ -30,6 +33,7 @@ function* turnOffProxy() {
     try {
         yield connectivity.stop();
         yield proxy.turnOff();
+        webrtc.unblockWebRTC();
         yield actions.setIconDisabled();
         browserApi.runtime.sendMessage({ type: MESSAGES_TYPES.EXTENSION_PROXY_DISABLED });
     } catch (e) {

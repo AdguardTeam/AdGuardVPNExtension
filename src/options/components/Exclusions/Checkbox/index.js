@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import SubdomainsHelp from '../Exclusions/SubdomainsHelp';
+import SubdomainsHelp from '../Mode/SubdomainsHelp';
 import './checkbox.pcss';
 
 const Checkbox = ({

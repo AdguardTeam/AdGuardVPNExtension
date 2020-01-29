@@ -4,16 +4,18 @@ import log from '../../lib/logger';
 import notifier from '../../lib/notifier';
 import { SETTINGS_IDS } from '../../lib/constants';
 import switcher from '../switcher';
+import webrtc from '../browserApi/webrtc';
 
 const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.PROXY_ENABLED]: false,
     [SETTINGS_IDS.RATE_SHOW]: true,
     [SETTINGS_IDS.EXCLUSIONS]: {},
+    [SETTINGS_IDS.HANDLE_WEBRTC_ENABLED]: true,
 };
 
 const settingsService = new SettingsService(storage, DEFAULT_SETTINGS);
 
-const switcherHandler = async (value) => {
+const proxySwitcherHandler = async (value) => {
     try {
         if (value) {
             await switcher.turnOn(true);
@@ -26,13 +28,32 @@ const switcherHandler = async (value) => {
     }
 };
 
-// TODO [maximtop] check all locations where function was run
+/**
+ * Returns proxy settings enabled status
+ * @returns {boolean}
+ */
+const isProxyEnabled = () => {
+    const setting = settingsService.getSetting(SETTINGS_IDS.PROXY_ENABLED);
+    return setting === true;
+};
+
 const setSetting = async (id, value, force) => {
     const setting = settingsService.getSetting(id);
 
     // No need to change same value unless is not force set
     if (setting === value && !force) {
         return false;
+    }
+
+    switch (id) {
+        case SETTINGS_IDS.HANDLE_WEBRTC_ENABLED: {
+            const proxyEnabled = isProxyEnabled();
+            webrtc.setWebRTCHandlingAllowed(value, proxyEnabled);
+            break;
+        }
+        default: {
+            break;
+        }
     }
 
     notifier.notifyListeners(notifier.types.SETTING_UPDATED, id, value);
@@ -69,23 +90,29 @@ const enableProxy = async (force, withCancel) => {
     }
 };
 
-const isProxyEnabled = () => {
-    const setting = settingsService.getSetting(SETTINGS_IDS.PROXY_ENABLED);
-    return setting === true;
+/**
+ * Checks if setting is enabled
+ * @param settingId
+ * @returns {boolean}
+ */
+const isSettingEnabled = (settingId) => {
+    const enabledSettingValue = true;
+    const settingValue = settingsService.getSetting(settingId);
+    return settingValue === enabledSettingValue;
 };
 
 const applySettings = async () => {
     try {
-        await switcherHandler(isProxyEnabled());
+        const proxyEnabled = isProxyEnabled();
+        webrtc.setWebRTCHandlingAllowed(
+            isSettingEnabled(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED),
+            proxyEnabled
+        );
+        await proxySwitcherHandler(proxyEnabled);
     } catch (e) {
         await disableProxy();
     }
     log.info('Settings were applied');
-};
-
-const init = async () => {
-    await settingsService.init();
-    log.info('Settings module is ready');
 };
 
 const getSetting = (id) => {
@@ -98,6 +125,11 @@ const getExclusions = () => {
 
 const setExclusions = (exclusions) => {
     settingsService.setSetting(SETTINGS_IDS.EXCLUSIONS, exclusions);
+};
+
+const init = async () => {
+    await settingsService.init();
+    log.info('Settings module is ready');
 };
 
 const settings = {

@@ -18,6 +18,7 @@ import Settings from '../Settings';
 import Account from '../Account';
 import About from '../About';
 import Auth from '../Auth';
+import Exclusions from '../Exclusions';
 import Preloader from '../Preloader';
 import Icons from '../ui/Icons';
 
@@ -31,7 +32,8 @@ const getContent = (authenticated, requestProcessState) => {
                     <Sidebar />
                     <div className="content">
                         <Switch>
-                            <Route path="/" exact component={Settings} />
+                            <Route path="/" exact component={Exclusions} />
+                            <Route path="/settings" component={Settings} />
                             <Route path="/account" component={Account} />
                             <Route path="/about" component={About} />
                             <Route component={Settings} />

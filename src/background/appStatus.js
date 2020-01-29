@@ -14,7 +14,7 @@ class AppStatus {
         }
 
         // Turns off proxy if proxy was enabled
-        const proxyEnabled = await settings.isProxyEnabled();
+        const proxyEnabled = await settings.isSettingEnabled(settings.SETTINGS_IDS.PROXY_ENABLED);
         if (proxyEnabled) {
             await settings.disableProxy();
         }
