@@ -93,6 +93,9 @@ const types = {
     CREDENTIALS_UPDATED: 'event.credentials.updated',
     USER_AUTHENTICATED: 'event.authentication.authenticated',
     USER_DEAUTHENTICATED: 'event.authentication.deauthenticated',
+    TAB_UPDATED: 'event.tab.updated',
+    TAB_ACTIVATED: 'event.tab.activated',
+    EXCLUSIONS_UPDATED_BACK_MESSAGE: 'exclusions.updated.back.message',
 };
 
 const notifier = new Notifier(types);

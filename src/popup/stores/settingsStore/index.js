@@ -155,7 +155,7 @@ class SettingsStore {
     @action
     removeFromExclusions = async () => {
         try {
-            await adguard.exclusions.current.disableExclusionByHostname(this.currentTabHostname);
+            await adguard.exclusions.current.disableExclusionByUrl(this.currentTabHostname);
             runInAction(() => {
                 this.isExcluded = false;
             });

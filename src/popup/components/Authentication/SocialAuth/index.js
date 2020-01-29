@@ -4,7 +4,7 @@ import browser from 'webextension-polyfill';
 import rootStore from '../../../stores';
 import './social-auth.pcss';
 
-const SOCIAL_PROVIDERS = ['twitter', 'google', 'yandex', 'vk', 'facebook'];
+const SOCIAL_PROVIDERS = ['twitter', 'google', 'facebook', 'yandex', 'vk'];
 
 function SocialAuth() {
     const { authStore } = useContext(rootStore);

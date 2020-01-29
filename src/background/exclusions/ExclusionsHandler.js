@@ -36,7 +36,8 @@ export default class ExclusionsHandler {
     addToExclusions = async (
         url,
         enabled = true,
-        options = {}) => {
+        options = {}
+    ) => {
         const hostname = getHostname(url);
 
         if (!hostname) {
@@ -85,7 +86,7 @@ export default class ExclusionsHandler {
         await this.handleExclusionsUpdate(exclusion);
     };
 
-    disableExclusionByHostname = async (hostname) => {
+    disableExclusionByUrl = async (hostname) => {
         const exclusions = this.getExclusionsByUrl(hostname);
 
         exclusions.forEach((exclusion) => {
@@ -96,7 +97,7 @@ export default class ExclusionsHandler {
     };
 
     /**
-     * Returns exclusion by id
+     * Returns exclusion by url
      * @param url
      * @param includeWildcards
      * @returns {undefined,Exclusions[]}

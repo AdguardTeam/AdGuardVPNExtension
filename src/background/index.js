@@ -19,6 +19,7 @@ import storage from './storage';
 import nonRoutable from './routability/nonRoutable';
 import management from './management';
 import updateService from './updateService';
+import contextMenu from './contextMenu';
 
 global.adguard = {
     settings,
@@ -52,6 +53,7 @@ global.adguard = {
         await exclusions.init();
         await settings.applySettings(); // we have to apply settings when credentials are ready
         await nonRoutable.init();
+        await contextMenu.init();
         messaging.init();
         log.info('Extension loaded all necessary modules');
     } catch (e) {

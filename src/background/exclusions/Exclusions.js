@@ -54,6 +54,7 @@ class Exclusions {
                 type: MESSAGES_TYPES.EXCLUSIONS_UPDATED,
                 data: { exclusions },
             });
+            notifier.notifyListeners(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE);
         }
 
         const enabledExclusions = this.current.getExclusionsList()
@@ -112,6 +113,27 @@ class Exclusions {
 
     get current() {
         return this.currentHandler;
+    }
+
+    async enableVpnByUrl(url) {
+        if (this.inverted) {
+            await this.currentHandler.addToExclusions(url);
+        } else {
+            await this.currentHandler.disableExclusionByUrl(url);
+        }
+    }
+
+    async disableVpnByUrl(url) {
+        if (this.inverted) {
+            await this.currentHandler.disableExclusionByUrl(url);
+        } else {
+            await this.currentHandler.addToExclusions(url);
+        }
+    }
+
+    isVpnEnabledByUrl(url) {
+        const isExcluded = this.currentHandler.isExcluded(url);
+        return this.inverted ? isExcluded : !isExcluded;
     }
 
     isInverted() {

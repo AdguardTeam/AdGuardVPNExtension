@@ -30,11 +30,16 @@
         }
     ],
     "permissions": [
+        "<all_urls>",
         "activeTab",
+        "contextMenus",
+        "management",
+        "notifications",
+        "privacy",
+        "proxy",
         "storage",
         "unlimitedStorage",
-        "proxy",
-        "*://*.adguard.com/*",
-        "*://*.adguard.io/*"
+        "webRequest",
+        "webRequestBlocking"
     ]
 }
