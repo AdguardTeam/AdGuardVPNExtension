@@ -33,3 +33,4 @@ export const EDIT_ACCOUNT_URL = 'https://adguard-vpn.com/forward.html?action=acc
 export const WEBSITE_URL = 'https://adguard-vpn.com/forward.html?action=adguard_site&from=options_screen&app=vpn_extension';
 export const STORE_URL = 'https://adguard-vpn.com/forward.html?action=store&from=options_screen&app=vpn_extension';
 export const FEEDBACK_URL = 'https://adguard-vpn.com/forward.html?action=feedback&from=options_screen&app=vpn_extension';
+export const SUGGEST_FEATURE = 'https://adguard-vpn.com/forward.html?action=suggest_feature&from=options_screen&app=vpn_extension';

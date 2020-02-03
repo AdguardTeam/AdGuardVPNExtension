@@ -1,13 +1,12 @@
 import React, { Fragment } from 'react';
-import browser from 'webextension-polyfill';
+import translator from '../../../lib/translator';
 
 import WebRTC from './WebRTC';
+import Title from '../ui/Title';
 
 const Settings = () => (
     <Fragment>
-        <h2 className="content__title">
-            {browser.i18n.getMessage('settings_title')}
-        </h2>
+        <Title title={translator.translate('settings_title')} />
         <div className="settings">
             <WebRTC />
         </div>

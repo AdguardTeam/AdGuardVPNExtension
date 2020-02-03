@@ -208,5 +208,8 @@
     },
     "context_menu_disable_vpn": {
         "message": "Disable VPN on this website"
+    },
+    "suggest_feature": {
+        "message": "Suggest a feature"
     }
 }

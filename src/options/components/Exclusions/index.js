@@ -1,15 +1,14 @@
 import React, { Fragment } from 'react';
-import browser from 'webextension-polyfill';
 
+import translator from '../../../lib/translator';
+import Title from '../ui/Title';
 import Mode from './Mode';
 import './settings.pcss';
 import '../ui/radio.pcss';
 
 const Settings = () => (
     <Fragment>
-        <h2 className="content__title">
-            {browser.i18n.getMessage('settings_exclusion_title')}
-        </h2>
+        <Title title={translator.translate('settings_exclusion_title')} />
         <div className="settings">
             <Mode />
         </div>
