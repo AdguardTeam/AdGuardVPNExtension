@@ -10,15 +10,15 @@ const List = observer(({ exclusionsType, enabled }) => {
 
     const exclusions = settingsStore.exclusionsByType(exclusionsType);
 
-    const handleRemove = id => async () => {
+    const handleRemove = (id) => async () => {
         await settingsStore.removeFromExclusions(exclusionsType, id);
     };
 
-    const handleToggle = id => async () => {
+    const handleToggle = (id) => async () => {
         await settingsStore.toggleExclusion(exclusionsType, id);
     };
 
-    const handleRename = id => async (name) => {
+    const handleRename = (id) => async (name) => {
         await settingsStore.renameExclusion(exclusionsType, id, name);
     };
 

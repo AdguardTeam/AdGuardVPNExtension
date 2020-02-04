@@ -8,6 +8,7 @@ import { proxy } from './proxy';
 import { getClosestEndpointByCoordinates } from '../lib/helpers';
 import connectivity from './connectivity/connectivity';
 import browserApi from './browserApi';
+import { POPUP_DEFAULT_SUPPORT_URL } from './config';
 
 const vpnCache = {
     endpoints: null,
@@ -16,13 +17,14 @@ const vpnCache = {
 };
 
 const reconnectEndpoint = async (endpoint) => {
-    const { host, domainName } = await proxy.setCurrentEndpoint(endpoint);
-    const vpnToken = await credentials.gainValidVpnToken();
-    await connectivity.setCredentials(host, domainName, vpnToken.token);
+    const { domainName } = await proxy.setCurrentEndpoint(endpoint);
+    const { prefix, token } = await credentials.getAccessCredentials();
+    const wsHost = `${prefix}.${domainName}`;
+    await connectivity.setCredentials(wsHost, domainName, token);
 };
 
 const getClosestEndpointAndReconnect = async (endpoints, currentEndpoint) => {
-    const endpointsArr = Object.keys(endpoints).map(endpointKey => endpoints[endpointKey]);
+    const endpointsArr = Object.keys(endpoints).map((endpointKey) => endpoints[endpointKey]);
     const sameCityEndpoint = endpointsArr.find((endpoint) => {
         return endpoint.cityName === currentEndpoint.cityName;
     });
@@ -45,12 +47,7 @@ const getEndpointsRemotely = async () => {
         return null;
     }
 
-    const token = vpnToken && vpnToken.token;
-    if (!token) {
-        return null;
-    }
-
-    const endpoints = await vpnProvider.getEndpoints(token);
+    const endpoints = await vpnProvider.getEndpoints(vpnToken.token);
 
     if (!isEqual(endpoints, vpnCache.endpoints)) {
         vpnCache.endpoints = endpoints;
@@ -79,7 +76,7 @@ const getVpnInfoRemotely = async () => {
 
     if (vpnInfo.refreshTokens) {
         log.info('refreshing tokens');
-        const updatedVpnToken = await credentials.getVpnTokenRemote();
+        const updatedVpnToken = await credentials.gainValidVpnToken(true, false);
         if (vpnTokenChanged(vpnToken, updatedVpnToken)) {
             shouldReconnect = true;
         }
@@ -94,7 +91,7 @@ const getVpnInfoRemotely = async () => {
 
     if ((endpoints && endpoints.length > 0) && currentEndpoint) {
         const currentEndpointInEndpoints = currentEndpoint && Object.keys(endpoints)
-            .some(endpoint => endpoint === currentEndpoint.id);
+            .some((endpoint) => endpoint === currentEndpoint.id);
 
         // if there is no currently connected endpoint in the list of endpoints,
         // get closest and reconnect
@@ -114,6 +111,7 @@ const getVpnInfoRemotely = async () => {
 
 const getVpnInfo = () => {
     getVpnInfoRemotely();
+
     if (vpnCache.vpnInfo) {
         return vpnCache.vpnInfo;
     }
@@ -180,16 +178,27 @@ const getSelectedEndpoint = async () => {
 };
 
 const getVpnFailurePage = async () => {
-    const vpnToken = await credentials.gainVpnToken();
+    let vpnToken;
+    try {
+        vpnToken = await credentials.gainValidVpnToken();
+    } catch (e) {
+        log.error('Unable to get valid vpn token. Error: ', e.message);
+    }
 
     // undefined values will be omitted in the querystring
-    const token = (vpnToken && vpnToken.token) || undefined;
+    const token = vpnToken.token || undefined;
 
     let { vpnInfo } = vpnCache;
 
     // if no vpn info, then get vpn failure url with empty token
+    let appendToQueryString = false;
     if (!vpnInfo) {
-        vpnInfo = await vpnProvider.getVpnExtensionInfo(token);
+        try {
+            vpnInfo = await vpnProvider.getVpnExtensionInfo(token);
+        } catch (e) {
+            vpnInfo = { vpnFailurePage: POPUP_DEFAULT_SUPPORT_URL };
+            appendToQueryString = true;
+        }
     }
 
     const vpnFailurePage = vpnInfo && vpnInfo.vpnFailurePage;
@@ -197,7 +206,9 @@ const getVpnFailurePage = async () => {
 
     const queryString = qs.stringify({ token, app_id: appId });
 
-    return `${vpnFailurePage}?${queryString}`;
+    const separator = appendToQueryString ? '&' : '?';
+
+    return `${vpnFailurePage}${separator}${queryString}`;
 };
 
 export default {

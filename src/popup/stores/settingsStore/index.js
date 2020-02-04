@@ -8,7 +8,7 @@ import {
 import tabs from '../../../background/tabs';
 import log from '../../../lib/logger';
 import { getHostname, getProtocol, formatBytes } from '../../../lib/helpers';
-import { REQUEST_STATUSES } from '../consts';
+import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
 
 class SettingsStore {
     @observable switcherEnabled = false;
@@ -245,7 +245,7 @@ class SettingsStore {
         this.checkPermissionsState = REQUEST_STATUSES.PENDING;
         try {
             await adguard.permissionsChecker.checkPermissions();
-            await this.rootStore.globalStore.getPopupData(10);
+            await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
         } catch (e) {
             log.info(e.message);
         }

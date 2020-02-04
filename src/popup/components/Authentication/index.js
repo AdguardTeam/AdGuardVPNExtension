@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import './authentication.pcss';
 import rootStore from '../../stores';
@@ -15,14 +15,14 @@ const Authentication = observer(() => {
     const getTitle = (step) => {
         const titleMaps = {
             signIn: (
-                <Fragment>
+                <>
                     <span className="authentication__presentation">
                         Free&nbsp;
                     </span>
                     <span>
                         Unlimited VPN
                     </span>
-                </Fragment>
+                </>
             ),
             registration: 'Registration',
             twoFactor: 'Confirmation',

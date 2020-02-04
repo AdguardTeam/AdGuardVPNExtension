@@ -9,19 +9,27 @@
  * @returns {string}
  */
 function proxyPacScript(proxy, exclusionsList, inverted, defaultExclusions) {
-    const pacScriptTimeToLiveMs = 1000;
+    // Used to adjust pacscript after application or browser restart
+    const pacScriptTimeToLiveMs = 200;
+    // Used to adjust pacscript lifetime after internet reconnection
+    // After this period of time pacscript is always considered activated
+    const pacScriptActivationTimeoutMs = 2000;
     return `
             let active = false;
             const created = ${Date.now()};
             const started = Date.now();
 
-            if ((started - ${pacScriptTimeToLiveMs}) < created) {
+            if (started < (created + ${pacScriptTimeToLiveMs})) {
               active = true;
             }
 
             function FindProxyForURL(url, host) {
                 const DIRECT = "DIRECT";
                 const PROXY = "HTTPS ${proxy}";
+
+                if (!active && (Date.now() > started + ${pacScriptActivationTimeoutMs})) {
+                    active = true;
+                }
 
                 if (!active) {
                     return DIRECT;
@@ -39,13 +47,13 @@ function proxyPacScript(proxy, exclusionsList, inverted, defaultExclusions) {
                     return DIRECT;
                 }
 
-                const defaultExclusions = [${defaultExclusions.map(l => `"${l}"`).join(', ')}];
+                const defaultExclusions = [${defaultExclusions.map((l) => `"${l}"`).join(', ')}];
                 if (defaultExclusions.some(el => (areHostnamesEqual(host, el) || shExpMatch(host, el)))) {
                     return DIRECT;
                 }
 
                 const inverted = ${inverted};
-                const list = [${exclusionsList.map(l => `"${l}"`).join(', ')}];
+                const list = [${exclusionsList.map((l) => `"${l}"`).join(', ')}];
 
                 if (list.some(el => (areHostnamesEqual(host, el) || shExpMatch(host, el)))) {
                     if (inverted) {

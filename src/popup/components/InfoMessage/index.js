@@ -11,7 +11,7 @@ const InfoMessage = observer(() => {
         return null;
     }
 
-    const onClick = url => (e) => {
+    const onClick = (url) => (e) => {
         e.preventDefault();
         popupActions.openTab(url);
     };

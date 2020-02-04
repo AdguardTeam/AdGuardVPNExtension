@@ -1,5 +1,4 @@
 import React, {
-    Fragment,
     useContext,
     useEffect,
 } from 'react';
@@ -100,14 +99,13 @@ const App = observer(() => {
 
     if (!authenticated) {
         return (
-            <Fragment>
+            <>
                 {requestProcessState === REQUEST_STATUSES.PENDING
-                && <Preloader isOpen={requestProcessState === REQUEST_STATUSES.PENDING} />
-                }
+                && <Preloader isOpen={requestProcessState === REQUEST_STATUSES.PENDING} />}
                 <Header showMenuButton={authenticated} />
                 <Authentication />
                 <Icons />
-            </Fragment>
+            </>
         );
     }
 
@@ -117,20 +115,19 @@ const App = observer(() => {
     if (hasGlobalError || !canControlProxy) {
         const showMenuButton = authenticated && canControlProxy;
         return (
-            <Fragment>
+            <>
                 {checkPermissionsState === REQUEST_STATUSES.PENDING
-                && <Preloader isOpen={checkPermissionsState === REQUEST_STATUSES.PENDING} />
-                }
+                && <Preloader isOpen={checkPermissionsState === REQUEST_STATUSES.PENDING} />}
                 {isOpenOptionsModal && <ExtraOptions />}
                 <Header showMenuButton={showMenuButton} />
                 <Icons />
                 <GlobalError />
-            </Fragment>
+            </>
         );
     }
 
     return (
-        <Fragment>
+        <>
             {isOpenOptionsModal && <ExtraOptions />}
             <Header showMenuButton={authenticated} />
             <CSSTransition
@@ -149,7 +146,7 @@ const App = observer(() => {
                 <FeedbackMessage />
             </div>
             <Icons />
-        </Fragment>
+        </>
     );
 });
 

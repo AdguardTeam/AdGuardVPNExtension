@@ -6,7 +6,7 @@ import {
 } from 'mobx';
 import debounce from 'lodash/debounce';
 import browser from 'webextension-polyfill';
-import { REQUEST_STATUSES } from '../consts';
+import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
 
 const AUTH_STEPS = {
     SIGN_IN: 'signIn',
@@ -134,7 +134,7 @@ class AuthStore {
 
         if (response.status === 'ok') {
             adguard.authCache.clearAuthCache();
-            await this.rootStore.globalStore.getPopupData(10);
+            await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
             runInAction(() => {
                 this.requestProcessState = REQUEST_STATUSES.DONE;
                 this.authenticated = true;
@@ -167,7 +167,7 @@ class AuthStore {
         }
         if (response.status === 'ok') {
             adguard.authCache.clearAuthCache();
-            await this.rootStore.globalStore.getPopupData(10);
+            await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
             runInAction(() => {
                 this.requestProcessState = REQUEST_STATUSES.DONE;
                 this.authenticated = true;

@@ -8,7 +8,7 @@ import './endpoints.pcss';
 const Endpoints = observer(() => {
     const { vpnStore, uiStore, settingsStore } = useContext(rootStore);
 
-    const handleEndpointSelect = id => async (e) => {
+    const handleEndpointSelect = (id) => async (e) => {
         e.preventDefault();
         const prevId = vpnStore.selectedEndpoint.id;
         await vpnStore.selectEndpoint(id);
@@ -39,7 +39,7 @@ const Endpoints = observer(() => {
         return 'bullet_off';
     };
 
-    const renderEndpoints = endpoints => endpoints.map((endpoint) => {
+    const renderEndpoints = (endpoints) => endpoints.map((endpoint) => {
         const {
             countryName,
             id,

@@ -59,7 +59,7 @@ const getLocalizedName = (names, locale) => {
     // eslint-disable-next-line no-param-reassign
     locale = locale || DEFAULT_LOCALE;
 
-    const name = names.find(localizedName => locale === localizedName.locale);
+    const name = names.find((localizedName) => locale === localizedName.locale);
     if (name) {
         return name.name;
     }

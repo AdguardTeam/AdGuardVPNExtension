@@ -29,7 +29,7 @@ module.exports = function protobufLoader(source) {
         paths: [],
         pbjsArgs: [],
     };
-    const options = Object.assign({}, defaultOptions, getOptions(this));
+    const options = { ...defaultOptions, ...getOptions(this) };
 
     validateOptions(schema, options, 'protobuf-loader');
 

@@ -6,11 +6,9 @@ import proxyApi from './abstractProxyApi';
 
 import log from '../../lib/logger';
 import storage from '../storage';
-import { NON_ROUTABLE_NETS } from '../routability/nonRoutableNets';
 import { MESSAGES_TYPES } from '../../lib/constants';
 import browserApi from '../browserApi';
-import {CONNECTION_MODES, LEVELS_OF_CONTROL, DEFAULT_EXCLUSIONS} from './proxyConsts';
-import browser from 'webextension-polyfill';
+import { LEVELS_OF_CONTROL, DEFAULT_EXCLUSIONS } from './proxyConsts';
 
 const CURRENT_ENDPOINT_KEY = 'proxyCurrentEndpoint';
 
@@ -24,7 +22,6 @@ class ExtensionProxy {
         this.isActive = false;
         this.currentConfig = this.getConfig();
         this.bypassList = [];
-        this.currentAccessPrefix = '';
         this.currentEndpoint = '';
         this.currentHost = '';
     }
@@ -87,7 +84,6 @@ class ExtensionProxy {
 
     getConfig() {
         return {
-            mode: CONNECTION_MODES.FIXED_SERVERS,
             bypassList: this.getBypassList(),
             defaultExclusions: DEFAULT_EXCLUSIONS,
             host: this.currentHost,
@@ -105,7 +101,7 @@ class ExtensionProxy {
     async applyConfig() {
         this.updateConfig();
         if (this.isActive) {
-            await this.turnOn();
+            await proxyApi.proxySet(this.currentConfig);
         }
     }
 
@@ -127,25 +123,15 @@ class ExtensionProxy {
         await this.applyConfig();
     };
 
-    setAccessCredentials = async (accessCredentials) => {
-        const { credentials, prefix } = accessCredentials;
+    setAccessCredentials = async (credentials) => {
         const endpoint = await this.getCurrentEndpoint();
         if (!endpoint) {
             throw new Error('current endpoint is empty');
         }
         const { domainName } = endpoint;
-        const host = `${prefix}.${domainName}`;
-        this.currentAccessPrefix = prefix;
         this.credentials = credentials;
         this.setHost(domainName);
-        return { host, domainName };
-    };
-
-    getHost = () => {
-        if (!this.currentHost) {
-            return null;
-        }
-        return this.currentHost;
+        return { domainName };
     };
 
     getDomainName = async () => {
@@ -159,14 +145,13 @@ class ExtensionProxy {
     setCurrentEndpoint = async (endpoint) => {
         this.currentEndpoint = endpoint;
         const { domainName } = this.currentEndpoint;
-        const host = `${this.currentAccessPrefix}.${domainName}`;
-        this.setHost(host);
+        this.setHost(domainName);
         await storage.set(CURRENT_ENDPOINT_KEY, endpoint);
         browserApi.runtime.sendMessage({
             type: MESSAGES_TYPES.CURRENT_ENDPOINT_UPDATED,
             data: endpoint,
         });
-        return { host, domainName };
+        return { domainName };
     };
 
     getCurrentEndpoint = async () => {

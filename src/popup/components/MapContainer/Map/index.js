@@ -101,7 +101,7 @@ const Map = observer(() => {
                         disableOptimization
                         geography={jsonMap}
                     >
-                        {(geos, projection) => geos.map(geo => (
+                        {(geos, projection) => geos.map((geo) => (
                             <Geography
                                 key={nanoid()}
                                 geography={geo}
@@ -112,16 +112,14 @@ const Map = observer(() => {
                                     pressed: geographyStyleDef,
                                 }}
                             />
-                        ))
-                                    }
+                        ))}
                     </Geographies>
                     {renderCityMarkers(
                         endpoints,
                         selectedEndpoint,
                         displayEnabled,
                         onMarkerClick
-                    )
-                            }
+                    )}
                 </ZoomableGlobe>
             </ComposableMap>
             <Tooltip />

@@ -1,5 +1,4 @@
 import browser from 'webextension-polyfill';
-import { CONNECTION_MODES } from '../proxyConsts';
 import pacGenerator from '../../../lib/pacGenerator';
 
 const proxyGet = (config = {}) => new Promise((resolve) => {
@@ -11,14 +10,12 @@ const proxyGet = (config = {}) => new Promise((resolve) => {
 /**
  * @typedef proxyConfig
  * @type {Object}
- * @property {string} mode - proxy mode 'system' or 'fixed_servers'
  * @property {string[]} [bypassList] - array of bypassed values
  * @property {string} [host] - proxy host address
  * @property {number} [port] - proxy port
  * @property {string} [scheme] - proxy scheme
  * @property {{username: string, password: string}} credentials
  * e.g.   const config = {
- *            mode: 'system',
  *            bypassList: [],
  *            host: 'do-de-fra1-01.adguard.io',
  *            port: 443,
@@ -53,16 +50,11 @@ const proxyGet = (config = {}) => new Promise((resolve) => {
  */
 const convertToChromeConfig = (proxyConfig) => {
     const {
-        mode, bypassList, host, port, inverted, defaultExclusions,
+        bypassList, host, port, inverted, defaultExclusions,
     } = proxyConfig;
 
-    let pacScript;
-    if (mode === CONNECTION_MODES.SYSTEM) {
-        pacScript = pacGenerator.generate();
-    } else {
-        const proxyAddress = `${host}:${port}`;
-        pacScript = pacGenerator.generate(proxyAddress, bypassList, inverted, defaultExclusions);
-    }
+    const proxyAddress = `${host}:${port}`;
+    const pacScript = pacGenerator.generate(proxyAddress, bypassList, inverted, defaultExclusions);
 
     return {
         value: {
@@ -120,10 +112,11 @@ const proxyClear = () => new Promise((resolve) => {
  * @param {proxyConfig} config - proxy config
  * @returns {Promise<void>}
  */
-const proxySet = config => new Promise((resolve) => {
+const proxySet = (config) => new Promise((resolve) => {
     GLOBAL_PROXY_CONFIG = config;
     addAuthHandler();
-    browser.proxy.settings.set(convertToChromeConfig(config), () => {
+    const chromeConfig = convertToChromeConfig(config);
+    browser.proxy.settings.set(chromeConfig, () => {
         resolve();
     });
 });

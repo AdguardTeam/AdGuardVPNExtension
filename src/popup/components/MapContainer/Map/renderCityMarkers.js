@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Markers, Marker } from 'react-simple-maps';
 import classnames from 'classnames';
 
@@ -16,7 +16,7 @@ const renderCityMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMa
             return endpoint;
         }
         return null;
-    }).filter(i => i);
+    }).filter((i) => i);
 
     if (!markers) {
         return null;
@@ -58,7 +58,7 @@ const renderCityMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMa
 
     return (
         <Markers>
-            {markers.map(marker => (
+            {markers.map((marker) => (
                 <Marker
                     key={marker.id}
                     marker={marker}
@@ -70,26 +70,26 @@ const renderCityMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMa
                     {
                         selectedEndpoint
                         && isSelectedEndpointMarker(marker, selectedEndpoint) ? (
-                            <Fragment>
-                                <circle
-                                    cx={0}
-                                    cy={0}
-                                    r={10}
-                                    fill={globalProxyEnabled
-                                        ? COLORS.SELECTED_ENABLED_MARKER
-                                        : COLORS.SELECTED_DISABLED_MARKER}
-                                />
-                                <circle
-                                    cx={0}
-                                    cy={0}
-                                    r={4}
-                                    fill="#F0F0F0"
-                                />
-                                <SignalsAnimation />
-                            </Fragment>
+                                <>
+                                    <circle
+                                        cx={0}
+                                        cy={0}
+                                        r={10}
+                                        fill={globalProxyEnabled
+                                            ? COLORS.SELECTED_ENABLED_MARKER
+                                            : COLORS.SELECTED_DISABLED_MARKER}
+                                    />
+                                    <circle
+                                        cx={0}
+                                        cy={0}
+                                        r={4}
+                                        fill="#F0F0F0"
+                                    />
+                                    <SignalsAnimation />
+                                </>
                             )
                             : (
-                                <Fragment>
+                                <>
                                     <circle
                                         cx={0}
                                         cy={0}
@@ -106,7 +106,7 @@ const renderCityMarkers = (endpoints, selectedEndpoint, globalProxyEnabled, onMa
                                             ? COLORS.ENABLED_MARKER_05
                                             : COLORS.DISABLED_MARKER}
                                     />
-                                </Fragment>
+                                </>
                             )
                     }
                     {renderCityName(marker, selectedEndpoint)}

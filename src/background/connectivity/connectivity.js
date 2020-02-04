@@ -25,35 +25,38 @@ class Connectivity {
 
     updateCredentials = async () => {
         let vpnToken;
+        let prefix;
         try {
-            vpnToken = await credentials.gainValidVpnToken();
+            const accessCredentials = await credentials.getAccessCredentials();
+            ({ prefix, token: vpnToken } = accessCredentials);
         } catch (e) {
             // do nothing;
             return;
         }
 
-        const host = proxy.getHost();
         const domainName = await proxy.getDomainName();
 
         // if values are empty, do nothing
-        if (!vpnToken || !host || !domainName) {
+        if (!vpnToken || !prefix || !domainName) {
             return;
         }
 
+        const wsHost = `${prefix}.${domainName}`;
+
         // do not set if credentials are the same
-        if (host === this.host
+        if (wsHost === this.wsHost
             && domainName === this.domainName
             && vpnToken === this.vpnToken) {
             return;
         }
 
-        await this.setCredentials(host, domainName, vpnToken.token);
+        await this.setCredentials(wsHost, domainName, vpnToken);
     };
 
-    async setCredentials(host, domainName, vpnToken, shouldStart) {
+    async setCredentials(wsHost, domainName, vpnToken, shouldStart) {
         this.vpnToken = vpnToken;
         this.domainName = domainName;
-        this.host = host;
+        this.wsHost = wsHost;
 
         let restart = false;
 
@@ -62,7 +65,7 @@ class Connectivity {
             await this.stop();
         }
 
-        const websocketUrl = renderTemplate(WS_API_URL_TEMPLATE, { host });
+        const websocketUrl = renderTemplate(WS_API_URL_TEMPLATE, { host: wsHost });
         try {
             this.ws = await wsFactory.getWebsocket(websocketUrl);
         } catch (e) {
@@ -162,9 +165,11 @@ class Connectivity {
     };
 
     updateConnectivityInfo = async (stats) => {
+        const { bytesDownloaded = 0, bytesUploaded = 0 } = stats;
+
         await statsStorage.saveStats(this.domainName, {
-            downloaded: stats.bytesDownloaded,
-            uploaded: stats.bytesUploaded,
+            downloaded: bytesDownloaded,
+            uploaded: bytesUploaded,
         });
     };
 

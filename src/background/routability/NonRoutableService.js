@@ -20,7 +20,7 @@ class NonRoutableService {
 
     constructor(storage) {
         this.storage = storage;
-        this.parsedCIDRList = NON_ROUTABLE_NETS.map(net => ipaddr.parseCIDR(net));
+        this.parsedCIDRList = NON_ROUTABLE_NETS.map((net) => ipaddr.parseCIDR(net));
     }
 
     async init() {
@@ -73,7 +73,7 @@ class NonRoutableService {
             return true;
         }
 
-        return !this.parsedCIDRList.some(parsedCIDR => addr.match(parsedCIDR));
+        return !this.parsedCIDRList.some((parsedCIDR) => addr.match(parsedCIDR));
     }
 
     getNonRoutableList() {

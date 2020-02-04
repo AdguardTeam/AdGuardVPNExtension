@@ -4,7 +4,7 @@ import {
     observable,
 } from 'mobx';
 
-import { REQUEST_STATUSES } from '../consts';
+import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
 import log from '../../../lib/logger';
 import tabs from '../../../background/tabs';
 
@@ -13,6 +13,11 @@ class globalStore {
 
     constructor(rootStore) {
         this.rootStore = rootStore;
+        // If popup closes before popup data was received, cancel receiving on the background page
+        // otherwise extension will freeze
+        window.addEventListener('unload', () => {
+            adguard.popupData.cancelGettingPopupData('popup closed');
+        });
     }
 
     @action
@@ -25,7 +30,9 @@ class globalStore {
         const currentTab = await tabs.getCurrent();
 
         try {
-            const popupData = await adguard.popupData.getPopupDataRetry(currentTab.url, retryNum);
+            const popupData = await adguard.popupData.getPopupDataRetryWithCancel(
+                currentTab.url, retryNum
+            );
 
             const {
                 vpnInfo,
@@ -36,6 +43,7 @@ class globalStore {
                 canControlProxy,
                 isProxyEnabled,
                 isRoutable,
+                hasRequiredData,
             } = popupData;
 
             if (!isAuthenticated) {
@@ -46,6 +54,8 @@ class globalStore {
 
             if (permissionsError) {
                 settingsStore.setGlobalError(permissionsError);
+            } else if (!hasRequiredData) {
+                settingsStore.setGlobalError(new Error('No required data'));
             }
 
             authStore.setIsAuthenticated(isAuthenticated);
@@ -65,7 +75,7 @@ class globalStore {
 
     @action
     async init() {
-        await this.getPopupData(10);
+        await this.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
     }
 
     @action

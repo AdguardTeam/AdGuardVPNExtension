@@ -6,7 +6,6 @@ import auth from './auth';
 import storage from './storage';
 import log from '../lib/logger';
 import vpnProvider from './providers/vpnProvider';
-import { ERROR_STATUSES } from '../lib/constants';
 import permissionsError from './permissionsChecker/permissionsError';
 import notifier from '../lib/notifier';
 import { proxy } from './proxy';
@@ -47,13 +46,7 @@ class Credentials {
                 return null;
             }
 
-            if (e.status === ERROR_STATUSES.NETWORK_ERROR) {
-                log.debug('Network error occurred', e.message);
-                return null;
-            }
-
-            log.debug(e.message);
-            return null;
+            throw e;
         }
 
         // save vpnToken in memory
@@ -61,11 +54,17 @@ class Credentials {
         return vpnToken;
     }
 
-    async gainVpnToken(forceRemote = false, useLocalFallback) {
+    async gainVpnToken(forceRemote, useLocalFallback) {
         let vpnToken;
 
         if (forceRemote) {
-            vpnToken = await this.getVpnTokenRemote();
+            try {
+                vpnToken = await this.getVpnTokenRemote();
+            } catch (e) {
+                if (!useLocalFallback) {
+                    throw e;
+                }
+            }
             // fallback if was unable to get vpn token remotely
             if (!vpnToken && useLocalFallback) {
                 vpnToken = await this.getVpnTokenLocal();
@@ -86,7 +85,7 @@ class Credentials {
         return !!(vpnToken && vpnToken.licenseStatus === VALID_VPN_TOKEN_STATUS);
     }
 
-    async gainValidVpnToken(forceRemote, useLocalFallback = false) {
+    async gainValidVpnToken(forceRemote = false, useLocalFallback = true) {
         const vpnToken = await this.gainVpnToken(forceRemote, useLocalFallback);
 
         if (!this.isValid(vpnToken)) {
@@ -104,7 +103,7 @@ class Credentials {
      * @param useLocalFallback
      * @returns {Promise<*>}
      */
-    async gainValidVpnCredentials(forceRemote, useLocalFallback = false) {
+    async gainValidVpnCredentials(forceRemote = false, useLocalFallback = true) {
         const vpnCredentials = await this.gainVpnCredentials(forceRemote, useLocalFallback);
 
         if (!this.areCredentialsValid(vpnCredentials)) {
@@ -123,20 +122,14 @@ class Credentials {
     async getVpnCredentialsRemote() {
         const appId = this.getAppId();
 
-        let vpnCredentials;
-        try {
-            const vpnToken = await this.gainValidVpnToken();
-            vpnCredentials = await vpnProvider.getVpnCredentials(appId, vpnToken.token);
-        } catch (e) {
-            log.error('Unable to get vpn credentials remotely, due to error:', e.message);
-            return null;
-        }
+        const vpnToken = await this.gainValidVpnToken();
+        const vpnCredentials = await vpnProvider.getVpnCredentials(appId, vpnToken.token);
 
         if (!this.areCredentialsValid(vpnCredentials)) {
             return null;
         }
 
-        if (!this.areEqual(vpnCredentials, this.vpnCredentials)) {
+        if (!this.areCredentialsEqual(vpnCredentials, this.vpnCredentials)) {
             this.vpnCredentials = vpnCredentials;
             await storage.set(this.VPN_CREDENTIALS_KEY, vpnCredentials);
             await this.updateProxyCredentials();
@@ -171,7 +164,7 @@ class Credentials {
      * @param oldCred
      * @returns {boolean}
      */
-    areEqual = (newCred, oldCred) => {
+    areCredentialsEqual = (newCred, oldCred) => {
         const path = 'result.credentials';
         return lodashGet(newCred, path) === lodashGet(oldCred, path);
     };
@@ -189,7 +182,13 @@ class Credentials {
         let vpnCredentials;
 
         if (forceRemote) {
-            vpnCredentials = await this.getVpnCredentialsRemote();
+            try {
+                vpnCredentials = await this.getVpnCredentialsRemote();
+            } catch (e) {
+                if (!useLocalFallback) {
+                    throw e;
+                }
+            }
             // fallback if was unable to get valid remote vpn credentials
             if (!this.areCredentialsValid(vpnCredentials) && useLocalFallback) {
                 vpnCredentials = await this.getVpnCredentialsLocal();
@@ -207,8 +206,8 @@ class Credentials {
     }
 
     updateProxyCredentials = async () => {
-        const accessCredentials = await this.getAccessCredentials();
-        await proxy.setAccessCredentials(accessCredentials);
+        const { credentials } = await this.getAccessCredentials();
+        await proxy.setAccessCredentials(credentials);
     };
 
     /**
@@ -222,6 +221,7 @@ class Credentials {
         return {
             prefix: md5(`${appId}:${token}:${credentials}`).toString(),
             credentials: { username: token, password: credentials },
+            token,
         };
     }
 
@@ -305,10 +305,9 @@ class Credentials {
 
             // On extension initialisation use local fallback if was unable to get data remotely
             // it might be useful on browser restart
-            const useLocalFallback = true;
             const forceRemote = true;
-            this.vpnToken = await this.gainValidVpnToken(forceRemote, useLocalFallback);
-            this.vpnCredentials = await this.gainValidVpnCredentials(forceRemote, useLocalFallback);
+            this.vpnToken = await this.gainValidVpnToken(forceRemote);
+            this.vpnCredentials = await this.gainValidVpnCredentials(forceRemote);
 
             this.currentUsername = await this.fetchUsername();
         } catch (e) {

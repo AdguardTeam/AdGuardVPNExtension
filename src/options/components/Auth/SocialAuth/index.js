@@ -9,7 +9,7 @@ const SOCIAL_PROVIDERS = ['twitter', 'google', 'facebook', 'yandex', 'vk'];
 const SocialAuth = () => {
     const { authStore } = useContext(rootStore);
 
-    const socialAuthClickHandler = social => async () => {
+    const socialAuthClickHandler = (social) => async () => {
         await authStore.openSocialAuth(social);
     };
 
@@ -19,7 +19,7 @@ const SocialAuth = () => {
                 {browser.i18n.getMessage('auth_social')}
             </div>
             <div className="social-auth__list">
-                {SOCIAL_PROVIDERS.map(name => (
+                {SOCIAL_PROVIDERS.map((name) => (
                     <button
                         key={name}
                         type="button"

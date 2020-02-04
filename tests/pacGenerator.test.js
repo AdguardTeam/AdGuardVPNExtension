@@ -132,7 +132,7 @@ describe('Pac generator', () => {
         expect(resultAdguardIo).toBe('DIRECT');
     });
 
-    it('pac file life time is reduced to 100ms', async () => {
+    it('pac file life time is reduced to 200ms', async () => {
         const proxy = 'do-de-fra1-01.adguard.io:443';
         const pacScript = pacGenerator.generate(proxy, [], false, []);
         let FindProxyForUrl = pac(pacScript);
@@ -140,7 +140,7 @@ describe('Pac generator', () => {
         let result = await FindProxyForUrl('https://example.org/foo', 'example.org');
         expect(result).toBe(`HTTPS ${proxy}`);
 
-        await sleep(1100);
+        await sleep(300);
         FindProxyForUrl = pac(pacScript);
         result = await FindProxyForUrl('https://example.org/foo', 'example.org');
         expect(result).toBe('DIRECT');

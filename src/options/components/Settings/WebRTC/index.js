@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import translator from '../../../../lib/translator';
 import rootStore from '../../../stores';
@@ -13,7 +13,7 @@ const Webrtc = observer(() => {
     };
 
     return (
-        <Fragment>
+        <>
             <div className="settings__group">
                 <Switch
                     id="webrtc"
@@ -23,7 +23,7 @@ const Webrtc = observer(() => {
                     checked={settingsStore.webRTCEnabled}
                 />
             </div>
-        </Fragment>
+        </>
     );
 });
 

@@ -22,7 +22,7 @@ const LOCALES_DIR = path.resolve(__dirname, '../src/_locales');
  * Build query string for downloading translations
  * @param {string} lang locale code
  */
-const getQueryString = lang => querystring.stringify({
+const getQueryString = (lang) => querystring.stringify({
     format: FORMAT,
     language: lang,
     project: PROJECT_ID,

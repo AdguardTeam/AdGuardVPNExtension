@@ -5,6 +5,7 @@ import { SETTINGS_IDS } from '../lib/constants';
 import permissionsError from './permissionsChecker/permissionsError';
 import nonRoutable from './routability/nonRoutable';
 import permissionsChecker from './permissionsChecker/permissionsChecker';
+import { runWithCancel } from '../lib/helpers';
 
 const throttledPermissionsChecker = throttle(permissionsChecker.checkPermissions, 2000);
 
@@ -40,36 +41,67 @@ const getPopupData = async (url) => {
     };
 };
 
-const sleep = waitTime => new Promise((resolve) => {
+const sleep = (waitTime) => new Promise((resolve) => {
     setTimeout(resolve, waitTime);
 });
 
 let retryCounter = 0;
 
-const DEFAULT_RETRY_DELAY = 200;
-const getPopupDataRetry = async (url, retryNum = 1, retryDelay = DEFAULT_RETRY_DELAY) => {
+const DEFAULT_RETRY_DELAY = 400;
+function* getPopupDataRetry(url, retryNum = 1, retryDelay = DEFAULT_RETRY_DELAY) {
     const backoffIndex = 1.5;
-    const data = await getPopupData(url);
+    const data = yield getPopupData(url);
     retryCounter += 1;
+
     if (!data.isAuthenticated || data.permissionsError) {
         retryCounter = 0;
         return data;
     }
+
     const { vpnInfo, endpoints, selectedEndpoint } = data;
+
+    let hasRequiredData = true;
+
     if (!vpnInfo || !endpoints || !selectedEndpoint) {
         if (retryNum <= 1) {
             // it may be useful to disconnect proxy if we can't get data
             if (data.isProxyEnabled) {
-                await adguard.settings.disableProxy();
+                yield adguard.settings.disableProxy();
             }
-            throw new Error(`Unable to get data in ${retryCounter} retries`);
+            retryCounter = 0;
+            hasRequiredData = false;
+            return { ...data, hasRequiredData };
         }
-        await sleep(retryDelay);
+        yield sleep(retryDelay);
         log.debug(`Retry get popup data again retry: ${retryCounter}`);
-        return getPopupDataRetry(url, retryNum - 1, retryDelay * backoffIndex);
+        return yield* getPopupDataRetry(url, retryNum - 1, retryDelay * backoffIndex);
     }
+
     retryCounter = 0;
-    return data;
+    return { ...data, hasRequiredData };
+}
+
+let cancel;
+let promise;
+
+const getPopupDataRetryWithCancel = (url, retryNum) => {
+    if (cancel) {
+        cancel();
+        retryCounter = 0;
+    }
+    ({ promise, cancel } = runWithCancel(getPopupDataRetry, url, retryNum));
+    return promise;
 };
 
-export default { getPopupDataRetry };
+/**
+ * If popup is closed we call this function
+ * This is done because if user doesn't wait until extension gets data and closes popup,
+ * then extension freezes
+ */
+const cancelGettingPopupData = () => {
+    if (cancel) {
+        cancel();
+    }
+};
+
+export default { getPopupDataRetryWithCancel, cancelGettingPopupData };

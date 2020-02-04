@@ -47,8 +47,8 @@
             "ignoredNodes": ["JSXElement", "JSXElement > *", "JSXAttribute", "JSXIdentifier", "JSXNamespacedName", "JSXMemberExpression", "JSXSpreadAttribute", "JSXExpressionContainer", "JSXOpeningElement", "JSXClosingElement", "JSXText", "JSXEmptyExpression", "JSXSpreadChild"],
             "ignoreComments": false
         }],
-        "react/jsx-indent": ["error", 4],
-        "react/jsx-indent-props": ["error", 4],
+        "react/jsx-indent": "off",
+        "react/jsx-indent-props": "off",
         "no-underscore-dangle": "off",
         "react/destructuring-assignment": [
             "error",
@@ -61,6 +61,12 @@
             "labelComponents": ["label"],
             "labelAttributes": ["htmlFor"],
             "controlComponents": ["input"]
+        }],
+        "jsx-a11y/control-has-associated-label": [2, {
+            "ignoreElements": [
+                "button",
+                "input"
+            ]
         }],
         "jsx-a11y/label-has-for": "off",
         "jsx-a11y/click-events-have-key-events": "off",

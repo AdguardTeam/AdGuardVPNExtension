@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { useContext } from 'react';
 import browser from 'webextension-polyfill';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
@@ -15,7 +15,7 @@ const Mode = observer(() => {
         toggleInverted,
     } = settingsStore;
 
-    const onChange = type => async () => {
+    const onChange = (type) => async () => {
         await toggleInverted(type);
     };
 
@@ -68,35 +68,35 @@ const Mode = observer(() => {
         const enabled = exclusionsType === currentExclusionsType;
 
         return (
-            <Fragment>
+            <>
                 <Form exclusionsType={exclusionsType} enabled={enabled} />
                 <List exclusionsType={exclusionsType} enabled={enabled} />
-            </Fragment>
+            </>
         );
     };
 
     return (
-        <Fragment>
+        <>
             <div className="settings__section">
                 <div className="settings__title">
                     {browser.i18n.getMessage('settings_connection_mode_title')}
                 </div>
                 <div className="settings__group">
                     <div className="settings__controls">
-                        {types.map(type => (
+                        {types.map((type) => (
                             <div className="settings__control" key={type}>
                                 {renderControls(type)}
                             </div>
                         ))}
                     </div>
-                    {types.map(type => (
+                    {types.map((type) => (
                         <div className="settings__control" key={type}>
                             {renderContent(type)}
                         </div>
                     ))}
                 </div>
             </div>
-        </Fragment>
+        </>
     );
 });
 

@@ -27,8 +27,8 @@ const updatePermissionsErrorHandler = async (error) => {
 
 const checkPermissions = async () => {
     try {
-        await credentials.gainValidVpnToken(true);
-        await credentials.gainValidVpnCredentials(true);
+        await credentials.gainValidVpnToken(true, false);
+        await credentials.gainValidVpnCredentials(true, false);
         // if no error, clear permissionError
         permissionsError.clearError();
         log.info('Permissions were checked successfully');

@@ -1,6 +1,5 @@
-import React, { Fragment, useContext } from 'react';
+import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
-
 import rootStore from '../../stores';
 import { EDIT_ACCOUNT_URL } from '../../../background/config';
 import translator from '../../../lib/translator';
@@ -15,7 +14,7 @@ const Account = observer(() => {
     };
 
     return (
-        <Fragment>
+        <>
             <Title title={translator.translate('account_title')} />
             <div className="account">
                 <div className="account__email">
@@ -39,7 +38,7 @@ const Account = observer(() => {
                     </button>
                 </div>
             </div>
-        </Fragment>
+        </>
     );
 });
 

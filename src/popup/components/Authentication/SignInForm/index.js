@@ -75,8 +75,7 @@ const SignInForm = observer(() => {
                         <div className="form__item-error">
                             {authStore.error}
                         </div>
-                    )
-                }
+                    )}
             </div>
             <div className="form__btns">
                 <button

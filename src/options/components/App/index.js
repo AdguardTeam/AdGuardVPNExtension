@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import browser from 'webextension-polyfill';
@@ -45,10 +45,10 @@ const getContent = (authenticated, requestProcessState) => {
     }
 
     return (
-        <Fragment>
+        <>
             {requestProcessState === REQUEST_STATUSES.PENDING && <Preloader />}
             <Auth />
-        </Fragment>
+        </>
     );
 };
 

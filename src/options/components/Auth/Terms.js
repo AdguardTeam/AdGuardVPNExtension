@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import { EULA_URL, PRIVACY_URL } from '../../../background/config';
 
 // TODO translations
 const Terms = () => (
-    <Fragment>
+    <>
         <div className="auth__terms">
             By continuing you accept the&nbsp;
             <div>
@@ -29,7 +29,7 @@ const Terms = () => (
                 </a>
             </div>
         </div>
-    </Fragment>
+    </>
 );
 
 export default Terms;

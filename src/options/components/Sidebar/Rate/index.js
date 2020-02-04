@@ -30,14 +30,14 @@ const Rate = observer(() => {
     };
 
     return (
-        <Fragment>
+        <>
             {isRateVisible ? (
                 <div className="rate">
                     <div className="rate__text">
                         {browser.i18n.getMessage('rate_description')}
                     </div>
                     <div className="rate__stars">
-                        {RATING_STARS.map(star => (
+                        {RATING_STARS.map((star) => (
                             <Fragment key={star}>
                                 <input
                                     type="radio"
@@ -63,7 +63,7 @@ const Rate = observer(() => {
                     </button>
                 </div>
             ) : ''}
-        </Fragment>
+        </>
     );
 });
 

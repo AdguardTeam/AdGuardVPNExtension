@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import translator from '../../../lib/translator';
@@ -11,7 +11,7 @@ const About = observer(() => {
 
     const aboutVersionStr = `${translator.translate('name')} ${settingsStore.appVersion}`;
     return (
-        <Fragment>
+        <>
             <Title title={translator.translate('about_title')} />
             <div className="about">
                 <div className="about__version">
@@ -21,7 +21,7 @@ const About = observer(() => {
                     {translator.translate('description')}
                 </div>
             </div>
-        </Fragment>
+        </>
     );
 });
 

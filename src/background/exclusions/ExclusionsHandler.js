@@ -108,13 +108,13 @@ export default class ExclusionsHandler {
             return undefined;
         }
         return Object.values(this._exclusions)
-            .filter(exclusion => areHostnamesEqual(hostname, exclusion.hostname)
+            .filter((exclusion) => areHostnamesEqual(hostname, exclusion.hostname)
                 || (includeWildcards && shExpMatch(url, exclusion.hostname)));
     };
 
     isExcluded = (url) => {
         const exclusions = this.getExclusionsByUrl(url);
-        return exclusions.some(exclusion => exclusion.enabled);
+        return exclusions.some((exclusion) => exclusion.enabled);
     };
 
     toggleExclusion = async (id) => {

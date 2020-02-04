@@ -1,8 +1,3 @@
-export const CONNECTION_MODES = {
-    SYSTEM: 'system',
-    FIXED_SERVERS: 'fixed_servers',
-};
-
 export const CONNECTION_TYPE_FIREFOX = {
     DIRECT: 'direct',
 };

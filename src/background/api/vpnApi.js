@@ -18,13 +18,16 @@ class VpnApi extends Api {
 
     getVpnCredentials = (appId, vpnToken) => {
         const { path, method } = this.GET_VPN_CREDENTIALS;
+
         const data = {
             app_id: appId,
             token: vpnToken,
         };
+
         const config = {
             data: qs.stringify(data),
         };
+
         return this.makeRequest(path, method, config);
     };
 
@@ -39,6 +42,7 @@ class VpnApi extends Api {
 
     getVpnExtensionInfo = (vpnToken) => {
         const { path, method } = this.VPN_EXTENSION_INFO;
+
         const params = {
             token: vpnToken,
         };

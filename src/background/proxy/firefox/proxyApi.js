@@ -1,19 +1,17 @@
 import browser from 'webextension-polyfill';
 import { getHostname } from '../../../lib/helpers';
-import { CONNECTION_MODES, CONNECTION_TYPE_FIREFOX } from '../proxyConsts';
+import { CONNECTION_TYPE_FIREFOX } from '../proxyConsts';
 import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
 
 /**
  * @typedef proxyConfig
  * @type {Object}
- * @property {string} mode - proxy mode 'system' or 'fixed_servers'
  * @property {string[]} [bypassList] - array of bypassed values
  * @property {string} [host] - proxy host address
  * @property {number} [port] - proxy port
  * @property {string} [scheme] - proxy scheme
  * @property {{username: string, password: string}} credentials
  * e.g.   const config = {
- *            mode: 'system',
  *            bypassList: ['example.org', 'localhost', '0.0.0.0/8'],
  *            host: 'do-de-fra1-01.adguard.io',
  *            port: 443,
@@ -51,15 +49,9 @@ import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
  */
 const convertToFirefoxConfig = (proxyConfig) => {
     const {
-        mode, bypassList, host, port, scheme, inverted, credentials, defaultExclusions,
+        bypassList, host, port, scheme, inverted, credentials, defaultExclusions,
     } = proxyConfig;
-    if (mode === CONNECTION_MODES.SYSTEM) {
-        return {
-            proxyConfig: {
-                type: CONNECTION_TYPE_FIREFOX.DIRECT,
-            },
-        };
-    }
+
     return {
         inverted,
         bypassList,
@@ -87,8 +79,8 @@ const isBypassed = (url, exclusionsPatterns) => {
     }
     const hostname = getHostname(url);
 
-    return exclusionsPatterns.some(exclusionPattern => areHostnamesEqual(hostname, exclusionPattern)
-        || shExpMatch(hostname, exclusionPattern));
+    return exclusionsPatterns.some((exclusionPattern) => (
+        areHostnamesEqual(hostname, exclusionPattern) || shExpMatch(hostname, exclusionPattern)));
 };
 
 const onAuthRequiredHandler = (details) => {
