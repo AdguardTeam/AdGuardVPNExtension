@@ -5,7 +5,6 @@ const ZipWebpackPlugin = require('zip-webpack-plugin');
 const common = require('../webpack.common');
 const { updateManifest } = require('../helpers');
 const firefoxManifestDiff = require('./manifest.firefox');
-const pJson = require('../../package');
 const { ENVS } = require('../consts');
 
 
@@ -26,7 +25,7 @@ if (process.env.NODE_ENV === ENVS.BETA) {
     plugins.push(
         new ZipWebpackPlugin({
             path: '../',
-            filename: `firefox-${ENVS.BETA}-${pJson.version}.zip`,
+            filename: 'firefox.zip',
         })
     );
 }

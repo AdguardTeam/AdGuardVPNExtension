@@ -2,7 +2,6 @@ const merge = require('webpack-merge');
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ZipWebpackPlugin = require('zip-webpack-plugin');
-const pJson = require('../../package');
 const common = require('../webpack.common');
 const { updateManifest } = require('../helpers');
 const chromeManifestDiff = require('./manifest.chrome');
@@ -23,7 +22,7 @@ if (process.env.NODE_ENV === ENVS.BETA) {
     plugins.push(
         new ZipWebpackPlugin({
             path: '../',
-            filename: `chrome-${ENVS.BETA}-${pJson.version}.zip`,
+            filename: 'chrome.zip',
         })
     );
 }

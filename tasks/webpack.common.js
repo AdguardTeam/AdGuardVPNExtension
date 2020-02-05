@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CreateFileWebpack = require('create-file-webpack');
 const { SRC_PATH, IS_DEV } = require('./consts');
 const { getOutputPathByEnv } = require('./helpers');
 
@@ -13,6 +14,8 @@ const AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/auth.js')
 
 const BUILD_PATH = '../build';
 const OUTPUT_PATH = getOutputPathByEnv(process.env.NODE_ENV);
+
+const packageJson = require('../package.json');
 
 // this options needed to exclude clean static files in the watch mode
 const cleanOptions = IS_DEV ? { cleanAfterEveryBuildPatterns: ['!**/*.json', '!assets/**/*'] } : {};
@@ -106,6 +109,11 @@ const config = {
             template: path.join(POPUP_PATH, 'index.html'),
             filename: 'popup.html',
             chunks: ['popup'],
+        }),
+        new CreateFileWebpack({
+            path: path.resolve(__dirname, BUILD_PATH, OUTPUT_PATH),
+            fileName: 'build.txt',
+            content: `version=${packageJson.version}`,
         }),
     ],
 };
