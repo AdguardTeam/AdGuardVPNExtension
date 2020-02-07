@@ -1,7 +1,13 @@
-const { LOCALES_PATH, ENV_MAP, IS_DEV } = require('./consts');
+const {
+    LOCALES_PATH,
+    ENV_MAP,
+    IS_DEV,
+    ENVS,
+    STAGING,
+} = require('./consts');
 const pJson = require('../package');
 
-const getNameByEnv = (env) => {
+const getNameByEnv = (env = ENVS.DEV) => {
     // eslint-disable-next-line import/no-dynamic-require, global-require
     const locales = require(LOCALES_PATH);
     if (!locales) {
@@ -25,7 +31,7 @@ const updateManifest = (manifestJson, browserManifestDiff) => {
         throw new Error('unable to parse json from manifest');
     }
     const devPolicy = IS_DEV ? { content_security_policy: "script-src 'self' 'unsafe-eval'; object-src 'self'" } : {};
-    const name = getNameByEnv(process.env.NODE_ENV);
+    const name = getNameByEnv(STAGING);
     const updatedManifest = {
         ...manifest,
         ...browserManifestDiff,
@@ -36,7 +42,7 @@ const updateManifest = (manifestJson, browserManifestDiff) => {
     return Buffer.from(JSON.stringify(updatedManifest, null, 4));
 };
 
-const getOutputPathByEnv = (env) => {
+const getOutputPathByEnv = (env = ENVS.DEV) => {
     const envData = ENV_MAP[env];
     if (!envData) {
         throw new Error(`Wrong environment: ${env}`);

@@ -1,4 +1,4 @@
-import { getUrl } from './runtime';
+import { getUrl } from './browserApi/runtime';
 import { lazyGet } from '../lib/helpers';
 
 const ICONS_PATH = 'assets/images/icons';

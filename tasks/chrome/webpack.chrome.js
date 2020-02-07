@@ -5,7 +5,7 @@ const ZipWebpackPlugin = require('zip-webpack-plugin');
 const common = require('../webpack.common');
 const { updateManifest } = require('../helpers');
 const chromeManifestDiff = require('./manifest.chrome');
-const { ENVS } = require('../consts');
+const { ENVS, STAGING } = require('../consts');
 
 const CHROME_PATH = 'chrome';
 
@@ -18,7 +18,7 @@ const plugins = [new CopyWebpackPlugin([
     },
 ])];
 
-if (process.env.NODE_ENV === ENVS.BETA) {
+if (STAGING === ENVS.BETA) {
     plugins.push(
         new ZipWebpackPlugin({
             path: '../',

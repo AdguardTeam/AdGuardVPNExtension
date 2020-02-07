@@ -4,7 +4,7 @@ import {
     getProtocol,
     getClosestEndpointByCoordinates,
     formatBytes,
-} from '../src/lib/helpers';
+} from '../../src/lib/helpers';
 
 describe('lazyGet callback', () => {
     const expectedColor = 'blue';

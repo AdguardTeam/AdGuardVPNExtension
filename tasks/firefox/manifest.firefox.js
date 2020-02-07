@@ -1,4 +1,4 @@
-const { ENVS } = require('../consts');
+const { ENVS, STAGING } = require('../consts');
 
 const envMap = {
     [ENVS.DEV]: 'adguardadblockerdev@adguard.com',
@@ -10,7 +10,7 @@ module.exports = {
     minimum_chrome_version: '55.0',
     applications: {
         gecko: {
-            id: envMap[process.env.NODE_ENV],
+            id: envMap[STAGING],
             strict_min_version: '52.0',
         },
     },

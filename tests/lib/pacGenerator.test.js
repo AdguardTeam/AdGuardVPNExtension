@@ -1,6 +1,6 @@
 import pac from 'pac-resolver';
-import pacGenerator from '../src/lib/pacGenerator';
-import { sleep } from '../src/lib/helpers';
+import pacGenerator from '../../src/lib/pacGenerator';
+import { sleep } from '../../src/lib/helpers';
 
 describe('Pac generator', () => {
     it('returns direct for all requests if proxy undefined', async () => {

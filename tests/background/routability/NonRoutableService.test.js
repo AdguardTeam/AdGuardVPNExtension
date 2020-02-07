@@ -1,4 +1,4 @@
-import NonRoutableService from '../src/background/routability/NonRoutableService';
+import NonRoutableService from '../../../src/background/routability/NonRoutableService';
 
 
 const storage = (() => {

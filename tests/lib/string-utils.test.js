@@ -1,4 +1,4 @@
-import { renderTemplate } from '../src/lib/string-utils';
+import { renderTemplate } from '../../src/lib/string-utils';
 
 describe('index.proxy.setBypassList', () => {
     it('should NOT be called before initialization', () => {

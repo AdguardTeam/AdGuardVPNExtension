@@ -1,4 +1,4 @@
-import StatsStorage from '../src/background/connectivity/statsStorage/StatsStorage';
+import StatsStorage from '../../../../src/background/connectivity/statsStorage/StatsStorage';
 
 const storageApi = (() => {
     const storage = {};

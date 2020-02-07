@@ -1,5 +1,5 @@
-import SettingsService from '../src/background/settings/SettingsService';
-import { sleep } from '../src/lib/helpers';
+import SettingsService from '../../../src/background/settings/SettingsService';
+import { sleep } from '../../../src/lib/helpers';
 
 const storage = (() => {
     const settingsStorage = {};

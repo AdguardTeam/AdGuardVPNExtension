@@ -1,4 +1,4 @@
-import { Notifier } from '../src/lib/notifier';
+import { Notifier } from '../../src/lib/notifier';
 
 describe('notifier', () => {
     const testNotifier = new Notifier({

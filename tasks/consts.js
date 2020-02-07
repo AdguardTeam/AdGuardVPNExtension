@@ -1,5 +1,8 @@
 const path = require('path');
 
+// Set staging value
+const { STAGING } = process.env;
+
 const SRC_PATH = '../src';
 const LOCALES_PATH = path.join(__dirname, SRC_PATH, '_locales/en/messages');
 
@@ -15,7 +18,7 @@ const ENV_MAP = {
     [ENVS.RELEASE]: { outputPath: 'release', name: '' },
 };
 
-const IS_DEV = process.env.NODE_ENV === ENVS.DEV;
+const IS_DEV = STAGING === ENVS.DEV;
 
 module.exports = {
     LOCALES_PATH,
@@ -23,4 +26,5 @@ module.exports = {
     SRC_PATH,
     IS_DEV,
     ENVS,
+    STAGING,
 };
