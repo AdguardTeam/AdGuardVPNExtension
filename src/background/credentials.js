@@ -206,13 +206,13 @@ class Credentials {
     }
 
     updateProxyCredentials = async () => {
-        const { credentials } = await this.getAccessCredentials();
-        await proxy.setAccessCredentials(credentials);
+        const { prefix } = await this.getAccessCredentials();
+        await proxy.setAccessPrefix(prefix);
     };
 
     /**
-     * Returns access password and username for proxy and websocket domain prefix
-     * @returns {Promise<{credentials: {password: string, username: string}, prefix: string}>}
+     * Returns domain prefix and vpn token
+     * @returns {Promise<{prefix: string, token: string}>}
      */
     async getAccessCredentials() {
         const { token } = await this.gainValidVpnToken();
@@ -220,7 +220,6 @@ class Credentials {
         const appId = this.getAppId();
         return {
             prefix: md5(`${appId}:${token}:${credentials}`).toString(),
-            credentials: { username: token, password: credentials },
             token,
         };
     }
@@ -308,7 +307,6 @@ class Credentials {
             const forceRemote = true;
             this.vpnToken = await this.gainValidVpnToken(forceRemote);
             this.vpnCredentials = await this.gainValidVpnCredentials(forceRemote);
-
             this.currentUsername = await this.fetchUsername();
         } catch (e) {
             log.debug('Unable to init credentials module, due to error:', e.message);

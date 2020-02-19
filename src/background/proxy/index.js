@@ -8,7 +8,7 @@ import log from '../../lib/logger';
 import storage from '../storage';
 import { MESSAGES_TYPES } from '../../lib/constants';
 import browserApi from '../browserApi';
-import { LEVELS_OF_CONTROL, DEFAULT_EXCLUSIONS } from './proxyConsts';
+import { DEFAULT_EXCLUSIONS, LEVELS_OF_CONTROL } from './proxyConsts';
 
 const CURRENT_ENDPOINT_KEY = 'proxyCurrentEndpoint';
 
@@ -90,7 +90,6 @@ class ExtensionProxy {
             port: 443,
             scheme: 'https',
             inverted: this.inverted,
-            credentials: this.credentials,
         };
     }
 
@@ -118,19 +117,22 @@ class ExtensionProxy {
         await this.applyConfig();
     };
 
-    setHost = async (host) => {
-        this.currentHost = host;
+    setHost = async (prefix, domainName) => {
+        if (!prefix || !domainName) {
+            return;
+        }
+        this.currentHost = `${prefix}.${domainName}`;
+        this.currentPrefix = prefix;
         await this.applyConfig();
     };
 
-    setAccessCredentials = async (credentials) => {
+    setAccessPrefix = async (prefix) => {
         const endpoint = await this.getCurrentEndpoint();
         if (!endpoint) {
             throw new Error('current endpoint is empty');
         }
         const { domainName } = endpoint;
-        this.credentials = credentials;
-        this.setHost(domainName);
+        await this.setHost(prefix, domainName);
         return { domainName };
     };
 
@@ -145,7 +147,7 @@ class ExtensionProxy {
     setCurrentEndpoint = async (endpoint) => {
         this.currentEndpoint = endpoint;
         const { domainName } = this.currentEndpoint;
-        this.setHost(domainName);
+        await this.setHost(this.currentPrefix, domainName);
         await storage.set(CURRENT_ENDPOINT_KEY, endpoint);
         browserApi.runtime.sendMessage({
             type: MESSAGES_TYPES.CURRENT_ENDPOINT_UPDATED,

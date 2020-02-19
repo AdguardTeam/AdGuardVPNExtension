@@ -14,17 +14,12 @@ const proxyGet = (config = {}) => new Promise((resolve) => {
  * @property {string} [host] - proxy host address
  * @property {number} [port] - proxy port
  * @property {string} [scheme] - proxy scheme
- * @property {{username: string, password: string}} credentials
  * e.g.   const config = {
  *            bypassList: [],
  *            host: 'do-de-fra1-01.adguard.io',
  *            port: 443,
  *            scheme: 'https',
  *            inverted: false,
- *            credentials: {
- *                username: 'foo',
- *                password: 'bar',
- *            }
  *        };
  */
 
@@ -67,42 +62,12 @@ const convertToChromeConfig = (proxyConfig) => {
     };
 };
 
-let GLOBAL_PROXY_CONFIG = {};
-
-/**
- * Handles onAuthRequired events
- * @param details
- * @returns {{}|{authCredentials: {password: string, username: string}}}
- */
-const onAuthRequiredHandler = (details) => {
-    const { challenger } = details;
-
-    if (challenger && challenger.host !== GLOBAL_PROXY_CONFIG.host) {
-        return {};
-    }
-
-    return { authCredentials: GLOBAL_PROXY_CONFIG.credentials };
-};
-
-const addAuthHandler = () => {
-    if (browser.webRequest.onAuthRequired.hasListener(onAuthRequiredHandler)) {
-        return;
-    }
-    browser.webRequest.onAuthRequired.addListener(onAuthRequiredHandler, { urls: ['<all_urls>'] }, ['blocking']);
-};
-
-const removeAuthHandler = () => {
-    browser.webRequest.onAuthRequired.removeListener(onAuthRequiredHandler);
-};
-
 /**
  * Clears proxy settings
  * @returns {Promise<void>}
  */
 const proxyClear = () => new Promise((resolve) => {
-    removeAuthHandler();
     browser.proxy.settings.clear({}, () => {
-        GLOBAL_PROXY_CONFIG = {};
         resolve();
     });
 });
@@ -113,8 +78,6 @@ const proxyClear = () => new Promise((resolve) => {
  * @returns {Promise<void>}
  */
 const proxySet = (config) => new Promise((resolve) => {
-    GLOBAL_PROXY_CONFIG = config;
-    addAuthHandler();
     const chromeConfig = convertToChromeConfig(config);
     browser.proxy.settings.set(chromeConfig, () => {
         resolve();
