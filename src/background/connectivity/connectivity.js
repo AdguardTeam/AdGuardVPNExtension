@@ -70,7 +70,8 @@ class Connectivity {
             this.ws = await wsFactory.getWebsocket(websocketUrl);
         } catch (e) {
             this.state = CONNECTIVITY_STATE.PAUSED;
-            alert('Failed to connect.'); // temporary alert
+            // eslint-disable-next-line no-alert
+            alert('Failed to connect.');
             throw new Error(`Failed to create new websocket because of: ${JSON.stringify(e.message)}`);
         }
 
