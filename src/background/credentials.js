@@ -3,7 +3,7 @@ import md5 from 'crypto-js/md5';
 import lodashGet from 'lodash/get';
 import accountProvider from './providers/accountProvider';
 import auth from './auth';
-import storage from './storage';
+import browserApi from './browserApi';
 import log from '../lib/logger';
 import vpnProvider from './providers/vpnProvider';
 import permissionsError from './permissionsChecker/permissionsError';
@@ -17,16 +17,20 @@ class Credentials {
 
     VPN_CREDENTIALS_KEY = 'credentials.vpn';
 
+    constructor(browserApi) {
+        this.storage = browserApi.storage;
+    }
+
     async getVpnTokenLocal() {
         if (this.vpnToken) {
             return this.vpnToken;
         }
-        return storage.get(this.VPN_TOKEN_KEY);
+        return this.storage.get(this.VPN_TOKEN_KEY);
     }
 
     async persistVpnToken(token) {
         this.vpnToken = token;
-        await storage.set(this.VPN_TOKEN_KEY, token);
+        await this.storage.set(this.VPN_TOKEN_KEY, token);
     }
 
     async getVpnTokenRemote() {
@@ -131,7 +135,7 @@ class Credentials {
 
         if (!this.areCredentialsEqual(vpnCredentials, this.vpnCredentials)) {
             this.vpnCredentials = vpnCredentials;
-            await storage.set(this.VPN_CREDENTIALS_KEY, vpnCredentials);
+            await this.storage.set(this.VPN_CREDENTIALS_KEY, vpnCredentials);
             await this.updateProxyCredentials();
             notifier.notifyListeners(notifier.types.CREDENTIALS_UPDATED);
             log.info('Got new credentials');
@@ -173,7 +177,7 @@ class Credentials {
         if (this.vpnCredentials) {
             return this.vpnCredentials;
         }
-        const vpnCredentials = await storage.get(this.VPN_CREDENTIALS_KEY);
+        const vpnCredentials = await this.storage.get(this.VPN_CREDENTIALS_KEY);
         this.vpnCredentials = vpnCredentials;
         return vpnCredentials;
     };
@@ -227,7 +231,7 @@ class Credentials {
     async gainAppId() {
         let appId;
         try {
-            appId = await storage.get(this.APP_ID_KEY);
+            appId = await this.storage.get(this.APP_ID_KEY);
         } catch (e) {
             log.error(e.message);
             throw e;
@@ -237,7 +241,7 @@ class Credentials {
             log.debug('generating app id');
             appId = nanoid();
             try {
-                await storage.set(this.APP_ID_KEY, appId);
+                await this.storage.set(this.APP_ID_KEY, appId);
             } catch (e) {
                 log.error(e.message);
                 throw e;
@@ -272,12 +276,12 @@ class Credentials {
         const TRACKED_INSTALLATIONS_KEY = 'credentials.tracked.installations';
         if (runInfo.isFirstRun || runInfo.isUpdate) {
             try {
-                const tracked = await storage.get(TRACKED_INSTALLATIONS_KEY);
+                const tracked = await this.storage.get(TRACKED_INSTALLATIONS_KEY);
                 if (tracked) {
                     return;
                 }
                 await vpnProvider.postExtensionInstalled(appId);
-                await storage.set(TRACKED_INSTALLATIONS_KEY, true);
+                await this.storage.set(TRACKED_INSTALLATIONS_KEY, true);
                 log.info('Installation successfully tracked');
             } catch (e) {
                 log.error('Error occurred during track request', e.message);
@@ -288,7 +292,7 @@ class Credentials {
     async handleUserDeauthentication() {
         await this.persistVpnToken(null);
         this.vpnCredentials = null;
-        await storage.set(this.VPN_CREDENTIALS_KEY, null);
+        await this.storage.set(this.VPN_CREDENTIALS_KEY, null);
         this.currentUsername = null;
     }
 
@@ -315,6 +319,6 @@ class Credentials {
     }
 }
 
-const credentials = new Credentials();
+const credentials = new Credentials(browserApi);
 
 export default credentials;

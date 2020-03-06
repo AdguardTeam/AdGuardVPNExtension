@@ -19,9 +19,12 @@ const Header = observer(({ showMenuButton }) => {
 
     return (
         <div className={headerClass}>
-            <div className="header__title">
-                <svg className="header__logo">
+            <div className="header__logo">
+                <svg className="icon icon--logo">
                     <use xlinkHref="#logo" />
+                </svg>
+                <svg className="icon icon--beta">
+                    <use xlinkHref="#beta" />
                 </svg>
             </div>
             {showMenuButton && (

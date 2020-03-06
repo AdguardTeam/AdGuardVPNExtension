@@ -1,11 +1,15 @@
 import React, { useContext } from 'react';
 import Modal from 'react-modal';
-import './extra-options.pcss';
 import { observer } from 'mobx-react';
+
 import rootStore from '../../stores';
 import popupActions from '../../actions/popupActions';
 import { POPUP_FEEDBACK_URL, OTHER_PRODUCTS_URL } from '../../../background/config';
 import translator from '../../../lib/translator';
+
+import Option from './Option';
+
+import './extra-options.pcss';
 
 const ExtraOptions = observer(() => {
     const { uiStore, settingsStore, authStore } = useContext(rootStore);
@@ -70,13 +74,10 @@ const ExtraOptions = observer(() => {
         const button = isExcluded ? buttonsInfo.remove : buttonsInfo.add;
 
         return (
-            <button
-                type="button"
-                className="button button--inline extra-options__item"
-                onClick={button.handler}
-            >
-                {button.text}
-            </button>
+            <Option
+                handler={button.handler}
+                text={button.text}
+            />
         );
     };
 
@@ -89,34 +90,22 @@ const ExtraOptions = observer(() => {
             overlayClassName="extra-options__overlay"
         >
             {canBeExcluded && renderExclusionButton(isExcluded, exclusionsInverted)}
-            <button
-                type="button"
-                className="button button--inline extra-options__item"
-                onClick={handleOtherProductsClick}
-            >
-                {translator.translate('popup_settings_other_products')}
-            </button>
-            <button
-                type="button"
-                className="button button--inline extra-options__item"
-                onClick={handleFeedback}
-            >
-                {translator.translate('popup_settings_feedback')}
-            </button>
-            <button
-                type="button"
-                className="button button--inline extra-options__item"
-                onClick={openSettings}
-            >
-                {translator.translate('popup_settings_open_settings')}
-            </button>
-            <button
-                type="button"
-                className="button button--inline extra-options__item"
-                onClick={signOut}
-            >
-                {translator.translate('popup_settings_sign_out')}
-            </button>
+            <Option
+                handler={handleOtherProductsClick}
+                text={translator.translate('popup_settings_other_products')}
+            />
+            <Option
+                handler={handleFeedback}
+                text={translator.translate('popup_settings_feedback')}
+            />
+            <Option
+                handler={openSettings}
+                text={translator.translate('popup_settings_open_settings')}
+            />
+            <Option
+                handler={signOut}
+                text={translator.translate('popup_settings_sign_out')}
+            />
         </Modal>
     );
 });

@@ -1,16 +1,32 @@
 .global-error {
-    padding: 40px;
-    max-width: 320px;
-    margin: 0 auto;
+    position: relative;
+    padding: 30px 20px;
     height: calc(100% - var(--header-height));
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
     font-size: 16px;
     line-height: 1.4;
     color: var(--gray-base);
 
+    &:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 8px;
+        background-color: var(--grayd8);
+    }
+
+    &--upgrade {
+        &:after {
+            display: none;
+        }
+    }
+
     &__content {
-        flex: 1;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -18,15 +34,23 @@
     }
 
     &__icon {
-        width: 30px;
-        height: 30px;
-        margin: 0 auto 20px;
-        background-image: url(../../../../src/assets/images/icon-warning.svg);
+        width: 100%;
+        height: 215px;
+        margin: -20px auto 30px;
+        background-image: url(../../../../src/assets/images/trouble.svg);
+        background-position: center bottom;
+        background-repeat: no-repeat;
+
+        &--error {
+            background-image: url(../../../../src/assets/images/error.svg);
+        }
     }
 
     &__title {
-        margin-bottom: 3px;
-        font-weight: bold;
+        margin-bottom: 15px;
+        font-size: 2.6rem;
+        font-weight: 700;
+        line-height: 24px;
     }
 
     &__actions {
@@ -34,17 +58,14 @@
         flex-direction: column;
     }
 
-    &__button {
-        font-size: 16px;
-        font-weight: 700;
-        font-family: "Akkurat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, Arial, sans-serif;
+    &__description {
+        max-width: 240px;
+        margin-bottom: 40px;
+    }
 
+    &__button {
         &:first-child {
             margin-bottom: 20px;
-        }
-
-        &.button--m {
-            padding: 8px 10px;
         }
     }
 }

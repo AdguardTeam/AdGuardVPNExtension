@@ -1,33 +1,30 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
-import './authentication.pcss';
+
 import rootStore from '../../stores';
+
 import SocialAuth from './SocialAuth';
 import SignInForm from './SignInForm';
 import RegistrationForm from './RegistrationForm';
 import TwoFactorForm from './TwoFactorForm';
-import popupActions from '../../actions/popupActions';
-import { EULA_URL, PRIVACY_URL } from '../../../background/config';
+import CheckEmail from './CheckEmail';
+import MainHeader from './Header/MainHeader';
+import WelcomeHeader from './Header/WelcomeHeader';
+import BackButton from './BackButton';
+
+import './auth.pcss';
 
 const Authentication = observer(() => {
     const { authStore } = useContext(rootStore);
 
-    const getTitle = (step) => {
+    const getHeader = (step) => {
         const titleMaps = {
-            signIn: (
-                <>
-                    <span className="authentication__presentation">
-                        Free&nbsp;
-                    </span>
-                    <span>
-                        Unlimited VPN
-                    </span>
-                </>
-            ),
-            registration: 'Registration',
-            twoFactor: 'Confirmation',
+            checkEmail: <MainHeader />,
+            signIn: <WelcomeHeader />,
+            registration: <WelcomeHeader />,
+            twoFactor: <BackButton />,
         };
-        return titleMaps[step] || titleMaps.signIn;
+        return titleMaps[step] || titleMaps.checkEmail;
     };
 
     const getForm = (step) => {
@@ -38,75 +35,32 @@ const Authentication = observer(() => {
             case authStore.STEPS.TWO_FACTOR: {
                 return <TwoFactorForm />;
             }
-            default: {
+            case authStore.STEPS.SIGN_IN: {
                 return <SignInForm />;
             }
+            default: {
+                return <CheckEmail />;
+            }
         }
-    };
-
-    const handleBackClick = () => {
-        authStore.showSignIn();
-    };
-
-    const handlePrivacyClick = async () => {
-        await popupActions.openTab(PRIVACY_URL);
-    };
-
-    const handleEulaClick = async () => {
-        await popupActions.openTab(EULA_URL);
     };
 
     const { step } = authStore;
 
     const renderSocialAuth = () => {
-        const socialAuthOnRegistration = step === authStore.STEPS.REGISTRATION && !authStore.error;
-        if (step === authStore.STEPS.SIGN_IN || socialAuthOnRegistration) {
+        if (step === authStore.STEPS.CHECK_EMAIL) {
             return <SocialAuth />;
-        } return null;
+        }
+
+        return null;
     };
 
     return (
-        <div className="authentication">
-            <div className="authentication__container">
-                <div className="authentication__header">
-                    {step !== authStore.STEPS.SIGN_IN && (
-                        <button
-                            className="button button--back"
-                            type="button"
-                            onClick={handleBackClick}
-                        />
-                    )}
-                    <div
-                        className="authentication__title"
-                    >
-                        {getTitle(step)}
-                    </div>
-                    {step !== authStore.STEPS.TWO_FACTOR && (
-                        <div className="authentication__privacy">
-                            By continuing you accept the&nbsp;
-                            <div>
-                                <button
-                                    type="button"
-                                    className="authentication__privacy-link"
-                                    onClick={handlePrivacyClick}
-                                >
-                                    Terms and Conditions
-                                </button>
-                                &nbsp;and&nbsp;
-                                <button
-                                    type="button"
-                                    className="authentication__privacy-link"
-                                    onClick={handleEulaClick}
-                                >
-                                    EULA
-                                </button>
-                            </div>
-                        </div>
-                    )}
-                </div>
+        <div className="auth">
+            <div className="auth__container">
+                {getHeader(step)}
                 {getForm(step)}
+                {renderSocialAuth()}
             </div>
-            {renderSocialAuth()}
         </div>
     );
 });

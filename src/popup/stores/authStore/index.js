@@ -9,6 +9,7 @@ import browser from 'webextension-polyfill';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
 
 const AUTH_STEPS = {
+    CHECK_EMAIL: 'checkEmail',
     SIGN_IN: 'signIn',
     REGISTRATION: 'registration',
     TWO_FACTOR: 'twoFactor',
@@ -26,7 +27,7 @@ const DEFAULTS = {
     need2fa: false,
     error: null,
     field: '',
-    step: AUTH_STEPS.SIGN_IN,
+    step: AUTH_STEPS.CHECK_EMAIL,
     agreement: true,
     marketingConsent: false,
 };
@@ -91,7 +92,11 @@ class AuthStore {
     getAuthCacheFromBackground = () => {
         const { username, password, step } = adguard.authCache.getAuthCache();
         runInAction(() => {
-            this.credentials = { ...this.credentials, username, password };
+            this.credentials = {
+                ...this.credentials,
+                username,
+                password,
+            };
             if (step) {
                 this.step = step;
             }
@@ -151,6 +156,33 @@ class AuthStore {
                 this.switchStep(this.STEPS.TWO_FACTOR);
             });
         }
+    };
+
+    @action
+    checkEmail = async () => {
+        this.requestProcessState = REQUEST_STATUSES.PENDING;
+
+        // TODO [maximtop] make possible for userLookup to receive just email
+        const appId = adguard.credentials.getAppId();
+        const response = await adguard.auth.userLookup(this.credentials.username, appId);
+
+        if (response.error) {
+            runInAction(() => {
+                this.requestProcessState = REQUEST_STATUSES.ERROR;
+                this.error = response.error;
+            });
+            return;
+        }
+
+        if (response.canRegister) {
+            this.switchStep(this.STEPS.REGISTRATION);
+        } else {
+            this.switchStep(this.STEPS.SIGN_IN);
+        }
+
+        runInAction(() => {
+            this.requestProcessState = REQUEST_STATUSES.DONE;
+        });
     };
 
     @action
@@ -227,6 +259,11 @@ class AuthStore {
     @action
     showSignIn = () => {
         this.switchStep(AUTH_STEPS.SIGN_IN);
+    };
+
+    @action
+    showCheckEmail = () => {
+        this.switchStep(AUTH_STEPS.CHECK_EMAIL);
     };
 }
 

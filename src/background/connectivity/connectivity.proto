@@ -10,10 +10,13 @@ message WsPingMsg {
     int64 requestTime = 1;
     bytes token = 2;
     bytes applicationId = 3;
+    bool ignoredHandshake = 4;
 }
 
 message WsConnectivityInfoMsg {
     bytes token = 1;
+    float mbytesDownloaded = 2; // deprecated
+    float mbytesUploaded = 3; // deprecated
     bool refreshTokens = 6;
     float bytesDownloaded = 7;
     float bytesUploaded = 8;
