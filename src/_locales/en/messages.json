@@ -125,6 +125,15 @@
     "settings_webrtc_desc": {
         "message": "WebRTC is a special program in most Internet browsers that can allow a third-party website to detect your real IP address and use it to identify you"
     },
+    "settings_dns_title": {
+        "message": "DNS Selector"
+    },
+    "settings_dns_label": {
+        "message": "Use DNS server"
+    },
+    "settings_dns_desc": {
+        "message": "Domain Name System (DNS) are the internet's equivalent of a phone book. They maintain a directory of a domain name and translate them to Internet Protocol (IP) addresses."
+    },
     "settings_exclusion_add": {
         "message": "Add website"
     },

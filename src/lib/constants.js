@@ -3,6 +3,7 @@ export const SETTINGS_IDS = {
     RATE_SHOW: 'rate.show',
     EXCLUSIONS: 'exclusions.list',
     HANDLE_WEBRTC_ENABLED: 'webrtc.handle.enabled',
+    HANDLE_DNS_ENABLED: 'dns.handle.enabled',
 };
 
 export const MESSAGES_TYPES = {

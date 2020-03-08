@@ -39,6 +39,8 @@ class SettingsStore {
 
     @observable webRTCEnabled = false;
 
+    @observable DNSEnabled = false;
+
     // Options page actions
     @action
     getExclusions = () => {
@@ -177,7 +179,21 @@ class SettingsStore {
     getWebRTCValue = async () => {
         const value = await adguard.settings.getSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED);
         this.setWebRTC(value);
-    }
+    };
+
+    @action
+    setDNS = async (value) => {
+        await adguard.settings.setSetting(SETTINGS_IDS.HANDLE_DNS_ENABLED, value);
+        runInAction(() => {
+            this.DNSEnabled = value;
+        });
+    };
+
+    @action
+    getDNSValue = async () => {
+        const value = await adguard.settings.getSetting(SETTINGS_IDS.HANDLE_DNS_ENABLED);
+        this.setDNS(value);
+    };
 }
 
 export default SettingsStore;
