@@ -10,8 +10,6 @@ const Settings = () => (
         <Title title={translator.translate('settings_title')} />
         <div className="settings">
             <WebRTC />
-        </div>
-        <div className="settings">
             <DNS />
         </div>
     </>
