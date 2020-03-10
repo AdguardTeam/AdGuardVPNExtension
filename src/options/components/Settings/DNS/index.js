@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import './dns.pcss';
 import translator from '../../../../lib/translator';
-import dnsList from '../../../../background/dns';
+import dnsList from '../../../../background/dnsData';
 import rootStore from '../../../stores';
 
 import Switch from '../../ui/Switch';
