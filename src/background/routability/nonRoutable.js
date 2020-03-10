@@ -1,7 +1,7 @@
 import NonRoutableService from './NonRoutableService';
-import storage from '../storage';
+import browserApi from '../browserApi';
 
-const nonRoutableService = new NonRoutableService(storage);
+const nonRoutableService = new NonRoutableService(browserApi.storage);
 
 const nonRoutable = {
     isUrlRoutable: nonRoutableService.isUrlRoutable.bind(nonRoutableService),

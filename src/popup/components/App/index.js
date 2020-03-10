@@ -8,14 +8,11 @@ import browser from 'webextension-polyfill';
 import { CSSTransition } from 'react-transition-group';
 
 import Header from '../Header';
-import MapContainer from '../MapContainer';
-import InfoMessage from '../InfoMessage';
 import FeedbackMessage from '../InfoMessage/FeedbackMessage';
 import Endpoints from '../Endpoints';
 import Authentication from '../Authentication';
 import ExtraOptions from '../ExtraOptions';
 import Preloader from '../Preloader';
-import Stats from '../Stats';
 import GlobalError from '../GlobalError';
 import Settings from '../Settings';
 import Icons from '../ui/Icons';
@@ -51,7 +48,11 @@ const App = observer(() => {
                     break;
                 }
                 case MESSAGES_TYPES.ENDPOINTS_UPDATED: {
-                    vpnStore.setEndpoints(data);
+                    vpnStore.setAllEndpoints(data);
+                    break;
+                }
+                case MESSAGES_TYPES.ENDPOINTS_PING_UPDATED: {
+                    vpnStore.setPing(data);
                     break;
                 }
                 case MESSAGES_TYPES.CURRENT_ENDPOINT_UPDATED: {
@@ -102,7 +103,6 @@ const App = observer(() => {
             <>
                 {requestProcessState === REQUEST_STATUSES.PENDING
                 && <Preloader isOpen={requestProcessState === REQUEST_STATUSES.PENDING} />}
-                <Header showMenuButton={authenticated} />
                 <Authentication />
                 <Icons />
             </>
@@ -138,11 +138,8 @@ const App = observer(() => {
             >
                 <Endpoints />
             </CSSTransition>
-            <MapContainer />
             <Settings />
             <div className="footer">
-                <Stats />
-                <InfoMessage />
                 <FeedbackMessage />
             </div>
             <Icons />

@@ -1,6 +1,6 @@
 import qs from 'qs';
 import Api from './Api';
-import { AUTH_API_URL } from '../config';
+import { AUTH_API_URL, AUTH_CLIENT_ID } from '../config';
 
 // Documentation
 // https://bit.adguard.com/projects/ADGUARD/repos/adguard-auth-service/browse/oauth.md
@@ -17,7 +17,7 @@ class AuthApi extends Api {
             password,
             scope: 'trust',
             grant_type: 'password_2fa',
-            client_id: 'adguard-vpn-extension',
+            client_id: AUTH_CLIENT_ID,
         };
 
         if (twoFactor) {
@@ -62,11 +62,24 @@ class AuthApi extends Api {
 
     REVOKE_TOKEN = { path: 'oauth/revoke_token', method: 'POST' };
 
-    revokeToken = (accessToken) => {
+    revokeToken(accessToken) {
         const { path, method } = this.REVOKE_TOKEN;
         const config = {
             data: qs.stringify({
                 token: accessToken,
+            }),
+        };
+        return this.makeRequest(path, method, config);
+    }
+
+    USER_LOOKUP = { path: 'api/1.0/user_lookup', method: 'POST' };
+
+    userLookup(email, appId) {
+        const { path, method } = this.USER_LOOKUP;
+        const config = {
+            data: qs.stringify({
+                email,
+                request_id: appId,
             }),
         };
         return this.makeRequest(path, method, config);

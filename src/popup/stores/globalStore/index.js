@@ -16,7 +16,9 @@ class globalStore {
         // If popup closes before popup data was received, cancel receiving on the background page
         // otherwise extension will freeze
         window.addEventListener('unload', () => {
-            adguard.popupData.cancelGettingPopupData('popup closed');
+            const reason = 'Popup closed';
+            adguard.popupData.cancelGettingPopupData(reason);
+            adguard.endpoints.endpointsManager.cancelGetFastest(reason);
         });
     }
 
@@ -36,7 +38,7 @@ class globalStore {
 
             const {
                 vpnInfo,
-                endpoints,
+                endpointsList,
                 selectedEndpoint,
                 permissionsError,
                 isAuthenticated,
@@ -60,7 +62,7 @@ class globalStore {
 
             authStore.setIsAuthenticated(isAuthenticated);
             vpnStore.setVpnInfo(vpnInfo);
-            vpnStore.setEndpoints(endpoints);
+            vpnStore.setEndpoints(endpointsList);
             vpnStore.setSelectedEndpoint(selectedEndpoint);
             settingsStore.setProxyEnabledStatus(isProxyEnabled);
             settingsStore.setCanControlProxy(canControlProxy);

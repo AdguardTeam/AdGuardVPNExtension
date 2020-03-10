@@ -1,5 +1,5 @@
 import SettingsService from './SettingsService';
-import storage from '../storage';
+import browserApi from '../browserApi';
 import log from '../../lib/logger';
 import notifier from '../../lib/notifier';
 import { SETTINGS_IDS } from '../../lib/constants';
@@ -16,7 +16,7 @@ const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.HANDLE_DNS_TYPE]: 'default',
 };
 
-const settingsService = new SettingsService(storage, DEFAULT_SETTINGS);
+const settingsService = new SettingsService(browserApi.storage, DEFAULT_SETTINGS);
 
 const proxySwitcherHandler = async (value) => {
     try {

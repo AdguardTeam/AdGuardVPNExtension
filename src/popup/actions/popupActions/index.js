@@ -15,7 +15,7 @@ class PopupActions {
 
     @action
     openVpnFailurePage = async () => {
-        const vpnFailurePage = await adguard.vpn.getVpnFailurePage();
+        const vpnFailurePage = await adguard.endpoints.getVpnFailurePage();
         await this.openTab(vpnFailurePage);
     };
 }

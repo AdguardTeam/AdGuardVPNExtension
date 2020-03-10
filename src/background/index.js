@@ -5,17 +5,16 @@ import tabs from './tabs';
 import exclusions from './exclusions';
 import auth from './auth';
 import { proxy } from './proxy';
-import connectivity from './connectivity/connectivity';
+import connectivity from './connectivity';
 import appStatus from './appStatus';
 import authCache from './authentication/authCache';
 import messaging from './messaging';
-import vpn from './vpn';
+import endpoints from './endpoints/endpoints';
 import credentials from './credentials';
 import permissionsChecker from './permissionsChecker/permissionsChecker';
 import permissionsError from './permissionsChecker/permissionsError';
 import popupData from './popupData';
 import log from '../lib/logger';
-import storage from './storage';
 import nonRoutable from './routability/nonRoutable';
 import management from './management';
 import updateService from './updateService';
@@ -32,9 +31,8 @@ global.adguard = {
     connectivity,
     appStatus,
     authCache,
-    vpn,
+    endpoints,
     popupData,
-    storage,
     permissionsChecker,
     permissionsError,
     credentials,
@@ -54,6 +52,7 @@ global.adguard = {
         await settings.applySettings(); // we have to apply settings when credentials are ready
         await nonRoutable.init();
         await contextMenu.init();
+        await endpoints.init();
         messaging.init();
         log.info('Extension loaded all necessary modules');
     } catch (e) {

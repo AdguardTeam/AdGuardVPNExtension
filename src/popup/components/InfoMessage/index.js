@@ -1,40 +1,82 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
-import './info-message.pcss';
+
 import rootStore from '../../stores';
 import popupActions from '../../actions/popupActions';
 
+import './info-message.pcss';
+import translator from '../../../lib/translator';
+import { formatBytes } from '../../../lib/helpers';
+
+const TRAFFIC_PERCENT = {
+    DANGER: 25,
+    WARNING: 50,
+};
+
 const InfoMessage = observer(() => {
     const { vpnStore } = useContext(rootStore);
-
-    if (!vpnStore.premiumPromoEnabled) {
-        return null;
-    }
 
     const onClick = (url) => (e) => {
         e.preventDefault();
         popupActions.openTab(url);
     };
 
+    const {
+        premiumPromoEnabled,
+        premiumPromoPage,
+        remainingTraffic,
+        insufficientTraffic,
+        trafficUsingProgress,
+    } = vpnStore;
+
+    if (!premiumPromoEnabled) {
+        return null;
+    }
+
+    const getInfoColor = () => {
+        if (trafficUsingProgress < TRAFFIC_PERCENT.DANGER) {
+            return 'red';
+        }
+
+        if (trafficUsingProgress < TRAFFIC_PERCENT.WARNING) {
+            return 'yellow';
+        }
+
+        return 'green';
+    };
+
+    const formattedRemainingTraffic = formatBytes(remainingTraffic);
+
     return (
         <div className="info-message">
-            <div className="info-message__info">
-                Your speed is limited to
-                <span className="info-message__mark">
-                    &nbsp;
-                    {vpnStore.bandwidthFreeMbits}
-                    &nbsp;
-                    Mbits
-                </span>
+            <div className="info-message__text">
+                {insufficientTraffic ? (
+                    <span>{translator.translate('premium_limit_reached')}</span>
+                ) : (
+                    <>
+                        <span className={`info-message__value ${getInfoColor()}`}>
+                            {formattedRemainingTraffic.value}
+                            &nbsp;
+                            {formattedRemainingTraffic.unit}
+                        </span>
+                        &nbsp;remaining this month
+                    </>
+                )}
             </div>
             <a
-                href={vpnStore.premiumPromoPage}
+                href={premiumPromoPage}
                 type="button"
-                className="info-message__btn button button--orange"
-                onClick={onClick(vpnStore.premiumPromoPage)}
+                className="button button--medium button--red-gradient info-message__btn"
+                onClick={onClick(premiumPromoPage)}
             >
-                Lift the limit
+                {translator.translate('premium_upgrade')}
             </a>
+            <div className="info-message__progress">
+                <div
+                    className={`info-message__progress-in ${getInfoColor()}`}
+                    style={{ width: `${trafficUsingProgress}%` }}
+                />
+            </div>
         </div>
     );
 });

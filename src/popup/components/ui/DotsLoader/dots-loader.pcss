@@ -1,0 +1,42 @@
+.dots-loader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+
+    &__dot {
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+        height: 6px;
+        width: 6px;
+        background-color: #b9d06e;
+        border-radius: 50%;
+        animation: dotty infinite forwards 1.4s cubic-bezier(0.59, 0.01, 0.39, 0.99);
+
+        &:first-child {
+            left: -8px;
+        }
+
+        &:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        &:last-child {
+            animation-delay: 0.5s;
+            right: -8px;
+        }
+    }
+}
+
+@keyframes dotty {
+    0%, 100% {
+        transform: scale(1);
+        background-color: #b9d06e;
+    }
+    50% {
+        transform: scale(1.65);
+        background-color: #76a834;
+    }
+}

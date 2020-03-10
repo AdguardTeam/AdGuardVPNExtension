@@ -13,6 +13,11 @@ const GlobalError = observer(() => {
         CONTROL: 'control',
     };
 
+    const ICON_TYPES = {
+        ERROR: 'error',
+        TROUBLE: 'trouble',
+    };
+
     const handleTryAgain = async () => {
         await settingsStore.checkPermissions();
     };
@@ -38,13 +43,13 @@ const GlobalError = observer(() => {
 
     const errorsMap = {
         [ERROR_TYPES.CONTROL]: {
-            title: browser.i18n.getMessage('control_error_title'),
             description: browser.i18n.getMessage('control_error_description'),
+            icon: ICON_TYPES.TROUBLE,
             buttons: [
                 {
                     id: 1,
                     handler: handleDisableExtensions,
-                    className: 'button button--uppercase button--m button--green global-error__button',
+                    className: 'button button--medium button--green-gradient global-error__button',
                     text: browser.i18n.getMessage('control_error_disable'),
                 },
             ],
@@ -52,24 +57,27 @@ const GlobalError = observer(() => {
         [ERROR_TYPES.PERMISSION]: {
             title: browser.i18n.getMessage('global_error_title'),
             description: browser.i18n.getMessage('global_error_description'),
+            icon: ICON_TYPES.ERROR,
             buttons: [
                 {
                     id: 1,
                     handler: handleLearnMore,
                     text: browser.i18n.getMessage('global_error_learn_more'),
-                    className: 'button button--uppercase button--m button--green global-error__button',
+                    className: 'button button--medium button--green-gradient global-error__button',
                 },
                 {
                     id: 2,
                     handler: handleTryAgain,
-                    className: 'button button--uppercase button--m button--link global-error__button',
+                    className: 'button button--medium button--link global-error__button',
                     text: browser.i18n.getMessage('global_error_try_again'),
                 },
             ],
         },
     };
 
-    const { title, description, buttons } = errorsMap[errorType];
+    const {
+        title, description, buttons, icon,
+    } = errorsMap[errorType];
 
     const renderButtons = () => {
         return buttons.map((button) => {
@@ -96,10 +104,12 @@ const GlobalError = observer(() => {
     return (
         <div className="global-error">
             <div className="global-error__content">
-                <div className="global-error__icon" />
-                <div className="global-error__title">
-                    {title}
-                </div>
+                <div className={`global-error__icon global-error__icon--${icon}`} />
+                {title && (
+                    <div className="global-error__title">
+                        {title}
+                    </div>
+                )}
                 <div className="global-error__description">
                     {description}
                 </div>

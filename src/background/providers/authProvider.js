@@ -81,7 +81,13 @@ const register = async (credentials) => {
     return accessTokenModel.fromRemoteToLocal(accessTokenData);
 };
 
+const userLookup = async (email, appId) => {
+    const { can_register: canRegister } = await authApi.userLookup(email, appId);
+    return { canRegister };
+};
+
 export default {
     getAccessToken,
     register,
+    userLookup,
 };

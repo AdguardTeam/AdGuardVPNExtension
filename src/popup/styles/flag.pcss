@@ -1,0 +1,82 @@
+.flag {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--grayd8);
+
+    &--active {
+        background-image: var(--brand-gradient);
+    }
+
+    &--small {
+        width: 19px;
+        height: 19px;
+        background-color: transparent;
+
+        & .flag__icon {
+            top: -4px;
+            left: 0;
+            width: 15px;
+            height: 15px;
+        }
+    }
+
+    &__icon {
+        position: relative;
+        top: 3px;
+        left: 3px;
+        display: inline-block;
+        vertical-align: middle;
+        width: 24px;
+        height: 24px;
+        background-repeat: no-repeat;
+        border-radius: 50%;
+        background-color: #fff;
+        background-size: cover;
+        background-position: center;
+
+        &--au {
+            background-image: url("../../assets/images/flags/au.svg");
+        }
+
+        &--ca {
+            background-image: url("../../assets/images/flags/ca.svg");
+        }
+
+        &--de {
+            background-image: url("../../assets/images/flags/de.svg");
+        }
+
+        &--fr {
+            background-image: url("../../assets/images/flags/fr.svg");
+        }
+
+        &--gb {
+            background-image: url("../../assets/images/flags/gb.svg");
+        }
+
+        &--in {
+            background-image: url("../../assets/images/flags/in.svg");
+        }
+
+        &--jp {
+            background-image: url("../../assets/images/flags/jp.svg");
+        }
+
+        &--nl {
+            background-image: url("../../assets/images/flags/nl.svg");
+        }
+
+        &--ru {
+            background-image: url("../../assets/images/flags/ru.svg");
+        }
+
+        &--sg {
+            background-image: url("../../assets/images/flags/sg.svg");
+        }
+
+        &--us {
+            background-image: url("../../assets/images/flags/us.svg");
+        }
+    }
+}

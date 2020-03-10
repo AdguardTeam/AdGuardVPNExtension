@@ -1,6 +1,12 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
+
+import translator from '../../../../lib/translator';
 import rootStore from '../../../stores';
+import { REQUEST_STATUSES } from '../../../stores/consts';
+
+import Submit from '../Submit';
+import InputField from '../InputField';
 
 const TwoFactorForm = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -14,41 +20,37 @@ const TwoFactorForm = observer(() => {
         authStore.onCredentialsChange(name, value);
     };
 
+    const { requestProcessState, credentials } = authStore;
+    const { twoFactor } = credentials;
+
     return (
         <form
-            className={`form${authStore.error && ' form--error'}`}
+            className="form form--2fa"
             onSubmit={submitHandler}
         >
             <div className="form__inputs">
-                <div className="form__item">
-                    <label className="form__label" htmlFor="twoFactor">
-                        Code from app:
-                    </label>
-                    <input
-                        id="twoFactor"
-                        className="form__input"
-                        type="text"
-                        name="twoFactor"
-                        placeholder="Enter the verification code"
-                        value={authStore.credentials.twoFactor}
-                        onChange={inputChangeHandler}
-                    />
-                </div>
-                { authStore.error
-                && (
-                    <div className="form__item-error">
+                <InputField
+                    id="twoFactor"
+                    type="text"
+                    value={twoFactor}
+                    label={translator.translate('auth_code')}
+                    inputChangeHandler={inputChangeHandler}
+                    error={authStore.error}
+                    className="form__input--big"
+                />
+                {authStore.error && (
+                    <div className="form__error">
                         {authStore.error}
                     </div>
                 )}
             </div>
 
-            <div className="form__btns">
-                <button
-                    className="form__btn button--uppercase button button--m button--hundred button--green"
-                    type="submit"
-                >
-                    Confirm
-                </button>
+            <div className="form__btn-wrap">
+                <Submit
+                    text={translator.translate('auth_confirm')}
+                    processing={requestProcessState === REQUEST_STATUSES.PENDING}
+                    disabled={!twoFactor}
+                />
             </div>
         </form>
     );

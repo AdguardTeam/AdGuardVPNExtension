@@ -1,12 +1,38 @@
 .settings {
     position: relative;
-    box-shadow: 0 -10px 20px -13px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 30px 20px 30px;
+
+    &:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 8px;
+        background-color: var(--grayd8);
+    }
+
+    &--active {
+        &:after {
+            background-color: none;
+            background-image: var(--brand-gradient);
+        }
+    }
+
+    &--premium-promo,
+    &--feedback {
+        padding-bottom: 15px;
+
+        &:after {
+            display: none;
+        }
+    }
 
     &__main {
-        padding: 25px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        text-align: center;
     }
 
     &__extra {
@@ -27,11 +53,5 @@
         &:last-child {
             margin-bottom: 0;
         }
-    }
-
-    &__info {
-        width: 20px;
-        height: 20px;
-        background-image: url(../../../assets/images/info.svg);
     }
 }

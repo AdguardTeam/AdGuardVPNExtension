@@ -1,5 +1,6 @@
 import sortBy from 'lodash/sortBy';
 import getDistance from 'geolib/es/getDistance';
+import chunk from 'lodash/chunk';
 
 /**
  * Returns the value of the property from the cache,
@@ -69,6 +70,7 @@ export const getProtocol = (url) => {
  */
 export const getClosestEndpointByCoordinates = (currentEndpoint, endpoints) => {
     const { coordinates } = currentEndpoint;
+
     const distances = endpoints.map((endpoint) => {
         const [lon1, lat1] = coordinates;
         const [lon2, lat2] = endpoint.coordinates;
@@ -81,6 +83,7 @@ export const getClosestEndpointByCoordinates = (currentEndpoint, endpoints) => {
             distance: getDistance(currentCoordinates, endpointCoordinates),
         };
     });
+
     const sortedDistances = sortBy(distances, 'distance');
     return sortedDistances[0].endpoint;
 };
@@ -134,10 +137,11 @@ export const runWithCancel = (fn, ...args) => {
     let cancel;
     const promise = new Promise((resolve, reject) => {
         // define cancel function to return it from our fn
-        cancel = () => {
+        cancel = (reason) => {
             cancelled = true;
+            const cancelReason = `${fn.name} was canceled with reason: "${reason}"`;
             // eslint-disable-next-line prefer-promise-reject-errors
-            reject({ reason: 'cancelled' });
+            reject({ reason: cancelReason });
         };
 
         // eslint-disable-next-line consistent-return
@@ -178,4 +182,34 @@ export const runWithCancel = (fn, ...args) => {
     });
 
     return { promise, cancel };
+};
+
+/**
+ * Identity function, useful for filtering undefined values
+ * @param i
+ * @returns {*}
+ */
+export const identity = (i) => i;
+
+/**
+ * Handles data asynchronously by small chunks
+ * @param {any[]} arr - array of data
+ * @param {number} size - size of the chunk
+ * @param {Function} handler - async function which handles data and returns promise
+ * @returns {Promise<any[]>}
+ */
+export const asyncMapByChunks = async (arr, handler, size) => {
+    const chunks = chunk(arr, size);
+
+    const result = [];
+
+    // eslint-disable-next-line no-restricted-syntax
+    for (const chunk of chunks) {
+        const promises = chunk.map(handler);
+        // eslint-disable-next-line no-await-in-loop
+        const data = await Promise.all(promises);
+        result.push(data);
+    }
+
+    return result.flat(1);
 };

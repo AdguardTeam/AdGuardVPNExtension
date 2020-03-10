@@ -5,7 +5,6 @@
 import proxyApi from './abstractProxyApi';
 
 import log from '../../lib/logger';
-import storage from '../storage';
 import { MESSAGES_TYPES } from '../../lib/constants';
 import browserApi from '../browserApi';
 import { DEFAULT_EXCLUSIONS, LEVELS_OF_CONTROL } from './proxyConsts';
@@ -148,7 +147,7 @@ class ExtensionProxy {
         this.currentEndpoint = endpoint;
         const { domainName } = this.currentEndpoint;
         await this.setHost(this.currentPrefix, domainName);
-        await storage.set(CURRENT_ENDPOINT_KEY, endpoint);
+        await browserApi.storage.set(CURRENT_ENDPOINT_KEY, endpoint);
         browserApi.runtime.sendMessage({
             type: MESSAGES_TYPES.CURRENT_ENDPOINT_UPDATED,
             data: endpoint,
@@ -158,14 +157,14 @@ class ExtensionProxy {
 
     getCurrentEndpoint = async () => {
         if (!this.currentEndpoint) {
-            this.currentEndpoint = await storage.get(CURRENT_ENDPOINT_KEY);
+            this.currentEndpoint = await browserApi.storage.get(CURRENT_ENDPOINT_KEY);
         }
         return this.currentEndpoint ? this.currentEndpoint : null;
     };
 
     resetSettings = async () => {
         await this.turnOff();
-        await storage.remove(CURRENT_ENDPOINT_KEY);
+        await browserApi.storage.remove(CURRENT_ENDPOINT_KEY);
         this.currentHost = DEFAULTS.currentHost;
         this.currentEndpoint = DEFAULTS.currentEndpoint;
     };

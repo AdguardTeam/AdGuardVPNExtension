@@ -22,7 +22,7 @@ const cleanOptions = IS_DEV ? { cleanAfterEveryBuildPatterns: ['!**/*.json', '!a
 
 const config = {
     mode: IS_DEV ? 'development' : 'production',
-    devtool: IS_DEV ? 'cheap-module-eval-source-map' : false,
+    devtool: IS_DEV ? 'eval-source-map' : false,
     optimization: {
         minimize: false,
 
@@ -55,13 +55,6 @@ const config = {
                     { loader: 'css-loader', options: { importLoaders: 1 } },
                     'postcss-loader',
                 ],
-            },
-            {
-                test: /\.proto$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: path.resolve(__dirname, './loaders/protobuf-loader.js'),
-                },
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,

@@ -1,6 +1,6 @@
-import storage from '../../storage';
+import browserApi from '../../browserApi';
 import StatsStorage from './StatsStorage';
 
-const statsStorage = new StatsStorage(storage);
+const statsStorage = new StatsStorage(browserApi.storage);
 
 export default statsStorage;

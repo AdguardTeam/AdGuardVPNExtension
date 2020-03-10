@@ -1,8 +1,13 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
+import translator from '../../../../lib/translator';
+
 import popupActions from '../../../actions/popupActions';
 import rootStore from '../../../stores';
+import { REQUEST_STATUSES, INPUT_TYPES } from '../../../stores/consts';
 
+import PasswordField from '../PasswordField';
+import Submit from '../Submit';
 
 const SignInForm = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -23,79 +28,56 @@ const SignInForm = observer(() => {
         authStore.onCredentialsChange(name, value);
     };
 
-    const handleRegisterClick = () => {
-        authStore.showRegistration('register');
+    const { requestProcessState, credentials } = authStore;
+    const { password } = credentials;
+
+    const [inputType, setInputType] = useState('password');
+
+    const handleInputTypeChange = () => {
+        setInputType(inputType === INPUT_TYPES.PASSWORD ? INPUT_TYPES.TEXT : INPUT_TYPES.PASSWORD);
     };
+
+    const icon = inputType === INPUT_TYPES.PASSWORD ? '#closed_eye' : '#open_eye';
 
     return (
         <form
-            className={`form form--login${authStore.error && ' form--error'}`}
+            className="form form--login"
             onSubmit={submitHandler}
         >
             <div className="form__inputs">
-                <div className="form__item">
-                    <label className="form__label" htmlFor="username">
-                        Email:
-                    </label>
-                    <input
-                        id="username"
-                        className="form__input"
-                        type="text"
-                        name="username"
-                        placeholder="example@mail.com"
-                        value={authStore.credentials.username}
-                        onChange={inputChangeHandler}
-                    />
-                </div>
-                <div className="form__item">
-                    <div className="form__item-header">
-                        <label className="form__label" htmlFor="password">
-                            Password:
-                        </label>
-                        <button
-                            tabIndex={-1}
-                            type="button"
-                            className="form__inline-btn button button--inline"
-                            onClick={popupActions.openRecovery}
-                        >
-                            Lost it?
-                        </button>
+                <PasswordField
+                    label={translator.translate('auth_password')}
+                    id="password"
+                    password={password}
+                    handleChange={inputChangeHandler}
+                    handleInputTypeChange={handleInputTypeChange}
+                    icon={icon}
+                    inputType={inputType}
+                    error={authStore.error}
+                />
+                {authStore.error && (
+                    <div className="form__error">
+                        {authStore.error}
                     </div>
-                    <input
-                        id="password"
-                        className="form__input"
-                        type="password"
-                        name="password"
-                        onChange={inputChangeHandler}
-                        value={authStore.credentials.password}
-                    />
-                </div>
-                { authStore.error
-                    && (
-                        <div className="form__item-error">
-                            {authStore.error}
-                        </div>
-                    )}
+                )}
             </div>
-            <div className="form__btns">
+
+            <div className="form__link-wrap">
                 <button
-                    className="form__btn button button--uppercase button--m button--hundred button--green"
-                    type="submit"
+                    type="button"
+                    className="button button--inline form__link"
+                    onClick={popupActions.openRecovery}
                 >
-                    Log in
+                    {translator.translate('auth_recover')}
                 </button>
-                <div
-                    className="form__btn form__btn--reg"
-                >
-                    Don’t have an account?
-                    <button
-                        onClick={handleRegisterClick}
-                        type="button"
-                        className="button button--inline button--inline-green form__btn"
-                    >
-                        Register
-                    </button>
-                </div>
+            </div>
+
+            <div className="form__btn-wrap">
+                <Submit
+                    text={translator.translate('auth_login')}
+                    processing={requestProcessState === REQUEST_STATUSES.PENDING}
+                    disabled={!password}
+                />
             </div>
         </form>
     );

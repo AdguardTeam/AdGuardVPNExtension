@@ -1,26 +1,70 @@
 .info-message {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 15px;
+    padding: 8px 15px 13px;
     color: #fff;
     background-color: #000;
 
-    &__info {
-        line-height: 16px;
-        font-size: 14px;
-        max-width: 115px;
+    &--feedback {
+        padding: 10px 13px 11px;
+        background-color: #8a9ca0;
     }
 
-    &__mark {
-        color: var(--pink);
+    &__progress {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background-color: var(---graybase);
+    }
+
+    &__progress-in {
+        position: absolute;
+        min-width: 10px;
+        height: 4px;
+        background-color: #a7cd56;
+
+        &.yellow {
+            background-color: #e5c35f;
+        }
+
+        &.red {
+            background-color: #db3538;
+        }
+    }
+
+    &__text {
+        max-width: 135px;
+        font-size: 1.4rem;
+        line-height: 16px;
+    }
+
+    &__value {
+        font-weight: 700;
+        color: #a7cd56;
+
+        &.yellow {
+            color: #e5c35f;
+        }
+
+        &.red {
+            color: #db3538;
+        }
     }
 
     &__btn {
-        padding: 9px 10px;
-        text-transform: uppercase;
-        font-size: 15px;
+        min-width: 130px;
+        padding: 8px 25px;
         font-weight: 700;
-        border-radius: 8px;
+        letter-spacing: 0.06rem;
+        border-radius: 17px;
+
+        &--feedback {
+            min-width: 170px;
+            padding: 8px 10px;
+        }
     }
 }

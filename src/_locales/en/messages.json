@@ -24,7 +24,7 @@
         "message": "This value is already used"
     },
     "registration_error_front_unique_validation": {
-        "message": "Password and confirm password does not match"
+        "message": "Passwords do not match"
     },
     "registration_error_default": {
         "message": "An error happened, try again later"
@@ -42,7 +42,7 @@
         "message": "Account is locked for 15 minutes"
     },
     "authentication_error_bad_credentials": {
-        "message": "Sorry, unrecognized username or password"
+        "message": "Unrecognized username or password"
     },
     "authentication_error_default": {
         "message": "An error occurred, try again later"
@@ -78,25 +78,22 @@
         "message": "Uncompromising online privacy protection. Over 20 Million people have already chosen AdGuard."
     },
     "auth_code": {
-        "message": "Code from app:"
+        "message": "Code from the authentication app"
     },
     "auth_confirm": {
         "message": "Confirm"
     },
-    "auth_social": {
-        "message": "Login by social:"
-    },
     "auth_email": {
-        "message": "Email:"
+        "message": "Email (AdGuard account)"
     },
     "auth_password": {
-        "message": "Password:"
+        "message": "Password"
     },
     "auth_password_repeat": {
-        "message": "Password again:"
+        "message": "Password confirmation"
     },
     "auth_recover": {
-        "message": "Lost it?"
+        "message": "Forgot it?"
     },
     "auth_login": {
         "message": "Log in"
@@ -106,6 +103,12 @@
     },
     "auth_register": {
         "message": "Register"
+    },
+    "auth_next": {
+        "message": "Next"
+    },
+    "auth_welcome": {
+        "message": "Welcome"
     },
     "eula": {
         "message": "EULA"
@@ -186,7 +189,7 @@
         "message": "It looks like another Chrome extension is trying to control your connection. Please disable the other extension in your browser."
     },
     "control_error_disable": {
-        "message": "disable"
+        "message": "Disable it"
     },
     "popup_settings_enable_vpn": {
         "message": "Enable VPN on this website"
@@ -206,12 +209,6 @@
     "popup_settings_sign_out": {
         "message": "Sign out"
     },
-    "popup_feedback_title": {
-        "message": "We'd love to hear your feedback"
-    },
-    "popup_feedback_button": {
-        "message": "Leave feedback"
-    },
     "context_menu_enable_vpn" : {
         "message": "Enable VPN on this website"
     },
@@ -220,5 +217,59 @@
     },
     "suggest_feature": {
         "message": "Suggest a feature"
+    },
+    "endpoints_countries": {
+        "message": "Countries"
+    },
+    "endpoints_fastest": {
+        "message": "Fastest"
+    },
+    "endpoints_all": {
+        "message": "All endpoints"
+    },
+    "endpoints_search_results": {
+        "message": "Search result"
+    },
+    "endpoints_search": {
+        "message": "Search the country"
+    },
+    "premium_limit_reached": {
+        "message": "Monthly data limit reached. Need more?"
+    },
+    "premium_upgrade": {
+        "message": "Upgrade"
+    },
+    "settings_disconnect": {
+        "message": "Disconnect"
+    },
+    "settings_connect": {
+        "message": "Connect"
+    },
+    "settings_not_responding": {
+        "message": "Server is not responding"
+    },
+    "settings_choose_another": {
+        "message": "Choose another"
+    },
+    "settings_connection_not_secured": {
+        "message": "Connection is not secured"
+    },
+    "settings_connecting": {
+        "message": "Connecting..."
+    },
+    "settings_vpn_enabled": {
+        "message": "VPN is enabled"
+    },
+    "settings_vpn_disabled": {
+        "message": "VPN is disabled"
+    },
+    "popup_feedback_title": {
+        "message": "We'd love to hear your feedback"
+    },
+    "popup_feedback_button": {
+        "message": "Leave feedback"
+    },
+    "settings_run_out_data": {
+        "message": "You've run out of data"
     }
 }

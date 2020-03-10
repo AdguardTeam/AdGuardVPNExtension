@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import browser from 'webextension-polyfill';
+import translator from '../../../lib/translator';
 
 import './info-message.pcss';
 import popupActions from '../../actions/popupActions';
@@ -12,16 +12,16 @@ const InfoMessage = observer(() => {
     };
 
     return (
-        <div className="info-message">
-            <div className="info-message__info">
-                {browser.i18n.getMessage('popup_feedback_title')}
+        <div className="info-message info-message--feedback">
+            <div className="info-message__text">
+                {translator.translate('popup_feedback_title')}
             </div>
             <button
                 type="button"
-                className="info-message__btn button button--green"
+                className="button button--medium button--outline-white info-message__btn info-message__btn--feedback"
                 onClick={handleClick}
             >
-                {browser.i18n.getMessage('popup_feedback_button')}
+                {translator.translate('popup_feedback_button')}
             </button>
         </div>
     );
