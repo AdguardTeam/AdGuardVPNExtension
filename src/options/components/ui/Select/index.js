@@ -1,19 +1,28 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { observer } from 'mobx-react';
 
 import './select.pcss';
 
-export default class Select extends React.Component {
+@observer
+class Select extends React.Component {
     componentDidMount() {
-        this.copyInnerHTML(
-            document.querySelector('.selector__options-list').firstElementChild,
-            document.querySelector('.selector__value')
-        );
+        this.updateSelectorData();
     }
 
-    copyInnerHTML = (source, target) => {
-        // eslint-disable-next-line no-param-reassign
-        target.innerHTML = source.innerHTML;
+    componentDidUpdate() {
+        this.updateSelectorData();
+    }
+
+    /**
+     * Updates select to actual data
+     */
+    updateSelectorData = () => {
+        const selector = document.querySelector('.selector__value');
+        const value = selector.getAttribute('value');
+        this.copyData(
+            document.querySelector(`.selector__options-list > [value=${value}]`),
+            selector
+        );
     };
 
     handleSelectClick = () => {
@@ -29,25 +38,52 @@ export default class Select extends React.Component {
     };
 
     handleOptionClick = (id) => {
-        this.copyInnerHTML(
-            document.getElementById(id),
+        this.copyData(
+            document.querySelector(`.selector__options-list > [value=${id}]`),
             document.querySelector('.selector__value')
         );
+        const { optionChange } = this.props;
+        optionChange(id);
+    };
+
+    /**
+     * Copy innerHTML and value from source element to target
+     * @param {object} source
+     * @param {object} target
+     */
+    copyData = (source, target) => {
+        if (source && target) {
+            // eslint-disable-next-line no-param-reassign
+            target.innerHTML = source.innerHTML;
+
+            const sourceValue = source.getAttribute('value');
+            // eslint-disable-next-line no-param-reassign
+            target.setAttribute('value', sourceValue);
+        }
     };
 
     render() {
-        const { id, disabled, options } = this.props;
+        const {
+            id,
+            disabled,
+            options,
+            currentValue,
+        } = this.props;
         return (
-            <div className="selector" disabled={disabled}>
+            <div
+                id={id}
+                className="selector"
+                disabled={disabled}
+            >
                 <div
-                    id={id}
                     className="selector__value"
+                    value={currentValue}
                     onClick={this.handleSelectClick}
                 />
                 <ul className="selector__options-list">
                     {options.map((option, i) => (
                         <li
-                            id={option.id}
+                            value={option.id}
                             // eslint-disable-next-line react/no-array-index-key
                             key={i}
                             className="selector__option-item"
@@ -63,9 +99,4 @@ export default class Select extends React.Component {
     }
 }
 
-Select.propTypes = {
-    id: PropTypes.string.isRequired,
-    disabled: PropTypes.func.isRequired,
-    // eslint-disable-next-line react/forbid-prop-types
-    options: PropTypes.array.isRequired,
-};
+export default Select;

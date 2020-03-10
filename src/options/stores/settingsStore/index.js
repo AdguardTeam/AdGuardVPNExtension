@@ -41,6 +41,8 @@ class SettingsStore {
 
     @observable DNSEnabled = false;
 
+    @observable DNSType = 'default';
+
     // Options page actions
     @action
     getExclusions = () => {
@@ -182,7 +184,7 @@ class SettingsStore {
     };
 
     @action
-    setDNS = async (value) => {
+    setDNSUsage = async (value) => {
         await adguard.settings.setSetting(SETTINGS_IDS.HANDLE_DNS_ENABLED, value);
         runInAction(() => {
             this.DNSEnabled = value;
@@ -190,9 +192,23 @@ class SettingsStore {
     };
 
     @action
-    getDNSValue = async () => {
+    getDNSUsage = async () => {
         const value = await adguard.settings.getSetting(SETTINGS_IDS.HANDLE_DNS_ENABLED);
-        this.setDNS(value);
+        this.setDNSUsage(value);
+    };
+
+    @action
+    setDNSType = async (value) => {
+        await adguard.settings.setSetting(SETTINGS_IDS.HANDLE_DNS_TYPE, value);
+        runInAction(() => {
+            this.DNSType = value;
+        });
+    };
+
+    @action
+    getDNSType = async () => {
+        const value = await adguard.settings.getSetting(SETTINGS_IDS.HANDLE_DNS_TYPE);
+        this.setDNSType(value);
     };
 }
 

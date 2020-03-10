@@ -11,8 +11,19 @@ const DNS = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
     const handleCheckboxChange = async (e) => {
-        await settingsStore.setDNS(e.currentTarget.checked);
+        await settingsStore.setDNSUsage(e.currentTarget.checked);
     };
+
+    const handleOptionChange = async (type) => {
+        await settingsStore.setDNSType(type);
+    };
+
+    // const getDNSType = async () => {
+    //     // await settingsStore.getDNSType();
+    //     const dnsType = await settingsStore.DNSType;
+    //     console.log(`DNS TYPE: ${dnsType}`);
+    //     return dnsType;
+    // };
 
     const temporaryData = [{
         id: 'default',
@@ -47,9 +58,11 @@ const DNS = observer(() => {
                     checked={settingsStore.DNSEnabled}
                 />
                 <Select
-                    id="dns"
+                    id="dnsSelect"
                     disabled={!settingsStore.DNSEnabled}
                     options={temporaryData}
+                    currentValue={settingsStore.DNSType}
+                    optionChange={handleOptionChange}
                 />
             </div>
         </>

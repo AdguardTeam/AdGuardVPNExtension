@@ -4,6 +4,7 @@ export const SETTINGS_IDS = {
     EXCLUSIONS: 'exclusions.list',
     HANDLE_WEBRTC_ENABLED: 'webrtc.handle.enabled',
     HANDLE_DNS_ENABLED: 'dns.handle.enabled',
+    HANDLE_DNS_TYPE: 'dns.handle.type',
 };
 
 export const MESSAGES_TYPES = {

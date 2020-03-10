@@ -11,6 +11,8 @@ const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.RATE_SHOW]: true,
     [SETTINGS_IDS.EXCLUSIONS]: {},
     [SETTINGS_IDS.HANDLE_WEBRTC_ENABLED]: true,
+    [SETTINGS_IDS.HANDLE_DNS_ENABLED]: true,
+    [SETTINGS_IDS.HANDLE_DNS_TYPE]: 'default',
 };
 
 const settingsService = new SettingsService(storage, DEFAULT_SETTINGS);
