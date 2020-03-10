@@ -112,8 +112,8 @@ const applySettings = async () => {
             proxyEnabled
         );
         dns.DNSHandling(
-            isSettingEnabled(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED),
-            proxyEnabled
+            isSettingEnabled(SETTINGS_IDS.HANDLE_DNS_ENABLED),
+            SETTINGS_IDS.HANDLE_DNS_TYPE
         );
         await proxySwitcherHandler(proxyEnabled);
     } catch (e) {

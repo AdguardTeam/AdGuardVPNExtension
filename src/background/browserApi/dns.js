@@ -3,7 +3,8 @@ class DNS {
         this.DNS_ENABLED = false;
     }
 
-    enableDNS = () => {
+    // eslint-disable-next-line no-unused-vars
+    enableDNS = (DNSType) => {
         // enable DNS
     };
 
@@ -11,14 +12,10 @@ class DNS {
         // disable DNS
     };
 
-    DNSHandling = (DNSEnabled, proxyEnabled) => {
-        this.DNS_ENABLED = DNSEnabled;
-        if (!DNSEnabled || !proxyEnabled) {
-            this.disableDNS();
-        } else if (DNSEnabled && proxyEnabled) {
-            this.enableDNS();
-        }
-    };
+    DNSHandling = (DNSEnabled, DNSType) => {
+        // eslint-disable-next-line no-unused-expressions
+        this.DNS_ENABLED ? this.enableDNS(DNSType) : this.disableDNS();
+    }
 }
 
 const dns = new DNS();
