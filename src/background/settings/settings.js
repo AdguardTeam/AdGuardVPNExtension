@@ -5,7 +5,7 @@ import notifier from '../../lib/notifier';
 import { SETTINGS_IDS } from '../../lib/constants';
 import switcher from '../switcher';
 import webrtc from '../browserApi/webrtc';
-import dns from '../browserApi/dns';
+import dns from '../dns';
 
 const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.PROXY_ENABLED]: false,
@@ -52,6 +52,14 @@ const setSetting = async (id, value, force) => {
         case SETTINGS_IDS.HANDLE_WEBRTC_ENABLED: {
             const proxyEnabled = isProxyEnabled();
             webrtc.setWebRTCHandlingAllowed(value, proxyEnabled);
+            break;
+        }
+        case SETTINGS_IDS.HANDLE_DNS_ENABLED: {
+            dns.handling.switch(value, settingsService.getSetting(SETTINGS_IDS.HANDLE_DNS_TYPE));
+            break;
+        }
+        case SETTINGS_IDS.HANDLE_DNS_TYPE: {
+            dns.handling.switch(value, setting);
             break;
         }
         default: {
@@ -111,9 +119,9 @@ const applySettings = async () => {
             isSettingEnabled(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED),
             proxyEnabled
         );
-        dns.DNSHandling(
+        dns.handling.switch(
             isSettingEnabled(SETTINGS_IDS.HANDLE_DNS_ENABLED),
-            SETTINGS_IDS.HANDLE_DNS_TYPE
+            settingsService.getSetting(SETTINGS_IDS.HANDLE_DNS_TYPE)
         );
         await proxySwitcherHandler(proxyEnabled);
     } catch (e) {
