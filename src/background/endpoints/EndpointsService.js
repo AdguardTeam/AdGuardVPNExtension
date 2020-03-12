@@ -15,20 +15,16 @@ class EndpointsService {
 
     currentLocation = null;
 
-    constructor(browserApi, proxy, credentials, connectivity, vpnProvider) {
+    constructor({
+        browserApi, proxy, credentials, connectivity, vpnProvider,
+    }) {
         this.browserApi = browserApi;
         this.proxy = proxy;
         this.credentials = credentials;
         this.connectivity = connectivity;
         this.vpnProvider = vpnProvider;
+        this.endpointsManager = new EndpointsManager(browserApi, connectivity);
     }
-
-    init = async () => {
-        this.endpointsManager = new EndpointsManager(
-            this.browserApi,
-            this.connectivity
-        );
-    };
 
     reconnectEndpoint = async (endpoint) => {
         const { domainName } = await this.proxy.setCurrentEndpoint(endpoint);

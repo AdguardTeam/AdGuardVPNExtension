@@ -1,14 +1,9 @@
 import nanoid from 'nanoid';
 import md5 from 'crypto-js/md5';
 import lodashGet from 'lodash/get';
-import accountProvider from './providers/accountProvider';
-import auth from './auth';
-import browserApi from './browserApi';
-import log from '../lib/logger';
-import vpnProvider from './providers/vpnProvider';
-import permissionsError from './permissionsChecker/permissionsError';
-import notifier from '../lib/notifier';
-import { proxy } from './proxy';
+import accountProvider from '../providers/accountProvider';
+import log from '../../lib/logger';
+import notifier from '../../lib/notifier';
 
 class Credentials {
     VPN_TOKEN_KEY = 'credentials.token';
@@ -17,8 +12,14 @@ class Credentials {
 
     VPN_CREDENTIALS_KEY = 'credentials.vpn';
 
-    constructor(browserApi) {
+    constructor({
+        browserApi, vpnProvider, permissionsError, proxy, auth,
+    }) {
         this.storage = browserApi.storage;
+        this.vpnProvider = vpnProvider;
+        this.permissionsError = permissionsError;
+        this.proxy = proxy;
+        this.auth = auth;
     }
 
     async getVpnTokenLocal() {
@@ -34,7 +35,7 @@ class Credentials {
     }
 
     async getVpnTokenRemote() {
-        const accessToken = await auth.getAccessToken();
+        const accessToken = await this.auth.getAccessToken();
 
         let vpnToken = null;
 
@@ -44,7 +45,7 @@ class Credentials {
             if (e.status === 401) {
                 log.debug('Access token expired');
                 // deauthenticate user
-                await auth.deauthenticate();
+                await this.auth.deauthenticate();
                 // clear vpnToken
                 this.persistVpnToken(null);
                 return null;
@@ -84,17 +85,33 @@ class Credentials {
         return vpnToken;
     }
 
-    isValid(vpnToken) {
+    /**
+     * Checks if vpn token is valid or not
+     * @param vpnToken
+     * @returns {boolean}
+     */
+    isTokenValid(vpnToken) {
         const VALID_VPN_TOKEN_STATUS = 'VALID';
-        return !!(vpnToken && vpnToken.licenseStatus === VALID_VPN_TOKEN_STATUS);
+        if (!vpnToken) {
+            return false;
+        }
+
+        const { licenseStatus, timeExpiresSec } = vpnToken;
+        if (!licenseStatus || !timeExpiresSec) {
+            return false;
+        }
+
+        const currentTimeSec = Math.ceil(Date.now() / 1000);
+
+        return !(licenseStatus !== VALID_VPN_TOKEN_STATUS || timeExpiresSec < currentTimeSec);
     }
 
     async gainValidVpnToken(forceRemote = false, useLocalFallback = true) {
         const vpnToken = await this.gainVpnToken(forceRemote, useLocalFallback);
 
-        if (!this.isValid(vpnToken)) {
+        if (!this.isTokenValid(vpnToken)) {
             const error = Error(`Vpn token is not valid. Token: ${JSON.stringify(vpnToken)}`);
-            permissionsError.setError(error);
+            this.permissionsError.setError(error);
             throw error;
         }
 
@@ -112,7 +129,7 @@ class Credentials {
 
         if (!this.areCredentialsValid(vpnCredentials)) {
             const error = Error(`Vpn credentials are not valid: Credentials: ${JSON.stringify(vpnCredentials)}`);
-            permissionsError.setError(error);
+            this.permissionsError.setError(error);
             throw error;
         }
 
@@ -127,7 +144,7 @@ class Credentials {
         const appId = this.getAppId();
 
         const vpnToken = await this.gainValidVpnToken();
-        const vpnCredentials = await vpnProvider.getVpnCredentials(appId, vpnToken.token);
+        const vpnCredentials = await this.vpnProvider.getVpnCredentials(appId, vpnToken.token);
 
         if (!this.areCredentialsValid(vpnCredentials)) {
             return null;
@@ -144,13 +161,25 @@ class Credentials {
         return vpnCredentials;
     }
 
+    /**
+     * Checks if credentials are valid or not
+     * @param vpnCredentials
+     * @returns {boolean}
+     */
     areCredentialsValid(vpnCredentials) {
+        const VALID_CREDENTIALS_STATUS = 'VALID';
+
         if (!vpnCredentials) {
             return false;
         }
+
         const { licenseStatus, timeExpiresSec } = vpnCredentials;
+        if (!licenseStatus || !timeExpiresSec) {
+            return false;
+        }
+
         const currentTimeSec = Math.ceil(Date.now() / 1000);
-        return !(licenseStatus !== 'VALID' || timeExpiresSec < currentTimeSec);
+        return !(licenseStatus !== VALID_CREDENTIALS_STATUS || timeExpiresSec < currentTimeSec);
     }
 
     /**
@@ -211,7 +240,7 @@ class Credentials {
 
     updateProxyCredentials = async () => {
         const { prefix } = await this.getAccessCredentials();
-        await proxy.setAccessPrefix(prefix);
+        await this.proxy.setAccessPrefix(prefix);
     };
 
     /**
@@ -255,7 +284,7 @@ class Credentials {
     }
 
     async fetchUsername() {
-        const accessToken = await auth.getAccessToken();
+        const accessToken = await this.auth.getAccessToken();
         return accountProvider.getAccountInfo(accessToken);
     }
 
@@ -280,7 +309,7 @@ class Credentials {
                 if (tracked) {
                     return;
                 }
-                await vpnProvider.postExtensionInstalled(appId);
+                await this.vpnProvider.postExtensionInstalled(appId);
                 await this.storage.set(TRACKED_INSTALLATIONS_KEY, true);
                 log.info('Installation successfully tracked');
             } catch (e) {
@@ -319,6 +348,4 @@ class Credentials {
     }
 }
 
-const credentials = new Credentials(browserApi);
-
-export default credentials;
+export default Credentials;

@@ -1,24 +1,24 @@
-import settings from './settings/settings';
 import actions from './actions';
-import { vpnApi } from './api';
-import tabs from './tabs';
-import exclusions from './exclusions';
-import auth from './auth';
-import { proxy } from './proxy';
-import connectivity from './connectivity';
 import appStatus from './appStatus';
+import auth from './auth';
 import authCache from './authentication/authCache';
-import messaging from './messaging';
-import endpoints from './endpoints/endpoints';
+import connectivity from './connectivity';
+import contextMenu from './contextMenu';
 import credentials from './credentials';
-import permissionsChecker from './permissionsChecker/permissionsChecker';
+import endpoints from './endpoints';
+import exclusions from './exclusions';
+import log from '../lib/logger';
+import management from './management';
+import messaging from './messaging';
+import nonRoutable from './routability/nonRoutable';
+import permissionsChecker from './permissionsChecker';
 import permissionsError from './permissionsChecker/permissionsError';
 import popupData from './popupData';
-import log from '../lib/logger';
-import nonRoutable from './routability/nonRoutable';
-import management from './management';
+import proxy from './proxy';
+import settings from './settings/settings';
+import tabs from './tabs';
 import updateService from './updateService';
-import contextMenu from './contextMenu';
+import { vpnApi } from './api';
 
 global.adguard = {
     settings,
@@ -43,7 +43,6 @@ global.adguard = {
 (async () => {
     try {
         const runInfo = await updateService.getRunInfo();
-
         permissionsChecker.init(); // should be initiated before auth module
         await auth.init();
         await settings.init();
@@ -52,7 +51,6 @@ global.adguard = {
         await settings.applySettings(); // we have to apply settings when credentials are ready
         await nonRoutable.init();
         await contextMenu.init();
-        await endpoints.init();
         messaging.init();
         log.info('Extension loaded all necessary modules');
     } catch (e) {

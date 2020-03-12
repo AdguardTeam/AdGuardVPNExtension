@@ -1,23 +1,22 @@
-import { WsConnectivityMsg, WsPingMsg } from './protobufCompiled';
-import websocketFactory from './websocket/websocketFactory';
-import { WS_API_URL_TEMPLATE } from '../config';
-import { renderTemplate, stringToUint8Array } from '../../lib/string-utils';
-import statsStorage from './statsStorage';
-import credentials from '../credentials';
-import notifier from '../../lib/notifier';
-import { proxy } from '../proxy';
-
-
-const CONNECTION_STATES = {
-    WORKING: 'working',
-    PAUSED: 'paused',
-};
+import { WsConnectivityMsg, WsPingMsg } from '../protobufCompiled';
+import websocketFactory from '../websocket/websocketFactory';
+import { WS_API_URL_TEMPLATE } from '../../config';
+import { renderTemplate, stringToUint8Array } from '../../../lib/string-utils';
+import statsStorage from '../statsStorage';
+import notifier from '../../../lib/notifier';
+import proxy from '../../proxy';
+import credentials from '../../credentials';
 
 class EndpointConnectivity {
     PING_UPDATE_INTERVAL_MS = 1000 * 60;
 
+    CONNECTION_STATES = {
+        WORKING: 'working',
+        PAUSED: 'paused',
+    };
+
     constructor() {
-        this.state = CONNECTION_STATES.PAUSED;
+        this.state = this.CONNECTION_STATES.PAUSED;
         notifier.addSpecifiedListener(notifier.types.CREDENTIALS_UPDATED, this.updateCredentials);
     }
 
@@ -58,7 +57,7 @@ class EndpointConnectivity {
 
         let restart = false;
 
-        if (this.state === CONNECTION_STATES.WORKING) {
+        if (this.state === this.CONNECTION_STATES.WORKING) {
             restart = true;
             await this.stop();
         }
@@ -67,7 +66,7 @@ class EndpointConnectivity {
         try {
             this.ws = await websocketFactory.createReconnectingWebsocket(websocketUrl);
         } catch (e) {
-            this.state = CONNECTION_STATES.PAUSED;
+            this.state = this.CONNECTION_STATES.PAUSED;
             throw new Error(`Failed to create new websocket because of: ${JSON.stringify(e.message)}`);
         }
 
@@ -77,9 +76,9 @@ class EndpointConnectivity {
     }
 
     start = async () => {
-        if (this.state !== CONNECTION_STATES.WORKING) {
+        if (this.state !== this.CONNECTION_STATES.WORKING) {
             await this.ws.open();
-            this.state = CONNECTION_STATES.WORKING;
+            this.state = this.CONNECTION_STATES.WORKING;
         }
         this.startGettingPing();
         this.startGettingConnectivityInfo();
@@ -100,7 +99,7 @@ class EndpointConnectivity {
             await this.ws.close();
         }
 
-        this.state = CONNECTION_STATES.PAUSED;
+        this.state = this.CONNECTION_STATES.PAUSED;
     };
 
     preparePingMessage = (currentTime) => {
@@ -200,14 +199,14 @@ class EndpointConnectivity {
     };
 
     getPing = () => {
-        if (!this.ping || this.state === CONNECTION_STATES.PAUSED) {
+        if (!this.ping || this.state === this.CONNECTION_STATES.PAUSED) {
             return null;
         }
         return this.ping;
     };
 
     getStats = async () => {
-        if (this.state === CONNECTION_STATES.PAUSED) {
+        if (this.state === this.CONNECTION_STATES.PAUSED) {
             return null;
         }
         const stats = await statsStorage.getStats(this.domainName);
@@ -215,6 +214,4 @@ class EndpointConnectivity {
     };
 }
 
-const endpointConnectivity = new EndpointConnectivity();
-
-export default endpointConnectivity;
+export default EndpointConnectivity;

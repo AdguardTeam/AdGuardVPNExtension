@@ -1,12 +1,12 @@
 import { runWithCancel } from '../lib/helpers';
-import credentials from './credentials';
-import { proxy } from './proxy';
-import connectivity from './connectivity';
+import proxy from './proxy';
 import actions from './actions';
 import log from '../lib/logger';
 import browserApi from './browserApi';
 import { MESSAGES_TYPES } from '../lib/constants';
 import webrtc from './browserApi/webrtc';
+import credentials from './credentials';
+import connectivity from './connectivity';
 
 function* turnOnProxy() {
     try {
