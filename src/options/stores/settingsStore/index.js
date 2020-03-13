@@ -39,9 +39,9 @@ class SettingsStore {
 
     @observable webRTCEnabled = false;
 
-    @observable DNSEnabled = false;
+    @observable dnsEnabled = false;
 
-    @observable DNSType = 'default';
+    @observable dnsType = 'default';
 
     // Options page actions
     @action
@@ -184,31 +184,31 @@ class SettingsStore {
     };
 
     @action
-    setDNSUsage = async (value) => {
+    setDnsUsage = async (value) => {
         await adguard.settings.setSetting(SETTINGS_IDS.HANDLE_DNS_ENABLED, value);
         runInAction(() => {
-            this.DNSEnabled = value;
+            this.dnsEnabled = value;
         });
     };
 
     @action
-    getDNSUsage = async () => {
+    getDnsUsage = async () => {
         const value = await adguard.settings.getSetting(SETTINGS_IDS.HANDLE_DNS_ENABLED);
-        this.setDNSUsage(value);
+        this.setDnsUsage(value);
     };
 
     @action
-    setDNSType = async (value) => {
+    setDnsType = async (value) => {
         await adguard.settings.setSetting(SETTINGS_IDS.HANDLE_DNS_TYPE, value);
         runInAction(() => {
-            this.DNSType = value;
+            this.dnsType = value;
         });
     };
 
     @action
-    getDNSType = async () => {
+    getDnsType = async () => {
         const value = await adguard.settings.getSetting(SETTINGS_IDS.HANDLE_DNS_TYPE);
-        this.setDNSType(value);
+        this.setDnsType(value);
     };
 }
 

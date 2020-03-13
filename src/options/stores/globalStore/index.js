@@ -27,8 +27,8 @@ class globalStore {
             await settingsStore.getUsername();
             await settingsStore.checkRateStatus();
             await settingsStore.getWebRTCValue();
-            await settingsStore.getDNSUsage();
-            await settingsStore.getDNSType();
+            await settingsStore.getDnsUsage();
+            await settingsStore.getDnsType();
             this.setInitStatus(REQUEST_STATUSES.DONE);
         } catch (e) {
             log.error(e.message);

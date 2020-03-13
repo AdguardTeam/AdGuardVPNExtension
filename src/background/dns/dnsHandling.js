@@ -1,6 +1,6 @@
 import browser from 'webextension-polyfill';
 
-class DNS {
+class Dns {
     constructor() {
         this.DNS_ENABLED = false;
         this.DNS_TYPE = 'default';
@@ -15,7 +15,7 @@ class DNS {
         return { requestHeaders: e.requestHeaders };
     };
 
-    enableDNS = () => {
+    enableDns = () => {
         browser.webRequest.onBeforeSendHeaders.addListener(
             this.modifyHeader,
             { urls: ['<all_urls>'] },
@@ -23,18 +23,18 @@ class DNS {
         );
     };
 
-    disableDNS = () => {
+    disableDns = () => {
         browser.webRequest.onBeforeSendHeaders.removeListener(this.modifyHeader);
     };
 
-    switch = (DNSEnabled, DNSType) => {
-        this.DNS_ENABLED = DNSEnabled;
-        this.DNS_TYPE = DNSType;
+    switch = (dnsEnabled, dnsType) => {
+        this.DNS_ENABLED = dnsEnabled;
+        this.DNS_TYPE = dnsType;
         // eslint-disable-next-line no-unused-expressions
-        this.DNS_ENABLED ? this.enableDNS(this.DNS_TYPE) : this.disableDNS();
+        this.DNS_ENABLED ? this.enableDns(this.DNS_TYPE) : this.disableDns();
     };
 }
 
-const dns = new DNS();
+const dns = new Dns();
 
 export default dns;

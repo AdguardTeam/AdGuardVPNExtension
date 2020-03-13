@@ -8,15 +8,15 @@ import rootStore from '../../../stores';
 import Switch from '../../ui/Switch';
 import Select from '../../ui/Select';
 
-const DNS = observer(() => {
+const Dns = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
     const handleCheckboxChange = async (e) => {
-        await settingsStore.setDNSUsage(e.currentTarget.checked);
+        await settingsStore.setDnsUsage(e.currentTarget.checked);
     };
 
     const handleOptionChange = async (type) => {
-        await settingsStore.setDNSType(type);
+        await settingsStore.setDnsType(type);
     };
 
     return (
@@ -27,13 +27,13 @@ const DNS = observer(() => {
                     title={translator.translate('settings_dns_label')}
                     desc={translator.translate('settings_dns_desc')}
                     handleToggle={handleCheckboxChange}
-                    checked={settingsStore.DNSEnabled}
+                    checked={settingsStore.dnsEnabled}
                 />
                 <Select
                     id="dnsSelect"
-                    disabled={!settingsStore.DNSEnabled}
+                    disabled={!settingsStore.dnsEnabled}
                     options={dns.list}
-                    currentValue={settingsStore.DNSType}
+                    currentValue={settingsStore.dnsType}
                     optionChange={handleOptionChange}
                 />
             </div>
@@ -41,4 +41,4 @@ const DNS = observer(() => {
     );
 });
 
-export default DNS;
+export default Dns;
