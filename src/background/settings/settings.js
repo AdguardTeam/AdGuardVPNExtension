@@ -13,7 +13,7 @@ const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.EXCLUSIONS]: {},
     [SETTINGS_IDS.HANDLE_WEBRTC_ENABLED]: true,
     [SETTINGS_IDS.HANDLE_DNS_ENABLED]: true,
-    [SETTINGS_IDS.HANDLE_DNS_TYPE]: 'default',
+    [SETTINGS_IDS.HANDLE_DNS_TYPE]: dns.list[0].id,
 };
 
 const settingsService = new SettingsService(browserApi.storage, DEFAULT_SETTINGS);
@@ -55,11 +55,13 @@ const setSetting = async (id, value, force) => {
             break;
         }
         case SETTINGS_IDS.HANDLE_DNS_ENABLED: {
-            dns.handling.switch(value, settingsService.getSetting(SETTINGS_IDS.HANDLE_DNS_TYPE));
+            const dnsType = settingsService.getSetting(SETTINGS_IDS.HANDLE_DNS_TYPE);
+            dns.service.controller(value, dnsType);
             break;
         }
         case SETTINGS_IDS.HANDLE_DNS_TYPE: {
-            dns.handling.switch(value, setting);
+            const isDnsEnabled = settingsService.getSetting(SETTINGS_IDS.HANDLE_DNS_ENABLED);
+            dns.service.controller(isDnsEnabled, value);
             break;
         }
         default: {
@@ -119,7 +121,7 @@ const applySettings = async () => {
             isSettingEnabled(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED),
             proxyEnabled
         );
-        dns.handling.switch(
+        dns.service.controller(
             isSettingEnabled(SETTINGS_IDS.HANDLE_DNS_ENABLED),
             settingsService.getSetting(SETTINGS_IDS.HANDLE_DNS_TYPE)
         );

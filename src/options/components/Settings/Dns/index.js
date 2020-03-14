@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import './dns.pcss';
 import translator from '../../../../lib/translator';
-import dns from '../../../../background/dns';
+import dnsList from '../../../../background/dns/dnsData';
 import rootStore from '../../../stores';
 
 import Switch from '../../ui/Switch';
@@ -32,7 +32,7 @@ const Dns = observer(() => {
                 <Select
                     id="dnsSelect"
                     disabled={!settingsStore.dnsEnabled}
-                    options={dns.list}
+                    options={dnsList}
                     currentValue={settingsStore.dnsType}
                     optionChange={handleOptionChange}
                 />

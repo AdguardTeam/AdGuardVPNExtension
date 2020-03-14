@@ -137,6 +137,42 @@
     "settings_dns_desc": {
         "message": "Domain Name System (DNS) is the internet's equivalent of a phone book. It maintains a directory of domain names and translates them to Internet Protocol (IP) addresses."
     },
+    "settings_dns_selector_default_title": {
+        "message": "Default"
+    },
+    "settings_dns_selector_default_desc": {
+        "message": "Automatically use your own DNS servers when connected to the VPN"
+    },
+    "settings_dns_selector_adguard_title": {
+        "message": "AdGuard DNS"
+    },
+    "settings_dns_selector_adguard_desc": {
+        "message": "Removes ads and protects your device from malware"
+    },
+    "settings_dns_selector_google_title": {
+        "message": "Google DNS"
+    },
+    "settings_dns_selector_google_desc": {
+        "message": "Free alternative DNS service by Google"
+    },
+    "settings_dns_selector_cloudflare_title": {
+        "message": "Cloudflare DNS"
+    },
+    "settings_dns_selector_cloudflare_desc": {
+        "message": "Free DNS service by Cloudflare"
+    },
+    "settings_dns_selector_cisco_title": {
+        "message": "Cisco OpenDNS"
+    },
+    "settings_dns_selector_cisco_desc": {
+        "message": "DNS server that protects your device from malware"
+    },
+    "settings_dns_selector_quad9_title": {
+        "message": "Quad9"
+    },
+    "settings_dns_selector_quad9_desc": {
+        "message": "Free alternative DNS service with protection from phishing and spyware"
+    },
     "settings_exclusion_add": {
         "message": "Add website"
     },

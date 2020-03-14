@@ -1,9 +1,9 @@
 import list from './dnsData';
-import handling from './dnsHandling';
+import service from './dnsHandling';
 
 const dns = {
     list,
-    handling,
+    service,
 };
 
 export default dns;
