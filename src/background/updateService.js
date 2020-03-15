@@ -1,18 +1,17 @@
-import browser from 'webextension-polyfill';
-import storage from './storage';
+import browserApi from './browserApi';
 
 const APP_VERSION_KEY = 'update.service.app.version';
 
 const getAppVersionFromStorage = () => {
-    return storage.get(APP_VERSION_KEY);
+    return browserApi.storage.get(APP_VERSION_KEY);
 };
 
 const getAppVersionFromManifest = () => {
-    return browser.runtime.getManifest().version;
+    return browserApi.runtime.getManifest().version;
 };
 
 const setAppVersionInStorage = (appVersion) => {
-    return storage.set(APP_VERSION_KEY, appVersion);
+    return browserApi.storage.set(APP_VERSION_KEY, appVersion);
 };
 
 /**

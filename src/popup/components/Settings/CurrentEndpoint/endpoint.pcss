@@ -1,82 +1,36 @@
 .endpoint {
-    color: var(--gray-base);
+    position: relative;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
+    margin-top: auto;
+    color: var(--gray-base);
+    cursor: pointer;
 
-    &__btn {
+    &__title {
         position: relative;
+        font-size: 2rem;
         font-weight: 700;
-        font-size: 20px;
-        line-height: 20px;
-        padding: 0 27px 0 0;
-        margin-bottom: 5px;
-
-        &:after {
-            content: '';
-            position: absolute;
-            top: 7px;
-            right: 0;
-            width: 14px;
-            height: 8px;
-            background-image: url(../../../../assets/images/arrow-down.svg);
-            transition: transform var(--t3);
-        }
+        line-height: 24px;
     }
 
     &__desc {
-        font-size: 14px;
-        margin-bottom: 15px;
+        font-size: 1.4rem;
     }
 
-    &__status {
-        font-size: 14px;
-        line-height: 14px;
-        padding-left: 20px;
-        position: relative;
-        color: var(--brand-primary);
+    &__country {
+        margin-right: 15px;
+    }
 
-        &:after {
-            content: '';
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            border-radius: 100%;
-            background-color: var(--brand-primary);
-            left: 0;
-            top: 1px;
-        }
-
-        &--failed {
-            color: var(--red);
-
-            &:after {
-                background-color: var(--red);
-            }
-        }
-
-        &--success {
-            color: var(--green78);
-
-            &:after {
-                background-color: var(--green78);
-            }
-        }
-
-        &--disabled {
-            color: var(--gray88);
-
-            &:after {
-                background-color: var(--gray88);
-            }
-        }
-
-        &--warning {
-            color: var(--orange);
-
-            &:after {
-                background-color: var(--orange);
-            }
-        }
+    &:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: 0;
+        width: 14px;
+        height: 8px;
+        margin-top: -4px;
+        background-image: url(../../../../assets/images/arrow-down.svg);
+        transform: rotate(-90deg);
     }
 }

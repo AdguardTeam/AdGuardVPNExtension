@@ -1,8 +1,10 @@
 import React, { useContext, useEffect } from 'react';
-import './endpoint.pcss';
-import { observer } from 'mobx-react';
 import classnames from 'classnames';
+import { observer } from 'mobx-react';
+
 import rootStore from '../../../stores';
+
+import './endpoint.pcss';
 
 const CurrentEndpoint = observer((props) => {
     const { vpnStore, settingsStore } = useContext(rootStore);
@@ -26,37 +28,34 @@ const CurrentEndpoint = observer((props) => {
         return updatePing();
     }, []);
 
-    const endpointStatus = classnames({
-        'endpoint__status--disabled': !settingsStore.displayEnabled,
-        'endpoint__status--success': settingsStore.displayEnabled,
-    });
-
-    const renderStatus = () => {
-        if (!settingsStore.switcherEnabled) {
-            return 'Disabled';
-        }
-        if (settingsStore.ping) {
-            return `Ping ${settingsStore.ping} ms`;
-        }
-        return 'Connecting...';
-    };
-
-    const { countryNameToDisplay, cityNameToDisplay } = vpnStore;
+    const {
+        countryNameToDisplay,
+        cityNameToDisplay,
+        countryCodeToDisplay,
+    } = vpnStore;
+    const { proxyEnabled } = settingsStore;
     const { handle } = props;
+
+    const iconClass = classnames('flag', { 'flag--active': proxyEnabled });
+    const iconName = (countryCodeToDisplay && countryCodeToDisplay.toLowerCase()) || '';
+
     return (
-        <div className="endpoint">
-            <button
-                type="button"
-                className="button endpoint__btn"
-                onClick={handle}
-            >
-                {countryNameToDisplay}
-            </button>
-            <div className="endpoint__desc">
-                {cityNameToDisplay}
+        <div
+            className="endpoint"
+            onClick={handle}
+        >
+            <div className="endpoint__country">
+                <div className={iconClass}>
+                    <span className={`flag__icon flag__icon--${iconName}`} />
+                </div>
             </div>
-            <div className={`endpoint__status ${endpointStatus}`}>
-                {renderStatus()}
+            <div className="endpoint__info">
+                <div className="endpoint__title">
+                    {cityNameToDisplay}
+                </div>
+                <div className="endpoint__desc">
+                    {countryNameToDisplay}
+                </div>
             </div>
         </div>
     );

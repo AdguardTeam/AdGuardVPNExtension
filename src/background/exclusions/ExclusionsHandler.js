@@ -113,6 +113,10 @@ export default class ExclusionsHandler {
     };
 
     isExcluded = (url) => {
+        if (!url) {
+            return false;
+        }
+
         const exclusions = this.getExclusionsByUrl(url);
         return exclusions.some((exclusion) => exclusion.enabled);
     };

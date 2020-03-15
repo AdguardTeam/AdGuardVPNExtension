@@ -5,7 +5,6 @@ import SettingsStore from './settingsStore';
 import UiStore from './uiStore';
 import AuthStore from './authStore';
 import VpnStore from './vpnStore';
-import TooltipStore from './tooltipStore';
 import GlobalStore from './globalStore';
 
 // Do not allow property change outside of store actions
@@ -18,7 +17,6 @@ class RootStore {
         this.uiStore = new UiStore(this);
         this.authStore = new AuthStore(this);
         this.vpnStore = new VpnStore(this);
-        this.tooltipStore = new TooltipStore(this);
     }
 }
 

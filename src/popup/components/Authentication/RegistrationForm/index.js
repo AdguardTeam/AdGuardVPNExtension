@@ -1,10 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { observer } from 'mobx-react';
 import ReactHtmlParser from 'react-html-parser';
+
+import translator from '../../../../lib/translator';
 import rootStore from '../../../stores';
+import { REQUEST_STATUSES, INPUT_TYPES } from '../../../stores/consts';
+
+import PasswordField from '../PasswordField';
+import Submit from '../Submit';
 
 const RegistrationForm = observer(() => {
     const { authStore } = useContext(rootStore);
+
     const submitHandler = async (e) => {
         e.preventDefault();
         await authStore.register();
@@ -15,72 +22,54 @@ const RegistrationForm = observer(() => {
         authStore.onCredentialsChange(name, value);
     };
 
+    const { requestProcessState, credentials } = authStore;
+    const { password, passwordAgain } = credentials;
+
+    const [inputType, setInputType] = useState('password');
+
+    const handleInputTypeChange = () => {
+        setInputType(inputType === INPUT_TYPES.PASSWORD ? INPUT_TYPES.TEXT : INPUT_TYPES.PASSWORD);
+    };
+
+    const icon = inputType === INPUT_TYPES.PASSWORD ? '#closed_eye' : '#open_eye';
+
     return (
         <form
             className="form"
             onSubmit={submitHandler}
         >
             <div className="form__inputs">
-                <div className={`form__item${authStore.error && (authStore.field === 'username' || authStore.field === '') ? ' form__item--error' : ''}`}>
-                    <label className="form__label" htmlFor="username">
-                        Email:
-                    </label>
-                    <input
-                        id="username"
-                        className="form__input"
-                        type="text"
-                        name="username"
-                        placeholder="example@mail.com"
-                        value={authStore.credentials.username}
-                        onChange={inputChangeHandler}
-                    />
-                </div>
-                <div className={`form__item${authStore.error && authStore.field === 'password' ? ' form__item--error' : ''}`}>
-                    <div className="form__item-header">
-                        <label className="form__label" htmlFor="password">
-                            Password:
-                        </label>
+                <PasswordField
+                    label={translator.translate('auth_password')}
+                    id="password"
+                    password={password}
+                    error={authStore.error}
+                    inputType={inputType}
+                    handleChange={inputChangeHandler}
+                    handleInputTypeChange={handleInputTypeChange}
+                    icon={icon}
+                />
+                <PasswordField
+                    label={translator.translate('auth_password_repeat')}
+                    id="passwordAgain"
+                    password={passwordAgain}
+                    error={authStore.error}
+                    autoFocus={false}
+                    inputType={inputType}
+                    handleChange={inputChangeHandler}
+                />
+                {authStore.error && (
+                    <div className="form__error">
+                        {ReactHtmlParser(authStore.error)}
                     </div>
-                    <input
-                        id="password"
-                        className="form__input"
-                        type="password"
-                        name="password"
-                        onChange={inputChangeHandler}
-                        value={authStore.credentials.password}
-                    />
-                </div>
-                <div className="form__item">
-                    <div className="form__item-header">
-                        <label className="form__label" htmlFor="passwordAgain">
-                            Password again:
-                        </label>
-                    </div>
-                    <input
-                        id="passwordAgain"
-                        className="form__input"
-                        type="password"
-                        name="passwordAgain"
-                        onChange={inputChangeHandler}
-                        value={authStore.credentials.passwordAgain}
-                    />
-                </div>
-                { authStore.error
-                && (
-                <div className="form__item-error">
-                    { ReactHtmlParser(authStore.error) }
-                </div>
                 )}
             </div>
-
-            <div className="form__btns">
-                <button
-                    className="form__btn button--uppercase button button--m button--hundred button--green"
-                    type="submit"
+            <div className="form__btn-wrap">
+                <Submit
+                    text={translator.translate('auth_register')}
+                    processing={requestProcessState === REQUEST_STATUSES.PENDING}
                     disabled={authStore.disableRegister}
-                >
-                        Register
-                </button>
+                />
             </div>
         </form>
     );

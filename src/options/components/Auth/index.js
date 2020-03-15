@@ -37,6 +37,9 @@ const Authentication = observer(() => {
                     <svg className="auth__logo">
                         <use xlinkHref="#logo" />
                     </svg>
+                    <svg className="auth__beta">
+                        <use xlinkHref="#beta" />
+                    </svg>
 
                     <h2 className="auth__title">
                         {browser.i18n.getMessage('auth_title')}

@@ -1,10 +1,16 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
+import classnames from 'classnames';
+
 import rootStore from '../../stores';
 
-import './settings.pcss';
 import CurrentEndpoint from './CurrentEndpoint';
-import GlobalSwitcher from './GlobalSwitcher';
+import GlobalControl from './GlobalControl';
+import Status from './Status';
+import SiteInfo from './SiteInfo';
+import ServerError from './ServerError';
+
+import './settings.pcss';
 
 const getStatusMessage = (proxyEnabled) => {
     if (proxyEnabled) {
@@ -14,34 +20,55 @@ const getStatusMessage = (proxyEnabled) => {
 };
 
 const Settings = observer(() => {
-    const { settingsStore, uiStore } = useContext(rootStore);
+    const { settingsStore, uiStore, vpnStore } = useContext(rootStore);
 
     const handleEndpointSelectorClick = () => {
         uiStore.openEndpointsSearch();
     };
 
-    const handleSwitchChange = async (e) => {
-        const { checked } = e.target;
-        await settingsStore.setProxyState(checked);
+    const handleConnect = async () => {
+        await settingsStore.setProxyState(true);
+    };
+
+    const handleDisconnect = async () => {
+        await settingsStore.setProxyState(false);
     };
 
     const {
         switcherEnabled,
         proxyEnabled,
+        serverError,
     } = settingsStore;
+    const { premiumPromoEnabled } = vpnStore;
+
+    const settingsClass = classnames(
+        'settings settings--feedback',
+        { 'settings--active': proxyEnabled },
+        { 'settings--premium-promo': premiumPromoEnabled }
+    );
 
     return (
-        <div className="settings">
+        <div className={settingsClass}>
             <div className="settings__main">
-                <CurrentEndpoint
-                    handle={handleEndpointSelectorClick}
-                    status={getStatusMessage(proxyEnabled)}
-                />
-                <GlobalSwitcher
-                    handle={handleSwitchChange}
-                    checked={switcherEnabled}
-                />
+                {serverError ? (
+                    <ServerError
+                        handleClick={handleEndpointSelectorClick}
+                    />
+                ) : (
+                    <>
+                        <SiteInfo />
+                        <Status status={getStatusMessage(proxyEnabled)} />
+                        <GlobalControl
+                            handleConnect={handleConnect}
+                            handleDisconnect={handleDisconnect}
+                            enabled={switcherEnabled}
+                        />
+                    </>
+                )}
             </div>
+            <CurrentEndpoint
+                handle={handleEndpointSelectorClick}
+            />
         </div>
     );
 });
