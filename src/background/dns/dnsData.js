@@ -13,6 +13,12 @@ const dnsList = [{
     ip1: '176.103.130.130',
     ip2: '176.103.130.131',
 }, {
+    id: 'adguard-dns-family',
+    title: translator.translate('settings_dns_selector_adguard_family_title'),
+    desc: translator.translate('settings_dns_selector_adguard_family_desc'),
+    ip1: '176.103.130.132',
+    ip2: '176.103.130.134',
+}, {
     id: 'google-dns',
     title: translator.translate('settings_dns_selector_google_title'),
     desc: translator.translate('settings_dns_selector_google_desc'),

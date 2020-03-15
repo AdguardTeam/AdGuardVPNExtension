@@ -149,6 +149,12 @@
     "settings_dns_selector_adguard_desc": {
         "message": "Removes ads and protects your device from malware"
     },
+    "settings_dns_selector_adguard_family_title": {
+        "message": "AdGuard DNS Family Protection"
+    },
+    "settings_dns_selector_adguard_family_desc": {
+        "message": "AdGuard DNS + SafeSearch and adult content blocking"
+    },
     "settings_dns_selector_google_title": {
         "message": "Google DNS"
     },
