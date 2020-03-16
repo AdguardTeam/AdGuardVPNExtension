@@ -224,6 +224,9 @@
     "endpoints_search": {
         "message": "Search the country"
     },
+    "endpoints_not_found": {
+        "message": "Server not found"
+    },
     "premium_limit_reached": {
         "message": "Monthly data limit reached. Need more?"
     },
