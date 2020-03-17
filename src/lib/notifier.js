@@ -96,6 +96,7 @@ const types = {
     TAB_UPDATED: 'event.tab.updated',
     TAB_ACTIVATED: 'event.tab.activated',
     EXCLUSIONS_UPDATED_BACK_MESSAGE: 'exclusions.updated.back.message',
+    SHOULD_REFRESH_TOKENS: 'event.should.refresh.tokens',
 };
 
 const notifier = new Notifier(types);

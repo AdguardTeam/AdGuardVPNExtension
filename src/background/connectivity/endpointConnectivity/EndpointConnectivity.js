@@ -17,7 +17,10 @@ class EndpointConnectivity {
 
     constructor() {
         this.state = this.CONNECTION_STATES.PAUSED;
-        notifier.addSpecifiedListener(notifier.types.CREDENTIALS_UPDATED, this.updateCredentials);
+        notifier.addSpecifiedListener(
+            notifier.types.CREDENTIALS_UPDATED,
+            this.updateCredentials.bind(this)
+        );
     }
 
     updateCredentials = async () => {
@@ -27,8 +30,7 @@ class EndpointConnectivity {
             const accessCredentials = await credentials.getAccessCredentials();
             ({ prefix, token: vpnToken } = accessCredentials);
         } catch (e) {
-            // do nothing;
-            return;
+            return; // do nothing;
         }
 
         const domainName = await proxy.getDomainName();
@@ -163,13 +165,24 @@ class EndpointConnectivity {
         }, this.PING_UPDATE_INTERVAL_MS);
     };
 
-    updateConnectivityInfo = async (stats) => {
-        const { bytesDownloaded = 0, bytesUploaded = 0 } = stats;
+    /**
+     * Handles info message, updates stats or sends message to update tokens
+     * @param infoMsg
+     * @returns {Promise<void>}
+     */
+    handleInfoMsg = async (infoMsg) => {
+        const { bytesDownloaded = 0, bytesUploaded = 0, refreshTokens } = infoMsg;
 
-        await statsStorage.saveStats(this.domainName, {
-            downloaded: bytesDownloaded,
-            uploaded: bytesUploaded,
-        });
+        if (bytesUploaded || bytesDownloaded) {
+            await statsStorage.saveStats(this.domainName, {
+                downloaded: bytesDownloaded,
+                uploaded: bytesUploaded,
+            });
+        }
+
+        if (refreshTokens) {
+            notifier.notifyListeners(notifier.types.SHOULD_REFRESH_TOKENS);
+        }
     };
 
     handleErrorMsg = (connectivityErrorMsg) => {
@@ -187,7 +200,7 @@ class EndpointConnectivity {
             const { connectivityInfoMsg, connectivityErrorMsg } = this.decodeMessage(event.data);
 
             if (connectivityInfoMsg) {
-                await this.updateConnectivityInfo(connectivityInfoMsg);
+                await this.handleInfoMsg(connectivityInfoMsg);
             }
 
             if (connectivityErrorMsg) {

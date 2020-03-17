@@ -55,7 +55,6 @@ export const getHostname = (url) => {
  * @param {string} url
  * @returns {string}
  */
-
 export const getProtocol = (url) => {
     const urlObj = getUrlProperties(url);
     const protocol = (urlObj && urlObj.protocol) ? urlObj.protocol : url;
@@ -63,10 +62,10 @@ export const getProtocol = (url) => {
 };
 
 /**
- * Returns the closest endpoint to the current coordinates
- * @param {{ coordinates: [number, number] }} currentEndpoint
- * @param {{ coordinates: [number, number] }[]} endpoints
- * @returns {{ coordinates: [number, number] }}
+ * Returns closest endpoint
+ * @param {Endpoint} currentEndpoint
+ * @param {Endpoint[]} endpoints
+ * @returns {Endpoint}
  */
 export const getClosestEndpointByCoordinates = (currentEndpoint, endpoints) => {
     const { coordinates } = currentEndpoint;
