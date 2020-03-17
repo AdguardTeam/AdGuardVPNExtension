@@ -11,11 +11,11 @@ import Select from '../../ui/Select';
 const Dns = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
-    const handleCheckboxChange = async (e) => {
+    const dnsToggle = async (e) => {
         await settingsStore.setDnsUsage(e.currentTarget.checked);
     };
 
-    const handleOptionChange = async (type) => {
+    const handleDnsSelect = async (type) => {
         await settingsStore.setDnsType(type);
     };
 
@@ -26,7 +26,7 @@ const Dns = observer(() => {
                     id="dns"
                     title={translator.translate('settings_dns_label')}
                     desc={translator.translate('settings_dns_desc')}
-                    handleToggle={handleCheckboxChange}
+                    handleToggle={dnsToggle}
                     checked={settingsStore.dnsEnabled}
                 />
                 <Select
@@ -34,7 +34,7 @@ const Dns = observer(() => {
                     disabled={!settingsStore.dnsEnabled}
                     options={dnsList}
                     currentValue={settingsStore.dnsType}
-                    optionChange={handleOptionChange}
+                    optionChange={handleDnsSelect}
                 />
             </div>
         </>

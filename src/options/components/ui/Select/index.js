@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react';
-import { observer } from 'mobx-react';
-
 import './select.pcss';
 
-const Select = observer((props) => {
+const Select = ((props) => {
     /**
      * Copy innerHTML and value from source element to target
      * @param {object} source
@@ -66,19 +64,26 @@ const Select = observer((props) => {
         optionChange(id);
     };
 
+    const {
+        id,
+        disabled,
+        currentValue,
+        options,
+    } = props;
+
     return (
         <div
-            id={props.id}
+            id={id}
             className="selector"
-            disabled={props.disabled}
+            disabled={disabled}
         >
             <div
                 className="selector__value"
-                value={props.currentValue}
+                value={currentValue}
                 onClick={handleSelectClick}
             />
             <ul className="selector__options-list">
-                {props.options.map((option, i) => (
+                {options.map((option, i) => (
                     <li
                         value={option.id}
                         // eslint-disable-next-line react/no-array-index-key
