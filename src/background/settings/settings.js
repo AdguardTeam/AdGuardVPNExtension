@@ -11,6 +11,7 @@ const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.RATE_SHOW]: true,
     [SETTINGS_IDS.EXCLUSIONS]: {},
     [SETTINGS_IDS.HANDLE_WEBRTC_ENABLED]: true,
+    [SETTINGS_IDS.CONTEXT_MENU_ENABLED]: true,
 };
 
 const settingsService = new SettingsService(browserApi.storage, DEFAULT_SETTINGS);
@@ -127,6 +128,10 @@ const setExclusions = (exclusions) => {
     settingsService.setSetting(SETTINGS_IDS.EXCLUSIONS, exclusions);
 };
 
+const isContextMenuEnabled = () => {
+    return settingsService.getSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED);
+};
+
 const init = async () => {
     await settingsService.init();
     log.info('Settings module is ready');
@@ -144,6 +149,7 @@ const settings = {
     applySettings,
     getExclusions,
     setExclusions,
+    isContextMenuEnabled,
 };
 
 export default settings;

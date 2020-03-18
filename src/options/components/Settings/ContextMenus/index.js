@@ -5,10 +5,10 @@ import rootStore from '../../../stores';
 
 import Switch from '../../ui/Switch';
 
-const Webrtc = observer(() => {
+const ContextMenus = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
-    const handleCheckboxChange = async (e) => {
+    const handleToggle = async (e) => {
         await settingsStore.setContextMenus(e.currentTarget.checked);
     };
 
@@ -16,15 +16,14 @@ const Webrtc = observer(() => {
         <>
             <div className="settings__group">
                 <Switch
-                    id="webrtc"
-                    title={translator.translate('settings_webrtc_label')}
-                    desc={translator.translate('settings_webrtc_desc')}
-                    handleToggle={handleCheckboxChange}
-                    checked={settingsStore.webRTCEnabled}
+                    id="context-menus"
+                    title={translator.translate('settings_context_menus_title')}
+                    handleToggle={handleToggle}
+                    checked={settingsStore.contextMenusEnabled}
                 />
             </div>
         </>
     );
 });
 
-export default Webrtc;
+export default ContextMenus;

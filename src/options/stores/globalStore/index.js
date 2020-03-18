@@ -27,6 +27,7 @@ class globalStore {
             await settingsStore.getUsername();
             await settingsStore.checkRateStatus();
             await settingsStore.getWebRTCValue();
+            await settingsStore.getContextMenusEnabled();
             this.setInitStatus(REQUEST_STATUSES.DONE);
         } catch (e) {
             log.error(e.message);
