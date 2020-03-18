@@ -168,7 +168,7 @@ class SettingsStore {
     }
 
     @action
-    setWebRTC = async (value) => {
+    setWebRTCValue = async (value) => {
         await adguard.settings.setSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED, value);
         runInAction(() => {
             this.webRTCEnabled = value;
@@ -176,7 +176,13 @@ class SettingsStore {
     };
 
     @action
-    setContextMenus = async (value) => {
+    getWebRTCValue = async () => {
+        const value = await adguard.settings.getSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED);
+        this.setWebRTCValue(value);
+    };
+
+    @action
+    setContextMenusValue = async (value) => {
         await adguard.settings.setSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED, value);
         runInAction(() => {
             this.contextMenusEnabled = value;
@@ -186,14 +192,8 @@ class SettingsStore {
     @action
     getContextMenusEnabled = async () => {
         const value = await adguard.settings.getSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED);
-        this.setContextMenus(value);
+        this.setContextMenusValue(value);
     };
-
-    @action
-    getWebRTCValue = async () => {
-        const value = await adguard.settings.getSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED);
-        this.setWebRTC(value);
-    }
 }
 
 export default SettingsStore;

@@ -9,7 +9,7 @@ const Webrtc = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
     const handleCheckboxChange = async (e) => {
-        await settingsStore.setContextMenus(e.currentTarget.checked);
+        await settingsStore.setWebRTCValue(e.currentTarget.checked);
     };
 
     return (

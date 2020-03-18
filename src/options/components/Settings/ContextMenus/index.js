@@ -9,7 +9,7 @@ const ContextMenus = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
     const handleToggle = async (e) => {
-        await settingsStore.setContextMenus(e.currentTarget.checked);
+        await settingsStore.setContextMenusValue(e.currentTarget.checked);
     };
 
     return (
