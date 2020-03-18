@@ -13,7 +13,7 @@ const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.EXCLUSIONS]: {},
     [SETTINGS_IDS.HANDLE_WEBRTC_ENABLED]: true,
     [SETTINGS_IDS.HANDLE_DNS_ENABLED]: true,
-    [SETTINGS_IDS.HANDLE_DNS_TYPE]: dns.list[0].id,
+    [SETTINGS_IDS.HANDLE_DNS_TYPE]: Object.keys(dns.list)[0],
 };
 
 const settingsService = new SettingsService(browserApi.storage, DEFAULT_SETTINGS);

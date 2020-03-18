@@ -1,98 +1,68 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './select.pcss';
 
 const Select = ((props) => {
-    /**
-     * Copy innerHTML and value from source element to target
-     * @param {object} source
-     * @param {object} target
-     */
-    const copyData = (source, target) => {
-        if (source && target) {
-            // eslint-disable-next-line no-param-reassign
-            target.innerHTML = source.innerHTML;
+    const {
+        disabled,
+        currentValue,
+        options,
+        optionChange,
+    } = props;
 
-            const sourceValue = source.getAttribute('value');
-            // eslint-disable-next-line no-param-reassign
-            target.setAttribute('value', sourceValue);
-        }
-    };
-
-    /**
-     * Updates select to actual data
-     */
-    const updateSelectorData = () => {
-        const selector = document.querySelector('.selector__value');
-        const value = selector.getAttribute('value');
-        copyData(
-            document.querySelector(`.selector__options-list > [value=${value}]`),
-            selector
-        );
-    };
+    const [value, setValue] = useState(currentValue);
+    const [hidden, setHidden] = useState(true);
 
     useEffect(() => {
-        updateSelectorData();
+        setValue(currentValue);
     });
 
-    /**
-     * Close element on document click
-     * @param {object} element
-     */
-    const closeOnClick = (element) => {
+    const closeOnClick = () => {
         document.addEventListener(
             'click',
-            // eslint-disable-next-line no-param-reassign
-            () => { element.style.display = 'none'; },
+            () => { setHidden(true); },
             { once: true }
         );
     };
 
     const handleSelectClick = () => {
-        const optionsList = document.querySelector('.selector__options-list');
-        if (!optionsList.style.display || optionsList.style.display === 'none') {
-            optionsList.style.display = 'block';
-            closeOnClick(optionsList);
+        if (hidden) {
+            setHidden(false);
+            closeOnClick();
         }
     };
 
     const handleOptionClick = (id) => {
-        copyData(
-            document.querySelector(`.selector__options-list > [value=${id}]`),
-            document.querySelector('.selector__value')
-        );
-        const { optionChange } = props;
+        setValue(id);
         optionChange(id);
     };
 
-    const {
-        id,
-        disabled,
-        currentValue,
-        options,
-    } = props;
-
     return (
         <div
-            id={id}
             className="selector"
             disabled={disabled}
         >
             <div
                 className="selector__value"
-                value={currentValue}
+                value={value}
                 onClick={handleSelectClick}
-            />
-            <ul className="selector__options-list">
-                {options.map((option, i) => (
+            >
+                <div className="selector__value__title">{options[value].title}</div>
+                <div className="selector__value__desc">{options[value].desc}</div>
+            </div>
+            <ul
+                className="selector__options-list"
+                hidden={hidden}
+            >
+                {Object.keys(options).map((id, i) => (
                     <li
-                        value={option.id}
+                        value={id}
                         // eslint-disable-next-line react/no-array-index-key
                         key={i}
                         className="selector__option-item"
-                        onClick={() => handleOptionClick(option.id)}
+                        onClick={() => handleOptionClick(id)}
                     >
-                        <div className="selector__option-item__title">{option.title}</div>
-                        <div className="selector__option-item__desc">{option.desc}</div>
+                        <div className="selector__option-item__title">{options[id].title}</div>
+                        <div className="selector__option-item__desc">{options[id].desc}</div>
                     </li>
                 ))}
             </ul>

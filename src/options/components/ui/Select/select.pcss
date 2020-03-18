@@ -19,10 +19,22 @@
         background-position: 14px center;
         background-repeat: no-repeat;
         cursor: pointer;
+
+        &__title {
+            color: var(--gray-base);
+            font-size: 1.6rem;
+            line-height: 1.6rem;
+        }
+
+        &__desc {
+            color: var(--gray88);
+            font-size: 1.3rem;
+            line-height: 1.2;
+            margin: 3px 20px 0 0;
+        }
     }
 
     &__options-list {
-        display: none;
         position: absolute;
         border: 1px solid var(--border-color);
         border-radius: 4px;
@@ -32,6 +44,10 @@
         box-shadow: 0 0 7px 3px var(--shadow);
         padding: 0;
         margin: 13px 0 0 0;
+
+        &[hidden] {
+            display: none;
+        }
     }
 
     &__option-item {

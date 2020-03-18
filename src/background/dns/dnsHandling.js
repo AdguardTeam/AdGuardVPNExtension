@@ -4,18 +4,14 @@ import dnsList from './dnsData';
 class Dns {
     constructor() {
         this.DNS_ENABLED = false;
-        this.DNS_TYPE = dnsList[0].id;
+        // eslint-disable-next-line prefer-destructuring
+        this.DNS_TYPE = Object.keys(dnsList)[0];
     }
-
-    getDnsIp = (dnsId) => {
-        const currentDns = dnsList.find((dns) => dns.id === dnsId);
-        return currentDns.ip1;
-    };
 
     modifyHeader = (e) => {
         const dnsHeader = {
             name: 'X-Adguard-Resolver',
-            value: this.getDnsIp(this.DNS_TYPE),
+            value: dnsList[this.DNS_TYPE].ip1,
         };
         e.requestHeaders.push(dnsHeader);
         return { requestHeaders: e.requestHeaders };
@@ -36,8 +32,11 @@ class Dns {
     controller = (dnsEnabled, dnsType) => {
         this.DNS_ENABLED = dnsEnabled;
         this.DNS_TYPE = dnsType;
-        // eslint-disable-next-line no-unused-expressions
-        this.DNS_ENABLED ? this.enableDns(this.DNS_TYPE) : this.disableDns();
+        if (this.DNS_ENABLED) {
+            this.enableDns(this.DNS_TYPE);
+        } else {
+            this.disableDns();
+        }
     };
 }
 

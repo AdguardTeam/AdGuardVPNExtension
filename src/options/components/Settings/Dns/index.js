@@ -30,7 +30,6 @@ const Dns = observer(() => {
                     checked={settingsStore.dnsEnabled}
                 />
                 <Select
-                    id="dnsSelect"
                     disabled={!settingsStore.dnsEnabled}
                     options={dnsList}
                     currentValue={settingsStore.dnsType}
