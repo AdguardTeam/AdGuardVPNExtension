@@ -1,9 +1,7 @@
-import list from './dnsData';
-import service from './dnsHandling';
+import dnsData from './dnsData';
+import dns from './Dns';
 
-const dns = {
-    list,
-    service,
+export {
+    dnsData,
+    dns,
 };
-
-export default dns;

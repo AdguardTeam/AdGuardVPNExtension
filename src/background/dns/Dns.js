@@ -1,23 +1,26 @@
 import browser from 'webextension-polyfill';
-import dnsList from './dnsData';
+import dnsData from './dnsData';
 
 class Dns {
     constructor() {
         this.DNS_ENABLED = false;
         // eslint-disable-next-line prefer-destructuring
-        this.DNS_TYPE = Object.keys(dnsList)[0];
+        this.DNS_TYPE = Object.keys(dnsData)[0];
     }
 
     modifyHeader = (e) => {
         const dnsHeader = {
             name: 'X-Adguard-Resolver',
-            value: dnsList[this.DNS_TYPE].ip1,
+            value: dnsData[this.DNS_TYPE].ip1,
         };
         e.requestHeaders.push(dnsHeader);
         return { requestHeaders: e.requestHeaders };
     };
 
     enableDns = () => {
+        if (this.DNS_TYPE === Object.keys(dnsData)[0]) {
+            return;
+        }
         browser.webRequest.onBeforeSendHeaders.addListener(
             this.modifyHeader,
             { urls: ['<all_urls>'] },
@@ -29,11 +32,16 @@ class Dns {
         browser.webRequest.onBeforeSendHeaders.removeListener(this.modifyHeader);
     };
 
-    controller = (dnsEnabled, dnsType) => {
+    dnsSelect = (dnsType) => {
+        this.DNS_TYPE = dnsType;
+        this.enableDns();
+    };
+
+    switcher = (dnsEnabled, dnsType) => {
         this.DNS_ENABLED = dnsEnabled;
         this.DNS_TYPE = dnsType;
         if (this.DNS_ENABLED) {
-            this.enableDns(this.DNS_TYPE);
+            this.enableDns();
         } else {
             this.disableDns();
         }

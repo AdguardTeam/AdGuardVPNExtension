@@ -5,7 +5,7 @@ import notifier from '../../lib/notifier';
 import { SETTINGS_IDS } from '../../lib/constants';
 import switcher from '../switcher';
 import webrtc from '../browserApi/webrtc';
-import dns from '../dns';
+import { dnsData, dns } from '../dns';
 
 const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.PROXY_ENABLED]: false,
@@ -13,7 +13,7 @@ const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.EXCLUSIONS]: {},
     [SETTINGS_IDS.HANDLE_WEBRTC_ENABLED]: true,
     [SETTINGS_IDS.HANDLE_DNS_ENABLED]: true,
-    [SETTINGS_IDS.HANDLE_DNS_TYPE]: Object.keys(dns.list)[0],
+    [SETTINGS_IDS.HANDLE_DNS_TYPE]: Object.keys(dnsData)[0],
 };
 
 const settingsService = new SettingsService(browserApi.storage, DEFAULT_SETTINGS);
@@ -56,12 +56,11 @@ const setSetting = async (id, value, force) => {
         }
         case SETTINGS_IDS.HANDLE_DNS_ENABLED: {
             const dnsType = settingsService.getSetting(SETTINGS_IDS.HANDLE_DNS_TYPE);
-            dns.service.controller(value, dnsType);
+            dns.switcher(value, dnsType);
             break;
         }
         case SETTINGS_IDS.HANDLE_DNS_TYPE: {
-            const isDnsEnabled = settingsService.getSetting(SETTINGS_IDS.HANDLE_DNS_ENABLED);
-            dns.service.controller(isDnsEnabled, value);
+            dns.dnsSelect(value);
             break;
         }
         default: {
@@ -121,7 +120,7 @@ const applySettings = async () => {
             isSettingEnabled(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED),
             proxyEnabled
         );
-        dns.service.controller(
+        dns.switcher(
             isSettingEnabled(SETTINGS_IDS.HANDLE_DNS_ENABLED),
             settingsService.getSetting(SETTINGS_IDS.HANDLE_DNS_TYPE)
         );
