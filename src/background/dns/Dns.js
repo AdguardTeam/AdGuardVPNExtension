@@ -5,20 +5,20 @@ class Dns {
     constructor() {
         this.DNS_ENABLED = false;
         // eslint-disable-next-line prefer-destructuring
-        this.DNS_TYPE = Object.keys(dnsData)[0];
+        this.DNS_SERVER = dnsData.default;
     }
 
     modifyHeader = (e) => {
         const dnsHeader = {
             name: 'X-Adguard-Resolver',
-            value: dnsData[this.DNS_TYPE].ip1,
+            value: dnsData[this.DNS_SERVER].ip1,
         };
         e.requestHeaders.push(dnsHeader);
         return { requestHeaders: e.requestHeaders };
     };
 
-    enableDns = () => {
-        if (this.DNS_TYPE === Object.keys(dnsData)[0]) {
+    setDnsServer = () => {
+        if (this.DNS_SERVER === dnsData.default) {
             return;
         }
         browser.webRequest.onBeforeSendHeaders.addListener(
@@ -32,18 +32,20 @@ class Dns {
         browser.webRequest.onBeforeSendHeaders.removeListener(this.modifyHeader);
     };
 
-    dnsSelect = (dnsType) => {
-        this.DNS_TYPE = dnsType;
-        this.enableDns();
+    dnsSelect = (dnsServer, proxyEnabled) => {
+        this.DNS_SERVER = dnsServer;
+        if (proxyEnabled) {
+            this.setDnsServer();
+        }
     };
 
-    switcher = (dnsEnabled, dnsType) => {
+    switcher = (dnsEnabled, dnsServer, proxyEnabled) => {
         this.DNS_ENABLED = dnsEnabled;
-        this.DNS_TYPE = dnsType;
-        if (this.DNS_ENABLED) {
-            this.enableDns();
-        } else {
+        this.DNS_SERVER = dnsServer;
+        if (!this.DNS_ENABLED || !proxyEnabled) {
             this.disableDns();
+        } else if (this.DNS_ENABLED && proxyEnabled) {
+            this.setDnsServer();
         }
     };
 }

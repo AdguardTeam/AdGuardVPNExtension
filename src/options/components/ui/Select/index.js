@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './select.pcss';
 
 const Select = ((props) => {
     const {
-        disabled,
+        enabled,
         currentValue,
         options,
         optionChange,
@@ -11,9 +11,11 @@ const Select = ((props) => {
 
     const [value, setValue] = useState(currentValue);
     const [hidden, setHidden] = useState(true);
+    const optionsList = useRef(null);
 
     useEffect(() => {
         setValue(currentValue);
+        optionsList.current.scrollTop = 0;
     });
 
     const closeOnClick = () => {
@@ -36,29 +38,30 @@ const Select = ((props) => {
         optionChange(id);
     };
 
+    const isActiveOption = (id) => ((id === value) ? ' active' : '');
+
     return (
         <div
             className="selector"
-            disabled={disabled}
+            disabled={!enabled}
         >
             <div
                 className="selector__value"
                 value={value}
                 onClick={handleSelectClick}
             >
-                <div className="selector__value__title">{options[value].title}</div>
-                <div className="selector__value__desc">{options[value].desc}</div>
+                <div className="selector__value-title">{options[value].title}</div>
+                <div className="selector__value-desc">{options[value].desc}</div>
             </div>
             <ul
                 className="selector__options-list"
                 hidden={hidden}
+                ref={optionsList}
             >
-                {Object.keys(options).map((id, i) => (
+                {Object.keys(options).map((id) => (
                     <li
-                        value={id}
-                        // eslint-disable-next-line react/no-array-index-key
-                        key={i}
-                        className="selector__option-item"
+                        key={id}
+                        className={`selector__option-item${isActiveOption(id)}`}
                         onClick={() => handleOptionClick(id)}
                     >
                         <div className="selector__option-item__title">{options[id].title}</div>

@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
-import './dns.pcss';
 import translator from '../../../../lib/translator';
 import dnsList from '../../../../background/dns/dnsData';
 import rootStore from '../../../stores';
@@ -12,11 +11,11 @@ const Dns = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
     const dnsToggle = async (e) => {
-        await settingsStore.setDnsUsage(e.currentTarget.checked);
+        await settingsStore.setDnsState(e.currentTarget.checked);
     };
 
-    const handleDnsSelect = async (type) => {
-        await settingsStore.setDnsType(type);
+    const handleDnsSelect = async (server) => {
+        await settingsStore.setDnsServer(server);
     };
 
     return (
@@ -30,9 +29,9 @@ const Dns = observer(() => {
                     checked={settingsStore.dnsEnabled}
                 />
                 <Select
-                    disabled={!settingsStore.dnsEnabled}
+                    enabled={settingsStore.dnsEnabled}
                     options={dnsList}
-                    currentValue={settingsStore.dnsType}
+                    currentValue={settingsStore.dnsServer}
                     optionChange={handleDnsSelect}
                 />
             </div>

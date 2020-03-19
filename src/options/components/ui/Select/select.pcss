@@ -20,13 +20,13 @@
         background-repeat: no-repeat;
         cursor: pointer;
 
-        &__title {
+        &-title {
             color: var(--gray-base);
             font-size: 1.6rem;
             line-height: 1.6rem;
         }
 
-        &__desc {
+        &-desc {
             color: var(--gray88);
             font-size: 1.3rem;
             line-height: 1.2;
@@ -40,13 +40,22 @@
         border-radius: 4px;
         max-height: 265px;
         min-width: 500px;
-        overflow: auto;
+        overflow-y: scroll;
         box-shadow: 0 0 7px 3px var(--shadow);
         padding: 0;
         margin: 13px 0 0 0;
 
         &[hidden] {
             display: none;
+        }
+
+        &::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 4px;
+            background-color: rgba(0,0,0,.3);
         }
     }
 
@@ -57,6 +66,10 @@
 
         &:hover {
             background-color: var(--grayF3);
+        }
+
+        &.active {
+            background-color: var(--grayF7);
         }
 
         &__title {
@@ -73,4 +86,3 @@
         }
     }
 }
-
