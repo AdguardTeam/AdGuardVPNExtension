@@ -8,8 +8,8 @@ function WelcomeHeader() {
     const { authStore } = useContext(rootStore);
 
     const title = authStore.step === authStore.STEPS.REGISTRATION
-        ? translator.translate('auth_register')
-        : translator.translate('auth_welcome');
+        ? translator.translate('auth_header_registration')
+        : translator.translate('auth_header_welcome');
 
     return (
         <>

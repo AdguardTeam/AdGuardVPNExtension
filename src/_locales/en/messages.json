@@ -107,8 +107,11 @@
     "auth_next": {
         "message": "Next"
     },
-    "auth_welcome": {
+    "auth_header_welcome": {
         "message": "Welcome"
+    },
+    "auth_header_registration": {
+        "message": "Registration"
     },
     "eula": {
         "message": "EULA"
