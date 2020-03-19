@@ -7,12 +7,16 @@ import BackButton from '../BackButton';
 function WelcomeHeader() {
     const { authStore } = useContext(rootStore);
 
+    const title = authStore.step === authStore.STEPS.REGISTRATION
+        ? translator.translate('auth_register')
+        : translator.translate('auth_welcome');
+
     return (
         <>
             <BackButton />
             <div className="auth__header auth__header--welcome">
                 <div className="auth__title">
-                    {translator.translate('auth_welcome')}
+                    {title}
                 </div>
                 <div className="auth__subtitle">
                     {authStore.credentials.username}
