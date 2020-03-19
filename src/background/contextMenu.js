@@ -5,6 +5,7 @@ import exclusions from './exclusions';
 import tabs from './tabs';
 import translator from '../lib/translator';
 import settings from './settings/settings';
+import { isHttp } from '../lib/string-utils';
 
 // All contexts except "browser_action", "page_action" and "launcher"
 const contexts = ['page', 'frame', 'selection', 'link', 'editable', 'image', 'video', 'audio'];
@@ -50,14 +51,18 @@ const getContextMenuItems = (tabUrl) => {
         return [];
     }
 
-    let vpnSwitcher;
+    const resultItems = [];
 
-    if (exclusions.isVpnEnabledByUrl(tabUrl)) {
-        vpnSwitcher = { ...CONTEXT_MENU_ITEMS.disable_vpn };
-        vpnSwitcher.onclick = () => exclusions.disableVpnByUrl(tabUrl);
-    } else {
-        vpnSwitcher = { ...CONTEXT_MENU_ITEMS.enable_vpn };
-        vpnSwitcher.onclick = () => exclusions.enableVpnByUrl(tabUrl);
+    if (isHttp(tabUrl)) {
+        let vpnSwitcher;
+        if (exclusions.isVpnEnabledByUrl(tabUrl)) {
+            vpnSwitcher = { ...CONTEXT_MENU_ITEMS.disable_vpn };
+            vpnSwitcher.onclick = () => exclusions.disableVpnByUrl(tabUrl);
+        } else {
+            vpnSwitcher = { ...CONTEXT_MENU_ITEMS.enable_vpn };
+            vpnSwitcher.onclick = () => exclusions.enableVpnByUrl(tabUrl);
+        }
+        resultItems.push(vpnSwitcher);
     }
 
     const regularModeItem = {
@@ -74,16 +79,18 @@ const getContextMenuItems = (tabUrl) => {
         regularModeItem.checked = true;
     }
 
-    return [vpnSwitcher, regularModeItem, selectiveModeItem];
+    resultItems.push(regularModeItem, selectiveModeItem);
+
+    return resultItems;
 };
 
 const updateContextMenu = async (tabUrl) => {
-    if (settings.isContextMenuEnabled()) {
-        const menuItems = getContextMenuItems(tabUrl);
-        await renewContextMenuItems(menuItems);
-    } else {
+    if (!settings.isContextMenuEnabled()) {
         await clearContextMenuItems();
+        return;
     }
+    const menuItems = getContextMenuItems(tabUrl);
+    await renewContextMenuItems(menuItems);
 };
 
 const init = async () => {

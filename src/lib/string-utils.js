@@ -53,3 +53,18 @@ export const shExpMatch = (url, pattern) => {
     const regexp = new RegExp(`^${regexpStr}$`);
     return regexp.test(url);
 };
+
+/**
+ * Checks if string is valid url with http: or https: protocol
+ * @param {string} str
+ * @returns {boolean}
+ */
+export const isHttp = (str) => {
+    let url;
+    try {
+        url = new URL(str);
+    } catch (e) {
+        return false;
+    }
+    return /^https?:/.test(url.protocol);
+};
