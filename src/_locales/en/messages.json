@@ -107,8 +107,11 @@
     "auth_next": {
         "message": "Next"
     },
-    "auth_welcome": {
+    "auth_header_welcome": {
         "message": "Welcome"
+    },
+    "auth_header_registration": {
+        "message": "Registration"
     },
     "eula": {
         "message": "EULA"
@@ -127,6 +130,15 @@
     },
     "settings_webrtc_desc": {
         "message": "WebRTC is a special program in most Internet browsers that can allow a third-party website to detect your real IP address and use it to identify you"
+    },
+    "settings_context_menus_title": {
+        "message": "Add AdGuard VPN item to the browser’s context menu"
+    },
+    "context_menu_selective_mode": {
+        "message": "Selective mode"
+    },
+    "context_menu_regular_mode": {
+        "message": "Regular mode"
     },
     "settings_exclusion_add": {
         "message": "Add website"
