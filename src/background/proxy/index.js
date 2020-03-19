@@ -172,5 +172,5 @@ class ExtensionProxy {
 
 const proxy = new ExtensionProxy();
 
-export { proxy };
+export default proxy;
 

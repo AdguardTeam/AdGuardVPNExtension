@@ -1,4 +1,4 @@
-import EndpointsPingService from '../../../../src/background/connectivity/endpointsPing/EndpointsPingService';
+import EndpointsPing from '../../../../src/background/connectivity/endpointsPing/EndpointsPing';
 
 const buildCredentials = (prefix, token, appId) => {
     return {
@@ -67,7 +67,7 @@ describe('EndpointsPingService', () => {
 
         const websocketFactory = buildWsFactory(Websocket, expectedAveragePing);
 
-        const endpointsPing = new EndpointsPingService(credentials, websocketFactory);
+        const endpointsPing = new EndpointsPing({ credentials, websocketFactory });
         const endpoint = { domainName: 'do-gb-lon1-01-hk7z7xez.adguard.io' };
         const averagePing = await endpointsPing.measurePingToEndpoint(endpoint.domainName);
 

@@ -4,12 +4,23 @@ import notifier from '../lib/notifier';
 import exclusions from './exclusions';
 import tabs from './tabs';
 import translator from '../lib/translator';
+import settings from './settings/settings';
+import { isHttp } from '../lib/string-utils';
+
+// All contexts except "browser_action", "page_action" and "launcher"
+const contexts = ['page', 'frame', 'selection', 'link', 'editable', 'image', 'video', 'audio'];
 
 const renewContextMenuItems = async (menuItems) => {
     await browser.contextMenus.removeAll();
-    menuItems.forEach((itemOptions) => {
-        browser.contextMenus.create({ contexts: ['all'], ...itemOptions });
-    });
+    // eslint-disable-next-line no-restricted-syntax
+    for (const itemOptions of menuItems) {
+        // eslint-disable-next-line no-await-in-loop
+        await browser.contextMenus.create({ contexts, ...itemOptions });
+    }
+};
+
+const clearContextMenuItems = async () => {
+    await browser.contextMenus.removeAll();
 };
 
 const CONTEXT_MENU_ITEMS = {
@@ -21,6 +32,18 @@ const CONTEXT_MENU_ITEMS = {
         id: 'disable_vpn',
         title: translator.translate('context_menu_disable_vpn'),
     },
+    selective_mode: {
+        id: 'selective_mode',
+        type: 'radio',
+        title: translator.translate('context_menu_selective_mode'),
+        onclick: () => exclusions.setCurrentHandler(exclusions.TYPES.WHITELIST),
+    },
+    regular_mode: {
+        id: 'regular_mode',
+        type: 'radio',
+        title: translator.translate('context_menu_regular_mode'),
+        onclick: () => exclusions.setCurrentHandler(exclusions.TYPES.BLACKLIST),
+    },
 };
 
 const getContextMenuItems = (tabUrl) => {
@@ -28,20 +51,44 @@ const getContextMenuItems = (tabUrl) => {
         return [];
     }
 
-    let vpnSwitcher;
+    const resultItems = [];
 
-    if (exclusions.isVpnEnabledByUrl(tabUrl)) {
-        vpnSwitcher = CONTEXT_MENU_ITEMS.disable_vpn;
-        vpnSwitcher.onclick = () => exclusions.disableVpnByUrl(tabUrl);
-    } else {
-        vpnSwitcher = CONTEXT_MENU_ITEMS.enable_vpn;
-        vpnSwitcher.onclick = () => exclusions.enableVpnByUrl(tabUrl);
+    if (isHttp(tabUrl)) {
+        let vpnSwitcher;
+        if (exclusions.isVpnEnabledByUrl(tabUrl)) {
+            vpnSwitcher = { ...CONTEXT_MENU_ITEMS.disable_vpn };
+            vpnSwitcher.onclick = () => exclusions.disableVpnByUrl(tabUrl);
+        } else {
+            vpnSwitcher = { ...CONTEXT_MENU_ITEMS.enable_vpn };
+            vpnSwitcher.onclick = () => exclusions.enableVpnByUrl(tabUrl);
+        }
+        resultItems.push(vpnSwitcher);
     }
 
-    return [vpnSwitcher];
+    const regularModeItem = {
+        ...CONTEXT_MENU_ITEMS.regular_mode,
+    };
+
+    const selectiveModeItem = {
+        ...CONTEXT_MENU_ITEMS.selective_mode,
+    };
+
+    if (exclusions.isInverted()) {
+        selectiveModeItem.checked = true;
+    } else {
+        regularModeItem.checked = true;
+    }
+
+    resultItems.push(regularModeItem, selectiveModeItem);
+
+    return resultItems;
 };
 
 const updateContextMenu = async (tabUrl) => {
+    if (!settings.isContextMenuEnabled()) {
+        await clearContextMenuItems();
+        return;
+    }
     const menuItems = getContextMenuItems(tabUrl);
     await renewContextMenuItems(menuItems);
 };

@@ -6,6 +6,20 @@ import { getClosestEndpointByCoordinates } from '../../lib/helpers';
 import { MESSAGES_TYPES } from '../../lib/constants';
 import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
 import EndpointsManager from './EndpointsManager';
+import notifier from '../../lib/notifier';
+
+/**
+ * Endpoint information
+ * @typedef {Object} Endpoint
+ * @property {string} id
+ * @property {string} cityName
+ * @property {string} countryCode
+ * @property {string} countryName
+ * @property {string} domainName
+ * @property {[number, number]} coordinates
+ * @property {boolean} premiumOnly
+ * @property {string} publicKey
+ */
 
 /**
  * EndpointsService manages endpoints, vpn, current location information.
@@ -15,45 +29,55 @@ class EndpointsService {
 
     currentLocation = null;
 
-    constructor(browserApi, proxy, credentials, connectivity, vpnProvider) {
+    constructor({
+        browserApi, proxy, credentials, connectivity, vpnProvider,
+    }) {
         this.browserApi = browserApi;
         this.proxy = proxy;
         this.credentials = credentials;
         this.connectivity = connectivity;
         this.vpnProvider = vpnProvider;
+        this.endpointsManager = new EndpointsManager(browserApi, connectivity);
+
+        notifier.addSpecifiedListener(
+            notifier.types.SHOULD_REFRESH_TOKENS,
+            this.refreshTokens.bind(this)
+        );
     }
 
-    init = async () => {
-        this.endpointsManager = new EndpointsManager(
-            this.browserApi,
-            this.connectivity
-        );
-    };
-
+    /**
+     * Reconnects to the new endpoint
+     * @param {Endpoint} endpoint
+     * @returns {Promise<void>}
+     */
     reconnectEndpoint = async (endpoint) => {
         const { domainName } = await this.proxy.setCurrentEndpoint(endpoint);
         const { prefix, token } = await this.credentials.getAccessCredentials();
         const wsHost = `${prefix}.${domainName}`;
         await this.connectivity.endpointConnectivity.setCredentials(wsHost, domainName, token);
+        log.debug(`Reconnect endpoint from ${endpoint.id} to same city ${endpoint.id}`);
     };
 
-    getClosestEndpointAndReconnect = async (endpoints, currentEndpoint) => {
-        const endpointsArr = Object.keys(endpoints)
-            .map((endpointKey) => endpoints[endpointKey]);
+
+    /**
+     * Returns closest endpoint, firstly checking if endpoints object includes
+     * endpoint with same city name
+     * @param {Object.<Endpoint>} endpoints - endpoints stored by endpoint id
+     * @param {Endpoint} currentEndpoint
+     * @returns {Endpoint}
+     */
+    getClosestEndpoint = (endpoints, currentEndpoint) => {
+        const endpointsArr = Object.values(endpoints);
 
         const sameCityEndpoint = endpointsArr.find((endpoint) => {
             return endpoint.cityName === currentEndpoint.cityName;
         });
 
         if (sameCityEndpoint) {
-            await this.reconnectEndpoint(sameCityEndpoint);
-            log.debug(`Reconnect endpoint from ${currentEndpoint.id} to same city ${sameCityEndpoint.id}`);
-            return;
+            return sameCityEndpoint;
         }
 
-        const closestCityEndpoint = getClosestEndpointByCoordinates(currentEndpoint, endpointsArr);
-        await this.reconnectEndpoint(closestCityEndpoint);
-        log.debug(`Reconnect endpoint from ${currentEndpoint.id} to closest city ${closestCityEndpoint.id}`);
+        return getClosestEndpointByCoordinates(currentEndpoint, endpointsArr);
     };
 
     getEndpointsRemotely = async () => {
@@ -79,6 +103,18 @@ class EndpointsService {
         return oldVpnToken.licenseKey !== newVpnToken.licenseKey;
     };
 
+    /**
+     * Updates vpn tokens and credentials
+     * @returns {Promise<{vpnToken: *, vpnCredentials: *}>}
+     */
+    refreshTokens = async () => {
+        log.info('Refreshing tokens');
+        const vpnToken = await this.credentials.gainValidVpnToken(true, false);
+        const vpnCredentials = await this.credentials.gainValidVpnCredentials(true, false);
+        log.info('Tokens and credentials refreshed successfully');
+        return { vpnToken, vpnCredentials };
+    };
+
     getVpnInfoRemotely = async () => {
         let vpnToken;
 
@@ -93,12 +129,18 @@ class EndpointsService {
         let shouldReconnect = false;
 
         if (vpnInfo.refreshTokens) {
-            log.info('refreshing tokens');
-            const updatedVpnToken = await this.credentials.gainValidVpnToken(true, false);
+            let updatedVpnToken;
+
+            try {
+                ({ vpnToken: updatedVpnToken } = await this.refreshTokens());
+            } catch (e) {
+                log.debug('Unable to refresh tokens');
+            }
+
             if (this.vpnTokenChanged(vpnToken, updatedVpnToken)) {
                 shouldReconnect = true;
             }
-            await this.credentials.gainValidVpnCredentials(true);
+
             vpnInfo = await this.vpnProvider.getVpnExtensionInfo(updatedVpnToken.token);
         }
 
@@ -114,13 +156,15 @@ class EndpointsService {
             // if there is no currently connected endpoint in the list of endpoints,
             // get closest and reconnect
             if (!currentEndpointInEndpoints) {
-                await this.getClosestEndpointAndReconnect(endpoints, currentEndpoint);
+                const closestEndpoint = this.getClosestEndpoint(endpoints, currentEndpoint);
+                this.reconnectEndpoint(closestEndpoint);
                 shouldReconnect = false;
             }
         }
 
         if (shouldReconnect) {
-            await this.getClosestEndpointAndReconnect(endpoints, currentEndpoint);
+            const closestEndpoint = this.getClosestEndpoint(endpoints, currentEndpoint);
+            this.reconnectEndpoint(closestEndpoint);
         }
 
         this.vpnInfo = vpnInfo;

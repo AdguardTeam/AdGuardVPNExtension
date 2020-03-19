@@ -6,8 +6,8 @@ import log from '../../../lib/logger';
 /**
  * Measures ping to endpoint with provided domain name and credentials
  */
-class EndpointsPingService {
-    constructor(credentials, websocketFactory) {
+class EndpointsPing {
+    constructor({ credentials, websocketFactory }) {
         this.credentials = credentials;
         this.websocketFactory = websocketFactory;
     }
@@ -32,4 +32,4 @@ class EndpointsPingService {
     };
 }
 
-export default EndpointsPingService;
+export default EndpointsPing;

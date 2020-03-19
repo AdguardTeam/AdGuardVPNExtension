@@ -1,5 +1,5 @@
 import endpointConnectivity from './endpointConnectivity';
-import endpointsPing from './endpointsPing/endpointsPing';
+import endpointsPing from './endpointsPing';
 
 const connectivity = {
     endpointConnectivity,

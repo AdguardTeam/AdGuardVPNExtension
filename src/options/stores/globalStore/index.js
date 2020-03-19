@@ -27,6 +27,7 @@ class globalStore {
             await settingsStore.getUsername();
             await settingsStore.checkRateStatus();
             await settingsStore.getWebRTCValue();
+            await settingsStore.getContextMenusEnabled();
             await settingsStore.getDnsState();
             await settingsStore.getDnsServer();
             this.setInitStatus(REQUEST_STATUSES.DONE);

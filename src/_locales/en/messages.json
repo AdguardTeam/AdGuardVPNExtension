@@ -78,7 +78,7 @@
         "message": "Uncompromising online privacy protection. Over 20 Million people have already chosen AdGuard."
     },
     "auth_code": {
-        "message": "Code from the authentication app"
+        "message": "Code from auth application"
     },
     "auth_confirm": {
         "message": "Confirm"
@@ -107,8 +107,11 @@
     "auth_next": {
         "message": "Next"
     },
-    "auth_welcome": {
+    "auth_header_welcome": {
         "message": "Welcome"
+    },
+    "auth_header_registration": {
+        "message": "Registration"
     },
     "eula": {
         "message": "EULA"
@@ -127,6 +130,15 @@
     },
     "settings_webrtc_desc": {
         "message": "WebRTC is a special program in most Internet browsers that can allow a third-party website to detect your real IP address and use it to identify you"
+    },
+    "settings_context_menus_title": {
+        "message": "Add AdGuard VPN item to the browser’s context menu"
+    },
+    "context_menu_selective_mode": {
+        "message": "Selective mode"
+    },
+    "context_menu_regular_mode": {
+        "message": "Regular mode"
     },
     "settings_dns_title": {
         "message": "DNS Selector"
@@ -274,6 +286,9 @@
     },
     "endpoints_search": {
         "message": "Search the country"
+    },
+    "endpoints_not_found": {
+        "message": "Server not found"
     },
     "premium_limit_reached": {
         "message": "Monthly data limit reached. Need more?"
