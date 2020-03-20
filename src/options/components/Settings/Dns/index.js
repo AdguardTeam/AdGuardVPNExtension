@@ -4,15 +4,11 @@ import translator from '../../../../lib/translator';
 import dnsData from '../../../../background/dns/dnsData';
 import rootStore from '../../../stores';
 
-import Switch from '../../ui/Switch';
+import './dns.pcss';
 import Select from '../../ui/Select';
 
 const Dns = observer(() => {
     const { settingsStore } = useContext(rootStore);
-
-    const dnsToggle = async (e) => {
-        await settingsStore.setDnsState(e.currentTarget.checked);
-    };
 
     const handleDnsSelect = async (server) => {
         await settingsStore.setDnsServer(server);
@@ -21,19 +17,19 @@ const Dns = observer(() => {
     return (
         <>
             <div className="settings__group">
-                <Switch
-                    id="dns"
-                    title={translator.translate('settings_dns_label')}
-                    desc={translator.translate('settings_dns_desc')}
-                    handleToggle={dnsToggle}
-                    checked={settingsStore.dnsEnabled}
-                />
-                <Select
-                    enabled={settingsStore.dnsEnabled}
-                    options={dnsData}
-                    currentValue={settingsStore.dnsServer}
-                    optionChange={handleDnsSelect}
-                />
+                <div className="dns">
+                    <div className="dns-title">
+                        {translator.translate('settings_dns_label')}
+                    </div>
+                    <div className="dns-desc">
+                        {translator.translate('settings_dns_desc')}
+                    </div>
+                    <Select
+                        options={dnsData}
+                        currentValue={settingsStore.dnsServer}
+                        optionChange={handleDnsSelect}
+                    />
+                </div>
             </div>
         </>
     );

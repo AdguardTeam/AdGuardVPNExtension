@@ -3,7 +3,6 @@ import './select.pcss';
 
 const Select = ((props) => {
     const {
-        enabled,
         currentValue,
         options,
         optionChange,
@@ -45,10 +44,7 @@ const Select = ((props) => {
     });
 
     return (
-        <div
-            className="selector"
-            disabled={!enabled}
-        >
+        <div className="selector">
             <div
                 className="selector__value"
                 value={value}

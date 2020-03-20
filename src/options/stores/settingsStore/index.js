@@ -41,8 +41,6 @@ class SettingsStore {
 
     @observable contextMenusEnabled = false;
 
-    @observable dnsEnabled = false;
-
     @observable dnsServer = 'default';
 
     // Options page actions
@@ -197,20 +195,6 @@ class SettingsStore {
     getContextMenusEnabled = async () => {
         const value = await adguard.settings.getSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED);
         this.setContextMenusValue(value);
-    };
-
-    @action
-    setDnsState = async (value) => {
-        await adguard.settings.setSetting(SETTINGS_IDS.HANDLE_DNS_ENABLED, value);
-        runInAction(() => {
-            this.dnsEnabled = value;
-        });
-    };
-
-    @action
-    getDnsState = async () => {
-        const value = await adguard.settings.getSetting(SETTINGS_IDS.HANDLE_DNS_ENABLED);
-        this.setDnsState(value);
     };
 
     @action
