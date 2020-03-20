@@ -11,11 +11,9 @@ const Select = ((props) => {
 
     const [value, setValue] = useState(currentValue);
     const [hidden, setHidden] = useState(true);
-    const optionsList = useRef(null);
 
     useEffect(() => {
         setValue(currentValue);
-        optionsList.current.scrollTop = 0;
     });
 
     const closeOnClick = () => {
@@ -39,6 +37,12 @@ const Select = ((props) => {
     };
 
     const isActiveOption = (id) => ((id === value) ? ' active' : '');
+
+    const optionsList = useRef(null);
+
+    useEffect(() => {
+        optionsList.current.scrollTop = 0;
+    });
 
     return (
         <div
@@ -64,8 +68,8 @@ const Select = ((props) => {
                         className={`selector__option-item${isActiveOption(id)}`}
                         onClick={() => handleOptionClick(id)}
                     >
-                        <div className="selector__option-item__title">{options[id].title}</div>
-                        <div className="selector__option-item__desc">{options[id].desc}</div>
+                        <div className="selector__option-item-title">{options[id].title}</div>
+                        <div className="selector__option-item-desc">{options[id].desc}</div>
                     </li>
                 ))}
             </ul>

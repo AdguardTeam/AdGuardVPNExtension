@@ -5,7 +5,7 @@ import notifier from '../../lib/notifier';
 import { SETTINGS_IDS } from '../../lib/constants';
 import switcher from '../switcher';
 import webrtc from '../browserApi/webrtc';
-import { dnsData, dns } from '../dns';
+import { dns } from '../dns';
 
 const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.PROXY_ENABLED]: false,
@@ -13,7 +13,7 @@ const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.EXCLUSIONS]: {},
     [SETTINGS_IDS.HANDLE_WEBRTC_ENABLED]: true,
     [SETTINGS_IDS.HANDLE_DNS_ENABLED]: false,
-    [SETTINGS_IDS.HANDLE_DNS_SERVER]: dnsData.default,
+    [SETTINGS_IDS.HANDLE_DNS_SERVER]: 'default',
     [SETTINGS_IDS.CONTEXT_MENU_ENABLED]: true,
 };
 

@@ -4,8 +4,7 @@ import dnsData from './dnsData';
 class Dns {
     constructor() {
         this.DNS_ENABLED = false;
-        // eslint-disable-next-line prefer-destructuring
-        this.DNS_SERVER = dnsData.default;
+        this.DNS_SERVER = 'default';
     }
 
     modifyHeader = (e) => {
@@ -18,7 +17,7 @@ class Dns {
     };
 
     setDnsServer = () => {
-        if (this.DNS_SERVER === dnsData.default) {
+        if (this.DNS_SERVER === 'default') {
             return;
         }
         browser.webRequest.onBeforeSendHeaders.addListener(
