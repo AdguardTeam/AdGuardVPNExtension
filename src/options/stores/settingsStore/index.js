@@ -7,6 +7,7 @@ import {
 
 import log from '../../../lib/logger';
 import { SETTINGS_IDS } from '../../../lib/constants';
+import { DNS_DEFAULT } from '../../../background/dns/dnsConsts';
 
 class SettingsStore {
     @observable exclusions = {
@@ -41,7 +42,7 @@ class SettingsStore {
 
     @observable contextMenusEnabled = false;
 
-    @observable dnsServer = 'default';
+    @observable dnsServer = DNS_DEFAULT;
 
     // Options page actions
     @action
