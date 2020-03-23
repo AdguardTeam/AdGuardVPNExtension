@@ -1,7 +1,8 @@
 import translator from '../../lib/translator';
+import { DNS_DEFAULT } from './dnsConsts';
 
 export default {
-    default: {
+    [DNS_DEFAULT]: {
         title: translator.translate('settings_dns_selector_default_title'),
         desc: translator.translate('settings_dns_selector_default_desc'),
     },

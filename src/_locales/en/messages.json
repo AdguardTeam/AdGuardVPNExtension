@@ -153,7 +153,7 @@
         "message": "Default"
     },
     "settings_dns_selector_default_desc": {
-        "message": "Automatically use your own DNS servers when connected to the VPN"
+        "message": "Automatically use default DNS servers when connected to the VPN"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"

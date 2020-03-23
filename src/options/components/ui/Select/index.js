@@ -47,7 +47,6 @@ const Select = ((props) => {
         <div className="selector">
             <div
                 className="selector__value"
-                value={value}
                 onClick={handleSelectClick}
             >
                 <div className="selector__value-title">{options[value].title}</div>
