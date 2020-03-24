@@ -59,11 +59,14 @@ class Dns {
 
     isProxyRequest = (requestUrl) => {
         const proxyConfig = proxy.getConfig();
+        if (!proxyConfig) {
+            return false;
+        }
         const { bypassList, inverted, defaultExclusions } = proxyConfig;
 
         if (!requestUrl.includes('.')
             || defaultExclusions.some((exclusion) => requestUrl.includes(exclusion.replace('*', '')))) {
-            return true;
+            return false;
         }
         if (bypassList.some((exclusion) => requestUrl.includes(exclusion.replace('*', '')))) {
             return inverted;
