@@ -84,12 +84,12 @@ const getContextMenuItems = (tabUrl) => {
     return resultItems;
 };
 
-const updateContextMenu = async (tabUrl) => {
+const updateContextMenu = async (tab) => {
     if (!settings.isContextMenuEnabled()) {
         await clearContextMenuItems();
         return;
     }
-    const menuItems = getContextMenuItems(tabUrl);
+    const menuItems = getContextMenuItems(tab.url);
     await renewContextMenuItems(menuItems);
 };
 
@@ -103,7 +103,7 @@ const init = async () => {
     // actualize context menu on exclusions update
     notifier.addSpecifiedListener(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE, async () => {
         const tab = await tabs.getCurrent();
-        throttledUpdater(tab.url);
+        throttledUpdater(tab);
     });
 };
 
