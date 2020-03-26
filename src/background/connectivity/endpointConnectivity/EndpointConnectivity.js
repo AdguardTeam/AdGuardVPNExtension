@@ -1,4 +1,4 @@
-import { WsConnectivityMsg, WsPingMsg } from '../protobufCompiled';
+import { WsConnectivityMsg, WsPingMsg, WsSettingsMsg } from '../protobufCompiled';
 import websocketFactory from '../websocket/websocketFactory';
 import { WS_API_URL_TEMPLATE } from '../../config';
 import { renderTemplate, stringToUint8Array } from '../../../lib/string-utils';
@@ -6,6 +6,7 @@ import statsStorage from '../statsStorage';
 import notifier from '../../../lib/notifier';
 import proxy from '../../proxy';
 import credentials from '../../credentials';
+import log from '../../../lib/logger';
 
 class EndpointConnectivity {
     PING_UPDATE_INTERVAL_MS = 1000 * 60;
@@ -163,6 +164,19 @@ class EndpointConnectivity {
             const averagePing = await this.calculateAveragePing();
             this.updatePingValue(averagePing);
         }, this.PING_UPDATE_INTERVAL_MS);
+    };
+
+    prepareDnsSettingsMessage = (dns) => {
+        const settingsMsg = WsSettingsMsg.create({ dnsServer: dns });
+        const protocolMsg = WsConnectivityMsg.create({ settingsMsg });
+        log.debug(`Connectivity message: ${JSON.stringify(protocolMsg, null, 4)}`);
+        return WsConnectivityMsg.encode(protocolMsg).finish();
+    };
+
+    sendDnsSettings = (dns) => {
+        const arrBufMessage = this.prepareDnsSettingsMessage(dns);
+        this.ws.send(arrBufMessage);
+        log.debug(`Websocket message for dnsServer: "${dns}" sent`);
     };
 
     /**

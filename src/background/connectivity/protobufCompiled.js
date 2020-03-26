@@ -813,6 +813,193 @@ export const WsConnectivityErrorMsg = $root.WsConnectivityErrorMsg = (() => {
     return WsConnectivityErrorMsg;
 })();
 
+export const WsSettingsMsg = $root.WsSettingsMsg = (() => {
+
+    /**
+     * Properties of a WsSettingsMsg.
+     * @exports IWsSettingsMsg
+     * @interface IWsSettingsMsg
+     * @property {string|null} [dnsServer] WsSettingsMsg dnsServer
+     */
+
+    /**
+     * Constructs a new WsSettingsMsg.
+     * @exports WsSettingsMsg
+     * @classdesc Represents a WsSettingsMsg.
+     * @implements IWsSettingsMsg
+     * @constructor
+     * @param {IWsSettingsMsg=} [properties] Properties to set
+     */
+    function WsSettingsMsg(properties) {
+        if (properties)
+            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                if (properties[keys[i]] != null)
+                    this[keys[i]] = properties[keys[i]];
+    }
+
+    /**
+     * WsSettingsMsg dnsServer.
+     * @member {string} dnsServer
+     * @memberof WsSettingsMsg
+     * @instance
+     */
+    WsSettingsMsg.prototype.dnsServer = "";
+
+    /**
+     * Creates a new WsSettingsMsg instance using the specified properties.
+     * @function create
+     * @memberof WsSettingsMsg
+     * @static
+     * @param {IWsSettingsMsg=} [properties] Properties to set
+     * @returns {WsSettingsMsg} WsSettingsMsg instance
+     */
+    WsSettingsMsg.create = function create(properties) {
+        return new WsSettingsMsg(properties);
+    };
+
+    /**
+     * Encodes the specified WsSettingsMsg message. Does not implicitly {@link WsSettingsMsg.verify|verify} messages.
+     * @function encode
+     * @memberof WsSettingsMsg
+     * @static
+     * @param {IWsSettingsMsg} message WsSettingsMsg message or plain object to encode
+     * @param {$protobuf.Writer} [writer] Writer to encode to
+     * @returns {$protobuf.Writer} Writer
+     */
+    WsSettingsMsg.encode = function encode(message, writer) {
+        if (!writer)
+            writer = $Writer.create();
+        if (message.dnsServer != null && message.hasOwnProperty("dnsServer"))
+            writer.uint32(/* id 1, wireType 2 =*/10).string(message.dnsServer);
+        return writer;
+    };
+
+    /**
+     * Encodes the specified WsSettingsMsg message, length delimited. Does not implicitly {@link WsSettingsMsg.verify|verify} messages.
+     * @function encodeDelimited
+     * @memberof WsSettingsMsg
+     * @static
+     * @param {IWsSettingsMsg} message WsSettingsMsg message or plain object to encode
+     * @param {$protobuf.Writer} [writer] Writer to encode to
+     * @returns {$protobuf.Writer} Writer
+     */
+    WsSettingsMsg.encodeDelimited = function encodeDelimited(message, writer) {
+        return this.encode(message, writer).ldelim();
+    };
+
+    /**
+     * Decodes a WsSettingsMsg message from the specified reader or buffer.
+     * @function decode
+     * @memberof WsSettingsMsg
+     * @static
+     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+     * @param {number} [length] Message length if known beforehand
+     * @returns {WsSettingsMsg} WsSettingsMsg
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    WsSettingsMsg.decode = function decode(reader, length) {
+        if (!(reader instanceof $Reader))
+            reader = $Reader.create(reader);
+        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.WsSettingsMsg();
+        while (reader.pos < end) {
+            let tag = reader.uint32();
+            switch (tag >>> 3) {
+            case 1:
+                message.dnsServer = reader.string();
+                break;
+            default:
+                reader.skipType(tag & 7);
+                break;
+            }
+        }
+        return message;
+    };
+
+    /**
+     * Decodes a WsSettingsMsg message from the specified reader or buffer, length delimited.
+     * @function decodeDelimited
+     * @memberof WsSettingsMsg
+     * @static
+     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+     * @returns {WsSettingsMsg} WsSettingsMsg
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    WsSettingsMsg.decodeDelimited = function decodeDelimited(reader) {
+        if (!(reader instanceof $Reader))
+            reader = new $Reader(reader);
+        return this.decode(reader, reader.uint32());
+    };
+
+    /**
+     * Verifies a WsSettingsMsg message.
+     * @function verify
+     * @memberof WsSettingsMsg
+     * @static
+     * @param {Object.<string,*>} message Plain object to verify
+     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+     */
+    WsSettingsMsg.verify = function verify(message) {
+        if (typeof message !== "object" || message === null)
+            return "object expected";
+        if (message.dnsServer != null && message.hasOwnProperty("dnsServer"))
+            if (!$util.isString(message.dnsServer))
+                return "dnsServer: string expected";
+        return null;
+    };
+
+    /**
+     * Creates a WsSettingsMsg message from a plain object. Also converts values to their respective internal types.
+     * @function fromObject
+     * @memberof WsSettingsMsg
+     * @static
+     * @param {Object.<string,*>} object Plain object
+     * @returns {WsSettingsMsg} WsSettingsMsg
+     */
+    WsSettingsMsg.fromObject = function fromObject(object) {
+        if (object instanceof $root.WsSettingsMsg)
+            return object;
+        let message = new $root.WsSettingsMsg();
+        if (object.dnsServer != null)
+            message.dnsServer = String(object.dnsServer);
+        return message;
+    };
+
+    /**
+     * Creates a plain object from a WsSettingsMsg message. Also converts values to other types if specified.
+     * @function toObject
+     * @memberof WsSettingsMsg
+     * @static
+     * @param {WsSettingsMsg} message WsSettingsMsg
+     * @param {$protobuf.IConversionOptions} [options] Conversion options
+     * @returns {Object.<string,*>} Plain object
+     */
+    WsSettingsMsg.toObject = function toObject(message, options) {
+        if (!options)
+            options = {};
+        let object = {};
+        if (options.defaults)
+            object.dnsServer = "";
+        if (message.dnsServer != null && message.hasOwnProperty("dnsServer"))
+            object.dnsServer = message.dnsServer;
+        return object;
+    };
+
+    /**
+     * Converts this WsSettingsMsg to JSON.
+     * @function toJSON
+     * @memberof WsSettingsMsg
+     * @instance
+     * @returns {Object.<string,*>} JSON object
+     */
+    WsSettingsMsg.prototype.toJSON = function toJSON() {
+        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+    };
+
+    return WsSettingsMsg;
+})();
+
 export const WsConnectivityMsg = $root.WsConnectivityMsg = (() => {
 
     /**
@@ -822,6 +1009,7 @@ export const WsConnectivityMsg = $root.WsConnectivityMsg = (() => {
      * @property {IWsPingMsg|null} [pingMsg] WsConnectivityMsg pingMsg
      * @property {IWsConnectivityInfoMsg|null} [connectivityInfoMsg] WsConnectivityMsg connectivityInfoMsg
      * @property {IWsConnectivityErrorMsg|null} [connectivityErrorMsg] WsConnectivityMsg connectivityErrorMsg
+     * @property {IWsSettingsMsg|null} [settingsMsg] WsConnectivityMsg settingsMsg
      */
 
     /**
@@ -863,17 +1051,25 @@ export const WsConnectivityMsg = $root.WsConnectivityMsg = (() => {
      */
     WsConnectivityMsg.prototype.connectivityErrorMsg = null;
 
+    /**
+     * WsConnectivityMsg settingsMsg.
+     * @member {IWsSettingsMsg|null|undefined} settingsMsg
+     * @memberof WsConnectivityMsg
+     * @instance
+     */
+    WsConnectivityMsg.prototype.settingsMsg = null;
+
     // OneOf field names bound to virtual getters and setters
     let $oneOfFields;
 
     /**
      * WsConnectivityMsg payload.
-     * @member {"pingMsg"|"connectivityInfoMsg"|"connectivityErrorMsg"|undefined} payload
+     * @member {"pingMsg"|"connectivityInfoMsg"|"connectivityErrorMsg"|"settingsMsg"|undefined} payload
      * @memberof WsConnectivityMsg
      * @instance
      */
     Object.defineProperty(WsConnectivityMsg.prototype, "payload", {
-        get: $util.oneOfGetter($oneOfFields = ["pingMsg", "connectivityInfoMsg", "connectivityErrorMsg"]),
+        get: $util.oneOfGetter($oneOfFields = ["pingMsg", "connectivityInfoMsg", "connectivityErrorMsg", "settingsMsg"]),
         set: $util.oneOfSetter($oneOfFields)
     });
 
@@ -907,6 +1103,8 @@ export const WsConnectivityMsg = $root.WsConnectivityMsg = (() => {
             $root.WsConnectivityInfoMsg.encode(message.connectivityInfoMsg, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
         if (message.connectivityErrorMsg != null && message.hasOwnProperty("connectivityErrorMsg"))
             $root.WsConnectivityErrorMsg.encode(message.connectivityErrorMsg, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+        if (message.settingsMsg != null && message.hasOwnProperty("settingsMsg"))
+            $root.WsSettingsMsg.encode(message.settingsMsg, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
         return writer;
     };
 
@@ -949,6 +1147,9 @@ export const WsConnectivityMsg = $root.WsConnectivityMsg = (() => {
                 break;
             case 3:
                 message.connectivityErrorMsg = $root.WsConnectivityErrorMsg.decode(reader, reader.uint32());
+                break;
+            case 4:
+                message.settingsMsg = $root.WsSettingsMsg.decode(reader, reader.uint32());
                 break;
             default:
                 reader.skipType(tag & 7);
@@ -1014,6 +1215,16 @@ export const WsConnectivityMsg = $root.WsConnectivityMsg = (() => {
                     return "connectivityErrorMsg." + error;
             }
         }
+        if (message.settingsMsg != null && message.hasOwnProperty("settingsMsg")) {
+            if (properties.payload === 1)
+                return "payload: multiple values";
+            properties.payload = 1;
+            {
+                let error = $root.WsSettingsMsg.verify(message.settingsMsg);
+                if (error)
+                    return "settingsMsg." + error;
+            }
+        }
         return null;
     };
 
@@ -1043,6 +1254,11 @@ export const WsConnectivityMsg = $root.WsConnectivityMsg = (() => {
             if (typeof object.connectivityErrorMsg !== "object")
                 throw TypeError(".WsConnectivityMsg.connectivityErrorMsg: object expected");
             message.connectivityErrorMsg = $root.WsConnectivityErrorMsg.fromObject(object.connectivityErrorMsg);
+        }
+        if (object.settingsMsg != null) {
+            if (typeof object.settingsMsg !== "object")
+                throw TypeError(".WsConnectivityMsg.settingsMsg: object expected");
+            message.settingsMsg = $root.WsSettingsMsg.fromObject(object.settingsMsg);
         }
         return message;
     };
@@ -1074,6 +1290,11 @@ export const WsConnectivityMsg = $root.WsConnectivityMsg = (() => {
             object.connectivityErrorMsg = $root.WsConnectivityErrorMsg.toObject(message.connectivityErrorMsg, options);
             if (options.oneofs)
                 object.payload = "connectivityErrorMsg";
+        }
+        if (message.settingsMsg != null && message.hasOwnProperty("settingsMsg")) {
+            object.settingsMsg = $root.WsSettingsMsg.toObject(message.settingsMsg, options);
+            if (options.oneofs)
+                object.payload = "settingsMsg";
         }
         return object;
     };
