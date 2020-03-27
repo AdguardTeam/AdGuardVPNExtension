@@ -97,6 +97,8 @@ const types = {
     TAB_ACTIVATED: 'event.tab.activated',
     EXCLUSIONS_UPDATED_BACK_MESSAGE: 'exclusions.updated.back.message',
     SHOULD_REFRESH_TOKENS: 'event.should.refresh.tokens',
+    PROXY_TURNED_ON: 'event.proxy.turned.on',
+    PROXY_TURNED_OFF: 'event.proxy.turned.off',
 };
 
 const notifier = new Notifier(types);

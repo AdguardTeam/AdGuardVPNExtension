@@ -8,9 +8,7 @@ import './sidebar.pcss';
 const Sidebar = () => {
     return (
         <div className="sidebar">
-            <svg className="sidebar__logo">
-                <use xlinkHref="#logo" />
-            </svg>
+            <svg className="sidebar__logo" />
             <nav className="sidebar__nav">
                 <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/">
                     {browser.i18n.getMessage('settings_exclusion_title')}
