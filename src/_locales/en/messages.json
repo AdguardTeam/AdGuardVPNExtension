@@ -140,9 +140,6 @@
     "context_menu_regular_mode": {
         "message": "Regular mode"
     },
-    "settings_dns_title": {
-        "message": "DNS Selector"
-    },
     "settings_dns_label": {
         "message": "Use DNS server"
     },

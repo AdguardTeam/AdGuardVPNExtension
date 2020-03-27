@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import translator from '../../../../lib/translator';
-import dnsData from '../../../../background/dns/dnsData';
+import { dnsData } from '../../../../background/dns';
 import rootStore from '../../../stores';
 
 import './dns.pcss';

@@ -7,7 +7,7 @@ import {
 
 import log from '../../../lib/logger';
 import { SETTINGS_IDS } from '../../../lib/constants';
-import { DNS_DEFAULT } from '../../../background/dns/dnsConsts';
+import { DNS_DEFAULT } from '../../../background/dns';
 
 class SettingsStore {
     @observable exclusions = {
@@ -200,7 +200,7 @@ class SettingsStore {
 
     @action
     setDnsServer = async (value) => {
-        await adguard.settings.setSetting(SETTINGS_IDS.HANDLE_DNS_SERVER, value);
+        await adguard.settings.setSetting(SETTINGS_IDS.SELECTED_DNS_SERVER, value);
         runInAction(() => {
             this.dnsServer = value;
         });
@@ -208,7 +208,7 @@ class SettingsStore {
 
     @action
     getDnsServer = async () => {
-        const value = await adguard.settings.getSetting(SETTINGS_IDS.HANDLE_DNS_SERVER);
+        const value = await adguard.settings.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER);
         this.setDnsServer(value);
     };
 }

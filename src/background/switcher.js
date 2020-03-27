@@ -22,7 +22,7 @@ function* turnOnProxy() {
         );
         yield proxy.turnOn();
         webrtc.blockWebRTC();
-        dns.turnOnDns();
+        dns.sendDnsSettings();
         yield actions.setIconEnabled();
         browserApi.runtime.sendMessage({ type: MESSAGES_TYPES.EXTENSION_PROXY_ENABLED });
     } catch (e) {
@@ -41,7 +41,6 @@ function* turnOffProxy() {
         yield connectivity.endpointConnectivity.stop();
         yield proxy.turnOff();
         webrtc.unblockWebRTC();
-        dns.turnOffDns();
         yield actions.setIconDisabled();
         browserApi.runtime.sendMessage({ type: MESSAGES_TYPES.EXTENSION_PROXY_DISABLED });
     } catch (e) {

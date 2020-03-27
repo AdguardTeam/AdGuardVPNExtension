@@ -85,6 +85,7 @@ class EndpointConnectivity {
         }
         this.startGettingPing();
         this.startGettingConnectivityInfo();
+        this.sendDnsSettings();
         // when first ping received we can connect to proxy
         const averagePing = await this.calculateAveragePing();
         this.updatePingValue(averagePing);
@@ -166,17 +167,16 @@ class EndpointConnectivity {
         }, this.PING_UPDATE_INTERVAL_MS);
     };
 
-    prepareDnsSettingsMessage = (dns) => {
-        const settingsMsg = WsSettingsMsg.create({ dnsServer: dns });
+    prepareDnsSettingsMessage = (dnsIp) => {
+        const settingsMsg = WsSettingsMsg.create({ dnsServer: dnsIp });
         const protocolMsg = WsConnectivityMsg.create({ settingsMsg });
-        log.debug(`Connectivity message: ${JSON.stringify(protocolMsg, null, 4)}`);
         return WsConnectivityMsg.encode(protocolMsg).finish();
     };
 
-    sendDnsSettings = (dns) => {
-        const arrBufMessage = this.prepareDnsSettingsMessage(dns);
+    sendDnsSettings = (dnsIp) => {
+        const arrBufMessage = this.prepareDnsSettingsMessage(dnsIp);
         this.ws.send(arrBufMessage);
-        log.debug(`Websocket message for dnsServer: "${dns}" sent`);
+        log.debug(`DNS settings sent. DNS IP: ${dnsIp}`);
     };
 
     /**
