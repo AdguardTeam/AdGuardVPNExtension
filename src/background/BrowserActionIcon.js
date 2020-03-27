@@ -4,24 +4,34 @@ import actions from './actions';
 import exclusions from './exclusions';
 import settings from './settings/settings';
 import tabs from './tabs';
+import { isHttp } from '../lib/string-utils';
 
 class BrowserActionIcon {
     constructor() {
         this.init();
     }
 
+    shouldUpdateIcon = (id, url) => {
+        return id
+            && url
+            && isHttp(url)
+            && !exclusions.isVpnEnabledByUrl(url);
+    };
+
     async updateIcon(tab) {
         const { id = null, url = null } = tab;
         const proxyEnabled = settings.isProxyEnabled();
+
         if (!proxyEnabled) {
             await actions.setIconDisabled(id);
             return;
         }
-        const isVpnEnabledForUrl = exclusions.isVpnEnabledByUrl(url);
-        if (id && url && !isVpnEnabledForUrl) {
+
+        if (this.shouldUpdateIcon(id, url)) {
             await actions.setIconExcludedForUrl(id);
             return;
         }
+
         await actions.setIconEnabled(id);
     }
 
