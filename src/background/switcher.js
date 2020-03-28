@@ -1,13 +1,12 @@
 import { runWithCancel } from '../lib/helpers';
 import proxy from './proxy';
-import actions from './actions';
 import log from '../lib/logger';
 import browserApi from './browserApi';
 import { MESSAGES_TYPES } from '../lib/constants';
 import webrtc from './browserApi/webrtc';
-import dns from './dns/Dns';
 import credentials from './credentials';
 import connectivity from './connectivity';
+import notifier from '../lib/notifier';
 
 function* turnOnProxy() {
     try {
@@ -22,6 +21,7 @@ function* turnOnProxy() {
         );
         yield proxy.turnOn();
         webrtc.blockWebRTC();
+        notifier.notifyListeners(notifier.types.PROXY_TURNED_ON);
         dns.sendDnsSettings();
         yield actions.setIconEnabled();
         browserApi.runtime.sendMessage({ type: MESSAGES_TYPES.EXTENSION_PROXY_ENABLED });
@@ -29,7 +29,7 @@ function* turnOnProxy() {
         yield connectivity.endpointConnectivity.stop();
         yield proxy.turnOff();
         webrtc.unblockWebRTC();
-        yield actions.setIconDisabled();
+        notifier.notifyListeners(notifier.types.PROXY_TURNED_ON);
         browserApi.runtime.sendMessage({ type: MESSAGES_TYPES.EXTENSION_PROXY_DISABLED });
         log.error(e && e.message);
         throw e;
@@ -41,7 +41,7 @@ function* turnOffProxy() {
         yield connectivity.endpointConnectivity.stop();
         yield proxy.turnOff();
         webrtc.unblockWebRTC();
-        yield actions.setIconDisabled();
+        notifier.notifyListeners(notifier.types.PROXY_TURNED_ON);
         browserApi.runtime.sendMessage({ type: MESSAGES_TYPES.EXTENSION_PROXY_DISABLED });
     } catch (e) {
         log.error(e && e.message);

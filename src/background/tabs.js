@@ -7,18 +7,33 @@ class Tabs {
         browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
             if (changeInfo.status === 'complete' || changeInfo.status === 'loading') {
                 if (tab && tab.active) {
-                    notifier.notifyListeners(notifier.types.TAB_UPDATED, tab.url);
+                    notifier.notifyListeners(notifier.types.TAB_UPDATED, this.prepareTab(tab));
                 }
             }
         });
 
         browser.tabs.onActivated.addListener(async ({ tabId }) => {
-            const tab = await browser.tabs.get(tabId);
+            let tab;
+            try {
+                tab = await browser.tabs.get(tabId);
+            } catch (e) {
+                return; // ignore errors happening when we try to get removed tabs
+            }
             if (tab && tab.active) {
-                notifier.notifyListeners(notifier.types.TAB_ACTIVATED, tab.url);
+                notifier.notifyListeners(notifier.types.TAB_ACTIVATED, this.prepareTab(tab));
             }
         });
     }
+
+    /**
+     * Converts chrome tab info into simplified presentation of tab
+     * @param tab
+     * @returns {{id: number, url: string}}
+     */
+    prepareTab = (tab) => {
+        const { id, url } = tab;
+        return { id, url };
+    };
 
     async getCurrent() {
         const { id: windowId } = await browser.windows.getCurrent();
