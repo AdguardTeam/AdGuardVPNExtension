@@ -5,7 +5,7 @@ import notifier from '../../lib/notifier';
 import { SETTINGS_IDS } from '../../lib/constants';
 import switcher from '../switcher';
 import webrtc from '../browserApi/webrtc';
-import { dns, DNS_DEFAULT } from '../dns';
+import dns, { DNS_DEFAULT } from '../dns/Dns';
 
 const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.PROXY_ENABLED]: false,
