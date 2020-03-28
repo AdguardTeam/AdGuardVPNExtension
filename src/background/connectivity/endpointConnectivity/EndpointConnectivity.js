@@ -7,6 +7,8 @@ import notifier from '../../../lib/notifier';
 import proxy from '../../proxy';
 import credentials from '../../credentials';
 import log from '../../../lib/logger';
+// eslint-disable-next-line import/no-cycle
+import settings from '../../settings/settings';
 
 class EndpointConnectivity {
     PING_UPDATE_INTERVAL_MS = 1000 * 60;
@@ -85,7 +87,7 @@ class EndpointConnectivity {
         }
         this.startGettingPing();
         this.startGettingConnectivityInfo();
-        this.sendDnsSettings();
+        this.sendDnsSettings(settings.getDnsSettings());
         // when first ping received we can connect to proxy
         const averagePing = await this.calculateAveragePing();
         this.updatePingValue(averagePing);

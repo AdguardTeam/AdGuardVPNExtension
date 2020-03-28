@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-cycle
 import connectivity from '../connectivity';
 import translator from '../../lib/translator';
 
@@ -53,12 +54,13 @@ class Dns {
         this.dnsServer = DNS_DEFAULT;
     }
 
+    getDnsIp = () => dnsData[this.dnsServer].ip1;
+
     sendDnsSettings = (dnsServer) => {
         if (dnsServer) {
             this.dnsServer = dnsServer;
         }
-        const dnsIp = dnsData[this.dnsServer].ip1;
-        connectivity.endpointConnectivity.sendDnsSettings(dnsIp);
+        connectivity.endpointConnectivity.sendDnsSettings(this.getDnsIp());
     };
 }
 

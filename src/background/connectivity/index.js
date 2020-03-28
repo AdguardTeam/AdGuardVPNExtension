@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-cycle
 import endpointConnectivity from './endpointConnectivity';
 import endpointsPing from './endpointsPing';
 

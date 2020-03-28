@@ -3,9 +3,11 @@ import browserApi from '../browserApi';
 import log from '../../lib/logger';
 import notifier from '../../lib/notifier';
 import { SETTINGS_IDS } from '../../lib/constants';
+// eslint-disable-next-line import/no-cycle
 import switcher from '../switcher';
-import webrtc from '../browserApi/webrtc';
+// eslint-disable-next-line import/no-cycle
 import dns, { DNS_DEFAULT } from '../dns/Dns';
+import webrtc from '../browserApi/webrtc';
 
 const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.PROXY_ENABLED]: false,
@@ -29,6 +31,15 @@ const proxySwitcherHandler = async (value) => {
         settingsService.setSetting(SETTINGS_IDS.PROXY_ENABLED, false);
         throw (e);
     }
+};
+
+/**
+ * Returns current DNS ip
+ * @returns {string}
+ */
+const getDnsSettings = () => {
+    const dnsId = settingsService.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER);
+    return dns.getDnsIp(dnsId);
 };
 
 /**
@@ -158,6 +169,7 @@ const settings = {
     getExclusions,
     setExclusions,
     isContextMenuEnabled,
+    getDnsSettings,
 };
 
 export default settings;
