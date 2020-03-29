@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import translator from '../../../../lib/translator';
-import { dnsData } from '../../../../background/dns/Dns';
+import { DNS_SERVERS } from '../../../../background/dns/dnsConstants';
 import rootStore from '../../../stores';
 
 import './dns.pcss';
@@ -25,7 +25,7 @@ const Dns = observer(() => {
                         {translator.translate('settings_dns_desc')}
                     </div>
                     <Select
-                        options={dnsData}
+                        options={DNS_SERVERS}
                         currentValue={settingsStore.dnsServer}
                         optionChange={handleDnsSelect}
                     />

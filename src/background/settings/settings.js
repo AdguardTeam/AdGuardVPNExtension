@@ -3,10 +3,9 @@ import browserApi from '../browserApi';
 import log from '../../lib/logger';
 import notifier from '../../lib/notifier';
 import { SETTINGS_IDS } from '../../lib/constants';
-// eslint-disable-next-line import/no-cycle
 import switcher from '../switcher';
-// eslint-disable-next-line import/no-cycle
-import dns, { DNS_DEFAULT } from '../dns/Dns';
+import dns from '../dns/dns';
+import { DNS_DEFAULT } from '../dns/dnsConstants';
 import webrtc from '../browserApi/webrtc';
 
 const DEFAULT_SETTINGS = {
@@ -34,15 +33,6 @@ const proxySwitcherHandler = async (value) => {
 };
 
 /**
- * Returns current DNS ip
- * @returns {string}
- */
-const getDnsSettings = () => {
-    const dnsId = settingsService.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER);
-    return dns.getDnsIp(dnsId);
-};
-
-/**
  * Returns proxy settings enabled status
  * @returns {boolean}
  */
@@ -67,7 +57,7 @@ const setSetting = async (id, value, force) => {
             break;
         }
         case SETTINGS_IDS.SELECTED_DNS_SERVER: {
-            dns.sendDnsSettings(value);
+            dns.setDnsServer(value);
             break;
         }
         default: {
@@ -127,7 +117,7 @@ const applySettings = async () => {
             isSettingEnabled(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED),
             proxyEnabled
         );
-        dns.sendDnsSettings(settingsService.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER));
+        dns.setDnsServer(settingsService.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER));
         await proxySwitcherHandler(proxyEnabled);
     } catch (e) {
         await disableProxy();
@@ -169,7 +159,6 @@ const settings = {
     getExclusions,
     setExclusions,
     isContextMenuEnabled,
-    getDnsSettings,
 };
 
 export default settings;

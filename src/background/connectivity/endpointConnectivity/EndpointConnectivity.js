@@ -7,8 +7,7 @@ import notifier from '../../../lib/notifier';
 import proxy from '../../proxy';
 import credentials from '../../credentials';
 import log from '../../../lib/logger';
-// eslint-disable-next-line import/no-cycle
-import settings from '../../settings/settings';
+import dns from '../../dns/dns';
 
 class EndpointConnectivity {
     PING_UPDATE_INTERVAL_MS = 1000 * 60;
@@ -20,10 +19,8 @@ class EndpointConnectivity {
 
     constructor() {
         this.state = this.CONNECTION_STATES.PAUSED;
-        notifier.addSpecifiedListener(
-            notifier.types.CREDENTIALS_UPDATED,
-            this.updateCredentials.bind(this)
-        );
+        notifier.addSpecifiedListener(notifier.types.CREDENTIALS_UPDATED, this.updateCredentials);
+        notifier.addSpecifiedListener(notifier.types.DNS_SERVER_SET, this.sendDnsServerIp);
     }
 
     updateCredentials = async () => {
@@ -87,7 +84,7 @@ class EndpointConnectivity {
         }
         this.startGettingPing();
         this.startGettingConnectivityInfo();
-        this.sendDnsSettings(settings.getDnsSettings());
+        this.sendDnsServerIp(dns.getDnsServerIp());
         // when first ping received we can connect to proxy
         const averagePing = await this.calculateAveragePing();
         this.updatePingValue(averagePing);
@@ -175,7 +172,10 @@ class EndpointConnectivity {
         return WsConnectivityMsg.encode(protocolMsg).finish();
     };
 
-    sendDnsSettings = (dnsIp) => {
+    sendDnsServerIp = (dnsIp) => {
+        if (this.state !== this.CONNECTION_STATES.WORKING) {
+            return;
+        }
         const arrBufMessage = this.prepareDnsSettingsMessage(dnsIp);
         this.ws.send(arrBufMessage);
         log.debug(`DNS settings sent. DNS IP: ${dnsIp}`);

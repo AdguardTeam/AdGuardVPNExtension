@@ -7,7 +7,7 @@ import {
 
 import log from '../../../lib/logger';
 import { SETTINGS_IDS } from '../../../lib/constants';
-import { DNS_DEFAULT } from '../../../background/dns/Dns';
+import { DNS_DEFAULT } from '../../../background/dns/dnsConstants';
 
 class SettingsStore {
     @observable exclusions = {

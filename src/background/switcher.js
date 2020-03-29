@@ -5,7 +5,6 @@ import browserApi from './browserApi';
 import { MESSAGES_TYPES } from '../lib/constants';
 import webrtc from './browserApi/webrtc';
 import credentials from './credentials';
-// eslint-disable-next-line import/no-cycle
 import connectivity from './connectivity';
 import notifier from '../lib/notifier';
 

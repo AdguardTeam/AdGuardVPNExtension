@@ -1,10 +1,14 @@
-// eslint-disable-next-line import/no-cycle
-import connectivity from '../connectivity';
+/**
+ * IMPORTANT
+ * Do not import inside this file other dependencies,
+ * because imports of this file are also used in the popup
+ * and redundant code from background may get into popup code
+ */
 import translator from '../../lib/translator';
 
 export const DNS_DEFAULT = 'default';
 
-export const dnsData = {
+export const DNS_SERVERS = {
     [DNS_DEFAULT]: {
         title: translator.translate('settings_dns_selector_default_title'),
         desc: translator.translate('settings_dns_selector_default_desc'),
@@ -48,22 +52,3 @@ export const dnsData = {
         ip2: '149.112.112.112',
     },
 };
-
-class Dns {
-    constructor() {
-        this.dnsServer = DNS_DEFAULT;
-    }
-
-    getDnsIp = () => dnsData[this.dnsServer].ip1;
-
-    sendDnsSettings = (dnsServer) => {
-        if (dnsServer) {
-            this.dnsServer = dnsServer;
-        }
-        connectivity.endpointConnectivity.sendDnsSettings(this.getDnsIp());
-    };
-}
-
-const dns = new Dns();
-
-export default dns;
