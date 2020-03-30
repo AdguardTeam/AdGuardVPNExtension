@@ -60,6 +60,7 @@ class SettingsService {
             ...oldSettings,
             VERSION: '4',
             [SETTINGS_IDS.CONTEXT_MENU_ENABLED]: this.defaults[SETTINGS_IDS.CONTEXT_MENU_ENABLED],
+            [SETTINGS_IDS.SELECTED_DNS_SERVER]: this.defaults[SETTINGS_IDS.SELECTED_DNS_SERVER],
         };
     };
 

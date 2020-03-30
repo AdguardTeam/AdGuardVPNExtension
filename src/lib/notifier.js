@@ -99,6 +99,7 @@ const types = {
     SHOULD_REFRESH_TOKENS: 'event.should.refresh.tokens',
     PROXY_TURNED_ON: 'event.proxy.turned.on',
     PROXY_TURNED_OFF: 'event.proxy.turned.off',
+    DNS_SERVER_SET: 'event.dns.server.set',
 };
 
 const notifier = new Notifier(types);
