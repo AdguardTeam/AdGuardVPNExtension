@@ -109,7 +109,7 @@ export default class ExclusionsHandler {
         }
         return Object.values(this._exclusions)
             .filter((exclusion) => areHostnamesEqual(hostname, exclusion.hostname)
-                || (includeWildcards && shExpMatch(url, exclusion.hostname)));
+                || (includeWildcards && shExpMatch(hostname, exclusion.hostname)));
     };
 
     isExcluded = (url) => {
