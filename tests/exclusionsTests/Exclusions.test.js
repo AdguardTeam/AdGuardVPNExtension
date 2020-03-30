@@ -175,5 +175,6 @@ describe('works with wildcards', () => {
         await exclusions.current.addToExclusions('*.adguard.com');
         expect(exclusions.current.isExcluded('https://bit.adguard.com')).toBeTruthy();
         expect(exclusions.current.isExcluded('https://jira.adguard.com')).toBeTruthy();
+        expect(exclusions.current.isExcluded('https://bit.adguard.com/issues')).toBeTruthy();
     });
 });
