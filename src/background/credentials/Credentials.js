@@ -22,11 +22,16 @@ class Credentials {
         this.auth = auth;
     }
 
+    /**
+     * Returns token from memory or retrieves it from storage
+     * @returns {Promise<*>}
+     */
     async getVpnTokenLocal() {
         if (this.vpnToken) {
             return this.vpnToken;
         }
-        return this.storage.get(this.VPN_TOKEN_KEY);
+        this.vpnToken = await this.storage.get(this.VPN_TOKEN_KEY);
+        return this.vpnToken;
     }
 
     async persistVpnToken(token) {
@@ -258,23 +263,12 @@ class Credentials {
     }
 
     async gainAppId() {
-        let appId;
-        try {
-            appId = await this.storage.get(this.APP_ID_KEY);
-        } catch (e) {
-            log.error(e.message);
-            throw e;
-        }
+        let appId = await this.storage.get(this.APP_ID_KEY);
 
         if (!appId) {
-            log.debug('generating app id');
+            log.debug('Generating new app id');
             appId = nanoid();
-            try {
-                await this.storage.set(this.APP_ID_KEY, appId);
-            } catch (e) {
-                log.error(e.message);
-                throw e;
-            }
+            await this.storage.set(this.APP_ID_KEY, appId);
         }
         return appId;
     }
@@ -292,7 +286,8 @@ class Credentials {
         if (this.currentUsername) {
             return this.currentUsername;
         }
-        return this.fetchUsername();
+        this.currentUsername = await this.fetchUsername();
+        return this.currentUsername;
     }
 
     /**

@@ -54,8 +54,9 @@ class Exclusions {
                 type: MESSAGES_TYPES.EXCLUSIONS_UPDATED,
                 data: { exclusions },
             });
-            notifier.notifyListeners(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE);
         }
+
+        notifier.notifyListeners(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE);
 
         const enabledExclusions = this.current.getExclusionsList()
             .filter(({ enabled }) => enabled)

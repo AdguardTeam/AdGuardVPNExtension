@@ -39,6 +39,8 @@ class SettingsStore {
 
     @observable webRTCEnabled = false;
 
+    @observable contextMenusEnabled = false;
+
     // Options page actions
     @action
     getExclusions = () => {
@@ -166,7 +168,7 @@ class SettingsStore {
     }
 
     @action
-    setWebRTC = async (value) => {
+    setWebRTCValue = async (value) => {
         await adguard.settings.setSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED, value);
         runInAction(() => {
             this.webRTCEnabled = value;
@@ -176,8 +178,22 @@ class SettingsStore {
     @action
     getWebRTCValue = async () => {
         const value = await adguard.settings.getSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED);
-        this.setWebRTC(value);
-    }
+        this.setWebRTCValue(value);
+    };
+
+    @action
+    setContextMenusValue = async (value) => {
+        await adguard.settings.setSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED, value);
+        runInAction(() => {
+            this.contextMenusEnabled = value;
+        });
+    };
+
+    @action
+    getContextMenusEnabled = async () => {
+        const value = await adguard.settings.getSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED);
+        this.setContextMenusValue(value);
+    };
 }
 
 export default SettingsStore;

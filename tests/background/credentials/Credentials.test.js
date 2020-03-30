@@ -101,4 +101,62 @@ describe('Credentials', () => {
             })).toBeFalsy();
         });
     });
+
+    describe('get vpn local', () => {
+        const CREDENTIALS_KEY = 'credentials.token';
+        const buildBrowserApi = (vpnToken) => {
+            return {
+                storage: {
+                    get: jest.fn(async (key) => {
+                        if (key === CREDENTIALS_KEY) {
+                            return vpnToken;
+                        }
+                        return undefined;
+                    }),
+                },
+            };
+        };
+
+        it('retrieves token from storage if token is not defined', async () => {
+            const expectedVpnToken = {
+                token: 'f0e92752-1f38-4f46-9edd-55176a99e4fe',
+                licenseStatus: 'VALID',
+                timeExpiresSec: 4728282135,
+                licenseKey: null,
+                subscription: null,
+            };
+
+            const browserApi = buildBrowserApi(expectedVpnToken);
+            const credentials = new Credentials({ browserApi });
+            const vpnToken = await credentials.getVpnTokenLocal();
+            expect(vpnToken).toEqual(expectedVpnToken);
+        });
+
+        it('returns nothing if there is not token in the storage', async () => {
+            const browserApi = buildBrowserApi();
+            const credentials = new Credentials({ browserApi });
+            const vpnToken = await credentials.getVpnTokenLocal();
+            expect(vpnToken).toEqual(undefined);
+        });
+
+        it('caches vpn token in memory', async () => {
+            const expectedVpnToken = {
+                token: 'f0e92752-1f38-4f46-9edd-55176a99e4fe',
+                licenseStatus: 'VALID',
+                timeExpiresSec: 4728282135,
+                licenseKey: null,
+                subscription: null,
+            };
+            const browserApi = buildBrowserApi(expectedVpnToken);
+            const credentials = new Credentials({ browserApi });
+
+            let vpnToken = await credentials.getVpnTokenLocal();
+            expect(vpnToken).toEqual(expectedVpnToken);
+            expect(browserApi.storage.get).toBeCalledTimes(1);
+            vpnToken = await credentials.getVpnTokenLocal();
+            expect(vpnToken).toEqual(expectedVpnToken);
+            expect(browserApi.storage.get).toBeCalledTimes(1);
+            expect(browserApi.storage.get).toBeCalledWith(CREDENTIALS_KEY);
+        });
+    });
 });

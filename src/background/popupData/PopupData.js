@@ -1,6 +1,5 @@
 import throttle from 'lodash/throttle';
 import log from '../../lib/logger';
-import { SETTINGS_IDS } from '../../lib/constants';
 import { runWithCancel } from '../../lib/helpers';
 
 class PopupData {
@@ -30,7 +29,7 @@ class PopupData {
         const endpointsList = this.endpoints.getEndpoints();
         const selectedEndpoint = await this.endpoints.getSelectedEndpoint();
         const canControlProxy = await adguard.appStatus.canControlProxy();
-        const isProxyEnabled = adguard.settings.getSetting(SETTINGS_IDS.PROXY_ENABLED);
+        const isProxyEnabled = adguard.settings.isProxyEnabled();
 
         // If error check permissions when popup is opened, ignoring multiple retries
         if (error) {

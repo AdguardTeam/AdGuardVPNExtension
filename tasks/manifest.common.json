@@ -7,13 +7,13 @@
     "default_locale": "en",
     "description": "__MSG_description__",
     "icons": {
-        "16": "assets/images/icons/green-16.png",
-        "128": "assets/images/icons/green-128.png"
+        "16": "assets/images/icons/enabled-16.png",
+        "128": "assets/images/icons/enabled-128.png"
     },
     "browser_action": {
         "default_icon": {
-            "19": "assets/images/icons/grey-19.png",
-            "38": "assets/images/icons/grey-38.png"
+            "19": "assets/images/icons/enabled-19.png",
+            "38": "assets/images/icons/enabled-38.png"
         },
         "default_title": "__MSG_name__",
         "default_popup": "popup.html"

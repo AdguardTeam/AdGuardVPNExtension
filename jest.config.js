@@ -7,4 +7,5 @@ module.exports = {
         '**/src/lib/**/*.{js,jsx}',
         '!**/node_modules/**',
     ],
+    setupFiles: ['./tests/__setups__/chrome.js'],
 };

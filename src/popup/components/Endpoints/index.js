@@ -63,9 +63,41 @@ const Endpoints = observer(() => {
         vpnStore.setSearchValue('');
     };
 
+    const renderFilteredEndpoint = () => {
+        const {
+            filteredEndpoints,
+            showSearchResults,
+        } = vpnStore;
+        const emptySearchResults = showSearchResults && filteredEndpoints.length === 0;
+        let listTitle = 'endpoints_all';
+
+        if (showSearchResults && filteredEndpoints.length > 0) {
+            listTitle = 'endpoints_search_results';
+        }
+
+        if (emptySearchResults) {
+            return (
+                <>
+                    <div className="endpoints__not-found" />
+                    <div className="endpoints__title endpoints__title--big">
+                        {translator.translate('endpoints_not_found')}
+                    </div>
+                </>
+            );
+        }
+
+        return (
+            <div className="endpoints__list">
+                <div className="endpoints__title">
+                    {translator.translate(listTitle)}
+                </div>
+                {renderEndpoints(filteredEndpoints)}
+            </div>
+        );
+    };
+
     const {
         fastestEndpoints,
-        filteredEndpoints,
         showSearchResults,
     } = vpnStore;
 
@@ -105,16 +137,7 @@ const Endpoints = observer(() => {
                     </>
                 )}
 
-                <div className="endpoints__list">
-                    <div className="endpoints__title">
-                        {showSearchResults ? (
-                            translator.translate('endpoints_search_results')
-                        ) : (
-                            translator.translate('endpoints_all')
-                        )}
-                    </div>
-                    {renderEndpoints(filteredEndpoints)}
-                </div>
+                {renderFilteredEndpoint()}
             </div>
         </div>
     );
