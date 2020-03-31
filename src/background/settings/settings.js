@@ -4,6 +4,8 @@ import log from '../../lib/logger';
 import notifier from '../../lib/notifier';
 import { SETTINGS_IDS } from '../../lib/constants';
 import switcher from '../switcher';
+import dns from '../dns/dns';
+import { DNS_DEFAULT } from '../dns/dnsConstants';
 import webrtc from '../browserApi/webrtc';
 
 const DEFAULT_SETTINGS = {
@@ -11,6 +13,7 @@ const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.RATE_SHOW]: true,
     [SETTINGS_IDS.EXCLUSIONS]: {},
     [SETTINGS_IDS.HANDLE_WEBRTC_ENABLED]: true,
+    [SETTINGS_IDS.SELECTED_DNS_SERVER]: DNS_DEFAULT,
     [SETTINGS_IDS.CONTEXT_MENU_ENABLED]: true,
 };
 
@@ -46,10 +49,15 @@ const setSetting = async (id, value, force) => {
         return false;
     }
 
+    const proxyEnabled = isProxyEnabled();
+
     switch (id) {
         case SETTINGS_IDS.HANDLE_WEBRTC_ENABLED: {
-            const proxyEnabled = isProxyEnabled();
             webrtc.setWebRTCHandlingAllowed(value, proxyEnabled);
+            break;
+        }
+        case SETTINGS_IDS.SELECTED_DNS_SERVER: {
+            dns.setDnsServer(value);
             break;
         }
         default: {
@@ -109,6 +117,7 @@ const applySettings = async () => {
             isSettingEnabled(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED),
             proxyEnabled
         );
+        dns.setDnsServer(settingsService.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER));
         await proxySwitcherHandler(proxyEnabled);
     } catch (e) {
         await disableProxy();

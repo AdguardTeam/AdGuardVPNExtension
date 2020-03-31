@@ -7,6 +7,7 @@ import {
 
 import log from '../../../lib/logger';
 import { SETTINGS_IDS } from '../../../lib/constants';
+import { DNS_DEFAULT } from '../../../background/dns/dnsConstants';
 
 class SettingsStore {
     @observable exclusions = {
@@ -40,6 +41,8 @@ class SettingsStore {
     @observable webRTCEnabled = false;
 
     @observable contextMenusEnabled = false;
+
+    @observable dnsServer = DNS_DEFAULT;
 
     // Options page actions
     @action
@@ -193,6 +196,20 @@ class SettingsStore {
     getContextMenusEnabled = async () => {
         const value = await adguard.settings.getSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED);
         this.setContextMenusValue(value);
+    };
+
+    @action
+    setDnsServer = async (value) => {
+        await adguard.settings.setSetting(SETTINGS_IDS.SELECTED_DNS_SERVER, value);
+        runInAction(() => {
+            this.dnsServer = value;
+        });
+    };
+
+    @action
+    getDnsServer = async () => {
+        const value = await adguard.settings.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER);
+        this.setDnsServer(value);
     };
 }
 
