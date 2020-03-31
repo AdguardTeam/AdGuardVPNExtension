@@ -24,7 +24,7 @@
         "message": "This value is already used"
     },
     "registration_error_front_unique_validation": {
-        "message": "Passwords do not match"
+        "message": "Password and confirm password does not match"
     },
     "registration_error_default": {
         "message": "An error happened, try again later"
@@ -42,13 +42,13 @@
         "message": "Account is locked for 15 minutes"
     },
     "authentication_error_bad_credentials": {
-        "message": "Unrecognized username or password"
+        "message": "Sorry, unrecognized username or password"
     },
     "authentication_error_default": {
         "message": "An error occurred, try again later"
     },
     "global_error_message": {
-        "message": "Error occurred, please contact us via <a href=\"mailto:support@adguard-vpn.com\" target=\"_blank\">support@adguard-vpn.com</a>"
+        "message": "Error occurred, please contact us via <a href=\"mailto:support@adguardvpn.com\" target=\"_blank\">support@adguardvpn.com</a>"
     },
     "global_error_can_control": {
         "message": "Other extension prevents us from setting up the tunnel. Please disable it in browser settings."
@@ -156,7 +156,13 @@
         "message": "AdGuard DNS"
     },
     "settings_dns_selector_adguard_desc": {
-        "message": "Removes ads and protects your device from malware"
+        "message": "Removes ads and trackers from your device"
+    },
+    "settings_dns_selector_adguard_nonfiltering_title": {
+        "message": "AdGuard DNS Non-filtering"
+    },
+    "settings_dns_selector_adguard_nonfiltering_desc": {
+        "message": "Secure DNS with no activity logging (does not filter ads & trackers)"
     },
     "settings_dns_selector_adguard_family_title": {
         "message": "AdGuard DNS Family Protection"
