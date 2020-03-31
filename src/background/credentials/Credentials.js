@@ -250,7 +250,11 @@ class Credentials {
 
     /**
      * Returns domain prefix and vpn token
-     * @returns {Promise<{prefix: string, token: string}>}
+     * @returns {Promise<{
+     *                      prefix: string,
+     *                      token: string,
+     *                      credentials: {password: string, username: string}
+     *                  }>}
      */
     async getAccessCredentials() {
         const { token } = await this.gainValidVpnToken();

@@ -14,13 +14,14 @@ const proxyGet = (config = {}) => new Promise((resolve) => {
  * @property {string} [host] - proxy host address
  * @property {number} [port] - proxy port
  * @property {string} [scheme] - proxy scheme
+ * @property {{username: string, password: string}} credentials
  * e.g.   const config = {
  *            bypassList: [],
  *            host: 'do-de-fra1-01.adguard.io',
  *            port: 443,
  *            scheme: 'https',
  *            inverted: false,
- *            @property {{username: string, password: string}} credentials
+ *            credentials: {username: "string", password: "string"},
  *        };
  */
 
