@@ -20,6 +20,7 @@ const proxyGet = (config = {}) => new Promise((resolve) => {
  *            port: 443,
  *            scheme: 'https',
  *            inverted: false,
+ *            @property {{username: string, password: string}} credentials
  *        };
  */
 
@@ -62,11 +63,34 @@ const convertToChromeConfig = (proxyConfig) => {
     };
 };
 
+let GLOBAL_PROXY_CONFIG = {};
+
+/**
+ * Handles onAuthRequired events
+ * @param details
+ * @returns {{}|{authCredentials: {password: string, username: string}}}
+ */
+const onAuthRequiredHandler = (details) => {
+    const { challenger } = details;
+
+    if (challenger && challenger.host !== GLOBAL_PROXY_CONFIG.host) {
+        return {};
+    }
+
+    if (GLOBAL_PROXY_CONFIG.credentials) {
+        return GLOBAL_PROXY_CONFIG.credentials;
+    }
+    return {};
+};
+
+browser.webRequest.onAuthRequired.addListener(onAuthRequiredHandler, { urls: ['<all_urls>'] });
+
 /**
  * Clears proxy settings
  * @returns {Promise<void>}
  */
 const proxyClear = () => new Promise((resolve) => {
+    GLOBAL_PROXY_CONFIG = {};
     browser.proxy.settings.clear({}, () => {
         resolve();
     });
@@ -78,6 +102,7 @@ const proxyClear = () => new Promise((resolve) => {
  * @returns {Promise<void>}
  */
 const proxySet = (config) => new Promise((resolve) => {
+    GLOBAL_PROXY_CONFIG = config;
     const chromeConfig = convertToChromeConfig(config);
     browser.proxy.settings.set(chromeConfig, () => {
         resolve();

@@ -244,8 +244,8 @@ class Credentials {
     }
 
     updateProxyCredentials = async () => {
-        const { prefix } = await this.getAccessCredentials();
-        await this.proxy.setAccessPrefix(prefix);
+        const { prefix, credentials } = await this.getAccessCredentials();
+        await this.proxy.setAccessPrefix(prefix, credentials);
     };
 
     /**
@@ -258,6 +258,7 @@ class Credentials {
         const appId = this.getAppId();
         return {
             prefix: md5(`${appId}:${token}:${credentials}`).toString(),
+            credentials: { username: token, password: credentials },
             token,
         };
     }
