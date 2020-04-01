@@ -14,12 +14,14 @@ const proxyGet = (config = {}) => new Promise((resolve) => {
  * @property {string} [host] - proxy host address
  * @property {number} [port] - proxy port
  * @property {string} [scheme] - proxy scheme
+ * @property {{username: string, password: string}} credentials
  * e.g.   const config = {
  *            bypassList: [],
  *            host: 'do-de-fra1-01.adguard.io',
  *            port: 443,
  *            scheme: 'https',
  *            inverted: false,
+ *            credentials: {username: "string", password: "string"},
  *        };
  */
 
@@ -62,11 +64,34 @@ const convertToChromeConfig = (proxyConfig) => {
     };
 };
 
+let GLOBAL_PROXY_CONFIG = {};
+
+/**
+ * Handles onAuthRequired events
+ * @param details
+ * @returns {{}|{authCredentials: {password: string, username: string}}}
+ */
+const onAuthRequiredHandler = (details) => {
+    const { challenger } = details;
+
+    if (challenger && challenger.host !== GLOBAL_PROXY_CONFIG.host) {
+        return {};
+    }
+
+    if (GLOBAL_PROXY_CONFIG.credentials) {
+        return GLOBAL_PROXY_CONFIG.credentials;
+    }
+    return {};
+};
+
+browser.webRequest.onAuthRequired.addListener(onAuthRequiredHandler, { urls: ['<all_urls>'] });
+
 /**
  * Clears proxy settings
  * @returns {Promise<void>}
  */
 const proxyClear = () => new Promise((resolve) => {
+    GLOBAL_PROXY_CONFIG = {};
     browser.proxy.settings.clear({}, () => {
         resolve();
     });
@@ -78,6 +103,7 @@ const proxyClear = () => new Promise((resolve) => {
  * @returns {Promise<void>}
  */
 const proxySet = (config) => new Promise((resolve) => {
+    GLOBAL_PROXY_CONFIG = config;
     const chromeConfig = convertToChromeConfig(config);
     browser.proxy.settings.set(chromeConfig, () => {
         resolve();
