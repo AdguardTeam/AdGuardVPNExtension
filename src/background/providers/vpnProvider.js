@@ -18,6 +18,10 @@ const getEndpoints = async (vpnToken) => {
             public_key: publicKey,
         } = endpoint;
 
+        // if (countryName === 'Canada') {
+        //     domainName = `1${domainName}`;
+        // }
+
         return {
             ...acc,
             [domainName]: {

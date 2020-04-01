@@ -67,10 +67,14 @@ class EndpointConnectivity {
         const websocketUrl = renderTemplate(WS_API_URL_TEMPLATE, { host: wsHost });
         try {
             this.ws = await websocketFactory.createReconnectingWebsocket(websocketUrl);
+            this.ws.onOpen(() => {
+                this.setServerError(false);
+            });
+            this.ws.onError(() => {
+                this.setServerError(true);
+            });
         } catch (e) {
             this.state = this.CONNECTION_STATES.PAUSED;
-            // eslint-disable-next-line no-alert
-            alert('Failed to connect.');
             throw new Error(`Failed to create new websocket because of: ${JSON.stringify(e.message)}`);
         }
 
@@ -181,6 +185,10 @@ class EndpointConnectivity {
         const arrBufMessage = this.prepareDnsSettingsMessage(dnsIp);
         this.ws.send(arrBufMessage);
         log.debug(`DNS settings sent. DNS IP: ${dnsIp}`);
+    };
+
+    setServerError = (value) => {
+        notifier.notifyListeners(notifier.types.SERVER_ERROR, value);
     };
 
     /**

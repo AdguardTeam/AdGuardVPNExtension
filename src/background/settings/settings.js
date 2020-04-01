@@ -15,9 +15,19 @@ const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.HANDLE_WEBRTC_ENABLED]: true,
     [SETTINGS_IDS.SELECTED_DNS_SERVER]: DNS_DEFAULT,
     [SETTINGS_IDS.CONTEXT_MENU_ENABLED]: true,
+    [SETTINGS_IDS.SERVER_ERROR]: false,
 };
 
 const settingsService = new SettingsService(browserApi.storage, DEFAULT_SETTINGS);
+
+const serverErrorHandler = (value) => {
+    if (value) {
+        log.debug('Server error!');
+    }
+    settingsService.setSetting(SETTINGS_IDS.SERVER_ERROR, value);
+};
+
+notifier.addSpecifiedListener(notifier.types.SERVER_ERROR, serverErrorHandler);
 
 const proxySwitcherHandler = async (value) => {
     try {

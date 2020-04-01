@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
@@ -47,10 +47,16 @@ const Settings = observer(() => {
         { 'settings--premium-promo': premiumPromoEnabled }
     );
 
+    const [serverErrorState, setServerErrorState] = useState(serverError);
+
+    useEffect(() => {
+        setServerErrorState(serverError);
+    });
+
     return (
         <div className={settingsClass}>
             <div className="settings__main">
-                {serverError ? (
+                {serverErrorState ? (
                     <ServerError
                         handleClick={handleEndpointSelectorClick}
                     />

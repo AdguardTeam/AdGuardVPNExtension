@@ -100,6 +100,7 @@ const types = {
     PROXY_TURNED_ON: 'event.proxy.turned.on',
     PROXY_TURNED_OFF: 'event.proxy.turned.off',
     DNS_SERVER_SET: 'event.dns.server.set',
+    SERVER_ERROR: 'event.server.error',
 };
 
 const notifier = new Notifier(types);

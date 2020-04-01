@@ -5,6 +5,7 @@ export const SETTINGS_IDS = {
     HANDLE_WEBRTC_ENABLED: 'webrtc.handle.enabled',
     SELECTED_DNS_SERVER: 'dns.handle.server',
     CONTEXT_MENU_ENABLED: 'context.menu.enabled',
+    SERVER_ERROR: 'server.error',
 };
 
 export const MESSAGES_TYPES = {
