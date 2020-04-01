@@ -41,6 +41,11 @@ class Tabs {
         return tabs[0];
     }
 
+    async getActive() {
+        const tabs = await browser.tabs.query({ active: true });
+        return tabs.map(this.prepareTab);
+    }
+
     async openRecovery() {
         return browser.tabs.create({ url: PASSWORD_RECOVERY_URL });
     }
