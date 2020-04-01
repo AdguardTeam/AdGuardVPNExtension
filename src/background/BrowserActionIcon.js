@@ -38,9 +38,15 @@ class BrowserActionIcon {
     init = () => {
         const throttleTimeoutMs = 100;
         const throttledUpdateIcon = throttle(async (tab) => {
-            // eslint-disable-next-line no-param-reassign
-            tab = tab || await tabs.getCurrent();
-            await this.updateIcon(tab);
+            if (tab) {
+                this.updateIcon(tab);
+            } else {
+                // get all active tabs, because tabs api sometimes doesn't return right active tab
+                const activeTabs = await tabs.getActive();
+                activeTabs.forEach((tab) => {
+                    this.updateIcon(tab);
+                });
+            }
         }, throttleTimeoutMs, { leading: false });
         // eslint-disable-next-line max-len
         notifier.addSpecifiedListener(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE, throttledUpdateIcon);
@@ -48,7 +54,7 @@ class BrowserActionIcon {
         notifier.addSpecifiedListener(notifier.types.PROXY_TURNED_ON, throttledUpdateIcon);
         notifier.addSpecifiedListener(notifier.types.TAB_ACTIVATED, throttledUpdateIcon);
         notifier.addSpecifiedListener(notifier.types.TAB_UPDATED, throttledUpdateIcon);
-    }
+    };
 }
 
 export default new BrowserActionIcon();
