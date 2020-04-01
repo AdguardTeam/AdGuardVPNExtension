@@ -68,7 +68,6 @@ class globalStore {
             settingsStore.setCanControlProxy(canControlProxy);
             settingsStore.setIsRoutable(isRoutable);
             await settingsStore.checkIsExcluded();
-            await settingsStore.getServerError();
             this.setInitStatus(REQUEST_STATUSES.DONE);
         } catch (e) {
             log.error(e.message);

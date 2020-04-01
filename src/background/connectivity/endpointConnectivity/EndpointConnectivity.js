@@ -8,6 +8,8 @@ import proxy from '../../proxy';
 import credentials from '../../credentials';
 import log from '../../../lib/logger';
 import dns from '../../dns/dns';
+import browserApi from '../../browserApi';
+import { MESSAGES_TYPES } from '../../../lib/constants';
 
 class EndpointConnectivity {
     PING_UPDATE_INTERVAL_MS = 1000 * 60;
@@ -187,8 +189,9 @@ class EndpointConnectivity {
         log.debug(`DNS settings sent. DNS IP: ${dnsIp}`);
     };
 
-    setServerError = (value) => {
-        notifier.notifyListeners(notifier.types.SERVER_ERROR, value);
+    setServerError = async (value) => {
+        const message = value ? MESSAGES_TYPES.SERVER_ERROR : MESSAGES_TYPES.SERVER_NO_ERROR;
+        await browserApi.runtime.sendMessage({ type: message });
     };
 
     /**

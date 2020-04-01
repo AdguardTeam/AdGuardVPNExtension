@@ -9,7 +9,6 @@ import tabs from '../../../background/tabs';
 import log from '../../../lib/logger';
 import { getHostname, getProtocol, formatBytes } from '../../../lib/helpers';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
-import { SETTINGS_IDS } from '../../../lib/constants';
 
 class SettingsStore {
     @observable switcherEnabled = false;
@@ -294,16 +293,9 @@ class SettingsStore {
 
     @action
     setServerError = async (value) => {
-        await adguard.settings.setSetting(SETTINGS_IDS.SERVER_ERROR, value);
         runInAction(() => {
             this.serverError = value;
         });
-    };
-
-    @action
-    getServerError = async () => {
-        const value = await adguard.settings.getSetting(SETTINGS_IDS.SERVER_ERROR);
-        this.setServerError(value);
     };
 }
 

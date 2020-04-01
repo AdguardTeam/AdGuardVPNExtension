@@ -5,7 +5,6 @@ export const SETTINGS_IDS = {
     HANDLE_WEBRTC_ENABLED: 'webrtc.handle.enabled',
     SELECTED_DNS_SERVER: 'dns.handle.server',
     CONTEXT_MENU_ENABLED: 'context.menu.enabled',
-    SERVER_ERROR: 'server.error',
 };
 
 export const MESSAGES_TYPES = {
@@ -20,6 +19,8 @@ export const MESSAGES_TYPES = {
     EXCLUSIONS_UPDATED: 'exclusions.updated',
     EXTENSION_PROXY_ENABLED: 'proxy.extension.enabled',
     EXTENSION_PROXY_DISABLED: 'proxy.extension.disabled',
+    SERVER_ERROR: 'server.error',
+    SERVER_NO_ERROR: 'server.no.error',
 };
 
 export const ERROR_STATUSES = {
