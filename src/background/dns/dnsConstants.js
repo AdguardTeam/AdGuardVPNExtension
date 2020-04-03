@@ -21,6 +21,12 @@ export const DNS_SERVERS = {
         ip1: '176.103.130.130',
         ip2: '176.103.130.131',
     },
+    'adguard-dns-non-filtering': {
+        title: translator.translate('settings_dns_selector_adguard_nonfiltering_title'),
+        desc: translator.translate('settings_dns_selector_adguard_nonfiltering_desc'),
+        ip1: '176.103.130.136',
+        ip2: '176.103.130.137',
+    },
     'adguard-dns-family': {
         title: translator.translate('settings_dns_selector_adguard_family_title'),
         desc: translator.translate('settings_dns_selector_adguard_family_desc'),
