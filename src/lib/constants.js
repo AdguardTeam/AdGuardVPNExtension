@@ -19,8 +19,6 @@ export const MESSAGES_TYPES = {
     EXCLUSIONS_UPDATED: 'exclusions.updated',
     EXTENSION_PROXY_ENABLED: 'proxy.extension.enabled',
     EXTENSION_PROXY_DISABLED: 'proxy.extension.disabled',
-    SERVER_ERROR: 'server.error',
-    SERVER_NO_ERROR: 'server.no.error',
 };
 
 export const ERROR_STATUSES = {

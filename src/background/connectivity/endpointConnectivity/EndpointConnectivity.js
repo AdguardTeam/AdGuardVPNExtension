@@ -8,8 +8,6 @@ import proxy from '../../proxy';
 import credentials from '../../credentials';
 import log from '../../../lib/logger';
 import dns from '../../dns/dns';
-import browserApi from '../../browserApi';
-import { MESSAGES_TYPES } from '../../../lib/constants';
 
 class EndpointConnectivity {
     PING_UPDATE_INTERVAL_MS = 1000 * 60;
@@ -69,12 +67,6 @@ class EndpointConnectivity {
         const websocketUrl = renderTemplate(WS_API_URL_TEMPLATE, { host: wsHost });
         try {
             this.ws = await websocketFactory.createReconnectingWebsocket(websocketUrl);
-            this.ws.onOpen(() => {
-                this.setServerError(false);
-            });
-            this.ws.onError(() => {
-                this.setServerError(true);
-            });
         } catch (e) {
             this.state = this.CONNECTION_STATES.PAUSED;
             throw new Error(`Failed to create new websocket because of: ${JSON.stringify(e.message)}`);
@@ -187,11 +179,6 @@ class EndpointConnectivity {
         const arrBufMessage = this.prepareDnsSettingsMessage(dnsIp);
         this.ws.send(arrBufMessage);
         log.debug(`DNS settings sent. DNS IP: ${dnsIp}`);
-    };
-
-    setServerError = async (value) => {
-        const message = value ? MESSAGES_TYPES.SERVER_ERROR : MESSAGES_TYPES.SERVER_NO_ERROR;
-        await browserApi.runtime.sendMessage({ type: message });
     };
 
     /**

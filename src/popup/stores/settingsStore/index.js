@@ -39,7 +39,6 @@ class SettingsStore {
 
     @observable checkPermissionsState = REQUEST_STATUSES.DONE;
 
-    // TODO [maximtop] handle not responding server
     @observable serverError = false;
 
     @action
@@ -102,7 +101,15 @@ class SettingsStore {
     @action
     enableProxy = async (force = false, withCancel = false) => {
         this.proxyEnablingStatus = REQUEST_STATUSES.PENDING;
-        await adguard.settings.enableProxy(force, withCancel);
+        try {
+            this.serverError = false;
+            await adguard.settings.enableProxy(force, withCancel);
+        } catch (e) {
+            runInAction(() => {
+                this.serverError = true;
+            });
+            log.error(e);
+        }
     };
 
     @action
@@ -290,13 +297,6 @@ class SettingsStore {
     setSwitcherIgnoreProxyStateChange(value) {
         this.switcherIgnoreProxyStateChange = value;
     }
-
-    @action
-    setServerError = async (value) => {
-        runInAction(() => {
-            this.serverError = value;
-        });
-    };
 }
 
 export default SettingsStore;

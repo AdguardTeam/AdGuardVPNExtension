@@ -75,14 +75,6 @@ const App = observer(() => {
                     settingsStore.setSwitcher(false);
                     break;
                 }
-                case MESSAGES_TYPES.SERVER_ERROR: {
-                    await settingsStore.setServerError(true);
-                    break;
-                }
-                case MESSAGES_TYPES.SERVER_NO_ERROR: {
-                    await settingsStore.setServerError(false);
-                    break;
-                }
                 default: {
                     log.debug('there is no such message type: ', type);
                     break;
