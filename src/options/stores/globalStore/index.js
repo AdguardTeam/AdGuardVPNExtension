@@ -19,6 +19,7 @@ class globalStore {
         const { rootStore: { settingsStore, authStore } } = this;
 
         this.setInitStatus(REQUEST_STATUSES.PENDING);
+        await adguard.optionsData.setCurrentEndpoint();
 
         try {
             await authStore.isAuthenticated();

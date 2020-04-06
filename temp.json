@@ -1,0 +1,1000 @@
+{
+  "settings": {
+    "SETTINGS_IDS": {
+      "PROXY_ENABLED": "proxy.enabled",
+      "RATE_SHOW": "rate.show",
+      "EXCLUSIONS": "exclusions.list",
+      "HANDLE_WEBRTC_ENABLED": "webrtc.handle.enabled",
+      "SELECTED_DNS_SERVER": "dns.handle.server",
+      "CONTEXT_MENU_ENABLED": "context.menu.enabled"
+    },
+    "settingsService": {
+      "SETTINGS_KEY": "settings.service.key",
+      "migrationFunctions": [
+        null,
+        null,
+        null
+      ],
+      "storage": {
+        "vault": {}
+      },
+      "defaults": {
+        "proxy.enabled": false,
+        "rate.show": true,
+        "exclusions.list": {},
+        "webrtc.handle.enabled": true,
+        "dns.handle.server": "default",
+        "context.menu.enabled": true
+      },
+      "settings": {
+        "VERSION": "4",
+        "context.menu.enabled": true,
+        "dns.handle.server": "default",
+        "exclusions.list": {
+          "inverted": false,
+          "whitelist": {},
+          "blacklist": {}
+        },
+        "proxy.enabled": true,
+        "rate.show": true,
+        "server.error": false,
+        "server.error.state": true,
+        "webrtc.handle.enabled": true
+      }
+    }
+  },
+  "actions": {},
+  "proxy": {
+    "isActive": false,
+    "currentConfig": {
+      "bypassList": [],
+      "defaultExclusions": [
+        "*.adguard.com",
+        "adguard.com",
+        "*.adguard-vpn.com",
+        "adguard-vpn.com",
+        "*.adguard.io",
+        "*.adguard.ws",
+        "localhost",
+        "*.local",
+        "127.0.0.1"
+      ],
+      "host": "",
+      "port": 443,
+      "scheme": "https",
+      "inverted": false
+    },
+    "bypassList": [],
+    "currentEndpoint": "",
+    "currentHost": "",
+    "inverted": false
+  },
+  "vpnApi": {
+    "baseUrl": "https://backend.adguard.io/api/v1",
+    "GET_ENDPOINTS": {
+      "path": "endpoints",
+      "method": "GET"
+    },
+    "GET_VPN_CREDENTIALS": {
+      "path": "proxy_credentials",
+      "method": "POST"
+    },
+    "GET_CURRENT_LOCATION": {
+      "path": "geo_location",
+      "method": "GET"
+    },
+    "VPN_EXTENSION_INFO": {
+      "path": "info/extension",
+      "method": "GET"
+    },
+    "TRACK_EXTENSION_INSTALL": {
+      "path": "init/extension",
+      "method": "POST"
+    }
+  },
+  "tabs": {},
+  "exclusions": {
+    "TYPES": {
+      "WHITELIST": "whitelist",
+      "BLACKLIST": "blacklist"
+    },
+    "browser": {
+      "runtime": {},
+      "storage": {
+        "vault": {}
+      }
+    },
+    "proxy": {
+      "isActive": false,
+      "currentConfig": {
+        "bypassList": [],
+        "defaultExclusions": [
+          "*.adguard.com",
+          "adguard.com",
+          "*.adguard-vpn.com",
+          "adguard-vpn.com",
+          "*.adguard.io",
+          "*.adguard.ws",
+          "localhost",
+          "*.local",
+          "127.0.0.1"
+        ],
+        "host": "",
+        "port": 443,
+        "scheme": "https",
+        "inverted": false
+      },
+      "bypassList": [],
+      "currentEndpoint": "",
+      "currentHost": "",
+      "inverted": false
+    },
+    "settings": {
+      "SETTINGS_IDS": {
+        "PROXY_ENABLED": "proxy.enabled",
+        "RATE_SHOW": "rate.show",
+        "EXCLUSIONS": "exclusions.list",
+        "HANDLE_WEBRTC_ENABLED": "webrtc.handle.enabled",
+        "SELECTED_DNS_SERVER": "dns.handle.server",
+        "CONTEXT_MENU_ENABLED": "context.menu.enabled"
+      },
+      "settingsService": {
+        "SETTINGS_KEY": "settings.service.key",
+        "migrationFunctions": [
+          null,
+          null,
+          null
+        ],
+        "storage": {
+          "vault": {}
+        },
+        "defaults": {
+          "proxy.enabled": false,
+          "rate.show": true,
+          "exclusions.list": {},
+          "webrtc.handle.enabled": true,
+          "dns.handle.server": "default",
+          "context.menu.enabled": true
+        },
+        "settings": {
+          "VERSION": "4",
+          "context.menu.enabled": true,
+          "dns.handle.server": "default",
+          "exclusions.list": {
+            "inverted": false,
+            "whitelist": {},
+            "blacklist": {}
+          },
+          "proxy.enabled": true,
+          "rate.show": true,
+          "server.error": false,
+          "server.error.state": true,
+          "webrtc.handle.enabled": true
+        }
+      }
+    },
+    "exclusions": {
+      "blacklist": {},
+      "inverted": false,
+      "whitelist": {}
+    },
+    "inverted": false,
+    "whitelistHandler": {
+      "_exclusions": {},
+      "_type": "whitelist"
+    },
+    "blacklistHandler": {
+      "_exclusions": {},
+      "_type": "blacklist"
+    },
+    "currentHandler": {
+      "_exclusions": {},
+      "_type": "blacklist"
+    }
+  },
+  "auth": {
+    "socialAuthState": null,
+    "accessTokenData": {
+      "accessToken": "2f3e1567-082c-461b-ab62-191dc72e36cf",
+      "expiresIn": 2627567,
+      "scope": "trust",
+      "tokenType": "bearer"
+    }
+  },
+  "connectivity": {
+    "endpointConnectivity": {
+      "PING_UPDATE_INTERVAL_MS": 60000,
+      "CONNECTION_STATES": {
+        "WORKING": "working",
+        "PAUSED": "paused"
+      },
+      "state": "paused",
+      "ping": null
+    },
+    "endpointsPing": {
+      "credentials": {
+        "VPN_TOKEN_KEY": "credentials.token",
+        "APP_ID_KEY": "credentials.app.id",
+        "VPN_CREDENTIALS_KEY": "credentials.vpn",
+        "storage": {
+          "vault": {}
+        },
+        "vpnProvider": {},
+        "permissionsError": {
+          "error": null
+        },
+        "proxy": {
+          "isActive": false,
+          "currentConfig": {
+            "bypassList": [],
+            "defaultExclusions": [
+              "*.adguard.com",
+              "adguard.com",
+              "*.adguard-vpn.com",
+              "adguard-vpn.com",
+              "*.adguard.io",
+              "*.adguard.ws",
+              "localhost",
+              "*.local",
+              "127.0.0.1"
+            ],
+            "host": "",
+            "port": 443,
+            "scheme": "https",
+            "inverted": false
+          },
+          "bypassList": [],
+          "currentEndpoint": "",
+          "currentHost": "",
+          "inverted": false
+        },
+        "auth": {
+          "socialAuthState": null,
+          "accessTokenData": {
+            "accessToken": "2f3e1567-082c-461b-ab62-191dc72e36cf",
+            "expiresIn": 2627567,
+            "scope": "trust",
+            "tokenType": "bearer"
+          }
+        },
+        "appId": "drkCWqjVP-Z77361ihryZ",
+        "vpnToken": null,
+        "vpnCredentials": null,
+        "currentUsername": null
+      },
+      "websocketFactory": {}
+    }
+  },
+  "appStatus": {
+    "appVersion": "0.6.2",
+    "proxy": {
+      "isActive": false,
+      "currentConfig": {
+        "bypassList": [],
+        "defaultExclusions": [
+          "*.adguard.com",
+          "adguard.com",
+          "*.adguard-vpn.com",
+          "adguard-vpn.com",
+          "*.adguard.io",
+          "*.adguard.ws",
+          "localhost",
+          "*.local",
+          "127.0.0.1"
+        ],
+        "host": "",
+        "port": 443,
+        "scheme": "https",
+        "inverted": false
+      },
+      "bypassList": [],
+      "currentEndpoint": "",
+      "currentHost": "",
+      "inverted": false
+    },
+    "settings": {
+      "SETTINGS_IDS": {
+        "PROXY_ENABLED": "proxy.enabled",
+        "RATE_SHOW": "rate.show",
+        "EXCLUSIONS": "exclusions.list",
+        "HANDLE_WEBRTC_ENABLED": "webrtc.handle.enabled",
+        "SELECTED_DNS_SERVER": "dns.handle.server",
+        "CONTEXT_MENU_ENABLED": "context.menu.enabled"
+      },
+      "settingsService": {
+        "SETTINGS_KEY": "settings.service.key",
+        "migrationFunctions": [
+          null,
+          null,
+          null
+        ],
+        "storage": {
+          "vault": {}
+        },
+        "defaults": {
+          "proxy.enabled": false,
+          "rate.show": true,
+          "exclusions.list": {},
+          "webrtc.handle.enabled": true,
+          "dns.handle.server": "default",
+          "context.menu.enabled": true
+        },
+        "settings": {
+          "VERSION": "4",
+          "context.menu.enabled": true,
+          "dns.handle.server": "default",
+          "exclusions.list": {
+            "inverted": false,
+            "whitelist": {},
+            "blacklist": {}
+          },
+          "proxy.enabled": true,
+          "rate.show": true,
+          "server.error": false,
+          "server.error.state": true,
+          "webrtc.handle.enabled": true
+        }
+      }
+    }
+  },
+  "authCache": {},
+  "endpoints": {
+    "vpnInfo": null,
+    "currentLocation": {
+      "cityName": "Cairo",
+      "countryName": "Egypt",
+      "countryCode": "EG",
+      "ip": "154.189.109.53",
+      "coordinates": [
+        31.2852,
+        30.0778
+      ]
+    },
+    "browserApi": {
+      "runtime": {},
+      "storage": {
+        "vault": {}
+      }
+    },
+    "proxy": {
+      "isActive": false,
+      "currentConfig": {
+        "bypassList": [],
+        "defaultExclusions": [
+          "*.adguard.com",
+          "adguard.com",
+          "*.adguard-vpn.com",
+          "adguard-vpn.com",
+          "*.adguard.io",
+          "*.adguard.ws",
+          "localhost",
+          "*.local",
+          "127.0.0.1"
+        ],
+        "host": "",
+        "port": 443,
+        "scheme": "https",
+        "inverted": false
+      },
+      "bypassList": [],
+      "currentEndpoint": "",
+      "currentHost": "",
+      "inverted": false
+    },
+    "credentials": {
+      "VPN_TOKEN_KEY": "credentials.token",
+      "APP_ID_KEY": "credentials.app.id",
+      "VPN_CREDENTIALS_KEY": "credentials.vpn",
+      "storage": {
+        "vault": {}
+      },
+      "vpnProvider": {},
+      "permissionsError": {
+        "error": null
+      },
+      "proxy": {
+        "isActive": false,
+        "currentConfig": {
+          "bypassList": [],
+          "defaultExclusions": [
+            "*.adguard.com",
+            "adguard.com",
+            "*.adguard-vpn.com",
+            "adguard-vpn.com",
+            "*.adguard.io",
+            "*.adguard.ws",
+            "localhost",
+            "*.local",
+            "127.0.0.1"
+          ],
+          "host": "",
+          "port": 443,
+          "scheme": "https",
+          "inverted": false
+        },
+        "bypassList": [],
+        "currentEndpoint": "",
+        "currentHost": "",
+        "inverted": false
+      },
+      "auth": {
+        "socialAuthState": null,
+        "accessTokenData": {
+          "accessToken": "2f3e1567-082c-461b-ab62-191dc72e36cf",
+          "expiresIn": 2627567,
+          "scope": "trust",
+          "tokenType": "bearer"
+        }
+      },
+      "appId": "drkCWqjVP-Z77361ihryZ",
+      "vpnToken": null,
+      "vpnCredentials": null,
+      "currentUsername": null
+    },
+    "connectivity": {
+      "endpointConnectivity": {
+        "PING_UPDATE_INTERVAL_MS": 60000,
+        "CONNECTION_STATES": {
+          "WORKING": "working",
+          "PAUSED": "paused"
+        },
+        "state": "paused",
+        "ping": null
+      },
+      "endpointsPing": {
+        "credentials": {
+          "VPN_TOKEN_KEY": "credentials.token",
+          "APP_ID_KEY": "credentials.app.id",
+          "VPN_CREDENTIALS_KEY": "credentials.vpn",
+          "storage": {
+            "vault": {}
+          },
+          "vpnProvider": {},
+          "permissionsError": {
+            "error": null
+          },
+          "proxy": {
+            "isActive": false,
+            "currentConfig": {
+              "bypassList": [],
+              "defaultExclusions": [
+                "*.adguard.com",
+                "adguard.com",
+                "*.adguard-vpn.com",
+                "adguard-vpn.com",
+                "*.adguard.io",
+                "*.adguard.ws",
+                "localhost",
+                "*.local",
+                "127.0.0.1"
+              ],
+              "host": "",
+              "port": 443,
+              "scheme": "https",
+              "inverted": false
+            },
+            "bypassList": [],
+            "currentEndpoint": "",
+            "currentHost": "",
+            "inverted": false
+          },
+          "auth": {
+            "socialAuthState": null,
+            "accessTokenData": {
+              "accessToken": "2f3e1567-082c-461b-ab62-191dc72e36cf",
+              "expiresIn": 2627567,
+              "scope": "trust",
+              "tokenType": "bearer"
+            }
+          },
+          "appId": "drkCWqjVP-Z77361ihryZ",
+          "vpnToken": null,
+          "vpnCredentials": null,
+          "currentUsername": null
+        },
+        "websocketFactory": {}
+      }
+    },
+    "vpnProvider": {},
+    "endpointsManager": {
+      "endpoints": {},
+      "endpointsPings": {},
+      "MAX_FASTEST_LENGTH": 3,
+      "PING_TTL_MS": 120000,
+      "lastPingMeasurementTime": null,
+      "browserApi": {
+        "runtime": {},
+        "storage": {
+          "vault": {}
+        }
+      },
+      "connectivity": {
+        "endpointConnectivity": {
+          "PING_UPDATE_INTERVAL_MS": 60000,
+          "CONNECTION_STATES": {
+            "WORKING": "working",
+            "PAUSED": "paused"
+          },
+          "state": "paused",
+          "ping": null
+        },
+        "endpointsPing": {
+          "credentials": {
+            "VPN_TOKEN_KEY": "credentials.token",
+            "APP_ID_KEY": "credentials.app.id",
+            "VPN_CREDENTIALS_KEY": "credentials.vpn",
+            "storage": {
+              "vault": {}
+            },
+            "vpnProvider": {},
+            "permissionsError": {
+              "error": null
+            },
+            "proxy": {
+              "isActive": false,
+              "currentConfig": {
+                "bypassList": [],
+                "defaultExclusions": [
+                  "*.adguard.com",
+                  "adguard.com",
+                  "*.adguard-vpn.com",
+                  "adguard-vpn.com",
+                  "*.adguard.io",
+                  "*.adguard.ws",
+                  "localhost",
+                  "*.local",
+                  "127.0.0.1"
+                ],
+                "host": "",
+                "port": 443,
+                "scheme": "https",
+                "inverted": false
+              },
+              "bypassList": [],
+              "currentEndpoint": "",
+              "currentHost": "",
+              "inverted": false
+            },
+            "auth": {
+              "socialAuthState": null,
+              "accessTokenData": {
+                "accessToken": "2f3e1567-082c-461b-ab62-191dc72e36cf",
+                "expiresIn": 2627567,
+                "scope": "trust",
+                "tokenType": "bearer"
+              }
+            },
+            "appId": "drkCWqjVP-Z77361ihryZ",
+            "vpnToken": null,
+            "vpnCredentials": null,
+            "currentUsername": null
+          },
+          "websocketFactory": {}
+        }
+      },
+      "storage": {
+        "vault": {}
+      }
+    }
+  },
+  "popupData": {
+    "retryCounter": 0,
+    "DEFAULT_RETRY_DELAY": 400,
+    "permissionsChecker": {
+      "CHECK_THROTTLE_TIMEOUT_MS": 60000,
+      "intervalId": 52,
+      "credentials": {
+        "VPN_TOKEN_KEY": "credentials.token",
+        "APP_ID_KEY": "credentials.app.id",
+        "VPN_CREDENTIALS_KEY": "credentials.vpn",
+        "storage": {
+          "vault": {}
+        },
+        "vpnProvider": {},
+        "permissionsError": {
+          "error": null
+        },
+        "proxy": {
+          "isActive": false,
+          "currentConfig": {
+            "bypassList": [],
+            "defaultExclusions": [
+              "*.adguard.com",
+              "adguard.com",
+              "*.adguard-vpn.com",
+              "adguard-vpn.com",
+              "*.adguard.io",
+              "*.adguard.ws",
+              "localhost",
+              "*.local",
+              "127.0.0.1"
+            ],
+            "host": "",
+            "port": 443,
+            "scheme": "https",
+            "inverted": false
+          },
+          "bypassList": [],
+          "currentEndpoint": "",
+          "currentHost": "",
+          "inverted": false
+        },
+        "auth": {
+          "socialAuthState": null,
+          "accessTokenData": {
+            "accessToken": "2f3e1567-082c-461b-ab62-191dc72e36cf",
+            "expiresIn": 2627567,
+            "scope": "trust",
+            "tokenType": "bearer"
+          }
+        },
+        "appId": "drkCWqjVP-Z77361ihryZ",
+        "vpnToken": null,
+        "vpnCredentials": null,
+        "currentUsername": null
+      },
+      "permissionsError": {
+        "error": null
+      }
+    },
+    "permissionsError": {
+      "error": null
+    },
+    "nonRoutable": {},
+    "endpoints": {
+      "vpnInfo": null,
+      "currentLocation": {
+        "cityName": "Cairo",
+        "countryName": "Egypt",
+        "countryCode": "EG",
+        "ip": "154.189.109.53",
+        "coordinates": [
+          31.2852,
+          30.0778
+        ]
+      },
+      "browserApi": {
+        "runtime": {},
+        "storage": {
+          "vault": {}
+        }
+      },
+      "proxy": {
+        "isActive": false,
+        "currentConfig": {
+          "bypassList": [],
+          "defaultExclusions": [
+            "*.adguard.com",
+            "adguard.com",
+            "*.adguard-vpn.com",
+            "adguard-vpn.com",
+            "*.adguard.io",
+            "*.adguard.ws",
+            "localhost",
+            "*.local",
+            "127.0.0.1"
+          ],
+          "host": "",
+          "port": 443,
+          "scheme": "https",
+          "inverted": false
+        },
+        "bypassList": [],
+        "currentEndpoint": "",
+        "currentHost": "",
+        "inverted": false
+      },
+      "credentials": {
+        "VPN_TOKEN_KEY": "credentials.token",
+        "APP_ID_KEY": "credentials.app.id",
+        "VPN_CREDENTIALS_KEY": "credentials.vpn",
+        "storage": {
+          "vault": {}
+        },
+        "vpnProvider": {},
+        "permissionsError": {
+          "error": null
+        },
+        "proxy": {
+          "isActive": false,
+          "currentConfig": {
+            "bypassList": [],
+            "defaultExclusions": [
+              "*.adguard.com",
+              "adguard.com",
+              "*.adguard-vpn.com",
+              "adguard-vpn.com",
+              "*.adguard.io",
+              "*.adguard.ws",
+              "localhost",
+              "*.local",
+              "127.0.0.1"
+            ],
+            "host": "",
+            "port": 443,
+            "scheme": "https",
+            "inverted": false
+          },
+          "bypassList": [],
+          "currentEndpoint": "",
+          "currentHost": "",
+          "inverted": false
+        },
+        "auth": {
+          "socialAuthState": null,
+          "accessTokenData": {
+            "accessToken": "2f3e1567-082c-461b-ab62-191dc72e36cf",
+            "expiresIn": 2627567,
+            "scope": "trust",
+            "tokenType": "bearer"
+          }
+        },
+        "appId": "drkCWqjVP-Z77361ihryZ",
+        "vpnToken": null,
+        "vpnCredentials": null,
+        "currentUsername": null
+      },
+      "connectivity": {
+        "endpointConnectivity": {
+          "PING_UPDATE_INTERVAL_MS": 60000,
+          "CONNECTION_STATES": {
+            "WORKING": "working",
+            "PAUSED": "paused"
+          },
+          "state": "paused",
+          "ping": null
+        },
+        "endpointsPing": {
+          "credentials": {
+            "VPN_TOKEN_KEY": "credentials.token",
+            "APP_ID_KEY": "credentials.app.id",
+            "VPN_CREDENTIALS_KEY": "credentials.vpn",
+            "storage": {
+              "vault": {}
+            },
+            "vpnProvider": {},
+            "permissionsError": {
+              "error": null
+            },
+            "proxy": {
+              "isActive": false,
+              "currentConfig": {
+                "bypassList": [],
+                "defaultExclusions": [
+                  "*.adguard.com",
+                  "adguard.com",
+                  "*.adguard-vpn.com",
+                  "adguard-vpn.com",
+                  "*.adguard.io",
+                  "*.adguard.ws",
+                  "localhost",
+                  "*.local",
+                  "127.0.0.1"
+                ],
+                "host": "",
+                "port": 443,
+                "scheme": "https",
+                "inverted": false
+              },
+              "bypassList": [],
+              "currentEndpoint": "",
+              "currentHost": "",
+              "inverted": false
+            },
+            "auth": {
+              "socialAuthState": null,
+              "accessTokenData": {
+                "accessToken": "2f3e1567-082c-461b-ab62-191dc72e36cf",
+                "expiresIn": 2627567,
+                "scope": "trust",
+                "tokenType": "bearer"
+              }
+            },
+            "appId": "drkCWqjVP-Z77361ihryZ",
+            "vpnToken": null,
+            "vpnCredentials": null,
+            "currentUsername": null
+          },
+          "websocketFactory": {}
+        }
+      },
+      "vpnProvider": {},
+      "endpointsManager": {
+        "endpoints": {},
+        "endpointsPings": {},
+        "MAX_FASTEST_LENGTH": 3,
+        "PING_TTL_MS": 120000,
+        "lastPingMeasurementTime": null,
+        "browserApi": {
+          "runtime": {},
+          "storage": {
+            "vault": {}
+          }
+        },
+        "connectivity": {
+          "endpointConnectivity": {
+            "PING_UPDATE_INTERVAL_MS": 60000,
+            "CONNECTION_STATES": {
+              "WORKING": "working",
+              "PAUSED": "paused"
+            },
+            "state": "paused",
+            "ping": null
+          },
+          "endpointsPing": {
+            "credentials": {
+              "VPN_TOKEN_KEY": "credentials.token",
+              "APP_ID_KEY": "credentials.app.id",
+              "VPN_CREDENTIALS_KEY": "credentials.vpn",
+              "storage": {
+                "vault": {}
+              },
+              "vpnProvider": {},
+              "permissionsError": {
+                "error": null
+              },
+              "proxy": {
+                "isActive": false,
+                "currentConfig": {
+                  "bypassList": [],
+                  "defaultExclusions": [
+                    "*.adguard.com",
+                    "adguard.com",
+                    "*.adguard-vpn.com",
+                    "adguard-vpn.com",
+                    "*.adguard.io",
+                    "*.adguard.ws",
+                    "localhost",
+                    "*.local",
+                    "127.0.0.1"
+                  ],
+                  "host": "",
+                  "port": 443,
+                  "scheme": "https",
+                  "inverted": false
+                },
+                "bypassList": [],
+                "currentEndpoint": "",
+                "currentHost": "",
+                "inverted": false
+              },
+              "auth": {
+                "socialAuthState": null,
+                "accessTokenData": {
+                  "accessToken": "2f3e1567-082c-461b-ab62-191dc72e36cf",
+                  "expiresIn": 2627567,
+                  "scope": "trust",
+                  "tokenType": "bearer"
+                }
+              },
+              "appId": "drkCWqjVP-Z77361ihryZ",
+              "vpnToken": null,
+              "vpnCredentials": null,
+              "currentUsername": null
+            },
+            "websocketFactory": {}
+          }
+        },
+        "storage": {
+          "vault": {}
+        }
+      }
+    }
+  },
+  "permissionsChecker": {
+    "CHECK_THROTTLE_TIMEOUT_MS": 60000,
+    "intervalId": 52,
+    "credentials": {
+      "VPN_TOKEN_KEY": "credentials.token",
+      "APP_ID_KEY": "credentials.app.id",
+      "VPN_CREDENTIALS_KEY": "credentials.vpn",
+      "storage": {
+        "vault": {}
+      },
+      "vpnProvider": {},
+      "permissionsError": {
+        "error": null
+      },
+      "proxy": {
+        "isActive": false,
+        "currentConfig": {
+          "bypassList": [],
+          "defaultExclusions": [
+            "*.adguard.com",
+            "adguard.com",
+            "*.adguard-vpn.com",
+            "adguard-vpn.com",
+            "*.adguard.io",
+            "*.adguard.ws",
+            "localhost",
+            "*.local",
+            "127.0.0.1"
+          ],
+          "host": "",
+          "port": 443,
+          "scheme": "https",
+          "inverted": false
+        },
+        "bypassList": [],
+        "currentEndpoint": "",
+        "currentHost": "",
+        "inverted": false
+      },
+      "auth": {
+        "socialAuthState": null,
+        "accessTokenData": {
+          "accessToken": "2f3e1567-082c-461b-ab62-191dc72e36cf",
+          "expiresIn": 2627567,
+          "scope": "trust",
+          "tokenType": "bearer"
+        }
+      },
+      "appId": "drkCWqjVP-Z77361ihryZ",
+      "vpnToken": null,
+      "vpnCredentials": null,
+      "currentUsername": null
+    },
+    "permissionsError": {
+      "error": null
+    }
+  },
+  "permissionsError": {
+    "error": null
+  },
+  "credentials": {
+    "VPN_TOKEN_KEY": "credentials.token",
+    "APP_ID_KEY": "credentials.app.id",
+    "VPN_CREDENTIALS_KEY": "credentials.vpn",
+    "storage": {
+      "vault": {}
+    },
+    "vpnProvider": {},
+    "permissionsError": {
+      "error": null
+    },
+    "proxy": {
+      "isActive": false,
+      "currentConfig": {
+        "bypassList": [],
+        "defaultExclusions": [
+          "*.adguard.com",
+          "adguard.com",
+          "*.adguard-vpn.com",
+          "adguard-vpn.com",
+          "*.adguard.io",
+          "*.adguard.ws",
+          "localhost",
+          "*.local",
+          "127.0.0.1"
+        ],
+        "host": "",
+        "port": 443,
+        "scheme": "https",
+        "inverted": false
+      },
+      "bypassList": [],
+      "currentEndpoint": "",
+      "currentHost": "",
+      "inverted": false
+    },
+    "auth": {
+      "socialAuthState": null,
+      "accessTokenData": {
+        "accessToken": "2f3e1567-082c-461b-ab62-191dc72e36cf",
+        "expiresIn": 2627567,
+        "scope": "trust",
+        "tokenType": "bearer"
+      }
+    },
+    "appId": "drkCWqjVP-Z77361ihryZ",
+    "vpnToken": null,
+    "vpnCredentials": null,
+    "currentUsername": null
+  },
+  "nonRoutable": {},
+  "management": {
+    "PROXY_PERMISSION": "proxy",
+    "browser": {}
+  },
+  "browserActionIcon": {}
+}

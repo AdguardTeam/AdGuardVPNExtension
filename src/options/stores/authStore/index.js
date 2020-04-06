@@ -3,12 +3,10 @@ import {
     action,
     runInAction,
     computed,
-    toJS,
 } from 'mobx';
 import debounce from 'lodash/debounce';
 import browser from 'webextension-polyfill';
 import { REQUEST_STATUSES } from '../consts';
-import log from '../../../lib/logger';
 
 const AUTH_STEPS = {
     SIGN_IN: 'signIn',
@@ -133,7 +131,6 @@ class AuthStore {
         if (response.status === 'ok') {
             adguard.authCache.clearAuthCache();
             await this.rootStore.globalStore.getOptionsData();
-            await this.setCurrentEndpoint();
             runInAction(() => {
                 this.requestProcessState = REQUEST_STATUSES.DONE;
                 this.authenticated = true;
@@ -217,15 +214,6 @@ class AuthStore {
 
     @action showSignIn = () => {
         this.switchStep(AUTH_STEPS.SIGN_IN);
-    };
-
-    @action setCurrentEndpoint = async () => {
-        try {
-            const { selectedEndpoint } = await adguard.popupData.getPopupDataRetryWithCancel('', 1);
-            await adguard.proxy.setCurrentEndpoint(toJS(selectedEndpoint));
-        } catch (e) {
-            log.error(e.message);
-        }
     };
 }
 
