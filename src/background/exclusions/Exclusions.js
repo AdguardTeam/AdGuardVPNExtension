@@ -39,7 +39,7 @@ class Exclusions {
         // update bypass list in proxy on init
         await this.handleExclusionsUpdate();
 
-        notifier.addSpecifiedListener(notifier.types.ADD_NON_ROUTABLE_DOMAIN, (payload) => {
+        notifier.addSpecifiedListener(notifier.types.NON_ROUTABLE_DOMAIN_ADDED, (payload) => {
             if (this.currentHandler.type === this.TYPES.BLACKLIST) {
                 this.currentHandler.addToExclusions(payload, true, { forceEnable: false });
             }
