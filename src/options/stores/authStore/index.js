@@ -2,7 +2,8 @@ import {
     observable,
     action,
     runInAction,
-    computed, toJS,
+    computed,
+    toJS,
 } from 'mobx';
 import debounce from 'lodash/debounce';
 import browser from 'webextension-polyfill';
