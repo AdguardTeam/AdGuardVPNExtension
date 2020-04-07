@@ -14,7 +14,6 @@ import nonRoutable from './routability/nonRoutable';
 import permissionsChecker from './permissionsChecker';
 import permissionsError from './permissionsChecker/permissionsError';
 import popupData from './popupData';
-import optionsData from './optionsData';
 import proxy from './proxy';
 import settings from './settings/settings';
 import tabs from './tabs';
@@ -35,7 +34,6 @@ global.adguard = {
     authCache,
     endpoints,
     popupData,
-    optionsData,
     permissionsChecker,
     permissionsError,
     credentials,

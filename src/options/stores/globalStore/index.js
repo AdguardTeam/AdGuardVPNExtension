@@ -21,7 +21,7 @@ class globalStore {
 
         try {
             await authStore.isAuthenticated();
-            await adguard.optionsData.setCurrentEndpoint();
+            await adguard.endpoints.getSelectedEndpoint();
             settingsStore.getExclusions();
             settingsStore.getVersion();
             await settingsStore.getUsername();
