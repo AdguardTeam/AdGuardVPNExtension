@@ -6,6 +6,18 @@ import notifier from '../../lib/notifier';
 import { getHostname } from '../../lib/helpers';
 import { NON_ROUTABLE_NETS } from './nonRoutableNets';
 
+/**
+ * This module notifies user about non routable domains
+ * There are two sources of non-routable domains:
+ * 1. Ip ranges in the array of NON_ROUTABLE_NETS - used to check ip urls
+ * 2. Messages from endpoints and webRequest error events
+ * Messages from endpoints and webRequest error events are handled in the next way:
+ * When we get message from endpoint with non-routable domain we check if there happened an
+ * error for main_frame request with the same domain. If we find matched events,
+ * we notify exclusion to add domain automatically.
+ * Since these two events may occur in an indefinite order, we save them in the two storages with
+ * timestamps and remove them after some time or if we find match.
+ */
 class NonRoutableService {
     NON_ROUTABLE_KEY = 'non-routable.storage.key';
 
@@ -50,12 +62,12 @@ class NonRoutableService {
     nonRoutableHostnames = new Map();
 
     /**
-     * Looks for hostname in the storage
+     * Looks up for hostname in the storage
      * @param {string} hostname
      * @param {Map<string, number>} storage
      * @returns {boolean}
      */
-    lookHostnameInStorage = (hostname, storage) => {
+    isHostnameInMap = (hostname, storage) => {
         if (storage.has(hostname)) {
             storage.delete(hostname);
             return true;
@@ -68,7 +80,7 @@ class NonRoutableService {
      * Clears values in the storage with timestamp older then VALUE_TTL_MS
      * @param {Map<string, number>} storage
      */
-    clearStaledValues = (storage) => {
+    clearStaleValues = (storage) => {
         const VALUE_TTL_MS = 1000;
         const currentTime = Date.now();
         // eslint-disable-next-line no-restricted-syntax
@@ -89,13 +101,13 @@ class NonRoutableService {
             return;
         }
         const hostname = getHostname(nonRoutableDomain);
-        const result = this.lookHostnameInStorage(hostname, this.webRequestErrorHostnames);
+        const result = this.isHostnameInMap(hostname, this.webRequestErrorHostnames);
         if (result) {
-            this.addNonRoutableHandler(hostname);
+            this.addNewNonRoutableDomain(hostname);
         } else {
             this.nonRoutableHostnames.set(hostname, Date.now());
         }
-        this.clearStaledValues(this.nonRoutableHostnames);
+        this.clearStaleValues(this.nonRoutableHostnames);
     };
 
     /**
@@ -115,18 +127,21 @@ class NonRoutableService {
             if (!hostname) {
                 return;
             }
-            const result = this.lookHostnameInStorage(hostname, this.nonRoutableHostnames);
+            const result = this.isHostnameInMap(hostname, this.nonRoutableHostnames);
             if (result) {
-                this.addNonRoutableHandler(hostname);
+                this.addNewNonRoutableDomain(hostname);
             } else {
                 this.webRequestErrorHostnames.set(hostname, Date.now());
             }
-            this.clearStaledValues(this.webRequestErrorHostnames);
+            this.clearStaleValues(this.webRequestErrorHostnames);
         }
     };
 
-    addNonRoutableHandler(payload) {
-        const hostname = getHostname(payload);
+    /**
+     * Adds hostname in the storage and notifies exclusions, to add hostname in the list
+     * @param {string} hostname
+     */
+    addNewNonRoutableDomain(hostname) {
         this.addHostname(hostname);
         notifier.notifyListeners(notifier.types.NON_ROUTABLE_DOMAIN_ADDED, hostname);
     }
