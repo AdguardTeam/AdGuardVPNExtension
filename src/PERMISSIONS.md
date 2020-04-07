@@ -1,18 +1,11 @@
-# Permissions description
-- `activeTab` - This is necessary to get current tab information
-
-- `contextMenus` - This is necessary to add context menu items, such as enable or disable vpn.
-
-- `management` - This is necessary to give user ability to turn off other extension with proxy permissions.
-
-- `notifications` - This is required to show notification after successful user authentication via social networks
-
-- `privacy` - This is necessary to provide "Disable WebRTC" feature which is crucial to prevent websites from detecting user's real IP address
+# Permissions that the extension uses
 
 - `proxy` - This is what the extension does.
-
-- `storage`, `unlimitedStorage` - This permissions are required in order to keep user settings
-
-- `webRequest`, `webRequestBlocking` - These are used to handle errors happening with non-routable domains. Also they are necessary to use onAuthRequired (proxy requires authentication so there's that).
-
-- `<all_urls>` - This is necessary because without it some requests do not appear in the webRequest.onAuthRequired event
+- `activeTab` - This is necessary to get the current tab information in order to show what domain you're on when the browser notification is opened.
+- `contextMenus` - We use this to add a context menu items that allows enabling or disabling the VPN.
+- `management` - We use this to provide an option to turn off another proxy-extension in one click.
+- `notifications` - We use this to show a notification after a successful user authentication via social networks.
+- `privacy` - We use this to provide the "Disable WebRTC" feature which is crucial to prevent websites from detecting user's real IP address.
+- `storage`, `unlimitedStorage` - These permissions are required in order to store user settings
+- `webRequest`, `webRequestBlocking` - We use these for two purposes. First, we have a webRequest listener that is listening for error events. We use it to detect non-routable (hosted in the LAN, for instance) domains and automatically add them to the list of exclusions. Also, we have an `onAuthRequired` handler that handles authentication for the endpoints that require it.
+- `<all_urls>` - `<all_urls>` is necessary because otherwise `onAuthRequired` won't fire. Also, this is necessary for the non-routable domains detection feature.
