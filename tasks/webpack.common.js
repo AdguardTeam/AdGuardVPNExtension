@@ -80,6 +80,11 @@ const config = {
         new CopyWebpackPlugin([
             {
                 context: 'src',
+                from: 'PERMISSIONS.md',
+                to: 'PERMISSIONS.md',
+            },
+            {
+                context: 'src',
                 from: 'assets/',
                 to: 'assets/',
             },
