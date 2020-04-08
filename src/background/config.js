@@ -1,21 +1,47 @@
-// https://bit.adguard.com/projects/ADGUARD/repos/adguard-account-service/browse
-export const ACCOUNT_API_URL = 'https://account.adguard.com/api/1.0';
+/* global PRODUCTION */
+const ENVS = {
+    PROD: 'prod',
+    DEV: 'dev',
+};
 
-// https://bit.adguard.com/projects/ADGUARD/repos/adguard-vpn-backend-service/browse
-export const VPN_API_URL = 'https://backend.adguard.io/api/v1';
+// Value of PRODUCTION variable is set by Webpack. For beta and prod we set it true,
+// otherwise we set it false
+const currentEnv = PRODUCTION ? ENVS.PROD : ENVS.DEV;
 
-// https://bit.adguard.com/projects/ADGUARD/repos/adguard-auth-service/browse
-export const AUTH_API_URL = 'https://auth.adguard.com';
+// Account section
+// API description - projects/ADGUARD/repos/adguard-account-service/browse
+const ACCOUNT_API_URLS_MAP = {
+    [ENVS.DEV]: 'https://testaccount.adguard.com/',
+    [ENVS.PROD]: 'https://account.adguard.com/',
+};
+
+export const ACCOUNT_API_URL = `${ACCOUNT_API_URLS_MAP[currentEnv]}api/1.0/`;
+
+// VPN section
+// API description - projects/ADGUARD/repos/adguard-vpn-backend-service/browse
+const VPN_API_URLS_MAP = {
+    [ENVS.DEV]: 'http://testapi.adguard.io/', // http - IMPORTANT!
+    [ENVS.PROD]: 'https://api.adguard.io/',
+};
+
+export const VPN_API_URL = `${VPN_API_URLS_MAP[currentEnv]}api/v1/`;
+
+// Auth section
+// API description - projects/ADGUARD/repos/adguard-auth-service/browse
+const AUTH_API_URLS_MAP = {
+    [ENVS.DEV]: 'https://testauth.adguard.com/',
+    [ENVS.PROD]: 'https://auth.adguard.com/',
+};
+
+export const AUTH_API_URL = `${AUTH_API_URLS_MAP[currentEnv]}`;
+export const AUTH_BASE_URL = `${AUTH_API_URL}oauth/authorize`;
+export const AUTH_REDIRECT_URI = `${AUTH_API_URL}oauth.html`;
+export const AUTH_ACCESS_TOKEN_KEY = 'auth.access.token';
+export const AUTH_CLIENT_ID = 'adguard-vpn-extension';
+export const PASSWORD_RECOVERY_URL = 'https://adguard-vpn.com/forward.html?action=recovery_password&from=popup&app=vpn_extension';
 
 // Websocket
 export const WS_API_URL_TEMPLATE = 'wss://{{host}}:8443/user_metrics';
-
-// Auth section
-export const AUTH_ACCESS_TOKEN_KEY = 'auth.access.token';
-export const AUTH_CLIENT_ID = 'adguard-vpn-extension';
-export const AUTH_BASE_URL = 'https://auth.adguard.com/oauth/authorize';
-export const AUTH_REDIRECT_URI = 'https://auth.adguard.com/oauth.html';
-export const PASSWORD_RECOVERY_URL = 'https://adguard-vpn.com/forward.html?action=recovery_password&from=popup&app=vpn_extension';
 
 // Privacy and EULA
 export const PRIVACY_URL = 'https://adguard-vpn.com/forward.html?action=privacy&from=popup&app=vpn_extension';
