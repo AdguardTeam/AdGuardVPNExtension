@@ -19,7 +19,8 @@
         "test": "jest",
         "test:watch": "jest --watch",
         "locales:upload": "LOCALES=UPLOAD node tasks/locales.js",
-        "compile-proto": "./tasks/compile-protobuf.sh"
+        "compile-proto": "./tasks/compile-protobuf.sh",
+        "ci:increment": "yarn version --patch --no-git-tag-version"
     },
     "husky": {
         "hooks": {
