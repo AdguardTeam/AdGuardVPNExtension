@@ -11,6 +11,7 @@ class CustomEnvironment extends NodeEnvironment {
             const { TextEncoder } = require('util');
             this.global.TextEncoder = TextEncoder;
         }
+        this.global.PRODUCTION = false;
     }
 }
 
