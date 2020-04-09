@@ -41,11 +41,19 @@ export const AUTH_BASE_URL = `${AUTH_API_URL}oauth/authorize`;
 export const AUTH_REDIRECT_URI = `${AUTH_API_URL}oauth.html`;
 export const AUTH_ACCESS_TOKEN_KEY = 'auth.access.token';
 export const AUTH_CLIENT_ID = 'adguard-vpn-extension';
-// TODO should I add api links to the tds?
-// export const PASSWORD_RECOVERY_URL = 'https://adguard-vpn.com/forward.html?action=recovery_password&from=popup&app=vpn_extension';
-export const PASSWORD_RECOVERY_URL = `${AUTH_API_URL}account/recovery_password.html`;
-// export const EDIT_ACCOUNT_URL = 'https://adguard-vpn.com/forward.html?action=account_settings&from=options_screen&app=vpn_extension';
-export const EDIT_ACCOUNT_URL = `${AUTH_API_URL}login.html`;
+
+const PASSWORD_RECOVERY_MAP = {
+    [ENVS.TEST]: `${AUTH_API_URL}account/recovery_password.html`,
+    [ENVS.PROD]: 'https://adguard-vpn.com/forward.html?action=recovery_password&from=popup&app=vpn_extension',
+};
+
+export const PASSWORD_RECOVERY_URL = PASSWORD_RECOVERY_MAP[currentEnv];
+
+const EDIT_ACCOUNT_URL_MAP = {
+    [ENVS.TEST]: `${AUTH_API_URL}login.html`,
+    [ENVS.PROD]: 'https://adguard-vpn.com/forward.html?action=account_settings&from=options_screen&app=vpn_extension',
+};
+export const EDIT_ACCOUNT_URL = EDIT_ACCOUNT_URL_MAP[currentEnv];
 
 
 // Websocket
