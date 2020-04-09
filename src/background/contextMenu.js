@@ -6,6 +6,7 @@ import tabs from './tabs';
 import translator from '../lib/translator';
 import settings from './settings/settings';
 import { isHttp } from '../lib/string-utils';
+import log from '../lib/logger';
 
 // All contexts except "browser_action", "page_action" and "launcher"
 const contexts = ['page', 'frame', 'selection', 'link', 'editable', 'image', 'video', 'audio'];
@@ -14,8 +15,12 @@ const renewContextMenuItems = async (menuItems) => {
     await browser.contextMenus.removeAll();
     // eslint-disable-next-line no-restricted-syntax
     for (const itemOptions of menuItems) {
-        // eslint-disable-next-line no-await-in-loop
-        await browser.contextMenus.create({ contexts, ...itemOptions });
+        try {
+            // eslint-disable-next-line no-await-in-loop
+            await browser.contextMenus.create({ contexts, ...itemOptions });
+        } catch (e) {
+            log.debug(e);
+        }
     }
 };
 
