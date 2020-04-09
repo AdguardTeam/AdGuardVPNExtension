@@ -78,6 +78,7 @@ describe('endpoints class', () => {
             remainingTraffic: 240,
             totalTraffic: 500,
             vpnFailurePage: 'https://kb.adguard.com/technical-support',
+            overTrafficLimits: false,
         };
         const expectedEndpoints = {
             'do-ca-tor1-01-jbnyx56n.adguard.io': {

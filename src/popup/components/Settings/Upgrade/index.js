@@ -13,7 +13,7 @@ const Upgrade = ({ premiumPromoPage }) => (
             </div>
         </div>
         <div className="global-error__actions">
-            <a href={premiumPromoPage} className="button button--medium button--green-gradient global-error__button">
+            <a href={premiumPromoPage} target="_blank" rel="noopener noreferrer" className="button button--medium button--green-gradient global-error__button">
                 {translator.translate('premium_upgrade')}
             </a>
         </div>

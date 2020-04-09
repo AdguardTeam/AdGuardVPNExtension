@@ -7,6 +7,7 @@ import { MESSAGES_TYPES } from '../../lib/constants';
 import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
 import EndpointsManager from './EndpointsManager';
 import notifier from '../../lib/notifier';
+import settings from '../settings/settings';
 
 /**
  * Endpoint information
@@ -115,6 +116,30 @@ class EndpointsService {
         return { vpnToken, vpnCredentials };
     };
 
+    /**
+     * Checks if user has reached monthly traffic limit
+     * @param vpnInfo
+     * @returns {boolean}
+     */
+    isOverTrafficLimits = (vpnInfo) => {
+        const {
+            usedDownloadedBytes,
+            usedUploadedBytes,
+            maxDownloadedBytes,
+            maxUploadedBytes,
+        } = vpnInfo;
+
+        if (usedDownloadedBytes > maxDownloadedBytes && maxDownloadedBytes !== 0) {
+            return true;
+        }
+
+        if (maxUploadedBytes !== 0 && usedUploadedBytes > maxUploadedBytes) {
+            return true;
+        }
+
+        return false;
+    };
+
     getVpnInfoRemotely = async () => {
         let vpnToken;
 
@@ -144,6 +169,15 @@ class EndpointsService {
             vpnInfo = await this.vpnProvider.getVpnExtensionInfo(updatedVpnToken.token);
         }
 
+        // Turns off proxy if user over reaches traffic limits
+        const overTrafficLimits = this.isOverTrafficLimits(vpnInfo);
+        if (overTrafficLimits) {
+            const disabled = await settings.disableProxy();
+            if (disabled) {
+                log.debug('Proxy was disabled because of traffic limits');
+            }
+        }
+
         // update endpoints
         const endpoints = await this.getEndpointsRemotely();
 
@@ -167,11 +201,14 @@ class EndpointsService {
             this.reconnectEndpoint(closestEndpoint);
         }
 
-        this.vpnInfo = vpnInfo;
+        this.vpnInfo = {
+            ...vpnInfo,
+            overTrafficLimits,
+        };
 
         await this.browserApi.runtime.sendMessage({
             type: MESSAGES_TYPES.VPN_INFO_UPDATED,
-            data: vpnInfo,
+            data: this.vpnInfo,
         });
     };
 
