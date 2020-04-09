@@ -5,8 +5,6 @@ const ZipWebpackPlugin = require('zip-webpack-plugin');
 const common = require('../webpack.common');
 const { updateManifest } = require('../helpers');
 const firefoxManifestDiff = require('./manifest.firefox');
-const { ENVS, STAGING } = require('../consts');
-
 
 const FIREFOX_PATH = 'firefox';
 
@@ -19,16 +17,11 @@ const plugins = [
             transform: (content, path) => updateManifest(content, firefoxManifestDiff),
         },
     ]),
+    new ZipWebpackPlugin({
+        path: '../',
+        filename: 'firefox.zip',
+    }),
 ];
-
-if (STAGING === ENVS.BETA) {
-    plugins.push(
-        new ZipWebpackPlugin({
-            path: '../',
-            filename: 'firefox.zip',
-        })
-    );
-}
 
 const firefoxConfig = {
     output: {
