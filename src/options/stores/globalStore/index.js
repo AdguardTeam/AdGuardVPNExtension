@@ -17,11 +17,11 @@ class globalStore {
     @action
     async getOptionsData() {
         const { rootStore: { settingsStore, authStore } } = this;
-
         this.setInitStatus(REQUEST_STATUSES.PENDING);
 
         try {
             await authStore.isAuthenticated();
+            await adguard.endpoints.getSelectedEndpoint();
             settingsStore.getExclusions();
             settingsStore.getVersion();
             await settingsStore.getUsername();
