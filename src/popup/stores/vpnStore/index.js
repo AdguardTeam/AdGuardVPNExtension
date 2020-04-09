@@ -205,7 +205,7 @@ class VpnStore {
 
     @computed
     get insufficientTraffic() {
-        return this.remainingTraffic <= 0;
+        return true;
     }
 
     @computed

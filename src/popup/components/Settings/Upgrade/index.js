@@ -1,7 +1,7 @@
 import React from 'react';
 import translator from '../../../../lib/translator';
 
-const Upgrade = () => (
+const Upgrade = ({ premiumPromoPage }) => (
     <div className="global-error global-error--upgrade">
         <div className="global-error__content">
             <div className="global-error__icon global-error__icon--error" />
@@ -13,7 +13,7 @@ const Upgrade = () => (
             </div>
         </div>
         <div className="global-error__actions">
-            <a className="button button--medium button--green-gradient global-error__button">
+            <a href={premiumPromoPage} className="button button--medium button--green-gradient global-error__button">
                 {translator.translate('premium_upgrade')}
             </a>
         </div>
