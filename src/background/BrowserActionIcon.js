@@ -5,6 +5,7 @@ import exclusions from './exclusions';
 import settings from './settings/settings';
 import tabs from './tabs';
 import { isHttp } from '../lib/string-utils';
+import endpoints from './endpoints';
 
 class BrowserActionIcon {
     constructor() {
@@ -21,6 +22,11 @@ class BrowserActionIcon {
     async updateIcon(tab) {
         const { id = null, url = null } = tab;
         const proxyEnabled = settings.isProxyEnabled();
+        const overTrafficLimits = endpoints.getVpnInfo(true)?.overTrafficLimits;
+        if (overTrafficLimits) {
+            await actions.setIconTrafficOff(id);
+            return;
+        }
 
         if (!proxyEnabled) {
             await actions.setIconDisabled(id);
@@ -54,6 +60,7 @@ class BrowserActionIcon {
         notifier.addSpecifiedListener(notifier.types.PROXY_TURNED_ON, throttledUpdateIcon);
         notifier.addSpecifiedListener(notifier.types.TAB_ACTIVATED, throttledUpdateIcon);
         notifier.addSpecifiedListener(notifier.types.TAB_UPDATED, throttledUpdateIcon);
+        notifier.addSpecifiedListener(notifier.types.TRAFFIC_OVER_LIMIT, throttledUpdateIcon);
     };
 }
 

@@ -44,6 +44,11 @@ class EndpointsService {
             notifier.types.SHOULD_REFRESH_TOKENS,
             this.refreshTokens.bind(this)
         );
+
+        notifier.addSpecifiedListener(
+            notifier.types.TRAFFIC_OVER_LIMIT,
+            this.setTrafficOverLimit
+        );
     }
 
     /**
@@ -140,6 +145,13 @@ class EndpointsService {
         return false;
     };
 
+    /**
+     * When websocket notifies us, we set this value true
+     */
+    setTrafficOverLimit = () => {
+        this.vpnInfo.overTrafficLimits = true;
+    }
+
     getVpnInfoRemotely = async () => {
         let vpnToken;
 
@@ -212,8 +224,15 @@ class EndpointsService {
         });
     };
 
-    getVpnInfo = () => {
-        this.getVpnInfoRemotely();
+    /**
+     * Returns vpn info cached value and launches remote vpn info getting
+     * @param local flag if check only for local data
+     * @returns vpnInfo or null
+     */
+    getVpnInfo = (local = false) => {
+        if (!local) {
+            this.getVpnInfoRemotely();
+        }
 
         if (this.vpnInfo) {
             return this.vpnInfo;

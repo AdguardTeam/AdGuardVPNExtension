@@ -21,6 +21,11 @@ export const Prefs = {
                 38: getUrl(`${ICONS_PATH}/disabled-url-38.png`),
                 128: getUrl(`${ICONS_PATH}/disabled-url-128.png`),
             },
+            TRAFFIC_OFF: {
+                19: getUrl(`${ICONS_PATH}/traffic-off-19.png`),
+                38: getUrl(`${ICONS_PATH}/traffic-off-38.png`),
+                128: getUrl(`${ICONS_PATH}/traffic-off-128.png`),
+            },
         }));
     },
 };
