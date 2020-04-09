@@ -207,7 +207,7 @@ class EndpointConnectivity {
         const { code, payload } = connectivityErrorMsg;
 
         if (code === NON_ROUTABLE_CODE) {
-            notifier.notifyListeners(notifier.types.ADD_NON_ROUTABLE_DOMAIN, payload);
+            notifier.notifyListeners(notifier.types.NON_ROUTABLE_DOMAIN_FOUND, payload);
         }
     };
 

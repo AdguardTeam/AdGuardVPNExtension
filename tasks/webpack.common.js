@@ -65,6 +65,10 @@ const config = {
         ],
     },
     plugins: [
+        // Define environment for choosing appropriate api urls
+        new webpack.DefinePlugin({
+            PRODUCTION: JSON.stringify(!IS_DEV),
+        }),
         new webpack.NormalModuleReplacementPlugin(/\.\/abstractProxyApi/, ((resource) => {
             if (process.env.BROWSER === 'firefox') {
                 // eslint-disable-next-line no-param-reassign
@@ -78,6 +82,11 @@ const config = {
         })),
         new CleanWebpackPlugin(cleanOptions),
         new CopyWebpackPlugin([
+            {
+                context: 'src',
+                from: 'PERMISSIONS.md',
+                to: 'PERMISSIONS.md',
+            },
             {
                 context: 'src',
                 from: 'assets/',

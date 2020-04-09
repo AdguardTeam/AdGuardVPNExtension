@@ -1,6 +1,6 @@
 {
     "name": "adguard-vpn",
-    "version": "0.6.2",
+    "version": "0.6.11",
     "description": "AdGuard VPN",
     "author": "adguard@adguard.com",
     "license": "LGPL-3.0",
@@ -16,10 +16,11 @@
         "build:firefox": "BROWSER=firefox webpack --config tasks/firefox/webpack.firefox.js",
         "build:edge": "BROWSER=edge webpack --config tasks/edge/webpack.edge.js",
         "locales:download": "LOCALES=DOWNLOAD node tasks/locales.js",
+        "locales:upload": "LOCALES=UPLOAD node tasks/locales.js",
         "test": "jest",
         "test:watch": "jest --watch",
-        "locales:upload": "LOCALES=UPLOAD node tasks/locales.js",
-        "compile-proto": "./tasks/compile-protobuf.sh"
+        "compile-proto": "./tasks/compile-protobuf.sh",
+        "ci:increment": "yarn version --patch --no-git-tag-version"
     },
     "husky": {
         "hooks": {
