@@ -8,6 +8,7 @@ import browser from 'webextension-polyfill';
 import { CSSTransition } from 'react-transition-group';
 
 import Header from '../Header';
+import InfoMessage from '../InfoMessage';
 import FeedbackMessage from '../InfoMessage/FeedbackMessage';
 import Endpoints from '../Endpoints';
 import Authentication from '../Authentication';
@@ -111,6 +112,7 @@ const App = observer(() => {
 
     const { canControlProxy, hasGlobalError, checkPermissionsState } = settingsStore;
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
+    const { premiumPromoEnabled } = vpnStore;
 
     if (hasGlobalError || !canControlProxy) {
         const showMenuButton = authenticated && canControlProxy;
@@ -140,7 +142,11 @@ const App = observer(() => {
             </CSSTransition>
             <Settings />
             <div className="footer">
-                <FeedbackMessage />
+                {premiumPromoEnabled ? (
+                    <InfoMessage />
+                ) : (
+                    <FeedbackMessage />
+                )}
             </div>
             <Icons />
         </>

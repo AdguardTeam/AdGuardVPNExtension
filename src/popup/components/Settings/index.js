@@ -47,11 +47,11 @@ const Settings = observer(() => {
     } = vpnStore;
 
     const settingsClass = classnames(
-        'settings settings--feedback',
+        'settings',
         { 'settings--active': proxyEnabled },
-        { 'settings--premium-promo': premiumPromoEnabled }
+        { 'settings--premium-promo': premiumPromoEnabled },
+        { 'settings--feedback': !premiumPromoEnabled }
     );
-
 
     if (insufficientTraffic) {
         return (
