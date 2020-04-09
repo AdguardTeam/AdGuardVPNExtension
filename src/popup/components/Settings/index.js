@@ -53,7 +53,7 @@ const Settings = observer(() => {
         { 'settings--feedback': !premiumPromoEnabled }
     );
 
-    if (insufficientTraffic) {
+    if (premiumPromoEnabled && insufficientTraffic) {
         return (
             <Upgrade premiumPromoPage={premiumPromoPage} />
         );
