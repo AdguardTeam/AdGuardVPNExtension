@@ -1,5 +1,18 @@
 import EndpointsService from '../../../src/background/endpoints/EndpointsService';
 import { sleep } from '../../../src/lib/helpers';
+import settings from '../../../src/background/settings/settings';
+import notifier from '../../../src/lib/notifier';
+import notifications from '../../../src/background/notifications';
+
+jest.mock('../../../src/background/settings/settings');
+jest.mock('../../../src/lib/notifier');
+jest.mock('../../../src/background/notifications');
+
+beforeEach(() => {
+    settings.disableProxy.mockClear();
+    notifications.create.mockClear();
+    notifier.notifyListeners.mockClear();
+});
 
 const browserApi = {
     runtime: {
@@ -296,6 +309,55 @@ describe('endpoints class', () => {
             maxUploadedBytes: 100,
         })).toBeTruthy();
     });
+
+    describe('handles refresh token event', () => {
+        it('refreshes tokens and doesnt disable proxy', async () => {
+            const vpnProvider = buildVpnProvider({
+                usedDownloadedBytes: 50,
+                usedUploadedBytes: 50,
+                maxDownloadedBytes: 0,
+                maxUploadedBytes: 100,
+            });
+            const credentials = buildCredentials();
+            const endpoints = new EndpointsService({
+                browserApi,
+                proxy,
+                credentials,
+                connectivity,
+                vpnProvider,
+            });
+
+            await endpoints.handleRefreshTokenEvent();
+            expect(credentials.gainValidVpnToken).toBeCalledTimes(2);
+            expect(credentials.gainValidVpnCredentials).toBeCalledTimes(1);
+            expect(settings.disableProxy).toBeCalledTimes(0);
+        });
+
+        it('refreshes tokens and disables proxy if necessary', async () => {
+            const vpnProvider = buildVpnProvider({
+                usedDownloadedBytes: 100,
+                usedUploadedBytes: 50,
+                maxDownloadedBytes: 100,
+                maxUploadedBytes: 0,
+            });
+            const credentials = buildCredentials();
+            const endpoints = new EndpointsService({
+                browserApi,
+                proxy,
+                credentials,
+                connectivity,
+                vpnProvider,
+            });
+
+            await endpoints.handleRefreshTokenEvent();
+            expect(credentials.gainValidVpnToken).toBeCalledTimes(2);
+            expect(credentials.gainValidVpnCredentials).toBeCalledTimes(1);
+            expect(settings.disableProxy).toBeCalledTimes(1);
+            expect(notifier.notifyListeners).toBeCalledTimes(1);
+            expect(notifications.create).toBeCalledTimes(1);
+        });
+    });
+
 
     // TODO [maximtop] add tests for uncovered methods of EndpointsService
 });

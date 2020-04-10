@@ -43,7 +43,7 @@ class EndpointsService {
 
         notifier.addSpecifiedListener(
             notifier.types.SHOULD_REFRESH_TOKENS,
-            this.handleRefreshTokens
+            this.handleRefreshTokenEvent
         );
     }
 
@@ -129,7 +129,7 @@ class EndpointsService {
      * 4. Check if user didn't get over traffic limits
      * @returns {Promise<void>}
      */
-    handleRefreshTokens = async () => {
+    handleRefreshTokenEvent = async () => {
         const { vpnToken } = await this.refreshTokens();
         const vpnInfo = await this.vpnProvider.getVpnExtensionInfo(vpnToken.token);
 
