@@ -12,8 +12,8 @@
     },
     "browser_action": {
         "default_icon": {
-            "19": "assets/images/icons/enabled-19.png",
-            "38": "assets/images/icons/enabled-38.png"
+            "19": "assets/images/icons/disabled-19.png",
+            "38": "assets/images/icons/disabled-38.png"
         },
         "default_title": "__MSG_name__",
         "default_popup": "popup.html"
