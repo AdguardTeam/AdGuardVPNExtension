@@ -108,7 +108,9 @@ describe('getClosestEndpointByCoordinates', () => {
 });
 
 describe('formatBytes', () => {
+    expect(formatBytes(0)).toEqual({ value: '0.0', unit: 'KB' });
     expect(formatBytes(10)).toEqual({ value: '0.0', unit: 'KB' });
+    expect(formatBytes(-10)).toEqual({ value: '0.0', unit: 'KB' });
     expect(formatBytes(100)).toEqual({ value: '0.1', unit: 'KB' });
     expect(formatBytes(1100)).toEqual({ value: '1.1', unit: 'KB' });
     expect(formatBytes(1110000)).toEqual({ value: '1.1', unit: 'MB' });

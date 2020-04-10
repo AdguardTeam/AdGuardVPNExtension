@@ -122,7 +122,7 @@ class EndpointsService {
     };
 
     /**
-     * When this method received we should
+     * This method is called when refresh token message received
      * 1. Update vpnToken
      * 2. Update vpnCredentials
      * 3. Update vpnInfo
