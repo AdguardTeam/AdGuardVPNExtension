@@ -158,6 +158,10 @@ class EndpointsService {
      * @returns {boolean}
      */
     isOverTrafficLimits = (vpnInfo) => {
+        if (!vpnInfo) {
+            return false;
+        }
+
         const {
             usedDownloadedBytes,
             usedUploadedBytes,
@@ -165,11 +169,11 @@ class EndpointsService {
             maxUploadedBytes,
         } = vpnInfo;
 
-        if (usedDownloadedBytes > maxDownloadedBytes && maxDownloadedBytes !== 0) {
+        if (maxDownloadedBytes !== 0 && usedDownloadedBytes >= maxDownloadedBytes) {
             return true;
         }
 
-        if (maxUploadedBytes !== 0 && usedUploadedBytes > maxUploadedBytes) {
+        if (maxUploadedBytes !== 0 && usedUploadedBytes >= maxUploadedBytes) {
             return true;
         }
 

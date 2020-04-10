@@ -255,5 +255,47 @@ describe('endpoints class', () => {
         });
     });
 
+    it('determines if user is over traffic limits', () => {
+        const vpnProvider = buildVpnProvider();
+        const credentials = buildCredentials();
+        const endpoints = new EndpointsService({
+            browserApi,
+            proxy,
+            credentials,
+            connectivity,
+            vpnProvider,
+        });
+
+        expect(endpoints.isOverTrafficLimits(null)).toBeFalsy();
+
+        expect(endpoints.isOverTrafficLimits({
+            usedDownloadedBytes: 50,
+            usedUploadedBytes: 50,
+            maxDownloadedBytes: 0,
+            maxUploadedBytes: 100,
+        })).toBeFalsy();
+
+        expect(endpoints.isOverTrafficLimits({
+            usedDownloadedBytes: 50,
+            usedUploadedBytes: 50,
+            maxDownloadedBytes: 0,
+            maxUploadedBytes: 0,
+        })).toBeFalsy();
+
+        expect(endpoints.isOverTrafficLimits({
+            usedDownloadedBytes: 100,
+            usedUploadedBytes: 100,
+            maxDownloadedBytes: 0,
+            maxUploadedBytes: 100,
+        })).toBeTruthy();
+
+        expect(endpoints.isOverTrafficLimits({
+            usedDownloadedBytes: 100,
+            usedUploadedBytes: 50,
+            maxDownloadedBytes: 100,
+            maxUploadedBytes: 100,
+        })).toBeTruthy();
+    });
+
     // TODO [maximtop] add tests for uncovered methods of EndpointsService
 });
