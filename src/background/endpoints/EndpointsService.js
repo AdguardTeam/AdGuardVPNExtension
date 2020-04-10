@@ -8,6 +8,7 @@ import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
 import EndpointsManager from './EndpointsManager';
 import notifier from '../../lib/notifier';
 import settings from '../settings/settings';
+import notifications from '../notifications';
 
 /**
  * Endpoint information
@@ -42,12 +43,7 @@ class EndpointsService {
 
         notifier.addSpecifiedListener(
             notifier.types.SHOULD_REFRESH_TOKENS,
-            this.refreshTokens.bind(this)
-        );
-
-        notifier.addSpecifiedListener(
-            notifier.types.TRAFFIC_OVER_LIMIT,
-            this.setTrafficOverLimit
+            this.handleRefreshTokens
         );
     }
 
@@ -86,6 +82,10 @@ class EndpointsService {
         return getClosestEndpointByCoordinates(currentEndpoint, endpointsArr);
     };
 
+    /**
+     * Gets endpoints remotely and updates them if there were no errors
+     * @returns {Promise<null|*>}
+     */
     getEndpointsRemotely = async () => {
         let vpnToken;
 
@@ -122,6 +122,37 @@ class EndpointsService {
     };
 
     /**
+     * When this method received we should
+     * 1. Update vpnToken
+     * 2. Update vpnCredentials
+     * 3. Update vpnInfo
+     * 4. Check if user didn't get over traffic limits
+     * @returns {Promise<void>}
+     */
+    handleRefreshTokens = async () => {
+        const { vpnToken } = await this.refreshTokens();
+        const vpnInfo = await this.vpnProvider.getVpnExtensionInfo(vpnToken.token);
+
+        // Check traffic limits
+        const overTrafficLimits = this.isOverTrafficLimits(vpnInfo);
+        if (overTrafficLimits) {
+            // Turns off proxy if user over reaches traffic limits
+            await settings.disableProxy();
+            // Notify icon to change
+            notifier.notifyListeners(notifier.types.TRAFFIC_OVER_LIMIT);
+            // Send notification
+            await notifications.create({ message: 'Oops! Monthly data limit reached' });
+        }
+
+        await this.updateEndpoints(true);
+
+        this.vpnInfo = {
+            ...vpnInfo,
+            overTrafficLimits,
+        };
+    };
+
+    /**
      * Checks if user has reached monthly traffic limit
      * @param vpnInfo
      * @returns {boolean}
@@ -146,10 +177,36 @@ class EndpointsService {
     };
 
     /**
-     * When websocket notifies us, we set this value true
+     * Updates endpoints list
+     * @param shouldReconnect
+     * @returns {Promise<void>}
      */
-    setTrafficOverLimit = () => {
-        this.vpnInfo.overTrafficLimits = true;
+    updateEndpoints = async (shouldReconnect = false) => {
+        const endpoints = await this.getEndpointsRemotely();
+
+        if (!endpoints || _.isEmpty(endpoints)) {
+            return;
+        }
+
+        if (!shouldReconnect) {
+            return;
+        }
+
+        const currentEndpoint = await this.proxy.getCurrentEndpoint();
+
+        if (currentEndpoint) {
+            // Check if current endpoint is in the list of received endpoints
+            // if not we should get closest and reconnect
+            const endpointsHaveCurrentEndpoint = Object.keys(endpoints)
+                .find((endpointId) => endpointId === currentEndpoint.id);
+            if (!endpointsHaveCurrentEndpoint) {
+                const closestEndpoint = this.getClosestEndpoint(endpoints, currentEndpoint);
+                await this.reconnectEndpoint(closestEndpoint);
+            }
+        } else {
+            const closestEndpoint = this.getClosestEndpoint(endpoints, currentEndpoint);
+            await this.reconnectEndpoint(closestEndpoint);
+        }
     }
 
     getVpnInfoRemotely = async () => {
@@ -181,38 +238,21 @@ class EndpointsService {
             vpnInfo = await this.vpnProvider.getVpnExtensionInfo(updatedVpnToken.token);
         }
 
-        // Turns off proxy if user over reaches traffic limits
+        // Turns off proxy if user is over traffic limits
         const overTrafficLimits = this.isOverTrafficLimits(vpnInfo);
         if (overTrafficLimits) {
             const disabled = await settings.disableProxy();
             if (disabled) {
                 log.debug('Proxy was disabled because of traffic limits');
             }
+            notifier.notifyListeners(notifier.types.TRAFFIC_OVER_LIMIT);
+        } else {
+            notifier.notifyListeners(notifier.types.TRAFFIC_OVER_LIMIT);
         }
 
-        // update endpoints
-        const endpoints = await this.getEndpointsRemotely();
+        await this.updateEndpoints(shouldReconnect);
 
-        const currentEndpoint = await this.proxy.getCurrentEndpoint();
-
-        if ((endpoints && !_.isEmpty(endpoints)) && currentEndpoint) {
-            const currentEndpointInEndpoints = currentEndpoint && Object.keys(endpoints)
-                .some((endpointId) => endpointId === currentEndpoint.id);
-
-            // if there is no currently connected endpoint in the list of endpoints,
-            // get closest and reconnect
-            if (!currentEndpointInEndpoints) {
-                const closestEndpoint = this.getClosestEndpoint(endpoints, currentEndpoint);
-                this.reconnectEndpoint(closestEndpoint);
-                shouldReconnect = false;
-            }
-        }
-
-        if (shouldReconnect) {
-            const closestEndpoint = this.getClosestEndpoint(endpoints, currentEndpoint);
-            this.reconnectEndpoint(closestEndpoint);
-        }
-
+        // Save vpn info in the memory
         this.vpnInfo = {
             ...vpnInfo,
             overTrafficLimits,

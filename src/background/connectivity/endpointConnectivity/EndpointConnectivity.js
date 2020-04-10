@@ -8,7 +8,6 @@ import proxy from '../../proxy';
 import credentials from '../../credentials';
 import log from '../../../lib/logger';
 import dns from '../../dns/dns';
-import notifications from '../../notifications';
 
 class EndpointConnectivity {
     PING_UPDATE_INTERVAL_MS = 1000 * 60;
@@ -195,13 +194,6 @@ class EndpointConnectivity {
                 downloaded: bytesDownloaded,
                 uploaded: bytesUploaded,
             });
-        }
-
-        // TODO use real message from info msg
-        if (false) {
-            // Turn off the proxy, show notification, change icon
-            notifier.notifyListeners(notifier.types.TRAFFIC_OVER_LIMIT);
-            await notifications.create({ message: 'Oops! Monthly data limit reached' });
         }
 
         if (refreshTokens) {
