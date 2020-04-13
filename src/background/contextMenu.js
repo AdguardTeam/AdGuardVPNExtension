@@ -14,18 +14,15 @@ const contexts = ['page', 'frame', 'selection', 'link', 'editable', 'image', 'vi
 const renewContextMenuItems = async (menuItems) => {
     await browser.contextMenus.removeAll();
     // eslint-disable-next-line no-restricted-syntax
-    for (const itemOptions of menuItems) {
+    await Promise.all(menuItems.map(async (itemOptions) => {
         try {
-            // eslint-disable-next-line no-await-in-loop
-            await browser.contextMenus.create({ contexts, ...itemOptions });
+            await browser.contextMenus.create({ contexts, ...itemOptions }, () => {
+                log.debug(browser.runtime.lastError.message);
+            });
         } catch (e) {
-            if (e) {
-                log.debug(e);
-            } else if (browser.runtime.lastError) {
-                log.debug(e);
-            }
+            log.debug(e);
         }
-    }
+    }));
 };
 
 const clearContextMenuItems = async () => {
