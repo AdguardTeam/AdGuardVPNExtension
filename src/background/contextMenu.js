@@ -19,7 +19,11 @@ const renewContextMenuItems = async (menuItems) => {
             // eslint-disable-next-line no-await-in-loop
             await browser.contextMenus.create({ contexts, ...itemOptions });
         } catch (e) {
-            log.debug(e);
+            if (e) {
+                log.debug(e);
+            } else if (browser.runtime.lastError) {
+                log.debug(e);
+            }
         }
     }
 };

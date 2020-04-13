@@ -4,6 +4,7 @@ import lodashGet from 'lodash/get';
 import accountProvider from '../providers/accountProvider';
 import log from '../../lib/logger';
 import notifier from '../../lib/notifier';
+import { ERROR_STATUSES } from '../../lib/constants';
 
 class Credentials {
     VPN_TOKEN_KEY = 'credentials.token';
@@ -130,7 +131,13 @@ class Credentials {
      * @returns {Promise<*>}
      */
     async gainValidVpnCredentials(forceRemote = false, useLocalFallback = true) {
-        const vpnCredentials = await this.gainVpnCredentials(forceRemote, useLocalFallback);
+        let vpnCredentials;
+        try {
+            vpnCredentials = await this.gainVpnCredentials(forceRemote, useLocalFallback);
+        } catch (e) {
+            this.permissionsError.setError(e);
+            throw e;
+        }
 
         if (!this.areCredentialsValid(vpnCredentials)) {
             const error = Error(`Vpn credentials are not valid: Credentials: ${JSON.stringify(vpnCredentials)}`);
@@ -223,6 +230,9 @@ class Credentials {
             try {
                 vpnCredentials = await this.getVpnCredentialsRemote();
             } catch (e) {
+                if (e.status === ERROR_STATUSES.LIMIT_EXCEEDED) {
+                    throw e;
+                }
                 if (!useLocalFallback) {
                     throw e;
                 }
