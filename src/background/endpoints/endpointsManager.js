@@ -2,6 +2,8 @@ import _ from 'lodash';
 import { MESSAGES_TYPES } from '../../lib/constants';
 import { asyncMapByChunks, identity, runWithCancel } from '../../lib/helpers';
 import log from '../../lib/logger';
+import browserApi from '../browserApi';
+import connectivity from '../connectivity';
 
 /**
  * EndpointsManager keeps endpoints in the memory and determines their ping on request
@@ -16,12 +18,6 @@ class EndpointsManager {
     PING_TTL_MS = 1000 * 60 * 2; // 2 minutes
 
     lastPingMeasurementTime = null;
-
-    constructor(browserApi, connectivity) {
-        this.browserApi = browserApi;
-        this.connectivity = connectivity;
-        this.storage = browserApi.storage;
-    }
 
     arePingsFresh = () => {
         return !!(this.lastPingMeasurementTime
@@ -118,7 +114,7 @@ class EndpointsManager {
 
         this.endpoints = endpoints;
 
-        this.browserApi.runtime.sendMessage({
+        browserApi.runtime.sendMessage({
             type: MESSAGES_TYPES.ENDPOINTS_UPDATED,
             data: this.getAll(),
         });
@@ -167,7 +163,7 @@ class EndpointsManager {
             if (currentEndpointPing && currentEndpoint.id === id) {
                 ping = currentEndpointPing;
             } else {
-                ping = await this.connectivity.endpointsPing.measurePingToEndpoint(domainName);
+                ping = await connectivity.endpointsPing.measurePingToEndpoint(domainName);
             }
 
             const pingData = {
@@ -177,7 +173,7 @@ class EndpointsManager {
 
             this.endpointsPings[id] = pingData;
 
-            await this.browserApi.runtime.sendMessage({
+            await browserApi.runtime.sendMessage({
                 type: MESSAGES_TYPES.ENDPOINTS_PING_UPDATED,
                 data: pingData,
             });
@@ -198,4 +194,6 @@ class EndpointsManager {
     }
 }
 
-export default EndpointsManager;
+const endpointsManager = new EndpointsManager();
+
+export default endpointsManager;

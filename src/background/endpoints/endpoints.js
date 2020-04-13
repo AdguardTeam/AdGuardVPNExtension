@@ -5,10 +5,15 @@ import log from '../../lib/logger';
 import { getClosestEndpointByCoordinates } from '../../lib/helpers';
 import { MESSAGES_TYPES } from '../../lib/constants';
 import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
-import EndpointsManager from './EndpointsManager';
+import endpointsManager from './endpointsManager';
 import notifier from '../../lib/notifier';
 import settings from '../settings/settings';
 import notifications from '../notifications';
+import connectivity from '../connectivity';
+import credentials from '../credentials';
+import proxy from '../proxy';
+import vpnProvider from '../providers/vpnProvider';
+import browserApi from '../browserApi';
 
 /**
  * Endpoint information
@@ -24,23 +29,14 @@ import notifications from '../notifications';
  */
 
 /**
- * EndpointsService manages endpoints, vpn, current location information.
+ * Endpoints manages endpoints, vpn, current location information.
  */
-class EndpointsService {
+class Endpoints {
     vpnInfo = null;
 
     currentLocation = null;
 
-    constructor({
-        browserApi, proxy, credentials, connectivity, vpnProvider,
-    }) {
-        this.browserApi = browserApi;
-        this.proxy = proxy;
-        this.credentials = credentials;
-        this.connectivity = connectivity;
-        this.vpnProvider = vpnProvider;
-        this.endpointsManager = new EndpointsManager(browserApi, connectivity);
-
+    constructor() {
         notifier.addSpecifiedListener(
             notifier.types.SHOULD_REFRESH_TOKENS,
             this.handleRefreshTokenEvent
@@ -53,10 +49,10 @@ class EndpointsService {
      * @returns {Promise<void>}
      */
     reconnectEndpoint = async (endpoint) => {
-        const { domainName } = await this.proxy.setCurrentEndpoint(endpoint);
-        const { prefix, token } = await this.credentials.getAccessCredentials();
+        const { domainName } = await proxy.setCurrentEndpoint(endpoint);
+        const { prefix, token } = await credentials.getAccessCredentials();
         const wsHost = `${prefix}.${domainName}`;
-        await this.connectivity.endpointConnectivity.setCredentials(wsHost, domainName, token);
+        await connectivity.endpointConnectivity.setCredentials(wsHost, domainName, token);
         log.debug(`Reconnect endpoint from ${endpoint.id} to same city ${endpoint.id}`);
     };
 
@@ -90,16 +86,16 @@ class EndpointsService {
         let vpnToken;
 
         try {
-            vpnToken = await this.credentials.gainValidVpnToken();
+            vpnToken = await credentials.gainValidVpnToken();
         } catch (e) {
             log.debug('Unable to get endpoints token because: ', e.message);
             return null;
         }
 
-        const newEndpoints = await this.vpnProvider.getEndpoints(vpnToken.token);
+        const newEndpoints = await vpnProvider.getEndpoints(vpnToken.token);
 
         if (newEndpoints) {
-            this.endpointsManager.setEndpoints(newEndpoints);
+            endpointsManager.setEndpoints(newEndpoints);
         }
 
         return newEndpoints;
@@ -115,8 +111,8 @@ class EndpointsService {
      */
     refreshTokens = async () => {
         log.info('Refreshing tokens');
-        const vpnToken = await this.credentials.gainValidVpnToken(true, false);
-        const vpnCredentials = await this.credentials.gainValidVpnCredentials(true, false);
+        const vpnToken = await credentials.gainValidVpnToken(true, false);
+        const vpnCredentials = await credentials.gainValidVpnCredentials(true, false);
         log.info('Tokens and credentials refreshed successfully');
         return { vpnToken, vpnCredentials };
     };
@@ -131,7 +127,7 @@ class EndpointsService {
      */
     handleRefreshTokenEvent = async () => {
         const { vpnToken } = await this.refreshTokens();
-        const vpnInfo = await this.vpnProvider.getVpnExtensionInfo(vpnToken.token);
+        const vpnInfo = await vpnProvider.getVpnExtensionInfo(vpnToken.token);
 
         // Check traffic limits
         const overTrafficLimits = this.isOverTrafficLimits(vpnInfo);
@@ -196,7 +192,7 @@ class EndpointsService {
             return;
         }
 
-        const currentEndpoint = await this.proxy.getCurrentEndpoint();
+        const currentEndpoint = await proxy.getCurrentEndpoint();
 
         if (currentEndpoint) {
             // Check if current endpoint is in the list of received endpoints
@@ -217,13 +213,13 @@ class EndpointsService {
         let vpnToken;
 
         try {
-            vpnToken = await this.credentials.gainValidVpnToken();
+            vpnToken = await credentials.gainValidVpnToken();
         } catch (e) {
             log.debug('Unable to get endpoints info because: ', e.message);
             return;
         }
 
-        let vpnInfo = await this.vpnProvider.getVpnExtensionInfo(vpnToken.token);
+        let vpnInfo = await vpnProvider.getVpnExtensionInfo(vpnToken.token);
         let shouldReconnect = false;
 
         if (vpnInfo.refreshTokens) {
@@ -239,7 +235,7 @@ class EndpointsService {
                 shouldReconnect = true;
             }
 
-            vpnInfo = await this.vpnProvider.getVpnExtensionInfo(updatedVpnToken.token);
+            vpnInfo = await vpnProvider.getVpnExtensionInfo(updatedVpnToken.token);
         }
 
         // Turns off proxy if user is over traffic limits
@@ -262,7 +258,7 @@ class EndpointsService {
             overTrafficLimits,
         };
 
-        await this.browserApi.runtime.sendMessage({
+        await browserApi.runtime.sendMessage({
             type: MESSAGES_TYPES.VPN_INFO_UPDATED,
             data: this.vpnInfo,
         });
@@ -284,17 +280,17 @@ class EndpointsService {
         return null;
     };
 
-    getEndpoints = () => {
-        const currentEndpoint = this.proxy.getCurrentEndpoint();
-        const currentEndpointPing = this.connectivity.endpointConnectivity.getPing();
-        return this.endpointsManager.getEndpoints(currentEndpoint, currentEndpointPing);
+    getEndpoints = async () => {
+        const currentEndpoint = await proxy.getCurrentEndpoint();
+        const currentEndpointPing = connectivity.endpointConnectivity.getPing();
+        return endpointsManager.getEndpoints(currentEndpoint, currentEndpointPing);
     };
 
     getCurrentLocationRemote = async () => {
         const MIDDLE_OF_EUROPE = { coordinates: [51.05, 13.73] }; // Chosen approximately
         let currentLocation;
         try {
-            currentLocation = await this.vpnProvider.getCurrentLocation();
+            currentLocation = await vpnProvider.getCurrentLocation();
         } catch (e) {
             log.error(e.message);
         }
@@ -319,7 +315,7 @@ class EndpointsService {
     };
 
     getSelectedEndpoint = async () => {
-        const proxySelectedEndpoint = await this.proxy.getCurrentEndpoint();
+        const proxySelectedEndpoint = await proxy.getCurrentEndpoint();
 
         // if found return
         if (proxySelectedEndpoint) {
@@ -327,7 +323,7 @@ class EndpointsService {
         }
 
         const currentLocation = this.getCurrentLocation();
-        const endpoints = Object.values(this.endpointsManager.getAll());
+        const endpoints = Object.values(endpointsManager.getAll());
 
         if (!currentLocation || _.isEmpty(endpoints)) {
             return null;
@@ -338,14 +334,14 @@ class EndpointsService {
             endpoints
         );
 
-        await this.proxy.setCurrentEndpoint(closestEndpoint);
+        await proxy.setCurrentEndpoint(closestEndpoint);
         return closestEndpoint;
     };
 
     getVpnFailurePage = async () => {
         let vpnToken;
         try {
-            vpnToken = await this.credentials.gainValidVpnToken();
+            vpnToken = await credentials.gainValidVpnToken();
         } catch (e) {
             log.error('Unable to get valid endpoints token. Error: ', e.message);
         }
@@ -357,7 +353,7 @@ class EndpointsService {
         let appendToQueryString = false;
         if (!this.vpnInfo) {
             try {
-                this.vpnInfo = await this.vpnProvider.getVpnExtensionInfo(token);
+                this.vpnInfo = await vpnProvider.getVpnExtensionInfo(token);
             } catch (e) {
                 this.vpnInfo = { vpnFailurePage: POPUP_DEFAULT_SUPPORT_URL };
                 appendToQueryString = true;
@@ -365,7 +361,7 @@ class EndpointsService {
         }
 
         const vpnFailurePage = this.vpnInfo && this.vpnInfo.vpnFailurePage;
-        const appId = this.credentials.getAppId();
+        const appId = credentials.getAppId();
 
         const queryString = qs.stringify({ token, app_id: appId });
 
@@ -375,4 +371,6 @@ class EndpointsService {
     };
 }
 
-export default EndpointsService;
+const endpoints = new Endpoints();
+
+export default endpoints;

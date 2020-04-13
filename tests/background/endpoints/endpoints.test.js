@@ -1,84 +1,27 @@
-import EndpointsService from '../../../src/background/endpoints/EndpointsService';
+import endpoints from '../../../src/background/endpoints';
 import { sleep } from '../../../src/lib/helpers';
 import settings from '../../../src/background/settings/settings';
 import notifier from '../../../src/lib/notifier';
 import notifications from '../../../src/background/notifications';
+import proxy from '../../../src/background/proxy';
+import vpnProvider from '../../../src/background/providers/vpnProvider';
+import credentials from '../../../src/background/credentials';
 
 jest.mock('../../../src/background/settings/settings');
 jest.mock('../../../src/lib/notifier');
 jest.mock('../../../src/background/notifications');
-
-beforeEach(() => {
-    settings.disableProxy.mockClear();
-    notifications.create.mockClear();
-    notifier.notifyListeners.mockClear();
-});
-
-const browserApi = {
-    runtime: {
-        sendMessage: async () => {
-
-        },
-    },
-    storage: {
-        get: jest.fn(),
-    },
-};
-
-const proxy = {
-    getCurrentEndpoint: async () => {
-
-    },
-};
-
-const buildCredentials = (throwError = false) => {
-    if (throwError) {
-        return {
-            gainValidVpnToken: jest
-                .fn()
-                .mockRejectedValue(new Error('invalid token')),
-        };
-    }
-    return {
-        gainValidVpnToken: jest
-            .fn(async () => {
-                return 'token';
-            }),
-        gainValidVpnCredentials: jest
-            .fn()
-            .mockResolvedValue('vpn credentials'),
-    };
-};
-
-const connectivity = {
-    endpointConnectivity: {
-        getPing: jest.fn(),
-    },
-};
-
-const buildVpnProvider = (vpnInfo, endpoints) => {
-    return {
-        getVpnExtensionInfo: jest
-            .fn()
-            .mockResolvedValue(vpnInfo),
-        getEndpoints: jest
-            .fn()
-            .mockResolvedValue(endpoints),
-    };
-};
+jest.mock('../../../src/background/proxy');
+jest.mock('../../../src/background/browserApi');
+jest.mock('../../../src/background/providers/vpnProvider');
 
 describe('endpoints class', () => {
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
+
     it('getEndpoints returns null on init', async () => {
-        const credentials = buildCredentials();
-        const vpnProvider = buildVpnProvider();
-        const endpoints = new EndpointsService({
-            browserApi,
-            proxy,
-            credentials,
-            connectivity,
-            vpnProvider,
-        });
-        const endpointsList = endpoints.getEndpoints();
+        const endpointsList = await endpoints.getEndpoints();
+        expect(proxy.getCurrentEndpoint).toBeCalledTimes(1);
         expect(endpointsList).toBeNull();
     });
 
@@ -129,57 +72,40 @@ describe('endpoints class', () => {
             },
         };
 
-        const vpnProvider = buildVpnProvider(expectedVpnInfo, expectedEndpoints);
+        jest.spyOn(vpnProvider, 'getVpnExtensionInfo').mockResolvedValue(expectedVpnInfo);
+        jest.spyOn(vpnProvider, 'getEndpoints').mockResolvedValue(expectedEndpoints);
+        jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue('token');
+        jest.spyOn(credentials, 'gainValidVpnCredentials').mockResolvedValue('vpn_credentials');
 
-        const endpointsService = new EndpointsService({
-            browserApi,
-            proxy,
-            credentials: buildCredentials(),
-            connectivity,
-            vpnProvider,
-        });
-
-        let vpnInfo = endpointsService.getVpnInfo();
+        let vpnInfo = endpoints.getVpnInfo();
         expect(vpnInfo).toBeNull();
         await sleep(10);
 
-        vpnInfo = endpointsService.getVpnInfo();
+        vpnInfo = endpoints.getVpnInfo();
 
         expect(vpnInfo).toEqual(expectedVpnInfo);
 
-        const endpoints = endpointsService.getEndpoints();
-        expect(endpoints.all).toEqual(expectedEndpoints);
+        const endpointsList = await endpoints.getEndpoints();
+        expect(endpointsList.all).toEqual(expectedEndpoints);
     });
 
     it('get vpn info remotely stops execution if unable to get valid token', async () => {
-        const vpnProvider = buildVpnProvider();
-        const credentials = buildCredentials(true);
-        const endpoints = new EndpointsService({
-            browserApi,
-            proxy,
-            credentials,
-            connectivity,
-            vpnProvider,
-        });
+        jest.spyOn(credentials, 'gainValidVpnToken').mockRejectedValue(new Error('invalid token'));
         await endpoints.getVpnInfoRemotely();
         expect(credentials.gainValidVpnToken).toBeCalledTimes(1);
-        expect(endpoints.getVpnInfo()).toBeNull();
-        expect(endpoints.getEndpoints()).toBeNull();
+        expect(vpnProvider.getVpnExtensionInfo).toBeCalledTimes(0);
     });
 
     it('refreshes tokens if refreshTokens is true', async () => {
         const expectedVpnInfo = {
             refreshTokens: true,
         };
-        const vpnProvider = buildVpnProvider(expectedVpnInfo);
-        const credentials = buildCredentials();
-        const endpoints = new EndpointsService({
-            browserApi,
-            proxy,
-            credentials,
-            connectivity,
-            vpnProvider,
-        });
+
+        jest.spyOn(vpnProvider, 'getEndpoints').mockResolvedValue(null);
+        jest.spyOn(vpnProvider, 'getVpnExtensionInfo').mockResolvedValue(expectedVpnInfo);
+        jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue('vpn_token');
+        jest.spyOn(credentials, 'gainValidVpnCredentials').mockResolvedValue('vpn_credentials');
+
         await endpoints.getVpnInfoRemotely();
         expect(credentials.gainValidVpnToken).toBeCalledTimes(3);
         expect(credentials.gainValidVpnToken).nthCalledWith(2, true, false);
@@ -188,8 +114,7 @@ describe('endpoints class', () => {
     });
 
     describe('returns closest endpoint', () => {
-        const endpointsService = new EndpointsService({ browserApi });
-        const endpoints = {
+        const endpointsList = {
             'do-ca-tor1-01-jbnyx56n.adguard.io': {
                 id: 'do-ca-tor1-01-jbnyx56n.adguard.io',
                 cityName: 'Toronto',
@@ -234,7 +159,7 @@ describe('endpoints class', () => {
                 premiumOnly: false,
                 publicKey: 'UXKhYwlbiRKYa115QjsOdET6ibB4rEnbQDSECoHTXBM=',
             };
-            const closestEndpoint = endpointsService.getClosestEndpoint(endpoints, currentEndpoint);
+            const closestEndpoint = endpoints.getClosestEndpoint(endpointsList, currentEndpoint);
 
             expect(closestEndpoint).toEqual(currentEndpoint);
         });
@@ -251,7 +176,7 @@ describe('endpoints class', () => {
                 publicKey: 'B+1zqYFIR/NSm0PC/UrouNz43xajQhK1IFXM4wKGiyw=',
             };
 
-            const closestEndpoint = endpointsService.getClosestEndpoint(endpoints, currentEndpoint);
+            const closestEndpoint = endpoints.getClosestEndpoint(endpointsList, currentEndpoint);
 
             const expectedEndpoint = {
                 id: 'do-gb-lon1-01-hk7z7xez.adguard.io',
@@ -269,16 +194,6 @@ describe('endpoints class', () => {
     });
 
     it('determines if user is over traffic limits', () => {
-        const vpnProvider = buildVpnProvider();
-        const credentials = buildCredentials();
-        const endpoints = new EndpointsService({
-            browserApi,
-            proxy,
-            credentials,
-            connectivity,
-            vpnProvider,
-        });
-
         expect(endpoints.isOverTrafficLimits(null)).toBeFalsy();
 
         expect(endpoints.isOverTrafficLimits({
@@ -311,20 +226,16 @@ describe('endpoints class', () => {
     });
 
     describe('handles refresh token event', () => {
+        jest.spyOn(vpnProvider, 'getEndpoints').mockResolvedValue(null);
+        jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue('vpn_token');
+        jest.spyOn(credentials, 'gainValidVpnCredentials').mockResolvedValue('vpn_credentials');
+
         it('refreshes tokens and doesnt disable proxy', async () => {
-            const vpnProvider = buildVpnProvider({
-                usedDownloadedBytes: 50,
+            jest.spyOn(vpnProvider, 'getVpnExtensionInfo').mockResolvedValue({
+                usedDownloadedBytes: 90,
                 usedUploadedBytes: 50,
-                maxDownloadedBytes: 0,
-                maxUploadedBytes: 100,
-            });
-            const credentials = buildCredentials();
-            const endpoints = new EndpointsService({
-                browserApi,
-                proxy,
-                credentials,
-                connectivity,
-                vpnProvider,
+                maxDownloadedBytes: 100,
+                maxUploadedBytes: 0,
             });
 
             await endpoints.handleRefreshTokenEvent();
@@ -334,19 +245,11 @@ describe('endpoints class', () => {
         });
 
         it('refreshes tokens and disables proxy if necessary', async () => {
-            const vpnProvider = buildVpnProvider({
+            jest.spyOn(vpnProvider, 'getVpnExtensionInfo').mockResolvedValue({
                 usedDownloadedBytes: 100,
                 usedUploadedBytes: 50,
                 maxDownloadedBytes: 100,
                 maxUploadedBytes: 0,
-            });
-            const credentials = buildCredentials();
-            const endpoints = new EndpointsService({
-                browserApi,
-                proxy,
-                credentials,
-                connectivity,
-                vpnProvider,
             });
 
             await endpoints.handleRefreshTokenEvent();
