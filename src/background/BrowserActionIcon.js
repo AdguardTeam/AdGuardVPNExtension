@@ -6,13 +6,14 @@ import settings from './settings/settings';
 import tabs from './tabs';
 import { isHttp } from '../lib/string-utils';
 import endpoints from './endpoints';
+import auth from './auth';
 
 class BrowserActionIcon {
     constructor() {
         this.init();
     }
 
-    shouldUpdateIcon = (id, url) => {
+    shouldSetIconExcludedForUrl = (id, url) => {
         return id
             && url
             && isHttp(url)
@@ -21,19 +22,25 @@ class BrowserActionIcon {
 
     async updateIcon(tab) {
         const { id = null, url = null } = tab;
-        const proxyEnabled = settings.isProxyEnabled();
+
+        const isUserAuthenticated = await auth.isAuthenticated();
+        if (!isUserAuthenticated) {
+            await actions.setIconDisabled(id);
+            return;
+        }
+
         const overTrafficLimits = endpoints.getVpnInfo(true)?.overTrafficLimits;
         if (overTrafficLimits) {
             await actions.setIconTrafficOff(id);
             return;
         }
 
-        if (!proxyEnabled) {
+        if (!settings.isProxyEnabled()) {
             await actions.setIconDisabled(id);
             return;
         }
 
-        if (this.shouldUpdateIcon(id, url)) {
+        if (this.shouldSetIconExcludedForUrl(id, url)) {
             await actions.setIconExcludedForUrl(id);
             return;
         }
