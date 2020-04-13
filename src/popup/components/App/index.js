@@ -114,12 +114,12 @@ const App = observer(() => {
         canControlProxy,
         hasGlobalError,
         checkPermissionsState,
-        hasLimitExceedError,
+        hasLimitExceededError,
     } = settingsStore;
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
     const { premiumPromoEnabled } = vpnStore;
 
-    if ((hasGlobalError && !hasLimitExceedError) || !canControlProxy) {
+    if ((hasGlobalError && !hasLimitExceededError) || !canControlProxy) {
         const showMenuButton = authenticated && canControlProxy;
         return (
             <>

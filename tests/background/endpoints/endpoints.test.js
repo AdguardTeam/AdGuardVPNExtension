@@ -6,6 +6,8 @@ import notifications from '../../../src/background/notifications';
 import proxy from '../../../src/background/proxy';
 import vpnProvider from '../../../src/background/providers/vpnProvider';
 import credentials from '../../../src/background/credentials';
+import CustomError from '../../../src/lib/CustomError';
+import { ERROR_STATUSES } from '../../../src/lib/constants';
 
 jest.mock('../../../src/background/settings/settings');
 jest.mock('../../../src/lib/notifier');
@@ -15,7 +17,7 @@ jest.mock('../../../src/background/browserApi');
 jest.mock('../../../src/background/providers/vpnProvider');
 
 describe('endpoints class', () => {
-    afterEach(() => {
+    beforeEach(() => {
         jest.clearAllMocks();
     });
 
@@ -34,7 +36,6 @@ describe('endpoints class', () => {
             remainingTraffic: 240,
             totalTraffic: 500,
             vpnFailurePage: 'https://kb.adguard.com/technical-support',
-            overTrafficLimits: false,
         };
         const expectedEndpoints = {
             'do-ca-tor1-01-jbnyx56n.adguard.io': {
@@ -193,51 +194,12 @@ describe('endpoints class', () => {
         });
     });
 
-    it('determines if user is over traffic limits', () => {
-        expect(endpoints.isOverTrafficLimits(null)).toBeFalsy();
-
-        expect(endpoints.isOverTrafficLimits({
-            usedDownloadedBytes: 50,
-            usedUploadedBytes: 50,
-            maxDownloadedBytes: 0,
-            maxUploadedBytes: 100,
-        })).toBeFalsy();
-
-        expect(endpoints.isOverTrafficLimits({
-            usedDownloadedBytes: 50,
-            usedUploadedBytes: 50,
-            maxDownloadedBytes: 0,
-            maxUploadedBytes: 0,
-        })).toBeFalsy();
-
-        expect(endpoints.isOverTrafficLimits({
-            usedDownloadedBytes: 100,
-            usedUploadedBytes: 100,
-            maxDownloadedBytes: 0,
-            maxUploadedBytes: 100,
-        })).toBeTruthy();
-
-        expect(endpoints.isOverTrafficLimits({
-            usedDownloadedBytes: 100,
-            usedUploadedBytes: 50,
-            maxDownloadedBytes: 100,
-            maxUploadedBytes: 100,
-        })).toBeTruthy();
-    });
-
     describe('handles refresh token event', () => {
         jest.spyOn(vpnProvider, 'getEndpoints').mockResolvedValue(null);
         jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue('vpn_token');
         jest.spyOn(credentials, 'gainValidVpnCredentials').mockResolvedValue('vpn_credentials');
 
         it('refreshes tokens and doesnt disable proxy', async () => {
-            jest.spyOn(vpnProvider, 'getVpnExtensionInfo').mockResolvedValue({
-                usedDownloadedBytes: 90,
-                usedUploadedBytes: 50,
-                maxDownloadedBytes: 100,
-                maxUploadedBytes: 0,
-            });
-
             await endpoints.handleRefreshTokenEvent();
             expect(credentials.gainValidVpnToken).toBeCalledTimes(2);
             expect(credentials.gainValidVpnCredentials).toBeCalledTimes(1);
@@ -245,22 +207,15 @@ describe('endpoints class', () => {
         });
 
         it('refreshes tokens and disables proxy if necessary', async () => {
-            jest.spyOn(vpnProvider, 'getVpnExtensionInfo').mockResolvedValue({
-                usedDownloadedBytes: 100,
-                usedUploadedBytes: 50,
-                maxDownloadedBytes: 100,
-                maxUploadedBytes: 0,
-            });
-
+            jest.spyOn(credentials, 'gainValidVpnCredentials').mockRejectedValue(new CustomError(ERROR_STATUSES.LIMIT_EXCEEDED));
             await endpoints.handleRefreshTokenEvent();
-            expect(credentials.gainValidVpnToken).toBeCalledTimes(2);
+            expect(credentials.gainValidVpnToken).toBeCalledTimes(1);
             expect(credentials.gainValidVpnCredentials).toBeCalledTimes(1);
             expect(settings.disableProxy).toBeCalledTimes(1);
             expect(notifier.notifyListeners).toBeCalledTimes(1);
             expect(notifications.create).toBeCalledTimes(1);
         });
     });
-
 
     // TODO [maximtop] add tests for uncovered methods of EndpointsService
 });

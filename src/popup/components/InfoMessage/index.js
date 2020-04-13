@@ -14,7 +14,7 @@ const TRAFFIC_PERCENT = {
 };
 
 const InfoMessage = observer(() => {
-    const { vpnStore } = useContext(rootStore);
+    const { vpnStore, settingsStore } = useContext(rootStore);
 
     const onClick = (url) => (e) => {
         e.preventDefault();
@@ -25,7 +25,6 @@ const InfoMessage = observer(() => {
         premiumPromoEnabled,
         premiumPromoPage,
         remainingTraffic,
-        insufficientTraffic,
         trafficUsingProgress,
     } = vpnStore;
 
@@ -50,7 +49,7 @@ const InfoMessage = observer(() => {
     return (
         <div className="info-message">
             <div className="info-message__text">
-                {insufficientTraffic ? (
+                {settingsStore.hasLimitExceededError ? (
                     <span>{translator.translate('premium_limit_reached')}</span>
                 ) : (
                     <>

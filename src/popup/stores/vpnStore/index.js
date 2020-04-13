@@ -32,7 +32,6 @@ class VpnStore {
         premiumPromoPage: null,
         maxDownloadedBytes: null,
         usedDownloadedBytes: null,
-        overTrafficLimits: false,
     };
 
     @action
@@ -202,11 +201,6 @@ class VpnStore {
     @computed
     get remainingTraffic() {
         return this.vpnInfo.maxDownloadedBytes - this.vpnInfo.usedDownloadedBytes;
-    }
-
-    @computed
-    get insufficientTraffic() {
-        return this.vpnInfo.overTrafficLimits;
     }
 
     @computed

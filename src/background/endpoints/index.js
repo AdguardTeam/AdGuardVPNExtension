@@ -3,7 +3,7 @@ import _ from 'lodash';
 import qs from 'qs';
 import log from '../../lib/logger';
 import { getClosestEndpointByCoordinates } from '../../lib/helpers';
-import { MESSAGES_TYPES } from '../../lib/constants';
+import { ERROR_STATUSES, MESSAGES_TYPES } from '../../lib/constants';
 import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
 import endpointsManager from './endpointsManager';
 import notifier from '../../lib/notifier';
@@ -55,7 +55,6 @@ class Endpoints {
         await connectivity.endpointConnectivity.setCredentials(wsHost, domainName, token);
         log.debug(`Reconnect endpoint from ${endpoint.id} to same city ${endpoint.id}`);
     };
-
 
     /**
      * Returns closest endpoint, firstly checking if endpoints object includes
@@ -126,54 +125,22 @@ class Endpoints {
      * @returns {Promise<void>}
      */
     handleRefreshTokenEvent = async () => {
-        const { vpnToken } = await this.refreshTokens();
-        const vpnInfo = await vpnProvider.getVpnExtensionInfo(vpnToken.token);
-
-        // Check traffic limits
-        const overTrafficLimits = this.isOverTrafficLimits(vpnInfo);
-        if (overTrafficLimits) {
-            // Turns off proxy if user over reaches traffic limits
-            await settings.disableProxy();
-            // Notify icon to change
-            notifier.notifyListeners(notifier.types.TRAFFIC_OVER_LIMIT);
-            // Send notification
-            await notifications.create({ message: 'Oops! Monthly data limit reached' });
+        try {
+            const { vpnToken } = await this.refreshTokens();
+            const vpnInfo = await vpnProvider.getVpnExtensionInfo(vpnToken.token);
+            await this.updateEndpoints(true);
+            this.vpnInfo = vpnInfo;
+        } catch (e) {
+            if (e.status === ERROR_STATUSES.LIMIT_EXCEEDED) {
+                // Disable proxy
+                await settings.disableProxy();
+                // Notify icon to change
+                notifier.notifyListeners(notifier.types.TRAFFIC_OVER_LIMIT);
+                // Send notification
+                await notifications.create({ message: 'Oops! Monthly data limit reached' });
+            }
+            log.debug(e.message);
         }
-
-        await this.updateEndpoints(true);
-
-        this.vpnInfo = {
-            ...vpnInfo,
-            overTrafficLimits,
-        };
-    };
-
-    /**
-     * Checks if user has reached monthly traffic limit
-     * @param vpnInfo
-     * @returns {boolean}
-     */
-    isOverTrafficLimits = (vpnInfo) => {
-        if (!vpnInfo) {
-            return false;
-        }
-
-        const {
-            usedDownloadedBytes,
-            usedUploadedBytes,
-            maxDownloadedBytes,
-            maxUploadedBytes,
-        } = vpnInfo;
-
-        if (maxDownloadedBytes !== 0 && usedDownloadedBytes >= maxDownloadedBytes) {
-            return true;
-        }
-
-        if (maxUploadedBytes !== 0 && usedUploadedBytes >= maxUploadedBytes) {
-            return true;
-        }
-
-        return false;
     };
 
     /**
@@ -238,25 +205,10 @@ class Endpoints {
             vpnInfo = await vpnProvider.getVpnExtensionInfo(updatedVpnToken.token);
         }
 
-        // Turns off proxy if user is over traffic limits
-        const overTrafficLimits = this.isOverTrafficLimits(vpnInfo);
-        if (overTrafficLimits) {
-            const disabled = await settings.disableProxy();
-            if (disabled) {
-                log.debug('Proxy was disabled because of traffic limits');
-            }
-            notifier.notifyListeners(notifier.types.TRAFFIC_OVER_LIMIT);
-        } else {
-            notifier.notifyListeners(notifier.types.TRAFFIC_OVER_LIMIT);
-        }
-
         await this.updateEndpoints(shouldReconnect);
 
         // Save vpn info in the memory
-        this.vpnInfo = {
-            ...vpnInfo,
-            overTrafficLimits,
-        };
+        this.vpnInfo = vpnInfo;
 
         await browserApi.runtime.sendMessage({
             type: MESSAGES_TYPES.VPN_INFO_UPDATED,

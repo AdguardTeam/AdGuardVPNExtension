@@ -1,5 +1,5 @@
 import browserApi from '../browserApi';
-import { MESSAGES_TYPES } from '../../lib/constants';
+import { ERROR_STATUSES, MESSAGES_TYPES } from '../../lib/constants';
 
 class PermissionsError {
     constructor() {
@@ -23,6 +23,14 @@ class PermissionsError {
     getError = () => {
         return this.error;
     };
+
+    /**
+     * Checks if error has information about exceeded traffic limits
+     * @returns {boolean}
+     */
+    isLimitExceeded = () => {
+        return this.error?.status === ERROR_STATUSES.LIMIT_EXCEEDED;
+    }
 
     clearError = () => {
         if (this.error !== null) {

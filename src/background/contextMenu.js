@@ -13,11 +13,12 @@ const contexts = ['page', 'frame', 'selection', 'link', 'editable', 'image', 'vi
 
 const renewContextMenuItems = async (menuItems) => {
     await browser.contextMenus.removeAll();
-    // eslint-disable-next-line no-restricted-syntax
     await Promise.all(menuItems.map(async (itemOptions) => {
         try {
             await browser.contextMenus.create({ contexts, ...itemOptions }, () => {
-                log.debug(browser.runtime.lastError.message);
+                if (browser.runtime.lastError) {
+                    log.debug(browser.runtime.lastError.message);
+                }
             });
         } catch (e) {
             log.debug(e);

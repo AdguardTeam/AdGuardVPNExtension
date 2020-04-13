@@ -39,10 +39,10 @@ const Settings = observer(() => {
         switcherEnabled,
         proxyEnabled,
         serverError,
+        hasLimitExceededError,
     } = settingsStore;
     const {
         premiumPromoEnabled,
-        insufficientTraffic,
         premiumPromoPage,
     } = vpnStore;
 
@@ -53,9 +53,7 @@ const Settings = observer(() => {
         { 'settings--feedback': !premiumPromoEnabled }
     );
 
-    // TODO REVERT BACK TO CHECK INSUFFICIENT TRAFFIC
-    // if (premiumPromoEnabled && insufficientTraffic) {
-    if (insufficientTraffic) {
+    if (hasLimitExceededError) {
         return (
             <Upgrade premiumPromoPage={premiumPromoPage} />
         );

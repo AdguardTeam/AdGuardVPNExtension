@@ -5,8 +5,8 @@ import exclusions from './exclusions';
 import settings from './settings/settings';
 import tabs from './tabs';
 import { isHttp } from '../lib/string-utils';
-import endpoints from './endpoints';
 import auth from './auth';
+import permissionsError from './permissionsChecker/permissionsError';
 
 class BrowserActionIcon {
     constructor() {
@@ -29,8 +29,8 @@ class BrowserActionIcon {
             return;
         }
 
-        const overTrafficLimits = endpoints.getVpnInfo(true)?.overTrafficLimits;
-        if (overTrafficLimits) {
+        const isLimitExceeded = permissionsError.isLimitExceeded();
+        if (isLimitExceeded) {
             await actions.setIconTrafficOff(id);
             return;
         }
