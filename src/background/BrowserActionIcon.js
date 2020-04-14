@@ -61,13 +61,19 @@ class BrowserActionIcon {
                 });
             }
         }, throttleTimeoutMs, { leading: false });
-        // eslint-disable-next-line max-len
-        notifier.addSpecifiedListener(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE, throttledUpdateIcon);
+
         notifier.addSpecifiedListener(notifier.types.PROXY_TURNED_OFF, throttledUpdateIcon);
         notifier.addSpecifiedListener(notifier.types.PROXY_TURNED_ON, throttledUpdateIcon);
         notifier.addSpecifiedListener(notifier.types.TAB_ACTIVATED, throttledUpdateIcon);
         notifier.addSpecifiedListener(notifier.types.TAB_UPDATED, throttledUpdateIcon);
-        notifier.addSpecifiedListener(notifier.types.TRAFFIC_OVER_LIMIT, throttledUpdateIcon);
+        notifier.addSpecifiedListener(
+            notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE,
+            throttledUpdateIcon
+        );
+        notifier.addSpecifiedListener(
+            notifier.types.UPDATE_BROWSER_ACTION_ICON,
+            throttledUpdateIcon
+        );
     };
 }
 

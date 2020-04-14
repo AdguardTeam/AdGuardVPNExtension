@@ -135,7 +135,7 @@ class Endpoints {
                 // Disable proxy
                 await settings.disableProxy();
                 // Notify icon to change
-                notifier.notifyListeners(notifier.types.TRAFFIC_OVER_LIMIT);
+                notifier.notifyListeners(notifier.types.UPDATE_BROWSER_ACTION_ICON);
                 // Send notification
                 await notifications.create({ message: 'Oops! Monthly data limit reached' });
             }

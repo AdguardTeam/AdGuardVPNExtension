@@ -101,7 +101,7 @@ const types = {
     PROXY_TURNED_ON: 'event.proxy.turned.on',
     PROXY_TURNED_OFF: 'event.proxy.turned.off',
     DNS_SERVER_SET: 'event.dns.server.set',
-    TRAFFIC_OVER_LIMIT: 'event.traffic.over.limit',
+    UPDATE_BROWSER_ACTION_ICON: 'event.update.browser.action.icon',
 };
 
 const notifier = new Notifier(types);
