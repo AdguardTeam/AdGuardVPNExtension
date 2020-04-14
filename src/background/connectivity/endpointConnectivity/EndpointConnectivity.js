@@ -187,7 +187,6 @@ class EndpointConnectivity {
      * @returns {Promise<void>}
      */
     handleInfoMsg = async (infoMsg) => {
-        console.log(infoMsg);
         const { bytesDownloaded = 0, bytesUploaded = 0, refreshTokens } = infoMsg;
 
         if (bytesUploaded || bytesDownloaded) {

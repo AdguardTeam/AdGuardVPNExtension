@@ -112,6 +112,7 @@ const getVpnExtensionInfo = async (vpnToken) => {
         used_uploaded_bytes: usedUploadedBytes,
         max_downloaded_bytes: maxDownloadedBytes,
         max_uploaded_bytes: maxUploadedBytes,
+        renewal_traffic_date: renewalTrafficDate,
     } = info;
 
     return {
@@ -124,6 +125,7 @@ const getVpnExtensionInfo = async (vpnToken) => {
         usedUploadedBytes,
         maxDownloadedBytes,
         maxUploadedBytes,
+        renewalTrafficDate,
     };
 };
 

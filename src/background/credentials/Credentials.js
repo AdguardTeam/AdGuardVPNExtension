@@ -230,10 +230,9 @@ class Credentials {
             try {
                 vpnCredentials = await this.getVpnCredentialsRemote();
             } catch (e) {
-                if (e.status === ERROR_STATUSES.LIMIT_EXCEEDED) {
-                    throw e;
-                }
-                if (!useLocalFallback) {
+                // Do not use local credentials if request to credentials
+                // returns limit exceeded error
+                if (e.status === ERROR_STATUSES.LIMIT_EXCEEDED || !useLocalFallback) {
                     throw e;
                 }
             }
