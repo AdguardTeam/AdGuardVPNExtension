@@ -9,7 +9,7 @@ import endpoints from './endpoints';
 import exclusions from './exclusions';
 import log from '../lib/logger';
 import management from './management';
-import messaging from './messaging';
+import messaging from './messageHandler';
 import nonRoutable from './routability/nonRoutable';
 import permissionsChecker from './permissionsChecker';
 import permissionsError from './permissionsChecker/permissionsError';

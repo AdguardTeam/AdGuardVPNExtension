@@ -19,6 +19,9 @@ export const MESSAGES_TYPES = {
     EXCLUSIONS_UPDATED: 'exclusions.updated',
     EXTENSION_PROXY_ENABLED: 'proxy.extension.enabled',
     EXTENSION_PROXY_DISABLED: 'proxy.extension.disabled',
+
+    // popup -> background
+    GET_POPUP_DATA: 'get.popup.data',
 };
 
 export const ERROR_STATUSES = {

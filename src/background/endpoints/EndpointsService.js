@@ -122,7 +122,7 @@ class EndpointsService {
             vpnToken = await this.credentials.gainValidVpnToken();
         } catch (e) {
             log.debug('Unable to get endpoints info because: ', e.message);
-            return;
+            throw e;
         }
 
         let vpnInfo = await this.vpnProvider.getVpnExtensionInfo(vpnToken.token);

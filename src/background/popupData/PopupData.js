@@ -36,6 +36,17 @@ class PopupData {
             throttledPermissionsChecker();
         }
 
+        console.log({
+            permissionsError: error,
+            vpnInfo,
+            endpointsList,
+            selectedEndpoint,
+            isAuthenticated,
+            canControlProxy,
+            isProxyEnabled,
+            isRoutable,
+        });
+
         return {
             permissionsError: error,
             vpnInfo,

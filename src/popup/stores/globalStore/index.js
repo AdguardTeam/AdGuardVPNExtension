@@ -7,6 +7,7 @@ import {
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
 import log from '../../../lib/logger';
 import tabs from '../../../background/tabs';
+import messager from '../../../lib/messager';
 
 class globalStore {
     @observable initStatus = REQUEST_STATUSES.PENDING;
@@ -17,24 +18,28 @@ class globalStore {
         // otherwise extension will freeze
         window.addEventListener('unload', () => {
             const reason = 'Popup closed';
+            // TODO remove canceling requests
             adguard.popupData.cancelGettingPopupData(reason);
             adguard.endpoints.endpointsManager.cancelGetFastest(reason);
         });
     }
 
     @action
-    async getPopupData(retryNum = 1) {
+    async getPopupData(numberOfTries = 1) {
         const { rootStore: { vpnStore, settingsStore, authStore } } = this;
 
         this.setInitStatus(REQUEST_STATUSES.PENDING);
 
         // Used tab api because calling tab api from background returns wrong result
-        const currentTab = await tabs.getCurrent();
+        const tab = await tabs.getCurrent();
 
         try {
-            const popupData = await adguard.popupData.getPopupDataRetryWithCancel(
-                currentTab.url, retryNum
-            );
+            const popupData = await messager.getPopupData(tab.url, numberOfTries);
+            console.log(popupData);
+            // const popupData = await adguard.popupData.getPopupDataRetryWithCancel(
+            //     currentTab.url,
+            //     retryNum
+            // );
 
             const {
                 vpnInfo,

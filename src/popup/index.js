@@ -8,6 +8,7 @@ import './styles/main.pcss';
 import App from './components/App';
 
 (async () => {
+    // TODO remove when background page change to the messaging
     const bgPage = await browser.runtime.getBackgroundPage();
     global.adguard = bgPage.adguard;
     ReactDOM.render(
