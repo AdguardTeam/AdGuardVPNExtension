@@ -1,15 +1,16 @@
 import { action } from 'mobx';
+import tabs from '../../../background/tabs';
 
 class PopupActions {
     @action
     openRecovery = async () => {
-        await adguard.tabs.openRecovery();
+        await tabs.openRecovery();
         window.close();
     };
 
     @action
     openTab = async (url) => {
-        await adguard.tabs.openTab(url);
+        await tabs.openTab(url);
         window.close();
     };
 
