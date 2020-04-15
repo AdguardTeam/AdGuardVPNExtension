@@ -28,6 +28,7 @@ export const MESSAGES_TYPES = {
     GET_APP_ID: 'get.app.id',
     DEAUTHENTICATE_USER: 'deauthenticate.user',
     UPDATE_AUTH_CACHE: 'update.auth.cache',
+    GET_AUTH_CACHE: 'get.auth.cache',
 };
 
 export const ERROR_STATUSES = {

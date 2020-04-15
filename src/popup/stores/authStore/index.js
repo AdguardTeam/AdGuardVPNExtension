@@ -90,8 +90,8 @@ class AuthStore {
     };
 
     @action
-    getAuthCacheFromBackground = () => {
-        const { username, password, step } = adguard.authCache.getCache();
+    getAuthCacheFromBackground = async () => {
+        const { username, password, step } = await messager.getAuthCache();
         runInAction(() => {
             this.credentials = {
                 ...this.credentials,

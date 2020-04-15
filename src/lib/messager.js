@@ -53,6 +53,11 @@ class Messager {
         const type = MESSAGES_TYPES.UPDATE_AUTH_CACHE;
         return this.sendMessage(type, { field, value });
     }
+
+    async getAuthCache() {
+        const type = MESSAGES_TYPES.GET_AUTH_CACHE;
+        return this.sendMessage(type);
+    }
 }
 
 export default new Messager();
