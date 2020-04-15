@@ -47,6 +47,9 @@ const messagesHandler = async (message, sender) => {
         case MESSAGES_TYPES.GET_AUTH_CACHE: {
             return authCache.getCache();
         }
+        case MESSAGES_TYPES.CLEAR_AUTH_CACHE: {
+            return authCache.clearCache();
+        }
         default:
             throw new Error(`Unknown message type received: ${type}`);
     }

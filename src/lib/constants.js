@@ -29,6 +29,7 @@ export const MESSAGES_TYPES = {
     DEAUTHENTICATE_USER: 'deauthenticate.user',
     UPDATE_AUTH_CACHE: 'update.auth.cache',
     GET_AUTH_CACHE: 'get.auth.cache',
+    CLEAR_AUTH_CACHE: 'clear.auth.cache',
 };
 
 export const ERROR_STATUSES = {
