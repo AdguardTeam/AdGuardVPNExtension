@@ -88,6 +88,16 @@ class Messager {
         const type = MESSAGES_TYPES.DISABLE_PROXY;
         return this.sendMessage(type, { force, withCancel });
     }
+
+    async addToExclusions(url, enabled, options) {
+        const type = MESSAGES_TYPES.ADD_TO_EXCLUSIONS;
+        return this.sendMessage(type, { url, enabled, options });
+    }
+
+    async removeFromExclusions(url) {
+        const type = MESSAGES_TYPES.REMOVE_FROM_EXCLUSIONS;
+        return this.sendMessage(type, { url });
+    }
 }
 
 export default new Messager();

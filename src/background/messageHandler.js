@@ -10,8 +10,9 @@ import authCache from './authentication/authCache';
 import connectivity from './connectivity';
 import appStatus from './appStatus';
 import settings from './settings/settings';
+import exclusions from './exclusions';
 
-const messagesHandler = async (message, sender) => {
+const messageHandler = async (message, sender) => {
     const { type, data } = message;
     switch (type) {
         case MESSAGES_TYPES.AUTHENTICATE_SOCIAL: {
@@ -71,6 +72,14 @@ const messagesHandler = async (message, sender) => {
             const { force, withCancel } = data;
             return settings.disableProxy(force, withCancel);
         }
+        case MESSAGES_TYPES.ADD_TO_EXCLUSIONS: {
+            const { url, enabled, options } = data;
+            return exclusions.current.addToExclusions(url, enabled, options);
+        }
+        case MESSAGES_TYPES.REMOVE_FROM_EXCLUSIONS: {
+            const { url } = data;
+            return exclusions.current.disableExclusionByUrl(url);
+        }
         default:
             throw new Error(`Unknown message type received: ${type}`);
     }
@@ -78,7 +87,7 @@ const messagesHandler = async (message, sender) => {
 };
 
 const init = () => {
-    browser.runtime.onMessage.addListener(messagesHandler);
+    browser.runtime.onMessage.addListener(messageHandler);
 };
 
 export default {

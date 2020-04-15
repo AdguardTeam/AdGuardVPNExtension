@@ -35,6 +35,8 @@ export const MESSAGES_TYPES = {
     GET_CAN_CONTROL_PROXY: 'get.can.control.proxy',
     ENABLE_PROXY: 'enable.proxy',
     DISABLE_PROXY: 'disable.proxy',
+    ADD_TO_EXCLUSIONS: 'add.to.exclusions',
+    REMOVE_FROM_EXCLUSIONS: 'remove.from.exclusions',
 };
 
 export const ERROR_STATUSES = {
