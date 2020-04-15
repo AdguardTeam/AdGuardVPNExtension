@@ -32,6 +32,7 @@ export const MESSAGES_TYPES = {
     GET_AUTH_CACHE: 'get.auth.cache',
     CLEAR_AUTH_CACHE: 'clear.auth.cache',
     GET_CURRENT_ENDPOINT_PING: 'get.current.endpoint.ping',
+    GET_CAN_CONTROL_PROXY: 'get.can.control.proxy',
 };
 
 export const ERROR_STATUSES = {

@@ -73,6 +73,11 @@ class Messager {
         const type = MESSAGES_TYPES.GET_CURRENT_ENDPOINT_PING;
         return this.sendMessage(type);
     }
+
+    async getCanControlProxy() {
+        const type = MESSAGES_TYPES.GET_CAN_CONTROL_PROXY;
+        return this.sendMessage(type);
+    }
 }
 
 export default new Messager();

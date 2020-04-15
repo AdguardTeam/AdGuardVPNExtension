@@ -8,6 +8,7 @@ import proxy from './proxy';
 import credentials from './credentials';
 import authCache from './authentication/authCache';
 import connectivity from './connectivity';
+import appStatus from './appStatus';
 
 const messagesHandler = async (message, sender) => {
     const { type, data } = message;
@@ -57,6 +58,9 @@ const messagesHandler = async (message, sender) => {
         }
         case MESSAGES_TYPES.GET_CURRENT_ENDPOINT_PING: {
             return connectivity.endpointConnectivity.getPing();
+        }
+        case MESSAGES_TYPES.GET_CAN_CONTROL_PROXY: {
+            return appStatus.canControlProxy();
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

@@ -63,7 +63,8 @@ class SettingsStore {
 
     @action
     async checkProxyControl() {
-        const { canControlProxy } = await adguard.appStatus.canControlProxy();
+        // TODO refactor to return one boolean
+        const { canControlProxy } = await messager.getCanControlProxy();
         runInAction(() => {
             this.canControlProxy = canControlProxy;
         });
