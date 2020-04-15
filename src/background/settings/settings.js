@@ -49,11 +49,9 @@ const setSetting = async (id, value, force) => {
         return false;
     }
 
-    const proxyEnabled = isProxyEnabled();
-
     switch (id) {
         case SETTINGS_IDS.HANDLE_WEBRTC_ENABLED: {
-            webrtc.setWebRTCHandlingAllowed(value, proxyEnabled);
+            webrtc.setWebRTCHandlingAllowed(value, isProxyEnabled());
             break;
         }
         case SETTINGS_IDS.SELECTED_DNS_SERVER: {
@@ -71,17 +69,25 @@ const setSetting = async (id, value, force) => {
     return true;
 };
 
+/**
+ * Returns true if proxy was disabled, otherwise returns false
+ * @param force
+ * @param withCancel
+ * @returns {Promise<boolean>}
+ */
 const disableProxy = async (force, withCancel) => {
     const shouldApply = await setSetting(SETTINGS_IDS.PROXY_ENABLED, false, force);
 
     if (!shouldApply) {
-        return;
+        return false;
     }
 
     try {
         await switcher.turnOff(withCancel);
+        return true;
     } catch (e) {
         await setSetting(SETTINGS_IDS.PROXY_ENABLED, true, force);
+        return false;
     }
 };
 

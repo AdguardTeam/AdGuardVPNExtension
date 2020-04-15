@@ -9,6 +9,7 @@ import GlobalControl from './GlobalControl';
 import Status from './Status';
 import SiteInfo from './SiteInfo';
 import ServerError from './ServerError';
+import Upgrade from './Upgrade';
 
 import './settings.pcss';
 
@@ -38,14 +39,25 @@ const Settings = observer(() => {
         switcherEnabled,
         proxyEnabled,
         serverError,
+        hasLimitExceededError,
     } = settingsStore;
-    const { premiumPromoEnabled } = vpnStore;
+    const {
+        premiumPromoEnabled,
+        premiumPromoPage,
+    } = vpnStore;
 
     const settingsClass = classnames(
-        'settings settings--feedback',
+        'settings',
         { 'settings--active': proxyEnabled },
-        { 'settings--premium-promo': premiumPromoEnabled }
+        { 'settings--premium-promo': premiumPromoEnabled },
+        { 'settings--feedback': !premiumPromoEnabled }
     );
+
+    if (hasLimitExceededError) {
+        return (
+            <Upgrade premiumPromoPage={premiumPromoPage} />
+        );
+    }
 
     return (
         <div className={settingsClass}>

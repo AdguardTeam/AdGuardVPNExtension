@@ -46,6 +46,20 @@ const setIconDisabled = async (tabId) => {
 };
 
 /**
+ * Sets browser action icon when traffic is off
+ * @param tabId
+ * @returns {Promise<void>}
+ */
+const setIconTrafficOff = async (tabId) => {
+    const details = { path: Prefs.ICONS.TRAFFIC_OFF };
+    await setIcon(details);
+    if (tabId) {
+        details.tabId = tabId;
+        await setIcon(details);
+    }
+};
+
+/**
  * Sets browser action icon for tabs with excluded url
  * @param tabId
  * @returns {Promise<void>}
@@ -65,6 +79,7 @@ const actions = {
     setIconEnabled,
     setIconDisabled,
     setIconExcludedForUrl,
+    setIconTrafficOff,
 };
 
 export default actions;
