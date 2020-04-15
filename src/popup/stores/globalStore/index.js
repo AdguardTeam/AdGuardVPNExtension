@@ -18,8 +18,8 @@ class globalStore {
         // otherwise extension will freeze
         window.addEventListener('unload', () => {
             const reason = 'Popup closed';
-            // TODO remove canceling requests
-            adguard.popupData.cancelGettingPopupData(reason);
+            // TODO remove methods canceling requests
+            // adguard.popupData.cancelGettingPopupData(reason);
             adguard.endpoints.endpointsManager.cancelGetFastest(reason);
         });
     }

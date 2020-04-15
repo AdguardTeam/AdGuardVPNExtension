@@ -2,6 +2,7 @@ import browser from 'webextension-polyfill';
 import { MESSAGES_TYPES } from '../lib/constants';
 import auth from './auth';
 import popupData from './popupData';
+import endpoints from './endpoints';
 
 const messagesHandler = async (message, sender) => {
     const { type, data } = message;
@@ -13,10 +14,11 @@ const messagesHandler = async (message, sender) => {
         }
         case MESSAGES_TYPES.GET_POPUP_DATA: {
             const { url, numberOfTries } = data;
-            // TODO remove get popup data with cancel
-            const popupInitData = await popupData.getPopupDataRetry(url, numberOfTries);
-            console.log(popupInitData);
-            return popupInitData;
+            // TODO replace getPopupDataRetryWithCancel to getPopupDataRetry
+            return popupData.getPopupDataRetryWithCancel(url, numberOfTries);
+        }
+        case MESSAGES_TYPES.GET_VPN_FAILURE_PAGE: {
+            return endpoints.getVpnFailurePage();
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

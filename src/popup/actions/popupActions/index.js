@@ -1,5 +1,6 @@
 import { action } from 'mobx';
 import tabs from '../../../background/tabs';
+import messager from '../../../lib/messager';
 
 class PopupActions {
     @action
@@ -16,7 +17,7 @@ class PopupActions {
 
     @action
     openVpnFailurePage = async () => {
-        const vpnFailurePage = await adguard.endpoints.getVpnFailurePage();
+        const vpnFailurePage = await messager.getVpnFailurePage();
         await this.openTab(vpnFailurePage);
     };
 }
