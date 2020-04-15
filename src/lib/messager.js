@@ -78,6 +78,16 @@ class Messager {
         const type = MESSAGES_TYPES.GET_CAN_CONTROL_PROXY;
         return this.sendMessage(type);
     }
+
+    async enableProxy(force, withCancel) {
+        const type = MESSAGES_TYPES.ENABLE_PROXY;
+        return this.sendMessage(type, { force, withCancel });
+    }
+
+    async disableProxy(force, withCancel) {
+        const type = MESSAGES_TYPES.DISABLE_PROXY;
+        return this.sendMessage(type, { force, withCancel });
+    }
 }
 
 export default new Messager();

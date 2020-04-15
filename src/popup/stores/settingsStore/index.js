@@ -109,7 +109,7 @@ class SettingsStore {
         this.proxyEnablingStatus = REQUEST_STATUSES.PENDING;
         try {
             this.serverError = false;
-            await adguard.settings.enableProxy(force, withCancel);
+            await messager.enableProxy(force, withCancel);
         } catch (e) {
             runInAction(() => {
                 this.serverError = true;
@@ -123,7 +123,7 @@ class SettingsStore {
         this.ping = 0;
         this.proxyStats = {};
         this.proxyEnabled = false;
-        await adguard.settings.disableProxy(force, withCancel);
+        await messager.disableProxy(force, withCancel);
     };
 
     @action

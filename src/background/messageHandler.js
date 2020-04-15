@@ -9,6 +9,7 @@ import credentials from './credentials';
 import authCache from './authentication/authCache';
 import connectivity from './connectivity';
 import appStatus from './appStatus';
+import settings from './settings/settings';
 
 const messagesHandler = async (message, sender) => {
     const { type, data } = message;
@@ -61,6 +62,14 @@ const messagesHandler = async (message, sender) => {
         }
         case MESSAGES_TYPES.GET_CAN_CONTROL_PROXY: {
             return appStatus.canControlProxy();
+        }
+        case MESSAGES_TYPES.ENABLE_PROXY: {
+            const { force, withCancel } = data;
+            return settings.enableProxy(force, withCancel);
+        }
+        case MESSAGES_TYPES.DISABLE_PROXY: {
+            const { force, withCancel } = data;
+            return settings.disableProxy(force, withCancel);
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);
