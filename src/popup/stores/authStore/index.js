@@ -199,7 +199,7 @@ class AuthStore {
             return;
         }
         if (response.status === 'ok') {
-            adguard.authCache.clearCache();
+            await messager.clearAuthCache();
             await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
             runInAction(() => {
                 this.requestProcessState = REQUEST_STATUSES.DONE;
