@@ -3,6 +3,7 @@ import {
     action,
     runInAction,
     computed,
+    toJS,
 } from 'mobx';
 import debounce from 'lodash/debounce';
 import browser from 'webextension-polyfill';
@@ -128,7 +129,7 @@ class AuthStore {
     @action
     authenticate = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
-        const response = await adguard.auth.authenticate(this.credentials);
+        const response = await messager.authenticateUser(toJS(this.credentials));
 
         if (response.error) {
             runInAction(() => {

@@ -27,6 +27,7 @@ export const MESSAGES_TYPES = {
     SET_CURRENT_ENDPOINT: 'set.current.endpoint',
     GET_APP_ID: 'get.app.id',
     DEAUTHENTICATE_USER: 'deauthenticate.user',
+    AUTHENTICATE_USER: 'authenticate.user',
     UPDATE_AUTH_CACHE: 'update.auth.cache',
     GET_AUTH_CACHE: 'get.auth.cache',
     CLEAR_AUTH_CACHE: 'clear.auth.cache',

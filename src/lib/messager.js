@@ -44,6 +44,11 @@ class Messager {
         return this.sendMessage(type);
     }
 
+    async authenticateUser(credentials) {
+        const type = MESSAGES_TYPES.AUTHENTICATE_USER;
+        return this.sendMessage(type, { credentials });
+    }
+
     async deauthenticateUser() {
         const type = MESSAGES_TYPES.DEAUTHENTICATE_USER;
         return this.sendMessage(type);

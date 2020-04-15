@@ -39,6 +39,10 @@ const messagesHandler = async (message, sender) => {
             await credentials.persistVpnToken(null);
             break;
         }
+        case MESSAGES_TYPES.AUTHENTICATE_USER: {
+            const { credentials } = data;
+            return auth.authenticate(credentials);
+        }
         case MESSAGES_TYPES.UPDATE_AUTH_CACHE: {
             const { field, value } = data;
             authCache.updateCache(field, value);
