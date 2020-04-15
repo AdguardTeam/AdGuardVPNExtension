@@ -35,6 +35,7 @@ class PermissionsChecker {
             await this.credentials.gainValidVpnCredentials(true, false);
             // if no error, clear permissionError
             this.permissionsError.clearError();
+            notifier.notifyListeners(notifier.types.UPDATE_BROWSER_ACTION_ICON);
             log.info('Permissions were checked successfully');
         } catch (e) {
             await this.updatePermissionsErrorHandler(e);

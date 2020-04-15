@@ -5,13 +5,15 @@ import exclusions from './exclusions';
 import settings from './settings/settings';
 import tabs from './tabs';
 import { isHttp } from '../lib/string-utils';
+import auth from './auth';
+import permissionsError from './permissionsChecker/permissionsError';
 
 class BrowserActionIcon {
     constructor() {
         this.init();
     }
 
-    shouldUpdateIcon = (id, url) => {
+    shouldSetIconExcludedForUrl = (id, url) => {
         return id
             && url
             && isHttp(url)
@@ -20,14 +22,25 @@ class BrowserActionIcon {
 
     async updateIcon(tab) {
         const { id = null, url = null } = tab;
-        const proxyEnabled = settings.isProxyEnabled();
 
-        if (!proxyEnabled) {
+        const isUserAuthenticated = await auth.isAuthenticated();
+        if (!isUserAuthenticated) {
             await actions.setIconDisabled(id);
             return;
         }
 
-        if (this.shouldUpdateIcon(id, url)) {
+        const isLimitExceeded = permissionsError.isLimitExceeded();
+        if (isLimitExceeded) {
+            await actions.setIconTrafficOff(id);
+            return;
+        }
+
+        if (!settings.isProxyEnabled()) {
+            await actions.setIconDisabled(id);
+            return;
+        }
+
+        if (this.shouldSetIconExcludedForUrl(id, url)) {
             await actions.setIconExcludedForUrl(id);
             return;
         }
@@ -48,12 +61,19 @@ class BrowserActionIcon {
                 });
             }
         }, throttleTimeoutMs, { leading: false });
-        // eslint-disable-next-line max-len
-        notifier.addSpecifiedListener(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE, throttledUpdateIcon);
+
         notifier.addSpecifiedListener(notifier.types.PROXY_TURNED_OFF, throttledUpdateIcon);
         notifier.addSpecifiedListener(notifier.types.PROXY_TURNED_ON, throttledUpdateIcon);
         notifier.addSpecifiedListener(notifier.types.TAB_ACTIVATED, throttledUpdateIcon);
         notifier.addSpecifiedListener(notifier.types.TAB_UPDATED, throttledUpdateIcon);
+        notifier.addSpecifiedListener(
+            notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE,
+            throttledUpdateIcon
+        );
+        notifier.addSpecifiedListener(
+            notifier.types.UPDATE_BROWSER_ACTION_ICON,
+            throttledUpdateIcon
+        );
     };
 }
 

@@ -93,7 +93,7 @@ export const getClosestEndpointByCoordinates = (currentEndpoint, endpoints) => {
  * @returns {{unit: string, value: string}}
  */
 export const formatBytes = (bytes) => {
-    if (!bytes) {
+    if (!bytes || bytes <= 0) {
         return {
             value: '0.0',
             unit: 'KB',

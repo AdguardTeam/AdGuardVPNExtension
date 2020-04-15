@@ -9,6 +9,7 @@ import tabs from '../../../background/tabs';
 import log from '../../../lib/logger';
 import { getHostname, getProtocol, formatBytes } from '../../../lib/helpers';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
+import { ERROR_STATUSES } from '../../../lib/constants';
 
 class SettingsStore {
     @observable switcherEnabled = false;
@@ -286,6 +287,11 @@ class SettingsStore {
     @computed
     get hasGlobalError() {
         return !!this.globalError;
+    }
+
+    @computed
+    get hasLimitExceededError() {
+        return this.globalError && this.globalError.status === ERROR_STATUSES.LIMIT_EXCEEDED;
     }
 
     @computed

@@ -19,7 +19,7 @@ import settings from './settings/settings';
 import tabs from './tabs';
 import updateService from './updateService';
 import { vpnApi } from './api';
-import browserActionIcon from './BrowserActionIcon';
+import './BrowserActionIcon';
 
 global.adguard = {
     settings,
@@ -39,7 +39,6 @@ global.adguard = {
     credentials,
     nonRoutable,
     management,
-    browserActionIcon,
 };
 
 (async () => {

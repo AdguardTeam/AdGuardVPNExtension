@@ -26,7 +26,7 @@ class PopupData {
         const error = this.permissionsError.getError();
         const isRoutable = this.nonRoutable.isUrlRoutable(url);
         const vpnInfo = this.endpoints.getVpnInfo();
-        const endpointsList = this.endpoints.getEndpoints();
+        const endpointsList = await this.endpoints.getEndpoints();
         const selectedEndpoint = await this.endpoints.getSelectedEndpoint();
         const canControlProxy = await adguard.appStatus.canControlProxy();
         const isProxyEnabled = adguard.settings.isProxyEnabled();

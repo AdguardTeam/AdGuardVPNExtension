@@ -1,6 +1,8 @@
 import browser from 'webextension-polyfill';
 import uniqBy from 'lodash/uniqBy';
 import { vpnApi } from '../api';
+import { ERROR_STATUSES } from '../../lib/constants';
+import CustomError from '../../lib/CustomError';
 
 const getEndpoints = async (vpnToken) => {
     const endpointsObj = await vpnApi.getEndpoints(vpnToken);
@@ -110,6 +112,7 @@ const getVpnExtensionInfo = async (vpnToken) => {
         used_uploaded_bytes: usedUploadedBytes,
         max_downloaded_bytes: maxDownloadedBytes,
         max_uploaded_bytes: maxUploadedBytes,
+        renewal_traffic_date: renewalTrafficDate,
     } = info;
 
     return {
@@ -122,11 +125,43 @@ const getVpnExtensionInfo = async (vpnToken) => {
         usedUploadedBytes,
         maxDownloadedBytes,
         maxUploadedBytes,
+        renewalTrafficDate,
     };
 };
 
 const getVpnCredentials = async (appId, vpnToken) => {
-    const responseData = await vpnApi.getVpnCredentials(appId, vpnToken);
+    let responseData;
+    try {
+        responseData = await vpnApi.getVpnCredentials(appId, vpnToken);
+    } catch (e) {
+        if (e.status === 400) {
+            let errorMessageData;
+
+            // if unable to parse message throw error as is
+            try {
+                errorMessageData = JSON.parse(e.message);
+            } catch (parseError) {
+                throw e;
+            }
+
+            const {
+                license_status: licenseStatus,
+                time_expires_sec: timeExpiresSec,
+            } = errorMessageData;
+
+            if (licenseStatus === 'LIMIT_EXCEEDED') {
+                throw new CustomError(
+                    ERROR_STATUSES.LIMIT_EXCEEDED,
+                    JSON.stringify({
+                        licenseStatus,
+                        timeExpiresSec,
+                    })
+                );
+            } else {
+                throw e;
+            }
+        }
+    }
 
     const {
         license_status: licenseStatus,

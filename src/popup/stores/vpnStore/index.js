@@ -205,11 +205,6 @@ class VpnStore {
     }
 
     @computed
-    get insufficientTraffic() {
-        return this.remainingTraffic <= 0;
-    }
-
-    @computed
     get trafficUsingProgress() {
         const { maxDownloadedBytes } = this.vpnInfo;
         return Math.floor((this.remainingTraffic / maxDownloadedBytes) * 100);

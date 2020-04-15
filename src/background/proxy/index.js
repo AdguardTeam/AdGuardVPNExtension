@@ -78,7 +78,7 @@ class ExtensionProxy {
     }
 
     static errorHandler(details) {
-        log.error(JSON.stringify(details));
+        log.debug(JSON.stringify(details));
     }
 
     getConfig() {
