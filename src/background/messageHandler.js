@@ -3,6 +3,7 @@ import { MESSAGES_TYPES } from '../lib/constants';
 import auth from './auth';
 import popupData from './popupData';
 import endpoints from './endpoints';
+import actions from './actions';
 
 const messagesHandler = async (message, sender) => {
     const { type, data } = message;
@@ -19,6 +20,9 @@ const messagesHandler = async (message, sender) => {
         }
         case MESSAGES_TYPES.GET_VPN_FAILURE_PAGE: {
             return endpoints.getVpnFailurePage();
+        }
+        case MESSAGES_TYPES.OPEN_OPTIONS_PAGE: {
+            return actions.openOptionsPage();
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

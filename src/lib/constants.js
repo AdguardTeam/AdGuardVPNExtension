@@ -23,6 +23,7 @@ export const MESSAGES_TYPES = {
     // popup -> background
     GET_POPUP_DATA: 'get.popup.data',
     GET_VPN_FAILURE_PAGE: 'get.vpn.failure.page',
+    OPEN_OPTIONS_PAGE: 'open.options.page',
 };
 
 export const ERROR_STATUSES = {

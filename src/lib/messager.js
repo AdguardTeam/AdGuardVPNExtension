@@ -15,6 +15,11 @@ class Messager {
         const type = MESSAGES_TYPES.GET_VPN_FAILURE_PAGE;
         return this.sendMessage(type);
     }
+
+    async openOptionsPage() {
+        const type = MESSAGES_TYPES.OPEN_OPTIONS_PAGE;
+        return this.sendMessage(type);
+    }
 }
 
 export default new Messager();
