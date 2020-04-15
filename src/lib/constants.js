@@ -25,6 +25,8 @@ export const MESSAGES_TYPES = {
     GET_VPN_FAILURE_PAGE: 'get.vpn.failure.page',
     OPEN_OPTIONS_PAGE: 'open.options.page',
     SET_CURRENT_ENDPOINT: 'set.current.endpoint',
+    GET_APP_ID: 'get.app.id',
+    DEAUTHENTICATE_USER: 'deauthenticate.user',
 };
 
 export const ERROR_STATUSES = {

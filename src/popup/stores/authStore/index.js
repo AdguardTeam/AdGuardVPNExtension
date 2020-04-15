@@ -7,6 +7,7 @@ import {
 import debounce from 'lodash/debounce';
 import browser from 'webextension-polyfill';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
+import messager from '../../../lib/messager';
 
 const AUTH_STEPS = {
     CHECK_EMAIL: 'checkEmail',
@@ -163,7 +164,7 @@ class AuthStore {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
 
         // TODO [maximtop] make possible for userLookup to receive just email
-        const appId = adguard.credentials.getAppId();
+        const appId = await messager.getAppId();
         const response = await adguard.auth.userLookup(this.credentials.username, appId);
 
         if (response.error) {
@@ -230,8 +231,7 @@ class AuthStore {
 
     @action
     deauthenticate = async () => {
-        await adguard.auth.deauthenticate();
-        await adguard.credentials.persistVpnToken(null);
+        await messager.deauthenticateUser();
         await this.rootStore.settingsStore.setProxyState(false);
         runInAction(() => {
             this.setDefaults();

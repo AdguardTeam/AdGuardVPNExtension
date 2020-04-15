@@ -1,9 +1,22 @@
 import browser from 'webextension-polyfill';
 import { MESSAGES_TYPES } from './constants';
+import log from './logger';
 
 class Messager {
-    sendMessage(type, data) {
-        return browser.runtime.sendMessage({ type, data });
+    async sendMessage(type, data) {
+        log.debug(`Request type: "${type}"`);
+        if (data) {
+            log.debug('Request data:', data);
+        }
+
+        const response = await browser.runtime.sendMessage({ type, data });
+
+        if (response) {
+            log.debug(`Response type: "${type}"`);
+            log.debug('Response data:', response);
+        }
+
+        return response;
     }
 
     async getPopupData(url, numberOfTries) {
@@ -24,6 +37,16 @@ class Messager {
     async setCurrentEndpoint(endpoint) {
         const type = MESSAGES_TYPES.SET_CURRENT_ENDPOINT;
         return this.sendMessage(type, { endpoint });
+    }
+
+    async getAppId() {
+        const type = MESSAGES_TYPES.GET_APP_ID;
+        return this.sendMessage(type);
+    }
+
+    async deauthenticateUser() {
+        const type = MESSAGES_TYPES.DEAUTHENTICATE_USER;
+        return this.sendMessage(type);
     }
 }
 
