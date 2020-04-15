@@ -6,6 +6,7 @@ import {
     toJS,
 } from 'mobx';
 import { REQUEST_STATUSES } from '../consts';
+import messager from '../../../lib/messager';
 
 class VpnStore {
     constructor(rootStore) {
@@ -70,7 +71,7 @@ class VpnStore {
         if (!selectedEndpoint) {
             throw new Error(`No endpoint with id: "${id}" found`);
         }
-        await adguard.proxy.setCurrentEndpoint(toJS(selectedEndpoint));
+        await messager.setCurrentEndpoint(toJS(selectedEndpoint));
         runInAction(() => {
             this.selectedEndpoint = { ...selectedEndpoint, selected: true };
         });

@@ -24,6 +24,7 @@ export const MESSAGES_TYPES = {
     GET_POPUP_DATA: 'get.popup.data',
     GET_VPN_FAILURE_PAGE: 'get.vpn.failure.page',
     OPEN_OPTIONS_PAGE: 'open.options.page',
+    SET_CURRENT_ENDPOINT: 'set.current.endpoint',
 };
 
 export const ERROR_STATUSES = {

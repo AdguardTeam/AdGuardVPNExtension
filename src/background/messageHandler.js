@@ -4,6 +4,7 @@ import auth from './auth';
 import popupData from './popupData';
 import endpoints from './endpoints';
 import actions from './actions';
+import proxy from './proxy';
 
 const messagesHandler = async (message, sender) => {
     const { type, data } = message;
@@ -23,6 +24,10 @@ const messagesHandler = async (message, sender) => {
         }
         case MESSAGES_TYPES.OPEN_OPTIONS_PAGE: {
             return actions.openOptionsPage();
+        }
+        case MESSAGES_TYPES.SET_CURRENT_ENDPOINT: {
+            const { endpoint } = data;
+            return proxy.setCurrentEndpoint(endpoint);
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

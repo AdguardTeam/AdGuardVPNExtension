@@ -20,6 +20,11 @@ class Messager {
         const type = MESSAGES_TYPES.OPEN_OPTIONS_PAGE;
         return this.sendMessage(type);
     }
+
+    async setCurrentEndpoint(endpoint) {
+        const type = MESSAGES_TYPES.SET_CURRENT_ENDPOINT;
+        return this.sendMessage(type, { endpoint });
+    }
 }
 
 export default new Messager();
