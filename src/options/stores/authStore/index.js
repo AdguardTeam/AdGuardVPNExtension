@@ -86,7 +86,7 @@ class AuthStore {
 
     @action
     getAuthCacheFromBackground = () => {
-        const { username, password, step } = adguard.authCache.getAuthCache();
+        const { username, password, step } = adguard.authCache.getCache();
         runInAction(() => {
             this.credentials = { ...this.credentials, username, password };
             if (step) {
@@ -129,7 +129,7 @@ class AuthStore {
         }
 
         if (response.status === 'ok') {
-            adguard.authCache.clearAuthCache();
+            adguard.authCache.clearCache();
             await this.rootStore.globalStore.getOptionsData();
             runInAction(() => {
                 this.requestProcessState = REQUEST_STATUSES.DONE;
@@ -161,7 +161,7 @@ class AuthStore {
             return;
         }
         if (response.status === 'ok') {
-            adguard.authCache.clearAuthCache();
+            adguard.authCache.clearCache();
             await this.rootStore.globalStore.getOptionsData();
             runInAction(() => {
                 this.requestProcessState = REQUEST_STATUSES.DONE;
