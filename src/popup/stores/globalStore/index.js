@@ -14,14 +14,6 @@ class globalStore {
 
     constructor(rootStore) {
         this.rootStore = rootStore;
-        // If popup closes before popup data was received, cancel receiving on the background page
-        // otherwise extension will freeze
-        window.addEventListener('unload', () => {
-            // TODO remove methods canceling requests
-            // const reason = 'Popup closed';
-            // adguard.popupData.cancelGettingPopupData(reason);
-            // adguard.endpoints.endpointsManager.cancelGetFastest(reason);
-        });
     }
 
     @action

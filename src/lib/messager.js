@@ -68,6 +68,11 @@ class Messager {
         const type = MESSAGES_TYPES.CLEAR_AUTH_CACHE;
         return this.sendMessage(type);
     }
+
+    async getCurrentEndpointPing() {
+        const type = MESSAGES_TYPES.GET_CURRENT_ENDPOINT_PING;
+        return this.sendMessage(type);
+    }
 }
 
 export default new Messager();

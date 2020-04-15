@@ -9,10 +9,10 @@ import './endpoint.pcss';
 const CurrentEndpoint = observer((props) => {
     const { vpnStore, settingsStore } = useContext(rootStore);
 
-    const updatePing = () => {
+    const updatePing = async () => {
         const UPDATE_INTERVAL = 1000;
         // first time get immediately
-        settingsStore.getProxyPing();
+        await settingsStore.getProxyPing();
 
         // get once per specified update interval
         const intervalId = setInterval(async () => {
@@ -25,7 +25,9 @@ const CurrentEndpoint = observer((props) => {
     };
 
     useEffect(() => {
-        return updatePing();
+        (async () => {
+            await updatePing();
+        })();
     }, []);
 
     const {

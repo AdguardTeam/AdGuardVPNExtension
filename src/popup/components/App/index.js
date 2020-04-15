@@ -67,7 +67,7 @@ const App = observer(() => {
                 }
                 case MESSAGES_TYPES.EXTENSION_PROXY_ENABLED: {
                     await settingsStore.getProxyStats();
-                    settingsStore.getProxyPing();
+                    await settingsStore.getProxyPing();
                     settingsStore.setProxyEnabled(true);
                     break;
                 }

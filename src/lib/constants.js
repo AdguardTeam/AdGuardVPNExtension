@@ -31,6 +31,7 @@ export const MESSAGES_TYPES = {
     UPDATE_AUTH_CACHE: 'update.auth.cache',
     GET_AUTH_CACHE: 'get.auth.cache',
     CLEAR_AUTH_CACHE: 'clear.auth.cache',
+    GET_CURRENT_ENDPOINT_PING: 'get.current.endpoint.ping',
 };
 
 export const ERROR_STATUSES = {

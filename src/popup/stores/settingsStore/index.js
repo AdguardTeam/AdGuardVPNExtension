@@ -10,6 +10,7 @@ import log from '../../../lib/logger';
 import { getHostname, getProtocol, formatBytes } from '../../../lib/helpers';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
 import { ERROR_STATUSES } from '../../../lib/constants';
+import messager from '../../../lib/messager';
 
 class SettingsStore {
     @observable switcherEnabled = false;
@@ -53,8 +54,11 @@ class SettingsStore {
     }
 
     @action
-    getProxyPing = () => {
-        this.ping = adguard.connectivity.endpointConnectivity.getPing();
+    getProxyPing = async () => {
+        const currentEndpointPing = await messager.getCurrentEndpointPing();
+        runInAction(() => {
+            this.ping = currentEndpointPing;
+        });
     };
 
     @action

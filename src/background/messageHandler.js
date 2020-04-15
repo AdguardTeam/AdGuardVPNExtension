@@ -7,6 +7,7 @@ import actions from './actions';
 import proxy from './proxy';
 import credentials from './credentials';
 import authCache from './authentication/authCache';
+import connectivity from './connectivity';
 
 const messagesHandler = async (message, sender) => {
     const { type, data } = message;
@@ -53,6 +54,9 @@ const messagesHandler = async (message, sender) => {
         }
         case MESSAGES_TYPES.CLEAR_AUTH_CACHE: {
             return authCache.clearCache();
+        }
+        case MESSAGES_TYPES.GET_CURRENT_ENDPOINT_PING: {
+            return connectivity.endpointConnectivity.getPing();
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);
