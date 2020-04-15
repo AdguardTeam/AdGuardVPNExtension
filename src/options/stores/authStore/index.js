@@ -81,7 +81,7 @@ class AuthStore {
         this.resetError();
         this.credentials[field] = value;
         this.validate(field, value);
-        adguard.authCache.updateAuthCache(field, value);
+        adguard.authCache.updateCache(field, value);
     };
 
     @action
@@ -205,7 +205,7 @@ class AuthStore {
     @action switchStep = (step) => {
         this.step = step;
         this.resetError();
-        adguard.authCache.updateAuthCache('step', step);
+        adguard.authCache.updateCache('step', step);
     };
 
     @action showRegistration = () => {

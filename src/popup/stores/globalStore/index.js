@@ -17,10 +17,10 @@ class globalStore {
         // If popup closes before popup data was received, cancel receiving on the background page
         // otherwise extension will freeze
         window.addEventListener('unload', () => {
-            const reason = 'Popup closed';
             // TODO remove methods canceling requests
+            // const reason = 'Popup closed';
             // adguard.popupData.cancelGettingPopupData(reason);
-            adguard.endpoints.endpointsManager.cancelGetFastest(reason);
+            // adguard.endpoints.endpointsManager.cancelGetFastest(reason);
         });
     }
 
@@ -35,11 +35,6 @@ class globalStore {
 
         try {
             const popupData = await messager.getPopupData(tab.url, numberOfTries);
-            console.log(popupData);
-            // const popupData = await adguard.popupData.getPopupDataRetryWithCancel(
-            //     currentTab.url,
-            //     retryNum
-            // );
 
             const {
                 vpnInfo,

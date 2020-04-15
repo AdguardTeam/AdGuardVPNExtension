@@ -19,7 +19,7 @@ function AuthCache() {
      * @param {string} field
      * @param {string} value
      */
-    const updateAuthCache = (field, value) => {
+    const updateCache = (field, value) => {
         authStorage[field] = value;
     };
 
@@ -30,7 +30,7 @@ function AuthCache() {
     const getAuthCache = () => authStorage;
 
     return {
-        updateAuthCache,
+        updateCache,
         getAuthCache,
         clearAuthCache,
     };

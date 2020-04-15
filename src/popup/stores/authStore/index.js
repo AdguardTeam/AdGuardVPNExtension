@@ -82,11 +82,11 @@ class AuthStore {
     }, 500);
 
     @action
-    onCredentialsChange = (field, value) => {
+    onCredentialsChange = async (field, value) => {
         this.resetError();
         this.credentials[field] = value;
         this.validate(field, value);
-        adguard.authCache.updateAuthCache(field, value);
+        await messager.updateAuthCache(field, value);
     };
 
     @action
@@ -151,10 +151,10 @@ class AuthStore {
         }
 
         if (response.status === '2fa_required') {
-            runInAction(() => {
+            runInAction(async () => {
                 this.requestProcessState = REQUEST_STATUSES.DONE;
                 this.need2fa = true;
-                this.switchStep(this.STEPS.TWO_FACTOR);
+                await this.switchStep(this.STEPS.TWO_FACTOR);
             });
         }
     };
@@ -176,9 +176,9 @@ class AuthStore {
         }
 
         if (response.canRegister) {
-            this.switchStep(this.STEPS.REGISTRATION);
+            await this.switchStep(this.STEPS.REGISTRATION);
         } else {
-            this.switchStep(this.STEPS.SIGN_IN);
+            await this.switchStep(this.STEPS.SIGN_IN);
         }
 
         runInAction(() => {
@@ -245,25 +245,15 @@ class AuthStore {
     };
 
     @action
-    switchStep = (step) => {
+    switchStep = async (step) => {
         this.step = step;
         this.resetError();
-        adguard.authCache.updateAuthCache('step', step);
+        await messager.updateAuthCache('step', step);
     };
 
     @action
-    showRegistration = () => {
-        this.switchStep(AUTH_STEPS.REGISTRATION);
-    };
-
-    @action
-    showSignIn = () => {
-        this.switchStep(AUTH_STEPS.SIGN_IN);
-    };
-
-    @action
-    showCheckEmail = () => {
-        this.switchStep(AUTH_STEPS.CHECK_EMAIL);
+    showCheckEmail = async () => {
+        await this.switchStep(AUTH_STEPS.CHECK_EMAIL);
     };
 }
 

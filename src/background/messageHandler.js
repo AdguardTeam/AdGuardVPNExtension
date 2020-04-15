@@ -6,6 +6,7 @@ import endpoints from './endpoints';
 import actions from './actions';
 import proxy from './proxy';
 import credentials from './credentials';
+import authCache from './authentication/authCache';
 
 const messagesHandler = async (message, sender) => {
     const { type, data } = message;
@@ -36,12 +37,16 @@ const messagesHandler = async (message, sender) => {
         case MESSAGES_TYPES.DEAUTHENTICATE_USER: {
             await auth.deauthenticate();
             await credentials.persistVpnToken(null);
-            return Promise.resolve();
+            break;
+        }
+        case MESSAGES_TYPES.UPDATE_AUTH_CACHE: {
+            const { field, value } = data;
+            authCache.updateCache(field, value);
+            break;
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);
     }
-    // TODO check if it works if return something else
     return Promise.resolve();
 };
 

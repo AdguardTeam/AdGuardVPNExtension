@@ -48,6 +48,11 @@ class Messager {
         const type = MESSAGES_TYPES.DEAUTHENTICATE_USER;
         return this.sendMessage(type);
     }
+
+    async updateAuthCache(field, value) {
+        const type = MESSAGES_TYPES.UPDATE_AUTH_CACHE;
+        return this.sendMessage(type, { field, value });
+    }
 }
 
 export default new Messager();

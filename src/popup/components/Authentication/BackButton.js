@@ -5,8 +5,8 @@ import rootStore from '../../stores';
 function BackButton() {
     const { authStore } = useContext(rootStore);
 
-    const handleBackClick = () => {
-        authStore.showCheckEmail();
+    const handleBackClick = async () => {
+        await authStore.showCheckEmail();
     };
 
     return (
