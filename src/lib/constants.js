@@ -39,6 +39,7 @@ export const MESSAGES_TYPES = {
     GET_IS_EXCLUDED: 'get.is.excluded',
     CHECK_EMAIL: 'check.email',
     DISABLE_OTHER_EXTENSIONS: 'disable.other.extensions',
+    REGISTER_USER: 'register.user',
 };
 
 export const ERROR_STATUSES = {

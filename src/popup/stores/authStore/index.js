@@ -188,7 +188,7 @@ class AuthStore {
     @action
     register = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
-        const response = await adguard.auth.register(this.credentials);
+        const response = await messager.registerUser(this.credentials);
         if (response.error) {
             runInAction(() => {
                 this.requestProcessState = REQUEST_STATUSES.ERROR;

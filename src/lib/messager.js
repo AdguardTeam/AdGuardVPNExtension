@@ -108,6 +108,11 @@ class Messager {
         const type = MESSAGES_TYPES.DISABLE_OTHER_EXTENSIONS;
         return this.sendMessage(type);
     }
+
+    async registerUser(credentials) {
+        const type = MESSAGES_TYPES.REGISTER_USER;
+        return this.sendMessage(type, { credentials });
+    }
 }
 
 export default new Messager();

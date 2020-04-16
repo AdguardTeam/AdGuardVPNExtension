@@ -91,6 +91,10 @@ const messageHandler = async (message, sender) => {
             await management.turnOffProxyExtensions();
             break;
         }
+        case MESSAGES_TYPES.REGISTER_USER: {
+            const { credentials } = data;
+            return auth.register(credentials);
+        }
         default:
             throw new Error(`Unknown message type received: ${type}`);
     }
