@@ -143,6 +143,11 @@ class Messager {
         const type = MESSAGES_TYPES.GET_SETTING_VALUE;
         return this.sendMessage(type, { settingId });
     }
+
+    async setSetting(settingId, value) {
+        const type = MESSAGES_TYPES.SET_SETTING_VALUE;
+        return this.sendMessage(type, { settingId, value });
+    }
 }
 
 export default new Messager();

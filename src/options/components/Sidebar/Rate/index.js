@@ -15,8 +15,8 @@ const Rate = observer(() => {
         isRateVisible,
     } = settingsStore;
 
-    const handleHideRate = () => {
-        hideRate();
+    const handleHideRate = async () => {
+        await hideRate();
     };
 
     const handleChange = (e) => {

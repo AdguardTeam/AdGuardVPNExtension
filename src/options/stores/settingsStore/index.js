@@ -150,7 +150,7 @@ class SettingsStore {
 
     @action
     hideRate = async () => {
-        await adguard.settings.setSetting(SETTINGS_IDS.RATE_SHOW, false);
+        await messager.setSetting(SETTINGS_IDS.RATE_SHOW, false);
         runInAction(() => {
             this.isRateVisible = false;
         });
@@ -158,7 +158,7 @@ class SettingsStore {
 
     @action
     disableProxy = async () => {
-        await adguard.settings.disableProxy(true, true);
+        await messager.disableProxy(true, true);
     };
 
     @action
@@ -173,7 +173,7 @@ class SettingsStore {
 
     @action
     setWebRTCValue = async (value) => {
-        await adguard.settings.setSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED, value);
+        await messager.setSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED, value);
         runInAction(() => {
             this.webRTCEnabled = value;
         });
@@ -189,7 +189,7 @@ class SettingsStore {
 
     @action
     setContextMenusValue = async (value) => {
-        await adguard.settings.setSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED, value);
+        await messager.setSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED, value);
         runInAction(() => {
             this.contextMenusEnabled = value;
         });
@@ -205,7 +205,7 @@ class SettingsStore {
 
     @action
     setDnsServer = async (value) => {
-        await adguard.settings.setSetting(SETTINGS_IDS.SELECTED_DNS_SERVER, value);
+        await messager.setSetting(SETTINGS_IDS.SELECTED_DNS_SERVER, value);
         runInAction(() => {
             this.dnsServer = value;
         });

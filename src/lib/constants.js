@@ -44,6 +44,7 @@ export const MESSAGES_TYPES = {
     CHECK_PERMISSIONS: 'check.permissions',
     GET_EXCLUSIONS_INVERTED: 'get.exclusions.inverted',
     GET_SETTING_VALUE: 'get.setting.value',
+    SET_SETTING_VALUE: 'set.setting.value',
 };
 
 export const ERROR_STATUSES = {
