@@ -133,7 +133,7 @@ class SettingsStore {
 
     @action
     getUsername = async () => {
-        const username = await adguard.credentials.getUsername();
+        const username = await messager.getUsername();
 
         runInAction(() => {
             this.currentUsername = username;

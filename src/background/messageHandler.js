@@ -126,6 +126,9 @@ const messageHandler = async (message, sender) => {
             const { settingId, value } = data;
             return settings.setSetting(settingId, value);
         }
+        case MESSAGES_TYPES.GET_USERNAME: {
+            return credentials.getUsername();
+        }
         default:
             throw new Error(`Unknown message type received: ${type}`);
     }

@@ -153,6 +153,11 @@ class Messager {
         const type = MESSAGES_TYPES.GET_APP_VERSION;
         return this.sendMessage(type);
     }
+
+    async getUsername() {
+        const type = MESSAGES_TYPES.GET_USERNAME;
+        return this.sendMessage(type);
+    }
 }
 
 export default new Messager();
