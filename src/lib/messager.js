@@ -128,6 +128,11 @@ class Messager {
         const type = MESSAGES_TYPES.CLEAR_PERMISSIONS_ERROR;
         return this.sendMessage(type);
     }
+
+    async checkPermissions() {
+        const type = MESSAGES_TYPES.CHECK_PERMISSIONS;
+        return this.sendMessage(type);
+    }
 }
 
 export default new Messager();

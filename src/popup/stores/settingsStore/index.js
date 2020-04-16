@@ -239,7 +239,7 @@ class SettingsStore {
     async checkPermissions() {
         this.checkPermissionsState = REQUEST_STATUSES.PENDING;
         try {
-            await adguard.permissionsChecker.checkPermissions();
+            await messager.checkPermissions();
             await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
         } catch (e) {
             log.info(e.message);

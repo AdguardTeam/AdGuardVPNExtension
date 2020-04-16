@@ -43,6 +43,7 @@ export const MESSAGES_TYPES = {
     IS_AUTHENTICATED: 'is.authenticated',
     START_SOCIAL_AUTH: 'start.social.auth',
     CLEAR_PERMISSIONS_ERROR: 'clear.permissions.error',
+    CHECK_PERMISSIONS: 'check.permissions',
 };
 
 export const ERROR_STATUSES = {

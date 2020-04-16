@@ -13,6 +13,7 @@ import settings from './settings/settings';
 import exclusions from './exclusions';
 import management from './management';
 import permissionsError from './permissionsChecker/permissionsError';
+import permissionsChecker from './permissionsChecker';
 
 const messageHandler = async (message, sender) => {
     const { type, data } = message;
@@ -105,6 +106,10 @@ const messageHandler = async (message, sender) => {
         }
         case MESSAGES_TYPES.CLEAR_PERMISSIONS_ERROR: {
             permissionsError.clearError();
+            break;
+        }
+        case MESSAGES_TYPES.CHECK_PERMISSIONS: {
+            await permissionsChecker.checkPermissions();
             break;
         }
         default:
