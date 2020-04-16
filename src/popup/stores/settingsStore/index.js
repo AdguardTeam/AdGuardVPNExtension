@@ -7,7 +7,7 @@ import {
 
 import tabs from '../../../background/tabs';
 import log from '../../../lib/logger';
-import { getHostname, getProtocol, formatBytes } from '../../../lib/helpers';
+import { getHostname, getProtocol } from '../../../lib/helpers';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
 import { ERROR_STATUSES } from '../../../lib/constants';
 import messager from '../../../lib/messager';
@@ -24,8 +24,6 @@ class SettingsStore {
     @observable isExcluded;
 
     @observable currentTabHostname;
-
-    @observable proxyStats;
 
     @observable ping = 0;
 
@@ -121,7 +119,6 @@ class SettingsStore {
     @action
     disableProxy = async (force = false, withCancel = false) => {
         this.ping = 0;
-        this.proxyStats = {};
         this.proxyEnabled = false;
         await messager.disableProxy(force, withCancel);
     };
@@ -224,27 +221,9 @@ class SettingsStore {
     };
 
     @action
-    getProxyStats = async () => {
-        const stats = await adguard.connectivity.endpointConnectivity.getStats();
-        runInAction(() => {
-            this.proxyStats = stats;
-        });
-    };
-
-    @action
     setIsRoutable = (value) => {
         this.isRoutable = value;
     };
-
-    @computed
-    get stats() {
-        let { bytesDownloaded, bytesUploaded } = this.proxyEnabled && !this.proxyIsEnabling
-            ? this.proxyStats || {}
-            : {};
-        bytesDownloaded = formatBytes(bytesDownloaded);
-        bytesUploaded = formatBytes(bytesUploaded);
-        return { bytesDownloaded, bytesUploaded };
-    }
 
     @action
     setGlobalError(data) {
