@@ -264,7 +264,7 @@ class SettingsStore {
 
     @action
     async disableOtherProxyExtensions() {
-        await adguard.management.turnOffProxyExtensions();
+        await messager.disableOtherExtensions();
         await this.checkProxyControl();
     }
 

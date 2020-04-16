@@ -103,6 +103,11 @@ class Messager {
         const type = MESSAGES_TYPES.CHECK_EMAIL;
         return this.sendMessage(type, { email });
     }
+
+    async disableOtherExtensions() {
+        const type = MESSAGES_TYPES.DISABLE_OTHER_EXTENSIONS;
+        return this.sendMessage(type);
+    }
 }
 
 export default new Messager();

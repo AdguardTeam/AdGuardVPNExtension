@@ -11,6 +11,7 @@ import connectivity from './connectivity';
 import appStatus from './appStatus';
 import settings from './settings/settings';
 import exclusions from './exclusions';
+import management from './management';
 
 const messageHandler = async (message, sender) => {
     const { type, data } = message;
@@ -85,6 +86,10 @@ const messageHandler = async (message, sender) => {
             const { email } = data;
             const appId = await credentials.getAppId();
             return auth.userLookup(email, appId);
+        }
+        case MESSAGES_TYPES.DISABLE_OTHER_EXTENSIONS: {
+            await management.turnOffProxyExtensions();
+            break;
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);
