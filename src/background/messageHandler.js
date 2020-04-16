@@ -80,6 +80,10 @@ const messageHandler = async (message, sender) => {
             const { url } = data;
             return exclusions.current.disableExclusionByUrl(url);
         }
+        case MESSAGES_TYPES.GET_IS_EXCLUDED: {
+            const { url } = data;
+            return exclusions.current.isExcluded(url);
+        }
         default:
             throw new Error(`Unknown message type received: ${type}`);
     }

@@ -37,6 +37,7 @@ export const MESSAGES_TYPES = {
     DISABLE_PROXY: 'disable.proxy',
     ADD_TO_EXCLUSIONS: 'add.to.exclusions',
     REMOVE_FROM_EXCLUSIONS: 'remove.from.exclusions',
+    GET_IS_EXCLUDED: 'get.is.excluded',
 };
 
 export const ERROR_STATUSES = {

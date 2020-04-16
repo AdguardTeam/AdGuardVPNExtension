@@ -184,7 +184,7 @@ class SettingsStore {
     checkIsExcluded = async () => {
         try {
             await this.getCurrentTabHostname();
-            const result = adguard.exclusions.current.isExcluded(this.currentTabHostname);
+            const result = await messager.getIsExcluded(this.currentTabHostname);
             runInAction(() => {
                 this.isExcluded = result;
             });

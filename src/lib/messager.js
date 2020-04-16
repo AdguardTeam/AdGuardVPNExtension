@@ -98,6 +98,11 @@ class Messager {
         const type = MESSAGES_TYPES.REMOVE_FROM_EXCLUSIONS;
         return this.sendMessage(type, { url });
     }
+
+    async getIsExcluded(url) {
+        const type = MESSAGES_TYPES.GET_IS_EXCLUDED;
+        return this.sendMessage(type, { url });
+    }
 }
 
 export default new Messager();
