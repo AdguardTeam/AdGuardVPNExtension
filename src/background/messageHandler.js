@@ -95,6 +95,9 @@ const messageHandler = async (message, sender) => {
             const { credentials } = data;
             return auth.register(credentials);
         }
+        case MESSAGES_TYPES.IS_AUTHENTICATED: {
+            return auth.isAuthenticated();
+        }
         default:
             throw new Error(`Unknown message type received: ${type}`);
     }

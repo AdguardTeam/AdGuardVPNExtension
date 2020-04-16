@@ -40,6 +40,7 @@ export const MESSAGES_TYPES = {
     CHECK_EMAIL: 'check.email',
     DISABLE_OTHER_EXTENSIONS: 'disable.other.extensions',
     REGISTER_USER: 'register.user',
+    IS_AUTHENTICATED: 'is.authenticated',
 };
 
 export const ERROR_STATUSES = {

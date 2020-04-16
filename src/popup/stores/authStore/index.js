@@ -211,7 +211,7 @@ class AuthStore {
     @action
     isAuthenticated = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
-        const result = await adguard.auth.isAuthenticated();
+        const result = await messager.isAuthenticated();
         if (result) {
             runInAction(() => {
                 this.authenticated = true;

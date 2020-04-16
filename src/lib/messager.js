@@ -113,6 +113,11 @@ class Messager {
         const type = MESSAGES_TYPES.REGISTER_USER;
         return this.sendMessage(type, { credentials });
     }
+
+    async isAuthenticated() {
+        const type = MESSAGES_TYPES.IS_AUTHENTICATED;
+        return this.sendMessage(type);
+    }
 }
 
 export default new Messager();
