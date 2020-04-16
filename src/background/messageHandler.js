@@ -115,6 +115,10 @@ const messageHandler = async (message, sender) => {
         case MESSAGES_TYPES.GET_EXCLUSIONS_INVERTED: {
             return exclusions.isInverted();
         }
+        case MESSAGES_TYPES.GET_SETTING_VALUE: {
+            const { settingId } = data;
+            return settings.getSetting(settingId);
+        }
         default:
             throw new Error(`Unknown message type received: ${type}`);
     }

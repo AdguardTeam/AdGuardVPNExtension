@@ -19,8 +19,6 @@ export const MESSAGES_TYPES = {
     EXCLUSIONS_UPDATED: 'exclusions.updated',
     EXTENSION_PROXY_ENABLED: 'proxy.extension.enabled',
     EXTENSION_PROXY_DISABLED: 'proxy.extension.disabled',
-
-    // popup -> background
     GET_POPUP_DATA: 'get.popup.data',
     GET_VPN_FAILURE_PAGE: 'get.vpn.failure.page',
     OPEN_OPTIONS_PAGE: 'open.options.page',
@@ -45,6 +43,7 @@ export const MESSAGES_TYPES = {
     CLEAR_PERMISSIONS_ERROR: 'clear.permissions.error',
     CHECK_PERMISSIONS: 'check.permissions',
     GET_EXCLUSIONS_INVERTED: 'get.exclusions.inverted',
+    GET_SETTING_VALUE: 'get.setting.value',
 };
 
 export const ERROR_STATUSES = {

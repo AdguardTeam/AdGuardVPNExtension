@@ -8,6 +8,7 @@ import {
 import log from '../../../lib/logger';
 import { SETTINGS_IDS } from '../../../lib/constants';
 import { DNS_DEFAULT } from '../../../background/dns/dnsConstants';
+import messager from '../../../lib/messager';
 
 class SettingsStore {
     @observable exclusions = {
@@ -141,7 +142,7 @@ class SettingsStore {
 
     @action
     checkRateStatus = async () => {
-        const value = await adguard.settings.getSetting(SETTINGS_IDS.RATE_SHOW);
+        const value = await messager.getSetting(SETTINGS_IDS.RATE_SHOW);
         runInAction(() => {
             this.isRateVisible = value;
         });
@@ -180,8 +181,10 @@ class SettingsStore {
 
     @action
     getWebRTCValue = async () => {
-        const value = await adguard.settings.getSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED);
-        this.setWebRTCValue(value);
+        const value = await messager.getSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED);
+        runInAction(() => {
+            this.webRTCEnabled = value;
+        });
     };
 
     @action
@@ -194,8 +197,10 @@ class SettingsStore {
 
     @action
     getContextMenusEnabled = async () => {
-        const value = await adguard.settings.getSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED);
-        this.setContextMenusValue(value);
+        const value = await messager.getSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED);
+        runInAction(() => {
+            this.contextMenusEnabled = value;
+        });
     };
 
     @action
@@ -208,8 +213,10 @@ class SettingsStore {
 
     @action
     getDnsServer = async () => {
-        const value = await adguard.settings.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER);
-        this.setDnsServer(value);
+        const value = await messager.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER);
+        runInAction(() => {
+            this.dnsServer = value;
+        });
     };
 }
 

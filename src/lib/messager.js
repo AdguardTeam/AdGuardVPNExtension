@@ -138,6 +138,11 @@ class Messager {
         const type = MESSAGES_TYPES.GET_EXCLUSIONS_INVERTED;
         return this.sendMessage(type);
     }
+
+    async getSetting(settingId) {
+        const type = MESSAGES_TYPES.GET_SETTING_VALUE;
+        return this.sendMessage(type, { settingId });
+    }
 }
 
 export default new Messager();
