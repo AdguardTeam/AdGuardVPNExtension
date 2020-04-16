@@ -25,7 +25,6 @@ export const MESSAGES_TYPES = {
     GET_VPN_FAILURE_PAGE: 'get.vpn.failure.page',
     OPEN_OPTIONS_PAGE: 'open.options.page',
     SET_CURRENT_ENDPOINT: 'set.current.endpoint',
-    GET_APP_ID: 'get.app.id',
     DEAUTHENTICATE_USER: 'deauthenticate.user',
     AUTHENTICATE_USER: 'authenticate.user',
     UPDATE_AUTH_CACHE: 'update.auth.cache',
@@ -38,6 +37,7 @@ export const MESSAGES_TYPES = {
     ADD_TO_EXCLUSIONS: 'add.to.exclusions',
     REMOVE_FROM_EXCLUSIONS: 'remove.from.exclusions',
     GET_IS_EXCLUDED: 'get.is.excluded',
+    CHECK_EMAIL: 'check.email',
 };
 
 export const ERROR_STATUSES = {

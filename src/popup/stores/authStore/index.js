@@ -164,9 +164,7 @@ class AuthStore {
     checkEmail = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
 
-        // TODO [maximtop] make possible for userLookup to receive just email
-        const appId = await messager.getAppId();
-        const response = await adguard.auth.userLookup(this.credentials.username, appId);
+        const response = await messager.checkEmail(this.credentials.username);
 
         if (response.error) {
             runInAction(() => {

@@ -39,11 +39,6 @@ class Messager {
         return this.sendMessage(type, { endpoint });
     }
 
-    async getAppId() {
-        const type = MESSAGES_TYPES.GET_APP_ID;
-        return this.sendMessage(type);
-    }
-
     async authenticateUser(credentials) {
         const type = MESSAGES_TYPES.AUTHENTICATE_USER;
         return this.sendMessage(type, { credentials });
@@ -102,6 +97,11 @@ class Messager {
     async getIsExcluded(url) {
         const type = MESSAGES_TYPES.GET_IS_EXCLUDED;
         return this.sendMessage(type, { url });
+    }
+
+    async checkEmail(email) {
+        const type = MESSAGES_TYPES.CHECK_EMAIL;
+        return this.sendMessage(type, { email });
     }
 }
 

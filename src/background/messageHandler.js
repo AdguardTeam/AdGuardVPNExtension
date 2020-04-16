@@ -35,9 +35,6 @@ const messageHandler = async (message, sender) => {
             const { endpoint } = data;
             return proxy.setCurrentEndpoint(endpoint);
         }
-        case MESSAGES_TYPES.GET_APP_ID: {
-            return credentials.getAppId();
-        }
         case MESSAGES_TYPES.DEAUTHENTICATE_USER: {
             await auth.deauthenticate();
             await credentials.persistVpnToken(null);
@@ -83,6 +80,11 @@ const messageHandler = async (message, sender) => {
         case MESSAGES_TYPES.GET_IS_EXCLUDED: {
             const { url } = data;
             return exclusions.current.isExcluded(url);
+        }
+        case MESSAGES_TYPES.CHECK_EMAIL: {
+            const { email } = data;
+            const appId = await credentials.getAppId();
+            return auth.userLookup(email, appId);
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);
