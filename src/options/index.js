@@ -6,6 +6,7 @@ import browser from 'webextension-polyfill';
 import App from './components/App';
 
 (async () => {
+    // TODO remove getBackgroundPage from options page
     const bgPage = await browser.runtime.getBackgroundPage();
     global.adguard = bgPage.adguard;
     ReactDOM.render(

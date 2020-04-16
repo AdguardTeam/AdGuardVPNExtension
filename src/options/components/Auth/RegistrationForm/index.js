@@ -19,13 +19,13 @@ const RegistrationForm = observer(() => {
         await authStore.register();
     };
 
-    const inputChangeHandler = (e) => {
+    const inputChangeHandler = async (e) => {
         const { target: { name, value } } = e;
-        authStore.onCredentialsChange(name, value);
+        await authStore.onCredentialsChange(name, value);
     };
 
-    const handleLoginClick = () => {
-        authStore.showSignIn();
+    const handleLoginClick = async () => {
+        await authStore.showSignIn();
     };
 
     return (

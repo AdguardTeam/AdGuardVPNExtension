@@ -79,7 +79,7 @@ const App = observer(() => {
                     break;
                 }
                 default: {
-                    log.debug('there is no such message type: ', type);
+                    log.debug('Undefined message type:', type);
                     break;
                 }
             }
