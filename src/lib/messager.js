@@ -123,6 +123,11 @@ class Messager {
         const type = MESSAGES_TYPES.START_SOCIAL_AUTH;
         return this.sendMessage(type, { social });
     }
+
+    async clearPermissionsError() {
+        const type = MESSAGES_TYPES.CLEAR_PERMISSIONS_ERROR;
+        return this.sendMessage(type);
+    }
 }
 
 export default new Messager();

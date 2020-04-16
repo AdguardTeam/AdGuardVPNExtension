@@ -12,6 +12,7 @@ import appStatus from './appStatus';
 import settings from './settings/settings';
 import exclusions from './exclusions';
 import management from './management';
+import permissionsError from './permissionsChecker/permissionsError';
 
 const messageHandler = async (message, sender) => {
     const { type, data } = message;
@@ -101,6 +102,10 @@ const messageHandler = async (message, sender) => {
         case MESSAGES_TYPES.START_SOCIAL_AUTH: {
             const { social } = data;
             return auth.startSocialAuth(social);
+        }
+        case MESSAGES_TYPES.CLEAR_PERMISSIONS_ERROR: {
+            permissionsError.clearError();
+            break;
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

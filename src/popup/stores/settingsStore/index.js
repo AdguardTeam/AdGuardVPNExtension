@@ -249,9 +249,10 @@ class SettingsStore {
         });
     }
 
-    @action clearPermissionError() {
+    @action
+    async clearPermissionError() {
         this.globalError = null;
-        adguard.permissionsError.clearError();
+        await messager.clearPermissionsError();
     }
 
     @computed

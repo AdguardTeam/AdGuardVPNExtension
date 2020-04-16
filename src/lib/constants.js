@@ -42,6 +42,7 @@ export const MESSAGES_TYPES = {
     REGISTER_USER: 'register.user',
     IS_AUTHENTICATED: 'is.authenticated',
     START_SOCIAL_AUTH: 'start.social.auth',
+    CLEAR_PERMISSIONS_ERROR: 'clear.permissions.error',
 };
 
 export const ERROR_STATUSES = {
