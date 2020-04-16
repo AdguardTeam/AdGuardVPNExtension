@@ -127,8 +127,8 @@ class SettingsStore {
     };
 
     @action
-    getVersion = () => {
-        this.appVersion = adguard.appStatus.version;
+    getVersion = async () => {
+        this.appVersion = await messager.getAppVersion();
     };
 
     @action

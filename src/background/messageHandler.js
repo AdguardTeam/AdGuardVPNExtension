@@ -119,6 +119,9 @@ const messageHandler = async (message, sender) => {
             const { settingId } = data;
             return settings.getSetting(settingId);
         }
+        case MESSAGES_TYPES.GET_APP_VERSION: {
+            return appStatus.version;
+        }
         case MESSAGES_TYPES.SET_SETTING_VALUE: {
             const { settingId, value } = data;
             return settings.setSetting(settingId, value);

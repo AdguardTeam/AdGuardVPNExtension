@@ -45,6 +45,7 @@ export const MESSAGES_TYPES = {
     GET_EXCLUSIONS_INVERTED: 'get.exclusions.inverted',
     GET_SETTING_VALUE: 'get.setting.value',
     SET_SETTING_VALUE: 'set.setting.value',
+    GET_APP_VERSION: 'get.app.version',
 };
 
 export const ERROR_STATUSES = {

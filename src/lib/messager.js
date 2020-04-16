@@ -148,6 +148,11 @@ class Messager {
         const type = MESSAGES_TYPES.SET_SETTING_VALUE;
         return this.sendMessage(type, { settingId, value });
     }
+
+    async getAppVersion() {
+        const type = MESSAGES_TYPES.GET_APP_VERSION;
+        return this.sendMessage(type);
+    }
 }
 
 export default new Messager();
