@@ -49,7 +49,7 @@ const SiteInfo = observer(() => {
             ),
         };
 
-        const actionRender = settingsStore.areExclusionsInverted()
+        const actionRender = settingsStore.exclusionsInverted
             ? nonRoutableActionsMap.selective
             : nonRoutableActionsMap.regular;
 
@@ -63,7 +63,7 @@ const SiteInfo = observer(() => {
         );
     }
 
-    if (!settingsStore.isExcluded && settingsStore.areExclusionsInverted() && canBeExcluded) {
+    if (!settingsStore.isExcluded && settingsStore.exclusionsInverted && canBeExcluded) {
         return (
             <Info
                 title={settingsStore.currentTabHostname}
@@ -83,7 +83,7 @@ const SiteInfo = observer(() => {
         );
     }
 
-    if (settingsStore.isExcluded && !settingsStore.areExclusionsInverted()) {
+    if (settingsStore.isExcluded && !settingsStore.exclusionsInverted) {
         return (
             <Info
                 title={settingsStore.currentTabHostname}

@@ -44,6 +44,7 @@ export const MESSAGES_TYPES = {
     START_SOCIAL_AUTH: 'start.social.auth',
     CLEAR_PERMISSIONS_ERROR: 'clear.permissions.error',
     CHECK_PERMISSIONS: 'check.permissions',
+    GET_EXCLUSIONS_INVERTED: 'get.exclusions.inverted',
 };
 
 export const ERROR_STATUSES = {

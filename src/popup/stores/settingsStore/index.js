@@ -191,10 +191,12 @@ class SettingsStore {
     };
 
     @action
-    areExclusionsInverted = () => {
-        this.exclusionsInverted = adguard.exclusions.isInverted();
-        return this.exclusionsInverted;
-    };
+    getExclusionsInverted = async () => {
+        const exclusionsInverted = await messager.getExclusionsInverted();
+        runInAction(() => {
+            this.exclusionsInverted = exclusionsInverted;
+        });
+    }
 
     @action
     getCurrentTabHostname = async () => {
@@ -257,7 +259,7 @@ class SettingsStore {
 
     @computed
     get displayNonRoutable() {
-        if (this.areExclusionsInverted()) {
+        if (this.exclusionsInverted) {
             return !this.isRoutable && this.isExcluded;
         }
         return !(this.isRoutable || this.isExcluded);

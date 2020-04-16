@@ -112,6 +112,9 @@ const messageHandler = async (message, sender) => {
             await permissionsChecker.checkPermissions();
             break;
         }
+        case MESSAGES_TYPES.GET_EXCLUSIONS_INVERTED: {
+            return exclusions.isInverted();
+        }
         default:
             throw new Error(`Unknown message type received: ${type}`);
     }

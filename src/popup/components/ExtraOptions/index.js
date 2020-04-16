@@ -41,9 +41,7 @@ const ExtraOptions = observer(() => {
         await popupActions.openTab(OTHER_PRODUCTS_URL);
     };
 
-    const { isExcluded, canBeExcluded, areExclusionsInverted } = settingsStore;
-
-    const exclusionsInverted = areExclusionsInverted();
+    const { isExcluded, canBeExcluded, exclusionsInverted } = settingsStore;
 
     const renderExclusionButton = (isExcluded, exclusionsInverted) => {
         const texts = {

@@ -133,6 +133,11 @@ class Messager {
         const type = MESSAGES_TYPES.CHECK_PERMISSIONS;
         return this.sendMessage(type);
     }
+
+    async getExclusionsInverted() {
+        const type = MESSAGES_TYPES.GET_EXCLUSIONS_INVERTED;
+        return this.sendMessage(type);
+    }
 }
 
 export default new Messager();
