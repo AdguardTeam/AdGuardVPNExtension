@@ -98,6 +98,10 @@ const messageHandler = async (message, sender) => {
         case MESSAGES_TYPES.IS_AUTHENTICATED: {
             return auth.isAuthenticated();
         }
+        case MESSAGES_TYPES.START_SOCIAL_AUTH: {
+            const { social } = data;
+            return auth.startSocialAuth(social);
+        }
         default:
             throw new Error(`Unknown message type received: ${type}`);
     }

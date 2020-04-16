@@ -114,8 +114,13 @@ class Messager {
         return this.sendMessage(type, { credentials });
     }
 
-    async isAuthenticated() {
+    async isAuthenticated(social) {
         const type = MESSAGES_TYPES.IS_AUTHENTICATED;
+        return this.sendMessage(type, { social });
+    }
+
+    async startSocialAuth() {
+        const type = MESSAGES_TYPES.START_SOCIAL_AUTH;
         return this.sendMessage(type);
     }
 }

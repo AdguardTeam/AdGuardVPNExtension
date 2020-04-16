@@ -239,7 +239,7 @@ class AuthStore {
 
     @action
     openSocialAuth = async (social) => {
-        await adguard.auth.startSocialAuth(social);
+        await messager.startSocialAuth(social);
         window.close();
     };
 

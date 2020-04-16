@@ -41,6 +41,7 @@ export const MESSAGES_TYPES = {
     DISABLE_OTHER_EXTENSIONS: 'disable.other.extensions',
     REGISTER_USER: 'register.user',
     IS_AUTHENTICATED: 'is.authenticated',
+    START_SOCIAL_AUTH: 'start.social.auth',
 };
 
 export const ERROR_STATUSES = {
