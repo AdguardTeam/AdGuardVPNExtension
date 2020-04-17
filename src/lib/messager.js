@@ -163,6 +163,11 @@ class Messager {
         const type = MESSAGES_TYPES.GET_EXCLUSIONS;
         return this.sendMessage(type);
     }
+
+    async setExclusionsMode(mode) {
+        const type = MESSAGES_TYPES.SET_EXCLUSIONS_MODE;
+        return this.sendMessage(type, { mode });
+    }
 }
 
 export default new Messager();

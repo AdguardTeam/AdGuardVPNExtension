@@ -122,6 +122,11 @@ const messageHandler = async (message, sender) => {
                 currentMode: exclusionsCurrentMode,
             };
         }
+        case MESSAGES_TYPES.SET_EXCLUSIONS_MODE: {
+            const { mode } = data;
+            await adguard.exclusions.setCurrentMode(mode);
+            break;
+        }
         case MESSAGES_TYPES.GET_EXCLUSIONS_INVERTED: {
             return exclusions.isInverted();
         }

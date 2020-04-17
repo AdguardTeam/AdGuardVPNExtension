@@ -44,6 +44,7 @@ export const MESSAGES_TYPES = {
     CHECK_PERMISSIONS: 'check.permissions',
     GET_EXCLUSIONS_INVERTED: 'get.exclusions.inverted',
     GET_EXCLUSIONS: 'get.exclusions',
+    SET_EXCLUSIONS_MODE: 'set.exclusions.mode',
     GET_SETTING_VALUE: 'get.setting.value',
     SET_SETTING_VALUE: 'set.setting.value',
     GET_APP_VERSION: 'get.app.version',

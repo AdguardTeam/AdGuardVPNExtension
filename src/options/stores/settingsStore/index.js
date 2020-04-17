@@ -162,9 +162,9 @@ class SettingsStore {
     };
 
     @action
-    toggleInverted = async (type) => {
-        this.exclusionsCurrentMode = type;
-        await adguard.exclusions.setCurrentMode(type);
+    toggleInverted = async (mode) => {
+        this.exclusionsCurrentMode = mode;
+        await messager.setExclusionsMode(mode);
     };
 
     exclusionsByType(exclusionsType) {
