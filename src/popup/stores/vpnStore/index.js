@@ -5,7 +5,6 @@ import {
     runInAction,
     toJS,
 } from 'mobx';
-import { REQUEST_STATUSES } from '../consts';
 import messager from '../../../lib/messager';
 
 class VpnStore {
@@ -18,10 +17,6 @@ class VpnStore {
     @observable pings = {};
 
     @observable _fastestEndpoints;
-
-    @observable gettingFastestStatus;
-
-    @observable endpointsGetState;
 
     @observable selectedEndpoint;
 
@@ -48,8 +43,9 @@ class VpnStore {
         if (!endpoints) {
             return;
         }
-        this.endpoints = endpoints;
-        this.requestFastestEndpoints();
+
+        this.endpoints.all = endpoints.all;
+        this._fastestEndpoints = endpoints.fastest;
     };
 
     @action
@@ -131,17 +127,8 @@ class VpnStore {
     }
 
     @action
-    async requestFastestEndpoints() {
-        const fastestPromise = this.endpoints?.fastest;
-        if (!fastestPromise) {
-            throw new Error('No promise received');
-        }
-        this.gettingFastestStatus = REQUEST_STATUSES.PENDING;
-        const fastestEndpoints = await fastestPromise;
-        runInAction(() => {
-            this._fastestEndpoints = fastestEndpoints;
-            this.gettingFastestStatus = REQUEST_STATUSES.DONE;
-        });
+    setFastestEndpoints(fastest) {
+        this._fastestEndpoints = fastest;
     }
 
     @computed
@@ -157,7 +144,7 @@ class VpnStore {
                     }
                     return { ...endpoint, selected: true, ping: endpointPing };
                 }
-                return endpoint;
+                return { ...endpoint };
             });
     }
 

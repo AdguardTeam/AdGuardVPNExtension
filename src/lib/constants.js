@@ -56,6 +56,7 @@ export const MESSAGES_TYPES = {
     GET_APP_VERSION: 'get.app.version',
     GET_USERNAME: 'get.username',
     GET_SELECTED_ENDPOINT: 'get.selected.endpoint',
+    FASTEST_ENDPOINTS_CALCULATED: 'fastest.endpoints.calculated',
 };
 
 export const ERROR_STATUSES = {

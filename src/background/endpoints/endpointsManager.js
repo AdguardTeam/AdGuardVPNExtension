@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import { MESSAGES_TYPES } from '../../lib/constants';
-import { asyncMapByChunks, identity, runWithCancel } from '../../lib/helpers';
-import log from '../../lib/logger';
+import { asyncMapByChunks, identity } from '../../lib/helpers';
 import browserApi from '../browserApi';
 import connectivity from '../connectivity';
 
@@ -30,13 +29,9 @@ class EndpointsManager {
     };
 
     /**
-     * Returns promise with fastest endpoints which resolves after measurement ping promise resolve
-     * Generator function is used here because it can be canceled.
-     * @param {Promise} measurePingsPromise
-     * @returns {Generator<*>}
+     * Returns fastest endpoints
      */
-    * getFastestGenerator(measurePingsPromise) {
-        yield measurePingsPromise;
+    getFastest() {
         const sortedPings = _.sortBy(Object.values(this.endpointsPings), ['ping']);
         const fastest = sortedPings
             .map(({ endpointId }) => {
@@ -47,23 +42,6 @@ class EndpointsManager {
             .map(this.enrichWithPing)
             .reduce(this.arrToObjConverter, {});
         return fastest;
-    }
-
-    async getFastest(measurePingsPromise) {
-        const { promise, cancel } = runWithCancel(
-            this.getFastestGenerator.bind(this),
-            measurePingsPromise
-        );
-
-        this.fastestCancel = cancel;
-        return promise
-            .catch((e) => log.warn(e.reason));
-    }
-
-    cancelGetFastest(reason) {
-        if (this.fastestCancel) {
-            this.fastestCancel(reason);
-        }
     }
 
     enrichWithPing = (endpoint) => {
@@ -83,22 +61,23 @@ class EndpointsManager {
     };
 
     /**
-     * Returns all endpoints and fastest endpoints promise in one object
+     * Returns all endpoints and fastest endpoints in one object
      * @param currentEndpointPromise - information about current endpoint stored in the promise
      * @param currentEndpointPingPromise - ping of current endpoint stored in the promise
-     * @returns {{all: *, fastest: Promise<*>} | null}
+     * @returns {{all: *, fastest: *} | null}
      */
     getEndpoints(currentEndpointPromise, currentEndpointPingPromise) {
         if (_.isEmpty(this.endpoints)) {
             return null;
         }
 
-        const measurePingsPromise = this.measurePings(
+        // Start pings determination
+        this.measurePings(
             currentEndpointPromise,
             currentEndpointPingPromise
         );
 
-        const fastest = this.getFastest(measurePingsPromise);
+        const fastest = this.getFastest();
         const all = this.getAll();
 
         return {
@@ -191,6 +170,12 @@ class EndpointsManager {
         );
 
         this.lastPingMeasurementTime = Date.now();
+
+        // When measuring finished, we can determine fastest
+        await browserApi.runtime.sendMessage({
+            type: MESSAGES_TYPES.FASTEST_ENDPOINTS_CALCULATED,
+            data: this.getFastest(),
+        });
     }
 }
 

@@ -56,6 +56,10 @@ const App = observer(() => {
                     vpnStore.setPing(data);
                     break;
                 }
+                case MESSAGES_TYPES.FASTEST_ENDPOINTS_CALCULATED: {
+                    vpnStore.setFastestEndpoints(data);
+                    break;
+                }
                 case MESSAGES_TYPES.CURRENT_ENDPOINT_UPDATED: {
                     vpnStore.setSelectedEndpoint(data);
                     break;
