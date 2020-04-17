@@ -164,7 +164,7 @@ class SettingsStore {
     @action
     toggleInverted = async (type) => {
         this.exclusionsCurrentMode = type;
-        await adguard.exclusions.setCurrentHandler(type);
+        await adguard.exclusions.setCurrentMode(type);
     };
 
     exclusionsByType(exclusionsType) {

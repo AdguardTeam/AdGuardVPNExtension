@@ -71,8 +71,8 @@ class Exclusions {
         this.settings.setExclusions(exclusionsRepository);
     };
 
-    async setCurrentHandler(type) {
-        switch (type) {
+    async setCurrentMode(mode) {
+        switch (mode) {
             case this.MODES.SELECTIVE: {
                 this.currentHandler = this.selectiveModeHandler;
                 this.inverted = true;
@@ -84,7 +84,7 @@ class Exclusions {
                 break;
             }
             default:
-                throw Error(`Wrong type received ${type}`);
+                throw Error(`Wrong type received ${mode}`);
         }
         await this.handleExclusionsUpdate();
     }

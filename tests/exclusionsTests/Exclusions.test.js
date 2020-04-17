@@ -80,10 +80,10 @@ describe('exclusions', () => {
             : exclusions.MODES.REGULAR;
         expect(exclusions.current.mode).toBe(expectedMode);
 
-        await exclusions.setCurrentHandler(exclusions.MODES.REGULAR);
+        await exclusions.setCurrentMode(exclusions.MODES.REGULAR);
         expect(exclusions.current.mode).toBe(exclusions.MODES.REGULAR);
 
-        await exclusions.setCurrentHandler(exclusions.MODES.SELECTIVE);
+        await exclusions.setCurrentMode(exclusions.MODES.SELECTIVE);
         expect(exclusions.current.mode).toBe(exclusions.MODES.SELECTIVE);
     });
 
@@ -97,7 +97,7 @@ describe('exclusions', () => {
     });
 
     it('should return true if hostname was added in current', async () => {
-        await exclusions.setCurrentHandler(exclusions.MODES.REGULAR);
+        await exclusions.setCurrentMode(exclusions.MODES.REGULAR);
 
         let exclusionsInStorage = settings.getExclusions();
         expect(exclusionsInStorage).toEqual({
@@ -118,7 +118,7 @@ describe('exclusions', () => {
         });
         expect(hasDomain).toBeTruthy();
 
-        await exclusions.setCurrentHandler(exclusions.MODES.SELECTIVE);
+        await exclusions.setCurrentMode(exclusions.MODES.SELECTIVE);
         expect(exclusions.current.isExcluded(blacklistedDomain)).toBeFalsy();
         exclusionsInStorage = settings.getExclusions();
         expect(exclusionsInStorage.selective).toEqual({});
