@@ -6,6 +6,7 @@ import classnames from 'classnames';
 import Form from './Form';
 import List from './List';
 import rootStore from '../../../stores';
+import { EXCLUSIONS_MODES } from '../../../../background/exclusions/exclusionsConstants';
 
 const Mode = observer(() => {
     const { settingsStore } = useContext(rootStore);
@@ -20,16 +21,16 @@ const Mode = observer(() => {
     };
 
     const modes = [
-        adguard.exclusions.MODES.REGULAR,
-        adguard.exclusions.MODES.SELECTIVE,
+        EXCLUSIONS_MODES.REGULAR,
+        EXCLUSIONS_MODES.SELECTIVE,
     ];
 
     const titles = {
-        [adguard.exclusions.MODES.REGULAR]: {
+        [EXCLUSIONS_MODES.REGULAR]: {
             title: browser.i18n.getMessage('settings_exclusion_regular_title'),
             description: browser.i18n.getMessage('settings_exclusion_regular_description'),
         },
-        [adguard.exclusions.MODES.SELECTIVE]: {
+        [EXCLUSIONS_MODES.SELECTIVE]: {
             title: browser.i18n.getMessage('settings_exclusion_selective_title'),
             description: browser.i18n.getMessage('settings_exclusion_selective_description'),
         },

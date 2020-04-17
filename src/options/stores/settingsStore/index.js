@@ -9,26 +9,27 @@ import log from '../../../lib/logger';
 import { SETTINGS_IDS } from '../../../lib/constants';
 import { DNS_DEFAULT } from '../../../background/dns/dnsConstants';
 import messager from '../../../lib/messager';
+import { EXCLUSIONS_MODES } from '../../../background/exclusions/exclusionsConstants';
 
 class SettingsStore {
     @observable exclusions = {
-        [adguard.exclusions.MODES.SELECTIVE]: [],
-        [adguard.exclusions.MODES.REGULAR]: [],
+        [EXCLUSIONS_MODES.SELECTIVE]: [],
+        [EXCLUSIONS_MODES.REGULAR]: [],
     };
 
     @observable exclusionsInputs = {
-        [adguard.exclusions.MODES.SELECTIVE]: '',
-        [adguard.exclusions.MODES.REGULAR]: '',
+        [EXCLUSIONS_MODES.SELECTIVE]: '',
+        [EXCLUSIONS_MODES.REGULAR]: '',
     };
 
     @observable exclusionsCheckboxes = {
-        [adguard.exclusions.MODES.SELECTIVE]: true,
-        [adguard.exclusions.MODES.REGULAR]: true,
+        [EXCLUSIONS_MODES.SELECTIVE]: true,
+        [EXCLUSIONS_MODES.REGULAR]: true,
     };
 
     @observable areFormsVisible = {
-        [adguard.exclusions.MODES.SELECTIVE]: false,
-        [adguard.exclusions.MODES.REGULAR]: false,
+        [EXCLUSIONS_MODES.SELECTIVE]: false,
+        [EXCLUSIONS_MODES.REGULAR]: false,
     };
 
     @observable isRateVisible = true;
@@ -48,12 +49,9 @@ class SettingsStore {
     // Options page actions
     @action
     getExclusions = () => {
-        const {
-            MODES, selective, regular, current,
-        } = adguard.exclusions;
-        this.exclusions[MODES.REGULAR] = regular.getExclusionsList();
-        this.exclusions[MODES.SELECTIVE] = selective.getExclusionsList();
-        this.currentExclusionsType = current.type;
+        this.exclusions[EXCLUSIONS_MODES.REGULAR] = adguard.exclusions.regular.getExclusionsList();
+        this.exclusions[EXCLUSIONS_MODES.SELECTIVE] = adguard.exclusions.selective.getExclusionsList();
+        this.currentExclusionsType = adguard.exclusions.current.type;
     };
 
     @action

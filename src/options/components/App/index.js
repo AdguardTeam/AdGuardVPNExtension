@@ -71,7 +71,7 @@ const App = observer(() => {
 
             switch (type) {
                 case MESSAGES_TYPES.EXCLUSIONS_UPDATED: {
-                    settingsStore.getExclusions();
+                    await settingsStore.getExclusions();
                     break;
                 }
                 case MESSAGES_TYPES.AUTHENTICATE_SOCIAL_SUCCESS: {

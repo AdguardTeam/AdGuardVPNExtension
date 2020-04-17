@@ -2,12 +2,10 @@ import ExclusionsHandler from './ExclusionsHandler';
 import log from '../../lib/logger';
 import { MESSAGES_TYPES } from '../../lib/constants';
 import notifier from '../../lib/notifier';
+import { EXCLUSIONS_MODES } from './exclusionsConstants';
 
 class Exclusions {
-    MODES = {
-        SELECTIVE: 'selective',
-        REGULAR: 'regular',
-    };
+    MODES = EXCLUSIONS_MODES;
 
     constructor(browser, proxy, settings) {
         this.browser = browser;
