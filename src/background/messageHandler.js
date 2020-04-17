@@ -17,11 +17,12 @@ import permissionsChecker from './permissionsChecker';
 import log from '../lib/logger';
 import notifier from '../lib/notifier';
 
+const eventListeners = {};
+
 const messageHandler = async (message, sender) => {
     const { type, data } = message;
 
     // Here we keep track of event listeners added through notifier
-    const eventListeners = {};
 
     switch (type) {
         case MESSAGES_TYPES.ADD_EVENT_LISTENER: {
