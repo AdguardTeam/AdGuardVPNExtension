@@ -57,47 +57,42 @@ class SettingsStore {
     };
 
     @action
-    removeFromExclusions = async (exclusionsType, hostName) => {
-        const handler = adguard.exclusions.getHandler(exclusionsType);
+    removeFromExclusions = async (mode, id) => {
         try {
-            await handler.removeFromExclusions(hostName);
+            await messager.removeExclusionByMode(mode, id);
         } catch (e) {
             log.error(e);
         }
     };
 
     @action
-    toggleExclusion = async (exclusionsType, id) => {
-        const handler = adguard.exclusions.getHandler(exclusionsType);
+    toggleExclusion = async (mode, id) => {
         try {
-            await handler.toggleExclusion(id);
+            await messager.toggleExclusionByMode(mode, id);
         } catch (e) {
             log.error(e);
         }
     };
 
     @action
-    renameExclusion = async (exclusionsType, id, name) => {
-        const handler = adguard.exclusions.getHandler(exclusionsType);
+    renameExclusion = async (mode, id, name) => {
         try {
-            await handler.renameExclusion(id, name);
+            await messager.renameExclusionByMode(mode, id, name);
         } catch (e) {
             log.error(e);
         }
     };
 
     @action
-    addToExclusions = async (exclusionsType) => {
-        const handler = adguard.exclusions.getHandler(exclusionsType);
+    addToExclusions = async (mode) => {
         try {
-            await handler.addToExclusions(
-                this.exclusionsInputs[exclusionsType],
-                this.exclusionsCheckboxes[exclusionsType]
-            );
+            const url = this.exclusionsInputs[mode];
+            const enabled = this.exclusionsCheckboxes[mode];
+            await messager.addExclusionByMode(mode, url, enabled);
             runInAction(() => {
-                this.areFormsVisible[exclusionsType] = false;
-                this.exclusionsInputs[exclusionsType] = '';
-                this.exclusionsCheckboxes[exclusionsType] = true;
+                this.areFormsVisible[mode] = false;
+                this.exclusionsInputs[mode] = '';
+                this.exclusionsCheckboxes[mode] = true;
             });
         } catch (e) {
             log.error(e);

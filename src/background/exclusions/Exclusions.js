@@ -89,8 +89,8 @@ class Exclusions {
         await this.handleExclusionsUpdate();
     }
 
-    getHandler(type) {
-        switch (type) {
+    getHandler(mode) {
+        switch (mode) {
             case this.MODES.SELECTIVE: {
                 return this.selective;
             }
@@ -98,7 +98,7 @@ class Exclusions {
                 return this.regular;
             }
             default:
-                throw Error(`Wrong type requested: ${type}`);
+                throw Error(`Wrong mode requested: ${mode}`);
         }
     }
 

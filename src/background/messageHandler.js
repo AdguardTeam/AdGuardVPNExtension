@@ -113,9 +113,9 @@ const messageHandler = async (message, sender) => {
             break;
         }
         case MESSAGES_TYPES.GET_EXCLUSIONS: {
-            const regularExclusions = adguard.exclusions.regular.getExclusionsList();
-            const selectiveExclusions = adguard.exclusions.selective.getExclusionsList();
-            const exclusionsCurrentMode = adguard.exclusions.current.mode;
+            const regularExclusions = exclusions.regular.getExclusionsList();
+            const selectiveExclusions = exclusions.selective.getExclusionsList();
+            const exclusionsCurrentMode = exclusions.current.mode;
             return {
                 regular: regularExclusions,
                 selective: selectiveExclusions,
@@ -124,7 +124,31 @@ const messageHandler = async (message, sender) => {
         }
         case MESSAGES_TYPES.SET_EXCLUSIONS_MODE: {
             const { mode } = data;
-            await adguard.exclusions.setCurrentMode(mode);
+            await exclusions.setCurrentMode(mode);
+            break;
+        }
+        case MESSAGES_TYPES.REMOVE_EXCLUSION_BY_MODE: {
+            const { mode, id } = data;
+            const handler = exclusions.getHandler(mode);
+            await handler.removeFromExclusions(id);
+            break;
+        }
+        case MESSAGES_TYPES.TOGGLE_EXCLUSION_BY_MODE: {
+            const { mode, id } = data;
+            const handler = exclusions.getHandler(mode);
+            await handler.toggleExclusion(id);
+            break;
+        }
+        case MESSAGES_TYPES.RENAME_EXCLUSION_BY_MODE: {
+            const { mode, id, name } = data;
+            const handler = exclusions.getHandler(mode);
+            await handler.renameExclusion(id, name);
+            break;
+        }
+        case MESSAGES_TYPES.ADD_EXCLUSION_BY_MODE: {
+            const { mode, url, enabled } = data;
+            const handler = exclusions.getHandler(mode);
+            await handler.addToExclusions(url, enabled);
             break;
         }
         case MESSAGES_TYPES.GET_EXCLUSIONS_INVERTED: {

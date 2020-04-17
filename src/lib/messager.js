@@ -168,6 +168,26 @@ class Messager {
         const type = MESSAGES_TYPES.SET_EXCLUSIONS_MODE;
         return this.sendMessage(type, { mode });
     }
+
+    async removeExclusionByMode(mode, id) {
+        const type = MESSAGES_TYPES.REMOVE_EXCLUSION_BY_MODE;
+        return this.sendMessage(type, { mode, id });
+    }
+
+    async toggleExclusionByMode(mode, id) {
+        const type = MESSAGES_TYPES.TOGGLE_EXCLUSION_BY_MODE;
+        return this.sendMessage(type, { mode, id });
+    }
+
+    async renameExclusionByMode(mode, id, name) {
+        const type = MESSAGES_TYPES.RENAME_EXCLUSION_BY_MODE;
+        return this.sendMessage(type, { mode, id, name });
+    }
+
+    async addExclusionByMode(mode, url, enabled) {
+        const type = MESSAGES_TYPES.ADD_EXCLUSION_BY_MODE;
+        return this.sendMessage(type, { mode, url, enabled });
+    }
 }
 
 export default new Messager();
