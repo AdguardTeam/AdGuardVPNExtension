@@ -8,15 +8,17 @@ export const SETTINGS_IDS = {
 };
 
 export const MESSAGES_TYPES = {
+    ADD_EVENT_LISTENER: 'add.event.listener',
+    NOTIFY_LISTENERS: 'notify.listeners',
+    REMOVE_EVENT_LISTENER: 'remove.event.listener',
+
     ENDPOINTS_UPDATED: 'endpoints.updated',
     ENDPOINTS_PING_UPDATED: 'endpoints.ping.updated',
     CURRENT_ENDPOINT_UPDATED: 'proxy.current.endpoint.updated',
     VPN_TOKEN_NOT_FOUND: 'vpn.token.not.found',
     VPN_INFO_UPDATED: 'vpn.info.updated',
     AUTHENTICATE_SOCIAL: 'authenticate.social',
-    AUTHENTICATE_SOCIAL_SUCCESS: 'authenticate.social.success',
     PERMISSIONS_ERROR_UPDATE: 'permissions.error.update',
-    EXCLUSIONS_UPDATED: 'exclusions.updated',
     EXTENSION_PROXY_ENABLED: 'proxy.extension.enabled',
     EXTENSION_PROXY_DISABLED: 'proxy.extension.disabled',
     GET_POPUP_DATA: 'get.popup.data',

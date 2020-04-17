@@ -25,13 +25,17 @@ export class Notifier {
     /**
      * Subscribes listener to the specified events
      *
-     * @param {string} events - List of event types listener will be notified of
+     * @param {string|string[]} events - List of event types listener will be notified of
      * @param {function} listener - Listener object
      * @returns {number} Index of the listener
      */
     addSpecifiedListener(events, listener) {
         if (typeof listener !== 'function') {
             throw new Error('Illegal listener');
+        }
+        if (!Array.isArray(events)) {
+            // eslint-disable-next-line no-param-reassign
+            events = [events];
         }
         const listenerId = this.getListenerId();
         this.listeners[listenerId] = listener;
@@ -78,7 +82,13 @@ export class Notifier {
                 continue;
             }
             try {
-                listener.apply(listener, args);
+                if (events && events.length > 1) {
+                    // if listener was added for many events, notify with event title
+                    listener.apply(listener, [event, ...args]);
+                } else {
+                    // otherwise notify without event title
+                    listener.apply(listener, args);
+                }
             } catch (ex) {
                 const message = `Error invoking listener for event: "${event}" cause: ${ex}`;
                 throw new Error(message);
@@ -96,12 +106,13 @@ const types = {
     USER_DEAUTHENTICATED: 'event.authentication.deauthenticated',
     TAB_UPDATED: 'event.tab.updated',
     TAB_ACTIVATED: 'event.tab.activated',
-    EXCLUSIONS_UPDATED_BACK_MESSAGE: 'exclusions.updated.back.message',
+    EXCLUSIONS_UPDATED_BACK_MESSAGE: 'event.exclusions.updated.back.message',
     SHOULD_REFRESH_TOKENS: 'event.should.refresh.tokens',
     PROXY_TURNED_ON: 'event.proxy.turned.on',
     PROXY_TURNED_OFF: 'event.proxy.turned.off',
     DNS_SERVER_SET: 'event.dns.server.set',
     UPDATE_BROWSER_ACTION_ICON: 'event.update.browser.action.icon',
+    AUTHENTICATE_SOCIAL_SUCCESS: 'event.authenticate.social.success',
 };
 
 const notifier = new Notifier(types);

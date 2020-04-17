@@ -19,6 +19,41 @@ class Messager {
         return response;
     }
 
+    /**
+     * Used to receive notifications from background page
+     * @param events Events for listening
+     * @param callback Event listener callback
+     */
+    createEventListener = async (events, callback) => {
+        const eventListener = (...args) => {
+            callback(...args);
+        };
+
+        let listenerId;
+        const type = MESSAGES_TYPES.ADD_EVENT_LISTENER;
+        listenerId = await this.sendMessage(type, { events });
+
+        browser.runtime.onMessage.addListener((message) => {
+            if (message.type === MESSAGES_TYPES.NOTIFY_LISTENERS) {
+                const [type, data] = message.data;
+                eventListener({ type, data });
+            }
+        });
+
+        const onUnload = async () => {
+            if (listenerId) {
+                const type = MESSAGES_TYPES.REMOVE_EVENT_LISTENER;
+                await this.sendMessage(type, { listenerId });
+                listenerId = null;
+            }
+        };
+
+        window.addEventListener('beforeunload', onUnload);
+        window.addEventListener('unload', onUnload);
+
+        return onUnload;
+    };
+
     async getPopupData(url, numberOfTries) {
         const type = MESSAGES_TYPES.GET_POPUP_DATA;
         return this.sendMessage(type, { url, numberOfTries });

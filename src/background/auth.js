@@ -13,7 +13,6 @@ import {
     AUTH_BASE_URL,
     AUTH_REDIRECT_URI,
 } from './config';
-import { MESSAGES_TYPES } from '../lib/constants';
 import log from '../lib/logger';
 import notifier from '../lib/notifier';
 import translator from '../lib/translator';
@@ -124,11 +123,9 @@ class Auth {
             await tabs.closeTab(tabId);
             this.socialAuthState = null;
         }
-        await browserApi.runtime.sendMessage({
-            type: MESSAGES_TYPES.AUTHENTICATE_SOCIAL_SUCCESS,
-            data: true,
-        });
 
+        // Notify options page, in order to update view
+        notifier.notifyListeners(notifier.types.AUTHENTICATE_SOCIAL_SUCCESS);
         await notifications.create({ message: browser.i18n.getMessage('authentication_successful_social') });
     }
 

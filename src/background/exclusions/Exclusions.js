@@ -1,6 +1,5 @@
 import ExclusionsHandler from './ExclusionsHandler';
 import log from '../../lib/logger';
-import { MESSAGES_TYPES } from '../../lib/constants';
 import notifier from '../../lib/notifier';
 import { EXCLUSIONS_MODES } from './exclusionsConstants';
 
@@ -46,14 +45,7 @@ class Exclusions {
         log.info('ExclusionsHandler list is ready');
     };
 
-    handleExclusionsUpdate = async (exclusions) => {
-        if (exclusions) {
-            this.browser.runtime.sendMessage({
-                type: MESSAGES_TYPES.EXCLUSIONS_UPDATED,
-                data: { exclusions },
-            });
-        }
-
+    handleExclusionsUpdate = async () => {
         notifier.notifyListeners(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE);
 
         const enabledExclusions = this.current.getExclusionsList()

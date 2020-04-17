@@ -5,7 +5,9 @@ describe('notifier', () => {
         SETTING_UPDATED: 'settings.updated',
         PROXY_ENABLED: 'proxy.enabled',
     });
+
     const changing = {};
+
     const firstListener = (setting, value) => {
         changing.first = {
             id: 'first',

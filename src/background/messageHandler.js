@@ -14,10 +14,38 @@ import exclusions from './exclusions';
 import management from './management';
 import permissionsError from './permissionsChecker/permissionsError';
 import permissionsChecker from './permissionsChecker';
+import log from '../lib/logger';
+import notifier from '../lib/notifier';
 
 const messageHandler = async (message, sender) => {
     const { type, data } = message;
+
+    // Here we keep track of event listeners added through notifier
+    const eventListeners = {};
+
     switch (type) {
+        case MESSAGES_TYPES.ADD_EVENT_LISTENER: {
+            const { events } = data;
+            const listenerId = notifier.addSpecifiedListener(events, async (...data) => {
+                const sender = eventListeners[listenerId];
+                if (sender) {
+                    const type = MESSAGES_TYPES.NOTIFY_LISTENERS;
+                    try {
+                        await browser.tabs.sendMessage(sender.tab.id, { type, data });
+                    } catch (e) {
+                        log.error(e.message);
+                    }
+                }
+            });
+            eventListeners[listenerId] = sender;
+            return Promise.resolve(listenerId);
+        }
+        case MESSAGES_TYPES.REMOVE_EVENT_LISTENER: {
+            const { listenerId } = data;
+            notifier.removeListener(listenerId);
+            delete eventListeners[listenerId];
+            break;
+        }
         case MESSAGES_TYPES.AUTHENTICATE_SOCIAL: {
             const { tab: { id } } = sender;
             const { queryString } = message;
@@ -116,6 +144,7 @@ const messageHandler = async (message, sender) => {
             const regularExclusions = exclusions.regular.getExclusionsList();
             const selectiveExclusions = exclusions.selective.getExclusionsList();
             const exclusionsCurrentMode = exclusions.current.mode;
+
             return {
                 regular: regularExclusions,
                 selective: selectiveExclusions,
