@@ -55,7 +55,7 @@ const messageHandler = async (message, sender) => {
         case MESSAGES_TYPES.GET_POPUP_DATA: {
             const { url, numberOfTries } = data;
             // TODO replace getPopupDataRetryWithCancel to getPopupDataRetry
-            return popupData.getPopupDataRetryWithCancel(url, numberOfTries);
+            return popupData.getPopupDataRetry(url, numberOfTries);
         }
         case MESSAGES_TYPES.GET_VPN_FAILURE_PAGE: {
             return endpoints.getVpnFailurePage();

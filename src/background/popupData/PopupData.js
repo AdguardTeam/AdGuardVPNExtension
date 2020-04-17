@@ -1,6 +1,5 @@
 import throttle from 'lodash/throttle';
 import log from '../../lib/logger';
-import { runWithCancel } from '../../lib/helpers';
 
 class PopupData {
     constructor({
@@ -56,12 +55,12 @@ class PopupData {
 
     DEFAULT_RETRY_DELAY = 400;
 
-    * getPopupDataRetry(url, retryNum = 1, retryDelay = this.DEFAULT_RETRY_DELAY) {
+    async getPopupDataRetry(url, retryNum = 1, retryDelay = this.DEFAULT_RETRY_DELAY) {
         const backoffIndex = 1.5;
         let data;
 
         try {
-            data = yield this.getPopupData(url);
+            data = await this.getPopupData(url);
         } catch (e) {
             log.error(e);
         }
@@ -81,41 +80,20 @@ class PopupData {
             if (retryNum <= 1) {
                 // it may be useful to disconnect proxy if we can't get data
                 if (data.isProxyEnabled) {
-                    yield adguard.settings.disableProxy();
+                    await adguard.settings.disableProxy();
                 }
                 this.retryCounter = 0;
                 hasRequiredData = false;
                 return { ...data, hasRequiredData };
             }
-            yield this.sleep(retryDelay);
+            await this.sleep(retryDelay);
             log.debug(`Retry get popup data again retry: ${this.retryCounter}`);
-            return yield* this.getPopupDataRetry(url, retryNum - 1, retryDelay * backoffIndex);
+            return this.getPopupDataRetry(url, retryNum - 1, retryDelay * backoffIndex);
         }
 
         this.retryCounter = 0;
         return { ...data, hasRequiredData };
     }
-
-    getPopupDataRetryWithCancel = (url, retryNum) => {
-        if (this.cancel) {
-            this.cancel();
-            this.retryCounter = 0;
-        }
-        const { promise, cancel } = runWithCancel(this.getPopupDataRetry.bind(this), url, retryNum);
-        this.cancel = cancel;
-        return promise;
-    };
-
-    /**
-     * If popup is closed we call this function
-     * This is done because if user doesn't wait until extension gets data and closes popup,
-     * then extension freezes
-     */
-    cancelGettingPopupData = (reason) => {
-        if (this.cancel) {
-            this.cancel(reason);
-        }
-    };
 }
 
 export default PopupData;
