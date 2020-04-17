@@ -182,6 +182,8 @@ class AuthStore {
     isAuthenticated = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
         const result = await messager.isAuthenticated();
+        // AG-644 set current endpoint in order to avoid bug in permissions checker
+        await messager.getSelectedEndpoint();
         if (result) {
             runInAction(() => {
                 this.authenticated = true;

@@ -188,6 +188,11 @@ class Messager {
         const type = MESSAGES_TYPES.ADD_EXCLUSION_BY_MODE;
         return this.sendMessage(type, { mode, url, enabled });
     }
+
+    async getSelectedEndpoint() {
+        const type = MESSAGES_TYPES.GET_SELECTED_ENDPOINT;
+        return this.sendMessage(type);
+    }
 }
 
 export default new Messager();

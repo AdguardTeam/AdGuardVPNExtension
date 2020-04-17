@@ -151,6 +151,9 @@ const messageHandler = async (message, sender) => {
             await handler.addToExclusions(url, enabled);
             break;
         }
+        case MESSAGES_TYPES.GET_SELECTED_ENDPOINT: {
+            return endpoints.getSelectedEndpoint();
+        }
         case MESSAGES_TYPES.GET_EXCLUSIONS_INVERTED: {
             return exclusions.isInverted();
         }

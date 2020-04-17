@@ -53,6 +53,7 @@ export const MESSAGES_TYPES = {
     SET_SETTING_VALUE: 'set.setting.value',
     GET_APP_VERSION: 'get.app.version',
     GET_USERNAME: 'get.username',
+    GET_SELECTED_ENDPOINT: 'get.selected.endpoint',
 };
 
 export const ERROR_STATUSES = {
