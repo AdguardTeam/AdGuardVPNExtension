@@ -158,6 +158,11 @@ class Messager {
         const type = MESSAGES_TYPES.GET_USERNAME;
         return this.sendMessage(type);
     }
+
+    async getExclusionsData() {
+        const type = MESSAGES_TYPES.GET_EXCLUSIONS;
+        return this.sendMessage(type);
+    }
 }
 
 export default new Messager();

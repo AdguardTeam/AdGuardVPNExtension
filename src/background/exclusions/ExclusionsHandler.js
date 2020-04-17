@@ -4,21 +4,21 @@ import { areHostnamesEqual, shExpMatch } from '../../lib/string-utils';
 import log from '../../lib/logger';
 
 export default class ExclusionsHandler {
-    constructor(updateHandler, exclusions, type) {
+    constructor(updateHandler, exclusions, mode) {
         this.updateHandler = updateHandler;
         this._exclusions = exclusions;
-        this._type = type;
+        this._mode = mode;
     }
 
-    get type() {
-        return this._type;
+    get mode() {
+        return this._mode;
     }
 
     handleExclusionsUpdate = (exclusions) => {
         if (exclusions && exclusions.length > 0) {
-            this.updateHandler(this._type, this._exclusions, exclusions);
+            this.updateHandler(this._mode, this._exclusions, exclusions);
         } else {
-            this.updateHandler(this._type, this._exclusions);
+            this.updateHandler(this._mode, this._exclusions);
         }
     };
 

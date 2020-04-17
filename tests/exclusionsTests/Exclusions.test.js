@@ -75,21 +75,21 @@ describe('exclusions', () => {
     });
 
     it('current handler should fit to inverted status, and handle switch', async () => {
-        const expectedType = exclusions.isInverted()
+        const expectedMode = exclusions.isInverted()
             ? exclusions.MODES.SELECTIVE
             : exclusions.MODES.REGULAR;
-        expect(exclusions.current.type).toBe(expectedType);
+        expect(exclusions.current.mode).toBe(expectedMode);
 
         await exclusions.setCurrentHandler(exclusions.MODES.REGULAR);
-        expect(exclusions.current.type).toBe(exclusions.MODES.REGULAR);
+        expect(exclusions.current.mode).toBe(exclusions.MODES.REGULAR);
 
         await exclusions.setCurrentHandler(exclusions.MODES.SELECTIVE);
-        expect(exclusions.current.type).toBe(exclusions.MODES.SELECTIVE);
+        expect(exclusions.current.mode).toBe(exclusions.MODES.SELECTIVE);
     });
 
-    it('should return right type of handler', () => {
-        expect(exclusions.regular.type).toBe(exclusions.MODES.REGULAR);
-        expect(exclusions.selective.type).toBe(exclusions.MODES.SELECTIVE);
+    it('should return right mode of handler', () => {
+        expect(exclusions.regular.mode).toBe(exclusions.MODES.REGULAR);
+        expect(exclusions.selective.mode).toBe(exclusions.MODES.SELECTIVE);
     });
 
     it('should return false if hostname is NOT in exclusions', () => {

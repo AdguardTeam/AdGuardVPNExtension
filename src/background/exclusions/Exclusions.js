@@ -38,7 +38,7 @@ class Exclusions {
         await this.handleExclusionsUpdate();
 
         notifier.addSpecifiedListener(notifier.types.NON_ROUTABLE_DOMAIN_ADDED, (payload) => {
-            if (this.currentHandler.type === this.MODES.REGULAR) {
+            if (this.currentHandler.mode === this.MODES.REGULAR) {
                 this.currentHandler.addToExclusions(payload, true, { forceEnable: false });
             }
         });

@@ -38,7 +38,7 @@ class SettingsStore {
 
     @observable currentUsername;
 
-    @observable currentExclusionsType;
+    @observable exclusionsCurrentMode;
 
     @observable webRTCEnabled = false;
 
@@ -46,12 +46,14 @@ class SettingsStore {
 
     @observable dnsServer = DNS_DEFAULT;
 
-    // Options page actions
     @action
-    getExclusions = () => {
-        this.exclusions[EXCLUSIONS_MODES.REGULAR] = adguard.exclusions.regular.getExclusionsList();
-        this.exclusions[EXCLUSIONS_MODES.SELECTIVE] = adguard.exclusions.selective.getExclusionsList();
-        this.currentExclusionsType = adguard.exclusions.current.type;
+    getExclusions = async () => {
+        const exclusionsData = await messager.getExclusionsData();
+        runInAction(() => {
+            this.exclusions[EXCLUSIONS_MODES.REGULAR] = exclusionsData.regular;
+            this.exclusions[EXCLUSIONS_MODES.SELECTIVE] = exclusionsData.selective;
+            this.exclusionsCurrentMode = exclusionsData.currentMode;
+        });
     };
 
     @action
@@ -161,7 +163,7 @@ class SettingsStore {
 
     @action
     toggleInverted = async (type) => {
-        this.currentExclusionsType = type;
+        this.exclusionsCurrentMode = type;
         await adguard.exclusions.setCurrentHandler(type);
     };
 

@@ -112,6 +112,16 @@ const messageHandler = async (message, sender) => {
             await permissionsChecker.checkPermissions();
             break;
         }
+        case MESSAGES_TYPES.GET_EXCLUSIONS: {
+            const regularExclusions = adguard.exclusions.regular.getExclusionsList();
+            const selectiveExclusions = adguard.exclusions.selective.getExclusionsList();
+            const exclusionsCurrentMode = adguard.exclusions.current.mode;
+            return {
+                regular: regularExclusions,
+                selective: selectiveExclusions,
+                currentMode: exclusionsCurrentMode,
+            };
+        }
         case MESSAGES_TYPES.GET_EXCLUSIONS_INVERTED: {
             return exclusions.isInverted();
         }

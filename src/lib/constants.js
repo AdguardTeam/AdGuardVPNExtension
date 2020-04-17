@@ -43,6 +43,7 @@ export const MESSAGES_TYPES = {
     CLEAR_PERMISSIONS_ERROR: 'clear.permissions.error',
     CHECK_PERMISSIONS: 'check.permissions',
     GET_EXCLUSIONS_INVERTED: 'get.exclusions.inverted',
+    GET_EXCLUSIONS: 'get.exclusions',
     GET_SETTING_VALUE: 'get.setting.value',
     SET_SETTING_VALUE: 'set.setting.value',
     GET_APP_VERSION: 'get.app.version',

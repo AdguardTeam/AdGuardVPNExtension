@@ -12,7 +12,7 @@ const Mode = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
     const {
-        currentExclusionsType,
+        exclusionsCurrentMode,
         toggleInverted,
     } = settingsStore;
 
@@ -37,7 +37,7 @@ const Mode = observer(() => {
     };
 
     const renderControls = (exclusionsType) => {
-        const enabled = exclusionsType === currentExclusionsType;
+        const enabled = exclusionsType === exclusionsCurrentMode;
 
         const getIconHref = (enabled) => {
             if (enabled) {
@@ -66,7 +66,7 @@ const Mode = observer(() => {
     };
 
     const renderContent = (exclusionsType) => {
-        const enabled = exclusionsType === currentExclusionsType;
+        const enabled = exclusionsType === exclusionsCurrentMode;
 
         return (
             <>
