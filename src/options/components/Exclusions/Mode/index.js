@@ -19,17 +19,17 @@ const Mode = observer(() => {
         await toggleInverted(type);
     };
 
-    const types = [
-        adguard.exclusions.TYPES.BLACKLIST,
-        adguard.exclusions.TYPES.WHITELIST,
+    const modes = [
+        adguard.exclusions.MODES.REGULAR,
+        adguard.exclusions.MODES.SELECTIVE,
     ];
 
     const titles = {
-        [adguard.exclusions.TYPES.BLACKLIST]: {
+        [adguard.exclusions.MODES.REGULAR]: {
             title: browser.i18n.getMessage('settings_exclusion_regular_title'),
             description: browser.i18n.getMessage('settings_exclusion_regular_description'),
         },
-        [adguard.exclusions.TYPES.WHITELIST]: {
+        [adguard.exclusions.MODES.SELECTIVE]: {
             title: browser.i18n.getMessage('settings_exclusion_selective_title'),
             description: browser.i18n.getMessage('settings_exclusion_selective_description'),
         },
@@ -83,13 +83,13 @@ const Mode = observer(() => {
                 </div>
                 <div className="settings__group">
                     <div className="settings__controls">
-                        {types.map((type) => (
+                        {modes.map((type) => (
                             <div className="settings__control" key={type}>
                                 {renderControls(type)}
                             </div>
                         ))}
                     </div>
-                    {types.map((type) => (
+                    {modes.map((type) => (
                         <div className="settings__control" key={type}>
                             {renderContent(type)}
                         </div>

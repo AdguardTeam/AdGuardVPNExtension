@@ -43,13 +43,13 @@ const CONTEXT_MENU_ITEMS = {
         id: 'selective_mode',
         type: 'radio',
         title: translator.translate('context_menu_selective_mode'),
-        onclick: () => exclusions.setCurrentHandler(exclusions.TYPES.WHITELIST),
+        onclick: () => exclusions.setCurrentHandler(exclusions.MODES.SELECTIVE),
     },
     regular_mode: {
         id: 'regular_mode',
         type: 'radio',
         title: translator.translate('context_menu_regular_mode'),
-        onclick: () => exclusions.setCurrentHandler(exclusions.TYPES.BLACKLIST),
+        onclick: () => exclusions.setCurrentHandler(exclusions.MODES.REGULAR),
     },
 };
 

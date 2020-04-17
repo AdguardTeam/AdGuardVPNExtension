@@ -2,7 +2,7 @@ import throttle from 'lodash/throttle';
 import log from '../../lib/logger';
 import { SETTINGS_IDS } from '../../lib/constants';
 
-const SCHEME_VERSION = '4';
+const SCHEME_VERSION = '5';
 const THROTTLE_TIMEOUT = 100;
 
 class SettingsService {
@@ -64,7 +64,28 @@ class SettingsService {
         };
     };
 
-    migrationFunctions = [this.migrateFrom1to2, this.migrateFrom2to3, this.migrateFrom3to4];
+    migrateFrom4to5 = (oldSettings) => {
+        const exclusions = oldSettings[SETTINGS_IDS.EXCLUSIONS];
+
+        const newExclusions = {
+            inverted: exclusions?.inverted || false,
+            regular: exclusions?.blacklist || {},
+            selective: exclusions?.whitelist || {},
+        };
+
+        return {
+            ...oldSettings,
+            VERSION: '5',
+            [SETTINGS_IDS.EXCLUSIONS]: newExclusions,
+        };
+    }
+
+    migrationFunctions = [
+        this.migrateFrom1to2,
+        this.migrateFrom2to3,
+        this.migrateFrom3to4,
+        this.migrateFrom4to5,
+    ];
 
     applyMigrations(newVersion, oldVersion, oldSettings) {
         const migrationsToApply = this.migrationFunctions.slice(oldVersion - 1, newVersion - 1);

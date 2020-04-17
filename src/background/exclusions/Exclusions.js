@@ -4,9 +4,9 @@ import { MESSAGES_TYPES } from '../../lib/constants';
 import notifier from '../../lib/notifier';
 
 class Exclusions {
-    TYPES = {
-        WHITELIST: 'whitelist',
-        BLACKLIST: 'blacklist',
+    MODES = {
+        SELECTIVE: 'selective',
+        REGULAR: 'regular',
     };
 
     constructor(browser, proxy, settings) {
@@ -18,29 +18,29 @@ class Exclusions {
     init = async () => {
         this.exclusions = this.settings.getExclusions() || {};
 
-        const whitelist = this.exclusions?.[this.TYPES.WHITELIST] ?? {};
-        const blacklist = this.exclusions?.[this.TYPES.BLACKLIST] ?? {};
+        const selective = this.exclusions?.[this.MODES.SELECTIVE] ?? {};
+        const regular = this.exclusions?.[this.MODES.REGULAR] ?? {};
 
         this.inverted = this.exclusions?.inverted ?? false;
 
-        this.whitelistHandler = new ExclusionsHandler(
+        this.selectiveModeHandler = new ExclusionsHandler(
             this.handleExclusionsUpdate,
-            whitelist,
-            this.TYPES.WHITELIST
+            selective,
+            this.MODES.SELECTIVE
         );
 
-        this.blacklistHandler = new ExclusionsHandler(
+        this.regularModeHandler = new ExclusionsHandler(
             this.handleExclusionsUpdate,
-            blacklist,
-            this.TYPES.BLACKLIST
+            regular,
+            this.MODES.REGULAR
         );
 
-        this.currentHandler = this.inverted ? this.whitelistHandler : this.blacklistHandler;
+        this.currentHandler = this.inverted ? this.selectiveModeHandler : this.regularModeHandler;
         // update bypass list in proxy on init
         await this.handleExclusionsUpdate();
 
         notifier.addSpecifiedListener(notifier.types.NON_ROUTABLE_DOMAIN_ADDED, (payload) => {
-            if (this.currentHandler.type === this.TYPES.BLACKLIST) {
+            if (this.currentHandler.type === this.MODES.REGULAR) {
                 this.currentHandler.addToExclusions(payload, true, { forceEnable: false });
             }
         });
@@ -66,8 +66,8 @@ class Exclusions {
 
         const exclusionsRepository = {
             inverted: this.inverted,
-            [this.TYPES.WHITELIST]: this.whitelist.exclusions,
-            [this.TYPES.BLACKLIST]: this.blacklist.exclusions,
+            [this.MODES.SELECTIVE]: this.selective.exclusions,
+            [this.MODES.REGULAR]: this.regular.exclusions,
         };
 
         this.settings.setExclusions(exclusionsRepository);
@@ -75,13 +75,13 @@ class Exclusions {
 
     async setCurrentHandler(type) {
         switch (type) {
-            case this.TYPES.WHITELIST: {
-                this.currentHandler = this.whitelistHandler;
+            case this.MODES.SELECTIVE: {
+                this.currentHandler = this.selectiveModeHandler;
                 this.inverted = true;
                 break;
             }
-            case this.TYPES.BLACKLIST: {
-                this.currentHandler = this.blacklistHandler;
+            case this.MODES.REGULAR: {
+                this.currentHandler = this.regularModeHandler;
                 this.inverted = false;
                 break;
             }
@@ -93,23 +93,23 @@ class Exclusions {
 
     getHandler(type) {
         switch (type) {
-            case this.TYPES.WHITELIST: {
-                return this.whitelist;
+            case this.MODES.SELECTIVE: {
+                return this.selective;
             }
-            case this.TYPES.BLACKLIST: {
-                return this.blacklist;
+            case this.MODES.REGULAR: {
+                return this.regular;
             }
             default:
                 throw Error(`Wrong type requested: ${type}`);
         }
     }
 
-    get whitelist() {
-        return this.whitelistHandler;
+    get selective() {
+        return this.selectiveModeHandler;
     }
 
-    get blacklist() {
-        return this.blacklistHandler;
+    get regular() {
+        return this.regularModeHandler;
     }
 
     get current() {

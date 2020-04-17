@@ -12,23 +12,23 @@ import messager from '../../../lib/messager';
 
 class SettingsStore {
     @observable exclusions = {
-        [adguard.exclusions.TYPES.WHITELIST]: [],
-        [adguard.exclusions.TYPES.BLACKLIST]: [],
+        [adguard.exclusions.MODES.SELECTIVE]: [],
+        [adguard.exclusions.MODES.REGULAR]: [],
     };
 
     @observable exclusionsInputs = {
-        [adguard.exclusions.TYPES.WHITELIST]: '',
-        [adguard.exclusions.TYPES.BLACKLIST]: '',
+        [adguard.exclusions.MODES.SELECTIVE]: '',
+        [adguard.exclusions.MODES.REGULAR]: '',
     };
 
     @observable exclusionsCheckboxes = {
-        [adguard.exclusions.TYPES.WHITELIST]: true,
-        [adguard.exclusions.TYPES.BLACKLIST]: true,
+        [adguard.exclusions.MODES.SELECTIVE]: true,
+        [adguard.exclusions.MODES.REGULAR]: true,
     };
 
     @observable areFormsVisible = {
-        [adguard.exclusions.TYPES.WHITELIST]: false,
-        [adguard.exclusions.TYPES.BLACKLIST]: false,
+        [adguard.exclusions.MODES.SELECTIVE]: false,
+        [adguard.exclusions.MODES.REGULAR]: false,
     };
 
     @observable isRateVisible = true;
@@ -49,10 +49,10 @@ class SettingsStore {
     @action
     getExclusions = () => {
         const {
-            TYPES, whitelist, blacklist, current,
+            MODES, selective, regular, current,
         } = adguard.exclusions;
-        this.exclusions[TYPES.BLACKLIST] = blacklist.getExclusionsList();
-        this.exclusions[TYPES.WHITELIST] = whitelist.getExclusionsList();
+        this.exclusions[MODES.REGULAR] = regular.getExclusionsList();
+        this.exclusions[MODES.SELECTIVE] = selective.getExclusionsList();
         this.currentExclusionsType = current.type;
     };
 
