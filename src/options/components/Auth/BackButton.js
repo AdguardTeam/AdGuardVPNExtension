@@ -15,7 +15,7 @@ function BackButton() {
             type="button"
             onClick={handleBackClick}
         >
-            <svg className="icon icon--button">
+            <svg className="icon icon--button icon--back">
                 <use xlinkHref="#back-arrow" />
             </svg>
             <span>Back</span>
