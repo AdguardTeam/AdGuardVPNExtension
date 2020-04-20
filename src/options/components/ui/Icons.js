@@ -75,6 +75,10 @@ const Icons = () => (
         <symbol id="check_bold" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round">
             <polyline points="5 11.767 10.588 17 19 8" />
         </symbol>
+
+        <symbol id="back-arrow" viewBox="0 0 8 14">
+            <path fill="none" fillRule="evenodd" stroke="#888" strokeLinecap="round" strokeWidth="1.5" d="M7 13L1 7l6-6" />
+        </symbol>
     </svg>
 );
 
