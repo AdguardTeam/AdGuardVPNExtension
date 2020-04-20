@@ -18,7 +18,7 @@ function BackButton() {
             <svg className="icon icon--button">
                 <use xlinkHref="#back-arrow" />
             </svg>
-            Back
+            <span>Back</span>
         </button>
     );
 }
