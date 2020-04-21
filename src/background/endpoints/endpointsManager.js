@@ -30,6 +30,7 @@ class EndpointsManager {
 
     /**
      * Returns fastest endpoints
+     * @returns {Object.<string, Endpoint>}
      */
     getFastest() {
         const sortedPings = _.sortBy(Object.values(this.endpointsPings), ['ping']);
@@ -54,6 +55,10 @@ class EndpointsManager {
         return endpointsPing ? { ...endpoint, ping: endpointsPing.ping } : endpoint;
     };
 
+    /**
+     * Returns all endpoints in the map
+     * @returns {Object.<string, Endpoint>}
+     */
     getAll = () => {
         return Object.values(this.endpoints)
             .map(this.enrichWithPing)
