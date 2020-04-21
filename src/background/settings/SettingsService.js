@@ -80,6 +80,12 @@ class SettingsService {
         };
     };
 
+    /**
+     * In order to add migration, create new function which modifies old settings into new
+     * And add this migration under related old settings scheme version
+     * For example if your migration function migrates your settings from scheme 4 to 5, then add
+     * it under number 4
+     */
     migrationFunctions = {
         1: this.migrateFrom1to2,
         2: this.migrateFrom2to3,
