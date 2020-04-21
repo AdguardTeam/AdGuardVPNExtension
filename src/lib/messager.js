@@ -2,7 +2,7 @@ import browser from 'webextension-polyfill';
 import { MESSAGES_TYPES } from './constants';
 import log from './logger';
 
-class Messager {
+class Messenger {
     async sendMessage(type, data) {
         log.debug(`Request type: "${type}"`);
         if (data) {
@@ -230,4 +230,4 @@ class Messager {
     }
 }
 
-export default new Messager();
+export default new Messenger();
