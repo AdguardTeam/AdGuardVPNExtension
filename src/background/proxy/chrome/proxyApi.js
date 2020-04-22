@@ -79,12 +79,13 @@ const onAuthRequiredHandler = (details) => {
     }
 
     if (GLOBAL_PROXY_CONFIG.credentials) {
-        return GLOBAL_PROXY_CONFIG.credentials;
+        return { authCredentials: GLOBAL_PROXY_CONFIG.credentials };
     }
+
     return {};
 };
 
-browser.webRequest.onAuthRequired.addListener(onAuthRequiredHandler, { urls: ['<all_urls>'] });
+browser.webRequest.onAuthRequired.addListener(onAuthRequiredHandler, { urls: ['<all_urls>'] }, ['blocking']);
 
 /**
  * Clears proxy settings

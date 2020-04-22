@@ -23,6 +23,18 @@ class ExtensionProxy {
         this.bypassList = [];
         this.currentEndpoint = '';
         this.currentHost = '';
+
+        /**
+         * This flag is used to switch from background page way of handling hosts
+         * Flag can be changed if you run in console
+         *      "adguard.proxy.addPrefixToHost = false"
+         * By default it is always true, because onAuthRequired listener is not working stable
+         * 1. If true then we would add credentials as prefix to host and host would look like:
+         *      "6bda34c460ac2f2dce779f719048ea4a.do-de-fra1-01.adguard.io"
+         * 2. If false then code won't add credentials to host and it would look like:
+         *      "do-de-fra1-01.adguard.io"
+         */
+        this.addPrefixToHost = true;
     }
 
     async turnOn() {
@@ -121,7 +133,11 @@ class ExtensionProxy {
         if (!prefix || !domainName) {
             return;
         }
-        this.currentHost = `${prefix}.${domainName}`;
+        if (this.addPrefixToHost) {
+            this.currentHost = `${prefix}.${domainName}`;
+        } else {
+            this.currentHost = domainName;
+        }
         this.currentPrefix = prefix;
         await this.applyConfig();
     };

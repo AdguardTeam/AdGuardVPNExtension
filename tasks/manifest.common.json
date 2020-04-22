@@ -31,13 +31,13 @@
     ],
     "permissions": [
         "<all_urls>",
-        "activeTab",
         "contextMenus",
         "management",
         "notifications",
         "privacy",
         "proxy",
         "storage",
+        "tabs",
         "unlimitedStorage",
         "webRequest",
         "webRequestBlocking"
