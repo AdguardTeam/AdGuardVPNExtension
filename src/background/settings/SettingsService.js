@@ -2,7 +2,7 @@ import throttle from 'lodash/throttle';
 import log from '../../lib/logger';
 import { SETTINGS_IDS } from '../../lib/constants';
 
-const SCHEME_VERSION = '4';
+const SCHEME_VERSION = '5';
 const THROTTLE_TIMEOUT = 100;
 
 class SettingsService {
@@ -64,13 +64,46 @@ class SettingsService {
         };
     };
 
-    migrationFunctions = [this.migrateFrom1to2, this.migrateFrom2to3, this.migrateFrom3to4];
+    migrateFrom4to5 = (oldSettings) => {
+        const exclusions = oldSettings[SETTINGS_IDS.EXCLUSIONS];
 
-    applyMigrations(newVersion, oldVersion, oldSettings) {
-        const migrationsToApply = this.migrationFunctions.slice(oldVersion - 1, newVersion - 1);
-        return migrationsToApply.reduce((acc, migration) => {
-            return migration(acc);
-        }, oldSettings);
+        const newExclusions = {
+            inverted: exclusions?.inverted || false,
+            regular: exclusions?.blacklist || {},
+            selective: exclusions?.whitelist || {},
+        };
+
+        return {
+            ...oldSettings,
+            VERSION: '5',
+            [SETTINGS_IDS.EXCLUSIONS]: newExclusions,
+        };
+    };
+
+    /**
+     * In order to add migration, create new function which modifies old settings into new
+     * And add this migration under related old settings scheme version
+     * For example if your migration function migrates your settings from scheme 4 to 5, then add
+     * it under number 4
+     */
+    migrationFunctions = {
+        1: this.migrateFrom1to2,
+        2: this.migrateFrom2to3,
+        3: this.migrateFrom3to4,
+        4: this.migrateFrom4to5,
+    };
+
+    applyMigrations(oldVersion, newVersion, oldSettings) {
+        let newSettings = { ...oldSettings };
+        for (let i = oldVersion; i < newVersion; i += 1) {
+            const migrationFunction = this.migrationFunctions[i];
+            if (!migrationFunction) {
+                // eslint-disable-next-line no-continue
+                continue;
+            }
+            newSettings = migrationFunction(newSettings);
+        }
+        return newSettings;
     }
 
     /**
@@ -86,7 +119,7 @@ class SettingsService {
         const newVersionInt = Number.parseInt(SCHEME_VERSION, 10);
         const oldVersionInt = Number.parseInt(oldSettings.VERSION, 10);
         if (newVersionInt > oldVersionInt) {
-            newSettings = this.applyMigrations(newVersionInt, oldVersionInt, oldSettings);
+            newSettings = this.applyMigrations(oldVersionInt, newVersionInt, oldSettings);
         } else {
             newSettings = {
                 VERSION: SCHEME_VERSION,

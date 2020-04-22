@@ -219,10 +219,7 @@
         "message": "Subdomains"
     },
     "settings_exclusion_subdomains_text": {
-        "message": "You can also add subdomains like this: *.domain.com."
-    },
-    "settings_exclusion_subdomains_example": {
-        "message": "E.g: If you want to exclude not only google.com, but also mail.google.com, play.google.com, etc., add *.google.com to the list."
+        "message": "You can add domains (e.g. google.com) or all subdomains (e.g. *.google.com)"
     },
     "global_error_title": {
         "message": "Error occurred"

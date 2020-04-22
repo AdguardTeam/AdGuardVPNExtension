@@ -1,11 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
-import browser from 'webextension-polyfill';
 import Modal from 'react-modal';
 
 import log from '../../../lib/logger';
-import { MESSAGES_TYPES } from '../../../lib/constants';
 import { REQUEST_STATUSES } from '../../stores/consts';
 
 import '../../styles/main.pcss';
@@ -21,6 +19,8 @@ import Auth from '../Auth';
 import Exclusions from '../Exclusions';
 import Preloader from '../Preloader';
 import Icons from '../ui/Icons';
+import messager from '../../../lib/messager';
+import notifier from '../../../lib/notifier';
 
 Modal.setAppElement('#root');
 
@@ -62,33 +62,40 @@ const App = observer(() => {
     const { status } = globalStore;
 
     useEffect(() => {
+        let removeListenerCallback = () => {};
         (async () => {
             await globalStore.init();
+
+            const events = [
+                notifier.types.AUTHENTICATE_SOCIAL_SUCCESS,
+                notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE,
+            ];
+
+            // Subscribe to notification from background page with this method
+            // If use runtime.onMessage, then we can intercept messages from popup
+            // to the message handler on background page
+            removeListenerCallback = await messager.createEventListener(events, async (message) => {
+                const { type } = message;
+
+                switch (type) {
+                    case notifier.types.AUTHENTICATE_SOCIAL_SUCCESS: {
+                        authStore.setIsAuthenticated(true);
+                        break;
+                    }
+                    case notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE: {
+                        await settingsStore.getExclusions();
+                        break;
+                    }
+                    default: {
+                        log.debug('Undefined message type:', type);
+                        break;
+                    }
+                }
+            });
         })();
 
-        const messageHandler = async (message) => {
-            const { type } = message;
-
-            switch (type) {
-                case MESSAGES_TYPES.EXCLUSIONS_UPDATED: {
-                    settingsStore.getExclusions();
-                    break;
-                }
-                case MESSAGES_TYPES.AUTHENTICATE_SOCIAL_SUCCESS: {
-                    authStore.setIsAuthenticated(true);
-                    break;
-                }
-                default: {
-                    log.debug('there is no such message type: ', type);
-                    break;
-                }
-            }
-        };
-
-        browser.runtime.onMessage.addListener(messageHandler);
-
         return () => {
-            browser.runtime.onMessage.removeListener(messageHandler);
+            removeListenerCallback();
         };
     }, []);
 

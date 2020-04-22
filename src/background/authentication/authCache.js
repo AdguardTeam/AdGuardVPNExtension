@@ -1,17 +1,17 @@
-function AuthCache() {
+const AuthCache = () => {
     const DEFAULTS = {
         username: '',
         password: '',
         step: '',
     };
 
-    let authStorage = { ...DEFAULTS };
+    let authCache = { ...DEFAULTS };
 
     /**
      * Sets values to default
      */
-    const clearAuthCache = () => {
-        authStorage = { ...DEFAULTS };
+    const clearCache = () => {
+        authCache = { ...DEFAULTS };
     };
 
     /**
@@ -19,23 +19,23 @@ function AuthCache() {
      * @param {string} field
      * @param {string} value
      */
-    const updateAuthCache = (field, value) => {
-        authStorage[field] = value;
+    const updateCache = (field, value) => {
+        authCache[field] = value;
     };
 
     /**
      * Returns all values
      * @returns {{step, login, username}}
      */
-    const getAuthCache = () => authStorage;
+    const getCache = () => authCache;
 
     return {
-        updateAuthCache,
-        getAuthCache,
-        clearAuthCache,
+        updateCache,
+        getCache,
+        clearCache,
     };
-}
+};
 
-const authCache = new AuthCache();
+const authCache = AuthCache();
 
 export default authCache;

@@ -10,6 +10,7 @@ import TwoFactorForm from './TwoFactorForm';
 import Terms from './Terms';
 
 import './auth.pcss';
+import BackButton from './BackButton';
 
 const Authentication = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -46,9 +47,8 @@ const Authentication = observer(() => {
                 </div>
                 <div className="auth__column">
                     <div className="auth__content">
-                        {step !== authStore.STEPS.TWO_FACTOR && (
-                            <Terms />
-                        )}
+                        {step === authStore.STEPS.TWO_FACTOR && <BackButton />}
+                        {step !== authStore.STEPS.TWO_FACTOR && <Terms />}
                         {getForm(step)}
                         {step === authStore.STEPS.SIGN_IN && <SocialAuth />}
                     </div>

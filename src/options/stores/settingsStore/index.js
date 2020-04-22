@@ -8,26 +8,28 @@ import {
 import log from '../../../lib/logger';
 import { SETTINGS_IDS } from '../../../lib/constants';
 import { DNS_DEFAULT } from '../../../background/dns/dnsConstants';
+import messager from '../../../lib/messager';
+import { EXCLUSIONS_MODES } from '../../../background/exclusions/exclusionsConstants';
 
 class SettingsStore {
     @observable exclusions = {
-        [adguard.exclusions.TYPES.WHITELIST]: [],
-        [adguard.exclusions.TYPES.BLACKLIST]: [],
+        [EXCLUSIONS_MODES.SELECTIVE]: [],
+        [EXCLUSIONS_MODES.REGULAR]: [],
     };
 
     @observable exclusionsInputs = {
-        [adguard.exclusions.TYPES.WHITELIST]: '',
-        [adguard.exclusions.TYPES.BLACKLIST]: '',
+        [EXCLUSIONS_MODES.SELECTIVE]: '',
+        [EXCLUSIONS_MODES.REGULAR]: '',
     };
 
     @observable exclusionsCheckboxes = {
-        [adguard.exclusions.TYPES.WHITELIST]: true,
-        [adguard.exclusions.TYPES.BLACKLIST]: true,
+        [EXCLUSIONS_MODES.SELECTIVE]: true,
+        [EXCLUSIONS_MODES.REGULAR]: true,
     };
 
     @observable areFormsVisible = {
-        [adguard.exclusions.TYPES.WHITELIST]: false,
-        [adguard.exclusions.TYPES.BLACKLIST]: false,
+        [EXCLUSIONS_MODES.SELECTIVE]: false,
+        [EXCLUSIONS_MODES.REGULAR]: false,
     };
 
     @observable isRateVisible = true;
@@ -36,7 +38,7 @@ class SettingsStore {
 
     @observable currentUsername;
 
-    @observable currentExclusionsType;
+    @observable exclusionsCurrentMode;
 
     @observable webRTCEnabled = false;
 
@@ -44,59 +46,53 @@ class SettingsStore {
 
     @observable dnsServer = DNS_DEFAULT;
 
-    // Options page actions
     @action
-    getExclusions = () => {
-        const {
-            TYPES, whitelist, blacklist, current,
-        } = adguard.exclusions;
-        this.exclusions[TYPES.BLACKLIST] = blacklist.getExclusionsList();
-        this.exclusions[TYPES.WHITELIST] = whitelist.getExclusionsList();
-        this.currentExclusionsType = current.type;
+    getExclusions = async () => {
+        const exclusionsData = await messager.getExclusionsData();
+        runInAction(() => {
+            this.exclusions[EXCLUSIONS_MODES.REGULAR] = exclusionsData.regular;
+            this.exclusions[EXCLUSIONS_MODES.SELECTIVE] = exclusionsData.selective;
+            this.exclusionsCurrentMode = exclusionsData.currentMode;
+        });
     };
 
     @action
-    removeFromExclusions = async (exclusionsType, hostName) => {
-        const handler = adguard.exclusions.getHandler(exclusionsType);
+    removeFromExclusions = async (mode, id) => {
         try {
-            await handler.removeFromExclusions(hostName);
+            await messager.removeExclusionByMode(mode, id);
         } catch (e) {
             log.error(e);
         }
     };
 
     @action
-    toggleExclusion = async (exclusionsType, id) => {
-        const handler = adguard.exclusions.getHandler(exclusionsType);
+    toggleExclusion = async (mode, id) => {
         try {
-            await handler.toggleExclusion(id);
+            await messager.toggleExclusionByMode(mode, id);
         } catch (e) {
             log.error(e);
         }
     };
 
     @action
-    renameExclusion = async (exclusionsType, id, name) => {
-        const handler = adguard.exclusions.getHandler(exclusionsType);
+    renameExclusion = async (mode, id, name) => {
         try {
-            await handler.renameExclusion(id, name);
+            await messager.renameExclusionByMode(mode, id, name);
         } catch (e) {
             log.error(e);
         }
     };
 
     @action
-    addToExclusions = async (exclusionsType) => {
-        const handler = adguard.exclusions.getHandler(exclusionsType);
+    addToExclusions = async (mode) => {
         try {
-            await handler.addToExclusions(
-                this.exclusionsInputs[exclusionsType],
-                this.exclusionsCheckboxes[exclusionsType]
-            );
+            const url = this.exclusionsInputs[mode];
+            const enabled = this.exclusionsCheckboxes[mode];
+            await messager.addExclusionByMode(mode, url, enabled);
             runInAction(() => {
-                this.areFormsVisible[exclusionsType] = false;
-                this.exclusionsInputs[exclusionsType] = '';
-                this.exclusionsCheckboxes[exclusionsType] = true;
+                this.areFormsVisible[mode] = false;
+                this.exclusionsInputs[mode] = '';
+                this.exclusionsCheckboxes[mode] = true;
             });
         } catch (e) {
             log.error(e);
@@ -126,13 +122,13 @@ class SettingsStore {
     };
 
     @action
-    getVersion = () => {
-        this.appVersion = adguard.appStatus.version;
+    getVersion = async () => {
+        this.appVersion = await messager.getAppVersion();
     };
 
     @action
     getUsername = async () => {
-        const username = await adguard.credentials.getUsername();
+        const username = await messager.getUsername();
 
         runInAction(() => {
             this.currentUsername = username;
@@ -141,7 +137,7 @@ class SettingsStore {
 
     @action
     checkRateStatus = async () => {
-        const value = await adguard.settings.getSetting(SETTINGS_IDS.RATE_SHOW);
+        const value = await messager.getSetting(SETTINGS_IDS.RATE_SHOW);
         runInAction(() => {
             this.isRateVisible = value;
         });
@@ -149,7 +145,7 @@ class SettingsStore {
 
     @action
     hideRate = async () => {
-        await adguard.settings.setSetting(SETTINGS_IDS.RATE_SHOW, false);
+        await messager.setSetting(SETTINGS_IDS.RATE_SHOW, false);
         runInAction(() => {
             this.isRateVisible = false;
         });
@@ -157,13 +153,13 @@ class SettingsStore {
 
     @action
     disableProxy = async () => {
-        await adguard.settings.disableProxy(true, true);
+        await messager.disableProxy(true, true);
     };
 
     @action
-    toggleInverted = async (type) => {
-        this.currentExclusionsType = type;
-        await adguard.exclusions.setCurrentHandler(type);
+    toggleInverted = async (mode) => {
+        this.exclusionsCurrentMode = mode;
+        await messager.setExclusionsMode(mode);
     };
 
     exclusionsByType(exclusionsType) {
@@ -172,7 +168,7 @@ class SettingsStore {
 
     @action
     setWebRTCValue = async (value) => {
-        await adguard.settings.setSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED, value);
+        await messager.setSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED, value);
         runInAction(() => {
             this.webRTCEnabled = value;
         });
@@ -180,13 +176,15 @@ class SettingsStore {
 
     @action
     getWebRTCValue = async () => {
-        const value = await adguard.settings.getSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED);
-        this.setWebRTCValue(value);
+        const value = await messager.getSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED);
+        runInAction(() => {
+            this.webRTCEnabled = value;
+        });
     };
 
     @action
     setContextMenusValue = async (value) => {
-        await adguard.settings.setSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED, value);
+        await messager.setSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED, value);
         runInAction(() => {
             this.contextMenusEnabled = value;
         });
@@ -194,13 +192,15 @@ class SettingsStore {
 
     @action
     getContextMenusEnabled = async () => {
-        const value = await adguard.settings.getSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED);
-        this.setContextMenusValue(value);
+        const value = await messager.getSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED);
+        runInAction(() => {
+            this.contextMenusEnabled = value;
+        });
     };
 
     @action
     setDnsServer = async (value) => {
-        await adguard.settings.setSetting(SETTINGS_IDS.SELECTED_DNS_SERVER, value);
+        await messager.setSetting(SETTINGS_IDS.SELECTED_DNS_SERVER, value);
         runInAction(() => {
             this.dnsServer = value;
         });
@@ -208,8 +208,10 @@ class SettingsStore {
 
     @action
     getDnsServer = async () => {
-        const value = await adguard.settings.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER);
-        this.setDnsServer(value);
+        const value = await messager.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER);
+        runInAction(() => {
+            this.dnsServer = value;
+        });
     };
 }
 

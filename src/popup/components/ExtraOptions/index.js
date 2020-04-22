@@ -1,20 +1,18 @@
 import React, { useContext } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
-
 import rootStore from '../../stores';
 import popupActions from '../../actions/popupActions';
 import { POPUP_FEEDBACK_URL, OTHER_PRODUCTS_URL } from '../../../background/config';
 import translator from '../../../lib/translator';
-
+import messager from '../../../lib/messager';
 import Option from './Option';
-
 import './extra-options.pcss';
 
 const ExtraOptions = observer(() => {
     const { uiStore, settingsStore, authStore } = useContext(rootStore);
     const openSettings = async () => {
-        await adguard.actions.openOptionsPage();
+        await messager.openOptionsPage();
         window.close();
     };
 
@@ -43,9 +41,7 @@ const ExtraOptions = observer(() => {
         await popupActions.openTab(OTHER_PRODUCTS_URL);
     };
 
-    const { isExcluded, canBeExcluded, areExclusionsInverted } = settingsStore;
-
-    const exclusionsInverted = areExclusionsInverted();
+    const { isExcluded, canBeExcluded, exclusionsInverted } = settingsStore;
 
     const renderExclusionButton = (isExcluded, exclusionsInverted) => {
         const texts = {

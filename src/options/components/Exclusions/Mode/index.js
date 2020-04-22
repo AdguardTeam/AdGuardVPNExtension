@@ -6,12 +6,13 @@ import classnames from 'classnames';
 import Form from './Form';
 import List from './List';
 import rootStore from '../../../stores';
+import { EXCLUSIONS_MODES } from '../../../../background/exclusions/exclusionsConstants';
 
 const Mode = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
     const {
-        currentExclusionsType,
+        exclusionsCurrentMode,
         toggleInverted,
     } = settingsStore;
 
@@ -19,24 +20,24 @@ const Mode = observer(() => {
         await toggleInverted(type);
     };
 
-    const types = [
-        adguard.exclusions.TYPES.BLACKLIST,
-        adguard.exclusions.TYPES.WHITELIST,
+    const modes = [
+        EXCLUSIONS_MODES.REGULAR,
+        EXCLUSIONS_MODES.SELECTIVE,
     ];
 
     const titles = {
-        [adguard.exclusions.TYPES.BLACKLIST]: {
+        [EXCLUSIONS_MODES.REGULAR]: {
             title: browser.i18n.getMessage('settings_exclusion_regular_title'),
             description: browser.i18n.getMessage('settings_exclusion_regular_description'),
         },
-        [adguard.exclusions.TYPES.WHITELIST]: {
+        [EXCLUSIONS_MODES.SELECTIVE]: {
             title: browser.i18n.getMessage('settings_exclusion_selective_title'),
             description: browser.i18n.getMessage('settings_exclusion_selective_description'),
         },
     };
 
     const renderControls = (exclusionsType) => {
-        const enabled = exclusionsType === currentExclusionsType;
+        const enabled = exclusionsType === exclusionsCurrentMode;
 
         const getIconHref = (enabled) => {
             if (enabled) {
@@ -65,7 +66,7 @@ const Mode = observer(() => {
     };
 
     const renderContent = (exclusionsType) => {
-        const enabled = exclusionsType === currentExclusionsType;
+        const enabled = exclusionsType === exclusionsCurrentMode;
 
         return (
             <>
@@ -83,13 +84,13 @@ const Mode = observer(() => {
                 </div>
                 <div className="settings__group">
                     <div className="settings__controls">
-                        {types.map((type) => (
+                        {modes.map((type) => (
                             <div className="settings__control" key={type}>
                                 {renderControls(type)}
                             </div>
                         ))}
                     </div>
-                    {types.map((type) => (
+                    {modes.map((type) => (
                         <div className="settings__control" key={type}>
                             {renderContent(type)}
                         </div>

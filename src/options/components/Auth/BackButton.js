@@ -6,18 +6,19 @@ function BackButton() {
     const { authStore } = useContext(rootStore);
 
     const handleBackClick = async () => {
-        await authStore.showCheckEmail();
+        await authStore.showSignIn();
     };
 
     return (
         <button
-            className="button button--back"
+            className="button button--icon button--back"
             type="button"
             onClick={handleBackClick}
         >
-            <svg className="icon icon--button">
-                <use xlinkHref="#back" />
+            <svg className="icon icon--button icon--back">
+                <use xlinkHref="#back-arrow" />
             </svg>
+            <span>Back</span>
         </button>
     );
 }

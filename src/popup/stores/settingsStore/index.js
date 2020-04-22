@@ -7,9 +7,10 @@ import {
 
 import tabs from '../../../background/tabs';
 import log from '../../../lib/logger';
-import { getHostname, getProtocol, formatBytes } from '../../../lib/helpers';
+import { getHostname, getProtocol } from '../../../lib/helpers';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
 import { ERROR_STATUSES } from '../../../lib/constants';
+import messager from '../../../lib/messager';
 
 class SettingsStore {
     @observable switcherEnabled = false;
@@ -23,8 +24,6 @@ class SettingsStore {
     @observable isExcluded;
 
     @observable currentTabHostname;
-
-    @observable proxyStats;
 
     @observable ping = 0;
 
@@ -53,13 +52,17 @@ class SettingsStore {
     }
 
     @action
-    getProxyPing = () => {
-        this.ping = adguard.connectivity.endpointConnectivity.getPing();
+    getProxyPing = async () => {
+        const currentEndpointPing = await messager.getCurrentEndpointPing();
+        runInAction(() => {
+            this.ping = currentEndpointPing;
+        });
     };
 
     @action
     async checkProxyControl() {
-        const { canControlProxy } = await adguard.appStatus.canControlProxy();
+        // TODO refactor to return one boolean
+        const { canControlProxy } = await messager.getCanControlProxy();
         runInAction(() => {
             this.canControlProxy = canControlProxy;
         });
@@ -104,7 +107,7 @@ class SettingsStore {
         this.proxyEnablingStatus = REQUEST_STATUSES.PENDING;
         try {
             this.serverError = false;
-            await adguard.settings.enableProxy(force, withCancel);
+            await messager.enableProxy(force, withCancel);
         } catch (e) {
             runInAction(() => {
                 this.serverError = true;
@@ -116,9 +119,8 @@ class SettingsStore {
     @action
     disableProxy = async (force = false, withCancel = false) => {
         this.ping = 0;
-        this.proxyStats = {};
         this.proxyEnabled = false;
-        await adguard.settings.disableProxy(force, withCancel);
+        await messager.disableProxy(force, withCancel);
     };
 
     @action
@@ -150,7 +152,7 @@ class SettingsStore {
     @action
     addToExclusions = async () => {
         try {
-            await adguard.exclusions.current.addToExclusions(
+            await messager.addToExclusions(
                 this.currentTabHostname,
                 true,
                 { considerWildcard: false }
@@ -166,7 +168,7 @@ class SettingsStore {
     @action
     removeFromExclusions = async () => {
         try {
-            await adguard.exclusions.current.disableExclusionByUrl(this.currentTabHostname);
+            await messager.removeFromExclusions(this.currentTabHostname);
             runInAction(() => {
                 this.isExcluded = false;
             });
@@ -179,7 +181,7 @@ class SettingsStore {
     checkIsExcluded = async () => {
         try {
             await this.getCurrentTabHostname();
-            const result = adguard.exclusions.current.isExcluded(this.currentTabHostname);
+            const result = await messager.getIsExcluded(this.currentTabHostname);
             runInAction(() => {
                 this.isExcluded = result;
             });
@@ -189,10 +191,12 @@ class SettingsStore {
     };
 
     @action
-    areExclusionsInverted = () => {
-        this.exclusionsInverted = adguard.exclusions.isInverted();
-        return this.exclusionsInverted;
-    };
+    getExclusionsInverted = async () => {
+        const exclusionsInverted = await messager.getExclusionsInverted();
+        runInAction(() => {
+            this.exclusionsInverted = exclusionsInverted;
+        });
+    }
 
     @action
     getCurrentTabHostname = async () => {
@@ -219,27 +223,9 @@ class SettingsStore {
     };
 
     @action
-    getProxyStats = async () => {
-        const stats = await adguard.connectivity.endpointConnectivity.getStats();
-        runInAction(() => {
-            this.proxyStats = stats;
-        });
-    };
-
-    @action
     setIsRoutable = (value) => {
         this.isRoutable = value;
     };
-
-    @computed
-    get stats() {
-        let { bytesDownloaded, bytesUploaded } = this.proxyEnabled && !this.proxyIsEnabling
-            ? this.proxyStats || {}
-            : {};
-        bytesDownloaded = formatBytes(bytesDownloaded);
-        bytesUploaded = formatBytes(bytesUploaded);
-        return { bytesDownloaded, bytesUploaded };
-    }
 
     @action
     setGlobalError(data) {
@@ -255,7 +241,7 @@ class SettingsStore {
     async checkPermissions() {
         this.checkPermissionsState = REQUEST_STATUSES.PENDING;
         try {
-            await adguard.permissionsChecker.checkPermissions();
+            await messager.checkPermissions();
             await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
         } catch (e) {
             log.info(e.message);
@@ -265,14 +251,15 @@ class SettingsStore {
         });
     }
 
-    @action clearPermissionError() {
+    @action
+    async clearPermissionError() {
         this.globalError = null;
-        adguard.permissionsError.clearError();
+        await messager.clearPermissionsError();
     }
 
     @computed
     get displayNonRoutable() {
-        if (this.areExclusionsInverted()) {
+        if (this.exclusionsInverted) {
             return !this.isRoutable && this.isExcluded;
         }
         return !(this.isRoutable || this.isExcluded);
@@ -280,7 +267,7 @@ class SettingsStore {
 
     @action
     async disableOtherProxyExtensions() {
-        await adguard.management.turnOffProxyExtensions();
+        await messager.disableOtherExtensions();
         await this.checkProxyControl();
     }
 

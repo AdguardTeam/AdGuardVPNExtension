@@ -12,9 +12,6 @@ const SubdomainsHelp = () => (
             <div className="popover__text">
                 {browser.i18n.getMessage('settings_exclusion_subdomains_text')}
             </div>
-            <div className="popover__text">
-                {browser.i18n.getMessage('settings_exclusion_subdomains_example')}
-            </div>
         </>
     </Popover>
 );

@@ -3,10 +3,12 @@ import {
     action,
     runInAction,
     computed,
+    toJS,
 } from 'mobx';
 import debounce from 'lodash/debounce';
 import browser from 'webextension-polyfill';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
+import messager from '../../../lib/messager';
 
 const AUTH_STEPS = {
     CHECK_EMAIL: 'checkEmail',
@@ -81,16 +83,16 @@ class AuthStore {
     }, 500);
 
     @action
-    onCredentialsChange = (field, value) => {
+    onCredentialsChange = async (field, value) => {
         this.resetError();
         this.credentials[field] = value;
         this.validate(field, value);
-        adguard.authCache.updateAuthCache(field, value);
+        await messager.updateAuthCache(field, value);
     };
 
     @action
-    getAuthCacheFromBackground = () => {
-        const { username, password, step } = adguard.authCache.getAuthCache();
+    getAuthCacheFromBackground = async () => {
+        const { username, password, step } = await messager.getAuthCache();
         runInAction(() => {
             this.credentials = {
                 ...this.credentials,
@@ -127,7 +129,7 @@ class AuthStore {
     @action
     authenticate = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
-        const response = await adguard.auth.authenticate(this.credentials);
+        const response = await messager.authenticateUser(toJS(this.credentials));
 
         if (response.error) {
             runInAction(() => {
@@ -138,7 +140,7 @@ class AuthStore {
         }
 
         if (response.status === 'ok') {
-            adguard.authCache.clearAuthCache();
+            await messager.clearAuthCache();
             await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
             runInAction(() => {
                 this.requestProcessState = REQUEST_STATUSES.DONE;
@@ -150,10 +152,10 @@ class AuthStore {
         }
 
         if (response.status === '2fa_required') {
-            runInAction(() => {
+            runInAction(async () => {
                 this.requestProcessState = REQUEST_STATUSES.DONE;
                 this.need2fa = true;
-                this.switchStep(this.STEPS.TWO_FACTOR);
+                await this.switchStep(this.STEPS.TWO_FACTOR);
             });
         }
     };
@@ -162,9 +164,7 @@ class AuthStore {
     checkEmail = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
 
-        // TODO [maximtop] make possible for userLookup to receive just email
-        const appId = adguard.credentials.getAppId();
-        const response = await adguard.auth.userLookup(this.credentials.username, appId);
+        const response = await messager.checkEmail(this.credentials.username);
 
         if (response.error) {
             runInAction(() => {
@@ -175,9 +175,9 @@ class AuthStore {
         }
 
         if (response.canRegister) {
-            this.switchStep(this.STEPS.REGISTRATION);
+            await this.switchStep(this.STEPS.REGISTRATION);
         } else {
-            this.switchStep(this.STEPS.SIGN_IN);
+            await this.switchStep(this.STEPS.SIGN_IN);
         }
 
         runInAction(() => {
@@ -188,7 +188,7 @@ class AuthStore {
     @action
     register = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
-        const response = await adguard.auth.register(this.credentials);
+        const response = await messager.registerUser(this.credentials);
         if (response.error) {
             runInAction(() => {
                 this.requestProcessState = REQUEST_STATUSES.ERROR;
@@ -198,7 +198,7 @@ class AuthStore {
             return;
         }
         if (response.status === 'ok') {
-            adguard.authCache.clearAuthCache();
+            await messager.clearAuthCache();
             await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
             runInAction(() => {
                 this.requestProcessState = REQUEST_STATUSES.DONE;
@@ -211,7 +211,7 @@ class AuthStore {
     @action
     isAuthenticated = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
-        const result = await adguard.auth.isAuthenticated();
+        const result = await messager.isAuthenticated();
         if (result) {
             runInAction(() => {
                 this.authenticated = true;
@@ -230,8 +230,7 @@ class AuthStore {
 
     @action
     deauthenticate = async () => {
-        await adguard.auth.deauthenticate();
-        await adguard.credentials.persistVpnToken(null);
+        await messager.deauthenticateUser();
         await this.rootStore.settingsStore.setProxyState(false);
         runInAction(() => {
             this.setDefaults();
@@ -240,30 +239,20 @@ class AuthStore {
 
     @action
     openSocialAuth = async (social) => {
-        await adguard.auth.startSocialAuth(social);
+        await messager.startSocialAuth(social);
         window.close();
     };
 
     @action
-    switchStep = (step) => {
+    switchStep = async (step) => {
         this.step = step;
         this.resetError();
-        adguard.authCache.updateAuthCache('step', step);
+        await messager.updateAuthCache('step', step);
     };
 
     @action
-    showRegistration = () => {
-        this.switchStep(AUTH_STEPS.REGISTRATION);
-    };
-
-    @action
-    showSignIn = () => {
-        this.switchStep(AUTH_STEPS.SIGN_IN);
-    };
-
-    @action
-    showCheckEmail = () => {
-        this.switchStep(AUTH_STEPS.CHECK_EMAIL);
+    showCheckEmail = async () => {
+        await this.switchStep(AUTH_STEPS.CHECK_EMAIL);
     };
 }
 

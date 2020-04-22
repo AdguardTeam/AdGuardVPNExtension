@@ -3,10 +3,12 @@ import {
     action,
     runInAction,
     computed,
+    toJS,
 } from 'mobx';
 import debounce from 'lodash/debounce';
-import browser from 'webextension-polyfill';
 import { REQUEST_STATUSES } from '../consts';
+import messager from '../../../lib/messager';
+import translator from '../../../lib/translator';
 
 const AUTH_STEPS = {
     SIGN_IN: 'signIn',
@@ -55,7 +57,8 @@ class AuthStore {
         this.rootStore = rootStore;
     }
 
-    @action setDefaults = () => {
+    @action
+    setDefaults = () => {
         this.credentials = DEFAULTS.credentials;
         this.authenticated = DEFAULTS.authenticated;
         this.need2fa = DEFAULTS.need2fa;
@@ -63,7 +66,8 @@ class AuthStore {
         this.step = DEFAULTS.step;
     };
 
-    @action resetError = () => {
+    @action
+    resetError = () => {
         this.error = DEFAULTS.error;
     };
 
@@ -71,22 +75,23 @@ class AuthStore {
         if (field === 'passwordAgain') {
             if (value !== this.credentials.password) {
                 runInAction(() => {
-                    this.error = browser.i18n.getMessage('registration_error_front_unique_validation');
+                    this.error = translator.translate('registration_error_front_unique_validation');
                 });
             }
         }
     }, 500);
 
-    @action onCredentialsChange = (field, value) => {
+    @action
+    onCredentialsChange = async (field, value) => {
         this.resetError();
         this.credentials[field] = value;
         this.validate(field, value);
-        adguard.authCache.updateAuthCache(field, value);
+        await messager.updateAuthCache(field, value);
     };
 
     @action
-    getAuthCacheFromBackground = () => {
-        const { username, password, step } = adguard.authCache.getAuthCache();
+    getAuthCacheFromBackground = async () => {
+        const { username, password, step } = await messager.getAuthCache();
         runInAction(() => {
             this.credentials = { ...this.credentials, username, password };
             if (step) {
@@ -116,9 +121,10 @@ class AuthStore {
         return false;
     }
 
-    @action authenticate = async () => {
+    @action
+    authenticate = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
-        const response = await adguard.auth.authenticate(this.credentials);
+        const response = await messager.authenticateUser(toJS(this.credentials));
 
         if (response.error) {
             runInAction(() => {
@@ -129,7 +135,7 @@ class AuthStore {
         }
 
         if (response.status === 'ok') {
-            adguard.authCache.clearAuthCache();
+            await messager.clearAuthCache();
             await this.rootStore.globalStore.getOptionsData();
             runInAction(() => {
                 this.requestProcessState = REQUEST_STATUSES.DONE;
@@ -141,17 +147,18 @@ class AuthStore {
         }
 
         if (response.status === '2fa_required') {
-            runInAction(() => {
+            runInAction(async () => {
                 this.requestProcessState = REQUEST_STATUSES.DONE;
                 this.need2fa = true;
-                this.switchStep(this.STEPS.TWO_FACTOR);
+                await this.switchStep(this.STEPS.TWO_FACTOR);
             });
         }
     };
 
-    @action register = async () => {
+    @action
+    register = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
-        const response = await adguard.auth.register(this.credentials);
+        const response = await messager.registerUser(this.credentials);
         if (response.error) {
             runInAction(() => {
                 this.requestProcessState = REQUEST_STATUSES.ERROR;
@@ -161,7 +168,7 @@ class AuthStore {
             return;
         }
         if (response.status === 'ok') {
-            adguard.authCache.clearAuthCache();
+            await messager.clearAuthCache();
             await this.rootStore.globalStore.getOptionsData();
             runInAction(() => {
                 this.requestProcessState = REQUEST_STATUSES.DONE;
@@ -171,9 +178,12 @@ class AuthStore {
         }
     };
 
-    @action isAuthenticated = async () => {
+    @action
+    isAuthenticated = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
-        const result = await adguard.auth.isAuthenticated();
+        const result = await messager.isAuthenticated();
+        // AG-644 set current endpoint in order to avoid bug in permissions checker
+        await messager.getSelectedEndpoint();
         if (result) {
             runInAction(() => {
                 this.authenticated = true;
@@ -190,30 +200,35 @@ class AuthStore {
         this.authenticated = value;
     };
 
-    @action deauthenticate = async () => {
-        await adguard.auth.deauthenticate();
+    @action
+    deauthenticate = async () => {
+        await messager.deauthenticateUser();
         await this.rootStore.settingsStore.disableProxy();
         runInAction(() => {
             this.setDefaults();
         });
     };
 
-    @action openSocialAuth = async (social) => {
-        await adguard.auth.startSocialAuth(social);
+    @action
+    openSocialAuth = async (social) => {
+        await messager.startSocialAuth(social);
     };
 
-    @action switchStep = (step) => {
+    @action
+    switchStep = async (step) => {
         this.step = step;
         this.resetError();
-        adguard.authCache.updateAuthCache('step', step);
+        await messager.updateAuthCache('step', step);
     };
 
-    @action showRegistration = () => {
-        this.switchStep(AUTH_STEPS.REGISTRATION);
+    @action
+    showRegistration = async () => {
+        await this.switchStep(AUTH_STEPS.REGISTRATION);
     };
 
-    @action showSignIn = () => {
-        this.switchStep(AUTH_STEPS.SIGN_IN);
+    @action
+    showSignIn = async () => {
+        await this.switchStep(AUTH_STEPS.SIGN_IN);
     };
 }
 

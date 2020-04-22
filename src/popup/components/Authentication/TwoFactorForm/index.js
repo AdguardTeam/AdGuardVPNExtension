@@ -15,9 +15,9 @@ const TwoFactorForm = observer(() => {
         await authStore.authenticate();
     };
 
-    const inputChangeHandler = (e) => {
+    const inputChangeHandler = async (e) => {
         const { target: { name, value } } = e;
-        authStore.onCredentialsChange(name, value);
+        await authStore.onCredentialsChange(name, value);
     };
 
     const { requestProcessState, credentials } = authStore;

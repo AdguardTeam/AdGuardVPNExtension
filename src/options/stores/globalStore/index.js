@@ -21,9 +21,8 @@ class globalStore {
 
         try {
             await authStore.isAuthenticated();
-            await adguard.endpoints.getSelectedEndpoint();
-            settingsStore.getExclusions();
-            settingsStore.getVersion();
+            await settingsStore.getExclusions();
+            await settingsStore.getVersion();
             await settingsStore.getUsername();
             await settingsStore.checkRateStatus();
             await settingsStore.getWebRTCValue();

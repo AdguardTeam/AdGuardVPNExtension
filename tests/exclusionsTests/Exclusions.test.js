@@ -67,29 +67,29 @@ describe('exclusions', () => {
         const currentList = exclusions.current.getExclusionsList();
         expect(currentList.length).toEqual(0);
 
-        const blacklist = exclusions.blacklist.getExclusionsList();
-        expect(blacklist.length).toEqual(0);
+        const regular = exclusions.regular.getExclusionsList();
+        expect(regular.length).toEqual(0);
 
-        const whitelist = exclusions.whitelist.getExclusionsList();
-        expect(whitelist.length).toEqual(0);
+        const selective = exclusions.selective.getExclusionsList();
+        expect(selective.length).toEqual(0);
     });
 
     it('current handler should fit to inverted status, and handle switch', async () => {
-        const expectedType = exclusions.isInverted()
-            ? exclusions.TYPES.WHITELIST
-            : exclusions.TYPES.BLACKLIST;
-        expect(exclusions.current.type).toBe(expectedType);
+        const expectedMode = exclusions.isInverted()
+            ? exclusions.MODES.SELECTIVE
+            : exclusions.MODES.REGULAR;
+        expect(exclusions.current.mode).toBe(expectedMode);
 
-        await exclusions.setCurrentHandler(exclusions.TYPES.BLACKLIST);
-        expect(exclusions.current.type).toBe(exclusions.TYPES.BLACKLIST);
+        await exclusions.setCurrentMode(exclusions.MODES.REGULAR);
+        expect(exclusions.current.mode).toBe(exclusions.MODES.REGULAR);
 
-        await exclusions.setCurrentHandler(exclusions.TYPES.WHITELIST);
-        expect(exclusions.current.type).toBe(exclusions.TYPES.WHITELIST);
+        await exclusions.setCurrentMode(exclusions.MODES.SELECTIVE);
+        expect(exclusions.current.mode).toBe(exclusions.MODES.SELECTIVE);
     });
 
-    it('should return right type of handler', () => {
-        expect(exclusions.blacklist.type).toBe(exclusions.TYPES.BLACKLIST);
-        expect(exclusions.whitelist.type).toBe(exclusions.TYPES.WHITELIST);
+    it('should return right mode of handler', () => {
+        expect(exclusions.regular.mode).toBe(exclusions.MODES.REGULAR);
+        expect(exclusions.selective.mode).toBe(exclusions.MODES.SELECTIVE);
     });
 
     it('should return false if hostname is NOT in exclusions', () => {
@@ -97,13 +97,13 @@ describe('exclusions', () => {
     });
 
     it('should return true if hostname was added in current', async () => {
-        await exclusions.setCurrentHandler(exclusions.TYPES.BLACKLIST);
+        await exclusions.setCurrentMode(exclusions.MODES.REGULAR);
 
         let exclusionsInStorage = settings.getExclusions();
         expect(exclusionsInStorage).toEqual({
             inverted: false,
-            blacklist: {},
-            whitelist: {},
+            regular: {},
+            selective: {},
         });
 
         const blacklistedDomain = 'http://example.org/';
@@ -111,17 +111,17 @@ describe('exclusions', () => {
         expect(exclusions.current.isExcluded(blacklistedDomain)).toBeTruthy();
 
         exclusionsInStorage = settings.getExclusions();
-        expect(exclusionsInStorage.whitelist).toEqual({});
+        expect(exclusionsInStorage.selective).toEqual({});
         expect(exclusionsInStorage.inverted).toEqual(false);
-        const hasDomain = Object.values(exclusionsInStorage.blacklist).some((val) => {
+        const hasDomain = Object.values(exclusionsInStorage.regular).some((val) => {
             return blacklistedDomain.includes(val.hostname);
         });
         expect(hasDomain).toBeTruthy();
 
-        await exclusions.setCurrentHandler(exclusions.TYPES.WHITELIST);
+        await exclusions.setCurrentMode(exclusions.MODES.SELECTIVE);
         expect(exclusions.current.isExcluded(blacklistedDomain)).toBeFalsy();
         exclusionsInStorage = settings.getExclusions();
-        expect(exclusionsInStorage.whitelist).toEqual({});
+        expect(exclusionsInStorage.selective).toEqual({});
         expect(exclusionsInStorage.inverted).toEqual(true);
 
         const whitelistedDomain = 'http://yandex.ru/';
@@ -131,7 +131,7 @@ describe('exclusions', () => {
         exclusionsInStorage = settings.getExclusions();
         expect(exclusionsInStorage.inverted).toEqual(true);
 
-        const hasWhitelistedDomain = Object.values(exclusionsInStorage.whitelist).some((val) => {
+        const hasWhitelistedDomain = Object.values(exclusionsInStorage.selective).some((val) => {
             return whitelistedDomain.includes(val.hostname);
         });
         expect(hasWhitelistedDomain).toBeTruthy();

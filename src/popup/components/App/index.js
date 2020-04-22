@@ -56,6 +56,10 @@ const App = observer(() => {
                     vpnStore.setPing(data);
                     break;
                 }
+                case MESSAGES_TYPES.FASTEST_ENDPOINTS_CALCULATED: {
+                    vpnStore.setFastestEndpoints(data);
+                    break;
+                }
                 case MESSAGES_TYPES.CURRENT_ENDPOINT_UPDATED: {
                     vpnStore.setSelectedEndpoint(data);
                     break;
@@ -66,8 +70,7 @@ const App = observer(() => {
                     break;
                 }
                 case MESSAGES_TYPES.EXTENSION_PROXY_ENABLED: {
-                    await settingsStore.getProxyStats();
-                    settingsStore.getProxyPing();
+                    await settingsStore.getProxyPing();
                     settingsStore.setProxyEnabled(true);
                     break;
                 }
