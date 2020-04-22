@@ -16,6 +16,11 @@ const DEFAULTS = {
     currentHost: '',
 };
 
+const PROXY_AUTH_TYPES = {
+    PREFIX: 'prefix',
+    AUTH_HANDLER: 'authHandler'
+}
+
 class ExtensionProxy {
     constructor() {
         this.isActive = false;
@@ -25,16 +30,9 @@ class ExtensionProxy {
         this.currentHost = '';
 
         /**
-         * This flag is used to switch from background page way of handling hosts
-         * Flag can be changed if you run in console
-         *      "adguard.proxy.addPrefixToHost = false"
-         * By default it is always true, because onAuthRequired listener is not working stable
-         * 1. If true then we would add credentials as prefix to host and host would look like:
-         *      "6bda34c460ac2f2dce779f719048ea4a.do-de-fra1-01.adguard.io"
-         * 2. If false then code won't add credentials to host and it would look like:
-         *      "do-de-fra1-01.adguard.io"
+         * By default we use PREFIX type, because AUTH_HANDLER is not working stable
          */
-        this.addPrefixToHost = true;
+        this.proxyAuthorizationType = PROXY_AUTH_TYPES.PREFIX;
     }
 
     async turnOn() {
@@ -133,10 +131,12 @@ class ExtensionProxy {
         if (!prefix || !domainName) {
             return;
         }
-        if (this.addPrefixToHost) {
+        if (this.proxyAuthorizationType === PROXY_AUTH_TYPES.PREFIX) {
             this.currentHost = `${prefix}.${domainName}`;
-        } else {
+        } else if (this.proxyAuthorizationType === PROXY_AUTH_TYPES.AUTH_HANDLER) {
             this.currentHost = domainName;
+        } else {
+            throw new Error(`Wrong proxyAuthorizationType: ${this.proxyAuthorizationType}`);
         }
         this.currentPrefix = prefix;
         await this.applyConfig();
