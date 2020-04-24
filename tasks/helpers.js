@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const {
     LOCALES_PATH,
     ENV_MAP,
@@ -32,10 +33,15 @@ const updateManifest = (manifestJson, browserManifestDiff) => {
     }
     const devPolicy = IS_DEV ? { content_security_policy: "script-src 'self' 'unsafe-eval'; object-src 'self'" } : {};
     const name = getNameByEnv(STAGING);
+    const permissions = _.uniq([
+        ...(manifest.permissions || []),
+        ...(browserManifestDiff.permissions || []),
+    ]).sort();
     const updatedManifest = {
         ...manifest,
         ...browserManifestDiff,
         ...devPolicy,
+        permissions,
         name,
         version: pJson.version,
     };
