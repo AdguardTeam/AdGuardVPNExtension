@@ -229,6 +229,11 @@ class AuthStore {
     @action
     showSignIn = async () => {
         await this.switchStep(AUTH_STEPS.SIGN_IN);
+        runInAction(() => {
+            // clear two factor field
+            // issue AG-2070
+            this.credentials.twoFactor = DEFAULTS.credentials.twoFactor;
+        });
     };
 }
 
