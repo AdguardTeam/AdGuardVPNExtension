@@ -9,7 +9,7 @@ const ENVS = {
 // Value of PRODUCTION variable is set by Webpack. For beta and prod we set it true,
 // otherwise we set it false
 const currentEnv = PRODUCTION ? ENVS.PROD : ENVS.TEST;
-log.debug(`Current staging: ${currentEnv}`);
+log.debug(`Current build environment: ${currentEnv}`);
 
 // Account section
 // API description - projects/ADGUARD/repos/adguard-account-service/browse

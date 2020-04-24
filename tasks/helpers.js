@@ -3,7 +3,7 @@ const {
     ENV_MAP,
     IS_DEV,
     ENVS,
-    STAGING,
+    BUILD_ENV,
 } = require('./consts');
 const pJson = require('../package');
 
@@ -31,7 +31,7 @@ const updateManifest = (manifestJson, browserManifestDiff) => {
         throw new Error('unable to parse json from manifest');
     }
     const devPolicy = IS_DEV ? { content_security_policy: "script-src 'self' 'unsafe-eval'; object-src 'self'" } : {};
-    const name = getNameByEnv(STAGING);
+    const name = getNameByEnv(BUILD_ENV);
     const updatedManifest = {
         ...manifest,
         ...browserManifestDiff,
