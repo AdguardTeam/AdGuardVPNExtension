@@ -219,7 +219,10 @@
         "message": "Subdomains"
     },
     "settings_exclusion_subdomains_text": {
-        "message": "You can add domains (e.g. google.com) or all subdomains (e.g. *.google.com)"
+        "message": "You can also add subdomains like this: *.domain.com."
+    },
+    "settings_exclusion_subdomains_example": {
+        "message": "E.g: If you want to exclude not only google.com, but also mail.google.com, play.google.com, etc., add *.google.com to the list."
     },
     "global_error_title": {
         "message": "Error occurred"
@@ -263,7 +266,7 @@
     "popup_settings_sign_out": {
         "message": "Sign out"
     },
-    "context_menu_enable_vpn" : {
+    "context_menu_enable_vpn": {
         "message": "Enable VPN on this website"
     },
     "context_menu_disable_vpn": {
@@ -328,5 +331,8 @@
     },
     "settings_run_out_data": {
         "message": "You've run out of data"
+    },
+    "options_title": {
+        "message": "AdGuard VPN Options"
     }
 }
