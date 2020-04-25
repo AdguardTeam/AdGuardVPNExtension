@@ -3,13 +3,17 @@ import { MESSAGES_TYPES } from './constants';
 import log from './logger';
 
 class Messenger {
+    constructor() {
+        this.port = browser.runtime.connect({ name: `port${Math.random()}` });
+    }
+
     async sendMessage(type, data) {
         log.debug(`Request type: "${type}"`);
         if (data) {
             log.debug('Request data:', data);
         }
 
-        const response = await browser.runtime.sendMessage({ type, data });
+        const response = await this.port.postMessage({ type, data });
 
         if (response) {
             log.debug(`Response type: "${type}"`);
@@ -31,11 +35,12 @@ class Messenger {
 
         let listenerId;
         const type = MESSAGES_TYPES.ADD_EVENT_LISTENER;
-        listenerId = await this.sendMessage(type, { events });
 
-        browser.runtime.onMessage.addListener((message) => {
+        this.port.postMessage(type, { events });
+        this.port.onMessage.addListener((message) => {
             if (message.type === MESSAGES_TYPES.NOTIFY_LISTENERS) {
                 const [type, data] = message.data;
+                listenerId = message.listenerId;
                 eventListener({ type, data });
             }
         });
