@@ -209,7 +209,7 @@ const messageHandler = async (message, sender) => {
 /**
  * This handler used to subscribe for notifications from popup page
  * https://developer.chrome.com/extensions/messaging#connect
- * We can't use simple one-time connections because, they can intercept each other
+ * We can't use simple one-time connections, because they can intercept each other
  * Causing issues like AG-2074
  */
 const longLivedMessageHandler = (port) => {
