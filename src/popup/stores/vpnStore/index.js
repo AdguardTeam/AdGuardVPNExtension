@@ -5,7 +5,7 @@ import {
     runInAction,
     toJS,
 } from 'mobx';
-import messager from '../../../lib/messager';
+import messenger from '../../../lib/messenger';
 
 class VpnStore {
     constructor(rootStore) {
@@ -67,7 +67,7 @@ class VpnStore {
         if (!selectedEndpoint) {
             throw new Error(`No endpoint with id: "${id}" found`);
         }
-        await messager.setCurrentEndpoint(toJS(selectedEndpoint));
+        await messenger.setCurrentEndpoint(toJS(selectedEndpoint));
         runInAction(() => {
             this.selectedEndpoint = { ...selectedEndpoint, selected: true };
         });

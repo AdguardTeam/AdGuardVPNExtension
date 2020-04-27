@@ -4,7 +4,6 @@ import React, {
 } from 'react';
 import { observer } from 'mobx-react';
 import Modal from 'react-modal';
-import browser from 'webextension-polyfill';
 import { CSSTransition } from 'react-transition-group';
 
 import Header from '../Header';
@@ -20,8 +19,9 @@ import Icons from '../ui/Icons';
 
 import rootStore from '../../stores';
 import { REQUEST_STATUSES } from '../../stores/consts';
-import { MESSAGES_TYPES } from '../../../lib/constants';
 import log from '../../../lib/logger';
+import messenger from '../../../lib/messenger';
+import notifier from '../../../lib/notifier';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -44,37 +44,36 @@ const App = observer(() => {
             const { type, data } = message;
 
             switch (type) {
-                case MESSAGES_TYPES.VPN_INFO_UPDATED: {
+                case notifier.types.VPN_INFO_UPDATED: {
                     vpnStore.setVpnInfo(data);
                     break;
                 }
-                case MESSAGES_TYPES.ENDPOINTS_UPDATED: {
+                case notifier.types.ENDPOINTS_UPDATED: {
                     vpnStore.setAllEndpoints(data);
                     break;
                 }
-                case MESSAGES_TYPES.ENDPOINTS_PING_UPDATED: {
+                case notifier.types.ENDPOINTS_PING_UPDATED: {
                     vpnStore.setPing(data);
                     break;
                 }
-                case MESSAGES_TYPES.FASTEST_ENDPOINTS_CALCULATED: {
+                case notifier.types.FASTEST_ENDPOINTS_CALCULATED: {
                     vpnStore.setFastestEndpoints(data);
                     break;
                 }
-                case MESSAGES_TYPES.CURRENT_ENDPOINT_UPDATED: {
+                case notifier.types.CURRENT_ENDPOINT_UPDATED: {
                     vpnStore.setSelectedEndpoint(data);
                     break;
                 }
-                case MESSAGES_TYPES.PERMISSIONS_ERROR_UPDATE:
-                case MESSAGES_TYPES.VPN_TOKEN_NOT_FOUND: {
+                case notifier.types.PERMISSIONS_ERROR_UPDATE: {
                     settingsStore.setGlobalError(data);
                     break;
                 }
-                case MESSAGES_TYPES.EXTENSION_PROXY_ENABLED: {
+                case notifier.types.PROXY_TURNED_ON: {
                     await settingsStore.getProxyPing();
                     settingsStore.setProxyEnabled(true);
                     break;
                 }
-                case MESSAGES_TYPES.EXTENSION_PROXY_DISABLED: {
+                case notifier.types.PROXY_TURNED_OFF: {
                     settingsStore.setProxyEnabled(false);
                     settingsStore.setSwitcher(false);
                     break;
@@ -86,10 +85,21 @@ const App = observer(() => {
             }
         };
 
-        browser.runtime.onMessage.addListener(messageHandler);
+        const events = [
+            notifier.types.VPN_INFO_UPDATED,
+            notifier.types.ENDPOINTS_UPDATED,
+            notifier.types.ENDPOINTS_PING_UPDATED,
+            notifier.types.FASTEST_ENDPOINTS_CALCULATED,
+            notifier.types.CURRENT_ENDPOINT_UPDATED,
+            notifier.types.PERMISSIONS_ERROR_UPDATE,
+            notifier.types.PROXY_TURNED_ON,
+            notifier.types.PROXY_TURNED_OFF,
+        ];
+
+        const onUnload = messenger.createLongLivedConnection(events, messageHandler);
 
         return () => {
-            browser.runtime.onMessage.removeListener(messageHandler);
+            onUnload();
         };
     }, []);
 

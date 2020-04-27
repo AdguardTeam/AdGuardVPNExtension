@@ -10,7 +10,7 @@ import log from '../../../lib/logger';
 import { getHostname, getProtocol } from '../../../lib/helpers';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
 import { ERROR_STATUSES } from '../../../lib/constants';
-import messager from '../../../lib/messager';
+import messenger from '../../../lib/messenger';
 
 class SettingsStore {
     @observable switcherEnabled = false;
@@ -53,7 +53,7 @@ class SettingsStore {
 
     @action
     getProxyPing = async () => {
-        const currentEndpointPing = await messager.getCurrentEndpointPing();
+        const currentEndpointPing = await messenger.getCurrentEndpointPing();
         runInAction(() => {
             this.ping = currentEndpointPing;
         });
@@ -62,7 +62,7 @@ class SettingsStore {
     @action
     async checkProxyControl() {
         // TODO refactor to return one boolean
-        const { canControlProxy } = await messager.getCanControlProxy();
+        const { canControlProxy } = await messenger.getCanControlProxy();
         runInAction(() => {
             this.canControlProxy = canControlProxy;
         });
@@ -107,7 +107,7 @@ class SettingsStore {
         this.proxyEnablingStatus = REQUEST_STATUSES.PENDING;
         try {
             this.serverError = false;
-            await messager.enableProxy(force, withCancel);
+            await messenger.enableProxy(force, withCancel);
         } catch (e) {
             runInAction(() => {
                 this.serverError = true;
@@ -120,7 +120,7 @@ class SettingsStore {
     disableProxy = async (force = false, withCancel = false) => {
         this.ping = 0;
         this.proxyEnabled = false;
-        await messager.disableProxy(force, withCancel);
+        await messenger.disableProxy(force, withCancel);
     };
 
     @action
@@ -152,7 +152,7 @@ class SettingsStore {
     @action
     addToExclusions = async () => {
         try {
-            await messager.addToExclusions(
+            await messenger.addToExclusions(
                 this.currentTabHostname,
                 true,
                 { considerWildcard: false }
@@ -168,7 +168,7 @@ class SettingsStore {
     @action
     removeFromExclusions = async () => {
         try {
-            await messager.removeFromExclusions(this.currentTabHostname);
+            await messenger.removeFromExclusions(this.currentTabHostname);
             runInAction(() => {
                 this.isExcluded = false;
             });
@@ -181,7 +181,7 @@ class SettingsStore {
     checkIsExcluded = async () => {
         try {
             await this.getCurrentTabHostname();
-            const result = await messager.getIsExcluded(this.currentTabHostname);
+            const result = await messenger.getIsExcluded(this.currentTabHostname);
             runInAction(() => {
                 this.isExcluded = result;
             });
@@ -192,7 +192,7 @@ class SettingsStore {
 
     @action
     getExclusionsInverted = async () => {
-        const exclusionsInverted = await messager.getExclusionsInverted();
+        const exclusionsInverted = await messenger.getExclusionsInverted();
         runInAction(() => {
             this.exclusionsInverted = exclusionsInverted;
         });
@@ -241,7 +241,7 @@ class SettingsStore {
     async checkPermissions() {
         this.checkPermissionsState = REQUEST_STATUSES.PENDING;
         try {
-            await messager.checkPermissions();
+            await messenger.checkPermissions();
             await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
         } catch (e) {
             log.info(e.message);
@@ -254,7 +254,7 @@ class SettingsStore {
     @action
     async clearPermissionError() {
         this.globalError = null;
-        await messager.clearPermissionsError();
+        await messenger.clearPermissionsError();
     }
 
     @computed
@@ -267,7 +267,7 @@ class SettingsStore {
 
     @action
     async disableOtherProxyExtensions() {
-        await messager.disableOtherExtensions();
+        await messenger.disableOtherExtensions();
         await this.checkProxyControl();
     }
 

@@ -1,6 +1,6 @@
 import { action } from 'mobx';
 import tabs from '../../../background/tabs';
-import messager from '../../../lib/messager';
+import messenger from '../../../lib/messenger';
 
 class PopupActions {
     @action
@@ -17,7 +17,7 @@ class PopupActions {
 
     @action
     openVpnFailurePage = async () => {
-        const vpnFailurePage = await messager.getVpnFailurePage();
+        const vpnFailurePage = await messenger.getVpnFailurePage();
         await this.openTab(vpnFailurePage);
     };
 }

@@ -113,6 +113,13 @@ const types = {
     DNS_SERVER_SET: 'event.dns.server.set',
     UPDATE_BROWSER_ACTION_ICON: 'event.update.browser.action.icon',
     AUTHENTICATE_SOCIAL_SUCCESS: 'event.authenticate.social.success',
+
+    VPN_INFO_UPDATED: 'event.vpn.info.updated',
+    ENDPOINTS_UPDATED: 'event.endpoints.updated',
+    ENDPOINTS_PING_UPDATED: 'event.endpoints.ping.updated',
+    FASTEST_ENDPOINTS_CALCULATED: 'event.fastest.endpoints.calculated',
+    CURRENT_ENDPOINT_UPDATED: 'event.current.endpoint.updated',
+    PERMISSIONS_ERROR_UPDATE: 'event.permission.error.update',
 };
 
 const notifier = new Notifier(types);

@@ -206,8 +206,40 @@ const messageHandler = async (message, sender) => {
     return Promise.resolve();
 };
 
+/**
+ * This handler used to subscribe for notifications from popup page
+ * https://developer.chrome.com/extensions/messaging#connect
+ * We can't use simple one-time connections, because they can intercept each other
+ * Causing issues like AG-2074
+ */
+const longLivedMessageHandler = (port) => {
+    let listenerId;
+
+    log.debug(`Connecting to the port "${port.name}"`);
+    port.onMessage.addListener((message) => {
+        const { type, data } = message;
+        if (type === MESSAGES_TYPES.ADD_LONG_LIVED_CONNECTION) {
+            const { events } = data;
+            listenerId = notifier.addSpecifiedListener(events, async (...data) => {
+                const type = MESSAGES_TYPES.NOTIFY_LISTENERS;
+                try {
+                    port.postMessage({ type, data });
+                } catch (e) {
+                    log.error(e.message);
+                }
+            });
+        }
+    });
+
+    port.onDisconnect.addListener(() => {
+        log.debug(`Removing listener: ${listenerId} for port ${port.name}`);
+        notifier.removeListener(listenerId);
+    });
+};
+
 const init = () => {
     browser.runtime.onMessage.addListener(messageHandler);
+    browser.runtime.onConnect.addListener(longLivedMessageHandler);
 };
 
 export default {

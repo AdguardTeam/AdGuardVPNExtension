@@ -19,7 +19,7 @@ import Auth from '../Auth';
 import Exclusions from '../Exclusions';
 import Preloader from '../Preloader';
 import Icons from '../ui/Icons';
-import messager from '../../../lib/messager';
+import messenger from '../../../lib/messenger';
 import notifier from '../../../lib/notifier';
 
 Modal.setAppElement('#root');
@@ -74,24 +74,27 @@ const App = observer(() => {
             // Subscribe to notification from background page with this method
             // If use runtime.onMessage, then we can intercept messages from popup
             // to the message handler on background page
-            removeListenerCallback = await messager.createEventListener(events, async (message) => {
-                const { type } = message;
+            removeListenerCallback = await messenger.createEventListener(
+                events,
+                async (message) => {
+                    const { type } = message;
 
-                switch (type) {
-                    case notifier.types.AUTHENTICATE_SOCIAL_SUCCESS: {
-                        authStore.setIsAuthenticated(true);
-                        break;
-                    }
-                    case notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE: {
-                        await settingsStore.getExclusions();
-                        break;
-                    }
-                    default: {
-                        log.debug('Undefined message type:', type);
-                        break;
+                    switch (type) {
+                        case notifier.types.AUTHENTICATE_SOCIAL_SUCCESS: {
+                            authStore.setIsAuthenticated(true);
+                            break;
+                        }
+                        case notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE: {
+                            await settingsStore.getExclusions();
+                            break;
+                        }
+                        default: {
+                            log.debug('Undefined message type:', type);
+                            break;
+                        }
                     }
                 }
-            });
+            );
         })();
 
         return () => {
