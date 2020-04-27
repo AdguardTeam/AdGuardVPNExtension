@@ -8,7 +8,7 @@ import {
 import debounce from 'lodash/debounce';
 import browser from 'webextension-polyfill';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
-import messager from '../../../lib/messager';
+import messenger from '../../../lib/messenger';
 
 const AUTH_STEPS = {
     CHECK_EMAIL: 'checkEmail',
@@ -87,12 +87,12 @@ class AuthStore {
         this.resetError();
         this.credentials[field] = value;
         this.validate(field, value);
-        await messager.updateAuthCache(field, value);
+        await messenger.updateAuthCache(field, value);
     };
 
     @action
     getAuthCacheFromBackground = async () => {
-        const { username, password, step } = await messager.getAuthCache();
+        const { username, password, step } = await messenger.getAuthCache();
         runInAction(() => {
             this.credentials = {
                 ...this.credentials,
@@ -129,7 +129,7 @@ class AuthStore {
     @action
     authenticate = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
-        const response = await messager.authenticateUser(toJS(this.credentials));
+        const response = await messenger.authenticateUser(toJS(this.credentials));
 
         if (response.error) {
             runInAction(() => {
@@ -140,7 +140,7 @@ class AuthStore {
         }
 
         if (response.status === 'ok') {
-            await messager.clearAuthCache();
+            await messenger.clearAuthCache();
             await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
             runInAction(() => {
                 this.requestProcessState = REQUEST_STATUSES.DONE;
@@ -164,7 +164,7 @@ class AuthStore {
     checkEmail = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
 
-        const response = await messager.checkEmail(this.credentials.username);
+        const response = await messenger.checkEmail(this.credentials.username);
 
         if (response.error) {
             runInAction(() => {
@@ -188,7 +188,7 @@ class AuthStore {
     @action
     register = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
-        const response = await messager.registerUser(this.credentials);
+        const response = await messenger.registerUser(this.credentials);
         if (response.error) {
             runInAction(() => {
                 this.requestProcessState = REQUEST_STATUSES.ERROR;
@@ -198,7 +198,7 @@ class AuthStore {
             return;
         }
         if (response.status === 'ok') {
-            await messager.clearAuthCache();
+            await messenger.clearAuthCache();
             await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
             runInAction(() => {
                 this.requestProcessState = REQUEST_STATUSES.DONE;
@@ -211,7 +211,7 @@ class AuthStore {
     @action
     isAuthenticated = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
-        const result = await messager.isAuthenticated();
+        const result = await messenger.isAuthenticated();
         if (result) {
             runInAction(() => {
                 this.authenticated = true;
@@ -230,7 +230,7 @@ class AuthStore {
 
     @action
     deauthenticate = async () => {
-        await messager.deauthenticateUser();
+        await messenger.deauthenticateUser();
         await this.rootStore.settingsStore.setProxyState(false);
         runInAction(() => {
             this.setDefaults();
@@ -239,7 +239,7 @@ class AuthStore {
 
     @action
     openSocialAuth = async (social) => {
-        await messager.startSocialAuth(social);
+        await messenger.startSocialAuth(social);
         window.close();
     };
 
@@ -247,7 +247,7 @@ class AuthStore {
     switchStep = async (step) => {
         this.step = step;
         this.resetError();
-        await messager.updateAuthCache('step', step);
+        await messenger.updateAuthCache('step', step);
     };
 
     @action

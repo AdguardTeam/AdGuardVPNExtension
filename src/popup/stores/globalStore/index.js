@@ -7,7 +7,7 @@ import {
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
 import log from '../../../lib/logger';
 import tabs from '../../../background/tabs';
-import messager from '../../../lib/messager';
+import messenger from '../../../lib/messenger';
 
 class globalStore {
     @observable initStatus = REQUEST_STATUSES.PENDING;
@@ -26,7 +26,7 @@ class globalStore {
         const tab = await tabs.getCurrent();
 
         try {
-            const popupData = await messager.getPopupData(tab.url, numberOfTries);
+            const popupData = await messenger.getPopupData(tab.url, numberOfTries);
 
             const {
                 vpnInfo,

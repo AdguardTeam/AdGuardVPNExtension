@@ -20,7 +20,7 @@ import Icons from '../ui/Icons';
 import rootStore from '../../stores';
 import { REQUEST_STATUSES } from '../../stores/consts';
 import log from '../../../lib/logger';
-import messager from '../../../lib/messager';
+import messenger from '../../../lib/messenger';
 import notifier from '../../../lib/notifier';
 
 // Set modal app element in the app module because we use multiple modal
@@ -96,7 +96,7 @@ const App = observer(() => {
             notifier.types.PROXY_TURNED_OFF,
         ];
 
-        const onUnload = messager.createLongLivedConnection(events, messageHandler);
+        const onUnload = messenger.createLongLivedConnection(events, messageHandler);
 
         return () => {
             onUnload();

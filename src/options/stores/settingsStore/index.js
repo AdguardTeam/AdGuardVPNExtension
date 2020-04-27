@@ -8,7 +8,7 @@ import {
 import log from '../../../lib/logger';
 import { SETTINGS_IDS } from '../../../lib/constants';
 import { DNS_DEFAULT } from '../../../background/dns/dnsConstants';
-import messager from '../../../lib/messager';
+import messenger from '../../../lib/messenger';
 import { EXCLUSIONS_MODES } from '../../../background/exclusions/exclusionsConstants';
 
 class SettingsStore {
@@ -48,7 +48,7 @@ class SettingsStore {
 
     @action
     getExclusions = async () => {
-        const exclusionsData = await messager.getExclusionsData();
+        const exclusionsData = await messenger.getExclusionsData();
         runInAction(() => {
             this.exclusions[EXCLUSIONS_MODES.REGULAR] = exclusionsData.regular;
             this.exclusions[EXCLUSIONS_MODES.SELECTIVE] = exclusionsData.selective;
@@ -59,7 +59,7 @@ class SettingsStore {
     @action
     removeFromExclusions = async (mode, id) => {
         try {
-            await messager.removeExclusionByMode(mode, id);
+            await messenger.removeExclusionByMode(mode, id);
         } catch (e) {
             log.error(e);
         }
@@ -68,7 +68,7 @@ class SettingsStore {
     @action
     toggleExclusion = async (mode, id) => {
         try {
-            await messager.toggleExclusionByMode(mode, id);
+            await messenger.toggleExclusionByMode(mode, id);
         } catch (e) {
             log.error(e);
         }
@@ -77,7 +77,7 @@ class SettingsStore {
     @action
     renameExclusion = async (mode, id, name) => {
         try {
-            await messager.renameExclusionByMode(mode, id, name);
+            await messenger.renameExclusionByMode(mode, id, name);
         } catch (e) {
             log.error(e);
         }
@@ -88,7 +88,7 @@ class SettingsStore {
         try {
             const url = this.exclusionsInputs[mode];
             const enabled = this.exclusionsCheckboxes[mode];
-            await messager.addExclusionByMode(mode, url, enabled);
+            await messenger.addExclusionByMode(mode, url, enabled);
             runInAction(() => {
                 this.areFormsVisible[mode] = false;
                 this.exclusionsInputs[mode] = '';
@@ -123,12 +123,12 @@ class SettingsStore {
 
     @action
     getVersion = async () => {
-        this.appVersion = await messager.getAppVersion();
+        this.appVersion = await messenger.getAppVersion();
     };
 
     @action
     getUsername = async () => {
-        const username = await messager.getUsername();
+        const username = await messenger.getUsername();
 
         runInAction(() => {
             this.currentUsername = username;
@@ -137,7 +137,7 @@ class SettingsStore {
 
     @action
     checkRateStatus = async () => {
-        const value = await messager.getSetting(SETTINGS_IDS.RATE_SHOW);
+        const value = await messenger.getSetting(SETTINGS_IDS.RATE_SHOW);
         runInAction(() => {
             this.isRateVisible = value;
         });
@@ -145,7 +145,7 @@ class SettingsStore {
 
     @action
     hideRate = async () => {
-        await messager.setSetting(SETTINGS_IDS.RATE_SHOW, false);
+        await messenger.setSetting(SETTINGS_IDS.RATE_SHOW, false);
         runInAction(() => {
             this.isRateVisible = false;
         });
@@ -153,13 +153,13 @@ class SettingsStore {
 
     @action
     disableProxy = async () => {
-        await messager.disableProxy(true, true);
+        await messenger.disableProxy(true, true);
     };
 
     @action
     toggleInverted = async (mode) => {
         this.exclusionsCurrentMode = mode;
-        await messager.setExclusionsMode(mode);
+        await messenger.setExclusionsMode(mode);
     };
 
     exclusionsByType(exclusionsType) {
@@ -168,7 +168,7 @@ class SettingsStore {
 
     @action
     setWebRTCValue = async (value) => {
-        await messager.setSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED, value);
+        await messenger.setSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED, value);
         runInAction(() => {
             this.webRTCEnabled = value;
         });
@@ -176,7 +176,7 @@ class SettingsStore {
 
     @action
     getWebRTCValue = async () => {
-        const value = await messager.getSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED);
+        const value = await messenger.getSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED);
         runInAction(() => {
             this.webRTCEnabled = value;
         });
@@ -184,7 +184,7 @@ class SettingsStore {
 
     @action
     setContextMenusValue = async (value) => {
-        await messager.setSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED, value);
+        await messenger.setSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED, value);
         runInAction(() => {
             this.contextMenusEnabled = value;
         });
@@ -192,7 +192,7 @@ class SettingsStore {
 
     @action
     getContextMenusEnabled = async () => {
-        const value = await messager.getSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED);
+        const value = await messenger.getSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED);
         runInAction(() => {
             this.contextMenusEnabled = value;
         });
@@ -200,7 +200,7 @@ class SettingsStore {
 
     @action
     setDnsServer = async (value) => {
-        await messager.setSetting(SETTINGS_IDS.SELECTED_DNS_SERVER, value);
+        await messenger.setSetting(SETTINGS_IDS.SELECTED_DNS_SERVER, value);
         runInAction(() => {
             this.dnsServer = value;
         });
@@ -208,7 +208,7 @@ class SettingsStore {
 
     @action
     getDnsServer = async () => {
-        const value = await messager.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER);
+        const value = await messenger.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER);
         runInAction(() => {
             this.dnsServer = value;
         });
