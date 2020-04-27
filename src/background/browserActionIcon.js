@@ -9,10 +9,6 @@ import auth from './auth';
 import permissionsError from './permissionsChecker/permissionsError';
 
 class BrowserActionIcon {
-    constructor() {
-        this.init();
-    }
-
     shouldSetIconExcludedForUrl = (id, url) => {
         return id
             && url

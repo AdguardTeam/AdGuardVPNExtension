@@ -31,7 +31,6 @@
     ],
     "permissions": [
         "<all_urls>",
-        "activeTab",
         "contextMenus",
         "management",
         "notifications",

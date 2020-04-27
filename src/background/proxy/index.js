@@ -17,6 +17,11 @@ const DEFAULTS = {
     currentHost: '',
 };
 
+const PROXY_AUTH_TYPES = {
+    PREFIX: 'prefix',
+    AUTH_HANDLER: 'authHandler'
+}
+
 class ExtensionProxy {
     constructor() {
         this.isActive = false;
@@ -24,6 +29,11 @@ class ExtensionProxy {
         this.bypassList = [];
         this.currentEndpoint = '';
         this.currentHost = '';
+
+        /**
+         * By default we use PREFIX type, because AUTH_HANDLER is not working stable
+         */
+        this.proxyAuthorizationType = PROXY_AUTH_TYPES.PREFIX;
     }
 
     async turnOn() {
@@ -122,7 +132,13 @@ class ExtensionProxy {
         if (!prefix || !domainName) {
             return;
         }
-        this.currentHost = `${prefix}.${domainName}`;
+        if (this.proxyAuthorizationType === PROXY_AUTH_TYPES.PREFIX) {
+            this.currentHost = `${prefix}.${domainName}`;
+        } else if (this.proxyAuthorizationType === PROXY_AUTH_TYPES.AUTH_HANDLER) {
+            this.currentHost = domainName;
+        } else {
+            throw new Error(`Wrong proxyAuthorizationType: ${this.proxyAuthorizationType}`);
+        }
         this.currentPrefix = prefix;
         await this.applyConfig();
     };

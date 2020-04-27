@@ -32,6 +32,7 @@ function PasswordField({
             {icon && (
                 <button
                     type="button"
+                    tabIndex="-1"
                     className="button form__show-password"
                     onClick={handleInputTypeChange}
                 >

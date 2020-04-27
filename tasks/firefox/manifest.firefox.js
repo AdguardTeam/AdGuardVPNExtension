@@ -21,4 +21,7 @@ module.exports = {
         page: 'options.html',
         open_in_tab: true,
     },
+    permissions: [
+        'tabs',
+    ],
 };
