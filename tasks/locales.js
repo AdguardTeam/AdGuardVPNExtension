@@ -51,11 +51,14 @@ const getFormData = (filePath) => {
  * @param {any} data arraybuffer
  */
 function saveFile(filePath, data) {
+    const formattedData = data.toString().trim();
+
     const dirPath = path.dirname(filePath);
     if (!fs.existsSync(dirPath)) {
         fs.mkdirSync(dirPath);
     }
-    return fs.promises.writeFile(filePath, data);
+
+    return fs.promises.writeFile(filePath, formattedData);
 }
 
 /**
