@@ -42,7 +42,7 @@
         "message": "Account is locked for 15 minutes"
     },
     "authentication_error_bad_credentials": {
-        "message": "Sorry, unrecognized username or password"
+        "message": "Sorry, unrecognized password"
     },
     "authentication_error_default": {
         "message": "An error occurred, try again later"
@@ -263,7 +263,7 @@
     "popup_settings_sign_out": {
         "message": "Sign out"
     },
-    "context_menu_enable_vpn" : {
+    "context_menu_enable_vpn": {
         "message": "Enable VPN on this website"
     },
     "context_menu_disable_vpn": {
@@ -328,5 +328,8 @@
     },
     "settings_run_out_data": {
         "message": "You've run out of data"
+    },
+    "options_title": {
+        "message": "AdGuard VPN Options"
     }
 }

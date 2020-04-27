@@ -65,6 +65,7 @@ const SignInForm = observer(() => {
             <div className="form__link-wrap">
                 <button
                     type="button"
+                    tabIndex="-1"
                     className="button button--inline form__link"
                     onClick={popupActions.openRecovery}
                 >

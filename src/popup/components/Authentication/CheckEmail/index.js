@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
+import ReactHtmlParser from 'react-html-parser';
 
 import translator from '../../../../lib/translator';
 import rootStore from '../../../stores';
@@ -47,7 +48,7 @@ const CheckEmail = observer(() => {
                 />
                 {authStore.error && (
                     <div className="form__error">
-                        {authStore.error}
+                        {ReactHtmlParser(authStore.error)}
                     </div>
                 )}
             </div>

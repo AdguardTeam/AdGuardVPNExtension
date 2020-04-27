@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'mobx-react';
 
 import App from './components/App';
+import translator from '../lib/translator';
+
+document.title = translator.translate('options_title');
 
 (async () => {
     ReactDOM.render(

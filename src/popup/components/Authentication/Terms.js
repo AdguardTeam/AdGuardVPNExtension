@@ -19,6 +19,7 @@ function Terms() {
             <div>
                 <button
                     type="button"
+                    tabIndex="-1"
                     className="auth__privacy-link"
                     onClick={handlePrivacyClick}
                 >
@@ -27,6 +28,7 @@ function Terms() {
                 &nbsp;and&nbsp;
                 <button
                     type="button"
+                    tabIndex="-1"
                     className="auth__privacy-link"
                     onClick={handleEulaClick}
                 >
