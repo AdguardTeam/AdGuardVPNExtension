@@ -19,7 +19,7 @@ import settings from './settings/settings';
 import tabs from './tabs';
 import updateService from './updateService';
 import { vpnApi } from './api';
-import './BrowserActionIcon';
+import browserActionIcon from './browserActionIcon';
 
 global.adguard = {
     settings,
@@ -52,6 +52,7 @@ global.adguard = {
         await settings.applySettings(); // we have to apply settings when credentials are ready
         await nonRoutable.init();
         await contextMenu.init();
+        await browserActionIcon.init();
         messaging.init();
         log.info('Extension loaded all necessary modules');
     } catch (e) {
