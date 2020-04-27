@@ -122,7 +122,16 @@ class Exclusions {
         }
     }
 
+    /**
+     * Checks if vpn is enabled for url
+     * If this function is called when currentHandler is not set yet it returns true
+     * @param url
+     * @returns {boolean}
+     */
     isVpnEnabledByUrl(url) {
+        if (!this.currentHandler) {
+            return true;
+        }
         const isExcluded = this.currentHandler.isExcluded(url);
         return this.inverted ? isExcluded : !isExcluded;
     }
