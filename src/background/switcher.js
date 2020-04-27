@@ -27,7 +27,7 @@ function* turnOnProxy() {
         yield connectivity.endpointConnectivity.stop();
         yield proxy.turnOff();
         webrtc.unblockWebRTC();
-        notifier.notifyListeners(notifier.types.PROXY_TURNED_ON);
+        notifier.notifyListeners(notifier.types.PROXY_TURNED_OFF);
         log.error(e && e.message);
         throw e;
     }
@@ -38,7 +38,7 @@ function* turnOffProxy() {
         yield connectivity.endpointConnectivity.stop();
         yield proxy.turnOff();
         webrtc.unblockWebRTC();
-        notifier.notifyListeners(notifier.types.PROXY_TURNED_ON);
+        notifier.notifyListeners(notifier.types.PROXY_TURNED_OFF);
     } catch (e) {
         log.error(e && e.message);
         throw e;
