@@ -8,6 +8,7 @@ import log from '../../lib/logger';
 import { MESSAGES_TYPES } from '../../lib/constants';
 import browserApi from '../browserApi';
 import { DEFAULT_EXCLUSIONS, LEVELS_OF_CONTROL } from './proxyConsts';
+import notifier from '../../lib/notifier';
 
 const CURRENT_ENDPOINT_KEY = 'proxyCurrentEndpoint';
 
@@ -150,10 +151,8 @@ class ExtensionProxy {
         const { domainName } = this.currentEndpoint;
         await this.setHost(this.currentPrefix, domainName);
         await browserApi.storage.set(CURRENT_ENDPOINT_KEY, endpoint);
-        browserApi.runtime.sendMessage({
-            type: MESSAGES_TYPES.CURRENT_ENDPOINT_UPDATED,
-            data: endpoint,
-        });
+        // notify popup
+        notifier.notifyListeners(notifier.types.CURRENT_ENDPOINT_UPDATED, endpoint);
         return { domainName };
     };
 

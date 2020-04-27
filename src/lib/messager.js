@@ -1,4 +1,5 @@
 import browser from 'webextension-polyfill';
+import nanoid from 'nanoid';
 import { MESSAGES_TYPES } from './constants';
 import log from './logger';
 
@@ -53,6 +54,44 @@ class Messenger {
 
         return onUnload;
     };
+
+    /**
+     * Creates long lived connections between popup and background page
+     * @param events
+     * @param callback
+     * @returns {function}
+     */
+    createLongLivedConnection = (events, callback) => {
+        const eventListener = (...args) => {
+            callback(...args);
+        };
+
+        const port = browser.runtime.connect({ name: `popup_${nanoid()}` });
+        port.postMessage({ type: MESSAGES_TYPES.ADD_LONG_LIVED_CONNECTION, data: { events } });
+
+        port.onMessage.addListener((message) => {
+            if (message.type === MESSAGES_TYPES.NOTIFY_LISTENERS) {
+                const [type, data] = message.data;
+                eventListener({ type, data });
+            }
+        });
+
+        port.onDisconnect.addListener(() => {
+            if (browser.runtime.lastError) {
+                log.debug(browser.runtime.lastError.message);
+            }
+        });
+
+        const onUnload = async () => {
+            port.disconnect();
+        };
+
+        window.addEventListener('beforeunload', onUnload);
+        window.addEventListener('unload', onUnload);
+
+        return onUnload;
+    };
+
 
     async getPopupData(url, numberOfTries) {
         const type = MESSAGES_TYPES.GET_POPUP_DATA;

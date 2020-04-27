@@ -1,5 +1,5 @@
-import browserApi from '../browserApi';
-import { ERROR_STATUSES, MESSAGES_TYPES } from '../../lib/constants';
+import { ERROR_STATUSES } from '../../lib/constants';
+import notifier from '../../lib/notifier';
 
 class PermissionsError {
     constructor() {
@@ -14,10 +14,8 @@ class PermissionsError {
     };
 
     notifyOnUpdate = (error) => {
-        browserApi.runtime.sendMessage({
-            type: MESSAGES_TYPES.PERMISSIONS_ERROR_UPDATE,
-            data: error,
-        });
+        // Notify popup
+        notifier.notifyListeners(notifier.types.PERMISSIONS_ERROR_UPDATE, error);
     };
 
     getError = () => {

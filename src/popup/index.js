@@ -6,10 +6,6 @@ import './styles/main.pcss';
 
 import App from './components/App';
 
-window.onblur = () => {
-    window.close();
-};
-
 (async () => {
     ReactDOM.render(
         <Provider>

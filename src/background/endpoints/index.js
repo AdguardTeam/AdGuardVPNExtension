@@ -3,7 +3,7 @@ import _ from 'lodash';
 import qs from 'qs';
 import log from '../../lib/logger';
 import { getClosestEndpointByCoordinates } from '../../lib/helpers';
-import { ERROR_STATUSES, MESSAGES_TYPES } from '../../lib/constants';
+import { ERROR_STATUSES } from '../../lib/constants';
 import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
 import endpointsManager from './endpointsManager';
 import notifier from '../../lib/notifier';
@@ -13,7 +13,6 @@ import connectivity from '../connectivity';
 import credentials from '../credentials';
 import proxy from '../proxy';
 import vpnProvider from '../providers/vpnProvider';
-import browserApi from '../browserApi';
 
 /**
  * Endpoint information
@@ -210,10 +209,8 @@ class Endpoints {
         // Save vpn info in the memory
         this.vpnInfo = vpnInfo;
 
-        await browserApi.runtime.sendMessage({
-            type: MESSAGES_TYPES.VPN_INFO_UPDATED,
-            data: this.vpnInfo,
-        });
+        // update vpn info on popup
+        notifier.notifyListeners(notifier.types.VPN_INFO_UPDATED, this.vpnInfo);
     };
 
     /**

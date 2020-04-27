@@ -12,15 +12,8 @@ export const MESSAGES_TYPES = {
     NOTIFY_LISTENERS: 'notify.listeners',
     REMOVE_EVENT_LISTENER: 'remove.event.listener',
 
-    ENDPOINTS_UPDATED: 'endpoints.updated',
-    ENDPOINTS_PING_UPDATED: 'endpoints.ping.updated',
-    CURRENT_ENDPOINT_UPDATED: 'proxy.current.endpoint.updated',
-    VPN_TOKEN_NOT_FOUND: 'vpn.token.not.found',
-    VPN_INFO_UPDATED: 'vpn.info.updated',
+    ADD_LONG_LIVED_CONNECTION: 'add.long.lived.connection',
     AUTHENTICATE_SOCIAL: 'authenticate.social',
-    PERMISSIONS_ERROR_UPDATE: 'permissions.error.update',
-    EXTENSION_PROXY_ENABLED: 'proxy.extension.enabled',
-    EXTENSION_PROXY_DISABLED: 'proxy.extension.disabled',
     GET_POPUP_DATA: 'get.popup.data',
     GET_VPN_FAILURE_PAGE: 'get.vpn.failure.page',
     OPEN_OPTIONS_PAGE: 'open.options.page',
@@ -56,7 +49,6 @@ export const MESSAGES_TYPES = {
     GET_APP_VERSION: 'get.app.version',
     GET_USERNAME: 'get.username',
     GET_SELECTED_ENDPOINT: 'get.selected.endpoint',
-    FASTEST_ENDPOINTS_CALCULATED: 'fastest.endpoints.calculated',
 };
 
 export const ERROR_STATUSES = {

@@ -1,8 +1,7 @@
 import _ from 'lodash';
-import { MESSAGES_TYPES } from '../../lib/constants';
 import { asyncMapByChunks, identity } from '../../lib/helpers';
-import browserApi from '../browserApi';
 import connectivity from '../connectivity';
+import notifier from '../../lib/notifier';
 
 /**
  * EndpointsManager keeps endpoints in the memory and determines their ping on request
@@ -98,10 +97,7 @@ class EndpointsManager {
 
         this.endpoints = endpoints;
 
-        browserApi.runtime.sendMessage({
-            type: MESSAGES_TYPES.ENDPOINTS_UPDATED,
-            data: this.getAll(),
-        });
+        notifier.notifyListeners(notifier.types.ENDPOINTS_UPDATED, this.getAll());
 
         return this.endpoints;
     }
@@ -157,10 +153,7 @@ class EndpointsManager {
 
             this.endpointsPings[id] = pingData;
 
-            await browserApi.runtime.sendMessage({
-                type: MESSAGES_TYPES.ENDPOINTS_PING_UPDATED,
-                data: pingData,
-            });
+            notifier.notifyListeners(notifier.types.ENDPOINTS_PING_UPDATED, pingData);
 
             return pingData;
         };
@@ -177,10 +170,7 @@ class EndpointsManager {
         this.lastPingMeasurementTime = Date.now();
 
         // When measuring finished, we can determine fastest
-        await browserApi.runtime.sendMessage({
-            type: MESSAGES_TYPES.FASTEST_ENDPOINTS_CALCULATED,
-            data: this.getFastest(),
-        });
+        notifier.notifyListeners(notifier.types.FASTEST_ENDPOINTS_CALCULATED, this.getFastest());
     }
 }
 

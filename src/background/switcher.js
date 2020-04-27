@@ -1,8 +1,6 @@
 import { runWithCancel } from '../lib/helpers';
 import proxy from './proxy';
 import log from '../lib/logger';
-import browserApi from './browserApi';
-import { MESSAGES_TYPES } from '../lib/constants';
 import webrtc from './browserApi/webrtc';
 import credentials from './credentials';
 import connectivity from './connectivity';
@@ -25,13 +23,11 @@ function* turnOnProxy() {
         yield proxy.turnOn();
         webrtc.blockWebRTC();
         notifier.notifyListeners(notifier.types.PROXY_TURNED_ON);
-        browserApi.runtime.sendMessage({ type: MESSAGES_TYPES.EXTENSION_PROXY_ENABLED });
     } catch (e) {
         yield connectivity.endpointConnectivity.stop();
         yield proxy.turnOff();
         webrtc.unblockWebRTC();
         notifier.notifyListeners(notifier.types.PROXY_TURNED_ON);
-        browserApi.runtime.sendMessage({ type: MESSAGES_TYPES.EXTENSION_PROXY_DISABLED });
         log.error(e && e.message);
         throw e;
     }
@@ -43,7 +39,6 @@ function* turnOffProxy() {
         yield proxy.turnOff();
         webrtc.unblockWebRTC();
         notifier.notifyListeners(notifier.types.PROXY_TURNED_ON);
-        browserApi.runtime.sendMessage({ type: MESSAGES_TYPES.EXTENSION_PROXY_DISABLED });
     } catch (e) {
         log.error(e && e.message);
         throw e;
