@@ -58,6 +58,7 @@ const SignInForm = observer(() => {
                         <a
                             href={PASSWORD_RECOVERY_URL}
                             className="button button--link form__link form__link--recover"
+                            tabIndex="-1"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
