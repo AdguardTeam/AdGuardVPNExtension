@@ -1,7 +1,6 @@
 # Permissions that the extension uses
 
 - `proxy` - This is what the extension does.
-- `activeTab` - This is necessary to get the current tab information in order to show what domain you're on when the browser notification is opened.
 - `contextMenus` - We use this to add a context menu items that allows enabling or disabling the VPN.
 - `management` - We use this to provide an option to turn off another proxy-extension in one click.
 - `notifications` - We use this to show a notification after a successful user authentication via social networks.
