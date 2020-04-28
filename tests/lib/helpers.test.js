@@ -114,6 +114,8 @@ describe('formatBytes', () => {
     expect(formatBytes(100)).toEqual({ value: '0.1', unit: 'KB' });
     expect(formatBytes(1100)).toEqual({ value: '1.1', unit: 'KB' });
     expect(formatBytes(1110000)).toEqual({ value: '1.1', unit: 'MB' });
+    expect(formatBytes(524288000)).toEqual({ value: '500.0', unit: 'MB' });
     expect(formatBytes(1150000000)).toEqual({ value: '1.1', unit: 'GB' });
-    expect(formatBytes(1100000000001)).toEqual({ value: '1.1', unit: 'TB' });
+    expect(formatBytes(1209462790554)).toEqual({ value: '1.1', unit: 'TB' });
+    expect(formatBytes(1099511627776)).toEqual({ value: '1.0', unit: 'TB' });
 });
