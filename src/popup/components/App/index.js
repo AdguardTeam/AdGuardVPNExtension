@@ -72,6 +72,10 @@ const App = observer(() => {
                     }
                     break;
                 }
+                case notifier.types.LICENSE_KEY_STATE_UPDATED: {
+                    vpnStore.setHasLicenseKey(data);
+                    break;
+                }
                 case notifier.types.PROXY_TURNED_ON: {
                     await settingsStore.getProxyPing();
                     settingsStore.setProxyEnabled(true);
@@ -98,6 +102,7 @@ const App = observer(() => {
             notifier.types.PERMISSIONS_ERROR_UPDATE,
             notifier.types.PROXY_TURNED_ON,
             notifier.types.PROXY_TURNED_OFF,
+            notifier.types.LICENSE_KEY_STATE_UPDATED,
         ];
 
         const onUnload = messenger.createLongLivedConnection(events, messageHandler);

@@ -38,6 +38,13 @@ class Credentials {
     async persistVpnToken(token) {
         this.vpnToken = token;
         await this.storage.set(this.VPN_TOKEN_KEY, token);
+        // notify popup that license key state could have been changed
+        // this is necessary when we check permissions after limit exceeded error
+        const userHasLicenseKey = !!token?.licenseKey;
+        notifier.notifyListeners(
+            notifier.types.LICENSE_KEY_STATE_UPDATED,
+            userHasLicenseKey
+        );
     }
 
     async getVpnTokenRemote() {
