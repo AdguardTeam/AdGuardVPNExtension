@@ -102,7 +102,7 @@ export const formatBytes = (bytes) => {
 
     const DECIMALS = 1;
     const UNITS = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-    const k = 1000;
+    const k = 1024;
 
     const i = Math.floor(Math.log(bytes) / Math.log(k)) || 1;
 
