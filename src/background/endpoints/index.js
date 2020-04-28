@@ -100,6 +100,9 @@ class Endpoints {
     };
 
     vpnTokenChanged = (oldVpnToken, newVpnToken) => {
+        if (!oldVpnToken || !newVpnToken) {
+            return false;
+        }
         return oldVpnToken.licenseKey !== newVpnToken.licenseKey;
     };
 
@@ -195,6 +198,7 @@ class Endpoints {
                 ({ vpnToken: updatedVpnToken } = await this.refreshTokens());
             } catch (e) {
                 log.debug('Unable to refresh tokens');
+                return;
             }
 
             if (this.vpnTokenChanged(vpnToken, updatedVpnToken)) {

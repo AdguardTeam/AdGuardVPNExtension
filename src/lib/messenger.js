@@ -267,6 +267,11 @@ class Messenger {
         const type = MESSAGES_TYPES.GET_SELECTED_ENDPOINT;
         return this.sendMessage(type);
     }
+
+    async checkHasLicenseKey() {
+        const type = MESSAGES_TYPES.CHECK_HAS_LICENSE_KEY;
+        return this.sendMessage(type);
+    }
 }
 
 export default new Messenger();

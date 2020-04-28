@@ -296,6 +296,25 @@ class Credentials {
         return accountProvider.getAccountInfo(accessToken);
     }
 
+    /**
+     * Checks if user has license key
+     * @returns {Promise<boolean>}
+     */
+    userHasLicenseKey = async () => {
+        let vpnToken;
+        try {
+            vpnToken = await this.gainValidVpnToken();
+        } catch (e) {
+            return false;
+        }
+
+        if (!vpnToken) {
+            return false;
+        }
+
+        return !!vpnToken.licenseKey;
+    }
+
     async getUsername() {
         if (this.currentUsername) {
             return this.currentUsername;

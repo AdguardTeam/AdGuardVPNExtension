@@ -49,6 +49,7 @@ export const MESSAGES_TYPES = {
     GET_APP_VERSION: 'get.app.version',
     GET_USERNAME: 'get.username',
     GET_SELECTED_ENDPOINT: 'get.selected.endpoint',
+    CHECK_HAS_LICENSE_KEY: 'check.has.license.key',
 };
 
 export const ERROR_STATUSES = {

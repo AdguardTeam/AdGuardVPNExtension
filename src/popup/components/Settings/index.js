@@ -41,6 +41,7 @@ const Settings = observer(() => {
         serverError,
         hasLimitExceededError,
     } = settingsStore;
+
     const {
         premiumPromoEnabled,
         premiumPromoPage,

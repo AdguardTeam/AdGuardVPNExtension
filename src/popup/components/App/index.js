@@ -66,6 +66,10 @@ const App = observer(() => {
                 }
                 case notifier.types.PERMISSIONS_ERROR_UPDATE: {
                     settingsStore.setGlobalError(data);
+                    // If there is no error, it is time to check if user has license key
+                    if (!data) {
+                        await vpnStore.requestHasLicenseKey();
+                    }
                     break;
                 }
                 case notifier.types.PROXY_TURNED_ON: {
@@ -129,6 +133,7 @@ const App = observer(() => {
         checkPermissionsState,
         hasLimitExceededError,
     } = settingsStore;
+
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
     const { premiumPromoEnabled } = vpnStore;
 

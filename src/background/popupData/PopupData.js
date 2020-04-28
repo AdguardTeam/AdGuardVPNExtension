@@ -1,5 +1,6 @@
 import throttle from 'lodash/throttle';
 import log from '../../lib/logger';
+import credentials from '../credentials';
 
 class PopupData {
     constructor({
@@ -17,11 +18,13 @@ class PopupData {
             this.permissionsChecker.checkPermissions,
             2000
         );
+
         if (!isAuthenticated) {
             return {
                 isAuthenticated,
             };
         }
+
         const error = this.permissionsError.getError();
         const isRoutable = this.nonRoutable.isUrlRoutable(url);
         const vpnInfo = this.endpoints.getVpnInfo();
@@ -29,6 +32,7 @@ class PopupData {
         const selectedEndpoint = await this.endpoints.getSelectedEndpoint();
         const canControlProxy = await adguard.appStatus.canControlProxy();
         const isProxyEnabled = adguard.settings.isProxyEnabled();
+        const hasLicenseKey = await credentials.userHasLicenseKey();
 
         // If error check permissions when popup is opened, ignoring multiple retries
         if (error) {
@@ -44,6 +48,7 @@ class PopupData {
             canControlProxy,
             isProxyEnabled,
             isRoutable,
+            hasLicenseKey,
         };
     };
 

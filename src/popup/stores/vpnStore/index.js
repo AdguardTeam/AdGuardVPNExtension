@@ -30,6 +30,8 @@ class VpnStore {
         usedDownloadedBytes: null,
     };
 
+    @observable hasLicenseKey;
+
     @action
     setSearchValue = (value) => {
         const trimmed = value.trim();
@@ -200,6 +202,19 @@ class VpnStore {
     @computed
     get showSearchResults() {
         return this.searchValue.length > 0;
+    }
+
+    @action
+    setHasLicenseKey(hasLicenseKey) {
+        this.hasLicenseKey = hasLicenseKey;
+    }
+
+    @action
+    async requestHasLicenseKey() {
+        const hasLicenseKey = await messenger.checkHasLicenseKey();
+        runInAction(() => {
+            this.hasLicenseKey = hasLicenseKey;
+        });
     }
 }
 
