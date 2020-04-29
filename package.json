@@ -22,8 +22,11 @@
         "compile-proto": "./tasks/compile-protobuf.sh",
         "ci:increment": "yarn version --patch --no-git-tag-version",
         "crx:beta": "export BUILD_ENV=beta STAGING=beta; yarn build:chrome && node tasks/crx.js",
+        "xpi:beta": "export BUILD_ENV=beta STAGING=beta; yarn build:firefox && node tasks/xpi.js",
         "crx:release": "export BUILD_ENV=release STAGING=release; yarn build:chrome && node tasks/crx.js",
-        "xpi": "export BUILD_ENV=release STAGING=release; yarn build:firefox && node tasks/xpi.js"
+        "xpi:release": "export BUILD_ENV=release STAGING=release; yarn build:firefox && node tasks/xpi.js",
+        "artifacts:beta": "yarn crx:beta && yarn xpi:beta",
+        "artifacts:release": "yarn crx:release && yarn xpi:release"
     },
     "husky": {
         "hooks": {
