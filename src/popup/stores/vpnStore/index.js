@@ -30,7 +30,7 @@ class VpnStore {
         usedDownloadedBytes: null,
     };
 
-    @observable hasLicenseKey;
+    @observable isPremiumToken;
 
     @action
     setSearchValue = (value) => {
@@ -205,15 +205,15 @@ class VpnStore {
     }
 
     @action
-    setHasLicenseKey(hasLicenseKey) {
-        this.hasLicenseKey = hasLicenseKey;
+    setIsPremiumToken(isPremiumToken) {
+        this.isPremiumToken = isPremiumToken;
     }
 
     @action
-    async requestHasLicenseKey() {
-        const hasLicenseKey = await messenger.checkHasLicenseKey();
+    async requestIsPremiumToken() {
+        const isPremiumToken = await messenger.checkIsPremiumToken();
         runInAction(() => {
-            this.hasLicenseKey = hasLicenseKey;
+            this.isPremiumToken = isPremiumToken;
         });
     }
 }

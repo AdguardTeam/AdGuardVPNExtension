@@ -36,7 +36,7 @@ class PopupData {
         const selectedEndpoint = await this.endpoints.getSelectedEndpoint();
         const canControlProxy = await adguard.appStatus.canControlProxy();
         const isProxyEnabled = adguard.settings.isProxyEnabled();
-        const hasLicenseKey = await this.credentials.userHasLicenseKey();
+        const isPremiumToken = await this.credentials.isPremiumToken();
 
         // If error check permissions when popup is opened, ignoring multiple retries
         if (error) {
@@ -52,7 +52,7 @@ class PopupData {
             canControlProxy,
             isProxyEnabled,
             isRoutable,
-            hasLicenseKey,
+            isPremiumToken,
         };
     };
 

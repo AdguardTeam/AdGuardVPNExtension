@@ -26,11 +26,11 @@ const InfoMessage = observer(() => {
         premiumPromoPage,
         remainingTraffic,
         trafficUsingProgress,
-        hasLicenseKey,
+        isPremiumToken,
     } = vpnStore;
 
-    // If user has license key we do not show any info messages
-    if (!premiumPromoEnabled || hasLicenseKey) {
+    // If user has premium token we do not show any info messages
+    if (!premiumPromoEnabled || isPremiumToken) {
         return null;
     }
 

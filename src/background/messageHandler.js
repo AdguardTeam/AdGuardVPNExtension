@@ -200,8 +200,8 @@ const messageHandler = async (message, sender) => {
         case MESSAGES_TYPES.GET_USERNAME: {
             return credentials.getUsername();
         }
-        case MESSAGES_TYPES.CHECK_HAS_LICENSE_KEY: {
-            return credentials.userHasLicenseKey();
+        case MESSAGES_TYPES.CHECK_IS_PREMIUM_TOKEN: {
+            return credentials.isPremiumToken();
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

@@ -268,8 +268,8 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async checkHasLicenseKey() {
-        const type = MESSAGES_TYPES.CHECK_HAS_LICENSE_KEY;
+    async checkIsPremiumToken() {
+        const type = MESSAGES_TYPES.CHECK_IS_PREMIUM_TOKEN;
         return this.sendMessage(type);
     }
 }
