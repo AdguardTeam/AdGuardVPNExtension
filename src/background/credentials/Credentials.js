@@ -38,6 +38,13 @@ class Credentials {
     async persistVpnToken(token) {
         this.vpnToken = token;
         await this.storage.set(this.VPN_TOKEN_KEY, token);
+        // notify popup that premium token state could have been changed
+        // this is necessary when we check permissions after limit exceeded error
+        const isPremiumToken = !!token?.licenseKey;
+        notifier.notifyListeners(
+            notifier.types.TOKEN_PREMIUM_STATE_UPDATED,
+            isPremiumToken
+        );
     }
 
     async getVpnTokenRemote() {
@@ -294,6 +301,25 @@ class Credentials {
     async fetchUsername() {
         const accessToken = await this.auth.getAccessToken();
         return accountProvider.getAccountInfo(accessToken);
+    }
+
+    /**
+     * Checks if token has license key, then this token is considered premium
+     * @returns {Promise<boolean>}
+     */
+    isPremiumToken = async () => {
+        let vpnToken;
+        try {
+            vpnToken = await this.gainValidVpnToken();
+        } catch (e) {
+            return false;
+        }
+
+        if (!vpnToken) {
+            return false;
+        }
+
+        return !!vpnToken.licenseKey;
     }
 
     async getUsername() {
