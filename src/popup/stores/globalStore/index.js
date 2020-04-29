@@ -38,6 +38,7 @@ class globalStore {
                 isProxyEnabled,
                 isRoutable,
                 hasRequiredData,
+                isPremiumToken,
             } = popupData;
 
             if (!isAuthenticated) {
@@ -56,6 +57,7 @@ class globalStore {
             vpnStore.setVpnInfo(vpnInfo);
             vpnStore.setEndpoints(endpointsList);
             vpnStore.setSelectedEndpoint(selectedEndpoint);
+            vpnStore.setIsPremiumToken(isPremiumToken);
             settingsStore.setProxyEnabledStatus(isProxyEnabled);
             settingsStore.setCanControlProxy(canControlProxy);
             settingsStore.setIsRoutable(isRoutable);

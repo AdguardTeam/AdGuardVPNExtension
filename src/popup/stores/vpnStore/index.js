@@ -30,6 +30,8 @@ class VpnStore {
         usedDownloadedBytes: null,
     };
 
+    @observable isPremiumToken;
+
     @action
     setSearchValue = (value) => {
         const trimmed = value.trim();
@@ -200,6 +202,19 @@ class VpnStore {
     @computed
     get showSearchResults() {
         return this.searchValue.length > 0;
+    }
+
+    @action
+    setIsPremiumToken(isPremiumToken) {
+        this.isPremiumToken = isPremiumToken;
+    }
+
+    @action
+    async requestIsPremiumToken() {
+        const isPremiumToken = await messenger.checkIsPremiumToken();
+        runInAction(() => {
+            this.isPremiumToken = isPremiumToken;
+        });
     }
 }
 

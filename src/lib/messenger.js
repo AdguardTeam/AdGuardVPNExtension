@@ -267,6 +267,11 @@ class Messenger {
         const type = MESSAGES_TYPES.GET_SELECTED_ENDPOINT;
         return this.sendMessage(type);
     }
+
+    async checkIsPremiumToken() {
+        const type = MESSAGES_TYPES.CHECK_IS_PREMIUM_TOKEN;
+        return this.sendMessage(type);
+    }
 }
 
 export default new Messenger();

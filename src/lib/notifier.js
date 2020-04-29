@@ -120,6 +120,7 @@ const types = {
     FASTEST_ENDPOINTS_CALCULATED: 'event.fastest.endpoints.calculated',
     CURRENT_ENDPOINT_UPDATED: 'event.current.endpoint.updated',
     PERMISSIONS_ERROR_UPDATE: 'event.permission.error.update',
+    TOKEN_PREMIUM_STATE_UPDATED: 'event.token.premium.state.updated',
 };
 
 const notifier = new Notifier(types);

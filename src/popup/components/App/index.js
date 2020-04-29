@@ -66,6 +66,14 @@ const App = observer(() => {
                 }
                 case notifier.types.PERMISSIONS_ERROR_UPDATE: {
                     settingsStore.setGlobalError(data);
+                    // If there is no error, it is time to check if token is premium
+                    if (!data) {
+                        await vpnStore.requestIsPremiumToken();
+                    }
+                    break;
+                }
+                case notifier.types.TOKEN_PREMIUM_STATE_UPDATED: {
+                    vpnStore.setIsPremiumToken(data);
                     break;
                 }
                 case notifier.types.PROXY_TURNED_ON: {
@@ -94,6 +102,7 @@ const App = observer(() => {
             notifier.types.PERMISSIONS_ERROR_UPDATE,
             notifier.types.PROXY_TURNED_ON,
             notifier.types.PROXY_TURNED_OFF,
+            notifier.types.TOKEN_PREMIUM_STATE_UPDATED,
         ];
 
         const onUnload = messenger.createLongLivedConnection(events, messageHandler);
@@ -129,6 +138,7 @@ const App = observer(() => {
         checkPermissionsState,
         hasLimitExceededError,
     } = settingsStore;
+
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
     const { premiumPromoEnabled } = vpnStore;
 

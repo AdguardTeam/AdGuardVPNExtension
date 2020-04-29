@@ -3,12 +3,17 @@ import log from '../../lib/logger';
 
 class PopupData {
     constructor({
-        permissionsChecker, permissionsError, nonRoutable, endpoints,
+        permissionsChecker,
+        permissionsError,
+        nonRoutable,
+        endpoints,
+        credentials,
     }) {
         this.permissionsChecker = permissionsChecker;
         this.permissionsError = permissionsError;
         this.nonRoutable = nonRoutable;
         this.endpoints = endpoints;
+        this.credentials = credentials;
     }
 
     getPopupData = async (url) => {
@@ -17,11 +22,13 @@ class PopupData {
             this.permissionsChecker.checkPermissions,
             2000
         );
+
         if (!isAuthenticated) {
             return {
                 isAuthenticated,
             };
         }
+
         const error = this.permissionsError.getError();
         const isRoutable = this.nonRoutable.isUrlRoutable(url);
         const vpnInfo = this.endpoints.getVpnInfo();
@@ -29,6 +36,7 @@ class PopupData {
         const selectedEndpoint = await this.endpoints.getSelectedEndpoint();
         const canControlProxy = await adguard.appStatus.canControlProxy();
         const isProxyEnabled = adguard.settings.isProxyEnabled();
+        const isPremiumToken = await this.credentials.isPremiumToken();
 
         // If error check permissions when popup is opened, ignoring multiple retries
         if (error) {
@@ -44,6 +52,7 @@ class PopupData {
             canControlProxy,
             isProxyEnabled,
             isRoutable,
+            isPremiumToken,
         };
     };
 
