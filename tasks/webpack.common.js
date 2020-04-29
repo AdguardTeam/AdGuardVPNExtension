@@ -4,7 +4,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CreateFileWebpack = require('create-file-webpack');
-const { SRC_PATH, IS_DEV, STAGING } = require('./consts');
+const {
+    SRC_PATH,
+    IS_DEV,
+    STAGING,
+    BUILD_PATH,
+} = require('./consts');
 const { getOutputPathByEnv } = require('./helpers');
 
 const BACKGROUND_PATH = path.resolve(__dirname, SRC_PATH, 'background');
@@ -12,7 +17,6 @@ const OPTIONS_PATH = path.resolve(__dirname, SRC_PATH, 'options');
 const POPUP_PATH = path.resolve(__dirname, SRC_PATH, 'popup');
 const AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/auth.js');
 
-const BUILD_PATH = '../build';
 const OUTPUT_PATH = getOutputPathByEnv(STAGING);
 
 const packageJson = require('../package.json');

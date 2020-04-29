@@ -20,7 +20,10 @@
         "test": "jest",
         "test:watch": "jest --watch",
         "compile-proto": "./tasks/compile-protobuf.sh",
-        "ci:increment": "yarn version --patch --no-git-tag-version"
+        "ci:increment": "yarn version --patch --no-git-tag-version",
+        "crx:beta": "export BUILD_ENV=beta STAGING=beta; yarn build:chrome && node tasks/crx.js",
+        "crx:release": "export BUILD_ENV=release STAGING=release; yarn build:chrome && node tasks/crx.js",
+        "xpi": "export BUILD_ENV=release STAGING=release; yarn build:firefox && node tasks/xpi.js"
     },
     "husky": {
         "hooks": {
@@ -43,9 +46,11 @@
         "axios": "^0.19.2",
         "babel-eslint": "^10.0.3",
         "babel-loader": "^8.0.6",
+        "chalk": "^4.0.0",
         "clean-webpack-plugin": "^3.0.0",
         "copy-webpack-plugin": "^5.1.1",
         "create-file-webpack": "^1.0.2",
+        "crx": "^5.0.1",
         "css-loader": "^3.4.2",
         "dotenv": "^8.2.0",
         "eslint": "^6.8.0",
@@ -70,6 +75,7 @@
         "sinon-chrome": "^3.0.1",
         "style-loader": "^1.1.3",
         "tmp-promise": "^2.0.2",
+        "web-ext": "^4.2.0",
         "webpack": "^4.41.5",
         "webpack-cli": "^3.3.10",
         "webpack-merge": "^4.2.2",

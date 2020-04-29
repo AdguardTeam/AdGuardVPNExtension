@@ -1,9 +1,9 @@
 const { ENVS, STAGING } = require('../consts');
 
 const envMap = {
-    [ENVS.DEV]: 'adguardadblockerdev@adguard.com',
-    [ENVS.BETA]: 'adguardadblockerbeta@adguard.com',
-    [ENVS.RELEASE]: 'adguardadblocker@adguard.com',
+    [ENVS.DEV]: 'adguard-vpn-dev@adguard.com',
+    [ENVS.BETA]: 'adguard-vpn-beta@adguard.com',
+    [ENVS.RELEASE]: 'adguard-vpn@adguard.com',
 };
 
 module.exports = {
