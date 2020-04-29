@@ -15,7 +15,7 @@ const {
     CRX_NAME,
 } = require('./consts');
 const { updateManifest } = require('./helpers');
-const config = require('../package');
+const packageJson = require('../package');
 
 const { BUILD_ENV } = process.env;
 const { outputPath } = ENV_MAP[BUILD_ENV];
@@ -35,28 +35,6 @@ const getPrivateKey = async () => {
         return privateKey;
     } catch (error) {
         console.error(chalk.redBright(`Can not create ${CRX_NAME} - the valid certificate is not found in ${certificatePath} - ${error.message}\n`));
-        throw error;
-    }
-};
-
-/**
- * Writes additionalProps to the chromeManifest
- *
- * @param chromeManifest {object}
- * @param [additionalProps] {object} - props to add in manifest
- */
-const updateChromeManifest = async (chromeManifest, additionalProps) => {
-    try {
-        const updatedManifest = updateManifest(chromeManifest, additionalProps);
-        await fs.writeFile(MANIFEST_PATH, updatedManifest);
-
-        const info = chromeManifest && additionalProps
-            ? `is updated with properties ${JSON.stringify(additionalProps)} to create ${CRX_NAME} at ${MANIFEST_PATH}`
-            : 'is reset';
-
-        console.log(chalk.greenBright(`${MANIFEST_NAME} ${info}\n`));
-    } catch (error) {
-        console.error(chalk.redBright(`Error: Can not update ${MANIFEST_NAME} - ${error.message}\n`));
         throw error;
     }
 };
@@ -88,18 +66,21 @@ const generateChromeFiles = async () => {
         const crx = new Crx({
             codebase: CHROME_UPDATE_CRX,
             privateKey: PRIVATE_KEY,
-            publicKey: config.name,
+            publicKey: packageJson.name,
         });
 
         // Add to the chrome manifest `update_url` property
         // which is to be present while creating the crx file
-        await updateChromeManifest(chromeManifest, { update_url: CHROME_UPDATE_URL });
+        const updatedManifest = updateManifest(chromeManifest, { update_url: CHROME_UPDATE_URL });
+        await fs.writeFile(MANIFEST_PATH, updatedManifest);
+
         const loadedFile = await crx.load(LOAD_PATH);
         await createCrx(loadedFile);
         await createXml(crx);
+
         // Delete from the chrome manifest `update_url` property
         // after the crx file has been created - reset the manifest
-        await updateChromeManifest(chromeManifest);
+        await fs.writeFile(MANIFEST_PATH, chromeManifest);
     } catch (error) {
         console.error(chalk.redBright(error.message));
         console.error(error);

@@ -7,7 +7,7 @@ const CreateFileWebpack = require('create-file-webpack');
 const {
     SRC_PATH,
     IS_DEV,
-    STAGING,
+    BUILD_ENV,
     BUILD_PATH,
 } = require('./consts');
 const { getOutputPathByEnv } = require('./helpers');
@@ -17,7 +17,7 @@ const OPTIONS_PATH = path.resolve(__dirname, SRC_PATH, 'options');
 const POPUP_PATH = path.resolve(__dirname, SRC_PATH, 'popup');
 const AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/auth.js');
 
-const OUTPUT_PATH = getOutputPathByEnv(STAGING);
+const OUTPUT_PATH = getOutputPathByEnv(BUILD_ENV);
 
 const packageJson = require('../package.json');
 

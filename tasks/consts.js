@@ -1,7 +1,6 @@
 const path = require('path');
 
-// Set staging value
-const { STAGING } = process.env;
+const { BUILD_ENV } = process.env;
 
 const SRC_PATH = '../src';
 const LOCALES_PATH = path.join(__dirname, SRC_PATH, '_locales/en/messages');
@@ -18,7 +17,7 @@ const ENV_MAP = {
     [ENVS.RELEASE]: { outputPath: 'release', name: '' },
 };
 
-const IS_DEV = STAGING ? STAGING === ENVS.DEV : true;
+const IS_DEV = BUILD_ENV ? BUILD_ENV === ENVS.DEV : true;
 
 const BROWSER_TYPES = {
     CHROME: 'chrome',
@@ -40,19 +39,19 @@ const CERTIFICATE_PATHS = {
     release: './private/AdguardVPN/certificate-release.pem',
 };
 
-const BUILD_ENV = ENV_MAP[process.env.BUILD_ENV].outputPath;
+const BUILD_ENVIRONMENT = ENV_MAP[process.env.BUILD_ENV].outputPath;
 
 // Update manifest URL for the Chrome extension
-const CHROME_UPDATE_URL = `https://static.adguard.com/extensions/adguardvpn/${BUILD_ENV}/${CHROME_UPDATER_FILENAME}`;
+const CHROME_UPDATE_URL = `https://static.adguard.com/extensions/adguardvpn/${BUILD_ENVIRONMENT}/${CHROME_UPDATER_FILENAME}`;
 
 // Update manifest URL for the Firefox add-on
-const FIREFOX_UPDATE_URL = `https://static.adguard.com/extensions/adguardvpn/${BUILD_ENV}/${FIREFOX_UPDATER_FILENAME}`;
+const FIREFOX_UPDATE_URL = `https://static.adguard.com/extensions/adguardvpn/${BUILD_ENVIRONMENT}/${FIREFOX_UPDATER_FILENAME}`;
 
 // Path to the Chrome CRX (that we'll add to the update manifest)
-const CHROME_UPDATE_CRX = `https://static.adguard.com/extensions/adguardvpn/${BUILD_ENV}/${CRX_NAME}`;
+const CHROME_UPDATE_CRX = `https://static.adguard.com/extensions/adguardvpn/${BUILD_ENVIRONMENT}/${CRX_NAME}`;
 
 // Path to the Firefox XPI (that we'll add to the update manifest)
-const FIREFOX_UPDATE_XPI = `https://static.adguard.com/extensions/adguardvpn/${BUILD_ENV}/${XPI_NAME}`;
+const FIREFOX_UPDATE_XPI = `https://static.adguard.com/extensions/adguardvpn/${BUILD_ENVIRONMENT}/${XPI_NAME}`;
 
 module.exports = {
     LOCALES_PATH,
@@ -60,7 +59,7 @@ module.exports = {
     SRC_PATH,
     IS_DEV,
     ENVS,
-    STAGING,
+    BUILD_ENV,
     BUILD_PATH,
     CERTIFICATE_PATHS,
     CRX_NAME,

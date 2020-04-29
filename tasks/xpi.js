@@ -14,16 +14,14 @@ const {
     FIREFOX_UPDATER_FILENAME,
     XPI_NAME,
 } = require('./consts');
-const config = require('../package');
+const packageJson = require('../package');
 
 const { apiKey, apiSecret } = credentials;
 
 const { BUILD_ENV } = process.env;
 const { outputPath } = ENV_MAP[BUILD_ENV];
 
-const BUILD = 'build';
-
-const buildDir = path.resolve(BUILD, ENV_MAP[BUILD_ENV].outputPath);
+const buildDir = path.resolve(__dirname, BUILD_PATH, outputPath);
 const fileDir = path.resolve(buildDir, FIREFOX_UPDATER_FILENAME);
 
 const getFirefoxManifest = async () => {
@@ -36,7 +34,7 @@ const getFirefoxManifest = async () => {
 };
 
 async function generateXpi() {
-    const sourceDir = path.resolve(BUILD, ENV_MAP[BUILD_ENV].outputPath, BROWSER_TYPES.FIREFOX);
+    const sourceDir = path.resolve(__dirname, BUILD_PATH, outputPath, BROWSER_TYPES.FIREFOX);
 
     const { downloadedFiles } = await webExt.default.cmd.sign({
         apiKey,
@@ -59,7 +57,15 @@ async function generateXpi() {
     }
 }
 
-const getFileContent = (
+/**
+ * Creates object for update.json
+ * @param {string} id
+ * @param {string} version
+ * @param {string} update_link
+ * @param {string} strict_min_version
+ * @returns {object}
+ */
+const createUpdateJsonContent = (
     {
         // eslint-disable-next-line camelcase
         id, version, update_link, strict_min_version,
@@ -87,9 +93,12 @@ const createUpdateJson = async (manifest) => {
         // eslint-disable-next-line camelcase
         const { id, strict_min_version } = manifest.applications.gecko;
 
-        const fileContent = getFileContent(
+        const fileContent = createUpdateJsonContent(
             {
-                id, version: config.version, update_link: FIREFOX_UPDATE_XPI, strict_min_version,
+                id,
+                version: packageJson.version,
+                update_link: FIREFOX_UPDATE_XPI,
+                strict_min_version,
             }
         );
 
