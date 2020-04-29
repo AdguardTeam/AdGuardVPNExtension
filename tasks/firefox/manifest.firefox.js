@@ -1,16 +1,16 @@
-const { ENVS, STAGING } = require('../consts');
+const { ENVS, BUILD_ENV } = require('../consts');
 
 const envMap = {
-    [ENVS.DEV]: 'adguardadblockerdev@adguard.com',
-    [ENVS.BETA]: 'adguardadblockerbeta@adguard.com',
-    [ENVS.RELEASE]: 'adguardadblocker@adguard.com',
+    [ENVS.DEV]: 'adguard-vpn-dev@adguard.com',
+    [ENVS.BETA]: 'adguard-vpn-beta@adguard.com',
+    [ENVS.RELEASE]: 'adguard-vpn@adguard.com',
 };
 
 module.exports = {
     minimum_chrome_version: '55.0',
     applications: {
         gecko: {
-            id: envMap[STAGING],
+            id: envMap[BUILD_ENV],
             strict_min_version: '52.0',
         },
     },

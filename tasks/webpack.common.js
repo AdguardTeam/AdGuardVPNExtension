@@ -4,7 +4,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CreateFileWebpack = require('create-file-webpack');
-const { SRC_PATH, IS_DEV, STAGING } = require('./consts');
+const {
+    SRC_PATH,
+    IS_DEV,
+    BUILD_ENV,
+    BUILD_PATH,
+} = require('./consts');
 const { getOutputPathByEnv } = require('./helpers');
 
 const BACKGROUND_PATH = path.resolve(__dirname, SRC_PATH, 'background');
@@ -12,8 +17,7 @@ const OPTIONS_PATH = path.resolve(__dirname, SRC_PATH, 'options');
 const POPUP_PATH = path.resolve(__dirname, SRC_PATH, 'popup');
 const AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/auth.js');
 
-const BUILD_PATH = '../build';
-const OUTPUT_PATH = getOutputPathByEnv(STAGING);
+const OUTPUT_PATH = getOutputPathByEnv(BUILD_ENV);
 
 const packageJson = require('../package.json');
 
@@ -73,7 +77,7 @@ const config = {
             if (process.env.BROWSER === 'firefox') {
                 // eslint-disable-next-line no-param-reassign
                 resource.request = resource.request.replace(/\.\/abstractProxyApi/, './firefox/proxyApi');
-            } else if (process.env.BROWSER === 'chrome' || process.env.BROWSER === 'edge') {
+            } else if (process.env.BROWSER === 'chrome') {
                 // eslint-disable-next-line no-param-reassign
                 resource.request = resource.request.replace(/\.\/abstractProxyApi/, './chrome/proxyApi');
             } else {
