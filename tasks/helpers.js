@@ -33,23 +33,18 @@ const updateManifest = (manifestJson, browserManifestDiff) => {
     }
     const devPolicy = IS_DEV ? { content_security_policy: "script-src 'self' 'unsafe-eval'; object-src 'self'" } : {};
     const name = getNameByEnv(BUILD_ENV);
-    let updatedManifest = {
+    const permissions = _.uniq([
+        ...(manifest.permissions || []),
+        ...(browserManifestDiff.permissions || []),
+    ]).sort();
+    const updatedManifest = {
         ...manifest,
         ...browserManifestDiff,
         ...devPolicy,
         name,
+        permissions,
         version: pJson.version,
     };
-    if (browserManifestDiff) {
-        const permissions = _.uniq([
-            ...(manifest.permissions || []),
-            ...(browserManifestDiff.permissions || []),
-        ]).sort();
-        updatedManifest = {
-            ...updatedManifest,
-            permissions,
-        };
-    }
     return Buffer.from(JSON.stringify(updatedManifest, null, 4));
 };
 

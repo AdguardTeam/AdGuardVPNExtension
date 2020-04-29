@@ -22,7 +22,6 @@ const IS_DEV = BUILD_ENV ? BUILD_ENV === ENVS.DEV : true;
 const BROWSER_TYPES = {
     CHROME: 'chrome',
     FIREFOX: 'firefox',
-    EDGE: 'edge',
 };
 
 // Build output path

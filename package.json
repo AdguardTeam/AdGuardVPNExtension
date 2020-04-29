@@ -14,7 +14,6 @@
         "release": "BUILD_ENV=release run-p build:*",
         "build:chrome": "BROWSER=chrome webpack --config tasks/chrome/webpack.chrome.js",
         "build:firefox": "BROWSER=firefox webpack --config tasks/firefox/webpack.firefox.js",
-        "build:edge": "BROWSER=edge webpack --config tasks/edge/webpack.edge.js",
         "locales:download": "LOCALES=DOWNLOAD node tasks/locales.js",
         "locales:upload": "LOCALES=UPLOAD node tasks/locales.js",
         "test": "jest",

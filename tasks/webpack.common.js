@@ -77,7 +77,7 @@ const config = {
             if (process.env.BROWSER === 'firefox') {
                 // eslint-disable-next-line no-param-reassign
                 resource.request = resource.request.replace(/\.\/abstractProxyApi/, './firefox/proxyApi');
-            } else if (process.env.BROWSER === 'chrome' || process.env.BROWSER === 'edge') {
+            } else if (process.env.BROWSER === 'chrome') {
                 // eslint-disable-next-line no-param-reassign
                 resource.request = resource.request.replace(/\.\/abstractProxyApi/, './chrome/proxyApi');
             } else {
