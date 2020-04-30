@@ -38,6 +38,7 @@
         "proxy",
         "storage",
         "unlimitedStorage",
+        "geolocation",
         "webRequest",
         "webRequestBlocking"
     ]

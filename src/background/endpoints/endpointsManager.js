@@ -1,5 +1,9 @@
 import _ from 'lodash';
-import { asyncMapByChunks, identity } from '../../lib/helpers';
+import {
+    asyncMapByChunks,
+    identity,
+    sortedByDistances,
+} from '../../lib/helpers';
 import connectivity from '../connectivity';
 import notifier from '../../lib/notifier';
 
@@ -12,6 +16,8 @@ class EndpointsManager {
     endpointsPings = {}; // { endpointId, ping }[]
 
     MAX_FASTEST_LENGTH = 3;
+
+    CLOSEST_ENDPOINTS_AMOUNT = 5;
 
     PING_TTL_MS = 1000 * 60 * 2; // 2 minutes
 
@@ -133,8 +139,13 @@ class EndpointsManager {
             return;
         }
 
+        const endpoints = Object.values(this.endpoints);
         const currentEndpoint = await currentEndpointPromise;
         const currentEndpointPing = await currentEndpointPingPromise;
+
+        // Experimentally determined that fastest results of measurements
+        // can be achieved with this batch size
+        const BATCH_SIZE = 10;
 
         const handleEndpointPingMeasurement = async (endpoint) => {
             const { id, domainName } = endpoint;
@@ -158,19 +169,35 @@ class EndpointsManager {
             return pingData;
         };
 
-        // Experimentally determined that fastest results of measurements
-        // can be achieved with this batch size
-        const BATCH_SIZE = 10;
-        await asyncMapByChunks(
-            Object.values(this.endpoints),
-            handleEndpointPingMeasurement,
-            BATCH_SIZE
-        );
+        /**
+         * Measures endpoints closest to user first and then others
+         * @param position
+         */
+        const measureClosestEndpointsFirst = async (position) => {
+            const userCoordinates = [position.coords.longitude, position.coords.latitude];
+            const sortedEndpoints = sortedByDistances(userCoordinates, endpoints);
 
-        this.lastPingMeasurementTime = Date.now();
+            const closestEndpoints = sortedEndpoints.slice(0, this.CLOSEST_ENDPOINTS_AMOUNT);
+            const otherEndpoints = sortedEndpoints.slice(this.CLOSEST_ENDPOINTS_AMOUNT);
 
-        // When measuring finished, we can determine fastest
+            // eslint-disable-next-line max-len
+            await asyncMapByChunks(closestEndpoints, handleEndpointPingMeasurement, this.CLOSEST_ENDPOINTS_AMOUNT);
+            // When measuring of closest endpoints finished, we can determine fastest
+            // eslint-disable-next-line max-len
+            notifier.notifyListeners(notifier.types.FASTEST_ENDPOINTS_CALCULATED, this.getFastest());
+            await asyncMapByChunks(otherEndpoints, handleEndpointPingMeasurement, BATCH_SIZE);
+        };
+
+        if (!navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(measureClosestEndpointsFirst);
+        } else {
+            await asyncMapByChunks(endpoints, handleEndpointPingMeasurement, BATCH_SIZE);
+        }
+
+        // When measuring of all endpoints finished, we can determine fastest
+        // eslint-disable-next-line max-len
         notifier.notifyListeners(notifier.types.FASTEST_ENDPOINTS_CALCULATED, this.getFastest());
+        this.lastPingMeasurementTime = Date.now();
     }
 }
 
