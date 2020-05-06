@@ -104,6 +104,7 @@ class EndpointConnectivity {
         this.ping = null;
 
         if (this.ws) {
+            this.ws.removeEventListener('close', this.handleWebsocketClose);
             await this.ws.close();
         }
 

@@ -152,6 +152,14 @@ const init = async () => {
     await settingsService.init();
     notifier.addSpecifiedListener(notifier.types.WEBSOCKET_CLOSED, async () => {
         await disableProxy();
+
+        // Reconnect when internet connection is back
+        const connectionHandler = async () => {
+            await enableProxy();
+            window.removeEventListener('online', connectionHandler);
+        };
+
+        window.addEventListener('online', connectionHandler);
     });
     log.info('Settings module is ready');
 };

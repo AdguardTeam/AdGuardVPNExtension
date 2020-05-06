@@ -58,9 +58,23 @@ class ReconnectingWebsocket {
         return ReconnectingWebsocket.CLOSED;
     }
 
+    /**
+     * Flag used to determine if close was called by user
+     * @type {boolean}
+     */
+    closeCalled = false;
+
+    /**
+     * Flag used to limit close events firing
+     * @type {boolean}
+     */
+    closeEventFired = false;
+
     constructor(url, options) {
         this.url = url;
         this.options = { ...this.DEFAULT_OPTIONS, ...options };
+        this.closeCalled = false;
+        this.closeEventFired = false;
     }
 
     addEventListener(type, listener) {
@@ -76,12 +90,12 @@ class ReconnectingWebsocket {
     }
 
     get readyState() {
-        if (!this.ws || this.isClosed) {
+        if (!this.ws || this.closeEventFired) {
             return ReconnectingWebSocket.CLOSED;
         }
 
         if (this.ws
-            && !this.isClosed
+            && !this.closeEventFired
             && !(this.ws.readyState === ReconnectingWebsocket.OPEN)) {
             return ReconnectingWebsocket.CONNECTING;
         }
@@ -91,6 +105,8 @@ class ReconnectingWebsocket {
 
     open = async () => {
         return new Promise((resolve, reject) => {
+            this.closeCalled = false;
+            this.closeEventFired = false;
             this.ws = new ReconnectingWebSocket(this.url, [], this.options);
             this.ws.binaryType = 'arraybuffer';
 
@@ -124,10 +140,19 @@ class ReconnectingWebsocket {
     }
 
     handleClose = (closeEvent) => {
-        // notify only on final close
-        if (this.ws && this.ws.retryCount >= this.options.maxRetries && !this.isClosed) {
+        if (!this.ws) {
+            return;
+        }
+        if (this.closeCalled) {
             log.debug(`WS connection to "${closeEvent.target.url}" closed`);
-            this.isClosed = true;
+            this.closeEventFired = true;
+            this.listeners.close.forEach((listener) => listener(closeEvent));
+            return;
+        }
+        // notify only on final close
+        if (this.ws.retryCount >= this.options.maxRetries && !this.closeEventFired) {
+            log.debug(`WS connection to "${closeEvent.target.url}" closed`);
+            this.closeEventFired = true;
             this.listeners.close.forEach((listener) => listener(closeEvent));
         }
     }
@@ -168,7 +193,7 @@ class ReconnectingWebsocket {
     }
 
     close() {
-        this.isClosed = true;
+        this.closeCalled = true;
         return new Promise((resolve, reject) => {
             if (!this.ws) {
                 resolve();
@@ -178,6 +203,7 @@ class ReconnectingWebsocket {
             this.ws.close();
             // resolve immediately if is closed already
             if (this.ws.readyState === 3) {
+                this.removeListeners();
                 resolve();
                 return;
             }
@@ -186,6 +212,7 @@ class ReconnectingWebsocket {
                 /* eslint-disable no-use-before-define */
                 this.ws.removeEventListener('error', rejectHandler);
                 this.ws.removeEventListener('close', resolveHandler);
+                this.removeListeners();
                 /* eslint-enable no-use-before-define */
             };
 
@@ -201,8 +228,6 @@ class ReconnectingWebsocket {
 
             this.ws.addEventListener('close', resolveHandler);
             this.ws.addEventListener('error', rejectHandler);
-
-            this.removeListeners();
         });
     }
 }
