@@ -105,8 +105,6 @@ class ReconnectingWebsocket {
 
     open = async () => {
         return new Promise((resolve, reject) => {
-            this.closeCalled = false;
-            this.closeEventFired = false;
             this.ws = new ReconnectingWebSocket(this.url, [], this.options);
             this.ws.binaryType = 'arraybuffer';
 
@@ -134,8 +132,53 @@ class ReconnectingWebsocket {
         });
     }
 
+    close() {
+        this.closeCalled = true;
+        return new Promise((resolve, reject) => {
+            if (!this.ws) {
+                resolve();
+                return;
+            }
+
+            this.ws.close();
+            // resolve immediately if is closed already
+            if (this.ws.readyState === 3) {
+                this.removeListeners();
+                resolve();
+                return;
+            }
+
+            const removeListeners = () => {
+                /* eslint-disable no-use-before-define */
+                this.ws.removeEventListener('error', rejectHandler);
+                this.ws.removeEventListener('close', resolveHandler);
+                this.removeListeners();
+                /* eslint-enable no-use-before-define */
+            };
+
+            function rejectHandler(e) {
+                reject(e);
+                removeListeners();
+            }
+
+            function resolveHandler() {
+                resolve();
+                removeListeners();
+            }
+
+            this.ws.addEventListener('close', resolveHandler);
+            this.ws.addEventListener('error', rejectHandler);
+        });
+    }
+
+    send(message) {
+        this.ws.send(message);
+    }
+
     handleOpen = (openEvent) => {
         log.debug(`WS connection to "${openEvent.target.url}" opened`);
+        this.closeCalled = false;
+        this.closeEventFired = false;
         this.listeners.open.forEach((listener) => listener(openEvent));
     }
 
@@ -186,49 +229,6 @@ class ReconnectingWebsocket {
         this.ws.removeEventListener('close', this.handleClose);
         this.ws.removeEventListener('message', this.handleMessage);
         this.ws.removeEventListener('error', this.handleError);
-    }
-
-    send(message) {
-        this.ws.send(message);
-    }
-
-    close() {
-        this.closeCalled = true;
-        return new Promise((resolve, reject) => {
-            if (!this.ws) {
-                resolve();
-                return;
-            }
-
-            this.ws.close();
-            // resolve immediately if is closed already
-            if (this.ws.readyState === 3) {
-                this.removeListeners();
-                resolve();
-                return;
-            }
-
-            const removeListeners = () => {
-                /* eslint-disable no-use-before-define */
-                this.ws.removeEventListener('error', rejectHandler);
-                this.ws.removeEventListener('close', resolveHandler);
-                this.removeListeners();
-                /* eslint-enable no-use-before-define */
-            };
-
-            function rejectHandler(e) {
-                reject(e);
-                removeListeners();
-            }
-
-            function resolveHandler() {
-                resolve();
-                removeListeners();
-            }
-
-            this.ws.addEventListener('close', resolveHandler);
-            this.ws.addEventListener('error', rejectHandler);
-        });
     }
 }
 
