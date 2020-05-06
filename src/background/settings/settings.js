@@ -150,6 +150,9 @@ const isContextMenuEnabled = () => {
 
 const init = async () => {
     await settingsService.init();
+    notifier.addSpecifiedListener(notifier.types.WEBSOCKET_CLOSED, async () => {
+        await disableProxy();
+    });
     log.info('Settings module is ready');
 };
 

@@ -77,11 +77,16 @@ class EndpointConnectivity {
         }
     }
 
+    handleWebsocketClose = () => {
+        notifier.notifyListeners(notifier.types.WEBSOCKET_CLOSED);
+    }
+
     start = async () => {
         if (this.state !== this.CONNECTION_STATES.WORKING) {
             await this.ws.open();
             this.state = this.CONNECTION_STATES.WORKING;
         }
+        this.ws.addEventListener('close', this.handleWebsocketClose);
         this.startGettingPing();
         this.startGettingConnectivityInfo();
         this.sendDnsServerIp(dns.getDnsServerIp());
@@ -122,10 +127,12 @@ class EndpointConnectivity {
         return WsConnectivityMsg.toObject(message);
     };
 
-    pollPing = () => new Promise((resolve) => {
+    pollPing = () => new Promise((resolve, reject) => {
+        const POLL_PING_TIMEOUT_MS = 5000;
         const arrBufMessage = this.preparePingMessage(Date.now());
         this.ws.send(arrBufMessage);
 
+        let timeoutId;
         const messageHandler = (event) => {
             const receivedTime = Date.now();
             const { pingMsg } = this.decodeMessage(event.data);
@@ -133,9 +140,15 @@ class EndpointConnectivity {
                 const { requestTime } = pingMsg;
                 const ping = receivedTime - requestTime;
                 this.ws.removeEventListener('message', messageHandler);
+                clearTimeout(timeoutId);
                 resolve(ping);
             }
         };
+
+        timeoutId = setTimeout(() => {
+            this.ws.removeEventListener('message', messageHandler);
+            reject(new Error('Poll ping timeout'));
+        }, POLL_PING_TIMEOUT_MS);
 
         this.ws.addEventListener('message', messageHandler);
     });
@@ -161,8 +174,12 @@ class EndpointConnectivity {
             clearInterval(this.pingGetInterval);
         }
         this.pingGetInterval = setInterval(async () => {
-            const averagePing = await this.calculateAveragePing();
-            this.updatePingValue(averagePing);
+            try {
+                const averagePing = await this.calculateAveragePing();
+                this.updatePingValue(averagePing);
+            } catch (e) {
+                // ignore
+            }
         }, this.PING_UPDATE_INTERVAL_MS);
     };
 

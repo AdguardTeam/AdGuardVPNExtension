@@ -22,7 +22,12 @@ const websocketFactory = (() => {
                 log.debug(e);
             }
         }
-        reconnectingWebsocket = new ReconnectingWebsocket(url);
+
+        // approximately 5 min,
+        // after this number of retries websocket would stop trying to connect
+        // and disconnect user from proxy
+        const NUMBER_OF_RETRIES = 35;
+        reconnectingWebsocket = new ReconnectingWebsocket(url, { maxRetries: NUMBER_OF_RETRIES });
         return reconnectingWebsocket;
     };
 
