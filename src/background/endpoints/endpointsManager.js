@@ -6,6 +6,8 @@ import {
 } from '../../lib/helpers';
 import connectivity from '../connectivity';
 import notifier from '../../lib/notifier';
+import vpnProvider from '../providers/vpnProvider';
+import log from '../../lib/logger';
 
 /**
  * EndpointsManager keeps endpoints in the memory and determines their ping on request
@@ -170,31 +172,44 @@ class EndpointsManager {
         };
 
         /**
-         * Measures endpoints closest to user first and then others
-         * @param position
+         * Finds closest to the user endpoints
+         * @param {object} position
+         * @return {object} closestEndpoints, otherEndpoints
          */
-        const measureClosestEndpointsFirst = async (position) => {
-            const userCoordinates = [position.coords.longitude, position.coords.latitude];
+        const findClosestEndpoints = (position) => {
+            const userCoordinates = position.coordinates;
             const sortedEndpoints = sortedByDistances(userCoordinates, endpoints);
 
             const closestEndpoints = sortedEndpoints.slice(0, this.CLOSEST_ENDPOINTS_AMOUNT);
             const otherEndpoints = sortedEndpoints.slice(this.CLOSEST_ENDPOINTS_AMOUNT);
-
-            // eslint-disable-next-line max-len
-            await asyncMapByChunks(closestEndpoints, handleEndpointPingMeasurement, this.CLOSEST_ENDPOINTS_AMOUNT);
-            // When measuring of closest endpoints finished, we can determine fastest
-            // eslint-disable-next-line max-len
-            notifier.notifyListeners(notifier.types.FASTEST_ENDPOINTS_CALCULATED, this.getFastest());
-            await asyncMapByChunks(otherEndpoints, handleEndpointPingMeasurement, BATCH_SIZE);
+            return {
+                closestEndpoints,
+                otherEndpoints,
+            };
         };
 
-        if (!navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(measureClosestEndpointsFirst);
-        } else {
-            await asyncMapByChunks(endpoints, handleEndpointPingMeasurement, BATCH_SIZE);
+        let currentLocation;
+        try {
+            currentLocation = await vpnProvider.getCurrentLocation();
+        } catch (e) {
+            log.error(e.message);
         }
+        // if current location wasn't received use predefined
+        currentLocation = currentLocation || { coordinates: [51.05, 13.73] };
+        const { closestEndpoints, otherEndpoints } = findClosestEndpoints(currentLocation);
 
-        // When measuring of all endpoints finished, we can determine fastest
+        // First of all measures ping for closest endpoints
+        // eslint-disable-next-line max-len
+        await asyncMapByChunks(closestEndpoints, handleEndpointPingMeasurement, this.CLOSEST_ENDPOINTS_AMOUNT);
+
+        // When measuring of closest endpoints finished, we can determine fastest
+        // eslint-disable-next-line max-len
+        notifier.notifyListeners(notifier.types.FASTEST_ENDPOINTS_CALCULATED, this.getFastest());
+
+        // then check ping of other endpoints
+        await asyncMapByChunks(otherEndpoints, handleEndpointPingMeasurement, BATCH_SIZE);
+
+        // When measuring of all endpoints finished, we can update fastest
         // eslint-disable-next-line max-len
         notifier.notifyListeners(notifier.types.FASTEST_ENDPOINTS_CALCULATED, this.getFastest());
         this.lastPingMeasurementTime = Date.now();
