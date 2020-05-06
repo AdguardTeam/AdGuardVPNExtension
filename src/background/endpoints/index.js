@@ -27,7 +27,7 @@ import vpnProvider from '../providers/vpnProvider';
  */
 
 /**
- * Endpoints manages endpoints, vpn, current location information.
+ * Endpoints manages endpoints and vpn.
  */
 class Endpoints {
     vpnInfo = null;

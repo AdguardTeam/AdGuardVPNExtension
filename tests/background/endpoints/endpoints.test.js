@@ -1,4 +1,5 @@
 import endpoints from '../../../src/background/endpoints';
+import endpointsManager from '../../../src/background/endpoints/endpointsManager';
 import { sleep } from '../../../src/lib/helpers';
 import settings from '../../../src/background/settings/settings';
 import notifier from '../../../src/lib/notifier';
@@ -215,6 +216,12 @@ describe('endpoints class', () => {
             expect(notifier.notifyListeners).toBeCalledTimes(1);
             expect(notifications.create).toBeCalledTimes(1);
         });
+    });
+
+    it('getCurrentLocation returns object with current location coordinates', async () => {
+        const currentLocation = await endpointsManager.getCurrentLocation();
+        expect(currentLocation.coordinates).toBeDefined();
+        expect(currentLocation.coordinates).toHaveLength(2);
     });
 
     // TODO [maximtop] add tests for uncovered methods of EndpointsService

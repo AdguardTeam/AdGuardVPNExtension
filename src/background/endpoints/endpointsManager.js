@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import isEqual from 'lodash/isEqual';
 import {
     asyncMapByChunks,
     identity,
@@ -15,13 +14,12 @@ const CURRENT_LOCATION = 'current.location';
 
 /**
  * EndpointsManager keeps endpoints in the memory and determines their ping on request
+ * and manages current location information
  */
 class EndpointsManager {
     endpoints = {}; // { endpointId: { endpointInfo } }
 
     endpointsPings = {}; // { endpointId, ping }[]
-
-    currentLocation = null;
 
     MAX_FASTEST_LENGTH = 3;
 
@@ -177,12 +175,8 @@ class EndpointsManager {
             return pingData;
         };
 
-        let currentLocation = await browserApi.storage.get(CURRENT_LOCATION);
-        if (!currentLocation && !currentLocation.coordinates.length) {
-            currentLocation = await this.getCurrentLocation();
-            await browserApi.storage.set(CURRENT_LOCATION, currentLocation);
-        }
-        const sortedEndpoints = sortedByDistances(currentLocation.coordinates, endpoints);
+        const { coordinates } = await this.getCurrentLocation();
+        const sortedEndpoints = sortedByDistances(coordinates, endpoints);
 
         const closestEndpoints = sortedEndpoints.slice(0, this.CLOSEST_ENDPOINTS_AMOUNT);
         const otherEndpoints = sortedEndpoints.slice(this.CLOSEST_ENDPOINTS_AMOUNT);
@@ -216,20 +210,18 @@ class EndpointsManager {
         // if current location wasn't received use predefined
         currentLocation = currentLocation || MIDDLE_OF_EUROPE;
 
-        if (!isEqual(this.currentLocation, currentLocation)) {
-            this.currentLocation = currentLocation;
-        }
+        await browserApi.storage.set(CURRENT_LOCATION, currentLocation);
 
         return currentLocation;
     };
 
     getCurrentLocation = async () => {
-        // update current location information in background
-        await this.getCurrentLocationRemote();
-        if (this.currentLocation) {
-            return this.currentLocation;
+        const currentLocation = await browserApi.storage.get(CURRENT_LOCATION);
+        if (!currentLocation) {
+            // update current location information in background
+            return this.getCurrentLocationRemote();
         }
-        return null;
+        return currentLocation;
     };
 }
 
