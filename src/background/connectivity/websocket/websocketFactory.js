@@ -1,8 +1,9 @@
 import ReconnectingWebsocket from './ReconnectingWebsocket';
 import NativeWebsocket from './NativeWebsocket';
+import log from '../../../lib/logger';
 
 const websocketFactory = (() => {
-    let ws;
+    let reconnectingWebsocket;
 
     /**
      * Creates new websocket and closes the old one if found
@@ -13,11 +14,16 @@ const websocketFactory = (() => {
         if (!url) {
             throw new Error('Url expected to be provided');
         }
-        if (ws) {
-            await ws.close();
+        // Close previously opened websocket
+        if (reconnectingWebsocket) {
+            try {
+                await reconnectingWebsocket.close();
+            } catch (e) {
+                log.debug(e);
+            }
         }
-        ws = new ReconnectingWebsocket(url);
-        return ws;
+        reconnectingWebsocket = new ReconnectingWebsocket(url);
+        return reconnectingWebsocket;
     };
 
     /**

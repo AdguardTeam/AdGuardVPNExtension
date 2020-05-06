@@ -132,12 +132,12 @@ class EndpointConnectivity {
             if (pingMsg) {
                 const { requestTime } = pingMsg;
                 const ping = receivedTime - requestTime;
-                this.ws.removeMessageListener(messageHandler);
+                this.ws.removeEventListener('message', messageHandler);
                 resolve(ping);
             }
         };
 
-        this.ws.onMessage(messageHandler);
+        this.ws.addEventListener('message', messageHandler);
     });
 
     calculateAveragePing = async () => {
@@ -224,7 +224,7 @@ class EndpointConnectivity {
             }
         };
 
-        this.ws.onMessage(messageHandler);
+        this.ws.addEventListener(messageHandler);
     };
 
     getPing = () => {
