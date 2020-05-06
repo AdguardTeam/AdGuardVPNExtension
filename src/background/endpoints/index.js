@@ -1,4 +1,3 @@
-import isEqual from 'lodash/isEqual';
 import _ from 'lodash';
 import qs from 'qs';
 import log from '../../lib/logger';
@@ -32,8 +31,6 @@ import vpnProvider from '../providers/vpnProvider';
  */
 class Endpoints {
     vpnInfo = null;
-
-    currentLocation = null;
 
     constructor() {
         notifier.addSpecifiedListener(
@@ -239,34 +236,6 @@ class Endpoints {
         return endpointsManager.getEndpoints(currentEndpoint, currentEndpointPing);
     };
 
-    getCurrentLocationRemote = async () => {
-        const MIDDLE_OF_EUROPE = { coordinates: [51.05, 13.73] }; // Chosen approximately
-        let currentLocation;
-        try {
-            currentLocation = await vpnProvider.getCurrentLocation();
-        } catch (e) {
-            log.error(e.message);
-        }
-
-        // if current location wasn't received use predefined
-        currentLocation = currentLocation || MIDDLE_OF_EUROPE;
-
-        if (!isEqual(this.currentLocation, currentLocation)) {
-            this.currentLocation = currentLocation;
-        }
-
-        return currentLocation;
-    };
-
-    getCurrentLocation = () => {
-        // update current location information in background
-        this.getCurrentLocationRemote();
-        if (this.currentLocation) {
-            return this.currentLocation;
-        }
-        return null;
-    };
-
     getSelectedEndpoint = async () => {
         const proxySelectedEndpoint = await proxy.getCurrentEndpoint();
 
@@ -275,7 +244,7 @@ class Endpoints {
             return proxySelectedEndpoint;
         }
 
-        const currentLocation = this.getCurrentLocation();
+        const currentLocation = await endpointsManager.getCurrentLocation();
         const endpoints = Object.values(endpointsManager.getAll());
 
         if (!currentLocation || _.isEmpty(endpoints)) {

@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import isEqual from 'lodash/isEqual';
 import {
     asyncMapByChunks,
     identity,
@@ -8,6 +9,9 @@ import connectivity from '../connectivity';
 import notifier from '../../lib/notifier';
 import vpnProvider from '../providers/vpnProvider';
 import log from '../../lib/logger';
+import browserApi from '../browserApi';
+
+const CURRENT_LOCATION = 'current.location';
 
 /**
  * EndpointsManager keeps endpoints in the memory and determines their ping on request
@@ -16,6 +20,8 @@ class EndpointsManager {
     endpoints = {}; // { endpointId: { endpointInfo } }
 
     endpointsPings = {}; // { endpointId, ping }[]
+
+    currentLocation = null;
 
     MAX_FASTEST_LENGTH = 3;
 
@@ -171,32 +177,15 @@ class EndpointsManager {
             return pingData;
         };
 
-        /**
-         * Finds closest to the user endpoints
-         * @param {object} position
-         * @return {object} closestEndpoints, otherEndpoints
-         */
-        const findClosestEndpoints = (position) => {
-            const userCoordinates = position.coordinates;
-            const sortedEndpoints = sortedByDistances(userCoordinates, endpoints);
-
-            const closestEndpoints = sortedEndpoints.slice(0, this.CLOSEST_ENDPOINTS_AMOUNT);
-            const otherEndpoints = sortedEndpoints.slice(this.CLOSEST_ENDPOINTS_AMOUNT);
-            return {
-                closestEndpoints,
-                otherEndpoints,
-            };
-        };
-
-        let currentLocation;
-        try {
-            currentLocation = await vpnProvider.getCurrentLocation();
-        } catch (e) {
-            log.error(e.message);
+        let currentLocation = await browserApi.storage.get(CURRENT_LOCATION);
+        if (!currentLocation && !currentLocation.coordinates.length) {
+            currentLocation = await this.getCurrentLocation();
+            await browserApi.storage.set(CURRENT_LOCATION, currentLocation);
         }
-        // if current location wasn't received use predefined
-        currentLocation = currentLocation || { coordinates: [51.05, 13.73] };
-        const { closestEndpoints, otherEndpoints } = findClosestEndpoints(currentLocation);
+        const sortedEndpoints = sortedByDistances(currentLocation.coordinates, endpoints);
+
+        const closestEndpoints = sortedEndpoints.slice(0, this.CLOSEST_ENDPOINTS_AMOUNT);
+        const otherEndpoints = sortedEndpoints.slice(this.CLOSEST_ENDPOINTS_AMOUNT);
 
         // First of all measures ping for closest endpoints
         // eslint-disable-next-line max-len
@@ -214,6 +203,34 @@ class EndpointsManager {
         notifier.notifyListeners(notifier.types.FASTEST_ENDPOINTS_CALCULATED, this.getFastest());
         this.lastPingMeasurementTime = Date.now();
     }
+
+    getCurrentLocationRemote = async () => {
+        const MIDDLE_OF_EUROPE = { coordinates: [51.05, 13.73] }; // Chosen approximately
+        let currentLocation;
+        try {
+            currentLocation = await vpnProvider.getCurrentLocation();
+        } catch (e) {
+            log.error(e.message);
+        }
+
+        // if current location wasn't received use predefined
+        currentLocation = currentLocation || MIDDLE_OF_EUROPE;
+
+        if (!isEqual(this.currentLocation, currentLocation)) {
+            this.currentLocation = currentLocation;
+        }
+
+        return currentLocation;
+    };
+
+    getCurrentLocation = async () => {
+        // update current location information in background
+        await this.getCurrentLocationRemote();
+        if (this.currentLocation) {
+            return this.currentLocation;
+        }
+        return null;
+    };
 }
 
 const endpointsManager = new EndpointsManager();
