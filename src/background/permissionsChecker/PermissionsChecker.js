@@ -3,6 +3,7 @@ import log from '../../lib/logger';
 import { ERROR_STATUSES } from '../../lib/constants';
 import notifier from '../../lib/notifier';
 import settings from '../settings/settings';
+import endpointConnectivity from '../connectivity/endpointConnectivity';
 
 class PermissionsChecker {
     CHECK_THROTTLE_TIMEOUT_MS = 60 * 1000;
@@ -15,8 +16,9 @@ class PermissionsChecker {
     updatePermissionsErrorHandler = async (error) => {
         log.error('Permissions were not updated due to:', error.message);
         // do not consider network error as a reason to set permission error
-        // TODO if websocket still is working correctly
-        if (error.status === ERROR_STATUSES.NETWORK_ERROR) {
+        // or if websocket connection still is open
+        if (error.status === ERROR_STATUSES.NETWORK_ERROR
+            || endpointConnectivity.isWebsocketConnectionOpen()) {
             return;
         }
         this.permissionsError.setError(error);
@@ -35,8 +37,8 @@ class PermissionsChecker {
             // Use local fallback if there are some network problems or
             // if backend service is redeployed
             // See issue AG-2056
-            await this.credentials.gainValidVpnToken(true, true);
-            await this.credentials.gainValidVpnCredentials(true, true);
+            await this.credentials.gainValidVpnToken(true, false);
+            await this.credentials.gainValidVpnCredentials(true, false);
             // if no error, clear permissionError
             this.permissionsError.clearError();
             notifier.notifyListeners(notifier.types.UPDATE_BROWSER_ACTION_ICON);

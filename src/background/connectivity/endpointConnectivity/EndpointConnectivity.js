@@ -78,7 +78,15 @@ class EndpointConnectivity {
     }
 
     handleWebsocketClose = () => {
+        this.state = this.CONNECTION_STATES.PAUSED;
         notifier.notifyListeners(notifier.types.WEBSOCKET_CLOSED);
+    }
+
+    isWebsocketConnectionOpen = () => {
+        if (this.ws) {
+            return this.ws.readyState === this.ws.OPEN;
+        }
+        return false;
     }
 
     start = async () => {
