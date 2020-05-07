@@ -142,7 +142,7 @@ class ReconnectingWebsocket {
 
             this.ws.close();
             // resolve immediately if is closed already
-            if (this.ws.readyState === 3) {
+            if (this.ws.readyState === this.ws.CLOSED) {
                 this.removeListeners();
                 resolve();
                 return;
