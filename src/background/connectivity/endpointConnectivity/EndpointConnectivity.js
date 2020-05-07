@@ -187,7 +187,7 @@ class EndpointConnectivity {
                 const averagePing = await this.calculateAveragePing();
                 this.updatePingValue(averagePing);
             } catch (e) {
-                // ignore
+                log.debug(e.message);
             }
         }, this.PING_UPDATE_INTERVAL_MS);
     };
