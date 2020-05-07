@@ -283,7 +283,7 @@ class SettingsStore {
 
     @computed
     get displayEnabled() {
-        return this.switcherEnabled && this.proxyEnabled;
+        return this.switcherEnabled && this.proxyEnabled && this.ping;
     }
 
     @action
