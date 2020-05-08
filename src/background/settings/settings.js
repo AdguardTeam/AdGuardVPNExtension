@@ -159,6 +159,9 @@ const init = async () => {
             window.removeEventListener('online', connectionHandler);
         };
 
+        // remove previously added listener, if did not fire already
+        window.addEventListener('online', connectionHandler);
+        // add new listener
         window.addEventListener('online', connectionHandler);
     });
     log.info('Settings module is ready');
