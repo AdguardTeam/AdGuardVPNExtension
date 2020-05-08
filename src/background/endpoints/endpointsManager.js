@@ -184,6 +184,7 @@ class EndpointsManager {
         // First of all measures ping for closest endpoints
         // eslint-disable-next-line max-len
         await asyncMapByChunks(closestEndpoints, handleEndpointPingMeasurement, this.CLOSEST_ENDPOINTS_AMOUNT);
+        this.lastPingMeasurementTime = Date.now();
 
         // When measuring of closest endpoints finished, we can determine fastest
         // eslint-disable-next-line max-len
@@ -195,7 +196,6 @@ class EndpointsManager {
         // When measuring of all endpoints finished, we can update fastest
         // eslint-disable-next-line max-len
         notifier.notifyListeners(notifier.types.FASTEST_ENDPOINTS_CALCULATED, this.getFastest());
-        this.lastPingMeasurementTime = Date.now();
     }
 
     getCurrentLocationRemote = async () => {
