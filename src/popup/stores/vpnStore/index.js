@@ -34,10 +34,8 @@ class VpnStore {
 
     @action
     setSearchValue = (value) => {
-        const trimmed = value.trim();
-        if (trimmed !== this.searchValue) {
-            this.searchValue = value;
-        }
+        // do not trim, or change logic see issue AG-2233
+        this.searchValue = value;
     };
 
     @action
