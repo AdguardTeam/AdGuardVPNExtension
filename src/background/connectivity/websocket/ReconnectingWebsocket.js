@@ -205,7 +205,7 @@ class ReconnectingWebsocket {
     }
 
     handleError = (errorEvent) => {
-        log.debug(`WS connection to ${errorEvent.target.url} threw error:`, errorEvent.message);
+        log.debug(`WS connection to ${errorEvent.target.url} threw an error event:`, errorEvent);
         this.listeners.error.forEach((listener) => listener(errorEvent));
     }
 
