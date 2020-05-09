@@ -27,12 +27,11 @@ class EndpointsManager {
 
     PING_TTL_MS = 1000 * 60 * 2; // 2 minutes
 
-    lastPingMeasurementTime = null;
+    allPingsCheckTimeStamp = null;
 
-    arePingsFresh = () => {
-        return !!(this.lastPingMeasurementTime
-            && this.lastPingMeasurementTime + this.PING_TTL_MS > Date.now());
-    };
+    fastestPingsCheckTimeStamp = null;
+
+    arePingsFresh = (timeStamp) => !!(timeStamp && timeStamp + this.PING_TTL_MS > Date.now());
 
     arrToObjConverter = (acc, endpoint) => {
         acc[endpoint.id] = endpoint;
@@ -51,13 +50,13 @@ class EndpointsManager {
             })
             .filter(identity)
             .slice(0, this.MAX_FASTEST_LENGTH)
-            .map(this.enrichWithPing)
+            .map((endpoint) => this.enrichWithPing(endpoint, this.fastestPingsCheckTimeStamp))
             .reduce(this.arrToObjConverter, {});
         return fastest;
     }
 
-    enrichWithPing = (endpoint) => {
-        if (!this.arePingsFresh()) {
+    enrichWithPing = (endpoint, lastCheckTimeStamp) => {
+        if (!this.arePingsFresh(lastCheckTimeStamp)) {
             return endpoint;
         }
 
@@ -72,7 +71,7 @@ class EndpointsManager {
      */
     getAll = () => {
         return Object.values(this.endpoints)
-            .map(this.enrichWithPing)
+            .map((endpoint) => this.enrichWithPing(endpoint, this.allPingsCheckTimeStamp))
             .reduce(this.arrToObjConverter, {});
     };
 
@@ -184,7 +183,7 @@ class EndpointsManager {
         // First of all measures ping for closest endpoints
         // eslint-disable-next-line max-len
         await asyncMapByChunks(closestEndpoints, handleEndpointPingMeasurement, this.CLOSEST_ENDPOINTS_AMOUNT);
-        this.lastPingMeasurementTime = Date.now();
+        this.fastestPingsCheckTimeStamp = Date.now();
 
         // When measuring of closest endpoints finished, we can determine fastest
         // eslint-disable-next-line max-len
@@ -196,6 +195,7 @@ class EndpointsManager {
         // When measuring of all endpoints finished, we can update fastest
         // eslint-disable-next-line max-len
         notifier.notifyListeners(notifier.types.FASTEST_ENDPOINTS_CALCULATED, this.getFastest());
+        this.allPingsCheckTimeStamp = Date.now();
     }
 
     getCurrentLocationRemote = async () => {
