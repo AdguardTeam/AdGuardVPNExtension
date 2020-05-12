@@ -1,5 +1,6 @@
 import throttle from 'lodash/throttle';
 import log from '../../lib/logger';
+import connectivity from '../connectivity';
 
 class PopupData {
     constructor({
@@ -36,6 +37,7 @@ class PopupData {
         const selectedEndpoint = await this.endpoints.getSelectedEndpoint();
         const canControlProxy = await adguard.appStatus.canControlProxy();
         const isProxyEnabled = adguard.settings.isProxyEnabled();
+        const currentPing = await connectivity.endpointConnectivity.getPing();
         const isPremiumToken = await this.credentials.isPremiumToken();
 
         // If error check permissions when popup is opened, ignoring multiple retries
@@ -51,6 +53,7 @@ class PopupData {
             isAuthenticated,
             canControlProxy,
             isProxyEnabled,
+            currentPing,
             isRoutable,
             isPremiumToken,
         };

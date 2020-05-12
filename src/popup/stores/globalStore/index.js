@@ -36,6 +36,7 @@ class globalStore {
                 isAuthenticated,
                 canControlProxy,
                 isProxyEnabled,
+                currentPing,
                 isRoutable,
                 hasRequiredData,
                 isPremiumToken,
@@ -53,18 +54,17 @@ class globalStore {
                 settingsStore.setGlobalError(new Error('No required data'));
             }
 
-            await settingsStore.getProxyPing();
-            const switcherStatus = isProxyEnabled;
-            // check ping to a current endpoint to set the proper proxy status in the situation,
-            // when popup is reopened, but connection is still in process. task AG-2073.
-            const proxyStatus = isProxyEnabled && settingsStore.ping;
-
             authStore.setIsAuthenticated(isAuthenticated);
             vpnStore.setVpnInfo(vpnInfo);
             vpnStore.setEndpoints(endpointsList);
             vpnStore.setSelectedEndpoint(selectedEndpoint);
             vpnStore.setIsPremiumToken(isPremiumToken);
-            settingsStore.setProxyEnabledStatus(proxyStatus, switcherStatus);
+            settingsStore.setSwitcher(isProxyEnabled);
+            // when popup is reopened, but connection is still in process,
+            // we set the proxy enabled status only if endpoint has ping. task AG-2073.
+            if (currentPing) {
+                settingsStore.setProxyEnabled(isProxyEnabled);
+            }
             settingsStore.setCanControlProxy(canControlProxy);
             settingsStore.setIsRoutable(isRoutable);
             await settingsStore.checkIsExcluded();
