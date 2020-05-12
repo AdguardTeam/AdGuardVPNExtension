@@ -3,7 +3,6 @@ const webExt = require('web-ext');
 const path = require('path');
 const { promises: fs } = require('fs');
 const chalk = require('chalk');
-const credentials = require('../private/AdguardVPN/mozilla_credentials.json');
 
 const {
     BROWSER_TYPES,
@@ -16,10 +15,7 @@ const {
 } = require('./consts');
 const packageJson = require('../package');
 
-const { apiKey, apiSecret } = credentials;
-
-const { BUILD_ENV } = process.env;
-const { outputPath } = ENV_MAP[BUILD_ENV];
+const { outputPath } = ENV_MAP[process.env.BUILD_ENV];
 
 const buildDir = path.resolve(__dirname, BUILD_PATH, outputPath);
 const fileDir = path.resolve(buildDir, FIREFOX_UPDATER_FILENAME);
@@ -35,6 +31,14 @@ const getFirefoxManifest = async () => {
 
 async function generateXpi() {
     const sourceDir = path.resolve(__dirname, BUILD_PATH, outputPath, BROWSER_TYPES.FIREFOX);
+    const credentialsPath = path.resolve(__dirname, '../private/AdguardVPN/mozilla_credentials.json');
+
+    // require called here in order to escape errors, until this module is really necessary
+    // eslint-disable-next-line global-require
+    const cryptor = require('../private/cryptor/dist');
+    const credentialsContent = await cryptor(process.env.CREDENTIALS_PASSWORD)
+        .getDecryptedContent(credentialsPath);
+    const { apiKey, apiSecret } = JSON.parse(credentialsContent);
 
     const { downloadedFiles } = await webExt.default.cmd.sign({
         apiKey,

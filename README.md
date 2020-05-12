@@ -6,6 +6,18 @@
 
 Builds will be located in the `build` directory
 
+### Artifact builds
+* `CREDENTIALS_PASSWORD=<password> artifacts:beta`
+* `CREDENTIALS_PASSWORD=<password> artifacts:release`
+
+Make sure you have added credentials
+
+* certificate-beta.pem - chrome crx beta certificate
+* certificate-release.pem - chrome crx release certificate
+* mozilla_credentials.json - encrypted credentials,
+
+in the directory `./private/AdguardVPN`
+
 ## Lint
 * `yarn lint`
 
