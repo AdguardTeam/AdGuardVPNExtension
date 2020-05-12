@@ -160,7 +160,7 @@ const init = async () => {
         };
 
         // remove previously added listener, if did not fire already
-        window.addEventListener('online', connectionHandler);
+        window.removeEventListener('online', connectionHandler);
         // add new listener
         window.addEventListener('online', connectionHandler);
     });
