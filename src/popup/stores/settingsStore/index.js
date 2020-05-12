@@ -97,9 +97,9 @@ class SettingsStore {
     };
 
     @action
-    setProxyEnabledStatus(isProxyEnabled) {
-        this.proxyEnabled = isProxyEnabled;
-        this.setSwitcher(isProxyEnabled);
+    setProxyEnabledStatus(proxyStatus, switcherStatus) {
+        this.proxyEnabled = proxyStatus;
+        this.setSwitcher(switcherStatus);
     }
 
     @action
@@ -283,7 +283,7 @@ class SettingsStore {
 
     @computed
     get displayEnabled() {
-        return this.switcherEnabled && this.proxyEnabled && this.ping;
+        return this.switcherEnabled && this.proxyEnabled;
     }
 
     @action
