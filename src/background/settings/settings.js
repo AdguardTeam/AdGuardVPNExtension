@@ -150,14 +150,16 @@ const isContextMenuEnabled = () => {
 
 const init = async () => {
     await settingsService.init();
+
+
+    // Reconnect when internet connection is back
+    const connectionHandler = async () => {
+        await enableProxy(false, true);
+        window.removeEventListener('online', connectionHandler);
+    };
+
     notifier.addSpecifiedListener(notifier.types.WEBSOCKET_CLOSED, async () => {
         await disableProxy();
-
-        // Reconnect when internet connection is back
-        const connectionHandler = async () => {
-            await enableProxy(false, true);
-            window.removeEventListener('online', connectionHandler);
-        };
 
         // remove previously added listener, if did not fire already
         window.removeEventListener('online', connectionHandler);
