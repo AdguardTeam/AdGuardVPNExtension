@@ -37,8 +37,8 @@ class PermissionsChecker {
             // Use local fallback if there are some network problems or
             // if backend service is redeployed
             // See issue AG-2056
-            await this.credentials.gainValidVpnToken(true, false);
-            await this.credentials.gainValidVpnCredentials(true, false);
+            await this.credentials.gainValidVpnToken(true, true);
+            await this.credentials.gainValidVpnCredentials(true, true);
             // if no error, clear permissionError
             this.permissionsError.clearError();
             notifier.notifyListeners(notifier.types.UPDATE_BROWSER_ACTION_ICON);
