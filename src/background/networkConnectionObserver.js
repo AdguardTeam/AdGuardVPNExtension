@@ -10,7 +10,7 @@ import log from '../lib/logger';
  * 2. Reconnects proxy if it was closed when websocket was unable to connect because network was
  *      offline
  */
-class NetworkConnectionObserver {
+export class NetworkConnectionObserver {
     /**
      * Flag used to observe if it is necessary to reconnect websocket when network is back online
      * @type {boolean}
@@ -18,7 +18,6 @@ class NetworkConnectionObserver {
     shouldReconnectWebsocket = false;
 
     constructor() {
-        this.shouldReconnectWebsocket = false;
         notifier.addSpecifiedListener(notifier.types.WEBSOCKET_CLOSED, this.websocketCloseHandler);
         window.addEventListener('online', this.connectionHandler);
     }

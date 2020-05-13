@@ -68,7 +68,7 @@ export const calculateAveragePing = async (websocket, vpnToken, appId, ignoredHa
             results.push(result);
         }
     } catch (e) {
-        log.info(`Getting ping for "${websocket.url}" stopped by timeout`);
+        log.info(`Occured error while getting ping for "${websocket.url}" `, e.message);
         return null;
     }
     const sum = results.reduce((prev, next) => prev + next);
