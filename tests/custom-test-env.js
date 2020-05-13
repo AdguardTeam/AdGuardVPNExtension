@@ -6,7 +6,13 @@ const NodeEnvironment = require('jest-environment-jsdom');
 class CustomEnvironment extends NodeEnvironment {
     async setup() {
         await super.setup();
-        this.global.TextEncoder = TextEncoder;
+        if (typeof TextEncoder === 'undefined') { // required for node =10
+            // eslint-disable-next-line global-require
+            const { TextEncoder } = require('util');
+            this.global.TextEncoder = TextEncoder;
+        } else {
+            this.global.TextEncoder = TextEncoder; // required for other node >10
+        }
         this.global.PRODUCTION = false;
     }
 }
