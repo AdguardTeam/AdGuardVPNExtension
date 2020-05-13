@@ -34,7 +34,7 @@ async function generateXpi() {
     const credentialsPath = path.resolve(__dirname, '../private/AdguardVPN/mozilla_credentials.json');
 
     // require called here in order to escape errors, until this module is really necessary
-    // eslint-disable-next-line global-require
+    // eslint-disable-next-line global-require, import/no-unresolved
     const cryptor = require('../private/cryptor/dist');
     const credentialsContent = await cryptor(process.env.CREDENTIALS_PASSWORD)
         .getDecryptedContent(credentialsPath);
