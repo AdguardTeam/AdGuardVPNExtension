@@ -16,7 +16,7 @@ Make sure you have added credentials
 * certificate-release.pem - chrome crx release certificate
 * mozilla_credentials.json - encrypted credentials,
 
-in the directory `./private/AdguardVPN`
+to the directory `./private/AdguardVPN`
 
 ## Lint
 * `yarn lint`
