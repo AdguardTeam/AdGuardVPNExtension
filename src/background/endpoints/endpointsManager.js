@@ -6,11 +6,8 @@ import {
 } from '../../lib/helpers';
 import connectivity from '../connectivity';
 import notifier from '../../lib/notifier';
-import vpnProvider from '../providers/vpnProvider';
-import log from '../../lib/logger';
-import browserApi from '../browserApi';
 
-const CURRENT_LOCATION = 'current.location';
+import getCurrentLocation from './userLocation';
 
 /**
  * EndpointsManager keeps endpoints in the memory and determines their ping on request
@@ -27,11 +24,12 @@ class EndpointsManager {
 
     PING_TTL_MS = 1000 * 60 * 2; // 2 minutes
 
-    allPingsCheckTimeStamp = null;
+    lastPingsCheckTimeStamp = null;
 
-    fastestPingsCheckTimeStamp = null;
-
-    arePingsFresh = (timeStamp) => !!(timeStamp && timeStamp + this.PING_TTL_MS > Date.now());
+    arePingsFresh = () => {
+        return !!(this.lastPingsCheckTimeStamp
+            && this.lastPingsCheckTimeStamp + this.PING_TTL_MS > Date.now());
+    };
 
     arrToObjConverter = (acc, endpoint) => {
         acc[endpoint.id] = endpoint;
@@ -42,26 +40,27 @@ class EndpointsManager {
      * Returns fastest endpoints
      * @returns {Object.<string, Endpoint>}
      */
-    getFastest() {
-        const sortedPings = _.sortBy(Object.values(this.endpointsPings), ['ping']);
+    getFastest(endpoints) {
+        const endpointsArray = Object
+            .values(endpoints)
+            .map((endpoint) => this.addPing(endpoint));
+        const sortedPings = _.sortBy(endpointsArray, ['ping']);
         const fastest = sortedPings
-            .map(({ endpointId }) => {
-                return this.endpoints[endpointId];
-            })
             .filter(identity)
             .slice(0, this.MAX_FASTEST_LENGTH)
-            .map((endpoint) => this.enrichWithPing(endpoint, this.fastestPingsCheckTimeStamp))
             .reduce(this.arrToObjConverter, {});
         return fastest;
     }
 
-    enrichWithPing = (endpoint, lastCheckTimeStamp) => {
-        if (!this.arePingsFresh(lastCheckTimeStamp)) {
+    enrichWithPing = (endpoint) => {
+        if (!this.arePingsFresh()) {
             return endpoint;
         }
+        return this.addPing(endpoint);
+    };
 
+    addPing = (endpoint) => {
         const endpointsPing = this.endpointsPings[endpoint.id];
-
         return endpointsPing ? { ...endpoint, ping: endpointsPing.ping } : endpoint;
     };
 
@@ -71,7 +70,7 @@ class EndpointsManager {
      */
     getAll = () => {
         return Object.values(this.endpoints)
-            .map((endpoint) => this.enrichWithPing(endpoint, this.allPingsCheckTimeStamp))
+            .map((endpoint) => this.enrichWithPing(endpoint))
             .reduce(this.arrToObjConverter, {});
     };
 
@@ -92,7 +91,7 @@ class EndpointsManager {
             currentEndpointPingPromise
         );
 
-        const fastest = this.getFastest();
+        const fastest = this.getFastest(this.endpoints);
         const all = this.getAll();
 
         return {
@@ -174,7 +173,7 @@ class EndpointsManager {
             return pingData;
         };
 
-        const { coordinates } = await this.getCurrentLocation();
+        const { coordinates } = await getCurrentLocation();
         const sortedEndpoints = sortedByDistances(coordinates, endpoints);
 
         const closestEndpoints = sortedEndpoints.slice(0, this.CLOSEST_ENDPOINTS_AMOUNT);
@@ -183,46 +182,20 @@ class EndpointsManager {
         // First of all measures ping for closest endpoints
         // eslint-disable-next-line max-len
         await asyncMapByChunks(closestEndpoints, handleEndpointPingMeasurement, this.CLOSEST_ENDPOINTS_AMOUNT);
-        this.fastestPingsCheckTimeStamp = Date.now();
 
+        const closestEndpointsObject = closestEndpoints.reduce(this.arrToObjConverter, {});
         // When measuring of closest endpoints finished, we can determine fastest
         // eslint-disable-next-line max-len
-        notifier.notifyListeners(notifier.types.FASTEST_ENDPOINTS_CALCULATED, this.getFastest());
+        notifier.notifyListeners(notifier.types.FASTEST_ENDPOINTS_CALCULATED, this.getFastest(closestEndpointsObject));
 
         // then check ping of other endpoints
         await asyncMapByChunks(otherEndpoints, handleEndpointPingMeasurement, BATCH_SIZE);
 
         // When measuring of all endpoints finished, we can update fastest
         // eslint-disable-next-line max-len
-        notifier.notifyListeners(notifier.types.FASTEST_ENDPOINTS_CALCULATED, this.getFastest());
-        this.allPingsCheckTimeStamp = Date.now();
+        notifier.notifyListeners(notifier.types.FASTEST_ENDPOINTS_CALCULATED, this.getFastest(this.endpoints));
+        this.lastPingsCheckTimeStamp = Date.now();
     }
-
-    getCurrentLocationRemote = async () => {
-        const MIDDLE_OF_EUROPE = { coordinates: [51.05, 13.73] }; // Chosen approximately
-        let currentLocation;
-        try {
-            currentLocation = await vpnProvider.getCurrentLocation();
-        } catch (e) {
-            log.error(e.message);
-        }
-
-        // if current location wasn't received use predefined
-        currentLocation = currentLocation || MIDDLE_OF_EUROPE;
-
-        await browserApi.storage.set(CURRENT_LOCATION, currentLocation);
-
-        return currentLocation;
-    };
-
-    getCurrentLocation = async () => {
-        const currentLocation = await browserApi.storage.get(CURRENT_LOCATION);
-        if (!currentLocation) {
-            // update current location information in background
-            return this.getCurrentLocationRemote();
-        }
-        return currentLocation;
-    };
 }
 
 const endpointsManager = new EndpointsManager();
