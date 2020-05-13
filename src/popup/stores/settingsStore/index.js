@@ -41,6 +41,8 @@ class SettingsStore {
 
     @observable serverError = false;
 
+    @observable forcedDisconnect = false;
+
     @action
     prohibitExclusion = () => {
         this.canBeExcluded = false;
@@ -110,7 +112,9 @@ class SettingsStore {
             await messenger.enableProxy(force, withCancel);
         } catch (e) {
             runInAction(() => {
-                this.serverError = true;
+                if (!this.forcedDisconnect) {
+                    this.serverError = true;
+                }
             });
             log.error(e);
         }
@@ -289,6 +293,11 @@ class SettingsStore {
     @action
     setSwitcherIgnoreProxyStateChange(value) {
         this.switcherIgnoreProxyStateChange = value;
+    }
+
+    @action
+    setForcedDisconnect(value) {
+        this.forcedDisconnect = value;
     }
 }
 
