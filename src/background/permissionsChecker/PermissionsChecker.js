@@ -81,17 +81,6 @@ class PermissionsChecker {
         }
     };
 
-    /**
-     * Listens to connection state change
-     * When browser comes online, updates permissions
-     */
-    handleConnectionChange = () => {
-        window.addEventListener('online', async () => {
-            log.info('Browser switched to online mode');
-            this.throttledCheckPermissions();
-        });
-    };
-
     handleUserAuthentication = () => {
         this.permissionsError.clearError();
         this.startChecker();
@@ -111,7 +100,6 @@ class PermissionsChecker {
             notifier.types.USER_DEAUTHENTICATED,
             this.handleUserDeauthentication
         );
-        this.handleConnectionChange();
         log.info('Permissions checker module initiated');
     };
 }
