@@ -1,5 +1,5 @@
 import endpoints from '../../../src/background/endpoints';
-import endpointsManager from '../../../src/background/endpoints/endpointsManager';
+import getCurrentLocation from '../../../src/background/endpoints/userLocation';
 import { sleep } from '../../../src/lib/helpers';
 import settings from '../../../src/background/settings/settings';
 import notifier from '../../../src/lib/notifier';
@@ -219,7 +219,7 @@ describe('endpoints class', () => {
     });
 
     it('getCurrentLocation returns object with current location coordinates', async () => {
-        const currentLocation = await endpointsManager.getCurrentLocation();
+        const currentLocation = await getCurrentLocation();
         expect(currentLocation.coordinates).toBeDefined();
         expect(currentLocation.coordinates).toHaveLength(2);
     });
