@@ -77,11 +77,24 @@ class EndpointConnectivity {
         }
     }
 
+    handleWebsocketClose = () => {
+        this.state = this.CONNECTION_STATES.PAUSED;
+        notifier.notifyListeners(notifier.types.WEBSOCKET_CLOSED);
+    }
+
+    isWebsocketConnectionOpen = () => {
+        if (this.ws) {
+            return this.ws.readyState === this.ws.OPEN;
+        }
+        return false;
+    }
+
     start = async () => {
         if (this.state !== this.CONNECTION_STATES.WORKING) {
             await this.ws.open();
             this.state = this.CONNECTION_STATES.WORKING;
         }
+        this.ws.addEventListener('close', this.handleWebsocketClose);
         this.startGettingPing();
         this.startGettingConnectivityInfo();
         this.sendDnsServerIp(dns.getDnsServerIp());
@@ -99,6 +112,7 @@ class EndpointConnectivity {
         this.ping = null;
 
         if (this.ws) {
+            this.ws.removeEventListener('close', this.handleWebsocketClose);
             await this.ws.close();
         }
 
@@ -122,22 +136,30 @@ class EndpointConnectivity {
         return WsConnectivityMsg.toObject(message);
     };
 
-    pollPing = () => new Promise((resolve) => {
+    pollPing = () => new Promise((resolve, reject) => {
+        const POLL_PING_TIMEOUT_MS = 5000;
         const arrBufMessage = this.preparePingMessage(Date.now());
         this.ws.send(arrBufMessage);
 
+        let timeoutId;
         const messageHandler = (event) => {
             const receivedTime = Date.now();
             const { pingMsg } = this.decodeMessage(event.data);
             if (pingMsg) {
                 const { requestTime } = pingMsg;
                 const ping = receivedTime - requestTime;
-                this.ws.removeMessageListener(messageHandler);
+                this.ws.removeEventListener('message', messageHandler);
+                clearTimeout(timeoutId);
                 resolve(ping);
             }
         };
 
-        this.ws.onMessage(messageHandler);
+        timeoutId = setTimeout(() => {
+            this.ws.removeEventListener('message', messageHandler);
+            reject(new Error('Poll ping timeout'));
+        }, POLL_PING_TIMEOUT_MS);
+
+        this.ws.addEventListener('message', messageHandler);
     });
 
     calculateAveragePing = async () => {
@@ -161,8 +183,12 @@ class EndpointConnectivity {
             clearInterval(this.pingGetInterval);
         }
         this.pingGetInterval = setInterval(async () => {
-            const averagePing = await this.calculateAveragePing();
-            this.updatePingValue(averagePing);
+            try {
+                const averagePing = await this.calculateAveragePing();
+                this.updatePingValue(averagePing);
+            } catch (e) {
+                log.debug(e.message);
+            }
         }, this.PING_UPDATE_INTERVAL_MS);
     };
 
@@ -224,7 +250,7 @@ class EndpointConnectivity {
             }
         };
 
-        this.ws.onMessage(messageHandler);
+        this.ws.addEventListener(messageHandler);
     };
 
     getPing = () => {

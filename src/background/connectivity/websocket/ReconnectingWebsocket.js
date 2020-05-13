@@ -7,122 +7,152 @@ import log from '../../../lib/logger';
  * https://github.com/pladaria/reconnecting-websocket
  */
 class ReconnectingWebsocket {
-    RECONNECTING_OPTIONS = {
+    DEFAULT_OPTIONS = {
         maxReconnectionDelay: 10000, // max delay in ms between reconnections
-        minReconnectionDelay: 1000 + Math.random() * 4000, // min delay in ms between reconnections
+        minReconnectionDelay: 1000, // min delay in ms between reconnections
         reconnectionDelayGrowFactor: 1.3, // how fast the reconnection delay grows
         minUptime: 5000, // min time in ms to consider connection as stable
         connectionTimeout: 4000, // retry connect if not connected after this time, in ms
         maxRetries: Infinity, // maximum number of retries
         maxEnqueuedMessages: Infinity, // maximum number of messages to buffer until reconnection
-        startClosed: true, // start websocket in CLOSED state, call `.reconnect()` to connect
+        startClosed: false, // start websocket in CLOSED state, call `.reconnect()` to connect
         debug: false, // enables debug output
     };
 
-    constructor(url, options) {
-        const reconnectingOptions = {
-            ...this.RECONNECTING_OPTIONS,
-            ...options,
-        };
-
-        const ws = new ReconnectingWebSocket(url, [], reconnectingOptions);
-
-        ws.binaryType = 'arraybuffer';
-        this.ws = ws;
-
-        this.onClose((event) => {
-            log.info('WebSocket closed with next event code:', event.code);
-        });
-
-        this.onError((event) => {
-            log.warn('Error occurred with socket event:', event);
-        });
-
-        this.onOpen((event) => {
-            const { target: { url } } = event;
-            log.info(`Websocket connection to: ${url} opened. Retry count: ${this.ws.retryCount}`);
-        });
+    listeners = {
+        error: [],
+        message: [],
+        open: [],
+        close: [],
     }
 
-    open() {
-        return new Promise((resolve, reject) => {
-            this.ws.reconnect();
+    static get CONNECTING() {
+        return 0;
+    }
 
-            const removeListeners = () => {
+    static get OPEN() {
+        return 1;
+    }
+
+    static get CLOSING() {
+        return 2;
+    }
+
+    static get CLOSED() {
+        return 3;
+    }
+
+    get CONNECTING() {
+        return ReconnectingWebsocket.CONNECTING;
+    }
+
+    get OPEN() {
+        return ReconnectingWebsocket.OPEN;
+    }
+
+    get CLOSING() {
+        return ReconnectingWebsocket.CLOSING;
+    }
+
+    get CLOSED() {
+        return ReconnectingWebsocket.CLOSED;
+    }
+
+    /**
+     * Flag used to determine if close was called by user
+     * @type {boolean}
+     */
+    closeCalled = false;
+
+    /**
+     * Flag used to limit close events firing
+     * @type {boolean}
+     */
+    closeEventFired = false;
+
+    constructor(url, options) {
+        this.url = url;
+        this.options = { ...this.DEFAULT_OPTIONS, ...options };
+        this.closeCalled = false;
+        this.closeEventFired = false;
+    }
+
+    addEventListener(type, listener) {
+        if (this.listeners[type]) {
+            this.listeners[type].push(listener);
+        }
+    }
+
+    removeEventListener(type, listener) {
+        if (this.listeners[type]) {
+            this.listeners[type] = this.listeners[type].filter((l) => l !== listener);
+        }
+    }
+
+    get readyState() {
+        if (!this.ws || this.closeEventFired) {
+            return ReconnectingWebSocket.CLOSED;
+        }
+
+        if (this.ws
+            && !this.closeEventFired
+            && !(this.ws.readyState === ReconnectingWebsocket.OPEN)) {
+            return ReconnectingWebsocket.CONNECTING;
+        }
+
+        return this.ws.readyState;
+    }
+
+    open = async () => {
+        return new Promise((resolve, reject) => {
+            this.ws = new ReconnectingWebSocket(this.url, [], this.options);
+            this.ws.binaryType = 'arraybuffer';
+
+            const removeTempListeners = () => {
                 /* eslint-disable no-use-before-define */
                 this.ws.removeEventListener('open', resolveHandler);
                 this.ws.removeEventListener('error', rejectHandler);
                 /* eslint-enable no-use-before-define */
             };
 
-            // TODO [maximtop] implement own websocket reconnecting library,
-            //  or find out and fix error in the used library "reconnecting-websocket".
-            //  Currently if we call .reconnect() method right after ws constructor
-            //  to the distant endpoints, e.g. Australia, Sydney
-            //  reconnecting-websocket fails with error:
-            //  "failed: Error in connection establishment: net::ERR_SSL_PROTOCOL_ERROR"
-
-            // Uses 1 redundant attempt to avoid error described above
-            const MAX_OPEN_ATTEMPTS = 1;
-            let attempts = MAX_OPEN_ATTEMPTS;
-            function rejectHandler(e) {
-                if (attempts) {
-                    attempts -= 1;
-                    return;
-                }
+            const rejectHandler = (e) => {
+                removeTempListeners();
                 reject(e);
-                attempts = MAX_OPEN_ATTEMPTS;
-                removeListeners();
-            }
+            };
 
-            function resolveHandler() {
+            const resolveHandler = () => {
+                removeTempListeners();
                 resolve();
-                removeListeners();
-            }
+            };
 
             this.ws.addEventListener('open', resolveHandler);
             this.ws.addEventListener('error', rejectHandler);
+
+            this.addListeners();
         });
     }
 
-    send(message) {
-        if (this.ws.readyState === ReconnectingWebSocket.OPEN) {
-            this.ws.send(message);
-        }
-    }
-
-    onMessage(handler) {
-        this.ws.addEventListener('message', handler);
-    }
-
-    removeMessageListener(handler) {
-        this.ws.removeEventListener('message', handler);
-    }
-
-    onError(cb) {
-        this.ws.addEventListener('error', cb);
-    }
-
-    onClose(cb) {
-        this.ws.addEventListener('close', cb);
-    }
-
-    onOpen(cb) {
-        this.ws.addEventListener('open', cb);
-    }
-
     close() {
+        this.closeCalled = true;
         return new Promise((resolve, reject) => {
+            if (!this.ws) {
+                resolve();
+                return;
+            }
+
             this.ws.close();
             // resolve immediately if is closed already
-            if (this.ws.readyState === 3) {
+            if (this.ws.readyState === this.ws.CLOSED) {
+                this.removeListeners();
                 resolve();
+                return;
             }
 
             const removeListeners = () => {
                 /* eslint-disable no-use-before-define */
                 this.ws.removeEventListener('error', rejectHandler);
                 this.ws.removeEventListener('close', resolveHandler);
+                this.removeListeners();
                 /* eslint-enable no-use-before-define */
             };
 
@@ -139,6 +169,66 @@ class ReconnectingWebsocket {
             this.ws.addEventListener('close', resolveHandler);
             this.ws.addEventListener('error', rejectHandler);
         });
+    }
+
+    send(message) {
+        this.ws.send(message);
+    }
+
+    handleOpen = (openEvent) => {
+        log.debug(`WS connection to "${openEvent.target.url}" opened`);
+        this.closeCalled = false;
+        this.closeEventFired = false;
+        this.listeners.open.forEach((listener) => listener(openEvent));
+    }
+
+    handleClose = (closeEvent) => {
+        if (!this.ws) {
+            return;
+        }
+        if (this.closeCalled) {
+            log.debug(`WS connection to "${closeEvent.target.url}" closed`);
+            this.closeEventFired = true;
+            this.listeners.close.forEach((listener) => listener(closeEvent));
+            return;
+        }
+        // notify only on final close
+        if (this.ws.retryCount >= this.options.maxRetries && !this.closeEventFired) {
+            log.debug(`WS connection to "${closeEvent.target.url}" closed`);
+            this.closeEventFired = true;
+            this.listeners.close.forEach((listener) => listener(closeEvent));
+        }
+    }
+
+    handleMessage = (message) => {
+        this.listeners.message.forEach((listener) => listener(message));
+    }
+
+    handleError = (errorEvent) => {
+        log.debug(`WS connection to ${errorEvent.target.url} threw an error event:`, errorEvent);
+        this.listeners.error.forEach((listener) => listener(errorEvent));
+    }
+
+    addListeners = () => {
+        if (!this.ws) {
+            return;
+        }
+
+        this.ws.addEventListener('open', this.handleOpen);
+        this.ws.addEventListener('close', this.handleClose);
+        this.ws.addEventListener('message', this.handleMessage);
+        this.ws.addEventListener('error', this.handleError);
+    }
+
+    removeListeners = () => {
+        if (!this.ws) {
+            return;
+        }
+
+        this.ws.removeEventListener('open', this.handleOpen);
+        this.ws.removeEventListener('close', this.handleClose);
+        this.ws.removeEventListener('message', this.handleMessage);
+        this.ws.removeEventListener('error', this.handleError);
     }
 }
 
