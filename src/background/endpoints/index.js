@@ -5,7 +5,7 @@ import { getClosestEndpointByCoordinates } from '../../lib/helpers';
 import { ERROR_STATUSES } from '../../lib/constants';
 import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
 import endpointsManager from './endpointsManager';
-import getCurrentLocation from './userLocation';
+import userLocation from './userLocation';
 import notifier from '../../lib/notifier';
 import settings from '../settings/settings';
 import notifications from '../notifications';
@@ -245,7 +245,7 @@ class Endpoints {
             return proxySelectedEndpoint;
         }
 
-        const currentLocation = await getCurrentLocation();
+        const currentLocation = await userLocation.getCurrentLocation();
         const endpoints = Object.values(endpointsManager.getAll());
 
         if (!currentLocation || _.isEmpty(endpoints)) {

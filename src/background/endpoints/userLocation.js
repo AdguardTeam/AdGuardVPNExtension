@@ -1,33 +1,27 @@
 import vpnProvider from '../providers/vpnProvider';
 import log from '../../lib/logger';
-import browserApi from '../browserApi';
 
-const CURRENT_LOCATION = 'current.location';
 
-const getCurrentLocationRemote = async () => {
-    const MIDDLE_OF_EUROPE = { coordinates: [51.05, 13.73] }; // Chosen approximately
-    let currentLocation;
-    try {
-        currentLocation = await vpnProvider.getCurrentLocation();
-    } catch (e) {
-        log.error(e.message);
-    }
+class UserLocation {
+    MIDDLE_OF_EUROPE = { coordinates: [51.05, 13.73] }; // Chosen approximately
 
-    // if current location wasn't received use predefined
-    currentLocation = currentLocation || MIDDLE_OF_EUROPE;
+    getCurrentLocationRemote = async () => {
+        let newLocation = {};
+        try {
+            newLocation = await vpnProvider.getCurrentLocation();
+        } catch (e) {
+            log.error(e.message);
+        }
 
-    await browserApi.storage.set(CURRENT_LOCATION, currentLocation);
+        // if current location wasn't received use predefined
+        this.currentLocation = newLocation || this.MIDDLE_OF_EUROPE;
 
-    return currentLocation;
-};
+        return this.currentLocation;
+    };
 
-const getCurrentLocation = async () => {
-    const currentLocation = await browserApi.storage.get(CURRENT_LOCATION);
-    if (!currentLocation) {
-        // update current location information in background
-        return getCurrentLocationRemote();
-    }
-    return currentLocation;
-};
+    getCurrentLocation = async () => this.currentLocation || this.getCurrentLocationRemote();
+}
 
-export default getCurrentLocation;
+const userLocation = new UserLocation();
+
+export default userLocation;

@@ -1,14 +1,14 @@
-import getCurrentLocation from '../../../src/background/endpoints/userLocation';
+import userLocation from '../../../src/background/endpoints/userLocation';
 
 jest.mock('../../../src/background/browserApi');
 
-describe('userLocation module', () => {
+describe('UserLocation class', () => {
     beforeEach(() => {
         jest.clearAllMocks();
     });
 
     it('getCurrentLocation returns object with current location coordinates', async () => {
-        const currentLocation = await getCurrentLocation();
+        const currentLocation = await userLocation.getCurrentLocation();
         expect(currentLocation.coordinates).toBeDefined();
         expect(currentLocation.coordinates).toHaveLength(2);
     });

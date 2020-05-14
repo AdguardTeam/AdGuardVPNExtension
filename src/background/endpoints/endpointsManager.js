@@ -7,7 +7,7 @@ import {
 import connectivity from '../connectivity';
 import notifier from '../../lib/notifier';
 
-import getCurrentLocation from './userLocation';
+import userLocation from './userLocation';
 
 /**
  * EndpointsManager keeps endpoints in the memory and determines their ping on request
@@ -171,7 +171,7 @@ class EndpointsManager {
             return pingData;
         };
 
-        const { coordinates } = await getCurrentLocation();
+        const { coordinates } = await userLocation.getCurrentLocation();
         const sortedEndpoints = sortedByDistances(coordinates, Object.values(this.endpoints));
 
         const closestEndpoints = sortedEndpoints.slice(0, this.CLOSEST_ENDPOINTS_AMOUNT);
