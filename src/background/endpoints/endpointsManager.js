@@ -11,7 +11,6 @@ import getCurrentLocation from './userLocation';
 
 /**
  * EndpointsManager keeps endpoints in the memory and determines their ping on request
- * and manages current location information
  */
 class EndpointsManager {
     endpoints = {}; // { endpointId: { endpointInfo } }
@@ -24,11 +23,11 @@ class EndpointsManager {
 
     PING_TTL_MS = 1000 * 60 * 2; // 2 minutes
 
-    lastPingsCheckTimeStamp = null;
+    lastPingsCheckTimestamp = null;
 
     arePingsFresh = () => {
-        return !!(this.lastPingsCheckTimeStamp
-            && this.lastPingsCheckTimeStamp + this.PING_TTL_MS > Date.now());
+        return !!(this.lastPingsCheckTimestamp
+            && this.lastPingsCheckTimestamp + this.PING_TTL_MS > Date.now());
     };
 
     arrToObjConverter = (acc, endpoint) => {
@@ -143,7 +142,6 @@ class EndpointsManager {
             return;
         }
 
-        const endpoints = Object.values(this.endpoints);
         const currentEndpoint = await currentEndpointPromise;
         const currentEndpointPing = await currentEndpointPingPromise;
 
@@ -174,27 +172,39 @@ class EndpointsManager {
         };
 
         const { coordinates } = await getCurrentLocation();
-        const sortedEndpoints = sortedByDistances(coordinates, endpoints);
+        const sortedEndpoints = sortedByDistances(coordinates, Object.values(this.endpoints));
 
         const closestEndpoints = sortedEndpoints.slice(0, this.CLOSEST_ENDPOINTS_AMOUNT);
         const otherEndpoints = sortedEndpoints.slice(this.CLOSEST_ENDPOINTS_AMOUNT);
 
         // First of all measures ping for closest endpoints
-        // eslint-disable-next-line max-len
-        await asyncMapByChunks(closestEndpoints, handleEndpointPingMeasurement, this.CLOSEST_ENDPOINTS_AMOUNT);
+        await asyncMapByChunks(
+            closestEndpoints,
+            handleEndpointPingMeasurement,
+            this.CLOSEST_ENDPOINTS_AMOUNT
+        );
 
         const closestEndpointsObject = closestEndpoints.reduce(this.arrToObjConverter, {});
+
         // When measuring of closest endpoints finished, we can determine fastest
-        // eslint-disable-next-line max-len
-        notifier.notifyListeners(notifier.types.FASTEST_ENDPOINTS_CALCULATED, this.getFastest(closestEndpointsObject));
+        notifier.notifyListeners(
+            notifier.types.FASTEST_ENDPOINTS_CALCULATED,
+            this.getFastest(closestEndpointsObject)
+        );
 
         // then check ping of other endpoints
-        await asyncMapByChunks(otherEndpoints, handleEndpointPingMeasurement, BATCH_SIZE);
+        await asyncMapByChunks(
+            otherEndpoints,
+            handleEndpointPingMeasurement,
+            BATCH_SIZE
+        );
 
         // When measuring of all endpoints finished, we can update fastest
-        // eslint-disable-next-line max-len
-        notifier.notifyListeners(notifier.types.FASTEST_ENDPOINTS_CALCULATED, this.getFastest(this.endpoints));
-        this.lastPingsCheckTimeStamp = Date.now();
+        notifier.notifyListeners(
+            notifier.types.FASTEST_ENDPOINTS_CALCULATED,
+            this.getFastest(this.endpoints)
+        );
+        this.lastPingsCheckTimestamp = Date.now();
     }
 }
 
