@@ -102,7 +102,7 @@ const enableProxy = async (force, withCancel) => {
         await switcher.turnOn(withCancel);
     } catch (e) {
         await setSetting(SETTINGS_IDS.PROXY_ENABLED, false, force);
-        throw new Error(`Connection error: ${e}`);
+        throw e;
     }
 };
 

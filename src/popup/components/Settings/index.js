@@ -32,9 +32,7 @@ const Settings = observer(() => {
     };
 
     const handleDisconnect = async () => {
-        settingsStore.setForcedDisconnect(true);
         await settingsStore.setProxyState(false);
-        settingsStore.setForcedDisconnect(false);
     };
 
     const {

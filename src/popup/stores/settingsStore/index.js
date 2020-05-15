@@ -41,8 +41,6 @@ class SettingsStore {
 
     @observable serverError = false;
 
-    @observable forcedDisconnect = false;
-
     @action
     prohibitExclusion = () => {
         this.canBeExcluded = false;
@@ -107,16 +105,17 @@ class SettingsStore {
     @action
     enableProxy = async (force = false, withCancel = false) => {
         this.proxyEnablingStatus = REQUEST_STATUSES.PENDING;
+
+        this.serverError = false;
+
         try {
-            this.serverError = false;
             await messenger.enableProxy(force, withCancel);
         } catch (e) {
-            runInAction(() => {
-                if (!this.forcedDisconnect) {
+            if (!e.message.startsWith('turnOnProxy was canceled')) {
+                runInAction(() => {
                     this.serverError = true;
-                }
-            });
-            log.error(e);
+                });
+            }
         }
     };
 
@@ -293,11 +292,6 @@ class SettingsStore {
     @action
     setSwitcherIgnoreProxyStateChange(value) {
         this.switcherIgnoreProxyStateChange = value;
-    }
-
-    @action
-    setForcedDisconnect(value) {
-        this.forcedDisconnect = value;
     }
 }
 
