@@ -15,7 +15,7 @@ class NativeWebsocket {
         this.ws.binaryType = 'arraybuffer';
 
         this.onError((event) => {
-            log.warn('Error occurred with socket event:', event);
+            log.debug('Error occurred with socket event:', event);
         });
     }
 
@@ -65,10 +65,15 @@ class NativeWebsocket {
 
     close() {
         return new Promise((resolve, reject) => {
+            if (!this.ws) {
+                reject(new Error('No websocket instance'));
+                return;
+            }
             this.ws.close();
             // resolve immediately if is closed already
-            if (this.ws.readyState === 3) {
+            if (this.ws.readyState === this.ws.CLOSED) {
                 resolve();
+                return;
             }
 
             const removeListeners = () => {
