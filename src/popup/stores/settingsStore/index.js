@@ -111,7 +111,8 @@ class SettingsStore {
         try {
             await messenger.enableProxy(force, withCancel);
         } catch (e) {
-            if (!e.message.startsWith('turnOnProxy was canceled')) {
+            log.error(e);
+            if (!e.message || !e.message.startsWith('turnOnProxy was canceled')) {
                 runInAction(() => {
                     this.serverError = true;
                 });
