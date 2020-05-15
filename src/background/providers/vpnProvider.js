@@ -160,6 +160,8 @@ const getVpnCredentials = async (appId, vpnToken) => {
             } else {
                 throw e;
             }
+        } else {
+            throw e;
         }
     }
 

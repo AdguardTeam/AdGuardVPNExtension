@@ -1,6 +1,6 @@
 {
     "name": "adguard-vpn",
-    "version": "0.7.2",
+    "version": "0.7.5",
     "description": "AdGuard VPN",
     "author": "adguard@adguard.com",
     "license": "LGPL-3.0",
@@ -81,6 +81,7 @@
         "webpack": "^4.41.5",
         "webpack-cli": "^3.3.10",
         "webpack-merge": "^4.2.2",
+        "ws": "^7.2.5",
         "zip-webpack-plugin": "^3.0.0"
     },
     "dependencies": {

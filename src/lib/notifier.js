@@ -121,6 +121,8 @@ const types = {
     CURRENT_ENDPOINT_UPDATED: 'event.current.endpoint.updated',
     PERMISSIONS_ERROR_UPDATE: 'event.permission.error.update',
     TOKEN_PREMIUM_STATE_UPDATED: 'event.token.premium.state.updated',
+
+    WEBSOCKET_CLOSED: 'event.websocket.closed',
 };
 
 const notifier = new Notifier(types);
