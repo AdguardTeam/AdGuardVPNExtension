@@ -6,7 +6,7 @@ class UserLocation {
     MIDDLE_OF_EUROPE = { coordinates: [51.05, 13.73] }; // Chosen approximately
 
     getCurrentLocationRemote = async () => {
-        let newLocation = {};
+        let newLocation;
         try {
             newLocation = await vpnProvider.getCurrentLocation();
         } catch (e) {
