@@ -12,6 +12,7 @@ const {
     MANIFEST_NAME,
     FIREFOX_UPDATER_FILENAME,
     XPI_NAME,
+    FIREFOX_UPDATE_URL,
 } = require('./consts');
 const packageJson = require('../package');
 
@@ -116,8 +117,18 @@ const createUpdateJson = async (manifest) => {
     }
 };
 
+const updateFirefoxManifest = async () => {
+    const MANIFEST_PATH = path.resolve(
+        __dirname, BUILD_PATH, outputPath, BROWSER_TYPES.FIREFOX, MANIFEST_NAME
+    );
+    const manifest = JSON.parse(await fs.readFile(MANIFEST_PATH, 'utf-8'));
+    manifest.applications.gecko.update_url = FIREFOX_UPDATE_URL;
+    await fs.writeFile(MANIFEST_PATH, JSON.stringify(manifest, null, 4));
+};
+
 const generateFirefoxArtifacts = async () => {
     try {
+        await updateFirefoxManifest();
         await generateXpi();
         const manifest = await getFirefoxManifest();
         await createUpdateJson(manifest);
