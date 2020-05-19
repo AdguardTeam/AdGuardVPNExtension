@@ -1,4 +1,3 @@
-import isEqual from 'lodash/isEqual';
 import _ from 'lodash';
 import qs from 'qs';
 import log from '../../lib/logger';
@@ -13,6 +12,7 @@ import connectivity from '../connectivity';
 import credentials from '../credentials';
 import proxy from '../proxy';
 import vpnProvider from '../providers/vpnProvider';
+import userLocation from './userLocation';
 
 /**
  * Endpoint information
@@ -73,7 +73,7 @@ class Endpoints {
             return sameCityEndpoint;
         }
 
-        return getClosestEndpointByCoordinates(currentEndpoint, endpointsArr);
+        return getClosestEndpointByCoordinates(endpointsArr, currentEndpoint);
     };
 
     /**
@@ -239,34 +239,6 @@ class Endpoints {
         return endpointsManager.getEndpoints(currentEndpoint, currentEndpointPing);
     };
 
-    getCurrentLocationRemote = async () => {
-        const MIDDLE_OF_EUROPE = { coordinates: [51.05, 13.73] }; // Chosen approximately
-        let currentLocation;
-        try {
-            currentLocation = await vpnProvider.getCurrentLocation();
-        } catch (e) {
-            log.error(e.message);
-        }
-
-        // if current location wasn't received use predefined
-        currentLocation = currentLocation || MIDDLE_OF_EUROPE;
-
-        if (!isEqual(this.currentLocation, currentLocation)) {
-            this.currentLocation = currentLocation;
-        }
-
-        return currentLocation;
-    };
-
-    getCurrentLocation = () => {
-        // update current location information in background
-        this.getCurrentLocationRemote();
-        if (this.currentLocation) {
-            return this.currentLocation;
-        }
-        return null;
-    };
-
     getSelectedEndpoint = async () => {
         const proxySelectedEndpoint = await proxy.getCurrentEndpoint();
 
@@ -275,17 +247,14 @@ class Endpoints {
             return proxySelectedEndpoint;
         }
 
-        const currentLocation = this.getCurrentLocation();
+        const currentLocation = await userLocation.getCurrentLocation();
         const endpoints = Object.values(endpointsManager.getAll());
 
         if (!currentLocation || _.isEmpty(endpoints)) {
             return null;
         }
 
-        const closestEndpoint = getClosestEndpointByCoordinates(
-            currentLocation,
-            endpoints
-        );
+        const closestEndpoint = getClosestEndpointByCoordinates(endpoints, currentLocation);
 
         await proxy.setCurrentEndpoint(closestEndpoint);
         return closestEndpoint;

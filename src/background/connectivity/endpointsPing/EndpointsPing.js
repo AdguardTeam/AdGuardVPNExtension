@@ -1,6 +1,6 @@
 import { renderTemplate } from '../../../lib/string-utils';
 import { WS_API_URL_TEMPLATE } from '../../config';
-import { calculateAveragePing } from '../helpers';
+import { determinePing } from '../helpers';
 import log from '../../../lib/logger';
 
 /**
@@ -22,7 +22,7 @@ class EndpointsPing {
         try {
             const websocket = await this.websocketFactory.createNativeWebsocket(websocketUrl);
             await websocket.open();
-            averagePing = await calculateAveragePing(websocket, token, appId, true);
+            averagePing = await determinePing(websocket, token, appId, true);
             websocket.close();
         } catch (e) {
             log.error('Was unable to get ping', websocketUrl);

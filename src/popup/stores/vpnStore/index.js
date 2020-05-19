@@ -16,8 +16,6 @@ class VpnStore {
 
     @observable pings = {};
 
-    @observable _fastestEndpoints;
-
     @observable selectedEndpoint;
 
     @observable searchValue = '';
@@ -44,8 +42,7 @@ class VpnStore {
             return;
         }
 
-        this.endpoints.all = endpoints.all;
-        this._fastestEndpoints = endpoints.fastest;
+        this.endpoints = endpoints;
     };
 
     @action
@@ -53,7 +50,7 @@ class VpnStore {
         if (!endpoints) {
             return;
         }
-        this.endpoints.all = endpoints;
+        this.endpoints = endpoints;
     };
 
     @action
@@ -63,7 +60,7 @@ class VpnStore {
 
     @action
     selectEndpoint = async (id) => {
-        const selectedEndpoint = this.endpoints?.all?.[id];
+        const selectedEndpoint = this.endpoints?.[id];
         if (!selectedEndpoint) {
             throw new Error(`No endpoint with id: "${id}" found`);
         }
@@ -86,7 +83,7 @@ class VpnStore {
 
     @computed
     get filteredEndpoints() {
-        const allEndpoints = Object.values(this.endpoints?.all || {});
+        const allEndpoints = Object.values(this.endpoints || {});
         const { ping } = this.rootStore.settingsStore;
 
         return allEndpoints
@@ -126,15 +123,19 @@ class VpnStore {
             });
     }
 
-    @action
-    setFastestEndpoints(fastest) {
-        this._fastestEndpoints = fastest;
-    }
-
     @computed
     get fastestEndpoints() {
+        const FASTEST_ENDPOINTS_COUNT = 3;
         const { ping } = this.rootStore.settingsStore;
-        return Object.values(this._fastestEndpoints || {})
+        const sortedEndpoints = Object.values(this.endpoints || {})
+            .map((endpoint) => {
+                const endpointPing = this.pings[endpoint.id];
+                if (endpointPing) {
+                    return { ...endpoint, ping: endpointPing.ping };
+                }
+                return endpoint;
+            })
+            .filter((endpoint) => endpoint.ping)
             .sort((a, b) => a.ping - b.ping)
             .map((endpoint) => {
                 if (this.selectedEndpoint && this.selectedEndpoint.id === endpoint.id) {
@@ -146,6 +147,9 @@ class VpnStore {
                 }
                 return { ...endpoint };
             });
+        return sortedEndpoints.length >= FASTEST_ENDPOINTS_COUNT
+            ? sortedEndpoints.slice(0, FASTEST_ENDPOINTS_COUNT)
+            : [];
     }
 
     @computed
