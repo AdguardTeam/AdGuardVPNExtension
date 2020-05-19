@@ -57,3 +57,5 @@ export const ERROR_STATUSES = {
     INVALID_TOKEN_ERROR: 'invalid.token.error',
     LIMIT_EXCEEDED: 'limit.exceeded.error',
 };
+
+export const FORCE_CANCELLED = 'Connection was cancelled by user';

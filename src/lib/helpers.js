@@ -2,6 +2,8 @@ import sortBy from 'lodash/sortBy';
 import getDistance from 'geolib/es/getDistance';
 import chunk from 'lodash/chunk';
 
+import { FORCE_CANCELLED } from './constants';
+
 /**
  * Returns the value of the property from the cache,
  * otherwise, calculates it using the callback, memoizes it, and returns the value
@@ -139,6 +141,9 @@ export const runWithCancel = (fn, ...args) => {
         cancel = (reason) => {
             cancelled = true;
             const cancelReason = `${fn.name} was canceled with reason: "${reason}"`;
+            if (fn.name === 'turnOnProxy') {
+                reject(new Error(FORCE_CANCELLED));
+            }
             reject(new Error(cancelReason));
         };
 

@@ -9,7 +9,7 @@ import tabs from '../../../background/tabs';
 import log from '../../../lib/logger';
 import { getHostname, getProtocol } from '../../../lib/helpers';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
-import { ERROR_STATUSES } from '../../../lib/constants';
+import { ERROR_STATUSES, FORCE_CANCELLED } from '../../../lib/constants';
 import messenger from '../../../lib/messenger';
 
 class SettingsStore {
@@ -112,7 +112,7 @@ class SettingsStore {
             await messenger.enableProxy(force, withCancel);
         } catch (e) {
             log.error(e);
-            if (!e.message || !e.message.startsWith('turnOnProxy was canceled')) {
+            if (!e.message || e.message !== FORCE_CANCELLED) {
                 runInAction(() => {
                     this.serverError = true;
                 });
