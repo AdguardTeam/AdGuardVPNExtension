@@ -1,7 +1,8 @@
 import _ from 'lodash';
-import { asyncMapByChunks, identity } from '../../lib/helpers';
+import { sortByDistance } from '../../lib/helpers';
 import connectivity from '../connectivity';
 import notifier from '../../lib/notifier';
+import userLocation from './userLocation';
 
 /**
  * EndpointsManager keeps endpoints in the memory and determines their ping on request
@@ -11,9 +12,7 @@ class EndpointsManager {
 
     endpointsPings = {}; // { endpointId, ping }[]
 
-    MAX_FASTEST_LENGTH = 3;
-
-    PING_TTL_MS = 1000 * 60 * 2; // 2 minutes
+    PING_TTL_MS = 1000 * 60 * 10; // 10 minutes
 
     lastPingMeasurementTime = null;
 
@@ -26,23 +25,6 @@ class EndpointsManager {
         acc[endpoint.id] = endpoint;
         return acc;
     };
-
-    /**
-     * Returns fastest endpoints
-     * @returns {Object.<string, Endpoint>}
-     */
-    getFastest() {
-        const sortedPings = _.sortBy(Object.values(this.endpointsPings), ['ping']);
-        const fastest = sortedPings
-            .map(({ endpointId }) => {
-                return this.endpoints[endpointId];
-            })
-            .filter(identity)
-            .slice(0, this.MAX_FASTEST_LENGTH)
-            .map(this.enrichWithPing)
-            .reduce(this.arrToObjConverter, {});
-        return fastest;
-    }
 
     enrichWithPing = (endpoint) => {
         if (!this.arePingsFresh()) {
@@ -81,13 +63,7 @@ class EndpointsManager {
             currentEndpointPingPromise
         );
 
-        const fastest = this.getFastest();
-        const all = this.getAll();
-
-        return {
-            fastest,
-            all,
-        };
+        return this.getAll();
     }
 
     setEndpoints(endpoints) {
@@ -128,6 +104,21 @@ class EndpointsManager {
         return !this.arePingsFresh();
     }
 
+    /**
+     * Steps of counting pings
+     * 1. show skeleton for fastest on popup
+     * 2. sort endpoints geographically (usually closest endpoints have smaller pings)
+     *      ping results for:
+     *      - unsorted endpoints (https://uploads.adguard.com/mtopciu_doppk.png)
+     *      - sorted endpoints (https://uploads.adguard.com/mtopciu_whyro.png)
+     * 3. start determining all pings
+     * 4. every determined ping for endpoint should notify popup
+     * 5. when popup receives 3 pings for endpoints it starts to display fastest endpoints
+     * 6. pings need to be recalculated after 10 minutes passed when popup is opened
+     * @param currentEndpointPromise
+     * @param currentEndpointPingPromise
+     * @returns {Promise<void>}
+     */
     async measurePings(currentEndpointPromise, currentEndpointPingPromise) {
         if (!this.shouldMeasurePings()) {
             return;
@@ -158,19 +149,11 @@ class EndpointsManager {
             return pingData;
         };
 
-        // Experimentally determined that fastest results of measurements
-        // can be achieved with this batch size
-        const BATCH_SIZE = 10;
-        await asyncMapByChunks(
-            Object.values(this.endpoints),
-            handleEndpointPingMeasurement,
-            BATCH_SIZE
-        );
+        const currentLocation = await userLocation.getCurrentLocation();
+        const sorted = sortByDistance(Object.values(this.endpoints), currentLocation);
+        await Promise.all(sorted.map(handleEndpointPingMeasurement));
 
         this.lastPingMeasurementTime = Date.now();
-
-        // When measuring finished, we can determine fastest
-        notifier.notifyListeners(notifier.types.FASTEST_ENDPOINTS_CALCULATED, this.getFastest());
     }
 }
 
