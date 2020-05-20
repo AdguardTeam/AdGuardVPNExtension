@@ -3,7 +3,6 @@ const webExt = require('web-ext');
 const path = require('path');
 const { promises: fs } = require('fs');
 const chalk = require('chalk');
-const credentials = require('../private/AdguardVPN/mozilla_credentials.json');
 
 const {
     BROWSER_TYPES,
@@ -13,13 +12,11 @@ const {
     MANIFEST_NAME,
     FIREFOX_UPDATER_FILENAME,
     XPI_NAME,
+    FIREFOX_UPDATE_URL,
 } = require('./consts');
 const packageJson = require('../package');
 
-const { apiKey, apiSecret } = credentials;
-
-const { BUILD_ENV } = process.env;
-const { outputPath } = ENV_MAP[BUILD_ENV];
+const { outputPath } = ENV_MAP[process.env.BUILD_ENV];
 
 const buildDir = path.resolve(__dirname, BUILD_PATH, outputPath);
 const fileDir = path.resolve(buildDir, FIREFOX_UPDATER_FILENAME);
@@ -35,6 +32,14 @@ const getFirefoxManifest = async () => {
 
 async function generateXpi() {
     const sourceDir = path.resolve(__dirname, BUILD_PATH, outputPath, BROWSER_TYPES.FIREFOX);
+    const credentialsPath = path.resolve(__dirname, '../private/AdguardVPN/mozilla_credentials.json');
+
+    // require called here in order to escape errors, until this module is really necessary
+    // eslint-disable-next-line global-require, import/no-unresolved
+    const cryptor = require('../private/cryptor/dist');
+    const credentialsContent = await cryptor(process.env.CREDENTIALS_PASSWORD)
+        .getDecryptedContent(credentialsPath);
+    const { apiKey, apiSecret } = JSON.parse(credentialsContent);
 
     const { downloadedFiles } = await webExt.default.cmd.sign({
         apiKey,
@@ -112,8 +117,18 @@ const createUpdateJson = async (manifest) => {
     }
 };
 
+const updateFirefoxManifest = async () => {
+    const MANIFEST_PATH = path.resolve(
+        __dirname, BUILD_PATH, outputPath, BROWSER_TYPES.FIREFOX, MANIFEST_NAME
+    );
+    const manifest = JSON.parse(await fs.readFile(MANIFEST_PATH, 'utf-8'));
+    manifest.applications.gecko.update_url = FIREFOX_UPDATE_URL;
+    await fs.writeFile(MANIFEST_PATH, JSON.stringify(manifest, null, 4));
+};
+
 const generateFirefoxArtifacts = async () => {
     try {
+        await updateFirefoxManifest();
         await generateXpi();
         const manifest = await getFirefoxManifest();
         await createUpdateJson(manifest);

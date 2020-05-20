@@ -20,6 +20,7 @@ import tabs from './tabs';
 import updateService from './updateService';
 import { vpnApi } from './api';
 import browserActionIcon from './browserActionIcon';
+import './networkConnectionObserver';
 
 global.adguard = {
     settings,

@@ -273,7 +273,7 @@
         "message": "Suggest a feature"
     },
     "endpoints_countries": {
-        "message": "Countries"
+        "message": "Locations"
     },
     "endpoints_fastest": {
         "message": "Fastest"
@@ -285,7 +285,7 @@
         "message": "Search result"
     },
     "endpoints_search": {
-        "message": "Search the country"
+        "message": "Search location"
     },
     "endpoints_not_found": {
         "message": "Server not found"

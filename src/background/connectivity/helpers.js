@@ -1,6 +1,7 @@
 import { WsConnectivityMsg, WsPingMsg } from './protobufCompiled';
 import { stringToUint8Array } from '../../lib/string-utils';
 import log from '../../lib/logger';
+import { identity } from '../../lib/helpers';
 
 /**
  * Prepares ping message before sending to the endpoint via websocket
@@ -51,16 +52,17 @@ const pollPing = (websocket, vpnToken, appId, ignoredHandshake) => new Promise((
 });
 
 /**
- * Calculates average ping to websocket making 3 consecutive requests
+ * Returns minimal ping to websocket after making 3 sequential ping requests
  * @param websocket
  * @param vpnToken
  * @param appId
  * @param ignoredHandshake
  * @returns {Promise<null|number>}
  */
-export const calculateAveragePing = async (websocket, vpnToken, appId, ignoredHandshake = true) => {
+export const determinePing = async (websocket, vpnToken, appId, ignoredHandshake = true) => {
     const POLLS_NUM = 3;
     const results = [];
+
     try {
         for (let i = 0; i < POLLS_NUM; i += 1) {
             // eslint-disable-next-line no-await-in-loop
@@ -68,9 +70,14 @@ export const calculateAveragePing = async (websocket, vpnToken, appId, ignoredHa
             results.push(result);
         }
     } catch (e) {
-        log.info(`Getting ping for "${websocket.url}" stopped by timeout`);
+        log.info(`Occurred error while getting ping for "${websocket.url}" `, e.message);
         return null;
     }
-    const sum = results.reduce((prev, next) => prev + next);
-    return Math.floor(sum / POLLS_NUM);
+
+    const filteredResults = results.filter(identity);
+    if (filteredResults.length > 0) {
+        return Math.min(...results);
+    }
+
+    return null;
 };

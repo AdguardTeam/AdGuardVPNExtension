@@ -39,7 +39,14 @@ const CurrentEndpoint = observer((props) => {
     const { handle } = props;
 
     const iconClass = classnames('flag', { 'flag--active': proxyEnabled });
-    const iconName = (countryCodeToDisplay && countryCodeToDisplay.toLowerCase()) || '';
+
+    const getFlagIconStyle = (countryCode) => {
+        if (!countryCode) {
+            return {};
+        }
+        const iconName = countryCode.toLowerCase();
+        return { 'background-image': `url("../../assets/images/flags/${iconName}.svg")` };
+    };
 
     return (
         <div
@@ -48,7 +55,7 @@ const CurrentEndpoint = observer((props) => {
         >
             <div className="endpoint__country">
                 <div className={iconClass}>
-                    <span className={`flag__icon flag__icon--${iconName}`} />
+                    <span className="flag__icon" style={getFlagIconStyle(countryCodeToDisplay)} />
                 </div>
             </div>
             <div className="endpoint__info">
