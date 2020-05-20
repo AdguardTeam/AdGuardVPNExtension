@@ -42,13 +42,13 @@ const pollPing = (websocket, vpnToken, appId, ignoredHandshake) => new Promise((
         if (pingMsg) {
             const { requestTime } = pingMsg;
             const ping = receivedTime - requestTime;
-            websocket.removeMessageListener(messageHandler);
+            websocket.removeEventListener('message', messageHandler);
             clearTimeout(timeoutId);
             resolve(ping);
         }
     };
 
-    websocket.onMessage(messageHandler);
+    websocket.addEventListener('message', messageHandler);
 });
 
 /**
@@ -59,7 +59,7 @@ const pollPing = (websocket, vpnToken, appId, ignoredHandshake) => new Promise((
  * @param ignoredHandshake
  * @returns {Promise<null|number>}
  */
-export const determinePing = async (websocket, vpnToken, appId, ignoredHandshake = true) => {
+export const determinePing = async (websocket, vpnToken, appId, ignoredHandshake = false) => {
     const POLLS_NUM = 3;
     const results = [];
 
