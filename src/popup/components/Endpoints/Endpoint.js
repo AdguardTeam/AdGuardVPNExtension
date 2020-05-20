@@ -7,19 +7,22 @@ const Endpoint = ({
     id, selected, countryCode, name, handleClick, ping,
 }) => {
     const getEndpointIcon = (selected, countryCode) => {
-        const icon = (countryCode && countryCode.toLowerCase()) || '';
         const flagClass = classnames(
             'flag flag--small',
             { 'flag--active': selected }
         );
-        const flagIconClass = classnames(
-            'flag__icon',
-            { [`flag__icon--${icon}`]: icon }
-        );
+
+        const getFlagIconStyle = (countryCode) => {
+            if (!countryCode) {
+                return {};
+            }
+            const iconName = countryCode.toLowerCase();
+            return { 'background-image': `url("../../assets/images/flags/${iconName}.svg")` };
+        };
 
         return (
             <div className={flagClass}>
-                <span className={flagIconClass} />
+                <span className="flag__icon" style={getFlagIconStyle(countryCode)} />
             </div>
         );
     };
