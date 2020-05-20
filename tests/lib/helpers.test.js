@@ -102,7 +102,7 @@ describe('getClosestEndpointByCoordinates', () => {
     ];
 
     it('should find the closest coordinates correctly', () => {
-        expect(getClosestEndpointByCoordinates({ coordinates: [100, 60] }, COORDS))
+        expect(getClosestEndpointByCoordinates(COORDS, { coordinates: [100, 60] }))
             .toEqual({ coordinates: [37.61, 55.75], city: 'Moscow' });
     });
 });
