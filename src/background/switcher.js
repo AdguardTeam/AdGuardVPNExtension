@@ -5,6 +5,7 @@ import webrtc from './browserApi/webrtc';
 import credentials from './credentials';
 import connectivity from './connectivity';
 import notifier from '../lib/notifier';
+import { FORCE_CANCELLED } from '../lib/constants';
 
 function* turnOnProxy() {
     try {
@@ -48,7 +49,7 @@ function* turnOffProxy() {
 class Switcher {
     turnOn(withCancel) {
         if (this.cancel && withCancel) {
-            this.cancel();
+            this.cancel(FORCE_CANCELLED);
         }
         const { promise, cancel } = runWithCancel(turnOnProxy);
         this.cancel = cancel;
@@ -58,7 +59,7 @@ class Switcher {
 
     turnOff(withCancel) {
         if (this.cancel && withCancel) {
-            this.cancel();
+            this.cancel(FORCE_CANCELLED);
         }
         const { promise, cancel } = runWithCancel(turnOffProxy);
         this.cancel = cancel;
