@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { sortByDistance } from '../../lib/helpers';
-import connectivity from '../connectivity';
+import endpointsPing from '../connectivity/endpointsPing';
 import notifier from '../../lib/notifier';
 import userLocation from './userLocation';
 
@@ -31,9 +31,9 @@ class EndpointsManager {
             return endpoint;
         }
 
-        const endpointsPing = this.endpointsPings[endpoint.id];
+        const pingData = this.endpointsPings[endpoint.id];
 
-        return endpointsPing ? { ...endpoint, ping: endpointsPing.ping } : endpoint;
+        return pingData ? { ...endpoint, ping: pingData.ping } : endpoint;
     };
 
     /**
@@ -120,9 +120,9 @@ class EndpointsManager {
      * @returns {Promise<void>}
      */
     async measurePings(currentEndpointPromise, currentEndpointPingPromise) {
-        if (!this.shouldMeasurePings()) {
-            return;
-        }
+        // if (!this.shouldMeasurePings()) {
+        //     return;
+        // }
 
         const currentEndpoint = await currentEndpointPromise;
         const currentEndpointPing = await currentEndpointPingPromise;
@@ -134,7 +134,7 @@ class EndpointsManager {
             if (currentEndpointPing && currentEndpoint.id === id) {
                 ping = currentEndpointPing;
             } else {
-                ping = await connectivity.endpointsPing.measurePingToEndpoint(domainName);
+                ping = await endpointsPing.measurePingToEndpoint(domainName);
             }
 
             const pingData = {
@@ -154,6 +154,16 @@ class EndpointsManager {
         await Promise.all(sorted.map(handleEndpointPingMeasurement));
 
         this.lastPingMeasurementTime = Date.now();
+    }
+
+    updateEndpointPing = (endpointId, ping) => {
+        if (!endpointId || !ping) {
+            return;
+        }
+        const pingData = { endpointId, ping };
+        console.log(pingData);
+        this.endpointsPings[endpointId] = pingData;
+        notifier.notifyListeners(notifier.types.ENDPOINTS_PING_UPDATED, pingData);
     }
 }
 

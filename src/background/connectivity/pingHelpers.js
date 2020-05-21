@@ -34,7 +34,10 @@ const pollPing = (websocket, vpnToken, appId, ignoredHandshake) => new Promise((
     const arrBufMessage = preparePingMessage(Date.now(), vpnToken, appId, ignoredHandshake);
     websocket.send(arrBufMessage);
 
-    const timeoutId = setTimeout(reject, POLL_TIMEOUT_MS);
+    const timeoutId = setTimeout(() => {
+        reject(new Error('Ping poll timeout'));
+    },
+    POLL_TIMEOUT_MS);
 
     const messageHandler = (event) => {
         const receivedTime = Date.now();

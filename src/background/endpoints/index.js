@@ -33,8 +33,6 @@ import userLocation from './userLocation';
 class Endpoints {
     vpnInfo = null;
 
-    currentLocation = null;
-
     constructor() {
         notifier.addSpecifiedListener(
             notifier.types.SHOULD_REFRESH_TOKENS,
@@ -234,7 +232,7 @@ class Endpoints {
     };
 
     getEndpoints = async () => {
-        const currentEndpoint = await proxy.getCurrentEndpoint();
+        const currentEndpoint = proxy.getCurrentEndpoint();
         const currentEndpointPing = connectivity.endpointConnectivity.getPing();
         return endpointsManager.getEndpoints(currentEndpoint, currentEndpointPing);
     };

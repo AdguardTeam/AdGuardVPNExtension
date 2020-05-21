@@ -41,6 +41,10 @@ const Endpoints = observer(() => {
             ping,
         } = endpoint;
 
+        if (selected) {
+            console.log(ping);
+        }
+
         return (
             <Endpoint
                 key={id}

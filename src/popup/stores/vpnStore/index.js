@@ -135,8 +135,6 @@ class VpnStore {
                 }
                 return endpoint;
             })
-            .filter((endpoint) => endpoint.ping)
-            .sort((a, b) => a.ping - b.ping)
             .map((endpoint) => {
                 if (this.selectedEndpoint && this.selectedEndpoint.id === endpoint.id) {
                     let endpointPing = endpoint.ping;
@@ -146,7 +144,10 @@ class VpnStore {
                     return { ...endpoint, selected: true, ping: endpointPing };
                 }
                 return { ...endpoint };
-            });
+            })
+            .filter((endpoint) => endpoint.ping)
+            .sort((a, b) => a.ping - b.ping);
+
         return sortedEndpoints.length >= FASTEST_ENDPOINTS_COUNT
             ? sortedEndpoints.slice(0, FASTEST_ENDPOINTS_COUNT)
             : [];
