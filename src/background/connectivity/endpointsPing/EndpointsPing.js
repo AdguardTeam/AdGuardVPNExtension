@@ -1,6 +1,6 @@
 import { renderTemplate } from '../../../lib/string-utils';
 import { WS_API_URL_TEMPLATE } from '../../config';
-import { determinePing } from '../helpers';
+import { determinePing } from '../pingHelpers';
 import log from '../../../lib/logger';
 
 /**
@@ -26,6 +26,9 @@ class EndpointsPing {
             websocket.close();
         } catch (e) {
             log.error('Was unable to get ping', websocketUrl);
+            if (e.message) {
+                log.error('due to error', e.message);
+            }
         }
 
         return averagePing;
