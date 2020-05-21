@@ -139,6 +139,11 @@ class EndpointConnectivity {
         this.ping = ping;
         // domain name is used as endpoint id also
         endpointsManager.updateEndpointPing(this.domainName, ping);
+
+        // notify popup to show updated ping
+        if (ping && this.state === this.CONNECTION_STATES.WORKING) {
+            notifier.notifyListeners(notifier.types.CURRENT_ENDPOINT_PING_UPDATED, ping);
+        }
     };
 
     startGettingPing = async () => {

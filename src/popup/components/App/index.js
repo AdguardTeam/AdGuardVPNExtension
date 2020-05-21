@@ -82,6 +82,10 @@ const App = observer(() => {
                     settingsStore.setSwitcher(false);
                     break;
                 }
+                case notifier.types.CURRENT_ENDPOINT_PING_UPDATED: {
+                    settingsStore.setProxyPing(data);
+                    break;
+                }
                 default: {
                     log.debug('there is no such message type: ', type);
                     break;
@@ -98,6 +102,7 @@ const App = observer(() => {
             notifier.types.PROXY_TURNED_ON,
             notifier.types.PROXY_TURNED_OFF,
             notifier.types.TOKEN_PREMIUM_STATE_UPDATED,
+            notifier.types.CURRENT_ENDPOINT_PING_UPDATED,
         ];
 
         const onUnload = messenger.createLongLivedConnection(events, messageHandler);

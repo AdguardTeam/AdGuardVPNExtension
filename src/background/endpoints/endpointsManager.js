@@ -120,9 +120,9 @@ class EndpointsManager {
      * @returns {Promise<void>}
      */
     async measurePings(currentEndpointPromise, currentEndpointPingPromise) {
-        // if (!this.shouldMeasurePings()) {
-        //     return;
-        // }
+        if (!this.shouldMeasurePings()) {
+            return;
+        }
 
         const currentEndpoint = await currentEndpointPromise;
         const currentEndpointPing = await currentEndpointPingPromise;
@@ -161,7 +161,6 @@ class EndpointsManager {
             return;
         }
         const pingData = { endpointId, ping };
-        console.log(pingData);
         this.endpointsPings[endpointId] = pingData;
         notifier.notifyListeners(notifier.types.ENDPOINTS_PING_UPDATED, pingData);
     }

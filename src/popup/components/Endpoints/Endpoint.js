@@ -17,7 +17,7 @@ const Endpoint = ({
                 return {};
             }
             const iconName = countryCode.toLowerCase();
-            return { 'background-image': `url("../../assets/images/flags/${iconName}.svg")` };
+            return { backgroundImage: `url("../../assets/images/flags/${iconName}.svg")` };
         };
 
         return (

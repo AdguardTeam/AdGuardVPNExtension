@@ -63,6 +63,7 @@ class globalStore {
             // when popup is reopened, but connection is still in process,
             // we set the proxy enabled status only if endpoint has ping. task AG-2073.
             if (currentPing) {
+                settingsStore.setProxyPing(currentPing);
                 settingsStore.setProxyEnabled(isProxyEnabled);
             }
             settingsStore.setCanControlProxy(canControlProxy);
