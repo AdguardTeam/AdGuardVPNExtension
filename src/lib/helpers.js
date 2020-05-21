@@ -62,12 +62,17 @@ export const getProtocol = (url) => {
 };
 
 /**
- * Returns closest endpoint
- * @param {Endpoint} currentEndpoint
+ * Sorts endpoints by distance to the current endpoint
+ * If no current endpoint provided, returns endpoints unsorted
  * @param {Endpoint[]} endpoints
- * @returns {Endpoint}
+ * @param {Endpoint} currentEndpoint
+ * @returns {Endpoint[]}
  */
-export const getClosestEndpointByCoordinates = (currentEndpoint, endpoints) => {
+export const sortByDistance = (endpoints, currentEndpoint) => {
+    if (!currentEndpoint) {
+        return endpoints;
+    }
+
     const { coordinates } = currentEndpoint;
 
     const distances = endpoints.map((endpoint) => {
@@ -84,7 +89,17 @@ export const getClosestEndpointByCoordinates = (currentEndpoint, endpoints) => {
     });
 
     const sortedDistances = sortBy(distances, 'distance');
-    return sortedDistances[0].endpoint;
+    return sortedDistances.map((sorted) => sorted.endpoint);
+};
+
+/**
+ * Returns closest endpoint
+ * @param {Endpoint[]} endpoints
+ * @param {Endpoint} currentEndpoint
+ * @returns {Endpoint}
+ */
+export const getClosestEndpointByCoordinates = (endpoints, currentEndpoint) => {
+    return sortByDistance(endpoints, currentEndpoint)[0];
 };
 
 /**

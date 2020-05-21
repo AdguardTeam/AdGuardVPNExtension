@@ -97,12 +97,6 @@ class SettingsStore {
     };
 
     @action
-    setProxyEnabledStatus(isProxyEnabled) {
-        this.proxyEnabled = isProxyEnabled;
-        this.setSwitcher(isProxyEnabled);
-    }
-
-    @action
     enableProxy = async (force = false, withCancel = false) => {
         this.proxyEnablingStatus = REQUEST_STATUSES.PENDING;
 
