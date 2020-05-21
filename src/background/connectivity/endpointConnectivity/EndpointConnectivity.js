@@ -1,13 +1,14 @@
-import { WsConnectivityMsg, WsPingMsg, WsSettingsMsg } from '../protobufCompiled';
+import { WsConnectivityMsg, WsSettingsMsg } from '../protobufCompiled';
 import websocketFactory from '../websocket/websocketFactory';
 import { WS_API_URL_TEMPLATE } from '../../config';
-import { renderTemplate, stringToUint8Array } from '../../../lib/string-utils';
+import { renderTemplate } from '../../../lib/string-utils';
 import statsStorage from '../statsStorage';
 import notifier from '../../../lib/notifier';
 import proxy from '../../proxy';
 import credentials from '../../credentials';
 import log from '../../../lib/logger';
 import dns from '../../dns/dns';
+import { determinePing } from '../pingHelpers';
 
 class EndpointConnectivity {
     PING_UPDATE_INTERVAL_MS = 1000 * 60;
@@ -99,7 +100,10 @@ class EndpointConnectivity {
         this.startGettingConnectivityInfo();
         this.sendDnsServerIp(dns.getDnsServerIp());
         // when first ping received we can connect to proxy
-        const averagePing = await this.calculateAveragePing();
+        const averagePing = await this.determinePing();
+        if (!averagePing) {
+            throw new Error('Was unable to determine ping');
+        }
         this.updatePingValue(averagePing);
         return averagePing;
     };
@@ -119,59 +123,15 @@ class EndpointConnectivity {
         this.state = this.CONNECTION_STATES.PAUSED;
     };
 
-    preparePingMessage = (currentTime) => {
-        const pingMsg = WsPingMsg.create({
-            requestTime: currentTime,
-            token: stringToUint8Array(this.vpnToken),
-            applicationId: stringToUint8Array(credentials.getAppId()),
-            // selected endpoint shouldn't ignore handshake, ignore only for ping measurement
-            ignoredHandshake: false,
-        });
-        const protocolMsg = WsConnectivityMsg.create({ pingMsg });
-        return WsConnectivityMsg.encode(protocolMsg).finish();
-    };
-
     decodeMessage = (arrBufMessage) => {
         const message = WsConnectivityMsg.decode(new Uint8Array(arrBufMessage));
         return WsConnectivityMsg.toObject(message);
     };
 
-    pollPing = () => new Promise((resolve, reject) => {
-        const POLL_PING_TIMEOUT_MS = 5000;
-        const arrBufMessage = this.preparePingMessage(Date.now());
-        this.ws.send(arrBufMessage);
-
-        let timeoutId;
-        const messageHandler = (event) => {
-            const receivedTime = Date.now();
-            const { pingMsg } = this.decodeMessage(event.data);
-            if (pingMsg) {
-                const { requestTime } = pingMsg;
-                const ping = receivedTime - requestTime;
-                this.ws.removeEventListener('message', messageHandler);
-                clearTimeout(timeoutId);
-                resolve(ping);
-            }
-        };
-
-        timeoutId = setTimeout(() => {
-            this.ws.removeEventListener('message', messageHandler);
-            reject(new Error('Poll ping timeout'));
-        }, POLL_PING_TIMEOUT_MS);
-
-        this.ws.addEventListener('message', messageHandler);
-    });
-
-    calculateAveragePing = async () => {
-        const POLLS_NUM = 3;
-        const results = [];
-        for (let i = 0; i < POLLS_NUM; i += 1) {
-            // eslint-disable-next-line no-await-in-loop
-            const result = await this.pollPing();
-            results.push(result);
-        }
-        const sum = results.reduce((prev, next) => prev + next);
-        return Math.floor(sum / POLLS_NUM);
+    determinePing = async () => {
+        const appId = credentials.getAppId();
+        const ping = await determinePing(this.ws, this.vpnToken, appId, false);
+        return ping;
     };
 
     updatePingValue = (ping) => {
@@ -184,8 +144,8 @@ class EndpointConnectivity {
         }
         this.pingGetInterval = setInterval(async () => {
             try {
-                const averagePing = await this.calculateAveragePing();
-                this.updatePingValue(averagePing);
+                const ping = await this.determinePing();
+                this.updatePingValue(ping);
             } catch (e) {
                 log.debug(e.message);
             }

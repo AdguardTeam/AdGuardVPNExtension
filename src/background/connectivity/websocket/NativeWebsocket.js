@@ -14,7 +14,7 @@ class NativeWebsocket {
 
         this.ws.binaryType = 'arraybuffer';
 
-        this.onError((event) => {
+        this.ws.addEventListener('error', (event) => {
             log.debug('Error occurred with socket event:', event);
         });
     }
@@ -51,16 +51,16 @@ class NativeWebsocket {
         }
     }
 
-    onMessage(handler) {
-        this.ws.addEventListener('message', handler);
+    addEventListener(event, handler) {
+        if (this.ws) {
+            this.ws.addEventListener(event, handler);
+        }
     }
 
-    removeMessageListener(handler) {
-        this.ws.removeEventListener('message', handler);
-    }
-
-    onError(cb) {
-        this.ws.addEventListener('error', cb);
+    removeEventListener(event, handler) {
+        if (this.ws) {
+            this.ws.addEventListener(event, handler);
+        }
     }
 
     close() {

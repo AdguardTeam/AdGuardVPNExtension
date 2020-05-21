@@ -14,11 +14,11 @@ const buildCredentials = (prefix, token, appId) => {
     };
 };
 
-const buildWsFactory = (Websocket, averagePing) => {
+const buildWsFactory = (Websocket, ping) => {
     let ws;
     return {
         createNativeWebsocket: jest.fn((websocketUrl) => {
-            ws = new Websocket(websocketUrl, averagePing);
+            ws = new Websocket(websocketUrl, ping);
             return ws;
         }),
         ws: () => {
@@ -45,12 +45,16 @@ class Websocket {
         this.scheduleResponse(message);
     });
 
-    onMessage = jest.fn((callback) => {
-        this.callback = callback;
+    addEventListener = jest.fn((event, handler) => {
+        if (event === 'message') {
+            this.callback = handler;
+        }
     });
 
-    removeMessageListener = jest.fn(() => {
-        delete this.callback;
+    removeEventListener = jest.fn((event) => {
+        if (event === 'message') {
+            delete this.callback;
+        }
     });
 
     close = jest.fn();
@@ -69,16 +73,17 @@ describe('EndpointsPingService', () => {
 
         const endpointsPing = new EndpointsPing({ credentials, websocketFactory });
         const endpoint = { domainName: 'do-gb-lon1-01-hk7z7xez.adguard.io' };
-        const averagePing = await endpointsPing.measurePingToEndpoint(endpoint.domainName);
+        const ping = await endpointsPing.measurePingToEndpoint(endpoint.domainName);
 
-        expect(averagePing).toBeDefined();
-        expect(averagePing).toBeGreaterThanOrEqual(expectedAveragePing);
+        expect(ping).toBeDefined();
+        expect(ping).toBeGreaterThanOrEqual(expectedAveragePing);
 
         const ws = websocketFactory.ws();
         expect(ws.url).toEqual(expectedWsUrl);
         expect(ws.open).toBeCalledTimes(1);
         expect(ws.close).toBeCalledTimes(1);
         expect(ws.send).toBeCalledTimes(3);
-        expect(ws.onMessage).toBeCalledTimes(3);
+        expect(ws.addEventListener).toBeCalledTimes(3);
+        expect(ws.removeEventListener).toBeCalledTimes(3);
     });
 });
