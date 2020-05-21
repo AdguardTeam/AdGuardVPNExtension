@@ -112,11 +112,13 @@ class SettingsStore {
             await messenger.enableProxy(force, withCancel);
         } catch (e) {
             log.error(e);
-            if (!e.message || e.message !== FORCE_CANCELLED) {
-                runInAction(() => {
-                    this.serverError = true;
-                });
+            const errorMessage = e?.message;
+            if (errorMessage === FORCE_CANCELLED) {
+                return;
             }
+            runInAction(() => {
+                this.serverError = true;
+            });
         }
     };
 

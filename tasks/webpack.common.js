@@ -71,7 +71,8 @@ const config = {
     plugins: [
         // Define environment for choosing appropriate api urls
         new webpack.DefinePlugin({
-            PRODUCTION: JSON.stringify(!IS_DEV),
+            // PRODUCTION: JSON.stringify(!IS_DEV), // TODO revert
+            PRODUCTION: JSON.stringify(true), // TODO remove
         }),
         new webpack.NormalModuleReplacementPlugin(/\.\/abstractProxyApi/, ((resource) => {
             if (process.env.BROWSER === 'firefox') {
