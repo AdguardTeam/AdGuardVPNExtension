@@ -127,7 +127,8 @@ class VpnStore {
     get fastestEndpoints() {
         const FASTEST_ENDPOINTS_COUNT = 3;
         const { ping } = this.rootStore.settingsStore;
-        const sortedEndpoints = Object.values(this.endpoints || {})
+        const endpoints = Object.values(this.endpoints || {});
+        const sortedEndpoints = endpoints
             .map((endpoint) => {
                 const endpointPing = this.pings[endpoint.id];
                 if (endpointPing) {
@@ -147,9 +148,16 @@ class VpnStore {
                 }
                 return { ...endpoint };
             });
-        return sortedEndpoints.length >= FASTEST_ENDPOINTS_COUNT
-            ? sortedEndpoints.slice(0, FASTEST_ENDPOINTS_COUNT)
-            : [];
+        // display fastest if
+        // pings number is equal to endpoints number
+        if (sortedEndpoints.length === endpoints.length) {
+            return sortedEndpoints.slice(0, FASTEST_ENDPOINTS_COUNT);
+        }
+        // there are more than three pings ready
+        if (sortedEndpoints.length >= FASTEST_ENDPOINTS_COUNT) {
+            return sortedEndpoints.slice(0, FASTEST_ENDPOINTS_COUNT);
+        }
+        return [];
     }
 
     @computed
