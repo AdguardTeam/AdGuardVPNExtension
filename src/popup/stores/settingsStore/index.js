@@ -60,6 +60,11 @@ class SettingsStore {
     };
 
     @action
+    setProxyPing = (ping) => {
+        this.ping = ping;
+    }
+
+    @action
     async checkProxyControl() {
         // TODO refactor to return one boolean
         const { canControlProxy } = await messenger.getCanControlProxy();

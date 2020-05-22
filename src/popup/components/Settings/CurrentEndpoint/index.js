@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
 
@@ -8,27 +8,6 @@ import './endpoint.pcss';
 
 const CurrentEndpoint = observer((props) => {
     const { vpnStore, settingsStore } = useContext(rootStore);
-
-    const updatePing = async () => {
-        const UPDATE_INTERVAL = 1000;
-        // first time get immediately
-        await settingsStore.getProxyPing();
-
-        // get once per specified update interval
-        const intervalId = setInterval(async () => {
-            await settingsStore.getProxyPing();
-        }, UPDATE_INTERVAL);
-
-        return () => {
-            clearInterval(intervalId);
-        };
-    };
-
-    useEffect(() => {
-        (async () => {
-            await updatePing();
-        })();
-    }, []);
 
     const {
         countryNameToDisplay,
@@ -45,7 +24,7 @@ const CurrentEndpoint = observer((props) => {
             return {};
         }
         const iconName = countryCode.toLowerCase();
-        return { 'background-image': `url("../../assets/images/flags/${iconName}.svg")` };
+        return { backgroundImage: `url("../../assets/images/flags/${iconName}.svg")` };
     };
 
     return (

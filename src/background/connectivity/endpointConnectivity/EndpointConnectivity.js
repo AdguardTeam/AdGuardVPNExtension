@@ -9,6 +9,7 @@ import credentials from '../../credentials';
 import log from '../../../lib/logger';
 import dns from '../../dns/dns';
 import { determinePing } from '../pingHelpers';
+import endpointsManager from '../../endpoints/endpointsManager';
 
 class EndpointConnectivity {
     PING_UPDATE_INTERVAL_MS = 1000 * 60;
@@ -136,6 +137,13 @@ class EndpointConnectivity {
 
     updatePingValue = (ping) => {
         this.ping = ping;
+        // domain name is used as endpoint id also
+        endpointsManager.updateEndpointPing(this.domainName, ping);
+
+        // notify popup to show updated ping
+        if (ping && this.state === this.CONNECTION_STATES.WORKING) {
+            notifier.notifyListeners(notifier.types.CURRENT_ENDPOINT_PING_UPDATED, ping);
+        }
     };
 
     startGettingPing = async () => {

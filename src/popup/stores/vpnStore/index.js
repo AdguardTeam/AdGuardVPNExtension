@@ -84,7 +84,6 @@ class VpnStore {
     @computed
     get filteredEndpoints() {
         const allEndpoints = Object.values(this.endpoints || {});
-        const { ping } = this.rootStore.settingsStore;
 
         return allEndpoints
             .filter((endpoint) => {
@@ -113,11 +112,7 @@ class VpnStore {
             })
             .map((endpoint) => {
                 if (this.selectedEndpoint && this.selectedEndpoint.id === endpoint.id) {
-                    let endpointPing = endpoint.ping;
-                    if (ping) {
-                        endpointPing = ping;
-                    }
-                    return { ...endpoint, selected: true, ping: endpointPing };
+                    return { ...endpoint, selected: true };
                 }
                 return endpoint;
             });
@@ -126,7 +121,6 @@ class VpnStore {
     @computed
     get fastestEndpoints() {
         const FASTEST_ENDPOINTS_COUNT = 3;
-        const { ping } = this.rootStore.settingsStore;
         const endpoints = Object.values(this.endpoints || {});
         const sortedEndpoints = endpoints
             .map((endpoint) => {
@@ -140,11 +134,7 @@ class VpnStore {
             .sort((a, b) => a.ping - b.ping)
             .map((endpoint) => {
                 if (this.selectedEndpoint && this.selectedEndpoint.id === endpoint.id) {
-                    let endpointPing = endpoint.ping;
-                    if (ping) {
-                        endpointPing = ping;
-                    }
-                    return { ...endpoint, selected: true, ping: endpointPing };
+                    return { ...endpoint, selected: true };
                 }
                 return { ...endpoint };
             });
