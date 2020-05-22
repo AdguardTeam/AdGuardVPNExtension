@@ -44,6 +44,7 @@ global.adguard = {
 
 (async () => {
     try {
+        messaging.init(); // messaging is on the top, for popup be able to communicate with back
         const runInfo = await updateService.getRunInfo();
         permissionsChecker.init(); // should be initiated before auth module
         await auth.init();
@@ -54,7 +55,6 @@ global.adguard = {
         await nonRoutable.init();
         await contextMenu.init();
         await browserActionIcon.init();
-        messaging.init();
         log.info('Extension loaded all necessary modules');
     } catch (e) {
         log.error('Unable to start extension because of error:', e && e.message);

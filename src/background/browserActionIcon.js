@@ -70,6 +70,9 @@ class BrowserActionIcon {
             notifier.types.UPDATE_BROWSER_ACTION_ICON,
             throttledUpdateIcon
         );
+
+        // Run after init in order to update browser action icon state
+        throttledUpdateIcon();
     };
 }
 
