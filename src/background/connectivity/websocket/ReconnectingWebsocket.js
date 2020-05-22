@@ -112,12 +112,13 @@ class ReconnectingWebsocket {
                 /* eslint-disable no-use-before-define */
                 this.ws.removeEventListener('open', resolveHandler);
                 this.ws.removeEventListener('error', rejectHandler);
+                this.ws.removeEventListener('close', rejectHandler);
                 /* eslint-enable no-use-before-define */
             };
 
-            const rejectHandler = (e) => {
+            const rejectHandler = () => {
                 removeTempListeners();
-                reject(e);
+                reject(new Error(`WS connection to ${this.url} unable due to an error event`));
             };
 
             const resolveHandler = () => {
@@ -127,6 +128,7 @@ class ReconnectingWebsocket {
 
             this.ws.addEventListener('open', resolveHandler);
             this.ws.addEventListener('error', rejectHandler);
+            this.ws.addEventListener('close', rejectHandler);
 
             this.addListeners();
         });
@@ -140,13 +142,20 @@ class ReconnectingWebsocket {
                 return;
             }
 
-            this.ws.close();
-            // resolve immediately if is closed already
-            if (this.ws.readyState === this.ws.CLOSED) {
+            // resolve immediately if is closed already or closing
+            if (this.ws.readyState === this.ws.CLOSED
+                // in firefox during "CLOSING" ready state,
+                // "ws.close()" method doesn't cause to fire close event
+                // as result promise is never resolved
+                || this.ws.readyState === this.ws.CLOSING) {
                 this.removeListeners();
+                // we call close() in order to stop reconnections
+                this.ws.close();
                 resolve();
                 return;
             }
+
+            this.ws.close();
 
             const removeListeners = () => {
                 /* eslint-disable no-use-before-define */
