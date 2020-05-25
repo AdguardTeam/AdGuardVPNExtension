@@ -218,7 +218,7 @@ class EndpointConnectivity {
             }
         };
 
-        this.ws.addEventListener(messageHandler);
+        this.ws.addEventListener('message', messageHandler);
     };
 
     getPing = () => {

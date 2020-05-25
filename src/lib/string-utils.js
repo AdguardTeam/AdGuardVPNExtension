@@ -49,11 +49,23 @@ export const areHostnamesEqual = (hostnameA, hostnameB) => {
  * @returns {boolean}
  */
 export const shExpMatch = (url, pattern) => {
-    let regexpStr = pattern.replace(/\./g, '\\.');
-    regexpStr = regexpStr.replace(/\*/g, '.*');
+    const regexpStr = pattern
+        .replace(/\./g, '\\.')
+        .replace(/\*/g, '.*')
+        .replace(/\?/g, '.');
     const regexp = new RegExp(`^${regexpStr}$`);
     return regexp.test(url);
 };
+
+export function customShExpMatch(url, pattern) {
+    let regexStr = pattern
+        .replace(/\./g, '\\.')
+        .replace(/\*/g, '.*');
+    // eslint-disable-next-line prefer-template
+    regexStr = '^https?://' + regexStr + '$';
+    const regexp = new RegExp(regexStr);
+    return regexp.test(url);
+}
 
 /**
  * Checks if string is valid url with http: or https: protocol

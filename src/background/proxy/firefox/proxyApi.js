@@ -1,7 +1,7 @@
 import browser from 'webextension-polyfill';
 import { getHostname } from '../../../lib/helpers';
 import { CONNECTION_TYPE_FIREFOX } from '../proxyConsts';
-import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
+import { areHostnamesEqual, customShExpMatch, shExpMatch } from '../../../lib/string-utils';
 
 /**
  * @typedef proxyConfig
@@ -74,13 +74,18 @@ let GLOBAL_FIREFOX_CONFIG = {
 };
 
 const isBypassed = (url, exclusionsPatterns) => {
-    if (!exclusionsPatterns) {
+    if (!exclusionsPatterns || exclusionsPatterns.length === 0) {
         return true;
     }
+
     const hostname = getHostname(url);
 
-    return exclusionsPatterns.some((exclusionPattern) => (
-        areHostnamesEqual(hostname, exclusionPattern) || shExpMatch(hostname, exclusionPattern)));
+    return exclusionsPatterns.some((pattern) => {
+        if (pattern.indexOf('/') > -1) {
+            customShExpMatch(url, pattern);
+        }
+        return areHostnamesEqual(hostname, pattern) || shExpMatch(hostname, pattern);
+    });
 };
 
 const onAuthRequiredHandler = (details) => {

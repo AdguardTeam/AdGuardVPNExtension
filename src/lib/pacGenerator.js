@@ -15,6 +15,22 @@ function proxyPacScript(proxy, exclusionsList, inverted, defaultExclusions) {
     // After this period of time pacscript is always considered activated
     const pacScriptActivationTimeoutMs = 2000;
     return `
+            function customShExpMatch(url, pattern) {
+                let regexStr = pattern
+                    .replace(/\\./g, '\\.')
+                    .replace(/\\*/g, '.*');
+                regexStr = '^https?://' + regexStr + '$';
+                const regexp = new RegExp(regexStr);
+                return regexp.test(url);
+            }
+
+            const areHostnamesEqual = (hostnameA, hostnameB) => {
+                const wwwRegex = /^www\\./;
+                const oldHostnameWithoutWww = hostnameA.replace(wwwRegex, '');
+                const newHostnameWithoutWww = hostnameB.replace(wwwRegex, '');
+                return oldHostnameWithoutWww === newHostnameWithoutWww;
+            };
+
             let active = false;
             const created = ${Date.now()};
             const started = Date.now();
@@ -35,20 +51,18 @@ function proxyPacScript(proxy, exclusionsList, inverted, defaultExclusions) {
                     return DIRECT;
                 }
 
-                const areHostnamesEqual = (hostnameA, hostnameB) => {
-                    const wwwRegex = /^www\\./;
-                    const oldHostnameWithoutWww = hostnameA.replace(wwwRegex, '');
-                    const newHostnameWithoutWww = hostnameB.replace(wwwRegex, '');
-                    return oldHostnameWithoutWww === newHostnameWithoutWww;
-                };
-
                 if (isPlainHostName(host)
                     || shExpMatch(host, 'localhost')) {
                     return DIRECT;
                 }
 
                 const defaultExclusions = [${defaultExclusions.map((l) => `"${l}"`).join(', ')}];
-                if (defaultExclusions.some(el => (areHostnamesEqual(host, el) || shExpMatch(host, el)))) {
+                if (defaultExclusions.some((ex) => {
+                                                if (ex.indexOf('/') > -1) {
+                                                    return customShExpMatch(url, ex);
+                                                }
+                                                return areHostnamesEqual(host, ex) || shExpMatch(host, ex);
+                                            })) {
                     return DIRECT;
                 }
 
@@ -78,7 +92,8 @@ const generate = (proxy, exclusionsList = [], inverted = false, defaultExclusion
         return directPacScript();
     }
 
-    return proxyPacScript(proxy, exclusionsList, inverted, defaultExclusions);
+    const pacScript = proxyPacScript(proxy, exclusionsList, inverted, defaultExclusions);
+    return pacScript;
 };
 
 export default { generate };

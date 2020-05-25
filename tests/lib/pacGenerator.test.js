@@ -1,6 +1,7 @@
 import pac from 'pac-resolver';
 import pacGenerator from '../../src/lib/pacGenerator';
 import { sleep } from '../../src/lib/helpers';
+import { DEFAULT_EXCLUSIONS } from '../../src/background/proxy/proxyConsts';
 
 describe('Pac generator', () => {
     it('returns direct for all requests if proxy undefined', async () => {
@@ -143,6 +144,43 @@ describe('Pac generator', () => {
         await sleep(300);
         FindProxyForUrl = pac(pacScript);
         result = await FindProxyForUrl('https://example.org/foo', 'example.org');
+        expect(result).toBe('DIRECT');
+    });
+
+
+    it('default exclusions', async () => {
+        const proxy = 'do-de-fra1-01.adguard.io:443';
+        const pacScript = pacGenerator.generate(proxy, [], false, DEFAULT_EXCLUSIONS);
+        const FindProxyForUrl = pac(pacScript);
+
+        let result = await FindProxyForUrl('http://adguard.com/url_path/license.html', 'adguard.com');
+        expect(result).toBe('DIRECT');
+
+        result = await FindProxyForUrl('https://adguard.com/url_path/license.html', 'adguard.com');
+        expect(result).toBe('DIRECT');
+
+        result = await FindProxyForUrl('https://adguard.com/url_path/wrong.html', 'adguard.com');
+        expect(result).toBe(`HTTPS ${proxy}`);
+
+        result = await FindProxyForUrl('http://adguard.com/pg/url_path', 'adguard.com');
+        expect(result).toBe('DIRECT');
+
+        result = await FindProxyForUrl('http://auth.adguard.io/some/url_path', 'auth.adguard.io');
+        expect(result).toBe('DIRECT');
+
+        result = await FindProxyForUrl('http://adguard.io/some/url_path', 'adguard.io');
+        expect(result).toBe(`HTTPS ${proxy}`);
+
+        result = await FindProxyForUrl('http://account.adguard.com/some/url_path', 'account.adguard.com');
+        expect(result).toBe('DIRECT');
+
+        result = await FindProxyForUrl('https://account.adguard.com/', 'account.adguard.com');
+        expect(result).toBe('DIRECT');
+
+        result = await FindProxyForUrl('https://localhost:3333', 'localhost');
+        expect(result).toBe('DIRECT');
+
+        result = await FindProxyForUrl('https://adguard.com/en/license.html?email=me@example.org', 'adguard.com');
         expect(result).toBe('DIRECT');
     });
 });
