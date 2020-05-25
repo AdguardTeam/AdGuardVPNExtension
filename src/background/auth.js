@@ -42,11 +42,11 @@ class Auth {
         return { status: 'ok' };
     }
 
-    async isAuthenticated() {
+    async isAuthenticated(turnOffProxy) {
         let accessToken;
 
         try {
-            accessToken = await this.getAccessToken();
+            accessToken = await this.getAccessToken(turnOffProxy);
         } catch (e) {
             return false;
         }
@@ -194,7 +194,13 @@ class Auth {
         await browserApi.storage.remove(AUTH_ACCESS_TOKEN_KEY);
     }
 
-    async getAccessToken() {
+    /**
+     * Returns access token
+     * If no token is available turns off, except of when turnOffProxy flag is false
+     * @param {boolean} [turnOffProxy=true] - if false do not turns off proxy
+     * @returns {Promise<string>}
+     */
+    async getAccessToken(turnOffProxy = true) {
         if (this.accessTokenData && this.accessTokenData.accessToken) {
             return this.accessTokenData.accessToken;
         }
@@ -208,11 +214,14 @@ class Auth {
 
         // if no access token found
         // 1. turn off proxy just in case
-        try {
-            await proxy.turnOff();
-        } catch (e) {
-            log.error(e.message);
+        if (turnOffProxy) {
+            try {
+                await proxy.turnOff();
+            } catch (e) {
+                log.error(e.message);
+            }
         }
+
         // 2. throw error
         throw new Error('No access token, user is not authenticated');
     }

@@ -19,7 +19,7 @@ class BrowserActionIcon {
     async updateIcon(tab) {
         const { id = null, url = null } = tab;
 
-        const isUserAuthenticated = await auth.isAuthenticated();
+        const isUserAuthenticated = await auth.isAuthenticated(false);
         if (!isUserAuthenticated) {
             await actions.setIconDisabled(id);
             return;
