@@ -146,7 +146,7 @@ class EndpointConnectivity {
         }
     };
 
-    startGettingPing = async () => {
+    startGettingPing = () => {
         if (this.pingGetInterval) {
             clearInterval(this.pingGetInterval);
         }
@@ -205,7 +205,7 @@ class EndpointConnectivity {
         }
     };
 
-    startGettingConnectivityInfo = async () => {
+    startGettingConnectivityInfo = () => {
         const messageHandler = async (event) => {
             const { connectivityInfoMsg, connectivityErrorMsg } = this.decodeMessage(event.data);
 
@@ -218,7 +218,7 @@ class EndpointConnectivity {
             }
         };
 
-        this.ws.addEventListener(messageHandler);
+        this.ws.addEventListener('message', messageHandler);
     };
 
     getPing = () => {
