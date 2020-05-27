@@ -8,10 +8,7 @@ export const LEVELS_OF_CONTROL = {
 };
 
 export const DEFAULT_EXCLUSIONS = [
-    '*.adguard.com',
-    'adguard.com',
-    '*.adguard-vpn.com',
-    'adguard-vpn.com',
+    '*account.adguard.com',
     '*.adguard.io',
     '*.adguard.ws',
     'localhost',
