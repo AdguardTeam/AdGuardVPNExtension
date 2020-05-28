@@ -6,7 +6,6 @@ import translator from '../../../../lib/translator';
 import rootStore from '../../../stores';
 import { REQUEST_STATUSES } from '../../../stores/consts';
 
-import Terms from '../Terms';
 import Submit from '../Submit';
 import InputField from '../InputField';
 
@@ -29,12 +28,58 @@ const CheckEmail = observer(() => {
         await authStore.onCredentialsChange(name, value);
     };
 
-    const { requestProcessState, credentials } = authStore;
-    const { username } = credentials;
+    const openSignInCheck = async () => {
+        await authStore.openSignInCheck();
+    };
+
+    const openSignUpCheck = async () => {
+        await authStore.openSignUpCheck();
+    };
+
+    const getSubmitButton = () => {
+        const { requestProcessState, credentials, signInCheck } = authStore;
+        const { username } = credentials;
+
+        let params = {
+            buttonText: 'auth_sign_up',
+            linkText: 'auth_sign_in_link',
+            linkEvent: openSignInCheck,
+        };
+
+        if (signInCheck) {
+            params = {
+                buttonText: 'auth_sign_in',
+                linkText: 'auth_sign_up',
+                linkEvent: openSignUpCheck,
+            };
+        }
+
+        return (
+            <>
+                <div className="form__btn-wrap">
+                    <Submit
+                        text={translator.translate(params.buttonText)}
+                        processing={requestProcessState === REQUEST_STATUSES.PENDING}
+                        disabled={!username}
+                    />
+                </div>
+
+                <button
+                    type="button"
+                    className="button button--inline form__link"
+                    onClick={params.linkEvent}
+                >
+                    {translator.translate(params.linkText)}
+                </button>
+            </>
+        );
+    };
+
+    const { credentials: { username } } = authStore;
 
     return (
         <form
-            className={`form form--login ${authStore.error && 'form--error'}`}
+            className="form form--login"
             onSubmit={submitHandler}
         >
             <div className="form__inputs">
@@ -43,6 +88,7 @@ const CheckEmail = observer(() => {
                     type="email"
                     value={username}
                     label={translator.translate('auth_email')}
+                    placeholder="example@mail.com"
                     inputChangeHandler={inputChangeHandler}
                     error={authStore.error}
                 />
@@ -52,14 +98,8 @@ const CheckEmail = observer(() => {
                     </div>
                 )}
             </div>
-            <Terms />
-            <div className="form__btn-wrap form__btn-wrap--check">
-                <Submit
-                    text={translator.translate('auth_next')}
-                    processing={requestProcessState === REQUEST_STATUSES.PENDING}
-                    disabled={!username}
-                />
-            </div>
+
+            {getSubmitButton()}
         </form>
     );
 });

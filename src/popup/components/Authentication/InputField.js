@@ -2,7 +2,14 @@ import React from 'react';
 import classnames from 'classnames';
 
 function InputField({
-    id, type, value, label, inputChangeHandler, error, autoFocus = true, className = '',
+    id,
+    type,
+    value,
+    label,
+    inputChangeHandler,
+    error,
+    className = '',
+    placeholder = '',
 }) {
     const inputClassName = classnames(
         `form__input ${className}`,
@@ -11,7 +18,7 @@ function InputField({
 
     return (
         <div className="form__item">
-            <label className="form__label" htmlFor={id}>
+            <label htmlFor={id} className="form__label">
                 {label}
             </label>
             <input
@@ -21,8 +28,9 @@ function InputField({
                 type={type}
                 onChange={inputChangeHandler}
                 value={value}
+                placeholder={placeholder}
                 // eslint-disable-next-line jsx-a11y/no-autofocus
-                autoFocus={autoFocus}
+                autoFocus
             />
         </div>
     );

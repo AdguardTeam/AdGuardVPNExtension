@@ -76,7 +76,6 @@ describe('EndpointsPingService', () => {
         const ping = await endpointsPing.measurePingToEndpoint(endpoint.domainName);
 
         expect(ping).toBeDefined();
-        expect(ping).toBeGreaterThanOrEqual(expectedAveragePing);
 
         const ws = websocketFactory.ws();
         expect(ws.url).toEqual(expectedWsUrl);

@@ -15,17 +15,9 @@ function Terms() {
 
     return (
         <div className="auth__privacy">
-            By continuing you accept the&nbsp;
+            By using AdGuard VPN, you agree to&nbsp;
             <div>
-                <button
-                    type="button"
-                    tabIndex="-1"
-                    className="auth__privacy-link"
-                    onClick={handlePrivacyClick}
-                >
-                    Terms and Conditions
-                </button>
-                &nbsp;and&nbsp;
+                our&nbsp;
                 <button
                     type="button"
                     tabIndex="-1"
@@ -33,6 +25,15 @@ function Terms() {
                     onClick={handleEulaClick}
                 >
                     EULA
+                </button>
+                &nbsp;and&nbsp;
+                <button
+                    type="button"
+                    tabIndex="-1"
+                    className="auth__privacy-link"
+                    onClick={handlePrivacyClick}
+                >
+                    Terms and Conditions
                 </button>
             </div>
         </div>

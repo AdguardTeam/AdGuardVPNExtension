@@ -80,12 +80,9 @@ const Icons = () => (
             </g>
         </symbol>
 
-        <symbol id="closed_eye" viewBox="0 0 24 24">
+        <symbol id="closed_eye" viewBox="0 -1 24 24">
             <g fill="none" fillRule="evenodd" stroke="currentColor" strokeLinecap="round" transform="translate(6 9)">
                 <path d="M0,0 C2.16666667,2.66666667 4.33333333,4 6.5,4 C8.66666667,4 10.8333333,2.66666667 13,0" />
-                <line x1="6.5" x2="6.5" y1="4.5" y2="5.5" />
-                <line x1="10.5" x2="10.5" y1="2.75" y2="4.25" />
-                <line x1="2.5" x2="2.5" y1="2.75" y2="4.25" />
             </g>
         </symbol>
 

@@ -4,7 +4,7 @@
     flex-direction: column;
     align-items: center;
     height: 100%;
-    padding-top: var(--header-height);
+    padding-top: 40px;
 
     &:after {
         content: "";
@@ -21,14 +21,7 @@
         flex-direction: column;
         width: 100%;
         height: 100%;
-        padding: 0 40px 55px 40px;
-    }
-
-    &__title {
-        font-size: 2.6rem;
-        line-height: 36px;
-        font-weight: 700;
-        text-align: center;
+        padding: 0 40px 45px 40px;
     }
 
     &__presentation {
@@ -39,62 +32,57 @@
     }
 
     &__privacy {
-        margin: 0 auto 10px;
-        max-width: 190px;
         color: var(--gray88);
-        font-size: 12px;
+        font-size: 1.4rem;
         text-align: center;
     }
 
     &__privacy-link {
         font-family: var(--font-stack);
-        font-size: 12px;
-        color: inherit;
+        font-size: 1.4rem;
+        color: var(--green76);
         background: none;
         border: none;
         padding: 0;
-        text-decoration: underline;
+        text-decoration: none;
         cursor: pointer;
+
+        &:hover,
+        &:focus {
+            text-decoration: underline;
+        }
     }
 
     &__header {
+        flex-shrink: 0;
         position: relative;
-        padding-top: 10px;
         text-align: center;
+        padding-top: 85px;
+        background-image: url(../../../../src/assets/images/welcome.svg);
+        background-repeat: no-repeat;
+        background-position: top center;
+        background-size: 73px 80px;
+    }
 
-        &--main {
-            flex-shrink: 0;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            height: 115px;
-            margin-bottom: 58px;
-            padding: 0;
-            font-size: 2.6rem;
-            font-weight: 700;
-            line-height: 1;
-            background-image: url(../../../../src/assets/images/welcome.svg);
-            background-repeat: no-repeat;
-            background-position: top center;
-        }
+    &__title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        line-height: 1;
+    }
 
-        &--welcome {
-            margin: 50px 0 65px;
-            padding: 0;
-        }
+    &__subtitle {
+        margin-top: 30px;
+    }
+
+    &__credentials {
+        display: block;
+        font-weight: 500;
     }
 
     &__logo {
         width: 54px;
         height: 60px;
         margin-bottom: 10px;
-    }
-
-    &__beta {
-        position: absolute;
-        top: -10px;
-        right: 53px;
-        width: 36px;
-        height: 18px;
     }
 }

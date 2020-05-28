@@ -7,16 +7,16 @@ function PasswordField({
     password,
     handleChange,
     error,
-    autoFocus = true,
     inputType,
     handleInputTypeChange,
     icon,
+    placeholder = '',
 }) {
     const inputClassName = classnames('form__input form__input--password', { 'form__input--error': error });
 
     return (
         <div className="form__item">
-            <label className="form__label" htmlFor={id}>
+            <label htmlFor={id} className="form__label">
                 {label}
             </label>
             <input
@@ -26,8 +26,9 @@ function PasswordField({
                 type={inputType}
                 onChange={handleChange}
                 value={password}
+                placeholder={placeholder}
                 // eslint-disable-next-line jsx-a11y/no-autofocus
-                autoFocus={autoFocus}
+                autoFocus
             />
             {icon && (
                 <button

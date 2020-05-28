@@ -7,19 +7,39 @@ import BackButton from '../BackButton';
 function WelcomeHeader() {
     const { authStore } = useContext(rootStore);
 
-    const title = authStore.step === authStore.STEPS.REGISTRATION
-        ? translator.translate('auth_header_registration')
-        : translator.translate('auth_header_welcome');
+    const getTitle = () => {
+        if (authStore.step === authStore.STEPS.REGISTRATION) {
+            return translator.translate('auth_header_registration');
+        }
+
+        if (authStore.step === authStore.STEPS.TWO_FACTOR) {
+            return translator.translate('auth_header_2fa');
+        }
+
+        if (authStore.step === authStore.STEPS.SIGN_IN && authStore.signInCheck) {
+            return translator.translate('auth_header_sign_in');
+        }
+
+        return translator.translate('auth_header_sing_in_notice');
+    };
+
+    const showCrediantials = authStore.step === authStore.STEPS.REGISTRATION
+        || authStore.step === authStore.STEPS.SIGN_IN;
 
     return (
         <>
             <BackButton />
-            <div className="auth__header auth__header--welcome">
+            <div className="auth__header">
                 <div className="auth__title">
-                    {title}
+                    {translator.translate('short_name')}
                 </div>
                 <div className="auth__subtitle">
-                    {authStore.credentials.username}
+                    {getTitle()}
+                    {showCrediantials && (
+                        <strong className="auth__credentials">
+                            {authStore.credentials.username}
+                        </strong>
+                    )}
                 </div>
             </div>
         </>

@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import rootStore from '../../../stores';
 import './social-auth.pcss';
 
-const SOCIAL_PROVIDERS = ['twitter', 'google', 'facebook', 'yandex', 'vk'];
+const SOCIAL_PROVIDERS = ['google', 'facebook'];
 
 function SocialAuth() {
     const { authStore } = useContext(rootStore);

@@ -18,11 +18,11 @@ class EndpointsPing {
         const wsHost = `${prefix}.${domainName}`;
         const websocketUrl = renderTemplate(WS_API_URL_TEMPLATE, { host: wsHost });
 
-        let averagePing;
+        let ping;
         try {
             const websocket = await this.websocketFactory.createNativeWebsocket(websocketUrl);
             await websocket.open();
-            averagePing = await determinePing(websocket, token, appId, true);
+            ping = await determinePing(websocket, token, appId, true);
             websocket.close();
         } catch (e) {
             log.error('Was unable to get ping', websocketUrl);
@@ -31,7 +31,7 @@ class EndpointsPing {
             }
         }
 
-        return averagePing;
+        return ping;
     };
 }
 

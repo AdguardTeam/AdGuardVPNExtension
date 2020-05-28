@@ -1,4 +1,4 @@
-/* global PRODUCTION */
+/* global PRODUCTION BROWSER */
 import log from '../lib/logger';
 
 const ENVS = {
@@ -6,10 +6,19 @@ const ENVS = {
     TEST: 'test',
 };
 
+const BROWSERS = {
+    FIREFOX: 'firefox',
+    CHROME: 'chrome',
+};
+
 // Value of PRODUCTION variable is set by Webpack. For beta and prod we set it true,
 // otherwise we set it false
 const currentEnv = PRODUCTION ? ENVS.PROD : ENVS.TEST;
 log.debug(`Current staging: ${currentEnv}`);
+
+// Value of BROWSER variable is set by Webpack
+const currentBrowser = BROWSER === BROWSERS.FIREFOX ? BROWSERS.FIREFOX : BROWSERS.CHROME;
+log.debug(`Current browser: ${currentBrowser}`);
 
 // Account section
 // API description - projects/ADGUARD/repos/adguard-account-service/browse
@@ -69,11 +78,21 @@ export const OTHER_PRODUCTS_URL = 'https://adguard-vpn.com/forward.html?action=o
 export const POPUP_STORE_URL = 'https://adguard-vpn.com/forward.html?action=store&from=popup&app=vpn_extension';
 
 // Support
-export const POPUP_FEEDBACK_URL = 'https://adguard-vpn.com/forward.html?action=feedback&from=popup&app=vpn_extension';
 export const POPUP_DEFAULT_SUPPORT_URL = 'https://adguard-vpn.com/forward.html?action=support&from=popup&app=vpn_extension';
+
+const POPUP_FEEDBACK_URL_MAP = {
+    [BROWSERS.FIREFOX]: 'https://adguard-vpn.com/forward.html?action=feedback_firefox&from=popup&app=vpn_extension',
+    [BROWSERS.CHROME]: 'https://adguard-vpn.com/forward.html?action=feedback_chrome&from=popup&app=vpn_extension',
+};
+export const POPUP_FEEDBACK_URL = POPUP_FEEDBACK_URL_MAP[currentBrowser];
 
 // Options page
 export const WEBSITE_URL = 'https://adguard-vpn.com/forward.html?action=adguard_site&from=options_screen&app=vpn_extension';
 export const STORE_URL = 'https://adguard-vpn.com/forward.html?action=store&from=options_screen&app=vpn_extension';
-export const FEEDBACK_URL = 'https://adguard-vpn.com/forward.html?action=feedback&from=options_screen&app=vpn_extension';
 export const SUGGEST_FEATURE = 'https://adguard-vpn.com/forward.html?action=suggest_feature&from=options_screen&app=vpn_extension';
+
+const FEEDBACK_URL_MAP = {
+    [BROWSERS.FIREFOX]: 'https://adguard-vpn.com/forward.html?action=feedback_firefox&from=options_screen&app=vpn_extension',
+    [BROWSERS.CHROME]: 'https://adguard-vpn.com/forward.html?action=feedback_chrome&from=options_screen&app=vpn_extension',
+};
+export const FEEDBACK_URL = FEEDBACK_URL_MAP[currentBrowser];

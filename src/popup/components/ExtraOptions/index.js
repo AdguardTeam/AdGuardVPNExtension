@@ -91,16 +91,16 @@ const ExtraOptions = observer(() => {
                 text={translator.translate('popup_settings_other_products')}
             />
             <Option
-                handler={handleFeedback}
-                text={translator.translate('popup_settings_feedback')}
-            />
-            <Option
                 handler={openSettings}
                 text={translator.translate('popup_settings_open_settings')}
             />
             <Option
                 handler={signOut}
                 text={translator.translate('popup_settings_sign_out')}
+            />
+            <Option
+                handler={handleFeedback}
+                text={translator.translate('popup_settings_feedback')}
             />
         </Modal>
     );

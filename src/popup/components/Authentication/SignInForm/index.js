@@ -62,24 +62,21 @@ const SignInForm = observer(() => {
                 )}
             </div>
 
-            <div className="form__link-wrap">
-                <button
-                    type="button"
-                    tabIndex="-1"
-                    className="button button--inline form__link"
-                    onClick={popupActions.openRecovery}
-                >
-                    {translator.translate('auth_recover')}
-                </button>
-            </div>
-
             <div className="form__btn-wrap">
                 <Submit
-                    text={translator.translate('auth_login')}
+                    text={translator.translate('auth_sign_in')}
                     processing={requestProcessState === REQUEST_STATUSES.PENDING}
                     disabled={!password}
                 />
             </div>
+
+            <button
+                type="button"
+                className="button button--inline form__link form__link--recover"
+                onClick={popupActions.openRecovery}
+            >
+                {translator.translate('auth_recover')}
+            </button>
         </form>
     );
 });

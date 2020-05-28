@@ -33,7 +33,6 @@ const TwoFactorForm = observer(() => {
                     id="twoFactor"
                     type="text"
                     value={twoFactor}
-                    label={translator.translate('auth_code')}
                     inputChangeHandler={inputChangeHandler}
                     error={authStore.error}
                     className="form__input--big"

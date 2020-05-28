@@ -14,6 +14,7 @@ class CustomEnvironment extends NodeEnvironment {
             this.global.TextEncoder = TextEncoder; // required for other node >10
         }
         this.global.PRODUCTION = false;
+        this.global.BROWSER = 'chrome';
     }
 }
 

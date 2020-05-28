@@ -11,16 +11,15 @@
     }
 
     &--2fa {
-        padding-top: 180px;
+        padding-bottom: 71px;
     }
 
     &__label {
         display: block;
-        margin-bottom: 5px;
-        font-size: 12px;
+        font-size: 1.4rem;
         text-align: center;
         line-height: 16px;
-        color: var(--gray-base);
+        color: var(--gray88);
     }
 
     &__item {
@@ -39,31 +38,37 @@
 
     &__inputs {
         position: relative;
-        margin-bottom: 40px;
+        margin: auto 0 10px;
+        padding-bottom: 60px;
         text-align: center;
     }
 
     &__input {
         width: 100%;
-        margin-bottom: 5px;
         font-family: var(--font-stack);
         font-size: 1.6rem;
         text-align: center;
         border: 0;
-        border-bottom: 1px solid var(--grayd8);
+        border-bottom: 1px solid #ebebeb;
         color: var(--gray-base);
         outline: none;
-        height: 40px;
-        padding: 10px 15px;
+        height: 35px;
+        padding: 5px 15px;
+        box-shadow: none;
 
         &::placeholder {
-            font-size: 14px;
-            color: var(--grayd8);
+            font-size: 1.4rem;
+            color: var(--gray-base);
+            opacity: 0.5;
         }
 
         &:focus,
         &:active {
-            border-color: var(--gray-base);
+            border-color: #c3c3c3;
+        }
+
+        &:focus::placeholder {
+            color: transparent;
         }
 
         &--error,
@@ -93,10 +98,10 @@
 
     &__btn-wrap {
         text-align: center;
-        margin: auto 0 65px;
+        margin-bottom: 32px;
 
-        &--check {
-            margin-bottom: 45px;
+        &--register {
+            margin-bottom: 65px;
         }
     }
 
@@ -113,11 +118,14 @@
     }
 
     &__error {
+        position: absolute;
+        top: 50px;
         width: 100%;
-        font-size: 1.3rem;
+        margin-top: 5px;
+        font-size: 1.4rem;
         line-height: 18px;
         text-align: center;
-        color: var(--gray88);
+        color: var(--red);
 
         & strong {
             font-weight: normal;
@@ -129,9 +137,25 @@
     }
 
     &__link {
-        font-size: 1.3rem;
-        text-decoration: underline;
-        color: var(--gray88);
+        min-height: 19px;
+        margin-bottom: 32px;
+        padding: 0;
+        font-size: 1.4rem;
+        text-decoration: none;
+        border: 0;
+        outline: 0;
+        background-color: transparent;
+        color: var(--green76);
+        cursor: pointer;
+
+        &:hover,
+        &:focus {
+            text-decoration: underline;
+        }
+
+        &--recover {
+            margin-bottom: 52px;
+        }
     }
 
     &__header {
@@ -148,9 +172,10 @@
 
     &__show-password {
         position: absolute;
-        bottom: 10px;
+        bottom: 3px;
         right: 0;
         padding: 0;
         color: var(--gray-base);
+        opacity: 0.5;
     }
 }

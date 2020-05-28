@@ -10,7 +10,6 @@ import TwoFactorForm from './TwoFactorForm';
 import CheckEmail from './CheckEmail';
 import MainHeader from './Header/MainHeader';
 import WelcomeHeader from './Header/WelcomeHeader';
-import BackButton from './BackButton';
 
 import './auth.pcss';
 
@@ -22,7 +21,7 @@ const Authentication = observer(() => {
             checkEmail: <MainHeader />,
             signIn: <WelcomeHeader />,
             registration: <WelcomeHeader />,
-            twoFactor: <BackButton />,
+            twoFactor: <WelcomeHeader />,
         };
         return titleMaps[step] || titleMaps.checkEmail;
     };

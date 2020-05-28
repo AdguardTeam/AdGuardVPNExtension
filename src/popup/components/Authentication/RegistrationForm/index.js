@@ -8,6 +8,7 @@ import { REQUEST_STATUSES, INPUT_TYPES } from '../../../stores/consts';
 
 import PasswordField from '../PasswordField';
 import Submit from '../Submit';
+import Terms from '../Terms';
 
 const RegistrationForm = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -23,7 +24,7 @@ const RegistrationForm = observer(() => {
     };
 
     const { requestProcessState, credentials } = authStore;
-    const { password, passwordAgain } = credentials;
+    const { password } = credentials;
 
     const [inputType, setInputType] = useState('password');
 
@@ -49,28 +50,20 @@ const RegistrationForm = observer(() => {
                     handleInputTypeChange={handleInputTypeChange}
                     icon={icon}
                 />
-                <PasswordField
-                    label={translator.translate('auth_password_repeat')}
-                    id="passwordAgain"
-                    password={passwordAgain}
-                    error={authStore.error}
-                    autoFocus={false}
-                    inputType={inputType}
-                    handleChange={inputChangeHandler}
-                />
                 {authStore.error && (
                     <div className="form__error">
                         {ReactHtmlParser(authStore.error)}
                     </div>
                 )}
             </div>
-            <div className="form__btn-wrap">
+            <div className="form__btn-wrap form__btn-wrap--register">
                 <Submit
-                    text={translator.translate('auth_register')}
+                    text={translator.translate('auth_sign_up')}
                     processing={requestProcessState === REQUEST_STATUSES.PENDING}
                     disabled={authStore.disableRegister}
                 />
             </div>
+            <Terms />
         </form>
     );
 });

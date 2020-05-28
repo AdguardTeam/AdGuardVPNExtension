@@ -5,8 +5,6 @@ import {
     computed,
     toJS,
 } from 'mobx';
-import debounce from 'lodash/debounce';
-import browser from 'webextension-polyfill';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
 import messenger from '../../../lib/messenger';
 
@@ -21,7 +19,6 @@ const DEFAULTS = {
     credentials: {
         username: '',
         password: '',
-        passwordAgain: '',
         twoFactor: '',
     },
     authenticated: false,
@@ -32,6 +29,7 @@ const DEFAULTS = {
     step: AUTH_STEPS.CHECK_EMAIL,
     agreement: true,
     marketingConsent: false,
+    signInCheck: false,
 };
 
 // TODO [maximtop] add validation
@@ -52,6 +50,8 @@ class AuthStore {
 
     @observable requestProcessState = REQUEST_STATUSES.DONE;
 
+    @observable signInCheck = false;
+
     STEPS = AUTH_STEPS;
 
     constructor(rootStore) {
@@ -65,6 +65,7 @@ class AuthStore {
         this.need2fa = DEFAULTS.need2fa;
         this.error = DEFAULTS.error;
         this.step = DEFAULTS.step;
+        this.signInCheck = DEFAULTS.signInCheck;
     };
 
     @action
@@ -72,27 +73,18 @@ class AuthStore {
         this.error = DEFAULTS.error;
     };
 
-    validate = debounce((field, value) => {
-        if (field === 'passwordAgain') {
-            if (value !== this.credentials.password) {
-                runInAction(() => {
-                    this.error = browser.i18n.getMessage('registration_error_front_unique_validation');
-                });
-            }
-        }
-    }, 500);
-
     @action
     onCredentialsChange = async (field, value) => {
         this.resetError();
         this.credentials[field] = value;
-        this.validate(field, value);
         await messenger.updateAuthCache(field, value);
     };
 
     @action
     getAuthCacheFromBackground = async () => {
-        const { username, password, step } = await messenger.getAuthCache();
+        const {
+            username, password, step, signInCheck,
+        } = await messenger.getAuthCache();
         runInAction(() => {
             this.credentials = {
                 ...this.credentials,
@@ -102,16 +94,16 @@ class AuthStore {
             if (step) {
                 this.step = step;
             }
+            if (signInCheck) {
+                this.signInCheck = signInCheck;
+            }
         });
     };
 
     @computed
     get disableRegister() {
-        const { username, password, passwordAgain } = this.credentials;
-        if (!username || !password || !passwordAgain) {
-            return true;
-        }
-        if (password !== passwordAgain) {
+        const { username, password } = this.credentials;
+        if (!username || !password) {
             return true;
         }
         return false;
@@ -188,7 +180,7 @@ class AuthStore {
     @action
     register = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
-        const response = await messenger.registerUser(this.credentials);
+        const response = await messenger.registerUser(toJS(this.credentials));
         if (response.error) {
             runInAction(() => {
                 this.requestProcessState = REQUEST_STATUSES.ERROR;
@@ -254,6 +246,24 @@ class AuthStore {
     showCheckEmail = async () => {
         await this.switchStep(AUTH_STEPS.CHECK_EMAIL);
     };
+
+    @action
+    openSignInCheck = async () => {
+        await messenger.updateAuthCache('signInCheck', true);
+
+        runInAction(() => {
+            this.signInCheck = true;
+        });
+    }
+
+    @action
+    openSignUpCheck = async () => {
+        await messenger.updateAuthCache('signInCheck', false);
+
+        runInAction(() => {
+            this.signInCheck = false;
+        });
+    }
 }
 
 export default AuthStore;
