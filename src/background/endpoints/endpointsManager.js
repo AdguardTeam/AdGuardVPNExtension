@@ -1,8 +1,6 @@
 import _ from 'lodash';
-import { sortByDistance } from '../../lib/helpers';
 import endpointsPing from '../connectivity/endpointsPing';
 import notifier from '../../lib/notifier';
-import userLocation from './userLocation';
 
 /**
  * EndpointsManager keeps endpoints in the memory and determines their ping on request
@@ -134,7 +132,7 @@ class EndpointsManager {
             if (currentEndpointPing && currentEndpoint.id === id) {
                 ping = currentEndpointPing;
             } else {
-                ping = await endpointsPing.measurePingToEndpoint(domainName);
+                ping = await endpointsPing.measurePingToEndpointViaFetch(domainName);
             }
 
             const pingData = {
@@ -149,9 +147,7 @@ class EndpointsManager {
             return pingData;
         };
 
-        const currentLocation = await userLocation.getCurrentLocation();
-        const sorted = sortByDistance(Object.values(this.endpoints), currentLocation);
-        await Promise.all(sorted.map(handleEndpointPingMeasurement));
+        await Promise.all(Object.values(this.endpoints).map(handleEndpointPingMeasurement));
 
         this.lastPingMeasurementTime = Date.now();
     }
