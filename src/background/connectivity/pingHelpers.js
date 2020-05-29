@@ -2,6 +2,7 @@ import { WsConnectivityMsg, WsPingMsg } from './protobufCompiled';
 import { stringToUint8Array } from '../../lib/string-utils';
 import log from '../../lib/logger';
 import { identity } from '../../lib/helpers';
+import credentials from '../credentials';
 
 /**
  * Prepares ping message before sending to the endpoint via websocket
@@ -83,4 +84,28 @@ export const determinePing = async (websocket, vpnToken, appId, ignoredHandshake
     }
 
     return null;
+};
+
+
+export const measurePingToEndpointViaFetch = async (domainName) => {
+    const { prefix } = await credentials.getAccessCredentials();
+    const wsHost = `${prefix}.${domainName}`;
+
+    let ping;
+    const POLLS_COUNT = 3;
+    for (let i = 0; i < POLLS_COUNT; i += 1) {
+        const start = Date.now();
+        try {
+            // TODO set correct url
+            // eslint-disable-next-line no-await-in-loop
+            await fetch(new Request(`https://${wsHost}/ping`, { redirect: 'manual' }));
+            const fetchPing = Date.now() - start;
+            if (!ping || fetchPing < ping) {
+                ping = fetchPing;
+            }
+        } catch (e) {
+            log.error(`Was unable to get ping to ${wsHost} due to ${e}`);
+        }
+    }
+    return ping;
 };

@@ -1,5 +1,4 @@
 import ReconnectingWebsocket from './ReconnectingWebsocket';
-import NativeWebsocket from './NativeWebsocket';
 import log from '../../../lib/logger';
 
 const websocketFactory = (() => {
@@ -31,20 +30,7 @@ const websocketFactory = (() => {
         return reconnectingWebsocket;
     };
 
-    /**
-     * Creates new websocket whenever is called
-     * @param {string} url
-     * @returns {NativeWebsocket}
-     */
-    const createNativeWebsocket = async (url) => {
-        if (!url) {
-            throw new Error('No url was provided');
-        }
-        return new NativeWebsocket(url);
-    };
-
     return {
-        createNativeWebsocket,
         createReconnectingWebsocket,
     };
 })();

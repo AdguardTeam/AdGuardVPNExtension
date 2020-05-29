@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import endpointsPing from '../connectivity/endpointsPing';
 import notifier from '../../lib/notifier';
+import { measurePingToEndpointViaFetch } from '../connectivity/pingHelpers';
 
 /**
  * EndpointsManager keeps endpoints in the memory and determines their ping on request
@@ -132,7 +132,7 @@ class EndpointsManager {
             if (currentEndpointPing && currentEndpoint.id === id) {
                 ping = currentEndpointPing;
             } else {
-                ping = await endpointsPing.measurePingToEndpointViaFetch(domainName);
+                ping = await measurePingToEndpointViaFetch(domainName);
             }
 
             const pingData = {
