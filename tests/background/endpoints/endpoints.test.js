@@ -3,7 +3,6 @@ import { sleep } from '../../../src/lib/helpers';
 import settings from '../../../src/background/settings/settings';
 import notifier from '../../../src/lib/notifier';
 import notifications from '../../../src/background/notifications';
-import proxy from '../../../src/background/proxy';
 import vpnProvider from '../../../src/background/providers/vpnProvider';
 import credentials from '../../../src/background/credentials';
 import CustomError from '../../../src/lib/CustomError';
@@ -23,7 +22,6 @@ describe('endpoints class', () => {
 
     it('getEndpoints returns null on init', async () => {
         const endpointsList = await endpoints.getEndpoints();
-        expect(proxy.getCurrentEndpoint).toBeCalledTimes(1);
         expect(endpointsList).toBeNull();
     });
 

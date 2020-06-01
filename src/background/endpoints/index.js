@@ -232,9 +232,7 @@ class Endpoints {
     };
 
     getEndpoints = async () => {
-        const currentEndpoint = proxy.getCurrentEndpoint();
-        const currentEndpointPing = connectivity.endpointConnectivity.getPing();
-        return endpointsManager.getEndpoints(currentEndpoint, currentEndpointPing);
+        return endpointsManager.getEndpoints();
     };
 
     getSelectedEndpoint = async () => {

@@ -46,20 +46,15 @@ class EndpointsManager {
 
     /**
      * Returns all endpoints and fastest endpoints in one object
-     * @param currentEndpointPromise - information about current endpoint stored in the promise
-     * @param currentEndpointPingPromise - ping of current endpoint stored in the promise
      * @returns {{all: *, fastest: *} | null}
      */
-    getEndpoints(currentEndpointPromise, currentEndpointPingPromise) {
+    getEndpoints() {
         if (_.isEmpty(this.endpoints)) {
             return null;
         }
 
-        // Start pings determination
-        this.measurePings(
-            currentEndpointPromise,
-            currentEndpointPingPromise
-        );
+        // Start pings measurement
+        this.measurePings();
 
         return this.getAll();
     }
@@ -85,7 +80,8 @@ class EndpointsManager {
         const undefinedPings = endpointsPings
             .filter((endpointPing) => endpointPing.ping === undefined);
 
-        if (undefinedPings.length > Math.ceil(endpointsPings.length / 2)) {
+        const MIN_RATIO = 0.5;
+        if (undefinedPings.length > Math.ceil(endpointsPings.length * MIN_RATIO)) {
             return true;
         }
 
@@ -113,27 +109,16 @@ class EndpointsManager {
      * 4. every determined ping for endpoint should notify popup
      * 5. when popup receives 3 pings for endpoints it starts to display fastest endpoints
      * 6. pings need to be recalculated after 10 minutes passed when popup is opened
-     * @param currentEndpointPromise
-     * @param currentEndpointPingPromise
      * @returns {Promise<void>}
      */
-    async measurePings(currentEndpointPromise, currentEndpointPingPromise) {
+    async measurePings() {
         if (!this.shouldMeasurePings()) {
             return;
         }
 
-        const currentEndpoint = await currentEndpointPromise;
-        const currentEndpointPing = await currentEndpointPingPromise;
-
         const handleEndpointPingMeasurement = async (endpoint) => {
             const { id, domainName } = endpoint;
-            let ping;
-
-            if (currentEndpointPing && currentEndpoint.id === id) {
-                ping = currentEndpointPing;
-            } else {
-                ping = await measurePingToEndpointViaFetch(domainName);
-            }
+            const ping = await measurePingToEndpointViaFetch(domainName);
 
             const pingData = {
                 endpointId: id,
