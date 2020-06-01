@@ -37,7 +37,7 @@ class PopupData {
         const selectedEndpoint = await this.endpoints.getSelectedEndpoint();
         const canControlProxy = await adguard.appStatus.canControlProxy();
         const isProxyEnabled = adguard.settings.isProxyEnabled();
-        const currentPing = await connectivity.endpointConnectivity.getPing();
+        const isConnectivityWorking = connectivity.endpointConnectivity.isWorking();
         const isPremiumToken = await this.credentials.isPremiumToken();
 
         // If error check permissions when popup is opened, ignoring multiple retries
@@ -53,7 +53,7 @@ class PopupData {
             isAuthenticated,
             canControlProxy,
             isProxyEnabled,
-            currentPing,
+            isConnectivityWorking,
             isRoutable,
             isPremiumToken,
         };

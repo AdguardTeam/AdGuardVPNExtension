@@ -138,11 +138,6 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async getCurrentEndpointPing() {
-        const type = MESSAGES_TYPES.GET_CURRENT_ENDPOINT_PING;
-        return this.sendMessage(type);
-    }
-
     async getCanControlProxy() {
         const type = MESSAGES_TYPES.GET_CAN_CONTROL_PROXY;
         return this.sendMessage(type);

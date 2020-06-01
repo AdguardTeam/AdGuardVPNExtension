@@ -9,21 +9,23 @@ import { PING_WITH_WARNING } from '../../../stores/consts';
 import './status.pcss';
 
 const Status = observer(() => {
-    const { settingsStore } = useContext(rootStore);
+    const { settingsStore, vpnStore } = useContext(rootStore);
 
     const endpointStatus = classnames({
         'status__subtitle--disabled': !settingsStore.displayEnabled,
-        'status__subtitle--warning': settingsStore.displayEnabled && settingsStore.ping >= PING_WITH_WARNING,
-        'status__subtitle--success': settingsStore.displayEnabled && settingsStore.ping < PING_WITH_WARNING,
+        'status__subtitle--warning': settingsStore.displayEnabled && vpnStore.currentEndpointPing >= PING_WITH_WARNING,
+        'status__subtitle--success': settingsStore.displayEnabled && vpnStore.currentEndpointPing < PING_WITH_WARNING,
     });
 
     const renderStatus = () => {
         if (!settingsStore.switcherEnabled) {
             return translator.translate('settings_connection_not_secured');
         }
-        if (settingsStore.ping) {
-            return `Ping ${settingsStore.ping} ms`;
+
+        if (settingsStore.displayEnabled && vpnStore.currentEndpointPing) {
+            return `Ping ${vpnStore.currentEndpointPing} ms`;
         }
+
         return translator.translate('settings_connecting');
     };
 

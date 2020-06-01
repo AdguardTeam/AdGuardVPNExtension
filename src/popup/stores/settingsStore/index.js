@@ -25,8 +25,6 @@ class SettingsStore {
 
     @observable currentTabHostname;
 
-    @observable ping = 0;
-
     @observable isRoutable = true;
 
     @observable globalError;
@@ -49,19 +47,6 @@ class SettingsStore {
 
     constructor(rootStore) {
         this.rootStore = rootStore;
-    }
-
-    @action
-    getProxyPing = async () => {
-        const currentEndpointPing = await messenger.getCurrentEndpointPing();
-        runInAction(() => {
-            this.ping = currentEndpointPing;
-        });
-    };
-
-    @action
-    setProxyPing = (ping) => {
-        this.ping = ping;
     }
 
     @action
@@ -123,7 +108,6 @@ class SettingsStore {
 
     @action
     disableProxy = async (force = false, withCancel = false) => {
-        this.ping = 0;
         this.proxyEnabled = false;
         await messenger.disableProxy(force, withCancel);
     };

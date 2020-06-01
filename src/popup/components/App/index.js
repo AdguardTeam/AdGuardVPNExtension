@@ -73,17 +73,12 @@ const App = observer(() => {
                     break;
                 }
                 case notifier.types.PROXY_TURNED_ON: {
-                    await settingsStore.getProxyPing();
                     settingsStore.setProxyEnabled(true);
                     break;
                 }
                 case notifier.types.PROXY_TURNED_OFF: {
                     settingsStore.setProxyEnabled(false);
                     settingsStore.setSwitcher(false);
-                    break;
-                }
-                case notifier.types.CURRENT_ENDPOINT_PING_UPDATED: {
-                    settingsStore.setProxyPing(data);
                     break;
                 }
                 default: {
@@ -102,7 +97,6 @@ const App = observer(() => {
             notifier.types.PROXY_TURNED_ON,
             notifier.types.PROXY_TURNED_OFF,
             notifier.types.TOKEN_PREMIUM_STATE_UPDATED,
-            notifier.types.CURRENT_ENDPOINT_PING_UPDATED,
         ];
 
         const onUnload = messenger.createLongLivedConnection(events, messageHandler);

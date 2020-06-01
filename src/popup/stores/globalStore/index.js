@@ -36,7 +36,7 @@ class globalStore {
                 isAuthenticated,
                 canControlProxy,
                 isProxyEnabled,
-                currentPing,
+                isConnectivityWorking,
                 isRoutable,
                 hasRequiredData,
                 isPremiumToken,
@@ -61,10 +61,9 @@ class globalStore {
             vpnStore.setIsPremiumToken(isPremiumToken);
             settingsStore.setSwitcher(isProxyEnabled);
             // when popup is reopened, but connection is still in process,
-            // we set the proxy enabled status only if endpoint has ping. task AG-2073.
-            if (currentPing) {
-                settingsStore.setProxyPing(currentPing);
-                settingsStore.setProxyEnabled(isProxyEnabled);
+            // we set the proxy enabled status only if connectivity state is working. task AG-2073.
+            if (isConnectivityWorking) {
+                settingsStore.setProxyEnabled(isConnectivityWorking);
             }
             settingsStore.setCanControlProxy(canControlProxy);
             settingsStore.setIsRoutable(isRoutable);

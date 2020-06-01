@@ -136,15 +136,6 @@ class EndpointsManager {
 
         this.lastPingMeasurementTime = Date.now();
     }
-
-    updateEndpointPing = (endpointId, ping) => {
-        if (!endpointId || !ping) {
-            return;
-        }
-        const pingData = { endpointId, ping };
-        this.endpointsPings[endpointId] = pingData;
-        notifier.notifyListeners(notifier.types.ENDPOINTS_PING_UPDATED, pingData);
-    }
 }
 
 const endpointsManager = new EndpointsManager();
