@@ -45,8 +45,18 @@ const SignInForm = observer(() => {
             onSubmit={submitHandler}
         >
             <div className="form__inputs">
+                <div className="form__info">
+                    {
+                        authStore.signInCheck
+                            ? translator.translate('auth_header_sign_in')
+                            : translator.translate('auth_header_sing_in_notice')
+                    }
+                    <div className="form__credentials">
+                        {authStore.credentials.username}
+                    </div>
+                </div>
                 <PasswordField
-                    label={translator.translate('auth_password')}
+                    placeholder={translator.translate('auth_password')}
                     id="password"
                     password={password}
                     handleChange={inputChangeHandler}

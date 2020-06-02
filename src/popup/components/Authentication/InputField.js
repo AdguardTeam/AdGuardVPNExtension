@@ -5,7 +5,6 @@ function InputField({
     id,
     type,
     value,
-    label,
     inputChangeHandler,
     error,
     className = '',
@@ -18,9 +17,6 @@ function InputField({
 
     return (
         <div className="form__item">
-            <label htmlFor={id} className="form__label">
-                {label}
-            </label>
             <input
                 id={id}
                 name={id}
