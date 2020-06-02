@@ -75,7 +75,8 @@ class EndpointsManager {
     }
 
     /**
-     * This function is useful to recheck pings after internet connection being turned off
+     * This function is useful to recheck pings after internet connection being turned off or there
+     * were some problems during previous pings determination
      * @returns {boolean}
      */
     areMajorityOfPingsEmpty() {
@@ -83,6 +84,7 @@ class EndpointsManager {
         const undefinedPings = endpointsPings
             .filter((endpointPing) => endpointPing.ping === undefined);
 
+        // if half of pings is empty recalculate them again
         const MIN_RATIO = 0.5;
         if (undefinedPings.length > Math.ceil(endpointsPings.length * MIN_RATIO)) {
             return true;
