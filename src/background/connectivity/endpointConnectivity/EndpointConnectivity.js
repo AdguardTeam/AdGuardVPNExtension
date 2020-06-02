@@ -8,7 +8,7 @@ import proxy from '../../proxy';
 import credentials from '../../credentials';
 import log from '../../../lib/logger';
 import dns from '../../dns/dns';
-import { determinePing } from '../pingHelpers';
+import { sendPingMessage } from '../pingHelpers';
 
 class EndpointConnectivity {
     PING_SEND_INTERVAL_MS = 1000 * 60;
@@ -117,7 +117,7 @@ class EndpointConnectivity {
         // when first ping received we can connect to proxy
         const averagePing = await this.sendPingMessage();
         if (!averagePing) {
-            throw new Error('Was unable to determine ping');
+            throw new Error('Was unable to send ping message');
         }
         return averagePing;
     };
@@ -147,7 +147,7 @@ class EndpointConnectivity {
      */
     sendPingMessage = async () => {
         const appId = credentials.getAppId();
-        return determinePing(this.ws, this.vpnToken, appId, false);
+        return sendPingMessage(this.ws, this.vpnToken, appId);
     };
 
     startSendingPingMessages = () => {
