@@ -52,6 +52,7 @@ global.adguard = {
         await credentials.init(runInfo);
         await exclusions.init();
         await settings.applySettings(); // we have to apply settings when credentials are ready
+        await endpoints.init(); // update endpoints list on extension or browser restart
         await nonRoutable.init();
         await contextMenu.init();
         await browserActionIcon.init();

@@ -287,6 +287,11 @@ class Endpoints {
 
         return `${vpnFailurePage}${separator}${queryString}`;
     };
+
+    init() {
+        // start getting vpn info and endpoints
+        this.getVpnInfo();
+    }
 }
 
 const endpoints = new Endpoints();

@@ -14,6 +14,8 @@ class EndpointsManager {
 
     lastPingMeasurementTime = null;
 
+    pingsAreMeasuring = false;
+
     arePingsFresh = () => {
         return !!(this.lastPingMeasurementTime
             && this.lastPingMeasurementTime + this.PING_TTL_MS > Date.now());
@@ -65,6 +67,7 @@ class EndpointsManager {
         }
 
         this.endpoints = endpoints;
+        this.measurePings();
 
         notifier.notifyListeners(notifier.types.ENDPOINTS_UPDATED, this.getAll());
 
@@ -95,6 +98,9 @@ class EndpointsManager {
         if (this.areMajorityOfPingsEmpty()) {
             return true;
         }
+        if (this.pingsAreMeasuring) {
+            return false;
+        }
         return !this.arePingsFresh();
     }
 
@@ -116,6 +122,8 @@ class EndpointsManager {
             return;
         }
 
+        this.pingsAreMeasuring = true;
+
         const handleEndpointPingMeasurement = async (endpoint) => {
             const { id, domainName } = endpoint;
             const ping = await measurePingToEndpointViaFetch(domainName);
@@ -135,6 +143,7 @@ class EndpointsManager {
         await Promise.all(Object.values(this.endpoints).map(handleEndpointPingMeasurement));
 
         this.lastPingMeasurementTime = Date.now();
+        this.pingsAreMeasuring = false;
     }
 }
 
