@@ -14,7 +14,7 @@ class ReconnectingWebsocket {
         minUptime: 5000, // min time in ms to consider connection as stable
         connectionTimeout: 4000, // retry connect if not connected after this time, in ms
         maxRetries: Infinity, // maximum number of retries
-        maxEnqueuedMessages: Infinity, // maximum number of messages to buffer until reconnection
+        maxEnqueuedMessages: 0, // maximum number of messages to buffer until reconnection
         startClosed: false, // start websocket in CLOSED state, call `.reconnect()` to connect
         debug: false, // enables debug output
     };
