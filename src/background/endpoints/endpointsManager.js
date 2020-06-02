@@ -48,15 +48,18 @@ class EndpointsManager {
 
     /**
      * Returns all endpoints and fastest endpoints in one object
+     * @param {boolean} [measurePings=true] - only for tests purposes we do not measure pings
      * @returns {{all: *, fastest: *} | null}
      */
-    getEndpoints() {
+    getEndpoints(measurePings = true) {
         if (_.isEmpty(this.endpoints)) {
             return null;
         }
 
-        // Start pings measurement
-        this.measurePings();
+        if (measurePings) {
+            // Start pings measurement
+            this.measurePings();
+        }
 
         return this.getAll();
     }
