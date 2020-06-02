@@ -60,11 +60,51 @@ export const sendPingMessage = (websocket, vpnToken, appId) => {
 };
 
 /**
+ * Makes fetch request with timeout and aborts it in the case of timeout
+ * @param {string} requestUrl
+ * @param {number} fetchTimeout
+ */
+const fetchWithTimeout = (requestUrl, fetchTimeout) => {
+    // used to abort going fetch requests
+    const controller = new AbortController();
+
+    // used in order to clear timeout
+    let timeoutId;
+
+    const fetchHandler = async () => {
+        try {
+            const result = await fetch(new Request(requestUrl, { redirect: 'manual' }), { signal: controller.signal });
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
+            return result;
+        } catch (e) {
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
+            throw e;
+        }
+    };
+
+    // Promise race fulfils when first of the promises fulfils
+    return Promise.race([
+        fetchHandler(),
+        new Promise((_, reject) => {
+            timeoutId = setTimeout(() => {
+                controller.abort();
+                reject(new Error(`Request to ${requestUrl} stopped by timeout`));
+            }, fetchTimeout);
+        }),
+    ]);
+};
+
+/**
  * Determines ping to the endpoint
  * @param domainName
  * @returns {Promise<number>}
  */
 export const measurePingToEndpointViaFetch = async (domainName) => {
+    const FETCH_TIMEOUT_MS = 3000;
     const requestUrl = `https://ping.${domainName}/`;
 
     let ping;
@@ -74,7 +114,7 @@ export const measurePingToEndpointViaFetch = async (domainName) => {
         const start = Date.now();
         try {
             // eslint-disable-next-line no-await-in-loop
-            await fetch(new Request(requestUrl, { redirect: 'manual' }));
+            await fetchWithTimeout(requestUrl, FETCH_TIMEOUT_MS);
             const fetchPing = Date.now() - start;
             if (!ping || fetchPing < ping) {
                 ping = fetchPing;

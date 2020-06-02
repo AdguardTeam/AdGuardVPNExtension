@@ -27,10 +27,6 @@ class EndpointsManager {
     };
 
     enrichWithPing = (endpoint) => {
-        if (!this.arePingsFresh()) {
-            return endpoint;
-        }
-
         const pingData = this.endpointsPings[endpoint.id];
 
         return pingData ? { ...endpoint, ping: pingData.ping } : endpoint;
