@@ -40,8 +40,14 @@ const RegistrationForm = observer(() => {
             onSubmit={submitHandler}
         >
             <div className="form__inputs">
+                <div className="form__info">
+                    {translator.translate('auth_header_registration')}
+                    <div className="form__credentials">
+                        {authStore.credentials.username}
+                    </div>
+                </div>
                 <PasswordField
-                    label={translator.translate('auth_password')}
+                    placeholder={translator.translate('auth_password')}
                     id="password"
                     password={password}
                     error={authStore.error}
