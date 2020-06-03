@@ -128,6 +128,9 @@
     "auth_header_2fa": {
         "message": "Enter the authentication code"
     },
+    "auth_placeholder_2fa": {
+        "message": "Authentication code"
+    },
     "eula": {
         "message": "EULA"
     },
