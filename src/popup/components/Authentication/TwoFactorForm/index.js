@@ -29,12 +29,16 @@ const TwoFactorForm = observer(() => {
             onSubmit={submitHandler}
         >
             <div className="form__inputs">
+                <div className="form__info">
+                    {translator.translate('auth_header_2fa')}
+                </div>
                 <InputField
                     id="twoFactor"
                     type="text"
                     value={twoFactor}
                     inputChangeHandler={inputChangeHandler}
                     error={authStore.error}
+                    placeholder={translator.translate('auth_placeholder_2fa')}
                     className="form__input--big"
                 />
                 {authStore.error && (

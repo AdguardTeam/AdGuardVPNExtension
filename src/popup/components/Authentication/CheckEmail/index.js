@@ -36,23 +36,23 @@ const CheckEmail = observer(() => {
         await authStore.openSignUpCheck();
     };
 
-    const getSubmitButton = () => {
-        const { requestProcessState, credentials, signInCheck } = authStore;
-        const { username } = credentials;
+    let params = {
+        buttonText: 'auth_sign_up',
+        linkText: 'auth_sign_in_link',
+        linkEvent: openSignInCheck,
+    };
 
-        let params = {
-            buttonText: 'auth_sign_up',
-            linkText: 'auth_sign_in_link',
-            linkEvent: openSignInCheck,
+    if (authStore.signInCheck) {
+        params = {
+            buttonText: 'auth_sign_in',
+            linkText: 'auth_sign_up',
+            linkEvent: openSignUpCheck,
         };
+    }
 
-        if (signInCheck) {
-            params = {
-                buttonText: 'auth_sign_in',
-                linkText: 'auth_sign_up',
-                linkEvent: openSignUpCheck,
-            };
-        }
+    const getSubmitButton = () => {
+        const { requestProcessState, credentials } = authStore;
+        const { username } = credentials;
 
         return (
             <>
@@ -83,12 +83,14 @@ const CheckEmail = observer(() => {
             onSubmit={submitHandler}
         >
             <div className="form__inputs">
+                <div className="form__subtitle">
+                    {translator.translate(params.buttonText)}
+                </div>
                 <InputField
                     id="username"
                     type="email"
                     value={username}
-                    label={translator.translate('auth_email')}
-                    placeholder="example@mail.com"
+                    placeholder={translator.translate('auth_email')}
                     inputChangeHandler={inputChangeHandler}
                     error={authStore.error}
                 />

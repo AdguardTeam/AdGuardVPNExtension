@@ -33,7 +33,7 @@ function Terms() {
                     className="auth__privacy-link"
                     onClick={handlePrivacyClick}
                 >
-                    Terms and Conditions
+                    Privacy Policy
                 </button>
             </div>
         </div>
