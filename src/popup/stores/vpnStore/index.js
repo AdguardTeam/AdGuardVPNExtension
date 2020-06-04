@@ -216,6 +216,23 @@ class VpnStore {
             this.isPremiumToken = isPremiumToken;
         });
     }
+
+    @computed
+    get currentEndpointPing() {
+        if (!this.endpoints) {
+            return null;
+        }
+
+        const selectedEndpointId = this.selectedEndpoint.id;
+        const currentEndpoint = this.endpoints[selectedEndpointId];
+        let { ping } = currentEndpoint;
+        // update with fresh values from pings storage
+        if (this.pings[selectedEndpointId]) {
+            ping = this.pings[selectedEndpointId].ping;
+        }
+
+        return toJS(ping) || null;
+    }
 }
 
 export default VpnStore;

@@ -232,9 +232,7 @@ class Endpoints {
     };
 
     getEndpoints = async () => {
-        const currentEndpoint = proxy.getCurrentEndpoint();
-        const currentEndpointPing = connectivity.endpointConnectivity.getPing();
-        return endpointsManager.getEndpoints(currentEndpoint, currentEndpointPing);
+        return endpointsManager.getEndpoints();
     };
 
     getSelectedEndpoint = async () => {
@@ -289,6 +287,11 @@ class Endpoints {
 
         return `${vpnFailurePage}${separator}${queryString}`;
     };
+
+    init() {
+        // start getting vpn info and endpoints
+        this.getVpnInfo();
+    }
 }
 
 const endpoints = new Endpoints();

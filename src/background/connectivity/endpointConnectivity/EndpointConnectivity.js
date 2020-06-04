@@ -8,21 +8,35 @@ import proxy from '../../proxy';
 import credentials from '../../credentials';
 import log from '../../../lib/logger';
 import dns from '../../dns/dns';
-import { determinePing } from '../pingHelpers';
-import endpointsManager from '../../endpoints/endpointsManager';
+import { sendPingMessage } from '../pingHelpers';
 
 class EndpointConnectivity {
-    PING_UPDATE_INTERVAL_MS = 1000 * 60;
+    PING_SEND_INTERVAL_MS = 1000 * 60;
 
-    CONNECTION_STATES = {
+    CONNECTIVITY_STATES = {
         WORKING: 'working',
         PAUSED: 'paused',
     };
 
     constructor() {
-        this.state = this.CONNECTION_STATES.PAUSED;
+        this.setState(this.CONNECTIVITY_STATES.PAUSED);
         notifier.addSpecifiedListener(notifier.types.CREDENTIALS_UPDATED, this.updateCredentials);
         notifier.addSpecifiedListener(notifier.types.DNS_SERVER_SET, this.sendDnsServerIp);
+    }
+
+    /**
+     * Sets connectivity state and notifies popup
+     * @param state
+     */
+    setState = (state) => {
+        if (this.state === state) {
+            return;
+        }
+        this.state = state;
+    }
+
+    isWorking = () => {
+        return this.state === this.CONNECTIVITY_STATES.WORKING;
     }
 
     updateCredentials = async () => {
@@ -61,7 +75,7 @@ class EndpointConnectivity {
 
         let restart = false;
 
-        if (this.state === this.CONNECTION_STATES.WORKING) {
+        if (this.state === this.CONNECTIVITY_STATES.WORKING) {
             restart = true;
             await this.stop();
         }
@@ -70,7 +84,7 @@ class EndpointConnectivity {
         try {
             this.ws = await websocketFactory.createReconnectingWebsocket(websocketUrl);
         } catch (e) {
-            this.state = this.CONNECTION_STATES.PAUSED;
+            this.setState(this.CONNECTIVITY_STATES.PAUSED);
             throw new Error(`Failed to create new websocket because of: ${JSON.stringify(e.message)}`);
         }
 
@@ -80,7 +94,7 @@ class EndpointConnectivity {
     }
 
     handleWebsocketClose = () => {
-        this.state = this.CONNECTION_STATES.PAUSED;
+        this.setState(this.CONNECTIVITY_STATES.PAUSED);
         notifier.notifyListeners(notifier.types.WEBSOCKET_CLOSED);
     }
 
@@ -92,36 +106,33 @@ class EndpointConnectivity {
     }
 
     start = async () => {
-        if (this.state !== this.CONNECTION_STATES.WORKING) {
+        if (this.state !== this.CONNECTIVITY_STATES.WORKING) {
             await this.ws.open();
-            this.state = this.CONNECTION_STATES.WORKING;
+            this.setState(this.CONNECTIVITY_STATES.WORKING);
         }
         this.ws.addEventListener('close', this.handleWebsocketClose);
-        this.startGettingPing();
+        this.startSendingPingMessages();
         this.startGettingConnectivityInfo();
         this.sendDnsServerIp(dns.getDnsServerIp());
         // when first ping received we can connect to proxy
-        const averagePing = await this.determinePing();
+        const averagePing = await this.sendPingMessage();
         if (!averagePing) {
-            throw new Error('Was unable to determine ping');
+            throw new Error('Was unable to send ping message');
         }
-        this.updatePingValue(averagePing);
         return averagePing;
     };
 
     stop = async () => {
-        if (this.pingGetInterval) {
-            clearInterval(this.pingGetInterval);
+        if (this.pingSendIntervalId) {
+            clearInterval(this.pingSendIntervalId);
         }
-
-        this.ping = null;
 
         if (this.ws) {
             this.ws.removeEventListener('close', this.handleWebsocketClose);
             await this.ws.close();
         }
 
-        this.state = this.CONNECTION_STATES.PAUSED;
+        this.setState(this.CONNECTIVITY_STATES.PAUSED);
     };
 
     decodeMessage = (arrBufMessage) => {
@@ -129,35 +140,27 @@ class EndpointConnectivity {
         return WsConnectivityMsg.toObject(message);
     };
 
-    determinePing = async () => {
+    /**
+     * Ping messages are used in backend in order to determine sessions start,
+     * getting stats and keeping ws alive
+     * @returns {Promise<null|number>}
+     */
+    sendPingMessage = async () => {
         const appId = credentials.getAppId();
-        const ping = await determinePing(this.ws, this.vpnToken, appId, false);
-        return ping;
+        return sendPingMessage(this.ws, this.vpnToken, appId);
     };
 
-    updatePingValue = (ping) => {
-        this.ping = ping;
-        // domain name is used as endpoint id also
-        endpointsManager.updateEndpointPing(this.domainName, ping);
-
-        // notify popup to show updated ping
-        if (ping && this.state === this.CONNECTION_STATES.WORKING) {
-            notifier.notifyListeners(notifier.types.CURRENT_ENDPOINT_PING_UPDATED, ping);
+    startSendingPingMessages = () => {
+        if (this.pingSendIntervalId) {
+            clearInterval(this.pingSendIntervalId);
         }
-    };
-
-    startGettingPing = () => {
-        if (this.pingGetInterval) {
-            clearInterval(this.pingGetInterval);
-        }
-        this.pingGetInterval = setInterval(async () => {
+        this.pingSendIntervalId = setInterval(async () => {
             try {
-                const ping = await this.determinePing();
-                this.updatePingValue(ping);
+                await this.sendPingMessage();
             } catch (e) {
                 log.debug(e.message);
             }
-        }, this.PING_UPDATE_INTERVAL_MS);
+        }, this.PING_SEND_INTERVAL_MS);
     };
 
     prepareDnsSettingsMessage = (dnsIp) => {
@@ -167,7 +170,7 @@ class EndpointConnectivity {
     };
 
     sendDnsServerIp = (dnsIp) => {
-        if (this.state !== this.CONNECTION_STATES.WORKING) {
+        if (this.state !== this.CONNECTIVITY_STATES.WORKING) {
             return;
         }
         const arrBufMessage = this.prepareDnsSettingsMessage(dnsIp);
@@ -221,15 +224,8 @@ class EndpointConnectivity {
         this.ws.addEventListener('message', messageHandler);
     };
 
-    getPing = () => {
-        if (!this.ping || this.state === this.CONNECTION_STATES.PAUSED) {
-            return null;
-        }
-        return this.ping;
-    };
-
     getStats = async () => {
-        if (this.state === this.CONNECTION_STATES.PAUSED) {
+        if (this.state === this.CONNECTIVITY_STATES.PAUSED) {
             return null;
         }
         const stats = await statsStorage.getStats(this.domainName);

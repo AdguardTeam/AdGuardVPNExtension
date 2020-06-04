@@ -3,7 +3,6 @@ import { sleep } from '../../../src/lib/helpers';
 import settings from '../../../src/background/settings/settings';
 import notifier from '../../../src/lib/notifier';
 import notifications from '../../../src/background/notifications';
-import proxy from '../../../src/background/proxy';
 import vpnProvider from '../../../src/background/providers/vpnProvider';
 import credentials from '../../../src/background/credentials';
 import CustomError from '../../../src/lib/CustomError';
@@ -23,7 +22,6 @@ describe('endpoints class', () => {
 
     it('getEndpoints returns null on init', async () => {
         const endpointsList = await endpoints.getEndpoints();
-        expect(proxy.getCurrentEndpoint).toBeCalledTimes(1);
         expect(endpointsList).toBeNull();
     });
 
@@ -47,7 +45,6 @@ describe('endpoints class', () => {
                 coordinates: [-79.34, 43.65],
                 premiumOnly: false,
                 publicKey: 'l+4CZN7RIFsnU/UgIse3BHJC1fzUHbNJh51lIfPOQQ8=',
-                ping: 70,
             },
             'do-de-fra1-01.adguard.io': {
                 id: 'do-de-fra1-01.adguard.io',
@@ -58,7 +55,6 @@ describe('endpoints class', () => {
                 coordinates: [8.68, 50.11],
                 premiumOnly: false,
                 publicKey: 'UXKhYwlbiRKYa115QjsOdET6ibB4rEnbQDSECoHTXBM=',
-                ping: 231,
             },
             'do-gb-lon1-01-hk7z7xez.adguard.io': {
                 id: 'do-gb-lon1-01-hk7z7xez.adguard.io',
@@ -69,7 +65,6 @@ describe('endpoints class', () => {
                 coordinates: [-0.11, 51.5],
                 premiumOnly: false,
                 publicKey: 'uj63wPR3XdE2k7xmtNNoRpWwEF56UBxKtIfKelQu9BM=',
-                ping: 259,
             },
         };
 

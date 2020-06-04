@@ -1,8 +1,6 @@
 import _ from 'lodash';
-import { sortByDistance } from '../../lib/helpers';
-import endpointsPing from '../connectivity/endpointsPing';
 import notifier from '../../lib/notifier';
-import userLocation from './userLocation';
+import { measurePingToEndpointViaFetch } from '../connectivity/pingHelpers';
 
 /**
  * EndpointsManager keeps endpoints in the memory and determines their ping on request
@@ -16,6 +14,8 @@ class EndpointsManager {
 
     lastPingMeasurementTime = null;
 
+    pingsAreMeasuring = false;
+
     arePingsFresh = () => {
         return !!(this.lastPingMeasurementTime
             && this.lastPingMeasurementTime + this.PING_TTL_MS > Date.now());
@@ -27,10 +27,6 @@ class EndpointsManager {
     };
 
     enrichWithPing = (endpoint) => {
-        if (!this.arePingsFresh()) {
-            return endpoint;
-        }
-
         const pingData = this.endpointsPings[endpoint.id];
 
         return pingData ? { ...endpoint, ping: pingData.ping } : endpoint;
@@ -48,20 +44,18 @@ class EndpointsManager {
 
     /**
      * Returns all endpoints and fastest endpoints in one object
-     * @param currentEndpointPromise - information about current endpoint stored in the promise
-     * @param currentEndpointPingPromise - ping of current endpoint stored in the promise
+     * @param {boolean} [measurePings=true] - only for tests purposes we do not measure pings
      * @returns {{all: *, fastest: *} | null}
      */
-    getEndpoints(currentEndpointPromise, currentEndpointPingPromise) {
+    getEndpoints(measurePings = true) {
         if (_.isEmpty(this.endpoints)) {
             return null;
         }
 
-        // Start pings determination
-        this.measurePings(
-            currentEndpointPromise,
-            currentEndpointPingPromise
-        );
+        if (measurePings) {
+            // Start pings measurement
+            this.measurePings();
+        }
 
         return this.getAll();
     }
@@ -72,6 +66,7 @@ class EndpointsManager {
         }
 
         this.endpoints = endpoints;
+        this.measurePings();
 
         notifier.notifyListeners(notifier.types.ENDPOINTS_UPDATED, this.getAll());
 
@@ -79,7 +74,8 @@ class EndpointsManager {
     }
 
     /**
-     * This function is useful to recheck pings after internet connection being turned off
+     * This function is useful to recheck pings after internet connection being turned off or there
+     * were some problems during previous pings determination
      * @returns {boolean}
      */
     areMajorityOfPingsEmpty() {
@@ -87,7 +83,9 @@ class EndpointsManager {
         const undefinedPings = endpointsPings
             .filter((endpointPing) => endpointPing.ping === undefined);
 
-        if (undefinedPings.length > Math.ceil(endpointsPings.length / 2)) {
+        // if half of pings is empty recalculate them again
+        const MIN_RATIO = 0.5;
+        if (undefinedPings.length > Math.ceil(endpointsPings.length * MIN_RATIO)) {
             return true;
         }
 
@@ -100,6 +98,9 @@ class EndpointsManager {
         }
         if (this.areMajorityOfPingsEmpty()) {
             return true;
+        }
+        if (this.pingsAreMeasuring) {
+            return false;
         }
         return !this.arePingsFresh();
     }
@@ -115,27 +116,18 @@ class EndpointsManager {
      * 4. every determined ping for endpoint should notify popup
      * 5. when popup receives 3 pings for endpoints it starts to display fastest endpoints
      * 6. pings need to be recalculated after 10 minutes passed when popup is opened
-     * @param currentEndpointPromise
-     * @param currentEndpointPingPromise
      * @returns {Promise<void>}
      */
-    async measurePings(currentEndpointPromise, currentEndpointPingPromise) {
+    async measurePings() {
         if (!this.shouldMeasurePings()) {
             return;
         }
 
-        const currentEndpoint = await currentEndpointPromise;
-        const currentEndpointPing = await currentEndpointPingPromise;
+        this.pingsAreMeasuring = true;
 
         const handleEndpointPingMeasurement = async (endpoint) => {
             const { id, domainName } = endpoint;
-            let ping;
-
-            if (currentEndpointPing && currentEndpoint.id === id) {
-                ping = currentEndpointPing;
-            } else {
-                ping = await endpointsPing.measurePingToEndpoint(domainName);
-            }
+            const ping = await measurePingToEndpointViaFetch(domainName);
 
             const pingData = {
                 endpointId: id,
@@ -149,20 +141,10 @@ class EndpointsManager {
             return pingData;
         };
 
-        const currentLocation = await userLocation.getCurrentLocation();
-        const sorted = sortByDistance(Object.values(this.endpoints), currentLocation);
-        await Promise.all(sorted.map(handleEndpointPingMeasurement));
+        await Promise.all(Object.values(this.endpoints).map(handleEndpointPingMeasurement));
 
         this.lastPingMeasurementTime = Date.now();
-    }
-
-    updateEndpointPing = (endpointId, ping) => {
-        if (!endpointId || !ping) {
-            return;
-        }
-        const pingData = { endpointId, ping };
-        this.endpointsPings[endpointId] = pingData;
-        notifier.notifyListeners(notifier.types.ENDPOINTS_PING_UPDATED, pingData);
+        this.pingsAreMeasuring = false;
     }
 }
 
