@@ -64,7 +64,6 @@
         width: 100%;
         padding: 14px 17px;
         font-size: 1.6rem;
-        line-height: 24px;
         color: var(--gray-base);
         background-color: transparent;
         border: 0;
@@ -76,7 +75,9 @@
         }
 
         &--selected {
-            font-weight: 700;
+            & .endpoints__country {
+                font-weight: 700;
+            }
         }
 
         &:hover {
@@ -88,12 +89,22 @@
         margin-right: 15px;
     }
 
-    &__city {
+    &__city,
+    &__country {
         max-width: 170px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         text-align: left;
+    }
+
+    &__country {
+        font-size: 1.4rem;
+    }
+
+    &__city {
+        color: var(--gray88);
+        font-size: 1.2rem;
     }
 
     &__ping {
