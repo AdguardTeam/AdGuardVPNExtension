@@ -82,7 +82,7 @@ describe('endpoints class', () => {
         expect(vpnInfo).toEqual(expectedVpnInfo);
 
         const endpointsList = await endpoints.getEndpoints();
-        expect(endpointsList).toEqual(expectedEndpoints);
+        expect(Object.keys(endpointsList)).toEqual(Object.keys(expectedEndpoints));
     });
 
     it('get vpn info remotely stops execution if unable to get valid token', async () => {
