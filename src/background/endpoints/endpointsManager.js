@@ -92,7 +92,6 @@ export class EndpointsManager {
                 : false;
 
             const prevPing = pingsData?.ping;
-            // TODO export const to use on popup page too
             const hasPing = !(!prevPing || prevPing === NOT_AVAILABLE_STATUS);
 
             if (isFresh && hasPing) {

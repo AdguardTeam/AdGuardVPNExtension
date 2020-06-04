@@ -1,6 +1,7 @@
+import FakeTimers from '@sinonjs/fake-timers';
 import { EndpointsManager } from '../../../src/background/endpoints/endpointsManager';
 import { measurePingToEndpointViaFetch } from '../../../src/background/connectivity/pingHelpers';
-import { sleep } from '../../../src/lib/helpers';
+
 
 jest.mock('../../../src/background/connectivity/pingHelpers', () => ({
     measurePingToEndpointViaFetch: jest.fn(),
@@ -62,8 +63,7 @@ describe('endpointsManager', () => {
         expect(Object.values(endpoints).map((endpoint) => endpoint.ping))
             .toEqual(new Array(inputEndpointsLength).fill(null));
 
-        // after pings determination ends
-        await sleep(10);
+        await Promise.resolve(); // wait for measurePings promise to be resolve
         endpoints = endpointsManager.getEndpoints();
         expect(Object.values(endpoints).length).toBe(inputEndpointsLength);
         expect(Object.values(endpoints).map((endpoint) => endpoint.ping))
@@ -71,6 +71,11 @@ describe('endpointsManager', () => {
     });
 
     it('determines pings once in 10 minutes no matter how much measure pings was called', async () => {
+        const clock = FakeTimers.install({
+            now: Date.now(),
+            toFake: ['Date'],
+        });
+
         const expectedPingValue = 10;
         measurePingToEndpointViaFetch.mockReturnValue(expectedPingValue);
 
@@ -83,16 +88,22 @@ describe('endpointsManager', () => {
             .toEqual(new Array(inputEndpointsLength).fill(null));
 
         // after pings determination ends pings are defined
-        await sleep(10);
+        await Promise.resolve(); // wait for measurePings promise to be resolve
         endpoints = endpointsManager.getEndpoints();
-        expect(measurePingToEndpointViaFetch).toBeCalledTimes(3);
+        expect(measurePingToEndpointViaFetch).toBeCalledTimes(inputEndpointsLength);
         expect(Object.values(endpoints).length).toBe(inputEndpointsLength);
         expect(Object.values(endpoints).map((endpoint) => endpoint.ping))
             .toEqual(new Array(inputEndpointsLength).fill(expectedPingValue));
 
         // if get endpoints was called again we do not calculate pings
-        await sleep(10);
         endpointsManager.getEndpoints();
-        expect(measurePingToEndpointViaFetch).toBeCalledTimes(3);
+        expect(measurePingToEndpointViaFetch).toBeCalledTimes(inputEndpointsLength);
+
+        // set time forward
+        await clock.tickAsync(10 * 60 * 1000 + 10);
+        endpointsManager.getEndpoints();
+        await Promise.resolve(); // wait for measurePings promise to be resolved
+        expect(measurePingToEndpointViaFetch).toBeCalledTimes(inputEndpointsLength * 2);
+        clock.uninstall();
     });
 });
