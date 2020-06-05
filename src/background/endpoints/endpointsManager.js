@@ -1,53 +1,76 @@
 import _ from 'lodash';
 import notifier from '../../lib/notifier';
 import { measurePingToEndpointViaFetch } from '../connectivity/pingHelpers';
+import { NOT_AVAILABLE_STATUS } from '../../lib/constants';
+import vpnProvider from '../providers/vpnProvider';
+import log from '../../lib/logger';
 
 /**
  * EndpointsManager keeps endpoints in the memory and determines their ping on request
  */
-class EndpointsManager {
+export class EndpointsManager {
     endpoints = {}; // { endpointId: { endpointInfo } }
+
+    backupEndpoints = {}; // { endpointId: { endpointInfo } }
 
     endpointsPings = {}; // { endpointId, ping }[]
 
     PING_TTL_MS = 1000 * 60 * 10; // 10 minutes
 
-    lastPingMeasurementTime = null;
-
-    pingsAreMeasuring = false;
-
-    arePingsFresh = () => {
-        return !!(this.lastPingMeasurementTime
-            && this.lastPingMeasurementTime + this.PING_TTL_MS > Date.now());
-    };
-
-    arrToObjConverter = (acc, endpoint) => {
+    arrayToMap = (acc, endpoint) => {
         acc[endpoint.id] = endpoint;
         return acc;
     };
 
     enrichWithPing = (endpoint) => {
-        const pingData = this.endpointsPings[endpoint.id];
-
-        return pingData ? { ...endpoint, ping: pingData.ping } : endpoint;
+        const ping = this.endpointsPings[endpoint.id]?.ping;
+        return { ...endpoint, ping };
     };
+
+    /**
+     * Checks ping for backup endpoint and returns backup endpoint if founds it
+     * @param {Endpoint} endpoint
+     * @returns {Endpoint}
+     */
+    checkBackupEndpoint = (endpoint) => {
+        if (endpoint.ping && endpoint.ping !== NOT_AVAILABLE_STATUS) {
+            return endpoint;
+        }
+
+        const backupEndpoint = Object.values(this.backupEndpoints)
+            .find((e) => e.cityName === endpoint.cityName);
+
+        if (!backupEndpoint) {
+            return endpoint;
+        }
+
+        const backupPing = this.endpointsPings[backupEndpoint.id]?.ping;
+        if (!backupPing) {
+            return endpoint;
+        }
+
+        return { ...backupEndpoint, ping: backupPing };
+    }
 
     /**
      * Returns all endpoints in the map
      * @returns {Object.<string, Endpoint>}
      */
     getAll = () => {
-        return Object.values(this.endpoints)
+        const endpoints = Object.values(this.endpoints)
             .map(this.enrichWithPing)
-            .reduce(this.arrToObjConverter, {});
+            .map(this.checkBackupEndpoint)
+            .reduce(this.arrayToMap, {});
+
+        return endpoints;
     };
 
     /**
      * Returns all endpoints and fastest endpoints in one object
      * @param {boolean} [measurePings=true] - only for tests purposes we do not measure pings
-     * @returns {{all: *, fastest: *} | null}
+     * @returns {Object.<string, Endpoint> | null}
      */
-    getEndpoints(measurePings = true) {
+    getEndpoints = (measurePings = true) => {
         if (_.isEmpty(this.endpoints)) {
             return null;
         }
@@ -60,91 +83,125 @@ class EndpointsManager {
         return this.getAll();
     }
 
+    getEndpointsFromBackend = async (vpnToken) => {
+        const endpointsObj = await vpnProvider.getEndpoints(vpnToken);
+        const { endpoints, backupEndpoints } = endpointsObj;
+
+        this.setEndpoints(endpoints);
+        this.backupEndpoints = backupEndpoints;
+
+        return endpoints;
+    };
+
     setEndpoints(endpoints) {
         if (_.isEqual(this.endpoints, endpoints)) {
-            return this.endpoints;
+            return;
         }
 
         this.endpoints = endpoints;
         this.measurePings();
 
         notifier.notifyListeners(notifier.types.ENDPOINTS_UPDATED, this.getAll());
-
-        return this.endpoints;
     }
 
     /**
-     * This function is useful to recheck pings after internet connection being turned off or there
-     * were some problems during previous pings determination
-     * @returns {boolean}
-     */
-    areMajorityOfPingsEmpty() {
-        const endpointsPings = Object.values(this.endpointsPings);
-        const undefinedPings = endpointsPings
-            .filter((endpointPing) => endpointPing.ping === undefined);
-
-        // if half of pings is empty recalculate them again
-        const MIN_RATIO = 0.5;
-        if (undefinedPings.length > Math.ceil(endpointsPings.length * MIN_RATIO)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    shouldMeasurePings() {
-        if (_.isEmpty(this.endpoints)) {
-            return false;
-        }
-        if (this.areMajorityOfPingsEmpty()) {
-            return true;
-        }
-        if (this.pingsAreMeasuring) {
-            return false;
-        }
-        return !this.arePingsFresh();
-    }
-
-    /**
-     * Steps of counting pings
-     * 1. show skeleton for fastest on popup
-     * 2. sort endpoints geographically (usually closest endpoints have smaller pings)
-     *      ping results for:
-     *      - unsorted endpoints (https://uploads.adguard.com/mtopciu_doppk.png)
-     *      - sorted endpoints (https://uploads.adguard.com/mtopciu_whyro.png)
-     * 3. start determining all pings
-     * 4. every determined ping for endpoint should notify popup
-     * 5. when popup receives 3 pings for endpoints it starts to display fastest endpoints
-     * 6. pings need to be recalculated after 10 minutes passed when popup is opened
+     * Steps of measuring pings
+     * 1. Start counting all pings together
+     * 2. When every ping value is ready, notify to update popup
+     * 3. We should recalculate ping every time if it didn't have previous ping value or
+     *  if ping ttl expired
      * @returns {Promise<void>}
      */
     async measurePings() {
-        if (!this.shouldMeasurePings()) {
+        if (!this.endpoints) {
             return;
         }
 
-        this.pingsAreMeasuring = true;
-
         const handleEndpointPingMeasurement = async (endpoint) => {
             const { id, domainName } = endpoint;
-            const ping = await measurePingToEndpointViaFetch(domainName);
+
+            const pingsData = this.endpointsPings?.[id];
+            const isMeasuring = pingsData?.measuring;
+            if (isMeasuring) {
+                return;
+            }
+
+            const measurementTime = pingsData?.measurementTime;
+            const isFresh = measurementTime
+                ? Date.now() - measurementTime <= this.PING_TTL_MS
+                : false;
+
+            const prevPing = pingsData?.ping;
+            const hasPing = !(!prevPing || prevPing === NOT_AVAILABLE_STATUS);
+
+            if (isFresh && hasPing) {
+                return;
+            }
+
+            this.endpointsPings[id] = pingsData
+                ? { ...pingsData, measuring: true }
+                : {
+                    endpointId: id,
+                    ping: null,
+                    measuring: true,
+                };
+
+            let ping = await measurePingToEndpointViaFetch(domainName);
+
+            if (!ping) {
+                log.debug('Looking backup endpoint for:', domainName);
+                const backupEndpoint = Object.values(this.backupEndpoints)
+                    .find((e) => e.cityName === endpoint.cityName);
+                const backupDomainName = backupEndpoint?.domainName;
+                if (backupDomainName) {
+                    log.debug('Found backup endpoint:', backupDomainName);
+                    ping = await measurePingToEndpointViaFetch(backupDomainName);
+                    if (ping) {
+                        const pingData = {
+                            endpointId: backupDomainName,
+                            ping,
+                            measurementTime: Date.now(),
+                            measuring: false,
+                        };
+
+                        this.endpointsPings[backupDomainName] = pingData;
+
+                        notifier.notifyListeners(
+                            notifier.types.ENDPOINT_BACKUP_FOUND,
+                            {
+                                backup: {
+                                    ...backupEndpoint,
+                                    ping,
+                                },
+                                endpoint,
+                            }
+                        );
+                        notifier.notifyListeners(
+                            notifier.types.ENDPOINTS_PING_UPDATED,
+                            pingData
+                        );
+                        log.debug(`Backup endpoint ping determined, replacing "${domainName}" with "${backupDomainName}"`);
+                    } else {
+                        log.debug('Unable to measure ping to backup endpoint:', backupDomainName);
+                    }
+                }
+
+                ping = NOT_AVAILABLE_STATUS;
+            }
 
             const pingData = {
                 endpointId: id,
                 ping,
+                measurementTime: Date.now(),
+                measuring: false,
             };
 
             this.endpointsPings[id] = pingData;
 
             notifier.notifyListeners(notifier.types.ENDPOINTS_PING_UPDATED, pingData);
-
-            return pingData;
         };
 
         await Promise.all(Object.values(this.endpoints).map(handleEndpointPingMeasurement));
-
-        this.lastPingMeasurementTime = Date.now();
-        this.pingsAreMeasuring = false;
     }
 }
 

@@ -21,6 +21,7 @@ import updateService from './updateService';
 import { vpnApi } from './api';
 import browserActionIcon from './browserActionIcon';
 import './networkConnectionObserver';
+import endpointsManager from './endpoints/endpointsManager';
 
 global.adguard = {
     settings,
@@ -40,6 +41,7 @@ global.adguard = {
     credentials,
     nonRoutable,
     management,
+    getEndpoints: endpointsManager.getEndpoints,
 };
 
 (async () => {
