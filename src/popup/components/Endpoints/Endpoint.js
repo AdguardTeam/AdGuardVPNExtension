@@ -2,6 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 
 import { PING_WITH_WARNING } from '../../stores/consts';
+import { NOT_AVAILABLE_STATUS } from '../../../lib/constants';
 
 const Endpoint = ({
     id, selected, countryCode, countryName, cityName, handleClick, ping,
@@ -27,7 +28,7 @@ const Endpoint = ({
         );
     };
 
-    const pingIsNotAvailable = ping === 'not_available';
+    const pingIsNotAvailable = ping === NOT_AVAILABLE_STATUS;
 
     const endpointClassName = classnames(
         'endpoints__item',
