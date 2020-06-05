@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { PING_WITH_WARNING } from '../../stores/consts';
 
 const Endpoint = ({
-    id, selected, countryCode, name, handleClick, ping,
+    id, selected, countryCode, countryName, cityName, handleClick, ping,
 }) => {
     const getEndpointIcon = (selected, countryCode) => {
         const flagClass = classnames(
@@ -37,7 +37,6 @@ const Endpoint = ({
         { 'endpoints__ping--warning': ping >= PING_WITH_WARNING },
         { 'endpoints__ping--success': ping < PING_WITH_WARNING }
     );
-
     return (
         <button
             type="button"
@@ -47,8 +46,13 @@ const Endpoint = ({
             <div className="endpoints__icon">
                 {getEndpointIcon(selected, countryCode)}
             </div>
-            <div className="endpoints__city">
-                {name}
+            <div className="endpoints__name">
+                <div className="endpoints__country">
+                    {countryName}
+                </div>
+                <div className="endpoints__city">
+                    {cityName}
+                </div>
             </div>
             <div className={pingClassName}>
                 {ping ? (

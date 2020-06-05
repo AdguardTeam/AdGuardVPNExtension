@@ -39,10 +39,10 @@ const CurrentEndpoint = observer((props) => {
             </div>
             <div className="endpoint__info">
                 <div className="endpoint__title">
-                    {cityNameToDisplay}
+                    {countryNameToDisplay}
                 </div>
                 <div className="endpoint__desc">
-                    {countryNameToDisplay}
+                    {cityNameToDisplay}
                 </div>
             </div>
         </div>
