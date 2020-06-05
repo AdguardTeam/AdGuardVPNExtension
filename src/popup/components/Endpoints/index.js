@@ -48,13 +48,8 @@ const Endpoints = observer(() => {
                 handleClick={handleEndpointSelect}
                 selected={selected}
                 countryCode={countryCode}
-<<<<<<< HEAD
-                country={`${countryName}`}
-                city={`${cityName}`}
-=======
                 countryName={countryName}
                 cityName={cityName}
->>>>>>> bb92aa8197a53c48df13697f1ef8e44f101d2d54
                 ping={ping}
             />
         );
