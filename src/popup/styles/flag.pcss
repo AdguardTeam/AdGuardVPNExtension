@@ -5,28 +5,35 @@
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background-color: var(--grayd8);
+    border: 1px solid var(--gray-base);
 
     &--active {
-        background-image: var(--brand-gradient);
+        width: 36px;
+        height: 36px;
+        border-width: 2px;
     }
 
     &--small {
-        width: 19px;
-        height: 19px;
-        background-color: transparent;
+        width: 18px;
+        height: 18px;
+        background-color: transparent; 
+
+        &.flag--active {
+            width: 24px;
+            height: 24px; 
+        }
 
         & .flag__icon {
-            width: 15px;
-            height: 15px;
+            width: 16px;
+            height: 16px;
         }
     }
 
     &__icon {
         display: inline-block;
         vertical-align: middle;
-        width: 24px;
-        height: 24px;
+        width: 28px;
+        height: 28px;
         background-repeat: no-repeat;
         border-radius: 50%;
         background-color: #fff;

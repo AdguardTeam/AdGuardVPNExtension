@@ -85,15 +85,28 @@
     }
 
     &__icon {
+        display: flex;
+        align-items: center;
         margin-right: 15px;
     }
 
-    &__city {
+    &__location {
         max-width: 170px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         text-align: left;
+    }
+
+    &__country {
+        position: relative;
+        font-size: 1.8rem;
+        line-height: 20px;
+    }
+
+    &__city {
+        font-size: 1.4rem;
+        color: var(--gray88);
     }
 
     &__ping {
