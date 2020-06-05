@@ -6,9 +6,11 @@ import CustomError from '../../lib/CustomError';
 
 const getEndpoints = async (vpnToken) => {
     const endpointsObj = await vpnApi.getEndpoints(vpnToken);
-    const { endpoints } = endpointsObj;
+
+    const { endpoints = [], backup_endpoints: backupEndpoints = [] } = endpointsObj;
     const uniqEndpoints = uniqBy(endpoints, 'city_name');
-    return uniqEndpoints.reduce((acc, endpoint) => {
+
+    const prepareData = (acc, endpoint) => {
         const {
             city_name: cityName,
             country_code: countryCode,
@@ -33,7 +35,12 @@ const getEndpoints = async (vpnToken) => {
                 publicKey,
             },
         };
-    }, {});
+    };
+
+    return {
+        endpoints: uniqEndpoints.reduce(prepareData, {}),
+        backupEndpoints: backupEndpoints.reduce(prepareData, {}),
+    };
 };
 
 const getSplitter = (localeCode) => {
@@ -173,7 +180,10 @@ const getVpnCredentials = async (appId, vpnToken) => {
 
     return {
         licenseStatus,
-        result: { credentials, expiresInSec },
+        result: {
+            credentials,
+            expiresInSec,
+        },
         timeExpiresSec,
     };
 };

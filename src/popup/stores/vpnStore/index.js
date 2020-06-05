@@ -54,6 +54,12 @@ class VpnStore {
     };
 
     @action
+    replaceWithBackupEndpoint = ({ endpoint, backup }) => {
+        delete this.endpoints[endpoint.id];
+        this.endpoints[backup.id] = backup;
+    }
+
+    @action
     setPing = (endpointPing) => {
         this.pings[endpointPing.endpointId] = endpointPing;
     };

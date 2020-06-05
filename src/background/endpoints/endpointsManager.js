@@ -2,6 +2,8 @@ import _ from 'lodash';
 import notifier from '../../lib/notifier';
 import { measurePingToEndpointViaFetch } from '../connectivity/pingHelpers';
 import { NOT_AVAILABLE_STATUS } from '../../lib/constants';
+import vpnProvider from '../providers/vpnProvider';
+import log from '../../lib/logger';
 
 /**
  * EndpointsManager keeps endpoints in the memory and determines their ping on request
@@ -9,11 +11,13 @@ import { NOT_AVAILABLE_STATUS } from '../../lib/constants';
 export class EndpointsManager {
     endpoints = {}; // { endpointId: { endpointInfo } }
 
+    backupEndpoints = {}; // { endpointId: { endpointInfo } }
+
     endpointsPings = {}; // { endpointId, ping }[]
 
     PING_TTL_MS = 1000 * 60 * 10; // 10 minutes
 
-    arrToObjConverter = (acc, endpoint) => {
+    arrayToMap = (acc, endpoint) => {
         acc[endpoint.id] = endpoint;
         return acc;
     };
@@ -24,13 +28,41 @@ export class EndpointsManager {
     };
 
     /**
+     * Checks ping for backup endpoint and returns backup endpoint if founds it
+     * @param {Endpoint} endpoint
+     * @returns {Endpoint}
+     */
+    checkBackupEndpoint = (endpoint) => {
+        if (endpoint.ping && endpoint.ping !== NOT_AVAILABLE_STATUS) {
+            return endpoint;
+        }
+
+        const backupEndpoint = Object.values(this.backupEndpoints)
+            .find((e) => e.cityName === endpoint.cityName);
+
+        if (!backupEndpoint) {
+            return endpoint;
+        }
+
+        const backupPing = this.endpointsPings[backupEndpoint.id]?.ping;
+        if (!backupPing) {
+            return endpoint;
+        }
+
+        return { ...backupEndpoint, ping: backupPing };
+    }
+
+    /**
      * Returns all endpoints in the map
      * @returns {Object.<string, Endpoint>}
      */
     getAll = () => {
-        return Object.values(this.endpoints)
+        const endpoints = Object.values(this.endpoints)
             .map(this.enrichWithPing)
-            .reduce(this.arrToObjConverter, {});
+            .map(this.checkBackupEndpoint)
+            .reduce(this.arrayToMap, {});
+
+        return endpoints;
     };
 
     /**
@@ -51,17 +83,25 @@ export class EndpointsManager {
         return this.getAll();
     }
 
+    getEndpointsFromBackend = async (vpnToken) => {
+        const endpointsObj = await vpnProvider.getEndpoints(vpnToken);
+        const { endpoints, backupEndpoints } = endpointsObj;
+
+        this.setEndpoints(endpoints);
+        this.backupEndpoints = backupEndpoints;
+
+        return endpoints;
+    };
+
     setEndpoints(endpoints) {
         if (_.isEqual(this.endpoints, endpoints)) {
-            return this.endpoints;
+            return;
         }
 
         this.endpoints = endpoints;
         this.measurePings();
 
         notifier.notifyListeners(notifier.types.ENDPOINTS_UPDATED, this.getAll());
-
-        return this.endpoints;
     }
 
     /**
@@ -108,8 +148,44 @@ export class EndpointsManager {
 
             let ping = await measurePingToEndpointViaFetch(domainName);
 
-            // TODO start using backup endpoints also
             if (!ping) {
+                log.debug('Looking backup endpoint for:', domainName);
+                const backupEndpoint = Object.values(this.backupEndpoints)
+                    .find((e) => e.cityName === endpoint.cityName);
+                const backupDomainName = backupEndpoint?.domainName;
+                if (backupDomainName) {
+                    log.debug('Found backup endpoint:', backupDomainName);
+                    ping = await measurePingToEndpointViaFetch(backupDomainName);
+                    if (ping) {
+                        const pingData = {
+                            endpointId: backupDomainName,
+                            ping,
+                            measurementTime: Date.now(),
+                            measuring: false,
+                        };
+
+                        this.endpointsPings[backupDomainName] = pingData;
+
+                        notifier.notifyListeners(
+                            notifier.types.ENDPOINT_BACKUP_FOUND,
+                            {
+                                backup: {
+                                    ...backupEndpoint,
+                                    ping,
+                                },
+                                endpoint,
+                            }
+                        );
+                        notifier.notifyListeners(
+                            notifier.types.ENDPOINTS_PING_UPDATED,
+                            pingData
+                        );
+                        log.debug(`Backup endpoint ping determined, replacing "${domainName}" with "${backupDomainName}"`);
+                    } else {
+                        log.debug('Unable to measure ping to backup endpoint:', backupDomainName);
+                    }
+                }
+
                 ping = NOT_AVAILABLE_STATUS;
             }
 

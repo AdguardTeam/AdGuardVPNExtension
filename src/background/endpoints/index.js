@@ -88,13 +88,7 @@ class Endpoints {
             return null;
         }
 
-        const newEndpoints = await vpnProvider.getEndpoints(vpnToken.token);
-
-        if (newEndpoints) {
-            endpointsManager.setEndpoints(newEndpoints);
-        }
-
-        return newEndpoints;
+        return endpointsManager.getEndpointsFromBackend(vpnToken.token);
     };
 
     vpnTokenChanged = (oldVpnToken, newVpnToken) => {
@@ -244,7 +238,7 @@ class Endpoints {
         }
 
         const currentLocation = await userLocation.getCurrentLocation();
-        const endpoints = Object.values(endpointsManager.getAll());
+        const endpoints = Object.values(endpointsManager.getEndpoints());
 
         if (!currentLocation || _.isEmpty(endpoints)) {
             return null;

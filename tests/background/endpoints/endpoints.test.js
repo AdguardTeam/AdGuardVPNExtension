@@ -36,35 +36,38 @@ describe('endpoints class', () => {
             vpnFailurePage: 'https://kb.adguard.com/technical-support',
         };
         const expectedEndpoints = {
-            'do-ca-tor1-01-jbnyx56n.adguard.io': {
-                id: 'do-ca-tor1-01-jbnyx56n.adguard.io',
-                cityName: 'Toronto',
-                countryCode: 'CA',
-                countryName: 'Canada',
-                domainName: 'do-ca-tor1-01-jbnyx56n.adguard.io',
-                coordinates: [-79.34, 43.65],
-                premiumOnly: false,
-                publicKey: 'l+4CZN7RIFsnU/UgIse3BHJC1fzUHbNJh51lIfPOQQ8=',
-            },
-            'do-de-fra1-01.adguard.io': {
-                id: 'do-de-fra1-01.adguard.io',
-                cityName: 'Frankfurt',
-                countryCode: 'DE',
-                countryName: 'Germany',
-                domainName: 'do-de-fra1-01.adguard.io',
-                coordinates: [8.68, 50.11],
-                premiumOnly: false,
-                publicKey: 'UXKhYwlbiRKYa115QjsOdET6ibB4rEnbQDSECoHTXBM=',
-            },
-            'do-gb-lon1-01-hk7z7xez.adguard.io': {
-                id: 'do-gb-lon1-01-hk7z7xez.adguard.io',
-                cityName: 'London',
-                countryCode: 'GB',
-                countryName: 'United Kingdom',
-                domainName: 'do-gb-lon1-01-hk7z7xez.adguard.io',
-                coordinates: [-0.11, 51.5],
-                premiumOnly: false,
-                publicKey: 'uj63wPR3XdE2k7xmtNNoRpWwEF56UBxKtIfKelQu9BM=',
+            backupEndpoints: {},
+            endpoints: {
+                'do-ca-tor1-01-jbnyx56n.adguard.io': {
+                    id: 'do-ca-tor1-01-jbnyx56n.adguard.io',
+                    cityName: 'Toronto',
+                    countryCode: 'CA',
+                    countryName: 'Canada',
+                    domainName: 'do-ca-tor1-01-jbnyx56n.adguard.io',
+                    coordinates: [-79.34, 43.65],
+                    premiumOnly: false,
+                    publicKey: 'l+4CZN7RIFsnU/UgIse3BHJC1fzUHbNJh51lIfPOQQ8=',
+                },
+                'do-de-fra1-01.adguard.io': {
+                    id: 'do-de-fra1-01.adguard.io',
+                    cityName: 'Frankfurt',
+                    countryCode: 'DE',
+                    countryName: 'Germany',
+                    domainName: 'do-de-fra1-01.adguard.io',
+                    coordinates: [8.68, 50.11],
+                    premiumOnly: false,
+                    publicKey: 'UXKhYwlbiRKYa115QjsOdET6ibB4rEnbQDSECoHTXBM=',
+                },
+                'do-gb-lon1-01-hk7z7xez.adguard.io': {
+                    id: 'do-gb-lon1-01-hk7z7xez.adguard.io',
+                    cityName: 'London',
+                    countryCode: 'GB',
+                    countryName: 'United Kingdom',
+                    domainName: 'do-gb-lon1-01-hk7z7xez.adguard.io',
+                    coordinates: [-0.11, 51.5],
+                    premiumOnly: false,
+                    publicKey: 'uj63wPR3XdE2k7xmtNNoRpWwEF56UBxKtIfKelQu9BM=',
+                },
             },
         };
 
@@ -82,7 +85,7 @@ describe('endpoints class', () => {
         expect(vpnInfo).toEqual(expectedVpnInfo);
 
         const endpointsList = await endpoints.getEndpoints();
-        expect(Object.keys(endpointsList)).toEqual(Object.keys(expectedEndpoints));
+        expect(Object.keys(endpointsList)).toEqual(Object.keys(expectedEndpoints.endpoints));
     });
 
     it('get vpn info remotely stops execution if unable to get valid token', async () => {
@@ -97,7 +100,7 @@ describe('endpoints class', () => {
             refreshTokens: true,
         };
 
-        jest.spyOn(vpnProvider, 'getEndpoints').mockResolvedValue(null);
+        jest.spyOn(vpnProvider, 'getEndpoints').mockResolvedValue({ endpoints: [] });
         jest.spyOn(vpnProvider, 'getVpnExtensionInfo').mockResolvedValue(expectedVpnInfo);
         jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue('vpn_token');
         jest.spyOn(credentials, 'gainValidVpnCredentials').mockResolvedValue('vpn_credentials');

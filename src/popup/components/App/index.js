@@ -56,6 +56,10 @@ const App = observer(() => {
                     vpnStore.setPing(data);
                     break;
                 }
+                case notifier.types.ENDPOINT_BACKUP_FOUND: {
+                    vpnStore.replaceWithBackupEndpoint(data);
+                    break;
+                }
                 case notifier.types.CURRENT_ENDPOINT_UPDATED: {
                     vpnStore.setSelectedEndpoint(data);
                     break;
@@ -92,6 +96,7 @@ const App = observer(() => {
             notifier.types.VPN_INFO_UPDATED,
             notifier.types.ENDPOINTS_UPDATED,
             notifier.types.ENDPOINTS_PING_UPDATED,
+            notifier.types.ENDPOINT_BACKUP_FOUND,
             notifier.types.CURRENT_ENDPOINT_UPDATED,
             notifier.types.PERMISSIONS_ERROR_UPDATE,
             notifier.types.PROXY_TURNED_ON,
