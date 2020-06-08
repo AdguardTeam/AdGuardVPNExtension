@@ -1,6 +1,6 @@
 const path = require('path');
 
-const { BUILD_ENV } = process.env;
+const { BUILD_ENV, API_ENV } = process.env;
 
 const SRC_PATH = '../src';
 const LOCALES_PATH = path.join(__dirname, SRC_PATH, '_locales/en/messages');
@@ -18,6 +18,9 @@ const ENV_MAP = {
 };
 
 const IS_DEV = BUILD_ENV ? BUILD_ENV === ENVS.DEV : true;
+
+// Used to build build for qa with production level api
+const PROD_API = API_ENV ? API_ENV === 'prod' : false;
 
 const BROWSER_TYPES = {
     CHROME: 'chrome',
@@ -71,4 +74,5 @@ module.exports = {
     CHROME_UPDATE_CRX,
     FIREFOX_UPDATE_XPI,
     BROWSER_TYPES,
+    PROD_API,
 };
