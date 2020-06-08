@@ -2,6 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 
 import { PING_WITH_WARNING } from '../../stores/consts';
+import { NOT_AVAILABLE_STATUS } from '../../../lib/constants';
 
 const Endpoint = ({
     id, selected, countryCode, countryName, cityName, handleClick, ping,
@@ -27,9 +28,12 @@ const Endpoint = ({
         );
     };
 
+    const pingIsNotAvailable = ping === NOT_AVAILABLE_STATUS;
+
     const endpointClassName = classnames(
         'endpoints__item',
-        { 'endpoints__item--selected': selected }
+        { 'endpoints__item--selected': selected },
+        { 'endpoints__item--offline': pingIsNotAvailable }
     );
 
     const pingClassName = classnames(
@@ -37,6 +41,7 @@ const Endpoint = ({
         { 'endpoints__ping--warning': ping >= PING_WITH_WARNING },
         { 'endpoints__ping--success': ping < PING_WITH_WARNING }
     );
+
     return (
         <button
             type="button"
@@ -57,8 +62,7 @@ const Endpoint = ({
             <div className={pingClassName}>
                 {ping ? (
                     <span>
-                        {ping}
-                        &nbsp;ms
+                        {pingIsNotAvailable ? 'Offline' : `${ping} ms`}
                     </span>
                 ) : (
                     <span className="endpoints__dots">
