@@ -237,13 +237,17 @@ class Endpoints {
         }
 
         const currentLocation = await userLocation.getCurrentLocation();
-        const endpoints = Object.values(endpointsManager.getEndpoints());
+
+        const endpoints = endpointsManager.getEndpoints();
 
         if (!currentLocation || _.isEmpty(endpoints)) {
             return null;
         }
 
-        const closestEndpoint = getClosestEndpointByCoordinates(endpoints, currentLocation);
+        const closestEndpoint = getClosestEndpointByCoordinates(
+            Object.values(endpoints),
+            currentLocation
+        );
 
         await proxy.setCurrentEndpoint(closestEndpoint);
         return closestEndpoint;
