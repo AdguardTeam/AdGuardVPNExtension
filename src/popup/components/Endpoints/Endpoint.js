@@ -3,6 +3,7 @@ import classnames from 'classnames';
 
 import { PING_WITH_WARNING } from '../../stores/consts';
 import { NOT_AVAILABLE_STATUS } from '../../../lib/constants';
+import translator from '../../../lib/translator';
 
 const Endpoint = ({
     id, selected, countryCode, countryName, cityName, handleClick, ping,
@@ -62,7 +63,7 @@ const Endpoint = ({
             <div className={pingClassName}>
                 {ping ? (
                     <span>
-                        {pingIsNotAvailable ? 'Offline' : `${ping} ms`}
+                        {pingIsNotAvailable ? translator.translate('offline_title') : `${ping} ms`}
                     </span>
                 ) : (
                     <span className="endpoints__dots">
