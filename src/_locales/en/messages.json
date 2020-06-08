@@ -349,5 +349,8 @@
     },
     "options_title": {
         "message": "AdGuard VPN Options"
+    },
+    "offline_title": {
+        "message": "Offline"
     }
 }
