@@ -260,14 +260,14 @@ class Credentials {
     }
 
     updateProxyCredentials = async () => {
-        const { prefix, credentials } = await this.getAccessCredentials();
-        await this.proxy.setAccessPrefix(prefix, credentials);
+        const { credentialsHash, credentials } = await this.getAccessCredentials();
+        await this.proxy.setAccessPrefix(credentialsHash, credentials);
     };
 
     /**
-     * Returns domain prefix and vpn token
+     * Returns credentialsHash, vpn token and credentials
      * @returns {Promise<{
-     *                      prefix: string,
+     *                      credentialsHash: string,
      *                      token: string,
      *                      credentials: {password: string, username: string}
      *                  }>}
@@ -277,7 +277,7 @@ class Credentials {
         const { result: { credentials } } = await this.gainValidVpnCredentials();
         const appId = this.getAppId();
         return {
-            prefix: md5(`${appId}:${token}:${credentials}`).toString(),
+            credentialsHash: md5(`${appId}:${token}:${credentials}`).toString(),
             credentials: { username: token, password: credentials },
             token,
         };

@@ -41,10 +41,10 @@ class EndpointConnectivity {
 
     updateCredentials = async () => {
         let vpnToken;
-        let prefix;
+        let credentialsHash;
         try {
             const accessCredentials = await credentials.getAccessCredentials();
-            ({ prefix, token: vpnToken } = accessCredentials);
+            ({ credentialsHash, token: vpnToken } = accessCredentials);
         } catch (e) {
             return; // do nothing;
         }
@@ -52,26 +52,24 @@ class EndpointConnectivity {
         const domainName = await proxy.getDomainName();
 
         // if values are empty, do nothing
-        if (!vpnToken || !prefix || !domainName) {
+        if (!vpnToken || !credentialsHash || !domainName) {
             return;
         }
-
-        const wsHost = `${prefix}.${domainName}`;
 
         // do not set if credentials are the same
-        if (wsHost === this.wsHost
-            && domainName === this.domainName
-            && vpnToken === this.vpnToken) {
+        if (this.credentialsHash === credentialsHash
+            && this.domainName === domainName
+            && this.vpnToken === vpnToken) {
             return;
         }
 
-        await this.setCredentials(wsHost, domainName, vpnToken);
+        await this.setCredentials(domainName, vpnToken, credentialsHash);
     };
 
-    async setCredentials(wsHost, domainName, vpnToken, shouldStart) {
+    async setCredentials(domainName, vpnToken, credentialsHash, shouldStart) {
         this.vpnToken = vpnToken;
         this.domainName = domainName;
-        this.wsHost = wsHost;
+        this.credentialsHash = credentialsHash;
 
         let restart = false;
 
@@ -80,7 +78,7 @@ class EndpointConnectivity {
             await this.stop();
         }
 
-        const websocketUrl = renderTemplate(WS_API_URL_TEMPLATE, { host: wsHost });
+        const websocketUrl = renderTemplate(WS_API_URL_TEMPLATE, { host: `hello.${this.domainName}`, hash: credentialsHash });
         try {
             this.ws = await websocketFactory.createReconnectingWebsocket(websocketUrl);
         } catch (e) {

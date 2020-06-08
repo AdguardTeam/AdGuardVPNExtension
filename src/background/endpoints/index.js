@@ -47,9 +47,8 @@ class Endpoints {
      */
     reconnectEndpoint = async (endpoint) => {
         const { domainName } = await proxy.setCurrentEndpoint(endpoint);
-        const { prefix, token } = await credentials.getAccessCredentials();
-        const wsHost = `${prefix}.${domainName}`;
-        await connectivity.endpointConnectivity.setCredentials(wsHost, domainName, token);
+        const { credentialsHash, token } = await credentials.getAccessCredentials();
+        await connectivity.endpointConnectivity.setCredentials(domainName, token, credentialsHash);
         log.debug(`Reconnect endpoint from ${endpoint.id} to same city ${endpoint.id}`);
     };
 
@@ -238,13 +237,17 @@ class Endpoints {
         }
 
         const currentLocation = await userLocation.getCurrentLocation();
-        const endpoints = Object.values(endpointsManager.getEndpoints());
+
+        const endpoints = endpointsManager.getEndpoints();
 
         if (!currentLocation || _.isEmpty(endpoints)) {
             return null;
         }
 
-        const closestEndpoint = getClosestEndpointByCoordinates(endpoints, currentLocation);
+        const closestEndpoint = getClosestEndpointByCoordinates(
+            Object.values(endpoints),
+            currentLocation
+        );
 
         await proxy.setCurrentEndpoint(closestEndpoint);
         return closestEndpoint;
