@@ -9,6 +9,7 @@ const {
     IS_DEV,
     BUILD_ENV,
     BUILD_PATH,
+    PROD_API,
 } = require('./consts');
 const { getOutputPathByEnv } = require('./helpers');
 
@@ -71,7 +72,7 @@ const config = {
     plugins: [
         // Define environment for choosing appropriate api urls
         new webpack.DefinePlugin({
-            PRODUCTION: JSON.stringify(!IS_DEV),
+            PRODUCTION: JSON.stringify(PROD_API),
             BROWSER: JSON.stringify(process.env.BROWSER),
         }),
         new webpack.NormalModuleReplacementPlugin(/\.\/abstractProxyApi/, ((resource) => {
