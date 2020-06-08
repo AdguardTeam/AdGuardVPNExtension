@@ -47,9 +47,8 @@ class Endpoints {
      */
     reconnectEndpoint = async (endpoint) => {
         const { domainName } = await proxy.setCurrentEndpoint(endpoint);
-        const { prefix, token } = await credentials.getAccessCredentials();
-        const wsHost = `${prefix}.${domainName}`;
-        await connectivity.endpointConnectivity.setCredentials(wsHost, domainName, token);
+        const { credentialsHash, token } = await credentials.getAccessCredentials();
+        await connectivity.endpointConnectivity.setCredentials(domainName, token, credentialsHash);
         log.debug(`Reconnect endpoint from ${endpoint.id} to same city ${endpoint.id}`);
     };
 
