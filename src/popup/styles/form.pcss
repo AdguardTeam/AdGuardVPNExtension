@@ -1,13 +1,21 @@
 .form {
     display: flex;
     flex-direction: column;
-    height: 100%;
     text-align: center;
 
     &--error {
         & .form__input {
             border-color: var(--red);
         }
+
+        & .form__inputs {
+            margin-bottom: 0;
+        }
+
+        & .form__btn-wrap {
+            margin-bottom: 40px;
+        }
+
     }
 
     &--2fa {
@@ -170,7 +178,7 @@
     &__subtitle {
         font-size: 2.2rem;
         font-weight: 700;
-        margin-bottom: 35px;
+        margin: 14px 0 35px;
     }
 
     &__info {
