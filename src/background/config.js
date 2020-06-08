@@ -64,9 +64,8 @@ const EDIT_ACCOUNT_URL_MAP = {
 };
 export const EDIT_ACCOUNT_URL = EDIT_ACCOUNT_URL_MAP[currentEnv];
 
-
 // Websocket
-export const WS_API_URL_TEMPLATE = 'wss://{{host}}:8443/user_metrics';
+export const WS_API_URL_TEMPLATE = 'wss://{{host}}:443/user?hash={{hash}}';
 
 // Privacy and EULA
 export const PRIVACY_URL = 'https://adguard-vpn.com/forward.html?action=privacy&from=popup&app=vpn_extension';

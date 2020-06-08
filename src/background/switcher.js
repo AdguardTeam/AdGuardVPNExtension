@@ -11,14 +11,13 @@ function* turnOnProxy() {
     try {
         const accessCredentials = yield credentials.getAccessCredentials();
         const { domainName } = yield proxy.setAccessPrefix(
-            accessCredentials.prefix,
+            accessCredentials.credentialsHash,
             accessCredentials.credentials
         );
-        const wsHost = `${accessCredentials.prefix}.${domainName}`;
         yield connectivity.endpointConnectivity.setCredentials(
-            wsHost,
             domainName,
             accessCredentials.token,
+            accessCredentials.credentialsHash,
             true
         );
         yield proxy.turnOn();
