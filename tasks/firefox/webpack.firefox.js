@@ -5,8 +5,11 @@ const ZipWebpackPlugin = require('zip-webpack-plugin');
 const common = require('../webpack.common');
 const { updateManifest } = require('../helpers');
 const firefoxManifestDiff = require('./manifest.firefox');
+const { PROD_API } = require('../consts');
 
 const FIREFOX_PATH = 'firefox';
+
+const zipFilename = PROD_API ? 'firefox-prod.zip' : 'firefox.zip';
 
 const plugins = [
     new CopyWebpackPlugin([
@@ -19,7 +22,7 @@ const plugins = [
     ]),
     new ZipWebpackPlugin({
         path: '../',
-        filename: 'firefox.zip',
+        filename: zipFilename,
     }),
 ];
 
