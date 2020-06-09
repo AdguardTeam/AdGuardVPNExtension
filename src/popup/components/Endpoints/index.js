@@ -14,10 +14,10 @@ const Endpoints = observer(() => {
 
     const handleEndpointSelect = (id) => async (e) => {
         e.preventDefault();
-        const prevId = vpnStore.selectedEndpoint.id;
-        await vpnStore.selectEndpoint(id);
+        const prevId = vpnStore.selectedLocation.id;
+        await vpnStore.selectLocation(id);
         uiStore.closeEndpointsSearch();
-        if (settingsStore.proxyEnabled && prevId !== vpnStore.selectedEndpoint.id) {
+        if (settingsStore.proxyEnabled && prevId !== vpnStore.selectedLocation.id) {
             await settingsStore.reconnectProxy();
             return;
         }
@@ -66,13 +66,13 @@ const Endpoints = observer(() => {
 
     const renderFilteredEndpoint = () => {
         const {
-            filteredEndpoints,
+            filteredLocations,
             showSearchResults,
         } = vpnStore;
-        const emptySearchResults = showSearchResults && filteredEndpoints.length === 0;
+        const emptySearchResults = showSearchResults && filteredLocations.length === 0;
         let listTitle = 'endpoints_all';
 
-        if (showSearchResults && filteredEndpoints.length > 0) {
+        if (showSearchResults && filteredLocations.length > 0) {
             listTitle = 'endpoints_search_results';
         }
 
@@ -92,13 +92,13 @@ const Endpoints = observer(() => {
                 <div className="endpoints__title">
                     {translator.translate(listTitle)}
                 </div>
-                {renderEndpoints(filteredEndpoints)}
+                {renderEndpoints(filteredLocations)}
             </div>
         );
     };
 
     const {
-        fastestEndpoints,
+        fastestLocations,
         showSearchResults,
     } = vpnStore;
 
@@ -129,8 +129,8 @@ const Endpoints = observer(() => {
                             <div className="endpoints__title">
                                 {translator.translate('endpoints_fastest')}
                             </div>
-                            {fastestEndpoints.length > 0 ? (
-                                renderEndpoints(fastestEndpoints)
+                            {fastestLocations.length > 0 ? (
+                                renderEndpoints(fastestLocations)
                             ) : (
                                 <Skeleton />
                             )}

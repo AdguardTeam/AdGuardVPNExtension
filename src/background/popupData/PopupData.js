@@ -33,7 +33,7 @@ class PopupData {
         const error = this.permissionsError.getError();
         const isRoutable = this.nonRoutable.isUrlRoutable(url);
         const vpnInfo = this.endpoints.getVpnInfo();
-        const endpointsList = await this.endpoints.getEndpoints();
+        const locations = this.endpoints.getLocations();
         const selectedEndpoint = await this.endpoints.getSelectedEndpoint();
         const canControlProxy = await adguard.appStatus.canControlProxy();
         const isProxyEnabled = adguard.settings.isProxyEnabled();
@@ -48,7 +48,7 @@ class PopupData {
         return {
             permissionsError: error,
             vpnInfo,
-            endpointsList,
+            locations,
             selectedEndpoint,
             isAuthenticated,
             canControlProxy,
@@ -84,11 +84,11 @@ class PopupData {
             return data;
         }
 
-        const { vpnInfo, endpointsList, selectedEndpoint } = data;
+        const { vpnInfo, locations, selectedEndpoint } = data;
 
         let hasRequiredData = true;
 
-        if (!vpnInfo || !endpointsList || !selectedEndpoint) {
+        if (!vpnInfo || !locations || !selectedEndpoint) {
             if (retryNum <= 1) {
                 // it may be useful to disconnect proxy if we can't get data
                 if (data.isProxyEnabled) {

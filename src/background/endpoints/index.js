@@ -13,6 +13,7 @@ import credentials from '../credentials';
 import proxy from '../proxy';
 import vpnProvider from '../providers/vpnProvider';
 import userLocation from './userLocation';
+import { locationsManager } from './locationsManager';
 
 /**
  * Endpoint information
@@ -227,6 +228,11 @@ class Endpoints {
     getEndpoints = async () => {
         return endpointsManager.getEndpoints();
     };
+
+    getLocations = () => {
+        const locations = locationsManager.getLocations();
+        return locations;
+    }
 
     getSelectedEndpoint = async () => {
         const proxySelectedEndpoint = await proxy.getCurrentEndpoint();

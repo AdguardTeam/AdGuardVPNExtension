@@ -49,7 +49,7 @@ const App = observer(() => {
                     break;
                 }
                 case notifier.types.ENDPOINTS_UPDATED: {
-                    vpnStore.setAllEndpoints(data);
+                    vpnStore.setLocations(data);
                     break;
                 }
                 case notifier.types.ENDPOINTS_PING_UPDATED: {
@@ -61,7 +61,7 @@ const App = observer(() => {
                     break;
                 }
                 case notifier.types.CURRENT_ENDPOINT_UPDATED: {
-                    vpnStore.setSelectedEndpoint(data);
+                    vpnStore.setSelectedLocation(data);
                     break;
                 }
                 case notifier.types.PERMISSIONS_ERROR_UPDATE: {

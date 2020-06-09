@@ -12,11 +12,11 @@ class VpnStore {
         this.rootStore = rootStore;
     }
 
-    @observable endpoints = {};
+    @observable locations = {};
 
     @observable pings = {};
 
-    @observable selectedEndpoint;
+    @observable selectedLocation;
 
     @observable searchValue = '';
 
@@ -37,26 +37,18 @@ class VpnStore {
     };
 
     @action
-    setEndpoints = (endpoints) => {
-        if (!endpoints) {
+    setLocations = (locations) => {
+        if (!locations) {
             return;
         }
 
-        this.endpoints = endpoints;
-    };
-
-    @action
-    setAllEndpoints = (endpoints) => {
-        if (!endpoints) {
-            return;
-        }
-        this.endpoints = endpoints;
-    };
+        this.locations = locations;
+    }
 
     @action
     replaceWithBackupEndpoint = ({ endpoint, backup }) => {
-        delete this.endpoints[endpoint.id];
-        this.endpoints[backup.id] = backup;
+        delete this.locations[endpoint.id];
+        this.locations[backup.id] = backup;
     }
 
     @action
@@ -65,40 +57,40 @@ class VpnStore {
     };
 
     @action
-    selectEndpoint = async (id) => {
-        const selectedEndpoint = this.endpoints?.[id];
-        if (!selectedEndpoint) {
+    selectLocation = async (id) => {
+        const selectedLocation = this.locations?.[id];
+        if (!selectedLocation) {
             throw new Error(`No endpoint with id: "${id}" found`);
         }
-        await messenger.setCurrentEndpoint(toJS(selectedEndpoint));
+        await messenger.setCurrentEndpoint(toJS(selectedLocation));
         runInAction(() => {
-            this.selectedEndpoint = { ...selectedEndpoint, selected: true };
+            this.selectedLocation = { ...selectedLocation, selected: true };
         });
     };
 
     @action
-    setSelectedEndpoint = (endpoint) => {
-        if (!endpoint) {
+    setSelectedLocation = (location) => {
+        if (!location) {
             return;
         }
-        if (!this.selectedEndpoint
-            || (this.selectedEndpoint && this.selectedEndpoint.id !== endpoint.id)) {
-            this.selectedEndpoint = { ...endpoint, selected: true };
+        if (!this.selectedLocation
+            || (this.selectedLocation && this.selectedLocation.id !== location.id)) {
+            this.selectedLocation = { ...location, selected: true };
         }
     };
 
     @computed
-    get filteredEndpoints() {
-        const allEndpoints = Object.values(this.endpoints || {});
+    get filteredLocations() {
+        const locations = Object.values(this.locations || {});
 
-        return allEndpoints
-            .filter((endpoint) => {
+        return locations
+            .filter((location) => {
                 if (!this.searchValue || this.searchValue.length === 0) {
                     return true;
                 }
                 const regex = new RegExp(this.searchValue, 'ig');
-                return (endpoint.cityName && endpoint.cityName.match(regex))
-                || (endpoint.countryName && endpoint.countryName.match(regex));
+                return (location.cityName && location.cityName.match(regex))
+                || (location.countryName && location.countryName.match(regex));
             })
             .sort((a, b) => {
                 if (a.countryName < b.countryName) {
@@ -109,66 +101,66 @@ class VpnStore {
                 }
                 return 0;
             })
-            .map((endpoint) => {
-                const endpointPing = this.pings[endpoint.id];
-                if (endpointPing) {
-                    return { ...endpoint, ping: endpointPing.ping };
+            .map((location) => {
+                const pingData = this.pings[location.id];
+                if (pingData) {
+                    return { ...location, ping: pingData.ping };
                 }
-                return endpoint;
+                return location;
             })
-            .map((endpoint) => {
-                if (this.selectedEndpoint && this.selectedEndpoint.id === endpoint.id) {
-                    return { ...endpoint, selected: true };
+            .map((location) => {
+                if (this.selectedLocation && this.selectedLocation.id === location.id) {
+                    return { ...location, selected: true };
                 }
-                return endpoint;
+                return location;
             });
     }
 
     @computed
-    get fastestEndpoints() {
-        const FASTEST_ENDPOINTS_COUNT = 3;
-        const endpoints = Object.values(this.endpoints || {});
-        const sortedEndpoints = endpoints
-            .map((endpoint) => {
-                const endpointPing = this.pings[endpoint.id];
-                if (endpointPing) {
-                    return { ...endpoint, ping: endpointPing.ping };
+    get fastestLocations() {
+        const FASTEST_LOCATIONS_COUNT = 3;
+        const locations = Object.values(this.locations || {});
+        const sortedLocations = locations
+            .map((location) => {
+                const locationPing = this.pings[location.id];
+                if (locationPing) {
+                    return { ...location, ping: locationPing.ping };
                 }
-                return endpoint;
+                return location;
             })
-            .filter((endpoint) => endpoint.ping)
+            .filter((location) => location.ping)
             .sort((a, b) => a.ping - b.ping)
-            .map((endpoint) => {
-                if (this.selectedEndpoint && this.selectedEndpoint.id === endpoint.id) {
-                    return { ...endpoint, selected: true };
+            .map((location) => {
+                if (this.selectedLocation && this.selectedLocation.id === location.id) {
+                    return { ...location, selected: true };
                 }
-                return { ...endpoint };
+                return { ...location };
             });
         // display fastest if
         // pings number is equal to endpoints number
-        if (sortedEndpoints.length === endpoints.length) {
-            return sortedEndpoints.slice(0, FASTEST_ENDPOINTS_COUNT);
+        if (sortedLocations.length === locations.length) {
+            return sortedLocations.slice(0, FASTEST_LOCATIONS_COUNT);
         }
         // there are more than three pings ready
-        if (sortedEndpoints.length >= FASTEST_ENDPOINTS_COUNT) {
-            return sortedEndpoints.slice(0, FASTEST_ENDPOINTS_COUNT);
+        if (sortedLocations.length >= FASTEST_LOCATIONS_COUNT) {
+            return sortedLocations.slice(0, FASTEST_LOCATIONS_COUNT);
         }
         return [];
     }
 
     @computed
     get countryNameToDisplay() {
-        return this.selectedEndpoint && this.selectedEndpoint.countryName;
+        return this.selectedLocation?.countryName;
     }
 
     @computed
     get countryCodeToDisplay() {
-        return this.selectedEndpoint && this.selectedEndpoint.countryCode;
+        return this.selectedLocation?.countryCode;
     }
 
     @computed
     get cityNameToDisplay() {
-        return this.selectedEndpoint && this.selectedEndpoint.cityName;
+        return this.selectedLocation?.cityName;
     }
 
     @action
@@ -224,20 +216,20 @@ class VpnStore {
     }
 
     @computed
-    get currentEndpointPing() {
-        if (!this.endpoints) {
+    get selectedLocationPing() {
+        if (!this.locations) {
             return null;
         }
 
-        const selectedEndpointId = this.selectedEndpoint.id;
-        const currentEndpoint = this.endpoints[selectedEndpointId];
-        let { ping } = currentEndpoint;
-        // update with fresh values from pings storage
-        if (this.pings[selectedEndpointId]) {
-            ping = this.pings[selectedEndpointId].ping;
-        }
+        // const selectedEndpointId = this.selectedLocation.id;
+        // const currentEndpoint = this.locations[selectedEndpointId];
+        // let { ping } = currentEndpoint;
+        // // update with fresh values from pings storage
+        // if (this.pings[selectedEndpointId]) {
+        //     ping = this.pings[selectedEndpointId].ping;
+        // }
 
-        return toJS(ping) || null;
+        return null; // TODO fix to return real value
     }
 }
 
