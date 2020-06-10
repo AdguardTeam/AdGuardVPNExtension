@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import qs from 'qs';
 import log from '../../lib/logger';
-import { getClosestEndpointByCoordinates } from '../../lib/helpers';
+import { getClosestLocationToUser } from '../../lib/helpers';
 import { ERROR_STATUSES } from '../../lib/constants';
 import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
 import endpointsManager from './endpointsManager';
@@ -50,7 +50,7 @@ class Endpoints {
         const { domainName } = await proxy.setCurrentEndpoint(endpoint);
         const { credentialsHash, token } = await credentials.getAccessCredentials();
         await connectivity.endpointConnectivity.setCredentials(domainName, token, credentialsHash);
-        log.debug(`Reconnect endpoint from ${endpoint.id} to same city ${endpoint.id}`);
+        log.debug(`Reconnecting endpoint to ${endpoint.id}`);
     };
 
     /**
@@ -71,7 +71,7 @@ class Endpoints {
             return sameCityEndpoint;
         }
 
-        return getClosestEndpointByCoordinates(endpointsArr, currentEndpoint);
+        return getClosestLocationToUser(endpointsArr, currentEndpoint);
     };
 
     /**
@@ -226,38 +226,36 @@ class Endpoints {
         return null;
     };
 
-    getEndpoints = async () => {
-        return endpointsManager.getEndpoints();
-    };
-
     getLocations = () => {
-        const locations = locationsManager.getLocations();
+        const locations = locationsManager.getLocationsData();
         return locations;
     }
 
-    getSelectedEndpoint = async () => {
+    getSelectedLocation = async () => {
         const proxySelectedEndpoint = await proxy.getCurrentEndpoint();
+        const selectedLocation = locationsManager.getLocationByEndpoint(proxySelectedEndpoint.id);
 
         // if found return
-        if (proxySelectedEndpoint) {
-            return proxySelectedEndpoint;
+        if (selectedLocation) {
+            return selectedLocation;
         }
 
-        const currentLocation = await userLocation.getCurrentLocation();
+        const userCurrentLocation = await userLocation.getCurrentLocation();
+        const locations = locationsManager.getLocations();
 
-        const endpoints = endpointsManager.getEndpoints();
-
-        if (!currentLocation || _.isEmpty(endpoints)) {
+        if (!userCurrentLocation || _.isEmpty(locations)) {
             return null;
         }
 
-        const closestEndpoint = getClosestEndpointByCoordinates(
-            Object.values(endpoints),
-            currentLocation
+        const closestLocation = getClosestLocationToUser(
+            Object.values(locations),
+            userCurrentLocation
         );
 
-        await proxy.setCurrentEndpoint(closestEndpoint);
-        return closestEndpoint;
+        const endpoint = await closestLocation.getEndpoint();
+        await this.reconnectEndpoint(endpoint);
+
+        return closestLocation;
     };
 
     getVpnFailurePage = async () => {

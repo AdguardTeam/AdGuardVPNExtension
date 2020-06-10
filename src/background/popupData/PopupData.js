@@ -35,7 +35,7 @@ class PopupData {
         const isRoutable = this.nonRoutable.isUrlRoutable(url);
         const vpnInfo = this.endpoints.getVpnInfo();
         const locations = this.endpoints.getLocations();
-        const selectedEndpoint = await this.endpoints.getSelectedEndpoint();
+        const selectedEndpoint = await this.endpoints.getSelectedLocation();
         const canControlProxy = await adguard.appStatus.canControlProxy();
         const isProxyEnabled = adguard.settings.isProxyEnabled();
         const isConnectivityWorking = connectivity.endpointConnectivity.isWorking();

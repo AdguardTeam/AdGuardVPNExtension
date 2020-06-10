@@ -9,11 +9,15 @@ class LocationsManager {
     locations = new Locations();
 
     getLocations = () => {
+        return this.locations.getLocations();
+    }
+
+    getLocationsData = () => {
         // every time launch locations update
         this.updateLocations();
 
         // return cached data
-        return this.locations.getLocations();
+        return this.locations.getLocationsData();
     }
 
     getLocationsFromServer = async () => {
@@ -50,12 +54,19 @@ class LocationsManager {
         // launch pings measurement
         this.locations.measurePings();
 
-        notifier.notifyListeners(notifier.types.LOCATIONS_UPDATED, this.locations.getLocations());
+        notifier.notifyListeners(
+            notifier.types.LOCATIONS_UPDATED,
+            this.locations.getLocationsData()
+        );
     }
 
     getEndpoint = async (id) => {
         const location = this.locations.getLocation(id);
         return location.getEndpoint();
+    }
+
+    getLocationByEndpoint = (endpointId) => {
+        return this.locations.getLocationByEndpoint(endpointId);
     }
 }
 

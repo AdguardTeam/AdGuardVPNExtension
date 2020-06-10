@@ -2,6 +2,10 @@ export class Locations {
     locations = {};
 
     getLocations = () => {
+        return this.locations;
+    }
+
+    getLocationsData = () => {
         return Object.values(this.locations).reduce((acc, location) => {
             acc[location.id] = {
                 id: location.id,
@@ -43,5 +47,17 @@ export class Locations {
 
     getLocation = (id) => {
         return this.locations[id];
+    }
+
+    getLocationByEndpoint = (endpointId) => {
+        if (!endpointId) {
+            return null;
+        }
+
+        const location = Object.values(this.locations).find((location) => {
+            return location.getEndpointById(endpointId);
+        });
+
+        return location;
     }
 }

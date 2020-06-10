@@ -2,7 +2,7 @@ import {
     lazyGet,
     getHostname,
     getProtocol,
-    getClosestEndpointByCoordinates,
+    getClosestLocationToUser,
     formatBytes,
 } from '../../src/lib/helpers';
 
@@ -102,7 +102,7 @@ describe('getClosestEndpointByCoordinates', () => {
     ];
 
     it('should find the closest coordinates correctly', () => {
-        expect(getClosestEndpointByCoordinates(COORDS, { coordinates: [100, 60] }))
+        expect(getClosestLocationToUser(COORDS, { coordinates: [100, 60] }))
             .toEqual({ coordinates: [37.61, 55.75], city: 'Moscow' });
     });
 });

@@ -98,7 +98,7 @@ export const sortByDistance = (endpoints, currentEndpoint) => {
  * @param {Endpoint} currentEndpoint
  * @returns {Endpoint}
  */
-export const getClosestEndpointByCoordinates = (endpoints, currentEndpoint) => {
+export const getClosestLocationToUser = (endpoints, currentEndpoint) => {
     return sortByDistance(endpoints, currentEndpoint)[0];
 };
 

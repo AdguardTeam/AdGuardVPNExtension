@@ -10,6 +10,7 @@ export class Location {
         this.cityName = locationData.cityName;
         this.countryCode = locationData.countryCode;
         this.endpoints = locationData.endpoints;
+        this.coordinates = locationData.coordinates;
         this.pingData = {
             isMeasuring: false,
             lastMeasurementTime: 0,
@@ -109,5 +110,9 @@ export class Location {
 
     get ping() {
         return this.pingData.ping;
+    }
+
+    getEndpointById(id) {
+        return this.endpoints.find((endpoint) => endpoint.id === id);
     }
 }

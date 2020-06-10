@@ -86,7 +86,12 @@ const getLocationsData = async (vpnToken) => {
     };
 
     const locations = [...preparedEndpoints, ...preparedBackupEndpoints].reduce((acc, endpoint) => {
-        const { countryName, cityName, countryCode } = endpoint;
+        const {
+            countryName,
+            cityName,
+            countryCode,
+            coordinates,
+        } = endpoint;
         const id = `${toLowerKebab(countryName)}_${toLowerKebab(cityName)}`;
         const existingLocation = acc[id];
         if (existingLocation) {
@@ -98,6 +103,7 @@ const getLocationsData = async (vpnToken) => {
             countryName,
             cityName,
             countryCode,
+            coordinates,
             endpoints: [endpoint],
         };
         return acc;
