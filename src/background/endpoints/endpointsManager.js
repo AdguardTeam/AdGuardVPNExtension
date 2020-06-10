@@ -2,7 +2,6 @@ import _ from 'lodash';
 import notifier from '../../lib/notifier';
 import { measurePingToEndpointViaFetch } from '../connectivity/pingHelpers';
 import { NOT_AVAILABLE_STATUS } from '../../lib/constants';
-import vpnProvider from '../providers/vpnProvider';
 import log from '../../lib/logger';
 
 /**
@@ -82,16 +81,6 @@ export class EndpointsManager {
 
         return this.getAll();
     }
-
-    getEndpointsFromBackend = async (vpnToken) => {
-        const endpointsObj = await vpnProvider.getEndpoints(vpnToken);
-        const { endpoints, backupEndpoints } = endpointsObj;
-
-        this.setEndpoints(endpoints);
-        this.backupEndpoints = backupEndpoints;
-
-        return endpoints;
-    };
 
     setEndpoints(endpoints) {
         if (_.isEqual(this.endpoints, endpoints)) {

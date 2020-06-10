@@ -14,6 +14,16 @@ class VpnApi extends Api {
         return this.makeRequest(path, method, { params });
     };
 
+    GET_LOCATIONS = { path: 'locations', method: 'GET' };
+
+    getLocations = (vpnToken) => {
+        const { path, method } = this.GET_LOCATIONS;
+        const params = {
+            token: vpnToken,
+        };
+        return this.makeRequest(path, method, { params });
+    };
+
     GET_VPN_CREDENTIALS = { path: 'proxy_credentials', method: 'POST' };
 
     getVpnCredentials = (appId, vpnToken) => {

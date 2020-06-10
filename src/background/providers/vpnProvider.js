@@ -1,115 +1,64 @@
 import browser from 'webextension-polyfill';
-import uniqBy from 'lodash/uniqBy';
 import { vpnApi } from '../api';
 import { ERROR_STATUSES } from '../../lib/constants';
 import CustomError from '../../lib/CustomError';
-import { identity } from '../../lib/helpers';
 
-const getEndpoints = async (vpnToken) => {
-    const endpointsObj = await vpnApi.getEndpoints(vpnToken);
-
-    const { endpoints = [], backup_endpoints: backupEndpoints = [] } = endpointsObj;
-    const uniqEndpoints = uniqBy(endpoints, 'city_name');
-
-    const prepareData = (acc, endpoint) => {
-        const {
-            city_name: cityName,
-            country_code: countryCode,
-            country_name: countryName,
-            domain_name: domainName,
-            latitude,
-            longitude,
-            premium_only: premiumOnly,
-            public_key: publicKey,
-        } = endpoint;
-
-        return {
-            ...acc,
-            [domainName]: {
-                id: domainName,
-                cityName,
-                countryCode,
-                countryName,
-                domainName,
-                coordinates: [longitude, latitude],
-                premiumOnly,
-                publicKey,
-            },
-        };
-    };
-
-    return {
-        endpoints: uniqEndpoints.reduce(prepareData, {}),
-        backupEndpoints: backupEndpoints.reduce(prepareData, {}),
-    };
-};
-
-// TODO adjust this method for new api
+/**
+ * Prepares locations data
+ * @param vpnToken
+ * @returns {Promise<*>}
+ */
 const getLocationsData = async (vpnToken) => {
-    const endpointsObj = await vpnApi.getEndpoints(vpnToken);
+    const locationsData = await vpnApi.getLocations(vpnToken);
 
-    const { endpoints = [], backup_endpoints: backupEndpoints = [] } = endpointsObj;
+    const { locations = [] } = locationsData;
 
-    const prepareData = (endpoint) => {
+    const prepareEndpointData = (endpoint) => {
         const {
-            city_name: cityName,
-            country_code: countryCode,
-            country_name: countryName,
             domain_name: domainName,
-            latitude,
-            longitude,
-            premium_only: premiumOnly,
+            ipv4_address: ipv4Address,
+            ipv6_address: ipv6Address,
             public_key: publicKey,
         } = endpoint;
 
         return {
             id: domainName,
-            cityName,
-            countryCode,
-            countryName,
+            ipv4Address,
+            ipv6Address,
             domainName,
-            coordinates: [longitude, latitude],
-            premiumOnly,
             publicKey,
         };
     };
 
-    const preparedEndpoints = endpoints.map(prepareData);
-    const preparedBackupEndpoints = backupEndpoints.map(prepareData);
+    const prepareLocationData = (location) => {
+        const {
+            city_name: cityName,
+            country_code: countryCode,
+            country_name: countryName,
+            latitude,
+            longitude,
+            id,
+            endpoints,
+        } = location;
 
-    const toLowerKebab = (str) => {
-        return str
-            .toLowerCase()
-            .split(' ')
-            .filter(identity)
-            .join('-');
+        return {
+            id,
+            cityName,
+            countryCode,
+            countryName,
+            coordinates: [longitude, latitude],
+            endpoints: endpoints.map(prepareEndpointData),
+        };
     };
 
-    const locations = [...preparedEndpoints, ...preparedBackupEndpoints].reduce((acc, endpoint) => {
-        const {
-            countryName,
-            cityName,
-            countryCode,
-            coordinates,
-        } = endpoint;
-        const id = `${toLowerKebab(countryName)}_${toLowerKebab(cityName)}`;
-        const existingLocation = acc[id];
-        if (existingLocation) {
-            existingLocation.endpoints.push(endpoint);
-            return acc;
-        }
-        acc[id] = {
-            id,
-            countryName,
-            cityName,
-            countryCode,
-            coordinates,
-            endpoints: [endpoint],
-        };
+    const preparedLocations = locations.map(prepareLocationData);
+
+    const locationsMap = preparedLocations.reduce((acc, location) => {
+        acc[location.id] = location;
         return acc;
     }, {});
 
-    return locations;
+    return locationsMap;
 };
 
 const getSplitter = (localeCode) => {
@@ -262,7 +211,6 @@ const postExtensionInstalled = async (appId) => {
 };
 
 const vpnProvider = {
-    getEndpoints,
     getCurrentLocation,
     getVpnExtensionInfo,
     getVpnCredentials,
