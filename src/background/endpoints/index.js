@@ -234,7 +234,7 @@ class Endpoints {
 
     getSelectedLocation = async () => {
         const proxySelectedEndpoint = await proxy.getCurrentEndpoint();
-        const selectedLocation = locationsManager.getLocationByEndpoint(proxySelectedEndpoint.id);
+        const selectedLocation = locationsManager.getLocationByEndpoint(proxySelectedEndpoint?.id);
 
         // if found return
         if (selectedLocation) {

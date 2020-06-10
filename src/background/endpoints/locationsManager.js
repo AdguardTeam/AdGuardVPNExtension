@@ -65,6 +65,9 @@ class LocationsManager {
      * @param endpointId
      */
     getLocationByEndpoint = (endpointId) => {
+        if (!endpointId) {
+            return null;
+        }
         return this.locations.getLocationByEndpoint(endpointId);
     }
 }
