@@ -258,8 +258,8 @@ class Messenger {
         return this.sendMessage(type, { mode, url, enabled });
     }
 
-    async getSelectedEndpoint() {
-        const type = MESSAGES_TYPES.GET_SELECTED_ENDPOINT;
+    async getSelectedLocation() {
+        const type = MESSAGES_TYPES.GET_SELECTED_LOCATION;
         return this.sendMessage(type);
     }
 
