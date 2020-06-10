@@ -17,7 +17,7 @@ export const MESSAGES_TYPES = {
     GET_POPUP_DATA: 'get.popup.data',
     GET_VPN_FAILURE_PAGE: 'get.vpn.failure.page',
     OPEN_OPTIONS_PAGE: 'open.options.page',
-    SET_CURRENT_ENDPOINT: 'set.current.endpoint',
+    SET_SELECTED_LOCATION: 'set.selected.location',
     DEAUTHENTICATE_USER: 'deauthenticate.user',
     AUTHENTICATE_USER: 'authenticate.user',
     UPDATE_AUTH_CACHE: 'update.auth.cache',

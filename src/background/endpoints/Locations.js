@@ -40,4 +40,8 @@ export class Locations {
             location.measurePings();
         });
     }
+
+    getLocation = (id) => {
+        return this.locations[id];
+    }
 }

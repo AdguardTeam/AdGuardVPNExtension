@@ -18,16 +18,42 @@ export class Location {
         this.available = true;
     }
 
-    // TODO get working endpoint
-    // getEndpoint = async () => {
-    //     let ping;
-    //     if (!this.endpoints) {
-    //         return null;
-    //     }
-    //     while (!ping || ) {
-    //         ping =
-    //     }
-    // };
+    getEndpoint = async () => {
+        let ping = null;
+        let i = 0;
+        let endpoint;
+        while (!ping && this.endpoints[i]) {
+            endpoint = this.endpoints[i];
+            // eslint-disable-next-line no-await-in-loop
+            ping = await measurePingToEndpointViaFetch(endpoint.domainName) || null;
+            i += 1;
+        }
+
+        if (!ping) {
+            this.available = false;
+            this.pingData.ping = ping;
+        } else {
+            this.available = true;
+            this.pingData.ping = ping;
+        }
+
+        this.pingData.lastMeasurementTime = Date.now();
+
+        notifier.notifyListeners(
+            notifier.types.LOCATION_STATE_UPDATED,
+            {
+                locationId: this.id,
+                ping,
+                available: this.available,
+            }
+        );
+
+        if (!this.available) {
+            return this.endpoints[i];
+        }
+
+        return endpoint;
+    };
 
     measurePings = async () => {
         if (this.pingData.isMeasuring) {

@@ -63,7 +63,7 @@ class VpnStore {
         if (!selectedLocation) {
             throw new Error(`No endpoint with id: "${id}" found`);
         }
-        await messenger.setCurrentEndpoint(toJS(selectedLocation));
+        await messenger.setCurrentLocation(toJS(selectedLocation));
         runInAction(() => {
             this.selectedLocation = { ...selectedLocation, selected: true };
         });

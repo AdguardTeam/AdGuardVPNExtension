@@ -181,7 +181,7 @@ class Endpoints {
         }
 
         let vpnInfo = await vpnProvider.getVpnExtensionInfo(vpnToken.token);
-        // let shouldReconnect = false;
+        let shouldReconnect = false;
 
         if (vpnInfo.refreshTokens) {
             let updatedVpnToken;
@@ -194,14 +194,14 @@ class Endpoints {
             }
 
             if (this.vpnTokenChanged(vpnToken, updatedVpnToken)) {
-                // shouldReconnect = true;
+                shouldReconnect = true;
             }
 
             vpnInfo = await vpnProvider.getVpnExtensionInfo(updatedVpnToken.token);
         }
 
         // TODO this.updateLocations
-        // await this.updateEndpoints(shouldReconnect);
+        await this.updateEndpoints(shouldReconnect);
 
         // Save vpn info in the memory
         this.vpnInfo = vpnInfo;

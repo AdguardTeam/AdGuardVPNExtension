@@ -52,6 +52,11 @@ class LocationsManager {
 
         notifier.notifyListeners(notifier.types.LOCATIONS_UPDATED, this.locations.getLocations());
     }
+
+    getEndpoint = async (id) => {
+        const location = this.locations.getLocation(id);
+        return location.getEndpoint();
+    }
 }
 
 export const locationsManager = new LocationsManager();
