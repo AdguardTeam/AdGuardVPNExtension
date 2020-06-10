@@ -43,10 +43,11 @@ class Endpoints {
     /**
      * Reconnects to the new endpoint
      * @param {Endpoint} endpoint
+     * @param {Location} location
      * @returns {Promise<void>}
      */
-    reconnectEndpoint = async (endpoint) => {
-        const { domainName } = await proxy.setCurrentEndpoint(endpoint);
+    reconnectEndpoint = async (endpoint, location) => {
+        const { domainName } = await proxy.setCurrentEndpoint(endpoint, location);
         const { credentialsHash, token } = await credentials.getAccessCredentials();
         await connectivity.endpointConnectivity.setCredentials(domainName, token, credentialsHash);
         log.debug(`Reconnecting endpoint to ${endpoint.id}`);
@@ -161,10 +162,12 @@ class Endpoints {
                 .find((endpointId) => endpointId === currentEndpoint.id);
             if (!locationsHaveCurrentEndpoint) {
                 const closestEndpoint = this.getClosestEndpoint(locations, currentEndpoint);
+                // TODO fix here, this.reconnectEndpoint should get location too
                 await this.reconnectEndpoint(closestEndpoint);
             }
         } else {
             const closestEndpoint = this.getClosestEndpoint(locations, currentEndpoint);
+            // TODO fix here receonnectEndpoint should get location too
             await this.reconnectEndpoint(closestEndpoint);
         }
     }
@@ -251,7 +254,7 @@ class Endpoints {
         );
 
         const endpoint = await closestLocation.getEndpoint();
-        await this.reconnectEndpoint(endpoint);
+        await this.reconnectEndpoint(endpoint, closestLocation.simplify());
 
         return closestLocation.simplify();
     };

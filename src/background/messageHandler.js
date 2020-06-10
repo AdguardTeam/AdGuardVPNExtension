@@ -64,7 +64,7 @@ const messageHandler = async (message, sender) => {
         }
         case MESSAGES_TYPES.SET_SELECTED_LOCATION: {
             const endpoint = await locationsManager.getEndpointByLocation(data.location.id);
-            return proxy.setCurrentEndpoint(endpoint);
+            return proxy.setCurrentEndpoint(endpoint, data.location);
         }
         case MESSAGES_TYPES.DEAUTHENTICATE_USER: {
             await auth.deauthenticate();

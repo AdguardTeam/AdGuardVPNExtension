@@ -56,9 +56,8 @@ class globalStore {
 
             authStore.setIsAuthenticated(isAuthenticated);
             vpnStore.setVpnInfo(vpnInfo);
-            // vpnStore.setEndpoints(endpointsList);
-            vpnStore.setLocations(locations); // TODO create method
-            vpnStore.setSelectedLocation(selectedLocation); // TODO get location by endpoint
+            vpnStore.setLocations(locations);
+            vpnStore.setSelectedLocation(selectedLocation);
             vpnStore.setIsPremiumToken(isPremiumToken);
             settingsStore.setSwitcher(isProxyEnabled);
             // when popup is reopened, but connection is still in process,
