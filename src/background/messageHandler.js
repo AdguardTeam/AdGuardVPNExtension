@@ -63,7 +63,7 @@ const messageHandler = async (message, sender) => {
             return actions.openOptionsPage();
         }
         case MESSAGES_TYPES.SET_SELECTED_LOCATION: {
-            const endpoint = await locationsManager.getEndpoint(data.location.id);
+            const endpoint = await locationsManager.getEndpointByLocation(data.location.id);
             return proxy.setCurrentEndpoint(endpoint);
         }
         case MESSAGES_TYPES.DEAUTHENTICATE_USER: {

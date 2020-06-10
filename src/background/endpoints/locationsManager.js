@@ -1,51 +1,41 @@
 import { Locations } from './Locations';
 import vpnProvider from '../providers/vpnProvider';
-import credentials from '../credentials';
-import log from '../../lib/logger';
 import { Location } from './Location';
 import notifier from '../../lib/notifier';
 
 class LocationsManager {
     locations = new Locations();
 
+    /**
+     * Returns locations instances
+     */
     getLocations = () => {
         return this.locations.getLocations();
     }
 
+    /**
+     * Returns cached data
+     * @returns {*}
+     */
     getLocationsData = () => {
-        // every time launch locations update
-        this.updateLocations();
-
-        // return cached data
         return this.locations.getLocationsData();
     }
 
-    getLocationsFromServer = async () => {
-        const vpnToken = await credentials.gainValidVpnToken();
-        const locationsData = await vpnProvider.getLocationsData(vpnToken.token);
+    /**
+     * Retrieves locations from server
+     * @param vpnToken
+     * @returns {Promise<Locations>}
+     */
+    getLocationsFromServer = async (vpnToken) => {
+        const locationsData = await vpnProvider.getLocationsData(vpnToken);
 
-        return Object.values(locationsData).map((locationData) => {
+        const locations = Object.values(locationsData).map((locationData) => {
             return new Location(locationData);
         });
-    }
 
-    updateLocations = async () => {
-        if (this.isUpdatingLocations) {
-            return;
-        }
+        this.setLocations(locations);
 
-        this.isUpdatingLocations = true;
-
-        try {
-            const locations = await this.getLocationsFromServer();
-            this.setLocations(locations);
-        } catch (e) {
-            log.error(e.message);
-        }
-
-        this.isUpdatingLocations = false;
-        // TODO check if selected location exists in the new list of locations
-        //  and user can connect to it, otherwise reconnect to closest one
+        return this.locations;
     }
 
     setLocations = (newLocations) => {
@@ -60,11 +50,20 @@ class LocationsManager {
         );
     }
 
-    getEndpoint = async (id) => {
-        const location = this.locations.getLocation(id);
+    /**
+     * Returns endpoint by location id
+     * @param locationId
+     * @returns {Promise<*>}
+     */
+    getEndpointByLocation = async (locationId) => {
+        const location = this.locations.getLocation(locationId);
         return location.getEndpoint();
     }
 
+    /**
+     * Returns location by endpoint id
+     * @param endpointId
+     */
     getLocationByEndpoint = (endpointId) => {
         return this.locations.getLocationByEndpoint(endpointId);
     }

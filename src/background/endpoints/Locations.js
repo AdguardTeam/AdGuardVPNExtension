@@ -7,14 +7,7 @@ export class Locations {
 
     getLocationsData = () => {
         return Object.values(this.locations).reduce((acc, location) => {
-            acc[location.id] = {
-                id: location.id,
-                cityName: location.cityName,
-                countryName: location.countryName,
-                countryCode: location.countryCode,
-                ping: location.ping,
-                available: location.available,
-            };
+            acc[location.id] = location.simplify();
             return acc;
         }, {});
     }

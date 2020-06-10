@@ -4,7 +4,6 @@ import log from '../../lib/logger';
 import { getClosestLocationToUser } from '../../lib/helpers';
 import { ERROR_STATUSES } from '../../lib/constants';
 import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
-import endpointsManager from './endpointsManager';
 import notifier from '../../lib/notifier';
 import settings from '../settings/settings';
 import notifications from '../notifications';
@@ -78,7 +77,7 @@ class Endpoints {
      * Gets endpoints remotely and updates them if there were no errors
      * @returns {Promise<null|*>}
      */
-    getEndpointsRemotely = async () => {
+    getLocationsFromServer = async () => {
         let vpnToken;
 
         try {
@@ -88,7 +87,7 @@ class Endpoints {
             return null;
         }
 
-        return endpointsManager.getEndpointsFromBackend(vpnToken.token);
+        return locationsManager.getLocationsFromServer(vpnToken.token);
     };
 
     vpnTokenChanged = (oldVpnToken, newVpnToken) => {
@@ -122,7 +121,7 @@ class Endpoints {
         try {
             const { vpnToken } = await this.refreshTokens();
             const vpnInfo = await vpnProvider.getVpnExtensionInfo(vpnToken.token);
-            await this.updateEndpoints(true);
+            await this.updateLocations(true);
             this.vpnInfo = vpnInfo;
         } catch (e) {
             if (e.status === ERROR_STATUSES.LIMIT_EXCEEDED) {
@@ -142,10 +141,10 @@ class Endpoints {
      * @param shouldReconnect
      * @returns {Promise<void>}
      */
-    updateEndpoints = async (shouldReconnect = false) => {
-        const endpoints = await this.getEndpointsRemotely();
+    updateLocations = async (shouldReconnect = false) => {
+        const locations = await this.getLocationsFromServer();
 
-        if (!endpoints || _.isEmpty(endpoints)) {
+        if (!locations || _.isEmpty(locations)) {
             return;
         }
 
@@ -156,16 +155,16 @@ class Endpoints {
         const currentEndpoint = await proxy.getCurrentEndpoint();
 
         if (currentEndpoint) {
-            // Check if current endpoint is in the list of received endpoints
+            // Check if current endpoint is in the list of received locations
             // if not we should get closest and reconnect
-            const endpointsHaveCurrentEndpoint = Object.keys(endpoints)
+            const locationsHaveCurrentEndpoint = Object.keys(locations)
                 .find((endpointId) => endpointId === currentEndpoint.id);
-            if (!endpointsHaveCurrentEndpoint) {
-                const closestEndpoint = this.getClosestEndpoint(endpoints, currentEndpoint);
+            if (!locationsHaveCurrentEndpoint) {
+                const closestEndpoint = this.getClosestEndpoint(locations, currentEndpoint);
                 await this.reconnectEndpoint(closestEndpoint);
             }
         } else {
-            const closestEndpoint = this.getClosestEndpoint(endpoints, currentEndpoint);
+            const closestEndpoint = this.getClosestEndpoint(locations, currentEndpoint);
             await this.reconnectEndpoint(closestEndpoint);
         }
     }
@@ -200,8 +199,7 @@ class Endpoints {
             vpnInfo = await vpnProvider.getVpnExtensionInfo(updatedVpnToken.token);
         }
 
-        // TODO this.updateLocations
-        await this.updateEndpoints(shouldReconnect);
+        await this.updateLocations(shouldReconnect);
 
         // Save vpn info in the memory
         this.vpnInfo = vpnInfo;
@@ -237,7 +235,7 @@ class Endpoints {
 
         // if found return
         if (selectedLocation) {
-            return selectedLocation;
+            return selectedLocation.simplify();
         }
 
         const userCurrentLocation = await userLocation.getCurrentLocation();
@@ -255,7 +253,7 @@ class Endpoints {
         const endpoint = await closestLocation.getEndpoint();
         await this.reconnectEndpoint(endpoint);
 
-        return closestLocation;
+        return closestLocation.simplify();
     };
 
     getVpnFailurePage = async () => {

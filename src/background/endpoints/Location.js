@@ -115,4 +115,15 @@ export class Location {
     getEndpointById(id) {
         return this.endpoints.find((endpoint) => endpoint.id === id);
     }
+
+    simplify() {
+        return {
+            id: this.id,
+            cityName: this.cityName,
+            countryName: this.countryName,
+            countryCode: this.countryCode,
+            ping: this.ping,
+            available: this.available,
+        };
+    }
 }

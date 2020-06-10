@@ -65,7 +65,7 @@ class VpnStore {
         }
         await messenger.setCurrentLocation(toJS(selectedLocation));
         runInAction(() => {
-            this.selectedLocation = { ...selectedLocation, selected: true };
+            this.selectedLocation = { ...selectedLocation };
         });
     };
 
@@ -76,7 +76,7 @@ class VpnStore {
         }
         if (!this.selectedLocation
             || (this.selectedLocation && this.selectedLocation.id !== location.id)) {
-            this.selectedLocation = { ...location, selected: true };
+            this.selectedLocation = { ...location };
         }
     };
 
@@ -224,15 +224,15 @@ class VpnStore {
             return null;
         }
 
-        // const selectedEndpointId = this.selectedLocation.id;
-        // const currentEndpoint = this.locations[selectedEndpointId];
-        // let { ping } = currentEndpoint;
-        // // update with fresh values from pings storage
-        // if (this.pings[selectedEndpointId]) {
-        //     ping = this.pings[selectedEndpointId].ping;
-        // }
+        const selectedLocationId = this.selectedLocation.id;
+        const currentLocation = this.locations[selectedLocationId];
+        let { ping } = currentLocation;
+        // update with fresh values from pings storage
+        if (this.pings[selectedLocationId]) {
+            ping = this.pings[selectedLocationId].ping;
+        }
 
-        return null; // TODO fix to return real value
+        return ping;
     }
 }
 

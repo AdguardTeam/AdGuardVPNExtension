@@ -31,7 +31,7 @@ class globalStore {
             const {
                 vpnInfo,
                 locations,
-                selectedEndpoint,
+                selectedLocation,
                 permissionsError,
                 isAuthenticated,
                 canControlProxy,
@@ -58,7 +58,7 @@ class globalStore {
             vpnStore.setVpnInfo(vpnInfo);
             // vpnStore.setEndpoints(endpointsList);
             vpnStore.setLocations(locations); // TODO create method
-            vpnStore.setSelectedLocation(selectedEndpoint); // TODO get location by endpoint
+            vpnStore.setSelectedLocation(selectedLocation); // TODO get location by endpoint
             vpnStore.setIsPremiumToken(isPremiumToken);
             settingsStore.setSwitcher(isProxyEnabled);
             // when popup is reopened, but connection is still in process,
