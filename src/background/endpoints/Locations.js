@@ -1,11 +1,5 @@
-import { Location } from './Location';
-
 export class Locations {
     locations = {};
-
-    addLocation = (location) => {
-        this.locations[location.id] = location;
-    }
 
     getLocations = () => {
         return Object.values(this.locations).reduce((acc, location) => {
@@ -13,27 +7,37 @@ export class Locations {
                 id: location.id,
                 cityName: location.cityName,
                 countryName: location.countryName,
+                countryCode: location.countryCode,
                 ping: location.ping,
+                available: location.available,
             };
             return acc;
         }, {});
     }
 
-    getLocationByEndpoint = (endpoint) => {
-        const locationId = Location.generateId(endpoint.countryName, endpoint.cityName);
-        return this.locations[locationId];
-    }
+    updateKeepingPings = (newLocations) => {
+        const result = {};
 
-    addEndpoint = (endpoint) => {
-        let location = this.getLocationByEndpoint(endpoint);
+        for (let i = 0; i < newLocations.length; i += 1) {
+            const newLocation = newLocations[i];
+            const { id: newLocationId } = newLocation;
 
-        if (location) {
-            location.addEndpoint(endpoint);
-            return;
+            const oldLocation = this.locations[newLocationId];
+
+            if (!oldLocation) {
+                result[newLocationId] = newLocation;
+            } else {
+                newLocation.setPingData(oldLocation.getPingData());
+                result[newLocationId] = newLocation;
+            }
         }
 
-        location = new Location(endpoint.countryName, endpoint.cityName, endpoint.countryCode);
-        location.addEndpoint(endpoint);
-        this.addLocation(location);
+        this.locations = result;
+    }
+
+    measurePings = () => {
+        Object.values(this.locations).forEach((location) => {
+            location.measurePings();
+        });
     }
 }

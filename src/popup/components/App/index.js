@@ -48,11 +48,11 @@ const App = observer(() => {
                     vpnStore.setVpnInfo(data);
                     break;
                 }
-                case notifier.types.ENDPOINTS_UPDATED: {
+                case notifier.types.LOCATIONS_UPDATED: {
                     vpnStore.setLocations(data);
                     break;
                 }
-                case notifier.types.ENDPOINTS_PING_UPDATED: {
+                case notifier.types.LOCATION_PING_UPDATED: {
                     vpnStore.setPing(data);
                     break;
                 }
@@ -94,8 +94,8 @@ const App = observer(() => {
 
         const events = [
             notifier.types.VPN_INFO_UPDATED,
-            notifier.types.ENDPOINTS_UPDATED,
-            notifier.types.ENDPOINTS_PING_UPDATED,
+            notifier.types.LOCATIONS_UPDATED,
+            notifier.types.LOCATION_PING_UPDATED,
             notifier.types.ENDPOINT_BACKUP_FOUND,
             notifier.types.CURRENT_ENDPOINT_UPDATED,
             notifier.types.PERMISSIONS_ERROR_UPDATE,

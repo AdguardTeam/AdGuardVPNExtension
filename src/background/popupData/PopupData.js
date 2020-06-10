@@ -1,4 +1,5 @@
 import throttle from 'lodash/throttle';
+import isEmpty from 'lodash/isEmpty';
 import log from '../../lib/logger';
 import connectivity from '../connectivity';
 
@@ -88,7 +89,7 @@ class PopupData {
 
         let hasRequiredData = true;
 
-        if (!vpnInfo || !locations || !selectedEndpoint) {
+        if (!vpnInfo || isEmpty(locations) || !selectedEndpoint) {
             if (retryNum <= 1) {
                 // it may be useful to disconnect proxy if we can't get data
                 if (data.isProxyEnabled) {

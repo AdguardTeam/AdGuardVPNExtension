@@ -52,8 +52,8 @@ class VpnStore {
     }
 
     @action
-    setPing = (endpointPing) => {
-        this.pings[endpointPing.endpointId] = endpointPing;
+    setPing = (locationPing) => {
+        this.pings[locationPing.locationId] = locationPing;
     };
 
     @action

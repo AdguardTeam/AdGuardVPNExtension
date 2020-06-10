@@ -3,6 +3,7 @@ import uniqBy from 'lodash/uniqBy';
 import { vpnApi } from '../api';
 import { ERROR_STATUSES } from '../../lib/constants';
 import CustomError from '../../lib/CustomError';
+import { identity } from '../../lib/helpers';
 
 const getEndpoints = async (vpnToken) => {
     const endpointsObj = await vpnApi.getEndpoints(vpnToken);
@@ -41,6 +42,68 @@ const getEndpoints = async (vpnToken) => {
         endpoints: uniqEndpoints.reduce(prepareData, {}),
         backupEndpoints: backupEndpoints.reduce(prepareData, {}),
     };
+};
+
+// TODO adjust this method for new api
+const getLocationsData = async (vpnToken) => {
+    const endpointsObj = await vpnApi.getEndpoints(vpnToken);
+
+    const { endpoints = [], backup_endpoints: backupEndpoints = [] } = endpointsObj;
+
+    const prepareData = (endpoint) => {
+        const {
+            city_name: cityName,
+            country_code: countryCode,
+            country_name: countryName,
+            domain_name: domainName,
+            latitude,
+            longitude,
+            premium_only: premiumOnly,
+            public_key: publicKey,
+        } = endpoint;
+
+        return {
+            id: domainName,
+            cityName,
+            countryCode,
+            countryName,
+            domainName,
+            coordinates: [longitude, latitude],
+            premiumOnly,
+            publicKey,
+        };
+    };
+
+    const preparedEndpoints = endpoints.map(prepareData);
+    const preparedBackupEndpoints = backupEndpoints.map(prepareData);
+
+    const toLowerKebab = (str) => {
+        return str
+            .toLowerCase()
+            .split(' ')
+            .filter(identity)
+            .join('-');
+    };
+
+    const locations = [...preparedEndpoints, ...preparedBackupEndpoints].reduce((acc, endpoint) => {
+        const { countryName, cityName, countryCode } = endpoint;
+        const id = `${toLowerKebab(countryName)}_${toLowerKebab(cityName)}`;
+        const existingLocation = acc[id];
+        if (existingLocation) {
+            existingLocation.endpoints.push(endpoint);
+            return acc;
+        }
+        acc[id] = {
+            id,
+            countryName,
+            cityName,
+            countryCode,
+            endpoints: [endpoint],
+        };
+        return acc;
+    }, {});
+
+    return locations;
 };
 
 const getSplitter = (localeCode) => {
@@ -198,6 +261,7 @@ const vpnProvider = {
     getVpnExtensionInfo,
     getVpnCredentials,
     postExtensionInstalled,
+    getLocationsData,
 };
 
 export default vpnProvider;

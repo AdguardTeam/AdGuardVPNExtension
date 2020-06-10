@@ -1,8 +1,9 @@
 import { Locations } from './Locations';
 import vpnProvider from '../providers/vpnProvider';
 import credentials from '../credentials';
-import { Endpoint } from './Endpoint';
 import log from '../../lib/logger';
+import { Location } from './Location';
+import notifier from '../../lib/notifier';
 
 class LocationsManager {
     locations = new Locations();
@@ -10,25 +11,18 @@ class LocationsManager {
     getLocations = () => {
         // every time launch locations update
         this.updateLocations();
-        // todo prepare data
+
         // return cached data
         return this.locations.getLocations();
     }
 
     getLocationsFromServer = async () => {
         const vpnToken = await credentials.gainValidVpnToken();
-        const endpointsData = await vpnProvider.getEndpoints(vpnToken);
-        const { endpoints, backupEndpoints } = endpointsData;
+        const locationsData = await vpnProvider.getLocationsData(vpnToken.token);
 
-        const locations = new Locations();
-
-        // TODO endpoints api would return locations
-        [...Object.values(endpoints), ...Object.values(backupEndpoints)].forEach((endpointData) => {
-            const endpoint = new Endpoint(endpointData);
-            locations.addEndpoint(endpoint);
+        return Object.values(locationsData).map((locationData) => {
+            return new Location(locationData);
         });
-
-        return locations;
     }
 
     updateLocations = async () => {
@@ -39,14 +33,24 @@ class LocationsManager {
         this.isUpdatingLocations = true;
 
         try {
-            this.locations = await this.getLocationsFromServer();
-            this.isUpdatingLocations = false;
+            const locations = await this.getLocationsFromServer();
+            this.setLocations(locations);
         } catch (e) {
             log.error(e.message);
         }
 
+        this.isUpdatingLocations = false;
         // TODO check if selected location exists in the new list of locations
         //  and user can connect to it, otherwise reconnect to closest one
+    }
+
+    setLocations = (newLocations) => {
+        // copy previous pings data
+        this.locations.updateKeepingPings(newLocations);
+        // launch pings measurement
+        this.locations.measurePings();
+
+        notifier.notifyListeners(notifier.types.LOCATIONS_UPDATED, this.locations.getLocations());
     }
 }
 
