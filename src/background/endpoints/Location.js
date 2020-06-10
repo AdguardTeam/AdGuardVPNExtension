@@ -64,8 +64,12 @@ export class Location {
         this.pingData.lastMeasurementTime = Date.now();
 
         notifier.notifyListeners(
-            notifier.types.LOCATION_PING_UPDATED,
-            { locationId: this.id, ping }
+            notifier.types.LOCATION_STATE_UPDATED,
+            {
+                locationId: this.id,
+                ping,
+                available: this.available,
+            }
         );
     }
 

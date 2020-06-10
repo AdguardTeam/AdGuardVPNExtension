@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 
 import translator from '../../../lib/translator';
 import rootStore from '../../stores';
-import Endpoint from './Endpoint';
+import Location from './Location';
 import Search from './Search';
 import Skeleton from './Skeleton';
 
@@ -31,7 +31,7 @@ const Endpoints = observer(() => {
         vpnStore.setSearchValue('');
     };
 
-    const renderEndpoints = (endpoints) => endpoints.map((endpoint) => {
+    const renderLocations = (locations) => locations.map((endpoint) => {
         const {
             id,
             countryName,
@@ -39,10 +39,11 @@ const Endpoints = observer(() => {
             cityName,
             countryCode,
             ping,
+            available,
         } = endpoint;
 
         return (
-            <Endpoint
+            <Location
                 key={id}
                 id={id}
                 handleClick={handleEndpointSelect}
@@ -51,6 +52,7 @@ const Endpoints = observer(() => {
                 countryName={countryName}
                 cityName={cityName}
                 ping={ping}
+                available={available}
             />
         );
     });
@@ -69,6 +71,7 @@ const Endpoints = observer(() => {
             filteredLocations,
             showSearchResults,
         } = vpnStore;
+
         const emptySearchResults = showSearchResults && filteredLocations.length === 0;
         let listTitle = 'endpoints_all';
 
@@ -92,7 +95,7 @@ const Endpoints = observer(() => {
                 <div className="endpoints__title">
                     {translator.translate(listTitle)}
                 </div>
-                {renderEndpoints(filteredLocations)}
+                {renderLocations(filteredLocations)}
             </div>
         );
     };
@@ -130,7 +133,7 @@ const Endpoints = observer(() => {
                                 {translator.translate('endpoints_fastest')}
                             </div>
                             {fastestLocations.length > 0 ? (
-                                renderEndpoints(fastestLocations)
+                                renderLocations(fastestLocations)
                             ) : (
                                 <Skeleton />
                             )}

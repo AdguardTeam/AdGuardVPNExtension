@@ -52,8 +52,9 @@ class VpnStore {
     }
 
     @action
-    setPing = (locationPing) => {
-        this.pings[locationPing.locationId] = locationPing;
+    updateLocationState = (state) => {
+        const id = state.locationId;
+        this.pings[id] = state;
     };
 
     @action
@@ -101,13 +102,7 @@ class VpnStore {
                 }
                 return 0;
             })
-            .map((location) => {
-                const pingData = this.pings[location.id];
-                if (pingData) {
-                    return { ...location, ping: pingData.ping };
-                }
-                return location;
-            })
+            .map(this.enrichLocationWithStateData)
             .map((location) => {
                 if (this.selectedLocation && this.selectedLocation.id === location.id) {
                     return { ...location, selected: true };
@@ -116,18 +111,26 @@ class VpnStore {
             });
     }
 
+    /**
+     * Adds ping data to locations list
+     * @param location
+     * @returns {{ping, available}|*}
+     */
+    enrichLocationWithStateData = (location) => {
+        const pingData = this.pings[location.id];
+        if (pingData) {
+            const { ping, available } = pingData;
+            return { ...location, ping, available };
+        }
+        return location;
+    }
+
     @computed
     get fastestLocations() {
         const FASTEST_LOCATIONS_COUNT = 3;
         const locations = Object.values(this.locations || {});
         const sortedLocations = locations
-            .map((location) => {
-                const locationPing = this.pings[location.id];
-                if (locationPing) {
-                    return { ...location, ping: locationPing.ping };
-                }
-                return location;
-            })
+            .map(this.enrichLocationWithStateData)
             .filter((location) => location.ping)
             .sort((a, b) => a.ping - b.ping)
             .map((location) => {

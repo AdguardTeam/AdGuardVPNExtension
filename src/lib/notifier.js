@@ -116,7 +116,7 @@ const types = {
 
     VPN_INFO_UPDATED: 'event.vpn.info.updated',
     LOCATIONS_UPDATED: 'event.locations.updated',
-    LOCATION_PING_UPDATED: 'event.location.ping.updated',
+    LOCATION_STATE_UPDATED: 'event.location.state.updated',
     ENDPOINT_BACKUP_FOUND: 'event.endpoint.backup.found',
     CURRENT_ENDPOINT_UPDATED: 'event.current.endpoint.updated',
     PERMISSIONS_ERROR_UPDATE: 'event.permission.error.update',

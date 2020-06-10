@@ -52,8 +52,8 @@ const App = observer(() => {
                     vpnStore.setLocations(data);
                     break;
                 }
-                case notifier.types.LOCATION_PING_UPDATED: {
-                    vpnStore.setPing(data);
+                case notifier.types.LOCATION_STATE_UPDATED: {
+                    vpnStore.updateLocationState(data);
                     break;
                 }
                 case notifier.types.ENDPOINT_BACKUP_FOUND: {
@@ -95,7 +95,7 @@ const App = observer(() => {
         const events = [
             notifier.types.VPN_INFO_UPDATED,
             notifier.types.LOCATIONS_UPDATED,
-            notifier.types.LOCATION_PING_UPDATED,
+            notifier.types.LOCATION_STATE_UPDATED,
             notifier.types.ENDPOINT_BACKUP_FOUND,
             notifier.types.CURRENT_ENDPOINT_UPDATED,
             notifier.types.PERMISSIONS_ERROR_UPDATE,

@@ -177,7 +177,7 @@ export class EndpointsManager {
                             }
                         );
                         notifier.notifyListeners(
-                            notifier.types.LOCATION_PING_UPDATED,
+                            notifier.types.LOCATION_STATE_UPDATED,
                             pingData
                         );
                         log.debug(`Backup endpoint ping determined, replacing "${domainName}" with "${backupDomainName}"`);
@@ -198,7 +198,7 @@ export class EndpointsManager {
 
             this.endpointsPings[id] = pingData;
 
-            notifier.notifyListeners(notifier.types.LOCATION_PING_UPDATED, pingData);
+            notifier.notifyListeners(notifier.types.LOCATION_STATE_UPDATED, pingData);
         };
 
         await Promise.all(Object.values(this.endpoints).map(handleEndpointPingMeasurement));
