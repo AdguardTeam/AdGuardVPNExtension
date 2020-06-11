@@ -9,10 +9,10 @@ import Skeleton from './Skeleton';
 
 import './endpoints.pcss';
 
-const Endpoints = observer(() => {
+const Locations = observer(() => {
     const { vpnStore, uiStore, settingsStore } = useContext(rootStore);
 
-    const handleEndpointSelect = (id) => async (e) => {
+    const handleLocationSelect = (id) => async (e) => {
         e.preventDefault();
         const prevId = vpnStore.selectedLocation.id;
         await vpnStore.selectLocation(id);
@@ -26,7 +26,7 @@ const Endpoints = observer(() => {
         }
     };
 
-    const handleCloseEndpoints = () => {
+    const handleLocationsClose = () => {
         uiStore.closeEndpointsSearch();
         vpnStore.setSearchValue('');
     };
@@ -46,7 +46,7 @@ const Endpoints = observer(() => {
             <Location
                 key={id}
                 id={id}
-                handleClick={handleEndpointSelect}
+                handleClick={handleLocationSelect}
                 selected={selected}
                 countryCode={countryCode}
                 countryName={countryName}
@@ -113,7 +113,7 @@ const Endpoints = observer(() => {
                 <button
                     type="button"
                     className="button endpoints__back"
-                    onClick={handleCloseEndpoints}
+                    onClick={handleLocationsClose}
                 >
                     <svg className="icon icon--button">
                         <use xlinkHref="#back" />
@@ -147,4 +147,4 @@ const Endpoints = observer(() => {
     );
 });
 
-export default Endpoints;
+export default Locations;

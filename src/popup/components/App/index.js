@@ -9,7 +9,7 @@ import { CSSTransition } from 'react-transition-group';
 import Header from '../Header';
 import InfoMessage from '../InfoMessage';
 import FeedbackMessage from '../InfoMessage/FeedbackMessage';
-import Endpoints from '../Endpoints';
+import Locations from '../Locations';
 import Authentication from '../Authentication';
 import ExtraOptions from '../ExtraOptions';
 import Preloader from '../Preloader';
@@ -160,7 +160,7 @@ const App = observer(() => {
                 classNames="fade"
                 unmountOnExit
             >
-                <Endpoints />
+                <Locations />
             </CSSTransition>
             <Settings />
             <div className="footer">
