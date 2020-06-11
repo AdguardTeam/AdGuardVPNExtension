@@ -4,7 +4,6 @@ import auth from './auth';
 import popupData from './popupData';
 import endpoints from './endpoints';
 import actions from './actions';
-import proxy from './proxy';
 import credentials from './credentials';
 import authCache from './authentication/authCache';
 import appStatus from './appStatus';
@@ -63,8 +62,7 @@ const messageHandler = async (message, sender) => {
             return actions.openOptionsPage();
         }
         case MESSAGES_TYPES.SET_SELECTED_LOCATION: {
-            const endpoint = await locationsService.getEndpointByLocation(data.location.id);
-            return proxy.setCurrentEndpoint(endpoint, data.location);
+            return locationsService.setSelectedLocation(data.location.id);
         }
         case MESSAGES_TYPES.DEAUTHENTICATE_USER: {
             await auth.deauthenticate();

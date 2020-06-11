@@ -163,6 +163,10 @@ const getLocationsFromServer = async (vpnToken) => {
  * @returns {Promise<*>}
  */
 const getEndpoint = async (location) => {
+    if (!location) {
+        return null;
+    }
+
     const { ping, endpoint } = await getEndpointAndPing(location);
 
     location.setPing(ping);
@@ -220,11 +224,23 @@ const getLocationByEndpoint = (endpointId) => {
     return location;
 };
 
+let selectedLocation = null;
+
+const setSelectedLocation = (id) => {
+    selectedLocation = locations.find((location) => location.id === id);
+};
+
+const getSelectedLocation = () => {
+    return selectedLocation;
+};
+
 export const locationsService = {
     getEndpointByLocation,
     getLocationByEndpoint,
     getLocationsFromServer,
     getLocationsWithPing,
+    setSelectedLocation,
+    getSelectedLocation,
     getLocations,
     getEndpoint,
 };

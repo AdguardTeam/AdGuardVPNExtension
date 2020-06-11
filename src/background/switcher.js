@@ -6,9 +6,17 @@ import credentials from './credentials';
 import connectivity from './connectivity';
 import notifier from '../lib/notifier';
 import { FORCE_CANCELLED } from '../lib/constants';
+import { locationsService } from './endpoints/locationsService';
 
 function* turnOnProxy() {
     try {
+        const selectedLocation = locationsService.getSelectedLocation();
+        const selectedEndpoint = yield locationsService.getEndpointByLocation(selectedLocation?.id);
+
+        if (selectedEndpoint) {
+            yield proxy.setCurrentEndpoint(selectedEndpoint, selectedLocation);
+        }
+
         const accessCredentials = yield credentials.getAccessCredentials();
         const { domainName } = yield proxy.setAccessPrefix(
             accessCredentials.credentialsHash,
