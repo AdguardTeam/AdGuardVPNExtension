@@ -13,6 +13,7 @@ import proxy from '../proxy';
 import vpnProvider from '../providers/vpnProvider';
 import userLocation from './userLocation';
 import { locationsManager } from './locationsManager';
+import { LocationWithPing } from './LocationWithPing';
 
 /**
  * Endpoint information
@@ -228,7 +229,7 @@ class Endpoints {
     };
 
     getLocations = () => {
-        const locations = locationsManager.getLocationsData();
+        const locations = locationsManager.getLocationsWithPing();
         return locations;
     }
 
@@ -238,7 +239,7 @@ class Endpoints {
 
         // if found return
         if (selectedLocation) {
-            return selectedLocation.simplify();
+            return new LocationWithPing(selectedLocation);
         }
 
         const userCurrentLocation = await userLocation.getCurrentLocation();
@@ -254,9 +255,9 @@ class Endpoints {
         );
 
         const endpoint = await closestLocation.getEndpoint();
-        await this.reconnectEndpoint(endpoint, closestLocation.simplify());
+        await this.reconnectEndpoint(endpoint, new LocationWithPing(closestLocation));
 
-        return closestLocation.simplify();
+        return new LocationWithPing(closestLocation);
     };
 
     getVpnFailurePage = async () => {

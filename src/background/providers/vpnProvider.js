@@ -53,12 +53,7 @@ const getLocationsData = async (vpnToken) => {
 
     const preparedLocations = locations.map(prepareLocationData);
 
-    const locationsMap = preparedLocations.reduce((acc, location) => {
-        acc[location.id] = location;
-        return acc;
-    }, {});
-
-    return locationsMap;
+    return preparedLocations;
 };
 
 const getSplitter = (localeCode) => {

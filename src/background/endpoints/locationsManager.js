@@ -1,35 +1,38 @@
-import { Locations } from './Locations';
 import vpnProvider from '../providers/vpnProvider';
 import { Location } from './Location';
 import notifier from '../../lib/notifier';
+import { locationService } from './locationService';
+import { LocationWithPing } from './LocationWithPing';
 
 class LocationsManager {
-    locations = new Locations();
+    locations = [];
 
     /**
      * Returns locations instances
      */
     getLocations = () => {
-        return this.locations.getLocations();
+        return this.locations;
     }
 
     /**
-     * Returns cached data
+     * Returns locations with pings, used for UI
      * @returns {*}
      */
-    getLocationsData = () => {
-        return this.locations.getLocationsData();
+    getLocationsWithPing = () => {
+        return this.locations.map((location) => {
+            return new LocationWithPing(location);
+        });
     }
 
     /**
      * Retrieves locations from server
      * @param vpnToken
-     * @returns {Promise<Locations>}
+     * @returns {Promise<Location[]>}
      */
     getLocationsFromServer = async (vpnToken) => {
         const locationsData = await vpnProvider.getLocationsData(vpnToken);
 
-        const locations = Object.values(locationsData).map((locationData) => {
+        const locations = locationsData.map((locationData) => {
             return new Location(locationData);
         });
 
@@ -38,15 +41,21 @@ class LocationsManager {
         return this.locations;
     }
 
+    measurePings = () => {
+        this.locations.forEach(async (location) => {
+            await locationService.measurePing(location);
+        });
+    }
+
     setLocations = (newLocations) => {
         // copy previous pings data
-        this.locations.updateKeepingPings(newLocations);
+        this.locations = newLocations;
         // launch pings measurement
-        this.locations.measurePings();
+        this.measurePings();
 
         notifier.notifyListeners(
             notifier.types.LOCATIONS_UPDATED,
-            this.locations.getLocationsData()
+            this.getLocationsWithPing()
         );
     }
 
@@ -56,8 +65,10 @@ class LocationsManager {
      * @returns {Promise<*>}
      */
     getEndpointByLocation = async (locationId) => {
-        const location = this.locations.getLocation(locationId);
-        return location.getEndpoint();
+        const location = this.locations.find((location) => {
+            return location.id === locationId;
+        });
+        return locationService.getEndpoint(location);
     }
 
     /**
@@ -68,7 +79,12 @@ class LocationsManager {
         if (!endpointId) {
             return null;
         }
-        return this.locations.getLocationByEndpoint(endpointId);
+
+        const location = this.locations.find((location) => {
+            return location.endpoints.some((endpoint) => endpoint.id === endpointId);
+        });
+
+        return location;
     }
 }
 

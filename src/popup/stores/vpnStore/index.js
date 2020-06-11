@@ -12,7 +12,7 @@ class VpnStore {
         this.rootStore = rootStore;
     }
 
-    @observable locations = {};
+    @observable locations = [];
 
     @observable pings = {};
 
@@ -38,6 +38,8 @@ class VpnStore {
 
     @action
     setLocations = (locations) => {
+        console.log(locations);
+
         if (!locations) {
             return;
         }
@@ -45,11 +47,12 @@ class VpnStore {
         this.locations = locations;
     }
 
-    @action
-    replaceWithBackupEndpoint = ({ endpoint, backup }) => {
-        delete this.locations[endpoint.id];
-        this.locations[backup.id] = backup;
-    }
+    // TODO remove as unused
+    // @action
+    // replaceWithBackupEndpoint = ({ endpoint, backup }) => {
+    //     delete this.locations[endpoint.id];
+    //     this.locations[backup.id] = backup;
+    // }
 
     @action
     updateLocationState = (state) => {
@@ -59,10 +62,14 @@ class VpnStore {
 
     @action
     selectLocation = async (id) => {
-        const selectedLocation = this.locations?.[id];
+        const selectedLocation = this.locations.find((location) => {
+            return location.id === id;
+        });
+
         if (!selectedLocation) {
             throw new Error(`No endpoint with id: "${id}" found`);
         }
+
         await messenger.setCurrentLocation(toJS(selectedLocation));
         runInAction(() => {
             this.selectedLocation = { ...selectedLocation };
@@ -82,7 +89,7 @@ class VpnStore {
 
     @computed
     get filteredLocations() {
-        const locations = Object.values(this.locations || {});
+        const locations = this.locations || [];
 
         return locations
             .filter((location) => {
@@ -102,7 +109,7 @@ class VpnStore {
                 }
                 return 0;
             })
-            .map(this.enrichLocationWithStateData)
+            .map(this.enrichWithStateData)
             .map((location) => {
                 if (this.selectedLocation && this.selectedLocation.id === location.id) {
                     return { ...location, selected: true };
@@ -116,7 +123,7 @@ class VpnStore {
      * @param location
      * @returns {{ping, available}|*}
      */
-    enrichLocationWithStateData = (location) => {
+    enrichWithStateData = (location) => {
         const pingData = this.pings[location.id];
         if (pingData) {
             const { ping, available } = pingData;
@@ -128,9 +135,9 @@ class VpnStore {
     @computed
     get fastestLocations() {
         const FASTEST_LOCATIONS_COUNT = 3;
-        const locations = Object.values(this.locations || {});
+        const locations = this.locations || [];
         const sortedLocations = locations
-            .map(this.enrichLocationWithStateData)
+            .map(this.enrichWithStateData)
             .filter((location) => location.ping)
             .sort((a, b) => a.ping - b.ping)
             .map((location) => {
@@ -225,7 +232,9 @@ class VpnStore {
         }
 
         const selectedLocationId = this.selectedLocation.id;
-        const currentLocation = this.locations[selectedLocationId];
+        const currentLocation = this.locations.find((location) => {
+            return location.id === selectedLocationId;
+        });
         let { ping } = currentLocation;
         // update with fresh values from pings storage
         if (this.pings[selectedLocationId]) {

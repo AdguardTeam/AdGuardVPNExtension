@@ -31,7 +31,7 @@ const Endpoints = observer(() => {
         vpnStore.setSearchValue('');
     };
 
-    const renderLocations = (locations) => locations.map((endpoint) => {
+    const renderLocations = (locations) => locations.map((location) => {
         const {
             id,
             countryName,
@@ -40,7 +40,7 @@ const Endpoints = observer(() => {
             countryCode,
             ping,
             available,
-        } = endpoint;
+        } = location;
 
         return (
             <Location
