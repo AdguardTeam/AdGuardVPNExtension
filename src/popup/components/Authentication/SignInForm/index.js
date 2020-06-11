@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
+import classnames from 'classnames';
 import translator from '../../../../lib/translator';
 
 import popupActions from '../../../actions/popupActions';
@@ -37,11 +38,17 @@ const SignInForm = observer(() => {
         setInputType(inputType === INPUT_TYPES.PASSWORD ? INPUT_TYPES.TEXT : INPUT_TYPES.PASSWORD);
     };
 
+    const formClassName = classnames(
+        'form',
+        'form--login',
+        { 'form--error': authStore.error }
+    );
+
     const icon = inputType === INPUT_TYPES.PASSWORD ? '#closed_eye' : '#open_eye';
 
     return (
         <form
-            className="form form--login"
+            className={formClassName}
             onSubmit={submitHandler}
         >
             <div className="form__inputs">
