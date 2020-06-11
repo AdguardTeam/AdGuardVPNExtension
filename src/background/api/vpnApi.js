@@ -4,16 +4,6 @@ import { VPN_API_URL } from '../config';
 
 // https://bit.adguard.com/projects/ADGUARD/repos/adguard-vpn-backend-service/browse
 class VpnApi extends Api {
-    GET_ENDPOINTS = { path: 'endpoints', method: 'GET' };
-
-    getEndpoints = (vpnToken) => {
-        const { path, method } = this.GET_ENDPOINTS;
-        const params = {
-            token: vpnToken,
-        };
-        return this.makeRequest(path, method, { params });
-    };
-
     GET_LOCATIONS = { path: 'locations', method: 'GET' };
 
     getLocations = (vpnToken) => {
