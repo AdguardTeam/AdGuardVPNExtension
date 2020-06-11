@@ -226,6 +226,7 @@ class VpnStore {
         const currentLocation = this.locations.find((location) => {
             return location.id === selectedLocationId;
         });
+
         let { ping } = currentLocation;
         // update with fresh values from pings storage
         if (this.pings[selectedLocationId]) {

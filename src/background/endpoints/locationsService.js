@@ -17,12 +17,24 @@ const getLocations = () => {
     return locations;
 };
 
+const getPingFromCache = (id) => {
+    return {
+        locationId: id,
+        ...pingsCache[id],
+    };
+};
+
 /**
  * Returns locations with pings, used for UI
  * @returns {*}
  */
 const getLocationsWithPing = () => {
     return locations.map((location) => {
+        const cachedPingData = getPingFromCache(location.id);
+        if (cachedPingData) {
+            location.setPing(cachedPingData.ping);
+            location.setAvailable(cachedPingData.available);
+        }
         return new LocationWithPing(location);
     });
 };
@@ -84,25 +96,24 @@ const measurePing = async (location) => {
     const isFresh = lastMeasurementTime
         ? !(Date.now() - lastMeasurementTime >= PING_TTL_MS)
         : false;
-    let ping = pingsCache[id]?.ping;
-    const hasPing = !!ping;
+
+    const hasPing = !!pingsCache[id]?.ping;
 
     if (isFresh && hasPing) {
-        location.setPing(ping);
-        location.setAvailable(!!ping);
         return;
     }
 
-    updatePingsCache(location, { isMeasuring: true });
-    const endpointAndPing = await getEndpointAndPing(location);
-    ({ ping } = endpointAndPing);
+    updatePingsCache(location.id, { isMeasuring: true });
+    const { ping } = await getEndpointAndPing(location);
 
     location.setPing(ping);
-    location.setAvailable(!!ping);
+    const available = !!ping;
+    location.setAvailable(available);
 
     updatePingsCache(
         location.id,
         {
+            available,
             ping,
             isMeasuring: false,
             lastMeasurementTime: Date.now(),
@@ -111,11 +122,7 @@ const measurePing = async (location) => {
 
     notifier.notifyListeners(
         notifier.types.LOCATION_STATE_UPDATED,
-        {
-            locationId: id,
-            ping,
-            available: location.available,
-        }
+        getPingFromCache(location.id)
     );
 };
 
@@ -130,7 +137,15 @@ const measurePings = () => {
 
 const setLocations = (newLocations) => {
     // copy previous pings data
-    locations = newLocations;
+    locations = newLocations.map((location) => {
+        const pingCache = pingsCache[location];
+        if (pingCache) {
+            location.setPing(pingCache.ping);
+            location.setAvailable(pingCache.available);
+        }
+        return location;
+    });
+
     // launch pings measurement
     measurePings();
 
@@ -170,11 +185,13 @@ const getEndpoint = async (location) => {
     const { ping, endpoint } = await getEndpointAndPing(location);
 
     location.setPing(ping);
-    location.setAvailable(!!ping);
+    const available = !!ping;
+    location.setAvailable(available);
 
     updatePingsCache(
         location.id,
         {
+            available,
             ping,
             lastMeasurementTime: Date.now(),
         }
@@ -182,11 +199,7 @@ const getEndpoint = async (location) => {
 
     notifier.notifyListeners(
         notifier.types.LOCATION_STATE_UPDATED,
-        {
-            locationId: location.id,
-            ping,
-            available: location.available,
-        }
+        getPingFromCache(location.id)
     );
 
     if (!location.available) {
