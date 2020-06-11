@@ -1,3 +1,6 @@
+/**
+ * Helper class used to extract minimal set of information for UI
+ */
 export class LocationWithPing {
     constructor(location) {
         this.id = location.id;

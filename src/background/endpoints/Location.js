@@ -19,8 +19,4 @@ export class Location {
     setPing = (ping) => {
         this.ping = ping;
     }
-
-    getEndpointById(id) {
-        return this.endpoints.find((endpoint) => endpoint.id === id);
-    }
 }

@@ -15,7 +15,7 @@ import permissionsError from './permissionsChecker/permissionsError';
 import permissionsChecker from './permissionsChecker';
 import log from '../lib/logger';
 import notifier from '../lib/notifier';
-import { locationsManager } from './endpoints/locationsManager';
+import { locationsService } from './endpoints/locationsService';
 
 const eventListeners = {};
 
@@ -63,7 +63,7 @@ const messageHandler = async (message, sender) => {
             return actions.openOptionsPage();
         }
         case MESSAGES_TYPES.SET_SELECTED_LOCATION: {
-            const endpoint = await locationsManager.getEndpointByLocation(data.location.id);
+            const endpoint = await locationsService.getEndpointByLocation(data.location.id);
             return proxy.setCurrentEndpoint(endpoint, data.location);
         }
         case MESSAGES_TYPES.DEAUTHENTICATE_USER: {

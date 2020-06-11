@@ -38,8 +38,6 @@ class VpnStore {
 
     @action
     setLocations = (locations) => {
-        console.log(locations);
-
         if (!locations) {
             return;
         }

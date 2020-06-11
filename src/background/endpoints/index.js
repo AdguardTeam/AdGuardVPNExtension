@@ -12,7 +12,7 @@ import credentials from '../credentials';
 import proxy from '../proxy';
 import vpnProvider from '../providers/vpnProvider';
 import userLocation from './userLocation';
-import { locationsManager } from './locationsManager';
+import { locationsService } from './locationsService';
 import { LocationWithPing } from './LocationWithPing';
 
 /**
@@ -89,7 +89,7 @@ class Endpoints {
             return null;
         }
 
-        return locationsManager.getLocationsFromServer(vpnToken.token);
+        return locationsService.getLocationsFromServer(vpnToken.token);
     };
 
     vpnTokenChanged = (oldVpnToken, newVpnToken) => {
@@ -168,7 +168,7 @@ class Endpoints {
             }
         } else {
             const closestEndpoint = this.getClosestEndpoint(locations, currentEndpoint);
-            // TODO fix here receonnectEndpoint should get location too
+            // TODO fix here reconnectEndpoint should get location too
             await this.reconnectEndpoint(closestEndpoint);
         }
     }
@@ -229,13 +229,13 @@ class Endpoints {
     };
 
     getLocations = () => {
-        const locations = locationsManager.getLocationsWithPing();
+        const locations = locationsService.getLocationsWithPing();
         return locations;
     }
 
     getSelectedLocation = async () => {
         const proxySelectedEndpoint = await proxy.getCurrentEndpoint();
-        const selectedLocation = locationsManager.getLocationByEndpoint(proxySelectedEndpoint?.id);
+        const selectedLocation = locationsService.getLocationByEndpoint(proxySelectedEndpoint?.id);
 
         // if found return
         if (selectedLocation) {
@@ -243,18 +243,18 @@ class Endpoints {
         }
 
         const userCurrentLocation = await userLocation.getCurrentLocation();
-        const locations = locationsManager.getLocations();
+        const locations = locationsService.getLocations();
 
         if (!userCurrentLocation || _.isEmpty(locations)) {
             return null;
         }
 
         const closestLocation = getClosestLocationToUser(
-            Object.values(locations),
+            locations,
             userCurrentLocation
         );
 
-        const endpoint = await closestLocation.getEndpoint();
+        const endpoint = await locationsService.getEndpoint(closestLocation);
         await this.reconnectEndpoint(endpoint, new LocationWithPing(closestLocation));
 
         return new LocationWithPing(closestLocation);
