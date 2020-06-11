@@ -11,7 +11,8 @@ import { locationsService } from './endpoints/locationsService';
 function* turnOnProxy() {
     try {
         const selectedLocation = locationsService.getSelectedLocation();
-        const selectedEndpoint = yield locationsService.getEndpointByLocation(selectedLocation?.id);
+        const selectedEndpoint = yield locationsService
+            .getEndpointByLocationId(selectedLocation?.id);
 
         if (selectedEndpoint) {
             yield proxy.setCurrentEndpoint(selectedEndpoint, selectedLocation);

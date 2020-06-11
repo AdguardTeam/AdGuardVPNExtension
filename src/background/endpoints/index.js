@@ -153,21 +153,22 @@ class Endpoints {
         }
 
         const currentEndpoint = await proxy.getCurrentEndpoint();
+        const currentLocation = await locationsService.getSelectedLocation()
+            || await locationsService.getLocationByEndpoint(currentEndpoint?.id);
 
-        if (currentEndpoint) {
+        if (currentLocation) {
             // Check if current endpoint is in the list of received locations
             // if not we should get closest and reconnect
-            const locationsHaveCurrentEndpoint = Object.keys(locations)
-                .find((endpointId) => endpointId === currentEndpoint.id);
-            if (!locationsHaveCurrentEndpoint) {
-                const closestEndpoint = this.getClosestLocation(locations, currentEndpoint);
-                // TODO fix here, this.reconnectEndpoint should get location too
-                await this.reconnectEndpoint(closestEndpoint);
+            const endpoint = await locationsService.getEndpoint(currentLocation);
+            if (endpoint) {
+                await this.reconnectEndpoint(endpoint, currentLocation);
+            } else {
+                const closestLocation = this.getClosestLocation(locations, currentLocation);
+                const closestEndpoint = await locationsService.getEndpoint(closestLocation);
+                await this.reconnectEndpoint(closestEndpoint, currentLocation);
             }
         } else {
-            const closestEndpoint = this.getClosestLocation(locations, currentEndpoint);
-            // TODO fix here reconnectEndpoint should get location too
-            await this.reconnectEndpoint(closestEndpoint);
+            log.debug('Was unable to find current location');
         }
     }
 

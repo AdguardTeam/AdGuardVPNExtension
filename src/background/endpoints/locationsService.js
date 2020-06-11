@@ -214,7 +214,7 @@ const getEndpoint = async (location) => {
  * @param locationId
  * @returns {Promise<*>}
  */
-const getEndpointByLocation = async (locationId) => {
+const getEndpointByLocationId = async (locationId) => {
     const location = locations.find((location) => {
         return location.id === locationId;
     });
@@ -248,7 +248,7 @@ const getSelectedLocation = () => {
 };
 
 export const locationsService = {
-    getEndpointByLocation,
+    getEndpointByLocationId,
     getLocationByEndpoint,
     getLocationsFromServer,
     getLocationsWithPing,
