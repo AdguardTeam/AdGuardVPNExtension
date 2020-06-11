@@ -62,44 +62,44 @@ export const getProtocol = (url) => {
 };
 
 /**
- * Sorts endpoints by distance to the current endpoint
- * If no current endpoint provided, returns endpoints unsorted
- * @param {Endpoint[]} endpoints
- * @param {Endpoint} currentEndpoint
- * @returns {Endpoint[]}
+ * Sorts locations by distance to the target location
+ * If no current endpoint provided, returns locations unsorted
+ * @param {Locations[]} locations
+ * @param {Location} targetLocation
+ * @returns {Location[]}
  */
-export const sortByDistance = (endpoints, currentEndpoint) => {
-    if (!currentEndpoint) {
-        return endpoints;
+export const sortByDistance = (locations, targetLocation) => {
+    if (!targetLocation) {
+        return locations;
     }
 
-    const { coordinates } = currentEndpoint;
+    const { coordinates } = targetLocation;
 
-    const distances = endpoints.map((endpoint) => {
+    const distances = locations.map((location) => {
         const [lon1, lat1] = coordinates;
-        const [lon2, lat2] = endpoint.coordinates;
+        const [lon2, lat2] = location.coordinates;
 
         const currentCoordinates = { longitude: lon1, latitude: lat1 };
-        const endpointCoordinates = { longitude: lon2, latitude: lat2 };
+        const locationCoordinates = { longitude: lon2, latitude: lat2 };
 
         return {
-            endpoint,
-            distance: getDistance(currentCoordinates, endpointCoordinates),
+            location,
+            distance: getDistance(currentCoordinates, locationCoordinates),
         };
     });
 
     const sortedDistances = sortBy(distances, 'distance');
-    return sortedDistances.map((sorted) => sorted.endpoint);
+    return sortedDistances.map((sorted) => sorted.location);
 };
 
 /**
  * Returns closest endpoint
- * @param {Endpoint[]} endpoints
- * @param {Endpoint} currentEndpoint
- * @returns {Endpoint}
+ * @param {Locations[]} locations
+ * @param {Location} targetLocation
+ * @returns {Location}
  */
-export const getClosestLocationToUser = (endpoints, currentEndpoint) => {
-    return sortByDistance(endpoints, currentEndpoint)[0];
+export const getClosestLocationToTarget = (locations, targetLocation) => {
+    return sortByDistance(locations, targetLocation)[0];
 };
 
 /**

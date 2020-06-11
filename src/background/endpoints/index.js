@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import qs from 'qs';
 import log from '../../lib/logger';
-import { getClosestLocationToUser } from '../../lib/helpers';
+import { getClosestLocationToTarget } from '../../lib/helpers';
 import { ERROR_STATUSES } from '../../lib/constants';
 import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
 import notifier from '../../lib/notifier';
@@ -55,24 +55,22 @@ class Endpoints {
     };
 
     /**
-     * Returns closest endpoint, firstly checking if endpoints object includes
+     * Returns closest endpoint, firstly checking if locations object includes
      * endpoint with same city name
-     * @param {Object.<Endpoint>} endpoints - endpoints stored by endpoint id
-     * @param {Endpoint} currentEndpoint
-     * @returns {Endpoint}
+     * @param {Location[]} locations - locations list
+     * @param {Location} targetLocation
+     * @returns {Location}
      */
-    getClosestEndpoint = (endpoints, currentEndpoint) => {
-        const endpointsArr = Object.values(endpoints);
-
-        const sameCityEndpoint = endpointsArr.find((endpoint) => {
-            return endpoint.cityName === currentEndpoint.cityName;
+    getClosestLocation = (locations, targetLocation) => {
+        const sameCityEndpoint = locations.find((endpoint) => {
+            return endpoint.cityName === targetLocation.cityName;
         });
 
         if (sameCityEndpoint) {
             return sameCityEndpoint;
         }
 
-        return getClosestLocationToUser(endpointsArr, currentEndpoint);
+        return getClosestLocationToTarget(locations, targetLocation);
     };
 
     /**
@@ -162,12 +160,12 @@ class Endpoints {
             const locationsHaveCurrentEndpoint = Object.keys(locations)
                 .find((endpointId) => endpointId === currentEndpoint.id);
             if (!locationsHaveCurrentEndpoint) {
-                const closestEndpoint = this.getClosestEndpoint(locations, currentEndpoint);
+                const closestEndpoint = this.getClosestLocation(locations, currentEndpoint);
                 // TODO fix here, this.reconnectEndpoint should get location too
                 await this.reconnectEndpoint(closestEndpoint);
             }
         } else {
-            const closestEndpoint = this.getClosestEndpoint(locations, currentEndpoint);
+            const closestEndpoint = this.getClosestLocation(locations, currentEndpoint);
             // TODO fix here reconnectEndpoint should get location too
             await this.reconnectEndpoint(closestEndpoint);
         }
@@ -249,7 +247,7 @@ class Endpoints {
             return null;
         }
 
-        const closestLocation = getClosestLocationToUser(
+        const closestLocation = getClosestLocationToTarget(
             locations,
             userCurrentLocation
         );
