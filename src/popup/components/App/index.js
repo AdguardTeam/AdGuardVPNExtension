@@ -56,10 +56,6 @@ const App = observer(() => {
                     vpnStore.updateLocationState(data);
                     break;
                 }
-                case notifier.types.ENDPOINT_BACKUP_FOUND: {
-                    vpnStore.replaceWithBackupEndpoint(data);
-                    break;
-                }
                 case notifier.types.CURRENT_LOCATION_UPDATED: {
                     vpnStore.setSelectedLocation(data);
                     break;
@@ -96,7 +92,6 @@ const App = observer(() => {
             notifier.types.VPN_INFO_UPDATED,
             notifier.types.LOCATIONS_UPDATED,
             notifier.types.LOCATION_STATE_UPDATED,
-            notifier.types.ENDPOINT_BACKUP_FOUND,
             notifier.types.CURRENT_LOCATION_UPDATED,
             notifier.types.PERMISSIONS_ERROR_UPDATE,
             notifier.types.PROXY_TURNED_ON,

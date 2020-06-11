@@ -1,3 +1,6 @@
+/**
+ * Class representing endpoint structure
+ */
 export class Endpoint {
     constructor({
         id,

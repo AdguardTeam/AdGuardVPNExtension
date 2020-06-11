@@ -45,13 +45,6 @@ class VpnStore {
         this.locations = locations;
     }
 
-    // TODO remove as unused
-    // @action
-    // replaceWithBackupEndpoint = ({ endpoint, backup }) => {
-    //     delete this.locations[endpoint.id];
-    //     this.locations[backup.id] = backup;
-    // }
-
     @action
     updateLocationState = (state) => {
         const id = state.locationId;
