@@ -46,6 +46,7 @@ const updatePingsCache = (id, newData) => {
     } else {
         pingsCache[id] = {
             ping: null,
+            available: true,
             lastMeasurementTime: 0,
             ...newData,
         };
