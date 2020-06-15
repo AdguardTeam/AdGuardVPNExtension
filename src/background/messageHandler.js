@@ -4,7 +4,6 @@ import auth from './auth';
 import popupData from './popupData';
 import endpoints from './endpoints';
 import actions from './actions';
-import proxy from './proxy';
 import credentials from './credentials';
 import authCache from './authentication/authCache';
 import appStatus from './appStatus';
@@ -15,6 +14,7 @@ import permissionsError from './permissionsChecker/permissionsError';
 import permissionsChecker from './permissionsChecker';
 import log from '../lib/logger';
 import notifier from '../lib/notifier';
+import { locationsService } from './endpoints/locationsService';
 
 const eventListeners = {};
 
@@ -61,9 +61,8 @@ const messageHandler = async (message, sender) => {
         case MESSAGES_TYPES.OPEN_OPTIONS_PAGE: {
             return actions.openOptionsPage();
         }
-        case MESSAGES_TYPES.SET_CURRENT_ENDPOINT: {
-            const { endpoint } = data;
-            return proxy.setCurrentEndpoint(endpoint);
+        case MESSAGES_TYPES.SET_SELECTED_LOCATION: {
+            return locationsService.setSelectedLocation(data.location.id);
         }
         case MESSAGES_TYPES.DEAUTHENTICATE_USER: {
             await auth.deauthenticate();
@@ -176,8 +175,8 @@ const messageHandler = async (message, sender) => {
             await handler.addToExclusions(url, enabled);
             break;
         }
-        case MESSAGES_TYPES.GET_SELECTED_ENDPOINT: {
-            return endpoints.getSelectedEndpoint();
+        case MESSAGES_TYPES.GET_SELECTED_LOCATION: {
+            return endpoints.getSelectedLocation();
         }
         case MESSAGES_TYPES.GET_EXCLUSIONS_INVERTED: {
             return exclusions.isInverted();

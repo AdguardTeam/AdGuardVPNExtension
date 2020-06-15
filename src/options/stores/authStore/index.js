@@ -183,7 +183,7 @@ class AuthStore {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
         const result = await messenger.isAuthenticated();
         // AG-644 set current endpoint in order to avoid bug in permissions checker
-        await messenger.getSelectedEndpoint();
+        await messenger.getSelectedLocation();
         if (result) {
             runInAction(() => {
                 this.authenticated = true;

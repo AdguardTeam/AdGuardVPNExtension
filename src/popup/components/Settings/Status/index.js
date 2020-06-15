@@ -13,8 +13,8 @@ const Status = observer(() => {
 
     const endpointStatus = classnames({
         'status__subtitle--disabled': !settingsStore.displayEnabled,
-        'status__subtitle--warning': settingsStore.displayEnabled && vpnStore.currentEndpointPing >= PING_WITH_WARNING,
-        'status__subtitle--success': settingsStore.displayEnabled && vpnStore.currentEndpointPing < PING_WITH_WARNING,
+        'status__subtitle--warning': settingsStore.displayEnabled && vpnStore.selectedLocationPing >= PING_WITH_WARNING,
+        'status__subtitle--success': settingsStore.displayEnabled && vpnStore.selectedLocationPing < PING_WITH_WARNING,
     });
 
     const renderStatus = () => {
@@ -22,8 +22,8 @@ const Status = observer(() => {
             return translator.translate('settings_connection_not_secured');
         }
 
-        if (settingsStore.displayEnabled && vpnStore.currentEndpointPing) {
-            return `Ping ${vpnStore.currentEndpointPing} ms`;
+        if (settingsStore.displayEnabled && vpnStore.selectedLocationPing) {
+            return `Ping ${vpnStore.selectedLocationPing} ms`;
         }
 
         return translator.translate('settings_connecting');

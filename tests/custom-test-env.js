@@ -1,5 +1,5 @@
 const NodeEnvironment = require('jest-environment-jsdom');
-
+const fetch = require('node-fetch');
 /**
  * A custom environment to set the TextEncoder
  */
@@ -15,6 +15,9 @@ class CustomEnvironment extends NodeEnvironment {
         }
         this.global.PRODUCTION = false;
         this.global.BROWSER = 'chrome';
+        // Fixes errors with fetch
+        this.global.fetch = fetch;
+        this.global.Request = fetch.Request;
     }
 }
 

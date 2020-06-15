@@ -1,39 +1,59 @@
 import browser from 'webextension-polyfill';
-import uniqBy from 'lodash/uniqBy';
 import { vpnApi } from '../api';
 import { ERROR_STATUSES } from '../../lib/constants';
 import CustomError from '../../lib/CustomError';
 
-const getEndpoints = async (vpnToken) => {
-    const endpointsObj = await vpnApi.getEndpoints(vpnToken);
-    const { endpoints } = endpointsObj;
-    const uniqEndpoints = uniqBy(endpoints, 'city_name');
-    return uniqEndpoints.reduce((acc, endpoint) => {
+/**
+ * Prepares locations data
+ * @param vpnToken
+ * @returns {Promise<*>}
+ */
+const getLocationsData = async (vpnToken) => {
+    const locationsData = await vpnApi.getLocations(vpnToken);
+
+    const { locations = [] } = locationsData;
+
+    const prepareEndpointData = (endpoint) => {
         const {
-            city_name: cityName,
-            country_code: countryCode,
-            country_name: countryName,
             domain_name: domainName,
-            latitude,
-            longitude,
-            premium_only: premiumOnly,
+            ipv4_address: ipv4Address,
+            ipv6_address: ipv6Address,
             public_key: publicKey,
         } = endpoint;
 
         return {
-            ...acc,
-            [domainName]: {
-                id: domainName,
-                cityName,
-                countryCode,
-                countryName,
-                domainName,
-                coordinates: [longitude, latitude],
-                premiumOnly,
-                publicKey,
-            },
+            id: domainName,
+            ipv4Address,
+            ipv6Address,
+            domainName,
+            publicKey,
         };
-    }, {});
+    };
+
+    const prepareLocationData = (location) => {
+        const {
+            city_name: cityName,
+            country_code: countryCode,
+            country_name: countryName,
+            latitude,
+            longitude,
+            id,
+            endpoints,
+        } = location;
+
+        return {
+            id,
+            cityName,
+            countryCode,
+            countryName,
+            coordinates: [longitude, latitude],
+            endpoints: endpoints.map(prepareEndpointData),
+        };
+    };
+
+    const preparedLocations = locations.map(prepareLocationData);
+
+    return preparedLocations;
 };
 
 const getSplitter = (localeCode) => {
@@ -173,7 +193,10 @@ const getVpnCredentials = async (appId, vpnToken) => {
 
     return {
         licenseStatus,
-        result: { credentials, expiresInSec },
+        result: {
+            credentials,
+            expiresInSec,
+        },
         timeExpiresSec,
     };
 };
@@ -183,11 +206,11 @@ const postExtensionInstalled = async (appId) => {
 };
 
 const vpnProvider = {
-    getEndpoints,
     getCurrentLocation,
     getVpnExtensionInfo,
     getVpnCredentials,
     postExtensionInstalled,
+    getLocationsData,
 };
 
 export default vpnProvider;

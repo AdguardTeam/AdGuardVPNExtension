@@ -3,21 +3,21 @@ import { observer } from 'mobx-react';
 
 import translator from '../../../lib/translator';
 import rootStore from '../../stores';
-import Endpoint from './Endpoint';
+import Location from './Location';
 import Search from './Search';
 import Skeleton from './Skeleton';
 
 import './endpoints.pcss';
 
-const Endpoints = observer(() => {
+const Locations = observer(() => {
     const { vpnStore, uiStore, settingsStore } = useContext(rootStore);
 
-    const handleEndpointSelect = (id) => async (e) => {
+    const handleLocationSelect = (id) => async (e) => {
         e.preventDefault();
-        const prevId = vpnStore.selectedEndpoint.id;
-        await vpnStore.selectEndpoint(id);
+        const prevId = vpnStore.selectedLocation.id;
+        await vpnStore.selectLocation(id);
         uiStore.closeEndpointsSearch();
-        if (settingsStore.proxyEnabled && prevId !== vpnStore.selectedEndpoint.id) {
+        if (settingsStore.proxyEnabled && prevId !== vpnStore.selectedLocation.id) {
             await settingsStore.reconnectProxy();
             return;
         }
@@ -26,12 +26,12 @@ const Endpoints = observer(() => {
         }
     };
 
-    const handleCloseEndpoints = () => {
+    const handleLocationsClose = () => {
         uiStore.closeEndpointsSearch();
         vpnStore.setSearchValue('');
     };
 
-    const renderEndpoints = (endpoints) => endpoints.map((endpoint) => {
+    const renderLocations = (locations) => locations.map((location) => {
         const {
             id,
             countryName,
@@ -39,18 +39,20 @@ const Endpoints = observer(() => {
             cityName,
             countryCode,
             ping,
-        } = endpoint;
+            available,
+        } = location;
 
         return (
-            <Endpoint
+            <Location
                 key={id}
                 id={id}
-                handleClick={handleEndpointSelect}
+                handleClick={handleLocationSelect}
                 selected={selected}
                 countryCode={countryCode}
                 countryName={countryName}
                 cityName={cityName}
                 ping={ping}
+                available={available}
             />
         );
     });
@@ -66,13 +68,14 @@ const Endpoints = observer(() => {
 
     const renderFilteredEndpoint = () => {
         const {
-            filteredEndpoints,
+            filteredLocations,
             showSearchResults,
         } = vpnStore;
-        const emptySearchResults = showSearchResults && filteredEndpoints.length === 0;
+
+        const emptySearchResults = showSearchResults && filteredLocations.length === 0;
         let listTitle = 'endpoints_all';
 
-        if (showSearchResults && filteredEndpoints.length > 0) {
+        if (showSearchResults && filteredLocations.length > 0) {
             listTitle = 'endpoints_search_results';
         }
 
@@ -92,13 +95,13 @@ const Endpoints = observer(() => {
                 <div className="endpoints__title">
                     {translator.translate(listTitle)}
                 </div>
-                {renderEndpoints(filteredEndpoints)}
+                {renderLocations(filteredLocations)}
             </div>
         );
     };
 
     const {
-        fastestEndpoints,
+        fastestLocations,
         showSearchResults,
     } = vpnStore;
 
@@ -110,7 +113,7 @@ const Endpoints = observer(() => {
                 <button
                     type="button"
                     className="button endpoints__back"
-                    onClick={handleCloseEndpoints}
+                    onClick={handleLocationsClose}
                 >
                     <svg className="icon icon--button">
                         <use xlinkHref="#back" />
@@ -129,8 +132,8 @@ const Endpoints = observer(() => {
                             <div className="endpoints__title">
                                 {translator.translate('endpoints_fastest')}
                             </div>
-                            {fastestEndpoints.length > 0 ? (
-                                renderEndpoints(fastestEndpoints)
+                            {fastestLocations.length > 0 ? (
+                                renderLocations(fastestLocations)
                             ) : (
                                 <Skeleton />
                             )}
@@ -144,4 +147,4 @@ const Endpoints = observer(() => {
     );
 });
 
-export default Endpoints;
+export default Locations;

@@ -108,9 +108,9 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async setCurrentEndpoint(endpoint) {
-        const type = MESSAGES_TYPES.SET_CURRENT_ENDPOINT;
-        return this.sendMessage(type, { endpoint });
+    async setCurrentLocation(location) {
+        const type = MESSAGES_TYPES.SET_SELECTED_LOCATION;
+        return this.sendMessage(type, { location });
     }
 
     async authenticateUser(credentials) {
@@ -258,8 +258,8 @@ class Messenger {
         return this.sendMessage(type, { mode, url, enabled });
     }
 
-    async getSelectedEndpoint() {
-        const type = MESSAGES_TYPES.GET_SELECTED_ENDPOINT;
+    async getSelectedLocation() {
+        const type = MESSAGES_TYPES.GET_SELECTED_LOCATION;
         return this.sendMessage(type);
     }
 

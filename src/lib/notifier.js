@@ -115,9 +115,9 @@ const types = {
     AUTHENTICATE_SOCIAL_SUCCESS: 'event.authenticate.social.success',
 
     VPN_INFO_UPDATED: 'event.vpn.info.updated',
-    ENDPOINTS_UPDATED: 'event.endpoints.updated',
-    ENDPOINTS_PING_UPDATED: 'event.endpoints.ping.updated',
-    CURRENT_ENDPOINT_UPDATED: 'event.current.endpoint.updated',
+    LOCATIONS_UPDATED: 'event.locations.updated',
+    LOCATION_STATE_UPDATED: 'event.location.state.updated',
+    CURRENT_LOCATION_UPDATED: 'event.current.location.updated',
     PERMISSIONS_ERROR_UPDATE: 'event.permission.error.update',
     TOKEN_PREMIUM_STATE_UPDATED: 'event.token.premium.state.updated',
 

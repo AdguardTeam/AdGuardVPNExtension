@@ -75,9 +75,15 @@
         }
 
         &--selected {
+            & .endpoints__ping,
             & .endpoints__country {
                 font-weight: 700;
             }
+        }
+
+        &--offline {
+            opacity: 0.5;
+            pointer-events: none;
         }
 
         &:hover {
@@ -100,13 +106,9 @@
         text-align: left;
     }
 
-    &__country {
-        font-size: 1.4rem;
-    }
-
     &__city {
         color: var(--gray88);
-        font-size: 1.2rem;
+        font-size: 1.4rem;
     }
 
     &__ping {

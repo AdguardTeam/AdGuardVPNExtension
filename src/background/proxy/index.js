@@ -162,13 +162,13 @@ class ExtensionProxy {
         return endpoint.domainName;
     };
 
-    setCurrentEndpoint = async (endpoint) => {
+    setCurrentEndpoint = async (endpoint, location) => {
         this.currentEndpoint = endpoint;
         const { domainName } = this.currentEndpoint;
         await this.setHost(this.currentPrefix, domainName);
         await browserApi.storage.set(CURRENT_ENDPOINT_KEY, endpoint);
         // notify popup
-        notifier.notifyListeners(notifier.types.CURRENT_ENDPOINT_UPDATED, endpoint);
+        notifier.notifyListeners(notifier.types.CURRENT_LOCATION_UPDATED, location);
         return { domainName };
     };
 

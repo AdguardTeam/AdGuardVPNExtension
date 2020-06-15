@@ -12,11 +12,11 @@ class VpnStore {
         this.rootStore = rootStore;
     }
 
-    @observable endpoints = {};
+    @observable locations = [];
 
     @observable pings = {};
 
-    @observable selectedEndpoint;
+    @observable selectedLocation;
 
     @observable searchValue = '';
 
@@ -37,62 +37,59 @@ class VpnStore {
     };
 
     @action
-    setEndpoints = (endpoints) => {
-        if (!endpoints) {
+    setLocations = (locations) => {
+        if (!locations) {
             return;
         }
 
-        this.endpoints = endpoints;
+        this.locations = locations;
+    }
+
+    @action
+    updateLocationState = (state) => {
+        const id = state.locationId;
+        this.pings[id] = state;
     };
 
     @action
-    setAllEndpoints = (endpoints) => {
-        if (!endpoints) {
-            return;
-        }
-        this.endpoints = endpoints;
-    };
+    selectLocation = async (id) => {
+        const selectedLocation = this.locations.find((location) => {
+            return location.id === id;
+        });
 
-    @action
-    setPing = (endpointPing) => {
-        this.pings[endpointPing.endpointId] = endpointPing;
-    };
-
-    @action
-    selectEndpoint = async (id) => {
-        const selectedEndpoint = this.endpoints?.[id];
-        if (!selectedEndpoint) {
+        if (!selectedLocation) {
             throw new Error(`No endpoint with id: "${id}" found`);
         }
-        await messenger.setCurrentEndpoint(toJS(selectedEndpoint));
+
+        await messenger.setCurrentLocation(toJS(selectedLocation));
         runInAction(() => {
-            this.selectedEndpoint = { ...selectedEndpoint, selected: true };
+            this.selectedLocation = { ...selectedLocation };
         });
     };
 
     @action
-    setSelectedEndpoint = (endpoint) => {
-        if (!endpoint) {
+    setSelectedLocation = (location) => {
+        if (!location) {
             return;
         }
-        if (!this.selectedEndpoint
-            || (this.selectedEndpoint && this.selectedEndpoint.id !== endpoint.id)) {
-            this.selectedEndpoint = { ...endpoint, selected: true };
+        if (!this.selectedLocation
+            || (this.selectedLocation && this.selectedLocation.id !== location.id)) {
+            this.selectedLocation = { ...location };
         }
     };
 
     @computed
-    get filteredEndpoints() {
-        const allEndpoints = Object.values(this.endpoints || {});
+    get filteredLocations() {
+        const locations = this.locations || [];
 
-        return allEndpoints
-            .filter((endpoint) => {
+        return locations
+            .filter((location) => {
                 if (!this.searchValue || this.searchValue.length === 0) {
                     return true;
                 }
                 const regex = new RegExp(this.searchValue, 'ig');
-                return (endpoint.cityName && endpoint.cityName.match(regex))
-                || (endpoint.countryName && endpoint.countryName.match(regex));
+                return (location.cityName && location.cityName.match(regex))
+                || (location.countryName && location.countryName.match(regex));
             })
             .sort((a, b) => {
                 if (a.countryName < b.countryName) {
@@ -103,66 +100,68 @@ class VpnStore {
                 }
                 return 0;
             })
-            .map((endpoint) => {
-                const endpointPing = this.pings[endpoint.id];
-                if (endpointPing) {
-                    return { ...endpoint, ping: endpointPing.ping };
+            .map(this.enrichWithStateData)
+            .map((location) => {
+                if (this.selectedLocation && this.selectedLocation.id === location.id) {
+                    return { ...location, selected: true };
                 }
-                return endpoint;
-            })
-            .map((endpoint) => {
-                if (this.selectedEndpoint && this.selectedEndpoint.id === endpoint.id) {
-                    return { ...endpoint, selected: true };
-                }
-                return endpoint;
+                return location;
             });
     }
 
+    /**
+     * Adds ping data to locations list
+     * @param location
+     * @returns {{ping, available}|*}
+     */
+    enrichWithStateData = (location) => {
+        const pingData = this.pings[location.id];
+        if (pingData) {
+            const { ping, available } = pingData;
+            return { ...location, ping, available };
+        }
+        return location;
+    }
+
     @computed
-    get fastestEndpoints() {
-        const FASTEST_ENDPOINTS_COUNT = 3;
-        const endpoints = Object.values(this.endpoints || {});
-        const sortedEndpoints = endpoints
-            .map((endpoint) => {
-                const endpointPing = this.pings[endpoint.id];
-                if (endpointPing) {
-                    return { ...endpoint, ping: endpointPing.ping };
-                }
-                return endpoint;
-            })
-            .filter((endpoint) => endpoint.ping)
+    get fastestLocations() {
+        const FASTEST_LOCATIONS_COUNT = 3;
+        const locations = this.locations || [];
+        const sortedLocations = locations
+            .map(this.enrichWithStateData)
+            .filter((location) => location.ping)
             .sort((a, b) => a.ping - b.ping)
-            .map((endpoint) => {
-                if (this.selectedEndpoint && this.selectedEndpoint.id === endpoint.id) {
-                    return { ...endpoint, selected: true };
+            .map((location) => {
+                if (this.selectedLocation && this.selectedLocation.id === location.id) {
+                    return { ...location, selected: true };
                 }
-                return { ...endpoint };
+                return { ...location };
             });
         // display fastest if
         // pings number is equal to endpoints number
-        if (sortedEndpoints.length === endpoints.length) {
-            return sortedEndpoints.slice(0, FASTEST_ENDPOINTS_COUNT);
+        if (sortedLocations.length === locations.length) {
+            return sortedLocations.slice(0, FASTEST_LOCATIONS_COUNT);
         }
         // there are more than three pings ready
-        if (sortedEndpoints.length >= FASTEST_ENDPOINTS_COUNT) {
-            return sortedEndpoints.slice(0, FASTEST_ENDPOINTS_COUNT);
+        if (sortedLocations.length >= FASTEST_LOCATIONS_COUNT) {
+            return sortedLocations.slice(0, FASTEST_LOCATIONS_COUNT);
         }
         return [];
     }
 
     @computed
     get countryNameToDisplay() {
-        return this.selectedEndpoint && this.selectedEndpoint.countryName;
+        return this.selectedLocation?.countryName;
     }
 
     @computed
     get countryCodeToDisplay() {
-        return this.selectedEndpoint && this.selectedEndpoint.countryCode;
+        return this.selectedLocation?.countryCode;
     }
 
     @computed
     get cityNameToDisplay() {
-        return this.selectedEndpoint && this.selectedEndpoint.cityName;
+        return this.selectedLocation?.cityName;
     }
 
     @action
@@ -218,20 +217,23 @@ class VpnStore {
     }
 
     @computed
-    get currentEndpointPing() {
-        if (!this.endpoints) {
+    get selectedLocationPing() {
+        if (!this.locations) {
             return null;
         }
 
-        const selectedEndpointId = this.selectedEndpoint.id;
-        const currentEndpoint = this.endpoints[selectedEndpointId];
-        let { ping } = currentEndpoint;
+        const selectedLocationId = this.selectedLocation.id;
+        const currentLocation = this.locations.find((location) => {
+            return location.id === selectedLocationId;
+        });
+
+        let { ping } = currentLocation;
         // update with fresh values from pings storage
-        if (this.pings[selectedEndpointId]) {
-            ping = this.pings[selectedEndpointId].ping;
+        if (this.pings[selectedLocationId]) {
+            ping = this.pings[selectedLocationId].ping;
         }
 
-        return toJS(ping) || null;
+        return ping;
     }
 }
 

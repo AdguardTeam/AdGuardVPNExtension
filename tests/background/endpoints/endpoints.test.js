@@ -7,6 +7,8 @@ import vpnProvider from '../../../src/background/providers/vpnProvider';
 import credentials from '../../../src/background/credentials';
 import CustomError from '../../../src/lib/CustomError';
 import { ERROR_STATUSES } from '../../../src/lib/constants';
+import { Location } from '../../../src/background/endpoints/Location';
+import { LocationWithPing } from '../../../src/background/endpoints/LocationWithPing';
 
 jest.mock('../../../src/background/settings/settings');
 jest.mock('../../../src/lib/notifier');
@@ -20,12 +22,12 @@ describe('endpoints class', () => {
         jest.clearAllMocks();
     });
 
-    it('getEndpoints returns null on init', async () => {
-        const endpointsList = await endpoints.getEndpoints();
-        expect(endpointsList).toBeNull();
+    it('getEndpoints returns empty list on init', async () => {
+        const endpointsList = await endpoints.getLocations();
+        expect(endpointsList.length).toBe(0);
     });
 
-    it('getVpnInfo return null on init and right value after', async () => {
+    it('getVpnInfo return null on init and correct value after', async () => {
         const expectedVpnInfo = {
             bandwidthFreeMbits: 1,
             premiumPromoEnabled: false,
@@ -35,41 +37,56 @@ describe('endpoints class', () => {
             totalTraffic: 500,
             vpnFailurePage: 'https://kb.adguard.com/technical-support',
         };
-        const expectedEndpoints = {
-            'do-ca-tor1-01-jbnyx56n.adguard.io': {
-                id: 'do-ca-tor1-01-jbnyx56n.adguard.io',
-                cityName: 'Toronto',
-                countryCode: 'CA',
-                countryName: 'Canada',
-                domainName: 'do-ca-tor1-01-jbnyx56n.adguard.io',
-                coordinates: [-79.34, 43.65],
-                premiumOnly: false,
-                publicKey: 'l+4CZN7RIFsnU/UgIse3BHJC1fzUHbNJh51lIfPOQQ8=',
+        const locations = [
+            {
+                id: 'VVNfTmV3IFlvcms=',
+                cityName: 'New York',
+                countryCode: 'US',
+                countryName: 'United States',
+                coordinates: [
+                    -73.93,
+                    40.73,
+                ],
+                endpoints: [
+                    {
+                        id: 'do-us-nyc1-01-yhxvv1yn.adguard.io',
+                        ipv4Address: '159.89.232.121',
+                        ipv6Address: '2604:a880:400:d1:0:0:c7d:b001',
+                        domainName: 'do-us-nyc1-01-yhxvv1yn.adguard.io',
+                        publicKey: 'ZrBfo/3MhaCij20biQx+b/kb2iPKVsbZFb8x/XeI5io=',
+                    },
+                ],
             },
-            'do-de-fra1-01.adguard.io': {
-                id: 'do-de-fra1-01.adguard.io',
-                cityName: 'Frankfurt',
-                countryCode: 'DE',
-                countryName: 'Germany',
-                domainName: 'do-de-fra1-01.adguard.io',
-                coordinates: [8.68, 50.11],
-                premiumOnly: false,
-                publicKey: 'UXKhYwlbiRKYa115QjsOdET6ibB4rEnbQDSECoHTXBM=',
+            {
+                id: 'SlBfVG9reW8=',
+                cityName: 'Tokyo',
+                countryCode: 'JP',
+                countryName: 'Japan',
+                coordinates: [
+                    139.83,
+                    35.65,
+                ],
+                endpoints: [
+                    {
+                        id: 'vultr-jp-nrt-01-0c73irq5.adguard.io',
+                        ipv4Address: '149.28.28.5',
+                        ipv6Address: '2001:19f0:7001:348:5400:2ff:fe8b:6dde',
+                        domainName: 'vultr-jp-nrt-01-0c73irq5.adguard.io',
+                        publicKey: 'Z4ubgRrPCqo7NhauABFD+t7kL7zHv4/tsFHIGWnBsWU=',
+                    },
+                    {
+                        id: 'vultr-jp-nrt-02-m270gbtk.adguard.io',
+                        ipv4Address: '45.76.98.118',
+                        ipv6Address: '2401:c080:1000:48af:5400:2ff:fe9d:3974',
+                        domainName: 'vultr-jp-nrt-02-m270gbtk.adguard.io',
+                        publicKey: 'Km7jSE/TBdD81IEXc+FrNAUjgz24BNQ8t1bQiz5w7GU=',
+                    },
+                ],
             },
-            'do-gb-lon1-01-hk7z7xez.adguard.io': {
-                id: 'do-gb-lon1-01-hk7z7xez.adguard.io',
-                cityName: 'London',
-                countryCode: 'GB',
-                countryName: 'United Kingdom',
-                domainName: 'do-gb-lon1-01-hk7z7xez.adguard.io',
-                coordinates: [-0.11, 51.5],
-                premiumOnly: false,
-                publicKey: 'uj63wPR3XdE2k7xmtNNoRpWwEF56UBxKtIfKelQu9BM=',
-            },
-        };
+        ];
 
         jest.spyOn(vpnProvider, 'getVpnExtensionInfo').mockResolvedValue(expectedVpnInfo);
-        jest.spyOn(vpnProvider, 'getEndpoints').mockResolvedValue(expectedEndpoints);
+        jest.spyOn(vpnProvider, 'getLocationsData').mockResolvedValue(locations);
         jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue('token');
         jest.spyOn(credentials, 'gainValidVpnCredentials').mockResolvedValue('vpn_credentials');
 
@@ -81,8 +98,9 @@ describe('endpoints class', () => {
 
         expect(vpnInfo).toEqual(expectedVpnInfo);
 
-        const endpointsList = await endpoints.getEndpoints();
-        expect(endpointsList).toEqual(expectedEndpoints);
+        const endpointsList = await endpoints.getLocations();
+        expect(endpointsList)
+            .toEqual(locations.map((location) => new LocationWithPing(new Location(location))));
     });
 
     it('get vpn info remotely stops execution if unable to get valid token', async () => {
@@ -97,7 +115,7 @@ describe('endpoints class', () => {
             refreshTokens: true,
         };
 
-        jest.spyOn(vpnProvider, 'getEndpoints').mockResolvedValue(null);
+        jest.spyOn(vpnProvider, 'getLocationsData').mockResolvedValue([]);
         jest.spyOn(vpnProvider, 'getVpnExtensionInfo').mockResolvedValue(expectedVpnInfo);
         jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue('vpn_token');
         jest.spyOn(credentials, 'gainValidVpnCredentials').mockResolvedValue('vpn_credentials');
@@ -110,87 +128,158 @@ describe('endpoints class', () => {
     });
 
     describe('returns closest endpoint', () => {
-        const endpointsList = {
-            'do-ca-tor1-01-jbnyx56n.adguard.io': {
-                id: 'do-ca-tor1-01-jbnyx56n.adguard.io',
-                cityName: 'Toronto',
-                countryCode: 'CA',
-                countryName: 'Canada',
-                domainName: 'do-ca-tor1-01-jbnyx56n.adguard.io',
-                coordinates: [-79.34, 43.65],
-                premiumOnly: false,
-                publicKey: 'l+4CZN7RIFsnU/UgIse3BHJC1fzUHbNJh51lIfPOQQ8=',
+        const rawLocations = [
+            {
+                id: 'VVNfTmV3IFlvcms=',
+                cityName: 'New York',
+                countryCode: 'US',
+                countryName: 'United States',
+                coordinates: [
+                    -73.93,
+                    40.73,
+                ],
+                endpoints: [
+                    {
+                        id: 'do-us-nyc1-01-yhxvv1yn.adguard.io',
+                        ipv4Address: '159.89.232.121',
+                        ipv6Address: '2604:a880:400:d1:0:0:c7d:b001',
+                        domainName: 'do-us-nyc1-01-yhxvv1yn.adguard.io',
+                        publicKey: 'ZrBfo/3MhaCij20biQx+b/kb2iPKVsbZFb8x/XeI5io=',
+                    },
+                ],
             },
-            'do-de-fra1-01.adguard.io': {
-                id: 'do-de-fra1-01.adguard.io',
-                cityName: 'Frankfurt',
-                countryCode: 'DE',
-                countryName: 'Germany',
-                domainName: 'do-de-fra1-01.adguard.io',
-                coordinates: [8.68, 50.11],
-                premiumOnly: false,
-                publicKey: 'UXKhYwlbiRKYa115QjsOdET6ibB4rEnbQDSECoHTXBM=',
+            {
+                id: 'SlBfVG9reW8=',
+                cityName: 'Tokyo',
+                countryCode: 'JP',
+                countryName: 'Japan',
+                coordinates: [
+                    139.83,
+                    35.65,
+                ],
+                endpoints: [
+                    {
+                        id: 'vultr-jp-nrt-01-0c73irq5.adguard.io',
+                        ipv4Address: '149.28.28.5',
+                        ipv6Address: '2001:19f0:7001:348:5400:2ff:fe8b:6dde',
+                        domainName: 'vultr-jp-nrt-01-0c73irq5.adguard.io',
+                        publicKey: 'Z4ubgRrPCqo7NhauABFD+t7kL7zHv4/tsFHIGWnBsWU=',
+                    },
+                    {
+                        id: 'vultr-jp-nrt-02-m270gbtk.adguard.io',
+                        ipv4Address: '45.76.98.118',
+                        ipv6Address: '2401:c080:1000:48af:5400:2ff:fe9d:3974',
+                        domainName: 'vultr-jp-nrt-02-m270gbtk.adguard.io',
+                        publicKey: 'Km7jSE/TBdD81IEXc+FrNAUjgz24BNQ8t1bQiz5w7GU=',
+                    },
+                ],
             },
-            'do-gb-lon1-01-hk7z7xez.adguard.io': {
-                id: 'do-gb-lon1-01-hk7z7xez.adguard.io',
-                cityName: 'London',
-                countryCode: 'GB',
-                countryName: 'United Kingdom',
-                domainName: 'do-gb-lon1-01-hk7z7xez.adguard.io',
-                coordinates: [-0.11, 51.5],
-                premiumOnly: false,
-                publicKey: 'uj63wPR3XdE2k7xmtNNoRpWwEF56UBxKtIfKelQu9BM=',
+            {
+                id: 'VVNfTWlhbWk=',
+                cityName: 'Miami',
+                countryCode: 'US',
+                countryName: 'United States',
+                coordinates: [
+                    -80.19,
+                    25.76,
+                ],
+                endpoints: [
+                    {
+                        id: 'vultr-us-mia-01-4jmbzqfn.adguard.io',
+                        ipv4Address: '45.32.172.174',
+                        ipv6Address: '2001:19f0:9002:96a:5400:2ff:fe68:2271',
+                        domainName: 'vultr-us-mia-01-4jmbzqfn.adguard.io',
+                        publicKey: 'ivhrodHsK9ZDd6f7HU3VaywrwN61W5DOjRjpyBZa6RM=',
+                    },
+                ],
             },
-        };
+        ];
 
 
-        it('returns closest endpoint when city name is the same', () => {
-            const currentEndpoint = {
-                id: 'do-de-fra1-01.adguard.io',
-                cityName: 'Frankfurt',
-                countryCode: 'DE',
-                countryName: 'Germany',
-                domainName: 'do-de-fra1-01.adguard.io',
-                coordinates: [8.68, 50.11],
-                premiumOnly: false,
-                publicKey: 'UXKhYwlbiRKYa115QjsOdET6ibB4rEnbQDSECoHTXBM=',
+        it('returns closest location when city name is the same', () => {
+            const targetRawLocation = {
+                id: 'VVNfTWlhbWk=',
+                cityName: 'Miami',
+                countryCode: 'US',
+                countryName: 'United States',
+                coordinates: [
+                    -80.19,
+                    25.76,
+                ],
+                endpoints: [
+                    {
+                        id: 'vultr-us-mia-01-4jmbzqfn.adguard.io',
+                        ipv4Address: '45.32.172.174',
+                        ipv6Address: '2001:19f0:9002:96a:5400:2ff:fe68:2271',
+                        domainName: 'vultr-us-mia-01-4jmbzqfn.adguard.io',
+                        publicKey: 'ivhrodHsK9ZDd6f7HU3VaywrwN61W5DOjRjpyBZa6RM=',
+                    },
+                ],
             };
-            const closestEndpoint = endpoints.getClosestEndpoint(endpointsList, currentEndpoint);
 
-            expect(closestEndpoint).toEqual(currentEndpoint);
+            const targetLocation = new Location(targetRawLocation);
+            const locations = rawLocations.map((rawLocation) => new Location(rawLocation));
+
+            const closestLocation = endpoints.getClosestLocation(locations, targetLocation);
+
+            expect(new LocationWithPing(closestLocation))
+                .toEqual(new LocationWithPing(targetLocation));
         });
 
-        it('returns closest endpoint when city name is not the same by coordinates', () => {
-            const currentEndpoint = {
-                id: 'do-nl-ams3-1.adguard.io',
-                cityName: 'Amsterdam',
-                countryCode: 'NL',
-                countryName: 'Netherlands',
-                domainName: 'do-nl-ams3-1.adguard.io',
-                coordinates: [4.89, 52.37],
-                premiumOnly: false,
-                publicKey: 'B+1zqYFIR/NSm0PC/UrouNz43xajQhK1IFXM4wKGiyw=',
+        it('returns closest endpoint when endpoints do not have same location', () => {
+            const targetRawLocation = {
+                id: 'VVNfU2lsaWNvbiBWYWxsZXk=',
+                cityName: 'Silicon Valley',
+                countryCode: 'US',
+                countryName: 'United States',
+                coordinates: [
+                    -122.04,
+                    37.37,
+                ],
+                endpoints: [
+                    {
+                        id: 'vultr-us-sjc-01-lse37xqc.adguard.io',
+                        ipv4Address: '149.28.214.166',
+                        ipv6Address: '2001:19f0:ac01:12fd:5400:2ff:fe68:23c1',
+                        domainName: 'vultr-us-sjc-01-lse37xqc.adguard.io',
+                        publicKey: '63cR1XNVgkP3Xp0iSE/dm18tGDj4BMcl6xHWDni77A0=',
+                    },
+                ],
             };
 
-            const closestEndpoint = endpoints.getClosestEndpoint(endpointsList, currentEndpoint);
+            const locations = rawLocations.map((rawLocation) => new Location(rawLocation));
+            const closestLocation = endpoints.getClosestLocation(
+                locations,
+                new Location(targetRawLocation)
+            );
 
-            const expectedEndpoint = {
-                id: 'do-gb-lon1-01-hk7z7xez.adguard.io',
-                cityName: 'London',
-                countryCode: 'GB',
-                countryName: 'United Kingdom',
-                domainName: 'do-gb-lon1-01-hk7z7xez.adguard.io',
-                coordinates: [-0.11, 51.5],
-                premiumOnly: false,
-                publicKey: 'uj63wPR3XdE2k7xmtNNoRpWwEF56UBxKtIfKelQu9BM=',
-            };
+            const expectedLocation = new Location({
+                id: 'VVNfTmV3IFlvcms=',
+                cityName: 'New York',
+                countryCode: 'US',
+                countryName: 'United States',
+                coordinates: [
+                    -73.93,
+                    40.73,
+                ],
+                endpoints: [
+                    {
+                        id: 'do-us-nyc1-01-yhxvv1yn.adguard.io',
+                        ipv4Address: '159.89.232.121',
+                        ipv6Address: '2604:a880:400:d1:0:0:c7d:b001',
+                        domainName: 'do-us-nyc1-01-yhxvv1yn.adguard.io',
+                        publicKey: 'ZrBfo/3MhaCij20biQx+b/kb2iPKVsbZFb8x/XeI5io=',
+                    },
+                ],
+            });
 
-            expect(closestEndpoint).toEqual(expectedEndpoint);
+            expect(new LocationWithPing(closestLocation))
+                .toEqual(new LocationWithPing(expectedLocation));
         });
     });
 
     describe('handles refresh token event', () => {
-        jest.spyOn(vpnProvider, 'getEndpoints').mockResolvedValue(null);
+        jest.spyOn(vpnProvider, 'getLocationsData').mockResolvedValue(null);
         jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue('vpn_token');
         jest.spyOn(credentials, 'gainValidVpnCredentials').mockResolvedValue('vpn_credentials');
 

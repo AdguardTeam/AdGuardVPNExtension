@@ -1,10 +1,9 @@
 import _ from 'lodash';
 import qs from 'qs';
 import log from '../../lib/logger';
-import { getClosestEndpointByCoordinates } from '../../lib/helpers';
+import { getClosestLocationToTarget } from '../../lib/helpers';
 import { ERROR_STATUSES } from '../../lib/constants';
 import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
-import endpointsManager from './endpointsManager';
 import notifier from '../../lib/notifier';
 import settings from '../settings/settings';
 import notifications from '../notifications';
@@ -13,6 +12,8 @@ import credentials from '../credentials';
 import proxy from '../proxy';
 import vpnProvider from '../providers/vpnProvider';
 import userLocation from './userLocation';
+import { locationsService } from './locationsService';
+import { LocationWithPing } from './LocationWithPing';
 
 /**
  * Endpoint information
@@ -43,41 +44,40 @@ class Endpoints {
     /**
      * Reconnects to the new endpoint
      * @param {Endpoint} endpoint
+     * @param {Location} location
      * @returns {Promise<void>}
      */
-    reconnectEndpoint = async (endpoint) => {
-        const { domainName } = await proxy.setCurrentEndpoint(endpoint);
+    reconnectEndpoint = async (endpoint, location) => {
+        const { domainName } = await proxy.setCurrentEndpoint(endpoint, location);
         const { credentialsHash, token } = await credentials.getAccessCredentials();
         await connectivity.endpointConnectivity.setCredentials(domainName, token, credentialsHash);
-        log.debug(`Reconnect endpoint from ${endpoint.id} to same city ${endpoint.id}`);
+        log.debug(`Reconnecting endpoint to ${endpoint.id}`);
     };
 
     /**
-     * Returns closest endpoint, firstly checking if endpoints object includes
+     * Returns closest endpoint, firstly checking if locations object includes
      * endpoint with same city name
-     * @param {Object.<Endpoint>} endpoints - endpoints stored by endpoint id
-     * @param {Endpoint} currentEndpoint
-     * @returns {Endpoint}
+     * @param {Location[]} locations - locations list
+     * @param {Location} targetLocation
+     * @returns {Location}
      */
-    getClosestEndpoint = (endpoints, currentEndpoint) => {
-        const endpointsArr = Object.values(endpoints);
-
-        const sameCityEndpoint = endpointsArr.find((endpoint) => {
-            return endpoint.cityName === currentEndpoint.cityName;
+    getClosestLocation = (locations, targetLocation) => {
+        const sameCityEndpoint = locations.find((endpoint) => {
+            return endpoint.cityName === targetLocation.cityName;
         });
 
         if (sameCityEndpoint) {
             return sameCityEndpoint;
         }
 
-        return getClosestEndpointByCoordinates(endpointsArr, currentEndpoint);
+        return getClosestLocationToTarget(locations, targetLocation);
     };
 
     /**
      * Gets endpoints remotely and updates them if there were no errors
      * @returns {Promise<null|*>}
      */
-    getEndpointsRemotely = async () => {
+    getLocationsFromServer = async () => {
         let vpnToken;
 
         try {
@@ -87,13 +87,7 @@ class Endpoints {
             return null;
         }
 
-        const newEndpoints = await vpnProvider.getEndpoints(vpnToken.token);
-
-        if (newEndpoints) {
-            endpointsManager.setEndpoints(newEndpoints);
-        }
-
-        return newEndpoints;
+        return locationsService.getLocationsFromServer(vpnToken.token);
     };
 
     vpnTokenChanged = (oldVpnToken, newVpnToken) => {
@@ -127,7 +121,7 @@ class Endpoints {
         try {
             const { vpnToken } = await this.refreshTokens();
             const vpnInfo = await vpnProvider.getVpnExtensionInfo(vpnToken.token);
-            await this.updateEndpoints(true);
+            await this.updateLocations(true);
             this.vpnInfo = vpnInfo;
         } catch (e) {
             if (e.status === ERROR_STATUSES.LIMIT_EXCEEDED) {
@@ -147,10 +141,10 @@ class Endpoints {
      * @param shouldReconnect
      * @returns {Promise<void>}
      */
-    updateEndpoints = async (shouldReconnect = false) => {
-        const endpoints = await this.getEndpointsRemotely();
+    updateLocations = async (shouldReconnect = false) => {
+        const locations = await this.getLocationsFromServer();
 
-        if (!endpoints || _.isEmpty(endpoints)) {
+        if (!locations || _.isEmpty(locations)) {
             return;
         }
 
@@ -159,19 +153,22 @@ class Endpoints {
         }
 
         const currentEndpoint = await proxy.getCurrentEndpoint();
+        const currentLocation = await locationsService.getSelectedLocation()
+            || await locationsService.getLocationByEndpoint(currentEndpoint?.id);
 
-        if (currentEndpoint) {
-            // Check if current endpoint is in the list of received endpoints
+        if (currentLocation) {
+            // Check if current endpoint is in the list of received locations
             // if not we should get closest and reconnect
-            const endpointsHaveCurrentEndpoint = Object.keys(endpoints)
-                .find((endpointId) => endpointId === currentEndpoint.id);
-            if (!endpointsHaveCurrentEndpoint) {
-                const closestEndpoint = this.getClosestEndpoint(endpoints, currentEndpoint);
-                await this.reconnectEndpoint(closestEndpoint);
+            const endpoint = await locationsService.getEndpoint(currentLocation);
+            if (endpoint) {
+                await this.reconnectEndpoint(endpoint, currentLocation);
+            } else {
+                const closestLocation = this.getClosestLocation(locations, currentLocation);
+                const closestEndpoint = await locationsService.getEndpoint(closestLocation);
+                await this.reconnectEndpoint(closestEndpoint, currentLocation);
             }
         } else {
-            const closestEndpoint = this.getClosestEndpoint(endpoints, currentEndpoint);
-            await this.reconnectEndpoint(closestEndpoint);
+            log.debug('Was unable to find current location');
         }
     }
 
@@ -205,7 +202,7 @@ class Endpoints {
             vpnInfo = await vpnProvider.getVpnExtensionInfo(updatedVpnToken.token);
         }
 
-        await this.updateEndpoints(shouldReconnect);
+        await this.updateLocations(shouldReconnect);
 
         // Save vpn info in the memory
         this.vpnInfo = vpnInfo;
@@ -230,29 +227,33 @@ class Endpoints {
         return null;
     };
 
-    getEndpoints = async () => {
-        return endpointsManager.getEndpoints();
-    };
+    getLocations = () => {
+        const locations = locationsService.getLocationsWithPing();
+        return locations;
+    }
 
-    getSelectedEndpoint = async () => {
+    getSelectedLocation = async () => {
         const proxySelectedEndpoint = await proxy.getCurrentEndpoint();
+        const selectedLocation = locationsService.getLocationByEndpoint(proxySelectedEndpoint?.id);
 
         // if found return
-        if (proxySelectedEndpoint) {
-            return proxySelectedEndpoint;
+        if (selectedLocation) {
+            return new LocationWithPing(selectedLocation);
         }
 
-        const currentLocation = await userLocation.getCurrentLocation();
-        const endpoints = Object.values(endpointsManager.getAll());
+        const userCurrentLocation = await userLocation.getCurrentLocation();
+        const locations = locationsService.getLocations();
 
-        if (!currentLocation || _.isEmpty(endpoints)) {
+        if (!userCurrentLocation || _.isEmpty(locations)) {
             return null;
         }
 
-        const closestEndpoint = getClosestEndpointByCoordinates(endpoints, currentLocation);
+        const closestLocation = getClosestLocationToTarget(
+            locations,
+            userCurrentLocation
+        );
 
-        await proxy.setCurrentEndpoint(closestEndpoint);
-        return closestEndpoint;
+        return new LocationWithPing(closestLocation);
     };
 
     getVpnFailurePage = async () => {

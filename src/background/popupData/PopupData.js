@@ -1,4 +1,5 @@
 import throttle from 'lodash/throttle';
+import isEmpty from 'lodash/isEmpty';
 import log from '../../lib/logger';
 import connectivity from '../connectivity';
 
@@ -33,8 +34,8 @@ class PopupData {
         const error = this.permissionsError.getError();
         const isRoutable = this.nonRoutable.isUrlRoutable(url);
         const vpnInfo = this.endpoints.getVpnInfo();
-        const endpointsList = await this.endpoints.getEndpoints();
-        const selectedEndpoint = await this.endpoints.getSelectedEndpoint();
+        const locations = this.endpoints.getLocations();
+        const selectedLocation = await this.endpoints.getSelectedLocation();
         const canControlProxy = await adguard.appStatus.canControlProxy();
         const isProxyEnabled = adguard.settings.isProxyEnabled();
         const isConnectivityWorking = connectivity.endpointConnectivity.isWorking();
@@ -48,8 +49,8 @@ class PopupData {
         return {
             permissionsError: error,
             vpnInfo,
-            endpointsList,
-            selectedEndpoint,
+            locations,
+            selectedLocation,
             isAuthenticated,
             canControlProxy,
             isProxyEnabled,
@@ -84,11 +85,11 @@ class PopupData {
             return data;
         }
 
-        const { vpnInfo, endpointsList, selectedEndpoint } = data;
+        const { vpnInfo, locations, selectedLocation } = data;
 
         let hasRequiredData = true;
 
-        if (!vpnInfo || !endpointsList || !selectedEndpoint) {
+        if (!vpnInfo || isEmpty(locations) || !selectedLocation) {
             if (retryNum <= 1) {
                 // it may be useful to disconnect proxy if we can't get data
                 if (data.isProxyEnabled) {

@@ -9,7 +9,7 @@ import { CSSTransition } from 'react-transition-group';
 import Header from '../Header';
 import InfoMessage from '../InfoMessage';
 import FeedbackMessage from '../InfoMessage/FeedbackMessage';
-import Endpoints from '../Endpoints';
+import Locations from '../Locations';
 import Authentication from '../Authentication';
 import ExtraOptions from '../ExtraOptions';
 import Preloader from '../Preloader';
@@ -48,16 +48,16 @@ const App = observer(() => {
                     vpnStore.setVpnInfo(data);
                     break;
                 }
-                case notifier.types.ENDPOINTS_UPDATED: {
-                    vpnStore.setAllEndpoints(data);
+                case notifier.types.LOCATIONS_UPDATED: {
+                    vpnStore.setLocations(data);
                     break;
                 }
-                case notifier.types.ENDPOINTS_PING_UPDATED: {
-                    vpnStore.setPing(data);
+                case notifier.types.LOCATION_STATE_UPDATED: {
+                    vpnStore.updateLocationState(data);
                     break;
                 }
-                case notifier.types.CURRENT_ENDPOINT_UPDATED: {
-                    vpnStore.setSelectedEndpoint(data);
+                case notifier.types.CURRENT_LOCATION_UPDATED: {
+                    vpnStore.setSelectedLocation(data);
                     break;
                 }
                 case notifier.types.PERMISSIONS_ERROR_UPDATE: {
@@ -90,9 +90,9 @@ const App = observer(() => {
 
         const events = [
             notifier.types.VPN_INFO_UPDATED,
-            notifier.types.ENDPOINTS_UPDATED,
-            notifier.types.ENDPOINTS_PING_UPDATED,
-            notifier.types.CURRENT_ENDPOINT_UPDATED,
+            notifier.types.LOCATIONS_UPDATED,
+            notifier.types.LOCATION_STATE_UPDATED,
+            notifier.types.CURRENT_LOCATION_UPDATED,
             notifier.types.PERMISSIONS_ERROR_UPDATE,
             notifier.types.PROXY_TURNED_ON,
             notifier.types.PROXY_TURNED_OFF,
@@ -160,7 +160,7 @@ const App = observer(() => {
                 classNames="fade"
                 unmountOnExit
             >
-                <Endpoints />
+                <Locations />
             </CSSTransition>
             <Settings />
             <div className="footer">

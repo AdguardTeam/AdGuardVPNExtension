@@ -4,8 +4,13 @@
     flex-direction: row;
     align-items: center;
     margin-top: auto;
+    padding: 12px 20px;
     color: var(--gray-base);
     cursor: pointer;
+
+    &:hover {
+        background-color: var(--grayf3);
+    }
 
     &__title {
         position: relative;
@@ -26,7 +31,7 @@
         content: '';
         position: absolute;
         top: 50%;
-        right: 0;
+        right: 20px;
         width: 14px;
         height: 8px;
         margin-top: -4px;
