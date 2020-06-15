@@ -73,11 +73,16 @@ const fetchWithTimeout = (requestUrl, fetchTimeout) => {
 
     const fetchHandler = async () => {
         try {
-            const result = await fetch(new Request(requestUrl, { redirect: 'manual' }), { signal: controller.signal });
+            const response = await fetch(new Request(requestUrl, { redirect: 'manual' }), { signal: controller.signal });
             if (timeoutId) {
                 clearTimeout(timeoutId);
             }
-            return result;
+            // if request is blocked with adblocker, it returns 500 error for the first request,
+            // so we additionally check if response status is ok
+            if (!response.ok) {
+                throw new Error('Server response is not ok');
+            }
+            return response;
         } catch (e) {
             if (timeoutId) {
                 clearTimeout(timeoutId);

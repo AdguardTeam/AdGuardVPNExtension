@@ -253,9 +253,6 @@ class Endpoints {
             userCurrentLocation
         );
 
-        const endpoint = await locationsService.getEndpoint(closestLocation);
-        await this.reconnectEndpoint(endpoint, new LocationWithPing(closestLocation));
-
         return new LocationWithPing(closestLocation);
     };
 

@@ -3,6 +3,7 @@ import notifier from '../../lib/notifier';
 import { LocationWithPing } from './LocationWithPing';
 import vpnProvider from '../providers/vpnProvider';
 import { Location } from './Location';
+import browserApi from '../browserApi';
 
 const PING_TTL_MS = 1000 * 60 * 10; // 10 minutes
 
@@ -203,8 +204,8 @@ const getEndpoint = async (location) => {
         getPingFromCache(location.id)
     );
 
-    if (!location.available) {
-        return location.endpoints[0];
+    if (!available) {
+        throw new Error('Was unable to determine ping for endpoint');
     }
 
     return endpoint;
@@ -212,14 +213,20 @@ const getEndpoint = async (location) => {
 
 /**
  * Returns endpoint by location id
- * @param locationId
+ * @param location
  * @returns {Promise<*>}
  */
-const getEndpointByLocationId = async (locationId) => {
-    const location = locations.find((location) => {
-        return location.id === locationId;
-    });
-    return getEndpoint(location);
+const getEndpointByLocation = async (location) => {
+    let targetLocation = location;
+
+    // This could be empty on extension restart, but after we try to use the most fresh data
+    if (locations && locations.length > 0) {
+        targetLocation = locations.find((l) => {
+            return l.id === location.id;
+        });
+    }
+
+    return getEndpoint(targetLocation);
 };
 
 /**
@@ -239,17 +246,23 @@ const getLocationByEndpoint = (endpointId) => {
 };
 
 let selectedLocation = null;
+const SELECTED_LOCATION_KEY = 'endpoints.selected.location';
 
-const setSelectedLocation = (id) => {
+const setSelectedLocation = async (id) => {
     selectedLocation = locations.find((location) => location.id === id);
+    await browserApi.storage.set(SELECTED_LOCATION_KEY, selectedLocation);
 };
 
-const getSelectedLocation = () => {
+const getSelectedLocation = async () => {
+    if (!selectedLocation) {
+        const storedLocation = await browserApi.storage.get(SELECTED_LOCATION_KEY);
+        selectedLocation = new Location(storedLocation);
+    }
     return selectedLocation;
 };
 
 export const locationsService = {
-    getEndpointByLocationId,
+    getEndpointByLocation,
     getLocationByEndpoint,
     getLocationsFromServer,
     getLocationsWithPing,
