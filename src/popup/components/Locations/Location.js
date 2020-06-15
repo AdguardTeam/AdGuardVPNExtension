@@ -36,8 +36,8 @@ const Location = ({
 
     const pingClassName = classnames(
         'endpoints__ping',
-        { 'endpoints__ping--warning': ping >= PING_WITH_WARNING },
-        { 'endpoints__ping--success': ping < PING_WITH_WARNING }
+        { 'endpoints__ping--warning': available && ping >= PING_WITH_WARNING },
+        { 'endpoints__ping--success': available && ping < PING_WITH_WARNING }
     );
 
     const renderPings = () => {
