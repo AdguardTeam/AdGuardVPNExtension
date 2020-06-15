@@ -20,7 +20,11 @@ const ENV_MAP = {
 const IS_DEV = BUILD_ENV ? BUILD_ENV === ENVS.DEV : true;
 
 // Used to build build for qa with production level api
-const PROD_API = API_ENV ? API_ENV === 'prod' : false;
+let PROD_API = BUILD_ENV ? BUILD_ENV !== ENVS.DEV : false;
+// if API_ENV specified rewrite value
+if (API_ENV) {
+    PROD_API = API_ENV === 'prod';
+}
 
 const BROWSER_TYPES = {
     CHROME: 'chrome',
