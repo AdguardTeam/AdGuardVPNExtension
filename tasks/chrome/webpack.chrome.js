@@ -5,11 +5,15 @@ const ZipWebpackPlugin = require('zip-webpack-plugin');
 const common = require('../webpack.common');
 const { updateManifest } = require('../helpers');
 const chromeManifestDiff = require('./manifest.chrome');
-const { PROD_API } = require('../consts');
+const { PROD_API, IS_DEV } = require('../consts');
 
 const CHROME_PATH = 'chrome';
 
-const zipFilename = PROD_API ? 'chrome-prod.zip' : 'chrome.zip';
+let zipFilename = 'chrome.zip';
+
+if (IS_DEV && PROD_API) {
+    zipFilename = 'chrome-prod.zip';
+}
 
 const plugins = [
     new CopyWebpackPlugin([
