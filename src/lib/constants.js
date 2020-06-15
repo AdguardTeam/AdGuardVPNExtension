@@ -59,6 +59,3 @@ export const ERROR_STATUSES = {
 
 // Error text thrown when connection is canceled by user. See issue - AG-2291
 export const FORCE_CANCELLED = 'Connection was cancelled by user';
-
-// Ping status for unavailable endpoints
-export const NOT_AVAILABLE_STATUS = 'not_available';
