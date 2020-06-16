@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
-import browser from 'webextension-polyfill';
 
 import rootStore from '../../stores';
 import SocialAuth from './SocialAuth';
@@ -11,6 +10,7 @@ import Terms from './Terms';
 
 import './auth.pcss';
 import BackButton from './BackButton';
+import translator from '../../../lib/translator';
 
 const Authentication = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -38,11 +38,11 @@ const Authentication = observer(() => {
                     <div className="auth__logo" />
 
                     <h2 className="auth__title">
-                        {browser.i18n.getMessage('auth_title')}
+                        {translator.translate('auth_title')}
                     </h2>
 
                     <p className="auth__description">
-                        {browser.i18n.getMessage('auth_description')}
+                        {translator.translate('auth_description')}
                     </p>
                 </div>
                 <div className="auth__column">

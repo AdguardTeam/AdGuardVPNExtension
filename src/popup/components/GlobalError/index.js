@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import browser from 'webextension-polyfill';
 import { observer } from 'mobx-react';
 import rootStore from '../../stores';
 import './global-error.pcss';
 import popupActions from '../../actions/popupActions';
+import translator from '../../../lib/translator';
 
 const GlobalError = observer(() => {
     const { settingsStore } = useContext(rootStore);
@@ -43,33 +43,33 @@ const GlobalError = observer(() => {
 
     const errorsMap = {
         [ERROR_TYPES.CONTROL]: {
-            description: browser.i18n.getMessage('control_error_description'),
+            description: translator.translate('control_error_description'),
             icon: ICON_TYPES.TROUBLE,
             buttons: [
                 {
                     id: 1,
                     handler: handleDisableExtensions,
                     className: 'button button--medium button--green-gradient global-error__button',
-                    text: browser.i18n.getMessage('control_error_disable'),
+                    text: translator.translate('control_error_disable'),
                 },
             ],
         },
         [ERROR_TYPES.PERMISSION]: {
-            title: browser.i18n.getMessage('global_error_title'),
-            description: browser.i18n.getMessage('global_error_description'),
+            title: translator.translate('global_error_title'),
+            description: translator.translate('global_error_description'),
             icon: ICON_TYPES.ERROR,
             buttons: [
                 {
                     id: 1,
                     handler: handleLearnMore,
-                    text: browser.i18n.getMessage('global_error_learn_more'),
+                    text: translator.translate('global_error_learn_more'),
                     className: 'button button--medium button--green-gradient global-error__button',
                 },
                 {
                     id: 2,
                     handler: handleTryAgain,
                     className: 'button button--medium button--link global-error__button',
-                    text: browser.i18n.getMessage('global_error_try_again'),
+                    text: translator.translate('global_error_try_again'),
                 },
             ],
         },

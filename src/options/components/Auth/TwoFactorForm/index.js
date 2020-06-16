@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
-import browser from 'webextension-polyfill';
 
 import rootStore from '../../../stores';
+import translator from '../../../../lib/translator';
 
 const TwoFactorForm = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -24,7 +24,7 @@ const TwoFactorForm = observer(() => {
             <div className="form__inputs">
                 <div className="form__item">
                     <label className="form__label" htmlFor="twoFactor">
-                        {browser.i18n.getMessage('auth_code')}
+                        {translator.translate('auth_code')}
                     </label>
                     <input
                         id="twoFactor"
@@ -48,7 +48,7 @@ const TwoFactorForm = observer(() => {
                     className="button button--primary button--block button--medium"
                     type="submit"
                 >
-                    {browser.i18n.getMessage('auth_confirm')}
+                    {translator.translate('auth_confirm')}
                 </button>
             </div>
         </form>

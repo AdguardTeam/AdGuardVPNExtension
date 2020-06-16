@@ -1,5 +1,5 @@
-import browser from 'webextension-polyfill';
 import authApi from '../api/authApi';
+import translator from '../../lib/translator';
 
 const accessTokenModel = {
     fromRemoteToLocal: (remoteAccessToken) => {
@@ -23,12 +23,12 @@ const getAccessToken = async (credentials) => {
     let accessTokenData;
 
     const errorsMap = {
-        '2fa_required': browser.i18n.getMessage('authentication_error_2fa_required'),
-        '2fa_invalid': browser.i18n.getMessage('authentication_error_2fa_invalid'),
-        account_disabled: browser.i18n.getMessage('authentication_error_account_disabled'),
-        account_locked: browser.i18n.getMessage('authentication_error_account_locked'),
-        bad_credentials: browser.i18n.getMessage('authentication_error_bad_credentials'),
-        default: browser.i18n.getMessage('authentication_error_default'),
+        '2fa_required': translator.translate('authentication_error_2fa_required'),
+        '2fa_invalid': translator.translate('authentication_error_2fa_invalid'),
+        account_disabled: translator.translate('authentication_error_account_disabled'),
+        account_locked: translator.translate('authentication_error_account_locked'),
+        bad_credentials: translator.translate('authentication_error_bad_credentials'),
+        default: translator.translate('authentication_error_default'),
     };
 
     try {
@@ -56,12 +56,12 @@ const register = async (credentials) => {
     };
 
     const errorsMap = {
-        'validation.not_empty': browser.i18n.getMessage('registration_error_not_empty'),
-        'validation.not_valid': browser.i18n.getMessage('registration_error_not_valid'),
-        'validation.min_length': browser.i18n.getMessage('registration_error_min_length'),
-        'validation.compromised.password': browser.i18n.getMessage('registration_error_compromised_password'),
-        'validation.unique_constraint': browser.i18n.getMessage('registration_error_unique_constraint'),
-        default: browser.i18n.getMessage('registration_error_default'),
+        'validation.not_empty': translator.translate('registration_error_not_empty'),
+        'validation.not_valid': translator.translate('registration_error_not_valid'),
+        'validation.min_length': translator.translate('registration_error_min_length'),
+        'validation.compromised.password': translator.translate('registration_error_compromised_password'),
+        'validation.unique_constraint': translator.translate('registration_error_unique_constraint'),
+        default: translator.translate('registration_error_default'),
     };
 
     let accessTokenData;

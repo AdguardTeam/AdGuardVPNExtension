@@ -1,8 +1,8 @@
 import React from 'react';
-import browser from 'webextension-polyfill';
 
 import { WEBSITE_URL, EULA_URL, PRIVACY_URL } from '../../../background/config';
 import './footer.pcss';
+import translator from '../../../lib/translator';
 
 const getCurrentYear = () => new Date().getFullYear();
 
@@ -21,7 +21,7 @@ const Footer = () => {
                         href={EULA_URL}
                         className="footer__link"
                     >
-                        {browser.i18n.getMessage('eula')}
+                        {translator.translate('eula')}
                     </a>
                     <a
                         target="_blank"
@@ -29,7 +29,7 @@ const Footer = () => {
                         href={PRIVACY_URL}
                         className="footer__link"
                     >
-                        {browser.i18n.getMessage('privacy_policy')}
+                        {translator.translate('privacy_policy')}
                     </a>
                 </nav>
             </div>

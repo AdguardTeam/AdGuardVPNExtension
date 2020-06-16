@@ -1,9 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import browser from 'webextension-polyfill';
 
 import Rate from './Rate';
 import './sidebar.pcss';
+import translator from '../../../lib/translator';
 
 const Sidebar = () => {
     return (
@@ -11,16 +11,16 @@ const Sidebar = () => {
             <svg className="sidebar__logo" />
             <nav className="sidebar__nav">
                 <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/">
-                    {browser.i18n.getMessage('settings_exclusion_title')}
+                    {translator.translate('settings_exclusion_title')}
                 </NavLink>
                 <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/settings">
-                    {browser.i18n.getMessage('settings_title')}
+                    {translator.translate('settings_title')}
                 </NavLink>
                 <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/account">
-                    {browser.i18n.getMessage('account_title')}
+                    {translator.translate('account_title')}
                 </NavLink>
                 <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/about">
-                    {browser.i18n.getMessage('about_title')}
+                    {translator.translate('about_title')}
                 </NavLink>
             </nav>
             <div className="sidebar__rate">

@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
-import browser from 'webextension-polyfill';
 
 import rootStore from '../../../stores';
 import { PASSWORD_RECOVERY_URL } from '../../../../background/config';
+import translator from '../../../../lib/translator';
 
 const SignInForm = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -38,7 +38,7 @@ const SignInForm = observer(() => {
             <div className="form__inputs">
                 <div className="form__item">
                     <label className="form__label" htmlFor="username">
-                        {browser.i18n.getMessage('auth_email')}
+                        {translator.translate('auth_email')}
                     </label>
                     <input
                         id="username"
@@ -53,7 +53,7 @@ const SignInForm = observer(() => {
                 <div className="form__item">
                     <div className="form__item-header">
                         <label className="form__label" htmlFor="password">
-                            {browser.i18n.getMessage('auth_password')}
+                            {translator.translate('auth_password')}
                         </label>
                         <a
                             href={PASSWORD_RECOVERY_URL}
@@ -62,7 +62,7 @@ const SignInForm = observer(() => {
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            {browser.i18n.getMessage('auth_recover')}
+                            {translator.translate('auth_recover')}
                         </a>
                     </div>
                     <input
@@ -86,18 +86,18 @@ const SignInForm = observer(() => {
                     className="button button--primary button--medium button--block"
                     disabled={disableLogin}
                 >
-                    {browser.i18n.getMessage('auth_login')}
+                    {translator.translate('auth_login')}
                 </button>
 
                 <div className="form__text form__text--login">
-                    {browser.i18n.getMessage('auth_account')}
+                    {translator.translate('auth_account')}
                     &nbsp;
                     <button
                         onClick={handleRegisterClick}
                         type="button"
                         className="button button--link form__link form__link--register"
                     >
-                        {browser.i18n.getMessage('auth_register')}
+                        {translator.translate('auth_register')}
                     </button>
                 </div>
             </div>

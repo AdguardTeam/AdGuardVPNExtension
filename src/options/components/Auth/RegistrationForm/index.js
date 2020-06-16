@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import ReactHtmlParser from 'react-html-parser';
-import browser from 'webextension-polyfill';
 
 import rootStore from '../../../stores';
+import translator from '../../../../lib/translator';
 
 const RegistrationForm = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -33,7 +33,7 @@ const RegistrationForm = observer(() => {
             <div className="form__inputs">
                 <div className={`form__item ${error && (field === 'username' || field === '') ? 'form__item--error' : ''}`}>
                     <label className="form__label" htmlFor="username">
-                        {browser.i18n.getMessage('auth_email')}
+                        {translator.translate('auth_email')}
                     </label>
                     <input
                         id="username"
@@ -48,7 +48,7 @@ const RegistrationForm = observer(() => {
                 <div className={`form__item ${error && field === 'password' ? 'form__item--error' : ''}`}>
                     <div className="form__item-header">
                         <label className="form__label" htmlFor="password">
-                            {browser.i18n.getMessage('auth_password')}
+                            {translator.translate('auth_password')}
                         </label>
                     </div>
                     <input
@@ -63,7 +63,7 @@ const RegistrationForm = observer(() => {
                 <div className="form__item">
                     <div className="form__item-header">
                         <label className="form__label" htmlFor="passwordAgain">
-                            {browser.i18n.getMessage('auth_password_repeat')}
+                            {translator.translate('auth_password_repeat')}
                         </label>
                     </div>
                     <input
@@ -88,7 +88,7 @@ const RegistrationForm = observer(() => {
                     className="button button--primary button--medium button--block"
                     disabled={disableRegister}
                 >
-                    {browser.i18n.getMessage('auth_register')}
+                    {translator.translate('auth_register')}
                 </button>
 
                 <div className="form__text form__text--register">
@@ -97,7 +97,7 @@ const RegistrationForm = observer(() => {
                         className="button button--link form__link form__link--login"
                         onClick={handleLoginClick}
                     >
-                        {browser.i18n.getMessage('auth_login')}
+                        {translator.translate('auth_login')}
                     </button>
                 </div>
             </div>

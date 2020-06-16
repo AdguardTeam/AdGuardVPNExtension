@@ -1,6 +1,5 @@
 import qs from 'qs';
 import nanoid from 'nanoid';
-import browser from 'webextension-polyfill';
 import { authApi } from './api';
 import authProvider from './providers/authProvider';
 import browserApi from './browserApi';
@@ -126,7 +125,7 @@ class Auth {
 
         // Notify options page, in order to update view
         notifier.notifyListeners(notifier.types.AUTHENTICATE_SOCIAL_SUCCESS);
-        await notifications.create({ message: browser.i18n.getMessage('authentication_successful_social') });
+        await notifications.create({ message: translator.translate('authentication_successful_social') });
     }
 
     async deauthenticate() {
@@ -163,7 +162,7 @@ class Auth {
             return { status: 'ok' };
         }
 
-        return { error: browser.i18n.getMessage('global_error_message') };
+        return { error: translator.translate('global_error_message') };
     }
 
     /**
