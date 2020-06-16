@@ -27,6 +27,26 @@ const getPingFromCache = (id) => {
 };
 
 /**
+ * Sets location available state
+ * @param location
+ * @param state
+ */
+const setLocationAvailableState = (location, state) => {
+    // eslint-disable-next-line no-param-reassign
+    location.available = state;
+};
+
+/**
+ * Sets location ping
+ * @param location
+ * @param ping
+ */
+const setLocationPing = (location, ping) => {
+    // eslint-disable-next-line no-param-reassign
+    location.ping = ping;
+};
+
+/**
  * Returns locations with pings, used for UI
  * @returns {*}
  */
@@ -34,8 +54,8 @@ const getLocationsWithPing = () => {
     return locations.map((location) => {
         const cachedPingData = getPingFromCache(location.id);
         if (cachedPingData) {
-            location.setPing(cachedPingData.ping);
-            location.setAvailable(cachedPingData.available);
+            setLocationPing(location, cachedPingData.ping);
+            setLocationAvailableState(location, cachedPingData.available);
         }
         return new LocationWithPing(location);
     });
@@ -109,9 +129,9 @@ const measurePing = async (location) => {
     updatePingsCache(location.id, { isMeasuring: true });
     const { ping } = await getEndpointAndPing(location);
 
-    location.setPing(ping);
+    setLocationPing(location, ping);
     const available = !!ping;
-    location.setAvailable(available);
+    setLocationAvailableState(location, available);
 
     updatePingsCache(
         location.id,
@@ -143,8 +163,8 @@ const setLocations = (newLocations) => {
     locations = newLocations.map((location) => {
         const pingCache = pingsCache[location];
         if (pingCache) {
-            location.setPing(pingCache.ping);
-            location.setAvailable(pingCache.available);
+            setLocationPing(location, pingCache.ping);
+            setLocationAvailableState(location, pingCache.available);
         }
         return location;
     });
@@ -187,9 +207,9 @@ const getEndpoint = async (location) => {
 
     const { ping, endpoint } = await getEndpointAndPing(location);
 
-    location.setPing(ping);
+    setLocationPing(location, ping);
     const available = !!ping;
-    location.setAvailable(available);
+    setLocationAvailableState(location, available);
 
     updatePingsCache(
         location.id,
