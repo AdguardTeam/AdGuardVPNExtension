@@ -4,6 +4,7 @@ import { LocationWithPing } from './LocationWithPing';
 import vpnProvider from '../providers/vpnProvider';
 import { Location } from './Location';
 import browserApi from '../browserApi';
+import proxy from '../proxy';
 
 const PING_TTL_MS = 1000 * 60 * 10; // 10 minutes
 
@@ -256,7 +257,18 @@ const setSelectedLocation = async (id) => {
 const getSelectedLocation = async () => {
     if (!selectedLocation) {
         const storedLocation = await browserApi.storage.get(SELECTED_LOCATION_KEY);
-        selectedLocation = new Location(storedLocation);
+        if (!storedLocation) {
+            // previously we used to store endpoint in the proxy module
+            // try to get from endpoint
+            // can be removed after few versions of v0.7
+            const proxySelectedEndpoint = await proxy.getCurrentEndpoint();
+            selectedLocation = getLocationByEndpoint(proxySelectedEndpoint?.id);
+            if (!selectedLocation) {
+                return null;
+            }
+        } else {
+            selectedLocation = new Location(storedLocation);
+        }
     }
     return selectedLocation;
 };
