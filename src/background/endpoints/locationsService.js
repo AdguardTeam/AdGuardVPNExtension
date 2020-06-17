@@ -1,3 +1,5 @@
+import _ from 'lodash';
+import log from '../../lib/logger';
 import { measurePingToEndpointViaFetch } from '../connectivity/pingHelpers';
 import notifier from '../../lib/notifier';
 import { LocationWithPing } from './LocationWithPing';
@@ -190,7 +192,13 @@ const getLocationsFromServer = async (vpnToken) => {
         return new Location(locationData);
     });
 
-    setLocations(locations);
+    // During endpoint deployments, api can return empty list of locations
+    // thus we continue to use locations from memory
+    if (!_.isEmpty(locations)) {
+        setLocations(locations);
+    } else {
+        log.debug('Api returned empty list of locations', locations);
+    }
 
     return locations;
 };
