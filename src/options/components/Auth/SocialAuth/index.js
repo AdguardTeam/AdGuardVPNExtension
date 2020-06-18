@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import rootStore from '../../../stores';
 import './social-auth.pcss';
-import translator from '../../../../lib/translator';
+import translator from '../../../../lib/translator/translator';
 
 const SOCIAL_PROVIDERS = ['google', 'facebook'];
 

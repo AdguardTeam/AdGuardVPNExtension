@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import rootStore from '../../stores';
 import './global-error.pcss';
 import popupActions from '../../actions/popupActions';
-import translator from '../../../lib/translator';
+import translator from '../../../lib/translator/translator';
 
 const GlobalError = observer(() => {
     const { settingsStore } = useContext(rootStore);

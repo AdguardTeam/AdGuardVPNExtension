@@ -1,5 +1,5 @@
 import authApi from '../api/authApi';
-import translator from '../../lib/translator';
+import translator from '../../lib/translator/translator';
 
 const accessTokenModel = {
     fromRemoteToLocal: (remoteAccessToken) => {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import translator from '../../../lib/translator';
+import translator from '../../../lib/translator/translator';
 import Title from '../ui/Title';
 import Mode from './Mode';
 import './settings.pcss';

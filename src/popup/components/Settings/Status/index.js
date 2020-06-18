@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
-import translator from '../../../../lib/translator';
+import translator from '../../../../lib/translator/translator';
 import rootStore from '../../../stores';
 import { PING_WITH_WARNING } from '../../../stores/consts';
 

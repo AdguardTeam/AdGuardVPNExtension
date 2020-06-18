@@ -5,7 +5,7 @@ import rootStore from '../../stores';
 import popupActions from '../../actions/popupActions';
 
 import './info-message.pcss';
-import translator from '../../../lib/translator';
+import translator from '../../../lib/translator/translator';
 import { formatBytes } from '../../../lib/helpers';
 
 const TRAFFIC_PERCENT = {

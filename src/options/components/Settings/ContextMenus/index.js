@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
-import translator from '../../../../lib/translator';
+import translator from '../../../../lib/translator/translator';
 import rootStore from '../../../stores';
 
 import Switch from '../../ui/Switch';

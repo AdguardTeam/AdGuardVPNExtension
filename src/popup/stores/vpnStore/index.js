@@ -5,7 +5,7 @@ import {
     runInAction,
     toJS,
 } from 'mobx';
-import messenger from '../../../lib/messenger';
+import messenger from '../../../lib/translator/messenger';
 
 class VpnStore {
     constructor(rootStore) {

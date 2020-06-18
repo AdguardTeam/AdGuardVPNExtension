@@ -2,7 +2,7 @@ import React from 'react';
 
 import { WEBSITE_URL, EULA_URL, PRIVACY_URL } from '../../../background/config';
 import './footer.pcss';
-import translator from '../../../lib/translator';
+import translator from '../../../lib/translator/translator';
 
 const getCurrentYear = () => new Date().getFullYear();
 

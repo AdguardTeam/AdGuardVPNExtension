@@ -20,7 +20,7 @@ import Icons from '../ui/Icons';
 import rootStore from '../../stores';
 import { REQUEST_STATUSES } from '../../stores/consts';
 import log from '../../../lib/logger';
-import messenger from '../../../lib/messenger';
+import messenger from '../../../lib/translator/messenger';
 import notifier from '../../../lib/notifier';
 
 // Set modal app element in the app module because we use multiple modal

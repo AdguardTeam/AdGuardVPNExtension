@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import useOutsideClick from '../../helpers/useOutsideClick';
 import rootStore from '../../../stores';
 import SubdomainsHelp from './SubdomainsHelp';
-import translator from '../../../../lib/translator';
+import translator from '../../../../lib/translator/translator';
 
 const Form = observer(({ exclusionsType, enabled }) => {
     const ref = useRef();

@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import translator from '../../../lib/translator';
+import translator from '../../../lib/translator/translator';
 
 const Search = ({ value, handleChange, handleClear }) => {
     const crossClassNames = classnames(

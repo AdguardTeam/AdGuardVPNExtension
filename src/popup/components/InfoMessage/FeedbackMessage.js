@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import translator from '../../../lib/translator';
+import translator from '../../../lib/translator/translator';
 
 import './info-message.pcss';
 import popupActions from '../../actions/popupActions';

@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { STORE_URL, FEEDBACK_URL } from '../../../../background/config';
 import rootStore from '../../../stores';
 import './rate.pcss';
-import translator from '../../../../lib/translator';
+import translator from '../../../../lib/translator/translator';
 
 const RATING_STARS = [5, 4, 3, 2, 1];
 

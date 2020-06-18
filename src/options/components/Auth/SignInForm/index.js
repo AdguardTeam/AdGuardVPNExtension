@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 
 import rootStore from '../../../stores';
 import { PASSWORD_RECOVERY_URL } from '../../../../background/config';
-import translator from '../../../../lib/translator';
+import translator from '../../../../lib/translator/translator';
 
 const SignInForm = observer(() => {
     const { authStore } = useContext(rootStore);

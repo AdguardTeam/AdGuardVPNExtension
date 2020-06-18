@@ -1,6 +1,6 @@
 import { action } from 'mobx';
 import tabs from '../../../background/tabs';
-import messenger from '../../../lib/messenger';
+import messenger from '../../../lib/translator/messenger';
 
 class PopupActions {
     @action

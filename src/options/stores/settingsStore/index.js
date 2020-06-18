@@ -8,7 +8,7 @@ import {
 import log from '../../../lib/logger';
 import { SETTINGS_IDS } from '../../../lib/constants';
 import { DNS_DEFAULT } from '../../../background/dns/dnsConstants';
-import messenger from '../../../lib/messenger';
+import messenger from '../../../lib/translator/messenger';
 import { EXCLUSIONS_MODES } from '../../../background/exclusions/exclusionsConstants';
 
 class SettingsStore {

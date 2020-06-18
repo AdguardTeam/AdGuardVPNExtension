@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import Rate from './Rate';
 import './sidebar.pcss';
-import translator from '../../../lib/translator';
+import translator from '../../../lib/translator/translator';
 
 const Sidebar = () => {
     return (

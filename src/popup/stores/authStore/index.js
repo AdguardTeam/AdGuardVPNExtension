@@ -6,7 +6,7 @@ import {
     toJS,
 } from 'mobx';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
-import messenger from '../../../lib/messenger';
+import messenger from '../../../lib/translator/messenger';
 
 const AUTH_STEPS = {
     CHECK_EMAIL: 'checkEmail',

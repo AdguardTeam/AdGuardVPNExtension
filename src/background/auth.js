@@ -14,7 +14,7 @@ import {
 } from './config';
 import log from '../lib/logger';
 import notifier from '../lib/notifier';
-import translator from '../lib/translator';
+import translator from '../lib/translator/translator';
 
 class Auth {
     socialAuthState = null;

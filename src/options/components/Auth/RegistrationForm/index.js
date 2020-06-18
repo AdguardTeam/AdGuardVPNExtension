@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import ReactHtmlParser from 'react-html-parser';
 
 import rootStore from '../../../stores';
-import translator from '../../../../lib/translator';
+import translator from '../../../../lib/translator/translator';
 
 const RegistrationForm = observer(() => {
     const { authStore } = useContext(rootStore);

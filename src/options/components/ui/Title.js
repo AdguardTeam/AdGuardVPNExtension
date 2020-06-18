@@ -1,6 +1,6 @@
 import React from 'react';
 
-import translator from '../../../lib/translator';
+import translator from '../../../lib/translator/translator';
 import { SUGGEST_FEATURE } from '../../../background/config';
 
 const Title = ({ title }) => (

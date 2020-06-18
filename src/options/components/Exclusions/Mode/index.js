@@ -6,7 +6,7 @@ import Form from './Form';
 import List from './List';
 import rootStore from '../../../stores';
 import { EXCLUSIONS_MODES } from '../../../../background/exclusions/exclusionsConstants';
-import translator from '../../../../lib/translator';
+import translator from '../../../../lib/translator/translator';
 
 const Mode = observer(() => {
     const { settingsStore } = useContext(rootStore);

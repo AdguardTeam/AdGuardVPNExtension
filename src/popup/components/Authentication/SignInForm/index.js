@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
-import translator from '../../../../lib/translator';
+import translator from '../../../../lib/translator/translator';
 
 import popupActions from '../../../actions/popupActions';
 import rootStore from '../../../stores';

@@ -1,5 +1,5 @@
 import React from 'react';
-import translator from '../../../../lib/translator';
+import translator from '../../../../lib/translator/translator';
 
 const Upgrade = ({ premiumPromoPage }) => (
     <div className="global-error global-error--upgrade">

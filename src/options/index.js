@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'mobx-react';
 
 import App from './components/App';
-import translator from '../lib/translator';
+import translator from '../lib/translator/translator';
 
 document.title = translator.translate('options_title');
 

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import rootStore from '../../../stores';
-import translator from '../../../../lib/translator';
+import translator from '../../../../lib/translator/translator';
 
 const TwoFactorForm = observer(() => {
     const { authStore } = useContext(rootStore);

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Popover from '../../ui/Popover';
-import translator from '../../../../lib/translator';
+import translator from '../../../../lib/translator/translator';
 
 const SubdomainsHelp = () => (
     <Popover>

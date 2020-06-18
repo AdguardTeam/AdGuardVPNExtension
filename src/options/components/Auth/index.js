@@ -10,7 +10,7 @@ import Terms from './Terms';
 
 import './auth.pcss';
 import BackButton from './BackButton';
-import translator from '../../../lib/translator';
+import translator from '../../../lib/translator/translator';
 
 const Authentication = observer(() => {
     const { authStore } = useContext(rootStore);

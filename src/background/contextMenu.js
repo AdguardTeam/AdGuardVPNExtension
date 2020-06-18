@@ -3,7 +3,7 @@ import throttle from 'lodash/throttle';
 import notifier from '../lib/notifier';
 import exclusions from './exclusions';
 import tabs from './tabs';
-import translator from '../lib/translator';
+import translator from '../lib/translator/translator';
 import settings from './settings/settings';
 import { isHttp } from '../lib/string-utils';
 import log from '../lib/logger';

@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 
 import { PING_WITH_WARNING } from '../../stores/consts';
-import translator from '../../../lib/translator';
+import translator from '../../../lib/translator/translator';
 
 const Location = ({
     id, selected, countryCode, countryName, cityName, handleClick, ping, available,

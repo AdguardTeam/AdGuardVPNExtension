@@ -1,4 +1,4 @@
-import { messageParser } from '../../src/lib/messageParser';
+import { messageParser } from '../../src/lib/translator/messageParser';
 
 describe('messageParser', () => {
     it('parses strings', () => {
