@@ -1,24 +1,11 @@
+import { tagNode, textNode, isNode } from './nodes';
+
 const STATES = {
     TEXT: 'text',
     TAG: 'tag',
 };
 
-const textNode = (str) => {
-    return { type: 'text', value: str };
-};
-
-const tagNode = (tagName, children) => {
-    if (children && children.length > 0) {
-        return { type: 'tag', value: tagName, children };
-    }
-    return { type: 'tag', value: tagName };
-};
-
-const isNode = (checked) => {
-    return !!checked?.type;
-};
-
-export const messageParser = (str) => {
+export const parser = (str) => {
     const stack = [];
     const result = [];
 
@@ -46,7 +33,7 @@ export const messageParser = (str) => {
                                 stack.push(node);
                             }
                         } else if (result.length > 0) {
-                            // if last node of result was text node, append text
+                            // if last node was text node, append text
                             if (result[result.length - 1].type === 'text') {
                                 result[result.length - 1].text += text;
                             } else {
@@ -83,6 +70,7 @@ export const messageParser = (str) => {
                                 children = [];
                                 break;
                             } else if (isNode(lastFromStack)) {
+                                // add nodes between close tag and open tag to the children
                                 children.unshift(lastFromStack);
                             } else {
                                 throw new Error('String has unbalanced tags');
@@ -110,7 +98,7 @@ export const messageParser = (str) => {
                 break;
             }
             default: {
-                throw new Error(`There is no such state: ${currentState}`);
+                throw new Error(`There is no such state ${currentState}`);
             }
         }
 

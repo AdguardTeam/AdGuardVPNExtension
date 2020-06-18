@@ -7,7 +7,7 @@ import {
 } from 'mobx';
 import debounce from 'lodash/debounce';
 import { REQUEST_STATUSES } from '../consts';
-import messenger from '../../../lib/translator/messenger';
+import messenger from '../../../lib/messenger';
 import translator from '../../../lib/translator/translator';
 
 const AUTH_STEPS = {

@@ -1,10 +1,10 @@
-import { messageParser } from '../../src/lib/translator/messageParser';
+import { parser } from '../../../src/lib/translator/parser';
 
-describe('messageParser', () => {
-    it('parses strings', () => {
+describe('parser', () => {
+    it('parses', () => {
         const str = 'String to translate';
         const expectedAst = [{ type: 'text', value: str }];
-        expect(messageParser(str)).toEqual(expectedAst);
+        expect(parser(str)).toEqual(expectedAst);
     });
 
     it('parses tags', () => {
@@ -19,7 +19,7 @@ describe('messageParser', () => {
                 value: 'a',
                 children: [{ type: 'text', value: 'translate' }],
             }];
-        expect(messageParser(str)).toEqual(expectedAst);
+        expect(parser(str)).toEqual(expectedAst);
     });
 
     it('parses included tags', () => {
@@ -42,7 +42,7 @@ describe('messageParser', () => {
             { type: 'text', value: ' and some text after' },
         ];
 
-        expect(messageParser(str)).toEqual(expectedAst);
+        expect(parser(str)).toEqual(expectedAst);
     });
 
     it('ignores open braces between tags', () => {
@@ -55,7 +55,7 @@ describe('messageParser', () => {
             },
         ];
 
-        expect(messageParser(str)).toEqual(expectedAst);
+        expect(parser(str)).toEqual(expectedAst);
     });
 
     it('ignores closing braces between tags', () => {
@@ -68,7 +68,7 @@ describe('messageParser', () => {
             },
         ];
 
-        expect(messageParser(str)).toEqual(expectedAst);
+        expect(parser(str)).toEqual(expectedAst);
     });
 
     it('ignores open braces in children tags', () => {
@@ -85,13 +85,13 @@ describe('messageParser', () => {
             },
         ];
 
-        expect(messageParser(str)).toEqual(expectedAst);
+        expect(parser(str)).toEqual(expectedAst);
     });
 
     it('throws error if tag is not balanced', () => {
         const str = 'text <a>';
         expect(() => {
-            messageParser(str);
+            parser(str);
         }).toThrow('String has unbalanced tags');
     });
 });

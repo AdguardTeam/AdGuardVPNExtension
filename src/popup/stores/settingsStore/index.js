@@ -10,7 +10,7 @@ import log from '../../../lib/logger';
 import { getHostname, getProtocol } from '../../../lib/helpers';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
 import { ERROR_STATUSES, FORCE_CANCELLED } from '../../../lib/constants';
-import messenger from '../../../lib/translator/messenger';
+import messenger from '../../../lib/messenger';
 
 class SettingsStore {
     @observable switcherEnabled = false;

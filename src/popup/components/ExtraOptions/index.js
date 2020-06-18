@@ -5,7 +5,7 @@ import rootStore from '../../stores';
 import popupActions from '../../actions/popupActions';
 import { POPUP_FEEDBACK_URL, OTHER_PRODUCTS_URL } from '../../../background/config';
 import translator from '../../../lib/translator/translator';
-import messenger from '../../../lib/translator/messenger';
+import messenger from '../../../lib/messenger';
 import Option from './Option';
 import './extra-options.pcss';
 

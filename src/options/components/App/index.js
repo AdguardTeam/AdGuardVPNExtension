@@ -19,7 +19,7 @@ import Auth from '../Auth';
 import Exclusions from '../Exclusions';
 import Preloader from '../Preloader';
 import Icons from '../ui/Icons';
-import messenger from '../../../lib/translator/messenger';
+import messenger from '../../../lib/messenger';
 import notifier from '../../../lib/notifier';
 
 Modal.setAppElement('#root');
