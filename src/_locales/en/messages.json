@@ -352,5 +352,26 @@
     },
     "offline_title": {
         "message": "Offline"
+    },
+    "popup_exclusions_enable_vpn_on_site": {
+        "message": "<span>You can</span> <a>enable VPN on this website</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_exclusions_add_site_to_exclusions": {
+        "message": "<span>You can</span> <a>add the website to exclusions</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_exclusions_disable_vpn_on_site": {
+        "message": "<span>You can</span> <a>disable VPN on this website</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_site_status_unaccessible": {
+        "message": "is located in your local network and unaccessible via VPN"
+    },
+    "popup_site_status_vpn_disabled": {
+        "message": "VPN is disabled on this website"
+    },
+    "popup_site_status_added_to_exclusions": {
+        "message": "added to exclusions"
     }
 }

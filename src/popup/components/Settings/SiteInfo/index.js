@@ -4,10 +4,10 @@ import { observer } from 'mobx-react';
 import rootStore from '../../../stores';
 import Info from './Info';
 import StatusImage from '../StatusImage';
+import translator from '../../../../lib/translator/translator';
 
 import './site-info.pcss';
 
-// TODO translations
 const SiteInfo = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
@@ -25,26 +25,34 @@ const SiteInfo = observer(() => {
         const nonRoutableActionsMap = {
             regular: (
                 <div className="site-info__wrap">
-                    <span className="site-info__desc">You can&nbsp;</span>
-                    <a
-                        type="button"
-                        className="button site-info__link"
-                        onClick={addToExclusions}
-                    >
-                        add the website to exclusions
-                    </a>
+                    {translator.translateReact('popup_exclusions_add_site_to_exclusions', {
+                        span: (chunks) => (<span className="site-info__desc">{chunks}</span>),
+                        a: (chunks) => (
+                            <a
+                                type="button"
+                                className="button site-info__link"
+                                onClick={addToExclusions}
+                            >
+                                {chunks}
+                            </a>
+                        ),
+                    })}
                 </div>
             ),
             selective: (
                 <div className="site-info__wrap">
-                    <span className="site-info__desc">You can&nbsp;</span>
-                    <a
-                        type="button"
-                        className="button site-info__link"
-                        onClick={removeFromExclusions}
-                    >
-                        disable VPN on this website
-                    </a>
+                    {translator.translateReact('popup_exclusions_disable_vpn_on_site', {
+                        span: (chunks) => (<span className="site-info__desc">{chunks}</span>),
+                        a: (chunks) => (
+                            <a
+                                type="button"
+                                className="button site-info__link"
+                                onClick={removeFromExclusions}
+                            >
+                                {chunks}
+                            </a>
+                        ),
+                    })}
                 </div>
             ),
         };
@@ -56,7 +64,7 @@ const SiteInfo = observer(() => {
         return (
             <Info
                 title={settingsStore.currentTabHostname}
-                status="is located in your local network and unaccessible via VPN"
+                status={translator.translateReact('popup_site_status_unaccessible')}
             >
                 {actionRender}
             </Info>
@@ -67,17 +75,21 @@ const SiteInfo = observer(() => {
         return (
             <Info
                 title={settingsStore.currentTabHostname}
-                status="VPN is disabled on this website"
+                status={translator.translateReact('popup_site_status_vpn_disabled')}
             >
                 <div className="site-info__wrap">
-                    <span className="site-info__desc">You can&nbsp;</span>
-                    <a
-                        type="button"
-                        className="button site-info__link"
-                        onClick={addToExclusions}
-                    >
-                        enable VPN on this website
-                    </a>
+                    {translator.translateReact('popup_exclusions_enable_vpn_on_site', {
+                        span: (chunks) => (<span className="site-info__desc">{chunks}</span>),
+                        a: (chunks) => (
+                            <a
+                                type="button"
+                                className="button site-info__link"
+                                onClick={addToExclusions}
+                            >
+                                {chunks}
+                            </a>
+                        ),
+                    })}
                 </div>
             </Info>
         );
@@ -87,17 +99,21 @@ const SiteInfo = observer(() => {
         return (
             <Info
                 title={settingsStore.currentTabHostname}
-                status="added to exclusions"
+                status={translator.translateReact('popup_site_status_added_to_exclusions')}
             >
                 <div className="site-info__wrap">
-                    <span className="site-info__desc">You can&nbsp;</span>
-                    <a
-                        type="button"
-                        className="button site-info__link"
-                        onClick={removeFromExclusions}
-                    >
-                        enable VPN on this website
-                    </a>
+                    {translator.translateReact('popup_exclusions_enable_vpn_on_site', {
+                        span: (chunks) => (<span className="site-info__desc">{chunks}</span>),
+                        a: (chunks) => (
+                            <a
+                                type="button"
+                                className="button site-info__link"
+                                onClick={removeFromExclusions}
+                            >
+                                {chunks}
+                            </a>
+                        ),
+                    })}
                 </div>
             </Info>
         );

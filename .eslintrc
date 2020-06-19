@@ -86,6 +86,7 @@
             }
         ],
         "import/prefer-default-export": "off",
-        "arrow-body-style": "off"
+        "arrow-body-style": "off",
+        "react/display-name": "off"
     }
 }
