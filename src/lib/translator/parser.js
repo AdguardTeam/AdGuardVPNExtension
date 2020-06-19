@@ -1,8 +1,14 @@
-import { tagNode, textNode, isNode } from './nodes';
+import {
+    tagNode,
+    textNode,
+    isNode,
+    placeholderNode,
+} from './nodes';
 
-const STATES = {
+const STATE = {
     TEXT: 'text',
     TAG: 'tag',
+    PLACEHOLDER: 'placeholder',
 };
 
 export const parser = (str) => {
@@ -10,17 +16,44 @@ export const parser = (str) => {
     const result = [];
 
     let i = 0;
-    let currentState = STATES.TEXT;
+    let currentState = STATE.TEXT;
     let tag = '';
     let text = '';
+    let placeholder = '';
 
     while (i < str.length) {
         const currChar = str[i];
         switch (currentState) {
-            case STATES.TEXT: {
+            case STATE.TEXT: {
                 // switch to the tag state
                 if (currChar === '<') {
-                    currentState = STATES.TAG;
+                    currentState = STATE.TAG;
+                    // save text in the node
+                    if (text.length > 0) {
+                        const node = textNode(text);
+                        // if stack is not empty add text to the result
+                        if (stack.length > 0) {
+                            // if last node was text node, append text
+                            if (stack[stack.length - 1].type === 'text') {
+                                stack[stack.length - 1].value += text;
+                            } else {
+                                stack.push(node);
+                            }
+                        } else if (result.length > 0) {
+                            // if last node was text node, append text
+                            if (result[result.length - 1].type === 'text') {
+                                result[result.length - 1].text += text;
+                            } else {
+                                result.push(node);
+                            }
+                        } else {
+                            result.push(node);
+                        }
+                        text = '';
+                    }
+                } else if (currChar === '{') {
+                    currentState = STATE.PLACEHOLDER;
+                    // TODO extract into method
                     // save text in the node
                     if (text.length > 0) {
                         const node = textNode(text);
@@ -49,7 +82,7 @@ export const parser = (str) => {
                 }
                 break;
             }
-            case STATES.TAG: {
+            case STATE.TAG: {
                 // if found tag end
                 if (currChar === '>') {
                     // if the tag is close tag
@@ -82,18 +115,34 @@ export const parser = (str) => {
                     } else {
                         stack.push(tag);
                     }
-                    currentState = STATES.TEXT;
+                    currentState = STATE.TEXT;
                     tag = '';
                 } else if (currChar === '<') {
                     // Seems like we wrongly moved into tag state,
                     // return to the text state with accumulated tag string
-                    currentState = STATES.TEXT;
+                    currentState = STATE.TEXT;
                     text += currChar;
                     text += tag;
                     tag = '';
                     i -= 1;
                 } else {
                     tag += currChar;
+                }
+                break;
+            }
+            case STATE.PLACEHOLDER: {
+                if (currChar === '}') {
+                    currentState = STATE.TEXT;
+                    const node = placeholderNode(placeholder);
+                    // if stack is not empty add placeholder to the stack
+                    if (stack.length > 0) {
+                        stack.push(node);
+                    } else {
+                        result.push(node);
+                    }
+                    placeholder = '';
+                } else {
+                    placeholder += currChar;
                 }
                 break;
             }

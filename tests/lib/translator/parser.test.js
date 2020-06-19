@@ -94,4 +94,31 @@ describe('parser', () => {
             parser(str);
         }).toThrow('String has unbalanced tags');
     });
+
+    it('parses placeholders', () => {
+        const str = 'text with {replaceable}';
+        const expectedAst = [{ type: 'text', value: 'text with ' }, { type: 'placeholder', value: 'replaceable' }];
+        expect(parser(str)).toEqual(expectedAst);
+    });
+
+    it('parses nested placeholders', () => {
+        const str = 'text with <a>tag with {replaceable}</a>';
+        const expectedAst = [
+            { type: 'text', value: 'text with ' },
+            {
+                type: 'tag',
+                value: 'a',
+                children: [
+                    {
+                        type: 'text',
+                        value: 'tag with ',
+                    }, {
+                        type: 'placeholder',
+                        value: 'replaceable',
+                    }],
+            },
+        ];
+        expect(parser(str))
+            .toEqual(expectedAst);
+    });
 });
