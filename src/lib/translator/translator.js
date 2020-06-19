@@ -4,9 +4,10 @@ import browser from 'webextension-polyfill';
 import React from 'react';
 import { formatter } from './formatter';
 
-const translate = (key) => {
+const translate = (key, values) => {
     const message = browser.i18n.getMessage(key);
-    return message;
+    const formatted = formatter(message, values);
+    return formatted.join('');
 };
 
 const translateReact = (key, values) => {

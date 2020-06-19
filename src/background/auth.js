@@ -162,7 +162,11 @@ class Auth {
             return { status: 'ok' };
         }
 
-        return { error: translator.translate('global_error_message') };
+        return {
+            error: translator.translate('global_error_message', {
+                a: (chunks) => `<a href="mailto:support@adguard-vpn.com" target="_blank">${chunks}</a>`,
+            }),
+        };
     }
 
     /**
@@ -177,7 +181,11 @@ class Auth {
             response = await authProvider.userLookup(email, appId);
         } catch (e) {
             log.error(e.message);
-            return { error: translator.translate('global_error_message') };
+            return {
+                error: translator.translate('global_error_message', {
+                    a: (chunks) => `<a href="mailto:support@adguard-vpn.com" target="_blank">${chunks}</a>`,
+                }),
+            };
         }
         return response;
     }
