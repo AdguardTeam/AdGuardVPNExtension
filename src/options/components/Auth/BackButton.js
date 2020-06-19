@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 
 import rootStore from '../../stores';
+import translator from '../../../lib/translator/translator';
 
 function BackButton() {
     const { authStore } = useContext(rootStore);
@@ -18,7 +19,7 @@ function BackButton() {
             <svg className="icon icon--button icon--back">
                 <use xlinkHref="#back-arrow" />
             </svg>
-            <span>Back</span>
+            <span>{translator.translateReact('options_auth_back_button')}</span>
         </button>
     );
 }

@@ -389,5 +389,8 @@
     "popup_ping_value": {
         "message": "Ping {pingValue} ms",
         "description": "Respect spaces between text and placeholder"
+    },
+    "options_auth_back_button": {
+        "message": "Back"
     }
 }
