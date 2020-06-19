@@ -308,7 +308,7 @@
     "endpoints_not_found": {
         "message": "Server not found"
     },
-    "premium_limit_reached": {
+    "popup_traffic_limit_reached": {
         "message": "Monthly data limit reached. Need more?"
     },
     "premium_upgrade": {
@@ -381,5 +381,9 @@
     "options_auth_agreement_consent": {
         "message": "By continuing you accept the <privacy>Terms and Conditions</privacy> and <eula>EULA</eula>",
         "description": "NOTICE! respect spaces between tags"
+    },
+    "popup_free_traffic_info": {
+        "message": "<span>{value} {unit}</span> remaining this month",
+        "description": "Respect spaces between text, tags and placeholders"
     }
 }

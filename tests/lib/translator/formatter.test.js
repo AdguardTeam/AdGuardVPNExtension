@@ -18,4 +18,21 @@ describe('formatter', () => {
         expect(message)
             .toEqual(['before tag text ', '<a href="#">some text <span>inside span</span> tag</a>']);
     });
+
+    it('formats nested placeholders', () => {
+        const rawStr = '<span>{value} {unit}</span> remaining this month';
+
+        const formatted = formatter(rawStr, {
+            value: 10,
+            unit: 'kb',
+            span: (chunks) => (`<span class='test'>${chunks}</span>`),
+        });
+
+        expect(formatted).toEqual(["<span class='test'>10 kb</span>", ' remaining this month']);
+    });
+
+    it('handles empty input without errors', () => {
+        const formatted = formatter(undefined);
+        expect(formatted).toEqual([]);
+    });
 });

@@ -51,18 +51,15 @@ const InfoMessage = observer(() => {
     return (
         <div className="info-message">
             <div className="info-message__text">
-                {settingsStore.hasLimitExceededError ? (
-                    <span>{translator.translate('premium_limit_reached')}</span>
-                ) : (
-                    <>
-                        <span className={`info-message__value ${getInfoColor()}`}>
-                            {formattedRemainingTraffic.value}
-                            &nbsp;
-                            {formattedRemainingTraffic.unit}
-                        </span>
-                        &nbsp;remaining this month
-                    </>
-                )}
+                {
+                    settingsStore.hasLimitExceededError
+                        ? (<span>{translator.translate('popup_traffic_limit_reached')}</span>)
+                        : translator.translateReact('popup_free_traffic_info', {
+                            value: formattedRemainingTraffic.value,
+                            unit: formattedRemainingTraffic.unit,
+                            span: (chunks) => (<span className={`info-message__value ${getInfoColor()}`}>{chunks}</span>),
+                        })
+                }
             </div>
             <a
                 href={premiumPromoPage}

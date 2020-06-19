@@ -12,6 +12,10 @@ const isTagNode = (node) => {
     return node?.type === NODE_TYPES.TAG;
 };
 
+const isPlaceholderNode = (node) => {
+    return node?.type === NODE_TYPES.PLACEHOLDER;
+};
+
 const placeholderNode = (value) => {
     return { type: NODE_TYPES.PLACEHOLDER, value };
 };
@@ -29,9 +33,10 @@ const isNode = (checked) => {
 };
 
 module.exports = {
-    placeholderNode,
+    isPlaceholderNode,
     isTextNode,
     isTagNode,
+    placeholderNode,
     textNode,
     tagNode,
     isNode,
