@@ -373,5 +373,9 @@
     },
     "popup_site_status_added_to_exclusions": {
         "message": "added to exclusions"
+    },
+    "popup_auth_agreement_consent": {
+        "message": "By using AdGuard VPN, you agree to our <eula>EULA</eula> and <privacy>Privacy Policy</privacy>",
+        "description": "NOTICE! respect spaces between tags"
     }
 }

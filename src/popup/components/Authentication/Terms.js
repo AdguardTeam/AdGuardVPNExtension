@@ -2,9 +2,9 @@ import React from 'react';
 
 import popupActions from '../../actions/popupActions';
 import { EULA_URL, PRIVACY_URL } from '../../../background/config';
+import translator from '../../../lib/translator/translator';
 
-// TODO translations
-function Terms() {
+const Terms = () => {
     const handlePrivacyClick = async () => {
         await popupActions.openTab(PRIVACY_URL);
     };
@@ -15,29 +15,30 @@ function Terms() {
 
     return (
         <div className="auth__privacy">
-            By using AdGuard VPN, you agree to&nbsp;
-            <div>
-                our&nbsp;
-                <button
-                    type="button"
-                    tabIndex="-1"
-                    className="auth__privacy-link"
-                    onClick={handleEulaClick}
-                >
-                    EULA
-                </button>
-                &nbsp;and&nbsp;
-                <button
-                    type="button"
-                    tabIndex="-1"
-                    className="auth__privacy-link"
-                    onClick={handlePrivacyClick}
-                >
-                    Privacy Policy
-                </button>
-            </div>
+            {translator.translateReact('popup_auth_agreement_consent', {
+                eula: (chunks) => (
+                    <button
+                        type="button"
+                        tabIndex="-1"
+                        className="auth__privacy-link"
+                        onClick={handleEulaClick}
+                    >
+                        {chunks}
+                    </button>
+                ),
+                privacy: (chunks) => (
+                    <button
+                        type="button"
+                        tabIndex="-1"
+                        className="auth__privacy-link"
+                        onClick={handlePrivacyClick}
+                    >
+                        {chunks}
+                    </button>
+                ),
+            })}
         </div>
     );
-}
+};
 
 export default Terms;
