@@ -19,6 +19,15 @@ describe('formatter', () => {
             .toEqual(['before tag text ', '<a href="#">some text <span>inside span</span> tag</a>']);
     });
 
+    it('formats placeholders', () => {
+        const rawStr = 'Ping {pingValue} ms';
+        const formatted = formatter(rawStr, {
+            pingValue: 100,
+        });
+
+        expect(formatted).toEqual(['Ping ', 100, ' ms']);
+    });
+
     it('formats nested placeholders', () => {
         const rawStr = '<span>{value} {unit}</span> remaining this month';
 

@@ -23,7 +23,9 @@ const Status = observer(() => {
         }
 
         if (settingsStore.displayEnabled && vpnStore.selectedLocationPing) {
-            return `Ping ${vpnStore.selectedLocationPing} ms`;
+            return translator.translateReact('popup_ping_value', {
+                pingValue: vpnStore.selectedLocationPing,
+            });
         }
 
         return translator.translate('settings_connecting');

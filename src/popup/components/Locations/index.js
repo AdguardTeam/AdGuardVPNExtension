@@ -109,7 +109,6 @@ const Locations = observer(() => {
         <div className="endpoints">
             <div className="endpoints__header">
                 {translator.translate('endpoints_countries')}
-
                 <button
                     type="button"
                     className="button endpoints__back"
