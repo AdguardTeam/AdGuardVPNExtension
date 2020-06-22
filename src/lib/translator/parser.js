@@ -118,7 +118,8 @@ export const parser = (str = '') => {
                         }
                         // search for the opening tag
                         // eslint-disable-next-line no-constant-condition
-                        while (true) {
+                        let pairTagFound = false;
+                        while (!pairTagFound && stack.length > 0) {
                             const lastFromStack = stack.pop();
                             if (lastFromStack === tag) {
                                 const node = tagNode(tag, children);
@@ -128,7 +129,7 @@ export const parser = (str = '') => {
                                     result.push(node);
                                 }
                                 children = [];
-                                break;
+                                pairTagFound = true;
                             } else if (isNode(lastFromStack)) {
                                 // add nodes between close tag and open tag to the children
                                 children.unshift(lastFromStack);
