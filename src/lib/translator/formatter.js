@@ -1,20 +1,29 @@
 import { parser } from './parser';
 import { isTextNode, isTagNode, isPlaceholderNode } from './nodes';
 
+/**
+ * Checks if target is function
+ * @param target
+ * @returns {boolean}
+ */
 const isFunction = (target) => {
     return typeof target === 'function';
 };
 
-const format = (ast, values) => {
+/**
+ * Format function gets ast (abstract syntax tree), result of parser function call, and
+ * converts nodes into array of strings replacing node values with provided
+ * @param ast
+ * @param values
+ * @returns {[]}
+ */
+const format = (ast = [], values) => {
     const result = [];
-
-    if (!ast) {
-        return result;
-    }
 
     let i = 0;
     while (i < ast.length) {
         const currentNode = ast[i];
+        // if current node is text node, there is nothing to change, append value to the result
         if (isTextNode(currentNode)) {
             result.push(currentNode.value);
         } else if (isTagNode(currentNode)) {
@@ -43,6 +52,17 @@ const format = (ast, values) => {
     return result;
 };
 
+/**
+ * Function gets ast or string and formats messages, replacing values accordingly
+ * e.g.
+ *      const message = formatter('<a>some text</a>', {
+ *          a: (chunks) => `<a href="#">${chunks}</a>`,
+ *      });
+ *      console.log(message); // ['<a href="#">some text</a>']
+ * @param message
+ * @param values
+ * @returns {*[]}
+ */
 export const formatter = (message, values) => {
     let ast = message;
 
