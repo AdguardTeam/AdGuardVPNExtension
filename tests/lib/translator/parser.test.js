@@ -13,12 +13,11 @@ describe('parser', () => {
         expect(parser(str)).toEqual(expectedAst);
     });
 
-    // TODO handle only open tag in the text
-    // it('parses text with < ', () => {
-    //     const str = 'text < abc';
-    //     const expectedAst = [{ type: 'text', value: 'text < abc' }];
-    //     expect(parser(str)).toEqual(expectedAst);
-    // });
+    it('parses text with <', () => {
+        const str = 'text < abc';
+        const expectedAst = [{ type: 'text', value: 'text < abc' }];
+        expect(parser(str)).toEqual(expectedAst);
+    });
 
     it('parses tags', () => {
         const str = 'String to <a>translate</a>';
@@ -146,7 +145,7 @@ describe('parser', () => {
             expect(parser(str)).toEqual(expectedAst);
         });
 
-        it('double placeholder marks are considered as escape for %', () => {
+        it('double placeholder marks are considered as escape for % 2', () => {
             const str = 'text %% some';
             const expectedAst = [
                 { type: 'text', value: 'text % some' },

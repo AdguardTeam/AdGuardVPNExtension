@@ -96,29 +96,7 @@ export const parser = (str = '') => {
                 // switch to the tag state
                 if (currChar === CONTROL_CHARS.TAG_OPEN_BRACE) {
                     currentState = STATE.TAG;
-                    // save text in the node
-                    if (text.length > 0) {
-                        const node = textNode(text);
-                        // if stack is not empty add text to the result
-                        if (stack.length > 0) {
-                            // if last node was text node, append text
-                            if (stack[stack.length - 1].type === 'text') {
-                                stack[stack.length - 1].value += text;
-                            } else {
-                                stack.push(node);
-                            }
-                        } else if (result.length > 0) {
-                            // if last node was text node, append text
-                            if (result[result.length - 1].type === 'text') {
-                                result[result.length - 1].text += text;
-                            } else {
-                                result.push(node);
-                            }
-                        } else {
-                            result.push(node);
-                        }
-                        text = '';
-                    }
+                    lastStateChangeIdx = i;
                 } else if (currChar === CONTROL_CHARS.PLACEHOLDER_MARK) {
                     currentState = STATE.PLACEHOLDER;
                     lastStateChangeIdx = i;
@@ -134,6 +112,10 @@ export const parser = (str = '') => {
                     if (tag.indexOf(CONTROL_CHARS.CLOSING_TAG_MARK) === 0) {
                         tag = tag.substring(1);
                         let children = [];
+                        if (text.length > 0) {
+                            children.push(textNode(text));
+                            text = '';
+                        }
                         // search for the opening tag
                         // eslint-disable-next-line no-constant-condition
                         while (true) {
@@ -158,6 +140,14 @@ export const parser = (str = '') => {
                             }
                         }
                     } else {
+                        if (text.length > 0) {
+                            if (stack.length > 0) {
+                                stack.push(textNode(text));
+                            } else {
+                                result.push(textNode(text));
+                            }
+                            text = '';
+                        }
                         stack.push(tag);
                     }
                     currentState = STATE.TEXT;
@@ -166,8 +156,7 @@ export const parser = (str = '') => {
                     // Seems like we wrongly moved into tag state,
                     // return to the text state with accumulated tag string
                     currentState = STATE.TEXT;
-                    text += currChar;
-                    text += tag;
+                    text += str.substring(lastStateChangeIdx, i);
                     tag = '';
                     i -= 1;
                 } else {
@@ -182,7 +171,7 @@ export const parser = (str = '') => {
                     // so we return to the text state
                     if (i - lastStateChangeIdx === 1) {
                         currentState = STATE.TEXT;
-                        text += str.substring(i, lastStateChangeIdx);
+                        text += str.substring(lastStateChangeIdx, i);
                         break;
                     }
 
