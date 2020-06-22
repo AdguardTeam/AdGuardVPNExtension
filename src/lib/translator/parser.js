@@ -108,7 +108,7 @@ export const parser = (str = '') => {
             case STATE.TAG: {
                 // if found tag end
                 if (currChar === CONTROL_CHARS.TAG_CLOSE_BRACE) {
-                    // if the tag is close tag
+                    // if the tag is close tag e.g. </a>
                     if (tag.indexOf(CONTROL_CHARS.CLOSING_TAG_MARK) === 0) {
                         tag = tag.substring(1);
                         let children = [];
@@ -140,6 +140,12 @@ export const parser = (str = '') => {
                                 throw new Error('String has unbalanced tags');
                             }
                         }
+                        // if the tag is void tag e.g. <img src="" />
+                    } else if (tag.lastIndexOf(CONTROL_CHARS.CLOSING_TAG_MARK) === tag.length - 1) {
+                        currentState = STATE.TEXT;
+                        text += str.substring(lastStateChangeIdx, i);
+                        tag = '';
+                        i -= 1;
                     } else {
                         if (text.length > 0) {
                             if (stack.length > 0) {
