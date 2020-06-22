@@ -13,6 +13,13 @@ describe('parser', () => {
         expect(parser(str)).toEqual(expectedAst);
     });
 
+    // TODO handle only open tag in the text
+    // it('parses text with < ', () => {
+    //     const str = 'text < abc';
+    //     const expectedAst = [{ type: 'text', value: 'text < abc' }];
+    //     expect(parser(str)).toEqual(expectedAst);
+    // });
+
     it('parses tags', () => {
         const str = 'String to <a>translate</a>';
         const expectedAst = [
@@ -101,30 +108,70 @@ describe('parser', () => {
         }).toThrow('String has unbalanced tags');
     });
 
-    it('parses placeholders', () => {
-        const str = 'text with {replaceable}';
-        const expectedAst = [{ type: 'text', value: 'text with ' }, { type: 'placeholder', value: 'replaceable' }];
-        expect(parser(str)).toEqual(expectedAst);
-    });
+    describe('placeholders', () => {
+        it('parses placeholders in the beginning', () => {
+            const str = '%replaceable% with text';
+            const expectedAst = [{ type: 'placeholder', value: 'replaceable' }, { type: 'text', value: ' with text' }];
+            expect(parser(str)).toEqual(expectedAst);
+        });
 
-    it('parses nested placeholders', () => {
-        const str = 'text with <a>tag with {replaceable}</a>';
-        const expectedAst = [
-            { type: 'text', value: 'text with ' },
-            {
-                type: 'tag',
-                value: 'a',
-                children: [
-                    {
-                        type: 'text',
-                        value: 'tag with ',
-                    }, {
-                        type: 'placeholder',
-                        value: 'replaceable',
-                    }],
-            },
-        ];
-        expect(parser(str))
-            .toEqual(expectedAst);
+        it('parses placeholders in the end', () => {
+            const str = 'text with %replaceable%';
+            const expectedAst = [{ type: 'text', value: 'text with ' }, { type: 'placeholder', value: 'replaceable' }];
+            expect(parser(str)).toEqual(expectedAst);
+        });
+
+        it('parses text with placeholder mark', () => {
+            const str = 'text with % placeholder mark';
+            const expectedAst = [{ type: 'text', value: 'text with % placeholder mark' }];
+            expect(parser(str)).toEqual(expectedAst);
+        });
+
+        it('parses text with unbalanced placeholder mark', () => {
+            const str = 'text with %replaceable% mark % text end';
+            const expectedAst = [
+                { type: 'text', value: 'text with ' },
+                { type: 'placeholder', value: 'replaceable' },
+                { type: 'text', value: ' mark % text end' },
+            ];
+            expect(parser(str)).toEqual(expectedAst);
+        });
+
+        it('double placeholder marks are considered as escape for %', () => {
+            const str = 'text %% some %replaceable%';
+            const expectedAst = [
+                { type: 'text', value: 'text % some ' },
+                { type: 'placeholder', value: 'replaceable' },
+            ];
+            expect(parser(str)).toEqual(expectedAst);
+        });
+
+        it('double placeholder marks are considered as escape for %', () => {
+            const str = 'text %% some';
+            const expectedAst = [
+                { type: 'text', value: 'text % some' },
+            ];
+            expect(parser(str)).toEqual(expectedAst);
+        });
+
+        it('parses nested placeholders', () => {
+            const str = 'text with <a>tag with %replaceable%</a>';
+            const expectedAst = [
+                { type: 'text', value: 'text with ' },
+                {
+                    type: 'tag',
+                    value: 'a',
+                    children: [
+                        {
+                            type: 'text',
+                            value: 'tag with ',
+                        }, {
+                            type: 'placeholder',
+                            value: 'replaceable',
+                        }],
+                },
+            ];
+            expect(parser(str)).toEqual(expectedAst);
+        });
     });
 });

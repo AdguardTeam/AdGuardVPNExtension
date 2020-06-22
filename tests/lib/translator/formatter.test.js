@@ -20,7 +20,7 @@ describe('formatter', () => {
     });
 
     it('formats placeholders', () => {
-        const rawStr = 'Ping {pingValue} ms';
+        const rawStr = 'Ping %pingValue% ms';
         const formatted = formatter(rawStr, {
             pingValue: 100,
         });
@@ -29,7 +29,7 @@ describe('formatter', () => {
     });
 
     it('formats nested placeholders', () => {
-        const rawStr = '<span>{value} {unit}</span> remaining this month';
+        const rawStr = '<span>%value% %unit%</span> remaining this month';
 
         const formatted = formatter(rawStr, {
             value: 10,

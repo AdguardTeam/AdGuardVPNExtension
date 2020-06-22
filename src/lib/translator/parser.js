@@ -30,8 +30,7 @@ const CONTROL_CHARS = {
     TAG_OPEN_BRACE: '<',
     TAG_CLOSE_BRACE: '>',
     CLOSING_TAG_MARK: '/',
-    PLACEHOLDER_OPEN_BRACE: '{',
-    PLACEHOLDER_CLOSE_BRACE: '}',
+    PLACEHOLDER_MARK: '%',
 };
 
 /**
@@ -70,6 +69,7 @@ export const parser = (str = '') => {
     let i = 0;
 
     let currentState = STATE.TEXT;
+    let lastStateChangeIdx = 0;
 
     /**
      * Accumulated tag value
@@ -119,32 +119,9 @@ export const parser = (str = '') => {
                         }
                         text = '';
                     }
-                } else if (currChar === CONTROL_CHARS.PLACEHOLDER_OPEN_BRACE) {
+                } else if (currChar === CONTROL_CHARS.PLACEHOLDER_MARK) {
                     currentState = STATE.PLACEHOLDER;
-                    // TODO extract into method
-                    // save text in the node
-                    if (text.length > 0) {
-                        const node = textNode(text);
-                        // if stack is not empty add text to the result
-                        if (stack.length > 0) {
-                            // if last node was text node, append text
-                            if (stack[stack.length - 1].type === 'text') {
-                                stack[stack.length - 1].value += text;
-                            } else {
-                                stack.push(node);
-                            }
-                        } else if (result.length > 0) {
-                            // if last node was text node, append text
-                            if (result[result.length - 1].type === 'text') {
-                                result[result.length - 1].text += text;
-                            } else {
-                                result.push(node);
-                            }
-                        } else {
-                            result.push(node);
-                        }
-                        text = '';
-                    }
+                    lastStateChangeIdx = i;
                 } else {
                     text += currChar;
                 }
@@ -199,13 +176,32 @@ export const parser = (str = '') => {
                 break;
             }
             case STATE.PLACEHOLDER: {
-                if (currChar === CONTROL_CHARS.PLACEHOLDER_CLOSE_BRACE) {
+                if (currChar === CONTROL_CHARS.PLACEHOLDER_MARK) {
+                    // if distance between current index and last state change equal to 1,
+                    // it means that placeholder mark was escaped by itself e.g. "%%",
+                    // so we return to the text state
+                    if (i - lastStateChangeIdx === 1) {
+                        currentState = STATE.TEXT;
+                        text += str.substring(i, lastStateChangeIdx);
+                        break;
+                    }
+
                     currentState = STATE.TEXT;
+                    lastStateChangeIdx = i + 1;
+
                     const node = placeholderNode(placeholder);
                     // if stack is not empty add placeholder to the stack
                     if (stack.length > 0) {
+                        if (text.length > 0) {
+                            stack.push(textNode(text));
+                            text = '';
+                        }
                         stack.push(node);
                     } else {
+                        if (text.length > 0) {
+                            result.push(textNode(text));
+                            text = '';
+                        }
                         result.push(node);
                     }
                     placeholder = '';
@@ -222,8 +218,17 @@ export const parser = (str = '') => {
         i += 1;
     }
 
-    if (text.length > 0) {
-        result.push(textNode(text));
+    // Means that tag or placeholder nodes were not closed, so we consider them as text
+    if (currentState !== STATE.TEXT) {
+        const restText = str.substring(lastStateChangeIdx);
+        if ((restText + text).length > 0) {
+            result.push(textNode(text + restText));
+        }
+    } else {
+        // eslint-disable-next-line no-lonely-if
+        if (text.length > 0) {
+            result.push(textNode(text));
+        }
     }
 
     if (stack.length > 0) {

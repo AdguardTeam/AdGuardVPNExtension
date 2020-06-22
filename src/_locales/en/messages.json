@@ -383,11 +383,11 @@
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {
-        "message": "<span>{value} {unit}</span> remaining this month",
+        "message": "<span>%value% %unit%</span> remaining this month",
         "description": "Respect spaces between text, tags and placeholders"
     },
     "popup_ping_value": {
-        "message": "Ping {pingValue} ms",
+        "message": "Ping %pingValue% ms",
         "description": "Respect spaces between text and placeholder"
     },
     "options_auth_back_button": {

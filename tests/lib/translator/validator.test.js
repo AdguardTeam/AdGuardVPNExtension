@@ -26,16 +26,16 @@ describe('validator', () => {
     });
 
     it('returns true if placeholders are same', () => {
-        const baseStr = 'test string {placeholder}';
-        const targetStr = 'тестовая строка {placeholder}';
+        const baseStr = 'test string %placeholder%';
+        const targetStr = 'тестовая строка %placeholder%';
 
         const result = isTargetStrValid(baseStr, targetStr);
         expect(result).toBeTruthy();
     });
 
     it('returns false if translators changed placeholder value', () => {
-        const baseStr = 'test string {placeholder}';
-        const targetStr = 'тестовая строка {плейсхолдер}';
+        const baseStr = 'test string %placeholder%';
+        const targetStr = 'тестовая строка %плейсхолдер%';
 
         const result = isTargetStrValid(baseStr, targetStr);
         expect(result).toBeFalsy();
@@ -51,7 +51,7 @@ describe('validator', () => {
 
     it('returns false if target has same number of nodes, but node is is with another type', () => {
         const baseStr = 'test string <a>has node</a>';
-        const targetStr = 'тестовая строка с нодой {placeholder}';
+        const targetStr = 'тестовая строка с нодой %placeholder%';
 
         const result = isTargetStrValid(baseStr, targetStr);
         expect(result).toBeFalsy();
