@@ -6,19 +6,87 @@ import {
 } from './nodes';
 
 const STATE = {
+    /**
+     * parser function switches to the text state when parses simple text,
+     * or content between open and close tags
+     */
     TEXT: 'text',
+
+    /**
+     * parser function switches to the tag state when meets open tag brace ("<"), and switches back,
+     * when meets closing tag brace (">")
+     */
     TAG: 'tag',
+
+    /**
+     * Parser function switches to the placeholder state when meets in the text
+     * open placeholders brace ("{") and switches back to the text state,
+     * when meets close placeholder brace ("}")
+     */
     PLACEHOLDER: 'placeholder',
 };
 
-export const parser = (str) => {
+const CONTROL_CHARS = {
+    TAG_OPEN_BRACE: '<',
+    TAG_CLOSE_BRACE: '>',
+    CLOSING_TAG_MARK: '/',
+    PLACEHOLDER_OPEN_BRACE: '{',
+    PLACEHOLDER_CLOSE_BRACE: '}',
+};
+
+/**
+ * Parses string into ast (abstract syntax tree) and returns it
+ * e.g.
+ * parse("String to <a>translate</a>") ->
+ * ```
+ *      [
+ *           { type: 'text', value: 'String to ' },
+ *           { type: 'tag', value: 'a', children: [{ type: 'text', value: 'translate' }] }
+ *      ];
+ * ```
+ * Empty string is parsed into empty ast: "[]"
+ * If founds unbalanced tags, it throws error about it
+ *
+ * @param {string} str - message in simplified ICU like syntax without plural support
+ * @returns {[]}
+ */
+export const parser = (str = '') => {
+    /**
+     * Stack used to keep and search nested tag nodes
+     * @type {*[]}
+     */
     const stack = [];
+
+    /**
+     * In result we put our nodes
+     * @type {*[]}
+     */
     const result = [];
 
+    /**
+     * Current char index
+     * @type {number}
+     */
     let i = 0;
+
     let currentState = STATE.TEXT;
+
+    /**
+     * Accumulated tag value
+     * @type {string}
+     */
     let tag = '';
+
+    /**
+     * Accumulated text value
+     * @type {string}
+     */
     let text = '';
+
+    /**
+     * Accumulated placeholder value
+     * @type {string}
+     */
     let placeholder = '';
 
     while (i < str.length) {
@@ -26,7 +94,7 @@ export const parser = (str) => {
         switch (currentState) {
             case STATE.TEXT: {
                 // switch to the tag state
-                if (currChar === '<') {
+                if (currChar === CONTROL_CHARS.TAG_OPEN_BRACE) {
                     currentState = STATE.TAG;
                     // save text in the node
                     if (text.length > 0) {
@@ -51,7 +119,7 @@ export const parser = (str) => {
                         }
                         text = '';
                     }
-                } else if (currChar === '{') {
+                } else if (currChar === CONTROL_CHARS.PLACEHOLDER_OPEN_BRACE) {
                     currentState = STATE.PLACEHOLDER;
                     // TODO extract into method
                     // save text in the node
@@ -84,9 +152,9 @@ export const parser = (str) => {
             }
             case STATE.TAG: {
                 // if found tag end
-                if (currChar === '>') {
+                if (currChar === CONTROL_CHARS.TAG_CLOSE_BRACE) {
                     // if the tag is close tag
-                    if (tag.indexOf('/') === 0) {
+                    if (tag.indexOf(CONTROL_CHARS.CLOSING_TAG_MARK) === 0) {
                         tag = tag.substring(1);
                         let children = [];
                         // search for the opening tag
@@ -117,7 +185,7 @@ export const parser = (str) => {
                     }
                     currentState = STATE.TEXT;
                     tag = '';
-                } else if (currChar === '<') {
+                } else if (currChar === CONTROL_CHARS.TAG_OPEN_BRACE) {
                     // Seems like we wrongly moved into tag state,
                     // return to the text state with accumulated tag string
                     currentState = STATE.TEXT;
@@ -131,7 +199,7 @@ export const parser = (str) => {
                 break;
             }
             case STATE.PLACEHOLDER: {
-                if (currChar === '}') {
+                if (currChar === CONTROL_CHARS.PLACEHOLDER_CLOSE_BRACE) {
                     currentState = STATE.TEXT;
                     const node = placeholderNode(placeholder);
                     // if stack is not empty add placeholder to the stack

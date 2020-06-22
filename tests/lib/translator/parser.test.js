@@ -7,6 +7,12 @@ describe('parser', () => {
         expect(parser(str)).toEqual(expectedAst);
     });
 
+    it('parses empty string into empty ast', () => {
+        const str = '';
+        const expectedAst = [];
+        expect(parser(str)).toEqual(expectedAst);
+    });
+
     it('parses tags', () => {
         const str = 'String to <a>translate</a>';
         const expectedAst = [
