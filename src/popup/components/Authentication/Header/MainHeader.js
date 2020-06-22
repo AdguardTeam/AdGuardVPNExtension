@@ -1,11 +1,12 @@
 import React from 'react';
-import translator from '../../../../lib/translator/translator';
+
+import { reactTranslator } from '../../../../reactCommon/reactTranslator';
 
 function MainHeader() {
     return (
         <div className="auth__header">
             <div className="auth__title">
-                {translator.translate('short_name')}
+                {reactTranslator.translate('short_name')}
             </div>
         </div>
     );

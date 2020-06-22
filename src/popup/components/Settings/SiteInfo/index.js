@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import rootStore from '../../../stores';
 import Info from './Info';
 import StatusImage from '../StatusImage';
-import translator from '../../../../lib/translator/translator';
+import { reactTranslator } from '../../../../reactCommon/reactTranslator';
 
 import './site-info.pcss';
 
@@ -25,7 +25,7 @@ const SiteInfo = observer(() => {
         const nonRoutableActionsMap = {
             regular: (
                 <div className="site-info__wrap">
-                    {translator.translateReact('popup_exclusions_add_site_to_exclusions', {
+                    {reactTranslator.translate('popup_exclusions_add_site_to_exclusions', {
                         span: (chunks) => (<span className="site-info__desc">{chunks}</span>),
                         a: (chunks) => (
                             <a
@@ -41,7 +41,7 @@ const SiteInfo = observer(() => {
             ),
             selective: (
                 <div className="site-info__wrap">
-                    {translator.translateReact('popup_exclusions_disable_vpn_on_site', {
+                    {reactTranslator.translate('popup_exclusions_disable_vpn_on_site', {
                         span: (chunks) => (<span className="site-info__desc">{chunks}</span>),
                         a: (chunks) => (
                             <a
@@ -64,7 +64,7 @@ const SiteInfo = observer(() => {
         return (
             <Info
                 title={settingsStore.currentTabHostname}
-                status={translator.translateReact('popup_site_status_unaccessible')}
+                status={reactTranslator.translate('popup_site_status_unaccessible')}
             >
                 {actionRender}
             </Info>
@@ -75,10 +75,10 @@ const SiteInfo = observer(() => {
         return (
             <Info
                 title={settingsStore.currentTabHostname}
-                status={translator.translateReact('popup_site_status_vpn_disabled')}
+                status={reactTranslator.translate('popup_site_status_vpn_disabled')}
             >
                 <div className="site-info__wrap">
-                    {translator.translateReact('popup_exclusions_enable_vpn_on_site', {
+                    {reactTranslator.translate('popup_exclusions_enable_vpn_on_site', {
                         span: (chunks) => (<span className="site-info__desc">{chunks}</span>),
                         a: (chunks) => (
                             <a
@@ -99,10 +99,10 @@ const SiteInfo = observer(() => {
         return (
             <Info
                 title={settingsStore.currentTabHostname}
-                status={translator.translateReact('popup_site_status_added_to_exclusions')}
+                status={reactTranslator.translate('popup_site_status_added_to_exclusions')}
             >
                 <div className="site-info__wrap">
-                    {translator.translateReact('popup_exclusions_enable_vpn_on_site', {
+                    {reactTranslator.translate('popup_exclusions_enable_vpn_on_site', {
                         span: (chunks) => (<span className="site-info__desc">{chunks}</span>),
                         a: (chunks) => (
                             <a

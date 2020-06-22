@@ -8,7 +8,7 @@ import {
 import debounce from 'lodash/debounce';
 import { REQUEST_STATUSES } from '../consts';
 import messenger from '../../../lib/messenger';
-import translator from '../../../lib/translator/translator';
+import { reactTranslator } from '../../../reactCommon/reactTranslator';
 
 const AUTH_STEPS = {
     SIGN_IN: 'signIn',
@@ -75,7 +75,7 @@ class AuthStore {
         if (field === 'passwordAgain') {
             if (value !== this.credentials.password) {
                 runInAction(() => {
-                    this.error = translator.translate('registration_error_front_unique_validation');
+                    this.error = reactTranslator.translate('registration_error_front_unique_validation');
                 });
             }
         }

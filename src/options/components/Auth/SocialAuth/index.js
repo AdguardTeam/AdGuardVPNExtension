@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 
 import rootStore from '../../../stores';
 import './social-auth.pcss';
-import translator from '../../../../lib/translator/translator';
 
 const SOCIAL_PROVIDERS = ['google', 'facebook'];
 
@@ -15,9 +14,6 @@ const SocialAuth = () => {
 
     return (
         <div className="social-auth">
-            <div className="social-auth__title">
-                {translator.translate('auth_social')}
-            </div>
             <div className="social-auth__list">
                 {SOCIAL_PROVIDERS.map((name) => (
                     <button

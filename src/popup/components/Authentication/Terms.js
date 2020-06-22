@@ -2,7 +2,7 @@ import React from 'react';
 
 import popupActions from '../../actions/popupActions';
 import { EULA_URL, PRIVACY_URL } from '../../../background/config';
-import translator from '../../../lib/translator/translator';
+import { reactTranslator } from '../../../reactCommon/reactTranslator';
 
 const Terms = () => {
     const handlePrivacyClick = async () => {
@@ -15,7 +15,7 @@ const Terms = () => {
 
     return (
         <div className="auth__privacy">
-            {translator.translateReact('popup_auth_agreement_consent', {
+            {reactTranslator.translate('popup_auth_agreement_consent', {
                 eula: (chunks) => (
                     <button
                         type="button"

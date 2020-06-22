@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
+
 import rootStore from '../../stores';
 import './global-error.pcss';
 import popupActions from '../../actions/popupActions';
-import translator from '../../../lib/translator/translator';
+import { reactTranslator } from '../../../reactCommon/reactTranslator';
 
 const GlobalError = observer(() => {
     const { settingsStore } = useContext(rootStore);
@@ -43,33 +44,33 @@ const GlobalError = observer(() => {
 
     const errorsMap = {
         [ERROR_TYPES.CONTROL]: {
-            description: translator.translate('control_error_description'),
+            description: reactTranslator.translate('control_error_description'),
             icon: ICON_TYPES.TROUBLE,
             buttons: [
                 {
                     id: 1,
                     handler: handleDisableExtensions,
                     className: 'button button--medium button--green-gradient global-error__button',
-                    text: translator.translate('control_error_disable'),
+                    text: reactTranslator.translate('control_error_disable'),
                 },
             ],
         },
         [ERROR_TYPES.PERMISSION]: {
-            title: translator.translate('global_error_title'),
-            description: translator.translate('global_error_description'),
+            title: reactTranslator.translate('global_error_title'),
+            description: reactTranslator.translate('global_error_description'),
             icon: ICON_TYPES.ERROR,
             buttons: [
                 {
                     id: 1,
                     handler: handleLearnMore,
-                    text: translator.translate('global_error_learn_more'),
+                    text: reactTranslator.translate('global_error_learn_more'),
                     className: 'button button--medium button--green-gradient global-error__button',
                 },
                 {
                     id: 2,
                     handler: handleTryAgain,
                     className: 'button button--medium button--link global-error__button',
-                    text: translator.translate('global_error_try_again'),
+                    text: reactTranslator.translate('global_error_try_again'),
                 },
             ],
         },

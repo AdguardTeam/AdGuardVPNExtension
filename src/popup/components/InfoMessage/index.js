@@ -3,10 +3,9 @@ import { observer } from 'mobx-react';
 
 import rootStore from '../../stores';
 import popupActions from '../../actions/popupActions';
-
 import './info-message.pcss';
-import translator from '../../../lib/translator/translator';
 import { formatBytes } from '../../../lib/helpers';
+import { reactTranslator } from '../../../reactCommon/reactTranslator';
 
 const TRAFFIC_PERCENT = {
     DANGER: 25,
@@ -53,8 +52,8 @@ const InfoMessage = observer(() => {
             <div className="info-message__text">
                 {
                     settingsStore.hasLimitExceededError
-                        ? (<span>{translator.translate('popup_traffic_limit_reached')}</span>)
-                        : translator.translateReact('popup_free_traffic_info', {
+                        ? (<span>{reactTranslator.translate('popup_traffic_limit_reached')}</span>)
+                        : reactTranslator.translate('popup_free_traffic_info', {
                             value: formattedRemainingTraffic.value,
                             unit: formattedRemainingTraffic.unit,
                             span: (chunks) => (<span className={`info-message__value ${getInfoColor()}`}>{chunks}</span>),
@@ -67,7 +66,7 @@ const InfoMessage = observer(() => {
                 className="button button--medium button--red-gradient info-message__btn"
                 onClick={onClick(premiumPromoPage)}
             >
-                {translator.translate('premium_upgrade')}
+                {reactTranslator.translate('premium_upgrade')}
             </a>
             <div className="info-message__progress">
                 <div

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { WEBSITE_URL, EULA_URL, PRIVACY_URL } from '../../../background/config';
 import './footer.pcss';
-import translator from '../../../lib/translator/translator';
+import { reactTranslator } from '../../../reactCommon/reactTranslator';
 
 const getCurrentYear = () => new Date().getFullYear();
 
@@ -21,7 +21,7 @@ const Footer = () => {
                         href={EULA_URL}
                         className="footer__link"
                     >
-                        {translator.translate('eula')}
+                        {reactTranslator.translate('eula')}
                     </a>
                     <a
                         target="_blank"
@@ -29,7 +29,7 @@ const Footer = () => {
                         href={PRIVACY_URL}
                         className="footer__link"
                     >
-                        {translator.translate('privacy_policy')}
+                        {reactTranslator.translate('privacy_policy')}
                     </a>
                 </nav>
             </div>

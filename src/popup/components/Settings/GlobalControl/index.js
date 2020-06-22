@@ -1,17 +1,16 @@
 import React from 'react';
-
-import translator from '../../../../lib/translator/translator';
+import { reactTranslator } from '../../../../reactCommon/reactTranslator';
 
 const GlobalControl = ({ handleConnect, handleDisconnect, enabled }) => {
     const buttonsStates = {
         enabled: {
             className: 'button--outline-secondary',
-            message: translator.translate('settings_disconnect'),
+            message: reactTranslator.translate('settings_disconnect'),
             handler: handleDisconnect,
         },
         default: {
             className: 'button--green-gradient',
-            message: translator.translate('settings_connect'),
+            message: reactTranslator.translate('settings_connect'),
             handler: handleConnect,
         },
     };

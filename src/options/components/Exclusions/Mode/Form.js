@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import useOutsideClick from '../../helpers/useOutsideClick';
 import rootStore from '../../../stores';
 import SubdomainsHelp from './SubdomainsHelp';
-import translator from '../../../../lib/translator/translator';
+import { reactTranslator } from '../../../../reactCommon/reactTranslator';
 
 const Form = observer(({ exclusionsType, enabled }) => {
     const ref = useRef();
@@ -59,7 +59,7 @@ const Form = observer(({ exclusionsType, enabled }) => {
                 <svg className="icon icon--button icon--checked settings__add-icon">
                     <use xlinkHref="#plus" />
                 </svg>
-                {translator.translate('settings_exclusion_add')}
+                {reactTranslator.translate('settings_exclusion_add')}
             </button>
 
             {isFormVisible && (

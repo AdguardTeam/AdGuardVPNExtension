@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 
 import rootStore from '../../../stores';
 import { PASSWORD_RECOVERY_URL } from '../../../../background/config';
-import translator from '../../../../lib/translator/translator';
+import { reactTranslator } from '../../../../reactCommon/reactTranslator';
 
 const SignInForm = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -38,7 +38,7 @@ const SignInForm = observer(() => {
             <div className="form__inputs">
                 <div className="form__item">
                     <label className="form__label" htmlFor="username">
-                        {translator.translate('auth_email')}
+                        {reactTranslator.translate('auth_email')}
                     </label>
                     <input
                         id="username"
@@ -53,7 +53,7 @@ const SignInForm = observer(() => {
                 <div className="form__item">
                     <div className="form__item-header">
                         <label className="form__label" htmlFor="password">
-                            {translator.translate('auth_password')}
+                            {reactTranslator.translate('auth_password')}
                         </label>
                         <a
                             href={PASSWORD_RECOVERY_URL}
@@ -62,7 +62,7 @@ const SignInForm = observer(() => {
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            {translator.translate('auth_recover')}
+                            {reactTranslator.translate('auth_recover')}
                         </a>
                     </div>
                     <input
@@ -86,18 +86,18 @@ const SignInForm = observer(() => {
                     className="button button--primary button--medium button--block"
                     disabled={disableLogin}
                 >
-                    {translator.translate('auth_login')}
+                    {reactTranslator.translate('auth_login')}
                 </button>
 
                 <div className="form__text form__text--login">
-                    {translator.translate('auth_account')}
+                    {reactTranslator.translate('auth_account')}
                     &nbsp;
                     <button
                         onClick={handleRegisterClick}
                         type="button"
                         className="button button--link form__link form__link--register"
                     >
-                        {translator.translate('auth_register')}
+                        {reactTranslator.translate('auth_register')}
                     </button>
                 </div>
             </div>

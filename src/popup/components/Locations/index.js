@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import translator from '../../../lib/translator/translator';
 import rootStore from '../../stores';
 import Location from './Location';
 import Search from './Search';
 import Skeleton from './Skeleton';
 
 import './endpoints.pcss';
+import { reactTranslator } from '../../../reactCommon/reactTranslator';
 
 const Locations = observer(() => {
     const { vpnStore, uiStore, settingsStore } = useContext(rootStore);
@@ -84,7 +84,7 @@ const Locations = observer(() => {
                 <>
                     <div className="endpoints__not-found" />
                     <div className="endpoints__title endpoints__title--big">
-                        {translator.translate('endpoints_not_found')}
+                        {reactTranslator.translate('endpoints_not_found')}
                     </div>
                 </>
             );
@@ -93,7 +93,7 @@ const Locations = observer(() => {
         return (
             <div className="endpoints__list">
                 <div className="endpoints__title">
-                    {translator.translate(listTitle)}
+                    {reactTranslator.translate(listTitle)}
                 </div>
                 {renderLocations(filteredLocations)}
             </div>
@@ -108,7 +108,7 @@ const Locations = observer(() => {
     return (
         <div className="endpoints">
             <div className="endpoints__header">
-                {translator.translate('endpoints_countries')}
+                {reactTranslator.translate('endpoints_countries')}
                 <button
                     type="button"
                     className="button endpoints__back"
@@ -129,7 +129,7 @@ const Locations = observer(() => {
                     <>
                         <div className="endpoints__list">
                             <div className="endpoints__title">
-                                {translator.translate('endpoints_fastest')}
+                                {reactTranslator.translate('endpoints_fastest')}
                             </div>
                             {fastestLocations.length > 0 ? (
                                 renderLocations(fastestLocations)

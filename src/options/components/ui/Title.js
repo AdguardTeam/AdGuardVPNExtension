@@ -1,7 +1,7 @@
 import React from 'react';
 
-import translator from '../../../lib/translator/translator';
 import { SUGGEST_FEATURE } from '../../../background/config';
+import { reactTranslator } from '../../../reactCommon/reactTranslator';
 
 const Title = ({ title }) => (
     <h2 className="content__title">
@@ -13,7 +13,7 @@ const Title = ({ title }) => (
             target="_blank"
             rel="noopener noreferrer"
         >
-            {translator.translate('suggest_feature')}
+            {reactTranslator.translate('suggest_feature')}
         </a>
     </h2>
 );

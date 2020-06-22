@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import translator from '../../../../lib/translator/translator';
 import rootStore from '../../../stores';
 import { REQUEST_STATUSES } from '../../../stores/consts';
 
 import Submit from '../Submit';
 import InputField from '../InputField';
+import { reactTranslator } from '../../../../reactCommon/reactTranslator';
 
 const TwoFactorForm = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -30,7 +30,7 @@ const TwoFactorForm = observer(() => {
         >
             <div className="form__inputs">
                 <div className="form__info">
-                    {translator.translate('auth_header_2fa')}
+                    {reactTranslator.translate('auth_header_2fa')}
                 </div>
                 <InputField
                     id="twoFactor"
@@ -38,7 +38,7 @@ const TwoFactorForm = observer(() => {
                     value={twoFactor}
                     inputChangeHandler={inputChangeHandler}
                     error={authStore.error}
-                    placeholder={translator.translate('auth_placeholder_2fa')}
+                    placeholder={reactTranslator.translate('auth_placeholder_2fa')}
                     className="form__input--big"
                 />
                 {authStore.error && (
@@ -50,7 +50,7 @@ const TwoFactorForm = observer(() => {
 
             <div className="form__btn-wrap">
                 <Submit
-                    text={translator.translate('auth_confirm')}
+                    text={reactTranslator.translate('auth_confirm')}
                     processing={requestProcessState === REQUEST_STATUSES.PENDING}
                     disabled={!twoFactor}
                 />

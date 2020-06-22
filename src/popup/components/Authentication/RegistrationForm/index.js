@@ -3,13 +3,13 @@ import { observer } from 'mobx-react';
 import ReactHtmlParser from 'react-html-parser';
 import classnames from 'classnames';
 
-import translator from '../../../../lib/translator/translator';
 import rootStore from '../../../stores';
 import { REQUEST_STATUSES, INPUT_TYPES } from '../../../stores/consts';
 
 import PasswordField from '../PasswordField';
 import Submit from '../Submit';
 import Terms from '../Terms';
+import { reactTranslator } from '../../../../reactCommon/reactTranslator';
 
 const RegistrationForm = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -47,13 +47,13 @@ const RegistrationForm = observer(() => {
         >
             <div className="form__inputs">
                 <div className="form__info">
-                    {translator.translate('auth_header_registration')}
+                    {reactTranslator.translate('auth_header_registration')}
                     <div className="form__credentials">
                         {authStore.credentials.username}
                     </div>
                 </div>
                 <PasswordField
-                    placeholder={translator.translate('auth_password')}
+                    placeholder={reactTranslator.translate('auth_password')}
                     id="password"
                     password={password}
                     error={authStore.error}
@@ -70,7 +70,7 @@ const RegistrationForm = observer(() => {
             </div>
             <div className="form__btn-wrap form__btn-wrap--register">
                 <Submit
-                    text={translator.translate('auth_sign_up')}
+                    text={reactTranslator.translate('auth_sign_up')}
                     processing={requestProcessState === REQUEST_STATUSES.PENDING}
                     disabled={authStore.disableRegister}
                 />

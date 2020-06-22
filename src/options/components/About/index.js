@@ -1,24 +1,24 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import translator from '../../../lib/translator/translator';
 import rootStore from '../../stores';
 import Title from '../ui/Title';
 import './about.pcss';
+import { reactTranslator } from '../../../reactCommon/reactTranslator';
 
 const About = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
-    const aboutVersionStr = `${translator.translate('name')} ${settingsStore.appVersion}`;
+    const aboutVersionStr = `${reactTranslator.translate('name')} ${settingsStore.appVersion}`;
     return (
         <>
-            <Title title={translator.translate('about_title')} />
+            <Title title={reactTranslator.translate('about_title')} />
             <div className="about">
                 <div className="about__version">
                     {aboutVersionStr}
                 </div>
                 <div className="about__description">
-                    {translator.translate('description')}
+                    {reactTranslator.translate('description')}
                 </div>
             </div>
         </>

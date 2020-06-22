@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
-import translator from '../../../../lib/translator/translator';
 
 import popupActions from '../../../actions/popupActions';
 import rootStore from '../../../stores';
@@ -9,6 +8,7 @@ import { REQUEST_STATUSES, INPUT_TYPES } from '../../../stores/consts';
 
 import PasswordField from '../PasswordField';
 import Submit from '../Submit';
+import { reactTranslator } from '../../../../reactCommon/reactTranslator';
 
 const SignInForm = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -55,15 +55,15 @@ const SignInForm = observer(() => {
                 <div className="form__info">
                     {
                         authStore.signInCheck
-                            ? translator.translate('auth_header_sign_in')
-                            : translator.translate('auth_header_sing_in_notice')
+                            ? reactTranslator.translate('auth_header_sign_in')
+                            : reactTranslator.translate('auth_header_sing_in_notice')
                     }
                     <div className="form__credentials">
                         {authStore.credentials.username}
                     </div>
                 </div>
                 <PasswordField
-                    placeholder={translator.translate('auth_password')}
+                    placeholder={reactTranslator.translate('auth_password')}
                     id="password"
                     password={password}
                     handleChange={inputChangeHandler}
@@ -81,7 +81,7 @@ const SignInForm = observer(() => {
 
             <div className="form__btn-wrap">
                 <Submit
-                    text={translator.translate('auth_sign_in')}
+                    text={reactTranslator.translate('auth_sign_in')}
                     processing={requestProcessState === REQUEST_STATUSES.PENDING}
                     disabled={!password}
                 />
@@ -92,7 +92,7 @@ const SignInForm = observer(() => {
                 className="button button--inline form__link form__link--recover"
                 onClick={popupActions.openRecovery}
             >
-                {translator.translate('auth_recover')}
+                {reactTranslator.translate('auth_recover')}
             </button>
         </form>
     );
