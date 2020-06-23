@@ -2,7 +2,7 @@ import { parser } from './parser';
 import { isPlaceholderNode, isTagNode, isTextNode } from './nodes';
 
 /**
- * Compares two ast structures,
+ * Compares two AST (abstract syntax tree) structures,
  * view tests for examples
  * @param baseAst
  * @param targetAst
@@ -12,7 +12,7 @@ const areAstStructuresSame = (baseAst, targetAst) => {
     let i = 0;
     let result = true;
 
-    // if ast structures have different lengths, they are not equal
+    // if AST structures have different lengths, they are not equal
     if (baseAst.length !== targetAst.length) {
         return false;
     }
@@ -51,7 +51,7 @@ const areAstStructuresSame = (baseAst, targetAst) => {
 };
 
 /**
- * Validates translation against base string by ast structure
+ * Validates translation against base string by AST (abstract syntax tree) structure
  * @param baseStr
  * @param targetStr
  * @returns {boolean}

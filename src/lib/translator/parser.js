@@ -34,7 +34,7 @@ const CONTROL_CHARS = {
 };
 
 /**
- * Parses string into ast (abstract syntax tree) and returns it
+ * Parses string into AST (abstract syntax tree) and returns it
  * e.g.
  * parse("String to <a>translate</a>") ->
  * ```
@@ -43,7 +43,7 @@ const CONTROL_CHARS = {
  *           { type: 'tag', value: 'a', children: [{ type: 'text', value: 'translate' }] }
  *      ];
  * ```
- * Empty string is parsed into empty ast: "[]"
+ * Empty string is parsed into empty AST (abstract syntax tree): "[]"
  * If founds unbalanced tags, it throws error about it
  *
  * @param {string} str - message in simplified ICU like syntax without plural support

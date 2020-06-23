@@ -11,9 +11,40 @@ const isFunction = (target) => {
 };
 
 /**
- * Format function gets ast (abstract syntax tree), result of parser function call, and
- * converts nodes into array of strings replacing node values with provided
- * @param ast
+ * This function accepts an AST (abstract syntax tree) which is a result
+ * of the parser function call, and converts tree nodes into array of strings replacing node
+ * values with provided values.
+ * Values is a map with functions or strings, where each key is related to placeholder value
+ * or tag value
+ * e.g.
+ * string "text <tag>tag text</tag> %placeholder%" is parsed into next AST
+ *
+ *      [
+ *          { type: 'text', value: 'text ' },
+ *          {
+ *              type: 'tag',
+ *              value: 'tag',
+ *              children: [{ type: 'text', value: 'tag text' }],
+ *          },
+ *          { type: 'text', value: ' ' },
+ *          { type: 'placeholder', value: 'placeholder' }
+ *      ];
+ *
+ * this AST after format and next values
+ *
+ *      {
+ *          // here used template strings, but it can be react components as well
+ *          tag: (chunks) => `<b>${chunks}</b>`,
+ *          placeholder: 'placeholder text'
+ *      }
+ *
+ * will return next array
+ *
+ * [ 'text ', '<b>tag text</b>', ' ', 'placeholder text' ]
+ *
+ * as you can see, <tag> was replaced by <b>, and placeholder was replaced by placeholder text
+ *
+ * @param ast - AST (abstract syntax tree)
  * @param values
  * @returns {[]}
  */
@@ -53,7 +84,8 @@ const format = (ast = [], values) => {
 };
 
 /**
- * Function gets ast or string and formats messages, replacing values accordingly
+ * Function gets AST (abstract syntax tree) or string and formats messages,
+ * replacing values accordingly
  * e.g.
  *      const message = formatter('<a>some text</a>', {
  *          a: (chunks) => `<a href="#">${chunks}</a>`,

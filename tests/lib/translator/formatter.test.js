@@ -5,6 +5,7 @@ describe('formatter', () => {
         const message = formatter('<a>some text</a>', {
             a: (chunks) => `<a href="#">${chunks}</a>`,
         });
+
         expect(message)
             .toEqual(['<a href="#">some text</a>']);
     });
