@@ -28,6 +28,7 @@ to the directory `./private/AdguardVPN`
 * `setup your project locales, directories in the file tasks/locales.js`
 * `yarn locales:upload` used to upload base `en` locale
 * `yarn locales:download` run to download and save all locales
+* `yarn locales:validate` used to validate locales
 
 ### Proto scheme update
 After every update of proto scheme in the file `src/background/connectivity/connectivity.proto`,

@@ -1,5 +1,9 @@
 {
     "short_name": {
         "message": "AdGuard VPN"
+    },
+    "popup_ping_value": {
+        "message": "Пинг %pingValue% мс",
+        "description": "Respect spaces between text and placeholder"
     }
 }
