@@ -45,4 +45,15 @@ describe('formatter', () => {
         const formatted = formatter(undefined);
         expect(formatted).toEqual([]);
     });
+
+    describe('void tags', () => {
+        it('formats void tags', () => {
+            const rawStr = 'cat <img/> float';
+            const formatted = formatter(rawStr, {
+                img: '<img src="#"/>',
+            });
+
+            expect(formatted).toEqual(['cat ', '<img src="#"/>', ' float']);
+        });
+    });
 });

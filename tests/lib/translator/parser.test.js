@@ -176,19 +176,23 @@ describe('parser', () => {
 
     describe('void tags', () => {
         it('parses void tags as string', () => {
-            const str = 'cat <img src="" /> float';
-            const expectedAst = [{ type: 'text', value: 'cat <img src="" /> float' }];
+            const str = 'cat <img/> float';
+            const expectedAst = [
+                { type: 'text', value: 'cat ' },
+                { type: 'tag', value: 'img' },
+                { type: 'text', value: ' float' },
+            ];
             expect(parser(str)).toEqual(expectedAst);
         });
 
         it('parses void tags as string with neighbors', () => {
-            const str = 'cat <a><img /></a>';
+            const str = 'cat <a><img/></a>';
             const expectedAst = [
                 { type: 'text', value: 'cat ' },
                 {
                     type: 'tag',
                     value: 'a',
-                    children: [{ type: 'text', value: '<img />' }],
+                    children: [{ type: 'tag', value: 'img' }],
                 },
             ];
             expect(parser(str)).toEqual(expectedAst);

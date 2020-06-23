@@ -140,12 +140,25 @@ export const parser = (str = '') => {
                                 throw new Error('String has unbalanced tags');
                             }
                         }
-                        // if the tag is void tag e.g. <img src="" />
+                        // if the tag is void tag e.g. <img/>
                     } else if (tag.lastIndexOf(CONTROL_CHARS.CLOSING_TAG_MARK) === tag.length - 1) {
+                        tag = tag.substring(0, tag.length - 1);
+                        if (text.length > 0) {
+                            if (stack.length > 0) {
+                                stack.push(textNode(text));
+                            } else {
+                                result.push(textNode(text));
+                            }
+                            text = '';
+                        }
+                        const node = tagNode(tag);
+                        if (stack.length > 0) {
+                            stack.push(node);
+                        } else {
+                            result.push(node);
+                        }
                         currentState = STATE.TEXT;
-                        text += str.substring(lastStateChangeIdx, i);
                         tag = '';
-                        i -= 1;
                     } else {
                         if (text.length > 0) {
                             if (stack.length > 0) {
