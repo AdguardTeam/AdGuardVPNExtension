@@ -52,13 +52,13 @@ const CONTROL_CHARS = {
  */
 export const parser = (str = '') => {
     /**
-     * Stack used to keep and search nested tag nodes
+     * Stack is used to keep and search nested tag nodes
      * @type {*[]}
      */
     const stack = [];
 
     /**
-     * In result we put our nodes
+     * Result is stack where function allocates nodes
      * @type {*[]}
      */
     const result = [];
@@ -90,6 +90,25 @@ export const parser = (str = '') => {
      */
     let placeholder = '';
 
+    /**
+     * Checks if text length is enough to create text node
+     * If text node created then if stack is not empty it is pushed into stack,
+     * otherwise into result
+     * @param text
+     * @returns {string}
+     */
+    const placeText = (text) => {
+        if (text.length > 0) {
+            const node = textNode(text);
+            if (stack.length > 0) {
+                stack.push(node);
+            } else {
+                result.push(node);
+            }
+        }
+        return '';
+    };
+
     while (i < str.length) {
         const currChar = str[i];
         switch (currentState) {
@@ -117,13 +136,15 @@ export const parser = (str = '') => {
                             children.push(textNode(text));
                             text = '';
                         }
-                        // search for the opening tag
-                        // eslint-disable-next-line no-constant-condition
                         let pairTagFound = false;
+                        // looking for the pair to our close tag
                         while (!pairTagFound && stack.length > 0) {
                             const lastFromStack = stack.pop();
+                            // if tag from stack equal to close tag
                             if (lastFromStack === tag) {
+                                // create tag node
                                 const node = tagNode(tag, children);
+                                // and add it to the appropriate stack
                                 if (stack.length > 0) {
                                     stack.push(node);
                                 } else {
@@ -144,15 +165,9 @@ export const parser = (str = '') => {
                         // if the tag is void tag e.g. <img/>
                     } else if (tag.lastIndexOf(CONTROL_CHARS.CLOSING_TAG_MARK) === tag.length - 1) {
                         tag = tag.substring(0, tag.length - 1);
-                        if (text.length > 0) {
-                            if (stack.length > 0) {
-                                stack.push(textNode(text));
-                            } else {
-                                result.push(textNode(text));
-                            }
-                            text = '';
-                        }
+                        text = placeText(text);
                         const node = voidTagNode(tag);
+                        // add node to the appropriate stack
                         if (stack.length > 0) {
                             stack.push(node);
                         } else {
@@ -161,14 +176,7 @@ export const parser = (str = '') => {
                         currentState = STATE.TEXT;
                         tag = '';
                     } else {
-                        if (text.length > 0) {
-                            if (stack.length > 0) {
-                                stack.push(textNode(text));
-                            } else {
-                                result.push(textNode(text));
-                            }
-                            text = '';
-                        }
+                        text = placeText(text);
                         stack.push(tag);
                     }
                     currentState = STATE.TEXT;
@@ -198,20 +206,12 @@ export const parser = (str = '') => {
 
                     currentState = STATE.TEXT;
                     lastStateChangeIdx = i + 1;
-
+                    text = placeText(text);
                     const node = placeholderNode(placeholder);
-                    // if stack is not empty add placeholder to the stack
+                    // place node to the appropriate stack
                     if (stack.length > 0) {
-                        if (text.length > 0) {
-                            stack.push(textNode(text));
-                            text = '';
-                        }
                         stack.push(node);
                     } else {
-                        if (text.length > 0) {
-                            result.push(textNode(text));
-                            text = '';
-                        }
                         result.push(node);
                     }
                     placeholder = '';
