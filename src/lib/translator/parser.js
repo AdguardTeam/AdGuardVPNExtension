@@ -3,6 +3,7 @@ import {
     textNode,
     isNode,
     placeholderNode,
+    voidTagNode,
 } from './nodes';
 
 const STATE = {
@@ -151,7 +152,7 @@ export const parser = (str = '') => {
                             }
                             text = '';
                         }
-                        const node = tagNode(tag);
+                        const node = voidTagNode(tag);
                         if (stack.length > 0) {
                             stack.push(node);
                         } else {

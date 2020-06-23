@@ -179,7 +179,17 @@ describe('parser', () => {
             const str = 'cat <img/> float';
             const expectedAst = [
                 { type: 'text', value: 'cat ' },
-                { type: 'tag', value: 'img' },
+                { type: 'void_tag', value: 'img' },
+                { type: 'text', value: ' float' },
+            ];
+            expect(parser(str)).toEqual(expectedAst);
+        });
+
+        it('parses void tags even if they have spaces', () => {
+            const str = 'cat <img /> float';
+            const expectedAst = [
+                { type: 'text', value: 'cat ' },
+                { type: 'void_tag', value: 'img' },
                 { type: 'text', value: ' float' },
             ];
             expect(parser(str)).toEqual(expectedAst);
@@ -192,7 +202,7 @@ describe('parser', () => {
                 {
                     type: 'tag',
                     value: 'a',
-                    children: [{ type: 'tag', value: 'img' }],
+                    children: [{ type: 'void_tag', value: 'img' }],
                 },
             ];
             expect(parser(str)).toEqual(expectedAst);
