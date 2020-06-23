@@ -1,5 +1,10 @@
 import { parser } from './parser';
-import { isTextNode, isTagNode, isPlaceholderNode } from './nodes';
+import {
+    isTextNode,
+    isTagNode,
+    isPlaceholderNode,
+    isVoidTagNode,
+} from './nodes';
 
 /**
  * Checks if target is function
@@ -66,6 +71,13 @@ const format = (ast = [], values) => {
                 } else {
                     result.push(value);
                 }
+            } else {
+                throw new Error(`Value ${currentNode.value} wasn't provided`);
+            }
+        } else if (isVoidTagNode(currentNode)) {
+            const value = values[currentNode.value];
+            if (value) {
+                result.push(value);
             } else {
                 throw new Error(`Value ${currentNode.value} wasn't provided`);
             }
