@@ -70,7 +70,7 @@ export const parser = (str = '') => {
     let i = 0;
 
     let currentState = STATE.TEXT;
-    let lastStateChangeIdx = 0;
+    let lastTextStateChangeIdx = 0;
 
     /**
      * Accumulated tag value
@@ -109,128 +109,157 @@ export const parser = (str = '') => {
         return '';
     };
 
-    while (i < str.length) {
-        const currChar = str[i];
-        switch (currentState) {
-            case STATE.TEXT: {
-                // switch to the tag state
-                if (currChar === CONTROL_CHARS.TAG_OPEN_BRACE) {
-                    currentState = STATE.TAG;
-                    lastStateChangeIdx = i;
-                } else if (currChar === CONTROL_CHARS.PLACEHOLDER_MARK) {
-                    currentState = STATE.PLACEHOLDER;
-                    lastStateChangeIdx = i;
-                } else {
-                    text += currChar;
-                }
-                break;
-            }
-            case STATE.TAG: {
-                // if found tag end
-                if (currChar === CONTROL_CHARS.TAG_CLOSE_BRACE) {
-                    // if the tag is close tag e.g. </a>
-                    if (tag.indexOf(CONTROL_CHARS.CLOSING_TAG_MARK) === 0) {
-                        tag = tag.substring(1);
-                        let children = [];
-                        if (text.length > 0) {
-                            children.push(textNode(text));
-                            text = '';
-                        }
-                        let pairTagFound = false;
-                        // looking for the pair to our close tag
-                        while (!pairTagFound && stack.length > 0) {
-                            const lastFromStack = stack.pop();
-                            // if tag from stack equal to close tag
-                            if (lastFromStack === tag) {
-                                // create tag node
-                                const node = tagNode(tag, children);
-                                // and add it to the appropriate stack
-                                if (stack.length > 0) {
-                                    stack.push(node);
-                                } else {
-                                    result.push(node);
-                                }
-                                children = [];
-                                pairTagFound = true;
-                            } else if (isNode(lastFromStack)) {
-                                // add nodes between close tag and open tag to the children
-                                children.unshift(lastFromStack);
-                            } else {
-                                throw new Error('String has unbalanced tags');
-                            }
-                            if (stack.length === 0 && children.length > 0) {
-                                throw new Error('String has unbalanced tags');
-                            }
-                        }
-                        // if the tag is void tag e.g. <img/>
-                    } else if (tag.lastIndexOf(CONTROL_CHARS.CLOSING_TAG_MARK) === tag.length - 1) {
-                        tag = tag.substring(0, tag.length - 1);
-                        text = placeText(text);
-                        const node = voidTagNode(tag);
-                        // add node to the appropriate stack
-                        if (stack.length > 0) {
-                            stack.push(node);
-                        } else {
-                            result.push(node);
-                        }
-                        currentState = STATE.TEXT;
-                        tag = '';
-                    } else {
-                        text = placeText(text);
-                        stack.push(tag);
-                    }
-                    currentState = STATE.TEXT;
-                    tag = '';
-                } else if (currChar === CONTROL_CHARS.TAG_OPEN_BRACE) {
-                    // Seems like we wrongly moved into tag state,
-                    // return to the text state with accumulated tag string
-                    currentState = STATE.TEXT;
-                    text += str.substring(lastStateChangeIdx, i);
-                    tag = '';
-                    i -= 1;
-                } else {
-                    tag += currChar;
-                }
-                break;
-            }
-            case STATE.PLACEHOLDER: {
-                if (currChar === CONTROL_CHARS.PLACEHOLDER_MARK) {
-                    // if distance between current index and last state change equal to 1,
-                    // it means that placeholder mark was escaped by itself e.g. "%%",
-                    // so we return to the text state
-                    if (i - lastStateChangeIdx === 1) {
-                        currentState = STATE.TEXT;
-                        text += str.substring(lastStateChangeIdx, i);
-                        break;
-                    }
+    /**
+     * Switches current state to the text state and returns text state handler
+     * @returns {function}
+     */
+    function textStateHandler() {
+        currentState = STATE.TEXT;
 
-                    currentState = STATE.TEXT;
-                    lastStateChangeIdx = i + 1;
+        return (currChar) => {
+            // switches to the tag state
+            if (currChar === CONTROL_CHARS.TAG_OPEN_BRACE) {
+                lastTextStateChangeIdx = i;
+                // eslint-disable-next-line no-use-before-define
+                return tagStateHandler();
+            }
+
+            if (currChar === CONTROL_CHARS.PLACEHOLDER_MARK) {
+                lastTextStateChangeIdx = i;
+                // eslint-disable-next-line no-use-before-define
+                return placeholderStateHandler();
+            }
+
+            text += currChar;
+            return textStateHandler();
+        };
+    }
+
+    /**
+     * Switches current state to the tag state and returns tag state handler
+     * @returns {function}
+     */
+    function tagStateHandler() {
+        currentState = STATE.TAG;
+
+        return (currChar) => {
+            // if found tag end ">"
+            if (currChar === CONTROL_CHARS.TAG_CLOSE_BRACE) {
+                // if the tag is close tag e.g. </a>
+                if (tag.indexOf(CONTROL_CHARS.CLOSING_TAG_MARK) === 0) {
+                    tag = tag.substring(1);
+                    let children = [];
+                    if (text.length > 0) {
+                        children.push(textNode(text));
+                        text = '';
+                    }
+                    let pairTagFound = false;
+                    // looking for the pair to our close tag
+                    while (!pairTagFound && stack.length > 0) {
+                        const lastFromStack = stack.pop();
+                        // if tag from stack equal to close tag
+                        if (lastFromStack === tag) {
+                            // create tag node
+                            const node = tagNode(tag, children);
+                            // and add it to the appropriate stack
+                            if (stack.length > 0) {
+                                stack.push(node);
+                            } else {
+                                result.push(node);
+                            }
+                            children = [];
+                            pairTagFound = true;
+                        } else if (isNode(lastFromStack)) {
+                            // add nodes between close tag and open tag to the children
+                            children.unshift(lastFromStack);
+                        } else {
+                            throw new Error('String has unbalanced tags');
+                        }
+                        if (stack.length === 0 && children.length > 0) {
+                            throw new Error('String has unbalanced tags');
+                        }
+                    }
+                    tag = '';
+                    return textStateHandler();
+                }
+
+                // if the tag is void tag e.g. <img/>
+                if (tag.lastIndexOf(CONTROL_CHARS.CLOSING_TAG_MARK) === tag.length - 1) {
+                    tag = tag.substring(0, tag.length - 1);
                     text = placeText(text);
-                    const node = placeholderNode(placeholder);
-                    // place node to the appropriate stack
+                    const node = voidTagNode(tag);
+                    // add node to the appropriate stack
                     if (stack.length > 0) {
                         stack.push(node);
                     } else {
                         result.push(node);
                     }
-                    placeholder = '';
-                } else {
-                    placeholder += currChar;
+                    tag = '';
+                    return textStateHandler();
                 }
-                break;
-            }
-            default: {
-                throw new Error(`There is no such state ${currentState}`);
-            }
-        }
 
+                text = placeText(text);
+                stack.push(tag);
+                tag = '';
+                return textStateHandler();
+            }
+
+            // If we meet open tag "<" it means that we wrongly moved into tag state
+            if (currChar === CONTROL_CHARS.TAG_OPEN_BRACE) {
+                text += str.substring(lastTextStateChangeIdx, i);
+                tag = '';
+                lastTextStateChangeIdx = i;
+                return tagStateHandler();
+            }
+
+            tag += currChar;
+            return tagStateHandler();
+        };
+    }
+
+    function placeholderStateHandler() {
+        currentState = STATE.PLACEHOLDER;
+
+        return (currChar) => {
+            if (currChar === CONTROL_CHARS.PLACEHOLDER_MARK) {
+                // if distance between current index and last state change equal to 1,
+                // it means that placeholder mark was escaped by itself e.g. "%%",
+                // so we return to the text state
+                if (i - lastTextStateChangeIdx === 1) {
+                    text += str.substring(lastTextStateChangeIdx, i);
+                    return textStateHandler();
+                }
+
+                lastTextStateChangeIdx = i + 1;
+                text = placeText(text);
+                const node = placeholderNode(placeholder);
+                // place node to the appropriate stack
+                if (stack.length > 0) {
+                    stack.push(node);
+                } else {
+                    result.push(node);
+                }
+                placeholder = '';
+
+                return textStateHandler();
+            }
+
+            placeholder += currChar;
+            return placeholderStateHandler();
+        };
+    }
+
+    let currentStateHandler = textStateHandler();
+
+    while (i < str.length) {
+        const currChar = str[i];
+        currentStateHandler = currentStateHandler(currChar);
         i += 1;
     }
 
     // Means that tag or placeholder nodes were not closed, so we consider them as text
     if (currentState !== STATE.TEXT) {
-        const restText = str.substring(lastStateChangeIdx);
+        const restText = str.substring(lastTextStateChangeIdx);
         if ((restText + text).length > 0) {
             result.push(textNode(text + restText));
         }

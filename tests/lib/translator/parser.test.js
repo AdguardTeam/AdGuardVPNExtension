@@ -70,6 +70,33 @@ describe('parser', () => {
         expect(parser(str)).toEqual(expectedAst);
     });
 
+    it('ignores double open tag braces between tags', () => {
+        const str = '<abc>1 < < 2</abc>';
+        const expectedAst = [
+            {
+                type: 'tag',
+                value: 'abc',
+                children: [{ type: 'text', value: '1 < < 2' }],
+            },
+        ];
+
+        expect(parser(str)).toEqual(expectedAst);
+    });
+
+    it('ignores open tag brace in the end of string', () => {
+        const str = '<abc>1 < 2</abc> <';
+        const expectedAst = [
+            {
+                type: 'tag',
+                value: 'abc',
+                children: [{ type: 'text', value: '1 < 2' }],
+            },
+            { type: 'text', value: ' <' },
+        ];
+
+        expect(parser(str)).toEqual(expectedAst);
+    });
+
     it('ignores closing braces between tags', () => {
         const str = '<abc>1 > 2</abc>';
         const expectedAst = [
