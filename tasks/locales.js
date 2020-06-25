@@ -18,8 +18,8 @@ const {
 const API_URL = 'https://twosky.adtidy.org/api/v1';
 const API_DOWNLOAD_URL = `${API_URL}/download`;
 const API_UPLOAD_URL = `${API_URL}/upload`;
-const FORMAT = 'json';
-const FILENAME = `messages.${FORMAT}`;
+const FORMAT = 'chrome';
+const FILENAME = 'messages.json';
 const LOCALES = Object.keys(LANGUAGES); // locales to be downloaded
 const LOCALES_DIR = path.resolve(__dirname, '../src/_locales');
 
