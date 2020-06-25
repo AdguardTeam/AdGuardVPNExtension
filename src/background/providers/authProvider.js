@@ -60,7 +60,7 @@ const register = async (credentials) => {
         'validation.not_valid': translator.translate('registration_error_not_valid'),
         'validation.min_length': translator.translate('registration_error_min_length'),
         'validation.compromised.password': translator.translate('registration_error_compromised_password', {
-            a: (chunks) => (`<a href="https://haveibeenpwned.com/" target="_blank" class="link">${chunks}</a>`),
+            a: (chunks) => (`<a href="https://adguard-vpn.com/forward.html?action=haveibeenpwned&from=popup&app=vpn_extension/" target="_blank" class="link">${chunks}</a>`),
         }),
         'validation.unique_constraint': translator.translate('registration_error_unique_constraint'),
         default: translator.translate('registration_error_default'),
