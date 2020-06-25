@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import {
     tagNode,
     textNode,
@@ -35,6 +36,187 @@ const CONTROL_CHARS = {
 };
 
 /**
+ * Checks if text length is enough to create text node
+ * If text node created, then if stack is not empty it is pushed into stack,
+ * otherwise into result
+ * @param context
+ */
+const createTextNodeIfPossible = (context) => {
+    const { text } = context;
+
+    if (text.length > 0) {
+        const node = textNode(text);
+        if (context.stack.length > 0) {
+            context.stack.push(node);
+        } else {
+            context.result.push(node);
+        }
+    }
+
+    context.text = '';
+};
+
+/**
+ * Handles text state
+ * @returns {function}
+ */
+const textStateHandler = (context) => {
+    const { currChar, currIdx } = context;
+
+    // switches to the tag state
+    if (currChar === CONTROL_CHARS.TAG_OPEN_BRACE) {
+        context.lastTextStateChangeIdx = currIdx;
+        return STATE.TAG;
+    }
+
+    // switches to the placeholder state
+    if (currChar === CONTROL_CHARS.PLACEHOLDER_MARK) {
+        context.lastTextStateChangeIdx = currIdx;
+        return STATE.PLACEHOLDER;
+    }
+
+    // remains in the text state
+    context.text += currChar;
+    return STATE.TEXT;
+};
+
+/**
+ * Handles placeholder state
+ * @param context
+ * @returns {string}
+ */
+const placeholderStateHandler = (context) => {
+    const {
+        currChar,
+        currIdx,
+        lastTextStateChangeIdx,
+        placeholder,
+        stack,
+        result,
+        str,
+    } = context;
+
+    if (currChar === CONTROL_CHARS.PLACEHOLDER_MARK) {
+        // if distance between current index and last state change equal to 1,
+        // it means that placeholder mark was escaped by itself e.g. "%%",
+        // so we return to the text state
+        if (currIdx - lastTextStateChangeIdx === 1) {
+            context.text += str.substring(lastTextStateChangeIdx, currIdx);
+            return STATE.TEXT;
+        }
+
+        createTextNodeIfPossible(context);
+        const node = placeholderNode(placeholder);
+
+        // push node to the appropriate stack
+        if (stack.length > 0) {
+            stack.push(node);
+        } else {
+            result.push(node);
+        }
+
+        context.placeholder = '';
+        return STATE.TEXT;
+    }
+
+    context.placeholder += currChar;
+    return STATE.PLACEHOLDER;
+};
+
+/**
+ * Switches current state to the tag state and returns tag state handler
+ * @returns {function}
+ */
+const tagStateHandler = (context) => {
+    const {
+        currChar,
+        text,
+        stack,
+        result,
+        lastTextStateChangeIdx,
+        currIdx,
+        str,
+    } = context;
+
+    let { tag } = context;
+
+    // if found tag end ">"
+    if (currChar === CONTROL_CHARS.TAG_CLOSE_BRACE) {
+        // if the tag is close tag e.g. </a>
+        if (tag.indexOf(CONTROL_CHARS.CLOSING_TAG_MARK) === 0) {
+            // remove slash from tag
+            tag = tag.substring(1);
+
+            let children = [];
+            if (text.length > 0) {
+                children.push(textNode(text));
+                context.text = '';
+            }
+
+            let pairTagFound = false;
+            // looking for the pair to the close tag
+            while (!pairTagFound && stack.length > 0) {
+                const lastFromStack = stack.pop();
+                // if tag from stack equal to close tag
+                if (lastFromStack === tag) {
+                    // create tag node
+                    const node = tagNode(tag, children);
+                    // and add it to the appropriate stack
+                    if (stack.length > 0) {
+                        stack.push(node);
+                    } else {
+                        result.push(node);
+                    }
+                    children = [];
+                    pairTagFound = true;
+                } else if (isNode(lastFromStack)) {
+                    // add nodes between close tag and open tag to the children
+                    children.unshift(lastFromStack);
+                } else {
+                    throw new Error('String has unbalanced tags');
+                }
+                if (stack.length === 0 && children.length > 0) {
+                    throw new Error('String has unbalanced tags');
+                }
+            }
+            context.tag = '';
+            return STATE.TEXT;
+        }
+
+        // if the tag is void tag e.g. <img/>
+        if (tag.lastIndexOf(CONTROL_CHARS.CLOSING_TAG_MARK) === tag.length - 1) {
+            tag = tag.substring(0, tag.length - 1);
+            createTextNodeIfPossible(context);
+            const node = voidTagNode(tag);
+            // add node to the appropriate stack
+            if (stack.length > 0) {
+                stack.push(node);
+            } else {
+                result.push(node);
+            }
+            context.tag = '';
+            return STATE.TEXT;
+        }
+
+        createTextNodeIfPossible(context);
+        stack.push(tag);
+        context.tag = '';
+        return STATE.TEXT;
+    }
+
+    // If we meet open tag "<" it means that we wrongly moved into tag state
+    if (currChar === CONTROL_CHARS.TAG_OPEN_BRACE) {
+        context.text += str.substring(lastTextStateChangeIdx, currIdx);
+        context.lastTextStateChangeIdx = currIdx;
+        context.tag = '';
+        return STATE.TAG;
+    }
+
+    context.tag += currChar;
+    return STATE.TAG;
+};
+
+/**
  * Parses string into AST (abstract syntax tree) and returns it
  * e.g.
  * parse("String to <a>translate</a>") ->
@@ -51,211 +233,77 @@ const CONTROL_CHARS = {
  * @returns {[]}
  */
 export const parser = (str = '') => {
-    /**
-     * Stack is used to keep and search nested tag nodes
-     * @type {*[]}
-     */
-    const stack = [];
+    const context = {
+        /**
+         * Stack is used to keep and search nested tag nodes
+         * @type {*[]}
+         */
+        stack: [],
 
-    /**
-     * Result is stack where function allocates nodes
-     * @type {*[]}
-     */
-    const result = [];
+        /**
+         * Result is stack where function allocates nodes
+         * @type {*[]}
+         */
+        result: [],
 
-    /**
-     * Current char index
-     * @type {number}
-     */
-    let i = 0;
+        /**
+         * Current char index
+         * @type {number}
+         */
+        currIdx: 0,
 
-    let currentState = STATE.TEXT;
-    let lastTextStateChangeIdx = 0;
+        /**
+         * Saves index of the last state change from the text state,
+         * used to restore parsed text if we moved into other state wrongly
+         */
+        lastTextStateChangeIdx: 0,
 
-    /**
-     * Accumulated tag value
-     * @type {string}
-     */
-    let tag = '';
+        /**
+         * Accumulated tag value
+         * @type {string}
+         */
+        tag: '',
 
-    /**
-     * Accumulated text value
-     * @type {string}
-     */
-    let text = '';
+        /**
+         * Accumulated text value
+         * @type {string}
+         */
+        text: '',
 
-    /**
-     * Accumulated placeholder value
-     * @type {string}
-     */
-    let placeholder = '';
+        /**
+         * Accumulated placeholder value
+         * @type {string}
+         */
+        placeholder: '',
 
-    /**
-     * Checks if text length is enough to create text node
-     * If text node created then if stack is not empty it is pushed into stack,
-     * otherwise into result
-     * @param text
-     * @returns {string}
-     */
-    const placeText = (text) => {
-        if (text.length > 0) {
-            const node = textNode(text);
-            if (stack.length > 0) {
-                stack.push(node);
-            } else {
-                result.push(node);
-            }
-        }
-        return '';
+        /**
+         * Parsed string
+         */
+        str,
     };
 
-    /**
-     * Switches current state to the text state and returns text state handler
-     * @returns {function}
-     */
-    function textStateHandler() {
-        currentState = STATE.TEXT;
+    const STATE_HANDLERS = {
+        [STATE.TEXT]: textStateHandler,
+        [STATE.PLACEHOLDER]: placeholderStateHandler,
+        [STATE.TAG]: tagStateHandler,
+    };
 
-        return (currChar) => {
-            // switches to the tag state
-            if (currChar === CONTROL_CHARS.TAG_OPEN_BRACE) {
-                lastTextStateChangeIdx = i;
-                // eslint-disable-next-line no-use-before-define
-                return tagStateHandler();
-            }
+    // Start from text state
+    let currentState = STATE.TEXT;
 
-            if (currChar === CONTROL_CHARS.PLACEHOLDER_MARK) {
-                lastTextStateChangeIdx = i;
-                // eslint-disable-next-line no-use-before-define
-                return placeholderStateHandler();
-            }
-
-            text += currChar;
-            return textStateHandler();
-        };
+    while (context.currIdx < str.length) {
+        context.currChar = str[context.currIdx];
+        const currentStateHandler = STATE_HANDLERS[currentState];
+        currentState = currentStateHandler(context);
+        context.currIdx += 1;
     }
 
-    /**
-     * Switches current state to the tag state and returns tag state handler
-     * @returns {function}
-     */
-    function tagStateHandler() {
-        currentState = STATE.TAG;
-
-        return (currChar) => {
-            // if found tag end ">"
-            if (currChar === CONTROL_CHARS.TAG_CLOSE_BRACE) {
-                // if the tag is close tag e.g. </a>
-                if (tag.indexOf(CONTROL_CHARS.CLOSING_TAG_MARK) === 0) {
-                    tag = tag.substring(1);
-                    let children = [];
-                    if (text.length > 0) {
-                        children.push(textNode(text));
-                        text = '';
-                    }
-                    let pairTagFound = false;
-                    // looking for the pair to our close tag
-                    while (!pairTagFound && stack.length > 0) {
-                        const lastFromStack = stack.pop();
-                        // if tag from stack equal to close tag
-                        if (lastFromStack === tag) {
-                            // create tag node
-                            const node = tagNode(tag, children);
-                            // and add it to the appropriate stack
-                            if (stack.length > 0) {
-                                stack.push(node);
-                            } else {
-                                result.push(node);
-                            }
-                            children = [];
-                            pairTagFound = true;
-                        } else if (isNode(lastFromStack)) {
-                            // add nodes between close tag and open tag to the children
-                            children.unshift(lastFromStack);
-                        } else {
-                            throw new Error('String has unbalanced tags');
-                        }
-                        if (stack.length === 0 && children.length > 0) {
-                            throw new Error('String has unbalanced tags');
-                        }
-                    }
-                    tag = '';
-                    return textStateHandler();
-                }
-
-                // if the tag is void tag e.g. <img/>
-                if (tag.lastIndexOf(CONTROL_CHARS.CLOSING_TAG_MARK) === tag.length - 1) {
-                    tag = tag.substring(0, tag.length - 1);
-                    text = placeText(text);
-                    const node = voidTagNode(tag);
-                    // add node to the appropriate stack
-                    if (stack.length > 0) {
-                        stack.push(node);
-                    } else {
-                        result.push(node);
-                    }
-                    tag = '';
-                    return textStateHandler();
-                }
-
-                text = placeText(text);
-                stack.push(tag);
-                tag = '';
-                return textStateHandler();
-            }
-
-            // If we meet open tag "<" it means that we wrongly moved into tag state
-            if (currChar === CONTROL_CHARS.TAG_OPEN_BRACE) {
-                text += str.substring(lastTextStateChangeIdx, i);
-                tag = '';
-                lastTextStateChangeIdx = i;
-                return tagStateHandler();
-            }
-
-            tag += currChar;
-            return tagStateHandler();
-        };
-    }
-
-    function placeholderStateHandler() {
-        currentState = STATE.PLACEHOLDER;
-
-        return (currChar) => {
-            if (currChar === CONTROL_CHARS.PLACEHOLDER_MARK) {
-                // if distance between current index and last state change equal to 1,
-                // it means that placeholder mark was escaped by itself e.g. "%%",
-                // so we return to the text state
-                if (i - lastTextStateChangeIdx === 1) {
-                    text += str.substring(lastTextStateChangeIdx, i);
-                    return textStateHandler();
-                }
-
-                lastTextStateChangeIdx = i + 1;
-                text = placeText(text);
-                const node = placeholderNode(placeholder);
-                // place node to the appropriate stack
-                if (stack.length > 0) {
-                    stack.push(node);
-                } else {
-                    result.push(node);
-                }
-                placeholder = '';
-
-                return textStateHandler();
-            }
-
-            placeholder += currChar;
-            return placeholderStateHandler();
-        };
-    }
-
-    let currentStateHandler = textStateHandler();
-
-    while (i < str.length) {
-        const currChar = str[i];
-        currentStateHandler = currentStateHandler(currChar);
-        i += 1;
-    }
+    const {
+        result,
+        text,
+        stack,
+        lastTextStateChangeIdx,
+    } = context;
 
     // Means that tag or placeholder nodes were not closed, so we consider them as text
     if (currentState !== STATE.TEXT) {
