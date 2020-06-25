@@ -50,9 +50,6 @@
     "global_error_message": {
         "message": "Error occurred, please contact us via <a>support@adguard-vpn.com</a>"
     },
-    "global_error_can_control": {
-        "message": "Other extension prevents us from setting up the tunnel. Please disable it in browser settings."
-    },
     "about_title": {
         "message": "About"
     },
@@ -113,9 +110,6 @@
     "auth_register": {
         "message": "Register"
     },
-    "auth_next": {
-        "message": "Next"
-    },
     "auth_header_sign_in": {
         "message": "You are signing in as"
     },
@@ -139,9 +133,6 @@
     },
     "settings_title": {
         "message": "Settings"
-    },
-    "settings_webrtc_title": {
-        "message": "WebRTC"
     },
     "settings_webrtc_label": {
         "message": "Block WebRTC"
@@ -253,9 +244,6 @@
     },
     "authentication_successful_social": {
         "message": "Successfully authenticated! You can open AdGuard VPN and switch on the tunnel."
-    },
-    "control_error_title": {
-        "message": "Oops! An error occurred."
     },
     "control_error_description": {
         "message": "It looks like another Chrome extension is trying to control your connection. Please disable the other extension in your browser."
