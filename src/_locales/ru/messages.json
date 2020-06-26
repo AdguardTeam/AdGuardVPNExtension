@@ -99,6 +99,9 @@
         "message": "Зарегистрироваться"
     },
     "auth_sign_in": {
+        "message": "Вход в систему"
+    },
+    "auth_sign_in_button": {
         "message": "Войти"
     },
     "auth_sign_in_link": {
