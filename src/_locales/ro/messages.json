@@ -1,1 +1,384 @@
-{}
+{
+    "name": {
+        "message": "AdGuard VPN — Intimitate & Securitate"
+    },
+    "description": {
+        "message": "Face Internetul deschis și ține datele dvs. în siguranță. VPN de prima clasă de la creatorii celebrului blocant de pub."
+    },
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
+    "registration_error_not_empty": {
+        "message": "Nu trebuie lăsat gol"
+    },
+    "registration_error_not_valid": {
+        "message": "Valoarea este invalidă"
+    },
+    "registration_error_min_length": {
+        "message": "Valoare prea scurtă. Trebuie să aibă 8 caractere sau mai mult."
+    },
+    "registration_error_compromised_password": {
+        "message": "Parola introdusă se află într-o <a>bază de date publice</a> cu parole compromise. Vă rugăm, încercați altă parolă."
+    },
+    "registration_error_unique_constraint": {
+        "message": "Valoarea este deja folosită"
+    },
+    "registration_error_front_unique_validation": {
+        "message": "Parola și confirmarea parolei nu se potrivesc"
+    },
+    "registration_error_default": {
+        "message": "A apărut o eroare, reîncercați mai târziu"
+    },
+    "authentication_error_2fa_required": {
+        "message": "Este necesară 2FA"
+    },
+    "authentication_error_2fa_invalid": {
+        "message": "Jeton invalid"
+    },
+    "authentication_error_account_disabled": {
+        "message": "Contul este dezactivat"
+    },
+    "authentication_error_account_locked": {
+        "message": "Contul este blocat pentru 15 minute"
+    },
+    "authentication_error_bad_credentials": {
+        "message": "Ne pare rău, parolă necunoscută"
+    },
+    "authentication_error_default": {
+        "message": "A apărut o eroare, reîncercați mai târziu"
+    },
+    "global_error_message": {
+        "message": "A apărut o eroare, contactați-ne vă rog via <a>support@adguard-vpn.com</a>"
+    },
+    "about_title": {
+        "message": "Despre"
+    },
+    "account_title": {
+        "message": "Cont"
+    },
+    "account_edit": {
+        "message": "Editare"
+    },
+    "account_sign_out": {
+        "message": "Deconectare"
+    },
+    "rate_description": {
+        "message": "Hei, suntem o echipă de la AdGuard și pentru noi este esențial să vă știm părerea despre produsul nostru. Vă rugăm să-l evaluați."
+    },
+    "rate_hide": {
+        "message": "Ascunde"
+    },
+    "auth_title": {
+        "message": "Începeți absolut gratuit!"
+    },
+    "auth_description": {
+        "message": "Protecția intimității online fără compromisuri. Peste 20 de milioane de oameni au ales deja AdGuard."
+    },
+    "auth_code": {
+        "message": "Codul aplicației de autorizare"
+    },
+    "auth_confirm": {
+        "message": "Confirmați"
+    },
+    "auth_email": {
+        "message": "Adresă e-mail"
+    },
+    "auth_password": {
+        "message": "Parola"
+    },
+    "auth_password_repeat": {
+        "message": "Confirmare parolă"
+    },
+    "auth_recover": {
+        "message": "Ați uitat parola?"
+    },
+    "auth_login": {
+        "message": "Logare"
+    },
+    "auth_sign_up": {
+        "message": "Înscriere"
+    },
+    "auth_sign_in": {
+        "message": "Conectare"
+    },
+    "auth_sign_in_link": {
+        "message": "Conectați-vă cu contul AdGuard"
+    },
+    "auth_account": {
+        "message": "Nu aveți un cont?"
+    },
+    "auth_register": {
+        "message": "Înscrieți-vă"
+    },
+    "auth_header_sign_in": {
+        "message": "V-ați conectat ca"
+    },
+    "auth_header_sing_in_notice": {
+        "message": "Aveți deja un cont"
+    },
+    "auth_header_registration": {
+        "message": "V-ați înscris ca"
+    },
+    "auth_header_2fa": {
+        "message": "Intrați codul de autentificare"
+    },
+    "auth_placeholder_2fa": {
+        "message": "Cod de autentificare"
+    },
+    "eula": {
+        "message": "EULA"
+    },
+    "privacy_policy": {
+        "message": "Politică Intimitate"
+    },
+    "settings_title": {
+        "message": "Setări"
+    },
+    "settings_webrtc_label": {
+        "message": "Blocați WebRTC"
+    },
+    "settings_webrtc_desc": {
+        "message": "WebRTC este un program special în cele mai multe browsere internet care poate permite unui site terț să vă detecteze adresa IP reală pentru a vă identifica"
+    },
+    "settings_context_menus_title": {
+        "message": "Adăugați AdGuard VPN la meniul contextual al browserului"
+    },
+    "context_menu_selective_mode": {
+        "message": "Modul selectiv"
+    },
+    "context_menu_regular_mode": {
+        "message": "Modul normal"
+    },
+    "settings_dns_label": {
+        "message": "Folosiți server DNS"
+    },
+    "settings_dns_desc": {
+        "message": "Sistemul de Nume de Domeniu (DNS) este echivalentul Internet al unei cărți de telefon. El menține un director de nume de domenii și le traduce în adrese IP (Protocol Internet)."
+    },
+    "settings_dns_selector_default_title": {
+        "message": "Implicit"
+    },
+    "settings_dns_selector_default_desc": {
+        "message": "Folosiți automat servere DNS implicite când vă conectați la VPN"
+    },
+    "settings_dns_selector_adguard_title": {
+        "message": "AdGuard DNS"
+    },
+    "settings_dns_selector_adguard_desc": {
+        "message": "Elimină reclame și trackeri de pe aparatul dvs."
+    },
+    "settings_dns_selector_adguard_nonfiltering_title": {
+        "message": "AdGuard DNS Fără-filtrare"
+    },
+    "settings_dns_selector_adguard_nonfiltering_desc": {
+        "message": "DNS securizat fără jurnal de activitate (nu filtrează reclame și trackere)"
+    },
+    "settings_dns_selector_adguard_family_title": {
+        "message": "AdGuard DNS Protecție Familială"
+    },
+    "settings_dns_selector_adguard_family_desc": {
+        "message": "AdGuard DNS + Căutare în siguranță și blocare conținut adult"
+    },
+    "settings_dns_selector_google_title": {
+        "message": "Google DNS"
+    },
+    "settings_dns_selector_google_desc": {
+        "message": "Serviciu gratis de DNS alternativ Google"
+    },
+    "settings_dns_selector_cloudflare_title": {
+        "message": "Cloudflare DNS"
+    },
+    "settings_dns_selector_cloudflare_desc": {
+        "message": "Serviciu DNS gratuit de Cloudflare"
+    },
+    "settings_dns_selector_cisco_title": {
+        "message": "Cisco OpenDNS"
+    },
+    "settings_dns_selector_cisco_desc": {
+        "message": "Server DNS care vă protejează aparatul de malware"
+    },
+    "settings_dns_selector_quad9_title": {
+        "message": "Quad9"
+    },
+    "settings_dns_selector_quad9_desc": {
+        "message": "Serviciu gratuit de DNS alternativ cu protecție de phishing și spyware"
+    },
+    "settings_exclusion_add": {
+        "message": "Adăugă site"
+    },
+    "settings_exclusion_title": {
+        "message": "Excluderi"
+    },
+    "settings_connection_mode_title": {
+        "message": "Mod de conectare VPN"
+    },
+    "settings_exclusion_regular_title": {
+        "message": "Modul normal"
+    },
+    "settings_exclusion_regular_description": {
+        "message": "AdGuard VPN nu funcționează pe site-urile din această listă:"
+    },
+    "settings_exclusion_selective_title": {
+        "message": "Modul selectiv"
+    },
+    "settings_exclusion_selective_description": {
+        "message": "AdGuard VPN funcționează numai pe site-urile din această listă:"
+    },
+    "settings_exclusion_subdomains_title": {
+        "message": "Subdomenii"
+    },
+    "settings_exclusion_subdomains_text": {
+        "message": "Puteți adăuga domenii (ex. google.com) sau toate subdomeniile (ex. *.google.com)"
+    },
+    "global_error_title": {
+        "message": "A apărut o eroare"
+    },
+    "global_error_description": {
+        "message": "Vă rugăm să ne contactați dacă acest mesaj se repetă"
+    },
+    "global_error_learn_more": {
+        "message": "Aflați mai multe"
+    },
+    "global_error_try_again": {
+        "message": "Încercați din nou"
+    },
+    "authentication_successful_social": {
+        "message": "Autentificat cu succes! Puteți deschide AdGuard VPN și puteți activa tunelul."
+    },
+    "control_error_description": {
+        "message": "Se pare că o altă extensie Chrome încearcă să vă controleze conexiunile. Vă rugăm să dezactivați cealaltă extensie în browser."
+    },
+    "control_error_disable": {
+        "message": "Dezactivați-l"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Activați VPN pe acest site"
+    },
+    "popup_settings_disable_vpn": {
+        "message": "Dezactivați VPN pe acest site"
+    },
+    "popup_settings_other_products": {
+        "message": "Alte produse"
+    },
+    "popup_settings_feedback": {
+        "message": "Feedback"
+    },
+    "popup_settings_open_settings": {
+        "message": "Setări"
+    },
+    "popup_settings_sign_out": {
+        "message": "Deconectare"
+    },
+    "context_menu_enable_vpn": {
+        "message": "Activați VPN pe acest site"
+    },
+    "context_menu_disable_vpn": {
+        "message": "Dezactivați VPN pe acest site"
+    },
+    "suggest_feature": {
+        "message": "Sugerați o funcție"
+    },
+    "endpoints_countries": {
+        "message": "Locații"
+    },
+    "endpoints_fastest": {
+        "message": "Cel mai rapid"
+    },
+    "endpoints_all": {
+        "message": "Orice endpoint conectat"
+    },
+    "endpoints_search_results": {
+        "message": "Rezultatul căutării"
+    },
+    "endpoints_search": {
+        "message": "Locația de căutare"
+    },
+    "endpoints_not_found": {
+        "message": "Serverul nu a fost găsit"
+    },
+    "popup_traffic_limit_reached": {
+        "message": "Limită lunară de data atinsă. Vreți mai mult?"
+    },
+    "premium_upgrade": {
+        "message": "Actualizați"
+    },
+    "settings_disconnect": {
+        "message": "Deconectare"
+    },
+    "settings_connect": {
+        "message": "Conectare"
+    },
+    "settings_not_responding": {
+        "message": "Serverul nu răspunde"
+    },
+    "settings_choose_another": {
+        "message": "Alegeți altul"
+    },
+    "settings_connection_not_secured": {
+        "message": "Conexiunea nu este sigură"
+    },
+    "settings_connecting": {
+        "message": "Se conectează..."
+    },
+    "settings_vpn_enabled": {
+        "message": "VPN activat"
+    },
+    "settings_vpn_disabled": {
+        "message": "VPN dezactivat"
+    },
+    "popup_feedback_title": {
+        "message": "Ne-ar plăcea să auzim feedback-ul dvs."
+    },
+    "popup_feedback_button": {
+        "message": "Lasă-ți un feedback"
+    },
+    "settings_run_out_data": {
+        "message": "Limită de data depășită"
+    },
+    "options_title": {
+        "message": "Opțiuni AdGuard VPN"
+    },
+    "offline_title": {
+        "message": "Offline"
+    },
+    "popup_exclusions_enable_vpn_on_site": {
+        "message": "<span>Puteți</span> <a>activa VPN pe site-ul acesta</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_exclusions_add_site_to_exclusions": {
+        "message": "<span>Puteți</span> <a>adăuga site-ul la excluderi</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_exclusions_disable_vpn_on_site": {
+        "message": "<span>Puteți</span> <a>dezactiva VPN pe acest site</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_site_status_unaccessible": {
+        "message": "este localizat în rețeaua dvs. locală și inaccesibil prin VPN"
+    },
+    "popup_site_status_vpn_disabled": {
+        "message": "VPN este dezactivat pe acest site"
+    },
+    "popup_site_status_added_to_exclusions": {
+        "message": "adăugat la excluderi"
+    },
+    "popup_auth_agreement_consent": {
+        "message": "Utilizând AdGuard VPN, acceptați <eula>EULA</eula> noastră și <privacy>Politica Intimității</privacy>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "options_auth_agreement_consent": {
+        "message": "Continuând, acceptați <privacy>Termenii și Condițiile</privacy> și <eula>EULA</eula>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "popup_free_traffic_info": {
+        "message": "<span>%value% %unit%</span> rămași luna aceasta",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_ping_value": {
+        "message": "Ping %pingValue% ms",
+        "description": "Respect spaces between text and placeholder"
+    },
+    "options_auth_back_button": {
+        "message": "Înapoi"
+    }
+}

@@ -1,5 +1,5 @@
 import { parser } from './parser';
-import { isPlaceholderNode, isTagNode, isTextNode } from './nodes';
+import { isTextNode } from './nodes';
 
 /**
  * Compares two AST (abstract syntax tree) structures,
@@ -9,45 +9,39 @@ import { isPlaceholderNode, isTagNode, isTextNode } from './nodes';
  * @returns {boolean}
  */
 const areAstStructuresSame = (baseAst, targetAst) => {
-    let i = 0;
-    let result = true;
+    const textNodeFilter = (node) => {
+        return !isTextNode(node);
+    };
+
+    const filteredBaseAst = baseAst.filter(textNodeFilter);
+
+    const filteredTargetAst = targetAst.filter(textNodeFilter);
 
     // if AST structures have different lengths, they are not equal
-    if (baseAst.length !== targetAst.length) {
+    if (filteredBaseAst.length !== filteredTargetAst.length) {
         return false;
     }
 
-    while (i < baseAst.length) {
-        const baseNode = baseAst[i];
-        const targetNode = targetAst[i];
-        // ignore text nodes
-        if (!isTextNode(baseNode) && !isTextNode(targetNode)) {
-            // if both nodes are tag nodes
-            if (isTagNode(baseNode) && isTagNode(targetNode)) {
-                if (baseNode.value !== targetNode.value) {
-                    result = false;
-                    break;
-                }
-                // if values are the same we check tag nodes children
-                result = areAstStructuresSame(baseNode.children, targetNode.children);
-                if (result === false) {
-                    break;
-                }
-                // if both nodes are placeholders
-            } else if (isPlaceholderNode(baseNode) && isPlaceholderNode(targetNode)) {
-                if (baseNode.value !== targetNode.value) {
-                    result = false;
-                    break;
-                }
-            } else {
-                result = false;
-                break;
+    for (let i = 0; i < filteredBaseAst.length; i += 1) {
+        const baseNode = filteredBaseAst[i];
+
+        const targetNode = filteredTargetAst.find((node) => {
+            return node.type === baseNode.type && node.value === baseNode.value;
+        });
+
+        if (!targetNode) {
+            return false;
+        }
+
+        if (targetNode.children) {
+            const areChildrenSame = areAstStructuresSame(baseNode.children, targetNode.children);
+            if (!areChildrenSame) {
+                return false;
             }
         }
-        i += 1;
     }
 
-    return result;
+    return true;
 };
 
 /**

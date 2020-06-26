@@ -1,9 +1,384 @@
 {
+    "name": {
+        "message": "AdGuard VPN — Приватность и Безопасность"
+    },
+    "description": {
+        "message": "Делает Интернет открытым и обеспечивает безопасность ваших данных. Первоклассный VPN от создателей знаменитого рекламного блокировщика.\n"
+    },
     "short_name": {
         "message": "AdGuard VPN"
+    },
+    "registration_error_not_empty": {
+        "message": "Поле не должно быть пустым"
+    },
+    "registration_error_not_valid": {
+        "message": "Это значение недействительно"
+    },
+    "registration_error_min_length": {
+        "message": "Слишком короткое значение. Введите не менее 8 символов."
+    },
+    "registration_error_compromised_password": {
+        "message": "Введенный пароль найден в <a>публичной базе</a> скомпрометированных паролей. Пожалуйста, введите другой пароль."
+    },
+    "registration_error_unique_constraint": {
+        "message": "Это значение уже используется"
+    },
+    "registration_error_front_unique_validation": {
+        "message": "Пароли не совпадают"
+    },
+    "registration_error_default": {
+        "message": "Произошла ошибка. Попробуйте позже"
+    },
+    "authentication_error_2fa_required": {
+        "message": "Требуется 2FA-код"
+    },
+    "authentication_error_2fa_invalid": {
+        "message": "Некорректный код"
+    },
+    "authentication_error_account_disabled": {
+        "message": "Аккаунт отключен"
+    },
+    "authentication_error_account_locked": {
+        "message": "Аккаунт заблокирован на 15 минут"
+    },
+    "authentication_error_bad_credentials": {
+        "message": "К сожалению, вы ввели неправильный пароль"
+    },
+    "authentication_error_default": {
+        "message": "Произошла ошибка. Попробуйте позже"
+    },
+    "global_error_message": {
+        "message": "Произошла ошибка, пожалуйста, свяжитесь с нами по адресу <a>support@adguard-vpn.com</a>."
+    },
+    "about_title": {
+        "message": "О программе"
+    },
+    "account_title": {
+        "message": "Аккаунт"
+    },
+    "account_edit": {
+        "message": "Редактировать"
+    },
+    "account_sign_out": {
+        "message": "Выйти"
+    },
+    "rate_description": {
+        "message": "Привет, мы команда AdGuard, и для нас очень важно знать ваше мнение о нашем продукте. Пожалуйста, оцените его.\n"
+    },
+    "rate_hide": {
+        "message": "Скрыть"
+    },
+    "auth_title": {
+        "message": "Начните абсолютно бесплатно!"
+    },
+    "auth_description": {
+        "message": "Безупречная защита конфиденциальности в Интернете. Более 20 миллионов человек уже выбрали AdGuard.\n"
+    },
+    "auth_code": {
+        "message": "Код из приложения аутентификации"
+    },
+    "auth_confirm": {
+        "message": "Подтвердить"
+    },
+    "auth_email": {
+        "message": "Email-адрес"
+    },
+    "auth_password": {
+        "message": "Пароль"
+    },
+    "auth_password_repeat": {
+        "message": "Подтверждение пароля"
+    },
+    "auth_recover": {
+        "message": "Забыли пароль?"
+    },
+    "auth_login": {
+        "message": "Войти"
+    },
+    "auth_sign_up": {
+        "message": "Зарегистрироваться"
+    },
+    "auth_sign_in": {
+        "message": "Войти"
+    },
+    "auth_sign_in_link": {
+        "message": "Войти с помощью аккаунта AdGuard"
+    },
+    "auth_account": {
+        "message": "У вас нет аккаунта?"
+    },
+    "auth_register": {
+        "message": "Зарегистрироваться"
+    },
+    "auth_header_sign_in": {
+        "message": "Вы входите в систему как"
+    },
+    "auth_header_sing_in_notice": {
+        "message": "У вас уже есть аккаунт"
+    },
+    "auth_header_registration": {
+        "message": "Вы регистрируетесь как"
+    },
+    "auth_header_2fa": {
+        "message": "Введите код аутентификации"
+    },
+    "auth_placeholder_2fa": {
+        "message": "Код аутентификации"
+    },
+    "eula": {
+        "message": "Лицензионное соглашение"
+    },
+    "privacy_policy": {
+        "message": "Политика конфиденциальности"
+    },
+    "settings_title": {
+        "message": "Настройки"
+    },
+    "settings_webrtc_label": {
+        "message": "Блокировать WebRTC"
+    },
+    "settings_webrtc_desc": {
+        "message": "WebRTC — это специальная программа в большинстве Интернет-браузеров, которая может позволить стороннему веб-сайту обнаружить ваш реальный IP-адрес и использовать его для вашей идентификации."
+    },
+    "settings_context_menus_title": {
+        "message": "Добавить AdGuard VPN в контекстное меню браузера\n"
+    },
+    "context_menu_selective_mode": {
+        "message": "Выборочный режим"
+    },
+    "context_menu_regular_mode": {
+        "message": "Обычный режим"
+    },
+    "settings_dns_label": {
+        "message": "Использовать сервер DNS"
+    },
+    "settings_dns_desc": {
+        "message": "Система доменных имен (DNS) – это адресная книга Интернета. Она поддерживает каталог доменных имен и транслируют их в реальные IP-адреса."
+    },
+    "settings_dns_selector_default_title": {
+        "message": "Стандартный"
+    },
+    "settings_dns_selector_default_desc": {
+        "message": "Автоматически использовать DNS-сервер по умолчанию при подключении к VPN"
+    },
+    "settings_dns_selector_adguard_title": {
+        "message": "AdGuard DNS"
+    },
+    "settings_dns_selector_adguard_desc": {
+        "message": "Удаляет рекламу и трекеры с вашего устройства"
+    },
+    "settings_dns_selector_adguard_nonfiltering_title": {
+        "message": "AdGuard DNS Без фильтрации"
+    },
+    "settings_dns_selector_adguard_nonfiltering_desc": {
+        "message": "Безопасный DNS-сервер без регистрации активности (не фильтрует рекламу и трекеры)"
+    },
+    "settings_dns_selector_adguard_family_title": {
+        "message": "AdGuard DNS Семейная защита"
+    },
+    "settings_dns_selector_adguard_family_desc": {
+        "message": "AdGuard DNS + Безопасный поиск и блокировка контента для взрослых"
+    },
+    "settings_dns_selector_google_title": {
+        "message": "Google DNS"
+    },
+    "settings_dns_selector_google_desc": {
+        "message": "Бесплатный альтернативный DNS-сервис от Google"
+    },
+    "settings_dns_selector_cloudflare_title": {
+        "message": "Cloudflare DNS"
+    },
+    "settings_dns_selector_cloudflare_desc": {
+        "message": "Бесплатный DNS сервис от Сloudflare"
+    },
+    "settings_dns_selector_cisco_title": {
+        "message": "Cisco OpenDNS"
+    },
+    "settings_dns_selector_cisco_desc": {
+        "message": "DNS-сервер, защищающий устройство от сетевых угроз"
+    },
+    "settings_dns_selector_quad9_title": {
+        "message": "Quad9"
+    },
+    "settings_dns_selector_quad9_desc": {
+        "message": "Бесплатный альтернативный DNS-сервис с защитой от фишинга и шпионских программ"
+    },
+    "settings_exclusion_add": {
+        "message": "Добавить веб-сайт"
+    },
+    "settings_exclusion_title": {
+        "message": "Исключения"
+    },
+    "settings_connection_mode_title": {
+        "message": "Режим VPN-подключения"
+    },
+    "settings_exclusion_regular_title": {
+        "message": "Обычный режим"
+    },
+    "settings_exclusion_regular_description": {
+        "message": "AdGuard VPN не работает на сайтах из этого списка:"
+    },
+    "settings_exclusion_selective_title": {
+        "message": "Выборочный режим"
+    },
+    "settings_exclusion_selective_description": {
+        "message": "AdGuard VPN работает только на сайтах из этого списка:"
+    },
+    "settings_exclusion_subdomains_title": {
+        "message": "Поддомены"
+    },
+    "settings_exclusion_subdomains_text": {
+        "message": "Вы можете добавлять домены (например, google.com) или все поддомены (например, *.google.com)"
+    },
+    "global_error_title": {
+        "message": "Произошла ошибка"
+    },
+    "global_error_description": {
+        "message": "Пожалуйста, свяжитесь с нами, если вы продолжаете видеть это сообщение"
+    },
+    "global_error_learn_more": {
+        "message": "Подробнее"
+    },
+    "global_error_try_again": {
+        "message": "Попробовать снова"
+    },
+    "authentication_successful_social": {
+        "message": "Успешная аутентификация! Вы можете открыть AdGuard VPN и подключить туннель."
+    },
+    "control_error_description": {
+        "message": "Похоже, что еще одно расширение Chrome пытается контролировать ваше соединение. Пожалуйста, отключите другое расширение в вашем браузере."
+    },
+    "control_error_disable": {
+        "message": "Отключить"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Включить VPN на этом сайте"
+    },
+    "popup_settings_disable_vpn": {
+        "message": "Отключить VPN на этом сайте"
+    },
+    "popup_settings_other_products": {
+        "message": "Другие продукты"
+    },
+    "popup_settings_feedback": {
+        "message": "Обратная связь"
+    },
+    "popup_settings_open_settings": {
+        "message": "Настройки"
+    },
+    "popup_settings_sign_out": {
+        "message": "Выйти"
+    },
+    "context_menu_enable_vpn": {
+        "message": "Включить VPN на этом сайте"
+    },
+    "context_menu_disable_vpn": {
+        "message": "Отключить VPN на этом сайте"
+    },
+    "suggest_feature": {
+        "message": "Предложить функцию"
+    },
+    "endpoints_countries": {
+        "message": "Локации"
+    },
+    "endpoints_fastest": {
+        "message": "Самые быстрые"
+    },
+    "endpoints_all": {
+        "message": "Все локации"
+    },
+    "endpoints_search_results": {
+        "message": "Результаты поиска"
+    },
+    "endpoints_search": {
+        "message": "Поиск локации"
+    },
+    "endpoints_not_found": {
+        "message": "Сервер не найден"
+    },
+    "popup_traffic_limit_reached": {
+        "message": "Ежемесячный лимит данных достигнут. Хотите больше?"
+    },
+    "premium_upgrade": {
+        "message": "Улучшить"
+    },
+    "settings_disconnect": {
+        "message": "Отключить"
+    },
+    "settings_connect": {
+        "message": "Подключиться"
+    },
+    "settings_not_responding": {
+        "message": "Сервер не отвечает"
+    },
+    "settings_choose_another": {
+        "message": "Выбрать другой"
+    },
+    "settings_connection_not_secured": {
+        "message": "Соединение не защищено"
+    },
+    "settings_connecting": {
+        "message": "Соединение..."
+    },
+    "settings_vpn_enabled": {
+        "message": "VPN включен"
+    },
+    "settings_vpn_disabled": {
+        "message": "VPN отключен"
+    },
+    "popup_feedback_title": {
+        "message": "Мы будем рады увидеть ваш отзыв"
+    },
+    "popup_feedback_button": {
+        "message": "Оставить отзыв"
+    },
+    "settings_run_out_data": {
+        "message": "У вас закончились данные"
+    },
+    "options_title": {
+        "message": "Опции AdGuard VPN"
+    },
+    "offline_title": {
+        "message": "Оффлайн"
+    },
+    "popup_exclusions_enable_vpn_on_site": {
+        "message": "<span>Вы можете</span> <a>включить VPN на этом сайте</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_exclusions_add_site_to_exclusions": {
+        "message": "<span>Вы можете</span> <a>добавить сайт в исключения</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_exclusions_disable_vpn_on_site": {
+        "message": "<span>Вы можете</span> <a>отключить VPN на этом сайте</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_site_status_unaccessible": {
+        "message": "находится в вашей локальной сети и недоступен через VPN"
+    },
+    "popup_site_status_vpn_disabled": {
+        "message": "VPN отключен на этом сайте"
+    },
+    "popup_site_status_added_to_exclusions": {
+        "message": "добавлен в исключения"
+    },
+    "popup_auth_agreement_consent": {
+        "message": "Используя AdGuard VPN, вы соглашаетесь с нашим <eula>Лицензионным соглашением</eula> и <privacy>Политикой конфиденциальности</privacy>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "options_auth_agreement_consent": {
+        "message": "Продолжая, вы принимаете <privacy>Условия использования</privacy> и <eula>Лицензионное соглашение</eula>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "popup_free_traffic_info": {
+        "message": "<span>%value% %unit%</span> осталось в этом месяце",
+        "description": "Respect spaces between text, tags and placeholders"
     },
     "popup_ping_value": {
         "message": "Пинг %pingValue% мс",
         "description": "Respect spaces between text and placeholder"
+    },
+    "options_auth_back_button": {
+        "message": "Назад"
     }
 }

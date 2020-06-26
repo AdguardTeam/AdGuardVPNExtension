@@ -64,4 +64,20 @@ describe('validator', () => {
         const result = isTargetStrValid(baseStr, targetStr);
         expect(result).toBeTruthy();
     });
+
+    it('validates even if there were added text nodes', () => {
+        const baseStr = 'test string <a>has tag node</a>';
+        const targetStr = 'тестовая строка <a>имеет тэг ноду</a> и текстовую';
+
+        const result = isTargetStrValid(baseStr, targetStr);
+        expect(result).toBeTruthy();
+    });
+
+    it('validates even if nodes were rearranged', () => {
+        const baseStr = '<b>b node</b> <a>a node</a>';
+        const targetStr = '<a>a нода</a> <b>b нода</b>';
+
+        const result = isTargetStrValid(baseStr, targetStr);
+        expect(result).toBeTruthy();
+    });
 });
