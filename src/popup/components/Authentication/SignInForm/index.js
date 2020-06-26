@@ -81,7 +81,7 @@ const SignInForm = observer(() => {
 
             <div className="form__btn-wrap">
                 <Submit
-                    text={reactTranslator.translate('auth_sign_in')}
+                    text={reactTranslator.translate('auth_sign_in_button')}
                     processing={requestProcessState === REQUEST_STATUSES.PENDING}
                     disabled={!password}
                 />

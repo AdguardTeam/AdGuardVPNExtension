@@ -70,7 +70,7 @@ const RegistrationForm = observer(() => {
             </div>
             <div className="form__btn-wrap form__btn-wrap--register">
                 <Submit
-                    text={reactTranslator.translate('auth_sign_up')}
+                    text={reactTranslator.translate('auth_sign_up_button')}
                     processing={requestProcessState === REQUEST_STATUSES.PENDING}
                     disabled={authStore.disableRegister}
                 />

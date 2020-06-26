@@ -37,14 +37,16 @@ const CheckEmail = observer(() => {
     };
 
     let params = {
-        buttonText: 'auth_sign_up',
+        titleText: 'auth_sign_up',
+        buttonText: 'auth_sign_up_button',
         linkText: 'auth_sign_in_link',
         linkEvent: openSignInCheck,
     };
 
     if (authStore.signInCheck) {
         params = {
-            buttonText: 'auth_sign_in',
+            titleText: 'auth_sign_in',
+            buttonText: 'auth_sign_in_button',
             linkText: 'auth_sign_up',
             linkEvent: openSignUpCheck,
         };
@@ -84,7 +86,7 @@ const CheckEmail = observer(() => {
         >
             <div className="form__inputs">
                 <div className="form__subtitle">
-                    {reactTranslator.translate(params.buttonText)}
+                    {reactTranslator.translate(params.titleText)}
                 </div>
                 <InputField
                     id="username"

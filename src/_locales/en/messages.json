@@ -98,7 +98,13 @@
     "auth_sign_up": {
         "message": "Sign up"
     },
+    "auth_sign_up_button": {
+        "message": "Sign up"
+    },
     "auth_sign_in": {
+        "message": "Sign in"
+    },
+    "auth_sign_in_button": {
         "message": "Sign in"
     },
     "auth_sign_in_link": {
