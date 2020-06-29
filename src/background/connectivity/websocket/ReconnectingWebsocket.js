@@ -135,6 +135,7 @@ class ReconnectingWebsocket {
     }
 
     close() {
+        log.debug('WebSocket close method called');
         this.closeCalled = true;
         return new Promise((resolve, reject) => {
             if (!this.ws) {
@@ -201,6 +202,7 @@ class ReconnectingWebsocket {
             this.listeners.close.forEach((listener) => listener(closeEvent));
             return;
         }
+
         // notify only on final close
         if (this.ws.retryCount >= this.options.maxRetries && !this.closeEventFired) {
             log.debug(`WS connection to "${closeEvent.target.url}" closed`);

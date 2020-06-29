@@ -96,6 +96,50 @@ class EndpointConnectivity {
         notifier.notifyListeners(notifier.types.WEBSOCKET_CLOSED);
     }
 
+    lastErrorTime = Date.now();
+
+    errorsStarted = null;
+
+    triedReconnection = false;
+
+    handleWebsocketOpen = () => {
+        this.errorsStarted = null;
+        this.triedReconnection = false;
+    }
+
+    /**
+     * Handles errors which could occur when endpoints are removed
+     * https://jira.adguard.com/browse/AG-2952
+     */
+    handleWebsocketError = () => {
+        // If errors happen too rare we do not consider them
+        const CONSIDERED_ERRORS_INTERVAL_MS = 20 * 1000;
+
+        // After this period of time of errors we should try reconnect
+        const RECONNECTION_TIMEOUT = 70 * 1000;
+
+        const errorTime = Date.now();
+        // reset to the current time
+        if (!this.errorsStarted
+            || (errorTime - this.lastErrorTime) > CONSIDERED_ERRORS_INTERVAL_MS) {
+            this.errorsStarted = errorTime;
+        }
+
+        this.lastErrorTime = errorTime;
+
+        log.debug('Since ws errors sequence started passed: ', (errorTime - this.errorsStarted) / 1000, 'seconds');
+
+        if (errorTime - this.errorsStarted > RECONNECTION_TIMEOUT
+            && this.ws.readyState !== this.ws.OPEN
+            && !this.triedReconnection
+        ) {
+            log.debug('Was unable to connect to websocket more than 70 seconds');
+            // This would refresh tokens and try to reconnect endpoint
+            notifier.notifyListeners(notifier.types.SHOULD_REFRESH_TOKENS);
+            this.triedReconnection = true;
+        }
+    }
+
     isWebsocketConnectionOpen = () => {
         if (this.ws) {
             return this.ws.readyState === this.ws.OPEN;
@@ -109,6 +153,8 @@ class EndpointConnectivity {
             this.setState(this.CONNECTIVITY_STATES.WORKING);
         }
         this.ws.addEventListener('close', this.handleWebsocketClose);
+        this.ws.addEventListener('error', this.handleWebsocketError);
+        this.ws.addEventListener('open', this.handleWebsocketOpen);
         this.startSendingPingMessages();
         this.startGettingConnectivityInfo();
         this.sendDnsServerIp(dns.getDnsServerIp());
