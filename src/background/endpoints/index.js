@@ -153,6 +153,7 @@ class Endpoints {
         }
 
         const currentEndpoint = await proxy.getCurrentEndpoint();
+
         const currentLocation = await locationsService.getSelectedLocation()
             || await locationsService.getLocationByEndpoint(currentEndpoint?.id);
 
