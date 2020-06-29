@@ -14,6 +14,8 @@ const pingsCache = {};
 
 let locations = [];
 
+let selectedLocation = null;
+
 /**
  * Returns locations instances
  */
@@ -171,6 +173,16 @@ const setLocations = (newLocations) => {
         return location;
     });
 
+    // we should actualize location according to the received locations data,
+    // otherwise could happen cases when selected location contains wrong endpoints inside itself
+    if (selectedLocation) {
+        const actualLocation = locations.find((location) => {
+            return location.id === selectedLocation.id;
+        });
+
+        selectedLocation = actualLocation || selectedLocation;
+    }
+
     // launch pings measurement
     measurePings();
 
@@ -274,7 +286,6 @@ const getLocationByEndpoint = (endpointId) => {
     return location;
 };
 
-let selectedLocation = null;
 const SELECTED_LOCATION_KEY = 'endpoints.selected.location';
 
 const setSelectedLocation = async (id) => {
@@ -298,6 +309,7 @@ const getSelectedLocation = async () => {
             selectedLocation = new Location(storedLocation);
         }
     }
+
     return selectedLocation;
 };
 
