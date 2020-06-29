@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 
 import { PING_WITH_WARNING } from '../../stores/consts';
-import translator from '../../../lib/translator';
+import { reactTranslator } from '../../../reactCommon/reactTranslator';
 
 const Location = ({
     id, selected, countryCode, countryName, cityName, handleClick, ping, available,
@@ -42,7 +42,7 @@ const Location = ({
 
     const renderPings = () => {
         if (!available) {
-            return (<span>{translator.translate('offline_title')}</span>);
+            return (<span>{reactTranslator.translate('offline_title')}</span>);
         }
 
         if (ping) {
