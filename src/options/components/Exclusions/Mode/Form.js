@@ -1,11 +1,11 @@
 import React, { useContext, useRef } from 'react';
 import { observer } from 'mobx-react';
-import browser from 'webextension-polyfill';
 import classnames from 'classnames';
 
 import useOutsideClick from '../../helpers/useOutsideClick';
 import rootStore from '../../../stores';
 import SubdomainsHelp from './SubdomainsHelp';
+import { reactTranslator } from '../../../../reactCommon/reactTranslator';
 
 const Form = observer(({ exclusionsType, enabled }) => {
     const ref = useRef();
@@ -59,7 +59,7 @@ const Form = observer(({ exclusionsType, enabled }) => {
                 <svg className="icon icon--button icon--checked settings__add-icon">
                     <use xlinkHref="#plus" />
                 </svg>
-                {browser.i18n.getMessage('settings_exclusion_add')}
+                {reactTranslator.translate('settings_exclusion_add')}
             </button>
 
             {isFormVisible && (

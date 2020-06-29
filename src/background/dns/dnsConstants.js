@@ -4,7 +4,7 @@
  * because imports of this file are also used in the popup
  * and redundant code from background may get into popup code
  */
-import translator from '../../lib/translator';
+import translator from '../../lib/translator/translator';
 
 export const DNS_DEFAULT = 'default';
 

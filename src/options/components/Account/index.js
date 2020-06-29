@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import rootStore from '../../stores';
 import { EDIT_ACCOUNT_URL } from '../../../background/config';
-import translator from '../../../lib/translator';
 import Title from '../ui/Title';
 import './account.pcss';
+import { reactTranslator } from '../../../reactCommon/reactTranslator';
 
 const Account = observer(() => {
     const { authStore, settingsStore } = useContext(rootStore);
@@ -15,7 +15,7 @@ const Account = observer(() => {
 
     return (
         <>
-            <Title title={translator.translate('account_title')} />
+            <Title title={reactTranslator.translate('account_title')} />
             <div className="account">
                 <div className="account__email">
                     {settingsStore.currentUsername}
@@ -27,14 +27,14 @@ const Account = observer(() => {
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        {translator.translate('account_edit')}
+                        {reactTranslator.translate('account_edit')}
                     </a>
                     <button
                         type="button"
                         className="button button--medium button--outline-secondary account__action"
                         onClick={signOut}
                     >
-                        {translator.translate('account_sign_out')}
+                        {reactTranslator.translate('account_sign_out')}
                     </button>
                 </div>
             </div>

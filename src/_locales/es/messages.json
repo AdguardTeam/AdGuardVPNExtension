@@ -1,1 +1,263 @@
-{}
+{
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
+    "registration_error_not_empty": {
+        "message": "No debe estar vacío"
+    },
+    "registration_error_not_valid": {
+        "message": "Este valor no es válido"
+    },
+    "registration_error_min_length": {
+        "message": "Este valor es demasiado corto. Debe tener 8 caracteres o más."
+    },
+    "registration_error_compromised_password": {
+        "message": "La contraseña que ingresaste se encontró en una <a>base de datos pública</a> de contraseñas comprometidas. Por favor, intenta con otra contraseña."
+    },
+    "registration_error_unique_constraint": {
+        "message": "Este valor ya está en uso"
+    },
+    "registration_error_front_unique_validation": {
+        "message": "Contraseña y confirmar contraseña no coinciden"
+    },
+    "authentication_error_account_disabled": {
+        "message": "La cuenta está deshabilitada"
+    },
+    "authentication_error_account_locked": {
+        "message": "La cuenta está bloqueada durante 15 minutos"
+    },
+    "authentication_error_bad_credentials": {
+        "message": "Lo sentimos, contraseña no reconocida"
+    },
+    "about_title": {
+        "message": "Acerca de"
+    },
+    "account_title": {
+        "message": "Cuenta"
+    },
+    "account_edit": {
+        "message": "Editar"
+    },
+    "account_sign_out": {
+        "message": "Cerrar sesión"
+    },
+    "rate_hide": {
+        "message": "Ocultar"
+    },
+    "auth_confirm": {
+        "message": "Confirmar"
+    },
+    "auth_email": {
+        "message": "Direccion de correo electrónico"
+    },
+    "auth_password": {
+        "message": "Contraseña"
+    },
+    "auth_password_repeat": {
+        "message": "Confirmar contraseña"
+    },
+    "auth_recover": {
+        "message": "¿Olvidaste tu contraseña?"
+    },
+    "auth_placeholder_2fa": {
+        "message": "Código de autenticación"
+    },
+    "eula": {
+        "message": "Acuerdo de licencia"
+    },
+    "privacy_policy": {
+        "message": "Política de privacidad"
+    },
+    "settings_title": {
+        "message": "Configuración"
+    },
+    "settings_webrtc_label": {
+        "message": "Bloquear WebRTC"
+    },
+    "settings_context_menus_title": {
+        "message": "Añadir el elemento AdGuard VPN al menú contextual del navegador"
+    },
+    "context_menu_selective_mode": {
+        "message": "Modo selectivo"
+    },
+    "context_menu_regular_mode": {
+        "message": "Modo normal"
+    },
+    "settings_dns_label": {
+        "message": "Usar servidor DNS"
+    },
+    "settings_dns_desc": {
+        "message": "El sistema de nombres de dominio (DNS) es el equivalente en Internet de una guía telefónica. Mantiene un directorio de nombres de dominio y los traduce a direcciones del protocolo de Internet (IP)."
+    },
+    "settings_dns_selector_default_title": {
+        "message": "Predeterminado"
+    },
+    "settings_dns_selector_adguard_title": {
+        "message": "AdGuard DNS"
+    },
+    "settings_dns_selector_adguard_desc": {
+        "message": "Elimina los anuncios y rastreadores de tu dispositivo"
+    },
+    "settings_dns_selector_adguard_nonfiltering_title": {
+        "message": "AdGuard DNS Sin filtrado"
+    },
+    "settings_dns_selector_adguard_nonfiltering_desc": {
+        "message": "DNS seguro sin registro de actividad (no filtra anuncios ni rastreadores)"
+    },
+    "settings_dns_selector_adguard_family_title": {
+        "message": "AdGuard DNS Protección familiar"
+    },
+    "settings_dns_selector_adguard_family_desc": {
+        "message": "AdGuard DNS + Búsqueda segura y bloqueo de contenido para adultos"
+    },
+    "settings_dns_selector_google_title": {
+        "message": "Google DNS"
+    },
+    "settings_dns_selector_google_desc": {
+        "message": "Servicio DNS alternativo gratuito de Google"
+    },
+    "settings_dns_selector_cloudflare_title": {
+        "message": "Cloudflare DNS"
+    },
+    "settings_dns_selector_cloudflare_desc": {
+        "message": "Servicio DNS gratuito de Cloudfare"
+    },
+    "settings_dns_selector_cisco_title": {
+        "message": "Cisco OpenDNS"
+    },
+    "settings_dns_selector_cisco_desc": {
+        "message": "Servidor DNS que protege tu dispositivo contra el malware"
+    },
+    "settings_dns_selector_quad9_title": {
+        "message": "Quad9"
+    },
+    "settings_dns_selector_quad9_desc": {
+        "message": "Servicio DNS alternativo gratuito con protección contra phishing y spyware"
+    },
+    "settings_exclusion_add": {
+        "message": "Añadir sitio web"
+    },
+    "settings_exclusion_title": {
+        "message": "Exclusiones"
+    },
+    "settings_exclusion_regular_title": {
+        "message": "Modo normal"
+    },
+    "settings_exclusion_regular_description": {
+        "message": "AdGuard VPN no funcionará en los sitios web de esta lista:"
+    },
+    "settings_exclusion_selective_title": {
+        "message": "Modo selectivo"
+    },
+    "settings_exclusion_selective_description": {
+        "message": "AdGuard VPN solo funcionará en los sitios web de esta lista:"
+    },
+    "settings_exclusion_subdomains_title": {
+        "message": "Subdominios"
+    },
+    "global_error_learn_more": {
+        "message": "Más información"
+    },
+    "global_error_try_again": {
+        "message": "Volver a intentar"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Habilitar VPN en este sitio web"
+    },
+    "popup_settings_disable_vpn": {
+        "message": "Deshabilitar VPN en este sitio web"
+    },
+    "popup_settings_other_products": {
+        "message": "Otros productos"
+    },
+    "popup_settings_feedback": {
+        "message": "Comentarios"
+    },
+    "popup_settings_open_settings": {
+        "message": "Configuración"
+    },
+    "context_menu_enable_vpn": {
+        "message": "Habilitar VPN en este sitio web"
+    },
+    "context_menu_disable_vpn": {
+        "message": "Deshabilitar VPN en este sitio web"
+    },
+    "endpoints_countries": {
+        "message": "Ubicaciones"
+    },
+    "endpoints_fastest": {
+        "message": "Más rápidos"
+    },
+    "endpoints_all": {
+        "message": "Todos los puntos finales"
+    },
+    "endpoints_search_results": {
+        "message": "Resultado de búsqueda"
+    },
+    "endpoints_search": {
+        "message": "Buscar ubicación"
+    },
+    "endpoints_not_found": {
+        "message": "Servidor no encontrado"
+    },
+    "premium_upgrade": {
+        "message": "Mejorar"
+    },
+    "settings_disconnect": {
+        "message": "Desconectar"
+    },
+    "settings_connect": {
+        "message": "Conectar"
+    },
+    "settings_not_responding": {
+        "message": "El servidor no está respondiendo"
+    },
+    "settings_connecting": {
+        "message": "Conectando..."
+    },
+    "settings_vpn_enabled": {
+        "message": "VPN habilitado"
+    },
+    "settings_vpn_disabled": {
+        "message": "VPN deshabilitado"
+    },
+    "popup_feedback_button": {
+        "message": "Dejar comentario"
+    },
+    "popup_exclusions_enable_vpn_on_site": {
+        "message": "<span>Puedes</span> <a>habilitar la VPN en este sitio web</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_exclusions_add_site_to_exclusions": {
+        "message": "<span>Puedes</span> <a>añadir el sitio web a las exclusiones</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_exclusions_disable_vpn_on_site": {
+        "message": "<span>Puedes</span> <a>deshabilitar la VPN en este sitio web</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_site_status_unaccessible": {
+        "message": "estás ubicado en tu red local e inaccesible a través de VPN"
+    },
+    "popup_site_status_vpn_disabled": {
+        "message": "VPN deshabilitado en este sitio web"
+    },
+    "popup_site_status_added_to_exclusions": {
+        "message": "añadido a las exclusiones"
+    },
+    "popup_auth_agreement_consent": {
+        "message": "Al usar AdGuard VPN, aceptas el <eula>acuerdo de licencia</eula> y la <privacy>política de privacidad</privacy>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "options_auth_agreement_consent": {
+        "message": "Al continuar, aceptas los <privacy>términos y condiciones</privacy> y el <eula>acuerdo de licencia</eula>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "popup_ping_value": {
+        "message": "Ping %pingValue% ms",
+        "description": "Respect spaces between text and placeholder"
+    },
+    "options_auth_back_button": {
+        "message": "Atrás"
+    }
+}

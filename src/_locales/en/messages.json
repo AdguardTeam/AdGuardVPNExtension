@@ -18,7 +18,7 @@
         "message": "This value is too short. It should have 8 characters or more."
     },
     "registration_error_compromised_password": {
-        "message": "Password you entered was found in a <a href=\"https://haveibeenpwned.com/\" target=\"_blank\" class=\"link\">public database</a> of compromised passwords. Please, try another."
+        "message": "Password you entered was found in a <a>public database</a> of compromised passwords. Please, try another."
     },
     "registration_error_unique_constraint": {
         "message": "This value is already used"
@@ -48,10 +48,7 @@
         "message": "An error occurred, try again later"
     },
     "global_error_message": {
-        "message": "Error occurred, please contact us via <a href=\"mailto:support@adguard-vpn.com\" target=\"_blank\">support@adguard-vpn.com</a>"
-    },
-    "global_error_can_control": {
-        "message": "Other extension prevents us from setting up the tunnel. Please disable it in browser settings."
+        "message": "Error occurred, please contact us via <a>support@adguard-vpn.com</a>"
     },
     "about_title": {
         "message": "About"
@@ -101,7 +98,13 @@
     "auth_sign_up": {
         "message": "Sign up"
     },
+    "auth_sign_up_button": {
+        "message": "Sign up"
+    },
     "auth_sign_in": {
+        "message": "Sign in"
+    },
+    "auth_sign_in_button": {
         "message": "Sign in"
     },
     "auth_sign_in_link": {
@@ -112,9 +115,6 @@
     },
     "auth_register": {
         "message": "Register"
-    },
-    "auth_next": {
-        "message": "Next"
     },
     "auth_header_sign_in": {
         "message": "You are signing in as"
@@ -139,9 +139,6 @@
     },
     "settings_title": {
         "message": "Settings"
-    },
-    "settings_webrtc_title": {
-        "message": "WebRTC"
     },
     "settings_webrtc_label": {
         "message": "Block WebRTC"
@@ -254,9 +251,6 @@
     "authentication_successful_social": {
         "message": "Successfully authenticated! You can open AdGuard VPN and switch on the tunnel."
     },
-    "control_error_title": {
-        "message": "Oops! An error occurred."
-    },
     "control_error_description": {
         "message": "It looks like another Chrome extension is trying to control your connection. Please disable the other extension in your browser."
     },
@@ -308,7 +302,7 @@
     "endpoints_not_found": {
         "message": "Server not found"
     },
-    "premium_limit_reached": {
+    "popup_traffic_limit_reached": {
         "message": "Monthly data limit reached. Need more?"
     },
     "premium_upgrade": {
@@ -352,5 +346,45 @@
     },
     "offline_title": {
         "message": "Offline"
+    },
+    "popup_exclusions_enable_vpn_on_site": {
+        "message": "<span>You can</span> <a>enable VPN on this website</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_exclusions_add_site_to_exclusions": {
+        "message": "<span>You can</span> <a>add the website to exclusions</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_exclusions_disable_vpn_on_site": {
+        "message": "<span>You can</span> <a>disable VPN on this website</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_site_status_unaccessible": {
+        "message": "is located in your local network and unaccessible via VPN"
+    },
+    "popup_site_status_vpn_disabled": {
+        "message": "VPN is disabled on this website"
+    },
+    "popup_site_status_added_to_exclusions": {
+        "message": "added to exclusions"
+    },
+    "popup_auth_agreement_consent": {
+        "message": "By using AdGuard VPN, you agree to our <eula>EULA</eula> and <privacy>Privacy Policy</privacy>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "options_auth_agreement_consent": {
+        "message": "By continuing you accept the <privacy>Terms and Conditions</privacy> and <eula>EULA</eula>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "popup_free_traffic_info": {
+        "message": "<span>%value% %unit%</span> remaining this month",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_ping_value": {
+        "message": "Ping %pingValue% ms",
+        "description": "Respect spaces between text and placeholder"
+    },
+    "options_auth_back_button": {
+        "message": "Back"
     }
 }

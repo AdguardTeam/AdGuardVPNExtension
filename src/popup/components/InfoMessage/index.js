@@ -3,10 +3,9 @@ import { observer } from 'mobx-react';
 
 import rootStore from '../../stores';
 import popupActions from '../../actions/popupActions';
-
 import './info-message.pcss';
-import translator from '../../../lib/translator';
 import { formatBytes } from '../../../lib/helpers';
+import { reactTranslator } from '../../../reactCommon/reactTranslator';
 
 const TRAFFIC_PERCENT = {
     DANGER: 25,
@@ -51,18 +50,15 @@ const InfoMessage = observer(() => {
     return (
         <div className="info-message">
             <div className="info-message__text">
-                {settingsStore.hasLimitExceededError ? (
-                    <span>{translator.translate('premium_limit_reached')}</span>
-                ) : (
-                    <>
-                        <span className={`info-message__value ${getInfoColor()}`}>
-                            {formattedRemainingTraffic.value}
-                            &nbsp;
-                            {formattedRemainingTraffic.unit}
-                        </span>
-                        &nbsp;remaining this month
-                    </>
-                )}
+                {
+                    settingsStore.hasLimitExceededError
+                        ? (<span>{reactTranslator.translate('popup_traffic_limit_reached')}</span>)
+                        : reactTranslator.translate('popup_free_traffic_info', {
+                            value: formattedRemainingTraffic.value,
+                            unit: formattedRemainingTraffic.unit,
+                            span: (chunks) => (<span className={`info-message__value ${getInfoColor()}`}>{chunks}</span>),
+                        })
+                }
             </div>
             <a
                 href={premiumPromoPage}
@@ -70,7 +66,7 @@ const InfoMessage = observer(() => {
                 className="button button--medium button--red-gradient info-message__btn"
                 onClick={onClick(premiumPromoPage)}
             >
-                {translator.translate('premium_upgrade')}
+                {reactTranslator.translate('premium_upgrade')}
             </a>
             <div className="info-message__progress">
                 <div
