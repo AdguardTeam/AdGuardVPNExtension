@@ -42,10 +42,11 @@ class BrowserActionIcon {
 
         if (!this.isVpnEnabledForUrl(id, url)) {
             await actions.setIconDisabled(id);
-        } else {
-            await actions.setIconEnabled(id);
+            await actions.clearBadgeText(id);
+            return;
         }
 
+        await actions.setIconEnabled(id);
         // Set badge text
         const selectedLocation = await locationsService.getSelectedLocation();
         const countryCode = selectedLocation?.countryCode;
