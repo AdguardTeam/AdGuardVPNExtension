@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
-import translator from '../../../../lib/translator';
 import rootStore from '../../../stores';
 import { PING_WITH_WARNING } from '../../../stores/consts';
+import { reactTranslator } from '../../../../reactCommon/reactTranslator';
 
 import './status.pcss';
 
@@ -19,22 +19,24 @@ const Status = observer(() => {
 
     const renderStatus = () => {
         if (!settingsStore.switcherEnabled) {
-            return translator.translate('settings_connection_not_secured');
+            return reactTranslator.translate('settings_connection_not_secured');
         }
 
         if (settingsStore.displayEnabled && vpnStore.selectedLocationPing) {
-            return `Ping ${vpnStore.selectedLocationPing} ms`;
+            return reactTranslator.translate('popup_ping_value', {
+                pingValue: vpnStore.selectedLocationPing,
+            });
         }
 
-        return translator.translate('settings_connecting');
+        return reactTranslator.translate('settings_connecting');
     };
 
     const renderTitle = () => {
         if (settingsStore.switcherEnabled) {
-            return translator.translate('settings_vpn_enabled');
+            return reactTranslator.translate('settings_vpn_enabled');
         }
 
-        return translator.translate('settings_vpn_disabled');
+        return reactTranslator.translate('settings_vpn_disabled');
     };
 
     return (

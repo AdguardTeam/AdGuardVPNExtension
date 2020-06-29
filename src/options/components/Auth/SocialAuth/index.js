@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import browser from 'webextension-polyfill';
 
 import rootStore from '../../../stores';
 import './social-auth.pcss';
@@ -15,9 +14,6 @@ const SocialAuth = () => {
 
     return (
         <div className="social-auth">
-            <div className="social-auth__title">
-                {browser.i18n.getMessage('auth_social')}
-            </div>
             <div className="social-auth__list">
                 {SOCIAL_PROVIDERS.map((name) => (
                     <button

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import translator from '../../../../lib/translator';
 import BackButton from '../BackButton';
+import { reactTranslator } from '../../../../reactCommon/reactTranslator';
 
 function WelcomeHeader() {
     return (
@@ -9,7 +9,7 @@ function WelcomeHeader() {
             <BackButton />
             <div className="auth__header">
                 <div className="auth__title">
-                    {translator.translate('short_name')}
+                    {reactTranslator.translate('short_name')}
                 </div>
             </div>
         </>

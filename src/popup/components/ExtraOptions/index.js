@@ -1,13 +1,14 @@
 import React, { useContext } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
+
 import rootStore from '../../stores';
 import popupActions from '../../actions/popupActions';
 import { POPUP_FEEDBACK_URL, OTHER_PRODUCTS_URL } from '../../../background/config';
-import translator from '../../../lib/translator';
 import messenger from '../../../lib/messenger';
 import Option from './Option';
 import './extra-options.pcss';
+import { reactTranslator } from '../../../reactCommon/reactTranslator';
 
 const ExtraOptions = observer(() => {
     const { uiStore, settingsStore, authStore } = useContext(rootStore);
@@ -45,8 +46,8 @@ const ExtraOptions = observer(() => {
 
     const renderExclusionButton = (isExcluded, exclusionsInverted) => {
         const texts = {
-            enable: translator.translate('popup_settings_enable_vpn'),
-            disable: translator.translate('popup_settings_disable_vpn'),
+            enable: reactTranslator.translate('popup_settings_enable_vpn'),
+            disable: reactTranslator.translate('popup_settings_disable_vpn'),
         };
 
         const getText = (enable) => {
@@ -88,19 +89,19 @@ const ExtraOptions = observer(() => {
             {canBeExcluded && renderExclusionButton(isExcluded, exclusionsInverted)}
             <Option
                 handler={handleOtherProductsClick}
-                text={translator.translate('popup_settings_other_products')}
+                text={reactTranslator.translate('popup_settings_other_products')}
             />
             <Option
                 handler={openSettings}
-                text={translator.translate('popup_settings_open_settings')}
+                text={reactTranslator.translate('popup_settings_open_settings')}
             />
             <Option
                 handler={signOut}
-                text={translator.translate('popup_settings_sign_out')}
+                text={reactTranslator.translate('popup_settings_sign_out')}
             />
             <Option
                 handler={handleFeedback}
-                text={translator.translate('popup_settings_feedback')}
+                text={reactTranslator.translate('popup_settings_feedback')}
             />
         </Modal>
     );
