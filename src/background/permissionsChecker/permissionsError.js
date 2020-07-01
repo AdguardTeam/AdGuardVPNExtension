@@ -14,8 +14,14 @@ class PermissionsError {
     };
 
     notifyOnUpdate = (error) => {
+        // Firefox doesn't support object created by constructor,
+        // so we have to convert error to the simple object
+        const simplifiedError = error ? {
+            message: error.message,
+            status: error.status,
+        } : null;
         // Notify popup
-        notifier.notifyListeners(notifier.types.PERMISSIONS_ERROR_UPDATE, error);
+        notifier.notifyListeners(notifier.types.PERMISSIONS_ERROR_UPDATE, simplifiedError);
     };
 
     getError = () => {

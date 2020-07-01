@@ -46,8 +46,15 @@ class PopupData {
             throttledPermissionsChecker();
         }
 
+        const simplifiedError = error ? {
+            message: error.message,
+            status: error.status,
+        } : null;
+
         return {
-            permissionsError: error,
+            // Firefox can't message to the popup error instance,
+            // that's why we convert it to the simpler object
+            permissionsError: simplifiedError,
             vpnInfo,
             locations,
             selectedLocation,

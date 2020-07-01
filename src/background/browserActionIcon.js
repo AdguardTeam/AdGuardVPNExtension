@@ -31,6 +31,7 @@ class BrowserActionIcon {
         const isLimitExceeded = permissionsError.isLimitExceeded();
         if (isLimitExceeded) {
             await actions.setIconTrafficOff(id);
+            await actions.clearBadgeText(id);
             return;
         }
 
