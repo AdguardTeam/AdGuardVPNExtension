@@ -81,6 +81,10 @@ const App = observer(() => {
                     settingsStore.setSwitcher(false);
                     break;
                 }
+                case notifier.types.CONNECTIVITY_STATE_CHANGED: {
+                    settingsStore.setConnectivityState(data.value);
+                    break;
+                }
                 default: {
                     log.debug('there is no such message type: ', type);
                     break;
@@ -97,6 +101,7 @@ const App = observer(() => {
             notifier.types.PROXY_TURNED_ON,
             notifier.types.PROXY_TURNED_OFF,
             notifier.types.TOKEN_PREMIUM_STATE_UPDATED,
+            notifier.types.CONNECTIVITY_STATE_CHANGED,
         ];
 
         const onUnload = messenger.createLongLivedConnection(events, messageHandler);

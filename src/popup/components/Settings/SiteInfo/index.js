@@ -119,7 +119,10 @@ const SiteInfo = observer(() => {
         );
     }
 
-    return <StatusImage enabled={settingsStore.displayEnabled} />;
+    // TODO refactor variable name && extract method
+    const enabled = settingsStore.connectivityState === 'connected';
+    console.log({ enabled });
+    return <StatusImage enabled={enabled} />;
 });
 
 export default SiteInfo;

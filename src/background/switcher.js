@@ -77,6 +77,4 @@ class Switcher {
     }
 }
 
-const switcher = new Switcher();
-
-export default switcher;
+export const switcher = new Switcher();

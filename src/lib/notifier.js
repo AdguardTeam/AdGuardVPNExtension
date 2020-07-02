@@ -122,6 +122,9 @@ const types = {
     TOKEN_PREMIUM_STATE_UPDATED: 'event.token.premium.state.updated',
 
     WEBSOCKET_CLOSED: 'event.websocket.closed',
+
+    // Connectivity state
+    CONNECTIVITY_STATE_CHANGED: 'event.connectivity.state.changed',
 };
 
 const notifier = new Notifier(types);

@@ -39,6 +39,8 @@ class SettingsStore {
 
     @observable serverError = false;
 
+    @observable connectivityState;
+
     @action
     prohibitExclusion = () => {
         this.canBeExcluded = false;
@@ -278,6 +280,11 @@ class SettingsStore {
     @action
     setSwitcherIgnoreProxyStateChange(value) {
         this.switcherIgnoreProxyStateChange = value;
+    }
+
+    @action
+    setConnectivityState(state) {
+        this.connectivityState = state;
     }
 }
 

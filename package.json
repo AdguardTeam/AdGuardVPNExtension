@@ -111,6 +111,7 @@
         "react-simple-maps": "^0.12.1",
         "react-transition-group": "^4.3.0",
         "reconnecting-websocket": "^4.3.0",
-        "webextension-polyfill": "^0.6.0"
+        "webextension-polyfill": "^0.6.0",
+        "xstate": "^4.10.0"
     }
 }

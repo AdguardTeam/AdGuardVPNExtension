@@ -27,6 +27,7 @@ class globalStore {
 
         try {
             const popupData = await messenger.getPopupData(tab.url, numberOfTries);
+            console.log(popupData);
 
             const {
                 vpnInfo,
@@ -40,6 +41,7 @@ class globalStore {
                 isRoutable,
                 hasRequiredData,
                 isPremiumToken,
+                connectivityState,
             } = popupData;
 
             if (!isAuthenticated) {
@@ -60,6 +62,7 @@ class globalStore {
             vpnStore.setSelectedLocation(selectedLocation);
             vpnStore.setIsPremiumToken(isPremiumToken);
             settingsStore.setSwitcher(isProxyEnabled);
+            settingsStore.setConnectivityState(connectivityState);
             // when popup is reopened, but connection is still in process,
             // we set the proxy enabled status only if connectivity state is working. task AG-2073.
             if (isConnectivityWorking) {

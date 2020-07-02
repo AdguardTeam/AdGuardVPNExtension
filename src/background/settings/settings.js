@@ -3,10 +3,11 @@ import browserApi from '../browserApi';
 import log from '../../lib/logger';
 import notifier from '../../lib/notifier';
 import { SETTINGS_IDS } from '../../lib/constants';
-import switcher from '../switcher';
+import { switcher } from '../switcher';
 import dns from '../dns/dns';
 import { DNS_DEFAULT } from '../dns/dnsConstants';
 import webrtc from '../browserApi/webrtc';
+import { connectivityService, TRANSITION } from '../connectivity/connectivityFSM';
 
 const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.PROXY_ENABLED]: false,
@@ -22,9 +23,11 @@ const settingsService = new SettingsService(browserApi.storage, DEFAULT_SETTINGS
 const proxySwitcherHandler = async (value) => {
     try {
         if (value) {
-            await switcher.turnOn(true);
+            connectivityService.send(TRANSITION.CONNECT);
+            // await switcher.turnOn(true);
         } else {
-            await switcher.turnOff(true);
+            connectivityService.send(TRANSITION.DISCONNECT);
+            // await switcher.turnOff(true);
         }
     } catch (e) {
         settingsService.setSetting(SETTINGS_IDS.PROXY_ENABLED, false);
@@ -83,7 +86,8 @@ const disableProxy = async (force, withCancel) => {
     }
 
     try {
-        await switcher.turnOff(withCancel);
+        // await switcher.turnOff(withCancel);
+        connectivityService.send(TRANSITION.DISCONNECT);
         return true;
     } catch (e) {
         await setSetting(SETTINGS_IDS.PROXY_ENABLED, true, force);
@@ -99,7 +103,8 @@ const enableProxy = async (force, withCancel) => {
     }
 
     try {
-        await switcher.turnOn(withCancel);
+        // await switcher.turnOn(withCancel);
+        connectivityService.send('CONNECT');
     } catch (e) {
         await setSetting(SETTINGS_IDS.PROXY_ENABLED, false, force);
         throw e;
