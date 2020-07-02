@@ -20,6 +20,7 @@ export const STATE = {
     CONNECTED: 'connected',
 };
 
+// TODO replace services with signals, because switcher do not reflect ws connection anymore
 const services = {
     turnOnProxy: () => switcher.turnOn(),
     turnOffProxy: () => switcher.turnOff(),

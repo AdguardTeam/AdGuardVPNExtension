@@ -72,8 +72,9 @@ class BrowserActionIcon {
             }
         }, throttleTimeoutMs, { leading: false });
 
-        notifier.addSpecifiedListener(notifier.types.PROXY_TURNED_OFF, throttledUpdateIcon);
-        notifier.addSpecifiedListener(notifier.types.PROXY_TURNED_ON, throttledUpdateIcon);
+        // TODO update icon from the connectivity state machine
+        // notifier.addSpecifiedListener(notifier.types.PROXY_TURNED_OFF, throttledUpdateIcon);
+        // notifier.addSpecifiedListener(notifier.types.PROXY_TURNED_ON, throttledUpdateIcon);
         notifier.addSpecifiedListener(notifier.types.TAB_ACTIVATED, throttledUpdateIcon);
         notifier.addSpecifiedListener(notifier.types.TAB_UPDATED, throttledUpdateIcon);
         notifier.addSpecifiedListener(

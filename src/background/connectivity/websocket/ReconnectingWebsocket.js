@@ -75,6 +75,10 @@ class ReconnectingWebsocket {
         this.options = { ...this.DEFAULT_OPTIONS, ...options };
         this.closeCalled = false;
         this.closeEventFired = false;
+
+        this.ws = new ReconnectingWebSocket(this.url, [], this.options);
+        this.ws.binaryType = 'arraybuffer';
+        this.addListeners();
     }
 
     addEventListener(type, listener) {
@@ -103,82 +107,10 @@ class ReconnectingWebsocket {
         return this.ws.readyState;
     }
 
-    open = async () => {
-        return new Promise((resolve, reject) => {
-            this.ws = new ReconnectingWebSocket(this.url, [], this.options);
-            this.ws.binaryType = 'arraybuffer';
-
-            const removeTempListeners = () => {
-                /* eslint-disable no-use-before-define */
-                this.ws.removeEventListener('open', resolveHandler);
-                this.ws.removeEventListener('error', rejectHandler);
-                this.ws.removeEventListener('close', rejectHandler);
-                /* eslint-enable no-use-before-define */
-            };
-
-            const rejectHandler = () => {
-                removeTempListeners();
-                reject(new Error(`WS connection to ${this.url} unable due to an error event`));
-            };
-
-            const resolveHandler = () => {
-                removeTempListeners();
-                resolve();
-            };
-
-            this.ws.addEventListener('open', resolveHandler);
-            this.ws.addEventListener('error', rejectHandler);
-            this.ws.addEventListener('close', rejectHandler);
-
-            this.addListeners();
-        });
-    }
-
     close() {
         log.debug('WebSocket close method called');
         this.closeCalled = true;
-        return new Promise((resolve, reject) => {
-            if (!this.ws) {
-                resolve();
-                return;
-            }
-
-            // resolve immediately if is closed already or closing
-            if (this.ws.readyState === this.ws.CLOSED
-                // in firefox during "CLOSING" ready state,
-                // "ws.close()" method doesn't cause to fire close event
-                // as result promise is never resolved
-                || this.ws.readyState === this.ws.CLOSING) {
-                this.removeListeners();
-                // we call close() in order to stop reconnections
-                this.ws.close();
-                resolve();
-                return;
-            }
-
-            this.ws.close();
-
-            const removeListeners = () => {
-                /* eslint-disable no-use-before-define */
-                this.ws.removeEventListener('error', rejectHandler);
-                this.ws.removeEventListener('close', resolveHandler);
-                this.removeListeners();
-                /* eslint-enable no-use-before-define */
-            };
-
-            function rejectHandler(e) {
-                reject(e);
-                removeListeners();
-            }
-
-            function resolveHandler() {
-                resolve();
-                removeListeners();
-            }
-
-            this.ws.addEventListener('close', resolveHandler);
-            this.ws.addEventListener('error', rejectHandler);
-        });
+        this.ws.close();
     }
 
     send(message) {

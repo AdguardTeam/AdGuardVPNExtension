@@ -9,6 +9,7 @@ import credentials from '../../credentials';
 import log from '../../../lib/logger';
 import dns from '../../dns/dns';
 import { sendPingMessage } from '../pingHelpers';
+import webrtc from '../../browserApi/webrtc';
 
 class EndpointConnectivity {
     PING_SEND_INTERVAL_MS = 1000 * 60;
@@ -78,22 +79,18 @@ class EndpointConnectivity {
             await this.stop();
         }
 
-        const websocketUrl = renderTemplate(WS_API_URL_TEMPLATE, { host: `hello.${this.domainName}`, hash: credentialsHash });
-        try {
-            this.ws = await websocketFactory.createReconnectingWebsocket(websocketUrl);
-        } catch (e) {
-            this.setState(this.CONNECTIVITY_STATES.PAUSED);
-            throw new Error(`Failed to create new websocket because of: ${JSON.stringify(e.message)}`);
-        }
-
         if (restart || shouldStart) {
             await this.start();
         }
     }
 
-    handleWebsocketClose = () => {
+    handleWebsocketClose = async () => {
         this.setState(this.CONNECTIVITY_STATES.PAUSED);
         notifier.notifyListeners(notifier.types.WEBSOCKET_CLOSED);
+
+        // disconnect proxy and turn off webrtc
+        await proxy.turnOff();
+        webrtc.unblockWebRTC();
     }
 
     lastErrorTime = Date.now();
@@ -102,9 +99,25 @@ class EndpointConnectivity {
 
     triedReconnection = false;
 
-    handleWebsocketOpen = () => {
+    handleWebsocketOpen = async () => {
         this.errorsStarted = null;
         this.triedReconnection = false;
+
+        this.startGettingConnectivityInfo();
+        this.sendDnsServerIp(dns.getDnsServerIp());
+
+        // when first ping received we can connect to proxy
+        const averagePing = await this.sendPingMessage();
+        if (!averagePing) {
+            log.error('Was unable to send ping message');
+            return;
+        }
+
+        this.startSendingPingMessages();
+
+        // connect to the proxy and turn on webrtc
+        await proxy.turnOn();
+        webrtc.blockWebRTC();
     }
 
     /**
@@ -148,22 +161,16 @@ class EndpointConnectivity {
     }
 
     start = async () => {
-        if (this.state !== this.CONNECTIVITY_STATES.WORKING) {
-            await this.ws.open();
-            this.setState(this.CONNECTIVITY_STATES.WORKING);
-        }
+        const websocketUrl = renderTemplate(WS_API_URL_TEMPLATE, {
+            host: `hello.${this.domainName}`,
+            hash: this.credentialsHash,
+        });
+
+        this.ws = await websocketFactory.createReconnectingWebsocket(websocketUrl);
+
         this.ws.addEventListener('close', this.handleWebsocketClose);
         this.ws.addEventListener('error', this.handleWebsocketError);
         this.ws.addEventListener('open', this.handleWebsocketOpen);
-        this.startSendingPingMessages();
-        this.startGettingConnectivityInfo();
-        this.sendDnsServerIp(dns.getDnsServerIp());
-        // when first ping received we can connect to proxy
-        const averagePing = await this.sendPingMessage();
-        if (!averagePing) {
-            throw new Error('Was unable to send ping message');
-        }
-        return averagePing;
     };
 
     stop = async () => {
@@ -172,8 +179,7 @@ class EndpointConnectivity {
         }
 
         if (this.ws) {
-            this.ws.removeEventListener('close', this.handleWebsocketClose);
-            await this.ws.close();
+            this.ws.close();
         }
 
         this.setState(this.CONNECTIVITY_STATES.PAUSED);
@@ -214,9 +220,6 @@ class EndpointConnectivity {
     };
 
     sendDnsServerIp = (dnsIp) => {
-        if (this.state !== this.CONNECTIVITY_STATES.WORKING) {
-            return;
-        }
         const arrBufMessage = this.prepareDnsSettingsMessage(dnsIp);
         this.ws.send(arrBufMessage);
         log.debug(`DNS settings sent. DNS IP: ${dnsIp}`);

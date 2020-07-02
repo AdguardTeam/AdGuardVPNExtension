@@ -30,13 +30,10 @@ function* turnOnProxy() {
             accessCredentials.credentialsHash,
             true
         );
-        yield proxy.turnOn();
-        webrtc.blockWebRTC();
+
         notifier.notifyListeners(notifier.types.PROXY_TURNED_ON);
     } catch (e) {
         yield connectivity.endpointConnectivity.stop();
-        yield proxy.turnOff();
-        webrtc.unblockWebRTC();
         notifier.notifyListeners(notifier.types.PROXY_TURNED_OFF);
         log.error(e && e.message);
         throw e;
@@ -46,8 +43,9 @@ function* turnOnProxy() {
 function* turnOffProxy() {
     try {
         yield connectivity.endpointConnectivity.stop();
-        yield proxy.turnOff();
-        webrtc.unblockWebRTC();
+        // TODO move proxy turn on off to the endpoint connectivity handler
+        // yield proxy.turnOff();
+        // webrtc.unblockWebRTC();
         notifier.notifyListeners(notifier.types.PROXY_TURNED_OFF);
     } catch (e) {
         log.error(e && e.message);
