@@ -3,12 +3,21 @@ import { switcher } from '../switcher';
 import notifier from '../../lib/notifier';
 
 export const TRANSITION = {
-    CONNECT: 'CONNECT',
+    CONNECT_BTN_PRESSED: 'CONNECT_BTN_PRESSED',
+    DISCONNECT_BTN_PRESSED: 'DISCONNECT_BTN_PRESSED',
+    CONNECT_SETTINGS_APPLY: 'CONNECT_SETTINGS_APPLY',
     WS_CONNECT_RETRY: 'WS_CONNECT_RETRY',
     CONNECTION_SUCCESS: 'CONNECTION_SUCCESS',
     CONNECTION_FAIL: 'CONNECTION_FAIL',
     WS_ERROR: 'WS_ERROR',
-    DISCONNECT: 'DISCONNECT',
+};
+
+export const STATE = {
+    DISCONNECTED_IDLE: 'disconnectedIdle',
+    DISCONNECTED_RETRYING: 'disconnectedRetrying',
+    CONNECTING_IDLE: 'connectingIdle',
+    CONNECTING_RETRYING: 'connectingRetrying',
+    CONNECTED: 'connected',
 };
 
 const services = {
@@ -18,43 +27,49 @@ const services = {
 
 const connectivityFSM = new Machine({
     id: 'connectivity',
-    initial: 'disconnectedIdle',
+    initial: STATE.DISCONNECTED_IDLE,
     states: {
-        disconnectedIdle: {
+        [STATE.DISCONNECTED_IDLE]: {
             on: {
-                CONNECT: 'connectingIdle',
+                [TRANSITION.CONNECT_BTN_PRESSED]: STATE.CONNECTING_IDLE,
+                [TRANSITION.CONNECT_SETTINGS_APPLY]: STATE.CONNECTING_IDLE,
             },
             invoke: {
-                src: 'turnOffProxy',
+                src: 'turnOffProxy', // TODO extract services ids into constants
             },
         },
-        disconnectedRetrying: {
+        [STATE.DISCONNECTED_RETRYING]: {
             on: {
-                WS_CONNECT_RETRY: 'connectingRetrying',
-                CONNECT: 'connectingRetrying',
+                [TRANSITION.WS_CONNECT_RETRY]: STATE.CONNECTING_RETRYING,
+                [TRANSITION.CONNECT_BTN_PRESSED]: STATE.CONNECTING_RETRYING,
             },
         },
-        connectingIdle: {
+        [STATE.CONNECTING_IDLE]: {
             invoke: {
                 src: 'turnOnProxy',
                 onDone: {
-                    target: 'connected',
+                    target: STATE.CONNECTED,
                 },
                 onError: {
-                    target: 'disconnectedRetrying',
+                    target: STATE.DISCONNECTED_RETRYING,
                 },
             },
         },
-        connectingRetrying: {
-            on: {
-                CONNECTION_SUCCESS: 'connected',
-                CONNECTION_FAIL: 'disconnectedRetrying',
+        [STATE.CONNECTING_RETRYING]: {
+            invoke: {
+                src: 'turnOnProxy',
+                onDone: {
+                    target: STATE.CONNECTED,
+                },
+                onError: {
+                    target: STATE.DISCONNECTED_RETRYING,
+                },
             },
         },
-        connected: {
+        [STATE.CONNECTED]: {
             on: {
-                WS_ERROR: 'disconnectedRetrying',
-                DISCONNECT: 'disconnectedIdle',
+                [TRANSITION.WS_ERROR]: STATE.DISCONNECTED_RETRYING,
+                [TRANSITION.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTED_IDLE,
             },
         },
     },

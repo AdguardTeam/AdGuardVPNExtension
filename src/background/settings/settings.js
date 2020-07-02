@@ -23,11 +23,11 @@ const settingsService = new SettingsService(browserApi.storage, DEFAULT_SETTINGS
 const proxySwitcherHandler = async (value) => {
     try {
         if (value) {
-            connectivityService.send(TRANSITION.CONNECT);
             // await switcher.turnOn(true);
+            connectivityService.send(TRANSITION.CONNECT_BTN_PRESSED);
         } else {
-            connectivityService.send(TRANSITION.DISCONNECT);
             // await switcher.turnOff(true);
+            connectivityService.send(TRANSITION.DISCONNECT_BTN_PRESSED);
         }
     } catch (e) {
         settingsService.setSetting(SETTINGS_IDS.PROXY_ENABLED, false);
@@ -87,7 +87,8 @@ const disableProxy = async (force, withCancel) => {
 
     try {
         // await switcher.turnOff(withCancel);
-        connectivityService.send(TRANSITION.DISCONNECT);
+        connectivityService.send(TRANSITION.DISCONNECT_BTN_PRESSED);
+        // TODO handle state switch, to keep setting in the correct state
         return true;
     } catch (e) {
         await setSetting(SETTINGS_IDS.PROXY_ENABLED, true, force);
@@ -104,7 +105,8 @@ const enableProxy = async (force, withCancel) => {
 
     try {
         // await switcher.turnOn(withCancel);
-        connectivityService.send('CONNECT');
+        connectivityService.send(TRANSITION.CONNECT_BTN_PRESSED);
+        // TODO handle fails, to keep setting in the correct state
     } catch (e) {
         await setSetting(SETTINGS_IDS.PROXY_ENABLED, false, force);
         throw e;
