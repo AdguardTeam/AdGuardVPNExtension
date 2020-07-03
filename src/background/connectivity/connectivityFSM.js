@@ -11,6 +11,7 @@ export const TRANSITION = {
     CONNECTION_SUCCESS: 'CONNECTION_SUCCESS',
     CONNECTION_FAIL: 'CONNECTION_FAIL',
     WS_ERROR: 'WS_ERROR',
+    WS_CLOSE: 'WS_CLOSE',
 };
 
 export const STATE = {
@@ -54,19 +55,16 @@ const connectivityFSM = new Machine({
             },
         },
         [STATE.CONNECTING_RETRYING]: {
-            invoke: {
-                src: 'turnOnProxy',
-                onDone: {
-                    target: STATE.CONNECTED,
-                },
-                onError: {
-                    target: STATE.DISCONNECTED_RETRYING,
-                },
+            entry: ['turnOnProxy'],
+            on: {
+                [TRANSITION.CONNECTION_SUCCESS]: STATE.CONNECTED,
+                [TRANSITION.CONNECTION_FAIL]: STATE.DISCONNECTED_RETRYING,
             },
         },
         [STATE.CONNECTED]: {
             on: {
                 [TRANSITION.WS_ERROR]: STATE.DISCONNECTED_RETRYING,
+                [TRANSITION.WS_CLOSE]: STATE.DISCONNECTED_RETRYING,
                 [TRANSITION.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTED_IDLE,
             },
             exit: ['turnOffProxy'],
@@ -76,7 +74,7 @@ const connectivityFSM = new Machine({
 
 export const connectivityService = interpret(connectivityFSM)
     .start()
-    .onEvent((ev) => console.log(ev)) // TODO remove further
+    .onEvent((event) => console.log(event))
     .onTransition((state) => {
         console.log(state);
         notifier.notifyListeners(notifier.types.CONNECTIVITY_STATE_CHANGED, { value: state.value });

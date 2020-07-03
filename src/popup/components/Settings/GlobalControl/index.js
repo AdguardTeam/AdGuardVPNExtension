@@ -1,21 +1,42 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { observer } from 'mobx-react';
 import { reactTranslator } from '../../../../reactCommon/reactTranslator';
+import rootStore from '../../../stores';
 
-const GlobalControl = ({ handleConnect, handleDisconnect, enabled }) => {
-    const buttonsStates = {
-        enabled: {
+const GlobalControl = observer(() => {
+    const { settingsStore } = useContext(rootStore);
+
+    const connectHandler = async () => {
+        await settingsStore.setProxyState(true);
+    };
+
+    const disconnectHandler = async () => {
+        await settingsStore.setProxyState(false);
+    };
+
+    // TODO add connecting state
+    const buttonStates = {
+        disconnect: {
             className: 'button--outline-secondary',
             message: reactTranslator.translate('settings_disconnect'),
-            handler: handleDisconnect,
+            handler: disconnectHandler,
         },
-        default: {
+        connect: {
             className: 'button--green-gradient',
             message: reactTranslator.translate('settings_connect'),
-            handler: handleConnect,
+            handler: connectHandler,
         },
     };
 
-    const buttonState = enabled ? buttonsStates.enabled : buttonsStates.default;
+    let buttonState = buttonStates.connect;
+
+    if (settingsStore.isConnected) {
+        buttonState = buttonStates.disconnect;
+    } else if (settingsStore.isDisconnectedIdle) {
+        buttonState = buttonStates.connect;
+    } else if (settingsStore.isDisconnectedRetrying) {
+        buttonState = buttonStates.connect;
+    }
 
     return (
         <button
@@ -26,6 +47,6 @@ const GlobalControl = ({ handleConnect, handleDisconnect, enabled }) => {
             {buttonState.message}
         </button>
     );
-};
+});
 
 export default GlobalControl;

@@ -27,6 +27,11 @@ const Status = observer(() => {
         if (settingsStore.isConnectingIdle) {
             return reactTranslator.translate('settings_connecting');
         }
+
+        if (settingsStore.isDisconnectedRetrying) {
+            return reactTranslator.translate('settings_not_responding');
+        }
+
         // TODO handle retrying cases, string should be "server is not responding" in these cases
         return reactTranslator.translate('settings_connection_not_secured');
     };

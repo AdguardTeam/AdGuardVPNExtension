@@ -10,7 +10,7 @@ const setIcon = async (details) => {
     try {
         await browser.browserAction.setIcon(details);
     } catch (e) {
-        // ignore errors occurring if we try set icon for removed tabs
+        log.debug(e.message);
     }
 };
 
@@ -21,7 +21,7 @@ const setBadge = async (details) => {
         const { tabId } = details;
         await browser.browserAction.setBadgeBackgroundColor({ tabId, color: BADGE_COLOR });
     } catch (e) {
-        log.debug(e);
+        log.debug(e.message);
     }
 };
 

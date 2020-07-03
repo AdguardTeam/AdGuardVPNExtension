@@ -85,13 +85,17 @@ class EndpointConnectivity {
         }
     }
 
-    handleWebsocketClose = async () => {
+    handleWebsocketClose = async (e) => {
+        console.log('ws closed', e);
+        console.log(connectivityService);
         this.setState(this.CONNECTIVITY_STATES.PAUSED);
-        notifier.notifyListeners(notifier.types.WEBSOCKET_CLOSED);
+        // TODO run this once when proxy really closed
+        // notifier.notifyListeners(notifier.types.WEBSOCKET_CLOSED);
 
         // disconnect proxy and turn off webrtc
         await proxy.turnOff();
         webrtc.unblockWebRTC();
+        connectivityService.send(TRANSITION.WS_CLOSE);
     }
 
     lastErrorTime = Date.now();
@@ -100,7 +104,8 @@ class EndpointConnectivity {
 
     triedReconnection = false;
 
-    handleWebsocketOpen = async () => {
+    handleWebsocketOpen = async (e) => {
+        console.log('ws opened', e);
         this.errorsStarted = null;
         this.triedReconnection = false;
 
@@ -127,7 +132,8 @@ class EndpointConnectivity {
      * Handles errors which could occur when endpoints are removed
      * https://jira.adguard.com/browse/AG-2952
      */
-    handleWebsocketError = () => {
+    handleWebsocketError = (ev) => {
+        console.log('ws error', ev);
         // If errors happen too rare we do not consider them
         const CONSIDERED_ERRORS_INTERVAL_MS = 20 * 1000;
 
@@ -182,7 +188,7 @@ class EndpointConnectivity {
         }
 
         if (this.ws) {
-            this.ws.close();
+            this.ws.close(1000);
         }
 
         this.setState(this.CONNECTIVITY_STATES.PAUSED);

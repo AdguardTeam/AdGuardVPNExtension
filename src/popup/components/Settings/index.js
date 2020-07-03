@@ -27,16 +27,7 @@ const Settings = observer(() => {
         uiStore.openEndpointsSearch();
     };
 
-    const handleConnect = async () => {
-        await settingsStore.setProxyState(true);
-    };
-
-    const handleDisconnect = async () => {
-        await settingsStore.setProxyState(false);
-    };
-
     const {
-        switcherEnabled,
         proxyEnabled,
         serverError,
         hasLimitExceededError,
@@ -71,11 +62,7 @@ const Settings = observer(() => {
                     <>
                         <SiteInfo />
                         <Status status={getStatusMessage(proxyEnabled)} />
-                        <GlobalControl
-                            handleConnect={handleConnect}
-                            handleDisconnect={handleDisconnect}
-                            enabled={switcherEnabled}
-                        />
+                        <GlobalControl />
                     </>
                 )}
             </div>

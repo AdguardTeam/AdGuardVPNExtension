@@ -302,6 +302,11 @@ class SettingsStore {
     get isConnectingIdle() {
         return this.connectivityState.value === 'connectingIdle'; // TODO export state from constants
     }
+
+    @computed
+    get isDisconnectedRetrying() {
+        return this.connectivityState.value === 'disconnectedRetrying'; // TODO export state from constants
+    }
 }
 
 export default SettingsStore;
