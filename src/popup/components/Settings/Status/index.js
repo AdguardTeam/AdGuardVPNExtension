@@ -11,24 +11,24 @@ import './status.pcss';
 const Status = observer(() => {
     const { settingsStore, vpnStore } = useContext(rootStore);
 
-    const endpointStatus = classnames({
-        'status__subtitle--disabled': !settingsStore.displayEnabled,
-        'status__subtitle--warning': settingsStore.displayEnabled && vpnStore.selectedLocationPing >= PING_WITH_WARNING,
-        'status__subtitle--success': settingsStore.displayEnabled && vpnStore.selectedLocationPing < PING_WITH_WARNING,
+    const endpointStatus = classnames('status__subtitle', {
+        'status__subtitle--disabled': !settingsStore.isConnected,
+        'status__subtitle--warning': settingsStore.isConnected && vpnStore.selectedLocationPing >= PING_WITH_WARNING,
+        'status__subtitle--success': settingsStore.isConnected && vpnStore.selectedLocationPing < PING_WITH_WARNING,
     });
 
-    const renderStatus = () => {
-        if (!settingsStore.switcherEnabled) {
-            return reactTranslator.translate('settings_connection_not_secured');
-        }
-
-        if (settingsStore.displayEnabled && vpnStore.selectedLocationPing) {
+    const renderVpnStatusSubstring = () => {
+        if (settingsStore.isConnected && vpnStore.selectedLocationPing) {
             return reactTranslator.translate('popup_ping_value', {
                 pingValue: vpnStore.selectedLocationPing,
             });
         }
 
-        return reactTranslator.translate('settings_connecting');
+        if (settingsStore.isConnectingIdle) {
+            return reactTranslator.translate('settings_connecting');
+        }
+        // TODO handle retrying cases, string should be "server is not responding" in these cases
+        return reactTranslator.translate('settings_connection_not_secured');
     };
 
     const renderVpnStatusTitle = () => {
@@ -44,8 +44,8 @@ const Status = observer(() => {
             <div className="status__title">
                 {renderVpnStatusTitle()}
             </div>
-            <div className={`status__subtitle ${endpointStatus}`}>
-                {renderStatus()}
+            <div className={endpointStatus}>
+                {renderVpnStatusSubstring()}
             </div>
         </div>
     );
