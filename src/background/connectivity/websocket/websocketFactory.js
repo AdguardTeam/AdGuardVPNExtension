@@ -9,14 +9,14 @@ const websocketFactory = (() => {
      * @param {string} url
      * @returns {ReconnectingWebsocket}
      */
-    const createReconnectingWebsocket = async (url) => {
+    const createReconnectingWebsocket = (url) => {
         if (!url) {
             throw new Error('Url expected to be provided');
         }
         // Close previously opened websocket
         if (reconnectingWebsocket) {
             try {
-                await reconnectingWebsocket.close();
+                reconnectingWebsocket.close();
             } catch (e) {
                 log.debug(e);
             }

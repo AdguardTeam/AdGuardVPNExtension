@@ -82,7 +82,7 @@ const App = observer(() => {
                     break;
                 }
                 case notifier.types.CONNECTIVITY_STATE_CHANGED: {
-                    settingsStore.setConnectivityState(data.value);
+                    settingsStore.setConnectivityState(data);
                     break;
                 }
                 default: {

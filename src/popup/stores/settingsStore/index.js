@@ -284,6 +284,7 @@ class SettingsStore {
 
     @action
     setConnectivityState(state) {
+        console.log(state);
         this.connectivityState = state;
     }
 }

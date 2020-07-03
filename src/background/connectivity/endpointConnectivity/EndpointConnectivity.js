@@ -10,6 +10,7 @@ import log from '../../../lib/logger';
 import dns from '../../dns/dns';
 import { sendPingMessage } from '../pingHelpers';
 import webrtc from '../../browserApi/webrtc';
+import { connectivityService, TRANSITION } from '../connectivityFSM';
 
 class EndpointConnectivity {
     PING_SEND_INTERVAL_MS = 1000 * 60;
@@ -67,7 +68,7 @@ class EndpointConnectivity {
         await this.setCredentials(domainName, vpnToken, credentialsHash);
     };
 
-    async setCredentials(domainName, vpnToken, credentialsHash, shouldStart) {
+    setCredentials(domainName, vpnToken, credentialsHash, shouldStart) {
         this.vpnToken = vpnToken;
         this.domainName = domainName;
         this.credentialsHash = credentialsHash;
@@ -76,11 +77,11 @@ class EndpointConnectivity {
 
         if (this.state === this.CONNECTIVITY_STATES.WORKING) {
             restart = true;
-            await this.stop();
+            this.stop();
         }
 
         if (restart || shouldStart) {
-            await this.start();
+            this.start();
         }
     }
 
@@ -110,6 +111,7 @@ class EndpointConnectivity {
         const averagePing = await this.sendPingMessage();
         if (!averagePing) {
             log.error('Was unable to send ping message');
+            connectivityService.send(TRANSITION.CONNECTION_FAIL);
             return;
         }
 
@@ -118,6 +120,7 @@ class EndpointConnectivity {
         // connect to the proxy and turn on webrtc
         await proxy.turnOn();
         webrtc.blockWebRTC();
+        connectivityService.send(TRANSITION.CONNECTION_SUCCESS);
     }
 
     /**
@@ -160,20 +163,20 @@ class EndpointConnectivity {
         return false;
     }
 
-    start = async () => {
+    start = () => {
         const websocketUrl = renderTemplate(WS_API_URL_TEMPLATE, {
             host: `hello.${this.domainName}`,
             hash: this.credentialsHash,
         });
 
-        this.ws = await websocketFactory.createReconnectingWebsocket(websocketUrl);
+        this.ws = websocketFactory.createReconnectingWebsocket(websocketUrl);
 
         this.ws.addEventListener('close', this.handleWebsocketClose);
         this.ws.addEventListener('error', this.handleWebsocketError);
         this.ws.addEventListener('open', this.handleWebsocketOpen);
     };
 
-    stop = async () => {
+    stop = () => {
         if (this.pingSendIntervalId) {
             clearInterval(this.pingSendIntervalId);
         }

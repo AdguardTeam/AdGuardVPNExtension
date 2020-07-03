@@ -24,10 +24,10 @@ const proxySwitcherHandler = async (value) => {
     try {
         if (value) {
             // await switcher.turnOn(true);
-            connectivityService.send(TRANSITION.CONNECT_BTN_PRESSED);
+            connectivityService.send(TRANSITION.CONNECT_SETTINGS_APPLY);
         } else {
             // await switcher.turnOff(true);
-            connectivityService.send(TRANSITION.DISCONNECT_BTN_PRESSED);
+            connectivityService.send(TRANSITION.DISCONNECT_SETTINGS_APPLY);
         }
     } catch (e) {
         settingsService.setSetting(SETTINGS_IDS.PROXY_ENABLED, false);

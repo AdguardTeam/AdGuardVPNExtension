@@ -1,11 +1,12 @@
 import { Machine, interpret } from 'xstate';
-import { switcher } from '../switcher';
+import { turnOnProxy, turnOffProxy } from '../switcher';
 import notifier from '../../lib/notifier';
 
 export const TRANSITION = {
     CONNECT_BTN_PRESSED: 'CONNECT_BTN_PRESSED',
     DISCONNECT_BTN_PRESSED: 'DISCONNECT_BTN_PRESSED',
     CONNECT_SETTINGS_APPLY: 'CONNECT_SETTINGS_APPLY',
+    DISCONNECT_SETTINGS_APPLY: 'DISCONNECT_SETTINGS_APPLY',
     WS_CONNECT_RETRY: 'WS_CONNECT_RETRY',
     CONNECTION_SUCCESS: 'CONNECTION_SUCCESS',
     CONNECTION_FAIL: 'CONNECTION_FAIL',
@@ -20,10 +21,13 @@ export const STATE = {
     CONNECTED: 'connected',
 };
 
-// TODO replace services with signals, because switcher do not reflect ws connection anymore
-const services = {
-    turnOnProxy: () => switcher.turnOn(),
-    turnOffProxy: () => switcher.turnOff(),
+const actions = {
+    turnOnProxy: () => {
+        turnOnProxy();
+    },
+    turnOffProxy: () => {
+        turnOffProxy();
+    },
 };
 
 const connectivityFSM = new Machine({
@@ -35,9 +39,6 @@ const connectivityFSM = new Machine({
                 [TRANSITION.CONNECT_BTN_PRESSED]: STATE.CONNECTING_IDLE,
                 [TRANSITION.CONNECT_SETTINGS_APPLY]: STATE.CONNECTING_IDLE,
             },
-            invoke: {
-                src: 'turnOffProxy', // TODO extract services ids into constants
-            },
         },
         [STATE.DISCONNECTED_RETRYING]: {
             on: {
@@ -46,14 +47,10 @@ const connectivityFSM = new Machine({
             },
         },
         [STATE.CONNECTING_IDLE]: {
-            invoke: {
-                src: 'turnOnProxy',
-                onDone: {
-                    target: STATE.CONNECTED,
-                },
-                onError: {
-                    target: STATE.DISCONNECTED_RETRYING,
-                },
+            entry: ['turnOnProxy'],
+            on: {
+                [TRANSITION.CONNECTION_SUCCESS]: STATE.CONNECTED,
+                [TRANSITION.CONNECTION_FAIL]: STATE.DISCONNECTED_RETRYING,
             },
         },
         [STATE.CONNECTING_RETRYING]: {
@@ -72,9 +69,10 @@ const connectivityFSM = new Machine({
                 [TRANSITION.WS_ERROR]: STATE.DISCONNECTED_RETRYING,
                 [TRANSITION.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTED_IDLE,
             },
+            exit: ['turnOffProxy'],
         },
     },
-}, { services });
+}, { actions });
 
 export const connectivityService = interpret(connectivityFSM)
     .start()
