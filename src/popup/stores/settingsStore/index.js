@@ -292,6 +292,16 @@ class SettingsStore {
     get isConnected() {
         return this.connectivityState.value === 'connected'; // TODO export state from constants
     }
+
+    @computed
+    get isDisconnectedIdle() {
+        return this.connectivityState.value === 'disconnectedIdle'; // TODO export state from constants
+    }
+
+    @computed
+    get isConnectingIdle() {
+        return this.connectivityState.value === 'connectingIdle'; // TODO export state from constants
+    }
 }
 
 export default SettingsStore;

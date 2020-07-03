@@ -31,8 +31,8 @@ const Status = observer(() => {
         return reactTranslator.translate('settings_connecting');
     };
 
-    const renderTitle = () => {
-        if (settingsStore.switcherEnabled) {
+    const renderVpnStatusTitle = () => {
+        if (settingsStore.isConnected) {
             return reactTranslator.translate('settings_vpn_enabled');
         }
 
@@ -42,7 +42,7 @@ const Status = observer(() => {
     return (
         <div className="status">
             <div className="status__title">
-                {renderTitle()}
+                {renderVpnStatusTitle()}
             </div>
             <div className={`status__subtitle ${endpointStatus}`}>
                 {renderStatus()}
