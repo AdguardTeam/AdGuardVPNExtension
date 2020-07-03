@@ -21,6 +21,18 @@ class EndpointConnectivity {
         PAUSED: 'paused',
     };
 
+    /**
+     * If WS didn't connect in this time, stop connection
+     * @type {number}
+     */
+    CONNECTION_TIMEOUT_MS = 4000;
+
+    /**
+     * Used to stop WS connection if it takes too much time
+     * @type {null|number}
+     */
+    connectionTimeout = null;
+
     constructor() {
         this.setState(this.CONNECTIVITY_STATES.PAUSED);
         notifier.addSpecifiedListener(notifier.types.CREDENTIALS_UPDATED, this.updateCredentials);
@@ -86,9 +98,12 @@ class EndpointConnectivity {
         }
     }
 
-    handleWebsocketClose = async (e) => {
-        console.log('ws closed', e);
-        console.log(connectivityService);
+    handleWebsocketClose = async (closeEvent) => {
+        if (this.connectionTimeout) {
+            clearTimeout(this.connectionTimeout);
+        }
+
+        console.log('WS closed: ', closeEvent);
         this.setState(this.CONNECTIVITY_STATES.PAUSED);
         // TODO run this once when proxy really closed
         // notifier.notifyListeners(notifier.types.WEBSOCKET_CLOSED);
@@ -105,10 +120,16 @@ class EndpointConnectivity {
 
     triedReconnection = false;
 
-    handleWebsocketOpen = async (e) => {
-        console.log('ws opened', e);
-        this.errorsStarted = null;
-        this.triedReconnection = false;
+    handleWebsocketOpen = async () => {
+        if (this.connectionTimeout) {
+            clearTimeout(this.connectionTimeout);
+        }
+
+        console.log('WS connected to:', this.ws.url);
+
+        // // TODO move this logic into fsm
+        // this.errorsStarted = null;
+        // this.triedReconnection = false;
 
         this.startGettingConnectivityInfo();
         this.sendDnsServerIp(dns.getDnsServerIp());
@@ -133,8 +154,12 @@ class EndpointConnectivity {
      * Handles errors which could occur when endpoints are removed
      * https://jira.adguard.com/browse/AG-2952
      */
-    handleWebsocketError = (ev) => {
-        console.log('ws error', ev);
+    handleWebsocketError = (errorEvent) => {
+        if (this.connectionTimeout) {
+            clearTimeout(this.connectionTimeout);
+        }
+
+        console.log('WS error occurred: ', errorEvent);
         // If errors happen too rare we do not consider them
         const CONSIDERED_ERRORS_INTERVAL_MS = 20 * 1000;
 
@@ -171,16 +196,25 @@ class EndpointConnectivity {
     }
 
     start = () => {
+        if (this.connectionTimeout) {
+            clearTimeout(this.connectionTimeout);
+        }
+
         const websocketUrl = renderTemplate(WS_API_URL_TEMPLATE, {
             host: `hello.${this.domainName}`,
             hash: this.credentialsHash,
         });
 
-        this.ws = websocketFactory.createReconnectingWebsocket(websocketUrl);
+        this.ws = websocketFactory.createWebsocket(websocketUrl);
 
         this.ws.addEventListener('close', this.handleWebsocketClose);
         this.ws.addEventListener('error', this.handleWebsocketError);
         this.ws.addEventListener('open', this.handleWebsocketOpen);
+
+        this.connectionTimeout = setTimeout(() => {
+            log.debug(`WS did not connected in ${this.CONNECTION_TIMEOUT_MS}, closing it`);
+            this.ws.close();
+        }, this.CONNECTION_TIMEOUT_MS);
     };
 
     stop = () => {

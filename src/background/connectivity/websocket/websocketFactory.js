@@ -7,9 +7,9 @@ const websocketFactory = (() => {
     /**
      * Creates new websocket and closes the old one if found
      * @param {string} url
-     * @returns {ReconnectingWebsocket}
+     * @returns {WebSocket}
      */
-    const createReconnectingWebsocket = (url) => {
+    const createWebsocket = (url) => {
         if (!url) {
             throw new Error('Url expected to be provided');
         }
@@ -29,16 +29,13 @@ const websocketFactory = (() => {
         // const NUMBER_OF_RETRIES = 365;
 
         ws = new WebSocket(url);
-        ws.addEventListener('open', () => {
-            console.log(`WS connected to: ${ws.url}`);
-        });
         ws.binaryType = 'arraybuffer';
 
         return ws;
     };
 
     return {
-        createReconnectingWebsocket,
+        createWebsocket,
     };
 })();
 
