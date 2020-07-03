@@ -5,6 +5,7 @@ import { locationsService } from './endpoints/locationsService';
 import { connectivityService, TRANSITION } from './connectivity/connectivityFSM';
 
 export const turnOnProxy = async () => {
+    console.log('turnOnProxy');
     try {
         const selectedLocation = await locationsService.getSelectedLocation();
         const selectedEndpoint = await locationsService.getEndpointByLocation(selectedLocation);
@@ -28,6 +29,7 @@ export const turnOnProxy = async () => {
 
         connectivity.endpointConnectivity.start();
     } catch (e) {
+        console.log(e.message);
         connectivityService.send(TRANSITION.CONNECTION_FAIL);
     }
 };

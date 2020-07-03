@@ -14,12 +14,17 @@ const GlobalControl = observer(() => {
         await settingsStore.setProxyState(false);
     };
 
-    // TODO add connecting state
     const buttonStates = {
         disconnect: {
             className: 'button--outline-secondary',
             message: reactTranslator.translate('settings_disconnect'),
             handler: disconnectHandler,
+        },
+        connecting: {
+            // TODO remove pointer, as during connection we can't press this button
+            //  add animation with 1 sec delay
+            className: 'button--green-gradient',
+            message: 'Connecting', // TODO add to the locale messages
         },
         connect: {
             className: 'button--green-gradient',
@@ -36,6 +41,8 @@ const GlobalControl = observer(() => {
         buttonState = buttonStates.connect;
     } else if (settingsStore.isDisconnectedRetrying) {
         buttonState = buttonStates.connect;
+    } else if (settingsStore.isConnectingRetrying) {
+        buttonState = buttonStates.connecting;
     }
 
     return (

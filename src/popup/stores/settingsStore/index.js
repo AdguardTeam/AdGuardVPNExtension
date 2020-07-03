@@ -307,6 +307,11 @@ class SettingsStore {
     get isDisconnectedRetrying() {
         return this.connectivityState.value === 'disconnectedRetrying'; // TODO export state from constants
     }
+
+    @computed
+    get isConnectingRetrying() {
+        return this.connectivityState.value === 'connectingRetrying'; // TODO export state from constants
+    }
 }
 
 export default SettingsStore;

@@ -13,7 +13,8 @@ import webrtc from '../../browserApi/webrtc';
 import { connectivityService, TRANSITION } from '../connectivityFSM';
 
 class EndpointConnectivity {
-    PING_SEND_INTERVAL_MS = 1000 * 60;
+    // PING_SEND_INTERVAL_MS = 1000 * 60; TODO uncomment
+    PING_SEND_INTERVAL_MS = 1000 * 5; // TODO delete
 
     CONNECTIVITY_STATES = {
         WORKING: 'working',
@@ -266,6 +267,7 @@ class EndpointConnectivity {
 
     startGettingConnectivityInfo = () => {
         const messageHandler = async (event) => {
+            console.log(this.decodeMessage(event.data));
             const { connectivityInfoMsg, connectivityErrorMsg } = this.decodeMessage(event.data);
 
             if (connectivityInfoMsg) {

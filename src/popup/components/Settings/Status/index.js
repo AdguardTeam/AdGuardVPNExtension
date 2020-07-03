@@ -32,6 +32,10 @@ const Status = observer(() => {
             return reactTranslator.translate('settings_not_responding');
         }
 
+        if (settingsStore.isConnectingRetrying) {
+            return reactTranslator.translate('settings_not_responding');
+        }
+
         // TODO handle retrying cases, string should be "server is not responding" in these cases
         return reactTranslator.translate('settings_connection_not_secured');
     };
