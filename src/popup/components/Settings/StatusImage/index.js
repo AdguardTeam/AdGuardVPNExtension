@@ -3,10 +3,10 @@ import classnames from 'classnames';
 
 import './status-image.pcss';
 
-const StatusImage = ({ enabled }) => {
+const StatusImage = ({ connected }) => {
     const statusClassName = classnames(
         'status-image',
-        { 'status-image--enabled': enabled }
+        { 'status-image--enabled': connected }
     );
 
     return (

@@ -120,11 +120,7 @@ const SiteInfo = observer(() => {
         );
     }
 
-    // TODO refactor variable name && extract method
-    const enabled = settingsStore.connectivityState.value === 'connected';
-    console.log(toJS(settingsStore.connectivityState));
-    console.log({ enabled });
-    return <StatusImage enabled={enabled} />;
+    return <StatusImage connected={settingsStore.isConnected} />;
 });
 
 export default SiteInfo;

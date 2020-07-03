@@ -287,6 +287,11 @@ class SettingsStore {
         console.log(state);
         this.connectivityState = state;
     }
+
+    @computed
+    get isConnected() {
+        return this.connectivityState.value === 'connected'; // TODO export state from constants
+    }
 }
 
 export default SettingsStore;
