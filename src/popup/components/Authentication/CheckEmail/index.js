@@ -2,12 +2,12 @@ import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import ReactHtmlParser from 'react-html-parser';
 
-import translator from '../../../../lib/translator';
 import rootStore from '../../../stores';
 import { REQUEST_STATUSES } from '../../../stores/consts';
 
 import Submit from '../Submit';
 import InputField from '../InputField';
+import { reactTranslator } from '../../../../reactCommon/reactTranslator';
 
 const CheckEmail = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -37,14 +37,16 @@ const CheckEmail = observer(() => {
     };
 
     let params = {
-        buttonText: 'auth_sign_up',
+        titleText: 'auth_sign_up',
+        buttonText: 'auth_sign_up_button',
         linkText: 'auth_sign_in_link',
         linkEvent: openSignInCheck,
     };
 
     if (authStore.signInCheck) {
         params = {
-            buttonText: 'auth_sign_in',
+            titleText: 'auth_sign_in',
+            buttonText: 'auth_sign_in_button',
             linkText: 'auth_sign_up',
             linkEvent: openSignUpCheck,
         };
@@ -58,7 +60,7 @@ const CheckEmail = observer(() => {
             <>
                 <div className="form__btn-wrap">
                     <Submit
-                        text={translator.translate(params.buttonText)}
+                        text={reactTranslator.translate(params.buttonText)}
                         processing={requestProcessState === REQUEST_STATUSES.PENDING}
                         disabled={!username}
                     />
@@ -69,7 +71,7 @@ const CheckEmail = observer(() => {
                     className="button button--inline form__link"
                     onClick={params.linkEvent}
                 >
-                    {translator.translate(params.linkText)}
+                    {reactTranslator.translate(params.linkText)}
                 </button>
             </>
         );
@@ -84,13 +86,13 @@ const CheckEmail = observer(() => {
         >
             <div className="form__inputs">
                 <div className="form__subtitle">
-                    {translator.translate(params.buttonText)}
+                    {reactTranslator.translate(params.titleText)}
                 </div>
                 <InputField
                     id="username"
                     type="email"
                     value={username}
-                    placeholder={translator.translate('auth_email')}
+                    placeholder={reactTranslator.translate('auth_email')}
                     inputChangeHandler={inputChangeHandler}
                     error={authStore.error}
                 />

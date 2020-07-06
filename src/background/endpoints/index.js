@@ -153,6 +153,7 @@ class Endpoints {
         }
 
         const currentEndpoint = await proxy.getCurrentEndpoint();
+
         const currentLocation = await locationsService.getSelectedLocation()
             || await locationsService.getLocationByEndpoint(currentEndpoint?.id);
 
@@ -233,8 +234,7 @@ class Endpoints {
     }
 
     getSelectedLocation = async () => {
-        const proxySelectedEndpoint = await proxy.getCurrentEndpoint();
-        const selectedLocation = locationsService.getLocationByEndpoint(proxySelectedEndpoint?.id);
+        const selectedLocation = await locationsService.getSelectedLocation();
 
         // if found return
         if (selectedLocation) {
@@ -253,6 +253,7 @@ class Endpoints {
             userCurrentLocation
         );
 
+        await locationsService.setSelectedLocation(closestLocation.id);
         return new LocationWithPing(closestLocation);
     };
 

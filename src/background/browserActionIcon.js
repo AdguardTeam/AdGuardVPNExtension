@@ -7,13 +7,15 @@ import tabs from './tabs';
 import { isHttp } from '../lib/string-utils';
 import auth from './auth';
 import permissionsError from './permissionsChecker/permissionsError';
+import { locationsService } from './endpoints/locationsService';
 
 class BrowserActionIcon {
-    shouldSetIconExcludedForUrl = (id, url) => {
-        return id
-            && url
-            && isHttp(url)
-            && !exclusions.isVpnEnabledByUrl(url);
+    isVpnEnabledForUrl = (id, url) => {
+        if (id && url && isHttp(url)) {
+            return exclusions.isVpnEnabledByUrl(url);
+        }
+
+        return true;
     };
 
     async updateIcon(tab) {
@@ -22,26 +24,38 @@ class BrowserActionIcon {
         const isUserAuthenticated = await auth.isAuthenticated(false);
         if (!isUserAuthenticated) {
             await actions.setIconDisabled(id);
+            await actions.clearBadgeText(id);
             return;
         }
 
         const isLimitExceeded = permissionsError.isLimitExceeded();
         if (isLimitExceeded) {
             await actions.setIconTrafficOff(id);
+            await actions.clearBadgeText(id);
             return;
         }
 
         if (!settings.isProxyEnabled()) {
             await actions.setIconDisabled(id);
+            await actions.clearBadgeText(id);
             return;
         }
 
-        if (this.shouldSetIconExcludedForUrl(id, url)) {
-            await actions.setIconExcludedForUrl(id);
+        if (!this.isVpnEnabledForUrl(id, url)) {
+            await actions.setIconDisabled(id);
+            await actions.clearBadgeText(id);
             return;
         }
 
         await actions.setIconEnabled(id);
+        // Set badge text
+        const selectedLocation = await locationsService.getSelectedLocation();
+        const countryCode = selectedLocation?.countryCode;
+        if (countryCode) {
+            await actions.setBadgeText(id, countryCode);
+        } else {
+            await actions.clearBadgeText(id);
+        }
     }
 
     init = () => {

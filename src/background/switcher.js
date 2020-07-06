@@ -12,7 +12,10 @@ function* turnOnProxy() {
     try {
         const selectedLocation = yield locationsService.getSelectedLocation();
         const selectedEndpoint = yield locationsService.getEndpointByLocation(selectedLocation);
-        yield proxy.setCurrentEndpoint(selectedEndpoint, selectedLocation);
+
+        if (selectedEndpoint) {
+            yield proxy.setCurrentEndpoint(selectedEndpoint, selectedLocation);
+        }
 
         const accessCredentials = yield credentials.getAccessCredentials();
 

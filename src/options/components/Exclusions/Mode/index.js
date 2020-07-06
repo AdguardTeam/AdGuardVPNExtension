@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import browser from 'webextension-polyfill';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
@@ -7,6 +6,7 @@ import Form from './Form';
 import List from './List';
 import rootStore from '../../../stores';
 import { EXCLUSIONS_MODES } from '../../../../background/exclusions/exclusionsConstants';
+import { reactTranslator } from '../../../../reactCommon/reactTranslator';
 
 const Mode = observer(() => {
     const { settingsStore } = useContext(rootStore);
@@ -27,12 +27,12 @@ const Mode = observer(() => {
 
     const titles = {
         [EXCLUSIONS_MODES.REGULAR]: {
-            title: browser.i18n.getMessage('settings_exclusion_regular_title'),
-            description: browser.i18n.getMessage('settings_exclusion_regular_description'),
+            title: reactTranslator.translate('settings_exclusion_regular_title'),
+            description: reactTranslator.translate('settings_exclusion_regular_description'),
         },
         [EXCLUSIONS_MODES.SELECTIVE]: {
-            title: browser.i18n.getMessage('settings_exclusion_selective_title'),
-            description: browser.i18n.getMessage('settings_exclusion_selective_description'),
+            title: reactTranslator.translate('settings_exclusion_selective_title'),
+            description: reactTranslator.translate('settings_exclusion_selective_description'),
         },
     };
 
@@ -80,7 +80,7 @@ const Mode = observer(() => {
         <>
             <div className="settings__section">
                 <div className="settings__title">
-                    {browser.i18n.getMessage('settings_connection_mode_title')}
+                    {reactTranslator.translate('settings_connection_mode_title')}
                 </div>
                 <div className="settings__group">
                     <div className="settings__controls">

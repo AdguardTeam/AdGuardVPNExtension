@@ -1,15 +1,20 @@
+import _ from 'lodash';
+import log from '../../lib/logger';
 import { measurePingToEndpointViaFetch } from '../connectivity/pingHelpers';
 import notifier from '../../lib/notifier';
 import { LocationWithPing } from './LocationWithPing';
 import vpnProvider from '../providers/vpnProvider';
 import { Location } from './Location';
 import browserApi from '../browserApi';
+import proxy from '../proxy';
 
 const PING_TTL_MS = 1000 * 60 * 10; // 10 minutes
 
 const pingsCache = {};
 
 let locations = [];
+
+let selectedLocation = null;
 
 /**
  * Returns locations instances
@@ -26,6 +31,26 @@ const getPingFromCache = (id) => {
 };
 
 /**
+ * Sets location available state
+ * @param location
+ * @param state
+ */
+const setLocationAvailableState = (location, state) => {
+    // eslint-disable-next-line no-param-reassign
+    location.available = state;
+};
+
+/**
+ * Sets location ping
+ * @param location
+ * @param ping
+ */
+const setLocationPing = (location, ping) => {
+    // eslint-disable-next-line no-param-reassign
+    location.ping = ping;
+};
+
+/**
  * Returns locations with pings, used for UI
  * @returns {*}
  */
@@ -33,8 +58,8 @@ const getLocationsWithPing = () => {
     return locations.map((location) => {
         const cachedPingData = getPingFromCache(location.id);
         if (cachedPingData) {
-            location.setPing(cachedPingData.ping);
-            location.setAvailable(cachedPingData.available);
+            setLocationPing(location, cachedPingData.ping);
+            setLocationAvailableState(location, cachedPingData.available);
         }
         return new LocationWithPing(location);
     });
@@ -108,9 +133,9 @@ const measurePing = async (location) => {
     updatePingsCache(location.id, { isMeasuring: true });
     const { ping } = await getEndpointAndPing(location);
 
-    location.setPing(ping);
+    setLocationPing(location, ping);
     const available = !!ping;
-    location.setAvailable(available);
+    setLocationAvailableState(location, available);
 
     updatePingsCache(
         location.id,
@@ -142,11 +167,21 @@ const setLocations = (newLocations) => {
     locations = newLocations.map((location) => {
         const pingCache = pingsCache[location];
         if (pingCache) {
-            location.setPing(pingCache.ping);
-            location.setAvailable(pingCache.available);
+            setLocationPing(location, pingCache.ping);
+            setLocationAvailableState(location, pingCache.available);
         }
         return location;
     });
+
+    // we should actualize location according to the received locations data,
+    // otherwise could happen cases when selected location contains wrong endpoints inside itself
+    if (selectedLocation) {
+        const actualLocation = locations.find((location) => {
+            return location.id === selectedLocation.id;
+        });
+
+        selectedLocation = actualLocation || selectedLocation;
+    }
 
     // launch pings measurement
     measurePings();
@@ -169,7 +204,13 @@ const getLocationsFromServer = async (vpnToken) => {
         return new Location(locationData);
     });
 
-    setLocations(locations);
+    // During endpoint deployments, api can return empty list of locations
+    // thus we continue to use locations from memory
+    if (!_.isEmpty(locations)) {
+        setLocations(locations);
+    } else {
+        log.debug('Api returned empty list of locations', locations);
+    }
 
     return locations;
 };
@@ -186,9 +227,9 @@ const getEndpoint = async (location) => {
 
     const { ping, endpoint } = await getEndpointAndPing(location);
 
-    location.setPing(ping);
+    setLocationPing(location, ping);
     const available = !!ping;
-    location.setAvailable(available);
+    setLocationAvailableState(location, available);
 
     updatePingsCache(
         location.id,
@@ -245,7 +286,6 @@ const getLocationByEndpoint = (endpointId) => {
     return location;
 };
 
-let selectedLocation = null;
 const SELECTED_LOCATION_KEY = 'endpoints.selected.location';
 
 const setSelectedLocation = async (id) => {
@@ -256,8 +296,20 @@ const setSelectedLocation = async (id) => {
 const getSelectedLocation = async () => {
     if (!selectedLocation) {
         const storedLocation = await browserApi.storage.get(SELECTED_LOCATION_KEY);
-        selectedLocation = new Location(storedLocation);
+        if (!storedLocation) {
+            // previously we used to store endpoint in the proxy module
+            // try to get from endpoint
+            // can be removed after few versions of v0.7
+            const proxySelectedEndpoint = await proxy.getCurrentEndpoint();
+            selectedLocation = getLocationByEndpoint(proxySelectedEndpoint?.id);
+            if (!selectedLocation) {
+                return null;
+            }
+        } else {
+            selectedLocation = new Location(storedLocation);
+        }
     }
+
     return selectedLocation;
 };
 

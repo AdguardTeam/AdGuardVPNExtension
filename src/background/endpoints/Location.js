@@ -11,12 +11,4 @@ export class Location {
         this.available = true;
         this.ping = null;
     }
-
-    setAvailable = (state) => {
-        this.available = state;
-    }
-
-    setPing = (ping) => {
-        this.ping = ping;
-    }
 }
