@@ -6,18 +6,23 @@ import rootStore from '../../../stores';
 
 import './endpoint.pcss';
 
-const CurrentEndpoint = observer((props) => {
-    const { vpnStore, settingsStore } = useContext(rootStore);
+const CurrentEndpoint = observer(() => {
+    const { vpnStore, settingsStore, uiStore } = useContext(rootStore);
 
     const {
         countryNameToDisplay,
         cityNameToDisplay,
         countryCodeToDisplay,
     } = vpnStore;
-    const { proxyEnabled } = settingsStore;
-    const { handle } = props;
 
-    const iconClass = classnames('flag', { 'flag--active': proxyEnabled });
+    const { isConnected } = settingsStore;
+
+    const clickHandler = (e) => {
+        e.preventDefault();
+        uiStore.openEndpointsSearch();
+    };
+
+    const iconClass = classnames('flag', { 'flag--active': isConnected });
 
     const getFlagIconStyle = (countryCode) => {
         if (!countryCode) {
@@ -30,7 +35,7 @@ const CurrentEndpoint = observer((props) => {
     return (
         <div
             className="endpoint"
-            onClick={handle}
+            onClick={clickHandler}
         >
             <div className="endpoint__country">
                 <div className={iconClass}>

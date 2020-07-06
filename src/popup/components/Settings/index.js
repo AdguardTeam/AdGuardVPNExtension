@@ -12,22 +12,11 @@ import Upgrade from './Upgrade';
 
 import './settings.pcss';
 
-const getStatusMessage = (proxyEnabled) => {
-    if (proxyEnabled) {
-        return 'Connected';
-    }
-    return 'Disabled';
-};
-
 const Settings = observer(() => {
-    const { settingsStore, uiStore, vpnStore } = useContext(rootStore);
-
-    const handleEndpointSelectorClick = () => {
-        uiStore.openEndpointsSearch();
-    };
+    const { settingsStore, vpnStore } = useContext(rootStore);
 
     const {
-        proxyEnabled,
+        isConnected,
         hasLimitExceededError,
     } = settingsStore;
 
@@ -38,7 +27,7 @@ const Settings = observer(() => {
 
     const settingsClass = classnames(
         'settings',
-        { 'settings--active': proxyEnabled },
+        { 'settings--active': isConnected },
         { 'settings--premium-promo': premiumPromoEnabled },
         { 'settings--feedback': !premiumPromoEnabled }
     );
@@ -54,13 +43,11 @@ const Settings = observer(() => {
             <div className="settings__main">
                 <>
                     <SiteInfo />
-                    <Status status={getStatusMessage(proxyEnabled)} />
+                    <Status />
                     <GlobalControl />
                 </>
             </div>
-            <CurrentEndpoint
-                handle={handleEndpointSelectorClick}
-            />
+            <CurrentEndpoint />
         </div>
     );
 });

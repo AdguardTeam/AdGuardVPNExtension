@@ -14,9 +14,6 @@ import messenger from '../../../lib/messenger';
 import { STATE } from '../../../background/connectivity/connectivityService/connectivityConstants';
 
 class SettingsStore {
-    // TODO remove
-    @observable proxyEnabled = false;
-
     @observable canControlProxy = false;
 
     @observable isExcluded;
@@ -35,19 +32,17 @@ class SettingsStore {
 
     @observable connectivityState;
 
-    @action
-    prohibitExclusion = () => {
-        this.canBeExcluded = false;
-    };
-
-
     constructor(rootStore) {
         this.rootStore = rootStore;
     }
 
     @action
+    prohibitExclusion = () => {
+        this.canBeExcluded = false;
+    };
+
+    @action
     async checkProxyControl() {
-        // TODO refactor to return one boolean
         const { canControlProxy } = await messenger.getCanControlProxy();
         runInAction(() => {
             this.canControlProxy = canControlProxy;
@@ -60,14 +55,13 @@ class SettingsStore {
     };
 
     @action
-    enableProxy = async (force = false, withCancel = false) => {
-        await messenger.enableProxy(force, withCancel);
+    enableProxy = async (force = false) => {
+        await messenger.enableProxy(force);
     };
 
     @action
-    disableProxy = async (force = false, withCancel = false) => {
-        this.proxyEnabled = false;
-        await messenger.disableProxy(force, withCancel);
+    disableProxy = async (force = false) => {
+        await messenger.disableProxy(force);
     };
 
     @action
@@ -79,9 +73,9 @@ class SettingsStore {
     @action
     setProxyState = async (value) => {
         if (value) {
-            await this.enableProxy(true, true);
+            await this.enableProxy(true);
         } else {
-            await this.disableProxy(true, true);
+            await this.disableProxy(true);
         }
     };
 
@@ -239,7 +233,7 @@ class SettingsStore {
 
     @computed
     get isConnectingRetrying() {
-        return this.connectivityState.value === 'connectingRetrying'; // TODO export state from constants
+        return this.connectivityState.value === STATE.CONNECTING_RETRYING;
     }
 }
 

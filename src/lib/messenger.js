@@ -143,14 +143,14 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async enableProxy(force, withCancel) {
+    async enableProxy(force) {
         const type = MESSAGES_TYPES.ENABLE_PROXY;
-        return this.sendMessage(type, { force, withCancel });
+        return this.sendMessage(type, { force });
     }
 
-    async disableProxy(force, withCancel) {
+    async disableProxy(force) {
         const type = MESSAGES_TYPES.DISABLE_PROXY;
-        return this.sendMessage(type, { force, withCancel });
+        return this.sendMessage(type, { force });
     }
 
     async addToExclusions(url, enabled, options) {
