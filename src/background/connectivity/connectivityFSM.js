@@ -23,12 +23,10 @@ export const STATE = {
     CONNECTED: 'connected',
 };
 
-const minReconnectionDelay = 1000;
-const maxReconnectionDelay = 10000;
+const minReconnectionDelayMs = 1000;
+const maxReconnectionDelayMs = 1000 * 60 * 3; // 3 minutes
 const reconnectionDelayGrowFactor = 1.3;
-
-// TODO implement connection timeout in this module or in the connectivity
-const connectionTimout = 4000;
+const retryConnectionTimeMs = 70000; // 70 seconds
 
 const actions = {
     turnOnProxy: () => {
@@ -37,30 +35,41 @@ const actions = {
     turnOffProxy: () => {
         turnOffProxy();
     },
-    retryConnection: (context, event) => {
-        // TODO
-        //  after 70 sec, try to get new endpoint from the same location, and connect to it
-        //  stop trying to connect after 1 hour
-        endpointConnectivity.start();
+    retryConnection: (context) => {
+        if (context.retryTimeCount > retryConnectionTimeMs
+            && !context.retriedConnectToOtherEndpoint) {
+            // TODO refresh locations, tokens
+            turnOnProxy();
+            // TODO figure out how to update with assign,
+            //  documentation prohibits change of context externally
+            context.retriedConnectToOtherEndpoint = true;
+        } else {
+            endpointConnectivity.start();
+        }
     },
 };
 
-const resetReconnectCounters = assign({
-    currentReconnectionDelay: minReconnectionDelay,
+const resetOnSuccessfulConnection = assign({
+    currentReconnectionDelay: minReconnectionDelayMs,
     retryCount: 0,
+    retriedConnectToOtherEndpoint: false,
+    retryTimeCount: 0,
 });
 
 const incrementRetryCount = assign({
     retryCount: (context) => {
         return context.retryCount + 1;
     },
+    retryTimeCount: (context) => {
+        return context.retryTimeCount + context.currentReconnectionDelay;
+    },
 });
 
 const incrementDelay = assign({
     currentReconnectionDelay: (context) => {
         let delay = context.currentReconnectionDelay * reconnectionDelayGrowFactor;
-        if (delay > maxReconnectionDelay) {
-            delay = maxReconnectionDelay;
+        if (delay > maxReconnectionDelayMs) {
+            delay = maxReconnectionDelayMs;
         }
         return delay;
     },
@@ -76,7 +85,9 @@ const connectivityFSM = new Machine({
     id: 'connectivity',
     context: {
         retryCount: 0,
-        currentReconnectionDelay: minReconnectionDelay,
+        retryTimeCount: 0,
+        currentReconnectionDelay: minReconnectionDelayMs,
+        retriedConnectToOtherEndpoint: false,
     },
     initial: STATE.DISCONNECTED_IDLE,
     states: {
@@ -109,6 +120,7 @@ const connectivityFSM = new Machine({
             on: {
                 [TRANSITION.CONNECTION_SUCCESS]: STATE.CONNECTED,
                 [TRANSITION.CONNECTION_FAIL]: STATE.DISCONNECTED_RETRYING,
+                [TRANSITION.WS_CLOSE]: STATE.DISCONNECTED_RETRYING,
             },
         },
         [STATE.CONNECTED]: {
@@ -117,7 +129,7 @@ const connectivityFSM = new Machine({
                 [TRANSITION.WS_CLOSE]: STATE.DISCONNECTED_RETRYING,
                 [TRANSITION.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTED_IDLE,
             },
-            entry: [resetReconnectCounters],
+            entry: [resetOnSuccessfulConnection],
             exit: ['turnOffProxy'],
         },
     },

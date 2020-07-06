@@ -16,11 +16,6 @@ class EndpointConnectivity {
     // PING_SEND_INTERVAL_MS = 1000 * 60; TODO uncomment
     PING_SEND_INTERVAL_MS = 1000 * 5; // TODO delete
 
-    CONNECTIVITY_STATES = {
-        WORKING: 'working',
-        PAUSED: 'paused',
-    };
-
     /**
      * If WS didn't connect in this time, stop connection
      * @type {number}
@@ -34,24 +29,8 @@ class EndpointConnectivity {
     connectionTimeout = null;
 
     constructor() {
-        this.setState(this.CONNECTIVITY_STATES.PAUSED);
         notifier.addSpecifiedListener(notifier.types.CREDENTIALS_UPDATED, this.updateCredentials);
         notifier.addSpecifiedListener(notifier.types.DNS_SERVER_SET, this.sendDnsServerIp);
-    }
-
-    /**
-     * Sets connectivity state and notifies popup
-     * @param state
-     */
-    setState = (state) => {
-        if (this.state === state) {
-            return;
-        }
-        this.state = state;
-    }
-
-    isWorking = () => {
-        return this.state === this.CONNECTIVITY_STATES.WORKING;
     }
 
     updateCredentials = async () => {
@@ -88,7 +67,8 @@ class EndpointConnectivity {
 
         let restart = false;
 
-        if (this.state === this.CONNECTIVITY_STATES.WORKING) {
+        if (this.ws && (this.ws.readyState === this.ws.OPEN
+            || this.ws.readyState === this.ws.CONNECTING)) {
             restart = true;
             this.stop();
         }
@@ -103,8 +83,7 @@ class EndpointConnectivity {
             clearTimeout(this.connectionTimeout);
         }
 
-        console.log('WS closed: ', closeEvent);
-        this.setState(this.CONNECTIVITY_STATES.PAUSED);
+        log.debug('WS closed:', closeEvent);
         // TODO run this once when proxy really closed
         // notifier.notifyListeners(notifier.types.WEBSOCKET_CLOSED);
 
@@ -114,22 +93,12 @@ class EndpointConnectivity {
         connectivityService.send(TRANSITION.WS_CLOSE);
     }
 
-    lastErrorTime = Date.now();
-
-    errorsStarted = null;
-
-    triedReconnection = false;
-
     handleWebsocketOpen = async () => {
         if (this.connectionTimeout) {
             clearTimeout(this.connectionTimeout);
         }
 
-        console.log('WS connected to:', this.ws.url);
-
-        // // TODO move this logic into fsm
-        // this.errorsStarted = null;
-        // this.triedReconnection = false;
+        log.debug('WS connected to:', this.ws.url);
 
         this.startGettingConnectivityInfo();
         this.sendDnsServerIp(dns.getDnsServerIp());
@@ -154,38 +123,17 @@ class EndpointConnectivity {
      * Handles errors which could occur when endpoints are removed
      * https://jira.adguard.com/browse/AG-2952
      */
-    handleWebsocketError = (errorEvent) => {
+    handleWebsocketError = async (errorEvent) => {
         if (this.connectionTimeout) {
             clearTimeout(this.connectionTimeout);
         }
 
-        console.log('WS error occurred: ', errorEvent);
-        // If errors happen too rare we do not consider them
-        const CONSIDERED_ERRORS_INTERVAL_MS = 20 * 1000;
+        log.debug('WS threw an error: ', errorEvent);
 
-        // After this period of time of errors we should try reconnect
-        const RECONNECTION_TIMEOUT = 70 * 1000;
-
-        const errorTime = Date.now();
-        // reset to the current time
-        if (!this.errorsStarted
-            || (errorTime - this.lastErrorTime) > CONSIDERED_ERRORS_INTERVAL_MS) {
-            this.errorsStarted = errorTime;
-        }
-
-        this.lastErrorTime = errorTime;
-
-        log.debug('Since ws errors sequence started passed: ', (errorTime - this.errorsStarted) / 1000, 'seconds');
-
-        if (errorTime - this.errorsStarted > RECONNECTION_TIMEOUT
-            && this.ws.readyState !== this.ws.OPEN
-            && !this.triedReconnection
-        ) {
-            log.debug('Was unable to connect to websocket more than 70 seconds');
-            // This would refresh tokens and try to reconnect endpoint
-            notifier.notifyListeners(notifier.types.SHOULD_REFRESH_TOKENS);
-            this.triedReconnection = true;
-        }
+        // disconnect proxy and turn off webrtc
+        await proxy.turnOff();
+        webrtc.unblockWebRTC();
+        connectivityService.send(TRANSITION.WS_CLOSE);
     }
 
     isWebsocketConnectionOpen = () => {
@@ -225,8 +173,6 @@ class EndpointConnectivity {
         if (this.ws) {
             this.ws.close(1000);
         }
-
-        this.setState(this.CONNECTIVITY_STATES.PAUSED);
     };
 
     decodeMessage = (arrBufMessage) => {
@@ -317,7 +263,7 @@ class EndpointConnectivity {
     };
 
     getStats = async () => {
-        if (this.state === this.CONNECTIVITY_STATES.PAUSED) {
+        if (this.ws && this.ws.readyState !== this.ws.OPEN) {
             return null;
         }
         const stats = await statsStorage.getStats(this.domainName);

@@ -1,7 +1,6 @@
 import throttle from 'lodash/throttle';
 import isEmpty from 'lodash/isEmpty';
 import log from '../../lib/logger';
-import connectivity from '../connectivity';
 import { connectivityService } from '../connectivity/connectivityFSM';
 
 class PopupData {
@@ -39,7 +38,6 @@ class PopupData {
         const selectedLocation = await this.endpoints.getSelectedLocation();
         const canControlProxy = await adguard.appStatus.canControlProxy();
         const isProxyEnabled = adguard.settings.isProxyEnabled();
-        const isConnectivityWorking = connectivity.endpointConnectivity.isWorking();
         const isPremiumToken = await this.credentials.isPremiumToken();
         // TODO consider to separate abstraction level
         const connectivityState = { value: connectivityService.state.value };
@@ -64,7 +62,6 @@ class PopupData {
             isAuthenticated,
             canControlProxy,
             isProxyEnabled,
-            isConnectivityWorking,
             isRoutable,
             isPremiumToken,
             connectivityState,
