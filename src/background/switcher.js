@@ -4,6 +4,7 @@ import { locationsService } from './endpoints/locationsService';
 import connectivity from './connectivity';
 import { connectivityService } from './connectivity/connectivityService/connectivityFSM';
 import { EVENT } from './connectivity/connectivityService/connectivityConstants';
+import log from '../lib/logger';
 
 export const turnOnProxy = async () => {
     try {

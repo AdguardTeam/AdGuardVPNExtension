@@ -65,8 +65,7 @@ const delays = {
 
 /**
  * Finite state machine used to manage websocket connectivity states
- * Consist from states, transitions, actions and delays
- * Transitions react only to the described events, other events are ignored
+ * Transitions react only to the described events, all other events are ignored
  */
 const connectivityFSM = new Machine({
     id: 'connectivity',
