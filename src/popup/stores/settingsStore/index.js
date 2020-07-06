@@ -13,11 +13,8 @@ import { ERROR_STATUSES } from '../../../lib/constants';
 import messenger from '../../../lib/messenger';
 
 class SettingsStore {
-    @observable switcherEnabled = false;
-
+    // TODO remove
     @observable proxyEnabled = false;
-
-    @observable proxyEnablingStatus = REQUEST_STATUSES.DONE;
 
     @observable canControlProxy = false;
 
@@ -32,8 +29,6 @@ class SettingsStore {
     @observable canBeExcluded = true;
 
     @observable exclusionsInverted;
-
-    @observable switcherIgnoreProxyStateChange = false;
 
     @observable checkPermissionsState = REQUEST_STATUSES.DONE;
 
@@ -64,31 +59,7 @@ class SettingsStore {
     };
 
     @action
-    enableSwitcher = () => {
-        this.switcherEnabled = true;
-    };
-
-    @action
-    disableSwitcher = () => {
-        this.switcherEnabled = false;
-    };
-
-    setSwitcher = (value) => {
-        if (this.switcherIgnoreProxyStateChange) {
-            return;
-        }
-        if (this.switcherEnabled !== value) {
-            if (value) {
-                this.enableSwitcher();
-            } else {
-                this.disableSwitcher();
-            }
-        }
-    };
-
-    @action
     enableProxy = async (force = false, withCancel = false) => {
-        this.proxyEnablingStatus = REQUEST_STATUSES.PENDING;
         await messenger.enableProxy(force, withCancel);
     };
 
@@ -100,23 +71,12 @@ class SettingsStore {
 
     @action
     reconnectProxy = async () => {
-        this.setSwitcherIgnoreProxyStateChange(true);
         await this.disableProxy(true);
         await this.enableProxy(true);
-        this.setSwitcherIgnoreProxyStateChange(false);
-    };
-
-    @action
-    setProxyEnabled = (value) => {
-        this.proxyEnabled = value;
-        if (!this.switcherIgnoreProxyStateChange) {
-            this.proxyEnablingStatus = REQUEST_STATUSES.DONE;
-        }
     };
 
     @action
     setProxyState = async (value) => {
-        this.setSwitcher(value);
         if (value) {
             await this.enableProxy(true, true);
         } else {
@@ -207,11 +167,6 @@ class SettingsStore {
         this.globalError = data;
     }
 
-    @computed
-    get proxyIsEnabling() {
-        return this.proxyEnablingStatus === REQUEST_STATUSES.PENDING;
-    }
-
     @action
     async checkPermissions() {
         this.checkPermissionsState = REQUEST_STATUSES.PENDING;
@@ -254,16 +209,6 @@ class SettingsStore {
     @computed
     get hasLimitExceededError() {
         return this.globalError && this.globalError.status === ERROR_STATUSES.LIMIT_EXCEEDED;
-    }
-
-    @computed
-    get displayEnabled() {
-        return this.switcherEnabled && this.proxyEnabled;
-    }
-
-    @action
-    setSwitcherIgnoreProxyStateChange(value) {
-        this.switcherIgnoreProxyStateChange = value;
     }
 
     @action

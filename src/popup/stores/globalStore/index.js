@@ -27,7 +27,6 @@ class globalStore {
 
         try {
             const popupData = await messenger.getPopupData(tab.url, numberOfTries);
-            console.log(popupData);
 
             const {
                 vpnInfo,
@@ -36,7 +35,6 @@ class globalStore {
                 permissionsError,
                 isAuthenticated,
                 canControlProxy,
-                isProxyEnabled,
                 isRoutable,
                 hasRequiredData,
                 isPremiumToken,
@@ -60,7 +58,6 @@ class globalStore {
             vpnStore.setLocations(locations);
             vpnStore.setSelectedLocation(selectedLocation);
             vpnStore.setIsPremiumToken(isPremiumToken);
-            settingsStore.setSwitcher(isProxyEnabled);
             settingsStore.setConnectivityState(connectivityState);
             settingsStore.setCanControlProxy(canControlProxy);
             settingsStore.setIsRoutable(isRoutable);

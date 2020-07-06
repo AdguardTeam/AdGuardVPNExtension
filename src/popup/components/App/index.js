@@ -72,17 +72,6 @@ const App = observer(() => {
                     vpnStore.setIsPremiumToken(data);
                     break;
                 }
-                // TODO use connectivity service states
-                case notifier.types.PROXY_TURNED_ON: {
-                    settingsStore.setProxyEnabled(true);
-                    break;
-                }
-                // TODO use connectivity service states
-                case notifier.types.PROXY_TURNED_OFF: {
-                    settingsStore.setProxyEnabled(false);
-                    settingsStore.setSwitcher(false);
-                    break;
-                }
                 case notifier.types.CONNECTIVITY_STATE_CHANGED: {
                     settingsStore.setConnectivityState(data);
                     break;
@@ -100,8 +89,6 @@ const App = observer(() => {
             notifier.types.LOCATION_STATE_UPDATED,
             notifier.types.CURRENT_LOCATION_UPDATED,
             notifier.types.PERMISSIONS_ERROR_UPDATE,
-            notifier.types.PROXY_TURNED_ON,
-            notifier.types.PROXY_TURNED_OFF,
             notifier.types.TOKEN_PREMIUM_STATE_UPDATED,
             notifier.types.CONNECTIVITY_STATE_CHANGED,
         ];
