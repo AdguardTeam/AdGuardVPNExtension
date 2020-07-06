@@ -7,7 +7,6 @@ import StatusImage from '../StatusImage';
 import { reactTranslator } from '../../../../reactCommon/reactTranslator';
 
 import './site-info.pcss';
-import { toJS } from 'mobx';
 
 const SiteInfo = observer(() => {
     const { settingsStore } = useContext(rootStore);
@@ -21,6 +20,10 @@ const SiteInfo = observer(() => {
     const removeFromExclusions = async () => {
         await settingsStore.removeFromExclusions();
     };
+
+    if (settingsStore.isDisconnectedRetrying) {
+        return <StatusImage />;
+    }
 
     if (settingsStore.displayNonRoutable) {
         const nonRoutableActionsMap = {

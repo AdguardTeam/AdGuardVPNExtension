@@ -8,7 +8,6 @@ import CurrentEndpoint from './CurrentEndpoint';
 import GlobalControl from './GlobalControl';
 import Status from './Status';
 import SiteInfo from './SiteInfo';
-import ServerError from './ServerError';
 import Upgrade from './Upgrade';
 
 import './settings.pcss';
@@ -29,7 +28,6 @@ const Settings = observer(() => {
 
     const {
         proxyEnabled,
-        serverError,
         hasLimitExceededError,
     } = settingsStore;
 
@@ -54,17 +52,11 @@ const Settings = observer(() => {
     return (
         <div className={settingsClass}>
             <div className="settings__main">
-                {serverError ? (
-                    <ServerError
-                        handleClick={handleEndpointSelectorClick}
-                    />
-                ) : (
-                    <>
-                        <SiteInfo />
-                        <Status status={getStatusMessage(proxyEnabled)} />
-                        <GlobalControl />
-                    </>
-                )}
+                <>
+                    <SiteInfo />
+                    <Status status={getStatusMessage(proxyEnabled)} />
+                    <GlobalControl />
+                </>
             </div>
             <CurrentEndpoint
                 handle={handleEndpointSelectorClick}
