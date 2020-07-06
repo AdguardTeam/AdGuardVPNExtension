@@ -39,7 +39,6 @@ class PopupData {
         const canControlProxy = await adguard.appStatus.canControlProxy();
         const isProxyEnabled = adguard.settings.isProxyEnabled();
         const isPremiumToken = await this.credentials.isPremiumToken();
-        // TODO consider to separate abstraction level
         const connectivityState = { value: connectivityService.state.value };
 
         // If error check permissions when popup is opened, ignoring multiple retries

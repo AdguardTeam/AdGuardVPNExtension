@@ -3,6 +3,7 @@ import { turnOnProxy, turnOffProxy } from '../../switcher';
 import notifier from '../../../lib/notifier';
 import endpointConnectivity from '../endpointConnectivity';
 import { STATE, EVENT } from './connectivityConstants';
+import log from '../../../lib/logger';
 
 const minReconnectionDelayMs = 1000;
 const maxReconnectionDelayMs = 1000 * 60 * 3; // 3 minutes
@@ -62,12 +63,29 @@ const delays = {
     },
 };
 
+/**
+ * Finite state machine used to manage websocket connectivity states
+ * Consist from states, transitions, actions and delays
+ * Transitions react only to the described events, other events are ignored
+ */
 const connectivityFSM = new Machine({
     id: 'connectivity',
     context: {
+        /**
+         * Count of connections retries
+         */
         retryCount: 0,
+        /**
+         * Time in ms since reconnections started
+         */
         retryTimeCount: 0,
+        /**
+         * Property used to keep growing delay between reconnections
+         */
         currentReconnectionDelay: minReconnectionDelayMs,
+        /**
+         * Flag used to reconnect to another endpoint of current location
+         */
         retriedConnectToOtherEndpoint: false,
     },
     initial: STATE.DISCONNECTED_IDLE,
@@ -95,6 +113,7 @@ const connectivityFSM = new Machine({
                 [EVENT.CONNECTION_FAIL]: STATE.DISCONNECTED_RETRYING,
                 // If ws connection didn't get handshake response
                 [EVENT.WS_CLOSE]: STATE.DISCONNECTED_RETRYING,
+                [EVENT.WS_ERROR]: STATE.DISCONNECTED_RETRYING,
             },
         },
         [STATE.CONNECTING_RETRYING]: {
@@ -103,6 +122,7 @@ const connectivityFSM = new Machine({
                 [EVENT.CONNECTION_SUCCESS]: STATE.CONNECTED,
                 [EVENT.CONNECTION_FAIL]: STATE.DISCONNECTED_RETRYING,
                 [EVENT.WS_CLOSE]: STATE.DISCONNECTED_RETRYING,
+                [EVENT.WS_ERROR]: STATE.DISCONNECTED_RETRYING,
             },
         },
         [STATE.CONNECTED]: {
@@ -119,10 +139,9 @@ const connectivityFSM = new Machine({
 
 export const connectivityService = interpret(connectivityFSM)
     .start()
-    .onEvent((event) => console.log(event))
+    .onEvent((event) => log.debug(event))
     .onTransition((state) => {
-        console.log({ currentState: state.value });
-        console.log(state.context);
+        log.debug({ currentState: state.value });
         notifier.notifyListeners(notifier.types.CONNECTIVITY_STATE_CHANGED, { value: state.value });
     });
 

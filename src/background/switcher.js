@@ -6,7 +6,6 @@ import { connectivityService } from './connectivity/connectivityService/connecti
 import { EVENT } from './connectivity/connectivityService/connectivityConstants';
 
 export const turnOnProxy = async () => {
-    console.log('turnOnProxy');
     try {
         const selectedLocation = await locationsService.getSelectedLocation();
         const selectedEndpoint = await locationsService.getEndpointByLocation(selectedLocation);
@@ -30,7 +29,7 @@ export const turnOnProxy = async () => {
 
         connectivity.endpointConnectivity.start();
     } catch (e) {
-        console.log(e.message);
+        log.debug(e.message);
         connectivityService.send(EVENT.CONNECTION_FAIL);
     }
 };

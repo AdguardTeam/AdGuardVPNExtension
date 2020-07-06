@@ -136,7 +136,7 @@ class EndpointConnectivity {
         // disconnect proxy and turn off webrtc
         await proxy.turnOff();
         webrtc.unblockWebRTC();
-        connectivityService.send(EVENT.WS_CLOSE);
+        connectivityService.send(EVENT.WS_ERROR);
     }
 
     isWebsocketConnectionOpen = () => {
