@@ -121,8 +121,6 @@ const types = {
     PERMISSIONS_ERROR_UPDATE: 'event.permission.error.update',
     TOKEN_PREMIUM_STATE_UPDATED: 'event.token.premium.state.updated',
 
-    WEBSOCKET_CLOSED: 'event.websocket.closed',
-
     // Connectivity state
     CONNECTIVITY_STATE_CHANGED: 'event.connectivity.state.changed',
 };

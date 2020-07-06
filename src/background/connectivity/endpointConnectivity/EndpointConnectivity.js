@@ -78,18 +78,22 @@ class EndpointConnectivity {
         }
     }
 
+    /**
+     * Handles WebSocket close events
+     * @param closeEvent
+     * @returns {Promise<void>}
+     */
     handleWebsocketClose = async (closeEvent) => {
+        log.debug('WS closed:', closeEvent);
+
         if (this.connectionTimeout) {
             clearTimeout(this.connectionTimeout);
         }
 
-        log.debug('WS closed:', closeEvent);
-        // TODO run this once when proxy really closed
-        // notifier.notifyListeners(notifier.types.WEBSOCKET_CLOSED);
-
         // disconnect proxy and turn off webrtc
         await proxy.turnOff();
         webrtc.unblockWebRTC();
+
         connectivityService.send(EVENT.WS_CLOSE);
     }
 
