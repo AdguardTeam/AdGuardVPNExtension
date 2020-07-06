@@ -60,7 +60,7 @@ class EndpointConnectivity {
         await this.setCredentials(domainName, vpnToken, credentialsHash);
     };
 
-    setCredentials(domainName, vpnToken, credentialsHash, shouldStart) {
+    setCredentials(domainName, vpnToken, credentialsHash) {
         this.vpnToken = vpnToken;
         this.domainName = domainName;
         this.credentialsHash = credentialsHash;
@@ -73,7 +73,7 @@ class EndpointConnectivity {
             this.stop();
         }
 
-        if (restart || shouldStart) {
+        if (restart) {
             this.start();
         }
     }
@@ -103,9 +103,7 @@ class EndpointConnectivity {
         }
 
         log.debug('WS connected to:', this.ws.url);
-
         this.startGettingConnectivityInfo();
-        this.sendDnsServerIp(dns.getDnsServerIp());
 
         // when first ping received we can connect to proxy
         const averagePing = await this.sendPingMessage();
@@ -115,6 +113,7 @@ class EndpointConnectivity {
             return;
         }
 
+        this.sendDnsServerIp(dns.getDnsServerIp());
         this.startSendingPingMessages();
 
         // connect to the proxy and turn on webrtc
@@ -124,8 +123,7 @@ class EndpointConnectivity {
     }
 
     /**
-     * Handles errors which could occur when endpoints are removed
-     * https://jira.adguard.com/browse/AG-2952
+     * Handles WS errors
      */
     handleWebsocketError = async (errorEvent) => {
         if (this.connectionTimeout) {
