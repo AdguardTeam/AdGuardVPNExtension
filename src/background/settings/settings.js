@@ -3,11 +3,11 @@ import browserApi from '../browserApi';
 import log from '../../lib/logger';
 import notifier from '../../lib/notifier';
 import { SETTINGS_IDS } from '../../lib/constants';
-import { switcher } from '../switcher';
 import dns from '../dns/dns';
 import { DNS_DEFAULT } from '../dns/dnsConstants';
 import webrtc from '../browserApi/webrtc';
-import { connectivityService, EVENT } from '../connectivity/connectivityFSM';
+import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
+import { EVENT } from '../connectivity/connectivityService/connectivityConstants';
 
 const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.PROXY_ENABLED]: false,

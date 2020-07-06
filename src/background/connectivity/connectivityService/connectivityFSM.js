@@ -1,29 +1,8 @@
 import { Machine, interpret, assign } from 'xstate';
-import { turnOnProxy, turnOffProxy } from '../switcher';
-import notifier from '../../lib/notifier';
-import endpointConnectivity from './endpointConnectivity';
-
-// TODO remove unused events before merge
-export const EVENT = {
-    CONNECT_BTN_PRESSED: 'CONNECT_BTN_PRESSED',
-    DISCONNECT_BTN_PRESSED: 'DISCONNECT_BTN_PRESSED',
-    CONNECT_SETTINGS_APPLY: 'CONNECT_SETTINGS_APPLY',
-    DISCONNECT_SETTINGS_APPLY: 'DISCONNECT_SETTINGS_APPLY',
-    WS_CONNECT_RETRY: 'WS_CONNECT_RETRY',
-    CONNECTION_SUCCESS: 'CONNECTION_SUCCESS',
-    CONNECTION_FAIL: 'CONNECTION_FAIL',
-    WS_ERROR: 'WS_ERROR',
-    WS_CLOSE: 'WS_CLOSE',
-    NETWORK_ONLINE: 'NETWORK_ONLINE',
-};
-
-export const STATE = {
-    DISCONNECTED_IDLE: 'disconnectedIdle',
-    DISCONNECTED_RETRYING: 'disconnectedRetrying',
-    CONNECTING_IDLE: 'connectingIdle',
-    CONNECTING_RETRYING: 'connectingRetrying',
-    CONNECTED: 'connected',
-};
+import { turnOnProxy, turnOffProxy } from '../../switcher';
+import notifier from '../../../lib/notifier';
+import endpointConnectivity from '../endpointConnectivity';
+import { STATE, EVENT } from './connectivityConstants';
 
 const minReconnectionDelayMs = 1000;
 const maxReconnectionDelayMs = 1000 * 60 * 3; // 3 minutes
@@ -42,7 +21,7 @@ const actions = {
             && !context.retriedConnectToOtherEndpoint) {
             // TODO refresh locations, tokens
             turnOnProxy();
-            // TODO figure out how to update with assign,
+            // TODO figure out how to update with assign method from api,
             //  documentation prohibits change of context externally
             context.retriedConnectToOtherEndpoint = true;
         } else {

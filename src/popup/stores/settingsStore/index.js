@@ -11,6 +11,7 @@ import { getHostname, getProtocol } from '../../../lib/helpers';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
 import { ERROR_STATUSES } from '../../../lib/constants';
 import messenger from '../../../lib/messenger';
+import { STATE } from '../../../background/connectivity/connectivityService/connectivityConstants';
 
 class SettingsStore {
     // TODO remove
@@ -218,22 +219,22 @@ class SettingsStore {
 
     @computed
     get isConnected() {
-        return this.connectivityState.value === 'connected'; // TODO export state from constants
+        return this.connectivityState.value === STATE.CONNECTED;
     }
 
     @computed
     get isDisconnectedIdle() {
-        return this.connectivityState.value === 'disconnectedIdle'; // TODO export state from constants
+        return this.connectivityState.value === STATE.DISCONNECTED_IDLE;
     }
 
     @computed
     get isConnectingIdle() {
-        return this.connectivityState.value === 'connectingIdle'; // TODO export state from constants
+        return this.connectivityState.value === STATE.CONNECTING_IDLE;
     }
 
     @computed
     get isDisconnectedRetrying() {
-        return this.connectivityState.value === 'disconnectedRetrying'; // TODO export state from constants
+        return this.connectivityState.value === STATE.DISCONNECTED_RETRYING;
     }
 
     @computed

@@ -7,7 +7,7 @@ import { isHttp } from '../lib/string-utils';
 import auth from './auth';
 import permissionsError from './permissionsChecker/permissionsError';
 import { locationsService } from './endpoints/locationsService';
-import { isVPNConnected } from './connectivity/connectivityFSM';
+import { isVPNConnected } from './connectivity/connectivityService/connectivityFSM';
 
 class BrowserActionIcon {
     isVpnEnabledForUrl = (id, url) => {

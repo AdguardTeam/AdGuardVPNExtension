@@ -1,6 +1,7 @@
 import permissionsChecker from './permissionsChecker';
 import log from '../lib/logger';
-import { connectivityService, EVENT } from './connectivity/connectivityFSM';
+import { connectivityService } from './connectivity/connectivityService/connectivityFSM';
+import { EVENT } from './connectivity/connectivityService/connectivityConstants';
 
 /**
  * Module observes network state

@@ -1,8 +1,9 @@
 import proxy from './proxy';
 import credentials from './credentials';
-import connectivity from './connectivity';
 import { locationsService } from './endpoints/locationsService';
-import { connectivityService, EVENT } from './connectivity/connectivityFSM';
+import connectivity from './connectivity';
+import { connectivityService } from './connectivity/connectivityService/connectivityFSM';
+import { EVENT } from './connectivity/connectivityService/connectivityConstants';
 
 export const turnOnProxy = async () => {
     console.log('turnOnProxy');
