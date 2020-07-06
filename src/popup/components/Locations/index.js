@@ -17,11 +17,13 @@ const Locations = observer(() => {
         const prevId = vpnStore.selectedLocation.id;
         await vpnStore.selectLocation(id);
         uiStore.closeEndpointsSearch();
-        if (settingsStore.proxyEnabled && prevId !== vpnStore.selectedLocation.id) {
+
+        if (settingsStore.isConnected && prevId !== vpnStore.selectedLocation.id) {
             await settingsStore.reconnectProxy();
             return;
         }
-        if (!settingsStore.proxyEnabled) {
+
+        if (!settingsStore.isConnected) {
             await settingsStore.setProxyState(true);
         }
     };

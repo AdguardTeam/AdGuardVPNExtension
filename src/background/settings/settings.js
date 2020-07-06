@@ -72,45 +72,24 @@ const setSetting = async (id, value, force) => {
     return true;
 };
 
-/**
- * Returns true if proxy was disabled, otherwise returns false
- * @param force
- * @param withCancel
- * @returns {Promise<boolean>}
- */
-const disableProxy = async (force, withCancel) => {
+const disableProxy = async (force) => {
     const shouldApply = await setSetting(SETTINGS_IDS.PROXY_ENABLED, false, force);
 
     if (!shouldApply) {
-        return false;
+        return;
     }
 
-    try {
-        // await switcher.turnOff(withCancel);
-        connectivityService.send(EVENT.DISCONNECT_BTN_PRESSED);
-        // TODO handle state switch, to keep setting in the correct state
-        return true;
-    } catch (e) {
-        await setSetting(SETTINGS_IDS.PROXY_ENABLED, true, force);
-        return false;
-    }
+    connectivityService.send(EVENT.DISCONNECT_BTN_PRESSED);
 };
 
-const enableProxy = async (force, withCancel) => {
+const enableProxy = async (force) => {
     const shouldApply = await setSetting(SETTINGS_IDS.PROXY_ENABLED, true, force);
 
     if (!shouldApply) {
         return;
     }
 
-    try {
-        // await switcher.turnOn(withCancel);
-        connectivityService.send(EVENT.CONNECT_BTN_PRESSED);
-        // TODO handle fails, to keep setting in the correct state
-    } catch (e) {
-        await setSetting(SETTINGS_IDS.PROXY_ENABLED, false, force);
-        throw e;
-    }
+    connectivityService.send(EVENT.CONNECT_BTN_PRESSED);
 };
 
 /**

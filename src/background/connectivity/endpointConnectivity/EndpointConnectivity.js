@@ -118,7 +118,7 @@ class EndpointConnectivity {
         this.startSendingPingMessages();
 
         // connect to the proxy and turn on webrtc
-        await proxy.turnOn();
+        await proxy.turnOn(); // TODO check case when other extension is blocking connection
         webrtc.blockWebRTC();
         connectivityService.send(EVENT.CONNECTION_SUCCESS);
     }
@@ -168,13 +168,20 @@ class EndpointConnectivity {
         }, this.CONNECTION_TIMEOUT_MS);
     };
 
-    stop = () => {
+    stop = async () => {
         if (this.pingSendIntervalId) {
             clearInterval(this.pingSendIntervalId);
         }
 
+        // disconnect proxy and turn off webrtc
+        await proxy.turnOff();
+        webrtc.unblockWebRTC();
+
         if (this.ws) {
-            this.ws.close(1000);
+            this.ws.removeEventListener('close', this.handleWebsocketClose);
+            this.ws.removeEventListener('error', this.handleWebsocketError);
+            this.ws.removeEventListener('open', this.handleWebsocketOpen);
+            this.ws.close();
         }
     };
 
