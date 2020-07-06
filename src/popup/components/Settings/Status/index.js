@@ -24,15 +24,8 @@ const Status = observer(() => {
             });
         }
 
-        if (settingsStore.isConnectingIdle) {
-            return reactTranslator.translate('settings_connecting');
-        }
-
-        if (settingsStore.isDisconnectedRetrying) {
-            return reactTranslator.translate('settings_not_responding');
-        }
-
-        if (settingsStore.isConnectingRetrying) {
+        if (settingsStore.isDisconnectedRetrying
+            || settingsStore.isConnectingRetrying) {
             return reactTranslator.translate('settings_not_responding');
         }
 
