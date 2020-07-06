@@ -3,7 +3,8 @@ import { turnOnProxy, turnOffProxy } from '../switcher';
 import notifier from '../../lib/notifier';
 import endpointConnectivity from './endpointConnectivity';
 
-export const TRANSITION = {
+// TODO remove unused events before merge
+export const EVENT = {
     CONNECT_BTN_PRESSED: 'CONNECT_BTN_PRESSED',
     DISCONNECT_BTN_PRESSED: 'DISCONNECT_BTN_PRESSED',
     CONNECT_SETTINGS_APPLY: 'CONNECT_SETTINGS_APPLY',
@@ -13,6 +14,7 @@ export const TRANSITION = {
     CONNECTION_FAIL: 'CONNECTION_FAIL',
     WS_ERROR: 'WS_ERROR',
     WS_CLOSE: 'WS_CLOSE',
+    NETWORK_ONLINE: 'NETWORK_ONLINE',
 };
 
 export const STATE = {
@@ -93,13 +95,14 @@ const connectivityFSM = new Machine({
     states: {
         [STATE.DISCONNECTED_IDLE]: {
             on: {
-                [TRANSITION.CONNECT_BTN_PRESSED]: STATE.CONNECTING_IDLE,
-                [TRANSITION.CONNECT_SETTINGS_APPLY]: STATE.CONNECTING_IDLE,
+                [EVENT.CONNECT_BTN_PRESSED]: STATE.CONNECTING_IDLE,
+                [EVENT.CONNECT_SETTINGS_APPLY]: STATE.CONNECTING_IDLE,
             },
         },
         [STATE.DISCONNECTED_RETRYING]: {
             on: {
-                [TRANSITION.CONNECT_BTN_PRESSED]: STATE.CONNECTING_RETRYING,
+                [EVENT.CONNECT_BTN_PRESSED]: STATE.CONNECTING_RETRYING,
+                [EVENT.NETWORK_ONLINE]: STATE.CONNECTING_RETRYING,
             },
             after: {
                 RETRY_DELAY: STATE.CONNECTING_RETRYING,
@@ -109,25 +112,25 @@ const connectivityFSM = new Machine({
         [STATE.CONNECTING_IDLE]: {
             entry: ['turnOnProxy'],
             on: {
-                [TRANSITION.CONNECTION_SUCCESS]: STATE.CONNECTED,
-                [TRANSITION.CONNECTION_FAIL]: STATE.DISCONNECTED_RETRYING,
+                [EVENT.CONNECTION_SUCCESS]: STATE.CONNECTED,
+                [EVENT.CONNECTION_FAIL]: STATE.DISCONNECTED_RETRYING,
                 // If ws connection didn't get handshake response
-                [TRANSITION.WS_CLOSE]: STATE.DISCONNECTED_RETRYING,
+                [EVENT.WS_CLOSE]: STATE.DISCONNECTED_RETRYING,
             },
         },
         [STATE.CONNECTING_RETRYING]: {
             entry: [incrementRetryCount, 'retryConnection'],
             on: {
-                [TRANSITION.CONNECTION_SUCCESS]: STATE.CONNECTED,
-                [TRANSITION.CONNECTION_FAIL]: STATE.DISCONNECTED_RETRYING,
-                [TRANSITION.WS_CLOSE]: STATE.DISCONNECTED_RETRYING,
+                [EVENT.CONNECTION_SUCCESS]: STATE.CONNECTED,
+                [EVENT.CONNECTION_FAIL]: STATE.DISCONNECTED_RETRYING,
+                [EVENT.WS_CLOSE]: STATE.DISCONNECTED_RETRYING,
             },
         },
         [STATE.CONNECTED]: {
             on: {
-                [TRANSITION.WS_ERROR]: STATE.DISCONNECTED_RETRYING,
-                [TRANSITION.WS_CLOSE]: STATE.DISCONNECTED_RETRYING,
-                [TRANSITION.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTED_IDLE,
+                [EVENT.WS_ERROR]: STATE.DISCONNECTED_RETRYING,
+                [EVENT.WS_CLOSE]: STATE.DISCONNECTED_RETRYING,
+                [EVENT.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTED_IDLE,
             },
             entry: [resetOnSuccessfulConnection],
             exit: ['turnOffProxy'],

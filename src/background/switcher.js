@@ -2,7 +2,7 @@ import proxy from './proxy';
 import credentials from './credentials';
 import connectivity from './connectivity';
 import { locationsService } from './endpoints/locationsService';
-import { connectivityService, TRANSITION } from './connectivity/connectivityFSM';
+import { connectivityService, EVENT } from './connectivity/connectivityFSM';
 
 export const turnOnProxy = async () => {
     console.log('turnOnProxy');
@@ -30,7 +30,7 @@ export const turnOnProxy = async () => {
         connectivity.endpointConnectivity.start();
     } catch (e) {
         console.log(e.message);
-        connectivityService.send(TRANSITION.CONNECTION_FAIL);
+        connectivityService.send(EVENT.CONNECTION_FAIL);
     }
 };
 

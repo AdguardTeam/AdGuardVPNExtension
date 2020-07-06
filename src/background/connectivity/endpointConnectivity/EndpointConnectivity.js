@@ -10,7 +10,7 @@ import log from '../../../lib/logger';
 import dns from '../../dns/dns';
 import { sendPingMessage } from '../pingHelpers';
 import webrtc from '../../browserApi/webrtc';
-import { connectivityService, TRANSITION } from '../connectivityFSM';
+import { connectivityService, EVENT } from '../connectivityFSM';
 
 class EndpointConnectivity {
     // PING_SEND_INTERVAL_MS = 1000 * 60; TODO uncomment
@@ -90,7 +90,7 @@ class EndpointConnectivity {
         // disconnect proxy and turn off webrtc
         await proxy.turnOff();
         webrtc.unblockWebRTC();
-        connectivityService.send(TRANSITION.WS_CLOSE);
+        connectivityService.send(EVENT.WS_CLOSE);
     }
 
     handleWebsocketOpen = async () => {
@@ -107,7 +107,7 @@ class EndpointConnectivity {
         const averagePing = await this.sendPingMessage();
         if (!averagePing) {
             log.error('Was unable to send ping message');
-            connectivityService.send(TRANSITION.CONNECTION_FAIL);
+            connectivityService.send(EVENT.CONNECTION_FAIL);
             return;
         }
 
@@ -116,7 +116,7 @@ class EndpointConnectivity {
         // connect to the proxy and turn on webrtc
         await proxy.turnOn();
         webrtc.blockWebRTC();
-        connectivityService.send(TRANSITION.CONNECTION_SUCCESS);
+        connectivityService.send(EVENT.CONNECTION_SUCCESS);
     }
 
     /**
@@ -133,7 +133,7 @@ class EndpointConnectivity {
         // disconnect proxy and turn off webrtc
         await proxy.turnOff();
         webrtc.unblockWebRTC();
-        connectivityService.send(TRANSITION.WS_CLOSE);
+        connectivityService.send(EVENT.WS_CLOSE);
     }
 
     isWebsocketConnectionOpen = () => {

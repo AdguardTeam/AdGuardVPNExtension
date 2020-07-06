@@ -7,7 +7,7 @@ import { switcher } from '../switcher';
 import dns from '../dns/dns';
 import { DNS_DEFAULT } from '../dns/dnsConstants';
 import webrtc from '../browserApi/webrtc';
-import { connectivityService, TRANSITION } from '../connectivity/connectivityFSM';
+import { connectivityService, EVENT } from '../connectivity/connectivityFSM';
 
 const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.PROXY_ENABLED]: false,
@@ -24,10 +24,10 @@ const proxySwitcherHandler = async (value) => {
     try {
         if (value) {
             // await switcher.turnOn(true);
-            connectivityService.send(TRANSITION.CONNECT_SETTINGS_APPLY);
+            connectivityService.send(EVENT.CONNECT_SETTINGS_APPLY);
         } else {
             // await switcher.turnOff(true);
-            connectivityService.send(TRANSITION.DISCONNECT_SETTINGS_APPLY);
+            connectivityService.send(EVENT.DISCONNECT_SETTINGS_APPLY);
         }
     } catch (e) {
         settingsService.setSetting(SETTINGS_IDS.PROXY_ENABLED, false);
@@ -87,7 +87,7 @@ const disableProxy = async (force, withCancel) => {
 
     try {
         // await switcher.turnOff(withCancel);
-        connectivityService.send(TRANSITION.DISCONNECT_BTN_PRESSED);
+        connectivityService.send(EVENT.DISCONNECT_BTN_PRESSED);
         // TODO handle state switch, to keep setting in the correct state
         return true;
     } catch (e) {
@@ -105,7 +105,7 @@ const enableProxy = async (force, withCancel) => {
 
     try {
         // await switcher.turnOn(withCancel);
-        connectivityService.send(TRANSITION.CONNECT_BTN_PRESSED);
+        connectivityService.send(EVENT.CONNECT_BTN_PRESSED);
         // TODO handle fails, to keep setting in the correct state
     } catch (e) {
         await setSetting(SETTINGS_IDS.PROXY_ENABLED, false, force);
