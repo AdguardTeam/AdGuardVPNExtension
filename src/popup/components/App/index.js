@@ -72,10 +72,12 @@ const App = observer(() => {
                     vpnStore.setIsPremiumToken(data);
                     break;
                 }
+                // TODO use connectivity service states
                 case notifier.types.PROXY_TURNED_ON: {
                     settingsStore.setProxyEnabled(true);
                     break;
                 }
+                // TODO use connectivity service states
                 case notifier.types.PROXY_TURNED_OFF: {
                     settingsStore.setProxyEnabled(false);
                     settingsStore.setSwitcher(false);

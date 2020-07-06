@@ -148,3 +148,7 @@ export const connectivityService = interpret(connectivityFSM)
     });
 
 connectivityService.start();
+
+export const isVPNConnected = () => {
+    return connectivityService.state.matches(STATE.CONNECTED);
+};
