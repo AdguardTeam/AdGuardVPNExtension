@@ -98,7 +98,13 @@
     "auth_sign_up": {
         "message": "Tilmeld"
     },
+    "auth_sign_up_button": {
+        "message": "Tilmeld"
+    },
     "auth_sign_in": {
+        "message": "Log ind"
+    },
+    "auth_sign_in_button": {
         "message": "Log ind"
     },
     "auth_sign_in_link": {

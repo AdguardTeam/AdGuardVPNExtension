@@ -30,6 +30,10 @@ const Icons = () => (
             </g>
         </symbol>
 
+        <symbol id="bar" viewBox="0 -53 384 384" width="18" fill="currentColor">
+            <path d="M368 154.668H16c-8.832 0-16-7.168-16-16s7.168-16 16-16h352c8.832 0 16 7.168 16 16s-7.168 16-16 16zm0 0M368 32H16C7.168 32 0 24.832 0 16S7.168 0 16 0h352c8.832 0 16 7.168 16 16s-7.168 16-16 16zm0 0M368 277.332H16c-8.832 0-16-7.168-16-16s7.168-16 16-16h352c8.832 0 16 7.168 16 16s-7.168 16-16 16zm0 0"/>
+        </symbol>
+
         <symbol id="bullet_off" viewBox="0 0 24 24">
             <circle cx="10" cy="10" r="9.25" fill="none" stroke="#909090" strokeWidth="1.5" transform="translate(2 2)" />
         </symbol>

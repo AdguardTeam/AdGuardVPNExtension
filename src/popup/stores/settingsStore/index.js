@@ -44,7 +44,6 @@ class SettingsStore {
         this.canBeExcluded = false;
     };
 
-
     constructor(rootStore) {
         this.rootStore = rootStore;
     }

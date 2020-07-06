@@ -1,1 +1,390 @@
-{}
+{
+    "name": {
+        "message": "AdGuard VPN - Súkromie a bezpečnosť"
+    },
+    "description": {
+        "message": "Zabezpečí otvorený internet a bezpečie Vašich údajov. Špičková VPN sieť od tvorcov známeho blokovača reklám."
+    },
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
+    "registration_error_not_empty": {
+        "message": "Nesmie byť prázdne"
+    },
+    "registration_error_not_valid": {
+        "message": "Táto hodnota nie je platná"
+    },
+    "registration_error_min_length": {
+        "message": "Táto hodnota je príliš krátka. Mala by mať 8 alebo viac znakov."
+    },
+    "registration_error_compromised_password": {
+        "message": "Zadané heslo bolo nájdené v databáze kompromitovaných hesiel <a>public database</a>. Vyskúšajte iné heslo."
+    },
+    "registration_error_unique_constraint": {
+        "message": "Táto hodnota sa už používa"
+    },
+    "registration_error_front_unique_validation": {
+        "message": "Heslo a potvrdenie hesla sa nezhodujú"
+    },
+    "registration_error_default": {
+        "message": "Vyskytla sa chyba, skúste zopakovať neskôr"
+    },
+    "authentication_error_2fa_required": {
+        "message": "Vyžaduje sa 2FA"
+    },
+    "authentication_error_2fa_invalid": {
+        "message": "Neplatný token"
+    },
+    "authentication_error_account_disabled": {
+        "message": "Účet je zablokovaný"
+    },
+    "authentication_error_account_locked": {
+        "message": "Účet je zamknutý na 15 minút"
+    },
+    "authentication_error_bad_credentials": {
+        "message": "Prepáčte, heslo nebolo rozpoznané"
+    },
+    "authentication_error_default": {
+        "message": "Vyskytla sa chyba, skúste zopakovať neskôr"
+    },
+    "global_error_message": {
+        "message": "Vyskytla sa chyba, kontaktujte nás na <a>support@adguard-vpn.com</a>"
+    },
+    "about_title": {
+        "message": "O aplikácii"
+    },
+    "account_title": {
+        "message": "Účet"
+    },
+    "account_edit": {
+        "message": "Upraviť"
+    },
+    "account_sign_out": {
+        "message": "Odhlásiť sa"
+    },
+    "rate_description": {
+        "message": "Hej, sme tím spoločnosti AdGuard a je pre nás veľmi dôležité poznať Váš názor na náš produkt. Ohodnoťte ho."
+    },
+    "rate_hide": {
+        "message": "Skryť"
+    },
+    "auth_title": {
+        "message": "Začnite úplne zadarmo!"
+    },
+    "auth_description": {
+        "message": "Nekompromisná ochrana súkromia online. AdGuard si už vybralo viac ako 20 miliónov ľudí."
+    },
+    "auth_code": {
+        "message": "Kód s autentifikačnej aplikácie"
+    },
+    "auth_confirm": {
+        "message": "Potvrdiť"
+    },
+    "auth_email": {
+        "message": "E-mail adresa"
+    },
+    "auth_password": {
+        "message": "Heslo"
+    },
+    "auth_password_repeat": {
+        "message": "Potvrdenie hesla"
+    },
+    "auth_recover": {
+        "message": "Zabudnuté heslo?"
+    },
+    "auth_login": {
+        "message": "Prihlásenie"
+    },
+    "auth_sign_up": {
+        "message": "Zaregistrovať sa"
+    },
+    "auth_sign_up_button": {
+        "message": "Zapísať sa"
+    },
+    "auth_sign_in": {
+        "message": "Prihlásiť sa"
+    },
+    "auth_sign_in_button": {
+        "message": "Prihlásiť sa"
+    },
+    "auth_sign_in_link": {
+        "message": "Prihlásiť sa pomocou účtu AdGuard"
+    },
+    "auth_account": {
+        "message": "Nemáte účet?"
+    },
+    "auth_register": {
+        "message": "Registrácia"
+    },
+    "auth_header_sign_in": {
+        "message": "Prihlasujete sa ako"
+    },
+    "auth_header_sing_in_notice": {
+        "message": "Už máte účet"
+    },
+    "auth_header_registration": {
+        "message": "Registrujete sa ako"
+    },
+    "auth_header_2fa": {
+        "message": "Zadajte Váš autentifikačný kód"
+    },
+    "auth_placeholder_2fa": {
+        "message": "Autorizačný kód"
+    },
+    "eula": {
+        "message": "Zmluva EULA"
+    },
+    "privacy_policy": {
+        "message": "Pravidlá ochrany súkromia"
+    },
+    "settings_title": {
+        "message": "Nastavenia"
+    },
+    "settings_webrtc_label": {
+        "message": "Blokovať WebRTC"
+    },
+    "settings_webrtc_desc": {
+        "message": "WebRTC je špeciálny program vo väčšine internetových prehliadačov, ktorý umožňuje webovej stránke tretej strany zistiť vašu skutočnú IP adresu a použiť ju na Vašu identifikáciu"
+    },
+    "settings_context_menus_title": {
+        "message": "Pridajte položku AdGuard VPN do kontextovej ponuky prehliadača"
+    },
+    "context_menu_selective_mode": {
+        "message": "Výberový režim"
+    },
+    "context_menu_regular_mode": {
+        "message": "Štandardný režim"
+    },
+    "settings_dns_label": {
+        "message": "Použiť DNS server"
+    },
+    "settings_dns_desc": {
+        "message": "Domain Name System (DNS) je internetový ekvivalent telefónneho zoznamu. Spravuje adresár doménových mien a prekladá ich na adresy internetového protokolu (IP)."
+    },
+    "settings_dns_selector_default_title": {
+        "message": "Predvolené"
+    },
+    "settings_dns_selector_default_desc": {
+        "message": "Po pripojení k VPN sieti automaticky používať predvolené DNS servery"
+    },
+    "settings_dns_selector_adguard_title": {
+        "message": "AdGuard DNS"
+    },
+    "settings_dns_selector_adguard_desc": {
+        "message": "Odstráni reklamy a sledovače z Vášho zariadenia"
+    },
+    "settings_dns_selector_adguard_nonfiltering_title": {
+        "message": "AdGuard DNS bez filtrácie"
+    },
+    "settings_dns_selector_adguard_nonfiltering_desc": {
+        "message": "Zabezpečené DNS bez protokolovania aktivít (nefiltruje reklamy a sledovače)"
+    },
+    "settings_dns_selector_adguard_family_title": {
+        "message": "AdGuard DNS Rodinná ochrana"
+    },
+    "settings_dns_selector_adguard_family_desc": {
+        "message": "AdGuard DNS + SafeSearch a blokovanie obsahu pre dospelých"
+    },
+    "settings_dns_selector_google_title": {
+        "message": "Google DNS"
+    },
+    "settings_dns_selector_google_desc": {
+        "message": "Bezplatná alternatíva DNS služby od Google"
+    },
+    "settings_dns_selector_cloudflare_title": {
+        "message": "Cloudflare DNS"
+    },
+    "settings_dns_selector_cloudflare_desc": {
+        "message": "Bezplatná DNS služba od Cloudflare"
+    },
+    "settings_dns_selector_cisco_title": {
+        "message": "Cisco OpenDNS"
+    },
+    "settings_dns_selector_cisco_desc": {
+        "message": "DNS server, ktorý chráni Vaše zariadenie pred škodlivým softvérom"
+    },
+    "settings_dns_selector_quad9_title": {
+        "message": "Quad9"
+    },
+    "settings_dns_selector_quad9_desc": {
+        "message": "Bezplatná alternatívna DNS služba s ochranou pred podvodom a špehovaním"
+    },
+    "settings_exclusion_add": {
+        "message": "Pridať webovú stránku"
+    },
+    "settings_exclusion_title": {
+        "message": "Výnimky"
+    },
+    "settings_connection_mode_title": {
+        "message": "Režim VPN pripojenia"
+    },
+    "settings_exclusion_regular_title": {
+        "message": "Štandardný režim"
+    },
+    "settings_exclusion_regular_description": {
+        "message": "AdGuard VPN nefunguje na webových stránkach z tohto zoznamu:"
+    },
+    "settings_exclusion_selective_title": {
+        "message": "Výberový režim"
+    },
+    "settings_exclusion_selective_description": {
+        "message": "AdGuard VPN funguje iba na webových stránkach z tohto zoznamu:"
+    },
+    "settings_exclusion_subdomains_title": {
+        "message": "Subdomény"
+    },
+    "settings_exclusion_subdomains_text": {
+        "message": "Môžete pridať domény (napr. google.com) alebo všetky subdomény (napr. *.google.com)"
+    },
+    "global_error_title": {
+        "message": "Vyskytla sa chyba"
+    },
+    "global_error_description": {
+        "message": "Ak sa Vám stále zobrazuje táto správa, kontaktujte nás"
+    },
+    "global_error_learn_more": {
+        "message": "Dozvedieť sa viac"
+    },
+    "global_error_try_again": {
+        "message": "Skúste znova"
+    },
+    "authentication_successful_social": {
+        "message": "Úspešne overené! Môžete otvoriť AdGuard VPN a zapnúť tunel."
+    },
+    "control_error_description": {
+        "message": "Zdá sa, že iné rozšírenie Chrome sa pokúša ovládať Vaše pripojenie. Zakážte ďalšie rozšírenie vo Vašom prehliadači."
+    },
+    "control_error_disable": {
+        "message": "Vypnúť"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Zapnúť VPN na tejto stránke"
+    },
+    "popup_settings_disable_vpn": {
+        "message": "Vypnúť VPN na tejto stránke"
+    },
+    "popup_settings_other_products": {
+        "message": "Iné produkty"
+    },
+    "popup_settings_feedback": {
+        "message": "Spätná väzba"
+    },
+    "popup_settings_open_settings": {
+        "message": "Nastavenia"
+    },
+    "popup_settings_sign_out": {
+        "message": "Odhlásiť sa"
+    },
+    "context_menu_enable_vpn": {
+        "message": "Zapnúť VPN na tejto stránke"
+    },
+    "context_menu_disable_vpn": {
+        "message": "Vypnúť VPN na tejto stránke"
+    },
+    "suggest_feature": {
+        "message": "Navrhnúť funkciu"
+    },
+    "endpoints_countries": {
+        "message": "Lokality"
+    },
+    "endpoints_fastest": {
+        "message": "Najrýchlejší"
+    },
+    "endpoints_all": {
+        "message": "Všetky koncové zariadenia"
+    },
+    "endpoints_search_results": {
+        "message": "Výsledky vyhľadávania"
+    },
+    "endpoints_search": {
+        "message": "Hľadať krajinu"
+    },
+    "endpoints_not_found": {
+        "message": "Server sa nenašiel"
+    },
+    "popup_traffic_limit_reached": {
+        "message": "Bol dosiahnutý mesačný limit. Chcete viac?"
+    },
+    "premium_upgrade": {
+        "message": "Upgradovať"
+    },
+    "settings_disconnect": {
+        "message": "Odpojiť"
+    },
+    "settings_connect": {
+        "message": "Pripojiť"
+    },
+    "settings_not_responding": {
+        "message": "Server neodpovedá"
+    },
+    "settings_choose_another": {
+        "message": "Zvoľte iný"
+    },
+    "settings_connection_not_secured": {
+        "message": "Pripojenie nie je zabezpečené"
+    },
+    "settings_connecting": {
+        "message": "Pripájanie..."
+    },
+    "settings_vpn_enabled": {
+        "message": "VPN je zapnutá"
+    },
+    "settings_vpn_disabled": {
+        "message": "VPN je vypnutá"
+    },
+    "popup_feedback_title": {
+        "message": "Radi by sme počuli Vašu spätnú väzbu"
+    },
+    "popup_feedback_button": {
+        "message": "Zanechajte spätnú väzbu"
+    },
+    "settings_run_out_data": {
+        "message": "Vyčerpali ste údaje"
+    },
+    "options_title": {
+        "message": "Predvoľby AdGuard VPN"
+    },
+    "offline_title": {
+        "message": "Offline"
+    },
+    "popup_exclusions_enable_vpn_on_site": {
+        "message": "<span>Môžete</span> <a>zapnúť VPN na tejto stránke</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_exclusions_add_site_to_exclusions": {
+        "message": "<span>Môžete</span> <a>pridať stránku medzi výnimky</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_exclusions_disable_vpn_on_site": {
+        "message": "<span>Môžete</span> <a>vypnúť VPN na tejto stránke</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_site_status_unaccessible": {
+        "message": "sa nachádza vo Vašej lokálnej sieti a nie je prístupný cez VPN"
+    },
+    "popup_site_status_vpn_disabled": {
+        "message": "VPN je vypnuté na tejto stránke"
+    },
+    "popup_site_status_added_to_exclusions": {
+        "message": "pridané do výnimiek"
+    },
+    "popup_auth_agreement_consent": {
+        "message": "Používaním siete AdGuard VPN súhlasíte s <eula>EULA</eula> a <privacy>Pravidlami ochrany súkromia</privacy>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "options_auth_agreement_consent": {
+        "message": "Pokračovaním akceptujete <privacy> Zmluvné podmienky </privacy> a <eula>EULA</eula>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "popup_free_traffic_info": {
+        "message": "<span>%value% %unit%</span> zostáva do konca mesiaca",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_ping_value": {
+        "message": "Ping %pingValue% ms",
+        "description": "Respect spaces between text and placeholder"
+    },
+    "options_auth_back_button": {
+        "message": "Naspäť"
+    }
+}

@@ -12,7 +12,7 @@ function Submit({
     return (
         <button
             type="submit"
-            className="button button--medium button--green-gradient form__btn"
+            className="button button--medium button--green form__btn"
             disabled={disabled}
         >
             {text}

@@ -1,6 +1,6 @@
 .global-error {
     position: relative;
-    padding: 30px 20px;
+    padding: 10px 20px;
     height: calc(100% - var(--header-height));
     display: flex;
     flex-direction: column;
@@ -24,6 +24,17 @@
         &:after {
             display: none;
         }
+
+        .global-error__description {
+            margin-bottom: 20px;
+        }
+
+        .global-error__info {
+            font-size: 14px;
+            max-width: 215px;
+            margin-bottom: 40px;
+            color: var(--gray88);
+        }
     }
 
     &__content {
@@ -42,12 +53,12 @@
         background-repeat: no-repeat;
 
         &--error {
-            background-image: url(../../../../src/assets/images/error.svg);
+            background-image: url(../../../../src/assets/images/not-found.svg);
         }
     }
 
     &__title {
-        margin-bottom: 15px;
+        margin-bottom: 10px;
         font-size: 2.6rem;
         font-weight: 700;
         line-height: 24px;

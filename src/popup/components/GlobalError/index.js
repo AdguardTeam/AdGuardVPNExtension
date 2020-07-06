@@ -50,7 +50,7 @@ const GlobalError = observer(() => {
                 {
                     id: 1,
                     handler: handleDisableExtensions,
-                    className: 'button button--medium button--green-gradient global-error__button',
+                    className: 'button button--medium button--green global-error__button',
                     text: reactTranslator.translate('control_error_disable'),
                 },
             ],
@@ -64,7 +64,7 @@ const GlobalError = observer(() => {
                     id: 1,
                     handler: handleLearnMore,
                     text: reactTranslator.translate('global_error_learn_more'),
-                    className: 'button button--medium button--green-gradient global-error__button',
+                    className: 'button button--medium button--green global-error__button',
                 },
                 {
                     id: 2,

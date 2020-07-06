@@ -35,7 +35,7 @@ const Header = observer(({ showMenuButton }) => {
                     onClick={handleOpenModal}
                 >
                     <svg className="icon icon--button icon--options">
-                        <use xlinkHref="#options" />
+                        <use xlinkHref="#bar" />
                     </svg>
                 </button>
             )}
