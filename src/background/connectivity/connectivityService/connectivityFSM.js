@@ -93,6 +93,7 @@ const connectivityFSM = new Machine({
     initial: STATE.DISCONNECTED_IDLE,
     states: {
         [STATE.DISCONNECTED_IDLE]: {
+            entry: ['turnOffProxy'],
             on: {
                 [EVENT.CONNECT_BTN_PRESSED]: STATE.CONNECTING_IDLE,
                 [EVENT.CONNECT_SETTINGS_APPLY]: STATE.CONNECTING_IDLE,
@@ -117,6 +118,7 @@ const connectivityFSM = new Machine({
                 [EVENT.WS_CLOSE]: STATE.DISCONNECTED_RETRYING,
                 [EVENT.WS_ERROR]: STATE.DISCONNECTED_RETRYING,
                 [EVENT.DISCONNECT_TRAFFIC_LIMIT_EXCEEDED]: STATE.DISCONNECTED_IDLE,
+                [EVENT.PROXY_CONNECTION_ERROR]: STATE.DISCONNECTED_IDLE,
             },
         },
         [STATE.CONNECTING_RETRYING]: {
@@ -127,6 +129,7 @@ const connectivityFSM = new Machine({
                 [EVENT.WS_CLOSE]: STATE.DISCONNECTED_RETRYING,
                 [EVENT.WS_ERROR]: STATE.DISCONNECTED_RETRYING,
                 [EVENT.DISCONNECT_TRAFFIC_LIMIT_EXCEEDED]: STATE.DISCONNECTED_IDLE,
+                [EVENT.PROXY_CONNECTION_ERROR]: STATE.DISCONNECTED_IDLE,
             },
         },
         [STATE.CONNECTED]: {
@@ -137,7 +140,6 @@ const connectivityFSM = new Machine({
                 [EVENT.DISCONNECT_TRAFFIC_LIMIT_EXCEEDED]: STATE.DISCONNECTED_IDLE,
             },
             entry: [resetOnSuccessfulConnection],
-            exit: ['turnOffProxy'],
         },
     },
 }, { actions, delays });

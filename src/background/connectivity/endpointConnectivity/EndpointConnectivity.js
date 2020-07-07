@@ -120,8 +120,14 @@ class EndpointConnectivity {
         this.sendDnsServerIp(dns.getDnsServerIp());
         this.startSendingPingMessages();
 
-        // connect to the proxy and turn on webrtc
-        await proxy.turnOn(); // TODO check case when other extension is blocking connection
+        try {
+            await proxy.turnOn();
+        } catch (e) {
+            // we can't connect to the proxy because other extensions are controlling it
+            // stop trying to connect
+            connectivityService.send(EVENT.PROXY_CONNECTION_ERROR);
+            return;
+        }
         webrtc.blockWebRTC();
         await sleepIfNecessary(this.entryTime, MIN_CONNECTION_DURATION_MS);
         connectivityService.send(EVENT.CONNECTION_SUCCESS);
