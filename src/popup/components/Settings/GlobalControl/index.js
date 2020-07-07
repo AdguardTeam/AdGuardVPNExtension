@@ -21,9 +21,7 @@ const GlobalControl = observer(() => {
             handler: disconnectHandler,
         },
         connecting: {
-            // TODO remove pointer, because during connection we can't press this button
-            //  add animation with 1 sec delay
-            className: 'button--green-gradient',
+            className: 'button--green-gradient-animated button__disabled',
             message: reactTranslator.translate('settings_button_connecting'),
         },
         connect: {

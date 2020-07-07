@@ -1,3 +1,21 @@
+@keyframes animated {
+    0% {
+        background-position: 0 100%
+    }
+    25% {
+        background-position: 20% 100%
+    }
+    50% {
+        background-position: 100% 100%
+    }
+    75% {
+        background-position: 20% 100%
+    }
+    100% {
+        background-position: 0 100%
+    }
+}
+
 .button {
     cursor: pointer;
     text-decoration: none;
@@ -76,6 +94,19 @@
     &--green-gradient {
         color: #fff;
         background-image: var(--button-gradient);
+    }
+
+    &--green-gradient-animated {
+        color: #fff;
+        background: var(--animated-button-gradient) 0 0;
+        background-size: 200% 100%;
+        animation: animated 2.5s ease infinite;
+        animation-delay: 1s;
+    }
+
+    &__disabled {
+        pointer-events: none;
+        cursor: default;
     }
 
     &--red-gradient {
