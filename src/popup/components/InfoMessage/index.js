@@ -54,7 +54,7 @@ const InfoMessage = observer(() => {
     const formattedRemainingTraffic = formatBytes(remainingTraffic);
 
     return (
-        <div className={ infoMessagesClass }>
+        <div className={infoMessagesClass}>
             <div className="info-message__text-wr">
                 <div className="info-message__text">
                     {

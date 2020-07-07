@@ -341,6 +341,9 @@
     "settings_run_out_data": {
         "message": "Du er løbet tør for data"
     },
+    "settings_run_upgrade_feature": {
+        "message": "Ubegrænset data, hurtigste hastighed, 24/7 support"
+    },
     "options_title": {
         "message": "AdGuard VPN Indstillinger"
     },

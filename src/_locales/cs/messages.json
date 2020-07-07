@@ -341,6 +341,9 @@
     "settings_run_out_data": {
         "message": "Vaše data byla vyčerpána"
     },
+    "settings_run_upgrade_feature": {
+        "message": "Neomezená data, nejvyšší rychlost, podpora 24/7"
+    },
     "options_title": {
         "message": "Možnosti AdGuard VPN"
     },
