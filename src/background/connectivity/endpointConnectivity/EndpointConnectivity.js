@@ -11,6 +11,7 @@ import dns from '../../dns/dns';
 import { sendPingMessage } from '../pingHelpers';
 import webrtc from '../../browserApi/webrtc';
 import { EVENT, MIN_CONNECTION_DURATION_MS } from '../connectivityService/connectivityConstants';
+import { sleepIfNecessary } from '../../../lib/helpers';
 import { connectivityService } from '../connectivityService/connectivityFSM';
 
 class EndpointConnectivity {
