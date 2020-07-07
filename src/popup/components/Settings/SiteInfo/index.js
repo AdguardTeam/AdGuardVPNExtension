@@ -21,7 +21,7 @@ const SiteInfo = observer(() => {
         await settingsStore.removeFromExclusions();
     };
 
-    if (settingsStore.isDisconnectedRetrying) {
+    if (settingsStore.isDisconnectedRetrying || settingsStore.isConnectingRetrying) {
         return <StatusImage />;
     }
 
@@ -123,7 +123,7 @@ const SiteInfo = observer(() => {
         );
     }
 
-    return <StatusImage connected={settingsStore.isConnected} />;
+    return <StatusImage />;
 });
 
 export default SiteInfo;
