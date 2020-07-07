@@ -1,12 +1,12 @@
 import proxy from '../proxy';
 import credentials from '../credentials';
 import { locationsService } from '../endpoints/locationsService';
-import connectivity from './index';
-import { connectivityService } from './connectivityService/connectivityFSM';
 import { EVENT, MIN_CONNECTION_DURATION_MS } from './connectivityService/connectivityConstants';
 import log from '../../lib/logger';
+import { sleepIfNecessary } from '../../lib/helpers';
 import endpoints from '../endpoints';
-import { sleep, sleepIfNecessary } from '../../lib/helpers';
+import connectivity from './index';
+import { connectivityService } from './connectivityService/connectivityFSM';
 
 /**
  * Turns on proxy after doing preparing steps

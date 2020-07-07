@@ -10,10 +10,8 @@ import log from '../../../lib/logger';
 import dns from '../../dns/dns';
 import { sendPingMessage } from '../pingHelpers';
 import webrtc from '../../browserApi/webrtc';
-import { EVENT } from '../connectivityService/connectivityConstants';
+import { EVENT, MIN_CONNECTION_DURATION_MS } from '../connectivityService/connectivityConstants';
 import { connectivityService } from '../connectivityService/connectivityFSM';
-import { sleep, sleepIfNecessary } from '../../../lib/helpers';
-import { MIN_CONNECTION_DURATION_MS } from '../connectivityService/connectivityConstants';
 
 class EndpointConnectivity {
     // PING_SEND_INTERVAL_MS = 1000 * 60; TODO uncomment

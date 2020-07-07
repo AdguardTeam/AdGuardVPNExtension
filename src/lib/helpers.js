@@ -1,7 +1,5 @@
 import sortBy from 'lodash/sortBy';
 import getDistance from 'geolib/es/getDistance';
-import chunk from 'lodash/chunk';
-import { MIN_CONNECTION_DURATION_MS } from '../background/connectivity/connectivityService/connectivityConstants';
 
 /**
  * Returns the value of the property from the cache,
@@ -150,91 +148,4 @@ export const sleepIfNecessary = async (entryTimeMs, minDurationMs) => {
     if (Date.now() - entryTimeMs < minDurationMs) {
         await sleep(minDurationMs - (Date.now() - entryTimeMs));
     }
-};
-
-/**
- * Runs generator with possibility to cancel
- * @param fn - generator to run
- * @param args - args
- * @returns {{cancel: Function, promise: Promise<unknown>}}
- */
-export const runWithCancel = (fn, ...args) => {
-    const gen = fn(...args);
-    let cancelled;
-    let cancel;
-    const promise = new Promise((resolve, reject) => {
-        // define cancel function to return it from our fn
-        cancel = (reason) => {
-            cancelled = true;
-            reject(new Error(reason));
-        };
-
-        // eslint-disable-next-line consistent-return
-        function onFulfilled(res) {
-            if (!cancelled) {
-                let result;
-                try {
-                    result = gen.next(res);
-                } catch (e) {
-                    return reject(e);
-                }
-                // eslint-disable-next-line no-use-before-define
-                next(result);
-            }
-        }
-
-        // eslint-disable-next-line consistent-return
-        function onRejected(err) {
-            let result;
-            try {
-                result = gen.throw(err);
-            } catch (e) {
-                return reject(e);
-            }
-            // eslint-disable-next-line no-use-before-define
-            next(result);
-        }
-
-        function next({ done, value }) {
-            if (done) {
-                return resolve(value);
-            }
-            // we assume we always receive promises, so no type checks
-            return value.then(onFulfilled, onRejected);
-        }
-
-        onFulfilled();
-    });
-
-    return { promise, cancel };
-};
-
-/**
- * Identity function, useful for filtering undefined values
- * @param i
- * @returns {*}
- */
-export const identity = (i) => i;
-
-/**
- * Handles data asynchronously by small chunks
- * @param {any[]} arr - array of data
- * @param {number} size - size of the chunk
- * @param {Function} handler - async function which handles data and returns promise
- * @returns {Promise<any[]>}
- */
-export const asyncMapByChunks = async (arr, handler, size) => {
-    const chunks = chunk(arr, size);
-
-    const result = [];
-
-    // eslint-disable-next-line no-restricted-syntax
-    for (const chunk of chunks) {
-        const promises = chunk.map(handler);
-        // eslint-disable-next-line no-await-in-loop
-        const data = await Promise.all(promises);
-        result.push(data);
-    }
-
-    return result.flat(1);
 };
