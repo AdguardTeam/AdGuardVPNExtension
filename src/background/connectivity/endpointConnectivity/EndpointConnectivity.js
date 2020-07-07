@@ -12,6 +12,8 @@ import { sendPingMessage } from '../pingHelpers';
 import webrtc from '../../browserApi/webrtc';
 import { EVENT } from '../connectivityService/connectivityConstants';
 import { connectivityService } from '../connectivityService/connectivityFSM';
+import { sleep, sleepIfNecessary } from '../../../lib/helpers';
+import { MIN_CONNECTION_DURATION_MS } from '../connectivityService/connectivityConstants';
 
 class EndpointConnectivity {
     // PING_SEND_INTERVAL_MS = 1000 * 60; TODO uncomment
@@ -95,6 +97,7 @@ class EndpointConnectivity {
         await proxy.turnOff();
         webrtc.unblockWebRTC();
 
+        await sleepIfNecessary(this.entryTime, MIN_CONNECTION_DURATION_MS);
         connectivityService.send(EVENT.WS_CLOSE);
     }
 
@@ -110,6 +113,7 @@ class EndpointConnectivity {
         const averagePing = await this.sendPingMessage();
         if (!averagePing) {
             log.error('Was unable to send ping message');
+            await sleepIfNecessary(this.entryTime, MIN_CONNECTION_DURATION_MS);
             connectivityService.send(EVENT.CONNECTION_FAIL);
             return;
         }
@@ -120,6 +124,7 @@ class EndpointConnectivity {
         // connect to the proxy and turn on webrtc
         await proxy.turnOn(); // TODO check case when other extension is blocking connection
         webrtc.blockWebRTC();
+        await sleepIfNecessary(this.entryTime, MIN_CONNECTION_DURATION_MS);
         connectivityService.send(EVENT.CONNECTION_SUCCESS);
     }
 
@@ -136,6 +141,7 @@ class EndpointConnectivity {
         // disconnect proxy and turn off webrtc
         await proxy.turnOff();
         webrtc.unblockWebRTC();
+        await sleepIfNecessary(this.entryTime, MIN_CONNECTION_DURATION_MS);
         connectivityService.send(EVENT.WS_ERROR);
     }
 
@@ -146,7 +152,9 @@ class EndpointConnectivity {
         return false;
     }
 
-    start = () => {
+    start = (entryTime) => {
+        this.entryTime = entryTime;
+
         if (this.connectionTimeout) {
             clearTimeout(this.connectionTimeout);
         }

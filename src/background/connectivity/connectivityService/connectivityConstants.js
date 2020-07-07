@@ -27,3 +27,9 @@ export const STATE = {
     CONNECTING_RETRYING: 'connectingRetrying',
     CONNECTED: 'connected',
 };
+
+/**
+ * Connection shouldn't be less than specified time
+ * @type {number}
+ */
+export const MIN_CONNECTION_DURATION_MS = 500;

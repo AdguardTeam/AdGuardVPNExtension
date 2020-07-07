@@ -6,7 +6,7 @@ import {
     turnOnProxy,
     turnOffProxy,
     turnOnProxyRetry,
-} from '../../switcher';
+} from '../switcher';
 
 const minReconnectionDelayMs = 1000;
 const maxReconnectionDelayMs = 1000 * 60 * 3; // 3 minutes

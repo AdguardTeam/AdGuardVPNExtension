@@ -1,6 +1,7 @@
 import sortBy from 'lodash/sortBy';
 import getDistance from 'geolib/es/getDistance';
 import chunk from 'lodash/chunk';
+import { MIN_CONNECTION_DURATION_MS } from '../background/connectivity/connectivityService/connectivityConstants';
 
 /**
  * Returns the value of the property from the cache,
@@ -129,7 +130,7 @@ export const formatBytes = (bytes) => {
 };
 
 /**
- * awaits given period of time
+ * Sleeps given period of time
  * @param wait
  * @returns {Promise<unknown>}
  */
@@ -137,6 +138,18 @@ export const sleep = (wait) => {
     return new Promise((resolve) => {
         setTimeout(resolve, wait);
     });
+};
+
+/**
+ * Sleeps necessary period of time if minimum duration didn't pass since entry time
+ * @param {number} entryTimeMs
+ * @param {number} minDurationMs
+ * @returns {Promise<void>}
+ */
+export const sleepIfNecessary = async (entryTimeMs, minDurationMs) => {
+    if (Date.now() - entryTimeMs < minDurationMs) {
+        await sleep(minDurationMs - (Date.now() - entryTimeMs));
+    }
 };
 
 /**

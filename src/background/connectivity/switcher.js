@@ -1,11 +1,12 @@
-import proxy from './proxy';
-import credentials from './credentials';
-import { locationsService } from './endpoints/locationsService';
-import connectivity from './connectivity';
-import { connectivityService } from './connectivity/connectivityService/connectivityFSM';
-import { EVENT } from './connectivity/connectivityService/connectivityConstants';
-import log from '../lib/logger';
-import endpoints from './endpoints';
+import proxy from '../proxy';
+import credentials from '../credentials';
+import { locationsService } from '../endpoints/locationsService';
+import connectivity from './index';
+import { connectivityService } from './connectivityService/connectivityFSM';
+import { EVENT, MIN_CONNECTION_DURATION_MS } from './connectivityService/connectivityConstants';
+import log from '../../lib/logger';
+import endpoints from '../endpoints';
+import { sleep, sleepIfNecessary } from '../../lib/helpers';
 
 /**
  * Turns on proxy after doing preparing steps
@@ -18,6 +19,7 @@ import endpoints from './endpoints';
  * @returns {Promise<void>}
  */
 export const turnOnProxy = async (forcePrevEndpoint = false) => {
+    const entryTime = Date.now();
     try {
         const selectedLocation = await locationsService.getSelectedLocation();
         const selectedEndpoint = await locationsService.getEndpointByLocation(
@@ -42,9 +44,10 @@ export const turnOnProxy = async (forcePrevEndpoint = false) => {
             accessCredentials.credentialsHash
         );
 
-        connectivity.endpointConnectivity.start();
+        connectivity.endpointConnectivity.start(entryTime);
     } catch (e) {
         log.debug(e.message);
+        await sleepIfNecessary(entryTime, MIN_CONNECTION_DURATION_MS);
         connectivityService.send(EVENT.CONNECTION_FAIL);
     }
 };
