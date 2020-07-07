@@ -1,9 +1,12 @@
 import { Machine, interpret, assign } from 'xstate';
-import { turnOnProxy, turnOffProxy } from '../../switcher';
 import notifier from '../../../lib/notifier';
-import endpointConnectivity from '../endpointConnectivity';
 import { STATE, EVENT } from './connectivityConstants';
 import log from '../../../lib/logger';
+import {
+    turnOnProxy,
+    turnOffProxy,
+    turnOnProxyRetry,
+} from '../../switcher';
 
 const minReconnectionDelayMs = 1000;
 const maxReconnectionDelayMs = 1000 * 60 * 3; // 3 minutes
@@ -11,22 +14,22 @@ const reconnectionDelayGrowFactor = 1.3;
 const retryConnectionTimeMs = 70000; // 70 seconds
 
 const actions = {
-    turnOnProxy: () => {
-        turnOnProxy();
+    turnOnProxy: async () => {
+        await turnOnProxy();
     },
-    turnOffProxy: () => {
-        turnOffProxy();
+    turnOffProxy: async () => {
+        await turnOffProxy();
     },
-    retryConnection: (context) => {
+    retryConnection: async (context) => {
         if (context.retryTimeCount > retryConnectionTimeMs
             && !context.retriedConnectToOtherEndpoint) {
-            // TODO refresh locations, tokens
-            turnOnProxy();
-            // TODO figure out how to update with assign method from api,
-            //  documentation prohibits change of context externally
+            // retry to connect after tokens, VPN info, locations refresh
+            await turnOnProxyRetry(true);
+            // eslint-disable-next-line no-param-reassign
             context.retriedConnectToOtherEndpoint = true;
         } else {
-            endpointConnectivity.start();
+            // Retries to connect to ws without cache refresh
+            await turnOnProxyRetry();
         }
     },
 };
@@ -113,6 +116,7 @@ const connectivityFSM = new Machine({
                 // If ws connection didn't get handshake response
                 [EVENT.WS_CLOSE]: STATE.DISCONNECTED_RETRYING,
                 [EVENT.WS_ERROR]: STATE.DISCONNECTED_RETRYING,
+                [EVENT.DISCONNECT_TRAFFIC_LIMIT_EXCEEDED]: STATE.DISCONNECTED_IDLE,
             },
         },
         [STATE.CONNECTING_RETRYING]: {
@@ -122,6 +126,7 @@ const connectivityFSM = new Machine({
                 [EVENT.CONNECTION_FAIL]: STATE.DISCONNECTED_RETRYING,
                 [EVENT.WS_CLOSE]: STATE.DISCONNECTED_RETRYING,
                 [EVENT.WS_ERROR]: STATE.DISCONNECTED_RETRYING,
+                [EVENT.DISCONNECT_TRAFFIC_LIMIT_EXCEEDED]: STATE.DISCONNECTED_IDLE,
             },
         },
         [STATE.CONNECTED]: {
@@ -129,6 +134,7 @@ const connectivityFSM = new Machine({
                 [EVENT.WS_ERROR]: STATE.DISCONNECTED_RETRYING,
                 [EVENT.WS_CLOSE]: STATE.DISCONNECTED_RETRYING,
                 [EVENT.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTED_IDLE,
+                [EVENT.DISCONNECT_TRAFFIC_LIMIT_EXCEEDED]: STATE.DISCONNECTED_IDLE,
             },
             entry: [resetOnSuccessfulConnection],
             exit: ['turnOffProxy'],

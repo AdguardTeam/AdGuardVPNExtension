@@ -284,7 +284,7 @@ describe('endpoints class', () => {
         jest.spyOn(credentials, 'gainValidVpnCredentials').mockResolvedValue('vpn_credentials');
 
         it('refreshes tokens and doesnt disable proxy', async () => {
-            await endpoints.handleRefreshTokenEvent();
+            await endpoints.refreshData();
             expect(credentials.gainValidVpnToken).toBeCalledTimes(2);
             expect(credentials.gainValidVpnCredentials).toBeCalledTimes(1);
             expect(settings.disableProxy).toBeCalledTimes(0);
@@ -292,7 +292,7 @@ describe('endpoints class', () => {
 
         it('refreshes tokens and disables proxy if necessary', async () => {
             jest.spyOn(credentials, 'gainValidVpnCredentials').mockRejectedValue(new CustomError(ERROR_STATUSES.LIMIT_EXCEEDED));
-            await endpoints.handleRefreshTokenEvent();
+            await endpoints.refreshData();
             expect(credentials.gainValidVpnToken).toBeCalledTimes(1);
             expect(credentials.gainValidVpnCredentials).toBeCalledTimes(1);
             expect(settings.disableProxy).toBeCalledTimes(1);
