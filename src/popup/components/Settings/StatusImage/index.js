@@ -11,7 +11,7 @@ const StatusImage = observer(() => {
     const statusClassName = classnames(
         'status-image',
         { 'status-image--enabled': settingsStore.isConnected },
-        { 'status-image--server-error': settingsStore.isDisconnectedRetrying }
+        { 'status-image--server-error': settingsStore.isDisconnectedRetrying || settingsStore.isConnectingRetrying }
     );
 
     return (
