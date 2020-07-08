@@ -4,10 +4,11 @@ import { locationsService } from '../endpoints/locationsService';
 import { EVENT, MIN_CONNECTION_DURATION_MS } from './connectivityService/connectivityConstants';
 import log from '../../lib/logger';
 import { runWithCancel, sleepIfNecessary } from '../../lib/helpers';
+import { FORCE_CANCELLED } from '../../lib/constants';
+
 import endpoints from '../endpoints';
 import connectivity from './index';
 import { connectivityService } from './connectivityService/connectivityFSM';
-import { FORCE_CANCELLED } from '../../lib/constants';
 
 /**
  * Turns on proxy after doing preparing steps

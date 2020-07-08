@@ -20,21 +20,6 @@ const DEFAULT_SETTINGS = {
 
 const settingsService = new SettingsService(browserApi.storage, DEFAULT_SETTINGS);
 
-const proxySwitcherHandler = async (value) => {
-    try {
-        if (value) {
-            // await switcher.turnOn(true);
-            connectivityService.send(EVENT.CONNECT_SETTINGS_APPLY);
-        } else {
-            // await switcher.turnOff(true);
-            connectivityService.send(EVENT.DISCONNECT_SETTINGS_APPLY);
-        }
-    } catch (e) {
-        settingsService.setSetting(SETTINGS_IDS.PROXY_ENABLED, false);
-        throw (e);
-    }
-};
-
 /**
  * Returns proxy settings enabled status
  * @returns {boolean}
@@ -104,17 +89,22 @@ const isSettingEnabled = (settingId) => {
 };
 
 const applySettings = async () => {
-    try {
-        const proxyEnabled = isProxyEnabled();
-        webrtc.setWebRTCHandlingAllowed(
-            isSettingEnabled(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED),
-            proxyEnabled
-        );
-        dns.setDnsServer(settingsService.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER));
-        await proxySwitcherHandler(proxyEnabled);
-    } catch (e) {
-        await disableProxy();
+    const proxyEnabled = isProxyEnabled();
+
+    // Set WebRTC
+    webrtc.setWebRTCHandlingAllowed(
+        isSettingEnabled(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED),
+        proxyEnabled
+    );
+
+    // Set DNS server
+    dns.setDnsServer(settingsService.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER));
+
+    // Connect proxy
+    if (proxyEnabled) {
+        connectivityService.send(EVENT.CONNECT_SETTINGS_APPLY);
     }
+
     log.info('Settings were applied');
 };
 
