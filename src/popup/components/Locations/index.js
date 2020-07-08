@@ -18,7 +18,9 @@ const Locations = observer(() => {
         await vpnStore.selectLocation(id);
         uiStore.closeEndpointsSearch();
 
-        if (settingsStore.isConnected && prevId !== vpnStore.selectedLocation.id) {
+        if ((settingsStore.isConnected
+            || settingsStore.isConnectingRetrying
+            || settingsStore.isConnectingIdle) && prevId !== vpnStore.selectedLocation.id) {
             await settingsStore.reconnectProxy();
             return;
         }

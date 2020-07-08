@@ -186,16 +186,16 @@ class EndpointConnectivity {
             clearInterval(this.pingSendIntervalId);
         }
 
-        // disconnect proxy and turn off webrtc
-        await proxy.turnOff();
-        webrtc.unblockWebRTC();
-
         if (this.ws) {
             this.ws.removeEventListener('close', this.handleWebsocketClose);
             this.ws.removeEventListener('error', this.handleWebsocketError);
             this.ws.removeEventListener('open', this.handleWebsocketOpen);
             this.ws.close();
         }
+
+        // disconnect proxy and turn off webrtc
+        await proxy.turnOff();
+        webrtc.unblockWebRTC();
     };
 
     decodeMessage = (arrBufMessage) => {
@@ -210,7 +210,12 @@ class EndpointConnectivity {
      */
     sendPingMessage = async () => {
         const appId = credentials.getAppId();
-        return sendPingMessage(this.ws, this.vpnToken, appId);
+        try {
+            return sendPingMessage(this.ws, this.vpnToken, appId);
+        } catch (e) {
+            log.debug(e);
+            return null;
+        }
     };
 
     startSendingPingMessages = () => {

@@ -2,11 +2,7 @@ import { Machine, interpret, assign } from 'xstate';
 import notifier from '../../../lib/notifier';
 import { STATE, EVENT } from './connectivityConstants';
 import log from '../../../lib/logger';
-import {
-    turnOnProxy,
-    turnOffProxy,
-    turnOnProxyRetry,
-} from '../switcher';
+import { switcher } from '../switcher';
 
 const minReconnectionDelayMs = 1000;
 const maxReconnectionDelayMs = 1000 * 60 * 3; // 3 minutes
@@ -15,21 +11,29 @@ const retryConnectionTimeMs = 70000; // 70 seconds
 
 const actions = {
     turnOnProxy: async () => {
-        await turnOnProxy();
+        try {
+            await switcher.turnOn();
+        } catch (e) {
+            log.debug(e);
+        }
     },
     turnOffProxy: async () => {
-        await turnOffProxy();
+        try {
+            await switcher.turnOff();
+        } catch (e) {
+            log.debug(e);
+        }
     },
     retryConnection: async (context) => {
         if (context.retryTimeCount > retryConnectionTimeMs
             && !context.retriedConnectToOtherEndpoint) {
             // retry to connect after tokens, VPN info, locations refresh
-            await turnOnProxyRetry(true);
+            await switcher.retryTurnOn(true);
             // eslint-disable-next-line no-param-reassign
             context.retriedConnectToOtherEndpoint = true;
         } else {
             // Retries to connect to ws without cache refresh
-            await turnOnProxyRetry();
+            await switcher.retryTurnOn();
         }
     },
 };
@@ -119,6 +123,8 @@ const connectivityFSM = new Machine({
                 [EVENT.WS_ERROR]: STATE.DISCONNECTED_RETRYING,
                 [EVENT.DISCONNECT_TRAFFIC_LIMIT_EXCEEDED]: STATE.DISCONNECTED_IDLE,
                 [EVENT.PROXY_CONNECTION_ERROR]: STATE.DISCONNECTED_IDLE,
+                // if user decided to connect to another location
+                [EVENT.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTED_IDLE,
             },
         },
         [STATE.CONNECTING_RETRYING]: {
@@ -130,6 +136,8 @@ const connectivityFSM = new Machine({
                 [EVENT.WS_ERROR]: STATE.DISCONNECTED_RETRYING,
                 [EVENT.DISCONNECT_TRAFFIC_LIMIT_EXCEEDED]: STATE.DISCONNECTED_IDLE,
                 [EVENT.PROXY_CONNECTION_ERROR]: STATE.DISCONNECTED_IDLE,
+                // if user decided to connect to another location
+                [EVENT.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTED_IDLE,
             },
         },
         [STATE.CONNECTED]: {

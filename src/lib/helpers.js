@@ -149,3 +149,60 @@ export const sleepIfNecessary = async (entryTimeMs, minDurationMs) => {
         await sleep(minDurationMs - (Date.now() - entryTimeMs));
     }
 };
+
+/**
+ * Runs generator with possibility to cancel
+ * @param fn - generator to run
+ * @param args - args
+ * @returns {{cancel: Function, promise: Promise<unknown>}}
+ */
+export const runWithCancel = (fn, ...args) => {
+    const gen = fn(...args);
+    let cancelled;
+    let cancel;
+    const promise = new Promise((resolve, reject) => {
+        // define cancel function to return it from our fn
+        cancel = (reason) => {
+            cancelled = true;
+            reject(new Error(reason));
+        };
+
+        // eslint-disable-next-line consistent-return
+        function onFulfilled(res) {
+            if (!cancelled) {
+                let result;
+                try {
+                    result = gen.next(res);
+                } catch (e) {
+                    return reject(e);
+                }
+                // eslint-disable-next-line no-use-before-define
+                next(result);
+            }
+        }
+
+        // eslint-disable-next-line consistent-return
+        function onRejected(err) {
+            let result;
+            try {
+                result = gen.throw(err);
+            } catch (e) {
+                return reject(e);
+            }
+            // eslint-disable-next-line no-use-before-define
+            next(result);
+        }
+
+        function next({ done, value }) {
+            if (done) {
+                return resolve(value);
+            }
+            // we assume we always receive promises, so no type checks
+            return value.then(onFulfilled, onRejected);
+        }
+
+        onFulfilled();
+    });
+
+    return { promise, cancel };
+};

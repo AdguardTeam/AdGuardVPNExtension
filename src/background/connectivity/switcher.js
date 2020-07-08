@@ -3,10 +3,11 @@ import credentials from '../credentials';
 import { locationsService } from '../endpoints/locationsService';
 import { EVENT, MIN_CONNECTION_DURATION_MS } from './connectivityService/connectivityConstants';
 import log from '../../lib/logger';
-import { sleepIfNecessary } from '../../lib/helpers';
+import { runWithCancel, sleepIfNecessary } from '../../lib/helpers';
 import endpoints from '../endpoints';
 import connectivity from './index';
 import { connectivityService } from './connectivityService/connectivityFSM';
+import { FORCE_CANCELLED } from '../../lib/constants';
 
 /**
  * Turns on proxy after doing preparing steps
@@ -18,22 +19,22 @@ import { connectivityService } from './connectivityService/connectivityFSM';
  * @param {boolean} forcePrevEndpoint - flag used to not always determine all endpoints pings
  * @returns {Promise<void>}
  */
-export const turnOnProxy = async (forcePrevEndpoint = false) => {
+function* turnOnProxy(forcePrevEndpoint = false) {
     const entryTime = Date.now();
     try {
-        const selectedLocation = await locationsService.getSelectedLocation();
-        const selectedEndpoint = await locationsService.getEndpointByLocation(
+        const selectedLocation = yield locationsService.getSelectedLocation();
+        const selectedEndpoint = yield locationsService.getEndpointByLocation(
             selectedLocation,
             forcePrevEndpoint
         );
 
         if (selectedEndpoint) {
-            await proxy.setCurrentEndpoint(selectedEndpoint, selectedLocation);
+            yield proxy.setCurrentEndpoint(selectedEndpoint, selectedLocation);
         }
 
-        const accessCredentials = await credentials.getAccessCredentials();
+        const accessCredentials = yield credentials.getAccessCredentials();
 
-        const { domainName } = await proxy.setAccessPrefix(
+        const { domainName } = yield proxy.setAccessPrefix(
             accessCredentials.credentialsHash,
             accessCredentials.credentials
         );
@@ -47,29 +48,57 @@ export const turnOnProxy = async (forcePrevEndpoint = false) => {
         connectivity.endpointConnectivity.start(entryTime);
     } catch (e) {
         log.debug(e.message);
-        await sleepIfNecessary(entryTime, MIN_CONNECTION_DURATION_MS);
+        yield sleepIfNecessary(entryTime, MIN_CONNECTION_DURATION_MS);
         connectivityService.send(EVENT.CONNECTION_FAIL);
     }
-};
+}
 
 /**
  * Turns off websocket
  * @returns {Promise<void>}
  */
-export const turnOffProxy = async () => {
-    await connectivity.endpointConnectivity.stop();
-};
+function* turnOffProxy() {
+    yield connectivity.endpointConnectivity.stop();
+}
 
-/**
- * Retries to connect to proxy
- * If refresh data is true, before connecting, refreshes tokens, vpnInfo and locations
- * @param refreshData
- * @returns {Promise<void>}
- */
-export const turnOnProxyRetry = async (refreshData) => {
-    await turnOffProxy();
-    if (refreshData) {
-        await endpoints.refreshData();
+class Switcher {
+    turnOn(forcePrevEndpoint) {
+        if (this.cancel) {
+            this.cancel(FORCE_CANCELLED);
+        }
+        const { promise, cancel } = runWithCancel(turnOnProxy, forcePrevEndpoint);
+        this.cancel = cancel;
+        this.promise = promise;
+        return promise;
     }
-    await turnOnProxy(true);
-};
+
+    turnOff() {
+        if (this.cancel) {
+            this.cancel(FORCE_CANCELLED);
+        }
+        const { promise, cancel } = runWithCancel(turnOffProxy);
+        this.cancel = cancel;
+        this.promise = promise;
+        return promise;
+    }
+
+    /**
+     * Retries to connect to proxy
+     * If refresh data is true, before connecting, refreshes tokens, vpnInfo and locations
+     * @param refreshData
+     * @returns {Promise<void>}
+     */
+    async retryTurnOn(refreshData) {
+        try {
+            await this.turnOff();
+            if (refreshData) {
+                await endpoints.refreshData();
+            }
+            await this.turnOn(true);
+        } catch (e) {
+            log.debug(e);
+        }
+    }
+}
+
+export const switcher = new Switcher();

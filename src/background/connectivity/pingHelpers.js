@@ -37,6 +37,11 @@ export const sendPingMessage = (websocket, vpnToken, appId) => {
     const arrBufMessage = preparePingMessage(Date.now(), vpnToken, appId);
 
     return new Promise((resolve, reject) => {
+        if (!websocket || websocket.readyState !== websocket.OPEN) {
+            reject(new Error('WS is already closed'));
+            return;
+        }
+
         websocket.send(arrBufMessage);
 
         const timeoutId = setTimeout(() => {
