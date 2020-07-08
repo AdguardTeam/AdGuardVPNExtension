@@ -5,7 +5,7 @@ import log from '../../../lib/logger';
 // eslint-disable-next-line import/no-cycle
 import { switcher } from '../switcher';
 
-const minReconnectionDelayMs = 1000;
+const minReconnectionDelayMs = 1000; // 1 second
 const maxReconnectionDelayMs = 1000 * 60 * 3; // 3 minutes
 const reconnectionDelayGrowFactor = 1.3;
 const retryConnectionTimeMs = 70000; // 70 seconds

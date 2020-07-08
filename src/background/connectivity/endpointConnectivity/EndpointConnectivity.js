@@ -25,10 +25,11 @@ class EndpointConnectivity {
     CONNECTION_TIMEOUT_MS = 4000;
 
     /**
-     * Used to stop WS connection if it takes too much time
+     * Used to clear timeout function if WS connection succeeded
+     * or failed faster than connection timeout fired
      * @type {null|number}
      */
-    connectionTimeout = null;
+    connectionTimeoutId = null;
 
     constructor() {
         notifier.addSpecifiedListener(notifier.types.CREDENTIALS_UPDATED, this.updateCredentials);
@@ -88,8 +89,8 @@ class EndpointConnectivity {
     handleWebsocketClose = async (closeEvent) => {
         log.debug('WS closed:', closeEvent);
 
-        if (this.connectionTimeout) {
-            clearTimeout(this.connectionTimeout);
+        if (this.connectionTimeoutId) {
+            clearTimeout(this.connectionTimeoutId);
         }
 
         // disconnect proxy and turn off webrtc
@@ -101,8 +102,8 @@ class EndpointConnectivity {
     }
 
     handleWebsocketOpen = async () => {
-        if (this.connectionTimeout) {
-            clearTimeout(this.connectionTimeout);
+        if (this.connectionTimeoutId) {
+            clearTimeout(this.connectionTimeoutId);
         }
 
         log.debug('WS connected to:', this.ws.url);
@@ -137,8 +138,8 @@ class EndpointConnectivity {
      * Handles WS errors
      */
     handleWebsocketError = async (errorEvent) => {
-        if (this.connectionTimeout) {
-            clearTimeout(this.connectionTimeout);
+        if (this.connectionTimeoutId) {
+            clearTimeout(this.connectionTimeoutId);
         }
 
         log.debug('WS threw an error: ', errorEvent);
@@ -160,8 +161,8 @@ class EndpointConnectivity {
     start = (entryTime) => {
         this.entryTime = entryTime;
 
-        if (this.connectionTimeout) {
-            clearTimeout(this.connectionTimeout);
+        if (this.connectionTimeoutId) {
+            clearTimeout(this.connectionTimeoutId);
         }
 
         const websocketUrl = renderTemplate(WS_API_URL_TEMPLATE, {
@@ -175,7 +176,7 @@ class EndpointConnectivity {
         this.ws.addEventListener('error', this.handleWebsocketError);
         this.ws.addEventListener('open', this.handleWebsocketOpen);
 
-        this.connectionTimeout = setTimeout(() => {
+        this.connectionTimeoutId = setTimeout(() => {
             log.debug(`WS did not connected in ${this.CONNECTION_TIMEOUT_MS}, closing it`);
             this.ws.close();
         }, this.CONNECTION_TIMEOUT_MS);
