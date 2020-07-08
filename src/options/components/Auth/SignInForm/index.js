@@ -32,7 +32,7 @@ const SignInForm = observer(() => {
 
     return (
         <form
-            className={`form form--login${authStore.error && ' form--error'}`}
+            className={`form form--login${authStore.error ? ' form--error' : ''}`}
             onSubmit={submitHandler}
         >
             <div className="form__inputs">
