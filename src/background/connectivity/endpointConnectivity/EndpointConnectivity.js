@@ -12,11 +12,11 @@ import { sendPingMessage } from '../pingHelpers';
 import webrtc from '../../browserApi/webrtc';
 import { EVENT, MIN_CONNECTION_DURATION_MS } from '../connectivityService/connectivityConstants';
 import { sleepIfNecessary } from '../../../lib/helpers';
+// eslint-disable-next-line import/no-cycle
 import { connectivityService } from '../connectivityService/connectivityFSM';
 
 class EndpointConnectivity {
-    // PING_SEND_INTERVAL_MS = 1000 * 60; TODO uncomment
-    PING_SEND_INTERVAL_MS = 1000 * 5; // TODO delete
+    PING_SEND_INTERVAL_MS = 1000 * 60;
 
     /**
      * If WS didn't connect in this time, stop connection
@@ -275,7 +275,6 @@ class EndpointConnectivity {
 
     startGettingConnectivityInfo = () => {
         const messageHandler = async (event) => {
-            console.log(this.decodeMessage(event.data));
             const { connectivityInfoMsg, connectivityErrorMsg } = this.decodeMessage(event.data);
 
             if (connectivityInfoMsg) {

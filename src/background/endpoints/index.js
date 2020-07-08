@@ -6,6 +6,7 @@ import { ERROR_STATUSES } from '../../lib/constants';
 import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
 import notifier from '../../lib/notifier';
 import notifications from '../notifications';
+// eslint-disable-next-line import/no-cycle
 import connectivity from '../connectivity';
 import credentials from '../credentials';
 import proxy from '../proxy';
@@ -13,6 +14,7 @@ import vpnProvider from '../providers/vpnProvider';
 import userLocation from './userLocation';
 import { locationsService } from './locationsService';
 import { LocationWithPing } from './LocationWithPing';
+// eslint-disable-next-line import/no-cycle
 import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
 import { EVENT } from '../connectivity/connectivityService/connectivityConstants';
 

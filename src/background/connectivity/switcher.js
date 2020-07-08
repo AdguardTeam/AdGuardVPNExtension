@@ -6,8 +6,11 @@ import log from '../../lib/logger';
 import { runWithCancel, sleepIfNecessary } from '../../lib/helpers';
 import { FORCE_CANCELLED } from '../../lib/constants';
 
+// eslint-disable-next-line import/no-cycle
 import endpoints from '../endpoints';
+// eslint-disable-next-line import/no-cycle
 import connectivity from './index';
+// eslint-disable-next-line import/no-cycle
 import { connectivityService } from './connectivityService/connectivityFSM';
 
 /**
