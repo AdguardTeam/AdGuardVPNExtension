@@ -30,7 +30,7 @@ const InfoMessage = observer(() => {
     } = vpnStore;
 
     // If user has premium token we do not show any info messages
-    if (!premiumPromoEnabled || isPremiumToken) {
+    if (!premiumPromoEnabled || isPremiumToken || settingsStore.hasLimitExceededError) {
         return null;
     }
 
