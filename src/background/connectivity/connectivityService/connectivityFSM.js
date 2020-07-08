@@ -38,6 +38,10 @@ const actions = {
     },
 };
 
+/**
+ * Resets context information
+ * Description of every property could be found in the context section description
+ */
 const resetOnSuccessfulConnection = assign({
     currentReconnectionDelay: minReconnectionDelayMs,
     retryCount: 0,
@@ -45,6 +49,9 @@ const resetOnSuccessfulConnection = assign({
     retryTimeCount: 0,
 });
 
+/**
+ * Action, which increments count of connection retries and time passed since first retry
+ */
 const incrementRetryCount = assign({
     retryCount: (context) => {
         return context.retryCount + 1;
@@ -54,6 +61,9 @@ const incrementRetryCount = assign({
     },
 });
 
+/**
+ * Action, which increases delay between reconnection
+ */
 const incrementDelay = assign({
     currentReconnectionDelay: (context) => {
         let delay = context.currentReconnectionDelay * reconnectionDelayGrowFactor;
