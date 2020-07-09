@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import ReactHtmlParser from 'react-html-parser';
+import classnames from 'classnames';
 
 import rootStore from '../../../stores';
 import { REQUEST_STATUSES } from '../../../stores/consts';
@@ -35,6 +36,11 @@ const CheckEmail = observer(() => {
     const openSignUpCheck = async () => {
         await authStore.openSignUpCheck();
     };
+
+    const formClassName = classnames(
+        'form form--login',
+        { 'form--error': authStore.error }
+    );
 
     let params = {
         titleText: 'auth_sign_up',
@@ -81,7 +87,7 @@ const CheckEmail = observer(() => {
 
     return (
         <form
-            className={`form form--login${authStore.error ? ' form--error' : ''}`}
+            className={formClassName}
             onSubmit={submitHandler}
         >
             <div className="form__inputs">

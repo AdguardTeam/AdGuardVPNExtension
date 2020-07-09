@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
+import classnames from 'classnames';
 
 import rootStore from '../../../stores';
 import { PASSWORD_RECOVERY_URL } from '../../../../background/config';
@@ -30,9 +31,14 @@ const SignInForm = observer(() => {
         await authStore.showRegistration('register');
     };
 
+    const formClassName = classnames(
+        'form form--login',
+        { 'form--error': authStore.error }
+    );
+
     return (
         <form
-            className={`form form--login${authStore.error ? ' form--error' : ''}`}
+            className={formClassName}
             onSubmit={submitHandler}
         >
             <div className="form__inputs">
