@@ -28,17 +28,16 @@ const Status = observer(() => {
             return reactTranslator.translate('settings_not_responding');
         }
 
-        if (settingsStore.isConnectingRetrying
-            || settingsStore.isConnectingIdle) {
-            return reactTranslator.translate('settings_connecting');
-        }
-
         return reactTranslator.translate('settings_connection_not_secured');
     };
 
     const renderVpnStatusTitle = () => {
         if (settingsStore.isConnected) {
             return reactTranslator.translate('settings_vpn_enabled');
+        }
+
+        if (settingsStore.isConnectingIdle || settingsStore.isConnectingRetrying) {
+            return reactTranslator.translate('settings_connecting');
         }
 
         return reactTranslator.translate('settings_vpn_disabled');
