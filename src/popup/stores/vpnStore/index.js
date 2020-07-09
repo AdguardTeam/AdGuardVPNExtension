@@ -241,7 +241,7 @@ class VpnStore {
     openPremiumPromoPage = async () => {
         const username = await messenger.getUsername();
         const url = username
-            ? `${this.vpnInfo.premiumPromoPage}?email=${username}`
+            ? `${this.vpnInfo.premiumPromoPage}?email=${encodeURIComponent(username)}`
             : this.vpnInfo.premiumPromoPage;
         popupActions.openTab(url);
     }
