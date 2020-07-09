@@ -326,7 +326,13 @@ class Credentials {
         if (this.currentUsername) {
             return this.currentUsername;
         }
-        this.currentUsername = await this.fetchUsername();
+
+        try {
+            this.currentUsername = await this.fetchUsername();
+        } catch (e) {
+            log.debug(e);
+        }
+
         return this.currentUsername;
     }
 

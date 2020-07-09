@@ -6,6 +6,7 @@ import {
     toJS,
 } from 'mobx';
 import messenger from '../../../lib/messenger';
+import popupActions from '../../actions/popupActions';
 
 class VpnStore {
     constructor(rootStore) {
@@ -234,6 +235,15 @@ class VpnStore {
         }
 
         return ping;
+    }
+
+    @action
+    openPremiumPromoPage = async () => {
+        const username = await messenger.getUsername();
+        const url = username
+            ? `${this.vpnInfo.premiumPromoPage}?email=${username}`
+            : this.vpnInfo.premiumPromoPage;
+        popupActions.openTab(url);
     }
 }
 
