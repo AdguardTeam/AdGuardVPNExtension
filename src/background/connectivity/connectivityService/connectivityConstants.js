@@ -82,7 +82,8 @@ export const STATE = {
 
     /**
      * In this state extension waits delays between reconnection retries
-     * Here user can force WS reconnection to selected location or reconnect to another one
+     * Here user can force WS reconnection to selected location by pressing CONNECT
+     * button in UI or choose another location to connect
      */
     DISCONNECTED_RETRYING: 'disconnectedRetrying',
 
