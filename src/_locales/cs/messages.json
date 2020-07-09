@@ -98,7 +98,13 @@
     "auth_sign_up": {
         "message": "Zaregistrovat se"
     },
+    "auth_sign_up_button": {
+        "message": "Zaregistrovat se"
+    },
     "auth_sign_in": {
+        "message": "Přihlásit se"
+    },
+    "auth_sign_in_button": {
         "message": "Přihlásit se"
     },
     "auth_sign_in_link": {
@@ -137,6 +143,12 @@
     "settings_webrtc_label": {
         "message": "Blokovat WebRTC"
     },
+    "settings_webrtc_desc": {
+        "message": "WebRTC je speciální program ve většině internetových prohlížečů, který umožňuje webové stránce třetí strany zjistit vaši skutečnou IP adresu a použít ji k vaší identifikaci"
+    },
+    "settings_context_menus_title": {
+        "message": "Přidat AdGuard VPN do kontextového menu prohlížeče"
+    },
     "context_menu_selective_mode": {
         "message": "Selektivní režim"
     },
@@ -152,8 +164,20 @@
     "settings_dns_selector_default_title": {
         "message": "Výchozí"
     },
+    "settings_dns_selector_default_desc": {
+        "message": "Automaticky použít výchozí servery DNS při připojení k VPN"
+    },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
+    },
+    "settings_dns_selector_adguard_desc": {
+        "message": "Odstraňuje reklamy a slídiče z Vašeho zařízení"
+    },
+    "settings_dns_selector_adguard_nonfiltering_title": {
+        "message": "AdGuard DNS \"Bez filtrování\""
+    },
+    "settings_dns_selector_adguard_nonfiltering_desc": {
+        "message": "Zabezpečený DNS bez záznamu aktivity (nefiltruje reklamy a slídiče)"
     },
     "settings_dns_selector_adguard_family_title": {
         "message": "AdGuard DNS Ochrana rodiny"
@@ -191,6 +215,9 @@
     "settings_exclusion_title": {
         "message": "Výjimky"
     },
+    "settings_connection_mode_title": {
+        "message": "Režim VPN připojení"
+    },
     "settings_exclusion_regular_title": {
         "message": "Obvyklý režim"
     },
@@ -203,14 +230,32 @@
     "settings_exclusion_selective_description": {
         "message": "AdGuard VPN funguje pouze na stránkách z tohoto seznamu:"
     },
+    "settings_exclusion_subdomains_title": {
+        "message": "Subdomény"
+    },
+    "settings_exclusion_subdomains_text": {
+        "message": "Můžete přidat domény (např. google.com) nebo všechny subdomény (např. *.google.com)"
+    },
     "global_error_title": {
         "message": "Vyskytla se chyba"
+    },
+    "global_error_description": {
+        "message": "Pokud se Vám tato zpráva zobrazuje, kontaktujte nás"
     },
     "global_error_learn_more": {
         "message": "Zjistit více"
     },
     "global_error_try_again": {
         "message": "Zkusit znovu"
+    },
+    "authentication_successful_social": {
+        "message": "Úspěšně ověřeno! Můžete otevřít AdGuard VPN a zapnout tunel."
+    },
+    "control_error_description": {
+        "message": "Vypadá to, že jiné rozšíření Chrome se pokouší ovládat vaše připojení. Vypněte prosím ostatní rozšíření v prohlížeči."
+    },
+    "control_error_disable": {
+        "message": "Vypnout"
     },
     "popup_settings_enable_vpn": {
         "message": "Zapnout VPN na této stránce"
@@ -236,6 +281,12 @@
     "context_menu_disable_vpn": {
         "message": "Vypnout VPN na této stránce"
     },
+    "suggest_feature": {
+        "message": "Navrhnout funkci"
+    },
+    "endpoints_countries": {
+        "message": "Umístění"
+    },
     "endpoints_fastest": {
         "message": "Nejrychlejší"
     },
@@ -244,6 +295,12 @@
     },
     "endpoints_search_results": {
         "message": "Vyhledat výsledek"
+    },
+    "endpoints_search": {
+        "message": "Hledat umístění"
+    },
+    "endpoints_not_found": {
+        "message": "Server nenalezen"
     },
     "popup_traffic_limit_reached": {
         "message": "Měsíční datový limit je dosažen. Potřebujete více?"
@@ -260,17 +317,71 @@
     "settings_not_responding": {
         "message": "Server neodpovídá"
     },
+    "settings_choose_another": {
+        "message": "Vyberte jiný"
+    },
+    "settings_connection_not_secured": {
+        "message": "Připojení není zabezpečeno"
+    },
+    "settings_connecting": {
+        "message": "Připojování..."
+    },
     "settings_vpn_enabled": {
         "message": "VPN je zapnuta"
     },
     "settings_vpn_disabled": {
         "message": "VPN je vypnuta"
     },
+    "popup_feedback_title": {
+        "message": "Rádi bychom znali Vaši zpětnou vazbu"
+    },
     "popup_feedback_button": {
         "message": "Zanechat zpětnou vazbu"
     },
+    "settings_run_out_data": {
+        "message": "Vaše data byla vyčerpána"
+    },
+    "settings_run_upgrade_feature": {
+        "message": "Neomezená data, nejvyšší rychlost, podpora 24/7"
+    },
+    "options_title": {
+        "message": "Možnosti AdGuard VPN"
+    },
     "offline_title": {
         "message": "Offline"
+    },
+    "popup_exclusions_enable_vpn_on_site": {
+        "message": "<span>Můžete</span> <a>zapnout VPN na této stránce</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_exclusions_add_site_to_exclusions": {
+        "message": "<span>Můžete</span> <a>přidat stránku do výjimek</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_exclusions_disable_vpn_on_site": {
+        "message": "<span>Můžete</span> <a>vypnout VPN na této stránce</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_site_status_unaccessible": {
+        "message": "se nachází ve vaší místní síti a není k dispozici prostřednictvím VPN"
+    },
+    "popup_site_status_vpn_disabled": {
+        "message": "VPN je vypnuta na této stránce"
+    },
+    "popup_site_status_added_to_exclusions": {
+        "message": "přidáno do výjimek"
+    },
+    "popup_auth_agreement_consent": {
+        "message": "Používáním AdGuard VPN souhlasíte s <eula>EULA</eula> a <privacy>Zásadami ochrany osobních údajů</privacy>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "options_auth_agreement_consent": {
+        "message": "Pokračováním přijímáte <privacy>Pravidla a podmínky</privacy> a <eula>EULA</eula>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "popup_free_traffic_info": {
+        "message": "Tento měsíc zbývá <span>%value% %unit%</span>",
+        "description": "Respect spaces between text, tags and placeholders"
     },
     "popup_ping_value": {
         "message": "Ping %pingValue% ms",

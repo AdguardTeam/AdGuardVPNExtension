@@ -344,6 +344,9 @@
     "settings_run_out_data": {
         "message": "You've run out of data"
     },
+    "settings_run_upgrade_feature": {
+        "message": "Unlimited data, fastest speed, 24/7 support"
+    },
     "options_title": {
         "message": "AdGuard VPN Options"
     },

@@ -222,11 +222,8 @@ class AuthStore {
 
     @action
     deauthenticate = async () => {
+        this.setDefaults();
         await messenger.deauthenticateUser();
-        await this.rootStore.settingsStore.setProxyState(false);
-        runInAction(() => {
-            this.setDefaults();
-        });
     };
 
     @action

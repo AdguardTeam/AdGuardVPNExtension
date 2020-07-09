@@ -22,19 +22,20 @@ const Settings = observer(() => {
 
     const {
         premiumPromoEnabled,
-        premiumPromoPage,
+        isPremiumToken,
     } = vpnStore;
 
     const settingsClass = classnames(
         'settings',
         { 'settings--active': isConnected },
         { 'settings--premium-promo': premiumPromoEnabled },
+        { 'settings--trial': !isPremiumToken },
         { 'settings--feedback': !premiumPromoEnabled }
     );
 
     if (hasLimitExceededError) {
         return (
-            <Upgrade premiumPromoPage={premiumPromoPage} />
+            <Upgrade />
         );
     }
 

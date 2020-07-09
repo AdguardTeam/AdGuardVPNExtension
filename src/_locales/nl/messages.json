@@ -1,1 +1,35 @@
-{}
+{
+    "name": {
+        "message": "AdGuard VPN — Privacy & Veiligheid"
+    },
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
+    "registration_error_not_empty": {
+        "message": "Mag niet leeg zijn"
+    },
+    "registration_error_not_valid": {
+        "message": "De waarde is niet geldig"
+    },
+    "registration_error_min_length": {
+        "message": "Deze waarde is te kort. Deze dient minimaal uit 8 of meer karakters te bestaan."
+    },
+    "registration_error_unique_constraint": {
+        "message": "Deze waarde is al in gebruik"
+    },
+    "registration_error_front_unique_validation": {
+        "message": "Wachtwoord en bevestiging wachtwoord komen niet overeen"
+    },
+    "registration_error_default": {
+        "message": "Er is een fout opgetreden, probeer het later opnieuw"
+    },
+    "authentication_error_2fa_required": {
+        "message": "2FA is vereist"
+    },
+    "auth_sign_up_button": {
+        "message": "Registreren"
+    },
+    "auth_sign_in_button": {
+        "message": "Aanmelden"
+    }
+}

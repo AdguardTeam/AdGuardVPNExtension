@@ -17,7 +17,6 @@ export const renderTemplate = (template, tags) => {
     }, template);
 };
 
-
 /**
  * Converts string into Uint8Array
  * @param str
@@ -39,7 +38,6 @@ export const areHostnamesEqual = (hostnameA, hostnameB) => {
     const newHostnameWithoutWww = hostnameB.replace(wwwRegex, '');
     return oldHostnameWithoutWww === newHostnameWithoutWww;
 };
-
 
 /**
  * Checks is wildcard pattern matches with url

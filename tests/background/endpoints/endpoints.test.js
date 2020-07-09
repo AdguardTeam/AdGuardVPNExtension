@@ -198,7 +198,6 @@ describe('endpoints class', () => {
             },
         ];
 
-
         it('returns closest location when city name is the same', () => {
             const targetRawLocation = {
                 id: 'VVNfTWlhbWk=',

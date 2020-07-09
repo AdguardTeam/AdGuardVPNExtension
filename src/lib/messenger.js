@@ -92,7 +92,6 @@ class Messenger {
         return onUnload;
     };
 
-
     async getPopupData(url, numberOfTries) {
         const type = MESSAGES_TYPES.GET_POPUP_DATA;
         return this.sendMessage(type, { url, numberOfTries });
