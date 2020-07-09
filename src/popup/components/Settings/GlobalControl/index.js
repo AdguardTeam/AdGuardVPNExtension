@@ -9,7 +9,7 @@ const GlobalControl = ({ handleConnect, handleDisconnect, enabled }) => {
             handler: handleDisconnect,
         },
         default: {
-            className: 'button--green-gradient',
+            className: 'button--green',
             message: reactTranslator.translate('settings_connect'),
             handler: handleConnect,
         },

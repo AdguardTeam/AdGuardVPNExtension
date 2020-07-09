@@ -35,9 +35,15 @@ class Credentials {
         return this.vpnToken;
     }
 
+    /**
+     * Saves vpn token in the storage
+     * @param token
+     * @returns {Promise<void>}
+     */
     async persistVpnToken(token) {
         this.vpnToken = token;
         await this.storage.set(this.VPN_TOKEN_KEY, token);
+
         // notify popup that premium token state could have been changed
         // this is necessary when we check permissions after limit exceeded error
         const isPremiumToken = !!token?.licenseKey;

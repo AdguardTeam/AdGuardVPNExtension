@@ -75,7 +75,7 @@
         "message": "Bez kompromisna mrežna zaštita privatnosti. Preko 20 milijuna ljudi je već odabralo AdGuard."
     },
     "auth_code": {
-        "message": "Kôd iz autentifikacijske aplikacije"
+        "message": "Kôd iz autentikacijske aplikacije"
     },
     "auth_confirm": {
         "message": "Potvrdi"
@@ -98,7 +98,13 @@
     "auth_sign_up": {
         "message": "Registracija"
     },
+    "auth_sign_up_button": {
+        "message": "Registracija"
+    },
     "auth_sign_in": {
+        "message": "Prijava"
+    },
+    "auth_sign_in_button": {
         "message": "Prijava"
     },
     "auth_sign_in_link": {
