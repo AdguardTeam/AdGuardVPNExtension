@@ -20,13 +20,12 @@ const GlobalControl = observer(() => {
             message: reactTranslator.translate('settings_disconnect'),
             handler: disconnectHandler,
         },
-        // TODO fix buttons color
         connecting: {
-            className: 'button--green-gradient-animated button__disabled',
+            className: 'button--outline-secondary button__disabled',
             message: reactTranslator.translate('settings_button_connecting'),
         },
         connect: {
-            className: 'button--green-gradient',
+            className: 'button--green',
             message: reactTranslator.translate('settings_connect'),
             handler: connectHandler,
         },

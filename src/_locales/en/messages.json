@@ -327,7 +327,7 @@
         "message": "Connection is not secured"
     },
     "settings_connecting": {
-        "message": "Connecting..."
+        "message": "VPN is connecting"
     },
     "settings_vpn_enabled": {
         "message": "VPN is enabled"
