@@ -5,10 +5,10 @@ import log from '../../../lib/logger';
 // eslint-disable-next-line import/no-cycle
 import { switcher } from '../switcher';
 
-const minReconnectionDelayMs = 1000; // 1 second
-const maxReconnectionDelayMs = 1000 * 60 * 3; // 3 minutes
-const reconnectionDelayGrowFactor = 1.3;
-const retryConnectionTimeMs = 70000; // 70 seconds
+const MIN_RECONNECTION_DELAY_MS = 1000; // 1 second
+const MAX_RECONNECTION_DELAY_MS = 1000 * 60 * 3; // 3 minutes
+const RECONNECTION_DELAY_GROW_FACTOR = 1.3;
+const RETRY_CONNECTION_TIME_MS = 70000; // 70 seconds
 
 const actions = {
     turnOnProxy: async () => {
@@ -25,8 +25,23 @@ const actions = {
             log.debug(e);
         }
     },
+    /**
+     * After 70 seconds of fruitless reconnection attempts to previously selected endpoint we
+     *      1. re-fetch tokens, vpn info and locations list from the backend
+     *      2. choose endpoint once again (it's possible that the one that previously failed
+     *          is already excluded from the list)
+     *      3. retrying connection attempts (probably to another endpoint)
+
+     * Why 70 seconds:
+     * There are 2 possible kinds of failures:
+     *      1. short term (OOM & restart, deployment of a new version)
+     *      2. long term (server dead or brought down intentionally)
+     * We don't want our users rambling between endpoints and overloading them when (1) occurs,
+     * so we bring in 70 seconds threshold after which we treat the unavailability as (2)
+     * and try find another one (backend probably has alternatives in this case).
+     */
     retryConnection: async (context) => {
-        if (context.retryTimeCount > retryConnectionTimeMs
+        if (context.timeSinceRetriesStartedMs > RETRY_CONNECTION_TIME_MS
             && !context.retriedConnectToOtherEndpoint) {
             // retry to connect after tokens, VPN info, locations refresh
             await switcher.retryTurnOn(true);
@@ -44,10 +59,10 @@ const actions = {
  * Description of every property could be found in the context section description
  */
 const resetOnSuccessfulConnection = assign({
-    currentReconnectionDelay: minReconnectionDelayMs,
+    currentReconnectionDelayMs: MIN_RECONNECTION_DELAY_MS,
     retryCount: 0,
     retriedConnectToOtherEndpoint: false,
-    retryTimeCount: 0,
+    timeSinceRetriesStartedMs: 0,
 });
 
 /**
@@ -57,8 +72,8 @@ const incrementRetryCount = assign({
     retryCount: (context) => {
         return context.retryCount + 1;
     },
-    retryTimeCount: (context) => {
-        return context.retryTimeCount + context.currentReconnectionDelay;
+    timeSinceRetriesStartedMs: (context) => {
+        return context.timeSinceRetriesStartedMs + context.currentReconnectionDelayMs;
     },
 });
 
@@ -66,18 +81,18 @@ const incrementRetryCount = assign({
  * Action, which increases delay between reconnection
  */
 const incrementDelay = assign({
-    currentReconnectionDelay: (context) => {
-        let delay = context.currentReconnectionDelay * reconnectionDelayGrowFactor;
-        if (delay > maxReconnectionDelayMs) {
-            delay = maxReconnectionDelayMs;
+    currentReconnectionDelayMs: (context) => {
+        let delayMs = context.currentReconnectionDelayMs * RECONNECTION_DELAY_GROW_FACTOR;
+        if (delayMs > MAX_RECONNECTION_DELAY_MS) {
+            delayMs = MAX_RECONNECTION_DELAY_MS;
         }
-        return delay;
+        return delayMs;
     },
 });
 
 const delays = {
     RETRY_DELAY: (context) => {
-        return context.currentReconnectionDelay;
+        return context.currentReconnectionDelayMs;
     },
 };
 
@@ -95,11 +110,11 @@ const connectivityFSM = new Machine({
         /**
          * Time in ms since reconnections started
          */
-        retryTimeCount: 0,
+        timeSinceRetriesStartedMs: 0,
         /**
          * Property used to keep growing delay between reconnections
          */
-        currentReconnectionDelay: minReconnectionDelayMs,
+        currentReconnectionDelayMs: MIN_RECONNECTION_DELAY_MS,
         /**
          * Flag used to reconnect to another endpoint of current location
          */
