@@ -102,7 +102,7 @@ const applySettings = async () => {
 
     // Connect proxy
     if (proxyEnabled) {
-        connectivityService.send(EVENT.CONNECT_SETTINGS_APPLY);
+        connectivityService.send(EVENT.EXTENSION_LAUNCHED);
     }
 
     log.info('Settings were applied');

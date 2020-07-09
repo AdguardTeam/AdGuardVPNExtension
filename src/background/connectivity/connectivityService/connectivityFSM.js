@@ -126,7 +126,7 @@ const connectivityFSM = new Machine({
             entry: ['turnOffProxy'],
             on: {
                 [EVENT.CONNECT_BTN_PRESSED]: STATE.CONNECTING_IDLE,
-                [EVENT.CONNECT_SETTINGS_APPLY]: STATE.CONNECTING_IDLE,
+                [EVENT.EXTENSION_LAUNCHED]: STATE.CONNECTING_IDLE,
             },
         },
         [STATE.DISCONNECTED_RETRYING]: {

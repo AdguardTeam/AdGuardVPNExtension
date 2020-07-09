@@ -17,9 +17,11 @@ export const EVENT = {
     DISCONNECT_BTN_PRESSED: 'DISCONNECT_BTN_PRESSED',
 
     /**
-     * Fires when extension applies settings on browser reload or extension update
+     *  Fires when extension applies settings after browser launched or extension updated.
+     *  If earlier the extension was connected to some endpoint - the event forces extension
+     *  to reconnect to that endpoint.
      */
-    CONNECT_SETTINGS_APPLY: 'CONNECT_SETTINGS_APPLY',
+    EXTENSION_LAUNCHED: 'EXTENSION_LAUNCHED',
 
     /**
      * Fires when WS successfully connects to endpoint and applies proxy settings in browser api
@@ -39,7 +41,8 @@ export const EVENT = {
     WS_ERROR: 'WS_ERROR',
 
     /**
-     * Fires on WS close event. This event fires if
+     * Fires on WS close event. This event can fire when WS connection was closed externally,
+     * or by extension on connection timeout
      */
     WS_CLOSE: 'WS_CLOSE',
 
@@ -47,6 +50,12 @@ export const EVENT = {
      * Fires when browser is getting online, then we retry to connect to WS immediately
      */
     NETWORK_ONLINE: 'NETWORK_ONLINE',
+
+    /**
+     * Fires when browser is getting offline, then we stop trying to connect
+     * Notice this is not used in the extension, but do not delete it
+     */
+    NETWORK_OFFLINE: 'NETWORK_OFFLINE',
 
     /**
      * Fires when we get message that users' traffic limit has exceeded, then we close WS connection
