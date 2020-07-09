@@ -3,7 +3,6 @@ import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
 import rootStore from '../../stores';
-import popupActions from '../../actions/popupActions';
 import './info-message.pcss';
 import { formatBytes } from '../../../lib/helpers';
 import { reactTranslator } from '../../../reactCommon/reactTranslator';
@@ -16,14 +15,13 @@ const TRAFFIC_PERCENT = {
 const InfoMessage = observer(() => {
     const { vpnStore, settingsStore } = useContext(rootStore);
 
-    const onClick = (url) => (e) => {
+    const upgradeClickHandler = async (e) => {
         e.preventDefault();
-        popupActions.openTab(url);
+        await vpnStore.openPremiumPromoPage();
     };
 
     const {
         premiumPromoEnabled,
-        premiumPromoPage,
         remainingTraffic,
         trafficUsingProgress,
         isPremiumToken,
@@ -75,10 +73,9 @@ const InfoMessage = observer(() => {
                 </div>
             </div>
             <a
-                href={premiumPromoPage}
                 type="button"
                 className="button button--medium button--red info-message__btn"
-                onClick={onClick(premiumPromoPage)}
+                onClick={upgradeClickHandler}
             >
                 {reactTranslator.translate('premium_upgrade')}
             </a>

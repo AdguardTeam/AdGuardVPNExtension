@@ -44,7 +44,6 @@ const Settings = observer(() => {
 
     const {
         premiumPromoEnabled,
-        premiumPromoPage,
         isPremiumToken,
     } = vpnStore;
 
@@ -58,7 +57,7 @@ const Settings = observer(() => {
 
     if (hasLimitExceededError) {
         return (
-            <Upgrade premiumPromoPage={premiumPromoPage} />
+            <Upgrade />
         );
     }
 
