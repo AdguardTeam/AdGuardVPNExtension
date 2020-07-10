@@ -311,6 +311,9 @@
     "settings_disconnect": {
         "message": "Isključi"
     },
+    "settings_button_connecting": {
+        "message": "Povezivanje"
+    },
     "settings_connect": {
         "message": "Poveži"
     },
@@ -322,6 +325,9 @@
     },
     "settings_connection_not_secured": {
         "message": "Veza nije sigurna"
+    },
+    "settings_connecting": {
+        "message": "VPN se povezuje"
     },
     "settings_vpn_enabled": {
         "message": "VPN je omogućen"
