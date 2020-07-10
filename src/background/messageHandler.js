@@ -89,12 +89,12 @@ const messageHandler = async (message, sender) => {
             return appStatus.canControlProxy();
         }
         case MESSAGES_TYPES.ENABLE_PROXY: {
-            const { force, withCancel } = data;
-            return settings.enableProxy(force, withCancel);
+            const { force } = data;
+            return settings.enableProxy(force);
         }
         case MESSAGES_TYPES.DISABLE_PROXY: {
-            const { force, withCancel } = data;
-            return settings.disableProxy(force, withCancel);
+            const { force } = data;
+            return settings.disableProxy(force);
         }
         case MESSAGES_TYPES.ADD_TO_EXCLUSIONS: {
             const { url, enabled, options } = data;

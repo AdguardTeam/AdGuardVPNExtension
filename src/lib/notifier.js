@@ -108,8 +108,6 @@ const types = {
     TAB_ACTIVATED: 'event.tab.activated',
     EXCLUSIONS_UPDATED_BACK_MESSAGE: 'event.exclusions.updated.back.message',
     SHOULD_REFRESH_TOKENS: 'event.should.refresh.tokens',
-    PROXY_TURNED_ON: 'event.proxy.turned.on',
-    PROXY_TURNED_OFF: 'event.proxy.turned.off',
     DNS_SERVER_SET: 'event.dns.server.set',
     UPDATE_BROWSER_ACTION_ICON: 'event.update.browser.action.icon',
     AUTHENTICATE_SOCIAL_SUCCESS: 'event.authenticate.social.success',
@@ -121,7 +119,8 @@ const types = {
     PERMISSIONS_ERROR_UPDATE: 'event.permission.error.update',
     TOKEN_PREMIUM_STATE_UPDATED: 'event.token.premium.state.updated',
 
-    WEBSOCKET_CLOSED: 'event.websocket.closed',
+    // Connectivity state
+    CONNECTIVITY_STATE_CHANGED: 'event.connectivity.state.changed',
 };
 
 const notifier = new Notifier(types);

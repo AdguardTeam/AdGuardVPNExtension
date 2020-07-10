@@ -35,11 +35,10 @@ class globalStore {
                 permissionsError,
                 isAuthenticated,
                 canControlProxy,
-                isProxyEnabled,
-                isConnectivityWorking,
                 isRoutable,
                 hasRequiredData,
                 isPremiumToken,
+                connectivityState,
             } = popupData;
 
             if (!isAuthenticated) {
@@ -59,12 +58,7 @@ class globalStore {
             vpnStore.setLocations(locations);
             vpnStore.setSelectedLocation(selectedLocation);
             vpnStore.setIsPremiumToken(isPremiumToken);
-            settingsStore.setSwitcher(isProxyEnabled);
-            // when popup is reopened, but connection is still in process,
-            // we set the proxy enabled status only if connectivity state is working. task AG-2073.
-            if (isConnectivityWorking) {
-                settingsStore.setProxyEnabled(isConnectivityWorking);
-            }
+            settingsStore.setConnectivityState(connectivityState);
             settingsStore.setCanControlProxy(canControlProxy);
             settingsStore.setIsRoutable(isRoutable);
             await settingsStore.checkIsExcluded();

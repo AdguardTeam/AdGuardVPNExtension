@@ -1,7 +1,7 @@
 import throttle from 'lodash/throttle';
 import isEmpty from 'lodash/isEmpty';
 import log from '../../lib/logger';
-import connectivity from '../connectivity';
+import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
 
 class PopupData {
     constructor({
@@ -38,8 +38,8 @@ class PopupData {
         const selectedLocation = await this.endpoints.getSelectedLocation();
         const canControlProxy = await adguard.appStatus.canControlProxy();
         const isProxyEnabled = adguard.settings.isProxyEnabled();
-        const isConnectivityWorking = connectivity.endpointConnectivity.isWorking();
         const isPremiumToken = await this.credentials.isPremiumToken();
+        const connectivityState = { value: connectivityService.state.value };
 
         // If error check permissions when popup is opened, ignoring multiple retries
         if (error) {
@@ -61,9 +61,9 @@ class PopupData {
             isAuthenticated,
             canControlProxy,
             isProxyEnabled,
-            isConnectivityWorking,
             isRoutable,
             isPremiumToken,
+            connectivityState,
         };
     };
 

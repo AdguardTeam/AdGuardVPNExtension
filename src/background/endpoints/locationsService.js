@@ -51,6 +51,16 @@ const setLocationPing = (location, ping) => {
 };
 
 /**
+ * Sets location endpoint
+ * @param {Location} location
+ * @param {Endpoint} endpoint
+ */
+const setLocationEndpoint = (location, endpoint) => {
+    // eslint-disable-next-line no-param-reassign
+    location.endpoint = endpoint;
+};
+
+/**
  * Returns locations with pings, used for UI
  * @returns {*}
  */
@@ -74,6 +84,7 @@ const updatePingsCache = (id, newData) => {
             ping: null,
             available: true,
             lastMeasurementTime: 0,
+            endpoint: null,
             ...newData,
         };
     }
@@ -83,12 +94,23 @@ const updatePingsCache = (id, newData) => {
  * Measures pings to endpoints one by one, and returns first one available
  * If was unable to measure ping to all endpoints, returns first endpoint from the list
  * @param location
+ * @param {boolean} forcePrevEndpoint - boolean flag to measure ping of previously selected endpoint
  * @returns {Promise<{endpoint: <Endpoint>, ping: (number|null)}>}
  */
-const getEndpointAndPing = async (location) => {
+const getEndpointAndPing = async (location, forcePrevEndpoint = false) => {
     let endpoint;
     let ping = null;
     let i = 0;
+
+    if (forcePrevEndpoint && location.endpoint) {
+        const { endpoint } = location;
+        ping = await measurePingToEndpointViaFetch(endpoint.domainName) || null;
+        return {
+            ping,
+            endpoint,
+        };
+    }
+
     while (!ping && location.endpoints[i]) {
         endpoint = location.endpoints[i];
         // eslint-disable-next-line no-await-in-loop
@@ -131,7 +153,7 @@ const measurePing = async (location) => {
     }
 
     updatePingsCache(location.id, { isMeasuring: true });
-    const { ping } = await getEndpointAndPing(location);
+    const { ping, endpoint } = await getEndpointAndPing(location);
 
     setLocationPing(location, ping);
     const available = !!ping;
@@ -142,6 +164,7 @@ const measurePing = async (location) => {
         {
             available,
             ping,
+            endpoint,
             isMeasuring: false,
             lastMeasurementTime: Date.now(),
         }
@@ -165,10 +188,11 @@ const measurePings = () => {
 const setLocations = (newLocations) => {
     // copy previous pings data
     locations = newLocations.map((location) => {
-        const pingCache = pingsCache[location];
+        const pingCache = pingsCache[location.id];
         if (pingCache) {
             setLocationPing(location, pingCache.ping);
             setLocationAvailableState(location, pingCache.available);
+            setLocationEndpoint(location, pingCache.endpoint);
         }
         return location;
     });
@@ -217,17 +241,19 @@ const getLocationsFromServer = async (vpnToken) => {
 
 /**
  * Returns available endpoint if found, or the first one
- * @param location
+ * @param {Location} location
+ * @param {boolean} forcePrevEndpoint
  * @returns {Promise<*>}
  */
-const getEndpoint = async (location) => {
+const getEndpoint = async (location, forcePrevEndpoint) => {
     if (!location) {
         return null;
     }
 
-    const { ping, endpoint } = await getEndpointAndPing(location);
+    const { ping, endpoint } = await getEndpointAndPing(location, forcePrevEndpoint);
 
     setLocationPing(location, ping);
+    setLocationEndpoint(location, endpoint);
     const available = !!ping;
     setLocationAvailableState(location, available);
 
@@ -236,6 +262,7 @@ const getEndpoint = async (location) => {
         {
             available,
             ping,
+            endpoint,
             lastMeasurementTime: Date.now(),
         }
     );
@@ -255,9 +282,10 @@ const getEndpoint = async (location) => {
 /**
  * Returns endpoint by location id
  * @param location
+ * @param {boolean} forcePrevEndpoint
  * @returns {Promise<*>}
  */
-const getEndpointByLocation = async (location) => {
+const getEndpointByLocation = async (location, forcePrevEndpoint) => {
     let targetLocation = location;
 
     // This could be empty on extension restart, but after we try to use the most fresh data
@@ -267,7 +295,7 @@ const getEndpointByLocation = async (location) => {
         });
     }
 
-    return getEndpoint(targetLocation);
+    return getEndpoint(targetLocation, forcePrevEndpoint);
 };
 
 /**

@@ -2,12 +2,12 @@ import throttle from 'lodash/throttle';
 import notifier from '../lib/notifier';
 import actions from './actions';
 import exclusions from './exclusions';
-import settings from './settings/settings';
 import tabs from './tabs';
 import { isHttp } from '../lib/string-utils';
 import auth from './auth';
 import permissionsError from './permissionsChecker/permissionsError';
 import { locationsService } from './endpoints/locationsService';
+import { isVPNConnected } from './connectivity/connectivityService/connectivityFSM';
 
 class BrowserActionIcon {
     isVpnEnabledForUrl = (id, url) => {
@@ -35,7 +35,7 @@ class BrowserActionIcon {
             return;
         }
 
-        if (!settings.isProxyEnabled()) {
+        if (!isVPNConnected()) {
             await actions.setIconDisabled(id);
             await actions.clearBadgeText(id);
             return;
@@ -72,8 +72,6 @@ class BrowserActionIcon {
             }
         }, throttleTimeoutMs, { leading: false });
 
-        notifier.addSpecifiedListener(notifier.types.PROXY_TURNED_OFF, throttledUpdateIcon);
-        notifier.addSpecifiedListener(notifier.types.PROXY_TURNED_ON, throttledUpdateIcon);
         notifier.addSpecifiedListener(notifier.types.TAB_ACTIVATED, throttledUpdateIcon);
         notifier.addSpecifiedListener(notifier.types.TAB_UPDATED, throttledUpdateIcon);
         notifier.addSpecifiedListener(
@@ -83,6 +81,10 @@ class BrowserActionIcon {
         notifier.addSpecifiedListener(
             notifier.types.UPDATE_BROWSER_ACTION_ICON,
             throttledUpdateIcon
+        );
+        notifier.addSpecifiedListener(
+            notifier.types.CONNECTIVITY_STATE_CHANGED,
+            () => throttledUpdateIcon()
         );
 
         // Run after init in order to update browser action icon state

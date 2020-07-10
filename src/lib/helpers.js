@@ -1,6 +1,5 @@
 import sortBy from 'lodash/sortBy';
 import getDistance from 'geolib/es/getDistance';
-import chunk from 'lodash/chunk';
 
 /**
  * Returns the value of the property from the cache,
@@ -129,7 +128,7 @@ export const formatBytes = (bytes) => {
 };
 
 /**
- * awaits given period of time
+ * Sleeps given period of time
  * @param wait
  * @returns {Promise<unknown>}
  */
@@ -137,6 +136,18 @@ export const sleep = (wait) => {
     return new Promise((resolve) => {
         setTimeout(resolve, wait);
     });
+};
+
+/**
+ * Sleeps necessary period of time if minimum duration didn't pass since entry time
+ * @param {number} entryTimeMs
+ * @param {number} minDurationMs
+ * @returns {Promise<void>}
+ */
+export const sleepIfNecessary = async (entryTimeMs, minDurationMs) => {
+    if (Date.now() - entryTimeMs < minDurationMs) {
+        await sleep(minDurationMs - (Date.now() - entryTimeMs));
+    }
 };
 
 /**
@@ -194,34 +205,4 @@ export const runWithCancel = (fn, ...args) => {
     });
 
     return { promise, cancel };
-};
-
-/**
- * Identity function, useful for filtering undefined values
- * @param i
- * @returns {*}
- */
-export const identity = (i) => i;
-
-/**
- * Handles data asynchronously by small chunks
- * @param {any[]} arr - array of data
- * @param {number} size - size of the chunk
- * @param {Function} handler - async function which handles data and returns promise
- * @returns {Promise<any[]>}
- */
-export const asyncMapByChunks = async (arr, handler, size) => {
-    const chunks = chunk(arr, size);
-
-    const result = [];
-
-    // eslint-disable-next-line no-restricted-syntax
-    for (const chunk of chunks) {
-        const promises = chunk.map(handler);
-        // eslint-disable-next-line no-await-in-loop
-        const data = await Promise.all(promises);
-        result.push(data);
-    }
-
-    return result.flat(1);
 };

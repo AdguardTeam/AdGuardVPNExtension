@@ -9,8 +9,11 @@ import CustomError from '../../../src/lib/CustomError';
 import { ERROR_STATUSES } from '../../../src/lib/constants';
 import { Location } from '../../../src/background/endpoints/Location';
 import { LocationWithPing } from '../../../src/background/endpoints/LocationWithPing';
+import { connectivityService } from '../../../src/background/connectivity/connectivityService/connectivityFSM';
+import { EVENT } from '../../../src/background/connectivity/connectivityService/connectivityConstants';
 
 jest.mock('../../../src/background/settings/settings');
+jest.mock('../../../src/background/connectivity/connectivityService/connectivityFSM');
 jest.mock('../../../src/lib/notifier');
 jest.mock('../../../src/background/notifications');
 jest.mock('../../../src/background/proxy');
@@ -283,18 +286,20 @@ describe('endpoints class', () => {
         jest.spyOn(credentials, 'gainValidVpnCredentials').mockResolvedValue('vpn_credentials');
 
         it('refreshes tokens and doesnt disable proxy', async () => {
-            await endpoints.handleRefreshTokenEvent();
+            await endpoints.refreshData();
             expect(credentials.gainValidVpnToken).toBeCalledTimes(2);
             expect(credentials.gainValidVpnCredentials).toBeCalledTimes(1);
             expect(settings.disableProxy).toBeCalledTimes(0);
+            expect(connectivityService.send).toBeCalledTimes(0);
         });
 
         it('refreshes tokens and disables proxy if necessary', async () => {
             jest.spyOn(credentials, 'gainValidVpnCredentials').mockRejectedValue(new CustomError(ERROR_STATUSES.LIMIT_EXCEEDED));
-            await endpoints.handleRefreshTokenEvent();
+            await endpoints.refreshData();
             expect(credentials.gainValidVpnToken).toBeCalledTimes(1);
             expect(credentials.gainValidVpnCredentials).toBeCalledTimes(1);
-            expect(settings.disableProxy).toBeCalledTimes(1);
+            expect(connectivityService.send)
+                .toBeCalledWith(EVENT.DISCONNECT_TRAFFIC_LIMIT_EXCEEDED);
             expect(notifier.notifyListeners).toBeCalledTimes(1);
             expect(notifications.create).toBeCalledTimes(1);
         });

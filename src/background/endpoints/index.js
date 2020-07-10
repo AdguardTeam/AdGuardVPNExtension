@@ -5,8 +5,8 @@ import { getClosestLocationToTarget } from '../../lib/helpers';
 import { ERROR_STATUSES } from '../../lib/constants';
 import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
 import notifier from '../../lib/notifier';
-import settings from '../settings/settings';
 import notifications from '../notifications';
+// eslint-disable-next-line import/no-cycle
 import connectivity from '../connectivity';
 import credentials from '../credentials';
 import proxy from '../proxy';
@@ -14,6 +14,9 @@ import vpnProvider from '../providers/vpnProvider';
 import userLocation from './userLocation';
 import { locationsService } from './locationsService';
 import { LocationWithPing } from './LocationWithPing';
+// eslint-disable-next-line import/no-cycle
+import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
+import { EVENT } from '../connectivity/connectivityService/connectivityConstants';
 
 /**
  * Endpoint information
@@ -37,7 +40,7 @@ class Endpoints {
     constructor() {
         notifier.addSpecifiedListener(
             notifier.types.SHOULD_REFRESH_TOKENS,
-            this.handleRefreshTokenEvent
+            this.refreshData
         );
     }
 
@@ -117,7 +120,7 @@ class Endpoints {
      * 4. Check if user didn't get over traffic limits
      * @returns {Promise<void>}
      */
-    handleRefreshTokenEvent = async () => {
+    refreshData = async () => {
         try {
             const { vpnToken } = await this.refreshTokens();
             const vpnInfo = await vpnProvider.getVpnExtensionInfo(vpnToken.token);
@@ -125,8 +128,8 @@ class Endpoints {
             this.vpnInfo = vpnInfo;
         } catch (e) {
             if (e.status === ERROR_STATUSES.LIMIT_EXCEEDED) {
-                // Disable proxy
-                await settings.disableProxy();
+                // Disable proxy, stop reconnections
+                connectivityService.send(EVENT.DISCONNECT_TRAFFIC_LIMIT_EXCEEDED);
                 // Notify icon to change
                 notifier.notifyListeners(notifier.types.UPDATE_BROWSER_ACTION_ICON);
                 // Send notification
