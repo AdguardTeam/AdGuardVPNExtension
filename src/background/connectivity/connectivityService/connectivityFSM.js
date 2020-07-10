@@ -41,12 +41,11 @@ const actions = {
      * and try find another one (backend probably has alternatives in this case).
      */
     retryConnection: async (context) => {
-        if (context.timeSinceRetriesStartedMs > RETRY_CONNECTION_TIME_MS
-            && !context.retriedConnectToOtherEndpoint) {
-            // retry to connect after tokens, VPN info, locations refresh
-            await switcher.retryTurnOn(true);
+        if (context.timeSinceLastRetryWithRefreshMs > RETRY_CONNECTION_TIME_MS) {
             // eslint-disable-next-line no-param-reassign
-            context.retriedConnectToOtherEndpoint = true;
+            context.timeSinceLastRetryWithRefreshMs = 0;
+            // retry to connect after tokens, VPN info and locations refresh
+            await switcher.retryTurnOn(true);
         } else {
             // Retries to connect to ws without cache refresh
             await switcher.retryTurnOn();
@@ -62,7 +61,7 @@ const resetOnSuccessfulConnection = assign({
     currentReconnectionDelayMs: MIN_RECONNECTION_DELAY_MS,
     retryCount: 0,
     retriedConnectToOtherEndpoint: false,
-    timeSinceRetriesStartedMs: 0,
+    timeSinceLastRetryWithRefreshMs: 0,
 });
 
 /**
@@ -72,8 +71,8 @@ const incrementRetryCount = assign({
     retryCount: (context) => {
         return context.retryCount + 1;
     },
-    timeSinceRetriesStartedMs: (context) => {
-        return context.timeSinceRetriesStartedMs + context.currentReconnectionDelayMs;
+    timeSinceLastRetryWithRefreshMs: (context) => {
+        return context.timeSinceLastRetryWithRefreshMs + context.currentReconnectionDelayMs;
     },
 });
 
@@ -108,9 +107,9 @@ const connectivityFSM = new Machine({
          */
         retryCount: 0,
         /**
-         * Time in ms since reconnections started
+         * Time in ms passed since last retry with tokens and locations list refresh
          */
-        timeSinceRetriesStartedMs: 0,
+        timeSinceLastRetryWithRefreshMs: 0,
         /**
          * Property used to keep growing delay between reconnections
          */
