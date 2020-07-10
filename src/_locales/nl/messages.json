@@ -31,5 +31,8 @@
     },
     "auth_sign_in_button": {
         "message": "Aanmelden"
+    },
+    "settings_run_upgrade_feature": {
+        "message": "Ongelimiteerde data, hoogste snelheid, 24/7 ondersteuning"
     }
 }

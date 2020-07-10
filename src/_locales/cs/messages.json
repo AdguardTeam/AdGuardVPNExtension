@@ -311,6 +311,9 @@
     "settings_disconnect": {
         "message": "Odpojit"
     },
+    "settings_button_connecting": {
+        "message": "Připojování"
+    },
     "settings_connect": {
         "message": "Připojit"
     },

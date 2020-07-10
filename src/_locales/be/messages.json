@@ -323,9 +323,6 @@
     "settings_connection_not_secured": {
         "message": "Злучэнне не абаронена"
     },
-    "settings_connecting": {
-        "message": "Злучэнне..."
-    },
     "settings_vpn_enabled": {
         "message": "VPN улучаны"
     },

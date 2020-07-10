@@ -1,4 +1,28 @@
 {
+    "name": {
+        "message": "AdGuard VPN — Privatsphäre & Sicherheit"
+    },
+    "description": {
+        "message": "Für ein offenes Internet und die Sicherheit Ihrer Daten. Erstklassiges VPN von den Entwicklern des berühmten Werbeblockers."
+    },
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
+    "registration_error_not_empty": {
+        "message": "Muss ausgefüllt werden"
+    },
+    "registration_error_not_valid": {
+        "message": "Dieser Wert ist ungültig"
+    },
+    "registration_error_min_length": {
+        "message": "Dieser Wert ist zu kurz. Er sollte 8 oder mehr Zeichen enthalten."
+    },
+    "settings_button_connecting": {
+        "message": "Verbindung wird hergestellt "
+    },
+    "settings_connecting": {
+        "message": "VPN stellt Verbindung her"
+    },
     "settings_run_upgrade_feature": {
         "message": "Unbegrenzte Datenmenge, höchste Geschwindigkeit, 24/7 Support"
     }
