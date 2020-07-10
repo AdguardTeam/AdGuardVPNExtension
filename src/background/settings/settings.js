@@ -3,10 +3,11 @@ import browserApi from '../browserApi';
 import log from '../../lib/logger';
 import notifier from '../../lib/notifier';
 import { SETTINGS_IDS } from '../../lib/constants';
-import switcher from '../switcher';
 import dns from '../dns/dns';
 import { DNS_DEFAULT } from '../dns/dnsConstants';
 import webrtc from '../browserApi/webrtc';
+import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
+import { EVENT } from '../connectivity/connectivityService/connectivityConstants';
 
 const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.PROXY_ENABLED]: false,
@@ -18,19 +19,6 @@ const DEFAULT_SETTINGS = {
 };
 
 const settingsService = new SettingsService(browserApi.storage, DEFAULT_SETTINGS);
-
-const proxySwitcherHandler = async (value) => {
-    try {
-        if (value) {
-            await switcher.turnOn(true);
-        } else {
-            await switcher.turnOff(true);
-        }
-    } catch (e) {
-        settingsService.setSetting(SETTINGS_IDS.PROXY_ENABLED, false);
-        throw (e);
-    }
-};
 
 /**
  * Returns proxy settings enabled status
@@ -69,41 +57,24 @@ const setSetting = async (id, value, force) => {
     return true;
 };
 
-/**
- * Returns true if proxy was disabled, otherwise returns false
- * @param force
- * @param withCancel
- * @returns {Promise<boolean>}
- */
-const disableProxy = async (force, withCancel) => {
+const disableProxy = async (force) => {
     const shouldApply = await setSetting(SETTINGS_IDS.PROXY_ENABLED, false, force);
 
     if (!shouldApply) {
-        return false;
+        return;
     }
 
-    try {
-        await switcher.turnOff(withCancel);
-        return true;
-    } catch (e) {
-        await setSetting(SETTINGS_IDS.PROXY_ENABLED, true, force);
-        return false;
-    }
+    connectivityService.send(EVENT.DISCONNECT_BTN_PRESSED);
 };
 
-const enableProxy = async (force, withCancel) => {
+const enableProxy = async (force) => {
     const shouldApply = await setSetting(SETTINGS_IDS.PROXY_ENABLED, true, force);
 
     if (!shouldApply) {
         return;
     }
 
-    try {
-        await switcher.turnOn(withCancel);
-    } catch (e) {
-        await setSetting(SETTINGS_IDS.PROXY_ENABLED, false, force);
-        throw e;
-    }
+    connectivityService.send(EVENT.CONNECT_BTN_PRESSED);
 };
 
 /**
@@ -118,17 +89,22 @@ const isSettingEnabled = (settingId) => {
 };
 
 const applySettings = async () => {
-    try {
-        const proxyEnabled = isProxyEnabled();
-        webrtc.setWebRTCHandlingAllowed(
-            isSettingEnabled(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED),
-            proxyEnabled
-        );
-        dns.setDnsServer(settingsService.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER));
-        await proxySwitcherHandler(proxyEnabled);
-    } catch (e) {
-        await disableProxy();
+    const proxyEnabled = isProxyEnabled();
+
+    // Set WebRTC
+    webrtc.setWebRTCHandlingAllowed(
+        isSettingEnabled(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED),
+        proxyEnabled
+    );
+
+    // Set DNS server
+    dns.setDnsServer(settingsService.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER));
+
+    // Connect proxy
+    if (proxyEnabled) {
+        connectivityService.send(EVENT.EXTENSION_LAUNCHED);
     }
+
     log.info('Settings were applied');
 };
 

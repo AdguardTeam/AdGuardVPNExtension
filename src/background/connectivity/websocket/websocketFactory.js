@@ -1,37 +1,35 @@
-import ReconnectingWebsocket from './ReconnectingWebsocket';
 import log from '../../../lib/logger';
 
 const websocketFactory = (() => {
-    let reconnectingWebsocket;
+    let ws;
 
     /**
      * Creates new websocket and closes the old one if found
      * @param {string} url
-     * @returns {ReconnectingWebsocket}
+     * @returns {WebSocket}
      */
-    const createReconnectingWebsocket = async (url) => {
+    const createWebsocket = (url) => {
         if (!url) {
             throw new Error('Url expected to be provided');
         }
+
         // Close previously opened websocket
-        if (reconnectingWebsocket) {
+        if (ws) {
             try {
-                await reconnectingWebsocket.close();
+                ws.close();
             } catch (e) {
                 log.debug(e);
             }
         }
 
-        // approximately 1 hour,
-        // after this number of retries websocket would stop trying to connect
-        // and disconnect user from proxy
-        const NUMBER_OF_RETRIES = 365;
-        reconnectingWebsocket = new ReconnectingWebsocket(url, { maxRetries: NUMBER_OF_RETRIES });
-        return reconnectingWebsocket;
+        ws = new WebSocket(url);
+        ws.binaryType = 'arraybuffer';
+
+        return ws;
     };
 
     return {
-        createReconnectingWebsocket,
+        createWebsocket,
     };
 })();
 

@@ -62,7 +62,7 @@ const createReactTranslator = (React) => {
      * and returns array of react components or string
      *
      * @param {string} key - message key
-     * @param {*} values - object of values used to replace defined nodes in parsed message
+     * @param {*} [values] - object of values used to replace defined nodes in parsed message
      * @returns {ReactNode[]|string}
      */
     const translateReact = (key, values) => {

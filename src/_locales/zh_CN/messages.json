@@ -1,1 +1,8 @@
-{}
+{
+    "settings_button_connecting": {
+        "message": "连接中"
+    },
+    "settings_connecting": {
+        "message": "VPN正在连接"
+    }
+}

@@ -18,7 +18,7 @@
         "message": "Слишком короткое значение. Введите не менее 8 символов."
     },
     "registration_error_compromised_password": {
-        "message": "Введенный пароль найден в <a>публичной базе</a> скомпрометированных паролей. Пожалуйста, введите другой пароль."
+        "message": "Пароль обнаружен в <a>базе</a> скомпрометированных паролей. Пожалуйста, введите другой пароль."
     },
     "registration_error_unique_constraint": {
         "message": "Это значение уже используется"
@@ -96,7 +96,7 @@
         "message": "Войти"
     },
     "auth_sign_up": {
-        "message": "Зарегистрироваться"
+        "message": "Регистрация"
     },
     "auth_sign_up_button": {
         "message": "Зарегистрироваться"
@@ -303,13 +303,16 @@
         "message": "Сервер не найден"
     },
     "popup_traffic_limit_reached": {
-        "message": "Ежемесячный лимит данных достигнут. Хотите больше?"
+        "message": "Ежемесячный лимит трафика достигнут. Хотите больше?"
     },
     "premium_upgrade": {
         "message": "Улучшить"
     },
     "settings_disconnect": {
         "message": "Отключить"
+    },
+    "settings_button_connecting": {
+        "message": "Соединение"
     },
     "settings_connect": {
         "message": "Подключиться"
@@ -324,7 +327,7 @@
         "message": "Соединение не защищено"
     },
     "settings_connecting": {
-        "message": "Соединение..."
+        "message": "VPN устанавливает соединение"
     },
     "settings_vpn_enabled": {
         "message": "VPN включен"
@@ -339,7 +342,10 @@
         "message": "Оставить отзыв"
     },
     "settings_run_out_data": {
-        "message": "У вас закончились данные"
+        "message": "У вас закончился трафик"
+    },
+    "settings_run_upgrade_feature": {
+        "message": "Неограниченный трафик, самая высокая скорость, поддержка 24/7"
     },
     "options_title": {
         "message": "Опции AdGuard VPN"

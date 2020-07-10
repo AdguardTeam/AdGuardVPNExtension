@@ -323,9 +323,6 @@
     "settings_connection_not_secured": {
         "message": "Veza nije sigurna"
     },
-    "settings_connecting": {
-        "message": "Povezivanje..."
-    },
     "settings_vpn_enabled": {
         "message": "VPN je omogućen"
     },
@@ -340,6 +337,9 @@
     },
     "settings_run_out_data": {
         "message": "Nemate više podatkovnog prometa"
+    },
+    "settings_run_upgrade_feature": {
+        "message": "Neograničeni podaci, najveća brzina, 24/7 podrška"
     },
     "options_title": {
         "message": "AdGuard VPN opcije"

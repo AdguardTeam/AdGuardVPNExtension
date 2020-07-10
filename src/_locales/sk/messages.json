@@ -311,6 +311,9 @@
     "settings_disconnect": {
         "message": "Odpojiť"
     },
+    "settings_button_connecting": {
+        "message": "Pripájanie"
+    },
     "settings_connect": {
         "message": "Pripojiť"
     },
@@ -322,9 +325,6 @@
     },
     "settings_connection_not_secured": {
         "message": "Pripojenie nie je zabezpečené"
-    },
-    "settings_connecting": {
-        "message": "Pripájanie..."
     },
     "settings_vpn_enabled": {
         "message": "VPN je zapnutá"

@@ -1,1 +1,8 @@
-{}
+{
+    "settings_button_connecting": {
+        "message": "接続中…"
+    },
+    "settings_connecting": {
+        "message": "VPNは接続中です"
+    }
+}

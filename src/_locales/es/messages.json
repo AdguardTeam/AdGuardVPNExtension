@@ -323,9 +323,6 @@
     "settings_connection_not_secured": {
         "message": "La conexión no está asegurada"
     },
-    "settings_connecting": {
-        "message": "Conectando..."
-    },
     "settings_vpn_enabled": {
         "message": "VPN habilitado"
     },

@@ -323,9 +323,6 @@
     "settings_connection_not_secured": {
         "message": "Povezava ni varna"
     },
-    "settings_connecting": {
-        "message": "Povezovanje..."
-    },
     "settings_vpn_enabled": {
         "message": "VPN je omogočen"
     },
@@ -349,5 +346,45 @@
     },
     "offline_title": {
         "message": "Brez povezave"
+    },
+    "popup_exclusions_enable_vpn_on_site": {
+        "message": "<span>Lahko</span> <a>omogočite VPN na tej spletni strani</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_exclusions_add_site_to_exclusions": {
+        "message": "<span>Lahko</span> <a>dodate spletno stran med izjeme</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_exclusions_disable_vpn_on_site": {
+        "message": "<span>Lahko</span> <a>onemogočite VPN na tej spletni strani</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_site_status_unaccessible": {
+        "message": "se nahaja v vašem lokalnem omrežju in je prek VPN nedosegljiv"
+    },
+    "popup_site_status_vpn_disabled": {
+        "message": "VPN je onemogočen na tej spletni strani"
+    },
+    "popup_site_status_added_to_exclusions": {
+        "message": "dodana med izjeme"
+    },
+    "popup_auth_agreement_consent": {
+        "message": "Z nadaljevanjem uporabe AdGuard VPN soglašate z našo <eula>Licenčno pogodba za končnega uporabnika</eula> in <privacy>Politiko zasebnosti</privacy>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "options_auth_agreement_consent": {
+        "message": "Z nadaljevanjem sprejemate <privacy>Pogoje in določila</privacy> in <eula>Licenčno pogodbo za končnega uporabnika</eula>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "popup_free_traffic_info": {
+        "message": "<span>%value% %unit%</span> preostalo za ta mesec",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_ping_value": {
+        "message": "Ping %pingValue% ms",
+        "description": "Respect spaces between text and placeholder"
+    },
+    "options_auth_back_button": {
+        "message": "Nazaj"
     }
 }

@@ -133,6 +133,7 @@ class AuthStore {
 
         if (response.status === 'ok') {
             await messenger.clearAuthCache();
+            await messenger.checkPermissions();
             await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
             runInAction(() => {
                 this.requestProcessState = REQUEST_STATUSES.DONE;

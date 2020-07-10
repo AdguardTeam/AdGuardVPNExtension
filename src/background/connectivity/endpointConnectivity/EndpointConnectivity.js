@@ -9,34 +9,31 @@ import credentials from '../../credentials';
 import log from '../../../lib/logger';
 import dns from '../../dns/dns';
 import { sendPingMessage } from '../pingHelpers';
+import webrtc from '../../browserApi/webrtc';
+import { EVENT, MIN_CONNECTION_DURATION_MS } from '../connectivityService/connectivityConstants';
+import { sleepIfNecessary } from '../../../lib/helpers';
+// eslint-disable-next-line import/no-cycle
+import { connectivityService } from '../connectivityService/connectivityFSM';
 
 class EndpointConnectivity {
     PING_SEND_INTERVAL_MS = 1000 * 60;
 
-    CONNECTIVITY_STATES = {
-        WORKING: 'working',
-        PAUSED: 'paused',
-    };
-
-    constructor() {
-        this.setState(this.CONNECTIVITY_STATES.PAUSED);
-        notifier.addSpecifiedListener(notifier.types.CREDENTIALS_UPDATED, this.updateCredentials);
-        notifier.addSpecifiedListener(notifier.types.DNS_SERVER_SET, this.sendDnsServerIp);
-    }
+    /**
+     * If WS didn't connect in this time, stop connection
+     * @type {number}
+     */
+    CONNECTION_TIMEOUT_MS = 4000;
 
     /**
-     * Sets connectivity state and notifies popup
-     * @param state
+     * Used to clear timeout function if WS connection succeeded
+     * or failed faster than connection timeout fired
+     * @type {null|number}
      */
-    setState = (state) => {
-        if (this.state === state) {
-            return;
-        }
-        this.state = state;
-    }
+    connectionTimeoutId = null;
 
-    isWorking = () => {
-        return this.state === this.CONNECTIVITY_STATES.WORKING;
+    constructor() {
+        notifier.addSpecifiedListener(notifier.types.CREDENTIALS_UPDATED, this.updateCredentials);
+        notifier.addSpecifiedListener(notifier.types.DNS_SERVER_SET, this.sendDnsServerIp);
     }
 
     updateCredentials = async () => {
@@ -66,78 +63,92 @@ class EndpointConnectivity {
         await this.setCredentials(domainName, vpnToken, credentialsHash);
     };
 
-    async setCredentials(domainName, vpnToken, credentialsHash, shouldStart) {
+    setCredentials(domainName, vpnToken, credentialsHash) {
         this.vpnToken = vpnToken;
         this.domainName = domainName;
         this.credentialsHash = credentialsHash;
 
         let restart = false;
 
-        if (this.state === this.CONNECTIVITY_STATES.WORKING) {
+        if (this.ws && (this.ws.readyState === this.ws.OPEN
+            || this.ws.readyState === this.ws.CONNECTING)) {
             restart = true;
-            await this.stop();
+            this.stop();
         }
 
-        const websocketUrl = renderTemplate(WS_API_URL_TEMPLATE, { host: `hello.${this.domainName}`, hash: credentialsHash });
-        try {
-            this.ws = await websocketFactory.createReconnectingWebsocket(websocketUrl);
-        } catch (e) {
-            this.setState(this.CONNECTIVITY_STATES.PAUSED);
-            throw new Error(`Failed to create new websocket because of: ${JSON.stringify(e.message)}`);
+        if (restart) {
+            this.start();
         }
-
-        if (restart || shouldStart) {
-            await this.start();
-        }
-    }
-
-    handleWebsocketClose = () => {
-        this.setState(this.CONNECTIVITY_STATES.PAUSED);
-        notifier.notifyListeners(notifier.types.WEBSOCKET_CLOSED);
-    }
-
-    lastErrorTime = Date.now();
-
-    errorsStarted = null;
-
-    triedReconnection = false;
-
-    handleWebsocketOpen = () => {
-        this.errorsStarted = null;
-        this.triedReconnection = false;
     }
 
     /**
-     * Handles errors which could occur when endpoints are removed
-     * https://jira.adguard.com/browse/AG-2952
+     * Handles WebSocket close events
+     * @param closeEvent
+     * @returns {Promise<void>}
      */
-    handleWebsocketError = () => {
-        // If errors happen too rare we do not consider them
-        const CONSIDERED_ERRORS_INTERVAL_MS = 20 * 1000;
+    handleWebsocketClose = async (closeEvent) => {
+        log.debug('WS closed:', closeEvent);
 
-        // After this period of time of errors we should try reconnect
-        const RECONNECTION_TIMEOUT = 70 * 1000;
-
-        const errorTime = Date.now();
-        // reset to the current time
-        if (!this.errorsStarted
-            || (errorTime - this.lastErrorTime) > CONSIDERED_ERRORS_INTERVAL_MS) {
-            this.errorsStarted = errorTime;
+        if (this.connectionTimeoutId) {
+            clearTimeout(this.connectionTimeoutId);
         }
 
-        this.lastErrorTime = errorTime;
+        // disconnect proxy and turn off webrtc
+        await proxy.turnOff();
+        webrtc.unblockWebRTC();
 
-        log.debug('Since ws errors sequence started passed: ', (errorTime - this.errorsStarted) / 1000, 'seconds');
+        await sleepIfNecessary(this.entryTime, MIN_CONNECTION_DURATION_MS);
+        connectivityService.send(EVENT.WS_CLOSE);
+    }
 
-        if (errorTime - this.errorsStarted > RECONNECTION_TIMEOUT
-            && this.ws.readyState !== this.ws.OPEN
-            && !this.triedReconnection
-        ) {
-            log.debug('Was unable to connect to websocket more than 70 seconds');
-            // This would refresh tokens and try to reconnect endpoint
-            notifier.notifyListeners(notifier.types.SHOULD_REFRESH_TOKENS);
-            this.triedReconnection = true;
+    handleWebsocketOpen = async () => {
+        if (this.connectionTimeoutId) {
+            clearTimeout(this.connectionTimeoutId);
         }
+
+        log.debug('WS connected to:', this.ws.url);
+        this.startGettingConnectivityInfo();
+
+        // when first ping received we can connect to proxy
+        const averagePing = await this.sendPingMessage();
+        if (!averagePing) {
+            log.error('Was unable to send ping message');
+            await sleepIfNecessary(this.entryTime, MIN_CONNECTION_DURATION_MS);
+            connectivityService.send(EVENT.CONNECTION_FAIL);
+            return;
+        }
+
+        this.sendDnsServerIp(dns.getDnsServerIp());
+        this.startSendingPingMessages();
+
+        try {
+            await proxy.turnOn();
+        } catch (e) {
+            // we can't connect to the proxy because other extensions are controlling it
+            // stop trying to connect
+            connectivityService.send(EVENT.PROXY_CONNECTION_ERROR);
+            return;
+        }
+        webrtc.blockWebRTC();
+        await sleepIfNecessary(this.entryTime, MIN_CONNECTION_DURATION_MS);
+        connectivityService.send(EVENT.CONNECTION_SUCCESS);
+    }
+
+    /**
+     * Handles WS errors
+     */
+    handleWebsocketError = async (errorEvent) => {
+        if (this.connectionTimeoutId) {
+            clearTimeout(this.connectionTimeoutId);
+        }
+
+        log.debug('WS threw an error: ', errorEvent);
+
+        // disconnect proxy and turn off webrtc
+        await proxy.turnOff();
+        webrtc.unblockWebRTC();
+        await sleepIfNecessary(this.entryTime, MIN_CONNECTION_DURATION_MS);
+        connectivityService.send(EVENT.WS_ERROR);
     }
 
     isWebsocketConnectionOpen = () => {
@@ -147,23 +158,28 @@ class EndpointConnectivity {
         return false;
     }
 
-    start = async () => {
-        if (this.state !== this.CONNECTIVITY_STATES.WORKING) {
-            await this.ws.open();
-            this.setState(this.CONNECTIVITY_STATES.WORKING);
+    start = (entryTime) => {
+        this.entryTime = entryTime;
+
+        if (this.connectionTimeoutId) {
+            clearTimeout(this.connectionTimeoutId);
         }
+
+        const websocketUrl = renderTemplate(WS_API_URL_TEMPLATE, {
+            host: `hello.${this.domainName}`,
+            hash: this.credentialsHash,
+        });
+
+        this.ws = websocketFactory.createWebsocket(websocketUrl);
+
         this.ws.addEventListener('close', this.handleWebsocketClose);
         this.ws.addEventListener('error', this.handleWebsocketError);
         this.ws.addEventListener('open', this.handleWebsocketOpen);
-        this.startSendingPingMessages();
-        this.startGettingConnectivityInfo();
-        this.sendDnsServerIp(dns.getDnsServerIp());
-        // when first ping received we can connect to proxy
-        const averagePing = await this.sendPingMessage();
-        if (!averagePing) {
-            throw new Error('Was unable to send ping message');
-        }
-        return averagePing;
+
+        this.connectionTimeoutId = setTimeout(() => {
+            log.debug(`WS did not connected in ${this.CONNECTION_TIMEOUT_MS}, closing it`);
+            this.ws.close();
+        }, this.CONNECTION_TIMEOUT_MS);
     };
 
     stop = async () => {
@@ -173,10 +189,14 @@ class EndpointConnectivity {
 
         if (this.ws) {
             this.ws.removeEventListener('close', this.handleWebsocketClose);
-            await this.ws.close();
+            this.ws.removeEventListener('error', this.handleWebsocketError);
+            this.ws.removeEventListener('open', this.handleWebsocketOpen);
+            this.ws.close();
         }
 
-        this.setState(this.CONNECTIVITY_STATES.PAUSED);
+        // disconnect proxy and turn off webrtc
+        await proxy.turnOff();
+        webrtc.unblockWebRTC();
     };
 
     decodeMessage = (arrBufMessage) => {
@@ -191,7 +211,12 @@ class EndpointConnectivity {
      */
     sendPingMessage = async () => {
         const appId = credentials.getAppId();
-        return sendPingMessage(this.ws, this.vpnToken, appId);
+        try {
+            return sendPingMessage(this.ws, this.vpnToken, appId);
+        } catch (e) {
+            log.debug(e);
+            return null;
+        }
     };
 
     startSendingPingMessages = () => {
@@ -214,9 +239,6 @@ class EndpointConnectivity {
     };
 
     sendDnsServerIp = (dnsIp) => {
-        if (this.state !== this.CONNECTIVITY_STATES.WORKING) {
-            return;
-        }
         const arrBufMessage = this.prepareDnsSettingsMessage(dnsIp);
         this.ws.send(arrBufMessage);
         log.debug(`DNS settings sent. DNS IP: ${dnsIp}`);
@@ -269,7 +291,7 @@ class EndpointConnectivity {
     };
 
     getStats = async () => {
-        if (this.state === this.CONNECTIVITY_STATES.PAUSED) {
+        if (this.ws && this.ws.readyState !== this.ws.OPEN) {
             return null;
         }
         const stats = await statsStorage.getStats(this.domainName);

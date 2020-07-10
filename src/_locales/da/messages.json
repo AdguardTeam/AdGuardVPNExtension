@@ -311,6 +311,9 @@
     "settings_disconnect": {
         "message": "Afbryd"
     },
+    "settings_button_connecting": {
+        "message": "Forbinder"
+    },
     "settings_connect": {
         "message": "Forbind"
     },
@@ -324,7 +327,7 @@
         "message": "Forbindelsen er ikke sikret"
     },
     "settings_connecting": {
-        "message": "Forbinder..."
+        "message": "VPN opretter forbindelse"
     },
     "settings_vpn_enabled": {
         "message": "VPN er aktiveret"

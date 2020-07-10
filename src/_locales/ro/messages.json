@@ -311,6 +311,9 @@
     "settings_disconnect": {
         "message": "Deconectare"
     },
+    "settings_button_connecting": {
+        "message": "Conexiune"
+    },
     "settings_connect": {
         "message": "Conectare"
     },
@@ -324,7 +327,7 @@
         "message": "Conexiunea nu este sigură"
     },
     "settings_connecting": {
-        "message": "Se conectează..."
+        "message": "VPN se conectează"
     },
     "settings_vpn_enabled": {
         "message": "VPN activat"

@@ -10,5 +10,6 @@ export class Location {
         this.coordinates = locationData.coordinates;
         this.available = true;
         this.ping = null;
+        this.endpoint = null;
     }
 }

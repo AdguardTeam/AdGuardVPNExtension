@@ -323,9 +323,6 @@
     "settings_connection_not_secured": {
         "message": "Veza nije bezbedna"
     },
-    "settings_connecting": {
-        "message": "Povezivanje..."
-    },
     "settings_vpn_enabled": {
         "message": "VPn je uključen"
     },

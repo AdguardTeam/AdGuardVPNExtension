@@ -69,7 +69,7 @@ class ExtensionProxy {
             await proxyApi.proxyClear();
             this.isActive = false;
         } catch (e) {
-            throw new Error(`Failed to turn off proxy due to error: ${e.message}`);
+            log.error(`Failed to turn off proxy due to error: ${e.message}`);
         }
 
         log.info('Proxy turned off');
