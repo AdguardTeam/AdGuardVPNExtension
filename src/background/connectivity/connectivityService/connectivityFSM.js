@@ -132,6 +132,9 @@ const connectivityFSM = new Machine({
             on: {
                 [EVENT.CONNECT_BTN_PRESSED]: STATE.CONNECTING_RETRYING,
                 [EVENT.NETWORK_ONLINE]: STATE.CONNECTING_RETRYING,
+                // this event can occur when user signs out,
+                // so we have to stop trying to connect to WS
+                [EVENT.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTED_IDLE,
             },
             after: {
                 RETRY_DELAY: STATE.CONNECTING_RETRYING,
