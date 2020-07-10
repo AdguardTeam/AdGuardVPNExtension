@@ -25,7 +25,7 @@ const Upgrade = observer(() => {
             </div>
             <div className="global-error__actions">
                 <a
-                    className="button button--medium button--green-gradient global-error__button"
+                    className="button button--medium button--green global-error__button"
                     onClick={upgradeClickHandler}
                 >
                     {reactTranslator.translate('premium_upgrade')}
