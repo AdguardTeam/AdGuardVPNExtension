@@ -98,8 +98,14 @@
     "auth_sign_up": {
         "message": "Înscriere"
     },
+    "auth_sign_up_button": {
+        "message": "Înscrieți-vă"
+    },
     "auth_sign_in": {
         "message": "Conectare"
+    },
+    "auth_sign_in_button": {
+        "message": "Conectați-vă"
     },
     "auth_sign_in_link": {
         "message": "Conectați-vă cu contul AdGuard"
@@ -120,7 +126,7 @@
         "message": "V-ați înscris ca"
     },
     "auth_header_2fa": {
-        "message": "Intrați codul de autentificare"
+        "message": "Introduceți codul de autentificare"
     },
     "auth_placeholder_2fa": {
         "message": "Cod de autentificare"
@@ -285,13 +291,13 @@
         "message": "Cel mai rapid"
     },
     "endpoints_all": {
-        "message": "Orice endpoint conectat"
+        "message": "Toate locațiile"
     },
     "endpoints_search_results": {
         "message": "Rezultatul căutării"
     },
     "endpoints_search": {
-        "message": "Locația de căutare"
+        "message": "Căutare locație"
     },
     "endpoints_not_found": {
         "message": "Serverul nu a fost găsit"
@@ -334,6 +340,9 @@
     },
     "settings_run_out_data": {
         "message": "Limită de data depășită"
+    },
+    "settings_run_upgrade_feature": {
+        "message": "Date nelimitate, viteză cea mai mare, suport 24/7"
     },
     "options_title": {
         "message": "Opțiuni AdGuard VPN"

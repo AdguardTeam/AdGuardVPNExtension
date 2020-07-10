@@ -1,1 +1,11 @@
-{}
+{
+    "auth_sign_up_button": {
+        "message": "註冊"
+    },
+    "auth_sign_in_button": {
+        "message": "登入"
+    },
+    "settings_dns_selector_quad9_desc": {
+        "message": "有免於網路釣魚和間諜軟體的防護之免費替代的 DNS 服務"
+    }
+}

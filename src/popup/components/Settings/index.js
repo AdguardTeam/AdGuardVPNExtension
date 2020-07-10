@@ -44,12 +44,14 @@ const Settings = observer(() => {
 
     const {
         premiumPromoEnabled,
+        isPremiumToken,
     } = vpnStore;
 
     const settingsClass = classnames(
         'settings',
         { 'settings--active': proxyEnabled },
         { 'settings--premium-promo': premiumPromoEnabled },
+        { 'settings--trial': !isPremiumToken },
         { 'settings--feedback': !premiumPromoEnabled }
     );
 

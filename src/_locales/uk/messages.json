@@ -1,1 +1,8 @@
-{}
+{
+    "auth_sign_up_button": {
+        "message": "Зареєструватися"
+    },
+    "auth_sign_in_button": {
+        "message": "Увійти"
+    }
+}

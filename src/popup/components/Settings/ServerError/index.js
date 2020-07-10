@@ -12,7 +12,7 @@ const ServerError = ({ handleClick }) => {
             </div>
             <button
                 type="button"
-                className="button button--medium button--green-gradient"
+                className="button button--medium button--green"
                 onClick={handleClick}
             >
                 {reactTranslator.translate('settings_choose_another')}

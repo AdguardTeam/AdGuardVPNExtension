@@ -98,7 +98,13 @@
     "auth_sign_up": {
         "message": "Tilmeld"
     },
+    "auth_sign_up_button": {
+        "message": "Tilmeld"
+    },
     "auth_sign_in": {
+        "message": "Log ind"
+    },
+    "auth_sign_in_button": {
         "message": "Log ind"
     },
     "auth_sign_in_link": {
@@ -334,6 +340,9 @@
     },
     "settings_run_out_data": {
         "message": "Du er løbet tør for data"
+    },
+    "settings_run_upgrade_feature": {
+        "message": "Ubegrænset data, hurtigste hastighed, 24/7 support"
     },
     "options_title": {
         "message": "AdGuard VPN Indstillinger"

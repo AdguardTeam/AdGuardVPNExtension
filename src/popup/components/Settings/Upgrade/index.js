@@ -31,6 +31,9 @@ const Upgrade = observer(() => {
                     {reactTranslator.translate('premium_upgrade')}
                 </a>
             </div>
+            <div className="global-error__info">
+                {reactTranslator.translate('settings_run_upgrade_feature')}
+            </div>
         </div>
     );
 });
