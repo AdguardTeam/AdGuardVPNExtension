@@ -239,6 +239,9 @@ class EndpointConnectivity {
     };
 
     sendDnsServerIp = (dnsIp) => {
+        if (!this.ws) {
+            return;
+        }
         const arrBufMessage = this.prepareDnsSettingsMessage(dnsIp);
         this.ws.send(arrBufMessage);
         log.debug(`DNS settings sent. DNS IP: ${dnsIp}`);
