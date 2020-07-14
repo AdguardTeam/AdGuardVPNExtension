@@ -1,4 +1,6 @@
 import qs from 'qs';
+import browser from 'webextension-polyfill';
+
 import Api from './Api';
 import { VPN_API_URL } from '../config';
 
@@ -8,9 +10,13 @@ class VpnApi extends Api {
 
     getLocations = (vpnToken) => {
         const { path, method } = this.GET_LOCATIONS;
+        const language = browser.i18n.getUILanguage();
+
         const params = {
             token: vpnToken,
+            language,
         };
+
         return this.makeRequest(path, method, { params });
     };
 
