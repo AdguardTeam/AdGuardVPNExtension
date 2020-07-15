@@ -43,6 +43,7 @@ class globalStore {
 
             if (!isAuthenticated) {
                 authStore.setIsAuthenticated(isAuthenticated);
+                await authStore.getAuthCacheFromBackground();
                 this.setInitStatus(REQUEST_STATUSES.DONE);
                 return;
             }
