@@ -47,10 +47,16 @@ const RegistrationForm = observer(() => {
         >
             <div className="form__inputs">
                 <div className="form__info">
-                    {reactTranslator.translate('auth_header_registration')}
-                    <div className="form__credentials">
-                        {authStore.credentials.username}
-                    </div>
+                    {reactTranslator.translate('auth_header_registration', {
+                        username: authStore.credentials.username,
+                        div: (chunks) => (
+                            // make sure that css styles won't be broken
+                            // if div is placed in the translation beginning
+                            <div className="form__credentials">
+                                {chunks}
+                            </div>
+                        ),
+                    })}
                 </div>
                 <PasswordField
                     placeholder={reactTranslator.translate('auth_password')}

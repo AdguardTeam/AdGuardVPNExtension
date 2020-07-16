@@ -117,13 +117,13 @@
         "message": "Register"
     },
     "auth_header_sign_in": {
-        "message": "You are signing in as"
+        "message": "You are signing in as <div>%username%</div> "
     },
     "auth_header_sing_in_notice": {
         "message": "You already have an account"
     },
     "auth_header_registration": {
-        "message": "You are signing up as"
+        "message": "You are signing up as <div>%username%</div>"
     },
     "auth_header_2fa": {
         "message": "Enter the authentication code"
