@@ -53,6 +53,12 @@ const InfoMessage = observer(() => {
 
     return (
         <div className={infoMessagesClass}>
+            <div className="info-message__progress">
+                <div
+                    className={`info-message__progress-in ${getInfoColor()}`}
+                    style={{ width: `${trafficUsingProgress}%` }}
+                />
+            </div>
             <div className="info-message__text-wr">
                 <div className="info-message__text">
                     {
@@ -65,20 +71,14 @@ const InfoMessage = observer(() => {
                             })
                     }
                 </div>
-                <div className="info-message__progress">
-                    <div
-                        className={`info-message__progress-in ${getInfoColor()}`}
-                        style={{ width: `${trafficUsingProgress}%` }}
-                    />
-                </div>
+                <a
+                    type="button"
+                    className="button button--medium button--red info-message__btn"
+                    onClick={upgradeClickHandler}
+                >
+                    {reactTranslator.translate('premium_upgrade')}
+                </a>
             </div>
-            <a
-                type="button"
-                className="button button--medium button--red info-message__btn"
-                onClick={upgradeClickHandler}
-            >
-                {reactTranslator.translate('premium_upgrade')}
-            </a>
         </div>
     );
 });
