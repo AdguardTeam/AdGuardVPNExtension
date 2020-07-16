@@ -127,6 +127,15 @@
     &__scroll {
         max-height: 465px;
         overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 0px;
+            background-color: var(--gray88);
+        }
     }
 
     &__list {
