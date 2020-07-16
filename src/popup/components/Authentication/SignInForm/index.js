@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
@@ -12,12 +12,6 @@ import { reactTranslator } from '../../../../reactCommon/reactTranslator';
 
 const SignInForm = observer(() => {
     const { authStore } = useContext(rootStore);
-
-    useEffect(() => {
-        (async () => {
-            await authStore.getAuthCacheFromBackground();
-        })();
-    }, []);
 
     const submitHandler = async (e) => {
         e.preventDefault();

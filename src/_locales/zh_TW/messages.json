@@ -7,5 +7,11 @@
     },
     "settings_dns_selector_quad9_desc": {
         "message": "有免於網路釣魚和間諜軟體的防護之免費替代的 DNS 服務"
+    },
+    "settings_button_connecting": {
+        "message": "正在連線"
+    },
+    "settings_connecting": {
+        "message": "VPN 正在連線"
     }
 }

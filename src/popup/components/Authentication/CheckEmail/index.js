@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import ReactHtmlParser from 'react-html-parser';
 import classnames from 'classnames';
@@ -12,12 +12,6 @@ import { reactTranslator } from '../../../../reactCommon/reactTranslator';
 
 const CheckEmail = observer(() => {
     const { authStore } = useContext(rootStore);
-
-    useEffect(() => {
-        (async () => {
-            await authStore.getAuthCacheFromBackground();
-        })();
-    }, []);
 
     const submitHandler = async (e) => {
         e.preventDefault();

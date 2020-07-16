@@ -327,7 +327,7 @@
         "message": "Соединение не защищено"
     },
     "settings_connecting": {
-        "message": "VPN устанавливает соединение"
+        "message": "VPN подключается"
     },
     "settings_vpn_enabled": {
         "message": "VPN включен"
