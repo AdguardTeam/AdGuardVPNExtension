@@ -79,6 +79,8 @@ const ExtraOptions = observer(() => {
         );
     };
 
+    const rated = true;
+
     return (
         <Modal
             isOpen={uiStore.isOpenOptionsModal}
@@ -100,16 +102,17 @@ const ExtraOptions = observer(() => {
                 handler={signOut}
                 text={reactTranslator.translate('popup_settings_sign_out')}
             />
-            {/* TODO: set real value in state */}
-            { false ? <Option
+            { rated ? (
+                <Option
                     handler={handleFeedback}
                     text={reactTranslator.translate('popup_settings_feedback')}
-                /> 
-                : <Rate
-                    title={reactTranslator.translate('settings_rate_us')} 
+                />
+            ) : (
+                <Rate
+                    title={reactTranslator.translate('settings_rate_us')}
                     sidebar={false}
                 />
-            }
+            )}
         </Modal>
     );
 });

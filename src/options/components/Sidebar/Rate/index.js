@@ -32,7 +32,7 @@ const Rate = observer(({ title, sidebar }) => {
 
     const rateClassNames = classnames(
         'rate',
-        { 'rate--extra-option': !sidebar}
+        { 'rate--extra-option': !sidebar }
     );
 
     return (
