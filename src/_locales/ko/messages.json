@@ -117,13 +117,13 @@
         "message": "가입"
     },
     "auth_header_sign_in": {
-        "message": "으로 로그인 중"
+        "message": "<div>%username%</div>으로 로그인 중"
     },
     "auth_header_sing_in_notice": {
         "message": "이미 계정이 있습니다"
     },
     "auth_header_registration": {
-        "message": "이미 다음의 계정으로 로그인 중"
+        "message": "<div>%username%</div>으로 가입 중"
     },
     "auth_header_2fa": {
         "message": "인증 코드를 입력해주세요"
@@ -147,7 +147,7 @@
         "message": "WebRTC는 대부분의 브라우저에서 제3자 웹사이트가 실제 IP 주소를 감지하고 식별하는 데에 사용될 수 있는 특수한 프로그램입니다"
     },
     "settings_context_menus_title": {
-        "message": "브라우저 컨텍스트 메뉴에 AdGuard VPN 항목 추가"
+        "message": "브라우저 콘텍스트 메뉴에 AdGuard VPN 항목 추가"
     },
     "context_menu_selective_mode": {
         "message": "선별적 모드"
@@ -344,6 +344,9 @@
     "settings_run_out_data": {
         "message": "데이터를 전부 사용하셨습니다"
     },
+    "settings_run_upgrade_feature": {
+        "message": "무제한 데이터, 가장 빠른 속도, 연중무휴 지원"
+    },
     "options_title": {
         "message": "AdGuard VPN 옵션"
     },
@@ -363,13 +366,13 @@
         "description": "NOTICE! there is space between tags"
     },
     "popup_site_status_unaccessible": {
-        "message": "은 로컬 네트워크에 위치해있어 VPN으로 접근할 수 없습니다"
+        "message": "해당 주소는 로컬 네트워크에 위치해있어 VPN으로 접근할 수 없습니다"
     },
     "popup_site_status_vpn_disabled": {
         "message": "이 웹사이트에서 VPN이 비활성화됨"
     },
     "popup_site_status_added_to_exclusions": {
-        "message": "은 예외에 추가되어 있습니다."
+        "message": "해당 주소가 예외에 추가되어 있습니다"
     },
     "popup_auth_agreement_consent": {
         "message": "AdGuard VPN을 계속 사용함으로써, 당사의 <eula>EULA</eula> 및 <privacy>개인정보처리방침</privacy>에 동의하게 됩니다.",

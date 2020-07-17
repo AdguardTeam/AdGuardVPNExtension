@@ -117,13 +117,13 @@
         "message": "Registriraj"
     },
     "auth_header_sign_in": {
-        "message": "Prijavljate se kot"
+        "message": "Prijavljate se kot <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
         "message": "Račun že imate"
     },
     "auth_header_registration": {
-        "message": "Prijavljate se kot"
+        "message": "Prijavljate se kot <div>%username%</div>"
     },
     "auth_header_2fa": {
         "message": "Vnesite kodo za preverjanje pristnosti"
@@ -311,6 +311,9 @@
     "settings_disconnect": {
         "message": "Prekini povezavo"
     },
+    "settings_button_connecting": {
+        "message": "Povezovanje"
+    },
     "settings_connect": {
         "message": "Poveži"
     },
@@ -322,6 +325,9 @@
     },
     "settings_connection_not_secured": {
         "message": "Povezava ni varna"
+    },
+    "settings_connecting": {
+        "message": "VPN se povezuje"
     },
     "settings_vpn_enabled": {
         "message": "VPN je omogočen"
