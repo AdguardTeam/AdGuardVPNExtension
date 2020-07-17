@@ -1,1 +1,273 @@
-{}
+{
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
+    "registration_error_not_empty": {
+        "message": "Kan ikke være tom"
+    },
+    "registration_error_not_valid": {
+        "message": "Denne verdien er ugyldig"
+    },
+    "registration_error_unique_constraint": {
+        "message": "Denne verdien er allerede brukt"
+    },
+    "registration_error_front_unique_validation": {
+        "message": "Passordet og «Bekreft passord» samsvarer ikke"
+    },
+    "registration_error_default": {
+        "message": "En feil oppstod, prøv igjen senere"
+    },
+    "authentication_error_2fa_required": {
+        "message": "2-trinnspålogging er påkrevd"
+    },
+    "authentication_error_2fa_invalid": {
+        "message": "Ugyldig sjetong"
+    },
+    "authentication_error_account_disabled": {
+        "message": "Kontoen er deaktivert"
+    },
+    "authentication_error_account_locked": {
+        "message": "Kontoen er låst i 15 minutter"
+    },
+    "authentication_error_bad_credentials": {
+        "message": "Beklager, passordet ble ikke gjenkjent"
+    },
+    "authentication_error_default": {
+        "message": "En feil oppstod, prøv igjen senere"
+    },
+    "about_title": {
+        "message": "Om"
+    },
+    "account_title": {
+        "message": "Konto"
+    },
+    "account_edit": {
+        "message": "Redigér"
+    },
+    "account_sign_out": {
+        "message": "Logg av"
+    },
+    "rate_hide": {
+        "message": "Skjul"
+    },
+    "auth_title": {
+        "message": "Sett i gang helt gratis!"
+    },
+    "auth_code": {
+        "message": "Kode fra autentiseringsapp"
+    },
+    "auth_confirm": {
+        "message": "Bekreft"
+    },
+    "auth_email": {
+        "message": "E-postadresse"
+    },
+    "auth_password": {
+        "message": "Passord"
+    },
+    "auth_password_repeat": {
+        "message": "Passordbekreftelse"
+    },
+    "auth_recover": {
+        "message": "Glemt passordet?"
+    },
+    "auth_login": {
+        "message": "Logg på"
+    },
+    "auth_sign_up": {
+        "message": "Bli med"
+    },
+    "auth_sign_up_button": {
+        "message": "Bli med"
+    },
+    "auth_sign_in": {
+        "message": "Logg på"
+    },
+    "auth_sign_in_button": {
+        "message": "Logg på"
+    },
+    "auth_account": {
+        "message": "Har du ikke en konto?"
+    },
+    "auth_register": {
+        "message": "Registrer"
+    },
+    "auth_header_sing_in_notice": {
+        "message": "Du har allerede en konto"
+    },
+    "auth_header_2fa": {
+        "message": "Skriv inn autentiseringskoden"
+    },
+    "auth_placeholder_2fa": {
+        "message": "Autentiseringskode"
+    },
+    "eula": {
+        "message": "EULA"
+    },
+    "privacy_policy": {
+        "message": "Personvern"
+    },
+    "settings_title": {
+        "message": "Innstillinger"
+    },
+    "settings_webrtc_label": {
+        "message": "Blokker WebRTC"
+    },
+    "context_menu_selective_mode": {
+        "message": "Selektiv modus"
+    },
+    "context_menu_regular_mode": {
+        "message": "Vanlig modus"
+    },
+    "settings_dns_label": {
+        "message": "Bruk DNS-tjener"
+    },
+    "settings_dns_selector_default_title": {
+        "message": "Standardmodus"
+    },
+    "settings_dns_selector_adguard_title": {
+        "message": "AdGuard DNS"
+    },
+    "settings_dns_selector_adguard_family_desc": {
+        "message": "AdGuard DNS + «Safe Search» og blokkering av voksent innhold"
+    },
+    "settings_dns_selector_google_title": {
+        "message": "Google DNS"
+    },
+    "settings_dns_selector_google_desc": {
+        "message": "Gratis alternativ DNS-tjeneste fra Google"
+    },
+    "settings_dns_selector_cloudflare_title": {
+        "message": "Cloudflare DNS"
+    },
+    "settings_dns_selector_cloudflare_desc": {
+        "message": "Gratis DNS-tjeneste fra Cloudflare"
+    },
+    "settings_dns_selector_cisco_title": {
+        "message": "Cisco OpenDNS"
+    },
+    "settings_dns_selector_quad9_title": {
+        "message": "Quad9"
+    },
+    "settings_dns_selector_quad9_desc": {
+        "message": "Gratis alternativ DNS-tjeneste med beskyttelse mot phishing og spionvare"
+    },
+    "settings_exclusion_add": {
+        "message": "Legg til et nettsted"
+    },
+    "settings_exclusion_title": {
+        "message": "Unntak"
+    },
+    "settings_connection_mode_title": {
+        "message": "VPN-tilkoblingsmodus"
+    },
+    "settings_exclusion_regular_title": {
+        "message": "Vanlig modus"
+    },
+    "settings_exclusion_selective_title": {
+        "message": "Selektiv modus"
+    },
+    "settings_exclusion_subdomains_title": {
+        "message": "Underdomener"
+    },
+    "global_error_title": {
+        "message": "En feil oppstod"
+    },
+    "global_error_learn_more": {
+        "message": "Lær mer"
+    },
+    "global_error_try_again": {
+        "message": "Prøv på nytt"
+    },
+    "control_error_disable": {
+        "message": "Skru den av"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Skru på VPN på dette nettstedet"
+    },
+    "popup_settings_disable_vpn": {
+        "message": "Skru av VPN på dette nettstedet"
+    },
+    "popup_settings_other_products": {
+        "message": "Andre produkter"
+    },
+    "popup_settings_feedback": {
+        "message": "Tilbakemelding"
+    },
+    "popup_settings_open_settings": {
+        "message": "Innstillinger"
+    },
+    "popup_settings_sign_out": {
+        "message": "Logg av"
+    },
+    "context_menu_enable_vpn": {
+        "message": "Skru på VPN på dette nettstedet"
+    },
+    "context_menu_disable_vpn": {
+        "message": "Skru av VPN på dette nettstedet"
+    },
+    "suggest_feature": {
+        "message": "Foreslå en funksjon"
+    },
+    "endpoints_countries": {
+        "message": "Steder"
+    },
+    "endpoints_fastest": {
+        "message": "Raskest"
+    },
+    "endpoints_search_results": {
+        "message": "Søkeresultat"
+    },
+    "endpoints_not_found": {
+        "message": "Tjeneren ble ikke funnet"
+    },
+    "premium_upgrade": {
+        "message": "Oppgrader"
+    },
+    "settings_disconnect": {
+        "message": "Koble fra"
+    },
+    "settings_button_connecting": {
+        "message": "Kobler til"
+    },
+    "settings_connect": {
+        "message": "Koble til"
+    },
+    "settings_not_responding": {
+        "message": "Tjeneren svarer ikke"
+    },
+    "settings_choose_another": {
+        "message": "Velg en annen"
+    },
+    "settings_connection_not_secured": {
+        "message": "Tilkoblingen er ikke sikret"
+    },
+    "settings_connecting": {
+        "message": "Kobler til …"
+    },
+    "settings_vpn_enabled": {
+        "message": "VPN er skrudd på"
+    },
+    "settings_vpn_disabled": {
+        "message": "VPN er skrudd av"
+    },
+    "popup_feedback_title": {
+        "message": "Vi ville likt å høre tilbakemeldingene dine"
+    },
+    "popup_feedback_button": {
+        "message": "Gi tilbakemelding"
+    },
+    "settings_run_out_data": {
+        "message": "Du har gått tom for mobildata"
+    },
+    "offline_title": {
+        "message": "Frakoblet"
+    },
+    "popup_ping_value": {
+        "message": "Ping %pingValue%ms",
+        "description": "Respect spaces between text and placeholder"
+    },
+    "options_auth_back_button": {
+        "message": "Tilbake"
+    }
+}

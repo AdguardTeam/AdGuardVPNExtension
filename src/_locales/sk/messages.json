@@ -117,13 +117,13 @@
         "message": "Registrácia"
     },
     "auth_header_sign_in": {
-        "message": "Prihlasujete sa ako"
+        "message": "Prihlasujete sa ako <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
         "message": "Už máte účet"
     },
     "auth_header_registration": {
-        "message": "Registrujete sa ako"
+        "message": "Registrujete sa ako <div>%username%</div>"
     },
     "auth_header_2fa": {
         "message": "Zadajte Váš autentifikačný kód"

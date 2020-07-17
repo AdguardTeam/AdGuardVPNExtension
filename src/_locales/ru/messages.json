@@ -117,13 +117,13 @@
         "message": "Зарегистрироваться"
     },
     "auth_header_sign_in": {
-        "message": "Вы входите в систему как"
+        "message": "Вы авторизуетесь как <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
         "message": "У вас уже есть аккаунт"
     },
     "auth_header_registration": {
-        "message": "Вы регистрируетесь как"
+        "message": "Вы регистрируетесь как <div>%username%</div>"
     },
     "auth_header_2fa": {
         "message": "Введите код аутентификации"

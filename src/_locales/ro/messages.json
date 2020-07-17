@@ -117,13 +117,13 @@
         "message": "Înscrieți-vă"
     },
     "auth_header_sign_in": {
-        "message": "V-ați conectat ca"
+        "message": "V-ați conectat ca <div>%username%</div> "
     },
     "auth_header_sing_in_notice": {
         "message": "Aveți deja un cont"
     },
     "auth_header_registration": {
-        "message": "V-ați înscris ca"
+        "message": "V-ați înscris ca <div>%username%</div>"
     },
     "auth_header_2fa": {
         "message": "Introduceți codul de autentificare"
@@ -312,7 +312,7 @@
         "message": "Deconectare"
     },
     "settings_button_connecting": {
-        "message": "Conexiune"
+        "message": "Se conectează"
     },
     "settings_connect": {
         "message": "Conectare"

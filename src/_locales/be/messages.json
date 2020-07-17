@@ -117,13 +117,13 @@
         "message": "Зарэгістравацца"
     },
     "auth_header_sign_in": {
-        "message": "Вы ўваходзіце як"
+        "message": "Вы ўваходзіце як <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
         "message": "У вас ужо ёсць уліковы запіс"
     },
     "auth_header_registration": {
-        "message": "Вы рэгіструецеся як"
+        "message": "Вы рэгіструецеся як <div>%username%</div>"
     },
     "auth_header_2fa": {
         "message": "Увядзіце код аўтэнтыфікацыі"
@@ -311,6 +311,9 @@
     "settings_disconnect": {
         "message": "Адключыць"
     },
+    "settings_button_connecting": {
+        "message": "Злучэнне"
+    },
     "settings_connect": {
         "message": "Злучыць"
     },
@@ -322,6 +325,9 @@
     },
     "settings_connection_not_secured": {
         "message": "Злучэнне не абаронена"
+    },
+    "settings_connecting": {
+        "message": "Злучэнне..."
     },
     "settings_vpn_enabled": {
         "message": "VPN улучаны"
