@@ -24,7 +24,7 @@ const Sidebar = () => {
                 </NavLink>
             </nav>
             <div className="sidebar__rate">
-                <Rate />
+                <Rate title = {reactTranslator.translate('rate_description')} sidebar={true}/>
             </div>
         </div>
     );

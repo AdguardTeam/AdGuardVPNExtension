@@ -1,5 +1,6 @@
 import React, { Fragment, useContext } from 'react';
 import { observer } from 'mobx-react';
+import classnames from 'classnames';
 
 import { STORE_URL, FEEDBACK_URL } from '../../../../background/config';
 import rootStore from '../../../stores';
@@ -8,7 +9,7 @@ import { reactTranslator } from '../../../../reactCommon/reactTranslator';
 
 const RATING_STARS = [5, 4, 3, 2, 1];
 
-const Rate = observer(() => {
+const Rate = observer(({ title, sidebar }) => {
     const { settingsStore } = useContext(rootStore);
     const {
         hideRate,
@@ -29,12 +30,17 @@ const Rate = observer(() => {
         }
     };
 
+    const rateClassNames = classnames(
+        'rate',
+        { 'rate--extra-option': !sidebar}
+    );
+
     return (
         <>
             {isRateVisible ? (
-                <div className="rate">
+                <div className={rateClassNames}>
                     <div className="rate__text">
-                        {reactTranslator.translate('rate_description')}
+                        { title }
                     </div>
                     <div className="rate__stars">
                         {RATING_STARS.map((star) => (
@@ -54,13 +60,15 @@ const Rate = observer(() => {
                             </Fragment>
                         ))}
                     </div>
-                    <button
-                        type="button"
-                        className="rate__hide"
-                        onClick={handleHideRate}
-                    >
-                        {reactTranslator.translate('rate_hide')}
-                    </button>
+                    {sidebar && (
+                        <button
+                            type="button"
+                            className="rate__hide"
+                            onClick={handleHideRate}
+                        >
+                            {reactTranslator.translate('rate_hide')}
+                        </button>
+                    )}
                 </div>
             ) : ''}
         </>
