@@ -40,18 +40,20 @@
         padding: 0;
         margin: 13px 0 0 0;
         background-color: var(--white);
+        scrollbar-color: var(--gray88) white;
+        scrollbar-width: thin;
 
         &[hidden] {
             display: none;
         }
 
         &::-webkit-scrollbar {
-            width: 6px;
+            width: 4px;
         }
 
         &::-webkit-scrollbar-thumb {
-            border-radius: 4px;
-            background-color: rgba(0,0,0,.3);
+            border-radius: 0px;
+            background-color: var(--gray88);
         }
     }
 
