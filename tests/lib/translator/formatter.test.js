@@ -41,6 +41,15 @@ describe('formatter', () => {
         expect(formatted).toEqual(["<span class='test'>10 kb</span>", ' remaining this month']);
     });
 
+    it('formats placeholder nested in tag', () => {
+        const rawStr = 'You are signing in as <div>%username%</div>';
+        const formatted = formatter(rawStr, {
+            username: 'maximtop@gmail.com',
+            div: (chunks) => (`<div class='test'>${chunks}</div>`),
+        });
+        expect(formatted).toEqual(['You are signing in as ', "<div class='test'>maximtop@gmail.com</div>"]);
+    });
+
     it('handles empty input without errors', () => {
         const formatted = formatter(undefined);
         expect(formatted).toEqual([]);
