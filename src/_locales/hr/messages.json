@@ -117,13 +117,13 @@
         "message": "Registracija"
     },
     "auth_header_sign_in": {
-        "message": "Prijavljeni ste kao"
+        "message": "Prijavljeni ste kao <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
         "message": "Već imate račun"
     },
     "auth_header_registration": {
-        "message": "Prijavljujete se kao"
+        "message": "Prijavljujete se kao <div>%username%</div>"
     },
     "auth_header_2fa": {
         "message": "Unesite vaš autentikacijski kôd"
@@ -139,6 +139,9 @@
     },
     "settings_title": {
         "message": "Postavke"
+    },
+    "settings_rate_us": {
+        "message": "Ocijenite nas"
     },
     "settings_webrtc_label": {
         "message": "Blokiraj WebRTC"
@@ -346,6 +349,9 @@
     },
     "settings_run_upgrade_feature": {
         "message": "Neograničeni podaci, najveća brzina, 24/7 podrška"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "Cijene za ranoranioce"
     },
     "options_title": {
         "message": "AdGuard VPN opcije"

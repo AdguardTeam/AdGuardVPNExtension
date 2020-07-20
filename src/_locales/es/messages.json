@@ -117,13 +117,13 @@
         "message": "Registrarse"
     },
     "auth_header_sign_in": {
-        "message": "Estás iniciando sesión como"
+        "message": "Estás iniciando sesión como <div>%username%</div> "
     },
     "auth_header_sing_in_notice": {
         "message": "Ya tienes una cuenta"
     },
     "auth_header_registration": {
-        "message": "Te estás registrando como"
+        "message": "Te estás registrando como <div>%username%</div>"
     },
     "auth_header_2fa": {
         "message": "Ingresa el código de autenticación"
@@ -139,6 +139,9 @@
     },
     "settings_title": {
         "message": "Configuración"
+    },
+    "settings_rate_us": {
+        "message": "Califícanos"
     },
     "settings_webrtc_label": {
         "message": "Bloquear WebRTC"
@@ -311,6 +314,9 @@
     "settings_disconnect": {
         "message": "Desconectar"
     },
+    "settings_button_connecting": {
+        "message": "Conectando"
+    },
     "settings_connect": {
         "message": "Conectar"
     },
@@ -322,6 +328,9 @@
     },
     "settings_connection_not_secured": {
         "message": "La conexión no está asegurada"
+    },
+    "settings_connecting": {
+        "message": "VPN está conectando"
     },
     "settings_vpn_enabled": {
         "message": "VPN habilitado"
@@ -340,6 +349,9 @@
     },
     "settings_run_upgrade_feature": {
         "message": "Datos ilimitados, velocidad más rápida, asistencia 24/7"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "Precios por reserva anticipada"
     },
     "options_title": {
         "message": "Opciones de AdGuard VPN"

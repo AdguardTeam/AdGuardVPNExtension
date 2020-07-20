@@ -1,17 +1,341 @@
 {
+    "name": {
+        "message": "AdGuard VPN — 隱私 & 安全性"
+    },
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
+    "registration_error_not_empty": {
+        "message": "必須不為空"
+    },
+    "registration_error_not_valid": {
+        "message": "此數值為無效的"
+    },
+    "registration_error_min_length": {
+        "message": "此數值太短。它應有 8 個字元或更多。"
+    },
+    "registration_error_compromised_password": {
+        "message": "您輸入的密碼在洩漏的密碼之<a>公開的資料庫</a>中被找到。請嘗試另一組密碼。"
+    },
+    "registration_error_unique_constraint": {
+        "message": "此數值已被使用"
+    },
+    "registration_error_default": {
+        "message": "錯誤已發生，請稍後再試"
+    },
+    "authentication_error_2fa_required": {
+        "message": "雙因素驗證（2FA）是必須的"
+    },
+    "authentication_error_2fa_invalid": {
+        "message": "無效的權杖"
+    },
+    "authentication_error_account_disabled": {
+        "message": "帳戶被禁用"
+    },
+    "authentication_error_account_locked": {
+        "message": "計 15 分鐘，帳戶被鎖定"
+    },
+    "authentication_error_bad_credentials": {
+        "message": "抱歉，無法識別的密碼"
+    },
+    "authentication_error_default": {
+        "message": "錯誤已發生，請稍後再試"
+    },
+    "about_title": {
+        "message": "關於"
+    },
+    "account_title": {
+        "message": "帳戶"
+    },
+    "account_edit": {
+        "message": "編輯"
+    },
+    "account_sign_out": {
+        "message": "登出"
+    },
+    "rate_hide": {
+        "message": "隱藏"
+    },
+    "auth_confirm": {
+        "message": "確認"
+    },
+    "auth_email": {
+        "message": "電子郵件地址"
+    },
+    "auth_password": {
+        "message": "密碼"
+    },
+    "auth_password_repeat": {
+        "message": "密碼確認"
+    },
+    "auth_recover": {
+        "message": "忘了密碼嗎？"
+    },
+    "auth_login": {
+        "message": "登入"
+    },
+    "auth_sign_up": {
+        "message": "註冊"
+    },
     "auth_sign_up_button": {
         "message": "註冊"
+    },
+    "auth_sign_in": {
+        "message": "登入"
     },
     "auth_sign_in_button": {
         "message": "登入"
     },
+    "auth_sign_in_link": {
+        "message": "用 AdGuard 帳戶登入"
+    },
+    "auth_account": {
+        "message": "沒有一個帳戶嗎？"
+    },
+    "auth_register": {
+        "message": "註冊"
+    },
+    "auth_header_sign_in": {
+        "message": "您正在以 <div>%username%</div> 登入"
+    },
+    "auth_header_sing_in_notice": {
+        "message": "您已有一個帳戶"
+    },
+    "auth_header_registration": {
+        "message": "您正在以 <div>%username%</div> 註冊"
+    },
+    "auth_header_2fa": {
+        "message": "輸入該驗證代碼"
+    },
+    "auth_placeholder_2fa": {
+        "message": "驗證代碼"
+    },
+    "eula": {
+        "message": "終端用戶授權協定"
+    },
+    "privacy_policy": {
+        "message": "隱私政策"
+    },
+    "settings_title": {
+        "message": "設定"
+    },
+    "settings_rate_us": {
+        "message": "對我們評分"
+    },
+    "settings_webrtc_label": {
+        "message": "封鎖網路即時通訊（WebRTC）"
+    },
+    "settings_context_menus_title": {
+        "message": "增加 AdGuard VPN 項目至瀏覽器之內容功能表"
+    },
+    "context_menu_selective_mode": {
+        "message": "選擇模式"
+    },
+    "context_menu_regular_mode": {
+        "message": "常規模式"
+    },
+    "settings_dns_label": {
+        "message": "使用 DNS 伺服器"
+    },
+    "settings_dns_desc": {
+        "message": "網域名稱系統（DNS）是電話簿的網際網路相等物。它維護一個域名目錄並轉化它們為網際網路協定（IP）位址。"
+    },
+    "settings_dns_selector_default_title": {
+        "message": "預設"
+    },
+    "settings_dns_selector_adguard_title": {
+        "message": "AdGuard DNS"
+    },
+    "settings_dns_selector_adguard_nonfiltering_title": {
+        "message": "AdGuard DNS 非過濾"
+    },
+    "settings_dns_selector_adguard_family_title": {
+        "message": "AdGuard DNS 家庭保護"
+    },
+    "settings_dns_selector_adguard_family_desc": {
+        "message": "AdGuard DNS + 安全搜尋和成人內容封鎖"
+    },
+    "settings_dns_selector_google_title": {
+        "message": "Google DNS"
+    },
+    "settings_dns_selector_google_desc": {
+        "message": "由 Google 提供之免費替代的 DNS 服務"
+    },
+    "settings_dns_selector_cloudflare_title": {
+        "message": "Cloudflare DNS"
+    },
+    "settings_dns_selector_cloudflare_desc": {
+        "message": "由 Cloudflare 提供之免費的 DNS 服務"
+    },
+    "settings_dns_selector_cisco_title": {
+        "message": "Cisco OpenDNS"
+    },
+    "settings_dns_selector_cisco_desc": {
+        "message": "保護您的裝置免於惡意軟體之 DNS 伺服器"
+    },
+    "settings_dns_selector_quad9_title": {
+        "message": "Quad9"
+    },
     "settings_dns_selector_quad9_desc": {
         "message": "有免於網路釣魚和間諜軟體的防護之免費替代的 DNS 服務"
+    },
+    "settings_exclusion_title": {
+        "message": "例外"
+    },
+    "settings_connection_mode_title": {
+        "message": "VPN 連線模式"
+    },
+    "settings_exclusion_regular_title": {
+        "message": "常規模式"
+    },
+    "settings_exclusion_regular_description": {
+        "message": "AdGuard VPN 不對來自此清單中之網站起作用："
+    },
+    "settings_exclusion_selective_title": {
+        "message": "選擇模式"
+    },
+    "settings_exclusion_selective_description": {
+        "message": "AdGuard VPN 僅對來自此清單中之網站起作用："
+    },
+    "settings_exclusion_subdomains_title": {
+        "message": "子網域"
+    },
+    "settings_exclusion_subdomains_text": {
+        "message": "您可增加網域（例如，google.com）或所有的子網域（例如，*.google.com）"
+    },
+    "global_error_title": {
+        "message": "錯誤已發生"
+    },
+    "global_error_description": {
+        "message": "如果您持續看到此訊息，請與我們聯繫"
+    },
+    "global_error_learn_more": {
+        "message": "了解更多"
+    },
+    "global_error_try_again": {
+        "message": "再次嘗試"
+    },
+    "authentication_successful_social": {
+        "message": "成功地驗證！您可開啟 AdGuard VPN 並打開隧道。"
+    },
+    "control_error_disable": {
+        "message": "禁用它"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "對此網站啟用 VPN"
+    },
+    "popup_settings_disable_vpn": {
+        "message": "對此網站禁用 VPN"
+    },
+    "popup_settings_other_products": {
+        "message": "其它的產品"
+    },
+    "popup_settings_feedback": {
+        "message": "回饋意見"
+    },
+    "popup_settings_open_settings": {
+        "message": "設定"
+    },
+    "popup_settings_sign_out": {
+        "message": "登出"
+    },
+    "context_menu_enable_vpn": {
+        "message": "對此網站啟用 VPN"
+    },
+    "context_menu_disable_vpn": {
+        "message": "對此網站禁用 VPN"
+    },
+    "suggest_feature": {
+        "message": "建議功能"
+    },
+    "endpoints_countries": {
+        "message": "位置"
+    },
+    "endpoints_fastest": {
+        "message": "最快的"
+    },
+    "endpoints_search_results": {
+        "message": "搜尋結果"
+    },
+    "endpoints_search": {
+        "message": "搜尋位置"
+    },
+    "popup_traffic_limit_reached": {
+        "message": "已達每月的流量限制。需要更多嗎？"
+    },
+    "premium_upgrade": {
+        "message": "升級"
+    },
+    "settings_disconnect": {
+        "message": "斷線"
     },
     "settings_button_connecting": {
         "message": "正在連線"
     },
+    "settings_connect": {
+        "message": "連線"
+    },
+    "settings_not_responding": {
+        "message": "伺服器未回應"
+    },
+    "settings_choose_another": {
+        "message": "選擇另一個"
+    },
     "settings_connecting": {
         "message": "VPN 正在連線"
+    },
+    "settings_vpn_enabled": {
+        "message": "VPN 被啟用"
+    },
+    "settings_vpn_disabled": {
+        "message": "VPN 被禁用"
+    },
+    "popup_feedback_button": {
+        "message": "留下回饋意見"
+    },
+    "settings_run_upgrade_feature": {
+        "message": "無限的流量、最快的速度、24/7 支援"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "早鳥價格"
+    },
+    "options_title": {
+        "message": "AdGuard VPN 選項"
+    },
+    "offline_title": {
+        "message": "離線"
+    },
+    "popup_exclusions_enable_vpn_on_site": {
+        "message": "<span>您可</span><a>對此網站啟用 VPN</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_exclusions_disable_vpn_on_site": {
+        "message": "<span>您可</span><a>對此網站禁用 VPN</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_site_status_vpn_disabled": {
+        "message": "VPN 於此網站上被禁用"
+    },
+    "popup_site_status_added_to_exclusions": {
+        "message": "被加至例外"
+    },
+    "popup_auth_agreement_consent": {
+        "message": "透過使用 AdGuard VPN，您同意我們的<eula>終端用戶授權協定</eula>和<privacy>隱私政策</privacy>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "options_auth_agreement_consent": {
+        "message": "透過繼續，您接受該<privacy>條款和條件</privacy>及<eula>終端用戶授權協定</eula>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "popup_free_traffic_info": {
+        "message": "本月剩餘 <span>%value% %unit%</span>",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_ping_value": {
+        "message": "偵測 %pingValue% ms",
+        "description": "Respect spaces between text and placeholder"
+    },
+    "options_auth_back_button": {
+        "message": "返回"
     }
 }

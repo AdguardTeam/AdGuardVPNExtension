@@ -117,13 +117,13 @@
         "message": "Registrácia"
     },
     "auth_header_sign_in": {
-        "message": "Prihlasujete sa ako"
+        "message": "Prihlasujete sa ako <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
         "message": "Už máte účet"
     },
     "auth_header_registration": {
-        "message": "Registrujete sa ako"
+        "message": "Registrujete sa ako <div>%username%</div>"
     },
     "auth_header_2fa": {
         "message": "Zadajte Váš autentifikačný kód"
@@ -139,6 +139,9 @@
     },
     "settings_title": {
         "message": "Nastavenia"
+    },
+    "settings_rate_us": {
+        "message": "Ohodnoťte nás"
     },
     "settings_webrtc_label": {
         "message": "Blokovať WebRTC"
@@ -343,6 +346,9 @@
     },
     "settings_run_upgrade_feature": {
         "message": "Neobmedzené dáta, najvyššia rýchlosť, non-stop podpora"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "Ceny v predpredaji"
     },
     "options_title": {
         "message": "Predvoľby AdGuard VPN"

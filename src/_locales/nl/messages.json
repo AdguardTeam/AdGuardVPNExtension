@@ -117,13 +117,13 @@
         "message": "Registreren"
     },
     "auth_header_sign_in": {
-        "message": "Je meldt je aan als"
+        "message": "Je meldt je aan als <div>%username%</div> "
     },
     "auth_header_sing_in_notice": {
         "message": "Je hebt al een account"
     },
     "auth_header_registration": {
-        "message": "Je meldt je aan als"
+        "message": "Je registreert je als <div>%username%</div>"
     },
     "auth_header_2fa": {
         "message": "Je authenticatiecode invoeren"
@@ -140,6 +140,9 @@
     "settings_title": {
         "message": "Instellingen"
     },
+    "settings_rate_us": {
+        "message": "Waardeer ons"
+    },
     "settings_webrtc_label": {
         "message": "Blokkeer WebRTC"
     },
@@ -147,7 +150,7 @@
         "message": "WebRTC is een speciaal programma in de meeste internetbrowsers waarmee websites van derden uw echte IP-adres kunnen detecteren en gebruiken om u te identificeren"
     },
     "settings_context_menus_title": {
-        "message": "Voeg een AdGuard VPN-item toe aan het contextmenu van de webbrowser"
+        "message": "AdGuard VPN-item toevoegen aan het contextmenu van de webbrowser"
     },
     "context_menu_selective_mode": {
         "message": "Selectieve modus"
@@ -156,7 +159,7 @@
         "message": "Normale modus"
     },
     "settings_dns_label": {
-        "message": "Gebruik een DNS server"
+        "message": "DNS-server gebruiken"
     },
     "settings_dns_desc": {
         "message": "Domein Naam Servers (DNS) zijn het internet-equivalent van een telefoonboek. Ze houden een adresboek bij van domeinnamen en vertalen die in Internet Protocol (IP) adressen."
@@ -177,7 +180,7 @@
         "message": "AdGuard DNS Non-filtering"
     },
     "settings_dns_selector_adguard_nonfiltering_desc": {
-        "message": "Beveilig DNS zonder loggen van activiteiten (filtert geen ads en trackers)"
+        "message": "DNS beveiligen zonder vastleggen van activiteiten (filtert geen ads en volgers)"
     },
     "settings_dns_selector_adguard_family_title": {
         "message": "AdGuard Family Protection"
@@ -282,7 +285,7 @@
         "message": "VPN uitschakelen op deze website"
     },
     "suggest_feature": {
-        "message": "Stel een nieuwe feature voor"
+        "message": "Een nieuwe functie voorstellen"
     },
     "endpoints_countries": {
         "message": "Locaties"
@@ -291,7 +294,7 @@
         "message": "Snelste"
     },
     "endpoints_all": {
-        "message": "Alle endpoints"
+        "message": "Alle locaties"
     },
     "endpoints_search_results": {
         "message": "Zoekresultaat"
@@ -346,6 +349,9 @@
     },
     "settings_run_upgrade_feature": {
         "message": "Ongelimiteerde data, hoogste snelheid, 24/7 ondersteuning"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "Early-bird prijzen"
     },
     "options_title": {
         "message": "AdGuard VPN Opties"

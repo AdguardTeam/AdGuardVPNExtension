@@ -117,13 +117,13 @@
         "message": "Registriraj"
     },
     "auth_header_sign_in": {
-        "message": "Prijavljate se kot"
+        "message": "Prijavljate se kot <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
         "message": "Račun že imate"
     },
     "auth_header_registration": {
-        "message": "Prijavljate se kot"
+        "message": "Prijavljate se kot <div>%username%</div>"
     },
     "auth_header_2fa": {
         "message": "Vnesite kodo za preverjanje pristnosti"
@@ -139,6 +139,9 @@
     },
     "settings_title": {
         "message": "Nastavitve"
+    },
+    "settings_rate_us": {
+        "message": "Ocenite nas"
     },
     "settings_webrtc_label": {
         "message": "Onemogoči WebRTC"
@@ -311,6 +314,9 @@
     "settings_disconnect": {
         "message": "Prekini povezavo"
     },
+    "settings_button_connecting": {
+        "message": "Povezovanje"
+    },
     "settings_connect": {
         "message": "Poveži"
     },
@@ -322,6 +328,9 @@
     },
     "settings_connection_not_secured": {
         "message": "Povezava ni varna"
+    },
+    "settings_connecting": {
+        "message": "VPN se povezuje"
     },
     "settings_vpn_enabled": {
         "message": "VPN je omogočen"
@@ -340,6 +349,9 @@
     },
     "settings_run_upgrade_feature": {
         "message": "Neomejena količina podatkov, najhitrejša hitrost, podpora 24/7"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "Cene zgodnjih ptic"
     },
     "options_title": {
         "message": "Možnosti AdGuard VPN"

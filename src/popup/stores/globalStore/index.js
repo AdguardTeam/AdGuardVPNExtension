@@ -62,6 +62,7 @@ class globalStore {
             settingsStore.setConnectivityState(connectivityState);
             settingsStore.setCanControlProxy(canControlProxy);
             settingsStore.setIsRoutable(isRoutable);
+            await settingsStore.checkRateStatus();
             await settingsStore.checkIsExcluded();
             await settingsStore.getExclusionsInverted();
             this.setInitStatus(REQUEST_STATUSES.DONE);

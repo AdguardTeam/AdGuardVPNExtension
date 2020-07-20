@@ -117,13 +117,13 @@
         "message": "Registrovat"
     },
     "auth_header_sign_in": {
-        "message": "Přihlašujete se jako"
+        "message": "Přihlašujete se jako <div>%username%</div> "
     },
     "auth_header_sing_in_notice": {
         "message": "Již máte účet"
     },
     "auth_header_registration": {
-        "message": "Přihlašujete se jako"
+        "message": "Registrujete se jako <div>%username%</div>"
     },
     "auth_header_2fa": {
         "message": "Zadejte ověřovací kód"
@@ -139,6 +139,9 @@
     },
     "settings_title": {
         "message": "Nastavení"
+    },
+    "settings_rate_us": {
+        "message": "Ohodnoťte nás"
     },
     "settings_webrtc_label": {
         "message": "Blokovat WebRTC"
@@ -327,7 +330,7 @@
         "message": "Připojení není zabezpečeno"
     },
     "settings_connecting": {
-        "message": "Připojování..."
+        "message": "VPN se připojuje"
     },
     "settings_vpn_enabled": {
         "message": "VPN je zapnuta"
@@ -346,6 +349,9 @@
     },
     "settings_run_upgrade_feature": {
         "message": "Neomezená data, nejvyšší rychlost, podpora 24/7"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "Ceny pro nejrychlejší"
     },
     "options_title": {
         "message": "Možnosti AdGuard VPN"
