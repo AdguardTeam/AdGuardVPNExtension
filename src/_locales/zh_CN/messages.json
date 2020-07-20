@@ -140,6 +140,9 @@
     "settings_title": {
         "message": "设置"
     },
+    "settings_rate_us": {
+        "message": "请给我们评分"
+    },
     "settings_webrtc_label": {
         "message": "拦截 WebRTC"
     },
@@ -346,6 +349,9 @@
     },
     "settings_run_upgrade_feature": {
         "message": "无限数据、最快速度、全年每天的支持"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "早鸟优惠价"
     },
     "options_title": {
         "message": "AdGuard VPN 选项"

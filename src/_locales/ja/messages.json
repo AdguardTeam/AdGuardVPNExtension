@@ -140,6 +140,9 @@
     "settings_title": {
         "message": "設定"
     },
+    "settings_rate_us": {
+        "message": "ご評価いただければ幸いです。"
+    },
     "settings_webrtc_label": {
         "message": "WebRTCをブロックする"
     },
@@ -346,6 +349,9 @@
     },
     "settings_run_upgrade_feature": {
         "message": "無限のデータ、最速スピード、24時間365日サポート"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "早期割引価格"
     },
     "options_title": {
         "message": "AdGuard VPNオプション"

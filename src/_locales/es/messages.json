@@ -140,6 +140,9 @@
     "settings_title": {
         "message": "Configuración"
     },
+    "settings_rate_us": {
+        "message": "Califícanos"
+    },
     "settings_webrtc_label": {
         "message": "Bloquear WebRTC"
     },
@@ -346,6 +349,9 @@
     },
     "settings_run_upgrade_feature": {
         "message": "Datos ilimitados, velocidad más rápida, asistencia 24/7"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "Precios por reserva anticipada"
     },
     "options_title": {
         "message": "Opciones de AdGuard VPN"

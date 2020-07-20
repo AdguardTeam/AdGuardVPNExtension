@@ -140,6 +140,9 @@
     "settings_title": {
         "message": "Ρυθμίσεις"
     },
+    "settings_rate_us": {
+        "message": "Βαθμολογήστε μας"
+    },
     "settings_webrtc_label": {
         "message": "Αποκλεισμός WebRTC"
     },
@@ -311,6 +314,9 @@
     "settings_disconnect": {
         "message": "Αποσύνδεση"
     },
+    "settings_button_connecting": {
+        "message": "Σύνδεση"
+    },
     "settings_connect": {
         "message": "Σύνδεση"
     },
@@ -340,6 +346,12 @@
     },
     "settings_run_out_data": {
         "message": "Έχετε εξαντλήσει τα δεδομένα"
+    },
+    "settings_run_upgrade_feature": {
+        "message": "Απεριόριστα δεδομένα, γρήγορη ταχύτητα, υποστήριξη 24/7"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "Πρώιμες τιμές"
     },
     "options_title": {
         "message": "Επιλογές AdGuard VPN"

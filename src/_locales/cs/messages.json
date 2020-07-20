@@ -140,6 +140,9 @@
     "settings_title": {
         "message": "Nastavení"
     },
+    "settings_rate_us": {
+        "message": "Ohodnoťte nás"
+    },
     "settings_webrtc_label": {
         "message": "Blokovat WebRTC"
     },
@@ -346,6 +349,9 @@
     },
     "settings_run_upgrade_feature": {
         "message": "Neomezená data, nejvyšší rychlost, podpora 24/7"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "Ceny pro nejrychlejší"
     },
     "options_title": {
         "message": "Možnosti AdGuard VPN"

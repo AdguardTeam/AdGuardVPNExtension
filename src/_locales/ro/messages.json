@@ -140,6 +140,9 @@
     "settings_title": {
         "message": "Setări"
     },
+    "settings_rate_us": {
+        "message": "Cotați-ne"
+    },
     "settings_webrtc_label": {
         "message": "Blocați WebRTC"
     },
@@ -346,6 +349,9 @@
     },
     "settings_run_upgrade_feature": {
         "message": "Date nelimitate, viteză cea mai mare, suport 24/7"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "Prețuri de păsări timpurii"
     },
     "options_title": {
         "message": "Opțiuni AdGuard VPN"

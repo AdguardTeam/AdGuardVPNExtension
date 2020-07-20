@@ -140,6 +140,9 @@
     "settings_title": {
         "message": "Pengaturan"
     },
+    "settings_rate_us": {
+        "message": "Nilai kami"
+    },
     "settings_webrtc_label": {
         "message": "Blokir WebRTC"
     },
@@ -346,6 +349,9 @@
     },
     "settings_run_upgrade_feature": {
         "message": "Data tak terbatas, kecepatan tercepat, dukungan 24/7"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "Harga rilis-awal"
     },
     "options_title": {
         "message": "Opsi AdGuard VPN"

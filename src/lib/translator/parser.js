@@ -173,10 +173,10 @@ const tagStateHandler = (context) => {
                     // add nodes between close tag and open tag to the children
                     children.unshift(lastFromStack);
                 } else {
-                    throw new Error('String has unbalanced tags');
+                    throw new Error(`String has unbalanced tags: ${str}`);
                 }
                 if (stack.length === 0 && children.length > 0) {
-                    throw new Error('String has unbalanced tags');
+                    throw new Error(`String has unbalanced tags: ${str}`);
                 }
             }
             context.tag = '';
@@ -319,7 +319,7 @@ export const parser = (str = '') => {
     }
 
     if (stack.length > 0) {
-        throw new Error('String has unbalanced tags');
+        throw new Error(`String has unbalanced tags ${context.str}`);
     }
 
     return result;

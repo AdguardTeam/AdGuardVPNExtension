@@ -140,6 +140,9 @@
     "settings_title": {
         "message": "Nastavitve"
     },
+    "settings_rate_us": {
+        "message": "Ocenite nas"
+    },
     "settings_webrtc_label": {
         "message": "Onemogoči WebRTC"
     },
@@ -346,6 +349,9 @@
     },
     "settings_run_upgrade_feature": {
         "message": "Neomejena količina podatkov, najhitrejša hitrost, podpora 24/7"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "Cene zgodnjih ptic"
     },
     "options_title": {
         "message": "Možnosti AdGuard VPN"
