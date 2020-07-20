@@ -1,1 +1,396 @@
-{}
+{
+    "name": {
+        "message": "AdGuard VPN — Privasi & Keamanan"
+    },
+    "description": {
+        "message": "Jadikan Internet terbuka dan data Anda aman. VPN jempolan dari pencipta pemblokir iklan terkenal."
+    },
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
+    "registration_error_not_empty": {
+        "message": "Tidak boleh kosong"
+    },
+    "registration_error_not_valid": {
+        "message": "Isian tidak valid"
+    },
+    "registration_error_min_length": {
+        "message": "Nilai ini terlalu pendek. Seharusnya berisi 8 karakter atau lebih."
+    },
+    "registration_error_compromised_password": {
+        "message": "Sandi yang Anda masukkan ditemukan di <a>basis data publik</a> sandi yang sudah bocor. Silahkan coba yang lain."
+    },
+    "registration_error_unique_constraint": {
+        "message": "Nilai ini sudah digunakan sebelumnya"
+    },
+    "registration_error_front_unique_validation": {
+        "message": "Sandi dan konfirmasi sandi tidak cocok"
+    },
+    "registration_error_default": {
+        "message": "Kesalahan terjadi, coba lagi nanti"
+    },
+    "authentication_error_2fa_required": {
+        "message": "2FA diperlukan"
+    },
+    "authentication_error_2fa_invalid": {
+        "message": "Token tidak valid"
+    },
+    "authentication_error_account_disabled": {
+        "message": "Akun dinonaktifkan"
+    },
+    "authentication_error_account_locked": {
+        "message": "Akun terkunci selama 15 menit"
+    },
+    "authentication_error_bad_credentials": {
+        "message": "Maaf, kata sandi tidak dikenal"
+    },
+    "authentication_error_default": {
+        "message": "Kesalahan terjadi, coba lagi nanti"
+    },
+    "global_error_message": {
+        "message": "Kesalahan terjadi, silahkan hubungi kami via <a>support@adguard-vpn.com</a>"
+    },
+    "about_title": {
+        "message": "Tentang"
+    },
+    "account_title": {
+        "message": "Akun"
+    },
+    "account_edit": {
+        "message": "Edit"
+    },
+    "account_sign_out": {
+        "message": "Keluar"
+    },
+    "rate_description": {
+        "message": "Hai, kami adalah tim dari AdGuard dan ini sangat penting bagi kami mengetahui opini Anda tentang produk kami. Silahkan beri nilai."
+    },
+    "rate_hide": {
+        "message": "Sembunyikan"
+    },
+    "auth_title": {
+        "message": "Mari mulai sepenuhnya gratis!"
+    },
+    "auth_description": {
+        "message": "Perlindungan privasi online tanpa kompromi. Lebih dari 20 juta orang telah memilih AdGuard."
+    },
+    "auth_code": {
+        "message": "Kode autentikasi dari aplikasi"
+    },
+    "auth_confirm": {
+        "message": "Konfirmasi"
+    },
+    "auth_email": {
+        "message": "Alamat E-mail"
+    },
+    "auth_password": {
+        "message": "Sandi"
+    },
+    "auth_password_repeat": {
+        "message": "Konfirmasi sandi"
+    },
+    "auth_recover": {
+        "message": "Lupa kata sandi?"
+    },
+    "auth_login": {
+        "message": "Masuk"
+    },
+    "auth_sign_up": {
+        "message": "Daftar"
+    },
+    "auth_sign_up_button": {
+        "message": "Daftar"
+    },
+    "auth_sign_in": {
+        "message": "Masuk"
+    },
+    "auth_sign_in_button": {
+        "message": "Masuk"
+    },
+    "auth_sign_in_link": {
+        "message": "Masuk dengan akun AdGuard"
+    },
+    "auth_account": {
+        "message": "Belum memiliki akun?"
+    },
+    "auth_register": {
+        "message": "Daftar"
+    },
+    "auth_header_sign_in": {
+        "message": "Anda masuk sebagai <div>%username%</div>"
+    },
+    "auth_header_sing_in_notice": {
+        "message": "Anda sudah memiliki akun"
+    },
+    "auth_header_registration": {
+        "message": "Anda mendaftar sebagai <div>%username%</div>"
+    },
+    "auth_header_2fa": {
+        "message": "Masukkan kode autentikasi"
+    },
+    "auth_placeholder_2fa": {
+        "message": "Autentikasi kode"
+    },
+    "eula": {
+        "message": "EULA"
+    },
+    "privacy_policy": {
+        "message": "Kebijakan Privasi"
+    },
+    "settings_title": {
+        "message": "Pengaturan"
+    },
+    "settings_webrtc_label": {
+        "message": "Blokir WebRTC"
+    },
+    "settings_webrtc_desc": {
+        "message": "WebRTC adalah program khusus di sebagian besar peramban Internet yang memungkinkan situs web pihak ketiga mendeteksi alamat IP asli dan memakainya untuk mengidentifikasi Anda"
+    },
+    "settings_context_menus_title": {
+        "message": "Tambah item AdGuard VPN ke konteks menu browser"
+    },
+    "context_menu_selective_mode": {
+        "message": "Mode selektif"
+    },
+    "context_menu_regular_mode": {
+        "message": "Mode reguler"
+    },
+    "settings_dns_label": {
+        "message": "Pakai server DNS"
+    },
+    "settings_dns_desc": {
+        "message": "Server Sistem Nama Domain (DNS) adalah setara dengan buku telepon di internet. Mereka memelihara direktori nama domain dan menerjemahkan ke alamat Internet Protocol (IP)."
+    },
+    "settings_dns_selector_default_title": {
+        "message": "Standar"
+    },
+    "settings_dns_selector_default_desc": {
+        "message": "Secara otomatis pakai server DNS standar saat terkoneksi ke VPN"
+    },
+    "settings_dns_selector_adguard_title": {
+        "message": "AdGuard DNS"
+    },
+    "settings_dns_selector_adguard_desc": {
+        "message": "Buang iklan dan pelacak dari alat Anda"
+    },
+    "settings_dns_selector_adguard_nonfiltering_title": {
+        "message": "AdGuard DNS Tanpa-penyaring"
+    },
+    "settings_dns_selector_adguard_nonfiltering_desc": {
+        "message": "DNS aman tanpa pencatatan aktivitas (tidak memfilter iklan & pelacak)"
+    },
+    "settings_dns_selector_adguard_family_title": {
+        "message": "AdGuard DNS Perlindungan Keluarga"
+    },
+    "settings_dns_selector_adguard_family_desc": {
+        "message": "AdGuard DNS + SafeSearch dan pemblokir konten dewasa"
+    },
+    "settings_dns_selector_google_title": {
+        "message": "Google DNS"
+    },
+    "settings_dns_selector_google_desc": {
+        "message": "Layanan DNS alternatif gratis oleh Google"
+    },
+    "settings_dns_selector_cloudflare_title": {
+        "message": "Cloudflare DNS"
+    },
+    "settings_dns_selector_cloudflare_desc": {
+        "message": "Layanan DNS gratis dari Cloudflare"
+    },
+    "settings_dns_selector_cisco_title": {
+        "message": "Cisco OpenDNS"
+    },
+    "settings_dns_selector_cisco_desc": {
+        "message": "Server DNS yang melindungi alat Anda dari malware"
+    },
+    "settings_dns_selector_quad9_title": {
+        "message": "Quad9"
+    },
+    "settings_dns_selector_quad9_desc": {
+        "message": "Layanan alternatif DNS gratis dengan perlindungan dari phishing dan spyware"
+    },
+    "settings_exclusion_add": {
+        "message": "Tambah situs"
+    },
+    "settings_exclusion_title": {
+        "message": "Pengecualian"
+    },
+    "settings_connection_mode_title": {
+        "message": "Mode koneksi VPN"
+    },
+    "settings_exclusion_regular_title": {
+        "message": "Mode reguler"
+    },
+    "settings_exclusion_regular_description": {
+        "message": "AdGuard VPN tidak bekerja di situs yang berada di list ini:"
+    },
+    "settings_exclusion_selective_title": {
+        "message": "Mode selektif"
+    },
+    "settings_exclusion_selective_description": {
+        "message": "AdGuard VPN hanya bekerja di situs yang berada di list ini:"
+    },
+    "settings_exclusion_subdomains_title": {
+        "message": "Subdomain"
+    },
+    "settings_exclusion_subdomains_text": {
+        "message": "Anda bisa menambah domain (mis. google.com) atau semua subdomain (mis. *.google.com)"
+    },
+    "global_error_title": {
+        "message": "Terjadi kesalahan"
+    },
+    "global_error_description": {
+        "message": "Silahlan hubungi kamı jika Anda terus melihat pesan ini"
+    },
+    "global_error_learn_more": {
+        "message": "Pelajari lainnya"
+    },
+    "global_error_try_again": {
+        "message": "Coba lagi"
+    },
+    "authentication_successful_social": {
+        "message": "Berhasil diautentikasi! Anda dapat membuka AdGuard VPN dan menghidupkan terowongan."
+    },
+    "control_error_description": {
+        "message": "Sepertinya ekstensi Chrome lain sedang mencoba mengendalikan koneksi Anda. Harap nonaktifkan ekstensi lain di browser Anda."
+    },
+    "control_error_disable": {
+        "message": "Nonaktifkan"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Aktifkan VPN pada situs ini"
+    },
+    "popup_settings_disable_vpn": {
+        "message": "Matikan VPN pada situs ini"
+    },
+    "popup_settings_other_products": {
+        "message": "Produk lain"
+    },
+    "popup_settings_feedback": {
+        "message": "Umpan balik"
+    },
+    "popup_settings_open_settings": {
+        "message": "Pengaturan"
+    },
+    "popup_settings_sign_out": {
+        "message": "Keluar"
+    },
+    "context_menu_enable_vpn": {
+        "message": "Aktifkan VPN pada situs ini"
+    },
+    "context_menu_disable_vpn": {
+        "message": "Matikan VPN pada situs ini"
+    },
+    "suggest_feature": {
+        "message": "Sarankan fitur"
+    },
+    "endpoints_countries": {
+        "message": "Lokasi"
+    },
+    "endpoints_fastest": {
+        "message": "Tercepat"
+    },
+    "endpoints_all": {
+        "message": "Semua titik akhir"
+    },
+    "endpoints_search_results": {
+        "message": "Hasil pencarian"
+    },
+    "endpoints_search": {
+        "message": "Cari lokasi"
+    },
+    "endpoints_not_found": {
+        "message": "Server tidak ditemukan"
+    },
+    "popup_traffic_limit_reached": {
+        "message": "Batas data bulanan terlampaui. Butuh lebih?"
+    },
+    "premium_upgrade": {
+        "message": "Tingkatkan"
+    },
+    "settings_disconnect": {
+        "message": "Terputus"
+    },
+    "settings_button_connecting": {
+        "message": "Menyambung"
+    },
+    "settings_connect": {
+        "message": "Sambung"
+    },
+    "settings_not_responding": {
+        "message": "Server tidak merespon"
+    },
+    "settings_choose_another": {
+        "message": "Pilih lainnya"
+    },
+    "settings_connection_not_secured": {
+        "message": "Koneksi tidak aman"
+    },
+    "settings_connecting": {
+        "message": "Menyambung..."
+    },
+    "settings_vpn_enabled": {
+        "message": "VPN sedang aktif"
+    },
+    "settings_vpn_disabled": {
+        "message": "VPN tidak aktif"
+    },
+    "popup_feedback_title": {
+        "message": "Kami ingin mendengar tanggapan Anda"
+    },
+    "popup_feedback_button": {
+        "message": "Umpan balik"
+    },
+    "settings_run_out_data": {
+        "message": "Anda kehabisan data"
+    },
+    "settings_run_upgrade_feature": {
+        "message": "Data tak terbatas, kecepatan tercepat, dukungan 24/7"
+    },
+    "options_title": {
+        "message": "Opsi AdGuard VPN"
+    },
+    "offline_title": {
+        "message": "Offline"
+    },
+    "popup_exclusions_enable_vpn_on_site": {
+        "message": "<span>Anda bisa</span><a>aktifkan VPN pada situs ini</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_exclusions_add_site_to_exclusions": {
+        "message": "<span>Anda bisa</span><a>menambah situs ke pengecualian</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_exclusions_disable_vpn_on_site": {
+        "message": "<span>Anda bisa</span><a>mematikan VPN pada situs ini</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_site_status_unaccessible": {
+        "message": "terletak di jaringan lokal Anda dan tidak bisa diakses melalui VPN"
+    },
+    "popup_site_status_vpn_disabled": {
+        "message": "VPN tidak diaktifkan pada situs ini"
+    },
+    "popup_site_status_added_to_exclusions": {
+        "message": "tambah ke pengecualian"
+    },
+    "popup_auth_agreement_consent": {
+        "message": "Menggunakan AdGuard VPN, Anda setuju pada <eula>EULA</eula> kami dan <privacy>kebijakan privasi</privacy>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "options_auth_agreement_consent": {
+        "message": "Melanjutkan berarti Anda menerima <privacy>Syarat dan Ketentuan</privacy> dan <eula>EULA</eula>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "popup_free_traffic_info": {
+        "message": "<span>%value%%unit%</span> sisa bulan ini",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_ping_value": {
+        "message": "Ping %pingValue% md",
+        "description": "Respect spaces between text and placeholder"
+    },
+    "options_auth_back_button": {
+        "message": "Kembali"
+    }
+}

@@ -117,13 +117,13 @@
         "message": "Registrer"
     },
     "auth_header_sign_in": {
-        "message": "Du logger ind som"
+        "message": "Du logger ind som <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
         "message": "Du har allerede en konto"
     },
     "auth_header_registration": {
-        "message": "Du tilmelder dig som"
+        "message": "Du tilmelder dig som <div>%username%</div>"
     },
     "auth_header_2fa": {
         "message": "Indtast bekræftelseskoden"

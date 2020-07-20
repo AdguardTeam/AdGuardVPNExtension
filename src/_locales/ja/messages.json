@@ -1,8 +1,396 @@
 {
+    "name": {
+        "message": "AdGuard VPN - プライバシー&セキュリティ"
+    },
+    "description": {
+        "message": "インターネットを無制限に、個人情報を安全に。有名なAdGuard広告ブロッカー開発者からのトップクラスVPN。"
+    },
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
+    "registration_error_not_empty": {
+        "message": "入力する必要があります"
+    },
+    "registration_error_not_valid": {
+        "message": "この値は無効です"
+    },
+    "registration_error_min_length": {
+        "message": "値が短すぎます。8文字以上をご入力ください。"
+    },
+    "registration_error_compromised_password": {
+        "message": "ご入力のパスワードは、<a>流出パスワードの公開データベース</a>で見つかりました。別のパスワードをお試しください。"
+    },
+    "registration_error_unique_constraint": {
+        "message": "このメールアドレスは既に使用されています。"
+    },
+    "registration_error_front_unique_validation": {
+        "message": "パスワードとパスワード確認が一致していません"
+    },
+    "registration_error_default": {
+        "message": "エラーが発生してしまいました。後ほどもう一度お試しください。"
+    },
+    "authentication_error_2fa_required": {
+        "message": "２要素認証が必要です"
+    },
+    "authentication_error_2fa_invalid": {
+        "message": "コードが無効です"
+    },
+    "authentication_error_account_disabled": {
+        "message": "このアカウントは無効になっています"
+    },
+    "authentication_error_account_locked": {
+        "message": "アカウントは15分間ロックされています"
+    },
+    "authentication_error_bad_credentials": {
+        "message": "パスワードが違います"
+    },
+    "authentication_error_default": {
+        "message": "エラーが発生してしまいました。後ほどもう一度お試しください。"
+    },
+    "global_error_message": {
+        "message": "エラーが発生しました。お手数ですが、<a>support@adguard-vpn.com</a>へお問い合わせください。"
+    },
+    "about_title": {
+        "message": "AdGuard VPNについて"
+    },
+    "account_title": {
+        "message": "アカウント"
+    },
+    "account_edit": {
+        "message": "編集"
+    },
+    "account_sign_out": {
+        "message": "ログアウト"
+    },
+    "rate_description": {
+        "message": "AdGuardチームです。私たちにとってユーザー様のご意見が一番大事です。ぜひ本製品をご評価いただくようお願いいたします。"
+    },
+    "rate_hide": {
+        "message": "非表示"
+    },
+    "auth_title": {
+        "message": "完全無料で　　　スタート！"
+    },
+    "auth_description": {
+        "message": "オンラインプライバシーを徹底保護。すでに2000万人以上のユーザー様にAdGuardをご愛用いただいております。"
+    },
+    "auth_code": {
+        "message": "認証アプリからのコード"
+    },
+    "auth_confirm": {
+        "message": "確認"
+    },
+    "auth_email": {
+        "message": "メールアドレス"
+    },
+    "auth_password": {
+        "message": "パスワード"
+    },
+    "auth_password_repeat": {
+        "message": "パスワード確認"
+    },
+    "auth_recover": {
+        "message": "パスワードをお忘れですか？"
+    },
+    "auth_login": {
+        "message": "ログイン"
+    },
+    "auth_sign_up": {
+        "message": "新規ご登録"
+    },
+    "auth_sign_up_button": {
+        "message": "登録する"
+    },
+    "auth_sign_in": {
+        "message": "ログイン"
+    },
+    "auth_sign_in_button": {
+        "message": "ログイン"
+    },
+    "auth_sign_in_link": {
+        "message": "AdGuardアカウントでログインする"
+    },
+    "auth_account": {
+        "message": "アカウントをお持ちでないですか？"
+    },
+    "auth_register": {
+        "message": "登録する"
+    },
+    "auth_header_sign_in": {
+        "message": "<div>%username%</div>としてログインします。"
+    },
+    "auth_header_sing_in_notice": {
+        "message": "すでにでご登録のアカウントをお持ちです。"
+    },
+    "auth_header_registration": {
+        "message": "<div>%username%</div>でご登録します。"
+    },
+    "auth_header_2fa": {
+        "message": "認証コードを入力してください"
+    },
+    "auth_placeholder_2fa": {
+        "message": "認証コード"
+    },
+    "eula": {
+        "message": "利用許諾契約(EULA)"
+    },
+    "privacy_policy": {
+        "message": "プライバシーポリシー"
+    },
+    "settings_title": {
+        "message": "設定"
+    },
+    "settings_webrtc_label": {
+        "message": "WebRTCをブロックする"
+    },
+    "settings_webrtc_desc": {
+        "message": "WebRTCは、ほとんどのインターネットブラウザーにある特別なプログラムであり、サードパーティ（第三者）Webサイトがあなたの実際のIPアドレスを検出し、それを使用してあなたを識別することを可能にします。"
+    },
+    "settings_context_menus_title": {
+        "message": "ブラウザの右クリックメニューにAdGuard VPNを追加する"
+    },
+    "context_menu_selective_mode": {
+        "message": "指定モード"
+    },
+    "context_menu_regular_mode": {
+        "message": "レギュラーモード"
+    },
+    "settings_dns_label": {
+        "message": "DNSサーバーを使用する"
+    },
+    "settings_dns_desc": {
+        "message": "ドメインネームシステム（DNS）とは、インターネットにおける電話帳のようなものです。DNSはドメイン名のディレクトリを維持しつつ、ドメイン名をインターネットプロトコル（IP）アドレスに変換します。"
+    },
+    "settings_dns_selector_default_title": {
+        "message": "デフォルト"
+    },
+    "settings_dns_selector_default_desc": {
+        "message": "VPN接続時、デフォルトDNSサーバーを自動的に使用する"
+    },
+    "settings_dns_selector_adguard_title": {
+        "message": "AdGuard DNS"
+    },
+    "settings_dns_selector_adguard_desc": {
+        "message": "広告と個人情報追跡をブロックします。"
+    },
+    "settings_dns_selector_adguard_nonfiltering_title": {
+        "message": "AdGuard DNS（非フィルタリング）"
+    },
+    "settings_dns_selector_adguard_nonfiltering_desc": {
+        "message": "ログ収集なしのセキュアなDNS（広告と追跡のブロックはオフ）"
+    },
+    "settings_dns_selector_adguard_family_title": {
+        "message": "AdGuard DNS ファミリープロテクション"
+    },
+    "settings_dns_selector_adguard_family_desc": {
+        "message": "AdGuard DNS + セーフサーチ + アダルトコンテンツブロック"
+    },
+    "settings_dns_selector_google_title": {
+        "message": "Google DNS"
+    },
+    "settings_dns_selector_google_desc": {
+        "message": "Google提供の無料代替DNSサービス"
+    },
+    "settings_dns_selector_cloudflare_title": {
+        "message": "Cloudflare DNS"
+    },
+    "settings_dns_selector_cloudflare_desc": {
+        "message": "Cloudflare提供の無料代替DNSサービス"
+    },
+    "settings_dns_selector_cisco_title": {
+        "message": "Cisco OpenDNS"
+    },
+    "settings_dns_selector_cisco_desc": {
+        "message": "マルウェアから保護するDNSサーバー"
+    },
+    "settings_dns_selector_quad9_title": {
+        "message": "Quad9"
+    },
+    "settings_dns_selector_quad9_desc": {
+        "message": "フィッシング詐欺やスパイウェアから保護する無料代替DNSサービス"
+    },
+    "settings_exclusion_add": {
+        "message": "ウェブサイトを追加"
+    },
+    "settings_exclusion_title": {
+        "message": "除外"
+    },
+    "settings_connection_mode_title": {
+        "message": "VPNモード"
+    },
+    "settings_exclusion_regular_title": {
+        "message": "レギュラーモード"
+    },
+    "settings_exclusion_regular_description": {
+        "message": "下のリストのウェブサイトに対してAdGuard VPNはオフになります:"
+    },
+    "settings_exclusion_selective_title": {
+        "message": "指定モード"
+    },
+    "settings_exclusion_selective_description": {
+        "message": "AdGuard VPNは下のリストのウェブサイトに対してのみ動作します:"
+    },
+    "settings_exclusion_subdomains_title": {
+        "message": "サブドメインも使用可能"
+    },
+    "settings_exclusion_subdomains_text": {
+        "message": "ドメイン（例: 「google.com」）やサブドメイン（例: 「*.google.com」）を追加することができます。"
+    },
+    "global_error_title": {
+        "message": "エラーが発生しました。"
+    },
+    "global_error_description": {
+        "message": "このメッセージが何回も表示される場合は私たちへご連絡ください。"
+    },
+    "global_error_learn_more": {
+        "message": "詳細はこちら"
+    },
+    "global_error_try_again": {
+        "message": "もう一度試す"
+    },
+    "authentication_successful_social": {
+        "message": "認証成功！AdGuard VPNを開き、トンネルをオンにすることができます。"
+    },
+    "control_error_description": {
+        "message": "別のChrome拡張機能があなたの接続を制御しようとしているようです。その拡張機能を無効にしてください。"
+    },
+    "control_error_disable": {
+        "message": "無効にする"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "このサイトでVPNを有効にする"
+    },
+    "popup_settings_disable_vpn": {
+        "message": "このサイトでVPNを無効にする"
+    },
+    "popup_settings_other_products": {
+        "message": "他のAdGuard製品"
+    },
+    "popup_settings_feedback": {
+        "message": "お問い合わせ・フィードバック"
+    },
+    "popup_settings_open_settings": {
+        "message": "設定"
+    },
+    "popup_settings_sign_out": {
+        "message": "ログアウト"
+    },
+    "context_menu_enable_vpn": {
+        "message": "このサイトでVPNを有効にする"
+    },
+    "context_menu_disable_vpn": {
+        "message": "このサイトでVPNを無効にする"
+    },
+    "suggest_feature": {
+        "message": "機能を提案する"
+    },
+    "endpoints_countries": {
+        "message": "ロケーション"
+    },
+    "endpoints_fastest": {
+        "message": "最速ロケーション"
+    },
+    "endpoints_all": {
+        "message": "ずべてのロケーション"
+    },
+    "endpoints_search_results": {
+        "message": "検索結果"
+    },
+    "endpoints_search": {
+        "message": "ロケーションを検索"
+    },
+    "endpoints_not_found": {
+        "message": "該当するサーバーが見つかりませんでした。"
+    },
+    "popup_traffic_limit_reached": {
+        "message": "1ヶ月データ量上限に達しました。もっと必要でしょうか？"
+    },
+    "premium_upgrade": {
+        "message": "アップグレード"
+    },
+    "settings_disconnect": {
+        "message": "切断する"
+    },
     "settings_button_connecting": {
         "message": "接続中…"
     },
+    "settings_connect": {
+        "message": "接続する"
+    },
+    "settings_not_responding": {
+        "message": "サーバーが応答しません。"
+    },
+    "settings_choose_another": {
+        "message": "他のサーバーを選択"
+    },
+    "settings_connection_not_secured": {
+        "message": "コネクションはセキュアではありません。"
+    },
     "settings_connecting": {
-        "message": "VPNは接続中です"
+        "message": "VPNは接続中です…"
+    },
+    "settings_vpn_enabled": {
+        "message": "VPNはオンです。"
+    },
+    "settings_vpn_disabled": {
+        "message": "VPNはオフです。"
+    },
+    "popup_feedback_title": {
+        "message": "ユーザ様の声をお聞かせください。"
+    },
+    "popup_feedback_button": {
+        "message": "ご提案・問題を送信"
+    },
+    "settings_run_out_data": {
+        "message": "無料データ量が使い尽くされました。"
+    },
+    "settings_run_upgrade_feature": {
+        "message": "無限のデータ、最速スピード、24時間365日サポート"
+    },
+    "options_title": {
+        "message": "AdGuard VPNオプション"
+    },
+    "offline_title": {
+        "message": "オフライン"
+    },
+    "popup_exclusions_enable_vpn_on_site": {
+        "message": "<span></span><a>このサイトに対してVPNを有効にする</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_exclusions_add_site_to_exclusions": {
+        "message": "<span></span><a>このサイトを除外に追加する</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_exclusions_disable_vpn_on_site": {
+        "message": "<span></span><a>このサイトに対してVPNを無効にする</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_site_status_unaccessible": {
+        "message": "ローカルネットワークにあり、VPN経由ではアクセスできません。"
+    },
+    "popup_site_status_vpn_disabled": {
+        "message": "このサイトに対してVPNは無効になっています。"
+    },
+    "popup_site_status_added_to_exclusions": {
+        "message": "除外に追加されています。"
+    },
+    "popup_auth_agreement_consent": {
+        "message": "AdGuard VPNを使用すると、<eula>利用許諾契約(EULA)</eula>および<privacy>プライバシーポリシー</privacy>に同意したことになります。",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "options_auth_agreement_consent": {
+        "message": "続行することで<privacy>規約と条件</privacy>および<eula>利用許諾契約(EULA)</eula>に同意したことになります。",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "popup_free_traffic_info": {
+        "message": "今月の残りデータ量: <span>%value% %unit%</span>",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "popup_ping_value": {
+        "message": "Ping %pingValue% ms",
+        "description": "Respect spaces between text and placeholder"
+    },
+    "options_auth_back_button": {
+        "message": "戻る"
     }
 }

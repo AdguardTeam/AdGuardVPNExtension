@@ -9,9 +9,15 @@ import messenger from '../../../lib/messenger';
 import Option from './Option';
 import './extra-options.pcss';
 import { reactTranslator } from '../../../reactCommon/reactTranslator';
+import Rate from '../Rate';
 
 const ExtraOptions = observer(() => {
     const { uiStore, settingsStore, authStore } = useContext(rootStore);
+
+    const {
+        isRateVisible,
+    } = settingsStore;
+
     const openSettings = async () => {
         await messenger.openOptionsPage();
         window.close();
@@ -99,10 +105,14 @@ const ExtraOptions = observer(() => {
                 handler={signOut}
                 text={reactTranslator.translate('popup_settings_sign_out')}
             />
-            <Option
-                handler={handleFeedback}
-                text={reactTranslator.translate('popup_settings_feedback')}
-            />
+            {isRateVisible
+                ? <Rate />
+                : (
+                    <Option
+                        handler={handleFeedback}
+                        text={reactTranslator.translate('popup_settings_feedback')}
+                    />
+                )}
         </Modal>
     );
 });
