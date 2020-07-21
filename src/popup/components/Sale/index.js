@@ -6,7 +6,7 @@ import rootStore from '../../stores';
 import './sale.pcss';
 
 const Sale = observer(() => {
-    const { vpnStore } = useContext(rootStore);
+    const { vpnStore, settingsStore } = useContext(rootStore);
 
     const upgradeClickHandler = async (e) => {
         e.preventDefault();
@@ -14,7 +14,7 @@ const Sale = observer(() => {
     };
 
     const hideSaleClickHandler = async () => {
-        // await checkSaleStatus();
+        await settingsStore.setSaleVisible({ visible: false, setHide: true });
     };
 
     const features = [

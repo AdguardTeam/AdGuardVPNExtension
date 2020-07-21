@@ -126,6 +126,7 @@ const App = observer(() => {
         hasGlobalError,
         checkPermissionsState,
         hasLimitExceededError,
+        saleVisibleState,
     } = settingsStore;
 
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
@@ -145,7 +146,7 @@ const App = observer(() => {
         );
     }
 
-    if (isPremiumToken) {
+    if (!isPremiumToken && (saleVisibleState && saleVisibleState.visible)) {
         return (
             <Sale />
         );

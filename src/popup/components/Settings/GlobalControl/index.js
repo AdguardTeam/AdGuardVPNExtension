@@ -14,6 +14,10 @@ const GlobalControl = observer(() => {
         await settingsStore.setProxyState(false);
     };
 
+    const isSaleHandler = async () => {
+        await settingsStore.setSaleVisible({ visible: true, setHide: false });
+    };
+
     const buttonStates = {
         disconnect: {
             className: 'button--outline-secondary',
@@ -29,11 +33,20 @@ const GlobalControl = observer(() => {
             message: reactTranslator.translate('settings_connect'),
             handler: connectHandler,
         },
+        showSale: {
+            className: 'button--green',
+            message: reactTranslator.translate('settings_connect'),
+            handler: isSaleHandler,
+        },
     };
 
     let buttonState;
 
     switch (true) {
+        case (settingsStore.saleVisibleState && !settingsStore.saleVisibleState.setHide): {
+            buttonState = buttonStates.showSale;
+            break;
+        }
         case (settingsStore.isConnected): {
             buttonState = buttonStates.disconnect;
             break;
