@@ -1,0 +1,69 @@
+import React, { useContext } from 'react';
+import { observer } from 'mobx-react';
+
+import { reactTranslator } from '../../../reactCommon/reactTranslator';
+import rootStore from '../../stores';
+import './sale.pcss';
+
+const Sale = observer(() => {
+    const { vpnStore, settingsStore } = useContext(rootStore);
+
+    const upgradeClickHandler = async (e) => {
+        e.preventDefault();
+        await vpnStore.openPremiumPromoPage();
+    };
+
+    const hideSaleClickHandler = async () => {
+        // await checkSaleStatus();
+    };
+
+    const features = [
+        'upgrade_features_data',
+        'upgrade_features_speed',
+        'upgrade_features_encrypt',
+        'upgrade_features_no_log',
+    ]
+
+    return (
+        <>
+            {1 ? (
+                <div className="sale">
+                    <div className="sale__content">
+                        <div className="sale__icon" />
+                        <div className="sale__price-label">
+                            {reactTranslator.translate('settings_run_upgrade_early_bird')}
+                        </div>
+                        <div className="sale__title">
+                            {reactTranslator.translate('sale_title')}
+                        </div>
+                        <div className="sale__features-list">
+                            {features.map((item, key)=>{
+                                return (
+                                    <div className="sale__features-item" key={key}>
+                                        {reactTranslator.translate(item)}
+                                    </div>  
+                                );
+                            })}
+                        </div>
+                    </div>
+                    <div className="sale__actions">
+                        <a
+                            className="button button--medium button--green sale__button"
+                            onClick={upgradeClickHandler}
+                        >
+                            {reactTranslator.translate('premium_upgrade')}
+                        </a>
+                        <a
+                            className="sale__continue-button"
+                            onClick={hideSaleClickHandler}
+                        >
+                            {reactTranslator.translate('continue_us_free_button')}
+                        </a>
+                    </div>
+                </div>
+            ) : ''} 
+        </>
+    );
+});
+
+export default Sale;

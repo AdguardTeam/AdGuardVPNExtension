@@ -22,6 +22,7 @@ import { REQUEST_STATUSES } from '../../stores/consts';
 import log from '../../../lib/logger';
 import messenger from '../../../lib/messenger';
 import notifier from '../../../lib/notifier';
+import Sale from '../Sale';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -128,7 +129,7 @@ const App = observer(() => {
     } = settingsStore;
 
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
-    const { premiumPromoEnabled } = vpnStore;
+    const { premiumPromoEnabled, isPremiumToken } = vpnStore;
 
     if ((hasGlobalError && !hasLimitExceededError) || !canControlProxy) {
         const showMenuButton = authenticated && canControlProxy;
@@ -141,6 +142,12 @@ const App = observer(() => {
                 <Icons />
                 <GlobalError />
             </>
+        );
+    }
+
+    if (isPremiumToken) {
+        return (
+            <Sale />
         );
     }
 
