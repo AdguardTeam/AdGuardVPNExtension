@@ -353,6 +353,24 @@
     "settings_run_upgrade_early_bird": {
         "message": "Early-bird prijzen"
     },
+    "sale_title": {
+        "message": "Je krijgt:"
+    },
+    "upgrade_features_data": {
+        "message": "Onbeperkte data"
+    },
+    "upgrade_features_speed": {
+        "message": "Supersnelle servers"
+    },
+    "upgrade_features_encrypt": {
+        "message": "Geavanceerde encryptie"
+    },
+    "upgrade_features_no_log": {
+        "message": "Niet loggen beleid"
+    },
+    "continue_us_free_button": {
+        "message": "Gratis doorgaan"
+    },
     "options_title": {
         "message": "AdGuard VPN Opties"
     },

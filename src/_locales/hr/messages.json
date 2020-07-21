@@ -353,6 +353,24 @@
     "settings_run_upgrade_early_bird": {
         "message": "Cijene za ranoranioce"
     },
+    "sale_title": {
+        "message": "Što dobivate:"
+    },
+    "upgrade_features_data": {
+        "message": "Neograničeni podaci"
+    },
+    "upgrade_features_speed": {
+        "message": "Vrlo brzi serveri"
+    },
+    "upgrade_features_encrypt": {
+        "message": "Napredno šifriranje"
+    },
+    "upgrade_features_no_log": {
+        "message": "Politika ne spremanja zapisnika"
+    },
+    "continue_us_free_button": {
+        "message": "Nastavi kao besplatno"
+    },
     "options_title": {
         "message": "AdGuard VPN opcije"
     },
