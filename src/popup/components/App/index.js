@@ -22,7 +22,7 @@ import { REQUEST_STATUSES } from '../../stores/consts';
 import log from '../../../lib/logger';
 import messenger from '../../../lib/messenger';
 import notifier from '../../../lib/notifier';
-import Sale from '../Sale';
+import PromoSale from '../PromoSale';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -146,9 +146,9 @@ const App = observer(() => {
         );
     }
 
-    if (!isPremiumToken && (saleVisibleState && saleVisibleState.visible)) {
+    if (!isPremiumToken && saleVisibleState.visible) {
         return (
-            <Sale />
+            <PromoSale />
         );
     }
 

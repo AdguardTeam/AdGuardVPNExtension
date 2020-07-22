@@ -4,7 +4,7 @@ import { reactTranslator } from '../../../../reactCommon/reactTranslator';
 import rootStore from '../../../stores';
 
 const GlobalControl = observer(() => {
-    const { settingsStore } = useContext(rootStore);
+    const { settingsStore, vpnStore } = useContext(rootStore);
 
     const connectHandler = async () => {
         await settingsStore.setProxyState(true);
@@ -14,7 +14,7 @@ const GlobalControl = observer(() => {
         await settingsStore.setProxyState(false);
     };
 
-    const isSaleHandler = async () => {
+    const setSaleVisibleHandler = async () => {
         await settingsStore.setSaleVisible({ visible: true, setHide: false });
     };
 
@@ -36,14 +36,14 @@ const GlobalControl = observer(() => {
         showSale: {
             className: 'button--green',
             message: reactTranslator.translate('settings_connect'),
-            handler: isSaleHandler,
+            handler: setSaleVisibleHandler,
         },
     };
 
     let buttonState;
 
     switch (true) {
-        case (settingsStore.saleVisibleState && !settingsStore.saleVisibleState.setHide): {
+        case (!vpnStore.isPremiumToken && !settingsStore.saleVisibleState.setHide): {
             buttonState = buttonStates.showSale;
             break;
         }

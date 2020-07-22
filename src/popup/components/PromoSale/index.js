@@ -5,7 +5,7 @@ import { reactTranslator } from '../../../reactCommon/reactTranslator';
 import rootStore from '../../stores';
 import './sale.pcss';
 
-const Sale = observer(() => {
+const PromoSale = observer(() => {
     const { vpnStore, settingsStore } = useContext(rootStore);
 
     const upgradeClickHandler = async (e) => {
@@ -64,4 +64,4 @@ const Sale = observer(() => {
     );
 });
 
-export default Sale;
+export default PromoSale;
