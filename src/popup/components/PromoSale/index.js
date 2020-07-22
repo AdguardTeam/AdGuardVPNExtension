@@ -14,7 +14,8 @@ const PromoSale = observer(() => {
     };
 
     const hideSaleClickHandler = async () => {
-        await settingsStore.setSaleVisible({ visible: false, setHide: true });
+        await settingsStore.hideSale();
+        await settingsStore.setShowPromo(false);
     };
 
     const features = [

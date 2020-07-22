@@ -18,12 +18,12 @@ const CurrentEndpoint = observer(() => {
     const { isConnected } = settingsStore;
 
     const setSaleVisibleHandler = async () => {
-        await settingsStore.setSaleVisible({ visible: true, setHide: false });
+        await settingsStore.setShowPromo(true);
     };
 
     const clickHandler = (e) => {
         e.preventDefault();
-        if (!vpnStore.isPremiumToken && !settingsStore.saleVisibleState.setHide) {
+        if (!vpnStore.isPremiumToken && settingsStore.saleVisibleState) {
             setSaleVisibleHandler();
         }
         uiStore.openEndpointsSearch();

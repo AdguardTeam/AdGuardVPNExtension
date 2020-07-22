@@ -36,6 +36,8 @@ class SettingsStore {
 
     @observable saleVisibleState;
 
+    @observable showPromo = false;
+
     constructor(rootStore) {
         this.rootStore = rootStore;
     }
@@ -257,10 +259,17 @@ class SettingsStore {
     };
 
     @action
-    setSaleVisible = async (state) => {
-        await messenger.setSetting(SETTINGS_IDS.SALE_SHOW, state);
+    hideSale = async () => {
+        await messenger.setSetting(SETTINGS_IDS.SALE_SHOW, false);
         runInAction(() => {
-            this.saleVisibleState = state;
+            this.saleVisibleState = false;
+        });
+    }
+
+    @action
+    setShowPromo = async (state) => {
+        runInAction(() => {
+            this.showPromo = state;
         });
     }
 

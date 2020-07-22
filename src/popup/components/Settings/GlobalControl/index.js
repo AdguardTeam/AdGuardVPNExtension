@@ -14,8 +14,8 @@ const GlobalControl = observer(() => {
         await settingsStore.setProxyState(false);
     };
 
-    const setSaleVisibleHandler = async () => {
-        await settingsStore.setSaleVisible({ visible: true, setHide: false });
+    const showPromoSaleHandler = async () => {
+        await settingsStore.setShowPromo(true);
     };
 
     const buttonStates = {
@@ -36,14 +36,14 @@ const GlobalControl = observer(() => {
         showSale: {
             className: 'button--green',
             message: reactTranslator.translate('settings_connect'),
-            handler: setSaleVisibleHandler,
+            handler: showPromoSaleHandler,
         },
     };
 
     let buttonState;
 
     switch (true) {
-        case (!vpnStore.isPremiumToken && !settingsStore.saleVisibleState.setHide): {
+        case (!vpnStore.isPremiumToken && settingsStore.saleVisibleState): {
             buttonState = buttonStates.showSale;
             break;
         }
