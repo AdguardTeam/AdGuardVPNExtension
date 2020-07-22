@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 
 import { reactTranslator } from '../../../reactCommon/reactTranslator';
 import rootStore from '../../stores';
-import './sale.pcss';
+import './promo-sale.pcss';
 
 const PromoSale = observer(() => {
     const { vpnStore, settingsStore } = useContext(rootStore);
