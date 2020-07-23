@@ -146,12 +146,6 @@ const App = observer(() => {
         );
     }
 
-    if (!isPremiumToken && showPromo) {
-        return (
-            <PromoSale />
-        );
-    }
-
     return (
         <>
             {isOpenOptionsModal && <ExtraOptions />}
@@ -163,6 +157,14 @@ const App = observer(() => {
                 unmountOnExit
             >
                 <Locations />
+            </CSSTransition>
+            <CSSTransition
+                in={!isPremiumToken && showPromo}
+                timeout={300}
+                classNames="fade"
+                unmountOnExit
+            >
+                <PromoSale />
             </CSSTransition>
             <Settings />
             <div className="footer">
