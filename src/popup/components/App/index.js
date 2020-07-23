@@ -159,7 +159,7 @@ const App = observer(() => {
                 <Locations />
             </CSSTransition>
             <CSSTransition
-                in={!isPremiumToken && showPromo}
+                in={!isPremiumToken && showPromo && settingsStore.isConnected}
                 timeout={300}
                 classNames="fade"
                 unmountOnExit
