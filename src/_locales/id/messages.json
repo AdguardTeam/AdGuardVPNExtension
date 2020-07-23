@@ -353,6 +353,24 @@
     "settings_run_upgrade_early_bird": {
         "message": "Harga rilis-awal"
     },
+    "sale_title": {
+        "message": "Apa yang Anda dapat:"
+    },
+    "upgrade_features_data": {
+        "message": "Data tak terbatas"
+    },
+    "upgrade_features_speed": {
+        "message": "Server kecepatan-cahaya"
+    },
+    "upgrade_features_encrypt": {
+        "message": "Enkripsi lanjutan"
+    },
+    "upgrade_features_no_log": {
+        "message": "Tanpa kebijakan log"
+    },
+    "continue_us_free_button": {
+        "message": "Lanjut gratis"
+    },
     "options_title": {
         "message": "Opsi AdGuard VPN"
     },
