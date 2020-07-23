@@ -8,14 +8,13 @@ const GlobalControl = observer(() => {
 
     const connectHandler = async () => {
         await settingsStore.setProxyState(true);
+        if (!vpnStore.isPremiumToken && settingsStore.saleVisibleState) {
+            await settingsStore.setShowPromo(true);
+        }
     };
 
     const disconnectHandler = async () => {
         await settingsStore.setProxyState(false);
-    };
-
-    const showPromoSaleHandler = async () => {
-        await settingsStore.setShowPromo(true);
     };
 
     const buttonStates = {
@@ -33,20 +32,11 @@ const GlobalControl = observer(() => {
             message: reactTranslator.translate('settings_connect'),
             handler: connectHandler,
         },
-        showSale: {
-            className: 'button--green',
-            message: reactTranslator.translate('settings_connect'),
-            handler: showPromoSaleHandler,
-        },
     };
 
     let buttonState;
 
     switch (true) {
-        case (!vpnStore.isPremiumToken && settingsStore.saleVisibleState): {
-            buttonState = buttonStates.showSale;
-            break;
-        }
         case (settingsStore.isConnected): {
             buttonState = buttonStates.disconnect;
             break;

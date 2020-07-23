@@ -10,11 +10,13 @@ const PromoSale = observer(() => {
 
     const upgradeClickHandler = async (e) => {
         e.preventDefault();
+        await settingsStore.setSalePromoStatus(false);
+        await settingsStore.setShowPromo(false);
         await vpnStore.openPremiumPromoPage();
     };
 
     const hideSaleClickHandler = async () => {
-        await settingsStore.hideSale();
+        await settingsStore.setSalePromoStatus(false);
         await settingsStore.setShowPromo(false);
     };
 

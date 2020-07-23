@@ -259,10 +259,10 @@ class SettingsStore {
     };
 
     @action
-    hideSale = async () => {
-        await messenger.setSetting(SETTINGS_IDS.SALE_SHOW, false);
+    setSalePromoStatus = async (state) => {
+        await messenger.setSetting(SETTINGS_IDS.SALE_SHOW, state);
         runInAction(() => {
-            this.saleVisibleState = false;
+            this.saleVisibleState = state;
         });
     }
 
