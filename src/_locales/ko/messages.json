@@ -140,6 +140,9 @@
     "settings_title": {
         "message": "설정"
     },
+    "settings_rate_us": {
+        "message": "평가"
+    },
     "settings_webrtc_label": {
         "message": "WebRTC 차단"
     },
@@ -346,6 +349,27 @@
     },
     "settings_run_upgrade_feature": {
         "message": "무제한 데이터, 가장 빠른 속도, 연중무휴 지원"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "얼리버드 가격"
+    },
+    "sale_title": {
+        "message": "얻는 이득:"
+    },
+    "upgrade_features_data": {
+        "message": "무제한 데이터"
+    },
+    "upgrade_features_speed": {
+        "message": "초고속 서버"
+    },
+    "upgrade_features_encrypt": {
+        "message": "고급 암호화"
+    },
+    "upgrade_features_no_log": {
+        "message": "로그 정책 없음"
+    },
+    "continue_us_free_button": {
+        "message": "무료로 계속하기"
     },
     "options_title": {
         "message": "AdGuard VPN 옵션"

@@ -140,6 +140,9 @@
     "settings_title": {
         "message": "Настройки"
     },
+    "settings_rate_us": {
+        "message": "Оценить приложение"
+    },
     "settings_webrtc_label": {
         "message": "Блокировать WebRTC"
     },
@@ -346,6 +349,27 @@
     },
     "settings_run_upgrade_feature": {
         "message": "Неограниченный трафик, самая высокая скорость, поддержка 24/7"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "Специальные цены для первых покупателей"
+    },
+    "sale_title": {
+        "message": "Что вы получите:"
+    },
+    "upgrade_features_data": {
+        "message": "Неограниченный трафик"
+    },
+    "upgrade_features_speed": {
+        "message": "Ультрабыстрые серверы"
+    },
+    "upgrade_features_encrypt": {
+        "message": "Продвинутое шифрование"
+    },
+    "upgrade_features_no_log": {
+        "message": "Политика \"Без логов\""
+    },
+    "continue_us_free_button": {
+        "message": "Продолжить бесплатно"
     },
     "options_title": {
         "message": "Опции AdGuard VPN"

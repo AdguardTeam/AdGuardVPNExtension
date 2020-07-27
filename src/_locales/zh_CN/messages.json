@@ -353,6 +353,24 @@
     "settings_run_upgrade_early_bird": {
         "message": "早鸟优惠价"
     },
+    "sale_title": {
+        "message": "可获得的利益："
+    },
+    "upgrade_features_data": {
+        "message": "无限数据"
+    },
+    "upgrade_features_speed": {
+        "message": "光速服务器"
+    },
+    "upgrade_features_encrypt": {
+        "message": "高级加密"
+    },
+    "upgrade_features_no_log": {
+        "message": "无记录政策"
+    },
+    "continue_us_free_button": {
+        "message": "继续免费"
+    },
     "options_title": {
         "message": "AdGuard VPN 选项"
     },

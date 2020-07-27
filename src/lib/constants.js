@@ -1,6 +1,7 @@
 export const SETTINGS_IDS = {
     PROXY_ENABLED: 'proxy.enabled',
     RATE_SHOW: 'rate.show',
+    SALE_SHOW: 'sale.show',
     EXCLUSIONS: 'exclusions.list',
     HANDLE_WEBRTC_ENABLED: 'webrtc.handle.enabled',
     SELECTED_DNS_SERVER: 'dns.handle.server',

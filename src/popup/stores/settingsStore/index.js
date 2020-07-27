@@ -34,6 +34,10 @@ class SettingsStore {
 
     @observable isRateVisible;
 
+    @observable saleVisibleState;
+
+    @observable showPromo = false;
+
     constructor(rootStore) {
         this.rootStore = rootStore;
     }
@@ -251,6 +255,29 @@ class SettingsStore {
         await messenger.setSetting(SETTINGS_IDS.RATE_SHOW, false);
         runInAction(() => {
             this.isRateVisible = false;
+        });
+    };
+
+    @action
+    setSalePromoStatus = async (state) => {
+        await messenger.setSetting(SETTINGS_IDS.SALE_SHOW, state);
+        runInAction(() => {
+            this.saleVisibleState = state;
+        });
+    }
+
+    @action
+    setShowPromo = async (state) => {
+        runInAction(() => {
+            this.showPromo = state;
+        });
+    }
+
+    @action
+    checkSaleStatus = async () => {
+        const value = await messenger.getSetting(SETTINGS_IDS.SALE_SHOW);
+        runInAction(() => {
+            this.saleVisibleState = value;
         });
     };
 }

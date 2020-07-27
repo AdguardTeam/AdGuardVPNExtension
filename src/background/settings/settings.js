@@ -12,6 +12,7 @@ import { EVENT } from '../connectivity/connectivityService/connectivityConstants
 const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.PROXY_ENABLED]: false,
     [SETTINGS_IDS.RATE_SHOW]: true,
+    [SETTINGS_IDS.SALE_SHOW]: true,
     [SETTINGS_IDS.EXCLUSIONS]: {},
     [SETTINGS_IDS.HANDLE_WEBRTC_ENABLED]: true,
     [SETTINGS_IDS.SELECTED_DNS_SERVER]: DNS_DEFAULT,

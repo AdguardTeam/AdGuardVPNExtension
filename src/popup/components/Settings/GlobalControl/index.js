@@ -4,10 +4,13 @@ import { reactTranslator } from '../../../../reactCommon/reactTranslator';
 import rootStore from '../../../stores';
 
 const GlobalControl = observer(() => {
-    const { settingsStore } = useContext(rootStore);
+    const { settingsStore, vpnStore } = useContext(rootStore);
 
     const connectHandler = async () => {
         await settingsStore.setProxyState(true);
+        if (!vpnStore.isPremiumToken && settingsStore.saleVisibleState) {
+            await settingsStore.setShowPromo(true);
+        }
     };
 
     const disconnectHandler = async () => {

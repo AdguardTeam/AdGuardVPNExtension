@@ -125,12 +125,6 @@
     "auth_placeholder_2fa": {
         "message": "Kimlik doğrulama kodu"
     },
-    "eula": {
-        "message": "Son Kullanıcı Lisans Anlaşması"
-    },
-    "privacy_policy": {
-        "message": "Gizlilik Sözleşmesi"
-    },
     "settings_title": {
         "message": "Ayarlar"
     },
