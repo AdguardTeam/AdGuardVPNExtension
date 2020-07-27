@@ -59,5 +59,11 @@ export const ERROR_STATUSES = {
     LIMIT_EXCEEDED: 'limit.exceeded.error',
 };
 
+export const PROMO_SALE_STATUSES = {
+    DISPLAY_BEFORE_CLICK: 'display.before.click',
+    DISPLAY_ON_POPUP_OPEN: 'display.on.popup.open',
+    DO_NOT_DISPLAY: 'do.not.display',
+};
+
 // Error text thrown when connection is canceled by user. See issue - AG-2291
 export const FORCE_CANCELLED = 'Connection was cancelled by user';

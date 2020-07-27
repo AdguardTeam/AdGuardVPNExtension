@@ -23,6 +23,7 @@ import log from '../../../lib/logger';
 import messenger from '../../../lib/messenger';
 import notifier from '../../../lib/notifier';
 import PromoSale from '../PromoSale';
+import { PROMO_SALE_STATUSES } from '../../../lib/constants';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -126,7 +127,7 @@ const App = observer(() => {
         hasGlobalError,
         checkPermissionsState,
         hasLimitExceededError,
-        showPromo,
+        saleVisibleState,
     } = settingsStore;
 
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
@@ -159,7 +160,11 @@ const App = observer(() => {
                 <Locations />
             </CSSTransition>
             <CSSTransition
-                in={!isPremiumToken && showPromo && settingsStore.isConnected}
+                in={
+                    !isPremiumToken
+                    && saleVisibleState === PROMO_SALE_STATUSES.DISPLAY_ON_POPUP_OPEN
+                    && settingsStore.isConnected
+                }
                 timeout={300}
                 classNames="fade"
                 unmountOnExit

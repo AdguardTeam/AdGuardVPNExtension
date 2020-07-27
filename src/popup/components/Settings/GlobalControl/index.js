@@ -2,14 +2,16 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import { reactTranslator } from '../../../../reactCommon/reactTranslator';
 import rootStore from '../../../stores';
+import { PROMO_SALE_STATUSES } from '../../../../lib/constants';
 
 const GlobalControl = observer(() => {
     const { settingsStore, vpnStore } = useContext(rootStore);
 
     const connectHandler = async () => {
         await settingsStore.setProxyState(true);
-        if (!vpnStore.isPremiumToken && settingsStore.saleVisibleState) {
-            await settingsStore.setShowPromo(true);
+        if (!vpnStore.isPremiumToken
+            && settingsStore.saleVisibleState === PROMO_SALE_STATUSES.DISPLAY_BEFORE_CLICK) {
+            await settingsStore.setSalePromoStatus(PROMO_SALE_STATUSES.DISPLAY_ON_POPUP_OPEN);
         }
     };
 

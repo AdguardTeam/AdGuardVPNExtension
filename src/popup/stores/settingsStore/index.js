@@ -9,7 +9,7 @@ import tabs from '../../../background/tabs';
 import log from '../../../lib/logger';
 import { getHostname, getProtocol } from '../../../lib/helpers';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
-import { ERROR_STATUSES, SETTINGS_IDS } from '../../../lib/constants';
+import { ERROR_STATUSES, SETTINGS_IDS, PROMO_SALE_STATUSES } from '../../../lib/constants';
 import messenger from '../../../lib/messenger';
 import { STATE } from '../../../background/connectivity/connectivityService/connectivityConstants';
 
@@ -34,9 +34,7 @@ class SettingsStore {
 
     @observable isRateVisible;
 
-    @observable saleVisibleState;
-
-    @observable showPromo = false;
+    @observable saleVisibleState = PROMO_SALE_STATUSES.DISPLAY_BEFORE_CLICK;
 
     constructor(rootStore) {
         this.rootStore = rootStore;
@@ -273,22 +271,6 @@ class SettingsStore {
             this.saleVisibleState = value;
         });
     };
-
-    @action
-    setShowPromo = async (state) => {
-        await messenger.setSetting(SETTINGS_IDS.USER_SET_PROMO_SHOW, state);
-        runInAction(() => {
-            this.showPromo = state;
-        });
-    }
-
-    @action
-    checkShowPromo = async () => {
-        const value = await messenger.getSetting(SETTINGS_IDS.USER_SET_PROMO_SHOW);
-        runInAction(() => {
-            this.showPromo = value;
-        });
-    }
 }
 
 export default SettingsStore;

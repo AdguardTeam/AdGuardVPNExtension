@@ -5,6 +5,7 @@ import { observer } from 'mobx-react';
 import rootStore from '../../../stores';
 
 import './endpoint.pcss';
+import { PROMO_SALE_STATUSES } from '../../../../lib/constants';
 
 const CurrentEndpoint = observer(() => {
     const { vpnStore, settingsStore, uiStore } = useContext(rootStore);
@@ -18,12 +19,13 @@ const CurrentEndpoint = observer(() => {
     const { isConnected } = settingsStore;
 
     const setSaleVisibleHandler = async () => {
-        await settingsStore.setShowPromo(true);
+        await settingsStore.setSalePromoStatus(PROMO_SALE_STATUSES.DISPLAY_ON_POPUP_OPEN);
     };
 
     const clickHandler = (e) => {
         e.preventDefault();
-        if (!vpnStore.isPremiumToken && settingsStore.saleVisibleState) {
+        if (!vpnStore.isPremiumToken
+            && settingsStore.saleVisibleState === PROMO_SALE_STATUSES.DISPLAY_BEFORE_CLICK) {
             setSaleVisibleHandler();
         }
         uiStore.openEndpointsSearch();

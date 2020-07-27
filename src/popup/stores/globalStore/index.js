@@ -64,7 +64,6 @@ class globalStore {
             settingsStore.setIsRoutable(isRoutable);
             await settingsStore.checkRateStatus();
             await settingsStore.checkSaleStatus();
-            await settingsStore.checkShowPromo();
             await settingsStore.checkIsExcluded();
             await settingsStore.getExclusionsInverted();
             this.setInitStatus(REQUEST_STATUSES.DONE);
