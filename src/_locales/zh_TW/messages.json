@@ -146,6 +146,9 @@
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
     },
+    "settings_dns_selector_adguard_desc": {
+        "message": "從您的裝置移除廣告和追蹤器"
+    },
     "settings_dns_selector_adguard_nonfiltering_title": {
         "message": "AdGuard DNS 非過濾"
     },
@@ -178,6 +181,9 @@
     },
     "settings_dns_selector_quad9_desc": {
         "message": "有免於網路釣魚和間諜軟體的防護之免費替代的 DNS 服務"
+    },
+    "settings_exclusion_add": {
+        "message": "增加網站"
     },
     "settings_exclusion_title": {
         "message": "例外"
@@ -254,14 +260,20 @@
     "endpoints_fastest": {
         "message": "最快的"
     },
+    "endpoints_all": {
+        "message": "所有的端點"
+    },
     "endpoints_search_results": {
         "message": "搜尋結果"
     },
     "endpoints_search": {
         "message": "搜尋位置"
     },
+    "endpoints_not_found": {
+        "message": "伺服器未被找到"
+    },
     "popup_traffic_limit_reached": {
-        "message": "已達每月的流量限制。需要更多嗎？"
+        "message": "已達到每月的流量限制。需要更多嗎？"
     },
     "premium_upgrade": {
         "message": "升級"
@@ -281,6 +293,9 @@
     "settings_choose_another": {
         "message": "選擇另一個"
     },
+    "settings_connection_not_secured": {
+        "message": "連線為不安全的"
+    },
     "settings_connecting": {
         "message": "VPN 正在連線"
     },
@@ -290,8 +305,14 @@
     "settings_vpn_disabled": {
         "message": "VPN 被禁用"
     },
+    "popup_feedback_title": {
+        "message": "我們願意聽取您的回饋意見"
+    },
     "popup_feedback_button": {
         "message": "留下回饋意見"
+    },
+    "settings_run_out_data": {
+        "message": "您已用完流量"
     },
     "settings_run_upgrade_feature": {
         "message": "無限的流量、最快的速度、24 小時全年無休的支援"
