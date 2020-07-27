@@ -267,19 +267,28 @@ class SettingsStore {
     }
 
     @action
-    setShowPromo = async (state) => {
-        runInAction(() => {
-            this.showPromo = state;
-        });
-    }
-
-    @action
     checkSaleStatus = async () => {
         const value = await messenger.getSetting(SETTINGS_IDS.SALE_SHOW);
         runInAction(() => {
             this.saleVisibleState = value;
         });
     };
+
+    @action
+    setShowPromo = async (state) => {
+        await messenger.setSetting(SETTINGS_IDS.USER_SET_PROMO_SHOW, state);
+        runInAction(() => {
+            this.showPromo = state;
+        });
+    }
+
+    @action
+    checkShowPromo = async () => {
+        const value = await messenger.getSetting(SETTINGS_IDS.USER_SET_PROMO_SHOW);
+        runInAction(() => {
+            this.showPromo = value;
+        });
+    }
 }
 
 export default SettingsStore;
