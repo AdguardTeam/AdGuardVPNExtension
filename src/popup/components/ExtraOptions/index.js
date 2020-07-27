@@ -37,6 +37,7 @@ const ExtraOptions = observer(() => {
         await authStore.deauthenticate();
         await settingsStore.setProxyState(false);
         await settingsStore.clearPermissionError();
+        await settingsStore.setSalePromoStatus(true);
         uiStore.closeOptionsModal();
     };
 

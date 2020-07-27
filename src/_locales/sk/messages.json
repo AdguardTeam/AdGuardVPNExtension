@@ -180,7 +180,7 @@
         "message": "AdGuard DNS bez filtrácie"
     },
     "settings_dns_selector_adguard_nonfiltering_desc": {
-        "message": "Zabezpečené DNS bez protokolovania aktivít (nefiltruje reklamy a sledovače)"
+        "message": "Zabezpečené DNS bez tvorby záznamov o aktivite (nefiltruje reklamy a sledovače)"
     },
     "settings_dns_selector_adguard_family_title": {
         "message": "AdGuard DNS Rodinná ochrana"
@@ -329,6 +329,9 @@
     "settings_connection_not_secured": {
         "message": "Pripojenie nie je zabezpečené"
     },
+    "settings_connecting": {
+        "message": "VPN sa pripája"
+    },
     "settings_vpn_enabled": {
         "message": "VPN je zapnutá"
     },
@@ -349,6 +352,24 @@
     },
     "settings_run_upgrade_early_bird": {
         "message": "Ceny v predpredaji"
+    },
+    "sale_title": {
+        "message": "Čo dostanete:"
+    },
+    "upgrade_features_data": {
+        "message": "Neobmedzené dáta"
+    },
+    "upgrade_features_speed": {
+        "message": "Bleskovo rýchle servery"
+    },
+    "upgrade_features_encrypt": {
+        "message": "Pokročilé šifrovanie"
+    },
+    "upgrade_features_no_log": {
+        "message": "Politika nevytvárania denníkov"
+    },
+    "continue_us_free_button": {
+        "message": "Pokračovať bezplatne"
     },
     "options_title": {
         "message": "Predvoľby AdGuard VPN"

@@ -1,0 +1,96 @@
+.promo-sale {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    z-index: var(--endpoints-z-index);
+    width: var(--popup-width);
+    height: 100%;
+    padding: 20px;
+    transition: opacity var(--t6);
+    transition-delay: 1s;
+    background-color: #fff;
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--gray-base);
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__icon {
+        width: 240px;
+        height: 210px;
+        margin: 0px auto 30px;
+        background-image: url(../../../../src/assets/images/sale.svg);
+        background-position: center bottom;
+        background-repeat: no-repeat;
+    }
+
+    &__price-label {
+        align-self: center;
+        padding: 2px 15px;
+        color: #fff;
+        background-color: var(--orange);
+        margin-bottom: 20px;
+        border-radius: 4px;
+        font-size: 1.4rem;
+    }
+
+    &__title {
+        margin-bottom: 20px;
+        font-size: 2.6rem;
+        font-weight: 700;
+        line-height: 24px;
+    }
+
+    &__actions {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__features-list {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+
+    &__features-item {
+        display: block;
+        position: relative;
+        align-items: center;
+        margin-bottom: 10px;
+
+        &:before {
+            content: "";
+            display: inline-block;
+            height: 8px;
+            width: 12px;
+            position: absolute;
+            left: -24px;
+            top: 6px;
+            border: solid var(--green700);
+            border-width: 0 0 2px 2px;
+            transform: rotate(-45deg);
+        }
+    }
+
+    &__button {
+        &:first-child {
+            margin-bottom: 20px;
+        }
+    }
+
+    &__continue-button {
+        font-size: 1.4rem;
+        text-align: center;
+        color: var(--gray88);
+        cursor: pointer;
+    }
+}

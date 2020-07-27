@@ -353,6 +353,24 @@
     "settings_run_upgrade_early_bird": {
         "message": "Ceny pro nejrychlejší"
     },
+    "sale_title": {
+        "message": "Co získáte:"
+    },
+    "upgrade_features_data": {
+        "message": "Neomezená data"
+    },
+    "upgrade_features_speed": {
+        "message": "Nejrychlejší servery"
+    },
+    "upgrade_features_encrypt": {
+        "message": "Pokročilé šifrování"
+    },
+    "upgrade_features_no_log": {
+        "message": "Žádné zásady protokolování"
+    },
+    "continue_us_free_button": {
+        "message": "Pokračovat bezplatně"
+    },
     "options_title": {
         "message": "Možnosti AdGuard VPN"
     },
