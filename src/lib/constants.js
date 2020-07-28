@@ -2,6 +2,7 @@ export const SETTINGS_IDS = {
     PROXY_ENABLED: 'proxy.enabled',
     RATE_SHOW: 'rate.show',
     SALE_SHOW: 'sale.show',
+    USER_SET_PROMO_SHOW: 'user.set.promo.show',
     EXCLUSIONS: 'exclusions.list',
     HANDLE_WEBRTC_ENABLED: 'webrtc.handle.enabled',
     SELECTED_DNS_SERVER: 'dns.handle.server',
@@ -56,6 +57,12 @@ export const ERROR_STATUSES = {
     NETWORK_ERROR: 'network.error',
     INVALID_TOKEN_ERROR: 'invalid.token.error',
     LIMIT_EXCEEDED: 'limit.exceeded.error',
+};
+
+export const PROMO_SALE_STATUSES = {
+    DISPLAY_BEFORE_CLICK: 'display.before.click',
+    DISPLAY_ON_POPUP_OPEN: 'display.on.popup.open',
+    DO_NOT_DISPLAY: 'do.not.display',
 };
 
 // Error text thrown when connection is canceled by user. See issue - AG-2291

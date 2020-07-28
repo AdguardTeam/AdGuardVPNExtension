@@ -140,6 +140,9 @@
     "settings_title": {
         "message": "Postavke"
     },
+    "settings_rate_us": {
+        "message": "Ocenite nas"
+    },
     "settings_webrtc_label": {
         "message": "Blokiraj WebRTC"
     },
@@ -346,6 +349,27 @@
     },
     "settings_run_upgrade_feature": {
         "message": "Neograničeni podaci, najveća brzina, 24/7 podrška"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "Rane cene"
+    },
+    "sale_title": {
+        "message": "Šta dobijate:"
+    },
+    "upgrade_features_data": {
+        "message": "Neograničene podatke"
+    },
+    "upgrade_features_speed": {
+        "message": "Najbrže servere"
+    },
+    "upgrade_features_encrypt": {
+        "message": "Napredno šifrovanje"
+    },
+    "upgrade_features_no_log": {
+        "message": "Bez vođenja dnevnika"
+    },
+    "continue_us_free_button": {
+        "message": "Nastavi besplatno"
     },
     "options_title": {
         "message": "AdGuard VPN opcije"

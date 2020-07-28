@@ -4,20 +4,19 @@ import { observer } from 'mobx-react';
 import { reactTranslator } from '../../../reactCommon/reactTranslator';
 import rootStore from '../../stores';
 import './promo-sale.pcss';
+import { PROMO_SALE_STATUSES } from '../../../lib/constants';
 
 const PromoSale = observer(() => {
     const { vpnStore, settingsStore } = useContext(rootStore);
 
     const upgradeClickHandler = async (e) => {
         e.preventDefault();
-        await settingsStore.setSalePromoStatus(false);
-        await settingsStore.setShowPromo(false);
+        await settingsStore.setSalePromoStatus(PROMO_SALE_STATUSES.DO_NOT_DISPLAY);
         await vpnStore.openPremiumPromoPage();
     };
 
     const hideSaleClickHandler = async () => {
-        await settingsStore.setSalePromoStatus(false);
-        await settingsStore.setShowPromo(false);
+        await settingsStore.setSalePromoStatus(PROMO_SALE_STATUSES.DO_NOT_DISPLAY);
     };
 
     const features = [
