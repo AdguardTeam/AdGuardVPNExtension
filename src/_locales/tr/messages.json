@@ -32,9 +32,6 @@
     "authentication_error_2fa_invalid": {
         "message": "Geçersiz simge"
     },
-    "authentication_error_account_disabled": {
-        "message": "Hesap devre dışı"
-    },
     "authentication_error_account_locked": {
         "message": "Hesap 15 dakika boyunca kilitlendi"
     },
@@ -94,15 +91,6 @@
     },
     "auth_sign_up_button": {
         "message": "Kaydol"
-    },
-    "auth_sign_in": {
-        "message": "Oturum açın"
-    },
-    "auth_sign_in_button": {
-        "message": "Oturum aç"
-    },
-    "auth_sign_in_link": {
-        "message": "AdGuard hesabıyla oturum aç"
     },
     "auth_account": {
         "message": "Bir hesabınız yok mu?"
@@ -268,9 +256,6 @@
     },
     "endpoints_fastest": {
         "message": "En hızlı"
-    },
-    "endpoints_all": {
-        "message": "Tüm bitiş noktalar"
     },
     "endpoints_search_results": {
         "message": "Arama sonucu"

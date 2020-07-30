@@ -293,9 +293,6 @@
     "endpoints_fastest": {
         "message": "Najhitreje"
     },
-    "endpoints_all": {
-        "message": "Vse končne točke"
-    },
     "endpoints_search_results": {
         "message": "Rezultat iskanja"
     },

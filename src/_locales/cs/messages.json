@@ -293,9 +293,6 @@
     "endpoints_fastest": {
         "message": "Nejrychlejší"
     },
-    "endpoints_all": {
-        "message": "Všechny koncové zařízení"
-    },
     "endpoints_search_results": {
         "message": "Vyhledat výsledek"
     },

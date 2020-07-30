@@ -293,9 +293,6 @@
     "endpoints_fastest": {
         "message": "Schnellste"
     },
-    "endpoints_all": {
-        "message": "Alle Endpunkte"
-    },
     "endpoints_search_results": {
         "message": "Suchergebnisse"
     },

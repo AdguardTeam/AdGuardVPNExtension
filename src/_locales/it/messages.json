@@ -290,9 +290,6 @@
     "endpoints_fastest": {
         "message": "Più veloce"
     },
-    "endpoints_all": {
-        "message": "Tutti gli endpoint"
-    },
     "endpoints_search_results": {
         "message": "Risultato della ricerca"
     },

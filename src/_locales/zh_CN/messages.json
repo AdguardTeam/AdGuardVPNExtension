@@ -293,9 +293,6 @@
     "endpoints_fastest": {
         "message": "最快"
     },
-    "endpoints_all": {
-        "message": "所有端点"
-    },
     "endpoints_search_results": {
         "message": "搜索结果"
     },
@@ -411,7 +408,7 @@
         "description": "Respect spaces between text, tags and placeholders"
     },
     "popup_ping_value": {
-        "message": "响应时间为 %pingValue% ms",
+        "message": "Ping响应为 %pingValue% ms",
         "description": "Respect spaces between text and placeholder"
     },
     "options_auth_back_button": {

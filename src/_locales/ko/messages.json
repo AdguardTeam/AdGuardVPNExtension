@@ -293,9 +293,6 @@
     "endpoints_fastest": {
         "message": "가장 빠름"
     },
-    "endpoints_all": {
-        "message": "모든 엔드포인트"
-    },
     "endpoints_search_results": {
         "message": "검색 결과"
     },

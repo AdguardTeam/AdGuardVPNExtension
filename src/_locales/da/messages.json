@@ -293,9 +293,6 @@
     "endpoints_fastest": {
         "message": "Hurtigste"
     },
-    "endpoints_all": {
-        "message": "Alle slutpunkter"
-    },
     "endpoints_search_results": {
         "message": "Søgeresultat"
     },

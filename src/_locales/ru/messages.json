@@ -293,9 +293,6 @@
     "endpoints_fastest": {
         "message": "Самые быстрые"
     },
-    "endpoints_all": {
-        "message": "Все локации"
-    },
     "endpoints_search_results": {
         "message": "Результаты поиска"
     },
