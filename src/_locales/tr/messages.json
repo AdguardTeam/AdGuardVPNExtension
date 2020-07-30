@@ -17,9 +17,6 @@
     "registration_error_min_length": {
         "message": "Bu değer çok kısa. 8 veya daha fazla karakter içermelidir."
     },
-    "registration_error_compromised_password": {
-        "message": "Girdiğiniz parola, güvenliği aşılmış parolaların <a>ortak veritabanında</a> bulundu. Lütfen başka bir tane deneyin."
-    },
     "registration_error_unique_constraint": {
         "message": "Bu değer zaten kullanılıyor"
     },
@@ -76,9 +73,6 @@
     },
     "auth_code": {
         "message": "Yetkilendirme uygulamasından gelen kod"
-    },
-    "auth_confirm": {
-        "message": "Onayla"
     },
     "auth_email": {
         "message": "E-posta Adresi"
@@ -187,9 +181,6 @@
     },
     "settings_dns_selector_cisco_title": {
         "message": "Cisco OpenDNS"
-    },
-    "settings_dns_selector_cisco_desc": {
-        "message": "Cihazınızı kötü amaçlı yazılımlardan koruyan DNS sunucusu"
     },
     "settings_dns_selector_quad9_title": {
         "message": "Quad9"

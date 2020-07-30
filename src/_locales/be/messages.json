@@ -140,6 +140,9 @@
     "settings_title": {
         "message": "Налады"
     },
+    "settings_rate_us": {
+        "message": "Ацаніце дадатак"
+    },
     "settings_webrtc_label": {
         "message": "Блакаваць WebRTC"
     },
@@ -346,6 +349,27 @@
     },
     "settings_run_upgrade_feature": {
         "message": "Неабмежаваны трафік, самая высокая хуткасць, цэладзённая падтрымка"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "Адмысловыя цэны для першых пакупнікоў"
+    },
+    "sale_title": {
+        "message": "Што вы атрымаеце:"
+    },
+    "upgrade_features_data": {
+        "message": "Неабмежаваны трафік"
+    },
+    "upgrade_features_speed": {
+        "message": "Ультрахуткія серверы"
+    },
+    "upgrade_features_encrypt": {
+        "message": "Прасунутае шыфраванне"
+    },
+    "upgrade_features_no_log": {
+        "message": "Палітыка \"Без логаў\""
+    },
+    "continue_us_free_button": {
+        "message": "Працягнуць дарма"
     },
     "options_title": {
         "message": "Налады AdGuard VPN"

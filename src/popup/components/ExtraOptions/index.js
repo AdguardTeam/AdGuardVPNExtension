@@ -10,6 +10,7 @@ import Option from './Option';
 import './extra-options.pcss';
 import { reactTranslator } from '../../../reactCommon/reactTranslator';
 import Rate from '../Rate';
+import { PROMO_SALE_STATUSES } from '../../../lib/constants';
 
 const ExtraOptions = observer(() => {
     const { uiStore, settingsStore, authStore } = useContext(rootStore);
@@ -37,7 +38,7 @@ const ExtraOptions = observer(() => {
         await authStore.deauthenticate();
         await settingsStore.setProxyState(false);
         await settingsStore.clearPermissionError();
-        await settingsStore.setSalePromoStatus(true);
+        await settingsStore.setSalePromoStatus(PROMO_SALE_STATUSES.DISPLAY_BEFORE_CLICK);
         uiStore.closeOptionsModal();
     };
 
