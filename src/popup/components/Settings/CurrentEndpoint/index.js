@@ -32,9 +32,9 @@ const CurrentEndpoint = observer(() => {
         uiStore.openEndpointsSearch();
     };
 
-    const renderVpnStatusSubstring = () => {
+    const renderSelectedLocationPing = () => {
         if (selectedLocationPing) {
-            return (<span>{`${selectedLocationPing} ms`}</span>);
+            return `${selectedLocationPing} ms`;
         }
         return '-';
     };
@@ -68,7 +68,7 @@ const CurrentEndpoint = observer(() => {
                 </div>
             </div>
             <div className="endpoint__ping">
-                {renderVpnStatusSubstring()}
+                {renderSelectedLocationPing()}
             </div>
         </div>
     );

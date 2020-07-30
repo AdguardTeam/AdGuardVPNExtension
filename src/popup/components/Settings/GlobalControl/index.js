@@ -5,7 +5,7 @@ import rootStore from '../../../stores';
 import { PROMO_SALE_STATUSES } from '../../../../lib/constants';
 
 const GlobalControl = observer(() => {
-    const { settingsStore, vpnStore, uiStore } = useContext(rootStore);
+    const { settingsStore, vpnStore } = useContext(rootStore);
 
     const { isExcluded, exclusionsInverted } = settingsStore;
 
@@ -22,12 +22,10 @@ const GlobalControl = observer(() => {
     };
 
     const addToExclusions = async () => {
-        uiStore.closeOptionsModal();
         await settingsStore.addToExclusions();
     };
 
     const removeFromExclusions = async () => {
-        uiStore.closeOptionsModal();
         await settingsStore.removeFromExclusions();
     };
 
