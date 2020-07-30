@@ -7,20 +7,12 @@ import { reactTranslator } from '../../../../reactCommon/reactTranslator';
 import './status.pcss';
 
 const Status = observer(() => {
-    const { settingsStore, vpnStore } = useContext(rootStore);
+    const { settingsStore } = useContext(rootStore);
 
     const renderVpnStatusSubstring = () => {
-        if (settingsStore.isConnected && vpnStore.selectedLocationPing) {
-            return reactTranslator.translate('popup_ping_value', {
-                pingValue: vpnStore.selectedLocationPing,
-            });
-        }
-
-        if (settingsStore.isDisconnectedRetrying) {
-            return reactTranslator.translate('settings_not_responding');
-        }
-
-        return reactTranslator.translate('settings_connection_not_secured');
+        return settingsStore.exclusionsInverted
+            ? reactTranslator.translate('context_menu_selective_mode')
+            : reactTranslator.translate('context_menu_regular_mode');
     };
 
     const renderVpnStatusTitle = () => {
