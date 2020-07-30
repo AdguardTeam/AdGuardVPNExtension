@@ -4,7 +4,6 @@ import classnames from 'classnames';
 
 import rootStore from '../../stores';
 
-import CurrentEndpoint from './CurrentEndpoint';
 import GlobalControl from './GlobalControl';
 import Status from './Status';
 import SiteInfo from './SiteInfo';
@@ -48,7 +47,6 @@ const Settings = observer(() => {
                     <GlobalControl />
                 </>
             </div>
-            <CurrentEndpoint />
         </div>
     );
 });

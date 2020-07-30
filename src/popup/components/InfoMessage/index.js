@@ -53,12 +53,6 @@ const InfoMessage = observer(() => {
 
     return (
         <div className={infoMessagesClass}>
-            <div className="info-message__progress">
-                <div
-                    className={`info-message__progress-in ${getInfoColor()}`}
-                    style={{ width: `${trafficUsingProgress}%` }}
-                />
-            </div>
             <div className="info-message__text-wr">
                 <div className="info-message__text">
                     {
@@ -78,6 +72,12 @@ const InfoMessage = observer(() => {
                 >
                     {reactTranslator.translate('premium_upgrade')}
                 </a>
+            </div>
+            <div className="info-message__progress">
+                <div
+                    className={`info-message__progress-in ${getInfoColor()}`}
+                    style={{ width: `${trafficUsingProgress}%` }}
+                />
             </div>
         </div>
     );

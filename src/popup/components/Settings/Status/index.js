@@ -1,21 +1,13 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
-import classnames from 'classnames';
 
 import rootStore from '../../../stores';
-import { PING_WITH_WARNING } from '../../../stores/consts';
 import { reactTranslator } from '../../../../reactCommon/reactTranslator';
 
 import './status.pcss';
 
 const Status = observer(() => {
     const { settingsStore, vpnStore } = useContext(rootStore);
-
-    const endpointStatus = classnames('status__subtitle', {
-        'status__subtitle--disabled': !settingsStore.isConnected,
-        'status__subtitle--warning': settingsStore.isConnected && vpnStore.selectedLocationPing >= PING_WITH_WARNING,
-        'status__subtitle--success': settingsStore.isConnected && vpnStore.selectedLocationPing < PING_WITH_WARNING,
-    });
 
     const renderVpnStatusSubstring = () => {
         if (settingsStore.isConnected && vpnStore.selectedLocationPing) {
@@ -48,7 +40,7 @@ const Status = observer(() => {
             <div className="status__title">
                 {renderVpnStatusTitle()}
             </div>
-            <div className={endpointStatus}>
+            <div className="status__subtitle">
                 {renderVpnStatusSubstring()}
             </div>
         </div>

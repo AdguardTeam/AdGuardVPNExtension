@@ -14,6 +14,7 @@ const CurrentEndpoint = observer(() => {
         countryNameToDisplay,
         cityNameToDisplay,
         countryCodeToDisplay,
+        selectedLocationPing,
     } = vpnStore;
 
     const { isConnected } = settingsStore;
@@ -29,6 +30,13 @@ const CurrentEndpoint = observer(() => {
             setSaleVisibleHandler();
         }
         uiStore.openEndpointsSearch();
+    };
+
+    const renderVpnStatusSubstring = () => {
+        if (selectedLocationPing) {
+            return (<span>{`${selectedLocationPing} ms`}</span>);
+        }
+        return '-';
     };
 
     const iconClass = classnames('flag', { 'flag--active': isConnected });
@@ -58,6 +66,9 @@ const CurrentEndpoint = observer(() => {
                 <div className="endpoint__desc">
                     {cityNameToDisplay}
                 </div>
+            </div>
+            <div className="endpoint__ping">
+                {renderVpnStatusSubstring()}
             </div>
         </div>
     );

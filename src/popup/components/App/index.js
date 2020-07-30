@@ -16,6 +16,7 @@ import Preloader from '../Preloader';
 import GlobalError from '../GlobalError';
 import Settings from '../Settings';
 import Icons from '../ui/Icons';
+import CurrentEndpoint from '../Settings/CurrentEndpoint';
 
 import rootStore from '../../stores';
 import { REQUEST_STATUSES } from '../../stores/consts';
@@ -178,6 +179,7 @@ const App = observer(() => {
                 ) : (
                     <FeedbackMessage />
                 )}
+                <CurrentEndpoint />
             </div>
             <Icons />
         </>
