@@ -6,7 +6,7 @@ import rootStore from '../../stores';
 
 import GlobalControl from './GlobalControl';
 import Status from './Status';
-import SiteInfo from './SiteInfo';
+import StatusImage from './StatusImage';
 import Upgrade from './Upgrade';
 
 import './settings.pcss';
@@ -42,7 +42,7 @@ const Settings = observer(() => {
         <div className={settingsClass}>
             <div className="settings__main">
                 <>
-                    <SiteInfo />
+                    <StatusImage />
                     <Status />
                     <GlobalControl />
                 </>

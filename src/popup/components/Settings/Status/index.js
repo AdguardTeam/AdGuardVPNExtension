@@ -9,19 +9,31 @@ import './status.pcss';
 const Status = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
+    const {
+        isExcluded,
+        exclusionsInverted,
+        isConnected,
+        isConnectingIdle,
+        isConnectingRetrying,
+    } = settingsStore;
+
     const renderVpnStatusSubstring = () => {
-        return settingsStore.exclusionsInverted
+        return exclusionsInverted
             ? reactTranslator.translate('context_menu_selective_mode')
             : reactTranslator.translate('context_menu_regular_mode');
     };
 
     const renderVpnStatusTitle = () => {
-        if (settingsStore.isConnected) {
+        if (isConnected) {
             return reactTranslator.translate('settings_vpn_enabled');
         }
 
-        if (settingsStore.isConnectingIdle || settingsStore.isConnectingRetrying) {
+        if (isConnectingIdle || isConnectingRetrying) {
             return reactTranslator.translate('settings_connecting');
+        }
+
+        if ((isExcluded && !exclusionsInverted) || (isExcluded && exclusionsInverted)) {
+            return reactTranslator.translate('settings_vpn_disabled');
         }
 
         return reactTranslator.translate('settings_vpn_disabled');

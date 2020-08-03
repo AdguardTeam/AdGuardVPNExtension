@@ -17,6 +17,7 @@ import GlobalError from '../GlobalError';
 import Settings from '../Settings';
 import Icons from '../ui/Icons';
 import CurrentEndpoint from '../Settings/CurrentEndpoint';
+import ExclusionsDisable from '../Settings/ExclusionsDisable';
 
 import rootStore from '../../stores';
 import { REQUEST_STATUSES } from '../../stores/consts';
@@ -129,6 +130,9 @@ const App = observer(() => {
         checkPermissionsState,
         hasLimitExceededError,
         saleVisibleState,
+        isExcluded,
+        exclusionsInverted,
+        canBeExcluded,
     } = settingsStore;
 
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
@@ -144,6 +148,20 @@ const App = observer(() => {
                 <Header showMenuButton={showMenuButton} />
                 <Icons />
                 <GlobalError />
+            </>
+        );
+    }
+
+
+    if (((isExcluded && !exclusionsInverted)
+        || (!isExcluded && exclusionsInverted))
+        && canBeExcluded) {
+        return (
+            <>
+                {isOpenOptionsModal && <ExtraOptions />}
+                <Header showMenuButton={authenticated} />
+                <ExclusionsDisable />
+                <Icons />
             </>
         );
     }

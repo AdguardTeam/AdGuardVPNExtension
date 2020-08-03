@@ -263,6 +263,9 @@
     "popup_settings_enable_vpn": {
         "message": "Enable VPN on this website"
     },
+    "popup_settings_enable_vpn_shot": {
+        "message": "Enable on this site"
+    },
     "popup_settings_disable_vpn": {
         "message": "Disable VPN on this website"
     },
