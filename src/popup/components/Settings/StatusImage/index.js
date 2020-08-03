@@ -14,11 +14,13 @@ const StatusImage = observer(() => {
         exclusionsInverted,
         isDisconnectedRetrying,
         isConnectingRetrying,
+        isConnectingIdle,
     } = settingsStore;
 
     const statusClassName = classnames(
         'status-image',
         { 'status-image--enabled': isConnected },
+        { 'status-image--connecting': isConnectingIdle || isDisconnectedRetrying },
         { 'status-image--exclusions-disable': (isExcluded && !exclusionsInverted) || (!isExcluded && exclusionsInverted) },
         { 'status-image--server-error': isDisconnectedRetrying || isConnectingRetrying }
     );

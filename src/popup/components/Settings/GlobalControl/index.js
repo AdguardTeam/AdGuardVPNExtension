@@ -72,10 +72,6 @@ const GlobalControl = observer(() => {
             message: reactTranslator.translate('settings_disconnect'),
             handler: disconnectHandler,
         },
-        connecting: {
-            className: 'button--outline-secondary button__disabled',
-            message: reactTranslator.translate('settings_button_connecting'),
-        },
         connect: {
             className: 'button--green',
             message: reactTranslator.translate('settings_connect'),
@@ -88,11 +84,6 @@ const GlobalControl = observer(() => {
     switch (true) {
         case (settingsStore.isConnected): {
             buttonState = buttonStates.disconnect;
-            break;
-        }
-        case (settingsStore.isConnectingIdle
-            || settingsStore.isConnectingRetrying): {
-            buttonState = buttonStates.connecting;
             break;
         }
         case (settingsStore.isDisconnectedIdle

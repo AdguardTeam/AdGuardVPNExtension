@@ -6,11 +6,17 @@
     background-position: center bottom;
     background-size: contain;
 
+    &--connecting,
     &--enabled {
         background-image: url(../../../../../src/assets/images/enabled.svg);
         background-size: 100% 195px;
         background-position: center 4px;
     }
+
+    &--connecting {
+        filter: grayscale(1);
+    }
+
     &--exclusions-disable,
     &--server-error {
         background-image: url(../../../../../src/assets/images/not-found.svg);
