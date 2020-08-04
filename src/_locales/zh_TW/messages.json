@@ -230,6 +230,9 @@
     "popup_settings_enable_vpn": {
         "message": "對此網站啟用 VPN"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "於該網站上啟用"
+    },
     "popup_settings_disable_vpn": {
         "message": "對此網站禁用 VPN"
     },

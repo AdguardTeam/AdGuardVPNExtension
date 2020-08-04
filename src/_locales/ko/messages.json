@@ -263,6 +263,9 @@
     "popup_settings_enable_vpn": {
         "message": "이 웹 사이트에서 VPN 활성화"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "이 사이트에서 활성화"
+    },
     "popup_settings_disable_vpn": {
         "message": "이 웹 사이트에서 VPN 비활성화"
     },
