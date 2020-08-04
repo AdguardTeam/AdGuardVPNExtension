@@ -11,8 +11,6 @@ import SiteInfo from '../SiteInfo';
 const ExclusionsDisable = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
-    const { isExcluded, exclusionsInverted } = settingsStore;
-
     const removeFromExclusions = async () => {
         await settingsStore.removeFromExclusions();
     };
@@ -21,56 +19,12 @@ const ExclusionsDisable = observer(() => {
         await settingsStore.addToExclusions();
     };
 
-    const renderExclusionButton = (isExcluded, exclusionsInverted) => {
-        const texts = {
-            enable: reactTranslator.translate('popup_settings_enable_vpn_short'),
-            disable: reactTranslator.translate('popup_settings_disable_vpn_short'),
-        };
-
-        const getText = (enable) => {
-            if (enable) {
-                return texts.enable;
-            }
-            return texts.disable;
-        };
-
-        const btnClasses = {
-            enable: 'button--green',
-            disable: 'button--outline-secondary',
-        };
-
-        const getBtnClasses = (enable) => {
-            if (enable) {
-                return btnClasses.enable;
-            }
-            return btnClasses.disable;
-        };
-
-        const buttonsInfo = {
-            add: {
-                text: getText(exclusionsInverted),
-                handler: addToExclusions,
-                classes: getBtnClasses(exclusionsInverted),
-            },
-            remove: {
-                text: getText(!exclusionsInverted),
-                handler: removeFromExclusions,
-                classes: getBtnClasses(!exclusionsInverted),
-            },
-        };
-
-        const button = isExcluded ? buttonsInfo.remove : buttonsInfo.add;
-
-        return (
-            <button
-                onClick={button.handler}
-                type="button"
-                className={`button button--medium ${button.classes}`}
-            >
-                {button.text}
-            </button>
-        );
+    const buttonsInfo = {
+        add: addToExclusions,
+        remove: removeFromExclusions,
     };
+
+    const button = settingsStore.isExcluded ? buttonsInfo.remove : buttonsInfo.add;
 
     return (
         <div className="settings settings--exclusions-disable">
@@ -78,7 +32,13 @@ const ExclusionsDisable = observer(() => {
                 <>
                     <StatusImage />
                     <Status />
-                    {renderExclusionButton(isExcluded, exclusionsInverted)}
+                    <button
+                        onClick={button}
+                        type="button"
+                        className="button button--medium button--green"
+                    >
+                        {reactTranslator.translate('popup_settings_enable_vpn_short')}
+                    </button>
                     <SiteInfo />
                 </>
             </div>
