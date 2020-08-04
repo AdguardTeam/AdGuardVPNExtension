@@ -130,7 +130,7 @@ const App = observer(() => {
         checkPermissionsState,
         hasLimitExceededError,
         saleVisibleState,
-        exclusionStatus,
+        displayExlusionScreen,
         canBeExcluded,
     } = settingsStore;
 
@@ -175,7 +175,7 @@ const App = observer(() => {
             >
                 <PromoSale />
             </CSSTransition>
-            {exclusionStatus && canBeExcluded ? <ExclusionsDisable /> : (
+            {displayExlusionScreen && canBeExcluded ? <ExclusionsDisable /> : (
                 <>
                     <Settings />
                     <div className="footer">

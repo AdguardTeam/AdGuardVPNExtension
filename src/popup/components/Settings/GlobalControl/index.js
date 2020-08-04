@@ -23,12 +23,10 @@ const GlobalControl = observer(() => {
 
     const addToExclusions = async () => {
         await settingsStore.addToExclusions();
-        await settingsStore.setExclusionStatus();
     };
 
     const removeFromExclusions = async () => {
         await settingsStore.removeFromExclusions();
-        await settingsStore.setExclusionStatus();
     };
 
     const renderExclusionButton = (isExcluded, exclusionsInverted) => {

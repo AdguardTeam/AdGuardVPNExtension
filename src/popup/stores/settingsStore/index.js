@@ -36,8 +36,6 @@ class SettingsStore {
 
     @observable saleVisibleState = PROMO_SALE_STATUSES.DISPLAY_BEFORE_CLICK;
 
-    @observable exclusionStatus;
-
     constructor(rootStore) {
         this.rootStore = rootStore;
     }
@@ -274,24 +272,11 @@ class SettingsStore {
         });
     };
 
-    @action
-    setExclusionStatus = async () => {
-        const isExcluded = await messenger.getIsExcluded(this.currentTabHostname);
-        const exclusionsInverted = await messenger.getExclusionsInverted();
-        const state = (isExcluded && !exclusionsInverted) || (!isExcluded && exclusionsInverted);
-        await messenger.setSetting(SETTINGS_IDS.EXCLUSIONS_STATUS, state);
-        runInAction(() => {
-            this.exclusionStatus = state;
-        });
+    @computed
+    get displayExlusionScreen() {
+        return (this.isExcluded && !this.exclusionsInverted)
+        || (!this.isExcluded && this.exclusionsInverted);
     }
-
-    @action
-    checkExclusionStatus = async () => {
-        const value = await messenger.getSetting(SETTINGS_IDS.EXCLUSIONS_STATUS);
-        runInAction(() => {
-            this.exclusionStatus = value;
-        });
-    };
 }
 
 export default SettingsStore;

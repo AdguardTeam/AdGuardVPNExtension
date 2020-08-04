@@ -13,12 +13,10 @@ const ExclusionsDisable = observer(() => {
 
     const removeFromExclusions = async () => {
         await settingsStore.removeFromExclusions();
-        await settingsStore.setExclusionStatus();
     };
 
     const addToExclusions = async () => {
         await settingsStore.addToExclusions();
-        await settingsStore.setExclusionStatus();
     };
 
     const buttonsInfo = {

@@ -10,7 +10,7 @@ const StatusImage = observer(() => {
 
     const {
         isConnected,
-        exclusionStatus,
+        displayExlusionScreen,
         isDisconnectedRetrying,
         isConnectingRetrying,
         isConnectingIdle,
@@ -20,7 +20,7 @@ const StatusImage = observer(() => {
         'status-image',
         { 'status-image--enabled': isConnected },
         { 'status-image--connecting': isConnectingIdle || isDisconnectedRetrying },
-        { 'status-image--exclusions-disable': exclusionStatus },
+        { 'status-image--exclusions-disable': displayExlusionScreen },
         { 'status-image--server-error': isDisconnectedRetrying || isConnectingRetrying }
     );
 
