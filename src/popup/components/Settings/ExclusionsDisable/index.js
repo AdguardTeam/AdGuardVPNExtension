@@ -13,10 +13,12 @@ const ExclusionsDisable = observer(() => {
 
     const removeFromExclusions = async () => {
         await settingsStore.removeFromExclusions();
+        await settingsStore.setExclusionStatus();
     };
 
     const addToExclusions = async () => {
         await settingsStore.addToExclusions();
+        await settingsStore.setExclusionStatus();
     };
 
     const buttonsInfo = {
@@ -38,7 +40,7 @@ const ExclusionsDisable = observer(() => {
                             type="button"
                             className="button button--medium button--green"
                         >
-                            {reactTranslator.translate('popup_settings_enable_vpn_shot')}
+                            {reactTranslator.translate('popup_settings_enable_vpn_short')}
                         </button>
                     )}
                     <SiteInfo

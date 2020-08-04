@@ -9,9 +9,8 @@ const StatusImage = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
     const {
-        isExcluded,
         isConnected,
-        exclusionsInverted,
+        exclusionStatus,
         isDisconnectedRetrying,
         isConnectingRetrying,
         isConnectingIdle,
@@ -21,7 +20,7 @@ const StatusImage = observer(() => {
         'status-image',
         { 'status-image--enabled': isConnected },
         { 'status-image--connecting': isConnectingIdle || isDisconnectedRetrying },
-        { 'status-image--exclusions-disable': (isExcluded && !exclusionsInverted) || (!isExcluded && exclusionsInverted) },
+        { 'status-image--exclusions-disable': exclusionStatus },
         { 'status-image--server-error': isDisconnectedRetrying || isConnectingRetrying }
     );
 

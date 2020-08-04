@@ -130,8 +130,7 @@ const App = observer(() => {
         checkPermissionsState,
         hasLimitExceededError,
         saleVisibleState,
-        isExcluded,
-        exclusionsInverted,
+        exclusionStatus,
         canBeExcluded,
     } = settingsStore;
 
@@ -148,20 +147,6 @@ const App = observer(() => {
                 <Header showMenuButton={showMenuButton} />
                 <Icons />
                 <GlobalError />
-            </>
-        );
-    }
-
-
-    if (((isExcluded && !exclusionsInverted)
-        || (!isExcluded && exclusionsInverted))
-        && canBeExcluded) {
-        return (
-            <>
-                {isOpenOptionsModal && <ExtraOptions />}
-                <Header showMenuButton={authenticated} />
-                <ExclusionsDisable />
-                <Icons />
             </>
         );
     }
@@ -190,15 +175,19 @@ const App = observer(() => {
             >
                 <PromoSale />
             </CSSTransition>
-            <Settings />
-            <div className="footer">
-                {premiumPromoEnabled ? (
-                    <InfoMessage />
-                ) : (
-                    <FeedbackMessage />
-                )}
-                <CurrentEndpoint />
-            </div>
+            {exclusionStatus && canBeExcluded ? <ExclusionsDisable /> : (
+                <>
+                    <Settings />
+                    <div className="footer">
+                        {premiumPromoEnabled ? (
+                            <InfoMessage />
+                        ) : (
+                            <FeedbackMessage />
+                        )}
+                        <CurrentEndpoint />
+                    </div>
+                </>
+            )}
             <Icons />
         </>
     );

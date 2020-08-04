@@ -10,7 +10,7 @@ const Status = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
     const {
-        isExcluded,
+        exclusionStatus,
         exclusionsInverted,
         isConnected,
         isConnectingIdle,
@@ -35,7 +35,7 @@ const Status = observer(() => {
             return reactTranslator.translate('settings_connecting');
         }
 
-        if ((isExcluded && !exclusionsInverted) || (isExcluded && exclusionsInverted)) {
+        if (exclusionStatus) {
             return reactTranslator.translate('settings_vpn_disabled');
         }
 
