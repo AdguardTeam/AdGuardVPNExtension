@@ -24,7 +24,7 @@ const ExclusionsDisable = observer(() => {
     const renderExclusionButton = (isExcluded, exclusionsInverted) => {
         const texts = {
             enable: reactTranslator.translate('popup_settings_enable_vpn_short'),
-            disable: reactTranslator.translate('popup_settings_disable_vpn'),
+            disable: reactTranslator.translate('popup_settings_disable_vpn_short'),
         };
 
         const getText = (enable) => {
@@ -65,10 +65,7 @@ const ExclusionsDisable = observer(() => {
                     <StatusImage />
                     <Status />
                     {renderExclusionButton(isExcluded, exclusionsInverted)}
-                    <SiteInfo
-                        title={settingsStore.currentTabHostname}
-                        status={reactTranslator.translate('popup_site_status_vpn_disabled')}
-                    />
+                    <SiteInfo />
                 </>
             </div>
         </div>

@@ -263,6 +263,9 @@
     "popup_settings_enable_vpn": {
         "message": "Activați VPN pe acest site"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "Activați pe acest site"
+    },
     "popup_settings_disable_vpn": {
         "message": "Dezactivați VPN pe acest site"
     },

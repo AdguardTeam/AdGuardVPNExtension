@@ -263,6 +263,9 @@
     "popup_settings_enable_vpn": {
         "message": "Zapnout VPN na této stránce"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "Zapnout na této stránce"
+    },
     "popup_settings_disable_vpn": {
         "message": "Vypnout VPN na této stránce"
     },

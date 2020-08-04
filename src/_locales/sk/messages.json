@@ -263,6 +263,9 @@
     "popup_settings_enable_vpn": {
         "message": "Zapnúť VPN na tejto stránke"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "Zapnúť na tejto stránke"
+    },
     "popup_settings_disable_vpn": {
         "message": "Vypnúť VPN na tejto stránke"
     },

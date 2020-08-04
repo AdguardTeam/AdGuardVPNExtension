@@ -263,6 +263,9 @@
     "popup_settings_enable_vpn": {
         "message": "Omogoči VPN na tej spletni strani"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "Omogoči na tej strani"
+    },
     "popup_settings_disable_vpn": {
         "message": "Onemogoči VPN na tej spletni strani"
     },
@@ -292,6 +295,9 @@
     },
     "endpoints_fastest": {
         "message": "Najhitreje"
+    },
+    "endpoints_all": {
+        "message": "Vse lokacije"
     },
     "endpoints_search_results": {
         "message": "Rezultat iskanja"

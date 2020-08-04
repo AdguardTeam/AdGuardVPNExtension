@@ -263,6 +263,9 @@
     "popup_settings_enable_vpn": {
         "message": "Aktivér VPN på dette websted"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "Aktivér på denne side"
+    },
     "popup_settings_disable_vpn": {
         "message": "Deaktiver VPN på dette websted"
     },

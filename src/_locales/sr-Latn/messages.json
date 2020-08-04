@@ -263,6 +263,9 @@
     "popup_settings_enable_vpn": {
         "message": "Uključi VPn na ovom sajtu"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "Uključi na ovom sajtu"
+    },
     "popup_settings_disable_vpn": {
         "message": "Isključi VPn na ovom sajtu"
     },

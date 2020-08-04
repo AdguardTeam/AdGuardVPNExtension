@@ -269,6 +269,9 @@
     "popup_settings_disable_vpn": {
         "message": "Disable VPN on this website"
     },
+    "popup_settings_disable_vpn_short": {
+        "message": "Disable on this site"
+    },
     "popup_settings_other_products": {
         "message": "Other products"
     },
