@@ -275,7 +275,8 @@ class SettingsStore {
     @computed
     get displayExlusionScreen() {
         return (this.isExcluded && !this.exclusionsInverted)
-        || (!this.isExcluded && this.exclusionsInverted);
+        || (!this.isExcluded && this.exclusionsInverted)
+        || !this.isRoutable;
     }
 }
 

@@ -17,7 +17,7 @@ import GlobalError from '../GlobalError';
 import Settings from '../Settings';
 import Icons from '../ui/Icons';
 import CurrentEndpoint from '../Settings/CurrentEndpoint';
-import ExclusionsDisable from '../Settings/ExclusionsDisable';
+import ExclusionsScreen from '../Settings/ExclusionsScreen';
 
 import rootStore from '../../stores';
 import { REQUEST_STATUSES } from '../../stores/consts';
@@ -175,19 +175,21 @@ const App = observer(() => {
             >
                 <PromoSale />
             </CSSTransition>
-            {displayExlusionScreen && canBeExcluded ? <ExclusionsDisable /> : (
-                <>
-                    <Settings />
-                    <div className="footer">
-                        {premiumPromoEnabled ? (
-                            <InfoMessage />
-                        ) : (
-                            <FeedbackMessage />
-                        )}
-                        <CurrentEndpoint />
-                    </div>
-                </>
-            )}
+            {displayExlusionScreen && canBeExcluded
+                ? <ExclusionsScreen />
+                : (
+                    <>
+                        <Settings />
+                        <div className="footer">
+                            {premiumPromoEnabled ? (
+                                <InfoMessage />
+                            ) : (
+                                <FeedbackMessage />
+                            )}
+                            <CurrentEndpoint />
+                        </div>
+                    </>
+                )}
             <Icons />
         </>
     );
