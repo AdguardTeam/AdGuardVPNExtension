@@ -34,14 +34,28 @@ const ExclusionsDisable = observer(() => {
             return texts.disable;
         };
 
+        const btnClasses = {
+            enable: 'button--green',
+            disable: 'button--outline-secondary',
+        };
+
+        const getBtnClasses = (enable) => {
+            if (enable) {
+                return btnClasses.enable;
+            }
+            return btnClasses.disable;
+        };
+
         const buttonsInfo = {
             add: {
                 text: getText(exclusionsInverted),
                 handler: addToExclusions,
+                classes: getBtnClasses(exclusionsInverted),
             },
             remove: {
                 text: getText(!exclusionsInverted),
                 handler: removeFromExclusions,
+                classes: getBtnClasses(!exclusionsInverted),
             },
         };
 
@@ -51,7 +65,7 @@ const ExclusionsDisable = observer(() => {
             <button
                 onClick={button.handler}
                 type="button"
-                className="button button--medium button--green"
+                className={`button button--medium ${button.classes}`}
             >
                 {button.text}
             </button>
