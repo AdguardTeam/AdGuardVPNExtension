@@ -293,6 +293,9 @@
     "endpoints_fastest": {
         "message": "Snelste"
     },
+    "endpoints_all": {
+        "message": "Alle locaties"
+    },
     "endpoints_search_results": {
         "message": "Zoekresultaat"
     },
@@ -309,7 +312,7 @@
         "message": "Upgraden"
     },
     "settings_disconnect": {
-        "message": "Loskoppelen"
+        "message": "Verbinding verbreken"
     },
     "settings_button_connecting": {
         "message": "Verbinden"

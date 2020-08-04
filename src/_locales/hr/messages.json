@@ -293,6 +293,9 @@
     "endpoints_fastest": {
         "message": "Najbrži"
     },
+    "endpoints_all": {
+        "message": "Sve lokacije"
+    },
     "endpoints_search_results": {
         "message": "Rezultati pretrage"
     },

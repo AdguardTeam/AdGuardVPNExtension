@@ -293,6 +293,9 @@
     "endpoints_fastest": {
         "message": "Najrýchlejší"
     },
+    "endpoints_all": {
+        "message": "Všetky lokality"
+    },
     "endpoints_search_results": {
         "message": "Výsledky vyhľadávania"
     },

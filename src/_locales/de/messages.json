@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — Privatsphäre & Sicherheit"
+        "message": "AdGuard VPN — Privatsphäre und Sicherheit"
     },
     "description": {
         "message": "Für ein offenes Internet und die Sicherheit Ihrer Daten. Erstklassiges VPN von den Entwicklern des berühmten Werbeblockers."
@@ -69,7 +69,7 @@
         "message": "Ausblenden"
     },
     "auth_title": {
-        "message": "Starten Sie absolut kostenlos!"
+        "message": "Beginnen Sie absolut kostenlos!"
     },
     "auth_description": {
         "message": "Kompromissloser Schutz der Online-Privatsphäre. Über 20 Millionen Menschen haben sich bereits für AdGuard entschieden."
@@ -150,7 +150,7 @@
         "message": "WebRTC ist ein spezielles Programm in den meisten Internet-Browsern, das es einer Website eines Drittanbieters ermöglichen kann, Ihre wirkliche IP-Adresse zu ermitteln und Sie damit zu identifizieren."
     },
     "settings_context_menus_title": {
-        "message": "AdGuard VPN zum Browser-Kontextmenü hinzufügen"
+        "message": "AdGuard VPN zum Kontextmenü des Browsers hinzufügen"
     },
     "context_menu_selective_mode": {
         "message": "Selektiver Modus"
@@ -168,7 +168,7 @@
         "message": "Standard"
     },
     "settings_dns_selector_default_desc": {
-        "message": "Automatisch Standard-DNS-Servern verwenden, bei der Verbindung mit dem VPN"
+        "message": "Bei Verbindung mit dem VPN automatisch Standard-DNS-Server verwenden"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -292,6 +292,9 @@
     },
     "endpoints_fastest": {
         "message": "Schnellste"
+    },
+    "endpoints_all": {
+        "message": "Alle Endpunkte"
     },
     "endpoints_search_results": {
         "message": "Suchergebnisse"

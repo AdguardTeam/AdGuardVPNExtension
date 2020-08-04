@@ -293,6 +293,9 @@
     "endpoints_fastest": {
         "message": "Cel mai rapid"
     },
+    "endpoints_all": {
+        "message": "Toate locațiile"
+    },
     "endpoints_search_results": {
         "message": "Rezultatul căutării"
     },

@@ -17,6 +17,9 @@
     "registration_error_min_length": {
         "message": "Bu değer çok kısa. 8 veya daha fazla karakter içermelidir."
     },
+    "registration_error_compromised_password": {
+        "message": "Girdiğiniz parola, ele geçirilmiş parolaların <a>ortak veritabanında</a> bulundu. Lütfen başka bir tane deneyin."
+    },
     "registration_error_unique_constraint": {
         "message": "Bu değer zaten kullanılıyor"
     },
@@ -31,6 +34,9 @@
     },
     "authentication_error_2fa_invalid": {
         "message": "Geçersiz simge"
+    },
+    "authentication_error_account_disabled": {
+        "message": "Hesap devre dışıdır"
     },
     "authentication_error_account_locked": {
         "message": "Hesap 15 dakika boyunca kilitlendi"
@@ -71,6 +77,9 @@
     "auth_code": {
         "message": "Yetkilendirme uygulamasından gelen kod"
     },
+    "auth_confirm": {
+        "message": "Doğrula"
+    },
     "auth_email": {
         "message": "E-posta Adresi"
     },
@@ -92,14 +101,29 @@
     "auth_sign_up_button": {
         "message": "Kaydol"
     },
+    "auth_sign_in": {
+        "message": "Giriş yapın"
+    },
+    "auth_sign_in_button": {
+        "message": "Giriş yap"
+    },
+    "auth_sign_in_link": {
+        "message": "AdGuard hesabıyla giriş yap"
+    },
     "auth_account": {
         "message": "Bir hesabınız yok mu?"
     },
     "auth_register": {
         "message": "Kaydol"
     },
+    "auth_header_sign_in": {
+        "message": "<div>%username%</div> Olarak giriş yapıyorsunuz "
+    },
     "auth_header_sing_in_notice": {
         "message": "Zaten bir hesabınız var"
+    },
+    "auth_header_registration": {
+        "message": "<div>%username%</div> Olarak kaydoluyorsunuz"
     },
     "auth_header_2fa": {
         "message": "Kimlik doğrulama kodunuzu girin"
@@ -107,8 +131,17 @@
     "auth_placeholder_2fa": {
         "message": "Kimlik doğrulama kodu"
     },
+    "eula": {
+        "message": "Son Kullanıcı Lisans Sözleşmesi"
+    },
+    "privacy_policy": {
+        "message": "Gizlilik Politikası"
+    },
     "settings_title": {
         "message": "Ayarlar"
+    },
+    "settings_rate_us": {
+        "message": "Bizi değerlendirin"
     },
     "settings_webrtc_label": {
         "message": "WebRTC Protokolünü Engelle"
@@ -169,6 +202,9 @@
     },
     "settings_dns_selector_cisco_title": {
         "message": "Cisco OpenDNS"
+    },
+    "settings_dns_selector_cisco_desc": {
+        "message": "Cihazınızı zararlı yazılımlardan koruyan DNS sunucusu"
     },
     "settings_dns_selector_quad9_title": {
         "message": "Quad9"
@@ -257,6 +293,9 @@
     "endpoints_fastest": {
         "message": "En hızlı"
     },
+    "endpoints_all": {
+        "message": "Tüm konumlar"
+    },
     "endpoints_search_results": {
         "message": "Arama sonucu"
     },
@@ -310,6 +349,27 @@
     },
     "settings_run_upgrade_feature": {
         "message": "Sınırsız veri, en yüksek hız, 7/24 destek"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "Erken rezervasyon fiyatları"
+    },
+    "sale_title": {
+        "message": "Elde edeceğiniz:"
+    },
+    "upgrade_features_data": {
+        "message": "Sınırsız veri"
+    },
+    "upgrade_features_speed": {
+        "message": "Işık hızı sunucular"
+    },
+    "upgrade_features_encrypt": {
+        "message": "Gelişmiş şifreleme"
+    },
+    "upgrade_features_no_log": {
+        "message": "Kayıt politikası yok"
+    },
+    "continue_us_free_button": {
+        "message": "Ücretsiz olarak devam et"
     },
     "options_title": {
         "message": "AdGuard VPN Ayarları"
