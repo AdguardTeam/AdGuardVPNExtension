@@ -311,9 +311,6 @@
     "settings_disconnect": {
         "message": "Terputus"
     },
-    "settings_button_connecting": {
-        "message": "Menyambung"
-    },
     "settings_connect": {
         "message": "Sambung"
     },

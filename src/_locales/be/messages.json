@@ -311,9 +311,6 @@
     "settings_disconnect": {
         "message": "Адключыць"
     },
-    "settings_button_connecting": {
-        "message": "Злучэнне"
-    },
     "settings_connect": {
         "message": "Злучыць"
     },

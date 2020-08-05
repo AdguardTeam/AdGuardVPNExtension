@@ -315,7 +315,7 @@
         "message": "Отключить"
     },
     "settings_button_connecting": {
-        "message": "Соединение"
+        "message": "Соединение..."
     },
     "settings_connect": {
         "message": "Подключиться"

@@ -317,9 +317,6 @@
     "settings_disconnect": {
         "message": "Deconectare"
     },
-    "settings_button_connecting": {
-        "message": "Se conectează"
-    },
     "settings_connect": {
         "message": "Conectare"
     },

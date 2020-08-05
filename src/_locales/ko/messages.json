@@ -315,7 +315,7 @@
         "message": "연결 해제"
     },
     "settings_button_connecting": {
-        "message": "연결 중"
+        "message": "연결 중..."
     },
     "settings_connect": {
         "message": "연결"

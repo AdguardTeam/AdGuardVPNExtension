@@ -309,7 +309,7 @@
         "message": "Disconnetti"
     },
     "settings_button_connecting": {
-        "message": "Connessione"
+        "message": "Connessione…"
     },
     "settings_connect": {
         "message": "Connetti"

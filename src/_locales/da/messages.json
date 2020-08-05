@@ -317,9 +317,6 @@
     "settings_disconnect": {
         "message": "Afbryd"
     },
-    "settings_button_connecting": {
-        "message": "Forbinder"
-    },
     "settings_connect": {
         "message": "Forbind"
     },

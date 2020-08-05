@@ -318,7 +318,7 @@
         "message": "Trennen"
     },
     "settings_button_connecting": {
-        "message": "Verbindung wird hergestellt "
+        "message": "Verbindung wird hergestellt…"
     },
     "settings_connect": {
         "message": "Verbinden"

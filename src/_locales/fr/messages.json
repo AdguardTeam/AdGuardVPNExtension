@@ -312,7 +312,7 @@
         "message": "Se déconnecter"
     },
     "settings_button_connecting": {
-        "message": "Connexion en cours"
+        "message": "Connexion en cours…"
     },
     "settings_connect": {
         "message": "Se connecter"

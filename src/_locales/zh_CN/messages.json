@@ -315,7 +315,7 @@
         "message": "断开连接"
     },
     "settings_button_connecting": {
-        "message": "连接中"
+        "message": "连接中..."
     },
     "settings_connect": {
         "message": "连接"

@@ -317,9 +317,6 @@
     "settings_disconnect": {
         "message": "Verbinding verbreken"
     },
-    "settings_button_connecting": {
-        "message": "Verbinden"
-    },
     "settings_connect": {
         "message": "Verbinden"
     },

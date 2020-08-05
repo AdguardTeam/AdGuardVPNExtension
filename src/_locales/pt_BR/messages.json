@@ -308,9 +308,6 @@
     "settings_disconnect": {
         "message": "Desconectar"
     },
-    "settings_button_connecting": {
-        "message": "Conectando"
-    },
     "settings_connect": {
         "message": "Conectar"
     },
