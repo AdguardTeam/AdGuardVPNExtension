@@ -314,6 +314,9 @@
     "settings_disconnect": {
         "message": "Bağlantıyı kes"
     },
+    "settings_button_connecting": {
+        "message": "Bağlanıyor..."
+    },
     "settings_connect": {
         "message": "Bağlan"
     },

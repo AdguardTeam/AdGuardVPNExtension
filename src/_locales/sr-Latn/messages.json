@@ -314,6 +314,9 @@
     "settings_disconnect": {
         "message": "Prekini vezu"
     },
+    "settings_button_connecting": {
+        "message": "Povezivanje..."
+    },
     "settings_connect": {
         "message": "Poveži se"
     },

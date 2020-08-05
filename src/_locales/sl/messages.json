@@ -317,6 +317,9 @@
     "settings_disconnect": {
         "message": "Prekini povezavo"
     },
+    "settings_button_connecting": {
+        "message": "Povezovanje..."
+    },
     "settings_connect": {
         "message": "Poveži"
     },

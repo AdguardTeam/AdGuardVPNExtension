@@ -317,6 +317,9 @@
     "settings_disconnect": {
         "message": "Odpojiť"
     },
+    "settings_button_connecting": {
+        "message": "Pripájanie..."
+    },
     "settings_connect": {
         "message": "Pripojiť"
     },

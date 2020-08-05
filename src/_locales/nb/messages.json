@@ -227,6 +227,9 @@
     "settings_disconnect": {
         "message": "Koble fra"
     },
+    "settings_button_connecting": {
+        "message": "Kobler til…"
+    },
     "settings_connect": {
         "message": "Koble til"
     },

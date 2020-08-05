@@ -4,5 +4,8 @@
     },
     "auth_sign_in_button": {
         "message": "Увійти"
+    },
+    "settings_button_connecting": {
+        "message": "З'єднання…"
     }
 }

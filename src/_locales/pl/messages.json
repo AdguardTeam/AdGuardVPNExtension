@@ -308,6 +308,9 @@
     "settings_disconnect": {
         "message": "Rozłącz"
     },
+    "settings_button_connecting": {
+        "message": "Łączenie..."
+    },
     "settings_connect": {
         "message": "Połącz"
     },

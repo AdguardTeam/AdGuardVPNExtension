@@ -311,6 +311,9 @@
     "settings_disconnect": {
         "message": "Αποσύνδεση"
     },
+    "settings_button_connecting": {
+        "message": "Σύνδεση..."
+    },
     "settings_connect": {
         "message": "Σύνδεση"
     },
