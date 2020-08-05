@@ -31,10 +31,6 @@ const Status = observer(() => {
             return reactTranslator.translate('settings_vpn_enabled');
         }
 
-        if (isConnectingIdle || isConnectingRetrying) {
-            return reactTranslator.translate('settings_connecting');
-        }
-
         return reactTranslator.translate('settings_vpn_disabled');
     };
 
