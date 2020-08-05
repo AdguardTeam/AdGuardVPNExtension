@@ -263,6 +263,9 @@
     "popup_settings_enable_vpn": {
         "message": "Уключыць VPN на гэтым сайце"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "Уключыць"
+    },
     "popup_settings_disable_vpn": {
         "message": "Адключыць VPN на гэтым сайце"
     },

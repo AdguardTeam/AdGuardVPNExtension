@@ -260,6 +260,9 @@
     "popup_settings_enable_vpn": {
         "message": "Włącz VPN na tej stronie"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "Włącz"
+    },
     "popup_settings_disable_vpn": {
         "message": "Wyłącz VPN na tej stronie"
     },

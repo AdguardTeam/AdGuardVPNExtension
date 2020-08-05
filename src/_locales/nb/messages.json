@@ -185,6 +185,9 @@
     "popup_settings_enable_vpn": {
         "message": "Skru på VPN på dette nettstedet"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "Skru"
+    },
     "popup_settings_disable_vpn": {
         "message": "Skru av VPN på dette nettstedet"
     },

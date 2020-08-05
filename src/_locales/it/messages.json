@@ -260,6 +260,9 @@
     "popup_settings_enable_vpn": {
         "message": "Abilita VPN su questo sito web"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "Abilita"
+    },
     "popup_settings_disable_vpn": {
         "message": "Disabilita VPN su questo sito web"
     },
@@ -343,6 +346,9 @@
     },
     "settings_run_upgrade_feature": {
         "message": "Dati illimitati, maggiore velocità, supporto 24/7"
+    },
+    "upgrade_features_encrypt": {
+        "message": "Crittografia avanzata"
     },
     "options_title": {
         "message": "Opzioni AdGuard VPN"

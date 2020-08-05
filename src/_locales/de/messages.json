@@ -264,7 +264,7 @@
         "message": "VPN auf dieser Website aktivieren"
     },
     "popup_settings_enable_vpn_short": {
-        "message": "Auf dieser Seite aktivieren"
+        "message": "Aktivieren"
     },
     "popup_settings_disable_vpn": {
         "message": "VPN auf dieser Website deaktivieren"

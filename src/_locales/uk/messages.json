@@ -5,6 +5,9 @@
     "auth_sign_in_button": {
         "message": "Увійти"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "Увімкнути"
+    },
     "settings_button_connecting": {
         "message": "З'єднання…"
     }

@@ -1,4 +1,7 @@
 {
+    "popup_settings_enable_vpn_short": {
+        "message": "Engedélyezése"
+    },
     "settings_button_connecting": {
         "message": "Kapcsolódás..."
     }

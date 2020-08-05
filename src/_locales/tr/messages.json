@@ -263,6 +263,9 @@
     "popup_settings_enable_vpn": {
         "message": "Bu sitede VPN'yi etkinleştir"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "Etkinleştir"
+    },
     "popup_settings_disable_vpn": {
         "message": "Bu sitede VPN'yi devre dışı bırak"
     },

@@ -263,6 +263,9 @@
     "popup_settings_enable_vpn": {
         "message": "Activer le VPN sur ce site"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "Activer"
+    },
     "popup_settings_disable_vpn": {
         "message": "Désactiver le VPN sur ce site"
     },
