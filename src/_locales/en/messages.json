@@ -318,7 +318,7 @@
         "message": "Disconnect"
     },
     "settings_button_connecting": {
-        "message": "Connecting"
+        "message": "Connecting..."
     },
     "settings_connect": {
         "message": "Connect"

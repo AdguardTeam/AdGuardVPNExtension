@@ -159,7 +159,7 @@
         "message": "Usa server DNS"
     },
     "settings_dns_desc": {
-        "message": "Il Domain Name System (DNS) è l'equivalente di Internet di una rubrica. Mantiene una directory dei nomi di dominio e li traduce in indirizzi del Protocollo di Internet (IP)."
+        "message": "Il Domain Name System (DNS) è l'equivalente Internet di una rubrica. Mantiene un percorso nomi di dominio e li traduce in indirizzi di Protocollo Internet (IP)."
     },
     "settings_dns_selector_default_title": {
         "message": "Predefinito"
@@ -177,7 +177,7 @@
         "message": "Non Filtraggio DNS di AdGuard"
     },
     "settings_dns_selector_adguard_nonfiltering_desc": {
-        "message": "Salvaguarda i DNS senza registrazione dell'attività (non filtra pubblicità & tracciatori)"
+        "message": "Salvaguarda i DNS senza registrazione dell'attività (non filtra pubblicità e tracciatori)"
     },
     "settings_dns_selector_adguard_family_title": {
         "message": "Protezione Famiglia DNS di AdGuard"

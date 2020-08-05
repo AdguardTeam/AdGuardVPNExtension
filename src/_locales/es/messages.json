@@ -263,6 +263,9 @@
     "popup_settings_enable_vpn": {
         "message": "Habilitar VPN en este sitio web"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "Habilitar en este sitio"
+    },
     "popup_settings_disable_vpn": {
         "message": "Deshabilitar VPN en este sitio web"
     },

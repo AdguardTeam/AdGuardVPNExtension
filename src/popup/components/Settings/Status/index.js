@@ -19,7 +19,7 @@ const Status = observer(() => {
 
     const renderVpnStatusSubstring = () => {
         if (isConnectingIdle || isConnectingRetrying) {
-            return `${reactTranslator.translate('settings_button_connecting')}...`;
+            return reactTranslator.translate('settings_button_connecting');
         }
         return exclusionsInverted
             ? reactTranslator.translate('context_menu_selective_mode')
