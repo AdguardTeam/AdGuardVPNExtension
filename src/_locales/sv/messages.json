@@ -1,1 +1,8 @@
-{}
+{
+    "popup_settings_enable_vpn_short": {
+        "message": "Aktivera"
+    },
+    "settings_button_connecting": {
+        "message": "Ansluter..."
+    }
+}

@@ -16,6 +16,8 @@ import Preloader from '../Preloader';
 import GlobalError from '../GlobalError';
 import Settings from '../Settings';
 import Icons from '../ui/Icons';
+import CurrentEndpoint from '../Settings/CurrentEndpoint';
+import ExclusionsScreen from '../Settings/ExclusionsScreen';
 
 import rootStore from '../../stores';
 import { REQUEST_STATUSES } from '../../stores/consts';
@@ -128,6 +130,8 @@ const App = observer(() => {
         checkPermissionsState,
         hasLimitExceededError,
         saleVisibleState,
+        displayExlusionScreen,
+        canBeExcluded,
     } = settingsStore;
 
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
@@ -171,14 +175,21 @@ const App = observer(() => {
             >
                 <PromoSale />
             </CSSTransition>
-            <Settings />
-            <div className="footer">
-                {premiumPromoEnabled ? (
-                    <InfoMessage />
-                ) : (
-                    <FeedbackMessage />
+            {displayExlusionScreen && canBeExcluded
+                ? <ExclusionsScreen />
+                : (
+                    <>
+                        <Settings />
+                        <div className="footer">
+                            {premiumPromoEnabled ? (
+                                <InfoMessage />
+                            ) : (
+                                <FeedbackMessage />
+                            )}
+                            <CurrentEndpoint />
+                        </div>
+                    </>
                 )}
-            </div>
             <Icons />
         </>
     );

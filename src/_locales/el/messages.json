@@ -263,6 +263,9 @@
     "popup_settings_enable_vpn": {
         "message": "Ενεργοποίηση VPN σε αυτόν τον ιστότοπο"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "Ενεργοποίηση"
+    },
     "popup_settings_disable_vpn": {
         "message": "Απενεργοποίηση VPN σε αυτόν τον ιστότοπο"
     },
@@ -293,9 +296,6 @@
     "endpoints_fastest": {
         "message": "Γρηγορότεροι"
     },
-    "endpoints_all": {
-        "message": "Όλα τα τελικά σημεία"
-    },
     "endpoints_search_results": {
         "message": "Αποτέλεσμα αναζήτησης"
     },
@@ -315,7 +315,7 @@
         "message": "Αποσύνδεση"
     },
     "settings_button_connecting": {
-        "message": "Σύνδεση"
+        "message": "Σύνδεση..."
     },
     "settings_connect": {
         "message": "Σύνδεση"

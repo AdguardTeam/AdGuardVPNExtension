@@ -263,6 +263,9 @@
     "popup_settings_enable_vpn": {
         "message": "VPN Inschakelen op deze website"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "Inschakelen"
+    },
     "popup_settings_disable_vpn": {
         "message": "VPN uitschakelen op deze website"
     },
@@ -312,10 +315,10 @@
         "message": "Upgraden"
     },
     "settings_disconnect": {
-        "message": "Loskoppelen"
+        "message": "Verbinding verbreken"
     },
     "settings_button_connecting": {
-        "message": "Verbinden"
+        "message": "Verbinden..."
     },
     "settings_connect": {
         "message": "Verbinden"

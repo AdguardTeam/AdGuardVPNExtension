@@ -263,6 +263,9 @@
     "popup_settings_enable_vpn": {
         "message": "이 웹 사이트에서 VPN 활성화"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "이 사이트에서 활성화"
+    },
     "popup_settings_disable_vpn": {
         "message": "이 웹 사이트에서 VPN 비활성화"
     },
@@ -293,9 +296,6 @@
     "endpoints_fastest": {
         "message": "가장 빠름"
     },
-    "endpoints_all": {
-        "message": "모든 엔드포인트"
-    },
     "endpoints_search_results": {
         "message": "검색 결과"
     },
@@ -315,7 +315,7 @@
         "message": "연결 해제"
     },
     "settings_button_connecting": {
-        "message": "연결 중"
+        "message": "연결 중..."
     },
     "settings_connect": {
         "message": "연결"

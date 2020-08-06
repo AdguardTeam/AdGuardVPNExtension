@@ -263,6 +263,9 @@
     "popup_settings_enable_vpn": {
         "message": "Уключыць VPN на гэтым сайце"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "Уключыць"
+    },
     "popup_settings_disable_vpn": {
         "message": "Адключыць VPN на гэтым сайце"
     },
@@ -293,9 +296,6 @@
     "endpoints_fastest": {
         "message": "Самы хуткі"
     },
-    "endpoints_all": {
-        "message": "Усе месцівы"
-    },
     "endpoints_search_results": {
         "message": "Вынікі пошуку"
     },
@@ -315,7 +315,7 @@
         "message": "Адключыць"
     },
     "settings_button_connecting": {
-        "message": "Злучэнне"
+        "message": "Злучэнне..."
     },
     "settings_connect": {
         "message": "Злучыць"

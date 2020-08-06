@@ -263,6 +263,9 @@
     "popup_settings_enable_vpn": {
         "message": "Включить VPN на этом сайте"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "Включить"
+    },
     "popup_settings_disable_vpn": {
         "message": "Отключить VPN на этом сайте"
     },
@@ -293,9 +296,6 @@
     "endpoints_fastest": {
         "message": "Самые быстрые"
     },
-    "endpoints_all": {
-        "message": "Все локации"
-    },
     "endpoints_search_results": {
         "message": "Результаты поиска"
     },
@@ -315,7 +315,7 @@
         "message": "Отключить"
     },
     "settings_button_connecting": {
-        "message": "Соединение"
+        "message": "Соединение..."
     },
     "settings_connect": {
         "message": "Подключиться"

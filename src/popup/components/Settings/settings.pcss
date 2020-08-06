@@ -3,23 +3,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    padding: 20px 0px 8px;
-
-    &:after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 8px;
-        background-color: var(--grayd8);
-    }
-
-    &--active {
-        &:after {
-            background-color: var(--green76);
-        }
-    }
+    padding: 15px 0px 8px;
 
     &--trial {
         padding-bottom: 0;
@@ -35,6 +19,10 @@
         &:after {
             display: none;
         }
+    }
+
+    &--exclusions-disable {
+        padding: 15px 40px;
     }
 
     &__main {
@@ -59,5 +47,11 @@
         &:last-child {
             margin-bottom: 0;
         }
+    }
+
+    &__exclusion-btn {
+        margin-top: 20px;
+        font-size: 1.4rem;
+        color: var(--gray88);
     }
 }
