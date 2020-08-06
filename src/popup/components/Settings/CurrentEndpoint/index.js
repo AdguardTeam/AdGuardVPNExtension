@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
 
+import { PING_WITH_WARNING } from '../../../stores/consts';
+
 import rootStore from '../../../stores';
 
 import './endpoint.pcss';
@@ -31,6 +33,12 @@ const CurrentEndpoint = observer(() => {
         }
         uiStore.openEndpointsSearch();
     };
+
+    const pingClassName = classnames(
+        'endpoint__ping',
+        { 'endpoint__ping--warning': selectedLocationPing && selectedLocationPing >= PING_WITH_WARNING },
+        { 'endpoint__ping--success': selectedLocationPing && selectedLocationPing < PING_WITH_WARNING }
+    );
 
     const renderSelectedLocationPing = () => {
         if (selectedLocationPing) {
@@ -67,7 +75,7 @@ const CurrentEndpoint = observer(() => {
                     {cityNameToDisplay}
                 </div>
             </div>
-            <div className="endpoint__ping">
+            <div className={pingClassName}>
                 {renderSelectedLocationPing()}
             </div>
         </div>
