@@ -1,8 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import { PING_WITH_WARNING } from '../../stores/consts';
 import { reactTranslator } from '../../../reactCommon/reactTranslator';
+import Ping from '../Ping';
 
 const Location = ({
     id, selected, countryCode, countryName, cityName, handleClick, ping, available,
@@ -34,28 +34,12 @@ const Location = ({
         { 'endpoints__item--offline': !available }
     );
 
-    const pingClassName = classnames(
-        'endpoints__ping',
-        { 'endpoints__ping--warning': available && ping >= PING_WITH_WARNING },
-        { 'endpoints__ping--success': available && ping < PING_WITH_WARNING }
-    );
-
     const renderPings = () => {
         if (!available) {
             return (<span>{reactTranslator.translate('offline_title')}</span>);
         }
 
-        if (ping) {
-            return (<span>{`${ping} ms`}</span>);
-        }
-
-        return (
-            <span className="endpoints__dots">
-                <span className="endpoints__dot">.</span>
-                <span className="endpoints__dot">.</span>
-                <span className="endpoints__dot">.</span>
-            </span>
-        );
+        return <Ping ping={ping} />;
     };
 
     return (
@@ -75,9 +59,7 @@ const Location = ({
                     {cityName}
                 </div>
             </div>
-            <div className={pingClassName}>
-                { renderPings() }
-            </div>
+            { renderPings() }
         </button>
     );
 };

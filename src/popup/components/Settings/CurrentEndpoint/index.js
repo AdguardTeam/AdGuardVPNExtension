@@ -2,12 +2,11 @@ import React, { useContext } from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
 
-import { PING_WITH_WARNING } from '../../../stores/consts';
-
 import rootStore from '../../../stores';
 
 import './endpoint.pcss';
 import { PROMO_SALE_STATUSES } from '../../../../lib/constants';
+import Ping from '../../Ping';
 
 const CurrentEndpoint = observer(() => {
     const { vpnStore, settingsStore, uiStore } = useContext(rootStore);
@@ -32,19 +31,6 @@ const CurrentEndpoint = observer(() => {
             setSaleVisibleHandler();
         }
         uiStore.openEndpointsSearch();
-    };
-
-    const pingClassName = classnames(
-        'endpoint__ping',
-        { 'endpoint__ping--warning': selectedLocationPing && selectedLocationPing >= PING_WITH_WARNING },
-        { 'endpoint__ping--success': selectedLocationPing && selectedLocationPing < PING_WITH_WARNING }
-    );
-
-    const renderSelectedLocationPing = () => {
-        if (selectedLocationPing) {
-            return `${selectedLocationPing} ms`;
-        }
-        return '-';
     };
 
     const iconClass = classnames('flag', { 'flag--active': isConnected });
@@ -75,9 +61,7 @@ const CurrentEndpoint = observer(() => {
                     {cityNameToDisplay}
                 </div>
             </div>
-            <div className={pingClassName}>
-                {renderSelectedLocationPing()}
-            </div>
+            <Ping ping={selectedLocationPing} />
         </div>
     );
 });
