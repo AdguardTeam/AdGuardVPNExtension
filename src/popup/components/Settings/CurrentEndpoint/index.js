@@ -43,6 +43,14 @@ const CurrentEndpoint = observer(() => {
         return { backgroundImage: `url("../../assets/images/flags/${iconName}.svg")` };
     };
 
+    const renderPing = () => {
+        if (selectedLocationPing) {
+            return <Ping ping={selectedLocationPing} />;
+        }
+
+        return <div className="ping">-</div>;
+    };
+
     return (
         <div
             className="endpoint"
@@ -61,7 +69,7 @@ const CurrentEndpoint = observer(() => {
                     {cityNameToDisplay}
                 </div>
             </div>
-            <Ping ping={selectedLocationPing} />
+            {renderPing()}
         </div>
     );
 });

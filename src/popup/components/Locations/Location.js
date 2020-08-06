@@ -39,7 +39,17 @@ const Location = ({
             return (<span>{reactTranslator.translate('offline_title')}</span>);
         }
 
-        return <Ping ping={ping} />;
+        if (ping) {
+            return <Ping ping={ping} />;
+        }
+
+        return (
+            <span className="endpoints__dots">
+                <span className="endpoints__dot">.</span>
+                <span className="endpoints__dot">.</span>
+                <span className="endpoints__dot">.</span>
+            </span>
+        );
     };
 
     return (
