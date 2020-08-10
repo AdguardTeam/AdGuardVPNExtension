@@ -58,6 +58,20 @@ const translate = (key, values) => {
  */
 const createReactTranslator = (React) => {
     /**
+     * Helps to build nodes without values
+     *
+     * @param tagName
+     * @param children
+     * @returns {*}
+     */
+    const createReactElement = (tagName, children) => {
+        if (children) {
+            return React.createElement(tagName, null, children);
+        }
+        return React.createElement(tagName, null);
+    };
+
+    /**
      * Searches for locale message by key, formats it
      * and returns array of react components or string
      *
@@ -67,7 +81,7 @@ const createReactTranslator = (React) => {
      */
     const translateReact = (key, values) => {
         const message = browser.i18n.getMessage(key);
-        const formatted = formatter(message, values);
+        const formatted = formatter(message, values, createReactElement);
         const reactChildren = React.Children.toArray(formatted);
         // if there is only strings in the array we join them
         if (reactChildren.every((child) => typeof child === 'string')) {

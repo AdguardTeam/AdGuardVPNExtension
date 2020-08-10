@@ -15,6 +15,13 @@ const isFunction = (target) => {
     return typeof target === 'function';
 };
 
+const createStringElement = (tagName, children) => {
+    if (children) {
+        return `<${tagName}>${children.join('')}</${tagName}>`;
+    }
+    return `<${tagName}/>`;
+};
+
 /**
  * This function accepts an AST (abstract syntax tree) which is a result
  * of the parser function call, and converts tree nodes into array of strings replacing node
@@ -51,9 +58,10 @@ const isFunction = (target) => {
  *
  * @param ast - AST (abstract syntax tree)
  * @param values
+ * @param createElement - function to be used if there is no function for tag in the values map
  * @returns {[]}
  */
-const format = (ast = [], values) => {
+const format = (ast = [], values = {}, createElement = createStringElement) => {
     const result = [];
 
     let i = 0;
@@ -63,23 +71,23 @@ const format = (ast = [], values) => {
         if (isTextNode(currentNode)) {
             result.push(currentNode.value);
         } else if (isTagNode(currentNode)) {
-            const children = [...format(currentNode.children, values)].join('');
+            const children = [...format(currentNode.children, values, createElement)];
             const value = values[currentNode.value];
             if (value) {
                 if (isFunction(value)) {
-                    result.push(value(children));
+                    result.push(value(children.join('')));
                 } else {
                     result.push(value);
                 }
             } else {
-                throw new Error(`Value ${currentNode.value} wasn't provided`);
+                result.push(createElement(currentNode.value, children));
             }
         } else if (isVoidTagNode(currentNode)) {
             const value = values[currentNode.value];
             if (value) {
                 result.push(value);
             } else {
-                throw new Error(`Value ${currentNode.value} wasn't provided`);
+                result.push(createElement(currentNode.value));
             }
         } else if (isPlaceholderNode(currentNode)) {
             const value = values[currentNode.value];
@@ -105,14 +113,15 @@ const format = (ast = [], values) => {
  *      console.log(message); // ['<a href="#">some text</a>']
  * @param message
  * @param values
+ * @param createElement
  * @returns {*[]}
  */
-export const formatter = (message, values) => {
+export const formatter = (message, values, createElement) => {
     let ast = message;
 
     if (typeof ast === 'string') {
         ast = parser(ast);
     }
 
-    return format(ast, values);
+    return format(ast, values, createElement);
 };
