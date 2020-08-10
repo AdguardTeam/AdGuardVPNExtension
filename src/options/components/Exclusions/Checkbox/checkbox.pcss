@@ -2,6 +2,18 @@
     display: flex;
     align-items: center;
 
+    &--domain {
+        padding: 8px 8px 8px 15px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+
+    &--active,
+    &:hover,
+    &:focus {
+        border-color: #efefef;
+    }
+
     &__input {
         display: none;
 
@@ -42,13 +54,7 @@
         border: 0;
     }
 
-    &__help {
-        opacity: 0;
-        visibility: hidden;
-    }
-
-    &__edit:focus + &__help {
-        opacity: 1;
-        visibility: visible;
+    &--subdomain {
+        padding: 10px 0 15px 40px;
     }
 }

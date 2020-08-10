@@ -296,6 +296,9 @@
     "endpoints_fastest": {
         "message": "Tercepat"
     },
+    "endpoints_all": {
+        "message": "Semua lokasi"
+    },
     "endpoints_search_results": {
         "message": "Hasil pencarian"
     },

@@ -296,6 +296,9 @@
     "endpoints_fastest": {
         "message": "Самы хуткі"
     },
+    "endpoints_all": {
+        "message": "Усе месцівы"
+    },
     "endpoints_search_results": {
         "message": "Вынікі пошуку"
     },

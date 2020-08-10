@@ -36,7 +36,7 @@
         "message": "Token non valido"
     },
     "authentication_error_account_disabled": {
-        "message": "L'account è disabilitato"
+        "message": "L'account è disattivato"
     },
     "authentication_error_account_locked": {
         "message": "L'account è bloccato per 15 minuti"
@@ -140,6 +140,9 @@
     "settings_title": {
         "message": "Impostazioni"
     },
+    "settings_rate_us": {
+        "message": "Valutaci"
+    },
     "settings_webrtc_label": {
         "message": "Blocca WebRTC"
     },
@@ -171,13 +174,13 @@
         "message": "DNS di AdGuard"
     },
     "settings_dns_selector_adguard_desc": {
-        "message": "Rimuove le pubblicità ed i tracciatori dal tuo dispositivo"
+        "message": "Rimuove annunci e tracciatori dal tuo dispositivo"
     },
     "settings_dns_selector_adguard_nonfiltering_title": {
         "message": "Non Filtraggio DNS di AdGuard"
     },
     "settings_dns_selector_adguard_nonfiltering_desc": {
-        "message": "Salvaguarda i DNS senza registrazione dell'attività (non filtra pubblicità e tracciatori)"
+        "message": "Salvaguarda i DNS senza registrazione dell'attività (non filtra annunci e tracciatori)"
     },
     "settings_dns_selector_adguard_family_title": {
         "message": "Protezione Famiglia DNS di AdGuard"
@@ -252,19 +255,19 @@
         "message": "Autenticato con successo! Puoi aprire AdGuard VPN ed passare al tunnel."
     },
     "control_error_description": {
-        "message": "Sembra che un'altra estensione di Chrome sta tentando di controllare la tua connessione. Sei pregato di disabilitare l'altra estensione nel tuo browser."
+        "message": "Sembra che un'altra estensione di Chrome stia tentando di controllare la tua connessione. Sei pregato di disattivarla dal tuo browser."
     },
     "control_error_disable": {
-        "message": "Disabilitalo"
+        "message": "Disattivalo"
     },
     "popup_settings_enable_vpn": {
-        "message": "Abilita VPN su questo sito web"
+        "message": "Attiva VPN su questo sito web"
     },
     "popup_settings_enable_vpn_short": {
-        "message": "Abilita"
+        "message": "Attiva"
     },
     "popup_settings_disable_vpn": {
-        "message": "Disabilita VPN su questo sito web"
+        "message": "Disattiva VPN su questo sito web"
     },
     "popup_settings_other_products": {
         "message": "Altri prodotti"
@@ -279,10 +282,10 @@
         "message": "Esci"
     },
     "context_menu_enable_vpn": {
-        "message": "Abilita VPN su questo sito web"
+        "message": "Attiva VPN su questo sito web"
     },
     "context_menu_disable_vpn": {
-        "message": "Disabilita VPN su questo sito web"
+        "message": "Disattiva VPN su questo sito web"
     },
     "suggest_feature": {
         "message": "Suggerisci una funzionalità"
@@ -292,6 +295,9 @@
     },
     "endpoints_fastest": {
         "message": "Più veloce"
+    },
+    "endpoints_all": {
+        "message": "Tutte le posizioni"
     },
     "endpoints_search_results": {
         "message": "Risultato della ricerca"
@@ -330,10 +336,10 @@
         "message": "Connettendo..."
     },
     "settings_vpn_enabled": {
-        "message": "VPN abilitato"
+        "message": "VPN attivo"
     },
     "settings_vpn_disabled": {
-        "message": "VPN disabilitato"
+        "message": "VPN disattivato"
     },
     "popup_feedback_title": {
         "message": "Ci piacerebbe sentire il tuo feedback"
@@ -347,8 +353,26 @@
     "settings_run_upgrade_feature": {
         "message": "Dati illimitati, maggiore velocità, supporto 24/7"
     },
+    "settings_run_upgrade_early_bird": {
+        "message": "Prezzo iniziale"
+    },
+    "sale_title": {
+        "message": "Cosa otterrai:"
+    },
+    "upgrade_features_data": {
+        "message": "Dati illimitati"
+    },
+    "upgrade_features_speed": {
+        "message": "Server super veloci"
+    },
     "upgrade_features_encrypt": {
         "message": "Crittografia avanzata"
+    },
+    "upgrade_features_no_log": {
+        "message": "Nessun registro eventi"
+    },
+    "continue_us_free_button": {
+        "message": "Continua in modo gratuito"
     },
     "options_title": {
         "message": "Opzioni AdGuard VPN"
@@ -357,7 +381,7 @@
         "message": "Offline"
     },
     "popup_exclusions_enable_vpn_on_site": {
-        "message": "<span>Puoi</span> <a>abilita VPN su questo sito web</a>",
+        "message": "<span>Puoi</span> <a>attivare la VPN su questo sito web</a>",
         "description": "NOTICE! there is space between tags"
     },
     "popup_exclusions_add_site_to_exclusions": {
@@ -365,14 +389,14 @@
         "description": "NOTICE! there is space between tags"
     },
     "popup_exclusions_disable_vpn_on_site": {
-        "message": "<span>Puoi</span> <a>disabilitare il VPN su questo sito web</a>",
+        "message": "<span>Puoi</span> <a>disattivare la VPN su questo sito web</a>",
         "description": "NOTICE! there is space between tags"
     },
     "popup_site_status_unaccessible": {
         "message": "si trova nella tua rete locale ed è inaccessibile tramite VPN"
     },
     "popup_site_status_vpn_disabled": {
-        "message": "VPN disabilitato su questo sito web"
+        "message": "VPN disattivata su questo sito web"
     },
     "popup_site_status_added_to_exclusions": {
         "message": "aggiunto alle esclusioni"

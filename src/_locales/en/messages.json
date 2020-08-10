@@ -237,7 +237,10 @@
         "message": "Subdomains"
     },
     "settings_exclusion_subdomains_text": {
-        "message": "You can add domains (e.g. google.com) or all subdomains (e.g. *.google.com)"
+        "message": "This option adds all subdomains for the specified domain. E.g., subdomains of example.com may look this way: mail.example.com, news.example.com, etc."
+    },
+    "settings_exclusion_subdomains_include": {
+        "message": "Include all subdomains"
     },
     "global_error_title": {
         "message": "Error occurred"

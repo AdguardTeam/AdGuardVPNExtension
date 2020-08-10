@@ -48,18 +48,26 @@
         }
     }
 
+    &__form {
+        margin-bottom: 15px;
+        
+        & .settings__list-item {
+            padding: 8px 8px 8px 15px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+
+            &--active,
+            &:hover,
+            &:focus {
+                border-color: #efefef;
+            }
+        }
+        
+    }
+
     &__list-item {
         position: relative;
         width: 100%;
-        padding: 8px 8px 8px 15px;
-        border: 1px solid transparent;
-        border-radius: 4px;
-
-        &--active,
-        &:hover,
-        &:focus {
-            border-color: #efefef;
-        }
 
         &:last-child {
             margin-bottom: 0;

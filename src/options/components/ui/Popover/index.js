@@ -6,7 +6,7 @@ const Popover = ({ children }) => (
     <div className="popover-wrap">
         <div className="popover__trigger">
             <svg className="popover__icon">
-                <use xlinkHref="#question" />
+                <use xlinkHref="#attention" />
             </svg>
         </div>
         <div className="popover__body">

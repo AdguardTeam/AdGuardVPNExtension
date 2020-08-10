@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import SubdomainsHelp from '../Mode/SubdomainsHelp';
+import SubdomainsCheckbox from '../SubdomainCheckbox';
+
 import './checkbox.pcss';
 
 const Checkbox = ({
@@ -33,7 +34,7 @@ const Checkbox = ({
 
     return (
         <form className="form" onSubmit={handleSubmit}>
-            <div className="checkbox">
+            <div className="checkbox checkbox--domain">
                 <input
                     id={id}
                     name={id}
@@ -61,9 +62,6 @@ const Checkbox = ({
                     onBlur={handleBlur}
                     value={hostname}
                 />
-                <div className="checkbox__help">
-                    <SubdomainsHelp />
-                </div>
                 {isChanged ? (
                     <button
                         type="submit"
@@ -86,6 +84,8 @@ const Checkbox = ({
                     </button>
                 )}
             </div>
+            {checked
+                && <SubdomainsCheckbox />}
         </form>
     );
 };
