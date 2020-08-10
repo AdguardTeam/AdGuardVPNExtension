@@ -15,6 +15,11 @@
         cursor: default;
     }
 
+    &--disabled {
+        pointer-events: none;
+        opacity: 0.6;
+    }
+
     &--back {
         position: absolute;
         left: 16px;
@@ -46,7 +51,7 @@
 
     &--medium {
         min-width: 200px;
-        padding: 15px 20px;
+        padding: 13px 20px;
         font-size: 1.6rem;
         text-align: center;
         line-height: 1;

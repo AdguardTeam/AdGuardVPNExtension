@@ -263,6 +263,9 @@
     "popup_settings_enable_vpn": {
         "message": "Zapnout VPN na této stránce"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "Zapnout"
+    },
     "popup_settings_disable_vpn": {
         "message": "Vypnout VPN na této stránce"
     },
@@ -294,7 +297,7 @@
         "message": "Nejrychlejší"
     },
     "endpoints_all": {
-        "message": "Všechny koncové zařízení"
+        "message": "Všechna umístění"
     },
     "endpoints_search_results": {
         "message": "Vyhledat výsledek"
@@ -315,7 +318,7 @@
         "message": "Odpojit"
     },
     "settings_button_connecting": {
-        "message": "Připojování"
+        "message": "Připojování..."
     },
     "settings_connect": {
         "message": "Připojit"

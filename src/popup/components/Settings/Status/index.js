@@ -1,43 +1,39 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
-import classnames from 'classnames';
 
 import rootStore from '../../../stores';
-import { PING_WITH_WARNING } from '../../../stores/consts';
 import { reactTranslator } from '../../../../reactCommon/reactTranslator';
 
 import './status.pcss';
 
 const Status = observer(() => {
-    const { settingsStore, vpnStore } = useContext(rootStore);
+    const { settingsStore } = useContext(rootStore);
 
-    const endpointStatus = classnames('status__subtitle', {
-        'status__subtitle--disabled': !settingsStore.isConnected,
-        'status__subtitle--warning': settingsStore.isConnected && vpnStore.selectedLocationPing >= PING_WITH_WARNING,
-        'status__subtitle--success': settingsStore.isConnected && vpnStore.selectedLocationPing < PING_WITH_WARNING,
-    });
+    const {
+        exclusionsInverted,
+        isConnected,
+        isConnectingIdle,
+        isConnectingRetrying,
+        displayExlusionScreen,
+        canBeExcluded,
+    } = settingsStore;
 
     const renderVpnStatusSubstring = () => {
-        if (settingsStore.isConnected && vpnStore.selectedLocationPing) {
-            return reactTranslator.translate('popup_ping_value', {
-                pingValue: vpnStore.selectedLocationPing,
-            });
+        if (isConnectingIdle || isConnectingRetrying) {
+            return reactTranslator.translate('settings_button_connecting');
         }
-
-        if (settingsStore.isDisconnectedRetrying) {
-            return reactTranslator.translate('settings_not_responding');
-        }
-
-        return reactTranslator.translate('settings_connection_not_secured');
+        return exclusionsInverted
+            ? reactTranslator.translate('context_menu_selective_mode')
+            : reactTranslator.translate('context_menu_regular_mode');
     };
 
     const renderVpnStatusTitle = () => {
-        if (settingsStore.isConnected) {
+        if (isConnected && !displayExlusionScreen) {
             return reactTranslator.translate('settings_vpn_enabled');
         }
 
-        if (settingsStore.isConnectingIdle || settingsStore.isConnectingRetrying) {
-            return reactTranslator.translate('settings_connecting');
+        if (isConnected && !canBeExcluded) {
+            return reactTranslator.translate('settings_vpn_enabled');
         }
 
         return reactTranslator.translate('settings_vpn_disabled');
@@ -48,7 +44,7 @@ const Status = observer(() => {
             <div className="status__title">
                 {renderVpnStatusTitle()}
             </div>
-            <div className={endpointStatus}>
+            <div className="status__subtitle">
                 {renderVpnStatusSubstring()}
             </div>
         </div>

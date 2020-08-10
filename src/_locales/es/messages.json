@@ -263,6 +263,9 @@
     "popup_settings_enable_vpn": {
         "message": "Habilitar VPN en este sitio web"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "Habilitar"
+    },
     "popup_settings_disable_vpn": {
         "message": "Deshabilitar VPN en este sitio web"
     },
@@ -294,7 +297,7 @@
         "message": "Más rápidos"
     },
     "endpoints_all": {
-        "message": "Todos los puntos finales"
+        "message": "Todas las ubicaciones"
     },
     "endpoints_search_results": {
         "message": "Resultado de búsqueda"
@@ -315,7 +318,7 @@
         "message": "Desconectar"
     },
     "settings_button_connecting": {
-        "message": "Conectando"
+        "message": "Conectando..."
     },
     "settings_connect": {
         "message": "Conectar"

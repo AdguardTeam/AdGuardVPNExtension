@@ -263,6 +263,9 @@
     "popup_settings_enable_vpn": {
         "message": "Omogoči VPN na tej spletni strani"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "Omogoči"
+    },
     "popup_settings_disable_vpn": {
         "message": "Onemogoči VPN na tej spletni strani"
     },
@@ -294,7 +297,7 @@
         "message": "Najhitreje"
     },
     "endpoints_all": {
-        "message": "Vse končne točke"
+        "message": "Vse lokacije"
     },
     "endpoints_search_results": {
         "message": "Rezultat iskanja"
@@ -315,7 +318,7 @@
         "message": "Prekini povezavo"
     },
     "settings_button_connecting": {
-        "message": "Povezovanje"
+        "message": "Povezovanje..."
     },
     "settings_connect": {
         "message": "Poveži"

@@ -4,9 +4,10 @@
     flex-direction: row;
     align-items: center;
     margin-top: auto;
-    padding: 12px 20px;
+    padding: 14px 20px;
     color: var(--gray-base);
     cursor: pointer;
+    border-top: 1px solid var(--grayd8);
 
     &:hover {
         background-color: var(--grayf3);
@@ -25,17 +26,5 @@
 
     &__country {
         margin-right: 15px;
-    }
-
-    &:after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        right: 20px;
-        width: 14px;
-        height: 8px;
-        margin-top: -4px;
-        background-image: url(../../../../assets/images/arrow-down.svg);
-        transform: rotate(-90deg);
     }
 }

@@ -7,6 +7,8 @@ import { PROMO_SALE_STATUSES } from '../../../../lib/constants';
 const GlobalControl = observer(() => {
     const { settingsStore, vpnStore } = useContext(rootStore);
 
+    const { isExcluded, exclusionsInverted } = settingsStore;
+
     const connectHandler = async () => {
         await settingsStore.setProxyState(true);
         if (!vpnStore.isPremiumToken
@@ -19,6 +21,51 @@ const GlobalControl = observer(() => {
         await settingsStore.setProxyState(false);
     };
 
+    const addToExclusions = async () => {
+        await settingsStore.addToExclusions();
+    };
+
+    const removeFromExclusions = async () => {
+        await settingsStore.removeFromExclusions();
+    };
+
+    const renderExclusionButton = (isExcluded, exclusionsInverted) => {
+        const texts = {
+            enable: reactTranslator.translate('popup_settings_enable_vpn'),
+            disable: reactTranslator.translate('popup_settings_disable_vpn'),
+        };
+
+        const getText = (enable) => {
+            if (enable) {
+                return texts.enable;
+            }
+            return texts.disable;
+        };
+
+        const buttonsInfo = {
+            add: {
+                text: getText(exclusionsInverted),
+                handler: addToExclusions,
+            },
+            remove: {
+                text: getText(!exclusionsInverted),
+                handler: removeFromExclusions,
+            },
+        };
+
+        const button = isExcluded ? buttonsInfo.remove : buttonsInfo.add;
+
+        return (
+            <button
+                onClick={button.handler}
+                type="button"
+                className="button button--inline settings__exclusion-btn"
+            >
+                {button.text}
+            </button>
+        );
+    };
+
     const buttonStates = {
         disconnect: {
             className: 'button--outline-secondary',
@@ -26,8 +73,8 @@ const GlobalControl = observer(() => {
             handler: disconnectHandler,
         },
         connecting: {
-            className: 'button--outline-secondary button__disabled',
-            message: reactTranslator.translate('settings_button_connecting'),
+            className: 'button--outline-secondary button--disabled',
+            message: reactTranslator.translate('settings_disconnect'),
         },
         connect: {
             className: 'button--green',
@@ -60,13 +107,16 @@ const GlobalControl = observer(() => {
     }
 
     return (
-        <button
-            type="button"
-            className={`button button--medium ${buttonState.className}`}
-            onClick={buttonState.handler}
-        >
-            {buttonState.message}
-        </button>
+        <>
+            <button
+                type="button"
+                className={`button button--medium ${buttonState.className}`}
+                onClick={buttonState.handler}
+            >
+                {buttonState.message}
+            </button>
+            {settingsStore.canBeExcluded && renderExclusionButton(isExcluded, exclusionsInverted)}
+        </>
     );
 });
 

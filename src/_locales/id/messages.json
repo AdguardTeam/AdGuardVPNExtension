@@ -263,6 +263,9 @@
     "popup_settings_enable_vpn": {
         "message": "Aktifkan VPN pada situs ini"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "Aktifkan"
+    },
     "popup_settings_disable_vpn": {
         "message": "Matikan VPN pada situs ini"
     },
@@ -293,9 +296,6 @@
     "endpoints_fastest": {
         "message": "Tercepat"
     },
-    "endpoints_all": {
-        "message": "Semua titik akhir"
-    },
     "endpoints_search_results": {
         "message": "Hasil pencarian"
     },
@@ -315,7 +315,7 @@
         "message": "Terputus"
     },
     "settings_button_connecting": {
-        "message": "Menyambung"
+        "message": "Menyambung..."
     },
     "settings_connect": {
         "message": "Sambung"

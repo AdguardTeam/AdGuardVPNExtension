@@ -1,17 +1,23 @@
 .status-image {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     height: 200px;
     background-image: url(../../../../../src/assets/images/disabled.svg);
     background-repeat: no-repeat;
     background-position: center bottom;
     background-size: contain;
 
+    &--connecting,
     &--enabled {
         background-image: url(../../../../../src/assets/images/enabled.svg);
         background-size: 100% 195px;
         background-position: center 4px;
     }
 
+    &--connecting {
+        filter: grayscale(1);
+    }
+
+    &--exclusions-disable,
     &--server-error {
         background-image: url(../../../../../src/assets/images/not-found.svg);
         background-size: 100% 205px;

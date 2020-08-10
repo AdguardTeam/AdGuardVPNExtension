@@ -230,6 +230,9 @@
     "popup_settings_enable_vpn": {
         "message": "對此網站啟用 VPN"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "於該網站上啟用"
+    },
     "popup_settings_disable_vpn": {
         "message": "對此網站禁用 VPN"
     },
@@ -261,7 +264,7 @@
         "message": "最快的"
     },
     "endpoints_all": {
-        "message": "所有的端點"
+        "message": "所有的位置"
     },
     "endpoints_search_results": {
         "message": "搜尋結果"
@@ -282,7 +285,7 @@
         "message": "斷線"
     },
     "settings_button_connecting": {
-        "message": "正在連線"
+        "message": "正在連線…"
     },
     "settings_connect": {
         "message": "連線"

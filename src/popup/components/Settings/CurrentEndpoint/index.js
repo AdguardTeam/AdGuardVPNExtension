@@ -6,6 +6,7 @@ import rootStore from '../../../stores';
 
 import './endpoint.pcss';
 import { PROMO_SALE_STATUSES } from '../../../../lib/constants';
+import Ping from '../../Ping';
 
 const CurrentEndpoint = observer(() => {
     const { vpnStore, settingsStore, uiStore } = useContext(rootStore);
@@ -14,6 +15,7 @@ const CurrentEndpoint = observer(() => {
         countryNameToDisplay,
         cityNameToDisplay,
         countryCodeToDisplay,
+        selectedLocationPing,
     } = vpnStore;
 
     const { isConnected } = settingsStore;
@@ -41,6 +43,14 @@ const CurrentEndpoint = observer(() => {
         return { backgroundImage: `url("../../assets/images/flags/${iconName}.svg")` };
     };
 
+    const renderPing = () => {
+        if (selectedLocationPing) {
+            return <Ping ping={selectedLocationPing} />;
+        }
+
+        return <div className="ping">-</div>;
+    };
+
     return (
         <div
             className="endpoint"
@@ -59,6 +69,7 @@ const CurrentEndpoint = observer(() => {
                     {cityNameToDisplay}
                 </div>
             </div>
+            {renderPing()}
         </div>
     );
 });

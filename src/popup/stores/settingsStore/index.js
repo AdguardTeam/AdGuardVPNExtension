@@ -271,6 +271,12 @@ class SettingsStore {
             this.saleVisibleState = value;
         });
     };
+
+    @computed
+    get displayExlusionScreen() {
+        return (this.isExcluded && !this.exclusionsInverted)
+        || (!this.isExcluded && this.exclusionsInverted);
+    }
 }
 
 export default SettingsStore;
