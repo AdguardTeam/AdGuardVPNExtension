@@ -85,7 +85,13 @@ const Checkbox = ({
                 )}
             </div>
             {checked
-                && <SubdomainsCheckbox />}
+                && (
+                    <SubdomainsCheckbox
+                        id={id}
+                        handleToggle={handleToggle}
+                        label={label}
+                    />
+                )}
         </form>
     );
 };

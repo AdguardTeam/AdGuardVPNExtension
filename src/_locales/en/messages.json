@@ -236,8 +236,11 @@
     "settings_exclusion_subdomains_title": {
         "message": "Subdomains"
     },
-    "settings_exclusion_subdomains_text": {
-        "message": "This option adds all subdomains for the specified domain. E.g., subdomains of example.com may look this way: mail.example.com, news.example.com, etc."
+    "settings_exclusion_subdomains_text_1": {
+        "message": "This option adds all subdomains for the specified domain."
+    },
+    "settings_exclusion_subdomains_text_2": {
+        "message": "E.g., subdomains of example.com may look this way: <b>mail.example.com, news.example.com, etc."
     },
     "settings_exclusion_subdomains_include": {
         "message": "Include all subdomains"

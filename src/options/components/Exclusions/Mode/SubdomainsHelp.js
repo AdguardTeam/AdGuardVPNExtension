@@ -9,8 +9,9 @@ const SubdomainsHelp = () => (
             <div className="popover__title">
                 {reactTranslator.translate('settings_exclusion_subdomains_title')}
             </div>
-            <div className="popover__text">
-                {reactTranslator.translate('settings_exclusion_subdomains_text')}
+            <div className="popover__text-wr">
+                <p className="popover__text">{reactTranslator.translate('settings_exclusion_subdomains_text_1')}</p>
+                <p className="popover__text">{reactTranslator.translate('settings_exclusion_subdomains_text_2')}</p>
             </div>
         </>
     </Popover>
