@@ -65,4 +65,10 @@ describe('formatter', () => {
             expect(formatted).toEqual(['cat ', '<img src="#"/>', ' float']);
         });
     });
+
+    it('handles tags without replacement', () => {
+        const rawStr = '<p>Text inside tag</p>';
+        const formatted = formatter(rawStr);
+        expect(formatted).toEqual(['<p>Text inside tag</p>']);
+    });
 });
