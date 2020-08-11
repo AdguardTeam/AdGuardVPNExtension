@@ -11,9 +11,12 @@ const Checkbox = ({
     handleToggle,
     handleRename,
     handleRemove,
+    isSubdomain,
 }) => {
     const [hostname, setHostname] = useState(label);
     const [isChanged, setIsChanged] = useState(false);
+
+    const allDomainsPrefix = '*.';
 
     const handleChange = (e) => {
         setIsChanged(hostname !== e.target.value);
@@ -30,6 +33,14 @@ const Checkbox = ({
         if (e.target.value.length <= 0) {
             handleRemove();
         }
+    };
+
+    const checkHostName = (hostname) => {
+        if (hostname.includes(allDomainsPrefix) || !isSubdomain) {
+            return true;
+        }
+
+        return false;
     };
 
     return (
@@ -84,11 +95,12 @@ const Checkbox = ({
                     </button>
                 )}
             </div>
-            {checked
+            {(checked && !isSubdomain)
                 && (
                     <SubdomainsCheckbox
                         id={id}
                         handleToggle={handleToggle}
+                        checked={checkHostName(hostname)}
                         label={label}
                     />
                 )}

@@ -20,10 +20,8 @@ const SubdomainsCheckbox = ({
                         <use xlinkHref="#unchecked" />
                     </svg>
                 )}
+                <span className="checkbox__label-title">{reactTranslator.translate('settings_exclusion_subdomains_include')}</span>
             </label>
-            <div className="checkbox__label">
-                {reactTranslator.translate('settings_exclusion_subdomains_include')}
-            </div>
             <div className="checkbox__help">
                 <SubdomainsHelp />
             </div>

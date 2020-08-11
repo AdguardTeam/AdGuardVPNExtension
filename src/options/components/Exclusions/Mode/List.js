@@ -24,6 +24,12 @@ const List = observer(({ exclusionsType, enabled }) => {
 
     const listClassName = classnames('settings__list', { 'settings__list--hidden': !enabled });
 
+    const isSubdomain = (url) => {
+        // eslint-disable-next-line
+        const regex = new RegExp(/^([a-z]+\:\/{2})?([\w-]+\.[\w-]+\.\w+)$/);
+        return !!url.match(regex);
+    };
+
     return (
         <div className={listClassName}>
             {exclusions.slice().reverse().map(({ id, hostname, enabled }) => (
@@ -35,6 +41,7 @@ const List = observer(({ exclusionsType, enabled }) => {
                         handleToggle={handleToggle(id)}
                         handleRename={handleRename(id)}
                         handleRemove={handleRemove(id)}
+                        isSubdomain={isSubdomain(hostname)}
                     />
                 </div>
             ))}
