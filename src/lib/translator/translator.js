@@ -58,6 +58,32 @@ const translate = (key, values) => {
  */
 const createReactTranslator = (React) => {
     /**
+     * Helps to build nodes without values
+     *
+     * @param tagName
+     * @param children
+     * @returns {*}
+     */
+    const createReactElement = (tagName, children) => {
+        if (children) {
+            return React.createElement(tagName, null, React.Children.toArray(children));
+        }
+        return React.createElement(tagName, null);
+    };
+
+    /**
+     * Function creates default values to be used if user didn't provide function values for tags
+     */
+    const createDefaultValues = () => ({
+        p: (children) => createReactElement('p', children),
+        b: (children) => createReactElement('b', children),
+        strong: (children) => createReactElement('strong', children),
+        tt: (children) => createReactElement('tt', children),
+        s: (children) => createReactElement('s', children),
+        i: (children) => createReactElement('i', children),
+    });
+
+    /**
      * Searches for locale message by key, formats it
      * and returns array of react components or string
      *
@@ -67,7 +93,8 @@ const createReactTranslator = (React) => {
      */
     const translateReact = (key, values) => {
         const message = browser.i18n.getMessage(key);
-        const formatted = formatter(message, values);
+        const tmplValues = { ...createDefaultValues(), ...values };
+        const formatted = formatter(message, tmplValues);
         const reactChildren = React.Children.toArray(formatted);
         // if there is only strings in the array we join them
         if (reactChildren.every((child) => typeof child === 'string')) {
