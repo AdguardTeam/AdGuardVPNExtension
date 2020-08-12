@@ -95,3 +95,5 @@ const FEEDBACK_URL_MAP = {
     [BROWSERS.CHROME]: 'https://adguard-vpn.com/forward.html?action=feedback_chrome&from=options_screen&app=vpn_extension',
 };
 export const FEEDBACK_URL = FEEDBACK_URL_MAP[currentBrowser];
+
+export const THANK_YOU_PAGE_URL = 'https://adguard-vpn.com/forward.html?action=thank_you&from=background_page&app=vpn_extension';

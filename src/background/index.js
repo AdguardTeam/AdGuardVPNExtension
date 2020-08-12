@@ -21,6 +21,7 @@ import updateService from './updateService';
 import { vpnApi } from './api';
 import browserActionIcon from './browserActionIcon';
 import './networkConnectionObserver';
+import { openThankYouPage } from './postinstall';
 
 global.adguard = {
     settings,
@@ -46,6 +47,7 @@ global.adguard = {
     try {
         messaging.init(); // messaging is on the top, for popup be able to communicate with back
         const runInfo = await updateService.getRunInfo();
+        await openThankYouPage(runInfo);
         permissionsChecker.init(); // should be initiated before auth module
         await auth.init();
         await settings.init();
