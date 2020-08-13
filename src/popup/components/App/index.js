@@ -25,7 +25,7 @@ import log from '../../../lib/logger';
 import messenger from '../../../lib/messenger';
 import notifier from '../../../lib/notifier';
 import PromoSale from '../PromoSale';
-import { PROMO_SALE_STATUSES } from '../../../lib/constants';
+import { PROMO_SCREEN_STATES } from '../../../lib/constants';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -129,8 +129,8 @@ const App = observer(() => {
         hasGlobalError,
         checkPermissionsState,
         hasLimitExceededError,
-        saleVisibleState,
-        displayExlusionScreen,
+        promoScreenState,
+        displayExclusionScreen,
         canBeExcluded,
     } = settingsStore;
 
@@ -165,9 +165,10 @@ const App = observer(() => {
             </CSSTransition>
             <CSSTransition
                 in={
-                    !isPremiumToken
-                    && saleVisibleState === PROMO_SALE_STATUSES.DISPLAY_ON_POPUP_OPEN
-                    && settingsStore.isConnected
+                    (!isPremiumToken
+                        && promoScreenState === PROMO_SCREEN_STATES.DISPLAY_ON_POPUP_OPEN
+                        && settingsStore.isConnected)
+                    || settingsStore.freeUserClickedPremiumLocation
                 }
                 timeout={300}
                 classNames="fade"
@@ -175,7 +176,7 @@ const App = observer(() => {
             >
                 <PromoSale />
             </CSSTransition>
-            {displayExlusionScreen && canBeExcluded
+            {displayExclusionScreen && canBeExcluded
                 ? <ExclusionsScreen />
                 : (
                     <>

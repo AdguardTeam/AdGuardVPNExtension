@@ -35,6 +35,7 @@ const getLocationsData = async (vpnToken) => {
             city_name: cityName,
             country_code: countryCode,
             country_name: countryName,
+            premium_only: premiumOnly,
             latitude,
             longitude,
             id,
@@ -46,6 +47,7 @@ const getLocationsData = async (vpnToken) => {
             cityName,
             countryCode,
             countryName,
+            premiumOnly,
             coordinates: [longitude, latitude],
             endpoints: endpoints.map(prepareEndpointData),
         };

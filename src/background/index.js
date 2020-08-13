@@ -53,11 +53,11 @@ global.adguard = {
         await settings.init();
         await credentials.init(runInfo);
         await exclusions.init();
-        await settings.applySettings(); // we have to apply settings when credentials are ready
-        await endpoints.init(); // update endpoints list on extension or browser restart
+        settings.applySettings(); // we have to apply settings when credentials are ready
+        endpoints.init(); // update endpoints list on extension or browser restart
         await nonRoutable.init();
-        await contextMenu.init();
-        await browserActionIcon.init();
+        contextMenu.init();
+        browserActionIcon.init();
         log.info('Extension loaded all necessary modules');
     } catch (e) {
         log.error('Unable to start extension because of error:', e && e.message);

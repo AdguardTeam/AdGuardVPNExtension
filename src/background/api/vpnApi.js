@@ -6,7 +6,7 @@ import { VPN_API_URL } from '../config';
 
 // https://bit.adguard.com/projects/ADGUARD/repos/adguard-vpn-backend-service/browse
 class VpnApi extends Api {
-    GET_LOCATIONS = { path: 'locations', method: 'GET' };
+    GET_LOCATIONS = { path: 'v2/locations/extension', method: 'GET' };
 
     getLocations = (vpnToken) => {
         const { path, method } = this.GET_LOCATIONS;
@@ -20,7 +20,7 @@ class VpnApi extends Api {
         return this.makeRequest(path, method, { params });
     };
 
-    GET_VPN_CREDENTIALS = { path: 'proxy_credentials', method: 'POST' };
+    GET_VPN_CREDENTIALS = { path: 'v1/proxy_credentials', method: 'POST' };
 
     getVpnCredentials = (appId, vpnToken) => {
         const { path, method } = this.GET_VPN_CREDENTIALS;
@@ -37,14 +37,14 @@ class VpnApi extends Api {
         return this.makeRequest(path, method, config);
     };
 
-    GET_CURRENT_LOCATION = { path: 'geo_location', method: 'GET' };
+    GET_CURRENT_LOCATION = { path: 'v1/geo_location', method: 'GET' };
 
     getCurrentLocation = () => {
         const { path, method } = this.GET_CURRENT_LOCATION;
         return this.makeRequest(path, method);
     };
 
-    VPN_EXTENSION_INFO = { path: 'info/extension', method: 'GET' };
+    VPN_EXTENSION_INFO = { path: 'v1/info/extension', method: 'GET' };
 
     getVpnExtensionInfo = (vpnToken) => {
         const { path, method } = this.VPN_EXTENSION_INFO;
@@ -55,7 +55,7 @@ class VpnApi extends Api {
         return this.makeRequest(path, method, { params });
     };
 
-    TRACK_EXTENSION_INSTALL = { path: 'init/extension', method: 'POST' };
+    TRACK_EXTENSION_INSTALL = { path: 'v1/init/extension', method: 'POST' };
 
     postExtensionInstalled = (appId) => {
         const { path, method } = this.TRACK_EXTENSION_INSTALL;

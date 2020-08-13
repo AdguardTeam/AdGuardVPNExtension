@@ -12,8 +12,7 @@ import { reactTranslator } from '../../../reactCommon/reactTranslator';
 const Locations = observer(() => {
     const { vpnStore, uiStore, settingsStore } = useContext(rootStore);
 
-    const handleLocationSelect = (id) => async (e) => {
-        e.preventDefault();
+    const handleLocationSelect = async (id) => {
         const prevId = vpnStore.selectedLocation.id;
         await vpnStore.selectLocation(id);
         uiStore.closeEndpointsSearch();
@@ -36,27 +35,11 @@ const Locations = observer(() => {
     };
 
     const renderLocations = (locations) => locations.map((location) => {
-        const {
-            id,
-            countryName,
-            selected,
-            cityName,
-            countryCode,
-            ping,
-            available,
-        } = location;
-
         return (
             <Location
-                key={id}
-                id={id}
+                key={location.id}
                 handleClick={handleLocationSelect}
-                selected={selected}
-                countryCode={countryCode}
-                countryName={countryName}
-                cityName={cityName}
-                ping={ping}
-                available={available}
+                location={location}
             />
         );
     });

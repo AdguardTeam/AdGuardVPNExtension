@@ -9,5 +9,6 @@ export class LocationWithPing {
         this.countryCode = location.countryCode;
         this.ping = location.ping;
         this.available = location.available;
+        this.premiumOnly = location.premiumOnly;
     }
 }

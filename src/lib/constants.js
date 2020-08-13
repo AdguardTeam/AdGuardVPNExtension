@@ -59,8 +59,8 @@ export const ERROR_STATUSES = {
     LIMIT_EXCEEDED: 'limit.exceeded.error',
 };
 
-export const PROMO_SALE_STATUSES = {
-    DISPLAY_BEFORE_CLICK: 'display.before.click',
+export const PROMO_SCREEN_STATES = {
+    DISPLAY_AFTER_CONNECT_CLICK: 'display.after.connect.click',
     DISPLAY_ON_POPUP_OPEN: 'display.on.popup.open',
     DO_NOT_DISPLAY: 'do.not.display',
 };

@@ -8,6 +8,7 @@ export class Location {
         this.countryCode = locationData.countryCode;
         this.endpoints = locationData.endpoints.map((endpoint) => new Endpoint(endpoint));
         this.coordinates = locationData.coordinates;
+        this.premiumOnly = locationData.premiumOnly;
         this.available = true;
         this.ping = null;
         this.endpoint = null;
