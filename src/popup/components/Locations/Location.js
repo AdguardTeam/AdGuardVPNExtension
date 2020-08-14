@@ -34,8 +34,8 @@ const Location = observer(({ location, handleClick }) => {
     const renderLocationIcon = (selected, countryCode) => {
         if (!locationFitsPremiumToken) {
             return (
-                <div className="location_lock">
-                    <span className="location_lock__icon" />
+                <div className="lock">
+                    <span className="lock__icon" />
                 </div>
             );
         }
