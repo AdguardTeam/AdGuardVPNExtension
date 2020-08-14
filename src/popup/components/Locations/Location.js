@@ -1,13 +1,45 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
 import { reactTranslator } from '../../../reactCommon/reactTranslator';
 import Ping from '../Ping';
+import rootStore from '../../stores';
 
-const Location = ({
-    id, selected, countryCode, countryName, cityName, handleClick, ping, available,
-}) => {
-    const getLocationIcon = (selected, countryCode) => {
+const Location = observer(({ location, handleClick }) => {
+    const { vpnStore, settingsStore } = useContext(rootStore);
+
+    const {
+        id,
+        selected,
+        countryCode,
+        countryName,
+        cityName,
+        ping,
+        available,
+        premiumOnly,
+    } = location;
+
+    const locationFitsPremiumToken = vpnStore.isPremiumToken || !premiumOnly;
+
+    const handleLocationClick = (e) => {
+        e.preventDefault();
+        if (locationFitsPremiumToken) {
+            handleClick(id);
+        } else {
+            settingsStore.setPremiumLocationClickedByFreeUser(true);
+        }
+    };
+
+    const renderLocationIcon = (selected, countryCode) => {
+        if (!locationFitsPremiumToken) {
+            return (
+                <div className="lock">
+                    <span className="lock__icon" />
+                </div>
+            );
+        }
+
         const flagClass = classnames(
             'flag flag--small',
             { 'flag--active': selected }
@@ -36,7 +68,11 @@ const Location = ({
 
     const renderPings = () => {
         if (!available) {
-            return (<span>{reactTranslator.translate('offline_title')}</span>);
+            return (
+                <div className="ping">
+                    <span>{reactTranslator.translate('offline_title')}</span>
+                </div>
+            );
         }
 
         if (ping) {
@@ -44,11 +80,13 @@ const Location = ({
         }
 
         return (
-            <span className="endpoints__dots">
-                <span className="endpoints__dot">.</span>
-                <span className="endpoints__dot">.</span>
-                <span className="endpoints__dot">.</span>
-            </span>
+            <div className="ping">
+                <span className="endpoints__dots">
+                    <span className="endpoints__dot">.</span>
+                    <span className="endpoints__dot">.</span>
+                    <span className="endpoints__dot">.</span>
+                </span>
+            </div>
         );
     };
 
@@ -56,10 +94,10 @@ const Location = ({
         <button
             type="button"
             className={locationClassName}
-            onClick={handleClick(id)}
+            onClick={handleLocationClick}
         >
             <div className="endpoints__icon">
-                {getLocationIcon(selected, countryCode)}
+                {renderLocationIcon(selected, countryCode)}
             </div>
             <div className="endpoints__name">
                 <div className="endpoints__country">
@@ -69,9 +107,9 @@ const Location = ({
                     {cityName}
                 </div>
             </div>
-            { renderPings() }
+            {renderPings()}
         </button>
     );
-};
+});
 
 export default Location;

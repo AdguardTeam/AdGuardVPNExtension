@@ -9,7 +9,7 @@ import tabs from '../../../background/tabs';
 import log from '../../../lib/logger';
 import { getHostname, getProtocol } from '../../../lib/helpers';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
-import { ERROR_STATUSES, SETTINGS_IDS, PROMO_SALE_STATUSES } from '../../../lib/constants';
+import { ERROR_STATUSES, SETTINGS_IDS, PROMO_SCREEN_STATES } from '../../../lib/constants';
 import messenger from '../../../lib/messenger';
 import { STATE } from '../../../background/connectivity/connectivityService/connectivityConstants';
 
@@ -34,7 +34,9 @@ class SettingsStore {
 
     @observable isRateVisible;
 
-    @observable saleVisibleState = PROMO_SALE_STATUSES.DISPLAY_BEFORE_CLICK;
+    @observable promoScreenState = PROMO_SCREEN_STATES.DISPLAY_AFTER_CONNECT_CLICK;
+
+    @observable freeUserClickedPremiumLocation = false;
 
     constructor(rootStore) {
         this.rootStore = rootStore;
@@ -260,22 +262,27 @@ class SettingsStore {
     setSalePromoStatus = async (state) => {
         await messenger.setSetting(SETTINGS_IDS.SALE_SHOW, state);
         runInAction(() => {
-            this.saleVisibleState = state;
+            this.promoScreenState = state;
         });
     }
 
     @action
-    checkSaleStatus = async () => {
+    getPromoScreenStatus = async () => {
         const value = await messenger.getSetting(SETTINGS_IDS.SALE_SHOW);
         runInAction(() => {
-            this.saleVisibleState = value;
+            this.promoScreenState = value;
         });
     };
 
     @computed
-    get displayExlusionScreen() {
+    get displayExclusionScreen() {
         return (this.isExcluded && !this.exclusionsInverted)
         || (!this.isExcluded && this.exclusionsInverted);
+    }
+
+    @action
+    setPremiumLocationClickedByFreeUser = (state) => {
+        this.freeUserClickedPremiumLocation = state;
     }
 }
 

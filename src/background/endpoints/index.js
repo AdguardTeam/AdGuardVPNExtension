@@ -19,16 +19,25 @@ import { connectivityService } from '../connectivity/connectivityService/connect
 import { EVENT } from '../connectivity/connectivityService/connectivityConstants';
 
 /**
- * Endpoint information
+ * Endpoint properties
  * @typedef {Object} Endpoint
+ * @property {string} id
+ * @property {string} domainName
+ * @property {string} ipv4Address
+ * @property {string} ipv6Address
+ * @property {string} publicKey
+ */
+
+/**
+ * Locations properties
+ * @typedef {Object} Location
  * @property {string} id
  * @property {string} cityName
  * @property {string} countryCode
  * @property {string} countryName
- * @property {string} domainName
- * @property {[number, number]} coordinates
+ * @property {[number, number]} coordinates [longitude, latitude]
+ * @property {Endpoint[]} endpoints
  * @property {boolean} premiumOnly
- * @property {string} publicKey
  */
 
 /**
@@ -54,6 +63,7 @@ class Endpoints {
         const { domainName } = await proxy.setCurrentEndpoint(endpoint, location);
         const { credentialsHash, token } = await credentials.getAccessCredentials();
         await connectivity.endpointConnectivity.setCredentials(domainName, token, credentialsHash);
+        await locationsService.setSelectedLocation(location.id);
         log.debug(`Reconnecting endpoint to ${endpoint.id}`);
     };
 
@@ -90,7 +100,8 @@ class Endpoints {
             return null;
         }
 
-        return locationsService.getLocationsFromServer(vpnToken.token);
+        const locations = await locationsService.getLocationsFromServer(vpnToken.token);
+        return locations;
     };
 
     vpnTokenChanged = (oldVpnToken, newVpnToken) => {
@@ -140,6 +151,23 @@ class Endpoints {
     };
 
     /**
+     * Returns list of locations which fit to token
+     * @param locations
+     * @param isPremiumToken
+     * @returns {*}
+     */
+    filterLocationsMatchingToken = (locations, isPremiumToken) => {
+        const filteredLocations = locations.filter((location) => {
+            if (isPremiumToken) {
+                return true;
+            }
+            return location.premiumOnly === false;
+        });
+
+        return filteredLocations;
+    }
+
+    /**
      * Updates endpoints list
      * @param shouldReconnect
      * @returns {Promise<void>}
@@ -151,25 +179,46 @@ class Endpoints {
             return;
         }
 
+        const currentLocation = await locationsService.getSelectedLocation();
+        const isPremiumToken = await credentials.isPremiumToken();
+
+        const doesLocationFitToken = isPremiumToken || currentLocation?.premiumOnly === false;
+
+        if (!doesLocationFitToken && currentLocation) {
+            const filteredLocations = this.filterLocationsMatchingToken(locations, isPremiumToken);
+            const closestLocation = this.getClosestLocation(filteredLocations, currentLocation);
+            try {
+                // eslint-disable-next-line max-len
+                const closestEndpoint = await locationsService.getEndpointByLocation(closestLocation);
+                await this.reconnectEndpoint(closestEndpoint, closestLocation);
+            } catch (e) {
+                log.debug(e);
+            }
+            return;
+        }
+
         if (!shouldReconnect) {
             return;
         }
 
-        const currentEndpoint = await proxy.getCurrentEndpoint();
-
-        const currentLocation = await locationsService.getSelectedLocation()
-            || await locationsService.getLocationByEndpoint(currentEndpoint?.id);
-
         if (currentLocation) {
             // Check if current endpoint is in the list of received locations
             // if not we should get closest and reconnect
-            const endpoint = await locationsService.getEndpoint(currentLocation);
+            const endpoint = await locationsService.getEndpointByLocation(currentLocation);
             if (endpoint) {
                 await this.reconnectEndpoint(endpoint, currentLocation);
             } else {
-                const closestLocation = this.getClosestLocation(locations, currentLocation);
-                const closestEndpoint = await locationsService.getEndpoint(closestLocation);
-                await this.reconnectEndpoint(closestEndpoint, currentLocation);
+                const locationsMatchingToken = this.filterLocationsMatchingToken(
+                    locations,
+                    isPremiumToken
+                );
+                const closestLocation = this.getClosestLocation(
+                    locationsMatchingToken,
+                    currentLocation
+                );
+                // eslint-disable-next-line max-len
+                const closestEndpoint = await locationsService.getEndpointByLocation(closestLocation);
+                await this.reconnectEndpoint(closestEndpoint, closestLocation);
             }
         } else {
             log.debug('Was unable to find current location');
@@ -217,17 +266,15 @@ class Endpoints {
 
     /**
      * Returns vpn info cached value and launches remote vpn info getting
-     * @param local flag if check only for local data
      * @returns vpnInfo or null
      */
-    getVpnInfo = (local = false) => {
-        if (!local) {
-            this.getVpnInfoRemotely();
-        }
+    getVpnInfo = () => {
+        this.getVpnInfoRemotely();
 
         if (this.vpnInfo) {
             return this.vpnInfo;
         }
+
         return null;
     };
 
@@ -251,8 +298,17 @@ class Endpoints {
             return null;
         }
 
+        const isPremiumUser = await credentials.isPremiumToken();
+
+        let filteredLocations = locations;
+        if (!isPremiumUser) {
+            filteredLocations = locations.filter((location) => {
+                return !location.premiumOnly;
+            });
+        }
+
         const closestLocation = getClosestLocationToTarget(
-            locations,
+            filteredLocations,
             userCurrentLocation
         );
 
@@ -292,7 +348,16 @@ class Endpoints {
         return `${vpnFailurePage}${separator}${queryString}`;
     };
 
+    clearVpnInfo() {
+        delete this.vpnInfo;
+    }
+
     init() {
+        // Clear vpn info on deauthentication in order to set correct vpn info after next login
+        notifier.addSpecifiedListener(
+            notifier.types.USER_DEAUTHENTICATED,
+            this.clearVpnInfo.bind(this)
+        );
         // start getting vpn info and endpoints
         this.getVpnInfo();
     }

@@ -36,7 +36,7 @@ const VPN_API_URLS_MAP = {
     [ENVS.PROD]: 'https://api.adguard.io/',
 };
 
-export const VPN_API_URL = `${VPN_API_URLS_MAP[currentEnv]}api/v1/`;
+export const VPN_API_URL = `${VPN_API_URLS_MAP[currentEnv]}api/`;
 
 // Auth section
 // API description - projects/ADGUARD/repos/adguard-auth-service/browse
@@ -95,3 +95,5 @@ const FEEDBACK_URL_MAP = {
     [BROWSERS.CHROME]: 'https://adguard-vpn.com/forward.html?action=feedback_chrome&from=options_screen&app=vpn_extension',
 };
 export const FEEDBACK_URL = FEEDBACK_URL_MAP[currentBrowser];
+
+export const THANK_YOU_PAGE_URL = 'https://adguard-vpn.com/forward.html?action=thank_you&from=background_page&app=vpn_extension';

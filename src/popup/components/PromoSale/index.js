@@ -4,25 +4,29 @@ import { observer } from 'mobx-react';
 import { reactTranslator } from '../../../reactCommon/reactTranslator';
 import rootStore from '../../stores';
 import './promo-sale.pcss';
-import { PROMO_SALE_STATUSES } from '../../../lib/constants';
+import { PROMO_SCREEN_STATES } from '../../../lib/constants';
 
 const PromoSale = observer(() => {
-    const { vpnStore, settingsStore } = useContext(rootStore);
+    const { vpnStore, settingsStore, uiStore } = useContext(rootStore);
 
     const upgradeClickHandler = async (e) => {
         e.preventDefault();
-        await settingsStore.setSalePromoStatus(PROMO_SALE_STATUSES.DO_NOT_DISPLAY);
+        settingsStore.setPremiumLocationClickedByFreeUser(false);
+        uiStore.closeEndpointsSearch();
+        await settingsStore.setSalePromoStatus(PROMO_SCREEN_STATES.DO_NOT_DISPLAY);
         await vpnStore.openPremiumPromoPage();
     };
 
     const hideSaleClickHandler = async () => {
-        await settingsStore.setSalePromoStatus(PROMO_SALE_STATUSES.DO_NOT_DISPLAY);
+        settingsStore.setPremiumLocationClickedByFreeUser(false);
+        uiStore.closeEndpointsSearch();
+        await settingsStore.setSalePromoStatus(PROMO_SCREEN_STATES.DO_NOT_DISPLAY);
     };
 
     const features = [
-        { id: 1, text: 'upgrade_features_data' },
-        { id: 2, text: 'upgrade_features_speed' },
-        { id: 3, text: 'upgrade_features_encrypt' },
+        { id: 1, text: 'upgrade_features_all_locations' },
+        { id: 2, text: 'upgrade_features_data' },
+        { id: 3, text: 'upgrade_features_speed' },
         { id: 4, text: 'upgrade_features_no_log' },
     ];
 

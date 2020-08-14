@@ -2,7 +2,7 @@ import SettingsService from './SettingsService';
 import browserApi from '../browserApi';
 import log from '../../lib/logger';
 import notifier from '../../lib/notifier';
-import { SETTINGS_IDS, PROMO_SALE_STATUSES } from '../../lib/constants';
+import { SETTINGS_IDS, PROMO_SCREEN_STATES } from '../../lib/constants';
 import dns from '../dns/dns';
 import { DNS_DEFAULT } from '../dns/dnsConstants';
 import webrtc from '../browserApi/webrtc';
@@ -12,7 +12,7 @@ import { EVENT } from '../connectivity/connectivityService/connectivityConstants
 const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.PROXY_ENABLED]: false,
     [SETTINGS_IDS.RATE_SHOW]: true,
-    [SETTINGS_IDS.SALE_SHOW]: PROMO_SALE_STATUSES.DISPLAY_BEFORE_CLICK,
+    [SETTINGS_IDS.SALE_SHOW]: PROMO_SCREEN_STATES.DISPLAY_AFTER_CONNECT_CLICK,
     [SETTINGS_IDS.EXCLUSIONS]: {},
     [SETTINGS_IDS.HANDLE_WEBRTC_ENABLED]: true,
     [SETTINGS_IDS.SELECTED_DNS_SERVER]: DNS_DEFAULT,
@@ -89,7 +89,7 @@ const isSettingEnabled = (settingId) => {
     return settingValue === enabledSettingValue;
 };
 
-const applySettings = async () => {
+const applySettings = () => {
     const proxyEnabled = isProxyEnabled();
 
     // Set WebRTC

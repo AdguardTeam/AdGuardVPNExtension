@@ -100,7 +100,7 @@ const updateContextMenu = async (tab) => {
     await renewContextMenuItems(menuItems);
 };
 
-const init = async () => {
+const init = () => {
     const throttleTimeoutMs = 100;
     const throttledUpdater = throttle(updateContextMenu, throttleTimeoutMs);
 

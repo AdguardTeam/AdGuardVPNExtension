@@ -11,6 +11,7 @@ import { Location } from '../../../src/background/endpoints/Location';
 import { LocationWithPing } from '../../../src/background/endpoints/LocationWithPing';
 import { connectivityService } from '../../../src/background/connectivity/connectivityService/connectivityFSM';
 import { EVENT } from '../../../src/background/connectivity/connectivityService/connectivityConstants';
+import { locationsService } from '../../../src/background/endpoints/locationsService';
 
 jest.mock('../../../src/background/settings/settings');
 jest.mock('../../../src/background/connectivity/connectivityService/connectivityFSM');
@@ -19,6 +20,10 @@ jest.mock('../../../src/background/notifications');
 jest.mock('../../../src/background/proxy');
 jest.mock('../../../src/background/browserApi');
 jest.mock('../../../src/background/providers/vpnProvider');
+
+jest.mock('../../../src/background/endpoints/locationsService', () => ({
+    ...jest.requireActual('../../../src/background/endpoints/locationsService'),
+}));
 
 describe('endpoints class', () => {
     beforeEach(() => {
@@ -50,6 +55,7 @@ describe('endpoints class', () => {
                     -73.93,
                     40.73,
                 ],
+                premiumOnly: false,
                 endpoints: [
                     {
                         id: 'do-us-nyc1-01-yhxvv1yn.adguard.io',
@@ -69,6 +75,7 @@ describe('endpoints class', () => {
                     139.83,
                     35.65,
                 ],
+                premiumOnly: true,
                 endpoints: [
                     {
                         id: 'vultr-jp-nrt-01-0c73irq5.adguard.io',
@@ -109,7 +116,7 @@ describe('endpoints class', () => {
     it('get vpn info remotely stops execution if unable to get valid token', async () => {
         jest.spyOn(credentials, 'gainValidVpnToken').mockRejectedValue(new Error('invalid token'));
         await endpoints.getVpnInfoRemotely();
-        expect(credentials.gainValidVpnToken).toBeCalledTimes(1);
+        expect(credentials.gainValidVpnToken).toBeCalledTimes(2);
         expect(vpnProvider.getVpnExtensionInfo).toBeCalledTimes(0);
     });
 
@@ -302,6 +309,49 @@ describe('endpoints class', () => {
                 .toBeCalledWith(EVENT.DISCONNECT_TRAFFIC_LIMIT_EXCEEDED);
             expect(notifier.notifyListeners).toBeCalledTimes(1);
             expect(notifications.create).toBeCalledTimes(1);
+        });
+    });
+
+    describe('update locations', () => {
+        it('updates locations from server', async () => {
+            jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: false });
+            jest.spyOn(locationsService, 'getLocationsFromServer').mockResolvedValue([]);
+
+            await endpoints.updateLocations();
+            expect(credentials.gainValidVpnToken).toBeCalledTimes(1);
+            expect(locationsService.getLocationsFromServer).toBeCalledTimes(1);
+        });
+
+        it('doesnt reconnects if selected location matches token premium value', async () => {
+            jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: true });
+            jest.spyOn(locationsService, 'getSelectedLocation').mockResolvedValue({ premiumOnly: false });
+            jest.spyOn(locationsService, 'getLocationsFromServer').mockResolvedValue([{}, {}]);
+            jest.spyOn(endpoints, 'reconnectEndpoint');
+
+            await endpoints.updateLocations();
+            expect(endpoints.reconnectEndpoint).toBeCalledTimes(0);
+        });
+
+        it('reconnects if selected location is premiumOnly and token is not premium', async () => {
+            jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: false });
+            jest.spyOn(locationsService, 'getSelectedLocation').mockResolvedValue({ premiumOnly: true });
+            jest.spyOn(locationsService, 'getLocationsFromServer').mockResolvedValue([{}, {}]);
+            jest.spyOn(locationsService, 'getEndpointByLocation').mockResolvedValue({});
+            jest.spyOn(endpoints, 'reconnectEndpoint').mockResolvedValue('done');
+
+            await endpoints.updateLocations();
+            expect(endpoints.reconnectEndpoint).toBeCalledTimes(1);
+        });
+
+        it('does not reconnect if selected location and token are not premium', async () => {
+            jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: false });
+            jest.spyOn(locationsService, 'getSelectedLocation').mockResolvedValue({ premiumOnly: false });
+            jest.spyOn(locationsService, 'getLocationsFromServer').mockResolvedValue([{}, {}]);
+            jest.spyOn(locationsService, 'getEndpointByLocation').mockResolvedValue({});
+            jest.spyOn(endpoints, 'reconnectEndpoint').mockResolvedValue('done');
+
+            await endpoints.updateLocations();
+            expect(endpoints.reconnectEndpoint).toBeCalledTimes(0);
         });
     });
 

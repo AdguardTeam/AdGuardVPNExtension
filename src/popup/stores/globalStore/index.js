@@ -63,7 +63,7 @@ class globalStore {
             settingsStore.setCanControlProxy(canControlProxy);
             settingsStore.setIsRoutable(isRoutable);
             await settingsStore.checkRateStatus();
-            await settingsStore.checkSaleStatus();
+            await settingsStore.getPromoScreenStatus();
             await settingsStore.checkIsExcluded();
             await settingsStore.getExclusionsInverted();
             this.setInitStatus(REQUEST_STATUSES.DONE);

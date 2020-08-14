@@ -16,6 +16,31 @@ const isFunction = (target) => {
 };
 
 /**
+ * Helper functions used by default to assemble strings from tag nodes
+ * @param tagName
+ * @param children
+ * @returns {string}
+ */
+const createStringElement = (tagName, children) => {
+    if (children) {
+        return `<${tagName}>${children}</${tagName}>`;
+    }
+    return `<${tagName}/>`;
+};
+
+/**
+ * Creates map with default values for tag converters
+ */
+const createDefaultValues = () => ({
+    p: (children) => createStringElement('p', children),
+    b: (children) => createStringElement('b', children),
+    strong: (children) => createStringElement('strong', children),
+    tt: (children) => createStringElement('tt', children),
+    s: (children) => createStringElement('s', children),
+    i: (children) => createStringElement('i', children),
+});
+
+/**
  * This function accepts an AST (abstract syntax tree) which is a result
  * of the parser function call, and converts tree nodes into array of strings replacing node
  * values with provided values.
@@ -53,8 +78,10 @@ const isFunction = (target) => {
  * @param values
  * @returns {[]}
  */
-const format = (ast = [], values) => {
+const format = (ast = [], values = {}) => {
     const result = [];
+
+    const tmplValues = { ...createDefaultValues(), ...values };
 
     let i = 0;
     while (i < ast.length) {
@@ -63,11 +90,16 @@ const format = (ast = [], values) => {
         if (isTextNode(currentNode)) {
             result.push(currentNode.value);
         } else if (isTagNode(currentNode)) {
-            const children = [...format(currentNode.children, values)].join('');
-            const value = values[currentNode.value];
+            const children = [...format(currentNode.children, tmplValues)];
+            const value = tmplValues[currentNode.value];
             if (value) {
                 if (isFunction(value)) {
-                    result.push(value(children));
+                    // For react translator we shouldn't join, react handles children itself
+                    if (children.every((child) => typeof child !== 'object')) {
+                        result.push(value(children.join('')));
+                    } else {
+                        result.push(value(children));
+                    }
                 } else {
                     result.push(value);
                 }
@@ -75,14 +107,14 @@ const format = (ast = [], values) => {
                 throw new Error(`Value ${currentNode.value} wasn't provided`);
             }
         } else if (isVoidTagNode(currentNode)) {
-            const value = values[currentNode.value];
+            const value = tmplValues[currentNode.value];
             if (value) {
                 result.push(value);
             } else {
                 throw new Error(`Value ${currentNode.value} wasn't provided`);
             }
         } else if (isPlaceholderNode(currentNode)) {
-            const value = values[currentNode.value];
+            const value = tmplValues[currentNode.value];
             if (value) {
                 result.push(value);
             } else {
