@@ -1,8 +1,8 @@
 import React from 'react';
 import Lottie from 'react-lottie';
-import animationData from './bush.json';
+import animationData from './connectedImageAnimation.json';
 
-function Bush() {
+function ConnectedImageAnimation() {
     const defaultOptions = {
         loop: true,
         autoplay: true,
@@ -12,7 +12,7 @@ function Bush() {
         },
     };
 
-    return <Lottie options={defaultOptions} width={200} height={200} />;
+    return <Lottie options={defaultOptions} width={200} height={198} />;
 }
 
-export default Bush;
+export default ConnectedImageAnimation;

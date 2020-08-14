@@ -6,15 +6,15 @@
     background-position: center bottom;
     background-size: contain;
 
-    &--connecting,
-    &--enabled {
+    &--connecting {
         background-image: url(../../../../../src/assets/images/enabled.svg);
         background-size: 100% 195px;
         background-position: center 4px;
+        filter: grayscale(1);
     }
 
-    &--connecting {
-        filter: grayscale(1);
+    &--enabled {
+        background-image: none;
     }
 
     &--exclusions-disable,
