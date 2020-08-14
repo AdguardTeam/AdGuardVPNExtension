@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import './status-image.pcss';
 import { observer } from 'mobx-react';
 import rootStore from '../../../stores';
-import ConnectedImageAnimation from '../../ConnectedImageAnimation';
+import EnabledStatusAnimation from '../../Animations';
 
 const StatusImage = observer(() => {
     const { settingsStore } = useContext(rootStore);
@@ -29,7 +29,7 @@ const StatusImage = observer(() => {
     if (isConnected) {
         return (
             <div className={statusClassName}>
-                <ConnectedImageAnimation />
+                <EnabledStatusAnimation />
             </div>
         );
     }
