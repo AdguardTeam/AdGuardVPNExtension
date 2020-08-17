@@ -1,5 +1,5 @@
 import browser from 'webextension-polyfill';
-import nanoid from 'nanoid';
+import { nanoid } from 'nanoid';
 import { Prefs } from './prefs';
 
 class Notifications {

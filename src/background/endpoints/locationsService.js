@@ -91,10 +91,27 @@ const updatePingsCache = (id, newData) => {
 };
 
 /**
+ * Moves endpoint to the start of endpoints if found, or returns the save endpoints list
+ * @param endpoints
+ * @param endpoint
+ * @returns {*}
+ */
+const moveToTheStart = (endpoints, endpoint) => {
+    const foundEndpoint = endpoints.find((e) => e.id === endpoint.id);
+    let result = endpoints;
+    if (foundEndpoint) {
+        result = endpoints.filter((e) => e.id !== foundEndpoint.id);
+        result.unshift(foundEndpoint);
+    }
+    return result;
+};
+
+/**
  * Measures pings to endpoints one by one, and returns first one available
  * If was unable to measure ping to all endpoints, returns first endpoint from the list
  * @param location
- * @param {boolean} forcePrevEndpoint - boolean flag to measure ping of previously selected endpoint
+ * @param {boolean} forcePrevEndpoint - boolean flag to measure ping of previously
+ *  selected endpoint only
  * @returns {Promise<{endpoint: <Endpoint>, ping: (number|null)}>}
  */
 const getEndpointAndPing = async (location, forcePrevEndpoint = false) => {
@@ -104,22 +121,34 @@ const getEndpointAndPing = async (location, forcePrevEndpoint = false) => {
 
     if (forcePrevEndpoint && location.endpoint) {
         const { endpoint } = location;
-        ping = await measurePingToEndpointViaFetch(endpoint.domainName) || null;
+        ping = await measurePingToEndpointViaFetch(endpoint.domainName);
         return {
             ping,
             endpoint,
         };
     }
 
-    while (!ping && location.endpoints[i]) {
-        endpoint = location.endpoints[i];
+    let endpoints = [...location.endpoints];
+
+    /**
+     * If previous endpoint was determined, we start calculating ping from it
+     */
+    if (location.endpoint) {
+        endpoints = moveToTheStart(endpoints, location.endpoint);
+    }
+
+    while (!ping && endpoints[i]) {
+        endpoint = endpoints[i];
         // eslint-disable-next-line no-await-in-loop
-        ping = await measurePingToEndpointViaFetch(endpoint.domainName) || null;
+        ping = await measurePingToEndpointViaFetch(endpoint.domainName);
         i += 1;
     }
 
+    /**
+     * If no ping determined, return first value
+     */
     if (!ping) {
-        [endpoint] = location.endpoints;
+        [endpoint] = endpoints;
     }
 
     return {

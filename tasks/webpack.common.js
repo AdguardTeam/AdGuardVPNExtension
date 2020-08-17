@@ -87,23 +87,25 @@ const config = {
             }
         })),
         new CleanWebpackPlugin(cleanOptions),
-        new CopyWebpackPlugin([
-            {
-                context: 'src',
-                from: 'PERMISSIONS.md',
-                to: 'PERMISSIONS.md',
-            },
-            {
-                context: 'src',
-                from: 'assets/',
-                to: 'assets/',
-            },
-            {
-                context: 'src',
-                from: '_locales/',
-                to: '_locales/',
-            },
-        ]),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    context: 'src',
+                    from: 'PERMISSIONS.md',
+                    to: 'PERMISSIONS.md',
+                },
+                {
+                    context: 'src',
+                    from: 'assets/',
+                    to: 'assets/',
+                },
+                {
+                    context: 'src',
+                    from: '_locales/',
+                    to: '_locales/',
+                },
+            ],
+        }),
         new HtmlWebpackPlugin({
             template: path.join(BACKGROUND_PATH, 'index.html'),
             filename: 'background.html',
