@@ -1,4 +1,4 @@
-import nanoid from 'nanoid';
+import { nanoid } from 'nanoid';
 import { getHostname } from '../../lib/helpers';
 import { areHostnamesEqual, shExpMatch } from '../../lib/string-utils';
 import log from '../../lib/logger';

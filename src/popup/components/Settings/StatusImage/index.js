@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import './status-image.pcss';
 import { observer } from 'mobx-react';
 import rootStore from '../../../stores';
+import EnabledStatusAnimation from '../../Animations/EnabledStatusAnimation';
 
 const StatusImage = observer(() => {
     const { settingsStore } = useContext(rootStore);
@@ -24,6 +25,14 @@ const StatusImage = observer(() => {
         { 'status-image--exclusions-disable': displayExclusionScreen && canBeExcluded },
         { 'status-image--server-error': isDisconnectedRetrying || isConnectingRetrying }
     );
+
+    if (isConnected) {
+        return (
+            <div className={statusClassName}>
+                <EnabledStatusAnimation />
+            </div>
+        );
+    }
 
     return (
         <div className={statusClassName} />

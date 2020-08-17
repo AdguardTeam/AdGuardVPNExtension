@@ -117,7 +117,7 @@ export const measurePingToEndpointViaFetch = async (domainName) => {
     const FETCH_TIMEOUT_MS = 3000;
     const requestUrl = `https://ping.${domainName}/`;
 
-    let ping;
+    let ping = null;
     const POLLS_NUMBER = 3;
 
     for (let i = 0; i < POLLS_NUMBER; i += 1) {

@@ -1,5 +1,5 @@
 import qs from 'qs';
-import nanoid from 'nanoid';
+import { nanoid } from 'nanoid';
 import { authApi } from './api';
 import authProvider from './providers/authProvider';
 import browserApi from './browserApi';

@@ -1,5 +1,5 @@
 import browser from 'webextension-polyfill';
-import nanoid from 'nanoid';
+import { nanoid } from 'nanoid';
 import { MESSAGES_TYPES } from './constants';
 import log from './logger';
 
