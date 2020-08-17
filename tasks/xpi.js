@@ -41,7 +41,7 @@ async function generateXpi() {
         .getDecryptedContent(credentialsPath);
     const { apiKey, apiSecret } = JSON.parse(credentialsContent);
 
-    const { downloadedFiles } = await webExt.default.cmd.sign({
+    const { downloadedFiles } = await webExt.cmd.sign({
         apiKey,
         apiSecret,
         sourceDir,
