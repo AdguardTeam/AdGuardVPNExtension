@@ -26,7 +26,7 @@ const StatusImage = observer(() => {
         { 'status-image--server-error': isDisconnectedRetrying || isConnectingRetrying }
     );
 
-    if (isConnected) {
+    if (isConnected && !displayExclusionScreen) {
         return (
             <div className={statusClassName}>
                 <EnabledStatusAnimation />
