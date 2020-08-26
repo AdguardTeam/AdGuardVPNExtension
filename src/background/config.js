@@ -72,9 +72,13 @@ export const PRIVACY_URL = 'https://adguard-vpn.com/forward.html?action=privacy&
 export const EULA_URL = 'https://adguard-vpn.com/forward.html?action=eula&from=popup&app=vpn_extension';
 
 // Commercial
-export const BUY_LICENSE_URL = 'https://adguard-vpn.com/forward.html?action=buy_license&from=popup&app=vpn_extension';
 export const OTHER_PRODUCTS_URL = 'https://adguard-vpn.com/forward.html?action=other_products&from=popup&app=vpn_extension';
-export const POPUP_STORE_URL = 'https://adguard-vpn.com/forward.html?action=store&from=popup&app=vpn_extension';
+
+const POPUP_STORE_URLS = {
+    [BROWSERS.FIREFOX]: 'https://adguard-vpn.com/forward.html?action=firefox_store&from=popup&app=vpn_extension',
+    [BROWSERS.CHROME]: 'https://adguard-vpn.com/forward.html?action=chrome_store&from=popup&app=vpn_extension',
+};
+export const POPUP_STORE_URL = POPUP_STORE_URLS[currentBrowser];
 
 // Support
 export const POPUP_DEFAULT_SUPPORT_URL = 'https://adguard-vpn.com/forward.html?action=support&from=popup&app=vpn_extension';
@@ -87,7 +91,13 @@ export const POPUP_FEEDBACK_URL = POPUP_FEEDBACK_URL_MAP[currentBrowser];
 
 // Options page
 export const WEBSITE_URL = 'https://adguard-vpn.com/forward.html?action=adguard_site&from=options_screen&app=vpn_extension';
-export const STORE_URL = 'https://adguard-vpn.com/forward.html?action=store&from=options_screen&app=vpn_extension';
+
+const OPTIONS_STORE_URLS = {
+    [BROWSERS.FIREFOX]: 'https://adguard-vpn.com/forward.html?action=firefox_store&from=options_screen&app=vpn_extension',
+    [BROWSERS.CHROME]: 'https://adguard-vpn.com/forward.html?action=chrome_store&from=options_screen&app=vpn_extension',
+};
+export const OPTIONS_STORE_URL = OPTIONS_STORE_URLS[currentBrowser];
+
 export const SUGGEST_FEATURE = 'https://adguard-vpn.com/forward.html?action=suggest_feature&from=options_screen&app=vpn_extension';
 
 const FEEDBACK_URL_MAP = {

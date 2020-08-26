@@ -1,7 +1,7 @@
 import React, { Fragment, useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { STORE_URL, FEEDBACK_URL } from '../../../background/config';
+import { POPUP_STORE_URL, FEEDBACK_URL } from '../../../background/config';
 import rootStore from '../../stores';
 import './rate.pcss';
 import { reactTranslator } from '../../../reactCommon/reactTranslator';
@@ -23,7 +23,7 @@ const RatePopup = observer(() => {
         const { value } = e.target;
 
         if (value && parseInt(value, 10) >= 4) {
-            window.open(STORE_URL, '_blank');
+            window.open(POPUP_STORE_URL, '_blank');
         } else {
             window.open(FEEDBACK_URL, '_blank');
         }
