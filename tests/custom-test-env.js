@@ -13,8 +13,7 @@ class CustomEnvironment extends NodeEnvironment {
         } else {
             this.global.TextEncoder = TextEncoder; // required for other node >10
         }
-        this.global.PRODUCTION = false;
-        this.global.BROWSER = 'chrome';
+        this.global.__APP_CONFIG__ = {};
         // Fixes errors with fetch
         this.global.fetch = fetch;
         this.global.Request = fetch.Request;

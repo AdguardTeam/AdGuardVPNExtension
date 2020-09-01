@@ -5,7 +5,7 @@ const { promises: fs } = require('fs');
 const chalk = require('chalk');
 
 const {
-    BROWSER_TYPES,
+    BROWSERS,
     ENV_MAP,
     FIREFOX_UPDATE_XPI,
     BUILD_PATH,
@@ -23,7 +23,7 @@ const fileDir = path.resolve(buildDir, FIREFOX_UPDATER_FILENAME);
 
 const getFirefoxManifest = async () => {
     const MANIFEST_PATH = path.resolve(
-        __dirname, BUILD_PATH, outputPath, BROWSER_TYPES.FIREFOX, MANIFEST_NAME
+        __dirname, BUILD_PATH, outputPath, BROWSERS.FIREFOX, MANIFEST_NAME
     );
     const manifestBuffer = await fs.readFile(MANIFEST_PATH);
     const manifest = JSON.parse(manifestBuffer.toString());
@@ -31,7 +31,7 @@ const getFirefoxManifest = async () => {
 };
 
 async function generateXpi() {
-    const sourceDir = path.resolve(__dirname, BUILD_PATH, outputPath, BROWSER_TYPES.FIREFOX);
+    const sourceDir = path.resolve(__dirname, BUILD_PATH, outputPath, BROWSERS.FIREFOX);
     const credentialsPath = path.resolve(__dirname, '../private/AdguardVPN/mozilla_credentials.json');
 
     // require called here in order to escape errors, until this module is really necessary
@@ -119,7 +119,7 @@ const createUpdateJson = async (manifest) => {
 
 const updateFirefoxManifest = async () => {
     const MANIFEST_PATH = path.resolve(
-        __dirname, BUILD_PATH, outputPath, BROWSER_TYPES.FIREFOX, MANIFEST_NAME
+        __dirname, BUILD_PATH, outputPath, BROWSERS.FIREFOX, MANIFEST_NAME
     );
     const manifest = JSON.parse(await fs.readFile(MANIFEST_PATH, 'utf-8'));
     manifest.applications.gecko.update_url = FIREFOX_UPDATE_URL;

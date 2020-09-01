@@ -5,13 +5,13 @@ const ZipWebpackPlugin = require('zip-webpack-plugin');
 const common = require('../webpack.common');
 const { updateManifest } = require('../helpers');
 const firefoxManifestDiff = require('./manifest.firefox');
-const { PROD_API, IS_DEV } = require('../consts');
+const { PROD_ENV, IS_DEV, PROD_ENVS } = require('../consts');
 
 const FIREFOX_PATH = 'firefox';
 
 let zipFilename = 'firefox.zip';
 
-if (IS_DEV && PROD_API) {
+if (IS_DEV && PROD_ENV === PROD_ENVS.PROD) {
     zipFilename = 'firefox-prod.zip';
 }
 

@@ -4,12 +4,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CreateFileWebpack = require('create-file-webpack');
+const { genAppConfig } = require('./appConfig');
 const {
     SRC_PATH,
     IS_DEV,
     BUILD_ENV,
     BUILD_PATH,
-    PROD_API,
+    PROD_ENV,
 } = require('./consts');
 const { getOutputPathByEnv } = require('./helpers');
 
@@ -72,8 +73,11 @@ const config = {
     plugins: [
         // Define environment for choosing appropriate api urls
         new webpack.DefinePlugin({
-            PRODUCTION: JSON.stringify(PROD_API),
-            BROWSER: JSON.stringify(process.env.BROWSER),
+            __APP_CONFIG__: JSON.stringify(genAppConfig(
+                process.env.BROWSER,
+                PROD_ENV,
+                process.env.BUILD_ENV
+            )),
         }),
         new webpack.NormalModuleReplacementPlugin(/\.\/abstractProxyApi/, ((resource) => {
             if (process.env.BROWSER === 'firefox') {

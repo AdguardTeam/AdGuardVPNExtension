@@ -6,7 +6,7 @@ const chalk = require('chalk');
 const {
     CHROME_UPDATE_URL,
     MANIFEST_NAME,
-    BROWSER_TYPES,
+    BROWSERS,
     BUILD_PATH,
     ENV_MAP,
     CERTIFICATE_PATHS,
@@ -22,9 +22,9 @@ const { outputPath } = ENV_MAP[BUILD_ENV];
 
 const WRITE_PATH = path.resolve(__dirname, BUILD_PATH, outputPath);
 const LOAD_PATH = path
-    .resolve(__dirname, BUILD_PATH, outputPath, BROWSER_TYPES.CHROME);
+    .resolve(__dirname, BUILD_PATH, outputPath, BROWSERS.CHROME);
 const MANIFEST_PATH = path.resolve(
-    __dirname, BUILD_PATH, outputPath, BROWSER_TYPES.CHROME, MANIFEST_NAME
+    __dirname, BUILD_PATH, outputPath, BROWSERS.CHROME, MANIFEST_NAME
 );
 
 const getPrivateKey = async () => {

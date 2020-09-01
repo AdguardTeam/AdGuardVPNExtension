@@ -1,7 +1,5 @@
 const path = require('path');
 
-const { BUILD_ENV, API_ENV } = process.env;
-
 const SRC_PATH = '../src';
 const LOCALES_PATH = path.join(__dirname, SRC_PATH, '_locales/en/messages');
 
@@ -11,25 +9,29 @@ const ENVS = {
     RELEASE: 'release',
 };
 
+const BROWSERS = {
+    CHROME: 'chrome',
+    FIREFOX: 'firefox',
+};
+
+const PROD_ENVS = {
+    TEST: 'test',
+    PROD: 'prod',
+};
+
 const ENV_MAP = {
     [ENVS.DEV]: { outputPath: 'dev', name: 'Dev' },
     [ENVS.BETA]: { outputPath: 'beta', name: 'Beta' },
     [ENVS.RELEASE]: { outputPath: 'release', name: '' },
 };
 
-const IS_DEV = BUILD_ENV ? BUILD_ENV === ENVS.DEV : true;
-
-// Used to build build for qa with production level api
-let PROD_API = BUILD_ENV ? BUILD_ENV !== ENVS.DEV : false;
-// if API_ENV specified rewrite value
-if (API_ENV) {
-    PROD_API = API_ENV === 'prod';
+const { BUILD_ENV } = process.env;
+let { PROD_ENV } = process.env;
+if (!PROD_ENV) {
+    PROD_ENV = BUILD_ENV === ENVS.DEV ? 'test' : 'prod';
 }
 
-const BROWSER_TYPES = {
-    CHROME: 'chrome',
-    FIREFOX: 'firefox',
-};
+const IS_DEV = BUILD_ENV ? BUILD_ENV === ENVS.DEV : true;
 
 // Build output path
 const BUILD_PATH = '../build';
@@ -77,6 +79,7 @@ module.exports = {
     FIREFOX_UPDATE_URL,
     CHROME_UPDATE_CRX,
     FIREFOX_UPDATE_XPI,
-    BROWSER_TYPES,
-    PROD_API,
+    PROD_ENV,
+    BROWSERS,
+    PROD_ENVS,
 };
