@@ -8,6 +8,12 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "presentation_title": {
+        "message": "%value%%unit% for free"
+    },
+    "presentation_desc": {
+        "message": "%locations_count% free locations"
+    },
     "registration_error_not_empty": {
         "message": "Must not be empty"
     },

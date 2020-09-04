@@ -104,9 +104,10 @@ export const getClosestLocationToTarget = (locations, targetLocation) => {
 /**
  * Formats bytes into units
  * @param {number} bytes
+ * @param {number} decimals - number of digits after decimal point
  * @returns {{unit: string, value: string}}
  */
-export const formatBytes = (bytes) => {
+export const formatBytes = (bytes, decimals = 1) => {
     if (!bytes || bytes <= 0) {
         return {
             value: '0.0',
@@ -114,7 +115,6 @@ export const formatBytes = (bytes) => {
         };
     }
 
-    const DECIMALS = 1;
     const UNITS = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
     const k = 1024;
 
@@ -122,7 +122,7 @@ export const formatBytes = (bytes) => {
 
     return {
         value: parseFloat(bytes / (k ** i))
-            .toFixed(DECIMALS),
+            .toFixed(decimals),
         unit: UNITS[i],
     };
 };

@@ -365,14 +365,14 @@
     "upgrade_features_speed": {
         "message": "Svetlobno hitrost strežnikov"
     },
-    "upgrade_features_encrypt": {
-        "message": "Napredno šifriranje"
+    "upgrade_features_all_locations": {
+        "message": "Vse lokacije"
     },
     "upgrade_features_no_log": {
         "message": "Politika ne vodenja dnevnika"
     },
     "continue_us_free_button": {
-        "message": "Nadaljujte kot brezplačno"
+        "message": "Nadaljuj kot brezplačno"
     },
     "options_title": {
         "message": "Možnosti AdGuard VPN"

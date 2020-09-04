@@ -25,8 +25,11 @@ class PopupData {
             2000
         );
 
+        const presentationInfo = this.endpoints.getPresentationInfo();
+
         if (!isAuthenticated) {
             return {
+                presentationInfo,
                 isAuthenticated,
             };
         }
@@ -64,6 +67,7 @@ class PopupData {
             isRoutable,
             isPremiumToken,
             connectivityState,
+            presentationInfo,
         };
     };
 

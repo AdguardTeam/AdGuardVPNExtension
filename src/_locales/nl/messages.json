@@ -365,14 +365,14 @@
     "upgrade_features_speed": {
         "message": "Supersnelle servers"
     },
-    "upgrade_features_encrypt": {
-        "message": "Geavanceerde encryptie"
+    "upgrade_features_all_locations": {
+        "message": "Alle locaties"
     },
     "upgrade_features_no_log": {
         "message": "Niet loggen beleid"
     },
     "continue_us_free_button": {
-        "message": "Gratis doorgaan"
+        "message": "Gratis blijven gebruiken"
     },
     "options_title": {
         "message": "AdGuard VPN Opties"

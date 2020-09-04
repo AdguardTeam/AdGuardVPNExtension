@@ -1,16 +1,14 @@
 import React from 'react';
 
 import BackButton from '../BackButton';
-import { reactTranslator } from '../../../../reactCommon/reactTranslator';
+import Presentation from '../Presentation';
 
 function WelcomeHeader() {
     return (
         <>
             <BackButton />
             <div className="auth__header">
-                <div className="auth__title">
-                    {reactTranslator.translate('short_name')}
-                </div>
+                <Presentation />
             </div>
         </>
     );

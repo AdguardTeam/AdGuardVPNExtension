@@ -4,5 +4,8 @@
     },
     "settings_button_connecting": {
         "message": "A ligar…"
+    },
+    "upgrade_features_all_locations": {
+        "message": "Todos os locais"
     }
 }

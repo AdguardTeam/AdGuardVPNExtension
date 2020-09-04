@@ -296,6 +296,9 @@
     "endpoints_fastest": {
         "message": "Самы хуткі"
     },
+    "endpoints_all": {
+        "message": "Усе месцівы"
+    },
     "endpoints_search_results": {
         "message": "Вынікі пошуку"
     },
@@ -362,8 +365,8 @@
     "upgrade_features_speed": {
         "message": "Ультрахуткія серверы"
     },
-    "upgrade_features_encrypt": {
-        "message": "Прасунутае шыфраванне"
+    "upgrade_features_all_locations": {
+        "message": "Усе месцівы"
     },
     "upgrade_features_no_log": {
         "message": "Палітыка \"Без логаў\""

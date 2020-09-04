@@ -296,6 +296,9 @@
     "endpoints_fastest": {
         "message": "가장 빠름"
     },
+    "endpoints_all": {
+        "message": "모든 위치"
+    },
     "endpoints_search_results": {
         "message": "검색 결과"
     },
@@ -362,8 +365,8 @@
     "upgrade_features_speed": {
         "message": "초고속 서버"
     },
-    "upgrade_features_encrypt": {
-        "message": "고급 암호화"
+    "upgrade_features_all_locations": {
+        "message": "모든 위치"
     },
     "upgrade_features_no_log": {
         "message": "로그 정책 없음"

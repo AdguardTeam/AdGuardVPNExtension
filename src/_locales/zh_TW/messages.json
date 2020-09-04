@@ -332,14 +332,14 @@
     "upgrade_features_speed": {
         "message": "光速的伺服器"
     },
-    "upgrade_features_encrypt": {
-        "message": "進階的加密"
+    "upgrade_features_all_locations": {
+        "message": "所有的位置"
     },
     "upgrade_features_no_log": {
         "message": "無記錄政策"
     },
     "continue_us_free_button": {
-        "message": "以免費帳戶繼續"
+        "message": "免費地繼續使用"
     },
     "options_title": {
         "message": "AdGuard VPN 選項"

@@ -40,11 +40,16 @@ import { EVENT } from '../connectivity/connectivityService/connectivityConstants
  * @property {boolean} premiumOnly
  */
 
+const DEFAULT_FREE_TRAFFIC_BYTES = 3221225472;
+const DEFAULT_FREE_LOCATIONS_COUNT = 11;
+
 /**
  * Endpoints manages endpoints, vpn, current location information.
  */
 class Endpoints {
     vpnInfo = null;
+
+    presentationInfo = null;
 
     constructor() {
         notifier.addSpecifiedListener(
@@ -352,6 +357,49 @@ class Endpoints {
         delete this.vpnInfo;
     }
 
+    async getPresentationInfoFromServer() {
+        let vpnInfo;
+        try {
+            vpnInfo = await vpnProvider.getVpnExtensionInfo('free');
+        } catch (e) {
+            log.debug(e.message);
+        }
+
+        let locations;
+        try {
+            locations = await locationsService.getLocationsFromServer('free');
+        } catch (e) {
+            log.debug(e.message);
+        }
+
+        const freeTrafficBytes = vpnInfo.maxDownloadedBytes;
+        const freeLocationsCount = locations.filter((l) => {
+            return !l.premiumOnly;
+        }).length;
+
+        this.presentationInfo = {
+            freeTrafficBytes: freeTrafficBytes || DEFAULT_FREE_TRAFFIC_BYTES,
+            // during endpoints deployment server can return less locations than we really have,
+            // in this cases we return default locations count
+            freeLocationsCount: freeLocationsCount < DEFAULT_FREE_LOCATIONS_COUNT
+                ? DEFAULT_FREE_LOCATIONS_COUNT
+                : freeLocationsCount,
+        };
+    }
+
+    getPresentationInfo() {
+        this.getPresentationInfoFromServer();
+
+        if (this.presentationInfo) {
+            return this.presentationInfo;
+        }
+
+        return {
+            freeTrafficBytes: DEFAULT_FREE_TRAFFIC_BYTES,
+            freeLocationsCount: DEFAULT_FREE_LOCATIONS_COUNT,
+        };
+    }
+
     init() {
         // Clear vpn info on deauthentication in order to set correct vpn info after next login
         notifier.addSpecifiedListener(
@@ -360,6 +408,7 @@ class Endpoints {
         );
         // start getting vpn info and endpoints
         this.getVpnInfo();
+        this.getPresentationInfo();
     }
 }
 

@@ -365,14 +365,14 @@
     "upgrade_features_speed": {
         "message": "Ultrahurtige servere"
     },
-    "upgrade_features_encrypt": {
-        "message": "Avanceret kryptering"
+    "upgrade_features_all_locations": {
+        "message": "Alle placeringer"
     },
     "upgrade_features_no_log": {
         "message": "Politik om ingen logning"
     },
     "continue_us_free_button": {
-        "message": "Fortsæt gratis"
+        "message": "Fortsæt med at bruge gratis"
     },
     "options_title": {
         "message": "AdGuard VPN Indstillinger"

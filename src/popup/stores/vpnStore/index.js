@@ -29,6 +29,11 @@ class VpnStore {
         usedDownloadedBytes: null,
     };
 
+    @observable _presentationInfo = {
+        freeTrafficBytes: null,
+        freeLocationsCount: null,
+    }
+
     @observable isPremiumToken;
 
     @action
@@ -172,6 +177,19 @@ class VpnStore {
         }
         this.vpnInfo = vpnInfo;
     };
+
+    @action
+    setPresentationInfo = (presentationInfo) => {
+        if (!presentationInfo) {
+            return;
+        }
+        this._presentationInfo = presentationInfo;
+    }
+
+    @computed
+    get presentationInfo() {
+        return this._presentationInfo;
+    }
 
     @computed
     get bandwidthFreeMbits() {

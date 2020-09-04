@@ -296,6 +296,9 @@
     "endpoints_fastest": {
         "message": "Tercepat"
     },
+    "endpoints_all": {
+        "message": "Semua lokasi"
+    },
     "endpoints_search_results": {
         "message": "Hasil pencarian"
     },
@@ -362,14 +365,14 @@
     "upgrade_features_speed": {
         "message": "Server kecepatan-cahaya"
     },
-    "upgrade_features_encrypt": {
-        "message": "Enkripsi lanjutan"
+    "upgrade_features_all_locations": {
+        "message": "Semua lokasi"
     },
     "upgrade_features_no_log": {
         "message": "Tanpa kebijakan log"
     },
     "continue_us_free_button": {
-        "message": "Lanjut gratis"
+        "message": "Tetap gunakan secara gratis"
     },
     "options_title": {
         "message": "Opsi AdGuard VPN"

@@ -362,14 +362,8 @@
     "upgrade_features_speed": {
         "message": "Ультрабыстрые серверы"
     },
-    "upgrade_features_encrypt": {
-        "message": "Продвинутое шифрование"
-    },
     "upgrade_features_no_log": {
         "message": "Политика \"Без логов\""
-    },
-    "continue_us_free_button": {
-        "message": "Продолжить бесплатно"
     },
     "options_title": {
         "message": "Опции AdGuard VPN"

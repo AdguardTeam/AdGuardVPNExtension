@@ -7,8 +7,8 @@
     "scripts": {
         "lint": "eslint .",
         "watch": "BUILD_ENV=dev run-p \"build:chrome --watch\" \"build:firefox --watch\"",
-        "watch:firefox": "yarn build:firefox --watch",
-        "watch:chrome": "yarn build:chrome --watch",
+        "watch:firefox": "BUILD_ENV=dev yarn build:firefox --watch",
+        "watch:chrome": "BUILD_ENV=dev yarn build:chrome --watch",
         "dev": "BUILD_ENV=dev run-p build:*",
         "dev:prod": "BUILD_ENV=dev PROD_ENV=prod run-p build:*",
         "beta": "BUILD_ENV=beta run-p build:*",

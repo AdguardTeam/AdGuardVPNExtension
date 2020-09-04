@@ -365,14 +365,14 @@
     "upgrade_features_speed": {
         "message": "Servere ultrarapide"
     },
-    "upgrade_features_encrypt": {
-        "message": "Criptare avansată"
+    "upgrade_features_all_locations": {
+        "message": "Toate locațiile"
     },
     "upgrade_features_no_log": {
         "message": "Fără politică de jurnale"
     },
     "continue_us_free_button": {
-        "message": "Continuați gratuit"
+        "message": "Continuați să utilizați gratuit"
     },
     "options_title": {
         "message": "Opțiuni AdGuard VPN"

@@ -365,8 +365,8 @@
     "upgrade_features_speed": {
         "message": "Nejrychlejší servery"
     },
-    "upgrade_features_encrypt": {
-        "message": "Pokročilé šifrování"
+    "upgrade_features_all_locations": {
+        "message": "Všechna umístění"
     },
     "upgrade_features_no_log": {
         "message": "Žádné zásady protokolování"

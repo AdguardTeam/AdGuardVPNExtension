@@ -263,6 +263,9 @@
     "popup_settings_enable_vpn": {
         "message": "このサイトでVPNを有効にする"
     },
+    "popup_settings_enable_vpn_short": {
+        "message": "このページで有効にする"
+    },
     "popup_settings_disable_vpn": {
         "message": "このサイトでVPNを無効にする"
     },
@@ -359,14 +362,8 @@
     "upgrade_features_speed": {
         "message": "光速サーバー"
     },
-    "upgrade_features_encrypt": {
-        "message": "高度な暗号化"
-    },
     "upgrade_features_no_log": {
         "message": "ログ一切なしポリシー"
-    },
-    "continue_us_free_button": {
-        "message": "無料版で続ける"
     },
     "options_title": {
         "message": "AdGuard VPNオプション"

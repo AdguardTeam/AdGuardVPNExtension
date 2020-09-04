@@ -296,6 +296,9 @@
     "endpoints_fastest": {
         "message": "Najbrži"
     },
+    "endpoints_all": {
+        "message": "Sve krajnje tačke"
+    },
     "endpoints_search_results": {
         "message": "Rezultat pretrage"
     },
@@ -362,8 +365,8 @@
     "upgrade_features_speed": {
         "message": "Najbrže servere"
     },
-    "upgrade_features_encrypt": {
-        "message": "Napredno šifrovanje"
+    "upgrade_features_all_locations": {
+        "message": "Sve lokacije"
     },
     "upgrade_features_no_log": {
         "message": "Bez vođenja dnevnika"

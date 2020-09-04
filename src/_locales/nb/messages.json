@@ -1,4 +1,7 @@
 {
+    "name": {
+        "message": "AdGuard VPN — Privatliv og sikkerhet"
+    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -86,14 +89,23 @@
     "auth_sign_in_button": {
         "message": "Logg på"
     },
+    "auth_sign_in_link": {
+        "message": "Logg på med AdGuard-konto"
+    },
     "auth_account": {
         "message": "Har du ikke en konto?"
     },
     "auth_register": {
         "message": "Registrer"
     },
+    "auth_header_sign_in": {
+        "message": "Du logger på som <div>%username%</div> "
+    },
     "auth_header_sing_in_notice": {
         "message": "Du har allerede en konto"
+    },
+    "auth_header_registration": {
+        "message": "Du lager en konto som <div>%username%</div>"
     },
     "auth_header_2fa": {
         "message": "Skriv inn autentiseringskoden"
@@ -109,6 +121,9 @@
     },
     "settings_title": {
         "message": "Innstillinger"
+    },
+    "settings_rate_us": {
+        "message": "Gi oss en rangering"
     },
     "settings_webrtc_label": {
         "message": "Blokker WebRTC"
@@ -128,6 +143,15 @@
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
     },
+    "settings_dns_selector_adguard_desc": {
+        "message": "Fjerner reklamer og sporere fra enheten din"
+    },
+    "settings_dns_selector_adguard_nonfiltering_title": {
+        "message": "AdGuard DNS uten filtrering"
+    },
+    "settings_dns_selector_adguard_family_title": {
+        "message": "AdGuard DNS med familiebeskyttelse"
+    },
     "settings_dns_selector_adguard_family_desc": {
         "message": "AdGuard DNS + «Safe Search» og blokkering av voksent innhold"
     },
@@ -145,6 +169,9 @@
     },
     "settings_dns_selector_cisco_title": {
         "message": "Cisco OpenDNS"
+    },
+    "settings_dns_selector_cisco_desc": {
+        "message": "DNS-tjener som beskytter enheten din mot skadevare"
     },
     "settings_dns_selector_quad9_title": {
         "message": "Quad9"
@@ -218,11 +245,17 @@
     "endpoints_fastest": {
         "message": "Raskest"
     },
+    "endpoints_all": {
+        "message": "Alle posisjoner"
+    },
     "endpoints_search_results": {
         "message": "Søkeresultat"
     },
     "endpoints_not_found": {
         "message": "Tjeneren ble ikke funnet"
+    },
+    "popup_traffic_limit_reached": {
+        "message": "Den månedlige datagrensen har blitt nådd. Behøver du mer?"
     },
     "premium_upgrade": {
         "message": "Oppgrader"
@@ -263,8 +296,41 @@
     "settings_run_out_data": {
         "message": "Du har gått tom for mobildata"
     },
+    "settings_run_upgrade_feature": {
+        "message": "Ubegrenset data, den raskeste farten, 24/7-støtte"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "Priser for de som er tidlig ute"
+    },
+    "sale_title": {
+        "message": "Det du får:"
+    },
+    "upgrade_features_data": {
+        "message": "Ubegrenset data"
+    },
+    "upgrade_features_speed": {
+        "message": "Tjenere med lysets hastighet"
+    },
+    "upgrade_features_all_locations": {
+        "message": "Alle posisjoner"
+    },
+    "upgrade_features_no_log": {
+        "message": "Ingen loggføringsretningslinjer"
+    },
+    "continue_us_free_button": {
+        "message": "Fortsett å bruke det gratis"
+    },
+    "options_title": {
+        "message": "AdGuard VPN-innstillinger"
+    },
     "offline_title": {
         "message": "Frakoblet"
+    },
+    "popup_site_status_vpn_disabled": {
+        "message": "VPN er skrudd av på dette nettstedet"
+    },
+    "popup_site_status_added_to_exclusions": {
+        "message": "lagt til i unntak"
     },
     "popup_ping_value": {
         "message": "Ping %pingValue%ms",

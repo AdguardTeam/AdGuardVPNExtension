@@ -365,9 +365,6 @@
     "upgrade_features_speed": {
         "message": "Ultraschnelle Server"
     },
-    "upgrade_features_encrypt": {
-        "message": "Erweiterte Verschlüsselung"
-    },
     "upgrade_features_no_log": {
         "message": "\"Keine-Protokolle\"-Richtlinie"
     },
