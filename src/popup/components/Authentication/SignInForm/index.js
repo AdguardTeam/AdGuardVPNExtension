@@ -46,6 +46,9 @@ const SignInForm = observer(() => {
             onSubmit={submitHandler}
         >
             <div className="form__inputs">
+                <div className="form__subtitle">
+                    {reactTranslator.translate('auth_sign_in')}
+                </div>
                 <div className="form__info">
                     {
                         authStore.signInCheck

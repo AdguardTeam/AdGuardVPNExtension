@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 
 import rootStore from '../../stores';
 
-function BackButton() {
+function BackButton(props) {
+    const { color } = props;
     const { authStore } = useContext(rootStore);
 
     const handleBackClick = async () => {
@@ -11,7 +12,7 @@ function BackButton() {
 
     return (
         <button
-            className="button button--back"
+            className={`button button--back button--${color}`}
             type="button"
             onClick={handleBackClick}
         >

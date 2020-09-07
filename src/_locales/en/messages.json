@@ -131,6 +131,9 @@
     "auth_header_registration": {
         "message": "You are signing up as <div>%username%</div>"
     },
+    "auth_header_2fa_subtitle": {
+        "message": "2FA authorisation"
+    },
     "auth_header_2fa": {
         "message": "Enter the authentication code"
     },

@@ -29,6 +29,9 @@ const TwoFactorForm = observer(() => {
             onSubmit={submitHandler}
         >
             <div className="form__inputs">
+                <div className="form__subtitle">
+                    {reactTranslator.translate('auth_header_2fa_subtitle')}
+                </div>
                 <div className="form__info">
                     {reactTranslator.translate('auth_header_2fa')}
                 </div>
@@ -38,7 +41,7 @@ const TwoFactorForm = observer(() => {
                     value={twoFactor}
                     inputChangeHandler={inputChangeHandler}
                     error={authStore.error}
-                    placeholder={reactTranslator.translate('auth_placeholder_2fa')}
+                    placeholder={reactTranslator.translate('auth_placehold.contenter_2fa')}
                     className="form__input--big"
                 />
                 {authStore.error && (
