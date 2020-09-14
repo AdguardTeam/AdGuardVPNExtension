@@ -8,6 +8,12 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "presentation_title": {
+        "message": "%value%%unit% дарма"
+    },
+    "presentation_desc": {
+        "message": "%locations_count% дармовых лакацый"
+    },
     "registration_error_not_empty": {
         "message": "Не павінна быць пустым"
     },
@@ -41,8 +47,8 @@
     "authentication_error_account_locked": {
         "message": "Акаўнт заблакаваны на 15 хвілін"
     },
-    "authentication_error_bad_credentials": {
-        "message": "На жаль, вы ўвялі няправільны пароль"
+    "authentication_error_wrong_credentials": {
+        "message": "Няслушны пароль"
     },
     "authentication_error_default": {
         "message": "Адбылася памылка, паспрабуйце пазней"
@@ -116,14 +122,23 @@
     "auth_register": {
         "message": "Зарэгістравацца"
     },
+    "auth_header_sign_in_account": {
+        "message": "Вы лагініцеся з дапамогай акаўнта AdGuard"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "Рэгіструючыся, вы ствараеце акаўнт AdGuard"
+    },
     "auth_header_sign_in": {
         "message": "Вы ўваходзіце як <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
-        "message": "У вас ужо ёсць уліковы запіс"
+        "message": "У вас ужо ёсць акаўнт <div>%username%</div>"
     },
     "auth_header_registration": {
         "message": "Вы рэгіструецеся як <div>%username%</div>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "Двухфактарная аўтэнтыфікацыя"
     },
     "auth_header_2fa": {
         "message": "Увядзіце код аўтэнтыфікацыі"

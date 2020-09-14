@@ -8,6 +8,12 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "presentation_title": {
+        "message": "%value%%unit% zdarma"
+    },
+    "presentation_desc": {
+        "message": "%locations_count% umístění zdarma"
+    },
     "registration_error_not_empty": {
         "message": "Nesmí být prázdná"
     },
@@ -41,8 +47,8 @@
     "authentication_error_account_locked": {
         "message": "Účet je uzamčen na dobu 15 minut"
     },
-    "authentication_error_bad_credentials": {
-        "message": "Litujeme, nerozpoznané heslo"
+    "authentication_error_wrong_credentials": {
+        "message": "Litujeme, nesprávné heslo"
     },
     "authentication_error_default": {
         "message": "Došlo k chybě, zkuste to znovu později"
@@ -116,14 +122,23 @@
     "auth_register": {
         "message": "Registrovat"
     },
+    "auth_header_sign_in_account": {
+        "message": "Přihlašujete se pomocí AdGuard účtu"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "Zaregistrováním vytvoříte svůj AdGuard účet"
+    },
     "auth_header_sign_in": {
         "message": "Přihlašujete se jako <div>%username%</div> "
     },
     "auth_header_sing_in_notice": {
-        "message": "Již máte účet"
+        "message": "Již máte účet <div>%username%</div>"
     },
     "auth_header_registration": {
         "message": "Registrujete se jako <div>%username%</div>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "Dvou-faktorová autentizace"
     },
     "auth_header_2fa": {
         "message": "Zadejte ověřovací kód"

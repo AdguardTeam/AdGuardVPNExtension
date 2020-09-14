@@ -46,6 +46,9 @@ const RegistrationForm = observer(() => {
             onSubmit={submitHandler}
         >
             <div className="form__inputs">
+                <div className="form__subtitle">
+                    {reactTranslator.translate('auth_sign_up')}
+                </div>
                 <div className="form__info">
                     {reactTranslator.translate('auth_header_registration', {
                         username: authStore.credentials.username,

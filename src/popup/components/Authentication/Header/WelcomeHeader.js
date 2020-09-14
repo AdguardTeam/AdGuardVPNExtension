@@ -6,7 +6,7 @@ import Presentation from '../Presentation';
 function WelcomeHeader() {
     return (
         <>
-            <BackButton />
+            <BackButton color="white" />
             <div className="auth__header">
                 <Presentation />
             </div>

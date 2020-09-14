@@ -27,7 +27,7 @@ const getAccessToken = async (credentials) => {
         '2fa_invalid': translator.translate('authentication_error_2fa_invalid'),
         account_disabled: translator.translate('authentication_error_account_disabled'),
         account_locked: translator.translate('authentication_error_account_locked'),
-        bad_credentials: translator.translate('authentication_error_bad_credentials'),
+        bad_credentials: translator.translate('authentication_error_wrong_credentials'),
         default: translator.translate('authentication_error_default'),
     };
 

@@ -8,6 +8,12 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "presentation_title": {
+        "message": "%value%%unit%無料"
+    },
+    "presentation_desc": {
+        "message": "%locations_count%ヵ所の無料ロケーション"
+    },
     "registration_error_not_empty": {
         "message": "入力する必要があります"
     },
@@ -41,7 +47,7 @@
     "authentication_error_account_locked": {
         "message": "アカウントは15分間ロックされています"
     },
-    "authentication_error_bad_credentials": {
+    "authentication_error_wrong_credentials": {
         "message": "パスワードが違います"
     },
     "authentication_error_default": {
@@ -116,14 +122,23 @@
     "auth_register": {
         "message": "登録する"
     },
+    "auth_header_sign_in_account": {
+        "message": "お持ちのAdGuardアカウントでのログイン"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "ご登録いただくことでAdGuardアカウントが作成されます"
+    },
     "auth_header_sign_in": {
         "message": "<div>%username%</div>としてログインします。"
     },
     "auth_header_sing_in_notice": {
-        "message": "すでにでご登録のアカウントをお持ちです。"
+        "message": "すでに<div>%username%</div>でアカウントを登録されています。"
     },
     "auth_header_registration": {
         "message": "<div>%username%</div>でご登録します。"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "２要素認証"
     },
     "auth_header_2fa": {
         "message": "認証コードを入力してください"
@@ -296,6 +311,9 @@
     "endpoints_fastest": {
         "message": "最速ロケーション"
     },
+    "endpoints_all": {
+        "message": "ずべてのロケーション"
+    },
     "endpoints_search_results": {
         "message": "検索結果"
     },
@@ -362,8 +380,14 @@
     "upgrade_features_speed": {
         "message": "光速サーバー"
     },
+    "upgrade_features_all_locations": {
+        "message": "全ロケーション利用可能"
+    },
     "upgrade_features_no_log": {
         "message": "ログ一切なしポリシー"
+    },
+    "continue_us_free_button": {
+        "message": "無料版で続ける"
     },
     "options_title": {
         "message": "AdGuard VPNオプション"

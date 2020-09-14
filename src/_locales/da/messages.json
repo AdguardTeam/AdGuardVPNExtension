@@ -8,6 +8,12 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "presentation_title": {
+        "message": "%value%%unit% gratis"
+    },
+    "presentation_desc": {
+        "message": "%locations_count% gratis placeringer"
+    },
     "registration_error_not_empty": {
         "message": "Må ikke være tom"
     },
@@ -41,8 +47,8 @@
     "authentication_error_account_locked": {
         "message": "Kontoen er låst i 15 minutter"
     },
-    "authentication_error_bad_credentials": {
-        "message": "Beklager, ukendt adgangskode"
+    "authentication_error_wrong_credentials": {
+        "message": "Beklager, forkert adgangskode"
     },
     "authentication_error_default": {
         "message": "Der opstod en fejl, prøv igen senere"
@@ -116,14 +122,23 @@
     "auth_register": {
         "message": "Registrer"
     },
+    "auth_header_sign_in_account": {
+        "message": "Du logger ind med AdGuard-konto"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "Ved at tilmelde dig opretter du din AdGuard-konto"
+    },
     "auth_header_sign_in": {
         "message": "Du logger ind som <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
-        "message": "Du har allerede en konto"
+        "message": "Du har allerede en konto <div>%username%</div>"
     },
     "auth_header_registration": {
         "message": "Du tilmelder dig som <div>%username%</div>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "Tofaktorgodkendelse"
     },
     "auth_header_2fa": {
         "message": "Indtast bekræftelseskoden"

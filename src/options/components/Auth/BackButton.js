@@ -12,7 +12,7 @@ function BackButton() {
 
     return (
         <button
-            className="button button--icon button--back"
+            className="button button--icon button--back button--gray"
             type="button"
             onClick={handleBackClick}
         >

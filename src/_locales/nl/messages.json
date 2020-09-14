@@ -8,6 +8,12 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "presentation_title": {
+        "message": "%value%%unit% gratis"
+    },
+    "presentation_desc": {
+        "message": "%locations_count% gratis locaties"
+    },
     "registration_error_not_empty": {
         "message": "Mag niet leeg zijn"
     },
@@ -41,8 +47,8 @@
     "authentication_error_account_locked": {
         "message": "Account is vergrendeld gedurende 15 minuten"
     },
-    "authentication_error_bad_credentials": {
-        "message": "Sorry, onbekend wachtwoord"
+    "authentication_error_wrong_credentials": {
+        "message": "Sorry, verkeerd wachtwoord"
     },
     "authentication_error_default": {
         "message": "Er is een fout opgetreden. Probeer later opnieuw"
@@ -116,14 +122,23 @@
     "auth_register": {
         "message": "Registreren"
     },
+    "auth_header_sign_in_account": {
+        "message": "Je meldt je aan met je AdGuard account"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "Door je te registreren maak je een AdGuard account aan"
+    },
     "auth_header_sign_in": {
         "message": "Je meldt je aan als <div>%username%</div> "
     },
     "auth_header_sing_in_notice": {
-        "message": "Je hebt al een account"
+        "message": "Je hebt al een account <div>%username%</div>"
     },
     "auth_header_registration": {
         "message": "Je registreert je als <div>%username%</div>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "Two-factor authenticatie"
     },
     "auth_header_2fa": {
         "message": "Je authenticatiecode invoeren"

@@ -8,6 +8,12 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "presentation_title": {
+        "message": "%value%%unit% бесплатно"
+    },
+    "presentation_desc": {
+        "message": "%locations_count% бесплатных локаций"
+    },
     "registration_error_not_empty": {
         "message": "Поле не должно быть пустым"
     },
@@ -41,8 +47,8 @@
     "authentication_error_account_locked": {
         "message": "Аккаунт заблокирован на 15 минут"
     },
-    "authentication_error_bad_credentials": {
-        "message": "К сожалению, вы ввели неправильный пароль"
+    "authentication_error_wrong_credentials": {
+        "message": "Неверный пароль"
     },
     "authentication_error_default": {
         "message": "Произошла ошибка. Попробуйте позже"
@@ -116,14 +122,23 @@
     "auth_register": {
         "message": "Зарегистрироваться"
     },
+    "auth_header_sign_in_account": {
+        "message": "Вы логинитесь с помощью аккаунта AdGuard"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "Регистрируясь, вы создаете аккаунт AdGuard"
+    },
     "auth_header_sign_in": {
         "message": "Вы авторизуетесь как <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
-        "message": "У вас уже есть аккаунт"
+        "message": "У вас уже есть аккаунт <div>%username%</div>"
     },
     "auth_header_registration": {
         "message": "Вы регистрируетесь как <div>%username%</div>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "Двухфакторная аутентификация"
     },
     "auth_header_2fa": {
         "message": "Введите код аутентификации"
@@ -296,6 +311,9 @@
     "endpoints_fastest": {
         "message": "Самые быстрые"
     },
+    "endpoints_all": {
+        "message": "Все локации"
+    },
     "endpoints_search_results": {
         "message": "Результаты поиска"
     },
@@ -362,8 +380,14 @@
     "upgrade_features_speed": {
         "message": "Ультрабыстрые серверы"
     },
+    "upgrade_features_all_locations": {
+        "message": "Все локации"
+    },
     "upgrade_features_no_log": {
         "message": "Политика \"Без логов\""
+    },
+    "continue_us_free_button": {
+        "message": "Продолжить бесплатно"
     },
     "options_title": {
         "message": "Опции AdGuard VPN"

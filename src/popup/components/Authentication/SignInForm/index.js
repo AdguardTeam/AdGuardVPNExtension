@@ -46,6 +46,9 @@ const SignInForm = observer(() => {
             onSubmit={submitHandler}
         >
             <div className="form__inputs">
+                <div className="form__subtitle">
+                    {reactTranslator.translate('auth_sign_in')}
+                </div>
                 <div className="form__info">
                     {
                         authStore.signInCheck
@@ -59,7 +62,16 @@ const SignInForm = observer(() => {
                                     </div>
                                 ),
                             })
-                            : reactTranslator.translate('auth_header_sing_in_notice')
+                            : reactTranslator.translate('auth_header_sing_in_notice', {
+                                username: authStore.credentials.username,
+                                div: (chunks) => (
+                                    // make sure that css styles won't be broken
+                                    // if div is placed in the translation beginning
+                                    <div className="form__credentials">
+                                        {chunks}
+                                    </div>
+                                ),
+                            })
                     }
                 </div>
                 <PasswordField

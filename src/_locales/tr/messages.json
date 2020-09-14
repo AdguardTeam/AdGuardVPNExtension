@@ -8,6 +8,12 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "presentation_title": {
+        "message": "%value%%unit% ücretsiz"
+    },
+    "presentation_desc": {
+        "message": "%locations_count% ücretsiz konum"
+    },
     "registration_error_not_empty": {
         "message": "Boş olmamalı"
     },
@@ -41,8 +47,8 @@
     "authentication_error_account_locked": {
         "message": "Hesap 15 dakika boyunca kilitlendi"
     },
-    "authentication_error_bad_credentials": {
-        "message": "Üzgünüz, tanınmayan şifre"
+    "authentication_error_wrong_credentials": {
+        "message": "Üzgünüm, yanlış parola"
     },
     "authentication_error_default": {
         "message": "Hata oluştu, daha sonra tekrar deneyiniz"
@@ -84,13 +90,13 @@
         "message": "E-posta Adresi"
     },
     "auth_password": {
-        "message": "Şifre"
+        "message": "Parola"
     },
     "auth_password_repeat": {
-        "message": "Şifre doğrulama"
+        "message": "Parola doğrulama"
     },
     "auth_recover": {
-        "message": "Şifrenizi mi unuttunuz?"
+        "message": "Parolanızı mı unuttunuz?"
     },
     "auth_login": {
         "message": "Giriş yap"
@@ -116,14 +122,23 @@
     "auth_register": {
         "message": "Kaydol"
     },
+    "auth_header_sign_in_account": {
+        "message": "AdGuard hesabıyla giriş yapıyorsunuz"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "Kaydolarak AdGuard hesabınızı oluşturursunuz"
+    },
     "auth_header_sign_in": {
         "message": "<div>%username%</div> Olarak giriş yapıyorsunuz "
     },
     "auth_header_sing_in_notice": {
-        "message": "Zaten bir hesabınız var"
+        "message": "<div>%username%</div> zaten bir hesabınız var"
     },
     "auth_header_registration": {
         "message": "<div>%username%</div> Olarak kaydoluyorsunuz"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "İki faktörlü kimlik doğrulama"
     },
     "auth_header_2fa": {
         "message": "Kimlik doğrulama kodunuzu girin"

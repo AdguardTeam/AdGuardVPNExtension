@@ -47,8 +47,8 @@
     "authentication_error_account_locked": {
         "message": "Account is locked for 15 minutes"
     },
-    "authentication_error_bad_credentials": {
-        "message": "Sorry, unrecognized password"
+    "authentication_error_wrong_credentials": {
+        "message": "Sorry, wrong password"
     },
     "authentication_error_default": {
         "message": "An error occurred, try again later"
@@ -122,14 +122,23 @@
     "auth_register": {
         "message": "Register"
     },
+    "auth_header_sign_in_account": {
+        "message": "You are signing in with AdGuard account"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "By signing up you create your AdGuard account"
+    },
     "auth_header_sign_in": {
         "message": "You are signing in as <div>%username%</div> "
     },
     "auth_header_sing_in_notice": {
-        "message": "You already have an account"
+        "message": "You already have an account <div>%username%</div>"
     },
     "auth_header_registration": {
         "message": "You are signing up as <div>%username%</div>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "Two-factor authentication"
     },
     "auth_header_2fa": {
         "message": "Enter the authentication code"

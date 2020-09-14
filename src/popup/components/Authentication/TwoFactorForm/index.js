@@ -29,6 +29,9 @@ const TwoFactorForm = observer(() => {
             onSubmit={submitHandler}
         >
             <div className="form__inputs">
+                <div className="form__subtitle">
+                    {reactTranslator.translate('auth_header_2fa_subtitle')}
+                </div>
                 <div className="form__info">
                     {reactTranslator.translate('auth_header_2fa')}
                 </div>

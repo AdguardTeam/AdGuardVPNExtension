@@ -8,6 +8,12 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "presentation_title": {
+        "message": "%value%%unit% brezpl"
+    },
+    "presentation_desc": {
+        "message": "%locations_count% brezplačnih mest"
+    },
     "registration_error_not_empty": {
         "message": "Ne sme biti prazno"
     },
@@ -41,8 +47,8 @@
     "authentication_error_account_locked": {
         "message": "Račun je zaklenjen za 15 minut"
     },
-    "authentication_error_bad_credentials": {
-        "message": "Žal, ni prepoznano geslo"
+    "authentication_error_wrong_credentials": {
+        "message": "Žal, napačno geslo"
     },
     "authentication_error_default": {
         "message": "Prišlo je do napake, poskusite pozneje znova"
@@ -116,14 +122,23 @@
     "auth_register": {
         "message": "Registriraj"
     },
+    "auth_header_sign_in_account": {
+        "message": "Prijavljeni ste v račun AdGuarda"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "S prijavo ustvarjate svoj račun AdGuarda"
+    },
     "auth_header_sign_in": {
         "message": "Prijavljate se kot <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
-        "message": "Račun že imate"
+        "message": "Že imate račun <div>%username%</div>"
     },
     "auth_header_registration": {
         "message": "Prijavljate se kot <div>%username%</div>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "Dvofaktorsko preverjanje pristnosti"
     },
     "auth_header_2fa": {
         "message": "Vnesite kodo za preverjanje pristnosti"

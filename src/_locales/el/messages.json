@@ -41,9 +41,6 @@
     "authentication_error_account_locked": {
         "message": "Ο λογαριασμός είναι κλειδωμένος για 15 λεπτά"
     },
-    "authentication_error_bad_credentials": {
-        "message": "Λυπούμαστε, μη αναγνωρισμένος κωδικός πρόσβασης"
-    },
     "authentication_error_default": {
         "message": "Παρουσιάστηκε σφάλμα. Δοκιμάστε ξανά αργότερα"
     },
@@ -120,7 +117,7 @@
         "message": "Συνδεθήκατε ως <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
-        "message": "Έχετε ήδη λογαριασμό"
+        "message": "Έχετε ήδη λογαριασμό <div>%username%</div>"
     },
     "auth_header_registration": {
         "message": "Εγγραφήκατε ως <div>%username%</div>"

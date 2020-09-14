@@ -5,6 +5,12 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "presentation_title": {
+        "message": "%value%%unit% 免費"
+    },
+    "presentation_desc": {
+        "message": "%locations_count% 處免費的位置"
+    },
     "registration_error_not_empty": {
         "message": "必須不為空"
     },
@@ -35,8 +41,8 @@
     "authentication_error_account_locked": {
         "message": "計 15 分鐘，帳戶被鎖定"
     },
-    "authentication_error_bad_credentials": {
-        "message": "抱歉，無法識別的密碼"
+    "authentication_error_wrong_credentials": {
+        "message": "抱歉，錯誤的密碼"
     },
     "authentication_error_default": {
         "message": "錯誤已發生，請稍後再試"
@@ -95,14 +101,23 @@
     "auth_register": {
         "message": "註冊"
     },
+    "auth_header_sign_in_account": {
+        "message": "您正在用 AdGuard 帳戶登入"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "透過註冊，您創建您的 AdGuard 帳戶"
+    },
     "auth_header_sign_in": {
         "message": "您正在以 <div>%username%</div> 登入"
     },
     "auth_header_sing_in_notice": {
-        "message": "您已有一個帳戶"
+        "message": "您已有一個帳戶 <div>%username%</div>"
     },
     "auth_header_registration": {
         "message": "您正在以 <div>%username%</div> 註冊"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "雙因素驗證"
     },
     "auth_header_2fa": {
         "message": "輸入該驗證代碼"

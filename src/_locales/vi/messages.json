@@ -41,9 +41,6 @@
     "authentication_error_account_locked": {
         "message": "Tài khoản bị khóa trong 15 phút"
     },
-    "authentication_error_bad_credentials": {
-        "message": "Xin lỗi, mật khẩu không được công nhận"
-    },
     "authentication_error_default": {
         "message": "Đã xảy ra lỗi, hãy thử lại sau"
     },
@@ -120,7 +117,7 @@
         "message": "Bạn đang đăng ký là <div>%username%</div> "
     },
     "auth_header_sing_in_notice": {
-        "message": "Bạn đã có tài khoản"
+        "message": "Bạn đã có tài khoản <div>%username%</div>"
     },
     "auth_header_registration": {
         "message": "Bạn đang đăng ký là <div>%username%</div>"

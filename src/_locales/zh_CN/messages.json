@@ -8,6 +8,12 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "presentation_title": {
+        "message": "%value%%unit% 免费"
+    },
+    "presentation_desc": {
+        "message": "%locations_count%个免费的位置"
+    },
     "registration_error_not_empty": {
         "message": "不能为空"
     },
@@ -41,8 +47,8 @@
     "authentication_error_account_locked": {
         "message": "账号被锁定 15 分钟"
     },
-    "authentication_error_bad_credentials": {
-        "message": "抱歉，未识别的密码"
+    "authentication_error_wrong_credentials": {
+        "message": "抱歉，密码不正确"
     },
     "authentication_error_default": {
         "message": "发生错误，请稍后再试"
@@ -116,14 +122,23 @@
     "auth_register": {
         "message": "注册"
     },
+    "auth_header_sign_in_account": {
+        "message": "您使用 AdGuard 账号登录"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "通过注册您创建 AdGuard 账号"
+    },
     "auth_header_sign_in": {
         "message": "您正在登录为 <div>%username%</div> "
     },
     "auth_header_sing_in_notice": {
-        "message": "您已拥有账号"
+        "message": "您已有账号 <div>%username%</div>"
     },
     "auth_header_registration": {
         "message": "您正在注册为 <div>%username%</div>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "双因素身份认证"
     },
     "auth_header_2fa": {
         "message": "输入验证码"
@@ -370,6 +385,9 @@
     },
     "upgrade_features_no_log": {
         "message": "无记录政策"
+    },
+    "continue_us_free_button": {
+        "message": "继续免费使用"
     },
     "options_title": {
         "message": "AdGuard VPN 选项"

@@ -8,6 +8,12 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "presentation_title": {
+        "message": "%value%%unit% 무료"
+    },
+    "presentation_desc": {
+        "message": "%locations_count%개 무료 서버"
+    },
     "registration_error_not_empty": {
         "message": "비워 둘 수 없습니다"
     },
@@ -41,8 +47,8 @@
     "authentication_error_account_locked": {
         "message": "계정이 15분동안 잠겼습니다"
     },
-    "authentication_error_bad_credentials": {
-        "message": "죄송합니다, 비밀번호가 정확하지 않습니다"
+    "authentication_error_wrong_credentials": {
+        "message": "잘못된 비밀번호입니다"
     },
     "authentication_error_default": {
         "message": "오류가 발생했습니다, 다시 시도해주세요"
@@ -116,14 +122,23 @@
     "auth_register": {
         "message": "가입"
     },
+    "auth_header_sign_in_account": {
+        "message": "AdGuard 계정으로 로그인 중"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "가입하면 AdGuard 계정이 생성됩니다"
+    },
     "auth_header_sign_in": {
         "message": "<div>%username%</div>으로 로그인 중"
     },
     "auth_header_sing_in_notice": {
-        "message": "이미 계정이 있습니다"
+        "message": "이미 <div>%username%</div> 계정이 있습니다"
     },
     "auth_header_registration": {
         "message": "<div>%username%</div>으로 가입 중"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "이중 인증"
     },
     "auth_header_2fa": {
         "message": "인증 코드를 입력해주세요"

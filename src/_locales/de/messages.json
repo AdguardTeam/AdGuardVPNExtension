@@ -8,6 +8,12 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "presentation_title": {
+        "message": "%value%%unit% kostenlos"
+    },
+    "presentation_desc": {
+        "message": "%locations_count% Standorte gratis"
+    },
     "registration_error_not_empty": {
         "message": "Muss ausgefüllt werden"
     },
@@ -41,8 +47,8 @@
     "authentication_error_account_locked": {
         "message": "Das Konto ist für 15 Minuten gesperrt"
     },
-    "authentication_error_bad_credentials": {
-        "message": "Das Passwort wurde leider nicht erkannt"
+    "authentication_error_wrong_credentials": {
+        "message": "Passwort ungültig"
     },
     "authentication_error_default": {
         "message": "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal."
@@ -116,14 +122,23 @@
     "auth_register": {
         "message": "Registrieren"
     },
+    "auth_header_sign_in_account": {
+        "message": "Sie werden mit dem AdGuard-Konto angemeldet"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "Durch Ihre Anmeldung wird auch ein AdGuard-Konto erstellt"
+    },
     "auth_header_sign_in": {
         "message": "Sie sind angemeldet als <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
-        "message": "Sie haben bereits ein Konto"
+        "message": "Sie haben bereits ein Konto <div>%username%</div>"
     },
     "auth_header_registration": {
         "message": "Sie sind registriert als <div>%username%</div>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "Zwei-Faktor-Authentifizierung"
     },
     "auth_header_2fa": {
         "message": "Authentifizierungsschlüssel eingeben"
@@ -364,6 +379,9 @@
     },
     "upgrade_features_speed": {
         "message": "Ultraschnelle Server"
+    },
+    "upgrade_features_all_locations": {
+        "message": "Alle Standorte"
     },
     "upgrade_features_no_log": {
         "message": "\"Keine-Protokolle\"-Richtlinie"

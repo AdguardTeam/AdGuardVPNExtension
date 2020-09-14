@@ -41,9 +41,6 @@
     "authentication_error_account_locked": {
         "message": "Konto jest zablokowane na 15 minut"
     },
-    "authentication_error_bad_credentials": {
-        "message": "Przepraszamy, wystąpił nierozpoznany błąd"
-    },
     "authentication_error_default": {
         "message": "Wystąpił błąd, spróbuj ponownie później"
     },
@@ -120,7 +117,7 @@
         "message": "Logujesz się jako <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
-        "message": "To konto już istnieje"
+        "message": "Masz już konto <div>%username%</div>"
     },
     "auth_header_registration": {
         "message": "Logujesz się jako <div>%username%</div>"

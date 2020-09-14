@@ -8,6 +8,12 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "presentation_title": {
+        "message": "%value%%unit% gratis"
+    },
+    "presentation_desc": {
+        "message": "%locations_count% posizioni gratuite"
+    },
     "registration_error_not_empty": {
         "message": "Non deve essere vuoto"
     },
@@ -41,8 +47,8 @@
     "authentication_error_account_locked": {
         "message": "L'account è bloccato per 15 minuti"
     },
-    "authentication_error_bad_credentials": {
-        "message": "Spiacenti, password non riconosciuta"
+    "authentication_error_wrong_credentials": {
+        "message": "Spiacente, la password è errata"
     },
     "authentication_error_default": {
         "message": "Si è verificato un errore, riprova più tardi"
@@ -116,14 +122,23 @@
     "auth_register": {
         "message": "Registrati"
     },
+    "auth_header_sign_in_account": {
+        "message": "Stai accedendo con l'account AdGuard"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "Registrandoti creerai il tuo account AdGuard"
+    },
     "auth_header_sign_in": {
         "message": "Stai accedendo come <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
-        "message": "Hai già un profilo"
+        "message": "Hai già un profilo <div>%username%</div>"
     },
     "auth_header_registration": {
         "message": "Ti stai registrando come <div>%username%</div>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "Autenticazione a due fattori"
     },
     "auth_header_2fa": {
         "message": "Inserisci il codice di autenticazione"

@@ -41,9 +41,6 @@
     "authentication_error_account_locked": {
         "message": "A fiók zárolva van 15 percre"
     },
-    "authentication_error_bad_credentials": {
-        "message": "Érvénytelen felhasználónév vagy jelszó"
-    },
     "authentication_error_default": {
         "message": "Valamilyen hiba történt, próbálja újból később"
     },
@@ -120,7 +117,7 @@
         "message": "<div>%username%</div> néven regisztrál "
     },
     "auth_header_sing_in_notice": {
-        "message": "Önnek már van fiókja"
+        "message": "Önnek már van fiókja <div>%username%</div>"
     },
     "auth_header_registration": {
         "message": "<div>%username%</div> néven lép be"

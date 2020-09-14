@@ -41,9 +41,6 @@
     "authentication_error_account_locked": {
         "message": "Le compte est bloqué pour 15 minutes"
     },
-    "authentication_error_bad_credentials": {
-        "message": "Désolé, mot de passe non reconnu"
-    },
     "authentication_error_default": {
         "message": "Une erreur s’est produite, réessayez plus tard"
     },
@@ -120,7 +117,7 @@
         "message": "Vous vous connectez en tant que <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
-        "message": "Vous avez déjà un compte"
+        "message": "Vous avez déjà un compte <div>%username%</div>"
     },
     "auth_header_registration": {
         "message": "Vous vous inscrivez en tant que <div>%username%</div>"

@@ -5,6 +5,9 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "presentation_title": {
+        "message": "%value%%unit% gratis"
+    },
     "registration_error_not_empty": {
         "message": "Kan ikke være tom"
     },
@@ -32,8 +35,8 @@
     "authentication_error_account_locked": {
         "message": "Kontoen er låst i 15 minutter"
     },
-    "authentication_error_bad_credentials": {
-        "message": "Beklager, passordet ble ikke gjenkjent"
+    "authentication_error_wrong_credentials": {
+        "message": "Beklager, feil passord"
     },
     "authentication_error_default": {
         "message": "En feil oppstod, prøv igjen senere"
@@ -98,14 +101,20 @@
     "auth_register": {
         "message": "Registrer"
     },
+    "auth_header_sign_in_account": {
+        "message": "Du logger på med AdGuard-kontoen din"
+    },
     "auth_header_sign_in": {
         "message": "Du logger på som <div>%username%</div> "
     },
     "auth_header_sing_in_notice": {
-        "message": "Du har allerede en konto"
+        "message": "Du har allerede en konto: <div>%username%</div>"
     },
     "auth_header_registration": {
         "message": "Du lager en konto som <div>%username%</div>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "2-trinnspålogging"
     },
     "auth_header_2fa": {
         "message": "Skriv inn autentiseringskoden"

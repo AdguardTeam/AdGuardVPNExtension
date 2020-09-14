@@ -8,6 +8,12 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
+    "presentation_title": {
+        "message": "%value% %unit% gratis"
+    },
+    "presentation_desc": {
+        "message": "%locations_count% ubicaciones gratis"
+    },
     "registration_error_not_empty": {
         "message": "No debe estar vacío"
     },
@@ -41,8 +47,8 @@
     "authentication_error_account_locked": {
         "message": "La cuenta está bloqueada durante 15 minutos"
     },
-    "authentication_error_bad_credentials": {
-        "message": "Lo sentimos, contraseña no reconocida"
+    "authentication_error_wrong_credentials": {
+        "message": "Lo siento, contraseña incorrecta"
     },
     "authentication_error_default": {
         "message": "Se ha producido un error, inténtalo de nuevo más tarde"
@@ -116,14 +122,23 @@
     "auth_register": {
         "message": "Registrarse"
     },
+    "auth_header_sign_in_account": {
+        "message": "Estás iniciando sesión con la cuenta AdGuard"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "Al registrarte, creas tu cuenta AdGuard"
+    },
     "auth_header_sign_in": {
         "message": "Estás iniciando sesión como <div>%username%</div> "
     },
     "auth_header_sing_in_notice": {
-        "message": "Ya tienes una cuenta"
+        "message": "Ya tienes una cuenta <div>%username%</div>"
     },
     "auth_header_registration": {
         "message": "Te estás registrando como <div>%username%</div>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "Autenticación de dos factores"
     },
     "auth_header_2fa": {
         "message": "Ingresa el código de autenticación"
@@ -410,7 +425,7 @@
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {
-        "message": "<span>%value%%unit%</span> restante este mes",
+        "message": "<span>%value% %unit%</span> restante este mes",
         "description": "Respect spaces between text, tags and placeholders"
     },
     "popup_ping_value": {
