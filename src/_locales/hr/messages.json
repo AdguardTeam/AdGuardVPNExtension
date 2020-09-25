@@ -47,6 +47,9 @@
     "authentication_error_account_locked": {
         "message": "Račun je zaključan na 15 minuta"
     },
+    "authentication_error_wrong_credentials": {
+        "message": "Pogrešna lozinka"
+    },
     "authentication_error_default": {
         "message": "Došlo je do pogreške, pokušajte kasnije"
     },
@@ -119,6 +122,12 @@
     "auth_register": {
         "message": "Registracija"
     },
+    "auth_header_sign_in_account": {
+        "message": "Prijavljujete se s AdGuard računom"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "Registracijom stvarate svoj AdGuard račun"
+    },
     "auth_header_sign_in": {
         "message": "Prijavljeni ste kao <div>%username%</div>"
     },
@@ -127,6 +136,9 @@
     },
     "auth_header_registration": {
         "message": "Prijavljujete se kao <div>%username%</div>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "Dvofaktorska autentikacija"
     },
     "auth_header_2fa": {
         "message": "Unesite vaš autentikacijski kôd"

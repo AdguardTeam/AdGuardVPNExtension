@@ -8,6 +8,12 @@
     "short_name": {
         "message": "VPN do AdGuard"
     },
+    "presentation_title": {
+        "message": "%value%%unit% de graça"
+    },
+    "presentation_desc": {
+        "message": "%locations_count% locais grátis"
+    },
     "registration_error_not_empty": {
         "message": "Não pode estar vazio"
     },
@@ -40,6 +46,9 @@
     },
     "authentication_error_account_locked": {
         "message": "A conta está bloqueada por 15 minutos"
+    },
+    "authentication_error_wrong_credentials": {
+        "message": "Desculpe, senha errada"
     },
     "authentication_error_default": {
         "message": "Ocorreu um erro, tente novamente mais tarde"
@@ -113,6 +122,12 @@
     "auth_register": {
         "message": "Registrar"
     },
+    "auth_header_sign_in_account": {
+        "message": "Você está entrando com uma conta AdGuard"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "Ao se inscrever, você cria sua conta AdGuard"
+    },
     "auth_header_sign_in": {
         "message": "Você entrou como <div>%username%</div>"
     },
@@ -121,6 +136,9 @@
     },
     "auth_header_registration": {
         "message": "Você está se registrando como <div>%username%</div>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "Autenticação de dois fatores"
     },
     "auth_header_2fa": {
         "message": "Digite o código de autenticação"
@@ -136,6 +154,9 @@
     },
     "settings_title": {
         "message": "Configurações"
+    },
+    "settings_rate_us": {
+        "message": "Avalie-nos"
     },
     "settings_webrtc_label": {
         "message": "Bloquear WebRTC"
@@ -219,13 +240,13 @@
         "message": "Modo regular"
     },
     "settings_exclusion_regular_description": {
-        "message": "A VPN do AdGuard não funciona nos sites desta lista:"
+        "message": "O AdGuard VPN não funciona nos sites desta lista:"
     },
     "settings_exclusion_selective_title": {
         "message": "Modo seletivo"
     },
     "settings_exclusion_selective_description": {
-        "message": "A VPN do AdGuard funciona apenas nos sites desta lista:"
+        "message": "O AdGuard VPN funciona apenas nos sites desta lista:"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Subdomínios"
@@ -246,7 +267,7 @@
         "message": "Tente novamente"
     },
     "authentication_successful_social": {
-        "message": "Autenticado com sucesso! Você pode abrir a VPN do AdGuard e ativar o túnel."
+        "message": "Autenticado com sucesso! Você pode abrir o AdGuard VPN e ativar o túnel."
     },
     "control_error_description": {
         "message": "Parece que outra extensão do Chrome está tentando controlar sua conexão. Desative a outra extensão no seu navegador."
@@ -289,6 +310,9 @@
     },
     "endpoints_fastest": {
         "message": "Mais rápido"
+    },
+    "endpoints_all": {
+        "message": "Todos os locais"
     },
     "endpoints_search_results": {
         "message": "Resultado da busca"
@@ -344,8 +368,29 @@
     "settings_run_upgrade_feature": {
         "message": "Dados ilimitados, mais velocidade, suporte 24/7"
     },
+    "settings_run_upgrade_early_bird": {
+        "message": "Preços antecipados"
+    },
+    "sale_title": {
+        "message": "O que você recebe:"
+    },
+    "upgrade_features_data": {
+        "message": "Dados ilimitados"
+    },
+    "upgrade_features_speed": {
+        "message": "Servidores de velocidade leve"
+    },
+    "upgrade_features_all_locations": {
+        "message": "Todos os locais"
+    },
+    "upgrade_features_no_log": {
+        "message": "Sem política de registros"
+    },
+    "continue_us_free_button": {
+        "message": "Continue como grátis"
+    },
     "options_title": {
-        "message": "Opções de VPN do AdGuard"
+        "message": "Opções de AdGuard VPN"
     },
     "offline_title": {
         "message": "Sem conexão"
@@ -372,7 +417,7 @@
         "message": "adicionado a exclusões"
     },
     "popup_auth_agreement_consent": {
-        "message": "Ao usar a VPN do AdGuard, você concorda com o <eula>Contrato</eula> e nossa <privacy>política de privacidade</privacy>",
+        "message": "Ao usar o AdGuard VPN, você concorda com o <eula>Contrato</eula> e nossa <privacy>política de privacidade</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_agreement_consent": {

@@ -27,7 +27,7 @@
         "message": "此數值已被使用"
     },
     "registration_error_default": {
-        "message": "錯誤已發生，請稍後再試"
+        "message": "錯誤已發生，稍後再試"
     },
     "authentication_error_2fa_required": {
         "message": "雙因素驗證（2FA）是必須的"
@@ -45,7 +45,7 @@
         "message": "抱歉，錯誤的密碼"
     },
     "authentication_error_default": {
-        "message": "錯誤已發生，請稍後再試"
+        "message": "錯誤已發生，稍後再試"
     },
     "about_title": {
         "message": "關於"
@@ -165,7 +165,7 @@
         "message": "從您的裝置移除廣告和追蹤器"
     },
     "settings_dns_selector_adguard_nonfiltering_title": {
-        "message": "AdGuard DNS 非過濾"
+        "message": "不過濾的 AdGuard DNS"
     },
     "settings_dns_selector_adguard_family_title": {
         "message": "AdGuard DNS 家庭保護"

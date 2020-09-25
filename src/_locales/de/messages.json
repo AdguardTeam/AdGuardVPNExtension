@@ -69,7 +69,7 @@
         "message": "Abmelden"
     },
     "rate_description": {
-        "message": "Hallo, wir sind ein Team von AdGuard, und es ist sehr wichtig für uns, Ihre Meinung über unser Produkt zu erfahren. Bitte geben Sie eine Bewertung ab."
+        "message": "Hallo, dem Team von AdGuard ist es sehr wichtig, Ihre Meinung zu unserem Produkt zu erfahren. Bitte geben Sie eine Bewertung ab."
     },
     "rate_hide": {
         "message": "Ausblenden"
@@ -240,13 +240,13 @@
         "message": "Normaler Modus"
     },
     "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN funktioniert nicht auf den Websites in dieser Liste:"
+        "message": "AdGuard VPN nicht auf den Websites aus dieser Liste ausführen:"
     },
     "settings_exclusion_selective_title": {
         "message": "Selektiver Modus"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN funktioniert nur auf Websites in dieser Liste:"
+        "message": "AdGuard VPN nur auf Websites in dieser Liste ausführen:"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Subdomains"

@@ -1,4 +1,7 @@
 {
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
     "settings_button_connecting": {
         "message": "Prisijungiama…"
     }
