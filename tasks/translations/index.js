@@ -384,8 +384,10 @@ const download = async (locales) => {
 
 const upload = async () => {
     try {
+        // check for unused base-locale strings before uploading
+        await checkUnusedMessages();
         const result = await uploadBaseLocale();
-        console.log(`Upload was successful with response: ${JSON.stringify(result)}`);
+        log.success(`Upload was successful with response: ${JSON.stringify(result)}`);
     } catch (e) {
         console.log(e.message);
         process.exit(1);
