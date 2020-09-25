@@ -18,20 +18,20 @@ export const DNS_SERVERS = {
     'adguard-dns': {
         title: translator.translate('settings_dns_selector_adguard_title'),
         desc: translator.translate('settings_dns_selector_adguard_desc'),
-        ip1: '176.103.130.130',
-        ip2: '176.103.130.131',
+        ip1: '94.140.14.14',
+        ip2: '94.140.15.15',
     },
     'adguard-dns-non-filtering': {
         title: translator.translate('settings_dns_selector_adguard_nonfiltering_title'),
         desc: translator.translate('settings_dns_selector_adguard_nonfiltering_desc'),
-        ip1: '176.103.130.136',
-        ip2: '176.103.130.137',
+        ip1: '94.140.14.140',
+        ip2: '94.140.14.141',
     },
     'adguard-dns-family': {
         title: translator.translate('settings_dns_selector_adguard_family_title'),
         desc: translator.translate('settings_dns_selector_adguard_family_desc'),
-        ip1: '176.103.130.132',
-        ip2: '176.103.130.134',
+        ip1: '94.140.14.15',
+        ip2: '94.140.15.16',
     },
     'google-dns': {
         title: translator.translate('settings_dns_selector_google_title'),
