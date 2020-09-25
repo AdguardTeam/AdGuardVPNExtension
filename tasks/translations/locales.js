@@ -8,8 +8,8 @@ const FormData = require('form-data');
 const querystring = require('querystring');
 const { program } = require('commander');
 
-const twoskyConfig = require('../.twosky.json')[0];
-const { isTargetStrValid } = require('../src/lib/translator/validator');
+const twoskyConfig = require('../../.twosky.json')[0];
+const { isTargetStrValid } = require('../../src/lib/translator/validator');
 
 const {
     project_id: PROJECT_ID, languages: LANGUAGES, base_locale: BASE_LOCALE,
