@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
+import ReactHtmlParser from 'react-html-parser';
 import popupActions from '../../../actions/popupActions';
 import rootStore from '../../../stores';
 import { REQUEST_STATUSES, INPUT_TYPES } from '../../../stores/consts';
@@ -86,7 +87,7 @@ const SignInForm = observer(() => {
                 />
                 {authStore.error && (
                     <div className="form__error">
-                        {authStore.error}
+                        {ReactHtmlParser(authStore.error)}
                     </div>
                 )}
             </div>

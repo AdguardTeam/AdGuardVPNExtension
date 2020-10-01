@@ -3,7 +3,7 @@ import Api from './Api';
 import { AUTH_API_URL, AUTH_CLIENT_ID } from '../config';
 
 // Documentation
-// https://bit.adguard.com/projects/ADGUARD/repos/adguard-auth-service/browse/oauth.md
+// projects/ADGUARD/repos/adguard-auth-service/browse/oauth.md
 class AuthApi extends Api {
     // API ENDPOINTS
     GET_TOKEN = { path: 'oauth/token', method: 'POST' };
