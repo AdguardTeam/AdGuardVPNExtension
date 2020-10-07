@@ -8,12 +8,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "presentation_title": {
-        "message": "%value%%unit% gratis"
-    },
-    "presentation_desc": {
-        "message": "%locations_count% gratis locaties"
-    },
     "registration_error_not_empty": {
         "message": "Mag niet leeg zijn"
     },
@@ -192,7 +186,7 @@
         "message": "Verwijdert ads en trackers van je apparaat"
     },
     "settings_dns_selector_adguard_nonfiltering_title": {
-        "message": "AdGuard DNS Non-filtering"
+        "message": "AdGuard DNS niet gefilterd"
     },
     "settings_dns_selector_adguard_nonfiltering_desc": {
         "message": "DNS beveiligen zonder vastleggen van activiteiten (filtert geen ads en volgers)"

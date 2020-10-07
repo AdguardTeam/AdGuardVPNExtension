@@ -8,12 +8,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "presentation_title": {
-        "message": "%value%%unit% дарма"
-    },
-    "presentation_desc": {
-        "message": "%locations_count% дармовых лакацый"
-    },
     "registration_error_not_empty": {
         "message": "Не павінна быць пустым"
     },

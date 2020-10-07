@@ -8,12 +8,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "presentation_title": {
-        "message": "%value%%unit%無料"
-    },
-    "presentation_desc": {
-        "message": "%locations_count%ヵ所の無料ロケーション"
-    },
     "registration_error_not_empty": {
         "message": "入力する必要があります"
     },

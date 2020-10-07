@@ -122,6 +122,9 @@
     "auth_header_registration": {
         "message": "<div>%username%</div> néven lép be"
     },
+    "auth_header_2fa_subtitle": {
+        "message": "Kétfaktoros hitelesítés"
+    },
     "auth_header_2fa": {
         "message": "Írja be a megerősítő kódot"
     },

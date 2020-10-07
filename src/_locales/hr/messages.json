@@ -8,12 +8,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "presentation_title": {
-        "message": "%value%%unit% besplatno"
-    },
-    "presentation_desc": {
-        "message": "%locations_count% besplatne lokacije"
-    },
     "registration_error_not_empty": {
         "message": "Ne smije biti prazno"
     },
@@ -192,7 +186,7 @@
         "message": "Uklanja oglase i pratitelje s vašeg uređaja"
     },
     "settings_dns_selector_adguard_nonfiltering_title": {
-        "message": "AdGuard DNS Ne filtrirajući"
+        "message": "Ne filtrirajući AdGuard DNS"
     },
     "settings_dns_selector_adguard_nonfiltering_desc": {
         "message": "Sigurni DNS bez zapisivanja aktivnosti (ne filtrira oglase i pratitelje)"

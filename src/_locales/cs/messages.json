@@ -8,12 +8,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "presentation_title": {
-        "message": "%value%%unit% zdarma"
-    },
-    "presentation_desc": {
-        "message": "%locations_count% umístění zdarma"
-    },
     "registration_error_not_empty": {
         "message": "Nesmí být prázdná"
     },

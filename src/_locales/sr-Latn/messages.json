@@ -8,12 +8,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "presentation_title": {
-        "message": "%value%%unit% besplatno"
-    },
-    "presentation_desc": {
-        "message": "%locations_count% besplatne lokacije"
-    },
     "registration_error_not_empty": {
         "message": "Ne sme biti prazno"
     },
@@ -46,6 +40,9 @@
     },
     "authentication_error_account_locked": {
         "message": "Nalog je zaključan na 15 minuta"
+    },
+    "authentication_error_wrong_credentials": {
+        "message": "Izvinite, pogrešna lozinka"
     },
     "authentication_error_default": {
         "message": "Dogodila se greška. pokušajte ponovo kasnije"
@@ -119,6 +116,12 @@
     "auth_register": {
         "message": "Registruj se"
     },
+    "auth_header_sign_in_account": {
+        "message": "Prijavljujete se AdGuard nalogom"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "Prijavljivanjem stvarate vaš AdGuard nalog"
+    },
     "auth_header_sign_in": {
         "message": "Prijavljujete se kao <div>%username%</div>"
     },
@@ -127,6 +130,9 @@
     },
     "auth_header_registration": {
         "message": "Upisujete se kao <div>%username%</div>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "Potvrda u dva koraka"
     },
     "auth_header_2fa": {
         "message": "Unesite Vaš kod za autentifikaciju"

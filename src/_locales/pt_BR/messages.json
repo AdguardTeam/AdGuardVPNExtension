@@ -6,13 +6,7 @@
         "message": "Torna a Internet aberta e seus dados seguros. VPN de primeira linha dos criadores do famoso bloqueador de anúncios."
     },
     "short_name": {
-        "message": "VPN do AdGuard"
-    },
-    "presentation_title": {
-        "message": "%value%%unit% de graça"
-    },
-    "presentation_desc": {
-        "message": "%locations_count% locais grátis"
+        "message": "AdGuard VPN"
     },
     "registration_error_not_empty": {
         "message": "Não pode estar vazio"
@@ -66,7 +60,7 @@
         "message": "Editar"
     },
     "account_sign_out": {
-        "message": "Encerrar sessão"
+        "message": "Sair"
     },
     "rate_description": {
         "message": "Ei, somos a equipe da AdGuard e é muito importante para nós saber sua opinião sobre nosso produto. Por favor, avalie."
@@ -192,7 +186,7 @@
         "message": "Remove anúncios e rastreadores do seu dispositivo"
     },
     "settings_dns_selector_adguard_nonfiltering_title": {
-        "message": "Sem filtragem de DNS do AdGuard"
+        "message": "AdGuard DNS sem filtragem"
     },
     "settings_dns_selector_adguard_nonfiltering_desc": {
         "message": "DNS seguro sem registro de atividades (não filtra anúncios e rastreadores)"
@@ -204,13 +198,13 @@
         "message": "AdGuard DNS + pesquisa segura com bloqueio de conteúdo adulto"
     },
     "settings_dns_selector_google_title": {
-        "message": "DNS do Google"
+        "message": "Google DNS"
     },
     "settings_dns_selector_google_desc": {
         "message": "Serviço de DNS alternativo gratuito do Google"
     },
     "settings_dns_selector_cloudflare_title": {
-        "message": "DNS do Cloudflare"
+        "message": "Cloudflare DNS"
     },
     "settings_dns_selector_cloudflare_desc": {
         "message": "Serviço de DNS gratuito do Cloudflare"
@@ -294,7 +288,7 @@
         "message": "Configurações"
     },
     "popup_settings_sign_out": {
-        "message": "Encerrar sessão"
+        "message": "Sair"
     },
     "context_menu_enable_vpn": {
         "message": "Ativar VPN neste site"
@@ -342,7 +336,7 @@
         "message": "O servidor não está respondendo"
     },
     "settings_choose_another": {
-        "message": "Escolha outro"
+        "message": "Escolher outro"
     },
     "settings_connection_not_secured": {
         "message": "A conexão não é segura"

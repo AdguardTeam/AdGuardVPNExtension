@@ -8,12 +8,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "presentation_title": {
-        "message": "%value%%unit% ücretsiz"
-    },
-    "presentation_desc": {
-        "message": "%locations_count% ücretsiz konum"
-    },
     "registration_error_not_empty": {
         "message": "Boş olmamalı"
     },

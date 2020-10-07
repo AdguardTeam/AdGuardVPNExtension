@@ -2,17 +2,23 @@
     "name": {
         "message": "AdGuard VPN — Privatliv og sikkerhet"
     },
+    "description": {
+        "message": "Gjør internettet åpent og dataene dine trygge. Toppklasse-VPN fra skaperne av en berømt annonseblokkerer."
+    },
     "short_name": {
         "message": "AdGuard VPN"
-    },
-    "presentation_title": {
-        "message": "%value%%unit% gratis"
     },
     "registration_error_not_empty": {
         "message": "Kan ikke være tom"
     },
     "registration_error_not_valid": {
         "message": "Denne verdien er ugyldig"
+    },
+    "registration_error_min_length": {
+        "message": "Denne verdien er for kort. Den bør ha 8 tegn eller mer"
+    },
+    "registration_error_compromised_password": {
+        "message": "Passordet du skrev inn, ble funnet <a>i en offentlig database</a> over kompromitterte passord. Vennligst prøv med et annet et."
     },
     "registration_error_unique_constraint": {
         "message": "Denne verdien er allerede brukt"
@@ -41,6 +47,9 @@
     "authentication_error_default": {
         "message": "En feil oppstod, prøv igjen senere"
     },
+    "global_error_message": {
+        "message": "En feil oppstod, vennligst kontakt oss på <a>support@adguard-vpn.com</a>"
+    },
     "about_title": {
         "message": "Om"
     },
@@ -53,11 +62,17 @@
     "account_sign_out": {
         "message": "Logg av"
     },
+    "rate_description": {
+        "message": "Heisann, vi er et team fra AdGuard og det er veldig viktig for oss å vite om din mening om vårt produkt. Vennligst gi det en vurdering."
+    },
     "rate_hide": {
         "message": "Skjul"
     },
     "auth_title": {
         "message": "Sett i gang helt gratis!"
+    },
+    "auth_description": {
+        "message": "Ukompromitterende nettprivatlivsbeskyttelse. Mer enn 20 millioner mennesker har allerede valgt AdGuard."
     },
     "auth_code": {
         "message": "Kode fra autentiseringsapp"
@@ -104,6 +119,9 @@
     "auth_header_sign_in_account": {
         "message": "Du logger på med AdGuard-kontoen din"
     },
+    "auth_header_sign_up_create_account": {
+        "message": "Ved å registrere deg, oppretter du AdGuard-kontoen din"
+    },
     "auth_header_sign_in": {
         "message": "Du logger på som <div>%username%</div> "
     },
@@ -137,6 +155,12 @@
     "settings_webrtc_label": {
         "message": "Blokker WebRTC"
     },
+    "settings_webrtc_desc": {
+        "message": "WebRTC er et spesielt program i de fleste nettlesere som kan la et tredjepartsnettsted oppdage din ekte IP-adresse og bruke det til å identifisere deg"
+    },
+    "settings_context_menus_title": {
+        "message": "Legg til AdGuard VPN-element i nettleserens sammenhengsmeny"
+    },
     "context_menu_selective_mode": {
         "message": "Selektiv modus"
     },
@@ -146,8 +170,14 @@
     "settings_dns_label": {
         "message": "Bruk DNS-tjener"
     },
+    "settings_dns_desc": {
+        "message": "Domain Name System (DNS) er internettets svar på en telefonkatalog. Den vedlikeholder et arkiv over domenenavn og oversetter dem til Internet Protocol (IP)-adresser."
+    },
     "settings_dns_selector_default_title": {
         "message": "Standardmodus"
+    },
+    "settings_dns_selector_default_desc": {
+        "message": "Bruk automatisk standard-DNS-tjenere når du er koblet til VPN-en"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -157,6 +187,9 @@
     },
     "settings_dns_selector_adguard_nonfiltering_title": {
         "message": "AdGuard DNS uten filtrering"
+    },
+    "settings_dns_selector_adguard_nonfiltering_desc": {
+        "message": "Sikker DNS uten aktivitetsloggføring (filtrerer ikke annonser og sporere)"
     },
     "settings_dns_selector_adguard_family_title": {
         "message": "AdGuard DNS med familiebeskyttelse"
@@ -200,20 +233,38 @@
     "settings_exclusion_regular_title": {
         "message": "Vanlig modus"
     },
+    "settings_exclusion_regular_description": {
+        "message": "AdGuard VPN fungerer ikke på nettstedene fra denne listen:"
+    },
     "settings_exclusion_selective_title": {
         "message": "Selektiv modus"
+    },
+    "settings_exclusion_selective_description": {
+        "message": "AdGuard VPN fungerer bare på nettstedene fra denne listen:"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Underdomener"
     },
+    "settings_exclusion_subdomains_text": {
+        "message": "Du kan legge til domener (f.eks. google.com) eller alle underdomener (f.eks. *.google.com)"
+    },
     "global_error_title": {
         "message": "En feil oppstod"
+    },
+    "global_error_description": {
+        "message": "Ta kontakt med oss hvis du til stadighet ser denne meldingen"
     },
     "global_error_learn_more": {
         "message": "Lær mer"
     },
     "global_error_try_again": {
         "message": "Prøv på nytt"
+    },
+    "authentication_successful_social": {
+        "message": "Autentiseringen var vellykket! Du kan åpne AdGuard VPN og skru på tunnelen."
+    },
+    "control_error_description": {
+        "message": "Det ser ut som en annen Chrome-utvidelse prøver å styre tilkoblingen din. Vennligst skru av den andre utvidelsen i nettleseren din."
     },
     "control_error_disable": {
         "message": "Skru den av"
@@ -259,6 +310,9 @@
     },
     "endpoints_search_results": {
         "message": "Søkeresultat"
+    },
+    "endpoints_search": {
+        "message": "Søk etter sted"
     },
     "endpoints_not_found": {
         "message": "Tjeneren ble ikke funnet"
@@ -335,11 +389,38 @@
     "offline_title": {
         "message": "Frakoblet"
     },
+    "popup_exclusions_enable_vpn_on_site": {
+        "message": "<span>Du kan</span> <a>skru på VPN på dette nettstedet</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_exclusions_add_site_to_exclusions": {
+        "message": "<span>Du kan</span> <a>legge til nettstedet i unntakene</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_exclusions_disable_vpn_on_site": {
+        "message": "<span>Du kan</span> <a>skru av VPN på dette nettstedet</a>",
+        "description": "NOTICE! there is space between tags"
+    },
+    "popup_site_status_unaccessible": {
+        "message": "er posisjonert i ditt lokale nettverk og er utilgjengelig via VPN"
+    },
     "popup_site_status_vpn_disabled": {
         "message": "VPN er skrudd av på dette nettstedet"
     },
     "popup_site_status_added_to_exclusions": {
         "message": "lagt til i unntak"
+    },
+    "popup_auth_agreement_consent": {
+        "message": "Ved å bruke AdGuard VPN, godtar du vår <eula>EULA</eula> og <privacy>personvernserklæring</privacy>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "options_auth_agreement_consent": {
+        "message": "Ved å fortsette, aksepterer du <privacy>Vilkår og betingelser</privacy> og <eula>EULA</eula>-en",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "popup_free_traffic_info": {
+        "message": "<span>%value% %unit%</span> gjenstår denne måneden",
+        "description": "Respect spaces between text, tags and placeholders"
     },
     "popup_ping_value": {
         "message": "Ping %pingValue%ms",

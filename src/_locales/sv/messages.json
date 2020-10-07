@@ -1,8 +1,210 @@
 {
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
+    "registration_error_not_empty": {
+        "message": "Får inte vara tom"
+    },
+    "registration_error_not_valid": {
+        "message": "Detta värde är ogiltigt"
+    },
+    "registration_error_compromised_password": {
+        "message": "Lösenordet som du skrev in finns i en <a>offentliga databas</a> för avslöjade lösenord. Var snäll och välj ett annat lösenord."
+    },
+    "registration_error_unique_constraint": {
+        "message": "Användarnamnet är redan taget"
+    },
+    "authentication_error_2fa_required": {
+        "message": "2FA krävs"
+    },
+    "authentication_error_2fa_invalid": {
+        "message": "Ogiltig kod"
+    },
+    "authentication_error_account_disabled": {
+        "message": "Kontot är inaktivt"
+    },
+    "authentication_error_account_locked": {
+        "message": "Kontot är låst i 15 minuter"
+    },
+    "about_title": {
+        "message": "Om"
+    },
+    "account_title": {
+        "message": "Konto"
+    },
+    "account_edit": {
+        "message": "Redigera"
+    },
+    "account_sign_out": {
+        "message": "Logga ut"
+    },
+    "rate_hide": {
+        "message": "Dölj"
+    },
+    "auth_confirm": {
+        "message": "Bekräfta"
+    },
+    "auth_email": {
+        "message": "E-postadress"
+    },
+    "auth_password": {
+        "message": "Lösenord"
+    },
+    "auth_recover": {
+        "message": "Glömt lösenord?"
+    },
+    "auth_login": {
+        "message": "Logga in"
+    },
+    "auth_sign_up": {
+        "message": "Bli medlem"
+    },
+    "auth_sign_up_button": {
+        "message": "Bli medlem"
+    },
+    "auth_sign_in": {
+        "message": "Logga in"
+    },
+    "auth_sign_in_button": {
+        "message": "Logga in"
+    },
+    "auth_register": {
+        "message": "Registrera"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "Tvåfaktorautentisering"
+    },
+    "auth_header_2fa": {
+        "message": "Skriv in din autentiserings kod"
+    },
+    "auth_placeholder_2fa": {
+        "message": "Autentiseringskod"
+    },
+    "eula": {
+        "message": "EULA"
+    },
+    "privacy_policy": {
+        "message": "Integritetspolicy"
+    },
+    "settings_title": {
+        "message": "Inställningar"
+    },
+    "settings_rate_us": {
+        "message": "Betygsätt oss"
+    },
+    "settings_webrtc_label": {
+        "message": "Blockera WebRTC"
+    },
+    "settings_dns_selector_default_title": {
+        "message": "Standard"
+    },
+    "settings_dns_selector_adguard_title": {
+        "message": "AdGuard DNS"
+    },
+    "settings_dns_selector_adguard_family_desc": {
+        "message": "AdGuard DNS + Säker surf och blockering av vuxeninnehåll"
+    },
+    "settings_dns_selector_google_title": {
+        "message": "Google DNS"
+    },
+    "settings_dns_selector_google_desc": {
+        "message": "Kostnadsfri alternativ DNS-tjänst från Google"
+    },
+    "settings_dns_selector_cloudflare_title": {
+        "message": "Cloudflare DNS"
+    },
+    "settings_dns_selector_cloudflare_desc": {
+        "message": "Gratis DNS-tjänst av Cloudflare"
+    },
+    "settings_dns_selector_cisco_title": {
+        "message": "Cisco OpenDNS"
+    },
+    "settings_dns_selector_cisco_desc": {
+        "message": "DNS-server som skyddar din enhet mot skadeprogram"
+    },
+    "settings_dns_selector_quad9_title": {
+        "message": "Quad9"
+    },
+    "settings_dns_selector_quad9_desc": {
+        "message": "Gratis alternativ DNS-tjänst med skydd mot nätfiske och spionprogram"
+    },
+    "settings_exclusion_add": {
+        "message": "Lägg till webbadress"
+    },
+    "settings_exclusion_title": {
+        "message": "Exkluderingar"
+    },
+    "global_error_title": {
+        "message": "Fel uppstod"
+    },
+    "global_error_learn_more": {
+        "message": "Läs mer"
+    },
+    "global_error_try_again": {
+        "message": "Försök igen"
+    },
+    "control_error_disable": {
+        "message": "Inaktivera det"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Aktivera VPN på denna webbplats"
+    },
     "popup_settings_enable_vpn_short": {
         "message": "Aktivera"
     },
+    "popup_settings_disable_vpn": {
+        "message": "Inaktivera VPN på denna webbplats"
+    },
+    "popup_settings_other_products": {
+        "message": "Andra produkter"
+    },
+    "popup_settings_feedback": {
+        "message": "Feedback"
+    },
+    "popup_settings_open_settings": {
+        "message": "Inställningar"
+    },
+    "popup_settings_sign_out": {
+        "message": "Logga ut"
+    },
+    "context_menu_enable_vpn": {
+        "message": "Aktivera VPN på denna webbplats"
+    },
+    "context_menu_disable_vpn": {
+        "message": "Inaktivera VPN på denna webbplats"
+    },
+    "endpoints_countries": {
+        "message": "Platser"
+    },
+    "endpoints_all": {
+        "message": "Alla platser"
+    },
+    "endpoints_search": {
+        "message": "Sök plats"
+    },
+    "premium_upgrade": {
+        "message": "Uppgradera"
+    },
+    "settings_disconnect": {
+        "message": "Koppla från"
+    },
     "settings_button_connecting": {
         "message": "Ansluter..."
+    },
+    "popup_feedback_button": {
+        "message": "Lämna din feedback"
+    },
+    "upgrade_features_all_locations": {
+        "message": "Alla platser"
+    },
+    "upgrade_features_no_log": {
+        "message": "Ingen loggnings-policy"
+    },
+    "options_auth_agreement_consent": {
+        "message": "Genom att fortsätta accepterar du <privacy>Villkor och regler</privacy> samt <eula>EULA</eula>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "options_auth_back_button": {
+        "message": "Tillbaka"
     }
 }

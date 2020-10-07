@@ -41,6 +41,9 @@
     "authentication_error_account_locked": {
         "message": "Konto jest zablokowane na 15 minut"
     },
+    "authentication_error_wrong_credentials": {
+        "message": "Przepraszam, złe hasło"
+    },
     "authentication_error_default": {
         "message": "Wystąpił błąd, spróbuj ponownie później"
     },
@@ -113,6 +116,12 @@
     "auth_register": {
         "message": "Rejestracja"
     },
+    "auth_header_sign_in_account": {
+        "message": "Zostaleś zalogowany przy użyciu konta Adguard"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "Rejestrując się, tworzysz swoje konto AdGuard"
+    },
     "auth_header_sign_in": {
         "message": "Logujesz się jako <div>%username%</div>"
     },
@@ -121,6 +130,9 @@
     },
     "auth_header_registration": {
         "message": "Logujesz się jako <div>%username%</div>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "Uwierzytelnianie dwuskładnikowe"
     },
     "auth_header_2fa": {
         "message": "Wpisz kod uwierzytelniający"
@@ -136,6 +148,9 @@
     },
     "settings_title": {
         "message": "Ustawienia"
+    },
+    "settings_rate_us": {
+        "message": "Oceń nas"
     },
     "settings_webrtc_label": {
         "message": "Blokuj WebRTC"
@@ -290,6 +305,9 @@
     "endpoints_fastest": {
         "message": "Najszybsza"
     },
+    "endpoints_all": {
+        "message": "Wszystkie lokalizacje"
+    },
     "endpoints_search_results": {
         "message": "Wynik wyszukiwania"
     },
@@ -343,6 +361,27 @@
     },
     "settings_run_upgrade_feature": {
         "message": "Nieograniczone dane, najwyższa prędkość, wsparcie 24/7"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "Cenny dla rannych ptaszków"
+    },
+    "sale_title": {
+        "message": "Co dostałeś:"
+    },
+    "upgrade_features_data": {
+        "message": "Nieograniczone dane"
+    },
+    "upgrade_features_speed": {
+        "message": "Serwery o dużej szybkości"
+    },
+    "upgrade_features_all_locations": {
+        "message": "Wszystkie lokalizacje"
+    },
+    "upgrade_features_no_log": {
+        "message": "Polityka braku logów"
+    },
+    "continue_us_free_button": {
+        "message": "Kontynuuj bezpłatnie"
     },
     "options_title": {
         "message": "Ustawienia AdGuard VPN"
