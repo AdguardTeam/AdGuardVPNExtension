@@ -8,12 +8,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "presentation_title": {
-        "message": "%value%%unit% kostenlos"
-    },
-    "presentation_desc": {
-        "message": "%locations_count% Standorte gratis"
-    },
     "registration_error_not_empty": {
         "message": "Muss ausgefüllt werden"
     },
@@ -69,7 +63,7 @@
         "message": "Abmelden"
     },
     "rate_description": {
-        "message": "Hallo, wir sind ein Team von AdGuard, und es ist sehr wichtig für uns, Ihre Meinung über unser Produkt zu erfahren. Bitte geben Sie eine Bewertung ab."
+        "message": "Hallo, dem Team von AdGuard ist es sehr wichtig, Ihre Meinung zu unserem Produkt zu erfahren. Bitte geben Sie eine Bewertung ab."
     },
     "rate_hide": {
         "message": "Ausblenden"
@@ -171,7 +165,7 @@
         "message": "Selektiver Modus"
     },
     "context_menu_regular_mode": {
-        "message": "Normaler Modus"
+        "message": "Standardmodus"
     },
     "settings_dns_label": {
         "message": "DNS-Server verwenden"
@@ -192,7 +186,7 @@
         "message": "Entfernt Werbeanzeigen und Tracker von Ihrem Gerät"
     },
     "settings_dns_selector_adguard_nonfiltering_title": {
-        "message": "AdGuard DNS  „Nicht filternd”"
+        "message": "AdGuard DNS „Nicht filternd”"
     },
     "settings_dns_selector_adguard_nonfiltering_desc": {
         "message": "Verschlüsseltes DNS ohne Aktivitätsprotokollierung (filtert keine Werbeanzeigen und Tracker)"
@@ -237,16 +231,16 @@
         "message": "VPN-Verbindungsmodus"
     },
     "settings_exclusion_regular_title": {
-        "message": "Normaler Modus"
+        "message": "Standardmodus"
     },
     "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN funktioniert nicht auf den Websites in dieser Liste:"
+        "message": "AdGuard VPN nicht auf den Websites aus dieser Liste ausführen:"
     },
     "settings_exclusion_selective_title": {
         "message": "Selektiver Modus"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN funktioniert nur auf Websites in dieser Liste:"
+        "message": "AdGuard VPN nur auf Websites in dieser Liste ausführen:"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Subdomains"

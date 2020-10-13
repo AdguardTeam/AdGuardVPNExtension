@@ -39,12 +39,10 @@ class globalStore {
                 hasRequiredData,
                 isPremiumToken,
                 connectivityState,
-                presentationInfo,
             } = popupData;
 
             if (!isAuthenticated) {
                 authStore.setIsAuthenticated(isAuthenticated);
-                vpnStore.setPresentationInfo(presentationInfo);
                 await authStore.getAuthCacheFromBackground();
                 this.setInitStatus(REQUEST_STATUSES.DONE);
                 return;
@@ -61,7 +59,6 @@ class globalStore {
             vpnStore.setLocations(locations);
             vpnStore.setSelectedLocation(selectedLocation);
             vpnStore.setIsPremiumToken(isPremiumToken);
-            vpnStore.setPresentationInfo(presentationInfo);
             settingsStore.setConnectivityState(connectivityState);
             settingsStore.setCanControlProxy(canControlProxy);
             settingsStore.setIsRoutable(isRoutable);

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-autofocus */
 import React from 'react';
 import classnames from 'classnames';
 
@@ -12,6 +13,7 @@ const Search = ({ value, handleChange, handleClear }) => {
     return (
         <div className="endpoints__search">
             <input
+                autoFocus
                 className="endpoints__search-in"
                 type="text"
                 placeholder={reactTranslator.translate('endpoints_search')}

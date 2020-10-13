@@ -4,7 +4,7 @@ import browser from 'webextension-polyfill';
 import Api from './Api';
 import { VPN_API_URL } from '../config';
 
-// https://bit.adguard.com/projects/ADGUARD/repos/adguard-vpn-backend-service/browse
+// projects/ADGUARD/repos/adguard-vpn-backend-service/browse
 class VpnApi extends Api {
     GET_LOCATIONS = { path: 'v2/locations/extension', method: 'GET' };
 

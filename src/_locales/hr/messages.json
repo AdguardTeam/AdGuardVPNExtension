@@ -8,12 +8,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "presentation_title": {
-        "message": "%value%%unit% besplatno"
-    },
-    "presentation_desc": {
-        "message": "%locations_count% besplatne lokacije"
-    },
     "registration_error_not_empty": {
         "message": "Ne smije biti prazno"
     },
@@ -46,6 +40,9 @@
     },
     "authentication_error_account_locked": {
         "message": "Račun je zaključan na 15 minuta"
+    },
+    "authentication_error_wrong_credentials": {
+        "message": "Pogrešna lozinka"
     },
     "authentication_error_default": {
         "message": "Došlo je do pogreške, pokušajte kasnije"
@@ -119,6 +116,12 @@
     "auth_register": {
         "message": "Registracija"
     },
+    "auth_header_sign_in_account": {
+        "message": "Prijavljujete se s AdGuard računom"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "Registracijom stvarate svoj AdGuard račun"
+    },
     "auth_header_sign_in": {
         "message": "Prijavljeni ste kao <div>%username%</div>"
     },
@@ -127,6 +130,9 @@
     },
     "auth_header_registration": {
         "message": "Prijavljujete se kao <div>%username%</div>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "Dvofaktorska autentikacija"
     },
     "auth_header_2fa": {
         "message": "Unesite vaš autentikacijski kôd"
@@ -180,7 +186,7 @@
         "message": "Uklanja oglase i pratitelje s vašeg uređaja"
     },
     "settings_dns_selector_adguard_nonfiltering_title": {
-        "message": "AdGuard DNS Ne filtrirajući"
+        "message": "Ne filtrirajući AdGuard DNS"
     },
     "settings_dns_selector_adguard_nonfiltering_desc": {
         "message": "Sigurni DNS bez zapisivanja aktivnosti (ne filtrira oglase i pratitelje)"

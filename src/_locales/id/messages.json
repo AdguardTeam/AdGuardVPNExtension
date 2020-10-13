@@ -8,12 +8,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "presentation_title": {
-        "message": "%value%%unit% gratis"
-    },
-    "presentation_desc": {
-        "message": "%locations_count% lokasi gratis"
-    },
     "registration_error_not_empty": {
         "message": "Tidak boleh kosong"
     },
@@ -46,6 +40,9 @@
     },
     "authentication_error_account_locked": {
         "message": "Akun terkunci selama 15 menit"
+    },
+    "authentication_error_wrong_credentials": {
+        "message": "Maaf, kata sandi salah"
     },
     "authentication_error_default": {
         "message": "Kesalahan terjadi, coba lagi nanti"
@@ -119,6 +116,12 @@
     "auth_register": {
         "message": "Daftar"
     },
+    "auth_header_sign_in_account": {
+        "message": "Anda masuk dengan akaun AdGuard"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "Dengan mendaftar, Anda membuat akun AdGuard Anda"
+    },
     "auth_header_sign_in": {
         "message": "Anda masuk sebagai <div>%username%</div>"
     },
@@ -127,6 +130,9 @@
     },
     "auth_header_registration": {
         "message": "Anda mendaftar sebagai <div>%username%</div>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "Otentikasi dua faktor"
     },
     "auth_header_2fa": {
         "message": "Masukkan kode autentikasi"

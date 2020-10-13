@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
+import ReactHtmlParser from 'react-html-parser';
 import rootStore from '../../../stores';
 import { REQUEST_STATUSES } from '../../../stores/consts';
 
@@ -46,7 +47,7 @@ const TwoFactorForm = observer(() => {
                 />
                 {authStore.error && (
                     <div className="form__error">
-                        {authStore.error}
+                        {ReactHtmlParser(authStore.error)}
                     </div>
                 )}
             </div>

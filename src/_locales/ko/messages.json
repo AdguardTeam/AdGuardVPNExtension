@@ -8,12 +8,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "presentation_title": {
-        "message": "%value%%unit% 무료"
-    },
-    "presentation_desc": {
-        "message": "%locations_count%개 무료 서버"
-    },
     "registration_error_not_empty": {
         "message": "비워 둘 수 없습니다"
     },

@@ -8,12 +8,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "presentation_title": {
-        "message": "%value%%unit% brezpl"
-    },
-    "presentation_desc": {
-        "message": "%locations_count% brezplačnih mest"
-    },
     "registration_error_not_empty": {
         "message": "Ne sme biti prazno"
     },

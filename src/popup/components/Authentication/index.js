@@ -8,8 +8,6 @@ import SignInForm from './SignInForm';
 import RegistrationForm from './RegistrationForm';
 import TwoFactorForm from './TwoFactorForm';
 import CheckEmail from './CheckEmail';
-import MainHeader from './Header/MainHeader';
-import WelcomeHeader from './Header/WelcomeHeader';
 import BackButton from './BackButton';
 
 import './auth.pcss';
@@ -19,10 +17,10 @@ const Authentication = observer(() => {
 
     const getHeader = (step) => {
         const titleMaps = {
-            checkEmail: <MainHeader />,
-            signIn: <WelcomeHeader />,
-            registration: <WelcomeHeader />,
-            twoFactor: <BackButton color="gray" />,
+            checkEmail: null,
+            signIn: <BackButton />,
+            registration: <BackButton />,
+            twoFactor: <BackButton />,
         };
         return titleMaps[step] || titleMaps.checkEmail;
     };

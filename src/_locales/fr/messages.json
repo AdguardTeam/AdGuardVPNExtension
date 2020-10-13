@@ -173,9 +173,6 @@
     "settings_dns_selector_adguard_desc": {
         "message": "Supprime les publicités et les pisteurs de votre appareil"
     },
-    "settings_dns_selector_adguard_nonfiltering_title": {
-        "message": "AdGuard DNS sans filtrage"
-    },
     "settings_dns_selector_adguard_nonfiltering_desc": {
         "message": "DNS sécurisé sans journalisation des activités (ne filtre pas les annonces et les pisteurs)"
     },

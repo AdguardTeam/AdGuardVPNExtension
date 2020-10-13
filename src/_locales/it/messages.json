@@ -8,12 +8,6 @@
     "short_name": {
         "message": "AdGuard VPN"
     },
-    "presentation_title": {
-        "message": "%value%%unit% gratis"
-    },
-    "presentation_desc": {
-        "message": "%locations_count% posizioni gratuite"
-    },
     "registration_error_not_empty": {
         "message": "Non deve essere vuoto"
     },
@@ -171,7 +165,7 @@
         "message": "Modalità selettiva"
     },
     "context_menu_regular_mode": {
-        "message": "Modalità regolare"
+        "message": "Modalità normale"
     },
     "settings_dns_label": {
         "message": "Utilizza server DNS"
@@ -192,7 +186,7 @@
         "message": "Rimuove annunci e tracciatori dal tuo dispositivo"
     },
     "settings_dns_selector_adguard_nonfiltering_title": {
-        "message": "Non Filtraggio DNS di AdGuard"
+        "message": "DNS di AdGuard Senza filtraggio"
     },
     "settings_dns_selector_adguard_nonfiltering_desc": {
         "message": "Salvaguarda i DNS senza registrazione dell'attività (non filtra annunci e tracciatori)"
@@ -237,7 +231,7 @@
         "message": "Modalità di connessione VPN"
     },
     "settings_exclusion_regular_title": {
-        "message": "Modalità regolare"
+        "message": "Modalità normale"
     },
     "settings_exclusion_regular_description": {
         "message": "AdGuard VPN non funziona sui siti web da questo elenco:"
@@ -306,19 +300,19 @@
         "message": "Suggerisci una funzionalità"
     },
     "endpoints_countries": {
-        "message": "Posizioni"
+        "message": "Località"
     },
     "endpoints_fastest": {
-        "message": "Più veloce"
+        "message": "Più veloci"
     },
     "endpoints_all": {
-        "message": "Tutte le posizioni"
+        "message": "Tutte le località"
     },
     "endpoints_search_results": {
         "message": "Risultato della ricerca"
     },
     "endpoints_search": {
-        "message": "Posizione della ricerca"
+        "message": "Cerca località"
     },
     "endpoints_not_found": {
         "message": "Server non trovato"
@@ -381,7 +375,7 @@
         "message": "Server super veloci"
     },
     "upgrade_features_all_locations": {
-        "message": "Tutte le posizioni"
+        "message": "Tutte le località"
     },
     "upgrade_features_no_log": {
         "message": "Nessun registro eventi"

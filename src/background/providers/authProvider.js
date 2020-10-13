@@ -34,9 +34,16 @@ const getAccessToken = async (credentials) => {
     try {
         accessTokenData = await authApi.getAccessToken(credentials);
     } catch (e) {
-        const {
-            error_code: errorCode,
-        } = JSON.parse(e.message);
+        let errorMessage;
+
+        try {
+            errorMessage = JSON.parse(e.message);
+        } catch (e) {
+            // if was unable to parse error message, e.g. network is disabled
+            throw new Error(JSON.stringify({ error: errorsMap.default }));
+        }
+
+        const { error_code: errorCode } = errorMessage;
 
         if (errorCode === '2fa_required') {
             throw new Error(JSON.stringify({ status: errorCode }));
@@ -70,10 +77,18 @@ const register = async (credentials) => {
     try {
         accessTokenData = await authApi.register(credentials);
     } catch (e) {
+        let errorMessage;
+        try {
+            errorMessage = JSON.parse(e.message);
+        } catch (e) {
+            // if was unable to parse error message, e.g. network is disabled
+            throw new Error(JSON.stringify({ error: errorsMap.default }));
+        }
+
         const {
             error_code: errorCode,
             field,
-        } = JSON.parse(e.message);
+        } = errorMessage;
 
         const extensionField = fieldsMap[field] || field;
         const error = errorsMap[errorCode] || errorsMap.default;

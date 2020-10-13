@@ -293,6 +293,9 @@
     "endpoints_fastest": {
         "message": "Γρηγορότεροι"
     },
+    "endpoints_all": {
+        "message": "Όλες οι τοποθεσίες"
+    },
     "endpoints_search_results": {
         "message": "Αποτέλεσμα αναζήτησης"
     },
@@ -349,6 +352,24 @@
     },
     "settings_run_upgrade_early_bird": {
         "message": "Πρώιμες τιμές"
+    },
+    "sale_title": {
+        "message": "Τι μπορείτε να πάρετε:"
+    },
+    "upgrade_features_data": {
+        "message": "Απεριόριστα δεδομένα"
+    },
+    "upgrade_features_speed": {
+        "message": "Γρήγοροι διακομιστές"
+    },
+    "upgrade_features_all_locations": {
+        "message": "Όλες οι τοποθεσίες"
+    },
+    "upgrade_features_no_log": {
+        "message": "Χωρίς καταγραφή"
+    },
+    "continue_us_free_button": {
+        "message": "Συνεχίστε δωρεάν"
     },
     "options_title": {
         "message": "Επιλογές AdGuard VPN"

@@ -181,14 +181,16 @@ const App = observer(() => {
                 : (
                     <>
                         <Settings />
-                        <div className="footer">
-                            {premiumPromoEnabled ? (
-                                <InfoMessage />
-                            ) : (
-                                <FeedbackMessage />
-                            )}
-                            <CurrentEndpoint />
-                        </div>
+                        {!hasLimitExceededError && (
+                            <div className="footer">
+                                {premiumPromoEnabled ? (
+                                    <InfoMessage />
+                                ) : (
+                                    <FeedbackMessage />
+                                )}
+                                <CurrentEndpoint />
+                            </div>
+                        )}
                     </>
                 )}
             <Icons />
