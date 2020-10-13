@@ -66,6 +66,21 @@ const getFormData = (filePath) => {
     return formData;
 };
 
+const log = {
+    info: (str) => {
+        console.log(str);
+    },
+    success: (str) => {
+        console.log(chalk.green.bgBlack(str));
+    },
+    warning: (str) => {
+        console.log(chalk.black.bgYellowBright(str));
+    },
+    error: (str) => {
+        console.log(chalk.bold.yellow.bgRed(str));
+    },
+};
+
 /**
  * Save file by path with passed content
  * @param {string} filePath path to file
@@ -90,11 +105,11 @@ async function downloadAndSave(locales) {
     for (const lang of locales) {
         const downloadUrl = `${API_DOWNLOAD_URL}?${getQueryString(lang)}`;
         try {
-            console.log(`Downloading: ${downloadUrl}`);
+            log.info(`Downloading: ${downloadUrl}`);
             const { data } = await axios.get(downloadUrl, { responseType: 'arraybuffer' });
             const filePath = path.join(LOCALES_DIR, lang, LOCALE_DATA_FILENAME);
             await saveFile(filePath, data);
-            console.log(`Successfully saved in: ${filePath}`);
+            log.info(`Successfully saved in: ${filePath}`);
         } catch (e) {
             let errorMessage;
             if (e.response && e.response.data) {
@@ -128,18 +143,6 @@ async function uploadBaseLocale() {
     return response.data;
 }
 
-const log = {
-    success: (str) => {
-        console.log(chalk.green.bgBlack(str));
-    },
-    warning: (str) => {
-        console.log(chalk.black.bgYellowBright(str));
-    },
-    error: (str) => {
-        console.log(chalk.bold.yellow.bgRed(str));
-    },
-};
-
 /**
  * @typedef Result
  * @property {string} locale
@@ -152,7 +155,7 @@ const log = {
  * @param {Result[]} results
  */
 const printTranslationsResults = (results) => {
-    console.log('Translations readiness:');
+    log.info('Translations readiness:');
     results.forEach((res) => {
         const record = `${res.locale} -- ${res.level}%`;
         if (res.level < THRESHOLD_PERCENTAGE) {
@@ -167,12 +170,12 @@ const printTranslationsResults = (results) => {
 };
 
 /**
- * Compares two array
+ * Compares two arrays
  * @param {Array} arr1
  * @param {Array} arr2
  * @returns {boolean}
  */
-const isEqualArrays = (arr1, arr2) => {
+const areArraysEqual = (arr1, arr2) => {
     if (!arr1 || !arr2) {
         return false;
     }
@@ -187,6 +190,11 @@ const isEqualArrays = (arr1, arr2) => {
     return true;
 };
 
+/**
+ * Gets strings for certain locale
+ * @param {string} locale
+ * @returns {Object}
+ */
 const getLocaleMessages = async (locale) => {
     const filePath = path.join(LOCALES_DIR, locale, LOCALE_DATA_FILENAME);
     const fileContent = await fs.promises.readFile(filePath, 'utf-8');
@@ -198,7 +206,7 @@ const getLocaleMessages = async (locale) => {
  * @returns {Promise<void>}
  */
 const validateMessages = async (locales) => {
-    console.log('Start messages validation');
+    log.info('Start messages validation');
 
     const baseMessages = await getLocaleMessages(BASE_LOCALE);
 
@@ -238,7 +246,7 @@ const validateMessages = async (locales) => {
 
     if (notValid.length > 0) {
         const errorMessage = notValid.map((res) => res.error).join('\n');
-        console.log(errorMessage);
+        log.error(errorMessage);
         throw new Error('Messages are not valid');
     }
 
@@ -247,7 +255,7 @@ const validateMessages = async (locales) => {
 
 /**
  * Checks locales translations readiness
- * @param {Array} locales list of locales to check
+ * @param {string[]} locales - list of locales
  * @param {boolean} [isInfo=false] flag for info script
  * @returns {Result[]} array of object with such properties:
  * locale, level of translation readiness and untranslated strings array
@@ -283,9 +291,9 @@ const checkTranslations = async (locales, isInfo = false) => {
         printTranslationsResults(results);
     } else if (filteredResults.length === 0) {
         let message = `Level of translations is required for locales: ${locales.join(', ')}`;
-        if (isEqualArrays(locales, LOCALES)) {
+        if (areArraysEqual(locales, LOCALES)) {
             message = 'All locales have required level of translations';
-        } else if (isEqualArrays(locales, REQUIRED_LOCALES)) {
+        } else if (areArraysEqual(locales, REQUIRED_LOCALES)) {
             message = 'Our locales have required level of translations';
         }
         log.success(message);
@@ -335,7 +343,7 @@ const getSrcFilesContents = (dirPath, contents = []) => {
 
 /**
  * Checks if there are unused base-locale strings in source files
- * @param {boolean} [isInfo=false]
+ * @param {boolean} [isInfo=false] flag for info script; if 'true', method will NOT through error
  */
 const checkUnusedMessages = async (isInfo = false) => {
     const baseLocaleTranslations = await getLocaleMessages(BASE_LOCALE);
@@ -343,19 +351,16 @@ const checkUnusedMessages = async (isInfo = false) => {
 
     const filesContents = getSrcFilesContents(SRC_DIR);
 
-    const isUsed = (message, file) => {
+    const isPrecentInFile = (message, file) => {
         return file.includes(`'${message}'`) || file.includes(`"${message}"`);
     };
 
-    const unused = [];
-    baseMessages.forEach((message) => {
-        if (PERSISTENT_MESSAGES.includes(message)) {
-            return;
-        }
-        if (!filesContents.some((file) => isUsed(message, file))) {
-            unused.push(message);
-        }
-    });
+    const isMessageUsed = (message) => {
+        return !PERSISTENT_MESSAGES.includes(message)
+            && !filesContents.some((file) => isPrecentInFile(message, file));
+    };
+
+    const unused = baseMessages.filter(isMessageUsed);
 
     if (unused.length === 0) {
         log.success('There are no unused messages');
@@ -377,7 +382,7 @@ const download = async (locales) => {
         await validateMessages(locales);
         await checkTranslations(REQUIRED_LOCALES);
     } catch (e) {
-        console.log(e.message);
+        log.error(e.message);
         process.exit(1);
     }
 };
@@ -389,7 +394,7 @@ const upload = async () => {
         const result = await uploadBaseLocale();
         log.success(`Upload was successful with response: ${JSON.stringify(result)}`);
     } catch (e) {
-        console.log(e.message);
+        log.error(e.message);
         process.exit(1);
     }
 };
@@ -399,7 +404,7 @@ const validate = async (locales) => {
         await validateMessages(locales);
         await checkTranslations(REQUIRED_LOCALES);
     } catch (e) {
-        console.log(e.message);
+        log.error(e.message);
         process.exit(1);
     }
 };
@@ -408,7 +413,7 @@ const summary = async (isInfo) => {
     try {
         await checkTranslations(LOCALES, isInfo);
     } catch (e) {
-        console.log(e.message);
+        log.error(e.message);
         process.exit(1);
     }
 };
@@ -417,7 +422,7 @@ const unused = async (isInfo) => {
     try {
         await checkUnusedMessages(isInfo);
     } catch (e) {
-        console.log(e.message);
+        log.error(e.message);
         process.exit(1);
     }
 };
