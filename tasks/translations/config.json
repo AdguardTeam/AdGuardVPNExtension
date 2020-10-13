@@ -16,6 +16,7 @@
     "required_locales": [
         "ru",
         "de",
+        "fr",
         "ja",
         "ko",
         "zh_CN"

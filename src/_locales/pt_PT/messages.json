@@ -29,6 +29,9 @@
     "registration_error_default": {
         "message": "Ocorreu um erro, tente novamente mais tarde"
     },
+    "authentication_error_2fa_required": {
+        "message": "2FA é necessário"
+    },
     "authentication_error_2fa_invalid": {
         "message": "Token inválido"
     },
@@ -44,6 +47,9 @@
     "authentication_error_default": {
         "message": "Ocorreu um erro, tente novamente mais tarde"
     },
+    "global_error_message": {
+        "message": "Ocorreu um erro, entre em contato conosco via <a>support@adguard-vpn.com</a>"
+    },
     "about_title": {
         "message": "Acerca de"
     },
@@ -55,6 +61,9 @@
     },
     "account_sign_out": {
         "message": "Encerrar sessão"
+    },
+    "rate_description": {
+        "message": "Ei, somos a equipe da AdGuard e é muito importante para nós saber sua opinião sobre nosso produto. Por favor, avalie."
     },
     "rate_hide": {
         "message": "Esconder"
@@ -362,8 +371,14 @@
     "upgrade_features_data": {
         "message": "Dados ilimitados"
     },
+    "upgrade_features_speed": {
+        "message": "Servidores rápidos"
+    },
     "upgrade_features_all_locations": {
         "message": "Todos os locais"
+    },
+    "upgrade_features_no_log": {
+        "message": "Nenhuma política de registo"
     },
     "continue_us_free_button": {
         "message": "Continue como grátis"

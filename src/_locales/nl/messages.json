@@ -165,7 +165,7 @@
         "message": "Selectieve modus"
     },
     "context_menu_regular_mode": {
-        "message": "Normale modus"
+        "message": "Standaard modus"
     },
     "settings_dns_label": {
         "message": "DNS-server gebruiken"
@@ -234,7 +234,7 @@
         "message": "Standaard modus"
     },
     "settings_exclusion_regular_description": {
-        "message": "AdGuard werkt niet op de sites uit deze lijst:"
+        "message": "AdGuard VPN werkt niet op de sites uit deze lijst:"
     },
     "settings_exclusion_selective_title": {
         "message": "Selectieve modus"

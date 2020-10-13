@@ -41,6 +41,9 @@
     "authentication_error_account_locked": {
         "message": "A fiók zárolva van 15 percre"
     },
+    "authentication_error_wrong_credentials": {
+        "message": "Sajnáljuk, hibás jelszó"
+    },
     "authentication_error_default": {
         "message": "Valamilyen hiba történt, próbálja újból később"
     },
@@ -112,6 +115,12 @@
     },
     "auth_register": {
         "message": "Regisztráció"
+    },
+    "auth_header_sign_in_account": {
+        "message": "Bejelentkezés AdGuard fiókkal"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "A bejelentkezéssel létrehoz egy AdGuard fiókot"
     },
     "auth_header_sign_in": {
         "message": "<div>%username%</div> néven regisztrál "
