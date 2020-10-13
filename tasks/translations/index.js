@@ -351,13 +351,13 @@ const checkUnusedMessages = async (isInfo = false) => {
 
     const filesContents = getSrcFilesContents(SRC_DIR);
 
-    const isPrecentInFile = (message, file) => {
+    const isPresentInFile = (message, file) => {
         return file.includes(`'${message}'`) || file.includes(`"${message}"`);
     };
 
     const isMessageUsed = (message) => {
         return !PERSISTENT_MESSAGES.includes(message)
-            && !filesContents.some((file) => isPrecentInFile(message, file));
+            && !filesContents.some((file) => isPresentInFile(message, file));
     };
 
     const unused = baseMessages.filter(isMessageUsed);
