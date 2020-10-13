@@ -16,10 +16,9 @@ yarn locales:[download | upload | validate | info]
   - **-l**, **--locales** — for specific list of space-separated locales
     - **<list_of_locales>...** — locales to validate
 
-- `info` — shows locales info (defaults to `-N -s`):
+- `info` — shows info about unused base-lang strings and all locales translations readiness; in other words, defaults to `-N -s` which can be used separately:
   - **-N**, **--unused** — for unused base-lang strings
   - **-s**, **--summary** — for all locales translations readiness
-
 
 ### Examples
 ```
