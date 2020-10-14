@@ -1,0 +1,60 @@
+const fs = require('fs');
+const path = require('path');
+const axios = require('axios');
+const FormData = require('form-data');
+
+const {
+    TWOSKY_CONFIG_PATH,
+    API_URL,
+    LOCALES_RELATIVE_PATH,
+    FORMAT,
+    LOCALE_DATA_FILENAME,
+} = require('./locales-constants');
+
+const twoskyPath = path.join(__dirname, TWOSKY_CONFIG_PATH);
+const twoskyContent = fs.readFileSync(twoskyPath, { encoding: 'utf8' });
+const twoskyConfig = JSON.parse(twoskyContent)[0];
+const {
+    base_locale: BASE_LOCALE,
+    project_id: PROJECT_ID,
+} = twoskyConfig;
+
+const API_UPLOAD_URL = `${API_URL}/upload`;
+const LOCALES_DIR = path.resolve(__dirname, LOCALES_RELATIVE_PATH);
+
+/**
+ * Build form data for uploading translation
+ * @param {string} filePath
+ */
+const getFormData = (filePath) => {
+    const formData = new FormData();
+
+    formData.append('format', FORMAT);
+    formData.append('language', BASE_LOCALE);
+    formData.append('project', PROJECT_ID);
+    formData.append('filename', LOCALE_DATA_FILENAME);
+    formData.append('file', fs.createReadStream(filePath));
+
+    return formData;
+};
+
+/**
+ * Entry point for uploading translations
+ */
+// async function uploadBaseLocale() {
+export const uploadBaseLocale = async () => {
+    const filePath = path.join(LOCALES_DIR, BASE_LOCALE, LOCALE_DATA_FILENAME);
+    const formData = getFormData(filePath);
+    let response;
+
+    try {
+        response = await axios.post(API_UPLOAD_URL, formData, {
+            contentType: 'multipart/form-data',
+            headers: formData.getHeaders(),
+        });
+    } catch (e) {
+        throw new Error(`Error: ${e.message}, while uploading: ${API_UPLOAD_URL}`);
+    }
+
+    return response.data;
+};
