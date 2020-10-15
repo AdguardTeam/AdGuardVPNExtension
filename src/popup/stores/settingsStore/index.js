@@ -6,7 +6,7 @@ import {
 } from 'mobx';
 
 import tabs from '../../../background/tabs';
-import log from '../../../lib/logger';
+import { log } from '../../../lib/logger';
 import { getHostname, getProtocol } from '../../../lib/helpers';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
 import { ERROR_STATUSES, SETTINGS_IDS, PROMO_SCREEN_STATES } from '../../../lib/constants';

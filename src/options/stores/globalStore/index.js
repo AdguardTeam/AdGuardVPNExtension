@@ -5,7 +5,7 @@ import {
 } from 'mobx';
 
 import { REQUEST_STATUSES } from '../consts';
-import log from '../../../lib/logger';
+import { log } from '../../../lib/logger';
 
 class globalStore {
     @observable initStatus = REQUEST_STATUSES.PENDING;

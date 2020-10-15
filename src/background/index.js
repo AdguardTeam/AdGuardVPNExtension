@@ -7,7 +7,7 @@ import contextMenu from './contextMenu';
 import credentials from './credentials';
 import endpoints from './endpoints';
 import exclusions from './exclusions';
-import log from '../lib/logger';
+import { log } from '../lib/logger';
 import management from './management';
 import messaging from './messageHandler';
 import nonRoutable from './routability/nonRoutable';
@@ -22,6 +22,7 @@ import { vpnApi } from './api';
 import browserActionIcon from './browserActionIcon';
 import './networkConnectionObserver';
 import { openThankYouPage } from './postinstall';
+import { endpointsTldExclusions } from './proxy/endpointsTldExclusions';
 
 global.adguard = {
     settings,
@@ -53,6 +54,7 @@ global.adguard = {
         await settings.init();
         await credentials.init(runInfo);
         await exclusions.init();
+        await endpointsTldExclusions.init();
         settings.applySettings(); // we have to apply settings when credentials are ready
         endpoints.init(); // update endpoints list on extension or browser restart
         await nonRoutable.init();

@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import qs from 'qs';
-import log from '../../lib/logger';
+import { getDomain } from 'tldts';
+
+import { log } from '../../lib/logger';
 import { getClosestLocationToTarget } from '../../lib/helpers';
 import { ERROR_STATUSES } from '../../lib/constants';
 import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
@@ -17,6 +19,7 @@ import { LocationWithPing } from './LocationWithPing';
 // eslint-disable-next-line import/no-cycle
 import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
 import { EVENT } from '../connectivity/connectivityService/connectivityConstants';
+import { endpointsTldExclusions } from '../proxy/endpointsTldExclusions';
 
 /**
  * Endpoint properties
@@ -167,8 +170,20 @@ class Endpoints {
         return filteredLocations;
     }
 
+    updateEndpointsExclusions = (locations) => {
+        const endpoints = _.flattenDeep(locations.map((location) => {
+            return location.endpoints;
+        }));
+
+        const domainNames = endpoints.map((endpoint) => endpoint.domainName);
+        const topLevelDomains = domainNames.map((domainName) => getDomain(domainName));
+        const uniqTopLevelDomains = _.uniq(topLevelDomains);
+
+        endpointsTldExclusions.addEndpointsTldExclusions(uniqTopLevelDomains);
+    }
+
     /**
-     * Updates endpoints list
+     * Updates locations list
      * @param shouldReconnect
      * @returns {Promise<void>}
      */
@@ -178,6 +193,9 @@ class Endpoints {
         if (!locations || _.isEmpty(locations)) {
             return;
         }
+
+        // check endpoints top level domains and add them to the exclusions if necessary
+        this.updateEndpointsExclusions(locations);
 
         const currentLocation = await locationsService.getSelectedLocation();
         const isPremiumToken = await credentials.isPremiumToken();

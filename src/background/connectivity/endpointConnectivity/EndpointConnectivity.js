@@ -6,7 +6,7 @@ import statsStorage from '../statsStorage';
 import notifier from '../../../lib/notifier';
 import proxy from '../../proxy';
 import credentials from '../../credentials';
-import log from '../../../lib/logger';
+import { log } from '../../../lib/logger';
 import dns from '../../dns/dns';
 import { sendPingMessage } from '../pingHelpers';
 import webrtc from '../../browserApi/webrtc';

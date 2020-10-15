@@ -1,4 +1,5 @@
 // TODO for release change level to less verbose
+
 const CURRENT_LEVEL = 'DEBUG';
 
 const LEVELS = {
@@ -47,4 +48,4 @@ const log = {
     },
 };
 
-export default log;
+export { log };

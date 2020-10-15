@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import log from '../../lib/logger';
+import { log } from '../../lib/logger';
 import { measurePingToEndpointViaFetch } from '../connectivity/pingHelpers';
 import notifier from '../../lib/notifier';
 import { LocationWithPing } from './LocationWithPing';

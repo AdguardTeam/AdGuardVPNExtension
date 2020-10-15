@@ -1,5 +1,5 @@
 import vpnProvider from '../providers/vpnProvider';
-import log from '../../lib/logger';
+import { log } from '../../lib/logger';
 
 /**
  * Class that determines user location and keeps it in the memory

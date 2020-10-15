@@ -1,6 +1,6 @@
 import throttle from 'lodash/throttle';
 import isEmpty from 'lodash/isEmpty';
-import log from '../../lib/logger';
+import { log } from '../../lib/logger';
 import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
 
 class PopupData {

@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 import { getHostname } from '../../lib/helpers';
 import { areHostnamesEqual, shExpMatch } from '../../lib/string-utils';
-import log from '../../lib/logger';
+import { log } from '../../lib/logger';
 
 export default class ExclusionsHandler {
     constructor(updateHandler, exclusions, mode) {

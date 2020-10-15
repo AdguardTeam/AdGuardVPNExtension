@@ -4,11 +4,10 @@
 // from './firefox/proxyApi' or ./chrome/proxyApi
 import proxyApi from './abstractProxyApi';
 
-import log from '../../lib/logger';
-import { MESSAGES_TYPES } from '../../lib/constants';
+import { log } from '../../lib/logger';
 import browserApi from '../browserApi';
-import { DEFAULT_EXCLUSIONS, LEVELS_OF_CONTROL } from './proxyConsts';
 import notifier from '../../lib/notifier';
+import { DEFAULT_EXCLUSIONS, LEVELS_OF_CONTROL } from './proxyConsts';
 
 const CURRENT_ENDPOINT_KEY = 'proxyCurrentEndpoint';
 
@@ -27,6 +26,7 @@ class ExtensionProxy {
         this.isActive = false;
         this.currentConfig = this.getConfig();
         this.bypassList = [];
+        this.endpointsTldExclusions = [];
         this.currentEndpoint = '';
         this.currentHost = '';
 
@@ -95,7 +95,10 @@ class ExtensionProxy {
     getConfig() {
         return {
             bypassList: this.getBypassList(),
-            defaultExclusions: DEFAULT_EXCLUSIONS,
+            defaultExclusions: [
+                ...DEFAULT_EXCLUSIONS,
+                ...this.getEndpointsTldExclusions()
+            ],
             host: this.currentHost,
             port: 443,
             scheme: 'https',
@@ -113,6 +116,18 @@ class ExtensionProxy {
         if (this.isActive) {
             await proxyApi.proxySet(this.currentConfig);
         }
+    }
+
+    getEndpointsTldExclusions = () => {
+        if (this.endpointsTldExclusions) {
+            return [...this.endpointsTldExclusions];
+        }
+        return [];
+    }
+
+    setEndpointsTldExclusions = async (endpointsTldExclusions = []) => {
+        this.endpointsTldExclusions = endpointsTldExclusions;
+        await this.applyConfig();
     }
 
     getBypassList() {

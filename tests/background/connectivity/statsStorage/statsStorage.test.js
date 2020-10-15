@@ -1,5 +1,7 @@
 import StatsStorage from '../../../../src/background/connectivity/statsStorage/StatsStorage';
 
+jest.mock('../../../../src/lib/logger');
+
 const storageApi = (() => {
     const storage = {};
     return {

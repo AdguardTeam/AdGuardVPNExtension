@@ -1,6 +1,8 @@
 import Exclusions from '../../src/background/exclusions/Exclusions';
 import { sleep } from '../../src/lib/helpers';
 
+jest.mock('../../src/lib/logger');
+
 const proxy = {
     setBypassList: jest.fn(() => {
     }),

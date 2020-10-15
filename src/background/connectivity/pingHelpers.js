@@ -1,6 +1,6 @@
 import { WsConnectivityMsg, WsPingMsg } from './protobufCompiled';
 import { stringToUint8Array } from '../../lib/string-utils';
-import log from '../../lib/logger';
+import { log } from '../../lib/logger';
 
 /**
  * Prepares ping message before sending to the endpoint via websocket
