@@ -1,5 +1,4 @@
 import endpoints from '../../../src/background/endpoints';
-import { sleep } from '../../../src/lib/helpers';
 import settings from '../../../src/background/settings/settings';
 import notifier from '../../../src/lib/notifier';
 import notifications from '../../../src/background/notifications';
@@ -36,7 +35,7 @@ describe('Endpoints', () => {
         expect(endpointsList.length).toBe(0);
     });
 
-    it('getVpnInfo return null on init and correct value after', async () => {
+    it('getVpnInfo return correct value on init', async () => {
         const expectedVpnInfo = {
             bandwidthFreeMbits: 1,
             premiumPromoEnabled: false,
@@ -101,11 +100,7 @@ describe('Endpoints', () => {
         jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue('token');
         jest.spyOn(credentials, 'gainValidVpnCredentials').mockResolvedValue('vpn_credentials');
 
-        let vpnInfo = endpoints.getVpnInfo();
-        expect(vpnInfo).toBeNull();
-        await sleep(10);
-
-        vpnInfo = endpoints.getVpnInfo();
+        const vpnInfo = await endpoints.getVpnInfo();
 
         expect(vpnInfo).toEqual(expectedVpnInfo);
 
@@ -117,7 +112,7 @@ describe('Endpoints', () => {
     it('get vpn info remotely stops execution if unable to get valid token', async () => {
         jest.spyOn(credentials, 'gainValidVpnToken').mockRejectedValue(new Error('invalid token'));
         await endpoints.getVpnInfoRemotely();
-        expect(credentials.gainValidVpnToken).toBeCalledTimes(2);
+        expect(credentials.gainValidVpnToken).toBeCalledTimes(1);
         expect(vpnProvider.getVpnExtensionInfo).toBeCalledTimes(0);
     });
 
@@ -257,7 +252,16 @@ describe('Endpoints', () => {
                 ],
             };
 
-            const locations = rawLocations.map((rawLocation) => new Location(rawLocation));
+            const locations = rawLocations.map((rawLocation) => {
+                const location = new Location(rawLocation);
+                if (location.cityName === 'New York') {
+                    location.ping = 50;
+                } else {
+                    location.ping = 100;
+                }
+                return location;
+            });
+
             const closestLocation = endpoints.getClosestLocation(
                 locations,
                 new Location(targetRawLocation)
@@ -282,6 +286,8 @@ describe('Endpoints', () => {
                     },
                 ],
             });
+
+            expectedLocation.ping = 50;
 
             expect(new LocationWithPing(closestLocation))
                 .toEqual(new LocationWithPing(expectedLocation));

@@ -1,6 +1,3 @@
-import sortBy from 'lodash/sortBy';
-import getDistance from 'geolib/es/getDistance';
-
 /**
  * Returns the value of the property from the cache,
  * otherwise, calculates it using the callback, memoizes it, and returns the value
@@ -61,44 +58,20 @@ export const getProtocol = (url) => {
 };
 
 /**
- * Sorts locations by distance to the target location
- * If no current endpoint provided, returns locations unsorted
- * @param {Locations[]} locations
- * @param {Location} targetLocation
- * @returns {Location[]}
+ * Selects location with lowest ping taking in consideration pingBonus
+ * pingBonus is an number which comes from backend and it is used to
+ * adjust default location selection
+ * @param locations
+ * @returns {*}
  */
-export const sortByDistance = (locations, targetLocation) => {
-    if (!targetLocation) {
-        return locations;
-    }
-
-    const { coordinates } = targetLocation;
-
-    const distances = locations.map((location) => {
-        const [lon1, lat1] = coordinates;
-        const [lon2, lat2] = location.coordinates;
-
-        const currentCoordinates = { longitude: lon1, latitude: lat1 };
-        const locationCoordinates = { longitude: lon2, latitude: lat2 };
-
-        return {
-            location,
-            distance: getDistance(currentCoordinates, locationCoordinates),
-        };
+export const getLocationWithLowestPing = (locations) => {
+    const locationsWithPings = locations.filter((location) => location.ping > 0);
+    const sortedByPing = locationsWithPings.sort((locationA, locationB) => {
+        const adjustedPingA = locationA.ping - locationA.pingBonus;
+        const adjustedPingB = locationB.ping - locationB.pingBonus;
+        return adjustedPingA - adjustedPingB;
     });
-
-    const sortedDistances = sortBy(distances, 'distance');
-    return sortedDistances.map((sorted) => sorted.location);
-};
-
-/**
- * Returns closest endpoint
- * @param {Locations[]} locations
- * @param {Location} targetLocation
- * @returns {Location}
- */
-export const getClosestLocationToTarget = (locations, targetLocation) => {
-    return sortByDistance(locations, targetLocation)[0];
+    return sortedByPing[0];
 };
 
 /**

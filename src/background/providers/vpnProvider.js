@@ -40,6 +40,7 @@ const getLocationsData = async (vpnToken) => {
             longitude,
             id,
             endpoints,
+            ping_bonus: pingBonus,
         } = location;
 
         return {
@@ -49,6 +50,7 @@ const getLocationsData = async (vpnToken) => {
             countryName,
             premiumOnly,
             coordinates: [longitude, latitude],
+            pingBonus,
             endpoints: endpoints.map(prepareEndpointData),
         };
     };

@@ -20,10 +20,6 @@ class PopupData {
 
     getPopupData = async (url) => {
         const isAuthenticated = await adguard.auth.isAuthenticated();
-        const throttledPermissionsChecker = throttle(
-            this.permissionsChecker.checkPermissions,
-            2000
-        );
 
         if (!isAuthenticated) {
             return {
@@ -31,9 +27,14 @@ class PopupData {
             };
         }
 
+        const throttledPermissionsChecker = throttle(
+            this.permissionsChecker.checkPermissions,
+            2000
+        );
+
         const error = this.permissionsError.getError();
         const isRoutable = this.nonRoutable.isUrlRoutable(url);
-        const vpnInfo = this.endpoints.getVpnInfo();
+        const vpnInfo = await this.endpoints.getVpnInfo();
         const locations = this.endpoints.getLocations();
         const selectedLocation = await this.endpoints.getSelectedLocation();
         const canControlProxy = await adguard.appStatus.canControlProxy();

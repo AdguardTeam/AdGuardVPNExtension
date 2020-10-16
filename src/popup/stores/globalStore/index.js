@@ -52,6 +52,8 @@ class globalStore {
                 settingsStore.setGlobalError(permissionsError);
             } else if (!hasRequiredData) {
                 settingsStore.setGlobalError(new Error('No required data'));
+            } else {
+                settingsStore.setGlobalError(null);
             }
 
             authStore.setIsAuthenticated(isAuthenticated);

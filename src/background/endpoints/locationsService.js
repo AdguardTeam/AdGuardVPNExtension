@@ -206,12 +206,35 @@ const measurePing = async (location) => {
 };
 
 /**
+ * Flag used to control when it is possible to start pings measurement again
+ * @type {boolean}
+ */
+let isMeasuring = false;
+
+/**
  * Measure pings for all locations
  */
 const measurePings = () => {
-    locations.forEach(async (location) => {
-        await measurePing(location);
-    });
+    if (isMeasuring) {
+        return;
+    }
+
+    isMeasuring = true;
+
+    (async () => {
+        await Promise.all(locations.map((location) => {
+            return measurePing(location);
+        }));
+        isMeasuring = false;
+    })();
+};
+
+/**
+ * Returns last measuring start time
+ * @returns {boolean}
+ */
+export const isMeasuringPingInProgress = () => {
+    return isMeasuring;
 };
 
 const setLocations = (newLocations) => {

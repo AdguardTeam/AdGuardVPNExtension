@@ -104,10 +104,9 @@ const App = observer(() => {
         };
     }, []);
 
-    const { status } = globalStore;
-
-    // show nothing while data is loading
-    if (status === REQUEST_STATUSES.PENDING) {
+    // show nothing while data is loading, except cases after authentication
+    if (authStore.requestProcessState !== REQUEST_STATUSES.PENDING
+        && globalStore.status === REQUEST_STATUSES.PENDING) {
         return null;
     }
 
