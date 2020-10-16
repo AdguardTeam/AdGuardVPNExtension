@@ -4,18 +4,13 @@ const path = require('path');
 const { log, getLocaleMessages } = require('./helpers');
 
 const {
-    TWOSKY_CONFIG_PATH,
+    BASE_LOCALE,
     SRC_RELATIVE_PATH,
     SRC_FILENAME_EXTENSIONS,
     PERSISTENT_MESSAGES,
     LOCALES_RELATIVE_PATH,
     LOCALE_DATA_FILENAME,
 } = require('./locales-constants');
-
-const twoskyPath = path.join(__dirname, TWOSKY_CONFIG_PATH);
-const twoskyContent = fs.readFileSync(twoskyPath, { encoding: 'utf8' });
-const twoskyConfig = JSON.parse(twoskyContent)[0];
-const { base_locale: BASE_LOCALE } = twoskyConfig;
 
 const LOCALES_DIR = path.resolve(__dirname, LOCALES_RELATIVE_PATH);
 const SRC_DIR = path.resolve(__dirname, SRC_RELATIVE_PATH);

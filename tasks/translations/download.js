@@ -7,17 +7,12 @@ const querystring = require('querystring');
 const { log } = require('./helpers');
 
 const {
-    TWOSKY_CONFIG_PATH,
+    PROJECT_ID,
     API_URL,
     LOCALES_RELATIVE_PATH,
     FORMAT,
     LOCALE_DATA_FILENAME,
 } = require('./locales-constants');
-
-const twoskyPath = path.join(__dirname, TWOSKY_CONFIG_PATH);
-const twoskyContent = fs.readFileSync(twoskyPath, { encoding: 'utf8' });
-const twoskyConfig = JSON.parse(twoskyContent)[0];
-const { project_id: PROJECT_ID } = twoskyConfig;
 
 const API_DOWNLOAD_URL = `${API_URL}/download`;
 const LOCALES_DIR = path.resolve(__dirname, LOCALES_RELATIVE_PATH);

@@ -4,20 +4,13 @@ const axios = require('axios');
 const FormData = require('form-data');
 
 const {
-    TWOSKY_CONFIG_PATH,
+    BASE_LOCALE,
+    PROJECT_ID,
     API_URL,
     LOCALES_RELATIVE_PATH,
     FORMAT,
     LOCALE_DATA_FILENAME,
 } = require('./locales-constants');
-
-const twoskyPath = path.join(__dirname, TWOSKY_CONFIG_PATH);
-const twoskyContent = fs.readFileSync(twoskyPath, { encoding: 'utf8' });
-const twoskyConfig = JSON.parse(twoskyContent)[0];
-const {
-    base_locale: BASE_LOCALE,
-    project_id: PROJECT_ID,
-} = twoskyConfig;
 
 const API_UPLOAD_URL = `${API_URL}/upload`;
 const LOCALES_DIR = path.resolve(__dirname, LOCALES_RELATIVE_PATH);

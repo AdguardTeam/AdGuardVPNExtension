@@ -1,8 +1,6 @@
 /* eslint-disable no-await-in-loop */
 require('@babel/register');
 
-const fs = require('fs');
-const path = require('path');
 const { program } = require('commander');
 
 const { downloadAndSave } = require('./download');
@@ -13,14 +11,10 @@ const { checkUnusedMessages } = require('./unused');
 const { log } = require('./helpers');
 
 const {
-    TWOSKY_CONFIG_PATH,
+    LANGUAGES,
     REQUIRED_LOCALES,
 } = require('./locales-constants');
 
-const twoskyPath = path.join(__dirname, TWOSKY_CONFIG_PATH);
-const twoskyContent = fs.readFileSync(twoskyPath, { encoding: 'utf8' });
-const twoskyConfig = JSON.parse(twoskyContent)[0];
-const { languages: LANGUAGES } = twoskyConfig;
 const LOCALES = Object.keys(LANGUAGES); // locales to be downloaded
 
 const download = async (locales) => {

@@ -1,4 +1,3 @@
-const fs = require('fs');
 const path = require('path');
 
 const { isTargetStrValid } = require('../../src/lib/translator/validator');
@@ -6,20 +5,13 @@ const { isTargetStrValid } = require('../../src/lib/translator/validator');
 const { log, getLocaleMessages, areArraysEqual } = require('./helpers');
 
 const {
-    TWOSKY_CONFIG_PATH,
+    BASE_LOCALE,
+    LANGUAGES,
     LOCALES_RELATIVE_PATH,
     LOCALE_DATA_FILENAME,
     REQUIRED_LOCALES,
     THRESHOLD_PERCENTAGE,
 } = require('./locales-constants');
-
-const twoskyPath = path.join(__dirname, TWOSKY_CONFIG_PATH);
-const twoskyContent = fs.readFileSync(twoskyPath, { encoding: 'utf8' });
-const twoskyConfig = JSON.parse(twoskyContent)[0];
-const {
-    base_locale: BASE_LOCALE,
-    languages: LANGUAGES,
-} = twoskyConfig;
 
 const LOCALES = Object.keys(LANGUAGES); // locales to be downloaded
 const LOCALES_DIR = path.resolve(__dirname, LOCALES_RELATIVE_PATH);
