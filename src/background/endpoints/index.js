@@ -1,7 +1,9 @@
 import _ from 'lodash';
 import qs from 'qs';
-import log from '../../lib/logger';
-import { getClosestLocationToTarget } from '../../lib/helpers';
+import { getDomain } from 'tldts';
+
+import { log } from '../../lib/logger';
+import { getLocationWithLowestPing, sleep } from '../../lib/helpers';
 import { ERROR_STATUSES } from '../../lib/constants';
 import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
 import notifier from '../../lib/notifier';
@@ -11,12 +13,12 @@ import connectivity from '../connectivity';
 import credentials from '../credentials';
 import proxy from '../proxy';
 import vpnProvider from '../providers/vpnProvider';
-import userLocation from './userLocation';
-import { locationsService } from './locationsService';
+import { locationsService, isMeasuringPingInProgress } from './locationsService';
 import { LocationWithPing } from './LocationWithPing';
 // eslint-disable-next-line import/no-cycle
 import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
 import { EVENT } from '../connectivity/connectivityService/connectivityConstants';
+import { endpointsTldExclusions } from '../proxy/endpointsTldExclusions';
 
 /**
  * Endpoint properties
@@ -83,7 +85,7 @@ class Endpoints {
             return sameCityEndpoint;
         }
 
-        return getClosestLocationToTarget(locations, targetLocation);
+        return getLocationWithLowestPing(locations);
     };
 
     /**
@@ -167,8 +169,20 @@ class Endpoints {
         return filteredLocations;
     }
 
+    updateEndpointsExclusions = (locations) => {
+        const endpoints = _.flattenDeep(locations.map((location) => {
+            return location.endpoints;
+        }));
+
+        const domainNames = endpoints.map((endpoint) => endpoint.domainName);
+        const topLevelDomains = domainNames.map((domainName) => getDomain(domainName));
+        const uniqTopLevelDomains = _.uniq(topLevelDomains);
+
+        endpointsTldExclusions.addEndpointsTldExclusions(uniqTopLevelDomains);
+    }
+
     /**
-     * Updates endpoints list
+     * Updates locations list
      * @param shouldReconnect
      * @returns {Promise<void>}
      */
@@ -178,6 +192,9 @@ class Endpoints {
         if (!locations || _.isEmpty(locations)) {
             return;
         }
+
+        // check endpoints top level domains and add them to the exclusions if necessary
+        this.updateEndpointsExclusions(locations);
 
         const currentLocation = await locationsService.getSelectedLocation();
         const isPremiumToken = await credentials.isPremiumToken();
@@ -232,7 +249,7 @@ class Endpoints {
             vpnToken = await credentials.gainValidVpnToken();
         } catch (e) {
             log.debug('Unable to get endpoints info because: ', e.message);
-            return;
+            return null;
         }
 
         let vpnInfo = await vpnProvider.getVpnExtensionInfo(vpnToken.token);
@@ -245,7 +262,7 @@ class Endpoints {
                 ({ vpnToken: updatedVpnToken } = await this.refreshTokens());
             } catch (e) {
                 log.debug('Unable to refresh tokens');
-                return;
+                return null;
             }
 
             if (this.vpnTokenChanged(vpnToken, updatedVpnToken)) {
@@ -262,20 +279,38 @@ class Endpoints {
 
         // update vpn info on popup
         notifier.notifyListeners(notifier.types.VPN_INFO_UPDATED, this.vpnInfo);
+
+        return this.vpnInfo;
     };
 
     /**
      * Returns vpn info cached value and launches remote vpn info getting
      * @returns vpnInfo or null
      */
-    getVpnInfo = () => {
-        this.getVpnInfoRemotely();
-
+    getVpnInfo = async () => {
         if (this.vpnInfo) {
+            // no await here in order to return cached vpnInfo
+            // and launch function with promise execution
+            this.getVpnInfoRemotely().catch((e) => {
+                log.debug(e);
+            });
             return this.vpnInfo;
         }
 
-        return null;
+        let vpnInfo;
+        try {
+            vpnInfo = await this.getVpnInfoRemotely();
+        } catch (e) {
+            log.error(e);
+        }
+
+        if (!vpnInfo) {
+            return null;
+        }
+
+        this.vpnInfo = vpnInfo;
+
+        return this.vpnInfo;
     };
 
     getLocations = () => {
@@ -291,10 +326,9 @@ class Endpoints {
             return new LocationWithPing(selectedLocation);
         }
 
-        const userCurrentLocation = await userLocation.getCurrentLocation();
         const locations = locationsService.getLocations();
 
-        if (!userCurrentLocation || _.isEmpty(locations)) {
+        if (_.isEmpty(locations)) {
             return null;
         }
 
@@ -307,13 +341,25 @@ class Endpoints {
             });
         }
 
-        const closestLocation = getClosestLocationToTarget(
-            filteredLocations,
-            userCurrentLocation
-        );
+        const pingsCalculated = filteredLocations.every((location) => {
+            return (location.available && location.ping > 0) || !location.available;
+        });
 
-        await locationsService.setSelectedLocation(closestLocation.id);
-        return new LocationWithPing(closestLocation);
+        const PINGS_WAIT_TIMEOUT_MS = 1000;
+
+        // not ready yet to determine default location
+        if (!pingsCalculated && isMeasuringPingInProgress()) {
+            await sleep(PINGS_WAIT_TIMEOUT_MS);
+        }
+
+        const fastestLocation = getLocationWithLowestPing(filteredLocations);
+
+        if (!fastestLocation) {
+            return null;
+        }
+
+        await locationsService.setSelectedLocation(fastestLocation.id);
+        return new LocationWithPing(fastestLocation);
     };
 
     getVpnFailurePage = async () => {

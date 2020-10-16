@@ -1,4 +1,4 @@
-import log from '../../lib/logger';
+import { log } from '../../lib/logger';
 
 class Management {
     PROXY_PERMISSION = 'proxy';

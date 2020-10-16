@@ -5,7 +5,7 @@ import {
     toJS,
 } from 'mobx';
 
-import log from '../../../lib/logger';
+import { log } from '../../../lib/logger';
 import { SETTINGS_IDS } from '../../../lib/constants';
 import { DNS_DEFAULT } from '../../../background/dns/dnsConstants';
 import messenger from '../../../lib/messenger';

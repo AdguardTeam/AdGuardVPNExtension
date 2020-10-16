@@ -1,5 +1,7 @@
 import ExclusionsHandler from '../../src/background/exclusions/ExclusionsHandler';
 
+jest.mock('../../src/lib/logger');
+
 const updateHandler = () => {
 
 };

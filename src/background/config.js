@@ -1,5 +1,5 @@
 /* global __APP_CONFIG__ */
-import log from '../lib/logger';
+import { log } from '../lib/logger';
 
 const CONFIG = __APP_CONFIG__;
 log.debug(`Current browser: "${CONFIG.BROWSER}"`);

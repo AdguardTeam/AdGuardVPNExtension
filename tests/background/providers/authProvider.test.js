@@ -3,6 +3,7 @@ import translator from '../../../src/lib/translator/translator';
 import authProvider from '../../../src/background/providers/authProvider';
 
 jest.mock('axios');
+jest.mock('../../../src/lib/logger');
 
 describe('authProvider', () => {
     beforeAll(() => {

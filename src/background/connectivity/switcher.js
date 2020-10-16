@@ -2,7 +2,7 @@ import proxy from '../proxy';
 import credentials from '../credentials';
 import { locationsService } from '../endpoints/locationsService';
 import { EVENT, MIN_CONNECTION_DURATION_MS } from './connectivityService/connectivityConstants';
-import log from '../../lib/logger';
+import { log } from '../../lib/logger';
 import { runWithCancel, sleepIfNecessary } from '../../lib/helpers';
 import { FORCE_CANCELLED } from '../../lib/constants';
 

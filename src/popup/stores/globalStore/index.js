@@ -5,7 +5,7 @@ import {
 } from 'mobx';
 
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
-import log from '../../../lib/logger';
+import { log } from '../../../lib/logger';
 import tabs from '../../../background/tabs';
 import messenger from '../../../lib/messenger';
 
@@ -52,6 +52,8 @@ class globalStore {
                 settingsStore.setGlobalError(permissionsError);
             } else if (!hasRequiredData) {
                 settingsStore.setGlobalError(new Error('No required data'));
+            } else {
+                settingsStore.setGlobalError(null);
             }
 
             authStore.setIsAuthenticated(isAuthenticated);

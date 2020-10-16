@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import Modal from 'react-modal';
 
-import log from '../../../lib/logger';
+import { log } from '../../../lib/logger';
 import { REQUEST_STATUSES } from '../../stores/consts';
 
 import '../../styles/main.pcss';

@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid';
 import md5 from 'crypto-js/md5';
 import lodashGet from 'lodash/get';
 import accountProvider from '../providers/accountProvider';
-import log from '../../lib/logger';
+import { log } from '../../lib/logger';
 import notifier from '../../lib/notifier';
 import { ERROR_STATUSES } from '../../lib/constants';
 

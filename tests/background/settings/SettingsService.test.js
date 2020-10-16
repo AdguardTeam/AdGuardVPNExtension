@@ -1,6 +1,8 @@
 import SettingsService from '../../../src/background/settings/SettingsService';
 import { sleep } from '../../../src/lib/helpers';
 
+jest.mock('../../../src/lib/logger');
+
 const storage = (() => {
     const settingsStorage = {};
     return {

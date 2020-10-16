@@ -1,6 +1,6 @@
 import SettingsService from './SettingsService';
 import browserApi from '../browserApi';
-import log from '../../lib/logger';
+import { log } from '../../lib/logger';
 import notifier from '../../lib/notifier';
 import { SETTINGS_IDS, PROMO_SCREEN_STATES } from '../../lib/constants';
 import dns from '../dns/dns';

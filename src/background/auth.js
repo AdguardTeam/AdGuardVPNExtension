@@ -12,7 +12,7 @@ import {
     AUTH_BASE_URL,
     AUTH_REDIRECT_URI,
 } from './config';
-import log from '../lib/logger';
+import { log } from '../lib/logger';
 import notifier from '../lib/notifier';
 import translator from '../lib/translator/translator';
 

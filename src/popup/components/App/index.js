@@ -21,7 +21,7 @@ import ExclusionsScreen from '../Settings/ExclusionsScreen';
 
 import rootStore from '../../stores';
 import { REQUEST_STATUSES } from '../../stores/consts';
-import log from '../../../lib/logger';
+import { log } from '../../../lib/logger';
 import messenger from '../../../lib/messenger';
 import notifier from '../../../lib/notifier';
 import PromoSale from '../PromoSale';
@@ -104,10 +104,9 @@ const App = observer(() => {
         };
     }, []);
 
-    const { status } = globalStore;
-
-    // show nothing while data is loading
-    if (status === REQUEST_STATUSES.PENDING) {
+    // show nothing while data is loading, except cases after authentication
+    if (authStore.requestProcessState !== REQUEST_STATUSES.PENDING
+        && globalStore.status === REQUEST_STATUSES.PENDING) {
         return null;
     }
 

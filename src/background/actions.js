@@ -1,6 +1,6 @@
 import browser from 'webextension-polyfill';
 import { Prefs } from './prefs';
-import log from '../lib/logger';
+import { log } from '../lib/logger';
 
 const openOptionsPage = async () => {
     return browser.runtime.openOptionsPage();

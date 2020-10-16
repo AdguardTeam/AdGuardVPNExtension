@@ -9,8 +9,6 @@ export const LEVELS_OF_CONTROL = {
 
 export const DEFAULT_EXCLUSIONS = [
     '*account.adguard.com',
-    '*.adguard.io',
-    '*.adguard.ws',
     'localhost',
     '*.local',
     '127.0.0.1',

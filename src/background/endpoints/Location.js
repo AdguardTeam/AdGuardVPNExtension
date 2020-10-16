@@ -9,6 +9,7 @@ export class Location {
         this.endpoints = locationData.endpoints.map((endpoint) => new Endpoint(endpoint));
         this.coordinates = locationData.coordinates;
         this.premiumOnly = locationData.premiumOnly;
+        this.pingBonus = locationData.pingBonus;
         this.available = true;
         this.ping = null;
         this.endpoint = null;

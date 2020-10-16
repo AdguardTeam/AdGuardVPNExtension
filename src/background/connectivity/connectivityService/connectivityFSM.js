@@ -1,7 +1,7 @@
 import { Machine, interpret, assign } from 'xstate';
 import notifier from '../../../lib/notifier';
 import { STATE, EVENT } from './connectivityConstants';
-import log from '../../../lib/logger';
+import { log } from '../../../lib/logger';
 // eslint-disable-next-line import/no-cycle
 import { switcher } from '../switcher';
 
