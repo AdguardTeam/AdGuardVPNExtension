@@ -332,18 +332,6 @@
     "settings_connect": {
         "message": "Connect"
     },
-    "settings_not_responding": {
-        "message": "Server is not responding"
-    },
-    "settings_choose_another": {
-        "message": "Choose another"
-    },
-    "settings_connection_not_secured": {
-        "message": "Connection is not secured"
-    },
-    "settings_connecting": {
-        "message": "VPN is connecting"
-    },
     "settings_vpn_enabled": {
         "message": "VPN is enabled"
     },
@@ -389,26 +377,11 @@
     "offline_title": {
         "message": "Offline"
     },
-    "popup_exclusions_enable_vpn_on_site": {
-        "message": "<span>You can</span> <a>enable VPN on this website</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_add_site_to_exclusions": {
-        "message": "<span>You can</span> <a>add the website to exclusions</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_disable_vpn_on_site": {
-        "message": "<span>You can</span> <a>disable VPN on this website</a>",
-        "description": "NOTICE! there is space between tags"
-    },
     "popup_site_status_unaccessible": {
         "message": "is located in your local network and unaccessible via VPN"
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN is disabled on this website"
-    },
-    "popup_site_status_added_to_exclusions": {
-        "message": "added to exclusions"
     },
     "popup_auth_agreement_consent": {
         "message": "By using AdGuard VPN, you agree to our <eula>EULA</eula> and <privacy>Privacy Policy</privacy>",
@@ -421,10 +394,6 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> remaining this month",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "popup_ping_value": {
-        "message": "Ping %pingValue% ms",
-        "description": "Respect spaces between text and placeholder"
     },
     "options_auth_back_button": {
         "message": "Back"
