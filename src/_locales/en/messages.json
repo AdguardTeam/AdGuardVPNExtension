@@ -428,5 +428,14 @@
     },
     "options_auth_back_button": {
         "message": "Back"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "In Selective mode AdGuard VPN only works on allowed websites that you have added to the list."
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Switch now"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "Attention!"
     }
 }

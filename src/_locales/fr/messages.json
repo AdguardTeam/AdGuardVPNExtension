@@ -41,6 +41,9 @@
     "authentication_error_account_locked": {
         "message": "Le compte est bloqué pour 15 minutes"
     },
+    "authentication_error_wrong_credentials": {
+        "message": "Oups, mot de passe incorrect"
+    },
     "authentication_error_default": {
         "message": "Une erreur s’est produite, réessayez plus tard"
     },
@@ -113,6 +116,12 @@
     "auth_register": {
         "message": "Inscrivez-vous"
     },
+    "auth_header_sign_in_account": {
+        "message": "Vous vous connectez avec votre compte AdGuard"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "En vous inscrivant, vous créez un compte AdGuard"
+    },
     "auth_header_sign_in": {
         "message": "Vous vous connectez en tant que <div>%username%</div>"
     },
@@ -121,6 +130,9 @@
     },
     "auth_header_registration": {
         "message": "Vous vous inscrivez en tant que <div>%username%</div>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "Authentification à deux facteurs"
     },
     "auth_header_2fa": {
         "message": "Saisissez le code d’authentification"
@@ -172,6 +184,9 @@
     },
     "settings_dns_selector_adguard_desc": {
         "message": "Supprime les publicités et les pisteurs de votre appareil"
+    },
+    "settings_dns_selector_adguard_nonfiltering_title": {
+        "message": "AdGuard DNS sans filtrage"
     },
     "settings_dns_selector_adguard_nonfiltering_desc": {
         "message": "DNS sécurisé sans journalisation des activités (ne filtre pas les annonces et les pisteurs)"
@@ -290,6 +305,9 @@
     "endpoints_fastest": {
         "message": "Le plus rapide"
     },
+    "endpoints_all": {
+        "message": "Toutes les localisations"
+    },
     "endpoints_search_results": {
         "message": "Résultat de la recherche"
     },
@@ -346,6 +364,24 @@
     },
     "settings_run_upgrade_early_bird": {
         "message": "Prix ​​lève-tôt"
+    },
+    "sale_title": {
+        "message": "Vous obtenez :"
+    },
+    "upgrade_features_data": {
+        "message": "Données illimitées"
+    },
+    "upgrade_features_speed": {
+        "message": "Serveurs ultrarapides"
+    },
+    "upgrade_features_all_locations": {
+        "message": "Toutes les localisations"
+    },
+    "upgrade_features_no_log": {
+        "message": "Aucune journalisation"
+    },
+    "continue_us_free_button": {
+        "message": "Continuez gratuitement"
     },
     "options_title": {
         "message": "Options AdGuard VPN"
