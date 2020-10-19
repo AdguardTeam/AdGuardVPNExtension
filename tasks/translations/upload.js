@@ -34,7 +34,6 @@ const getFormData = (filePath) => {
 /**
  * Entry point for uploading translations
  */
-// async function uploadBaseLocale() {
 export const uploadBaseLocale = async () => {
     const filePath = path.join(LOCALES_DIR, BASE_LOCALE, LOCALE_DATA_FILENAME);
     const formData = getFormData(filePath);

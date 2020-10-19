@@ -27,7 +27,7 @@ yarn locales:download
 // or just 'ja' and 'ru' locales
 yarn locales:download --locales ja ru
 
-// to upload english strings
+// to upload base strings
 yarn locales:upload
 
 // validate all locales
@@ -41,9 +41,9 @@ yarn locales:validate -l es ja ru
 yarn locales:info
 ```
 
-After download you'll find the output locales in the `src/_locales/` folder.
+After download you'll find the locales in the `src/_locales/` folder.
 
-List of minimum required locales and other input data are conteined in `config.json`. There are such properties defined:
+List of minimum required locales and other input data are in `config.json`. There are such properties defined:
 - `twosky_config_path` — relative path to twosky config file
 - `api_url` — twosky api url
 - `source_relative_path` — relative path to source files — where translation strings are used

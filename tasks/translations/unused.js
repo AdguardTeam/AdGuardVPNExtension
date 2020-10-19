@@ -72,13 +72,13 @@ export const checkUnusedMessages = async (isInfo = false) => {
             && !filesContents.some((file) => isPresentInFile(message, file));
     };
 
-    const unused = baseMessages.filter(isMessageUsed);
+    const unusedMessages = baseMessages.filter(isMessageUsed);
 
-    if (unused.length === 0) {
+    if (unusedMessages.length === 0) {
         log.success('There are no unused messages');
     } else {
         log.warning('Unused messages:');
-        unused.forEach((key) => {
+        unusedMessages.forEach((key) => {
             log.warning(`  ${key}`);
         });
         if (!isInfo) {
