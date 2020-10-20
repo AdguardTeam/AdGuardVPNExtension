@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
@@ -8,8 +9,13 @@ import rootStore from '../../../stores';
 import { EXCLUSIONS_MODES } from '../../../../background/exclusions/exclusionsConstants';
 import { reactTranslator } from '../../../../reactCommon/reactTranslator';
 
+Modal.setAppElement('#root');
+
 const Mode = observer(() => {
     const { settingsStore } = useContext(rootStore);
+    const [isOpen, setOpen] = useState(false);
+    const openModal = () => setOpen(true);
+    const closeModal = () => setOpen(false);
 
     const {
         exclusionsCurrentMode,
@@ -17,7 +23,16 @@ const Mode = observer(() => {
     } = settingsStore;
 
     const onChange = (type) => async () => {
+        if (type === EXCLUSIONS_MODES.SELECTIVE) {
+            openModal();
+            return;
+        }
         await toggleInverted(type);
+    };
+
+    const toggleSelectiveMode = async () => {
+        await toggleInverted(EXCLUSIONS_MODES.SELECTIVE);
+        closeModal();
     };
 
     const modes = [
@@ -49,7 +64,7 @@ const Mode = observer(() => {
         const titleClass = classnames('radio__title', { 'radio__title--active': enabled });
 
         return (
-            <div className="radio" onClick={onChange(exclusionsType)}>
+            <div className="radio" onClick={enabled ? undefined : onChange(exclusionsType)}>
                 <svg className="radio__icon">
                     <use xlinkHref={`#${getIconHref(enabled)}`} />
                 </svg>
@@ -78,6 +93,26 @@ const Mode = observer(() => {
 
     return (
         <>
+            <Modal
+                isOpen={isOpen}
+                className="modal"
+                overlayClassName="overlay overlay--fullscreen"
+                onRequestClose={closeModal}
+            >
+                <button
+                    type="button"
+                    className="button button--icon checkbox__button modal__close-icon"
+                    onClick={closeModal}
+                >
+                    <svg className="icon icon--button icon--cross">
+                        <use xlinkHref="#cross" />
+                    </svg>
+                </button>
+                <div className="modal__icon" />
+                <div className="modal__title">{reactTranslator.translate('options_selective_mode_popup_attention')}</div>
+                <div className="modal__message">{reactTranslator.translate('options_selective_mode_popup_message')}</div>
+                <button type="button" onClick={toggleSelectiveMode} className="button modal__button">{reactTranslator.translate('options_selective_mode_popup_button_switch_now')}</button>
+            </Modal>
             <div className="settings__section">
                 <div className="settings__title">
                     {reactTranslator.translate('settings_connection_mode_title')}

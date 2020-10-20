@@ -94,3 +94,72 @@
         margin-bottom: 30px;
     }
 }
+
+.modal {
+    width: 500px;
+    height: 334px;
+    background: var(--white);
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    outline: none;
+
+    &__close-icon {
+        align-self: flex-end;
+    }
+
+    &__icon {
+        width: 73px;
+        min-height: 80px;
+        background-image: url('../../../assets/images/trouble-head.svg');
+        background-position: center bottom;
+        background-repeat: no-repeat;
+        margin-top: 16px;
+        margin-bottom: 8px;
+    }
+
+    &__title {
+        font-size: 28px;
+        letter-spacing: 0;
+        line-height: 30px;
+        margin-bottom: 8px;
+    }
+
+    &__message {
+        margin: 0 60px 24px;
+        font-size: 16px;
+        line-height: 22px;
+    }
+
+    &__button {
+        height: 44px;
+        width: 220px;
+        border: 1px solid var(--gray88);
+        border-radius: 8px;
+        font-size: 16px;
+        color: var(--gray88);
+        letter-spacing: 0.38px;
+        text-align: center;
+        line-height: 16px;
+        text-transform: uppercase;
+        margin-bottom: auto;
+    }
+}
+
+.overlay {
+    background-color: var(--overlay);
+    position: fixed;
+    top: 0;
+
+    &--fullscreen {
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+}
+
