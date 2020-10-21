@@ -32,9 +32,6 @@
     "account_title": {
         "message": "Konto"
     },
-    "account_edit": {
-        "message": "Redigera"
-    },
     "account_sign_out": {
         "message": "Logga ut"
     },
@@ -127,9 +124,6 @@
     },
     "settings_dns_selector_quad9_desc": {
         "message": "Gratis alternativ DNS-tjänst med skydd mot nätfiske och spionprogram"
-    },
-    "settings_exclusion_add": {
-        "message": "Lägg till webbadress"
     },
     "settings_exclusion_title": {
         "message": "Exkluderingar"

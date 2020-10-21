@@ -57,7 +57,7 @@
         "message": "Fiók"
     },
     "account_edit": {
-        "message": "Szerkesztés"
+        "message": "Kezelés"
     },
     "account_sign_out": {
         "message": "Kijelentkezés"
@@ -222,25 +222,25 @@
         "message": "Ingyenes, alternatív DNS szolgáltatás, adathalászat és kémprogram elleni védelemmel"
     },
     "settings_exclusion_add": {
-        "message": "Új webhely"
+        "message": "Webhely hozzáadása"
     },
     "settings_exclusion_title": {
         "message": "Kivételek"
     },
     "settings_connection_mode_title": {
-        "message": "VPN kapcsolódási módja"
+        "message": "Működés módja"
     },
     "settings_exclusion_regular_title": {
         "message": "Hagyományos mód"
     },
     "settings_exclusion_regular_description": {
-        "message": "Az AdGuard VPN nem műklödik a listán szereplő webhelyeken:"
+        "message": "Az AdGuard VPN nem műklödik a listán szereplő webhelyeken"
     },
     "settings_exclusion_selective_title": {
         "message": "Szelektív mód"
     },
     "settings_exclusion_selective_description": {
-        "message": "Az AdGuard VPN csak a listán szereplő webhelyeken működik:"
+        "message": "Az AdGuard VPN csak a listán szereplő webhelyeken működik"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Aldomainek"
@@ -315,7 +315,7 @@
         "message": "Helyszín keresése"
     },
     "endpoints_not_found": {
-        "message": "Nem található szerver"
+        "message": "Nem található helyszín"
     },
     "popup_traffic_limit_reached": {
         "message": "A havi adatkeret elhasználva. Többre van szüksége?"
@@ -331,18 +331,6 @@
     },
     "settings_connect": {
         "message": "Csatlakozás"
-    },
-    "settings_not_responding": {
-        "message": "A szerver nem válaszol"
-    },
-    "settings_choose_another": {
-        "message": "Válasszon másikat"
-    },
-    "settings_connection_not_secured": {
-        "message": "A kapcsolat nem biztonságos"
-    },
-    "settings_connecting": {
-        "message": "A VPN kapcsolódik"
     },
     "settings_vpn_enabled": {
         "message": "VPN engedélyezve"
@@ -389,26 +377,11 @@
     "offline_title": {
         "message": "Offline"
     },
-    "popup_exclusions_enable_vpn_on_site": {
-        "message": "<span>Ön</span> <a>engedélyezheti a VPN-t ezen a webhelyen</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_add_site_to_exclusions": {
-        "message": "<span>Ön a</span> <a>kivételekhez adhatja ezt a webhelyet</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_disable_vpn_on_site": {
-        "message": "<span>Ön</span> <a>letilthatja a VPN-t ezen a webhelyen</a>",
-        "description": "NOTICE! there is space between tags"
-    },
     "popup_site_status_unaccessible": {
         "message": "az Ön helyi hálózatán van, ezért nem elérhető VPN-en keresztül"
     },
     "popup_site_status_vpn_disabled": {
         "message": "A VPN le van tiltva ezen a webhelyen"
-    },
-    "popup_site_status_added_to_exclusions": {
-        "message": "hozzáadva a kivételekhez"
     },
     "popup_auth_agreement_consent": {
         "message": "Az AdGuard VPN használatával ön elfogadja <eula>Végfelhasználói licenszszerződést</eula> és az <privacy>Adatvédelmi irányelveket</privacy>",
@@ -422,11 +395,16 @@
         "message": "<span>%value% %unit%</span> maradt ebben a hónapban",
         "description": "Respect spaces between text, tags and placeholders"
     },
-    "popup_ping_value": {
-        "message": "Ping %pingValue% ms",
-        "description": "Respect spaces between text and placeholder"
-    },
     "options_auth_back_button": {
         "message": "Vissza"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "A szelektív módban az AdGuard VPN csak azokkal az engedélyezett webhelyekkel megy, amelyeket hozzáadott a listához."
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Váltás most"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "Biztos váltani szeretne?"
     }
 }

@@ -57,7 +57,7 @@
         "message": "Conta"
     },
     "account_edit": {
-        "message": "Editar"
+        "message": "Gerir"
     },
     "account_sign_out": {
         "message": "Encerrar sessão"
@@ -222,25 +222,25 @@
         "message": "Serviço de DNS alternativo gratuito com protecção contra phishing e spyware"
     },
     "settings_exclusion_add": {
-        "message": "Adicionar sítio"
+        "message": "Adicionar um sítio"
     },
     "settings_exclusion_title": {
         "message": "Exclusões"
     },
     "settings_connection_mode_title": {
-        "message": "Modo de conexão VPN"
+        "message": "Modo operacional"
     },
     "settings_exclusion_regular_title": {
         "message": "Modo regular"
     },
     "settings_exclusion_regular_description": {
-        "message": "O AdGuard não irá funcionar nos sítios desta lista:"
+        "message": "O AdGuard VPN não funciona em sítios da lista abaixo"
     },
     "settings_exclusion_selective_title": {
         "message": "Modo selectivo"
     },
     "settings_exclusion_selective_description": {
-        "message": "O AdGuard VPN funciona apenas nos sítios da sua lista:"
+        "message": "O AdGuard VPN só funcionará em sítios da lista abaixo"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Subdomínios"
@@ -315,7 +315,7 @@
         "message": "Pesquisar localização"
     },
     "endpoints_not_found": {
-        "message": "Servidor não encontrado"
+        "message": "Localização não encontrada"
     },
     "popup_traffic_limit_reached": {
         "message": "Limite mensal de dados atingido. Preciso de mais?"
@@ -331,18 +331,6 @@
     },
     "settings_connect": {
         "message": "Conectar"
-    },
-    "settings_not_responding": {
-        "message": "O servidor não está a responder"
-    },
-    "settings_choose_another": {
-        "message": "Escolher outro"
-    },
-    "settings_connection_not_secured": {
-        "message": "A conexão não é segura"
-    },
-    "settings_connecting": {
-        "message": "VPN está a conectar"
     },
     "settings_vpn_enabled": {
         "message": "A VPN está activada"
@@ -389,26 +377,11 @@
     "offline_title": {
         "message": "Sem conexão"
     },
-    "popup_exclusions_enable_vpn_on_site": {
-        "message": "<span>Tu podes</span> <a>activar a VPN neste sítio</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_add_site_to_exclusions": {
-        "message": "<span>Tu podes</span> <a>adicionar o sítio a exclusões</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_disable_vpn_on_site": {
-        "message": "<span>Tu podes</span> <a>desactivar a VPN neste sítio</a>",
-        "description": "NOTICE! there is space between tags"
-    },
     "popup_site_status_unaccessible": {
         "message": "está localizado na sua rede local e inacessível via VPN"
     },
     "popup_site_status_vpn_disabled": {
         "message": "A VPN está desactivada neste sítio"
-    },
-    "popup_site_status_added_to_exclusions": {
-        "message": "adicionado a exclusões"
     },
     "popup_auth_agreement_consent": {
         "message": "Ao usar o AdGuard VPN, você concorda com o <eula>Contrato</eula> e nossa <privacy>política de privacidade</privacy>",
@@ -422,11 +395,16 @@
         "message": "<span>%value% %unit%</span> restante este mês",
         "description": "Respect spaces between text, tags and placeholders"
     },
-    "popup_ping_value": {
-        "message": "Ping %pingValue% ms",
-        "description": "Respect spaces between text and placeholder"
-    },
     "options_auth_back_button": {
         "message": "Voltar"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "No modo regular, o AdGuard VPN só funciona em sítios permitidos que você adicionou à lista."
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Mudar agora"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "Tu tem certeza de que deseja mudar?"
     }
 }

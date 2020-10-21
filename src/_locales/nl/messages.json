@@ -57,7 +57,7 @@
         "message": "Account"
     },
     "account_edit": {
-        "message": "Bewerken"
+        "message": "Beheren"
     },
     "account_sign_out": {
         "message": "Afmelden"
@@ -228,19 +228,19 @@
         "message": "Uitzonderingen"
     },
     "settings_connection_mode_title": {
-        "message": "VPN verbindingsmodus"
+        "message": "Modus selecteren"
     },
     "settings_exclusion_regular_title": {
         "message": "Standaard modus"
     },
     "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN werkt niet op de sites uit deze lijst:"
+        "message": "AdGuard VPN werkt niet op de websites uit deze lijst"
     },
     "settings_exclusion_selective_title": {
         "message": "Selectieve modus"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN werkt uitsluitend op de sites uit deze lijst:"
+        "message": "AdGuard VPN werkt alleen voor de websites uit deze lijst"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Subdomeinen"
@@ -315,7 +315,7 @@
         "message": "Locatie zoeken"
     },
     "endpoints_not_found": {
-        "message": "Server niet gevonden"
+        "message": "Locatie niet gevonden"
     },
     "popup_traffic_limit_reached": {
         "message": "Maandelijkse datalimiet is bereikt. Meer nodig?"
@@ -331,18 +331,6 @@
     },
     "settings_connect": {
         "message": "Verbinden"
-    },
-    "settings_not_responding": {
-        "message": "Server reageert niet"
-    },
-    "settings_choose_another": {
-        "message": "Kies een andere"
-    },
-    "settings_connection_not_secured": {
-        "message": "Verbinding is niet beveiligd"
-    },
-    "settings_connecting": {
-        "message": "Verbinden..."
     },
     "settings_vpn_enabled": {
         "message": "VPN ingeschakeld"
@@ -389,26 +377,11 @@
     "offline_title": {
         "message": "Offline"
     },
-    "popup_exclusions_enable_vpn_on_site": {
-        "message": "<span>Je kunt</span> <a> een VPN op deze website aanzetten</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_add_site_to_exclusions": {
-        "message": "<span> U kunt </span> <a> de website toevoegen aan uitsluitingen </a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_disable_vpn_on_site": {
-        "message": "<span>Je kunt</span> <a>VPN op deze website uitzetten</a>",
-        "description": "NOTICE! there is space between tags"
-    },
     "popup_site_status_unaccessible": {
         "message": "bevindt zich in uw lokale netwerk en is niet toegankelijk via VPN"
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN is uitgezet op deze website"
-    },
-    "popup_site_status_added_to_exclusions": {
-        "message": "toegevoegd aan uitsluitingen"
     },
     "popup_auth_agreement_consent": {
         "message": "Door AdGuard VPN te gebruiken ga je akkoord met onze <eula>EULA</eula> en <privacy>Privacy beleid.</privacy>",
@@ -422,11 +395,16 @@
         "message": "<span>%value% %unit%</span> nog over deze maand",
         "description": "Respect spaces between text, tags and placeholders"
     },
-    "popup_ping_value": {
-        "message": "Ping %pingValue% ms",
-        "description": "Respect spaces between text and placeholder"
-    },
     "options_auth_back_button": {
         "message": "Terug"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "In Selectieve modus werkt AdGuard VPN enkel voor toegestane websites die je aan de lijst hebt toegevoegd."
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Nu wisselen"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "Weet je zeker dat je wil wisselen?"
     }
 }

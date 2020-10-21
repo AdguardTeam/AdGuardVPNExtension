@@ -48,7 +48,7 @@
         "message": "Hata oluştu, daha sonra tekrar deneyiniz"
     },
     "global_error_message": {
-        "message": "Hata oluştu, lütfen <a>support@adguard-vpn.com</a> aracılığıyla bize ulaşın"
+        "message": "Hata oluştu, lütfen <a>support@adguard-vpn.com</a> adresinden bizimle iletişime geçin"
     },
     "about_title": {
         "message": "Hakkında"
@@ -57,7 +57,7 @@
         "message": "Hesap"
     },
     "account_edit": {
-        "message": "Düzenle"
+        "message": "Yönet"
     },
     "account_sign_out": {
         "message": "Oturumu kapat"
@@ -228,19 +228,19 @@
         "message": "İstisnalar"
     },
     "settings_connection_mode_title": {
-        "message": "VPN bağlantı modu"
+        "message": "Çalışma modu"
     },
     "settings_exclusion_regular_title": {
         "message": "Normal mod"
     },
     "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN bu listedeki web sitelerinde çalışmıyor:"
+        "message": "AdGuard VPN aşağıdaki listedeki web sitelerinde çalışmaz"
     },
     "settings_exclusion_selective_title": {
         "message": "Seçici mod"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN sadece bu listedeki web sitelerinde çalışır:"
+        "message": "AdGuard VPN yalnızca aşağıdaki listedeki web sitelerinde çalışır"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Alt alan adı"
@@ -315,7 +315,7 @@
         "message": "Konum arayın"
     },
     "endpoints_not_found": {
-        "message": "Sunucu bulunamadı"
+        "message": "Konum bulunamadı"
     },
     "popup_traffic_limit_reached": {
         "message": "Aylık veri sınırına ulaşıldı. Daha fazlasına mı ihtiyacınız var?"
@@ -331,18 +331,6 @@
     },
     "settings_connect": {
         "message": "Bağlan"
-    },
-    "settings_not_responding": {
-        "message": "Sunucu yanıt vermiyor"
-    },
-    "settings_choose_another": {
-        "message": "Başka birini seç"
-    },
-    "settings_connection_not_secured": {
-        "message": "Bağlantı güvenli değil"
-    },
-    "settings_connecting": {
-        "message": "VPN bağlanıyor"
     },
     "settings_vpn_enabled": {
         "message": "VPN etkin"
@@ -389,26 +377,11 @@
     "offline_title": {
         "message": "Çevrimdışı"
     },
-    "popup_exclusions_enable_vpn_on_site": {
-        "message": "<span>Bu</span> <a>web sitesinde VPN'yi etkinleştirebilirsiniz</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_add_site_to_exclusions": {
-        "message": "<span>Bu</span> <a>web sitesini istisnalara ekleyebilirsiniz</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_disable_vpn_on_site": {
-        "message": "<span>Bu</span> <a>web sitesinde VPN'yi devre dışı bırakabilirsiniz</a>",
-        "description": "NOTICE! there is space between tags"
-    },
     "popup_site_status_unaccessible": {
         "message": "yerel ağınızda bulunur ve VPN üzerinden erişilemez"
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN bu sitede devre dışı bırakıldı"
-    },
-    "popup_site_status_added_to_exclusions": {
-        "message": "istisnalara eklendi"
     },
     "popup_auth_agreement_consent": {
         "message": "AdGuard VPN'yi kullanmaya devam ederek <eula>Son Kullanıcı Lisans Sözleşmesi</eula> ve <privacy>Gizlilik Politikamızı</privacy> kabul etmiş olursunuz",
@@ -422,11 +395,16 @@
         "message": "Bu ay <span>%value% %unit%</span> kaldı",
         "description": "Respect spaces between text, tags and placeholders"
     },
-    "popup_ping_value": {
-        "message": "Ping %pingValue% ms",
-        "description": "Respect spaces between text and placeholder"
-    },
     "options_auth_back_button": {
         "message": "Geri"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "Seçici modda AdGuard VPN, yalnızca listeye eklediğiniz izin verilen web sitelerinde çalışır."
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Şimdi değiştir"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "Değiştirmek istediğine emin misiniz?"
     }
 }

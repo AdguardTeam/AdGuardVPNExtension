@@ -57,7 +57,7 @@
         "message": "Konto"
     },
     "account_edit": {
-        "message": "Bearbeiten"
+        "message": "Verwalten"
     },
     "account_sign_out": {
         "message": "Abmelden"
@@ -222,25 +222,25 @@
         "message": "Kostenloser alternativer DNS-Service mit Schutz vor Phishing und Spyware"
     },
     "settings_exclusion_add": {
-        "message": "Website hinzufügen"
+        "message": "Webseite hinzufügen"
     },
     "settings_exclusion_title": {
         "message": "Ausnahmen"
     },
     "settings_connection_mode_title": {
-        "message": "VPN-Verbindungsmodus"
+        "message": "Betriebsmodus"
     },
     "settings_exclusion_regular_title": {
         "message": "Standardmodus"
     },
     "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN nicht auf den Websites aus dieser Liste ausführen:"
+        "message": "AdGuard VPN funktioniert nicht auf den Websites in dieser Liste:"
     },
     "settings_exclusion_selective_title": {
         "message": "Selektiver Modus"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN nur auf Websites in dieser Liste ausführen:"
+        "message": "AdGuard VPN funktioniert nur auf den Webseiten aus dieser Liste"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Subdomains"
@@ -315,7 +315,7 @@
         "message": "Standort suchen"
     },
     "endpoints_not_found": {
-        "message": "Server nicht gefunden"
+        "message": "Standort nicht gefunden"
     },
     "popup_traffic_limit_reached": {
         "message": "Monatliches Datenvolumen erreicht. Benötigen Sie mehr?"
@@ -331,18 +331,6 @@
     },
     "settings_connect": {
         "message": "Verbinden"
-    },
-    "settings_not_responding": {
-        "message": "Server antwortet nicht"
-    },
-    "settings_choose_another": {
-        "message": "Anderen wählen"
-    },
-    "settings_connection_not_secured": {
-        "message": "Verbindung erfolgt unverschlüsselt"
-    },
-    "settings_connecting": {
-        "message": "VPN verbindet sich"
     },
     "settings_vpn_enabled": {
         "message": "VPN ist aktiviert"
@@ -389,26 +377,11 @@
     "offline_title": {
         "message": "Offline"
     },
-    "popup_exclusions_enable_vpn_on_site": {
-        "message": "<span>Sie können</span> <a>VPN für diese Website aktivieren</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_add_site_to_exclusions": {
-        "message": "<span>Sie können</span> <a>diese Webseite zu den Ausschlüssen hinzufügen</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_disable_vpn_on_site": {
-        "message": "<span>Sie können</span> <a>VPN für diese Webseite deaktivieren</a>",
-        "description": "NOTICE! there is space between tags"
-    },
     "popup_site_status_unaccessible": {
         "message": "befindet sich in Ihrem lokalen Netzwerk und es kann nicht via VPN zugegeriffen werden"
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN ist auf dieser Webseite deaktiviert"
-    },
-    "popup_site_status_added_to_exclusions": {
-        "message": "zu Ausschlüssen hinzugefügt"
     },
     "popup_auth_agreement_consent": {
         "message": "Durch die Nutzung von AdGuard VPN, stimmen Sie unserem <eula>Endbenutzer-Lizenzvertrag</eula> und unseren <privacy>Datenschutzbestimmungen</privacy> zu",
@@ -422,11 +395,16 @@
         "message": "<span>%value% %unit%</span> diese Monat verbleibend",
         "description": "Respect spaces between text, tags and placeholders"
     },
-    "popup_ping_value": {
-        "message": "Ping %pingValue% ms",
-        "description": "Respect spaces between text and placeholder"
-    },
     "options_auth_back_button": {
         "message": "Zurück"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "Im „Selektiven Modus” wird AdGuard VPN nur auf zugelassenen Websites ausgeführt, die zuvor in die Liste hinzugefügt wurden."
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Jetzt wechseln"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "Möchten Sie wirklich wechseln?"
     }
 }

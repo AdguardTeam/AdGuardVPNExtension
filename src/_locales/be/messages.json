@@ -228,19 +228,19 @@
         "message": "Выняткі"
     },
     "settings_connection_mode_title": {
-        "message": "Рэжым VPN-падлучэння"
+        "message": "Рэжым падлучэння"
     },
     "settings_exclusion_regular_title": {
         "message": "Звычайны рэжым"
     },
     "settings_exclusion_regular_description": {
-        "message": "AdGuard не працуе на сайтах з гэтага спіса:"
+        "message": "AdGuard не працуе на сайтах з гэтага спіса"
     },
     "settings_exclusion_selective_title": {
         "message": "Выбарковы рэжым"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN працуе толькі на сайтах з гэтага спіса:"
+        "message": "AdGuard VPN працуе толькі на сайтах з гэтага спіса"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Паддамены"
@@ -332,18 +332,6 @@
     "settings_connect": {
         "message": "Злучыць"
     },
-    "settings_not_responding": {
-        "message": "Сервер не адказвае"
-    },
-    "settings_choose_another": {
-        "message": "Абраць іншы"
-    },
-    "settings_connection_not_secured": {
-        "message": "Злучэнне не абаронена"
-    },
-    "settings_connecting": {
-        "message": "Злучэнне..."
-    },
     "settings_vpn_enabled": {
         "message": "VPN улучаны"
     },
@@ -389,26 +377,11 @@
     "offline_title": {
         "message": "Афлайн"
     },
-    "popup_exclusions_enable_vpn_on_site": {
-        "message": "<span>Вы можаце</span> <a>уключыць VPN на гэтым сайце</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_add_site_to_exclusions": {
-        "message": "<span>Вы можаце</span> <a>дадаць сайт у выняткі</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_disable_vpn_on_site": {
-        "message": "<span>Вы можаце</span> <a>адключыць VPN на гэтым сайце</a>",
-        "description": "NOTICE! there is space between tags"
-    },
     "popup_site_status_unaccessible": {
         "message": "знаходзіцца ў вашай лакальным сецiве і недаступны праз VPN"
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN адключаны на гэтым сайце"
-    },
-    "popup_site_status_added_to_exclusions": {
-        "message": "дадаць вынятакi"
     },
     "popup_auth_agreement_consent": {
         "message": "Працягваючы скарыстаць AdGuard, Вы згаджаецеся з нашым <eula>Ліцэнзійным пагадненнем</eula> і <privacy>Палітыкай прыватнасці</privacy>",
@@ -422,11 +395,16 @@
         "message": "<span>%value% %unit%</span> засталося ў гэтым месяцы",
         "description": "Respect spaces between text, tags and placeholders"
     },
-    "popup_ping_value": {
-        "message": "Пiнг %pingValue% мс",
-        "description": "Respect spaces between text and placeholder"
-    },
     "options_auth_back_button": {
         "message": "Назад"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "У выбарковым рэжыме AdGuard VPN працуе толькі на дазволеных сайтах, якія вы дадалі ў спіс."
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Перамкнуць зараз"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "Ты ўпэўнены, што хочаш перамкнуць?"
     }
 }

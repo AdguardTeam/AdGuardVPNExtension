@@ -57,7 +57,7 @@
         "message": "アカウント"
     },
     "account_edit": {
-        "message": "編集"
+        "message": "アカウント管理"
     },
     "account_sign_out": {
         "message": "ログアウト"
@@ -222,25 +222,25 @@
         "message": "フィッシング詐欺やスパイウェアから保護する無料代替DNSサービス"
     },
     "settings_exclusion_add": {
-        "message": "ウェブサイトを追加"
+        "message": "ウェブサイトを追加する"
     },
     "settings_exclusion_title": {
         "message": "除外"
     },
     "settings_connection_mode_title": {
-        "message": "VPNモード"
+        "message": "動作モード"
     },
     "settings_exclusion_regular_title": {
         "message": "レギュラーモード"
     },
     "settings_exclusion_regular_description": {
-        "message": "下のリストのウェブサイトに対してAdGuard VPNはオフになります:"
+        "message": "AdGuard VPNは下のリストのウェブサイトに対してオフになります:"
     },
     "settings_exclusion_selective_title": {
         "message": "指定モード"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPNは下のリストのウェブサイトに対してのみ動作します:"
+        "message": "AdGuard VPNは下のリストのウェブサイトに対してのみオンになります:"
     },
     "settings_exclusion_subdomains_title": {
         "message": "サブドメインも使用可能"
@@ -315,7 +315,7 @@
         "message": "ロケーションを検索"
     },
     "endpoints_not_found": {
-        "message": "該当するサーバーが見つかりませんでした。"
+        "message": "該当するロケーションが見つかりません。"
     },
     "popup_traffic_limit_reached": {
         "message": "1ヶ月データ量上限に達しました。もっと必要でしょうか？"
@@ -331,18 +331,6 @@
     },
     "settings_connect": {
         "message": "接続する"
-    },
-    "settings_not_responding": {
-        "message": "サーバーが応答しません。"
-    },
-    "settings_choose_another": {
-        "message": "他のサーバーを選択"
-    },
-    "settings_connection_not_secured": {
-        "message": "コネクションはセキュアではありません。"
-    },
-    "settings_connecting": {
-        "message": "VPNは接続中です…"
     },
     "settings_vpn_enabled": {
         "message": "VPNはオンです。"
@@ -389,26 +377,11 @@
     "offline_title": {
         "message": "オフライン"
     },
-    "popup_exclusions_enable_vpn_on_site": {
-        "message": "<span></span><a>このサイトに対してVPNを有効にする</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_add_site_to_exclusions": {
-        "message": "<span></span><a>このサイトを除外に追加する</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_disable_vpn_on_site": {
-        "message": "<span></span><a>このサイトに対してVPNを無効にする</a>",
-        "description": "NOTICE! there is space between tags"
-    },
     "popup_site_status_unaccessible": {
         "message": "ローカルネットワークにあり、VPN経由ではアクセスできません。"
     },
     "popup_site_status_vpn_disabled": {
         "message": "このサイトに対してVPNは無効になっています。"
-    },
-    "popup_site_status_added_to_exclusions": {
-        "message": "除外に追加されています。"
     },
     "popup_auth_agreement_consent": {
         "message": "AdGuard VPNを使用すると、<eula>利用許諾契約(EULA)</eula>および<privacy>プライバシーポリシー</privacy>に同意したことになります。",
@@ -422,11 +395,16 @@
         "message": "今月の残りデータ量: <span>%value% %unit%</span>",
         "description": "Respect spaces between text, tags and placeholders"
     },
-    "popup_ping_value": {
-        "message": "Ping %pingValue% ms",
-        "description": "Respect spaces between text and placeholder"
-    },
     "options_auth_back_button": {
         "message": "戻る"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "指定モードでは、AdGuard VPNはリストに追加されているサイトに対してのみオンになります。"
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "動作モードを切り替える"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "切り替えてもよろしいですか？"
     }
 }

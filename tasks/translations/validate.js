@@ -29,6 +29,9 @@ export const validateMessages = async (locales) => {
 
     const validateTargetMessages = async (baseMessages, targetMessages, targetLocale) => {
         const results = Object.keys(targetMessages).map((key) => {
+            if (!baseMessages[key]) {
+                throw new Error(`Base key '${key}' no longer present. Download locales please`);
+            }
             const baseMessage = baseMessages[key].message;
             const targetMessage = targetMessages[key].message;
             const valid = isTargetStrValid(baseMessage, targetMessage);

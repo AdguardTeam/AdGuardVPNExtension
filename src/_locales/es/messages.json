@@ -57,7 +57,7 @@
         "message": "Cuenta"
     },
     "account_edit": {
-        "message": "Editar"
+        "message": "Administrar"
     },
     "account_sign_out": {
         "message": "Cerrar sesión"
@@ -228,19 +228,19 @@
         "message": "Exclusiones"
     },
     "settings_connection_mode_title": {
-        "message": "Modo de conexión VPN"
+        "message": "Modo de operación"
     },
     "settings_exclusion_regular_title": {
         "message": "Modo normal"
     },
     "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN no funcionará en los sitios web de esta lista:"
+        "message": "AdGuard VPN no funcionará en los sitios web de la lista de abajo"
     },
     "settings_exclusion_selective_title": {
         "message": "Modo selectivo"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN solo funcionará en los sitios web de esta lista:"
+        "message": "AdGuard VPN solo funcionará en los sitios web de la lista de abajo"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Subdominios"
@@ -315,7 +315,7 @@
         "message": "Buscar ubicación"
     },
     "endpoints_not_found": {
-        "message": "Servidor no encontrado"
+        "message": "Ubicación no encontrada"
     },
     "popup_traffic_limit_reached": {
         "message": "Se alcanzó el límite de datos mensual. ¿Necesitas más?"
@@ -331,18 +331,6 @@
     },
     "settings_connect": {
         "message": "Conectar"
-    },
-    "settings_not_responding": {
-        "message": "El servidor no está respondiendo"
-    },
-    "settings_choose_another": {
-        "message": "Elegir otro"
-    },
-    "settings_connection_not_secured": {
-        "message": "La conexión no está asegurada"
-    },
-    "settings_connecting": {
-        "message": "VPN está conectando"
     },
     "settings_vpn_enabled": {
         "message": "VPN habilitado"
@@ -389,26 +377,11 @@
     "offline_title": {
         "message": "Sin conexión"
     },
-    "popup_exclusions_enable_vpn_on_site": {
-        "message": "<span>Puedes</span> <a>habilitar la VPN en este sitio web</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_add_site_to_exclusions": {
-        "message": "<span>Puedes</span> <a>añadir el sitio web a las exclusiones</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_disable_vpn_on_site": {
-        "message": "<span>Puedes</span> <a>deshabilitar la VPN en este sitio web</a>",
-        "description": "NOTICE! there is space between tags"
-    },
     "popup_site_status_unaccessible": {
         "message": "estás ubicado en tu red local e inaccesible a través de VPN"
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN deshabilitado en este sitio web"
-    },
-    "popup_site_status_added_to_exclusions": {
-        "message": "añadido a las exclusiones"
     },
     "popup_auth_agreement_consent": {
         "message": "Al usar AdGuard VPN, aceptas el <eula>acuerdo de licencia</eula> y la <privacy>política de privacidad</privacy>",
@@ -422,11 +395,16 @@
         "message": "<span>%value% %unit%</span> restante este mes",
         "description": "Respect spaces between text, tags and placeholders"
     },
-    "popup_ping_value": {
-        "message": "Ping %pingValue% ms",
-        "description": "Respect spaces between text and placeholder"
-    },
     "options_auth_back_button": {
         "message": "Atrás"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "En el modo selectivo, AdGuard VPN solo funcionará en los sitios web permitidos que hayas añadido a la lista."
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Cambia ahora"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "¿Estás seguro de que quieres cambiar?"
     }
 }

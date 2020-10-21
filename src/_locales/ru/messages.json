@@ -57,7 +57,7 @@
         "message": "Аккаунт"
     },
     "account_edit": {
-        "message": "Редактировать"
+        "message": "Управлять"
     },
     "account_sign_out": {
         "message": "Выйти"
@@ -228,19 +228,19 @@
         "message": "Исключения"
     },
     "settings_connection_mode_title": {
-        "message": "Режим VPN-подключения"
+        "message": "Режим работы"
     },
     "settings_exclusion_regular_title": {
         "message": "Обычный режим"
     },
     "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN не работает на сайтах из этого списка:"
+        "message": "AdGuard VPN не будет работать на сайтах из списка ниже"
     },
     "settings_exclusion_selective_title": {
         "message": "Выборочный режим"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN работает только на сайтах из этого списка:"
+        "message": "AdGuard VPN будет работать только на сайтах из списка ниже"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Поддомены"
@@ -315,7 +315,7 @@
         "message": "Поиск локации"
     },
     "endpoints_not_found": {
-        "message": "Сервер не найден"
+        "message": "Локация не найдена"
     },
     "popup_traffic_limit_reached": {
         "message": "Ежемесячный лимит трафика достигнут. Хотите больше?"
@@ -331,18 +331,6 @@
     },
     "settings_connect": {
         "message": "Подключиться"
-    },
-    "settings_not_responding": {
-        "message": "Сервер не отвечает"
-    },
-    "settings_choose_another": {
-        "message": "Выбрать другой"
-    },
-    "settings_connection_not_secured": {
-        "message": "Соединение не защищено"
-    },
-    "settings_connecting": {
-        "message": "VPN подключается"
     },
     "settings_vpn_enabled": {
         "message": "VPN включен"
@@ -389,26 +377,11 @@
     "offline_title": {
         "message": "Оффлайн"
     },
-    "popup_exclusions_enable_vpn_on_site": {
-        "message": "<span>Вы можете</span> <a>включить VPN на этом сайте</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_add_site_to_exclusions": {
-        "message": "<span>Вы можете</span> <a>добавить сайт в исключения</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_disable_vpn_on_site": {
-        "message": "<span>Вы можете</span> <a>отключить VPN на этом сайте</a>",
-        "description": "NOTICE! there is space between tags"
-    },
     "popup_site_status_unaccessible": {
         "message": "находится в вашей локальной сети и недоступен через VPN"
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN отключен на этом сайте"
-    },
-    "popup_site_status_added_to_exclusions": {
-        "message": "добавлен в исключения"
     },
     "popup_auth_agreement_consent": {
         "message": "Используя AdGuard VPN, вы соглашаетесь с нашим <eula>Лицензионным соглашением</eula> и <privacy>Политикой конфиденциальности</privacy>",
@@ -422,11 +395,16 @@
         "message": "<span>%value% %unit%</span> осталось в этом месяце",
         "description": "Respect spaces between text, tags and placeholders"
     },
-    "popup_ping_value": {
-        "message": "Пинг %pingValue% мс",
-        "description": "Respect spaces between text and placeholder"
-    },
     "options_auth_back_button": {
         "message": "Назад"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "В Выборочном режиме AdGuard VPN работает только на разрешённых сайтах, которые вы добавили в список."
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Переключить сейчас"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "Вы уверены, что хотите переключиться?"
     }
 }

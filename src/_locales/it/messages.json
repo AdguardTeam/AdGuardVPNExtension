@@ -57,7 +57,7 @@
         "message": "Profilo"
     },
     "account_edit": {
-        "message": "Modifica"
+        "message": "Gestire"
     },
     "account_sign_out": {
         "message": "Esci"
@@ -228,7 +228,7 @@
         "message": "Esclusioni"
     },
     "settings_connection_mode_title": {
-        "message": "Modalità di connessione VPN"
+        "message": "Modalità operativa"
     },
     "settings_exclusion_regular_title": {
         "message": "Modalità normale"
@@ -315,7 +315,7 @@
         "message": "Cerca località"
     },
     "endpoints_not_found": {
-        "message": "Server non trovato"
+        "message": "Località non trovata"
     },
     "popup_traffic_limit_reached": {
         "message": "Limite dei dati mensile raggiunto. Ne serve altro?"
@@ -331,18 +331,6 @@
     },
     "settings_connect": {
         "message": "Connetti"
-    },
-    "settings_not_responding": {
-        "message": "Il server non risponde"
-    },
-    "settings_choose_another": {
-        "message": "Scegli un altro"
-    },
-    "settings_connection_not_secured": {
-        "message": "La connessione non è assicurata"
-    },
-    "settings_connecting": {
-        "message": "Connettendo..."
     },
     "settings_vpn_enabled": {
         "message": "VPN attivo"
@@ -360,7 +348,7 @@
         "message": "Hai finito i dati"
     },
     "settings_run_upgrade_feature": {
-        "message": "Dati illimitati, maggiore velocità, supporto 24/7"
+        "message": "Dati illimitati, velocità elevata, supporto 24/7"
     },
     "settings_run_upgrade_early_bird": {
         "message": "Prezzo iniziale"
@@ -389,26 +377,11 @@
     "offline_title": {
         "message": "Offline"
     },
-    "popup_exclusions_enable_vpn_on_site": {
-        "message": "<span>Puoi</span> <a>attivare la VPN su questo sito web</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_add_site_to_exclusions": {
-        "message": "<span>Puoi</span> <a>aggiungere il sito web alle esclusioni</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_disable_vpn_on_site": {
-        "message": "<span>Puoi</span> <a>disattivare la VPN su questo sito web</a>",
-        "description": "NOTICE! there is space between tags"
-    },
     "popup_site_status_unaccessible": {
         "message": "si trova nella tua rete locale ed è inaccessibile tramite VPN"
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN disattivata su questo sito web"
-    },
-    "popup_site_status_added_to_exclusions": {
-        "message": "aggiunto alle esclusioni"
     },
     "popup_auth_agreement_consent": {
         "message": "Utilizzando AdGuard VPN, acconsenti alla nostra <eula>EULA</eula> ed alla <privacy>Politica sulla Riservatezza</privacy>",
@@ -422,11 +395,16 @@
         "message": "<span>%value% %unit%</span> rimanente questo mese",
         "description": "Respect spaces between text, tags and placeholders"
     },
-    "popup_ping_value": {
-        "message": "Ping %pingValue% ms",
-        "description": "Respect spaces between text and placeholder"
-    },
     "options_auth_back_button": {
         "message": "Indietro"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "In modalità Selettiva AdGuard VPN funzionerà solo sui siti web consentiti che hai aggiunto alla lista."
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Cambia ora"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "Sei sicuro di voler cambiare?"
     }
 }

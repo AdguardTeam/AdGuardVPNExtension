@@ -53,9 +53,6 @@
     "account_title": {
         "message": "Λογαριασμός"
     },
-    "account_edit": {
-        "message": "Επεξεργασία"
-    },
     "account_sign_out": {
         "message": "Αποσύνδεση"
     },
@@ -209,26 +206,14 @@
     "settings_dns_selector_quad9_desc": {
         "message": "Δωρεάν εναλλακτική υπηρεσία DNS με προστασία από ηλεκτρονικό ψάρεμα και λογισμικό υποκλοπής spyware"
     },
-    "settings_exclusion_add": {
-        "message": "Προσθήκη ιστότοπου"
-    },
     "settings_exclusion_title": {
         "message": "Εξαιρέσεις"
-    },
-    "settings_connection_mode_title": {
-        "message": "Λειτουργία σύνδεσης VPN"
     },
     "settings_exclusion_regular_title": {
         "message": "Κανονική λειτουργία"
     },
-    "settings_exclusion_regular_description": {
-        "message": "Το AdGuard VPN δεν λειτουργεί στους ιστότοπους από αυτήν τη λίστα:"
-    },
     "settings_exclusion_selective_title": {
         "message": "Επιλεκτική λειτουργία"
-    },
-    "settings_exclusion_selective_description": {
-        "message": "Το AdGuard VPN λειτουργεί μόνο σε ιστότοπους από αυτήν τη λίστα:"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Υποτομείς"
@@ -302,9 +287,6 @@
     "endpoints_search": {
         "message": "Αναζήτηση τοποθεσίας"
     },
-    "endpoints_not_found": {
-        "message": "Ο διακομιστής δεν βρέθηκε"
-    },
     "popup_traffic_limit_reached": {
         "message": "Συμπληρώθηκε το μηνιαίο όριο δεδομένων. Χρειάζεστε περισσότερο;"
     },
@@ -319,18 +301,6 @@
     },
     "settings_connect": {
         "message": "Σύνδεση"
-    },
-    "settings_not_responding": {
-        "message": "Ο διακομιστής δεν αποκρίνεται"
-    },
-    "settings_choose_another": {
-        "message": "Διαλέξτε άλλο"
-    },
-    "settings_connection_not_secured": {
-        "message": "Η σύνδεση δεν είναι ασφαλής"
-    },
-    "settings_connecting": {
-        "message": "Σύνδεση..."
     },
     "settings_vpn_enabled": {
         "message": "Το VPN είναι ενεργοποιημένο"
@@ -377,26 +347,11 @@
     "offline_title": {
         "message": "Εκτός σύνδεσης"
     },
-    "popup_exclusions_enable_vpn_on_site": {
-        "message": "<span>Μπορείτε</span> <a>να ενεργοποιήσετε το VPN σε αυτόν τον ιστότοπο</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_add_site_to_exclusions": {
-        "message": "<span>Μπορείτε</span> <a>να προσθέσετε τον ιστότοπο στις εξαιρέσεις</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_disable_vpn_on_site": {
-        "message": "<span>Μπορείτε</span> <a>να απενεργοποιήσετε το VPN σε αυτόν τον ιστότοπο</a>",
-        "description": "NOTICE! there is space between tags"
-    },
     "popup_site_status_unaccessible": {
         "message": "βρίσκεται στο τοπικό σας δίκτυο και δεν είναι προσβάσιμο μέσω VPN"
     },
     "popup_site_status_vpn_disabled": {
         "message": "Το VPN είναι απενεργοποιημένο σε αυτόν τον ιστότοπο"
-    },
-    "popup_site_status_added_to_exclusions": {
-        "message": "προστέθηκε στις εξαιρέσεις"
     },
     "popup_auth_agreement_consent": {
         "message": "Χρησιμοποιώντας το AdGuard VPN, αποδέχεστε το <eula>EULA</eula> και την <privacy>Πολιτική Απορρήτου</privacy>",
@@ -409,10 +364,6 @@
     "popup_free_traffic_info": {
         "message": "<span>%value%%unit%</span> απομένουν αυτόν τον μήνα",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "popup_ping_value": {
-        "message": "Ping %pingValue% ms",
-        "description": "Respect spaces between text and placeholder"
     },
     "options_auth_back_button": {
         "message": "Πίσω"

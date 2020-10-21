@@ -57,7 +57,7 @@
         "message": "Účet"
     },
     "account_edit": {
-        "message": "Upravit"
+        "message": "Spravovat"
     },
     "account_sign_out": {
         "message": "Odhlásit se"
@@ -228,19 +228,19 @@
         "message": "Výjimky"
     },
     "settings_connection_mode_title": {
-        "message": "Režim VPN připojení"
+        "message": "Pracovní režim"
     },
     "settings_exclusion_regular_title": {
         "message": "Obvyklý režim"
     },
     "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN nefunguje na stránkách z tohoto seznamu:"
+        "message": "AdGuard VPN nebude fungovat na webech ze seznamu níže"
     },
     "settings_exclusion_selective_title": {
         "message": "Selektivní režim"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN funguje pouze na stránkách z tohoto seznamu:"
+        "message": "AdGuard VPN bude fungovat pouze na webech ze seznamu níže"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Subdomény"
@@ -315,7 +315,7 @@
         "message": "Hledat umístění"
     },
     "endpoints_not_found": {
-        "message": "Server nenalezen"
+        "message": "Umístění nenalezeno"
     },
     "popup_traffic_limit_reached": {
         "message": "Měsíční datový limit je dosažen. Potřebujete více?"
@@ -331,18 +331,6 @@
     },
     "settings_connect": {
         "message": "Připojit"
-    },
-    "settings_not_responding": {
-        "message": "Server neodpovídá"
-    },
-    "settings_choose_another": {
-        "message": "Vyberte jiný"
-    },
-    "settings_connection_not_secured": {
-        "message": "Připojení není zabezpečeno"
-    },
-    "settings_connecting": {
-        "message": "VPN se připojuje"
     },
     "settings_vpn_enabled": {
         "message": "VPN je zapnuta"
@@ -389,26 +377,11 @@
     "offline_title": {
         "message": "Offline"
     },
-    "popup_exclusions_enable_vpn_on_site": {
-        "message": "<span>Můžete</span> <a>zapnout VPN na této stránce</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_add_site_to_exclusions": {
-        "message": "<span>Můžete</span> <a>přidat stránku do výjimek</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_disable_vpn_on_site": {
-        "message": "<span>Můžete</span> <a>vypnout VPN na této stránce</a>",
-        "description": "NOTICE! there is space between tags"
-    },
     "popup_site_status_unaccessible": {
         "message": "se nachází ve vaší místní síti a není k dispozici prostřednictvím VPN"
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN je vypnuta na této stránce"
-    },
-    "popup_site_status_added_to_exclusions": {
-        "message": "přidáno do výjimek"
     },
     "popup_auth_agreement_consent": {
         "message": "Používáním AdGuard VPN souhlasíte s <eula>EULA</eula> a <privacy>Zásadami ochrany osobních údajů</privacy>",
@@ -422,11 +395,16 @@
         "message": "Tento měsíc zbývá <span>%value% %unit%</span>",
         "description": "Respect spaces between text, tags and placeholders"
     },
-    "popup_ping_value": {
-        "message": "Ping %pingValue% ms",
-        "description": "Respect spaces between text and placeholder"
-    },
     "options_auth_back_button": {
         "message": "Zpět"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "V selektivním režimu funguje AdGuard VPN pouze na povolených webech, které jste přidali do seznamu."
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Přepnout nyní"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "Opravdu chcete přepnout?"
     }
 }

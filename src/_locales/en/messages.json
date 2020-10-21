@@ -57,7 +57,7 @@
         "message": "Account"
     },
     "account_edit": {
-        "message": "Edit"
+        "message": "Manage"
     },
     "account_sign_out": {
         "message": "Sign out"
@@ -222,25 +222,25 @@
         "message": "Free alternative DNS service with protection from phishing and spyware"
     },
     "settings_exclusion_add": {
-        "message": "Add website"
+        "message": "Add a website"
     },
     "settings_exclusion_title": {
         "message": "Exclusions"
     },
     "settings_connection_mode_title": {
-        "message": "VPN connection mode"
+        "message": "Operating mode"
     },
     "settings_exclusion_regular_title": {
         "message": "Regular mode"
     },
     "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN does not work on the websites from this list:"
+        "message": "AdGuard VPN won’t work on websites from the list below"
     },
     "settings_exclusion_selective_title": {
         "message": "Selective mode"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN works only on the websites from this list:"
+        "message": "AdGuard VPN will only work on websites from the list below"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Subdomains"
@@ -315,7 +315,7 @@
         "message": "Search location"
     },
     "endpoints_not_found": {
-        "message": "Server not found"
+        "message": "Location not found"
     },
     "popup_traffic_limit_reached": {
         "message": "Monthly data limit reached. Need more?"
@@ -405,6 +405,6 @@
         "message": "Switch now"
     },
     "options_selective_mode_popup_attention": {
-        "message": "Attention!"
+        "message": "Are you sure you want to switch?"
     }
 }

@@ -57,7 +57,7 @@
         "message": "账号"
     },
     "account_edit": {
-        "message": "编辑"
+        "message": "管理"
     },
     "account_sign_out": {
         "message": "退出"
@@ -228,19 +228,19 @@
         "message": "排除项"
     },
     "settings_connection_mode_title": {
-        "message": "VPN 连接模式"
+        "message": "操作模式"
     },
     "settings_exclusion_regular_title": {
         "message": "常规模式"
     },
     "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN 不会在下列的网站上运行："
+        "message": "AdGuard VPN 不会在下列的网站上运行"
     },
     "settings_exclusion_selective_title": {
         "message": "选择模式"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN 只会在下列的网站上运行："
+        "message": "AdGuard VPN 只会在下列的网站上运行"
     },
     "settings_exclusion_subdomains_title": {
         "message": "子域名"
@@ -315,7 +315,7 @@
         "message": "搜索位置"
     },
     "endpoints_not_found": {
-        "message": "未找到服务器"
+        "message": "未找到位置"
     },
     "popup_traffic_limit_reached": {
         "message": "已达到每月流量限制。需要更多流量？"
@@ -331,18 +331,6 @@
     },
     "settings_connect": {
         "message": "连接"
-    },
-    "settings_not_responding": {
-        "message": "服务器未响应"
-    },
-    "settings_choose_another": {
-        "message": "选择其它"
-    },
-    "settings_connection_not_secured": {
-        "message": "连接不安全"
-    },
-    "settings_connecting": {
-        "message": "VPN正在连接"
     },
     "settings_vpn_enabled": {
         "message": "VPN 已开启"
@@ -389,26 +377,11 @@
     "offline_title": {
         "message": "离线"
     },
-    "popup_exclusions_enable_vpn_on_site": {
-        "message": "<span>您可以</span><a>在此网站上开启 VPN</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_add_site_to_exclusions": {
-        "message": "<span>您可以</span><a>把该网站添加为排除项</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_disable_vpn_on_site": {
-        "message": "<span>您可以</span><a>在此网站上禁用 VPN</a>",
-        "description": "NOTICE! there is space between tags"
-    },
     "popup_site_status_unaccessible": {
         "message": "位于您的本地网络中。无法通过 VPN 访问"
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN 在该网站上已被禁用"
-    },
-    "popup_site_status_added_to_exclusions": {
-        "message": "已添加到排除"
     },
     "popup_auth_agreement_consent": {
         "message": "使用 AdGuard VPN，即代表您同意我们的<eula>最终用户许可协议</eula>和<privacy>隐私政策。</privacy>",
@@ -422,11 +395,16 @@
         "message": "本月剩余<span>%value% %unit%</span>",
         "description": "Respect spaces between text, tags and placeholders"
     },
-    "popup_ping_value": {
-        "message": "Ping响应为 %pingValue% ms",
-        "description": "Respect spaces between text and placeholder"
-    },
     "options_auth_back_button": {
         "message": "返回"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "在选择模式下，AdGuard VPN 将仅在您添加至此列表中的已允许网站上运行。"
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "立即切换"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "您确定要切换工作模式吗?"
     }
 }

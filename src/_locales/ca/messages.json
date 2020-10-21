@@ -1,1 +1,8 @@
-{}
+{
+    "options_selective_mode_popup_message": {
+        "message": "En mode Selectiu, AdGuard VPN només funciona als llocs web permesos que heu afegit a la llista."
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Canvia ara"
+    }
+}

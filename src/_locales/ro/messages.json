@@ -57,7 +57,7 @@
         "message": "Cont"
     },
     "account_edit": {
-        "message": "Editare"
+        "message": "Gestiune"
     },
     "account_sign_out": {
         "message": "Deconectare"
@@ -222,25 +222,25 @@
         "message": "Serviciu gratuit de DNS alternativ cu protecție de phishing și spyware"
     },
     "settings_exclusion_add": {
-        "message": "Adăugă site"
+        "message": "Adăugați un site"
     },
     "settings_exclusion_title": {
         "message": "Excluderi"
     },
     "settings_connection_mode_title": {
-        "message": "Mod de conectare VPN"
+        "message": "Mod de operare"
     },
     "settings_exclusion_regular_title": {
         "message": "Modul normal"
     },
     "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN nu funcționează pe site-urile din această listă:"
+        "message": "AdGuard VPN nu va funcționa pe site-urile din lista de mai jos"
     },
     "settings_exclusion_selective_title": {
         "message": "Modul selectiv"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN funcționează numai pe site-urile din această listă:"
+        "message": "AdGuard VPN va funcționa numai pe site-urile din lista de mai jos"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Subdomenii"
@@ -315,7 +315,7 @@
         "message": "Căutare locație"
     },
     "endpoints_not_found": {
-        "message": "Serverul nu a fost găsit"
+        "message": "Locația nu a fost găsită"
     },
     "popup_traffic_limit_reached": {
         "message": "Limită lunară de data atinsă. Vreți mai mult?"
@@ -331,18 +331,6 @@
     },
     "settings_connect": {
         "message": "Conectare"
-    },
-    "settings_not_responding": {
-        "message": "Serverul nu răspunde"
-    },
-    "settings_choose_another": {
-        "message": "Alegeți altul"
-    },
-    "settings_connection_not_secured": {
-        "message": "Conexiunea nu este sigură"
-    },
-    "settings_connecting": {
-        "message": "VPN se conectează"
     },
     "settings_vpn_enabled": {
         "message": "VPN activat"
@@ -389,26 +377,11 @@
     "offline_title": {
         "message": "Offline"
     },
-    "popup_exclusions_enable_vpn_on_site": {
-        "message": "<span>Puteți</span> <a>activa VPN pe site-ul acesta</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_add_site_to_exclusions": {
-        "message": "<span>Puteți</span> <a>adăuga site-ul la excluderi</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_disable_vpn_on_site": {
-        "message": "<span>Puteți</span> <a>dezactiva VPN pe acest site</a>",
-        "description": "NOTICE! there is space between tags"
-    },
     "popup_site_status_unaccessible": {
         "message": "este localizat în rețeaua dvs. locală și inaccesibil prin VPN"
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN este dezactivat pe acest site"
-    },
-    "popup_site_status_added_to_exclusions": {
-        "message": "adăugat la excluderi"
     },
     "popup_auth_agreement_consent": {
         "message": "Utilizând AdGuard VPN, acceptați <eula>EULA</eula> noastră și <privacy>Politica Intimității</privacy>",
@@ -422,11 +395,16 @@
         "message": "<span>%value% %unit%</span> rămași luna aceasta",
         "description": "Respect spaces between text, tags and placeholders"
     },
-    "popup_ping_value": {
-        "message": "Ping %pingValue% ms",
-        "description": "Respect spaces between text and placeholder"
-    },
     "options_auth_back_button": {
         "message": "Înapoi"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "În modul Selectiv AdGuard VPN funcționează numai pe site-urile permise pe care le-ați adăugat la listă."
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Comutați acum"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "Sigur doriți să comutați?"
     }
 }

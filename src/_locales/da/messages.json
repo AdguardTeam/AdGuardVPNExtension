@@ -56,9 +56,6 @@
     "account_title": {
         "message": "Konto"
     },
-    "account_edit": {
-        "message": "Rediger"
-    },
     "account_sign_out": {
         "message": "Log ud"
     },
@@ -221,26 +218,14 @@
     "settings_dns_selector_quad9_desc": {
         "message": "Gratis alternativ DNS-tjeneste med beskyttelse mod phishing og spyware"
     },
-    "settings_exclusion_add": {
-        "message": "Tilføj websted"
-    },
     "settings_exclusion_title": {
         "message": "Udelukkelser"
-    },
-    "settings_connection_mode_title": {
-        "message": "VPN-forbindelsestilstand"
     },
     "settings_exclusion_regular_title": {
         "message": "Almindelig tilstand"
     },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN fungerer ikke på webstederne fra denne liste:"
-    },
     "settings_exclusion_selective_title": {
         "message": "Selektiv tilstand"
-    },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN fungerer kun på webstederne fra denne liste:"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Subdomæner"
@@ -314,9 +299,6 @@
     "endpoints_search": {
         "message": "Søg placering"
     },
-    "endpoints_not_found": {
-        "message": "Server ikke fundet"
-    },
     "popup_traffic_limit_reached": {
         "message": "Den månedlige datagrænse er nået. Har du brug for mere?"
     },
@@ -331,18 +313,6 @@
     },
     "settings_connect": {
         "message": "Forbind"
-    },
-    "settings_not_responding": {
-        "message": "Serveren svarer ikke"
-    },
-    "settings_choose_another": {
-        "message": "Vælg en anden"
-    },
-    "settings_connection_not_secured": {
-        "message": "Forbindelsen er ikke sikret"
-    },
-    "settings_connecting": {
-        "message": "VPN opretter forbindelse"
     },
     "settings_vpn_enabled": {
         "message": "VPN er aktiveret"
@@ -389,26 +359,11 @@
     "offline_title": {
         "message": "Offline"
     },
-    "popup_exclusions_enable_vpn_on_site": {
-        "message": "<span>Du kan</span> <a>aktivere VPN på dette websted</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_add_site_to_exclusions": {
-        "message": "<span>Du kan</span> <a>føje webstedet til udelukkelser</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_disable_vpn_on_site": {
-        "message": "<span>Du kan</span> <a>deaktivere VPN på dette websted</a>",
-        "description": "NOTICE! there is space between tags"
-    },
     "popup_site_status_unaccessible": {
         "message": "er placeret i dit lokale netværk og ikke tilgængeligt via VPN"
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN er deaktiveret på dette websted"
-    },
-    "popup_site_status_added_to_exclusions": {
-        "message": "tilføjet til udelukkelser"
     },
     "popup_auth_agreement_consent": {
         "message": "Ved at bruge AdGuard VPN, accepterer du vores <eula>EULA</eula> og <privacy>Privatlivspolitik</privacy>",
@@ -422,11 +377,13 @@
         "message": "<span>%value% %unit%</span> tilbage denne måned",
         "description": "Respect spaces between text, tags and placeholders"
     },
-    "popup_ping_value": {
-        "message": "Ping %pingValue% ms",
-        "description": "Respect spaces between text and placeholder"
-    },
     "options_auth_back_button": {
         "message": "Tilbage"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "I Selektiv tilstand fungerer AdGuard VPN kun på tilladte websteder, som du har føjet til listen."
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Skift nu"
     }
 }

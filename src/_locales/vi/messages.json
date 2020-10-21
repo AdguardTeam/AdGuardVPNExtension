@@ -56,9 +56,6 @@
     "account_title": {
         "message": "Tài khoản"
     },
-    "account_edit": {
-        "message": "Chỉnh sửa"
-    },
     "account_sign_out": {
         "message": "Đăng xuất"
     },
@@ -221,26 +218,14 @@
     "settings_dns_selector_quad9_desc": {
         "message": "Dịch vụ DNS thay thế miễn phí với sự bảo vệ khỏi lừa đảo và phần mềm gián điệp"
     },
-    "settings_exclusion_add": {
-        "message": "Thêm trang web"
-    },
     "settings_exclusion_title": {
         "message": "Loại trừ"
-    },
-    "settings_connection_mode_title": {
-        "message": "Chế độ kết nối VPN"
     },
     "settings_exclusion_regular_title": {
         "message": "Chế độ thông thường"
     },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard không hoạt động trên trang này dựa theo danh sách này:"
-    },
     "settings_exclusion_selective_title": {
         "message": "Chế độ chọn lọc"
-    },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN không hoạt động trên trang này dựa theo danh sách này:"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Tên miền phụ"
@@ -314,9 +299,6 @@
     "endpoints_search": {
         "message": "Tìm vị trí"
     },
-    "endpoints_not_found": {
-        "message": "Không tìm thấy máy chủ"
-    },
     "popup_traffic_limit_reached": {
         "message": "Đã đạt đến giới hạn dữ liệu hàng tháng. Cần thêm?"
     },
@@ -331,18 +313,6 @@
     },
     "settings_connect": {
         "message": "Kết nối"
-    },
-    "settings_not_responding": {
-        "message": "Máy chủ không phản hồi"
-    },
-    "settings_choose_another": {
-        "message": "Chọn cái khác"
-    },
-    "settings_connection_not_secured": {
-        "message": "Kết nối không được bảo mật"
-    },
-    "settings_connecting": {
-        "message": "VPN đang kết nối"
     },
     "settings_vpn_enabled": {
         "message": "VPN đã bật"
@@ -389,26 +359,11 @@
     "offline_title": {
         "message": "Ngoại tuyến"
     },
-    "popup_exclusions_enable_vpn_on_site": {
-        "message": "<span> Bạn có thể </span> <a> bật VPN trên trang web này </a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_add_site_to_exclusions": {
-        "message": "<span> Bạn có thể </span> <a> thêm trang web vào loại trừ </a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_disable_vpn_on_site": {
-        "message": "<span> Bạn có thể </span> <a> tắt VPN trên trang web này </a>",
-        "description": "NOTICE! there is space between tags"
-    },
     "popup_site_status_unaccessible": {
         "message": "nằm trong mạng cục bộ của bạn và có thể truy cập qua VPN"
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN bị tắt trên trang web này"
-    },
-    "popup_site_status_added_to_exclusions": {
-        "message": "thêm ngoại lệ"
     },
     "popup_auth_agreement_consent": {
         "message": "Bằng việc tiếp tục sử dụng AdGuard VPN, bạn đồng ý với <eula> Thỏa thuận người dùng cuối </eula> và <privacy> Chính sách bảo mật.</privacy>",
@@ -421,10 +376,6 @@
     "popup_free_traffic_info": {
         "message": "<span>%value%%unit%</span> còn lại trong tháng này",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "popup_ping_value": {
-        "message": "Ping%pingValue% ms",
-        "description": "Respect spaces between text and placeholder"
     },
     "options_auth_back_button": {
         "message": "Quay lại"

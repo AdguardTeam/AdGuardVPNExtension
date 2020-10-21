@@ -56,9 +56,6 @@
     "account_title": {
         "message": "Nalog"
     },
-    "account_edit": {
-        "message": "Izmeni"
-    },
     "account_sign_out": {
         "message": "Odjavi se"
     },
@@ -221,26 +218,14 @@
     "settings_dns_selector_quad9_desc": {
         "message": "Besplatna alternativna DNS usluga sa zaštitom od fišinga i špijuna"
     },
-    "settings_exclusion_add": {
-        "message": "Dodaj sajt"
-    },
     "settings_exclusion_title": {
         "message": "Izuzeci"
-    },
-    "settings_connection_mode_title": {
-        "message": "Način VPN povezivanja"
     },
     "settings_exclusion_regular_title": {
         "message": "Uobičajeni način rada"
     },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard VPn ne radi na sajtovima sa ove liste:"
-    },
     "settings_exclusion_selective_title": {
         "message": "Selektivni način rada"
-    },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN radi samo na sajtovima sa ove liste:"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Poddomeni"
@@ -314,9 +299,6 @@
     "endpoints_search": {
         "message": "Pretraži lokaciju"
     },
-    "endpoints_not_found": {
-        "message": "Server nije pronađen"
-    },
     "popup_traffic_limit_reached": {
         "message": "Dosegli ste mesečno ograničenje podataka. Potrebno vam je još?"
     },
@@ -331,18 +313,6 @@
     },
     "settings_connect": {
         "message": "Poveži se"
-    },
-    "settings_not_responding": {
-        "message": "Server se ne odaziva"
-    },
-    "settings_choose_another": {
-        "message": "Izaberite drugi"
-    },
-    "settings_connection_not_secured": {
-        "message": "Veza nije bezbedna"
-    },
-    "settings_connecting": {
-        "message": "VPN se povezuje"
     },
     "settings_vpn_enabled": {
         "message": "VPn je uključen"
@@ -389,26 +359,11 @@
     "offline_title": {
         "message": "Van mreže"
     },
-    "popup_exclusions_enable_vpn_on_site": {
-        "message": "<span>Možete</span> <a>uključiti VPN na ovom sajtu</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_add_site_to_exclusions": {
-        "message": "<span>Možete</span> <a>dodati sajt na izuzetke</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_disable_vpn_on_site": {
-        "message": "<span>Možete</span> <a>isključiti VPN na ovom sajtu</a>",
-        "description": "NOTICE! there is space between tags"
-    },
     "popup_site_status_unaccessible": {
         "message": "nalazi se na vašoj lokalnoj mreži i nedostupan je preko VPN"
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPn je isključen na ovom sajtu"
-    },
-    "popup_site_status_added_to_exclusions": {
-        "message": "dodato u izuzetke"
     },
     "popup_auth_agreement_consent": {
         "message": "Nastavljanjem korišćenja AdGuard VPN, slažete se sa našim <eula>EULA</eula> and <privacy>politikom privatnosti.</privacy>",
@@ -422,11 +377,13 @@
         "message": "<span>%value% %unit%</span> preostalo ovog meseca",
         "description": "Respect spaces between text, tags and placeholders"
     },
-    "popup_ping_value": {
-        "message": "Ping %pingValue% ms",
-        "description": "Respect spaces between text and placeholder"
-    },
     "options_auth_back_button": {
         "message": "Nazad"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "U selektivnom načinu, AdGuard VPN radi samo na dozvoljenim sajtovima koje ste dodali na listu."
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Prebaci sada"
     }
 }

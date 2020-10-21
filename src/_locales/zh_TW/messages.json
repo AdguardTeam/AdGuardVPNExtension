@@ -57,7 +57,7 @@
         "message": "帳戶"
     },
     "account_edit": {
-        "message": "編輯"
+        "message": "管理"
     },
     "account_sign_out": {
         "message": "登出"
@@ -222,25 +222,25 @@
         "message": "有免於網路釣魚和間諜軟體的防護之免費替代的 DNS 服務"
     },
     "settings_exclusion_add": {
-        "message": "增加網站"
+        "message": "增加一個網站"
     },
     "settings_exclusion_title": {
         "message": "例外"
     },
     "settings_connection_mode_title": {
-        "message": "VPN 連線模式"
+        "message": "運作模式"
     },
     "settings_exclusion_regular_title": {
         "message": "常規模式"
     },
     "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN 不對來自此清單中之網站起作用："
+        "message": "AdGuard VPN 將不對來自以下清單中的網站起作用"
     },
     "settings_exclusion_selective_title": {
         "message": "選擇性模式"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN 僅對來自此清單中之網站起作用："
+        "message": "AdGuard VPN 將僅對來自以下清單中的網站起作用"
     },
     "settings_exclusion_subdomains_title": {
         "message": "子網域"
@@ -273,7 +273,7 @@
         "message": "對此網站啟用 VPN"
     },
     "popup_settings_enable_vpn_short": {
-        "message": "於該網站上啟用"
+        "message": "對此網站啟用"
     },
     "popup_settings_disable_vpn": {
         "message": "對此網站禁用 VPN"
@@ -315,7 +315,7 @@
         "message": "搜尋位置"
     },
     "endpoints_not_found": {
-        "message": "伺服器未被找到"
+        "message": "位置未被找到"
     },
     "popup_traffic_limit_reached": {
         "message": "已達到每月的流量限制。需要更多嗎？"
@@ -331,18 +331,6 @@
     },
     "settings_connect": {
         "message": "連線"
-    },
-    "settings_not_responding": {
-        "message": "伺服器未回應"
-    },
-    "settings_choose_another": {
-        "message": "選擇另一個"
-    },
-    "settings_connection_not_secured": {
-        "message": "連線為不安全的"
-    },
-    "settings_connecting": {
-        "message": "VPN 正在連線"
     },
     "settings_vpn_enabled": {
         "message": "VPN 被啟用"
@@ -389,26 +377,11 @@
     "offline_title": {
         "message": "離線"
     },
-    "popup_exclusions_enable_vpn_on_site": {
-        "message": "<span>您可</span><a>對此網站啟用 VPN</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_add_site_to_exclusions": {
-        "message": "<span>您可</span> <a>增加此網站到例外</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_disable_vpn_on_site": {
-        "message": "<span>您可</span><a>對此網站禁用 VPN</a>",
-        "description": "NOTICE! there is space between tags"
-    },
     "popup_site_status_unaccessible": {
         "message": "位於您的本機網路且經由 VPN 為不可存取的"
     },
     "popup_site_status_vpn_disabled": {
-        "message": "VPN 於此網站上被禁用"
-    },
-    "popup_site_status_added_to_exclusions": {
-        "message": "被加至例外"
+        "message": "對此網站，VPN 被禁用"
     },
     "popup_auth_agreement_consent": {
         "message": "透過使用 AdGuard VPN，您同意我們的<eula>終端用戶授權協定</eula>和<privacy>隱私政策</privacy>",
@@ -422,11 +395,16 @@
         "message": "本月剩餘 <span>%value% %unit%</span>",
         "description": "Respect spaces between text, tags and placeholders"
     },
-    "popup_ping_value": {
-        "message": "偵測 %pingValue% ms",
-        "description": "Respect spaces between text and placeholder"
-    },
     "options_auth_back_button": {
         "message": "返回"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "在選擇性模式下，AdGuard VPN 僅對您已加至該清單之已允許的網站起作用。"
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "立即轉換"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "您確定您想要轉換嗎？"
     }
 }

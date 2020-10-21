@@ -56,9 +56,6 @@
     "account_title": {
         "message": "계정"
     },
-    "account_edit": {
-        "message": "수정"
-    },
     "account_sign_out": {
         "message": "로그아웃"
     },
@@ -228,19 +225,19 @@
         "message": "예외 목록"
     },
     "settings_connection_mode_title": {
-        "message": "VPN 연결 모드"
+        "message": "운영 모드"
     },
     "settings_exclusion_regular_title": {
         "message": "일반 모드"
     },
     "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN은 이 목록에 있는 웹사이트에서는 작동하지 않습니다:"
+        "message": "AdGuard VPN은 이 목록에 있는 웹사이트에서는 작동하지 않습니다"
     },
     "settings_exclusion_selective_title": {
         "message": "선별적 모드"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN이 이 목록에 있는 웹사이트에서만 작동됩니다:"
+        "message": "AdGuard VPN이 이 목록에 있는 웹사이트에서만 작동됩니다"
     },
     "settings_exclusion_subdomains_title": {
         "message": "서브도메인"
@@ -315,7 +312,7 @@
         "message": "위치 검색"
     },
     "endpoints_not_found": {
-        "message": "서버를 찾을 수 없음"
+        "message": "위치를 찾을 수 없음"
     },
     "popup_traffic_limit_reached": {
         "message": "월간 데이터 제한에 도달했습니다. 더 필요하신가요?"
@@ -331,18 +328,6 @@
     },
     "settings_connect": {
         "message": "연결"
-    },
-    "settings_not_responding": {
-        "message": "서버가 응답하지 않습니다"
-    },
-    "settings_choose_another": {
-        "message": "서버 변경하기"
-    },
-    "settings_connection_not_secured": {
-        "message": "연결이 안전하지 않습니다"
-    },
-    "settings_connecting": {
-        "message": "VPN 연결 중"
     },
     "settings_vpn_enabled": {
         "message": "VPN이 활성화됨"
@@ -389,26 +374,11 @@
     "offline_title": {
         "message": "오프라인"
     },
-    "popup_exclusions_enable_vpn_on_site": {
-        "message": "<span>이 웹사이트에서 </span> <a>VPN을 활성화할 수 있습니다</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_add_site_to_exclusions": {
-        "message": "<span>이 웹사이트를</span> <a>예외에 추가할 수도 있습니다</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_disable_vpn_on_site": {
-        "message": "<span>이 웹사이트에서</span> <a>VPN을 비활성화할 수 있습니다</a>",
-        "description": "NOTICE! there is space between tags"
-    },
     "popup_site_status_unaccessible": {
         "message": "해당 주소는 로컬 네트워크에 위치해있어 VPN으로 접근할 수 없습니다"
     },
     "popup_site_status_vpn_disabled": {
         "message": "이 웹사이트에서 VPN이 비활성화됨"
-    },
-    "popup_site_status_added_to_exclusions": {
-        "message": "해당 주소가 예외에 추가되어 있습니다"
     },
     "popup_auth_agreement_consent": {
         "message": "AdGuard VPN을 계속 사용함으로써, 당사의 <eula>EULA</eula> 및 <privacy>개인정보처리방침</privacy>에 동의하게 됩니다.",
@@ -421,10 +391,6 @@
     "popup_free_traffic_info": {
         "message": "월간 사용량 <span>%value% %unit%</span> 남음",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "popup_ping_value": {
-        "message": "핑 %pingValue% ms",
-        "description": "Respect spaces between text and placeholder"
     },
     "options_auth_back_button": {
         "message": "이전"

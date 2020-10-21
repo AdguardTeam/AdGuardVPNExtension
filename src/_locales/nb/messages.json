@@ -56,9 +56,6 @@
     "account_title": {
         "message": "Konto"
     },
-    "account_edit": {
-        "message": "Redigér"
-    },
     "account_sign_out": {
         "message": "Logg av"
     },
@@ -221,26 +218,14 @@
     "settings_dns_selector_quad9_desc": {
         "message": "Gratis alternativ DNS-tjeneste med beskyttelse mot phishing og spionvare"
     },
-    "settings_exclusion_add": {
-        "message": "Legg til et nettsted"
-    },
     "settings_exclusion_title": {
         "message": "Unntak"
-    },
-    "settings_connection_mode_title": {
-        "message": "VPN-tilkoblingsmodus"
     },
     "settings_exclusion_regular_title": {
         "message": "Vanlig modus"
     },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN fungerer ikke på nettstedene fra denne listen:"
-    },
     "settings_exclusion_selective_title": {
         "message": "Selektiv modus"
-    },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN fungerer bare på nettstedene fra denne listen:"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Underdomener"
@@ -314,9 +299,6 @@
     "endpoints_search": {
         "message": "Søk etter sted"
     },
-    "endpoints_not_found": {
-        "message": "Tjeneren ble ikke funnet"
-    },
     "popup_traffic_limit_reached": {
         "message": "Den månedlige datagrensen har blitt nådd. Behøver du mer?"
     },
@@ -331,18 +313,6 @@
     },
     "settings_connect": {
         "message": "Koble til"
-    },
-    "settings_not_responding": {
-        "message": "Tjeneren svarer ikke"
-    },
-    "settings_choose_another": {
-        "message": "Velg en annen"
-    },
-    "settings_connection_not_secured": {
-        "message": "Tilkoblingen er ikke sikret"
-    },
-    "settings_connecting": {
-        "message": "Kobler til …"
     },
     "settings_vpn_enabled": {
         "message": "VPN er skrudd på"
@@ -389,26 +359,11 @@
     "offline_title": {
         "message": "Frakoblet"
     },
-    "popup_exclusions_enable_vpn_on_site": {
-        "message": "<span>Du kan</span> <a>skru på VPN på dette nettstedet</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_add_site_to_exclusions": {
-        "message": "<span>Du kan</span> <a>legge til nettstedet i unntakene</a>",
-        "description": "NOTICE! there is space between tags"
-    },
-    "popup_exclusions_disable_vpn_on_site": {
-        "message": "<span>Du kan</span> <a>skru av VPN på dette nettstedet</a>",
-        "description": "NOTICE! there is space between tags"
-    },
     "popup_site_status_unaccessible": {
         "message": "er posisjonert i ditt lokale nettverk og er utilgjengelig via VPN"
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN er skrudd av på dette nettstedet"
-    },
-    "popup_site_status_added_to_exclusions": {
-        "message": "lagt til i unntak"
     },
     "popup_auth_agreement_consent": {
         "message": "Ved å bruke AdGuard VPN, godtar du vår <eula>EULA</eula> og <privacy>personvernserklæring</privacy>",
@@ -421,10 +376,6 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> gjenstår denne måneden",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "popup_ping_value": {
-        "message": "Ping %pingValue%ms",
-        "description": "Respect spaces between text and placeholder"
     },
     "options_auth_back_button": {
         "message": "Tilbake"
