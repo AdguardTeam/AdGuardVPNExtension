@@ -12,6 +12,8 @@ const Status = observer(() => {
     const {
         exclusionsInverted,
         isConnected,
+        isConnectingIdle,
+        isConnectingRetrying,
         displayExclusionScreen,
         canBeExcluded,
     } = settingsStore;
@@ -23,6 +25,10 @@ const Status = observer(() => {
     };
 
     const renderVpnStatusTitle = () => {
+        if (isConnectingIdle || isConnectingRetrying) {
+            return reactTranslator.translate('settings_button_connecting');
+        }
+
         if (isConnected && !displayExclusionScreen) {
             return reactTranslator.translate('settings_vpn_enabled');
         }
