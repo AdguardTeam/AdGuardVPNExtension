@@ -74,7 +74,7 @@ const GlobalControl = observer(() => {
         },
         connecting: {
             className: 'button--outline-secondary button--disabled',
-            message: reactTranslator.translate('settings_disconnect'),
+            message: reactTranslator.translate('settings_button_connecting'),
         },
         connect: {
             className: 'button--green',

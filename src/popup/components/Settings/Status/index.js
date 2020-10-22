@@ -12,16 +12,11 @@ const Status = observer(() => {
     const {
         exclusionsInverted,
         isConnected,
-        isConnectingIdle,
-        isConnectingRetrying,
         displayExclusionScreen,
         canBeExcluded,
     } = settingsStore;
 
     const renderVpnStatusSubstring = () => {
-        if (isConnectingIdle || isConnectingRetrying) {
-            return reactTranslator.translate('settings_button_connecting');
-        }
         return exclusionsInverted
             ? reactTranslator.translate('context_menu_selective_mode')
             : reactTranslator.translate('context_menu_regular_mode');
