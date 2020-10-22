@@ -326,7 +326,7 @@
     "settings_disconnect": {
         "message": "Disconnect"
     },
-    "settings_button_connecting": {
+    "settings_vpn_connecting": {
         "message": "Connecting..."
     },
     "settings_connect": {
