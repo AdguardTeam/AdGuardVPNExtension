@@ -326,17 +326,17 @@
     "settings_disconnect": {
         "message": "Deconectare"
     },
-    "settings_button_connecting": {
-        "message": "Se conectează..."
+    "settings_vpn_connecting": {
+        "message": "Conectare..."
     },
     "settings_connect": {
         "message": "Conectare"
     },
     "settings_vpn_enabled": {
-        "message": "VPN activat"
+        "message": "Conectat"
     },
     "settings_vpn_disabled": {
-        "message": "VPN dezactivat"
+        "message": "Deconectat"
     },
     "popup_feedback_title": {
         "message": "Ne-ar plăcea să auzim feedback-ul dvs."

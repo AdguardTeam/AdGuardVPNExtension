@@ -56,6 +56,9 @@
     "account_title": {
         "message": "Účet"
     },
+    "account_edit": {
+        "message": "Spravovať"
+    },
     "account_sign_out": {
         "message": "Odhlásiť sa"
     },
@@ -218,14 +221,26 @@
     "settings_dns_selector_quad9_desc": {
         "message": "Bezplatná alternatívna DNS služba s ochranou pred podvodom a špehovaním"
     },
+    "settings_exclusion_add": {
+        "message": "Pridať webovú stránku"
+    },
     "settings_exclusion_title": {
         "message": "Výnimky"
+    },
+    "settings_connection_mode_title": {
+        "message": "Režim práce"
     },
     "settings_exclusion_regular_title": {
         "message": "Štandardný režim"
     },
+    "settings_exclusion_regular_description": {
+        "message": "AdGuard VPN nebude fungovať na webových stránkach z nižšie uvedeného zoznamu"
+    },
     "settings_exclusion_selective_title": {
         "message": "Výberový režim"
+    },
+    "settings_exclusion_selective_description": {
+        "message": "AdGuard VPN bude fungovať iba na webových stránkach zo zoznamu uvedeného nižšie"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Subdomény"
@@ -299,6 +314,9 @@
     "endpoints_search": {
         "message": "Hľadať krajinu"
     },
+    "endpoints_not_found": {
+        "message": "Lokalita sa nenašla"
+    },
     "popup_traffic_limit_reached": {
         "message": "Bol dosiahnutý mesačný limit. Chcete viac?"
     },
@@ -308,17 +326,11 @@
     "settings_disconnect": {
         "message": "Odpojiť"
     },
-    "settings_button_connecting": {
+    "settings_vpn_connecting": {
         "message": "Pripájanie..."
     },
     "settings_connect": {
         "message": "Pripojiť"
-    },
-    "settings_vpn_enabled": {
-        "message": "VPN je zapnutá"
-    },
-    "settings_vpn_disabled": {
-        "message": "VPN je vypnutá"
     },
     "popup_feedback_title": {
         "message": "Radi by sme počuli Vašu spätnú väzbu"
@@ -385,5 +397,8 @@
     },
     "options_selective_mode_popup_button_switch_now": {
         "message": "Prepnúť teraz"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "Naozaj chcete prepnúť?"
     }
 }

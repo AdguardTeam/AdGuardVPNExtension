@@ -326,17 +326,17 @@
     "settings_disconnect": {
         "message": "断开连接"
     },
-    "settings_button_connecting": {
-        "message": "连接中..."
+    "settings_vpn_connecting": {
+        "message": "正在连接..."
     },
     "settings_connect": {
         "message": "连接"
     },
     "settings_vpn_enabled": {
-        "message": "VPN 已开启"
+        "message": "已连接"
     },
     "settings_vpn_disabled": {
-        "message": "VPN 已禁用"
+        "message": "已断开"
     },
     "popup_feedback_title": {
         "message": "我们很高兴收到您的反馈"

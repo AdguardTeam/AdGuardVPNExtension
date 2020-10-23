@@ -326,17 +326,17 @@
     "settings_disconnect": {
         "message": "Desconectar"
     },
-    "settings_button_connecting": {
+    "settings_vpn_connecting": {
         "message": "Conectando..."
     },
     "settings_connect": {
         "message": "Conectar"
     },
     "settings_vpn_enabled": {
-        "message": "A VPN está ativada"
+        "message": "Conectado"
     },
     "settings_vpn_disabled": {
-        "message": "A VPN está desativada"
+        "message": "Desconectado"
     },
     "popup_feedback_title": {
         "message": "Gostaríamos muito de ouvir seu feedback"

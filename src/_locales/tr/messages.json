@@ -326,17 +326,17 @@
     "settings_disconnect": {
         "message": "Bağlantıyı kes"
     },
-    "settings_button_connecting": {
+    "settings_vpn_connecting": {
         "message": "Bağlanıyor..."
     },
     "settings_connect": {
         "message": "Bağlan"
     },
     "settings_vpn_enabled": {
-        "message": "VPN etkin"
+        "message": "Bağlandı"
     },
     "settings_vpn_disabled": {
-        "message": "VPN devre dışı"
+        "message": "Bağlantı kesildi"
     },
     "popup_feedback_title": {
         "message": "Geri bildiriminizi duymak isteriz"

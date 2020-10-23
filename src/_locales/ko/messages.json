@@ -323,17 +323,8 @@
     "settings_disconnect": {
         "message": "연결 해제"
     },
-    "settings_button_connecting": {
-        "message": "연결 중..."
-    },
     "settings_connect": {
         "message": "연결"
-    },
-    "settings_vpn_enabled": {
-        "message": "VPN이 활성화됨"
-    },
-    "settings_vpn_disabled": {
-        "message": "VPN이 비활성화됨"
     },
     "popup_feedback_title": {
         "message": "여러분의 피드백을 기다리고 있습니다"

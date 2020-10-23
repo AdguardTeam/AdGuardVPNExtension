@@ -182,9 +182,6 @@
     "settings_disconnect": {
         "message": "Koppla från"
     },
-    "settings_button_connecting": {
-        "message": "Ansluter..."
-    },
     "popup_feedback_button": {
         "message": "Lämna din feedback"
     },

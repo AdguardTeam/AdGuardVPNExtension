@@ -308,17 +308,8 @@
     "settings_disconnect": {
         "message": "Koble fra"
     },
-    "settings_button_connecting": {
-        "message": "Kobler til…"
-    },
     "settings_connect": {
         "message": "Koble til"
-    },
-    "settings_vpn_enabled": {
-        "message": "VPN er skrudd på"
-    },
-    "settings_vpn_disabled": {
-        "message": "VPN er skrudd av"
     },
     "popup_feedback_title": {
         "message": "Vi ville likt å høre tilbakemeldingene dine"

@@ -326,17 +326,17 @@
     "settings_disconnect": {
         "message": "Odpojit"
     },
-    "settings_button_connecting": {
+    "settings_vpn_connecting": {
         "message": "Připojování..."
     },
     "settings_connect": {
         "message": "Připojit"
     },
     "settings_vpn_enabled": {
-        "message": "VPN je zapnuta"
+        "message": "Připojeno"
     },
     "settings_vpn_disabled": {
-        "message": "VPN je vypnuta"
+        "message": "Odpojeno"
     },
     "popup_feedback_title": {
         "message": "Rádi bychom znali Vaši zpětnou vazbu"

@@ -326,17 +326,17 @@
     "settings_disconnect": {
         "message": "Szétkapcsolás"
     },
-    "settings_button_connecting": {
+    "settings_vpn_connecting": {
         "message": "Kapcsolódás..."
     },
     "settings_connect": {
         "message": "Csatlakozás"
     },
     "settings_vpn_enabled": {
-        "message": "VPN engedélyezve"
+        "message": "Kapcsolódva"
     },
     "settings_vpn_disabled": {
-        "message": "VPN letiltva"
+        "message": "Szétkapcsolva"
     },
     "popup_feedback_title": {
         "message": "Örülnénk az Ön visszajelzésének"

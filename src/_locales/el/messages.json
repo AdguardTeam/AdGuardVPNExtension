@@ -296,17 +296,8 @@
     "settings_disconnect": {
         "message": "Αποσύνδεση"
     },
-    "settings_button_connecting": {
-        "message": "Σύνδεση..."
-    },
     "settings_connect": {
         "message": "Σύνδεση"
-    },
-    "settings_vpn_enabled": {
-        "message": "Το VPN είναι ενεργοποιημένο"
-    },
-    "settings_vpn_disabled": {
-        "message": "Το VPN είναι απενεργοποιημένο"
     },
     "popup_feedback_title": {
         "message": "Θα θέλαμε πολύ να ακούσουμε τα σχόλιά σας"

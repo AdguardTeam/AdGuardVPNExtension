@@ -276,7 +276,7 @@
         "message": "Включить"
     },
     "popup_settings_disable_vpn": {
-        "message": "Отключить VPN на этом сайте"
+        "message": "Не использовать VPN на этом сайте"
     },
     "popup_settings_other_products": {
         "message": "Другие продукты"
@@ -294,7 +294,7 @@
         "message": "Включить VPN на этом сайте"
     },
     "context_menu_disable_vpn": {
-        "message": "Отключить VPN на этом сайте"
+        "message": "Не использовать VPN на этом сайте"
     },
     "suggest_feature": {
         "message": "Предложить улучшение"
@@ -326,17 +326,17 @@
     "settings_disconnect": {
         "message": "Отключить"
     },
-    "settings_button_connecting": {
+    "settings_vpn_connecting": {
         "message": "Соединение..."
     },
     "settings_connect": {
         "message": "Подключиться"
     },
     "settings_vpn_enabled": {
-        "message": "VPN включен"
+        "message": "Подключено"
     },
     "settings_vpn_disabled": {
-        "message": "VPN отключен"
+        "message": "Отключено"
     },
     "popup_feedback_title": {
         "message": "Мы будем рады увидеть ваш отзыв"

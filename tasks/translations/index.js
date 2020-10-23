@@ -44,7 +44,7 @@ const upload = async () => {
 const validate = async (locales) => {
     try {
         await validateMessages(locales);
-        await checkTranslations(REQUIRED_LOCALES);
+        await checkTranslations(locales);
     } catch (e) {
         log.error(e.message);
         process.exit(1);
