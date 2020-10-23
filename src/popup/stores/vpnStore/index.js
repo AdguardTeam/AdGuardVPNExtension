@@ -88,7 +88,8 @@ class VpnStore {
                 if (!this.searchValue || this.searchValue.length === 0) {
                     return true;
                 }
-                const regex = new RegExp(this.searchValue, 'ig');
+                const escapedSearchValue = this.searchValue.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const regex = new RegExp(escapedSearchValue, 'ig');
                 return (location.cityName && location.cityName.match(regex))
                 || (location.countryName && location.countryName.match(regex));
             })
