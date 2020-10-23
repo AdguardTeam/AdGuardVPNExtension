@@ -326,8 +326,8 @@
     "settings_disconnect": {
         "message": "Trennen"
     },
-    "settings_button_connecting": {
-        "message": "Verbindung wird hergestellt…"
+    "settings_vpn_connecting": {
+        "message": "Verbindung wird hergestellt …"
     },
     "settings_connect": {
         "message": "Verbinden"

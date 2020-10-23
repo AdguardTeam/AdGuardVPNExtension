@@ -308,17 +308,8 @@
     "settings_disconnect": {
         "message": "Terputus"
     },
-    "settings_button_connecting": {
-        "message": "Menyambung..."
-    },
     "settings_connect": {
         "message": "Sambung"
-    },
-    "settings_vpn_enabled": {
-        "message": "VPN sedang aktif"
-    },
-    "settings_vpn_disabled": {
-        "message": "VPN tidak aktif"
     },
     "popup_feedback_title": {
         "message": "Kami ingin mendengar tanggapan Anda"

@@ -326,17 +326,17 @@
     "settings_disconnect": {
         "message": "Prekini povezavo"
     },
-    "settings_button_connecting": {
+    "settings_vpn_connecting": {
         "message": "Povezovanje..."
     },
     "settings_connect": {
         "message": "Poveži"
     },
     "settings_vpn_enabled": {
-        "message": "VPN je omogočen"
+        "message": "Povezan"
     },
     "settings_vpn_disabled": {
-        "message": "VPN je onemogočen"
+        "message": "Izklopljen"
     },
     "popup_feedback_title": {
         "message": "Zelo radi bi slišali vaše povratne informacije"

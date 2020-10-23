@@ -228,7 +228,7 @@
         "message": "Uitzonderingen"
     },
     "settings_connection_mode_title": {
-        "message": "Modus selecteren"
+        "message": "Werkingsmodus"
     },
     "settings_exclusion_regular_title": {
         "message": "Standaard modus"
@@ -326,17 +326,17 @@
     "settings_disconnect": {
         "message": "Verbinding verbreken"
     },
-    "settings_button_connecting": {
+    "settings_vpn_connecting": {
         "message": "Verbinden..."
     },
     "settings_connect": {
         "message": "Verbinden"
     },
     "settings_vpn_enabled": {
-        "message": "VPN ingeschakeld"
+        "message": "Verbonden"
     },
     "settings_vpn_disabled": {
-        "message": "VPN uitgeschakeld"
+        "message": "Verbinding verbroken"
     },
     "popup_feedback_title": {
         "message": "We verheugen ons op je feedback"
@@ -348,7 +348,7 @@
         "message": "Je hebt geen data meer"
     },
     "settings_run_upgrade_feature": {
-        "message": "Ongelimiteerde data, hoogste snelheid, 24/7 ondersteuning"
+        "message": "Onbeperkte data, hoogste snelheid, 24/7 ondersteuning"
     },
     "settings_run_upgrade_early_bird": {
         "message": "Early-bird prijzen"

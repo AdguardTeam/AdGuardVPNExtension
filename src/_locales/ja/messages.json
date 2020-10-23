@@ -326,17 +326,17 @@
     "settings_disconnect": {
         "message": "切断する"
     },
-    "settings_button_connecting": {
+    "settings_vpn_connecting": {
         "message": "接続中…"
     },
     "settings_connect": {
         "message": "接続する"
     },
     "settings_vpn_enabled": {
-        "message": "VPNはオンです。"
+        "message": "接続されています。"
     },
     "settings_vpn_disabled": {
-        "message": "VPNはオフです。"
+        "message": "切断されています。"
     },
     "popup_feedback_title": {
         "message": "ユーザ様の声をお聞かせください。"

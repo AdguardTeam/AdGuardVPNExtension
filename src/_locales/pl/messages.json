@@ -326,17 +326,17 @@
     "settings_disconnect": {
         "message": "Rozłącz"
     },
-    "settings_button_connecting": {
+    "settings_vpn_connecting": {
         "message": "Łączenie..."
     },
     "settings_connect": {
         "message": "Połącz"
     },
     "settings_vpn_enabled": {
-        "message": "VPN jest włączony"
+        "message": "Połączony"
     },
     "settings_vpn_disabled": {
-        "message": "VPN jest wyłączony"
+        "message": "Rozłączony"
     },
     "popup_feedback_title": {
         "message": "Bardzo chcielibyśmy poznać Twoją opinię"
@@ -397,5 +397,14 @@
     },
     "options_auth_back_button": {
         "message": "Wstecz"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "W trybie selektywnym AdGuard VPN działa tylko na dozwolonych witrynach internetowych, które zostały dodane do listy."
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Przełącz teraz"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "Czy na pewno chcesz się przełączyć?"
     }
 }

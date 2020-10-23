@@ -56,6 +56,9 @@
     "account_title": {
         "message": "Konto"
     },
+    "account_edit": {
+        "message": "Administrer"
+    },
     "account_sign_out": {
         "message": "Log ud"
     },
@@ -218,14 +221,26 @@
     "settings_dns_selector_quad9_desc": {
         "message": "Gratis alternativ DNS-tjeneste med beskyttelse mod phishing og spyware"
     },
+    "settings_exclusion_add": {
+        "message": "Tilføj et websted"
+    },
     "settings_exclusion_title": {
         "message": "Udelukkelser"
+    },
+    "settings_connection_mode_title": {
+        "message": "Driftstilstand"
     },
     "settings_exclusion_regular_title": {
         "message": "Almindelig tilstand"
     },
+    "settings_exclusion_regular_description": {
+        "message": "AdGuard VPN fungerer ikke på webstederne fra nedenstående liste"
+    },
     "settings_exclusion_selective_title": {
         "message": "Selektiv tilstand"
+    },
+    "settings_exclusion_selective_description": {
+        "message": "AdGuard VPN fungerer kun på webstederne fra nedenstående liste"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Subdomæner"
@@ -299,6 +314,9 @@
     "endpoints_search": {
         "message": "Søg placering"
     },
+    "endpoints_not_found": {
+        "message": "Placering blev ikke fundet"
+    },
     "popup_traffic_limit_reached": {
         "message": "Den månedlige datagrænse er nået. Har du brug for mere?"
     },
@@ -308,17 +326,17 @@
     "settings_disconnect": {
         "message": "Afbryd"
     },
-    "settings_button_connecting": {
+    "settings_vpn_connecting": {
         "message": "Forbinder..."
     },
     "settings_connect": {
         "message": "Forbind"
     },
     "settings_vpn_enabled": {
-        "message": "VPN er aktiveret"
+        "message": "Forbundet"
     },
     "settings_vpn_disabled": {
-        "message": "VPN er deaktiveret"
+        "message": "Afbrudt"
     },
     "popup_feedback_title": {
         "message": "Vi vil meget gerne høre din feedback"
@@ -385,5 +403,8 @@
     },
     "options_selective_mode_popup_button_switch_now": {
         "message": "Skift nu"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "Er du sikker på, at du vil skifte?"
     }
 }

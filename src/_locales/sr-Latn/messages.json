@@ -56,6 +56,9 @@
     "account_title": {
         "message": "Nalog"
     },
+    "account_edit": {
+        "message": "Upravljaj"
+    },
     "account_sign_out": {
         "message": "Odjavi se"
     },
@@ -218,14 +221,26 @@
     "settings_dns_selector_quad9_desc": {
         "message": "Besplatna alternativna DNS usluga sa zaštitom od fišinga i špijuna"
     },
+    "settings_exclusion_add": {
+        "message": "Dodaj sajt"
+    },
     "settings_exclusion_title": {
         "message": "Izuzeci"
+    },
+    "settings_connection_mode_title": {
+        "message": "Način VPN povezivanja"
     },
     "settings_exclusion_regular_title": {
         "message": "Uobičajeni način rada"
     },
+    "settings_exclusion_regular_description": {
+        "message": "AdGuard VPn ne radi na sajtovima sa ove liste:"
+    },
     "settings_exclusion_selective_title": {
         "message": "Selektivni način rada"
+    },
+    "settings_exclusion_selective_description": {
+        "message": "AdGuard VPN radi samo na sajtovima sa ove liste:"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Poddomeni"
@@ -299,6 +314,9 @@
     "endpoints_search": {
         "message": "Pretraži lokaciju"
     },
+    "endpoints_not_found": {
+        "message": "Lokacija nije pronađena"
+    },
     "popup_traffic_limit_reached": {
         "message": "Dosegli ste mesečno ograničenje podataka. Potrebno vam je još?"
     },
@@ -308,17 +326,8 @@
     "settings_disconnect": {
         "message": "Prekini vezu"
     },
-    "settings_button_connecting": {
-        "message": "Povezivanje..."
-    },
     "settings_connect": {
         "message": "Poveži se"
-    },
-    "settings_vpn_enabled": {
-        "message": "VPn je uključen"
-    },
-    "settings_vpn_disabled": {
-        "message": "VPN je isključen"
     },
     "popup_feedback_title": {
         "message": "Želimo da čujemo vaše povratne informacije"
@@ -385,5 +394,8 @@
     },
     "options_selective_mode_popup_button_switch_now": {
         "message": "Prebaci sada"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "Jeste li sigurni da želite da se prebacite?"
     }
 }

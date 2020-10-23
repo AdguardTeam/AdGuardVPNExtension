@@ -308,17 +308,8 @@
     "settings_disconnect": {
         "message": "Ngắt kết nối"
     },
-    "settings_button_connecting": {
-        "message": "Đang kết nối…"
-    },
     "settings_connect": {
         "message": "Kết nối"
-    },
-    "settings_vpn_enabled": {
-        "message": "VPN đã bật"
-    },
-    "settings_vpn_disabled": {
-        "message": "VPN đã tắt"
     },
     "popup_feedback_title": {
         "message": "Chúng tôi rất muốn nghe phản hồi của bạn"

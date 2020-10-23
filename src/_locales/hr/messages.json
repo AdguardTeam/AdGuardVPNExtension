@@ -308,17 +308,8 @@
     "settings_disconnect": {
         "message": "Isključi"
     },
-    "settings_button_connecting": {
-        "message": "Povezivanje..."
-    },
     "settings_connect": {
         "message": "Poveži"
-    },
-    "settings_vpn_enabled": {
-        "message": "VPN je omogućen"
-    },
-    "settings_vpn_disabled": {
-        "message": "VPN je onemogućen"
     },
     "popup_feedback_title": {
         "message": "Želimo čuti vaše mišljenje"
