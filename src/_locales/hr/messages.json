@@ -56,6 +56,9 @@
     "account_title": {
         "message": "Račun"
     },
+    "account_edit": {
+        "message": "Upravljanje"
+    },
     "account_sign_out": {
         "message": "Odjava"
     },
@@ -218,14 +221,26 @@
     "settings_dns_selector_quad9_desc": {
         "message": "Besplatna, alternativna DNS usluga s zaštitom od krađe identiteta i špijunskih programa"
     },
+    "settings_exclusion_add": {
+        "message": "Dodaj web stranicu"
+    },
     "settings_exclusion_title": {
         "message": "Iznimke"
+    },
+    "settings_connection_mode_title": {
+        "message": "Način rada"
     },
     "settings_exclusion_regular_title": {
         "message": "Zadani način"
     },
+    "settings_exclusion_regular_description": {
+        "message": "AdGuard VPN neće raditi na web stranicama s popisa ispod"
+    },
     "settings_exclusion_selective_title": {
         "message": "Selektivni način"
+    },
+    "settings_exclusion_selective_description": {
+        "message": "AdGuard VPN će raditi samo na web stranicama s popisa ispod"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Poddomene"
@@ -299,6 +314,9 @@
     "endpoints_search": {
         "message": "Pretraži lokaciju"
     },
+    "endpoints_not_found": {
+        "message": "Lokacija nije pronađena"
+    },
     "popup_traffic_limit_reached": {
         "message": "Mjesečno ograničenje podatka je dosegnuto. Trebate li više?"
     },
@@ -308,8 +326,17 @@
     "settings_disconnect": {
         "message": "Isključi"
     },
+    "settings_vpn_connecting": {
+        "message": "Povezivanje..."
+    },
     "settings_connect": {
         "message": "Poveži"
+    },
+    "settings_vpn_enabled": {
+        "message": "Povezano"
+    },
+    "settings_vpn_disabled": {
+        "message": "Odspojeno"
     },
     "popup_feedback_title": {
         "message": "Želimo čuti vaše mišljenje"
@@ -370,5 +397,14 @@
     },
     "options_auth_back_button": {
         "message": "Natrag"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "U selektivnom načinu rada AdGuard VPN radi samo na dopuštenim web stranicama koja ste dodali na popis."
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Promijeni sada"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "Jeste li sigurni da želite promijeniti?"
     }
 }

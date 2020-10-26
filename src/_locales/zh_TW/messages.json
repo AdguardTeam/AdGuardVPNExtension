@@ -326,8 +326,17 @@
     "settings_disconnect": {
         "message": "斷線"
     },
+    "settings_vpn_connecting": {
+        "message": "正在連線…"
+    },
     "settings_connect": {
         "message": "連線"
+    },
+    "settings_vpn_enabled": {
+        "message": "已連線"
+    },
+    "settings_vpn_disabled": {
+        "message": "已斷線"
     },
     "popup_feedback_title": {
         "message": "我們願意聽取您的回饋意見"
