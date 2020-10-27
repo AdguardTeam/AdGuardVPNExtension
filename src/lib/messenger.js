@@ -266,6 +266,11 @@ class Messenger {
         const type = MESSAGES_TYPES.CHECK_IS_PREMIUM_TOKEN;
         return this.sendMessage(type);
     }
+
+    async setNotificationViewed(withDelay) {
+        const type = MESSAGES_TYPES.SET_NOTIFICATION_VIEWED;
+        return this.sendMessage(type, { withDelay });
+    }
 }
 
 export default new Messenger();

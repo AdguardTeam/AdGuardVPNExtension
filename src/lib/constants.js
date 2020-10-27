@@ -51,6 +51,7 @@ export const MESSAGES_TYPES = {
     GET_USERNAME: 'get.username',
     GET_SELECTED_LOCATION: 'get.selected.location',
     CHECK_IS_PREMIUM_TOKEN: 'check.is.premium.token',
+    SET_NOTIFICATION_VIEWED: 'set.notification.viewed',
 };
 
 export const ERROR_STATUSES = {

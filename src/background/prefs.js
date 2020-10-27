@@ -16,16 +16,34 @@ export const Prefs = {
                 38: getUrl(`${ICONS_PATH}/disabled-38.png`),
                 128: getUrl(`${ICONS_PATH}/disabled-128.png`),
             },
-            DISABLED_FOR_URL: {
-                19: getUrl(`${ICONS_PATH}/disabled-url-19.png`),
-                38: getUrl(`${ICONS_PATH}/disabled-url-38.png`),
-                128: getUrl(`${ICONS_PATH}/disabled-url-128.png`),
-            },
             TRAFFIC_OFF: {
                 19: getUrl(`${ICONS_PATH}/traffic-off-19.png`),
                 38: getUrl(`${ICONS_PATH}/traffic-off-38.png`),
                 128: getUrl(`${ICONS_PATH}/traffic-off-128.png`),
             },
         }));
+    },
+
+    get browser() {
+        return lazyGet(Prefs, 'browser', () => {
+            let browser;
+            let { userAgent } = navigator;
+            userAgent = userAgent.toLowerCase();
+            if (userAgent.indexOf('yabrowser') >= 0) {
+                browser = 'YaBrowser';
+            } else if (userAgent.indexOf('edge') >= 0) {
+                browser = 'Edge';
+            } else if (userAgent.indexOf('edg') >= 0) {
+                browser = 'EdgeChromium';
+            } else if (userAgent.indexOf('opera') >= 0
+                || userAgent.indexOf('opr') >= 0) {
+                browser = 'Opera';
+            } else if (userAgent.indexOf('firefox') >= 0) {
+                browser = 'Firefox';
+            } else {
+                browser = 'Chrome';
+            }
+            return browser;
+        });
     },
 };

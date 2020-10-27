@@ -15,6 +15,7 @@ import permissionsChecker from './permissionsChecker';
 import { log } from '../lib/logger';
 import notifier from '../lib/notifier';
 import { locationsService } from './endpoints/locationsService';
+import { promoNotifications } from './promoNotifications';
 
 const eventListeners = {};
 
@@ -198,6 +199,10 @@ const messageHandler = async (message, sender) => {
         }
         case MESSAGES_TYPES.CHECK_IS_PREMIUM_TOKEN: {
             return credentials.isPremiumToken();
+        }
+        case MESSAGES_TYPES.SET_NOTIFICATION_VIEWED: {
+            const { withDelay } = data;
+            return promoNotifications.setNotificationViewed(withDelay);
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

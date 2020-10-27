@@ -15,6 +15,7 @@ import ExtraOptions from '../ExtraOptions';
 import Preloader from '../Preloader';
 import GlobalError from '../GlobalError';
 import Settings from '../Settings';
+import { PromoNotificationModal } from '../PromoNotificationModal';
 import Icons from '../ui/Icons';
 import CurrentEndpoint from '../Settings/CurrentEndpoint';
 import ExclusionsScreen from '../Settings/ExclusionsScreen';
@@ -165,6 +166,7 @@ const App = observer(() => {
 
     return (
         <>
+            <PromoNotificationModal />
             {isOpenOptionsModal && <ExtraOptions />}
             <Header showMenuButton={authenticated} />
             <CSSTransition

@@ -1,6 +1,7 @@
 import browser from 'webextension-polyfill';
 import { Prefs } from './prefs';
 import { log } from '../lib/logger';
+import { promoNotifications } from './promoNotifications';
 
 const openOptionsPage = async () => {
     return browser.runtime.openOptionsPage();
@@ -34,6 +35,12 @@ const setBadge = async (details) => {
  */
 const setIconEnabled = async (tabId) => {
     const details = { path: Prefs.ICONS.ENABLED };
+    const promoNotification = await promoNotifications.getCurrentNotification();
+
+    if (promoNotification) {
+        details.path = promoNotification.icons.ENABLED;
+    }
+
     await setIcon(details);
     if (tabId) {
         details.tabId = tabId;
@@ -50,6 +57,13 @@ const setIconEnabled = async (tabId) => {
  */
 const setIconDisabled = async (tabId) => {
     const details = { path: Prefs.ICONS.DISABLED };
+
+    const promoNotification = await promoNotifications.getCurrentNotification();
+
+    if (promoNotification) {
+        details.path = promoNotification.icons.DISABLED;
+    }
+
     await setIcon(details);
     if (tabId) {
         details.tabId = tabId;
@@ -71,23 +85,15 @@ const setIconTrafficOff = async (tabId) => {
     }
 };
 
-/**
- * Sets browser action icon for tabs with excluded url
- * @param tabId
- * @returns {Promise<void>}
- */
-const setIconExcludedForUrl = async (tabId) => {
-    const details = { path: Prefs.ICONS.DISABLED_FOR_URL };
-    if (tabId) {
-        details.tabId = tabId;
-    } else {
-        return;
-    }
-    await setIcon(details);
-};
-
 const setBadgeText = async (tabId, text) => {
     const details = { text };
+
+    // if there is promo notification we hide text notification
+    const promoNotification = await promoNotifications.getCurrentNotification();
+    if (promoNotification) {
+        details.text = '';
+    }
+
     await setBadge(details);
     if (tabId) {
         details.tabId = tabId;
@@ -108,7 +114,6 @@ const actions = {
     openOptionsPage,
     setIconEnabled,
     setIconDisabled,
-    setIconExcludedForUrl,
     setIconTrafficOff,
     setBadgeText,
     clearBadgeText,

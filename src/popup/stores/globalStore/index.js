@@ -39,6 +39,7 @@ class globalStore {
                 hasRequiredData,
                 isPremiumToken,
                 connectivityState,
+                promoNotification,
             } = popupData;
 
             if (!isAuthenticated) {
@@ -64,6 +65,7 @@ class globalStore {
             settingsStore.setConnectivityState(connectivityState);
             settingsStore.setCanControlProxy(canControlProxy);
             settingsStore.setIsRoutable(isRoutable);
+            settingsStore.setPromoNotification(promoNotification);
             await settingsStore.checkRateStatus();
             await settingsStore.getPromoScreenStatus();
             await settingsStore.checkIsExcluded();

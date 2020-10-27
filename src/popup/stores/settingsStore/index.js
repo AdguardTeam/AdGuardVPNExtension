@@ -40,6 +40,8 @@ class SettingsStore {
 
     @observable hasLimitExceededDisplayed = false;
 
+    @observable promoNotification = null;
+
     constructor(rootStore) {
         this.rootStore = rootStore;
     }
@@ -302,6 +304,11 @@ class SettingsStore {
     @action
     setPremiumLocationClickedByFreeUser = (state) => {
         this.freeUserClickedPremiumLocation = state;
+    }
+
+    @action
+    setPromoNotification = (promoNotification) => {
+        this.promoNotification = promoNotification;
     }
 }
 
