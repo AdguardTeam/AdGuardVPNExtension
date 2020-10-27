@@ -53,9 +53,8 @@ const getSrcFilesContents = (dirPath, contents = []) => {
 
 /**
  * Checks if there are unused base-locale strings in source files
- * @param {boolean} [isInfo=false] flag for info script; if 'true', method will NOT through error
  */
-export const checkUnusedMessages = async (isInfo = false) => {
+export const checkUnusedMessages = async () => {
     const baseLocaleTranslations = await getLocaleMessages(
         LOCALES_DIR, BASE_LOCALE, LOCALE_DATA_FILENAME
     );
@@ -81,8 +80,5 @@ export const checkUnusedMessages = async (isInfo = false) => {
         unusedMessages.forEach((key) => {
             log.warning(`  ${key}`);
         });
-        if (!isInfo) {
-            throw new Error('There should be no unused messages');
-        }
     }
 };

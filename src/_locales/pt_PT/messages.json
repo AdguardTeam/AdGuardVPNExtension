@@ -48,7 +48,7 @@
         "message": "Ocorreu um erro, tente novamente mais tarde"
     },
     "global_error_message": {
-        "message": "Ocorreu um erro, entre em contato conosco via <a>support@adguard-vpn.com</a>"
+        "message": "Ocorreu um erro, entre em contacto conosco via <a>support@adguard-vpn.com</a>"
     },
     "about_title": {
         "message": "Acerca de"
@@ -63,7 +63,7 @@
         "message": "Encerrar sessão"
     },
     "rate_description": {
-        "message": "Ei, somos a equipe da AdGuard e é muito importante para nós saber sua opinião sobre nosso produto. Por favor, avalie."
+        "message": "Ei, somos a equipa do AdGuard e é muito importante para nós saber sua opinião sobre nosso produto. Por favor, avalie."
     },
     "rate_hide": {
         "message": "Esconder"
@@ -252,7 +252,7 @@
         "message": "Ocorreu um erro"
     },
     "global_error_description": {
-        "message": "Entre em contato conosco se você continuar vendo esta mensagem"
+        "message": "Entre em contacto conosco se você continuar vendo esta mensagem"
     },
     "global_error_learn_more": {
         "message": "Saiba mais"
