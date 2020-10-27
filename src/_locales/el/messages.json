@@ -305,12 +305,6 @@
     "popup_feedback_button": {
         "message": "Αφήστε τα σχόλιά σας"
     },
-    "settings_run_out_data": {
-        "message": "Έχετε εξαντλήσει τα δεδομένα"
-    },
-    "settings_run_upgrade_feature": {
-        "message": "Απεριόριστα δεδομένα, γρήγορη ταχύτητα, υποστήριξη 24/7"
-    },
     "settings_run_upgrade_early_bird": {
         "message": "Πρώιμες τιμές"
     },

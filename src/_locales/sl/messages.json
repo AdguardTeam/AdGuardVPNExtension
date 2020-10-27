@@ -344,12 +344,6 @@
     "popup_feedback_button": {
         "message": "Pošlji povratne informacije"
     },
-    "settings_run_out_data": {
-        "message": "Zmanjkalo je podatkov"
-    },
-    "settings_run_upgrade_feature": {
-        "message": "Neomejena količina podatkov, najhitrejša hitrost, podpora 24/7"
-    },
     "settings_run_upgrade_early_bird": {
         "message": "Cene zgodnjih ptic"
     },

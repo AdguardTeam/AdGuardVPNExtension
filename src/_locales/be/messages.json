@@ -335,12 +335,6 @@
     "popup_feedback_button": {
         "message": "Пакінуць водгук"
     },
-    "settings_run_out_data": {
-        "message": "У вас скончыліся даныя"
-    },
-    "settings_run_upgrade_feature": {
-        "message": "Неабмежаваны трафік, самая высокая хуткасць, цэладзённая падтрымка"
-    },
     "settings_run_upgrade_early_bird": {
         "message": "Адмысловыя цэны для першых пакупнікоў"
     },

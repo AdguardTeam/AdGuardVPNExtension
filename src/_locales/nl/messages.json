@@ -344,12 +344,6 @@
     "popup_feedback_button": {
         "message": "Feedback geven"
     },
-    "settings_run_out_data": {
-        "message": "Je hebt geen data meer"
-    },
-    "settings_run_upgrade_feature": {
-        "message": "Onbeperkte data, hoogste snelheid, 24/7 ondersteuning"
-    },
     "settings_run_upgrade_early_bird": {
         "message": "Early-bird prijzen"
     },

@@ -338,17 +338,26 @@
     "settings_vpn_disabled": {
         "message": "切断されています。"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "接続が低速化されています。"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "速いデータは逃げちゃいました :( <br/> 残りは亀のように遅いデータだけです。"
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "今すぐ速度を上げる"
+    },
+    "popup_traffic_limit_exceeded_cta": {
+        "message": "データ量、ロケーション、速度を今すぐ無制限版にアップグレード"
+    },
+    "popup_traffic_limit_exceeded_cta_offer": {
+        "message": "早期割引価格!"
+    },
     "popup_feedback_title": {
         "message": "ユーザ様の声をお聞かせください。"
     },
     "popup_feedback_button": {
         "message": "ご提案・問題を送信"
-    },
-    "settings_run_out_data": {
-        "message": "無料データ量が使い尽くされました。"
-    },
-    "settings_run_upgrade_feature": {
-        "message": "無限のデータ、最速スピード、24時間365日サポート"
     },
     "settings_run_upgrade_early_bird": {
         "message": "早期割引価格"

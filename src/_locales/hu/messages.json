@@ -344,12 +344,6 @@
     "popup_feedback_button": {
         "message": "Visszajelzés küldése"
     },
-    "settings_run_out_data": {
-        "message": "Elfogyott az adatkeret"
-    },
-    "settings_run_upgrade_feature": {
-        "message": "Korlátlan adatkeret, nagyobb sebesség, 0-24 támogatás"
-    },
     "settings_run_upgrade_early_bird": {
         "message": "Korai árak"
     },

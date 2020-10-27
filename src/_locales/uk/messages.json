@@ -344,12 +344,6 @@
     "popup_feedback_button": {
         "message": "Поділитись"
     },
-    "settings_run_out_data": {
-        "message": "Закінчився трафік"
-    },
-    "settings_run_upgrade_feature": {
-        "message": "Необмежений трафік, найкраща швидкість, підтримка 24/7"
-    },
     "settings_run_upgrade_early_bird": {
         "message": "Обмежена пропозиція"
     },

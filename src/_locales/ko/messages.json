@@ -338,17 +338,20 @@
     "settings_vpn_disabled": {
         "message": "연결 해제됨"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "연결 속도가 감소됩니다"
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "속도 향상"
+    },
+    "popup_traffic_limit_exceeded_cta_offer": {
+        "message": "얼리버드 가격!"
+    },
     "popup_feedback_title": {
         "message": "여러분의 피드백을 기다리고 있습니다"
     },
     "popup_feedback_button": {
         "message": "피드백 남기기"
-    },
-    "settings_run_out_data": {
-        "message": "데이터를 전부 사용하셨습니다"
-    },
-    "settings_run_upgrade_feature": {
-        "message": "무제한 데이터, 가장 빠른 속도, 연중무휴 지원"
     },
     "settings_run_upgrade_early_bird": {
         "message": "얼리버드 가격"

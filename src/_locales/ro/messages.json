@@ -344,12 +344,6 @@
     "popup_feedback_button": {
         "message": "Lasă-ți un feedback"
     },
-    "settings_run_out_data": {
-        "message": "Limită de data depășită"
-    },
-    "settings_run_upgrade_feature": {
-        "message": "Date nelimitate, viteză cea mai mare, suport 24/7"
-    },
     "settings_run_upgrade_early_bird": {
         "message": "Prețuri de păsări timpurii"
     },

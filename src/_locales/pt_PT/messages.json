@@ -338,17 +338,26 @@
     "settings_vpn_disabled": {
         "message": "Desconectado"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "A velocidade da conexão é reduzida"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Tu ficaste sem gigabytes rápidos :( <br/> Só sobraram os lentos"
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Aumento de velocidade"
+    },
+    "popup_traffic_limit_exceeded_cta": {
+        "message": "Actualize agora para dados ilimitados, localizações e velocidade!"
+    },
+    "popup_traffic_limit_exceeded_cta_offer": {
+        "message": "Preços de reserva antecipada!"
+    },
     "popup_feedback_title": {
         "message": "Gostaríamos muito de ouvir seu feedback"
     },
     "popup_feedback_button": {
         "message": "Deixar feedback"
-    },
-    "settings_run_out_data": {
-        "message": "Tu ficaste sem dados"
-    },
-    "settings_run_upgrade_feature": {
-        "message": "Dados ilimitados, velocidade mais rápida, suporte 24/7"
     },
     "settings_run_upgrade_early_bird": {
         "message": "Preços antecipados"

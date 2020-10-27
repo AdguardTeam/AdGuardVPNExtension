@@ -317,12 +317,6 @@
     "popup_feedback_button": {
         "message": "Để lại phản hồi"
     },
-    "settings_run_out_data": {
-        "message": "Bạn đã hết dữ liệu"
-    },
-    "settings_run_upgrade_feature": {
-        "message": "Dữ liệu không giới hạn, tốc độ nhanh nhất, hỗ trợ 24/7"
-    },
     "settings_run_upgrade_early_bird": {
         "message": "Giá đặt mua sớm"
     },

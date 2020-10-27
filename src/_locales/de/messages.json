@@ -338,17 +338,26 @@
     "settings_vpn_disabled": {
         "message": "VPN ist deaktiviert"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Verbindungsgeschwindigkeit wird reduziert"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Sie haben das Datenlimit erreicht :( <br/> Die Verbindungsgeschwindigkeit wird daher reduziert"
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Geschwindigkeit erhöhen"
+    },
+    "popup_traffic_limit_exceeded_cta": {
+        "message": "Wechseln Sie jetzt, um unbegrenzt Daten, alle Standorte und höchste Geschwindigkeit nutzen zu können!"
+    },
+    "popup_traffic_limit_exceeded_cta_offer": {
+        "message": "Preise für Frühbesteller!"
+    },
     "popup_feedback_title": {
         "message": "Wir freuen uns über Ihre Bewertung"
     },
     "popup_feedback_button": {
         "message": "Bewertung hinterlassen"
-    },
-    "settings_run_out_data": {
-        "message": "Ihre Daten sind aufgebraucht"
-    },
-    "settings_run_upgrade_feature": {
-        "message": "Unbegrenzte Datenmenge, höchste Geschwindigkeit, 24/7 Support"
     },
     "settings_run_upgrade_early_bird": {
         "message": "Preise für Frühbesteller"
