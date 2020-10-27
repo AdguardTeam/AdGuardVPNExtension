@@ -26,6 +26,7 @@ import messenger from '../../../lib/messenger';
 import notifier from '../../../lib/notifier';
 import PromoSale from '../PromoSale';
 import { PROMO_SCREEN_STATES } from '../../../lib/constants';
+import { TrafficLimitExceeded } from '../Settings/TrafficLimitExceeded';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -106,6 +107,7 @@ const App = observer(() => {
 
     // show nothing while data is loading, except cases after authentication
     if (authStore.requestProcessState !== REQUEST_STATUSES.PENDING
+        && settingsStore.checkPermissionsState !== REQUEST_STATUSES.PENDING
         && globalStore.status === REQUEST_STATUSES.PENDING) {
         return null;
     }
@@ -131,6 +133,7 @@ const App = observer(() => {
         promoScreenState,
         displayExclusionScreen,
         canBeExcluded,
+        showLimitExceededScreen,
     } = settingsStore;
 
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
@@ -146,6 +149,16 @@ const App = observer(() => {
                 <Header showMenuButton={showMenuButton} />
                 <Icons />
                 <GlobalError />
+            </>
+        );
+    }
+
+    if (showLimitExceededScreen || !canControlProxy) {
+        return (
+            <>
+                <Preloader isOpen={checkPermissionsState === REQUEST_STATUSES.PENDING} />
+                <TrafficLimitExceeded />
+                <Icons />
             </>
         );
     }

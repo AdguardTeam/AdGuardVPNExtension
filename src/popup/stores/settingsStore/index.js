@@ -9,7 +9,7 @@ import tabs from '../../../background/tabs';
 import { log } from '../../../lib/logger';
 import { getHostname, getProtocol } from '../../../lib/helpers';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
-import { ERROR_STATUSES, SETTINGS_IDS, PROMO_SCREEN_STATES } from '../../../lib/constants';
+import { SETTINGS_IDS, PROMO_SCREEN_STATES } from '../../../lib/constants';
 import messenger from '../../../lib/messenger';
 import { STATE } from '../../../background/connectivity/connectivityService/connectivityConstants';
 
@@ -37,6 +37,8 @@ class SettingsStore {
     @observable promoScreenState = PROMO_SCREEN_STATES.DISPLAY_AFTER_CONNECT_CLICK;
 
     @observable freeUserClickedPremiumLocation = false;
+
+    @observable hasLimitExceededDisplayed = false;
 
     constructor(rootStore) {
         this.rootStore = rootStore;
@@ -208,8 +210,25 @@ class SettingsStore {
     }
 
     @computed
-    get hasLimitExceededError() {
-        return this.globalError && this.globalError.status === ERROR_STATUSES.LIMIT_EXCEEDED;
+    get showLimitExceededScreen() {
+        const { vpnStore } = this.rootStore;
+
+        const {
+            maxDownloadedBytes = 0,
+            usedDownloadedBytes = 0,
+        } = vpnStore.vpnInfo;
+
+        if (maxDownloadedBytes === 0) {
+            return false;
+        }
+
+        const hasLimitExceeded = maxDownloadedBytes - usedDownloadedBytes < 0;
+        return hasLimitExceeded && !this.hasLimitExceededDisplayed;
+    }
+
+    @action
+    setHasLimitExceededDisplayed() {
+        this.hasLimitExceededDisplayed = true;
     }
 
     @action

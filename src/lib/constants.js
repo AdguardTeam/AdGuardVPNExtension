@@ -56,7 +56,6 @@ export const MESSAGES_TYPES = {
 export const ERROR_STATUSES = {
     NETWORK_ERROR: 'network.error',
     INVALID_TOKEN_ERROR: 'invalid.token.error',
-    LIMIT_EXCEEDED: 'limit.exceeded.error',
 };
 
 export const PROMO_SCREEN_STATES = {

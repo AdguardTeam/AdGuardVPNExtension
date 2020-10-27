@@ -4,10 +4,8 @@ import { getDomain } from 'tldts';
 
 import { log } from '../../lib/logger';
 import { getLocationWithLowestPing, sleep } from '../../lib/helpers';
-import { ERROR_STATUSES } from '../../lib/constants';
 import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
 import notifier from '../../lib/notifier';
-import notifications from '../notifications';
 // eslint-disable-next-line import/no-cycle
 import connectivity from '../connectivity';
 import credentials from '../credentials';
@@ -15,9 +13,6 @@ import proxy from '../proxy';
 import vpnProvider from '../providers/vpnProvider';
 import { locationsService, isMeasuringPingInProgress } from './locationsService';
 import { LocationWithPing } from './LocationWithPing';
-// eslint-disable-next-line import/no-cycle
-import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
-import { EVENT } from '../connectivity/connectivityService/connectivityConstants';
 import { endpointsTldExclusions } from '../proxy/endpointsTldExclusions';
 
 /**
@@ -140,14 +135,6 @@ class Endpoints {
             await this.updateLocations(true);
             this.vpnInfo = vpnInfo;
         } catch (e) {
-            if (e.status === ERROR_STATUSES.LIMIT_EXCEEDED) {
-                // Disable proxy, stop reconnections
-                connectivityService.send(EVENT.DISCONNECT_TRAFFIC_LIMIT_EXCEEDED);
-                // Notify icon to change
-                notifier.notifyListeners(notifier.types.UPDATE_BROWSER_ACTION_ICON);
-                // Send notification
-                await notifications.create({ message: 'Oops! Monthly data limit reached' });
-            }
             log.debug(e.message);
         }
     };

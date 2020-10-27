@@ -2,7 +2,6 @@ import { WsConnectivityMsg, WsSettingsMsg } from '../protobufCompiled';
 import websocketFactory from '../websocket/websocketFactory';
 import { WS_API_URL_TEMPLATE } from '../../config';
 import { renderTemplate } from '../../../lib/string-utils';
-import statsStorage from '../statsStorage';
 import notifier from '../../../lib/notifier';
 import proxy from '../../proxy';
 import credentials from '../../credentials';
@@ -253,14 +252,7 @@ class EndpointConnectivity {
      * @returns {Promise<void>}
      */
     handleInfoMsg = async (infoMsg) => {
-        const { bytesDownloaded = 0, bytesUploaded = 0, refreshTokens } = infoMsg;
-
-        if (bytesUploaded || bytesDownloaded) {
-            await statsStorage.saveStats(this.domainName, {
-                downloaded: bytesDownloaded,
-                uploaded: bytesUploaded,
-            });
-        }
+        const { refreshTokens } = infoMsg;
 
         if (refreshTokens) {
             notifier.notifyListeners(notifier.types.SHOULD_REFRESH_TOKENS);
@@ -291,14 +283,6 @@ class EndpointConnectivity {
         };
 
         this.ws.addEventListener('message', messageHandler);
-    };
-
-    getStats = async () => {
-        if (this.ws && this.ws.readyState !== this.ws.OPEN) {
-            return null;
-        }
-        const stats = await statsStorage.getStats(this.domainName);
-        return { bytesDownloaded: stats.downloaded, bytesUploaded: stats.uploaded };
     };
 }
 

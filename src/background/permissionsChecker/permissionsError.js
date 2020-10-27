@@ -1,4 +1,3 @@
-import { ERROR_STATUSES } from '../../lib/constants';
 import notifier from '../../lib/notifier';
 
 class PermissionsError {
@@ -27,14 +26,6 @@ class PermissionsError {
     getError = () => {
         return this.error;
     };
-
-    /**
-     * Checks if error has information about exceeded traffic limits
-     * @returns {boolean}
-     */
-    isLimitExceeded = () => {
-        return this.error?.status === ERROR_STATUSES.LIMIT_EXCEEDED;
-    }
 
     clearError = () => {
         if (this.error !== null) {

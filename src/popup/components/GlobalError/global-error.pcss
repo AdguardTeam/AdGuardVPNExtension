@@ -21,18 +21,22 @@
 
         .global-error__early,
         .global-error__info {
-            font-size: 14px;
             max-width: 215px;
             margin-bottom: 40px;
-            color: var(--gray88);
+            font-size: 14px;
             text-align: center;
+            color: var(--gray88);
         }
 
         .global-error__early {
-            color: var(--orange);
             font-weight: 700;
             margin-bottom: 10px;
+            color: var(--orange);
         }
+    }
+
+    &--reduced {
+        padding: 16px 30px 0;
     }
 
     &__content {
@@ -51,7 +55,14 @@
         background-repeat: no-repeat;
 
         &--error {
+            margin: 0 auto 30px;
             background-image: url(../../../../src/assets/images/not-found.svg);
+        }
+
+        &--reduced {
+            margin: 0 auto 16px;
+            height: 185px;
+            background-image: url(../../../../src/assets/images/tired.svg);
         }
 
         &--trouble {
@@ -64,6 +75,13 @@
         font-size: 2.6rem;
         font-weight: 700;
         line-height: 24px;
+
+        &--regular {
+            margin-bottom: 16px;
+            font-size: 2.8rem;
+            font-weight: 400;
+            line-height: 3rem;
+        }
     }
 
     &__actions {
@@ -74,11 +92,43 @@
     &__description {
         max-width: 240px;
         margin-bottom: 40px;
+
+        &--reduced {
+            max-width: none;
+            margin-bottom: 32px;
+            font-size: 1.6rem;
+            line-height: 2.2rem;
+        }
     }
 
     &__button {
         &:first-child {
             margin-bottom: 20px;
         }
+
+        &--reduced {
+            min-width: 220px;
+
+            &:first-child {
+                margin-bottom: 32px;
+            }
+        }
+    }
+
+    &__cancel {
+        margin-right: -14px;
+        align-self: flex-end;
+        cursor: pointer;
+    }
+
+    &__info {
+        text-align: center;
+        font-size: 1.6rem;
+    }
+
+    &__early {
+        text-align: center;
+        font-size: 1.6rem;
+        color: var(--orange);
     }
 }

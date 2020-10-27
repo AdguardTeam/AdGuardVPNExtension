@@ -4,7 +4,6 @@ import lodashGet from 'lodash/get';
 import accountProvider from '../providers/accountProvider';
 import { log } from '../../lib/logger';
 import notifier from '../../lib/notifier';
-import { ERROR_STATUSES } from '../../lib/constants';
 
 class Credentials {
     VPN_TOKEN_KEY = 'credentials.token';
@@ -193,6 +192,7 @@ class Credentials {
      */
     areCredentialsValid(vpnCredentials) {
         const VALID_CREDENTIALS_STATUS = 'VALID';
+        const LIMIT_EXCEEDED_CREDENTIALS_STATUS = 'LIMIT_EXCEEDED';
 
         if (!vpnCredentials) {
             return false;
@@ -204,7 +204,10 @@ class Credentials {
         }
 
         const currentTimeSec = Math.ceil(Date.now() / 1000);
-        return !(licenseStatus !== VALID_CREDENTIALS_STATUS || timeExpiresSec < currentTimeSec);
+
+        return (licenseStatus === VALID_CREDENTIALS_STATUS
+            || licenseStatus === LIMIT_EXCEEDED_CREDENTIALS_STATUS)
+            && timeExpiresSec >= currentTimeSec;
     }
 
     /**
@@ -245,7 +248,7 @@ class Credentials {
             } catch (e) {
                 // Do not use local credentials if request to credentials
                 // returns limit exceeded error
-                if (e.status === ERROR_STATUSES.LIMIT_EXCEEDED || !useLocalFallback) {
+                if (!useLocalFallback) {
                     throw e;
                 }
             }

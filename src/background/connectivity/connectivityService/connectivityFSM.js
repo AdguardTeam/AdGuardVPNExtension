@@ -149,7 +149,6 @@ const connectivityFSM = new Machine({
                 // If ws connection didn't get handshake response
                 [EVENT.WS_CLOSE]: STATE.DISCONNECTED_RETRYING,
                 [EVENT.WS_ERROR]: STATE.DISCONNECTED_RETRYING,
-                [EVENT.DISCONNECT_TRAFFIC_LIMIT_EXCEEDED]: STATE.DISCONNECTED_IDLE,
                 [EVENT.PROXY_CONNECTION_ERROR]: STATE.DISCONNECTED_IDLE,
                 // if user decided to connect to another location
                 [EVENT.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTED_IDLE,
@@ -162,7 +161,6 @@ const connectivityFSM = new Machine({
                 [EVENT.CONNECTION_FAIL]: STATE.DISCONNECTED_RETRYING,
                 [EVENT.WS_CLOSE]: STATE.DISCONNECTED_RETRYING,
                 [EVENT.WS_ERROR]: STATE.DISCONNECTED_RETRYING,
-                [EVENT.DISCONNECT_TRAFFIC_LIMIT_EXCEEDED]: STATE.DISCONNECTED_IDLE,
                 [EVENT.PROXY_CONNECTION_ERROR]: STATE.DISCONNECTED_IDLE,
                 // if user decided to connect to another location
                 [EVENT.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTED_IDLE,
@@ -173,7 +171,6 @@ const connectivityFSM = new Machine({
                 [EVENT.WS_ERROR]: STATE.DISCONNECTED_RETRYING,
                 [EVENT.WS_CLOSE]: STATE.DISCONNECTED_RETRYING,
                 [EVENT.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTED_IDLE,
-                [EVENT.DISCONNECT_TRAFFIC_LIMIT_EXCEEDED]: STATE.DISCONNECTED_IDLE,
             },
             entry: [resetOnSuccessfulConnection],
         },

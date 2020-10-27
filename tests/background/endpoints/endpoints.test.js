@@ -1,15 +1,10 @@
 import endpoints from '../../../src/background/endpoints';
 import settings from '../../../src/background/settings/settings';
-import notifier from '../../../src/lib/notifier';
-import notifications from '../../../src/background/notifications';
 import vpnProvider from '../../../src/background/providers/vpnProvider';
 import credentials from '../../../src/background/credentials';
-import CustomError from '../../../src/lib/CustomError';
-import { ERROR_STATUSES } from '../../../src/lib/constants';
 import { Location } from '../../../src/background/endpoints/Location';
 import { LocationWithPing } from '../../../src/background/endpoints/LocationWithPing';
 import { connectivityService } from '../../../src/background/connectivity/connectivityService/connectivityFSM';
-import { EVENT } from '../../../src/background/connectivity/connectivityService/connectivityConstants';
 import { locationsService } from '../../../src/background/endpoints/locationsService';
 import proxy from '../../../src/background/proxy';
 
@@ -305,17 +300,6 @@ describe('Endpoints', () => {
             expect(credentials.gainValidVpnCredentials).toBeCalledTimes(1);
             expect(settings.disableProxy).toBeCalledTimes(0);
             expect(connectivityService.send).toBeCalledTimes(0);
-        });
-
-        it('refreshes tokens and disables proxy if necessary', async () => {
-            jest.spyOn(credentials, 'gainValidVpnCredentials').mockRejectedValue(new CustomError(ERROR_STATUSES.LIMIT_EXCEEDED));
-            await endpoints.refreshData();
-            expect(credentials.gainValidVpnToken).toBeCalledTimes(1);
-            expect(credentials.gainValidVpnCredentials).toBeCalledTimes(1);
-            expect(connectivityService.send)
-                .toBeCalledWith(EVENT.DISCONNECT_TRAFFIC_LIMIT_EXCEEDED);
-            expect(notifier.notifyListeners).toBeCalledTimes(1);
-            expect(notifications.create).toBeCalledTimes(1);
         });
     });
 

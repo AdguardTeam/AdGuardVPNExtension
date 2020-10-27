@@ -5,7 +5,6 @@ import exclusions from './exclusions';
 import tabs from './tabs';
 import { isHttp } from '../lib/string-utils';
 import auth from './auth';
-import permissionsError from './permissionsChecker/permissionsError';
 import { locationsService } from './endpoints/locationsService';
 import { isVPNConnected } from './connectivity/connectivityService/connectivityFSM';
 
@@ -24,13 +23,6 @@ class BrowserActionIcon {
         const isUserAuthenticated = await auth.isAuthenticated(false);
         if (!isUserAuthenticated) {
             await actions.setIconDisabled(id);
-            await actions.clearBadgeText(id);
-            return;
-        }
-
-        const isLimitExceeded = permissionsError.isLimitExceeded();
-        if (isLimitExceeded) {
-            await actions.setIconTrafficOff(id);
             await actions.clearBadgeText(id);
             return;
         }

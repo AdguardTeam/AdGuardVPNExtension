@@ -58,11 +58,6 @@ export const EVENT = {
     NETWORK_OFFLINE: 'NETWORK_OFFLINE',
 
     /**
-     * Fires when we get message that users' traffic limit has exceeded, then we close WS connection
-     */
-    DISCONNECT_TRAFFIC_LIMIT_EXCEEDED: 'DISCONNECT_TRAFFIC_LIMIT_EXCEEDED',
-
-    /**
      * Fires when we can't set proxy setting in the browser api,
      * because other extension is controlling proxy settings
      */

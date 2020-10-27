@@ -7,7 +7,7 @@ import rootStore from '../../stores';
 import GlobalControl from './GlobalControl';
 import Status from './Status';
 import StatusImage from './StatusImage';
-import Upgrade from './Upgrade';
+import { TrafficLimitExceeded } from './TrafficLimitExceeded';
 
 import './settings.pcss';
 
@@ -34,7 +34,7 @@ const Settings = observer(() => {
 
     if (hasLimitExceededError) {
         return (
-            <Upgrade />
+            <TrafficLimitExceeded />
         );
     }
 

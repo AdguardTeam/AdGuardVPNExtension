@@ -1,7 +1,5 @@
 import browser from 'webextension-polyfill';
 import { vpnApi } from '../api';
-import { ERROR_STATUSES } from '../../lib/constants';
-import CustomError from '../../lib/CustomError';
 
 /**
  * Prepares locations data
@@ -168,19 +166,9 @@ const getVpnCredentials = async (appId, vpnToken) => {
                 throw e;
             }
 
-            const {
-                license_status: licenseStatus,
-                time_expires_sec: timeExpiresSec,
-            } = errorMessageData;
-
-            if (licenseStatus === 'LIMIT_EXCEEDED') {
-                throw new CustomError(
-                    ERROR_STATUSES.LIMIT_EXCEEDED,
-                    JSON.stringify({
-                        licenseStatus,
-                        timeExpiresSec,
-                    })
-                );
+            // if license status is limit exceeded we do not throw error
+            if (errorMessageData?.license_status === 'LIMIT_EXCEEDED') {
+                responseData = errorMessageData;
             } else {
                 throw e;
             }
