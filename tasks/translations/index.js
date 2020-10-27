@@ -60,9 +60,9 @@ const summary = async (isInfo) => {
     }
 };
 
-const unused = async (isInfo) => {
+const unused = async () => {
     try {
-        await checkUnusedMessages(isInfo);
+        await checkUnusedMessages();
     } catch (e) {
         log.error(e.message);
         process.exit(1);
@@ -111,10 +111,10 @@ program
         if (opts.summary) {
             summary(IS_INFO);
         } else if (opts.unused) {
-            unused(IS_INFO);
+            unused();
         } else if (!opts.summary && !opts.unused) {
             summary(IS_INFO);
-            unused(IS_INFO);
+            unused();
         }
     });
 
