@@ -1,0 +1,2 @@
+# AdGuardVPNExtension
+AdGuard VPN extension
