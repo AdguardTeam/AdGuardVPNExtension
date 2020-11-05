@@ -29,7 +29,7 @@ const Settings = observer(() => {
         { 'settings--active': isConnected },
         { 'settings--premium-promo': premiumPromoEnabled },
         { 'settings--trial': !isPremiumToken },
-        { 'settings--feedback': !premiumPromoEnabled }
+        { 'settings--feedback': !premiumPromoEnabled },
     );
 
     if (hasLimitExceededError) {

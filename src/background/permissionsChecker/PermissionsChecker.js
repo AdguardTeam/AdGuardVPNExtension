@@ -94,11 +94,11 @@ class PermissionsChecker {
     init = () => {
         notifier.addSpecifiedListener(
             notifier.types.USER_AUTHENTICATED,
-            this.handleUserAuthentication
+            this.handleUserAuthentication,
         );
         notifier.addSpecifiedListener(
             notifier.types.USER_DEAUTHENTICATED,
-            this.handleUserDeauthentication
+            this.handleUserDeauthentication,
         );
         log.info('Permissions checker module initiated');
     };

@@ -106,14 +106,14 @@ const printTranslationsResults = (results) => {
  */
 export const checkTranslations = async (locales, isInfo = false) => {
     const baseLocaleTranslations = await getLocaleMessages(
-        LOCALES_DIR, BASE_LOCALE, LOCALE_DATA_FILENAME
+        LOCALES_DIR, BASE_LOCALE, LOCALE_DATA_FILENAME,
     );
     const baseMessages = Object.keys(baseLocaleTranslations);
     const baseMessagesCount = baseMessages.length;
 
     const results = await Promise.all(locales.map(async (locale) => {
         const localeTranslations = await getLocaleMessages(
-            LOCALES_DIR, locale, LOCALE_DATA_FILENAME
+            LOCALES_DIR, locale, LOCALE_DATA_FILENAME,
         );
         const localeMessages = Object.keys(localeTranslations);
         const localeMessagesCount = localeMessages.length;

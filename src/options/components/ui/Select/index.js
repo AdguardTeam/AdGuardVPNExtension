@@ -19,7 +19,7 @@ const Select = ((props) => {
         document.addEventListener(
             'click',
             () => { setHidden(true); },
-            { once: true }
+            { once: true },
         );
     };
 

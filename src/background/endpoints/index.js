@@ -11,6 +11,7 @@ import connectivity from '../connectivity';
 import credentials from '../credentials';
 import proxy from '../proxy';
 import vpnProvider from '../providers/vpnProvider';
+// eslint-disable-next-line import/no-cycle
 import { locationsService, isMeasuringPingInProgress } from './locationsService';
 import { LocationWithPing } from './LocationWithPing';
 import { endpointsTldExclusions } from '../proxy/endpointsTldExclusions';
@@ -46,7 +47,7 @@ class Endpoints {
     constructor() {
         notifier.addSpecifiedListener(
             notifier.types.SHOULD_REFRESH_TOKENS,
-            this.refreshData
+            this.refreshData,
         );
     }
 
@@ -214,11 +215,11 @@ class Endpoints {
             } else {
                 const locationsMatchingToken = this.filterLocationsMatchingToken(
                     locations,
-                    isPremiumToken
+                    isPremiumToken,
                 );
                 const closestLocation = this.getClosestLocation(
                     locationsMatchingToken,
-                    currentLocation
+                    currentLocation,
                 );
                 // eslint-disable-next-line max-len
                 const closestEndpoint = await locationsService.getEndpointByLocation(closestLocation);
@@ -389,7 +390,7 @@ class Endpoints {
         // Clear vpn info on deauthentication in order to set correct vpn info after next login
         notifier.addSpecifiedListener(
             notifier.types.USER_DEAUTHENTICATED,
-            this.clearVpnInfo.bind(this)
+            this.clearVpnInfo.bind(this),
         );
         // start getting vpn info and endpoints
         this.getVpnInfo();

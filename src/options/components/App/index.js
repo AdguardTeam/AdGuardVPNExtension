@@ -93,7 +93,7 @@ const App = observer(() => {
                             break;
                         }
                     }
-                }
+                },
             );
         })();
 

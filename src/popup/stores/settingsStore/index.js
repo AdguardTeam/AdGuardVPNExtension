@@ -95,7 +95,7 @@ class SettingsStore {
             await messenger.addToExclusions(
                 this.currentTabHostname,
                 true,
-                { considerWildcard: false }
+                { considerWildcard: false },
             );
             runInAction(() => {
                 this.isExcluded = true;

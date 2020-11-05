@@ -42,7 +42,7 @@ const Location = observer(({ location, handleClick }) => {
 
         const flagClass = classnames(
             'flag flag--small',
-            { 'flag--active': selected }
+            { 'flag--active': selected },
         );
 
         const getFlagIconStyle = (countryCode) => {
@@ -63,7 +63,7 @@ const Location = observer(({ location, handleClick }) => {
     const locationClassName = classnames(
         'endpoints__item',
         { 'endpoints__item--selected': selected },
-        { 'endpoints__item--offline': !available }
+        { 'endpoints__item--offline': !available },
     );
 
     const renderPings = () => {

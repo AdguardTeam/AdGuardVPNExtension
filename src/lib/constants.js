@@ -7,6 +7,8 @@ export const SETTINGS_IDS = {
     HANDLE_WEBRTC_ENABLED: 'webrtc.handle.enabled',
     SELECTED_DNS_SERVER: 'dns.handle.server',
     CONTEXT_MENU_ENABLED: 'context.menu.enabled',
+    SELECTED_LOCATION_KEY: 'endpoints.selected.location',
+    LOCATION_SELECTED_BY_USER_KEY: 'endpoints.location.selected.by.user',
 };
 
 export const MESSAGES_TYPES = {

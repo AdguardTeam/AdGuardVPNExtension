@@ -23,13 +23,13 @@ class Exclusions {
         this.selectiveModeHandler = new ExclusionsHandler(
             this.handleExclusionsUpdate,
             selective,
-            this.MODES.SELECTIVE
+            this.MODES.SELECTIVE,
         );
 
         this.regularModeHandler = new ExclusionsHandler(
             this.handleExclusionsUpdate,
             regular,
-            this.MODES.REGULAR
+            this.MODES.REGULAR,
         );
 
         this.currentHandler = this.inverted ? this.selectiveModeHandler : this.regularModeHandler;

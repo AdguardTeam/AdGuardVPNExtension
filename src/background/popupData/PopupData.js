@@ -30,7 +30,7 @@ class PopupData {
 
         const throttledPermissionsChecker = throttle(
             this.permissionsChecker.checkPermissions,
-            2000
+            2000,
         );
 
         const error = this.permissionsError.getError();

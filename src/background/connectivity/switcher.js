@@ -1,5 +1,6 @@
 import proxy from '../proxy';
 import credentials from '../credentials';
+// eslint-disable-next-line import/no-cycle
 import { locationsService } from '../endpoints/locationsService';
 import { EVENT, MIN_CONNECTION_DURATION_MS } from './connectivityService/connectivityConstants';
 import { log } from '../../lib/logger';
@@ -29,7 +30,7 @@ function* turnOnProxy(forcePrevEndpoint = false) {
         const selectedLocation = yield locationsService.getSelectedLocation();
         const selectedEndpoint = yield locationsService.getEndpointByLocation(
             selectedLocation,
-            forcePrevEndpoint
+            forcePrevEndpoint,
         );
 
         if (selectedEndpoint) {
@@ -40,13 +41,13 @@ function* turnOnProxy(forcePrevEndpoint = false) {
 
         const { domainName } = yield proxy.setAccessPrefix(
             accessCredentials.credentialsHash,
-            accessCredentials.credentials
+            accessCredentials.credentials,
         );
 
         connectivity.endpointConnectivity.setCredentials(
             domainName,
             accessCredentials.token,
-            accessCredentials.credentialsHash
+            accessCredentials.credentialsHash,
         );
 
         connectivity.endpointConnectivity.start(entryTime);

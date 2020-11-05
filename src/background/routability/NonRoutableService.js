@@ -40,11 +40,11 @@ class NonRoutableService {
         this.nonRoutableList = (await this.storage.get(this.NON_ROUTABLE_KEY)) || [];
         notifier.addSpecifiedListener(
             notifier.types.NON_ROUTABLE_DOMAIN_FOUND,
-            this.handleNonRoutableDomains
+            this.handleNonRoutableDomains,
         );
         browser.webRequest.onErrorOccurred.addListener(
             this.handleWebRequestErrors,
-            { urls: ['<all_urls>'] }
+            { urls: ['<all_urls>'] },
         );
         log.info('NonRoutable module was initiated successfully');
     }

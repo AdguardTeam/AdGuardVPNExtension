@@ -6,6 +6,7 @@ import { SETTINGS_IDS, PROMO_SCREEN_STATES } from '../../lib/constants';
 import dns from '../dns/dns';
 import { DNS_DEFAULT } from '../dns/dnsConstants';
 import webrtc from '../browserApi/webrtc';
+// eslint-disable-next-line import/no-cycle
 import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
 import { EVENT } from '../connectivity/connectivityService/connectivityConstants';
 
@@ -54,7 +55,7 @@ const setSetting = async (id, value, force) => {
 
     notifier.notifyListeners(notifier.types.SETTING_UPDATED, id, value);
     settingsService.setSetting(id, value);
-    log.info(`Setting with id: "${id}" was set to: "${value}"`);
+    log.debug(`Setting with id: "${id}" was set to:`, value);
     return true;
 };
 
@@ -95,7 +96,7 @@ const applySettings = () => {
     // Set WebRTC
     webrtc.setWebRTCHandlingAllowed(
         isSettingEnabled(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED),
-        proxyEnabled
+        proxyEnabled,
     );
 
     // Set DNS server

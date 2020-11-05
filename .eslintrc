@@ -74,16 +74,6 @@
         "jsx-a11y/no-static-element-interactions": "off",
         "react/prop-types": "off", // TODO remove this rule when app will grow bigger
         "class-methods-use-this": "off",
-        "comma-dangle": [
-            "error",
-            {
-                "functions": "never",
-                "arrays": "always-multiline",
-                "exports": "always-multiline",
-                "imports": "always-multiline",
-                "objects": "always-multiline"
-            }
-        ],
         "import/prefer-default-export": "off",
         "arrow-body-style": "off",
         "react/display-name": "off"
