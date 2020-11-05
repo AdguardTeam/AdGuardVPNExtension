@@ -70,6 +70,6 @@ class VpnApi extends Api {
     }
 }
 
-const vpnApi = new VpnApi(VPN_API_URL);
+const vpnApi = new VpnApi(`${VPN_API_URL}/api`);
 
 export default vpnApi;

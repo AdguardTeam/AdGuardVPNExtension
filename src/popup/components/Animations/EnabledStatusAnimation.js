@@ -2,7 +2,7 @@ import React from 'react';
 import Lottie from 'react-lottie';
 import animationData from './enabledStatusAnimation.json';
 
-function EnabledStatusAnimation() {
+const EnabledStatusAnimation = () => {
     const defaultOptions = {
         loop: true,
         autoplay: true,
@@ -13,6 +13,6 @@ function EnabledStatusAnimation() {
     };
 
     return <Lottie options={defaultOptions} width={200} height={198} />;
-}
+};
 
 export default EnabledStatusAnimation;

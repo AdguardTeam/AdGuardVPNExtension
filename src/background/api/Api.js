@@ -10,7 +10,7 @@ class Api {
     async makeRequest(path, method = 'POST', config) {
         try {
             const response = await axios({
-                url: `${this.baseUrl}${path}`,
+                url: `${this.baseUrl}/${path}`,
                 method,
                 ...config,
             });

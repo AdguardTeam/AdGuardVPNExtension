@@ -10,7 +10,6 @@ const {
     IS_DEV,
     BUILD_ENV,
     BUILD_PATH,
-    PROD_ENV,
 } = require('./consts');
 const { getOutputPathByEnv } = require('./helpers');
 
@@ -75,7 +74,7 @@ const config = {
         new webpack.DefinePlugin({
             __APP_CONFIG__: JSON.stringify(genAppConfig(
                 process.env.BROWSER,
-                PROD_ENV,
+                process.env.STAGE_ENV,
                 process.env.BUILD_ENV
             )),
         }),

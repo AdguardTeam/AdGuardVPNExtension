@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import rootStore from '../../stores';
 import { reactTranslator } from '../../../reactCommon/reactTranslator';
 
-function BackButton() {
+const BackButton = () => {
     const { authStore } = useContext(rootStore);
 
     const handleBackClick = async () => {
@@ -22,6 +22,6 @@ function BackButton() {
             <span>{reactTranslator.translate('options_auth_back_button')}</span>
         </button>
     );
-}
+};
 
 export default BackButton;

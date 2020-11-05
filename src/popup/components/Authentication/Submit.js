@@ -2,9 +2,9 @@ import React from 'react';
 
 import DotsLoader from '../ui/DotsLoader';
 
-function Submit({
+const Submit = ({
     processing, disabled, text,
-}) {
+}) => {
     if (processing) {
         return <DotsLoader />;
     }
@@ -18,6 +18,6 @@ function Submit({
             {text}
         </button>
     );
-}
+};
 
 export default Submit;

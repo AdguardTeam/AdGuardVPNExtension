@@ -23,6 +23,6 @@ class AccountApi extends Api {
     }
 }
 
-const accountApi = new AccountApi(ACCOUNT_API_URL);
+const accountApi = new AccountApi(`${ACCOUNT_API_URL}/api/1.0`);
 
 export default accountApi;

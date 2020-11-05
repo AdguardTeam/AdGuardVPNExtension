@@ -1,5 +1,9 @@
 const path = require('path');
 
+const dotenv = require('dotenv');
+// Retrieves config from .env file and assigns it to the process.env
+dotenv.config();
+
 const SRC_PATH = '../src';
 const LOCALES_PATH = path.join(__dirname, SRC_PATH, '_locales/en/messages');
 
@@ -14,7 +18,8 @@ const BROWSERS = {
     FIREFOX: 'firefox',
 };
 
-const PROD_ENVS = {
+// Used only to change output filenames
+const STAGE_ENVS = {
     TEST: 'test',
     PROD: 'prod',
 };
@@ -25,11 +30,7 @@ const ENV_MAP = {
     [ENVS.RELEASE]: { outputPath: 'release', name: '' },
 };
 
-const { BUILD_ENV } = process.env;
-let { PROD_ENV } = process.env;
-if (!PROD_ENV) {
-    PROD_ENV = BUILD_ENV === ENVS.DEV ? 'test' : 'prod';
-}
+const { BUILD_ENV, STAGE_ENV } = process.env;
 
 const IS_DEV = BUILD_ENV ? BUILD_ENV === ENVS.DEV : true;
 
@@ -79,7 +80,7 @@ module.exports = {
     FIREFOX_UPDATE_URL,
     CHROME_UPDATE_CRX,
     FIREFOX_UPDATE_XPI,
-    PROD_ENV,
+    STAGE_ENV,
     BROWSERS,
-    PROD_ENVS,
+    STAGE_ENVS,
 };

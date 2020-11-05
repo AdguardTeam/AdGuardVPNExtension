@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-function PasswordField({
+const PasswordField = ({
     id,
     password,
     handleChange,
@@ -10,7 +10,7 @@ function PasswordField({
     handleInputTypeChange,
     icon,
     placeholder = '',
-}) {
+}) => {
     const inputClassName = classnames('form__input form__input--password', { 'form__input--error': error });
 
     return (
@@ -40,6 +40,6 @@ function PasswordField({
             )}
         </div>
     );
-}
+};
 
 export default PasswordField;

@@ -5,7 +5,7 @@ import './social-auth.pcss';
 
 const SOCIAL_PROVIDERS = ['google', 'facebook'];
 
-function SocialAuth() {
+const SocialAuth = () => {
     const { authStore } = useContext(rootStore);
 
     const socialAuthClickHandler = (social) => async () => {
@@ -28,6 +28,6 @@ function SocialAuth() {
             ))}
         </div>
     );
-}
+};
 
 export default SocialAuth;

@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-function InputField({
+const InputField = ({
     id,
     type,
     value,
@@ -9,7 +9,7 @@ function InputField({
     error,
     className = '',
     placeholder = '',
-}) {
+}) => {
     const inputClassName = classnames(
         `form__input ${className}`,
         { 'form__input--error': error }
@@ -30,6 +30,6 @@ function InputField({
             />
         </div>
     );
-}
+};
 
 export default InputField;

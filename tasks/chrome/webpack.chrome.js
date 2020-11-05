@@ -5,13 +5,13 @@ const ZipWebpackPlugin = require('zip-webpack-plugin');
 const common = require('../webpack.common');
 const { updateManifest } = require('../helpers');
 const chromeManifestDiff = require('./manifest.chrome');
-const { PROD_ENV, IS_DEV, PROD_ENVS } = require('../consts');
+const { STAGE_ENV, IS_DEV, STAGE_ENVS } = require('../consts');
 
 const CHROME_PATH = 'chrome';
 
 let zipFilename = 'chrome.zip';
 
-if (IS_DEV && PROD_ENV === PROD_ENVS.PROD) {
+if (IS_DEV && STAGE_ENV === STAGE_ENVS.PROD) {
     zipFilename = 'chrome-prod.zip';
 }
 

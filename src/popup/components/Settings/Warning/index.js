@@ -1,7 +1,7 @@
 import React from 'react';
 import './warning.pcss';
 
-function Warning(props) {
+const Warning = (props) => {
     const {
         desc,
         mod,
@@ -12,6 +12,6 @@ function Warning(props) {
             {desc}
         </div>
     );
-}
+};
 
 export default Warning;

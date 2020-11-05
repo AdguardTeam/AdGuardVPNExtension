@@ -2,9 +2,10 @@
 import { log } from '../lib/logger';
 
 const CONFIG = __APP_CONFIG__;
+
 log.debug(`Current browser: "${CONFIG.BROWSER}"`);
 log.debug(`Current build env: "${CONFIG.BUILD_ENV}"`);
-log.debug(`Current prod env: "${CONFIG.PROD_ENV}"`);
+log.debug(`Current stage env: "${CONFIG.STAGE_ENV}"`);
 
 Object.keys(CONFIG).forEach((key) => {
     if (CONFIG[key] === undefined) {

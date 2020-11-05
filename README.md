@@ -1,7 +1,20 @@
 # AdGuard VPN extension
 
-## Build
+- [Development](#development)
+    - [Build](#build)
+    - [Linting](#linting)
+    - [Tests](#tests)
+    - [Localization](#localization)
+    - [Proto scheme update](#proto)
+- [Acknowledgments](#acknowledgments)
+
+<a id="development"></a>
+## Development
+
+<a id="build"></a>
+### Build
 * `yarn install`
+* Rename `.env.example` to `.env` and fill it with required config data
 * `yarn dev` / `yarn beta` / `yarn release`
 
 Builds will be located in the `build` directory
@@ -18,24 +31,29 @@ Make sure you have added credentials
 
 to the directory `./private/AdguardVPN`
 
-## Lint
+<a id="linting"></a>
+### Linting
 * `yarn lint`
 
-## Tests
+<a id="tests"></a>
+### Tests
 * `yarn test`
 
-## Localisation
+<a id="localization"></a>
+### Localization
 * setup your project locales, directories in the file `tasks/locales.js`
 * `yarn locales:upload` used to upload base `en` locale
 * `yarn locales:download` run to download and save all locales
 * `yarn locales:validate` used to validate locales
 
-## Proto scheme update
+<a id="proto"></a>
+### Proto scheme update
 After every update of proto scheme in the file `src/background/connectivity/connectivity.proto`,
 you have to run `yarn compile-proto`.
 This command will update module `src/background/connectivity/protobufCompiled.js` used to build messages
 with appropriate scheme for websocket messaging.
 
+<a id="acknowledgments"></a>
 ## Acknowledgments
 This software wouldn't have been possible without:
 
