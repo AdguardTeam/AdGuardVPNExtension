@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/17472907/98385927-a14c1800-2060-11eb-98b2-126e8ed8efde.png" width="300px" alt="AdGuard VPN for Android" />
+  <img src="https://user-images.githubusercontent.com/17472907/98385927-a14c1800-2060-11eb-98b2-126e8ed8efde.png" width="300px" alt="AdGuard VPN extension" />
 </p>
 
 <h3 align="center">Fast, flexible and reliable VPN extension for browsers</h3>
@@ -23,7 +23,7 @@
 
 AdGuard VPN serves to protect your online privacy, encrypt your connection, hide your IP address and websites you visit from anyone (including your Internet provider) and to ensure anonymous browsing on the web. Cutting edge technologies and multiple customization options will help conceal your location and unblock geographically restricted websites or other content.
 
-To get more information and to download AdGuard VPN for Android, visit our website [https://adguard-vpn.com/](https://adguard-vpn.com/).
+To get more information and to download AdGuard VPN visit our website [https://adguard-vpn.com/](https://adguard-vpn.com/).
 
 <a id="feedback"></a>
 
@@ -31,7 +31,7 @@ To get more information and to download AdGuard VPN for Android, visit our websi
 
 We appreciate your feedback and always welcome both constructive critisism and new ideas.
 
-You can use GitHub to report a bug or to submit a feature request. To do so, go to [this page](https://github.com/AdguardTeam/AdguardVPNForAndroid/issues), click the _New issue_ button and choose between creating a bug report or feature request.
+You can use GitHub to report a bug or to submit a feature request. To do so, go to [this page](https://github.com/AdguardTeam/AdguardVPNExtension/issues), click the _New issue_ button and choose between creating a bug report or feature request.
 
 - [Development](#development)
     - [Build](#build)
