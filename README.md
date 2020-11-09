@@ -7,6 +7,7 @@
     - [Localization](#localization)
     - [Proto scheme update](#proto)
 - [Acknowledgments](#acknowledgments)
+- [Minimum supported browser versions](#minimum-supported-browser-versions)
 
 <a id="development"></a>
 ## Development
@@ -65,5 +66,11 @@ This software wouldn't have been possible without:
 
 For a full list of all `npm` packages in use, please take a look at [package.json](package.json) file.
 
+<a id='minimum-supported-browser-versions'></a>
+## Minimum supported browser versions
+| Browser                 	| Version 	|
+|-------------------------	|:-------:	|
+| Chromium Based Browsers 	|    66   	|
+| Firefox                 	|    60   	|
 
 
