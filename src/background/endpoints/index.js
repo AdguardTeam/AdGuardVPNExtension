@@ -318,9 +318,6 @@ class Endpoints {
         const shouldSelectFasterLocation = !selectedLocation
             || (!isLocationSelectedByUser && isVPNDisabled);
 
-        console.log({ selectedLocation, isLocationSelectedByUser, isVPNDisabled });
-        console.log(shouldSelectFasterLocation);
-
         if (!shouldSelectFasterLocation) {
             return new LocationWithPing(selectedLocation);
         }
