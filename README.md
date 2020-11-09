@@ -1,4 +1,37 @@
-# AdGuard VPN extension
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/17472907/98385927-a14c1800-2060-11eb-98b2-126e8ed8efde.png" width="300px" alt="AdGuard VPN extension" />
+</p>
+
+<h3 align="center">Fast, flexible and reliable VPN extension for browsers</h3>
+
+<p align="center">
+  Your online safety and anonymity guaranteed by a trusted developer.
+</p>
+
+<p align="center">
+    <a href="https://adguard-vpn.com/">Website</a> |
+    <a href="https://reddit.com/r/Adguard">Reddit</a> |
+    <a href="https://twitter.com/AdGuard">Twitter</a> |
+    <a href="https://t.me/adguard_en">Telegram</a>
+    <br /><br />
+</p>
+
+
+<p align="center">
+<image src="https://user-images.githubusercontent.com/17472907/98386395-2df6d600-2061-11eb-9cf1-1a77cc35d9d8.png" width="250"> <image src="https://user-images.githubusercontent.com/17472907/98386416-318a5d00-2061-11eb-860e-d210a789f4cb.png" width="250">
+</p>
+
+AdGuard VPN serves to protect your online privacy, encrypt your connection, hide your IP address and websites you visit from anyone (including your Internet provider) and to ensure anonymous browsing on the web. Cutting edge technologies and multiple customization options will help conceal your location and unblock geographically restricted websites or other content.
+
+To get more information and to download AdGuard VPN visit our website [https://adguard-vpn.com/](https://adguard-vpn.com/).
+
+<a id="feedback"></a>
+
+## Feedback options
+
+We appreciate your feedback and always welcome both constructive critisism and new ideas.
+
+You can use GitHub to report a bug or to submit a feature request. To do so, go to [this page](https://github.com/AdguardTeam/AdguardVPNExtension/issues), click the _New issue_ button and choose between creating a bug report or feature request.
 
 - [Development](#development)
     - [Build](#build)
