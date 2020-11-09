@@ -409,6 +409,12 @@ const getSelectedLocation = async () => {
         selectedLocation = new Location(storedSelectedLocation);
     }
 
+    // check if location is in the list of locations
+    const isLocationObsolete = !(locations.find((location) => location.id === selectedLocation.id));
+    if (isLocationObsolete) {
+        return null;
+    }
+
     return selectedLocation;
 };
 
