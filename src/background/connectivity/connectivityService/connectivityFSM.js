@@ -190,3 +190,7 @@ connectivityService.start();
 export const isVPNConnected = () => {
     return connectivityService.state.matches(STATE.CONNECTED);
 };
+
+export const isVPNDisconnectedIdle = () => {
+    return connectivityService.state.matches(STATE.DISCONNECTED_IDLE);
+};

@@ -384,19 +384,20 @@ const setSelectedLocation = async (id, isLocationSelectedByUser = false) => {
     }
 };
 
+const getIsLocationSelectedByUser = async () => {
+    const isLocationSelectedByUser = await settings.getSetting(
+        SETTINGS_IDS.LOCATION_SELECTED_BY_USER_KEY,
+        selectedLocation,
+    );
+    return isLocationSelectedByUser;
+};
+
 /**
  * Returns selected location
- * @param {boolean} ignoreIsLocationSelectedByUser,
  *  when we connect to the location there is no time to find better location
  * @returns {Promise<null|object>} return null or selected location
  */
-const getSelectedLocation = async (ignoreIsLocationSelectedByUser = false) => {
-    // eslint-disable-next-line max-len
-    const isLocationSelectedByUser = await settings.getSetting(SETTINGS_IDS.LOCATION_SELECTED_BY_USER_KEY);
-    if (!isLocationSelectedByUser && !ignoreIsLocationSelectedByUser) {
-        return null;
-    }
-
+const getSelectedLocation = async () => {
     if (!selectedLocation) {
         // eslint-disable-next-line max-len
         const storedSelectedLocation = await settings.getSetting(SETTINGS_IDS.SELECTED_LOCATION_KEY);
@@ -412,9 +413,10 @@ const getSelectedLocation = async (ignoreIsLocationSelectedByUser = false) => {
 };
 
 export const locationsService = {
+    getIsLocationSelectedByUser,
+    getLocationsFromServer,
     getEndpointByLocation,
     getLocationByEndpoint,
-    getLocationsFromServer,
     getLocationsWithPing,
     setSelectedLocation,
     getSelectedLocation,

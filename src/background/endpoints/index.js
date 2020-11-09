@@ -15,6 +15,8 @@ import vpnProvider from '../providers/vpnProvider';
 import { locationsService, isMeasuringPingInProgress } from './locationsService';
 import { LocationWithPing } from './LocationWithPing';
 import { endpointsTldExclusions } from '../proxy/endpointsTldExclusions';
+// eslint-disable-next-line import/no-cycle
+import { isVPNDisconnectedIdle } from '../connectivity/connectivityService/connectivityFSM';
 
 /**
  * Endpoint properties
@@ -308,9 +310,18 @@ class Endpoints {
 
     getSelectedLocation = async () => {
         const selectedLocation = await locationsService.getSelectedLocation();
+        const isLocationSelectedByUser = await locationsService.getIsLocationSelectedByUser();
+        const isVPNDisabled = isVPNDisconnectedIdle();
 
-        // if found return
-        if (selectedLocation) {
+        // If no selected location of location is not selected by user and vpn is disabled we
+        // find better location again
+        const shouldSelectFasterLocation = !selectedLocation
+            || (!isLocationSelectedByUser && isVPNDisabled);
+
+        console.log({ selectedLocation, isLocationSelectedByUser, isVPNDisabled });
+        console.log(shouldSelectFasterLocation);
+
+        if (!shouldSelectFasterLocation) {
             return new LocationWithPing(selectedLocation);
         }
 
