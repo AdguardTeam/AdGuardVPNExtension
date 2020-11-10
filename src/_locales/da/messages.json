@@ -1,0 +1,419 @@
+{
+    "name": {
+        "message": "AdGuard VPN — Privatliv og Sikkerhed"
+    },
+    "description": {
+        "message": "Gør Internettet åbent og dine data sikre. Topklasse VPN fra skaberne af den berømte adblocker."
+    },
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
+    "registration_error_not_empty": {
+        "message": "Må ikke være tom"
+    },
+    "registration_error_not_valid": {
+        "message": "Denne værdi er ikke gyldig"
+    },
+    "registration_error_min_length": {
+        "message": "Denne værdi er for kort. Den skal have 8 tegn eller mere."
+    },
+    "registration_error_compromised_password": {
+        "message": "Adgangskoden du indtastede blev fundet i en <a>offentlig database</a> med kompromitterede adgangskoder. Prøv en anden."
+    },
+    "registration_error_unique_constraint": {
+        "message": "Denne værdi benyttes allerede"
+    },
+    "registration_error_front_unique_validation": {
+        "message": "Adgangskode og bekræftelse af adgangskode stemmer ikke overens"
+    },
+    "registration_error_default": {
+        "message": "Der opstod en fejl, prøv igen senere"
+    },
+    "authentication_error_2fa_required": {
+        "message": "2FA kræves"
+    },
+    "authentication_error_2fa_invalid": {
+        "message": "Ugyldig token"
+    },
+    "authentication_error_account_disabled": {
+        "message": "Kontoen er deaktiveret"
+    },
+    "authentication_error_account_locked": {
+        "message": "Kontoen er låst i 15 minutter"
+    },
+    "authentication_error_wrong_credentials": {
+        "message": "Beklager, forkert adgangskode"
+    },
+    "authentication_error_default": {
+        "message": "Der opstod en fejl, prøv igen senere"
+    },
+    "global_error_message": {
+        "message": "Der opstod en fejl. Kontakt os via <a>support@adguard-vpn.com</a>"
+    },
+    "about_title": {
+        "message": "Om"
+    },
+    "account_title": {
+        "message": "Konto"
+    },
+    "account_edit": {
+        "message": "Administrer"
+    },
+    "account_sign_out": {
+        "message": "Log ud"
+    },
+    "rate_description": {
+        "message": "Hej, vi er et team fra AdGuard, og det er meget vigtigt for os at vide din mening om vores produkt. Bedøm det venligst."
+    },
+    "rate_hide": {
+        "message": "Skjul"
+    },
+    "auth_title": {
+        "message": "Start helt gratis!"
+    },
+    "auth_description": {
+        "message": "Kompromisløs online beskyttelse af personlige oplysninger. Over 20 millioner mennesker har allerede valgt AdGuard."
+    },
+    "auth_code": {
+        "message": "Kode fra autentificerings-app"
+    },
+    "auth_confirm": {
+        "message": "Bekræft"
+    },
+    "auth_email": {
+        "message": "E-mailadresse"
+    },
+    "auth_password": {
+        "message": "Adgangskode"
+    },
+    "auth_password_repeat": {
+        "message": "Bekræftelse af adgangskode"
+    },
+    "auth_recover": {
+        "message": "Glemt adgangskode?"
+    },
+    "auth_login": {
+        "message": "Log ind"
+    },
+    "auth_sign_up": {
+        "message": "Tilmeld"
+    },
+    "auth_sign_up_button": {
+        "message": "Tilmeld"
+    },
+    "auth_sign_in": {
+        "message": "Log ind"
+    },
+    "auth_sign_in_button": {
+        "message": "Log ind"
+    },
+    "auth_sign_in_link": {
+        "message": "Log ind med AdGuard-konto"
+    },
+    "auth_account": {
+        "message": "Har du ikke en konto?"
+    },
+    "auth_register": {
+        "message": "Registrer"
+    },
+    "auth_header_sign_in_account": {
+        "message": "Du logger ind med AdGuard-konto"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "Ved at tilmelde dig opretter du din AdGuard-konto"
+    },
+    "auth_header_sign_in": {
+        "message": "Du logger ind som <div>%username%</div>"
+    },
+    "auth_header_sing_in_notice": {
+        "message": "Du har allerede en konto <div>%username%</div>"
+    },
+    "auth_header_registration": {
+        "message": "Du tilmelder dig som <div>%username%</div>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "Tofaktorgodkendelse"
+    },
+    "auth_header_2fa": {
+        "message": "Indtast bekræftelseskoden"
+    },
+    "auth_placeholder_2fa": {
+        "message": "Bekræftelseskode"
+    },
+    "eula": {
+        "message": "EULA"
+    },
+    "privacy_policy": {
+        "message": "Privatlivspolitik"
+    },
+    "settings_title": {
+        "message": "Indstillinger"
+    },
+    "settings_rate_us": {
+        "message": "Bedøm os"
+    },
+    "settings_webrtc_label": {
+        "message": "Bloker WebRTC"
+    },
+    "settings_webrtc_desc": {
+        "message": "WebRTC er et specielt program i de fleste internetbrowsere, der kan give et tredjepartswebsted mulighed for at registrere din rigtige IP-adresse og bruge den til at identificere dig"
+    },
+    "settings_context_menus_title": {
+        "message": "Føj AdGuard VPN-element til browserens kontekstmenu"
+    },
+    "context_menu_selective_mode": {
+        "message": "Selektiv tilstand"
+    },
+    "context_menu_regular_mode": {
+        "message": "Almindelig tilstand"
+    },
+    "settings_dns_label": {
+        "message": "Brug DNS-server"
+    },
+    "settings_dns_desc": {
+        "message": "Domæne Navn System (DNS) servere er Internettets svar på en telefonbog. De opretholder et bibliotek med domænenavne og oversætter dem til Internet Protokol (IP) adresser."
+    },
+    "settings_dns_selector_default_title": {
+        "message": "Standard"
+    },
+    "settings_dns_selector_default_desc": {
+        "message": "Brug automatisk standard DNS-servere, når du er tilsluttet VPN"
+    },
+    "settings_dns_selector_adguard_title": {
+        "message": "AdGuard DNS"
+    },
+    "settings_dns_selector_adguard_desc": {
+        "message": "Fjerner annoncer og trackere fra din enhed"
+    },
+    "settings_dns_selector_adguard_nonfiltering_title": {
+        "message": "AdGuard DNS Ikke-filtrering"
+    },
+    "settings_dns_selector_adguard_nonfiltering_desc": {
+        "message": "Sikker DNS uden aktivitetslogging (filtrerer ikke annoncer og trackere)"
+    },
+    "settings_dns_selector_adguard_family_title": {
+        "message": "AdGuard DNS Familiebeskyttelse"
+    },
+    "settings_dns_selector_adguard_family_desc": {
+        "message": "AdGuard DNS + Beskyttet søgning og blokering af voksenindhold"
+    },
+    "settings_dns_selector_google_title": {
+        "message": "Google DNS"
+    },
+    "settings_dns_selector_google_desc": {
+        "message": "Gratis alternativ DNS-tjeneste af Google"
+    },
+    "settings_dns_selector_cloudflare_title": {
+        "message": "Cloudflare DNS"
+    },
+    "settings_dns_selector_cloudflare_desc": {
+        "message": "Gratis DNS-tjeneste af Cloudflare"
+    },
+    "settings_dns_selector_cisco_title": {
+        "message": "Cisco OpenDNS"
+    },
+    "settings_dns_selector_cisco_desc": {
+        "message": "DNS-server der beskytter din enhed mod malware"
+    },
+    "settings_dns_selector_quad9_title": {
+        "message": "Quad9"
+    },
+    "settings_dns_selector_quad9_desc": {
+        "message": "Gratis alternativ DNS-tjeneste med beskyttelse mod phishing og spyware"
+    },
+    "settings_exclusion_add": {
+        "message": "Tilføj et websted"
+    },
+    "settings_exclusion_title": {
+        "message": "Udelukkelser"
+    },
+    "settings_connection_mode_title": {
+        "message": "Driftstilstand"
+    },
+    "settings_exclusion_regular_title": {
+        "message": "Almindelig tilstand"
+    },
+    "settings_exclusion_regular_description": {
+        "message": "AdGuard VPN fungerer ikke på webstederne fra nedenstående liste"
+    },
+    "settings_exclusion_selective_title": {
+        "message": "Selektiv tilstand"
+    },
+    "settings_exclusion_selective_description": {
+        "message": "AdGuard VPN fungerer kun på webstederne fra nedenstående liste"
+    },
+    "settings_exclusion_subdomains_title": {
+        "message": "Subdomæner"
+    },
+    "settings_exclusion_subdomains_text": {
+        "message": "Du kan tilføje domæner (f.eks. google.com) eller alle subdomæner (f.eks. *.google.com)"
+    },
+    "global_error_title": {
+        "message": "Der opstod en fejl"
+    },
+    "global_error_description": {
+        "message": "Kontakt os, hvis du fortsat ser denne meddelelse"
+    },
+    "global_error_learn_more": {
+        "message": "Lær mere"
+    },
+    "global_error_try_again": {
+        "message": "Prøv igen"
+    },
+    "authentication_successful_social": {
+        "message": "Godkendt! Du kan åbne AdGuard VPN og aktivere tunnelen."
+    },
+    "control_error_description": {
+        "message": "Det ser ud til, at en anden Chrome-udvidelse forsøger at kontrollere din forbindelse. Deaktiver den anden udvidelse i din browser."
+    },
+    "control_error_disable": {
+        "message": "Deaktiver den"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Aktivér VPN på dette websted"
+    },
+    "popup_settings_enable_vpn_short": {
+        "message": "Aktivér"
+    },
+    "popup_settings_disable_vpn": {
+        "message": "Deaktiver VPN på dette websted"
+    },
+    "popup_settings_other_products": {
+        "message": "Andre produkter"
+    },
+    "popup_settings_feedback": {
+        "message": "Feedback"
+    },
+    "popup_settings_open_settings": {
+        "message": "Indstillinger"
+    },
+    "popup_settings_sign_out": {
+        "message": "Log ud"
+    },
+    "context_menu_enable_vpn": {
+        "message": "Aktivér VPN på dette websted"
+    },
+    "context_menu_disable_vpn": {
+        "message": "Deaktiver VPN på dette websted"
+    },
+    "suggest_feature": {
+        "message": "Foreslå en funktion"
+    },
+    "endpoints_countries": {
+        "message": "Placeringer"
+    },
+    "endpoints_fastest": {
+        "message": "Hurtigste"
+    },
+    "endpoints_all": {
+        "message": "Alle placeringer"
+    },
+    "endpoints_search_results": {
+        "message": "Søgeresultat"
+    },
+    "endpoints_search": {
+        "message": "Søg placering"
+    },
+    "endpoints_not_found": {
+        "message": "Placering blev ikke fundet"
+    },
+    "popup_traffic_limit_reached": {
+        "message": "Den månedlige datagrænse er nået. Har du brug for mere?"
+    },
+    "premium_upgrade": {
+        "message": "Opgrader"
+    },
+    "settings_disconnect": {
+        "message": "Afbryd"
+    },
+    "settings_vpn_connecting": {
+        "message": "Forbinder..."
+    },
+    "settings_connect": {
+        "message": "Forbind"
+    },
+    "settings_vpn_enabled": {
+        "message": "Forbundet"
+    },
+    "settings_vpn_disabled": {
+        "message": "Afbrudt"
+    },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Forbindelseshastigheden er reduceret"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Du er løbet tør for hurtige gigabyte :( <br/> Der er kun langsomme tilbage"
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Boost hastighed"
+    },
+    "popup_traffic_limit_exceeded_cta": {
+        "message": "Opgrader nu for ubegrænset data, placeringer og hastighed!"
+    },
+    "popup_traffic_limit_exceeded_cta_offer": {
+        "message": "Early-bird priser!"
+    },
+    "popup_feedback_title": {
+        "message": "Vi vil meget gerne høre din feedback"
+    },
+    "popup_feedback_button": {
+        "message": "Giv feedback"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "Early-bird priser"
+    },
+    "sale_title": {
+        "message": "Hvad du får:"
+    },
+    "upgrade_features_data": {
+        "message": "Ubegrænset data"
+    },
+    "upgrade_features_speed": {
+        "message": "Ultrahurtige servere"
+    },
+    "upgrade_features_all_locations": {
+        "message": "Alle placeringer"
+    },
+    "upgrade_features_no_log": {
+        "message": "Politik om ingen logning"
+    },
+    "continue_us_free_button": {
+        "message": "Fortsæt med at bruge gratis"
+    },
+    "options_title": {
+        "message": "AdGuard VPN Indstillinger"
+    },
+    "offline_title": {
+        "message": "Offline"
+    },
+    "popup_site_status_unaccessible": {
+        "message": "er placeret i dit lokale netværk og ikke tilgængeligt via VPN"
+    },
+    "popup_site_status_vpn_disabled": {
+        "message": "VPN er deaktiveret på dette websted"
+    },
+    "popup_auth_agreement_consent": {
+        "message": "Ved at bruge AdGuard VPN, accepterer du vores <eula>EULA</eula> og <privacy>Privatlivspolitik</privacy>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "options_auth_agreement_consent": {
+        "message": "Ved at fortsætte accepterer du <privacy>Vilkår og Betingelser</privacy> og <eula>EULA</eula>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "popup_free_traffic_info": {
+        "message": "<span>%value% %unit%</span> tilbage denne måned",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "options_auth_back_button": {
+        "message": "Tilbage"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "I Selektiv tilstand fungerer AdGuard VPN kun på tilladte websteder, som du har føjet til listen."
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Skift nu"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "Er du sikker på, at du vil skifte?"
+    }
+}

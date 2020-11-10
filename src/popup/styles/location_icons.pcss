@@ -1,0 +1,57 @@
+.flag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1px solid var(--gray-base);
+
+    &--active {
+        box-shadow: 0 0 0 1px #fff, 0 0 0 3px var(--gray-base);
+        border: none;
+    }
+
+    &--small {
+        width: 18px;
+        height: 18px;
+        background-color: transparent;
+
+        & .flag__icon {
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    &__icon {
+        display: inline-block;
+        vertical-align: middle;
+        width: 20px;
+        height: 20px;
+        background-repeat: no-repeat;
+        border-radius: 50%;
+        background-color: #fff;
+        background-size: cover;
+        background-position: center;
+    }
+}
+
+.lock {
+    display: inline-flex;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    justify-content: center;
+    margin-left: -3px;
+
+    &__icon {
+        display: inline-block;
+        vertical-align: middle;
+        background-repeat: no-repeat;
+        width: 24px;
+        height: 24px;
+        background-size: cover;
+        background-position: left center;
+        background-image: url("../../assets/images/lock.svg");
+    }
+}

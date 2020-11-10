@@ -1,0 +1,419 @@
+{
+    "name": {
+        "message": "AdGuard VPN - Confidentialité & Sécurité"
+    },
+    "description": {
+        "message": "Rend l'Internet plus sûr et protège vos données. Un VPN de qualité par les créateurs du célèbre bloqueur de pubs."
+    },
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
+    "registration_error_not_empty": {
+        "message": "Ne doit pas être vide"
+    },
+    "registration_error_not_valid": {
+        "message": "Valeur non valide"
+    },
+    "registration_error_min_length": {
+        "message": "Cette valeur est trop courte. Elle devrait contenir 8 caractères ou plus."
+    },
+    "registration_error_compromised_password": {
+        "message": "Le mot de passe que vous avez saisi a été trouvé dans une <a>base publique</a> de mots de passe compromis. Veuillez saisir un autre mot de passe."
+    },
+    "registration_error_unique_constraint": {
+        "message": "Cette valeur est déjà utilisée"
+    },
+    "registration_error_front_unique_validation": {
+        "message": "Le mot de passe et le mot de passe confirmé ne correspondent pas"
+    },
+    "registration_error_default": {
+        "message": "Une erreur s’est produite, réessayez plus tard"
+    },
+    "authentication_error_2fa_required": {
+        "message": "2FA est requise"
+    },
+    "authentication_error_2fa_invalid": {
+        "message": "Jeton invalide"
+    },
+    "authentication_error_account_disabled": {
+        "message": "Le compte est désactivé"
+    },
+    "authentication_error_account_locked": {
+        "message": "Le compte est bloqué pour 15 minutes"
+    },
+    "authentication_error_wrong_credentials": {
+        "message": "Oups, mot de passe incorrect"
+    },
+    "authentication_error_default": {
+        "message": "Une erreur s’est produite, réessayez plus tard"
+    },
+    "global_error_message": {
+        "message": "Une erreur est survenue. Veuillez nous contacter à <a>support@adguard-vpn.com</a>"
+    },
+    "about_title": {
+        "message": "À propos"
+    },
+    "account_title": {
+        "message": "Compte"
+    },
+    "account_edit": {
+        "message": "Gérer"
+    },
+    "account_sign_out": {
+        "message": "Déconnexion"
+    },
+    "rate_description": {
+        "message": "Hé, nous sommes une équipe d’AdGuard et il est très important pour nous de connaître votre opinion sur notre produit. Veuillez le noter."
+    },
+    "rate_hide": {
+        "message": "Masquer"
+    },
+    "auth_title": {
+        "message": "Débutez absolument gratuitement!"
+    },
+    "auth_description": {
+        "message": "Protection de la confidentialité en ligne sans compromis. Plus de 20 millions de personnes ont déjà choisi AdGuard."
+    },
+    "auth_code": {
+        "message": "Code de l’application d’authentification"
+    },
+    "auth_confirm": {
+        "message": "Confirmez"
+    },
+    "auth_email": {
+        "message": "Adresse mail"
+    },
+    "auth_password": {
+        "message": "Mot de passe"
+    },
+    "auth_password_repeat": {
+        "message": "Confirmation du mot de passe"
+    },
+    "auth_recover": {
+        "message": "Mot de passe oublié ?"
+    },
+    "auth_login": {
+        "message": "Connexion"
+    },
+    "auth_sign_up": {
+        "message": "Inscription"
+    },
+    "auth_sign_up_button": {
+        "message": "Inscription"
+    },
+    "auth_sign_in": {
+        "message": "Connexion"
+    },
+    "auth_sign_in_button": {
+        "message": "Connexion"
+    },
+    "auth_sign_in_link": {
+        "message": "Connexion avec un compte AdGuard"
+    },
+    "auth_account": {
+        "message": "Vous n'avez pas encore de compte ?"
+    },
+    "auth_register": {
+        "message": "Inscrivez-vous"
+    },
+    "auth_header_sign_in_account": {
+        "message": "Vous vous connectez avec votre compte AdGuard"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "En vous inscrivant, vous créez un compte AdGuard"
+    },
+    "auth_header_sign_in": {
+        "message": "Vous vous connectez en tant que <div>%username%</div>"
+    },
+    "auth_header_sing_in_notice": {
+        "message": "Vous avez déjà un compte <div>%username%</div>"
+    },
+    "auth_header_registration": {
+        "message": "Vous vous inscrivez en tant que <div>%username%</div>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "Authentification à deux facteurs"
+    },
+    "auth_header_2fa": {
+        "message": "Saisissez le code d’authentification"
+    },
+    "auth_placeholder_2fa": {
+        "message": "Code d’authentification"
+    },
+    "eula": {
+        "message": "CLUF"
+    },
+    "privacy_policy": {
+        "message": "Politique de confidentialité"
+    },
+    "settings_title": {
+        "message": "Paramètres"
+    },
+    "settings_rate_us": {
+        "message": "Évaluez-nous"
+    },
+    "settings_webrtc_label": {
+        "message": "Bloquer WebRTC"
+    },
+    "settings_webrtc_desc": {
+        "message": "WebRTC est un programme spécial inclus dans la majorité des navigateurs Internet qui peut permettre à un site tiers de détecter votre adresse IP et de l'utiliser pour vous identifier"
+    },
+    "settings_context_menus_title": {
+        "message": "Ajouter AdGuard VPN au menu contextuel du navigateur"
+    },
+    "context_menu_selective_mode": {
+        "message": "Mode sélectif"
+    },
+    "context_menu_regular_mode": {
+        "message": "Mode régulier"
+    },
+    "settings_dns_label": {
+        "message": "Utiliser le serveur DNS"
+    },
+    "settings_dns_desc": {
+        "message": "Les serveurs Domain Name System (DNS) sont les équivalents pour Internet des annuaires téléphoniques. Ils maintiennent un répertoire des noms de domaines et les traduisent en adresses IP."
+    },
+    "settings_dns_selector_default_title": {
+        "message": "Par défaut"
+    },
+    "settings_dns_selector_default_desc": {
+        "message": "Utiliser automatiquement les serveurs DNS par défaut lorsque vous utilisez le VPN"
+    },
+    "settings_dns_selector_adguard_title": {
+        "message": "AdGuard DNS"
+    },
+    "settings_dns_selector_adguard_desc": {
+        "message": "Supprime les publicités et les pisteurs de votre appareil"
+    },
+    "settings_dns_selector_adguard_nonfiltering_title": {
+        "message": "AdGuard DNS sans filtrage"
+    },
+    "settings_dns_selector_adguard_nonfiltering_desc": {
+        "message": "DNS sécurisé sans journalisation des activités (ne filtre pas les annonces et les pisteurs)"
+    },
+    "settings_dns_selector_adguard_family_title": {
+        "message": "AdGuard DNS Protection familiale"
+    },
+    "settings_dns_selector_adguard_family_desc": {
+        "message": "AdGuard DNS + SafeSearch et blocage du contenu pour adultes"
+    },
+    "settings_dns_selector_google_title": {
+        "message": "Google DNS"
+    },
+    "settings_dns_selector_google_desc": {
+        "message": "Service DNS gratuit de Google"
+    },
+    "settings_dns_selector_cloudflare_title": {
+        "message": "Cloudflare DNS"
+    },
+    "settings_dns_selector_cloudflare_desc": {
+        "message": "Service DNS gratuit par Cloudflare"
+    },
+    "settings_dns_selector_cisco_title": {
+        "message": "Cisco OpenDNS"
+    },
+    "settings_dns_selector_cisco_desc": {
+        "message": "Serveur DNS qui protège votre appareil des malwares"
+    },
+    "settings_dns_selector_quad9_title": {
+        "message": "Quad9"
+    },
+    "settings_dns_selector_quad9_desc": {
+        "message": "Service DNS alternatif gratuit avec protection contre le phishing et les logiciels espions"
+    },
+    "settings_exclusion_add": {
+        "message": "Ajouter un site web"
+    },
+    "settings_exclusion_title": {
+        "message": "Exclusions"
+    },
+    "settings_connection_mode_title": {
+        "message": "Mode de fonctionnement"
+    },
+    "settings_exclusion_regular_title": {
+        "message": "Mode régulier"
+    },
+    "settings_exclusion_regular_description": {
+        "message": "AdGuard VPN ne fonctionnera pas sur les sites Web listés ci-dessous"
+    },
+    "settings_exclusion_selective_title": {
+        "message": "Mode sélectif"
+    },
+    "settings_exclusion_selective_description": {
+        "message": "AdGuard VPN fonctionnera uniquement sur les sites Web de la liste ci-dessous"
+    },
+    "settings_exclusion_subdomains_title": {
+        "message": "Sous-domaines"
+    },
+    "settings_exclusion_subdomains_text": {
+        "message": "Vous pouvez ajouter des domaines (p. ex. google.com) ou tous les sous-domaines (p. ex. * .google.com)"
+    },
+    "global_error_title": {
+        "message": "Une erreur est survenue"
+    },
+    "global_error_description": {
+        "message": "Veuillez nous contacter si vous continuez à voir ce message"
+    },
+    "global_error_learn_more": {
+        "message": "En savoir plus"
+    },
+    "global_error_try_again": {
+        "message": "Essayer à nouveau"
+    },
+    "authentication_successful_social": {
+        "message": "Authentifié avec succès! Vous pouvez ouvrir AdGuard VPN et activer le tunnel."
+    },
+    "control_error_description": {
+        "message": "Il semble qu’une autre extension Chrome tente de contrôler votre connexion. Veuillez désactiver l’autre extension dans votre navigateur."
+    },
+    "control_error_disable": {
+        "message": "Désactiver"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Activer le VPN sur ce site"
+    },
+    "popup_settings_enable_vpn_short": {
+        "message": "Activer"
+    },
+    "popup_settings_disable_vpn": {
+        "message": "Désactiver le VPN sur ce site"
+    },
+    "popup_settings_other_products": {
+        "message": "Autres produits"
+    },
+    "popup_settings_feedback": {
+        "message": "Commentaires"
+    },
+    "popup_settings_open_settings": {
+        "message": "Paramètres"
+    },
+    "popup_settings_sign_out": {
+        "message": "Déconnexion"
+    },
+    "context_menu_enable_vpn": {
+        "message": "Activer le VPN sur ce site"
+    },
+    "context_menu_disable_vpn": {
+        "message": "Désactiver le VPN sur ce site"
+    },
+    "suggest_feature": {
+        "message": "Suggérer une fonctionnalité"
+    },
+    "endpoints_countries": {
+        "message": "Localisations"
+    },
+    "endpoints_fastest": {
+        "message": "Le plus rapide"
+    },
+    "endpoints_all": {
+        "message": "Toutes les localisations"
+    },
+    "endpoints_search_results": {
+        "message": "Résultat de la recherche"
+    },
+    "endpoints_search": {
+        "message": "Rechercher une localisation"
+    },
+    "endpoints_not_found": {
+        "message": "Localisation introuvable"
+    },
+    "popup_traffic_limit_reached": {
+        "message": "La limite de données mensuelles est atteinte. Besoin de plus?"
+    },
+    "premium_upgrade": {
+        "message": "Mise à niveau"
+    },
+    "settings_disconnect": {
+        "message": "Se déconnecter"
+    },
+    "settings_vpn_connecting": {
+        "message": "Connexion..."
+    },
+    "settings_connect": {
+        "message": "Se connecter"
+    },
+    "settings_vpn_enabled": {
+        "message": "Connecté"
+    },
+    "settings_vpn_disabled": {
+        "message": "Déconnecté"
+    },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "La vitesse de connexion est réduite"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Oups, fini les Go rapides :( <br/> Il n'en reste que des lents"
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Augmenter la vitesse"
+    },
+    "popup_traffic_limit_exceeded_cta": {
+        "message": "Surclassez votre licence pour des données, des localisations et une vitesse illimités !"
+    },
+    "popup_traffic_limit_exceeded_cta_offer": {
+        "message": "Prix ​​lève-tôt !"
+    },
+    "popup_feedback_title": {
+        "message": "Nous aimerions entendre vos retours"
+    },
+    "popup_feedback_button": {
+        "message": "Envoyer un commentaire"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "Prix ​​lève-tôt"
+    },
+    "sale_title": {
+        "message": "Vous obtenez :"
+    },
+    "upgrade_features_data": {
+        "message": "Données illimitées"
+    },
+    "upgrade_features_speed": {
+        "message": "Serveurs ultrarapides"
+    },
+    "upgrade_features_all_locations": {
+        "message": "Toutes les localisations"
+    },
+    "upgrade_features_no_log": {
+        "message": "Aucune journalisation"
+    },
+    "continue_us_free_button": {
+        "message": "Continuez gratuitement"
+    },
+    "options_title": {
+        "message": "Options AdGuard VPN"
+    },
+    "offline_title": {
+        "message": "Hors-ligne"
+    },
+    "popup_site_status_unaccessible": {
+        "message": "est situé dans votre réseau local et est inaccessible via VPN"
+    },
+    "popup_site_status_vpn_disabled": {
+        "message": "Le VPN est désactivé sur ce site"
+    },
+    "popup_auth_agreement_consent": {
+        "message": "En utilisant AdGuard VPN, vous acceptez nos <eula>CLUF</eula> et <privacy>politique de confidentialité.</privacy>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "options_auth_agreement_consent": {
+        "message": "En continuant, vous acceptez les <privacy>Conditions générales</privacy> et le <eula>CLUF (EULA)</eula>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "popup_free_traffic_info": {
+        "message": "<span>%value% %unit%</span> restant ce mois-ci",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "options_auth_back_button": {
+        "message": "Retour"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "En Mode sélectif, AdGuard VPN ne fonctionne que sur les sites Web autorisés que vous avez ajoutés à la liste."
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Changer maintenant"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "Êtes-vous sûr de vouloir changer?"
+    }
+}

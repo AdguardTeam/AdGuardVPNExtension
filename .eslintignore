@@ -1,0 +1,5 @@
+node_modules
+build
+/src/background/proxy/index.js
+/coverage
+/private

@@ -1,0 +1,54 @@
+.checkbox {
+    display: flex;
+    align-items: center;
+
+    &__input {
+        display: none;
+
+        &:checked + .checkbox__label {
+            &:after {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+
+    &__label {
+        position: relative;
+        margin-right: 12px;
+        font-size: 1.2rem;
+        line-height: 1;
+        cursor: pointer;
+        user-select: none;
+
+        &--disabled {
+            cursor: default;
+            opacity: 0.6;
+        }
+    }
+
+    &__edit {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    &__button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        border: 0;
+    }
+
+    &__help {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    &__edit:focus + &__help {
+        opacity: 1;
+        visibility: visible;
+    }
+}

@@ -1,0 +1,47 @@
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 10px;
+}
+
+body {
+    width: 320px;
+    height: 598px;
+    margin: 0;
+    font-family: var(--font-stack);
+    font-size: 1.6rem;
+    line-height: 1.4;
+    color: var(--gray-base);
+}
+
+.content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.rsm-marker {
+    outline: none;
+    cursor: pointer;
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.hidden {
+    display: none;
+}
+
+button,
+input,
+textarea {
+    font-family: inherit;
+}

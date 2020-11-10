@@ -1,0 +1,104 @@
+.button {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0;
+    font-family: var(--font-stack);
+    font-size: 1.6rem;
+    text-align: center;
+    text-decoration: none;
+    color: var(--brand-primary);
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+
+    &:focus {
+        box-shadow: 0 0 2px 1px var(--shadow);
+        outline: none;
+    }
+
+    &:hover {
+        background-color: var(--grayF7)
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: default;
+    }
+
+    &--medium {
+        min-width: 200px;
+        padding: 15px 20px;
+        text-transform: uppercase;
+    }
+
+    &--block {
+        display: block;
+        width: 100%;
+    }
+
+    &--primary {
+        color: #fff;
+        background-color: var(--brand-primary);
+
+        &:hover,
+        &:focus {
+            color: #fff;
+            background-color: var(--brand-secondary);
+        }
+
+        &:disabled {
+            background-color: var(--brand-primary);
+        }
+    }
+
+    &--outline-primary {
+        color: var(--brand-primary);
+        border-color: var(--brand-primary);
+
+        &:hover,
+        &:focus {
+            color: var(--brand-primary);
+            border-color: var(--brand-primary);
+        }
+    }
+
+    &--outline-secondary {
+        color: var(--gray88);
+        border-color: var(--gray88);
+
+        &:hover,
+        &:focus {
+            color: var(--gray88);
+            border-color: var(--gray88);
+        }
+    }
+
+    &--icon {
+        font-size: 1.2rem;
+        border-radius: 3px;
+
+        &:hover {
+            background-color: transparent;
+        }
+    }
+
+    &--link {
+        text-decoration: none;
+        border: 0;
+
+        &:hover,
+        &:focus {
+            text-decoration: underline;
+            background-color: transparent;
+            box-shadow: none;
+        }
+    }
+
+    &--back {
+        display: inline-flex;
+        align-items: center;
+        color: var(--gray88);
+        margin-bottom: 60px;
+    }
+}

@@ -1,0 +1,8 @@
+node_modules
+build
+.DS_Store
+.idea/
+/yarn-error.log
+/coverage
+/private
+.env

@@ -1,0 +1,419 @@
+{
+    "name": {
+        "message": "AdGuard VPN — Soukromí a bezpečnost"
+    },
+    "description": {
+        "message": "Zajistí otevřený internet a zabezpečí vaše data. Prvotřídní VPN od tvůrců slavného blokátoru reklam."
+    },
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
+    "registration_error_not_empty": {
+        "message": "Nesmí být prázdná"
+    },
+    "registration_error_not_valid": {
+        "message": "Tato hodnota je neplatná"
+    },
+    "registration_error_min_length": {
+        "message": "Tato hodnota je příliš krátká. Měla by mít 8 nebo více znaků."
+    },
+    "registration_error_compromised_password": {
+        "message": "Zadané heslo bylo nalezeno ve <a>veřejné databázi</a> ohrožených hesel. Prosím, zkuste jiné heslo."
+    },
+    "registration_error_unique_constraint": {
+        "message": "Tato hodnota je již použita"
+    },
+    "registration_error_front_unique_validation": {
+        "message": "Heslo a potvrzovací heslo se neshodují"
+    },
+    "registration_error_default": {
+        "message": "Došlo k chybě, zkuste to znovu později"
+    },
+    "authentication_error_2fa_required": {
+        "message": "2FA je povinný"
+    },
+    "authentication_error_2fa_invalid": {
+        "message": "Neplatný token"
+    },
+    "authentication_error_account_disabled": {
+        "message": "Účet je deaktivován"
+    },
+    "authentication_error_account_locked": {
+        "message": "Účet je uzamčen na dobu 15 minut"
+    },
+    "authentication_error_wrong_credentials": {
+        "message": "Litujeme, nesprávné heslo"
+    },
+    "authentication_error_default": {
+        "message": "Došlo k chybě, zkuste to znovu později"
+    },
+    "global_error_message": {
+        "message": "Došlo k chybě, prosím kontaktujte nás prostřednictvím <a>support@adguard-vpn.com</a>"
+    },
+    "about_title": {
+        "message": "O aplikaci"
+    },
+    "account_title": {
+        "message": "Účet"
+    },
+    "account_edit": {
+        "message": "Spravovat"
+    },
+    "account_sign_out": {
+        "message": "Odhlásit se"
+    },
+    "rate_description": {
+        "message": "Ahoj, jsme tým AdGuardu a je pro nás velmi důležité znát Váš názor na náš produkt. Prosíme ohodnoťte jej."
+    },
+    "rate_hide": {
+        "message": "Skrýt"
+    },
+    "auth_title": {
+        "message": "Začněte zcela zdarma!"
+    },
+    "auth_description": {
+        "message": "Nekompromisní ochrana soukromí online. AdGuard si již zvolilo více než 20 milionů lidí."
+    },
+    "auth_code": {
+        "message": "Kód z ověřovací aplikace"
+    },
+    "auth_confirm": {
+        "message": "Potvrdit"
+    },
+    "auth_email": {
+        "message": "E-mailová adresa"
+    },
+    "auth_password": {
+        "message": "Heslo"
+    },
+    "auth_password_repeat": {
+        "message": "Potvrzení hesla"
+    },
+    "auth_recover": {
+        "message": "Zapomněli jste heslo?"
+    },
+    "auth_login": {
+        "message": "Přihlásit se"
+    },
+    "auth_sign_up": {
+        "message": "Zaregistrovat se"
+    },
+    "auth_sign_up_button": {
+        "message": "Zaregistrovat se"
+    },
+    "auth_sign_in": {
+        "message": "Přihlásit se"
+    },
+    "auth_sign_in_button": {
+        "message": "Přihlásit se"
+    },
+    "auth_sign_in_link": {
+        "message": "Přihlásit se pomocí účtu AdGuard"
+    },
+    "auth_account": {
+        "message": "Nemáte účet?"
+    },
+    "auth_register": {
+        "message": "Registrovat"
+    },
+    "auth_header_sign_in_account": {
+        "message": "Přihlašujete se pomocí AdGuard účtu"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "Zaregistrováním vytvoříte svůj AdGuard účet"
+    },
+    "auth_header_sign_in": {
+        "message": "Přihlašujete se jako <div>%username%</div> "
+    },
+    "auth_header_sing_in_notice": {
+        "message": "Již máte účet <div>%username%</div>"
+    },
+    "auth_header_registration": {
+        "message": "Registrujete se jako <div>%username%</div>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "Dvou-faktorová autentizace"
+    },
+    "auth_header_2fa": {
+        "message": "Zadejte ověřovací kód"
+    },
+    "auth_placeholder_2fa": {
+        "message": "Ověřovací kód"
+    },
+    "eula": {
+        "message": "EULA"
+    },
+    "privacy_policy": {
+        "message": "Zásady ochrany osobních údajů"
+    },
+    "settings_title": {
+        "message": "Nastavení"
+    },
+    "settings_rate_us": {
+        "message": "Ohodnoťte nás"
+    },
+    "settings_webrtc_label": {
+        "message": "Blokovat WebRTC"
+    },
+    "settings_webrtc_desc": {
+        "message": "WebRTC je speciální program ve většině internetových prohlížečů, který umožňuje webové stránce třetí strany zjistit vaši skutečnou IP adresu a použít ji k vaší identifikaci"
+    },
+    "settings_context_menus_title": {
+        "message": "Přidat AdGuard VPN do kontextového menu prohlížeče"
+    },
+    "context_menu_selective_mode": {
+        "message": "Selektivní režim"
+    },
+    "context_menu_regular_mode": {
+        "message": "Obvyklý režim"
+    },
+    "settings_dns_label": {
+        "message": "Použít DNS server"
+    },
+    "settings_dns_desc": {
+        "message": "Domain Name Servers (DNS) jsou internetový ekvivalent telefonních seznamů. Udržují adresář doménových jmen a překládají je na adresy internetového protokolu (IP)."
+    },
+    "settings_dns_selector_default_title": {
+        "message": "Výchozí"
+    },
+    "settings_dns_selector_default_desc": {
+        "message": "Automaticky použít výchozí servery DNS při připojení k VPN"
+    },
+    "settings_dns_selector_adguard_title": {
+        "message": "AdGuard DNS"
+    },
+    "settings_dns_selector_adguard_desc": {
+        "message": "Odstraňuje reklamy a slídiče z Vašeho zařízení"
+    },
+    "settings_dns_selector_adguard_nonfiltering_title": {
+        "message": "AdGuard DNS \"Bez filtrování\""
+    },
+    "settings_dns_selector_adguard_nonfiltering_desc": {
+        "message": "Zabezpečený DNS bez záznamu aktivity (nefiltruje reklamy a slídiče)"
+    },
+    "settings_dns_selector_adguard_family_title": {
+        "message": "AdGuard DNS Ochrana rodiny"
+    },
+    "settings_dns_selector_adguard_family_desc": {
+        "message": "AdGuard DNS + bezpečné vyhledávání a blokování obsahu pro dospělé"
+    },
+    "settings_dns_selector_google_title": {
+        "message": "Google DNS"
+    },
+    "settings_dns_selector_google_desc": {
+        "message": "Volně dostupná alternativa od Google"
+    },
+    "settings_dns_selector_cloudflare_title": {
+        "message": "Cloudflare DNS"
+    },
+    "settings_dns_selector_cloudflare_desc": {
+        "message": "Volně dostupná alternativa DNS od Cloudfare"
+    },
+    "settings_dns_selector_cisco_title": {
+        "message": "Cisco OpenDNS"
+    },
+    "settings_dns_selector_cisco_desc": {
+        "message": "DNS servery, které chrání vaše zařízení před malwarem"
+    },
+    "settings_dns_selector_quad9_title": {
+        "message": "Quad9"
+    },
+    "settings_dns_selector_quad9_desc": {
+        "message": "Volně dostupná alternativa pro DNS službu s ochranou před podvodnými weby a škodlivým software"
+    },
+    "settings_exclusion_add": {
+        "message": "Přidat stránku"
+    },
+    "settings_exclusion_title": {
+        "message": "Výjimky"
+    },
+    "settings_connection_mode_title": {
+        "message": "Pracovní režim"
+    },
+    "settings_exclusion_regular_title": {
+        "message": "Obvyklý režim"
+    },
+    "settings_exclusion_regular_description": {
+        "message": "AdGuard VPN nebude fungovat na webech ze seznamu níže"
+    },
+    "settings_exclusion_selective_title": {
+        "message": "Selektivní režim"
+    },
+    "settings_exclusion_selective_description": {
+        "message": "AdGuard VPN bude fungovat pouze na webech ze seznamu níže"
+    },
+    "settings_exclusion_subdomains_title": {
+        "message": "Subdomény"
+    },
+    "settings_exclusion_subdomains_text": {
+        "message": "Můžete přidat domény (např. google.com) nebo všechny subdomény (např. *.google.com)"
+    },
+    "global_error_title": {
+        "message": "Vyskytla se chyba"
+    },
+    "global_error_description": {
+        "message": "Pokud se Vám tato zpráva zobrazuje, kontaktujte nás"
+    },
+    "global_error_learn_more": {
+        "message": "Zjistit více"
+    },
+    "global_error_try_again": {
+        "message": "Zkusit znovu"
+    },
+    "authentication_successful_social": {
+        "message": "Úspěšně ověřeno! Můžete otevřít AdGuard VPN a zapnout tunel."
+    },
+    "control_error_description": {
+        "message": "Vypadá to, že jiné rozšíření Chrome se pokouší ovládat vaše připojení. Vypněte prosím ostatní rozšíření v prohlížeči."
+    },
+    "control_error_disable": {
+        "message": "Vypnout"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Zapnout VPN na této stránce"
+    },
+    "popup_settings_enable_vpn_short": {
+        "message": "Zapnout"
+    },
+    "popup_settings_disable_vpn": {
+        "message": "Vypnout VPN na této stránce"
+    },
+    "popup_settings_other_products": {
+        "message": "Další produkty"
+    },
+    "popup_settings_feedback": {
+        "message": "Zpětná vazba"
+    },
+    "popup_settings_open_settings": {
+        "message": "Nastavení"
+    },
+    "popup_settings_sign_out": {
+        "message": "Odhlásit se"
+    },
+    "context_menu_enable_vpn": {
+        "message": "Zapnout VPN na této stránce"
+    },
+    "context_menu_disable_vpn": {
+        "message": "Vypnout VPN na této stránce"
+    },
+    "suggest_feature": {
+        "message": "Navrhnout funkci"
+    },
+    "endpoints_countries": {
+        "message": "Umístění"
+    },
+    "endpoints_fastest": {
+        "message": "Nejrychlejší"
+    },
+    "endpoints_all": {
+        "message": "Všechna umístění"
+    },
+    "endpoints_search_results": {
+        "message": "Výsledek vyhledávání"
+    },
+    "endpoints_search": {
+        "message": "Hledat umístění"
+    },
+    "endpoints_not_found": {
+        "message": "Umístění nenalezeno"
+    },
+    "popup_traffic_limit_reached": {
+        "message": "Měsíční datový limit je dosažen. Potřebujete více?"
+    },
+    "premium_upgrade": {
+        "message": "Upgradovat"
+    },
+    "settings_disconnect": {
+        "message": "Odpojit"
+    },
+    "settings_vpn_connecting": {
+        "message": "Připojování..."
+    },
+    "settings_connect": {
+        "message": "Připojit"
+    },
+    "settings_vpn_enabled": {
+        "message": "Připojeno"
+    },
+    "settings_vpn_disabled": {
+        "message": "Odpojeno"
+    },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Rychlost připojení je snížena"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Došli vám rychlé gigabajty :( <br/> Zbývají jen pomalé"
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Zvýšit rychlost"
+    },
+    "popup_traffic_limit_exceeded_cta": {
+        "message": "Upgradujte nyní pro neomezený objem dat, umístění a rychlost!"
+    },
+    "popup_traffic_limit_exceeded_cta_offer": {
+        "message": "Ceny pro nejrychlejší!"
+    },
+    "popup_feedback_title": {
+        "message": "Rádi bychom znali Vaši zpětnou vazbu"
+    },
+    "popup_feedback_button": {
+        "message": "Zanechat zpětnou vazbu"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "Ceny pro nejrychlejší"
+    },
+    "sale_title": {
+        "message": "Co získáte:"
+    },
+    "upgrade_features_data": {
+        "message": "Neomezená data"
+    },
+    "upgrade_features_speed": {
+        "message": "Nejrychlejší servery"
+    },
+    "upgrade_features_all_locations": {
+        "message": "Všechna umístění"
+    },
+    "upgrade_features_no_log": {
+        "message": "Žádné zásady protokolování"
+    },
+    "continue_us_free_button": {
+        "message": "Pokračovat bezplatně"
+    },
+    "options_title": {
+        "message": "Možnosti AdGuard VPN"
+    },
+    "offline_title": {
+        "message": "Offline"
+    },
+    "popup_site_status_unaccessible": {
+        "message": "se nachází ve vaší místní síti a není k dispozici prostřednictvím VPN"
+    },
+    "popup_site_status_vpn_disabled": {
+        "message": "VPN je vypnuta na této stránce"
+    },
+    "popup_auth_agreement_consent": {
+        "message": "Používáním AdGuard VPN souhlasíte s <eula>EULA</eula> a <privacy>Zásadami ochrany osobních údajů</privacy>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "options_auth_agreement_consent": {
+        "message": "Pokračováním přijímáte <privacy>Pravidla a podmínky</privacy> a <eula>EULA</eula>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "popup_free_traffic_info": {
+        "message": "Tento měsíc zbývá <span>%value% %unit%</span>",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "options_auth_back_button": {
+        "message": "Zpět"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "V selektivním režimu funguje AdGuard VPN pouze na povolených webech, které jste přidali do seznamu."
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Přepnout nyní"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "Opravdu chcete přepnout?"
+    }
+}

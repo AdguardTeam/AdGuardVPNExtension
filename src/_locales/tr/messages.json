@@ -1,0 +1,419 @@
+{
+    "name": {
+        "message": "AdGuard VPN — Gizlilik ve Güvenlik"
+    },
+    "description": {
+        "message": "İnterneti erişilebilir ve verilerinizi güvenli hale getirir. Ünlü reklam engelleyicinin yaratıcılarından en iyi VPN'si."
+    },
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
+    "registration_error_not_empty": {
+        "message": "Boş olmamalı"
+    },
+    "registration_error_not_valid": {
+        "message": "Bu değer geçerli değil"
+    },
+    "registration_error_min_length": {
+        "message": "Bu değer çok kısa. 8 veya daha fazla karakter içermelidir."
+    },
+    "registration_error_compromised_password": {
+        "message": "Girdiğiniz parola, ele geçirilmiş parolaların <a>ortak veritabanında</a> bulundu. Lütfen başka bir tane deneyin."
+    },
+    "registration_error_unique_constraint": {
+        "message": "Bu değer zaten kullanılıyor"
+    },
+    "registration_error_front_unique_validation": {
+        "message": "Şifre ve şifreyi onayla eşleşmiyor"
+    },
+    "registration_error_default": {
+        "message": "Hata oluştu, daha sonra tekrar deneyiniz"
+    },
+    "authentication_error_2fa_required": {
+        "message": "2FA gerekli"
+    },
+    "authentication_error_2fa_invalid": {
+        "message": "Geçersiz simge"
+    },
+    "authentication_error_account_disabled": {
+        "message": "Hesap devre dışıdır"
+    },
+    "authentication_error_account_locked": {
+        "message": "Hesap 15 dakika boyunca kilitlendi"
+    },
+    "authentication_error_wrong_credentials": {
+        "message": "Üzgünüm, yanlış parola"
+    },
+    "authentication_error_default": {
+        "message": "Hata oluştu, daha sonra tekrar deneyiniz"
+    },
+    "global_error_message": {
+        "message": "Hata oluştu, lütfen <a>support@adguard-vpn.com</a> adresinden bizimle iletişime geçin"
+    },
+    "about_title": {
+        "message": "Hakkında"
+    },
+    "account_title": {
+        "message": "Hesap"
+    },
+    "account_edit": {
+        "message": "Yönet"
+    },
+    "account_sign_out": {
+        "message": "Oturumu kapat"
+    },
+    "rate_description": {
+        "message": "Hey, biz AdGuard'dan bir ekibiz ve ürünümüz hakkındaki düşüncelerinizi bilmek bizim için çok önemlidir. Lütfen oylayın."
+    },
+    "rate_hide": {
+        "message": "Gizle"
+    },
+    "auth_title": {
+        "message": "Tamamen ücretsiz başlayın!"
+    },
+    "auth_description": {
+        "message": "Ödün vermeyen çevrimiçi gizlilik koruması. 20 Milyondan fazla insan zaten AdGuard'ı seçti."
+    },
+    "auth_code": {
+        "message": "Yetkilendirme uygulamasından gelen kod"
+    },
+    "auth_confirm": {
+        "message": "Doğrula"
+    },
+    "auth_email": {
+        "message": "E-posta Adresi"
+    },
+    "auth_password": {
+        "message": "Parola"
+    },
+    "auth_password_repeat": {
+        "message": "Parola doğrulama"
+    },
+    "auth_recover": {
+        "message": "Parolanızı mı unuttunuz?"
+    },
+    "auth_login": {
+        "message": "Giriş yap"
+    },
+    "auth_sign_up": {
+        "message": "Kaydol"
+    },
+    "auth_sign_up_button": {
+        "message": "Kaydol"
+    },
+    "auth_sign_in": {
+        "message": "Giriş yapın"
+    },
+    "auth_sign_in_button": {
+        "message": "Giriş yap"
+    },
+    "auth_sign_in_link": {
+        "message": "AdGuard hesabıyla giriş yap"
+    },
+    "auth_account": {
+        "message": "Bir hesabınız yok mu?"
+    },
+    "auth_register": {
+        "message": "Kaydol"
+    },
+    "auth_header_sign_in_account": {
+        "message": "AdGuard hesabıyla giriş yapıyorsunuz"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "Kaydolarak AdGuard hesabınızı oluşturursunuz"
+    },
+    "auth_header_sign_in": {
+        "message": "<div>%username%</div> Olarak giriş yapıyorsunuz "
+    },
+    "auth_header_sing_in_notice": {
+        "message": "<div>%username%</div> zaten bir hesabınız var"
+    },
+    "auth_header_registration": {
+        "message": "<div>%username%</div> Olarak kaydoluyorsunuz"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "İki faktörlü kimlik doğrulama"
+    },
+    "auth_header_2fa": {
+        "message": "Kimlik doğrulama kodunuzu girin"
+    },
+    "auth_placeholder_2fa": {
+        "message": "Kimlik doğrulama kodu"
+    },
+    "eula": {
+        "message": "Son Kullanıcı Lisans Sözleşmesi"
+    },
+    "privacy_policy": {
+        "message": "Gizlilik Politikası"
+    },
+    "settings_title": {
+        "message": "Ayarlar"
+    },
+    "settings_rate_us": {
+        "message": "Bizi değerlendirin"
+    },
+    "settings_webrtc_label": {
+        "message": "WebRTC Protokolünü Engelle"
+    },
+    "settings_webrtc_desc": {
+        "message": "WebRTC çoğu İnternet tarayıcısında, üçüncü taraf bir web sitesinin gerçek IP adresinizi algılamasına ve sizi tanımlamak için kullanmasına izin veren özel bir programdır"
+    },
+    "settings_context_menus_title": {
+        "message": "Tarayıcının içerik menüsüne AdGuard VPN öğesini ekleyin"
+    },
+    "context_menu_selective_mode": {
+        "message": "Seçici mod"
+    },
+    "context_menu_regular_mode": {
+        "message": "Normal mod"
+    },
+    "settings_dns_label": {
+        "message": "DNS sunucusu kullan"
+    },
+    "settings_dns_desc": {
+        "message": "Alan Adı Sistemi (DNS) internetin bir telefon rehberine eşdeğeridir. Alan adı adlarının bir dizinini korur ve bunları İnternet Protokolü (IP) adreslerine çevirir."
+    },
+    "settings_dns_selector_default_title": {
+        "message": "Varsayılan"
+    },
+    "settings_dns_selector_default_desc": {
+        "message": "VPN'ye bağlandığında varsayılan DNS sunucularını otomatik olarak kullan"
+    },
+    "settings_dns_selector_adguard_title": {
+        "message": "AdGuard DNS"
+    },
+    "settings_dns_selector_adguard_desc": {
+        "message": "Cihazınızdan reklamları ve izleyicileri kaldırır"
+    },
+    "settings_dns_selector_adguard_nonfiltering_title": {
+        "message": "AdGuard DNS Filtrelemeyen"
+    },
+    "settings_dns_selector_adguard_nonfiltering_desc": {
+        "message": "Etkinlik günlüğü olmadan güvenli DNS (reklamları ve izleyicileri filtrelemez)"
+    },
+    "settings_dns_selector_adguard_family_title": {
+        "message": "AdGuard DNS Aile Koruması"
+    },
+    "settings_dns_selector_adguard_family_desc": {
+        "message": "AdGuard DNS + Güvenli Arama ve yetişkin içerik engelleme"
+    },
+    "settings_dns_selector_google_title": {
+        "message": "Google DNS"
+    },
+    "settings_dns_selector_google_desc": {
+        "message": "Google'dan ücretsiz alternatif DNS hizmeti"
+    },
+    "settings_dns_selector_cloudflare_title": {
+        "message": "Cloudflare DNS"
+    },
+    "settings_dns_selector_cloudflare_desc": {
+        "message": "Cloudflare tarafından ücretsiz DNS hizmeti"
+    },
+    "settings_dns_selector_cisco_title": {
+        "message": "Cisco OpenDNS"
+    },
+    "settings_dns_selector_cisco_desc": {
+        "message": "Cihazınızı zararlı yazılımlardan koruyan DNS sunucusu"
+    },
+    "settings_dns_selector_quad9_title": {
+        "message": "Quad9"
+    },
+    "settings_dns_selector_quad9_desc": {
+        "message": "Kimlik avı ve casus yazılımlara karşı korumalı ücretsiz alternatif DNS hizmeti"
+    },
+    "settings_exclusion_add": {
+        "message": "Site ekle"
+    },
+    "settings_exclusion_title": {
+        "message": "İstisnalar"
+    },
+    "settings_connection_mode_title": {
+        "message": "Çalışma modu"
+    },
+    "settings_exclusion_regular_title": {
+        "message": "Normal mod"
+    },
+    "settings_exclusion_regular_description": {
+        "message": "AdGuard VPN aşağıdaki listedeki web sitelerinde çalışmaz"
+    },
+    "settings_exclusion_selective_title": {
+        "message": "Seçici mod"
+    },
+    "settings_exclusion_selective_description": {
+        "message": "AdGuard VPN yalnızca aşağıdaki listedeki web sitelerinde çalışır"
+    },
+    "settings_exclusion_subdomains_title": {
+        "message": "Alt alan adı"
+    },
+    "settings_exclusion_subdomains_text": {
+        "message": "Alan adı (ör: google.com) veya tüm alt alan adı (ör: *.google.com) ekleyebilirsiniz"
+    },
+    "global_error_title": {
+        "message": "Hata oluştu"
+    },
+    "global_error_description": {
+        "message": "Bu mesajı görmeye devam ederseniz lütfen bizimle iletişime geçin"
+    },
+    "global_error_learn_more": {
+        "message": "Daha fazla bilgi edinin"
+    },
+    "global_error_try_again": {
+        "message": "Tekrar dene"
+    },
+    "authentication_successful_social": {
+        "message": "Başarıyla doğrulandı! AdGuard VPN'yi açabilir ve tüneli etkinleştirebilirsiniz."
+    },
+    "control_error_description": {
+        "message": "Başka bir Chrome uzantısı bağlantınızı kontrol etmeye çalışıyor gibi görünüyor. Lütfen tarayıcınızdaki diğer uzantıyı devre dışı bırakın."
+    },
+    "control_error_disable": {
+        "message": "Devre dışı bırak"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Bu sitede VPN'yi etkinleştir"
+    },
+    "popup_settings_enable_vpn_short": {
+        "message": "Etkinleştir"
+    },
+    "popup_settings_disable_vpn": {
+        "message": "Bu sitede VPN'yi devre dışı bırak"
+    },
+    "popup_settings_other_products": {
+        "message": "Diğer ürünler"
+    },
+    "popup_settings_feedback": {
+        "message": "Geri Bildirim"
+    },
+    "popup_settings_open_settings": {
+        "message": "Ayarlar"
+    },
+    "popup_settings_sign_out": {
+        "message": "Oturumu kapat"
+    },
+    "context_menu_enable_vpn": {
+        "message": "Bu sitede VPN'yi etkinleştir"
+    },
+    "context_menu_disable_vpn": {
+        "message": "Bu sitede VPN'yi devre dışı bırak"
+    },
+    "suggest_feature": {
+        "message": "Yeni bir özellik önerin"
+    },
+    "endpoints_countries": {
+        "message": "Konumlar"
+    },
+    "endpoints_fastest": {
+        "message": "En hızlı"
+    },
+    "endpoints_all": {
+        "message": "Tüm konumlar"
+    },
+    "endpoints_search_results": {
+        "message": "Arama sonucu"
+    },
+    "endpoints_search": {
+        "message": "Konum arayın"
+    },
+    "endpoints_not_found": {
+        "message": "Konum bulunamadı"
+    },
+    "popup_traffic_limit_reached": {
+        "message": "Aylık veri sınırına ulaşıldı. Daha fazlasına mı ihtiyacınız var?"
+    },
+    "premium_upgrade": {
+        "message": "Yükselt"
+    },
+    "settings_disconnect": {
+        "message": "Bağlantıyı kes"
+    },
+    "settings_vpn_connecting": {
+        "message": "Bağlanıyor..."
+    },
+    "settings_connect": {
+        "message": "Bağlan"
+    },
+    "settings_vpn_enabled": {
+        "message": "Bağlandı"
+    },
+    "settings_vpn_disabled": {
+        "message": "Bağlantı kesildi"
+    },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Bağlantı hızı azaltıldı"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Hızlı gigabaytlarınız bitti :( <br/> Sadece yavaş olanlar kaldı"
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Hızı artırın"
+    },
+    "popup_traffic_limit_exceeded_cta": {
+        "message": "Sınırsız veri, konum ve hız için şimdi yükseltin!"
+    },
+    "popup_traffic_limit_exceeded_cta_offer": {
+        "message": "Erken rezervasyon fiyatları!"
+    },
+    "popup_feedback_title": {
+        "message": "Geri bildiriminizi duymak isteriz"
+    },
+    "popup_feedback_button": {
+        "message": "Geri bildirimde bulunun"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "Erken rezervasyon fiyatları"
+    },
+    "sale_title": {
+        "message": "Elde edeceğiniz:"
+    },
+    "upgrade_features_data": {
+        "message": "Sınırsız veri"
+    },
+    "upgrade_features_speed": {
+        "message": "Işık hızı sunucular"
+    },
+    "upgrade_features_all_locations": {
+        "message": "Tüm konumlar"
+    },
+    "upgrade_features_no_log": {
+        "message": "Kayıt politikası yok"
+    },
+    "continue_us_free_button": {
+        "message": "Ücretsiz kullanmaya devam et"
+    },
+    "options_title": {
+        "message": "AdGuard VPN Ayarları"
+    },
+    "offline_title": {
+        "message": "Çevrimdışı"
+    },
+    "popup_site_status_unaccessible": {
+        "message": "yerel ağınızda bulunur ve VPN üzerinden erişilemez"
+    },
+    "popup_site_status_vpn_disabled": {
+        "message": "VPN bu sitede devre dışı bırakıldı"
+    },
+    "popup_auth_agreement_consent": {
+        "message": "AdGuard VPN'yi kullanmaya devam ederek <eula>Son Kullanıcı Lisans Sözleşmesi</eula> ve <privacy>Gizlilik Politikamızı</privacy> kabul etmiş olursunuz",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "options_auth_agreement_consent": {
+        "message": "Devam ederek <privacy>Şart ve Koşulları</privacy> ve <eula>Son Kullanıcı Lisans Anlaşmasını</eula> kabul edersiniz",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "popup_free_traffic_info": {
+        "message": "Bu ay <span>%value% %unit%</span> kaldı",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "options_auth_back_button": {
+        "message": "Geri"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "Seçici modda AdGuard VPN, yalnızca listeye eklediğiniz izin verilen web sitelerinde çalışır."
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Şimdi değiştir"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "Değiştirmek istediğine emin misiniz?"
+    }
+}

@@ -1,0 +1,419 @@
+{
+    "name": {
+        "message": "AdGuard VPN — Prywatność & Bezpieczeństwo"
+    },
+    "description": {
+        "message": "Sprawia, że Internet jest otwarty a twoje dane bezpieczne. Znakomity VPN od twórców znanego blokera reklam."
+    },
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
+    "registration_error_not_empty": {
+        "message": "Nie może być puste"
+    },
+    "registration_error_not_valid": {
+        "message": "Ta wartość jest nieprawidłowa"
+    },
+    "registration_error_min_length": {
+        "message": "Ta wartość jest za krótka. Powinna mieć 8 znaków lub więcej."
+    },
+    "registration_error_compromised_password": {
+        "message": "Wprowadzone hasło zostało znalezione w <a>publicznej bazie danych</a> zagrożonych haseł. Proszę, spróbuj podać inne hasło."
+    },
+    "registration_error_unique_constraint": {
+        "message": "Ta wartość jest już użyta"
+    },
+    "registration_error_front_unique_validation": {
+        "message": "Hasło i potwierdzenie hasła są niezgodne"
+    },
+    "registration_error_default": {
+        "message": "Wystąpił błąd, spróbuj ponownie później"
+    },
+    "authentication_error_2fa_required": {
+        "message": "2FA jest wymagane"
+    },
+    "authentication_error_2fa_invalid": {
+        "message": "Nieprawidłowy token"
+    },
+    "authentication_error_account_disabled": {
+        "message": "Konto jest wyłączone"
+    },
+    "authentication_error_account_locked": {
+        "message": "Konto jest zablokowane na 15 minut"
+    },
+    "authentication_error_wrong_credentials": {
+        "message": "Przepraszam, złe hasło"
+    },
+    "authentication_error_default": {
+        "message": "Wystąpił błąd, spróbuj ponownie później"
+    },
+    "global_error_message": {
+        "message": "Wystąpił błąd, proszę skontaktuj się z nami przez <a>support@adguard-vpn.com</a>"
+    },
+    "about_title": {
+        "message": "O programie"
+    },
+    "account_title": {
+        "message": "Konto"
+    },
+    "account_edit": {
+        "message": "Zarządzaj"
+    },
+    "account_sign_out": {
+        "message": "Wyloguj się"
+    },
+    "rate_description": {
+        "message": "Hej, jako zespół AdGuard zależy nam na Twojej opinii o naszym produkcie. Prosimy, podziel się swoim zdaniem i oceń go."
+    },
+    "rate_hide": {
+        "message": "Ukryj"
+    },
+    "auth_title": {
+        "message": "Wypróbuj za darmo!"
+    },
+    "auth_description": {
+        "message": "Bezkompromisowa ochrona prywatności online. Ponad 20 milionów osób wybrało AdGuard."
+    },
+    "auth_code": {
+        "message": "Kod z aplikacji uwierzytelniającej"
+    },
+    "auth_confirm": {
+        "message": "Potwierdź"
+    },
+    "auth_email": {
+        "message": "Adres e-mail"
+    },
+    "auth_password": {
+        "message": "Hasło"
+    },
+    "auth_password_repeat": {
+        "message": "Potwierdzenie hasła"
+    },
+    "auth_recover": {
+        "message": "Zapomniałeś hasła?"
+    },
+    "auth_login": {
+        "message": "Zaloguj się"
+    },
+    "auth_sign_up": {
+        "message": "Zapisz się"
+    },
+    "auth_sign_up_button": {
+        "message": "Zapisz się"
+    },
+    "auth_sign_in": {
+        "message": "Zaloguj się"
+    },
+    "auth_sign_in_button": {
+        "message": "Zaloguj się"
+    },
+    "auth_sign_in_link": {
+        "message": "Zaloguj się z kontem AdGuard"
+    },
+    "auth_account": {
+        "message": "Nie masz konta?"
+    },
+    "auth_register": {
+        "message": "Rejestracja"
+    },
+    "auth_header_sign_in_account": {
+        "message": "Zostaleś zalogowany przy użyciu konta Adguard"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "Rejestrując się, tworzysz swoje konto AdGuard"
+    },
+    "auth_header_sign_in": {
+        "message": "Logujesz się jako <div>%username%</div>"
+    },
+    "auth_header_sing_in_notice": {
+        "message": "Masz już konto <div>%username%</div>"
+    },
+    "auth_header_registration": {
+        "message": "Logujesz się jako <div>%username%</div>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "Uwierzytelnianie dwuskładnikowe"
+    },
+    "auth_header_2fa": {
+        "message": "Wpisz kod uwierzytelniający"
+    },
+    "auth_placeholder_2fa": {
+        "message": "Kod uwierzytelnienia"
+    },
+    "eula": {
+        "message": "EULA"
+    },
+    "privacy_policy": {
+        "message": "Polityka prywatności"
+    },
+    "settings_title": {
+        "message": "Ustawienia"
+    },
+    "settings_rate_us": {
+        "message": "Oceń nas"
+    },
+    "settings_webrtc_label": {
+        "message": "Blokuj WebRTC"
+    },
+    "settings_webrtc_desc": {
+        "message": "WebRTC to specjalny program, występujący w większości przeglądarek, który umożliwia stronom trzecim odkrycie Twojego prawdziwego adresu IP i użycie go do Twojej identyfikacji"
+    },
+    "settings_context_menus_title": {
+        "message": "Dodaj AdGuard domenu kontekstowego przeglądarki"
+    },
+    "context_menu_selective_mode": {
+        "message": "Tryb selektywny"
+    },
+    "context_menu_regular_mode": {
+        "message": "Tryb zwykły"
+    },
+    "settings_dns_label": {
+        "message": "Użyj serwera DNS"
+    },
+    "settings_dns_desc": {
+        "message": "Serwery DNS (Domain Name System) są internetowymi odpowiednikami książki telefonicznej. Zawierają one nazwy domen i tłumaczą je na adresy IP (Internet Protocol)."
+    },
+    "settings_dns_selector_default_title": {
+        "message": "Domyślny"
+    },
+    "settings_dns_selector_default_desc": {
+        "message": "Automatycznie używaj domyślnych serwerów DNS podczas korzystania z VPN"
+    },
+    "settings_dns_selector_adguard_title": {
+        "message": "AdGuard DNS"
+    },
+    "settings_dns_selector_adguard_desc": {
+        "message": "Usuwa reklamy i pliki śledzące z urządzenia"
+    },
+    "settings_dns_selector_adguard_nonfiltering_title": {
+        "message": "AdGuard DNS bez filtrowania"
+    },
+    "settings_dns_selector_adguard_nonfiltering_desc": {
+        "message": "Bezpieczny DNS nie rejestrujący aktywności (nie filtruje reklam i plików śledzących)"
+    },
+    "settings_dns_selector_adguard_family_title": {
+        "message": "AdGuard DNS Dla Rodziny"
+    },
+    "settings_dns_selector_adguard_family_desc": {
+        "message": "AdGuard DNS + Bezpieczne Wyszukiwanie i blokowanie treści dla dorosłych"
+    },
+    "settings_dns_selector_google_title": {
+        "message": "Google DNS"
+    },
+    "settings_dns_selector_google_desc": {
+        "message": "Darmowa alternatywna usługa DNS od Google"
+    },
+    "settings_dns_selector_cloudflare_title": {
+        "message": "Cloudflare DNS"
+    },
+    "settings_dns_selector_cloudflare_desc": {
+        "message": "Bezpłatna usługa DNS od Cloudflare"
+    },
+    "settings_dns_selector_cisco_title": {
+        "message": "Cisco OpenDNS"
+    },
+    "settings_dns_selector_cisco_desc": {
+        "message": "Serwer DNS, który chroni Twoje urządzenie przed złośliwym oprogramowaniem"
+    },
+    "settings_dns_selector_quad9_title": {
+        "message": "Quad9"
+    },
+    "settings_dns_selector_quad9_desc": {
+        "message": "Darmowa alternatywa usługi DNS z ochroną przed phishingiem i programami szpiegującymi"
+    },
+    "settings_exclusion_add": {
+        "message": "Dodaj stronę internetową"
+    },
+    "settings_exclusion_title": {
+        "message": "Wyjątki"
+    },
+    "settings_connection_mode_title": {
+        "message": "Tryb pracy"
+    },
+    "settings_exclusion_regular_title": {
+        "message": "Tryb zwykły"
+    },
+    "settings_exclusion_regular_description": {
+        "message": "AdGuard VPN nie będzie działać w witrynach z poniższej listy"
+    },
+    "settings_exclusion_selective_title": {
+        "message": "Tryb selektywny"
+    },
+    "settings_exclusion_selective_description": {
+        "message": "AdGuard VPN będzie działać tylko na stronach internetowych z poniższej listy"
+    },
+    "settings_exclusion_subdomains_title": {
+        "message": "Subdomeny"
+    },
+    "settings_exclusion_subdomains_text": {
+        "message": "Możesz dodać domeny (np. google.com) lub wszystkie subdomeny (np. *.google.com)"
+    },
+    "global_error_title": {
+        "message": "Wystąpił błąd"
+    },
+    "global_error_description": {
+        "message": "Skontaktuj się z nami, jeśli nadal widzisz tę wiadomość"
+    },
+    "global_error_learn_more": {
+        "message": "Dowiedz się więcej"
+    },
+    "global_error_try_again": {
+        "message": "Spróbuj ponownie"
+    },
+    "authentication_successful_social": {
+        "message": "Pomyślnie uwierzytelniono! Możesz otworzyć AdGuard VPN i uruchomić tunel."
+    },
+    "control_error_description": {
+        "message": "Wygląda na to, że inne rozszerzenie Chrome próbuje kontrolować twoje połączenie. Wyłącz inne rozszerzenie w przeglądarce."
+    },
+    "control_error_disable": {
+        "message": "Wyłącz"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Włącz VPN na tej stronie"
+    },
+    "popup_settings_enable_vpn_short": {
+        "message": "Włącz"
+    },
+    "popup_settings_disable_vpn": {
+        "message": "Wyłącz VPN na tej stronie"
+    },
+    "popup_settings_other_products": {
+        "message": "Inne produkty"
+    },
+    "popup_settings_feedback": {
+        "message": "Opinie"
+    },
+    "popup_settings_open_settings": {
+        "message": "Ustawienia"
+    },
+    "popup_settings_sign_out": {
+        "message": "Wyloguj się"
+    },
+    "context_menu_enable_vpn": {
+        "message": "Włącz VPN na tej stronie"
+    },
+    "context_menu_disable_vpn": {
+        "message": "Wyłącz VPN na tej stronie"
+    },
+    "suggest_feature": {
+        "message": "Zaproponuj nową funkcję"
+    },
+    "endpoints_countries": {
+        "message": "Lokalizacja"
+    },
+    "endpoints_fastest": {
+        "message": "Najszybsza"
+    },
+    "endpoints_all": {
+        "message": "Wszystkie lokalizacje"
+    },
+    "endpoints_search_results": {
+        "message": "Wynik wyszukiwania"
+    },
+    "endpoints_search": {
+        "message": "Wyszukaj lokalizację"
+    },
+    "endpoints_not_found": {
+        "message": "Nie znaleziono lokalizacji"
+    },
+    "popup_traffic_limit_reached": {
+        "message": "Miesięczny limit danych przekroczony. Potrzebujesz więcej?"
+    },
+    "premium_upgrade": {
+        "message": "Ulepsz"
+    },
+    "settings_disconnect": {
+        "message": "Rozłącz"
+    },
+    "settings_vpn_connecting": {
+        "message": "Łączenie..."
+    },
+    "settings_connect": {
+        "message": "Połącz"
+    },
+    "settings_vpn_enabled": {
+        "message": "Połączony"
+    },
+    "settings_vpn_disabled": {
+        "message": "Rozłączony"
+    },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Szybkość połączenia jest zmniejszona"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Skończyły Ci się szybkie gigabajty :( <br/> Zostały tylko wolne"
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Zwiększ prędkość"
+    },
+    "popup_traffic_limit_exceeded_cta": {
+        "message": "Uaktualnij teraz, aby uzyskać nieograniczony transfer, lokalizacje i prędkość!"
+    },
+    "popup_traffic_limit_exceeded_cta_offer": {
+        "message": "Cenny dla rannych ptaszków!"
+    },
+    "popup_feedback_title": {
+        "message": "Bardzo chcielibyśmy poznać Twoją opinię"
+    },
+    "popup_feedback_button": {
+        "message": "Zostaw opinię"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "Cenny dla rannych ptaszków"
+    },
+    "sale_title": {
+        "message": "Co dostałeś:"
+    },
+    "upgrade_features_data": {
+        "message": "Nieograniczone dane"
+    },
+    "upgrade_features_speed": {
+        "message": "Serwery o dużej szybkości"
+    },
+    "upgrade_features_all_locations": {
+        "message": "Wszystkie lokalizacje"
+    },
+    "upgrade_features_no_log": {
+        "message": "Polityka braku logów"
+    },
+    "continue_us_free_button": {
+        "message": "Kontynuuj bezpłatnie"
+    },
+    "options_title": {
+        "message": "Ustawienia AdGuard VPN"
+    },
+    "offline_title": {
+        "message": "Offline"
+    },
+    "popup_site_status_unaccessible": {
+        "message": "jest zlokalizowane w Twojej sieci lokalnej i niedostępne przez VPN"
+    },
+    "popup_site_status_vpn_disabled": {
+        "message": "VPN jest wyłączony na tej stronie"
+    },
+    "popup_auth_agreement_consent": {
+        "message": "Korzystając z AdGuard VPN akceptujesz warunki <eula>EULA</eula> i <privacy>Politykę Prywatności</privacy>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "options_auth_agreement_consent": {
+        "message": "Przechodząc dalej akceptujesz <privacy>Regulamin</privacy> oraz <eula>EULA</eula>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "popup_free_traffic_info": {
+        "message": "<span>%value% %unit%</span> pozostało w tym miesiącu",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "options_auth_back_button": {
+        "message": "Wstecz"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "W trybie selektywnym AdGuard VPN działa tylko na dozwolonych witrynach internetowych, które zostały dodane do listy."
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Przełącz teraz"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "Czy na pewno chcesz się przełączyć?"
+    }
+}

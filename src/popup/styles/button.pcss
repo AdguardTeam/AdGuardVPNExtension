@@ -1,0 +1,127 @@
+.button {
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    font-family: var(--font-stack);
+    border: 1px solid transparent;
+    outline: none;
+    background-color: transparent;
+    border-radius: 8px;
+
+    &:disabled {
+        background-image: none;
+        background-color: #b8b8b8;
+        pointer-events: none;
+        cursor: default;
+    }
+
+    &--disabled {
+        pointer-events: none;
+        opacity: 0.6;
+    }
+
+    &--back {
+        position: absolute;
+        z-index: 1;
+        left: 16px;
+        top: 16px;
+        padding: 0;
+    }
+
+    &--gray {
+        color: var(--gray-base);
+    }
+
+    &--white {
+        color: #fff;
+    }
+
+    &--inline {
+        color: inherit;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &--inline-green {
+        color: var(--green74);
+    }
+
+    &--inline-orange {
+        color: var(--orange);
+    }
+
+    &--block {
+        display: block;
+        width: 100%;
+    }
+
+    &--medium {
+        min-width: 200px;
+        padding: 13px 20px;
+        font-size: 1.6rem;
+        text-align: center;
+        line-height: 1;
+        text-transform: uppercase;
+        letter-spacing: 0.038rem;
+    }
+
+    &--green {
+        color: #fff;
+        background-color: var(--green76);
+    }
+
+    &--orange {
+        color: #fff;
+        background-color: var(--orange);
+        transition: var(--t3) background-color;
+
+        &:hover {
+            background-color: var(--orange-dark);
+        }
+    }
+
+    &--link {
+        color: var(--gray-base);
+    }
+
+    &--green-gradient {
+        color: #fff;
+        background-image: var(--button-gradient);
+    }
+
+    &__disabled {
+        pointer-events: none;
+        cursor: default;
+        opacity: 0.6;
+    }
+
+    &--red-gradient {
+        color: #fff;
+        background-image: var(--red-gradient);
+    }
+
+    &--red {
+        color: #fff;
+        background-color: var(--red);
+    }
+
+    &--outline-secondary {
+        border-color: var(--gray88);
+        color: var(--gray88);
+
+        &:hover {
+            background-color: rgba(19, 19, 19, 0.05);
+        }
+
+        &:active {
+            background-color: rgba(19, 19, 19, 0.1);
+        }
+    }
+
+    &--outline-white {
+        border-color: #fff;
+        color: #fff;
+    }
+}

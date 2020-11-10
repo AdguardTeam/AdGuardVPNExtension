@@ -1,0 +1,27 @@
+.icon {
+    display: inline-block;
+    vertical-align: middle;
+
+    &--button {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+    }
+
+    &--cross,
+    &--unchecked {
+        color: var(--gray88);
+    }
+
+    &--check,
+    &--checked,
+    &--plus {
+        color: var(--brand-primary);
+    }
+
+    &--back {
+        position: relative;
+        top: 1px;
+        margin-right: 3px;
+    }
+}
