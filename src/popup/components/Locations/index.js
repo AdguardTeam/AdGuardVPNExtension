@@ -81,6 +81,12 @@ const Locations = observer(() => {
             <div className="endpoints__list">
                 <div className="endpoints__title">
                     {reactTranslator.translate(listTitle)}
+                    {!showSearchResults && (
+                        <>
+                        &nbsp;
+                        {`(${filteredLocations.length})`}
+                        </>
+                    )}
                 </div>
                 {renderLocations(filteredLocations)}
             </div>
