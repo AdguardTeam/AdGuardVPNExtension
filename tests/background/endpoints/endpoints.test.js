@@ -259,7 +259,7 @@ describe('Endpoints', () => {
 
             const closestLocation = endpoints.getClosestLocation(
                 locations,
-                new Location(targetRawLocation)
+                new Location(targetRawLocation),
             );
 
             const expectedLocation = new Location({

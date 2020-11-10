@@ -7,7 +7,7 @@ import { reactTranslator } from '../../../reactCommon/reactTranslator';
 const Search = ({ value, handleChange, handleClear }) => {
     const crossClassNames = classnames(
         'button endpoints__cross',
-        { 'endpoints__cross--active': value.length > 0 }
+        { 'endpoints__cross--active': value.length > 0 },
     );
 
     return (

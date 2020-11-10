@@ -23,7 +23,7 @@ const fileDir = path.resolve(buildDir, FIREFOX_UPDATER_FILENAME);
 
 const getFirefoxManifest = async () => {
     const MANIFEST_PATH = path.resolve(
-        __dirname, BUILD_PATH, outputPath, BROWSERS.FIREFOX, MANIFEST_NAME
+        __dirname, BUILD_PATH, outputPath, BROWSERS.FIREFOX, MANIFEST_NAME,
     );
     const manifestBuffer = await fs.readFile(MANIFEST_PATH);
     const manifest = JSON.parse(manifestBuffer.toString());
@@ -74,7 +74,7 @@ const createUpdateJsonContent = (
     {
         // eslint-disable-next-line camelcase
         id, version, update_link, strict_min_version,
-    }
+    },
 ) => ({
     addons: {
         [id]: {
@@ -104,7 +104,7 @@ const createUpdateJson = async (manifest) => {
                 version: packageJson.version,
                 update_link: FIREFOX_UPDATE_XPI,
                 strict_min_version,
-            }
+            },
         );
 
         const fileJson = JSON.stringify(fileContent, null, 4);
@@ -119,7 +119,7 @@ const createUpdateJson = async (manifest) => {
 
 const updateFirefoxManifest = async () => {
     const MANIFEST_PATH = path.resolve(
-        __dirname, BUILD_PATH, outputPath, BROWSERS.FIREFOX, MANIFEST_NAME
+        __dirname, BUILD_PATH, outputPath, BROWSERS.FIREFOX, MANIFEST_NAME,
     );
     const manifest = JSON.parse(await fs.readFile(MANIFEST_PATH, 'utf-8'));
     manifest.applications.gecko.update_url = FIREFOX_UPDATE_URL;

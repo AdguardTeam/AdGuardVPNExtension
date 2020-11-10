@@ -23,7 +23,7 @@ const StatusImage = observer(() => {
         { 'status-image--enabled': isConnected },
         { 'status-image--connecting': isConnectingIdle || isDisconnectedRetrying },
         { 'status-image--exclusions-disable': displayExclusionScreen && canBeExcluded },
-        { 'status-image--server-error': isDisconnectedRetrying || isConnectingRetrying }
+        { 'status-image--server-error': isDisconnectedRetrying || isConnectingRetrying },
     );
 
     if (isConnected && !(displayExclusionScreen && canBeExcluded)) {

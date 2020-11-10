@@ -107,9 +107,9 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async setCurrentLocation(location) {
+    async setCurrentLocation(location, isSelectedByUser) {
         const type = MESSAGES_TYPES.SET_SELECTED_LOCATION;
-        return this.sendMessage(type, { location });
+        return this.sendMessage(type, { location, isSelectedByUser });
     }
 
     async authenticateUser(credentials) {

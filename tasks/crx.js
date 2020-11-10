@@ -24,7 +24,7 @@ const WRITE_PATH = path.resolve(__dirname, BUILD_PATH, outputPath);
 const LOAD_PATH = path
     .resolve(__dirname, BUILD_PATH, outputPath, BROWSERS.CHROME);
 const MANIFEST_PATH = path.resolve(
-    __dirname, BUILD_PATH, outputPath, BROWSERS.CHROME, MANIFEST_NAME
+    __dirname, BUILD_PATH, outputPath, BROWSERS.CHROME, MANIFEST_NAME,
 );
 
 const getPrivateKey = async () => {

@@ -35,7 +35,7 @@ const RegistrationForm = observer(() => {
 
     const formClassName = classnames(
         'form',
-        { 'form--error': authStore.error }
+        { 'form--error': authStore.error },
     );
 
     const icon = inputType === INPUT_TYPES.PASSWORD ? '#closed_eye' : '#open_eye';

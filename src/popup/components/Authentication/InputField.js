@@ -12,7 +12,7 @@ const InputField = ({
 }) => {
     const inputClassName = classnames(
         `form__input ${className}`,
-        { 'form__input--error': error }
+        { 'form__input--error': error },
     );
 
     return (

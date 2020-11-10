@@ -36,7 +36,7 @@ export default class ExclusionsHandler {
     addToExclusions = async (
         url,
         enabled = true,
-        options = {}
+        options = {},
     ) => {
         const hostname = getHostname(url);
 

@@ -1,8 +1,9 @@
 import throttle from 'lodash/throttle';
 import { log } from '../../lib/logger';
 import { SETTINGS_IDS } from '../../lib/constants';
+import browserApi from '../browserApi';
 
-const SCHEME_VERSION = '5';
+const SCHEME_VERSION = '6';
 const THROTTLE_TIMEOUT = 100;
 
 class SettingsService {
@@ -28,7 +29,7 @@ class SettingsService {
             this.persist();
             return;
         }
-        this.settings = this.checkSchemeMatch(settings);
+        this.settings = await this.checkSchemeMatch(settings);
     }
 
     migrateFrom1to2 = (oldSettings) => {
@@ -80,6 +81,25 @@ class SettingsService {
         };
     };
 
+    migrateFrom5to6 = async (oldSettings) => {
+        let isSelectedByUser = false;
+        // check if no location was saved earlier
+        // this is necessary in order to skip already working extensions
+        // because we can't be sure if locations were selected by users or automatically
+        const selectedLocation = await browserApi.storage.get(SETTINGS_IDS.SELECTED_LOCATION_KEY);
+
+        if (selectedLocation) {
+            isSelectedByUser = true;
+        }
+
+        return {
+            ...oldSettings,
+            VERSION: '6',
+            [SETTINGS_IDS.SELECTED_LOCATION_KEY]: selectedLocation,
+            [SETTINGS_IDS.LOCATION_SELECTED_BY_USER_KEY]: isSelectedByUser,
+        };
+    }
+
     /**
      * In order to add migration, create new function which modifies old settings into new
      * And add this migration under related old settings scheme version
@@ -91,9 +111,10 @@ class SettingsService {
         2: this.migrateFrom2to3,
         3: this.migrateFrom3to4,
         4: this.migrateFrom4to5,
+        5: this.migrateFrom5to6,
     };
 
-    applyMigrations(oldVersion, newVersion, oldSettings) {
+    async applyMigrations(oldVersion, newVersion, oldSettings) {
         let newSettings = { ...oldSettings };
         for (let i = oldVersion; i < newVersion; i += 1) {
             const migrationFunction = this.migrationFunctions[i];
@@ -101,7 +122,8 @@ class SettingsService {
                 // eslint-disable-next-line no-continue
                 continue;
             }
-            newSettings = migrationFunction(newSettings);
+            // eslint-disable-next-line no-await-in-loop
+            newSettings = await migrationFunction(newSettings);
         }
         return newSettings;
     }
@@ -112,14 +134,14 @@ class SettingsService {
      * @param oldSettings
      * @returns {{VERSION: *}}
      */
-    migrateSettings(oldSettings) {
+    async migrateSettings(oldSettings) {
         log.info(`Settings were converted from ${oldSettings.VERSION} to ${SCHEME_VERSION}`);
         let newSettings;
 
         const newVersionInt = Number.parseInt(SCHEME_VERSION, 10);
         const oldVersionInt = Number.parseInt(oldSettings.VERSION, 10);
         if (newVersionInt > oldVersionInt) {
-            newSettings = this.applyMigrations(oldVersionInt, newVersionInt, oldSettings);
+            newSettings = await this.applyMigrations(oldVersionInt, newVersionInt, oldSettings);
         } else {
             newSettings = {
                 VERSION: SCHEME_VERSION,

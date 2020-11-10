@@ -48,7 +48,7 @@ class Credentials {
         const isPremiumToken = !!token?.licenseKey;
         notifier.notifyListeners(
             notifier.types.TOKEN_PREMIUM_STATE_UPDATED,
-            isPremiumToken
+            isPremiumToken,
         );
     }
 
@@ -379,7 +379,7 @@ class Credentials {
         try {
             notifier.addSpecifiedListener(
                 notifier.types.USER_DEAUTHENTICATED,
-                this.handleUserDeauthentication.bind(this)
+                this.handleUserDeauthentication.bind(this),
             );
 
             this.appId = await this.gainAppId();

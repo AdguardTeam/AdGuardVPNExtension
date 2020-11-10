@@ -68,15 +68,15 @@ class BrowserActionIcon {
         notifier.addSpecifiedListener(notifier.types.TAB_UPDATED, throttledUpdateIcon);
         notifier.addSpecifiedListener(
             notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE,
-            throttledUpdateIcon
+            throttledUpdateIcon,
         );
         notifier.addSpecifiedListener(
             notifier.types.UPDATE_BROWSER_ACTION_ICON,
-            throttledUpdateIcon
+            throttledUpdateIcon,
         );
         notifier.addSpecifiedListener(
             notifier.types.CONNECTIVITY_STATE_CHANGED,
-            () => throttledUpdateIcon()
+            () => throttledUpdateIcon(),
         );
 
         // Run after init in order to update browser action icon state

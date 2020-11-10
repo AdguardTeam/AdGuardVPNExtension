@@ -75,7 +75,7 @@ const config = {
             __APP_CONFIG__: JSON.stringify(genAppConfig(
                 process.env.BROWSER,
                 process.env.STAGE_ENV,
-                process.env.BUILD_ENV
+                process.env.BUILD_ENV,
             )),
         }),
         new webpack.NormalModuleReplacementPlugin(/\.\/abstractProxyApi/, ((resource) => {

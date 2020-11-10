@@ -63,7 +63,8 @@ const messageHandler = async (message, sender) => {
             return actions.openOptionsPage();
         }
         case MESSAGES_TYPES.SET_SELECTED_LOCATION: {
-            await locationsService.setSelectedLocation(data.location.id);
+            const { location, isSelectedByUser } = data;
+            await locationsService.setSelectedLocation(location.id, isSelectedByUser);
             break;
         }
         case MESSAGES_TYPES.DEAUTHENTICATE_USER: {

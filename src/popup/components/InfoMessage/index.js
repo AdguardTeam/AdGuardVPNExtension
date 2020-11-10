@@ -46,7 +46,7 @@ const InfoMessage = observer(() => {
 
     const infoMessagesClass = classnames(
         'info-message',
-        { 'info-message--active': settingsStore.proxyEnabled }
+        { 'info-message--active': settingsStore.proxyEnabled },
     );
 
     const formattedRemainingTraffic = formatBytes(remainingTraffic);
