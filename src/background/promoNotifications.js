@@ -116,15 +116,14 @@ const blackFridayNotification = {
     to: '1 December 2020 23:59:00',
     type: 'animated',
     get icons() {
-        // FIXME update url
         return lazyGet(blackFridayNotification, 'icons', () => ({
             ENABLED: {
-                19: getUrl('assets/images/icons/enabled-19-halloween.png'),
-                38: getUrl('assets/images/icons/enabled-38-halloween.png'),
+                19: getUrl('assets/images/icons/enabled-19.png'),
+                38: getUrl('assets/images/icons/enabled-38.png'),
             },
             DISABLED: {
-                19: getUrl('assets/images/icons/disabled-19-halloween.png'),
-                38: getUrl('assets/images/icons/disabled-38-halloween.png'),
+                19: getUrl('assets/images/icons/disabled-19.png'),
+                38: getUrl('assets/images/icons/disabled-38.png'),
             },
         }));
     },

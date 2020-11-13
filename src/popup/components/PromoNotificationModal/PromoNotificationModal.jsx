@@ -9,7 +9,7 @@ import rootStore from '../../stores';
 import './promo-notification-modal.pcss';
 
 const PromoNotificationModal = observer(() => {
-    const { settingsStore } = useContext(rootStore);
+    const { settingsStore, vpnStore } = useContext(rootStore);
 
     const [showModal, setShowModal] = useState(true);
 
@@ -37,6 +37,10 @@ const PromoNotificationModal = observer(() => {
         return null;
     }
 
+    const { btn } = vpnStore.isPremiumToken
+        ? promoNotification.text.premium
+        : promoNotification.text.free;
+
     return (
         <Modal
             isOpen={showModal}
@@ -50,13 +54,13 @@ const PromoNotificationModal = observer(() => {
                 onClick={onCloseHandler}
             />
             <div className="holiday-notify__content">
-                {promoNotification.text.btn
+                {btn
                 && (
                     <div
                         className="holiday-notify__btn"
                         onClick={btnClickHandler}
                     >
-                        {promoNotification.text.btn}
+                        {btn}
                     </div>
                 )}
             </div>
