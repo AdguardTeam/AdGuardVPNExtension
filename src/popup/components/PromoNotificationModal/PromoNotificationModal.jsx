@@ -54,6 +54,7 @@ const PromoNotificationModal = observer(() => {
                 onClick={onCloseHandler}
             />
             <div className="holiday-notify__content">
+                <div className="holiday-notify__title">Black Friday at AdGuard</div>
                 {btn
                 && (
                     <div
