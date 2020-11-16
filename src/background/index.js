@@ -23,6 +23,7 @@ import browserActionIcon from './browserActionIcon';
 import './networkConnectionObserver';
 import { openThankYouPage } from './postinstall';
 import { endpointsTldExclusions } from './proxy/endpointsTldExclusions';
+import './uninstall';
 
 global.adguard = {
     settings,
