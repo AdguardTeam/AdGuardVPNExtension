@@ -108,11 +108,10 @@ const blackFridayNotification = {
     },
     text: '',
     url: {
-        free: 'https://agrd.io/bf2020-vpn', // FIXME add url to the tds
-        premium: 'https://agrd.io/bf2020-vpn-secret-coupon', // FIXME add to the tds
+        free: 'https://adguard-vpn.com/forward.html?action=bf2020_free_notify&from=popup&app=vpn_extension',
+        premium: 'https://adguard-vpn.com/forward.html?action=bf2020_premium_notify&from=popup&app=vpn_extension',
     },
-    from: '13 November 2020 09:00:01', // FIXME remove
-    // from: '27 November 2020 12:00:01', // FIXME uncomment
+    from: '27 November 2020 12:00:01',
     to: '1 December 2020 23:59:00',
     type: 'animated',
     get icons() {
@@ -274,9 +273,7 @@ const getCurrentNotification = async () => {
     notificationCheckTime = currentTime;
 
     const notificationsKeys = Object.keys(notifications);
-    const viewedNotifications = []; // FIXME remove
-    // FIXME uncomment
-    // const viewedNotifications = (await browserApi.storage.get(VIEWED_NOTIFICATIONS)) || [];
+    const viewedNotifications = (await browserApi.storage.get(VIEWED_NOTIFICATIONS)) || [];
 
     for (let i = 0; i < notificationsKeys.length; i += 1) {
         const notificationKey = notificationsKeys[i];
