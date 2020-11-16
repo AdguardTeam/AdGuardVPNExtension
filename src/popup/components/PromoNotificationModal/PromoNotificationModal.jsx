@@ -20,12 +20,16 @@ const PromoNotificationModal = observer(() => {
     const { promoNotification } = settingsStore;
 
     const btnClickHandler = async () => {
-        if (!promoNotification.url) {
+        const url = vpnStore.isPremiumToken
+            ? promoNotification.url.premium
+            : promoNotification.url.free;
+
+        if (!url) {
             return;
         }
 
         await messenger.setNotificationViewed(false);
-        await popupActions.openTab(promoNotification.url);
+        await popupActions.openTab(url);
     };
 
     const onCloseHandler = async () => {
@@ -37,7 +41,7 @@ const PromoNotificationModal = observer(() => {
         return null;
     }
 
-    const { btn } = vpnStore.isPremiumToken
+    const { btn, title } = vpnStore.isPremiumToken
         ? promoNotification.text.premium
         : promoNotification.text.free;
 
@@ -54,7 +58,7 @@ const PromoNotificationModal = observer(() => {
                 onClick={onCloseHandler}
             />
             <div className="holiday-notify__content">
-                <div className="holiday-notify__title">Black Friday at AdGuard</div>
+                <div className="holiday-notify__title">{title}</div>
                 {btn
                 && (
                     <div
