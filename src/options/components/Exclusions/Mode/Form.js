@@ -31,7 +31,7 @@ const Form = observer(() => {
         await addToExclusions(exclusionsCurrentMode);
     };
 
-    const inputChangeHandler = async (e) => {
+    const inputChangeHandler = (e) => {
         const { target: { value } } = e;
         onExclusionsInputChange(exclusionsCurrentMode, value);
     };
@@ -48,7 +48,7 @@ const Form = observer(() => {
         openExclusionsForm(exclusionsCurrentMode);
     };
 
-    useOutsideClick(ref, async () => {
+    useOutsideClick(ref, () => {
         closeExclusionsForm(exclusionsCurrentMode);
     });
 
