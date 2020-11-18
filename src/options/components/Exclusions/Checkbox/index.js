@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import classnames from 'classnames';
 
 import SubdomainsHelp from '../Mode/SubdomainsHelp';
 import './checkbox.pcss';
@@ -28,8 +29,21 @@ const Checkbox = ({
     const handleBlur = (e) => {
         if (e.target.value.length <= 0) {
             handleRemove();
+        } else {
+            handleRename(hostname);
+            setIsChanged(false);
         }
     };
+
+    const iconClass = classnames('icon icon--button', {
+        'icon--checked': checked,
+        'icon--unchecked': !checked,
+    });
+
+    const iconXlink = classnames({
+        '#checked': checked,
+        '#unchecked': !checked,
+    });
 
     return (
         <form className="form" onSubmit={handleSubmit}>
@@ -43,15 +57,9 @@ const Checkbox = ({
                     onChange={handleToggle}
                 />
                 <label htmlFor={id} className="checkbox__label">
-                    {checked ? (
-                        <svg className="icon icon--button icon--checked">
-                            <use xlinkHref="#checked" />
-                        </svg>
-                    ) : (
-                        <svg className="icon icon--button icon--unchecked">
-                            <use xlinkHref="#unchecked" />
-                        </svg>
-                    )}
+                    <svg className={iconClass}>
+                        <use xlinkHref={iconXlink} />
+                    </svg>
                 </label>
                 <input
                     type="text"

@@ -53,20 +53,17 @@ const Mode = observer(() => {
 
     const renderControls = (exclusionsType) => {
         const enabled = exclusionsType === exclusionsCurrentMode;
-
-        const getIconHref = (enabled) => {
-            if (enabled) {
-                return 'bullet_on';
-            }
-            return 'bullet_off';
-        };
-
         const titleClass = classnames('radio__title', { 'radio__title--active': enabled });
+
+        const xlinkHref = classnames({
+            '#bullet_on': enabled,
+            '#bullet_off': !enabled,
+        });
 
         return (
             <div className="radio" onClick={enabled ? undefined : onChange(exclusionsType)}>
                 <svg className="radio__icon">
-                    <use xlinkHref={`#${getIconHref(enabled)}`} />
+                    <use xlinkHref={xlinkHref} />
                 </svg>
                 <div className="radio__label">
                     <div className={titleClass}>
@@ -77,17 +74,6 @@ const Mode = observer(() => {
                     </div>
                 </div>
             </div>
-        );
-    };
-
-    const renderContent = (exclusionsType) => {
-        const enabled = exclusionsType === exclusionsCurrentMode;
-
-        return (
-            <>
-                <Form exclusionsType={exclusionsType} enabled={enabled} />
-                <List exclusionsType={exclusionsType} enabled={enabled} />
-            </>
         );
     };
 
@@ -125,11 +111,10 @@ const Mode = observer(() => {
                             </div>
                         ))}
                     </div>
-                    {modes.map((type) => (
-                        <div className="settings__control" key={type}>
-                            {renderContent(type)}
-                        </div>
-                    ))}
+                    <div className="settings__control">
+                        <Form />
+                        <List />
+                    </div>
                 </div>
             </div>
         </>
