@@ -9,7 +9,7 @@ import rootStore from '../../stores';
 import './promo-notification-modal.pcss';
 
 const PromoNotificationModal = observer(() => {
-    const { settingsStore } = useContext(rootStore);
+    const { settingsStore, vpnStore } = useContext(rootStore);
 
     const [showModal, setShowModal] = useState(true);
 
@@ -20,12 +20,16 @@ const PromoNotificationModal = observer(() => {
     const { promoNotification } = settingsStore;
 
     const btnClickHandler = async () => {
-        if (!promoNotification.url) {
+        const url = vpnStore.isPremiumToken
+            ? promoNotification.url.premium
+            : promoNotification.url.free;
+
+        if (!url) {
             return;
         }
 
         await messenger.setNotificationViewed(false);
-        await popupActions.openTab(promoNotification.url);
+        await popupActions.openTab(url);
     };
 
     const onCloseHandler = async () => {
@@ -36,6 +40,10 @@ const PromoNotificationModal = observer(() => {
     if (!promoNotification) {
         return null;
     }
+
+    const { btn, title } = vpnStore.isPremiumToken
+        ? promoNotification.text.premium
+        : promoNotification.text.free;
 
     return (
         <Modal
@@ -50,13 +58,14 @@ const PromoNotificationModal = observer(() => {
                 onClick={onCloseHandler}
             />
             <div className="holiday-notify__content">
-                {promoNotification.text.btn
+                <div className="holiday-notify__title">{title}</div>
+                {btn
                 && (
                     <div
                         className="holiday-notify__btn"
                         onClick={btnClickHandler}
                     >
-                        {promoNotification.text.btn}
+                        {btn}
                     </div>
                 )}
             </div>

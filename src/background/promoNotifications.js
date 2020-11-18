@@ -12,51 +12,117 @@ import notifier from '../lib/notifier';
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const halloweenNotification = {
-    id: 'halloween2020',
+const blackFridayNotification = {
+    id: 'blackFriday2020',
     locales: {
         en: {
-            btn: 'Get a treat',
-        },
-        de: {
-            btn: 'Angebot holen',
-        },
-        ko: {
-            btn: '더 읽기',
+            free: {
+                title: 'Black Friday at AdGuard',
+                btn: 'It\'s a big deal',
+            },
+            premium: {
+                title: 'Black Friday at AdGuard',
+                btn: 'Renew now!',
+            },
         },
         ru: {
-            btn: 'Кое-что для вас',
+            free: {
+                title: 'Скидки к Чёрной пятнице',
+                btn: 'Ого, для меня?',
+            },
+            premium: {
+                title: 'Скидки к Чёрной пятнице',
+                btn: 'Продлить выгодно',
+            },
+        },
+        de: {
+            free: {
+                title: 'Black Friday Deal',
+                btn: 'Zum Angebot',
+            },
+            premium: {
+                title: 'Black Friday Deal',
+                btn: 'Rabatt aktivieren',
+            },
         },
         ja: {
-            btn: '秘密の◯◯はこちら',
+            free: {
+                title: 'AdGuard BLACK FRIDAY',
+                btn: '最大割引を手に入れる',
+            },
+            premium: {
+                title: 'AdGuard BLACK FRIDAY',
+                btn: '最大割引を手に入れる',
+            },
+        },
+        ko: {
+            free: {
+                title: '블랙 \n프라이데이 \n세일',
+                btn: '최대 할인!',
+            },
+            premium: {
+                title: '블랙 \n프라이데이 \n세일',
+                btn: '지금 갱신',
+            },
         },
         zh_cn: {
-            btn: '万圣节的魔法',
+            free: {
+                title: '黑5 \n全球 \n狂欢',
+                btn: '疯狂购',
+            },
+            premium: {
+                title: '黑5 \n全球 \n狂欢',
+                btn: '立刻续订',
+            },
         },
         zh_tw: {
-            btn: '萬聖節的魔法',
+            free: {
+                title: '黑五 \n狂歡 \n購物節',
+                btn: '瘋狂大減價',
+            },
+            premium: {
+                title: '黑五 \n狂歡 \n購物節',
+                btn: '想續訂嗎',
+            },
         },
         fr: {
-            btn: 'Prix promo',
+            free: {
+                title: 'Promo Black Friday',
+                btn: 'Ah, je veux voir !',
+            },
+            premium: {
+                title: 'Promo Black Friday',
+                btn: 'Reprendre ma clef',
+            },
         },
         it: {
-            btn: 'Offerta speciale',
+            free: {
+                title: 'Sconti Black Friday',
+                btn: 'Vediamo un po\'',
+            },
+            premium: {
+                title: 'Sconti Black Friday',
+                btn: 'Rinnovare la chiave',
+            },
         },
     },
     text: '',
-    url: 'https://adguard-vpn.com/forward.html?action=halloween2020_notify&from=popup&app=vpn_extension',
-    from: '30 October 2020 00:00:01',
-    to: '3 November 2020 23:59:00',
+    url: {
+        free: 'https://adguard-vpn.com/forward.html?action=bf2020_free_notify&from=popup&app=vpn_extension',
+        premium: 'https://adguard-vpn.com/forward.html?action=bf2020_premium_notify&from=popup&app=vpn_extension',
+    },
+    from: '27 November 2020 12:00:01',
+    to: '1 December 2020 23:59:00',
     type: 'animated',
     get icons() {
-        return lazyGet(halloweenNotification, 'icons', () => ({
+        return lazyGet(blackFridayNotification, 'icons', () => ({
             ENABLED: {
-                19: getUrl('assets/images/icons/enabled-19-halloween.png'),
-                38: getUrl('assets/images/icons/enabled-38-halloween.png'),
+                19: getUrl('assets/images/icons/enabled-19.png'),
+                38: getUrl('assets/images/icons/enabled-38.png'),
             },
             DISABLED: {
-                19: getUrl('assets/images/icons/disabled-19-halloween.png'),
-                38: getUrl('assets/images/icons/disabled-38-halloween.png'),
+                19: getUrl('assets/images/icons/disabled-19.png'),
+                38: getUrl('assets/images/icons/disabled-38.png'),
             },
         }));
     },
@@ -78,7 +144,7 @@ const halloweenNotification = {
  * @property {string} type;
  */
 const notifications = {
-    halloween2020: halloweenNotification,
+    blackFriday2020: blackFridayNotification,
 };
 
 /**
