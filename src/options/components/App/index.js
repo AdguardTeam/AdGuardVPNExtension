@@ -85,6 +85,9 @@ const App = observer(() => {
                             break;
                         }
                         case notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE: {
+                            if (settingsStore.isAddingExclusions) {
+                                return;
+                            }
                             await settingsStore.getExclusions();
                             break;
                         }
