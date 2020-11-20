@@ -13,6 +13,16 @@ const BROWSER_CONF = {
         OPTIONS_STORE_URL: 'https://adguard-vpn.com/forward.html?action=firefox_store&from=options_screen&app=vpn_extension',
         FEEDBACK_URL: 'https://adguard-vpn.com/forward.html?action=feedback_firefox&from=options_screen&app=vpn_extension',
     },
+    [BROWSERS.EDGE]: {
+        // FIXME change url after getting it from the store
+        POPUP_STORE_URL: 'https://adguard-vpn.com/forward.html?action=firefox_store&from=popup&app=vpn_extension',
+        // FIXME get edge feedback url from @denis
+        POPUP_FEEDBACK_URL: 'https://adguard-vpn.com/forward.html?action=feedback_firefox&from=popup&app=vpn_extension',
+        // FIXME change url after getting it from the store
+        OPTIONS_STORE_URL: 'https://adguard-vpn.com/forward.html?action=firefox_store&from=options_screen&app=vpn_extension',
+        // FIXME get edge feedback url from @denis
+        FEEDBACK_URL: 'https://adguard-vpn.com/forward.html?action=feedback_firefox&from=options_screen&app=vpn_extension',
+    },
 };
 
 // Account section API description - projects/ADGUARD/repos/adguard-account-service/browse

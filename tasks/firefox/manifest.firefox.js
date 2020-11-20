@@ -7,11 +7,11 @@ const envMap = {
 };
 
 module.exports = {
-    minimum_chrome_version: '55.0',
+    minimum_chrome_version: '66.0',
     applications: {
         gecko: {
             id: envMap[BUILD_ENV],
-            strict_min_version: '52.0',
+            strict_min_version: '60.0',
         },
     },
     background: {
