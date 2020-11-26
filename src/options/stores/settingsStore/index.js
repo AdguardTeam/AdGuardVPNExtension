@@ -2,7 +2,6 @@ import {
     action,
     observable,
     runInAction,
-    toJS,
 } from 'mobx';
 
 import { log } from '../../../lib/logger';
@@ -83,16 +82,21 @@ class SettingsStore {
         }
     };
 
+    isAddingExclusions = false;
+
     @action
     addToExclusions = async (mode) => {
+        this.isAddingExclusions = true;
         try {
             const url = this.exclusionsInputs[mode];
             const enabled = this.exclusionsCheckboxes[mode];
             await messenger.addExclusionByMode(mode, url, enabled);
+            await this.getExclusions();
             runInAction(() => {
                 this.areFormsVisible[mode] = false;
                 this.exclusionsInputs[mode] = '';
                 this.exclusionsCheckboxes[mode] = true;
+                this.isAddingExclusions = false;
             });
         } catch (e) {
             log.error(e);
@@ -163,7 +167,7 @@ class SettingsStore {
     };
 
     exclusionsByType(exclusionsType) {
-        return toJS(this.exclusions[exclusionsType]);
+        return this.exclusions[exclusionsType].slice().reverse();
     }
 
     @action

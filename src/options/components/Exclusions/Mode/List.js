@@ -23,7 +23,7 @@ const List = observer(() => {
 
     return (
         <div className="settings__list">
-            {exclusions.reverse().map(({ id, hostname, enabled }) => (
+            {exclusions.map(({ id, hostname, enabled }) => (
                 <div className="settings__list-item" key={id}>
                     <Checkbox
                         id={id}
