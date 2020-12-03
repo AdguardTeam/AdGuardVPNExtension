@@ -271,6 +271,11 @@ class Messenger {
         const type = MESSAGES_TYPES.SET_NOTIFICATION_VIEWED;
         return this.sendMessage(type, { withDelay });
     }
+
+    async openTab(url) {
+        const type = MESSAGES_TYPES.OPEN_TAB;
+        return this.sendMessage(type, { url });
+    }
 }
 
 export default new Messenger();

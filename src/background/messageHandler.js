@@ -16,6 +16,7 @@ import { log } from '../lib/logger';
 import notifier from '../lib/notifier';
 import { locationsService } from './endpoints/locationsService';
 import { promoNotifications } from './promoNotifications';
+import tabs from './tabs';
 
 const eventListeners = {};
 
@@ -204,6 +205,10 @@ const messageHandler = async (message, sender) => {
         case MESSAGES_TYPES.SET_NOTIFICATION_VIEWED: {
             const { withDelay } = data;
             return promoNotifications.setNotificationViewed(withDelay);
+        }
+        case MESSAGES_TYPES.OPEN_TAB: {
+            const { url } = data;
+            return tabs.openTab(url);
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

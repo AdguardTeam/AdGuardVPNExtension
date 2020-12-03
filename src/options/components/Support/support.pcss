@@ -1,0 +1,35 @@
+.support-items {
+    .support-item {
+        display: flex;
+        padding-bottom: 16px;
+        padding-top: 16px;
+        align-items: center;
+        cursor: pointer;
+
+        &:hover .support-item__title {
+            text-decoration: underline;
+        }
+
+        .support-item__area {
+            display: flex;
+            width: 100%;
+
+            .icon {
+                margin-right: 16px;
+            }
+        }
+
+        &:not(:last-child) {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        &__title {
+            font-size: 16px;
+        }
+
+        &__description {
+            font-size: 13px;
+            color: var(--gray88);
+        }
+    }
+}

@@ -3,7 +3,7 @@ import React from 'react';
 import { SUGGEST_FEATURE } from '../../../background/config';
 import { reactTranslator } from '../../../reactCommon/reactTranslator';
 
-const Title = ({ title }) => (
+export const Title = ({ title }) => (
     <h2 className="content__title">
         {title}
 
@@ -17,5 +17,3 @@ const Title = ({ title }) => (
         </a>
     </h2>
 );
-
-export default Title;
