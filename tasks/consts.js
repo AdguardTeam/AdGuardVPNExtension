@@ -16,6 +16,7 @@ const ENVS = {
 const BROWSERS = {
     CHROME: 'chrome',
     FIREFOX: 'firefox',
+    EDGE: 'edge',
 };
 
 // Used only to change output filenames
