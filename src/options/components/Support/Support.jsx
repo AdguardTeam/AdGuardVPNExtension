@@ -67,8 +67,15 @@ export const Support = () => {
         );
     };
 
-    if (displayReportBug) {
-        return <BugReporter />;
+    // FIXME remove true
+    if (true || displayReportBug) {
+        return (
+            <BugReporter
+                closeHandler={() => {
+                    setDisplayReportBug(false);
+                }}
+            />
+        );
     }
 
     return (

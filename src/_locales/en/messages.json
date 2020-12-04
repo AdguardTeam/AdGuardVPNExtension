@@ -83,6 +83,15 @@
     "options_report_bug_title": {
         "message": "Report a bug"
     },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Please enter your message"
+    },
+    "options_bug_report_page_description": {
+        "message": "Please include the problem description (did it start after an update?) and info about other software you have (VPN/AV/extension)"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Message"
+    },
     "account_title": {
         "message": "Account"
     },
