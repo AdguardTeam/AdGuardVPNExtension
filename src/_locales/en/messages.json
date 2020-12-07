@@ -83,6 +83,12 @@
     "options_report_bug_title": {
         "message": "Report a bug"
     },
+    "options_bug_report_email_label": {
+        "message": "Email"
+    },
+    "options_bug_report_send_button": {
+        "message": "Send"
+    },
     "options_bug_report_textarea_placeholder": {
         "message": "Please enter your message"
     },
