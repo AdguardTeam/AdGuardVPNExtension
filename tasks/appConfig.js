@@ -1,6 +1,6 @@
-const { BROWSERS } = require('./consts');
+const { BROWSERS, ENVS } = require('./consts');
 
-const BROWSER_CONF = {
+const URLS_MAP_RELEASE = {
     [BROWSERS.CHROME]: {
         POPUP_STORE_URL: 'https://adguard-vpn.com/forward.html?action=chrome_store&from=popup&app=vpn_extension',
         POPUP_FEEDBACK_URL: 'https://adguard-vpn.com/forward.html?action=feedback_chrome&from=popup&app=vpn_extension',
@@ -19,6 +19,20 @@ const BROWSER_CONF = {
         OPTIONS_STORE_URL: 'https://adguard-vpn.com/forward.html?action=edge_store&from=options_screen&app=vpn_extension',
         FEEDBACK_URL: 'https://adguard-vpn.com/forward.html?action=feedback_edge&from=options_screen&app=vpn_extension',
     },
+};
+
+const URLS_MAP_BETA = {
+    [BROWSERS.CHROME]: {
+        POPUP_STORE_URL: 'https://adguard-vpn.com/forward.html?action=chrome_store_beta&from=popup&app=vpn_extension',
+        OPTIONS_STORE_URL: 'https://adguard-vpn.com/forward.html?action=chrome_store_beta&from=options_screen&app=vpn_extension',
+        POPUP_FEEDBACK_URL: 'https://adguard-vpn.com/forward.html?action=feedback_chrome&from=popup&app=vpn_extension',
+        FEEDBACK_URL: 'https://adguard-vpn.com/forward.html?action=feedback_chrome&from=options_screen&app=vpn_extension',
+    },
+};
+
+const URLS_MAP = {
+    [ENVS.RELEASE]: URLS_MAP_RELEASE,
+    [ENVS.BETA]: { ...URLS_MAP_RELEASE, ...URLS_MAP_BETA },
 };
 
 // Account section API description - projects/ADGUARD/repos/adguard-account-service/browse
@@ -52,7 +66,9 @@ const COMMON = {
 };
 
 const genAppConfig = (browser, stageEnv, buildingEnv) => {
-    const browserConf = BROWSER_CONF[browser];
+    const urlsMapByBrowser = URLS_MAP[buildingEnv] || URLS_MAP[ENVS.RELEASE];
+    const browserConf = urlsMapByBrowser[browser];
+
     if (!browserConf) {
         throw new Error(`No browser config for browser: "${browser}"`);
     }
