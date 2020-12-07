@@ -45,12 +45,13 @@ const config = {
     resolve: {
         extensions: ['*', '.js', '.jsx'],
     },
+
     module: {
         rules: [
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                use: [{ loader: 'babel-loader', options: { babelrc: true } }],
+                use: ['cache-loader', { loader: 'babel-loader', options: { babelrc: true } }],
             },
             {
                 test: /\.(css|pcss)$/,
@@ -82,7 +83,7 @@ const config = {
             if (process.env.BROWSER === 'firefox') {
                 // eslint-disable-next-line no-param-reassign
                 resource.request = resource.request.replace(/\.\/abstractProxyApi/, './firefox/proxyApi');
-            } else if (process.env.BROWSER === 'chrome') {
+            } else if (process.env.BROWSER === 'chrome' || process.env.BROWSER === 'edge') {
                 // eslint-disable-next-line no-param-reassign
                 resource.request = resource.request.replace(/\.\/abstractProxyApi/, './chrome/proxyApi');
             } else {
