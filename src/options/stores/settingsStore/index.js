@@ -90,7 +90,7 @@ class SettingsStore {
         try {
             const url = this.exclusionsInputs[mode];
             const enabled = this.exclusionsCheckboxes[mode];
-            await messenger.addExclusionByMode(mode, url, enabled);
+            await messenger.addExclusionByMode(mode, url.trim(), enabled);
             await this.getExclusions();
             runInAction(() => {
                 this.areFormsVisible[mode] = false;

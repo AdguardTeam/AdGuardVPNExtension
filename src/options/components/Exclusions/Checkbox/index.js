@@ -22,7 +22,9 @@ const Checkbox = ({
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        handleRename(hostname);
+        const trimmedHostname = hostname.trim();
+        handleRename(trimmedHostname);
+        setHostname(trimmedHostname);
         setIsChanged(false);
     };
 
