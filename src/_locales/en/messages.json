@@ -105,7 +105,7 @@
         "message": "Please enter your message"
     },
     "options_bug_report_page_description": {
-        "message": "Please include the problem description (did it start after an update?) and info about other software you have (VPN/AV/extension)"
+        "message": "Please include the problem description (did it start after an update?) and info about other software you have (VPN/antivirus/extension)"
     },
     "options_bug_report_page_success": {
         "message": "Thank you, your message sent successfully!"
