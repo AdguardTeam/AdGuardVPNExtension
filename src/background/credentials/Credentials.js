@@ -77,7 +77,7 @@ class Credentials {
         return vpnToken;
     }
 
-    async gainVpnToken(forceRemote, useLocalFallback) {
+    async gainVpnToken(forceRemote = false, useLocalFallback = true) {
         let vpnToken;
 
         if (forceRemote) {

@@ -197,12 +197,22 @@ const postExtensionInstalled = async (appId) => {
     return vpnApi.postExtensionInstalled(appId);
 };
 
+const requestSupport = async (data) => {
+    try {
+        await vpnApi.requestSupport(data);
+        return { status: 'ok' };
+    } catch (e) {
+        return { status: e.status, error: 'error' };
+    }
+};
+
 const vpnProvider = {
     getCurrentLocation,
     getVpnExtensionInfo,
     getVpnCredentials,
     postExtensionInstalled,
     getLocationsData,
+    requestSupport,
 };
 
 export default vpnProvider;

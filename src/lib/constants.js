@@ -55,6 +55,7 @@ export const MESSAGES_TYPES = {
     CHECK_IS_PREMIUM_TOKEN: 'check.is.premium.token',
     SET_NOTIFICATION_VIEWED: 'set.notification.viewed',
     OPEN_TAB: 'open.tab.action',
+    REPORT_BUG: 'post.report.bug',
 };
 
 export const ERROR_STATUSES = {

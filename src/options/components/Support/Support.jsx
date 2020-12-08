@@ -4,9 +4,9 @@ import messenger from '../../../lib/messenger';
 import { reactTranslator } from '../../../reactCommon/reactTranslator';
 import { FEEDBACK_URL } from '../../../background/config';
 import { Title } from '../ui/Title';
+import { BugReporter } from './BugReporter';
 
 import './support.pcss';
-import { BugReporter } from './BugReporter';
 
 export const Support = () => {
     const [displayReportBug, setDisplayReportBug] = useState(false);
@@ -24,7 +24,8 @@ export const Support = () => {
             title: reactTranslator.translate('options_support_faq_title'),
             description: reactTranslator.translate('options_support_faq_description'),
             iconXlink: '#question',
-            clickHandler: createOpenUrlHandler('https://adguard-vpn.com/en/welcome.html'), // FIXME wrap url in the tds
+            // FIXME get url with anchor and wrap it in the tds
+            clickHandler: createOpenUrlHandler('https://adguard-vpn.com/en/welcome.html'),
         }, {
             title: reactTranslator.translate('options_support_report_title'),
             description: reactTranslator.translate('options_support_report_description'),
@@ -39,7 +40,8 @@ export const Support = () => {
             title: reactTranslator.translate('options_support_discuss_title'),
             description: reactTranslator.translate('options_support_discuss_description'),
             iconXlink: '#chat',
-            clickHandler: createOpenUrlHandler('https://adguard.com/en/discuss.html'), // FIXME wrap url in the tds
+            // FIXME wrap url in the tds
+            clickHandler: createOpenUrlHandler('https://adguard.com/en/discuss.html'),
         },
     ];
 
@@ -67,8 +69,7 @@ export const Support = () => {
         );
     };
 
-    // FIXME remove true
-    if (true || displayReportBug) {
+    if (displayReportBug) {
         return (
             <BugReporter
                 closeHandler={() => {

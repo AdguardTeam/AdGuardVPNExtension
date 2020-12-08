@@ -86,14 +86,32 @@
     "options_bug_report_email_label": {
         "message": "Email"
     },
+    "options_bug_report_email_invalid": {
+        "message": "Incorrect email address"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "This field can't be empty"
+    },
+    "options_bug_report_request_error": {
+        "message": "An error occurred. Please try again later."
+    },
     "options_bug_report_send_button": {
         "message": "Send"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Sending..."
     },
     "options_bug_report_textarea_placeholder": {
         "message": "Please enter your message"
     },
     "options_bug_report_page_description": {
         "message": "Please include the problem description (did it start after an update?) and info about other software you have (VPN/AV/extension)"
+    },
+    "options_bug_report_page_success": {
+        "message": "Thank you, your message sent successfully!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "New report"
     },
     "options_bug_report_textarea_label": {
         "message": "Message"
