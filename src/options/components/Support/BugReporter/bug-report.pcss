@@ -1,6 +1,20 @@
 .bug-report {
     width: 510px;
 
+    &__title {
+        display: flex;
+        align-items: center;
+    }
+
+    &__back {
+        cursor: pointer;
+        border: 0;
+        background: transparent;
+        transform: rotate(180deg);
+        padding: 0;
+        margin-right: 24px;
+    }
+
     &__form {
         display: flex;
         flex-direction: column;
@@ -15,5 +29,16 @@
     &__action {
         width: 200px;
         margin-top: 34px;
+    }
+
+    &__textarea,
+    &__input {
+        margin-top: 4px;
+    }
+
+    &__textarea {
+        resize: none;
+        height: 80px;
+        overflow-y: auto;
     }
 }

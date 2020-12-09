@@ -147,10 +147,18 @@ export const BugReporter = observer(({ closeHandler }) => {
     }
     return (
         <>
-            {/* FIXME replace with icon */}
-            <button type="button" onClick={closeHandler}>Back</button>
-
-            <Title title={reactTranslator.translate('options_report_bug_title')} />
+            <Title
+                title={(
+                    <div className="bug-report__title">
+                        <button className="bug-report__back" type="button" onClick={closeHandler}>
+                            <svg className="icon icon--button">
+                                <use xlinkHref="#arrow" />
+                            </svg>
+                        </button>
+                        {reactTranslator.translate('options_report_bug_title')}
+                    </div>
+                  )}
+            />
 
             <div className="bug-report">
                 <div className="bug-report__description">
@@ -168,6 +176,7 @@ export const BugReporter = observer(({ closeHandler }) => {
                         {reactTranslator.translate('options_bug_report_email_label')}
                     </label>
                     <input
+                        className="bug-report__input"
                         id={FIELDS.EMAIL}
                         type="email"
                         placeholder="example@mail.com"
@@ -181,6 +190,7 @@ export const BugReporter = observer(({ closeHandler }) => {
                         {reactTranslator.translate('options_bug_report_textarea_label')}
                     </label>
                     <textarea
+                        className="bug-report__textarea"
                         id={FIELDS.MESSAGE}
                         placeholder={reactTranslator.translate('options_bug_report_textarea_placeholder')}
                         defaultValue={formState[FIELDS.MESSAGE]}
