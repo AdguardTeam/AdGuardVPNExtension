@@ -1,0 +1,45 @@
+.input {
+    position: relative;
+
+    &__in {
+        width: 100%;
+        font-family: inherit;
+        border: 1px solid var(--gray88);
+        padding: 4px 12px;
+        font-size: 1.6rem;
+        line-height: 22px;
+        border-radius: 2px;
+        outline: none;
+
+        &::placeholder {
+            font-size: 1.6rem;
+            color: var(--gray-base);
+            opacity: 0.5;
+        }
+
+        &--content {
+            margin-top: 4px;
+        }
+
+        &--textarea {
+            resize: none;
+            height: 80px;
+            overflow-y: auto;
+        }
+    }
+
+    &__error {
+        position: absolute;
+        bottom: -22px;
+        line-height: 18px;
+        font-size: 14px;
+        left: 0;
+        color: var(--red);
+    }
+
+    &--error {
+        & .input__in {
+            border: 1px solid var(--red);
+        }
+    }
+}

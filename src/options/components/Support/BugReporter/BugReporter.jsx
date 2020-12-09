@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { observer } from 'mobx-react';
 import { useMachine } from '@xstate/react';
 import { identity } from 'lodash';
+import classnames from 'classnames';
 
 import { Title } from '../../ui/Title';
 import rootStore from '../../../stores';
@@ -116,6 +117,17 @@ export const BugReporter = observer(({ closeHandler }) => {
         isButtonDisabled = true;
     }
 
+    const bugReportTitle = (
+        <div className="bug-report__title">
+            <button className="bug-report__back" type="button" onClick={closeHandler}>
+                <svg className="icon icon--button">
+                    <use xlinkHref="#arrow" />
+                </svg>
+            </button>
+            {reactTranslator.translate('options_report_bug_title')}
+        </div>
+    );
+
     if (requestState.matches(REQUEST_STATES.SUCCESS)) {
         const newReportClickHandler = () => {
             sendToRequestMachine(REQUEST_EVENTS.START_AGAIN);
@@ -125,13 +137,13 @@ export const BugReporter = observer(({ closeHandler }) => {
 
         return (
             <>
-                {/* FIXME replace with icon */}
-                <button type="button" onClick={closeHandler}>Back</button>
-
-                <Title title={reactTranslator.translate('options_report_bug_title')} />
+                <Title title={bugReportTitle} />
 
                 <div className="bug-report">
                     <div className="bug-report__description">
+                        <svg className="icon icon--check icon--button bug-report__check">
+                            <use xlinkHref="#check" />
+                        </svg>
                         {reactTranslator.translate('options_bug_report_page_success')}
                     </div>
                     <button
@@ -145,20 +157,12 @@ export const BugReporter = observer(({ closeHandler }) => {
             </>
         );
     }
+    const emailClassName = classnames('input', { 'input--error': formErrors[FIELDS.EMAIL] });
+    const messageClassName = classnames('input', { 'input--error': formErrors[FIELDS.MESSAGE] });
+
     return (
         <>
-            <Title
-                title={(
-                    <div className="bug-report__title">
-                        <button className="bug-report__back" type="button" onClick={closeHandler}>
-                            <svg className="icon icon--button">
-                                <use xlinkHref="#arrow" />
-                            </svg>
-                        </button>
-                        {reactTranslator.translate('options_report_bug_title')}
-                    </div>
-                  )}
-            />
+            <Title title={bugReportTitle} />
 
             <div className="bug-report">
                 <div className="bug-report__description">
@@ -175,30 +179,35 @@ export const BugReporter = observer(({ closeHandler }) => {
                     >
                         {reactTranslator.translate('options_bug_report_email_label')}
                     </label>
-                    <input
-                        className="bug-report__input"
-                        id={FIELDS.EMAIL}
-                        type="email"
-                        placeholder="example@mail.com"
-                        defaultValue={formState[FIELDS.EMAIL]}
-                    />
-                    <div>{formErrors[FIELDS.EMAIL]}</div>
+                    <div className={emailClassName}>
+                        <input
+                            className="input__in input__in--content"
+                            id={FIELDS.EMAIL}
+                            type="email"
+                            placeholder="example@mail.com"
+                            defaultValue={formState[FIELDS.EMAIL]}
+                        />
+                        <div className="input__error">{formErrors[FIELDS.EMAIL]}</div>
+                    </div>
                     <label
                         className="bug-report__label"
                         htmlFor={FIELDS.MESSAGE}
                     >
                         {reactTranslator.translate('options_bug_report_textarea_label')}
                     </label>
-                    <textarea
-                        className="bug-report__textarea"
-                        id={FIELDS.MESSAGE}
-                        placeholder={reactTranslator.translate('options_bug_report_textarea_placeholder')}
-                        defaultValue={formState[FIELDS.MESSAGE]}
-                    />
-                    <div>{formErrors[FIELDS.MESSAGE]}</div>
-                     { requestState.matches(REQUEST_STATES.ERROR)
-                        && <div>{reactTranslator.translate('options_bug_report_request_error')}</div>}
-
+                    <div className={messageClassName}>
+                        <textarea
+                            className="input__in input__in--content input__in--textarea"
+                            id={FIELDS.MESSAGE}
+                            placeholder={reactTranslator.translate('options_bug_report_textarea_placeholder')}
+                            defaultValue={formState[FIELDS.MESSAGE]}
+                        />
+                        <div className="input__error">
+                            <span>{formErrors[FIELDS.MESSAGE]}</span>
+                            { requestState.matches(REQUEST_STATES.ERROR)
+                            && <span>{reactTranslator.translate('options_bug_report_request_error')}</span>}
+                        </div>
+                    </div>
                     <button
                         type="submit"
                         disabled={isButtonDisabled}
