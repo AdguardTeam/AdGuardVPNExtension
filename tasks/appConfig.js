@@ -58,7 +58,8 @@ const COMMON = {
     POPUP_DEFAULT_SUPPORT_URL: 'https://adguard-vpn.com/forward.html?action=support&from=popup&app=vpn_extension',
     // Options page
     WEBSITE_URL: 'https://adguard-vpn.com/forward.html?action=adguard_site&from=options_screen&app=vpn_extension',
-    WEBSITE_FAQ_URL: '',
+    FAQ_URL: 'https://adguard-vpn.com/forward.html?action=faq&from=options_screen&app=vpn_extension',
+    DISCUSS_URL: 'https://adguard-vpn.com/forward.html?action=discuss&from=options_screen&app=vpn_extension',
     SUGGEST_FEATURE: 'https://adguard-vpn.com/forward.html?action=suggest_feature&from=options_screen&app=vpn_extension',
     THANK_YOU_PAGE_URL: 'https://adguard-vpn.com/forward.html?action=thank_you&from=background_page&app=vpn_extension',
     AUTH_ACCESS_TOKEN_KEY: 'auth.access.token',

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import messenger from '../../../lib/messenger';
 import { reactTranslator } from '../../../reactCommon/reactTranslator';
-import { FEEDBACK_URL } from '../../../background/config';
+import { FEEDBACK_URL, FAQ_URL, DISCUSS_URL } from '../../../background/config';
 import { Title } from '../ui/Title';
 import { BugReporter } from './BugReporter';
 
@@ -24,8 +24,7 @@ export const Support = () => {
             title: reactTranslator.translate('options_support_faq_title'),
             description: reactTranslator.translate('options_support_faq_description'),
             iconXlink: '#question',
-            // FIXME get url with anchor and wrap it in the tds
-            clickHandler: createOpenUrlHandler('https://adguard-vpn.com/en/welcome.html'),
+            clickHandler: createOpenUrlHandler(FAQ_URL),
         }, {
             title: reactTranslator.translate('options_support_report_title'),
             description: reactTranslator.translate('options_support_report_description'),
@@ -40,8 +39,7 @@ export const Support = () => {
             title: reactTranslator.translate('options_support_discuss_title'),
             description: reactTranslator.translate('options_support_discuss_description'),
             iconXlink: '#chat',
-            // FIXME wrap url in the tds
-            clickHandler: createOpenUrlHandler('https://adguard.com/en/discuss.html'),
+            clickHandler: createOpenUrlHandler(DISCUSS_URL),
         },
     ];
 
