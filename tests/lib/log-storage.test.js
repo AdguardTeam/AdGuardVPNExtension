@@ -28,8 +28,8 @@ describe('LogStorage', () => {
         const str1 = 'test1';
         const str2 = 'test2';
         logStorage.addLog(str1, str2);
-        expect(logStorage.toString()).toBe(`"${str1}", "${str2}"`);
-        expect(logStorage.size).toBe(new Blob([`"${str1}", "${str2}"`]).size);
+        expect(logStorage.toString()).toBe(`"${str1}" "${str2}"`);
+        expect(logStorage.size).toBe(new Blob([`"${str1}" "${str2}"`]).size);
     });
 
     it('Does not get over max bytes limit', () => {
