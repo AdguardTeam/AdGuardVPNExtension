@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import messenger from '../../../lib/messenger';
 import { reactTranslator } from '../../../reactCommon/reactTranslator';
@@ -9,14 +10,21 @@ import { BugReporter } from './BugReporter';
 import './support.pcss';
 
 export const Support = () => {
-    const [displayReportBug, setDisplayReportBug] = useState(false);
+    const history = useHistory();
+    const query = new URLSearchParams(useLocation().search);
 
     const createOpenUrlHandler = (url) => async () => {
         await messenger.openTab(url);
     };
 
+    const BUG_REPORT_QUERY = 'show_report';
+
     const handleReportClick = () => {
-        setDisplayReportBug(true);
+        history.push(`/support?${BUG_REPORT_QUERY}`);
+    };
+
+    const closeHandler = () => {
+        history.push('/support');
     };
 
     const supportItemsData = [
@@ -67,12 +75,10 @@ export const Support = () => {
         );
     };
 
-    if (displayReportBug) {
+    if (query.has('show_report')) {
         return (
             <BugReporter
-                closeHandler={() => {
-                    setDisplayReportBug(false);
-                }}
+                closeHandler={closeHandler}
             />
         );
     }
