@@ -1,5 +1,8 @@
 import browser from 'webextension-polyfill';
+import JSZip from 'jszip';
+
 import { vpnApi } from '../api';
+import { log } from '../../lib/logger';
 
 /**
  * Prepares locations data
@@ -197,12 +200,47 @@ const postExtensionInstalled = async (appId) => {
     return vpnApi.postExtensionInstalled(appId);
 };
 
-const requestSupport = async (data) => {
+const prepareLogs = async (appLogs) => {
+    const LOGS_FILENAME = 'logs.txt';
+
+    const zip = new JSZip();
+    zip.file(LOGS_FILENAME, appLogs);
+    const zipBlob = await zip.generateAsync({ type: 'blob' });
+    return zipBlob;
+};
+
+const requestSupport = async ({
+    appId,
+    token,
+    email,
+    message,
+    version,
+    appLogs,
+}) => {
+    const BUG_REPORT_SUBJECT = '[Browser extension] Bug report';
+    const LOGS_ZIP_FILENAME = 'logs.zip';
+
+    const formData = new FormData();
+
+    formData.append('app_id', appId);
+    formData.append('token', token);
+    formData.append('email', email);
+    formData.append('message', message);
+    formData.append('version', version);
+    formData.append('subject', BUG_REPORT_SUBJECT);
+
+    const preparedAppLogs = await prepareLogs(appLogs);
+    formData.append('app_logs', preparedAppLogs, LOGS_ZIP_FILENAME);
+
     try {
-        await vpnApi.requestSupport(data);
+        await vpnApi.requestSupport(formData);
         return { status: 'ok' };
     } catch (e) {
-        return { status: e.status, error: 'error' };
+        log.error(e);
+        return {
+            status: e.status,
+            error: 'error',
+        };
     }
 };
 

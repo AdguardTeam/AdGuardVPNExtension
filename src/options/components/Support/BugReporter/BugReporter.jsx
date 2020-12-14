@@ -25,12 +25,18 @@ export const BugReporter = observer(({ closeHandler }) => {
     const FIELDS = {
         EMAIL: 'email',
         MESSAGE: 'message',
+        INCLUDE_LOG: 'includeLog',
     };
 
     const [requestState, sendToRequestMachine] = useMachine(requestMachine, {
         services: {
             sendReport: async (_, e) => {
-                const response = await reportWithMinDuration(e[FIELDS.EMAIL], e[FIELDS.MESSAGE]);
+                const response = await reportWithMinDuration(
+                    e[FIELDS.EMAIL],
+                    e[FIELDS.MESSAGE],
+                    e[FIELDS.INCLUDE_LOG],
+                );
+
                 if (response.error) {
                     throw new Error(`An error occurred during sending report, status: ${response.status}`);
                 }
@@ -41,6 +47,7 @@ export const BugReporter = observer(({ closeHandler }) => {
     const DEFAULT_FORM_STATE = {
         [FIELDS.EMAIL]: settingsStore.currentUsername,
         [FIELDS.MESSAGE]: '',
+        [FIELDS.INCLUDE_LOG]: false,
     };
 
     const DEFAULT_ERROR_STATE = {};
@@ -63,7 +70,11 @@ export const BugReporter = observer(({ closeHandler }) => {
         return Object.keys(formState).reduce((acc, key) => {
             const value = formState[key];
             const validator = validators[key];
-            acc[key] = validator(value);
+            if (validator) {
+                acc[key] = validator(value);
+            } else {
+                acc[key] = null;
+            }
             return acc;
         }, {});
     };
@@ -81,14 +92,17 @@ export const BugReporter = observer(({ closeHandler }) => {
         sendToRequestMachine(
             REQUEST_EVENTS.SEND_REPORT,
             {
-                [FIELDS.EMAIL]: formState.email.trim(),
-                [FIELDS.MESSAGE]: formState.message.trim(),
+                [FIELDS.EMAIL]: formState[FIELDS.EMAIL].trim(),
+                [FIELDS.MESSAGE]: formState[FIELDS.MESSAGE].trim(),
+                [FIELDS.INCLUDE_LOG]: formState[FIELDS.INCLUDE_LOG],
             },
         );
     };
 
     const formChangeHandler = (e) => {
-        const { id, value } = e.target;
+        const { id, value, checked } = e.target;
+
+        const resultValue = e.target.type === 'checkbox' ? checked : value;
 
         // clear request errors
         sendToRequestMachine(REQUEST_EVENTS.CLEAR_ERRORS);
@@ -104,7 +118,7 @@ export const BugReporter = observer(({ closeHandler }) => {
         setFormState((prevState) => {
             return {
                 ...prevState,
-                [id]: value,
+                [id]: resultValue,
             };
         });
     };
@@ -207,6 +221,16 @@ export const BugReporter = observer(({ closeHandler }) => {
                             { requestState.matches(REQUEST_STATES.ERROR)
                             && <span>{reactTranslator.translate('options_bug_report_request_error')}</span>}
                         </div>
+                    </div>
+                    <div>
+                        <input
+                            id={FIELDS.INCLUDE_LOG}
+                            type="checkbox"
+                            defaultValue={formState[FIELDS.INCLUDE_LOG]}
+                        />
+                        <label htmlFor={FIELDS.INCLUDE_LOG}>
+                            {reactTranslator.translate('options_bug_report_include_log_label')}
+                        </label>
                     </div>
                     <button
                         type="submit"

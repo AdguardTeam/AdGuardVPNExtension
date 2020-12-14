@@ -277,9 +277,9 @@ class Messenger {
         return this.sendMessage(type, { url });
     }
 
-    async reportBug(email, message) {
+    async reportBug(email, message, includeLog) {
         const type = MESSAGES_TYPES.REPORT_BUG;
-        return this.sendMessage(type, { email, message });
+        return this.sendMessage(type, { email, message, includeLog });
     }
 }
 

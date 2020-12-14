@@ -1,4 +1,5 @@
 // TODO for release change level to less verbose
+import { logStorage } from './log-storage';
 
 const CURRENT_LEVEL = 'DEBUG';
 
@@ -21,11 +22,13 @@ const print = (level, method, args) => {
     if (LEVELS[CURRENT_LEVEL] < LEVELS[level]) {
         return;
     }
+
     if (!args || args.length === 0 || !args[0]) {
         return;
     }
 
     const formatted = getLocalTimeString(new Date());
+    logStorage.addLog(formatted, ...args);
     // eslint-disable-next-line no-console
     console[method](formatted, ...args);
 };

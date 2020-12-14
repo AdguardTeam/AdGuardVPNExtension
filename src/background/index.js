@@ -23,6 +23,7 @@ import browserActionIcon from './browserActionIcon';
 import './networkConnectionObserver';
 import { openThankYouPage } from './postinstall';
 import { endpointsTldExclusions } from './proxy/endpointsTldExclusions';
+import { logStorage } from '../lib/log-storage';
 import './uninstall';
 
 global.adguard = {
@@ -43,6 +44,7 @@ global.adguard = {
     credentials,
     nonRoutable,
     management,
+    logStorage,
 };
 
 (async () => {

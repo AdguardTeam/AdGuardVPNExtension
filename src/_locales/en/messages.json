@@ -86,6 +86,9 @@
     "options_bug_report_email_label": {
         "message": "Email"
     },
+    "options_bug_report_include_log_label": {
+        "message": "Include the diagnostic report in the message"
+    },
     "options_bug_report_email_invalid": {
         "message": "Incorrect email address"
     },

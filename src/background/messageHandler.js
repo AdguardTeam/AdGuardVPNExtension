@@ -18,6 +18,7 @@ import { locationsService } from './endpoints/locationsService';
 import { promoNotifications } from './promoNotifications';
 import tabs from './tabs';
 import vpnProvider from './providers/vpnProvider';
+import { logStorage } from '../lib/log-storage';
 
 const eventListeners = {};
 
@@ -212,7 +213,7 @@ const messageHandler = async (message, sender) => {
             return tabs.openTab(url);
         }
         case MESSAGES_TYPES.REPORT_BUG: {
-            const { email, message } = data;
+            const { email, message, includeLog } = data;
             const appId = await credentials.getAppId();
             let token;
             try {
@@ -222,13 +223,20 @@ const messageHandler = async (message, sender) => {
                 log.error('Was unable to get token');
             }
             const { version } = appStatus;
-            return vpnProvider.requestSupport({
+
+            const reportData = {
                 appId,
                 token,
                 email,
                 message,
                 version,
-            });
+            };
+
+            if (includeLog) {
+                reportData.appLogs = logStorage.toString();
+            }
+
+            return vpnProvider.requestSupport(reportData);
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);
