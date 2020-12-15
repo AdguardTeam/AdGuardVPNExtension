@@ -29,9 +29,9 @@
     }
 
     &__error {
-        position: absolute;
-        bottom: -22px;
+        display: none;
         line-height: 18px;
+        margin-top: 5px;
         font-size: 14px;
         left: 0;
         color: var(--red);
@@ -40,6 +40,10 @@
     &--error {
         & .input__in {
             border: 1px solid var(--red);
+        }
+
+        & .input__error {
+            display: block;
         }
     }
 }

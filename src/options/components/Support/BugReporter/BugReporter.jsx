@@ -5,6 +5,7 @@ import { identity } from 'lodash';
 import classnames from 'classnames';
 
 import { Title } from '../../ui/Title';
+import Checkbox from "../../ui/Checkbox";
 import rootStore from '../../../stores';
 import messenger from '../../../../lib/messenger';
 import { addMinDurationTime } from '../../../../lib/helpers';
@@ -222,15 +223,13 @@ export const BugReporter = observer(({ closeHandler }) => {
                             && <span>{reactTranslator.translate('options_bug_report_request_error')}</span>}
                         </div>
                     </div>
-                    <div>
-                        <input
+                    <div className="bug-report__checkbox">
+                        <Checkbox
                             id={FIELDS.INCLUDE_LOG}
-                            type="checkbox"
-                            defaultValue={formState[FIELDS.INCLUDE_LOG]}
-                        />
-                        <label htmlFor={FIELDS.INCLUDE_LOG}>
+                            value={formState[FIELDS.INCLUDE_LOG]}
+                        >
                             {reactTranslator.translate('options_bug_report_include_log_label')}
-                        </label>
+                        </Checkbox>
                     </div>
                     <button
                         type="submit"
