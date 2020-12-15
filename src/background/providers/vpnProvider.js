@@ -217,7 +217,7 @@ const requestSupport = async ({
     version,
     appLogs,
 }) => {
-    const BUG_REPORT_SUBJECT = '[Browser extension] Bug report';
+    const BUG_REPORT_SUBJECT = '[VPN Browser extension] Bug report';
     const LOGS_ZIP_FILENAME = 'logs.zip';
 
     const formData = new FormData();
