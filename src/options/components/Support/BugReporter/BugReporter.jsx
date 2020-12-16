@@ -180,9 +180,6 @@ export const BugReporter = observer(({ closeHandler }) => {
             <Title title={bugReportTitle} />
 
             <div className="bug-report">
-                <div className="bug-report__description">
-                    {reactTranslator.translate('options_bug_report_page_description')}
-                </div>
                 <form
                     className="bug-report__form"
                     onSubmit={handleSubmit}
