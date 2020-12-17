@@ -9,7 +9,7 @@ import rootStore from '../../stores';
 import './promo-notification-modal.pcss';
 
 const PromoNotificationModal = observer(() => {
-    const { settingsStore, vpnStore } = useContext(rootStore);
+    const { settingsStore } = useContext(rootStore);
 
     const [showModal, setShowModal] = useState(true);
 
@@ -20,9 +20,7 @@ const PromoNotificationModal = observer(() => {
     const { promoNotification } = settingsStore;
 
     const btnClickHandler = async () => {
-        const url = vpnStore.isPremiumToken
-            ? promoNotification.url.premium
-            : promoNotification.url.free;
+        const { url } = promoNotification;
 
         if (!url) {
             return;
@@ -41,9 +39,7 @@ const PromoNotificationModal = observer(() => {
         return null;
     }
 
-    const { btn, title } = vpnStore.isPremiumToken
-        ? promoNotification.text.premium
-        : promoNotification.text.free;
+    const { btn, title } = promoNotification.text;
 
     return (
         <Modal

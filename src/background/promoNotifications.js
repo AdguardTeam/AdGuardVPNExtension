@@ -12,117 +12,53 @@ import notifier from '../lib/notifier';
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const blackFridayNotification = {
-    id: 'blackFriday2020',
+const newYearNotification = {
+    id: 'newYear2021',
     locales: {
         en: {
-            free: {
-                title: 'Black Friday at AdGuard',
-                btn: 'It\'s a big deal',
-            },
-            premium: {
-                title: 'Black Friday at AdGuard',
-                btn: 'Renew now!',
-            },
+            title: 'Holiday Sale at AdGuard',
+            btn: 'Unwrap your gift',
         },
         ru: {
-            free: {
-                title: 'Скидки к Чёрной пятнице',
-                btn: 'Ого, для меня?',
-            },
-            premium: {
-                title: 'Скидки к Чёрной пятнице',
-                btn: 'Продлить выгодно',
-            },
-        },
-        de: {
-            free: {
-                title: 'Black Friday Deal',
-                btn: 'Zum Angebot',
-            },
-            premium: {
-                title: 'Black Friday Deal',
-                btn: 'Rabatt aktivieren',
-            },
+            title: 'AdGuard дарит подарки',
+            btn: 'Заглянуть под ёлку',
         },
         ja: {
-            free: {
-                title: 'AdGuard BLACK FRIDAY',
-                btn: '最大割引を手に入れる',
-            },
-            premium: {
-                title: 'AdGuard BLACK FRIDAY',
-                btn: '最大割引を手に入れる',
-            },
+
+            title: 'AdGuardでクリスマス',
+            btn: 'プレゼントをもらう',
         },
         ko: {
-            free: {
-                title: '블랙 \n프라이데이 \n세일',
-                btn: '최대 할인!',
-            },
-            premium: {
-                title: '블랙 \n프라이데이 \n세일',
-                btn: '지금 갱신',
-            },
+            title: '크리스마스 및 새해 맞이 할인 행사',
+            btn: '선물 받기',
         },
         zh_cn: {
-            free: {
-                title: '黑5 \n全球 \n狂欢',
-                btn: '疯狂购',
-            },
-            premium: {
-                title: '黑5 \n全球 \n狂欢',
-                btn: '立刻续订',
-            },
+            title: 'AdGuard 送礼送好运',
+            btn: '抓个礼物',
         },
         zh_tw: {
-            free: {
-                title: '黑五 \n狂歡 \n購物節',
-                btn: '瘋狂大減價',
-            },
-            premium: {
-                title: '黑五 \n狂歡 \n購物節',
-                btn: '想續訂嗎',
-            },
+            title: 'AdGuard $ 暖心年終送禮',
+            btn: '享好禮',
         },
         fr: {
-            free: {
-                title: 'Promo Black Friday',
-                btn: 'Ah, je veux voir !',
-            },
-            premium: {
-                title: 'Promo Black Friday',
-                btn: 'Reprendre ma clef',
-            },
-        },
-        it: {
-            free: {
-                title: 'Sconti Black Friday',
-                btn: 'Vediamo un po\'',
-            },
-            premium: {
-                title: 'Sconti Black Friday',
-                btn: 'Rinnovare la chiave',
-            },
+            title: 'Promo : AdGuard fête Noël !',
+            btn: 'Ouvrir mon cadeau',
         },
     },
     text: '',
-    url: {
-        free: 'https://adguard-vpn.com/forward.html?action=bf2020_free_notify&from=popup&app=vpn_extension',
-        premium: 'https://adguard-vpn.com/forward.html?action=bf2020_premium_notify&from=popup&app=vpn_extension',
-    },
-    from: '27 November 2020 12:00:01',
-    to: '1 December 2020 23:59:00',
+    url: 'https://adguard-vpn.com/forward.html?action=ny2021_notify&from=popup&app=vpn_extension',
+    from: '24 December 2020 12:00:00',
+    to: '31 December 2020 12:00:00',
     type: 'animated',
     get icons() {
-        return lazyGet(blackFridayNotification, 'icons', () => ({
+        return lazyGet(newYearNotification, 'icons', () => ({
             ENABLED: {
-                19: getUrl('assets/images/icons/enabled-19.png'),
-                38: getUrl('assets/images/icons/enabled-38.png'),
+                19: getUrl('assets/images/icons/santa-enabled-19.png'),
+                38: getUrl('assets/images/icons/santa-enabled-38.png'),
             },
             DISABLED: {
-                19: getUrl('assets/images/icons/disabled-19.png'),
-                38: getUrl('assets/images/icons/disabled-38.png'),
+                19: getUrl('assets/images/icons/santa-disabled-19.png'),
+                38: getUrl('assets/images/icons/santa-disabled-38.png'),
             },
         }));
     },
@@ -144,7 +80,7 @@ const blackFridayNotification = {
  * @property {string} type;
  */
 const notifications = {
-    blackFriday2020: blackFridayNotification,
+    newYear2021: newYearNotification,
 };
 
 /**
