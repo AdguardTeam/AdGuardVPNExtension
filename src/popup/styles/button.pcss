@@ -10,7 +10,7 @@
 
     &:disabled {
         background-image: none;
-        background-color: #b8b8b8;
+        background-color: var(--grayb8);
         pointer-events: none;
         cursor: default;
     }
@@ -33,7 +33,7 @@
     }
 
     &--white {
-        color: #fff;
+        color: var(--white);
     }
 
     &--inline {
@@ -68,12 +68,12 @@
     }
 
     &--green {
-        color: #fff;
-        background-color: var(--green76);
+        color: var(--white);
+        background-color: var(--green700);
     }
 
     &--orange {
-        color: #fff;
+        color: var(--white);
         background-color: var(--orange);
         transition: var(--t3) background-color;
 
@@ -87,7 +87,7 @@
     }
 
     &--green-gradient {
-        color: #fff;
+        color: var(--white);
         background-image: var(--button-gradient);
     }
 
@@ -98,12 +98,12 @@
     }
 
     &--red-gradient {
-        color: #fff;
+        color: var(--white);
         background-image: var(--red-gradient);
     }
 
     &--red {
-        color: #fff;
+        color: var(--white);
         background-color: var(--red);
     }
 
@@ -121,7 +121,7 @@
     }
 
     &--outline-white {
-        border-color: #fff;
-        color: #fff;
+        border-color: var(--white);
+        color: var(--white);
     }
 }

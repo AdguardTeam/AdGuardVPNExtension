@@ -339,19 +339,13 @@
         "message": "Disconnected"
     },
     "popup_traffic_limit_exceeded_title": {
-        "message": "Connection speed is reduced"
+        "message": "Speed is reduced"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "You've run out of fast gigabytes :( <br/> Only slow ones left"
+        "message": "You've reached the free data limit, and AdGuard VPN works slowly."
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Boost speed"
-    },
-    "popup_traffic_limit_exceeded_cta": {
-        "message": "Upgrade now for unlimited data, locations and speed!"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "Early-bird prices!"
     },
     "popup_feedback_title": {
         "message": "We'd love to hear your feedback"
