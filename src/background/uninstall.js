@@ -1,4 +1,5 @@
 import browser from 'webextension-polyfill';
+
 import { log } from '../lib/logger';
 import { UNINSTALL_URL } from '../lib/constants';
 

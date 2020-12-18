@@ -124,6 +124,26 @@ export const sleepIfNecessary = async (entryTimeMs, minDurationMs) => {
 };
 
 /**
+ * Executes async function with at least required time
+ * @param fn
+ * @param minDurationMs
+ */
+export const addMinDurationTime = (fn, minDurationMs) => {
+    return async (...args) => {
+        const start = Date.now();
+
+        try {
+            const response = await fn(...args);
+            await sleepIfNecessary(start, minDurationMs);
+            return response;
+        } catch (e) {
+            await sleepIfNecessary(start, minDurationMs);
+            throw e;
+        }
+    };
+};
+
+/**
  * Runs generator with possibility to cancel
  * @param fn - generator to run
  * @param args - args

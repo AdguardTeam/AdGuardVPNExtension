@@ -10,7 +10,7 @@ import '../../styles/main.pcss';
 import './app.pcss';
 
 import rootStore from '../../stores';
-import Sidebar from '../Sidebar';
+import { Sidebar } from '../Sidebar';
 import Footer from '../Footer';
 import Settings from '../Settings';
 import Account from '../Account';
@@ -21,6 +21,7 @@ import Preloader from '../Preloader';
 import Icons from '../ui/Icons';
 import messenger from '../../../lib/messenger';
 import notifier from '../../../lib/notifier';
+import { Support } from '../Support';
 
 Modal.setAppElement('#root');
 
@@ -36,6 +37,7 @@ const getContent = (authenticated, requestProcessState) => {
                             <Route path="/settings" component={Settings} />
                             <Route path="/account" component={Account} />
                             <Route path="/about" component={About} />
+                            <Route path="/support" component={Support} />
                             <Route component={Settings} />
                         </Switch>
                     </div>

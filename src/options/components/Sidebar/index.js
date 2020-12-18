@@ -2,10 +2,11 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import Rate from './Rate';
-import './sidebar.pcss';
 import { reactTranslator } from '../../../reactCommon/reactTranslator';
 
-const Sidebar = () => {
+import './sidebar.pcss';
+
+export const Sidebar = () => {
     return (
         <div className="sidebar">
             <svg className="sidebar__logo" />
@@ -19,6 +20,9 @@ const Sidebar = () => {
                 <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/account">
                     {reactTranslator.translate('account_title')}
                 </NavLink>
+                <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/support">
+                    {reactTranslator.translate('options_support_title')}
+                </NavLink>
                 <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/about">
                     {reactTranslator.translate('about_title')}
                 </NavLink>
@@ -29,5 +33,3 @@ const Sidebar = () => {
         </div>
     );
 };
-
-export default Sidebar;

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import rootStore from '../../stores';
-import Title from '../ui/Title';
+import { Title } from '../ui/Title';
 import './about.pcss';
 import { reactTranslator } from '../../../reactCommon/reactTranslator';
 

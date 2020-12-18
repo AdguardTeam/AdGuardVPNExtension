@@ -68,6 +68,18 @@ class VpnApi extends Api {
 
         return this.makeRequest(path, method, config);
     }
+
+    SUPPORT_REQUEST = { path: 'v1/support', method: 'POST' };
+
+    requestSupport = (data) => {
+        const { path, method } = this.SUPPORT_REQUEST;
+
+        const config = {
+            data,
+        };
+
+        return this.makeRequest(path, method, config);
+    }
 }
 
 const vpnApi = new VpnApi(`${VPN_API_URL}/api`);
