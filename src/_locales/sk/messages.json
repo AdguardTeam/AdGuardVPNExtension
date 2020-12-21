@@ -338,20 +338,8 @@
     "settings_vpn_disabled": {
         "message": "Odpojené"
     },
-    "popup_traffic_limit_exceeded_title": {
-        "message": "Rýchlosť pripojenia je znížená"
-    },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "Došli Vám rýchle gigabajty :( <br/> Zostávajú iba tie pomalé"
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Zvýšte rýchlosť"
-    },
-    "popup_traffic_limit_exceeded_cta": {
-        "message": "Upgradujte teraz a získajte neobmedzené dáta, lokality a rýchlosť!"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "Ceny v predpredaji!"
     },
     "popup_feedback_title": {
         "message": "Radi by sme počuli Vašu spätnú väzbu"

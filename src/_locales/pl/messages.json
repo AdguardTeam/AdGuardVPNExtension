@@ -338,20 +338,8 @@
     "settings_vpn_disabled": {
         "message": "Rozłączony"
     },
-    "popup_traffic_limit_exceeded_title": {
-        "message": "Szybkość połączenia jest zmniejszona"
-    },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "Skończyły Ci się szybkie gigabajty :( <br/> Zostały tylko wolne"
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Zwiększ prędkość"
-    },
-    "popup_traffic_limit_exceeded_cta": {
-        "message": "Uaktualnij teraz, aby uzyskać nieograniczony transfer, lokalizacje i prędkość!"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "Cenny dla rannych ptaszków!"
     },
     "popup_feedback_title": {
         "message": "Bardzo chcielibyśmy poznać Twoją opinię"

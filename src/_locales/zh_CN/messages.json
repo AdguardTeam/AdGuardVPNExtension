@@ -338,20 +338,8 @@
     "settings_vpn_disabled": {
         "message": "已断开"
     },
-    "popup_traffic_limit_exceeded_title": {
-        "message": "连接已降速"
-    },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "您的高速流量已用尽 :( <br/> 仅剩低速流量"
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "加速"
-    },
-    "popup_traffic_limit_exceeded_cta": {
-        "message": "立即升级并获得无限数据、服务器位置和高速！"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "早鸟优惠价！"
     },
     "popup_feedback_title": {
         "message": "我们很高兴收到您的反馈"

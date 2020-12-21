@@ -338,20 +338,8 @@
     "settings_vpn_disabled": {
         "message": "Afbrudt"
     },
-    "popup_traffic_limit_exceeded_title": {
-        "message": "Forbindelseshastigheden er reduceret"
-    },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "Du er løbet tør for hurtige gigabyte :( <br/> Der er kun langsomme tilbage"
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Boost hastighed"
-    },
-    "popup_traffic_limit_exceeded_cta": {
-        "message": "Opgrader nu for ubegrænset data, placeringer og hastighed!"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "Early-bird priser!"
     },
     "popup_feedback_title": {
         "message": "Vi vil meget gerne høre din feedback"

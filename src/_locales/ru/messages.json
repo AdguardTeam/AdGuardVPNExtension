@@ -338,20 +338,8 @@
     "settings_vpn_disabled": {
         "message": "Отключено"
     },
-    "popup_traffic_limit_exceeded_title": {
-        "message": "Скорость соединения снижена"
-    },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "У вас закончились быстрые гигабайты :( <br/> Остались только медленные"
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Увеличить скорость"
-    },
-    "popup_traffic_limit_exceeded_cta": {
-        "message": "Перейдите на подписку для безлимитного трафика, локаций и скорости!"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "Ограниченное предложение!"
     },
     "popup_feedback_title": {
         "message": "Мы будем рады увидеть ваш отзыв"

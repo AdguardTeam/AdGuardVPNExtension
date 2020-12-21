@@ -338,20 +338,8 @@
     "settings_vpn_disabled": {
         "message": "Bağlantı kesildi"
     },
-    "popup_traffic_limit_exceeded_title": {
-        "message": "Bağlantı hızı azaltıldı"
-    },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "Hızlı gigabaytlarınız bitti :( <br/> Sadece yavaş olanlar kaldı"
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Hızı artırın"
-    },
-    "popup_traffic_limit_exceeded_cta": {
-        "message": "Sınırsız veri, konum ve hız için şimdi yükseltin!"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "Erken rezervasyon fiyatları!"
     },
     "popup_feedback_title": {
         "message": "Geri bildiriminizi duymak isteriz"

@@ -338,20 +338,8 @@
     "settings_vpn_disabled": {
         "message": "Terputus"
     },
-    "popup_traffic_limit_exceeded_title": {
-        "message": "Kecepatan koneksi berkurang"
-    },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "Anda sudah kehabisan gigabyte cepat :( <br/> Hanya yang lambat tersisa"
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Naikan kecepatan"
-    },
-    "popup_traffic_limit_exceeded_cta": {
-        "message": "Tingkatkan sekarang untuk data, lokasi, dan kecepatan tanpa batas!"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "Harga rilis-awal!"
     },
     "popup_feedback_title": {
         "message": "Kami ingin mendengar tanggapan Anda"

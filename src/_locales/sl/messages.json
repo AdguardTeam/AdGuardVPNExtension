@@ -338,20 +338,8 @@
     "settings_vpn_disabled": {
         "message": "Izklopljen"
     },
-    "popup_traffic_limit_exceeded_title": {
-        "message": "Hitrost povezave je zmanjšana"
-    },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "Zmanjkalo vam je hitrih gigabajtov :( <br/> Ostali so le počasni"
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Povečajte hitrost"
-    },
-    "popup_traffic_limit_exceeded_cta": {
-        "message": "Nadgradite zdaj za neomejene podatke, lokacije in hitrost!"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "Zgodnje cene!"
     },
     "popup_feedback_title": {
         "message": "Zelo radi bi slišali vaše povratne informacije"

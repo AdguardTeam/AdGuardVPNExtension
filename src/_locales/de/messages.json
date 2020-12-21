@@ -338,20 +338,8 @@
     "settings_vpn_disabled": {
         "message": "VPN ist deaktiviert"
     },
-    "popup_traffic_limit_exceeded_title": {
-        "message": "Verbindungsgeschwindigkeit wird reduziert"
-    },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "Sie haben das Datenlimit erreicht :( <br/> Die Verbindungsgeschwindigkeit wird daher reduziert"
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Geschwindigkeit erhöhen"
-    },
-    "popup_traffic_limit_exceeded_cta": {
-        "message": "Wechseln Sie jetzt, um unbegrenzt Daten, alle Standorte und höchste Geschwindigkeit nutzen zu können!"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "Preise für Frühbesteller!"
     },
     "popup_feedback_title": {
         "message": "Wir freuen uns über Ihre Bewertung"

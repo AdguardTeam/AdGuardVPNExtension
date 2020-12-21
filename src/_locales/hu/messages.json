@@ -338,20 +338,8 @@
     "settings_vpn_disabled": {
         "message": "Szétkapcsolva"
     },
-    "popup_traffic_limit_exceeded_title": {
-        "message": "A kapcsolat sebessége csökkentve lett"
-    },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "Elhasználta a gyors gigabyte-okat :( <br/> Csak a lassúak maradtak"
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Sebesség növelése"
-    },
-    "popup_traffic_limit_exceeded_cta": {
-        "message": "Frissítés most a korlátlan adatkeretért, végpontokért és sebességért!"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "Korai árak!"
     },
     "popup_feedback_title": {
         "message": "Örülnénk az Ön visszajelzésének"

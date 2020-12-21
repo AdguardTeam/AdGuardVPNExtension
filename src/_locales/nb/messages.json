@@ -338,20 +338,8 @@
     "settings_vpn_disabled": {
         "message": "Frakoblet"
     },
-    "popup_traffic_limit_exceeded_title": {
-        "message": "Tilkoblingshastigheten er redusert"
-    },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "Du har gått tom for raske gigabytes. :( <br/> Du har kun de trege igjen."
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Øk hastigheten"
-    },
-    "popup_traffic_limit_exceeded_cta": {
-        "message": "Oppgrader nå for ubegrenset data, steder og hastighet!"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "Pionérpriser!"
     },
     "popup_feedback_title": {
         "message": "Vi ville likt å høre tilbakemeldingene dine"

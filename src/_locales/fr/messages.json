@@ -338,20 +338,8 @@
     "settings_vpn_disabled": {
         "message": "Déconnecté"
     },
-    "popup_traffic_limit_exceeded_title": {
-        "message": "La vitesse de connexion est réduite"
-    },
-    "popup_traffic_limit_exceeded_description": {
-        "message": "Oups, fini les Go rapides :( <br/> Il n'en reste que des lents"
-    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Augmenter la vitesse"
-    },
-    "popup_traffic_limit_exceeded_cta": {
-        "message": "Surclassez votre licence pour des données, des localisations et une vitesse illimités !"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "Prix ​​lève-tôt !"
     },
     "popup_feedback_title": {
         "message": "Nous aimerions entendre vos retours"
