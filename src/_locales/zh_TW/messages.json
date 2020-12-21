@@ -342,7 +342,7 @@
         "message": "連線速度被降低"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "您已用完快速的十億位元組（gigabytes）:( <br/> 只剩下慢的。"
+        "message": "您已用完快速的十億位元組（gigabytes）:( <br/>只剩下慢的。"
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "提升速度"

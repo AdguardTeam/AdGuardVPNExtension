@@ -15,7 +15,7 @@
         "message": "O valor não é válido"
     },
     "registration_error_min_length": {
-        "message": "Este valor é muito curto. Deve ter 8 caracteres ou mais."
+        "message": "Este valor é demasiado curto. Deve ter 8 caracteres ou mais."
     },
     "registration_error_compromised_password": {
         "message": "A palavra-passe digitada foi encontrada em um <a>banco de dados público</a> de palavras-passes comprometidas. Por favor, tente outra."
@@ -165,13 +165,13 @@
         "message": "Modo selectivo"
     },
     "context_menu_regular_mode": {
-        "message": "Modo regular"
+        "message": "Modo normal"
     },
     "settings_dns_label": {
         "message": "Usar servidor DNS"
     },
     "settings_dns_desc": {
-        "message": "O Domain Name System (DNS) é o equivalente da Internet a uma lista telefônica. Ele mantém um diretório de nomes de domínio e os traduz para endereços IP (Internet Protocol)."
+        "message": "O sistema de nome de domínio (DNS) é o equivalente da Internet a uma lista telefônica. Ele mantém um diretório de nomes de domínio e os traduz para endereços IP (Internet Protocol)."
     },
     "settings_dns_selector_default_title": {
         "message": "Padrão"
@@ -192,10 +192,10 @@
         "message": "DNS seguro sem registro de atividades (não filtra anúncios e rastreadores)"
     },
     "settings_dns_selector_adguard_family_title": {
-        "message": "AdGuard DNS Proteção Familiar"
+        "message": "AdGuard DNS Protecção familiar"
     },
     "settings_dns_selector_adguard_family_desc": {
-        "message": "DNS AdGuard + Pesquisa de Segurança e bloqueio de conteúdo adulto"
+        "message": "DNS AdGuard + Pesquisa de segurança e bloqueio de conteúdo adulto"
     },
     "settings_dns_selector_google_title": {
         "message": "Google DNS"
@@ -231,7 +231,7 @@
         "message": "Modo operacional"
     },
     "settings_exclusion_regular_title": {
-        "message": "Modo regular"
+        "message": "Modo normal"
     },
     "settings_exclusion_regular_description": {
         "message": "O AdGuard VPN não funciona em sítios da lista abaixo"
@@ -279,7 +279,7 @@
         "message": "Desactivar VPN neste sítio"
     },
     "popup_settings_other_products": {
-        "message": "Outros produtos"
+        "message": "Noutros produtos"
     },
     "popup_settings_feedback": {
         "message": "Feedback"
@@ -354,7 +354,7 @@
         "message": "Preços de reserva antecipada!"
     },
     "popup_feedback_title": {
-        "message": "Gostaríamos muito de ouvir seu feedback"
+        "message": "Gostaríamos demasiadamente de ouvir seu feedback"
     },
     "popup_feedback_button": {
         "message": "Deixar feedback"
@@ -408,7 +408,7 @@
         "message": "Voltar"
     },
     "options_selective_mode_popup_message": {
-        "message": "No modo regular, o AdGuard VPN só funciona em sítios permitidos que você adicionou à lista."
+        "message": "No modo selectivo, o AdGuard VPN só funciona em sítios permitidos que você adicionou à lista."
     },
     "options_selective_mode_popup_button_switch_now": {
         "message": "Mudar agora"

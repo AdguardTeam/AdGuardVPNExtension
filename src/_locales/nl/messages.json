@@ -338,6 +338,21 @@
     "settings_vpn_disabled": {
         "message": "Verbinding verbroken"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Verbindingssnelheid is verlaagd"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Je hebt geen snelle gigabytes meer :( <br/> Enkel nog langzame"
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Snelheid verhogen"
+    },
+    "popup_traffic_limit_exceeded_cta": {
+        "message": "Upgrade nu voor onbeperkte data, locaties en snelheid!"
+    },
+    "popup_traffic_limit_exceeded_cta_offer": {
+        "message": "Early-bird prijzen!"
+    },
     "popup_feedback_title": {
         "message": "We verheugen ons op je feedback"
     },
@@ -360,7 +375,7 @@
         "message": "Alle locaties"
     },
     "upgrade_features_no_log": {
-        "message": "Niet loggen beleid"
+        "message": "Geen logboeken"
     },
     "continue_us_free_button": {
         "message": "Gratis blijven gebruiken"

@@ -141,7 +141,7 @@
         "message": "Kimlik doğrulama kodu"
     },
     "eula": {
-        "message": "Son Kullanıcı Lisans Sözleşmesi"
+        "message": "SKLS"
     },
     "privacy_policy": {
         "message": "Gizlilik Politikası"
@@ -156,7 +156,7 @@
         "message": "WebRTC Protokolünü Engelle"
     },
     "settings_webrtc_desc": {
-        "message": "WebRTC çoğu İnternet tarayıcısında, üçüncü taraf bir web sitesinin gerçek IP adresinizi algılamasına ve sizi tanımlamak için kullanmasına izin veren özel bir programdır"
+        "message": "WebRTC çoğu İnternet tarayıcısında, üçüncü parti bir web sitesinin gerçek IP adresinizi algılamasına ve sizi tanımlamak için kullanmasına izin veren özel bir programdır"
     },
     "settings_context_menus_title": {
         "message": "Tarayıcının içerik menüsüne AdGuard VPN öğesini ekleyin"

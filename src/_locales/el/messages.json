@@ -53,6 +53,9 @@
     "account_title": {
         "message": "Λογαριασμός"
     },
+    "account_edit": {
+        "message": "Επεξεργασία"
+    },
     "account_sign_out": {
         "message": "Αποσύνδεση"
     },
@@ -206,14 +209,26 @@
     "settings_dns_selector_quad9_desc": {
         "message": "Δωρεάν εναλλακτική υπηρεσία DNS με προστασία από ηλεκτρονικό ψάρεμα και λογισμικό υποκλοπής spyware"
     },
+    "settings_exclusion_add": {
+        "message": "Προσθήκη ιστότοπου"
+    },
     "settings_exclusion_title": {
         "message": "Εξαιρέσεις"
+    },
+    "settings_connection_mode_title": {
+        "message": "Λειτουργία σύνδεσης VPN"
     },
     "settings_exclusion_regular_title": {
         "message": "Κανονική λειτουργία"
     },
+    "settings_exclusion_regular_description": {
+        "message": "Το AdGuard VPN δεν λειτουργεί στους ιστότοπους από αυτήν τη λίστα:"
+    },
     "settings_exclusion_selective_title": {
         "message": "Επιλεκτική λειτουργία"
+    },
+    "settings_exclusion_selective_description": {
+        "message": "Το AdGuard VPN λειτουργεί μόνο σε ιστότοπους από αυτήν τη λίστα:"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Υποτομείς"
@@ -287,6 +302,9 @@
     "endpoints_search": {
         "message": "Αναζήτηση τοποθεσίας"
     },
+    "endpoints_not_found": {
+        "message": "Ο διακομιστής δεν βρέθηκε"
+    },
     "popup_traffic_limit_reached": {
         "message": "Συμπληρώθηκε το μηνιαίο όριο δεδομένων. Χρειάζεστε περισσότερο;"
     },
@@ -298,6 +316,12 @@
     },
     "settings_connect": {
         "message": "Σύνδεση"
+    },
+    "settings_vpn_enabled": {
+        "message": "Το VPN είναι ενεργοποιημένο"
+    },
+    "settings_vpn_disabled": {
+        "message": "Το VPN είναι απενεργοποιημένο"
     },
     "popup_feedback_title": {
         "message": "Θα θέλαμε πολύ να ακούσουμε τα σχόλιά σας"

@@ -341,8 +341,14 @@
     "popup_traffic_limit_exceeded_title": {
         "message": "연결 속도가 감소됩니다"
     },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "데이터가 부족합니다 :( <br/> 느린 데이터로 전환됩니다"
+    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "속도 향상"
+    },
+    "popup_traffic_limit_exceeded_cta": {
+        "message": "무제한 데이터, 위치 및 속도를 사용하시려면 지금 업그레이드하십시오!"
     },
     "popup_traffic_limit_exceeded_cta_offer": {
         "message": "얼리버드 가격!"

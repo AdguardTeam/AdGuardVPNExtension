@@ -165,13 +165,13 @@
         "message": "Modo seletivo"
     },
     "context_menu_regular_mode": {
-        "message": "Modo regular"
+        "message": "Modo normal"
     },
     "settings_dns_label": {
         "message": "Usar servidor DNS"
     },
     "settings_dns_desc": {
-        "message": "O Domain Name System (DNS) é o equivalente da Internet a uma lista telefônica. Ele mantém um diretório de nomes de domínio e os traduz para endereços IP (Internet Protocol)."
+        "message": "O sistema de nome de domínio (DNS) é o equivalente da Internet a uma lista telefônica. Ele mantém um diretório de nomes de domínio e os traduz para endereços IP (Internet Protocol)."
     },
     "settings_dns_selector_default_title": {
         "message": "Padrão"
@@ -180,7 +180,7 @@
         "message": "Usar automaticamente servidores DNS padrão quando conectado à VPN"
     },
     "settings_dns_selector_adguard_title": {
-        "message": "DNS do AdGuard"
+        "message": "AdGuard DNS"
     },
     "settings_dns_selector_adguard_desc": {
         "message": "Remove anúncios e rastreadores do seu dispositivo"
@@ -192,7 +192,7 @@
         "message": "DNS seguro sem registro de atividades (não filtra anúncios e rastreadores)"
     },
     "settings_dns_selector_adguard_family_title": {
-        "message": "AdGuard DNS Proteção Familiar"
+        "message": "AdGuard DNS Proteção familiar"
     },
     "settings_dns_selector_adguard_family_desc": {
         "message": "AdGuard DNS + pesquisa segura com bloqueio de conteúdo adulto"
@@ -231,7 +231,7 @@
         "message": "Modo operacional"
     },
     "settings_exclusion_regular_title": {
-        "message": "Modo regular"
+        "message": "Modo normal"
     },
     "settings_exclusion_regular_description": {
         "message": "O AdGuard VPN não funciona em sites da lista abaixo"
@@ -408,7 +408,7 @@
         "message": "Voltar"
     },
     "options_selective_mode_popup_message": {
-        "message": "No modo regular, o AdGuard VPN só funciona em sites permitidos que você adicionou à lista."
+        "message": "No modo normal, o AdGuard VPN só funciona em sites permitidos que você adicionou à lista."
     },
     "options_selective_mode_popup_button_switch_now": {
         "message": "Mudar agora"

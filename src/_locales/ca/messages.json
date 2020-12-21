@@ -2,6 +2,21 @@
     "settings_vpn_connecting": {
         "message": "Connectant..."
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "La velocitat de connexió està reduïda"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Us heu quedat sense gigabytes ràpids :( <br/> Només queden lents"
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Augmenta la velocitat"
+    },
+    "popup_traffic_limit_exceeded_cta": {
+        "message": "Actualitzeu ara per obtenir dades, ubicacions i velocitat il·limitades!"
+    },
+    "popup_traffic_limit_exceeded_cta_offer": {
+        "message": "Preus anticipats!"
+    },
     "options_selective_mode_popup_message": {
         "message": "En mode Selectiu, AdGuard VPN només funciona als llocs web permesos que heu afegit a la llista."
     },

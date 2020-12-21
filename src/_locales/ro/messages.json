@@ -338,6 +338,21 @@
     "settings_vpn_disabled": {
         "message": "Deconectat"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Viteza conexiunii este redusă"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Ați epuizat gigabyții rapizi :( <br/> Numai cei lenți au rămas"
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Crește viteza"
+    },
+    "popup_traffic_limit_exceeded_cta": {
+        "message": "Actualizați acum pentru date nelimitate, locații și viteză!"
+    },
+    "popup_traffic_limit_exceeded_cta_offer": {
+        "message": "Prețuri de păsări timpurii!"
+    },
     "popup_feedback_title": {
         "message": "Ne-ar plăcea să auzim feedback-ul dvs."
     },

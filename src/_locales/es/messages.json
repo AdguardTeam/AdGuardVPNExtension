@@ -338,6 +338,21 @@
     "settings_vpn_disabled": {
         "message": "Desconectado"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "La velocidad de conexión se ha reducido"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Te has quedado sin gigabytes rápidos :( <br/> Solo quedan los lentos"
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Aumentar velocidad"
+    },
+    "popup_traffic_limit_exceeded_cta": {
+        "message": "¡Mejora ahora para datos ilimitados, ubicaciones y velocidad!"
+    },
+    "popup_traffic_limit_exceeded_cta_offer": {
+        "message": "¡Precios por reserva anticipada!"
+    },
     "popup_feedback_title": {
         "message": "Nos encantaría escuchar tu comentario"
     },

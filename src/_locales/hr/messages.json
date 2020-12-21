@@ -338,6 +338,21 @@
     "settings_vpn_disabled": {
         "message": "Odspojeno"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Smanjena je brzina veze"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Ponestalo vam je brzih gigabajta :( <br/> Ostali su samo spori"
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Povećajte brzinu"
+    },
+    "popup_traffic_limit_exceeded_cta": {
+        "message": "Nadogradite sada za neograničene podatke, lokacije i brzinu!"
+    },
+    "popup_traffic_limit_exceeded_cta_offer": {
+        "message": "Cijene za ranoranioce!"
+    },
     "popup_feedback_title": {
         "message": "Želimo čuti vaše mišljenje"
     },

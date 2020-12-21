@@ -222,7 +222,7 @@
         "message": "Безкоштовний альтернативний DNS із захистом від шахрайства і зловмисних програм"
     },
     "settings_exclusion_add": {
-        "message": "Додати веб-сайт"
+        "message": "Додати вебсайт"
     },
     "settings_exclusion_title": {
         "message": "Винятки"
@@ -234,13 +234,13 @@
         "message": "Звичайний режим"
     },
     "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN не буде працювати на сайтах, що нижче в списку"
+        "message": "AdGuard VPN не працюватиме на вебсайтах із наведеного нижче списку"
     },
     "settings_exclusion_selective_title": {
         "message": "Вибірковий режим"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN буде працювати лише на сайтах, що нижче в списку"
+        "message": "AdGuard VPN працюватиме лише на вебсайтах із наведеного нижче списку"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Піддомени"
@@ -270,13 +270,13 @@
         "message": "Вимкнути"
     },
     "popup_settings_enable_vpn": {
-        "message": "Увімкнути VPN на цьому веб-сайті"
+        "message": "Увімкнути VPN на цьому вебсайті"
     },
     "popup_settings_enable_vpn_short": {
         "message": "Увімкнути"
     },
     "popup_settings_disable_vpn": {
-        "message": "Вимкнути VPN на цьому веб-сайті"
+        "message": "Вимкнути VPN на цьому вебсайті"
     },
     "popup_settings_other_products": {
         "message": "Інші продукти"
@@ -291,10 +291,10 @@
         "message": "Вийти"
     },
     "context_menu_enable_vpn": {
-        "message": "Увімкнути VPN на цьому веб-сайті"
+        "message": "Увімкнути VPN на цьому вебсайті"
     },
     "context_menu_disable_vpn": {
-        "message": "Вимкнути VPN на цьому веб-сайті"
+        "message": "Вимкнути VPN на цьому вебсайті"
     },
     "suggest_feature": {
         "message": "Запропонувати покращення"
@@ -338,6 +338,21 @@
     "settings_vpn_disabled": {
         "message": "Відключено"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Швидкість з'єднання знижено"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "У вас закінчились швидкі гігабайти :( <br/> Залишились тільки повільні"
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Збільшити швидкість"
+    },
+    "popup_traffic_limit_exceeded_cta": {
+        "message": "Оформіть підписку для безлімітного трафіка, швидкості та місцезнаходжень!"
+    },
+    "popup_traffic_limit_exceeded_cta_offer": {
+        "message": "Обмежена пропозиція!"
+    },
     "popup_feedback_title": {
         "message": "Будемо раді вашій думці"
     },
@@ -375,7 +390,7 @@
         "message": "знаходиться у вашій локальній мережі та недоступний через VPN"
     },
     "popup_site_status_vpn_disabled": {
-        "message": "VPN вимкнено на цьому веб-сайті"
+        "message": "VPN вимкнено на цьому вебсайті"
     },
     "popup_auth_agreement_consent": {
         "message": "Користуючись AdGuard VPN, ви приймаєте <eula>Ліцензійна угоду</eula> та <privacy>Політику приватності</privacy>",
