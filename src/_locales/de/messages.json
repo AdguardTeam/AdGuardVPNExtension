@@ -338,6 +338,12 @@
     "settings_vpn_disabled": {
         "message": "VPN ist deaktiviert"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Geschwindigkeit wird reduziert"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Sie haben das kostenlose Datenlimit erreicht, und AdGuard VPN arbeitet langsam."
+    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Geschwindigkeit erhöhen"
     },

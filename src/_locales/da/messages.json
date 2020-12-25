@@ -338,6 +338,12 @@
     "settings_vpn_disabled": {
         "message": "Afbrudt"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Hastigheden er reduceret"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Du har nået den gratis datagrænse, og AdGuard VPN fungerer langsomt."
+    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Boost hastighed"
     },

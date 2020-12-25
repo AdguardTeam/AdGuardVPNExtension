@@ -338,6 +338,12 @@
     "settings_vpn_disabled": {
         "message": "Rozłączony"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Szybkość jest zmniejszona"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Osiągnąłeś limit darmowych danych, i AdGuard VPN działa wolno."
+    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Zwiększ prędkość"
     },

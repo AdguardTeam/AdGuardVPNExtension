@@ -338,6 +338,12 @@
     "settings_vpn_disabled": {
         "message": "Odpojeno"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Rychlost je snížena"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Dosáhli jste volného datového limitu a AdGuard VPN pracuje pomalu."
+    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Zvýšit rychlost"
     },

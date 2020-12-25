@@ -338,6 +338,12 @@
     "settings_vpn_disabled": {
         "message": "已斷線"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "速度被降低"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "您已達到免費的流量限制，所以 AdGuard VPN 緩慢地運作。"
+    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "提升速度"
     },

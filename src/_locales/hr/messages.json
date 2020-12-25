@@ -338,6 +338,12 @@
     "settings_vpn_disabled": {
         "message": "Odspojeno"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Smanjena je brzina"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Dostigli ste ograničenje besplatnih podataka i AdGuard VPN će raditi sporije."
+    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Povećajte brzinu"
     },

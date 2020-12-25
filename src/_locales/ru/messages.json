@@ -338,6 +338,12 @@
     "settings_vpn_disabled": {
         "message": "Отключено"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Скорость снижена"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "У вас закончился бесплатный трафик, и теперь AdGuard VPN работает медленно."
+    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Увеличить скорость"
     },

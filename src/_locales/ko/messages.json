@@ -338,6 +338,12 @@
     "settings_vpn_disabled": {
         "message": "연결 해제됨"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "연결 속도가 감소됩니다"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "무료 데이터 제한에 도달했습니다. AdGuard VPN은 느리게 작동합니다."
+    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "속도 향상"
     },

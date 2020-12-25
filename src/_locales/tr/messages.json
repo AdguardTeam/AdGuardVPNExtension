@@ -213,7 +213,7 @@
         "message": "Cisco OpenDNS"
     },
     "settings_dns_selector_cisco_desc": {
-        "message": "Cihazınızı zararlı yazılımlardan koruyan DNS sunucusu"
+        "message": "Cihazınızı kötü amaçlı yazılımlardan koruyan DNS sunucusu"
     },
     "settings_dns_selector_quad9_title": {
         "message": "Quad9"
@@ -337,6 +337,12 @@
     },
     "settings_vpn_disabled": {
         "message": "Bağlantı kesildi"
+    },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Hız azaltıldı"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Ücretsiz veri sınırına ulaştınız, ve AdGuard VPN yavaş çalışıyor."
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Hızı artırın"

@@ -338,6 +338,12 @@
     "settings_vpn_disabled": {
         "message": "Verbinding verbroken"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Verbindingssnelheid is verlaagd"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Je hebt de gratis data limiet bereikt, en AdGuard VPN werkt traag."
+    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Snelheid verhogen"
     },
