@@ -338,6 +338,12 @@
     "settings_vpn_disabled": {
         "message": "切断されています。"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "低速化されています。"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "無料データ上限に達したため、AdGuard VPNは低速化しています。"
+    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "今すぐ速度を上げる"
     },
