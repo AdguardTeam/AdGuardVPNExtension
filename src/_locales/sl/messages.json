@@ -338,6 +338,12 @@
     "settings_vpn_disabled": {
         "message": "Izklopljen"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Hitrost je zmanjšana"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Dosegli ste omejitev brezplačnih podatkov in AdGuard VPN deluje počasi."
+    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Povečajte hitrost"
     },

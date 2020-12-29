@@ -338,6 +338,12 @@
     "settings_vpn_disabled": {
         "message": "Szétkapcsolva"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Csökkentett sebesség"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Elhasználta az ingyenes adatkeretet, az AdGuard VPN lassan működik."
+    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Sebesség növelése"
     },
