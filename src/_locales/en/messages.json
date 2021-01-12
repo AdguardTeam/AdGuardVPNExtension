@@ -428,8 +428,8 @@
     "upgrade_features_all_locations": {
         "message": "All locations"
     },
-    "upgrade_features_no_log": {
-        "message": "No logs policy"
+    "upgrade_features_devices": {
+        "message": "Up to 5 devices"
     },
     "continue_us_free_button": {
         "message": "Keep using for free"
