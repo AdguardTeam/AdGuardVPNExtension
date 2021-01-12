@@ -76,8 +76,36 @@ const Icons = () => (
             <polyline points="5 11.767 10.588 17 19 8" />
         </symbol>
 
+        <symbol id="arrow" viewBox="0 0 24 24">
+            <g fill="none" fillRule="evenodd">
+                <path fill="#878787" fillOpacity=".01" d="M0 0h24v24H0z" />
+                <path stroke="#888" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 18l6-6-6-6" />
+            </g>
+        </symbol>
+
         <symbol id="back-arrow" viewBox="0 0 24 24">
             <path fill="none" fillRule="evenodd" stroke="#888" strokeLinecap="round" strokeWidth="1.5" d="M15 18l-6-6 6-6" />
+        </symbol>
+
+        <symbol id="bug" viewBox="0 0 24 24">
+            <g fill="none" fillRule="evenodd">
+                <path fill="#878787" fillOpacity=".01" d="M0 0h24v24H0z" />
+                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 5a6 6 0 016 6v4a6 6 0 11-12 0v-4a6 6 0 016-6zm6 5h3m-6.25-5l1.5-2m-6.5 2l-1.5-2M2.5 10h3M18 14h3M2.5 14h3m12 4H21M2.5 18h4m0-6.5h11" />
+            </g>
+        </symbol>
+
+        <symbol id="send-feedback" viewBox="0 0 24 24">
+            <g fill="none" fillRule="evenodd">
+                <path fill="none" fillOpacity="0" d="M0 0h24v24H0z" />
+                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 12H7l-3 8 17-8L4 4l3 8z" />
+            </g>
+        </symbol>
+
+        <symbol id="chat" viewBox="0 0 24 24">
+            <g fill="none" fillRule="evenodd">
+                <path fill="none" fillOpacity="0" d="M0 0h24v24H0z" />
+                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 18c6 0 10-3 10-7s-4-7-10-7S2 7 2 11c0 2 1 4 3 5l1 1 1 1H6h0v1h0v2l1-1h1l1-1s0 0 0 0h0l1-1h2zm0-6v-1m-4 1v-1m8 1v-1" />
+            </g>
         </symbol>
     </svg>
 );

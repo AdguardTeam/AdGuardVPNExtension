@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Title from '../ui/Title';
+import { Title } from '../ui/Title';
 import Mode from './Mode';
 import './settings.pcss';
 import '../ui/radio.pcss';

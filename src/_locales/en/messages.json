@@ -53,6 +53,69 @@
     "about_title": {
         "message": "About"
     },
+    "options_support_title": {
+        "message": "Support"
+    },
+    "options_support_faq_title": {
+        "message": "FAQ"
+    },
+    "options_support_faq_description": {
+        "message": "Questions and answers"
+    },
+    "options_support_report_title": {
+        "message": "Report a bug"
+    },
+    "options_support_report_description": {
+        "message": "If something doesn't work correctly in the program"
+    },
+    "options_support_feedback_title": {
+        "message": "Leave feedback"
+    },
+    "options_support_feedback_description": {
+        "message": "Submit feature requests and suggestions"
+    },
+    "options_support_discuss_title": {
+        "message": "Discuss"
+    },
+    "options_support_discuss_description": {
+        "message": "Discuss on our forum, in social networks, or on Github"
+    },
+    "options_report_bug_title": {
+        "message": "Report a bug"
+    },
+    "options_bug_report_email_label": {
+        "message": "Email"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Include the diagnostic report in the message"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "Incorrect email address"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "This field can't be empty"
+    },
+    "options_bug_report_request_error": {
+        "message": "An error occurred. Please try again later."
+    },
+    "options_bug_report_send_button": {
+        "message": "Send"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Sending..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Describe the problem here..."
+    },
+    "options_bug_report_page_success": {
+        "message": "Thank you, your message sent successfully!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "New report"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Message"
+    },
     "account_title": {
         "message": "Account"
     },
@@ -296,9 +359,6 @@
     "context_menu_disable_vpn": {
         "message": "Disable VPN on this website"
     },
-    "suggest_feature": {
-        "message": "Suggest a feature"
-    },
     "endpoints_countries": {
         "message": "Locations"
     },
@@ -368,8 +428,8 @@
     "upgrade_features_all_locations": {
         "message": "All locations"
     },
-    "upgrade_features_no_log": {
-        "message": "No logs policy"
+    "upgrade_features_devices": {
+        "message": "Up to 5 devices"
     },
     "continue_us_free_button": {
         "message": "Keep using for free"
@@ -387,11 +447,11 @@
         "message": "VPN is disabled on this website"
     },
     "popup_auth_agreement_consent": {
-        "message": "By using AdGuard VPN, you agree to our <eula>EULA</eula> and <privacy>Privacy Policy</privacy>",
+        "message": "By continuing to use AdGuard VPN, you agree to our <eula>EULA</eula> and <privacy>Privacy Policy</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_agreement_consent": {
-        "message": "By continuing you accept the <privacy>Terms and Conditions</privacy> and <eula>EULA</eula>",
+        "message": "By continuing to use AdGuard VPN, you agree to our <eula>EULA</eula> and <privacy>Privacy Policy</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {

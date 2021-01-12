@@ -3,7 +3,7 @@ import React from 'react';
 import WebRTC from './WebRTC';
 import Dns from './Dns';
 import ContextMenus from './ContextMenus';
-import Title from '../ui/Title';
+import { Title } from '../ui/Title';
 import { reactTranslator } from '../../../reactCommon/reactTranslator';
 
 const Settings = () => (

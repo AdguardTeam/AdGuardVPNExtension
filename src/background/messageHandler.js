@@ -16,6 +16,9 @@ import { log } from '../lib/logger';
 import notifier from '../lib/notifier';
 import { locationsService } from './endpoints/locationsService';
 import { promoNotifications } from './promoNotifications';
+import tabs from './tabs';
+import vpnProvider from './providers/vpnProvider';
+import { logStorage } from '../lib/log-storage';
 
 const eventListeners = {};
 
@@ -204,6 +207,36 @@ const messageHandler = async (message, sender) => {
         case MESSAGES_TYPES.SET_NOTIFICATION_VIEWED: {
             const { withDelay } = data;
             return promoNotifications.setNotificationViewed(withDelay);
+        }
+        case MESSAGES_TYPES.OPEN_TAB: {
+            const { url } = data;
+            return tabs.openTab(url);
+        }
+        case MESSAGES_TYPES.REPORT_BUG: {
+            const { email, message, includeLog } = data;
+            const appId = await credentials.getAppId();
+            let token;
+            try {
+                const vpnToken = await credentials.gainVpnToken();
+                token = vpnToken?.token;
+            } catch (e) {
+                log.error('Was unable to get token');
+            }
+            const { version } = appStatus;
+
+            const reportData = {
+                appId,
+                token,
+                email,
+                message,
+                version,
+            };
+
+            if (includeLog) {
+                reportData.appLogs = logStorage.toString();
+            }
+
+            return vpnProvider.requestSupport(reportData);
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

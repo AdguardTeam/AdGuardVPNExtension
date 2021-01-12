@@ -35,6 +35,8 @@ export const {
     SUGGEST_FEATURE,
     THANK_YOU_PAGE_URL,
     FEEDBACK_URL,
+    FAQ_URL,
+    DISCUSS_URL,
     BROWSER,
     BUILD_ENV,
 } = CONFIG;
