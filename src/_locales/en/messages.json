@@ -359,9 +359,6 @@
     "context_menu_disable_vpn": {
         "message": "Disable VPN on this website"
     },
-    "suggest_feature": {
-        "message": "Suggest a feature"
-    },
     "endpoints_countries": {
         "message": "Locations"
     },
@@ -402,19 +399,13 @@
         "message": "Disconnected"
     },
     "popup_traffic_limit_exceeded_title": {
-        "message": "Connection speed is reduced"
+        "message": "Speed is reduced"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "You've run out of fast gigabytes :( <br/> Only slow ones left"
+        "message": "You've reached the free data limit, and AdGuard VPN works slowly."
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Boost speed"
-    },
-    "popup_traffic_limit_exceeded_cta": {
-        "message": "Upgrade now for unlimited data, locations and speed!"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "Early-bird prices!"
     },
     "popup_feedback_title": {
         "message": "We'd love to hear your feedback"
@@ -456,11 +447,11 @@
         "message": "VPN is disabled on this website"
     },
     "popup_auth_agreement_consent": {
-        "message": "By using AdGuard VPN, you agree to our <eula>EULA</eula> and <privacy>Privacy Policy</privacy>",
+        "message": "By continuing to use AdGuard VPN, you agree to our <eula>EULA</eula> and <privacy>Privacy Policy</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_agreement_consent": {
-        "message": "By continuing you accept the <privacy>Terms and Conditions</privacy> and <eula>EULA</eula>",
+        "message": "By continuing to use AdGuard VPN, you agree to our <eula>EULA</eula> and <privacy>Privacy Policy</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {
