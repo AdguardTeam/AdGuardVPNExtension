@@ -18,21 +18,6 @@
         .global-error__description {
             margin-bottom: 20px;
         }
-
-        .global-error__early,
-        .global-error__info {
-            max-width: 215px;
-            margin-bottom: 40px;
-            font-size: 14px;
-            text-align: center;
-            color: var(--gray88);
-        }
-
-        .global-error__early {
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--orange);
-        }
     }
 
     &--reduced {
@@ -44,6 +29,10 @@
         flex-direction: column;
         justify-content: center;
         text-align: center;
+
+        &--centered {
+            margin-top: 61px;
+        }
     }
 
     &__icon {
@@ -60,9 +49,9 @@
         }
 
         &--reduced {
-            margin: 0 auto 16px;
-            height: 185px;
-            background-image: url(../../../../src/assets/images/tired.svg);
+            margin: 0 auto 8px;
+            height: 224px;
+            background-image: url(../../../assets/images/tired.svg);
         }
 
         &--trouble {

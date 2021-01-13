@@ -3,7 +3,7 @@
         "message": "AdGuard VPN - Adatvédelem & Biztonság"
     },
     "description": {
-        "message": "Megnyitja Ön előtt az internet lehetőségeit, miközben védi adatait. A legjobb VPN a híres hirdetésblokkolók alkotóitól."
+        "message": "Megnyitja Ön előtt az internet lehetőségeit, miközben védi adatait. A legjobb VPN a híres hirdetésblokkoló alkotóitól."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -63,7 +63,7 @@
         "message": "Kijelentkezés"
     },
     "rate_description": {
-        "message": "Üdvözöljük! Az AdGuard csapatának fontos, hogy megismerje az termékkel kapcsolatos véleményét. Kérjük, szánjon rá néhány percet, és értékelje."
+        "message": "Üdvözöljük! Az AdGuard csapatának fontos, hogy megismerje a termékkel kapcsolatos véleményét. Kérjük, szánjon rá néhány percet, és értékelje."
     },
     "rate_hide": {
         "message": "Elrejtés"
@@ -296,9 +296,6 @@
     "context_menu_disable_vpn": {
         "message": "VPN letiltása ezen a webhelyen"
     },
-    "suggest_feature": {
-        "message": "Javasoljon új funkciókat"
-    },
     "endpoints_countries": {
         "message": "Helyszínek"
     },
@@ -338,6 +335,15 @@
     "settings_vpn_disabled": {
         "message": "Szétkapcsolva"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Csökkentett sebesség"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Elhasználta az ingyenes adatkeretet, az AdGuard VPN lassan működik."
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Sebesség növelése"
+    },
     "popup_feedback_title": {
         "message": "Örülnénk az Ön visszajelzésének"
     },
@@ -359,9 +365,6 @@
     "upgrade_features_all_locations": {
         "message": "Minden végpont"
     },
-    "upgrade_features_no_log": {
-        "message": "Nem naplózunk"
-    },
     "continue_us_free_button": {
         "message": "Folytatás ingyen"
     },
@@ -376,14 +379,6 @@
     },
     "popup_site_status_vpn_disabled": {
         "message": "A VPN le van tiltva ezen a webhelyen"
-    },
-    "popup_auth_agreement_consent": {
-        "message": "Az AdGuard VPN használatával ön elfogadja <eula>Végfelhasználói licenszszerződést</eula> és az <privacy>Adatvédelmi irányelveket</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "A folytatással Ön elfogadja <privacy>Felhasználási feltételeket</privacy> és a <eula>Végfelhasználói licenszszerződést</eula>",
-        "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> maradt ebben a hónapban",

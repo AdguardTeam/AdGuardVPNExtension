@@ -53,6 +53,69 @@
     "about_title": {
         "message": "Über"
     },
+    "options_support_title": {
+        "message": "Support"
+    },
+    "options_support_faq_title": {
+        "message": "FAQ"
+    },
+    "options_support_faq_description": {
+        "message": "Fragen und Antworten"
+    },
+    "options_support_report_title": {
+        "message": "Fehler melden"
+    },
+    "options_support_report_description": {
+        "message": "Wenn in der Anwendung etwas nicht richtig funktioniert"
+    },
+    "options_support_feedback_title": {
+        "message": "Feedback senden"
+    },
+    "options_support_feedback_description": {
+        "message": "Wünsche und Vorschläge für neue Funktionen einreichen"
+    },
+    "options_support_discuss_title": {
+        "message": "Diskutieren Sie mit"
+    },
+    "options_support_discuss_description": {
+        "message": "Diskutieren Sie in unserem Forum, in sozialen Netzwerken oder auf Github"
+    },
+    "options_report_bug_title": {
+        "message": "Fehler melden"
+    },
+    "options_bug_report_email_label": {
+        "message": "E-Mail-Adresse"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Den Diagnosebericht der Nachricht beifügen"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "Ungültige E-Mail-Adresse"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "Pflichtfeld"
+    },
+    "options_bug_report_request_error": {
+        "message": "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal."
+    },
+    "options_bug_report_send_button": {
+        "message": "Senden"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Wird gesendet …"
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Beschreiben Sie das Problem hier …"
+    },
+    "options_bug_report_page_success": {
+        "message": "Vielen Dank, Ihre Nachricht wurde erfolgreich gesendet!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "Neuer Bericht"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Nachricht"
+    },
     "account_title": {
         "message": "Konto"
     },
@@ -296,9 +359,6 @@
     "context_menu_disable_vpn": {
         "message": "VPN auf dieser Website deaktivieren"
     },
-    "suggest_feature": {
-        "message": "Eine Funktion vorschlagen"
-    },
     "endpoints_countries": {
         "message": "Standorte"
     },
@@ -321,7 +381,7 @@
         "message": "Monatliches Datenvolumen erreicht. Benötigen Sie mehr?"
     },
     "premium_upgrade": {
-        "message": "Upgraden"
+        "message": "Erweitern"
     },
     "settings_disconnect": {
         "message": "Trennen"
@@ -339,19 +399,13 @@
         "message": "VPN ist deaktiviert"
     },
     "popup_traffic_limit_exceeded_title": {
-        "message": "Verbindungsgeschwindigkeit wird reduziert"
+        "message": "Geschwindigkeit wird reduziert"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "Sie haben das Datenlimit erreicht :( <br/> Die Verbindungsgeschwindigkeit wird daher reduziert"
+        "message": "Sie haben das kostenlose Datenlimit erreicht, und AdGuard VPN arbeitet langsam."
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Geschwindigkeit erhöhen"
-    },
-    "popup_traffic_limit_exceeded_cta": {
-        "message": "Wechseln Sie jetzt, um unbegrenzt Daten, alle Standorte und höchste Geschwindigkeit nutzen zu können!"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "Preise für Frühbesteller!"
     },
     "popup_feedback_title": {
         "message": "Wir freuen uns über Ihre Bewertung"
@@ -374,8 +428,8 @@
     "upgrade_features_all_locations": {
         "message": "Alle Standorte"
     },
-    "upgrade_features_no_log": {
-        "message": "\"Keine-Protokolle\"-Richtlinie"
+    "upgrade_features_devices": {
+        "message": "Bis zu 5 Geräte"
     },
     "continue_us_free_button": {
         "message": "Als kostenlose Variante nutzen"

@@ -56,6 +56,9 @@
     "account_title": {
         "message": "Konto"
     },
+    "account_edit": {
+        "message": "Håndter"
+    },
     "account_sign_out": {
         "message": "Logg av"
     },
@@ -218,14 +221,26 @@
     "settings_dns_selector_quad9_desc": {
         "message": "Gratis alternativ DNS-tjeneste med beskyttelse mot phishing og spionvare"
     },
+    "settings_exclusion_add": {
+        "message": "Legg til et nettsted"
+    },
     "settings_exclusion_title": {
         "message": "Unntak"
+    },
+    "settings_connection_mode_title": {
+        "message": "Driftsmodus"
     },
     "settings_exclusion_regular_title": {
         "message": "Vanlig modus"
     },
+    "settings_exclusion_regular_description": {
+        "message": "AdGuard VPN vil ikke fungere på nettsteder fra listen nedenfor"
+    },
     "settings_exclusion_selective_title": {
         "message": "Selektiv modus"
+    },
+    "settings_exclusion_selective_description": {
+        "message": "AdGuard VPN vil bare fungere på nettsteder fra listen nedenfor"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Underdomener"
@@ -281,9 +296,6 @@
     "context_menu_disable_vpn": {
         "message": "Skru av VPN på dette nettstedet"
     },
-    "suggest_feature": {
-        "message": "Foreslå en funksjon"
-    },
     "endpoints_countries": {
         "message": "Steder"
     },
@@ -299,6 +311,9 @@
     "endpoints_search": {
         "message": "Søk etter sted"
     },
+    "endpoints_not_found": {
+        "message": "Stedet ble ikke funnet"
+    },
     "popup_traffic_limit_reached": {
         "message": "Den månedlige datagrensen har blitt nådd. Behøver du mer?"
     },
@@ -308,8 +323,20 @@
     "settings_disconnect": {
         "message": "Koble fra"
     },
+    "settings_vpn_connecting": {
+        "message": "Kobler til …"
+    },
     "settings_connect": {
         "message": "Koble til"
+    },
+    "settings_vpn_enabled": {
+        "message": "Tilkoblet"
+    },
+    "settings_vpn_disabled": {
+        "message": "Frakoblet"
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Øk hastigheten"
     },
     "popup_feedback_title": {
         "message": "Vi ville likt å høre tilbakemeldingene dine"
@@ -332,9 +359,6 @@
     "upgrade_features_all_locations": {
         "message": "Alle posisjoner"
     },
-    "upgrade_features_no_log": {
-        "message": "Ingen loggføringsretningslinjer"
-    },
     "continue_us_free_button": {
         "message": "Fortsett å bruke det gratis"
     },
@@ -350,19 +374,20 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN er skrudd av på dette nettstedet"
     },
-    "popup_auth_agreement_consent": {
-        "message": "Ved å bruke AdGuard VPN, godtar du vår <eula>EULA</eula> og <privacy>personvernserklæring</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "Ved å fortsette, aksepterer du <privacy>Vilkår og betingelser</privacy> og <eula>EULA</eula>-en",
-        "description": "NOTICE! respect spaces between tags"
-    },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> gjenstår denne måneden",
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_auth_back_button": {
         "message": "Tilbake"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "I selektiv modus, fungerer AdGuard VPN kun på tillatte nettsteder som du har lagt til i listen."
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Bytt nå"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "Er du sikker på at du vil skifte?"
     }
 }

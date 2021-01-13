@@ -53,6 +53,69 @@
     "about_title": {
         "message": "O"
     },
+    "options_support_title": {
+        "message": "Podrška"
+    },
+    "options_support_faq_title": {
+        "message": "ČPP"
+    },
+    "options_support_faq_description": {
+        "message": "Pitanja i odgovori"
+    },
+    "options_support_report_title": {
+        "message": "Prijavite pogrešku"
+    },
+    "options_support_report_description": {
+        "message": "Ako nešto ne radi ispravno u programu"
+    },
+    "options_support_feedback_title": {
+        "message": "Ostavite povratnu informaciju"
+    },
+    "options_support_feedback_description": {
+        "message": "Pošaljite zahtjeve i prijedloge značajki"
+    },
+    "options_support_discuss_title": {
+        "message": "Diskusija"
+    },
+    "options_support_discuss_description": {
+        "message": "Raspravljajte na našem forumu, na društvenim mrežama ili na GitHub-u"
+    },
+    "options_report_bug_title": {
+        "message": "Prijavite pogrešku"
+    },
+    "options_bug_report_email_label": {
+        "message": "E-pošta"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Priložite dijagnostičko izvješće uz ovu poruku"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "Nevažeća adresa e-pošte"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "Polje ne može biti prazno"
+    },
+    "options_bug_report_request_error": {
+        "message": "Došlo je do pogreške. Pokušajte kasnije."
+    },
+    "options_bug_report_send_button": {
+        "message": "Pošalji"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Slanje..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Ovdje opišite problem..."
+    },
+    "options_bug_report_page_success": {
+        "message": "Hvala vam, vaša je poruka uspješno poslana!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "Novi izvještaj"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Poruka"
+    },
     "account_title": {
         "message": "Račun"
     },
@@ -296,9 +359,6 @@
     "context_menu_disable_vpn": {
         "message": "Onemogući VPN na ovoj stranici"
     },
-    "suggest_feature": {
-        "message": "Predložite značajku"
-    },
     "endpoints_countries": {
         "message": "Lokacije"
     },
@@ -338,6 +398,15 @@
     "settings_vpn_disabled": {
         "message": "Odspojeno"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Smanjena je brzina"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Dostigli ste ograničenje besplatnih podataka i AdGuard VPN će raditi sporije."
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Povećajte brzinu"
+    },
     "popup_feedback_title": {
         "message": "Želimo čuti vaše mišljenje"
     },
@@ -359,8 +428,8 @@
     "upgrade_features_all_locations": {
         "message": "Sve lokacije"
     },
-    "upgrade_features_no_log": {
-        "message": "Politika ne spremanja zapisnika"
+    "upgrade_features_devices": {
+        "message": "Do 5 uređaja"
     },
     "continue_us_free_button": {
         "message": "Nastavi koristiti besplatno"
@@ -378,11 +447,11 @@
         "message": "VPN je onemogućen na ovoj stranici"
     },
     "popup_auth_agreement_consent": {
-        "message": "Korištenjem AdGuard VPN-a prihvaćate <eula>EULA</eula> i <privacy>politiku privatnosti</privacy>",
+        "message": "Nastavljanjem korištenja AdGuard VPN-a prihvaćate <eula>EULA</eula> i <privacy>politiku privatnosti</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_agreement_consent": {
-        "message": "Nastavljanjem prihvaćate <privacy>Uvjete i odredbe</privacy> i <eula>EULA</eula>",
+        "message": "Nastavljanjem korištenja AdGuard VPN-a prihvaćate <eula>EULA</eula> i <privacy>politiku privatnosti</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {

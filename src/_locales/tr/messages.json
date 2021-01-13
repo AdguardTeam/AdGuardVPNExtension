@@ -53,6 +53,69 @@
     "about_title": {
         "message": "Hakkında"
     },
+    "options_support_title": {
+        "message": "Destek"
+    },
+    "options_support_faq_title": {
+        "message": "SSS"
+    },
+    "options_support_faq_description": {
+        "message": "Sorular ve cevaplar"
+    },
+    "options_support_report_title": {
+        "message": "Hata bildir"
+    },
+    "options_support_report_description": {
+        "message": "Eğer programda bir şey düzgün çalışmıyorsa"
+    },
+    "options_support_feedback_title": {
+        "message": "Geri bildirimde bulunun"
+    },
+    "options_support_feedback_description": {
+        "message": "Yeni özellik isteği veya öneri gönderin"
+    },
+    "options_support_discuss_title": {
+        "message": "Tartışın"
+    },
+    "options_support_discuss_description": {
+        "message": "Forumumuzda, sosyal ağlarda veya GitHub'da tartışın"
+    },
+    "options_report_bug_title": {
+        "message": "Hata bildir"
+    },
+    "options_bug_report_email_label": {
+        "message": "E-posta"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Mesaja tanılama raporu ekle"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "Yanlış e-posta adresi"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "Bu alan boş olamaz"
+    },
+    "options_bug_report_request_error": {
+        "message": "Bir hata oluştu. Lütfen daha sonra tekrar deneyiniz."
+    },
+    "options_bug_report_send_button": {
+        "message": "Gönder"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Gönderiliyor..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Sorunu burada açıklayın..."
+    },
+    "options_bug_report_page_success": {
+        "message": "Teşekkürler, mesajınız başarıyla gönderildi!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "Yeni bildiri"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Mesaj"
+    },
     "account_title": {
         "message": "Hesap"
     },
@@ -141,7 +204,7 @@
         "message": "Kimlik doğrulama kodu"
     },
     "eula": {
-        "message": "Son Kullanıcı Lisans Sözleşmesi"
+        "message": "SKLS"
     },
     "privacy_policy": {
         "message": "Gizlilik Politikası"
@@ -156,7 +219,7 @@
         "message": "WebRTC Protokolünü Engelle"
     },
     "settings_webrtc_desc": {
-        "message": "WebRTC çoğu İnternet tarayıcısında, üçüncü taraf bir web sitesinin gerçek IP adresinizi algılamasına ve sizi tanımlamak için kullanmasına izin veren özel bir programdır"
+        "message": "WebRTC çoğu İnternet tarayıcısında, üçüncü parti bir web sitesinin gerçek IP adresinizi algılamasına ve sizi tanımlamak için kullanmasına izin veren özel bir programdır"
     },
     "settings_context_menus_title": {
         "message": "Tarayıcının içerik menüsüne AdGuard VPN öğesini ekleyin"
@@ -213,7 +276,7 @@
         "message": "Cisco OpenDNS"
     },
     "settings_dns_selector_cisco_desc": {
-        "message": "Cihazınızı zararlı yazılımlardan koruyan DNS sunucusu"
+        "message": "Cihazınızı kötü amaçlı yazılımlardan koruyan DNS sunucusu"
     },
     "settings_dns_selector_quad9_title": {
         "message": "Quad9"
@@ -296,9 +359,6 @@
     "context_menu_disable_vpn": {
         "message": "Bu sitede VPN'yi devre dışı bırak"
     },
-    "suggest_feature": {
-        "message": "Yeni bir özellik önerin"
-    },
     "endpoints_countries": {
         "message": "Konumlar"
     },
@@ -339,19 +399,13 @@
         "message": "Bağlantı kesildi"
     },
     "popup_traffic_limit_exceeded_title": {
-        "message": "Bağlantı hızı azaltıldı"
+        "message": "Hız azaltıldı"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "Hızlı gigabaytlarınız bitti :( <br/> Sadece yavaş olanlar kaldı"
+        "message": "Ücretsiz veri sınırına ulaştınız, ve AdGuard VPN yavaş çalışıyor."
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Hızı artırın"
-    },
-    "popup_traffic_limit_exceeded_cta": {
-        "message": "Sınırsız veri, konum ve hız için şimdi yükseltin!"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "Erken rezervasyon fiyatları!"
     },
     "popup_feedback_title": {
         "message": "Geri bildiriminizi duymak isteriz"
@@ -374,8 +428,8 @@
     "upgrade_features_all_locations": {
         "message": "Tüm konumlar"
     },
-    "upgrade_features_no_log": {
-        "message": "Kayıt politikası yok"
+    "upgrade_features_devices": {
+        "message": "5 cihaza kadar"
     },
     "continue_us_free_button": {
         "message": "Ücretsiz kullanmaya devam et"
@@ -393,11 +447,11 @@
         "message": "VPN bu sitede devre dışı bırakıldı"
     },
     "popup_auth_agreement_consent": {
-        "message": "AdGuard VPN'yi kullanmaya devam ederek <eula>Son Kullanıcı Lisans Sözleşmesi</eula> ve <privacy>Gizlilik Politikamızı</privacy> kabul etmiş olursunuz",
+        "message": "AdGuard VPN'yi kullanmaya devam ederek <eula>SKLS</eula> ve <privacy>Gizlilik Politikamızı</privacy> kabul etmiş olursunuz",
         "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_agreement_consent": {
-        "message": "Devam ederek <privacy>Şart ve Koşulları</privacy> ve <eula>Son Kullanıcı Lisans Anlaşmasını</eula> kabul edersiniz",
+        "message": "AdGuard VPN'yi kullanmaya devam ederek <eula>SKLS</eula> ve <privacy>Gizlilik Politikamızı</privacy> kabul etmiş olursunuz",
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {

@@ -174,7 +174,7 @@
         "message": "DNS-сервера (Domain Name Servers) - гэта адрасная кніга Інтэрнэту. Яны ўтрымваюць усе назвы даменаў, і ўмеюць іх трансляваць іх у рэальныя IP-адрасы."
     },
     "settings_dns_selector_default_title": {
-        "message": "Прадвызначана"
+        "message": "Прадвызначаны"
     },
     "settings_dns_selector_default_desc": {
         "message": "Аўтаматычна выкарыстоўваць прадвызначаны DNS-сервер пры падлучэнні да VPN"
@@ -296,9 +296,6 @@
     "context_menu_disable_vpn": {
         "message": "Адключыць VPN на гэтым сайце"
     },
-    "suggest_feature": {
-        "message": "Прапанаваць паляпшэнне"
-    },
     "endpoints_countries": {
         "message": "Месцівы"
     },
@@ -326,8 +323,26 @@
     "settings_disconnect": {
         "message": "Адключыць"
     },
+    "settings_vpn_connecting": {
+        "message": "Злучэнне..."
+    },
     "settings_connect": {
         "message": "Злучыць"
+    },
+    "settings_vpn_enabled": {
+        "message": "Злучаны"
+    },
+    "settings_vpn_disabled": {
+        "message": "Адключаны"
+    },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Хуткасць злучэння зніжана"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "У вас скончыўся дармовы трафік, і зараз AdGuard VPN працуе павольна."
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Павялічыць хуткасць"
     },
     "popup_feedback_title": {
         "message": "Мы будзем рады ўбачыць ваш водгук"
@@ -350,9 +365,6 @@
     "upgrade_features_all_locations": {
         "message": "Усе месцівы"
     },
-    "upgrade_features_no_log": {
-        "message": "Палітыка \"Без логаў\""
-    },
     "continue_us_free_button": {
         "message": "Працягнуць дарма"
     },
@@ -367,14 +379,6 @@
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN адключаны на гэтым сайце"
-    },
-    "popup_auth_agreement_consent": {
-        "message": "Працягваючы скарыстаць AdGuard, Вы згаджаецеся з нашым <eula>Ліцэнзійным пагадненнем</eula> і <privacy>Палітыкай прыватнасці</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "Працягваючы, вы прымаеце <privacy>Умовы выкарыстання</privacy> і <eula>Ліцэнзійнае пагадненне</eula>",
-        "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> засталося ў гэтым месяцы",

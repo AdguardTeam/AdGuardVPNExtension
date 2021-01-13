@@ -53,6 +53,69 @@
     "about_title": {
         "message": "Despre"
     },
+    "options_support_title": {
+        "message": "Suport"
+    },
+    "options_support_faq_title": {
+        "message": "FAQ"
+    },
+    "options_support_faq_description": {
+        "message": "Întrebări și răspunsuri"
+    },
+    "options_support_report_title": {
+        "message": "Raportați o eroare"
+    },
+    "options_support_report_description": {
+        "message": "Dacă ceva nu funcționează corect în program"
+    },
+    "options_support_feedback_title": {
+        "message": "Lăsați un feedback"
+    },
+    "options_support_feedback_description": {
+        "message": "Trimiteți cereri de funcții și sugestii"
+    },
+    "options_support_discuss_title": {
+        "message": "Discuții"
+    },
+    "options_support_discuss_description": {
+        "message": "Discutați pe forumul nostru, în rețelele sociale sau pe GitHub"
+    },
+    "options_report_bug_title": {
+        "message": "Raportați o eroare"
+    },
+    "options_bug_report_email_label": {
+        "message": "E-mail"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Includeți raportul de diagnostic în mesaj"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "Adresă e-mail incorectă"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "Acest câmp nu poate fi gol"
+    },
+    "options_bug_report_request_error": {
+        "message": "A apărut o eroare. Vă rugăm să încercați din nou mai târziu."
+    },
+    "options_bug_report_send_button": {
+        "message": "Trimite"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Se trimite..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Descrieți problema aici..."
+    },
+    "options_bug_report_page_success": {
+        "message": "Mulțumesc, mesajul dvs. a fost trimis cu succes!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "Raport nou"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Mesaj"
+    },
     "account_title": {
         "message": "Cont"
     },
@@ -296,9 +359,6 @@
     "context_menu_disable_vpn": {
         "message": "Dezactivați VPN pe acest site"
     },
-    "suggest_feature": {
-        "message": "Sugerați o funcție"
-    },
     "endpoints_countries": {
         "message": "Locații"
     },
@@ -338,6 +398,15 @@
     "settings_vpn_disabled": {
         "message": "Deconectat"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Viteza este redusă"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Ați atins limita de date gratuite, și AdGuard VPN funcționează încet."
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Crește viteza"
+    },
     "popup_feedback_title": {
         "message": "Ne-ar plăcea să auzim feedback-ul dvs."
     },
@@ -359,8 +428,8 @@
     "upgrade_features_all_locations": {
         "message": "Toate locațiile"
     },
-    "upgrade_features_no_log": {
-        "message": "Fără politică de jurnale"
+    "upgrade_features_devices": {
+        "message": "Până la 5 dispozitive"
     },
     "continue_us_free_button": {
         "message": "Continuați să utilizați gratuit"
@@ -382,7 +451,7 @@
         "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_agreement_consent": {
-        "message": "Continuând, acceptați <privacy>Termenii și Condițiile</privacy> și <eula>EULA</eula>",
+        "message": "Prin continuarea utilizării AdGuard VPN, sunteți de acord cu <eula>EULA</eula> și <privacy>Politica de confidențialitate</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {

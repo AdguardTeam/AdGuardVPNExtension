@@ -188,13 +188,6 @@
     "upgrade_features_all_locations": {
         "message": "Alla platser"
     },
-    "upgrade_features_no_log": {
-        "message": "Ingen loggnings-policy"
-    },
-    "options_auth_agreement_consent": {
-        "message": "Genom att fortsätta accepterar du <privacy>Villkor och regler</privacy> samt <eula>EULA</eula>",
-        "description": "NOTICE! respect spaces between tags"
-    },
     "options_auth_back_button": {
         "message": "Tillbaka"
     }

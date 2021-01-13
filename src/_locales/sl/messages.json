@@ -53,6 +53,69 @@
     "about_title": {
         "message": "Vizitka"
     },
+    "options_support_title": {
+        "message": "Podpora"
+    },
+    "options_support_faq_title": {
+        "message": "Pogosta vprašanja in odgovori (FAQ)"
+    },
+    "options_support_faq_description": {
+        "message": "Vprašanja in odgovori"
+    },
+    "options_support_report_title": {
+        "message": "Prijavi napako"
+    },
+    "options_support_report_description": {
+        "message": "Če v programu nekaj ne deluje pravilno"
+    },
+    "options_support_feedback_title": {
+        "message": "Pošljite povratne informacije"
+    },
+    "options_support_feedback_description": {
+        "message": "Pošlji zahteve za funkcije in predloge"
+    },
+    "options_support_discuss_title": {
+        "message": "Pogovor"
+    },
+    "options_support_discuss_description": {
+        "message": "Pogovorite se na našem forumu, na družbenih omrežjih ali na GitHubu"
+    },
+    "options_report_bug_title": {
+        "message": "Prijavi napako"
+    },
+    "options_bug_report_email_label": {
+        "message": "E-pošta"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "V sporočilo vključite diagnostično poročilo"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "Napačen e-poštni naslov"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "To polje ne sme biti prazno"
+    },
+    "options_bug_report_request_error": {
+        "message": "Prišlo je do napake, poskusite pozneje znova."
+    },
+    "options_bug_report_send_button": {
+        "message": "Pošlji"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Pošiljanje..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Tukaj opišite težavo..."
+    },
+    "options_bug_report_page_success": {
+        "message": "Hvala, vaše sporočilo je bilo uspešno poslano!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "Novo poročilo"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Sporočilo"
+    },
     "account_title": {
         "message": "Račun"
     },
@@ -296,9 +359,6 @@
     "context_menu_disable_vpn": {
         "message": "Onemogoči VPN na tej spletni strani"
     },
-    "suggest_feature": {
-        "message": "Predlagaj funkcijo"
-    },
     "endpoints_countries": {
         "message": "Lokacije"
     },
@@ -338,6 +398,15 @@
     "settings_vpn_disabled": {
         "message": "Izklopljen"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Hitrost je zmanjšana"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Dosegli ste omejitev brezplačnih podatkov in AdGuard VPN deluje počasi."
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Povečajte hitrost"
+    },
     "popup_feedback_title": {
         "message": "Zelo radi bi slišali vaše povratne informacije"
     },
@@ -359,8 +428,8 @@
     "upgrade_features_all_locations": {
         "message": "Vse lokacije"
     },
-    "upgrade_features_no_log": {
-        "message": "Politika ne vodenja dnevnika"
+    "upgrade_features_devices": {
+        "message": "Do 5 naprav"
     },
     "continue_us_free_button": {
         "message": "Nadaljuj kot brezplačno"
@@ -382,7 +451,7 @@
         "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_agreement_consent": {
-        "message": "Z nadaljevanjem sprejemate <privacy>Pogoje in določila</privacy> in <eula>Licenčno pogodbo za končnega uporabnika</eula>",
+        "message": "Z nadaljevanjem uporabe AdGuard VPN soglašate z našo <eula>Licenčno pogodba za končnega uporabnika</eula> in <privacy>Politiko zasebnosti</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {

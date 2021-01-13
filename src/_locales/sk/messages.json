@@ -53,6 +53,69 @@
     "about_title": {
         "message": "O aplikácii"
     },
+    "options_support_title": {
+        "message": "Podpora"
+    },
+    "options_support_faq_title": {
+        "message": "Často kladené otázky"
+    },
+    "options_support_faq_description": {
+        "message": "Otázky a odpovede"
+    },
+    "options_support_report_title": {
+        "message": "Nahlásiť chybu"
+    },
+    "options_support_report_description": {
+        "message": "Ak niečo v programe nefunguje správne"
+    },
+    "options_support_feedback_title": {
+        "message": "Poslať spätnú väzbu"
+    },
+    "options_support_feedback_description": {
+        "message": "Poslať požiadavky na funkcie a iné návrhy"
+    },
+    "options_support_discuss_title": {
+        "message": "Prediskutovať"
+    },
+    "options_support_discuss_description": {
+        "message": "Diskutujte na našom fóre, v sociálnych sieťach alebo na GitHub"
+    },
+    "options_report_bug_title": {
+        "message": "Nahlásiť chybu"
+    },
+    "options_bug_report_email_label": {
+        "message": "E-mail"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Pripojiť k tejto správe diagnostický záznam"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "Nesprávna e-mail adresa"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "Toto pole nemôže zostať prázdne"
+    },
+    "options_bug_report_request_error": {
+        "message": "Vyskytla sa chyba. Skúste zopakovať neskôr."
+    },
+    "options_bug_report_send_button": {
+        "message": "Poslať"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Odosielam..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Sem opíšte problém..."
+    },
+    "options_bug_report_page_success": {
+        "message": "Ďakujeme, Vaša správa bola úspešne odoslaná!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "Nové hlásenie"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Správa"
+    },
     "account_title": {
         "message": "Účet"
     },
@@ -296,9 +359,6 @@
     "context_menu_disable_vpn": {
         "message": "Vypnúť VPN na tejto stránke"
     },
-    "suggest_feature": {
-        "message": "Navrhnúť funkciu"
-    },
     "endpoints_countries": {
         "message": "Lokality"
     },
@@ -339,19 +399,13 @@
         "message": "Odpojené"
     },
     "popup_traffic_limit_exceeded_title": {
-        "message": "Rýchlosť pripojenia je znížená"
+        "message": "Rýchlosť je znížená"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "Došli Vám rýchle gigabajty :( <br/> Zostávajú iba tie pomalé"
+        "message": "Dosiahli ste bezplatný dátový limit a AdGuard VPN funguje pomaly."
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Zvýšte rýchlosť"
-    },
-    "popup_traffic_limit_exceeded_cta": {
-        "message": "Upgradujte teraz a získajte neobmedzené dáta, lokality a rýchlosť!"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "Ceny v predpredaji!"
     },
     "popup_feedback_title": {
         "message": "Radi by sme počuli Vašu spätnú väzbu"
@@ -374,8 +428,8 @@
     "upgrade_features_all_locations": {
         "message": "Všetky lokality"
     },
-    "upgrade_features_no_log": {
-        "message": "Politika nevytvárania denníkov"
+    "upgrade_features_devices": {
+        "message": "Až do 5 zariadení"
     },
     "continue_us_free_button": {
         "message": "Pokračovať bezplatne"
@@ -393,11 +447,11 @@
         "message": "VPN je vypnuté na tejto stránke"
     },
     "popup_auth_agreement_consent": {
-        "message": "Používaním siete AdGuard VPN súhlasíte s <eula>EULA</eula> a <privacy>Pravidlami ochrany súkromia</privacy>",
+        "message": "Pokračovaním v používaní AdGuard VPN súhlasíte s <eula>EULA</eula> a <privacy>Pravidlami ochrany súkromia</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_agreement_consent": {
-        "message": "Pokračovaním akceptujete <privacy> Zmluvné podmienky </privacy> a <eula>EULA</eula>",
+        "message": "Pokračovaním v používaní AdGuard VPN akceptujete <eula>EULA</eula> a <privacy>Pravidlá ochrany súkromia</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {

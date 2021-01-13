@@ -53,6 +53,69 @@
     "about_title": {
         "message": "О программе"
     },
+    "options_support_title": {
+        "message": "Поддержка"
+    },
+    "options_support_faq_title": {
+        "message": "FAQ"
+    },
+    "options_support_faq_description": {
+        "message": "Вопросы и ответы"
+    },
+    "options_support_report_title": {
+        "message": "Сообщить об ошибке"
+    },
+    "options_support_report_description": {
+        "message": "Если что-то в программе работает некорректно"
+    },
+    "options_support_feedback_title": {
+        "message": "Оставить отзыв"
+    },
+    "options_support_feedback_description": {
+        "message": "Отправить запрос на новую функцию или другое предложение"
+    },
+    "options_support_discuss_title": {
+        "message": "Обсудить"
+    },
+    "options_support_discuss_description": {
+        "message": "Обсудить на форуме, в социальных сетях или на GitHub"
+    },
+    "options_report_bug_title": {
+        "message": "Сообщить об ошибке"
+    },
+    "options_bug_report_email_label": {
+        "message": "Email"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Включить в сообщение диагностический отчет"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "Неправильный адрес почты"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "Это поле не может быть пустым"
+    },
+    "options_bug_report_request_error": {
+        "message": "Произошла ошибка. Попробуйте позже."
+    },
+    "options_bug_report_send_button": {
+        "message": "Отправить"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Отправка..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Опишите найденную ошибку..."
+    },
+    "options_bug_report_page_success": {
+        "message": "Спасибо, ваше сообщение отправлено!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "Новый отчет"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Текст сообщения"
+    },
     "account_title": {
         "message": "Аккаунт"
     },
@@ -171,7 +234,7 @@
         "message": "Использовать сервер DNS"
     },
     "settings_dns_desc": {
-        "message": "Система доменных имен (DNS) – это адресная книга Интернета. Она поддерживает каталог доменных имен и транслируют их в реальные IP-адреса."
+        "message": "Система доменных имен (DNS) – это эквивалент телефонной книги в интернете. Эта система ведёт регистр доменных имён и переводит их в IP-адреса."
     },
     "settings_dns_selector_default_title": {
         "message": "Стандартный"
@@ -296,9 +359,6 @@
     "context_menu_disable_vpn": {
         "message": "Не использовать VPN на этом сайте"
     },
-    "suggest_feature": {
-        "message": "Предложить улучшение"
-    },
     "endpoints_countries": {
         "message": "Локации"
     },
@@ -339,19 +399,13 @@
         "message": "Отключено"
     },
     "popup_traffic_limit_exceeded_title": {
-        "message": "Скорость соединения снижена"
+        "message": "Скорость снижена"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "У вас закончились быстрые гигабайты :( <br/> Остались только медленные"
+        "message": "У вас закончился бесплатный трафик, и теперь AdGuard VPN работает медленно."
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Увеличить скорость"
-    },
-    "popup_traffic_limit_exceeded_cta": {
-        "message": "Перейдите на подписку для безлимитного трафика, локаций и скорости!"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "Ограниченное предложение!"
     },
     "popup_feedback_title": {
         "message": "Мы будем рады увидеть ваш отзыв"
@@ -374,8 +428,8 @@
     "upgrade_features_all_locations": {
         "message": "Все локации"
     },
-    "upgrade_features_no_log": {
-        "message": "Политика \"Без логов\""
+    "upgrade_features_devices": {
+        "message": "До 5  устройств"
     },
     "continue_us_free_button": {
         "message": "Продолжить бесплатно"
@@ -393,11 +447,11 @@
         "message": "VPN отключен на этом сайте"
     },
     "popup_auth_agreement_consent": {
-        "message": "Используя AdGuard VPN, вы соглашаетесь с нашим <eula>Лицензионным соглашением</eula> и <privacy>Политикой конфиденциальности</privacy>",
+        "message": "Продолжая использовать AdGuard VPN, вы соглашаетесь с нашим <eula>Лицензионным соглашением</eula> и <privacy>Политикой конфиденциальности</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_agreement_consent": {
-        "message": "Продолжая, вы принимаете <privacy>Условия использования</privacy> и <eula>Лицензионное соглашение</eula>",
+        "message": "Продолжая использовать AdGuard VPN, вы соглашаетесь с нашим <eula>Лицензионным соглашением</eula> и <privacy>Политикой конфиденциальности</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {

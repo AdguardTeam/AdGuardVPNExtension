@@ -53,6 +53,69 @@
     "about_title": {
         "message": "AdGuard VPNについて"
     },
+    "options_support_title": {
+        "message": "お客様サポート"
+    },
+    "options_support_faq_title": {
+        "message": "よくあるご質問（FAQ）"
+    },
+    "options_support_faq_description": {
+        "message": "よくある問題や質問への回答を集めました。"
+    },
+    "options_support_report_title": {
+        "message": "バグ・不具合を報告する"
+    },
+    "options_support_report_description": {
+        "message": "拡張機能が正常に作動しない場合など"
+    },
+    "options_support_feedback_title": {
+        "message": "フィードバックを送信する"
+    },
+    "options_support_feedback_description": {
+        "message": "ぜひ新機能や改善のご提案等をお送りください。"
+    },
+    "options_support_discuss_title": {
+        "message": "AdGuard VPNについて議論する"
+    },
+    "options_support_discuss_description": {
+        "message": "AdGuardのフォーラム、SNS、GitHub"
+    },
+    "options_report_bug_title": {
+        "message": "バグ・不具合を報告する"
+    },
+    "options_bug_report_email_label": {
+        "message": "メールアドレス"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "メッセージに診断レポートを含める"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "メールアドレスが間違っています"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "この欄もご記入ください"
+    },
+    "options_bug_report_request_error": {
+        "message": "エラーが発生しました。後ほどもう一度お試しください。"
+    },
+    "options_bug_report_send_button": {
+        "message": "送信する"
+    },
+    "options_bug_report_sending_button": {
+        "message": "送信中…"
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "こちらに問題の概要をご記入ください…"
+    },
+    "options_bug_report_page_success": {
+        "message": "送信完了！ありがとうございます。"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "新しい報告"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "メッセージ・問題概要等"
+    },
     "account_title": {
         "message": "アカウント"
     },
@@ -296,9 +359,6 @@
     "context_menu_disable_vpn": {
         "message": "このサイトでVPNを無効にする"
     },
-    "suggest_feature": {
-        "message": "機能を提案する"
-    },
     "endpoints_countries": {
         "message": "ロケーション"
     },
@@ -339,19 +399,13 @@
         "message": "切断されています。"
     },
     "popup_traffic_limit_exceeded_title": {
-        "message": "接続が低速化されています。"
+        "message": "低速化されています。"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "速いデータは逃げちゃいました :( <br/> 残りは亀のように遅いデータだけです。"
+        "message": "無料データ上限に達したため、AdGuard VPNは低速化しています。"
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "今すぐ速度を上げる"
-    },
-    "popup_traffic_limit_exceeded_cta": {
-        "message": "データ量、ロケーション、速度を今すぐ無制限版にアップグレード"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "早期割引価格!"
     },
     "popup_feedback_title": {
         "message": "ユーザ様の声をお聞かせください。"
@@ -374,8 +428,8 @@
     "upgrade_features_all_locations": {
         "message": "全ロケーション利用可能"
     },
-    "upgrade_features_no_log": {
-        "message": "ログ一切なしポリシー"
+    "upgrade_features_devices": {
+        "message": "同時にデバイス5台まで使用可能"
     },
     "continue_us_free_button": {
         "message": "無料版で続ける"
@@ -393,11 +447,11 @@
         "message": "このサイトに対してVPNは無効になっています。"
     },
     "popup_auth_agreement_consent": {
-        "message": "AdGuard VPNを使用すると、<eula>利用許諾契約(EULA)</eula>および<privacy>プライバシーポリシー</privacy>に同意したことになります。",
+        "message": "AdGuard VPNを使用し続けますと、<eula>利用許諾契約(EULA)</eula>および<privacy>プライバシーポリシー</privacy>に同意したことになります。",
         "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_agreement_consent": {
-        "message": "続行することで<privacy>規約と条件</privacy>および<eula>利用許諾契約(EULA)</eula>に同意したことになります。",
+        "message": "AdGuard VPNを使用し続けますと、<eula>利用許諾契約(EULA)</eula>および<privacy>プライバシーポリシー</privacy>に同意したことになります。",
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {

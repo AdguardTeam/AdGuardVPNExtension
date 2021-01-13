@@ -281,9 +281,6 @@
     "context_menu_disable_vpn": {
         "message": "Tắt VPN trên trang web này"
     },
-    "suggest_feature": {
-        "message": "Đề xuất một tính năng"
-    },
     "endpoints_countries": {
         "message": "Vị trí"
     },
@@ -332,9 +329,6 @@
     "upgrade_features_all_locations": {
         "message": "Tất cả vị trí"
     },
-    "upgrade_features_no_log": {
-        "message": "Không nhật ký"
-    },
     "continue_us_free_button": {
         "message": "Tiếp tục sử dụng miễn phí"
     },
@@ -349,14 +343,6 @@
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN bị tắt trên trang web này"
-    },
-    "popup_auth_agreement_consent": {
-        "message": "Bằng việc tiếp tục sử dụng AdGuard VPN, bạn đồng ý với <eula> Thỏa thuận người dùng cuối </eula> và <privacy> Chính sách bảo mật.</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "Bằng cách tiếp tục, bạn chấp nhận <privacy> Điều khoản và Điều kiện </privacy> và <eula> EULA </eula>",
-        "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value%%unit%</span> còn lại trong tháng này",

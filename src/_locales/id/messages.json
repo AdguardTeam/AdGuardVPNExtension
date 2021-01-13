@@ -56,6 +56,9 @@
     "account_title": {
         "message": "Akun"
     },
+    "account_edit": {
+        "message": "Kelola"
+    },
     "account_sign_out": {
         "message": "Keluar"
     },
@@ -218,14 +221,26 @@
     "settings_dns_selector_quad9_desc": {
         "message": "Layanan alternatif DNS gratis dengan perlindungan dari phishing dan spyware"
     },
+    "settings_exclusion_add": {
+        "message": "Tambah situs"
+    },
     "settings_exclusion_title": {
         "message": "Pengecualian"
+    },
+    "settings_connection_mode_title": {
+        "message": "Mode operasi"
     },
     "settings_exclusion_regular_title": {
         "message": "Mode reguler"
     },
+    "settings_exclusion_regular_description": {
+        "message": "AdGuard VPN tidak bekerja di situs dari daftar dibawah ini"
+    },
     "settings_exclusion_selective_title": {
         "message": "Mode selektif"
+    },
+    "settings_exclusion_selective_description": {
+        "message": "AdGuard VPN hanya bekerja di situs dari daftar dibawah ini"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Subdomain"
@@ -281,9 +296,6 @@
     "context_menu_disable_vpn": {
         "message": "Matikan VPN pada situs ini"
     },
-    "suggest_feature": {
-        "message": "Sarankan fitur"
-    },
     "endpoints_countries": {
         "message": "Lokasi"
     },
@@ -299,6 +311,9 @@
     "endpoints_search": {
         "message": "Cari lokasi"
     },
+    "endpoints_not_found": {
+        "message": "Lokasi tidak ditemukan"
+    },
     "popup_traffic_limit_reached": {
         "message": "Batas data bulanan terlampaui. Butuh lebih?"
     },
@@ -308,8 +323,20 @@
     "settings_disconnect": {
         "message": "Terputus"
     },
+    "settings_vpn_connecting": {
+        "message": "Menghubungkan..."
+    },
     "settings_connect": {
         "message": "Sambung"
+    },
+    "settings_vpn_enabled": {
+        "message": "Terhubung"
+    },
+    "settings_vpn_disabled": {
+        "message": "Terputus"
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Naikan kecepatan"
     },
     "popup_feedback_title": {
         "message": "Kami ingin mendengar tanggapan Anda"
@@ -332,9 +359,6 @@
     "upgrade_features_all_locations": {
         "message": "Semua lokasi"
     },
-    "upgrade_features_no_log": {
-        "message": "Tanpa kebijakan log"
-    },
     "continue_us_free_button": {
         "message": "Tetap gunakan secara gratis"
     },
@@ -350,19 +374,20 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN tidak diaktifkan pada situs ini"
     },
-    "popup_auth_agreement_consent": {
-        "message": "Menggunakan AdGuard VPN, Anda setuju pada <eula>EULA</eula> kami dan <privacy>kebijakan privasi</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "Melanjutkan berarti Anda menerima <privacy>Syarat dan Ketentuan</privacy> dan <eula>EULA</eula>",
-        "description": "NOTICE! respect spaces between tags"
-    },
     "popup_free_traffic_info": {
         "message": "<span>%value%%unit%</span> sisa bulan ini",
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_auth_back_button": {
         "message": "Kembali"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "Dalam mode Selektif AdGuard VPN hanya berfungsi di situs yang diizinkan yang telah Anda tambahkan ke daftar."
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Beralih sekarang"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "Anda yakin ingin beralih?"
     }
 }

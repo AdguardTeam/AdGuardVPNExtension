@@ -53,6 +53,69 @@
     "about_title": {
         "message": "Sobre"
     },
+    "options_support_title": {
+        "message": "Suporte"
+    },
+    "options_support_faq_title": {
+        "message": "FAQ"
+    },
+    "options_support_faq_description": {
+        "message": "Perguntas e respostas"
+    },
+    "options_support_report_title": {
+        "message": "Reportar um problema"
+    },
+    "options_support_report_description": {
+        "message": "Se algo não funcionar corretamente no programa"
+    },
+    "options_support_feedback_title": {
+        "message": "Deixar feedback"
+    },
+    "options_support_feedback_description": {
+        "message": "Enviar solicitações e sugestões de recursos"
+    },
+    "options_support_discuss_title": {
+        "message": "Discussão"
+    },
+    "options_support_discuss_description": {
+        "message": "Discuta em nosso fórum, em redes sociais ou no Github"
+    },
+    "options_report_bug_title": {
+        "message": "Reportar um problema"
+    },
+    "options_bug_report_email_label": {
+        "message": "E-mail"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Incluir o diagnóstico do problema na mensagem"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "Endereço de e-mail incorreto"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "Este campo não pode estar vazio"
+    },
+    "options_bug_report_request_error": {
+        "message": "Um erro ocorreu. Por favor, tente novamente mais tarde."
+    },
+    "options_bug_report_send_button": {
+        "message": "Enviar"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Enviando..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Descreva o problema aqui..."
+    },
+    "options_bug_report_page_success": {
+        "message": "Obrigado, sua mensagem foi enviada com sucesso!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "Novo relatório"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Mensagem"
+    },
     "account_title": {
         "message": "Conta"
     },
@@ -165,13 +228,13 @@
         "message": "Modo seletivo"
     },
     "context_menu_regular_mode": {
-        "message": "Modo regular"
+        "message": "Modo normal"
     },
     "settings_dns_label": {
         "message": "Usar servidor DNS"
     },
     "settings_dns_desc": {
-        "message": "O Domain Name System (DNS) é o equivalente da Internet a uma lista telefônica. Ele mantém um diretório de nomes de domínio e os traduz para endereços IP (Internet Protocol)."
+        "message": "O sistema de nome de domínio (DNS) é o equivalente da Internet a uma lista telefônica. Ele mantém um diretório de nomes de domínio e os traduz para endereços IP (Internet Protocol)."
     },
     "settings_dns_selector_default_title": {
         "message": "Padrão"
@@ -180,7 +243,7 @@
         "message": "Usar automaticamente servidores DNS padrão quando conectado à VPN"
     },
     "settings_dns_selector_adguard_title": {
-        "message": "DNS do AdGuard"
+        "message": "AdGuard DNS"
     },
     "settings_dns_selector_adguard_desc": {
         "message": "Remove anúncios e rastreadores do seu dispositivo"
@@ -192,7 +255,7 @@
         "message": "DNS seguro sem registro de atividades (não filtra anúncios e rastreadores)"
     },
     "settings_dns_selector_adguard_family_title": {
-        "message": "AdGuard DNS Proteção Familiar"
+        "message": "AdGuard DNS Proteção familiar"
     },
     "settings_dns_selector_adguard_family_desc": {
         "message": "AdGuard DNS + pesquisa segura com bloqueio de conteúdo adulto"
@@ -231,7 +294,7 @@
         "message": "Modo operacional"
     },
     "settings_exclusion_regular_title": {
-        "message": "Modo regular"
+        "message": "Modo normal"
     },
     "settings_exclusion_regular_description": {
         "message": "O AdGuard VPN não funciona em sites da lista abaixo"
@@ -296,9 +359,6 @@
     "context_menu_disable_vpn": {
         "message": "Desativar VPN neste site"
     },
-    "suggest_feature": {
-        "message": "Sugerir uma funcionalidade"
-    },
     "endpoints_countries": {
         "message": "Localizações"
     },
@@ -339,19 +399,13 @@
         "message": "Desconectado"
     },
     "popup_traffic_limit_exceeded_title": {
-        "message": "A velocidade da conexão é reduzida"
+        "message": "Velocidade é reduzida"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "Você ficou sem gigabytes rápidos :( <br/> Restam apenas alguns lentos"
+        "message": "Você atingiu o limite de dados gratuitos, e o AdGuard VPN funciona lentamente."
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Aumento de velocidade"
-    },
-    "popup_traffic_limit_exceeded_cta": {
-        "message": "Atualize agora para dados ilimitados, localizações e velocidade!"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "Preços de reserva antecipada!"
     },
     "popup_feedback_title": {
         "message": "Gostaríamos muito de ouvir seu feedback"
@@ -374,8 +428,8 @@
     "upgrade_features_all_locations": {
         "message": "Todos os locais"
     },
-    "upgrade_features_no_log": {
-        "message": "Sem política de registros"
+    "upgrade_features_devices": {
+        "message": "Até 5 dispositivos"
     },
     "continue_us_free_button": {
         "message": "Continue como grátis"
@@ -393,11 +447,11 @@
         "message": "A VPN está desativada neste site"
     },
     "popup_auth_agreement_consent": {
-        "message": "Ao usar o AdGuard VPN, você concorda com o <eula>Contrato</eula> e nossa <privacy>política de privacidade</privacy>",
+        "message": "Ao continuar usando o AdGuard VPN, você concorda com o <eula>termos e condições</eula> e nossa <privacy>política de privacidade</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_agreement_consent": {
-        "message": "Ao continuar, você aceita o <privacy>Termos e Condições</privacy> e o nosso <eula>CONTRATO</eula>",
+        "message": "Ao continuar usando o AdGuard VPN, você concorda com o <eula>termos e condições</eula> e nossa <privacy>política de privacidade</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {
@@ -408,7 +462,7 @@
         "message": "Voltar"
     },
     "options_selective_mode_popup_message": {
-        "message": "No modo regular, o AdGuard VPN só funciona em sites permitidos que você adicionou à lista."
+        "message": "No modo normal, o AdGuard VPN só funciona em sites permitidos que você adicionou à lista."
     },
     "options_selective_mode_popup_button_switch_now": {
         "message": "Mudar agora"
