@@ -65,11 +65,38 @@
     "options_support_report_title": {
         "message": "Fehler melden"
     },
+    "options_support_report_description": {
+        "message": "Wenn in der Anwendung etwas nicht richtig funktioniert"
+    },
+    "options_support_feedback_title": {
+        "message": "Feedback senden"
+    },
+    "options_support_feedback_description": {
+        "message": "Wünsche und Vorschläge für neue Funktionen einreichen"
+    },
+    "options_support_discuss_title": {
+        "message": "Diskutieren Sie mit"
+    },
+    "options_support_discuss_description": {
+        "message": "Diskutieren Sie in unserem Forum, in sozialen Netzwerken oder auf Github"
+    },
     "options_report_bug_title": {
         "message": "Fehler melden"
     },
     "options_bug_report_email_label": {
         "message": "E-Mail-Adresse"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Den Diagnosebericht der Nachricht beifügen"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "Ungültige E-Mail-Adresse"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "Pflichtfeld"
+    },
+    "options_bug_report_request_error": {
+        "message": "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal."
     },
     "options_bug_report_send_button": {
         "message": "Senden"
@@ -418,6 +445,14 @@
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN ist auf dieser Webseite deaktiviert"
+    },
+    "popup_auth_agreement_consent": {
+        "message": "Durch die Nutzung von AdGuard VPN, stimmen Sie unserem <eula>Endbenutzer-Lizenzvertrag</eula> und unseren <privacy>Datenschutzbestimmungen</privacy> zu",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "options_auth_agreement_consent": {
+        "message": "Durch Fortfahren akzeptieren Sie die <privacy>Geschäftsbedingungen</privacy> und den <eula>Endbenutzer-Lizenzvertrag</eula>",
+        "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> diese Monat verbleibend",
