@@ -53,6 +53,69 @@
     "about_title": {
         "message": "Om"
     },
+    "options_support_title": {
+        "message": "Support"
+    },
+    "options_support_faq_title": {
+        "message": "FAQ"
+    },
+    "options_support_faq_description": {
+        "message": "Spørgsmål og svar"
+    },
+    "options_support_report_title": {
+        "message": "Rapporter en fejl"
+    },
+    "options_support_report_description": {
+        "message": "Hvis noget ikke fungerer korrekt i programmet"
+    },
+    "options_support_feedback_title": {
+        "message": "Giv feedback"
+    },
+    "options_support_feedback_description": {
+        "message": "Indsend funktionsanmodninger og forslag"
+    },
+    "options_support_discuss_title": {
+        "message": "Debattér"
+    },
+    "options_support_discuss_description": {
+        "message": "Diskuter på vores forum, på sociale netværk eller på Github"
+    },
+    "options_report_bug_title": {
+        "message": "Rapporter en fejl"
+    },
+    "options_bug_report_email_label": {
+        "message": "E-mail"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Inkluder diagnoserapporten i beskeden"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "Forkert e-mailadresse"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "Dette felt kan ikke være tomt"
+    },
+    "options_bug_report_request_error": {
+        "message": "En fejl opstod. Prøv igen senere."
+    },
+    "options_bug_report_send_button": {
+        "message": "Send"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Sender..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Beskriv problemet her..."
+    },
+    "options_bug_report_page_success": {
+        "message": "Tak, din besked blev sendt!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "Ny rapport"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Besked"
+    },
     "account_title": {
         "message": "Konto"
     },
@@ -296,9 +359,6 @@
     "context_menu_disable_vpn": {
         "message": "Deaktiver VPN på dette websted"
     },
-    "suggest_feature": {
-        "message": "Foreslå en funktion"
-    },
     "endpoints_countries": {
         "message": "Placeringer"
     },
@@ -368,8 +428,8 @@
     "upgrade_features_all_locations": {
         "message": "Alle placeringer"
     },
-    "upgrade_features_no_log": {
-        "message": "Politik om ingen logning"
+    "upgrade_features_devices": {
+        "message": "Op til 5 enheder"
     },
     "continue_us_free_button": {
         "message": "Fortsæt med at bruge gratis"
@@ -391,7 +451,7 @@
         "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_agreement_consent": {
-        "message": "Ved at fortsætte accepterer du <privacy>Vilkår og Betingelser</privacy> og <eula>EULA</eula>",
+        "message": "Ved at bruge AdGuard VPN, accepterer du vores <eula>EULA</eula> og <privacy>Privatlivspolitik</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {

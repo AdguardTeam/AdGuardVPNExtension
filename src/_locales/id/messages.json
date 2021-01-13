@@ -296,9 +296,6 @@
     "context_menu_disable_vpn": {
         "message": "Matikan VPN pada situs ini"
     },
-    "suggest_feature": {
-        "message": "Sarankan fitur"
-    },
     "endpoints_countries": {
         "message": "Lokasi"
     },
@@ -362,9 +359,6 @@
     "upgrade_features_all_locations": {
         "message": "Semua lokasi"
     },
-    "upgrade_features_no_log": {
-        "message": "Tanpa kebijakan log"
-    },
     "continue_us_free_button": {
         "message": "Tetap gunakan secara gratis"
     },
@@ -379,14 +373,6 @@
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN tidak diaktifkan pada situs ini"
-    },
-    "popup_auth_agreement_consent": {
-        "message": "Menggunakan AdGuard VPN, Anda setuju pada <eula>EULA</eula> kami dan <privacy>kebijakan privasi</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "Melanjutkan berarti Anda menerima <privacy>Syarat dan Ketentuan</privacy> dan <eula>EULA</eula>",
-        "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value%%unit%</span> sisa bulan ini",

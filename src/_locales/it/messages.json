@@ -53,6 +53,69 @@
     "about_title": {
         "message": "Su di noi"
     },
+    "options_support_title": {
+        "message": "Supporto"
+    },
+    "options_support_faq_title": {
+        "message": "FAQ"
+    },
+    "options_support_faq_description": {
+        "message": "Domande i risposte"
+    },
+    "options_support_report_title": {
+        "message": "Segnala un bug"
+    },
+    "options_support_report_description": {
+        "message": "Se qualcosa non dovesse funzionare bene nel programma"
+    },
+    "options_support_feedback_title": {
+        "message": "Invia feedback"
+    },
+    "options_support_feedback_description": {
+        "message": "Invia richieste di funzionalità e suggerimenti"
+    },
+    "options_support_discuss_title": {
+        "message": "Discuti"
+    },
+    "options_support_discuss_description": {
+        "message": "Discutine sul nostro forum, nelle reti sociali, o su GitHub"
+    },
+    "options_report_bug_title": {
+        "message": "Segnala un bug"
+    },
+    "options_bug_report_email_label": {
+        "message": "Email"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Includi il rapporto diagnostico nel messaggio"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "Indirizzo e-mail non corretto"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "Questo valore non può essere vuoto"
+    },
+    "options_bug_report_request_error": {
+        "message": "Si è verificato un errore. Riprova più tardi."
+    },
+    "options_bug_report_send_button": {
+        "message": "Invia"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Invio..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Descrivi il problema qui..."
+    },
+    "options_bug_report_page_success": {
+        "message": "Grazie, il suo messaggio è stato inviato con successo!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "Nuova segnalazione"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Messaggio"
+    },
     "account_title": {
         "message": "Profilo"
     },
@@ -296,9 +359,6 @@
     "context_menu_disable_vpn": {
         "message": "Disattiva VPN su questo sito web"
     },
-    "suggest_feature": {
-        "message": "Suggerisci una funzionalità"
-    },
     "endpoints_countries": {
         "message": "Località"
     },
@@ -368,8 +428,8 @@
     "upgrade_features_all_locations": {
         "message": "Tutte le località"
     },
-    "upgrade_features_no_log": {
-        "message": "Nessun registro eventi"
+    "upgrade_features_devices": {
+        "message": "Fino a 5 dispositivi"
     },
     "continue_us_free_button": {
         "message": "Continua in modo gratuito"

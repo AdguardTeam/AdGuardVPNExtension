@@ -53,6 +53,69 @@
     "about_title": {
         "message": "Over"
     },
+    "options_support_title": {
+        "message": "Ondersteuning"
+    },
+    "options_support_faq_title": {
+        "message": "Veel gestelde vragen"
+    },
+    "options_support_faq_description": {
+        "message": "Vragen en antwoorden"
+    },
+    "options_support_report_title": {
+        "message": "Een fout rapporteren"
+    },
+    "options_support_report_description": {
+        "message": "Als er iets niet correct werkt in het programma"
+    },
+    "options_support_feedback_title": {
+        "message": "Feedback geven"
+    },
+    "options_support_feedback_description": {
+        "message": "Functie verzoeken en suggesties indienen"
+    },
+    "options_support_discuss_title": {
+        "message": "Discussie"
+    },
+    "options_support_discuss_description": {
+        "message": "Bespreken op ons forum, op sociale netwerken, of op GitHub"
+    },
+    "options_report_bug_title": {
+        "message": "Een fout rapporteren"
+    },
+    "options_bug_report_email_label": {
+        "message": "E-mail"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Het diagnoserapport toevoegen aan het bericht"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "Ongeldig e-mailadres"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "Dit veld mag niet leeg zijn"
+    },
+    "options_bug_report_request_error": {
+        "message": "Er is een fout opgetreden. Probeer het later opnieuw."
+    },
+    "options_bug_report_send_button": {
+        "message": "Verzenden"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Verzenden..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Beschrijf hier je probleem..."
+    },
+    "options_bug_report_page_success": {
+        "message": "Bedankt, je bericht is succesvol verzonden!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "Nieuw rapport"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Bericht"
+    },
     "account_title": {
         "message": "Account"
     },
@@ -296,9 +359,6 @@
     "context_menu_disable_vpn": {
         "message": "VPN uitschakelen op deze website"
     },
-    "suggest_feature": {
-        "message": "Een nieuwe functie voorstellen"
-    },
     "endpoints_countries": {
         "message": "Locaties"
     },
@@ -368,8 +428,8 @@
     "upgrade_features_all_locations": {
         "message": "Alle locaties"
     },
-    "upgrade_features_no_log": {
-        "message": "Geen logboeken"
+    "upgrade_features_devices": {
+        "message": "Maximaal 5 apparaten"
     },
     "continue_us_free_button": {
         "message": "Gratis blijven gebruiken"
@@ -387,11 +447,11 @@
         "message": "VPN is uitgezet op deze website"
     },
     "popup_auth_agreement_consent": {
-        "message": "Door AdGuard VPN te gebruiken ga je akkoord met onze <eula>EULA</eula> en <privacy>Privacy beleid.</privacy>",
+        "message": "Door AdGuard VPN verder te gebruiken ga je akkoord met onze <eula>EULA</eula> en <privacy>Privacy beleid</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_agreement_consent": {
-        "message": "Als je verdergaat, aanvaard je de <privacy>Algemene Voorwaarden</privacy> en <eula>EULA</eula>",
+        "message": "Door AdGuard VPN verder te gebruiken ga je akkoord met onze <eula>EULA</eula> en <privacy>Privacy beleid</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {

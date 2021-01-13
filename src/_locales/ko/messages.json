@@ -53,6 +53,69 @@
     "about_title": {
         "message": "정보"
     },
+    "options_support_title": {
+        "message": "고객 지원"
+    },
+    "options_support_faq_title": {
+        "message": "자주 묻는 질문"
+    },
+    "options_support_faq_description": {
+        "message": "질의 응답"
+    },
+    "options_support_report_title": {
+        "message": "버그 신고"
+    },
+    "options_support_report_description": {
+        "message": "프로그램이 제대로 작동하지 않는 경우 수행할 작업"
+    },
+    "options_support_feedback_title": {
+        "message": "피드백 남기기"
+    },
+    "options_support_feedback_description": {
+        "message": "기능 요청 또는 제안 제출"
+    },
+    "options_support_discuss_title": {
+        "message": "토론장"
+    },
+    "options_support_discuss_description": {
+        "message": "포럼, SNS 또는 GitHub에서 토론"
+    },
+    "options_report_bug_title": {
+        "message": "버그 신고"
+    },
+    "options_bug_report_email_label": {
+        "message": "이메일"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "메시지에 진단 보고서를 포함합니다"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "잘못된 이메일 주소"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "이 필드는 비워 둘 수 없습니다"
+    },
+    "options_bug_report_request_error": {
+        "message": "오류가 발생했습니다. 다시 시도해 주십시오."
+    },
+    "options_bug_report_send_button": {
+        "message": "전송"
+    },
+    "options_bug_report_sending_button": {
+        "message": "전송 중..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "문제를 설명해 주세요…"
+    },
+    "options_bug_report_page_success": {
+        "message": "감사합니다. 메시지가 전송되었습니다!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "새로운 보고서"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "메시지"
+    },
     "account_title": {
         "message": "계정"
     },
@@ -296,9 +359,6 @@
     "context_menu_disable_vpn": {
         "message": "이 웹 사이트에서 VPN 비활성화"
     },
-    "suggest_feature": {
-        "message": "기능 제안"
-    },
     "endpoints_countries": {
         "message": "위치"
     },
@@ -368,8 +428,8 @@
     "upgrade_features_all_locations": {
         "message": "모든 위치"
     },
-    "upgrade_features_no_log": {
-        "message": "로그 정책 없음"
+    "upgrade_features_devices": {
+        "message": "최대 5개 기기"
     },
     "continue_us_free_button": {
         "message": "무료로 계속하기"
@@ -387,11 +447,11 @@
         "message": "이 웹사이트에서 VPN이 비활성화됨"
     },
     "popup_auth_agreement_consent": {
-        "message": "AdGuard VPN을 계속 사용함으로써, 당사의 <eula>EULA</eula> 및 <privacy>개인정보처리방침</privacy>에 동의하게 됩니다.",
+        "message": "AdGuard VPN을 계속 사용함으로써, 당사의 <eula>EULA</eula> 및 <privacy>개인정보처리방침</privacy>에 동의하게 됩니다",
         "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_agreement_consent": {
-        "message": "계속하면 <privacy>이용 약관</privacy> 및 <eula>EULA</eula>에 동의하게 됩니다",
+        "message": "AdGuard VPN을 계속 사용함으로써, 당사의 <eula>EULA</eula> 및 <privacy>개인정보처리방침</privacy>에 동의하게 됩니다",
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {

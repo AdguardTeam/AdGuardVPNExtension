@@ -53,6 +53,69 @@
     "about_title": {
         "message": "Acerca de"
     },
+    "options_support_title": {
+        "message": "Asistencia técnica"
+    },
+    "options_support_faq_title": {
+        "message": "Preguntas frecuentes"
+    },
+    "options_support_faq_description": {
+        "message": "Preguntas y respuestas"
+    },
+    "options_support_report_title": {
+        "message": "Informar de un error"
+    },
+    "options_support_report_description": {
+        "message": "Si algo no funciona correctamente en el programa"
+    },
+    "options_support_feedback_title": {
+        "message": "Dejar comentario"
+    },
+    "options_support_feedback_description": {
+        "message": "Envía solicitudes de funciones y sugerencias"
+    },
+    "options_support_discuss_title": {
+        "message": "Debate"
+    },
+    "options_support_discuss_description": {
+        "message": "Debate en nuestro foro, redes sociales o en GitHub"
+    },
+    "options_report_bug_title": {
+        "message": "Informar de un error"
+    },
+    "options_bug_report_email_label": {
+        "message": "Correo electrónico"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Incluir el informe de diagnóstico en el mensaje"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "Dirección de correo electrónico incorrecta"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "Este campo no puede estar vacío"
+    },
+    "options_bug_report_request_error": {
+        "message": "Se ha producido un error. Por favor inténtalo de nuevo más tarde."
+    },
+    "options_bug_report_send_button": {
+        "message": "Enviar"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Enviando..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Describe el problema aquí..."
+    },
+    "options_bug_report_page_success": {
+        "message": "¡Gracias, tu mensaje se envió correctamente!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "Nuevo informe"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Mensaje"
+    },
     "account_title": {
         "message": "Cuenta"
     },
@@ -296,9 +359,6 @@
     "context_menu_disable_vpn": {
         "message": "Deshabilitar VPN en este sitio web"
     },
-    "suggest_feature": {
-        "message": "Sugerir una función"
-    },
     "endpoints_countries": {
         "message": "Ubicaciones"
     },
@@ -368,8 +428,8 @@
     "upgrade_features_all_locations": {
         "message": "Todas las ubicaciones"
     },
-    "upgrade_features_no_log": {
-        "message": "No hay registros recopilados"
+    "upgrade_features_devices": {
+        "message": "Hasta 5 dispositivos"
     },
     "continue_us_free_button": {
         "message": "Seguir usando gratis"
@@ -387,11 +447,11 @@
         "message": "VPN deshabilitado en este sitio web"
     },
     "popup_auth_agreement_consent": {
-        "message": "Al usar AdGuard VPN, aceptas el <eula>acuerdo de licencia</eula> y la <privacy>política de privacidad</privacy>",
+        "message": "Al continuar usando AdGuard VPN, aceptas el <eula>acuerdo de licencia</eula> y la <privacy>política de privacidad</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_agreement_consent": {
-        "message": "Al continuar, aceptas los <privacy>términos y condiciones</privacy> y el <eula>acuerdo de licencia</eula>",
+        "message": "Al continuar usando AdGuard VPN, aceptas el <eula>acuerdo de licencia</eula> y la <privacy>política de privacidad</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {

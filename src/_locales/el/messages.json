@@ -284,9 +284,6 @@
     "context_menu_disable_vpn": {
         "message": "Απενεργοποίηση VPN σε αυτόν τον ιστότοπο"
     },
-    "suggest_feature": {
-        "message": "Προτείνετε ένα χαρακτηριστικό"
-    },
     "endpoints_countries": {
         "message": "Τοποθεσίες"
     },
@@ -344,9 +341,6 @@
     "upgrade_features_all_locations": {
         "message": "Όλες οι τοποθεσίες"
     },
-    "upgrade_features_no_log": {
-        "message": "Χωρίς καταγραφή"
-    },
     "continue_us_free_button": {
         "message": "Συνεχίστε δωρεάν"
     },
@@ -361,14 +355,6 @@
     },
     "popup_site_status_vpn_disabled": {
         "message": "Το VPN είναι απενεργοποιημένο σε αυτόν τον ιστότοπο"
-    },
-    "popup_auth_agreement_consent": {
-        "message": "Χρησιμοποιώντας το AdGuard VPN, αποδέχεστε το <eula>EULA</eula> και την <privacy>Πολιτική Απορρήτου</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "Εάν συνεχίσετε, αποδέχεστε τους <privacy>Όρους και Προϋποθέσεις</privacy> και <eula>EULA</eula>",
-        "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value%%unit%</span> απομένουν αυτόν τον μήνα",

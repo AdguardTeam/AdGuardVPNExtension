@@ -53,6 +53,69 @@
     "about_title": {
         "message": "关于"
     },
+    "options_support_title": {
+        "message": "支持"
+    },
+    "options_support_faq_title": {
+        "message": "常见问题"
+    },
+    "options_support_faq_description": {
+        "message": "问题与解答"
+    },
+    "options_support_report_title": {
+        "message": "报告错误"
+    },
+    "options_support_report_description": {
+        "message": "如果软件运行异常"
+    },
+    "options_support_feedback_title": {
+        "message": "留下反馈"
+    },
+    "options_support_feedback_description": {
+        "message": "提交功能请求和建议"
+    },
+    "options_support_discuss_title": {
+        "message": "讨论"
+    },
+    "options_support_discuss_description": {
+        "message": "在我们的论坛、社交媒体或 GitHub 上讨论"
+    },
+    "options_report_bug_title": {
+        "message": "报告错误"
+    },
+    "options_bug_report_email_label": {
+        "message": "Email"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "在信息中包含诊断报告"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "电子邮件错误"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "此字符串不可为空"
+    },
+    "options_bug_report_request_error": {
+        "message": "发生错误，请稍后再试。"
+    },
+    "options_bug_report_send_button": {
+        "message": "发送"
+    },
+    "options_bug_report_sending_button": {
+        "message": "正在发送..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "描述出现什么错误..."
+    },
+    "options_bug_report_page_success": {
+        "message": "感谢您，您的信息已发送成功！"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "新报告"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "消息"
+    },
     "account_title": {
         "message": "账号"
     },
@@ -296,9 +359,6 @@
     "context_menu_disable_vpn": {
         "message": "在此网站上禁用 VPN"
     },
-    "suggest_feature": {
-        "message": "建议增加一项新功能"
-    },
     "endpoints_countries": {
         "message": "位置"
     },
@@ -368,8 +428,8 @@
     "upgrade_features_all_locations": {
         "message": "所有位置"
     },
-    "upgrade_features_no_log": {
-        "message": "无记录政策"
+    "upgrade_features_devices": {
+        "message": "最多五台设备"
     },
     "continue_us_free_button": {
         "message": "继续免费使用"
@@ -387,11 +447,11 @@
         "message": "VPN 在该网站上已被禁用"
     },
     "popup_auth_agreement_consent": {
-        "message": "使用 AdGuard VPN，即代表您同意我们的<eula>最终用户许可协议</eula>和<privacy>隐私政策。</privacy>",
+        "message": "继续使用 AdGuard VPN，即代表您同意我们的<eula>最终用户许可协议</eula>和<privacy>隐私政策</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_agreement_consent": {
-        "message": "继续即表示您同意<privacy>条款与条件</privacy>和<eula>最终用户许可协议</eula>",
+        "message": "继续使用 AdGuard VPN，即代表您同意我们的<eula>最终用户许可协议</eula>和<privacy>隐私政策</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {

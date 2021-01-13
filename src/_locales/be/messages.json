@@ -296,9 +296,6 @@
     "context_menu_disable_vpn": {
         "message": "Адключыць VPN на гэтым сайце"
     },
-    "suggest_feature": {
-        "message": "Прапанаваць паляпшэнне"
-    },
     "endpoints_countries": {
         "message": "Месцівы"
     },
@@ -368,9 +365,6 @@
     "upgrade_features_all_locations": {
         "message": "Усе месцівы"
     },
-    "upgrade_features_no_log": {
-        "message": "Палітыка \"Без логаў\""
-    },
     "continue_us_free_button": {
         "message": "Працягнуць дарма"
     },
@@ -385,14 +379,6 @@
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN адключаны на гэтым сайце"
-    },
-    "popup_auth_agreement_consent": {
-        "message": "Працягваючы скарыстаць AdGuard, Вы згаджаецеся з нашым <eula>Ліцэнзійным пагадненнем</eula> і <privacy>Палітыкай прыватнасці</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "Працягваючы, вы прымаеце <privacy>Умовы выкарыстання</privacy> і <eula>Ліцэнзійнае пагадненне</eula>",
-        "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> засталося ў гэтым месяцы",

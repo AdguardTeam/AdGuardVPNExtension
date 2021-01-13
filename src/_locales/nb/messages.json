@@ -296,9 +296,6 @@
     "context_menu_disable_vpn": {
         "message": "Skru av VPN på dette nettstedet"
     },
-    "suggest_feature": {
-        "message": "Foreslå en funksjon"
-    },
     "endpoints_countries": {
         "message": "Steder"
     },
@@ -362,9 +359,6 @@
     "upgrade_features_all_locations": {
         "message": "Alle posisjoner"
     },
-    "upgrade_features_no_log": {
-        "message": "Ingen loggføringsretningslinjer"
-    },
     "continue_us_free_button": {
         "message": "Fortsett å bruke det gratis"
     },
@@ -379,14 +373,6 @@
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN er skrudd av på dette nettstedet"
-    },
-    "popup_auth_agreement_consent": {
-        "message": "Ved å bruke AdGuard VPN, godtar du vår <eula>EULA</eula> og <privacy>personvernserklæring</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "Ved å fortsette, aksepterer du <privacy>Vilkår og betingelser</privacy> og <eula>EULA</eula>-en",
-        "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> gjenstår denne måneden",

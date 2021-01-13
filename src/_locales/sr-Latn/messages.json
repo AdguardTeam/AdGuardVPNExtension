@@ -296,9 +296,6 @@
     "context_menu_disable_vpn": {
         "message": "Isključi VPn na ovom sajtu"
     },
-    "suggest_feature": {
-        "message": "Predloži novu mogućnost"
-    },
     "endpoints_countries": {
         "message": "Lokacije"
     },
@@ -362,9 +359,6 @@
     "upgrade_features_all_locations": {
         "message": "Sve lokacije"
     },
-    "upgrade_features_no_log": {
-        "message": "Bez vođenja dnevnika"
-    },
     "continue_us_free_button": {
         "message": "Nastavi besplatno"
     },
@@ -379,14 +373,6 @@
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPn je isključen na ovom sajtu"
-    },
-    "popup_auth_agreement_consent": {
-        "message": "Nastavljanjem korišćenja AdGuard VPN, slažete se sa našim <eula>EULA</eula> and <privacy>politikom privatnosti.</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "Nastavljanjem prihvatate <privacy>uslove korišćenja</privacy> i <eula>EULA</eula>",
-        "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> preostalo ovog meseca",

@@ -53,6 +53,69 @@
     "about_title": {
         "message": "O aplikaci"
     },
+    "options_support_title": {
+        "message": "Podpora"
+    },
+    "options_support_faq_title": {
+        "message": "FAQ"
+    },
+    "options_support_faq_description": {
+        "message": "Otázky a odpovědi"
+    },
+    "options_support_report_title": {
+        "message": "Nahlásit chybu"
+    },
+    "options_support_report_description": {
+        "message": "Pokud v programu něco nefunguje správně"
+    },
+    "options_support_feedback_title": {
+        "message": "Zanechat zpětnou vazbu"
+    },
+    "options_support_feedback_description": {
+        "message": "Odešlete požadavky a návrhy funkcí"
+    },
+    "options_support_discuss_title": {
+        "message": "Diskuze"
+    },
+    "options_support_discuss_description": {
+        "message": "Diskutujte na našem fóru, sociálních sítích nebo na GitHubu"
+    },
+    "options_report_bug_title": {
+        "message": "Nahlásit chybu"
+    },
+    "options_bug_report_email_label": {
+        "message": "E-mail"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Připojit diagnostický záznam k této zprávě"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "Nesprávná e-mailová adresa"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "Toto pole nesmí být prázdné"
+    },
+    "options_bug_report_request_error": {
+        "message": "Došlo k chybě. Prosím, zkuste to znovu později."
+    },
+    "options_bug_report_send_button": {
+        "message": "Odeslat"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Odesílání..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Zde popište nalezenou chybu..."
+    },
+    "options_bug_report_page_success": {
+        "message": "Děkujeme, Vaše zpráva byla úspěšně odeslána!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "Nové hlášení"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Zpráva"
+    },
     "account_title": {
         "message": "Účet"
     },
@@ -296,9 +359,6 @@
     "context_menu_disable_vpn": {
         "message": "Vypnout VPN na této stránce"
     },
-    "suggest_feature": {
-        "message": "Navrhnout funkci"
-    },
     "endpoints_countries": {
         "message": "Umístění"
     },
@@ -368,8 +428,8 @@
     "upgrade_features_all_locations": {
         "message": "Všechna umístění"
     },
-    "upgrade_features_no_log": {
-        "message": "Žádné zásady protokolování"
+    "upgrade_features_devices": {
+        "message": "Až pro 5 zařízení"
     },
     "continue_us_free_button": {
         "message": "Pokračovat bezplatně"
@@ -391,7 +451,7 @@
         "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_agreement_consent": {
-        "message": "Pokračováním přijímáte <privacy>Pravidla a podmínky</privacy> a <eula>EULA</eula>",
+        "message": "Používáním AdGuard VPN souhlasíte s <eula>EULA</eula> a <privacy>Zásadami ochrany osobních údajů</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {

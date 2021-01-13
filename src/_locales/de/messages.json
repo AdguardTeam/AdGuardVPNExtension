@@ -53,6 +53,42 @@
     "about_title": {
         "message": "Über"
     },
+    "options_support_title": {
+        "message": "Support"
+    },
+    "options_support_faq_title": {
+        "message": "FAQ"
+    },
+    "options_support_faq_description": {
+        "message": "Fragen und Antworten"
+    },
+    "options_support_report_title": {
+        "message": "Fehler melden"
+    },
+    "options_report_bug_title": {
+        "message": "Fehler melden"
+    },
+    "options_bug_report_email_label": {
+        "message": "E-Mail-Adresse"
+    },
+    "options_bug_report_send_button": {
+        "message": "Senden"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Wird gesendet …"
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Beschreiben Sie das Problem hier …"
+    },
+    "options_bug_report_page_success": {
+        "message": "Vielen Dank, Ihre Nachricht wurde erfolgreich gesendet!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "Neuer Bericht"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Nachricht"
+    },
     "account_title": {
         "message": "Konto"
     },
@@ -296,9 +332,6 @@
     "context_menu_disable_vpn": {
         "message": "VPN auf dieser Website deaktivieren"
     },
-    "suggest_feature": {
-        "message": "Eine Funktion vorschlagen"
-    },
     "endpoints_countries": {
         "message": "Standorte"
     },
@@ -368,8 +401,8 @@
     "upgrade_features_all_locations": {
         "message": "Alle Standorte"
     },
-    "upgrade_features_no_log": {
-        "message": "\"Keine-Protokolle\"-Richtlinie"
+    "upgrade_features_devices": {
+        "message": "Bis zu 5 Geräte"
     },
     "continue_us_free_button": {
         "message": "Als kostenlose Variante nutzen"
@@ -385,14 +418,6 @@
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN ist auf dieser Webseite deaktiviert"
-    },
-    "popup_auth_agreement_consent": {
-        "message": "Durch die Nutzung von AdGuard VPN, stimmen Sie unserem <eula>Endbenutzer-Lizenzvertrag</eula> und unseren <privacy>Datenschutzbestimmungen</privacy> zu",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "Durch Fortfahren akzeptieren Sie die <privacy>Geschäftsbedingungen</privacy> und den <eula>Endbenutzer-Lizenzvertrag</eula>",
-        "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> diese Monat verbleibend",

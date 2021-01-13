@@ -53,6 +53,69 @@
     "about_title": {
         "message": "關於"
     },
+    "options_support_title": {
+        "message": "支援"
+    },
+    "options_support_faq_title": {
+        "message": "常見問答集"
+    },
+    "options_support_faq_description": {
+        "message": "問題與答案"
+    },
+    "options_support_report_title": {
+        "message": "報告程式錯誤"
+    },
+    "options_support_report_description": {
+        "message": "如果某事物未在程式中正確地運作"
+    },
+    "options_support_feedback_title": {
+        "message": "留下回饋意見"
+    },
+    "options_support_feedback_description": {
+        "message": "提交功能請求和建議"
+    },
+    "options_support_discuss_title": {
+        "message": "討論"
+    },
+    "options_support_discuss_description": {
+        "message": "於我們的論壇、社群網路或 GitHub 上討論"
+    },
+    "options_report_bug_title": {
+        "message": "報告程式錯誤"
+    },
+    "options_bug_report_email_label": {
+        "message": "電子郵件地址"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "在訊息中包括該診斷的報告"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "不正確的電子郵件地址"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "此欄位不能為空"
+    },
+    "options_bug_report_request_error": {
+        "message": "錯誤已發生。請稍後再試。"
+    },
+    "options_bug_report_send_button": {
+        "message": "傳送"
+    },
+    "options_bug_report_sending_button": {
+        "message": "正在傳送…"
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "於此描述該問題…"
+    },
+    "options_bug_report_page_success": {
+        "message": "感謝您，您的訊息被成功地傳送！"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "新的報告"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "訊息"
+    },
     "account_title": {
         "message": "帳戶"
     },
@@ -296,9 +359,6 @@
     "context_menu_disable_vpn": {
         "message": "對此網站禁用 VPN"
     },
-    "suggest_feature": {
-        "message": "建議功能"
-    },
     "endpoints_countries": {
         "message": "位置"
     },
@@ -368,8 +428,8 @@
     "upgrade_features_all_locations": {
         "message": "所有的位置"
     },
-    "upgrade_features_no_log": {
-        "message": "無記錄政策"
+    "upgrade_features_devices": {
+        "message": "高達 5 台裝置"
     },
     "continue_us_free_button": {
         "message": "免費地繼續使用"
@@ -387,11 +447,11 @@
         "message": "對此網站，VPN 被禁用"
     },
     "popup_auth_agreement_consent": {
-        "message": "透過使用 AdGuard VPN，您同意我們的<eula>終端用戶授權協定</eula>和<privacy>隱私政策</privacy>",
+        "message": "透過繼續使用 AdGuard VPN，您同意我們的<eula>終端用戶授權協定</eula>和<privacy>隱私政策</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_agreement_consent": {
-        "message": "透過繼續，您接受該<privacy>條款和條件</privacy>及<eula>終端用戶授權協定</eula>",
+        "message": "透過繼續使用 AdGuard VPN，您同意我們的<eula>終端用戶授權協定</eula>和<privacy>隱私政策</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {
