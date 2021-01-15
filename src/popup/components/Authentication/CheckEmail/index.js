@@ -8,7 +8,7 @@ import { REQUEST_STATUSES } from '../../../stores/consts';
 
 import Submit from '../Submit';
 import InputField from '../InputField';
-import { reactTranslator } from '../../../../reactCommon/reactTranslator';
+import { reactTranslator } from '../../../../common/reactTranslator';
 
 const CheckEmail = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -62,7 +62,7 @@ const CheckEmail = observer(() => {
             <>
                 <div className="form__btn-wrap">
                     <Submit
-                        text={reactTranslator.translate(params.buttonText)}
+                        text={reactTranslator.getMessage(params.buttonText)}
                         processing={requestProcessState === REQUEST_STATUSES.PENDING}
                         disabled={!username}
                     />
@@ -73,7 +73,7 @@ const CheckEmail = observer(() => {
                     className="button button--inline form__link"
                     onClick={params.linkEvent}
                 >
-                    {reactTranslator.translate(params.linkText)}
+                    {reactTranslator.getMessage(params.linkText)}
                 </button>
             </>
         );
@@ -88,16 +88,16 @@ const CheckEmail = observer(() => {
         >
             <div className="form__inputs">
                 <div className="form__subtitle">
-                    {reactTranslator.translate(params.titleText)}
+                    {reactTranslator.getMessage(params.titleText)}
                 </div>
                 <div className="form__info">
-                    {reactTranslator.translate(params.infoText)}
+                    {reactTranslator.getMessage(params.infoText)}
                 </div>
                 <InputField
                     id="username"
                     type="email"
                     value={username}
-                    placeholder={reactTranslator.translate('auth_email')}
+                    placeholder={reactTranslator.getMessage('auth_email')}
                     inputChangeHandler={inputChangeHandler}
                     error={authStore.error}
                 />

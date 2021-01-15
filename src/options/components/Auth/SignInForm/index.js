@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 import rootStore from '../../../stores';
 import { PASSWORD_RECOVERY_URL } from '../../../../background/config';
-import { reactTranslator } from '../../../../reactCommon/reactTranslator';
+import { reactTranslator } from '../../../../common/reactTranslator';
 
 const SignInForm = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -38,7 +38,7 @@ const SignInForm = observer(() => {
             <div className="form__inputs">
                 <div className="form__item">
                     <label className="form__label" htmlFor="username">
-                        {reactTranslator.translate('auth_email')}
+                        {reactTranslator.getMessage('auth_email')}
                     </label>
                     <input
                         id="username"
@@ -53,7 +53,7 @@ const SignInForm = observer(() => {
                 <div className="form__item">
                     <div className="form__item-header">
                         <label className="form__label" htmlFor="password">
-                            {reactTranslator.translate('auth_password')}
+                            {reactTranslator.getMessage('auth_password')}
                         </label>
                         <a
                             href={PASSWORD_RECOVERY_URL}
@@ -62,7 +62,7 @@ const SignInForm = observer(() => {
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            {reactTranslator.translate('auth_recover')}
+                            {reactTranslator.getMessage('auth_recover')}
                         </a>
                     </div>
                     <input
@@ -86,18 +86,18 @@ const SignInForm = observer(() => {
                     className="button button--primary button--medium button--block"
                     disabled={disableLogin}
                 >
-                    {reactTranslator.translate('auth_login')}
+                    {reactTranslator.getMessage('auth_login')}
                 </button>
 
                 <div className="form__text form__text--login">
-                    {reactTranslator.translate('auth_account')}
+                    {reactTranslator.getMessage('auth_account')}
                     &nbsp;
                     <button
                         onClick={handleRegisterClick}
                         type="button"
                         className="button button--link form__link form__link--register"
                     >
-                        {reactTranslator.translate('auth_register')}
+                        {reactTranslator.getMessage('auth_register')}
                     </button>
                 </div>
             </div>

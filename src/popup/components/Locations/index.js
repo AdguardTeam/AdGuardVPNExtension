@@ -5,9 +5,9 @@ import rootStore from '../../stores';
 import Location from './Location';
 import Search from './Search';
 import Skeleton from './Skeleton';
+import { reactTranslator } from '../../../common/reactTranslator';
 
 import './endpoints.pcss';
-import { reactTranslator } from '../../../reactCommon/reactTranslator';
 
 const Locations = observer(() => {
     const { vpnStore, uiStore, settingsStore } = useContext(rootStore);
@@ -71,7 +71,7 @@ const Locations = observer(() => {
                 <>
                     <div className="endpoints__not-found" />
                     <div className="endpoints__title endpoints__title--big">
-                        {reactTranslator.translate('endpoints_not_found')}
+                        {reactTranslator.getMessage('endpoints_not_found')}
                     </div>
                 </>
             );
@@ -80,7 +80,7 @@ const Locations = observer(() => {
         return (
             <div className="endpoints__list">
                 <div className="endpoints__title">
-                    {reactTranslator.translate(listTitle)}
+                    {reactTranslator.getMessage(listTitle)}
                     {!showSearchResults && (
                         <>
                         &nbsp;
@@ -101,7 +101,7 @@ const Locations = observer(() => {
     return (
         <div className="endpoints">
             <div className="endpoints__header">
-                {reactTranslator.translate('endpoints_countries')}
+                {reactTranslator.getMessage('endpoints_countries')}
                 <button
                     type="button"
                     className="button endpoints__back"
@@ -122,7 +122,7 @@ const Locations = observer(() => {
                     <>
                         <div className="endpoints__list">
                             <div className="endpoints__title">
-                                {reactTranslator.translate('endpoints_fastest')}
+                                {reactTranslator.getMessage('endpoints_fastest')}
                             </div>
                             {fastestLocations.length > 0 ? (
                                 renderLocations(fastestLocations)

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import rootStore from '../../stores';
-import { reactTranslator } from '../../../reactCommon/reactTranslator';
+import { reactTranslator } from '../../../common/reactTranslator';
 
 const BackButton = () => {
     const { authStore } = useContext(rootStore);
@@ -19,7 +19,7 @@ const BackButton = () => {
             <svg className="icon icon--button icon--back">
                 <use xlinkHref="#back-arrow" />
             </svg>
-            <span>{reactTranslator.translate('options_auth_back_button')}</span>
+            <span>{reactTranslator.getMessage('options_auth_back_button')}</span>
         </button>
     );
 };

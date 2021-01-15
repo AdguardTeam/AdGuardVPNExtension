@@ -1,6 +1,5 @@
 const path = require('path');
-
-const { isTargetStrValid } = require('../../src/lib/translator/validator');
+const { validator } = require('@adguard/translate');
 
 const { log, getLocaleMessages, areArraysEqual } = require('./helpers');
 
@@ -34,7 +33,7 @@ export const validateMessages = async (locales) => {
             }
             const baseMessage = baseMessages[key].message;
             const targetMessage = targetMessages[key].message;
-            const valid = isTargetStrValid(baseMessage, targetMessage);
+            const valid = validator.isTranslationValid(baseMessage, targetMessage);
             if (valid) {
                 return { valid: true };
             }

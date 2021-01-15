@@ -5,7 +5,7 @@ import rootStore from '../../../stores';
 
 import './dns.pcss';
 import Select from '../../ui/Select';
-import { reactTranslator } from '../../../../reactCommon/reactTranslator';
+import { reactTranslator } from '../../../../common/reactTranslator';
 
 const Dns = observer(() => {
     const { settingsStore } = useContext(rootStore);
@@ -19,10 +19,10 @@ const Dns = observer(() => {
             <div className="settings__group">
                 <div className="dns">
                     <div className="dns-title">
-                        {reactTranslator.translate('settings_dns_label')}
+                        {reactTranslator.getMessage('settings_dns_label')}
                     </div>
                     <div className="dns-desc">
-                        {reactTranslator.translate('settings_dns_desc')}
+                        {reactTranslator.getMessage('settings_dns_desc')}
                     </div>
                     <Select
                         options={DNS_SERVERS}

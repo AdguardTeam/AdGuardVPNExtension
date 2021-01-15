@@ -9,7 +9,7 @@ import Checkbox from "../../ui/Checkbox";
 import rootStore from '../../../stores';
 import messenger from '../../../../lib/messenger';
 import { addMinDurationTime } from '../../../../lib/helpers';
-import { reactTranslator } from '../../../../reactCommon/reactTranslator';
+import { reactTranslator } from '../../../../common/reactTranslator';
 import { REQUEST_EVENTS, REQUEST_STATES, requestMachine } from './requestMachine';
 
 import './bug-report.pcss';
@@ -59,11 +59,11 @@ export const BugReporter = observer(({ closeHandler }) => {
     const validators = {
         [FIELDS.EMAIL]: (value) => {
             const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-            return isValid ? null : reactTranslator.translate('options_bug_report_email_invalid');
+            return isValid ? null : reactTranslator.getMessage('options_bug_report_email_invalid');
         },
         [FIELDS.MESSAGE]: (value) => {
             const isValid = value && value.length >= 0;
-            return isValid ? null : reactTranslator.translate('options_bug_report_textarea_invalid');
+            return isValid ? null : reactTranslator.getMessage('options_bug_report_textarea_invalid');
         },
     };
 
@@ -124,11 +124,11 @@ export const BugReporter = observer(({ closeHandler }) => {
         });
     };
 
-    let buttonText = reactTranslator.translate('options_bug_report_send_button');
+    let buttonText = reactTranslator.getMessage('options_bug_report_send_button');
     let isButtonDisabled = !formState[FIELDS.EMAIL] || !formState[FIELDS.MESSAGE];
 
     if (requestState.matches(REQUEST_STATES.SENDING)) {
-        buttonText = reactTranslator.translate('options_bug_report_sending_button');
+        buttonText = reactTranslator.getMessage('options_bug_report_sending_button');
         isButtonDisabled = true;
     }
 
@@ -139,7 +139,7 @@ export const BugReporter = observer(({ closeHandler }) => {
                     <use xlinkHref="#arrow" />
                 </svg>
             </button>
-            {reactTranslator.translate('options_report_bug_title')}
+            {reactTranslator.getMessage('options_report_bug_title')}
         </div>
     );
 
@@ -159,14 +159,14 @@ export const BugReporter = observer(({ closeHandler }) => {
                         <svg className="icon icon--check icon--button bug-report__check">
                             <use xlinkHref="#check" />
                         </svg>
-                        {reactTranslator.translate('options_bug_report_page_success')}
+                        {reactTranslator.getMessage('options_bug_report_page_success')}
                     </div>
                     <button
                         type="button"
                         onClick={newReportClickHandler}
                         className="button button--medium button--outline-primary bug-report__action"
                     >
-                        {reactTranslator.translate('options_bug_report_new_report_button')}
+                        {reactTranslator.getMessage('options_bug_report_new_report_button')}
                     </button>
                 </div>
             </>
@@ -189,7 +189,7 @@ export const BugReporter = observer(({ closeHandler }) => {
                         className="bug-report__label"
                         htmlFor={FIELDS.EMAIL}
                     >
-                        {reactTranslator.translate('options_bug_report_email_label')}
+                        {reactTranslator.getMessage('options_bug_report_email_label')}
                     </label>
                     <div className={emailClassName}>
                         <input
@@ -205,19 +205,19 @@ export const BugReporter = observer(({ closeHandler }) => {
                         className="bug-report__label"
                         htmlFor={FIELDS.MESSAGE}
                     >
-                        {reactTranslator.translate('options_bug_report_textarea_label')}
+                        {reactTranslator.getMessage('options_bug_report_textarea_label')}
                     </label>
                     <div className={messageClassName}>
                         <textarea
                             className="input__in input__in--content input__in--textarea"
                             id={FIELDS.MESSAGE}
-                            placeholder={reactTranslator.translate('options_bug_report_textarea_placeholder')}
+                            placeholder={reactTranslator.getMessage('options_bug_report_textarea_placeholder')}
                             defaultValue={formState[FIELDS.MESSAGE]}
                         />
                         <div className="input__error">
                             <span>{formErrors[FIELDS.MESSAGE]}</span>
                             { requestState.matches(REQUEST_STATES.ERROR)
-                            && <span>{reactTranslator.translate('options_bug_report_request_error')}</span>}
+                            && <span>{reactTranslator.getMessage('options_bug_report_request_error')}</span>}
                         </div>
                     </div>
                     <div className="bug-report__checkbox">
@@ -225,7 +225,7 @@ export const BugReporter = observer(({ closeHandler }) => {
                             id={FIELDS.INCLUDE_LOG}
                             value={formState[FIELDS.INCLUDE_LOG]}
                         >
-                            {reactTranslator.translate('options_bug_report_include_log_label')}
+                            {reactTranslator.getMessage('options_bug_report_include_log_label')}
                         </Checkbox>
                     </div>
                     <button

@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import ReactHtmlParser from 'react-html-parser';
 
 import rootStore from '../../../stores';
-import { reactTranslator } from '../../../../reactCommon/reactTranslator';
+import { reactTranslator } from '../../../../common/reactTranslator';
 
 const RegistrationForm = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -33,7 +33,7 @@ const RegistrationForm = observer(() => {
             <div className="form__inputs">
                 <div className={`form__item ${error && (field === 'username' || field === '') ? 'form__item--error' : ''}`}>
                     <label className="form__label" htmlFor="username">
-                        {reactTranslator.translate('auth_email')}
+                        {reactTranslator.getMessage('auth_email')}
                     </label>
                     <input
                         id="username"
@@ -48,7 +48,7 @@ const RegistrationForm = observer(() => {
                 <div className={`form__item ${error && field === 'password' ? 'form__item--error' : ''}`}>
                     <div className="form__item-header">
                         <label className="form__label" htmlFor="password">
-                            {reactTranslator.translate('auth_password')}
+                            {reactTranslator.getMessage('auth_password')}
                         </label>
                     </div>
                     <input
@@ -63,7 +63,7 @@ const RegistrationForm = observer(() => {
                 <div className="form__item">
                     <div className="form__item-header">
                         <label className="form__label" htmlFor="passwordAgain">
-                            {reactTranslator.translate('auth_password_repeat')}
+                            {reactTranslator.getMessage('auth_password_repeat')}
                         </label>
                     </div>
                     <input
@@ -88,7 +88,7 @@ const RegistrationForm = observer(() => {
                     className="button button--primary button--medium button--block"
                     disabled={disableRegister}
                 >
-                    {reactTranslator.translate('auth_register')}
+                    {reactTranslator.getMessage('auth_register')}
                 </button>
 
                 <div className="form__text form__text--register">
@@ -97,7 +97,7 @@ const RegistrationForm = observer(() => {
                         className="button button--link form__link form__link--login"
                         onClick={handleLoginClick}
                     >
-                        {reactTranslator.translate('auth_login')}
+                        {reactTranslator.getMessage('auth_login')}
                     </button>
                 </div>
             </div>

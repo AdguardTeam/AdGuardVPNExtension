@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
-import { reactTranslator } from '../../../reactCommon/reactTranslator';
+import { reactTranslator } from '../../../common/reactTranslator';
 import Ping from '../Ping';
 import rootStore from '../../stores';
 
@@ -70,7 +70,7 @@ const Location = observer(({ location, handleClick }) => {
         if (!available) {
             return (
                 <div className="ping">
-                    <span>{reactTranslator.translate('offline_title')}</span>
+                    <span>{reactTranslator.getMessage('offline_title')}</span>
                 </div>
             );
         }

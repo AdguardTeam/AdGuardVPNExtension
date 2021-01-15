@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
-import { reactTranslator } from '../../../../reactCommon/reactTranslator';
+
 import rootStore from '../../../stores';
+import { reactTranslator } from '../../../../common/reactTranslator';
 import { PROMO_SCREEN_STATES } from '../../../../lib/constants';
 
 const GlobalControl = observer(() => {
@@ -31,8 +32,8 @@ const GlobalControl = observer(() => {
 
     const renderExclusionButton = (isExcluded, exclusionsInverted) => {
         const texts = {
-            enable: reactTranslator.translate('popup_settings_enable_vpn'),
-            disable: reactTranslator.translate('popup_settings_disable_vpn'),
+            enable: reactTranslator.getMessage('popup_settings_enable_vpn'),
+            disable: reactTranslator.getMessage('popup_settings_disable_vpn'),
         };
 
         const getText = (enable) => {
@@ -69,16 +70,16 @@ const GlobalControl = observer(() => {
     const buttonStates = {
         disconnect: {
             className: 'button--outline-secondary',
-            message: reactTranslator.translate('settings_disconnect'),
+            message: reactTranslator.getMessage('settings_disconnect'),
             handler: disconnectHandler,
         },
         connecting: {
             className: 'button--outline-secondary button--disabled',
-            message: reactTranslator.translate('settings_disconnect'),
+            message: reactTranslator.getMessage('settings_disconnect'),
         },
         connect: {
             className: 'button--green',
-            message: reactTranslator.translate('settings_connect'),
+            message: reactTranslator.getMessage('settings_connect'),
             handler: connectHandler,
         },
     };
