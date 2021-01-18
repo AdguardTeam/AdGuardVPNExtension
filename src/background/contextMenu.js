@@ -1,9 +1,10 @@
 import browser from 'webextension-polyfill';
 import throttle from 'lodash/throttle';
+
 import notifier from '../lib/notifier';
 import exclusions from './exclusions';
 import tabs from './tabs';
-import translator from '../lib/translator/translator';
+import { translator } from '../common/translator';
 import settings from './settings/settings';
 import { isHttp } from '../lib/string-utils';
 import { log } from '../lib/logger';
@@ -33,22 +34,22 @@ const clearContextMenuItems = async () => {
 const CONTEXT_MENU_ITEMS = {
     enable_vpn: {
         id: 'enable_vpn',
-        title: translator.translate('context_menu_enable_vpn'),
+        title: translator.getMessage('context_menu_enable_vpn'),
     },
     disable_vpn: {
         id: 'disable_vpn',
-        title: translator.translate('context_menu_disable_vpn'),
+        title: translator.getMessage('context_menu_disable_vpn'),
     },
     selective_mode: {
         id: 'selective_mode',
         type: 'radio',
-        title: translator.translate('context_menu_selective_mode'),
+        title: translator.getMessage('context_menu_selective_mode'),
         onclick: () => exclusions.setCurrentMode(exclusions.MODES.SELECTIVE),
     },
     regular_mode: {
         id: 'regular_mode',
         type: 'radio',
-        title: translator.translate('context_menu_regular_mode'),
+        title: translator.getMessage('context_menu_regular_mode'),
         onclick: () => exclusions.setCurrentMode(exclusions.MODES.REGULAR),
     },
 };

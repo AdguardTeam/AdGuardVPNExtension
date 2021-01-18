@@ -1,17 +1,11 @@
 import axios from 'axios';
-import translator from '../../../src/lib/translator/translator';
+
 import authProvider from '../../../src/background/providers/authProvider';
 
 jest.mock('axios');
 jest.mock('../../../src/lib/logger');
 
 describe('authProvider', () => {
-    beforeAll(() => {
-        translator.translate = jest.fn((key) => {
-            return key;
-        });
-    });
-
     afterAll(() => {
         jest.clearAllMocks();
     });

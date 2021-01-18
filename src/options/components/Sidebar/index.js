@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import Rate from './Rate';
-import { reactTranslator } from '../../../reactCommon/reactTranslator';
+import { reactTranslator } from '../../../common/reactTranslator';
 
 import './sidebar.pcss';
 
@@ -12,19 +12,19 @@ export const Sidebar = () => {
             <svg className="sidebar__logo" />
             <nav className="sidebar__nav">
                 <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/">
-                    {reactTranslator.translate('settings_exclusion_title')}
+                    {reactTranslator.getMessage('settings_exclusion_title')}
                 </NavLink>
                 <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/settings">
-                    {reactTranslator.translate('settings_title')}
+                    {reactTranslator.getMessage('settings_title')}
                 </NavLink>
                 <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/account">
-                    {reactTranslator.translate('account_title')}
+                    {reactTranslator.getMessage('account_title')}
                 </NavLink>
                 <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/support">
-                    {reactTranslator.translate('options_support_title')}
+                    {reactTranslator.getMessage('options_support_title')}
                 </NavLink>
                 <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/about">
-                    {reactTranslator.translate('about_title')}
+                    {reactTranslator.getMessage('about_title')}
                 </NavLink>
             </nav>
             <div className="sidebar__rate">

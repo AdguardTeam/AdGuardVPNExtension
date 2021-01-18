@@ -1,5 +1,6 @@
 import qs from 'qs';
 import { nanoid } from 'nanoid';
+
 import { authApi } from './api';
 import authProvider from './providers/authProvider';
 import browserApi from './browserApi';
@@ -14,7 +15,7 @@ import {
 } from './config';
 import { log } from '../lib/logger';
 import notifier from '../lib/notifier';
-import translator from '../lib/translator/translator';
+import { translator } from '../common/translator';
 
 class Auth {
     socialAuthState = null;
@@ -125,7 +126,7 @@ class Auth {
 
         // Notify options page, in order to update view
         notifier.notifyListeners(notifier.types.AUTHENTICATE_SOCIAL_SUCCESS);
-        await notifications.create({ message: translator.translate('authentication_successful_social') });
+        await notifications.create({ message: translator.getMessage('authentication_successful_social') });
     }
 
     async deauthenticate() {
@@ -163,7 +164,7 @@ class Auth {
         }
 
         return {
-            error: translator.translate('global_error_message', {
+            error: translator.getMessage('global_error_message', {
                 a: (chunks) => `<a href="mailto:support@adguard-vpn.com" target="_blank">${chunks}</a>`,
             }),
         };
@@ -182,7 +183,7 @@ class Auth {
         } catch (e) {
             log.error(e.message);
             return {
-                error: translator.translate('global_error_message', {
+                error: translator.getMessage('global_error_message', {
                     a: (chunks) => `<a href="mailto:support@adguard-vpn.com" target="_blank">${chunks}</a>`,
                 }),
             };

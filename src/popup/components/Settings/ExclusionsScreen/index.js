@@ -5,7 +5,7 @@ import rootStore from '../../../stores';
 
 import StatusImage from '../StatusImage';
 import Status from '../Status';
-import { reactTranslator } from '../../../../reactCommon/reactTranslator';
+import { reactTranslator } from '../../../../common/reactTranslator';
 import SiteInfo from '../SiteInfo';
 
 const ExclusionsDisable = observer(() => {
@@ -37,7 +37,7 @@ const ExclusionsDisable = observer(() => {
                         type="button"
                         className="button button--medium button--green"
                     >
-                        {reactTranslator.translate('popup_settings_enable_vpn_short')}
+                        {reactTranslator.getMessage('popup_settings_enable_vpn_short')}
                     </button>
                     <SiteInfo />
                 </>

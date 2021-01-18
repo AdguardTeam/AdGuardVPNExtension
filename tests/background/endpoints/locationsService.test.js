@@ -3,6 +3,7 @@ import { Location } from '../../../src/background/endpoints/Location';
 import * as pingHelpers from '../../../src/background/connectivity/pingHelpers';
 
 jest.mock('../../../src/background/connectivity/pingHelpers');
+jest.mock('../../../src/lib/logger'); // hides redundant log messages during test run
 
 describe('location service', () => {
     it('by default it tries to connect to previously selected endpoint', async () => {

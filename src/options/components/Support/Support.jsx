@@ -2,10 +2,10 @@ import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import messenger from '../../../lib/messenger';
-import { reactTranslator } from '../../../reactCommon/reactTranslator';
 import { FEEDBACK_URL, FAQ_URL, DISCUSS_URL } from '../../../background/config';
 import { Title } from '../ui/Title';
 import { BugReporter } from './BugReporter';
+import { reactTranslator } from '../../../common/reactTranslator';
 
 import './support.pcss';
 
@@ -29,23 +29,23 @@ export const Support = () => {
 
     const supportItemsData = [
         {
-            title: reactTranslator.translate('options_support_faq_title'),
-            description: reactTranslator.translate('options_support_faq_description'),
+            title: reactTranslator.getMessage('options_support_faq_title'),
+            description: reactTranslator.getMessage('options_support_faq_description'),
             iconXlink: '#question',
             clickHandler: createOpenUrlHandler(FAQ_URL),
         }, {
-            title: reactTranslator.translate('options_support_report_title'),
-            description: reactTranslator.translate('options_support_report_description'),
+            title: reactTranslator.getMessage('options_support_report_title'),
+            description: reactTranslator.getMessage('options_support_report_description'),
             iconXlink: '#bug',
             clickHandler: handleReportClick,
         }, {
-            title: reactTranslator.translate('options_support_feedback_title'),
-            description: reactTranslator.translate('options_support_feedback_description'),
+            title: reactTranslator.getMessage('options_support_feedback_title'),
+            description: reactTranslator.getMessage('options_support_feedback_description'),
             iconXlink: '#send-feedback',
             clickHandler: createOpenUrlHandler(FEEDBACK_URL),
         }, {
-            title: reactTranslator.translate('options_support_discuss_title'),
-            description: reactTranslator.translate('options_support_discuss_description'),
+            title: reactTranslator.getMessage('options_support_discuss_title'),
+            description: reactTranslator.getMessage('options_support_discuss_description'),
             iconXlink: '#chat',
             clickHandler: createOpenUrlHandler(DISCUSS_URL),
         },
@@ -85,7 +85,7 @@ export const Support = () => {
 
     return (
         <>
-            <Title title={reactTranslator.translate('options_support_title')} />
+            <Title title={reactTranslator.getMessage('options_support_title')} />
             <ul className="support-items">
                 {supportItemsData.map(renderSupportItem)}
             </ul>

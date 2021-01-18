@@ -9,7 +9,7 @@ import { REQUEST_STATUSES, INPUT_TYPES } from '../../../stores/consts';
 import PasswordField from '../PasswordField';
 import Submit from '../Submit';
 import Terms from '../Terms';
-import { reactTranslator } from '../../../../reactCommon/reactTranslator';
+import { reactTranslator } from '../../../../common/reactTranslator';
 
 const RegistrationForm = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -47,10 +47,10 @@ const RegistrationForm = observer(() => {
         >
             <div className="form__inputs">
                 <div className="form__subtitle">
-                    {reactTranslator.translate('auth_sign_up')}
+                    {reactTranslator.getMessage('auth_sign_up')}
                 </div>
                 <div className="form__info">
-                    {reactTranslator.translate('auth_header_registration', {
+                    {reactTranslator.getMessage('auth_header_registration', {
                         username: authStore.credentials.username,
                         div: (chunks) => (
                             // make sure that css styles won't be broken
@@ -62,7 +62,7 @@ const RegistrationForm = observer(() => {
                     })}
                 </div>
                 <PasswordField
-                    placeholder={reactTranslator.translate('auth_password')}
+                    placeholder={reactTranslator.getMessage('auth_password')}
                     id="password"
                     password={password}
                     error={authStore.error}
@@ -79,7 +79,7 @@ const RegistrationForm = observer(() => {
             </div>
             <div className="form__btn-wrap form__btn-wrap--register">
                 <Submit
-                    text={reactTranslator.translate('auth_sign_up_button')}
+                    text={reactTranslator.getMessage('auth_sign_up_button')}
                     processing={requestProcessState === REQUEST_STATUSES.PENDING}
                     disabled={authStore.disableRegister}
                 />

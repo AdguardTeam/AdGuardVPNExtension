@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import rootStore from '../../../stores';
 
 import Switch from '../../ui/Switch';
-import { reactTranslator } from '../../../../reactCommon/reactTranslator';
+import { reactTranslator } from '../../../../common/reactTranslator';
 
 const ContextMenus = observer(() => {
     const { settingsStore } = useContext(rootStore);
@@ -17,7 +17,7 @@ const ContextMenus = observer(() => {
             <div className="settings__group">
                 <Switch
                     id="context-menus"
-                    title={reactTranslator.translate('settings_context_menus_title')}
+                    title={reactTranslator.getMessage('settings_context_menus_title')}
                     handleToggle={handleToggle}
                     checked={settingsStore.contextMenusEnabled}
                 />
