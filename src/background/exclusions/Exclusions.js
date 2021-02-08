@@ -94,6 +94,18 @@ class Exclusions {
         }
     }
 
+    addRegularExclusions(exclusions) {
+        exclusions.reverse().forEach((exclusion) => {
+            this.regular.addToExclusions(exclusion);
+        });
+    }
+
+    addSelectiveExclusions(exclusions) {
+        exclusions.reverse().forEach((exclusion) => {
+            this.selective.addToExclusions(exclusion);
+        });
+    }
+
     get selective() {
         return this.selectiveModeHandler;
     }

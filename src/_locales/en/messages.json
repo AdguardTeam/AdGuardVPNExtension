@@ -287,6 +287,12 @@
     "settings_exclusion_add": {
         "message": "Add a website"
     },
+    "settings_exclusions_import_button": {
+        "message": "Import"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Export"
+    },
     "settings_exclusion_title": {
         "message": "Exclusions"
     },

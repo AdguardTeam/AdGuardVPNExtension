@@ -6,6 +6,7 @@ import useOutsideClick from '../../helpers/useOutsideClick';
 import rootStore from '../../../stores';
 import SubdomainsHelp from './SubdomainsHelp';
 import { reactTranslator } from '../../../../common/reactTranslator';
+import { ImportExport } from '../ImportExport';
 
 const Form = observer(() => {
     const ref = useRef(null);
@@ -64,16 +65,19 @@ const Form = observer(() => {
 
     return (
         <div className="settings__form" ref={ref}>
-            <button
-                type="button"
-                className="button button--icon button--medium settings__add"
-                onClick={openForm}
-            >
-                <svg className="icon icon--button icon--checked settings__add-icon">
-                    <use xlinkHref="#plus" />
-                </svg>
-                {reactTranslator.getMessage('settings_exclusion_add')}
-            </button>
+            <div>
+                <button
+                    type="button"
+                    className="button button--icon button--medium settings__add"
+                    onClick={openForm}
+                >
+                    <svg className="icon icon--button icon--checked settings__add-icon">
+                        <use xlinkHref="#plus" />
+                    </svg>
+                    {reactTranslator.getMessage('settings_exclusion_add')}
+                </button>
+                <ImportExport />
+            </div>
 
             {isFormVisible && (
                 <div className="settings__list-item settings__list-item--active">
