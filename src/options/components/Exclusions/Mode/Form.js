@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
 import useOutsideClick from '../../helpers/useOutsideClick';
-import rootStore from '../../../stores';
+import { rootStore } from '../../../stores';
 import SubdomainsHelp from './SubdomainsHelp';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { ImportExport } from '../ImportExport';

@@ -95,13 +95,13 @@ class Exclusions {
     }
 
     addRegularExclusions(exclusions) {
-        exclusions.reverse().forEach((exclusion) => {
+        exclusions.forEach((exclusion) => {
             this.regular.addToExclusions(exclusion);
         });
     }
 
     addSelectiveExclusions(exclusions) {
-        exclusions.reverse().forEach((exclusion) => {
+        exclusions.forEach((exclusion) => {
             this.selective.addToExclusions(exclusion);
         });
     }

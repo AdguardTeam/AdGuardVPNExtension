@@ -4,13 +4,13 @@ import {
     runInAction,
 } from 'mobx';
 
-import { log } from '../../../lib/logger';
-import { SETTINGS_IDS } from '../../../lib/constants';
-import { DNS_DEFAULT } from '../../../background/dns/dnsConstants';
-import messenger from '../../../lib/messenger';
-import { EXCLUSIONS_MODES } from '../../../background/exclusions/exclusionsConstants';
+import { log } from '../../lib/logger';
+import { SETTINGS_IDS } from '../../lib/constants';
+import { DNS_DEFAULT } from '../../background/dns/dnsConstants';
+import messenger from '../../lib/messenger';
+import { EXCLUSIONS_MODES } from '../../background/exclusions/exclusionsConstants';
 
-class SettingsStore {
+export class SettingsStore {
     @observable exclusions = {
         [EXCLUSIONS_MODES.SELECTIVE]: [],
         [EXCLUSIONS_MODES.REGULAR]: [],
@@ -218,5 +218,3 @@ class SettingsStore {
         });
     };
 }
-
-export default SettingsStore;

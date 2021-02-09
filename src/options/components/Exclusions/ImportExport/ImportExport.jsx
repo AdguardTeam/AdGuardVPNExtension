@@ -1,13 +1,23 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useContext } from 'react';
+import { observer } from 'mobx-react';
 import FileSaver from 'file-saver';
 import JSZip from 'jszip';
 import format from 'date-fns/format';
 import identity from 'lodash/identity';
+import Modal from 'react-modal';
 
 import { reactTranslator } from '../../../../common/reactTranslator';
+import { translator } from '../../../../common/translator';
 import messenger from '../../../../lib/messenger';
+import { rootStore } from '../../../stores';
 
-const prepareExclusionsContent = (exclusions) => {
+import './import-export.pcss';
+
+const getCurrentTimeFormatted = () => {
+    return format(Date.now(), 'yyyy_MM_dd-HH_mm_ss');
+};
+
+const prepareExclusionsForExport = (exclusions) => {
     return exclusions
         .reverse()
         .filter((exclusion) => exclusion.enabled)
@@ -15,13 +25,13 @@ const prepareExclusionsContent = (exclusions) => {
         .join('\n');
 };
 
-const getCurrentTimeFormatted = () => {
-    return format(Date.now(), 'yyyy_MM_dd-HH_mm_ss');
+const prepareExclusionsAfterImport = (exclusionsString) => {
+    return exclusionsString
+        .split('\n')
+        .map((str) => str.trim())
+        .filter(identity)
+        .reverse();
 };
-
-const REGULAR_EXTENSION = '.regular.txt';
-const SELECTIVE_EXTENSION = '.selective.txt';
-const ZIP_FILENAME = 'exclusions.zip';
 
 const readFile = (file) => {
     return new Promise((resolve, reject) => {
@@ -37,20 +47,22 @@ const readFile = (file) => {
     });
 };
 
-const prepareExclusions = (exclusionsString) => {
-    return exclusionsString
-        .split('\n')
-        .map((str) => str.trim())
-        .filter(identity);
-};
+const FILE_EXTENSIONS = {
+    REGULAR: '.regular.txt',
+    SELECTIVE: '.selective.txt',
+    ZIP: '.zip',
+    TXT: '.txt',
+}
+
+const ZIP_FILENAME = 'exclusions.zip';
 
 const handleRegularExclusionsString = async (exclusionsString) => {
-    const regularExclusions = prepareExclusions(exclusionsString);
+    const regularExclusions = prepareExclusionsAfterImport(exclusionsString);
     await messenger.addRegularExclusions(regularExclusions);
 };
 
 const handleSelectiveExclusionsString = async (exclusionsString) => {
-    const selectiveExclusions = prepareExclusions(exclusionsString);
+    const selectiveExclusions = prepareExclusionsAfterImport(exclusionsString);
     await messenger.addSelectiveExclusions(selectiveExclusions);
 };
 
@@ -65,16 +77,25 @@ const handleZipExclusionsFile = async (file) => {
      * https://stuk.github.io/jszip/documentation/api_jszip/for_each.html
      */
     zipContent.forEach((relativePath, file) => {
-        if (file.name.endsWith(REGULAR_EXTENSION)) {
+        if (file.name.endsWith(FILE_EXTENSIONS.REGULAR)) {
             regularExclusionsFile = file;
-        } else if (file.name.endsWith(SELECTIVE_EXTENSION)) {
+        } else if (file.name.endsWith(FILE_EXTENSIONS.SELECTIVE)) {
             selectiveExclusionsFile = file;
         }
     });
 
     if (!regularExclusionsFile && !selectiveExclusionsFile) {
-        // FIXME translate error messages
-        throw new Error(`Zip archive: "${file.name}" doesn't contain files with extensions: "${REGULAR_EXTENSION}", ${SELECTIVE_EXTENSION}`);
+        const requiredExtensionsString = [FILE_EXTENSIONS.REGULAR, FILE_EXTENSIONS.SELECTIVE]
+            .map(ext => `"${ext}"`)
+            .join(', ');
+        const errorMessage = translator.getMessage(
+            `options_exclusions_import_error_wrong_extensions_in_zip`,
+            {
+                extensions: requiredExtensionsString,
+                filename: file.name,
+            }
+        )
+        throw new Error(errorMessage);
     }
 
     if (regularExclusionsFile) {
@@ -90,16 +111,42 @@ const handleZipExclusionsFile = async (file) => {
     }
 };
 
-export const ImportExport = () => {
+export const ImportExport = observer(() => {
+    const { notificationsStore } = useContext(rootStore);
+
     const importEl = useRef(null);
+
+    const [isModalOpen, setModalOpenState] = useState(false);
+    const [fileContent, setFileContent] = useState('');
+
+    const closeModal = () => {
+        setModalOpenState(false);
+        setFileContent('');
+    };
+
+    const openModal = () => {
+        setModalOpenState(true);
+    };
+
+    const handleRegularClick = async () => {
+        await handleRegularExclusionsString(fileContent);
+        notificationsStore.notifySuccess(translator.getMessage('options_exclusions_import_successful'));
+        closeModal();
+    };
+
+    const handleSelectiveClick = async () => {
+        await handleSelectiveExclusionsString(fileContent);
+        notificationsStore.notifySuccess(translator.getMessage('options_exclusions_import_successful'));
+        closeModal();
+    };
 
     const handleExclusionsExport = async () => {
         const exclusions = await messenger.getExclusionsData();
 
         const zip = new JSZip();
         const nowFormatted = getCurrentTimeFormatted();
-        zip.file(`${nowFormatted}${REGULAR_EXTENSION}`, prepareExclusionsContent(exclusions.regular));
-        zip.file(`${nowFormatted}${SELECTIVE_EXTENSION}`, prepareExclusionsContent(exclusions.selective));
+        zip.file(`${nowFormatted}${FILE_EXTENSIONS.REGULAR}`, prepareExclusionsForExport(exclusions.regular));
+        zip.file(`${nowFormatted}${FILE_EXTENSIONS.SELECTIVE}`, prepareExclusionsForExport(exclusions.selective));
 
         const zipContent = await zip.generateAsync({ type: 'blob' });
         FileSaver.saveAs(zipContent, ZIP_FILENAME);
@@ -109,6 +156,53 @@ export const ImportExport = () => {
         importEl.current.click();
     };
 
+    const fileHandlers = {
+        regular: async (file) => {
+            const regularExclusionsString = await readFile(file);
+            await handleRegularExclusionsString(regularExclusionsString);
+        },
+        selective: async (file) => {
+            const selectiveExclusionsString = await readFile(file);
+            await handleSelectiveExclusionsString(selectiveExclusionsString);
+        },
+        zip: async (file) => {
+            await handleZipExclusionsFile(file);
+        },
+        txt: async (file) => {
+            const fileContent = await readFile(file);
+            setFileContent(fileContent);
+            openModal();
+        }
+    }
+
+    const getFileHandler = (fileName) => {
+        switch (true) {
+            case (fileName.endsWith(FILE_EXTENSIONS.REGULAR)): {
+                return fileHandlers.regular;
+            }
+            case (fileName.endsWith(FILE_EXTENSIONS.SELECTIVE)): {
+                return fileHandlers.selective;
+            }
+            case (fileName.endsWith(FILE_EXTENSIONS.ZIP)): {
+                return fileHandlers.zip;
+            }
+            case (fileName.endsWith(FILE_EXTENSIONS.TXT)): {
+                return fileHandlers.txt;
+            }
+            default: {
+                const errorMessage = translator.getMessage(
+                    'options_exclusions_import_error_wrong_extensions',
+                    {
+                        extensions: Object.values(FILE_EXTENSIONS)
+                            .map(ext => `"${ext}"`)
+                            .join(', '),
+                    }
+                )
+                throw new Error(errorMessage);
+            }
+        }
+    };
+
     const inputChangeHandler = async (e) => {
         const [file] = e.target.files;
         const fileName = file.name;
@@ -116,24 +210,53 @@ export const ImportExport = () => {
         // clear input to track consequent file uploads
         e.target.value = '';
 
-        if (fileName.endsWith(REGULAR_EXTENSION)) {
-            const regularExclusionsString = await readFile(file);
-            await handleRegularExclusionsString(regularExclusionsString);
-        } else if (fileName.endsWith(SELECTIVE_EXTENSION)) {
-            const selectiveExclusionsString = await readFile(file);
-            await handleSelectiveExclusionsString(selectiveExclusionsString);
-        } else if (fileName.endsWith('.zip')) {
-            await handleZipExclusionsFile(file);
-        } else if (fileName.endsWith('.txt')) {
-            // TODO show popup to select to which list append exclusions
-        } else {
-            // FIXME translate error message
-            throw new Error(`Exclusions should have one of extensions: "${REGULAR_EXTENSION}", ${SELECTIVE_EXTENSION}, ".zip"`);
+        const handler = getFileHandler(fileName);
+
+        try {
+            await handler(file);
+            notificationsStore.notifySuccess(translator.getMessage('options_exclusions_import_successful'));
+        } catch (e) {
+            notificationsStore.notifyError(e.message);
         }
     };
 
     return (
-            <div>
+        <>
+                <Modal
+                    isOpen={isModalOpen}
+                    className="modal modal-exclusions-select"
+                    overlayClassName="overlay overlay--fullscreen"
+                    onRequestClose={closeModal}
+                >
+                    <button
+                        type="button"
+                        className="button button--icon checkbox__button modal__close-icon"
+                        onClick={closeModal}
+                    >
+                        <svg className="icon icon--button icon--cross">
+                            <use xlinkHref="#cross" />
+                        </svg>
+                    </button>
+                    <div className="modal__title">
+                        {reactTranslator.getMessage('options_exclusions_import_select_title')}
+                    </div>
+                    <div className="buttons">
+                        <button
+                            type="button"
+                            onClick={handleRegularClick}
+                            className="button modal__button"
+                        >
+                            {reactTranslator.getMessage('options_exclusions_import_select_regular')}
+                        </button>
+                        <button
+                            type="button"
+                            onClick={handleSelectiveClick}
+                            className="button modal__button"
+                        >
+                            {reactTranslator.getMessage('options_exclusions_import_select_selective')}
+                        </button>
+                    </div>
+                </Modal>
                 <input
                     type="file"
                     accept=".txt, .zip"
@@ -155,6 +278,6 @@ export const ImportExport = () => {
                 >
                     {reactTranslator.getMessage('settings_exclusions_export_button')}
                 </button>
-            </div>
+        </>
     );
-};
+});

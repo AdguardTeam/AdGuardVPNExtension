@@ -5,7 +5,7 @@ import classnames from 'classnames';
 
 import Form from './Form';
 import List from './List';
-import rootStore from '../../../stores';
+import { rootStore } from '../../../stores';
 import { EXCLUSIONS_MODES } from '../../../../background/exclusions/exclusionsConstants';
 import { reactTranslator } from '../../../../common/reactTranslator';
 

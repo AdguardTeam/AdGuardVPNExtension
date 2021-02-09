@@ -9,7 +9,7 @@ import { REQUEST_STATUSES } from '../../stores/consts';
 import '../../styles/main.pcss';
 import './app.pcss';
 
-import rootStore from '../../stores';
+import { rootStore } from '../../stores';
 import { Sidebar } from '../Sidebar';
 import Footer from '../Footer';
 import Settings from '../Settings';
@@ -22,6 +22,7 @@ import Icons from '../ui/Icons';
 import messenger from '../../../lib/messenger';
 import notifier from '../../../lib/notifier';
 import { Support } from '../Support';
+import { Notifications } from '../ui/Notifications';
 
 Modal.setAppElement('#root');
 
@@ -117,6 +118,7 @@ const App = observer(() => {
     return (
         <HashRouter hashType="noslash">
             {getContent(authenticated, requestProcessState)}
+            <Notifications />
             <Icons />
             <Footer />
         </HashRouter>
