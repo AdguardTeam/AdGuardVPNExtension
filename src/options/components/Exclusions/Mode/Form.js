@@ -65,7 +65,7 @@ const Form = observer(() => {
 
     return (
         <div className="settings__form" ref={ref}>
-            <div>
+            <div className="settings__controls settings__controls--import-export">
                 <button
                     type="button"
                     className="button button--icon button--medium settings__add"

@@ -5,7 +5,7 @@ import { rootStore } from '../../../../stores';
 const NOTIFICATION_CLEAR_TIMEOUT_MS = 5000;
 
 export const Notification = ({ notification }) => {
-    const { notificationsStore } = useContext(rootStore)
+    const { notificationsStore } = useContext(rootStore);
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
@@ -14,12 +14,12 @@ export const Notification = ({ notification }) => {
 
         return () => {
             clearTimeout(timeoutId);
-        }
+        };
     }, []);
 
     const handleCloseNotification = () => {
         notificationsStore.removeNotification(notification.id);
-    }
+    };
 
     const notificationClassnames = cn('notification', {
         danger: notification.isError(),
@@ -28,14 +28,17 @@ export const Notification = ({ notification }) => {
 
     return (
         <div className={notificationClassnames}>
-            <button
-                onClick={handleCloseNotification}
-            >
-                Close
-            </button>
-            <div>
+            <div className="notification__message">
                 {notification.message}
             </div>
+            <button
+                className="button"
+                onClick={handleCloseNotification}
+            >
+                <svg className="icon icon--button icon--cross">
+                    <use xlinkHref="#cross" />
+                </svg>
+            </button>
         </div>
     );
 };

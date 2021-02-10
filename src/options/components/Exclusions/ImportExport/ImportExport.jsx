@@ -221,10 +221,10 @@ export const ImportExport = observer(() => {
     };
 
     return (
-        <>
+        <div>
                 <Modal
                     isOpen={isModalOpen}
-                    className="modal modal-exclusions-select"
+                    className="modal modal--big modal-exclusions-select"
                     overlayClassName="overlay overlay--fullscreen"
                     onRequestClose={closeModal}
                 >
@@ -240,11 +240,11 @@ export const ImportExport = observer(() => {
                     <div className="modal__title">
                         {reactTranslator.getMessage('options_exclusions_import_select_title')}
                     </div>
-                    <div className="buttons">
+                    <div className="modal__buttons">
                         <button
                             type="button"
                             onClick={handleRegularClick}
-                            className="button modal__button"
+                            className="button modal__button modal__button--first"
                         >
                             {reactTranslator.getMessage('options_exclusions_import_select_regular')}
                         </button>
@@ -266,18 +266,18 @@ export const ImportExport = observer(() => {
                 />
                 <button
                     type="button"
-                    className="button"
+                    className="button button--control"
                     onClick={handleExclusionsImport}
                 >
                     {reactTranslator.getMessage('settings_exclusions_import_button')}
                 </button>
                 <button
                     type="button"
-                    className="button"
+                    className="button button--control"
                     onClick={handleExclusionsExport}
                 >
                     {reactTranslator.getMessage('settings_exclusions_export_button')}
                 </button>
-        </>
+        </div>
     );
 });

@@ -1,5 +1,25 @@
 .notifications {
     position: fixed;
-    right: 24px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    left: 0;
     bottom: 24px;
+}
+
+.notification {
+    padding: 16px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 500px;
+    margin: 0 auto;
+    background-color: var(--grayF3);
+
+    &__message {
+        font-size: 14px;
+        max-width: 93%;
+        color: var(--gray-base);
+    }
 }

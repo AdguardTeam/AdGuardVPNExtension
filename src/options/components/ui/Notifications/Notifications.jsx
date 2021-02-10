@@ -16,5 +16,5 @@ export const Notifications = observer(() => {
                 return <Notification key={notification.id} notification={notification} />;
             })}
         </div>
-    )
+    );
 });
