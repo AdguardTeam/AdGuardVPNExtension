@@ -5,7 +5,6 @@ import classnames from 'classnames';
 
 import rootStore from '../../../stores';
 import { REQUEST_STATUSES, INPUT_TYPES } from '../../../stores/consts';
-
 import PasswordField from '../PasswordField';
 import Submit from '../Submit';
 import Terms from '../Terms';

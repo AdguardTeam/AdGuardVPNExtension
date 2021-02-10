@@ -246,6 +246,16 @@ class AuthStore {
     };
 
     @action
+    resetPasswords = async () => {
+        await messenger.updateAuthCache('password', DEFAULTS.credentials.password);
+        await messenger.updateAuthCache('twoFactor', DEFAULTS.credentials.twoFactor);
+        runInAction(() => {
+            this.credentials.password = DEFAULTS.credentials.password;
+            this.credentials.twoFactor = DEFAULTS.credentials.twoFactor;
+        });
+    }
+
+    @action
     openSignInCheck = async () => {
         await messenger.updateAuthCache('signInCheck', true);
 
