@@ -5,6 +5,8 @@
     width: 100%;
     left: 0;
     bottom: 24px;
+    flex-direction: column;
+    align-items: center;
 }
 
 .notification {
@@ -14,8 +16,12 @@
     align-items: center;
     justify-content: space-between;
     width: 500px;
-    margin: 0 auto;
     background-color: var(--grayF3);
+    margin-bottom: 16px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
 
     &__message {
         font-size: 14px;
