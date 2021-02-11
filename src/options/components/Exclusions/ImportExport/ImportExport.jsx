@@ -214,9 +214,8 @@ export const ImportExport = observer(() => {
         // clear input to track consequent file uploads
         e.target.value = '';
 
-        const handler = getFileHandler(fileName);
-
         try {
+            const handler = getFileHandler(fileName);
             const notify = await handler(file);
             if (notify) {
                 notificationsStore.notifySuccess(translator.getMessage('options_exclusions_import_successful'));
