@@ -486,7 +486,7 @@
         "message": "Selective list"
     },
     "options_exclusions_import_successful": {
-        "message": "Exclusions imported successfully"
+        "message": "Imported exclusions: %count%"
     },
     "options_exclusions_import_error_wrong_extensions": {
         "message": "Exclusions file should have one of the extensions: %extensions%"
