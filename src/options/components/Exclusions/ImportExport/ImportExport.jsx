@@ -52,7 +52,7 @@ const FILE_EXTENSIONS = {
     SELECTIVE: '.selective.txt',
     ZIP: '.zip',
     TXT: '.txt',
-}
+};
 
 const ZIP_FILENAME = 'exclusions.zip';
 
@@ -86,15 +86,15 @@ const handleZipExclusionsFile = async (file) => {
 
     if (!regularExclusionsFile && !selectiveExclusionsFile) {
         const requiredExtensionsString = [FILE_EXTENSIONS.REGULAR, FILE_EXTENSIONS.SELECTIVE]
-            .map(ext => `"${ext}"`)
+            .map((ext) => `"${ext}"`)
             .join(', ');
         const errorMessage = translator.getMessage(
-            `options_exclusions_import_error_wrong_extensions_in_zip`,
+            'options_exclusions_import_error_wrong_extensions_in_zip',
             {
                 extensions: requiredExtensionsString,
                 filename: file.name,
-            }
-        )
+            },
+        );
         throw new Error(errorMessage);
     }
 
@@ -160,20 +160,24 @@ export const ImportExport = observer(() => {
         regular: async (file) => {
             const regularExclusionsString = await readFile(file);
             await handleRegularExclusionsString(regularExclusionsString);
+            return true;
         },
         selective: async (file) => {
             const selectiveExclusionsString = await readFile(file);
             await handleSelectiveExclusionsString(selectiveExclusionsString);
+            return true;
         },
         zip: async (file) => {
             await handleZipExclusionsFile(file);
+            return true;
         },
         txt: async (file) => {
             const fileContent = await readFile(file);
             setFileContent(fileContent);
             openModal();
-        }
-    }
+            return false;
+        },
+    };
 
     const getFileHandler = (fileName) => {
         switch (true) {
@@ -194,10 +198,10 @@ export const ImportExport = observer(() => {
                     'options_exclusions_import_error_wrong_extensions',
                     {
                         extensions: Object.values(FILE_EXTENSIONS)
-                            .map(ext => `"${ext}"`)
+                            .map((ext) => `"${ext}"`)
                             .join(', '),
-                    }
-                )
+                    },
+                );
                 throw new Error(errorMessage);
             }
         }
@@ -213,8 +217,10 @@ export const ImportExport = observer(() => {
         const handler = getFileHandler(fileName);
 
         try {
-            await handler(file);
-            notificationsStore.notifySuccess(translator.getMessage('options_exclusions_import_successful'));
+            const notify = await handler(file);
+            if (notify) {
+                notificationsStore.notifySuccess(translator.getMessage('options_exclusions_import_successful'));
+            }
         } catch (e) {
             notificationsStore.notifyError(e.message);
         }
