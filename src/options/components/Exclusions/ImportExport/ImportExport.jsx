@@ -11,9 +11,9 @@ import { translator } from '../../../../common/translator';
 import messenger from '../../../../lib/messenger';
 import { rootStore } from '../../../stores';
 import { log } from '../../../../lib/logger';
+import { isValidExclusion } from '../../../../lib/string-utils';
 
 import './import-export.pcss';
-import { isValidExclusion } from '../../../../lib/string-utils';
 
 const getCurrentTimeFormatted = () => {
     return format(Date.now(), 'yyyy_MM_dd-HH_mm_ss');
@@ -81,18 +81,21 @@ const handleZipExclusionsFile = async (file) => {
     const zip = new JSZip();
     const zipContent = await zip.loadAsync(file);
 
-    let regularExclusionsFile;
-    let selectiveExclusionsFile;
+    // MACOS adds hidden files with same filename, but starting with ".", filter them
+    const PATH_SEPARATOR = '/';
+    const HIDDEN_FILES_START = '.';
+    // https://stuk.github.io/jszip/documentation/api_jszip/filter.html
+    const files = zipContent.filter((relativePath, file) => {
+        const [last] = file.name.split(PATH_SEPARATOR).reverse();
+        return !last.startsWith(HIDDEN_FILES_START);
+    });
 
-    /**
-     * https://stuk.github.io/jszip/documentation/api_jszip/for_each.html
-     */
-    zipContent.forEach((relativePath, file) => {
-        if (file.name.endsWith(FILE_EXTENSIONS.REGULAR)) {
-            regularExclusionsFile = file;
-        } else if (file.name.endsWith(FILE_EXTENSIONS.SELECTIVE)) {
-            selectiveExclusionsFile = file;
-        }
+    const regularExclusionsFile = files.find((file) => {
+        return file.name.endsWith(FILE_EXTENSIONS.REGULAR);
+    });
+
+    const selectiveExclusionsFile = files.find((file) => {
+        return file.name.endsWith(FILE_EXTENSIONS.SELECTIVE);
     });
 
     if (!regularExclusionsFile && !selectiveExclusionsFile) {
