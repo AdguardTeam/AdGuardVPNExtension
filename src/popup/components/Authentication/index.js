@@ -8,7 +8,7 @@ import SignInForm from './SignInForm';
 import RegistrationForm from './RegistrationForm';
 import TwoFactorForm from './TwoFactorForm';
 import CheckEmail from './CheckEmail';
-import BackButton from './BackButton';
+import { BackButton } from './BackButton';
 
 import './auth.pcss';
 
