@@ -28,6 +28,7 @@ import notifier from '../../../lib/notifier';
 import PromoSale from '../PromoSale';
 import { PROMO_SCREEN_STATES } from '../../../lib/constants';
 import { TrafficLimitExceeded } from '../Settings/TrafficLimitExceeded';
+import { ConnectionsLimitError } from '../ConnectionsLimitError';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -82,6 +83,11 @@ const App = observer(() => {
                     settingsStore.setConnectivityState(data);
                     break;
                 }
+                case notifier.types.TOO_MANY_DEVICES_CONNECTED: {
+                    vpnStore.setTooManyDevicesConnected(true);
+                    vpnStore.setMaxDevicesAllowed(data);
+                    break;
+                }
                 default: {
                     log.debug('there is no such message type: ', type);
                     break;
@@ -97,6 +103,7 @@ const App = observer(() => {
             notifier.types.PERMISSIONS_ERROR_UPDATE,
             notifier.types.TOKEN_PREMIUM_STATE_UPDATED,
             notifier.types.CONNECTIVITY_STATE_CHANGED,
+            notifier.types.TOO_MANY_DEVICES_CONNECTED,
         ];
 
         const onUnload = messenger.createLongLivedConnection(events, messageHandler);
@@ -166,6 +173,7 @@ const App = observer(() => {
 
     return (
         <>
+            <ConnectionsLimitError />
             <PromoNotificationModal />
             {isOpenOptionsModal && <ExtraOptions />}
             <Header showMenuButton={authenticated} />

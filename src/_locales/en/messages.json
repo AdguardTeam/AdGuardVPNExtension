@@ -469,5 +469,23 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "Are you sure you want to switch?"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "You've reached the maximum number of connections: %maxDevicesAllowed%."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "To add more devices, consider subscribing to the Unlimited AdGuard VPN"
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "To add another device, disable AdGuard VPN on any of your gadgets"
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Subscribe"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Learn more"
+    },
+    "popup_connections_limit_title": {
+        "message": "Connections limit reached"
     }
 }
