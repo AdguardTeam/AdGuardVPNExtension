@@ -32,7 +32,7 @@ export default class ExclusionsHandler {
      *      exclusions with wildcard patterns
      * @param {boolean} [options.forceEnable] - urls added by non routable sites handler should not
      *      enable exclusions disabled by user
-     * @returns {void}
+     * @returns {boolean}
      */
     addToExclusions = (
         url,
@@ -42,7 +42,7 @@ export default class ExclusionsHandler {
         const hostname = getHostname(url);
 
         if (!hostname) {
-            return;
+            return false;
         }
 
         const {
@@ -74,7 +74,10 @@ export default class ExclusionsHandler {
 
         if (shouldUpdate) {
             this.handleExclusionsUpdate(exclusion);
+            return true;
         }
+
+        return false;
     };
 
     removeFromExclusions = (id) => {

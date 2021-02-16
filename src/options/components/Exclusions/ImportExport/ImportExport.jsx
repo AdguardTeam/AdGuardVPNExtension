@@ -67,14 +67,14 @@ const ZIP_FILENAME = 'exclusions.zip';
 
 const handleRegularExclusionsString = async (exclusionsString) => {
     const regularExclusions = prepareExclusionsAfterImport(exclusionsString);
-    await messenger.addRegularExclusions(regularExclusions);
-    return regularExclusions.length;
+    const addedExclusions = messenger.addRegularExclusions(regularExclusions);
+    return addedExclusions;
 };
 
 const handleSelectiveExclusionsString = async (exclusionsString) => {
     const selectiveExclusions = prepareExclusionsAfterImport(exclusionsString);
-    await messenger.addSelectiveExclusions(selectiveExclusions);
-    return selectiveExclusions.length;
+    const addedExclusions = await messenger.addSelectiveExclusions(selectiveExclusions);
+    return addedExclusions;
 };
 
 const handleZipExclusionsFile = async (file) => {

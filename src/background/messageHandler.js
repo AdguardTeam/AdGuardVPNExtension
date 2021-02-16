@@ -182,12 +182,10 @@ const messageHandler = async (message, sender) => {
             break;
         }
         case MESSAGES_TYPES.ADD_REGULAR_EXCLUSIONS: {
-            exclusions.addRegularExclusions(data.exclusions);
-            break;
+            return exclusions.addRegularExclusions(data.exclusions);
         }
         case MESSAGES_TYPES.ADD_SELECTIVE_EXCLUSIONS: {
-            exclusions.addSelectiveExclusions(data.exclusions);
-            break;
+            return exclusions.addSelectiveExclusions(data.exclusions);
         }
         case MESSAGES_TYPES.GET_SELECTED_LOCATION: {
             return endpoints.getSelectedLocation();

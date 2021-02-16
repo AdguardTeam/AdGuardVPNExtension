@@ -95,15 +95,25 @@ class Exclusions {
     }
 
     addRegularExclusions(exclusions) {
+        let addedExclusions = 0;
         exclusions.forEach((exclusion) => {
-            this.regular.addToExclusions(exclusion);
+            const result = this.regular.addToExclusions(exclusion);
+            if (result) {
+                addedExclusions += 1;
+            }
         });
+        return addedExclusions;
     }
 
     addSelectiveExclusions(exclusions) {
+        let addedExclusions = 0;
         exclusions.forEach((exclusion) => {
-            this.selective.addToExclusions(exclusion);
+            const result = this.selective.addToExclusions(exclusion);
+            if (result) {
+                addedExclusions += 1;
+            }
         });
+        return addedExclusions;
     }
 
     get selective() {
