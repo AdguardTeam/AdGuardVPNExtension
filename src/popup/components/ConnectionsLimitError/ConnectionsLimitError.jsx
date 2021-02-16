@@ -7,12 +7,13 @@ import { log } from '../../../lib/logger';
 import rootStore from '../../stores';
 import messenger from '../../../lib/messenger';
 import { reactTranslator } from '../../../common/reactTranslator';
+
 import './popup-error.pcss';
 
 export const ConnectionsLimitError = observer(() => {
     const { vpnStore } = useContext(rootStore);
 
-    const { tooManyDevicesConnected, isPremiumToken, maxDevicesAllowed } = vpnStore;
+    const { tooManyDevicesConnected, isPremiumToken, maxDevicesAllowed } = vpnStore
 
     if (isNil(maxDevicesAllowed)) {
         log.error('Property maxDevicesAllowed is required');
@@ -28,12 +29,11 @@ export const ConnectionsLimitError = observer(() => {
         descriptionRestPart = reactTranslator.getMessage('popup_connections_limit_description_end_premium');
     }
 
-    const description = `${descriptionFirstPart}${descriptionRestPart}`;
+    const description = `${descriptionFirstPart} ${descriptionRestPart}`;
 
-    // FIXME add urls to the tds
     const buttonsMap = {
-        free: { title: reactTranslator.getMessage('popup_connections_limit_description_cta_button_free'), url: 'https://adguard-vpn.com/ru/license.html' },
-        premium: { title: reactTranslator.getMessage('popup_connections_limit_description_cta_button_premium'), url: 'https://adguard-vpn.com/welcome.html#devicesCount' },
+        free: { title: reactTranslator.getMessage('popup_connections_limit_description_cta_button_free'), url: 'https://adguard-vpn.com/forward.html?action=subscribe&from=popup_connections_limit&app=vpn_extension' },
+        premium: { title: reactTranslator.getMessage('popup_connections_limit_description_cta_button_premium'), url: 'https://adguard-vpn.com/forward.html?action=devices_count&from=popup_connections_limit&app=vpn_extension' },
     };
 
     const buttonData = isPremiumToken ? buttonsMap.premium : buttonsMap.free;
