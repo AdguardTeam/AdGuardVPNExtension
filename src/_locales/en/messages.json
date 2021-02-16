@@ -474,10 +474,10 @@
         "message": "You've reached the maximum number of connections: %maxDevicesAllowed%."
     },
     "popup_connections_limit_description_end_free": {
-        "message": "To add more devices, consider subscribing to the Unlimited AdGuard VPN"
+        "message": "To add more devices, consider subscribing to the Unlimited AdGuard VPN."
     },
     "popup_connections_limit_description_end_premium": {
-        "message": "To add another device, disable AdGuard VPN on any of your gadgets"
+        "message": "To add another device, disable AdGuard VPN on any of your gadgets."
     },
     "popup_connections_limit_description_cta_button_free": {
         "message": "Subscribe"
