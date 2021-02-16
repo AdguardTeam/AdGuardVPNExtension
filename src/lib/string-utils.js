@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 /**
  * Renders string templates
  *
@@ -72,7 +73,8 @@ export const isHttp = (str) => {
  * Checks if provided string is valid exclusion
  */
 export const isValidExclusion = (exclusion) => {
-    // eslint-disable-next-line no-useless-escape
+    // Regexp validates simple domains and exclusions with wildcard
+    // e.g "*.example.org", "example.org", more cases can be found in tests
     const VALID_EXCLUSION_REGEX = /^((\*|[a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[A-Za-z0-9](\.?))$/;
     return VALID_EXCLUSION_REGEX.test(exclusion);
 };
