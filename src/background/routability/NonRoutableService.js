@@ -11,10 +11,19 @@ import { NON_ROUTABLE_NETS } from './nonRoutableNets';
  * There are two sources of non-routable domains:
  * 1. Ip ranges in the array of NON_ROUTABLE_NETS - used to check ip urls
  * 2. Messages from endpoints and webRequest error events
+ *
+ * Proxy sends 502 error status code if it couldn't handle request.
+ * Chrome differently handles http and https requests.
+ * For https requests browser throws net::ERR_TUNNEL_CONNECTION_FAILED
+ * and this case we are handling on webRequest.onErrorOccurred event
+ * For http requests browser displays 502 error status code and we are handling it on
+ * webRequest.onHeadersReceived event
+ *
  * Messages from endpoints and webRequest error events are handled in the next way:
  * When we get message from endpoint with non-routable domain we check if there happened an
  * error for main_frame request with the same domain. If we find matched events,
  * we notify exclusion to add domain automatically.
+ *
  * Since these two events may occur in an indefinite order, we save them in the two storages with
  * timestamps and remove them after some time or if we find match.
  */
@@ -42,6 +51,9 @@ class NonRoutableService {
             notifier.types.NON_ROUTABLE_DOMAIN_FOUND,
             this.handleNonRoutableDomains,
         );
+        browser.webRequest.onHeadersReceived.addListener((details) => {
+            this.handleWebRequestHeadersReceived(details);
+        }, { urls: ['<all_urls>'] }, ['responseHeaders']);
         browser.webRequest.onErrorOccurred.addListener(
             this.handleWebRequestErrors,
             { urls: ['<all_urls>'] },
@@ -111,31 +123,43 @@ class NonRoutableService {
     };
 
     /**
-     * Handles web request errors, if error occurs for main frame, checks it in the storage with
+     * Creates errors handlers based on target key and target value
+     * If error occurs for main frame, checks it in the storage with
      * non-routable hostnames, if founds same hostname then adds it to the list of
      * non-routable hostnames, otherwise saves it the storage
-     * @param details
+     * @param targetKey - key used to retrieve searched value from details
+     * @param targetValue - value used to compare with searched value
      */
-    handleWebRequestErrors = (details) => {
+    createWebRequestErrorsHandler = (targetKey, targetValue) => {
         const MAIN_FRAME = 'main_frame';
-        const ERROR = 'net::ERR_TUNNEL_CONNECTION_FAILED';
-
-        const { error, url, type } = details;
-
-        if (error === ERROR && type === MAIN_FRAME) {
-            const hostname = getHostname(url);
-            if (!hostname) {
-                return;
+        return (details) => {
+            const { url, type } = details;
+            const comparedValue = details[targetKey];
+            if (comparedValue === targetValue && type === MAIN_FRAME) {
+                const hostname = getHostname(url);
+                if (!hostname) {
+                    return;
+                }
+                const result = this.isHostnameInMap(hostname, this.nonRoutableHostnames);
+                if (result) {
+                    this.addNewNonRoutableDomain(hostname);
+                } else {
+                    this.webRequestErrorHostnames.set(hostname, Date.now());
+                }
+                this.clearStaleValues(this.webRequestErrorHostnames);
             }
-            const result = this.isHostnameInMap(hostname, this.nonRoutableHostnames);
-            if (result) {
-                this.addNewNonRoutableDomain(hostname);
-            } else {
-                this.webRequestErrorHostnames.set(hostname, Date.now());
-            }
-            this.clearStaleValues(this.webRequestErrorHostnames);
-        }
-    };
+        };
+    }
+
+    /**
+     * Handles web request errors
+     */
+    handleWebRequestErrors = this.createWebRequestErrorsHandler('error', 'net::ERR_TUNNEL_CONNECTION_FAILED');
+
+    /**
+     * Handles web request received status code
+     */
+    handleWebRequestHeadersReceived = this.createWebRequestErrorsHandler('statusCode', 502);
 
     /**
      * Adds hostname in the storage and notifies exclusions, to add hostname in the list
