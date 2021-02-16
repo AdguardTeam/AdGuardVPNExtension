@@ -47,17 +47,23 @@ class NonRoutableService {
 
     async init() {
         this.nonRoutableList = (await this.storage.get(this.NON_ROUTABLE_KEY)) || [];
+
         notifier.addSpecifiedListener(
             notifier.types.NON_ROUTABLE_DOMAIN_FOUND,
             this.handleNonRoutableDomains,
         );
-        browser.webRequest.onHeadersReceived.addListener((details) => {
-            this.handleWebRequestHeadersReceived(details);
-        }, { urls: ['<all_urls>'] }, ['responseHeaders']);
+
+        browser.webRequest.onHeadersReceived.addListener(
+            this.handleWebRequestErrors,
+            { urls: ['<all_urls>'] },
+            ['responseHeaders'],
+        );
+
         browser.webRequest.onErrorOccurred.addListener(
             this.handleWebRequestErrors,
             { urls: ['<all_urls>'] },
         );
+
         log.info('NonRoutable module was initiated successfully');
     }
 
@@ -123,43 +129,37 @@ class NonRoutableService {
     };
 
     /**
-     * Creates errors handlers based on target key and target value
+     * Handles events occurred in webRequest.onErrorOccurred and webRequest.onHeadersReceived
      * If error occurs for main frame, checks it in the storage with
      * non-routable hostnames, if founds same hostname then adds it to the list of
      * non-routable hostnames, otherwise saves it the storage
-     * @param targetKey - key used to retrieve searched value from details
-     * @param targetValue - value used to compare with searched value
      */
-    createWebRequestErrorsHandler = (targetKey, targetValue) => {
+    handleWebRequestErrors = (details) => {
         const MAIN_FRAME = 'main_frame';
-        return (details) => {
-            const { url, type } = details;
-            const comparedValue = details[targetKey];
-            if (comparedValue === targetValue && type === MAIN_FRAME) {
-                const hostname = getHostname(url);
-                if (!hostname) {
-                    return;
-                }
-                const result = this.isHostnameInMap(hostname, this.nonRoutableHostnames);
-                if (result) {
-                    this.addNewNonRoutableDomain(hostname);
-                } else {
-                    this.webRequestErrorHostnames.set(hostname, Date.now());
-                }
-                this.clearStaleValues(this.webRequestErrorHostnames);
+        const ERROR = 'net::ERR_TUNNEL_CONNECTION_FAILED';
+        const STATUS_CODE = 502;
+
+        const {
+            url,
+            type,
+            error,
+            statusCode,
+        } = details;
+
+        if ((error === ERROR || statusCode === STATUS_CODE) && type === MAIN_FRAME) {
+            const hostname = getHostname(url);
+            if (!hostname) {
+                return;
             }
-        };
+            const result = this.isHostnameInMap(hostname, this.nonRoutableHostnames);
+            if (result) {
+                this.addNewNonRoutableDomain(hostname);
+            } else {
+                this.webRequestErrorHostnames.set(hostname, Date.now());
+            }
+            this.clearStaleValues(this.webRequestErrorHostnames);
+        }
     }
-
-    /**
-     * Handles web request errors
-     */
-    handleWebRequestErrors = this.createWebRequestErrorsHandler('error', 'net::ERR_TUNNEL_CONNECTION_FAILED');
-
-    /**
-     * Handles web request received status code
-     */
-    handleWebRequestHeadersReceived = this.createWebRequestErrorsHandler('statusCode', 502);
 
     /**
      * Adds hostname in the storage and notifies exclusions, to add hostname in the list
