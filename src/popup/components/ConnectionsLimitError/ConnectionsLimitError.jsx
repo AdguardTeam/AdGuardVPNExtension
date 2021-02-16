@@ -33,7 +33,7 @@ export const ConnectionsLimitError = observer(() => {
 
     const buttonsMap = {
         free: { title: reactTranslator.getMessage('popup_connections_limit_description_cta_button_free'), url: 'https://adguard-vpn.com/forward.html?action=subscribe&from=popup_connections_limit&app=vpn_extension' },
-        premium: { title: reactTranslator.getMessage('popup_connections_limit_description_cta_button_premium'), url: 'https://adguard-vpn.com/forward.html?action=learn_more&from=popup_connections_limit&app=vpn_extension' },
+        premium: { title: reactTranslator.getMessage('popup_connections_limit_description_cta_button_premium'), url: 'https://adguard-vpn.com/forward.html?action=devices_count&from=popup_connections_limit&app=vpn_extension' },
     };
 
     const buttonData = isPremiumToken ? buttonsMap.premium : buttonsMap.free;
