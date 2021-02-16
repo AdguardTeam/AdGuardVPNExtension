@@ -7,6 +7,7 @@ import { log } from '../../../lib/logger';
 import rootStore from '../../stores';
 import messenger from '../../../lib/messenger';
 import { reactTranslator } from '../../../common/reactTranslator';
+import './popup-error.pcss';
 
 export const ConnectionsLimitError = observer(() => {
     const { vpnStore } = useContext(rootStore);
@@ -53,20 +54,25 @@ export const ConnectionsLimitError = observer(() => {
             classNames="fade"
             unmountOnExit
         >
-            <>
-                <button type="button" onClick={handleCloseClick}>close</button>
-                <div className="title">
+            <div className="popup-error">
+                <button className="button popup-error__close" type="button" onClick={handleCloseClick}>
+                    <svg className="icon icon--button">
+                        <use xlinkHref="#cross" />
+                    </svg>
+                </button>
+                <div className="popup-error__icon" />
+                <div className="popup-error__title">
                     {reactTranslator.getMessage('popup_connections_limit_title')}
                 </div>
-                <div className="description">{description}</div>
+                <div className="popup-error__description">{description}</div>
                 <button
                     type="button"
-                    className="button"
+                    className="button button--medium button--green"
                     onClick={handleCtaClick(buttonData.url)}
                 >
                     {buttonData.title}
                 </button>
-            </>
+            </div>
         </CSSTransition>
     );
 });
