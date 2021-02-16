@@ -29,9 +29,11 @@ class VpnStore {
         usedDownloadedBytes: null,
     };
 
-    @observable tooManyDevicesConnected = false;
+    // FIXME set to false
+    @observable tooManyDevicesConnected = true;
 
-    @observable maxDevicesAllowed = null;
+    // FIXME set default to null
+    @observable maxDevicesAllowed = 1;
 
     @observable isPremiumToken;
 
