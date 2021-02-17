@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import throttle from 'lodash/throttle';
 import ipaddr from 'ipaddr.js';
 import browser from 'webextension-polyfill';
@@ -5,6 +6,7 @@ import { log } from '../../lib/logger';
 import notifier from '../../lib/notifier';
 import { getHostname } from '../../lib/helpers';
 import { NON_ROUTABLE_NETS } from './nonRoutableNets';
+import tabs from '../tabs';
 
 /**
  * This module notifies user about non routable domains
@@ -69,29 +71,30 @@ class NonRoutableService {
 
     /**
      * Storage for hostnames from request errors
-     * @type {Map<string, number>}
+     * @type {Map<string, {timeAdded: number, tabId: number, url: string}>}
      */
     webRequestErrorHostnames = new Map();
 
     /**
      * Storage for for hostnames from non-routable events
-     * @type {Map<string, number>}
+     * @type {Map<string, {timeAdded: number}>}
      */
     nonRoutableHostnames = new Map();
 
     /**
-     * Looks up for hostname in the storage
+     * Looks up for hostname in the storage, if found removes it from storage
      * @param {string} hostname
-     * @param {Map<string, number>} storage
-     * @returns {boolean}
+     * @param {Map<string, {timeAdded: number, tabId: number, url: string}> | Map<string, {timeAdded: number}>} storage
+     * @returns {null | {timeAdded: number, tabId: number, url: string} | {timeAdded: number}}
      */
-    isHostnameInMap = (hostname, storage) => {
+    getByHostname = (hostname, storage) => {
         if (storage.has(hostname)) {
+            const value = storage.get(hostname);
             storage.delete(hostname);
-            return true;
+            return value;
         }
 
-        return false;
+        return null;
     };
 
     /**
@@ -103,7 +106,7 @@ class NonRoutableService {
         const currentTime = Date.now();
         // eslint-disable-next-line no-restricted-syntax
         for (const [key, value] of storage) {
-            if (value < (currentTime - VALUE_TTL_MS)) {
+            if (value.timeAdded < (currentTime - VALUE_TTL_MS)) {
                 storage.delete(key);
             }
         }
@@ -119,9 +122,10 @@ class NonRoutableService {
             return;
         }
         const hostname = getHostname(nonRoutableDomain);
-        const result = this.isHostnameInMap(hostname, this.webRequestErrorHostnames);
-        if (result) {
+        const webRequestError = this.getByHostname(hostname, this.webRequestErrorHostnames);
+        if (webRequestError) {
             this.addNewNonRoutableDomain(hostname);
+            tabs.update(webRequestError.tabId, webRequestError.url);
         } else {
             this.nonRoutableHostnames.set(hostname, Date.now());
         }
@@ -144,6 +148,7 @@ class NonRoutableService {
             type,
             error,
             statusCode,
+            tabId,
         } = details;
 
         if ((error === ERROR || statusCode === STATUS_CODE) && type === MAIN_FRAME) {
@@ -151,11 +156,14 @@ class NonRoutableService {
             if (!hostname) {
                 return;
             }
-            const result = this.isHostnameInMap(hostname, this.nonRoutableHostnames);
+            const result = this.getByHostname(hostname, this.nonRoutableHostnames);
             if (result) {
                 this.addNewNonRoutableDomain(hostname);
+                // here used tab.update method, because reload method reloads
+                // previous page (chrome://new-tab) in the cases of navigation from new tab
+                tabs.update(tabId, url);
             } else {
-                this.webRequestErrorHostnames.set(hostname, Date.now());
+                this.webRequestErrorHostnames.set(hostname, { timeAdded: Date.now(), tabId, url });
             }
             this.clearStaleValues(this.webRequestErrorHostnames);
         }
