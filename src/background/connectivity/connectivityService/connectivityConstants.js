@@ -62,6 +62,11 @@ export const EVENT = {
      * because other extension is controlling proxy settings
      */
     PROXY_CONNECTION_ERROR: 'PROXY_CONNECTION_ERROR',
+
+    /**
+     * Fires when too many devices are connected and we should disable connection
+     */
+    TOO_MANY_DEVICES_CONNECTED: 'TOO_MANY_DEVICES_CONNECTED',
 };
 
 /**

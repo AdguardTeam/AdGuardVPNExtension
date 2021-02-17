@@ -29,6 +29,10 @@ class VpnStore {
         usedDownloadedBytes: null,
     };
 
+    @observable tooManyDevicesConnected = false;
+
+    @observable maxDevicesAllowed = null;
+
     @observable isPremiumToken;
 
     @action
@@ -245,6 +249,16 @@ class VpnStore {
             ? `${this.vpnInfo.premiumPromoPage}?email=${encodeURIComponent(username)}`
             : this.vpnInfo.premiumPromoPage;
         popupActions.openTab(url);
+    }
+
+    @action
+    setTooManyDevicesConnected = (state) => {
+        this.tooManyDevicesConnected = state;
+    };
+
+    @action
+    setMaxDevicesAllowed = (maxDevicesAllowed) => {
+        this.maxDevicesAllowed = maxDevicesAllowed;
     }
 }
 
