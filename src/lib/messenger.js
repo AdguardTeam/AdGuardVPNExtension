@@ -281,6 +281,16 @@ class Messenger {
         const type = MESSAGES_TYPES.REPORT_BUG;
         return this.sendMessage(type, { email, message, includeLog });
     }
+
+    async addRegularExclusions(exclusions) {
+        const type = MESSAGES_TYPES.ADD_REGULAR_EXCLUSIONS;
+        return this.sendMessage(type, { exclusions });
+    }
+
+    async addSelectiveExclusions(exclusions) {
+        const type = MESSAGES_TYPES.ADD_SELECTIVE_EXCLUSIONS;
+        return this.sendMessage(type, { exclusions });
+    }
 }
 
 export default new Messenger();

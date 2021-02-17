@@ -7,9 +7,9 @@ import {
 } from 'mobx';
 import debounce from 'lodash/debounce';
 
-import { REQUEST_STATUSES } from '../consts';
-import messenger from '../../../lib/messenger';
-import { reactTranslator } from '../../../common/reactTranslator';
+import { REQUEST_STATUSES } from './consts';
+import messenger from '../../lib/messenger';
+import { reactTranslator } from '../../common/reactTranslator';
 
 const AUTH_STEPS = {
     SIGN_IN: 'signIn',
@@ -34,8 +34,7 @@ const DEFAULTS = {
     marketingConsent: false,
 };
 
-// TODO [maximtop] add validation
-class AuthStore {
+export class AuthStore {
     @observable credentials = DEFAULTS.credentials;
 
     @observable authenticated = DEFAULTS.authenticated;
@@ -92,9 +91,17 @@ class AuthStore {
 
     @action
     getAuthCacheFromBackground = async () => {
-        const { username, password, step } = await messenger.getAuthCache();
+        const {
+            username,
+            password,
+            step,
+        } = await messenger.getAuthCache();
         runInAction(() => {
-            this.credentials = { ...this.credentials, username, password };
+            this.credentials = {
+                ...this.credentials,
+                username,
+                password,
+            };
             if (step) {
                 this.step = step;
             }
@@ -103,7 +110,11 @@ class AuthStore {
 
     @computed
     get disableRegister() {
-        const { username, password, passwordAgain } = this.credentials;
+        const {
+            username,
+            password,
+            passwordAgain,
+        } = this.credentials;
         if (!username || !password || !passwordAgain) {
             return true;
         }
@@ -115,7 +126,10 @@ class AuthStore {
 
     @computed
     get disableLogin() {
-        const { username, password } = this.credentials;
+        const {
+            username,
+            password,
+        } = this.credentials;
         if (!username || !password) {
             return true;
         }
@@ -237,5 +251,3 @@ class AuthStore {
         });
     };
 }
-
-export default AuthStore;

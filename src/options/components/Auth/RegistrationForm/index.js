@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import ReactHtmlParser from 'react-html-parser';
 
-import rootStore from '../../../stores';
+import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 
 const RegistrationForm = observer(() => {

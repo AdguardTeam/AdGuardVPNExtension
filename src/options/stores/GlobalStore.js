@@ -4,10 +4,10 @@ import {
     observable,
 } from 'mobx';
 
-import { REQUEST_STATUSES } from '../consts';
-import { log } from '../../../lib/logger';
+import { REQUEST_STATUSES } from './consts';
+import { log } from '../../lib/logger';
 
-class globalStore {
+export class GlobalStore {
     @observable initStatus = REQUEST_STATUSES.PENDING;
 
     constructor(rootStore) {
@@ -50,5 +50,3 @@ class globalStore {
         return this.initStatus;
     }
 }
-
-export default globalStore;

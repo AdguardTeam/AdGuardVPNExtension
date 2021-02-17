@@ -1,6 +1,6 @@
 {
     "name": "adguard-vpn",
-    "version": "0.9.10",
+    "version": "0.9.11",
     "description": "AdGuard VPN",
     "author": "adguard@adguard.com",
     "license": "LGPL-3.0",
@@ -94,11 +94,13 @@
         "zip-webpack-plugin": "^3.0.0"
     },
     "dependencies": {
-        "@adguard/translate": "^0.1.0",
+        "@adguard/translate": "^0.2.1",
         "@babel/runtime": "^7.12.0",
         "@xstate/react": "^1.1.0",
         "classnames": "^2.2.6",
         "crypto-js": "^4.0.0",
+        "date-fns": "^2.17.0",
+        "file-saver": "^2.0.5",
         "ipaddr.js": "^1.9.1",
         "jszip": "^3.5.0",
         "lodash": "^4.17.20",
