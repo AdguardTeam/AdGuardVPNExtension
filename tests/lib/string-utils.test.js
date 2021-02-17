@@ -1,4 +1,4 @@
-import { renderTemplate, isHttp } from '../../src/lib/string-utils';
+import { renderTemplate, isHttp, isValidExclusion } from '../../src/lib/string-utils';
 
 describe('index.proxy.setBypassList', () => {
     it('should NOT be called before initialization', () => {
@@ -21,5 +21,19 @@ describe('isHttp', () => {
         expect(isHttp('https://example.org/test')).toBeTruthy();
         expect(isHttp('chrome://some_id/test')).toBeFalsy();
         expect(isHttp('about:blank')).toBeFalsy();
+    });
+});
+
+describe('isValidExclusion', () => {
+    it('finds valid exclusions', () => {
+        expect(isValidExclusion('example.org')).toBeTruthy();
+        expect(isValidExclusion('*.example.org')).toBeTruthy();
+        expect(isValidExclusion('api.*.org')).toBeTruthy();
+    });
+    it('finds invalid exclusions', () => {
+        expect(isValidExclusion('*org')).toBeFalsy();
+        expect(isValidExclusion('exa#mple.org')).toBeFalsy();
+        expect(isValidExclusion('*example.org')).toBeFalsy();
+        expect(isValidExclusion('**.example.org')).toBeFalsy();
     });
 });

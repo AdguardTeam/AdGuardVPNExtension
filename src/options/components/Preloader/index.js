@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
-import Modal from 'react-modal';
-import './preloader.pcss';
 import { observer } from 'mobx-react';
-import rootStore from '../../stores';
+import Modal from 'react-modal';
+
+import { rootStore } from '../../stores';
 import { REQUEST_STATUSES } from '../../stores/consts';
+
+import './preloader.pcss';
 
 const Preloader = observer(() => {
     const { authStore, globalStore } = useContext(rootStore);

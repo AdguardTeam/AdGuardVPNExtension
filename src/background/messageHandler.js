@@ -178,8 +178,14 @@ const messageHandler = async (message, sender) => {
         case MESSAGES_TYPES.ADD_EXCLUSION_BY_MODE: {
             const { mode, url, enabled } = data;
             const handler = exclusions.getHandler(mode);
-            await handler.addToExclusions(url, enabled);
+            handler.addToExclusions(url, enabled);
             break;
+        }
+        case MESSAGES_TYPES.ADD_REGULAR_EXCLUSIONS: {
+            return exclusions.addRegularExclusions(data.exclusions);
+        }
+        case MESSAGES_TYPES.ADD_SELECTIVE_EXCLUSIONS: {
+            return exclusions.addSelectiveExclusions(data.exclusions);
         }
         case MESSAGES_TYPES.GET_SELECTED_LOCATION: {
             return endpoints.getSelectedLocation();

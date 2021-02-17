@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 
-import rootStore from '../../../stores';
+import { rootStore } from '../../../stores';
+
 import './social-auth.pcss';
 
 const SOCIAL_PROVIDERS = ['google', 'facebook'];

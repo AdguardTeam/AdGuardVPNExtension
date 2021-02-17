@@ -101,4 +101,25 @@
         color: var(--gray88);
         margin-bottom: 60px;
     }
+
+    &--control {
+        font-size: 1.3rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: var(--gray88);
+        line-height: 18px;
+        margin-right: 16px;
+        transition: var(--t3) color;
+
+        &:hover,
+        &:focus {
+            color: var(--gray-base);
+            background-color: transparent;
+            box-shadow: none;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
 }

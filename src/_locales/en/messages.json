@@ -287,6 +287,12 @@
     "settings_exclusion_add": {
         "message": "Add a website"
     },
+    "settings_exclusions_import_button": {
+        "message": "Import"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Export"
+    },
     "settings_exclusion_title": {
         "message": "Exclusions"
     },
@@ -469,5 +475,23 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "Are you sure you want to switch?"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "Import exclusions to:"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "Regular list"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "Selective list"
+    },
+    "options_exclusions_import_successful": {
+        "message": "Imported exclusions: %count%"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "Exclusions file should have one of the extensions: %extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "Zip archive: \"%filename%\" doesn't contain files with extensions: %extensions%"
     }
 }
