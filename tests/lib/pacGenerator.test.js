@@ -10,7 +10,7 @@ describe('Pac generator', () => {
 
     beforeEach(() => {
         isInNetMock = jest.fn(isInNet);
-        options = { sandbox: { isInNet: isInNetMock, alert: console.log } };
+        options = { sandbox: { isInNet: isInNetMock } };
     });
 
     it('returns direct for all requests if proxy undefined', async () => {
