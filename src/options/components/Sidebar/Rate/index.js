@@ -2,9 +2,10 @@ import React, { Fragment, useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { OPTIONS_STORE_URL, FEEDBACK_URL } from '../../../../background/config';
-import rootStore from '../../../stores';
-import './rate.pcss';
+import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
+
+import './rate.pcss';
 
 const RATING_STARS = [5, 4, 3, 2, 1];
 

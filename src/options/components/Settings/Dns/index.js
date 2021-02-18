@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
-import { DNS_SERVERS } from '../../../../background/dns/dnsConstants';
-import rootStore from '../../../stores';
 
-import './dns.pcss';
+import { DNS_SERVERS } from '../../../../background/dns/dnsConstants';
+import { rootStore } from '../../../stores';
 import Select from '../../ui/Select';
 import { reactTranslator } from '../../../../common/reactTranslator';
+
+import './dns.pcss';
 
 const Dns = observer(() => {
     const { settingsStore } = useContext(rootStore);

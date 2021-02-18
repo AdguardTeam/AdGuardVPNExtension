@@ -88,6 +88,15 @@
     &__controls {
         display: flex;
         margin-bottom: 30px;
+
+        &--import-export {
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+
+    &__import-export {
+        margin-left: auto;
     }
 }
 
@@ -104,6 +113,10 @@
     flex-direction: column;
     align-items: center;
     outline: none;
+
+    &--big {
+        width: 600px;
+    }
 
     &__close-icon {
         align-self: flex-end;
@@ -134,6 +147,10 @@
         text-align: center;
     }
 
+    &__buttons {
+        padding-top: 32px;
+    }
+
     &__button {
         height: 44px;
         width: 220px;
@@ -146,6 +163,10 @@
         line-height: 16px;
         text-transform: uppercase;
         margin-bottom: 44px;
+
+        &--first {
+            margin-right: 16px;
+        }
     }
 }
 

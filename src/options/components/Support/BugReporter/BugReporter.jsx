@@ -6,7 +6,7 @@ import classnames from 'classnames';
 
 import { Title } from '../../ui/Title';
 import Checkbox from '../../ui/Checkbox';
-import rootStore from '../../../stores';
+import { rootStore } from '../../../stores';
 import messenger from '../../../../lib/messenger';
 import { addMinDurationTime } from '../../../../lib/helpers';
 import { reactTranslator } from '../../../../common/reactTranslator';

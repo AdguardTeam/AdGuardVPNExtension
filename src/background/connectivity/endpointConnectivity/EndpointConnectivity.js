@@ -211,7 +211,8 @@ class EndpointConnectivity {
     sendPingMessage = async () => {
         const appId = credentials.getAppId();
         try {
-            return sendPingMessage(this.ws, this.vpnToken, appId);
+            const ping = await sendPingMessage(this.ws, this.vpnToken, appId);
+            return ping;
         } catch (e) {
             log.debug(e);
             return null;
@@ -261,11 +262,16 @@ class EndpointConnectivity {
 
     handleErrorMsg = (connectivityErrorMsg) => {
         const NON_ROUTABLE_CODE = 'NON_ROUTABLE';
+        const TOO_MANY_DEVICES_CONNECTED = 'TOO_MANY_DEVICES_CONNECTED';
 
         const { code, payload } = connectivityErrorMsg;
 
         if (code === NON_ROUTABLE_CODE) {
             notifier.notifyListeners(notifier.types.NON_ROUTABLE_DOMAIN_FOUND, payload);
+        }
+        if (code === TOO_MANY_DEVICES_CONNECTED) {
+            notifier.notifyListeners(notifier.types.TOO_MANY_DEVICES_CONNECTED, payload);
+            connectivityService.send(EVENT.TOO_MANY_DEVICES_CONNECTED);
         }
     };
 
