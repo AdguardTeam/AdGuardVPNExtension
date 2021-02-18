@@ -5,13 +5,13 @@ import browser from 'webextension-polyfill';
 import { log } from '../../lib/logger';
 import notifier from '../../lib/notifier';
 import { getHostname } from '../../lib/helpers';
-import { NON_ROUTABLE_NETS } from './nonRoutableNets';
+import { NON_ROUTABLE_CIDR_NETS } from './constants';
 import tabs from '../tabs';
 
 /**
  * This module notifies user about non routable domains
  * There are two sources of non-routable domains:
- * 1. Ip ranges in the array of NON_ROUTABLE_NETS - used to check ip urls
+ * 1. Ip ranges in the array of NON_ROUTABLE_CIDR_NETS - used to check ip urls
  * 2. Messages from endpoints and webRequest error events
  *
  * Proxy sends 502 error status code if it couldn't handle request.
@@ -44,7 +44,7 @@ class NonRoutableService {
 
     constructor(storage) {
         this.storage = storage;
-        this.parsedCIDRList = NON_ROUTABLE_NETS.map((net) => ipaddr.parseCIDR(net));
+        this.parsedCIDRList = NON_ROUTABLE_CIDR_NETS.map((net) => ipaddr.parseCIDR(net));
     }
 
     async init() {
@@ -161,6 +161,8 @@ class NonRoutableService {
                 this.addNewNonRoutableDomain(hostname);
                 // here used tab.update method, because reload method reloads
                 // previous page (chrome://new-tab) in the cases of navigation from new tab
+                // sometimes tabId returned from webRequest.onHeadersReceived could be different from the real tab id
+                // this indefinite behaviour happens rarely, and may be caused by some race condition in chrome itself
                 tabs.update(tabId, url);
             } else {
                 this.webRequestErrorHostnames.set(hostname, { timeAdded: Date.now(), tabId, url });

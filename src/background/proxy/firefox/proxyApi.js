@@ -2,6 +2,8 @@ import browser from 'webextension-polyfill';
 import { getHostname } from '../../../lib/helpers';
 import { CONNECTION_TYPE_FIREFOX } from '../proxyConsts';
 import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
+import { IPv4Regex } from '../../routability/constants';
+import { convertCidrToNet, isInNet } from '../../routability/utils';
 
 /**
  * @typedef proxyConfig
@@ -49,7 +51,14 @@ import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
  */
 const convertToFirefoxConfig = (proxyConfig) => {
     const {
-        bypassList, host, port, scheme, inverted, credentials, defaultExclusions,
+        bypassList,
+        host,
+        port,
+        scheme,
+        inverted,
+        credentials,
+        defaultExclusions,
+        nonRoutableCidrNets,
     } = proxyConfig;
 
     return {
@@ -62,6 +71,7 @@ const convertToFirefoxConfig = (proxyConfig) => {
         },
         credentials,
         defaultExclusions,
+        nonRoutableNets: nonRoutableCidrNets.map(convertCidrToNet),
     };
 };
 
@@ -81,6 +91,19 @@ const isBypassed = (url, exclusionsPatterns) => {
 
     return exclusionsPatterns.some((exclusionPattern) => (
         areHostnamesEqual(hostname, exclusionPattern) || shExpMatch(hostname, exclusionPattern)));
+};
+
+const isNonRoutable = (url, nonRoutableNets) => {
+    if (!nonRoutableNets || nonRoutableNets.length <= 0) {
+        return false;
+    }
+
+    const hostname = getHostname(url);
+    if (!IPv4Regex.test(hostname)) {
+        return false;
+    }
+
+    return nonRoutableNets.some(([pattern, mask]) => isInNet(hostname, pattern, mask));
 };
 
 const onAuthRequiredHandler = (details) => {
@@ -104,6 +127,10 @@ const removeAuthHandler = () => {
 };
 
 const proxyHandler = (details) => {
+    if (isNonRoutable(details.url, GLOBAL_FIREFOX_CONFIG.nonRoutableNets)) {
+        return directConfig;
+    }
+
     if (isBypassed(details.url, GLOBAL_FIREFOX_CONFIG.defaultExclusions)) {
         return directConfig;
     }

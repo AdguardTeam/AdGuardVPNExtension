@@ -126,6 +126,7 @@ class EndpointConnectivity {
             // we can't connect to the proxy because other extensions are controlling it
             // stop trying to connect
             connectivityService.send(EVENT.PROXY_CONNECTION_ERROR);
+            log.error(e.message);
             return;
         }
         webrtc.blockWebRTC();

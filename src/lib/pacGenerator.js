@@ -1,3 +1,6 @@
+import { convertCidrToNet } from '../background/routability/utils';
+import { IPv4Regex } from '../background/routability/constants';
+
 /**
  * Returns pac script text
  * We use pacScriptTimeToLiveMs in order to make pac script file inactive if
@@ -6,9 +9,10 @@
  * @param exclusionsList
  * @param inverted
  * @param defaultExclusions
+ * @param nonRoutableNets
  * @returns {string}
  */
-function proxyPacScript(proxy, exclusionsList, inverted, defaultExclusions) {
+function proxyPacScript(proxy, exclusionsList, inverted, defaultExclusions, nonRoutableNets) {
     // Used to adjust pacscript after application or browser restart
     const pacScriptTimeToLiveMs = 200;
     // Used to adjust pacscript lifetime after internet reconnection
@@ -47,13 +51,19 @@ function proxyPacScript(proxy, exclusionsList, inverted, defaultExclusions) {
                     return DIRECT;
                 }
 
-                const defaultExclusions = [${defaultExclusions.map((l) => `"${l}"`).join(', ')}];
+                const IPv4Regex = new RegExp(${IPv4Regex});
+                const nonRoutableNets = ${JSON.stringify(nonRoutableNets)};
+                if (IPv4Regex.test(host) && nonRoutableNets.some(([pattern, mask]) => isInNet(host, pattern, mask))) {
+                    return DIRECT;
+                }
+
+                const defaultExclusions = ${JSON.stringify(defaultExclusions)};
                 if (defaultExclusions.some(el => (areHostnamesEqual(host, el) || shExpMatch(host, el)))) {
                     return DIRECT;
                 }
 
                 const inverted = ${inverted};
-                const list = [${exclusionsList.map((l) => `"${l}"`).join(', ')}];
+                const list = ${JSON.stringify(exclusionsList)};
 
                 if (list.some(el => (areHostnamesEqual(host, el) || shExpMatch(host, el)))) {
                     if (inverted) {
@@ -73,12 +83,31 @@ function directPacScript() {
     }`;
 }
 
-const generate = (proxy, exclusionsList = [], inverted = false, defaultExclusions = []) => {
+/**
+ *
+ * @param {string} proxy
+ * @param {string[]} exclusionsList
+ * @param {boolean} inverted
+ * @param {string[]} defaultExclusions
+ * @param {string[]} nonRoutableCidrNets
+ * @return {string}
+ */
+const generate = (
+    proxy,
+    exclusionsList = [],
+    inverted = false,
+    defaultExclusions = [],
+    nonRoutableCidrNets = [],
+) => {
     if (!proxy) {
         return directPacScript();
     }
 
-    return proxyPacScript(proxy, exclusionsList, inverted, defaultExclusions);
+    const nonRoutableNets = nonRoutableCidrNets.map((net) => {
+        return convertCidrToNet(net);
+    });
+
+    return proxyPacScript(proxy, exclusionsList, inverted, defaultExclusions, nonRoutableNets);
 };
 
 export default { generate };
