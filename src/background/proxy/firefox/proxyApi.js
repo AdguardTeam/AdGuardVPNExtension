@@ -2,7 +2,7 @@ import browser from 'webextension-polyfill';
 import { getHostname } from '../../../lib/helpers';
 import { CONNECTION_TYPE_FIREFOX } from '../proxyConsts';
 import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
-import { IPv4Regex } from '../../routability/constants';
+import { ipv4Regex } from '../../routability/constants';
 import { convertCidrToNet, isInNet } from '../../routability/utils';
 
 /**
@@ -99,7 +99,7 @@ const isNonRoutable = (url, nonRoutableNets) => {
     }
 
     const hostname = getHostname(url);
-    if (!IPv4Regex.test(hostname)) {
+    if (!ipv4Regex.test(hostname)) {
         return false;
     }
 
