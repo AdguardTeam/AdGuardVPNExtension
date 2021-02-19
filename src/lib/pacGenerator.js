@@ -1,5 +1,5 @@
 import { convertCidrToNet } from '../background/routability/utils';
-import { ipv4Regex } from '../background/routability/constants';
+import { IPV4_REGEX } from '../background/routability/constants';
 
 /**
  * Returns pac script text
@@ -51,7 +51,7 @@ function proxyPacScript(proxy, exclusionsList, inverted, defaultExclusions, nonR
                     return DIRECT;
                 }
 
-                const ipv4Regex = new RegExp(${ipv4Regex});
+                const ipv4Regex = new RegExp(${IPV4_REGEX});
                 const nonRoutableNets = ${JSON.stringify(nonRoutableNets)};
                 if (ipv4Regex.test(host) && nonRoutableNets.some(([pattern, mask]) => isInNet(host, pattern, mask))) {
                     return DIRECT;
