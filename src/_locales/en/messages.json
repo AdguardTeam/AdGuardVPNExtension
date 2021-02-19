@@ -489,7 +489,7 @@
         "message": "Imported exclusions: %count%"
     },
     "options_exclusions_import_error_wrong_extensions": {
-        "message": "Exclusions file should have one of the extensions: %extensions%"
+        "message": "Exclusions file should have one of the following extensions: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "Zip archive: \"%filename%\" doesn't contain files with extensions: %extensions%"
