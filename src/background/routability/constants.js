@@ -1,4 +1,4 @@
-export const NON_ROUTABLE_NETS = [
+export const NON_ROUTABLE_CIDR_NETS = [
     '0.0.0.0/8',
     '10.0.0.0/8',
     '14.0.0.0/8',
@@ -18,3 +18,5 @@ export const NON_ROUTABLE_NETS = [
     '224.0.0.0/4',
     '240.0.0.0/4',
 ];
+
+export const IPV4_REGEX = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/;

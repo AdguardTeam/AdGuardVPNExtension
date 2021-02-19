@@ -1,6 +1,7 @@
 import browser from 'webextension-polyfill';
 import { PASSWORD_RECOVERY_URL } from './config';
 import notifier from '../lib/notifier';
+import { log } from '../lib/logger';
 
 class Tabs {
     constructor() {
@@ -65,6 +66,22 @@ class Tabs {
 
     async openSocialAuthTab(authUrl) {
         await this.openTab(authUrl);
+    }
+
+    async reload(tabId) {
+        try {
+            await browser.tabs.reload(tabId);
+        } catch (e) {
+            log.error(e.message);
+        }
+    }
+
+    async update(tabId, url) {
+        try {
+            await browser.tabs.update(tabId, { url });
+        } catch (e) {
+            log.error(e.message);
+        }
     }
 }
 

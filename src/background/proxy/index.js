@@ -8,6 +8,7 @@ import { log } from '../../lib/logger';
 import browserApi from '../browserApi';
 import notifier from '../../lib/notifier';
 import { DEFAULT_EXCLUSIONS, LEVELS_OF_CONTROL } from './proxyConsts';
+import { NON_ROUTABLE_CIDR_NETS } from '../routability/constants';
 
 const CURRENT_ENDPOINT_KEY = 'proxyCurrentEndpoint';
 
@@ -99,6 +100,7 @@ class ExtensionProxy {
                 ...DEFAULT_EXCLUSIONS,
                 ...this.getEndpointsTldExclusions()
             ],
+            nonRoutableCidrNets: NON_ROUTABLE_CIDR_NETS,
             host: this.currentHost,
             port: 443,
             scheme: 'https',
