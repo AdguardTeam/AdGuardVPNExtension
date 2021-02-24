@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
-import SocialAuth from './SocialAuth';
+import { SocialAuth } from './SocialAuth';
 import SignInForm from './SignInForm';
 import RegistrationForm from './RegistrationForm';
 import TwoFactorForm from './TwoFactorForm';

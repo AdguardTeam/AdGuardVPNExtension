@@ -98,6 +98,10 @@ class Auth {
                 params.social_provider = 'facebook';
                 break;
             }
+            case 'apple': {
+                params.social_provider = 'apple';
+                break;
+            }
             default:
                 throw new Error(`There is no such provider: "${socialProvider}"`);
         }
