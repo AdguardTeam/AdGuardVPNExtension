@@ -287,6 +287,12 @@
     "settings_exclusion_add": {
         "message": "Dodaj web stranicu"
     },
+    "settings_exclusions_import_button": {
+        "message": "Uvoz"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Izvoz"
+    },
     "settings_exclusion_title": {
         "message": "Iznimke"
     },
@@ -324,7 +330,7 @@
         "message": "Pokušajte ponovno"
     },
     "authentication_successful_social": {
-        "message": "Uspješno autentificirano! Možete otvoriti AdGuard VPN i uključiti tuneliranje."
+        "message": "Uspješno autentificirano! Možete otvoriti AdGuard VPN i početi ga koristiti."
     },
     "control_error_description": {
         "message": "Izgleda da još jedno proširenje Chromea pokušava kontrolirati vašu vezu. Onemogućite drugo proširenje u vašem pregledniku."
@@ -469,5 +475,41 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "Jeste li sigurni da želite promijeniti?"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "Uvezi iznimke u:"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "Redovna lista"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "Selektivna lista"
+    },
+    "options_exclusions_import_successful": {
+        "message": "Uvezene iznimke: %count%"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "Datoteka iznimaka trebala bi imati sljedeće nastavke: %extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "Zip arhiva: \"%filename%\" ne sadržava datoteke sa nastavcima: %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "Dosegli ste maksimalan broj spojenih uređaja: %maxDevicesAllowed%."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "Kako biste dodali više uređaja, odlučite se za pretplatu na neograničeni Adguard VPN."
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "Kako biste dodali drugi uređaj, onemogućite AdGuard VPN na bilo kojem od vaših uređaja."
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Pretplati"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Saznaj više"
+    },
+    "popup_connections_limit_title": {
+        "message": "Dosegnuto je ograničenje povezivanja"
     }
 }

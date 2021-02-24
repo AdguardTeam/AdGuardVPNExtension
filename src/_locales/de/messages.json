@@ -3,7 +3,7 @@
         "message": "AdGuard VPN — Privatsphäre und Sicherheit"
     },
     "description": {
-        "message": "Für ein offenes Internet und die Sicherheit Ihrer Daten. Erstklassiges VPN von den Entwicklern des berühmten Werbeblockers."
+        "message": "Macht das Internet offen und Ihre Daten sicher. Erstklassiges VPN von den Entwicklern des berühmten Werbeblockers."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -24,7 +24,7 @@
         "message": "Dieser Wert wird bereits verwendet"
     },
     "registration_error_front_unique_validation": {
-        "message": "Die eingegebenen Passwörter stimmen nicht überein"
+        "message": "Passwörter stimmen nicht überein"
     },
     "registration_error_default": {
         "message": "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal."
@@ -42,13 +42,13 @@
         "message": "Das Konto ist für 15 Minuten gesperrt"
     },
     "authentication_error_wrong_credentials": {
-        "message": "Passwort ungültig"
+        "message": "Ungültiges Passwort"
     },
     "authentication_error_default": {
         "message": "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal."
     },
     "global_error_message": {
-        "message": "Fehler aufgetreten. Bitte kontaktieren Sie uns über <a>support@adguard-vpn.com</a>"
+        "message": "Fehler aufgetreten, bitte kontaktieren Sie uns über <a>support@adguard-vpn.com</a>"
     },
     "about_title": {
         "message": "Über"
@@ -135,7 +135,7 @@
         "message": "Beginnen Sie absolut kostenlos!"
     },
     "auth_description": {
-        "message": "Kompromissloser Schutz der Online-Privatsphäre. Über 20 Millionen Menschen haben sich bereits für AdGuard entschieden."
+        "message": "Kompromissloser Schutz der Online-Privatsphäre. Über 30 Millionen Menschen haben sich bereits für AdGuard entschieden."
     },
     "auth_code": {
         "message": "Schlüssel aus der Authentifizierungs-App"
@@ -287,6 +287,12 @@
     "settings_exclusion_add": {
         "message": "Webseite hinzufügen"
     },
+    "settings_exclusions_import_button": {
+        "message": "Importieren"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Exportieren"
+    },
     "settings_exclusion_title": {
         "message": "Ausnahmen"
     },
@@ -324,7 +330,7 @@
         "message": "Erneut versuchen"
     },
     "authentication_successful_social": {
-        "message": "Erfolgreich authentifiziert! Sie können AdGuard VPN öffnen und den Tunnel aktivieren."
+        "message": "Erfolgreich authentifiziert! Sie können AdGuard VPN öffnen und es sofort verwenden."
     },
     "control_error_description": {
         "message": "Es sieht so aus, als ob eine andere Chrome-Erweiterung versucht, Ihre Verbindung zu kontrollieren. Bitte deaktivieren Sie die andere Erweiterung in Ihrem Browser."
@@ -369,7 +375,7 @@
         "message": "Alle Endpunkte"
     },
     "endpoints_search_results": {
-        "message": "Suchergebnisse"
+        "message": "Suchergebnis"
     },
     "endpoints_search": {
         "message": "Standort suchen"
@@ -469,5 +475,41 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "Möchten Sie wirklich wechseln?"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "Ausschlüsse importieren in:"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "Standardliste"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "Selektive Liste"
+    },
+    "options_exclusions_import_successful": {
+        "message": "%count% Ausschlüsse wurden importiert"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "Die Ausschlussliste muss eine der folgenden Dateiendungen erhalten: %extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "Das Zip-Archiv „%filename%” enthält keine Dateien mit den Dateiendung: %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "Sie haben die maximale Anzahl von Verbindungen erreicht: %maxDevicesAllowed%"
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "Um weitere Geräte hinzuzufügen, sollten Sie das Uneingeschränkte AdGuard VPN abonnieren."
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "Deaktivieren Sie AdGuard VPN in einem Ihrer Gadgets, um ein anderes Gerät hinzufügen zu können."
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Abonnieren"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Mehr erfahren"
+    },
+    "popup_connections_limit_title": {
+        "message": "Max. Anzahl Verbindungen erreicht"
     }
 }

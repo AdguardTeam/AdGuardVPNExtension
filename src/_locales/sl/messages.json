@@ -24,7 +24,7 @@
         "message": "Ta vrednost je že uporabljena"
     },
     "registration_error_front_unique_validation": {
-        "message": "Geslo in potrditveno geslo se ne ujemata"
+        "message": "Gesli se ne ujemata"
     },
     "registration_error_default": {
         "message": "Prišlo je do napake, poskusite pozneje znova"
@@ -48,7 +48,7 @@
         "message": "Prišlo je do napake, poskusite pozneje znova"
     },
     "global_error_message": {
-        "message": "Prišlo je do napake, pišite nam na naslov <a>support@adguard-vpn.com</a>"
+        "message": "Prišlo je do napake. Pišite nam na naslov <a>support@adguard-vpn.com</a>"
     },
     "about_title": {
         "message": "Vizitka"
@@ -135,7 +135,7 @@
         "message": "Začnite popolnoma brezplačno!"
     },
     "auth_description": {
-        "message": "Brezkompromisna spletna zaščita zasebnosti. Več kot 20 milijonov ljudi je že izbralo AdGuard."
+        "message": "Brezkompromisna spletna zaščita zasebnosti. Več kot 30 milijonov ljudi je že izbralo AdGuard."
     },
     "auth_code": {
         "message": "Koda iz aplikacije"
@@ -287,6 +287,12 @@
     "settings_exclusion_add": {
         "message": "Dodaj spletno stran"
     },
+    "settings_exclusions_import_button": {
+        "message": "Uvozi"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Izvozi"
+    },
     "settings_exclusion_title": {
         "message": "Izjeme"
     },
@@ -324,7 +330,7 @@
         "message": "Poskusi ponovno"
     },
     "authentication_successful_social": {
-        "message": "Uspešna overovitev pristnosti! Lahko odprete AdGuard VPN in vklopite predor."
+        "message": "Uspešna overovitev pristnosti! Lahko odprete AdGuard VPN in ga začnete uporabljati."
     },
     "control_error_description": {
         "message": "Zdi se, da druga razširitev za Chrome poskuša nadzorovati vašo povezavo. V vašem brskalniku onemogočite drugo razširitev."
@@ -469,5 +475,41 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "Pozor!"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "Uvozi izjeme v:"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "Redni seznam"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "Izbirni seznam"
+    },
+    "options_exclusions_import_successful": {
+        "message": "Uvoženo izjem: %count%"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "Izjeme morajo imeti eno izmed naslednjih končnic: %extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "Arhiv Zip: \"%filename%\" ne vsebuje datotek s končnicami: %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "Dosegli ste največje število povezav: %maxDevicesAllowed%."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "Za dodajanje več naprav, se naročite na neomejeno različico AdGuard VPN."
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "Za dodajanje druge naprave, onemogočite AdGuard VPN v katerem koli od pripomočkov."
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Naroči se"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Več o tem"
+    },
+    "popup_connections_limit_title": {
+        "message": "Dosežena je omejitev povezave"
     }
 }

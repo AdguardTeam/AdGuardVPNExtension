@@ -24,7 +24,7 @@
         "message": "Este valor já foi utilizado"
     },
     "registration_error_front_unique_validation": {
-        "message": "A palavra-passe e a confirmação da palavra-passe não correspondem"
+        "message": "As palavras-passe não coincidem"
     },
     "registration_error_default": {
         "message": "Ocorreu um erro, tente novamente mais tarde"
@@ -42,13 +42,13 @@
         "message": "A conta foi bloqueada por 15 minutos"
     },
     "authentication_error_wrong_credentials": {
-        "message": "Desculpe, palavra-passe errada"
+        "message": "Palavra-passe incorreta"
     },
     "authentication_error_default": {
         "message": "Ocorreu um erro, tente novamente mais tarde"
     },
     "global_error_message": {
-        "message": "Ocorreu um erro, entre em contacto conosco via <a>support@adguard-vpn.com</a>"
+        "message": "Um erro ocorreu, entre em contacto conosco via <a>support@adguard-vpn.com</a>"
     },
     "about_title": {
         "message": "Acerca de"
@@ -135,7 +135,7 @@
         "message": "Comece absolutamente grátis!"
     },
     "auth_description": {
-        "message": "Protecção de privacidade online sem compromisso. Mais de 20 milhões de pessoas já escolheram o AdGuard."
+        "message": "Protecção de privacidade online sem compromisso. Mais de 30 milhões de pessoas já escolheram o AdGuard."
     },
     "auth_code": {
         "message": "Código a partir da autenticação da app"
@@ -287,6 +287,12 @@
     "settings_exclusion_add": {
         "message": "Adicionar um sítio"
     },
+    "settings_exclusions_import_button": {
+        "message": "Importar"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Exportar"
+    },
     "settings_exclusion_title": {
         "message": "Exclusões"
     },
@@ -324,7 +330,7 @@
         "message": "Tente novamente"
     },
     "authentication_successful_social": {
-        "message": "Autenticado com sucesso! Você pode abrir o AdGuard VPN e ativar o túnel."
+        "message": "Autenticado com sucesso! Tu podes abrir o AdGuard VPN e começar a usá-lo."
     },
     "control_error_description": {
         "message": "Parece que outra extensão do Chrome está tentando controlar sua conexão. Desactive a outra extensão no seu navegador."
@@ -435,7 +441,7 @@
         "message": "Continue como grátis"
     },
     "options_title": {
-        "message": "Opções de AdGuard VPN"
+        "message": "Opções do AdGuard VPN"
     },
     "offline_title": {
         "message": "Sem conexão"
@@ -469,5 +475,41 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "Tu tem certeza de que deseja mudar?"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "Importar exclusões para:"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "Lista normal"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "Lista selectiva"
+    },
+    "options_exclusions_import_successful": {
+        "message": "Exclusões importadas: %count%"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "O ficheiro de exclusões deve ter uma das seguintes extensões: %extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "Arquivo Zip: \"%filename%\" não contém ficheiros com extensões: %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "Tu atingistes o número máximo de conexões: %maxDevicesAllowed%."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "Para adicionar mais dispositivos, considere subscrever o AdGuard VPN ilimitado."
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "Para adicionar noutro dispositivo, desactive o AdGuard VPN em qualquer um dos seus gadgets."
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Subscrever"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Saiba mais"
+    },
+    "popup_connections_limit_title": {
+        "message": "Limite de conexões atingido"
     }
 }

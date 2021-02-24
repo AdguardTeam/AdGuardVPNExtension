@@ -3,7 +3,7 @@
         "message": "AdGuard VPN - プライバシー&セキュリティ"
     },
     "description": {
-        "message": "インターネットを無制限に、個人情報を安全に。有名なAdGuard広告ブロッカー開発者からのトップクラスVPN。"
+        "message": "インターネットを無制限に、個人情報は安全に。有名な広告ブロッカー『AdGuard』の作成者が開発したトップクラスVPN。"
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -48,7 +48,7 @@
         "message": "エラーが発生してしまいました。後ほどもう一度お試しください。"
     },
     "global_error_message": {
-        "message": "エラーが発生しました。お手数ですが、<a>support@adguard-vpn.com</a>へお問い合わせください。"
+        "message": "エラーが発生しました。お手数ですが、<a>support@adguard-vpn.com</a>(日本語対応)へお問い合わせください。"
     },
     "about_title": {
         "message": "AdGuard VPNについて"
@@ -135,7 +135,7 @@
         "message": "完全無料で　　　スタート！"
     },
     "auth_description": {
-        "message": "オンラインプライバシーを徹底保護。すでに2000万人以上のユーザー様にAdGuardをご愛用いただいております。"
+        "message": "オンラインプライバシーを徹底保護。すでに3000万人以上のユーザー様にAdGuardをご愛用いただいております。"
     },
     "auth_code": {
         "message": "認証アプリからのコード"
@@ -287,6 +287,12 @@
     "settings_exclusion_add": {
         "message": "ウェブサイトを追加する"
     },
+    "settings_exclusions_import_button": {
+        "message": "インポートする"
+    },
+    "settings_exclusions_export_button": {
+        "message": "エクスポートする"
+    },
     "settings_exclusion_title": {
         "message": "除外"
     },
@@ -324,7 +330,7 @@
         "message": "もう一度試す"
     },
     "authentication_successful_social": {
-        "message": "認証成功！AdGuard VPNを開き、トンネルをオンにすることができます。"
+        "message": "認証完了！AdGuard VPNを開き、利用を開始することができます。"
     },
     "control_error_description": {
         "message": "別のChrome拡張機能があなたの接続を制御しようとしているようです。その拡張機能を無効にしてください。"
@@ -469,5 +475,41 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "切り替えてもよろしいですか？"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "除外のインポート先:"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "レギュラーリスト"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "指定リスト"
+    },
+    "options_exclusions_import_successful": {
+        "message": "インポート完了した除外項目数: %count%"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "除外項目を含むファイルは次の拡張子のいずれでないとインポートできません: %extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "【zipアーカイブ】「%filename%」には %extensions% という拡張子のファイルがないためインポートできません"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "同時接続可能端末数の上限（%maxDevicesAllowed%台）に達しています"
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "もっと多くの端末を同時接続するには、ぜひAdGuard VPN無制限版のご利用をご検討ください。"
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "もう1台の端末を接続するには、既に接続している端末のいずれでAdGuard VPNをオフにしてください。"
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "利用開始する"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "詳しくはこちら"
+    },
+    "popup_connections_limit_title": {
+        "message": "同時接続可能端末数の上限に達成"
     }
 }

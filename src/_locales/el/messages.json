@@ -2,9 +2,6 @@
     "name": {
         "message": "AdGuard VPN - Απόρρητο και Ασφάλεια"
     },
-    "description": {
-        "message": "Κάνει το Διαδίκτυο ανοιχτό και τα δεδομένα σας ασφαλή. Topnotch VPN από τους δημιουργούς του διάσημου αποκλειστή διαφημίσεων."
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -23,9 +20,6 @@
     "registration_error_unique_constraint": {
         "message": "Αυτή η τιμή χρησιμοποιείται ήδη"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Ο κωδικός πρόσβασης και ο κωδικός επιβεβαίωσης δεν ταιριάζουν"
-    },
     "registration_error_default": {
         "message": "Παρουσιάστηκε σφάλμα. Δοκιμάστε ξανά αργότερα"
     },
@@ -43,9 +37,6 @@
     },
     "authentication_error_default": {
         "message": "Παρουσιάστηκε σφάλμα. Δοκιμάστε ξανά αργότερα"
-    },
-    "global_error_message": {
-        "message": "Παρουσιάστηκε σφάλμα, επικοινωνήστε μαζί μας μέσω του <a>support@adguard-vpn.com</a>"
     },
     "about_title": {
         "message": "Σχετικά με"
@@ -67,9 +58,6 @@
     },
     "auth_title": {
         "message": "Ξεκινήστε εντελώς δωρεάν!"
-    },
-    "auth_description": {
-        "message": "Ασυμβίβαστη προστασία της ιδιωτικής ζωής στο διαδίκτυο. Πάνω από 20 εκατομμύρια άνθρωποι έχουν ήδη επιλέξει το AdGuard."
     },
     "auth_code": {
         "message": "Κωδικός από εφαρμογή ελέγχου ταυτότητας"
@@ -247,9 +235,6 @@
     },
     "global_error_try_again": {
         "message": "Δοκιμάστε ξανά"
-    },
-    "authentication_successful_social": {
-        "message": "Επιβεβαιώθηκε με επιτυχία! Μπορείτε να ανοίξετε το AdGuard VPN και να ενεργοποιήσετε το τούνελ."
     },
     "control_error_description": {
         "message": "Φαίνεται ότι μια άλλη επέκταση Chrome προσπαθεί να ελέγξει τη σύνδεσή σας. Απενεργοποιήστε την άλλη επέκταση στο πρόγραμμα περιήγησής σας."

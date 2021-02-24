@@ -53,6 +53,69 @@
     "about_title": {
         "message": "Пра нас"
     },
+    "options_support_title": {
+        "message": "Падтрымка"
+    },
+    "options_support_faq_title": {
+        "message": "FAQ"
+    },
+    "options_support_faq_description": {
+        "message": "Пытанні і адказы"
+    },
+    "options_support_report_title": {
+        "message": "Паведаміць пра памылку"
+    },
+    "options_support_report_description": {
+        "message": "Калі нешта ў праграме працуе некарэктна"
+    },
+    "options_support_feedback_title": {
+        "message": "Пакінуць водгук"
+    },
+    "options_support_feedback_description": {
+        "message": "Адпраўляйце запыты і прапановы"
+    },
+    "options_support_discuss_title": {
+        "message": "Абмеркаваць"
+    },
+    "options_support_discuss_description": {
+        "message": "Абмеркаваць на форуме, у сацыяльных сетках ці на GitHub"
+    },
+    "options_report_bug_title": {
+        "message": "Паведаміць пра памылку"
+    },
+    "options_bug_report_email_label": {
+        "message": "Электронная пошта"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Уключыць у паведамленне дыягнастычную справаздачу"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "Няправільны адрас электроннай пошты"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "Гэта поле не можа быць пустым"
+    },
+    "options_bug_report_request_error": {
+        "message": "Адбылася памылка. Паспрабуйце пазней."
+    },
+    "options_bug_report_send_button": {
+        "message": "Адправіць"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Адпраўленне..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Апішыце знойдзеную памылку..."
+    },
+    "options_bug_report_page_success": {
+        "message": "Дзякуй, ваша паведамленне адпраўлена!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "Новая справаздача"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Паведамленне"
+    },
     "account_title": {
         "message": "Акаўнт"
     },
@@ -72,7 +135,7 @@
         "message": "Пачніце абсалютна дарма!"
     },
     "auth_description": {
-        "message": "Бездакорная абарона прыватнасці ў Інтэрнэце. Больш 20 мільёнаў чалавек ужо выбралі AdGuard."
+        "message": "Бездакорная абарона прыватнасці ў Інтэрнэце. Больш 30 мільёнаў чалавек ужо выбралі AdGuard."
     },
     "auth_code": {
         "message": "Код з дадатку аўтэнтыфікацыі"
@@ -224,6 +287,12 @@
     "settings_exclusion_add": {
         "message": "Дадаць сайт"
     },
+    "settings_exclusions_import_button": {
+        "message": "Імпарт"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Экспарт"
+    },
     "settings_exclusion_title": {
         "message": "Выняткі"
     },
@@ -261,7 +330,7 @@
         "message": "Паўтарыць спробу"
     },
     "authentication_successful_social": {
-        "message": "Успешная аутентификация! Вы можете открыть AdGuard VPN и подключить туннель."
+        "message": "Паспяховая аўтэнтыфікацыя! Вы можаце адкрыць AdGuard VPN і падлучыць тунэль."
     },
     "control_error_description": {
         "message": "Здаецца, што яшчэ адно пашырэнне Chrome спрабуе кантраляваць ваша злучэнне. Калі ласка, адключыце іншае пашырэнне ў вашым браўзары."
@@ -365,6 +434,9 @@
     "upgrade_features_all_locations": {
         "message": "Усе месцівы"
     },
+    "upgrade_features_devices": {
+        "message": "Да 5 прылад"
+    },
     "continue_us_free_button": {
         "message": "Працягнуць дарма"
     },
@@ -379,6 +451,14 @@
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN адключаны на гэтым сайце"
+    },
+    "popup_auth_agreement_consent": {
+        "message": "Працягваючы скарыстаць AdGuard, Вы згаджаецеся з нашым <eula>Ліцэнзійным пагадненнем</eula> і <privacy>Палітыкай прыватнасці</privacy>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "options_auth_agreement_consent": {
+        "message": "Працягваючы скарыстаць AdGuard VPN, Вы згаджаецеся з нашым <eula>Ліцэнзійным пагадненнем</eula> і <privacy>Палітыкай прыватнасці</privacy>",
+        "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> засталося ў гэтым месяцы",
@@ -395,5 +475,41 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "Ты ўпэўнены, што хочаш перамкнуць?"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "Імпартаваць выняткі ў:"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "Звычайны спіс"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "Выбарковы спіс"
+    },
+    "options_exclusions_import_successful": {
+        "message": "Імпартаваныя выняткі: %count%"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "У файла з выняткамі павінна быць адно з пашырэнняў: %extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "Zip-архіў: \"%filename%\" не ўтрымвае файлаў з пашырэннямі: %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "Дасягнута максімальная колькасць падлучэнняў: %maxDevicesAllowed%."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "Каб дадаць больш прылад, аформіце падпіску на AdGuard VPN."
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "Каб дадаць яшчэ адну прыладу, адключыце AdGuard VPN на кожнай іншай прыладзе."
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Падпісаццца"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Падрабязней"
+    },
+    "popup_connections_limit_title": {
+        "message": "Дасягнуты ліміт падлучэнняў"
     }
 }
