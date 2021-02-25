@@ -13,7 +13,11 @@ import './popup-error.pcss';
 export const ConnectionsLimitError = observer(() => {
     const { vpnStore } = useContext(rootStore);
 
-    const { tooManyDevicesConnected, isPremiumToken, maxDevicesAllowed } = vpnStore
+    const { tooManyDevicesConnected, isPremiumToken, maxDevicesAllowed } = vpnStore;
+
+    if (!tooManyDevicesConnected) {
+        return null;
+    }
 
     if (isNil(maxDevicesAllowed)) {
         log.error('Property maxDevicesAllowed is required');
