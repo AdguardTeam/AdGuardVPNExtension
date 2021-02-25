@@ -287,6 +287,12 @@
     "settings_exclusion_add": {
         "message": "Додати вебсайт"
     },
+    "settings_exclusions_import_button": {
+        "message": "Імпортувати"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Експортувати"
+    },
     "settings_exclusion_title": {
         "message": "Винятки"
     },
@@ -469,5 +475,41 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "Ви впевнені, що хочете перемкнути режим?"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "Імпортувати винятки до:"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "Звичайного списку"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "Вибіркового списку"
+    },
+    "options_exclusions_import_successful": {
+        "message": "Імпортовано винятків: %count%"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "Файл винятків мусить мати одне з разширень: %extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "Zip-архів «%filename%» не містить файлів з прийнятними розширеннями: %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "Досягнуто максимальну кількість з'єднань: %maxDevicesAllowed%."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "Щоб додати більше пристроїв, оформіть підписку на AdGuard VPN."
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "Щоб додати ще один пристрій, відключіть AdGuard VPN на будь-якому іншому вашому пристрої."
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Підписатися"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Докладніше"
+    },
+    "popup_connections_limit_title": {
+        "message": "Досягнуто ліміт з'єднань"
     }
 }

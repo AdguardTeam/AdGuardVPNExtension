@@ -488,8 +488,20 @@
     "options_exclusions_import_successful": {
         "message": "已匯入的例外：%count%"
     },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "例外文檔要包含以下延伸檔名之一：%extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "ZIP 檔：\"%filename%\" 不包含有 %extensions% 延伸檔名的文檔"
+    },
     "popup_connections_limit_description_start": {
         "message": "您的連線數量達到上限：%maxDevicesAllowed%。"
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "若要添加更多裝置，何不考慮訂閱 AdGuard VPN 無限版。"
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "要連線其他裝置，請先在另一台已連線的裝置上禁用 AdGuard VPN。"
     },
     "popup_connections_limit_description_cta_button_free": {
         "message": "訂閱"
