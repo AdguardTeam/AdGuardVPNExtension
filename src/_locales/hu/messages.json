@@ -287,6 +287,12 @@
     "settings_exclusion_add": {
         "message": "Webhely hozzáadása"
     },
+    "settings_exclusions_import_button": {
+        "message": "Importálás"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Exportálás"
+    },
     "settings_exclusion_title": {
         "message": "Kivételek"
     },
@@ -469,5 +475,41 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "Biztos váltani szeretne?"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "Kizárások importálása ide:"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "Hagyományos lista"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "Szelektív lista"
+    },
+    "options_exclusions_import_successful": {
+        "message": "Importált kizárások: %count%"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "A kizárásokat tartalmazó fájlnak a következő kiterjesztések egyikével kell rendelkeznie: %extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "Zip archívum: a(z) \"%filename%\" nem tartalmaz fájlokat ezekkel a kiterjesztésekkel: %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "Elérte a kapcsolatok maximális számát: %maxDevicesAllowed%."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "További eszközök hozzáadásához fontolja meg, hogy előfizessen a korlátlan AdGuard VPN-re."
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "Újabb eszköz hozzáadásához le kell választani a jelenlegi eszközei egyikét."
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Előfizetés"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Tudjon meg többet"
+    },
+    "popup_connections_limit_title": {
+        "message": "Kapcsolódási korlát elérve"
     }
 }

@@ -222,7 +222,7 @@
         "message": "WebRTC çoğu İnternet tarayıcısında, üçüncü parti bir web sitesinin gerçek IP adresinizi algılamasına ve sizi tanımlamak için kullanmasına izin veren özel bir programdır"
     },
     "settings_context_menus_title": {
-        "message": "Tarayıcının içerik menüsüne AdGuard VPN öğesini ekleyin"
+        "message": "Tarayıcının sağtık menüsüne AdGuard VPN'yi ekle"
     },
     "context_menu_selective_mode": {
         "message": "Seçici mod"

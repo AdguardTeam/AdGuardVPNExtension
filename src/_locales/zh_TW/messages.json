@@ -476,11 +476,20 @@
     "options_selective_mode_popup_attention": {
         "message": "您確定您想要轉換嗎？"
     },
+    "options_exclusions_import_select_title": {
+        "message": "將例外匯入至："
+    },
     "options_exclusions_import_select_regular": {
         "message": "常規清單"
     },
     "options_exclusions_import_select_selective": {
         "message": "選擇性清單"
+    },
+    "options_exclusions_import_successful": {
+        "message": "已匯入的例外：%count%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "您的連線數量達到上限：%maxDevicesAllowed%。"
     },
     "popup_connections_limit_description_cta_button_free": {
         "message": "訂閱"
