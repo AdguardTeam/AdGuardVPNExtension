@@ -3,7 +3,7 @@
         "message": "AdGuard VPN — Privacy & Security"
     },
     "description": {
-        "message": "Makes the Internet open and your data safe. Topnotch VPN from the creators of famous ad blocker."
+        "message": "Makes the Internet open and your data safe. Topnotch VPN from the creators of the famous ad blocker."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -24,7 +24,7 @@
         "message": "This value is already used"
     },
     "registration_error_front_unique_validation": {
-        "message": "Password and confirm password does not match"
+        "message": "Passwords don't match"
     },
     "registration_error_default": {
         "message": "An error happened, try again later"
@@ -42,13 +42,13 @@
         "message": "Account is locked for 15 minutes"
     },
     "authentication_error_wrong_credentials": {
-        "message": "Sorry, wrong password"
+        "message": "Wrong password"
     },
     "authentication_error_default": {
         "message": "An error occurred, try again later"
     },
     "global_error_message": {
-        "message": "Error occurred, please contact us via <a>support@adguard-vpn.com</a>"
+        "message": "An error occurred, please contact us via <a>support@adguard-vpn.com</a>"
     },
     "about_title": {
         "message": "About"
@@ -108,7 +108,7 @@
         "message": "Describe the problem here..."
     },
     "options_bug_report_page_success": {
-        "message": "Thank you, your message sent successfully!"
+        "message": "Thank you, your message was sent successfully!"
     },
     "options_bug_report_new_report_button": {
         "message": "New report"
@@ -135,7 +135,7 @@
         "message": "Get started absolutely free!"
     },
     "auth_description": {
-        "message": "Uncompromising online privacy protection. Over 20 Million people have already chosen AdGuard."
+        "message": "Uncompromising online privacy protection. Over 30 million people have already chosen AdGuard."
     },
     "auth_code": {
         "message": "Code from auth application"
@@ -330,7 +330,7 @@
         "message": "Try again"
     },
     "authentication_successful_social": {
-        "message": "Successfully authenticated! You can open AdGuard VPN and switch on the tunnel."
+        "message": "Successfully authenticated! You can open AdGuard VPN and start using it."
     },
     "control_error_description": {
         "message": "It looks like another Chrome extension is trying to control your connection. Please disable the other extension in your browser."
@@ -489,7 +489,7 @@
         "message": "Imported exclusions: %count%"
     },
     "options_exclusions_import_error_wrong_extensions": {
-        "message": "Exclusions file should have one of the extensions: %extensions%"
+        "message": "Exclusions file should have one of the following extensions: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "Zip archive: \"%filename%\" doesn't contain files with extensions: %extensions%"

@@ -24,7 +24,7 @@
         "message": "Denne værdi benyttes allerede"
     },
     "registration_error_front_unique_validation": {
-        "message": "Adgangskode og bekræftelse af adgangskode stemmer ikke overens"
+        "message": "Adgangskoder matcher ikke"
     },
     "registration_error_default": {
         "message": "Der opstod en fejl, prøv igen senere"
@@ -42,13 +42,13 @@
         "message": "Kontoen er låst i 15 minutter"
     },
     "authentication_error_wrong_credentials": {
-        "message": "Beklager, forkert adgangskode"
+        "message": "Forkert adgangskode"
     },
     "authentication_error_default": {
         "message": "Der opstod en fejl, prøv igen senere"
     },
     "global_error_message": {
-        "message": "Der opstod en fejl. Kontakt os via <a>support@adguard-vpn.com</a>"
+        "message": "Der opstod en fejl, kontakt os via <a>support@adguard-vpn.com</a>"
     },
     "about_title": {
         "message": "Om"
@@ -135,7 +135,7 @@
         "message": "Start helt gratis!"
     },
     "auth_description": {
-        "message": "Kompromisløs online beskyttelse af personlige oplysninger. Over 20 millioner mennesker har allerede valgt AdGuard."
+        "message": "Kompromisløs online beskyttelse af personlige oplysninger. Over 30 millioner mennesker har allerede valgt AdGuard."
     },
     "auth_code": {
         "message": "Kode fra autentificerings-app"
@@ -287,6 +287,12 @@
     "settings_exclusion_add": {
         "message": "Tilføj et websted"
     },
+    "settings_exclusions_import_button": {
+        "message": "Importér"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Eksportér"
+    },
     "settings_exclusion_title": {
         "message": "Udelukkelser"
     },
@@ -324,7 +330,7 @@
         "message": "Prøv igen"
     },
     "authentication_successful_social": {
-        "message": "Godkendt! Du kan åbne AdGuard VPN og aktivere tunnelen."
+        "message": "Godkendt! Du kan åbne AdGuard VPN og starte med at bruge den."
     },
     "control_error_description": {
         "message": "Det ser ud til, at en anden Chrome-udvidelse forsøger at kontrollere din forbindelse. Deaktiver den anden udvidelse i din browser."
@@ -469,5 +475,41 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "Er du sikker på, at du vil skifte?"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "Importer undtagelser til:"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "Almindelig liste"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "Selektiv liste"
+    },
+    "options_exclusions_import_successful": {
+        "message": "Importerede undtagelser: %count%"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "Filtypen for Undtagelser skal være én af flg.:%extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "Zip-arkivet: \"%filename%\" indeholder ikke filer med undtagelserne: %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "Du har nået det maksimale antal forbindelser: %maxDevicesAllowed%."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "Hvis du vil tilføje flere enheder, skal du overveje at abonnere på Ubegrænset AdGuard VPN."
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "For at tilføje en anden enhed skal du deaktivere AdGuard VPN på en af dine gadgets."
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Abonnér"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Få mere at vide"
+    },
+    "popup_connections_limit_title": {
+        "message": "Grænsen for maksimalt antal forbindelser er nået"
     }
 }

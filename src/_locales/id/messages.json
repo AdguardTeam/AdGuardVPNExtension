@@ -2,9 +2,6 @@
     "name": {
         "message": "AdGuard VPN — Privasi & Keamanan"
     },
-    "description": {
-        "message": "Jadikan Internet terbuka dan data Anda aman. VPN jempolan dari pencipta pemblokir iklan terkenal."
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -23,9 +20,6 @@
     "registration_error_unique_constraint": {
         "message": "Nilai ini sudah digunakan sebelumnya"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Sandi dan konfirmasi sandi tidak cocok"
-    },
     "registration_error_default": {
         "message": "Kesalahan terjadi, coba lagi nanti"
     },
@@ -41,14 +35,8 @@
     "authentication_error_account_locked": {
         "message": "Akun terkunci selama 15 menit"
     },
-    "authentication_error_wrong_credentials": {
-        "message": "Maaf, kata sandi salah"
-    },
     "authentication_error_default": {
         "message": "Kesalahan terjadi, coba lagi nanti"
-    },
-    "global_error_message": {
-        "message": "Kesalahan terjadi, silahkan hubungi kami via <a>support@adguard-vpn.com</a>"
     },
     "about_title": {
         "message": "Tentang"
@@ -70,9 +58,6 @@
     },
     "auth_title": {
         "message": "Mari mulai sepenuhnya gratis!"
-    },
-    "auth_description": {
-        "message": "Perlindungan privasi online tanpa kompromi. Lebih dari 20 juta orang telah memilih AdGuard."
     },
     "auth_code": {
         "message": "Kode autentikasi dari aplikasi"
@@ -259,9 +244,6 @@
     },
     "global_error_try_again": {
         "message": "Coba lagi"
-    },
-    "authentication_successful_social": {
-        "message": "Berhasil diautentikasi! Anda dapat membuka AdGuard VPN dan menghidupkan terowongan."
     },
     "control_error_description": {
         "message": "Sepertinya ekstensi Chrome lain sedang mencoba mengendalikan koneksi Anda. Harap nonaktifkan ekstensi lain di browser Anda."

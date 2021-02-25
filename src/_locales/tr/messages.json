@@ -24,7 +24,7 @@
         "message": "Bu değer zaten kullanılıyor"
     },
     "registration_error_front_unique_validation": {
-        "message": "Şifre ve şifreyi onayla eşleşmiyor"
+        "message": "Parolalar uyuşmuyor"
     },
     "registration_error_default": {
         "message": "Hata oluştu, daha sonra tekrar deneyiniz"
@@ -42,13 +42,13 @@
         "message": "Hesap 15 dakika boyunca kilitlendi"
     },
     "authentication_error_wrong_credentials": {
-        "message": "Üzgünüm, yanlış parola"
+        "message": "Yanlış parola"
     },
     "authentication_error_default": {
         "message": "Hata oluştu, daha sonra tekrar deneyiniz"
     },
     "global_error_message": {
-        "message": "Hata oluştu, lütfen <a>support@adguard-vpn.com</a> adresinden bizimle iletişime geçin"
+        "message": "Bir hata oluştu, lütfen <a>support@adguard-vpn.com</a> adresinden bizimle iletişime geçin"
     },
     "about_title": {
         "message": "Hakkında"
@@ -135,7 +135,7 @@
         "message": "Tamamen ücretsiz başlayın!"
     },
     "auth_description": {
-        "message": "Ödün vermeyen çevrimiçi gizlilik koruması. 20 Milyondan fazla insan zaten AdGuard'ı seçti."
+        "message": "Ödün vermeyen çevrimiçi gizlilik koruması. 30 Milyondan fazla insan zaten AdGuard'ı seçti."
     },
     "auth_code": {
         "message": "Yetkilendirme uygulamasından gelen kod"
@@ -222,7 +222,7 @@
         "message": "WebRTC çoğu İnternet tarayıcısında, üçüncü parti bir web sitesinin gerçek IP adresinizi algılamasına ve sizi tanımlamak için kullanmasına izin veren özel bir programdır"
     },
     "settings_context_menus_title": {
-        "message": "Tarayıcının içerik menüsüne AdGuard VPN öğesini ekleyin"
+        "message": "Tarayıcının sağtık menüsüne AdGuard VPN'yi ekle"
     },
     "context_menu_selective_mode": {
         "message": "Seçici mod"
@@ -287,6 +287,12 @@
     "settings_exclusion_add": {
         "message": "Site ekle"
     },
+    "settings_exclusions_import_button": {
+        "message": "İçe aktar"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Dışa aktar"
+    },
     "settings_exclusion_title": {
         "message": "İstisnalar"
     },
@@ -324,7 +330,7 @@
         "message": "Tekrar dene"
     },
     "authentication_successful_social": {
-        "message": "Başarıyla doğrulandı! AdGuard VPN'yi açabilir ve tüneli etkinleştirebilirsiniz."
+        "message": "Başarıyla doğrulandı! AdGuard VPN'yi açabilir ve kullanmaya başlayabilirsiniz."
     },
     "control_error_description": {
         "message": "Başka bir Chrome uzantısı bağlantınızı kontrol etmeye çalışıyor gibi görünüyor. Lütfen tarayıcınızdaki diğer uzantıyı devre dışı bırakın."
@@ -469,5 +475,41 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "Değiştirmek istediğine emin misiniz?"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "İstisnaları içe aktar:"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "Normal liste"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "Seçici liste"
+    },
+    "options_exclusions_import_successful": {
+        "message": "İçe aktarılan istisnalar: %count%"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "İstisnalar dosyası bu uzantılardan birine sahip olmalıdır: %extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "Zip arşivi: \"%filename%\" bu uzantılara sahip dosyalar içermiyor: %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "Maksimum bağlantı sayısına ulaştınız: %maxDevicesAllowed%."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "Daha fazla cihaz eklemek için Sınırsız AdGuard VPN'ye abone olmayı düşünün."
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "Başka bir cihaz eklemek için herhangi bir cihazınızda AdGuard VPN'yi devre dışı bırakın."
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Abone ol"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Daha fazla bilgi edinin"
+    },
+    "popup_connections_limit_title": {
+        "message": "Bağlantı sınırına ulaşıldı"
     }
 }

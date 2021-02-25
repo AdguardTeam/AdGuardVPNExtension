@@ -3,7 +3,7 @@
         "message": "AdGuard VPN — Prywatność & Bezpieczeństwo"
     },
     "description": {
-        "message": "Sprawia, że Internet jest otwarty a twoje dane bezpieczne. Znakomity VPN od twórców znanego blokera reklam."
+        "message": "Sprawia, że Internet jest otwarty, a Twoje dane są bezpieczne. Znakomity VPN od twórców słynnego programu do blokowania reklam."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -24,7 +24,7 @@
         "message": "Ta wartość jest już użyta"
     },
     "registration_error_front_unique_validation": {
-        "message": "Hasło i potwierdzenie hasła są niezgodne"
+        "message": "Hasła się nie zgadzają"
     },
     "registration_error_default": {
         "message": "Wystąpił błąd, spróbuj ponownie później"
@@ -42,13 +42,13 @@
         "message": "Konto jest zablokowane na 15 minut"
     },
     "authentication_error_wrong_credentials": {
-        "message": "Przepraszam, złe hasło"
+        "message": "Błędne hasło"
     },
     "authentication_error_default": {
         "message": "Wystąpił błąd, spróbuj ponownie później"
     },
     "global_error_message": {
-        "message": "Wystąpił błąd, proszę skontaktuj się z nami przez <a>support@adguard-vpn.com</a>"
+        "message": "Wystąpił błąd, prosimy o kontakt poprzez <a>support@adguard-vpn.com</a>"
     },
     "about_title": {
         "message": "O programie"
@@ -135,7 +135,7 @@
         "message": "Wypróbuj za darmo!"
     },
     "auth_description": {
-        "message": "Bezkompromisowa ochrona prywatności online. Ponad 20 milionów osób wybrało AdGuard."
+        "message": "Bezkompromisowa ochrona prywatności w Internecie. Ponad 30 milionów ludzi wybrało już AdGuard."
     },
     "auth_code": {
         "message": "Kod z aplikacji uwierzytelniającej"
@@ -287,6 +287,12 @@
     "settings_exclusion_add": {
         "message": "Dodaj stronę internetową"
     },
+    "settings_exclusions_import_button": {
+        "message": "Importuj"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Eksportuj"
+    },
     "settings_exclusion_title": {
         "message": "Wyjątki"
     },
@@ -324,7 +330,7 @@
         "message": "Spróbuj ponownie"
     },
     "authentication_successful_social": {
-        "message": "Pomyślnie uwierzytelniono! Możesz otworzyć AdGuard VPN i uruchomić tunel."
+        "message": "Pomyślnie uwierzytelniono! Możesz otworzyć AdGuard VPN i zacząć go używać."
     },
     "control_error_description": {
         "message": "Wygląda na to, że inne rozszerzenie Chrome próbuje kontrolować twoje połączenie. Wyłącz inne rozszerzenie w przeglądarce."
@@ -469,5 +475,41 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "Czy na pewno chcesz się przełączyć?"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "Importuj wykluczenia do:"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "Lista regularna"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "Lista selektywna"
+    },
+    "options_exclusions_import_successful": {
+        "message": "Zaimportowanych wykluczeń: %count%"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "Plik wykluczeń powinien mieć jedno z następujących rozszerzeń: %extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "Archiwum Zip: \"%filename%\" nie zawiera plików z rozszerzeniami: %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "Osiągnięto maksymalną liczbę połączeń: %maxDevicesAllowed%."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "Aby dodać więcej urządzeń, rozważ subskrypcję Nielimitowany AdGuard VPN."
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "Aby dodać kolejne urządzenie, wyłącz AdGuard VPN na dowolnym ze swoich gadżetów."
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Subskrybuj"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Dowiedz się więcej"
+    },
+    "popup_connections_limit_title": {
+        "message": "Osiągnięto limit połączeń"
     }
 }

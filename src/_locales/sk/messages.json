@@ -24,7 +24,7 @@
         "message": "Táto hodnota sa už používa"
     },
     "registration_error_front_unique_validation": {
-        "message": "Heslo a potvrdenie hesla sa nezhodujú"
+        "message": "Heslá sa nezhodujú"
     },
     "registration_error_default": {
         "message": "Vyskytla sa chyba, skúste zopakovať neskôr"
@@ -42,7 +42,7 @@
         "message": "Účet je zamknutý na 15 minút"
     },
     "authentication_error_wrong_credentials": {
-        "message": "Prepáčte, nesprávne heslo"
+        "message": "Nesprávne heslo"
     },
     "authentication_error_default": {
         "message": "Vyskytla sa chyba, skúste zopakovať neskôr"
@@ -135,7 +135,7 @@
         "message": "Začnite úplne zadarmo!"
     },
     "auth_description": {
-        "message": "Nekompromisná ochrana súkromia online. AdGuard si už vybralo viac ako 20 miliónov ľudí."
+        "message": "Nekompromisná ochrana súkromia online. AdGuard si už vybralo viac ako 30 miliónov ľudí."
     },
     "auth_code": {
         "message": "Kód s autentifikačnej aplikácie"
@@ -287,6 +287,12 @@
     "settings_exclusion_add": {
         "message": "Pridať webovú stránku"
     },
+    "settings_exclusions_import_button": {
+        "message": "Import"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Export"
+    },
     "settings_exclusion_title": {
         "message": "Výnimky"
     },
@@ -324,7 +330,7 @@
         "message": "Skúste znova"
     },
     "authentication_successful_social": {
-        "message": "Úspešne overené! Môžete otvoriť AdGuard VPN a zapnúť tunel."
+        "message": "Úspešne overené! Môžete otvoriť AdGuard VPN a začať ju používať."
     },
     "control_error_description": {
         "message": "Zdá sa, že iné rozšírenie Chrome sa pokúša ovládať Vaše pripojenie. Zakážte ďalšie rozšírenie vo Vašom prehliadači."
@@ -469,5 +475,38 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "Naozaj chcete prepnúť?"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "Importovať výnimky do:"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "Štandardný zoznam"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "Výberový zoznam"
+    },
+    "options_exclusions_import_successful": {
+        "message": "Importované výnimky: %count%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "Archív ZIP: \"%filename%\" neobsahuje súbory s príponami: %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "Dosiahli ste maximálny počet pripojení: %maxDevicesAllowed%."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "Ak chcete pridať ďalšie zariadenia, zvážte predplatné Unlimited AdGuard VPN."
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "Ak chcete pridať ďalšie zariadenie, zakážte AdGuard VPN v niektorom inom Vašom zariadení."
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Odoberať"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Dozvedieť sa viac"
+    },
+    "popup_connections_limit_title": {
+        "message": "Bol dosiahnutý limit pripojení"
     }
 }

@@ -24,7 +24,7 @@
         "message": "Cette valeur est déjà utilisée"
     },
     "registration_error_front_unique_validation": {
-        "message": "Le mot de passe et le mot de passe confirmé ne correspondent pas"
+        "message": "Les mots de passe ne sont pas identiques"
     },
     "registration_error_default": {
         "message": "Une erreur s’est produite, réessayez plus tard"
@@ -42,7 +42,7 @@
         "message": "Le compte est bloqué pour 15 minutes"
     },
     "authentication_error_wrong_credentials": {
-        "message": "Oups, mot de passe incorrect"
+        "message": "Mot de passe incorrect"
     },
     "authentication_error_default": {
         "message": "Une erreur s’est produite, réessayez plus tard"
@@ -135,7 +135,7 @@
         "message": "Débutez absolument gratuitement!"
     },
     "auth_description": {
-        "message": "Protection de la confidentialité en ligne sans compromis. Plus de 20 millions de personnes ont déjà choisi AdGuard."
+        "message": "Protection de la confidentialité en ligne sans compromis. Plus de 30 millions de personnes ont déjà choisi AdGuard."
     },
     "auth_code": {
         "message": "Code de l’application d’authentification"
@@ -287,6 +287,12 @@
     "settings_exclusion_add": {
         "message": "Ajouter un site web"
     },
+    "settings_exclusions_import_button": {
+        "message": "Importer"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Exporter"
+    },
     "settings_exclusion_title": {
         "message": "Exclusions"
     },
@@ -324,7 +330,7 @@
         "message": "Essayer à nouveau"
     },
     "authentication_successful_social": {
-        "message": "Authentifié avec succès! Vous pouvez ouvrir AdGuard VPN et activer le tunnel."
+        "message": "Authentification réussie ! Vous pouvez lancer AdGuard VPN."
     },
     "control_error_description": {
         "message": "Il semble qu’une autre extension Chrome tente de contrôler votre connexion. Veuillez désactiver l’autre extension dans votre navigateur."
@@ -469,5 +475,41 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "Êtes-vous sûr de vouloir changer?"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "Exporter les exclusions vers :"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "Liste normale"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "Liste sélective"
+    },
+    "options_exclusions_import_successful": {
+        "message": "Exclusions importées : %count%"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "Le fichier d'exclusions doit avoir l'une des extensions suivantes : %extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "L'archive Zip : \"%filename%\" ne contient pas de fichiers avec des extensions : %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "Vous avez atteint le maximum de connexions : %maxDevicesAllowed%."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "Pour ajouter plus d'appareils, pensez à un abonnement AdGuard VPN Illimité."
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "Pour ajouter un autre appareil, désactivez AdGuard VPN sur l'un de vos autres dispositifs."
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "M'abonner"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "En savoir plus"
+    },
+    "popup_connections_limit_title": {
+        "message": "La limite des connexions est atteinte"
     }
 }

@@ -3,7 +3,7 @@
         "message": "AdGuard VPN — 隐私 & 安全"
     },
     "description": {
-        "message": "让互联网更加开放，您的数据更加安全。流行广告拦截器的开发者开发的强大 VPN 。"
+        "message": "让互联网更加开放，也让您的数据更加安全。由知名广告拦截器开发者开发的强大 VPN 。"
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -24,7 +24,7 @@
         "message": "此值已在使用中"
     },
     "registration_error_front_unique_validation": {
-        "message": "密码和确认密码不匹配"
+        "message": "密码不匹配"
     },
     "registration_error_default": {
         "message": "发生错误，请稍后再试"
@@ -42,13 +42,13 @@
         "message": "账号被锁定 15 分钟"
     },
     "authentication_error_wrong_credentials": {
-        "message": "抱歉，密码不正确"
+        "message": "密码错误"
     },
     "authentication_error_default": {
         "message": "发生错误，请稍后再试"
     },
     "global_error_message": {
-        "message": "发生错误，请联系我们 <a>support@adguard-vpn.com</a>"
+        "message": "发生错误，请您通过 <a>support@adguard-vpn.com</a> 与我们联系"
     },
     "about_title": {
         "message": "关于"
@@ -135,7 +135,7 @@
         "message": "开始使用是完全免费的！"
     },
     "auth_description": {
-        "message": "强大的在线隐私保护。已有超过 2000 万人选择 AdGuard 。"
+        "message": "强大的在线隐私保护。已有超过 3000 万人选择 AdGuard 。"
     },
     "auth_code": {
         "message": "身份验证器应用的代码"
@@ -287,6 +287,12 @@
     "settings_exclusion_add": {
         "message": "添加网站"
     },
+    "settings_exclusions_import_button": {
+        "message": "导入"
+    },
+    "settings_exclusions_export_button": {
+        "message": "导出"
+    },
     "settings_exclusion_title": {
         "message": "排除项"
     },
@@ -324,7 +330,7 @@
         "message": "重试"
     },
     "authentication_successful_social": {
-        "message": "验证成功！您可以打开 AdGuard VPN 并开启隧道"
+        "message": "验证成功！您可以开始使用 AdGuard VPN。"
     },
     "control_error_description": {
         "message": "似乎是另外一个 Chrome 扩展正在控制您的连接，请禁用该扩展。"
@@ -469,5 +475,41 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "您确定要切换工作模式吗?"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "将排除项导入至："
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "常规列表"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "选择列表"
+    },
+    "options_exclusions_import_successful": {
+        "message": "已导入的排除项：%count%"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "排除项文件要包含以下扩展名之一：%extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "Zip文件：\"%filename%\" 不包含有 %extensions% 扩展名的文件"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "您的连接数量达到上限：%maxDevicesAllowed%。"
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "若要添加更多设备，请考虑订阅无限的 AdGuard VPN。"
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "要连接其他设备，请先在另一台已连接的设备上禁用 AdGuard VPN。"
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "订阅"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "了解更多"
+    },
+    "popup_connections_limit_title": {
+        "message": "已达到连接限制"
     }
 }

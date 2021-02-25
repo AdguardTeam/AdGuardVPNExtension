@@ -3,7 +3,7 @@
         "message": "AdGuard VPN — Intimitate & Securitate"
     },
     "description": {
-        "message": "Face Internetul deschis și ține datele dvs. în siguranță. VPN de prima clasă de la creatorii celebrului blocant de pub."
+        "message": "Face Internetul deschis și datele dvs. sigure. VPN de top de la creatorii celebrului blocant al reclamelor."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -24,7 +24,7 @@
         "message": "Valoarea este deja folosită"
     },
     "registration_error_front_unique_validation": {
-        "message": "Parola și confirmarea parolei nu se potrivesc"
+        "message": "Parolele nu se potrivesc"
     },
     "registration_error_default": {
         "message": "A apărut o eroare, reîncercați mai târziu"
@@ -42,13 +42,13 @@
         "message": "Contul este blocat pentru 15 minute"
     },
     "authentication_error_wrong_credentials": {
-        "message": "Ne pare rău, parolă greșită"
+        "message": "Parolă greșită"
     },
     "authentication_error_default": {
         "message": "A apărut o eroare, reîncercați mai târziu"
     },
     "global_error_message": {
-        "message": "A apărut o eroare, contactați-ne vă rog via <a>support@adguard-vpn.com</a>"
+        "message": "A survenit o eroare, vă rugăm să ne contactați la <a>support@adguard-vpn.com</a>"
     },
     "about_title": {
         "message": "Despre"
@@ -135,7 +135,7 @@
         "message": "Începeți absolut gratuit!"
     },
     "auth_description": {
-        "message": "Protecția intimității online fără compromisuri. Peste 20 de milioane de oameni au ales deja AdGuard."
+        "message": "Protecție fără compromisuri a confidențialității online. Peste 30 milioane de oameni au ales deja AdGuard."
     },
     "auth_code": {
         "message": "Codul aplicației de autorizare"
@@ -287,6 +287,12 @@
     "settings_exclusion_add": {
         "message": "Adăugați un site"
     },
+    "settings_exclusions_import_button": {
+        "message": "Import"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Export"
+    },
     "settings_exclusion_title": {
         "message": "Excluderi"
     },
@@ -324,7 +330,7 @@
         "message": "Încercați din nou"
     },
     "authentication_successful_social": {
-        "message": "Autentificat cu succes! Puteți deschide AdGuard VPN și puteți activa tunelul."
+        "message": "Autentificat cu succes! Puteți deschide AdGuard VPN și începe a-l utiliza."
     },
     "control_error_description": {
         "message": "Se pare că o altă extensie Chrome încearcă să vă controleze conexiunile. Vă rugăm să dezactivați cealaltă extensie în browser."
@@ -469,5 +475,41 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "Sigur doriți să comutați?"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "Importați excluderi în:"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "Lista obișnuită"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "Lista selectivă"
+    },
+    "options_exclusions_import_successful": {
+        "message": "Excluderi importate: %count%"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "Fișierul de excluderi trebuie să aibă una dintre următoarele extensii: %extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "Arhiva zip: \"%filename%\" nu conține fișiere cu extensii: %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "Ați atins numărul maxim de conexiuni: %maxDevicesAllowed%."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "Pentru a adăuga mai multe dispozitive, luați în considerare abonarea la AdGuard VPN nelimitat."
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "Pentru a adăuga un alt dispozitiv, dezactivați AdGuard VPN pe oricare dintre gadget-urile dvs."
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Abonați-vă"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Aflați mai multe"
+    },
+    "popup_connections_limit_title": {
+        "message": "Limita de conexiuni a fost atinsă"
     }
 }

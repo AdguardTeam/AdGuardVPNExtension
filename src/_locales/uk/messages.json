@@ -1,8 +1,515 @@
 {
+    "name": {
+        "message": "AdGuard VPN — Приватність та Безпека"
+    },
+    "description": {
+        "message": "Робить інтернет відкритим і безпечним. Першокласний VPN від авторів відомого блокувальника реклами."
+    },
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
+    "registration_error_not_empty": {
+        "message": "Не повинно бути порожнім"
+    },
+    "registration_error_not_valid": {
+        "message": "Це значення недійсне"
+    },
+    "registration_error_min_length": {
+        "message": "Це значення надто коротке. Мусить мати 8 символів або більше."
+    },
+    "registration_error_compromised_password": {
+        "message": "Введений пароль знайдено у <a>відкритій базі даних</a> викритих паролів. Будь ласка, спробуйте інший пароль."
+    },
+    "registration_error_unique_constraint": {
+        "message": "Це значення вже використовується"
+    },
+    "registration_error_front_unique_validation": {
+        "message": "Паролі не збігаються"
+    },
+    "registration_error_default": {
+        "message": "Сталася помилка, спробуйте пізніше"
+    },
+    "authentication_error_2fa_required": {
+        "message": "Потрібен 2FA-код"
+    },
+    "authentication_error_2fa_invalid": {
+        "message": "Недійсний код"
+    },
+    "authentication_error_account_disabled": {
+        "message": "Обліковий запис деактивовано"
+    },
+    "authentication_error_account_locked": {
+        "message": "Обліковий запис заблоковано на 15 хвилин"
+    },
+    "authentication_error_wrong_credentials": {
+        "message": "Неправильний пароль"
+    },
+    "authentication_error_default": {
+        "message": "Сталася помилка, спробуйте пізніше"
+    },
+    "global_error_message": {
+        "message": "Сталася помилка, зв'яжіться з нами <a>support@adguard-vpn.com</a>"
+    },
+    "about_title": {
+        "message": "Про розширення"
+    },
+    "options_support_title": {
+        "message": "Підтримка"
+    },
+    "options_support_faq_title": {
+        "message": "Часті питання"
+    },
+    "options_support_faq_description": {
+        "message": "Питання та відповіді"
+    },
+    "options_support_report_title": {
+        "message": "Повідомити про помилку"
+    },
+    "options_support_report_description": {
+        "message": "Якщо щось не працює правильно в програмі"
+    },
+    "options_support_feedback_title": {
+        "message": "Залишити відгук"
+    },
+    "options_support_feedback_description": {
+        "message": "Подавайте запити нових функцій та пропозиції"
+    },
+    "options_support_discuss_title": {
+        "message": "Обговорити"
+    },
+    "options_support_discuss_description": {
+        "message": "Обговорити на нашому форумі, в соціальних мережах чи на GitHub"
+    },
+    "options_report_bug_title": {
+        "message": "Повідомити про помилку"
+    },
+    "options_bug_report_email_label": {
+        "message": "Email"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Додати в повідомлення діагностичний звіт"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "Неправильна електронна адреса"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "Це поле не може бути порожнім"
+    },
+    "options_bug_report_request_error": {
+        "message": "Сталася помилка, спробуйте пізніше."
+    },
+    "options_bug_report_send_button": {
+        "message": "Надіслати"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Надсилання..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Опишіть проблему тут..."
+    },
+    "options_bug_report_page_success": {
+        "message": "Дякєумо, ваше повідомлення успішно надіслане!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "Новий звіт"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Повідомлення"
+    },
+    "account_title": {
+        "message": "Обліковий запис"
+    },
+    "account_edit": {
+        "message": "Керувати"
+    },
+    "account_sign_out": {
+        "message": "Вийти"
+    },
+    "rate_description": {
+        "message": "Ей! Ми команда AdGuard і для нас дуже важливо дізнатись вашу думку про це розширення. Оцінить його, будь ласка."
+    },
+    "rate_hide": {
+        "message": "Приховати"
+    },
+    "auth_title": {
+        "message": "Почніть абсолютно безкоштовно!"
+    },
+    "auth_description": {
+        "message": "Бездоганний захист приватності в інтернеті. Понад 30 мільйонів людей уже обрали AdGuard."
+    },
+    "auth_code": {
+        "message": "Код з програми аутентифікації"
+    },
+    "auth_confirm": {
+        "message": "Підтвердити"
+    },
+    "auth_email": {
+        "message": "Електронна адреса"
+    },
+    "auth_password": {
+        "message": "Пароль"
+    },
+    "auth_password_repeat": {
+        "message": "Підтвердження паролю"
+    },
+    "auth_recover": {
+        "message": "Забули пароль?"
+    },
+    "auth_login": {
+        "message": "Увійти"
+    },
+    "auth_sign_up": {
+        "message": "Зареєструватися"
+    },
+    "auth_sign_up_button": {
+        "message": "Зареєструватися"
+    },
+    "auth_sign_in": {
+        "message": "Увійти"
+    },
+    "auth_sign_in_button": {
+        "message": "Увійти"
+    },
+    "auth_sign_in_link": {
+        "message": "Увійти з обліковим записом AdGuard"
+    },
+    "auth_account": {
+        "message": "Немає облікового запису?"
+    },
+    "auth_register": {
+        "message": "Зареєструватися"
+    },
+    "auth_header_sign_in_account": {
+        "message": "Ви входите з обліковим записом AdGuard"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "Зареєструвавшись, ви створите обліковий запис AdGuard"
+    },
+    "auth_header_sign_in": {
+        "message": "Ви входите як <div>%username%</div> "
+    },
+    "auth_header_sing_in_notice": {
+        "message": "Ви вже маєте обліковий запис <div>%username%</div>"
+    },
+    "auth_header_registration": {
+        "message": "Ви реєструєтесь як <div>%username%</div>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "Двоетапна перевірка"
+    },
+    "auth_header_2fa": {
+        "message": "Введіть код перевірки"
+    },
+    "auth_placeholder_2fa": {
+        "message": "Код підтвердження"
+    },
+    "eula": {
+        "message": "Ліцензійна угода"
+    },
+    "privacy_policy": {
+        "message": "Політика приватності"
+    },
+    "settings_title": {
+        "message": "Налаштування"
+    },
+    "settings_rate_us": {
+        "message": "Оцініть нас"
+    },
+    "settings_webrtc_label": {
+        "message": "Блокувати WebRTC"
+    },
+    "settings_webrtc_desc": {
+        "message": "WebRTC — це спеціальна технологія, яка реалізована у більшості браузерів та дає можливість стороннім сайтам виявляти вашу реальну IP-адресу та використовувати її для ідентифікації вас"
+    },
+    "settings_context_menus_title": {
+        "message": "Додати AdGuard VPN в контекстне меню браузера"
+    },
+    "context_menu_selective_mode": {
+        "message": "Вибірковий режим"
+    },
+    "context_menu_regular_mode": {
+        "message": "Звичайний режим"
+    },
+    "settings_dns_label": {
+        "message": "Використовувати DNS-сервер"
+    },
+    "settings_dns_desc": {
+        "message": "Система доменних імен (DNS) — це адресна книга інтернету. Вона містить каталог доменних імен та перетворює їх у реальні IP-адреси."
+    },
+    "settings_dns_selector_default_title": {
+        "message": "За замовчуванням"
+    },
+    "settings_dns_selector_default_desc": {
+        "message": "При підключенні до VPN автоматично використовувати DNS-сервер за замовчуванням"
+    },
+    "settings_dns_selector_adguard_title": {
+        "message": "AdGuard DNS"
+    },
+    "settings_dns_selector_adguard_desc": {
+        "message": "Захищає від реклами та трекерів"
+    },
+    "settings_dns_selector_adguard_nonfiltering_title": {
+        "message": "AdGuard DNS без фільтрування"
+    },
+    "settings_dns_selector_adguard_nonfiltering_desc": {
+        "message": "Безпечний DNS-сервер без записів активності (не фільтрує рекламу і трекери)"
+    },
+    "settings_dns_selector_adguard_family_title": {
+        "message": "AdGuard DNS з сімейним захистом"
+    },
+    "settings_dns_selector_adguard_family_desc": {
+        "message": "AdGuard DNS + безпечний пошук і блокування вмісту для дорослих"
+    },
+    "settings_dns_selector_google_title": {
+        "message": "Google DNS"
+    },
+    "settings_dns_selector_google_desc": {
+        "message": "Безкоштовний альтернативний сервіс DNS від Google"
+    },
+    "settings_dns_selector_cloudflare_title": {
+        "message": "Cloudflare DNS"
+    },
+    "settings_dns_selector_cloudflare_desc": {
+        "message": "Безкоштовний DNS-сервіс від Cloudflare"
+    },
+    "settings_dns_selector_cisco_title": {
+        "message": "Cisco OpenDNS"
+    },
+    "settings_dns_selector_cisco_desc": {
+        "message": "DNS-сервер, що захищає пристрій від зловмисних програм"
+    },
+    "settings_dns_selector_quad9_title": {
+        "message": "Quad9"
+    },
+    "settings_dns_selector_quad9_desc": {
+        "message": "Безкоштовний альтернативний DNS із захистом від шахрайства і зловмисних програм"
+    },
+    "settings_exclusion_add": {
+        "message": "Додати вебсайт"
+    },
+    "settings_exclusions_import_button": {
+        "message": "Імпортувати"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Експортувати"
+    },
+    "settings_exclusion_title": {
+        "message": "Винятки"
+    },
+    "settings_connection_mode_title": {
+        "message": "Режим роботи"
+    },
+    "settings_exclusion_regular_title": {
+        "message": "Звичайний режим"
+    },
+    "settings_exclusion_regular_description": {
+        "message": "AdGuard VPN не працюватиме на вебсайтах із наведеного нижче списку"
+    },
+    "settings_exclusion_selective_title": {
+        "message": "Вибірковий режим"
+    },
+    "settings_exclusion_selective_description": {
+        "message": "AdGuard VPN працюватиме лише на вебсайтах із наведеного нижче списку"
+    },
+    "settings_exclusion_subdomains_title": {
+        "message": "Піддомени"
+    },
+    "settings_exclusion_subdomains_text": {
+        "message": "Можете додати домен (наприклад, google.com) або ж усі його піддомени (*.google.com)"
+    },
+    "global_error_title": {
+        "message": "Сталася помилка"
+    },
+    "global_error_description": {
+        "message": "Зв'яжіться з нами, якщо це повідомлення не зникло"
+    },
+    "global_error_learn_more": {
+        "message": "Докладніше"
+    },
+    "global_error_try_again": {
+        "message": "Спробувати знову"
+    },
+    "authentication_successful_social": {
+        "message": "Ви успішно авторизувались! Можете відкрити AdGuard VPN та підключитись."
+    },
+    "control_error_description": {
+        "message": "Схоже, що інше розширення в браузері Chrome може мати контроль над з'єднанням. Вимкніть його, будь ласка."
+    },
+    "control_error_disable": {
+        "message": "Вимкнути"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Увімкнути VPN на цьому вебсайті"
+    },
+    "popup_settings_enable_vpn_short": {
+        "message": "Увімкнути"
+    },
+    "popup_settings_disable_vpn": {
+        "message": "Вимкнути VPN на цьому вебсайті"
+    },
+    "popup_settings_other_products": {
+        "message": "Інші продукти"
+    },
+    "popup_settings_feedback": {
+        "message": "Відгук"
+    },
+    "popup_settings_open_settings": {
+        "message": "Налаштування"
+    },
+    "popup_settings_sign_out": {
+        "message": "Вийти"
+    },
+    "context_menu_enable_vpn": {
+        "message": "Увімкнути VPN на цьому вебсайті"
+    },
+    "context_menu_disable_vpn": {
+        "message": "Вимкнути VPN на цьому вебсайті"
+    },
+    "endpoints_countries": {
+        "message": "Місцезнаходження"
+    },
+    "endpoints_fastest": {
+        "message": "Найшвидші"
+    },
+    "endpoints_all": {
+        "message": "Усі місцезнаходження"
+    },
+    "endpoints_search_results": {
+        "message": "Результати пошуку"
+    },
+    "endpoints_search": {
+        "message": "Пошук місцезнаходження"
+    },
+    "endpoints_not_found": {
+        "message": "Місцезнаходження не знайдено"
+    },
+    "popup_traffic_limit_reached": {
+        "message": "Досягнуто місячний ліміт трафіку. Треба ще?"
+    },
+    "premium_upgrade": {
+        "message": "Придбати"
+    },
+    "settings_disconnect": {
+        "message": "Відключитись"
+    },
+    "settings_vpn_connecting": {
+        "message": "З'єднання..."
+    },
+    "settings_connect": {
+        "message": "Підключитись"
+    },
+    "settings_vpn_enabled": {
+        "message": "Підключено"
+    },
+    "settings_vpn_disabled": {
+        "message": "Відключено"
+    },
     "popup_traffic_limit_exceeded_title": {
         "message": "Швидкість знижено"
     },
     "popup_traffic_limit_exceeded_description": {
         "message": "Ви досягли обмеження безплатного обсягу даних, тому AdGuard VPN тепер працює повільніше."
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Збільшити швидкість"
+    },
+    "popup_feedback_title": {
+        "message": "Будемо раді вашій думці"
+    },
+    "popup_feedback_button": {
+        "message": "Поділитись"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "Обмежена пропозиція"
+    },
+    "sale_title": {
+        "message": "Що ви отримаєте:"
+    },
+    "upgrade_features_data": {
+        "message": "Необмежений трафік"
+    },
+    "upgrade_features_speed": {
+        "message": "Супер-швидкі сервери"
+    },
+    "upgrade_features_all_locations": {
+        "message": "Усі місцезнаходження"
+    },
+    "upgrade_features_devices": {
+        "message": "До п'яти пристроїв"
+    },
+    "continue_us_free_button": {
+        "message": "Продовжити безкоштовно"
+    },
+    "options_title": {
+        "message": "AdGuard VPN Параметри"
+    },
+    "offline_title": {
+        "message": "Офлайн"
+    },
+    "popup_site_status_unaccessible": {
+        "message": "знаходиться у вашій локальній мережі та недоступний через VPN"
+    },
+    "popup_site_status_vpn_disabled": {
+        "message": "VPN вимкнено на цьому вебсайті"
+    },
+    "popup_auth_agreement_consent": {
+        "message": "Користуючись AdGuard VPN, ви приймаєте <eula>Ліцензійна угоду</eula> та <privacy>Політику приватності</privacy>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "options_auth_agreement_consent": {
+        "message": "Продовжуючи використання AdGuard, ви приймаєте <eula>Ліцензійну угоду</eula> і <privacy>Політику приватності</privacy>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "popup_free_traffic_info": {
+        "message": "<span>%value% %unit%</span> залишилося цього місяця",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "options_auth_back_button": {
+        "message": "Назад"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "У Вибірковому режимі AdGuard VPN працює тільки на вибраних сайтах, які ви додали до списку."
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Перемкнути"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "Ви впевнені, що хочете перемкнути режим?"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "Імпортувати винятки до:"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "Звичайного списку"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "Вибіркового списку"
+    },
+    "options_exclusions_import_successful": {
+        "message": "Імпортовано винятків: %count%"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "Файл винятків мусить мати одне з разширень: %extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "Zip-архів «%filename%» не містить файлів з прийнятними розширеннями: %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "Досягнуто максимальну кількість з'єднань: %maxDevicesAllowed%."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "Щоб додати більше пристроїв, оформіть підписку на AdGuard VPN."
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "Щоб додати ще один пристрій, відключіть AdGuard VPN на будь-якому іншому вашому пристрої."
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Підписатися"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Докладніше"
+    },
+    "popup_connections_limit_title": {
+        "message": "Досягнуто ліміт з'єднань"
     }
 }

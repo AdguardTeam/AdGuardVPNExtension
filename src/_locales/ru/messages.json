@@ -3,7 +3,7 @@
         "message": "AdGuard VPN — Приватность и Безопасность"
     },
     "description": {
-        "message": "Делает Интернет открытым и обеспечивает безопасность ваших данных. Первоклассный VPN от создателей знаменитого блокировщика рекламы.\n"
+        "message": "С AdGuard VPN интернет будет открытым, а ваши данные — защищёнными. Первоклассный VPN от создателей знаменитого блокировщика рекламы.\n"
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -135,7 +135,7 @@
         "message": "Начните абсолютно бесплатно!"
     },
     "auth_description": {
-        "message": "Безупречная защита конфиденциальности в Интернете. Более 20 миллионов человек уже выбрали AdGuard.\n"
+        "message": "Безупречная защита конфиденциальности в интернете. Более 30 миллионов человек уже выбрали AdGuard.\n"
     },
     "auth_code": {
         "message": "Код из приложения аутентификации"
@@ -287,6 +287,12 @@
     "settings_exclusion_add": {
         "message": "Добавить веб-сайт"
     },
+    "settings_exclusions_import_button": {
+        "message": "Импортировать"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Экспортировать"
+    },
     "settings_exclusion_title": {
         "message": "Исключения"
     },
@@ -324,7 +330,7 @@
         "message": "Попробовать снова"
     },
     "authentication_successful_social": {
-        "message": "Успешная аутентификация! Вы можете открыть AdGuard VPN и подключить туннель."
+        "message": "Успешная аутентификация! Можете открыть AdGuard VPN и начать им пользоваться."
     },
     "control_error_description": {
         "message": "Похоже, что еще одно расширение Chrome пытается контролировать ваше соединение. Пожалуйста, отключите другое расширение в вашем браузере."
@@ -469,5 +475,41 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "Вы уверены, что хотите переключиться?"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "Импортировать исключения в:"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "Обычный список"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "Выборочный список"
+    },
+    "options_exclusions_import_successful": {
+        "message": "Импортированные исключения: %count%"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "У файла с исключениями должно быть одно из расширений: %extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "Zip-архив: \"%filename%\" не содержит файлов с расширениями: %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "Достигнуто максимальное количество подключений: %maxDevicesAllowed%."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "Чтобы добавить больше устройств, оформите подписку на AdGuard VPN."
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "Чтобы добавить еще одно устройство, отключите AdGuard VPN на любом другом устройстве."
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Подписаться"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Подробнее"
+    },
+    "popup_connections_limit_title": {
+        "message": "Достигнут лимит подключений"
     }
 }

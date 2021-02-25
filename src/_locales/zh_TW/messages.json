@@ -24,7 +24,7 @@
         "message": "此數值已被使用"
     },
     "registration_error_front_unique_validation": {
-        "message": "密碼和確認密碼不相符"
+        "message": "密碼不相符"
     },
     "registration_error_default": {
         "message": "錯誤已發生，稍後再試"
@@ -42,7 +42,7 @@
         "message": "計 15 分鐘，帳戶被鎖定"
     },
     "authentication_error_wrong_credentials": {
-        "message": "抱歉，錯誤的密碼"
+        "message": "錯誤的密碼"
     },
     "authentication_error_default": {
         "message": "錯誤已發生，稍後再試"
@@ -108,7 +108,7 @@
         "message": "於此描述該問題…"
     },
     "options_bug_report_page_success": {
-        "message": "感謝您，您的訊息被成功地傳送！"
+        "message": "感謝您，您的訊息已被成功地傳送！"
     },
     "options_bug_report_new_report_button": {
         "message": "新的報告"
@@ -135,7 +135,7 @@
         "message": "完全免費地開始吧！"
     },
     "auth_description": {
-        "message": "不妥協的線上隱私保護。超過 2000 萬人已選擇 AdGuard。"
+        "message": "不妥協的線上隱私保護。超過 3000 萬人已選擇 AdGuard。"
     },
     "auth_code": {
         "message": "來自驗證應用程式的代碼"
@@ -287,6 +287,12 @@
     "settings_exclusion_add": {
         "message": "增加一個網站"
     },
+    "settings_exclusions_import_button": {
+        "message": "匯入"
+    },
+    "settings_exclusions_export_button": {
+        "message": "匯出"
+    },
     "settings_exclusion_title": {
         "message": "例外"
     },
@@ -324,7 +330,7 @@
         "message": "再次嘗試"
     },
     "authentication_successful_social": {
-        "message": "成功地驗證！您可開啟 AdGuard VPN 並打開隧道。"
+        "message": "成功地驗證！您可開啟 AdGuard VPN 並開始使用它。"
     },
     "control_error_description": {
         "message": "看似另一個 Chrome 擴充功能正在嘗試控制您的連線。請在您的瀏覽器中禁用其它的擴充功能。"
@@ -469,5 +475,41 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "您確定您想要轉換嗎？"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "將例外匯入至："
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "常規清單"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "選擇性清單"
+    },
+    "options_exclusions_import_successful": {
+        "message": "已匯入的例外：%count%"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "例外文檔要包含以下延伸檔名之一：%extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "ZIP 檔：\"%filename%\" 不包含有 %extensions% 延伸檔名的文檔"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "您的連線數量達到上限：%maxDevicesAllowed%。"
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "若要添加更多裝置，何不考慮訂閱 AdGuard VPN 無限版。"
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "要連線其他裝置，請先在另一台已連線的裝置上禁用 AdGuard VPN。"
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "訂閱"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "了解更多"
+    },
+    "popup_connections_limit_title": {
+        "message": "已達到連線限制"
     }
 }

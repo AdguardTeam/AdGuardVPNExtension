@@ -2,9 +2,6 @@
     "name": {
         "message": "AdGuard VPN — privatnost i bezbednost"
     },
-    "description": {
-        "message": "Čini internet otvorenim a vaše podatke sigurnim. Odličan VPn od kreatora čuvenog blokatora reklama."
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -23,9 +20,6 @@
     "registration_error_unique_constraint": {
         "message": "Ova vrednost se već koristi"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Lozinke se ne poklapaju"
-    },
     "registration_error_default": {
         "message": "Dogodila se greška. pokušajte ponovo kasnije"
     },
@@ -41,14 +35,8 @@
     "authentication_error_account_locked": {
         "message": "Nalog je zaključan na 15 minuta"
     },
-    "authentication_error_wrong_credentials": {
-        "message": "Izvinite, pogrešna lozinka"
-    },
     "authentication_error_default": {
         "message": "Dogodila se greška. pokušajte ponovo kasnije"
-    },
-    "global_error_message": {
-        "message": "Dogodila se greška. Kontaktirajte nas preko <a>support@adguard-vpn.com</a>"
     },
     "about_title": {
         "message": "O programu"
@@ -70,9 +58,6 @@
     },
     "auth_title": {
         "message": "Započnite potpuno besplatno!"
-    },
-    "auth_description": {
-        "message": "Beskompromisna zaštita privatnosti na mreži. Preko 20 miliona ljudi je već izabralo AdGuard."
     },
     "auth_code": {
         "message": "Kod iz autorizujuće aplikacije"
@@ -259,9 +244,6 @@
     },
     "global_error_try_again": {
         "message": "Pokušaj ponovo"
-    },
-    "authentication_successful_social": {
-        "message": "Uspešno ste prijavljeni! Možete otvoriti AdGuard VPN i uključiti tunel."
     },
     "control_error_description": {
         "message": "Izgleda da drugo Chrome proširenje pokušava da upravlja vašom vezom. Isključite to proširenje u vašem pregledniku."

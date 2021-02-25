@@ -2,9 +2,6 @@
     "name": {
         "message": "AdGuard VPN — Privatliv og sikkerhet"
     },
-    "description": {
-        "message": "Gjør internettet åpent og dataene dine trygge. Toppklasse-VPN fra skaperne av en berømt annonseblokkerer."
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -23,9 +20,6 @@
     "registration_error_unique_constraint": {
         "message": "Denne verdien er allerede brukt"
     },
-    "registration_error_front_unique_validation": {
-        "message": "Passordet og «Bekreft passord» samsvarer ikke"
-    },
     "registration_error_default": {
         "message": "En feil oppstod, prøv igjen senere"
     },
@@ -41,17 +35,62 @@
     "authentication_error_account_locked": {
         "message": "Kontoen er låst i 15 minutter"
     },
-    "authentication_error_wrong_credentials": {
-        "message": "Beklager, feil passord"
-    },
     "authentication_error_default": {
         "message": "En feil oppstod, prøv igjen senere"
     },
-    "global_error_message": {
-        "message": "En feil oppstod, vennligst kontakt oss på <a>support@adguard-vpn.com</a>"
-    },
     "about_title": {
         "message": "Om"
+    },
+    "options_support_title": {
+        "message": "Kundestøtte"
+    },
+    "options_support_faq_title": {
+        "message": "OSS"
+    },
+    "options_support_faq_description": {
+        "message": "Spørsmål og svar"
+    },
+    "options_support_report_title": {
+        "message": "Meld inn en feil"
+    },
+    "options_support_feedback_title": {
+        "message": "Gi tilbakemelding"
+    },
+    "options_support_feedback_description": {
+        "message": "Send inn funksjonsforespørsler og forslag"
+    },
+    "options_support_discuss_title": {
+        "message": "Programforum"
+    },
+    "options_report_bug_title": {
+        "message": "Meld inn en feil"
+    },
+    "options_bug_report_email_label": {
+        "message": "E-post"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "Feil E-postadresse"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "Dette feltet kan ikke være tomt"
+    },
+    "options_bug_report_request_error": {
+        "message": "En feil oppstod. Vennligst prøv igjen senere."
+    },
+    "options_bug_report_send_button": {
+        "message": "Send"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Sender …"
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Beskriv problemet her …"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "Ny rapport"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Beskjed"
     },
     "account_title": {
         "message": "Konto"
@@ -70,9 +109,6 @@
     },
     "auth_title": {
         "message": "Sett i gang helt gratis!"
-    },
-    "auth_description": {
-        "message": "Ukompromitterende nettprivatlivsbeskyttelse. Mer enn 20 millioner mennesker har allerede valgt AdGuard."
     },
     "auth_code": {
         "message": "Kode fra autentiseringsapp"
@@ -260,9 +296,6 @@
     "global_error_try_again": {
         "message": "Prøv på nytt"
     },
-    "authentication_successful_social": {
-        "message": "Autentiseringen var vellykket! Du kan åpne AdGuard VPN og skru på tunnelen."
-    },
     "control_error_description": {
         "message": "Det ser ut som en annen Chrome-utvidelse prøver å styre tilkoblingen din. Vennligst skru av den andre utvidelsen i nettleseren din."
     },
@@ -358,6 +391,9 @@
     },
     "upgrade_features_all_locations": {
         "message": "Alle posisjoner"
+    },
+    "upgrade_features_devices": {
+        "message": "Opptil 5 enheter"
     },
     "continue_us_free_button": {
         "message": "Fortsett å bruke det gratis"
