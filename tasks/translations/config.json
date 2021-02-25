@@ -21,8 +21,7 @@
         "it",
         "ja",
         "ko",
-        "zh_CN",
-        "zh_TW"
+        "zh_CN"
     ],
     "threshold_percentage": 100
 }
