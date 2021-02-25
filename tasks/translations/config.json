@@ -18,9 +18,11 @@
         "ru",
         "de",
         "fr",
+        "it",
         "ja",
+        "ko",
         "zh_CN",
-        "it"
+        "zh_TW"
     ],
     "threshold_percentage": 100
 }
