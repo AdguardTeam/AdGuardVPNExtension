@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../stores';
 import { SocialAuth } from './SocialAuth';
 import SignInForm from './SignInForm';
-import RegistrationForm from './RegistrationForm';
+import { RegistrationForm } from './RegistrationForm';
 import TwoFactorForm from './TwoFactorForm';
 import Terms from './Terms';
 import BackButton from './BackButton';
