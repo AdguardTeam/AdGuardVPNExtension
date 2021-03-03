@@ -187,6 +187,10 @@ class AuthStore {
                 this.requestProcessState = REQUEST_STATUSES.ERROR;
                 this.error = response.error;
                 this.field = response.field;
+                if (response.field === 'username') {
+                    this.switchStep(this.STEPS.CHECK_EMAIL, false);
+                    this.resetPasswords();
+                }
             });
             return;
         }
@@ -234,9 +238,11 @@ class AuthStore {
     };
 
     @action
-    switchStep = async (step) => {
+    switchStep = async (step, shouldResetErrors = true) => {
         this.step = step;
-        this.resetError();
+        if (shouldResetErrors) {
+            this.resetError();
+        }
         await messenger.updateAuthCache('step', step);
     };
 
