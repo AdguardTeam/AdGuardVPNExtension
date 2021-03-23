@@ -64,7 +64,7 @@ const CheckEmail = observer(() => {
                     <Submit
                         text={reactTranslator.getMessage(params.buttonText)}
                         processing={requestProcessState === REQUEST_STATUSES.PENDING}
-                        disabled={!username && authStore.error}
+                        disabled={!username || authStore.error}
                     />
                 </div>
 

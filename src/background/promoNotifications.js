@@ -12,53 +12,48 @@ import notifier from '../lib/notifier';
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const newYearNotification = {
-    id: 'newYear2021',
+const easterNotification = {
+    id: 'easter2021',
     locales: {
         en: {
-            title: 'Holiday Sale at AdGuard',
-            btn: 'Unwrap your gift',
+            btn: 'Save 60%',
         },
         ru: {
-            title: 'AdGuard дарит подарки',
-            btn: 'Заглянуть под ёлку',
+            btn: 'Тут скидка 60%',
         },
         ja: {
-
-            title: 'AdGuardでクリスマス',
-            btn: 'プレゼントをもらう',
+            btn: '期間限定60%OFF›',
         },
         ko: {
-            title: '크리스마스 및 새해 맞이 할인 행사',
-            btn: '선물 받기',
+            btn: '60% 할인 받기',
         },
         zh_cn: {
-            title: 'AdGuard 送礼送好运',
-            btn: '抓个礼物',
+            btn: '4折来喽',
         },
         zh_tw: {
-            title: 'AdGuard $ 暖心年終送禮',
-            btn: '享好禮',
+            btn: '4折來嘍',
         },
         fr: {
-            title: 'Promo : AdGuard fête Noël !',
-            btn: 'Ouvrir mon cadeau',
+            btn: 'Réduction 60%',
+        },
+        es: {
+            btn: 'Ahorra 60%',
         },
     },
     text: '',
-    url: 'https://adguard-vpn.com/forward.html?action=ny2021_notify&from=popup&app=vpn_extension',
-    from: '24 December 2020 12:00:00',
-    to: '31 December 2020 12:00:00',
+    url: 'https://adguard-vpn.com/forward.html?action=easter2021&from=popup&app=vpn_extension',
+    from: '02 April 2021 00:01:00',
+    to: '07 April 2021 00:01:00',
     type: 'animated',
     get icons() {
-        return lazyGet(newYearNotification, 'icons', () => ({
+        return lazyGet(easterNotification, 'icons', () => ({
             ENABLED: {
-                19: getUrl('assets/images/icons/santa-enabled-19.png'),
-                38: getUrl('assets/images/icons/santa-enabled-38.png'),
+                19: getUrl('assets/images/icons/easter-enabled-19.png'),
+                38: getUrl('assets/images/icons/easter-enabled-38.png'),
             },
             DISABLED: {
-                19: getUrl('assets/images/icons/santa-disabled-19.png'),
-                38: getUrl('assets/images/icons/santa-disabled-38.png'),
+                19: getUrl('assets/images/icons/disabled-19.png'),
+                38: getUrl('assets/images/icons/disabled-38.png'),
             },
         }));
     },
@@ -80,7 +75,7 @@ const newYearNotification = {
  * @property {string} type;
  */
 const notifications = {
-    newYear2021: newYearNotification,
+    easter2021: easterNotification,
 };
 
 /**
