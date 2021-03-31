@@ -76,6 +76,16 @@ export class AuthStore {
             if (value !== this.credentials.password) {
                 runInAction(() => {
                     this.error = reactTranslator.getMessage('registration_error_front_unique_validation');
+                    this.field = 'passwordAgain';
+                });
+            }
+        }
+        if (field === 'username' || field === 'password') {
+            if (this.credentials.password !== this.credentials.passwordAgain
+                && this.credentials.passwordAgain.length > 0) {
+                runInAction(() => {
+                    this.error = reactTranslator.getMessage('registration_error_front_unique_validation');
+                    this.field = 'password';
                 });
             }
         }

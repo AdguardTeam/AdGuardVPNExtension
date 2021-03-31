@@ -60,7 +60,12 @@ export const RegistrationForm = observer(() => {
                         value={password}
                     />
                 </div>
-                <div className="form__item">
+                <div 
+                    className={`form__item ${error && (field === 'passwordAgain' || field === 'password')
+                        ? 'form__item--error'
+                        : ''}`
+                    }
+                >
                     <div className="form__item-header">
                         <label className="form__label" htmlFor="passwordAgain">
                             {reactTranslator.getMessage('auth_password_repeat')}
