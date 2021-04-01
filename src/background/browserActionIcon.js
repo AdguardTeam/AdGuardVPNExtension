@@ -13,6 +13,10 @@ class BrowserActionIcon {
         if (id && url && isHttp(url)) {
             return exclusions.isVpnEnabledByUrl(url);
         }
+        if (!isHttp(url)) {
+            // disable icon in tabs with no url only for selective mode
+            return !exclusions.isInverted();
+        }
 
         return true;
     };
