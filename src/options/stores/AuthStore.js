@@ -80,13 +80,13 @@ export class AuthStore {
     validate = debounce((field, value) => {
         if (field === 'passwordAgain') {
             if (value !== this.credentials.password) {
-                runInAction(this.setPasswordAgainError);
+                this.setPasswordAgainError();
             }
         }
         if (field === 'password') {
             if (this.credentials.password !== this.credentials.passwordAgain
                 && this.credentials.passwordAgain.length > 0) {
-                runInAction(this.setPasswordAgainError);
+                this.setPasswordAgainError();
             }
         }
     }, 500);
