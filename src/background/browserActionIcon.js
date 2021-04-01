@@ -13,21 +13,16 @@ class BrowserActionIcon {
         if (id && url && isHttp(url)) {
             return exclusions.isVpnEnabledByUrl(url);
         }
+        if (!isHttp(url)) {
+            // disable icon in tabs with no url only for selective mode
+            return !exclusions.isInverted();
+        }
 
         return true;
     };
 
     async updateIcon(tab) {
         const { id = null, url = null } = tab;
-
-        // disable icon in tabs with no url only for selective mode
-        if (exclusions.isInverted()) {
-            if (!isHttp(url)) {
-                await actions.setIconDisabled(id);
-                await actions.clearBadgeText(id);
-                return;
-            }
-        }
 
         const isUserAuthenticated = await auth.isAuthenticated(false);
         if (!isUserAuthenticated) {
