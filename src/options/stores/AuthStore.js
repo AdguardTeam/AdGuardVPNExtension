@@ -71,13 +71,22 @@ export class AuthStore {
         this.error = DEFAULTS.error;
     };
 
+    @action
+    unequalPasswordError = () => {
+        this.error = reactTranslator.getMessage('registration_error_front_unique_validation');
+        this.field = 'passwordAgain';
+    };
+
     validate = debounce((field, value) => {
         if (field === 'passwordAgain') {
             if (value !== this.credentials.password) {
-                runInAction(() => {
-                    this.error = reactTranslator.getMessage('registration_error_front_unique_validation');
-                    this.field = 'passwordAgain';
-                });
+                runInAction(this.unequalPasswordError);
+            }
+        }
+        if (field === 'password') {
+            if (this.credentials.password !== this.credentials.passwordAgain
+                && this.credentials.passwordAgain.length > 0) {
+                runInAction(this.unequalPasswordError);
             }
         }
     }, 500);
