@@ -7,6 +7,7 @@ import { isHttp } from '../lib/string-utils';
 import auth from './auth';
 import { locationsService } from './endpoints/locationsService';
 import { isVPNConnected } from './connectivity/connectivityService/connectivityFSM';
+// import { isInverted } from './exclusions';
 
 class BrowserActionIcon {
     isVpnEnabledForUrl = (id, url) => {
@@ -20,10 +21,13 @@ class BrowserActionIcon {
     async updateIcon(tab) {
         const { id = null, url = null } = tab;
 
-        if (url === null || !isHttp(url)) {
-            await actions.setIconDisabled(id);
-            await actions.clearBadgeText(id);
-            return;
+        // disable icon in tabs with no url only for selective mode
+        if (exclusions.isInverted()) {
+            if (!isHttp(url)) {
+                await actions.setIconDisabled(id);
+                await actions.clearBadgeText(id);
+                return;
+            }
         }
 
         const isUserAuthenticated = await auth.isAuthenticated(false);
