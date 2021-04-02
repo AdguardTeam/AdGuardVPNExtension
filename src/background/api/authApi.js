@@ -87,6 +87,6 @@ class AuthApi extends Api {
     }
 }
 
-const vpnApi = new AuthApi(() => fallbackApi.getAuthApiUrl());
+const vpnApi = new AuthApi(fallbackApi.getAuthApiUrl);
 
 export default vpnApi;

@@ -207,7 +207,7 @@ export const noop = () => {};
 
 /**
  * Runs functions in a row and returns result of the first successful run
- * @param requesters - array of functions
+ * @param requesters - array of async functions
  * @param log - logger function
  * @return {Promise<any>}
  */

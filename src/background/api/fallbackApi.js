@@ -91,7 +91,6 @@ export class FallbackApi {
     };
 
     getBkpUrl = async (hostname) => {
-        // FIXME write tests for case when google doh is unavailable
         const requesters = [
             this.getBkpUrlByGoogleDoh.bind(null, hostname),
             this.getBkpUrlByCloudFlareDoh.bind(null, hostname),
