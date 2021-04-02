@@ -8,6 +8,7 @@ export const GOOGLE_DOH_URL = 'https://dns.google/resolve';
 export const CLOUDFLARE_DOH_URL = 'https://cloudflare-dns.com/dns-query';
 const BKP_API_HOSTNAME_PART = '.bkp-api.adguard-vpn.online';
 const BKP_AUTH_HOSTNAME_PART = '.bkp-auth.adguard-vpn.online';
+const EMPTY_BKP_URL = 'none';
 
 const DEFAULT_COUNTRY_INFO = { country: 'none', bkp: true };
 
@@ -108,6 +109,9 @@ export class FallbackApi {
         try {
             bkpUrl = await getFirstResolved(requesters, log.error);
             bkpUrl = clearFromWrappingQuotes(bkpUrl);
+            if (bkpUrl === EMPTY_BKP_URL) {
+                bkpUrl = null;
+            }
         } catch (e) {
             log.error(e);
             bkpUrl = null;
