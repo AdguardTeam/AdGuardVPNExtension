@@ -39,4 +39,5 @@ export const {
     DISCUSS_URL,
     BROWSER,
     BUILD_ENV,
+    STAGE_ENV,
 } = CONFIG;

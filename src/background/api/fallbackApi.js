@@ -1,13 +1,17 @@
 import axios from 'axios';
 import { log } from '../../lib/logger';
 import { clearFromWrappingQuotes, getFirstResolved } from '../../lib/helpers';
-import { AUTH_API_URL, VPN_API_URL } from '../config';
+import { AUTH_API_URL, VPN_API_URL, STAGE_ENV } from '../config';
 
-export const WHOAMI_URL = 'https://whoami.adguard-vpn.online';
-export const GOOGLE_DOH_URL = 'https://dns.google/resolve';
-export const CLOUDFLARE_DOH_URL = 'https://cloudflare-dns.com/dns-query';
-const BKP_API_HOSTNAME_PART = '.bkp-api.adguard-vpn.online';
-const BKP_AUTH_HOSTNAME_PART = '.bkp-auth.adguard-vpn.online';
+// DNS over https api
+export const GOOGLE_DOH_URL = 'dns.google/resolve';
+export const CLOUDFLARE_DOH_URL = 'cloudflare-dns.com/dns-query';
+
+const stageSuffix = STAGE_ENV === 'test' ? '-dev' : '';
+export const WHOAMI_URL = `whoami${stageSuffix}.adguard-vpn.online`;
+const BKP_API_HOSTNAME_PART = `bkp-api${stageSuffix}.adguard-vpn.online`;
+const BKP_AUTH_HOSTNAME_PART = `bkp-auth${stageSuffix}.adguard-vpn.online`;
+
 const EMPTY_BKP_URL = 'none';
 
 const DEFAULT_COUNTRY_INFO = { country: 'none', bkp: true };
@@ -51,7 +55,7 @@ export class FallbackApi {
     getCountryInfo = async () => {
         try {
             const { data: { country, bkp } } = await axios.get(
-                WHOAMI_URL,
+                `https://${WHOAMI_URL}`,
                 { timeout: REQUEST_TIMEOUT_MS },
             );
             return { country, bkp };
@@ -62,7 +66,7 @@ export class FallbackApi {
     };
 
     getBkpUrlByGoogleDoh = async (name) => {
-        const { data } = await axios.get(GOOGLE_DOH_URL, {
+        const { data } = await axios.get(`https://${GOOGLE_DOH_URL}`, {
             headers: {
                 'Cache-Control': 'no-cache',
                 Pragma: 'no-cache',
@@ -80,7 +84,7 @@ export class FallbackApi {
     };
 
     getBkpUrlByCloudFlareDoh = async (name) => {
-        const { data } = await axios.get(CLOUDFLARE_DOH_URL, {
+        const { data } = await axios.get(`https://${CLOUDFLARE_DOH_URL}`, {
             headers: {
                 'Cache-Control': 'no-cache',
                 Pragma: 'no-cache',
@@ -121,13 +125,13 @@ export class FallbackApi {
     };
 
     getBkpVpnApiUrl = async (country) => {
-        const hostname = `${country}${BKP_API_HOSTNAME_PART}`;
+        const hostname = `${country}.${BKP_API_HOSTNAME_PART}`;
         const bkpApiUrl = await this.getBkpUrl(hostname);
         return bkpApiUrl;
     };
 
     getBkpAuthApiUrl = async (country) => {
-        const hostname = `${country}${BKP_AUTH_HOSTNAME_PART}`;
+        const hostname = `${country}.${BKP_AUTH_HOSTNAME_PART}`;
         const bkpAuthUrl = await this.getBkpUrl(hostname);
         return bkpAuthUrl;
     };
