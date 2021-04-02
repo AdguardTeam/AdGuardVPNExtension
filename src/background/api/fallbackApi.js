@@ -12,6 +12,8 @@ export const WHOAMI_URL = `whoami${stageSuffix}.adguard-vpn.online`;
 const BKP_API_HOSTNAME_PART = `bkp-api${stageSuffix}.adguard-vpn.online`;
 const BKP_AUTH_HOSTNAME_PART = `bkp-auth${stageSuffix}.adguard-vpn.online`;
 
+const BKP_KEY = 'bkp';
+
 const EMPTY_BKP_URL = 'none';
 
 const DEFAULT_COUNTRY_INFO = { country: 'none', bkp: true };
@@ -34,7 +36,9 @@ export class FallbackApi {
 
     async init() {
         const countryInfo = await this.getCountryInfo();
-        if (!countryInfo.bkp) {
+        const localStorageBkp = this.getLocalStorageBkp();
+
+        if (!countryInfo.bkp && !localStorageBkp) {
             return;
         }
 
@@ -50,6 +54,18 @@ export class FallbackApi {
         if (bkpAuthApiUrl) {
             this.authApiUrl = bkpAuthApiUrl;
         }
+    }
+
+    /**
+     * Gets bkp flag value from local storage, used for testing purposes
+     * @return {boolean}
+     */
+    getLocalStorageBkp = () => {
+        let localStorageBkp = Number.parseInt(localStorage.getItem(BKP_KEY), 10);
+
+        localStorageBkp = Number.isNaN(localStorageBkp) ? 0 : localStorageBkp;
+
+        return !!localStorageBkp;
     }
 
     getCountryInfo = async () => {
