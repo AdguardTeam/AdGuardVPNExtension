@@ -1,6 +1,7 @@
 import qs from 'qs';
 import Api from './Api';
-import { AUTH_API_URL, AUTH_CLIENT_ID } from '../config';
+import { AUTH_CLIENT_ID } from '../config';
+import { fallbackApi } from './fallbackApi';
 
 // Documentation
 // projects/ADGUARD/repos/adguard-auth-service/browse/oauth.md
@@ -86,6 +87,6 @@ class AuthApi extends Api {
     }
 }
 
-const vpnApi = new AuthApi(AUTH_API_URL);
+const vpnApi = new AuthApi(() => fallbackApi.getAuthApiUrl());
 
 export default vpnApi;

@@ -199,3 +199,35 @@ export const runWithCancel = (fn, ...args) => {
 
     return { promise, cancel };
 };
+
+/**
+ * Functions that does nothing
+ */
+export const noop = () => {};
+
+/**
+ * Runs functions in a row and returns result of the first successful run
+ * @param requesters - array of functions
+ * @param log - logger function
+ * @return {Promise<any>}
+ */
+export const getFirstResolved = async (requesters, log = noop) => {
+    for (let i = 0; i < requesters.length; i += 1) {
+        const requester = requesters[i];
+        try {
+            // eslint-disable-next-line no-await-in-loop
+            const result = await requester();
+            return result;
+        } catch (e) {
+            if (typeof log === 'function') {
+                log(e);
+            }
+        }
+    }
+
+    throw new Error('All requesters failed');
+};
+
+export const clearFromWrappingQuotes = (str) => {
+    return str.replace(/^"|"$/g, '');
+};
