@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import ReactHtmlParser from 'react-html-parser';
+import classnames from 'classnames';
 
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
@@ -28,10 +29,18 @@ export const RegistrationForm = observer(() => {
         await authStore.showSignIn();
     };
 
+    const getFormItemClass = (formFields) => {
+        const formItemClass = classnames(
+            'form__item',
+            { 'form__item--error': error && formFields.some((f) => f === field) },
+        );
+        return formItemClass;
+    };
+
     return (
         <form className="form" onSubmit={submitHandler}>
             <div className="form__inputs">
-                <div className={`form__item ${error && (field === 'username' || field === '') ? 'form__item--error' : ''}`}>
+                <div className={getFormItemClass(['username', ''])}>
                     <label className="form__label" htmlFor="username">
                         {reactTranslator.getMessage('auth_email')}
                     </label>
@@ -45,7 +54,7 @@ export const RegistrationForm = observer(() => {
                         onChange={inputChangeHandler}
                     />
                 </div>
-                <div className={`form__item ${error && field === 'password' ? 'form__item--error' : ''}`}>
+                <div className={getFormItemClass(['password'])}>
                     <div className="form__item-header">
                         <label className="form__label" htmlFor="password">
                             {reactTranslator.getMessage('auth_password')}
@@ -60,7 +69,7 @@ export const RegistrationForm = observer(() => {
                         value={password}
                     />
                 </div>
-                <div className="form__item">
+                <div className={getFormItemClass(['passwordAgain'])}>
                     <div className="form__item-header">
                         <label className="form__label" htmlFor="passwordAgain">
                             {reactTranslator.getMessage('auth_password_repeat')}
