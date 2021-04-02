@@ -17,11 +17,11 @@ export class FallbackApi {
         this.authApiUrl = authApiUrl;
     }
 
-    getVpnApiUrl() {
+    getVpnApiUrl = () => {
         return this.vpnApiUrl;
     }
 
-    getAuthApiUrl() {
+    getAuthApiUrl = () => {
         return this.authApiUrl;
     }
 
