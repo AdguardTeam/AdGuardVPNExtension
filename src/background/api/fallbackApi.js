@@ -11,6 +11,8 @@ const BKP_AUTH_HOSTNAME_PART = '.bkp-auth.adguard-vpn.online';
 
 const DEFAULT_COUNTRY_INFO = { country: 'none', bkp: true };
 
+const REQUEST_TIMEOUT_MS = 3 * 1000;
+
 export class FallbackApi {
     constructor(vpnApiUrl, authApiUrl) {
         this.vpnApiUrl = vpnApiUrl;
@@ -47,7 +49,10 @@ export class FallbackApi {
 
     getCountryInfo = async () => {
         try {
-            const { data: { country, bkp } } = await axios.get(WHOAMI_URL);
+            const { data: { country, bkp } } = await axios.get(
+                WHOAMI_URL,
+                { timeout: REQUEST_TIMEOUT_MS },
+            );
             return { country, bkp };
         } catch (e) {
             log.error(e);
@@ -65,6 +70,7 @@ export class FallbackApi {
                 name,
                 type: 'TXT',
             },
+            timeout: REQUEST_TIMEOUT_MS,
         });
 
         const { Answer: [{ data: bkpUrl }] } = data;
@@ -83,6 +89,7 @@ export class FallbackApi {
                 name,
                 type: 'TXT',
             },
+            timeout: REQUEST_TIMEOUT_MS,
         });
 
         const { Answer: [{ data: bkpUrl }] } = data;
