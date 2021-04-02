@@ -25,8 +25,8 @@ describe('FallbackApi', () => {
         expect(fallbackApi.getVpnApiUrl()).toBe(DEFAULT_VPN_API_URL);
         expect(fallbackApi.getAuthApiUrl()).toBe(DEFAULT_AUTH_API_URL);
 
-        expect(axios.get).toBeCalledWith(WHOAMI_URL, expect.anything());
-        expect(axios.get).toBeCalledWith(GOOGLE_DOH_URL, expect.anything());
-        expect(axios.get).toBeCalledWith(CLOUDFLARE_DOH_URL, expect.anything());
+        expect(axios.get).toBeCalledWith(`https://${WHOAMI_URL}`, expect.anything());
+        expect(axios.get).toBeCalledWith(`https://${GOOGLE_DOH_URL}`, expect.anything());
+        expect(axios.get).toBeCalledWith(`https://${CLOUDFLARE_DOH_URL}`, expect.anything());
     });
 });
