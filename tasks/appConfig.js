@@ -64,7 +64,6 @@ const COMMON = {
     THANK_YOU_PAGE_URL: 'https://adguard-vpn.com/forward.html?action=thank_you&from=background_page&app=vpn_extension',
     AUTH_ACCESS_TOKEN_KEY: 'auth.access.token',
     AUTH_CLIENT_ID: 'adguard-vpn-extension',
-
 };
 
 const genAppConfig = (browser, stageEnv, buildingEnv) => {

@@ -3,15 +3,15 @@ import { log } from '../../lib/logger';
 import { clearFromWrappingQuotes, getFirstResolved } from '../../lib/helpers';
 import { AUTH_API_URL, VPN_API_URL } from '../config';
 
-const WHOAMI_URL = 'https://whoami.adguard-vpn.online';
-const GOOGLE_DOH_URL = 'https://dns.google/resolve';
-const CLOUDFLARE_DOH_URL = 'https://cloudflare-dns.com/dns-query';
+export const WHOAMI_URL = 'https://whoami.adguard-vpn.online';
+export const GOOGLE_DOH_URL = 'https://dns.google/resolve';
+export const CLOUDFLARE_DOH_URL = 'https://cloudflare-dns.com/dns-query';
 const BKP_API_HOSTNAME_PART = '.bkp-api.adguard-vpn.online';
 const BKP_AUTH_HOSTNAME_PART = '.bkp-auth.adguard-vpn.online';
 
 const DEFAULT_COUNTRY_INFO = { country: 'none', bkp: true };
 
-class FallbackApi {
+export class FallbackApi {
     constructor(vpnApiUrl, authApiUrl) {
         this.vpnApiUrl = vpnApiUrl;
         this.authApiUrl = authApiUrl;
