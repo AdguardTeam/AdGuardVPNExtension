@@ -24,7 +24,7 @@ const Account = observer(() => {
                 </div>
                 <div className="account__actions">
                     <a
-                        href={EDIT_ACCOUNT_URL}
+                        href={`https://${EDIT_ACCOUNT_URL}`}
                         className="button button--medium button--outline-primary account__action"
                         target="_blank"
                         rel="noopener noreferrer"
