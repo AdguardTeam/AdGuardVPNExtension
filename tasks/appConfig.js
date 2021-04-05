@@ -73,10 +73,6 @@ const genAppConfig = (browser, stageEnv, buildingEnv) => {
         throw new Error(`No browser config for browser: "${browser}"`);
     }
 
-    const AUTH_BASE_URL = `${STAGE_CONF.AUTH_API_URL}/oauth/authorize`;
-    const AUTH_REDIRECT_URI = `${STAGE_CONF.AUTH_API_URL}/oauth.html`;
-    const ACCOUNT_API_URL = `${STAGE_CONF.VPN_API_URL}/account`;
-
     return {
         BROWSER: browser,
         BUILD_ENV: buildingEnv,
@@ -84,9 +80,6 @@ const genAppConfig = (browser, stageEnv, buildingEnv) => {
         ...browserConf,
         ...STAGE_CONF,
         ...COMMON,
-        ACCOUNT_API_URL,
-        AUTH_BASE_URL,
-        AUTH_REDIRECT_URI,
     };
 };
 

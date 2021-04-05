@@ -1,5 +1,5 @@
-import { ACCOUNT_API_URL } from '../config';
 import Api from './Api';
+import { fallbackApi } from './fallbackApi';
 
 class AccountApi extends Api {
     GET_VPN_TOKEN = { path: 'products/licenses/vpn.json', method: 'GET' };
@@ -23,6 +23,6 @@ class AccountApi extends Api {
     }
 }
 
-const accountApi = new AccountApi(`${ACCOUNT_API_URL}/api/1.0`);
+const accountApi = new AccountApi(() => `${fallbackApi.ACCOUNT_API_URL}/api/1.0`);
 
 export default accountApi;

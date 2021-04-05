@@ -34,6 +34,18 @@ export class FallbackApi {
         return this.authApiUrl;
     }
 
+    get AUTH_BASE_URL() {
+        return `${this.authApiUrl}/oauth/authorize`;
+    }
+
+    get AUTH_REDIRECT_URI() {
+        return `${this.authApiUrl}/oauth.html`;
+    }
+
+    get ACCOUNT_API_URL() {
+        return `${this.vpnApiUrl}/account`;
+    }
+
     async init() {
         const countryInfo = await this.getCountryInfo();
         const localStorageBkp = this.getLocalStorageBkp();
