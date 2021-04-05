@@ -153,15 +153,19 @@ export class FallbackApi {
     };
 
     getBkpVpnApiUrl = async (country) => {
-        const hostname = `${country}.${BKP_API_HOSTNAME_PART}`;
+        const hostname = `${country.toLowerCase()}.${BKP_API_HOSTNAME_PART}`;
         const bkpApiUrl = await this.getBkpUrl(hostname);
         return bkpApiUrl;
     };
 
     getBkpAuthApiUrl = async (country) => {
-        const hostname = `${country}.${BKP_AUTH_HOSTNAME_PART}`;
+        const hostname = `${country.toLowerCase()}.${BKP_AUTH_HOSTNAME_PART}`;
         const bkpAuthUrl = await this.getBkpUrl(hostname);
         return bkpAuthUrl;
+    };
+
+    getApiUrls = () => {
+        return [this.vpnApiUrl, this.authApiUrl];
     };
 }
 

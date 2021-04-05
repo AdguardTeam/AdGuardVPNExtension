@@ -8,10 +8,6 @@ export const LEVELS_OF_CONTROL = {
 };
 
 export const DEFAULT_EXCLUSIONS = [
-    // used in the api
-    '*api.adguard.io',
-    '*account.adguard.com',
-
     // non routable
     'localhost',
     '*.local',
