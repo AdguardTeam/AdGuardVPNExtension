@@ -100,7 +100,7 @@ class ExtensionProxy {
             defaultExclusions: [
                 ...DEFAULT_EXCLUSIONS,
                 ...this.getEndpointsTldExclusions(),
-                ...fallbackApi.getApiUrls(),
+                ...fallbackApi.getApiUrlsExclusions(),
             ],
             nonRoutableCidrNets: NON_ROUTABLE_CIDR_NETS,
             host: this.currentHost,

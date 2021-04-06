@@ -164,8 +164,8 @@ export class FallbackApi {
         return bkpAuthUrl;
     };
 
-    getApiUrls = () => {
-        return [this.vpnApiUrl, this.authApiUrl];
+    getApiUrlsExclusions = () => {
+        return [this.vpnApiUrl, this.authApiUrl].map((url) => `*${url}`);
     };
 }
 
