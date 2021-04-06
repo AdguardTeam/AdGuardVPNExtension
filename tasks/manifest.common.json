@@ -24,7 +24,7 @@
     },
     "content_scripts": [
         {
-            "matches":["https://*/oauth.html*"],
+            "matches":["https://*/oauth.html?adguard-vpn=1*"],
             "js":["auth.js"],
             "run_at":"document_start"
         }

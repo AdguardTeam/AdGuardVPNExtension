@@ -39,7 +39,7 @@ export class FallbackApi {
     }
 
     get AUTH_REDIRECT_URI() {
-        return `${this.authApiUrl}/oauth.html`;
+        return `${this.authApiUrl}/oauth.html?adguard-vpn=1`;
     }
 
     get ACCOUNT_API_URL() {
