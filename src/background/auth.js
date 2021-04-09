@@ -1,7 +1,6 @@
 import qs from 'qs';
 import { nanoid } from 'nanoid';
 
-import { authApi } from './api';
 import authProvider from './providers/authProvider';
 import browserApi from './browserApi';
 import tabs from './tabs';
@@ -134,12 +133,9 @@ class Auth {
 
     async deauthenticate() {
         try {
-            const accessToken = await this.getAccessToken();
-            // revoke token from api
             await this.removeAccessToken();
-            await authApi.revokeToken(accessToken);
         } catch (e) {
-            log.error('Unable to revoke token. Error: ', e.message);
+            log.error('Unable to remove access token. Error: ', e.message);
         }
 
         // set proxy settings to default
