@@ -39,7 +39,6 @@ const URLS_MAP = {
 // VPN section API description - projects/ADGUARD/repos/adguard-vpn-backend-service/browse
 // Auth section API description - projects/ADGUARD/repos/adguard-auth-service/browse
 const STAGE_CONF = {
-    ACCOUNT_API_URL: process.env.ACCOUNT_API_URL,
     VPN_API_URL: process.env.VPN_API_URL,
     AUTH_API_URL: process.env.AUTH_API_URL,
     PASSWORD_RECOVERY_URL: process.env.PASSWORD_RECOVERY_URL,
@@ -64,7 +63,6 @@ const COMMON = {
     THANK_YOU_PAGE_URL: 'https://adguard-vpn.com/forward.html?action=thank_you&from=background_page&app=vpn_extension',
     AUTH_ACCESS_TOKEN_KEY: 'auth.access.token',
     AUTH_CLIENT_ID: 'adguard-vpn-extension',
-
 };
 
 const genAppConfig = (browser, stageEnv, buildingEnv) => {
@@ -75,9 +73,6 @@ const genAppConfig = (browser, stageEnv, buildingEnv) => {
         throw new Error(`No browser config for browser: "${browser}"`);
     }
 
-    const AUTH_BASE_URL = `${STAGE_CONF.AUTH_API_URL}/oauth/authorize`;
-    const AUTH_REDIRECT_URI = `${STAGE_CONF.AUTH_API_URL}/oauth.html`;
-
     return {
         BROWSER: browser,
         BUILD_ENV: buildingEnv,
@@ -85,8 +80,6 @@ const genAppConfig = (browser, stageEnv, buildingEnv) => {
         ...browserConf,
         ...STAGE_CONF,
         ...COMMON,
-        AUTH_BASE_URL,
-        AUTH_REDIRECT_URI,
     };
 };
 

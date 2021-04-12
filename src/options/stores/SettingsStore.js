@@ -157,7 +157,7 @@ export class SettingsStore {
 
     @action
     disableProxy = async () => {
-        await messenger.disableProxy(true, true);
+        await messenger.disableProxy(true);
     };
 
     @action

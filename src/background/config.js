@@ -14,13 +14,10 @@ Object.keys(CONFIG).forEach((key) => {
 });
 
 export const {
-    ACCOUNT_API_URL,
     VPN_API_URL,
     AUTH_API_URL,
     PASSWORD_RECOVERY_URL,
     EDIT_ACCOUNT_URL,
-    AUTH_BASE_URL,
-    AUTH_REDIRECT_URI,
     AUTH_ACCESS_TOKEN_KEY,
     AUTH_CLIENT_ID,
     POPUP_STORE_URL,
@@ -39,4 +36,5 @@ export const {
     DISCUSS_URL,
     BROWSER,
     BUILD_ENV,
+    STAGE_ENV,
 } = CONFIG;

@@ -10,12 +10,13 @@ import notifications from './notifications';
 import {
     AUTH_ACCESS_TOKEN_KEY,
     AUTH_CLIENT_ID,
-    AUTH_BASE_URL,
-    AUTH_REDIRECT_URI,
 } from './config';
 import { log } from '../lib/logger';
 import notifier from '../lib/notifier';
 import { translator } from '../common/translator';
+import { fallbackApi } from './api/fallbackApi';
+// eslint-disable-next-line import/no-cycle
+import settings from './settings/settings';
 
 class Auth {
     socialAuthState = null;
@@ -72,7 +73,7 @@ class Auth {
         const params = {
             response_type: 'token',
             client_id: AUTH_CLIENT_ID,
-            redirect_uri: AUTH_REDIRECT_URI,
+            redirect_uri: `https://${fallbackApi.AUTH_REDIRECT_URI}`,
             scope: 'trust',
             state: this.socialAuthState,
         };
@@ -106,7 +107,7 @@ class Auth {
                 throw new Error(`There is no such provider: "${socialProvider}"`);
         }
 
-        return `${AUTH_BASE_URL}?${qs.stringify(params)}`;
+        return `https://${fallbackApi.AUTH_BASE_URL}?${qs.stringify(params)}`;
     }
 
     async authenticateSocial(queryString, tabId) {
@@ -143,6 +144,8 @@ class Auth {
             log.error('Unable to revoke token. Error: ', e.message);
         }
 
+        // turn off connection
+        await settings.disableProxy(true);
         // set proxy settings to default
         await proxy.resetSettings();
         notifier.notifyListeners(notifier.types.USER_DEAUTHENTICATED);

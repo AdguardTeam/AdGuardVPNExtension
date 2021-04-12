@@ -4,7 +4,6 @@ import { WS_API_URL_TEMPLATE } from '../../config';
 import { renderTemplate } from '../../../lib/string-utils';
 import notifier from '../../../lib/notifier';
 import proxy from '../../proxy';
-import credentials from '../../credentials';
 import { log } from '../../../lib/logger';
 import dns from '../../dns/dns';
 import { sendPingMessage } from '../pingHelpers';
@@ -13,6 +12,8 @@ import { EVENT, MIN_CONNECTION_DURATION_MS } from '../connectivityService/connec
 import { sleepIfNecessary } from '../../../lib/helpers';
 // eslint-disable-next-line import/no-cycle
 import { connectivityService } from '../connectivityService/connectivityFSM';
+// eslint-disable-next-line import/no-cycle
+import credentials from '../../credentials';
 
 class EndpointConnectivity {
     PING_SEND_INTERVAL_MS = 1000 * 60;

@@ -9,6 +9,7 @@ import browserApi from '../browserApi';
 import notifier from '../../lib/notifier';
 import { DEFAULT_EXCLUSIONS, LEVELS_OF_CONTROL } from './proxyConsts';
 import { NON_ROUTABLE_CIDR_NETS } from '../routability/constants';
+import { fallbackApi } from '../api/fallbackApi';
 
 const CURRENT_ENDPOINT_KEY = 'proxyCurrentEndpoint';
 
@@ -98,7 +99,8 @@ class ExtensionProxy {
             bypassList: this.getBypassList(),
             defaultExclusions: [
                 ...DEFAULT_EXCLUSIONS,
-                ...this.getEndpointsTldExclusions()
+                ...this.getEndpointsTldExclusions(),
+                ...fallbackApi.getApiUrlsExclusions(),
             ],
             nonRoutableCidrNets: NON_ROUTABLE_CIDR_NETS,
             host: this.currentHost,

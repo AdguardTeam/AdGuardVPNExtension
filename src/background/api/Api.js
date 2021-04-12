@@ -4,11 +4,22 @@ import CustomError from '../../lib/CustomError';
 
 class Api {
     constructor(baseUrl) {
-        this.baseUrl = baseUrl;
+        if (typeof baseUrl === 'function') {
+            this.baseUrlFn = baseUrl;
+        } else {
+            this.baseUrlStr = baseUrl;
+        }
+    }
+
+    get baseUrl() {
+        if (this.baseUrlFn) {
+            return this.baseUrlFn();
+        }
+        return this.baseUrlStr;
     }
 
     async makeRequest(path, method = 'POST', config) {
-        const url = `${this.baseUrl}/${path}`;
+        const url = `https://${this.baseUrl}/${path}`;
         try {
             const response = await axios({
                 url,
