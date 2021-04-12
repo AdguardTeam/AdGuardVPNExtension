@@ -1,12 +1,13 @@
 import proxy from '../proxy';
-import credentials from '../credentials';
-// eslint-disable-next-line import/no-cycle
-import { locationsService } from '../endpoints/locationsService';
 import { EVENT, MIN_CONNECTION_DURATION_MS } from './connectivityService/connectivityConstants';
 import { log } from '../../lib/logger';
 import { runWithCancel, sleepIfNecessary } from '../../lib/helpers';
 import { FORCE_CANCELLED } from '../../lib/constants';
 
+// eslint-disable-next-line import/no-cycle
+import credentials from '../credentials';
+// eslint-disable-next-line import/no-cycle
+import { locationsService } from '../endpoints/locationsService';
 // eslint-disable-next-line import/no-cycle
 import endpoints from '../endpoints';
 // eslint-disable-next-line import/no-cycle

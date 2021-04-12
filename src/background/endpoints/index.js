@@ -6,15 +6,17 @@ import { log } from '../../lib/logger';
 import { getLocationWithLowestPing, sleep } from '../../lib/helpers';
 import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
 import notifier from '../../lib/notifier';
-// eslint-disable-next-line import/no-cycle
-import connectivity from '../connectivity';
-import credentials from '../credentials';
 import proxy from '../proxy';
 import vpnProvider from '../providers/vpnProvider';
-// eslint-disable-next-line import/no-cycle
-import { locationsService, isMeasuringPingInProgress } from './locationsService';
 import { LocationWithPing } from './LocationWithPing';
 import { endpointsTldExclusions } from '../proxy/endpointsTldExclusions';
+
+// eslint-disable-next-line import/no-cycle
+import connectivity from '../connectivity';
+// eslint-disable-next-line import/no-cycle
+import credentials from '../credentials';
+// eslint-disable-next-line import/no-cycle
+import { locationsService, isMeasuringPingInProgress } from './locationsService';
 // eslint-disable-next-line import/no-cycle
 import { isVPNDisconnectedIdle } from '../connectivity/connectivityService/connectivityFSM';
 

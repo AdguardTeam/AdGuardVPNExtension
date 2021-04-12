@@ -14,6 +14,8 @@ import { log } from '../lib/logger';
 import notifier from '../lib/notifier';
 import { translator } from '../common/translator';
 import { fallbackApi } from './api/fallbackApi';
+// eslint-disable-next-line import/no-cycle
+import settings from './settings/settings';
 
 class Auth {
     socialAuthState = null;
@@ -138,6 +140,8 @@ class Auth {
             log.error('Unable to remove access token. Error: ', e.message);
         }
 
+        // turn off connection
+        await settings.disableProxy(true);
         // set proxy settings to default
         await proxy.resetSettings();
         notifier.notifyListeners(notifier.types.USER_DEAUTHENTICATED);
