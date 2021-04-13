@@ -5,11 +5,13 @@ import { reactTranslator } from '../../../common/reactTranslator';
 import { popupActions } from '../../actions/popupActions';
 import { EULA_URL, PRIVACY_URL } from '../../../background/config';
 import { rootStore } from '../../stores';
+import { Checkbox } from './Checkbox';
 
 const MARKETING_CONSENT_ID = 'marketing_consent';
+const HELP_US_IMPROVE_ID = 'help_us_improve';
 
 export const MarketingConsent = observer(() => {
-    const { authStore } = useContext(rootStore);
+    const { authStore, settingsStore } = useContext(rootStore);
 
     const handlePrivacyClick = async () => {
         await popupActions.openTab(PRIVACY_URL);
@@ -19,44 +21,61 @@ export const MarketingConsent = observer(() => {
         await popupActions.openTab(EULA_URL);
     };
 
-    const onMarketingConsentChange = (e) => {
+    const onMarketingConsentChange = (newValue) => {
         console.log('onMarketingConsentChange');
-        console.log(e.target.checked);
+        console.log(newValue);
+    };
+
+    const handleAnonymousDataLinkClick = () => {
+        // FIXME find out destination
+        console.log('handleAnonymousDataLinkClick clicked');
+    };
+
+    const onHelpUsImproveChanged = () => {
+        // FIXME
+        console.log('onHelpUsImproveChanged');
     };
 
     return (
         <div className="auth">
             <div className="auth__container">
-                <label htmlFor={MARKETING_CONSENT_ID}>
-                    {reactTranslator.getMessage('popup_auth_marketing_agreement_consent', {
+                <Checkbox
+                    id={MARKETING_CONSENT_ID}
+                    checked={authStore.marketingConsent}
+                    onChange={onMarketingConsentChange}
+                    label={reactTranslator.getMessage('popup_auth_marketing_agreement_consent', {
                         eula: (chunks) => (
-                            <button
-                                type="button"
-                                tabIndex="-1"
-                                className="auth__privacy-link"
-                                onClick={handleEulaClick}
-                            >
-                                {chunks}
-                            </button>
+                                <button
+                                    type="button"
+                                    onClick={handleEulaClick}
+                                >
+                                    {chunks}
+                                </button>
                         ),
                         privacy: (chunks) => (
+                                <button
+                                    type="button"
+                                    onClick={handlePrivacyClick}
+                                >
+                                    {chunks}
+                                </button>
+                        ),
+                    })}
+                />
+                <Checkbox
+                    id={HELP_US_IMPROVE_ID}
+                    checked={settingsStore.helpUsImprove}
+                    onChange={onHelpUsImproveChanged}
+                    label={reactTranslator.getMessage('popup_auth_help_us_improve_agreement', {
+                        link: (chunks) => (
                             <button
                                 type="button"
-                                tabIndex="-1"
-                                className="auth__privacy-link"
-                                onClick={handlePrivacyClick}
+                                onClick={handleAnonymousDataLinkClick}
                             >
                                 {chunks}
                             </button>
                         ),
                     })}
-                </label>
-                <input
-                    id={MARKETING_CONSENT_ID}
-                    name={MARKETING_CONSENT_ID}
-                    type="checkbox"
-                    checked={authStore.marketingConsent}
-                    onChange={onMarketingConsentChange}
                 />
             </div>
         </div>
