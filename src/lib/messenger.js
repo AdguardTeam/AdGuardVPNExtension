@@ -242,6 +242,11 @@ class Messenger {
         return this.sendMessage(type, { mode, id });
     }
 
+    async removeExclusionsByMode(mode) {
+        const type = MESSAGES_TYPES.REMOVE_EXCLUSIONS_BY_MODE;
+        return this.sendMessage(type, { mode });
+    }
+
     async toggleExclusionByMode(mode, id) {
         const type = MESSAGES_TYPES.TOGGLE_EXCLUSION_BY_MODE;
         return this.sendMessage(type, { mode, id });

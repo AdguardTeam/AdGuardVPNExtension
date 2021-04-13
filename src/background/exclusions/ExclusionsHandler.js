@@ -90,6 +90,12 @@ export default class ExclusionsHandler {
         this.handleExclusionsUpdate(exclusion);
     };
 
+    removeExclusions = () => {
+        this._exclusions = {};
+
+        this.handleExclusionsUpdate();
+    };
+
     disableExclusionByUrl = (hostname) => {
         const exclusions = this.getExclusionsByUrl(hostname);
 
