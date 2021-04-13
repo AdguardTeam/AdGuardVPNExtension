@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { reactTranslator } from '../../../../common/reactTranslator';
-import rootStore from '../../../stores';
+import { rootStore } from '../../../stores';
 
 const TrafficLimitExceeded = observer(() => {
     const { vpnStore, settingsStore } = useContext(rootStore);

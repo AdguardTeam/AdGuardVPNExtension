@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import rootStore from '../../stores';
-import popupActions from '../../actions/popupActions';
+import { rootStore } from '../../stores';
+import { popupActions } from '../../actions/popupActions';
 import { reactTranslator } from '../../../common/reactTranslator';
 
 import './global-error.pcss';

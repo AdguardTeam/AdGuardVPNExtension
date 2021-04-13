@@ -452,6 +452,10 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN is disabled on this website"
     },
+    "popup_auth_marketing_agreement_consent": {
+        "message": "I have read and agree with <eula>EULA</eula> and <privacy>Privacy policy</privacy>",
+        "description": "WARNING! Respect spaces between tags"
+    },
     "popup_auth_agreement_consent": {
         "message": "By continuing to use AdGuard VPN, you agree to our <eula>EULA</eula> and <privacy>Privacy Policy</privacy>",
         "description": "NOTICE! respect spaces between tags"

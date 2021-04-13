@@ -1,7 +1,7 @@
 import React, { Fragment, useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import rootStore from '../../stores';
+import { rootStore } from '../../stores';
 import { POPUP_STORE_URL, FEEDBACK_URL } from '../../../background/config';
 import { reactTranslator } from '../../../common/reactTranslator';
 

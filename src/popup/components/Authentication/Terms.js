@@ -1,9 +1,10 @@
 import React from 'react';
 
-import popupActions from '../../actions/popupActions';
+import { popupActions } from '../../actions/popupActions';
 import { EULA_URL, PRIVACY_URL } from '../../../background/config';
 import { reactTranslator } from '../../../common/reactTranslator';
 
+// FIXME remove if not necessary anymore
 const Terms = () => {
     const handlePrivacyClick = async () => {
         await popupActions.openTab(PRIVACY_URL);

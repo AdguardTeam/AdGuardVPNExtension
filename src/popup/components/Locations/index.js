@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import rootStore from '../../stores';
+import { rootStore } from '../../stores';
 import Location from './Location';
 import Search from './Search';
 import Skeleton from './Skeleton';

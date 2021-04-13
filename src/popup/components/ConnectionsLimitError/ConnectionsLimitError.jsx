@@ -4,7 +4,7 @@ import { CSSTransition } from 'react-transition-group';
 import isNil from 'lodash/isNil';
 
 import { log } from '../../../lib/logger';
-import rootStore from '../../stores';
+import { rootStore } from '../../stores';
 import messenger from '../../../lib/messenger';
 import { reactTranslator } from '../../../common/reactTranslator';
 

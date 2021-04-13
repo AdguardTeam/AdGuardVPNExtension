@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import ReactHtmlParser from 'react-html-parser';
 import classnames from 'classnames';
 
-import rootStore from '../../../stores';
+import { rootStore } from '../../../stores';
 import { REQUEST_STATUSES } from '../../../stores/consts';
 
 import Submit from '../Submit';

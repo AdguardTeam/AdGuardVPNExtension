@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import rootStore from '../../stores';
+import { rootStore } from '../../stores';
 
 export const BackButton = () => {
     const { authStore } = useContext(rootStore);
