@@ -7,7 +7,7 @@ export const ExclusionsModal = ({
     return (
         <Modal
             isOpen={isOpen}
-            className="modal modal-exclusions-select"
+            className="modal modal-exclusions"
             overlayClassName="overlay overlay--fullscreen"
             onRequestClose={closeModal}
         >
