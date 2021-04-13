@@ -133,9 +133,10 @@
     }
 
     &__title {
-        font-size: 28px;
+        font-weight: 400;
+        font-size: 40px;
         letter-spacing: 0;
-        line-height: 30px;
+        line-height: 48px;
         margin-bottom: 8px;
         text-align: center;
     }
@@ -153,7 +154,8 @@
 
     &__button {
         height: 44px;
-        width: 220px;
+        padding: 0 10px;
+        width: 200px;
         border: 1px solid var(--gray88);
         border-radius: 8px;
         font-size: 16px;
@@ -163,6 +165,17 @@
         line-height: 16px;
         text-transform: uppercase;
         margin-bottom: 44px;
+
+        &--red {
+            border-color: var(--redDark);
+            background-color: var(--redDark);
+            color: var(--white);
+
+            &:hover {
+                border-color: var(--red);
+                background-color: var(--red);
+            }
+        }
 
         &--first {
             margin-right: 16px;

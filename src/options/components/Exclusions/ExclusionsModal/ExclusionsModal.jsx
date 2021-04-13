@@ -2,12 +2,12 @@ import React from 'react';
 import Modal from 'react-modal';
 
 export const ExclusionsModal = ({
-    isOpen, closeModal, title, description, children
+    isOpen, closeModal, title, description, children,
 }) => {
     return (
         <Modal
             isOpen={isOpen}
-            className="modal modal--big modal-exclusions-select"
+            className="modal modal-exclusions-select"
             overlayClassName="overlay overlay--fullscreen"
             onRequestClose={closeModal}
         >

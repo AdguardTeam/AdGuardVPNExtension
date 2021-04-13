@@ -34,7 +34,7 @@ export const RemoveExclusionsModal = ({
                 <button
                     type="button"
                     onClick={handleDeleteClick}
-                    className="button modal__button"
+                    className="button modal__button modal__button--red"
                 >
                     {reactTranslator.getMessage('options_exclusions_delete_approve_button')}
                 </button>
