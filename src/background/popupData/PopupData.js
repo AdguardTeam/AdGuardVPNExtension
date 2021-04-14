@@ -68,6 +68,7 @@ class PopupData {
             locations,
             selectedLocation,
             isAuthenticated,
+            policyAgreement,
             canControlProxy,
             isProxyEnabled,
             isRoutable,
