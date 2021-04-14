@@ -5,10 +5,11 @@ import {
     runInAction,
     toJS,
 } from 'mobx';
-import messenger from '../../../lib/messenger';
-import { popupActions } from '../../actions/popupActions';
 
-class VpnStore {
+import messenger from '../../lib/messenger';
+import { popupActions } from '../actions/popupActions';
+
+export class VpnStore {
     constructor(rootStore) {
         this.rootStore = rootStore;
     }
@@ -261,5 +262,3 @@ class VpnStore {
         this.maxDevicesAllowed = maxDevicesAllowed;
     }
 }
-
-export default VpnStore;

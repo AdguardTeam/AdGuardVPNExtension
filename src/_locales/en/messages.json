@@ -452,12 +452,15 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN is disabled on this website"
     },
-    "popup_auth_marketing_agreement_consent": {
+    "popup_auth_policy_agreement": {
         "message": "I have read and agree with <eula>EULA</eula> and <privacy>Privacy policy</privacy>",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
         "message": "Gather some <link>strictly anonymous data</link> on the app usage to make the AdGuard VPN better"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Continue"
     },
     "popup_auth_agreement_consent": {
         "message": "By continuing to use AdGuard VPN, you agree to our <eula>EULA</eula> and <privacy>Privacy Policy</privacy>",

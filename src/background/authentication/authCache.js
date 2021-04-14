@@ -4,6 +4,8 @@ const AuthCache = () => {
         password: '',
         step: '',
         signInCheck: false,
+        policyAgreement: null,
+        helpUsImprove: null,
     };
 
     let authCache = { ...DEFAULTS };

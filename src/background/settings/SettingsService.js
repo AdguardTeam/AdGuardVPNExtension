@@ -3,7 +3,7 @@ import { log } from '../../lib/logger';
 import { SETTINGS_IDS } from '../../lib/constants';
 import browserApi from '../browserApi';
 
-const SCHEME_VERSION = '6';
+const SCHEME_VERSION = '7';
 const THROTTLE_TIMEOUT = 100;
 
 class SettingsService {
@@ -100,6 +100,16 @@ class SettingsService {
         };
     }
 
+    migrateFrom6to7 = (oldSettings) => {
+        return {
+            ...oldSettings,
+            VERSION: '7',
+            // Old users gave marketing consent
+            [SETTINGS_IDS.POLICY_AGREEMENT]: true,
+            [SETTINGS_IDS.HELP_US_IMPROVE]: this.defaults[SETTINGS_IDS.HELP_US_IMPROVE],
+        };
+    };
+
     /**
      * In order to add migration, create new function which modifies old settings into new
      * And add this migration under related old settings scheme version
@@ -112,6 +122,7 @@ class SettingsService {
         3: this.migrateFrom3to4,
         4: this.migrateFrom4to5,
         5: this.migrateFrom5to6,
+        6: this.migrateFrom6to7,
     };
 
     async applyMigrations(oldVersion, newVersion, oldSettings) {

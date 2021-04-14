@@ -4,12 +4,12 @@ import {
     observable,
 } from 'mobx';
 
-import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
-import { log } from '../../../lib/logger';
-import tabs from '../../../background/tabs';
-import messenger from '../../../lib/messenger';
+import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
+import { log } from '../../lib/logger';
+import tabs from '../../background/tabs';
+import messenger from '../../lib/messenger';
 
-class globalStore {
+export class GlobalStore {
     @observable initStatus = REQUEST_STATUSES.PENDING;
 
     constructor(rootStore) {
@@ -40,10 +40,12 @@ class globalStore {
                 isPremiumToken,
                 connectivityState,
                 promoNotification,
+                policyAgreement,
             } = popupData;
 
             if (!isAuthenticated) {
                 authStore.setIsAuthenticated(isAuthenticated);
+                await authStore.handleInitPolicyAgreement(policyAgreement);
                 await authStore.getAuthCacheFromBackground();
                 this.setInitStatus(REQUEST_STATUSES.DONE);
                 return;
@@ -58,6 +60,7 @@ class globalStore {
             }
 
             authStore.setIsAuthenticated(isAuthenticated);
+            authStore.setPolicyAgreement(policyAgreement);
             vpnStore.setVpnInfo(vpnInfo);
             vpnStore.setLocations(locations);
             vpnStore.setSelectedLocation(selectedLocation);
@@ -92,5 +95,3 @@ class globalStore {
         return this.initStatus;
     }
 }
-
-export default globalStore;

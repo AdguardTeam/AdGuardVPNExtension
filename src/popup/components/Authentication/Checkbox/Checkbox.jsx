@@ -1,6 +1,5 @@
 import React from 'react';
 
-// FIXME consider moving to the common components directory
 export const Checkbox = ({
     id,
     checked,
@@ -8,7 +7,6 @@ export const Checkbox = ({
     label,
 }) => {
     const onChangeHandler = (e) => {
-        // FIXME check
         onChange(e.currentTarget.checked);
     };
 

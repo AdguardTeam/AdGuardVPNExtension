@@ -7,7 +7,7 @@ import actions from './actions';
 import credentials from './credentials';
 import authCache from './authentication/authCache';
 import appStatus from './appStatus';
-import settings from './settings/settings';
+import { settings } from './settings';
 import exclusions from './exclusions';
 import management from './management';
 import permissionsError from './permissionsChecker/permissionsError';

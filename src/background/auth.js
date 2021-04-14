@@ -16,7 +16,7 @@ import notifier from '../lib/notifier';
 import { translator } from '../common/translator';
 import { fallbackApi } from './api/fallbackApi';
 // eslint-disable-next-line import/no-cycle
-import settings from './settings/settings';
+import { settings } from './settings';
 
 class Auth {
     socialAuthState = null;

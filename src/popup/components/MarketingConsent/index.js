@@ -1,1 +1,0 @@
-export { MarketingConsent } from './MarketingConsent';

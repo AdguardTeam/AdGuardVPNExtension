@@ -5,7 +5,7 @@ import notifier from '../lib/notifier';
 import exclusions from './exclusions';
 import tabs from './tabs';
 import { translator } from '../common/translator';
-import settings from './settings/settings';
+import { settings } from './settings';
 import { isHttp } from '../lib/string-utils';
 import { log } from '../lib/logger';
 

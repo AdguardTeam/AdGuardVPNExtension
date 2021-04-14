@@ -30,7 +30,6 @@ import PromoSale from '../PromoSale';
 import { PROMO_SCREEN_STATES } from '../../../lib/constants';
 import { TrafficLimitExceeded } from '../Settings/TrafficLimitExceeded';
 import { ConnectionsLimitError } from '../ConnectionsLimitError';
-import { MarketingConsent } from '../MarketingConsent';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -120,12 +119,6 @@ export const App = observer(() => {
         && settingsStore.checkPermissionsState !== REQUEST_STATUSES.PENDING
         && globalStore.status === REQUEST_STATUSES.PENDING) {
         return null;
-    }
-
-    const { marketingConsent } = authStore;
-    // if marketing consent is null, then we show screen where use should agree with eula
-    if (isNil(marketingConsent)) {
-        return (<MarketingConsent />);
     }
 
     const { requestProcessState, authenticated } = authStore;
