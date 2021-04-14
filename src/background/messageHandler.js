@@ -130,8 +130,8 @@ const messageHandler = async (message, sender) => {
             return auth.isAuthenticated();
         }
         case MESSAGES_TYPES.START_SOCIAL_AUTH: {
-            const { social } = data;
-            return auth.startSocialAuth(social);
+            const { social, marketingConsent } = data;
+            return auth.startSocialAuth(social, marketingConsent);
         }
         case MESSAGES_TYPES.CLEAR_PERMISSIONS_ERROR: {
             permissionsError.clearError();

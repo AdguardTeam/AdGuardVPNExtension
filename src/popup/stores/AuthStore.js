@@ -24,6 +24,7 @@ const DEFAULTS = {
         username: '',
         password: '',
         twoFactor: '',
+        marketingConsent: false,
     },
     authenticated: false,
     receivedAuthenticationInfo: false,
@@ -97,12 +98,14 @@ export class AuthStore {
             signInCheck,
             policyAgreement,
             helpUsImprove,
+            marketingConsent,
         } = await messenger.getAuthCache();
         runInAction(() => {
             this.credentials = {
                 ...this.credentials,
                 username,
                 password,
+                marketingConsent,
             };
             if (step) {
                 this.step = step;
@@ -252,7 +255,7 @@ export class AuthStore {
 
     @action
     openSocialAuth = async (social) => {
-        await messenger.startSocialAuth(social);
+        await messenger.startSocialAuth(social, this.marketingConsent);
         window.close();
     };
 
@@ -329,4 +332,17 @@ export class AuthStore {
         await messenger.setSetting(SETTINGS_IDS.HELP_US_IMPROVE, this.helpUsImprove);
         await this.showCheckEmail();
     };
+
+    @action
+    setMarketingConsent = async (value) => {
+        await messenger.updateAuthCache('marketingConsent', value);
+        runInAction(() => {
+            this.credentials.marketingConsent = value;
+        });
+    };
+
+    @computed
+    get marketingConsent() {
+        return this.credentials.marketingConsent;
+    }
 }

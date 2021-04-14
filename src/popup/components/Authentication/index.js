@@ -6,7 +6,7 @@ import { SocialAuth } from './SocialAuth';
 import SignInForm from './SignInForm';
 import { RegistrationForm } from './RegistrationForm';
 import TwoFactorForm from './TwoFactorForm';
-import CheckEmail from './CheckEmail';
+import { CheckEmail } from './CheckEmail';
 import { BackButton } from './BackButton';
 import { PolicyAgreement } from './PolicyAgreement';
 

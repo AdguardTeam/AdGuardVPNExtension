@@ -6,6 +6,7 @@ const AuthCache = () => {
         signInCheck: false,
         policyAgreement: null,
         helpUsImprove: null,
+        marketingConsent: null,
     };
 
     let authCache = { ...DEFAULTS };

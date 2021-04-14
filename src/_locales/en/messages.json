@@ -462,6 +462,9 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Continue"
     },
+    "popup_marketing_consent_checkbox": {
+        "message": "Send me emails with special offers and AdGuard news"
+    },
     "popup_auth_agreement_consent": {
         "message": "By continuing to use AdGuard VPN, you agree to our <eula>EULA</eula> and <privacy>Privacy Policy</privacy>",
         "description": "NOTICE! respect spaces between tags"
