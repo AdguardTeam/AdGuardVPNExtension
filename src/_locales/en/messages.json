@@ -224,6 +224,12 @@
     "settings_context_menus_title": {
         "message": "Add AdGuard VPN item to the browser’s context menu"
     },
+    "settings_help_us_improve_title": {
+        "message": "Help us improve"
+    },
+    "settings_help_us_improve_description": {
+        "message": "Allow AdGuard VPN to gather crash reports, technical and interaction data. This is anonymous."
+    },
     "context_menu_selective_mode": {
         "message": "Selective mode"
     },
@@ -457,7 +463,7 @@
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Gather some <link>strictly anonymous data</link> on the app usage to make the AdGuard VPN better"
+        "message": "Gather some <link>strictly anonymous data</link> on the app usage to make AdGuard VPN better"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Continue"

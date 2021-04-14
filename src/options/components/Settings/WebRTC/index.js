@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
-import Switch from '../../ui/Switch';
+import { Switch } from '../../ui/Switch';
 import { reactTranslator } from '../../../../common/reactTranslator';
 
 const Webrtc = observer(() => {
