@@ -83,8 +83,8 @@ const Locations = observer(() => {
                     {reactTranslator.getMessage(listTitle)}
                     {!showSearchResults && (
                         <>
-                        &nbsp;
-                        {`(${filteredLocations.length})`}
+                            &nbsp;
+                            {`(${filteredLocations.length})`}
                         </>
                     )}
                 </div>

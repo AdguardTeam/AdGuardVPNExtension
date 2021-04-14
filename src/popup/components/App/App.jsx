@@ -5,7 +5,6 @@ import React, {
 import { observer } from 'mobx-react';
 import Modal from 'react-modal';
 import { CSSTransition } from 'react-transition-group';
-import isNil from 'lodash/isNil';
 
 import Header from '../Header';
 import InfoMessage from '../InfoMessage';

@@ -162,62 +162,62 @@ export const ImportExport = observer(() => {
 
     return (
         <div>
-                <Modal
-                    isOpen={isModalOpen}
-                    className="modal modal--big modal-exclusions-select"
-                    overlayClassName="overlay overlay--fullscreen"
-                    onRequestClose={closeModal}
+            <Modal
+                isOpen={isModalOpen}
+                className="modal modal--big modal-exclusions-select"
+                overlayClassName="overlay overlay--fullscreen"
+                onRequestClose={closeModal}
+            >
+                <button
+                    type="button"
+                    className="button button--icon checkbox__button modal__close-icon"
+                    onClick={closeModal}
                 >
+                    <svg className="icon icon--button icon--cross">
+                        <use xlinkHref="#cross" />
+                    </svg>
+                </button>
+                <div className="modal__title">
+                    {reactTranslator.getMessage('options_exclusions_import_select_title')}
+                </div>
+                <div className="modal__buttons">
                     <button
                         type="button"
-                        className="button button--icon checkbox__button modal__close-icon"
-                        onClick={closeModal}
+                        onClick={handleRegularClick}
+                        className="button modal__button modal__button--first"
                     >
-                        <svg className="icon icon--button icon--cross">
-                            <use xlinkHref="#cross" />
-                        </svg>
+                        {reactTranslator.getMessage('options_exclusions_import_select_regular')}
                     </button>
-                    <div className="modal__title">
-                        {reactTranslator.getMessage('options_exclusions_import_select_title')}
-                    </div>
-                    <div className="modal__buttons">
-                        <button
-                            type="button"
-                            onClick={handleRegularClick}
-                            className="button modal__button modal__button--first"
-                        >
-                            {reactTranslator.getMessage('options_exclusions_import_select_regular')}
-                        </button>
-                        <button
-                            type="button"
-                            onClick={handleSelectiveClick}
-                            className="button modal__button"
-                        >
-                            {reactTranslator.getMessage('options_exclusions_import_select_selective')}
-                        </button>
-                    </div>
-                </Modal>
-                <input
-                    type="file"
-                    accept=".txt, .zip"
-                    ref={importEl}
-                    onChange={inputChangeHandler}
-                    style={{ display: 'none' }}
-                />
-                <button
-                    type="button"
-                    className="button button--control"
-                    onClick={handleExclusionsImport}
-                >
-                    {reactTranslator.getMessage('settings_exclusions_import_button')}
-                </button>
-                <button
-                    type="button"
-                    className="button button--control"
-                    onClick={handleExclusionsExport}
-                >
-                    {reactTranslator.getMessage('settings_exclusions_export_button')}
-                </button>
+                    <button
+                        type="button"
+                        onClick={handleSelectiveClick}
+                        className="button modal__button"
+                    >
+                        {reactTranslator.getMessage('options_exclusions_import_select_selective')}
+                    </button>
+                </div>
+            </Modal>
+            <input
+                type="file"
+                accept=".txt, .zip"
+                ref={importEl}
+                onChange={inputChangeHandler}
+                style={{ display: 'none' }}
+            />
+            <button
+                type="button"
+                className="button button--control"
+                onClick={handleExclusionsImport}
+            >
+                {reactTranslator.getMessage('settings_exclusions_import_button')}
+            </button>
+            <button
+                type="button"
+                className="button button--control"
+                onClick={handleExclusionsExport}
+            >
+                {reactTranslator.getMessage('settings_exclusions_export_button')}
+            </button>
         </div>
     );
 });

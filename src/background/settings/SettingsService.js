@@ -104,7 +104,7 @@ class SettingsService {
         return {
             ...oldSettings,
             VERSION: '7',
-            // Old users gave marketing consent
+            // Old users already gave policy agreement, when logged in
             [SETTINGS_IDS.POLICY_AGREEMENT]: true,
             [SETTINGS_IDS.HELP_US_IMPROVE]: this.defaults[SETTINGS_IDS.HELP_US_IMPROVE],
         };

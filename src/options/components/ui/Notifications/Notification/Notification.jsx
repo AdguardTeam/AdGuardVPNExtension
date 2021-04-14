@@ -32,6 +32,7 @@ export const Notification = ({ notification }) => {
                 {notification.message}
             </div>
             <button
+                type="button"
                 className="button"
                 onClick={handleCloseNotification}
             >
