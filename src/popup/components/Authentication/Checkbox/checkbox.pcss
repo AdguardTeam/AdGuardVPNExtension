@@ -1,0 +1,28 @@
+.checkbox {
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+
+    &__input {
+        display: none;
+    }
+
+    &__marker {
+        position: relative;
+        top: 1px;
+        width: 24px;
+        height: 24px;
+        margin-right: 16px;
+        flex-shrink: 0;
+    }
+
+    &__label {
+        font-size: 16px;
+        text-align: left;
+        color: var(--gray-base);
+
+        &--small {
+            font-size: 14px;
+        }
+    }
+}

@@ -98,25 +98,28 @@ export const CheckEmail = observer(() => {
                 <div className="form__info">
                     {reactTranslator.getMessage(params.infoText)}
                 </div>
-                <InputField
-                    id="username"
-                    type="email"
-                    value={username}
-                    placeholder={reactTranslator.getMessage('auth_email')}
-                    inputChangeHandler={inputChangeHandler}
-                    error={authStore.error}
-                />
-                {authStore.error && (
-                    <div className="form__error">
-                        {ReactHtmlParser(authStore.error)}
-                    </div>
-                )}
+                <div className="form__group">
+                    <InputField
+                        id="username"
+                        type="email"
+                        value={username}
+                        placeholder={reactTranslator.getMessage('auth_email')}
+                        inputChangeHandler={inputChangeHandler}
+                        error={authStore.error}
+                    />
+                    {authStore.error && (
+                        <div className="form__error">
+                            {ReactHtmlParser(authStore.error)}
+                        </div>
+                    )}
+                </div>
 
                 <Checkbox
                     id="marketing_consent"
                     checked={authStore.marketingConsent}
                     onChange={handleMarketingConsentChange}
                     label={reactTranslator.getMessage('popup_marketing_consent_checkbox')}
+                    labelSize="small"
                 />
             </div>
 

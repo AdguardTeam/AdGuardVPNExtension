@@ -1,10 +1,15 @@
 import React from 'react';
+import cn from 'classnames';
+
+import Icon from '../../ui/Icon';
+import './checkbox.pcss';
 
 export const Checkbox = ({
     id,
     checked,
     onChange,
     label,
+    labelSize,
 }) => {
     const onChangeHandler = (e) => {
         onChange(e.currentTarget.checked);
@@ -12,16 +17,30 @@ export const Checkbox = ({
 
     return (
         <>
-            <label htmlFor={id}>
-                {label}
+            <label
+                htmlFor={id}
+                className="checkbox"
+            >
+                <input
+                    id={id}
+                    type="checkbox"
+                    checked={checked}
+                    className="checkbox__input"
+                    onChange={onChangeHandler}
+                />
+                <Icon
+                    icon={checked ? 'checked' : 'unchecked'}
+                    className="checkbox__marker"
+                />
+                <div
+                    className={cn(
+                        'checkbox__label',
+                        { 'checkbox__label--small': labelSize === 'small' },
+                    )}
+                >
+                    {label}
+                </div>
             </label>
-            <input
-                id={id}
-                name={id}
-                type="checkbox"
-                checked={checked}
-                onChange={onChangeHandler}
-            />
         </>
     );
 };

@@ -6,6 +6,7 @@ import { popupActions } from '../../../actions/popupActions';
 import { EULA_URL, PRIVACY_URL } from '../../../../background/config';
 import { rootStore } from '../../../stores';
 import { Checkbox } from '../Checkbox';
+import Icon from '../../ui/Icon';
 
 const POLICY_AGREEMENT_ID = 'policy_agreement';
 const HELP_US_IMPROVE_ID = 'help_us_improve';
@@ -39,47 +40,58 @@ export const PolicyAgreement = observer(() => {
 
     return (
         <>
-            <Checkbox
-                id={POLICY_AGREEMENT_ID}
-                checked={authStore.policyAgreement}
-                onChange={onPolicyAgreementChange}
-                label={reactTranslator.getMessage('popup_auth_policy_agreement', {
-                    eula: (chunks) => (
-                        <button
-                            type="button"
-                            onClick={handleEulaClick}
-                        >
-                            {chunks}
-                        </button>
-                    ),
-                    privacy: (chunks) => (
-                        <button
-                            type="button"
-                            onClick={handlePrivacyClick}
-                        >
-                            {chunks}
-                        </button>
-                    ),
-                })}
-            />
-            <Checkbox
-                id={HELP_US_IMPROVE_ID}
-                checked={authStore.helpUsImprove}
-                onChange={onHelpUsImproveChanged}
-                label={reactTranslator.getMessage('popup_auth_help_us_improve_agreement', {
-                    link: (chunks) => (
-                        <button
-                            type="button"
-                            onClick={handleAnonymousDataLinkClick}
-                        >
-                            {chunks}
-                        </button>
-                    ),
-                })}
-            />
+            <div className="auth__logo">
+                <Icon icon="auth_logo" className="auth__logo-icon" />
+                <div className="auth__logo-title">
+                    {reactTranslator.getMessage('short_name')}
+                </div>
+            </div>
+            <div className="form__group form__group--wide">
+                <Checkbox
+                    id={POLICY_AGREEMENT_ID}
+                    checked={authStore.policyAgreement}
+                    onChange={onPolicyAgreementChange}
+                    label={reactTranslator.getMessage('popup_auth_policy_agreement', {
+                        eula: (chunks) => (
+                            <a
+                                onClick={handleEulaClick}
+                                className="button button--link-green button--link-medium"
+                            >
+                                {chunks}
+                            </a>
+                        ),
+                        privacy: (chunks) => (
+                            <a
+                                onClick={handlePrivacyClick}
+                                className="button button--link-green button--link-medium"
+                            >
+                                {chunks}
+                            </a>
+                        ),
+                    })}
+                />
+            </div>
+            <div className="form__group form__group--last form__group--wide">
+                <Checkbox
+                    id={HELP_US_IMPROVE_ID}
+                    checked={authStore.helpUsImprove}
+                    onChange={onHelpUsImproveChanged}
+                    label={reactTranslator.getMessage('popup_auth_help_us_improve_agreement', {
+                        link: (chunks) => (
+                            <a
+                                onClick={handleAnonymousDataLinkClick}
+                                className="button button--link-green button--link-medium"
+                            >
+                                {chunks}
+                            </a>
+                        ),
+                    })}
+                />
+            </div>
             <button
                 type="button"
                 onClick={handleContinueClick}
+                className="button button--medium button--green form__btn"
                 disabled={!authStore.policyAgreement}
             >
                 {reactTranslator.getMessage('popup_auth_policy_agreement_continue_button')}
