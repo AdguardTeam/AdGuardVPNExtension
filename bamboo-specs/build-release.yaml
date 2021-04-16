@@ -1,0 +1,91 @@
+---
+version: 2
+plan:
+  project-key: ADGEXT
+  key: AVRELEASESPECS
+  name: vpn-extension - build release
+variables:
+  dockerNode: node:15.14.0-buster-slim
+
+stages:
+  - Build:
+      manual: 'false'
+      final: 'false'
+      jobs:
+        - Build
+
+Build:
+  key: BUILD
+  docker:
+    image: ${bamboo.dockerNode}
+    volumes:
+      ${system.YARN_DIR}: "${bamboo.cacheYarn}"
+  tasks:
+    - checkout:
+        force-clean-build: 'true'
+    - script:
+        interpreter: SHELL
+        scripts:
+          - |-
+            yarn install ${system.YARN_ARGS}
+            yarn lint
+            yarn test
+            yarn locales:validate --min
+            # build with prod API endpoints
+            STAGE_ENV="prod" \
+            VPN_API_URL="api.adguard.io" \
+            AUTH_API_URL="auth.adguard.com" \
+            PASSWORD_RECOVERY_URL="adguard-vpn.com/forward.html?action=recovery_password&from=popup&app=vpn_extension" \
+            EDIT_ACCOUNT_URL="adguard-vpn.com/forward.html?action=account_settings&from=options_screen&app=vpn_extension" \
+            CREDENTIALS_PASSWORD="${EXTENSIONS_PASSPHRASE}" \
+            yarn release
+    - inject-variables:
+        file: build/release/build.txt
+        scope: RESULT
+        namespace: inject
+    - any-task:
+        plugin-key: com.atlassian.bamboo.plugins.vcs:task.vcs.tagging
+        configuration:
+          selectedRepository: defaultRepository
+          tagName: v${bamboo.inject.version}
+  artifacts:
+    - name: edge.zip
+      location: build/release
+      pattern: edge.zip
+      shared: true
+      required: true
+    - name: chrome.zip
+      location: build/release
+      pattern: chrome.zip
+      shared: true
+      required: true
+    - name: firefox.zip
+      location: build/release
+      pattern: firefox.zip
+      shared: true
+      required: true
+    - name: build.txt
+      location: build/release
+      pattern: build.txt
+      shared: true
+      required: true
+  requirements:
+    - adg-docker: 'true'
+
+triggers: []
+
+branches:
+  create: manually
+  delete: never
+  link-to-jira: 'true'
+
+notifications:
+  - events:
+      - plan-status-changed
+    recipients:
+      - webhook:
+          name: Build webhook
+          url: http://jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa
+labels: []
+other:
+  concurrent-build-plugin: system-default
