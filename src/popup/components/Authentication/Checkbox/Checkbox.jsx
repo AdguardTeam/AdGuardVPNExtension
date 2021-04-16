@@ -21,17 +21,19 @@ export const Checkbox = ({
                 htmlFor={id}
                 className="checkbox"
             >
-                <input
-                    id={id}
-                    type="checkbox"
-                    checked={checked}
-                    className="checkbox__input"
-                    onChange={onChangeHandler}
-                />
-                <Icon
-                    icon={checked ? 'checked' : 'unchecked'}
-                    className="checkbox__marker"
-                />
+                <div className="checkbox__marker">
+                    <input
+                        id={id}
+                        type="checkbox"
+                        checked={checked}
+                        className="checkbox__input"
+                        onChange={onChangeHandler}
+                    />
+                    <Icon
+                        icon={checked ? 'checked' : 'unchecked'}
+                        className="checkbox__icon"
+                    />
+                </div>
                 <div
                     className={cn(
                         'checkbox__label',
