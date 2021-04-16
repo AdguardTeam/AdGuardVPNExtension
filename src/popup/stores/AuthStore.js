@@ -33,7 +33,7 @@ const DEFAULTS = {
     field: '',
     step: AUTH_STEPS.CHECK_EMAIL,
     agreement: true,
-    policyAgreement: true,
+    policyAgreement: false,
     helpUsImprove: false,
     signInCheck: false,
 };
