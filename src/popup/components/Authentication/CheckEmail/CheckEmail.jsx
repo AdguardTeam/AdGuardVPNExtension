@@ -114,13 +114,15 @@ export const CheckEmail = observer(() => {
                     )}
                 </div>
 
-                <Checkbox
-                    id="marketing_consent"
-                    checked={authStore.marketingConsent}
-                    onChange={handleMarketingConsentChange}
-                    label={reactTranslator.getMessage('popup_marketing_consent_checkbox')}
-                    labelSize="small"
-                />
+                {!authStore.signInCheck && (
+                    <Checkbox
+                        id="marketing_consent"
+                        checked={authStore.marketingConsent}
+                        onChange={handleMarketingConsentChange}
+                        label={reactTranslator.getMessage('popup_marketing_consent_checkbox')}
+                        labelSize="small"
+                    />
+                )}
             </div>
 
             {getSubmitButton()}
