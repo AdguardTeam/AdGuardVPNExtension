@@ -14,15 +14,18 @@ const HELP_US_IMPROVE_ID = 'help_us_improve';
 export const PolicyAgreement = observer(() => {
     const { authStore } = useContext(rootStore);
 
-    const handlePrivacyClick = async () => {
+    const handlePrivacyClick = async (e) => {
+        e.preventDefault();
         await popupActions.openTab(PRIVACY_URL);
     };
 
-    const handleEulaClick = async () => {
+    const handleEulaClick = async (e) => {
+        e.preventDefault();
         await popupActions.openTab(EULA_URL);
     };
 
-    const handleAnonymousDataLinkClick = async () => {
+    const handleAnonymousDataLinkClick = async (e) => {
+        e.preventDefault();
         await popupActions.openTab(PRIVACY_URL);
     };
 
