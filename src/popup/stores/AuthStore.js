@@ -311,9 +311,7 @@ export class AuthStore {
 
     @action
     handleInitPolicyAgreement = async (policyAgreement) => {
-        if (policyAgreement) {
-            await this.switchStep(AUTH_STEPS.CHECK_EMAIL);
-        } else {
+        if (!policyAgreement) {
             await this.switchStep(AUTH_STEPS.POLICY_AGREEMENT);
         }
     };
