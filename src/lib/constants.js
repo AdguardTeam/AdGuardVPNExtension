@@ -46,6 +46,7 @@ export const MESSAGES_TYPES = {
     GET_EXCLUSIONS: 'get.exclusions',
     SET_EXCLUSIONS_MODE: 'set.exclusions.mode',
     REMOVE_EXCLUSION_BY_MODE: 'remove.exclusion.by.mode',
+    REMOVE_EXCLUSIONS_BY_MODE: 'remove.exclusions.by.mode',
     TOGGLE_EXCLUSION_BY_MODE: 'toggle.exclusion.by.mode',
     RENAME_EXCLUSION_BY_MODE: 'rename.exclusion.by.mode',
     ADD_EXCLUSION_BY_MODE: 'add.exclusion.by.mode',
