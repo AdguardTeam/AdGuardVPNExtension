@@ -6,7 +6,7 @@ import useOutsideClick from '../../helpers/useOutsideClick';
 import { rootStore } from '../../../stores';
 import SubdomainsHelp from './SubdomainsHelp';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { ImportExport } from '../ImportExport';
+import { Actions } from '../Actions';
 
 const Form = observer(() => {
     const ref = useRef(null);
@@ -76,7 +76,7 @@ const Form = observer(() => {
                     </svg>
                     {reactTranslator.getMessage('settings_exclusion_add')}
                 </button>
-                <ImportExport />
+                <Actions />
             </div>
 
             {isFormVisible && (
