@@ -45,19 +45,15 @@ Build:
 
             # build with prod API endpoints edge.zip, chrome.zip, firefox.zip
             STAGE_ENV="prod" \
-            VPN_API_URL="api.adguard.io" \
-            AUTH_API_URL="auth.adguard.com" \
-            PASSWORD_RECOVERY_URL="adguard-vpn.com/forward.html?action=recovery_password&from=popup&app=vpn_extension" \
-            EDIT_ACCOUNT_URL="adguard-vpn.com/forward.html?action=account_settings&from=options_screen&app=vpn_extension" \
+            VPN_API_URL="${bamboo.prodVpnApiUrl}" \
+            AUTH_API_URL="${bamboo.prodAuthApiUrl}" \
             CREDENTIALS_PASSWORD="${bamboo.extensionsPassphrase}" \
             yarn beta
 
             # build artifacts chrome.crx, firefox.xpi
             STAGE_ENV="prod" \
-            VPN_API_URL="api.adguard.io" \
-            AUTH_API_URL="auth.adguard.com" \
-            PASSWORD_RECOVERY_URL="adguard-vpn.com/forward.html?action=recovery_password&from=popup&app=vpn_extension" \
-            EDIT_ACCOUNT_URL="adguard-vpn.com/forward.html?action=account_settings&from=options_screen&app=vpn_extension" \
+            VPN_API_URL="${bamboo.prodVpnApiUrl}" \
+            AUTH_API_URL="${bamboo.prodAuthApiUrl}" \
             CREDENTIALS_PASSWORD="${bamboo.extensionsPassphrase}" \
             yarn artifacts:beta
     - inject-variables:
@@ -126,7 +122,7 @@ notifications:
     recipients:
       - webhook:
           name: Build webhook
-          url: http://jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa
+          url: http://jirahub.service.eu.consul/v1/webhook/bamboo
 labels: []
 other:
   concurrent-build-plugin: system-default

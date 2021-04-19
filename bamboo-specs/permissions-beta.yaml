@@ -3,30 +3,26 @@ version: 2
 deployment:
   name: vpn-extension - deploy beta
 deployment-permissions:
-  - users:
-      - am
+  - groups:
+      - extension-developers
     permissions:
       - view
-      - edit
 environment-permissions:
   - Chrome WebStore:
-      - users:
-          - am
-          - mtopciu
+      - groups:
+          - extension-developers
         permissions:
           - view
           - deploy
   - static.adguard.com:
-      - users:
-          - am
-          - mtopciu
+      - groups:
+          - extension-developers
         permissions:
           - view
           - deploy
   - GitHub:
-      - users:
-          - am
-          - mtopciu
+      - groups:
+          - extension-developers
         permissions:
           - view
           - deploy

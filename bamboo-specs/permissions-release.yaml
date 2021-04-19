@@ -3,26 +3,26 @@ version: 2
 deployment:
   name: vpn-extension - deploy release
 deployment-permissions:
-  - users:
-      - mtopciu
+  - groups:
+      - extension-developers
     permissions:
       - view
 environment-permissions:
   - Addons Mozilla:
-      - users:
-          - mtopciu
+      - groups:
+          - extension-developers
         permissions:
           - view
           - deploy
   - Chrome WebStore:
-      - users:
-          - mtopciu
+      - groups:
+          - extension-developers
         permissions:
           - view
           - deploy
   - GitHub:
-      - users:
-          - mtopciu
+      - groups:
+          - extension-developers
         permissions:
           - view
           - deploy

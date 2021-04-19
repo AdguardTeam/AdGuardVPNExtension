@@ -38,18 +38,14 @@ Test:
 
             # build with test API endpoints
             STAGE_ENV=test \
-            VPN_API_URL="testapi.adguard.io" \
-            AUTH_API_URL="testauth.adguard.com" \
-            PASSWORD_RECOVERY_URL="testauth.adguard.com/account/recovery_password.html" \
-            EDIT_ACCOUNT_URL="testauth.adguard.com/login.html" \
+            VPN_API_URL="${bamboo.devVpnApiUrl}" \
+            AUTH_API_URL="${bamboo.devAuthApiUrl}" \
             yarn dev
 
             # build with prod API endpoints
             STAGE_ENV=prod \
-            VPN_API_URL="api.adguard.io" \
-            AUTH_API_URL="auth.adguard-vpn.com" \
-            PASSWORD_RECOVERY_URL="adguard-vpn.com/forward.html?action=recovery_password&from=popup&app=vpn_extension" \
-            EDIT_ACCOUNT_URL="adguard-vpn.com/forward.html?action=account_settings&from=options_screen&app=vpn_extension" \
+            VPN_API_URL="${bamboo.prodVpnApiUrl}" \
+            AUTH_API_URL="${bamboo.prodAuthApiUrl}" \
             yarn dev
   artifacts:
     - name: edge-prod.zip
