@@ -163,6 +163,12 @@ const messageHandler = async (message, sender) => {
             await handler.removeFromExclusions(id);
             break;
         }
+        case MESSAGES_TYPES.REMOVE_EXCLUSIONS_BY_MODE: {
+            const { mode } = data;
+            const handler = exclusions.getHandler(mode);
+            await handler.removeExclusions();
+            break;
+        }
         case MESSAGES_TYPES.TOGGLE_EXCLUSION_BY_MODE: {
             const { mode, id } = data;
             const handler = exclusions.getHandler(mode);

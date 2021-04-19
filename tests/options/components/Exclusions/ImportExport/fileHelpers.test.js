@@ -1,6 +1,6 @@
 import JSZip from 'jszip';
 
-import { readExclusionsFile } from '../../../../../src/options/components/Exclusions/ImportExport/fileHelpers';
+import { readExclusionsFile } from '../../../../../src/options/components/Exclusions/Actions/fileHelpers';
 
 const createTxtFile = (content, filename) => {
     const file = new Blob([content], { type: 'text/plain' });

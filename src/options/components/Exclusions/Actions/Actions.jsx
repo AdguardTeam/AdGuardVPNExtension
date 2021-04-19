@@ -5,7 +5,6 @@ import FileSaver from 'file-saver';
 import JSZip from 'jszip';
 import format from 'date-fns/format';
 import identity from 'lodash/identity';
-import Modal from 'react-modal';
 
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { translator } from '../../../../common/translator';
@@ -14,6 +13,8 @@ import { rootStore } from '../../../stores';
 import { log } from '../../../../lib/logger';
 import { isValidExclusion } from '../../../../lib/string-utils';
 import { readExclusionsFile, EXCLUSION_DATA_TYPES } from './fileHelpers';
+import { SelectListModal } from '../ExclusionsModal/SelectListModal';
+import { RemoveExclusionsModal } from '../ExclusionsModal/RemoveExclusionsModal';
 
 import './import-export.pcss';
 
@@ -73,21 +74,22 @@ const handleExclusionsExport = async () => {
     FileSaver.saveAs(zipContent, ZIP_FILENAME);
 };
 
-export const ImportExport = observer(() => {
-    const { notificationsStore } = useContext(rootStore);
+export const Actions = observer(() => {
+    const { notificationsStore, settingsStore } = useContext(rootStore);
 
     const importEl = useRef(null);
 
-    const [isModalOpen, setModalOpenState] = useState(false);
+    const [isSelectListModalOpen, setSelectListModalState] = useState(false);
+    const [isApproveDeleteModalOpen, setApproveDeleteModalState] = useState(false);
     const [fileContent, setFileContent] = useState('');
 
-    const closeModal = () => {
-        setModalOpenState(false);
+    const closeSelectListModal = () => {
+        setSelectListModalState(false);
         setFileContent('');
     };
 
-    const openModal = () => {
-        setModalOpenState(true);
+    const openSelectListModal = () => {
+        setSelectListModalState(true);
     };
 
     const handleRegularClick = async () => {
@@ -98,7 +100,7 @@ export const ImportExport = observer(() => {
                 { count: exclusionsAddedCount },
             ),
         );
-        closeModal();
+        closeSelectListModal();
     };
 
     const handleSelectiveClick = async () => {
@@ -107,7 +109,7 @@ export const ImportExport = observer(() => {
             'options_exclusions_import_successful',
             { count: exclusionsAddedCount },
         ));
-        closeModal();
+        closeSelectListModal();
     };
 
     const handleExclusionsImport = () => {
@@ -116,7 +118,7 @@ export const ImportExport = observer(() => {
 
     const handleTxtExclusionsData = (content) => {
         setFileContent(content);
-        openModal();
+        openSelectListModal();
         return null;
     };
 
@@ -160,64 +162,70 @@ export const ImportExport = observer(() => {
         }
     };
 
+    const closeApproveDeleteModal = () => {
+        setApproveDeleteModalState(false);
+    };
+
+    const openApproveDeleteModal = () => {
+        setApproveDeleteModalState(true);
+    };
+
+    const handleExclusionsDelete = () => {
+        openApproveDeleteModal();
+    };
+
+    const handleCancelDeleteExclusionsClick = () => {
+        closeApproveDeleteModal();
+    };
+
+    const handleDeleteExclusionsClick = async () => {
+        await settingsStore.deleteCurrentModeExclusions();
+        closeApproveDeleteModal();
+    };
+
     return (
         <div>
-                <Modal
-                    isOpen={isModalOpen}
-                    className="modal modal--big modal-exclusions-select"
-                    overlayClassName="overlay overlay--fullscreen"
-                    onRequestClose={closeModal}
-                >
-                    <button
-                        type="button"
-                        className="button button--icon checkbox__button modal__close-icon"
-                        onClick={closeModal}
-                    >
-                        <svg className="icon icon--button icon--cross">
-                            <use xlinkHref="#cross" />
-                        </svg>
-                    </button>
-                    <div className="modal__title">
-                        {reactTranslator.getMessage('options_exclusions_import_select_title')}
-                    </div>
-                    <div className="modal__buttons">
-                        <button
-                            type="button"
-                            onClick={handleRegularClick}
-                            className="button modal__button modal__button--first"
-                        >
-                            {reactTranslator.getMessage('options_exclusions_import_select_regular')}
-                        </button>
-                        <button
-                            type="button"
-                            onClick={handleSelectiveClick}
-                            className="button modal__button"
-                        >
-                            {reactTranslator.getMessage('options_exclusions_import_select_selective')}
-                        </button>
-                    </div>
-                </Modal>
-                <input
-                    type="file"
-                    accept=".txt, .zip"
-                    ref={importEl}
-                    onChange={inputChangeHandler}
-                    style={{ display: 'none' }}
-                />
-                <button
-                    type="button"
-                    className="button button--control"
-                    onClick={handleExclusionsImport}
-                >
-                    {reactTranslator.getMessage('settings_exclusions_import_button')}
-                </button>
-                <button
-                    type="button"
-                    className="button button--control"
-                    onClick={handleExclusionsExport}
-                >
-                    {reactTranslator.getMessage('settings_exclusions_export_button')}
-                </button>
+            <SelectListModal
+                isOpen={isSelectListModalOpen}
+                closeModal={closeSelectListModal}
+                handleRegularClick={handleRegularClick}
+                handleSelectiveClick={handleSelectiveClick}
+            />
+            <RemoveExclusionsModal
+                isOpen={isApproveDeleteModalOpen}
+                closeModal={closeApproveDeleteModal}
+                handleCancelClick={handleCancelDeleteExclusionsClick}
+                handleDeleteClick={handleDeleteExclusionsClick}
+                currentMode={settingsStore.exclusionsCurrentMode}
+            />
+            <input
+                type="file"
+                accept=".txt, .zip"
+                ref={importEl}
+                onChange={inputChangeHandler}
+                style={{ display: 'none' }}
+            />
+            <button
+                type="button"
+                className="button button--control"
+                onClick={handleExclusionsImport}
+            >
+                {reactTranslator.getMessage('settings_exclusions_import_button')}
+            </button>
+            <button
+                type="button"
+                className="button button--control"
+                onClick={handleExclusionsExport}
+            >
+                {reactTranslator.getMessage('settings_exclusions_export_button')}
+            </button>
+            <button
+                type="button"
+                className="button button--control"
+                onClick={handleExclusionsDelete}
+            >
+                {reactTranslator.getMessage('settings_exclusions_delete_button')}
+            </button>
         </div>
     );
 });
