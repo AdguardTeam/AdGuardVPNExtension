@@ -1,3 +1,4 @@
+const { STAGE_ENVS } = require('./consts');
 const { BROWSERS, ENVS } = require('./consts');
 
 const URLS_MAP_RELEASE = {
@@ -38,11 +39,18 @@ const URLS_MAP = {
 // Account section API description - projects/ADGUARD/repos/adguard-account-service/browse
 // VPN section API description - projects/ADGUARD/repos/adguard-vpn-backend-service/browse
 // Auth section API description - projects/ADGUARD/repos/adguard-auth-service/browse
-const STAGE_CONF = {
+const STAGE_CONF_BY_ENV = {
     VPN_API_URL: process.env.VPN_API_URL,
     AUTH_API_URL: process.env.AUTH_API_URL,
-    PASSWORD_RECOVERY_URL: process.env.PASSWORD_RECOVERY_URL,
-    EDIT_ACCOUNT_URL: process.env.EDIT_ACCOUNT_URL,
+};
+
+const getStageConf = (stageEnv) => {
+    const prefix = stageEnv === STAGE_ENVS.TEST ? 'dev.' : '';
+    return {
+        ...STAGE_CONF_BY_ENV,
+        PASSWORD_RECOVERY_URL: `${prefix}adguard-vpn.com/forward.html?action=recovery_password&from=popup&app=vpn_extension`,
+        EDIT_ACCOUNT_URL: `${prefix}adguard-vpn.com/forward.html?action=account_settings&from=options_screen&app=vpn_extension`,
+    };
 };
 
 const COMMON = {
@@ -78,7 +86,7 @@ const genAppConfig = (browser, stageEnv, buildingEnv) => {
         BUILD_ENV: buildingEnv,
         STAGE_ENV: stageEnv,
         ...browserConf,
-        ...STAGE_CONF,
+        ...getStageConf(stageEnv),
         ...COMMON,
     };
 };

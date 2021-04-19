@@ -65,6 +65,15 @@ export class SettingsStore {
     };
 
     @action
+    deleteCurrentModeExclusions = async () => {
+        try {
+            await messenger.removeExclusionsByMode(this.exclusionsCurrentMode);
+        } catch (e) {
+            log.error(e);
+        }
+    };
+
+    @action
     toggleExclusion = async (mode, id) => {
         try {
             await messenger.toggleExclusionByMode(mode, id);
