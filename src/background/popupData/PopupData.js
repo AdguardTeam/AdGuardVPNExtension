@@ -1,8 +1,12 @@
 import throttle from 'lodash/throttle';
 import isEmpty from 'lodash/isEmpty';
+
 import { log } from '../../lib/logger';
 import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
 import { promoNotifications } from '../promoNotifications';
+import auth from '../auth';
+import { settings } from '../settings';
+import { SETTINGS_IDS } from '../../lib/constants';
 
 class PopupData {
     constructor({
@@ -20,11 +24,13 @@ class PopupData {
     }
 
     getPopupData = async (url) => {
-        const isAuthenticated = await adguard.auth.isAuthenticated();
+        const isAuthenticated = await auth.isAuthenticated();
+        const policyAgreement = settings.getSetting(SETTINGS_IDS.POLICY_AGREEMENT);
 
         if (!isAuthenticated) {
             return {
                 isAuthenticated,
+                policyAgreement,
             };
         }
 
@@ -62,6 +68,7 @@ class PopupData {
             locations,
             selectedLocation,
             isAuthenticated,
+            policyAgreement,
             canControlProxy,
             isProxyEnabled,
             isRoutable,

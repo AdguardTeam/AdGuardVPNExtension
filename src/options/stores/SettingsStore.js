@@ -43,6 +43,8 @@ export class SettingsStore {
 
     @observable contextMenusEnabled = false;
 
+    @observable helpUsImprove = false;
+
     @observable dnsServer = DNS_DEFAULT;
 
     @action
@@ -200,6 +202,22 @@ export class SettingsStore {
         await messenger.setSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED, value);
         runInAction(() => {
             this.contextMenusEnabled = value;
+        });
+    };
+
+    @action
+    setHelpUsImproveValue = async (value) => {
+        await messenger.setSetting(SETTINGS_IDS.HELP_US_IMPROVE, value);
+        runInAction(() => {
+            this.helpUsImprove = value;
+        });
+    };
+
+    @action
+    getHelpUsImprove = async () => {
+        const value = await messenger.getSetting(SETTINGS_IDS.HELP_US_IMPROVE);
+        runInAction(() => {
+            this.helpUsImprove = value;
         });
     };
 

@@ -7,7 +7,7 @@ import vpnProvider from '../providers/vpnProvider';
 import { Location } from './Location';
 import { SETTINGS_IDS } from '../../lib/constants';
 // eslint-disable-next-line import/no-cycle
-import settings from '../settings/settings';
+import { settings } from '../settings';
 
 const PING_TTL_MS = 1000 * 60 * 10; // 10 minutes
 

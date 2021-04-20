@@ -1,6 +1,6 @@
 import { action, observable } from 'mobx';
 
-class UiStore {
+export class UiStore {
     @observable isOpenEndpointsSearch = false;
 
     @observable isOpenOptionsModal = false;
@@ -39,5 +39,3 @@ class UiStore {
         this.isOpenOptionsModal = false;
     };
 }
-
-export default UiStore;

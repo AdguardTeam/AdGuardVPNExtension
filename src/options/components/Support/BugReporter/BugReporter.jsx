@@ -208,6 +208,7 @@ export const BugReporter = observer(({ closeHandler }) => {
                         {reactTranslator.getMessage('options_bug_report_textarea_label')}
                     </label>
                     <div className={messageClassName}>
+                        {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
                         <textarea
                             className="input__in input__in--content input__in--textarea"
                             id={FIELDS.MESSAGE}

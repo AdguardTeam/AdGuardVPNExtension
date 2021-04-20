@@ -27,6 +27,7 @@ export class GlobalStore {
             await settingsStore.checkRateStatus();
             await settingsStore.getWebRTCValue();
             await settingsStore.getContextMenusEnabled();
+            await settingsStore.getHelpUsImprove();
             await settingsStore.getDnsServer();
             this.setInitStatus(REQUEST_STATUSES.DONE);
         } catch (e) {

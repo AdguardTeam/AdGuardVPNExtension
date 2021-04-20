@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 import './status-image.pcss';
 import { observer } from 'mobx-react';
-import rootStore from '../../../stores';
+import { rootStore } from '../../../stores';
 import EnabledStatusAnimation from '../../Animations/EnabledStatusAnimation';
 
 const StatusImage = observer(() => {

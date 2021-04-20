@@ -48,7 +48,7 @@ class AuthApi extends Api {
         const data = {
             email: username,
             password,
-            marketingConsent,
+            marketingConsent: !!marketingConsent,
             locale,
             clientId,
             source: 'EXTENSION',

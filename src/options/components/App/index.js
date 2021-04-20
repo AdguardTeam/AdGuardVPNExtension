@@ -12,7 +12,7 @@ import './app.pcss';
 import { rootStore } from '../../stores';
 import { Sidebar } from '../Sidebar';
 import Footer from '../Footer';
-import Settings from '../Settings';
+import { Settings } from '../Settings';
 import Account from '../Account';
 import About from '../About';
 import Auth from '../Auth';

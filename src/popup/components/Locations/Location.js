@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 import { reactTranslator } from '../../../common/reactTranslator';
 import Ping from '../Ping';
-import rootStore from '../../stores';
+import { rootStore } from '../../stores';
 
 const Location = observer(({ location, handleClick }) => {
     const { vpnStore, settingsStore } = useContext(rootStore);

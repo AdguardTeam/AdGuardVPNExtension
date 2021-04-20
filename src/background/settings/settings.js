@@ -6,7 +6,6 @@ import { SETTINGS_IDS, PROMO_SCREEN_STATES } from '../../lib/constants';
 import dns from '../dns/dns';
 import { DNS_DEFAULT } from '../dns/dnsConstants';
 import webrtc from '../browserApi/webrtc';
-// eslint-disable-next-line import/no-cycle
 import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
 import { EVENT } from '../connectivity/connectivityService/connectivityConstants';
 
@@ -18,6 +17,8 @@ const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.HANDLE_WEBRTC_ENABLED]: true,
     [SETTINGS_IDS.SELECTED_DNS_SERVER]: DNS_DEFAULT,
     [SETTINGS_IDS.CONTEXT_MENU_ENABLED]: true,
+    [SETTINGS_IDS.POLICY_AGREEMENT]: false,
+    [SETTINGS_IDS.HELP_US_IMPROVE]: false,
 };
 
 const settingsService = new SettingsService(browserApi.storage, DEFAULT_SETTINGS);
@@ -131,7 +132,7 @@ const init = async () => {
     log.info('Settings module is ready');
 };
 
-const settings = {
+export const settings = {
     init,
     getSetting,
     setSetting,
@@ -145,5 +146,3 @@ const settings = {
     setExclusions,
     isContextMenuEnabled,
 };
-
-export default settings;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 
-import popupActions from '../../actions/popupActions';
+import { popupActions } from '../../actions/popupActions';
 import { POPUP_FEEDBACK_URL } from '../../../background/config';
 import { reactTranslator } from '../../../common/reactTranslator';
 

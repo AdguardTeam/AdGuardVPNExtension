@@ -5,10 +5,14 @@ import {
     computed,
     toJS,
 } from 'mobx';
-import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from '../consts';
-import messenger from '../../../lib/messenger';
+import isNil from 'lodash/isNil';
+
+import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
+import messenger from '../../lib/messenger';
+import { SETTINGS_IDS } from '../../lib/constants';
 
 const AUTH_STEPS = {
+    POLICY_AGREEMENT: 'policyAgreement',
     CHECK_EMAIL: 'checkEmail',
     SIGN_IN: 'signIn',
     REGISTRATION: 'registration',
@@ -20,6 +24,7 @@ const DEFAULTS = {
         username: '',
         password: '',
         twoFactor: '',
+        marketingConsent: false,
     },
     authenticated: false,
     receivedAuthenticationInfo: false,
@@ -28,12 +33,12 @@ const DEFAULTS = {
     field: '',
     step: AUTH_STEPS.CHECK_EMAIL,
     agreement: true,
-    marketingConsent: false,
+    policyAgreement: false,
+    helpUsImprove: false,
     signInCheck: false,
 };
 
-// TODO [maximtop] add validation
-class AuthStore {
+export class AuthStore {
     @observable credentials = DEFAULTS.credentials;
 
     @observable authenticated = DEFAULTS.authenticated;
@@ -47,6 +52,10 @@ class AuthStore {
     @observable field = DEFAULTS.field;
 
     @observable step = DEFAULTS.step;
+
+    @observable policyAgreement = DEFAULTS.policyAgreement;
+
+    @observable helpUsImprove = DEFAULTS.helpUsImprove;
 
     @observable requestProcessState = REQUEST_STATUSES.DONE;
 
@@ -83,19 +92,32 @@ class AuthStore {
     @action
     getAuthCacheFromBackground = async () => {
         const {
-            username, password, step, signInCheck,
+            username,
+            password,
+            step,
+            signInCheck,
+            policyAgreement,
+            helpUsImprove,
+            marketingConsent,
         } = await messenger.getAuthCache();
         runInAction(() => {
             this.credentials = {
                 ...this.credentials,
                 username,
                 password,
+                marketingConsent,
             };
             if (step) {
                 this.step = step;
             }
             if (signInCheck) {
                 this.signInCheck = signInCheck;
+            }
+            if (!isNil(policyAgreement)) {
+                this.policyAgreement = policyAgreement;
+            }
+            if (!isNil(helpUsImprove)) {
+                this.helpUsImprove = helpUsImprove;
             }
         });
     };
@@ -233,7 +255,7 @@ class AuthStore {
 
     @action
     openSocialAuth = async (social) => {
-        await messenger.startSocialAuth(social);
+        await messenger.startSocialAuth(social, this.marketingConsent);
         window.close();
     };
 
@@ -278,6 +300,47 @@ class AuthStore {
             this.signInCheck = false;
         });
     }
-}
 
-export default AuthStore;
+    @action
+    setPolicyAgreement = async (value) => {
+        await messenger.updateAuthCache('policyAgreement', value);
+        runInAction(() => {
+            this.policyAgreement = value;
+        });
+    };
+
+    @action
+    handleInitPolicyAgreement = async (policyAgreement) => {
+        if (!policyAgreement) {
+            await this.switchStep(AUTH_STEPS.POLICY_AGREEMENT);
+        }
+    };
+
+    @action
+    setHelpUsImprove = async (value) => {
+        await messenger.updateAuthCache('helpUsImprove', value);
+        runInAction(() => {
+            this.helpUsImprove = value;
+        });
+    }
+
+    @action
+    onPolicyAgreementReceived = async () => {
+        await messenger.setSetting(SETTINGS_IDS.POLICY_AGREEMENT, this.policyAgreement);
+        await messenger.setSetting(SETTINGS_IDS.HELP_US_IMPROVE, this.helpUsImprove);
+        await this.showCheckEmail();
+    };
+
+    @action
+    setMarketingConsent = async (value) => {
+        await messenger.updateAuthCache('marketingConsent', value);
+        runInAction(() => {
+            this.credentials.marketingConsent = value;
+        });
+    };
+
+    @computed
+    get marketingConsent() {
+        return this.credentials.marketingConsent;
+    }
+}

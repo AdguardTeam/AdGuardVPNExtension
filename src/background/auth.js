@@ -15,7 +15,7 @@ import notifier from '../lib/notifier';
 import { translator } from '../common/translator';
 import { fallbackApi } from './api/fallbackApi';
 // eslint-disable-next-line import/no-cycle
-import settings from './settings/settings';
+import { settings } from './settings';
 
 class Auth {
     socialAuthState = null;
@@ -54,7 +54,7 @@ class Auth {
         return accessToken;
     }
 
-    async startSocialAuth(socialProvider) {
+    async startSocialAuth(socialProvider, marketingConsent) {
         // turn off proxy to be sure it is not enabled before authentication
         try {
             await proxy.turnOff();
@@ -64,11 +64,11 @@ class Auth {
 
         // Generates uniq state id, which will be checked on the auth end
         this.socialAuthState = nanoid();
-        const authUrl = this.getImplicitAuthUrl(socialProvider);
+        const authUrl = this.getImplicitAuthUrl(socialProvider, marketingConsent);
         await tabs.openSocialAuthTab(authUrl);
     }
 
-    getImplicitAuthUrl(socialProvider) {
+    getImplicitAuthUrl(socialProvider, marketingConsent) {
         const params = {
             response_type: 'token',
             client_id: AUTH_CLIENT_ID,
@@ -104,6 +104,10 @@ class Auth {
             }
             default:
                 throw new Error(`There is no such provider: "${socialProvider}"`);
+        }
+
+        if (marketingConsent) {
+            params.marketing_consent = marketingConsent;
         }
 
         return `https://${fallbackApi.AUTH_BASE_URL}?${qs.stringify(params)}`;

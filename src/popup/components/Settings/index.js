@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
-import rootStore from '../../stores';
+import { rootStore } from '../../stores';
 
 import GlobalControl from './GlobalControl';
 import Status from './Status';
