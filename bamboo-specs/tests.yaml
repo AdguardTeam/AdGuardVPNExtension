@@ -40,14 +40,14 @@ Test:
             STAGE_ENV=test \
             VPN_API_URL="${bamboo.devVpnApiUrl}" \
             AUTH_API_URL="${bamboo.devAuthApiUrl}" \
-            WEBSITE_DOMAIN="dev.adguard-vpn.com" \
+            WEBSITE_DOMAIN="${bamboo.devVpnDomain}" \
             yarn dev
 
             # build with prod API endpoints
             STAGE_ENV=prod \
             VPN_API_URL="${bamboo.prodVpnApiUrl}" \
             AUTH_API_URL="${bamboo.prodAuthApiUrl}" \
-            WEBSITE_DOMAIN="adguard-vpn.com" \
+            WEBSITE_DOMAIN="${bamboo.prodVpnDomain}" \
             yarn dev
   artifacts:
     - name: edge-prod.zip
