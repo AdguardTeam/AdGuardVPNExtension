@@ -36,6 +36,7 @@ Build:
             STAGE_ENV="prod" \
             VPN_API_URL="${bamboo.prodVpnApiUrl}" \
             AUTH_API_URL="${bamboo.prodAuthApiUrl}" \
+            WEBSITE_DOMAIN="adguard-vpn.com" \
             CREDENTIALS_PASSWORD="${EXTENSIONS_PASSPHRASE}" \
             yarn release
     - inject-variables:

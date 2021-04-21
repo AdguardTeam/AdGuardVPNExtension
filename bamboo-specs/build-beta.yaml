@@ -43,18 +43,16 @@ Build:
             yarn test
             yarn locales:validate --min
 
+            ecxport STAGE_ENV="prod"
+            ecxport VPN_API_URL="${bamboo.prodVpnApiUrl}"
+            ecxport AUTH_API_URL="${bamboo.prodAuthApiUrl}"
+            ecxport WEBSITE_DOMAIN="adguard-vpn.com"
+            ecxport CREDENTIALS_PASSWORD="${bamboo.extensionsPassphrase}"
+
             # build with prod API endpoints edge.zip, chrome.zip, firefox.zip
-            STAGE_ENV="prod" \
-            VPN_API_URL="${bamboo.prodVpnApiUrl}" \
-            AUTH_API_URL="${bamboo.prodAuthApiUrl}" \
-            CREDENTIALS_PASSWORD="${bamboo.extensionsPassphrase}" \
             yarn beta
 
             # build artifacts chrome.crx, firefox.xpi
-            STAGE_ENV="prod" \
-            VPN_API_URL="${bamboo.prodVpnApiUrl}" \
-            AUTH_API_URL="${bamboo.prodAuthApiUrl}" \
-            CREDENTIALS_PASSWORD="${bamboo.extensionsPassphrase}" \
             yarn artifacts:beta
     - inject-variables:
         file: build/beta/build.txt
