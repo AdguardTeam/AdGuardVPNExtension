@@ -85,7 +85,7 @@ notifications:
     recipients:
       - webhook:
           name: Build webhook
-          url: http://jirahub.service.eu.consul/v1/webhook/bamboo
+          url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo
 labels: []
 other:
   concurrent-build-plugin: system-default

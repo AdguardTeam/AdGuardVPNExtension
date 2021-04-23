@@ -38,7 +38,7 @@ Chrome WebStore:
       recipients:
         - webhook:
             name: Deploy webhook
-            url: http://jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa
+            url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa
 
 static.adguard.com:
   triggers: []
@@ -70,7 +70,7 @@ static.adguard.com:
       recipients:
         - webhook:
             name: Deploy webhook
-            url: http://jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa
+            url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa
 
 GitHub:
   triggers: []
@@ -104,4 +104,4 @@ GitHub:
       recipients:
         - webhook:
             name: Deploy webhook
-            url: http://jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa
+            url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa
