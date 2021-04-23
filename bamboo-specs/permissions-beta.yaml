@@ -4,25 +4,25 @@ deployment:
   name: vpn-extension - deploy beta
 deployment-permissions:
   - groups:
-      - extension-developers
+      - extensions-developers
     permissions:
       - view
 environment-permissions:
   - Chrome WebStore:
       - groups:
-          - extension-developers
+          - extensions-developers
         permissions:
           - view
           - deploy
   - static.adguard.com:
       - groups:
-          - extension-developers
+          - extensions-developers
         permissions:
           - view
           - deploy
   - GitHub:
       - groups:
-          - extension-developers
+          - extensions-developers
         permissions:
           - view
           - deploy
