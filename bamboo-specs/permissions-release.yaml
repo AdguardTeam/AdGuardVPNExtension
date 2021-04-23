@@ -4,25 +4,25 @@ deployment:
   name: vpn-extension - deploy release
 deployment-permissions:
   - groups:
-      - extension-developers
+      - extensions-developers
     permissions:
       - view
 environment-permissions:
   - Addons Mozilla:
       - groups:
-          - extension-developers
+          - extensions-developers
         permissions:
           - view
           - deploy
   - Chrome WebStore:
       - groups:
-          - extension-developers
+          - extensions-developers
         permissions:
           - view
           - deploy
   - GitHub:
       - groups:
-          - extension-developers
+          - extensions-developers
         permissions:
           - view
           - deploy
