@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import rootStore from '../../stores';
-
+import { rootStore } from '../../stores';
 import { SocialAuth } from './SocialAuth';
 import SignInForm from './SignInForm';
 import { RegistrationForm } from './RegistrationForm';
 import TwoFactorForm from './TwoFactorForm';
-import CheckEmail from './CheckEmail';
+import { CheckEmail } from './CheckEmail';
 import { BackButton } from './BackButton';
+import { PolicyAgreement } from './PolicyAgreement';
 
 import './auth.pcss';
 
@@ -17,6 +17,7 @@ const Authentication = observer(() => {
 
     const getHeader = (step) => {
         const titleMaps = {
+            policyAgreement: null,
             checkEmail: null,
             signIn: <BackButton />,
             registration: <BackButton />,
@@ -35,6 +36,9 @@ const Authentication = observer(() => {
             }
             case authStore.STEPS.SIGN_IN: {
                 return <SignInForm />;
+            }
+            case authStore.STEPS.POLICY_AGREEMENT: {
+                return <PolicyAgreement />;
             }
             default: {
                 return <CheckEmail />;

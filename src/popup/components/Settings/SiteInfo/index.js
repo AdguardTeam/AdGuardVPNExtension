@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import rootStore from '../../../stores';
+import { rootStore } from '../../../stores';
 import Info from './Info';
 import { reactTranslator } from '../../../../common/reactTranslator';
 

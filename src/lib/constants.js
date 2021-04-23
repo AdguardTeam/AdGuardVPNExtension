@@ -9,6 +9,8 @@ export const SETTINGS_IDS = {
     CONTEXT_MENU_ENABLED: 'context.menu.enabled',
     SELECTED_LOCATION_KEY: 'endpoints.selected.location',
     LOCATION_SELECTED_BY_USER_KEY: 'endpoints.location.selected.by.user',
+    POLICY_AGREEMENT: 'policy.agreement',
+    HELP_US_IMPROVE: 'help.us.improve',
 };
 
 export const MESSAGES_TYPES = {

@@ -2,7 +2,7 @@ import throttle from 'lodash/throttle';
 import { log } from '../../lib/logger';
 import { ERROR_STATUSES } from '../../lib/constants';
 import notifier from '../../lib/notifier';
-import settings from '../settings/settings';
+import { settings } from '../settings';
 import endpointConnectivity from '../connectivity/endpointConnectivity';
 
 class PermissionsChecker {

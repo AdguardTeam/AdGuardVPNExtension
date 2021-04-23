@@ -7,7 +7,7 @@ import actions from './actions';
 import credentials from './credentials';
 import authCache from './authentication/authCache';
 import appStatus from './appStatus';
-import settings from './settings/settings';
+import { settings } from './settings';
 import exclusions from './exclusions';
 import management from './management';
 import permissionsError from './permissionsChecker/permissionsError';
@@ -130,8 +130,8 @@ const messageHandler = async (message, sender) => {
             return auth.isAuthenticated();
         }
         case MESSAGES_TYPES.START_SOCIAL_AUTH: {
-            const { social } = data;
-            return auth.startSocialAuth(social);
+            const { social, marketingConsent } = data;
+            return auth.startSocialAuth(social, marketingConsent);
         }
         case MESSAGES_TYPES.CLEAR_PERMISSIONS_ERROR: {
             permissionsError.clearError();

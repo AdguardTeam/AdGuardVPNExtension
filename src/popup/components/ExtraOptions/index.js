@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 
-import rootStore from '../../stores';
-import popupActions from '../../actions/popupActions';
+import { rootStore } from '../../stores';
+import { popupActions } from '../../actions/popupActions';
 import { POPUP_FEEDBACK_URL, OTHER_PRODUCTS_URL } from '../../../background/config';
 import messenger from '../../../lib/messenger';
 import Option from './Option';

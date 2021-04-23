@@ -187,9 +187,9 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async startSocialAuth(social) {
+    async startSocialAuth(social, marketingConsent) {
         const type = MESSAGES_TYPES.START_SOCIAL_AUTH;
-        return this.sendMessage(type, { social });
+        return this.sendMessage(type, { social, marketingConsent });
     }
 
     async clearPermissionsError() {

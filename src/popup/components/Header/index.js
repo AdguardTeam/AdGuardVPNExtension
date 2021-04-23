@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { BUILD_ENV } from '../../../background/config';
 
 import './header.pcss';
-import rootStore from '../../stores';
+import { rootStore } from '../../stores';
 
 const Header = observer(({ showMenuButton }) => {
     const { uiStore } = useContext(rootStore);
