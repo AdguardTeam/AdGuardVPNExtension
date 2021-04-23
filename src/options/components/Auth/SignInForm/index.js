@@ -56,7 +56,7 @@ const SignInForm = observer(() => {
                             {reactTranslator.getMessage('auth_password')}
                         </label>
                         <a
-                            href={`https://${PASSWORD_RECOVERY_URL}`}
+                            href={PASSWORD_RECOVERY_URL}
                             className="button button--link form__link form__link--recover"
                             tabIndex="-1"
                             target="_blank"

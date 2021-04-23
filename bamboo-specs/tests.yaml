@@ -1,0 +1,101 @@
+---
+version: 2
+plan:
+  project-key: ADGEXT
+  key: VPNBETASPECS
+  name: vpn-extension - test
+variables:
+  dockerNode: node:15.14.0-buster-slim
+
+stages:
+  - Test:
+      manual: 'false'
+      final: 'false'
+      jobs:
+        - Test
+
+Test:
+  key: TEST
+  other:
+    clean-working-dir: true
+  docker:
+    image: ${bamboo.dockerNode}
+    volumes:
+      ${system.YARN_DIR}: "${bamboo.cacheYarn}"
+  tasks:
+    - checkout:
+        force-clean-build: 'true'
+    - script:
+        interpreter: SHELL
+        scripts:
+          - |-
+            set -e
+            set -x
+
+            yarn install ${system.YARN_ARGS}
+            yarn lint
+            yarn test
+
+            # build with test API endpoints
+            STAGE_ENV=test \
+            VPN_API_URL="${bamboo.devVpnApiUrl}" \
+            AUTH_API_URL="${bamboo.devAuthApiUrl}" \
+            WEBSITE_DOMAIN="${bamboo.devVpnDomain}" \
+            yarn dev
+
+            # build with prod API endpoints
+            STAGE_ENV=prod \
+            VPN_API_URL="${bamboo.prodVpnApiUrl}" \
+            AUTH_API_URL="${bamboo.prodAuthApiUrl}" \
+            WEBSITE_DOMAIN="${bamboo.prodVpnDomain}" \
+            yarn dev
+  artifacts:
+    - name: edge-prod.zip
+      location: build/dev
+      pattern: edge-prod.zip
+      shared: true
+      required: true
+    - name: edge.zip
+      location: build/dev
+      pattern: edge.zip
+      shared: true
+      required: true
+    - name: chrome.zip
+      location: build/dev
+      pattern: chrome.zip
+      shared: true
+      required: true
+    - name: firefox.zip
+      location: build/dev
+      pattern: firefox.zip
+      shared: true
+      required: true
+    - name: build.txt
+      location: build/dev
+      pattern: build.txt
+      shared: true
+      required: true
+    - name: chrome-prod.zip
+      location: build/dev
+      pattern: chrome-prod.zip
+      shared: true
+      required: true
+    - name: firefox-prod.zip
+      location: build/dev
+      pattern: firefox-prod.zip
+      shared: true
+      required: true
+  requirements:
+    - adg-docker: 'true'
+
+branches:
+  create: for-pull-request
+  delete:
+    after-deleted-days: '1'
+    after-inactive-days: '5'
+  link-to-jira: 'true'
+
+notifications: []
+labels: []
+other:
+  concurrent-build-plugin: system-default
