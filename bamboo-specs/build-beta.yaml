@@ -33,7 +33,6 @@ Build:
         interpreter: SHELL
         scripts:
           - |-
-            #!/bin/bash
             set -x
             set -e
             ls -alt
