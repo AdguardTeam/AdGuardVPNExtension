@@ -27,6 +27,10 @@ Build:
         interpreter: SHELL
         scripts:
           - |-
+            set -x
+            set -e
+            ls -alt
+
             yarn install ${system.YARN_ARGS}
             yarn lint
             yarn test
@@ -37,7 +41,6 @@ Build:
             VPN_API_URL="${bamboo.prodVpnApiUrl}" \
             AUTH_API_URL="${bamboo.prodAuthApiUrl}" \
             WEBSITE_DOMAIN="${bamboo.prodVpnDomain}" \
-            CREDENTIALS_PASSWORD="${bamboo.extensionPassphrase}" \
             yarn release
     - inject-variables:
         file: build/release/build.txt
