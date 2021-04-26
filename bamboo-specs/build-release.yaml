@@ -41,7 +41,6 @@ Build:
             VPN_API_URL="${bamboo.prodVpnApiUrl}" \
             AUTH_API_URL="${bamboo.prodAuthApiUrl}" \
             WEBSITE_DOMAIN="${bamboo.prodVpnDomain}" \
-            CREDENTIALS_PASSWORD="${bamboo.extensionsPassphrase}" \
             yarn release
     - inject-variables:
         file: build/release/build.txt
