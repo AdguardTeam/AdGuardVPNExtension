@@ -15,7 +15,7 @@
         "message": "Dieser Wert ist ungültig"
     },
     "registration_error_min_length": {
-        "message": "Dieser Wert ist zu kurz. Er sollte 8 oder mehr Zeichen enthalten."
+        "message": "Passwort ist zu kurz. Es muss mindestens 8 Zeichen lang sein."
     },
     "registration_error_compromised_password": {
         "message": "Das von Ihnen eingegebene Passwort wurde in einer <a>öffentlichen Datenbank</a> von kompromittierten Passwörtern gefunden. Bitte wählen Sie ein anderes Passwort."
@@ -102,7 +102,7 @@
         "message": "Senden"
     },
     "options_bug_report_sending_button": {
-        "message": "Wird gesendet …"
+        "message": "Wird gesendet..."
     },
     "options_bug_report_textarea_placeholder": {
         "message": "Beschreiben Sie das Problem hier …"
@@ -224,6 +224,12 @@
     "settings_context_menus_title": {
         "message": "AdGuard VPN zum Kontextmenü des Browsers hinzufügen"
     },
+    "settings_help_us_improve_title": {
+        "message": "Helfen Sie uns, uns zu verbessern"
+    },
+    "settings_help_us_improve_description": {
+        "message": "AdGuard VPN erlauben, Absturzberichte, technische und Interaktionsdaten zu sammeln. Dies erfolgt anonymisiert."
+    },
     "context_menu_selective_mode": {
         "message": "Selektiver Modus"
     },
@@ -293,6 +299,9 @@
     "settings_exclusions_export_button": {
         "message": "Exportieren"
     },
+    "settings_exclusions_delete_button": {
+        "message": "Alle löschen"
+    },
     "settings_exclusion_title": {
         "message": "Ausnahmen"
     },
@@ -303,7 +312,7 @@
         "message": "Standardmodus"
     },
     "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN funktioniert nicht auf den Websites in dieser Liste:"
+        "message": "AdGuard VPN auf Websites der folgenden Ausnahmeliste nicht ausführen"
     },
     "settings_exclusion_selective_title": {
         "message": "Selektiver Modus"
@@ -399,7 +408,7 @@
         "message": "Verbinden"
     },
     "settings_vpn_enabled": {
-        "message": "VPN ist aktiviert"
+        "message": "Mit VPN verbunden"
     },
     "settings_vpn_disabled": {
         "message": "VPN ist deaktiviert"
@@ -452,6 +461,19 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN ist auf dieser Webseite deaktiviert"
     },
+    "popup_auth_policy_agreement": {
+        "message": "Akzeptieren Sie<eula>Endbenutzer-Lizenzvertrag</eula> und <privacy>Datenschutzbestimmungen</privacy>.",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "AdGuard ermöglichen, einige <link>streng anonymisierte Daten</link> über die App-Nutzung zu sammeln, um AdGuard VPN zu verbessern."
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Weiter"
+    },
+    "popup_marketing_consent_checkbox": {
+        "message": "Benachrichtigen Sie mich per E-Mail über Sonderangebote und Neuigkeiten von AdGuard"
+    },
     "popup_auth_agreement_consent": {
         "message": "Durch die Nutzung von AdGuard VPN, stimmen Sie unserem <eula>Endbenutzer-Lizenzvertrag</eula> und unseren <privacy>Datenschutzbestimmungen</privacy> zu",
         "description": "NOTICE! respect spaces between tags"
@@ -484,6 +506,21 @@
     },
     "options_exclusions_import_select_selective": {
         "message": "Selektive Liste"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "Abbrechen"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Löschen"
+    },
+    "options_exclusions_delete_title": {
+        "message": "Ausschlüsse entfernen"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "Alle Ausschlüsse des Standardmodus werden gelöscht."
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "Alle Ausschlüsse des Selektiven Modus werden gelöscht."
     },
     "options_exclusions_import_successful": {
         "message": "%count% Ausschlüsse wurden importiert"

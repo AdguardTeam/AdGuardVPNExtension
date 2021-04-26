@@ -11,12 +11,6 @@
     "registration_error_not_valid": {
         "message": "Ova vrednost nije valjana"
     },
-    "registration_error_min_length": {
-        "message": "Ova vrednost je prekratka. Mora imati najmanje 8 znakova."
-    },
-    "registration_error_compromised_password": {
-        "message": "Lozinka koju ste uneli je pronađena u a <a>javnoj bazi podataka</a> kompromitovanih lozinki. Molimo vas, probajte neku drugu."
-    },
     "registration_error_unique_constraint": {
         "message": "Ova vrednost se već koristi"
     },

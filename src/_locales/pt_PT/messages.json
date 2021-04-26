@@ -15,7 +15,7 @@
         "message": "O valor não é válido"
     },
     "registration_error_min_length": {
-        "message": "Este valor é demasiado curto. Deve ter 8 caracteres ou mais."
+        "message": "A palavra-passe é demasiado curta. Deve conter pelo menos 8 caracteres."
     },
     "registration_error_compromised_password": {
         "message": "A palavra-passe digitada foi encontrada em um <a>banco de dados público</a> de palavras-passes comprometidas. Por favor, tente outra."
@@ -54,7 +54,7 @@
         "message": "Acerca de"
     },
     "options_support_title": {
-        "message": "Assistência"
+        "message": "Assistência técnica"
     },
     "options_support_faq_title": {
         "message": "FAQ"
@@ -66,7 +66,7 @@
         "message": "Comunicar um problema"
     },
     "options_support_report_description": {
-        "message": "Se algo não funcionar corretamente no programa"
+        "message": "Se algo não funcionar correctamente no programa"
     },
     "options_support_feedback_title": {
         "message": "Deixar feedback"
@@ -93,7 +93,7 @@
         "message": "Endereço de correio eletrónico incorreto"
     },
     "options_bug_report_textarea_invalid": {
-        "message": "Este campo não pode estar vazio"
+        "message": "Este campo é obrigatório"
     },
     "options_bug_report_request_error": {
         "message": "Um erro ocorreu. Por favor, tente novamente mais tarde."
@@ -224,6 +224,12 @@
     "settings_context_menus_title": {
         "message": "Adicionar o item AdGuard VPN aomenu de contexto do navegador"
     },
+    "settings_help_us_improve_title": {
+        "message": "Ajude-nos a melhorar"
+    },
+    "settings_help_us_improve_description": {
+        "message": "Permita que o AdGuard VPN colete relatórios de falhas, dados técnicos e de interação. Isso é anónimo."
+    },
     "context_menu_selective_mode": {
         "message": "Modo selectivo"
     },
@@ -237,10 +243,10 @@
         "message": "O sistema de nome de domínio (DNS) é o equivalente da Internet a uma lista telefônica. Ele mantém um diretório de nomes de domínio e os traduz para endereços IP (Internet Protocol)."
     },
     "settings_dns_selector_default_title": {
-        "message": "Padrão"
+        "message": "Predefinido"
     },
     "settings_dns_selector_default_desc": {
-        "message": "Usar automaticamente servidores DNS padrão quando conectado à VPN"
+        "message": "Usar automaticamente servidores DNS predefinido quando conectado à VPN"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -292,6 +298,9 @@
     },
     "settings_exclusions_export_button": {
         "message": "Exportar"
+    },
+    "settings_exclusions_delete_button": {
+        "message": "Apagar tudos"
     },
     "settings_exclusion_title": {
         "message": "Exclusões"
@@ -452,6 +461,19 @@
     "popup_site_status_vpn_disabled": {
         "message": "A VPN está desactivada neste sítio"
     },
+    "popup_auth_policy_agreement": {
+        "message": "Aceito o <eula>contrato</eula> e <privacy>política de privacidade</privacy>",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "Permita-nos reunir <link>alguns dados estritamente anónimos</link> sobre o uso da aplicação para melhorar o AdGuard VPN"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Continuar"
+    },
+    "popup_marketing_consent_checkbox": {
+        "message": "Envie-me correios eletrónicos com ofertas especiais e novidades do AdGuard"
+    },
     "popup_auth_agreement_consent": {
         "message": "Ao continuar usando o AdGuard VPN, você concorda com o <eula>termos e condições</eula> e nossa <privacy>política de privacidade</privacy>",
         "description": "NOTICE! respect spaces between tags"
@@ -485,6 +507,21 @@
     "options_exclusions_import_select_selective": {
         "message": "Lista selectiva"
     },
+    "options_exclusions_delete_cancel_button": {
+        "message": "Cancelar"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Apagar"
+    },
+    "options_exclusions_delete_title": {
+        "message": "Remover exclusões"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "Todas as exclusões do modo normal serão apagadas."
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "Todas as exclusões do modo selectivo serão apagadas."
+    },
     "options_exclusions_import_successful": {
         "message": "Exclusões importadas: %count%"
     },
@@ -492,7 +529,7 @@
         "message": "O ficheiro de exclusões deve ter uma das seguintes extensões: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Arquivo Zip: \"%filename%\" não contém ficheiros com extensões: %extensions%"
+        "message": "Ficheiro Zip: \"%filename%\" não contém ficheiros com extensões: %extensions%"
     },
     "popup_connections_limit_description_start": {
         "message": "Tu atingistes o número máximo de conexões: %maxDevicesAllowed%."

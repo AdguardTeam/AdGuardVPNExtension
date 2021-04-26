@@ -14,9 +14,6 @@
     "registration_error_not_valid": {
         "message": "Гэта значэнне несапраўднае"
     },
-    "registration_error_min_length": {
-        "message": "Занадта кароткае значэнне. Увядзіце не менш 8 знакаў."
-    },
     "registration_error_compromised_password": {
         "message": "Уведзены пароль знойдзены ў <a>публічнай базе</a> скампраметаваных пароляў. Калі ласка, увядзіце іншы пароль."
     },

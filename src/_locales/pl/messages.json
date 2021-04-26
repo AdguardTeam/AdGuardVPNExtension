@@ -15,10 +15,10 @@
         "message": "Ta wartość jest nieprawidłowa"
     },
     "registration_error_min_length": {
-        "message": "Ta wartość jest za krótka. Powinna mieć 8 znaków lub więcej."
+        "message": "Hasło jest za krótkie. Musi zawierać co najmniej 8 znaków."
     },
     "registration_error_compromised_password": {
-        "message": "Wprowadzone hasło zostało znalezione w <a>publicznej bazie danych</a> zagrożonych haseł. Proszę, spróbuj podać inne hasło."
+        "message": "Wprowadzone hasło zostało znalezione w <a>publicznej bazie danych</a> haseł, które zostały naruszone. Spróbuj innego."
     },
     "registration_error_unique_constraint": {
         "message": "Ta wartość jest już użyta"
@@ -93,13 +93,13 @@
         "message": "Nieprawidłowy adres email"
     },
     "options_bug_report_textarea_invalid": {
-        "message": "To pole nie może być puste"
+        "message": "To pole jest obowiązkowe"
     },
     "options_bug_report_request_error": {
         "message": "Wystąpił błąd. Spróbuj ponownie później."
     },
     "options_bug_report_send_button": {
-        "message": "Wyślij"
+        "message": "Prześlij"
     },
     "options_bug_report_sending_button": {
         "message": "Wysyłanie..."
@@ -224,6 +224,12 @@
     "settings_context_menus_title": {
         "message": "Dodaj AdGuard domenu kontekstowego przeglądarki"
     },
+    "settings_help_us_improve_title": {
+        "message": "Pomóż nam ulepszyć"
+    },
+    "settings_help_us_improve_description": {
+        "message": "Pozwól AdGuard VPN zbierać raporty o awariach, dane techniczne i dane dotyczące interakcji. To jest anonimowe."
+    },
     "context_menu_selective_mode": {
         "message": "Tryb selektywny"
     },
@@ -292,6 +298,9 @@
     },
     "settings_exclusions_export_button": {
         "message": "Eksportuj"
+    },
+    "settings_exclusions_delete_button": {
+        "message": "Usuń wszystko"
     },
     "settings_exclusion_title": {
         "message": "Wyjątki"
@@ -452,6 +461,19 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN jest wyłączony na tej stronie"
     },
+    "popup_auth_policy_agreement": {
+        "message": "Zaakceptuj <eula>EULA</eula> i <privacy>Politykę prywatności</privacy>",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "Zezwól AdGuard na zbieranie pewnych <link>ściśle anonimowych danych</link> na temat użytkowania aplikacji, aby AdGuard VPN był lepszy"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Kontynuuj"
+    },
+    "popup_marketing_consent_checkbox": {
+        "message": "Wysyłaj mi e-maile z ofertami specjalnymi i aktualnościami AdGuard"
+    },
     "popup_auth_agreement_consent": {
         "message": "Kontynuując korzystanie z AdGuard VPN, akceptujesz naszą <eula>EULA</eula> i <privacy>Politykę prywatności</privacy>",
         "description": "NOTICE! respect spaces between tags"
@@ -484,6 +506,21 @@
     },
     "options_exclusions_import_select_selective": {
         "message": "Lista selektywna"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "Anuluj"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Usuń"
+    },
+    "options_exclusions_delete_title": {
+        "message": "Usuń wykluczenia"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "Wszystkie wykluczenia z Trybu zwykłego zostaną usunięte."
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "Wszystkie wykluczenia z Trybu selektywnego zostaną usunięte."
     },
     "options_exclusions_import_successful": {
         "message": "Zaimportowanych wykluczeń: %count%"

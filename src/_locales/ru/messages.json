@@ -15,7 +15,7 @@
         "message": "Это значение недействительно"
     },
     "registration_error_min_length": {
-        "message": "Слишком короткое значение. Введите не менее 8 символов."
+        "message": "Пароль слишком короткий. Он должен состоять как минимум из 8 символов."
     },
     "registration_error_compromised_password": {
         "message": "Пароль обнаружен в <a>базе</a> скомпрометированных паролей. Пожалуйста, введите другой пароль."
@@ -93,7 +93,7 @@
         "message": "Неправильный адрес почты"
     },
     "options_bug_report_textarea_invalid": {
-        "message": "Это поле не может быть пустым"
+        "message": "Поле обязательно для заполнения"
     },
     "options_bug_report_request_error": {
         "message": "Произошла ошибка. Попробуйте позже."
@@ -132,7 +132,7 @@
         "message": "Скрыть"
     },
     "auth_title": {
-        "message": "Начните абсолютно бесплатно!"
+        "message": "Попробуйте бесплатно!"
     },
     "auth_description": {
         "message": "Безупречная защита конфиденциальности в интернете. Более 30 миллионов человек уже выбрали AdGuard.\n"
@@ -224,6 +224,12 @@
     "settings_context_menus_title": {
         "message": "Добавить AdGuard VPN в контекстное меню браузера\n"
     },
+    "settings_help_us_improve_title": {
+        "message": "Помогите нам стать лучше"
+    },
+    "settings_help_us_improve_description": {
+        "message": "Разрешить AdGuard VPN собирать отчеты о сбоях, технические данные и данные о взаимодействии. Это анонимно."
+    },
     "context_menu_selective_mode": {
         "message": "Выборочный режим"
     },
@@ -292,6 +298,9 @@
     },
     "settings_exclusions_export_button": {
         "message": "Экспортировать"
+    },
+    "settings_exclusions_delete_button": {
+        "message": "Удалить все"
     },
     "settings_exclusion_title": {
         "message": "Исключения"
@@ -396,7 +405,7 @@
         "message": "Соединение..."
     },
     "settings_connect": {
-        "message": "Подключиться"
+        "message": "Подключить"
     },
     "settings_vpn_enabled": {
         "message": "Подключено"
@@ -411,7 +420,7 @@
         "message": "У вас закончился бесплатный трафик, и теперь AdGuard VPN работает медленно."
     },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Увеличить скорость"
+        "message": "Ускорить VPN"
     },
     "popup_feedback_title": {
         "message": "Мы будем рады увидеть ваш отзыв"
@@ -452,6 +461,19 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN отключен на этом сайте"
     },
+    "popup_auth_policy_agreement": {
+        "message": "Принять <eula>Лицензионное соглашение</eula> и <privacy>Политику конфиденциальности</privacy>",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "Разрешить AdGuard собирать <link>некоторые строго анонимные данные</link> об использовании приложения, чтобы сделать AdGuard VPN лучше"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Продолжить"
+    },
+    "popup_marketing_consent_checkbox": {
+        "message": "Присылать мне специальные предложения и новости AdGuard"
+    },
     "popup_auth_agreement_consent": {
         "message": "Продолжая использовать AdGuard VPN, вы соглашаетесь с нашим <eula>Лицензионным соглашением</eula> и <privacy>Политикой конфиденциальности</privacy>",
         "description": "NOTICE! respect spaces between tags"
@@ -484,6 +506,21 @@
     },
     "options_exclusions_import_select_selective": {
         "message": "Выборочный список"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "Отмена"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Удалить"
+    },
+    "options_exclusions_delete_title": {
+        "message": "Удалить исключения"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "Все исключения из Обычного режима будут удалены."
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "Все исключения из Выборочного режима будут удалены."
     },
     "options_exclusions_import_successful": {
         "message": "Импортированные исключения: %count%"

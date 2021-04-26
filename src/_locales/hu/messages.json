@@ -14,12 +14,6 @@
     "registration_error_not_valid": {
         "message": "Érvénytelen érték"
     },
-    "registration_error_min_length": {
-        "message": "A megadott érték túl rövid. Legalább 8 karakter kell, hogy legyen."
-    },
-    "registration_error_compromised_password": {
-        "message": "A megadott jelszó szerepel a nem biztonságos jelszavak <a>nyilvános adatbázisában</a>. Kérjük, válasszon másik jelszót."
-    },
     "registration_error_unique_constraint": {
         "message": "Ez az érték már használatban van"
     },
@@ -92,23 +86,11 @@
     "options_bug_report_email_invalid": {
         "message": "Helytelen e-mail cím"
     },
-    "options_bug_report_textarea_invalid": {
-        "message": "A mező nem lehet üres"
-    },
     "options_bug_report_request_error": {
         "message": "Valamilyen hiba történt, próbálja újból később."
     },
-    "options_bug_report_send_button": {
-        "message": "Küldés"
-    },
-    "options_bug_report_sending_button": {
-        "message": "Küldés..."
-    },
     "options_bug_report_textarea_placeholder": {
         "message": "Írja le itt a problémát..."
-    },
-    "options_bug_report_page_success": {
-        "message": "Köszönjük, az üzenetét sikeresen elküldtük!"
     },
     "options_bug_report_new_report_button": {
         "message": "Új jelentés"

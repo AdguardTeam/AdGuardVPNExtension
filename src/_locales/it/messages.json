@@ -3,7 +3,7 @@
         "message": "AdGuard VPN — Privacy e Sicurezza"
     },
     "description": {
-        "message": "Rende Internet aperto e i tuoi dati sicuri. VPN di prim\\'ordine dai creatori del famoso blocco di annunci."
+        "message": "Rende Internet aperto e i vostri dati sicuri. VPN di prim'ordine dai creatori del famoso blocca-annunci."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -15,10 +15,10 @@
         "message": "Questo valore non è valido"
     },
     "registration_error_min_length": {
-        "message": "Questo valore è troppo breve. Dovrebbe avere 8 o più caratteri."
+        "message": "La password è troppo breve. Dovrebbe avere almeno 8 caratteri."
     },
     "registration_error_compromised_password": {
-        "message": "La password inserita è stata trovata in un <a>database pubblico</a> di password compromesse. Si prega di provarne un\\'altra."
+        "message": "La password che hai inserito è stata trovata in un <a>database pubblico</a> di password compromesse. Ti preghiamo di provarne un\\'altra."
     },
     "registration_error_unique_constraint": {
         "message": "Questo valore è già utilizzato"
@@ -48,7 +48,7 @@
         "message": "Si è verificato un errore, riprova più tardi"
     },
     "global_error_message": {
-        "message": "Si è verificato un errore, ti preghiamo di contattarci all\\'indirizzo <a>support@adguard-vpn.com</a>"
+        "message": "Si è verificato un errore, ti preghiamo di contattarci all'indirizzo <a>support@adguard-vpn.com</a>"
     },
     "about_title": {
         "message": "Informazioni su"
@@ -69,7 +69,7 @@
         "message": "Se qualcosa non funzionasse correttamente nel programma"
     },
     "options_support_feedback_title": {
-        "message": "Lascia un feedback"
+        "message": "Lascia feedback"
     },
     "options_support_feedback_description": {
         "message": "Invia richieste di funzionalità e suggerimenti"
@@ -93,7 +93,7 @@
         "message": "Indirizzo e-mail errato"
     },
     "options_bug_report_textarea_invalid": {
-        "message": "Questo campo non può essere vuoto"
+        "message": "Questo campo è obbligatorio"
     },
     "options_bug_report_request_error": {
         "message": "Si è verificato un errore. Riprova più tardi."
@@ -108,7 +108,7 @@
         "message": "Descrivi qui il problema..."
     },
     "options_bug_report_page_success": {
-        "message": "Grazie, il suo messaggio è stato inviato con successo!"
+        "message": "Grazie, il tuo messaggio è stato correttamente inviato!"
     },
     "options_bug_report_new_report_button": {
         "message": "Nuova segnalazione"
@@ -180,7 +180,7 @@
         "message": "Registrati"
     },
     "auth_header_sign_in_account": {
-        "message": "Stai effettuando l\\'accesso con un profilo AdGuard"
+        "message": "Stai accedendo con profilo AdGuard"
     },
     "auth_header_sign_up_create_account": {
         "message": "Registrandoti creerai il tuo profilo AdGuard"
@@ -219,10 +219,16 @@
         "message": "Blocca WebRTC"
     },
     "settings_webrtc_desc": {
-        "message": "WebRTC è uno speciale programma esistente in gran parte dei browser Internet, che consente ad un sito web di terze parti di rilevare il tuo indirizzo IP reale ed utilizzarlo per identificarti"
+        "message": "WebRTC è uno speciale programma presente nella maggior parte dei browser internet che può consentire a un sito web di terze parti di rilevare il tuo indirizzo IP reale ed utilizzarlo per identificarti"
     },
     "settings_context_menus_title": {
-        "message": "Aggiungi l\\'elemento AdGuard VPN al menù contestuale del navigatore"
+        "message": "Aggiungi l'elemento AdGuard VPN al menù contestuale del browser"
+    },
+    "settings_help_us_improve_title": {
+        "message": "Aiutaci a migliorare"
+    },
+    "settings_help_us_improve_description": {
+        "message": "Consenti ad AdGuard VPN di raccogliere segnalazioni sugli arresti anomali, ed i dati di interazione. Ciò avverrà in maniera anonima."
     },
     "context_menu_selective_mode": {
         "message": "Modalità selettiva"
@@ -234,7 +240,7 @@
         "message": "Utilizza server DNS"
     },
     "settings_dns_desc": {
-        "message": "Il Domain Name System (DNS) è l\\'equivalente Internet di una rubrica. Mantiene un percorso nomi di dominio e li traduce in indirizzi Internet Protocol (IP)."
+        "message": "Il DNS (Domain Name System) è l\\'equivalente telematico di una rubrica. Mantiene un percorso di nomi di dominio e li traduce in indirizzi IP (Internet Protocol)."
     },
     "settings_dns_selector_default_title": {
         "message": "Predefinito"
@@ -293,6 +299,9 @@
     "settings_exclusions_export_button": {
         "message": "Esporta"
     },
+    "settings_exclusions_delete_button": {
+        "message": "Elimina tutto"
+    },
     "settings_exclusion_title": {
         "message": "Esclusioni"
     },
@@ -330,10 +339,10 @@
         "message": "Riprova"
     },
     "authentication_successful_social": {
-        "message": "Autenticazione riuscita! Puoi eseguire l\\'app AdGuard VPN e iniziare ad utilizzarla."
+        "message": "Autenticazione riuscita! Puoi aprire AdGuard VPN e iniziare ad utilizzarla."
     },
     "control_error_description": {
-        "message": "Sembra che un\\'altra estensione di Chrome stia tentando di controllare la tua connessione. Si prega di disattivare l\\'altra estensione nel browser."
+        "message": "Sembra che un'altra estensione di Chrome stia tentando di controllare la tua connessione. Ti preghiamo di disattivare l'altra estensione nel browser."
     },
     "control_error_disable": {
         "message": "Disattivala"
@@ -369,7 +378,7 @@
         "message": "Località"
     },
     "endpoints_fastest": {
-        "message": "Più veloci"
+        "message": "Ultraveloce"
     },
     "endpoints_all": {
         "message": "Tutte le località"
@@ -417,7 +426,7 @@
         "message": "Ci piacerebbe sentire un tuo parere"
     },
     "popup_feedback_button": {
-        "message": "Lascia un feedback"
+        "message": "Lascia feedback"
     },
     "settings_run_upgrade_early_bird": {
         "message": "Prezzo iniziale"
@@ -452,6 +461,19 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN disattivata su questo sito web"
     },
+    "popup_auth_policy_agreement": {
+        "message": "Accetta <eula>l\\'EULA</eula> e la <privacy>Politica sulla riservatezza</privacy>",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "Consenti ad AdGuard di raccogliere alcuni <link>dati strettamente anonimi</link> sull\\'utilizzo dell\\'app per migliorare AdGuard VPN"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Procedi"
+    },
+    "popup_marketing_consent_checkbox": {
+        "message": "Inviami e-mail con offerte speciali e notizie su AdGuard"
+    },
     "popup_auth_agreement_consent": {
         "message": "Continuando ad utilizzare AdGuard VPN, acconsenti alla nostra <eula>EULA</eula> ed alla <privacy>Politica sulla Riservatezza</privacy>",
         "description": "NOTICE! respect spaces between tags"
@@ -485,6 +507,21 @@
     "options_exclusions_import_select_selective": {
         "message": "Lista selettiva"
     },
+    "options_exclusions_delete_cancel_button": {
+        "message": "Annulla"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Elimina"
+    },
+    "options_exclusions_delete_title": {
+        "message": "Rimuovi esclusioni"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "Tutte le esclusioni dalla modalità Regolare verranno eliminate."
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "Tutte le esclusioni dalla modalità Selettiva verranno eliminate."
+    },
     "options_exclusions_import_successful": {
         "message": "Esclusioni importate: %count%"
     },
@@ -492,7 +529,7 @@
         "message": "Il file delle esclusioni dovrebbe avere una delle seguenti estensioni: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "L\\'archivio zip: \"%filename%\" non contiene file con estensioni: %extensions%"
+        "message": "L'archivio Zip \"%filename%\" non contiene file con estensioni: %extensions%"
     },
     "popup_connections_limit_description_start": {
         "message": "Hai raggiunto il numero massimo di connessioni: %maxDevicesAllowed%."

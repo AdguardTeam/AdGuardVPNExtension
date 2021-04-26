@@ -11,12 +11,6 @@
     "registration_error_not_valid": {
         "message": "Isian tidak valid"
     },
-    "registration_error_min_length": {
-        "message": "Nilai ini terlalu pendek. Seharusnya berisi 8 karakter atau lebih."
-    },
-    "registration_error_compromised_password": {
-        "message": "Sandi yang Anda masukkan ditemukan di <a>basis data publik</a> sandi yang sudah bocor. Silahkan coba yang lain."
-    },
     "registration_error_unique_constraint": {
         "message": "Nilai ini sudah digunakan sebelumnya"
     },

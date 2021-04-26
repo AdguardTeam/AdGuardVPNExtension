@@ -15,7 +15,7 @@
         "message": "This value is not valid"
     },
     "registration_error_min_length": {
-        "message": "This value is too short. It must have at least 8 characters."
+        "message": "Password is too short. It must contain at least 8 characters."
     },
     "registration_error_compromised_password": {
         "message": "The password you entered was found in a <a>public database</a> of compromised passwords. Please try another."
@@ -462,11 +462,11 @@
         "message": "VPN is disabled on this website"
     },
     "popup_auth_policy_agreement": {
-        "message": "I have read and agree with <eula>EULA</eula> and <privacy>Privacy policy</privacy>",
+        "message": "Accept <eula>EULA</eula> and <privacy>Privacy policy</privacy>",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Allow AdGuard to gather some <link>strictly anonymous data</link> on the app usage to make AdGuard VPN better"
+        "message": "Allow AdGuard to gather some <link>strictly anonymized data</link> on the app usage to make AdGuard VPN better"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Continue"

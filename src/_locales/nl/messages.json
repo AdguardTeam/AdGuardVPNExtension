@@ -15,7 +15,7 @@
         "message": "De waarde is niet geldig"
     },
     "registration_error_min_length": {
-        "message": "Deze waarde is te kort. Deze dient minimaal uit 8 of meer karakters te bestaan."
+        "message": "Wachtwoord is te kort. Het moet minimaal 8 karakters bevatten."
     },
     "registration_error_compromised_password": {
         "message": "Het wachtwoord dat je hebt ingevoerd is gevonden in een <a>openbare database</a> met gehackte wachtwoorden. Kies alsjeblieft een ander wachtwoord."
@@ -93,7 +93,7 @@
         "message": "Ongeldig e-mailadres"
     },
     "options_bug_report_textarea_invalid": {
-        "message": "Dit veld mag niet leeg zijn"
+        "message": "Veld verplicht"
     },
     "options_bug_report_request_error": {
         "message": "Er is een fout opgetreden. Probeer het later opnieuw."
@@ -224,6 +224,12 @@
     "settings_context_menus_title": {
         "message": "AdGuard VPN-item toevoegen aan het contextmenu van de webbrowser"
     },
+    "settings_help_us_improve_title": {
+        "message": "Help ons te verbeteren"
+    },
+    "settings_help_us_improve_description": {
+        "message": "AdGuard VPN toestaan om crash rapporten, technische en interactieve data te verzamelen. Dit is anoniem."
+    },
     "context_menu_selective_mode": {
         "message": "Selectieve modus"
     },
@@ -292,6 +298,9 @@
     },
     "settings_exclusions_export_button": {
         "message": "Exporteren"
+    },
+    "settings_exclusions_delete_button": {
+        "message": "Alles verwijderen"
     },
     "settings_exclusion_title": {
         "message": "Uitzonderingen"
@@ -452,6 +461,19 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN is uitgezet op deze website"
     },
+    "popup_auth_policy_agreement": {
+        "message": "Akkoord gaan met <eula>EULA</eula> en het <privacy>Privacybeleid</privacy>",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "AdGuard toestaan om enkele <link>strict anonieme gegevens</link> te verzamelen over het app gebruik om AdGuard VPN te verbeteren"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Doorgaan"
+    },
+    "popup_marketing_consent_checkbox": {
+        "message": "Mij e-mails sturen met speciale aanbiedingen en AdGuard-nieuws"
+    },
     "popup_auth_agreement_consent": {
         "message": "Door AdGuard VPN verder te gebruiken ga je akkoord met onze <eula>EULA</eula> en <privacy>Privacy beleid</privacy>",
         "description": "NOTICE! respect spaces between tags"
@@ -484,6 +506,21 @@
     },
     "options_exclusions_import_select_selective": {
         "message": "Selectieve lijst"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "Annuleren"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Verwijderen"
+    },
+    "options_exclusions_delete_title": {
+        "message": "Uitsluitingen verwijderen"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "Alle uitsluitingen van de standaard modus worden verwijderd."
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "Alle uitsluitingen van de selectieve modus worden verwijderd."
     },
     "options_exclusions_import_successful": {
         "message": "Geïmporteerde uitzonderingen: %count%"

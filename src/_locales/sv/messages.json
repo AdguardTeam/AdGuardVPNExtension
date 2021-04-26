@@ -8,9 +8,6 @@
     "registration_error_not_valid": {
         "message": "Detta värde är ogiltigt"
     },
-    "registration_error_compromised_password": {
-        "message": "Lösenordet som du skrev in finns i en <a>offentliga databas</a> för avslöjade lösenord. Var snäll och välj ett annat lösenord."
-    },
     "registration_error_unique_constraint": {
         "message": "Användarnamnet är redan taget"
     },

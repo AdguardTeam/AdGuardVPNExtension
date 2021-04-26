@@ -14,12 +14,6 @@
     "registration_error_not_valid": {
         "message": "Valoarea este invalidă"
     },
-    "registration_error_min_length": {
-        "message": "Valoare prea scurtă. Trebuie să aibă 8 caractere sau mai mult."
-    },
-    "registration_error_compromised_password": {
-        "message": "Parola introdusă se află într-o <a>bază de date publice</a> cu parole compromise. Vă rugăm, încercați altă parolă."
-    },
     "registration_error_unique_constraint": {
         "message": "Valoarea este deja folosită"
     },
@@ -92,23 +86,11 @@
     "options_bug_report_email_invalid": {
         "message": "Adresă e-mail incorectă"
     },
-    "options_bug_report_textarea_invalid": {
-        "message": "Acest câmp nu poate fi gol"
-    },
     "options_bug_report_request_error": {
         "message": "A apărut o eroare. Vă rugăm să încercați din nou mai târziu."
     },
-    "options_bug_report_send_button": {
-        "message": "Trimite"
-    },
-    "options_bug_report_sending_button": {
-        "message": "Se trimite..."
-    },
     "options_bug_report_textarea_placeholder": {
         "message": "Descrieți problema aici..."
-    },
-    "options_bug_report_page_success": {
-        "message": "Mulțumesc, mesajul dvs. a fost trimis cu succes!"
     },
     "options_bug_report_new_report_button": {
         "message": "Raport nou"
@@ -480,10 +462,10 @@
         "message": "Importați excluderi în:"
     },
     "options_exclusions_import_select_regular": {
-        "message": "Lista obișnuită"
+        "message": "Listă obișnuită"
     },
     "options_exclusions_import_select_selective": {
-        "message": "Lista selectivă"
+        "message": "Listă selectivă"
     },
     "options_exclusions_import_successful": {
         "message": "Excluderi importate: %count%"

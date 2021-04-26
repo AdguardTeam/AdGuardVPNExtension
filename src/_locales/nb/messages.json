@@ -11,12 +11,6 @@
     "registration_error_not_valid": {
         "message": "Denne verdien er ugyldig"
     },
-    "registration_error_min_length": {
-        "message": "Denne verdien er for kort. Den bør ha 8 tegn eller mer"
-    },
-    "registration_error_compromised_password": {
-        "message": "Passordet du skrev inn, ble funnet <a>i en offentlig database</a> over kompromitterte passord. Vennligst prøv med et annet et."
-    },
     "registration_error_unique_constraint": {
         "message": "Denne verdien er allerede brukt"
     },
@@ -68,20 +62,14 @@
     "options_bug_report_email_label": {
         "message": "E-post"
     },
+    "options_bug_report_include_log_label": {
+        "message": "Legg til diagnoserapporten til denne meldingen"
+    },
     "options_bug_report_email_invalid": {
         "message": "Feil E-postadresse"
     },
-    "options_bug_report_textarea_invalid": {
-        "message": "Dette feltet kan ikke være tomt"
-    },
     "options_bug_report_request_error": {
         "message": "En feil oppstod. Vennligst prøv igjen senere."
-    },
-    "options_bug_report_send_button": {
-        "message": "Send"
-    },
-    "options_bug_report_sending_button": {
-        "message": "Sender …"
     },
     "options_bug_report_textarea_placeholder": {
         "message": "Beskriv problemet her …"
@@ -260,6 +248,12 @@
     "settings_exclusion_add": {
         "message": "Legg til et nettsted"
     },
+    "settings_exclusions_import_button": {
+        "message": "Importer"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Eksport"
+    },
     "settings_exclusion_title": {
         "message": "Unntak"
     },
@@ -425,5 +419,14 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "Er du sikker på at du vil skifte?"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "Selektiv liste"
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Abonner"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Lær mer"
     }
 }

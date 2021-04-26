@@ -15,7 +15,7 @@
         "message": "この値は無効です"
     },
     "registration_error_min_length": {
-        "message": "値が短すぎます。8文字以上をご入力ください。"
+        "message": "パスワードが短すぎます。8文字以上にしてください。"
     },
     "registration_error_compromised_password": {
         "message": "ご入力のパスワードは、<a>流出パスワードの公開データベース</a>で見つかりました。別のパスワードをお試しください。"
@@ -93,7 +93,7 @@
         "message": "メールアドレスが間違っています"
     },
     "options_bug_report_textarea_invalid": {
-        "message": "この欄もご記入ください"
+        "message": "この欄のご記入は必須です"
     },
     "options_bug_report_request_error": {
         "message": "エラーが発生しました。後ほどもう一度お試しください。"
@@ -224,6 +224,12 @@
     "settings_context_menus_title": {
         "message": "ブラウザの右クリックメニューにAdGuard VPNを追加する"
     },
+    "settings_help_us_improve_title": {
+        "message": "AdGuard VPNの改善に協力する"
+    },
+    "settings_help_us_improve_description": {
+        "message": "AdGuard VPNによる、クラッシュレポート、技術データ、およびインタラクションデータの収集を許可します。※この情報は完全に匿名です。"
+    },
     "context_menu_selective_mode": {
         "message": "指定モード"
     },
@@ -293,8 +299,11 @@
     "settings_exclusions_export_button": {
         "message": "エクスポートする"
     },
+    "settings_exclusions_delete_button": {
+        "message": "すべてを削除する"
+    },
     "settings_exclusion_title": {
-        "message": "除外"
+        "message": "VPN対象からの除外"
     },
     "settings_connection_mode_title": {
         "message": "動作モード"
@@ -452,6 +461,19 @@
     "popup_site_status_vpn_disabled": {
         "message": "このサイトに対してVPNは無効になっています。"
     },
+    "popup_auth_policy_agreement": {
+        "message": "<eula>EULA</eula> と <privacy>プライバシーポリシー</privacy> に同意する",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "AdGuard VPNをより良くするために、アプリの使用状況に関する<link>完全に匿名なデータ</link>の収集をAdGuardに許可する"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "続ける"
+    },
+    "popup_marketing_consent_checkbox": {
+        "message": "AdGuardに関するニュース・最新情報やお得情報メールを受け取る"
+    },
     "popup_auth_agreement_consent": {
         "message": "AdGuard VPNを使用し続けますと、<eula>利用許諾契約(EULA)</eula>および<privacy>プライバシーポリシー</privacy>に同意したことになります。",
         "description": "NOTICE! respect spaces between tags"
@@ -484,6 +506,21 @@
     },
     "options_exclusions_import_select_selective": {
         "message": "指定リスト"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "キャンセル"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "削除する"
+    },
+    "options_exclusions_delete_title": {
+        "message": "除外リストを削除"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "レギュラーモードの除外項目がすべて削除されます"
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "指定モードの除外項目がすべて削除されます"
     },
     "options_exclusions_import_successful": {
         "message": "インポート完了した除外項目数: %count%"

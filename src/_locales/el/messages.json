@@ -11,12 +11,6 @@
     "registration_error_not_valid": {
         "message": "Αυτή η τιμή δεν είναι έγκυρη"
     },
-    "registration_error_min_length": {
-        "message": "Αυτή η τιμή είναι πολύ μικρή. Θα πρέπει να έχει 8 χαρακτήρες ή περισσότερους."
-    },
-    "registration_error_compromised_password": {
-        "message": "Ο κωδικός πρόσβασης που εισαγάγατε βρέθηκε σε μια <a>δημόσια βάση δεδομένων</a> με παραβιασμένους κωδικούς πρόσβασης. Παρακαλώ, δοκιμάστε έναν άλλο."
-    },
     "registration_error_unique_constraint": {
         "message": "Αυτή η τιμή χρησιμοποιείται ήδη"
     },

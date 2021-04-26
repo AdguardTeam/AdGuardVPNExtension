@@ -15,7 +15,7 @@
         "message": "Bu değer geçerli değil"
     },
     "registration_error_min_length": {
-        "message": "Bu değer çok kısa. 8 veya daha fazla karakter içermelidir."
+        "message": "Parola çok kısa. En az 8 karakter içermelidir."
     },
     "registration_error_compromised_password": {
         "message": "Girdiğiniz parola, ele geçirilmiş parolaların <a>ortak veritabanında</a> bulundu. Lütfen başka bir tane deneyin."
@@ -93,7 +93,7 @@
         "message": "Yanlış e-posta adresi"
     },
     "options_bug_report_textarea_invalid": {
-        "message": "Bu alan boş olamaz"
+        "message": "Bu alan zorunlu"
     },
     "options_bug_report_request_error": {
         "message": "Bir hata oluştu. Lütfen daha sonra tekrar deneyiniz."
@@ -111,7 +111,7 @@
         "message": "Teşekkürler, mesajınız başarıyla gönderildi!"
     },
     "options_bug_report_new_report_button": {
-        "message": "Yeni bildiri"
+        "message": "Yeni rapor"
     },
     "options_bug_report_textarea_label": {
         "message": "Mesaj"
@@ -219,10 +219,16 @@
         "message": "WebRTC Protokolünü Engelle"
     },
     "settings_webrtc_desc": {
-        "message": "WebRTC çoğu İnternet tarayıcısında, üçüncü parti bir web sitesinin gerçek IP adresinizi algılamasına ve sizi tanımlamak için kullanmasına izin veren özel bir programdır"
+        "message": "WebRTC çoğu İnternet tarayıcısında, üçüncü taraf bir sitenin gerçek IP adresinizi algılamasına ve sizi tanımlamak için kullanmasına izin veren özel bir programdır"
     },
     "settings_context_menus_title": {
         "message": "Tarayıcının sağtık menüsüne AdGuard VPN'yi ekle"
+    },
+    "settings_help_us_improve_title": {
+        "message": "Geliştirmemize yardımcı olun"
+    },
+    "settings_help_us_improve_description": {
+        "message": "Adguard VPN'nin çökme raporlarını, teknik ve etkileşim verilerini toplamasına izin verin. Kişisel verileriniz paylaşılmaz."
     },
     "context_menu_selective_mode": {
         "message": "Seçici mod"
@@ -293,6 +299,9 @@
     "settings_exclusions_export_button": {
         "message": "Dışa aktar"
     },
+    "settings_exclusions_delete_button": {
+        "message": "Hepsini sil"
+    },
     "settings_exclusion_title": {
         "message": "İstisnalar"
     },
@@ -333,7 +342,7 @@
         "message": "Başarıyla doğrulandı! AdGuard VPN'yi açabilir ve kullanmaya başlayabilirsiniz."
     },
     "control_error_description": {
-        "message": "Başka bir Chrome uzantısı bağlantınızı kontrol etmeye çalışıyor gibi görünüyor. Lütfen tarayıcınızdaki diğer uzantıyı devre dışı bırakın."
+        "message": "Başka bir Chrome eklentisi bağlantınızı kontrol etmeye çalışıyor gibi görünüyor. Lütfen tarayıcınızdaki diğer eklentiyi devre dışı bırakın."
     },
     "control_error_disable": {
         "message": "Devre dışı bırak"
@@ -452,6 +461,19 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN bu sitede devre dışı bırakıldı"
     },
+    "popup_auth_policy_agreement": {
+        "message": "<eula>SKLS</eula> ve <privacy>Gizlilik politikasını</privacy> kabul edin",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "AdGuard'ın, AdGuard VPN'yi daha iyi hale getirmek için uygulama kullanımı hakkında bazı <link>anonim veriler</link> toplamamıza izin verin"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Devam et"
+    },
+    "popup_marketing_consent_checkbox": {
+        "message": "Bana özel teklifler ve AdGuard haberleri içeren e-postalar gönder"
+    },
     "popup_auth_agreement_consent": {
         "message": "AdGuard VPN'yi kullanmaya devam ederek <eula>SKLS</eula> ve <privacy>Gizlilik Politikamızı</privacy> kabul etmiş olursunuz",
         "description": "NOTICE! respect spaces between tags"
@@ -484,6 +506,21 @@
     },
     "options_exclusions_import_select_selective": {
         "message": "Seçici liste"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "İptal"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Sil"
+    },
+    "options_exclusions_delete_title": {
+        "message": "İstisnaları kaldır"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "Normal modun tüm istisnaları silinecek."
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "Seçici modun tüm istisnaları silinecek."
     },
     "options_exclusions_import_successful": {
         "message": "İçe aktarılan istisnalar: %count%"

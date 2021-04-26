@@ -14,9 +14,6 @@
     "registration_error_not_valid": {
         "message": "Це значення недійсне"
     },
-    "registration_error_min_length": {
-        "message": "Це значення надто коротке. Мусить мати 8 символів або більше."
-    },
     "registration_error_compromised_password": {
         "message": "Введений пароль знайдено у <a>відкритій базі даних</a> викритих паролів. Будь ласка, спробуйте інший пароль."
     },
@@ -108,7 +105,7 @@
         "message": "Опишіть проблему тут..."
     },
     "options_bug_report_page_success": {
-        "message": "Дякєумо, ваше повідомлення успішно надіслане!"
+        "message": "Дякуємо, ваше повідомлення успішно надіслано!"
     },
     "options_bug_report_new_report_button": {
         "message": "Новий звіт"
@@ -224,6 +221,12 @@
     "settings_context_menus_title": {
         "message": "Додати AdGuard VPN в контекстне меню браузера"
     },
+    "settings_help_us_improve_title": {
+        "message": "Допоможіть нам покращити програму"
+    },
+    "settings_help_us_improve_description": {
+        "message": "Дозволити AdGuard VPN збирати анонімну технічну інформацію про збої та помилки."
+    },
     "context_menu_selective_mode": {
         "message": "Вибірковий режим"
     },
@@ -237,10 +240,10 @@
         "message": "Система доменних імен (DNS) — це адресна книга інтернету. Вона містить каталог доменних імен та перетворює їх у реальні IP-адреси."
     },
     "settings_dns_selector_default_title": {
-        "message": "За замовчуванням"
+        "message": "Усталений"
     },
     "settings_dns_selector_default_desc": {
-        "message": "При підключенні до VPN автоматично використовувати DNS-сервер за замовчуванням"
+        "message": "Автоматично використовувати усталений DNS-сервер під час підключення до VPN"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -292,6 +295,9 @@
     },
     "settings_exclusions_export_button": {
         "message": "Експортувати"
+    },
+    "settings_exclusions_delete_button": {
+        "message": "Видалити все"
     },
     "settings_exclusion_title": {
         "message": "Винятки"
@@ -390,7 +396,7 @@
         "message": "Придбати"
     },
     "settings_disconnect": {
-        "message": "Відключитись"
+        "message": "Від'єднати"
     },
     "settings_vpn_connecting": {
         "message": "З'єднання..."
@@ -402,7 +408,7 @@
         "message": "Підключено"
     },
     "settings_vpn_disabled": {
-        "message": "Відключено"
+        "message": "Від'єднано"
     },
     "popup_traffic_limit_exceeded_title": {
         "message": "Швидкість знижено"
@@ -452,6 +458,19 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN вимкнено на цьому вебсайті"
     },
+    "popup_auth_policy_agreement": {
+        "message": "Прийняти <eula>Ліцензійну угоду з кінцевим користувачем</eula> та <privacy>Політику приватності</privacy>",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "Дозволити AdGuard збирати <link>абсолютно анонімні дані</link> про використання програми, щоб зробити AdGuard VPN ще кращим"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Продовжити"
+    },
+    "popup_marketing_consent_checkbox": {
+        "message": "Надсилати мені листи зі спеціальними пропозиціями та новинами AdGuard"
+    },
     "popup_auth_agreement_consent": {
         "message": "Користуючись AdGuard VPN, ви приймаєте <eula>Ліцензійна угоду</eula> та <privacy>Політику приватності</privacy>",
         "description": "NOTICE! respect spaces between tags"
@@ -485,6 +504,21 @@
     "options_exclusions_import_select_selective": {
         "message": "Вибіркового списку"
     },
+    "options_exclusions_delete_cancel_button": {
+        "message": "Скасувати"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Видалити"
+    },
+    "options_exclusions_delete_title": {
+        "message": "Видалення винятків"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "Усі винятки для Звичайного режиму буде видалено."
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "Усі винятки для Вибіркового режиму буде видалено."
+    },
     "options_exclusions_import_successful": {
         "message": "Імпортовано винятків: %count%"
     },
@@ -501,7 +535,7 @@
         "message": "Щоб додати більше пристроїв, оформіть підписку на AdGuard VPN."
     },
     "popup_connections_limit_description_end_premium": {
-        "message": "Щоб додати ще один пристрій, відключіть AdGuard VPN на будь-якому іншому вашому пристрої."
+        "message": "Щоб додати ще один пристрій, вимкніть AdGuard VPN на будь-якому іншому вашому пристрої."
     },
     "popup_connections_limit_description_cta_button_free": {
         "message": "Підписатися"

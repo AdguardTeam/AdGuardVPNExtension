@@ -14,11 +14,8 @@
     "registration_error_not_valid": {
         "message": "Ta vrednost ni veljavna"
     },
-    "registration_error_min_length": {
-        "message": "Ta vrednost je prekratka. Morala bi vsebovati 8 znakov ali več."
-    },
     "registration_error_compromised_password": {
-        "message": "Geslo, ki ste ga vnesli, je bilo najdeno v <a>javni zbirki podatkov</a> ogroženih gesel. Prosimo, poskusite z drugim."
+        "message": "Geslo, ki ste ga vnesli, je bilo najdeno v <a>javni zbirki podatkov</a> ogroženih gesel. Pposkusite z drugim."
     },
     "registration_error_unique_constraint": {
         "message": "Ta vrednost je že uporabljena"
@@ -93,7 +90,7 @@
         "message": "Napačen e-poštni naslov"
     },
     "options_bug_report_textarea_invalid": {
-        "message": "To polje ne sme biti prazno"
+        "message": "To polje je obvezno"
     },
     "options_bug_report_request_error": {
         "message": "Prišlo je do napake, poskusite pozneje znova."
@@ -224,6 +221,12 @@
     "settings_context_menus_title": {
         "message": "Dodaj vnos AdGuard VPN-ja v priročni meni brskalnika"
     },
+    "settings_help_us_improve_title": {
+        "message": "Pomagajte nam izboljšati"
+    },
+    "settings_help_us_improve_description": {
+        "message": "Dovoli AdGuard VPN, da zbira poročila o zrušitvah, tehnične podatke in podatke o vzajemnem delovanju. To je anonimno."
+    },
     "context_menu_selective_mode": {
         "message": "Izbirni način"
     },
@@ -292,6 +295,9 @@
     },
     "settings_exclusions_export_button": {
         "message": "Izvozi"
+    },
+    "settings_exclusions_delete_button": {
+        "message": "Izbriši vse"
     },
     "settings_exclusion_title": {
         "message": "Izjeme"
@@ -452,6 +458,19 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN je onemogočen na tej spletni strani"
     },
+    "popup_auth_policy_agreement": {
+        "message": "Prebral sem in se strinjam z <eula>EULA</eula> in <privacy>Politiko zasebnosti</privacy>",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "Dovoli, da AdGuard zbere nekaj <link>strogo anonimnih podatkov</link> o uporabi aplikacije, za izboljšanje AdGuard VPN"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Nadaljuj"
+    },
+    "popup_marketing_consent_checkbox": {
+        "message": "Pošljite mi e-pošto s posebnimi ponudbami in novicami AdGuard"
+    },
     "popup_auth_agreement_consent": {
         "message": "Z nadaljevanjem uporabe AdGuard VPN soglašate z našo <eula>Licenčno pogodba za končnega uporabnika</eula> in <privacy>Politiko zasebnosti</privacy>",
         "description": "NOTICE! respect spaces between tags"
@@ -484,6 +503,21 @@
     },
     "options_exclusions_import_select_selective": {
         "message": "Izbirni seznam"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "Prekliči"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Izbriši"
+    },
+    "options_exclusions_delete_title": {
+        "message": "Odstrani izjeme"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "Vse izjeme iz običajnega načina bodo izbrisane."
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "Vse izjeme iz izbirnega načina bodo izbrisane."
     },
     "options_exclusions_import_successful": {
         "message": "Uvoženo izjem: %count%"
