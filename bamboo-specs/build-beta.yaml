@@ -3,7 +3,7 @@ version: 2
 plan:
   project-key: ADGEXT
   key: AVBSPECS
-  name: adguard vpn extension - build beta
+  name: vpn-extension - build beta
 variables:
   dockerNode: node:15.14.0-buster-slim
 
