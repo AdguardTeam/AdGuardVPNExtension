@@ -22,7 +22,7 @@
         "test": "jest",
         "test:watch": "jest --watch",
         "compile-proto": "./tasks/compile-protobuf.sh",
-        "ci:increment": "yarn version --patch --no-git-tag-version",
+        "increment": "yarn version --patch --no-git-tag-version",
         "crx:beta": "export BUILD_ENV=beta; yarn build:chrome && node tasks/crx.js",
         "xpi:beta": "export BUILD_ENV=beta; yarn build:firefox && node tasks/xpi.js",
         "crx:release": "export BUILD_ENV=release; yarn build:chrome && node tasks/crx.js",
