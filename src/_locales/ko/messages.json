@@ -466,7 +466,7 @@
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "AdGuard VPN을 개선할 수 있도록 <link>철저히 익명 처리된 앱 사용량 데이터</link>를 수집하도록 허용해주세요"
+        "message": "AdGuard VPN을 개선할 수 있도록 <link> 익명 처리된 앱 사용량 데이터</link>를 수집하도록 허용해 주세요"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "계속하기"

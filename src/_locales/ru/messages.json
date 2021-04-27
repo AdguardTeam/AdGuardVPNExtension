@@ -466,7 +466,7 @@
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Разрешить AdGuard собирать <link>некоторые строго анонимные данные</link> об использовании приложения, чтобы сделать AdGuard VPN лучше"
+        "message": "Разрешить AdGuard собирать <link>анонимные данные</link> об использовании приложения, чтобы сделать AdGuard VPN лучше"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Продолжить"

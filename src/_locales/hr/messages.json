@@ -14,6 +14,12 @@
     "registration_error_not_valid": {
         "message": "Vrijednost nije važeća"
     },
+    "registration_error_min_length": {
+        "message": "Vrijednost je prekratka. Mora biti najmanje 8 znakova."
+    },
+    "registration_error_compromised_password": {
+        "message": "Lozinka koju ste unijeli pronađena je u <a>javnoj bazi</a> ugroženih lozinki. Pokušajte s drugom."
+    },
     "registration_error_unique_constraint": {
         "message": "Ova vrijednost se već koristi"
     },
@@ -86,11 +92,23 @@
     "options_bug_report_email_invalid": {
         "message": "Nevažeća adresa e-pošte"
     },
+    "options_bug_report_textarea_invalid": {
+        "message": "Polje ne može biti prazno"
+    },
     "options_bug_report_request_error": {
         "message": "Došlo je do pogreške. Pokušajte kasnije."
     },
+    "options_bug_report_send_button": {
+        "message": "Pošalji"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Slanje..."
+    },
     "options_bug_report_textarea_placeholder": {
         "message": "Ovdje opišite problem..."
+    },
+    "options_bug_report_page_success": {
+        "message": "Hvala vam, vaša je poruka uspješno poslana!"
     },
     "options_bug_report_new_report_button": {
         "message": "Novi izvještaj"

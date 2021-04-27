@@ -466,7 +466,7 @@
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Permite que AdGuard recopile algunos <link>datos estrictamente anónimos</link> sobre el uso de la aplicación para mejorar AdGuard VPN"
+        "message": "Permite que AdGuard recopile <link>datos anónimos</link> sobre el uso de la aplicación para mejorar AdGuard VPN"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Continuar"

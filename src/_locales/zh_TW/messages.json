@@ -466,7 +466,7 @@
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "允許 AdGuard 收集關於應用程式使用之某些<link>完全匿名的資料</link>以使 AdGuard VPN 更好"
+        "message": "允許 AdGuard 收集關於應用程式使用之<link>匿名的資料</link>以使 AdGuard VPN 更好"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "繼續"

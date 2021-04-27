@@ -14,6 +14,12 @@
     "registration_error_not_valid": {
         "message": "Érvénytelen érték"
     },
+    "registration_error_min_length": {
+        "message": "A jelszó túl rövid. Legalább 8 karaktert kell tartalmaznia."
+    },
+    "registration_error_compromised_password": {
+        "message": "A megadott jelszó szerepel a nem biztonságos jelszavak <a>nyilvános adatbázisában</a>. Kérjük, válasszon másik jelszót."
+    },
     "registration_error_unique_constraint": {
         "message": "Ez az érték már használatban van"
     },
@@ -86,11 +92,23 @@
     "options_bug_report_email_invalid": {
         "message": "Helytelen e-mail cím"
     },
+    "options_bug_report_textarea_invalid": {
+        "message": "A mező nem lehet üres"
+    },
     "options_bug_report_request_error": {
         "message": "Valamilyen hiba történt, próbálja újból később."
     },
+    "options_bug_report_send_button": {
+        "message": "Küldés"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Küldés..."
+    },
     "options_bug_report_textarea_placeholder": {
         "message": "Írja le itt a problémát..."
+    },
+    "options_bug_report_page_success": {
+        "message": "Köszönjük, az üzenetét sikeresen elküldtük!"
     },
     "options_bug_report_new_report_button": {
         "message": "Új jelentés"
@@ -206,6 +224,12 @@
     "settings_context_menus_title": {
         "message": "Adja hozzá az AdGuard VPN elemet a böngésző helyi menüjéhez"
     },
+    "settings_help_us_improve_title": {
+        "message": "Segítsen nekünk a fejlesztésben"
+    },
+    "settings_help_us_improve_description": {
+        "message": "Engedélyezés az AdGuard VPN számára, hogy hibahelentéseket, műszaki adatokat és használati statisztikákat küldjön. Ez névtelenül történik."
+    },
     "context_menu_selective_mode": {
         "message": "Szelektív mód"
     },
@@ -274,6 +298,9 @@
     },
     "settings_exclusions_export_button": {
         "message": "Exportálás"
+    },
+    "settings_exclusions_delete_button": {
+        "message": "Összes törlése"
     },
     "settings_exclusion_title": {
         "message": "Kivételek"
@@ -434,6 +461,19 @@
     "popup_site_status_vpn_disabled": {
         "message": "A VPN le van tiltva ezen a webhelyen"
     },
+    "popup_auth_policy_agreement": {
+        "message": "Elfogadom az <eula>Végfelhasználói licencszerződést</eula> és az <privacy>Adatvédelmi irányelveket</privacy>",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "Engedélyezem az AdGuard számára, hogy <link>névtelen adatokat</link> küldjön az alkalmazás használatával kapcsolatban, segítve ezzel az AdGuar VPN jobbá tételében"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Folytatás"
+    },
+    "popup_marketing_consent_checkbox": {
+        "message": "E-mailek fogadása a különleges ajánlatokról és az AdGuard híreiről"
+    },
     "popup_auth_agreement_consent": {
         "message": "Az AdGuard VPN használatával elfogadja a <eula>Végfelhasználói licencszerződést</eula> és az <privacy>Adatvédelmi irányelveket</privacy>",
         "description": "NOTICE! respect spaces between tags"
@@ -466,6 +506,21 @@
     },
     "options_exclusions_import_select_selective": {
         "message": "Szelektív lista"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "Mégsem"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Törlés"
+    },
+    "options_exclusions_delete_title": {
+        "message": "Kivételek eltávolítása"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "A Szokásos mód összes kivétele törlődni fog."
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "A Szelektív mód összes kivétele törlődni fog."
     },
     "options_exclusions_import_successful": {
         "message": "Importált kizárások: %count%"

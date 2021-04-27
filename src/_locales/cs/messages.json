@@ -466,7 +466,7 @@
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Pro vylepšení Adguard VPN dovolte AdGuardu shromažďovat<link>některá striktně anonymní data</link> o používání aplikace"
+        "message": "Pro vylepšení Adguard VPN dovolte AdGuardu shromažďovat<link>anonymní data</link> o používání aplikace"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Pokračovat"
