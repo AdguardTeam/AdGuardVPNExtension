@@ -14,6 +14,9 @@
     "registration_error_not_valid": {
         "message": "Denne værdi er ugyldig"
     },
+    "registration_error_min_length": {
+        "message": "Denne værdi er for kort. Den skal indeholde minimum 8 tegn."
+    },
     "registration_error_compromised_password": {
         "message": "Den angivne adgangskode blev fundet i en <a>offentlig database</a> over kompromitterede adgangskoder. Prøv med en anden."
     },
@@ -463,7 +466,7 @@
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Tillad AdGuard at indsamle <link>strengt anonymiserede data</link> om brugen af appen for at gøre AdGuard VPN bedre"
+        "message": "Tillad AdGuard at indsamle <link>anonymiserede data</link> om brugen af appen for at gøre AdGuard VPN bedre"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Fortsæt"

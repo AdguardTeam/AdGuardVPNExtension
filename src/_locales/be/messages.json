@@ -14,6 +14,9 @@
     "registration_error_not_valid": {
         "message": "Гэта значэнне несапраўднае"
     },
+    "registration_error_min_length": {
+        "message": "Занадта кароткае значэнне. Увядзіце не менш 8 знакаў."
+    },
     "registration_error_compromised_password": {
         "message": "Уведзены пароль знойдзены ў <a>публічнай базе</a> скампраметаваных пароляў. Калі ласка, увядзіце іншы пароль."
     },
@@ -221,6 +224,12 @@
     "settings_context_menus_title": {
         "message": "Дадаць AdGuard у кантэкставае меню браўзара"
     },
+    "settings_help_us_improve_title": {
+        "message": "Дапамажыце нам стаць лепш"
+    },
+    "settings_help_us_improve_description": {
+        "message": "Дазвольце AdGuard VPN збіраць справаздачы пра збоі, тэхнічныя дадзеныя і дадзеныя пра ўзаемадзеянне. Гэта ананімна."
+    },
     "context_menu_selective_mode": {
         "message": "Выбарковы рэжым"
     },
@@ -289,6 +298,9 @@
     },
     "settings_exclusions_export_button": {
         "message": "Экспарт"
+    },
+    "settings_exclusions_delete_button": {
+        "message": "Выдаліць усё"
     },
     "settings_exclusion_title": {
         "message": "Выняткі"
@@ -449,6 +461,19 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN адключаны на гэтым сайце"
     },
+    "popup_auth_policy_agreement": {
+        "message": "Прыняць <eula>Ліцэнзійнае пагадненне</eula> і <privacy>Палітыку прыватнасці</privacy>",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "Дазволіць AdGuard збіраць <link>некаторыя строга ананімныя даныя</link> пра выкарыстанне дадатку, каб зрабіць AdGuard VPN лепш"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Працягнуць"
+    },
+    "popup_marketing_consent_checkbox": {
+        "message": "Дасылаць мне адмысловыя прапановы і навіны AdGuard"
+    },
     "popup_auth_agreement_consent": {
         "message": "Працягваючы скарыстаць AdGuard, Вы згаджаецеся з нашым <eula>Ліцэнзійным пагадненнем</eula> і <privacy>Палітыкай прыватнасці</privacy>",
         "description": "NOTICE! respect spaces between tags"
@@ -481,6 +506,21 @@
     },
     "options_exclusions_import_select_selective": {
         "message": "Выбарковы спіс"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "Скасаваць"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Выдаліць"
+    },
+    "options_exclusions_delete_title": {
+        "message": "Выдаліць выняткі"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "Усе выняткі са Звычайнага рэжыму будуць выдалены."
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "Усе выняткі з Выбарковага рэжыму будуць выдалены."
     },
     "options_exclusions_import_successful": {
         "message": "Імпартаваныя выняткі: %count%"

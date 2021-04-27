@@ -466,7 +466,7 @@
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "AdGuard toestaan om enkele <link>strict anonieme gegevens</link> te verzamelen over het app gebruik om AdGuard VPN te verbeteren"
+        "message": "AdGuard toestaan om enkele <link>anonieme gegevens</link> te verzamelen over het app gebruik om AdGuard VPN te verbeteren"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Doorgaan"

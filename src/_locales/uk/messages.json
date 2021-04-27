@@ -14,6 +14,9 @@
     "registration_error_not_valid": {
         "message": "Це значення недійсне"
     },
+    "registration_error_min_length": {
+        "message": "Пароль надто короткий. Мусить мати 8 символів або більше."
+    },
     "registration_error_compromised_password": {
         "message": "Введений пароль знайдено у <a>відкритій базі даних</a> викритих паролів. Будь ласка, спробуйте інший пароль."
     },
@@ -461,9 +464,6 @@
     "popup_auth_policy_agreement": {
         "message": "Прийняти <eula>Ліцензійну угоду з кінцевим користувачем</eula> та <privacy>Політику приватності</privacy>",
         "description": "WARNING! Respect spaces between tags"
-    },
-    "popup_auth_help_us_improve_agreement": {
-        "message": "Дозволити AdGuard збирати <link>абсолютно анонімні дані</link> про використання програми, щоб зробити AdGuard VPN ще кращим"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Продовжити"

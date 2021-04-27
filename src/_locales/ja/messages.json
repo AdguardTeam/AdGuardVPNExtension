@@ -465,9 +465,6 @@
         "message": "<eula>EULA</eula> と <privacy>プライバシーポリシー</privacy> に同意する",
         "description": "WARNING! Respect spaces between tags"
     },
-    "popup_auth_help_us_improve_agreement": {
-        "message": "AdGuard VPNをより良くするために、アプリの使用状況に関する<link>完全に匿名なデータ</link>の収集をAdGuardに許可する"
-    },
     "popup_auth_policy_agreement_continue_button": {
         "message": "続ける"
     },

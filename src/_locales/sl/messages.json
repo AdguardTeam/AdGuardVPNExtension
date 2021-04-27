@@ -462,9 +462,6 @@
         "message": "Prebral sem in se strinjam z <eula>EULA</eula> in <privacy>Politiko zasebnosti</privacy>",
         "description": "WARNING! Respect spaces between tags"
     },
-    "popup_auth_help_us_improve_agreement": {
-        "message": "Dovoli, da AdGuard zbere nekaj <link>strogo anonimnih podatkov</link> o uporabi aplikacije, za izboljšanje AdGuard VPN"
-    },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Nadaljuj"
     },
