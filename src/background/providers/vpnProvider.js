@@ -229,8 +229,10 @@ const requestSupport = async ({
     formData.append('version', version);
     formData.append('subject', BUG_REPORT_SUBJECT);
 
-    const preparedAppLogs = await prepareLogs(appLogs);
-    formData.append('app_logs', preparedAppLogs, LOGS_ZIP_FILENAME);
+    if (appLogs) {
+        const preparedAppLogs = await prepareLogs(appLogs);
+        formData.append('app_logs', preparedAppLogs, LOGS_ZIP_FILENAME);
+    }
 
     try {
         await vpnApi.requestSupport(formData);
