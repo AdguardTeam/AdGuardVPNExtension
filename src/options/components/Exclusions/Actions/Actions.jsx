@@ -62,7 +62,10 @@ const handleSelectiveExclusionsString = async (exclusionsString) => {
     return messenger.addSelectiveExclusions(selectiveExclusions);
 };
 
-const handleExclusionsExport = async () => {
+const handleExclusionsExport = async (e) => {
+    // remove focus from button
+    e.currentTarget.blur();
+
     const exclusions = await messenger.getExclusionsData();
 
     const zip = new JSZip();
@@ -112,7 +115,10 @@ export const Actions = observer(() => {
         closeSelectListModal();
     };
 
-    const handleExclusionsImport = () => {
+    const handleExclusionsImport = (e) => {
+        // remove focus from button after click
+        e.currentTarget.blur();
+
         importEl.current.click();
     };
 
@@ -170,7 +176,10 @@ export const Actions = observer(() => {
         setApproveDeleteModalState(true);
     };
 
-    const handleExclusionsDelete = () => {
+    const handleExclusionsDelete = (e) => {
+        // remove focus from button after click
+        e.currentTarget.blur();
+
         openApproveDeleteModal();
     };
 
