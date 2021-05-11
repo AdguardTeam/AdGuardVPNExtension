@@ -24,8 +24,19 @@ export default class ExclusionsHandler {
     };
 
     /**
-     * Adds url to exclusions
+     * Normalizes exclusions url
+     * 1. trims it
+     * 2. converts to lowercase
      * @param {string} url
+     * @return {string | undefined}
+     */
+    prepareUrl = (url) => {
+        return url?.trim()?.toLowerCase();
+    }
+
+    /**
+     * Adds url to exclusions
+     * @param {string} dirtyUrl
      * @param {boolean} [enabled] - sets state of exclusion
      * @param {object} [options]
      * @param {boolean} [options.considerWildcard] - used to add new exclusions without affecting
@@ -35,10 +46,11 @@ export default class ExclusionsHandler {
      * @returns {boolean}
      */
     addToExclusions = (
-        url,
+        dirtyUrl,
         enabled = true,
         options = {},
     ) => {
+        const url = this.prepareUrl(dirtyUrl);
         const hostname = getHostname(url);
 
         if (!hostname) {
