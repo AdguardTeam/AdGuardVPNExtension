@@ -54,14 +54,20 @@ const PromoNotificationModal = observer(() => {
                 onClick={onCloseHandler}
             />
             <div className="holiday-notify__content">
-                <div className="holiday-notify__title">{title}</div>
+                <div className="holiday-notify__title">
+                    <div className="holiday-notify__title-in">
+                        {title}
+                    </div>
+                </div>
                 {btn
                 && (
-                    <div
-                        className="holiday-notify__btn"
-                        onClick={btnClickHandler}
-                    >
-                        {btn}
+                    <div className="holiday-notify__bottom">
+                        <div
+                            className="holiday-notify__btn"
+                            onClick={btnClickHandler}
+                        >
+                            {btn}
+                        </div>
                     </div>
                 )}
             </div>

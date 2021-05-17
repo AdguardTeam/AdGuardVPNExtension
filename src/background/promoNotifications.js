@@ -12,48 +12,56 @@ import notifier from '../lib/notifier';
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const easterNotification = {
-    id: 'easter2021',
+const birthdayNotification = {
+    id: 'birthday2021',
     locales: {
         en: {
-            btn: 'Save 60%',
+            title: 'Web Survival Test',
+            btn: 'I\'m ready!',
         },
         ru: {
-            btn: 'Тут скидка 60%',
+            title: 'Игра на выживание',
+            btn: 'Пройти',
         },
         ja: {
-            btn: '期間限定60%OFF›',
+            title: 'ウェブサバイバルテスト',
+            btn: '受けてみる',
         },
         ko: {
-            btn: '60% 할인 받기',
+            title: '웹 서바이벌 게임을 해 볼까요?',
+            btn: '게임 시작',
         },
         zh_cn: {
-            btn: '4折来喽',
+            title: '网络生存问答竞赛',
+            btn: '我准备好啦！',
         },
         zh_tw: {
-            btn: '4折來嘍',
+            title: '網路生存問答遊戲',
+            btn: '我準備好啦！',
         },
         fr: {
-            btn: 'Réduction 60%',
+            title: 'Jeu de Survie sur le Web',
+            btn: 'En avant !',
         },
         es: {
-            btn: 'Ahorra 60%',
+            title: 'Test de Supervivencia Web',
+            btn: '¡Estoy listo!',
         },
     },
     text: '',
-    url: 'https://adguard-vpn.com/forward.html?action=easter2021&from=popup&app=vpn_extension',
-    from: '02 April 2021 00:01:00',
-    to: '07 April 2021 00:01:00',
+    url: 'https://adguard-vpn.com/forward.html?action=12birthday_game&from=popup&app=vpn_extension',
+    from: '01 June 2021 15:00:00',
+    to: '07 June 2021 15:00:00',
     type: 'animated',
     get icons() {
-        return lazyGet(easterNotification, 'icons', () => ({
+        return lazyGet(birthdayNotification, 'icons', () => ({
             ENABLED: {
-                19: getUrl('assets/images/icons/easter-enabled-19.png'),
-                38: getUrl('assets/images/icons/easter-enabled-38.png'),
+                19: getUrl('assets/images/icons/birthday-enabled-19.png'),
+                38: getUrl('assets/images/icons/birthday-enabled-38.png'),
             },
             DISABLED: {
-                19: getUrl('assets/images/icons/disabled-19.png'),
-                38: getUrl('assets/images/icons/disabled-38.png'),
+                19: getUrl('assets/images/icons/birthday-disabled-19.png'),
+                38: getUrl('assets/images/icons/birthday-disabled-38.png'),
             },
         }));
     },
@@ -75,7 +83,7 @@ const easterNotification = {
  * @property {string} type;
  */
 const notifications = {
-    easter2021: easterNotification,
+    birthday2021: birthdayNotification,
 };
 
 /**
