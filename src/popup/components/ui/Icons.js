@@ -115,18 +115,16 @@ const Icons = () => (
             </g>
         </symbol>
 
-        <symbol id="closed_eye" viewBox="0 -1 24 24">
-            <g fill="none" fillRule="evenodd" stroke="currentColor" strokeLinecap="round" transform="translate(6 9)">
-                <path d="M0,0 C2.16666667,2.66666667 4.33333333,4 6.5,4 C8.66666667,4 10.8333333,2.66666667 13,0" />
-            </g>
+        <symbol id="closed_eye" viewBox="0 0 24 24">
+            <path d="M4 10C4 10 8 14.772 12 14.772C16 14.772 20 10 20 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            <path d="M12 15V17" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            <path d="M18 13V15" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            <path d="M6 13V15" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
         </symbol>
 
         <symbol id="open_eye" viewBox="0 0 24 24">
-            <g fill="none" fillRule="evenodd" stroke="#4D4D4D" transform="translate(6 8)">
-                <path strokeLinecap="round" d="M0,4 C2.16666667,6.66666667 4.33333333,8 6.5,8 C8.66666667,8 10.8333333,6.66666667 13,4" />
-                <path strokeLinecap="round" d="M0,0 C2.16666667,2.66666667 4.33333333,4 6.5,4 C8.66666667,4 10.8333333,2.66666667 13,0" transform="matrix(1 0 0 -1 0 4)" />
-                <circle cx="6.5" cy="4" r="2" />
-            </g>
+            <path fillRule="evenodd" clipRule="evenodd" d="M4 11.772C6.66667 8.59065 9.33333 7 12 7C14.6667 7 17.3333 8.59065 20 11.772C20 11.772 16 16.772 12 16.772C8 16.772 4 11.772 4 11.772Z" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path fillRule="evenodd" clipRule="evenodd" d="M12 10C13.1046 10 14 10.8954 14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10Z" fill="none" stroke="currentColor" strokeWidth="1.5" />
         </symbol>
 
         <symbol id="cross" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
