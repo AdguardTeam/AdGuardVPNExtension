@@ -2,7 +2,7 @@ import qs from 'qs';
 import browser from 'webextension-polyfill';
 
 import Api from './Api';
-import { VPN_API_URL } from '../config';
+import { fallbackApi } from './fallbackApi';
 
 // projects/ADGUARD/repos/adguard-vpn-backend-service/browse
 class VpnApi extends Api {
@@ -68,8 +68,20 @@ class VpnApi extends Api {
 
         return this.makeRequest(path, method, config);
     }
+
+    SUPPORT_REQUEST = { path: 'v1/support', method: 'POST' };
+
+    requestSupport = (data) => {
+        const { path, method } = this.SUPPORT_REQUEST;
+
+        const config = {
+            data,
+        };
+
+        return this.makeRequest(path, method, config);
+    }
 }
 
-const vpnApi = new VpnApi(`${VPN_API_URL}/api`);
+const vpnApi = new VpnApi(() => `${fallbackApi.getVpnApiUrl()}/api`);
 
 export default vpnApi;

@@ -15,7 +15,7 @@
         "message": "유효하지 않은 값"
     },
     "registration_error_min_length": {
-        "message": "이 값은 너무 짧습니다. 8자 이상이어야 합니다."
+        "message": "비밀번호가 너무 짧습니다. 8자 이상이어야 합니다."
     },
     "registration_error_compromised_password": {
         "message": "입력한 비밀번호가 노출된 비밀번호 <a>공개 데이터베이스</a>에서 발견되었습니다. 다른 비밀번호를 시도해보세요."
@@ -48,10 +48,73 @@
         "message": "오류가 발생했습니다, 다시 시도해주세요"
     },
     "global_error_message": {
-        "message": "오류가 발생했습니다. <a>support@adguard-vpn.com</a>로 문의바랍니다."
+        "message": "오류가 발생했습니다. <a>support@adguard-vpn.com</a>으로 문의해 주십시오"
     },
     "about_title": {
         "message": "정보"
+    },
+    "options_support_title": {
+        "message": "고객 지원"
+    },
+    "options_support_faq_title": {
+        "message": "자주 묻는 질문"
+    },
+    "options_support_faq_description": {
+        "message": "질의 응답"
+    },
+    "options_support_report_title": {
+        "message": "버그 신고"
+    },
+    "options_support_report_description": {
+        "message": "프로그램이 제대로 작동하지 않는 경우 수행할 작업"
+    },
+    "options_support_feedback_title": {
+        "message": "피드백 남기기"
+    },
+    "options_support_feedback_description": {
+        "message": "기능 요청 또는 제안 제출"
+    },
+    "options_support_discuss_title": {
+        "message": "토론장"
+    },
+    "options_support_discuss_description": {
+        "message": "포럼, SNS 또는 GitHub에서 토론"
+    },
+    "options_report_bug_title": {
+        "message": "버그 신고"
+    },
+    "options_bug_report_email_label": {
+        "message": "이메일"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "메시지에 진단 보고서를 포함합니다"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "잘못된 이메일 주소"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "이 필드는 비워 둘 수 없습니다"
+    },
+    "options_bug_report_request_error": {
+        "message": "오류가 발생했습니다. 다시 시도해 주십시오."
+    },
+    "options_bug_report_send_button": {
+        "message": "제출"
+    },
+    "options_bug_report_sending_button": {
+        "message": "전송 중..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "문제를 설명해 주세요…"
+    },
+    "options_bug_report_page_success": {
+        "message": "감사합니다. 메시지가 전송되었습니다!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "새로운 보고서"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "메시지"
     },
     "account_title": {
         "message": "계정"
@@ -72,7 +135,7 @@
         "message": "완전히 무료로 시작해보세요!"
     },
     "auth_description": {
-        "message": "온라인 개인정보 보호에 대해서 타협하지 않습니다. 2천만명의 사람들이 이미 AdGuard를 사용하고 있습니다."
+        "message": "온라인 개인정보 보호에 대해서 타협하지 않습니다. 3천만명이 넘는 사람들이 이미 AdGuard를 사용하고 있습니다."
     },
     "auth_code": {
         "message": "인증 앱의 코드"
@@ -161,6 +224,12 @@
     "settings_context_menus_title": {
         "message": "브라우저 콘텍스트 메뉴에 AdGuard VPN 항목 추가"
     },
+    "settings_help_us_improve_title": {
+        "message": "개선할 수 있도록 도와주세요"
+    },
+    "settings_help_us_improve_description": {
+        "message": "AdGuard VPN이 충돌 보고서, 기술 및 상호작용 데이터를 수집할 수 있도록 허용해주세요. 익명으로 처리됩니다."
+    },
     "context_menu_selective_mode": {
         "message": "선별적 모드"
     },
@@ -224,6 +293,15 @@
     "settings_exclusion_add": {
         "message": "웹사이트 추가"
     },
+    "settings_exclusions_import_button": {
+        "message": "불러오기"
+    },
+    "settings_exclusions_export_button": {
+        "message": "내보내기"
+    },
+    "settings_exclusions_delete_button": {
+        "message": "모두 삭제"
+    },
     "settings_exclusion_title": {
         "message": "예외 목록"
     },
@@ -261,7 +339,7 @@
         "message": "다시 시도하기"
     },
     "authentication_successful_social": {
-        "message": "성공적으로 인증되었습니다! 이제 AdGuard VPN을 열어서 터널을 켤 수 있습니다."
+        "message": "성공적으로 인증되었습니다! 이제 AdGuard VPN을 사용할 수 있습니다."
     },
     "control_error_description": {
         "message": "Chrome 확장 프로그램이 연결을 제어하는 것으로 보입니다. 브라우저에서 다른 확장 프로그램을 비활성화해주세요."
@@ -295,9 +373,6 @@
     },
     "context_menu_disable_vpn": {
         "message": "이 웹 사이트에서 VPN 비활성화"
-    },
-    "suggest_feature": {
-        "message": "기능 제안"
     },
     "endpoints_countries": {
         "message": "위치"
@@ -341,11 +416,11 @@
     "popup_traffic_limit_exceeded_title": {
         "message": "연결 속도가 감소됩니다"
     },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "무료 데이터 제한에 도달했습니다. AdGuard VPN은 느리게 작동합니다."
+    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "속도 향상"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "얼리버드 가격!"
     },
     "popup_feedback_title": {
         "message": "여러분의 피드백을 기다리고 있습니다"
@@ -368,8 +443,8 @@
     "upgrade_features_all_locations": {
         "message": "모든 위치"
     },
-    "upgrade_features_no_log": {
-        "message": "로그 정책 없음"
+    "upgrade_features_devices": {
+        "message": "최대 5개 기기"
     },
     "continue_us_free_button": {
         "message": "무료로 계속하기"
@@ -386,12 +461,25 @@
     "popup_site_status_vpn_disabled": {
         "message": "이 웹사이트에서 VPN이 비활성화됨"
     },
+    "popup_auth_policy_agreement": {
+        "message": "<eula>최종 사용자 라이선스 계약(EULA)</eula> 및 <privacy>개인정보취급방침</privacy>에 동의합니다",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "AdGuard VPN을 개선할 수 있도록 <link> 익명 처리된 앱 사용량 데이터</link>를 수집하도록 허용해 주세요"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "계속하기"
+    },
+    "popup_marketing_consent_checkbox": {
+        "message": "AdGuard 소식이나 특별한 제안에 대한 이메일을 받겠습니다"
+    },
     "popup_auth_agreement_consent": {
-        "message": "AdGuard VPN을 계속 사용함으로써, 당사의 <eula>EULA</eula> 및 <privacy>개인정보처리방침</privacy>에 동의하게 됩니다.",
+        "message": "AdGuard VPN을 계속 사용함으로써, 당사의 <eula>EULA</eula> 및 <privacy>개인정보처리방침</privacy>에 동의하게 됩니다",
         "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_agreement_consent": {
-        "message": "계속하면 <privacy>이용 약관</privacy> 및 <eula>EULA</eula>에 동의하게 됩니다",
+        "message": "AdGuard VPN을 계속 사용함으로써, 당사의 <eula>EULA</eula> 및 <privacy>개인정보처리방침</privacy>에 동의하게 됩니다",
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {
@@ -409,5 +497,56 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "정말 변경 하시겠습니까?"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "예외 목록을 불러올 곳:"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "일반 목록"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "선별적 목록"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "취소"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "삭제"
+    },
+    "options_exclusions_delete_title": {
+        "message": "예외 제거"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "일반 모드로 적용한 모든 예외가 삭제됩니다."
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "선별 모드로 적용한 모든 예외가 삭제됩니다."
+    },
+    "options_exclusions_import_successful": {
+        "message": "예외 %count%개 불러옴"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "예외 파일에는 다음 확장자 중 하나가 있어야 합니다: %extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "Zip 아카이브: %filename%에는 다음 확장자를 가진 파일이 포함되지 않습니다:%extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "최대 연결 수(%maxDevicesAllowed%개)에 도달했습니다."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "기기를 더 연결하려면, 무제한 AdGuard VPN 사용권을 구독하세요."
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "기기를 더 연결하려면, 다른 기기에서 AdGuard VPN을 비활성화하십시오."
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "구독"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "더 알아보기"
+    },
+    "popup_connections_limit_title": {
+        "message": "연결 수 제한 도달"
     }
 }

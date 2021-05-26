@@ -135,6 +135,8 @@ const connectivityFSM = new Machine({
                 // this event can occur when user signs out,
                 // so we have to stop trying to connect to WS
                 [EVENT.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTED_IDLE,
+                // this event fires when user has too many devises connected
+                [EVENT.TOO_MANY_DEVICES_CONNECTED]: STATE.DISCONNECTED_IDLE,
             },
             after: {
                 RETRY_DELAY: STATE.CONNECTING_RETRYING,
@@ -152,6 +154,8 @@ const connectivityFSM = new Machine({
                 [EVENT.PROXY_CONNECTION_ERROR]: STATE.DISCONNECTED_IDLE,
                 // if user decided to connect to another location
                 [EVENT.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTED_IDLE,
+                // if user has too many devises connected
+                [EVENT.TOO_MANY_DEVICES_CONNECTED]: STATE.DISCONNECTED_IDLE,
             },
         },
         [STATE.CONNECTING_RETRYING]: {
@@ -164,6 +168,8 @@ const connectivityFSM = new Machine({
                 [EVENT.PROXY_CONNECTION_ERROR]: STATE.DISCONNECTED_IDLE,
                 // if user decided to connect to another location
                 [EVENT.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTED_IDLE,
+                // this event fires when user has too many devises connected
+                [EVENT.TOO_MANY_DEVICES_CONNECTED]: STATE.DISCONNECTED_IDLE,
             },
         },
         [STATE.CONNECTED]: {
@@ -171,6 +177,8 @@ const connectivityFSM = new Machine({
                 [EVENT.WS_ERROR]: STATE.DISCONNECTED_RETRYING,
                 [EVENT.WS_CLOSE]: STATE.DISCONNECTED_RETRYING,
                 [EVENT.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTED_IDLE,
+                // this event fires when user has too many devises connected
+                [EVENT.TOO_MANY_DEVICES_CONNECTED]: STATE.DISCONNECTED_IDLE,
             },
             entry: [resetOnSuccessfulConnection],
         },
@@ -189,4 +197,8 @@ connectivityService.start();
 
 export const isVPNConnected = () => {
     return connectivityService.state.matches(STATE.CONNECTED);
+};
+
+export const isVPNDisconnectedIdle = () => {
+    return connectivityService.state.matches(STATE.DISCONNECTED_IDLE);
 };

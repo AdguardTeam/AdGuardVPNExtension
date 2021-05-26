@@ -7,7 +7,7 @@ import actions from './actions';
 import credentials from './credentials';
 import authCache from './authentication/authCache';
 import appStatus from './appStatus';
-import settings from './settings/settings';
+import { settings } from './settings';
 import exclusions from './exclusions';
 import management from './management';
 import permissionsError from './permissionsChecker/permissionsError';
@@ -16,6 +16,9 @@ import { log } from '../lib/logger';
 import notifier from '../lib/notifier';
 import { locationsService } from './endpoints/locationsService';
 import { promoNotifications } from './promoNotifications';
+import tabs from './tabs';
+import vpnProvider from './providers/vpnProvider';
+import { logStorage } from '../lib/log-storage';
 
 const eventListeners = {};
 
@@ -63,7 +66,8 @@ const messageHandler = async (message, sender) => {
             return actions.openOptionsPage();
         }
         case MESSAGES_TYPES.SET_SELECTED_LOCATION: {
-            await locationsService.setSelectedLocation(data.location.id);
+            const { location, isSelectedByUser } = data;
+            await locationsService.setSelectedLocation(location.id, isSelectedByUser);
             break;
         }
         case MESSAGES_TYPES.DEAUTHENTICATE_USER: {
@@ -126,8 +130,8 @@ const messageHandler = async (message, sender) => {
             return auth.isAuthenticated();
         }
         case MESSAGES_TYPES.START_SOCIAL_AUTH: {
-            const { social } = data;
-            return auth.startSocialAuth(social);
+            const { social, marketingConsent } = data;
+            return auth.startSocialAuth(social, marketingConsent);
         }
         case MESSAGES_TYPES.CLEAR_PERMISSIONS_ERROR: {
             permissionsError.clearError();
@@ -159,6 +163,12 @@ const messageHandler = async (message, sender) => {
             await handler.removeFromExclusions(id);
             break;
         }
+        case MESSAGES_TYPES.REMOVE_EXCLUSIONS_BY_MODE: {
+            const { mode } = data;
+            const handler = exclusions.getHandler(mode);
+            await handler.removeExclusions();
+            break;
+        }
         case MESSAGES_TYPES.TOGGLE_EXCLUSION_BY_MODE: {
             const { mode, id } = data;
             const handler = exclusions.getHandler(mode);
@@ -174,8 +184,14 @@ const messageHandler = async (message, sender) => {
         case MESSAGES_TYPES.ADD_EXCLUSION_BY_MODE: {
             const { mode, url, enabled } = data;
             const handler = exclusions.getHandler(mode);
-            await handler.addToExclusions(url, enabled);
+            handler.addToExclusions(url, enabled);
             break;
+        }
+        case MESSAGES_TYPES.ADD_REGULAR_EXCLUSIONS: {
+            return exclusions.addRegularExclusions(data.exclusions);
+        }
+        case MESSAGES_TYPES.ADD_SELECTIVE_EXCLUSIONS: {
+            return exclusions.addSelectiveExclusions(data.exclusions);
         }
         case MESSAGES_TYPES.GET_SELECTED_LOCATION: {
             return endpoints.getSelectedLocation();
@@ -203,6 +219,36 @@ const messageHandler = async (message, sender) => {
         case MESSAGES_TYPES.SET_NOTIFICATION_VIEWED: {
             const { withDelay } = data;
             return promoNotifications.setNotificationViewed(withDelay);
+        }
+        case MESSAGES_TYPES.OPEN_TAB: {
+            const { url } = data;
+            return tabs.openTab(url);
+        }
+        case MESSAGES_TYPES.REPORT_BUG: {
+            const { email, message, includeLog } = data;
+            const appId = await credentials.getAppId();
+            let token;
+            try {
+                const vpnToken = await credentials.gainVpnToken();
+                token = vpnToken?.token;
+            } catch (e) {
+                log.error('Was unable to get token');
+            }
+            const { version } = appStatus;
+
+            const reportData = {
+                appId,
+                token,
+                email,
+                message,
+                version,
+            };
+
+            if (includeLog) {
+                reportData.appLogs = logStorage.toString();
+            }
+
+            return vpnProvider.requestSupport(reportData);
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

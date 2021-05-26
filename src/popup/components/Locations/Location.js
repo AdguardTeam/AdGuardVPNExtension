@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
-import { reactTranslator } from '../../../reactCommon/reactTranslator';
+import { reactTranslator } from '../../../common/reactTranslator';
 import Ping from '../Ping';
-import rootStore from '../../stores';
+import { rootStore } from '../../stores';
 
 const Location = observer(({ location, handleClick }) => {
     const { vpnStore, settingsStore } = useContext(rootStore);
@@ -42,7 +42,7 @@ const Location = observer(({ location, handleClick }) => {
 
         const flagClass = classnames(
             'flag flag--small',
-            { 'flag--active': selected }
+            { 'flag--active': selected },
         );
 
         const getFlagIconStyle = (countryCode) => {
@@ -63,14 +63,14 @@ const Location = observer(({ location, handleClick }) => {
     const locationClassName = classnames(
         'endpoints__item',
         { 'endpoints__item--selected': selected },
-        { 'endpoints__item--offline': !available }
+        { 'endpoints__item--offline': !available },
     );
 
     const renderPings = () => {
         if (!available) {
             return (
                 <div className="ping">
-                    <span>{reactTranslator.translate('offline_title')}</span>
+                    <span>{reactTranslator.getMessage('offline_title')}</span>
                 </div>
             );
         }

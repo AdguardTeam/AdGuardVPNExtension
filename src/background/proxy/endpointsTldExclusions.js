@@ -75,7 +75,7 @@ class EndpointsTldExclusions {
         // if lists have same values, do nothing
         if (_.isEqual(
             _.sortBy(this.endpointsTldExclusionsList),
-            _.sortBy(endpointsTldExclusions)
+            _.sortBy(endpointsTldExclusions),
         )) {
             return;
         }

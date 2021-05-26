@@ -9,10 +9,10 @@ import { REQUEST_STATUSES } from '../../stores/consts';
 import '../../styles/main.pcss';
 import './app.pcss';
 
-import rootStore from '../../stores';
-import Sidebar from '../Sidebar';
+import { rootStore } from '../../stores';
+import { Sidebar } from '../Sidebar';
 import Footer from '../Footer';
-import Settings from '../Settings';
+import { Settings } from '../Settings';
 import Account from '../Account';
 import About from '../About';
 import Auth from '../Auth';
@@ -21,6 +21,8 @@ import Preloader from '../Preloader';
 import Icons from '../ui/Icons';
 import messenger from '../../../lib/messenger';
 import notifier from '../../../lib/notifier';
+import { Support } from '../Support';
+import { Notifications } from '../ui/Notifications';
 
 Modal.setAppElement('#root');
 
@@ -36,6 +38,7 @@ const getContent = (authenticated, requestProcessState) => {
                             <Route path="/settings" component={Settings} />
                             <Route path="/account" component={Account} />
                             <Route path="/about" component={About} />
+                            <Route path="/support" component={Support} />
                             <Route component={Settings} />
                         </Switch>
                     </div>
@@ -85,6 +88,9 @@ const App = observer(() => {
                             break;
                         }
                         case notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE: {
+                            if (settingsStore.isAddingExclusions) {
+                                return;
+                            }
                             await settingsStore.getExclusions();
                             break;
                         }
@@ -93,7 +99,7 @@ const App = observer(() => {
                             break;
                         }
                     }
-                }
+                },
             );
         })();
 
@@ -112,6 +118,7 @@ const App = observer(() => {
     return (
         <HashRouter hashType="noslash">
             {getContent(authenticated, requestProcessState)}
+            <Notifications />
             <Icons />
             <Footer />
         </HashRouter>

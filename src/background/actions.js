@@ -16,10 +16,12 @@ const setIcon = async (details) => {
 };
 
 const BADGE_COLOR = '#74a352';
+
 const setBadge = async (details) => {
     try {
         await browser.browserAction.setBadgeText(details);
         const { tabId } = details;
+
         await browser.browserAction.setBadgeBackgroundColor({ tabId, color: BADGE_COLOR });
     } catch (e) {
         log.debug(e.message);
@@ -88,12 +90,6 @@ const setIconTrafficOff = async (tabId) => {
 const setBadgeText = async (tabId, text) => {
     const details = { text };
 
-    // if there is promo notification we hide text notification
-    const promoNotification = await promoNotifications.getCurrentNotification();
-    if (promoNotification) {
-        details.text = '';
-    }
-
     await setBadge(details);
     if (tabId) {
         details.tabId = tabId;
@@ -103,6 +99,7 @@ const setBadgeText = async (tabId, text) => {
 
 const clearBadgeText = async (tabId) => {
     const details = { text: '' };
+
     await setBadge(details);
     if (tabId) {
         details.tabId = tabId;

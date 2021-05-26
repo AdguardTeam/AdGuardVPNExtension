@@ -7,6 +7,10 @@ export const SETTINGS_IDS = {
     HANDLE_WEBRTC_ENABLED: 'webrtc.handle.enabled',
     SELECTED_DNS_SERVER: 'dns.handle.server',
     CONTEXT_MENU_ENABLED: 'context.menu.enabled',
+    SELECTED_LOCATION_KEY: 'endpoints.selected.location',
+    LOCATION_SELECTED_BY_USER_KEY: 'endpoints.location.selected.by.user',
+    POLICY_AGREEMENT: 'policy.agreement',
+    HELP_US_IMPROVE: 'help.us.improve',
 };
 
 export const MESSAGES_TYPES = {
@@ -42,9 +46,12 @@ export const MESSAGES_TYPES = {
     GET_EXCLUSIONS: 'get.exclusions',
     SET_EXCLUSIONS_MODE: 'set.exclusions.mode',
     REMOVE_EXCLUSION_BY_MODE: 'remove.exclusion.by.mode',
+    REMOVE_EXCLUSIONS_BY_MODE: 'remove.exclusions.by.mode',
     TOGGLE_EXCLUSION_BY_MODE: 'toggle.exclusion.by.mode',
     RENAME_EXCLUSION_BY_MODE: 'rename.exclusion.by.mode',
     ADD_EXCLUSION_BY_MODE: 'add.exclusion.by.mode',
+    ADD_SELECTIVE_EXCLUSIONS: 'add.exclusions.selective',
+    ADD_REGULAR_EXCLUSIONS: 'add.exclusions.regular',
     GET_SETTING_VALUE: 'get.setting.value',
     SET_SETTING_VALUE: 'set.setting.value',
     GET_APP_VERSION: 'get.app.version',
@@ -52,6 +59,8 @@ export const MESSAGES_TYPES = {
     GET_SELECTED_LOCATION: 'get.selected.location',
     CHECK_IS_PREMIUM_TOKEN: 'check.is.premium.token',
     SET_NOTIFICATION_VIEWED: 'set.notification.viewed',
+    OPEN_TAB: 'open.tab.action',
+    REPORT_BUG: 'post.report.bug',
 };
 
 export const ERROR_STATUSES = {
@@ -67,3 +76,5 @@ export const PROMO_SCREEN_STATES = {
 
 // Error text thrown when connection is canceled by user. See issue - AG-2291
 export const FORCE_CANCELLED = 'Connection was cancelled by user';
+
+export const UNINSTALL_URL = 'https://adguard-vpn.com/forward.html?action=adguard_uninstal_ext&from=background_page&app=vpn_extension';

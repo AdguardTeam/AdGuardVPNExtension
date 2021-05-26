@@ -107,9 +107,9 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async setCurrentLocation(location) {
+    async setCurrentLocation(location, isSelectedByUser) {
         const type = MESSAGES_TYPES.SET_SELECTED_LOCATION;
-        return this.sendMessage(type, { location });
+        return this.sendMessage(type, { location, isSelectedByUser });
     }
 
     async authenticateUser(credentials) {
@@ -187,9 +187,9 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async startSocialAuth(social) {
+    async startSocialAuth(social, marketingConsent) {
         const type = MESSAGES_TYPES.START_SOCIAL_AUTH;
-        return this.sendMessage(type, { social });
+        return this.sendMessage(type, { social, marketingConsent });
     }
 
     async clearPermissionsError() {
@@ -242,6 +242,11 @@ class Messenger {
         return this.sendMessage(type, { mode, id });
     }
 
+    async removeExclusionsByMode(mode) {
+        const type = MESSAGES_TYPES.REMOVE_EXCLUSIONS_BY_MODE;
+        return this.sendMessage(type, { mode });
+    }
+
     async toggleExclusionByMode(mode, id) {
         const type = MESSAGES_TYPES.TOGGLE_EXCLUSION_BY_MODE;
         return this.sendMessage(type, { mode, id });
@@ -270,6 +275,26 @@ class Messenger {
     async setNotificationViewed(withDelay) {
         const type = MESSAGES_TYPES.SET_NOTIFICATION_VIEWED;
         return this.sendMessage(type, { withDelay });
+    }
+
+    async openTab(url) {
+        const type = MESSAGES_TYPES.OPEN_TAB;
+        return this.sendMessage(type, { url });
+    }
+
+    async reportBug(email, message, includeLog) {
+        const type = MESSAGES_TYPES.REPORT_BUG;
+        return this.sendMessage(type, { email, message, includeLog });
+    }
+
+    async addRegularExclusions(exclusions) {
+        const type = MESSAGES_TYPES.ADD_REGULAR_EXCLUSIONS;
+        return this.sendMessage(type, { exclusions });
+    }
+
+    async addSelectiveExclusions(exclusions) {
+        const type = MESSAGES_TYPES.ADD_SELECTIVE_EXCLUSIONS;
+        return this.sendMessage(type, { exclusions });
     }
 }
 

@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 
-import popupActions from '../../actions/popupActions';
+import { popupActions } from '../../actions/popupActions';
 import messenger from '../../../lib/messenger';
-import rootStore from '../../stores';
+import { rootStore } from '../../stores';
 
 import './promo-notification-modal.pcss';
 
@@ -20,12 +20,14 @@ const PromoNotificationModal = observer(() => {
     const { promoNotification } = settingsStore;
 
     const btnClickHandler = async () => {
-        if (!promoNotification.url) {
+        const { url } = promoNotification;
+
+        if (!url) {
             return;
         }
 
         await messenger.setNotificationViewed(false);
-        await popupActions.openTab(promoNotification.url);
+        await popupActions.openTab(url);
     };
 
     const onCloseHandler = async () => {
@@ -36,6 +38,8 @@ const PromoNotificationModal = observer(() => {
     if (!promoNotification) {
         return null;
     }
+
+    const { btn, title } = promoNotification.text;
 
     return (
         <Modal
@@ -50,13 +54,20 @@ const PromoNotificationModal = observer(() => {
                 onClick={onCloseHandler}
             />
             <div className="holiday-notify__content">
-                {promoNotification.text.btn
+                <div className="holiday-notify__title">
+                    <div className="holiday-notify__title-in">
+                        {title}
+                    </div>
+                </div>
+                {btn
                 && (
-                    <div
-                        className="holiday-notify__btn"
-                        onClick={btnClickHandler}
-                    >
-                        {promoNotification.text.btn}
+                    <div className="holiday-notify__bottom">
+                        <div
+                            className="holiday-notify__btn"
+                            onClick={btnClickHandler}
+                        >
+                            {btn}
+                        </div>
                     </div>
                 )}
             </div>

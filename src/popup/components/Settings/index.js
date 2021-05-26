@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
-import rootStore from '../../stores';
+import { rootStore } from '../../stores';
 
 import GlobalControl from './GlobalControl';
 import Status from './Status';
@@ -29,7 +29,7 @@ const Settings = observer(() => {
         { 'settings--active': isConnected },
         { 'settings--premium-promo': premiumPromoEnabled },
         { 'settings--trial': !isPremiumToken },
-        { 'settings--feedback': !premiumPromoEnabled }
+        { 'settings--feedback': !premiumPromoEnabled },
     );
 
     if (hasLimitExceededError) {

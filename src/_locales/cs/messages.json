@@ -15,7 +15,7 @@
         "message": "Tato hodnota je neplatná"
     },
     "registration_error_min_length": {
-        "message": "Tato hodnota je příliš krátká. Měla by mít 8 nebo více znaků."
+        "message": "Heslo je příliš krátké. Musí obsahovat alespoň 8 znaků."
     },
     "registration_error_compromised_password": {
         "message": "Zadané heslo bylo nalezeno ve <a>veřejné databázi</a> ohrožených hesel. Prosím, zkuste jiné heslo."
@@ -24,7 +24,7 @@
         "message": "Tato hodnota je již použita"
     },
     "registration_error_front_unique_validation": {
-        "message": "Heslo a potvrzovací heslo se neshodují"
+        "message": "Hesla se neshodují"
     },
     "registration_error_default": {
         "message": "Došlo k chybě, zkuste to znovu později"
@@ -42,7 +42,7 @@
         "message": "Účet je uzamčen na dobu 15 minut"
     },
     "authentication_error_wrong_credentials": {
-        "message": "Litujeme, nesprávné heslo"
+        "message": "Nesprávné heslo"
     },
     "authentication_error_default": {
         "message": "Došlo k chybě, zkuste to znovu později"
@@ -52,6 +52,69 @@
     },
     "about_title": {
         "message": "O aplikaci"
+    },
+    "options_support_title": {
+        "message": "Podpora"
+    },
+    "options_support_faq_title": {
+        "message": "FAQ"
+    },
+    "options_support_faq_description": {
+        "message": "Otázky a odpovědi"
+    },
+    "options_support_report_title": {
+        "message": "Nahlásit chybu"
+    },
+    "options_support_report_description": {
+        "message": "Pokud v programu něco nefunguje správně"
+    },
+    "options_support_feedback_title": {
+        "message": "Zanechat zpětnou vazbu"
+    },
+    "options_support_feedback_description": {
+        "message": "Odešlete požadavky a návrhy funkcí"
+    },
+    "options_support_discuss_title": {
+        "message": "Diskuze"
+    },
+    "options_support_discuss_description": {
+        "message": "Diskutujte na našem fóru, sociálních sítích nebo na GitHubu"
+    },
+    "options_report_bug_title": {
+        "message": "Nahlásit chybu"
+    },
+    "options_bug_report_email_label": {
+        "message": "E-mail"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Připojit diagnostický záznam k této zprávě"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "Nesprávná e-mailová adresa"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "Toto pole je povinné"
+    },
+    "options_bug_report_request_error": {
+        "message": "Došlo k chybě. Prosím, zkuste to znovu později."
+    },
+    "options_bug_report_send_button": {
+        "message": "Odeslat"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Odesílání..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Zde popište nalezenou chybu..."
+    },
+    "options_bug_report_page_success": {
+        "message": "Děkujeme, Vaše zpráva byla úspěšně odeslána!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "Nové hlášení"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Zpráva"
     },
     "account_title": {
         "message": "Účet"
@@ -72,7 +135,7 @@
         "message": "Začněte zcela zdarma!"
     },
     "auth_description": {
-        "message": "Nekompromisní ochrana soukromí online. AdGuard si již zvolilo více než 20 milionů lidí."
+        "message": "Nekompromisní ochrana soukromí online. AdGuard si již zvolilo více než 30 milionů lidí."
     },
     "auth_code": {
         "message": "Kód z ověřovací aplikace"
@@ -161,6 +224,12 @@
     "settings_context_menus_title": {
         "message": "Přidat AdGuard VPN do kontextového menu prohlížeče"
     },
+    "settings_help_us_improve_title": {
+        "message": "Pomozte nám vylepšit"
+    },
+    "settings_help_us_improve_description": {
+        "message": "Umožněte službě AdGuard VPN shromažďovat zprávy o selhání, technické a interakční údaje. Je to anonymní."
+    },
     "context_menu_selective_mode": {
         "message": "Selektivní režim"
     },
@@ -224,6 +293,15 @@
     "settings_exclusion_add": {
         "message": "Přidat stránku"
     },
+    "settings_exclusions_import_button": {
+        "message": "Importovat"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Exportovat"
+    },
+    "settings_exclusions_delete_button": {
+        "message": "Vymazat vše"
+    },
     "settings_exclusion_title": {
         "message": "Výjimky"
     },
@@ -261,7 +339,7 @@
         "message": "Zkusit znovu"
     },
     "authentication_successful_social": {
-        "message": "Úspěšně ověřeno! Můžete otevřít AdGuard VPN a zapnout tunel."
+        "message": "Úspěšně ověřeno! Můžete otevřít AdGuard VPN a začít ji používat."
     },
     "control_error_description": {
         "message": "Vypadá to, že jiné rozšíření Chrome se pokouší ovládat vaše připojení. Vypněte prosím ostatní rozšíření v prohlížeči."
@@ -295,9 +373,6 @@
     },
     "context_menu_disable_vpn": {
         "message": "Vypnout VPN na této stránce"
-    },
-    "suggest_feature": {
-        "message": "Navrhnout funkci"
     },
     "endpoints_countries": {
         "message": "Umístění"
@@ -339,19 +414,13 @@
         "message": "Odpojeno"
     },
     "popup_traffic_limit_exceeded_title": {
-        "message": "Rychlost připojení je snížena"
+        "message": "Rychlost je snížena"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "Došli vám rychlé gigabajty :( <br/> Zbývají jen pomalé"
+        "message": "Dosáhli jste volného datového limitu a AdGuard VPN pracuje pomalu."
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Zvýšit rychlost"
-    },
-    "popup_traffic_limit_exceeded_cta": {
-        "message": "Upgradujte nyní pro neomezený objem dat, umístění a rychlost!"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "Ceny pro nejrychlejší!"
     },
     "popup_feedback_title": {
         "message": "Rádi bychom znali Vaši zpětnou vazbu"
@@ -374,8 +443,8 @@
     "upgrade_features_all_locations": {
         "message": "Všechna umístění"
     },
-    "upgrade_features_no_log": {
-        "message": "Žádné zásady protokolování"
+    "upgrade_features_devices": {
+        "message": "Až pro 5 zařízení"
     },
     "continue_us_free_button": {
         "message": "Pokračovat bezplatně"
@@ -392,12 +461,25 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN je vypnuta na této stránce"
     },
+    "popup_auth_policy_agreement": {
+        "message": "Souhlasím s <eula>EULA</eula> a <privacy>Zásadami ochrany osobních údajů</privacy>",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "Pro vylepšení Adguard VPN dovolte AdGuardu shromažďovat<link>anonymní data</link> o používání aplikace"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Pokračovat"
+    },
+    "popup_marketing_consent_checkbox": {
+        "message": "Posílejte mi e-maily se speciálními nabídkami a novinkami AdGuard"
+    },
     "popup_auth_agreement_consent": {
         "message": "Používáním AdGuard VPN souhlasíte s <eula>EULA</eula> a <privacy>Zásadami ochrany osobních údajů</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_agreement_consent": {
-        "message": "Pokračováním přijímáte <privacy>Pravidla a podmínky</privacy> a <eula>EULA</eula>",
+        "message": "Používáním AdGuard VPN souhlasíte s <eula>EULA</eula> a <privacy>Zásadami ochrany osobních údajů</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {
@@ -415,5 +497,56 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "Opravdu chcete přepnout?"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "Importovat výjimky do:"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "Obvyklý seznam"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "Selektivní seznam"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "Zrušit"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Vymazat"
+    },
+    "options_exclusions_delete_title": {
+        "message": "Odstranit výjimky"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "Z Obvyklého režimu budou vymazány všechny výjimky."
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "Ze Selektivního režimu budou vymazány všechny výjimky."
+    },
+    "options_exclusions_import_successful": {
+        "message": "Importované výjimky: %count%"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "Soubor Výjimky by měl mít jednu z následujících přípon: %extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "ZIP archiv: \"%filename%\" neobsahuje soubory s příponami: %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "Dosáhli jste maximálního počtu připojení: %maxDevicesAllowed%."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "Chcete-li přidat další zařízení, zvažte předplatné k neomezené AdGuard VPN."
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "Chcete-li přidat další zařízení, vypněte AdGuard VPN na libovolném ze svých zařízení."
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Předplatit"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Zjistit více"
+    },
+    "popup_connections_limit_title": {
+        "message": "Bylo dosaženo limitu připojení"
     }
 }

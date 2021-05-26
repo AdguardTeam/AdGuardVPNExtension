@@ -50,6 +50,14 @@ You can use GitHub to report a bug or to submit a feature request. To do so, go 
 * `yarn install`
 * Rename `.env.example` to `.env` and fill it with required config data
 * `yarn dev` / `yarn beta` / `yarn release`
+* Also, you can provide environment variables through command line like this:
+```
+STAGE_ENV=test \
+VPN_API_URL="vpn_api_url" \
+AUTH_API_URL="auth_api_url" \
+WEBSITE_DOMAIN="website_domain" \
+yarn dev
+```
 
 Builds will be located in the `build` directory
 

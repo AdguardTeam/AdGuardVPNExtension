@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
 
-import rootStore from '../../../stores';
+import { rootStore } from '../../../stores';
 
 import './endpoint.pcss';
 import { PROMO_SCREEN_STATES } from '../../../../lib/constants';

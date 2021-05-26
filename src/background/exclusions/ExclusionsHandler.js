@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid';
+
 import { getHostname } from '../../lib/helpers';
 import { areHostnamesEqual, shExpMatch } from '../../lib/string-utils';
 import { log } from '../../lib/logger';
@@ -23,25 +24,37 @@ export default class ExclusionsHandler {
     };
 
     /**
-     * Adds url to exclusions
+     * Normalizes exclusions url
+     * 1. trims it
+     * 2. converts to lowercase
      * @param {string} url
+     * @return {string | undefined}
+     */
+    prepareUrl = (url) => {
+        return url?.trim()?.toLowerCase();
+    }
+
+    /**
+     * Adds url to exclusions
+     * @param {string} dirtyUrl
      * @param {boolean} [enabled] - sets state of exclusion
      * @param {object} [options]
      * @param {boolean} [options.considerWildcard] - used to add new exclusions without affecting
      *      exclusions with wildcard patterns
      * @param {boolean} [options.forceEnable] - urls added by non routable sites handler should not
      *      enable exclusions disabled by user
-     * @returns {Promise<void>}
+     * @returns {boolean}
      */
-    addToExclusions = async (
-        url,
+    addToExclusions = (
+        dirtyUrl,
         enabled = true,
-        options = {}
+        options = {},
     ) => {
+        const url = this.prepareUrl(dirtyUrl);
         const hostname = getHostname(url);
 
         if (!hostname) {
-            return;
+            return false;
         }
 
         const {
@@ -72,28 +85,37 @@ export default class ExclusionsHandler {
         }
 
         if (shouldUpdate) {
-            await this.handleExclusionsUpdate(exclusion);
+            this.handleExclusionsUpdate(exclusion);
+            return true;
         }
+
+        return false;
     };
 
-    removeFromExclusions = async (id) => {
+    removeFromExclusions = (id) => {
         const exclusion = this._exclusions[id];
         if (!exclusion) {
             return;
         }
         delete this._exclusions[id];
 
-        await this.handleExclusionsUpdate(exclusion);
+        this.handleExclusionsUpdate(exclusion);
     };
 
-    disableExclusionByUrl = async (hostname) => {
+    removeExclusions = () => {
+        this._exclusions = {};
+
+        this.handleExclusionsUpdate();
+    };
+
+    disableExclusionByUrl = (hostname) => {
         const exclusions = this.getExclusionsByUrl(hostname);
 
         exclusions.forEach((exclusion) => {
             this._exclusions[exclusion.id] = { ...exclusion, enabled: false };
         });
 
-        await this.handleExclusionsUpdate(exclusions);
+        this.handleExclusionsUpdate(exclusions);
     };
 
     /**
@@ -121,7 +143,7 @@ export default class ExclusionsHandler {
         return exclusions.some((exclusion) => exclusion.enabled);
     };
 
-    toggleExclusion = async (id) => {
+    toggleExclusion = (id) => {
         let exclusion = this._exclusions[id];
         if (!exclusion) {
             return;
@@ -129,10 +151,10 @@ export default class ExclusionsHandler {
 
         exclusion = { ...exclusion, enabled: !exclusion.enabled };
         this._exclusions[id] = exclusion;
-        await this.handleExclusionsUpdate(exclusion);
+        this.handleExclusionsUpdate(exclusion);
     };
 
-    renameExclusion = async (id, newUrl) => {
+    renameExclusion = (id, newUrl) => {
         const hostname = getHostname(newUrl);
         if (!hostname) {
             return;
@@ -142,12 +164,12 @@ export default class ExclusionsHandler {
             return;
         }
         this._exclusions[id] = { ...exclusion, hostname };
-        await this.handleExclusionsUpdate();
+        this.handleExclusionsUpdate();
     };
 
-    clearExclusions = async () => {
+    clearExclusions = () => {
         this._exclusions = {};
-        await this.handleExclusionsUpdate();
+        this.handleExclusionsUpdate();
     };
 
     get exclusions() {

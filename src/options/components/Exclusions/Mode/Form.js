@@ -3,17 +3,19 @@ import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
 import useOutsideClick from '../../helpers/useOutsideClick';
-import rootStore from '../../../stores';
+import { rootStore } from '../../../stores';
 import SubdomainsHelp from './SubdomainsHelp';
-import { reactTranslator } from '../../../../reactCommon/reactTranslator';
+import { reactTranslator } from '../../../../common/reactTranslator';
+import { Actions } from '../Actions';
 
-const Form = observer(({ exclusionsType, enabled }) => {
-    const ref = useRef();
+const Form = observer(() => {
+    const ref = useRef(null);
     const { settingsStore } = useContext(rootStore);
     const {
         areFormsVisible,
         exclusionsInputs,
         exclusionsCheckboxes,
+        exclusionsCurrentMode,
         addToExclusions,
         onExclusionsInputChange,
         onExclusionsCheckboxChange,
@@ -21,46 +23,61 @@ const Form = observer(({ exclusionsType, enabled }) => {
         closeExclusionsForm,
     } = settingsStore;
 
-    const isFormVisible = areFormsVisible[exclusionsType];
-    const exclusionInput = exclusionsInputs[exclusionsType];
-    const exclusionCheckbox = exclusionsCheckboxes[exclusionsType];
+    const isFormVisible = areFormsVisible[exclusionsCurrentMode];
+    const exclusionInput = exclusionsInputs[exclusionsCurrentMode];
+    const exclusionCheckbox = exclusionsCheckboxes[exclusionsCurrentMode];
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        await addToExclusions(exclusionsType);
+        await addToExclusions(exclusionsCurrentMode);
     };
 
     const inputChangeHandler = (e) => {
         const { target: { value } } = e;
-        onExclusionsInputChange(exclusionsType, value);
+        onExclusionsInputChange(exclusionsCurrentMode, value);
+    };
+
+    const inputBlurHandler = async () => {
+        await addToExclusions(exclusionsCurrentMode);
     };
 
     const checkboxChangeHandler = () => {
-        onExclusionsCheckboxChange(exclusionsType, !exclusionCheckbox);
+        onExclusionsCheckboxChange(exclusionsCurrentMode, !exclusionCheckbox);
     };
 
     const openForm = () => {
-        openExclusionsForm(exclusionsType);
+        openExclusionsForm(exclusionsCurrentMode);
     };
 
     useOutsideClick(ref, () => {
-        closeExclusionsForm(exclusionsType);
+        closeExclusionsForm(exclusionsCurrentMode);
     });
 
-    const formClassName = classnames('settings__form', { 'settings__form--hidden': !enabled });
+    const iconClass = classnames('icon icon--button', {
+        'icon--checked': exclusionCheckbox,
+        'icon--unchecked': !exclusionCheckbox,
+    });
+
+    const iconXlink = classnames({
+        '#checked': exclusionCheckbox,
+        '#unchecked': !exclusionCheckbox,
+    });
 
     return (
-        <div className={formClassName} ref={ref}>
-            <button
-                type="button"
-                className="button button--icon button--medium settings__add"
-                onClick={openForm}
-            >
-                <svg className="icon icon--button icon--checked settings__add-icon">
-                    <use xlinkHref="#plus" />
-                </svg>
-                {reactTranslator.translate('settings_exclusion_add')}
-            </button>
+        <div className="settings__form" ref={ref}>
+            <div className="settings__controls settings__controls--import-export">
+                <button
+                    type="button"
+                    className="button button--icon button--medium settings__add"
+                    onClick={openForm}
+                >
+                    <svg className="icon icon--button icon--checked settings__add-icon">
+                        <use xlinkHref="#plus" />
+                    </svg>
+                    {reactTranslator.getMessage('settings_exclusion_add')}
+                </button>
+                <Actions />
+            </div>
 
             {isFormVisible && (
                 <div className="settings__list-item settings__list-item--active">
@@ -77,20 +94,15 @@ const Form = observer(({ exclusionsType, enabled }) => {
                                 checked={exclusionCheckbox}
                             />
                             <label htmlFor="newHostname" className="checkbox__label">
-                                {exclusionCheckbox ? (
-                                    <svg className="icon icon--button icon--checked">
-                                        <use xlinkHref="#checked" />
-                                    </svg>
-                                ) : (
-                                    <svg className="icon icon--button icon--unchecked">
-                                        <use xlinkHref="#unchecked" />
-                                    </svg>
-                                )}
+                                <svg className={iconClass}>
+                                    <use xlinkHref={iconXlink} />
+                                </svg>
                             </label>
                             <input
                                 type="text"
                                 className="form__input form__input--transparent"
                                 onChange={inputChangeHandler}
+                                onBlur={inputBlurHandler}
                                 value={exclusionInput}
                                 // eslint-disable-next-line jsx-a11y/no-autofocus
                                 autoFocus
@@ -109,7 +121,7 @@ const Form = observer(({ exclusionsType, enabled }) => {
                                 <button
                                     type="button"
                                     className="button button--icon checkbox__button"
-                                    onClick={() => closeExclusionsForm(exclusionsType)}
+                                    onClick={() => closeExclusionsForm(exclusionsCurrentMode)}
                                 >
                                     <svg className="icon icon--button icon--cross">
                                         <use xlinkHref="#cross" />

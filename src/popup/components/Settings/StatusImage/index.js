@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 import './status-image.pcss';
 import { observer } from 'mobx-react';
-import rootStore from '../../../stores';
+import { rootStore } from '../../../stores';
 import EnabledStatusAnimation from '../../Animations/EnabledStatusAnimation';
 
 const StatusImage = observer(() => {
@@ -23,7 +23,7 @@ const StatusImage = observer(() => {
         { 'status-image--enabled': isConnected },
         { 'status-image--connecting': isConnectingIdle || isDisconnectedRetrying },
         { 'status-image--exclusions-disable': displayExclusionScreen && canBeExcluded },
-        { 'status-image--server-error': isDisconnectedRetrying || isConnectingRetrying }
+        { 'status-image--server-error': isDisconnectedRetrying || isConnectingRetrying },
     );
 
     if (isConnected && !(displayExclusionScreen && canBeExcluded)) {

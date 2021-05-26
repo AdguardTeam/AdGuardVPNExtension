@@ -12,51 +12,56 @@ import notifier from '../lib/notifier';
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const halloweenNotification = {
-    id: 'halloween2020',
+const birthdayNotification = {
+    id: 'birthday2021',
     locales: {
         en: {
-            btn: 'Get a treat',
-        },
-        de: {
-            btn: 'Angebot holen',
-        },
-        ko: {
-            btn: '더 읽기',
+            title: 'Web Survival Test',
+            btn: 'I\'m ready!',
         },
         ru: {
-            btn: 'Кое-что для вас',
+            title: 'Игра на выживание',
+            btn: 'Пройти',
         },
         ja: {
-            btn: '秘密の◯◯はこちら',
+            title: 'ウェブサバイバルテスト',
+            btn: '受けてみる',
+        },
+        ko: {
+            title: '웹 서바이벌 게임을 해 볼까요?',
+            btn: '게임 시작',
         },
         zh_cn: {
-            btn: '万圣节的魔法',
+            title: '网络生存问答竞赛',
+            btn: '我准备好啦！',
         },
         zh_tw: {
-            btn: '萬聖節的魔法',
+            title: '網路生存問答遊戲',
+            btn: '我準備好啦！',
         },
         fr: {
-            btn: 'Prix promo',
+            title: 'Jeu de Survie sur le Web',
+            btn: 'En avant !',
         },
-        it: {
-            btn: 'Offerta speciale',
+        es: {
+            title: 'Test de Supervivencia Web',
+            btn: '¡Estoy listo!',
         },
     },
     text: '',
-    url: 'https://adguard-vpn.com/forward.html?action=halloween2020_notify&from=popup&app=vpn_extension',
-    from: '30 October 2020 00:00:01',
-    to: '3 November 2020 23:59:00',
+    url: 'https://adguard-vpn.com/forward.html?action=12birthday_game&from=popup&app=vpn_extension',
+    from: '01 June 2021 15:00:00',
+    to: '07 June 2021 15:00:00',
     type: 'animated',
     get icons() {
-        return lazyGet(halloweenNotification, 'icons', () => ({
+        return lazyGet(birthdayNotification, 'icons', () => ({
             ENABLED: {
-                19: getUrl('assets/images/icons/enabled-19-halloween.png'),
-                38: getUrl('assets/images/icons/enabled-38-halloween.png'),
+                19: getUrl('assets/images/icons/birthday-enabled-19.png'),
+                38: getUrl('assets/images/icons/birthday-enabled-38.png'),
             },
             DISABLED: {
-                19: getUrl('assets/images/icons/disabled-19-halloween.png'),
-                38: getUrl('assets/images/icons/disabled-38-halloween.png'),
+                19: getUrl('assets/images/icons/birthday-disabled-19.png'),
+                38: getUrl('assets/images/icons/birthday-disabled-38.png'),
             },
         }));
     },
@@ -78,7 +83,7 @@ const halloweenNotification = {
  * @property {string} type;
  */
 const notifications = {
-    halloween2020: halloweenNotification,
+    birthday2021: birthdayNotification,
 };
 
 /**

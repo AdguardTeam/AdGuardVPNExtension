@@ -13,6 +13,10 @@ class BrowserActionIcon {
         if (id && url && isHttp(url)) {
             return exclusions.isVpnEnabledByUrl(url);
         }
+        if (!isHttp(url)) {
+            // disable icon in tabs with no url only for selective mode
+            return !exclusions.isInverted();
+        }
 
         return true;
     };
@@ -68,15 +72,15 @@ class BrowserActionIcon {
         notifier.addSpecifiedListener(notifier.types.TAB_UPDATED, throttledUpdateIcon);
         notifier.addSpecifiedListener(
             notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE,
-            throttledUpdateIcon
+            throttledUpdateIcon,
         );
         notifier.addSpecifiedListener(
             notifier.types.UPDATE_BROWSER_ACTION_ICON,
-            throttledUpdateIcon
+            throttledUpdateIcon,
         );
         notifier.addSpecifiedListener(
             notifier.types.CONNECTIVITY_STATE_CHANGED,
-            () => throttledUpdateIcon()
+            () => throttledUpdateIcon(),
         );
 
         // Run after init in order to update browser action icon state

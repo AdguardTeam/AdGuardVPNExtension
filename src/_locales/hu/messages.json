@@ -3,7 +3,7 @@
         "message": "AdGuard VPN - Adatvédelem & Biztonság"
     },
     "description": {
-        "message": "Megnyitja Ön előtt az internet lehetőségeit, miközben védi adatait. A legjobb VPN a híres hirdetésblokkolók alkotóitól."
+        "message": "Megnyitja Ön előtt az internet lehetőségeit, miközben védi adatait. A legjobb VPN a híres hirdetésblokkoló alkotóitól."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -15,7 +15,7 @@
         "message": "Érvénytelen érték"
     },
     "registration_error_min_length": {
-        "message": "A megadott érték túl rövid. Legalább 8 karakter kell, hogy legyen."
+        "message": "A jelszó túl rövid. Legalább 8 karaktert kell tartalmaznia."
     },
     "registration_error_compromised_password": {
         "message": "A megadott jelszó szerepel a nem biztonságos jelszavak <a>nyilvános adatbázisában</a>. Kérjük, válasszon másik jelszót."
@@ -42,7 +42,7 @@
         "message": "A fiók zárolva van 15 percre"
     },
     "authentication_error_wrong_credentials": {
-        "message": "Sajnáljuk, hibás jelszó"
+        "message": "Hibás jelszó"
     },
     "authentication_error_default": {
         "message": "Valamilyen hiba történt, próbálja újból később"
@@ -52,6 +52,69 @@
     },
     "about_title": {
         "message": "Névjegy"
+    },
+    "options_support_title": {
+        "message": "Támogatás"
+    },
+    "options_support_faq_title": {
+        "message": "GYIK"
+    },
+    "options_support_faq_description": {
+        "message": "Kérdések és válaszok"
+    },
+    "options_support_report_title": {
+        "message": "Hiba jelentése"
+    },
+    "options_support_report_description": {
+        "message": "Ha valami nem működik megfelelően a programban"
+    },
+    "options_support_feedback_title": {
+        "message": "Visszajelzés küldése"
+    },
+    "options_support_feedback_description": {
+        "message": "Funkció kérése vagy javaslat küldése"
+    },
+    "options_support_discuss_title": {
+        "message": "Beszélgetés"
+    },
+    "options_support_discuss_description": {
+        "message": "Beszélgessen a fórumunkon, a közösségi hálóinkon vagy a GitHub-on"
+    },
+    "options_report_bug_title": {
+        "message": "Hiba jelentése"
+    },
+    "options_bug_report_email_label": {
+        "message": "Email"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Diagnosztikai jelentés mellékelése az üzenethez"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "Helytelen e-mail cím"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "A mező nem lehet üres"
+    },
+    "options_bug_report_request_error": {
+        "message": "Valamilyen hiba történt, próbálja újból később."
+    },
+    "options_bug_report_send_button": {
+        "message": "Küldés"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Küldés..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Írja le itt a problémát..."
+    },
+    "options_bug_report_page_success": {
+        "message": "Köszönjük, az üzenetét sikeresen elküldtük!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "Új jelentés"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Üzenet"
     },
     "account_title": {
         "message": "Fiók"
@@ -63,7 +126,7 @@
         "message": "Kijelentkezés"
     },
     "rate_description": {
-        "message": "Üdvözöljük! Az AdGuard csapatának fontos, hogy megismerje az termékkel kapcsolatos véleményét. Kérjük, szánjon rá néhány percet, és értékelje."
+        "message": "Üdvözöljük! Az AdGuard csapatának fontos, hogy megismerje a termékkel kapcsolatos véleményét. Kérjük, szánjon rá néhány percet, és értékelje."
     },
     "rate_hide": {
         "message": "Elrejtés"
@@ -161,6 +224,12 @@
     "settings_context_menus_title": {
         "message": "Adja hozzá az AdGuard VPN elemet a böngésző helyi menüjéhez"
     },
+    "settings_help_us_improve_title": {
+        "message": "Segítsen nekünk a fejlesztésben"
+    },
+    "settings_help_us_improve_description": {
+        "message": "Engedélyezés az AdGuard VPN számára, hogy hibahelentéseket, műszaki adatokat és használati statisztikákat küldjön. Ez névtelenül történik."
+    },
     "context_menu_selective_mode": {
         "message": "Szelektív mód"
     },
@@ -224,6 +293,15 @@
     "settings_exclusion_add": {
         "message": "Webhely hozzáadása"
     },
+    "settings_exclusions_import_button": {
+        "message": "Importálás"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Exportálás"
+    },
+    "settings_exclusions_delete_button": {
+        "message": "Összes törlése"
+    },
     "settings_exclusion_title": {
         "message": "Kivételek"
     },
@@ -261,7 +339,7 @@
         "message": "Próbálja újra"
     },
     "authentication_successful_social": {
-        "message": "Sikeres hitelesítés! Megnyithatja az AdGuard VPN-t és válthat a csatornák között."
+        "message": "Sikeres hitelesítés! Megnyithatja az AdGuard VPN-t és elkezdheti használni."
     },
     "control_error_description": {
         "message": "Úgy tűnik, hogy egy másik Chrome-bővítmény megpróbálja irányítani a kapcsolatot. Kérjük, tiltsa le a másik bővítményt a böngészőjében."
@@ -295,9 +373,6 @@
     },
     "context_menu_disable_vpn": {
         "message": "VPN letiltása ezen a webhelyen"
-    },
-    "suggest_feature": {
-        "message": "Javasoljon új funkciókat"
     },
     "endpoints_countries": {
         "message": "Helyszínek"
@@ -338,6 +413,15 @@
     "settings_vpn_disabled": {
         "message": "Szétkapcsolva"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Csökkentett sebesség"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Elhasználta az ingyenes adatkeretet, az AdGuard VPN lassan működik."
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Sebesség növelése"
+    },
     "popup_feedback_title": {
         "message": "Örülnénk az Ön visszajelzésének"
     },
@@ -359,8 +443,8 @@
     "upgrade_features_all_locations": {
         "message": "Minden végpont"
     },
-    "upgrade_features_no_log": {
-        "message": "Nem naplózunk"
+    "upgrade_features_devices": {
+        "message": "5 eszközig"
     },
     "continue_us_free_button": {
         "message": "Folytatás ingyen"
@@ -377,12 +461,25 @@
     "popup_site_status_vpn_disabled": {
         "message": "A VPN le van tiltva ezen a webhelyen"
     },
+    "popup_auth_policy_agreement": {
+        "message": "Elfogadom az <eula>Végfelhasználói licencszerződést</eula> és az <privacy>Adatvédelmi irányelveket</privacy>",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "Engedélyezem az AdGuard számára, hogy <link>névtelen adatokat</link> küldjön az alkalmazás használatával kapcsolatban, segítve ezzel az AdGuar VPN jobbá tételében"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Folytatás"
+    },
+    "popup_marketing_consent_checkbox": {
+        "message": "E-mailek fogadása a különleges ajánlatokról és az AdGuard híreiről"
+    },
     "popup_auth_agreement_consent": {
-        "message": "Az AdGuard VPN használatával ön elfogadja <eula>Végfelhasználói licenszszerződést</eula> és az <privacy>Adatvédelmi irányelveket</privacy>",
+        "message": "Az AdGuard VPN használatával elfogadja a <eula>Végfelhasználói licencszerződést</eula> és az <privacy>Adatvédelmi irányelveket</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_agreement_consent": {
-        "message": "A folytatással Ön elfogadja <privacy>Felhasználási feltételeket</privacy> és a <eula>Végfelhasználói licenszszerződést</eula>",
+        "message": "Az AdGuard VPN használatának folytatásával elfogadja a <privacy>Felhasználási feltételeket</privacy> és a <eula>Végfelhasználói licencszerződést</eula>",
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {
@@ -400,5 +497,56 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "Biztos váltani szeretne?"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "Kizárások importálása ide:"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "Hagyományos lista"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "Szelektív lista"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "Mégsem"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Törlés"
+    },
+    "options_exclusions_delete_title": {
+        "message": "Kivételek eltávolítása"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "A Szokásos mód összes kivétele törlődni fog."
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "A Szelektív mód összes kivétele törlődni fog."
+    },
+    "options_exclusions_import_successful": {
+        "message": "Importált kizárások: %count%"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "A kizárásokat tartalmazó fájlnak a következő kiterjesztések egyikével kell rendelkeznie: %extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "Zip archívum: a(z) \"%filename%\" nem tartalmaz fájlokat ezekkel a kiterjesztésekkel: %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "Elérte a kapcsolatok maximális számát: %maxDevicesAllowed%."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "További eszközök hozzáadásához fontolja meg, hogy előfizessen a korlátlan AdGuard VPN-re."
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "Újabb eszköz hozzáadásához le kell választani a jelenlegi eszközei egyikét."
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Előfizetés"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Tudjon meg többet"
+    },
+    "popup_connections_limit_title": {
+        "message": "Kapcsolódási korlát elérve"
     }
 }

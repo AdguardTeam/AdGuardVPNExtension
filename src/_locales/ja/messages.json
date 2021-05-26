@@ -3,7 +3,7 @@
         "message": "AdGuard VPN - プライバシー&セキュリティ"
     },
     "description": {
-        "message": "インターネットを無制限に、個人情報を安全に。有名なAdGuard広告ブロッカー開発者からのトップクラスVPN。"
+        "message": "インターネットを無制限に、個人情報は安全に。有名な広告ブロッカー『AdGuard』の作成者が開発したトップクラスVPN。"
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -15,7 +15,7 @@
         "message": "この値は無効です"
     },
     "registration_error_min_length": {
-        "message": "値が短すぎます。8文字以上をご入力ください。"
+        "message": "パスワードが短すぎます。8文字以上にしてください。"
     },
     "registration_error_compromised_password": {
         "message": "ご入力のパスワードは、<a>流出パスワードの公開データベース</a>で見つかりました。別のパスワードをお試しください。"
@@ -48,10 +48,73 @@
         "message": "エラーが発生してしまいました。後ほどもう一度お試しください。"
     },
     "global_error_message": {
-        "message": "エラーが発生しました。お手数ですが、<a>support@adguard-vpn.com</a>へお問い合わせください。"
+        "message": "エラーが発生しました。お手数ですが、<a>support@adguard-vpn.com</a>(日本語対応)へお問い合わせください。"
     },
     "about_title": {
         "message": "AdGuard VPNについて"
+    },
+    "options_support_title": {
+        "message": "お客様サポート"
+    },
+    "options_support_faq_title": {
+        "message": "よくあるご質問（FAQ）"
+    },
+    "options_support_faq_description": {
+        "message": "よくある問題や質問への回答を集めました。"
+    },
+    "options_support_report_title": {
+        "message": "バグ・不具合を報告する"
+    },
+    "options_support_report_description": {
+        "message": "拡張機能が正常に作動しない場合など"
+    },
+    "options_support_feedback_title": {
+        "message": "フィードバックを送信する"
+    },
+    "options_support_feedback_description": {
+        "message": "ぜひ新機能や改善のご提案等をお送りください。"
+    },
+    "options_support_discuss_title": {
+        "message": "AdGuard VPNについて議論する"
+    },
+    "options_support_discuss_description": {
+        "message": "AdGuardのフォーラム、SNS、GitHub"
+    },
+    "options_report_bug_title": {
+        "message": "バグ・不具合を報告する"
+    },
+    "options_bug_report_email_label": {
+        "message": "メールアドレス"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "メッセージに診断レポートを含める"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "メールアドレスが間違っています"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "この欄のご記入は必須です"
+    },
+    "options_bug_report_request_error": {
+        "message": "エラーが発生しました。後ほどもう一度お試しください。"
+    },
+    "options_bug_report_send_button": {
+        "message": "送信する"
+    },
+    "options_bug_report_sending_button": {
+        "message": "送信中…"
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "こちらに問題の概要をご記入ください…"
+    },
+    "options_bug_report_page_success": {
+        "message": "送信完了！ありがとうございます。"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "新しい報告"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "メッセージ・問題概要等"
     },
     "account_title": {
         "message": "アカウント"
@@ -72,7 +135,7 @@
         "message": "完全無料で　　　スタート！"
     },
     "auth_description": {
-        "message": "オンラインプライバシーを徹底保護。すでに2000万人以上のユーザー様にAdGuardをご愛用いただいております。"
+        "message": "オンラインプライバシーを徹底保護。すでに3000万人以上のユーザー様にAdGuardをご愛用いただいております。"
     },
     "auth_code": {
         "message": "認証アプリからのコード"
@@ -161,6 +224,12 @@
     "settings_context_menus_title": {
         "message": "ブラウザの右クリックメニューにAdGuard VPNを追加する"
     },
+    "settings_help_us_improve_title": {
+        "message": "AdGuard VPNの改善に協力する"
+    },
+    "settings_help_us_improve_description": {
+        "message": "AdGuard VPNによる、クラッシュレポート、技術データ、およびインタラクションデータの収集を許可します。※この情報は完全に匿名です。"
+    },
     "context_menu_selective_mode": {
         "message": "指定モード"
     },
@@ -224,8 +293,17 @@
     "settings_exclusion_add": {
         "message": "ウェブサイトを追加する"
     },
+    "settings_exclusions_import_button": {
+        "message": "インポートする"
+    },
+    "settings_exclusions_export_button": {
+        "message": "エクスポートする"
+    },
+    "settings_exclusions_delete_button": {
+        "message": "すべてを削除する"
+    },
     "settings_exclusion_title": {
-        "message": "除外"
+        "message": "VPN対象からの除外"
     },
     "settings_connection_mode_title": {
         "message": "動作モード"
@@ -261,7 +339,7 @@
         "message": "もう一度試す"
     },
     "authentication_successful_social": {
-        "message": "認証成功！AdGuard VPNを開き、トンネルをオンにすることができます。"
+        "message": "認証完了！AdGuard VPNを開き、利用を開始することができます。"
     },
     "control_error_description": {
         "message": "別のChrome拡張機能があなたの接続を制御しようとしているようです。その拡張機能を無効にしてください。"
@@ -295,9 +373,6 @@
     },
     "context_menu_disable_vpn": {
         "message": "このサイトでVPNを無効にする"
-    },
-    "suggest_feature": {
-        "message": "機能を提案する"
     },
     "endpoints_countries": {
         "message": "ロケーション"
@@ -339,19 +414,13 @@
         "message": "切断されています。"
     },
     "popup_traffic_limit_exceeded_title": {
-        "message": "接続が低速化されています。"
+        "message": "低速化されています。"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "速いデータは逃げちゃいました :( <br/> 残りは亀のように遅いデータだけです。"
+        "message": "無料データ上限に達したため、AdGuard VPNは低速化しています。"
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "今すぐ速度を上げる"
-    },
-    "popup_traffic_limit_exceeded_cta": {
-        "message": "データ量、ロケーション、速度を今すぐ無制限版にアップグレード"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "早期割引価格!"
     },
     "popup_feedback_title": {
         "message": "ユーザ様の声をお聞かせください。"
@@ -374,8 +443,8 @@
     "upgrade_features_all_locations": {
         "message": "全ロケーション利用可能"
     },
-    "upgrade_features_no_log": {
-        "message": "ログ一切なしポリシー"
+    "upgrade_features_devices": {
+        "message": "同時にデバイス5台まで使用可能"
     },
     "continue_us_free_button": {
         "message": "無料版で続ける"
@@ -392,12 +461,25 @@
     "popup_site_status_vpn_disabled": {
         "message": "このサイトに対してVPNは無効になっています。"
     },
+    "popup_auth_policy_agreement": {
+        "message": "<eula>EULA</eula> と <privacy>プライバシーポリシー</privacy> に同意する",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "AdGuard VPNの改善のために、アプリ使用状況に関する<link>完全に匿名なデータ</link>の収集をAdGuardに許可する"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "続ける"
+    },
+    "popup_marketing_consent_checkbox": {
+        "message": "AdGuardに関するニュース・最新情報やお得情報メールを受け取る"
+    },
     "popup_auth_agreement_consent": {
-        "message": "AdGuard VPNを使用すると、<eula>利用許諾契約(EULA)</eula>および<privacy>プライバシーポリシー</privacy>に同意したことになります。",
+        "message": "AdGuard VPNを使用し続けますと、<eula>利用許諾契約(EULA)</eula>および<privacy>プライバシーポリシー</privacy>に同意したことになります。",
         "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_agreement_consent": {
-        "message": "続行することで<privacy>規約と条件</privacy>および<eula>利用許諾契約(EULA)</eula>に同意したことになります。",
+        "message": "AdGuard VPNを使用し続けますと、<eula>利用許諾契約(EULA)</eula>および<privacy>プライバシーポリシー</privacy>に同意したことになります。",
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {
@@ -415,5 +497,56 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "切り替えてもよろしいですか？"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "除外のインポート先:"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "レギュラーリスト"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "指定リスト"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "キャンセル"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "削除する"
+    },
+    "options_exclusions_delete_title": {
+        "message": "除外リストを削除"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "レギュラーモードの除外項目がすべて削除されます"
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "指定モードの除外項目がすべて削除されます"
+    },
+    "options_exclusions_import_successful": {
+        "message": "インポート完了した除外項目数: %count%"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "除外項目を含むファイルは次の拡張子のいずれでないとインポートできません: %extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "【zipアーカイブ】「%filename%」には %extensions% という拡張子のファイルがないためインポートできません"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "同時接続可能端末数の上限（%maxDevicesAllowed%台）に達しています"
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "もっと多くの端末を同時接続するには、ぜひAdGuard VPN無制限版のご利用をご検討ください。"
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "もう1台の端末を接続するには、既に接続している端末のいずれでAdGuard VPNをオフにしてください。"
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "利用開始する"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "詳しくはこちら"
+    },
+    "popup_connections_limit_title": {
+        "message": "同時接続可能端末数の上限に達成"
     }
 }

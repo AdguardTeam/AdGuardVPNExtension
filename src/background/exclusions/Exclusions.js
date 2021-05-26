@@ -23,13 +23,13 @@ class Exclusions {
         this.selectiveModeHandler = new ExclusionsHandler(
             this.handleExclusionsUpdate,
             selective,
-            this.MODES.SELECTIVE
+            this.MODES.SELECTIVE,
         );
 
         this.regularModeHandler = new ExclusionsHandler(
             this.handleExclusionsUpdate,
             regular,
-            this.MODES.REGULAR
+            this.MODES.REGULAR,
         );
 
         this.currentHandler = this.inverted ? this.selectiveModeHandler : this.regularModeHandler;
@@ -92,6 +92,28 @@ class Exclusions {
             default:
                 throw Error(`Wrong mode requested: ${mode}`);
         }
+    }
+
+    addRegularExclusions(exclusions) {
+        let addedExclusions = 0;
+        exclusions.forEach((exclusion) => {
+            const result = this.regular.addToExclusions(exclusion);
+            if (result) {
+                addedExclusions += 1;
+            }
+        });
+        return addedExclusions;
+    }
+
+    addSelectiveExclusions(exclusions) {
+        let addedExclusions = 0;
+        exclusions.forEach((exclusion) => {
+            const result = this.selective.addToExclusions(exclusion);
+            if (result) {
+                addedExclusions += 1;
+            }
+        });
+        return addedExclusions;
     }
 
     get selective() {

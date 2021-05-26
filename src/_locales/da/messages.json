@@ -1,9 +1,9 @@
 {
     "name": {
-        "message": "AdGuard VPN — Privatliv og Sikkerhed"
+        "message": "AdGuard VPN — Fortrolighed og Sikkerhed"
     },
     "description": {
-        "message": "Gør Internettet åbent og dine data sikre. Topklasse VPN fra skaberne af den berømte adblocker."
+        "message": "Gør Internet åbent og dine data sikre. Topklasse VPN fra skaberne af den berømte adblocker."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -12,19 +12,19 @@
         "message": "Må ikke være tom"
     },
     "registration_error_not_valid": {
-        "message": "Denne værdi er ikke gyldig"
+        "message": "Denne værdi er ugyldig"
     },
     "registration_error_min_length": {
-        "message": "Denne værdi er for kort. Den skal have 8 tegn eller mere."
+        "message": "Denne værdi er for kort. Den skal indeholde minimum 8 tegn."
     },
     "registration_error_compromised_password": {
-        "message": "Adgangskoden du indtastede blev fundet i en <a>offentlig database</a> med kompromitterede adgangskoder. Prøv en anden."
+        "message": "Den angivne adgangskode blev fundet i en <a>offentlig database</a> over kompromitterede adgangskoder. Prøv med en anden."
     },
     "registration_error_unique_constraint": {
         "message": "Denne værdi benyttes allerede"
     },
     "registration_error_front_unique_validation": {
-        "message": "Adgangskode og bekræftelse af adgangskode stemmer ikke overens"
+        "message": "Adgangskoder matcher ikke"
     },
     "registration_error_default": {
         "message": "Der opstod en fejl, prøv igen senere"
@@ -33,7 +33,7 @@
         "message": "2FA kræves"
     },
     "authentication_error_2fa_invalid": {
-        "message": "Ugyldig token"
+        "message": "Ugyldigt token"
     },
     "authentication_error_account_disabled": {
         "message": "Kontoen er deaktiveret"
@@ -42,28 +42,91 @@
         "message": "Kontoen er låst i 15 minutter"
     },
     "authentication_error_wrong_credentials": {
-        "message": "Beklager, forkert adgangskode"
+        "message": "Forkert adgangskode"
     },
     "authentication_error_default": {
-        "message": "Der opstod en fejl, prøv igen senere"
+        "message": "En fejl opstod, forsøg igen senere"
     },
     "global_error_message": {
-        "message": "Der opstod en fejl. Kontakt os via <a>support@adguard-vpn.com</a>"
+        "message": "En fejl opstod, kontakt supporten via <a>support@adguard-vpn.com</a>"
     },
     "about_title": {
         "message": "Om"
+    },
+    "options_support_title": {
+        "message": "Support"
+    },
+    "options_support_faq_title": {
+        "message": "FAQ"
+    },
+    "options_support_faq_description": {
+        "message": "Spørgsmål og svar"
+    },
+    "options_support_report_title": {
+        "message": "Anmeld en fejl"
+    },
+    "options_support_report_description": {
+        "message": "Hvis noget ikke fungerer korrekt i programmet"
+    },
+    "options_support_feedback_title": {
+        "message": "Giv feedback"
+    },
+    "options_support_feedback_description": {
+        "message": "Indsend funktionsanmodninger og forslag"
+    },
+    "options_support_discuss_title": {
+        "message": "Debattér"
+    },
+    "options_support_discuss_description": {
+        "message": "Debattér på vores forum, sociale netværk eller Github"
+    },
+    "options_report_bug_title": {
+        "message": "Anmeld en fejl"
+    },
+    "options_bug_report_email_label": {
+        "message": "E-mail"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Inkludér diagnoserapporten i beskeden"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "Forkert e-mailadresse"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "Dette felt er obligatorisk"
+    },
+    "options_bug_report_request_error": {
+        "message": "En fejl opstod. Prøv igen senere."
+    },
+    "options_bug_report_send_button": {
+        "message": "Indsend"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Indsender..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Beskriv problemet hér..."
+    },
+    "options_bug_report_page_success": {
+        "message": "Tak, din besked er indsendt!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "Ny rapport"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Besked"
     },
     "account_title": {
         "message": "Konto"
     },
     "account_edit": {
-        "message": "Administrer"
+        "message": "Håndtere"
     },
     "account_sign_out": {
         "message": "Log ud"
     },
     "rate_description": {
-        "message": "Hej, vi er et team fra AdGuard, og det er meget vigtigt for os at vide din mening om vores produkt. Bedøm det venligst."
+        "message": "Hej, vi er et team fra AdGuard, og det er meget vigtigt for os at kende din mening om vores produkt. Bedøm det derfor venligst."
     },
     "rate_hide": {
         "message": "Skjul"
@@ -72,10 +135,10 @@
         "message": "Start helt gratis!"
     },
     "auth_description": {
-        "message": "Kompromisløs online beskyttelse af personlige oplysninger. Over 20 millioner mennesker har allerede valgt AdGuard."
+        "message": "Kompromisløs online beskyttelse af personlige oplysninger. Flere end 30 millioner personer har allerede valgt AdGuard."
     },
     "auth_code": {
-        "message": "Kode fra autentificerings-app"
+        "message": "Kode fra godkendelses-app"
     },
     "auth_confirm": {
         "message": "Bekræft"
@@ -87,7 +150,7 @@
         "message": "Adgangskode"
     },
     "auth_password_repeat": {
-        "message": "Bekræftelse af adgangskode"
+        "message": "Adgangskodebekræftelse"
     },
     "auth_recover": {
         "message": "Glemt adgangskode?"
@@ -111,10 +174,10 @@
         "message": "Log ind med AdGuard-konto"
     },
     "auth_account": {
-        "message": "Har du ikke en konto?"
+        "message": "Har ingen konto?"
     },
     "auth_register": {
-        "message": "Registrer"
+        "message": "Registrér"
     },
     "auth_header_sign_in_account": {
         "message": "Du logger ind med AdGuard-konto"
@@ -135,16 +198,16 @@
         "message": "Tofaktorgodkendelse"
     },
     "auth_header_2fa": {
-        "message": "Indtast bekræftelseskoden"
+        "message": "Angiv godkendelseskoden"
     },
     "auth_placeholder_2fa": {
-        "message": "Bekræftelseskode"
+        "message": "Godkendelseskode"
     },
     "eula": {
         "message": "EULA"
     },
     "privacy_policy": {
-        "message": "Privatlivspolitik"
+        "message": "Fortrolighedspolitik"
     },
     "settings_title": {
         "message": "Indstillinger"
@@ -156,10 +219,16 @@
         "message": "Bloker WebRTC"
     },
     "settings_webrtc_desc": {
-        "message": "WebRTC er et specielt program i de fleste internetbrowsere, der kan give et tredjepartswebsted mulighed for at registrere din rigtige IP-adresse og bruge den til at identificere dig"
+        "message": "WebRTC er et specialprogram i de fleste Internetbrowsere, der kan tillade et tredjepartswebsted at registrere din rigtige IP-adresse og bruge den til at identificere dig"
     },
     "settings_context_menus_title": {
         "message": "Føj AdGuard VPN-element til browserens kontekstmenu"
+    },
+    "settings_help_us_improve_title": {
+        "message": "Hjælp os med at blive bedre"
+    },
+    "settings_help_us_improve_description": {
+        "message": "Tillad AdGuard VPN anonymiseret indsamling af nedbrudsrapporter, tekniske data og interaktionsdata."
     },
     "context_menu_selective_mode": {
         "message": "Selektiv tilstand"
@@ -177,7 +246,7 @@
         "message": "Standard"
     },
     "settings_dns_selector_default_desc": {
-        "message": "Brug automatisk standard DNS-servere, når du er tilsluttet VPN"
+        "message": "Brug automatisk standard DNS-servere, når tilsluttet VPN'et"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -201,31 +270,40 @@
         "message": "Google DNS"
     },
     "settings_dns_selector_google_desc": {
-        "message": "Gratis alternativ DNS-tjeneste af Google"
+        "message": "Gratis alternativ DNS-tjeneste fra Google"
     },
     "settings_dns_selector_cloudflare_title": {
         "message": "Cloudflare DNS"
     },
     "settings_dns_selector_cloudflare_desc": {
-        "message": "Gratis DNS-tjeneste af Cloudflare"
+        "message": "Gratis DNS-tjeneste fra Cloudflare"
     },
     "settings_dns_selector_cisco_title": {
         "message": "Cisco OpenDNS"
     },
     "settings_dns_selector_cisco_desc": {
-        "message": "DNS-server der beskytter din enhed mod malware"
+        "message": "DNS-server, der beskytter din enhed mod malware"
     },
     "settings_dns_selector_quad9_title": {
         "message": "Quad9"
     },
     "settings_dns_selector_quad9_desc": {
-        "message": "Gratis alternativ DNS-tjeneste med beskyttelse mod phishing og spyware"
+        "message": "Gratis alternativ DNS-tjeneste med phishing- og spyware-beskyttelse"
     },
     "settings_exclusion_add": {
         "message": "Tilføj et websted"
     },
+    "settings_exclusions_import_button": {
+        "message": "Importér"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Eksportér"
+    },
+    "settings_exclusions_delete_button": {
+        "message": "Vælg alle"
+    },
     "settings_exclusion_title": {
-        "message": "Udelukkelser"
+        "message": "Undtagelser"
     },
     "settings_connection_mode_title": {
         "message": "Driftstilstand"
@@ -243,31 +321,31 @@
         "message": "AdGuard VPN fungerer kun på webstederne fra nedenstående liste"
     },
     "settings_exclusion_subdomains_title": {
-        "message": "Subdomæner"
+        "message": "Underdomæner"
     },
     "settings_exclusion_subdomains_text": {
-        "message": "Du kan tilføje domæner (f.eks. google.com) eller alle subdomæner (f.eks. *.google.com)"
+        "message": "Du kan tilføje domæner (f.eks. google.com) eller alle underdomæner (f.eks. *.google.com)"
     },
     "global_error_title": {
-        "message": "Der opstod en fejl"
+        "message": "Fejl opstået"
     },
     "global_error_description": {
         "message": "Kontakt os, hvis du fortsat ser denne meddelelse"
     },
     "global_error_learn_more": {
-        "message": "Lær mere"
+        "message": "Læs mere"
     },
     "global_error_try_again": {
-        "message": "Prøv igen"
+        "message": "Forsøg igen"
     },
     "authentication_successful_social": {
-        "message": "Godkendt! Du kan åbne AdGuard VPN og aktivere tunnelen."
+        "message": "Godkendt! Du kan åbne AdGuard VPN og begynde at bruge den."
     },
     "control_error_description": {
-        "message": "Det ser ud til, at en anden Chrome-udvidelse forsøger at kontrollere din forbindelse. Deaktiver den anden udvidelse i din browser."
+        "message": "Det ser ud til, at en anden Chrome-udvidelse forsøger at kontrollere din forbindelse. Deaktivér den anden udvidelse i din browser."
     },
     "control_error_disable": {
-        "message": "Deaktiver den"
+        "message": "Deaktivér den"
     },
     "popup_settings_enable_vpn": {
         "message": "Aktivér VPN på dette websted"
@@ -276,7 +354,7 @@
         "message": "Aktivér"
     },
     "popup_settings_disable_vpn": {
-        "message": "Deaktiver VPN på dette websted"
+        "message": "Deaktivér VPN på dette websted"
     },
     "popup_settings_other_products": {
         "message": "Andre produkter"
@@ -291,13 +369,10 @@
         "message": "Log ud"
     },
     "context_menu_enable_vpn": {
-        "message": "Aktivér VPN på dette websted"
+        "message": "Aktivere VPN på dette websted"
     },
     "context_menu_disable_vpn": {
-        "message": "Deaktiver VPN på dette websted"
-    },
-    "suggest_feature": {
-        "message": "Foreslå en funktion"
+        "message": "Deaktivere VPN på dette websted"
     },
     "endpoints_countries": {
         "message": "Placeringer"
@@ -315,13 +390,13 @@
         "message": "Søg placering"
     },
     "endpoints_not_found": {
-        "message": "Placering blev ikke fundet"
+        "message": "Placering ikke fundet"
     },
     "popup_traffic_limit_reached": {
-        "message": "Den månedlige datagrænse er nået. Har du brug for mere?"
+        "message": "Månedlig datakvote opbrugt. Behov for mere?"
     },
     "premium_upgrade": {
-        "message": "Opgrader"
+        "message": "Opgradere"
     },
     "settings_disconnect": {
         "message": "Afbryd"
@@ -339,19 +414,13 @@
         "message": "Afbrudt"
     },
     "popup_traffic_limit_exceeded_title": {
-        "message": "Forbindelseshastigheden er reduceret"
+        "message": "Hastigheden er reduceret"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "Du er løbet tør for hurtige gigabyte :( <br/> Der er kun langsomme tilbage"
+        "message": "Du har nået den gratis datakvote, og AdGuard VPN fungerer langsomt."
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Boost hastighed"
-    },
-    "popup_traffic_limit_exceeded_cta": {
-        "message": "Opgrader nu for ubegrænset data, placeringer og hastighed!"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "Early-bird priser!"
     },
     "popup_feedback_title": {
         "message": "Vi vil meget gerne høre din feedback"
@@ -374,8 +443,8 @@
     "upgrade_features_all_locations": {
         "message": "Alle placeringer"
     },
-    "upgrade_features_no_log": {
-        "message": "Politik om ingen logning"
+    "upgrade_features_devices": {
+        "message": "Op til 5 enheder"
     },
     "continue_us_free_button": {
         "message": "Fortsæt med at bruge gratis"
@@ -392,12 +461,25 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN er deaktiveret på dette websted"
     },
+    "popup_auth_policy_agreement": {
+        "message": "Acceptér <eula>EULA</eula> og <privacy>Fortrolighedspolitik</privacy>",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "Tillad AdGuard at indsamle <link>anonymiserede data</link> om brugen af appen for at gøre AdGuard VPN bedre"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Fortsæt"
+    },
+    "popup_marketing_consent_checkbox": {
+        "message": "Send mig e-mails med specialtilbud og AdGuard-nyheder"
+    },
     "popup_auth_agreement_consent": {
-        "message": "Ved at bruge AdGuard VPN, accepterer du vores <eula>EULA</eula> og <privacy>Privatlivspolitik</privacy>",
+        "message": "Ved at bruge AdGuard VPN, accepterer du vores <eula>EULA</eula> og <privacy>Fortrolighedspolitik</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_agreement_consent": {
-        "message": "Ved at fortsætte accepterer du <privacy>Vilkår og Betingelser</privacy> og <eula>EULA</eula>",
+        "message": "Ved at bruge AdGuard VPN, accepterer du vores <eula>EULA</eula> og <privacy>Fortrolighedspolitik</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {
@@ -414,6 +496,57 @@
         "message": "Skift nu"
     },
     "options_selective_mode_popup_attention": {
-        "message": "Er du sikker på, at du vil skifte?"
+        "message": "Sikker på, at du vil skifte?"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "Importere undtagelser til:"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "Almindelig liste"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "Selektiv liste"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "Afbryd"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Slet"
+    },
+    "options_exclusions_delete_title": {
+        "message": "Fjern udtagelser"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "Alle undtagelser i tilstanden Almindelig slettes."
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "Alle undtagelser i tilstanden Selektiv slettes."
+    },
+    "options_exclusions_import_successful": {
+        "message": "Importerede undtagelser: %count%"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "Filtypen for Undtagelser skal være én af flg.:%extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "Zip-arkivet: \"%filename%\" indeholder ikke filer med udvidelserne: %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "Du har nået det maksimale antal forbindelser: %maxDevicesAllowed%."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "For at tilføje flere enheder, overvej at abonnere på Ubegrænset AdGuard VPN."
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "For at tilføje en anden enhed, deaktivé AdGuard VPN på en af dine gadgets."
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Abonnér"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Få mere at vide"
+    },
+    "popup_connections_limit_title": {
+        "message": "Maks. antal forbindelser nået"
     }
 }

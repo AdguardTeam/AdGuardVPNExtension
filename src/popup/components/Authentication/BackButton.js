@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 
-import rootStore from '../../stores';
+import { rootStore } from '../../stores';
 
-function BackButton() {
+export const BackButton = () => {
     const { authStore } = useContext(rootStore);
 
     const handleBackClick = async () => {
+        await authStore.resetPasswords();
         await authStore.showCheckEmail();
     };
 
@@ -20,6 +21,4 @@ function BackButton() {
             </svg>
         </button>
     );
-}
-
-export default BackButton;
+};

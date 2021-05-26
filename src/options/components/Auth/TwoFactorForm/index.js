@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import rootStore from '../../../stores';
-import { reactTranslator } from '../../../../reactCommon/reactTranslator';
+import { rootStore } from '../../../stores';
+import { reactTranslator } from '../../../../common/reactTranslator';
 
 const TwoFactorForm = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -24,7 +24,7 @@ const TwoFactorForm = observer(() => {
             <div className="form__inputs">
                 <div className="form__item">
                     <label className="form__label" htmlFor="twoFactor">
-                        {reactTranslator.translate('auth_code')}
+                        {reactTranslator.getMessage('auth_code')}
                     </label>
                     <input
                         id="twoFactor"
@@ -48,7 +48,7 @@ const TwoFactorForm = observer(() => {
                     className="button button--primary button--block button--medium"
                     type="submit"
                 >
-                    {reactTranslator.translate('auth_confirm')}
+                    {reactTranslator.getMessage('auth_confirm')}
                 </button>
             </div>
         </form>

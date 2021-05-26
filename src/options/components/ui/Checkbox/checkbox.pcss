@@ -1,0 +1,36 @@
+.checkbox {
+    cursor: pointer;
+    color: var(--gray-base);
+    display: flex;
+    align-items: center;
+
+    & .checkbox__in {
+        display: none;
+
+        &:checked + .checkbox__custom {
+            background-color: var(--brand-primary);
+            border-color: var(--brand-primary);
+
+            & .checkbox__icon {
+                display: block;
+            }
+        }
+    }
+
+    &__custom {
+        width: 24px;
+        height: 24px;
+        background-color: transparent;
+        border: 2px solid var(--border-color);
+        border-radius: 2px;
+        margin-right: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__icon {
+        display: none;
+        color: var(--white);
+    }
+}

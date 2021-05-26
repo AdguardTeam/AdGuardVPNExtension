@@ -5,8 +5,9 @@ import notifier from '../../lib/notifier';
 import { LocationWithPing } from './LocationWithPing';
 import vpnProvider from '../providers/vpnProvider';
 import { Location } from './Location';
-import browserApi from '../browserApi';
-import proxy from '../proxy';
+import { SETTINGS_IDS } from '../../lib/constants';
+// eslint-disable-next-line import/no-cycle
+import { settings } from '../settings';
 
 const PING_TTL_MS = 1000 * 60 * 10; // 10 minutes
 
@@ -196,12 +197,12 @@ const measurePing = async (location) => {
             endpoint,
             isMeasuring: false,
             lastMeasurementTime: Date.now(),
-        }
+        },
     );
 
     notifier.notifyListeners(
         notifier.types.LOCATION_STATE_UPDATED,
-        getPingFromCache(location.id)
+        getPingFromCache(location.id),
     );
 };
 
@@ -264,7 +265,7 @@ const setLocations = (newLocations) => {
 
     notifier.notifyListeners(
         notifier.types.LOCATIONS_UPDATED,
-        getLocationsWithPing()
+        getLocationsWithPing(),
     );
 };
 
@@ -316,12 +317,12 @@ const getEndpoint = async (location, forcePrevEndpoint) => {
             ping,
             endpoint,
             lastMeasurementTime: Date.now(),
-        }
+        },
     );
 
     notifier.notifyListeners(
         notifier.types.LOCATION_STATE_UPDATED,
-        getPingFromCache(location.id)
+        getPingFromCache(location.id),
     );
 
     if (!available) {
@@ -366,37 +367,56 @@ const getLocationByEndpoint = (endpointId) => {
     return location;
 };
 
-const SELECTED_LOCATION_KEY = 'endpoints.selected.location';
-
-const setSelectedLocation = async (id) => {
+/**
+ * Persists selected location in the memory and storage
+ * @param {string} id - Location id
+ * @param {boolean} isLocationSelectedByUser - Flag indicating that location was selected by user
+ * @returns {Promise<void>}
+ */
+const setSelectedLocation = async (id, isLocationSelectedByUser = false) => {
     selectedLocation = locations.find((location) => location.id === id);
-    await browserApi.storage.set(SELECTED_LOCATION_KEY, selectedLocation);
+    await settings.setSetting(SETTINGS_IDS.SELECTED_LOCATION_KEY, selectedLocation);
+    if (isLocationSelectedByUser) {
+        await settings.setSetting(
+            SETTINGS_IDS.LOCATION_SELECTED_BY_USER_KEY,
+            isLocationSelectedByUser,
+        );
+    }
 };
 
+const getIsLocationSelectedByUser = async () => {
+    const isLocationSelectedByUser = await settings.getSetting(
+        SETTINGS_IDS.LOCATION_SELECTED_BY_USER_KEY,
+        selectedLocation,
+    );
+    return isLocationSelectedByUser;
+};
+
+/**
+ * Returns selected location
+ *  when we connect to the location there is no time to find better location
+ * @returns {Promise<null|object>} return null or selected location
+ */
 const getSelectedLocation = async () => {
     if (!selectedLocation) {
-        const storedLocation = await browserApi.storage.get(SELECTED_LOCATION_KEY);
-        if (!storedLocation) {
-            // previously we used to store endpoint in the proxy module
-            // try to get from endpoint
-            // can be removed after few versions of v0.7
-            const proxySelectedEndpoint = await proxy.getCurrentEndpoint();
-            selectedLocation = getLocationByEndpoint(proxySelectedEndpoint?.id);
-            if (!selectedLocation) {
-                return null;
-            }
-        } else {
-            selectedLocation = new Location(storedLocation);
+        // eslint-disable-next-line max-len
+        const storedSelectedLocation = await settings.getSetting(SETTINGS_IDS.SELECTED_LOCATION_KEY);
+
+        if (!storedSelectedLocation) {
+            return null;
         }
+
+        selectedLocation = new Location(storedSelectedLocation);
     }
 
     return selectedLocation;
 };
 
 export const locationsService = {
+    getIsLocationSelectedByUser,
+    getLocationsFromServer,
     getEndpointByLocation,
     getLocationByEndpoint,
-    getLocationsFromServer,
     getLocationsWithPing,
     setSelectedLocation,
     getSelectedLocation,

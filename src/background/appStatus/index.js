@@ -1,6 +1,6 @@
 import AppStatus from './AppStatus';
 import proxy from '../proxy';
-import settings from '../settings/settings';
+import { settings } from '../settings';
 import packageJson from '../../../package.json';
 
 const appStatus = new AppStatus(proxy, settings, packageJson);

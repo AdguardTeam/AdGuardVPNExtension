@@ -15,7 +15,7 @@
         "message": "Bu değer geçerli değil"
     },
     "registration_error_min_length": {
-        "message": "Bu değer çok kısa. 8 veya daha fazla karakter içermelidir."
+        "message": "Parola çok kısa. En az 8 karakter içermelidir."
     },
     "registration_error_compromised_password": {
         "message": "Girdiğiniz parola, ele geçirilmiş parolaların <a>ortak veritabanında</a> bulundu. Lütfen başka bir tane deneyin."
@@ -24,7 +24,7 @@
         "message": "Bu değer zaten kullanılıyor"
     },
     "registration_error_front_unique_validation": {
-        "message": "Şifre ve şifreyi onayla eşleşmiyor"
+        "message": "Parolalar uyuşmuyor"
     },
     "registration_error_default": {
         "message": "Hata oluştu, daha sonra tekrar deneyiniz"
@@ -42,16 +42,79 @@
         "message": "Hesap 15 dakika boyunca kilitlendi"
     },
     "authentication_error_wrong_credentials": {
-        "message": "Üzgünüm, yanlış parola"
+        "message": "Yanlış parola"
     },
     "authentication_error_default": {
         "message": "Hata oluştu, daha sonra tekrar deneyiniz"
     },
     "global_error_message": {
-        "message": "Hata oluştu, lütfen <a>support@adguard-vpn.com</a> adresinden bizimle iletişime geçin"
+        "message": "Bir hata oluştu, lütfen <a>support@adguard-vpn.com</a> adresinden bizimle iletişime geçin"
     },
     "about_title": {
         "message": "Hakkında"
+    },
+    "options_support_title": {
+        "message": "Destek"
+    },
+    "options_support_faq_title": {
+        "message": "SSS"
+    },
+    "options_support_faq_description": {
+        "message": "Sorular ve cevaplar"
+    },
+    "options_support_report_title": {
+        "message": "Hata bildir"
+    },
+    "options_support_report_description": {
+        "message": "Eğer programda bir şey düzgün çalışmıyorsa"
+    },
+    "options_support_feedback_title": {
+        "message": "Geri bildirimde bulunun"
+    },
+    "options_support_feedback_description": {
+        "message": "Yeni özellik isteği veya öneri gönderin"
+    },
+    "options_support_discuss_title": {
+        "message": "Tartışın"
+    },
+    "options_support_discuss_description": {
+        "message": "Forumumuzda, sosyal ağlarda veya GitHub'da tartışın"
+    },
+    "options_report_bug_title": {
+        "message": "Hata bildir"
+    },
+    "options_bug_report_email_label": {
+        "message": "E-posta"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Mesaja tanılama raporu ekle"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "Yanlış e-posta adresi"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "Bu alan zorunlu"
+    },
+    "options_bug_report_request_error": {
+        "message": "Bir hata oluştu. Lütfen daha sonra tekrar deneyiniz."
+    },
+    "options_bug_report_send_button": {
+        "message": "Gönder"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Gönderiliyor..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Sorunu burada açıklayın..."
+    },
+    "options_bug_report_page_success": {
+        "message": "Teşekkürler, mesajınız başarıyla gönderildi!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "Yeni rapor"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Mesaj"
     },
     "account_title": {
         "message": "Hesap"
@@ -72,7 +135,7 @@
         "message": "Tamamen ücretsiz başlayın!"
     },
     "auth_description": {
-        "message": "Ödün vermeyen çevrimiçi gizlilik koruması. 20 Milyondan fazla insan zaten AdGuard'ı seçti."
+        "message": "Ödün vermeyen çevrimiçi gizlilik koruması. 30 Milyondan fazla insan zaten AdGuard'ı seçti."
     },
     "auth_code": {
         "message": "Yetkilendirme uygulamasından gelen kod"
@@ -141,7 +204,7 @@
         "message": "Kimlik doğrulama kodu"
     },
     "eula": {
-        "message": "Son Kullanıcı Lisans Sözleşmesi"
+        "message": "SKLS"
     },
     "privacy_policy": {
         "message": "Gizlilik Politikası"
@@ -156,10 +219,16 @@
         "message": "WebRTC Protokolünü Engelle"
     },
     "settings_webrtc_desc": {
-        "message": "WebRTC çoğu İnternet tarayıcısında, üçüncü taraf bir web sitesinin gerçek IP adresinizi algılamasına ve sizi tanımlamak için kullanmasına izin veren özel bir programdır"
+        "message": "WebRTC çoğu İnternet tarayıcısında, üçüncü taraf bir sitenin gerçek IP adresinizi algılamasına ve sizi tanımlamak için kullanmasına izin veren özel bir programdır"
     },
     "settings_context_menus_title": {
-        "message": "Tarayıcının içerik menüsüne AdGuard VPN öğesini ekleyin"
+        "message": "Tarayıcının sağtık menüsüne AdGuard VPN'yi ekle"
+    },
+    "settings_help_us_improve_title": {
+        "message": "Geliştirmemize yardımcı olun"
+    },
+    "settings_help_us_improve_description": {
+        "message": "Adguard VPN'nin çökme raporlarını, teknik ve etkileşim verilerini toplamasına izin verin. Kişisel verileriniz paylaşılmaz."
     },
     "context_menu_selective_mode": {
         "message": "Seçici mod"
@@ -213,7 +282,7 @@
         "message": "Cisco OpenDNS"
     },
     "settings_dns_selector_cisco_desc": {
-        "message": "Cihazınızı zararlı yazılımlardan koruyan DNS sunucusu"
+        "message": "Cihazınızı kötü amaçlı yazılımlardan koruyan DNS sunucusu"
     },
     "settings_dns_selector_quad9_title": {
         "message": "Quad9"
@@ -223,6 +292,15 @@
     },
     "settings_exclusion_add": {
         "message": "Site ekle"
+    },
+    "settings_exclusions_import_button": {
+        "message": "İçe aktar"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Dışa aktar"
+    },
+    "settings_exclusions_delete_button": {
+        "message": "Hepsini sil"
     },
     "settings_exclusion_title": {
         "message": "İstisnalar"
@@ -261,10 +339,10 @@
         "message": "Tekrar dene"
     },
     "authentication_successful_social": {
-        "message": "Başarıyla doğrulandı! AdGuard VPN'yi açabilir ve tüneli etkinleştirebilirsiniz."
+        "message": "Başarıyla doğrulandı! AdGuard VPN'yi açabilir ve kullanmaya başlayabilirsiniz."
     },
     "control_error_description": {
-        "message": "Başka bir Chrome uzantısı bağlantınızı kontrol etmeye çalışıyor gibi görünüyor. Lütfen tarayıcınızdaki diğer uzantıyı devre dışı bırakın."
+        "message": "Başka bir Chrome eklentisi bağlantınızı kontrol etmeye çalışıyor gibi görünüyor. Lütfen tarayıcınızdaki diğer eklentiyi devre dışı bırakın."
     },
     "control_error_disable": {
         "message": "Devre dışı bırak"
@@ -295,9 +373,6 @@
     },
     "context_menu_disable_vpn": {
         "message": "Bu sitede VPN'yi devre dışı bırak"
-    },
-    "suggest_feature": {
-        "message": "Yeni bir özellik önerin"
     },
     "endpoints_countries": {
         "message": "Konumlar"
@@ -339,19 +414,13 @@
         "message": "Bağlantı kesildi"
     },
     "popup_traffic_limit_exceeded_title": {
-        "message": "Bağlantı hızı azaltıldı"
+        "message": "Hız azaltıldı"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "Hızlı gigabaytlarınız bitti :( <br/> Sadece yavaş olanlar kaldı"
+        "message": "Ücretsiz veri sınırına ulaştınız, ve AdGuard VPN yavaş çalışıyor."
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Hızı artırın"
-    },
-    "popup_traffic_limit_exceeded_cta": {
-        "message": "Sınırsız veri, konum ve hız için şimdi yükseltin!"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "Erken rezervasyon fiyatları!"
     },
     "popup_feedback_title": {
         "message": "Geri bildiriminizi duymak isteriz"
@@ -374,8 +443,8 @@
     "upgrade_features_all_locations": {
         "message": "Tüm konumlar"
     },
-    "upgrade_features_no_log": {
-        "message": "Kayıt politikası yok"
+    "upgrade_features_devices": {
+        "message": "5 cihaza kadar"
     },
     "continue_us_free_button": {
         "message": "Ücretsiz kullanmaya devam et"
@@ -392,12 +461,25 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN bu sitede devre dışı bırakıldı"
     },
+    "popup_auth_policy_agreement": {
+        "message": "<eula>SKLS</eula> ve <privacy>Gizlilik politikasını</privacy> kabul edin",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "AdGuard'ın, AdGuard VPN'yi daha iyi hale getirmek için uygulama kullanımı hakkında bazı <link>anonim veriler</link> toplamamıza izin verin"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Devam et"
+    },
+    "popup_marketing_consent_checkbox": {
+        "message": "Bana özel teklifler ve AdGuard haberleri içeren e-postalar gönder"
+    },
     "popup_auth_agreement_consent": {
-        "message": "AdGuard VPN'yi kullanmaya devam ederek <eula>Son Kullanıcı Lisans Sözleşmesi</eula> ve <privacy>Gizlilik Politikamızı</privacy> kabul etmiş olursunuz",
+        "message": "AdGuard VPN'yi kullanmaya devam ederek <eula>SKLS</eula> ve <privacy>Gizlilik Politikamızı</privacy> kabul etmiş olursunuz",
         "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_agreement_consent": {
-        "message": "Devam ederek <privacy>Şart ve Koşulları</privacy> ve <eula>Son Kullanıcı Lisans Anlaşmasını</eula> kabul edersiniz",
+        "message": "AdGuard VPN'yi kullanmaya devam ederek <eula>SKLS</eula> ve <privacy>Gizlilik Politikamızı</privacy> kabul etmiş olursunuz",
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {
@@ -415,5 +497,56 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "Değiştirmek istediğine emin misiniz?"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "İstisnaları içe aktar:"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "Normal liste"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "Seçici liste"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "İptal"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Sil"
+    },
+    "options_exclusions_delete_title": {
+        "message": "İstisnaları kaldır"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "Normal modun tüm istisnaları silinecek."
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "Seçici modun tüm istisnaları silinecek."
+    },
+    "options_exclusions_import_successful": {
+        "message": "İçe aktarılan istisnalar: %count%"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "İstisnalar dosyası bu uzantılardan birine sahip olmalıdır: %extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "Zip arşivi: \"%filename%\" bu uzantılara sahip dosyalar içermiyor: %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "Maksimum bağlantı sayısına ulaştınız: %maxDevicesAllowed%."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "Daha fazla cihaz eklemek için Sınırsız AdGuard VPN'ye abone olmayı düşünün."
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "Başka bir cihaz eklemek için herhangi bir cihazınızda AdGuard VPN'yi devre dışı bırakın."
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Abone ol"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Daha fazla bilgi edinin"
+    },
+    "popup_connections_limit_title": {
+        "message": "Bağlantı sınırına ulaşıldı"
     }
 }

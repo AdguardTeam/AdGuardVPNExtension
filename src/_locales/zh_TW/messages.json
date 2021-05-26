@@ -15,7 +15,7 @@
         "message": "此數值為無效的"
     },
     "registration_error_min_length": {
-        "message": "此數值太短。它應有 8 個字元或更多。"
+        "message": "密碼太短。它必須包含至少 8 個字元。"
     },
     "registration_error_compromised_password": {
         "message": "您輸入的密碼在洩漏的密碼之<a>公開的資料庫</a>中被找到。請嘗試另一組密碼。"
@@ -24,7 +24,7 @@
         "message": "此數值已被使用"
     },
     "registration_error_front_unique_validation": {
-        "message": "密碼和確認密碼不相符"
+        "message": "密碼不相符"
     },
     "registration_error_default": {
         "message": "錯誤已發生，稍後再試"
@@ -42,7 +42,7 @@
         "message": "計 15 分鐘，帳戶被鎖定"
     },
     "authentication_error_wrong_credentials": {
-        "message": "抱歉，錯誤的密碼"
+        "message": "錯誤的密碼"
     },
     "authentication_error_default": {
         "message": "錯誤已發生，稍後再試"
@@ -52,6 +52,69 @@
     },
     "about_title": {
         "message": "關於"
+    },
+    "options_support_title": {
+        "message": "支援"
+    },
+    "options_support_faq_title": {
+        "message": "常見問答集"
+    },
+    "options_support_faq_description": {
+        "message": "問題與答案"
+    },
+    "options_support_report_title": {
+        "message": "報告程式錯誤"
+    },
+    "options_support_report_description": {
+        "message": "如果某事物未在程式中正確地運作"
+    },
+    "options_support_feedback_title": {
+        "message": "留下回饋意見"
+    },
+    "options_support_feedback_description": {
+        "message": "提交功能請求和建議"
+    },
+    "options_support_discuss_title": {
+        "message": "討論"
+    },
+    "options_support_discuss_description": {
+        "message": "於我們的論壇、社群網路或 GitHub 上討論"
+    },
+    "options_report_bug_title": {
+        "message": "報告程式錯誤"
+    },
+    "options_bug_report_email_label": {
+        "message": "電子郵件地址"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "在訊息中包括該診斷的報告"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "不正確的電子郵件地址"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "此欄位為必填的"
+    },
+    "options_bug_report_request_error": {
+        "message": "錯誤已發生。請稍後再試。"
+    },
+    "options_bug_report_send_button": {
+        "message": "提交"
+    },
+    "options_bug_report_sending_button": {
+        "message": "正在提交…"
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "於此描述該問題…"
+    },
+    "options_bug_report_page_success": {
+        "message": "感謝您，您的訊息已被成功地傳送！"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "新的報告"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "訊息"
     },
     "account_title": {
         "message": "帳戶"
@@ -72,7 +135,7 @@
         "message": "完全免費地開始吧！"
     },
     "auth_description": {
-        "message": "不妥協的線上隱私保護。超過 2000 萬人已選擇 AdGuard。"
+        "message": "不妥協的線上隱私保護。超過 3000 萬人已選擇 AdGuard。"
     },
     "auth_code": {
         "message": "來自驗證應用程式的代碼"
@@ -161,6 +224,12 @@
     "settings_context_menus_title": {
         "message": "增加 AdGuard VPN 項目至瀏覽器之內容功能表"
     },
+    "settings_help_us_improve_title": {
+        "message": "幫助我們改善"
+    },
+    "settings_help_us_improve_description": {
+        "message": "允許 AdGuard VPN 收集崩潰報告、技術的資料和相互作用資訊。這是匿名的。"
+    },
     "context_menu_selective_mode": {
         "message": "選擇性模式"
     },
@@ -224,6 +293,15 @@
     "settings_exclusion_add": {
         "message": "增加一個網站"
     },
+    "settings_exclusions_import_button": {
+        "message": "匯入"
+    },
+    "settings_exclusions_export_button": {
+        "message": "匯出"
+    },
+    "settings_exclusions_delete_button": {
+        "message": "全部刪除"
+    },
     "settings_exclusion_title": {
         "message": "例外"
     },
@@ -261,7 +339,7 @@
         "message": "再次嘗試"
     },
     "authentication_successful_social": {
-        "message": "成功地驗證！您可開啟 AdGuard VPN 並打開隧道。"
+        "message": "成功地驗證！您可開啟 AdGuard VPN 並開始使用它。"
     },
     "control_error_description": {
         "message": "看似另一個 Chrome 擴充功能正在嘗試控制您的連線。請在您的瀏覽器中禁用其它的擴充功能。"
@@ -295,9 +373,6 @@
     },
     "context_menu_disable_vpn": {
         "message": "對此網站禁用 VPN"
-    },
-    "suggest_feature": {
-        "message": "建議功能"
     },
     "endpoints_countries": {
         "message": "位置"
@@ -339,19 +414,13 @@
         "message": "已斷線"
     },
     "popup_traffic_limit_exceeded_title": {
-        "message": "連線速度被降低"
+        "message": "速度被降低"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "您已用完快速的十億位元組（gigabytes）:( <br/> 只剩下慢的。"
+        "message": "您已達到免費的流量限制，所以 AdGuard VPN 緩慢地運作。"
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "提升速度"
-    },
-    "popup_traffic_limit_exceeded_cta": {
-        "message": "為了無限的流量、位置和速度立即升級！"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "早鳥價格！"
     },
     "popup_feedback_title": {
         "message": "我們願意聽取您的回饋意見"
@@ -374,8 +443,8 @@
     "upgrade_features_all_locations": {
         "message": "所有的位置"
     },
-    "upgrade_features_no_log": {
-        "message": "無記錄政策"
+    "upgrade_features_devices": {
+        "message": "高達 5 台裝置"
     },
     "continue_us_free_button": {
         "message": "免費地繼續使用"
@@ -392,12 +461,25 @@
     "popup_site_status_vpn_disabled": {
         "message": "對此網站，VPN 被禁用"
     },
+    "popup_auth_policy_agreement": {
+        "message": "接受<eula>終端用戶授權協定</eula>及<privacy>隱私政策</privacy>",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "允許 AdGuard 收集關於應用程式使用之<link>匿名的資料</link>以使 AdGuard VPN 更好"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "繼續"
+    },
+    "popup_marketing_consent_checkbox": {
+        "message": "寄給我關於特別折扣及 AdGuard 新聞的電子郵件"
+    },
     "popup_auth_agreement_consent": {
-        "message": "透過使用 AdGuard VPN，您同意我們的<eula>終端用戶授權協定</eula>和<privacy>隱私政策</privacy>",
+        "message": "透過繼續使用 AdGuard VPN，您同意我們的<eula>終端用戶授權協定</eula>和<privacy>隱私政策</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_agreement_consent": {
-        "message": "透過繼續，您接受該<privacy>條款和條件</privacy>及<eula>終端用戶授權協定</eula>",
+        "message": "透過繼續使用 AdGuard VPN，您同意我們的<eula>終端用戶授權協定</eula>和<privacy>隱私政策</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {
@@ -415,5 +497,56 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "您確定您想要轉換嗎？"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "匯入例外至："
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "常規清單"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "選擇性清單"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "取消"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "刪除"
+    },
+    "options_exclusions_delete_title": {
+        "message": "移除例外"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "所有常規模式的例外都將會被刪除。"
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "所有選擇性模式的例外都將會被刪除。"
+    },
+    "options_exclusions_import_successful": {
+        "message": "已匯入的例外：%count%"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "例外檔案應有以下副檔名之一：%extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "Zip 壓縮檔：\"%filename%\" 不包含有副檔名：%extensions% 的檔案"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "您的連線數量達到上限：%maxDevicesAllowed%。"
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "若要添加更多裝置，何不考慮訂閱 AdGuard VPN 無限版。"
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "要連線其他裝置，請先在另一台已連線的裝置上禁用 AdGuard VPN。"
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "訂閱"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "了解更多"
+    },
+    "popup_connections_limit_title": {
+        "message": "已達到連線限制"
     }
 }

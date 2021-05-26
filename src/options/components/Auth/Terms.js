@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { EULA_URL, PRIVACY_URL } from '../../../background/config';
-import { reactTranslator } from '../../../reactCommon/reactTranslator';
+import { reactTranslator } from '../../../common/reactTranslator';
 
 const Terms = () => (
     <>
         <div className="auth__terms">
-            {reactTranslator.translate('options_auth_agreement_consent', {
+            {reactTranslator.getMessage('options_auth_agreement_consent', {
                 privacy: (chunks) => (
                     <a
                         target="_blank"

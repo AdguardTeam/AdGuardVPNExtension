@@ -6,14 +6,19 @@ import { log } from '../../lib/logger';
 import { getLocationWithLowestPing, sleep } from '../../lib/helpers';
 import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
 import notifier from '../../lib/notifier';
-// eslint-disable-next-line import/no-cycle
-import connectivity from '../connectivity';
-import credentials from '../credentials';
 import proxy from '../proxy';
 import vpnProvider from '../providers/vpnProvider';
-import { locationsService, isMeasuringPingInProgress } from './locationsService';
 import { LocationWithPing } from './LocationWithPing';
 import { endpointsTldExclusions } from '../proxy/endpointsTldExclusions';
+
+// eslint-disable-next-line import/no-cycle
+import connectivity from '../connectivity';
+// eslint-disable-next-line import/no-cycle
+import credentials from '../credentials';
+// eslint-disable-next-line import/no-cycle
+import { locationsService, isMeasuringPingInProgress } from './locationsService';
+// eslint-disable-next-line import/no-cycle
+import { isVPNDisconnectedIdle } from '../connectivity/connectivityService/connectivityFSM';
 
 /**
  * Endpoint properties
@@ -46,7 +51,7 @@ class Endpoints {
     constructor() {
         notifier.addSpecifiedListener(
             notifier.types.SHOULD_REFRESH_TOKENS,
-            this.refreshData
+            this.refreshData,
         );
     }
 
@@ -214,11 +219,11 @@ class Endpoints {
             } else {
                 const locationsMatchingToken = this.filterLocationsMatchingToken(
                     locations,
-                    isPremiumToken
+                    isPremiumToken,
                 );
                 const closestLocation = this.getClosestLocation(
                     locationsMatchingToken,
-                    currentLocation
+                    currentLocation,
                 );
                 // eslint-disable-next-line max-len
                 const closestEndpoint = await locationsService.getEndpointByLocation(closestLocation);
@@ -307,9 +312,15 @@ class Endpoints {
 
     getSelectedLocation = async () => {
         const selectedLocation = await locationsService.getSelectedLocation();
+        const isLocationSelectedByUser = await locationsService.getIsLocationSelectedByUser();
+        const isVPNDisabled = isVPNDisconnectedIdle();
 
-        // if found return
-        if (selectedLocation) {
+        // If no selected location of location is not selected by user and vpn is disabled we
+        // find better location again
+        const shouldSelectFasterLocation = !selectedLocation
+            || (!isLocationSelectedByUser && isVPNDisabled);
+
+        if (!shouldSelectFasterLocation) {
             return new LocationWithPing(selectedLocation);
         }
 
@@ -389,7 +400,7 @@ class Endpoints {
         // Clear vpn info on deauthentication in order to set correct vpn info after next login
         notifier.addSpecifiedListener(
             notifier.types.USER_DEAUTHENTICATED,
-            this.clearVpnInfo.bind(this)
+            this.clearVpnInfo.bind(this),
         );
         // start getting vpn info and endpoints
         this.getVpnInfo();

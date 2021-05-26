@@ -1,5 +1,5 @@
 import endpoints from '../../../src/background/endpoints';
-import settings from '../../../src/background/settings/settings';
+import { settings } from '../../../src/background/settings';
 import vpnProvider from '../../../src/background/providers/vpnProvider';
 import credentials from '../../../src/background/credentials';
 import { Location } from '../../../src/background/endpoints/Location';
@@ -8,7 +8,7 @@ import { connectivityService } from '../../../src/background/connectivity/connec
 import { locationsService } from '../../../src/background/endpoints/locationsService';
 import proxy from '../../../src/background/proxy';
 
-jest.mock('../../../src/background/settings/settings');
+jest.mock('../../../src/background/settings');
 jest.mock('../../../src/background/connectivity/connectivityService/connectivityFSM');
 jest.mock('../../../src/lib/notifier');
 jest.mock('../../../src/background/notifications');
@@ -259,7 +259,7 @@ describe('Endpoints', () => {
 
             const closestLocation = endpoints.getClosestLocation(
                 locations,
-                new Location(targetRawLocation)
+                new Location(targetRawLocation),
             );
 
             const expectedLocation = new Location({

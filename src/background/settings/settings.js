@@ -17,6 +17,8 @@ const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.HANDLE_WEBRTC_ENABLED]: true,
     [SETTINGS_IDS.SELECTED_DNS_SERVER]: DNS_DEFAULT,
     [SETTINGS_IDS.CONTEXT_MENU_ENABLED]: true,
+    [SETTINGS_IDS.POLICY_AGREEMENT]: false,
+    [SETTINGS_IDS.HELP_US_IMPROVE]: false,
 };
 
 const settingsService = new SettingsService(browserApi.storage, DEFAULT_SETTINGS);
@@ -54,7 +56,7 @@ const setSetting = async (id, value, force) => {
 
     notifier.notifyListeners(notifier.types.SETTING_UPDATED, id, value);
     settingsService.setSetting(id, value);
-    log.info(`Setting with id: "${id}" was set to: "${value}"`);
+    log.debug(`Setting with id: "${id}" was set to:`, value);
     return true;
 };
 
@@ -95,7 +97,7 @@ const applySettings = () => {
     // Set WebRTC
     webrtc.setWebRTCHandlingAllowed(
         isSettingEnabled(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED),
-        proxyEnabled
+        proxyEnabled,
     );
 
     // Set DNS server
@@ -130,7 +132,7 @@ const init = async () => {
     log.info('Settings module is ready');
 };
 
-const settings = {
+export const settings = {
     init,
     getSetting,
     setSetting,
@@ -144,5 +146,3 @@ const settings = {
     setExclusions,
     isContextMenuEnabled,
 };
-
-export default settings;

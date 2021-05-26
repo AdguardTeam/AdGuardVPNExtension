@@ -2,12 +2,12 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import { reactTranslator } from '../../../reactCommon/reactTranslator';
+import { reactTranslator } from '../../../common/reactTranslator';
 
 const Search = ({ value, handleChange, handleClear }) => {
     const crossClassNames = classnames(
         'button endpoints__cross',
-        { 'endpoints__cross--active': value.length > 0 }
+        { 'endpoints__cross--active': value.length > 0 },
     );
 
     return (
@@ -16,7 +16,7 @@ const Search = ({ value, handleChange, handleClear }) => {
                 autoFocus
                 className="endpoints__search-in"
                 type="text"
-                placeholder={reactTranslator.translate('endpoints_search')}
+                placeholder={reactTranslator.getMessage('endpoints_search')}
                 value={value}
                 onChange={handleChange}
             />

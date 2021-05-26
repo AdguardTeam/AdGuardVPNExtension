@@ -2,15 +2,16 @@ import React, { useContext } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 
-import rootStore from '../../stores';
-import popupActions from '../../actions/popupActions';
+import { rootStore } from '../../stores';
+import { popupActions } from '../../actions/popupActions';
 import { POPUP_FEEDBACK_URL, OTHER_PRODUCTS_URL } from '../../../background/config';
 import messenger from '../../../lib/messenger';
 import Option from './Option';
-import './extra-options.pcss';
-import { reactTranslator } from '../../../reactCommon/reactTranslator';
+import { reactTranslator } from '../../../common/reactTranslator';
 import Rate from '../Rate';
 import { PROMO_SCREEN_STATES } from '../../../lib/constants';
+
+import './extra-options.pcss';
 
 const ExtraOptions = observer(() => {
     const { uiStore, settingsStore, authStore } = useContext(rootStore);
@@ -50,22 +51,22 @@ const ExtraOptions = observer(() => {
         >
             <Option
                 handler={handleOtherProductsClick}
-                text={reactTranslator.translate('popup_settings_other_products')}
+                text={reactTranslator.getMessage('popup_settings_other_products')}
             />
             <Option
                 handler={openSettings}
-                text={reactTranslator.translate('popup_settings_open_settings')}
+                text={reactTranslator.getMessage('popup_settings_open_settings')}
             />
             <Option
                 handler={signOut}
-                text={reactTranslator.translate('popup_settings_sign_out')}
+                text={reactTranslator.getMessage('popup_settings_sign_out')}
             />
             {isRateVisible
                 ? <Rate />
                 : (
                     <Option
                         handler={handleFeedback}
-                        text={reactTranslator.translate('popup_settings_feedback')}
+                        text={reactTranslator.getMessage('popup_settings_feedback')}
                     />
                 )}
         </Modal>

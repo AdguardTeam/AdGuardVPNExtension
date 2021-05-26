@@ -1,6 +1,7 @@
 import qs from 'qs';
 import Api from './Api';
-import { AUTH_API_URL, AUTH_CLIENT_ID } from '../config';
+import { AUTH_CLIENT_ID } from '../config';
+import { fallbackApi } from './fallbackApi';
 
 // Documentation
 // projects/ADGUARD/repos/adguard-auth-service/browse/oauth.md
@@ -47,7 +48,7 @@ class AuthApi extends Api {
         const data = {
             email: username,
             password,
-            marketingConsent,
+            marketingConsent: !!marketingConsent,
             locale,
             clientId,
             source: 'EXTENSION',
@@ -57,18 +58,6 @@ class AuthApi extends Api {
             data: qs.stringify(data),
         };
 
-        return this.makeRequest(path, method, config);
-    }
-
-    REVOKE_TOKEN = { path: 'oauth/revoke_token', method: 'POST' };
-
-    revokeToken(accessToken) {
-        const { path, method } = this.REVOKE_TOKEN;
-        const config = {
-            data: qs.stringify({
-                token: accessToken,
-            }),
-        };
         return this.makeRequest(path, method, config);
     }
 
@@ -86,6 +75,6 @@ class AuthApi extends Api {
     }
 }
 
-const vpnApi = new AuthApi(AUTH_API_URL);
+const vpnApi = new AuthApi(fallbackApi.getAuthApiUrl);
 
 export default vpnApi;

@@ -4,7 +4,6 @@ import { WS_API_URL_TEMPLATE } from '../../config';
 import { renderTemplate } from '../../../lib/string-utils';
 import notifier from '../../../lib/notifier';
 import proxy from '../../proxy';
-import credentials from '../../credentials';
 import { log } from '../../../lib/logger';
 import dns from '../../dns/dns';
 import { sendPingMessage } from '../pingHelpers';
@@ -13,6 +12,8 @@ import { EVENT, MIN_CONNECTION_DURATION_MS } from '../connectivityService/connec
 import { sleepIfNecessary } from '../../../lib/helpers';
 // eslint-disable-next-line import/no-cycle
 import { connectivityService } from '../connectivityService/connectivityFSM';
+// eslint-disable-next-line import/no-cycle
+import credentials from '../../credentials';
 
 class EndpointConnectivity {
     PING_SEND_INTERVAL_MS = 1000 * 60;
@@ -126,6 +127,7 @@ class EndpointConnectivity {
             // we can't connect to the proxy because other extensions are controlling it
             // stop trying to connect
             connectivityService.send(EVENT.PROXY_CONNECTION_ERROR);
+            log.error('Error occurred on proxy turn on:', e.message);
             return;
         }
         webrtc.blockWebRTC();
@@ -211,7 +213,8 @@ class EndpointConnectivity {
     sendPingMessage = async () => {
         const appId = credentials.getAppId();
         try {
-            return sendPingMessage(this.ws, this.vpnToken, appId);
+            const ping = await sendPingMessage(this.ws, this.vpnToken, appId);
+            return ping;
         } catch (e) {
             log.debug(e);
             return null;
@@ -261,11 +264,16 @@ class EndpointConnectivity {
 
     handleErrorMsg = (connectivityErrorMsg) => {
         const NON_ROUTABLE_CODE = 'NON_ROUTABLE';
+        const TOO_MANY_DEVICES_CONNECTED = 'TOO_MANY_DEVICES_CONNECTED';
 
         const { code, payload } = connectivityErrorMsg;
 
         if (code === NON_ROUTABLE_CODE) {
             notifier.notifyListeners(notifier.types.NON_ROUTABLE_DOMAIN_FOUND, payload);
+        }
+        if (code === TOO_MANY_DEVICES_CONNECTED) {
+            notifier.notifyListeners(notifier.types.TOO_MANY_DEVICES_CONNECTED, payload);
+            connectivityService.send(EVENT.TOO_MANY_DEVICES_CONNECTED);
         }
     };
 

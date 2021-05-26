@@ -56,7 +56,7 @@ const getSrcFilesContents = (dirPath, contents = []) => {
  */
 export const checkUnusedMessages = async () => {
     const baseLocaleTranslations = await getLocaleMessages(
-        LOCALES_DIR, BASE_LOCALE, LOCALE_DATA_FILENAME
+        LOCALES_DIR, BASE_LOCALE, LOCALE_DATA_FILENAME,
     );
     const baseMessages = Object.keys(baseLocaleTranslations);
 

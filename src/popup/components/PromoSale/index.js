@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { reactTranslator } from '../../../reactCommon/reactTranslator';
-import rootStore from '../../stores';
-import './promo-sale.pcss';
+import { rootStore } from '../../stores';
 import { PROMO_SCREEN_STATES } from '../../../lib/constants';
+import { reactTranslator } from '../../../common/reactTranslator';
+
+import './promo-sale.pcss';
 
 const PromoSale = observer(() => {
     const { vpnStore, settingsStore, uiStore } = useContext(rootStore);
@@ -27,7 +28,7 @@ const PromoSale = observer(() => {
         { id: 1, text: 'upgrade_features_all_locations' },
         { id: 2, text: 'upgrade_features_data' },
         { id: 3, text: 'upgrade_features_speed' },
-        { id: 4, text: 'upgrade_features_no_log' },
+        { id: 4, text: 'upgrade_features_devices' },
     ];
 
     return (
@@ -36,16 +37,16 @@ const PromoSale = observer(() => {
                 <div className="promo-sale__content">
                     <div className="promo-sale__icon" />
                     <div className="promo-sale__price-label">
-                        {reactTranslator.translate('settings_run_upgrade_early_bird')}
+                        {reactTranslator.getMessage('settings_run_upgrade_early_bird')}
                     </div>
                     <div className="promo-sale__title">
-                        {reactTranslator.translate('sale_title')}
+                        {reactTranslator.getMessage('sale_title')}
                     </div>
                     <div className="promo-sale__features-list">
                         {features.map((item) => {
                             return (
                                 <div className="promo-sale__features-item" key={item.id}>
-                                    {reactTranslator.translate(item.text)}
+                                    {reactTranslator.getMessage(item.text)}
                                 </div>
                             );
                         })}
@@ -56,13 +57,13 @@ const PromoSale = observer(() => {
                         className="button button--medium button--green promo-sale__button"
                         onClick={upgradeClickHandler}
                     >
-                        {reactTranslator.translate('premium_upgrade')}
+                        {reactTranslator.getMessage('premium_upgrade')}
                     </a>
                     <a
                         className="promo-sale__continue-button"
                         onClick={hideSaleClickHandler}
                     >
-                        {reactTranslator.translate('continue_us_free_button')}
+                        {reactTranslator.getMessage('continue_us_free_button')}
                     </a>
                 </div>
             </div>

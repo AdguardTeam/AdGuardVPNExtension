@@ -2,9 +2,10 @@ import React, { Fragment, useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { OPTIONS_STORE_URL, FEEDBACK_URL } from '../../../../background/config';
-import rootStore from '../../../stores';
+import { rootStore } from '../../../stores';
+import { reactTranslator } from '../../../../common/reactTranslator';
+
 import './rate.pcss';
-import { reactTranslator } from '../../../../reactCommon/reactTranslator';
 
 const RATING_STARS = [5, 4, 3, 2, 1];
 
@@ -36,7 +37,7 @@ const Rate = observer(() => {
             {isRateVisible ? (
                 <div className="rate">
                     <div className="rate__text">
-                        {reactTranslator.translate('rate_description')}
+                        {reactTranslator.getMessage('rate_description')}
                     </div>
                     <div className="rate__stars">
                         {RATING_STARS.map((star) => (
@@ -61,7 +62,7 @@ const Rate = observer(() => {
                         className="rate__hide"
                         onClick={handleHideRate}
                     >
-                        {reactTranslator.translate('rate_hide')}
+                        {reactTranslator.getMessage('rate_hide')}
                     </button>
                 </div>
             ) : ''}

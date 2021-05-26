@@ -1,5 +1,20 @@
 {
+    "name": {
+        "message": "AdGuard VPN - privatumas ir saugumas"
+    },
     "short_name": {
         "message": "AdGuard VPN"
+    },
+    "registration_error_not_empty": {
+        "message": "Turi būti ne tuščias"
+    },
+    "registration_error_not_valid": {
+        "message": "Ši reikšmė neteisinga"
+    },
+    "auth_sign_in_button": {
+        "message": "Prisijungti"
+    },
+    "options_auth_back_button": {
+        "message": "Grįžti"
     }
 }

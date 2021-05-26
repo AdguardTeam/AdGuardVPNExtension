@@ -1,5 +1,5 @@
 import authApi from '../api/authApi';
-import translator from '../../lib/translator/translator';
+import { translator } from '../../common/translator';
 
 const accessTokenModel = {
     fromRemoteToLocal: (remoteAccessToken) => {
@@ -23,12 +23,12 @@ const getAccessToken = async (credentials) => {
     let accessTokenData;
 
     const errorsMap = {
-        '2fa_required': translator.translate('authentication_error_2fa_required'),
-        '2fa_invalid': translator.translate('authentication_error_2fa_invalid'),
-        account_disabled: translator.translate('authentication_error_account_disabled'),
-        account_locked: translator.translate('authentication_error_account_locked'),
-        bad_credentials: translator.translate('authentication_error_wrong_credentials'),
-        default: translator.translate('authentication_error_default'),
+        '2fa_required': translator.getMessage('authentication_error_2fa_required'),
+        '2fa_invalid': translator.getMessage('authentication_error_2fa_invalid'),
+        account_disabled: translator.getMessage('authentication_error_account_disabled'),
+        account_locked: translator.getMessage('authentication_error_account_locked'),
+        bad_credentials: translator.getMessage('authentication_error_wrong_credentials'),
+        default: translator.getMessage('authentication_error_default'),
     };
 
     try {
@@ -63,14 +63,14 @@ const register = async (credentials) => {
     };
 
     const errorsMap = {
-        'validation.not_empty': translator.translate('registration_error_not_empty'),
-        'validation.not_valid': translator.translate('registration_error_not_valid'),
-        'validation.min_length': translator.translate('registration_error_min_length'),
-        'validation.compromised.password': translator.translate('registration_error_compromised_password', {
+        'validation.not_empty': translator.getMessage('registration_error_not_empty'),
+        'validation.not_valid': translator.getMessage('registration_error_not_valid'),
+        'validation.min_length': translator.getMessage('registration_error_min_length'),
+        'validation.compromised.password': translator.getMessage('registration_error_compromised_password', {
             a: (chunks) => (`<a href="https://adguard-vpn.com/forward.html?action=haveibeenpwned&from=popup&app=vpn_extension" target="_blank" class="link">${chunks}</a>`),
         }),
-        'validation.unique_constraint': translator.translate('registration_error_unique_constraint'),
-        default: translator.translate('registration_error_default'),
+        'validation.unique_constraint': translator.getMessage('registration_error_unique_constraint'),
+        default: translator.getMessage('registration_error_default'),
     };
 
     let accessTokenData;

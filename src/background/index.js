@@ -15,14 +15,18 @@ import permissionsChecker from './permissionsChecker';
 import permissionsError from './permissionsChecker/permissionsError';
 import popupData from './popupData';
 import proxy from './proxy';
-import settings from './settings/settings';
+import { settings } from './settings';
 import tabs from './tabs';
 import updateService from './updateService';
 import { vpnApi } from './api';
 import browserActionIcon from './browserActionIcon';
-import './networkConnectionObserver';
 import { openThankYouPage } from './postinstall';
 import { endpointsTldExclusions } from './proxy/endpointsTldExclusions';
+import { logStorage } from '../lib/log-storage';
+import { fallbackApi } from './api/fallbackApi';
+
+import './networkConnectionObserver';
+import './uninstall';
 
 global.adguard = {
     settings,
@@ -42,11 +46,13 @@ global.adguard = {
     credentials,
     nonRoutable,
     management,
+    logStorage,
 };
 
 (async () => {
     try {
         messaging.init(); // messaging is on the top, for popup be able to communicate with back
+        await fallbackApi.init();
         const runInfo = await updateService.getRunInfo();
         await openThankYouPage(runInfo);
         permissionsChecker.init(); // should be initiated before auth module

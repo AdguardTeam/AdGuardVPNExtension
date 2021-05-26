@@ -2,6 +2,9 @@
     "settings_vpn_connecting": {
         "message": "Connectant..."
     },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Augmenta la velocitat"
+    },
     "options_selective_mode_popup_message": {
         "message": "En mode Selectiu, AdGuard VPN només funciona als llocs web permesos que heu afegit a la llista."
     },

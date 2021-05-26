@@ -5,9 +5,9 @@ import classnames from 'classnames';
 
 import Form from './Form';
 import List from './List';
-import rootStore from '../../../stores';
+import { rootStore } from '../../../stores';
 import { EXCLUSIONS_MODES } from '../../../../background/exclusions/exclusionsConstants';
-import { reactTranslator } from '../../../../reactCommon/reactTranslator';
+import { reactTranslator } from '../../../../common/reactTranslator';
 
 Modal.setAppElement('#root');
 
@@ -42,31 +42,28 @@ const Mode = observer(() => {
 
     const titles = {
         [EXCLUSIONS_MODES.REGULAR]: {
-            title: reactTranslator.translate('settings_exclusion_regular_title'),
-            description: reactTranslator.translate('settings_exclusion_regular_description'),
+            title: reactTranslator.getMessage('settings_exclusion_regular_title'),
+            description: reactTranslator.getMessage('settings_exclusion_regular_description'),
         },
         [EXCLUSIONS_MODES.SELECTIVE]: {
-            title: reactTranslator.translate('settings_exclusion_selective_title'),
-            description: reactTranslator.translate('settings_exclusion_selective_description'),
+            title: reactTranslator.getMessage('settings_exclusion_selective_title'),
+            description: reactTranslator.getMessage('settings_exclusion_selective_description'),
         },
     };
 
     const renderControls = (exclusionsType) => {
         const enabled = exclusionsType === exclusionsCurrentMode;
-
-        const getIconHref = (enabled) => {
-            if (enabled) {
-                return 'bullet_on';
-            }
-            return 'bullet_off';
-        };
-
         const titleClass = classnames('radio__title', { 'radio__title--active': enabled });
+
+        const xlinkHref = classnames({
+            '#bullet_on': enabled,
+            '#bullet_off': !enabled,
+        });
 
         return (
             <div className="radio" onClick={enabled ? undefined : onChange(exclusionsType)}>
                 <svg className="radio__icon">
-                    <use xlinkHref={`#${getIconHref(enabled)}`} />
+                    <use xlinkHref={xlinkHref} />
                 </svg>
                 <div className="radio__label">
                     <div className={titleClass}>
@@ -77,17 +74,6 @@ const Mode = observer(() => {
                     </div>
                 </div>
             </div>
-        );
-    };
-
-    const renderContent = (exclusionsType) => {
-        const enabled = exclusionsType === exclusionsCurrentMode;
-
-        return (
-            <>
-                <Form exclusionsType={exclusionsType} enabled={enabled} />
-                <List exclusionsType={exclusionsType} enabled={enabled} />
-            </>
         );
     };
 
@@ -109,13 +95,13 @@ const Mode = observer(() => {
                     </svg>
                 </button>
                 <div className="modal__icon" />
-                <div className="modal__title">{reactTranslator.translate('options_selective_mode_popup_attention')}</div>
-                <div className="modal__message">{reactTranslator.translate('options_selective_mode_popup_message')}</div>
-                <button type="button" onClick={toggleSelectiveMode} className="button modal__button">{reactTranslator.translate('options_selective_mode_popup_button_switch_now')}</button>
+                <div className="modal__title">{reactTranslator.getMessage('options_selective_mode_popup_attention')}</div>
+                <div className="modal__message">{reactTranslator.getMessage('options_selective_mode_popup_message')}</div>
+                <button type="button" onClick={toggleSelectiveMode} className="button modal__button">{reactTranslator.getMessage('options_selective_mode_popup_button_switch_now')}</button>
             </Modal>
             <div className="settings__section">
                 <div className="settings__title">
-                    {reactTranslator.translate('settings_connection_mode_title')}
+                    {reactTranslator.getMessage('settings_connection_mode_title')}
                 </div>
                 <div className="settings__group">
                     <div className="settings__controls">
@@ -125,11 +111,10 @@ const Mode = observer(() => {
                             </div>
                         ))}
                     </div>
-                    {modes.map((type) => (
-                        <div className="settings__control" key={type}>
-                            {renderContent(type)}
-                        </div>
-                    ))}
+                    <div className="settings__control">
+                        <Form />
+                        <List />
+                    </div>
                 </div>
             </div>
         </>

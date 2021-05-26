@@ -1,6 +1,6 @@
 import qs from 'qs';
 import { nanoid } from 'nanoid';
-import { authApi } from './api';
+
 import authProvider from './providers/authProvider';
 import browserApi from './browserApi';
 import tabs from './tabs';
@@ -9,12 +9,13 @@ import notifications from './notifications';
 import {
     AUTH_ACCESS_TOKEN_KEY,
     AUTH_CLIENT_ID,
-    AUTH_BASE_URL,
-    AUTH_REDIRECT_URI,
 } from './config';
 import { log } from '../lib/logger';
 import notifier from '../lib/notifier';
-import translator from '../lib/translator/translator';
+import { translator } from '../common/translator';
+import { fallbackApi } from './api/fallbackApi';
+// eslint-disable-next-line import/no-cycle
+import { settings } from './settings';
 
 class Auth {
     socialAuthState = null;
@@ -53,7 +54,7 @@ class Auth {
         return accessToken;
     }
 
-    async startSocialAuth(socialProvider) {
+    async startSocialAuth(socialProvider, marketingConsent) {
         // turn off proxy to be sure it is not enabled before authentication
         try {
             await proxy.turnOff();
@@ -63,15 +64,15 @@ class Auth {
 
         // Generates uniq state id, which will be checked on the auth end
         this.socialAuthState = nanoid();
-        const authUrl = this.getImplicitAuthUrl(socialProvider);
+        const authUrl = this.getImplicitAuthUrl(socialProvider, marketingConsent);
         await tabs.openSocialAuthTab(authUrl);
     }
 
-    getImplicitAuthUrl(socialProvider) {
+    getImplicitAuthUrl(socialProvider, marketingConsent) {
         const params = {
             response_type: 'token',
             client_id: AUTH_CLIENT_ID,
-            redirect_uri: AUTH_REDIRECT_URI,
+            redirect_uri: `https://${fallbackApi.AUTH_REDIRECT_URI}`,
             scope: 'trust',
             state: this.socialAuthState,
         };
@@ -97,11 +98,19 @@ class Auth {
                 params.social_provider = 'facebook';
                 break;
             }
+            case 'apple': {
+                params.social_provider = 'apple';
+                break;
+            }
             default:
                 throw new Error(`There is no such provider: "${socialProvider}"`);
         }
 
-        return `${AUTH_BASE_URL}?${qs.stringify(params)}`;
+        if (marketingConsent) {
+            params.marketing_consent = marketingConsent;
+        }
+
+        return `https://${fallbackApi.AUTH_BASE_URL}?${qs.stringify(params)}`;
     }
 
     async authenticateSocial(queryString, tabId) {
@@ -125,19 +134,18 @@ class Auth {
 
         // Notify options page, in order to update view
         notifier.notifyListeners(notifier.types.AUTHENTICATE_SOCIAL_SUCCESS);
-        await notifications.create({ message: translator.translate('authentication_successful_social') });
+        await notifications.create({ message: translator.getMessage('authentication_successful_social') });
     }
 
     async deauthenticate() {
         try {
-            const accessToken = await this.getAccessToken();
-            // revoke token from api
             await this.removeAccessToken();
-            await authApi.revokeToken(accessToken);
         } catch (e) {
-            log.error('Unable to revoke token. Error: ', e.message);
+            log.error('Unable to remove access token. Error: ', e.message);
         }
 
+        // turn off connection
+        await settings.disableProxy(true);
         // set proxy settings to default
         await proxy.resetSettings();
         notifier.notifyListeners(notifier.types.USER_DEAUTHENTICATED);
@@ -163,7 +171,7 @@ class Auth {
         }
 
         return {
-            error: translator.translate('global_error_message', {
+            error: translator.getMessage('global_error_message', {
                 a: (chunks) => `<a href="mailto:support@adguard-vpn.com" target="_blank">${chunks}</a>`,
             }),
         };
@@ -182,7 +190,7 @@ class Auth {
         } catch (e) {
             log.error(e.message);
             return {
-                error: translator.translate('global_error_message', {
+                error: translator.getMessage('global_error_message', {
                     a: (chunks) => `<a href="mailto:support@adguard-vpn.com" target="_blank">${chunks}</a>`,
                 }),
             };

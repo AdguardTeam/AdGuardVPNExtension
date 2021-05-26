@@ -1,0 +1,32 @@
+.notifications {
+    position: fixed;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    width: 592px;
+    left: calc(50% - 128px);
+    bottom: 24px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.notification {
+    padding: 16px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background-color: var(--grayF3);
+    margin-bottom: 16px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &__message {
+        font-size: 14px;
+        max-width: 93%;
+        color: var(--gray-base);
+    }
+}

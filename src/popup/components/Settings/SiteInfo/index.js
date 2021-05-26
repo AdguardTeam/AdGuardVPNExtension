@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import rootStore from '../../../stores';
+import { rootStore } from '../../../stores';
 import Info from './Info';
-import { reactTranslator } from '../../../../reactCommon/reactTranslator';
+import { reactTranslator } from '../../../../common/reactTranslator';
 
 import './site-info.pcss';
 
@@ -14,7 +14,7 @@ const SiteInfo = observer(() => {
         return (
             <Info
                 title={settingsStore.currentTabHostname}
-                status={reactTranslator.translate('popup_site_status_unaccessible')}
+                status={reactTranslator.getMessage('popup_site_status_unaccessible')}
             />
         );
     }
@@ -22,7 +22,7 @@ const SiteInfo = observer(() => {
     return (
         <Info
             title={settingsStore.currentTabHostname}
-            status={reactTranslator.translate('popup_site_status_vpn_disabled')}
+            status={reactTranslator.getMessage('popup_site_status_vpn_disabled')}
         />
     );
 });

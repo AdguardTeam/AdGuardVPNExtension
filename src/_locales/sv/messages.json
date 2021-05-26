@@ -8,9 +8,6 @@
     "registration_error_not_valid": {
         "message": "Detta värde är ogiltigt"
     },
-    "registration_error_compromised_password": {
-        "message": "Lösenordet som du skrev in finns i en <a>offentliga databas</a> för avslöjade lösenord. Var snäll och välj ett annat lösenord."
-    },
     "registration_error_unique_constraint": {
         "message": "Användarnamnet är redan taget"
     },
@@ -187,13 +184,6 @@
     },
     "upgrade_features_all_locations": {
         "message": "Alla platser"
-    },
-    "upgrade_features_no_log": {
-        "message": "Ingen loggnings-policy"
-    },
-    "options_auth_agreement_consent": {
-        "message": "Genom att fortsätta accepterar du <privacy>Villkor och regler</privacy> samt <eula>EULA</eula>",
-        "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_back_button": {
         "message": "Tillbaka"

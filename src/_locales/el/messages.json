@@ -2,9 +2,6 @@
     "name": {
         "message": "AdGuard VPN - Απόρρητο και Ασφάλεια"
     },
-    "description": {
-        "message": "Κάνει το Διαδίκτυο ανοιχτό και τα δεδομένα σας ασφαλή. Topnotch VPN από τους δημιουργούς του διάσημου αποκλειστή διαφημίσεων."
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -14,17 +11,8 @@
     "registration_error_not_valid": {
         "message": "Αυτή η τιμή δεν είναι έγκυρη"
     },
-    "registration_error_min_length": {
-        "message": "Αυτή η τιμή είναι πολύ μικρή. Θα πρέπει να έχει 8 χαρακτήρες ή περισσότερους."
-    },
-    "registration_error_compromised_password": {
-        "message": "Ο κωδικός πρόσβασης που εισαγάγατε βρέθηκε σε μια <a>δημόσια βάση δεδομένων</a> με παραβιασμένους κωδικούς πρόσβασης. Παρακαλώ, δοκιμάστε έναν άλλο."
-    },
     "registration_error_unique_constraint": {
         "message": "Αυτή η τιμή χρησιμοποιείται ήδη"
-    },
-    "registration_error_front_unique_validation": {
-        "message": "Ο κωδικός πρόσβασης και ο κωδικός επιβεβαίωσης δεν ταιριάζουν"
     },
     "registration_error_default": {
         "message": "Παρουσιάστηκε σφάλμα. Δοκιμάστε ξανά αργότερα"
@@ -44,14 +32,14 @@
     "authentication_error_default": {
         "message": "Παρουσιάστηκε σφάλμα. Δοκιμάστε ξανά αργότερα"
     },
-    "global_error_message": {
-        "message": "Παρουσιάστηκε σφάλμα, επικοινωνήστε μαζί μας μέσω του <a>support@adguard-vpn.com</a>"
-    },
     "about_title": {
         "message": "Σχετικά με"
     },
     "account_title": {
         "message": "Λογαριασμός"
+    },
+    "account_edit": {
+        "message": "Επεξεργασία"
     },
     "account_sign_out": {
         "message": "Αποσύνδεση"
@@ -64,9 +52,6 @@
     },
     "auth_title": {
         "message": "Ξεκινήστε εντελώς δωρεάν!"
-    },
-    "auth_description": {
-        "message": "Ασυμβίβαστη προστασία της ιδιωτικής ζωής στο διαδίκτυο. Πάνω από 20 εκατομμύρια άνθρωποι έχουν ήδη επιλέξει το AdGuard."
     },
     "auth_code": {
         "message": "Κωδικός από εφαρμογή ελέγχου ταυτότητας"
@@ -206,14 +191,26 @@
     "settings_dns_selector_quad9_desc": {
         "message": "Δωρεάν εναλλακτική υπηρεσία DNS με προστασία από ηλεκτρονικό ψάρεμα και λογισμικό υποκλοπής spyware"
     },
+    "settings_exclusion_add": {
+        "message": "Προσθήκη ιστότοπου"
+    },
     "settings_exclusion_title": {
         "message": "Εξαιρέσεις"
+    },
+    "settings_connection_mode_title": {
+        "message": "Λειτουργία σύνδεσης VPN"
     },
     "settings_exclusion_regular_title": {
         "message": "Κανονική λειτουργία"
     },
+    "settings_exclusion_regular_description": {
+        "message": "Το AdGuard VPN δεν λειτουργεί στους ιστότοπους από αυτήν τη λίστα:"
+    },
     "settings_exclusion_selective_title": {
         "message": "Επιλεκτική λειτουργία"
+    },
+    "settings_exclusion_selective_description": {
+        "message": "Το AdGuard VPN λειτουργεί μόνο σε ιστότοπους από αυτήν τη λίστα:"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Υποτομείς"
@@ -232,9 +229,6 @@
     },
     "global_error_try_again": {
         "message": "Δοκιμάστε ξανά"
-    },
-    "authentication_successful_social": {
-        "message": "Επιβεβαιώθηκε με επιτυχία! Μπορείτε να ανοίξετε το AdGuard VPN και να ενεργοποιήσετε το τούνελ."
     },
     "control_error_description": {
         "message": "Φαίνεται ότι μια άλλη επέκταση Chrome προσπαθεί να ελέγξει τη σύνδεσή σας. Απενεργοποιήστε την άλλη επέκταση στο πρόγραμμα περιήγησής σας."
@@ -269,9 +263,6 @@
     "context_menu_disable_vpn": {
         "message": "Απενεργοποίηση VPN σε αυτόν τον ιστότοπο"
     },
-    "suggest_feature": {
-        "message": "Προτείνετε ένα χαρακτηριστικό"
-    },
     "endpoints_countries": {
         "message": "Τοποθεσίες"
     },
@@ -287,6 +278,9 @@
     "endpoints_search": {
         "message": "Αναζήτηση τοποθεσίας"
     },
+    "endpoints_not_found": {
+        "message": "Ο διακομιστής δεν βρέθηκε"
+    },
     "popup_traffic_limit_reached": {
         "message": "Συμπληρώθηκε το μηνιαίο όριο δεδομένων. Χρειάζεστε περισσότερο;"
     },
@@ -298,6 +292,12 @@
     },
     "settings_connect": {
         "message": "Σύνδεση"
+    },
+    "settings_vpn_enabled": {
+        "message": "Το VPN είναι ενεργοποιημένο"
+    },
+    "settings_vpn_disabled": {
+        "message": "Το VPN είναι απενεργοποιημένο"
     },
     "popup_feedback_title": {
         "message": "Θα θέλαμε πολύ να ακούσουμε τα σχόλιά σας"
@@ -320,9 +320,6 @@
     "upgrade_features_all_locations": {
         "message": "Όλες οι τοποθεσίες"
     },
-    "upgrade_features_no_log": {
-        "message": "Χωρίς καταγραφή"
-    },
     "continue_us_free_button": {
         "message": "Συνεχίστε δωρεάν"
     },
@@ -337,14 +334,6 @@
     },
     "popup_site_status_vpn_disabled": {
         "message": "Το VPN είναι απενεργοποιημένο σε αυτόν τον ιστότοπο"
-    },
-    "popup_auth_agreement_consent": {
-        "message": "Χρησιμοποιώντας το AdGuard VPN, αποδέχεστε το <eula>EULA</eula> και την <privacy>Πολιτική Απορρήτου</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "Εάν συνεχίσετε, αποδέχεστε τους <privacy>Όρους και Προϋποθέσεις</privacy> και <eula>EULA</eula>",
-        "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value%%unit%</span> απομένουν αυτόν τον μήνα",

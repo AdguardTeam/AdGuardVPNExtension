@@ -1,10 +1,11 @@
 import React, { Fragment, useContext } from 'react';
 import { observer } from 'mobx-react';
 
+import { rootStore } from '../../stores';
 import { POPUP_STORE_URL, FEEDBACK_URL } from '../../../background/config';
-import rootStore from '../../stores';
+import { reactTranslator } from '../../../common/reactTranslator';
+
 import './rate.pcss';
-import { reactTranslator } from '../../../reactCommon/reactTranslator';
 
 const RATING_STARS = [5, 4, 3, 2, 1];
 
@@ -36,7 +37,7 @@ const RatePopup = observer(() => {
             {isRateVisible ? (
                 <div className="rate rate--extra-option">
                     <div className="rate__text">
-                        {reactTranslator.translate('settings_rate_us')}
+                        {reactTranslator.getMessage('settings_rate_us')}
                     </div>
                     <div className="rate__stars">
                         {RATING_STARS.map((star) => (

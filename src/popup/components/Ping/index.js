@@ -14,7 +14,7 @@ const Ping = ({ ping }) => {
     const pingClassName = classnames(
         'ping',
         { 'ping--warning': ping >= PING_WITH_WARNING },
-        { 'ping--success': ping < PING_WITH_WARNING }
+        { 'ping--success': ping < PING_WITH_WARNING },
     );
 
     return (

@@ -1,16 +1,16 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import rootStore from '../../stores';
-import SocialAuth from './SocialAuth';
+import { rootStore } from '../../stores';
+import { SocialAuth } from './SocialAuth';
 import SignInForm from './SignInForm';
-import RegistrationForm from './RegistrationForm';
+import { RegistrationForm } from './RegistrationForm';
 import TwoFactorForm from './TwoFactorForm';
 import Terms from './Terms';
+import BackButton from './BackButton';
+import { reactTranslator } from '../../../common/reactTranslator';
 
 import './auth.pcss';
-import BackButton from './BackButton';
-import { reactTranslator } from '../../../reactCommon/reactTranslator';
 
 const Authentication = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -38,11 +38,11 @@ const Authentication = observer(() => {
                     <div className="auth__logo" />
 
                     <h2 className="auth__title">
-                        {reactTranslator.translate('auth_title')}
+                        {reactTranslator.getMessage('auth_title')}
                     </h2>
 
                     <p className="auth__description">
-                        {reactTranslator.translate('auth_description')}
+                        {reactTranslator.getMessage('auth_description')}
                     </p>
                 </div>
                 <div className="auth__column">

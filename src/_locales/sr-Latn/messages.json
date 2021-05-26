@@ -2,9 +2,6 @@
     "name": {
         "message": "AdGuard VPN — privatnost i bezbednost"
     },
-    "description": {
-        "message": "Čini internet otvorenim a vaše podatke sigurnim. Odličan VPn od kreatora čuvenog blokatora reklama."
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -14,17 +11,8 @@
     "registration_error_not_valid": {
         "message": "Ova vrednost nije valjana"
     },
-    "registration_error_min_length": {
-        "message": "Ova vrednost je prekratka. Mora imati najmanje 8 znakova."
-    },
-    "registration_error_compromised_password": {
-        "message": "Lozinka koju ste uneli je pronađena u a <a>javnoj bazi podataka</a> kompromitovanih lozinki. Molimo vas, probajte neku drugu."
-    },
     "registration_error_unique_constraint": {
         "message": "Ova vrednost se već koristi"
-    },
-    "registration_error_front_unique_validation": {
-        "message": "Lozinke se ne poklapaju"
     },
     "registration_error_default": {
         "message": "Dogodila se greška. pokušajte ponovo kasnije"
@@ -41,14 +29,8 @@
     "authentication_error_account_locked": {
         "message": "Nalog je zaključan na 15 minuta"
     },
-    "authentication_error_wrong_credentials": {
-        "message": "Izvinite, pogrešna lozinka"
-    },
     "authentication_error_default": {
         "message": "Dogodila se greška. pokušajte ponovo kasnije"
-    },
-    "global_error_message": {
-        "message": "Dogodila se greška. Kontaktirajte nas preko <a>support@adguard-vpn.com</a>"
     },
     "about_title": {
         "message": "O programu"
@@ -70,9 +52,6 @@
     },
     "auth_title": {
         "message": "Započnite potpuno besplatno!"
-    },
-    "auth_description": {
-        "message": "Beskompromisna zaštita privatnosti na mreži. Preko 20 miliona ljudi je već izabralo AdGuard."
     },
     "auth_code": {
         "message": "Kod iz autorizujuće aplikacije"
@@ -260,9 +239,6 @@
     "global_error_try_again": {
         "message": "Pokušaj ponovo"
     },
-    "authentication_successful_social": {
-        "message": "Uspešno ste prijavljeni! Možete otvoriti AdGuard VPN i uključiti tunel."
-    },
     "control_error_description": {
         "message": "Izgleda da drugo Chrome proširenje pokušava da upravlja vašom vezom. Isključite to proširenje u vašem pregledniku."
     },
@@ -295,9 +271,6 @@
     },
     "context_menu_disable_vpn": {
         "message": "Isključi VPn na ovom sajtu"
-    },
-    "suggest_feature": {
-        "message": "Predloži novu mogućnost"
     },
     "endpoints_countries": {
         "message": "Lokacije"
@@ -338,6 +311,9 @@
     "settings_vpn_disabled": {
         "message": "Nije povezano"
     },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Povećaj brzinu"
+    },
     "popup_feedback_title": {
         "message": "Želimo da čujemo vaše povratne informacije"
     },
@@ -359,9 +335,6 @@
     "upgrade_features_all_locations": {
         "message": "Sve lokacije"
     },
-    "upgrade_features_no_log": {
-        "message": "Bez vođenja dnevnika"
-    },
     "continue_us_free_button": {
         "message": "Nastavi besplatno"
     },
@@ -376,14 +349,6 @@
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPn je isključen na ovom sajtu"
-    },
-    "popup_auth_agreement_consent": {
-        "message": "Nastavljanjem korišćenja AdGuard VPN, slažete se sa našim <eula>EULA</eula> and <privacy>politikom privatnosti.</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "Nastavljanjem prihvatate <privacy>uslove korišćenja</privacy> i <eula>EULA</eula>",
-        "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> preostalo ovog meseca",

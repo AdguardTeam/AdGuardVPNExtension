@@ -3,7 +3,7 @@
         "message": "AdGuard VPN — Privacy & Security"
     },
     "description": {
-        "message": "Makes the Internet open and your data safe. Topnotch VPN from the creators of famous ad blocker."
+        "message": "Makes the Internet open and your data safe. Topnotch VPN from the creators of the famous ad blocker."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -15,16 +15,16 @@
         "message": "This value is not valid"
     },
     "registration_error_min_length": {
-        "message": "This value is too short. It should have 8 characters or more."
+        "message": "Password is too short. It must contain at least 8 characters."
     },
     "registration_error_compromised_password": {
-        "message": "Password you entered was found in a <a>public database</a> of compromised passwords. Please, try another."
+        "message": "The password you entered was found in a <a>public database</a> of compromised passwords. Please try another."
     },
     "registration_error_unique_constraint": {
         "message": "This value is already used"
     },
     "registration_error_front_unique_validation": {
-        "message": "Password and confirm password does not match"
+        "message": "Passwords don't match"
     },
     "registration_error_default": {
         "message": "An error happened, try again later"
@@ -42,16 +42,79 @@
         "message": "Account is locked for 15 minutes"
     },
     "authentication_error_wrong_credentials": {
-        "message": "Sorry, wrong password"
+        "message": "Wrong password"
     },
     "authentication_error_default": {
         "message": "An error occurred, try again later"
     },
     "global_error_message": {
-        "message": "Error occurred, please contact us via <a>support@adguard-vpn.com</a>"
+        "message": "An error occurred, please contact us via <a>support@adguard-vpn.com</a>"
     },
     "about_title": {
         "message": "About"
+    },
+    "options_support_title": {
+        "message": "Support"
+    },
+    "options_support_faq_title": {
+        "message": "FAQ"
+    },
+    "options_support_faq_description": {
+        "message": "Questions and answers"
+    },
+    "options_support_report_title": {
+        "message": "Report a bug"
+    },
+    "options_support_report_description": {
+        "message": "If something doesn't work correctly in the program"
+    },
+    "options_support_feedback_title": {
+        "message": "Leave feedback"
+    },
+    "options_support_feedback_description": {
+        "message": "Submit feature requests and suggestions"
+    },
+    "options_support_discuss_title": {
+        "message": "Discuss"
+    },
+    "options_support_discuss_description": {
+        "message": "Discuss on our forum, in social networks, or on Github"
+    },
+    "options_report_bug_title": {
+        "message": "Report a bug"
+    },
+    "options_bug_report_email_label": {
+        "message": "Email"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Include the diagnostic report in the message"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "Incorrect email address"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "This field is mandatory"
+    },
+    "options_bug_report_request_error": {
+        "message": "An error occurred. Please try again later."
+    },
+    "options_bug_report_send_button": {
+        "message": "Submit"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Submitting..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Describe the problem here..."
+    },
+    "options_bug_report_page_success": {
+        "message": "Thank you, your message was submitted successfully!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "New report"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Message"
     },
     "account_title": {
         "message": "Account"
@@ -72,7 +135,7 @@
         "message": "Get started absolutely free!"
     },
     "auth_description": {
-        "message": "Uncompromising online privacy protection. Over 20 Million people have already chosen AdGuard."
+        "message": "Uncompromising online privacy protection. Over 30 million people have already chosen AdGuard."
     },
     "auth_code": {
         "message": "Code from auth application"
@@ -161,6 +224,12 @@
     "settings_context_menus_title": {
         "message": "Add AdGuard VPN item to the browser’s context menu"
     },
+    "settings_help_us_improve_title": {
+        "message": "Help us improve"
+    },
+    "settings_help_us_improve_description": {
+        "message": "Allow AdGuard VPN to gather crash reports, technical and interaction data. This is anonymous."
+    },
     "context_menu_selective_mode": {
         "message": "Selective mode"
     },
@@ -224,6 +293,15 @@
     "settings_exclusion_add": {
         "message": "Add a website"
     },
+    "settings_exclusions_import_button": {
+        "message": "Import"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Export"
+    },
+    "settings_exclusions_delete_button": {
+        "message": "Delete all"
+    },
     "settings_exclusion_title": {
         "message": "Exclusions"
     },
@@ -261,7 +339,7 @@
         "message": "Try again"
     },
     "authentication_successful_social": {
-        "message": "Successfully authenticated! You can open AdGuard VPN and switch on the tunnel."
+        "message": "Successfully authenticated! You can open AdGuard VPN and start using it."
     },
     "control_error_description": {
         "message": "It looks like another Chrome extension is trying to control your connection. Please disable the other extension in your browser."
@@ -295,9 +373,6 @@
     },
     "context_menu_disable_vpn": {
         "message": "Disable VPN on this website"
-    },
-    "suggest_feature": {
-        "message": "Suggest a feature"
     },
     "endpoints_countries": {
         "message": "Locations"
@@ -339,19 +414,13 @@
         "message": "Disconnected"
     },
     "popup_traffic_limit_exceeded_title": {
-        "message": "Connection speed is reduced"
+        "message": "Speed is reduced"
     },
     "popup_traffic_limit_exceeded_description": {
-        "message": "You've run out of fast gigabytes :( <br/> Only slow ones left"
+        "message": "You've reached the free data limit, and AdGuard VPN works slowly."
     },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Boost speed"
-    },
-    "popup_traffic_limit_exceeded_cta": {
-        "message": "Upgrade now for unlimited data, locations and speed!"
-    },
-    "popup_traffic_limit_exceeded_cta_offer": {
-        "message": "Early-bird prices!"
     },
     "popup_feedback_title": {
         "message": "We'd love to hear your feedback"
@@ -374,8 +443,8 @@
     "upgrade_features_all_locations": {
         "message": "All locations"
     },
-    "upgrade_features_no_log": {
-        "message": "No logs policy"
+    "upgrade_features_devices": {
+        "message": "Up to 5 devices"
     },
     "continue_us_free_button": {
         "message": "Keep using for free"
@@ -392,12 +461,25 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN is disabled on this website"
     },
+    "popup_auth_policy_agreement": {
+        "message": "Accept <eula>EULA</eula> and <privacy>Privacy policy</privacy>",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "Allow AdGuard to gather <link>anonymized data</link> on the app usage to make AdGuard VPN better"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Continue"
+    },
+    "popup_marketing_consent_checkbox": {
+        "message": "Send me emails with special offers and AdGuard news"
+    },
     "popup_auth_agreement_consent": {
-        "message": "By using AdGuard VPN, you agree to our <eula>EULA</eula> and <privacy>Privacy Policy</privacy>",
+        "message": "By continuing to use AdGuard VPN, you agree to our <eula>EULA</eula> and <privacy>Privacy Policy</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "options_auth_agreement_consent": {
-        "message": "By continuing you accept the <privacy>Terms and Conditions</privacy> and <eula>EULA</eula>",
+        "message": "By continuing to use AdGuard VPN, you agree to our <eula>EULA</eula> and <privacy>Privacy Policy</privacy>",
         "description": "NOTICE! respect spaces between tags"
     },
     "popup_free_traffic_info": {
@@ -415,5 +497,56 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "Are you sure you want to switch?"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "Import exclusions to:"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "Regular list"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "Selective list"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "Cancel"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Delete"
+    },
+    "options_exclusions_delete_title": {
+        "message": "Remove exclusions"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "All exclusions from the Regular mode will be deleted."
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "All exclusions from the Selective mode will be deleted."
+    },
+    "options_exclusions_import_successful": {
+        "message": "Imported exclusions: %count%"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "Exclusions file should have one of the following extensions: %extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "Zip archive: \"%filename%\" doesn't contain files with extensions: %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "You've reached the maximum number of connections: %maxDevicesAllowed%."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "To add more devices, consider subscribing to the Unlimited AdGuard VPN."
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "To add another device, disable AdGuard VPN on any of your gadgets."
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Subscribe"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Learn more"
+    },
+    "popup_connections_limit_title": {
+        "message": "Connections limit reached"
     }
 }

@@ -100,6 +100,7 @@ export class Notifier {
 const types = {
     SETTING_UPDATED: 'event.update.setting.value',
     NON_ROUTABLE_DOMAIN_FOUND: 'event.found.non.routable.domain',
+    TOO_MANY_DEVICES_CONNECTED: 'event.too.many.devices.connected',
     NON_ROUTABLE_DOMAIN_ADDED: 'event.added.non.routable.domain',
     CREDENTIALS_UPDATED: 'event.credentials.updated',
     USER_AUTHENTICATED: 'event.authentication.authenticated',
