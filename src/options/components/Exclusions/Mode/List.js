@@ -7,7 +7,7 @@ import { Checkbox } from '../Checkbox';
 const List = observer(() => {
     const { settingsStore } = useContext(rootStore);
     const { exclusionsCurrentMode } = settingsStore;
-    const exclusions = settingsStore.exclusionsByType(exclusionsCurrentMode);
+    const exclusions = settingsStore.unicodeExclusionsByType(exclusionsCurrentMode);
 
     const handleRemove = (id) => async () => {
         await settingsStore.removeFromExclusions(exclusionsCurrentMode, id);
@@ -23,11 +23,11 @@ const List = observer(() => {
 
     return (
         <div className="settings__list">
-            {exclusions.map(({ id, hostname, enabled }) => (
+            {exclusions.map(({ id, enabled, unicodeHostname }) => (
                 <div className="settings__list-item" key={id}>
                     <Checkbox
                         id={id}
-                        label={hostname}
+                        label={unicodeHostname}
                         checked={enabled}
                         handleToggle={handleToggle(id)}
                         handleRename={handleRename(id)}

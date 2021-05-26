@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
+import punycode from 'punycode/';
 
 import { rootStore } from '../../../stores';
 import Info from './Info';
@@ -13,7 +14,7 @@ const SiteInfo = observer(() => {
     if (settingsStore.displayNonRoutable) {
         return (
             <Info
-                title={settingsStore.currentTabHostname}
+                title={punycode.toUnicode(settingsStore.currentTabHostname)}
                 status={reactTranslator.getMessage('popup_site_status_unaccessible')}
             />
         );
@@ -21,7 +22,7 @@ const SiteInfo = observer(() => {
 
     return (
         <Info
-            title={settingsStore.currentTabHostname}
+            title={punycode.toUnicode(settingsStore.currentTabHostname)}
             status={reactTranslator.getMessage('popup_site_status_vpn_disabled')}
         />
     );

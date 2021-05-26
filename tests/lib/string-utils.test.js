@@ -29,6 +29,11 @@ describe('isValidExclusion', () => {
         expect(isValidExclusion('example.org')).toBeTruthy();
         expect(isValidExclusion('*.example.org')).toBeTruthy();
         expect(isValidExclusion('api.*.org')).toBeTruthy();
+        expect(isValidExclusion('zürimech.ch')).toBeTruthy();
+        expect(isValidExclusion('мвд.рф')).toBeTruthy();
+        expect(isValidExclusion('*.рф')).toBeTruthy();
+        expect(isValidExclusion('103.194.171.75')).toBeTruthy();
+        expect(isValidExclusion('103.194.171.*')).toBeTruthy();
     });
     it('finds invalid exclusions', () => {
         expect(isValidExclusion('*org')).toBeFalsy();

@@ -49,6 +49,14 @@ describe('getHostname', () => {
         expect(getHostname('chrome://version'))
             .toEqual('version');
     });
+    it('should return punycode hostname if invoked with cyrillic URL', () => {
+        expect(getHostname('https://мвд.рф'))
+            .toEqual('xn--b1aew.xn--p1ai');
+    });
+    it('should return punycode hostname if invoked with URL with umlaut symbol', () => {
+        expect(getHostname('https://zürimech.ch/'))
+            .toEqual('xn--zrimech-n2a.ch');
+    });
     it('should return the argument if it is incorrect URL - null', () => {
         expect(getHostname(null))
             .toEqual(null);

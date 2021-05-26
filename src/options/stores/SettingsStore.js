@@ -3,6 +3,7 @@ import {
     observable,
     runInAction,
 } from 'mobx';
+import punycode from 'punycode/';
 
 import { log } from '../../lib/logger';
 import { SETTINGS_IDS } from '../../lib/constants';
@@ -177,8 +178,11 @@ export class SettingsStore {
         await messenger.setExclusionsMode(mode);
     };
 
-    exclusionsByType(exclusionsType) {
-        return this.exclusions[exclusionsType].slice().reverse();
+    unicodeExclusionsByType(exclusionsType) {
+        return this.exclusions[exclusionsType]
+            .slice()
+            .reverse()
+            .map((ex) => ({ ...ex, unicodeHostname: punycode.toUnicode(ex.hostname) }));
     }
 
     @action

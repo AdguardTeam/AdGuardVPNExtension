@@ -75,6 +75,6 @@ export const isHttp = (str) => {
 export const isValidExclusion = (exclusion) => {
     // Regexp validates simple domains and exclusions with wildcard
     // e.g "*.example.org", "example.org", more cases can be found in tests
-    const VALID_EXCLUSION_REGEX = /^((\*|[a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[A-Za-z0-9](\.?))$/;
+    const VALID_EXCLUSION_REGEX = /^((\*|[\w\u0400-\u04FF][\w_\-.\u0400-\u04FF\u00FC]*)\.([a-z\u0400-\u04FF]{2,8}|\*)|(25[0-5]|2[0-4]\d|(1\d{2})|[1-9]\d|[1-9])\.((25[0-5]|2[0-4]\d|(1\d{2})|(\d{1,2}))\.){2}(25[0-5]|2[0-4]\d|(1\d{2})|(\d{1,2})))[^\s]*$/;
     return VALID_EXCLUSION_REGEX.test(exclusion);
 };

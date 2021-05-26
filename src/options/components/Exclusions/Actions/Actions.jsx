@@ -5,6 +5,7 @@ import FileSaver from 'file-saver';
 import JSZip from 'jszip';
 import format from 'date-fns/format';
 import identity from 'lodash/identity';
+import punycode from 'punycode/';
 
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { translator } from '../../../../common/translator';
@@ -26,7 +27,7 @@ const prepareExclusionsForExport = (exclusions) => {
     return exclusions
         .reverse()
         .filter((exclusion) => exclusion.enabled)
-        .map((exclusion) => exclusion.hostname)
+        .map((exclusion) => punycode.toUnicode(exclusion.hostname))
         .join('\n');
 };
 

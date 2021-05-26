@@ -25,30 +25,39 @@ describe('exclusions handler', () => {
 
     it('should return false if hostname is NOT in exclusions', () => {
         expect(exclusionsHandler.isExcluded('http://example.org')).toEqual(false);
+        expect(exclusionsHandler.isExcluded('xn--b1aew.xn--p1ai/')).toEqual(false);
     });
 
     it('should return true if hostname is IN exclusions', async () => {
         await exclusionsHandler.addToExclusions('http://example.org');
+        await exclusionsHandler.addToExclusions('мвд.рф');
         const exclusionsList = exclusionsHandler.getExclusionsList();
-        expect(exclusionsList.length).toEqual(1);
+        expect(exclusionsList.length).toEqual(2);
         expect(exclusionsHandler.isExcluded('http://example.org')).toEqual(true);
+        expect(exclusionsHandler.isExcluded('https://xn--b1aew.xn--p1ai/contacts')).toEqual(true);
     });
 
     it('should turn on if added exclusion is already in exclusions list', async () => {
         await exclusionsHandler.addToExclusions('http://example.org');
+        await exclusionsHandler.addToExclusions('мвд.рф');
         let exclusionsList = exclusionsHandler.getExclusionsList();
-        expect(exclusionsList.length).toEqual(1);
+        expect(exclusionsList.length).toEqual(2);
         expect(exclusionsHandler.isExcluded('http://example.org')).toEqual(true);
+        expect(exclusionsHandler.isExcluded('https://xn--b1aew.xn--p1ai')).toEqual(true);
 
         await exclusionsHandler.toggleExclusion(exclusionsList[0].id);
+        await exclusionsHandler.toggleExclusion(exclusionsList[1].id);
         exclusionsList = exclusionsHandler.getExclusionsList();
-        expect(exclusionsList.length).toEqual(1);
+        expect(exclusionsList.length).toEqual(2);
         expect(exclusionsHandler.isExcluded('http://example.org')).toEqual(false);
+        expect(exclusionsHandler.isExcluded('https://xn--b1aew.xn--p1ai')).toEqual(false);
 
         await exclusionsHandler.addToExclusions('http://example.org');
+        await exclusionsHandler.addToExclusions('мвд.рф');
         exclusionsList = exclusionsHandler.getExclusionsList();
-        expect(exclusionsList.length).toEqual(1);
+        expect(exclusionsList.length).toEqual(2);
         expect(exclusionsHandler.isExcluded('http://example.org')).toEqual(true);
+        expect(exclusionsHandler.isExcluded('https://xn--b1aew.xn--p1ai')).toEqual(true);
     });
 
     it('should return false if hostname is IN exclusions and is not enabled', () => {

@@ -109,6 +109,7 @@
         "nanoid": "^3.1.12",
         "prop-types": "^15.7.2",
         "protobufjs": "^6.10.1",
+        "punycode": "^2.1.1",
         "qs": "^6.9.4",
         "react": "^16.14.0",
         "react-dom": "^16.14.0",

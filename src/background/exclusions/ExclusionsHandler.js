@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid';
+import punycode from 'punycode/';
 
 import { getHostname } from '../../lib/helpers';
 import { areHostnamesEqual, shExpMatch } from '../../lib/string-utils';
@@ -27,11 +28,13 @@ export default class ExclusionsHandler {
      * Normalizes exclusions url
      * 1. trims it
      * 2. converts to lowercase
-     * @param {string} url
+     * 3. converts to ASCII
+     * @param {string} rawUrl
      * @return {string | undefined}
      */
-    prepareUrl = (url) => {
-        return url?.trim()?.toLowerCase();
+    prepareUrl = (rawUrl) => {
+        const url = rawUrl?.trim()?.toLowerCase();
+        return punycode.toASCII(url);
     }
 
     /**
@@ -51,6 +54,8 @@ export default class ExclusionsHandler {
         options = {},
     ) => {
         const url = this.prepareUrl(dirtyUrl);
+        // save hostnames as ASCII because 'pacScript.url' supports only ASCII URLs
+        // https://chromium.googlesource.com/chromium/src/+/3a46e0bf9308a42642689c4b73b6b8622aeecbe5/chrome/browser/extensions/api/proxy/proxy_api_helpers.cc#115
         const hostname = getHostname(url);
 
         if (!hostname) {
@@ -155,7 +160,8 @@ export default class ExclusionsHandler {
     };
 
     renameExclusion = (id, newUrl) => {
-        const hostname = getHostname(newUrl);
+        const hostname = getHostname(this.prepareUrl(newUrl));
+
         if (!hostname) {
             return;
         }
