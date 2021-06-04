@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import { WsConnectivityMsg, WsPingMsg } from './protobufCompiled';
 import { stringToUint8Array } from '../../lib/string-utils';
 import { log } from '../../lib/logger';
@@ -70,6 +71,10 @@ export const sendPingMessage = (websocket, vpnToken, appId) => {
  * @param {number} fetchTimeout
  */
 const fetchWithTimeout = (requestUrl, fetchTimeout) => {
+    const RANDOM_PARAM_LENGTH = 6;
+    // we add random search param to avoid caching
+    const requestUrlWithRandomParams = `${requestUrl}?r=${nanoid(RANDOM_PARAM_LENGTH)}`;
+
     // used to abort going fetch requests
     const controller = new AbortController();
 
@@ -78,7 +83,17 @@ const fetchWithTimeout = (requestUrl, fetchTimeout) => {
 
     const fetchHandler = async () => {
         try {
-            const response = await fetch(new Request(requestUrl, { redirect: 'manual' }), { signal: controller.signal });
+            const headers = new Headers();
+            headers.append('Cache-Control', 'no-cache');
+            const request = new Request(
+                requestUrlWithRandomParams,
+                {
+                    redirect: 'manual',
+                    cache: 'no-cache',
+                    headers,
+                },
+            );
+            const response = await fetch(request, { signal: controller.signal });
             if (timeoutId) {
                 clearTimeout(timeoutId);
             }
@@ -102,7 +117,7 @@ const fetchWithTimeout = (requestUrl, fetchTimeout) => {
         new Promise((_, reject) => {
             timeoutId = setTimeout(() => {
                 controller.abort();
-                reject(new Error(`Request to ${requestUrl} stopped by timeout`));
+                reject(new Error(`Request to ${requestUrlWithRandomParams} stopped by timeout`));
             }, fetchTimeout);
         }),
     ]);
