@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { log } from '../../lib/logger';
-import { clearFromWrappingQuotes, getFirstResolved } from '../../lib/helpers';
+import { clearFromWrappingQuotes } from '../../lib/helpers';
 import { AUTH_API_URL, VPN_API_URL, STAGE_ENV } from '../config';
 
 // DNS over https api
 export const GOOGLE_DOH_URL = 'dns.google/resolve';
 export const CLOUDFLARE_DOH_URL = 'cloudflare-dns.com/dns-query';
+export const ALIDNS_DOH_URL = 'dns.alidns.com/resolve';
 
 const stageSuffix = STAGE_ENV === 'test' ? '-dev' : '';
 export const WHOAMI_URL = `whoami${stageSuffix}.adguard-vpn.online`;
@@ -130,16 +131,34 @@ export class FallbackApi {
         return bkpUrl;
     };
 
-    getBkpUrl = async (hostname) => {
-        const requesters = [
-            this.getBkpUrlByGoogleDoh.bind(null, hostname),
-            this.getBkpUrlByCloudFlareDoh.bind(null, hostname),
-        ];
+    getBkpUrlByAliDnsDoh = async (name) => {
+        const { data } = await axios.get(`https://${ALIDNS_DOH_URL}`, {
+            headers: {
+                'Cache-Control': 'no-cache',
+                Pragma: 'no-cache',
+                accept: 'application/dns-json',
+            },
+            params: {
+                name,
+                type: 'TXT',
+            },
+            timeout: REQUEST_TIMEOUT_MS,
+        });
 
+        const { Answer: [{ data: bkpUrl }] } = data;
+
+        return bkpUrl;
+    };
+
+    getBkpUrl = async (hostname) => {
         let bkpUrl;
 
         try {
-            bkpUrl = await getFirstResolved(requesters, log.error);
+            bkpUrl = await Promise.any([
+                this.getBkpUrlByGoogleDoh(hostname),
+                this.getBkpUrlByCloudFlareDoh(hostname),
+                this.getBkpUrlByAliDnsDoh(hostname),
+            ]);
             bkpUrl = clearFromWrappingQuotes(bkpUrl);
             if (bkpUrl === EMPTY_BKP_URL) {
                 bkpUrl = null;
