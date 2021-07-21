@@ -446,6 +446,9 @@
     "upgrade_features_devices": {
         "message": "Up to 5 devices"
     },
+    "upgrade_features_streaming": {
+        "message": "Streaming support"
+    },
     "continue_us_free_button": {
         "message": "Keep using for free"
     },
