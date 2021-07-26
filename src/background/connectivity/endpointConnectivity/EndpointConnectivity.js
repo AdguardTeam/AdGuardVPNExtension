@@ -3,7 +3,7 @@ import websocketFactory from '../websocket/websocketFactory';
 import { WS_API_URL_TEMPLATE } from '../../config';
 import { renderTemplate } from '../../../lib/string-utils';
 import notifier from '../../../lib/notifier';
-import proxy from '../../proxy';
+import { proxy } from '../../proxy';
 import { log } from '../../../lib/logger';
 import dns from '../../dns/dns';
 import { sendPingMessage } from '../pingHelpers';

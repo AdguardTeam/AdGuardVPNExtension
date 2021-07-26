@@ -2,6 +2,7 @@ import axios from 'axios';
 import { log } from '../../lib/logger';
 import { clearFromWrappingQuotes } from '../../lib/helpers';
 import { AUTH_API_URL, VPN_API_URL, STAGE_ENV } from '../config';
+import { apiUrlCache } from './apiUrlCache';
 
 // DNS over https api
 export const GOOGLE_DOH_URL = 'dns.google/resolve';
@@ -21,30 +22,56 @@ const DEFAULT_COUNTRY_INFO = { country: 'none', bkp: true };
 
 const REQUEST_TIMEOUT_MS = 3 * 1000;
 
+export const VPN_API_URL_KEY = 'vpn';
+export const AUTH_API_URL_KEY = 'auth';
+
 export class FallbackApi {
     constructor(vpnApiUrl, authApiUrl) {
-        this.vpnApiUrl = vpnApiUrl;
-        this.authApiUrl = authApiUrl;
+        this.setVpnApiUrl(vpnApiUrl);
+        this.setAuthApiUrl(authApiUrl);
     }
 
-    getVpnApiUrl = () => {
+    setVpnApiUrl = (url) => {
+        this.vpnApiUrl = url;
+        apiUrlCache.set(VPN_API_URL_KEY, this.vpnApiUrl);
+    }
+
+    setAuthApiUrl = (url) => {
+        this.authApiUrl = url;
+        apiUrlCache.set(AUTH_API_URL_KEY, this.authApiUrl);
+    }
+
+    getVpnApiUrl = async () => {
+        if (apiUrlCache.isNeedUpdate(VPN_API_URL_KEY)) {
+            await this.updateVpnApiUrl();
+            return this.vpnApiUrl;
+        }
+
         return this.vpnApiUrl;
     }
 
-    getAuthApiUrl = () => {
+    getAuthApiUrl = async () => {
+        if (apiUrlCache.isNeedUpdate(AUTH_API_URL_KEY)) {
+            await this.updateAuthApiUrl();
+            return this.authApiUrl;
+        }
+
         return this.authApiUrl;
     }
 
-    get AUTH_BASE_URL() {
-        return `${this.authApiUrl}/oauth/authorize`;
+    getAuthBaseUrl = async () => {
+        const authApiUrl = await this.getAuthApiUrl();
+        return `${authApiUrl}/oauth/authorize`;
     }
 
-    get AUTH_REDIRECT_URI() {
-        return `${this.authApiUrl}/oauth.html?adguard-vpn=1`;
+    getAuthRedirectUri = async () => {
+        const authApiUrl = await this.getAuthApiUrl();
+        return `${authApiUrl}/oauth.html?adguard-vpn=1`;
     }
 
-    get ACCOUNT_API_URL() {
-        return `${this.vpnApiUrl}/account`;
+    getAccountApiUrl = async () => {
+        const vpnApiUrl = await this.getVpnApiUrl();
+        return `${vpnApiUrl}/account`;
     }
 
     async init() {
@@ -61,11 +88,27 @@ export class FallbackApi {
         ]);
 
         if (bkpVpnApiUrl) {
-            this.vpnApiUrl = bkpVpnApiUrl;
+            this.setVpnApiUrl(bkpVpnApiUrl);
         }
 
         if (bkpAuthApiUrl) {
-            this.authApiUrl = bkpAuthApiUrl;
+            this.setAuthApiUrl(bkpAuthApiUrl);
+        }
+    }
+
+    async updateVpnApiUrl() {
+        const { country } = await this.getCountryInfo();
+        const bkpUrl = await this.getBkpVpnApiUrl(country);
+        if (bkpUrl) {
+            this.setVpnApiUrl(bkpUrl);
+        }
+    }
+
+    async updateAuthApiUrl() {
+        const { country } = await this.getCountryInfo();
+        const bkpUrl = await this.getBkpAuthApiUrl(country);
+        if (bkpUrl) {
+            this.setAuthApiUrl(bkpUrl);
         }
     }
 
@@ -183,8 +226,11 @@ export class FallbackApi {
         return bkpAuthUrl;
     };
 
-    getApiUrlsExclusions = () => {
-        return [this.vpnApiUrl, this.authApiUrl].map((url) => `*${url}`);
+    getApiUrlsExclusions = async () => {
+        return [
+            await this.getVpnApiUrl(),
+            await this.getAuthApiUrl(),
+        ].map((url) => `*${url}`);
     };
 }
 

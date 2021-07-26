@@ -1,4 +1,4 @@
-import proxy from '../proxy';
+import { proxy } from '../proxy';
 import { EVENT, MIN_CONNECTION_DURATION_MS } from './connectivityService/connectivityConstants';
 import { log } from '../../lib/logger';
 import { runWithCancel, sleepIfNecessary } from '../../lib/helpers';

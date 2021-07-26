@@ -1,5 +1,5 @@
 import qs from 'qs';
-import Api from './Api';
+import { Api } from './Api';
 import { AUTH_CLIENT_ID } from '../config';
 import { fallbackApi } from './fallbackApi';
 
@@ -75,6 +75,7 @@ class AuthApi extends Api {
     }
 }
 
-const vpnApi = new AuthApi(fallbackApi.getAuthApiUrl);
-
-export default vpnApi;
+export const authApi = new AuthApi(async () => {
+    const authApiUrl = await fallbackApi.getAuthApiUrl();
+    return authApiUrl;
+});

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { ERROR_STATUSES } from '../../lib/constants';
 import CustomError from '../../lib/CustomError';
 
-class Api {
+export class Api {
     constructor(baseUrl) {
         if (typeof baseUrl === 'function') {
             this.baseUrlFn = baseUrl;
@@ -11,15 +11,16 @@ class Api {
         }
     }
 
-    get baseUrl() {
+    async getBaseUrl() {
         if (this.baseUrlFn) {
-            return this.baseUrlFn();
+            const baseUrlStr = await this.baseUrlFn();
+            return baseUrlStr;
         }
         return this.baseUrlStr;
     }
 
     async makeRequest(path, method = 'POST', config) {
-        const url = `https://${this.baseUrl}/${path}`;
+        const url = `https://${await this.getBaseUrl()}/${path}`;
         try {
             const response = await axios({
                 url,
@@ -35,5 +36,3 @@ class Api {
         }
     }
 }
-
-export default Api;

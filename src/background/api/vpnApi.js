@@ -1,7 +1,7 @@
 import qs from 'qs';
 import browser from 'webextension-polyfill';
 
-import Api from './Api';
+import { Api } from './Api';
 import { fallbackApi } from './fallbackApi';
 
 // projects/ADGUARD/repos/adguard-vpn-backend-service/browse
@@ -82,6 +82,4 @@ class VpnApi extends Api {
     }
 }
 
-const vpnApi = new VpnApi(() => `${fallbackApi.getVpnApiUrl()}/api`);
-
-export default vpnApi;
+export const vpnApi = new VpnApi(async () => `${await fallbackApi.getVpnApiUrl()}/api`);

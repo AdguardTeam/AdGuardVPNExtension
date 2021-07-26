@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid';
 import authProvider from './providers/authProvider';
 import browserApi from './browserApi';
 import tabs from './tabs';
-import proxy from './proxy';
+import { proxy } from './proxy';
 import notifications from './notifications';
 import {
     AUTH_ACCESS_TOKEN_KEY,
@@ -64,15 +64,15 @@ class Auth {
 
         // Generates uniq state id, which will be checked on the auth end
         this.socialAuthState = nanoid();
-        const authUrl = this.getImplicitAuthUrl(socialProvider, marketingConsent);
+        const authUrl = await this.getImplicitAuthUrl(socialProvider, marketingConsent);
         await tabs.openSocialAuthTab(authUrl);
     }
 
-    getImplicitAuthUrl(socialProvider, marketingConsent) {
+    async getImplicitAuthUrl(socialProvider, marketingConsent) {
         const params = {
             response_type: 'token',
             client_id: AUTH_CLIENT_ID,
-            redirect_uri: `https://${fallbackApi.AUTH_REDIRECT_URI}`,
+            redirect_uri: `https://${await fallbackApi.getAuthRedirectUri()}`,
             scope: 'trust',
             state: this.socialAuthState,
         };
@@ -110,7 +110,7 @@ class Auth {
             params.marketing_consent = marketingConsent;
         }
 
-        return `https://${fallbackApi.AUTH_BASE_URL}?${qs.stringify(params)}`;
+        return `https://${await fallbackApi.getAuthBaseUrl()}?${qs.stringify(params)}`;
     }
 
     async authenticateSocial(queryString, tabId) {
