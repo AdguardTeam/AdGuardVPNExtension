@@ -30,8 +30,7 @@ class Tabs {
             if (windowId === browser.windows.WINDOW_ID_NONE) {
                 return;
             }
-            const queryOptions = { active: true, currentWindow: true };
-            const [tab] = await browser.tabs.query(queryOptions);
+            const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
             if (tab) {
                 notifier.notifyListeners(notifier.types.TAB_ACTIVATED, this.prepareTab(tab));
             }
