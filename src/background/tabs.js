@@ -25,15 +25,14 @@ class Tabs {
             }
         });
 
-        browser.windows.onFocusChanged.addListener(async () => {
-            const queryOptions = { active: true, currentWindow: true };
-            let tab;
-            try {
-                [tab] = await browser.tabs.query(queryOptions);
-            } catch (e) {
-                return; // ignore errors happening when we try to get removed tabs
+        // add listener for the event when activated tab from another window
+        browser.windows.onFocusChanged.addListener(async (windowId) => {
+            if (windowId === browser.windows.WINDOW_ID_NONE) {
+                return;
             }
-            if (tab && tab.active) {
+            const queryOptions = { active: true, currentWindow: true };
+            const [tab] = await browser.tabs.query(queryOptions);
+            if (tab) {
                 notifier.notifyListeners(notifier.types.TAB_ACTIVATED, this.prepareTab(tab));
             }
         });
