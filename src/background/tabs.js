@@ -25,7 +25,7 @@ class Tabs {
             }
         });
 
-        // add listener for the event when activated tab from another window
+        // notify listeners when tab activated from another window
         browser.windows.onFocusChanged.addListener(async (windowId) => {
             if (windowId === browser.windows.WINDOW_ID_NONE) {
                 return;
