@@ -551,5 +551,11 @@
     },
     "popup_connections_limit_title": {
         "message": "Connections limit reached"
+    },
+    "signedout_page_title": {
+        "message": "You have signed out of AdGuard VPN"
+    },
+    "signedout_page_description": {
+        "message": "Please note: your connection is not secured! To continue surfing privately, click on the AdGuard VPN icon and sign in again."
     }
 }

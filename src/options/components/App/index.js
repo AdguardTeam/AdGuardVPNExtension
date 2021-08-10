@@ -15,7 +15,7 @@ import Footer from '../Footer';
 import { Settings } from '../Settings';
 import Account from '../Account';
 import About from '../About';
-import Auth from '../Auth';
+import { SignedOut } from '../SignedOut';
 import Exclusions from '../Exclusions';
 import Preloader from '../Preloader';
 import Icons from '../ui/Icons';
@@ -50,7 +50,7 @@ const getContent = (authenticated, requestProcessState) => {
     return (
         <>
             {requestProcessState === REQUEST_STATUSES.PENDING && <Preloader />}
-            <Auth />
+            <SignedOut />
         </>
     );
 };
