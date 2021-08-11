@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { reactTranslator } from '../../../common/reactTranslator';
 
 import './signedout.pcss';
