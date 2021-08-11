@@ -6,7 +6,7 @@ import './signedout.pcss';
 export const SignedOut = () => {
     return (
         <div className="signedout">
-            <div className="signedout__ninja-image" />
+            <div className="signedout__image" />
             <div className="signedout__title">
                 {reactTranslator.getMessage('options_signedout_page_title')}
             </div>
