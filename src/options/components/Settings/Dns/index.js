@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 
 import { DNS_SERVERS } from '../../../../background/dns/dnsConstants';
 import { rootStore } from '../../../stores';
-import Select from '../../ui/Select';
+import { Select } from '../../ui/Select';
 import { reactTranslator } from '../../../../common/reactTranslator';
 
 import './dns.pcss';
