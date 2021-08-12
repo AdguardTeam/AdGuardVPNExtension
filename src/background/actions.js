@@ -1,10 +1,18 @@
 import browser from 'webextension-polyfill';
+import browserApi from './browserApi';
 import { Prefs } from './prefs';
 import { log } from '../lib/logger';
 import { promoNotifications } from './promoNotifications';
 
+import { OPTIONS_TAB_ID } from '../lib/constants';
+
 const openOptionsPage = async () => {
     return browser.runtime.openOptionsPage();
+};
+
+const reloadOptionsPage = async () => {
+    const optionsTabId = await browserApi.storage.get(OPTIONS_TAB_ID);
+    await browser.tabs.reload(optionsTabId);
 };
 
 const setIcon = async (details) => {
@@ -109,6 +117,7 @@ const clearBadgeText = async (tabId) => {
 
 const actions = {
     openOptionsPage,
+    reloadOptionsPage,
     setIconEnabled,
     setIconDisabled,
     setIconTrafficOff,
