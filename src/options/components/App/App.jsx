@@ -23,6 +23,7 @@ import messenger from '../../../lib/messenger';
 import notifier from '../../../lib/notifier';
 import { Support } from '../Support';
 import { Notifications } from '../ui/Notifications';
+import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
 
 Modal.setAppElement('#root');
 
@@ -61,6 +62,8 @@ export const App = observer(() => {
         settingsStore,
         globalStore,
     } = useContext(rootStore);
+
+    useAppearanceTheme(settingsStore.appearanceTheme);
 
     const { status } = globalStore;
 

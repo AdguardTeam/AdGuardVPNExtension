@@ -24,6 +24,13 @@
         border-radius: 6px;
         border: 1px solid var(--gray88);
         outline: none;
+        background-color: var(--white);
+        color: var(--gray-base);
+
+        :-webkit-autofill:focus,
+        &:focus:-webkit-autofill {
+            background-color: var(--white);
+        }
 
         &::placeholder {
             font-size: 1.4rem;
@@ -49,6 +56,14 @@
             &:active {
                 border-color: transparent;
             }
+        }
+
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover,
+        &:-webkit-autofill:focus,
+        &:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 30px var(--white) inset;
+            -webkit-text-fill-color: var(--gray-base)!important;
         }
     }
 

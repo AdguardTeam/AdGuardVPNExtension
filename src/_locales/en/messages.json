@@ -290,6 +290,18 @@
     "settings_dns_selector_quad9_desc": {
         "message": "Free alternative DNS service with protection from phishing and spyware"
     },
+    "settings_theme_label": {
+        "message": "Theme"
+    },
+    "settings_theme_system": {
+        "message": "System default"
+    },
+    "settings_theme_dark": {
+        "message": "Dark"
+    },
+    "settings_theme_light": {
+        "message": "Light"
+    },
     "settings_exclusion_add": {
         "message": "Add a website"
     },

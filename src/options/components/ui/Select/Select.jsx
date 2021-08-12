@@ -50,7 +50,6 @@ export const Select = ((props) => {
                 onClick={handleSelectClick}
             >
                 <div className="selector__value-title">{options[value].title}</div>
-                <div className="selector__value-desc">{options[value].desc}</div>
             </div>
             <ul
                 className="selector__options-list"
@@ -64,7 +63,8 @@ export const Select = ((props) => {
                         onClick={() => handleOptionClick(id)}
                     >
                         <div className="selector__option-item-title">{options[id].title}</div>
-                        <div className="selector__option-item-desc">{options[id].desc}</div>
+                        {options[id].desc && (
+                            <div className="selector__option-item-desc">{options[id].desc}</div>)}
                     </li>
                 ))}
             </ul>
