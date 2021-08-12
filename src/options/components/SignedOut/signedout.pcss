@@ -1,0 +1,29 @@
+.signedout {
+    height: calc(100vh - var(--footer-height));
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    &__image {
+        width: 180px;
+        height: 180px;
+        background-repeat: no-repeat;
+        background-image: url("../../../assets/images/not-found.svg");
+        background-position: 50% -50px;
+    }
+
+    &__title {
+        font-size: 2.2rem;
+        font-weight: 700;
+    }
+
+    &__description {
+        max-width: 340px;
+        margin-top: 15px;
+        font-size: 1.7rem;
+        font-weight: 400;
+    }
+}
