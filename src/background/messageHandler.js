@@ -1,5 +1,5 @@
 import browser from 'webextension-polyfill';
-import { MESSAGES_TYPES, OPTIONS_TAB_ID } from '../lib/constants';
+import { MESSAGES_TYPES } from '../lib/constants';
 import auth from './auth';
 import popupData from './popupData';
 import endpoints from './endpoints';
@@ -19,7 +19,6 @@ import { promoNotifications } from './promoNotifications';
 import tabs from './tabs';
 import vpnProvider from './providers/vpnProvider';
 import { logStorage } from '../lib/log-storage';
-import browserApi from './browserApi';
 
 const eventListeners = {};
 
@@ -71,21 +70,16 @@ const messageHandler = async (message, sender) => {
             await locationsService.setSelectedLocation(location.id, isSelectedByUser);
             break;
         }
-        case MESSAGES_TYPES.UPDATE_OPTIONS_TAB_ID: {
-            const { tabId } = data;
-            await browserApi.storage.set(OPTIONS_TAB_ID, tabId);
-            break;
-        }
         case MESSAGES_TYPES.DEAUTHENTICATE_USER: {
             await auth.deauthenticate();
             await credentials.persistVpnToken(null);
-            await actions.reloadOptionsPage();
+            await exclusions.handleExclusionsUpdate();
             break;
         }
         case MESSAGES_TYPES.AUTHENTICATE_USER: {
             const { credentials } = data;
             const status = await auth.authenticate(credentials);
-            await actions.reloadOptionsPage();
+            await exclusions.handleExclusionsUpdate();
             return status;
         }
         case MESSAGES_TYPES.UPDATE_AUTH_CACHE: {

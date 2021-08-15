@@ -23,7 +23,6 @@ export const MESSAGES_TYPES = {
     GET_POPUP_DATA: 'get.popup.data',
     GET_VPN_FAILURE_PAGE: 'get.vpn.failure.page',
     OPEN_OPTIONS_PAGE: 'open.options.page',
-    UPDATE_OPTIONS_TAB_ID: 'update.options.tab.id',
     SET_SELECTED_LOCATION: 'set.selected.location',
     DEAUTHENTICATE_USER: 'deauthenticate.user',
     AUTHENTICATE_USER: 'authenticate.user',
@@ -79,5 +78,3 @@ export const PROMO_SCREEN_STATES = {
 export const FORCE_CANCELLED = 'Connection was cancelled by user';
 
 export const UNINSTALL_URL = 'https://adguard-vpn.com/forward.html?action=adguard_uninstal_ext&from=background_page&app=vpn_extension';
-
-export const OPTIONS_TAB_ID = 'options.tab.id';

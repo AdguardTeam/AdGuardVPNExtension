@@ -2,11 +2,9 @@ import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import Modal from 'react-modal';
-import browser from 'webextension-polyfill';
 
 import { log } from '../../../lib/logger';
 import { REQUEST_STATUSES } from '../../stores/consts';
-import { MESSAGES_TYPES } from '../../../lib/constants';
 
 import '../../styles/main.pcss';
 import './app.pcss';
@@ -67,14 +65,6 @@ export const App = observer(() => {
     const { status } = globalStore;
 
     useEffect(() => {
-        (async () => {
-            const currentTab = await browser.tabs.getCurrent();
-            await messenger.sendMessage(
-                MESSAGES_TYPES.UPDATE_OPTIONS_TAB_ID,
-                { tabId: currentTab.id },
-            );
-        })();
-
         let removeListenerCallback = () => {};
         (async () => {
             await globalStore.init();
@@ -102,6 +92,7 @@ export const App = observer(() => {
                                 return;
                             }
                             await settingsStore.getExclusions();
+                            // TODO update component
                             break;
                         }
                         default: {
