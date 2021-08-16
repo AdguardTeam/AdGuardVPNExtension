@@ -73,14 +73,11 @@ const messageHandler = async (message, sender) => {
         case MESSAGES_TYPES.DEAUTHENTICATE_USER: {
             await auth.deauthenticate();
             await credentials.persistVpnToken(null);
-            await exclusions.handleExclusionsUpdate();
             break;
         }
         case MESSAGES_TYPES.AUTHENTICATE_USER: {
             const { credentials } = data;
-            const status = await auth.authenticate(credentials);
-            await exclusions.handleExclusionsUpdate();
-            return status;
+            return auth.authenticate(credentials);
         }
         case MESSAGES_TYPES.UPDATE_AUTH_CACHE: {
             const { field, value } = data;
