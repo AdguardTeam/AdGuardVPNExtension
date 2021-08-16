@@ -75,6 +75,8 @@ export const App = observer(() => {
             const events = [
                 notifier.types.AUTHENTICATE_SOCIAL_SUCCESS,
                 notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE,
+                notifier.types.USER_AUTHENTICATED,
+                notifier.types.USER_DEAUTHENTICATED,
             ];
 
             // Subscribe to notification from background page with this method
@@ -95,6 +97,14 @@ export const App = observer(() => {
                                 return;
                             }
                             await settingsStore.getExclusions();
+                            break;
+                        }
+                        case notifier.types.USER_AUTHENTICATED: {
+                            authStore.setIsAuthenticated(true);
+                            break;
+                        }
+                        case notifier.types.USER_DEAUTHENTICATED: {
+                            authStore.setIsAuthenticated(false);
                             break;
                         }
                         default: {
