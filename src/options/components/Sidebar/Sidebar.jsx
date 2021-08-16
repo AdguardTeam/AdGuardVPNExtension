@@ -9,7 +9,7 @@ import './sidebar.pcss';
 export const Sidebar = () => {
     return (
         <div className="sidebar">
-            <svg className="sidebar__logo" />
+            <svg className="logo sidebar__logo" />
             <nav className="sidebar__nav">
                 <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/">
                     {reactTranslator.getMessage('settings_exclusion_title')}

@@ -30,10 +30,10 @@
         right: 15px;
         top: calc(50% - 10px);
         display: block;
-        width: 41px;
+        width: 40px;
         height: 20px;
-        border-radius: 4px;
-        background-color: var(--brand-danger);
+        border-radius: 10px;
+        background-color: var(--gray88);
         background-repeat: no-repeat;
         transition: var(--t3) background-color;
         cursor: pointer;
@@ -42,20 +42,20 @@
             content: "";
             position: absolute;
             top: 2px;
-            left: 2px;
+            left: 3px;
             width: 16px;
             height: 16px;
-            border-radius: 2px;
+            border-radius: 100%;
             background-color: #fff;
             transition: var(--t3) transform;
             box-sizing: border-box;
         }
 
         &--active {
-            background-color: var(--brand-primary);
+            background-color: var(--green700);
 
             &:before {
-                transform: translateX(21px);
+                transform: translateX(18px);
             }
         }
     }

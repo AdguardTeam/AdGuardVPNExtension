@@ -1,24 +1,20 @@
 .selector {
-    margin-top: 10px;
-
     &__value {
-        display: flex;
-        flex-direction: column;
-        padding: 20px 10px 20px 45px;
-        width: 500px;
-        min-height: 70px;
+        padding: 0 20px 0 10px;
         background-color: var(--white);
-        border: 1px solid var(--border-color);
-        border-radius: 4px;
         background-image: url('../../../../assets/images/arrow-down.svg');
-        background-position: 14px center;
+        background-position: 100% center;
         background-repeat: no-repeat;
         cursor: pointer;
 
         &-title {
             color: var(--gray-base);
             font-size: 1.6rem;
-            line-height: 1.6rem;
+            white-space: nowrap;
+            width: 115px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: right;
         }
 
         &-desc {
@@ -31,17 +27,23 @@
 
     &__options-list {
         position: absolute;
+        z-index: 10;
+        right: 0;
         border: 1px solid var(--border-color);
         border-radius: 4px;
         max-height: 265px;
-        min-width: 500px;
+        max-width: 500px;
         overflow-y: scroll;
         box-shadow: 0 0 7px 3px var(--shadow);
         padding: 0;
         margin: 13px 0 0 0;
-        background-color: var(--white);
+        background-color: var(--white-strong);
         scrollbar-color: var(--gray88) white;
         scrollbar-width: thin;
+
+        @media (prefers-color-scheme: dark) {
+            border: 1px solid transparent;
+        }
 
         &[hidden] {
             display: none;
@@ -62,12 +64,9 @@
         padding: 16px 25px;
         cursor: pointer;
 
-        &:hover {
-            background-color: var(--grayF3);
-        }
-
+        &:hover,
         &.active {
-            background-color: var(--grayF7);
+            background-color: var(--grayF3);
         }
 
         &-title {
@@ -82,5 +81,18 @@
             line-height: 1.2;
             margin: 3px 20px 0 0;
         }
+    }
+}
+
+
+.light-mode {
+    .selector__options-list {
+        border: 1px solid var(--border-color);
+    }
+}
+
+.dark-mode {
+    .selector__options-list {
+        border: 1px solid transparent;
     }
 }

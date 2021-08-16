@@ -27,6 +27,7 @@ import messenger from '../../../lib/messenger';
 import notifier from '../../../lib/notifier';
 import PromoSale from '../PromoSale';
 import { PROMO_SCREEN_STATES } from '../../../lib/constants';
+import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
 import { TrafficLimitExceeded } from '../Settings/TrafficLimitExceeded';
 import { ConnectionsLimitError } from '../ConnectionsLimitError';
 
@@ -43,6 +44,7 @@ export const App = observer(() => {
     } = useContext(rootStore);
 
     useEffect(() => {
+        settingsStore.getAppearanceTheme();
         (async () => {
             await globalStore.init();
         })();
@@ -112,6 +114,8 @@ export const App = observer(() => {
             onUnload();
         };
     }, []);
+
+    useAppearanceTheme(settingsStore.appearanceTheme);
 
     // show nothing while data is loading, except cases after authentication
     if (authStore.requestProcessState !== REQUEST_STATUSES.PENDING
