@@ -50,9 +50,8 @@ const school21Notification = {
         },
     },
     text: '',
-    // FIXME add to the tds
-    url: 'https://agrd.io/back-to-school21-vpn',
-    from: '31 August 2021 12:00:00', // FIXME remove
+    url: 'https://adguard-vpn.com/forward.html?action=school21&from=popup&app=vpn_extension',
+    from: '17 August 2021 12:00:00', // FIXME remove
     // from: '31 August 2021 12:00:00', // FIXME uncomment
     to: '05 September 2021 23:59:00',
     type: 'animated',
