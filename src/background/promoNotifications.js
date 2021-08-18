@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */ // FIXME remove
 /**
  * This module manages promo notifications
  */
@@ -51,8 +50,7 @@ const school21Notification = {
     },
     text: '',
     url: 'https://adguard-vpn.com/forward.html?action=school21&from=popup&app=vpn_extension',
-    from: '17 August 2021 12:00:00', // FIXME remove
-    // from: '31 August 2021 12:00:00', // FIXME uncomment
+    from: '31 August 2021 12:00:00',
     to: '05 September 2021 23:59:00',
     type: 'animated',
     get icons() {
@@ -166,25 +164,24 @@ let timeoutId;
  * @param {boolean} withDelay if true, do this after a 30 sec delay
  */
 const setNotificationViewed = async (withDelay) => {
-    // FIXME uncomment
-    // if (withDelay) {
-    //     clearTimeout(timeoutId);
-    //     timeoutId = setTimeout(() => {
-    //         setNotificationViewed(false);
-    //     }, DELAY);
-    //     return;
-    // }
-    //
-    // if (currentNotification) {
-    //     const viewedNotifications = (await browserApi.storage.get(VIEWED_NOTIFICATIONS)) || [];
-    //     const { id } = currentNotification;
-    //     if (!viewedNotifications.includes(id)) {
-    //         viewedNotifications.push(id);
-    //         await browserApi.storage.set(VIEWED_NOTIFICATIONS, viewedNotifications);
-    //         notifier.notifyListeners(notifier.types.UPDATE_BROWSER_ACTION_ICON);
-    //         currentNotification = null;
-    //     }
-    // }
+    if (withDelay) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+            setNotificationViewed(false);
+        }, DELAY);
+        return;
+    }
+
+    if (currentNotification) {
+        const viewedNotifications = (await browserApi.storage.get(VIEWED_NOTIFICATIONS)) || [];
+        const { id } = currentNotification;
+        if (!viewedNotifications.includes(id)) {
+            viewedNotifications.push(id);
+            await browserApi.storage.set(VIEWED_NOTIFICATIONS, viewedNotifications);
+            notifier.notifyListeners(notifier.types.UPDATE_BROWSER_ACTION_ICON);
+            currentNotification = null;
+        }
+    }
 };
 
 /**
@@ -199,21 +196,20 @@ const getCurrentNotification = async () => {
     }
 
     const currentTime = new Date().getTime();
-    // FIXME uncomment
-    // const timeSinceLastNotification = currentTime - (await getLastNotificationTime());
-    // if (timeSinceLastNotification < minPeriod) {
-    //     // Just a check to not show the notification too often
-    //     return null;
-    // }
-    //
-    // // Check not often than once in 10 minutes
-    // const timeSinceLastCheck = currentTime - notificationCheckTime;
-    // if (notificationCheckTime > 0 && timeSinceLastCheck <= checkTimeoutMs) {
-    //     return currentNotification;
-    // }
-    //
-    // // Update the last notification check time
-    // notificationCheckTime = currentTime;
+    const timeSinceLastNotification = currentTime - (await getLastNotificationTime());
+    if (timeSinceLastNotification < minPeriod) {
+        // Just a check to not show the notification too often
+        return null;
+    }
+
+    // Check not often than once in 10 minutes
+    const timeSinceLastCheck = currentTime - notificationCheckTime;
+    if (notificationCheckTime > 0 && timeSinceLastCheck <= checkTimeoutMs) {
+        return currentNotification;
+    }
+
+    // Update the last notification check time
+    notificationCheckTime = currentTime;
 
     const notificationsKeys = Object.keys(notifications);
     const viewedNotifications = (await browserApi.storage.get(VIEWED_NOTIFICATIONS)) || [];
