@@ -29,15 +29,15 @@ const school21Notification = {
             btn: '答えてみる',
         },
         ko: {
-            title: '백 투 스쿨 게임',
+            title: '백 투 스쿨\n게임',
             btn: '시작',
         },
         zh_cn: {
-            title: '返校问答竞赛',
+            title: '返校\n问答竞赛',
             btn: '开始吧！',
         },
         zh_tw: {
-            title: '返校問答競賽',
+            title: '返校\n問答競賽',
             btn: '開始吧！',
         },
         fr: {
