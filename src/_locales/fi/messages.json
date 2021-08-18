@@ -1,0 +1,555 @@
+{
+    "name": {
+        "message": "AdGuard VPN — Yksityisyyttä ja turvaa"
+    },
+    "description": {
+        "message": "Tekee Internetistä avoimemman ja suojaa tietojasi. Huippuluokan VPN kuuluisan mainosten estäjän kehittäjiltä."
+    },
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
+    "registration_error_not_empty": {
+        "message": "Ei voi olla tyhjä"
+    },
+    "registration_error_not_valid": {
+        "message": "Arvo ei ole oikein"
+    },
+    "registration_error_min_length": {
+        "message": "Salasana on liian lyhyt. Sen täytyy sisältää ainakin 8 merkkiä."
+    },
+    "registration_error_compromised_password": {
+        "message": "Syöttämäsi salasana löytyi vaarantuneiden salasanojen <a>julkisesta tietokannasta</a>. Kokeile toista salasanaa."
+    },
+    "registration_error_unique_constraint": {
+        "message": "Tämä arvo on jo käytössä"
+    },
+    "registration_error_front_unique_validation": {
+        "message": "Salasanat eivät täsmää"
+    },
+    "registration_error_default": {
+        "message": "Tapahtui virhe. Yritä myöhemmin uudelleen."
+    },
+    "authentication_error_2fa_required": {
+        "message": "Vaaditaan kaksivaiheinen todennus (2FA)"
+    },
+    "authentication_error_2fa_invalid": {
+        "message": "Virheellinen todennuskoodi"
+    },
+    "authentication_error_account_disabled": {
+        "message": "Tili on poistettu käytöstä"
+    },
+    "authentication_error_account_locked": {
+        "message": "Tili on lukittu 15 minuutiksi"
+    },
+    "authentication_error_wrong_credentials": {
+        "message": "Väärä salasana"
+    },
+    "authentication_error_default": {
+        "message": "Tapahtui virhe. Yritä myöhemmin uudelleen."
+    },
+    "global_error_message": {
+        "message": "Tapahtui virhe. Lähetä meille sähköpostia osoitteeseen <a>support@adguard-vpn.com</a>"
+    },
+    "about_title": {
+        "message": "Tietoja"
+    },
+    "options_support_title": {
+        "message": "Tuki"
+    },
+    "options_support_faq_title": {
+        "message": "UKK"
+    },
+    "options_support_faq_description": {
+        "message": "Kysymyksiä ja vastauksia"
+    },
+    "options_support_report_title": {
+        "message": "Ilmoita virheestä"
+    },
+    "options_support_report_description": {
+        "message": "Jos jokin sovelluksessa ei toimi oikein"
+    },
+    "options_support_feedback_title": {
+        "message": "Lähetä palautetta"
+    },
+    "options_support_feedback_description": {
+        "message": "Lähetä ominaisuus- ja kehitysehdotuksia"
+    },
+    "options_support_discuss_title": {
+        "message": "Keskustele"
+    },
+    "options_support_discuss_description": {
+        "message": "Keskustele keskustelualueellamme, sosiaalisissa verkoissa tai GitHubissa"
+    },
+    "options_report_bug_title": {
+        "message": "Ilmoita virheestä"
+    },
+    "options_bug_report_email_label": {
+        "message": "Sähköposti"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Sisällytä diagnostiikkaraportti viestiin"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "Virheellinen sähköpostiosoite"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "Kenttä ei voi olla tyhjä"
+    },
+    "options_bug_report_request_error": {
+        "message": "Tapahtui virhe. Yritä myöhemmin uudelleen."
+    },
+    "options_bug_report_send_button": {
+        "message": "Lähetä"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Lähetetään..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Kuvaile ongelmaa..."
+    },
+    "options_bug_report_page_success": {
+        "message": "Kiitos, viestisi lähetys onnistui!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "Uusi raportti"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Viesti"
+    },
+    "account_title": {
+        "message": "Käyttäjätili"
+    },
+    "account_edit": {
+        "message": "Hallitse"
+    },
+    "account_sign_out": {
+        "message": "Kirjaudu ulos"
+    },
+    "rate_description": {
+        "message": "Hei, olemme AdGuardin tiimi ja meille on erittäin tärkeää, että kerrot meille mielipiteesi tuotteesta. Arvioi se, kiitos."
+    },
+    "rate_hide": {
+        "message": "Piilota"
+    },
+    "auth_title": {
+        "message": "Aloita täysin ilmaiseksi!"
+    },
+    "auth_description": {
+        "message": "Tinkimätön yksityisyyden suojaus verkossa. Yli 30 mijoonaa ihmistä on jo valinnut AdGuardin."
+    },
+    "auth_code": {
+        "message": "2FA-koodi todennussovelluksesta"
+    },
+    "auth_confirm": {
+        "message": "Vahvista"
+    },
+    "auth_email": {
+        "message": "Sähköpostiosoite"
+    },
+    "auth_password": {
+        "message": "Salasana"
+    },
+    "auth_password_repeat": {
+        "message": "Salasanan varmistus"
+    },
+    "auth_recover": {
+        "message": "Salasana unohtunut?"
+    },
+    "auth_login": {
+        "message": "Kirjaudu"
+    },
+    "auth_sign_up": {
+        "message": "Luo tili"
+    },
+    "auth_sign_up_button": {
+        "message": "Luo tili"
+    },
+    "auth_sign_in": {
+        "message": "Kirjaudu sisään"
+    },
+    "auth_sign_in_button": {
+        "message": "Kirjaudu"
+    },
+    "auth_sign_in_link": {
+        "message": "Kirjaudu AdGuard-tunnuksella"
+    },
+    "auth_account": {
+        "message": "Eikö ole vielä tiliä?"
+    },
+    "auth_register": {
+        "message": "Luo tili"
+    },
+    "auth_header_sign_in_account": {
+        "message": "Olet kirjautumassa AdGuard-tunnuksella"
+    },
+    "auth_header_sign_up_create_account": {
+        "message": "Rekisteröitymällä luot itsellesi AdGuard-tilin"
+    },
+    "auth_header_sign_in": {
+        "message": "Olet kirjautumassa tunnuksella <div>%username%</div> "
+    },
+    "auth_header_sing_in_notice": {
+        "message": "Sinulla on jo tili tunnuksella <div>%username%</div>"
+    },
+    "auth_header_registration": {
+        "message": "Olet rekisteröitymässä tunnuksella <div>%username%</div>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "Kaksivaiheinen todennus (2FA)"
+    },
+    "auth_header_2fa": {
+        "message": "Syötä todennuskoodi"
+    },
+    "auth_placeholder_2fa": {
+        "message": "Todennuskoodi"
+    },
+    "eula": {
+        "message": "EULA"
+    },
+    "privacy_policy": {
+        "message": "Tietosuojakäytäntö"
+    },
+    "settings_title": {
+        "message": "Asetukset"
+    },
+    "settings_rate_us": {
+        "message": "Arvostele meidät"
+    },
+    "settings_webrtc_label": {
+        "message": "Estä WebRTC"
+    },
+    "settings_webrtc_desc": {
+        "message": "WebRTC on useimpien selainten käyttämä rajapinta, jonka avulla kolmansien osapuolten verkkosivustot voivat havaita todellisen IP-osoitteesi ja käyttää sitä tunnistamiseesi."
+    },
+    "settings_context_menus_title": {
+        "message": "Lisää AdGuard VPN selaimen valikkoon"
+    },
+    "settings_help_us_improve_title": {
+        "message": "Auta meitä parantamaan"
+    },
+    "settings_help_us_improve_description": {
+        "message": "Salli AdGuard VPN:n kerätä kaatumistietoja sekä teknisiä ja vuorovaikutustietoja. Tiedot ovat nimettömiä."
+    },
+    "context_menu_selective_mode": {
+        "message": "Valikoiva tila"
+    },
+    "context_menu_regular_mode": {
+        "message": "Tavallinen tila"
+    },
+    "settings_dns_label": {
+        "message": "Käytettävä DNS-palvelin"
+    },
+    "settings_dns_desc": {
+        "message": "Verkkotunnusjärjestelmä (DNS) on Internetin vastine puhelinluettelolle. Se sisältää hakemiston verkkotunnuksista ja muuttaa ne IP-osoitteiksi."
+    },
+    "settings_dns_selector_default_title": {
+        "message": "Oletus"
+    },
+    "settings_dns_selector_default_desc": {
+        "message": "Käytä oletusarvoisia DNS-palvelimia automaattisesti kun VPN on yhdistetty"
+    },
+    "settings_dns_selector_adguard_title": {
+        "message": "AdGuard DNS"
+    },
+    "settings_dns_selector_adguard_desc": {
+        "message": "Suodattaa mainokset, serantapalvelut ja suojaa haittaohjelmilta"
+    },
+    "settings_dns_selector_adguard_nonfiltering_title": {
+        "message": "AdGuard DNS Non-filtering"
+    },
+    "settings_dns_selector_adguard_nonfiltering_desc": {
+        "message": "Turvallinen DNS-palvelu ilman toimintohistoriaa (ei suodata mainoksia tai seurantapalveluita)"
+    },
+    "settings_dns_selector_adguard_family_title": {
+        "message": "AdGuard DNS Family Protection"
+    },
+    "settings_dns_selector_adguard_family_desc": {
+        "message": "AdGuard DNS + Turvallinen haku ja aikuisille tarkoitetun sisällön suodatus"
+    },
+    "settings_dns_selector_google_title": {
+        "message": "Google DNS"
+    },
+    "settings_dns_selector_google_desc": {
+        "message": "Googlen ilmainen DNS-palvelu"
+    },
+    "settings_dns_selector_cloudflare_title": {
+        "message": "Cloudflare DNS"
+    },
+    "settings_dns_selector_cloudflare_desc": {
+        "message": "Cloudflaren ilmainen DNS-palvelu"
+    },
+    "settings_dns_selector_cisco_title": {
+        "message": "Cisco OpenDNS"
+    },
+    "settings_dns_selector_cisco_desc": {
+        "message": "DNS-palvelu haittaohjelmien suodatuksella"
+    },
+    "settings_dns_selector_quad9_title": {
+        "message": "Quad9"
+    },
+    "settings_dns_selector_quad9_desc": {
+        "message": "Ilmainen DNS-palvelu tietojenkalastelu- ja vakoiluohjelmien suodatuksella"
+    },
+    "settings_exclusion_add": {
+        "message": "Lisää sivusto"
+    },
+    "settings_exclusions_import_button": {
+        "message": "Tuo"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Vie"
+    },
+    "settings_exclusions_delete_button": {
+        "message": "Poista kaikki"
+    },
+    "settings_exclusion_title": {
+        "message": "Poikkeukset"
+    },
+    "settings_connection_mode_title": {
+        "message": "Toimintatila"
+    },
+    "settings_exclusion_regular_title": {
+        "message": "Tavallinen tila"
+    },
+    "settings_exclusion_regular_description": {
+        "message": "AdGuard VPN ei toimi alla olevan listan sivustoilla"
+    },
+    "settings_exclusion_selective_title": {
+        "message": "Valikoiva tila"
+    },
+    "settings_exclusion_selective_description": {
+        "message": "AdGuard VPN toimii vain alla olevan listan sivustoilla"
+    },
+    "settings_exclusion_subdomains_title": {
+        "message": "Aliverkkotunnukset"
+    },
+    "settings_exclusion_subdomains_text": {
+        "message": "Voit lisätä verkkotunnuksia (esim. google.com) tai aliverkkotunnuksia (esim. *.google.fi)"
+    },
+    "global_error_title": {
+        "message": "Tapahtui virhe"
+    },
+    "global_error_description": {
+        "message": "Ota meihin yhteyttä, jos ongelma jatkuu"
+    },
+    "global_error_learn_more": {
+        "message": "Lue lisää"
+    },
+    "global_error_try_again": {
+        "message": "Yritä uudelleen"
+    },
+    "authentication_successful_social": {
+        "message": "Kirjautuminen onnistui! Voit avata AdGuard VPN:n ja aloittaa sen käytön."
+    },
+    "control_error_description": {
+        "message": "Näyttää siltä, että toinen Chrome-laajennus yrittää hallita yhteyttäsi. Pyydämme, että otat sen pois käytöstä."
+    },
+    "control_error_disable": {
+        "message": "Poista käytöstä"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Ota VPN käyttöön tällä sivustolla"
+    },
+    "popup_settings_enable_vpn_short": {
+        "message": "Käytä sivustolla"
+    },
+    "popup_settings_disable_vpn": {
+        "message": "Poista VPN käytöstä tällä sivustolla"
+    },
+    "popup_settings_other_products": {
+        "message": "Muita tuotteita"
+    },
+    "popup_settings_feedback": {
+        "message": "Palaute"
+    },
+    "popup_settings_open_settings": {
+        "message": "Asetukset"
+    },
+    "popup_settings_sign_out": {
+        "message": "Kirjaudu ulos"
+    },
+    "context_menu_enable_vpn": {
+        "message": "Ota VPN käyttöön tällä sivustolla"
+    },
+    "context_menu_disable_vpn": {
+        "message": "Poista VPN käytöstä tällä sivustolla"
+    },
+    "endpoints_countries": {
+        "message": "Sijainnit"
+    },
+    "endpoints_fastest": {
+        "message": "Nopeimmat"
+    },
+    "endpoints_all": {
+        "message": "Kaikki sijainnit"
+    },
+    "endpoints_search_results": {
+        "message": "Hakutulokset"
+    },
+    "endpoints_search": {
+        "message": "Etsi sijaintia"
+    },
+    "endpoints_not_found": {
+        "message": "Sijaintia ei löytynyt"
+    },
+    "popup_traffic_limit_reached": {
+        "message": "Kuukausittainen tiedonsiirtomäärä saavutettu. Tarvitsetko lisää?"
+    },
+    "premium_upgrade": {
+        "message": "Tilaa nyt"
+    },
+    "settings_disconnect": {
+        "message": "Katkaise"
+    },
+    "settings_vpn_connecting": {
+        "message": "Yhdistetään..."
+    },
+    "settings_connect": {
+        "message": "Yhdistä"
+    },
+    "settings_vpn_enabled": {
+        "message": "Yhdistetty"
+    },
+    "settings_vpn_disabled": {
+        "message": "Ei yhteyttä"
+    },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Nopeutta on alennettu"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Olet saavuttanut ilmaisen tiedonsiirron rajan ja AdGuard VPN toimii hitaasti."
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "Nosta nopeutta"
+    },
+    "popup_feedback_title": {
+        "message": "Haluaisimme kuulla palautteesi"
+    },
+    "popup_feedback_button": {
+        "message": "Lähetä palautetta"
+    },
+    "settings_run_upgrade_early_bird": {
+        "message": "Aikaisen tilaajan hinnat"
+    },
+    "sale_title": {
+        "message": "Mitä saat:"
+    },
+    "upgrade_features_data": {
+        "message": "Rajaton tiedonsiirto"
+    },
+    "upgrade_features_speed": {
+        "message": "Valonnopeat palvelimet"
+    },
+    "upgrade_features_all_locations": {
+        "message": "Kaikki sijainnit"
+    },
+    "upgrade_features_devices": {
+        "message": "Viidelle laitteelle"
+    },
+    "upgrade_features_streaming": {
+        "message": "Suoratoiston tuki"
+    },
+    "continue_us_free_button": {
+        "message": "Jatka ilmaista käyttöä"
+    },
+    "options_title": {
+        "message": "AdGuard VPN asetukset"
+    },
+    "offline_title": {
+        "message": "Ei yhteyttä"
+    },
+    "popup_site_status_unaccessible": {
+        "message": "sijaitsee paikallisessa lähiverkossa eikä siten ole tavoitettavissa VPN-yhteyden kautta"
+    },
+    "popup_site_status_vpn_disabled": {
+        "message": "VPN ei ole käytössä tällä sivustolla"
+    },
+    "popup_auth_policy_agreement": {
+        "message": "Hyväksy <eula>EULA</eula> ja <privacy>tietosuojakäytäntö</privacy>",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "Salli AdGuardin kerätä <link>nimettömiä tietoja</link> sovelluksen käytöstä AdGuard VPN:n parantamiseksi"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Jatka"
+    },
+    "popup_marketing_consent_checkbox": {
+        "message": "Lähetä minulle erikoistarjouksia ja AdGuard-uutisia sähköpostitse"
+    },
+    "popup_auth_agreement_consent": {
+        "message": "Jatkamalla AdGuard VPN:n käyttöä, hyväksyt <eula>EULA:n</eula> ja <privacy>tietosuojakäytännön</privacy>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "options_auth_agreement_consent": {
+        "message": "Jatkamalla AdGuard VPN:n käyttöä, hyväksyt <eula>EULA:n</eula> ja <privacy>tietosuojakäytännön</privacy>",
+        "description": "NOTICE! respect spaces between tags"
+    },
+    "popup_free_traffic_info": {
+        "message": "<span>%value% %unit%</span> jäljellä tässä kuussa",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "options_auth_back_button": {
+        "message": "Takaisin"
+    },
+    "options_selective_mode_popup_message": {
+        "message": "Valikoivassa tilassa AdGuard VPN toimii vain listaan lisätyillä, sallituilla sivustoilla."
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Vaihda nyt"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "Haluatko varmasti vaihtaa?"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "Poikkeusten tuotikohde:"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "Tavallisen lista"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "Valikoivan lista"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "Peruuta"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Poista"
+    },
+    "options_exclusions_delete_title": {
+        "message": "Poista poikkeukset"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "Kaikki tavallisen tilan poikkeukset poistetaan."
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "Kaikki valikoivan tilan poikkeukset poistetaan."
+    },
+    "options_exclusions_import_successful": {
+        "message": "Poikkeuksia tuotiin: %count%"
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "Poikkeustiedostolla tulee olla jokin seuraavista tiedostopäätteistä: %extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "Zip-tiedosto: \"%filename%\" ei sisällä teidostoja poikkeuksilla: %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "Olet saavuttanut yhteyksien enimmäismäärän: %maxDevicesAllowed%."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "Lisätäksesi laitteita, harkitse rajatonta AdGuard VPN -tilausta."
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "Lisätäksesi laitteen, katkaise AdGuard VPN joltakin laitteeltasi."
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Tilaa"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Lue lisää"
+    },
+    "popup_connections_limit_title": {
+        "message": "Yhteysraja saavutettu"
+    }
+}
