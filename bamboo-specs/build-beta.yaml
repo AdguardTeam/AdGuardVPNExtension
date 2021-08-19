@@ -92,7 +92,7 @@ Build:
       location: build/beta
       pattern: firefox.xpi
       shared: true
-      required: true
+      required: false
     - name: update.xml
       location: build/beta
       pattern: update.xml
@@ -102,7 +102,7 @@ Build:
       location: build/beta
       pattern: update.json
       shared: true
-      required: true
+      required: false
   requirements:
     - adg-docker: 'true'
 
