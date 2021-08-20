@@ -88,21 +88,11 @@ Build:
       pattern: chrome.crx
       shared: true
       required: true
-    - name: firefox.xpi
-      location: build/beta
-      pattern: firefox.xpi
-      shared: true
-      required: false
     - name: update.xml
       location: build/beta
       pattern: update.xml
       shared: true
       required: true
-    - name: update.json
-      location: build/beta
-      pattern: update.json
-      shared: true
-      required: false
   requirements:
     - adg-docker: 'true'
 
