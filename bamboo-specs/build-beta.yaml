@@ -51,7 +51,7 @@ Build:
             # build with prod API endpoints edge.zip, chrome.zip, firefox.zip
             yarn beta
 
-            # build artifacts chrome.crx, firefox.xpi
+            # build artifacts chrome.crx
             yarn artifacts:beta
     - inject-variables:
         file: build/beta/build.txt
@@ -88,19 +88,9 @@ Build:
       pattern: chrome.crx
       shared: true
       required: true
-    - name: firefox.xpi
-      location: build/beta
-      pattern: firefox.xpi
-      shared: true
-      required: true
     - name: update.xml
       location: build/beta
       pattern: update.xml
-      shared: true
-      required: true
-    - name: update.json
-      location: build/beta
-      pattern: update.json
       shared: true
       required: true
   requirements:
