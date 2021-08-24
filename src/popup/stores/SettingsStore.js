@@ -32,6 +32,8 @@ export class SettingsStore {
 
     @observable connectivityState;
 
+    @observable desktopVpnEnabled;
+
     @observable isRateVisible;
 
     @observable promoScreenState = PROMO_SCREEN_STATES.DISPLAY_AFTER_CONNECT_CLICK;
@@ -263,6 +265,16 @@ export class SettingsStore {
     @computed
     get isConnectingRetrying() {
         return this.connectivityState.value === STATE.CONNECTING_RETRYING;
+    }
+
+    @action
+    setDesktopVpnEnabled = (status) => {
+        this.desktopVpnEnabled = status;
+    }
+
+    @action
+    setBackgroundDesktopVpnEnabled = (status) => {
+        messenger.setDesktopVpnEnabled(status);
     }
 
     @action

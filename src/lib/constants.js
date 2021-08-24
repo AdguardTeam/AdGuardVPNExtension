@@ -70,6 +70,7 @@ export const MESSAGES_TYPES = {
     SET_NOTIFICATION_VIEWED: 'set.notification.viewed',
     OPEN_TAB: 'open.tab.action',
     REPORT_BUG: 'post.report.bug',
+    SET_DESKTOP_VPN_ENABLED: 'set.desktop.vpn.enabled',
 };
 
 export const ERROR_STATUSES = {

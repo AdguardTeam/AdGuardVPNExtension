@@ -296,6 +296,11 @@ class Messenger {
         const type = MESSAGES_TYPES.ADD_SELECTIVE_EXCLUSIONS;
         return this.sendMessage(type, { exclusions });
     }
+
+    async setDesktopVpnEnabled(status) {
+        const type = MESSAGES_TYPES.SET_DESKTOP_VPN_ENABLED;
+        return this.sendMessage(type, { status });
+    }
 }
 
 export default new Messenger();

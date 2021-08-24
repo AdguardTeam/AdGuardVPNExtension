@@ -41,6 +41,7 @@ export class GlobalStore {
                 connectivityState,
                 promoNotification,
                 policyAgreement,
+                desktopVpnEnabled,
             } = popupData;
 
             if (!isAuthenticated) {
@@ -69,6 +70,7 @@ export class GlobalStore {
             settingsStore.setCanControlProxy(canControlProxy);
             settingsStore.setIsRoutable(isRoutable);
             settingsStore.setPromoNotification(promoNotification);
+            settingsStore.setDesktopVpnEnabled(desktopVpnEnabled);
             await settingsStore.checkRateStatus();
             await settingsStore.getPromoScreenStatus();
             await settingsStore.checkIsExcluded();

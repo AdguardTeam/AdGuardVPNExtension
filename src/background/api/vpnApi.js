@@ -80,6 +80,13 @@ class VpnApi extends Api {
 
         return this.makeRequest(path, method, config);
     }
+
+    GET_DESKTOP_VPN_CONNECTION_STATUS = { path: 'v1/vpn_connected', method: 'GET' };
+
+    getDesktopVpnConnectionStatus = () => {
+        const { path, method } = this.GET_DESKTOP_VPN_CONNECTION_STATUS;
+        return this.makeRequest(path, method);
+    }
 }
 
 export const vpnApi = new VpnApi(async () => `${await fallbackApi.getVpnApiUrl()}/api`);
