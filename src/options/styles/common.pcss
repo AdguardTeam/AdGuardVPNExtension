@@ -17,8 +17,34 @@ body {
     font-size: 1.6rem;
     line-height: 1.4;
     color: var(--gray-base);
+    background-color: var(--white);
 }
 
 .hidden {
     display: none;
+}
+
+.logo {
+    width: 146px;
+    height: 48px;
+    background-image: url('../../assets/images/logo-vpn.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    @media (prefers-color-scheme: dark) {
+        background-image: url('../../assets/images/logo-vpn-dark.svg');
+    }
+}
+
+
+.light-mode {
+    .logo {
+        background-image: url('../../assets/images/logo-vpn.svg');
+    }
+}
+
+.dark-mode {
+    .logo {
+        background-image: url('../../assets/images/logo-vpn-dark.svg');
+    }
 }

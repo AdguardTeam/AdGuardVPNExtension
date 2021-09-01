@@ -9,7 +9,7 @@ import tabs from '../../background/tabs';
 import { log } from '../../lib/logger';
 import { getHostname, getProtocol } from '../../lib/helpers';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
-import { SETTINGS_IDS, PROMO_SCREEN_STATES } from '../../lib/constants';
+import { SETTINGS_IDS, PROMO_SCREEN_STATES, APPEARANCE_THEME_DEFAULT } from '../../lib/constants';
 import messenger from '../../lib/messenger';
 import { STATE } from '../../background/connectivity/connectivityService/connectivityConstants';
 
@@ -32,6 +32,8 @@ export class SettingsStore {
 
     @observable connectivityState;
 
+    @observable desktopVpnEnabled;
+
     @observable isRateVisible;
 
     @observable promoScreenState = PROMO_SCREEN_STATES.DISPLAY_AFTER_CONNECT_CLICK;
@@ -41,6 +43,8 @@ export class SettingsStore {
     @observable hasLimitExceededDisplayed = false;
 
     @observable promoNotification = null;
+
+    @observable appearanceTheme = APPEARANCE_THEME_DEFAULT;
 
     constructor(rootStore) {
         this.rootStore = rootStore;
@@ -264,6 +268,16 @@ export class SettingsStore {
     }
 
     @action
+    setDesktopVpnEnabled = (status) => {
+        this.desktopVpnEnabled = status;
+    }
+
+    @action
+    setBackgroundDesktopVpnEnabled = (status) => {
+        messenger.setDesktopVpnEnabled(status);
+    }
+
+    @action
     checkRateStatus = async () => {
         const value = await messenger.getSetting(SETTINGS_IDS.RATE_SHOW);
         runInAction(() => {
@@ -310,4 +324,12 @@ export class SettingsStore {
     setPromoNotification = (promoNotification) => {
         this.promoNotification = promoNotification;
     }
+
+    @action
+    getAppearanceTheme = async () => {
+        const value = await messenger.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
+        runInAction(() => {
+            this.appearanceTheme = value;
+        });
+    };
 }

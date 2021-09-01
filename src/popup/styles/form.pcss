@@ -64,6 +64,12 @@
         height: 35px;
         padding: 5px 15px;
         box-shadow: none;
+        background-color: var(--white);
+
+        &:-webkit-autofill:focus,
+        &:focus:-webkit-autofill {
+            background-color: var(--white);
+        }
 
         &::-ms-reveal,
         &::-ms-clear {
@@ -102,7 +108,8 @@
         &:-webkit-autofill:hover,
         &:-webkit-autofill:focus,
         &:-webkit-autofill:active {
-            -webkit-box-shadow: 0 0 0 30px #fff inset;
+            -webkit-box-shadow: 0 0 0 30px var(--white) inset;
+            -webkit-text-fill-color: var(--gray-base)!important;
         }
     }
 

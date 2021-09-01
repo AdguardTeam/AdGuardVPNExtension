@@ -10,6 +10,12 @@
         line-height: 22px;
         border-radius: 2px;
         outline: none;
+        color: var(--gray-base);
+        background-color: #fff;
+
+        @media (prefers-color-scheme: dark) {
+            background-color: #4d4d4d;
+        }
 
         &::placeholder {
             font-size: 1.6rem;
@@ -44,6 +50,22 @@
 
         & .input__error {
             display: block;
+        }
+    }
+}
+
+.light-mode {
+    .input {
+        &__in {
+            background-color: #fff;
+        }
+    }
+}
+
+.dark-mode {
+    .input {
+        &__in {
+            background-color: #4d4d4d;
         }
     }
 }

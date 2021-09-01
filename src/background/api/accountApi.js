@@ -1,4 +1,4 @@
-import Api from './Api';
+import { Api } from './Api';
 import { fallbackApi } from './fallbackApi';
 
 class AccountApi extends Api {
@@ -23,6 +23,4 @@ class AccountApi extends Api {
     }
 }
 
-const accountApi = new AccountApi(() => `${fallbackApi.ACCOUNT_API_URL}/api/1.0`);
-
-export default accountApi;
+export const accountApi = new AccountApi(async () => `${await fallbackApi.getAccountApiUrl()}/api/1.0`);

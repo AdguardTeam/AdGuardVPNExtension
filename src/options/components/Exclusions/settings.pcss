@@ -17,9 +17,8 @@
     }
 
     &__group {
-        margin-bottom: 25px;
         border-bottom: 1px solid var(--border-color);
-        padding-bottom: 10px;
+        padding: 20px 0;
 
         &:last-child {
             border-bottom-color: transparent;
@@ -97,6 +96,26 @@
 
     &__import-export {
         margin-left: auto;
+    }
+
+    &__item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-right: 15px;
+    }
+
+    &__item-title {
+        font-size: 1.6rem;
+        color: var(--gray-base);
+    }
+
+    &__item-desc {
+        margin: 5px 20px 20px 0;
+        font-size: 1.3rem;
+        line-height: 1.2;
+        color: var(--gray88);
     }
 }
 

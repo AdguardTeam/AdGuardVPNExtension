@@ -1,4 +1,4 @@
-import authApi from '../api/authApi';
+import { authApi } from '../api/authApi';
 import { translator } from '../../common/translator';
 
 const accessTokenModel = {

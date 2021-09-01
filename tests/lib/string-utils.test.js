@@ -28,6 +28,8 @@ describe('isValidExclusion', () => {
     it('finds valid exclusions', () => {
         expect(isValidExclusion('example.org')).toBeTruthy();
         expect(isValidExclusion('*.example.org')).toBeTruthy();
+        expect(isValidExclusion('2ch.hk')).toBeTruthy();
+        expect(isValidExclusion('*.2ch.hk')).toBeTruthy();
         expect(isValidExclusion('api.*.org')).toBeTruthy();
         expect(isValidExclusion('zürimech.ch')).toBeTruthy();
         expect(isValidExclusion('мвд.рф')).toBeTruthy();

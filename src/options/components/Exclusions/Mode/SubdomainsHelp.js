@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Popover from '../../ui/Popover';
+import { Popover } from '../../ui/Popover';
 import { reactTranslator } from '../../../../common/reactTranslator';
 
 const SubdomainsHelp = () => (

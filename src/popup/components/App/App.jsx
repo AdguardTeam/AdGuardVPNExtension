@@ -27,6 +27,7 @@ import messenger from '../../../lib/messenger';
 import notifier from '../../../lib/notifier';
 import PromoSale from '../PromoSale';
 import { PROMO_SCREEN_STATES } from '../../../lib/constants';
+import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
 import { TrafficLimitExceeded } from '../Settings/TrafficLimitExceeded';
 import { ConnectionsLimitError } from '../ConnectionsLimitError';
 
@@ -42,7 +43,10 @@ export const App = observer(() => {
         globalStore,
     } = useContext(rootStore);
 
+    const { desktopVpnEnabled } = settingsStore;
+
     useEffect(() => {
+        settingsStore.getAppearanceTheme();
         (async () => {
             await globalStore.init();
         })();
@@ -88,6 +92,10 @@ export const App = observer(() => {
                     vpnStore.setMaxDevicesAllowed(data);
                     break;
                 }
+                case notifier.types.CONNECTIVITY_DESKTOP_VPN_STATUS_CHANGED: {
+                    settingsStore.setDesktopVpnEnabled(data);
+                    break;
+                }
                 default: {
                     log.debug('there is no such message type: ', type);
                     break;
@@ -104,6 +112,7 @@ export const App = observer(() => {
             notifier.types.TOKEN_PREMIUM_STATE_UPDATED,
             notifier.types.CONNECTIVITY_STATE_CHANGED,
             notifier.types.TOO_MANY_DEVICES_CONNECTED,
+            notifier.types.CONNECTIVITY_DESKTOP_VPN_STATUS_CHANGED,
         ];
 
         const onUnload = messenger.createLongLivedConnection(events, messageHandler);
@@ -112,6 +121,8 @@ export const App = observer(() => {
             onUnload();
         };
     }, []);
+
+    useAppearanceTheme(settingsStore.appearanceTheme);
 
     // show nothing while data is loading, except cases after authentication
     if (authStore.requestProcessState !== REQUEST_STATUSES.PENDING
@@ -147,7 +158,7 @@ export const App = observer(() => {
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
     const { premiumPromoEnabled, isPremiumToken } = vpnStore;
 
-    if ((hasGlobalError && !hasLimitExceededError) || !canControlProxy) {
+    if ((hasGlobalError && !hasLimitExceededError) || !canControlProxy || desktopVpnEnabled) {
         const showMenuButton = authenticated && canControlProxy;
         return (
             <>

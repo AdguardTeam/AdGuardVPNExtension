@@ -12,7 +12,8 @@
     --grayb8: #b8b8b8;
     --green-light: #8ac02f;
     --grayf3: #f3f3f3;
-    --white: #ffffff;
+    --white: #fff;
+    --white-strong: #fff;
     --orange: #eb9300;
     --orange-dark: #da8a04;
     --pink: #ff7b7b;
@@ -27,4 +28,32 @@
     --button-gradient: linear-gradient(100deg, #76a834 -8%, #59aebb 104%);
     --red-gradient: linear-gradient(103deg, #da3434, #ec428a 102%);
     --popup-width: 320px;
+    --popup-height: 598px;
+
+    @media (prefers-color-scheme: dark) {
+        --white: #131313;
+        --white-strong: #000;
+        --gray-base: #d8d8d8;
+        --grayf3: #131313;
+        --grayd8 : #4d4d4d;
+        --grayb8:  #4d4d4d;
+    }
+}
+
+.light-mode {
+    --white: #fff;
+    --white-strong: #fff;
+    --gray-base: #4d4d4d;
+    --grayf3: #f3f3f3;
+    --grayd8 : #d8d8d8;
+    --grayb8:  #4d4d4d;
+}
+
+.dark-mode {
+    --white: #131313;
+    --white-strong: #000;
+    --gray-base: #d8d8d8;
+    --grayf3: #131313;
+    --grayd8 : #4d4d4d;
+    --grayb8:  #4d4d4d;
 }

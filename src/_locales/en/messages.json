@@ -290,6 +290,18 @@
     "settings_dns_selector_quad9_desc": {
         "message": "Free alternative DNS service with protection from phishing and spyware"
     },
+    "settings_theme_label": {
+        "message": "Theme"
+    },
+    "settings_theme_system": {
+        "message": "System default"
+    },
+    "settings_theme_dark": {
+        "message": "Dark"
+    },
+    "settings_theme_light": {
+        "message": "Light"
+    },
     "settings_exclusion_add": {
         "message": "Add a website"
     },
@@ -446,6 +458,9 @@
     "upgrade_features_devices": {
         "message": "Up to 5 devices"
     },
+    "upgrade_features_streaming": {
+        "message": "Streaming support"
+    },
     "continue_us_free_button": {
         "message": "Keep using for free"
     },
@@ -548,5 +563,20 @@
     },
     "popup_connections_limit_title": {
         "message": "Connections limit reached"
+    },
+    "popup_desktop_vpn_enabled_title": {
+        "message": "AdGuard VPN is already connected"
+    },
+    "popup_desktop_vpn_enabled_description": {
+        "message": "AdGuard VPN is enabled in the desktop app so the extension was automatically disabled"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "Ok"
+    },
+    "options_signedout_page_title": {
+        "message": "You have signed out of AdGuard VPN"
+    },
+    "options_signedout_page_description": {
+        "message": "Please note that your connection is not secure. To continue surfing privately, click on the AdGuard VPN icon and sign in again."
     }
 }

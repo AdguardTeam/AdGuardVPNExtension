@@ -6,7 +6,7 @@ import {
 import punycode from 'punycode/';
 
 import { log } from '../../lib/logger';
-import { SETTINGS_IDS } from '../../lib/constants';
+import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT } from '../../lib/constants';
 import { DNS_DEFAULT } from '../../background/dns/dnsConstants';
 import messenger from '../../lib/messenger';
 import { EXCLUSIONS_MODES } from '../../background/exclusions/exclusionsConstants';
@@ -41,6 +41,8 @@ export class SettingsStore {
     @observable exclusionsCurrentMode;
 
     @observable webRTCEnabled = false;
+
+    @observable appearanceTheme = APPEARANCE_THEME_DEFAULT;
 
     @observable contextMenusEnabled = false;
 
@@ -198,6 +200,22 @@ export class SettingsStore {
         const value = await messenger.getSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED);
         runInAction(() => {
             this.webRTCEnabled = value;
+        });
+    };
+
+    @action
+    setAppearanceTheme = async (value) => {
+        await messenger.setSetting(SETTINGS_IDS.APPEARANCE_THEME, value);
+        runInAction(() => {
+            this.appearanceTheme = value;
+        });
+    };
+
+    @action
+    getAppearanceTheme = async () => {
+        const value = await messenger.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
+        runInAction(() => {
+            this.appearanceTheme = value;
         });
     };
 

@@ -1,4 +1,5 @@
 import browser from 'webextension-polyfill';
+
 import { MESSAGES_TYPES } from '../lib/constants';
 import auth from './auth';
 import popupData from './popupData';
@@ -19,6 +20,7 @@ import { promoNotifications } from './promoNotifications';
 import tabs from './tabs';
 import vpnProvider from './providers/vpnProvider';
 import { logStorage } from '../lib/log-storage';
+import { setDesktopVpnEnabled } from './connectivity/connectivityService/connectivityFSM';
 
 const eventListeners = {};
 
@@ -249,6 +251,11 @@ const messageHandler = async (message, sender) => {
             }
 
             return vpnProvider.requestSupport(reportData);
+        }
+        case MESSAGES_TYPES.SET_DESKTOP_VPN_ENABLED: {
+            const { status } = data;
+            setDesktopVpnEnabled(status);
+            break;
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

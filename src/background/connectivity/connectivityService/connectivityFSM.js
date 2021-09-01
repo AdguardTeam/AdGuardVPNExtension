@@ -51,6 +51,10 @@ const actions = {
             await switcher.retryTurnOn();
         }
     },
+
+    setDesktopVpnEnabled: assign((_ctx, event) => ({
+        desktopVpnEnabled: event.data,
+    })),
 };
 
 /**
@@ -62,6 +66,7 @@ const resetOnSuccessfulConnection = assign({
     retryCount: 0,
     retriedConnectToOtherEndpoint: false,
     timeSinceLastRetryWithRefreshMs: 0,
+    desktopVpnEnabled: false,
 });
 
 /**
@@ -118,6 +123,11 @@ const connectivityFSM = new Machine({
          * Flag used to reconnect to another endpoint of current location
          */
         retriedConnectToOtherEndpoint: false,
+        /**
+         * Flag used to keep actual desktop vpn connection status
+         */
+        desktopVpnEnabled: false,
+
     },
     initial: STATE.DISCONNECTED_IDLE,
     states: {
@@ -126,6 +136,9 @@ const connectivityFSM = new Machine({
             on: {
                 [EVENT.CONNECT_BTN_PRESSED]: STATE.CONNECTING_IDLE,
                 [EVENT.EXTENSION_LAUNCHED]: STATE.CONNECTING_IDLE,
+                [EVENT.DESKTOP_VPN_ENABLED]: {
+                    actions: ['setDesktopVpnEnabled'],
+                },
             },
         },
         [STATE.DISCONNECTED_RETRYING]: {
@@ -137,6 +150,11 @@ const connectivityFSM = new Machine({
                 [EVENT.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTED_IDLE,
                 // this event fires when user has too many devises connected
                 [EVENT.TOO_MANY_DEVICES_CONNECTED]: STATE.DISCONNECTED_IDLE,
+                // if vpn enabled in desktop app
+                [EVENT.DESKTOP_VPN_ENABLED]: {
+                    target: STATE.DISCONNECTED_IDLE,
+                    actions: ['setDesktopVpnEnabled'],
+                },
             },
             after: {
                 RETRY_DELAY: STATE.CONNECTING_RETRYING,
@@ -156,6 +174,11 @@ const connectivityFSM = new Machine({
                 [EVENT.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTED_IDLE,
                 // if user has too many devises connected
                 [EVENT.TOO_MANY_DEVICES_CONNECTED]: STATE.DISCONNECTED_IDLE,
+                // if vpn enabled in desktop app
+                [EVENT.DESKTOP_VPN_ENABLED]: {
+                    target: STATE.DISCONNECTED_IDLE,
+                    actions: ['setDesktopVpnEnabled'],
+                },
             },
         },
         [STATE.CONNECTING_RETRYING]: {
@@ -170,6 +193,11 @@ const connectivityFSM = new Machine({
                 [EVENT.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTED_IDLE,
                 // this event fires when user has too many devises connected
                 [EVENT.TOO_MANY_DEVICES_CONNECTED]: STATE.DISCONNECTED_IDLE,
+                // if vpn enabled in desktop app
+                [EVENT.DESKTOP_VPN_ENABLED]: {
+                    target: STATE.DISCONNECTED_IDLE,
+                    actions: ['setDesktopVpnEnabled'],
+                },
             },
         },
         [STATE.CONNECTED]: {
@@ -179,6 +207,11 @@ const connectivityFSM = new Machine({
                 [EVENT.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTED_IDLE,
                 // this event fires when user has too many devises connected
                 [EVENT.TOO_MANY_DEVICES_CONNECTED]: STATE.DISCONNECTED_IDLE,
+                // if vpn enabled in desktop app
+                [EVENT.DESKTOP_VPN_ENABLED]: {
+                    target: STATE.DISCONNECTED_IDLE,
+                    actions: ['setDesktopVpnEnabled'],
+                },
             },
             entry: [resetOnSuccessfulConnection],
         },
@@ -187,7 +220,15 @@ const connectivityFSM = new Machine({
 
 export const connectivityService = interpret(connectivityFSM)
     .start()
-    .onEvent((event) => log.debug(event))
+    .onEvent((event) => {
+        log.debug(event);
+        if (event.type === EVENT.DESKTOP_VPN_ENABLED) {
+            notifier.notifyListeners(
+                notifier.types.CONNECTIVITY_DESKTOP_VPN_STATUS_CHANGED,
+                event.data,
+            );
+        }
+    })
     .onTransition((state) => {
         log.debug({ currentState: state.value });
         notifier.notifyListeners(notifier.types.CONNECTIVITY_STATE_CHANGED, { value: state.value });
@@ -201,4 +242,8 @@ export const isVPNConnected = () => {
 
 export const isVPNDisconnectedIdle = () => {
     return connectivityService.state.matches(STATE.DISCONNECTED_IDLE);
+};
+
+export const setDesktopVpnEnabled = (data) => {
+    connectivityService.send(EVENT.DESKTOP_VPN_ENABLED, { data });
 };

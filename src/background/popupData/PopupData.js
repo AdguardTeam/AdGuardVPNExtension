@@ -7,6 +7,7 @@ import { promoNotifications } from '../promoNotifications';
 import auth from '../auth';
 import { settings } from '../settings';
 import { SETTINGS_IDS } from '../../lib/constants';
+import { vpnApi } from '../api';
 
 class PopupData {
     constructor({
@@ -21,6 +22,15 @@ class PopupData {
         this.nonRoutable = nonRoutable;
         this.endpoints = endpoints;
         this.credentials = credentials;
+    }
+
+    async getDesktopEnabled() {
+        let { desktopVpnEnabled } = connectivityService.state.context;
+        if (desktopVpnEnabled) {
+            const desktopVpnConnection = await vpnApi.getDesktopVpnConnectionStatus();
+            desktopVpnEnabled = !!desktopVpnConnection.connected;
+        }
+        return desktopVpnEnabled;
     }
 
     getPopupData = async (url) => {
@@ -48,6 +58,7 @@ class PopupData {
         const isProxyEnabled = adguard.settings.isProxyEnabled();
         const isPremiumToken = await this.credentials.isPremiumToken();
         const connectivityState = { value: connectivityService.state.value };
+        const desktopVpnEnabled = await this.getDesktopEnabled();
         const promoNotification = await promoNotifications.getCurrentNotification();
 
         // If error check permissions when popup is opened, ignoring multiple retries
@@ -75,6 +86,7 @@ class PopupData {
             isPremiumToken,
             connectivityState,
             promoNotification,
+            desktopVpnEnabled,
         };
     };
 

@@ -11,7 +11,16 @@ export const SETTINGS_IDS = {
     LOCATION_SELECTED_BY_USER_KEY: 'endpoints.location.selected.by.user',
     POLICY_AGREEMENT: 'policy.agreement',
     HELP_US_IMPROVE: 'help.us.improve',
+    APPEARANCE_THEME: 'system.default',
 };
+
+export const APPEARANCE_THEMES = {
+    SYSTEM: 'SYSTEM',
+    DARK: 'DARK',
+    LIGHT: 'LIGHT',
+};
+
+export const APPEARANCE_THEME_DEFAULT = APPEARANCE_THEMES.SYSTEM;
 
 export const MESSAGES_TYPES = {
     ADD_EVENT_LISTENER: 'add.event.listener',
@@ -61,6 +70,7 @@ export const MESSAGES_TYPES = {
     SET_NOTIFICATION_VIEWED: 'set.notification.viewed',
     OPEN_TAB: 'open.tab.action',
     REPORT_BUG: 'post.report.bug',
+    SET_DESKTOP_VPN_ENABLED: 'set.desktop.vpn.enabled',
 };
 
 export const ERROR_STATUSES = {

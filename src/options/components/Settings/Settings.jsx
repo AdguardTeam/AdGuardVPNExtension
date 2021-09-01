@@ -6,6 +6,7 @@ import { ContextMenus } from './ContextMenus';
 import { HelpUsImprove } from './HelpUsImprove';
 import { Title } from '../ui/Title';
 import { reactTranslator } from '../../../common/reactTranslator';
+import { AppearanceTheme } from './AppearanceTheme';
 
 export const Settings = () => (
     <>
@@ -13,6 +14,7 @@ export const Settings = () => (
         <div className="settings">
             <WebRTC />
             <ContextMenus />
+            <AppearanceTheme />
             <HelpUsImprove />
             <Dns />
         </div>

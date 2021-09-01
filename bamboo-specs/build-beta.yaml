@@ -51,7 +51,7 @@ Build:
             # build with prod API endpoints edge.zip, chrome.zip, firefox.zip
             yarn beta
 
-            # build artifacts chrome.crx, firefox.xpi
+            # build artifacts chrome.crx
             yarn artifacts:beta
     - inject-variables:
         file: build/beta/build.txt

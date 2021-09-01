@@ -67,6 +67,11 @@ export const EVENT = {
      * Fires when too many devices are connected and we should disable connection
      */
     TOO_MANY_DEVICES_CONNECTED: 'TOO_MANY_DEVICES_CONNECTED',
+
+    /**
+     * Fires when vpn enabled in desktop app
+     */
+    DESKTOP_VPN_ENABLED: 'DESKTOP_VPN_ENABLED',
 };
 
 /**

@@ -2,7 +2,7 @@ import SettingsService from './SettingsService';
 import browserApi from '../browserApi';
 import { log } from '../../lib/logger';
 import notifier from '../../lib/notifier';
-import { SETTINGS_IDS, PROMO_SCREEN_STATES } from '../../lib/constants';
+import { SETTINGS_IDS, PROMO_SCREEN_STATES, APPEARANCE_THEME_DEFAULT } from '../../lib/constants';
 import dns from '../dns/dns';
 import { DNS_DEFAULT } from '../dns/dnsConstants';
 import webrtc from '../browserApi/webrtc';
@@ -19,6 +19,7 @@ const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.CONTEXT_MENU_ENABLED]: true,
     [SETTINGS_IDS.POLICY_AGREEMENT]: false,
     [SETTINGS_IDS.HELP_US_IMPROVE]: false,
+    [SETTINGS_IDS.APPEARANCE_THEME]: APPEARANCE_THEME_DEFAULT,
 };
 
 const settingsService = new SettingsService(browserApi.storage, DEFAULT_SETTINGS);

@@ -6,7 +6,7 @@ import { Location } from '../../../src/background/endpoints/Location';
 import { LocationWithPing } from '../../../src/background/endpoints/LocationWithPing';
 import { connectivityService } from '../../../src/background/connectivity/connectivityService/connectivityFSM';
 import { locationsService } from '../../../src/background/endpoints/locationsService';
-import proxy from '../../../src/background/proxy';
+import { proxy } from '../../../src/background/proxy';
 
 jest.mock('../../../src/background/settings');
 jest.mock('../../../src/background/connectivity/connectivityService/connectivityFSM');
@@ -408,8 +408,10 @@ describe('Endpoints', () => {
 
             await endpoints.updateLocations();
 
-            expect(proxy.getConfig().defaultExclusions).toContain(`*.${tld1}`);
-            expect(proxy.getConfig().defaultExclusions).toContain(`*.${tld2}`);
+            const { defaultExclusions } = await proxy.getConfig();
+
+            expect(defaultExclusions).toContain(`*.${tld1}`);
+            expect(defaultExclusions).toContain(`*.${tld2}`);
             expect(proxy.applyConfig).toBeCalledTimes(1);
         });
     });

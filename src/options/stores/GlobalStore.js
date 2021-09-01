@@ -20,6 +20,7 @@ export class GlobalStore {
         this.setInitStatus(REQUEST_STATUSES.PENDING);
 
         try {
+            await settingsStore.getAppearanceTheme();
             await authStore.isAuthenticated();
             await settingsStore.getExclusions();
             await settingsStore.getVersion();

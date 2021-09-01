@@ -26,7 +26,6 @@ const PROXY_AUTH_TYPES = {
 class ExtensionProxy {
     constructor() {
         this.isActive = false;
-        this.currentConfig = this.getConfig();
         this.bypassList = [];
         this.endpointsTldExclusions = [];
         this.currentEndpoint = '';
@@ -36,6 +35,10 @@ class ExtensionProxy {
          * By default we use PREFIX type, because AUTH_HANDLER is not working stable
          */
         this.proxyAuthorizationType = PROXY_AUTH_TYPES.PREFIX;
+    }
+
+    async init() {
+        this.currentConfig = await this.getConfig();
     }
 
     async turnOn() {
@@ -94,13 +97,13 @@ class ExtensionProxy {
         log.debug(JSON.stringify(details));
     }
 
-    getConfig() {
+    async getConfig() {
         return {
             bypassList: this.getBypassList(),
             defaultExclusions: [
                 ...DEFAULT_EXCLUSIONS,
                 ...this.getEndpointsTldExclusions(),
-                ...fallbackApi.getApiUrlsExclusions(),
+                ...await fallbackApi.getApiUrlsExclusions(),
             ],
             nonRoutableCidrNets: NON_ROUTABLE_CIDR_NETS,
             host: this.currentHost,
@@ -111,12 +114,12 @@ class ExtensionProxy {
         };
     }
 
-    updateConfig() {
-        this.currentConfig = this.getConfig();
+    async updateConfig() {
+        this.currentConfig = await this.getConfig();
     }
 
     async applyConfig() {
-        this.updateConfig();
+        await this.updateConfig();
         if (this.isActive) {
             await proxyApi.proxySet(this.currentConfig);
         }
@@ -206,7 +209,5 @@ class ExtensionProxy {
     };
 }
 
-const proxy = new ExtensionProxy();
-
-export default proxy;
+export const proxy = new ExtensionProxy();
 

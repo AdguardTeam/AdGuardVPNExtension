@@ -24,6 +24,17 @@ class Tabs {
                 notifier.notifyListeners(notifier.types.TAB_ACTIVATED, this.prepareTab(tab));
             }
         });
+
+        // notify listeners when tab activated from another window
+        browser.windows.onFocusChanged.addListener(async (windowId) => {
+            if (windowId === browser.windows.WINDOW_ID_NONE) {
+                return;
+            }
+            const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
+            if (tab) {
+                notifier.notifyListeners(notifier.types.TAB_ACTIVATED, this.prepareTab(tab));
+            }
+        });
     }
 
     /**

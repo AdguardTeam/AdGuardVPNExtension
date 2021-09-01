@@ -19,17 +19,7 @@ export const Switch = ({
                     {desc}
                 </div>
             </div>
-            <label htmlFor={id} className={`switch__label ${checked && 'switch__label--active'}`}>
-                {checked ? (
-                    <svg className="icon switch__icon switch__icon--check">
-                        <use xlinkHref="#check_bold" />
-                    </svg>
-                ) : (
-                    <svg className="icon switch__icon switch__icon--cross">
-                        <use xlinkHref="#cross_bold" />
-                    </svg>
-                )}
-            </label>
+            <label htmlFor={id} className={`switch__label ${checked && 'switch__label--active'}`} />
             <input
                 id={id}
                 name={id}

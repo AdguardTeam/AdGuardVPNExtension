@@ -1,5 +1,5 @@
 import AppStatus from './AppStatus';
-import proxy from '../proxy';
+import { proxy } from '../proxy';
 import { settings } from '../settings';
 import packageJson from '../../../package.json';
 

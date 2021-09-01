@@ -1,8 +1,9 @@
-import proxy from '../proxy';
+import { proxy } from '../proxy';
 import { EVENT, MIN_CONNECTION_DURATION_MS } from './connectivityService/connectivityConstants';
 import { log } from '../../lib/logger';
 import { runWithCancel, sleepIfNecessary } from '../../lib/helpers';
 import { FORCE_CANCELLED } from '../../lib/constants';
+import { vpnApi } from '../api';
 
 // eslint-disable-next-line import/no-cycle
 import credentials from '../credentials';
@@ -13,7 +14,7 @@ import endpoints from '../endpoints';
 // eslint-disable-next-line import/no-cycle
 import connectivity from './index';
 // eslint-disable-next-line import/no-cycle
-import { connectivityService } from './connectivityService/connectivityFSM';
+import { connectivityService, setDesktopVpnEnabled } from './connectivityService/connectivityFSM';
 
 /**
  * Turns on proxy after doing preparing steps
@@ -28,6 +29,13 @@ import { connectivityService } from './connectivityService/connectivityFSM';
 function* turnOnProxy(forcePrevEndpoint = false) {
     const entryTime = Date.now();
     try {
+        const desktopVpnConnection = yield vpnApi.getDesktopVpnConnectionStatus();
+
+        if (desktopVpnConnection?.connected) {
+            setDesktopVpnEnabled(true);
+            return;
+        }
+
         const selectedLocation = yield locationsService.getSelectedLocation();
         const selectedEndpoint = yield locationsService.getEndpointByLocation(
             selectedLocation,

@@ -29,6 +29,7 @@ const PromoSale = observer(() => {
         { id: 2, text: 'upgrade_features_data' },
         { id: 3, text: 'upgrade_features_speed' },
         { id: 4, text: 'upgrade_features_devices' },
+        { id: 5, text: 'upgrade_features_streaming' },
     ];
 
     return (

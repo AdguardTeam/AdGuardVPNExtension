@@ -14,7 +14,7 @@ import nonRoutable from './routability/nonRoutable';
 import permissionsChecker from './permissionsChecker';
 import permissionsError from './permissionsChecker/permissionsError';
 import popupData from './popupData';
-import proxy from './proxy';
+import { proxy } from './proxy';
 import { settings } from './settings';
 import tabs from './tabs';
 import updateService from './updateService';
@@ -53,6 +53,7 @@ global.adguard = {
     try {
         messaging.init(); // messaging is on the top, for popup be able to communicate with back
         await fallbackApi.init();
+        await proxy.init();
         const runInfo = await updateService.getRunInfo();
         await openThankYouPage(runInfo);
         permissionsChecker.init(); // should be initiated before auth module
