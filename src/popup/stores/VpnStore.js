@@ -249,7 +249,7 @@ export class VpnStore {
         const username = await messenger.getUsername();
         const browserType = await messenger.getBrowserType();
         const url = username
-            ? `${UPGRADE_LICENSE_URL}&email=${encodeURIComponent(username)}&browsers=${browserType}`
+            ? `${UPGRADE_LICENSE_URL}&email=${encodeURIComponent(username)}&browser=${browserType}`
             : UPGRADE_LICENSE_URL;
         popupActions.openTab(url);
     }
