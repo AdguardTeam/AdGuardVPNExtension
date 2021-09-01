@@ -12,56 +12,56 @@ import notifier from '../lib/notifier';
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const birthdayNotification = {
-    id: 'birthday2021',
+const school21Notification = {
+    id: 'school2021',
     locales: {
         en: {
-            title: 'Web Survival Test',
-            btn: 'I\'m ready!',
+            title: 'Back to school\nQUIZ',
+            btn: 'Let\'s go!',
         },
         ru: {
-            title: 'Игра на выживание',
-            btn: 'Пройти',
+            title: 'Проверь свои знания',
+            btn: 'Пройти тест',
         },
         ja: {
-            title: 'ウェブサバイバルテスト',
-            btn: '受けてみる',
+            title: 'BACK TO SCHOOL クイズ',
+            btn: '答えてみる',
         },
         ko: {
-            title: '웹 서바이벌 게임을 해 볼까요?',
-            btn: '게임 시작',
+            title: '백 투 스쿨\n게임',
+            btn: '시작',
         },
         zh_cn: {
-            title: '网络生存问答竞赛',
-            btn: '我准备好啦！',
+            title: '返校\n问答竞赛',
+            btn: '开始吧！',
         },
         zh_tw: {
-            title: '網路生存問答遊戲',
-            btn: '我準備好啦！',
+            title: '返校\n問答競賽',
+            btn: '開始吧！',
         },
         fr: {
-            title: 'Jeu de Survie sur le Web',
+            title: 'PASSEZ LE TEST ADGUARD',
             btn: 'En avant !',
         },
         es: {
-            title: 'Test de Supervivencia Web',
+            title: 'VUELTA AL COLE QUIZ',
             btn: '¡Estoy listo!',
         },
     },
     text: '',
-    url: 'https://adguard-vpn.com/forward.html?action=12birthday_game&from=popup&app=vpn_extension',
-    from: '01 June 2021 15:00:00',
-    to: '07 June 2021 15:00:00',
+    url: 'https://adguard-vpn.com/forward.html?action=school21&from=popup&app=vpn_extension',
+    from: '31 August 2021 12:00:00',
+    to: '05 September 2021 23:59:00',
     type: 'animated',
     get icons() {
-        return lazyGet(birthdayNotification, 'icons', () => ({
+        return lazyGet(school21Notification, 'icons', () => ({
             ENABLED: {
-                19: getUrl('assets/images/icons/birthday-enabled-19.png'),
-                38: getUrl('assets/images/icons/birthday-enabled-38.png'),
+                19: getUrl('assets/images/icons/school-enabled-19.png'),
+                38: getUrl('assets/images/icons/school-enabled-38.png'),
             },
             DISABLED: {
-                19: getUrl('assets/images/icons/birthday-disabled-19.png'),
-                38: getUrl('assets/images/icons/birthday-disabled-38.png'),
+                19: getUrl('assets/images/icons/school-disabled-19.png'),
+                38: getUrl('assets/images/icons/school-disabled-38.png'),
             },
         }));
     },
@@ -83,7 +83,7 @@ const birthdayNotification = {
  * @property {string} type;
  */
 const notifications = {
-    birthday2021: birthdayNotification,
+    school2021: school21Notification,
 };
 
 /**

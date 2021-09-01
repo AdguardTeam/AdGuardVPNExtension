@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console,no-unused-vars */
 const webExt = require('web-ext');
 const path = require('path');
 const { promises: fs } = require('fs');
@@ -128,10 +128,14 @@ const updateFirefoxManifest = async () => {
 
 const generateFirefoxArtifacts = async () => {
     try {
-        await updateFirefoxManifest();
-        await generateXpi();
-        const manifest = await getFirefoxManifest();
-        await createUpdateJson(manifest);
+        /**
+         * We stopped to create signed standalone xpi build for firefox, because mozilla doesn't
+         * allow to sign them immediately anymore. This can change in the future
+         */
+        // await updateFirefoxManifest();
+        // await generateXpi();
+        // const manifest = await getFirefoxManifest();
+        // await createUpdateJson(manifest);
     } catch (error) {
         console.error(chalk.redBright(error.message));
         console.error(error);
