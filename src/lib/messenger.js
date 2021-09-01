@@ -301,6 +301,11 @@ class Messenger {
         const type = MESSAGES_TYPES.SET_DESKTOP_VPN_ENABLED;
         return this.sendMessage(type, { status });
     }
+
+    async getBrowserType() {
+        const type = MESSAGES_TYPES.GET_BROWSER_TYPE;
+        return this.sendMessage(type);
+    }
 }
 
 export default new Messenger();

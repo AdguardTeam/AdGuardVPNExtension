@@ -8,6 +8,7 @@ import {
 
 import messenger from '../../lib/messenger';
 import { popupActions } from '../actions/popupActions';
+import { UPGRADE_LICENSE_URL } from '../../background/config';
 
 export class VpnStore {
     constructor(rootStore) {
@@ -246,9 +247,10 @@ export class VpnStore {
     @action
     openPremiumPromoPage = async () => {
         const username = await messenger.getUsername();
+        const browserType = await messenger.getBrowserType();
         const url = username
-            ? `${this.vpnInfo.premiumPromoPage}?email=${encodeURIComponent(username)}`
-            : this.vpnInfo.premiumPromoPage;
+            ? `${UPGRADE_LICENSE_URL}&email=${encodeURIComponent(username)}&browsers=${browserType}`
+            : UPGRADE_LICENSE_URL;
         popupActions.openTab(url);
     }
 

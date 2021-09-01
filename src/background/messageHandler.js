@@ -21,6 +21,7 @@ import tabs from './tabs';
 import vpnProvider from './providers/vpnProvider';
 import { logStorage } from '../lib/log-storage';
 import { setDesktopVpnEnabled } from './connectivity/connectivityService/connectivityFSM';
+import { Prefs } from './prefs';
 
 const eventListeners = {};
 
@@ -256,6 +257,9 @@ const messageHandler = async (message, sender) => {
             const { status } = data;
             setDesktopVpnEnabled(status);
             break;
+        }
+        case MESSAGES_TYPES.GET_BROWSER_TYPE: {
+            return Prefs.browser;
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);
