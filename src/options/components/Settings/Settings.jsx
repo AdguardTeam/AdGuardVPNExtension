@@ -1,7 +1,7 @@
 import React from 'react';
 
 import WebRTC from './WebRTC';
-import Dns from './Dns';
+import { Dns } from './Dns';
 import { ContextMenus } from './ContextMenus';
 import { HelpUsImprove } from './HelpUsImprove';
 import { Title } from '../ui/Title';

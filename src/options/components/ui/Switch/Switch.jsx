@@ -15,9 +15,11 @@ export const Switch = ({
                 <div className="switch__title">
                     {title}
                 </div>
-                <div className="switch__desc">
-                    {desc}
-                </div>
+                {desc && (
+                    <div className="switch__desc">
+                        {desc}
+                    </div>
+                )}
             </div>
             <label htmlFor={id} className={`switch__label ${checked && 'switch__label--active'}`} />
             <input
