@@ -258,7 +258,7 @@ const messageHandler = async (message, sender) => {
             setDesktopVpnEnabled(status);
             break;
         }
-        case MESSAGES_TYPES.GET_BROWSER_TYPE: {
+        case MESSAGES_TYPES.GET_BROWSER: {
             return Prefs.browser;
         }
         default:

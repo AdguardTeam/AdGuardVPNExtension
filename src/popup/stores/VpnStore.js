@@ -247,10 +247,10 @@ export class VpnStore {
     @action
     openPremiumPromoPage = async () => {
         const username = await messenger.getUsername();
-        const browserType = await messenger.getBrowserType();
-        const url = username
-            ? `${UPGRADE_LICENSE_URL}&email=${encodeURIComponent(username)}&browser=${browserType}`
-            : UPGRADE_LICENSE_URL;
+        const browser = await messenger.getBrowser();
+        const urlParameters = `${username ? `&email=${encodeURIComponent(username)}` : ''}`
+            + `&browser=${browser.toLowerCase()}`;
+        const url = UPGRADE_LICENSE_URL + urlParameters;
         popupActions.openTab(url);
     }
 

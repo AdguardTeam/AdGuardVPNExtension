@@ -302,8 +302,8 @@ class Messenger {
         return this.sendMessage(type, { status });
     }
 
-    async getBrowserType() {
-        const type = MESSAGES_TYPES.GET_BROWSER_TYPE;
+    async getBrowser() {
+        const type = MESSAGES_TYPES.GET_BROWSER;
         return this.sendMessage(type);
     }
 }
