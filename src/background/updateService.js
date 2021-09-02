@@ -45,7 +45,7 @@ const getRunInfo = async () => {
 export const getPremiumPromoPageUrl = async () => {
     const username = await credentials.getUsername();
     if (username) {
-        return `${UPGRADE_LICENSE_URL}?email=${encodeURIComponent(username)}`;
+        return `${UPGRADE_LICENSE_URL}&email=${encodeURIComponent(username)}`;
     }
     return UPGRADE_LICENSE_URL;
 };
