@@ -302,8 +302,8 @@ class Messenger {
         return this.sendMessage(type, { status });
     }
 
-    async getBrowser() {
-        const type = MESSAGES_TYPES.GET_BROWSER;
+    async getPremiumPromoPageUrl() {
+        const type = MESSAGES_TYPES.GET_PREMIUM_PROMO_PAGE_URL;
         return this.sendMessage(type);
     }
 }
