@@ -4,6 +4,7 @@ import { log } from '../lib/logger';
 import { promoNotifications } from './promoNotifications';
 import credentials from './credentials';
 import { UPGRADE_LICENSE_URL } from './config';
+import tabs from './tabs';
 
 const openOptionsPage = async () => {
     return browser.runtime.openOptionsPage();
@@ -123,7 +124,7 @@ const getPremiumPromoPageUrl = async () => {
  */
 const openPremiumPromoPage = async () => {
     const url = await getPremiumPromoPageUrl();
-    await this.openTab(url);
+    await tabs.openTab(url);
 };
 
 const actions = {
