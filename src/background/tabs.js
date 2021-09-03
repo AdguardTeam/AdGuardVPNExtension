@@ -82,7 +82,6 @@ class Tabs {
     async openPremiumPromoPage(username) {
         const url = `${UPGRADE_LICENSE_URL}${username ? `&email=${encodeURIComponent(username)}` : ''}`;
         await this.openTab(url);
-        return url;
     }
 
     async reload(tabId) {
