@@ -2,6 +2,8 @@ import browser from 'webextension-polyfill';
 import { Prefs } from './prefs';
 import { log } from '../lib/logger';
 import { promoNotifications } from './promoNotifications';
+import credentials from './credentials';
+import { UPGRADE_LICENSE_URL } from './config';
 
 const openOptionsPage = async () => {
     return browser.runtime.openOptionsPage();
@@ -107,6 +109,23 @@ const clearBadgeText = async (tabId) => {
     }
 };
 
+/**
+ * Generates Premium Promo Page url with user email in parameter (if authenticated)
+ * Example: https://adguard-vpn.com/forward.html?action=buy_license&from=popup&app=vpn_extension&email=testmail.com
+ */
+const getPremiumPromoPageUrl = async () => {
+    const username = await credentials.getUsername();
+    return `${UPGRADE_LICENSE_URL}${username ? `&email=${encodeURIComponent(username)}` : ''}`;
+};
+
+/**
+ * Opens Premium Promo Page in new tab
+ */
+const openPremiumPromoPage = async () => {
+    const url = await getPremiumPromoPageUrl();
+    await this.openTab(url);
+};
+
 const actions = {
     openOptionsPage,
     setIconEnabled,
@@ -114,6 +133,8 @@ const actions = {
     setIconTrafficOff,
     setBadgeText,
     clearBadgeText,
+    getPremiumPromoPageUrl,
+    openPremiumPromoPage,
 };
 
 export default actions;

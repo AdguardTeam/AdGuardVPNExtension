@@ -258,8 +258,7 @@ const messageHandler = async (message, sender) => {
             break;
         }
         case MESSAGES_TYPES.OPEN_PREMIUM_PROMO_PAGE: {
-            const username = await credentials.getUsername();
-            return tabs.openPremiumPromoPage(username);
+            return tabs.openPremiumPromoPage();
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);
