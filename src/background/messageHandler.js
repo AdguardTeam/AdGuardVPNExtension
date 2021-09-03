@@ -21,7 +21,6 @@ import tabs from './tabs';
 import vpnProvider from './providers/vpnProvider';
 import { logStorage } from '../lib/log-storage';
 import { setDesktopVpnEnabled } from './connectivity/connectivityService/connectivityFSM';
-import { getPremiumPromoPageUrl } from './updateService';
 
 const eventListeners = {};
 
@@ -258,8 +257,9 @@ const messageHandler = async (message, sender) => {
             setDesktopVpnEnabled(status);
             break;
         }
-        case MESSAGES_TYPES.GET_PREMIUM_PROMO_PAGE_URL: {
-            return getPremiumPromoPageUrl();
+        case MESSAGES_TYPES.OPEN_PREMIUM_PROMO_PAGE_URL: {
+            const username = await credentials.getUsername();
+            return tabs.openPremiumPromoPage(username);
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

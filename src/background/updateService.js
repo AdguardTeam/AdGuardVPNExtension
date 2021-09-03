@@ -1,6 +1,4 @@
 import browserApi from './browserApi';
-import credentials from './credentials';
-import { UPGRADE_LICENSE_URL } from './config';
 
 const APP_VERSION_KEY = 'update.service.app.version';
 
@@ -40,14 +38,6 @@ const getRunInfo = async () => {
         currentVersion,
         prevVersion,
     };
-};
-
-export const getPremiumPromoPageUrl = async () => {
-    const username = await credentials.getUsername();
-    if (username) {
-        return `${UPGRADE_LICENSE_URL}&email=${encodeURIComponent(username)}`;
-    }
-    return UPGRADE_LICENSE_URL;
 };
 
 export default {

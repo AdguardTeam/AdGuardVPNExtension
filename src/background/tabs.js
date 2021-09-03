@@ -1,5 +1,5 @@
 import browser from 'webextension-polyfill';
-import { PASSWORD_RECOVERY_URL } from './config';
+import { PASSWORD_RECOVERY_URL, UPGRADE_LICENSE_URL } from './config';
 import notifier from '../lib/notifier';
 import { log } from '../lib/logger';
 
@@ -77,6 +77,12 @@ class Tabs {
 
     async openSocialAuthTab(authUrl) {
         await this.openTab(authUrl);
+    }
+
+    async openPremiumPromoPage(username) {
+        const url = `${UPGRADE_LICENSE_URL}${username ? `&email=${encodeURIComponent(username)}` : ''}`;
+        await this.openTab(url);
+        return url;
     }
 
     async reload(tabId) {
