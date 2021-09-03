@@ -257,7 +257,7 @@ const messageHandler = async (message, sender) => {
             setDesktopVpnEnabled(status);
             break;
         }
-        case MESSAGES_TYPES.OPEN_PREMIUM_PROMO_PAGE_URL: {
+        case MESSAGES_TYPES.OPEN_PREMIUM_PROMO_PAGE: {
             const username = await credentials.getUsername();
             return tabs.openPremiumPromoPage(username);
         }

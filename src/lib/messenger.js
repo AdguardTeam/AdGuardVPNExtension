@@ -303,7 +303,7 @@ class Messenger {
     }
 
     async openPremiumPromoPage() {
-        const type = MESSAGES_TYPES.OPEN_PREMIUM_PROMO_PAGE_URL;
+        const type = MESSAGES_TYPES.OPEN_PREMIUM_PROMO_PAGE;
         return this.sendMessage(type);
     }
 }
