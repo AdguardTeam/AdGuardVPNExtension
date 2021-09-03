@@ -2,17 +2,17 @@
 
 ### Synopsis
 ```
-yarn locales:[download | upload | validate | info]
+yarn locales:[download | upload | renew | validate | info]
 ```
 
-- `download` — download and save translations; defaults to **all** locales but can be specified
+- `download` — download, save and validate translations; defaults to download **all** locales and run `validate --min` after that; locales can be specified:
   - **-l**, **--locales** — for specific list of space-separated locales
     - **<list_of_locales>...** — locales to download
 
 - `upload` — upload base locale
 
 - `validate` — validate locales translations (defaults to **all** locales):
-  - **-R**, **--min** — for only our required locales
+  - **-R**, **--min** — for critical errors of all locales and translations readiness of required ones
   - **-l**, **--locales** — for specific list of space-separated locales
     - **<list_of_locales>...** — locales to validate
 
@@ -32,7 +32,7 @@ yarn locales:upload
 
 // validate all locales
 yarn locales:validate
-// or only our required languages
+// or check critical errors for all locales and translations readiness for ours
 yarn locales:validate --min
 // or just 'es', 'ja' and 'ru' locales
 yarn locales:validate -l es ja ru

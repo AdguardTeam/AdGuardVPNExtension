@@ -1,7 +1,7 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
-const inputConfig = require('./config.json');
+import inputConfig from './config.json';
 
 const {
     twosky_config_path: TWOSKY_CONFIG_PATH,
@@ -25,7 +25,9 @@ const {
     project_id: PROJECT_ID,
 } = twoskyConfig;
 
-module.exports = {
+const LOCALES_ABSOLUTE_PATH = path.join(__dirname, LOCALES_RELATIVE_PATH);
+
+export {
     BASE_LOCALE,
     LANGUAGES,
     PROJECT_ID,
@@ -34,6 +36,7 @@ module.exports = {
     SRC_FILENAME_EXTENSIONS,
     PERSISTENT_MESSAGES,
     LOCALES_RELATIVE_PATH,
+    LOCALES_ABSOLUTE_PATH,
     FORMAT,
     LOCALE_DATA_FILENAME,
     REQUIRED_LOCALES,

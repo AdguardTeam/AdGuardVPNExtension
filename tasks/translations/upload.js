@@ -1,16 +1,16 @@
-const fs = require('fs');
-const path = require('path');
-const axios = require('axios');
-const FormData = require('form-data');
+import fs from 'fs';
+import path from 'path';
+import axios from 'axios';
+import FormData from 'form-data';
 
-const {
+import {
     BASE_LOCALE,
     PROJECT_ID,
     API_URL,
     LOCALES_RELATIVE_PATH,
     FORMAT,
     LOCALE_DATA_FILENAME,
-} = require('./locales-constants');
+} from './locales-constants';
 
 const API_UPLOAD_URL = `${API_URL}/upload`;
 const LOCALES_DIR = path.resolve(__dirname, LOCALES_RELATIVE_PATH);

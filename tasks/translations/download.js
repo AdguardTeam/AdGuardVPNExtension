@@ -1,18 +1,18 @@
 /* eslint-disable no-await-in-loop */
-const fs = require('fs');
-const path = require('path');
-const axios = require('axios');
-const querystring = require('querystring');
+import fs from 'fs';
+import path from 'path';
+import axios from 'axios';
+import querystring from 'querystring';
 
-const { log } = require('./helpers');
+import { cliLog } from './helpers';
 
-const {
+import {
     PROJECT_ID,
     API_URL,
     LOCALES_RELATIVE_PATH,
     FORMAT,
     LOCALE_DATA_FILENAME,
-} = require('./locales-constants');
+} from './locales-constants';
 
 const API_DOWNLOAD_URL = `${API_URL}/download`;
 const LOCALES_DIR = path.resolve(__dirname, LOCALES_RELATIVE_PATH);
@@ -52,11 +52,11 @@ export const downloadAndSave = async (locales) => {
     for (const lang of locales) {
         const downloadUrl = `${API_DOWNLOAD_URL}?${getQueryString(lang)}`;
         try {
-            log.info(`Downloading: ${downloadUrl}`);
+            cliLog.info(`Downloading: ${downloadUrl}`);
             const { data } = await axios.get(downloadUrl, { responseType: 'arraybuffer' });
             const filePath = path.join(LOCALES_DIR, lang, LOCALE_DATA_FILENAME);
             await saveFile(filePath, data);
-            log.info(`Successfully saved in: ${filePath}`);
+            cliLog.info(`Successfully saved in: ${filePath}`);
         } catch (e) {
             let errorMessage;
             if (e.response && e.response.data) {
