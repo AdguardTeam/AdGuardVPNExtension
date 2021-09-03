@@ -258,7 +258,7 @@ const messageHandler = async (message, sender) => {
             break;
         }
         case MESSAGES_TYPES.OPEN_PREMIUM_PROMO_PAGE: {
-            return tabs.openPremiumPromoPage();
+            return actions.openPremiumPromoPage();
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);
