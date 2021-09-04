@@ -112,7 +112,7 @@ const clearBadgeText = async (tabId) => {
 
 /**
  * Generates Premium Promo Page url with user email in parameter (if authenticated)
- * Example: https://adguard-vpn.com/forward.html?action=buy_license&from=popup&app=vpn_extension&email=testmail.com
+ * @returns {string}
  */
 const getPremiumPromoPageUrl = async () => {
     const username = await credentials.getUsername();
