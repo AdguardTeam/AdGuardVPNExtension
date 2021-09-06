@@ -14,6 +14,12 @@
     "registration_error_not_valid": {
         "message": "Valoarea este invalidă"
     },
+    "registration_error_min_length": {
+        "message": "Parola este prea scurtă. Acesta trebuie să conțină cel puțin 8 caractere."
+    },
+    "registration_error_compromised_password": {
+        "message": "Parola introdusă a fost găsită într-o <a>bază de date publică</a> cu parole compromise. Vă rugăm, încercați alta."
+    },
     "registration_error_unique_constraint": {
         "message": "Valoarea este deja folosită"
     },
@@ -86,11 +92,23 @@
     "options_bug_report_email_invalid": {
         "message": "Adresă e-mail incorectă"
     },
+    "options_bug_report_textarea_invalid": {
+        "message": "Acest câmp este obligatoriu"
+    },
     "options_bug_report_request_error": {
         "message": "A apărut o eroare. Vă rugăm să încercați din nou mai târziu."
     },
+    "options_bug_report_send_button": {
+        "message": "Trimite"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Se trimite..."
+    },
     "options_bug_report_textarea_placeholder": {
         "message": "Descrieți problema aici..."
+    },
+    "options_bug_report_page_success": {
+        "message": "Vă mulțumim, mesajul dvs. a fost trimis cu succes!"
     },
     "options_bug_report_new_report_button": {
         "message": "Raport nou"
@@ -113,15 +131,6 @@
     "rate_hide": {
         "message": "Ascunde"
     },
-    "auth_title": {
-        "message": "Începeți absolut gratuit!"
-    },
-    "auth_description": {
-        "message": "Protecție fără compromisuri a confidențialității online. Peste 30 milioane de oameni au ales deja AdGuard."
-    },
-    "auth_code": {
-        "message": "Codul aplicației de autorizare"
-    },
     "auth_confirm": {
         "message": "Confirmați"
     },
@@ -131,14 +140,8 @@
     "auth_password": {
         "message": "Parola"
     },
-    "auth_password_repeat": {
-        "message": "Confirmare parolă"
-    },
     "auth_recover": {
         "message": "Ați uitat parola?"
-    },
-    "auth_login": {
-        "message": "Logare"
     },
     "auth_sign_up": {
         "message": "Înscriere"
@@ -154,12 +157,6 @@
     },
     "auth_sign_in_link": {
         "message": "Conectați-vă cu contul AdGuard"
-    },
-    "auth_account": {
-        "message": "Nu aveți un cont?"
-    },
-    "auth_register": {
-        "message": "Înscrieți-vă"
     },
     "auth_header_sign_in_account": {
         "message": "Vă conectați cu contul AdGuard"
@@ -205,6 +202,12 @@
     },
     "settings_context_menus_title": {
         "message": "Adăugați AdGuard VPN la meniul contextual al browserului"
+    },
+    "settings_help_us_improve_title": {
+        "message": "Ajutați-ne să ne îmbunătățim"
+    },
+    "settings_help_us_improve_description": {
+        "message": "Permiteți AdGuard VPN să adune rapoarte de avarie, date tehnice și de interacțiune. Acest lucru este anonim."
     },
     "context_menu_selective_mode": {
         "message": "Modul selectiv"
@@ -274,6 +277,9 @@
     },
     "settings_exclusions_export_button": {
         "message": "Export"
+    },
+    "settings_exclusions_delete_button": {
+        "message": "Elimină toate"
     },
     "settings_exclusion_title": {
         "message": "Excluderi"
@@ -434,20 +440,22 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN este dezactivat pe acest site"
     },
-    "popup_auth_agreement_consent": {
-        "message": "Utilizând AdGuard VPN, acceptați <eula>EULA</eula> noastră și <privacy>Politica Intimității</privacy>",
-        "description": "NOTICE! respect spaces between tags"
+    "popup_auth_policy_agreement": {
+        "message": "Acceptați <eula>EULA</eula> și <privacy>Politica de confidențialitate</privacy>",
+        "description": "WARNING! Respect spaces between tags"
     },
-    "options_auth_agreement_consent": {
-        "message": "Prin continuarea utilizării AdGuard VPN, sunteți de acord cu <eula>EULA</eula> și <privacy>Politica de confidențialitate</privacy>",
-        "description": "NOTICE! respect spaces between tags"
+    "popup_auth_help_us_improve_agreement": {
+        "message": "Permiteți AdGuard să adune <link>date anonime</link> despre utilizarea aplicației, pentru a îmbunătăți AdGuard VPN"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Continuă"
+    },
+    "popup_marketing_consent_checkbox": {
+        "message": "Trimiteți-mi e-mailuri cu oferte speciale și știri AdGuard"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> rămași luna aceasta",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_auth_back_button": {
-        "message": "Înapoi"
     },
     "options_selective_mode_popup_message": {
         "message": "În modul Selectiv AdGuard VPN funcționează numai pe site-urile permise pe care le-ați adăugat la listă."
@@ -466,6 +474,21 @@
     },
     "options_exclusions_import_select_selective": {
         "message": "Listă selectivă"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "Anulare"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Șterge"
+    },
+    "options_exclusions_delete_title": {
+        "message": "Eliminați excluderile"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "Toate excluderile din modul Normal vor fi șterse."
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "Toate excluderile din modul Selectiv vor fi șterse."
     },
     "options_exclusions_import_successful": {
         "message": "Excluderi importate: %count%"

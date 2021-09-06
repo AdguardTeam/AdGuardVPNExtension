@@ -3,7 +3,7 @@
         "message": "AdGuard VPN — Gizlilik ve Güvenlik"
     },
     "description": {
-        "message": "İnterneti erişilebilir ve verilerinizi güvenli hale getirir. Ünlü reklam engelleyicinin yaratıcılarından en iyi VPN'si."
+        "message": "İnternetin erişilebilir ve verilerinizin güvende olmasını sağlar. Ünlü reklam engelleyicinin yaratıcılarından en iyi VPN."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -18,7 +18,7 @@
         "message": "Parola çok kısa. En az 8 karakter içermelidir."
     },
     "registration_error_compromised_password": {
-        "message": "Girdiğiniz parola, ele geçirilmiş parolaların <a>ortak veritabanında</a> bulundu. Lütfen başka bir tane deneyin."
+        "message": "Girdiğiniz parola, güvenliği ihlal edilmiş parolalardan oluşan <a>herkese açık bir veri tabanında</a> bulundu. Lütfen başka bir tane deneyin."
     },
     "registration_error_unique_constraint": {
         "message": "Bu değer zaten kullanılıyor"
@@ -33,13 +33,13 @@
         "message": "2FA gerekli"
     },
     "authentication_error_2fa_invalid": {
-        "message": "Geçersiz simge"
+        "message": "Geçersiz kod"
     },
     "authentication_error_account_disabled": {
         "message": "Hesap devre dışıdır"
     },
     "authentication_error_account_locked": {
-        "message": "Hesap 15 dakika boyunca kilitlendi"
+        "message": "Hesap 15 dakikalığına kilitlendi"
     },
     "authentication_error_wrong_credentials": {
         "message": "Yanlış parola"
@@ -66,10 +66,10 @@
         "message": "Hata bildir"
     },
     "options_support_report_description": {
-        "message": "Eğer programda bir şey düzgün çalışmıyorsa"
+        "message": "Programda bir şey düzgün çalışmıyorsa"
     },
     "options_support_feedback_title": {
-        "message": "Geri bildirimde bulunun"
+        "message": "Geri bildirimde bulun"
     },
     "options_support_feedback_description": {
         "message": "Yeni özellik isteği veya öneri gönderin"
@@ -87,7 +87,7 @@
         "message": "E-posta"
     },
     "options_bug_report_include_log_label": {
-        "message": "Mesaja tanılama raporu ekle"
+        "message": "Tanılama raporunu mesaja dahil et"
     },
     "options_bug_report_email_invalid": {
         "message": "Yanlış e-posta adresi"
@@ -131,15 +131,6 @@
     "rate_hide": {
         "message": "Gizle"
     },
-    "auth_title": {
-        "message": "Tamamen ücretsiz başlayın!"
-    },
-    "auth_description": {
-        "message": "Ödün vermeyen çevrimiçi gizlilik koruması. 30 Milyondan fazla insan zaten AdGuard'ı seçti."
-    },
-    "auth_code": {
-        "message": "Yetkilendirme uygulamasından gelen kod"
-    },
     "auth_confirm": {
         "message": "Doğrula"
     },
@@ -149,14 +140,8 @@
     "auth_password": {
         "message": "Parola"
     },
-    "auth_password_repeat": {
-        "message": "Parola doğrulama"
-    },
     "auth_recover": {
         "message": "Parolanızı mı unuttunuz?"
-    },
-    "auth_login": {
-        "message": "Giriş yap"
     },
     "auth_sign_up": {
         "message": "Kaydol"
@@ -172,12 +157,6 @@
     },
     "auth_sign_in_link": {
         "message": "AdGuard hesabıyla giriş yap"
-    },
-    "auth_account": {
-        "message": "Bir hesabınız yok mu?"
-    },
-    "auth_register": {
-        "message": "Kaydol"
     },
     "auth_header_sign_in_account": {
         "message": "AdGuard hesabıyla giriş yapıyorsunuz"
@@ -216,16 +195,16 @@
         "message": "Bizi değerlendirin"
     },
     "settings_webrtc_label": {
-        "message": "WebRTC Protokolünü Engelle"
+        "message": "WebRTC'yi engelle"
     },
     "settings_webrtc_desc": {
         "message": "WebRTC çoğu İnternet tarayıcısında, üçüncü taraf bir sitenin gerçek IP adresinizi algılamasına ve sizi tanımlamak için kullanmasına izin veren özel bir programdır"
     },
     "settings_context_menus_title": {
-        "message": "Tarayıcının sağtık menüsüne AdGuard VPN'yi ekle"
+        "message": "Tarayıcının sağ tık menüsüne AdGuard VPN öğesini ekle"
     },
     "settings_help_us_improve_title": {
-        "message": "Geliştirmemize yardımcı olun"
+        "message": "Geliştirmemize yardımcı ol"
     },
     "settings_help_us_improve_description": {
         "message": "Adguard VPN'nin çökme raporlarını, teknik ve etkileşim verilerini toplamasına izin verin. Kişisel verileriniz paylaşılmaz."
@@ -246,13 +225,13 @@
         "message": "Varsayılan"
     },
     "settings_dns_selector_default_desc": {
-        "message": "VPN'ye bağlandığında varsayılan DNS sunucularını otomatik olarak kullan"
+        "message": "VPN'e bağlandığında varsayılan DNS sunucularını otomatik olarak kullan"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
     },
     "settings_dns_selector_adguard_desc": {
-        "message": "Cihazınızdan reklamları ve izleyicileri kaldırır"
+        "message": "Cihazınızdaki reklamları ve izleyicileri kaldırır"
     },
     "settings_dns_selector_adguard_nonfiltering_title": {
         "message": "AdGuard DNS Filtrelemeyen"
@@ -289,6 +268,18 @@
     },
     "settings_dns_selector_quad9_desc": {
         "message": "Kimlik avı ve casus yazılımlara karşı korumalı ücretsiz alternatif DNS hizmeti"
+    },
+    "settings_theme_label": {
+        "message": "Tema"
+    },
+    "settings_theme_system": {
+        "message": "Sistem varsayılanı"
+    },
+    "settings_theme_dark": {
+        "message": "Koyu"
+    },
+    "settings_theme_light": {
+        "message": "Açık"
     },
     "settings_exclusion_add": {
         "message": "Site ekle"
@@ -339,7 +330,7 @@
         "message": "Tekrar dene"
     },
     "authentication_successful_social": {
-        "message": "Başarıyla doğrulandı! AdGuard VPN'yi açabilir ve kullanmaya başlayabilirsiniz."
+        "message": "Başarıyla doğrulandı! AdGuard VPN'i açabilir ve kullanmaya başlayabilirsiniz."
     },
     "control_error_description": {
         "message": "Başka bir Chrome eklentisi bağlantınızı kontrol etmeye çalışıyor gibi görünüyor. Lütfen tarayıcınızdaki diğer eklentiyi devre dışı bırakın."
@@ -348,13 +339,13 @@
         "message": "Devre dışı bırak"
     },
     "popup_settings_enable_vpn": {
-        "message": "Bu sitede VPN'yi etkinleştir"
+        "message": "Bu sitede VPN'i etkinleştir"
     },
     "popup_settings_enable_vpn_short": {
         "message": "Etkinleştir"
     },
     "popup_settings_disable_vpn": {
-        "message": "Bu sitede VPN'yi devre dışı bırak"
+        "message": "Bu sitede VPN'i devre dışı bırak"
     },
     "popup_settings_other_products": {
         "message": "Diğer ürünler"
@@ -369,10 +360,10 @@
         "message": "Oturumu kapat"
     },
     "context_menu_enable_vpn": {
-        "message": "Bu sitede VPN'yi etkinleştir"
+        "message": "Bu sitede VPN'i etkinleştir"
     },
     "context_menu_disable_vpn": {
-        "message": "Bu sitede VPN'yi devre dışı bırak"
+        "message": "Bu sitede VPN'i devre dışı bırak"
     },
     "endpoints_countries": {
         "message": "Konumlar"
@@ -426,7 +417,7 @@
         "message": "Geri bildiriminizi duymak isteriz"
     },
     "popup_feedback_button": {
-        "message": "Geri bildirimde bulunun"
+        "message": "Geri bildirimde bulun"
     },
     "settings_run_upgrade_early_bird": {
         "message": "Erken rezervasyon fiyatları"
@@ -445,6 +436,9 @@
     },
     "upgrade_features_devices": {
         "message": "5 cihaza kadar"
+    },
+    "upgrade_features_streaming": {
+        "message": "Akış desteği"
     },
     "continue_us_free_button": {
         "message": "Ücretsiz kullanmaya devam et"
@@ -466,7 +460,7 @@
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "AdGuard'ın, AdGuard VPN'yi daha iyi hale getirmek için uygulama kullanımı hakkında bazı <link>anonim veriler</link> toplamamıza izin verin"
+        "message": "AdGuard VPN'i daha iyi hâle getirmek için AdGuard'ın uygulama kullanımı hakkında bazı <link>anonim veriler</link> toplamamıza izin verin"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Devam et"
@@ -474,20 +468,9 @@
     "popup_marketing_consent_checkbox": {
         "message": "Bana özel teklifler ve AdGuard haberleri içeren e-postalar gönder"
     },
-    "popup_auth_agreement_consent": {
-        "message": "AdGuard VPN'yi kullanmaya devam ederek <eula>SKLS</eula> ve <privacy>Gizlilik Politikamızı</privacy> kabul etmiş olursunuz",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "AdGuard VPN'yi kullanmaya devam ederek <eula>SKLS</eula> ve <privacy>Gizlilik Politikamızı</privacy> kabul etmiş olursunuz",
-        "description": "NOTICE! respect spaces between tags"
-    },
     "popup_free_traffic_info": {
         "message": "Bu ay <span>%value% %unit%</span> kaldı",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_auth_back_button": {
-        "message": "Geri"
     },
     "options_selective_mode_popup_message": {
         "message": "Seçici modda AdGuard VPN, yalnızca listeye eklediğiniz izin verilen web sitelerinde çalışır."
@@ -535,10 +518,10 @@
         "message": "Maksimum bağlantı sayısına ulaştınız: %maxDevicesAllowed%."
     },
     "popup_connections_limit_description_end_free": {
-        "message": "Daha fazla cihaz eklemek için Sınırsız AdGuard VPN'ye abone olmayı düşünün."
+        "message": "Daha fazla cihaz eklemek için Sınırsız AdGuard VPN'e abone olmayı düşünün."
     },
     "popup_connections_limit_description_end_premium": {
-        "message": "Başka bir cihaz eklemek için herhangi bir cihazınızda AdGuard VPN'yi devre dışı bırakın."
+        "message": "Başka bir cihaz eklemek için herhangi bir cihazınızda AdGuard VPN'i devre dışı bırakın."
     },
     "popup_connections_limit_description_cta_button_free": {
         "message": "Abone ol"
@@ -548,5 +531,20 @@
     },
     "popup_connections_limit_title": {
         "message": "Bağlantı sınırına ulaşıldı"
+    },
+    "popup_desktop_vpn_enabled_title": {
+        "message": "AdGuard VPN zaten bağlı"
+    },
+    "popup_desktop_vpn_enabled_description": {
+        "message": "AdGuard VPN, masaüstü uygulamasında etkinleştirildiğinden eklenti otomatik olarak devre dışı bırakıldı"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "Tamam"
+    },
+    "options_signedout_page_title": {
+        "message": "AdGuard VPN'den çıkış yaptınız"
+    },
+    "options_signedout_page_description": {
+        "message": "Bağlantınızın güvenli olmadığını lütfen unutmayın. Gizli olarak gezinmeye devam etmek için AdGuard VPN simgesine tıklayın ve tekrar giriş yapın."
     }
 }

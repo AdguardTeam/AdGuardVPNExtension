@@ -95,12 +95,6 @@
     "rate_hide": {
         "message": "Skjul"
     },
-    "auth_title": {
-        "message": "Sett i gang helt gratis!"
-    },
-    "auth_code": {
-        "message": "Kode fra autentiseringsapp"
-    },
     "auth_confirm": {
         "message": "Bekreft"
     },
@@ -110,14 +104,8 @@
     "auth_password": {
         "message": "Passord"
     },
-    "auth_password_repeat": {
-        "message": "Passordbekreftelse"
-    },
     "auth_recover": {
         "message": "Glemt passordet?"
-    },
-    "auth_login": {
-        "message": "Logg på"
     },
     "auth_sign_up": {
         "message": "Bli med"
@@ -133,12 +121,6 @@
     },
     "auth_sign_in_link": {
         "message": "Logg på med AdGuard-konto"
-    },
-    "auth_account": {
-        "message": "Har du ikke en konto?"
-    },
-    "auth_register": {
-        "message": "Registrer"
     },
     "auth_header_sign_in_account": {
         "message": "Du logger på med AdGuard-kontoen din"
@@ -184,6 +166,9 @@
     },
     "settings_context_menus_title": {
         "message": "Legg til AdGuard VPN-element i nettleserens sammenhengsmeny"
+    },
+    "settings_help_us_improve_title": {
+        "message": "Hjelp oss med å forbedre"
     },
     "context_menu_selective_mode": {
         "message": "Selektiv modus"
@@ -253,6 +238,9 @@
     },
     "settings_exclusions_export_button": {
         "message": "Eksport"
+    },
+    "settings_exclusions_delete_button": {
+        "message": "Slett alle"
     },
     "settings_exclusion_title": {
         "message": "Unntak"
@@ -404,12 +392,12 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN er skrudd av på dette nettstedet"
     },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Fortsett"
+    },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> gjenstår denne måneden",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_auth_back_button": {
-        "message": "Tilbake"
     },
     "options_selective_mode_popup_message": {
         "message": "I selektiv modus, fungerer AdGuard VPN kun på tillatte nettsteder som du har lagt til i listen."
@@ -420,8 +408,23 @@
     "options_selective_mode_popup_attention": {
         "message": "Er du sikker på at du vil skifte?"
     },
+    "options_exclusions_import_select_title": {
+        "message": "Importer unntak til:"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "Vanlig liste"
+    },
     "options_exclusions_import_select_selective": {
         "message": "Selektiv liste"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "Avbryt"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Slett"
+    },
+    "options_exclusions_delete_title": {
+        "message": "Fjern unntak"
     },
     "popup_connections_limit_description_cta_button_free": {
         "message": "Abonner"

@@ -131,15 +131,6 @@
     "rate_hide": {
         "message": "Piilota"
     },
-    "auth_title": {
-        "message": "Aloita täysin ilmaiseksi!"
-    },
-    "auth_description": {
-        "message": "Tinkimätön yksityisyyden suojaus verkossa. Yli 30 mijoonaa ihmistä on jo valinnut AdGuardin."
-    },
-    "auth_code": {
-        "message": "2FA-koodi todennussovelluksesta"
-    },
     "auth_confirm": {
         "message": "Vahvista"
     },
@@ -149,14 +140,8 @@
     "auth_password": {
         "message": "Salasana"
     },
-    "auth_password_repeat": {
-        "message": "Salasanan varmistus"
-    },
     "auth_recover": {
         "message": "Salasana unohtunut?"
-    },
-    "auth_login": {
-        "message": "Kirjaudu"
     },
     "auth_sign_up": {
         "message": "Luo tili"
@@ -172,12 +157,6 @@
     },
     "auth_sign_in_link": {
         "message": "Kirjaudu AdGuard-tunnuksella"
-    },
-    "auth_account": {
-        "message": "Eikö ole vielä tiliä?"
-    },
-    "auth_register": {
-        "message": "Luo tili"
     },
     "auth_header_sign_in_account": {
         "message": "Olet kirjautumassa AdGuard-tunnuksella"
@@ -289,6 +268,18 @@
     },
     "settings_dns_selector_quad9_desc": {
         "message": "Ilmainen DNS-palvelu tietojenkalastelu- ja vakoiluohjelmien suodatuksella"
+    },
+    "settings_theme_label": {
+        "message": "Teema"
+    },
+    "settings_theme_system": {
+        "message": "Järjestelmän oletus"
+    },
+    "settings_theme_dark": {
+        "message": "Tumma"
+    },
+    "settings_theme_light": {
+        "message": "Vaalea"
     },
     "settings_exclusion_add": {
         "message": "Lisää sivusto"
@@ -477,20 +468,9 @@
     "popup_marketing_consent_checkbox": {
         "message": "Lähetä minulle erikoistarjouksia ja AdGuard-uutisia sähköpostitse"
     },
-    "popup_auth_agreement_consent": {
-        "message": "Jatkamalla AdGuard VPN:n käyttöä, hyväksyt <eula>EULA:n</eula> ja <privacy>tietosuojakäytännön</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "Jatkamalla AdGuard VPN:n käyttöä, hyväksyt <eula>EULA:n</eula> ja <privacy>tietosuojakäytännön</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> jäljellä tässä kuussa",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_auth_back_button": {
-        "message": "Takaisin"
     },
     "options_selective_mode_popup_message": {
         "message": "Valikoivassa tilassa AdGuard VPN toimii vain listaan lisätyillä, sallituilla sivustoilla."
@@ -551,5 +531,20 @@
     },
     "popup_connections_limit_title": {
         "message": "Yhteysraja saavutettu"
+    },
+    "popup_desktop_vpn_enabled_title": {
+        "message": "AdGuard VPN on jo yhdistetty"
+    },
+    "popup_desktop_vpn_enabled_description": {
+        "message": "AdGuard VPN on käytössä työpöytäsovelluksessa, joten selainlaajennus on poistettu käytöstä"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "Ok"
+    },
+    "options_signedout_page_title": {
+        "message": "Olet kirjautunut ulos AdGuard VPN -palvelusta"
+    },
+    "options_signedout_page_description": {
+        "message": "Huomioithan, ettei yhteytesi ole suojattu. Jatkaaksesi verkon selausta yksityisesti, klikkaa AdGuard VPN -kuvaketta ja kirjaudu sisään uudelleen."
     }
 }

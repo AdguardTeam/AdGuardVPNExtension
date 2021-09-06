@@ -131,15 +131,6 @@
     "rate_hide": {
         "message": "Hide"
     },
-    "auth_title": {
-        "message": "Get started absolutely free!"
-    },
-    "auth_description": {
-        "message": "Uncompromising online privacy protection. Over 30 million people have already chosen AdGuard."
-    },
-    "auth_code": {
-        "message": "Code from auth application"
-    },
     "auth_confirm": {
         "message": "Confirm"
     },
@@ -149,14 +140,8 @@
     "auth_password": {
         "message": "Password"
     },
-    "auth_password_repeat": {
-        "message": "Password confirmation"
-    },
     "auth_recover": {
         "message": "Forgot password?"
-    },
-    "auth_login": {
-        "message": "Log in"
     },
     "auth_sign_up": {
         "message": "Sign up"
@@ -172,12 +157,6 @@
     },
     "auth_sign_in_link": {
         "message": "Sign in with AdGuard account"
-    },
-    "auth_account": {
-        "message": "Don’t have an account?"
-    },
-    "auth_register": {
-        "message": "Register"
     },
     "auth_header_sign_in_account": {
         "message": "You are signing in with AdGuard account"
@@ -489,20 +468,9 @@
     "popup_marketing_consent_checkbox": {
         "message": "Send me emails with special offers and AdGuard news"
     },
-    "popup_auth_agreement_consent": {
-        "message": "By continuing to use AdGuard VPN, you agree to our <eula>EULA</eula> and <privacy>Privacy Policy</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "By continuing to use AdGuard VPN, you agree to our <eula>EULA</eula> and <privacy>Privacy Policy</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> remaining this month",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_auth_back_button": {
-        "message": "Back"
     },
     "options_selective_mode_popup_message": {
         "message": "In Selective mode AdGuard VPN only works on allowed websites that you have added to the list."

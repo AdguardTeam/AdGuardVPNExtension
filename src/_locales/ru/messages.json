@@ -131,15 +131,6 @@
     "rate_hide": {
         "message": "Скрыть"
     },
-    "auth_title": {
-        "message": "Попробуйте бесплатно!"
-    },
-    "auth_description": {
-        "message": "Безупречная защита конфиденциальности в интернете. Более 30 миллионов человек уже выбрали AdGuard.\n"
-    },
-    "auth_code": {
-        "message": "Код из приложения аутентификации"
-    },
     "auth_confirm": {
         "message": "Подтвердить"
     },
@@ -149,14 +140,8 @@
     "auth_password": {
         "message": "Пароль"
     },
-    "auth_password_repeat": {
-        "message": "Подтверждение пароля"
-    },
     "auth_recover": {
         "message": "Забыли пароль?"
-    },
-    "auth_login": {
-        "message": "Войти"
     },
     "auth_sign_up": {
         "message": "Регистрация"
@@ -173,14 +158,8 @@
     "auth_sign_in_link": {
         "message": "Войти с помощью аккаунта AdGuard"
     },
-    "auth_account": {
-        "message": "У вас нет аккаунта?"
-    },
-    "auth_register": {
-        "message": "Зарегистрироваться"
-    },
     "auth_header_sign_in_account": {
-        "message": "Вы логинитесь с помощью аккаунта AdGuard"
+        "message": "Вы авторизуетесь с помощью аккаунта AdGuard"
     },
     "auth_header_sign_up_create_account": {
         "message": "Регистрируясь, вы создаете аккаунт AdGuard"
@@ -243,7 +222,7 @@
         "message": "Система доменных имен (DNS) – это эквивалент телефонной книги в интернете. Эта система ведёт регистр доменных имён и переводит их в IP-адреса."
     },
     "settings_dns_selector_default_title": {
-        "message": "Стандартный"
+        "message": "По умолчанию"
     },
     "settings_dns_selector_default_desc": {
         "message": "Автоматически использовать DNS-сервер по умолчанию при подключении к VPN"
@@ -289,6 +268,18 @@
     },
     "settings_dns_selector_quad9_desc": {
         "message": "Бесплатный альтернативный DNS-сервис с защитой от фишинга и шпионских программ"
+    },
+    "settings_theme_label": {
+        "message": "Тема"
+    },
+    "settings_theme_system": {
+        "message": "Системная"
+    },
+    "settings_theme_dark": {
+        "message": "Тёмная"
+    },
+    "settings_theme_light": {
+        "message": "Светлая"
     },
     "settings_exclusion_add": {
         "message": "Добавить веб-сайт"
@@ -446,6 +437,9 @@
     "upgrade_features_devices": {
         "message": "До 5  устройств"
     },
+    "upgrade_features_streaming": {
+        "message": "Стриминг"
+    },
     "continue_us_free_button": {
         "message": "Продолжить бесплатно"
     },
@@ -474,20 +468,9 @@
     "popup_marketing_consent_checkbox": {
         "message": "Присылать мне специальные предложения и новости AdGuard"
     },
-    "popup_auth_agreement_consent": {
-        "message": "Продолжая использовать AdGuard VPN, вы соглашаетесь с нашим <eula>Лицензионным соглашением</eula> и <privacy>Политикой конфиденциальности</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "Продолжая использовать AdGuard VPN, вы соглашаетесь с нашим <eula>Лицензионным соглашением</eula> и <privacy>Политикой конфиденциальности</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> осталось в этом месяце",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_auth_back_button": {
-        "message": "Назад"
     },
     "options_selective_mode_popup_message": {
         "message": "В Выборочном режиме AdGuard VPN работает только на разрешённых сайтах, которые вы добавили в список."
@@ -529,7 +512,7 @@
         "message": "У файла с исключениями должно быть одно из расширений: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Zip-архив: \"%filename%\" не содержит файлов с расширениями: %extensions%"
+        "message": "Zip-архив: «%filename%» не содержит файлов с расширениями: %extensions%"
     },
     "popup_connections_limit_description_start": {
         "message": "Достигнуто максимальное количество подключений: %maxDevicesAllowed%."
@@ -548,5 +531,20 @@
     },
     "popup_connections_limit_title": {
         "message": "Достигнут лимит подключений"
+    },
+    "popup_desktop_vpn_enabled_title": {
+        "message": "Вы уже подключены к AdGuard VPN"
+    },
+    "popup_desktop_vpn_enabled_description": {
+        "message": "AdGuard VPN работает в десктопном приложении, поэтому браузерное расширение было автоматически отключено"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "Ок"
+    },
+    "options_signedout_page_title": {
+        "message": "Вы вышли из AdGuard VPN"
+    },
+    "options_signedout_page_description": {
+        "message": "Обратите внимание, что соединение не защищено. Чтобы продолжить пользоваться интернетом безопасно, нажмите на иконку AdGuard VPN и снова войдите в приложение."
     }
 }

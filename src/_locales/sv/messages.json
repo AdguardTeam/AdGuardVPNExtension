@@ -47,23 +47,17 @@
     "auth_recover": {
         "message": "Glömt lösenord?"
     },
-    "auth_login": {
-        "message": "Logga in"
-    },
     "auth_sign_up": {
-        "message": "Bli medlem"
+        "message": "Registrera dig"
     },
     "auth_sign_up_button": {
-        "message": "Bli medlem"
+        "message": "Registrera dig"
     },
     "auth_sign_in": {
         "message": "Logga in"
     },
     "auth_sign_in_button": {
         "message": "Logga in"
-    },
-    "auth_register": {
-        "message": "Registrera"
     },
     "auth_header_2fa_subtitle": {
         "message": "Tvåfaktorautentisering"
@@ -121,6 +115,18 @@
     },
     "settings_dns_selector_quad9_desc": {
         "message": "Gratis alternativ DNS-tjänst med skydd mot nätfiske och spionprogram"
+    },
+    "settings_theme_label": {
+        "message": "Tema"
+    },
+    "settings_theme_dark": {
+        "message": "Mörkt"
+    },
+    "settings_theme_light": {
+        "message": "Ljust"
+    },
+    "settings_exclusions_delete_button": {
+        "message": "Radera alla"
     },
     "settings_exclusion_title": {
         "message": "Exkluderingar"
@@ -185,7 +191,22 @@
     "upgrade_features_all_locations": {
         "message": "Alla platser"
     },
-    "options_auth_back_button": {
-        "message": "Tillbaka"
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Fortsätt"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "Avbryt"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Radera"
+    },
+    "popup_desktop_vpn_enabled_title": {
+        "message": "AdGuard VPN är redan ansluten"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "OK"
+    },
+    "options_signedout_page_title": {
+        "message": "Du har loggat ut ur AdGuard VPN"
     }
 }

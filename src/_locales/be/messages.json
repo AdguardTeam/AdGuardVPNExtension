@@ -131,15 +131,6 @@
     "rate_hide": {
         "message": "Схаваць"
     },
-    "auth_title": {
-        "message": "Пачніце абсалютна дарма!"
-    },
-    "auth_description": {
-        "message": "Бездакорная абарона прыватнасці ў Інтэрнэце. Больш 30 мільёнаў чалавек ужо выбралі AdGuard."
-    },
-    "auth_code": {
-        "message": "Код з дадатку аўтэнтыфікацыі"
-    },
     "auth_confirm": {
         "message": "Пацвердзіць"
     },
@@ -149,14 +140,8 @@
     "auth_password": {
         "message": "Пароль"
     },
-    "auth_password_repeat": {
-        "message": "Пацверджанне пароля"
-    },
     "auth_recover": {
         "message": "Забылі пароль?"
-    },
-    "auth_login": {
-        "message": "Увайсці"
     },
     "auth_sign_up": {
         "message": "Зарэгістравацца"
@@ -172,12 +157,6 @@
     },
     "auth_sign_in_link": {
         "message": "Увайсці з дапамогай акаўнта AdGuard"
-    },
-    "auth_account": {
-        "message": "У вас няма акаўнта?"
-    },
-    "auth_register": {
-        "message": "Зарэгістравацца"
     },
     "auth_header_sign_in_account": {
         "message": "Вы лагініцеся з дапамогай акаўнта AdGuard"
@@ -474,20 +453,9 @@
     "popup_marketing_consent_checkbox": {
         "message": "Дасылаць мне адмысловыя прапановы і навіны AdGuard"
     },
-    "popup_auth_agreement_consent": {
-        "message": "Працягваючы скарыстаць AdGuard, Вы згаджаецеся з нашым <eula>Ліцэнзійным пагадненнем</eula> і <privacy>Палітыкай прыватнасці</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "Працягваючы скарыстаць AdGuard VPN, Вы згаджаецеся з нашым <eula>Ліцэнзійным пагадненнем</eula> і <privacy>Палітыкай прыватнасці</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> засталося ў гэтым месяцы",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_auth_back_button": {
-        "message": "Назад"
     },
     "options_selective_mode_popup_message": {
         "message": "У выбарковым рэжыме AdGuard VPN працуе толькі на дазволеных сайтах, якія вы дадалі ў спіс."

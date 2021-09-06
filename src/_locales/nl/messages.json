@@ -72,7 +72,7 @@
         "message": "Feedback geven"
     },
     "options_support_feedback_description": {
-        "message": "Functie verzoeken en suggesties indienen"
+        "message": "Functieverzoeken en suggesties indienen"
     },
     "options_support_discuss_title": {
         "message": "Discussie"
@@ -126,19 +126,10 @@
         "message": "Afmelden"
     },
     "rate_description": {
-        "message": "Hallo, we zijn een team van AdGuard en het is erg belangrijk voor ons om uw mening over ons product te weten. Beoordeel het alstublieft."
+        "message": "Hallo, we zijn een team van AdGuard en het is erg belangrijk voor ons om jouw mening over ons product te weten. Beoordeel het alsjeblieft."
     },
     "rate_hide": {
         "message": "Verbergen"
-    },
-    "auth_title": {
-        "message": "Begin 100% gratis!"
-    },
-    "auth_description": {
-        "message": "Compromisloze online privacy bescherming. Meer dan 30 miljoen mensen hebben al voor AdGuard gekozen."
-    },
-    "auth_code": {
-        "message": "Code van authenticatie app"
     },
     "auth_confirm": {
         "message": "Bevestigen"
@@ -149,14 +140,8 @@
     "auth_password": {
         "message": "Wachtwoord"
     },
-    "auth_password_repeat": {
-        "message": "Wachtwoord bevestigen"
-    },
     "auth_recover": {
         "message": "Wachtwoord vergeten?"
-    },
-    "auth_login": {
-        "message": "Inloggen"
     },
     "auth_sign_up": {
         "message": "Registreren"
@@ -172,12 +157,6 @@
     },
     "auth_sign_in_link": {
         "message": "Aanmelden met AdGuard account"
-    },
-    "auth_account": {
-        "message": "Heb je geen account?"
-    },
-    "auth_register": {
-        "message": "Registreren"
     },
     "auth_header_sign_in_account": {
         "message": "Je meldt je aan met je AdGuard account"
@@ -289,6 +268,18 @@
     },
     "settings_dns_selector_quad9_desc": {
         "message": "Gratis alternatieve DNS service met bescherming tegen phishing en spyware"
+    },
+    "settings_theme_label": {
+        "message": "Thema"
+    },
+    "settings_theme_system": {
+        "message": "Systeemstandaard"
+    },
+    "settings_theme_dark": {
+        "message": "Donker"
+    },
+    "settings_theme_light": {
+        "message": "Licht"
     },
     "settings_exclusion_add": {
         "message": "Website toevoegen"
@@ -446,6 +437,9 @@
     "upgrade_features_devices": {
         "message": "Maximaal 5 apparaten"
     },
+    "upgrade_features_streaming": {
+        "message": "Ondersteuning voor streaming"
+    },
     "continue_us_free_button": {
         "message": "Gratis blijven gebruiken"
     },
@@ -474,20 +468,9 @@
     "popup_marketing_consent_checkbox": {
         "message": "Mij e-mails sturen met speciale aanbiedingen en AdGuard-nieuws"
     },
-    "popup_auth_agreement_consent": {
-        "message": "Door AdGuard VPN verder te gebruiken ga je akkoord met onze <eula>EULA</eula> en <privacy>Privacy beleid</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "Door AdGuard VPN verder te gebruiken ga je akkoord met onze <eula>EULA</eula> en <privacy>Privacy beleid</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> nog over deze maand",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_auth_back_button": {
-        "message": "Terug"
     },
     "options_selective_mode_popup_message": {
         "message": "In Selectieve modus werkt AdGuard VPN enkel voor toegestane websites die je aan de lijst hebt toegevoegd."
@@ -548,5 +531,20 @@
     },
     "popup_connections_limit_title": {
         "message": "Maximaal aantal verbindingen bereikt"
+    },
+    "popup_desktop_vpn_enabled_title": {
+        "message": "AdGuard VPN is al verbonden"
+    },
+    "popup_desktop_vpn_enabled_description": {
+        "message": "AdGuard VPN is ingeschakeld in de desktop-app, dus de uitbreiding werd automatisch uitgeschakeld"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "OK"
+    },
+    "options_signedout_page_title": {
+        "message": "Je bent afgemeld bij AdGuard VPN"
+    },
+    "options_signedout_page_description": {
+        "message": "Houd er rekening mee dat je verbinding niet beveiligd is. Om privé verder te surfen, klik je op het AdGuard VPN-pictogram en meld je opnieuw aan."
     }
 }

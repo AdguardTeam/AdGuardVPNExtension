@@ -131,15 +131,6 @@
     "rate_hide": {
         "message": "숨기기"
     },
-    "auth_title": {
-        "message": "완전히 무료로 시작해보세요!"
-    },
-    "auth_description": {
-        "message": "온라인 개인정보 보호에 대해서 타협하지 않습니다. 3천만명이 넘는 사람들이 이미 AdGuard를 사용하고 있습니다."
-    },
-    "auth_code": {
-        "message": "인증 앱의 코드"
-    },
     "auth_confirm": {
         "message": "확인"
     },
@@ -149,14 +140,8 @@
     "auth_password": {
         "message": "비밀번호"
     },
-    "auth_password_repeat": {
-        "message": "비밀번호 확인"
-    },
     "auth_recover": {
         "message": "비밀번호를 잊어버리셨나요?"
-    },
-    "auth_login": {
-        "message": "로그인"
     },
     "auth_sign_up": {
         "message": "가입"
@@ -172,12 +157,6 @@
     },
     "auth_sign_in_link": {
         "message": "AdGuard 계정으로 로그인"
-    },
-    "auth_account": {
-        "message": "계정이 없으신가요?"
-    },
-    "auth_register": {
-        "message": "가입"
     },
     "auth_header_sign_in_account": {
         "message": "AdGuard 계정으로 로그인 중"
@@ -289,6 +268,18 @@
     },
     "settings_dns_selector_quad9_desc": {
         "message": "피싱과 스파이웨어로부터 보호해 주는 무료 대안 DNS 서비스"
+    },
+    "settings_theme_label": {
+        "message": "테마"
+    },
+    "settings_theme_system": {
+        "message": "시스템 기본값"
+    },
+    "settings_theme_dark": {
+        "message": "다크 테마"
+    },
+    "settings_theme_light": {
+        "message": "라이트 테마"
     },
     "settings_exclusion_add": {
         "message": "웹사이트 추가"
@@ -446,6 +437,9 @@
     "upgrade_features_devices": {
         "message": "최대 5개 기기"
     },
+    "upgrade_features_streaming": {
+        "message": "스트리밍 지원"
+    },
     "continue_us_free_button": {
         "message": "무료로 계속하기"
     },
@@ -474,20 +468,9 @@
     "popup_marketing_consent_checkbox": {
         "message": "AdGuard 소식이나 특별한 제안에 대한 이메일을 받겠습니다"
     },
-    "popup_auth_agreement_consent": {
-        "message": "AdGuard VPN을 계속 사용함으로써, 당사의 <eula>EULA</eula> 및 <privacy>개인정보처리방침</privacy>에 동의하게 됩니다",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "AdGuard VPN을 계속 사용함으로써, 당사의 <eula>EULA</eula> 및 <privacy>개인정보처리방침</privacy>에 동의하게 됩니다",
-        "description": "NOTICE! respect spaces between tags"
-    },
     "popup_free_traffic_info": {
         "message": "월간 사용량 <span>%value% %unit%</span> 남음",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_auth_back_button": {
-        "message": "이전"
     },
     "options_selective_mode_popup_message": {
         "message": "선별 모드에서는 AdGuard VPN이 목록에 추가한 허용된 웹사이트에서만 작동합니다."
@@ -548,5 +531,11 @@
     },
     "popup_connections_limit_title": {
         "message": "연결 수 제한 도달"
+    },
+    "options_signedout_page_title": {
+        "message": "AdGuard VPN에서 로그아웃하셨습니다"
+    },
+    "options_signedout_page_description": {
+        "message": "더 이상 연결이 안전하지 않음에 유의하십시오. 비공개적으로 인터넷 서핑을 계속하려면 AdGuard VPN 아이콘을 누르고 다시 로그인하세요."
     }
 }

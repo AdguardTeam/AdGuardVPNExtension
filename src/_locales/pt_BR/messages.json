@@ -131,15 +131,6 @@
     "rate_hide": {
         "message": "Ocultar"
     },
-    "auth_title": {
-        "message": "Comece absolutamente grátis!"
-    },
-    "auth_description": {
-        "message": "Proteção de privacidade online sem compromisso. Mais de 30 milhões de pessoas já escolheram o AdGuard."
-    },
-    "auth_code": {
-        "message": "Código do aplicativo de autenticação"
-    },
     "auth_confirm": {
         "message": "Confirmar"
     },
@@ -149,14 +140,8 @@
     "auth_password": {
         "message": "Senha"
     },
-    "auth_password_repeat": {
-        "message": "Confirmação de senha"
-    },
     "auth_recover": {
         "message": "Esqueceu sua senha?"
-    },
-    "auth_login": {
-        "message": "Entrar"
     },
     "auth_sign_up": {
         "message": "Registrar"
@@ -172,12 +157,6 @@
     },
     "auth_sign_in_link": {
         "message": "Entrar com a conta AdGuard"
-    },
-    "auth_account": {
-        "message": "Não tem uma conta?"
-    },
-    "auth_register": {
-        "message": "Registrar"
     },
     "auth_header_sign_in_account": {
         "message": "Você está entrando com uma conta AdGuard"
@@ -289,6 +268,18 @@
     },
     "settings_dns_selector_quad9_desc": {
         "message": "Serviço DNS gratuito com proteção contra phishing e spyware"
+    },
+    "settings_theme_label": {
+        "message": "Tema"
+    },
+    "settings_theme_system": {
+        "message": "Padrão do sistema"
+    },
+    "settings_theme_dark": {
+        "message": "Escuro"
+    },
+    "settings_theme_light": {
+        "message": "Claro"
     },
     "settings_exclusion_add": {
         "message": "Adicionar um site"
@@ -446,6 +437,9 @@
     "upgrade_features_devices": {
         "message": "Até 5 dispositivos"
     },
+    "upgrade_features_streaming": {
+        "message": "Suporte para streaming"
+    },
     "continue_us_free_button": {
         "message": "Continue como grátis"
     },
@@ -474,20 +468,9 @@
     "popup_marketing_consent_checkbox": {
         "message": "Envie-me e-mails com ofertas especiais e novidades do AdGuard"
     },
-    "popup_auth_agreement_consent": {
-        "message": "Ao continuar usando o AdGuard VPN, você concorda com o <eula>termos e condições</eula> e nossa <privacy>política de privacidade</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "Ao continuar usando o AdGuard VPN, você concorda com o <eula>termos e condições</eula> e nossa <privacy>política de privacidade</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> restante este mês",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_auth_back_button": {
-        "message": "Voltar"
     },
     "options_selective_mode_popup_message": {
         "message": "No modo normal, o AdGuard VPN só funciona em sites permitidos que você adicionou à lista."
@@ -548,5 +531,20 @@
     },
     "popup_connections_limit_title": {
         "message": "Limite de conexões atingido"
+    },
+    "popup_desktop_vpn_enabled_title": {
+        "message": "AdGuard VPN já está conectado"
+    },
+    "popup_desktop_vpn_enabled_description": {
+        "message": "O AdGuard VPN para computador está ativado, então a extensão foi desativada automaticamente"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "Ok"
+    },
+    "options_signedout_page_title": {
+        "message": "Você saiu do AdGuard VPN"
+    },
+    "options_signedout_page_description": {
+        "message": "Por favor note que sua conexão não é segura. Para continuar navegando com privacidade, clique no ícone do AdGuard VPN e entre novamente."
     }
 }

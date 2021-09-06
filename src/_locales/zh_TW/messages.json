@@ -108,7 +108,7 @@
         "message": "於此描述該問題…"
     },
     "options_bug_report_page_success": {
-        "message": "感謝您，您的訊息已被成功地傳送！"
+        "message": "感謝您，您的訊息被成功地提交了！"
     },
     "options_bug_report_new_report_button": {
         "message": "新的報告"
@@ -131,15 +131,6 @@
     "rate_hide": {
         "message": "隱藏"
     },
-    "auth_title": {
-        "message": "完全免費地開始吧！"
-    },
-    "auth_description": {
-        "message": "不妥協的線上隱私保護。超過 3000 萬人已選擇 AdGuard。"
-    },
-    "auth_code": {
-        "message": "來自驗證應用程式的代碼"
-    },
     "auth_confirm": {
         "message": "確認"
     },
@@ -149,14 +140,8 @@
     "auth_password": {
         "message": "密碼"
     },
-    "auth_password_repeat": {
-        "message": "密碼確認"
-    },
     "auth_recover": {
         "message": "忘了密碼嗎？"
-    },
-    "auth_login": {
-        "message": "登入"
     },
     "auth_sign_up": {
         "message": "註冊"
@@ -172,12 +157,6 @@
     },
     "auth_sign_in_link": {
         "message": "用 AdGuard 帳戶登入"
-    },
-    "auth_account": {
-        "message": "沒有一個帳戶嗎？"
-    },
-    "auth_register": {
-        "message": "註冊"
     },
     "auth_header_sign_in_account": {
         "message": "您正在用 AdGuard 帳戶登入"
@@ -222,7 +201,7 @@
         "message": "網路即時通訊（WebRTC）是在大多數網際網路瀏覽器中的一款特殊的程式，其可允許第三方的網站偵測您真實的 IP 位址並使用它識別您"
     },
     "settings_context_menus_title": {
-        "message": "增加 AdGuard VPN 項目至瀏覽器之內容功能表"
+        "message": "新增 AdGuard VPN 項目至瀏覽器之內容功能表"
     },
     "settings_help_us_improve_title": {
         "message": "幫助我們改善"
@@ -290,8 +269,20 @@
     "settings_dns_selector_quad9_desc": {
         "message": "有免於網路釣魚和間諜軟體的防護之免費替代的 DNS 服務"
     },
+    "settings_theme_label": {
+        "message": "主題"
+    },
+    "settings_theme_system": {
+        "message": "系統預設"
+    },
+    "settings_theme_dark": {
+        "message": "深色"
+    },
+    "settings_theme_light": {
+        "message": "淺色"
+    },
     "settings_exclusion_add": {
-        "message": "增加一個網站"
+        "message": "新增一個網站"
     },
     "settings_exclusions_import_button": {
         "message": "匯入"
@@ -324,7 +315,7 @@
         "message": "子網域"
     },
     "settings_exclusion_subdomains_text": {
-        "message": "您可增加網域（例如，google.com）或所有的子網域（例如，*.google.com）"
+        "message": "您可新增網域（例如，google.com）或所有的子網域（例如，*.google.com）"
     },
     "global_error_title": {
         "message": "錯誤已發生"
@@ -446,6 +437,9 @@
     "upgrade_features_devices": {
         "message": "高達 5 台裝置"
     },
+    "upgrade_features_streaming": {
+        "message": "串流支援"
+    },
     "continue_us_free_button": {
         "message": "免費地繼續使用"
     },
@@ -456,7 +450,7 @@
         "message": "離線"
     },
     "popup_site_status_unaccessible": {
-        "message": "位於您的本機網路且經由 VPN 為不可存取的"
+        "message": "位於您的區域網路且經由 VPN 為不可存取的"
     },
     "popup_site_status_vpn_disabled": {
         "message": "對此網站，VPN 被禁用"
@@ -472,22 +466,11 @@
         "message": "繼續"
     },
     "popup_marketing_consent_checkbox": {
-        "message": "寄給我關於特別折扣及 AdGuard 新聞的電子郵件"
-    },
-    "popup_auth_agreement_consent": {
-        "message": "透過繼續使用 AdGuard VPN，您同意我們的<eula>終端用戶授權協定</eula>和<privacy>隱私政策</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "透過繼續使用 AdGuard VPN，您同意我們的<eula>終端用戶授權協定</eula>和<privacy>隱私政策</privacy>",
-        "description": "NOTICE! respect spaces between tags"
+        "message": "寄給我含特別的折扣及 AdGuard 新聞的電子郵件"
     },
     "popup_free_traffic_info": {
         "message": "本月剩餘 <span>%value% %unit%</span>",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_auth_back_button": {
-        "message": "返回"
     },
     "options_selective_mode_popup_message": {
         "message": "在選擇性模式下，AdGuard VPN 僅對您已加至該清單之已允許的網站起作用。"
@@ -517,10 +500,10 @@
         "message": "移除例外"
     },
     "options_exclusions_delete_regular_description": {
-        "message": "所有常規模式的例外都將會被刪除。"
+        "message": "所有來自常規模式的例外將被刪除。"
     },
     "options_exclusions_delete_selective_description": {
-        "message": "所有選擇性模式的例外都將會被刪除。"
+        "message": "所有來自選擇性模式的例外將被刪除。"
     },
     "options_exclusions_import_successful": {
         "message": "已匯入的例外：%count%"
@@ -529,16 +512,16 @@
         "message": "例外檔案應有以下副檔名之一：%extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Zip 壓縮檔：\"%filename%\" 不包含有副檔名：%extensions% 的檔案"
+        "message": "Zip 檔案：\"%filename%\" 不包含有副檔名：%extensions% 的檔案"
     },
     "popup_connections_limit_description_start": {
         "message": "您的連線數量達到上限：%maxDevicesAllowed%。"
     },
     "popup_connections_limit_description_end_free": {
-        "message": "若要添加更多裝置，何不考慮訂閱 AdGuard VPN 無限版。"
+        "message": "為了新增更多的裝置，考慮訂閱無限制的 AdGuard VPN。"
     },
     "popup_connections_limit_description_end_premium": {
-        "message": "要連線其他裝置，請先在另一台已連線的裝置上禁用 AdGuard VPN。"
+        "message": "為了新增另一台裝置，於您的任何裝置上禁用 AdGuard VPN。"
     },
     "popup_connections_limit_description_cta_button_free": {
         "message": "訂閱"
@@ -548,5 +531,14 @@
     },
     "popup_connections_limit_title": {
         "message": "已達到連線限制"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "確定"
+    },
+    "options_signedout_page_title": {
+        "message": "您已登出 AdGuard VPN"
+    },
+    "options_signedout_page_description": {
+        "message": "請注意，您的連線為不安全的。要繼續秘密地瀏覽，向 AdGuard VPN 圖示點擊並再次登入。"
     }
 }

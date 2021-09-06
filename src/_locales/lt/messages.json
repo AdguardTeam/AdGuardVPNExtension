@@ -13,8 +13,5 @@
     },
     "auth_sign_in_button": {
         "message": "Prisijungti"
-    },
-    "options_auth_back_button": {
-        "message": "Grįžti"
     }
 }

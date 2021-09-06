@@ -14,6 +14,12 @@
     "registration_error_not_valid": {
         "message": "Giá trị này không hợp lệ"
     },
+    "registration_error_min_length": {
+        "message": "Giá trị này quá ngắn. Nó phải có 8 ký tự trở lên."
+    },
+    "registration_error_compromised_password": {
+        "message": "Mật khẩu bạn đã nhập được tìm thấy trong <a>cơ sở dữ liệu công khai</a> gồm các mật khẩu bị xâm phạm. Vui lòng thử cái khác."
+    },
     "registration_error_unique_constraint": {
         "message": "Giá trị này đã được sử dụng"
     },
@@ -86,11 +92,23 @@
     "options_bug_report_email_invalid": {
         "message": "Địa chỉ email không chính xác"
     },
+    "options_bug_report_textarea_invalid": {
+        "message": "Trường này không được để trống"
+    },
     "options_bug_report_request_error": {
         "message": "Đã xảy ra lỗi. Vui lòng thử lại sau."
     },
+    "options_bug_report_send_button": {
+        "message": "Gửi"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Đang gửi..."
+    },
     "options_bug_report_textarea_placeholder": {
         "message": "Mô tả vấn đề ở đây..."
+    },
+    "options_bug_report_page_success": {
+        "message": "Cảm ơn bạn, tin nhắn của bạn đã được gửi thành công!"
     },
     "options_bug_report_new_report_button": {
         "message": "Báo cáo mới"
@@ -113,15 +131,6 @@
     "rate_hide": {
         "message": "Ẩn"
     },
-    "auth_title": {
-        "message": "Bắt đầu hoàn toàn miễn phí!"
-    },
-    "auth_description": {
-        "message": "Bảo vệ quyền riêng tư trực tuyến không khoan nhượng. Hơn 20 triệu người đã chọn AdGuard."
-    },
-    "auth_code": {
-        "message": "Mã xác thực từ ứng dụng"
-    },
     "auth_confirm": {
         "message": "Xác nhận"
     },
@@ -131,14 +140,8 @@
     "auth_password": {
         "message": "Mật khẩu"
     },
-    "auth_password_repeat": {
-        "message": "Password confirmation"
-    },
     "auth_recover": {
         "message": "Quên mật khẩu?"
-    },
-    "auth_login": {
-        "message": "Đăng nhập"
     },
     "auth_sign_up": {
         "message": "Đăng ký"
@@ -154,12 +157,6 @@
     },
     "auth_sign_in_link": {
         "message": "Đăng nhập bằng tài khoản AdGuard"
-    },
-    "auth_account": {
-        "message": "Không có tài khoản?"
-    },
-    "auth_register": {
-        "message": "Đăng ký"
     },
     "auth_header_sign_in_account": {
         "message": "Bạn đang đăng nhập với tài khoản AdGuard"
@@ -205,6 +202,12 @@
     },
     "settings_context_menus_title": {
         "message": "Thêm AdGuard vào menu ngữ cảnh của trình duyệt"
+    },
+    "settings_help_us_improve_title": {
+        "message": "Giúp chúng tôi cải tiến"
+    },
+    "settings_help_us_improve_description": {
+        "message": "Cho phép AdGuard VPN thu thập báo cáo sự cố, dữ liệu kỹ thuật và tương tác. Đây là ẩn danh."
     },
     "context_menu_selective_mode": {
         "message": "Chế độ chọn lọc"
@@ -274,6 +277,9 @@
     },
     "settings_exclusions_export_button": {
         "message": "Xuất"
+    },
+    "settings_exclusions_delete_button": {
+        "message": "Xóa tất cả"
     },
     "settings_exclusion_title": {
         "message": "Loại trừ"
@@ -389,6 +395,9 @@
     "popup_traffic_limit_exceeded_title": {
         "message": "Tốc độ kết nối đang bị giảm"
     },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "Bạn đã dùng hết lưu lượng miễn phí, và AdGuard VPN sử dụng kết nối chậm."
+    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Tăng tốc độ mạng"
     },
@@ -431,16 +440,22 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN bị tắt trên trang web này"
     },
-    "popup_auth_agreement_consent": {
-        "message": "Bằng việc tiếp tục sử dụng AdGuard VPN, bạn đồng ý với <eula>Thỏa thuận người dùng cuối</eula> và <privacy>Chính sách bảo mật</privacy>",
-        "description": "NOTICE! respect spaces between tags"
+    "popup_auth_policy_agreement": {
+        "message": "Chấp nhận <eula>EULA</eula> và <privacy>chính sách quyền riêng tư</privacy>",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "Cho phép AdGuard thu thập dữ <link>liệu ẩn danh</link> về việc sử dụng ứng dụng để cải thiện AdGuard VPN"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Tiếp tục"
+    },
+    "popup_marketing_consent_checkbox": {
+        "message": "Gửi cho tôi email với các ưu đãi đặc biệt và tin tức AdGuard"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value%%unit%</span> còn lại trong tháng này",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_auth_back_button": {
-        "message": "Quay lại"
     },
     "options_selective_mode_popup_message": {
         "message": "Ở chế độ Tự chọn, AdGuard VPN chỉ hoạt động nếu bạn đã thêm trang web vào danh sách cho phép."
@@ -459,6 +474,21 @@
     },
     "options_exclusions_import_select_selective": {
         "message": "Danh sách chọn lọc"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "Hủy"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Xóa"
+    },
+    "options_exclusions_delete_title": {
+        "message": "Xoá bỏ phần đã chọn"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "Tất cả lựa chọn trong chế độ thông thường sẽ bị xoá."
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "Tất cả các mục trong chế độ chọn lọc sẽ bị xoá."
     },
     "options_exclusions_import_successful": {
         "message": "Loại trừ đã nhập: %count%"

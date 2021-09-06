@@ -36,7 +36,7 @@
         "message": "Token inválido"
     },
     "authentication_error_account_disabled": {
-        "message": "A conta está desactivada"
+        "message": "A conta está desativada"
     },
     "authentication_error_account_locked": {
         "message": "A conta foi bloqueada por 15 minutos"
@@ -66,7 +66,7 @@
         "message": "Comunicar um problema"
     },
     "options_support_report_description": {
-        "message": "Se algo não funcionar correctamente no programa"
+        "message": "Se algo não funcionar corretamente no programa"
     },
     "options_support_feedback_title": {
         "message": "Deixar feedback"
@@ -131,15 +131,6 @@
     "rate_hide": {
         "message": "Esconder"
     },
-    "auth_title": {
-        "message": "Comece absolutamente grátis!"
-    },
-    "auth_description": {
-        "message": "Protecção de privacidade online sem compromisso. Mais de 30 milhões de pessoas já escolheram o AdGuard."
-    },
-    "auth_code": {
-        "message": "Código a partir da autenticação da app"
-    },
     "auth_confirm": {
         "message": "Confirmar"
     },
@@ -149,14 +140,8 @@
     "auth_password": {
         "message": "Palavra-passe"
     },
-    "auth_password_repeat": {
-        "message": "Confirmação de palavra-passe"
-    },
     "auth_recover": {
         "message": "Não se lembra da palavra-passe?"
-    },
-    "auth_login": {
-        "message": "Iniciar sessão"
     },
     "auth_sign_up": {
         "message": "Increver-se"
@@ -172,12 +157,6 @@
     },
     "auth_sign_in_link": {
         "message": "Iniciar sessão com a conta AdGuard"
-    },
-    "auth_account": {
-        "message": "Não tem uma conta?"
-    },
-    "auth_register": {
-        "message": "Registar"
     },
     "auth_header_sign_in_account": {
         "message": "Você está iniciando sessão com uma conta AdGuard"
@@ -231,7 +210,7 @@
         "message": "Permita que o AdGuard VPN colete relatórios de falhas, dados técnicos e de interação. Isso é anónimo."
     },
     "context_menu_selective_mode": {
-        "message": "Modo selectivo"
+        "message": "Modo seletivo"
     },
     "context_menu_regular_mode": {
         "message": "Modo normal"
@@ -290,6 +269,18 @@
     "settings_dns_selector_quad9_desc": {
         "message": "Serviço de DNS alternativo gratuito com protecção contra phishing e spyware"
     },
+    "settings_theme_label": {
+        "message": "Tema"
+    },
+    "settings_theme_system": {
+        "message": "Sistema predefinido"
+    },
+    "settings_theme_dark": {
+        "message": "Escuro"
+    },
+    "settings_theme_light": {
+        "message": "Claro"
+    },
     "settings_exclusion_add": {
         "message": "Adicionar um sítio"
     },
@@ -315,7 +306,7 @@
         "message": "O AdGuard VPN não funciona em sítios da lista abaixo"
     },
     "settings_exclusion_selective_title": {
-        "message": "Modo selectivo"
+        "message": "Modo seletivo"
     },
     "settings_exclusion_selective_description": {
         "message": "O AdGuard VPN só funcionará em sítios da lista abaixo"
@@ -348,13 +339,13 @@
         "message": "Desativar"
     },
     "popup_settings_enable_vpn": {
-        "message": "Activar VPN neste sítio"
+        "message": "Ativar VPN neste sítio"
     },
     "popup_settings_enable_vpn_short": {
-        "message": "Activar neste site"
+        "message": "Ativar neste sítio"
     },
     "popup_settings_disable_vpn": {
-        "message": "Desactivar VPN neste sítio"
+        "message": "Desativar VPN neste sítio"
     },
     "popup_settings_other_products": {
         "message": "Noutros produtos"
@@ -369,10 +360,10 @@
         "message": "Encerrar sessão"
     },
     "context_menu_enable_vpn": {
-        "message": "Activar VPN neste sítio"
+        "message": "Ativar VPN neste sítio"
     },
     "context_menu_disable_vpn": {
-        "message": "Desactivar VPN neste sítio"
+        "message": "Desativar VPN neste sítio"
     },
     "endpoints_countries": {
         "message": "Localizações"
@@ -446,6 +437,9 @@
     "upgrade_features_devices": {
         "message": "Até 5 dispositivos"
     },
+    "upgrade_features_streaming": {
+        "message": "Suporte para streaming"
+    },
     "continue_us_free_button": {
         "message": "Continue como grátis"
     },
@@ -459,7 +453,7 @@
         "message": "está localizado na sua rede local e inacessível via VPN"
     },
     "popup_site_status_vpn_disabled": {
-        "message": "A VPN está desactivada neste sítio"
+        "message": "A VPN está desativada neste sítio"
     },
     "popup_auth_policy_agreement": {
         "message": "Aceito o <eula>contrato</eula> e <privacy>política de privacidade</privacy>",
@@ -474,23 +468,12 @@
     "popup_marketing_consent_checkbox": {
         "message": "Envie-me correios eletrónicos com ofertas especiais e novidades do AdGuard"
     },
-    "popup_auth_agreement_consent": {
-        "message": "Ao continuar usando o AdGuard VPN, você concorda com o <eula>termos e condições</eula> e nossa <privacy>política de privacidade</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "Ao continuar usando o AdGuard VPN, você concorda com o <eula>termos e condições</eula> e nossa <privacy>política de privacidade</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> restante este mês",
         "description": "Respect spaces between text, tags and placeholders"
     },
-    "options_auth_back_button": {
-        "message": "Voltar"
-    },
     "options_selective_mode_popup_message": {
-        "message": "No modo selectivo, o AdGuard VPN só funciona em sítios permitidos que você adicionou à lista."
+        "message": "No modo seletivo, o AdGuard VPN só funciona em sítios permitidos que você adicionou à lista."
     },
     "options_selective_mode_popup_button_switch_now": {
         "message": "Mudar agora"
@@ -520,7 +503,7 @@
         "message": "Todas as exclusões do modo normal serão apagadas."
     },
     "options_exclusions_delete_selective_description": {
-        "message": "Todas as exclusões do modo selectivo serão apagadas."
+        "message": "Todas as exclusões do modo seletivo serão apagadas."
     },
     "options_exclusions_import_successful": {
         "message": "Exclusões importadas: %count%"
@@ -548,5 +531,20 @@
     },
     "popup_connections_limit_title": {
         "message": "Limite de conexões atingido"
+    },
+    "popup_desktop_vpn_enabled_title": {
+        "message": "AdGuard VPN já está conectado"
+    },
+    "popup_desktop_vpn_enabled_description": {
+        "message": "O AdGuard VPN para computador está ativado, então a extensão foi desativada automaticamente"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "Ok"
+    },
+    "options_signedout_page_title": {
+        "message": "Você saiu do AdGuard VPN"
+    },
+    "options_signedout_page_description": {
+        "message": "Por favor note que sua conexão não é segura. Para continuar navegando com privacidade, clique no ícone do AdGuard VPN e entre novamente."
     }
 }

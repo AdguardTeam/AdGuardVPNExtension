@@ -131,15 +131,6 @@
     "rate_hide": {
         "message": "非表示"
     },
-    "auth_title": {
-        "message": "完全無料で　　　スタート！"
-    },
-    "auth_description": {
-        "message": "オンラインプライバシーを徹底保護。すでに3000万人以上のユーザー様にAdGuardをご愛用いただいております。"
-    },
-    "auth_code": {
-        "message": "認証アプリからのコード"
-    },
     "auth_confirm": {
         "message": "確認"
     },
@@ -149,14 +140,8 @@
     "auth_password": {
         "message": "パスワード"
     },
-    "auth_password_repeat": {
-        "message": "パスワード確認"
-    },
     "auth_recover": {
         "message": "パスワードをお忘れですか？"
-    },
-    "auth_login": {
-        "message": "ログイン"
     },
     "auth_sign_up": {
         "message": "新規ご登録"
@@ -172,12 +157,6 @@
     },
     "auth_sign_in_link": {
         "message": "AdGuardアカウントでログインする"
-    },
-    "auth_account": {
-        "message": "アカウントをお持ちでないですか？"
-    },
-    "auth_register": {
-        "message": "登録する"
     },
     "auth_header_sign_in_account": {
         "message": "お持ちのAdGuardアカウントでのログイン"
@@ -289,6 +268,18 @@
     },
     "settings_dns_selector_quad9_desc": {
         "message": "フィッシング詐欺やスパイウェアから保護する無料代替DNSサービス"
+    },
+    "settings_theme_label": {
+        "message": "カラーテーマ"
+    },
+    "settings_theme_system": {
+        "message": "システムに合わせる"
+    },
+    "settings_theme_dark": {
+        "message": "ダーク"
+    },
+    "settings_theme_light": {
+        "message": "ライト"
     },
     "settings_exclusion_add": {
         "message": "ウェブサイトを追加する"
@@ -446,6 +437,9 @@
     "upgrade_features_devices": {
         "message": "同時にデバイス5台まで使用可能"
     },
+    "upgrade_features_streaming": {
+        "message": "ストリーミングサービスに対応"
+    },
     "continue_us_free_button": {
         "message": "無料版で続ける"
     },
@@ -474,20 +468,9 @@
     "popup_marketing_consent_checkbox": {
         "message": "AdGuardに関するニュース・最新情報やお得情報メールを受け取る"
     },
-    "popup_auth_agreement_consent": {
-        "message": "AdGuard VPNを使用し続けますと、<eula>利用許諾契約(EULA)</eula>および<privacy>プライバシーポリシー</privacy>に同意したことになります。",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "AdGuard VPNを使用し続けますと、<eula>利用許諾契約(EULA)</eula>および<privacy>プライバシーポリシー</privacy>に同意したことになります。",
-        "description": "NOTICE! respect spaces between tags"
-    },
     "popup_free_traffic_info": {
         "message": "今月の残りデータ量: <span>%value% %unit%</span>",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_auth_back_button": {
-        "message": "戻る"
     },
     "options_selective_mode_popup_message": {
         "message": "指定モードでは、AdGuard VPNはリストに追加されているサイトに対してのみオンになります。"
@@ -548,5 +531,11 @@
     },
     "popup_connections_limit_title": {
         "message": "同時接続可能端末数の上限に達成"
+    },
+    "options_signedout_page_title": {
+        "message": "AdGuard VPNからログアウトしました"
+    },
+    "options_signedout_page_description": {
+        "message": "お客様の接続は現在セキュアでないことにご注意ください。プライベートで安全にサーフィンを続けるには、AdGuard VPNのアイコンをクリックし、再度ログインしてください。"
     }
 }

@@ -50,12 +50,6 @@
     "rate_hide": {
         "message": "Sakrij"
     },
-    "auth_title": {
-        "message": "Započnite potpuno besplatno!"
-    },
-    "auth_code": {
-        "message": "Kod iz autorizujuće aplikacije"
-    },
     "auth_confirm": {
         "message": "Potvrdi"
     },
@@ -65,14 +59,8 @@
     "auth_password": {
         "message": "Lozinka"
     },
-    "auth_password_repeat": {
-        "message": "Potvrda lozinke"
-    },
     "auth_recover": {
         "message": "Zaboravili ste lozinku?"
-    },
-    "auth_login": {
-        "message": "Prijavi se"
     },
     "auth_sign_up": {
         "message": "Upišite se"
@@ -88,12 +76,6 @@
     },
     "auth_sign_in_link": {
         "message": "Prijavi se AdGuard nalogom"
-    },
-    "auth_account": {
-        "message": "Nemate nalog?"
-    },
-    "auth_register": {
-        "message": "Registruj se"
     },
     "auth_header_sign_in_account": {
         "message": "Prijavljujete se AdGuard nalogom"
@@ -353,9 +335,6 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> preostalo ovog meseca",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_auth_back_button": {
-        "message": "Nazad"
     },
     "options_selective_mode_popup_message": {
         "message": "U selektivnom načinu, AdGuard VPN radi samo na dozvoljenim sajtovima koje ste dodali na listu."
