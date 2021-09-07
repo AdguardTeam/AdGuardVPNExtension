@@ -234,6 +234,11 @@ export class VpnStore {
             return location.id === selectedLocationId;
         });
 
+        // https://jira.adguard.com/browse/AG-3184
+        if (!currentLocation) {
+            return this.selectedLocation.ping;
+        }
+
         let ping = currentLocation?.ping;
         // update with fresh values from pings storage
         if (this.pings[selectedLocationId]) {
