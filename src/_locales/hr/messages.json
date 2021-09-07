@@ -131,15 +131,6 @@
     "rate_hide": {
         "message": "Sakrij"
     },
-    "auth_title": {
-        "message": "Započnite potpuno besplatno!"
-    },
-    "auth_description": {
-        "message": "Bez kompromisna mrežna zaštita privatnosti. Preko 20 milijuna ljudi je već odabralo AdGuard."
-    },
-    "auth_code": {
-        "message": "Kôd iz autentikacijske aplikacije"
-    },
     "auth_confirm": {
         "message": "Potvrdi"
     },
@@ -149,14 +140,8 @@
     "auth_password": {
         "message": "Lozinka"
     },
-    "auth_password_repeat": {
-        "message": "Potvrda lozinke"
-    },
     "auth_recover": {
         "message": "Zaboravljena lozinka?"
-    },
-    "auth_login": {
-        "message": "Prijava"
     },
     "auth_sign_up": {
         "message": "Registracija"
@@ -172,12 +157,6 @@
     },
     "auth_sign_in_link": {
         "message": "Prijavite se s AdGuard računom"
-    },
-    "auth_account": {
-        "message": "Nemate račun?"
-    },
-    "auth_register": {
-        "message": "Registracija"
     },
     "auth_header_sign_in_account": {
         "message": "Prijavljujete se s AdGuard računom"
@@ -223,6 +202,12 @@
     },
     "settings_context_menus_title": {
         "message": "Dodajte AdGuard VPN stavku u kontekstni izbornik preglednika"
+    },
+    "settings_help_us_improve_title": {
+        "message": "Pomognite nam postati bolji"
+    },
+    "settings_help_us_improve_description": {
+        "message": "Omogućite AdGuard VPN-u da prikuplja izvješća o rušenju aplikacije, tehničke podatke i podatke o interakciji. Ovo je anonimno."
     },
     "context_menu_selective_mode": {
         "message": "Selektivni način"
@@ -292,6 +277,9 @@
     },
     "settings_exclusions_export_button": {
         "message": "Izvoz"
+    },
+    "settings_exclusions_delete_button": {
+        "message": "Izbrišite sve"
     },
     "settings_exclusion_title": {
         "message": "Iznimke"
@@ -437,6 +425,9 @@
     "upgrade_features_devices": {
         "message": "Do 5 uređaja"
     },
+    "upgrade_features_streaming": {
+        "message": "Podrška za strujanje"
+    },
     "continue_us_free_button": {
         "message": "Nastavi koristiti besplatno"
     },
@@ -452,20 +443,19 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN je onemogućen na ovoj stranici"
     },
-    "popup_auth_agreement_consent": {
-        "message": "Nastavljanjem korištenja AdGuard VPN-a prihvaćate <eula>EULA</eula> i <privacy>politiku privatnosti</privacy>",
-        "description": "NOTICE! respect spaces between tags"
+    "popup_auth_policy_agreement": {
+        "message": "Prihvaćanje <eula>pravila o EULA-i</eula> i <privacy>privatnosti</privacy>",
+        "description": "WARNING! Respect spaces between tags"
     },
-    "options_auth_agreement_consent": {
-        "message": "Nastavljanjem korištenja AdGuard VPN-a prihvaćate <eula>EULA</eula> i <privacy>politiku privatnosti</privacy>",
-        "description": "NOTICE! respect spaces between tags"
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Nastavi"
+    },
+    "popup_marketing_consent_checkbox": {
+        "message": "Pošaljite mi e-poštu s posebnim ponudama i AdGuard vijestima"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> preostalo ovaj mjesec",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_auth_back_button": {
-        "message": "Natrag"
     },
     "options_selective_mode_popup_message": {
         "message": "U selektivnom načinu rada AdGuard VPN radi samo na dopuštenim web stranicama koja ste dodali na popis."
@@ -484,6 +474,21 @@
     },
     "options_exclusions_import_select_selective": {
         "message": "Selektivni popis"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "Poništi"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Ukloni"
+    },
+    "options_exclusions_delete_title": {
+        "message": "Uklanjanje iznimki"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "Sve iznimke iz redovnog načina rada bit će izbrisane."
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "Sve iznimke iz selektivnog načina rada bit će izbrisane."
     },
     "options_exclusions_import_successful": {
         "message": "Uvezene iznimke: %count%"

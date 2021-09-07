@@ -50,12 +50,6 @@
     "rate_hide": {
         "message": "Sembunyikan"
     },
-    "auth_title": {
-        "message": "Mari mulai sepenuhnya gratis!"
-    },
-    "auth_code": {
-        "message": "Kode autentikasi dari aplikasi"
-    },
     "auth_confirm": {
         "message": "Konfirmasi"
     },
@@ -65,14 +59,8 @@
     "auth_password": {
         "message": "Sandi"
     },
-    "auth_password_repeat": {
-        "message": "Konfirmasi sandi"
-    },
     "auth_recover": {
         "message": "Lupa kata sandi?"
-    },
-    "auth_login": {
-        "message": "Masuk"
     },
     "auth_sign_up": {
         "message": "Daftar"
@@ -88,12 +76,6 @@
     },
     "auth_sign_in_link": {
         "message": "Masuk dengan akun AdGuard"
-    },
-    "auth_account": {
-        "message": "Belum memiliki akun?"
-    },
-    "auth_register": {
-        "message": "Daftar"
     },
     "auth_header_sign_in_account": {
         "message": "Anda masuk dengan akaun AdGuard"
@@ -353,9 +335,6 @@
     "popup_free_traffic_info": {
         "message": "<span>%value%%unit%</span> sisa bulan ini",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_auth_back_button": {
-        "message": "Kembali"
     },
     "options_selective_mode_popup_message": {
         "message": "Dalam mode Selektif AdGuard VPN hanya berfungsi di situs yang diizinkan yang telah Anda tambahkan ke daftar."

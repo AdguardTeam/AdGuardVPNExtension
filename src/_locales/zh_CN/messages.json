@@ -131,15 +131,6 @@
     "rate_hide": {
         "message": "隐藏"
     },
-    "auth_title": {
-        "message": "开始使用是完全免费的！"
-    },
-    "auth_description": {
-        "message": "强大的在线隐私保护。已有超过 3000 万人选择 AdGuard 。"
-    },
-    "auth_code": {
-        "message": "身份验证器应用的代码"
-    },
     "auth_confirm": {
         "message": "确认"
     },
@@ -149,14 +140,8 @@
     "auth_password": {
         "message": "密码"
     },
-    "auth_password_repeat": {
-        "message": "确认密码"
-    },
     "auth_recover": {
         "message": "忘记密码？"
-    },
-    "auth_login": {
-        "message": "登录"
     },
     "auth_sign_up": {
         "message": "注册"
@@ -172,12 +157,6 @@
     },
     "auth_sign_in_link": {
         "message": "用 AdGuard 账号登录"
-    },
-    "auth_account": {
-        "message": "没有账号？"
-    },
-    "auth_register": {
-        "message": "注册"
     },
     "auth_header_sign_in_account": {
         "message": "您使用 AdGuard 账号登录"
@@ -289,6 +268,18 @@
     },
     "settings_dns_selector_quad9_desc": {
         "message": "可防止网络钓鱼并防范间谍软件的免费备用 DNS 服务"
+    },
+    "settings_theme_label": {
+        "message": "主题"
+    },
+    "settings_theme_system": {
+        "message": "系统默认"
+    },
+    "settings_theme_dark": {
+        "message": "黑暗"
+    },
+    "settings_theme_light": {
+        "message": "亮色主题"
     },
     "settings_exclusion_add": {
         "message": "添加网站"
@@ -446,6 +437,9 @@
     "upgrade_features_devices": {
         "message": "最多五台设备"
     },
+    "upgrade_features_streaming": {
+        "message": "流媒体服务"
+    },
     "continue_us_free_button": {
         "message": "继续免费使用"
     },
@@ -474,20 +468,9 @@
     "popup_marketing_consent_checkbox": {
         "message": "给我发送特别优惠和 AdGuard 新闻的电子邮件"
     },
-    "popup_auth_agreement_consent": {
-        "message": "继续使用 AdGuard VPN，即代表您同意我们的<eula>最终用户许可协议</eula>和<privacy>隐私政策</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "继续使用 AdGuard VPN，即代表您同意我们的<eula>最终用户许可协议</eula>和<privacy>隐私政策</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
     "popup_free_traffic_info": {
         "message": "本月剩余<span>%value% %unit%</span>",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_auth_back_button": {
-        "message": "返回"
     },
     "options_selective_mode_popup_message": {
         "message": "在选择模式下，AdGuard VPN 将仅在您添加至此列表中的已允许网站上运行。"
@@ -548,5 +531,11 @@
     },
     "popup_connections_limit_title": {
         "message": "已达到连接限制"
+    },
+    "options_signedout_page_title": {
+        "message": "您已退出 AdGuard VPN"
+    },
+    "options_signedout_page_description": {
+        "message": "请注意，您的连接不安全。为了继续匿名浏览，请点击 AdGuard VPN 图标并重新登录。"
     }
 }

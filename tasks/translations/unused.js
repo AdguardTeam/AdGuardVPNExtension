@@ -1,16 +1,15 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
-const { log, getLocaleMessages } = require('./helpers');
+import { cliLog, getLocaleMessages } from './helpers';
 
-const {
+import {
     BASE_LOCALE,
     SRC_RELATIVE_PATH,
     SRC_FILENAME_EXTENSIONS,
     PERSISTENT_MESSAGES,
     LOCALES_RELATIVE_PATH,
-    LOCALE_DATA_FILENAME,
-} = require('./locales-constants');
+} from './locales-constants';
 
 const LOCALES_DIR = path.resolve(__dirname, LOCALES_RELATIVE_PATH);
 const SRC_DIR = path.resolve(__dirname, SRC_RELATIVE_PATH);
@@ -55,9 +54,7 @@ const getSrcFilesContents = (dirPath, contents = []) => {
  * Checks if there are unused base-locale strings in source files
  */
 export const checkUnusedMessages = async () => {
-    const baseLocaleTranslations = await getLocaleMessages(
-        LOCALES_DIR, BASE_LOCALE, LOCALE_DATA_FILENAME,
-    );
+    const baseLocaleTranslations = await getLocaleMessages(BASE_LOCALE);
     const baseMessages = Object.keys(baseLocaleTranslations);
 
     const filesContents = getSrcFilesContents(SRC_DIR);
@@ -74,11 +71,11 @@ export const checkUnusedMessages = async () => {
     const unusedMessages = baseMessages.filter(isMessageUsed);
 
     if (unusedMessages.length === 0) {
-        log.success('There are no unused messages');
+        cliLog.success('There are no unused messages');
     } else {
-        log.warning('Unused messages:');
+        cliLog.warning('Unused messages:');
         unusedMessages.forEach((key) => {
-            log.warning(`  ${key}`);
+            cliLog.warning(`  ${key}`);
         });
     }
 };

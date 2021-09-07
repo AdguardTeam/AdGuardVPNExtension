@@ -131,15 +131,6 @@
     "rate_hide": {
         "message": "Skrýt"
     },
-    "auth_title": {
-        "message": "Začněte zcela zdarma!"
-    },
-    "auth_description": {
-        "message": "Nekompromisní ochrana soukromí online. AdGuard si již zvolilo více než 30 milionů lidí."
-    },
-    "auth_code": {
-        "message": "Kód z ověřovací aplikace"
-    },
     "auth_confirm": {
         "message": "Potvrdit"
     },
@@ -149,14 +140,8 @@
     "auth_password": {
         "message": "Heslo"
     },
-    "auth_password_repeat": {
-        "message": "Potvrzení hesla"
-    },
     "auth_recover": {
         "message": "Zapomněli jste heslo?"
-    },
-    "auth_login": {
-        "message": "Přihlásit se"
     },
     "auth_sign_up": {
         "message": "Zaregistrovat se"
@@ -172,12 +157,6 @@
     },
     "auth_sign_in_link": {
         "message": "Přihlásit se pomocí účtu AdGuard"
-    },
-    "auth_account": {
-        "message": "Nemáte účet?"
-    },
-    "auth_register": {
-        "message": "Registrovat"
     },
     "auth_header_sign_in_account": {
         "message": "Přihlašujete se pomocí AdGuard účtu"
@@ -195,7 +174,7 @@
         "message": "Registrujete se jako <div>%username%</div>"
     },
     "auth_header_2fa_subtitle": {
-        "message": "Dvou-faktorová autentizace"
+        "message": "Dvou-faktorové ověření"
     },
     "auth_header_2fa": {
         "message": "Zadejte ověřovací kód"
@@ -289,6 +268,18 @@
     },
     "settings_dns_selector_quad9_desc": {
         "message": "Volně dostupná alternativa pro DNS službu s ochranou před podvodnými weby a škodlivým software"
+    },
+    "settings_theme_label": {
+        "message": "Motiv"
+    },
+    "settings_theme_system": {
+        "message": "Výchozí systémový"
+    },
+    "settings_theme_dark": {
+        "message": "Tmavý"
+    },
+    "settings_theme_light": {
+        "message": "Světlý"
     },
     "settings_exclusion_add": {
         "message": "Přidat stránku"
@@ -446,6 +437,9 @@
     "upgrade_features_devices": {
         "message": "Až pro 5 zařízení"
     },
+    "upgrade_features_streaming": {
+        "message": "Podpora streamování"
+    },
     "continue_us_free_button": {
         "message": "Pokračovat bezplatně"
     },
@@ -474,20 +468,9 @@
     "popup_marketing_consent_checkbox": {
         "message": "Posílejte mi e-maily se speciálními nabídkami a novinkami AdGuard"
     },
-    "popup_auth_agreement_consent": {
-        "message": "Používáním AdGuard VPN souhlasíte s <eula>EULA</eula> a <privacy>Zásadami ochrany osobních údajů</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "Používáním AdGuard VPN souhlasíte s <eula>EULA</eula> a <privacy>Zásadami ochrany osobních údajů</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
     "popup_free_traffic_info": {
         "message": "Tento měsíc zbývá <span>%value% %unit%</span>",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_auth_back_button": {
-        "message": "Zpět"
     },
     "options_selective_mode_popup_message": {
         "message": "V selektivním režimu funguje AdGuard VPN pouze na povolených webech, které jste přidali do seznamu."
@@ -548,5 +531,20 @@
     },
     "popup_connections_limit_title": {
         "message": "Bylo dosaženo limitu připojení"
+    },
+    "popup_desktop_vpn_enabled_title": {
+        "message": "AdGuard VPN je již připojena"
+    },
+    "popup_desktop_vpn_enabled_description": {
+        "message": "AdGuard VPN je zapnuta v desktopové aplikaci, takže rozšíření bylo automaticky vypnuto"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "Ok"
+    },
+    "options_signedout_page_title": {
+        "message": "Odhlásili jste se z AdGuard VPN"
+    },
+    "options_signedout_page_description": {
+        "message": "Upozorňujeme, že Vaše připojení není zabezpečené. Chcete-li pokračovat v soukromém surfování, klikněte na ikonu AdGuard VPN a znovu se přihlaste."
     }
 }

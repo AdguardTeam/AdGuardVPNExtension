@@ -131,15 +131,6 @@
     "rate_hide": {
         "message": "Elrejtés"
     },
-    "auth_title": {
-        "message": "Kezdje el használni teljesen ingyen!"
-    },
-    "auth_description": {
-        "message": "Kompromisszumok nélküli online adatvédelem. Már több, mint 20 millió ember választotta az AdGuardot."
-    },
-    "auth_code": {
-        "message": "Kód a hitelesítő alkalmazásból"
-    },
     "auth_confirm": {
         "message": "Megerősítés"
     },
@@ -149,14 +140,8 @@
     "auth_password": {
         "message": "Jelszó"
     },
-    "auth_password_repeat": {
-        "message": "Jelszó megerősítése"
-    },
     "auth_recover": {
         "message": "Elfelejtett jelszó?"
-    },
-    "auth_login": {
-        "message": "Bejelentkezés"
     },
     "auth_sign_up": {
         "message": "Regisztráció"
@@ -172,12 +157,6 @@
     },
     "auth_sign_in_link": {
         "message": "Bejelentkezés AdGuard fiókkal"
-    },
-    "auth_account": {
-        "message": "Nincs fiókja?"
-    },
-    "auth_register": {
-        "message": "Regisztráció"
     },
     "auth_header_sign_in_account": {
         "message": "Bejelentkezés AdGuard fiókkal"
@@ -289,6 +268,18 @@
     },
     "settings_dns_selector_quad9_desc": {
         "message": "Ingyenes, alternatív DNS szolgáltatás, adathalászat és kémprogram elleni védelemmel"
+    },
+    "settings_theme_label": {
+        "message": "Téma"
+    },
+    "settings_theme_system": {
+        "message": "Rendszer alapértelmezett"
+    },
+    "settings_theme_dark": {
+        "message": "Sötét"
+    },
+    "settings_theme_light": {
+        "message": "Világos"
     },
     "settings_exclusion_add": {
         "message": "Webhely hozzáadása"
@@ -446,6 +437,9 @@
     "upgrade_features_devices": {
         "message": "5 eszközig"
     },
+    "upgrade_features_streaming": {
+        "message": "Streaming támogatás"
+    },
     "continue_us_free_button": {
         "message": "Folytatás ingyen"
     },
@@ -474,20 +468,9 @@
     "popup_marketing_consent_checkbox": {
         "message": "E-mailek fogadása a különleges ajánlatokról és az AdGuard híreiről"
     },
-    "popup_auth_agreement_consent": {
-        "message": "Az AdGuard VPN használatával elfogadja a <eula>Végfelhasználói licencszerződést</eula> és az <privacy>Adatvédelmi irányelveket</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "Az AdGuard VPN használatának folytatásával elfogadja a <privacy>Felhasználási feltételeket</privacy> és a <eula>Végfelhasználói licencszerződést</eula>",
-        "description": "NOTICE! respect spaces between tags"
-    },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> maradt ebben a hónapban",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_auth_back_button": {
-        "message": "Vissza"
     },
     "options_selective_mode_popup_message": {
         "message": "A szelektív módban az AdGuard VPN csak azokkal az engedélyezett webhelyekkel megy, amelyeket hozzáadott a listához."
@@ -548,5 +531,20 @@
     },
     "popup_connections_limit_title": {
         "message": "Kapcsolódási korlát elérve"
+    },
+    "popup_desktop_vpn_enabled_title": {
+        "message": "Az AdGuard VPN már kapcsolódva van"
+    },
+    "popup_desktop_vpn_enabled_description": {
+        "message": "Az AdGuard VPN már engedélyezve van az asztali alkalmazásban, ezért a böngészőkiegészítő automatikusan ki lett kapcsolva"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "Ok"
+    },
+    "options_signedout_page_title": {
+        "message": "Kijelentkezett az AdGuard VPN-ből"
+    },
+    "options_signedout_page_description": {
+        "message": "Kérjük, vegye figyelembe, hogy a kapcsolat nem biztonságos. A privát szörfözés folytatásához kattintson az AdGuard VPN ikonra, és jelentkezzen be újra."
     }
 }

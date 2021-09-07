@@ -1,74 +1,16 @@
-const path = require('path');
-const { validator } = require('@adguard/translate');
+import _ from 'lodash';
+import { validator } from '@adguard/translate';
 
-const { log, getLocaleMessages, areArraysEqual } = require('./helpers');
+import { cliLog, getLocaleMessages } from './helpers';
 
-const {
+import {
     BASE_LOCALE,
     LANGUAGES,
-    LOCALES_RELATIVE_PATH,
-    LOCALE_DATA_FILENAME,
     REQUIRED_LOCALES,
     THRESHOLD_PERCENTAGE,
-} = require('./locales-constants');
+} from './locales-constants';
 
 const LOCALES = Object.keys(LANGUAGES); // locales to be downloaded
-const LOCALES_DIR = path.resolve(__dirname, LOCALES_RELATIVE_PATH);
-
-/**
- * Function validates that localized strings correspond by structure to base locale
- * @returns {Promise<void>}
- */
-export const validateMessages = async (locales) => {
-    log.info('Start messages validation');
-
-    const baseMessages = await getLocaleMessages(LOCALES_DIR, BASE_LOCALE, LOCALE_DATA_FILENAME);
-
-    const localesWithoutBase = locales.filter((locale) => locale !== BASE_LOCALE);
-
-    const validateTargetMessages = async (baseMessages, targetMessages, targetLocale) => {
-        const results = Object.keys(targetMessages).map((key) => {
-            if (!baseMessages[key]) {
-                throw new Error(`Base key '${key}' no longer present. Download locales please`);
-            }
-            const baseMessage = baseMessages[key].message;
-            const targetMessage = targetMessages[key].message;
-            const valid = validator.isTranslationValid(baseMessage, targetMessage);
-            if (valid) {
-                return { valid: true };
-            }
-            return { valid: false, error: `Message "${key}" locale is not valid` };
-        });
-
-        const errors = results
-            .filter((res) => !res.valid)
-            .map((res) => res.error);
-
-        if (errors.length > 0) {
-            let message = `Locale "${targetLocale}" is NOT valid because of next messages:\n`;
-            message += errors.join('\n');
-            return { valid: false, error: message };
-        }
-
-        return { valid: true };
-    };
-
-    const results = await Promise.all(localesWithoutBase.map(async (locale) => {
-        const targetMessages = await getLocaleMessages(LOCALES_DIR, locale, LOCALE_DATA_FILENAME);
-        const result = await validateTargetMessages(baseMessages, targetMessages, locale);
-        return result;
-    }));
-
-    const notValid = results.filter((res) => !res.valid);
-
-    if (notValid.length > 0) {
-        const errorMessage = notValid.map((res) => res.error).join('\n');
-        log.error(errorMessage);
-        throw new Error('Messages are not valid');
-    }
-
-    log.success('AST structures of translations are valid');
-};
 
 /**
  * @typedef Result
@@ -78,76 +20,167 @@ export const validateMessages = async (locales) => {
  */
 
 /**
- * Logs translations readiness
+ * Logs translations readiness (default validation process)
  * @param {Result[]} results
+ * @param {boolean} [isMinimum=false]
  */
-const printTranslationsResults = (results) => {
-    log.info('Translations readiness:');
+const printTranslationsResults = (results, isMinimum = false) => {
+    cliLog.info('Translations readiness:');
     results.forEach((res) => {
         const record = `${res.locale} -- ${res.level}%`;
         if (res.level < THRESHOLD_PERCENTAGE) {
-            log.error(record);
-            res.untranslatedStrings.forEach((str) => {
-                log.warning(`  ${str}`);
-            });
+            cliLog.error(record);
+            if (res.untranslatedStrings.length > 0) {
+                cliLog.warning('  untranslated:');
+                res.untranslatedStrings.forEach((str) => {
+                    cliLog.warning(`    - ${str}`);
+                });
+            }
+            if (!isMinimum) {
+                if (res.invalidTranslations.length > 0) {
+                    cliLog.warning('  invalid:');
+                    res.invalidTranslations.forEach((obj) => {
+                        cliLog.warning(`    - ${obj.key} -- ${obj.error}`);
+                    });
+                }
+            }
         } else {
-            log.success(record);
+            cliLog.success(record);
         }
     });
 };
 
 /**
+ * Logs invalid translations (critical errors)
+ * @param {Result[]} criticals
+ */
+const printCriticalResults = (criticals) => {
+    cliLog.warning('Invalid translated string:');
+    criticals.forEach((cr) => {
+        cliLog.error(`${cr.locale}:`);
+        cr.invalidTranslations.forEach((obj) => {
+            cliLog.warning(`   - ${obj.key} -- ${obj.error}`);
+        });
+    });
+};
+
+/**
+ * Validates that localized string correspond by structure to base locale string
+ */
+const validateMessage = (baseKey, baseLocaleTranslations, localeTranslations) => {
+    const baseMessageValue = baseLocaleTranslations[baseKey].message;
+    const localeMessageValue = localeTranslations[baseKey].message;
+    let validation;
+    try {
+        validator.isTranslationValid(baseMessageValue, localeMessageValue);
+    } catch (error) {
+        validation = { key: baseKey, error };
+    }
+    return validation;
+};
+
+/**
+ * @typedef ValidationFlags
+ * @property {boolean} [isMinimum=false] for minimum level of validation:
+ * critical errors for all and full translations level for our locales
+ * @property {boolean} [isInfo=false] for logging translations info without throwing the error
+ */
+
+/**
  * Checks locales translations readiness
  * @param {string[]} locales - list of locales
- * @param {boolean} [isInfo=false] flag for info script
+ * @param {ValidationFlags} flags
  * @returns {Result[]} array of object with such properties:
- * locale, level of translation readiness and untranslated strings array
+ * locale, level of translation readiness,
+ * untranslated strings array and array of invalid translations
  */
-export const checkTranslations = async (locales, isInfo = false) => {
-    const baseLocaleTranslations = await getLocaleMessages(
-        LOCALES_DIR, BASE_LOCALE, LOCALE_DATA_FILENAME,
-    );
+export const checkTranslations = async (locales, flags) => {
+    const { isMinimum = false, isInfo = false } = flags;
+    const baseLocaleTranslations = await getLocaleMessages(BASE_LOCALE);
     const baseMessages = Object.keys(baseLocaleTranslations);
     const baseMessagesCount = baseMessages.length;
 
-    const results = await Promise.all(locales.map(async (locale) => {
-        const localeTranslations = await getLocaleMessages(
-            LOCALES_DIR, locale, LOCALE_DATA_FILENAME,
-        );
+    const translationResults = await Promise.all(locales.map(async (locale) => {
+        const localeTranslations = await getLocaleMessages(locale);
         const localeMessages = Object.keys(localeTranslations);
         const localeMessagesCount = localeMessages.length;
 
-        const strictLevel = ((localeMessagesCount / baseMessagesCount) * 100);
-        const level = Math.round((strictLevel + Number.EPSILON) * 100) / 100;
-
         const untranslatedStrings = [];
-        baseMessages.forEach((baseStr) => {
-            if (!localeMessages.includes(baseStr)) {
-                untranslatedStrings.push(baseStr);
+        const invalidTranslations = [];
+        baseMessages.forEach((baseKey) => {
+            if (!localeMessages.includes(baseKey)) {
+                untranslatedStrings.push(baseKey);
+            } else {
+                const validationError = validateMessage(
+                    baseKey,
+                    baseLocaleTranslations,
+                    localeTranslations,
+                );
+                if (validationError) {
+                    invalidTranslations.push(validationError);
+                }
             }
         });
 
-        return { locale, level, untranslatedStrings };
+        const validLocaleMessagesCount = localeMessagesCount - invalidTranslations.length;
+
+        const strictLevel = ((validLocaleMessagesCount / baseMessagesCount) * 100);
+        const level = Math.round((strictLevel + Number.EPSILON) * 100) / 100;
+
+        return {
+            locale, level, untranslatedStrings, invalidTranslations,
+        };
     }));
 
-    const filteredResults = results.filter((result) => {
-        return result.level < THRESHOLD_PERCENTAGE;
+    const filteredCriticalResults = translationResults.filter((result) => {
+        return result.invalidTranslations.length > 0;
+    });
+
+    const filteredReadinessResults = translationResults.filter((result) => {
+        return isMinimum
+            ? result.level < THRESHOLD_PERCENTAGE && REQUIRED_LOCALES.includes(result.locale)
+            : result.level < THRESHOLD_PERCENTAGE;
     });
 
     if (isInfo) {
-        printTranslationsResults(results);
-    } else if (filteredResults.length === 0) {
-        let message = `Level of translations is required for locales: ${locales.join(', ')}`;
-        if (areArraysEqual(locales, LOCALES)) {
-            message = 'All locales have required level of translations';
-        } else if (areArraysEqual(locales, REQUIRED_LOCALES)) {
-            message = 'Our locales have required level of translations';
-        }
-        log.success(message);
+        printTranslationsResults(translationResults);
     } else {
-        printTranslationsResults(filteredResults);
-        throw new Error('Locales above should be done for 100%');
+        // critical errors and required locales translations levels check
+        if (isMinimum) {
+            let isSuccess = true;
+            // check for invalid strings
+            if (filteredCriticalResults.length === 0) {
+                cliLog.success('No invalid translations found');
+            } else {
+                isSuccess = false;
+                printCriticalResults(filteredCriticalResults);
+                cliLog.error('Locales above should not have invalid strings');
+            }
+            // check for translations readiness for required locales
+            if (filteredReadinessResults.length === 0) {
+                cliLog.success('Our locales have required level of translations');
+            } else {
+                isSuccess = false;
+                printTranslationsResults(filteredReadinessResults, isMinimum);
+                cliLog.error('Our locales should be done for 100%');
+            }
+            if (!isSuccess) {
+                // throw error finally
+                throw new Error('Locales validation failed!');
+            }
+        }
+        // common translations check
+        if (filteredReadinessResults.length === 0) {
+            let message = `Level of translations is required for locales: ${locales.join(', ')}`;
+            if (_.isEqual(locales, LOCALES)) {
+                message = 'All locales have required level of translations';
+            }
+            cliLog.success(message);
+        } else {
+            printTranslationsResults(filteredReadinessResults);
+            throw new Error('Locales above should be done for 100%');
+        }
     }
 
-    return results;
+    return translationResults;
 };

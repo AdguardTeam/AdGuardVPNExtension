@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN - Privacidad y seguridad"
+        "message": "AdGuard VPN — Privacidad y seguridad"
     },
     "description": {
         "message": "Haz que Internet esté abierto y tus datos estén seguros. VPN de primera categoría de los creadores del famoso bloqueador de anuncios."
@@ -131,15 +131,6 @@
     "rate_hide": {
         "message": "Ocultar"
     },
-    "auth_title": {
-        "message": "¡Comienza totalmente gratis!"
-    },
-    "auth_description": {
-        "message": "Protección de privacidad en línea sin compromisos. Más de 30 millones de personas ya han elegido AdGuard."
-    },
-    "auth_code": {
-        "message": "Código de la aplicación de autenticación"
-    },
     "auth_confirm": {
         "message": "Confirmar"
     },
@@ -149,14 +140,8 @@
     "auth_password": {
         "message": "Contraseña"
     },
-    "auth_password_repeat": {
-        "message": "Confirmar contraseña"
-    },
     "auth_recover": {
         "message": "¿Olvidaste tu contraseña?"
-    },
-    "auth_login": {
-        "message": "Iniciar sesión"
     },
     "auth_sign_up": {
         "message": "Registrarse"
@@ -172,12 +157,6 @@
     },
     "auth_sign_in_link": {
         "message": "Iniciar sesión con una cuenta AdGuard"
-    },
-    "auth_account": {
-        "message": "¿No tienes una cuenta?"
-    },
-    "auth_register": {
-        "message": "Registrarse"
     },
     "auth_header_sign_in_account": {
         "message": "Estás iniciando sesión con la cuenta AdGuard"
@@ -289,6 +268,18 @@
     },
     "settings_dns_selector_quad9_desc": {
         "message": "Servicio DNS alternativo gratuito con protección contra phishing y spyware"
+    },
+    "settings_theme_label": {
+        "message": "Tema"
+    },
+    "settings_theme_system": {
+        "message": "Predeterminado del sistema"
+    },
+    "settings_theme_dark": {
+        "message": "Oscuro"
+    },
+    "settings_theme_light": {
+        "message": "Claro"
     },
     "settings_exclusion_add": {
         "message": "Añadir sitio web"
@@ -446,6 +437,9 @@
     "upgrade_features_devices": {
         "message": "Hasta 5 dispositivos"
     },
+    "upgrade_features_streaming": {
+        "message": "Soporte para streaming"
+    },
     "continue_us_free_button": {
         "message": "Seguir usando gratis"
     },
@@ -474,20 +468,9 @@
     "popup_marketing_consent_checkbox": {
         "message": "Enviarme correos electrónicos con ofertas promocionales y noticias de AdGuard"
     },
-    "popup_auth_agreement_consent": {
-        "message": "Al continuar usando AdGuard VPN, aceptas el <eula>acuerdo de licencia</eula> y la <privacy>política de privacidad</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
-    "options_auth_agreement_consent": {
-        "message": "Al continuar usando AdGuard VPN, aceptas el <eula>acuerdo de licencia</eula> y la <privacy>política de privacidad</privacy>",
-        "description": "NOTICE! respect spaces between tags"
-    },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> restante este mes",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_auth_back_button": {
-        "message": "Atrás"
     },
     "options_selective_mode_popup_message": {
         "message": "En el modo selectivo, AdGuard VPN solo funcionará en los sitios web permitidos que hayas añadido a la lista."
@@ -548,5 +531,20 @@
     },
     "popup_connections_limit_title": {
         "message": "Se alcanzó el límite de conexiones"
+    },
+    "popup_desktop_vpn_enabled_title": {
+        "message": "AdGuard VPN ya está conectado"
+    },
+    "popup_desktop_vpn_enabled_description": {
+        "message": "AdGuard VPN está habilitado en la aplicación de escritorio, por lo que la extensión se deshabilitó automáticamente"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "Aceptar"
+    },
+    "options_signedout_page_title": {
+        "message": "Has cerrado sesión en AdGuard VPN"
+    },
+    "options_signedout_page_description": {
+        "message": "Ten en cuenta que tu conexión no es segura. Para seguir navegando de forma privada, haz clic en el icono de AdGuard VPN y vuelve a iniciar sesión."
     }
 }

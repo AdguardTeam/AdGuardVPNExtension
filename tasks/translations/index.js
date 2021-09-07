@@ -1,30 +1,23 @@
 /* eslint-disable no-await-in-loop */
-require('@babel/register');
+import { program } from 'commander';
 
-const { program } = require('commander');
+import { downloadAndSave } from './download';
+import { uploadBaseLocale } from './upload';
+import { checkTranslations } from './validate';
+import { checkUnusedMessages } from './unused';
 
-const { downloadAndSave } = require('./download');
-const { uploadBaseLocale } = require('./upload');
-const { validateMessages, checkTranslations } = require('./validate');
-const { checkUnusedMessages } = require('./unused');
+import { cliLog } from './helpers';
 
-const { log } = require('./helpers');
-
-const {
-    LANGUAGES,
-    REQUIRED_LOCALES,
-} = require('./locales-constants');
+import { LANGUAGES } from './locales-constants';
 
 const LOCALES = Object.keys(LANGUAGES); // locales to be downloaded
 
 const download = async (locales) => {
     try {
         await downloadAndSave(locales);
-        log.success('Download was successful');
-        await validateMessages(locales);
-        await checkTranslations(REQUIRED_LOCALES);
+        cliLog.success('Download was successful');
     } catch (e) {
-        log.error(e.message);
+        cliLog.error(e.message);
         process.exit(1);
     }
 };
@@ -34,28 +27,27 @@ const upload = async () => {
         // check for unused base-locale strings before uploading
         await checkUnusedMessages();
         const result = await uploadBaseLocale();
-        log.success(`Upload was successful with response: ${JSON.stringify(result)}`);
+        cliLog.success(`Upload was successful with response: ${JSON.stringify(result)}`);
     } catch (e) {
-        log.error(e.message);
+        cliLog.error(e.message);
         process.exit(1);
     }
 };
 
-const validate = async (locales) => {
+const validate = async (locales, isMinimum) => {
     try {
-        await validateMessages(locales);
-        await checkTranslations(locales);
+        await checkTranslations(locales, { isMinimum });
     } catch (e) {
-        log.error(e.message);
+        cliLog.error(e.message);
         process.exit(1);
     }
 };
 
 const summary = async (isInfo) => {
     try {
-        await checkTranslations(LOCALES, isInfo);
+        await checkTranslations(LOCALES, { isInfo });
     } catch (e) {
-        log.error(e.message);
+        cliLog.error(e.message);
         process.exit(1);
     }
 };
@@ -64,7 +56,7 @@ const unused = async () => {
     try {
         await checkUnusedMessages();
     } catch (e) {
-        log.error(e.message);
+        cliLog.error(e.message);
         process.exit(1);
     }
 };
@@ -73,9 +65,18 @@ program
     .command('download')
     .description('Downloads messages from localization service')
     .option('-l,--locales [list...]', 'specific list of space-separated locales')
-    .action((opts) => {
-        const locales = opts.locales && opts.locales.length > 0 ? opts.locales : LOCALES;
-        download(locales);
+    .action(async (opts) => {
+        // defaults to download all locales
+        // and validate: all for critical errors and ours for full translations readiness
+        let locales = LOCALES;
+        let isMinimum = true;
+        // but if list_of_locales is specified, use them for download and validation
+        if (opts.locales && opts.locales.length > 0) {
+            locales = opts.locales;
+            isMinimum = false;
+        }
+        await download(locales);
+        await validate(locales, isMinimum);
     });
 
 program
@@ -86,19 +87,18 @@ program
 program
     .command('validate')
     .description('Validates translations')
-    .option('-R,--min', 'for only our required locales')
+    .option('-R,--min', 'for critical errors of all locales and translations readiness of ours')
     .option('-l,--locales [list...]', 'for specific list of space-separated locales')
     .action((opts) => {
-        let locales;
+        // defaults to validate all locales
+        let locales = LOCALES;
+        let isMinimum;
         if (opts.min) {
-            locales = REQUIRED_LOCALES;
+            isMinimum = true;
         } else if (opts.locales && opts.locales.length > 0) {
             locales = opts.locales;
-        } else {
-            // defaults to validate all locales
-            locales = LOCALES;
         }
-        validate(locales);
+        validate(locales, isMinimum);
     });
 
 program
