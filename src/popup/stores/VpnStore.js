@@ -234,8 +234,7 @@ export class VpnStore {
             return location.id === selectedLocationId;
         });
 
-        // https://jira.adguard.com/browse/AG-3184
-        // return selected location ping if it's missing from locations list
+        // return selected location ping if it's missing from locations list (AG-3184)
         if (!currentLocation) {
             return this.selectedLocation.ping;
         }
