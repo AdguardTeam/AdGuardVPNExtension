@@ -71,6 +71,7 @@ export const MESSAGES_TYPES = {
     OPEN_TAB: 'open.tab.action',
     REPORT_BUG: 'post.report.bug',
     SET_DESKTOP_VPN_ENABLED: 'set.desktop.vpn.enabled',
+    OPEN_PREMIUM_PROMO_PAGE: 'open.premium.promo.page',
 };
 
 export const ERROR_STATUSES = {

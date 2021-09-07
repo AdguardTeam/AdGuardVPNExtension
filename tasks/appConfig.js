@@ -50,6 +50,8 @@ const COMMON = {
     // Privacy and EULA
     PRIVACY_URL: `https://${WEBSITE_DOMAIN}/forward.html?action=privacy&from=popup&app=vpn_extension`,
     EULA_URL: `https://${WEBSITE_DOMAIN}/forward.html?action=eula&from=popup&app=vpn_extension`,
+    // Upgrade license
+    UPGRADE_LICENSE_URL: `https://${WEBSITE_DOMAIN}/forward.html?action=buy_license&from=popup&app=vpn_extension`,
     // Commercial
     OTHER_PRODUCTS_URL: `https://${WEBSITE_DOMAIN}/forward.html?action=other_products&from=popup&app=vpn_extension`,
     // Support
