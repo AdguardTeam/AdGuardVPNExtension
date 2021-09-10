@@ -7,7 +7,6 @@ import {
 } from 'mobx';
 
 import messenger from '../../lib/messenger';
-import { popupActions } from '../actions/popupActions';
 
 export class VpnStore {
     constructor(rootStore) {
@@ -250,11 +249,7 @@ export class VpnStore {
 
     @action
     openPremiumPromoPage = async () => {
-        const username = await messenger.getUsername();
-        const url = username
-            ? `${this.vpnInfo.premiumPromoPage}?email=${encodeURIComponent(username)}`
-            : this.vpnInfo.premiumPromoPage;
-        popupActions.openTab(url);
+        await messenger.openPremiumPromoPage();
     }
 
     @action

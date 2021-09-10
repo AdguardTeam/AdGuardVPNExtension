@@ -301,6 +301,11 @@ class Messenger {
         const type = MESSAGES_TYPES.SET_DESKTOP_VPN_ENABLED;
         return this.sendMessage(type, { status });
     }
+
+    async openPremiumPromoPage() {
+        const type = MESSAGES_TYPES.OPEN_PREMIUM_PROMO_PAGE;
+        return this.sendMessage(type);
+    }
 }
 
 export default new Messenger();

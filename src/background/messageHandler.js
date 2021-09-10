@@ -257,6 +257,9 @@ const messageHandler = async (message, sender) => {
             setDesktopVpnEnabled(status);
             break;
         }
+        case MESSAGES_TYPES.OPEN_PREMIUM_PROMO_PAGE: {
+            return actions.openPremiumPromoPage();
+        }
         default:
             throw new Error(`Unknown message type received: ${type}`);
     }
