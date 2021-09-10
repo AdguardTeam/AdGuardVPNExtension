@@ -236,7 +236,7 @@ export class VpnStore {
 
         // return selected location ping if it's missing from locations list (AG-3184)
         if (!currentLocation) {
-            return this.selectedLocation.ping;
+            return this.selectedLocation?.ping;
         }
 
         let ping = currentLocation?.ping;
