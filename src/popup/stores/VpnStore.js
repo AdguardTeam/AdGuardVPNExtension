@@ -233,6 +233,11 @@ export class VpnStore {
             return location.id === selectedLocationId;
         });
 
+        // return selected location ping if it's missing from locations list (AG-3184)
+        if (!currentLocation) {
+            return this.selectedLocation?.ping;
+        }
+
         let ping = currentLocation?.ping;
         // update with fresh values from pings storage
         if (this.pings[selectedLocationId]) {
