@@ -158,6 +158,24 @@
     "auth_sign_in_link": {
         "message": "Sign in with AdGuard account"
     },
+    "auth_title": {
+        "message": "Authorization"
+    },
+    "auth_info": {
+        "message": "Continue with your AdGuard account or with connected social networks"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Continue with AdGuard"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Continue with Apple"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Continue with Google"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Continue with Facebook"
+    },
     "auth_header_sign_in_account": {
         "message": "You are signing in with AdGuard account"
     },

@@ -9,10 +9,11 @@ import isNil from 'lodash/isNil';
 
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
 import messenger from '../../lib/messenger';
-import { SETTINGS_IDS } from '../../lib/constants';
+import { SETTINGS_IDS, AUTH_PROVIDERS } from '../../lib/constants';
 
 const AUTH_STEPS = {
     POLICY_AGREEMENT: 'policyAgreement',
+    AUTHORIZATION: 'authorization',
     CHECK_EMAIL: 'checkEmail',
     SIGN_IN: 'signIn',
     REGISTRATION: 'registration',
@@ -31,7 +32,7 @@ const DEFAULTS = {
     need2fa: false,
     error: null,
     field: '',
-    step: AUTH_STEPS.CHECK_EMAIL,
+    step: AUTH_STEPS.AUTHORIZATION,
     agreement: true,
     policyAgreement: false,
     helpUsImprove: false,
@@ -254,6 +255,16 @@ export class AuthStore {
     };
 
     @action
+    proceedAuthorization = async (provider) => {
+        if (provider === AUTH_PROVIDERS.ADGUARD) {
+            await this.openSignUpCheck();
+            await this.switchStep(this.STEPS.CHECK_EMAIL);
+        } else {
+            await this.openSocialAuth(provider);
+        }
+    };
+
+    @action
     openSocialAuth = async (social) => {
         await messenger.startSocialAuth(social, this.marketingConsent);
         window.close();
@@ -272,6 +283,11 @@ export class AuthStore {
     showCheckEmail = async () => {
         await this.switchStep(AUTH_STEPS.CHECK_EMAIL);
     };
+
+    @action
+    showAuthorizationScreen = async () => {
+        await this.switchStep(this.STEPS.AUTHORIZATION);
+    }
 
     @action
     resetPasswords = async () => {

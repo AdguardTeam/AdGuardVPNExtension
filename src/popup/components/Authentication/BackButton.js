@@ -7,7 +7,7 @@ export const BackButton = () => {
 
     const handleBackClick = async () => {
         await authStore.resetPasswords();
-        await authStore.showCheckEmail();
+        await authStore.showAuthorizationScreen();
     };
 
     return (

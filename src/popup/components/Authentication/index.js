@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
-import { SocialAuth } from './SocialAuth';
 import SignInForm from './SignInForm';
+import { Authorization } from './Authorization';
 import { RegistrationForm } from './RegistrationForm';
 import TwoFactorForm from './TwoFactorForm';
 import { CheckEmail } from './CheckEmail';
@@ -18,12 +18,13 @@ const Authentication = observer(() => {
     const getHeader = (step) => {
         const titleMaps = {
             policyAgreement: null,
-            checkEmail: null,
+            checkEmail: <BackButton />,
+            authorization: null,
             signIn: <BackButton />,
             registration: <BackButton />,
             twoFactor: <BackButton />,
         };
-        return titleMaps[step] || titleMaps.checkEmail;
+        return titleMaps[step] || titleMaps.authorization;
     };
 
     const getForm = (step) => {
@@ -33,6 +34,9 @@ const Authentication = observer(() => {
             }
             case authStore.STEPS.TWO_FACTOR: {
                 return <TwoFactorForm />;
+            }
+            case authStore.STEPS.AUTHORIZATION: {
+                return <Authorization />;
             }
             case authStore.STEPS.SIGN_IN: {
                 return <SignInForm />;
@@ -48,20 +52,11 @@ const Authentication = observer(() => {
 
     const { step } = authStore;
 
-    const renderSocialAuth = () => {
-        if (step === authStore.STEPS.CHECK_EMAIL) {
-            return <SocialAuth />;
-        }
-
-        return null;
-    };
-
     return (
         <div className="auth">
             <div className="auth__container">
                 {getHeader(step)}
                 {getForm(step)}
-                {renderSocialAuth()}
             </div>
         </div>
     );
