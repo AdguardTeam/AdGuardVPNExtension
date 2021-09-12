@@ -280,11 +280,6 @@ export class AuthStore {
     };
 
     @action
-    showCheckEmail = async () => {
-        await this.switchStep(AUTH_STEPS.CHECK_EMAIL);
-    };
-
-    @action
     showAuthorizationScreen = async () => {
         await this.switchStep(this.STEPS.AUTHORIZATION);
     }
@@ -344,7 +339,7 @@ export class AuthStore {
     onPolicyAgreementReceived = async () => {
         await messenger.setSetting(SETTINGS_IDS.POLICY_AGREEMENT, this.policyAgreement);
         await messenger.setSetting(SETTINGS_IDS.HELP_US_IMPROVE, this.helpUsImprove);
-        await this.showCheckEmail();
+        await this.showAuthorizationScreen();
     };
 
     @action
