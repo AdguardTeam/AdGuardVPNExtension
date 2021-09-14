@@ -11,7 +11,7 @@ export const SETTINGS_IDS = {
     LOCATION_SELECTED_BY_USER_KEY: 'endpoints.location.selected.by.user',
     POLICY_AGREEMENT: 'policy.agreement',
     HELP_US_IMPROVE: 'help.us.improve',
-    APPEARANCE_THEME: 'system.default',
+    APPEARANCE_THEME: 'appearance.theme',
 };
 
 export const APPEARANCE_THEMES = {

@@ -3,7 +3,7 @@ import { log } from '../../lib/logger';
 import { SETTINGS_IDS } from '../../lib/constants';
 import browserApi from '../browserApi';
 
-const SCHEME_VERSION = '7';
+const SCHEME_VERSION = '8';
 const THROTTLE_TIMEOUT = 100;
 
 class SettingsService {
@@ -110,6 +110,14 @@ class SettingsService {
         };
     };
 
+    migrateFrom7to8 = (oldSettings) => {
+        return {
+            ...oldSettings,
+            VERSION: '8',
+            [SETTINGS_IDS.APPEARANCE_THEME]: this.defaults[SETTINGS_IDS.APPEARANCE_THEME],
+        };
+    };
+
     /**
      * In order to add migration, create new function which modifies old settings into new
      * And add this migration under related old settings scheme version
@@ -123,6 +131,7 @@ class SettingsService {
         4: this.migrateFrom4to5,
         5: this.migrateFrom5to6,
         6: this.migrateFrom6to7,
+        7: this.migrateFrom7to8,
     };
 
     async applyMigrations(oldVersion, newVersion, oldSettings) {
