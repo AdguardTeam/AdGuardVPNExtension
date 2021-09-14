@@ -532,6 +532,12 @@
     "popup_connections_limit_title": {
         "message": "已達到連線限制"
     },
+    "popup_desktop_vpn_enabled_title": {
+        "message": "AdGuard VPN 已被連線"
+    },
+    "popup_desktop_vpn_enabled_description": {
+        "message": "由於 AdGuard VPN 已在桌面應用程式被啟用，所以瀏覽器擴充功能自動被禁用"
+    },
     "popup_desktop_vpn_enabled_button": {
         "message": "確定"
     },

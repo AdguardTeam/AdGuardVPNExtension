@@ -532,6 +532,15 @@
     "popup_connections_limit_title": {
         "message": "La limite des connexions est atteinte"
     },
+    "popup_desktop_vpn_enabled_title": {
+        "message": "AdGuard VPN est déjà connecté"
+    },
+    "popup_desktop_vpn_enabled_description": {
+        "message": "AdGuard VPN est activé dans l’application de bureau, l’extension a donc été automatiquement désactivée"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "Ok"
+    },
     "options_signedout_page_title": {
         "message": "Vous vous êtes déconnecté(e) de AdGuard VPN"
     },
