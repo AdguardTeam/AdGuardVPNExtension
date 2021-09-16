@@ -483,8 +483,17 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Continue"
     },
-    "popup_marketing_consent_checkbox": {
+    "popup_newsletter_title": {
+        "message": "AdGuard newsletter"
+    },
+    "popup_newsletter_info": {
         "message": "Send me emails with special offers and AdGuard news"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "Subscribe"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "No, thanks"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> remaining this month",

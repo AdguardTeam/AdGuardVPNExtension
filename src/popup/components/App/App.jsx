@@ -30,6 +30,7 @@ import { PROMO_SCREEN_STATES } from '../../../lib/constants';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
 import { TrafficLimitExceeded } from '../Settings/TrafficLimitExceeded';
 import { ConnectionsLimitError } from '../ConnectionsLimitError';
+import { Newsletter } from '../Authentication/Newsletter';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -140,6 +141,14 @@ export const App = observer(() => {
                 && <Preloader isOpen={requestProcessState === REQUEST_STATUSES.PENDING} />}
                 <Authentication />
                 <Icons />
+            </>
+        );
+    }
+
+    if (authenticated) {
+        return (
+            <>
+                <Newsletter />
             </>
         );
     }
