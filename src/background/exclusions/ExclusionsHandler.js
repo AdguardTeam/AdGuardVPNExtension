@@ -10,7 +10,7 @@ export default class ExclusionsHandler {
 
     constructor(updateHandler, exclusions, mode) {
         this.updateHandler = updateHandler;
-        Object.values(exclusions).forEach((exc) => this._exclusions.push(exc));
+        this._exclusions = exclusions;
         this._mode = mode;
     }
 
@@ -100,11 +100,11 @@ export default class ExclusionsHandler {
     };
 
     removeFromExclusions = (id) => {
-        const exclusion = this._exclusions.find((exc) => exc.id === id);
+        const exclusion = this._exclusions.find((exclusion) => exclusion.id === id);
         if (!exclusion) {
             return;
         }
-        this._exclusions = this._exclusions.filter((exc) => exc.id !== id);
+        this._exclusions = this._exclusions.filter((exclusion) => exclusion.id !== id);
         this.handleExclusionsUpdate(exclusion);
     };
 
@@ -149,16 +149,11 @@ export default class ExclusionsHandler {
     };
 
     toggleExclusion = (id) => {
-        const exclusion = this._exclusions.find((exc) => exc.id === id);
-        if (!exclusion) {
-            return;
-        }
-
-        this._exclusions.forEach((exc) => {
-            if (exc.id === id) {
+        this._exclusions.forEach((exclusion) => {
+            if (exclusion.id === id) {
                 // eslint-disable-next-line no-param-reassign
-                exc.enabled = !exc.enabled;
-                this.handleExclusionsUpdate(exc);
+                exclusion.enabled = !exclusion.enabled;
+                this.handleExclusionsUpdate(exclusion);
             }
         });
     };
@@ -184,15 +179,11 @@ export default class ExclusionsHandler {
     /**
      * Updates exclusion's property
      * @param {string} id
-     * @param {object} prop
+     * @param {object} props
      */
-    updateExclusionProperty = (id, prop) => {
-        const propKey = Object.keys(prop)[0];
-        this._exclusions.forEach((exc) => {
-            if (exc.id === id) {
-                // eslint-disable-next-line no-param-reassign
-                exc[propKey] = prop[propKey];
-            }
-        });
+    updateExclusionProperty = (id, props) => {
+        const exclusionIndex = this._exclusions.findIndex((ex) => ex.id === id);
+        const exclusion = this._exclusions[exclusionIndex];
+        this._exclusions[exclusionIndex] = { ...exclusion, ...props };
     }
 }

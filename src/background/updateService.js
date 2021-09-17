@@ -1,4 +1,8 @@
 import browserApi from './browserApi';
+import { log } from '../lib/logger';
+import versionUtils from '../lib/version';
+import { SETTINGS_IDS } from '../lib/constants';
+import { settings } from './settings';
 
 const APP_VERSION_KEY = 'update.service.app.version';
 
@@ -40,6 +44,28 @@ const getRunInfo = async () => {
     };
 };
 
+const convertExclusions = () => {
+    const exclusions = settings.getSetting(SETTINGS_IDS.EXCLUSIONS);
+    log.info(exclusions);
+    // TODO convert exclusions
+};
+
+/**
+ * Handle application update
+ *
+ * @param runInfo   Run info
+ * @param callback  Called after update was handled
+ */
+const onUpdate = (runInfo, callback) => {
+    log.info(`On update from v${runInfo.prevVersion} to ${runInfo.currentVersion}`);
+
+    if (versionUtils.isGreaterVersion('0.12.4', runInfo.prevVersion)) {
+        convertExclusions();
+    }
+    callback();
+};
+
 export default {
     getRunInfo,
+    onUpdate,
 };
