@@ -6,9 +6,11 @@ import { areHostnamesEqual, shExpMatch } from '../../lib/string-utils';
 import { log } from '../../lib/logger';
 
 export default class ExclusionsHandler {
+    _exclusions = [];
+
     constructor(updateHandler, exclusions, mode) {
         this.updateHandler = updateHandler;
-        this._exclusions = exclusions;
+        Object.values(exclusions).forEach((exc) => this._exclusions.push(exc));
         this._mode = mode;
     }
 
@@ -78,13 +80,13 @@ export default class ExclusionsHandler {
         if (exclusions.length > 0) {
             [exclusion] = exclusions;
             if (!exclusion.enabled && enabled && forceEnable) {
-                this._exclusions[exclusion.id] = { ...exclusion, enabled };
+                this.updateExclusionProperty(exclusion.id, { enabled });
                 shouldUpdate = true;
             }
         } else {
             const id = nanoid();
             exclusion = { id, hostname, enabled };
-            this._exclusions[id] = exclusion;
+            this._exclusions.push(exclusion);
             log.info(`Added to exclusions: ${hostname}`);
             shouldUpdate = true;
         }
@@ -98,18 +100,16 @@ export default class ExclusionsHandler {
     };
 
     removeFromExclusions = (id) => {
-        const exclusion = this._exclusions[id];
+        const exclusion = this._exclusions.find((exc) => exc.id === id);
         if (!exclusion) {
             return;
         }
-        delete this._exclusions[id];
-
+        this._exclusions = this._exclusions.filter((exc) => exc.id !== id);
         this.handleExclusionsUpdate(exclusion);
     };
 
     removeExclusions = () => {
-        this._exclusions = {};
-
+        this._exclusions = [];
         this.handleExclusionsUpdate();
     };
 
@@ -117,7 +117,7 @@ export default class ExclusionsHandler {
         const exclusions = this.getExclusionsByUrl(hostname);
 
         exclusions.forEach((exclusion) => {
-            this._exclusions[exclusion.id] = { ...exclusion, enabled: false };
+            this.updateExclusionProperty(exclusion.id, { enabled: false });
         });
 
         this.handleExclusionsUpdate(exclusions);
@@ -134,7 +134,7 @@ export default class ExclusionsHandler {
         if (!hostname) {
             return undefined;
         }
-        return Object.values(this._exclusions)
+        return this._exclusions
             .filter((exclusion) => areHostnamesEqual(hostname, exclusion.hostname)
                 || (includeWildcards && shExpMatch(hostname, exclusion.hostname)));
     };
@@ -149,13 +149,17 @@ export default class ExclusionsHandler {
     };
 
     toggleExclusion = (id) => {
-        let exclusion = this._exclusions[id];
+        const exclusion = this._exclusions.find((exc) => exc.id === id);
         if (!exclusion) {
             return;
         }
 
-        exclusion = { ...exclusion, enabled: !exclusion.enabled };
-        this._exclusions[id] = exclusion;
+        this._exclusions.forEach((exc) => {
+            if (exc.id === id) {
+                // eslint-disable-next-line no-param-reassign
+                exc.enabled = !exc.enabled;
+            }
+        });
         this.handleExclusionsUpdate(exclusion);
     };
 
@@ -165,16 +169,7 @@ export default class ExclusionsHandler {
         if (!hostname) {
             return;
         }
-        const exclusion = this._exclusions[id];
-        if (!exclusion) {
-            return;
-        }
-        this._exclusions[id] = { ...exclusion, hostname };
-        this.handleExclusionsUpdate();
-    };
-
-    clearExclusions = () => {
-        this._exclusions = {};
+        this.updateExclusionProperty(id, { hostname });
         this.handleExclusionsUpdate();
     };
 
@@ -183,6 +178,21 @@ export default class ExclusionsHandler {
     }
 
     getExclusionsList = () => {
-        return Object.values(this._exclusions);
+        return this._exclusions;
     };
+
+    /**
+     * Updates exclusion's property
+     * @param {string} id
+     * @param {object} prop
+     */
+    updateExclusionProperty = (id, prop) => {
+        const propKey = Object.keys(prop)[0];
+        this._exclusions.forEach((exc) => {
+            if (exc.id === id) {
+                // eslint-disable-next-line no-param-reassign
+                exc[propKey] = prop[propKey];
+            }
+        });
+    }
 }

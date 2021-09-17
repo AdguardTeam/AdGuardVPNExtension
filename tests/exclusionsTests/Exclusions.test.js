@@ -36,7 +36,7 @@ beforeAll(async (done) => {
 
 describe('modules bound with exclusions work as expected', () => {
     afterAll(async (done) => {
-        await exclusions.current.clearExclusions();
+        await exclusions.current.removeExclusions();
         done();
     });
 
@@ -104,8 +104,8 @@ describe('exclusions', () => {
         let exclusionsInStorage = settings.getExclusions();
         expect(exclusionsInStorage).toEqual({
             inverted: false,
-            regular: {},
-            selective: {},
+            regular: [],
+            selective: [],
         });
 
         const blacklistedDomain = 'http://example.org/';
@@ -113,7 +113,7 @@ describe('exclusions', () => {
         expect(exclusions.current.isExcluded(blacklistedDomain)).toBeTruthy();
 
         exclusionsInStorage = settings.getExclusions();
-        expect(exclusionsInStorage.selective).toEqual({});
+        expect(exclusionsInStorage.selective).toEqual([]);
         expect(exclusionsInStorage.inverted).toEqual(false);
         const hasDomain = Object.values(exclusionsInStorage.regular).some((val) => {
             return blacklistedDomain.includes(val.hostname);
@@ -123,7 +123,7 @@ describe('exclusions', () => {
         await exclusions.setCurrentMode(exclusions.MODES.SELECTIVE);
         expect(exclusions.current.isExcluded(blacklistedDomain)).toBeFalsy();
         exclusionsInStorage = settings.getExclusions();
-        expect(exclusionsInStorage.selective).toEqual({});
+        expect(exclusionsInStorage.selective).toEqual([]);
         expect(exclusionsInStorage.inverted).toEqual(true);
 
         const whitelistedDomain = 'http://yandex.ru/';
@@ -142,7 +142,7 @@ describe('exclusions', () => {
 
 describe('urls w/ www and w/o www', () => {
     afterEach(async (done) => {
-        await exclusions.current.clearExclusions();
+        await exclusions.current.removeExclusions();
         done();
     });
 

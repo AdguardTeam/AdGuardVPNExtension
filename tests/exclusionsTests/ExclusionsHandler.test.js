@@ -14,7 +14,7 @@ const exclusionsHandler = new ExclusionsHandler(updateHandler, exclusions, type)
 
 describe('exclusions handler', () => {
     afterEach(async (done) => {
-        await exclusionsHandler.clearExclusions();
+        await exclusionsHandler.removeExclusions();
         done();
     });
 
