@@ -158,9 +158,9 @@ export default class ExclusionsHandler {
             if (exc.id === id) {
                 // eslint-disable-next-line no-param-reassign
                 exc.enabled = !exc.enabled;
+                this.handleExclusionsUpdate(exc);
             }
         });
-        this.handleExclusionsUpdate(exclusion);
     };
 
     renameExclusion = (id, newUrl) => {
