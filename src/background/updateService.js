@@ -44,25 +44,34 @@ const getRunInfo = async () => {
     };
 };
 
-const convertExclusions = () => {
+/**
+ * Converts regular and selective exclusions from object, for example:
+ * { 5idvOJ7fv23sY8aHbe: { enabled: true, hostname: 'example.org', id: '5idvOJ7fv23sY8aHbe' } }
+ * to array of objects:
+ * [{ enabled: true, hostname: 'example.org' id: '5idvOJ7fv23sY8aHbe' }]
+ */
+const convertExclusions = async () => {
     const exclusions = settings.getSetting(SETTINGS_IDS.EXCLUSIONS);
-    log.info(exclusions);
-    // TODO convert exclusions
+    if (Array.isArray(exclusions.regular) || Array.isArray(exclusions.selective)) {
+        return;
+    }
+    exclusions.regular = Object.values(exclusions.regular);
+    exclusions.selective = Object.values(exclusions.selective);
+
+    await settings.setSetting(SETTINGS_IDS.EXCLUSIONS, exclusions, true);
 };
 
 /**
  * Handle application update
  *
  * @param runInfo   Run info
- * @param callback  Called after update was handled
  */
-const onUpdate = (runInfo, callback) => {
+const onUpdate = async (runInfo) => {
     log.info(`On update from v${runInfo.prevVersion} to ${runInfo.currentVersion}`);
 
     if (versionUtils.isGreaterVersion('0.12.4', runInfo.prevVersion)) {
-        convertExclusions();
+        await convertExclusions();
     }
-    callback();
 };
 
 export default {
