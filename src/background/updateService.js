@@ -52,12 +52,13 @@ const getRunInfo = async () => {
  */
 const convertExclusions = async () => {
     const exclusions = settings.getSetting(SETTINGS_IDS.EXCLUSIONS);
-    if (Array.isArray(exclusions.regular) || Array.isArray(exclusions.selective)) {
+    try {
+        exclusions.regular = Object.values(exclusions.regular);
+        exclusions.selective = Object.values(exclusions.selective);
+    } catch (e) {
+        log.error(`Error converting exclusions on update to v0.12.4 due to a reason: ${e.message}`);
         return;
     }
-    exclusions.regular = Object.values(exclusions.regular);
-    exclusions.selective = Object.values(exclusions.selective);
-
     await settings.setSetting(SETTINGS_IDS.EXCLUSIONS, exclusions, true);
 };
 

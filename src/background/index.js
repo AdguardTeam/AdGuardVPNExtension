@@ -55,13 +55,13 @@ global.adguard = {
         await fallbackApi.init();
         await proxy.init();
         const runInfo = await updateService.getRunInfo();
-        if (runInfo.isUpdate) {
-            await updateService.onUpdate(runInfo);
-        }
         await openThankYouPage(runInfo);
         permissionsChecker.init(); // should be initiated before auth module
         await auth.init();
         await settings.init();
+        if (runInfo.isUpdate) {
+            await updateService.onUpdate(runInfo);
+        }
         await credentials.init(runInfo);
         await exclusions.init();
         await endpointsTldExclusions.init();
