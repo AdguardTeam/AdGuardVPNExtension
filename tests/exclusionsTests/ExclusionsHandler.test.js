@@ -6,7 +6,7 @@ const updateHandler = () => {
 
 };
 
-const exclusions = {};
+const exclusions = [];
 
 const type = 'whitelists';
 
