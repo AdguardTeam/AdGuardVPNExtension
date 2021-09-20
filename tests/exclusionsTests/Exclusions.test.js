@@ -169,6 +169,11 @@ describe('urls w/ www and w/o www', () => {
 });
 
 describe('works with wildcards', () => {
+    afterEach(async (done) => {
+        await exclusions.current.removeExclusions();
+        done();
+    });
+
     it('finds simple wildcards', async () => {
         await exclusions.current.addToExclusions('*mail.com');
         expect(exclusions.current.isExcluded('https://mail.com')).toBeTruthy();
