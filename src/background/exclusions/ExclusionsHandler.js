@@ -149,13 +149,12 @@ export default class ExclusionsHandler {
     };
 
     toggleExclusion = (id) => {
-        this._exclusions.forEach((exclusion) => {
-            if (exclusion.id === id) {
-                // eslint-disable-next-line no-param-reassign
-                exclusion.enabled = !exclusion.enabled;
-                this.handleExclusionsUpdate(exclusion);
-            }
-        });
+        const exclusion = this._exclusions.find((exc) => exc.id === id);
+        if (!exclusion) {
+            return;
+        }
+        this.updateExclusionProperty(id, { enabled: !exclusion.enabled });
+        this.handleExclusionsUpdate(exclusion);
     };
 
     renameExclusion = (id, newUrl) => {
