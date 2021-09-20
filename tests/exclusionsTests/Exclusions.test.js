@@ -180,3 +180,21 @@ describe('works with wildcards', () => {
         expect(exclusions.current.isExcluded('https://bit.adguard.com/issues')).toBeTruthy();
     });
 });
+
+describe('Exclusions order', () => {
+    afterEach(async (done) => {
+        await exclusions.current.removeExclusions();
+        done();
+    });
+
+    it('exclusions order doesn\'t change after adding new exclusion', async () => {
+        await exclusions.current.addToExclusions('https://test1.com');
+        await exclusions.current.addToExclusions('a-test.com');
+        await exclusions.current.addToExclusions('https://3test.com');
+        const exclusionsList = exclusions.current.getExclusionsList();
+        expect(exclusionsList.length).toBe(3);
+        expect(exclusionsList[0].hostname).toBe('test1.com');
+        expect(exclusionsList[1].hostname).toBe('a-test.com');
+        expect(exclusionsList[2].hostname).toBe('3test.com');
+    });
+});
