@@ -110,7 +110,21 @@ class SettingsService {
         };
     };
 
+    /**
+     * Converts regular and selective exclusions from object, for example:
+     * { 5idvOJ7fv23sY8aHbe: { enabled: true, hostname: 'example.org', id: '5idvOJ7fv23sY8aHbe' } }
+     * to array of objects:
+     * [{ enabled: true, hostname: 'example.org' id: '5idvOJ7fv23sY8aHbe' }]
+     */
     migrateFrom7to8 = (oldSettings) => {
+        const regularExclusions = oldSettings[SETTINGS_IDS.EXCLUSIONS].regular;
+        const selectiveExclusions = oldSettings[SETTINGS_IDS.EXCLUSIONS].selective;
+
+        // eslint-disable-next-line no-param-reassign
+        oldSettings[SETTINGS_IDS.EXCLUSIONS].regular = Object.values(regularExclusions);
+        // eslint-disable-next-line no-param-reassign
+        oldSettings[SETTINGS_IDS.EXCLUSIONS].selective = Object.values(selectiveExclusions);
+
         return {
             ...oldSettings,
             VERSION: '8',
