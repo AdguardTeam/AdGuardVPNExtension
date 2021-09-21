@@ -202,4 +202,20 @@ describe('Exclusions order', () => {
         expect(exclusionsList[1].hostname).toBe('a-test.com');
         expect(exclusionsList[2].hostname).toBe('3test.com');
     });
+
+    it('exclusions order doesn\'t change after overloading exclusion', async () => {
+        await exclusions.current.addToExclusions('https://test1.com');
+        await exclusions.current.addToExclusions('https://test2.com');
+        await exclusions.current.addToExclusions('https://test3.com');
+
+        await exclusions.current.addToExclusions('test2.com');
+        await exclusions.current.addToExclusions('http://test3.com');
+        await exclusions.current.addToExclusions('https://test1.com/');
+        const exclusionsList = exclusions.current.getExclusionsList();
+
+        expect(exclusionsList.length).toBe(3);
+        expect(exclusionsList[0].hostname).toBe('test1.com');
+        expect(exclusionsList[1].hostname).toBe('test2.com');
+        expect(exclusionsList[2].hostname).toBe('test3.com');
+    });
 });
