@@ -36,6 +36,8 @@ export class SettingsStore {
 
     @observable isRateVisible;
 
+    @observable onboardingSlide = 1;
+
     @observable promoScreenState = PROMO_SCREEN_STATES.DISPLAY_AFTER_CONNECT_CLICK;
 
     @observable freeUserClickedPremiumLocation = false;
@@ -290,6 +292,13 @@ export class SettingsStore {
         await messenger.setSetting(SETTINGS_IDS.RATE_SHOW, false);
         runInAction(() => {
             this.isRateVisible = false;
+        });
+    };
+
+    @action
+    handleNextSlide = (value) => {
+        runInAction(() => {
+            this.onboardingSlide = value;
         });
     };
 

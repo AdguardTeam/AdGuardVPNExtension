@@ -495,6 +495,27 @@
     "popup_newsletter_no_subscribe": {
         "message": "No, thanks"
     },
+    "popup_onboarding_first_title": {
+        "message": "Trusted VPN"
+    },
+    "popup_onboarding_first_info": {
+        "message": "By the developer of a world-famous ad blocker"
+    },
+    "popup_onboarding_second_title": {
+        "message": "Numerous locations"
+    },
+    "popup_onboarding_second_info": {
+        "message": "Connect to any of our servers located all over the world"
+    },
+    "popup_onboarding_third_title": {
+        "message": "Fastest servers"
+    },
+    "popup_onboarding_third_info": {
+        "message": "We use cutting edge technologies to guarantee the highest connection speed"
+    },
+    "popup_onboarding_next": {
+        "message": "Next"
+    },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> remaining this month",
         "description": "Respect spaces between text, tags and placeholders"

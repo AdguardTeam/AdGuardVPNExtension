@@ -30,7 +30,7 @@ import { PROMO_SCREEN_STATES } from '../../../lib/constants';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
 import { TrafficLimitExceeded } from '../Settings/TrafficLimitExceeded';
 import { ConnectionsLimitError } from '../ConnectionsLimitError';
-import { Newsletter } from '../Authentication/Newsletter';
+import { Onboarding } from '../Authentication/Onboarding';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -44,7 +44,7 @@ export const App = observer(() => {
         globalStore,
     } = useContext(rootStore);
 
-    const { desktopVpnEnabled } = settingsStore;
+    const { desktopVpnEnabled, onboardingSlide } = settingsStore;
 
     useEffect(() => {
         settingsStore.getAppearanceTheme();
@@ -145,10 +145,10 @@ export const App = observer(() => {
         );
     }
 
-    if (authenticated) {
+    if (authenticated && onboardingSlide) {
         return (
             <>
-                <Newsletter />
+                <Onboarding />
             </>
         );
     }

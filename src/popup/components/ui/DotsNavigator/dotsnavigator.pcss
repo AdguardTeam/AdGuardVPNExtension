@@ -1,0 +1,21 @@
+.dotsnavigator {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+
+    &__dot {
+        display: inline-block;
+        vertical-align: middle;
+        height: 7px;
+        width: 7px;
+        background-color: var(--gray88);
+        border-radius: 50%;
+        margin: 0 5px;
+
+        &--active {
+            background-color: var(--green76);
+        }
+    }
+}

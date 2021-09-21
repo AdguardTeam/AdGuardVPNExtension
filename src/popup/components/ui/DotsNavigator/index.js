@@ -1,0 +1,1 @@
+export { DotsNavigator } from './DotsNavigator';
