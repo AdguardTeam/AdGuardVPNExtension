@@ -117,18 +117,15 @@ class SettingsService {
      * [{ enabled: true, hostname: 'example.org' id: '5idvOJ7fv23sY8aHbe' }]
      */
     migrateFrom7to8 = (oldSettings) => {
-        const regularExclusions = oldSettings[SETTINGS_IDS.EXCLUSIONS].regular;
-        const selectiveExclusions = oldSettings[SETTINGS_IDS.EXCLUSIONS].selective;
-
-        // eslint-disable-next-line no-param-reassign
-        oldSettings[SETTINGS_IDS.EXCLUSIONS].regular = Object.values(regularExclusions);
-        // eslint-disable-next-line no-param-reassign
-        oldSettings[SETTINGS_IDS.EXCLUSIONS].selective = Object.values(selectiveExclusions);
-
         return {
             ...oldSettings,
             VERSION: '8',
             [SETTINGS_IDS.APPEARANCE_THEME]: this.defaults[SETTINGS_IDS.APPEARANCE_THEME],
+            [SETTINGS_IDS.EXCLUSIONS]: {
+                regular: Object.values(oldSettings[SETTINGS_IDS.EXCLUSIONS].regular),
+                selective: Object.values(oldSettings[SETTINGS_IDS.EXCLUSIONS].selective),
+                inverted: oldSettings[SETTINGS_IDS.EXCLUSIONS].inverted,
+            },
         };
     };
 
