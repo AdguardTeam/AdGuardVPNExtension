@@ -207,15 +207,19 @@ describe('Exclusions order', () => {
         await exclusions.current.addToExclusions('https://test1.com');
         await exclusions.current.addToExclusions('https://test2.com');
         await exclusions.current.addToExclusions('https://test3.com');
+        await exclusions.current.addToExclusions('https://test4.com');
+        await exclusions.current.addToExclusions('https://test5.com');
 
-        await exclusions.current.addToExclusions('test2.com');
-        await exclusions.current.addToExclusions('http://test3.com');
-        await exclusions.current.addToExclusions('https://test1.com/');
-        const exclusionsList = exclusions.current.getExclusionsList();
+        const newExclusions = new Exclusions(browser, proxy, settings);
+        await newExclusions.init();
 
-        expect(exclusionsList.length).toBe(3);
-        expect(exclusionsList[0].hostname).toBe('test1.com');
-        expect(exclusionsList[1].hostname).toBe('test2.com');
-        expect(exclusionsList[2].hostname).toBe('test3.com');
+        const newExclusionsList = newExclusions.current.getExclusionsList();
+
+        expect(newExclusionsList.length).toBe(5);
+        expect(newExclusionsList[0].hostname).toBe('test1.com');
+        expect(newExclusionsList[1].hostname).toBe('test2.com');
+        expect(newExclusionsList[2].hostname).toBe('test3.com');
+        expect(newExclusionsList[3].hostname).toBe('test4.com');
+        expect(newExclusionsList[4].hostname).toBe('test5.com');
     });
 });
