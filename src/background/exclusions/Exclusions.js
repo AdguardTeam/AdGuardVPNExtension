@@ -15,8 +15,8 @@ class Exclusions {
     init = async () => {
         this.exclusions = this.settings.getExclusions() || {};
 
-        const selective = this.exclusions?.[this.MODES.SELECTIVE] ?? {};
-        const regular = this.exclusions?.[this.MODES.REGULAR] ?? {};
+        const selective = this.exclusions?.[this.MODES.SELECTIVE] ?? [];
+        const regular = this.exclusions?.[this.MODES.REGULAR] ?? [];
 
         this.inverted = this.exclusions?.inverted ?? false;
 

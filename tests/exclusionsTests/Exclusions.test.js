@@ -36,7 +36,7 @@ beforeAll(async (done) => {
 
 describe('modules bound with exclusions work as expected', () => {
     afterAll(async (done) => {
-        await exclusions.current.clearExclusions();
+        await exclusions.current.removeExclusions();
         done();
     });
 
@@ -104,8 +104,8 @@ describe('exclusions', () => {
         let exclusionsInStorage = settings.getExclusions();
         expect(exclusionsInStorage).toEqual({
             inverted: false,
-            regular: {},
-            selective: {},
+            regular: [],
+            selective: [],
         });
 
         const blacklistedDomain = 'http://example.org/';
@@ -113,7 +113,7 @@ describe('exclusions', () => {
         expect(exclusions.current.isExcluded(blacklistedDomain)).toBeTruthy();
 
         exclusionsInStorage = settings.getExclusions();
-        expect(exclusionsInStorage.selective).toEqual({});
+        expect(exclusionsInStorage.selective).toEqual([]);
         expect(exclusionsInStorage.inverted).toEqual(false);
         const hasDomain = Object.values(exclusionsInStorage.regular).some((val) => {
             return blacklistedDomain.includes(val.hostname);
@@ -123,7 +123,7 @@ describe('exclusions', () => {
         await exclusions.setCurrentMode(exclusions.MODES.SELECTIVE);
         expect(exclusions.current.isExcluded(blacklistedDomain)).toBeFalsy();
         exclusionsInStorage = settings.getExclusions();
-        expect(exclusionsInStorage.selective).toEqual({});
+        expect(exclusionsInStorage.selective).toEqual([]);
         expect(exclusionsInStorage.inverted).toEqual(true);
 
         const whitelistedDomain = 'http://yandex.ru/';
@@ -142,7 +142,7 @@ describe('exclusions', () => {
 
 describe('urls w/ www and w/o www', () => {
     afterEach(async (done) => {
-        await exclusions.current.clearExclusions();
+        await exclusions.current.removeExclusions();
         done();
     });
 
@@ -169,6 +169,11 @@ describe('urls w/ www and w/o www', () => {
 });
 
 describe('works with wildcards', () => {
+    afterEach(async (done) => {
+        await exclusions.current.removeExclusions();
+        done();
+    });
+
     it('finds simple wildcards', async () => {
         await exclusions.current.addToExclusions('*mail.com');
         expect(exclusions.current.isExcluded('https://mail.com')).toBeTruthy();
@@ -178,5 +183,23 @@ describe('works with wildcards', () => {
         expect(exclusions.current.isExcluded('https://bit.adguard.com')).toBeTruthy();
         expect(exclusions.current.isExcluded('https://jira.adguard.com')).toBeTruthy();
         expect(exclusions.current.isExcluded('https://bit.adguard.com/issues')).toBeTruthy();
+    });
+});
+
+describe('Exclusions order', () => {
+    afterEach(async (done) => {
+        await exclusions.current.removeExclusions();
+        done();
+    });
+
+    it('exclusions order doesn\'t change after adding new exclusion', async () => {
+        await exclusions.current.addToExclusions('https://test1.com');
+        await exclusions.current.addToExclusions('a-test.com');
+        await exclusions.current.addToExclusions('https://3test.com');
+        const exclusionsList = exclusions.current.getExclusionsList();
+        expect(exclusionsList.length).toBe(3);
+        expect(exclusionsList[0].hostname).toBe('test1.com');
+        expect(exclusionsList[1].hostname).toBe('a-test.com');
+        expect(exclusionsList[2].hostname).toBe('3test.com');
     });
 });
