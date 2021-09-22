@@ -107,6 +107,9 @@ class SettingsService {
             // Old users already gave policy agreement, when logged in
             [SETTINGS_IDS.POLICY_AGREEMENT]: true,
             [SETTINGS_IDS.HELP_US_IMPROVE]: this.defaults[SETTINGS_IDS.HELP_US_IMPROVE],
+            [SETTINGS_IDS.SHOW_NEWSLETTER]: true,
+            [SETTINGS_IDS.SHOW_UPGRADE_SCREEN]: true,
+            [SETTINGS_IDS.SHOW_ONBOARDING]: true,
         };
     };
 

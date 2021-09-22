@@ -3,6 +3,7 @@ import './closebutton.pcss';
 
 export const CloseButton = (prop) => {
     const { handler } = prop;
+
     const clickHandler = () => {
         handler();
     };

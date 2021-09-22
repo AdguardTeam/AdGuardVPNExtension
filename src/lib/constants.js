@@ -12,6 +12,9 @@ export const SETTINGS_IDS = {
     POLICY_AGREEMENT: 'policy.agreement',
     HELP_US_IMPROVE: 'help.us.improve',
     APPEARANCE_THEME: 'system.default',
+    SHOW_NEWSLETTER: 'show.newsletter',
+    SHOW_UPGRADE_SCREEN: 'show.upgrade.screen',
+    SHOW_ONBOARDING: 'show.onboarding',
 };
 
 export const APPEARANCE_THEMES = {

@@ -11,11 +11,15 @@ export const UpgradeScreen = () => {
         await vpnStore.openPremiumPromoPage();
     };
 
+    const handleSkipClick = async () => {
+        await settingsStore.setShowUpgradeScreen(false);
+    };
+
     const features = ['traffic', 'speed', 'all_locations', 'torrents', 'streaming'];
 
     return (
         <div className="upgrade-screen">
-            <CloseButton handler={settingsStore.resetOnboardingSlide} />
+            <CloseButton handler={handleSkipClick} />
             <img
                 src="../../../../assets/images/upgrade.svg"
                 className="upgrade-screen__image"
@@ -44,7 +48,7 @@ export const UpgradeScreen = () => {
             <button
                 key="free-use"
                 type="button"
-                onClick={settingsStore.resetOnboardingSlide}
+                onClick={handleSkipClick}
                 className="upgrade-screen__continue-button"
             >
                 {reactTranslator.getMessage('popup_upgrade_screen_continue_free')}

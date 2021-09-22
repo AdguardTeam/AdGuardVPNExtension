@@ -38,6 +38,12 @@ export class SettingsStore {
 
     @observable onboardingSlide = 1;
 
+    @observable showNewsletter = true;
+
+    @observable showOnboarding = true;
+
+    @observable showUpgradeScreen = true;
+
     @observable promoScreenState = PROMO_SCREEN_STATES.DISPLAY_AFTER_CONNECT_CLICK;
 
     @observable freeUserClickedPremiumLocation = false;
@@ -346,6 +352,30 @@ export class SettingsStore {
         const value = await messenger.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
         runInAction(() => {
             this.appearanceTheme = value;
+        });
+    };
+
+    @action
+    setShowNewsletter = async (value) => {
+        await messenger.setSetting(SETTINGS_IDS.SHOW_NEWSLETTER, value);
+        runInAction(() => {
+            this.showNewsletter = value;
+        });
+    };
+
+    @action
+    setShowUpgradeScreen = async (value) => {
+        await messenger.setSetting(SETTINGS_IDS.SHOW_UPGRADE_SCREEN, value);
+        runInAction(() => {
+            this.showUpgradeScreen = value;
+        });
+    };
+
+    @action
+    setShowOnboarding = async (value) => {
+        await messenger.setSetting(SETTINGS_IDS.SHOW_ONBOARDING, value);
+        runInAction(() => {
+            this.showOnboarding = value;
         });
     };
 }

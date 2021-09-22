@@ -16,14 +16,18 @@ export const Slide = (props) => {
         active,
     } = props;
 
-    const handleClickNext = () => () => {
+    const handleClickNext = () => {
         const nextSlide = active === dots ? null : active + 1;
         settingsStore.handleNextSlide(nextSlide);
     };
 
+    const handleCloseClick = async () => {
+        await settingsStore.setShowOnboarding(false);
+    };
+
     return (
         <div className={`slide slide-${active}`}>
-            <CloseButton handler={settingsStore.resetOnboardingSlide} />
+            <CloseButton handler={handleCloseClick} />
             <img
                 src={`../../../../assets/images/${image}`}
                 className="slide__image"
@@ -42,7 +46,7 @@ export const Slide = (props) => {
             <button
                 key="subscribe"
                 type="button"
-                onClick={handleClickNext()}
+                onClick={handleClickNext}
                 className="button button--medium button--green slide__button-next"
             >
                 {reactTranslator.getMessage('popup_onboarding_next')}

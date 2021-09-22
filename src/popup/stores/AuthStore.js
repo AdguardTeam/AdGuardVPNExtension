@@ -62,8 +62,6 @@ export class AuthStore {
 
     @observable signInCheck = false;
 
-    @observable isFirstRun = false;
-
     STEPS = AUTH_STEPS;
 
     constructor(rootStore) {
@@ -78,7 +76,6 @@ export class AuthStore {
         this.error = DEFAULTS.error;
         this.step = DEFAULTS.step;
         this.signInCheck = DEFAULTS.signInCheck;
-        this.isNewUser = false;
     };
 
     @action
@@ -103,7 +100,6 @@ export class AuthStore {
             policyAgreement,
             helpUsImprove,
             marketingConsent,
-            isNewUser,
         } = await messenger.getAuthCache();
         runInAction(() => {
             this.credentials = {
@@ -123,9 +119,6 @@ export class AuthStore {
             }
             if (!isNil(helpUsImprove)) {
                 this.helpUsImprove = helpUsImprove;
-            }
-            if (isNewUser) {
-                this.isNewUser = isNewUser;
             }
         });
     };
@@ -226,7 +219,6 @@ export class AuthStore {
         }
         if (response.status === 'ok') {
             await messenger.clearAuthCache();
-            await this.setIsNewUser(true);
             await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
             runInAction(() => {
                 this.requestProcessState = REQUEST_STATUSES.DONE;
@@ -362,17 +354,4 @@ export class AuthStore {
     get marketingConsent() {
         return this.credentials.marketingConsent;
     }
-
-    @action
-    setIsNewUser = async (value) => {
-        await messenger.updateAuthCache('isNewUser', value);
-        runInAction(() => {
-            this.isNewUser = value;
-        });
-    };
-
-    // @computed
-    // get isNewUser() {
-    //     return this.isNewUser;
-    // }
 }
