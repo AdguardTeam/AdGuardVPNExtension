@@ -516,6 +516,30 @@
     "popup_onboarding_next": {
         "message": "Next"
     },
+    "popup_upgrade_screen_title": {
+        "message": "Unlimited VPN"
+    },
+    "popup_upgrade_screen_traffic": {
+        "message": "Unlimited traffic"
+    },
+    "popup_upgrade_screen_speed": {
+        "message": "Unlimited speed"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "All locations"
+    },
+    "popup_upgrade_screen_torrents": {
+        "message": "Torrents"
+    },
+    "popup_upgrade_screen_streaming": {
+        "message": "Streaming"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "Upgrade"
+    },
+    "popup_upgrade_screen_continue_free": {
+        "message": "Continue for free"
+    },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> remaining this month",
         "description": "Respect spaces between text, tags and placeholders"

@@ -3,6 +3,7 @@ import { rootStore } from '../../../stores';
 import './onboarding.pcss';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { DotsNavigator } from '../../ui/DotsNavigator';
+import { CloseButton } from '../../ui/CloseButton';
 
 export const Slide = (props) => {
     const { settingsStore } = useContext(rootStore);
@@ -22,6 +23,7 @@ export const Slide = (props) => {
 
     return (
         <div className={`slide slide-${active}`}>
+            <CloseButton handler={settingsStore.resetOnboardingSlide} />
             <img
                 src={`../../../../assets/images/${image}`}
                 className="slide__image"

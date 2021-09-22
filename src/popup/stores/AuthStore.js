@@ -62,7 +62,7 @@ export class AuthStore {
 
     @observable signInCheck = false;
 
-    @observable isNewUser = false;
+    @observable isFirstRun = false;
 
     STEPS = AUTH_STEPS;
 
