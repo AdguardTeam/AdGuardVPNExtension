@@ -3,7 +3,7 @@ import { log } from '../../lib/logger';
 import { SETTINGS_IDS } from '../../lib/constants';
 import browserApi from '../browserApi';
 
-const SCHEME_VERSION = '8';
+const SCHEME_VERSION = '9';
 const THROTTLE_TIMEOUT = 100;
 
 class SettingsService {
@@ -107,9 +107,6 @@ class SettingsService {
             // Old users already gave policy agreement, when logged in
             [SETTINGS_IDS.POLICY_AGREEMENT]: true,
             [SETTINGS_IDS.HELP_US_IMPROVE]: this.defaults[SETTINGS_IDS.HELP_US_IMPROVE],
-            [SETTINGS_IDS.SHOW_NEWSLETTER]: true,
-            [SETTINGS_IDS.SHOW_UPGRADE_SCREEN]: true,
-            [SETTINGS_IDS.SHOW_ONBOARDING]: true,
         };
     };
 
@@ -132,6 +129,16 @@ class SettingsService {
         };
     };
 
+    migrateFrom8to9 = (oldSettings) => {
+        return {
+            ...oldSettings,
+            VERSION: '9',
+            [SETTINGS_IDS.SHOW_NEWSLETTER]: this.defaults[SETTINGS_IDS.SHOW_NEWSLETTER],
+            [SETTINGS_IDS.SHOW_UPGRADE_SCREEN]: this.defaults[SETTINGS_IDS.SHOW_UPGRADE_SCREEN],
+            [SETTINGS_IDS.SHOW_ONBOARDING]: this.defaults[SETTINGS_IDS.SHOW_ONBOARDING],
+        };
+    };
+
     /**
      * In order to add migration, create new function which modifies old settings into new
      * And add this migration under related old settings scheme version
@@ -146,6 +153,7 @@ class SettingsService {
         5: this.migrateFrom5to6,
         6: this.migrateFrom6to7,
         7: this.migrateFrom7to8,
+        8: this.migrateFrom8to9,
     };
 
     async applyMigrations(oldVersion, newVersion, oldSettings) {
