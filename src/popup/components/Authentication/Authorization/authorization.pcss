@@ -28,8 +28,8 @@
         padding: 16px 20px;
 
         &:hover {
-            border-color: #ccc;
-            color: #ccc;
+            border-color: var(--gray-base);
+            background-color: transparent;
         }
     }
 
@@ -39,6 +39,12 @@
 
     &__apple {
         background-image: url("../../../../assets/images/apple.svg");
+    }
+
+    @media (prefers-color-scheme: dark) {
+        &__apple {
+            background-image: url("../../../../assets/images/apple-light.svg");
+        }
     }
 
     &__google {
