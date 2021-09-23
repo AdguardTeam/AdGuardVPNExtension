@@ -532,6 +532,15 @@
     "popup_connections_limit_title": {
         "message": "연결 수 제한 도달"
     },
+    "popup_desktop_vpn_enabled_title": {
+        "message": "AdGuard VPN이 이미 켜져 있습니다"
+    },
+    "popup_desktop_vpn_enabled_description": {
+        "message": "AdGuard VPN이 이미 데스크톱 앱으로 켜져 있어 확장 프로그램이 자동으로 꺼졌습니다"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "확인"
+    },
     "options_signedout_page_title": {
         "message": "AdGuard VPN에서 로그아웃하셨습니다"
     },

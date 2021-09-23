@@ -11,10 +11,10 @@ export const SETTINGS_IDS = {
     LOCATION_SELECTED_BY_USER_KEY: 'endpoints.location.selected.by.user',
     POLICY_AGREEMENT: 'policy.agreement',
     HELP_US_IMPROVE: 'help.us.improve',
-    APPEARANCE_THEME: 'system.default',
     SHOW_NEWSLETTER: 'show.newsletter',
     SHOW_UPGRADE_SCREEN: 'show.upgrade.screen',
     SHOW_ONBOARDING: 'show.onboarding',
+    APPEARANCE_THEME: 'appearance.theme',
 };
 
 export const APPEARANCE_THEMES = {

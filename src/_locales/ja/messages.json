@@ -532,6 +532,15 @@
     "popup_connections_limit_title": {
         "message": "同時接続可能端末数の上限に達成"
     },
+    "popup_desktop_vpn_enabled_title": {
+        "message": "AdGuard VPNはすでに接続されています"
+    },
+    "popup_desktop_vpn_enabled_description": {
+        "message": "AdGuard VPNデスクトップアプリが有効になっているため、この拡張機能は自動的にオフになりました。"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "OK"
+    },
     "options_signedout_page_title": {
         "message": "AdGuard VPNからログアウトしました"
     },
