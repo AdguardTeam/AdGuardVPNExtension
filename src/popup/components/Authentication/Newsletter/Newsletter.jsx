@@ -25,7 +25,6 @@ export const Newsletter = () => {
                 {reactTranslator.getMessage('popup_newsletter_info')}
             </div>
             <button
-                key="subscribe"
                 type="button"
                 onClick={handleClick(true)}
                 className="button button--medium button--green newsletter__button-subscribe"
@@ -33,10 +32,9 @@ export const Newsletter = () => {
                 {reactTranslator.getMessage('popup_newsletter_subscribe')}
             </button>
             <button
-                key="no-subscribe"
                 type="button"
                 onClick={handleClick(false)}
-                className="button button--medium newsletter__button-no-subscribe"
+                className="button button--medium newsletter__button-skip"
             >
                 {reactTranslator.getMessage('popup_newsletter_no_subscribe')}
             </button>

@@ -41,14 +41,14 @@ export const UpgradeScreen = () => {
             <button
                 type="button"
                 onClick={handleUpgradeClick}
-                className="button button--medium button--green upgrade-screen__button"
+                className="button button--medium button--green upgrade-screen__subscribe-button"
             >
                 {reactTranslator.getMessage('popup_upgrade_screen_upgrade_button')}
             </button>
             <button
                 type="button"
                 onClick={handleSkipClick}
-                className="upgrade-screen__continue-button"
+                className="button button--medium upgrade-screen__continue-button"
             >
                 {reactTranslator.getMessage('popup_upgrade_screen_continue_free')}
             </button>

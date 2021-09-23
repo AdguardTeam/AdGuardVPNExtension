@@ -1,25 +1,24 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import './dotsnavigator.pcss';
+import './dots-indicator.pcss';
 
-export const DotsNavigator = (props) => {
+export const DotsIndicator = (props) => {
     const {
-        num,
+        dotsAmount,
         activeDot,
     } = props;
 
-    const dots = [...Array(Number(num))];
-    const activeDotNum = Number(activeDot);
+    const dots = [...Array(dotsAmount)];
 
     return (
-        <div className="dotsnavigator">
+        <div className="dots-indicator">
             {dots.map((el, i) => (
                 // eslint-disable-next-line react/jsx-key
                 <div
                     className={classnames(
-                        'dotsnavigator__dot',
-                        { 'dotsnavigator__dot--active': i === activeDotNum },
+                        'dots-indicator__dot',
+                        { 'dots-indicator__dot--active': i === activeDot },
                     )}
                 />
             ))}

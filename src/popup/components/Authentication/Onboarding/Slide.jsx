@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { rootStore } from '../../../stores';
 import './onboarding.pcss';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { DotsNavigator } from '../../ui/DotsNavigator';
+import { DotsIndicator } from '../../ui/DotsIndicator';
 import { CloseButton } from '../../ui/CloseButton';
 
 export const Slide = (props) => {
@@ -39,8 +39,8 @@ export const Slide = (props) => {
             <div className="slide__info">
                 {info}
             </div>
-            <DotsNavigator
-                num={slidesAmount}
+            <DotsIndicator
+                dotsAmount={slidesAmount}
                 activeDot={id}
             />
             <button
