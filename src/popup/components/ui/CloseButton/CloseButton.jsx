@@ -1,5 +1,5 @@
 import React from 'react';
-import './closebutton.pcss';
+import './close-button.pcss';
 
 export const CloseButton = (prop) => {
     const { handler } = prop;
@@ -9,7 +9,7 @@ export const CloseButton = (prop) => {
     };
 
     return (
-        <div className="closebutton">
+        <div className="close-button">
             <button
                 type="button"
                 onClick={clickHandler}
