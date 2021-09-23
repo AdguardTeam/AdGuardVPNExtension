@@ -9,17 +9,17 @@ export const DotsIndicator = (props) => {
         activeDot,
     } = props;
 
-    const dots = [...Array(dotsAmount)];
+    const dots = [...Array(dotsAmount).keys()];
 
     return (
         <div className="dots-indicator">
-            {dots.map((el, i) => (
-                // eslint-disable-next-line react/jsx-key
+            {dots.map((dot) => (
                 <div
                     className={classnames(
                         'dots-indicator__dot',
-                        { 'dots-indicator__dot--active': i === activeDot },
+                        { 'dots-indicator__dot--active': dot === activeDot },
                     )}
+                    key={dot}
                 />
             ))}
         </div>
