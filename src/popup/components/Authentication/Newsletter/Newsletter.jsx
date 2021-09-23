@@ -6,13 +6,8 @@ import { reactTranslator } from '../../../../common/reactTranslator';
 export const Newsletter = () => {
     const { authStore, settingsStore } = useContext(rootStore);
 
-    const handleSubscribe = async () => {
-        await authStore.setMarketingConsent(true);
-        await settingsStore.setShowNewsletter(false);
-    };
-
-    const handleNoSubscribe = async () => {
-        await authStore.setMarketingConsent(false);
+    const handleClick = (value) => async () => {
+        await authStore.setMarketingConsent(value);
         await settingsStore.setShowNewsletter(false);
     };
 
@@ -32,7 +27,7 @@ export const Newsletter = () => {
             <button
                 key="subscribe"
                 type="button"
-                onClick={handleSubscribe}
+                onClick={handleClick(true)}
                 className="button button--medium button--green newsletter__button-subscribe"
             >
                 {reactTranslator.getMessage('popup_newsletter_subscribe')}
@@ -40,7 +35,7 @@ export const Newsletter = () => {
             <button
                 key="no-subscribe"
                 type="button"
-                onClick={handleNoSubscribe}
+                onClick={handleClick(false)}
                 className="button button--medium newsletter__button-no-subscribe"
             >
                 {reactTranslator.getMessage('popup_newsletter_no_subscribe')}

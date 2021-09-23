@@ -9,24 +9,24 @@ export const Slide = (props) => {
     const { settingsStore } = useContext(rootStore);
 
     const {
-        title,
-        image,
-        info,
-        dots,
-        active,
+        slideData,
+        nextSlideHandler,
+        slidesAmount,
     } = props;
 
-    const handleClickNext = () => {
-        const nextSlide = active === dots ? null : active + 1;
-        settingsStore.handleNextSlide(nextSlide);
-    };
+    const {
+        id,
+        image,
+        title,
+        info,
+    } = slideData;
 
     const handleCloseClick = async () => {
         await settingsStore.setShowOnboarding(false);
     };
 
     return (
-        <div className={`slide slide-${active}`}>
+        <div className={`slide slide-${id}`}>
             <CloseButton handler={handleCloseClick} />
             <img
                 src={`../../../../assets/images/${image}`}
@@ -40,13 +40,12 @@ export const Slide = (props) => {
                 {info}
             </div>
             <DotsNavigator
-                num={dots}
-                active={active - 1}
+                num={slidesAmount}
+                activeDot={id}
             />
             <button
-                key="subscribe"
                 type="button"
-                onClick={handleClickNext}
+                onClick={nextSlideHandler}
                 className="button button--medium button--green slide__button-next"
             >
                 {reactTranslator.getMessage('popup_onboarding_next')}

@@ -6,11 +6,11 @@ import './dotsnavigator.pcss';
 export const DotsNavigator = (props) => {
     const {
         num,
-        active,
+        activeDot,
     } = props;
 
     const dots = [...Array(Number(num))];
-    const activeDotNum = Number(active);
+    const activeDotNum = Number(activeDot);
 
     return (
         <div className="dotsnavigator">

@@ -8,6 +8,7 @@ export const UpgradeScreen = () => {
     const { settingsStore, vpnStore } = useContext(rootStore);
 
     const handleUpgradeClick = async () => {
+        await settingsStore.setShowUpgradeScreen(false);
         await vpnStore.openPremiumPromoPage();
     };
 
@@ -38,7 +39,6 @@ export const UpgradeScreen = () => {
                 })}
             </div>
             <button
-                key="upgrade"
                 type="button"
                 onClick={handleUpgradeClick}
                 className="button button--medium button--green upgrade-screen__button"
@@ -46,7 +46,6 @@ export const UpgradeScreen = () => {
                 {reactTranslator.getMessage('popup_upgrade_screen_upgrade_button')}
             </button>
             <button
-                key="free-use"
                 type="button"
                 onClick={handleSkipClick}
                 className="upgrade-screen__continue-button"
