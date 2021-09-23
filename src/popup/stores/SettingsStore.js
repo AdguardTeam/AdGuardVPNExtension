@@ -300,13 +300,6 @@ export class SettingsStore {
     };
 
     @action
-    resetOnboardingSlide = () => {
-        runInAction(() => {
-            this.onboardingSlide = null;
-        });
-    };
-
-    @action
     setSalePromoStatus = async (state) => {
         await messenger.setSetting(SETTINGS_IDS.SALE_SHOW, state);
         runInAction(() => {
