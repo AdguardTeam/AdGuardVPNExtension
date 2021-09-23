@@ -38,7 +38,7 @@ const getContent = (authenticated, requestProcessState) => {
                         <Switch>
                             <Route path="/" exact component={Exclusions} />
                             <Route path="/settings" component={Settings} />
-                            <Route path="/free-traffic" component={Referral} />
+                            <Route path="/referral-program" component={Referral} />
                             <Route path="/account" component={Account} />
                             <Route path="/about" component={About} />
                             <Route path="/support" component={Support} />

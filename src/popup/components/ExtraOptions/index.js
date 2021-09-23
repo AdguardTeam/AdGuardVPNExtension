@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
+import browser from 'webextension-polyfill';
 
 import { rootStore } from '../../stores';
 import { popupActions } from '../../actions/popupActions';
@@ -41,6 +42,11 @@ const ExtraOptions = observer(() => {
         await popupActions.openTab(OTHER_PRODUCTS_URL);
     };
 
+    const handleGetFreeTrafficClick = async () => {
+        const referralProgramPageUrl = `chrome-extension://${browser.runtime.id}/options.html#referral-program`;
+        await popupActions.openTab(referralProgramPageUrl);
+    };
+
     return (
         <Modal
             isOpen={uiStore.isOpenOptionsModal}
@@ -49,6 +55,10 @@ const ExtraOptions = observer(() => {
             className="extra-options"
             overlayClassName="extra-options__overlay"
         >
+            <Option
+                handler={handleGetFreeTrafficClick}
+                text={reactTranslator.getMessage('settings_get_free_traffic')}
+            />
             <Option
                 handler={handleOtherProductsClick}
                 text={reactTranslator.getMessage('popup_settings_other_products')}

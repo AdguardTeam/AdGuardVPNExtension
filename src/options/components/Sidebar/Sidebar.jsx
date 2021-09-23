@@ -17,7 +17,7 @@ export const Sidebar = () => {
                 <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/settings">
                     {reactTranslator.getMessage('settings_title')}
                 </NavLink>
-                <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/free-traffic">
+                <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/referral-program">
                     {reactTranslator.getMessage('settings_get_free_traffic')}
                 </NavLink>
                 <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/account">
