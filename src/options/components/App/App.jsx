@@ -13,6 +13,7 @@ import { rootStore } from '../../stores';
 import { Sidebar } from '../Sidebar';
 import { Footer } from '../Footer';
 import { Settings } from '../Settings';
+import { Referral } from '../Referral';
 import { Account } from '../Account';
 import { About } from '../About';
 import { SignedOut } from '../SignedOut';
@@ -37,6 +38,7 @@ const getContent = (authenticated, requestProcessState) => {
                         <Switch>
                             <Route path="/" exact component={Exclusions} />
                             <Route path="/settings" component={Settings} />
+                            <Route path="/free-traffic" component={Referral} />
                             <Route path="/account" component={Account} />
                             <Route path="/about" component={About} />
                             <Route path="/support" component={Support} />
