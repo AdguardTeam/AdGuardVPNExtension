@@ -1,16 +1,23 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
+import browser from 'webextension-polyfill';
 import classnames from 'classnames';
 import { BUILD_ENV } from '../../../background/config';
 
 import './header.pcss';
 import { rootStore } from '../../stores';
+import { popupActions } from '../../actions/popupActions';
 
 const Header = observer(({ showMenuButton }) => {
     const { uiStore } = useContext(rootStore);
 
     const handleOpenModal = () => {
         uiStore.openOptionsModal(true);
+    };
+
+    const handleOpenReferral = async () => {
+        const referralProgramPageUrl = `chrome-extension://${browser.runtime.id}/options.html#referral-program`;
+        await popupActions.openTab(referralProgramPageUrl);
     };
 
     const headerClass = classnames({
@@ -32,6 +39,15 @@ const Header = observer(({ showMenuButton }) => {
                     </svg>
                 )}
             </div>
+            <button
+                className="button header__referral"
+                type="button"
+                onClick={handleOpenReferral}
+            >
+                <svg className="icon icon--button">
+                    <use xlinkHref="#gift" />
+                </svg>
+            </button>
             {showMenuButton && (
                 <button
                     className="button header__setting"
