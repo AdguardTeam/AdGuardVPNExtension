@@ -59,10 +59,10 @@ const Icons = () => (
         </symbol>
 
         <symbol id="gift" viewBox="0 0 24 24" width="24" height="24">
-            <rect x="5" y="10" width="14" height="11" stroke="#74A352" strokeWidth="1.5" strokeLinejoin="round" />
-            <rect x="-0.75" y="0.75" width="17.5" height="2.5" transform="matrix(1 0 0 -1 4 10.5)" stroke="#74A352" strokeWidth="1.5" strokeLinejoin="round" />
-            <path d="M12 6.14273C12.8741 4.55946 14.9219 1.62639 16.6002 3.73742C18.2784 5.84844 14.2726 6.31865 12 6.14273Z" stroke="#74A352" strokeWidth="1.5" />
-            <path d="M11.8911 6.65113C11.0361 4.94529 9.03282 1.78516 7.39111 4.05961C5.74941 6.33406 9.66797 6.84067 11.8911 6.65113Z" stroke="#74A352" strokeWidth="1.5" />
+            <rect x="5" y="10" width="14" height="11" stroke="#74A352" strokeWidth="1.5" strokeLinejoin="round" fill="none" />
+            <rect x="-0.75" y="0.75" width="17.5" height="2.5" transform="matrix(1 0 0 -1 4 10.5)" stroke="#74A352" strokeWidth="1.5" strokeLinejoin="round" fill="none" />
+            <path d="M12 6.14273C12.8741 4.55946 14.9219 1.62639 16.6002 3.73742C18.2784 5.84844 14.2726 6.31865 12 6.14273Z" stroke="#74A352" strokeWidth="1.5" fill="none" />
+            <path d="M11.8911 6.65113C11.0361 4.94529 9.03282 1.78516 7.39111 4.05961C5.74941 6.33406 9.66797 6.84067 11.8911 6.65113Z" stroke="#74A352" strokeWidth="1.5" fill="none" />
         </symbol>
 
         <symbol id="bullet_off" viewBox="0 0 24 24">

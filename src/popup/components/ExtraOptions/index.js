@@ -57,7 +57,7 @@ const ExtraOptions = observer(() => {
         >
             <Option
                 handler={handleGetFreeTrafficClick}
-                text={reactTranslator.getMessage('settings_get_free_traffic')}
+                text={reactTranslator.getMessage('referral_get_free_traffic')}
             />
             <Option
                 handler={handleOtherProductsClick}

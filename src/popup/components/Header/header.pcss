@@ -17,5 +17,36 @@
     &__referral {
         position: relative;
         left: 10px;
+
+        &__hint {
+            position: fixed;
+            right: 50px;
+            top: 50px;
+            display: none;
+            border-radius: 7px;
+            padding: 6px 18px;
+            font-size: 1.44rem;
+            background-color: var(--grayf7);
+            color: var(--gray-base);
+            box-shadow: 0 4px 5px 2px var(--shadow);
+            cursor: pointer;
+            text-decoration: none;
+
+
+            &:after {
+                content: "▲";
+                color: var(--grayf7);
+                z-index: 2;
+                display: block;
+                position: absolute;
+                padding-left: 50px;
+                top: -12px;
+                right: 25px;
+            }
+        }
+
+        &:hover .header__referral__hint {
+            display: block;
+        }
     }
 }

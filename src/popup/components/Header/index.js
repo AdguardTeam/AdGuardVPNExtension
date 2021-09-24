@@ -7,6 +7,7 @@ import { BUILD_ENV } from '../../../background/config';
 import './header.pcss';
 import { rootStore } from '../../stores';
 import { popupActions } from '../../actions/popupActions';
+import { reactTranslator } from '../../../common/reactTranslator';
 
 const Header = observer(({ showMenuButton }) => {
     const { uiStore } = useContext(rootStore);
@@ -15,7 +16,8 @@ const Header = observer(({ showMenuButton }) => {
         uiStore.openOptionsModal(true);
     };
 
-    const handleOpenReferral = async () => {
+    const handleOpenReferral = async (e) => {
+        e.preventDefault();
         const referralProgramPageUrl = `chrome-extension://${browser.runtime.id}/options.html#referral-program`;
         await popupActions.openTab(referralProgramPageUrl);
     };
@@ -39,15 +41,24 @@ const Header = observer(({ showMenuButton }) => {
                     </svg>
                 )}
             </div>
-            <button
-                className="button header__referral"
-                type="button"
-                onClick={handleOpenReferral}
-            >
-                <svg className="icon icon--button">
-                    <use xlinkHref="#gift" />
-                </svg>
-            </button>
+            <div className="header__referral">
+                <button
+                    className="button header__referral__button"
+                    type="button"
+                    onClick={handleOpenReferral}
+                >
+                    <svg className="icon icon--button">
+                        <use xlinkHref="#gift" />
+                    </svg>
+                </button>
+                <a
+                    className="header__referral__hint"
+                    href="#"
+                    onClick={handleOpenReferral}
+                >
+                    {reactTranslator.getMessage('referral_add_free_traffic')}
+                </a>
+            </div>
             {showMenuButton && (
                 <button
                     className="button header__setting"
