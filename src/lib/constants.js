@@ -72,6 +72,7 @@ export const MESSAGES_TYPES = {
     REPORT_BUG: 'post.report.bug',
     SET_DESKTOP_VPN_ENABLED: 'set.desktop.vpn.enabled',
     OPEN_PREMIUM_PROMO_PAGE: 'open.premium.promo.page',
+    GET_REFERRAL_DATA: 'get.referral.data',
 };
 
 export const ERROR_STATUSES = {

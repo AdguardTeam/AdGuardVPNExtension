@@ -50,6 +50,10 @@ export class SettingsStore {
 
     @observable dnsServer = DNS_DEFAULT;
 
+    @observable referralLink = '';
+
+    @observable referralPartners = 0;
+
     @action
     getExclusions = async () => {
         const exclusionsData = await messenger.getExclusionsData();
@@ -264,6 +268,16 @@ export class SettingsStore {
         const value = await messenger.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER);
         runInAction(() => {
             this.dnsServer = value;
+        });
+    };
+
+    @action
+    updateReferralData = async () => {
+        const referralData = await messenger.getReferralData(SETTINGS_IDS.GET_REFERRAL_DATA);
+        const { referralLink, referralPartners } = referralData;
+        runInAction(() => {
+            this.referralLink = referralLink;
+            this.referralPartners = referralPartners;
         });
     };
 }

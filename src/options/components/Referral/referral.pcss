@@ -9,4 +9,38 @@
     &__info {
         max-width: 445px;
     }
+
+    &__status {
+        margin-top: 20px;
+        font-weight: bold;
+    }
+
+    &__link {
+        margin-top: 40px;
+
+        &__input {
+            width: 270px;
+            padding: 16px 23px;
+            border: none;
+            border-radius: 6px;
+            background-color: var(--grayF2);
+            color: var(--gray-base);
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        &__copy-button {
+            padding: 16px 23px;
+            font-size: 1.2rem;
+            border-radius: 6px;
+            border: none;
+            background-color: var(--green700);
+            color: var(--grayF2);
+            cursor: pointer;
+
+            &:hover {
+                filter: brightness(1.05);
+            }
+        }
+    }
 }

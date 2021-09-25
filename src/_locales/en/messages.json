@@ -200,6 +200,12 @@
     "settings_referral_info": {
         "message": "Invite your friends to our ninja clan and get more bonus traffic for a month. Receive 1 GB for each newly signed up friend. They also get 1 GB extra for free! (You can get 10 GB in total for free!)"
     },
+    "settings_referral_invited_friends": {
+        "message": "Invited friends"
+    },
+    "settings_referral_copy_link": {
+        "message": "Copy link"
+    },
     "settings_rate_us": {
         "message": "Rate us"
     },

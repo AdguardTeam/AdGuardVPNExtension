@@ -30,6 +30,7 @@ export class GlobalStore {
             await settingsStore.getContextMenusEnabled();
             await settingsStore.getHelpUsImprove();
             await settingsStore.getDnsServer();
+            await settingsStore.updateReferralData();
             this.setInitStatus(REQUEST_STATUSES.DONE);
         } catch (e) {
             log.error(e.message);

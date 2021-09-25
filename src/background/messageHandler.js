@@ -21,6 +21,7 @@ import tabs from './tabs';
 import vpnProvider from './providers/vpnProvider';
 import { logStorage } from '../lib/log-storage';
 import { setDesktopVpnEnabled } from './connectivity/connectivityService/connectivityFSM';
+import { referralData } from './referral';
 
 const eventListeners = {};
 
@@ -259,6 +260,9 @@ const messageHandler = async (message, sender) => {
         }
         case MESSAGES_TYPES.OPEN_PREMIUM_PROMO_PAGE: {
             return actions.openPremiumPromoPage();
+        }
+        case MESSAGES_TYPES.GET_REFERRAL_DATA: {
+            return referralData;
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);
