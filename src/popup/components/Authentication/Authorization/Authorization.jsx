@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { rootStore } from '../../../stores';
 
+import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { AUTH_PROVIDERS } from '../../../../lib/constants';
 
