@@ -62,11 +62,8 @@ export const App = observer(() => {
     const {
         requestProcessState,
         authenticated,
-        credentials,
         marketingConsent,
     } = authStore;
-
-    console.log(`%%% MARKETING CONSENT: ${credentials.marketingConsent}`);
 
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
 
