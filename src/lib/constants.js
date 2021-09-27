@@ -11,7 +11,6 @@ export const SETTINGS_IDS = {
     LOCATION_SELECTED_BY_USER_KEY: 'endpoints.location.selected.by.user',
     POLICY_AGREEMENT: 'policy.agreement',
     HELP_US_IMPROVE: 'help.us.improve',
-    SHOW_NEWSLETTER: 'show.newsletter',
     SHOW_UPGRADE_SCREEN: 'show.upgrade.screen',
     SHOW_ONBOARDING: 'show.onboarding',
     APPEARANCE_THEME: 'appearance.theme',
@@ -75,6 +74,7 @@ export const MESSAGES_TYPES = {
     REPORT_BUG: 'post.report.bug',
     SET_DESKTOP_VPN_ENABLED: 'set.desktop.vpn.enabled',
     OPEN_PREMIUM_PROMO_PAGE: 'open.premium.promo.page',
+    GET_RUN_INFO: 'get.run.info',
 };
 
 export const ERROR_STATUSES = {

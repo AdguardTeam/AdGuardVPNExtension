@@ -1,8 +1,10 @@
 import React, { useContext } from 'react';
+
 import { rootStore } from '../../../stores';
-import './upgrade-screen.pcss';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { CloseButton } from '../../ui/CloseButton';
+
+import './upgrade-screen.pcss';
 
 export const UpgradeScreen = () => {
     const { settingsStore, vpnStore } = useContext(rootStore);

@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import { rootStore } from '../../../stores';
 
-import './authorization.pcss';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { AUTH_PROVIDERS } from '../../../../lib/constants';
+
+import './authorization.pcss';
 
 export const Authorization = () => {
     const { authStore } = useContext(rootStore);

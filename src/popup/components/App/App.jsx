@@ -46,7 +46,31 @@ export const App = observer(() => {
         globalStore,
     } = useContext(rootStore);
 
-    const { desktopVpnEnabled } = settingsStore;
+    const {
+        desktopVpnEnabled,
+        canControlProxy,
+        hasGlobalError,
+        checkPermissionsState,
+        hasLimitExceededError,
+        promoScreenState,
+        displayExclusionScreen,
+        canBeExcluded,
+        showLimitExceededScreen,
+        runInfo,
+    } = settingsStore;
+
+    const {
+        requestProcessState,
+        authenticated,
+        credentials,
+        marketingConsent,
+    } = authStore;
+
+    console.log(`%%% MARKETING CONSENT: ${credentials.marketingConsent}`);
+
+    const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
+
+    const { premiumPromoEnabled, isPremiumToken } = vpnStore;
 
     useEffect(() => {
         settingsStore.getAppearanceTheme();
@@ -134,8 +158,6 @@ export const App = observer(() => {
         return null;
     }
 
-    const { requestProcessState, authenticated } = authStore;
-
     if (!authenticated) {
         return (
             <>
@@ -146,8 +168,8 @@ export const App = observer(() => {
             </>
         );
     }
-
-    if (authenticated && settingsStore.showNewsletter) {
+    // TODO: fix condition
+    if (runInfo.isFirstRun && !marketingConsent) {
         return (
             <>
                 <Newsletter />
@@ -155,7 +177,8 @@ export const App = observer(() => {
         );
     }
 
-    if (authenticated && settingsStore.showOnboarding) {
+    // TODO: fix condition
+    if (runInfo.isFirstRun && settingsStore.showOnboarding) {
         return (
             <>
                 <Onboarding />
@@ -163,27 +186,14 @@ export const App = observer(() => {
         );
     }
 
-    if (authenticated && settingsStore.showUpgradeScreen) {
+    // TODO: fix condition
+    if (authenticated && !isPremiumToken && settingsStore.showUpgradeScreen) {
         return (
             <>
                 <UpgradeScreen />
             </>
         );
     }
-
-    const {
-        canControlProxy,
-        hasGlobalError,
-        checkPermissionsState,
-        hasLimitExceededError,
-        promoScreenState,
-        displayExclusionScreen,
-        canBeExcluded,
-        showLimitExceededScreen,
-    } = settingsStore;
-
-    const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
-    const { premiumPromoEnabled, isPremiumToken } = vpnStore;
 
     if ((hasGlobalError && !hasLimitExceededError) || !canControlProxy || desktopVpnEnabled) {
         const showMenuButton = authenticated && canControlProxy;

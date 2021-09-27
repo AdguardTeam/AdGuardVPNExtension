@@ -1,9 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { observer } from 'mobx-react';
+
 import { rootStore } from '../../../stores';
-import './onboarding.pcss';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { Slide } from './Slide';
+
+import './onboarding.pcss';
 
 export const Onboarding = observer(() => {
     const { settingsStore } = useContext(rootStore);

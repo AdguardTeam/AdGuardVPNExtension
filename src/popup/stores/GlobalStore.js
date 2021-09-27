@@ -42,7 +42,6 @@ export class GlobalStore {
                 promoNotification,
                 policyAgreement,
                 desktopVpnEnabled,
-                showNewsletter,
                 showOnboarding,
                 showUpgradeScreen,
             } = popupData;
@@ -64,6 +63,7 @@ export class GlobalStore {
             }
 
             authStore.setIsAuthenticated(isAuthenticated);
+            await authStore.getAuthCacheFromBackground();
             authStore.setPolicyAgreement(policyAgreement);
             vpnStore.setVpnInfo(vpnInfo);
             vpnStore.setLocations(locations);
@@ -74,7 +74,7 @@ export class GlobalStore {
             settingsStore.setIsRoutable(isRoutable);
             settingsStore.setPromoNotification(promoNotification);
             settingsStore.setDesktopVpnEnabled(desktopVpnEnabled);
-            await settingsStore.setShowNewsletter(showNewsletter);
+            await settingsStore.updateRunInfo();
             await settingsStore.setShowOnboarding(showOnboarding);
             await settingsStore.setShowUpgradeScreen(showUpgradeScreen);
             await settingsStore.checkRateStatus();

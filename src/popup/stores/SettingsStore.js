@@ -9,7 +9,12 @@ import tabs from '../../background/tabs';
 import { log } from '../../lib/logger';
 import { getHostname, getProtocol } from '../../lib/helpers';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
-import { SETTINGS_IDS, PROMO_SCREEN_STATES, APPEARANCE_THEME_DEFAULT } from '../../lib/constants';
+import {
+    SETTINGS_IDS,
+    PROMO_SCREEN_STATES,
+    APPEARANCE_THEME_DEFAULT,
+    MESSAGES_TYPES,
+} from '../../lib/constants';
 import messenger from '../../lib/messenger';
 import { STATE } from '../../background/connectivity/connectivityService/connectivityConstants';
 
@@ -36,8 +41,6 @@ export class SettingsStore {
 
     @observable isRateVisible;
 
-    @observable showNewsletter = true;
-
     @observable showOnboarding = true;
 
     @observable showUpgradeScreen = true;
@@ -51,6 +54,8 @@ export class SettingsStore {
     @observable promoNotification = null;
 
     @observable appearanceTheme = APPEARANCE_THEME_DEFAULT;
+
+    @observable runInfo = {};
 
     constructor(rootStore) {
         this.rootStore = rootStore;
@@ -340,14 +345,6 @@ export class SettingsStore {
     };
 
     @action
-    setShowNewsletter = async (value) => {
-        await messenger.setSetting(SETTINGS_IDS.SHOW_NEWSLETTER, value);
-        runInAction(() => {
-            this.showNewsletter = value;
-        });
-    };
-
-    @action
     setShowUpgradeScreen = async (value) => {
         await messenger.setSetting(SETTINGS_IDS.SHOW_UPGRADE_SCREEN, value);
         runInAction(() => {
@@ -360,6 +357,14 @@ export class SettingsStore {
         await messenger.setSetting(SETTINGS_IDS.SHOW_ONBOARDING, value);
         runInAction(() => {
             this.showOnboarding = value;
+        });
+    };
+
+    @action
+    updateRunInfo = async () => {
+        const runInfo = await messenger.getRunInfo(MESSAGES_TYPES.GET_RUN_INFO);
+        runInAction(() => {
+            this.runInfo = runInfo;
         });
     };
 }

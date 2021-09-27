@@ -1,14 +1,15 @@
 import React, { useContext } from 'react';
+
 import { rootStore } from '../../../stores';
-import './newsletter.pcss';
 import { reactTranslator } from '../../../../common/reactTranslator';
 
+import './newsletter.pcss';
+
 export const Newsletter = () => {
-    const { authStore, settingsStore } = useContext(rootStore);
+    const { authStore } = useContext(rootStore);
 
     const handleClick = (value) => async () => {
         await authStore.setMarketingConsent(value);
-        await settingsStore.setShowNewsletter(false);
     };
 
     return (

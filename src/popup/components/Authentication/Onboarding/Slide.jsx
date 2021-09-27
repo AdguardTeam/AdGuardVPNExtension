@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
 import { rootStore } from '../../../stores';
-import './onboarding.pcss';
+
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { DotsIndicator } from '../../ui/DotsIndicator';
 import { CloseButton } from '../../ui/CloseButton';
+
+import './onboarding.pcss';
 
 export const Slide = (props) => {
     const { settingsStore } = useContext(rootStore);
