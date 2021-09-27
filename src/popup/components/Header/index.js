@@ -10,7 +10,8 @@ import { popupActions } from '../../actions/popupActions';
 import { reactTranslator } from '../../../common/reactTranslator';
 
 const Header = observer(({ showMenuButton }) => {
-    const { uiStore } = useContext(rootStore);
+    const { uiStore, vpnStore } = useContext(rootStore);
+    const { isPremiumToken } = vpnStore;
 
     const handleOpenModal = () => {
         uiStore.openOptionsModal(true);
@@ -41,24 +42,26 @@ const Header = observer(({ showMenuButton }) => {
                     </svg>
                 )}
             </div>
-            <div className="header__referral">
-                <button
-                    className="button header__referral__button"
-                    type="button"
-                    onClick={handleOpenReferral}
-                >
-                    <svg className="icon icon--button">
-                        <use xlinkHref="#gift" />
-                    </svg>
-                </button>
-                <a
-                    className="header__referral__hint"
-                    href="#"
-                    onClick={handleOpenReferral}
-                >
-                    {reactTranslator.getMessage('referral_add_free_traffic')}
-                </a>
-            </div>
+            {!isPremiumToken && (
+                <div className="header__referral">
+                    <button
+                        className="button header__referral__button"
+                        type="button"
+                        onClick={handleOpenReferral}
+                    >
+                        <svg className="icon icon--button">
+                            <use xlinkHref="#gift" />
+                        </svg>
+                    </button>
+                    <a
+                        className="header__referral__hint"
+                        href="#"
+                        onClick={handleOpenReferral}
+                    >
+                        {reactTranslator.getMessage('referral_add_free_traffic')}
+                    </a>
+                </div>
+            )}
             {showMenuButton && (
                 <button
                     className="button header__setting"

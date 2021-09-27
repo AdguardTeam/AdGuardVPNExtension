@@ -15,11 +15,18 @@ import { PROMO_SCREEN_STATES } from '../../../lib/constants';
 import './extra-options.pcss';
 
 const ExtraOptions = observer(() => {
-    const { uiStore, settingsStore, authStore } = useContext(rootStore);
+    const {
+        uiStore,
+        settingsStore,
+        authStore,
+        vpnStore,
+    } = useContext(rootStore);
 
     const {
         isRateVisible,
     } = settingsStore;
+
+    const { isPremiumToken } = vpnStore;
 
     const openSettings = async () => {
         await messenger.openOptionsPage();
@@ -55,10 +62,12 @@ const ExtraOptions = observer(() => {
             className="extra-options"
             overlayClassName="extra-options__overlay"
         >
-            <Option
-                handler={handleGetFreeTrafficClick}
-                text={reactTranslator.getMessage('referral_get_free_traffic')}
-            />
+            {!isPremiumToken && (
+                <Option
+                    handler={handleGetFreeTrafficClick}
+                    text={reactTranslator.getMessage('referral_get_free_traffic')}
+                />
+            )}
             <Option
                 handler={handleOtherProductsClick}
                 text={reactTranslator.getMessage('popup_settings_other_products')}

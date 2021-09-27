@@ -203,6 +203,9 @@
     "settings_referral_invited_friends": {
         "message": "Invited friends"
     },
+    "settings_referral_limit_reached": {
+        "message": "You've already received your 10 GB bonus. But your friends can still get 1 GB additional traffic if you invite them."
+    },
     "settings_referral_copy_link": {
         "message": "Copy link"
     },

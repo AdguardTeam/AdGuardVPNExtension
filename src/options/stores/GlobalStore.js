@@ -22,6 +22,7 @@ export class GlobalStore {
         try {
             await settingsStore.getAppearanceTheme();
             await authStore.isAuthenticated();
+            await authStore.requestIsPremiumToken();
             await settingsStore.getExclusions();
             await settingsStore.getVersion();
             await settingsStore.getUsername();

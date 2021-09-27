@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { observer } from 'mobx-react';
 import { NavLink } from 'react-router-dom';
 
 import { Rate } from './Rate';
 import { reactTranslator } from '../../../common/reactTranslator';
 
 import './sidebar.pcss';
+import { rootStore } from '../../stores';
 
-export const Sidebar = () => {
+export const Sidebar = observer(() => {
+    const { authStore } = useContext(rootStore);
+    const { isPremiumToken } = authStore;
+
     return (
         <div className="sidebar">
             <svg className="logo sidebar__logo" />
@@ -17,9 +22,11 @@ export const Sidebar = () => {
                 <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/settings">
                     {reactTranslator.getMessage('settings_title')}
                 </NavLink>
-                <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/referral-program">
-                    {reactTranslator.getMessage('referral_get_free_traffic')}
-                </NavLink>
+                {!isPremiumToken && (
+                    <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/referral-program">
+                        {reactTranslator.getMessage('referral_get_free_traffic')}
+                    </NavLink>
+                )}
                 <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/account">
                     {reactTranslator.getMessage('account_title')}
                 </NavLink>
@@ -35,4 +42,4 @@ export const Sidebar = () => {
             </div>
         </div>
     );
-};
+});

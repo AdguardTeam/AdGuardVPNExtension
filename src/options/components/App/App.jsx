@@ -28,7 +28,7 @@ import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
 
 Modal.setAppElement('#root');
 
-const getContent = (authenticated, requestProcessState) => {
+const getContent = (authenticated, requestProcessState, isPremiumToken) => {
     if (authenticated) {
         return (
             <div className="container">
@@ -38,7 +38,9 @@ const getContent = (authenticated, requestProcessState) => {
                         <Switch>
                             <Route path="/" exact component={Exclusions} />
                             <Route path="/settings" component={Settings} />
-                            <Route path="/referral-program" component={Referral} />
+                            {!isPremiumToken && (
+                                <Route path="/referral-program" component={Referral} />
+                            )}
                             <Route path="/account" component={Account} />
                             <Route path="/about" component={About} />
                             <Route path="/support" component={Support} />
@@ -128,11 +130,11 @@ export const App = observer(() => {
         return null;
     }
 
-    const { authenticated, requestProcessState } = authStore;
+    const { authenticated, requestProcessState, isPremiumToken } = authStore;
 
     return (
         <HashRouter hashType="noslash">
-            {getContent(authenticated, requestProcessState)}
+            {getContent(authenticated, requestProcessState, isPremiumToken)}
             <Notifications />
             <Icons />
             <Footer />
