@@ -170,11 +170,18 @@ export const App = observer(() => {
             </>
         );
     }
-
     // AG-10009
-    if ((showNewsletter && !marketingConsent && isFirstRun && isNewUser)
-        || (showNewsletter && !marketingConsent && isFirstRun && !isNewUser && isSocialAuth)
-        || (showNewsletter && !marketingConsent && !isFirstRun && isNewUser && !isSocialAuth)) {
+    const renderNewsletter = showNewsletter && !marketingConsent
+        && ((isFirstRun && isNewUser)
+            || (isFirstRun && !isNewUser && isSocialAuth)
+            || (!isFirstRun && isNewUser && !isSocialAuth));
+
+    const renderOnboarding = showOnboarding
+        && (isFirstRun || (!isFirstRun && isNewUser && !isSocialAuth));
+
+    const renderUpgradeScreen = authenticated && !isPremiumToken && showUpgradeScreen;
+
+    if (renderNewsletter) {
         return (
             <>
                 <Newsletter />
@@ -182,8 +189,7 @@ export const App = observer(() => {
         );
     }
 
-    if ((showOnboarding && isFirstRun)
-        || (showOnboarding && !isFirstRun && isNewUser && !isSocialAuth)) {
+    if (renderOnboarding) {
         return (
             <>
                 <Onboarding />
@@ -191,7 +197,7 @@ export const App = observer(() => {
         );
     }
 
-    if (authenticated && !isPremiumToken && showUpgradeScreen) {
+    if (renderUpgradeScreen) {
         return (
             <>
                 <UpgradeScreen />

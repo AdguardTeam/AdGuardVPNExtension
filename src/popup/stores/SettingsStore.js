@@ -354,18 +354,18 @@ export class SettingsStore {
     };
 
     @action
-    setShowUpgradeScreen = async (value) => {
-        await messenger.setSetting(SETTINGS_IDS.SHOW_UPGRADE_SCREEN, value);
-        runInAction(() => {
-            this.showUpgradeScreen = value;
-        });
-    };
-
-    @action
     setShowOnboarding = async (value) => {
         await messenger.setSetting(SETTINGS_IDS.SHOW_ONBOARDING, value);
         runInAction(() => {
             this.showOnboarding = value;
+        });
+    };
+
+    @action
+    setShowUpgradeScreen = async (value) => {
+        await messenger.setSetting(SETTINGS_IDS.SHOW_UPGRADE_SCREEN, value);
+        runInAction(() => {
+            this.showUpgradeScreen = value;
         });
     };
 
