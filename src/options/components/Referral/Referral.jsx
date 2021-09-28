@@ -38,7 +38,7 @@ export const Referral = observer(() => {
             <img
                 src="../../../assets/images/free-traffic.svg"
                 className="referral__image"
-                alt="Get free traffic"
+                alt={reactTranslator.getMessage('referral_get_free_traffic')}
             />
             <Title title={reactTranslator.getMessage('referral_get_free_traffic')} />
             <div className="referral__info">
