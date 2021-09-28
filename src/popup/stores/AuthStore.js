@@ -62,6 +62,10 @@ export class AuthStore {
 
     @observable signInCheck = false;
 
+    @observable isNewUser;
+
+    @observable isSocialAuth;
+
     STEPS = AUTH_STEPS;
 
     constructor(rootStore) {
@@ -354,4 +358,14 @@ export class AuthStore {
     get marketingConsent() {
         return this.credentials.marketingConsent;
     }
+
+    @action
+    updateAuthInfo = async () => {
+        const isNewUser = await messenger.getSetting(SETTINGS_IDS.IS_NEW_USER);
+        const isSocialAuth = await messenger.getSetting(SETTINGS_IDS.IS_SOCIAL_AUTH);
+        runInAction(() => {
+            this.isNewUser = isNewUser;
+            this.isSocialAuth = isSocialAuth;
+        });
+    };
 }

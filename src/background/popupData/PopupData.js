@@ -62,6 +62,7 @@ class PopupData {
         const promoNotification = await promoNotifications.getCurrentNotification();
         const showUpgradeScreen = adguard.settings.getSetting(SETTINGS_IDS.SHOW_UPGRADE_SCREEN);
         const showOnboarding = adguard.settings.getSetting(SETTINGS_IDS.SHOW_ONBOARDING);
+        const showNewsletter = adguard.settings.getSetting(SETTINGS_IDS.SHOW_NEWSLETTER);
 
         // If error check permissions when popup is opened, ignoring multiple retries
         if (error) {
@@ -91,6 +92,7 @@ class PopupData {
             desktopVpnEnabled,
             showUpgradeScreen,
             showOnboarding,
+            showNewsletter,
         };
     };
 

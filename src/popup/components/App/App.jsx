@@ -57,12 +57,17 @@ export const App = observer(() => {
         canBeExcluded,
         showLimitExceededScreen,
         isFirstRun,
+        showOnboarding,
+        showNewsletter,
+        showUpgradeScreen,
     } = settingsStore;
 
     const {
         requestProcessState,
         authenticated,
         marketingConsent,
+        isNewUser,
+        isSocialAuth,
     } = authStore;
 
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
@@ -165,8 +170,11 @@ export const App = observer(() => {
             </>
         );
     }
-    // TODO: fix condition
-    if (isFirstRun && !marketingConsent) {
+
+    // AG-10009
+    if ((showNewsletter && !marketingConsent && isFirstRun && isNewUser)
+        || (showNewsletter && !marketingConsent && isFirstRun && !isNewUser && isSocialAuth)
+        || (showNewsletter && !marketingConsent && !isFirstRun && isNewUser && !isSocialAuth)) {
         return (
             <>
                 <Newsletter />
@@ -174,8 +182,8 @@ export const App = observer(() => {
         );
     }
 
-    // TODO: fix condition
-    if (isFirstRun && settingsStore.showOnboarding) {
+    if ((showOnboarding && isFirstRun)
+        || (showOnboarding && !isFirstRun && isNewUser && !isSocialAuth)) {
         return (
             <>
                 <Onboarding />
@@ -183,8 +191,7 @@ export const App = observer(() => {
         );
     }
 
-    // TODO: fix condition
-    if (authenticated && !isPremiumToken && settingsStore.showUpgradeScreen) {
+    if (authenticated && !isPremiumToken && showUpgradeScreen) {
         return (
             <>
                 <UpgradeScreen />

@@ -16,6 +16,7 @@ import { translator } from '../common/translator';
 import { fallbackApi } from './api/fallbackApi';
 // eslint-disable-next-line import/no-cycle
 import { settings } from './settings';
+import { SETTINGS_IDS } from '../lib/constants';
 
 class Auth {
     socialAuthState = null;
@@ -38,7 +39,8 @@ class Auth {
         }
 
         await this.setAccessToken(accessToken);
-
+        await settings.setSetting(SETTINGS_IDS.IS_NEW_USER, false);
+        await settings.setSetting(SETTINGS_IDS.IS_SOCIAL_AUTH, false);
         return { status: 'ok' };
     }
 
@@ -134,6 +136,8 @@ class Auth {
 
         // Notify options page, in order to update view
         notifier.notifyListeners(notifier.types.AUTHENTICATE_SOCIAL_SUCCESS);
+        await settings.setSetting(SETTINGS_IDS.IS_NEW_USER, false);
+        await settings.setSetting(SETTINGS_IDS.IS_SOCIAL_AUTH, true);
         await notifications.create({ message: translator.getMessage('authentication_successful_social') });
     }
 
@@ -167,6 +171,8 @@ class Auth {
 
         if (accessToken) {
             await this.setAccessToken(accessToken);
+            await settings.setSetting(SETTINGS_IDS.IS_NEW_USER, true);
+            await settings.setSetting(SETTINGS_IDS.IS_SOCIAL_AUTH, false);
             return { status: 'ok' };
         }
 

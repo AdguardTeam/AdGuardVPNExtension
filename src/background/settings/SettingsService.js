@@ -133,6 +133,7 @@ class SettingsService {
         return {
             ...oldSettings,
             VERSION: '9',
+            [SETTINGS_IDS.SHOW_NEWSLETTER]: this.defaults[SETTINGS_IDS.SHOW_NEWSLETTER],
             [SETTINGS_IDS.SHOW_UPGRADE_SCREEN]: this.defaults[SETTINGS_IDS.SHOW_UPGRADE_SCREEN],
             [SETTINGS_IDS.SHOW_ONBOARDING]: this.defaults[SETTINGS_IDS.SHOW_ONBOARDING],
         };

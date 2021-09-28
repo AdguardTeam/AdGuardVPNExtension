@@ -42,6 +42,8 @@ export class SettingsStore {
 
     @observable isFirstRun = false;
 
+    @observable showNewsletter = true;
+
     @observable showOnboarding = true;
 
     @observable showUpgradeScreen = true;
@@ -340,6 +342,14 @@ export class SettingsStore {
         const value = await messenger.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
         runInAction(() => {
             this.appearanceTheme = value;
+        });
+    };
+
+    @action
+    setShowNewsletter = async (value) => {
+        await messenger.setSetting(SETTINGS_IDS.SHOW_NEWSLETTER, value);
+        runInAction(() => {
+            this.showNewsletter = value;
         });
     };
 

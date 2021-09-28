@@ -11,12 +11,13 @@ export const SETTINGS_IDS = {
     LOCATION_SELECTED_BY_USER_KEY: 'endpoints.location.selected.by.user',
     POLICY_AGREEMENT: 'policy.agreement',
     HELP_US_IMPROVE: 'help.us.improve',
+    SHOW_NEWSLETTER: 'show.newsletter',
     SHOW_UPGRADE_SCREEN: 'show.upgrade.screen',
     SHOW_ONBOARDING: 'show.onboarding',
     APPEARANCE_THEME: 'appearance.theme',
     IS_FIRST_RUN: 'is.first.run',
-    // AUTH_TYPE: 'auth.type',
-    // AUTH_PROVIDER: 'auth.provider',
+    IS_NEW_USER: 'is.new.user',
+    IS_SOCIAL_AUTH: 'is.social.auth',
 };
 
 export const APPEARANCE_THEMES = {
@@ -101,8 +102,3 @@ export const AUTH_PROVIDERS = {
     GOOGLE: 'google',
     FACEBOOK: 'facebook',
 };
-
-// export const AUTH_TYPE = {
-//     REGISTER: 'register',
-//     LOGIN: 'login',
-// };

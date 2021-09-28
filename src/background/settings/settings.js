@@ -22,6 +22,7 @@ const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.APPEARANCE_THEME]: APPEARANCE_THEME_DEFAULT,
     [SETTINGS_IDS.SHOW_UPGRADE_SCREEN]: true,
     [SETTINGS_IDS.SHOW_ONBOARDING]: true,
+    [SETTINGS_IDS.SHOW_NEWSLETTER]: true,
 };
 
 const settingsService = new SettingsService(browserApi.storage, DEFAULT_SETTINGS);
