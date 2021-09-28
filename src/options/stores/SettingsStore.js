@@ -273,7 +273,7 @@ export class SettingsStore {
 
     @action
     updateReferralData = async () => {
-        const referralData = await messenger.getReferralData(SETTINGS_IDS.GET_REFERRAL_DATA);
+        const referralData = await messenger.getReferralData();
         const { referralLink, referralPartners } = referralData;
         runInAction(() => {
             this.referralLink = referralLink;

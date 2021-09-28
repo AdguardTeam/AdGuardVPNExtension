@@ -6,12 +6,12 @@ import { observer } from 'mobx-react';
 import Modal from 'react-modal';
 import { CSSTransition } from 'react-transition-group';
 
-import Header from '../Header';
+import { Header } from '../Header';
 import InfoMessage from '../InfoMessage';
 import FeedbackMessage from '../InfoMessage/FeedbackMessage';
 import Locations from '../Locations';
 import Authentication from '../Authentication';
-import ExtraOptions from '../ExtraOptions';
+import { ExtraOptions } from '../ExtraOptions';
 import Preloader from '../Preloader';
 import GlobalError from '../GlobalError';
 import Settings from '../Settings';
