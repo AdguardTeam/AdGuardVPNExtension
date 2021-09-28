@@ -37,6 +37,9 @@ const DEFAULTS = {
     policyAgreement: false,
     helpUsImprove: false,
     signInCheck: false,
+    showNewsletter: true,
+    showOnboarding: true,
+    showUpgradeScreen: true,
 };
 
 export class AuthStore {
@@ -60,11 +63,17 @@ export class AuthStore {
 
     @observable requestProcessState = REQUEST_STATUSES.DONE;
 
-    @observable signInCheck = false;
+    @observable signInCheck = DEFAULTS.signInCheck;
 
     @observable isNewUser;
 
     @observable isSocialAuth;
+
+    @observable showNewsletter = DEFAULTS.showNewsletter;
+
+    @observable showOnboarding = DEFAULTS.showOnboarding;
+
+    @observable showUpgradeScreen = DEFAULTS.showUpgradeScreen;
 
     STEPS = AUTH_STEPS;
 
@@ -80,6 +89,9 @@ export class AuthStore {
         this.error = DEFAULTS.error;
         this.step = DEFAULTS.step;
         this.signInCheck = DEFAULTS.signInCheck;
+        this.showNewsletter = DEFAULTS.showNewsletter;
+        this.showOnboarding = DEFAULTS.showOnboarding;
+        this.showUpgradeScreen = DEFAULTS.showUpgradeScreen;
     };
 
     @action
@@ -104,6 +116,9 @@ export class AuthStore {
             policyAgreement,
             helpUsImprove,
             marketingConsent,
+            showNewsletter,
+            showOnboarding,
+            showUpgradeScreen,
         } = await messenger.getAuthCache();
         runInAction(() => {
             this.credentials = {
@@ -123,6 +138,15 @@ export class AuthStore {
             }
             if (!isNil(helpUsImprove)) {
                 this.helpUsImprove = helpUsImprove;
+            }
+            if (!isNil(showNewsletter)) {
+                this.showNewsletter = showNewsletter;
+            }
+            if (!isNil(showOnboarding)) {
+                this.showOnboarding = showOnboarding;
+            }
+            if (!isNil(showUpgradeScreen)) {
+                this.showUpgradeScreen = showUpgradeScreen;
             }
         });
     };
@@ -366,6 +390,30 @@ export class AuthStore {
         runInAction(() => {
             this.isNewUser = isNewUser;
             this.isSocialAuth = isSocialAuth;
+        });
+    };
+
+    @action
+    setShowNewsletter = async (value) => {
+        await messenger.updateAuthCache('showNewsletter', value);
+        runInAction(() => {
+            this.showNewsletter = value;
+        });
+    };
+
+    @action
+    setShowOnboarding = async (value) => {
+        await messenger.updateAuthCache('showOnboarding', value);
+        runInAction(() => {
+            this.showOnboarding = value;
+        });
+    };
+
+    @action
+    setShowUpgradeScreen = async (value) => {
+        await messenger.updateAuthCache('showUpgradeScreen', value);
+        runInAction(() => {
+            this.showUpgradeScreen = value;
         });
     };
 }

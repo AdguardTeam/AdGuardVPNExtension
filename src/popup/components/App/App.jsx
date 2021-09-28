@@ -57,9 +57,6 @@ export const App = observer(() => {
         canBeExcluded,
         showLimitExceededScreen,
         isFirstRun,
-        showOnboarding,
-        showNewsletter,
-        showUpgradeScreen,
     } = settingsStore;
 
     const {
@@ -68,6 +65,9 @@ export const App = observer(() => {
         marketingConsent,
         isNewUser,
         isSocialAuth,
+        showOnboarding,
+        showNewsletter,
+        showUpgradeScreen,
     } = authStore;
 
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
@@ -179,7 +179,16 @@ export const App = observer(() => {
     const renderOnboarding = showOnboarding
         && (isFirstRun || (!isFirstRun && isNewUser && !isSocialAuth));
 
-    const renderUpgradeScreen = authenticated && !isPremiumToken && showUpgradeScreen;
+    const renderUpgradeScreen = showUpgradeScreen && !isPremiumToken;
+
+    // TODO remove redundant logging
+    log.info('IS NEW USER: ', isNewUser);
+    log.info('IS SOCIAL AUTH: ', isSocialAuth);
+    log.info('IS FIRST RUN: ', isFirstRun);
+    log.info('MARKETING CONSENT: ', marketingConsent);
+    log.info('SHOW NEWSLETTER: ', showNewsletter);
+    log.info('SHOW ONBOARDING: ', showOnboarding);
+    log.info('SHOW UPGRADE SCREEN: ', showUpgradeScreen);
 
     if (renderNewsletter) {
         return (

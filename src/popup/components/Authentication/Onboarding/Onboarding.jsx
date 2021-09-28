@@ -8,7 +8,7 @@ import { Slide } from './Slide';
 import './onboarding.pcss';
 
 export const Onboarding = observer(() => {
-    const { settingsStore } = useContext(rootStore);
+    const { authStore } = useContext(rootStore);
 
     const [currentSlideId, setCurrentSlideId] = useState(0);
 
@@ -35,7 +35,7 @@ export const Onboarding = observer(() => {
 
     const nextSlideHandler = async () => {
         if (currentSlideId === slides.length - 1) {
-            await settingsStore.setShowOnboarding(false);
+            await authStore.setShowOnboarding(false);
             return;
         }
         setCurrentSlideId(currentSlideId + 1);

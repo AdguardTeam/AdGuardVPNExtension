@@ -7,6 +7,9 @@ const AuthCache = () => {
         policyAgreement: null,
         helpUsImprove: null,
         marketingConsent: null,
+        showNewsletter: null,
+        showOnboarding: null,
+        showUpgradeScreen: null,
     };
 
     let authCache = { ...DEFAULTS };

@@ -8,7 +8,7 @@ import { CloseButton } from '../../ui/CloseButton';
 import './onboarding.pcss';
 
 export const Slide = (props) => {
-    const { settingsStore } = useContext(rootStore);
+    const { authStore } = useContext(rootStore);
 
     const {
         slideData,
@@ -24,7 +24,7 @@ export const Slide = (props) => {
     } = slideData;
 
     const handleCloseClick = async () => {
-        await settingsStore.setShowOnboarding(false);
+        await authStore.setShowOnboarding(false);
     };
 
     return (

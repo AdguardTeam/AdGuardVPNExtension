@@ -7,15 +7,15 @@ import { CloseButton } from '../../ui/CloseButton';
 import './upgrade-screen.pcss';
 
 export const UpgradeScreen = () => {
-    const { settingsStore, vpnStore } = useContext(rootStore);
+    const { authStore, vpnStore } = useContext(rootStore);
 
     const handleUpgradeClick = async () => {
-        await settingsStore.setShowUpgradeScreen(false);
+        await authStore.setShowUpgradeScreen(false);
         await vpnStore.openPremiumPromoPage();
     };
 
     const handleSkipClick = async () => {
-        await settingsStore.setShowUpgradeScreen(false);
+        await authStore.setShowUpgradeScreen(false);
     };
 
     const features = ['traffic', 'speed', 'all_locations', 'torrents', 'streaming'];

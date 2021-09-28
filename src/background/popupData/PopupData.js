@@ -60,9 +60,6 @@ class PopupData {
         const connectivityState = { value: connectivityService.state.value };
         const desktopVpnEnabled = await this.getDesktopEnabled();
         const promoNotification = await promoNotifications.getCurrentNotification();
-        const showUpgradeScreen = adguard.settings.getSetting(SETTINGS_IDS.SHOW_UPGRADE_SCREEN);
-        const showOnboarding = adguard.settings.getSetting(SETTINGS_IDS.SHOW_ONBOARDING);
-        const showNewsletter = adguard.settings.getSetting(SETTINGS_IDS.SHOW_NEWSLETTER);
 
         // If error check permissions when popup is opened, ignoring multiple retries
         if (error) {
@@ -90,9 +87,6 @@ class PopupData {
             connectivityState,
             promoNotification,
             desktopVpnEnabled,
-            showUpgradeScreen,
-            showOnboarding,
-            showNewsletter,
         };
     };
 
