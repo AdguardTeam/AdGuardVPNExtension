@@ -50,7 +50,7 @@ export const ExtraOptions = observer(() => {
     };
 
     const handleGetFreeTrafficClick = async () => {
-        const referralProgramPageUrl = `chrome-extension://${browser.runtime.id}/options.html#referral-program`;
+        const referralProgramPageUrl = browser.runtime.getURL('options.html#referral-program');
         await popupActions.openTab(referralProgramPageUrl);
     };
 

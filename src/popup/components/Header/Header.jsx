@@ -19,7 +19,7 @@ export const Header = observer(({ showMenuButton }) => {
 
     const handleOpenReferral = async (e) => {
         e.preventDefault();
-        const referralProgramPageUrl = `chrome-extension://${browser.runtime.id}/options.html#referral-program`;
+        const referralProgramPageUrl = browser.runtime.getURL('options.html#referral-program');
         await popupActions.openTab(referralProgramPageUrl);
     };
 
