@@ -14,6 +14,9 @@ export const SETTINGS_IDS = {
     SHOW_UPGRADE_SCREEN: 'show.upgrade.screen',
     SHOW_ONBOARDING: 'show.onboarding',
     APPEARANCE_THEME: 'appearance.theme',
+    IS_FIRST_RUN: 'is.first.run',
+    // AUTH_TYPE: 'auth.type',
+    // AUTH_PROVIDER: 'auth.provider',
 };
 
 export const APPEARANCE_THEMES = {
@@ -74,7 +77,6 @@ export const MESSAGES_TYPES = {
     REPORT_BUG: 'post.report.bug',
     SET_DESKTOP_VPN_ENABLED: 'set.desktop.vpn.enabled',
     OPEN_PREMIUM_PROMO_PAGE: 'open.premium.promo.page',
-    GET_RUN_INFO: 'get.run.info',
 };
 
 export const ERROR_STATUSES = {
@@ -99,3 +101,8 @@ export const AUTH_PROVIDERS = {
     GOOGLE: 'google',
     FACEBOOK: 'facebook',
 };
+
+// export const AUTH_TYPE = {
+//     REGISTER: 'register',
+//     LOGIN: 'login',
+// };

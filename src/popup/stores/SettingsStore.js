@@ -13,7 +13,6 @@ import {
     SETTINGS_IDS,
     PROMO_SCREEN_STATES,
     APPEARANCE_THEME_DEFAULT,
-    MESSAGES_TYPES,
 } from '../../lib/constants';
 import messenger from '../../lib/messenger';
 import { STATE } from '../../background/connectivity/connectivityService/connectivityConstants';
@@ -41,6 +40,8 @@ export class SettingsStore {
 
     @observable isRateVisible;
 
+    @observable isFirstRun = false;
+
     @observable showOnboarding = true;
 
     @observable showUpgradeScreen = true;
@@ -54,8 +55,6 @@ export class SettingsStore {
     @observable promoNotification = null;
 
     @observable appearanceTheme = APPEARANCE_THEME_DEFAULT;
-
-    @observable runInfo = {};
 
     constructor(rootStore) {
         this.rootStore = rootStore;
@@ -361,10 +360,10 @@ export class SettingsStore {
     };
 
     @action
-    updateRunInfo = async () => {
-        const runInfo = await messenger.getRunInfo(MESSAGES_TYPES.GET_RUN_INFO);
+    updateIsFirstRun = async () => {
+        const isFirstRun = await messenger.getSetting(SETTINGS_IDS.IS_FIRST_RUN);
         runInAction(() => {
-            this.runInfo = runInfo;
+            this.isFirstRun = isFirstRun;
         });
     };
 }

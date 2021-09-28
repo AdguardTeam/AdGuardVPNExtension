@@ -21,7 +21,6 @@ import tabs from './tabs';
 import vpnProvider from './providers/vpnProvider';
 import { logStorage } from '../lib/log-storage';
 import { setDesktopVpnEnabled } from './connectivity/connectivityService/connectivityFSM';
-import updateService from './updateService';
 
 const eventListeners = {};
 
@@ -260,9 +259,6 @@ const messageHandler = async (message, sender) => {
         }
         case MESSAGES_TYPES.OPEN_PREMIUM_PROMO_PAGE: {
             return actions.openPremiumPromoPage();
-        }
-        case MESSAGES_TYPES.GET_RUN_INFO: {
-            return updateService.getRunInfo();
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

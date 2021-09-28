@@ -306,11 +306,6 @@ class Messenger {
         const type = MESSAGES_TYPES.OPEN_PREMIUM_PROMO_PAGE;
         return this.sendMessage(type);
     }
-
-    async getRunInfo() {
-        const type = MESSAGES_TYPES.GET_RUN_INFO;
-        return this.sendMessage(type);
-    }
 }
 
 export default new Messenger();

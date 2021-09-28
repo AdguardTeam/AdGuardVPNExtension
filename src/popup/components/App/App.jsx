@@ -56,7 +56,7 @@ export const App = observer(() => {
         displayExclusionScreen,
         canBeExcluded,
         showLimitExceededScreen,
-        runInfo,
+        isFirstRun,
     } = settingsStore;
 
     const {
@@ -166,7 +166,7 @@ export const App = observer(() => {
         );
     }
     // TODO: fix condition
-    if (runInfo.isFirstRun && !marketingConsent) {
+    if (isFirstRun && !marketingConsent) {
         return (
             <>
                 <Newsletter />
@@ -175,7 +175,7 @@ export const App = observer(() => {
     }
 
     // TODO: fix condition
-    if (runInfo.isFirstRun && settingsStore.showOnboarding) {
+    if (isFirstRun && settingsStore.showOnboarding) {
         return (
             <>
                 <Onboarding />

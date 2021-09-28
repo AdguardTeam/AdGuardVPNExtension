@@ -58,7 +58,7 @@ global.adguard = {
         await openThankYouPage(runInfo);
         permissionsChecker.init(); // should be initiated before auth module
         await auth.init();
-        await settings.init();
+        await settings.init(runInfo);
         await credentials.init(runInfo);
         await exclusions.init();
         await endpointsTldExclusions.init();

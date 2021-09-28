@@ -130,8 +130,9 @@ const isContextMenuEnabled = () => {
     return settingsService.getSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED);
 };
 
-const init = async () => {
+const init = async (runInfo) => {
     await settingsService.init();
+    await setSetting(SETTINGS_IDS.IS_FIRST_RUN, runInfo.isFirstRun, true);
     log.info('Settings module is ready');
 };
 

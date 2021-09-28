@@ -74,7 +74,7 @@ export class GlobalStore {
             settingsStore.setIsRoutable(isRoutable);
             settingsStore.setPromoNotification(promoNotification);
             settingsStore.setDesktopVpnEnabled(desktopVpnEnabled);
-            await settingsStore.updateRunInfo();
+            await settingsStore.updateIsFirstRun();
             await settingsStore.setShowOnboarding(showOnboarding);
             await settingsStore.setShowUpgradeScreen(showUpgradeScreen);
             await settingsStore.checkRateStatus();
