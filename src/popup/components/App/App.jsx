@@ -181,15 +181,6 @@ export const App = observer(() => {
 
     const renderUpgradeScreen = showUpgradeScreen && !isPremiumToken;
 
-    // TODO remove redundant logging
-    log.info('IS NEW USER: ', isNewUser);
-    log.info('IS SOCIAL AUTH: ', isSocialAuth);
-    log.info('IS FIRST RUN: ', isFirstRun);
-    log.info('MARKETING CONSENT: ', marketingConsent);
-    log.info('SHOW NEWSLETTER: ', showNewsletter);
-    log.info('SHOW ONBOARDING: ', showOnboarding);
-    log.info('SHOW UPGRADE SCREEN: ', showUpgradeScreen);
-
     if (renderNewsletter) {
         return (
             <>
