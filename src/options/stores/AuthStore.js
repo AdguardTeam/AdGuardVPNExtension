@@ -204,25 +204,16 @@ export class AuthStore {
     };
 
     @action
-    isAuthenticated = async () => {
-        this.requestProcessState = REQUEST_STATUSES.PENDING;
-        const result = await messenger.isAuthenticated();
-        // AG-644 set current endpoint in order to avoid bug in permissions checker
-        await messenger.getSelectedLocation();
-        if (result) {
-            runInAction(() => {
-                this.authenticated = true;
-            });
-        }
-        runInAction(() => {
-            this.requestProcessState = REQUEST_STATUSES.DONE;
-            this.receivedAuthenticationInfo = true;
-        });
+    setIsAuthenticated = (value) => {
+        this.authenticated = value;
     };
 
     @action
-    setIsAuthenticated = (value) => {
-        this.authenticated = value;
+    updateIsAuthenticated = (data) => {
+        if (data.isAuthenticated) {
+            this.authenticated = true;
+        }
+        this.receivedAuthenticationInfo = true;
     };
 
     @action

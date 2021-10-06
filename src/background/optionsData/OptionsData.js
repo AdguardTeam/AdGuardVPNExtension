@@ -3,6 +3,8 @@ import appStatus from '../appStatus';
 import credentials from '../credentials';
 import { SETTINGS_IDS } from '../../lib/constants';
 import exclusions from '../exclusions';
+import auth from '../auth';
+import endpoints from '../endpoints';
 
 export class OptionsData {
     getOptionsData = async () => {
@@ -25,6 +27,10 @@ export class OptionsData {
             currentMode: exclusionsCurrentMode,
         };
 
+        const isAuthenticated = await auth.isAuthenticated();
+        // AG-644 set current endpoint in order to avoid bug in permissions checker
+        await endpoints.getSelectedLocation();
+
         return {
             appVersion,
             username,
@@ -35,6 +41,7 @@ export class OptionsData {
             dnsServer,
             appearanceTheme,
             exclusionsData,
+            isAuthenticated,
         };
     }
 }

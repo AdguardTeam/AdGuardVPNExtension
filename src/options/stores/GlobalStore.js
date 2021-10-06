@@ -23,7 +23,7 @@ export class GlobalStore {
         try {
             const optionsData = await messenger.getOptionsData();
             settingsStore.setOptionsData(optionsData);
-            await authStore.isAuthenticated();
+            authStore.updateIsAuthenticated(optionsData);
             this.setInitStatus(REQUEST_STATUSES.DONE);
         } catch (e) {
             log.error(e.message);
