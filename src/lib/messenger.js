@@ -97,6 +97,11 @@ class Messenger {
         return this.sendMessage(type, { url, numberOfTries });
     }
 
+    async getOptionsData() {
+        const type = MESSAGES_TYPES.GET_OPTIONS_DATA;
+        return this.sendMessage(type);
+    }
+
     async getVpnFailurePage() {
         const type = MESSAGES_TYPES.GET_VPN_FAILURE_PAGE;
         return this.sendMessage(type);
@@ -215,16 +220,6 @@ class Messenger {
     async setSetting(settingId, value) {
         const type = MESSAGES_TYPES.SET_SETTING_VALUE;
         return this.sendMessage(type, { settingId, value });
-    }
-
-    async getAppVersion() {
-        const type = MESSAGES_TYPES.GET_APP_VERSION;
-        return this.sendMessage(type);
-    }
-
-    async getUsername() {
-        const type = MESSAGES_TYPES.GET_USERNAME;
-        return this.sendMessage(type);
     }
 
     async getExclusionsData() {

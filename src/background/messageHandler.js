@@ -3,6 +3,7 @@ import browser from 'webextension-polyfill';
 import { MESSAGES_TYPES } from '../lib/constants';
 import auth from './auth';
 import popupData from './popupData';
+import { optionsData } from './optionsData/optionsData';
 import endpoints from './endpoints';
 import actions from './actions';
 import credentials from './credentials';
@@ -60,6 +61,9 @@ const messageHandler = async (message, sender) => {
         case MESSAGES_TYPES.GET_POPUP_DATA: {
             const { url, numberOfTries } = data;
             return popupData.getPopupDataRetry(url, numberOfTries);
+        }
+        case MESSAGES_TYPES.GET_OPTIONS_DATA: {
+            return optionsData.getOptionsData();
         }
         case MESSAGES_TYPES.GET_VPN_FAILURE_PAGE: {
             return endpoints.getVpnFailurePage();
@@ -205,15 +209,9 @@ const messageHandler = async (message, sender) => {
             const { settingId } = data;
             return settings.getSetting(settingId);
         }
-        case MESSAGES_TYPES.GET_APP_VERSION: {
-            return appStatus.version;
-        }
         case MESSAGES_TYPES.SET_SETTING_VALUE: {
             const { settingId, value } = data;
             return settings.setSetting(settingId, value);
-        }
-        case MESSAGES_TYPES.GET_USERNAME: {
-            return credentials.getUsername();
         }
         case MESSAGES_TYPES.CHECK_IS_PREMIUM_TOKEN: {
             return credentials.isPremiumToken();

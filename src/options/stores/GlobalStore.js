@@ -6,6 +6,7 @@ import {
 
 import { REQUEST_STATUSES } from './consts';
 import { log } from '../../lib/logger';
+import messenger from '../../lib/messenger';
 
 export class GlobalStore {
     @observable initStatus = REQUEST_STATUSES.PENDING;
@@ -20,16 +21,9 @@ export class GlobalStore {
         this.setInitStatus(REQUEST_STATUSES.PENDING);
 
         try {
-            await settingsStore.getAppearanceTheme();
+            const optionsData = await messenger.getOptionsData();
+            settingsStore.setOptionsData(optionsData);
             await authStore.isAuthenticated();
-            await settingsStore.getExclusions();
-            await settingsStore.getVersion();
-            await settingsStore.getUsername();
-            await settingsStore.checkRateStatus();
-            await settingsStore.getWebRTCValue();
-            await settingsStore.getContextMenusEnabled();
-            await settingsStore.getHelpUsImprove();
-            await settingsStore.getDnsServer();
             this.setInitStatus(REQUEST_STATUSES.DONE);
         } catch (e) {
             log.error(e.message);
