@@ -3,7 +3,7 @@ import browser from 'webextension-polyfill';
 import { MESSAGES_TYPES } from '../lib/constants';
 import auth from './auth';
 import popupData from './popupData';
-import { optionsData } from './optionsData/optionsData';
+import { optionsData } from './optionsData';
 import endpoints from './endpoints';
 import actions from './actions';
 import credentials from './credentials';
