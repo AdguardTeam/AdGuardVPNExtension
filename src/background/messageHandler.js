@@ -68,6 +68,10 @@ const messageHandler = async (message, sender) => {
         case MESSAGES_TYPES.OPEN_OPTIONS_PAGE: {
             return actions.openOptionsPage();
         }
+        case MESSAGES_TYPES.OPEN_REFERRAL_OPTIONS: {
+            await actions.openReferralOptions();
+            break;
+        }
         case MESSAGES_TYPES.SET_SELECTED_LOCATION: {
             const { location, isSelectedByUser } = data;
             await locationsService.setSelectedLocation(location.id, isSelectedByUser);

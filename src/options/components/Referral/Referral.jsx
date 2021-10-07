@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { reactTranslator } from '../../../common/reactTranslator';
-
-import './referral.pcss';
 import { Title } from '../ui/Title';
 import { rootStore } from '../../stores';
+
+import './referral.pcss';
 
 const REFERRAL_PARTNERS_LIMIT = 10;
 

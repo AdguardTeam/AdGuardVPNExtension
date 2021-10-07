@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
-import browser from 'webextension-polyfill';
 import classnames from 'classnames';
-import { BUILD_ENV } from '../../../background/config';
 
-import './header.pcss';
+import { BUILD_ENV } from '../../../background/config';
 import { rootStore } from '../../stores';
 import { popupActions } from '../../actions/popupActions';
 import { reactTranslator } from '../../../common/reactTranslator';
+
+import './header.pcss';
 
 export const Header = observer(({ showMenuButton }) => {
     const { uiStore, vpnStore } = useContext(rootStore);
@@ -19,8 +19,7 @@ export const Header = observer(({ showMenuButton }) => {
 
     const handleOpenReferral = async (e) => {
         e.preventDefault();
-        const referralProgramPageUrl = browser.runtime.getURL('options.html#referral-program');
-        await popupActions.openTab(referralProgramPageUrl);
+        await popupActions.openReferralOptions();
     };
 
     const headerClass = classnames({

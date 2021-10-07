@@ -66,6 +66,19 @@ class Tabs {
         await browser.tabs.create({ url, active: true });
     }
 
+    async getTabByUrl(url) {
+        const tabsList = await browser.tabs.query({ url });
+        return tabsList[0];
+    }
+
+    async makeActive(tabId) {
+        try {
+            await browser.tabs.update(tabId, { active: true });
+        } catch (e) {
+            log.error(e.message);
+        }
+    }
+
     /**
      * Closes one or more tabs.
      * @param {(number|number[])} tabsIds

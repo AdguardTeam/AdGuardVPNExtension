@@ -107,6 +107,11 @@ class Messenger {
         return this.sendMessage(type);
     }
 
+    async openReferralOptions() {
+        const type = MESSAGES_TYPES.OPEN_REFERRAL_OPTIONS;
+        return this.sendMessage(type);
+    }
+
     async setCurrentLocation(location, isSelectedByUser) {
         const type = MESSAGES_TYPES.SET_SELECTED_LOCATION;
         return this.sendMessage(type, { location, isSelectedByUser });

@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
-import browser from 'webextension-polyfill';
 
 import { rootStore } from '../../stores';
 import { popupActions } from '../../actions/popupActions';
@@ -50,8 +49,7 @@ export const ExtraOptions = observer(() => {
     };
 
     const handleGetFreeTrafficClick = async () => {
-        const referralProgramPageUrl = browser.runtime.getURL('options.html#referral-program');
-        await popupActions.openTab(referralProgramPageUrl);
+        await popupActions.openReferralOptions();
     };
 
     return (

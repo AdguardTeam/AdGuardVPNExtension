@@ -127,6 +127,18 @@ const openPremiumPromoPage = async () => {
     await tabs.openTab(url);
 };
 
+const openReferralOptions = async () => {
+    const optionsUrl = browser.runtime.getURL('options.html');
+    const referralOptionsUrl = `${optionsUrl}#referral-program`;
+    const optionsTab = await tabs.getTabByUrl(optionsUrl);
+    if (optionsTab) {
+        await tabs.makeActive(optionsTab.id);
+        await tabs.update(optionsTab.id, referralOptionsUrl);
+    } else {
+        await tabs.openTab(referralOptionsUrl);
+    }
+};
+
 const actions = {
     openOptionsPage,
     setIconEnabled,
@@ -136,6 +148,7 @@ const actions = {
     clearBadgeText,
     getPremiumPromoPageUrl,
     openPremiumPromoPage,
+    openReferralOptions,
 };
 
 export default actions;
