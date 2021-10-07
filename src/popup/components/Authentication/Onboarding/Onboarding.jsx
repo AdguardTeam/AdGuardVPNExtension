@@ -41,11 +41,16 @@ export const Onboarding = observer(() => {
         setCurrentSlideId(currentSlideId + 1);
     };
 
+    const setCurrentSlide = (slideId) => {
+        setCurrentSlideId(slideId);
+    };
+
     return (
         <div className="onboarding">
             <Slide
                 slideData={slides[currentSlideId]}
                 nextSlideHandler={nextSlideHandler}
+                navigationHandler={setCurrentSlide}
                 slidesAmount={slides.length}
             />
         </div>

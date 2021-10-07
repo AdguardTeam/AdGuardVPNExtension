@@ -13,6 +13,7 @@ export const Slide = (props) => {
     const {
         slideData,
         nextSlideHandler,
+        navigationHandler,
         slidesAmount,
     } = props;
 
@@ -44,6 +45,7 @@ export const Slide = (props) => {
             <DotsIndicator
                 dotsAmount={slidesAmount}
                 activeDot={id}
+                navigationHandler={navigationHandler}
             />
             <button
                 type="button"
