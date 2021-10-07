@@ -209,6 +209,9 @@
     "settings_referral_copy_link": {
         "message": "Copy link"
     },
+    "settings_referral_link_copied": {
+        "message": "Link copied"
+    },
     "settings_rate_us": {
         "message": "Rate us"
     },
