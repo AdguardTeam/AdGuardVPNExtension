@@ -19,6 +19,14 @@ export const Checkbox = ({
 
     const formRef = useRef();
 
+    const prepareUrl = (url) => {
+        return url
+            ?.trim()
+            ?.toLowerCase()
+            ?.replace(/http(s)?:\/\//, '')
+            ?.replace(/\/$/, '');
+    };
+
     /**
      * It is impossible to use onBlur event because it causes bugs like AG-6430
      * when checkbox button is replaced with delete
@@ -33,6 +41,7 @@ export const Checkbox = ({
             handleRemove();
         } else {
             handleRename(hostname);
+            setHostname(prepareUrl(hostname));
             setIsChanged(false);
         }
     });
@@ -46,7 +55,7 @@ export const Checkbox = ({
         e.preventDefault();
         const trimmedHostname = hostname.trim();
         handleRename(trimmedHostname);
-        setHostname(trimmedHostname);
+        setHostname(prepareUrl(hostname));
         setIsChanged(false);
     };
 
