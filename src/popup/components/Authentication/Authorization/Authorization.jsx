@@ -13,6 +13,11 @@ export const Authorization = () => {
         await authStore.proceedAuthorization(provider);
     };
 
+    const providersData = {};
+    Object.values(AUTH_PROVIDERS).forEach((provider) => {
+        providersData[provider] = `auth_sign_in_provider_${provider}`;
+    });
+
     return (
         <div className="authorization">
             <div className="authorization__title">
@@ -22,14 +27,14 @@ export const Authorization = () => {
                 {reactTranslator.getMessage('auth_info')}
             </div>
             <div className="authorization__container">
-                {Object.values(AUTH_PROVIDERS).map((name) => (
+                {Object.keys(providersData).map((provider) => (
                     <button
-                        key={name}
+                        key={provider}
                         type="button"
-                        onClick={authClickHandler(name)}
-                        className={`button button--outline-secondary button--medium authorization__button authorization__${name}`}
+                        onClick={authClickHandler(provider)}
+                        className={`button button--outline-secondary button--medium authorization__button authorization__${provider}`}
                     >
-                        {reactTranslator.getMessage(`auth_sign_in_provider_${name}`)}
+                        {reactTranslator.getMessage(providersData[provider])}
                     </button>
                 ))}
             </div>
