@@ -495,22 +495,22 @@
     "popup_newsletter_no_subscribe": {
         "message": "No, thanks"
     },
-    "popup_onboarding_first_title": {
+    "popup_onboarding_trusted_vpn": {
         "message": "Trusted VPN"
     },
-    "popup_onboarding_first_info": {
+    "popup_onboarding_trusted_vpn_info": {
         "message": "By the developer of a world-famous ad blocker"
     },
-    "popup_onboarding_second_title": {
+    "popup_onboarding_numerous_locations": {
         "message": "Numerous locations"
     },
-    "popup_onboarding_second_info": {
+    "popup_onboarding_numerous_locations_info": {
         "message": "Connect to any of our servers located all over the world"
     },
-    "popup_onboarding_third_title": {
+    "popup_onboarding_fastest_servers": {
         "message": "Fastest servers"
     },
-    "popup_onboarding_third_info": {
+    "popup_onboarding_fastest_servers_info": {
         "message": "We use cutting edge technologies to guarantee the highest connection speed"
     },
     "popup_onboarding_next": {

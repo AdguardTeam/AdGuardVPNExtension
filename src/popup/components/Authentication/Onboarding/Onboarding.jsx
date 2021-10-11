@@ -16,20 +16,20 @@ export const Onboarding = observer(() => {
         {
             id: 0,
             image: 'trusted-vpn.svg',
-            title: reactTranslator.getMessage('popup_onboarding_first_title'),
-            info: reactTranslator.getMessage('popup_onboarding_first_info'),
+            title: reactTranslator.getMessage('popup_onboarding_trusted_vpn'),
+            info: reactTranslator.getMessage('popup_onboarding_trusted_vpn_info'),
         },
         {
             id: 1,
             image: 'numerous-locations.svg',
-            title: reactTranslator.getMessage('popup_onboarding_second_title'),
-            info: reactTranslator.getMessage('popup_onboarding_second_info'),
+            title: reactTranslator.getMessage('popup_onboarding_numerous_locations'),
+            info: reactTranslator.getMessage('popup_onboarding_numerous_locations_info'),
         },
         {
             id: 2,
             image: 'fastest-servers.svg',
-            title: reactTranslator.getMessage('popup_onboarding_third_title'),
-            info: reactTranslator.getMessage('popup_onboarding_third_info'),
+            title: reactTranslator.getMessage('popup_onboarding_fastest_servers'),
+            info: reactTranslator.getMessage('popup_onboarding_fastest_servers_info'),
         },
     ];
 
