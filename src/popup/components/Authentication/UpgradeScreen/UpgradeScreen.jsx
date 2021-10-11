@@ -18,7 +18,7 @@ export const UpgradeScreen = () => {
         await authStore.setShowUpgradeScreen(false);
     };
 
-    const features = ['traffic', 'speed', 'all_locations', 'torrents', 'streaming'];
+    const features = ['traffic', 'speed', 'all_locations', 'streaming'];
 
     return (
         <div className="upgrade-screen">
