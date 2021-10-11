@@ -16,7 +16,7 @@ import { translator } from '../common/translator';
 import { fallbackApi } from './api/fallbackApi';
 // eslint-disable-next-line import/no-cycle
 import { settings } from './settings';
-import { SETTINGS_IDS } from '../lib/constants';
+import { SETTINGS_IDS, AUTH_PROVIDERS } from '../lib/constants';
 
 class Auth {
     socialAuthState = null;
@@ -80,28 +80,16 @@ class Auth {
         };
 
         switch (socialProvider) {
-            case 'google': {
-                params.social_provider = 'google';
+            case AUTH_PROVIDERS.GOOGLE: {
+                params.social_provider = AUTH_PROVIDERS.GOOGLE;
                 break;
             }
-            case 'twitter': {
-                params.social_provider = 'twitter';
+            case AUTH_PROVIDERS.FACEBOOK: {
+                params.social_provider = AUTH_PROVIDERS.FACEBOOK;
                 break;
             }
-            case 'vk': {
-                params.social_provider = 'vk';
-                break;
-            }
-            case 'yandex': {
-                params.social_provider = 'yandex';
-                break;
-            }
-            case 'facebook': {
-                params.social_provider = 'facebook';
-                break;
-            }
-            case 'apple': {
-                params.social_provider = 'apple';
+            case AUTH_PROVIDERS.APPLE: {
+                params.social_provider = AUTH_PROVIDERS.APPLE;
                 break;
             }
             default:
