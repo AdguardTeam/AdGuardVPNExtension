@@ -39,7 +39,7 @@ export const UpgradeScreen = () => {
             <div className="upgrade-screen__info">
                 {Object.keys(benefits).map((benefit) => {
                     return (
-                        <div className="upgrade-screen__feature" key={benefit}>
+                        <div className="upgrade-screen__benefit" key={benefit}>
                             {reactTranslator.getMessage(benefits[benefit])}
                         </div>
                     );
