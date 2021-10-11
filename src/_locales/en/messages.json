@@ -519,10 +519,10 @@
     "popup_upgrade_screen_title": {
         "message": "Unlimited VPN"
     },
-    "popup_upgrade_screen_traffic": {
+    "popup_upgrade_screen_unlimited_data": {
         "message": "Unlimited data"
     },
-    "popup_upgrade_screen_speed": {
+    "popup_upgrade_screen_unlimited_speed": {
         "message": "Unlimited speed"
     },
     "popup_upgrade_screen_all_locations": {

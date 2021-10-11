@@ -18,7 +18,12 @@ export const UpgradeScreen = () => {
         await authStore.setShowUpgradeScreen(false);
     };
 
-    const features = ['traffic', 'speed', 'all_locations', 'streaming'];
+    const benefits = {
+        data: 'popup_upgrade_screen_unlimited_data',
+        speed: 'popup_upgrade_screen_unlimited_speed',
+        locations: 'popup_upgrade_screen_all_locations',
+        streaming: 'popup_upgrade_screen_streaming',
+    };
 
     return (
         <div className="upgrade-screen">
@@ -32,10 +37,10 @@ export const UpgradeScreen = () => {
                 {reactTranslator.getMessage('popup_upgrade_screen_title')}
             </div>
             <div className="upgrade-screen__info">
-                {features.map((feature) => {
+                {Object.keys(benefits).map((benefit) => {
                     return (
-                        <div className="upgrade-screen__feature" key={feature}>
-                            {reactTranslator.getMessage(`popup_upgrade_screen_${feature}`)}
+                        <div className="upgrade-screen__feature" key={benefit}>
+                            {reactTranslator.getMessage(benefits[benefit])}
                         </div>
                     );
                 })}
