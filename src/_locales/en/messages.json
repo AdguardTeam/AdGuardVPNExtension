@@ -162,7 +162,7 @@
         "message": "Authorization"
     },
     "auth_info": {
-        "message": "Continue with your AdGuard account or with connected social networks"
+        "message": "Continue with your AdGuard account or with social login"
     },
     "auth_sign_in_provider_adguard": {
         "message": "Continue with AdGuard"
