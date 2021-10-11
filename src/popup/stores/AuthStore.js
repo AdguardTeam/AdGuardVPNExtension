@@ -27,7 +27,6 @@ const DEFAULTS = {
         marketingConsent: false,
     },
     authenticated: false,
-    receivedAuthenticationInfo: false,
     need2fa: false,
     error: null,
     field: '',
@@ -42,8 +41,6 @@ export class AuthStore {
     @observable credentials = DEFAULTS.credentials;
 
     @observable authenticated = DEFAULTS.authenticated;
-
-    @observable receivedAuthenticationInfo = DEFAULTS.receivedAuthenticationInfo;
 
     @observable need2fa = DEFAULTS.need2fa;
 
@@ -238,7 +235,6 @@ export class AuthStore {
         }
         runInAction(() => {
             this.requestProcessState = REQUEST_STATUSES.DONE;
-            this.receivedAuthenticationInfo = true;
         });
     };
 
