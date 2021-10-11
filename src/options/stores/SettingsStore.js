@@ -224,4 +224,12 @@ export class SettingsStore {
         this.appearanceTheme = data.appearanceTheme;
         this.setExclusions(data.exclusionsData);
     };
+
+    @action
+    updateCurrentUsername = async () => {
+        const currentUsername = await messenger.getUsername();
+        runInAction(() => {
+            this.currentUsername = currentUsername;
+        });
+    }
 }

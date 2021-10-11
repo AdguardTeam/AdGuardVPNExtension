@@ -250,6 +250,9 @@ const messageHandler = async (message, sender) => {
             const { settingId, value } = data;
             return settings.setSetting(settingId, value);
         }
+        case MESSAGES_TYPES.GET_USERNAME: {
+            return credentials.getUsername();
+        }
         case MESSAGES_TYPES.CHECK_IS_PREMIUM_TOKEN: {
             return credentials.isPremiumToken();
         }

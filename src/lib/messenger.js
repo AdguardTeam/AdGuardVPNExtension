@@ -222,6 +222,11 @@ class Messenger {
         return this.sendMessage(type, { settingId, value });
     }
 
+    async getUsername() {
+        const type = MESSAGES_TYPES.GET_USERNAME;
+        return this.sendMessage(type);
+    }
+
     async getExclusionsData() {
         const type = MESSAGES_TYPES.GET_EXCLUSIONS;
         return this.sendMessage(type);
