@@ -162,7 +162,7 @@
         "message": "Authorization"
     },
     "auth_info": {
-        "message": "Continue with your AdGuard account or with connected social networks"
+        "message": "Continue with your AdGuard account or with social login"
     },
     "auth_sign_in_provider_adguard": {
         "message": "Continue with AdGuard"
@@ -499,7 +499,7 @@
         "message": "Trusted VPN"
     },
     "popup_onboarding_trusted_vpn_info": {
-        "message": "By the developer of a world-famous ad blocker"
+        "message": "By the developer of the world-famous ad blocker"
     },
     "popup_onboarding_numerous_locations": {
         "message": "Numerous locations"
@@ -511,7 +511,7 @@
         "message": "Fastest servers"
     },
     "popup_onboarding_fastest_servers_info": {
-        "message": "We use cutting edge technologies to guarantee the highest connection speed"
+        "message": "We use cutting-edge technologies to guarantee the highest connection speed"
     },
     "popup_onboarding_next": {
         "message": "Next"
@@ -614,6 +614,6 @@
         "message": "You have signed out of AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "Please note that your connection is not secure. To continue surfing privately, click on the AdGuard VPN icon and sign in again."
+        "message": "Your connection is not secure. To continue surfing privately, click the AdGuard VPN icon and sign in again."
     }
 }
