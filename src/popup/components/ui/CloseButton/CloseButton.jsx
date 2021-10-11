@@ -2,8 +2,8 @@ import React from 'react';
 
 import './close-button.pcss';
 
-export const CloseButton = (prop) => {
-    const { handler } = prop;
+export const CloseButton = (props) => {
+    const { handler } = props;
 
     const clickHandler = () => {
         handler();
