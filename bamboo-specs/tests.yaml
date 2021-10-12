@@ -32,7 +32,7 @@ Test:
             set -e
             set -x
 
-            yarn install ${system.YARN_ARGS}
+            yarn install ${bamboo.varsYarn}
             yarn lint
             yarn test
 
