@@ -82,7 +82,7 @@ const createUpdateJsonContent = (
                 {
                     version,
                     update_link,
-                    applications: {
+                    browser_specific_settings: {
                         gecko: {
                             strict_min_version,
                         },
@@ -96,7 +96,7 @@ const createUpdateJsonContent = (
 const createUpdateJson = async (manifest) => {
     try {
         // eslint-disable-next-line camelcase
-        const { id, strict_min_version } = manifest.applications.gecko;
+        const { id, strict_min_version } = manifest.browser_specific_settings.gecko;
 
         const fileContent = createUpdateJsonContent(
             {
@@ -122,7 +122,7 @@ const updateFirefoxManifest = async () => {
         __dirname, BUILD_PATH, outputPath, BROWSERS.FIREFOX, MANIFEST_NAME,
     );
     const manifest = JSON.parse(await fs.readFile(MANIFEST_PATH, 'utf-8'));
-    manifest.applications.gecko.update_url = FIREFOX_UPDATE_URL;
+    manifest.browser_specific_settings.gecko.update_url = FIREFOX_UPDATE_URL;
     await fs.writeFile(MANIFEST_PATH, JSON.stringify(manifest, null, 4));
 };
 

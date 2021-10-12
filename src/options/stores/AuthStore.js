@@ -25,7 +25,6 @@ const DEFAULTS = {
         twoFactor: '',
     },
     authenticated: false,
-    receivedAuthenticationInfo: false,
     need2fa: false,
     error: null,
     field: '',
@@ -38,8 +37,6 @@ export class AuthStore {
     @observable credentials = DEFAULTS.credentials;
 
     @observable authenticated = DEFAULTS.authenticated;
-
-    @observable receivedAuthenticationInfo = DEFAULTS.receivedAuthenticationInfo;
 
     @observable need2fa = DEFAULTS.need2fa;
 
@@ -201,23 +198,6 @@ export class AuthStore {
                 this.credentials = DEFAULTS.credentials;
             });
         }
-    };
-
-    @action
-    isAuthenticated = async () => {
-        this.requestProcessState = REQUEST_STATUSES.PENDING;
-        const result = await messenger.isAuthenticated();
-        // AG-644 set current endpoint in order to avoid bug in permissions checker
-        await messenger.getSelectedLocation();
-        if (result) {
-            runInAction(() => {
-                this.authenticated = true;
-            });
-        }
-        runInAction(() => {
-            this.requestProcessState = REQUEST_STATUSES.DONE;
-            this.receivedAuthenticationInfo = true;
-        });
     };
 
     @action

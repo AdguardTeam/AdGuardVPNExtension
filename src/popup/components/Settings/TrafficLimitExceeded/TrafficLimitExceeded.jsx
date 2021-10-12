@@ -10,6 +10,7 @@ const TrafficLimitExceeded = observer(() => {
     const upgradeClickHandler = async (e) => {
         e.preventDefault();
         await vpnStore.openPremiumPromoPage();
+        window.close();
     };
 
     const handleClose = (e) => {

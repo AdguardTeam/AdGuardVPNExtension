@@ -112,6 +112,6 @@ For a full list of all `npm` packages in use, please take a look at [package.jso
 | Browser                 	| Version 	|
 |-------------------------	|:-------:	|
 | Chromium Based Browsers 	|    66   	|
-| Firefox                 	|    60   	|
+| Firefox                 	|    91.1   	|
 
 
