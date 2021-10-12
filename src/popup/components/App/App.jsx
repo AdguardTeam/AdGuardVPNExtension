@@ -170,7 +170,7 @@ export const App = observer(() => {
             </>
         );
     }
-    // AG-10009
+    // AG-10009 Newsletter subscription and onboarding screens
     const renderNewsletter = showNewsletter && !marketingConsent
         && ((isFirstRun && isNewUser)
             || (isFirstRun && !isNewUser && isSocialAuth)
@@ -179,30 +179,16 @@ export const App = observer(() => {
     const renderOnboarding = showOnboarding
         && (isFirstRun || (!isFirstRun && isNewUser && !isSocialAuth));
 
-    const renderUpgradeScreen = showUpgradeScreen && !isPremiumToken;
-
     if (renderNewsletter) {
-        return (
-            <>
-                <Newsletter />
-            </>
-        );
+        return <Newsletter />;
     }
 
     if (renderOnboarding) {
-        return (
-            <>
-                <Onboarding />
-            </>
-        );
+        return <Onboarding />;
     }
 
-    if (renderUpgradeScreen) {
-        return (
-            <>
-                <UpgradeScreen />
-            </>
-        );
+    if (showUpgradeScreen && !isPremiumToken) {
+        return <UpgradeScreen />;
     }
 
     if ((hasGlobalError && !hasLimitExceededError) || !canControlProxy || desktopVpnEnabled) {
