@@ -31,7 +31,7 @@ Build:
             set -e
             ls -alt
 
-            yarn install ${system.YARN_ARGS}
+            yarn install ${bamboo.varsYarn}
             yarn lint
             yarn test
             yarn locales:validate --min
