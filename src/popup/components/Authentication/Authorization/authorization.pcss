@@ -16,13 +16,14 @@
         line-height: 2rem;
     }
 
+    &__container {
+        position: relative;
+    }
+
     &__button {
         width: 100%;
         text-transform: none;
         margin-bottom: 15px;
-        background-repeat: no-repeat;
-        background-position: 13px center;
-        background-size: 16px;
         color: var(--gray-base);
         font-size: 1.54rem;
         padding: 16px 20px;
@@ -31,27 +32,12 @@
             border-color: var(--gray-base);
             background-color: transparent;
         }
-    }
 
-    &__adguard {
-        background-image: url("../../../../assets/images/adguard.svg");
-    }
-
-    &__apple {
-        background-image: url("../../../../assets/images/apple.svg");
-    }
-
-    @media (prefers-color-scheme: dark) {
-        &__apple {
-            background-image: url("../../../../assets/images/apple-light.svg");
+        &__social-icon {
+            width: 16px;
+            height: 16px;
+            position: absolute;
+            left: 17px;
         }
-    }
-
-    &__google {
-        background-image: url("../../../../assets/images/google.svg");
-    }
-
-    &__facebook {
-        background-image: url("../../../../assets/images/facebook.svg");
     }
 }

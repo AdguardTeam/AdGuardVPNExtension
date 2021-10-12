@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { AUTH_PROVIDERS } from '../../../../lib/constants';
+import Icon from '../../ui/Icon';
 
 import './authorization.pcss';
 
@@ -34,6 +35,7 @@ export const Authorization = () => {
                         onClick={authClickHandler(provider)}
                         className={`button button--outline-secondary button--medium authorization__button authorization__${provider}`}
                     >
+                        <Icon icon={`auth_icon_${provider}`} className="authorization__button__social-icon" />
                         {reactTranslator.getMessage(providersData[provider])}
                     </button>
                 ))}
