@@ -101,10 +101,12 @@ export const App = observer(() => {
                         }
                         case notifier.types.USER_AUTHENTICATED: {
                             authStore.setIsAuthenticated(true);
+                            await settingsStore.updateCurrentUsername();
                             break;
                         }
                         case notifier.types.USER_DEAUTHENTICATED: {
                             authStore.setIsAuthenticated(false);
+                            await settingsStore.updateCurrentUsername();
                             break;
                         }
                         default: {
