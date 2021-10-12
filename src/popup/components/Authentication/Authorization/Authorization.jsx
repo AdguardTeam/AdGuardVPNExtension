@@ -33,7 +33,7 @@ export const Authorization = () => {
                         key={provider}
                         type="button"
                         onClick={authClickHandler(provider)}
-                        className={`button button--outline-secondary button--medium authorization__button authorization__${provider}`}
+                        className="button button--outline-secondary button--medium authorization__button"
                     >
                         <Icon icon={`auth_icon_${provider}`} className="authorization__button__social-icon" />
                         {reactTranslator.getMessage(providersData[provider])}

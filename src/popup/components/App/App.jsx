@@ -66,7 +66,6 @@ export const App = observer(() => {
         isNewUser,
         isSocialAuth,
         showOnboarding,
-        showNewsletter,
         showUpgradeScreen,
     } = authStore;
 
@@ -171,7 +170,7 @@ export const App = observer(() => {
         );
     }
     // AG-10009 Newsletter subscription and onboarding screens
-    const renderNewsletter = showNewsletter && !marketingConsent
+    const renderNewsletter = marketingConsent !== null
         && ((isFirstRun && isNewUser)
             || (isFirstRun && !isNewUser && isSocialAuth)
             || (!isFirstRun && isNewUser && !isSocialAuth));

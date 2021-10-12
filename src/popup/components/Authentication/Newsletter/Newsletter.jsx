@@ -10,7 +10,6 @@ export const Newsletter = () => {
 
     const handleClick = (value) => async () => {
         await authStore.setMarketingConsent(value);
-        await authStore.setShowNewsletter(false);
     };
 
     return (

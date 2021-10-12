@@ -37,7 +37,6 @@ const DEFAULTS = {
     policyAgreement: false,
     helpUsImprove: false,
     signInCheck: false,
-    showNewsletter: true,
     showOnboarding: true,
     showUpgradeScreen: true,
 };
@@ -69,8 +68,6 @@ export class AuthStore {
 
     @observable isSocialAuth;
 
-    @observable showNewsletter = DEFAULTS.showNewsletter;
-
     @observable showOnboarding = DEFAULTS.showOnboarding;
 
     @observable showUpgradeScreen = DEFAULTS.showUpgradeScreen;
@@ -89,7 +86,6 @@ export class AuthStore {
         this.error = DEFAULTS.error;
         this.step = DEFAULTS.step;
         this.signInCheck = DEFAULTS.signInCheck;
-        this.showNewsletter = DEFAULTS.showNewsletter;
         this.showOnboarding = DEFAULTS.showOnboarding;
         this.showUpgradeScreen = DEFAULTS.showUpgradeScreen;
     };
@@ -116,7 +112,6 @@ export class AuthStore {
             policyAgreement,
             helpUsImprove,
             marketingConsent,
-            showNewsletter,
             showOnboarding,
             showUpgradeScreen,
         } = await messenger.getAuthCache();
@@ -138,9 +133,6 @@ export class AuthStore {
             }
             if (!isNil(helpUsImprove)) {
                 this.helpUsImprove = helpUsImprove;
-            }
-            if (!isNil(showNewsletter)) {
-                this.showNewsletter = showNewsletter;
             }
             if (!isNil(showOnboarding)) {
                 this.showOnboarding = showOnboarding;
@@ -390,14 +382,6 @@ export class AuthStore {
         runInAction(() => {
             this.isNewUser = isNewUser;
             this.isSocialAuth = isSocialAuth;
-        });
-    };
-
-    @action
-    setShowNewsletter = async (value) => {
-        await messenger.updateAuthCache('showNewsletter', value);
-        runInAction(() => {
-            this.showNewsletter = value;
         });
     };
 
