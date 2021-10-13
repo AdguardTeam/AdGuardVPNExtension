@@ -128,9 +128,10 @@ const Icons = () => (
             <path fillRule="evenodd" clipRule="evenodd" d="M12 10C13.1046 10 14 10.8954 14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10Z" fill="none" stroke="currentColor" strokeWidth="1.5" />
         </symbol>
 
-        <symbol id="cross" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-            <path d="M6.42857143 6.42857143L17.604347 17.604347M6.42857143 17.5714286L17.604347 6.39565302" />
-        </symbol>
+        <svg id="cross" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M6.42857 6.42857L17.6043 17.6043" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" />
+            <path d="M6.42857 17.5714L17.6043 6.39563" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" />
+        </svg>
 
         <symbol id="checked" viewBox="0 0 24 24" fill="#74a352">
             <path d="m22 2v20h-20v-20zm-4.5114987 6.43090736c-.3143011-.26979185-.7878021-.23370989-1.0575939.08059129l-5.4763417 6.37980985-3.41905258-3.4868822c-.29000246-.2957557-.76485329-.3004196-1.06060902-.0104172-.29575573.2900025-.30041967.7648533-.01041722 1.060609l4.56353872 4.6540734 6.541067-7.62019015c.2697919-.31430119.2337099-.78780215-.0805913-1.05759399z" />

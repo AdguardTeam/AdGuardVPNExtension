@@ -183,11 +183,21 @@ export const App = observer(() => {
     }
 
     if (renderOnboarding) {
-        return <Onboarding />;
+        return (
+            <>
+                <Onboarding />
+                <Icons />
+            </>
+        );
     }
 
     if (showUpgradeScreen && !isPremiumToken) {
-        return <UpgradeScreen />;
+        return (
+            <>
+                <UpgradeScreen />
+                <Icons />
+            </>
+        );
     }
 
     if ((hasGlobalError && !hasLimitExceededError) || !canControlProxy || desktopVpnEnabled) {
