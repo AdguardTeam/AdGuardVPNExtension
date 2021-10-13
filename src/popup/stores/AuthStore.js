@@ -90,7 +90,9 @@ export class AuthStore {
         this.signInCheck = DEFAULTS.signInCheck;
         this.showOnboarding = DEFAULTS.showOnboarding;
         this.showUpgradeScreen = DEFAULTS.showUpgradeScreen;
+        this.isNewUser = DEFAULTS.isNewUser;
         this.isFirstRun = DEFAULTS.isFirstRun;
+        this.isSocialAuth = DEFAULTS.isSocialAuth;
     };
 
     @action
