@@ -9,6 +9,9 @@ const AuthCache = () => {
         marketingConsent: null,
         showOnboarding: null,
         showUpgradeScreen: null,
+        isNewUser: null,
+        isSocialAuth: null,
+        isFirstRun: null,
     };
 
     let authCache = { ...DEFAULTS };
@@ -23,7 +26,7 @@ const AuthCache = () => {
     /**
      * Sets values to the storage
      * @param {string} field
-     * @param {string} value
+     * @param {string|boolean} value
      */
     const updateCache = (field, value) => {
         authCache[field] = value;

@@ -25,7 +25,7 @@ const DEFAULTS = {
         username: '',
         password: '',
         twoFactor: '',
-        marketingConsent: false,
+        marketingConsent: null,
     },
     authenticated: false,
     need2fa: false,
@@ -38,6 +38,9 @@ const DEFAULTS = {
     signInCheck: false,
     showOnboarding: true,
     showUpgradeScreen: true,
+    isNewUser: true,
+    isSocialAuth: false,
+    isFirstRun: true,
 };
 
 export class AuthStore {
@@ -61,9 +64,11 @@ export class AuthStore {
 
     @observable signInCheck = DEFAULTS.signInCheck;
 
-    @observable isNewUser;
+    @observable isNewUser = DEFAULTS.isNewUser;
 
-    @observable isSocialAuth;
+    @observable isFirstRun = DEFAULTS.isFirstRun;
+
+    @observable isSocialAuth = DEFAULTS.isSocialAuth;
 
     @observable showOnboarding = DEFAULTS.showOnboarding;
 
@@ -85,6 +90,7 @@ export class AuthStore {
         this.signInCheck = DEFAULTS.signInCheck;
         this.showOnboarding = DEFAULTS.showOnboarding;
         this.showUpgradeScreen = DEFAULTS.showUpgradeScreen;
+        this.isFirstRun = DEFAULTS.isFirstRun;
     };
 
     @action
@@ -111,6 +117,9 @@ export class AuthStore {
             marketingConsent,
             showOnboarding,
             showUpgradeScreen,
+            isNewUser,
+            isFirstRun,
+            isSocialAuth,
         } = await messenger.getAuthCache();
         runInAction(() => {
             this.credentials = {
@@ -136,6 +145,15 @@ export class AuthStore {
             }
             if (!isNil(showUpgradeScreen)) {
                 this.showUpgradeScreen = showUpgradeScreen;
+            }
+            if (!isNil(isNewUser)) {
+                this.isNewUser = isNewUser;
+            }
+            if (!isNil(isFirstRun)) {
+                this.isFirstRun = isFirstRun;
+            }
+            if (!isNil(isSocialAuth)) {
+                this.isSocialAuth = isSocialAuth;
             }
         });
     };
@@ -370,16 +388,6 @@ export class AuthStore {
     get marketingConsent() {
         return this.credentials.marketingConsent;
     }
-
-    @action
-    updateAuthInfo = async () => {
-        const isNewUser = await messenger.getSetting(SETTINGS_IDS.IS_NEW_USER);
-        const isSocialAuth = await messenger.getSetting(SETTINGS_IDS.IS_SOCIAL_AUTH);
-        runInAction(() => {
-            this.isNewUser = isNewUser;
-            this.isSocialAuth = isSocialAuth;
-        });
-    };
 
     @action
     setShowOnboarding = async (value) => {

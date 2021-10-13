@@ -16,7 +16,8 @@ import { translator } from '../common/translator';
 import { fallbackApi } from './api/fallbackApi';
 // eslint-disable-next-line import/no-cycle
 import { settings } from './settings';
-import { SETTINGS_IDS, AUTH_PROVIDERS } from '../lib/constants';
+import { AUTH_PROVIDERS } from '../lib/constants';
+import authCache from './authentication/authCache';
 
 class Auth {
     socialAuthState = null;
@@ -39,8 +40,8 @@ class Auth {
         }
 
         await this.setAccessToken(accessToken);
-        await settings.setSetting(SETTINGS_IDS.IS_NEW_USER, false);
-        await settings.setSetting(SETTINGS_IDS.IS_SOCIAL_AUTH, false);
+        authCache.updateCache('isNewUser', false);
+        authCache.updateCache('isSocialAuth', false);
         return { status: 'ok' };
     }
 
@@ -124,8 +125,8 @@ class Auth {
 
         // Notify options page, in order to update view
         notifier.notifyListeners(notifier.types.AUTHENTICATE_SOCIAL_SUCCESS);
-        await settings.setSetting(SETTINGS_IDS.IS_NEW_USER, false);
-        await settings.setSetting(SETTINGS_IDS.IS_SOCIAL_AUTH, true);
+        authCache.updateCache('isNewUser', false);
+        authCache.updateCache('isSocialAuth', true);
         await notifications.create({ message: translator.getMessage('authentication_successful_social') });
     }
 
@@ -159,8 +160,8 @@ class Auth {
 
         if (accessToken) {
             await this.setAccessToken(accessToken);
-            await settings.setSetting(SETTINGS_IDS.IS_NEW_USER, true);
-            await settings.setSetting(SETTINGS_IDS.IS_SOCIAL_AUTH, false);
+            authCache.updateCache('isNewUser', true);
+            authCache.updateCache('isSocialAuth', false);
             return { status: 'ok' };
         }
 

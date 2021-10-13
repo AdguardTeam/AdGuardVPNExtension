@@ -170,7 +170,7 @@ export const App = observer(() => {
         );
     }
     // AG-10009 Newsletter subscription and onboarding screens
-    const renderNewsletter = marketingConsent !== null
+    const renderNewsletter = marketingConsent === null
         && ((isFirstRun && isNewUser)
             || (isFirstRun && !isNewUser && isSocialAuth)
             || (!isFirstRun && isNewUser && !isSocialAuth));

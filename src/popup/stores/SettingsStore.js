@@ -40,8 +40,6 @@ export class SettingsStore {
 
     @observable isRateVisible;
 
-    @observable isFirstRun = false;
-
     @observable promoScreenState = PROMO_SCREEN_STATES.DISPLAY_AFTER_CONNECT_CLICK;
 
     @observable freeUserClickedPremiumLocation = false;
@@ -336,14 +334,6 @@ export class SettingsStore {
         const value = await messenger.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
         runInAction(() => {
             this.appearanceTheme = value;
-        });
-    };
-
-    @action
-    updateIsFirstRun = async () => {
-        const isFirstRun = await messenger.getSetting(SETTINGS_IDS.IS_FIRST_RUN);
-        runInAction(() => {
-            this.isFirstRun = isFirstRun;
         });
     };
 }

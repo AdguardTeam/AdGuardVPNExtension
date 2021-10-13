@@ -12,9 +12,6 @@ export const SETTINGS_IDS = {
     POLICY_AGREEMENT: 'policy.agreement',
     HELP_US_IMPROVE: 'help.us.improve',
     APPEARANCE_THEME: 'appearance.theme',
-    IS_FIRST_RUN: 'is.first.run',
-    IS_NEW_USER: 'is.new.user',
-    IS_SOCIAL_AUTH: 'is.social.auth',
 };
 
 export const APPEARANCE_THEMES = {
