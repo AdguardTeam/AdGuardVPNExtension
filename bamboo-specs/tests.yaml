@@ -49,6 +49,7 @@ Test:
             AUTH_API_URL="${bamboo.prodAuthApiUrl}" \
             WEBSITE_DOMAIN="${bamboo.prodVpnDomain}" \
             yarn dev
+            rm -rf node_modules
   artifacts:
     - name: edge-prod.zip
       location: build/dev
