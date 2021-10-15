@@ -1,7 +1,8 @@
 import React from 'react';
 
-import './close-button.pcss';
 import Icon from '../Icon';
+
+import './close-button.pcss';
 
 export const CloseButton = (props) => {
     const { handler } = props;

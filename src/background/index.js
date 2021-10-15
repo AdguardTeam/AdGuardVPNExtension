@@ -58,7 +58,6 @@ global.adguard = {
         await openThankYouPage(runInfo);
         permissionsChecker.init(); // should be initiated before auth module
         await auth.init();
-        authCache.updateCache('isFirstRun', runInfo.isFirstRun); // TODO move to proper place
         await settings.init();
         await credentials.init(runInfo);
         await exclusions.init();
