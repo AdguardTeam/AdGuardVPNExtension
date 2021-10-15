@@ -6,8 +6,8 @@ import SignInForm from './SignInForm';
 import { Authorization } from './Authorization';
 import { RegistrationForm } from './RegistrationForm';
 import TwoFactorForm from './TwoFactorForm';
-import { CheckEmail } from './CheckEmail';
 import { BackButton } from './BackButton';
+import { CheckEmail } from './CheckEmail';
 import { PolicyAgreement } from './PolicyAgreement';
 
 import './auth.pcss';

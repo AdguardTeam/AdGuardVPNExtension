@@ -16,8 +16,7 @@ import { translator } from '../common/translator';
 import { fallbackApi } from './api/fallbackApi';
 // eslint-disable-next-line import/no-cycle
 import { settings } from './settings';
-import { AUTH_PROVIDERS } from '../lib/constants';
-import authCache from './authentication/authCache';
+import { AUTH_PROVIDERS, AUTH_AFFINITIES } from '../lib/constants';
 
 class Auth {
     socialAuthState = null;
@@ -40,8 +39,8 @@ class Auth {
         }
 
         await this.setAccessToken(accessToken);
-        authCache.updateCache('isNewUser', false);
-        authCache.updateCache('isSocialAuth', false);
+        await browserApi.storage.set(AUTH_AFFINITIES.IS_NEW_USER, false);
+        await browserApi.storage.set(AUTH_AFFINITIES.IS_SOCIAL_AUTH, false);
         return { status: 'ok' };
     }
 
@@ -125,8 +124,8 @@ class Auth {
 
         // Notify options page, in order to update view
         notifier.notifyListeners(notifier.types.AUTHENTICATE_SOCIAL_SUCCESS);
-        authCache.updateCache('isNewUser', false);
-        authCache.updateCache('isSocialAuth', true);
+        await browserApi.storage.set(AUTH_AFFINITIES.IS_NEW_USER, false);
+        await browserApi.storage.set(AUTH_AFFINITIES.IS_SOCIAL_AUTH, true);
         await notifications.create({ message: translator.getMessage('authentication_successful_social') });
     }
 
@@ -160,8 +159,8 @@ class Auth {
 
         if (accessToken) {
             await this.setAccessToken(accessToken);
-            authCache.updateCache('isNewUser', true);
-            authCache.updateCache('isSocialAuth', false);
+            await browserApi.storage.set(AUTH_AFFINITIES.IS_NEW_USER, true);
+            await browserApi.storage.set(AUTH_AFFINITIES.IS_SOCIAL_AUTH, false);
             return { status: 'ok' };
         }
 

@@ -306,6 +306,11 @@ class Messenger {
         const type = MESSAGES_TYPES.OPEN_PREMIUM_PROMO_PAGE;
         return this.sendMessage(type);
     }
+
+    async getAuthAffinities() {
+        const type = MESSAGES_TYPES.GET_AUTH_AFFINITIES;
+        return this.sendMessage(type);
+    }
 }
 
 export default new Messenger();

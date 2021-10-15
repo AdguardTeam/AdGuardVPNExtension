@@ -1,6 +1,6 @@
 import browser from 'webextension-polyfill';
 
-import { MESSAGES_TYPES, SETTINGS_IDS } from '../lib/constants';
+import { MESSAGES_TYPES, SETTINGS_IDS, AUTH_AFFINITIES } from '../lib/constants';
 import auth from './auth';
 import popupData from './popupData';
 import endpoints from './endpoints';
@@ -21,6 +21,7 @@ import tabs from './tabs';
 import vpnProvider from './providers/vpnProvider';
 import { logStorage } from '../lib/log-storage';
 import { setDesktopVpnEnabled } from './connectivity/connectivityService/connectivityFSM';
+import browserApi from './browserApi';
 
 const eventListeners = {};
 
@@ -297,6 +298,12 @@ const messageHandler = async (message, sender) => {
         }
         case MESSAGES_TYPES.OPEN_PREMIUM_PROMO_PAGE: {
             return actions.openPremiumPromoPage();
+        }
+        case MESSAGES_TYPES.GET_AUTH_AFFINITIES: {
+            const isNewUser = await browserApi.storage.get(AUTH_AFFINITIES.IS_NEW_USER);
+            const isFirstRun = await browserApi.storage.get(AUTH_AFFINITIES.IS_FIRST_RUN);
+            const isSocialAuth = await browserApi.storage.get(AUTH_AFFINITIES.IS_SOCIAL_AUTH);
+            return { isNewUser, isFirstRun, isSocialAuth };
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

@@ -38,9 +38,6 @@ const DEFAULTS = {
     signInCheck: false,
     showOnboarding: true,
     showUpgradeScreen: true,
-    isNewUser: true,
-    isSocialAuth: false,
-    isFirstRun: true,
 };
 
 export class AuthStore {
@@ -64,11 +61,11 @@ export class AuthStore {
 
     @observable signInCheck = DEFAULTS.signInCheck;
 
-    @observable isNewUser = DEFAULTS.isNewUser;
+    @observable isNewUser;
 
-    @observable isFirstRun = DEFAULTS.isFirstRun;
+    @observable isFirstRun;
 
-    @observable isSocialAuth = DEFAULTS.isSocialAuth;
+    @observable isSocialAuth;
 
     @observable showOnboarding = DEFAULTS.showOnboarding;
 
@@ -90,9 +87,6 @@ export class AuthStore {
         this.signInCheck = DEFAULTS.signInCheck;
         this.showOnboarding = DEFAULTS.showOnboarding;
         this.showUpgradeScreen = DEFAULTS.showUpgradeScreen;
-        this.isNewUser = DEFAULTS.isNewUser;
-        this.isFirstRun = DEFAULTS.isFirstRun;
-        this.isSocialAuth = DEFAULTS.isSocialAuth;
     };
 
     @action
@@ -119,9 +113,6 @@ export class AuthStore {
             marketingConsent,
             showOnboarding,
             showUpgradeScreen,
-            isNewUser,
-            isFirstRun,
-            isSocialAuth,
         } = await messenger.getAuthCache();
         runInAction(() => {
             this.credentials = {
@@ -148,17 +139,18 @@ export class AuthStore {
             if (!isNil(showUpgradeScreen)) {
                 this.showUpgradeScreen = showUpgradeScreen;
             }
-            if (!isNil(isNewUser)) {
-                this.isNewUser = isNewUser;
-            }
-            if (!isNil(isFirstRun)) {
-                this.isFirstRun = isFirstRun;
-            }
-            if (!isNil(isSocialAuth)) {
-                this.isSocialAuth = isSocialAuth;
-            }
         });
     };
+
+    @action
+    getAuthAffinities = async () => {
+        const authFeatures = await messenger.getAuthAffinities();
+        runInAction(() => {
+            this.isNewUser = authFeatures.isNewUser;
+            this.isFirstRun = authFeatures.isFirstRun;
+            this.isSocialAuth = authFeatures.isSocialAuth;
+        });
+    }
 
     @computed
     get disableRegister() {

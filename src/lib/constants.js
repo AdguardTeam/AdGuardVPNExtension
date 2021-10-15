@@ -73,6 +73,7 @@ export const MESSAGES_TYPES = {
     REPORT_BUG: 'post.report.bug',
     SET_DESKTOP_VPN_ENABLED: 'set.desktop.vpn.enabled',
     OPEN_PREMIUM_PROMO_PAGE: 'open.premium.promo.page',
+    GET_AUTH_AFFINITIES: 'get.auth.affinities',
 };
 
 export const ERROR_STATUSES = {
@@ -96,4 +97,10 @@ export const AUTH_PROVIDERS = {
     APPLE: 'apple',
     GOOGLE: 'google',
     FACEBOOK: 'facebook',
+};
+
+export const AUTH_AFFINITIES = {
+    IS_FIRST_RUN: 'is.first.run',
+    IS_NEW_USER: 'is.new.user',
+    IS_SOCIAL_AUTH: 'is.social.auth',
 };

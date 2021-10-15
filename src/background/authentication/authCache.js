@@ -9,9 +9,6 @@ const AuthCache = () => {
         marketingConsent: null,
         showOnboarding: null,
         showUpgradeScreen: null,
-        isNewUser: null,
-        isSocialAuth: null,
-        isFirstRun: null,
     };
 
     let authCache = { ...DEFAULTS };

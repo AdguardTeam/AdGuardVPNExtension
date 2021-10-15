@@ -62,6 +62,7 @@ export class GlobalStore {
 
             authStore.setIsAuthenticated(isAuthenticated);
             await authStore.getAuthCacheFromBackground();
+            await authStore.getAuthAffinities();
             authStore.setPolicyAgreement(policyAgreement);
             vpnStore.setVpnInfo(vpnInfo);
             vpnStore.setLocations(locations);

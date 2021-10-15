@@ -56,7 +56,6 @@ export const App = observer(() => {
         displayExclusionScreen,
         canBeExcluded,
         showLimitExceededScreen,
-        isFirstRun,
     } = settingsStore;
 
     const {
@@ -65,6 +64,7 @@ export const App = observer(() => {
         marketingConsent,
         isNewUser,
         isSocialAuth,
+        isFirstRun,
         showOnboarding,
         showUpgradeScreen,
     } = authStore;
