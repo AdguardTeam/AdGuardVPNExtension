@@ -169,6 +169,10 @@ export const App = observer(() => {
             </>
         );
     }
+
+    console.log(`%%% isNewUser: ${isNewUser}`);
+    console.log(`%%% isFirstRun: ${isFirstRun}`);
+    console.log(`%%% isSocialAuth: ${isSocialAuth}`);
     // AG-10009 Newsletter subscription and onboarding screens
     const renderNewsletter = marketingConsent === null
         && ((isFirstRun && isNewUser)

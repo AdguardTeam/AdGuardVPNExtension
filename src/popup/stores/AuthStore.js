@@ -9,7 +9,7 @@ import isNil from 'lodash/isNil';
 
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
 import messenger from '../../lib/messenger';
-import { SETTINGS_IDS, AUTH_PROVIDERS } from '../../lib/constants';
+import { SETTINGS_IDS, AUTH_PROVIDERS, USER_STATE_KEYS } from '../../lib/constants';
 
 const AUTH_STEPS = {
     POLICY_AGREEMENT: 'policyAgreement',
@@ -143,12 +143,12 @@ export class AuthStore {
     };
 
     @action
-    getAuthAffinities = async () => {
-        const authFeatures = await messenger.getAuthAffinities();
+    updateUserState = async () => {
+        const userState = await messenger.getUserState();
         runInAction(() => {
-            this.isNewUser = authFeatures.isNewUser;
-            this.isFirstRun = authFeatures.isFirstRun;
-            this.isSocialAuth = authFeatures.isSocialAuth;
+            this.isNewUser = userState[USER_STATE_KEYS.IS_NEW_USER];
+            this.isFirstRun = userState[USER_STATE_KEYS.IS_FIRST_RUN];
+            this.isSocialAuth = userState[USER_STATE_KEYS.IS_SOCIAL_AUTH];
         });
     }
 

@@ -307,8 +307,8 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async getAuthAffinities() {
-        const type = MESSAGES_TYPES.GET_AUTH_AFFINITIES;
+    async getUserState() {
+        const type = MESSAGES_TYPES.GET_USER_STATE;
         return this.sendMessage(type);
     }
 }

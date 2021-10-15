@@ -1,5 +1,6 @@
 import browserApi from './browserApi';
-import { AUTH_AFFINITIES } from '../lib/constants';
+import { USER_STATE_KEYS } from '../lib/constants';
+import { userState } from './authentication/userState';
 
 const APP_VERSION_KEY = 'update.service.app.version';
 
@@ -33,7 +34,7 @@ const getRunInfo = async () => {
     const isFirstRun = (currentVersion !== prevVersion && !prevVersion);
     const isUpdate = !!(currentVersion !== prevVersion && prevVersion);
 
-    await browserApi.storage.set(AUTH_AFFINITIES.IS_FIRST_RUN, isFirstRun);
+    await userState.set(USER_STATE_KEYS.IS_FIRST_RUN, isFirstRun);
 
     return {
         isFirstRun,
