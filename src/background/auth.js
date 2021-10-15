@@ -17,7 +17,7 @@ import { fallbackApi } from './api/fallbackApi';
 // eslint-disable-next-line import/no-cycle
 import { settings } from './settings';
 import { AUTH_PROVIDERS } from '../lib/constants';
-import { userState } from './authentication/userState';
+import { userState } from './userState';
 
 class Auth {
     socialAuthState = null;
@@ -139,6 +139,7 @@ class Auth {
         await settings.disableProxy(true);
         // set proxy settings to default
         await proxy.resetSettings();
+        await userState.deauthenticate();
         notifier.notifyListeners(notifier.types.USER_DEAUTHENTICATED);
     }
 

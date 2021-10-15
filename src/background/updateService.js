@@ -1,6 +1,6 @@
 import browserApi from './browserApi';
 import { USER_STATE_KEYS } from '../lib/constants';
-import { userState } from './authentication/userState';
+import { userState } from './userState';
 
 const APP_VERSION_KEY = 'update.service.app.version';
 

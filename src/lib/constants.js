@@ -74,6 +74,7 @@ export const MESSAGES_TYPES = {
     SET_DESKTOP_VPN_ENABLED: 'set.desktop.vpn.enabled',
     OPEN_PREMIUM_PROMO_PAGE: 'open.premium.promo.page',
     GET_USER_STATE: 'get.user.state',
+    SET_USER_STATE: 'set.user.state',
 };
 
 export const ERROR_STATUSES = {
@@ -103,4 +104,6 @@ export const USER_STATE_KEYS = {
     IS_FIRST_RUN: 'is.first.run',
     IS_NEW_USER: 'is.new.user',
     IS_SOCIAL_AUTH: 'is.social.auth',
+    SHOW_ONBOARDING: 'show.onboarding',
+    SHOW_UPGRADE_SCREEN: 'show.upgrade.screen',
 };

@@ -67,9 +67,9 @@ export class AuthStore {
 
     @observable isSocialAuth;
 
-    @observable showOnboarding = DEFAULTS.showOnboarding;
+    @observable showOnboarding;
 
-    @observable showUpgradeScreen = DEFAULTS.showUpgradeScreen;
+    @observable showUpgradeScreen;
 
     STEPS = AUTH_STEPS;
 
@@ -85,8 +85,6 @@ export class AuthStore {
         this.error = DEFAULTS.error;
         this.step = DEFAULTS.step;
         this.signInCheck = DEFAULTS.signInCheck;
-        this.showOnboarding = DEFAULTS.showOnboarding;
-        this.showUpgradeScreen = DEFAULTS.showUpgradeScreen;
     };
 
     @action
@@ -111,8 +109,6 @@ export class AuthStore {
             policyAgreement,
             helpUsImprove,
             marketingConsent,
-            showOnboarding,
-            showUpgradeScreen,
         } = await messenger.getAuthCache();
         runInAction(() => {
             this.credentials = {
@@ -133,12 +129,6 @@ export class AuthStore {
             if (!isNil(helpUsImprove)) {
                 this.helpUsImprove = helpUsImprove;
             }
-            if (!isNil(showOnboarding)) {
-                this.showOnboarding = showOnboarding;
-            }
-            if (!isNil(showUpgradeScreen)) {
-                this.showUpgradeScreen = showUpgradeScreen;
-            }
         });
     };
 
@@ -149,8 +139,26 @@ export class AuthStore {
             this.isNewUser = userState[USER_STATE_KEYS.IS_NEW_USER];
             this.isFirstRun = userState[USER_STATE_KEYS.IS_FIRST_RUN];
             this.isSocialAuth = userState[USER_STATE_KEYS.IS_SOCIAL_AUTH];
+            this.showOnboarding = userState[USER_STATE_KEYS.SHOW_ONBOARDING];
+            this.showUpgradeScreen = userState[USER_STATE_KEYS.SHOW_UPGRADE_SCREEN];
         });
     }
+
+    @action
+    setShowOnboarding = async (value) => {
+        await messenger.setUserState(USER_STATE_KEYS.SHOW_ONBOARDING, value);
+        runInAction(() => {
+            this.showOnboarding = value;
+        });
+    };
+
+    @action
+    setShowUpgradeScreen = async (value) => {
+        await messenger.setUserState(USER_STATE_KEYS.SHOW_UPGRADE_SCREEN, value);
+        runInAction(() => {
+            this.showUpgradeScreen = value;
+        });
+    };
 
     @computed
     get disableRegister() {
@@ -382,20 +390,4 @@ export class AuthStore {
     get marketingConsent() {
         return this.credentials.marketingConsent;
     }
-
-    @action
-    setShowOnboarding = async (value) => {
-        await messenger.updateAuthCache('showOnboarding', value);
-        runInAction(() => {
-            this.showOnboarding = value;
-        });
-    };
-
-    @action
-    setShowUpgradeScreen = async (value) => {
-        await messenger.updateAuthCache('showUpgradeScreen', value);
-        runInAction(() => {
-            this.showUpgradeScreen = value;
-        });
-    };
 }
