@@ -61,6 +61,8 @@ static.adguard.com:
           - name: build.txt
           - name: chrome.crx
           - name: update.xml
+          - name: firefox.xpi
+          - name: update.json
     - script:
         interpreter: SHELL
         scripts:
@@ -98,6 +100,8 @@ GitHub:
           - name: build.txt
           - name: chrome.crx
           - name: update.xml
+          - name: firefox.xpi
+          - name: update.json
     - script:
         interpreter: SHELL
         scripts:
