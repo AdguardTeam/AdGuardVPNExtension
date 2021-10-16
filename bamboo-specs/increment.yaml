@@ -33,7 +33,6 @@ Increment:
             set -e
             ls -alt
 
-            yarn install ${system.YARN_ARGS}
             yarn increment
     - any-task:
         plugin-key: com.atlassian.bamboo.plugins.vcs:task.vcs.commit

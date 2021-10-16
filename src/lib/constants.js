@@ -30,6 +30,7 @@ export const MESSAGES_TYPES = {
     ADD_LONG_LIVED_CONNECTION: 'add.long.lived.connection',
     AUTHENTICATE_SOCIAL: 'authenticate.social',
     GET_POPUP_DATA: 'get.popup.data',
+    GET_OPTIONS_DATA: 'get.options.data',
     GET_VPN_FAILURE_PAGE: 'get.vpn.failure.page',
     OPEN_OPTIONS_PAGE: 'open.options.page',
     OPEN_REFERRAL_OPTIONS: 'open.referral.options',

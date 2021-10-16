@@ -65,6 +65,13 @@ export class SettingsStore {
     };
 
     @action
+    setExclusions = (exclusions) => {
+        this.exclusions[EXCLUSIONS_MODES.REGULAR] = exclusions.regular;
+        this.exclusions[EXCLUSIONS_MODES.SELECTIVE] = exclusions.selective;
+        this.exclusionsCurrentMode = exclusions.currentMode;
+    };
+
+    @action
     removeFromExclusions = async (mode, id) => {
         try {
             await messenger.removeExclusionByMode(mode, id);
@@ -144,28 +151,6 @@ export class SettingsStore {
     };
 
     @action
-    getVersion = async () => {
-        this.appVersion = await messenger.getAppVersion();
-    };
-
-    @action
-    getUsername = async () => {
-        const username = await messenger.getUsername();
-
-        runInAction(() => {
-            this.currentUsername = username;
-        });
-    };
-
-    @action
-    checkRateStatus = async () => {
-        const value = await messenger.getSetting(SETTINGS_IDS.RATE_SHOW);
-        runInAction(() => {
-            this.isRateVisible = value;
-        });
-    };
-
-    @action
     hideRate = async () => {
         await messenger.setSetting(SETTINGS_IDS.RATE_SHOW, false);
         runInAction(() => {
@@ -200,24 +185,8 @@ export class SettingsStore {
     };
 
     @action
-    getWebRTCValue = async () => {
-        const value = await messenger.getSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED);
-        runInAction(() => {
-            this.webRTCEnabled = value;
-        });
-    };
-
-    @action
     setAppearanceTheme = async (value) => {
         await messenger.setSetting(SETTINGS_IDS.APPEARANCE_THEME, value);
-        runInAction(() => {
-            this.appearanceTheme = value;
-        });
-    };
-
-    @action
-    getAppearanceTheme = async () => {
-        const value = await messenger.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
         runInAction(() => {
             this.appearanceTheme = value;
         });
@@ -240,22 +209,6 @@ export class SettingsStore {
     };
 
     @action
-    getHelpUsImprove = async () => {
-        const value = await messenger.getSetting(SETTINGS_IDS.HELP_US_IMPROVE);
-        runInAction(() => {
-            this.helpUsImprove = value;
-        });
-    };
-
-    @action
-    getContextMenusEnabled = async () => {
-        const value = await messenger.getSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED);
-        runInAction(() => {
-            this.contextMenusEnabled = value;
-        });
-    };
-
-    @action
     setDnsServer = async (value) => {
         await messenger.setSetting(SETTINGS_IDS.SELECTED_DNS_SERVER, value);
         runInAction(() => {
@@ -264,11 +217,16 @@ export class SettingsStore {
     };
 
     @action
-    getDnsServer = async () => {
-        const value = await messenger.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER);
-        runInAction(() => {
-            this.dnsServer = value;
-        });
+    setOptionsData = (data) => {
+        this.appVersion = data.appVersion;
+        this.currentUsername = data.username;
+        this.isRateVisible = data.isRateVisible;
+        this.webRTCEnabled = data.webRTCEnabled;
+        this.contextMenusEnabled = data.contextMenusEnabled;
+        this.helpUsImprove = data.helpUsImprove;
+        this.dnsServer = data.dnsServer;
+        this.appearanceTheme = data.appearanceTheme;
+        this.setExclusions(data.exclusionsData);
     };
 
     @action

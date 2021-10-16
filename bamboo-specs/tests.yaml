@@ -32,7 +32,7 @@ Test:
             set -e
             set -x
 
-            yarn install ${system.YARN_ARGS}
+            yarn install ${bamboo.varsYarn}
             yarn lint
             yarn test
 
@@ -49,12 +49,8 @@ Test:
             AUTH_API_URL="${bamboo.prodAuthApiUrl}" \
             WEBSITE_DOMAIN="${bamboo.prodVpnDomain}" \
             yarn dev
+            rm -rf node_modules
   artifacts:
-    - name: edge-prod.zip
-      location: build/dev
-      pattern: edge-prod.zip
-      shared: true
-      required: true
     - name: edge.zip
       location: build/dev
       pattern: edge.zip
@@ -73,6 +69,11 @@ Test:
     - name: build.txt
       location: build/dev
       pattern: build.txt
+      shared: true
+      required: true
+    - name: edge-prod.zip
+      location: build/dev
+      pattern: edge-prod.zip
       shared: true
       required: true
     - name: chrome-prod.zip

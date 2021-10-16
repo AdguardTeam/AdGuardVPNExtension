@@ -37,7 +37,7 @@ Build:
             set -e
             ls -alt
 
-            yarn install ${system.YARN_ARGS}
+            yarn install ${bamboo.varsYarn}
             yarn lint
             yarn test
             yarn locales:validate --min
@@ -51,8 +51,9 @@ Build:
             # build with prod API endpoints edge.zip, chrome.zip, firefox.zip
             yarn beta
 
-            # build artifacts chrome.crx
+            # build artifacts chrome.crx, firefox.xpi
             yarn artifacts:beta
+            rm -rf node_modules
     - inject-variables:
         file: build/beta/build.txt
         scope: RESULT
@@ -91,6 +92,16 @@ Build:
     - name: update.xml
       location: build/beta
       pattern: update.xml
+      shared: true
+      required: true
+    - name: firefox.xpi
+      location: build/beta
+      pattern: firefox.xpi
+      shared: true
+      required: true
+    - name: update.json
+      location: build/beta
+      pattern: update.json
       shared: true
       required: true
   requirements:
