@@ -9,7 +9,7 @@ import { rootStore } from '../../stores';
 import './referral.pcss';
 
 const REFERRAL_PARTNERS_LIMIT = 10;
-const REFERRAL_LINK_MESSAGE_TIMEOUT = 2000;
+const REFERRAL_LINK_MESSAGE_DISPLAY_TIME = 2000;
 
 export const Referral = observer(() => {
     const { settingsStore } = useContext(rootStore);
@@ -39,7 +39,7 @@ export const Referral = observer(() => {
 
         setTimeout(() => {
             setDisplayLinkMessage(false);
-        }, REFERRAL_LINK_MESSAGE_TIMEOUT);
+        }, REFERRAL_LINK_MESSAGE_DISPLAY_TIME);
     };
 
     const referralLinkMessageClasses = classnames(

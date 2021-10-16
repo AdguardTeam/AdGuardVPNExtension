@@ -4,9 +4,9 @@ import { NavLink } from 'react-router-dom';
 
 import { Rate } from './Rate';
 import { reactTranslator } from '../../../common/reactTranslator';
+import { rootStore } from '../../stores';
 
 import './sidebar.pcss';
-import { rootStore } from '../../stores';
 
 export const Sidebar = observer(() => {
     const { authStore } = useContext(rootStore);
