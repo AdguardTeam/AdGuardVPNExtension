@@ -52,7 +52,6 @@ export const App = observer(() => {
         hasGlobalError,
         checkPermissionsState,
         hasLimitExceededError,
-        promoScreenState,
         displayExclusionScreen,
         canBeExcluded,
         showLimitExceededScreen,
@@ -67,6 +66,7 @@ export const App = observer(() => {
         isFirstRun,
         showOnboarding,
         showUpgradeScreen,
+        promoScreenState,
     } = authStore;
 
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
@@ -169,7 +169,13 @@ export const App = observer(() => {
             </>
         );
     }
-
+    console.log(`%%% IS NEW User: ${isNewUser}`);
+    console.log(`%%% IS SOCIAL AUTH: ${isSocialAuth}`);
+    console.log(`%%% IS FIRST RUN: ${isFirstRun}`);
+    console.log(`%%% MARKETING CONSENT: ${marketingConsent}`);
+    console.log(`%%% SHOW ONBOARDING: ${showOnboarding}`);
+    console.log(`%%% SHOW UPGRADE SCREEN: ${showUpgradeScreen}`);
+    console.log(`%%% PROMO SCREEN STATE: ${promoScreenState}`);
     // AG-10009 Newsletter subscription and onboarding screens
     const renderNewsletter = marketingConsent === null
         && ((isFirstRun && isNewUser)

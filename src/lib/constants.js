@@ -1,7 +1,6 @@
 export const SETTINGS_IDS = {
     PROXY_ENABLED: 'proxy.enabled',
     RATE_SHOW: 'rate.show',
-    SALE_SHOW: 'sale.show',
     USER_SET_PROMO_SHOW: 'user.set.promo.show',
     EXCLUSIONS: 'exclusions.list',
     HANDLE_WEBRTC_ENABLED: 'webrtc.handle.enabled',
@@ -106,4 +105,5 @@ export const USER_STATE_KEYS = {
     IS_SOCIAL_AUTH: 'is.social.auth',
     SHOW_ONBOARDING: 'show.onboarding',
     SHOW_UPGRADE_SCREEN: 'show.upgrade.screen',
+    SALE_SHOW: 'sale.show',
 };

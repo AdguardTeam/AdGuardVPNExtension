@@ -1,10 +1,11 @@
 import browserApi from './browserApi';
 
-import { USER_STATE_KEYS } from '../lib/constants';
+import { USER_STATE_KEYS, PROMO_SCREEN_STATES } from '../lib/constants';
 
 const DEFAULTS = {
     [USER_STATE_KEYS.SHOW_ONBOARDING]: true,
     [USER_STATE_KEYS.SHOW_UPGRADE_SCREEN]: true,
+    [USER_STATE_KEYS.SALE_SHOW]: PROMO_SCREEN_STATES.DISPLAY_AFTER_CONNECT_CLICK,
 };
 
 const set = async (field, value) => {

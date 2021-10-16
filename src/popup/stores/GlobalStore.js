@@ -74,7 +74,6 @@ export class GlobalStore {
             settingsStore.setPromoNotification(promoNotification);
             settingsStore.setDesktopVpnEnabled(desktopVpnEnabled);
             await settingsStore.checkRateStatus();
-            await settingsStore.getPromoScreenStatus();
             await settingsStore.checkIsExcluded();
             await settingsStore.getExclusionsInverted();
             this.setInitStatus(REQUEST_STATUSES.DONE);
