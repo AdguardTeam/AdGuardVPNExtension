@@ -127,6 +127,9 @@ const openPremiumPromoPage = async () => {
     await tabs.openTab(url);
 };
 
+/**
+ * Opens Options page on Referral Program section
+ */
 const openReferralOptions = async () => {
     const optionsUrl = browser.runtime.getURL('options.html');
     const referralOptionsUrl = `${optionsUrl}#referral-program`;
