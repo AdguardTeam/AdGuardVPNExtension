@@ -198,13 +198,13 @@
         "message": "Add free traffic"
     },
     "settings_referral_info": {
-        "message": "Invite your friends to our ninja clan and get more bonus traffic for a month. Receive 1 GB for each newly signed up friend. They also get 1 GB extra for free! (You can get 10 GB in total for free!)"
+        "message": "Invite your friends to join our ninja clan and get more free data for a month. Receive 1 GB for each friend who signs up: they also get 1 GB extra for free! (You can get 10 GB in total for free!)"
     },
     "settings_referral_invited_friends": {
         "message": "Invited friends"
     },
     "settings_referral_limit_reached": {
-        "message": "You've already received your 10 GB bonus. But your friends can still get 1 GB additional traffic if you invite them."
+        "message": "You've already received your 10 GB of free data. But your friends can still get 1 GB of additional free data if you invite them!"
     },
     "settings_referral_copy_link": {
         "message": "Copy link"
@@ -219,7 +219,7 @@
         "message": "Block WebRTC"
     },
     "settings_webrtc_desc": {
-        "message": "WebRTC is a special program in most Internet browsers that can allow a third-party website to detect your real IP address and use it to identify you"
+        "message": "WebRTC is a special program in most Internet browsers that can allow a third-party website to detect your true IP address and use it to identify you"
     },
     "settings_context_menus_title": {
         "message": "Add AdGuard VPN item to the browser’s context menu"
@@ -566,6 +566,6 @@
         "message": "You have signed out of AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "Please note that your connection is not secure. To continue surfing privately, click on the AdGuard VPN icon and sign in again."
+        "message": "Your connection is not secure. To continue surfing privately, click the AdGuard VPN icon and sign in again."
     }
 }

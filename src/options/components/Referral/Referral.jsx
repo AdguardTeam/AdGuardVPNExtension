@@ -16,12 +16,12 @@ export const Referral = observer(() => {
 
     const {
         referralLink,
-        referralPartners: invitedFriends,
+        referralPartners,
     } = settingsStore;
 
     const getStatusMessage = () => {
-        const statusMessage = invitedFriends < REFERRAL_PARTNERS_LIMIT
-            ? `${reactTranslator.getMessage('settings_referral_invited_friends')} ${invitedFriends}/${REFERRAL_PARTNERS_LIMIT}`
+        const statusMessage = referralPartners < REFERRAL_PARTNERS_LIMIT
+            ? `${reactTranslator.getMessage('settings_referral_invited_friends')} ${referralPartners}/${REFERRAL_PARTNERS_LIMIT}`
             : reactTranslator.getMessage('settings_referral_limit_reached');
         return (
             <>
