@@ -56,6 +56,7 @@ const authenticateSocial = async () => {
 
 const deauthenticate = async () => {
     await setDefaults();
+    await set(USER_STATE_KEYS.IS_FIRST_RUN, false);
 };
 
 const init = async () => {
