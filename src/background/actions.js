@@ -133,13 +133,9 @@ const openPremiumPromoPage = async () => {
 const openReferralOptions = async () => {
     const optionsUrl = browser.runtime.getURL('options.html');
     const referralOptionsUrl = `${optionsUrl}#referral-program`;
-    const optionsTab = await tabs.getTabByUrl(optionsUrl);
-    if (optionsTab) {
-        await tabs.makeActive(optionsTab.id);
-        await tabs.update(optionsTab.id, referralOptionsUrl);
-    } else {
-        await tabs.openTab(referralOptionsUrl);
-    }
+    await browser.runtime.openOptionsPage();
+    const optionsTab = await tabs.getActive();
+    await tabs.update(optionsTab.id, referralOptionsUrl);
 };
 
 const actions = {
