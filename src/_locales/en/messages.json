@@ -201,7 +201,7 @@
         "message": "Invite your friends to join our ninja clan and get more free data for a month. Receive 1 GB for each friend who signs up: they also get 1 GB extra for free! (You can get 10 GB in total for free!)"
     },
     "settings_referral_invited_friends": {
-        "message": "Invited friends"
+        "message": "Invited friends %count%/%limit%"
     },
     "settings_referral_limit_reached": {
         "message": "You've already received your 10 GB of free data. But your friends can still get 1 GB of additional free data if you invite them!"
