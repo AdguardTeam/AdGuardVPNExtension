@@ -66,14 +66,6 @@ class Tabs {
         await browser.tabs.create({ url, active: true });
     }
 
-    async makeActive(tabId) {
-        try {
-            await browser.tabs.update(tabId, { active: true });
-        } catch (e) {
-            log.error(e.message);
-        }
-    }
-
     /**
      * Closes one or more tabs.
      * @param {(number|number[])} tabsIds
