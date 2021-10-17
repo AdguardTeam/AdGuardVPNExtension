@@ -57,7 +57,7 @@ export const Header = observer(({ showMenuButton }) => {
                         href="#"
                         onClick={handleOpenReferral}
                     >
-                        {reactTranslator.getMessage('referral_add_free_traffic')}
+                        {reactTranslator.getMessage('referral_get_free_traffic')}
                     </a>
                 </div>
             )}

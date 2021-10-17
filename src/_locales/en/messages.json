@@ -194,9 +194,6 @@
     "referral_get_free_traffic": {
         "message": "Get free traffic!"
     },
-    "referral_add_free_traffic": {
-        "message": "Add free traffic"
-    },
     "settings_referral_info": {
         "message": "Invite your friends to join our ninja clan and get more free data for a month. Receive 1 GB for each friend who signs up: they also get 1 GB extra for free! (You can get 10 GB in total for free!)"
     },

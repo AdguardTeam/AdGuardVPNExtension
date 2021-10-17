@@ -50,9 +50,9 @@ export class SettingsStore {
 
     @observable dnsServer = DNS_DEFAULT;
 
-    @observable referralLink = '';
+    @observable inviteUrl = '';
 
-    @observable referralPartners = 0;
+    @observable invitesCount = 0;
 
     @action
     getExclusions = async () => {
@@ -232,11 +232,11 @@ export class SettingsStore {
     @action
     updateReferralData = async () => {
         const referralData = await messenger.getReferralData();
-        const { referralLink, referralPartners, referralPartnersLimit } = referralData;
+        const { inviteUrl, invitesCount, maxInvitesCount } = referralData;
         runInAction(() => {
-            this.referralLink = referralLink;
-            this.referralPartners = referralPartners;
-            this.referralPartnersLimit = referralPartnersLimit;
+            this.inviteUrl = inviteUrl;
+            this.invitesCount = invitesCount;
+            this.maxInvitesCount = maxInvitesCount;
         });
     };
 }

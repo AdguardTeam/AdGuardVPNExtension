@@ -14,18 +14,18 @@ export const Referral = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
     const {
-        referralLink,
-        referralPartners,
-        referralPartnersLimit,
+        inviteUrl,
+        invitesCount,
+        maxInvitesCount,
     } = settingsStore;
 
     const getStatusMessage = () => {
-        const statusMessage = referralPartners < referralPartnersLimit
+        const statusMessage = invitesCount < maxInvitesCount
             ? `${reactTranslator.getMessage(
                 'settings_referral_invited_friends',
                 {
-                    count: referralPartners,
-                    limit: referralPartnersLimit,
+                    count: invitesCount,
+                    limit: maxInvitesCount,
                 },
             )}`
             : reactTranslator.getMessage('settings_referral_limit_reached');
@@ -40,7 +40,7 @@ export const Referral = observer(() => {
 
     const handleCopyLink = async (e) => {
         e.preventDefault();
-        await navigator.clipboard.writeText(referralLink);
+        await navigator.clipboard.writeText(inviteUrl);
         setDisplayLinkMessage(true);
 
         setTimeout(() => {
@@ -75,7 +75,7 @@ export const Referral = observer(() => {
                     type="text"
                     id="referral-link"
                     className="referral__link__input"
-                    value={referralLink}
+                    value={inviteUrl}
                     disabled
                 />
                 <input
