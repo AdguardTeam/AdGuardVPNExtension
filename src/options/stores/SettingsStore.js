@@ -232,10 +232,11 @@ export class SettingsStore {
     @action
     updateReferralData = async () => {
         const referralData = await messenger.getReferralData();
-        const { referralLink, referralPartners } = referralData;
+        const { referralLink, referralPartners, referralPartnersLimit } = referralData;
         runInAction(() => {
             this.referralLink = referralLink;
             this.referralPartners = referralPartners;
+            this.referralPartnersLimit = referralPartnersLimit;
         });
     };
 }

@@ -8,7 +8,6 @@ import { rootStore } from '../../stores';
 
 import './referral.pcss';
 
-const REFERRAL_PARTNERS_LIMIT = 10;
 const REFERRAL_LINK_MESSAGE_DISPLAY_TIME = 2000;
 
 export const Referral = observer(() => {
@@ -17,15 +16,16 @@ export const Referral = observer(() => {
     const {
         referralLink,
         referralPartners,
+        referralPartnersLimit,
     } = settingsStore;
 
     const getStatusMessage = () => {
-        const statusMessage = referralPartners < REFERRAL_PARTNERS_LIMIT
+        const statusMessage = referralPartners < referralPartnersLimit
             ? `${reactTranslator.getMessage(
                 'settings_referral_invited_friends',
                 {
                     count: referralPartners,
-                    limit: REFERRAL_PARTNERS_LIMIT,
+                    limit: referralPartnersLimit,
                 },
             )}`
             : reactTranslator.getMessage('settings_referral_limit_reached');
