@@ -22,6 +22,7 @@ import vpnProvider from './providers/vpnProvider';
 import { logStorage } from '../lib/log-storage';
 import { setDesktopVpnEnabled } from './connectivity/connectivityService/connectivityFSM';
 import { userState } from './userState';
+import { updateService } from './updateService';
 
 const eventListeners = {};
 
@@ -305,6 +306,9 @@ const messageHandler = async (message, sender) => {
         case MESSAGES_TYPES.SET_USER_STATE: {
             const { key, value } = data;
             return userState.set(key, value);
+        }
+        case MESSAGES_TYPES.GET_IS_FIRST_RUN: {
+            return updateService.isFirstRun;
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

@@ -74,6 +74,7 @@ export const MESSAGES_TYPES = {
     OPEN_PREMIUM_PROMO_PAGE: 'open.premium.promo.page',
     GET_USER_STATE: 'get.user.state',
     SET_USER_STATE: 'set.user.state',
+    GET_IS_FIRST_RUN: 'get.is.first.run',
 };
 
 export const ERROR_STATUSES = {

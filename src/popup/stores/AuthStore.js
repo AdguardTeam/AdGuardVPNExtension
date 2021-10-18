@@ -139,7 +139,6 @@ export class AuthStore {
         const userState = await messenger.getUserState();
         runInAction(() => {
             this.isNewUser = userState[USER_STATE_KEYS.IS_NEW_USER];
-            this.isFirstRun = userState[USER_STATE_KEYS.IS_FIRST_RUN];
             this.isSocialAuth = userState[USER_STATE_KEYS.IS_SOCIAL_AUTH];
             this.showOnboarding = userState[USER_STATE_KEYS.SHOW_ONBOARDING];
             this.showUpgradeScreen = userState[USER_STATE_KEYS.SHOW_UPGRADE_SCREEN];
@@ -168,6 +167,14 @@ export class AuthStore {
         await messenger.setUserState(USER_STATE_KEYS.SALE_SHOW, state);
         runInAction(() => {
             this.promoScreenState = state;
+        });
+    }
+
+    @action
+    updateIsFirstRun = async () => {
+        const isFirstRun = await messenger.getIsFirstRun();
+        runInAction(() => {
+            this.isFirstRun = isFirstRun;
         });
     }
 

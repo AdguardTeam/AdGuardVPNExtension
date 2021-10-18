@@ -4,6 +4,7 @@ import lodashGet from 'lodash/get';
 import accountProvider from '../providers/accountProvider';
 import { log } from '../../lib/logger';
 import notifier from '../../lib/notifier';
+import { updateService } from '../updateService';
 
 class Credentials {
     VPN_TOKEN_KEY = 'credentials.token';
@@ -351,9 +352,9 @@ class Credentials {
      * @param appId
      * @returns {Promise<void>}
      */
-    async trackInstallation(runInfo, appId) {
+    async trackInstallation(appId) {
         const TRACKED_INSTALLATIONS_KEY = 'credentials.tracked.installations';
-        if (runInfo.isFirstRun || runInfo.isUpdate) {
+        if (updateService.isFirstRun || updateService.isUpdate) {
             try {
                 const tracked = await this.storage.get(TRACKED_INSTALLATIONS_KEY);
                 if (tracked) {
@@ -375,7 +376,7 @@ class Credentials {
         this.currentUsername = null;
     }
 
-    async init(runInfo) {
+    async init() {
         try {
             notifier.addSpecifiedListener(
                 notifier.types.USER_DEAUTHENTICATED,
@@ -383,7 +384,7 @@ class Credentials {
             );
 
             this.appId = await this.gainAppId();
-            await this.trackInstallation(runInfo, this.appId);
+            await this.trackInstallation(this.appId);
 
             // On extension initialisation use local fallback if was unable to get data remotely
             // it might be useful on browser restart

@@ -17,7 +17,7 @@ import popupData from './popupData';
 import { proxy } from './proxy';
 import { settings } from './settings';
 import tabs from './tabs';
-import updateService from './updateService';
+import { updateService } from './updateService';
 import { vpnApi } from './api';
 import browserActionIcon from './browserActionIcon';
 import { openThankYouPage } from './postinstall';
@@ -55,13 +55,13 @@ global.adguard = {
         messaging.init(); // messaging is on the top, for popup be able to communicate with back
         await fallbackApi.init();
         await proxy.init();
-        const runInfo = await updateService.getRunInfo();
-        await openThankYouPage(runInfo);
+        await updateService.init();
+        await openThankYouPage();
         await userState.init();
         permissionsChecker.init(); // should be initiated before auth module
         await auth.init();
         await settings.init();
-        await credentials.init(runInfo);
+        await credentials.init();
         await exclusions.init();
         await endpointsTldExclusions.init();
         settings.applySettings(); // we have to apply settings when credentials are ready

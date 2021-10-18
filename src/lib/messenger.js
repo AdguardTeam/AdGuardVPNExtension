@@ -316,6 +316,11 @@ class Messenger {
         const type = MESSAGES_TYPES.SET_USER_STATE;
         return this.sendMessage(type, { key, value });
     }
+
+    async getIsFirstRun() {
+        const type = MESSAGES_TYPES.GET_IS_FIRST_RUN;
+        return this.sendMessage(type);
+    }
 }
 
 export default new Messenger();
