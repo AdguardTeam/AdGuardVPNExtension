@@ -190,6 +190,22 @@ export class AuthStore {
         return false;
     }
 
+    // AG-10009 Newsletter subscription screen
+    @computed
+    get renderNewsletter() {
+        return this.marketingConsent === null
+        && ((this.isFirstRun && this.isNewUser)
+            || (this.isFirstRun && !this.isNewUser && this.isSocialAuth)
+            || (!this.isFirstRun && this.isNewUser && !this.isSocialAuth));
+    }
+
+    // AG-10009 Onboarding screen
+    @computed
+    get renderOnboarding() {
+        return this.showOnboarding
+            && (this.isFirstRun || (!this.isFirstRun && this.isNewUser && !this.isSocialAuth));
+    }
+
     @action
     authenticate = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;

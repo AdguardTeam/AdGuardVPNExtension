@@ -60,11 +60,6 @@ export const App = observer(() => {
     const {
         requestProcessState,
         authenticated,
-        marketingConsent,
-        isNewUser,
-        isSocialAuth,
-        isFirstRun,
-        showOnboarding,
         showUpgradeScreen,
         promoScreenState,
     } = authStore;
@@ -170,20 +165,11 @@ export const App = observer(() => {
         );
     }
 
-    // AG-10009 Newsletter subscription and onboarding screens
-    const renderNewsletter = marketingConsent === null
-        && ((isFirstRun && isNewUser)
-            || (isFirstRun && !isNewUser && isSocialAuth)
-            || (!isFirstRun && isNewUser && !isSocialAuth));
-
-    const renderOnboarding = showOnboarding
-        && (isFirstRun || (!isFirstRun && isNewUser && !isSocialAuth));
-
-    if (renderNewsletter) {
+    if (authStore.renderNewsletter) {
         return <Newsletter />;
     }
 
-    if (renderOnboarding) {
+    if (authStore.renderOnboarding) {
         return (
             <>
                 <Onboarding />
