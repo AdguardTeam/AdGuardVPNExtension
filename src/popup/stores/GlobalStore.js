@@ -43,7 +43,7 @@ export class GlobalStore {
                 policyAgreement,
                 desktopVpnEnabled,
                 isFirstRun,
-                userState,
+                userServiceData,
             } = popupData;
 
             if (!isAuthenticated) {
@@ -64,7 +64,7 @@ export class GlobalStore {
 
             authStore.setIsAuthenticated(isAuthenticated);
             await authStore.getAuthCacheFromBackground();
-            await authStore.setUserState(userState);
+            await authStore.setUserServiceData(userServiceData);
             authStore.setIsFirstRun(isFirstRun);
             await authStore.setPolicyAgreement(policyAgreement);
             vpnStore.setVpnInfo(vpnInfo);

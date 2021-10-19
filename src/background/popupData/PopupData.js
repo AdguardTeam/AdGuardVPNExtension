@@ -9,7 +9,7 @@ import { settings } from '../settings';
 import { SETTINGS_IDS } from '../../lib/constants';
 import { vpnApi } from '../api';
 import { updateService } from '../updateService';
-import { userState } from '../userState';
+import { userService } from '../userService';
 
 class PopupData {
     constructor({
@@ -63,7 +63,7 @@ class PopupData {
         const desktopVpnEnabled = await this.getDesktopEnabled();
         const promoNotification = await promoNotifications.getCurrentNotification();
         const { isFirstRun } = updateService;
-        const userStateData = await userState.getUserState();
+        const userServiceData = await userService.getUserServiceData();
 
         // If error check permissions when popup is opened, ignoring multiple retries
         if (error) {
@@ -92,7 +92,7 @@ class PopupData {
             promoNotification,
             desktopVpnEnabled,
             isFirstRun,
-            userState: userStateData,
+            userServiceData,
         };
     };
 

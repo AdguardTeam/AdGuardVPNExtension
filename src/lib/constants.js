@@ -72,8 +72,8 @@ export const MESSAGES_TYPES = {
     REPORT_BUG: 'post.report.bug',
     SET_DESKTOP_VPN_ENABLED: 'set.desktop.vpn.enabled',
     OPEN_PREMIUM_PROMO_PAGE: 'open.premium.promo.page',
-    GET_USER_STATE: 'get.user.state',
-    SET_USER_STATE: 'set.user.state',
+    GET_USER_SERVICE_DATA: 'get.user.state',
+    SET_USER_SERVICE_DATA: 'set.user.state',
     GET_IS_FIRST_RUN: 'get.is.first.run',
 };
 
@@ -100,8 +100,7 @@ export const AUTH_PROVIDERS = {
     FACEBOOK: 'facebook',
 };
 
-export const USER_STATE_KEYS = {
-    IS_FIRST_RUN: 'is.first.run',
+export const USER_SERVICE_KEYS = {
     IS_NEW_USER: 'is.new.user',
     IS_SOCIAL_AUTH: 'is.social.auth',
     SHOW_ONBOARDING: 'show.onboarding',

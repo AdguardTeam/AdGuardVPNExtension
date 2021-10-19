@@ -9,7 +9,7 @@ import isNil from 'lodash/isNil';
 
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
 import messenger from '../../lib/messenger';
-import { SETTINGS_IDS, AUTH_PROVIDERS, USER_STATE_KEYS } from '../../lib/constants';
+import { SETTINGS_IDS, AUTH_PROVIDERS, USER_SERVICE_KEYS } from '../../lib/constants';
 
 const AUTH_STEPS = {
     POLICY_AGREEMENT: 'policyAgreement',
@@ -135,17 +135,17 @@ export class AuthStore {
     };
 
     @action
-    setUserState = async (userState) => {
-        this.isNewUser = userState[USER_STATE_KEYS.IS_NEW_USER];
-        this.isSocialAuth = userState[USER_STATE_KEYS.IS_SOCIAL_AUTH];
-        this.showOnboarding = userState[USER_STATE_KEYS.SHOW_ONBOARDING];
-        this.showUpgradeScreen = userState[USER_STATE_KEYS.SHOW_UPGRADE_SCREEN];
-        this.promoScreenState = userState[USER_STATE_KEYS.SALE_SHOW];
+    setUserServiceData = async (userServiceData) => {
+        this.isNewUser = userServiceData[USER_SERVICE_KEYS.IS_NEW_USER];
+        this.isSocialAuth = userServiceData[USER_SERVICE_KEYS.IS_SOCIAL_AUTH];
+        this.showOnboarding = userServiceData[USER_SERVICE_KEYS.SHOW_ONBOARDING];
+        this.showUpgradeScreen = userServiceData[USER_SERVICE_KEYS.SHOW_UPGRADE_SCREEN];
+        this.promoScreenState = userServiceData[USER_SERVICE_KEYS.SALE_SHOW];
     }
 
     @action
     setShowOnboarding = async (value) => {
-        await messenger.setUserState(USER_STATE_KEYS.SHOW_ONBOARDING, value);
+        await messenger.setUserServiceData(USER_SERVICE_KEYS.SHOW_ONBOARDING, value);
         runInAction(() => {
             this.showOnboarding = value;
         });
@@ -153,7 +153,7 @@ export class AuthStore {
 
     @action
     setShowUpgradeScreen = async (value) => {
-        await messenger.setUserState(USER_STATE_KEYS.SHOW_UPGRADE_SCREEN, value);
+        await messenger.setUserServiceData(USER_SERVICE_KEYS.SHOW_UPGRADE_SCREEN, value);
         runInAction(() => {
             this.showUpgradeScreen = value;
         });
@@ -161,7 +161,7 @@ export class AuthStore {
 
     @action
     setSalePromoStatus = async (state) => {
-        await messenger.setUserState(USER_STATE_KEYS.SALE_SHOW, state);
+        await messenger.setUserServiceData(USER_SERVICE_KEYS.SALE_SHOW, state);
         runInAction(() => {
             this.promoScreenState = state;
         });

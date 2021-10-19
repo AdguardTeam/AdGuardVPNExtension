@@ -307,8 +307,8 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async setUserState(key, value) {
-        const type = MESSAGES_TYPES.SET_USER_STATE;
+    async setUserServiceData(key, value) {
+        const type = MESSAGES_TYPES.SET_USER_SERVICE_DATA;
         return this.sendMessage(type, { key, value });
     }
 }
