@@ -3,13 +3,6 @@ import browserApi from './browserApi';
 const APP_VERSION_KEY = 'update.service.app.version';
 
 class UpdateService {
-    constructor() {
-        if (UpdateService.instance) {
-            return UpdateService.instance;
-        }
-        UpdateService.instance = this;
-    }
-
     init = async () => {
         this.prevVersion = await this.getAppVersionFromStorage();
         this.currentVersion = await this.getAppVersionFromManifest();
@@ -33,8 +26,4 @@ class UpdateService {
     };
 }
 
-const updateService = new UpdateService();
-
-export {
-    updateService,
-};
+export const updateService = new UpdateService();
