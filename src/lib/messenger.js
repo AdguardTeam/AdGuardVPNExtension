@@ -307,19 +307,9 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async getUserState() {
-        const type = MESSAGES_TYPES.GET_USER_STATE;
-        return this.sendMessage(type);
-    }
-
     async setUserState(key, value) {
         const type = MESSAGES_TYPES.SET_USER_STATE;
         return this.sendMessage(type, { key, value });
-    }
-
-    async getIsFirstRun() {
-        const type = MESSAGES_TYPES.GET_IS_FIRST_RUN;
-        return this.sendMessage(type);
     }
 }
 

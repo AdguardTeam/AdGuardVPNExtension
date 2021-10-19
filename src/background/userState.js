@@ -27,10 +27,10 @@ const setDefaults = async () => {
 const getUserState = async () => {
     const userStateKeys = Object.values(USER_STATE_KEYS);
     const userStateValues = userStateKeys.map((key) => get(key));
+    const userStates = await Promise.all(userStateValues);
 
-    return Promise.all(userStateValues)
-        .then((values) => Object.fromEntries(userStateKeys
-            .map((_, i) => [userStateKeys[i], values[i]])));
+    return Object.fromEntries(userStateKeys
+        .map((_, i) => [userStateKeys[i], userStates[i]]));
 };
 
 const register = async () => {
