@@ -10,23 +10,20 @@ import './onboarding.pcss';
 export const Onboarding = observer(() => {
     const { authStore } = useContext(rootStore);
 
-    const [currentSlideId, setCurrentSlideId] = useState(0);
+    const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
     const slides = [
         {
-            id: 0,
             image: 'trusted-vpn.svg',
             title: reactTranslator.getMessage('popup_onboarding_trusted_vpn'),
             info: reactTranslator.getMessage('popup_onboarding_trusted_vpn_info'),
         },
         {
-            id: 1,
             image: 'numerous-locations.svg',
             title: reactTranslator.getMessage('popup_onboarding_numerous_locations'),
             info: reactTranslator.getMessage('popup_onboarding_numerous_locations_info'),
         },
         {
-            id: 2,
             image: 'fastest-servers.svg',
             title: reactTranslator.getMessage('popup_onboarding_fastest_servers'),
             info: reactTranslator.getMessage('popup_onboarding_fastest_servers_info'),
@@ -34,21 +31,22 @@ export const Onboarding = observer(() => {
     ];
 
     const nextSlideHandler = async () => {
-        if (currentSlideId === slides.length - 1) {
+        if (currentSlideIndex === slides.length - 1) {
             await authStore.setShowOnboarding(false);
             return;
         }
-        setCurrentSlideId(currentSlideId + 1);
+        setCurrentSlideIndex(currentSlideIndex + 1);
     };
 
-    const setCurrentSlide = (slideId) => {
-        setCurrentSlideId(slideId);
+    const setCurrentSlide = (index) => {
+        setCurrentSlideIndex(index);
     };
 
     return (
         <div className="onboarding">
             <Slide
-                slideData={slides[currentSlideId]}
+                slideIndex={currentSlideIndex}
+                slideData={slides[currentSlideIndex]}
                 nextSlideHandler={nextSlideHandler}
                 navigationHandler={setCurrentSlide}
                 slidesAmount={slides.length}

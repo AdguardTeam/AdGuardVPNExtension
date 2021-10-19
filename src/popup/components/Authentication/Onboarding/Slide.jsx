@@ -11,6 +11,7 @@ export const Slide = (props) => {
     const { authStore } = useContext(rootStore);
 
     const {
+        slideIndex,
         slideData,
         nextSlideHandler,
         navigationHandler,
@@ -18,7 +19,6 @@ export const Slide = (props) => {
     } = props;
 
     const {
-        id,
         image,
         title,
         info,
@@ -29,7 +29,7 @@ export const Slide = (props) => {
     };
 
     return (
-        <div className={`slide slide-${id}`}>
+        <div className={`slide slide-${slideIndex}`}>
             <CloseButton handler={handleCloseClick} />
             <img
                 src={`../../../../assets/images/${image}`}
@@ -44,7 +44,7 @@ export const Slide = (props) => {
             </div>
             <DotsIndicator
                 dotsAmount={slidesAmount}
-                activeDot={id}
+                activeDot={slideIndex}
                 navigationHandler={navigationHandler}
             />
             <button
