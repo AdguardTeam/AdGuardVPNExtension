@@ -14,10 +14,12 @@ export const Authorization = () => {
         await authStore.proceedAuthorization(provider);
     };
 
-    const providersData = {};
-    Object.values(AUTH_PROVIDERS).forEach((provider) => {
-        providersData[provider] = `auth_sign_in_provider_${provider}`;
-    });
+    const providersTranslations = {
+        [AUTH_PROVIDERS.ADGUARD]: reactTranslator.getMessage('auth_sign_in_provider_adguard'),
+        [AUTH_PROVIDERS.APPLE]: reactTranslator.getMessage('auth_sign_in_provider_apple'),
+        [AUTH_PROVIDERS.GOOGLE]: reactTranslator.getMessage('auth_sign_in_provider_google'),
+        [AUTH_PROVIDERS.FACEBOOK]: reactTranslator.getMessage('auth_sign_in_provider_facebook'),
+    };
 
     return (
         <div className="authorization">
@@ -28,7 +30,7 @@ export const Authorization = () => {
                 {reactTranslator.getMessage('auth_info')}
             </div>
             <div className="authorization__container">
-                {Object.keys(providersData).map((provider) => (
+                {Object.values(AUTH_PROVIDERS).map((provider) => (
                     <button
                         key={provider}
                         type="button"
@@ -36,7 +38,7 @@ export const Authorization = () => {
                         className="button button--outline-secondary button--medium authorization__button"
                     >
                         <Icon icon={`auth_icon_${provider}`} className="authorization__button__social-icon" />
-                        {reactTranslator.getMessage(providersData[provider])}
+                        {providersTranslations[provider]}
                     </button>
                 ))}
             </div>
