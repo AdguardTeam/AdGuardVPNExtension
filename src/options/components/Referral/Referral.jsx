@@ -21,13 +21,13 @@ export const Referral = observer(() => {
 
     const getStatusMessage = () => {
         const statusMessage = invitesCount < maxInvitesCount
-            ? `${reactTranslator.getMessage(
+            ? reactTranslator.getMessage(
                 'settings_referral_invited_friends',
                 {
                     count: invitesCount,
                     limit: maxInvitesCount,
                 },
-            )}`
+            )
             : reactTranslator.getMessage('settings_referral_limit_reached');
         return (
             <>

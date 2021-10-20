@@ -23,9 +23,9 @@ export class GlobalStore {
         try {
             const optionsData = await messenger.getOptionsData();
             settingsStore.setOptionsData(optionsData);
-            await authStore.requestIsPremiumToken();
-            await settingsStore.updateReferralData();
             authStore.setIsAuthenticated(optionsData.isAuthenticated);
+            authStore.setIsPremiumToken(optionsData.isPremiumToken);
+            await settingsStore.updateReferralData();
             this.setInitStatus(REQUEST_STATUSES.DONE);
         } catch (e) {
             log.error(e.message);

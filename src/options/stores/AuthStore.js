@@ -208,6 +208,11 @@ export class AuthStore {
     };
 
     @action
+    setIsPremiumToken = (isPremiumToken) => {
+        this.isPremiumToken = isPremiumToken;
+    }
+
+    @action
     deauthenticate = async () => {
         await messenger.deauthenticateUser();
         await this.rootStore.settingsStore.disableProxy();

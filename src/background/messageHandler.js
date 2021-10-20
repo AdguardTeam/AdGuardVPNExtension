@@ -45,6 +45,8 @@ const getOptionsData = async () => {
     };
 
     const isAuthenticated = await auth.isAuthenticated();
+    const isPremiumToken = await credentials.isPremiumToken();
+
     // AG-644 set current endpoint in order to avoid bug in permissions checker
     await endpoints.getSelectedLocation();
 
@@ -59,6 +61,7 @@ const getOptionsData = async () => {
         appearanceTheme,
         exclusionsData,
         isAuthenticated,
+        isPremiumToken,
     };
 };
 
