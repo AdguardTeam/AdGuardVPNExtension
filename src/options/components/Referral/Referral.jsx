@@ -5,6 +5,8 @@ import classnames from 'classnames';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { Title } from '../ui/Title';
 import { rootStore } from '../../stores';
+import DotsLoader from '../../../popup/components/ui/DotsLoader';
+import { REQUEST_STATUSES } from '../../stores/consts';
 
 import './referral.pcss';
 
@@ -17,13 +19,14 @@ export const Referral = observer(() => {
         inviteUrl,
         invitesCount,
         maxInvitesCount,
+        referralDataRequestStatus,
     } = settingsStore;
 
     useEffect(() => {
         (async () => {
             await settingsStore.updateReferralData();
         })();
-    });
+    }, []);
 
     const getStatusMessage = () => {
         const statusMessage = invitesCount < maxInvitesCount
@@ -60,34 +63,39 @@ export const Referral = observer(() => {
     );
 
     return (
-        <div className="referral">
-            <Title title={reactTranslator.getMessage('referral_get_free_traffic')} />
-            <div className="referral__info">
-                {reactTranslator.getMessage('settings_referral_info')}
-            </div>
-            <div className="referral__status">
-                {getStatusMessage()}
-            </div>
-            <form
-                className="referral__link"
-                onSubmit={handleCopyLink}
-            >
-                <input
-                    type="text"
-                    id="referral-link"
-                    className="referral__link__input"
-                    value={inviteUrl}
-                    disabled
-                />
-                <input
-                    type="submit"
-                    className="referral__link__copy-button"
-                    value={reactTranslator.getMessage('settings_referral_copy_link')}
-                />
-                <span className={referralLinkMessageClasses}>
-                    {reactTranslator.getMessage('settings_referral_link_copied')}
-                </span>
-            </form>
-        </div>
+        <>
+            {referralDataRequestStatus !== REQUEST_STATUSES.DONE ? <DotsLoader />
+                : (
+                    <div className="referral">
+                        <Title title={reactTranslator.getMessage('referral_get_free_traffic')} />
+                        <div className="referral__info">
+                            {reactTranslator.getMessage('settings_referral_info')}
+                        </div>
+                        <div className="referral__status">
+                            {getStatusMessage()}
+                        </div>
+                        <form
+                            className="referral__link"
+                            onSubmit={handleCopyLink}
+                        >
+                            <input
+                                type="text"
+                                id="referral-link"
+                                className="referral__link__input"
+                                value={inviteUrl}
+                                disabled
+                            />
+                            <input
+                                type="submit"
+                                className="referral__link__copy-button"
+                                value={reactTranslator.getMessage('settings_referral_copy_link')}
+                            />
+                            <span className={referralLinkMessageClasses}>
+                                {reactTranslator.getMessage('settings_referral_link_copied')}
+                            </span>
+                        </form>
+                    </div>
+                )}
+        </>
     );
 });

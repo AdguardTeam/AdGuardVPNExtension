@@ -10,6 +10,7 @@ import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT } from '../../lib/constants';
 import { DNS_DEFAULT } from '../../background/dns/dnsConstants';
 import messenger from '../../lib/messenger';
 import { EXCLUSIONS_MODES } from '../../background/exclusions/exclusionsConstants';
+import { REQUEST_STATUSES } from './consts';
 
 export class SettingsStore {
     @observable exclusions = {
@@ -53,6 +54,8 @@ export class SettingsStore {
     @observable inviteUrl = '';
 
     @observable invitesCount = 0;
+
+    @observable referralDataRequestStatus;
 
     @action
     getExclusions = async () => {
@@ -231,12 +234,19 @@ export class SettingsStore {
 
     @action
     updateReferralData = async () => {
+        this.referralDataRequestStatus = REQUEST_STATUSES.PENDING;
         const referralData = await messenger.getReferralData();
         const { inviteUrl, invitesCount, maxInvitesCount } = referralData;
+        // eslint-disable-next-line no-restricted-globals
+        if (isNaN(invitesCount)) {
+            this.referralDataRequestStatus = REQUEST_STATUSES.ERROR;
+            return;
+        }
         runInAction(() => {
             this.inviteUrl = inviteUrl;
             this.invitesCount = invitesCount;
             this.maxInvitesCount = maxInvitesCount;
+            this.referralDataRequestStatus = REQUEST_STATUSES.DONE;
         });
     };
 }
