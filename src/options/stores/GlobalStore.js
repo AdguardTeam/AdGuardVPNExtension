@@ -25,7 +25,6 @@ export class GlobalStore {
             settingsStore.setOptionsData(optionsData);
             authStore.setIsAuthenticated(optionsData.isAuthenticated);
             authStore.setIsPremiumToken(optionsData.isPremiumToken);
-            await settingsStore.updateReferralData();
             this.setInitStatus(REQUEST_STATUSES.DONE);
         } catch (e) {
             log.error(e.message);

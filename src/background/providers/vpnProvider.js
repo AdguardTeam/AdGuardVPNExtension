@@ -196,22 +196,6 @@ const getVpnCredentials = async (appId, vpnToken) => {
     };
 };
 
-const getReferralData = async () => {
-    // [WIP]: waiting for api from backend
-    // const referralData = await vpnApi.getReferralData();
-    // const {
-    //     invite_id: inviteId,
-    //     invites_count: invitesCount,
-    //     max_invites_count: maxInvitesCount,
-    // } = referralData;
-
-    return {
-        inviteUrl: 'https://adguard-vpn.com/join/123456789',
-        invitesCount: 7,
-        maxInvitesCount: 20,
-    };
-};
-
 const postExtensionInstalled = async (appId) => {
     return vpnApi.postExtensionInstalled(appId);
 };
@@ -266,7 +250,6 @@ const vpnProvider = {
     getCurrentLocation,
     getVpnExtensionInfo,
     getVpnCredentials,
-    getReferralData,
     postExtensionInstalled,
     getLocationsData,
     requestSupport,

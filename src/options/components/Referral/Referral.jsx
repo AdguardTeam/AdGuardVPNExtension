@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
@@ -18,6 +18,12 @@ export const Referral = observer(() => {
         invitesCount,
         maxInvitesCount,
     } = settingsStore;
+
+    useEffect(() => {
+        (async () => {
+            await settingsStore.updateReferralData();
+        })();
+    });
 
     const getStatusMessage = () => {
         const statusMessage = invitesCount < maxInvitesCount

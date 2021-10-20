@@ -1,5 +1,7 @@
 import { accountApi } from '../api';
 
+const REFERRAL_URL = 'https://adguard-vpn.com/join/';
+
 const getVpnToken = async (accessToken) => {
     const vpnTokenData = await accountApi.getVpnToken(accessToken);
 
@@ -35,6 +37,21 @@ const getVpnToken = async (accessToken) => {
     };
 };
 
+const getReferralData = async (accessToken) => {
+    const referralData = await accountApi.getReferralData(accessToken);
+    const {
+        invite_id: inviteId,
+        invites_count: invitesCount,
+        max_invites_count: maxInvitesCount,
+    } = referralData;
+
+    return {
+        inviteUrl: `${REFERRAL_URL}${inviteId}`,
+        invitesCount,
+        maxInvitesCount,
+    };
+};
+
 const getAccountInfo = async (accessToken) => {
     const { email } = await accountApi.getAccountInfo(accessToken);
     return email;
@@ -43,4 +60,5 @@ const getAccountInfo = async (accessToken) => {
 export default {
     getVpnToken,
     getAccountInfo,
+    getReferralData,
 };

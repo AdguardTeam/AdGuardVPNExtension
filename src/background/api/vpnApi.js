@@ -37,13 +37,6 @@ class VpnApi extends Api {
         return this.makeRequest(path, method, config);
     };
 
-    GET_REFERRAL_DATA = { path: 'v1/vpn_invites', method: 'GET' };
-
-    getReferralData = () => {
-        const { path, method } = this.GET_REFERRAL_DATA;
-        return this.makeRequest(path, method);
-    };
-
     GET_CURRENT_LOCATION = { path: 'v1/geo_location', method: 'GET' };
 
     getCurrentLocation = () => {

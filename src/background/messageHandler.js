@@ -19,6 +19,7 @@ import { locationsService } from './endpoints/locationsService';
 import { promoNotifications } from './promoNotifications';
 import tabs from './tabs';
 import vpnProvider from './providers/vpnProvider';
+import accountProvider from './providers/accountProvider';
 import { logStorage } from '../lib/log-storage';
 import { setDesktopVpnEnabled } from './connectivity/connectivityService/connectivityFSM';
 
@@ -306,7 +307,8 @@ const messageHandler = async (message, sender) => {
             return actions.openPremiumPromoPage();
         }
         case MESSAGES_TYPES.GET_REFERRAL_DATA: {
-            return vpnProvider.getReferralData();
+            const accessToken = await auth.getAccessToken();
+            return accountProvider.getReferralData(accessToken);
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);
