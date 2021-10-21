@@ -237,8 +237,7 @@ export class SettingsStore {
         this.referralDataRequestStatus = REQUEST_STATUSES.PENDING;
         const referralData = await messenger.getReferralData();
         const { inviteUrl, invitesCount, maxInvitesCount } = referralData;
-        // eslint-disable-next-line no-restricted-globals
-        if (isNaN(invitesCount)) {
+        if (Number.isNaN(invitesCount)) {
             this.referralDataRequestStatus = REQUEST_STATUSES.ERROR;
             return;
         }
