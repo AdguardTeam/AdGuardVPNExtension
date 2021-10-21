@@ -17,7 +17,7 @@ import { fallbackApi } from './api/fallbackApi';
 // eslint-disable-next-line import/no-cycle
 import { settings } from './settings';
 import { AUTH_PROVIDERS } from '../lib/constants';
-import { userService } from './userService';
+import { flagsStorage } from './flagsStorage';
 
 class Auth {
     socialAuthState = null;
@@ -40,7 +40,7 @@ class Auth {
         }
 
         await this.setAccessToken(accessToken);
-        await userService.authenticate();
+        await flagsStorage.authenticate();
         return { status: 'ok' };
     }
 
@@ -124,7 +124,7 @@ class Auth {
 
         // Notify options page, in order to update view
         notifier.notifyListeners(notifier.types.AUTHENTICATE_SOCIAL_SUCCESS);
-        await userService.authenticateSocial();
+        await flagsStorage.authenticateSocial();
         await notifications.create({ message: translator.getMessage('authentication_successful_social') });
     }
 
@@ -139,7 +139,7 @@ class Auth {
         await settings.disableProxy(true);
         // set proxy settings to default
         await proxy.resetSettings();
-        await userService.deauthenticate();
+        await flagsStorage.deauthenticate();
         notifier.notifyListeners(notifier.types.USER_DEAUTHENTICATED);
     }
 
@@ -159,7 +159,7 @@ class Auth {
 
         if (accessToken) {
             await this.setAccessToken(accessToken);
-            await userService.register();
+            await flagsStorage.register();
             return { status: 'ok' };
         }
 

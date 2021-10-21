@@ -21,7 +21,7 @@ import tabs from './tabs';
 import vpnProvider from './providers/vpnProvider';
 import { logStorage } from '../lib/log-storage';
 import { setDesktopVpnEnabled } from './connectivity/connectivityService/connectivityFSM';
-import { userService } from './userService';
+import { flagsStorage } from './flagsStorage';
 
 const eventListeners = {};
 
@@ -96,7 +96,7 @@ const messageHandler = async (message, sender) => {
             const { queryString } = message;
             return auth.authenticateSocial(queryString, id);
         }
-        case MESSAGES_TYPES.GET_POPUP_DATA: {
+        case MESSAGES_TYPES.GET_FLAGS_DATA: {
             const { url, numberOfTries } = data;
             return popupData.getPopupDataRetry(url, numberOfTries);
         }
@@ -299,9 +299,9 @@ const messageHandler = async (message, sender) => {
         case MESSAGES_TYPES.OPEN_PREMIUM_PROMO_PAGE: {
             return actions.openPremiumPromoPage();
         }
-        case MESSAGES_TYPES.SET_USER_SERVICE_DATA: {
+        case MESSAGES_TYPES.SET_FLAG: {
             const { key, value } = data;
-            return userService.set(key, value);
+            return flagsStorage.set(key, value);
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

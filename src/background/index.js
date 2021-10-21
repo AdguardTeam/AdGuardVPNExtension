@@ -24,7 +24,7 @@ import { openThankYouPage } from './postinstall';
 import { endpointsTldExclusions } from './proxy/endpointsTldExclusions';
 import { logStorage } from '../lib/log-storage';
 import { fallbackApi } from './api/fallbackApi';
-import { userService } from './userService';
+import { flagsStorage } from './flagsStorage';
 
 import './networkConnectionObserver';
 import './uninstall';
@@ -57,7 +57,7 @@ global.adguard = {
         await proxy.init();
         await updateService.init();
         await openThankYouPage();
-        await userService.init();
+        await flagsStorage.init();
         permissionsChecker.init(); // should be initiated before auth module
         await auth.init();
         await settings.init();

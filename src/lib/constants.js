@@ -28,7 +28,7 @@ export const MESSAGES_TYPES = {
 
     ADD_LONG_LIVED_CONNECTION: 'add.long.lived.connection',
     AUTHENTICATE_SOCIAL: 'authenticate.social',
-    GET_POPUP_DATA: 'get.popup.data',
+    GET_FLAGS_DATA: 'get.popup.data',
     GET_OPTIONS_DATA: 'get.options.data',
     GET_VPN_FAILURE_PAGE: 'get.vpn.failure.page',
     OPEN_OPTIONS_PAGE: 'open.options.page',
@@ -73,7 +73,7 @@ export const MESSAGES_TYPES = {
     SET_DESKTOP_VPN_ENABLED: 'set.desktop.vpn.enabled',
     OPEN_PREMIUM_PROMO_PAGE: 'open.premium.promo.page',
     GET_USER_SERVICE_DATA: 'get.user.state',
-    SET_USER_SERVICE_DATA: 'set.user.state',
+    SET_FLAG: 'set.flag',
     GET_IS_FIRST_RUN: 'get.is.first.run',
 };
 
@@ -100,7 +100,7 @@ export const AUTH_PROVIDERS = {
     FACEBOOK: 'facebook',
 };
 
-export const USER_SERVICE_KEYS = {
+export const FLAGS_KEYS = {
     IS_NEW_USER: 'is.new.user',
     IS_SOCIAL_AUTH: 'is.social.auth',
     SHOW_ONBOARDING: 'show.onboarding',

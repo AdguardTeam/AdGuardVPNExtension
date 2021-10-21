@@ -307,8 +307,8 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async setUserServiceData(key, value) {
-        const type = MESSAGES_TYPES.SET_USER_SERVICE_DATA;
+    async setFlagsStorageData(key, value) {
+        const type = MESSAGES_TYPES.SET_FLAG;
         return this.sendMessage(type, { key, value });
     }
 }
