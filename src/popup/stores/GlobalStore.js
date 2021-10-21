@@ -62,6 +62,7 @@ export class GlobalStore {
                 settingsStore.setGlobalError(null);
             }
 
+            settingsStore.setCanControlProxy(canControlProxy);
             authStore.setIsAuthenticated(isAuthenticated);
             await authStore.getAuthCacheFromBackground();
             await authStore.setFlagsStorageData(flagsStorageData);
@@ -72,7 +73,6 @@ export class GlobalStore {
             vpnStore.setSelectedLocation(selectedLocation);
             vpnStore.setIsPremiumToken(isPremiumToken);
             settingsStore.setConnectivityState(connectivityState);
-            settingsStore.setCanControlProxy(canControlProxy);
             settingsStore.setIsRoutable(isRoutable);
             settingsStore.setPromoNotification(promoNotification);
             settingsStore.setDesktopVpnEnabled(desktopVpnEnabled);
