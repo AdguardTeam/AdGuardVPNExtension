@@ -96,7 +96,7 @@ const messageHandler = async (message, sender) => {
             const { queryString } = message;
             return auth.authenticateSocial(queryString, id);
         }
-        case MESSAGES_TYPES.GET_FLAGS_DATA: {
+        case MESSAGES_TYPES.GET_POPUP_DATA: {
             const { url, numberOfTries } = data;
             return popupData.getPopupDataRetry(url, numberOfTries);
         }
