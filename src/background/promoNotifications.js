@@ -12,56 +12,65 @@ import notifier from '../lib/notifier';
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const school21Notification = {
-    id: 'school2021',
+const halloweenNotification2021 = {
+    id: 'halloween2021',
     locales: {
         en: {
-            title: 'Back to school\nQUIZ',
-            btn: 'Let\'s go!',
+            title: 'Create your own monster',
+            btn: 'It\'s alive!',
         },
         ru: {
-            title: 'Проверь свои знания',
-            btn: 'Пройти тест',
+            title: 'Собери своего монстра',
+            btn: 'Поехали!',
         },
         ja: {
-            title: 'BACK TO SCHOOL クイズ',
-            btn: '答えてみる',
+            title: '自分のモンスター診断テスト',
+            btn: '受けてみる',
         },
         ko: {
-            title: '백 투 스쿨\n게임',
-            btn: '시작',
+            title: '나만의 몬스터를 만들어 볼까요?',
+            btn: '게임시작',
         },
         zh_cn: {
-            title: '返校\n问答竞赛',
-            btn: '开始吧！',
+            title: '想要有自己的小鬼？',
+            btn: '快来体验',
         },
         zh_tw: {
-            title: '返校\n問答競賽',
-            btn: '開始吧！',
+            title: '創建自己的小鬼',
+            btn: '快來體驗',
         },
         fr: {
-            title: 'PASSEZ LE TEST ADGUARD',
-            btn: 'En avant !',
+            title: 'Inventons un cybermonstre !',
+            btn: 'Jouer',
+        },
+        it: {
+            title: 'Immaginiamo un cybermostro!',
+            btn: 'Giocare',
         },
         es: {
-            title: 'VUELTA AL COLE QUIZ',
-            btn: '¡Estoy listo!',
+            title: 'Crea tu propio monstruo',
+            btn: 'Jugar',
+        },
+        uk: {
+            title: 'Створи свого монстра',
+            btn: 'Нумо!',
         },
     },
+    // will be selected for locale, see usage of getNotificationText
     text: '',
-    url: 'https://adguard-vpn.com/forward.html?action=school21&from=popup&app=vpn_extension',
-    from: '31 August 2021 12:00:00',
-    to: '05 September 2021 23:59:00',
+    url: 'https://adguard-vpn.com/forward.html?action=halloween21&from=popup&app=vpn_extension',
+    from: '25 October 2021 00:00:00',
+    to: '01 November 2021 00:00:00',
     type: 'animated',
     get icons() {
-        return lazyGet(school21Notification, 'icons', () => ({
+        return lazyGet(halloweenNotification2021, 'icons', () => ({
             ENABLED: {
-                19: getUrl('assets/images/icons/school-enabled-19.png'),
-                38: getUrl('assets/images/icons/school-enabled-38.png'),
+                19: getUrl('assets/images/icons/halloween-enabled-19.png'),
+                38: getUrl('assets/images/icons/halloween-enabled-38.png'),
             },
             DISABLED: {
-                19: getUrl('assets/images/icons/school-disabled-19.png'),
-                38: getUrl('assets/images/icons/school-disabled-38.png'),
+                19: getUrl('assets/images/icons/halloween-disabled-19.png'),
+                38: getUrl('assets/images/icons/halloween-disabled-38.png'),
             },
         }));
     },
@@ -83,7 +92,7 @@ const school21Notification = {
  * @property {string} type;
  */
 const notifications = {
-    school2021: school21Notification,
+    halloween2021: halloweenNotification2021,
 };
 
 /**

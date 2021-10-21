@@ -128,14 +128,10 @@ const updateFirefoxManifest = async () => {
 
 const generateFirefoxArtifacts = async () => {
     try {
-        /**
-         * We stopped to create signed standalone xpi build for firefox, because mozilla doesn't
-         * allow to sign them immediately anymore. This can change in the future
-         */
-        // await updateFirefoxManifest();
-        // await generateXpi();
-        // const manifest = await getFirefoxManifest();
-        // await createUpdateJson(manifest);
+        await updateFirefoxManifest();
+        await generateXpi();
+        const manifest = await getFirefoxManifest();
+        await createUpdateJson(manifest);
     } catch (error) {
         console.error(chalk.redBright(error.message));
         console.error(error);

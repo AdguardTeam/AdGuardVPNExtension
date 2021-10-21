@@ -4,7 +4,6 @@ import lodashGet from 'lodash/get';
 import accountProvider from '../providers/accountProvider';
 import { log } from '../../lib/logger';
 import notifier from '../../lib/notifier';
-import { updateService } from '../updateService';
 
 class Credentials {
     VPN_TOKEN_KEY = 'credentials.token';
@@ -347,25 +346,26 @@ class Credentials {
     }
 
     /**
-     * After every new install or update posts request to the server if wasn't posted yet
-     * @param runInfo
-     * @param appId
+     * Method used to track installations
+     * It will be called on every extension launch or attempt to connect to proxy
      * @returns {Promise<void>}
      */
-    async trackInstallation(appId) {
+    async trackInstallation() {
+        if (!this.appId) {
+            throw new Error('appId is required for tracking installations');
+        }
+
         const TRACKED_INSTALLATIONS_KEY = 'credentials.tracked.installations';
-        if (updateService.isFirstRun || updateService.isUpdate) {
-            try {
-                const tracked = await this.storage.get(TRACKED_INSTALLATIONS_KEY);
-                if (tracked) {
-                    return;
-                }
-                await this.vpnProvider.postExtensionInstalled(appId);
-                await this.storage.set(TRACKED_INSTALLATIONS_KEY, true);
-                log.info('Installation successfully tracked');
-            } catch (e) {
-                log.error('Error occurred during track request', e.message);
+        try {
+            const tracked = await this.storage.get(TRACKED_INSTALLATIONS_KEY);
+            if (tracked) {
+                return;
             }
+            await this.vpnProvider.postExtensionInstalled(this.appId);
+            await this.storage.set(TRACKED_INSTALLATIONS_KEY, true);
+            log.info('Installation successfully tracked');
+        } catch (e) {
+            log.error('Error occurred during track request', e.message);
         }
     }
 
@@ -384,7 +384,7 @@ class Credentials {
             );
 
             this.appId = await this.gainAppId();
-            await this.trackInstallation(this.appId);
+            await this.trackInstallation();
 
             // On extension initialisation use local fallback if was unable to get data remotely
             // it might be useful on browser restart
