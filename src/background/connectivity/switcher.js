@@ -36,6 +36,7 @@ function* turnOnProxy(forcePrevEndpoint = false) {
             return;
         }
 
+        yield credentials.trackInstallation();
         const selectedLocation = yield locationsService.getSelectedLocation();
         const selectedEndpoint = yield locationsService.getEndpointByLocation(
             selectedLocation,
