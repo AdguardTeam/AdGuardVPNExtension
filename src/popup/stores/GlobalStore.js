@@ -63,19 +63,19 @@ export class GlobalStore {
             }
 
             settingsStore.setCanControlProxy(canControlProxy);
-            authStore.setIsAuthenticated(isAuthenticated);
-            await authStore.getAuthCacheFromBackground();
-            await authStore.setFlagsStorageData(flagsStorageData);
-            authStore.setIsFirstRun(isFirstRun);
-            await authStore.setPolicyAgreement(policyAgreement);
-            vpnStore.setVpnInfo(vpnInfo);
-            vpnStore.setLocations(locations);
-            vpnStore.setSelectedLocation(selectedLocation);
-            vpnStore.setIsPremiumToken(isPremiumToken);
             settingsStore.setConnectivityState(connectivityState);
             settingsStore.setIsRoutable(isRoutable);
             settingsStore.setPromoNotification(promoNotification);
             settingsStore.setDesktopVpnEnabled(desktopVpnEnabled);
+            vpnStore.setVpnInfo(vpnInfo);
+            vpnStore.setLocations(locations);
+            vpnStore.setSelectedLocation(selectedLocation);
+            vpnStore.setIsPremiumToken(isPremiumToken);
+            authStore.setIsAuthenticated(isAuthenticated);
+            await authStore.getAuthCacheFromBackground();
+            authStore.setFlagsStorageData(flagsStorageData);
+            authStore.setIsFirstRun(isFirstRun);
+            await authStore.setPolicyAgreement(policyAgreement);
             await settingsStore.checkRateStatus();
             await settingsStore.checkIsExcluded();
             await settingsStore.getExclusionsInverted();
