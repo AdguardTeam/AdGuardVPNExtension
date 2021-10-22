@@ -62,6 +62,8 @@ export class GlobalStore {
                 settingsStore.setGlobalError(null);
             }
 
+            authStore.setFlagsStorageData(flagsStorageData);
+            authStore.setIsFirstRun(isFirstRun);
             settingsStore.setCanControlProxy(canControlProxy);
             settingsStore.setConnectivityState(connectivityState);
             settingsStore.setIsRoutable(isRoutable);
@@ -73,8 +75,6 @@ export class GlobalStore {
             vpnStore.setIsPremiumToken(isPremiumToken);
             authStore.setIsAuthenticated(isAuthenticated);
             await authStore.getAuthCacheFromBackground();
-            authStore.setFlagsStorageData(flagsStorageData);
-            authStore.setIsFirstRun(isFirstRun);
             await authStore.setPolicyAgreement(policyAgreement);
             await settingsStore.checkRateStatus();
             await settingsStore.checkIsExcluded();
