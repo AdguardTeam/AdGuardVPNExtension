@@ -40,7 +40,7 @@ class Auth {
         }
 
         await this.setAccessToken(accessToken);
-        await flagsStorage.authenticate();
+        await flagsStorage.onAuthenticate();
         return { status: 'ok' };
     }
 
@@ -124,7 +124,7 @@ class Auth {
 
         // Notify options page, in order to update view
         notifier.notifyListeners(notifier.types.AUTHENTICATE_SOCIAL_SUCCESS);
-        await flagsStorage.authenticateSocial();
+        await flagsStorage.onAuthenticateSocial();
         await notifications.create({ message: translator.getMessage('authentication_successful_social') });
     }
 
@@ -139,7 +139,7 @@ class Auth {
         await settings.disableProxy(true);
         // set proxy settings to default
         await proxy.resetSettings();
-        await flagsStorage.deauthenticate();
+        await flagsStorage.onDeauthenticate();
         notifier.notifyListeners(notifier.types.USER_DEAUTHENTICATED);
     }
 
@@ -159,7 +159,7 @@ class Auth {
 
         if (accessToken) {
             await this.setAccessToken(accessToken);
-            await flagsStorage.register();
+            await flagsStorage.onRegister();
             return { status: 'ok' };
         }
 

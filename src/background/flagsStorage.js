@@ -52,7 +52,7 @@ class FlagsStorage {
     /**
      * Sets flags when new user registered
      */
-    register = async () => {
+    onRegister = async () => {
         await Promise.all([
             this.set(FLAGS_KEYS.IS_NEW_USER, true),
             this.set(FLAGS_KEYS.IS_SOCIAL_AUTH, false),
@@ -62,7 +62,7 @@ class FlagsStorage {
     /**
      * Sets flags when new user authenticated
      */
-    authenticate = async () => {
+    onAuthenticate = async () => {
         await Promise.all([
             this.set(FLAGS_KEYS.IS_NEW_USER, false),
             this.set(FLAGS_KEYS.IS_SOCIAL_AUTH, false),
@@ -72,7 +72,7 @@ class FlagsStorage {
     /**
      * Sets flags when new user authenticated using social net provider
      */
-    authenticateSocial = async () => {
+    onAuthenticateSocial = async () => {
         await Promise.all([
             this.set(FLAGS_KEYS.IS_NEW_USER, false),
             this.set(FLAGS_KEYS.IS_SOCIAL_AUTH, true),
@@ -82,7 +82,7 @@ class FlagsStorage {
     /**
      * Sets flags when new user deauthenticated
      */
-    deauthenticate = async () => {
+    onDeauthenticate = async () => {
         await this.setDefaults();
         await updateService.setIsFirstRun(false);
     };
