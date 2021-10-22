@@ -100,10 +100,10 @@ export const AUTH_PROVIDERS = {
     FACEBOOK: 'facebook',
 };
 
-export const FLAGS_KEYS = {
-    IS_NEW_USER: 'is.new.user',
-    IS_SOCIAL_AUTH: 'is.social.auth',
-    SHOW_ONBOARDING: 'show.onboarding',
-    SHOW_UPGRADE_SCREEN: 'show.upgrade.screen',
-    SALE_SHOW: 'sale.show',
+export const FLAGS_FIELDS = {
+    IS_NEW_USER: 'isNewUser',
+    IS_SOCIAL_AUTH: 'isSocialAuth',
+    SHOW_ONBOARDING: 'showOnboarding',
+    SHOW_UPGRADE_SCREEN: 'showUpgradeScreen',
+    SALE_SHOW: 'saleShow',
 };

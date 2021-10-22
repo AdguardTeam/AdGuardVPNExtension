@@ -307,9 +307,9 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async setFlagsStorageData(key, value) {
+    async setFlag(field, value) {
         const type = MESSAGES_TYPES.SET_FLAG;
-        return this.sendMessage(type, { key, value });
+        return this.sendMessage(type, { field, value });
     }
 }
 

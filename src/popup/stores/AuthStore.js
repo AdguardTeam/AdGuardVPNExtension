@@ -9,7 +9,7 @@ import isNil from 'lodash/isNil';
 
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
 import messenger from '../../lib/messenger';
-import { SETTINGS_IDS, AUTH_PROVIDERS, FLAGS_KEYS } from '../../lib/constants';
+import { SETTINGS_IDS, AUTH_PROVIDERS, FLAGS_FIELDS } from '../../lib/constants';
 
 const AUTH_STEPS = {
     POLICY_AGREEMENT: 'policyAgreement',
@@ -136,16 +136,16 @@ export class AuthStore {
 
     @action
     setFlagsStorageData = async (flagsStorageData) => {
-        this.isNewUser = flagsStorageData[FLAGS_KEYS.IS_NEW_USER];
-        this.isSocialAuth = flagsStorageData[FLAGS_KEYS.IS_SOCIAL_AUTH];
-        this.showOnboarding = flagsStorageData[FLAGS_KEYS.SHOW_ONBOARDING];
-        this.showUpgradeScreen = flagsStorageData[FLAGS_KEYS.SHOW_UPGRADE_SCREEN];
-        this.promoScreenState = flagsStorageData[FLAGS_KEYS.SALE_SHOW];
+        this.isNewUser = flagsStorageData[FLAGS_FIELDS.IS_NEW_USER];
+        this.isSocialAuth = flagsStorageData[FLAGS_FIELDS.IS_SOCIAL_AUTH];
+        this.showOnboarding = flagsStorageData[FLAGS_FIELDS.SHOW_ONBOARDING];
+        this.showUpgradeScreen = flagsStorageData[FLAGS_FIELDS.SHOW_UPGRADE_SCREEN];
+        this.promoScreenState = flagsStorageData[FLAGS_FIELDS.SALE_SHOW];
     }
 
     @action
     setShowOnboarding = async (value) => {
-        await messenger.setFlagsStorageData(FLAGS_KEYS.SHOW_ONBOARDING, value);
+        await messenger.setFlag(FLAGS_FIELDS.SHOW_ONBOARDING, value);
         runInAction(() => {
             this.showOnboarding = value;
         });
@@ -153,7 +153,7 @@ export class AuthStore {
 
     @action
     setShowUpgradeScreen = async (value) => {
-        await messenger.setFlagsStorageData(FLAGS_KEYS.SHOW_UPGRADE_SCREEN, value);
+        await messenger.setFlag(FLAGS_FIELDS.SHOW_UPGRADE_SCREEN, value);
         runInAction(() => {
             this.showUpgradeScreen = value;
         });
@@ -161,7 +161,7 @@ export class AuthStore {
 
     @action
     setSalePromoStatus = async (state) => {
-        await messenger.setFlagsStorageData(FLAGS_KEYS.SALE_SHOW, state);
+        await messenger.setFlag(FLAGS_FIELDS.SALE_SHOW, state);
         runInAction(() => {
             this.promoScreenState = state;
         });

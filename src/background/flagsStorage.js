@@ -1,11 +1,13 @@
 import browserApi from './browserApi';
 import { updateService } from './updateService';
-import { FLAGS_KEYS, PROMO_SCREEN_STATES } from '../lib/constants';
+import { FLAGS_FIELDS, PROMO_SCREEN_STATES } from '../lib/constants';
+
+const FLAGS_STORAGE_KEY = 'flags.storage';
 
 const DEFAULTS = {
-    [FLAGS_KEYS.SHOW_ONBOARDING]: true,
-    [FLAGS_KEYS.SHOW_UPGRADE_SCREEN]: true,
-    [FLAGS_KEYS.SALE_SHOW]: PROMO_SCREEN_STATES.DISPLAY_AFTER_CONNECT_CLICK,
+    [FLAGS_FIELDS.SHOW_ONBOARDING]: true,
+    [FLAGS_FIELDS.SHOW_UPGRADE_SCREEN]: true,
+    [FLAGS_FIELDS.SALE_SHOW]: PROMO_SCREEN_STATES.DISPLAY_AFTER_CONNECT_CLICK,
 };
 
 /**
@@ -13,70 +15,62 @@ const DEFAULTS = {
  */
 class FlagsStorage {
     /**
-     * Sets value to storage for provided key
+     * Sets value to flags storage for provided field
      */
-    set = async (key, value) => {
-        await browserApi.storage.set(key, value);
+    set = async (field, value) => {
+        const flagsStorageData = await browserApi.storage.get(FLAGS_STORAGE_KEY);
+        flagsStorageData[field] = value;
+        await browserApi.storage.set(FLAGS_STORAGE_KEY, flagsStorageData);
     };
 
     /**
-     * Gets value to storage by key
+     * Gets value from flags storage by field name
      */
-    get = async (key) => {
-        return browserApi.storage.get(key);
+    get = async (field) => {
+        const flagsStorageData = await browserApi.storage.get(FLAGS_STORAGE_KEY);
+        return flagsStorageData[field];
     };
 
     /**
      * Sets default values for flags
      */
     setDefaults = async () => {
-        const defaults = [];
-        Object.keys(DEFAULTS).forEach((key) => {
-            defaults.push(this.set(key, DEFAULTS[key]));
+        const flagsStorageData = await this.getFlagsStorageData();
+        Object.keys(DEFAULTS).forEach((field) => {
+            flagsStorageData[field] = DEFAULTS[field];
         });
-        await Promise.all(defaults);
+        await browserApi.storage.set(FLAGS_STORAGE_KEY, flagsStorageData);
     };
 
     /**
      * Returns object with all flags values { flag_key: value }
      */
     getFlagsStorageData = async () => {
-        const flagsKeys = Object.values(FLAGS_KEYS);
-        const flagsValues = flagsKeys.map((key) => this.get(key));
-        const flagsStorageData = await Promise.all(flagsValues);
-
-        return Object.fromEntries(flagsKeys
-            .map((_, i) => [flagsKeys[i], flagsStorageData[i]]));
+        return browserApi.storage.get(FLAGS_STORAGE_KEY);
     };
 
     /**
      * Sets flags when new user registered
      */
     onRegister = async () => {
-        await Promise.all([
-            this.set(FLAGS_KEYS.IS_NEW_USER, true),
-            this.set(FLAGS_KEYS.IS_SOCIAL_AUTH, false),
-        ]);
+        await this.set(FLAGS_FIELDS.IS_NEW_USER, true);
+        await this.set(FLAGS_FIELDS.IS_SOCIAL_AUTH, false);
     };
 
     /**
      * Sets flags when new user authenticated
      */
     onAuthenticate = async () => {
-        await Promise.all([
-            this.set(FLAGS_KEYS.IS_NEW_USER, false),
-            this.set(FLAGS_KEYS.IS_SOCIAL_AUTH, false),
-        ]);
+        await this.set(FLAGS_FIELDS.IS_NEW_USER, false);
+        await this.set(FLAGS_FIELDS.IS_SOCIAL_AUTH, false);
     };
 
     /**
      * Sets flags when new user authenticated using social net provider
      */
     onAuthenticateSocial = async () => {
-        await Promise.all([
-            this.set(FLAGS_KEYS.IS_NEW_USER, false),
-            this.set(FLAGS_KEYS.IS_SOCIAL_AUTH, true),
-        ]);
+        await this.set(FLAGS_FIELDS.IS_NEW_USER, false);
+        await this.set(FLAGS_FIELDS.IS_SOCIAL_AUTH, true);
     };
 
     /**
@@ -88,6 +82,7 @@ class FlagsStorage {
     };
 
     init = async () => {
+        await browserApi.storage.set(FLAGS_STORAGE_KEY, {});
         await this.setDefaults();
     };
 }
