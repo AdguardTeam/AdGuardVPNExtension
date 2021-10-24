@@ -5,9 +5,33 @@ import { promoNotifications } from './promoNotifications';
 import credentials from './credentials';
 import { UPGRADE_LICENSE_URL } from './config';
 import tabs from './tabs';
+import browserApi from './browserApi';
+
+const OPTIONS_TAB_ID_KEY = 'options.tab.id';
 
 const openOptionsPage = async () => {
-    return browser.runtime.openOptionsPage();
+    await browser.runtime.openOptionsPage();
+    const optionsTab = await tabs.getActive();
+    const optionsTabId = optionsTab[0].id;
+    await browserApi.storage.set(OPTIONS_TAB_ID_KEY, optionsTabId);
+};
+
+const openUniqueOptionsPage = async () => {
+    const optionsTabId = await browserApi.storage.get(OPTIONS_TAB_ID_KEY);
+    if (!optionsTabId) {
+        await openOptionsPage();
+    }
+
+    const { id: windowId } = await browser.windows.getCurrent();
+    const tabs = await browser.tabs.query({ windowId });
+    const optionsTab = tabs.find((tab) => tab.id === optionsTabId);
+
+    if (optionsTab) {
+        const optionsUrl = browser.runtime.getURL('options.html');
+        await browser.tabs.update(optionsTabId, { active: true, url: optionsUrl });
+    } else {
+        await openOptionsPage();
+    }
 };
 
 const setIcon = async (details) => {
@@ -128,7 +152,7 @@ const openPremiumPromoPage = async () => {
 };
 
 const actions = {
-    openOptionsPage,
+    openOptionsPage: openUniqueOptionsPage,
     setIconEnabled,
     setIconDisabled,
     setIconTrafficOff,
