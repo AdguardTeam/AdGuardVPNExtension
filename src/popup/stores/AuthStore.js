@@ -136,7 +136,6 @@ export class AuthStore {
 
     @action
     setFlagsStorageData = (flagsStorageData) => {
-        console.log(`%%% flagsStorageData AUTH: ${flagsStorageData}`);
         this.isNewUser = flagsStorageData[FLAGS_FIELDS.IS_NEW_USER];
         this.isSocialAuth = flagsStorageData[FLAGS_FIELDS.IS_SOCIAL_AUTH];
         this.showOnboarding = flagsStorageData[FLAGS_FIELDS.SHOW_ONBOARDING];
