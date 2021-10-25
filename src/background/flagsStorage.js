@@ -15,20 +15,20 @@ const DEFAULTS = {
  */
 class FlagsStorage {
     /**
-     * Sets value to flags storage for provided field
+     * Sets value to flags storage for provided key
      */
-    set = async (field, value) => {
+    set = async (key, value) => {
         const flagsStorageData = await browserApi.storage.get(FLAGS_STORAGE_KEY);
-        flagsStorageData[field] = value;
+        flagsStorageData[key] = value;
         await browserApi.storage.set(FLAGS_STORAGE_KEY, flagsStorageData);
     };
 
     /**
-     * Gets value from flags storage by field name
+     * Gets value from flags storage by key name
      */
-    get = async (field) => {
+    get = async (key) => {
         const flagsStorageData = await browserApi.storage.get(FLAGS_STORAGE_KEY);
-        return flagsStorageData[field];
+        return flagsStorageData[key];
     };
 
     /**
@@ -36,8 +36,8 @@ class FlagsStorage {
      */
     setDefaults = async () => {
         const flagsStorageData = await this.getFlagsStorageData();
-        Object.keys(DEFAULTS).forEach((field) => {
-            flagsStorageData[field] = DEFAULTS[field];
+        Object.keys(DEFAULTS).forEach((key) => {
+            flagsStorageData[key] = DEFAULTS[key];
         });
         await browserApi.storage.set(FLAGS_STORAGE_KEY, flagsStorageData);
     };
