@@ -1,6 +1,7 @@
 import browserApi from './browserApi';
 import { updateService } from './updateService';
 import { FLAGS_FIELDS, PROMO_SCREEN_STATES } from '../lib/constants';
+import { log } from '../lib/logger';
 
 const FLAGS_STORAGE_KEY = 'flags.storage';
 
@@ -22,23 +23,19 @@ class FlagsStorage {
      */
     set = async (key, value) => {
         const flagsStorageData = await browserApi.storage.get(FLAGS_STORAGE_KEY);
+        if (!flagsStorageData) {
+            log.error('Unable to get flags data from storage');
+            return;
+        }
         flagsStorageData[key] = value;
         await browserApi.storage.set(FLAGS_STORAGE_KEY, flagsStorageData);
-    };
-
-    /**
-     * Gets value from flags storage by key name
-     */
-    get = async (key) => {
-        const flagsStorageData = await browserApi.storage.get(FLAGS_STORAGE_KEY);
-        return flagsStorageData[key];
     };
 
     /**
      * Sets default values for flags
      */
     setDefaults = async () => {
-        const flagsStorageData = await this.getFlagsStorageData();
+        const flagsStorageData = await browserApi.storage.get(FLAGS_STORAGE_KEY);
         Object.keys(DEFAULTS).forEach((key) => {
             flagsStorageData[key] = DEFAULTS[key];
         });
