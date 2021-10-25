@@ -5,31 +5,16 @@ import { promoNotifications } from './promoNotifications';
 import credentials from './credentials';
 import { UPGRADE_LICENSE_URL } from './config';
 import tabs from './tabs';
-import browserApi from './browserApi';
-
-const OPTIONS_TAB_ID_KEY = 'options.tab.id';
-
-const openOptionsTab = async () => {
-    await browser.runtime.openOptionsPage();
-    const optionsTab = await tabs.getActive();
-    const optionsTabId = optionsTab[0].id;
-    await browserApi.storage.set(OPTIONS_TAB_ID_KEY, optionsTabId);
-};
 
 const openOptionsPage = async () => {
-    const optionsTabId = await browserApi.storage.get(OPTIONS_TAB_ID_KEY);
-    if (!optionsTabId) {
-        await openOptionsTab();
-    }
-
     const tabs = await browser.tabs.query({});
     const optionsUrl = browser.runtime.getURL('options.html');
     const optionsTab = tabs.find((tab) => tab.url?.startsWith(optionsUrl));
 
     if (optionsTab) {
-        await browser.tabs.update(optionsTabId, { active: true, url: optionsUrl });
+        await browser.tabs.update(optionsTab.id, { active: true, url: optionsUrl });
     } else {
-        await openOptionsTab();
+        await browser.runtime.openOptionsPage();
     }
 };
 
