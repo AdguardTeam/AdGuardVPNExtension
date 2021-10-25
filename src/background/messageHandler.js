@@ -300,8 +300,8 @@ const messageHandler = async (message, sender) => {
             return actions.openPremiumPromoPage();
         }
         case MESSAGES_TYPES.SET_FLAG: {
-            const { field, value } = data;
-            return flagsStorage.set(field, value);
+            const { key, value } = data;
+            return flagsStorage.set(key, value);
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

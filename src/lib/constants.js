@@ -83,8 +83,11 @@ export const ERROR_STATUSES = {
 };
 
 export const PROMO_SCREEN_STATES = {
+    // display if user clicks on connect button
     DISPLAY_AFTER_CONNECT_CLICK: 'display.after.connect.click',
+    // display if user opens extension's popup window
     DISPLAY_ON_POPUP_OPEN: 'display.on.popup.open',
+    // don't display
     DO_NOT_DISPLAY: 'do.not.display',
 };
 
