@@ -32,11 +32,10 @@ class FlagsStorage {
     };
 
     /**
-     * Sets default values for flags
+     * Sets default values for flags to storage
      */
     setDefaults = async () => {
-        const flagsStorageData = await this.getFlagsStorageData();
-        await browserApi.storage.set(FLAGS_STORAGE_KEY, { ...flagsStorageData, ...DEFAULTS });
+        await browserApi.storage.set(FLAGS_STORAGE_KEY, DEFAULTS);
     };
 
     /**
@@ -79,7 +78,6 @@ class FlagsStorage {
     };
 
     init = async () => {
-        await browserApi.storage.set(FLAGS_STORAGE_KEY, {});
         await this.setDefaults();
     };
 }
