@@ -62,12 +62,7 @@ export class GlobalStore {
                 settingsStore.setGlobalError(null);
             }
 
-            if (!flagsStorageData) {
-                settingsStore.setGlobalError(new Error('No flags storage data'));
-            } else {
-                authStore.setFlagsStorageData(flagsStorageData);
-            }
-
+            authStore.setFlagsStorageData(flagsStorageData);
             authStore.setIsFirstRun(isFirstRun);
             settingsStore.setCanControlProxy(canControlProxy);
             settingsStore.setConnectivityState(connectivityState);
