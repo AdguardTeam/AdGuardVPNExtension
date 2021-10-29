@@ -27,6 +27,7 @@ import { fallbackApi } from './api/fallbackApi';
 
 import './networkConnectionObserver';
 import './uninstall';
+import vpnProvider from './providers/vpnProvider';
 
 global.adguard = {
     settings,
@@ -67,6 +68,10 @@ global.adguard = {
         await nonRoutable.init();
         contextMenu.init();
         browserActionIcon.init();
+        const services = await vpnProvider.getExclusionsServices();
+        const servicesIds = services.map((service) => service.serviceId);
+        const serviceDomains = await vpnProvider.getExclusionsServicesDomains(servicesIds);
+        console.log(serviceDomains);
         log.info('Extension loaded all necessary modules');
     } catch (e) {
         log.error('Unable to start extension because of error:', e && e.message);

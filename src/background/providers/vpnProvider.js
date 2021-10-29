@@ -246,6 +246,51 @@ const requestSupport = async ({
     }
 };
 
+// TODO if no services returned, use default list
+// TODO if services were returned recently,
+//  but they are not returned now, we should use services from the storage
+const getExclusionsServices = async () => {
+    let rawExclusionsServices;
+    try {
+        rawExclusionsServices = await vpnApi.getExclusionsServices();
+    } catch (e) {
+        log.error(e);
+        rawExclusionsServices = [];
+    }
+
+    // [ {
+    //     "service_id" : "whatsapp",
+    //     "service_name" : "WhatsApp",
+    //     "icon_url" : "https://icons.adguard.org/icon?domain=whatsapp.com",
+    //     "categories" : [ "MESSENGERS" ],
+    //     "modified_time" : "2021-10-29T09:58:04+0000"
+    // } ]
+    const exclusionServices = rawExclusionsServices.map((exclusionService) => {
+        const {
+            service_id: serviceId,
+            service_name: serviceName,
+            icon_url: iconUrl,
+            categories,
+            modified_time: modifiedTime,
+        } = exclusionService;
+
+        return {
+            serviceId,
+            serviceName,
+            iconUrl,
+            categories,
+            modifiedTime,
+        };
+    });
+
+    return rawExclusionsServices;
+};
+
+const getExclusionsServicesDomains = async (serviceIds) => {
+    const exclusionServiceDomains = await vpnApi.getExclusionServiceDomains(serviceIds);
+    return exclusionServiceDomains;
+};
+
 const vpnProvider = {
     getCurrentLocation,
     getVpnExtensionInfo,
@@ -253,6 +298,8 @@ const vpnProvider = {
     postExtensionInstalled,
     getLocationsData,
     requestSupport,
+    getExclusionsServices,
+    getExclusionsServicesDomains,
 };
 
 export default vpnProvider;

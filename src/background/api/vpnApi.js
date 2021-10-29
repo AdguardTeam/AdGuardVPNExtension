@@ -87,6 +87,25 @@ class VpnApi extends Api {
         const { path, method } = this.GET_DESKTOP_VPN_CONNECTION_STATUS;
         return this.makeRequest(path, method);
     }
+
+    EXCLUSION_SERVICES = { path: 'v1/exclusion_services', method: 'GET' };
+
+    getExclusionsServices = () => {
+        const { path, method } = this.EXCLUSION_SERVICES;
+        return this.makeRequest(path, method);
+    };
+
+    EXCLUSION_SERVICE_DOMAINS = { path: 'v1/exclusion_services/domains', method: 'GET' };
+
+    getExclusionServiceDomains = (servicesIds) => {
+        const { path, method } = this.EXCLUSION_SERVICE_DOMAINS;
+
+        const config = {
+            data: servicesIds.map((serviceId) => `service_id=${serviceId}`),
+        };
+
+        return this.makeRequest(path, method, config);
+    };
 }
 
 export const vpnApi = new VpnApi(async () => `${await fallbackApi.getVpnApiUrl()}/api`);

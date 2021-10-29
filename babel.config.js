@@ -8,7 +8,7 @@ module.exports = (api) => {
                 firefox: '52',
                 opera: '42',
             },
-        }], '@babel/preset-react'],
+        }], '@babel/preset-typescript', '@babel/preset-react'],
         plugins: [
             ['@babel/plugin-proposal-decorators', { legacy: true }],
             ['@babel/plugin-proposal-class-properties', { loose: true }],

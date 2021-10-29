@@ -157,6 +157,7 @@ export default class ExclusionsHandler {
         this.handleExclusionsUpdate(exclusion);
     };
 
+    // TODO rename exclusions wont work anymore
     renameExclusion = (id, newUrl) => {
         const hostname = getHostname(this.prepareUrl(newUrl));
 
