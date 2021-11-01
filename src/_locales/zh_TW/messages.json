@@ -515,7 +515,7 @@
         "message": "Zip 檔案：\"%filename%\" 不包含有副檔名：%extensions% 的檔案"
     },
     "popup_connections_limit_description_start": {
-        "message": "您的連線數量達到上限：%maxDevicesAllowed%。"
+        "message": "您已達到連線之最大數量：%maxDevicesAllowed%。"
     },
     "popup_connections_limit_description_end_free": {
         "message": "為了新增更多的裝置，考慮訂閱無限制的 AdGuard VPN。"

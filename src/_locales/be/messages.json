@@ -269,6 +269,18 @@
     "settings_dns_selector_quad9_desc": {
         "message": "Бясплатны альтэрнатыўны DNS-сэрвіс з абаронай ад фішынгу і шпіёнскіх праграм"
     },
+    "settings_theme_label": {
+        "message": "Тэма"
+    },
+    "settings_theme_system": {
+        "message": "Як у сістэме"
+    },
+    "settings_theme_dark": {
+        "message": "Цёмная"
+    },
+    "settings_theme_light": {
+        "message": "Светлая"
+    },
     "settings_exclusion_add": {
         "message": "Дадаць сайт"
     },
@@ -425,6 +437,9 @@
     "upgrade_features_devices": {
         "message": "Да 5 прылад"
     },
+    "upgrade_features_streaming": {
+        "message": "Падтрымка стрымінгавых сэрвісаў"
+    },
     "continue_us_free_button": {
         "message": "Працягнуць дарма"
     },
@@ -516,5 +531,20 @@
     },
     "popup_connections_limit_title": {
         "message": "Дасягнуты ліміт падлучэнняў"
+    },
+    "popup_desktop_vpn_enabled_title": {
+        "message": "Вы ўжо падлучаны да AdGuard VPN"
+    },
+    "popup_desktop_vpn_enabled_description": {
+        "message": "AdGuard VPN працуе ў дэсктопным дадатку, таму браўзарнае пашырэнне было аўтаматычна адключана"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "Ok"
+    },
+    "options_signedout_page_title": {
+        "message": "Вы выйшлі з AdGuard VPN"
+    },
+    "options_signedout_page_description": {
+        "message": "Звярніце ўвагу, што злучэнне не абаронена. Каб працягнуць карыстацца інтэрнэтам бяспечна, націсніце на іконку AdGuard VPN і зноў увайдзіце ў дадатак."
     }
 }

@@ -269,6 +269,18 @@
     "settings_dns_selector_quad9_desc": {
         "message": "Dịch vụ DNS thay thế miễn phí với sự bảo vệ khỏi lừa đảo và phần mềm gián điệp"
     },
+    "settings_theme_label": {
+        "message": "Theme"
+    },
+    "settings_theme_system": {
+        "message": "Hệ thống"
+    },
+    "settings_theme_dark": {
+        "message": "Chủ đề màu tối"
+    },
+    "settings_theme_light": {
+        "message": "Sáng"
+    },
     "settings_exclusion_add": {
         "message": "Thêm trang web"
     },
@@ -516,5 +528,8 @@
     },
     "popup_connections_limit_title": {
         "message": "Đã đạt đến giới hạn kết nối"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "Ok"
     }
 }

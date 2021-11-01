@@ -1,1 +1,68 @@
-{}
+{
+    "authentication_error_wrong_credentials": {
+        "message": "Սխալ գաղտնաբառ"
+    },
+    "about_title": {
+        "message": "Ծրագրի մասին"
+    },
+    "options_support_title": {
+        "message": "Աջակցում"
+    },
+    "options_support_discuss_title": {
+        "message": "Ծրագրի ֆորումը"
+    },
+    "options_bug_report_email_label": {
+        "message": "Էլ. փոստ"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Ներառել ախտորոշման զեկույցը"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Հաղորդագրություն"
+    },
+    "auth_password": {
+        "message": "Գաղտնաբառ"
+    },
+    "privacy_policy": {
+        "message": "Գաղտնիության քաղաքականություն"
+    },
+    "settings_title": {
+        "message": "Կարգավորումներ"
+    },
+    "settings_webrtc_label": {
+        "message": "Արգելափակել WebRTC-ին"
+    },
+    "settings_dns_selector_default_title": {
+        "message": "Հիմնական"
+    },
+    "settings_theme_label": {
+        "message": "Ֆոն"
+    },
+    "settings_exclusions_import_button": {
+        "message": "Ներմուծել"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Արտահանել"
+    },
+    "settings_exclusion_title": {
+        "message": "Կառավարելբացառությունները"
+    },
+    "popup_settings_feedback": {
+        "message": "Արձագանք"
+    },
+    "popup_settings_open_settings": {
+        "message": "Կարգավորումներ"
+    },
+    "premium_upgrade": {
+        "message": "Արդիացնել"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "Չեղարկել"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Ջնջել"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "Լավ"
+    }
+}

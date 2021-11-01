@@ -240,7 +240,7 @@
         "message": "DNS seguro sem registro de atividades (não filtra anúncios e rastreadores)"
     },
     "settings_dns_selector_adguard_family_title": {
-        "message": "AdGuard DNS Protecção familiar"
+        "message": "AdGuard DNS Proteção familiar"
     },
     "settings_dns_selector_adguard_family_desc": {
         "message": "DNS AdGuard + Pesquisa de segurança e bloqueio de conteúdo adulto"
@@ -267,7 +267,7 @@
         "message": "Quad9"
     },
     "settings_dns_selector_quad9_desc": {
-        "message": "Serviço de DNS alternativo gratuito com protecção contra phishing e spyware"
+        "message": "Serviço de DNS alternativo gratuito com proteção contra phishing e spyware"
     },
     "settings_theme_label": {
         "message": "Tema"

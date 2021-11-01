@@ -23,8 +23,47 @@
     "authentication_error_account_locked": {
         "message": "Kontot är låst i 15 minuter"
     },
+    "authentication_error_wrong_credentials": {
+        "message": "Fel lösenord"
+    },
     "about_title": {
         "message": "Om"
+    },
+    "options_support_title": {
+        "message": "Kundtjänst"
+    },
+    "options_support_faq_title": {
+        "message": "FAQ"
+    },
+    "options_support_report_title": {
+        "message": "Rapportera ett fel"
+    },
+    "options_support_feedback_title": {
+        "message": "Lämna din feedback"
+    },
+    "options_support_discuss_title": {
+        "message": "Diskutera"
+    },
+    "options_report_bug_title": {
+        "message": "Rapportera ett fel"
+    },
+    "options_bug_report_email_label": {
+        "message": "E-postadress"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Infoga diagnostikrapporten i meddelandet"
+    },
+    "options_bug_report_send_button": {
+        "message": "Skicka"
+    },
+    "options_bug_report_sending_button": {
+        "message": "Skickar..."
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Beskriv problemet här..."
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Meddelande"
     },
     "account_title": {
         "message": "Konto"
@@ -89,6 +128,9 @@
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
     },
+    "settings_dns_selector_adguard_family_title": {
+        "message": "AdGuard DNS Family Protection"
+    },
     "settings_dns_selector_adguard_family_desc": {
         "message": "AdGuard DNS + Säker surf och blockering av vuxeninnehåll"
     },
@@ -119,11 +161,20 @@
     "settings_theme_label": {
         "message": "Tema"
     },
+    "settings_theme_system": {
+        "message": "System"
+    },
     "settings_theme_dark": {
         "message": "Mörkt"
     },
     "settings_theme_light": {
         "message": "Ljust"
+    },
+    "settings_exclusions_import_button": {
+        "message": "Importera"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Exportera"
     },
     "settings_exclusions_delete_button": {
         "message": "Radera alla"
@@ -185,11 +236,24 @@
     "settings_disconnect": {
         "message": "Koppla från"
     },
+    "settings_vpn_connecting": {
+        "message": "Ansluter..."
+    },
+    "settings_connect": {
+        "message": "Anslut"
+    },
     "popup_feedback_button": {
         "message": "Lämna din feedback"
     },
+    "upgrade_features_data": {
+        "message": "Obegränsad data"
+    },
     "upgrade_features_all_locations": {
         "message": "Alla platser"
+    },
+    "popup_auth_policy_agreement": {
+        "message": "Acceptera <eula>EULA</eula> och <privacy>Integritetspolicy</privacy>",
+        "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Fortsätt"
@@ -199,6 +263,12 @@
     },
     "options_exclusions_delete_approve_button": {
         "message": "Radera"
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Prenumerera"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Läs mer"
     },
     "popup_desktop_vpn_enabled_title": {
         "message": "AdGuard VPN är redan ansluten"

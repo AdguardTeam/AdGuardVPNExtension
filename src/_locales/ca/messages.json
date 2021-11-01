@@ -1,4 +1,31 @@
 {
+    "options_support_faq_title": {
+        "message": "PMF"
+    },
+    "options_support_report_title": {
+        "message": "Informa d'un error"
+    },
+    "options_support_feedback_description": {
+        "message": "Envieu sol·licituds i suggeriments de funcions"
+    },
+    "options_report_bug_title": {
+        "message": "Informa d'un error"
+    },
+    "options_bug_report_send_button": {
+        "message": "Envia"
+    },
+    "settings_theme_light": {
+        "message": "Clar"
+    },
+    "settings_exclusions_import_button": {
+        "message": "Importeu"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Exporteu"
+    },
+    "global_error_try_again": {
+        "message": "Intenta-ho de nou"
+    },
     "settings_vpn_connecting": {
         "message": "Connectant..."
     },
@@ -13,5 +40,8 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "Esteu segur que voleu canviar?"
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Subscriu-te"
     }
 }

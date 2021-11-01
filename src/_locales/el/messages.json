@@ -269,6 +269,18 @@
     "settings_dns_selector_quad9_desc": {
         "message": "Δωρεάν εναλλακτική υπηρεσία DNS με προστασία από ηλεκτρονικό ψάρεμα και λογισμικό υποκλοπής spyware"
     },
+    "settings_theme_label": {
+        "message": "Θέμα"
+    },
+    "settings_theme_system": {
+        "message": "Προεπιλογή συστήματος"
+    },
+    "settings_theme_dark": {
+        "message": "Σκοτεινό"
+    },
+    "settings_theme_light": {
+        "message": "Φωτεινό"
+    },
     "settings_exclusion_add": {
         "message": "Προσθήκη ιστότοπου"
     },
@@ -519,5 +531,20 @@
     },
     "popup_connections_limit_title": {
         "message": "Συμπληρώθηκε το όριο συνδέσεων"
+    },
+    "popup_desktop_vpn_enabled_title": {
+        "message": "Το AdGuard VPN είναι ήδη συνδεδεμένο"
+    },
+    "popup_desktop_vpn_enabled_description": {
+        "message": "Το AdGuard VPN είναι ενεργοποιημένο στην εφαρμογή για υπολογιστές, οπότε η επέκταση απενεργοποιήθηκε αυτόματα"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "Εντάξει"
+    },
+    "options_signedout_page_title": {
+        "message": "Έχετε αποσυνδεθεί από το AdGuard VPN"
+    },
+    "options_signedout_page_description": {
+        "message": "Παρακαλούμε λάβετε υπόψην ότι η σύνδεσή σας δεν είναι ασφαλής. Για να συνεχίσετε να σερφάρετε ιδιωτικά, κάντε κλικ στο εικονίδιο AdGuard VPN και συνδεθείτε ξανά."
     }
 }

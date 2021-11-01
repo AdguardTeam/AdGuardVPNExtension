@@ -29,11 +29,53 @@
     "authentication_error_account_locked": {
         "message": "Akun terkunci selama 15 menit"
     },
+    "authentication_error_wrong_credentials": {
+        "message": "Sandi salah"
+    },
     "authentication_error_default": {
         "message": "Kesalahan terjadi, coba lagi nanti"
     },
     "about_title": {
         "message": "Tentang"
+    },
+    "options_support_title": {
+        "message": "Dukungan"
+    },
+    "options_support_faq_title": {
+        "message": "Tanya Jawab"
+    },
+    "options_support_report_title": {
+        "message": "Laporkan masalah"
+    },
+    "options_support_report_description": {
+        "message": "Jika ada sesuatu yang tidak berfungsi dengan benar di program"
+    },
+    "options_support_feedback_title": {
+        "message": "Umpan balik"
+    },
+    "options_support_feedback_description": {
+        "message": "Kirimkan permintaan fitur dan saran"
+    },
+    "options_support_discuss_title": {
+        "message": "Diskusi"
+    },
+    "options_report_bug_title": {
+        "message": "Laporkan masalah"
+    },
+    "options_bug_report_email_label": {
+        "message": "Email"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Lampirkan laporan diagnostik ke dalam pesan"
+    },
+    "options_bug_report_send_button": {
+        "message": "Kirim"
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "Jelaskan bug yang ditemukan disini..."
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Pesan"
     },
     "account_title": {
         "message": "Akun"
@@ -122,6 +164,9 @@
     "settings_context_menus_title": {
         "message": "Tambah item AdGuard VPN ke konteks menu browser"
     },
+    "settings_help_us_improve_title": {
+        "message": "Bantu kami meningkatkan"
+    },
     "context_menu_selective_mode": {
         "message": "Mode selektif"
     },
@@ -182,8 +227,26 @@
     "settings_dns_selector_quad9_desc": {
         "message": "Layanan alternatif DNS gratis dengan perlindungan dari phishing dan spyware"
     },
+    "settings_theme_label": {
+        "message": "Tema"
+    },
+    "settings_theme_system": {
+        "message": "Sistem standar"
+    },
+    "settings_theme_dark": {
+        "message": "Gelap"
+    },
+    "settings_theme_light": {
+        "message": "Terang"
+    },
     "settings_exclusion_add": {
         "message": "Tambah situs"
+    },
+    "settings_exclusions_import_button": {
+        "message": "Impor"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Ekspor"
     },
     "settings_exclusion_title": {
         "message": "Pengecualian"
@@ -293,6 +356,9 @@
     "settings_vpn_disabled": {
         "message": "Terputus"
     },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "Kecepatan koneksi berkurang"
+    },
     "popup_traffic_limit_exceeded_cta_btn": {
         "message": "Naikan kecepatan"
     },
@@ -317,6 +383,9 @@
     "upgrade_features_all_locations": {
         "message": "Semua lokasi"
     },
+    "upgrade_features_streaming": {
+        "message": "Dukungan streaming"
+    },
     "continue_us_free_button": {
         "message": "Tetap gunakan secara gratis"
     },
@@ -332,6 +401,9 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN tidak diaktifkan pada situs ini"
     },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Lanjut"
+    },
     "popup_free_traffic_info": {
         "message": "<span>%value%%unit%</span> sisa bulan ini",
         "description": "Respect spaces between text, tags and placeholders"
@@ -344,5 +416,23 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "Anda yakin ingin beralih?"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "Batal"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Hapus"
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Berlangganan"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Pelajari lebih"
+    },
+    "popup_connections_limit_title": {
+        "message": "Batas koneksi tercapai"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "Ok"
     }
 }

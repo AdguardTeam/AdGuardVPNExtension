@@ -63,7 +63,7 @@
         "message": "Kysymyksiä ja vastauksia"
     },
     "options_support_report_title": {
-        "message": "Ilmoita virheestä"
+        "message": "Ilmoita viasta"
     },
     "options_support_report_description": {
         "message": "Jos jokin sovelluksessa ei toimi oikein"
@@ -81,7 +81,7 @@
         "message": "Keskustele keskustelualueellamme, sosiaalisissa verkoissa tai GitHubissa"
     },
     "options_report_bug_title": {
-        "message": "Ilmoita virheestä"
+        "message": "Ilmoita viasta"
     },
     "options_bug_report_email_label": {
         "message": "Sähköposti"

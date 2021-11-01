@@ -29,11 +29,50 @@
     "authentication_error_account_locked": {
         "message": "Nalog je zaključan na 15 minuta"
     },
+    "authentication_error_wrong_credentials": {
+        "message": "Pogrešna lozinka."
+    },
     "authentication_error_default": {
         "message": "Dogodila se greška. pokušajte ponovo kasnije"
     },
     "about_title": {
         "message": "O programu"
+    },
+    "options_support_title": {
+        "message": "Podrška"
+    },
+    "options_support_faq_title": {
+        "message": "ČPP"
+    },
+    "options_support_report_title": {
+        "message": "Prijavi grešku"
+    },
+    "options_support_report_description": {
+        "message": "Ako nešto ne radi dobro u programu"
+    },
+    "options_support_feedback_title": {
+        "message": "Ostavite povratne informacije"
+    },
+    "options_support_feedback_description": {
+        "message": "Pošaljite zahtev za novom opcijom ili predloge"
+    },
+    "options_support_discuss_title": {
+        "message": "Forum programa"
+    },
+    "options_report_bug_title": {
+        "message": "Prijavi grešku"
+    },
+    "options_bug_report_email_label": {
+        "message": "Elektronska pošta"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Uključi dijagnostički izveštaj uz poruku"
+    },
+    "options_bug_report_send_button": {
+        "message": "Pošalji"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Poruka"
     },
     "account_title": {
         "message": "Nalog"
@@ -122,6 +161,9 @@
     "settings_context_menus_title": {
         "message": "Dodaj AdGuard VPN u kontekstni meni preglednika"
     },
+    "settings_help_us_improve_title": {
+        "message": "Pomozite da se poboljšamo"
+    },
     "context_menu_selective_mode": {
         "message": "Selektivni način rada"
     },
@@ -182,8 +224,26 @@
     "settings_dns_selector_quad9_desc": {
         "message": "Besplatna alternativna DNS usluga sa zaštitom od fišinga i špijuna"
     },
+    "settings_theme_label": {
+        "message": "Teme"
+    },
+    "settings_theme_system": {
+        "message": "Sistemski"
+    },
+    "settings_theme_dark": {
+        "message": "Tamno"
+    },
+    "settings_theme_light": {
+        "message": "Svetlo"
+    },
     "settings_exclusion_add": {
         "message": "Dodaj sajt"
+    },
+    "settings_exclusions_import_button": {
+        "message": "Uvezi"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Izvezi"
     },
     "settings_exclusion_title": {
         "message": "Izuzeci"
@@ -332,6 +392,9 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPn je isključen na ovom sajtu"
     },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Nastavi"
+    },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> preostalo ovog meseca",
         "description": "Respect spaces between text, tags and placeholders"
@@ -344,5 +407,20 @@
     },
     "options_selective_mode_popup_attention": {
         "message": "Jeste li sigurni da želite da se prebacite?"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "Otkaži"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Izbriši"
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Pretplati se"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Saznajte više"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "U redu"
     }
 }

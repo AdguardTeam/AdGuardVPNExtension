@@ -269,6 +269,18 @@
     "settings_dns_selector_quad9_desc": {
         "message": "Besplatna, alternativna DNS usluga s zaštitom od krađe identiteta i špijunskih programa"
     },
+    "settings_theme_label": {
+        "message": "Tema"
+    },
+    "settings_theme_system": {
+        "message": "Zadano sustavom"
+    },
+    "settings_theme_dark": {
+        "message": "Tamna"
+    },
+    "settings_theme_light": {
+        "message": "Svijetla"
+    },
     "settings_exclusion_add": {
         "message": "Dodaj web stranicu"
     },
@@ -447,6 +459,9 @@
         "message": "Prihvaćanje <eula>pravila o EULA-i</eula> i <privacy>privatnosti</privacy>",
         "description": "WARNING! Respect spaces between tags"
     },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "Dopustite AdGuardu prikupljanje <link> anonimiziranih podataka o korištenju aplikacije kako bi AdGuard VPN bio bolji"
+    },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Nastavi"
     },
@@ -516,5 +531,20 @@
     },
     "popup_connections_limit_title": {
         "message": "Dosegnuto ograničenje veza"
+    },
+    "popup_desktop_vpn_enabled_title": {
+        "message": "AdGuard VPN je već povezan"
+    },
+    "popup_desktop_vpn_enabled_description": {
+        "message": "AdGuard VPN je omogućen u aplikaciji za stolna računala, stoga je proširenje automatski onemogućeno"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "U redu"
+    },
+    "options_signedout_page_title": {
+        "message": "Odjavili ste se iz AdGuard VPN-a"
+    },
+    "options_signedout_page_description": {
+        "message": "Imajte na umu da vaša veza nije sigurna. Da biste nastavili privatno surfati, kliknite na ikonu AdGuard VPN i ponovno se prijavite."
     }
 }
