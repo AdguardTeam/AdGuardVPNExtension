@@ -349,6 +349,15 @@ export class AuthStore {
     }
 
     @action
+    showPrevAuthScreen = async () => {
+        await this.switchStep(
+            this.step === this.STEPS.CHECK_EMAIL
+                ? this.STEPS.AUTHORIZATION
+                : this.STEPS.CHECK_EMAIL,
+        );
+    }
+
+    @action
     resetPasswords = async () => {
         await messenger.updateAuthCache('password', DEFAULTS.credentials.password);
         await messenger.updateAuthCache('twoFactor', DEFAULTS.credentials.twoFactor);
