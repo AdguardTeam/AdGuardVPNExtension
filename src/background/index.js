@@ -6,7 +6,7 @@ import connectivity from './connectivity';
 import contextMenu from './contextMenu';
 import credentials from './credentials';
 import endpoints from './endpoints';
-import exclusions from './exclusions';
+import exclusions, { exclusionsManager } from './exclusions';
 import { log } from '../lib/logger';
 import management from './management';
 import messaging from './messageHandler';
@@ -27,7 +27,6 @@ import { fallbackApi } from './api/fallbackApi';
 
 import './networkConnectionObserver';
 import './uninstall';
-import vpnProvider from './providers/vpnProvider';
 
 global.adguard = {
     settings,
@@ -62,16 +61,16 @@ global.adguard = {
         await settings.init();
         await credentials.init();
         await exclusions.init();
+        await exclusionsManager.init();
+        // console.log('%%%%%%%%%%%%%%');
+        // console.log(exclusionsManager.services);
+        // console.log('%%%%%%%%%%%%%%');
         await endpointsTldExclusions.init();
         settings.applySettings(); // we have to apply settings when credentials are ready
         endpoints.init(); // update endpoints list on extension or browser restart
         await nonRoutable.init();
         contextMenu.init();
         browserActionIcon.init();
-        const services = await vpnProvider.getExclusionsServices();
-        const servicesIds = services.map((service) => service.serviceId);
-        const serviceDomains = await vpnProvider.getExclusionsServicesDomains(servicesIds);
-        console.log(serviceDomains);
         log.info('Extension loaded all necessary modules');
     } catch (e) {
         log.error('Unable to start extension because of error:', e && e.message);

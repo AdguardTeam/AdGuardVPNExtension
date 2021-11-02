@@ -68,6 +68,10 @@ const config = {
                     { loader: 'file-loader', options: { outputPath: 'assets' } },
                 ],
             },
+            {
+                test: /\.ts|\.tsx$/,
+                loader: ['babel-loader'],
+            },
         ],
     },
     plugins: [

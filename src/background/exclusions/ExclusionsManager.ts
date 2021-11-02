@@ -1,111 +1,95 @@
-import { nanoid } from 'nanoid';
+import { ExclusionsGroup } from './ExclusionsGroup.ts';
+import { Service, ServiceInterface, ServiceBackendInterface } from './Service.ts';
+import vpnProvider from '../providers/vpnProvider';
 
-interface ExclusionServiceInterface {
-    id: string;
-
-    name: string;
-
-    domains: string[];
-}
-
-class ExclusionService implements ExclusionServiceInterface {
-    id: string;
-
-    name: string;
-
-    domains: string[];
-}
-
-interface ExclusionInterface {
-    id: string;
-
-    name: string;
-
-    enabled: boolean;
-}
-
-class Exclusion implements ExclusionInterface {
-    id: string;
-
-    name: string;
-
-    enabled: boolean;
-
-    constructor(name: string) {
-        this.id = nanoid();
-        this.name = name;
-        this.enabled = true;
-    }
-}
-
-interface ServiceData {
-    id: string,
-    name: string,
-    enabled: boolean, // TODO may be enabled/disabled/partially, when some of exclusions is enabled
-    exclusions: string[],
-}
-
-interface ExclusionData {
-    id: string,
-    name: string,
-    enabled: boolean,
-}
-
-// TODO find better name
 interface ExclusionsData {
-    services: ServiceData[],
-    exclusions: ExclusionData[],
+    services: Service[],
+    exclusionsGroups: ExclusionsGroup[],
 }
 
-export class ExclusionsManager {
-    exclusions: ExclusionInterface[] = [];
+class ExclusionsManager implements ExclusionsData {
+    services: Service[];
 
-    exclusionsServices: ExclusionServiceInterface [] = [];
+    exclusionsGroups: ExclusionsGroup[];
 
-    setExclusions(exclusions: ExclusionInterface[]) {
-        this.exclusions = exclusions;
+    constructor() {
+        this.services = [];
+        this.exclusionsGroups = [];
     }
 
-    setExclusionsServices(exclusionServices: ExclusionServiceInterface[]) {
-        this.exclusionsServices = exclusionServices;
+    setExclusionsGroups(exclusionsGroups: ExclusionsGroup[]) {
+        this.exclusionsGroups = exclusionsGroups;
     }
 
-    getExclusionsData() {
-        const result: ExclusionsData = {
-            services: [],
-            exclusions: [],
-        };
+    setExclusionsServices(services: Service[]) {
+        this.services = services;
+    }
 
-        this.exclusionsServices.forEach((service) => {
-            this.exclusions.forEach((exclusion) => {
-                const found = service.domains.some((domain) => domain === exclusion.name);
-                if (found) {
-                    result.services.push({
-                        id: service.id,
-                        name: service.name,
-                        enabled: true, // TODO calculate dynamically
-                        exclusions: [exclusion.id],
-                    });
-                    result.exclusions.push({
-                        id: exclusion.id,
-                        name: exclusion.name,
-                        enabled: true,
-                    });
-                }
-            });
+    async init() {
+        await this.getServices();
+    }
+
+    async getServices() {
+        const services = await vpnProvider.getExclusionsServices();
+        console.log('%%%%%%%%%%%%%%');
+        console.log(services);
+        console.log('%%%%%%%%%%%%%%');
+        const servicesIds = services.map((service: ServiceBackendInterface) => service.serviceId);
+        console.log(servicesIds);
+        console.log('%%%%%%%%%%%%%%');
+        const serviceDomains = await vpnProvider.getExclusionsServicesDomains(servicesIds);
+        console.log(serviceDomains);
+        console.log('%%%%%%%%%%%%%%');
+
+        services.forEach((service: ServiceBackendInterface) => {
+            const exclusionService = new Service(service);
+            this.addService(exclusionService);
         });
-
-        return result;
     }
 
-    addExclusion(url: string) {
-        const exclusion = new Exclusion(url);
-
+    addService(service: Service) {
         // TODO do to not forget to check prev values
-        this.exclusions.push(exclusion);
+        this.services.push(service);
     }
 
-    removeExclusion() {
-
-    }
+    // getExclusionsData() {
+    //     const result: ExclusionsData = {
+    //         services: [],
+    //         exclusionsGroups: [],
+    //     };
+    //
+    //     this.exclusionsServices.forEach((service) => {
+    //         this.exclusions.forEach((exclusion) => {
+    //             const found = service.domains.some((domain) => domain === exclusion.name);
+    //             if (found) {
+    //                 result.services.push({
+    //                     id: service.id,
+    //                     name: service.name,
+    //                     enabled: true, // TODO calculate dynamically
+    //                     exclusions: [exclusion.id],
+    //                 });
+    //                 result.exclusions.push({
+    //                     id: exclusion.id,
+    //                     name: exclusion.name,
+    //                     enabled: true,
+    //                 });
+    //             }
+    //         });
+    //     });
+    //
+    //     return result;
+    // }
+    //
+    // addExclusion(url: string) {
+    //     const exclusion = new Exclusion(url);
+    //
+    //     // TODO do to not forget to check prev values
+    //     this.exclusions.push(exclusion);
+    // }
+    //
+    // removeExclusion() {
+    //
+    // }
 }
+
+export const exclusionsManager = new ExclusionsManager();

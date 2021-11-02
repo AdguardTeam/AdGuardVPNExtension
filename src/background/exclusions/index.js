@@ -6,3 +6,5 @@ import { settings } from '../settings';
 const exclusions = new Exclusions(browserApi, proxy, settings);
 
 export default exclusions;
+
+export { exclusionsManager } from './ExclusionsManager.ts';
