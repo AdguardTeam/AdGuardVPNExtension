@@ -158,6 +158,24 @@
     "auth_sign_in_link": {
         "message": "用 AdGuard 帳戶登入"
     },
+    "auth_title": {
+        "message": "授權"
+    },
+    "auth_info": {
+        "message": "用您的 AdGuard 帳戶或社群登入繼續"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "用 AdGuard 繼續"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "用 Apple 繼續"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "用 Google 繼續"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "用 Facebook 繼續"
+    },
     "auth_header_sign_in_account": {
         "message": "您正在用 AdGuard 帳戶登入"
     },
@@ -190,6 +208,18 @@
     },
     "settings_title": {
         "message": "設定"
+    },
+    "referral_get_free_traffic": {
+        "message": "取得免費的流量！"
+    },
+    "settings_referral_invited_friends": {
+        "message": "邀請了朋友 %count%/%limit%"
+    },
+    "settings_referral_copy_link": {
+        "message": "複製連結"
+    },
+    "settings_referral_link_copied": {
+        "message": "連結被複製了"
     },
     "settings_rate_us": {
         "message": "對我們評分"
@@ -465,8 +495,59 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "繼續"
     },
-    "popup_marketing_consent_checkbox": {
+    "popup_newsletter_title": {
+        "message": "AdGuard 簡報"
+    },
+    "popup_newsletter_info": {
         "message": "寄給我含特別的折扣及 AdGuard 新聞的電子郵件"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "訂閱"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "不，謝謝"
+    },
+    "popup_onboarding_trusted_vpn": {
+        "message": "信任的 VPN"
+    },
+    "popup_onboarding_trusted_vpn_info": {
+        "message": "由世界知名的廣告封鎖器的開發者"
+    },
+    "popup_onboarding_numerous_locations": {
+        "message": "各種不同的位置"
+    },
+    "popup_onboarding_numerous_locations_info": {
+        "message": "連接至我們設於世界各地的伺服器"
+    },
+    "popup_onboarding_fastest_servers": {
+        "message": "最快的伺服器"
+    },
+    "popup_onboarding_fastest_servers_info": {
+        "message": "我們使用尖端的技術以保證最高的連線速度"
+    },
+    "popup_onboarding_next": {
+        "message": "下一步"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "無限制的 VPN"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "無限的流量"
+    },
+    "popup_upgrade_screen_unlimited_speed": {
+        "message": "無限制的速度"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "所有的位置"
+    },
+    "popup_upgrade_screen_streaming": {
+        "message": "串流"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "升級"
+    },
+    "popup_upgrade_screen_continue_free": {
+        "message": "以免費繼續"
     },
     "popup_free_traffic_info": {
         "message": "本月剩餘 <span>%value% %unit%</span>",
@@ -515,7 +596,7 @@
         "message": "Zip 檔案：\"%filename%\" 不包含有副檔名：%extensions% 的檔案"
     },
     "popup_connections_limit_description_start": {
-        "message": "您的連線數量達到上限：%maxDevicesAllowed%。"
+        "message": "您已達到連線之最大數量：%maxDevicesAllowed%。"
     },
     "popup_connections_limit_description_end_free": {
         "message": "為了新增更多的裝置，考慮訂閱無限制的 AdGuard VPN。"
@@ -545,6 +626,6 @@
         "message": "您已登出 AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "請注意，您的連線為不安全的。要繼續秘密地瀏覽，向 AdGuard VPN 圖示點擊並再次登入。"
+        "message": "您的連線為不安全的。要繼續秘密地瀏覽，點擊 AdGuard VPN 圖示並再次登入。"
     }
 }

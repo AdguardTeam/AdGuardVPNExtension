@@ -158,6 +158,24 @@
     "auth_sign_in_link": {
         "message": "Войти с помощью аккаунта AdGuard"
     },
+    "auth_title": {
+        "message": "Авторизация"
+    },
+    "auth_info": {
+        "message": "Войти через аккаунт AdGuard или через социальные сети"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Продолжить с AdGuard"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Продолжить с Apple"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Продолжить с Google"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Продолжить с Facebook"
+    },
     "auth_header_sign_in_account": {
         "message": "Вы авторизуетесь с помощью аккаунта AdGuard"
     },
@@ -190,6 +208,24 @@
     },
     "settings_title": {
         "message": "Настройки"
+    },
+    "referral_get_free_traffic": {
+        "message": "Получить бесплатный трафик!"
+    },
+    "settings_referral_info": {
+        "message": "Пригласите друзей присоединиться к нашему клану ниндзя и получите больше бесплатного трафика на месяц. По 1 ГБ вам и каждому вашему другу, который зарегистрируется! Всего можно получить 10 ГБ."
+    },
+    "settings_referral_invited_friends": {
+        "message": "Приглашённые друзья %count%/%limit%"
+    },
+    "settings_referral_limit_reached": {
+        "message": "Вы уже получили 10 ГБ бесплатного трафика. Но ваши друзья всё ещё могут получить 1 ГБ дополнительного трафика в подарок, если вы пригласите их!"
+    },
+    "settings_referral_copy_link": {
+        "message": "Скопировать ссылку"
+    },
+    "settings_referral_link_copied": {
+        "message": "Ссылка скопирована"
     },
     "settings_rate_us": {
         "message": "Оценить приложение"
@@ -465,8 +501,59 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Продолжить"
     },
-    "popup_marketing_consent_checkbox": {
-        "message": "Присылать мне специальные предложения и новости AdGuard"
+    "popup_newsletter_title": {
+        "message": "Рассылка AdGuard"
+    },
+    "popup_newsletter_info": {
+        "message": "Получать специальные предложения и новости AdGuard"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "Подписаться"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "Нет, спасибо"
+    },
+    "popup_onboarding_trusted_vpn": {
+        "message": "Надежный VPN "
+    },
+    "popup_onboarding_trusted_vpn_info": {
+        "message": "От разработчика знаменитого блокировщика рекламы"
+    },
+    "popup_onboarding_numerous_locations": {
+        "message": "Множество локаций"
+    },
+    "popup_onboarding_numerous_locations_info": {
+        "message": "Подключайтесь к любому из серверов, расположенных по всему миру"
+    },
+    "popup_onboarding_fastest_servers": {
+        "message": "Cамые быстрые серверы"
+    },
+    "popup_onboarding_fastest_servers_info": {
+        "message": "Мы используем передовые технологии, чтобы гарантировать высокую скорость соединения"
+    },
+    "popup_onboarding_next": {
+        "message": "Далее"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "Безлимитный VPN"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Неограниченный трафик"
+    },
+    "popup_upgrade_screen_unlimited_speed": {
+        "message": "Неограниченная скорость"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "Все локации"
+    },
+    "popup_upgrade_screen_streaming": {
+        "message": "Доступен стриминг"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "Улучшить"
+    },
+    "popup_upgrade_screen_continue_free": {
+        "message": "Продолжить бесплатно"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> осталось в этом месяце",

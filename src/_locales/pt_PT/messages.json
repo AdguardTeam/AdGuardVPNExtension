@@ -158,6 +158,24 @@
     "auth_sign_in_link": {
         "message": "Iniciar sessão com a conta AdGuard"
     },
+    "auth_title": {
+        "message": "Autorização"
+    },
+    "auth_info": {
+        "message": "Continuar com tua conta do AdGuard ou com redes sociais"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Continue com o AdGuard"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Continuar com Apple"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Continuar com Google"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Continuar com Facebook"
+    },
     "auth_header_sign_in_account": {
         "message": "Você está iniciando sessão com uma conta AdGuard"
     },
@@ -190,6 +208,15 @@
     },
     "settings_title": {
         "message": "Definições"
+    },
+    "referral_get_free_traffic": {
+        "message": "Obtenha tráfego grátis!"
+    },
+    "settings_referral_copy_link": {
+        "message": "Copiar link"
+    },
+    "settings_referral_link_copied": {
+        "message": "Link copiado"
     },
     "settings_rate_us": {
         "message": "Avalie-nos"
@@ -240,7 +267,7 @@
         "message": "DNS seguro sem registro de atividades (não filtra anúncios e rastreadores)"
     },
     "settings_dns_selector_adguard_family_title": {
-        "message": "AdGuard DNS Protecção familiar"
+        "message": "AdGuard DNS Proteção familiar"
     },
     "settings_dns_selector_adguard_family_desc": {
         "message": "DNS AdGuard + Pesquisa de segurança e bloqueio de conteúdo adulto"
@@ -267,7 +294,7 @@
         "message": "Quad9"
     },
     "settings_dns_selector_quad9_desc": {
-        "message": "Serviço de DNS alternativo gratuito com protecção contra phishing e spyware"
+        "message": "Serviço de DNS alternativo gratuito com proteção contra phishing e spyware"
     },
     "settings_theme_label": {
         "message": "Tema"
@@ -465,8 +492,59 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Continuar"
     },
-    "popup_marketing_consent_checkbox": {
+    "popup_newsletter_title": {
+        "message": "Boletim informativo do AdGuard"
+    },
+    "popup_newsletter_info": {
         "message": "Envie-me correios eletrónicos com ofertas especiais e novidades do AdGuard"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "Subscrever"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "Não, obrigado"
+    },
+    "popup_onboarding_trusted_vpn": {
+        "message": "VPN confiável"
+    },
+    "popup_onboarding_trusted_vpn_info": {
+        "message": "Pelo desenvolvedor do bloqueador de anúncios mundialmente famoso"
+    },
+    "popup_onboarding_numerous_locations": {
+        "message": "Numerosos locais"
+    },
+    "popup_onboarding_numerous_locations_info": {
+        "message": "Conecte-se a qualquer um dos nossos servidores localizados em todo o mundo"
+    },
+    "popup_onboarding_fastest_servers": {
+        "message": "Servidores rápidos"
+    },
+    "popup_onboarding_fastest_servers_info": {
+        "message": "Usamos tecnologias de ponta para garantir a mais alta velocidade de conexão"
+    },
+    "popup_onboarding_next": {
+        "message": "Seguinte"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "VPN ilimitada"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Dados ilimitados"
+    },
+    "popup_upgrade_screen_unlimited_speed": {
+        "message": "Velocidade ilimitada"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "Todos os locais"
+    },
+    "popup_upgrade_screen_streaming": {
+        "message": "Streaming"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "Atualização"
+    },
+    "popup_upgrade_screen_continue_free": {
+        "message": "Continue de graça"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> restante este mês",
@@ -545,6 +623,6 @@
         "message": "Você saiu do AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "Por favor note que sua conexão não é segura. Para continuar navegando com privacidade, clique no ícone do AdGuard VPN e entre novamente."
+        "message": "Sua conexão não é segura. Para continuar a navegar com privacidade, clique no ícone do AdGuard VPN e inicie sessão novamente."
     }
 }

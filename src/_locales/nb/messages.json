@@ -29,6 +29,9 @@
     "authentication_error_account_locked": {
         "message": "Kontoen er låst i 15 minutter"
     },
+    "authentication_error_wrong_credentials": {
+        "message": "Feil passord"
+    },
     "authentication_error_default": {
         "message": "En feil oppstod, prøv igjen senere"
     },
@@ -70,6 +73,9 @@
     },
     "options_bug_report_request_error": {
         "message": "En feil oppstod. Vennligst prøv igjen senere."
+    },
+    "options_bug_report_send_button": {
+        "message": "Send"
     },
     "options_bug_report_textarea_placeholder": {
         "message": "Beskriv problemet her …"
@@ -121,6 +127,18 @@
     },
     "auth_sign_in_link": {
         "message": "Logg på med AdGuard-konto"
+    },
+    "auth_title": {
+        "message": "Autorisasjon"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Fortsett med Apple"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Fortsett med Google"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Fortsett med Facebook"
     },
     "auth_header_sign_in_account": {
         "message": "Du logger på med AdGuard-kontoen din"
@@ -229,6 +247,18 @@
     },
     "settings_dns_selector_quad9_desc": {
         "message": "Gratis alternativ DNS-tjeneste med beskyttelse mot phishing og spionvare"
+    },
+    "settings_theme_label": {
+        "message": "Tema"
+    },
+    "settings_theme_system": {
+        "message": "Systemtema"
+    },
+    "settings_theme_dark": {
+        "message": "Mørkt"
+    },
+    "settings_theme_light": {
+        "message": "Lyst"
     },
     "settings_exclusion_add": {
         "message": "Legg til et nettsted"
@@ -395,6 +425,30 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Fortsett"
     },
+    "popup_newsletter_subscribe": {
+        "message": "Abonner"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "Nei takk"
+    },
+    "popup_onboarding_fastest_servers": {
+        "message": "Raskeste tjenere"
+    },
+    "popup_onboarding_next": {
+        "message": "Neste"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "Ubegrenset VPN"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Ubegrenset data"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "Alle posisjoner"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "Oppgrader"
+    },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> gjenstår denne måneden",
         "description": "Respect spaces between text, tags and placeholders"
@@ -431,5 +485,8 @@
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Lær mer"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "OK"
     }
 }

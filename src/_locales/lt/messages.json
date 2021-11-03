@@ -11,7 +11,160 @@
     "registration_error_not_valid": {
         "message": "Ši reikšmė neteisinga"
     },
+    "authentication_error_account_disabled": {
+        "message": "Paskyra yra išjungta"
+    },
+    "authentication_error_wrong_credentials": {
+        "message": "Neteisingas slaptažodis"
+    },
+    "about_title": {
+        "message": "Apie"
+    },
+    "options_support_title": {
+        "message": "Palaikymas"
+    },
+    "options_support_faq_title": {
+        "message": "DUK"
+    },
+    "options_support_discuss_title": {
+        "message": "Aptarti"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Įtraukti diagnostinę ataskaitą į pranešimą"
+    },
+    "options_bug_report_send_button": {
+        "message": "Pateikti"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Pranešimas"
+    },
+    "account_title": {
+        "message": "Paskyra"
+    },
+    "account_sign_out": {
+        "message": "Atsijungti"
+    },
+    "rate_hide": {
+        "message": "Paslėpti"
+    },
+    "auth_confirm": {
+        "message": "Patvirtinti"
+    },
+    "auth_password": {
+        "message": "Slaptažodis"
+    },
+    "auth_recover": {
+        "message": "Pamiršote slaptažodį?"
+    },
+    "auth_sign_in": {
+        "message": "Prisijungti"
+    },
     "auth_sign_in_button": {
         "message": "Prisijungti"
+    },
+    "eula": {
+        "message": "Licencijos sutartis"
+    },
+    "settings_title": {
+        "message": "Nustatymai"
+    },
+    "settings_dns_selector_default_title": {
+        "message": "Pagal nutylėjimą"
+    },
+    "settings_dns_selector_adguard_title": {
+        "message": "AdGuard DNS"
+    },
+    "settings_dns_selector_adguard_family_title": {
+        "message": "AdGuard DNS Šeimos apsauga"
+    },
+    "settings_dns_selector_adguard_family_desc": {
+        "message": "AdGuard DNS + saugi paieška ir suaugusiųjų turinio blokavimas"
+    },
+    "settings_dns_selector_google_title": {
+        "message": "Google DNS"
+    },
+    "settings_dns_selector_google_desc": {
+        "message": "Nemokama alternatyvi DNS paslauga iš Google"
+    },
+    "settings_dns_selector_cloudflare_title": {
+        "message": "Cloudflare DNS"
+    },
+    "settings_dns_selector_cloudflare_desc": {
+        "message": "Nemokama Cloudflare DNS paslauga"
+    },
+    "settings_dns_selector_cisco_title": {
+        "message": "Cisco OpenDNS"
+    },
+    "settings_dns_selector_cisco_desc": {
+        "message": "DNS serveris, kuris apsaugo jūsų įrenginį nuo kenkėjiškų programų"
+    },
+    "settings_dns_selector_quad9_title": {
+        "message": "Quad9"
+    },
+    "settings_dns_selector_quad9_desc": {
+        "message": "Nemokama alternatyvi DNS paslauga su apsauga nuo sukčiavimo ir šnipinėjimo programų"
+    },
+    "settings_theme_label": {
+        "message": "Tema"
+    },
+    "settings_theme_system": {
+        "message": "Sisteminis"
+    },
+    "settings_theme_dark": {
+        "message": "Tamsi tema"
+    },
+    "settings_exclusions_import_button": {
+        "message": "Importas"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Eksportas"
+    },
+    "settings_exclusion_title": {
+        "message": "Išimtys"
+    },
+    "global_error_learn_more": {
+        "message": "Sužinoti daugiau"
+    },
+    "global_error_try_again": {
+        "message": "Pabandyti iš naujo"
+    },
+    "popup_settings_feedback": {
+        "message": "Grįžtamasis ryšys"
+    },
+    "popup_settings_open_settings": {
+        "message": "Nustatymai"
+    },
+    "popup_settings_sign_out": {
+        "message": "Atsijungti"
+    },
+    "settings_disconnect": {
+        "message": "Atsijungti"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "Tęsti"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "Ne, ačiū"
+    },
+    "popup_onboarding_next": {
+        "message": "Toliau"
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "Perjungti dabar"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "Ar tikrai norite perjungti?"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "Atšaukti"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Ištrinti"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Sužinoti daugiau"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "Ok"
     }
 }

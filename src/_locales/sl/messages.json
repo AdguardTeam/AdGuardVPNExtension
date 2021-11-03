@@ -158,6 +158,24 @@
     "auth_sign_in_link": {
         "message": "Prijavite se z računom AdGuard"
     },
+    "auth_title": {
+        "message": "Pooblastilo"
+    },
+    "auth_info": {
+        "message": "Nadaljuj s svojim računom AdGuard ali s prijavo družbenega omrežja"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Nadaljuj z AdGuard"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Nadaljuj z Apple"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Nadaljuj z Google"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Nadaljuj s Facebookom"
+    },
     "auth_header_sign_in_account": {
         "message": "Prijavljeni ste v račun AdGuarda"
     },
@@ -190,6 +208,24 @@
     },
     "settings_title": {
         "message": "Nastavitve"
+    },
+    "referral_get_free_traffic": {
+        "message": "Zagotovite si brezplačen promet!"
+    },
+    "settings_referral_info": {
+        "message": "Povabite svoje prijatelje, da se pridružijo našemu ninja klanu in si zagotovite več brezplačnih podatkov za en mesec. Prejmite 1 GB za vsakega prijatelja, ki se prijavi: prav tako dobijo 1 GB dodatno brezplačno! (Skupno lahko dobite 10 GB brezplačno!)"
+    },
+    "settings_referral_invited_friends": {
+        "message": "Povabljenih prijateljev %count%/%limit%"
+    },
+    "settings_referral_limit_reached": {
+        "message": "Prejeli ste že svojih 10 GB brezplačnih podatkov. Toda vaši prijatelji lahko še vedno prejmejo 1 GB dodatnih brezplačnih podatkov, če jih povabite!"
+    },
+    "settings_referral_copy_link": {
+        "message": "Kopiraj povezavo"
+    },
+    "settings_referral_link_copied": {
+        "message": "Povezava je kopirana"
     },
     "settings_rate_us": {
         "message": "Ocenite nas"
@@ -465,8 +501,59 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Nadaljuj"
     },
-    "popup_marketing_consent_checkbox": {
+    "popup_newsletter_title": {
+        "message": "Glasilo AdGuarda"
+    },
+    "popup_newsletter_info": {
         "message": "Pošljite mi e-pošto s posebnimi ponudbami in novicami AdGuard"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "Naroči se"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "Ne, hvala"
+    },
+    "popup_onboarding_trusted_vpn": {
+        "message": "Zaupanja vreden VPN"
+    },
+    "popup_onboarding_trusted_vpn_info": {
+        "message": "Od razvijalca svetovno znanega zaviralca oglasov"
+    },
+    "popup_onboarding_numerous_locations": {
+        "message": "Številne lokacije"
+    },
+    "popup_onboarding_numerous_locations_info": {
+        "message": "Povežite se s katerim koli našim strežnikom po vsem svetu"
+    },
+    "popup_onboarding_fastest_servers": {
+        "message": "Najhitrejši strežniki"
+    },
+    "popup_onboarding_fastest_servers_info": {
+        "message": "Za zagotavljanje najvišje hitrosti povezave uporabljamo najsodobnejše tehnologije"
+    },
+    "popup_onboarding_next": {
+        "message": "Naprej"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "Neomejen VPN"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Neomejene podatke"
+    },
+    "popup_upgrade_screen_unlimited_speed": {
+        "message": "Neomejena hitrost"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "Vse lokacije"
+    },
+    "popup_upgrade_screen_streaming": {
+        "message": "Pretakanje"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "Nadgradi"
+    },
+    "popup_upgrade_screen_continue_free": {
+        "message": "Nadaljujte brezplačno"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> preostalo za ta mesec",
@@ -532,10 +619,19 @@
     "popup_connections_limit_title": {
         "message": "Dosežena je omejitev povezave"
     },
+    "popup_desktop_vpn_enabled_title": {
+        "message": "AdGuard VPN je že povezan"
+    },
+    "popup_desktop_vpn_enabled_description": {
+        "message": "AdGuard VPN je omogočen v namizni aplikaciji, zato je bila razširitev samodejno onemogočena"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "Vredu"
+    },
     "options_signedout_page_title": {
         "message": "Odjavili ste se iz AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "Upoštevajte, da vaša povezava ni varna. Če želite nadaljevati zasebno brskanje, kliknite na ikono AdGuard VPN in se znova prijavite."
+        "message": "Vaša povezava ni varna. Za na nadaljevanje zasebnega brskanja, kliknite ikono AdGuard VPN in se znova prijavite."
     }
 }
