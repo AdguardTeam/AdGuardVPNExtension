@@ -1,95 +1,63 @@
-import { ExclusionsGroup } from './ExclusionsGroup.ts';
-import { Service, ServiceInterface, ServiceBackendInterface } from './Service.ts';
-import vpnProvider from '../providers/vpnProvider';
+import { ExclusionsGroup } from './ExclusionsGroup';
+import { Service } from './Service';
+import { servicesManager } from './ServicesManager';
+import { log } from '../../lib/logger';
 
 interface ExclusionsData {
-    services: Service[],
+    excludedServices: Service[],
     exclusionsGroups: ExclusionsGroup[],
 }
 
 class ExclusionsManager implements ExclusionsData {
-    services: Service[];
+    excludedServices: Service[];
 
     exclusionsGroups: ExclusionsGroup[];
 
     constructor() {
-        this.services = [];
+        this.excludedServices = [];
         this.exclusionsGroups = [];
     }
 
-    setExclusionsGroups(exclusionsGroups: ExclusionsGroup[]) {
-        this.exclusionsGroups = exclusionsGroups;
+    addService(serviceId: string) {
+        if (!this.excludedServices
+            .some((excludedService) => excludedService.serviceId === serviceId)) {
+            const service = servicesManager.getService(serviceId);
+            if (!service) {
+                log.error(`Unable to add service. There is no service '${serviceId}'`);
+                return;
+            }
+            this.excludedServices.push(service);
+        }
     }
 
-    setExclusionsServices(services: Service[]) {
-        this.services = services;
+    removeService(serviceId: string) {
+        this.excludedServices = this.excludedServices
+            .filter((excludedService) => excludedService.serviceId !== serviceId);
+    }
+
+    addExclusionsGroup(hostname: string) {
+        if (!this.exclusionsGroups
+            .some((exclusionsGroup) => exclusionsGroup.hostname === hostname)) {
+            const exclusionsGroup = new ExclusionsGroup(hostname);
+            this.exclusionsGroups.push(exclusionsGroup);
+        }
+    }
+
+    removeExclusionsGroup(hostname: string) {
+        this.exclusionsGroups = this.exclusionsGroups
+            .filter((exclusionsGroup) => exclusionsGroup.hostname !== hostname);
+    }
+
+    getExclusionsData() {
+        return {
+            services: this.excludedServices,
+            exclusions: this.exclusionsGroups,
+        };
     }
 
     async init() {
-        await this.getServices();
+        await servicesManager.init();
     }
-
-    async getServices() {
-        const services = await vpnProvider.getExclusionsServices();
-        console.log('%%%%%%%%%%%%%%');
-        console.log(services);
-        console.log('%%%%%%%%%%%%%%');
-        const servicesIds = services.map((service: ServiceBackendInterface) => service.serviceId);
-        console.log(servicesIds);
-        console.log('%%%%%%%%%%%%%%');
-        const serviceDomains = await vpnProvider.getExclusionsServicesDomains(servicesIds);
-        console.log(serviceDomains);
-        console.log('%%%%%%%%%%%%%%');
-
-        services.forEach((service: ServiceBackendInterface) => {
-            const exclusionService = new Service(service);
-            this.addService(exclusionService);
-        });
-    }
-
-    addService(service: Service) {
-        // TODO do to not forget to check prev values
-        this.services.push(service);
-    }
-
-    // getExclusionsData() {
-    //     const result: ExclusionsData = {
-    //         services: [],
-    //         exclusionsGroups: [],
-    //     };
-    //
-    //     this.exclusionsServices.forEach((service) => {
-    //         this.exclusions.forEach((exclusion) => {
-    //             const found = service.domains.some((domain) => domain === exclusion.name);
-    //             if (found) {
-    //                 result.services.push({
-    //                     id: service.id,
-    //                     name: service.name,
-    //                     enabled: true, // TODO calculate dynamically
-    //                     exclusions: [exclusion.id],
-    //                 });
-    //                 result.exclusions.push({
-    //                     id: exclusion.id,
-    //                     name: exclusion.name,
-    //                     enabled: true,
-    //                 });
-    //             }
-    //         });
-    //     });
-    //
-    //     return result;
-    // }
-    //
-    // addExclusion(url: string) {
-    //     const exclusion = new Exclusion(url);
-    //
-    //     // TODO do to not forget to check prev values
-    //     this.exclusions.push(exclusion);
-    // }
-    //
-    // removeExclusion() {
-    //
-    // }
 }
 
 export const exclusionsManager = new ExclusionsManager();

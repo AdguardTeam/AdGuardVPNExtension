@@ -23,6 +23,11 @@ module.exports = {
             pragma: 'React',
             version: 'detect',
         },
+        'import/resolver': {
+            node: {
+                extensions: ['.js', '.jsx', '.ts', '.json'],
+            },
+        },
     },
     rules: {
         'no-shadow': 'off',
@@ -60,5 +65,14 @@ module.exports = {
         'import/prefer-default-export': 'off',
         'arrow-body-style': 'off',
         'react/display-name': 'off',
+        'import/extensions': [
+            'error',
+            'ignorePackages',
+            {
+                js: 'never',
+                jsx: 'never',
+                ts: 'never',
+            },
+        ],
     },
 };

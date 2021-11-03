@@ -250,12 +250,12 @@ const requestSupport = async ({
 // TODO if services were returned recently,
 //  but they are not returned now, we should use services from the storage
 const getExclusionsServices = async () => {
-    let rawExclusionsServices;
+    let exclusionsServices;
     try {
-        rawExclusionsServices = await vpnApi.getExclusionsServices();
+        exclusionsServices = await vpnApi.getExclusionsServices();
     } catch (e) {
         log.error(e);
-        rawExclusionsServices = [];
+        exclusionsServices = [];
     }
 
     // [ {
@@ -265,8 +265,7 @@ const getExclusionsServices = async () => {
     //     "categories" : [ "MESSENGERS" ],
     //     "modified_time" : "2021-10-29T09:58:04+0000"
     // } ]
-    // eslint-disable-next-line no-unused-vars
-    const exclusionServices = rawExclusionsServices.map((exclusionService) => {
+    return exclusionsServices.map((exclusionService) => {
         const {
             service_id: serviceId,
             service_name: serviceName,
@@ -283,13 +282,27 @@ const getExclusionsServices = async () => {
             modifiedTime,
         };
     });
-
-    return rawExclusionsServices;
 };
 
 const getExclusionsServicesDomains = async (serviceIds) => {
-    const exclusionServiceDomains = await vpnApi.getExclusionServiceDomains(serviceIds);
-    return exclusionServiceDomains;
+    let exclusionServiceDomains;
+    try {
+        exclusionServiceDomains = await vpnApi.getExclusionServiceDomains(serviceIds);
+    } catch (e) {
+        log.error(e);
+        exclusionServiceDomains = [];
+    }
+    return exclusionServiceDomains.services.map((exclusion) => {
+        const {
+            service_id: serviceId,
+            domains,
+        } = exclusion;
+
+        return {
+            serviceId,
+            domains,
+        };
+    });
 };
 
 const vpnProvider = {

@@ -1,17 +1,4 @@
-import { ExclusionsGroup } from './ExclusionsGroup.ts';
-
-// TODO
-//  - fetch services from backend
-//  - handle persistence
-//  - or from storage
-
-interface ServiceBackendInterface {
-    service_id: string;
-    service_name: string;
-    icon_url: string;
-    categories: string[];
-    modified_time: string;
-}
+import { ExclusionsGroup } from './ExclusionsGroup';
 
 export interface ServiceInterface {
     serviceId: string;
@@ -35,12 +22,17 @@ export class Service implements ServiceInterface {
 
     exclusionsGroups: ExclusionsGroup[];
 
-    constructor(service: ServiceBackendInterface) {
-        this.serviceId = service.service_id;
-        this.serviceName = service.service_name;
-        this.iconUrl = service.icon_url;
+    constructor(service: ServiceInterface) {
+        this.serviceId = service.serviceId;
+        this.serviceName = service.serviceName;
+        this.iconUrl = service.iconUrl;
         this.categories = service.categories;
-        this.modifiedTime = service.modified_time;
+        this.modifiedTime = service.modifiedTime;
         this.exclusionsGroups = [];
+    }
+
+    addExclusionsGroup(hostname: string) {
+        const exclusionsGroups = new ExclusionsGroup(hostname);
+        this.exclusionsGroups.push(exclusionsGroups);
     }
 }

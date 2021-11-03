@@ -62,9 +62,6 @@ global.adguard = {
         await credentials.init();
         await exclusions.init();
         await exclusionsManager.init();
-        // console.log('%%%%%%%%%%%%%%');
-        // console.log(exclusionsManager.services);
-        // console.log('%%%%%%%%%%%%%%');
         await endpointsTldExclusions.init();
         settings.applySettings(); // we have to apply settings when credentials are ready
         endpoints.init(); // update endpoints list on extension or browser restart

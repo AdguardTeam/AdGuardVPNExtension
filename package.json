@@ -5,7 +5,7 @@
     "author": "adguard@adguard.com",
     "license": "LGPL-3.0",
     "scripts": {
-        "lint": "eslint . --ext .js,.jsx",
+        "lint": "eslint . --ext .js,.jsx,.ts",
         "watch": "BUILD_ENV=dev run-p \"build:chrome --watch\" \"build:firefox --watch\"",
         "watch:firefox": "BUILD_ENV=dev yarn build:firefox --watch",
         "watch:chrome": "BUILD_ENV=dev yarn build:chrome --watch",

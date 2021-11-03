@@ -7,4 +7,4 @@ const exclusions = new Exclusions(browserApi, proxy, settings);
 
 export default exclusions;
 
-export { exclusionsManager } from './ExclusionsManager.ts';
+export { exclusionsManager } from './ExclusionsManager';
