@@ -98,6 +98,18 @@
     "auth_sign_in_button": {
         "message": "Logga in"
     },
+    "auth_sign_in_provider_adguard": {
+        "message": "Fortsätt med AdGuard"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Fortsätt med Apple"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Fortsätt med Google"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Fortsätt med Facebook"
+    },
     "auth_header_2fa_subtitle": {
         "message": "Tvåfaktorautentisering"
     },
@@ -257,6 +269,21 @@
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Fortsätt"
+    },
+    "popup_onboarding_next": {
+        "message": "Nästa"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "Obegränsad VPN"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Obegränsad data"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "Alla platser"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "Uppgradera"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Avbryt"

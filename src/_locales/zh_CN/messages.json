@@ -158,6 +158,24 @@
     "auth_sign_in_link": {
         "message": "用 AdGuard 账号登录"
     },
+    "auth_title": {
+        "message": "授权"
+    },
+    "auth_info": {
+        "message": "使用您的 AdGuard 账号或社交账号登录"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "使用 AdGuard 登录"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "使用 Apple 继续"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "使用 Google 继续"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "使用 Facebook 继续"
+    },
     "auth_header_sign_in_account": {
         "message": "您使用 AdGuard 账号登录"
     },
@@ -190,6 +208,24 @@
     },
     "settings_title": {
         "message": "设置"
+    },
+    "referral_get_free_traffic": {
+        "message": "获取免费流量！"
+    },
+    "settings_referral_info": {
+        "message": "邀请您的朋友加入忍者家族并获得一个月内可用的免费流量！每拉一个朋友来注册就能收到 1 GB 流量。同时也会给您的朋友赠送 1 GB 的免费流量！（您至多可以收到 10 GB 的免费流量！）"
+    },
+    "settings_referral_invited_friends": {
+        "message": "已邀请的朋友 %count%/%limit%"
+    },
+    "settings_referral_limit_reached": {
+        "message": "您已经总计收到了 10 GB 的免费流量。但如您继续邀请其他朋友，您的朋友们还有机会收到 1 GB 的额外免费流量！"
+    },
+    "settings_referral_copy_link": {
+        "message": "复制链接"
+    },
+    "settings_referral_link_copied": {
+        "message": "链接复制成功"
     },
     "settings_rate_us": {
         "message": "请给我们评分"
@@ -465,8 +501,59 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "继续"
     },
-    "popup_marketing_consent_checkbox": {
+    "popup_newsletter_title": {
+        "message": "AdGuard 资讯"
+    },
+    "popup_newsletter_info": {
         "message": "给我发送特别优惠和 AdGuard 新闻的电子邮件"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "订阅"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "否，谢谢"
+    },
+    "popup_onboarding_trusted_vpn": {
+        "message": "靠谱的 VPN"
+    },
+    "popup_onboarding_trusted_vpn_info": {
+        "message": "由世界知名的广告拦截器的开发人员"
+    },
+    "popup_onboarding_numerous_locations": {
+        "message": "海量位置"
+    },
+    "popup_onboarding_numerous_locations_info": {
+        "message": "连接我们位于世界各地的服务器"
+    },
+    "popup_onboarding_fastest_servers": {
+        "message": "最快服务器"
+    },
+    "popup_onboarding_fastest_servers_info": {
+        "message": "我们使用尖端技术以保证最高连接速度"
+    },
+    "popup_onboarding_next": {
+        "message": "下一步"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "无限制 VPN"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "无限数据"
+    },
+    "popup_upgrade_screen_unlimited_speed": {
+        "message": "无限速度"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "所有位置"
+    },
+    "popup_upgrade_screen_streaming": {
+        "message": "串流"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "升级"
+    },
+    "popup_upgrade_screen_continue_free": {
+        "message": "继续使用免费版"
     },
     "popup_free_traffic_info": {
         "message": "本月剩余<span>%value% %unit%</span>",
@@ -545,6 +632,6 @@
         "message": "您已退出 AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "请注意，您的连接不安全。为了继续匿名浏览，请点击 AdGuard VPN 图标并重新登录。"
+        "message": "您的连接不安全。为了继续匿名浏览，请点击 AdGuard VPN 图标并重新登录。"
     }
 }

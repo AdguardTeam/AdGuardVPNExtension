@@ -395,6 +395,24 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Nastavi"
     },
+    "popup_newsletter_subscribe": {
+        "message": "Pretplati se"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "Ne, hvala"
+    },
+    "popup_onboarding_next": {
+        "message": "Dalje"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Neograničene podatke"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "Sve krajnje tačke"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "Nadogradi"
+    },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> preostalo ovog meseca",
         "description": "Respect spaces between text, tags and placeholders"

@@ -158,6 +158,9 @@
     "auth_sign_in_link": {
         "message": "Увайсці з дапамогай акаўнта AdGuard"
     },
+    "auth_sign_in_provider_adguard": {
+        "message": "Працягнуць з дапамогай акаўнта AdGuard"
+    },
     "auth_header_sign_in_account": {
         "message": "Вы лагініцеся з дапамогай акаўнта AdGuard"
     },
@@ -465,8 +468,35 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Працягнуць"
     },
-    "popup_marketing_consent_checkbox": {
+    "popup_newsletter_title": {
+        "message": "Навіны ад AdGuard"
+    },
+    "popup_newsletter_info": {
         "message": "Дасылаць мне адмысловыя прапановы і навіны AdGuard"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "Не, дзякуй"
+    },
+    "popup_onboarding_numerous_locations_info": {
+        "message": "Падлучайцеся да кожнага з сервераў, змесцаваных па ўсім свеце"
+    },
+    "popup_onboarding_next": {
+        "message": "Далей"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "Безлімітны VPN"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Неабмежаваны трафік"
+    },
+    "popup_upgrade_screen_unlimited_speed": {
+        "message": "усе лакацыі, падтрымка 24/7"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "Усе месцівы"
+    },
+    "popup_upgrade_screen_streaming": {
+        "message": "Струменевая перадача"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> засталося ў гэтым месяцы",
@@ -543,8 +573,5 @@
     },
     "options_signedout_page_title": {
         "message": "Вы выйшлі з AdGuard VPN"
-    },
-    "options_signedout_page_description": {
-        "message": "Звярніце ўвагу, што злучэнне не абаронена. Каб працягнуць карыстацца інтэрнэтам бяспечна, націсніце на іконку AdGuard VPN і зноў увайдзіце ў дадатак."
     }
 }

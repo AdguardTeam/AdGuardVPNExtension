@@ -158,6 +158,24 @@
     "auth_sign_in_link": {
         "message": "Conectați-vă cu contul AdGuard"
     },
+    "auth_title": {
+        "message": "Autorizație"
+    },
+    "auth_info": {
+        "message": "Continuați cu contul dvs. AdGuard sau cu conectarea socială"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Continuați cu AdGuard"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Continuați cu Apple"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Continuați cu Google"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Continuați cu Facebook"
+    },
     "auth_header_sign_in_account": {
         "message": "Vă conectați cu contul AdGuard"
     },
@@ -190,6 +208,24 @@
     },
     "settings_title": {
         "message": "Setări"
+    },
+    "referral_get_free_traffic": {
+        "message": "Obțineți trafic gratuit!"
+    },
+    "settings_referral_info": {
+        "message": "Invitați-vă prietenii să se alăture clanului nostru ninja și obțineți mai multe date gratuite timp de o lună. Primiți 1 GB pentru fiecare prieten care se înscrie: ei primesc de asemenea, 1 GB în plus gratuit! (Puteți obține 10 GB în total gratuit!)"
+    },
+    "settings_referral_invited_friends": {
+        "message": "Prieteni invitați %count%/%limit%"
+    },
+    "settings_referral_limit_reached": {
+        "message": "Ați primit deja cei 10 GB de date gratuite. Dar prietenii pot obține în continuare 1 GB de date gratuite suplimentare, dacă îi invitați!"
+    },
+    "settings_referral_copy_link": {
+        "message": "Copiere link"
+    },
+    "settings_referral_link_copied": {
+        "message": "Link copiat"
     },
     "settings_rate_us": {
         "message": "Cotați-ne"
@@ -465,8 +501,59 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Continuă"
     },
-    "popup_marketing_consent_checkbox": {
+    "popup_newsletter_title": {
+        "message": "Buletin informativ AdGuard"
+    },
+    "popup_newsletter_info": {
         "message": "Trimiteți-mi e-mailuri cu oferte speciale și știri AdGuard"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "Abonați-vă"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "Nu, mulțumesc"
+    },
+    "popup_onboarding_trusted_vpn": {
+        "message": "VPN de încredere"
+    },
+    "popup_onboarding_trusted_vpn_info": {
+        "message": "De către dezvoltatorul blocantului de anunțuri de renume mondial"
+    },
+    "popup_onboarding_numerous_locations": {
+        "message": "Numeroase locații"
+    },
+    "popup_onboarding_numerous_locations_info": {
+        "message": "Conectați-vă la oricare dintre serverele noastre situate în întreaga lume"
+    },
+    "popup_onboarding_fastest_servers": {
+        "message": "Cele mai rapide servere"
+    },
+    "popup_onboarding_fastest_servers_info": {
+        "message": "Utilizăm tehnologii de vârf pentru a garanta cea mai mare viteza de conectare"
+    },
+    "popup_onboarding_next": {
+        "message": "Următor"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "VPN nelimitat"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Date nelimitate"
+    },
+    "popup_upgrade_screen_unlimited_speed": {
+        "message": "Viteză nelimitată"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "Toate locațiile"
+    },
+    "popup_upgrade_screen_streaming": {
+        "message": "Streaming"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "Actualizați"
+    },
+    "popup_upgrade_screen_continue_free": {
+        "message": "Continuați gratuit"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> rămași luna aceasta",
@@ -545,6 +632,6 @@
         "message": "V-ați deconectat de la AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "Rețineți că în prezent, conexiunea dvs. este neprotejată. Pentru a continua navigarea privată, faceți clic pe pictograma AdGuard VPN și conectați-vă din nou."
+        "message": "Conexiunea dvs. nu este sigură. Pentru a continua navigarea în privat, faceți clic pe pictograma AdGuard VPN și conectați-vă din nou."
     }
 }

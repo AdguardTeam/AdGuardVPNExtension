@@ -158,6 +158,24 @@
     "auth_sign_in_link": {
         "message": "Log ind med AdGuard-konto"
     },
+    "auth_title": {
+        "message": "Godkendelse"
+    },
+    "auth_info": {
+        "message": "Fortsæt med din AdGuard-konto eller socialt netværk"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Fortsæt med AdGuard"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Fortsæt med Apple"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Fortsæt med Google"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Fortsæt med Facebook"
+    },
     "auth_header_sign_in_account": {
         "message": "Du logger ind med AdGuard-konto"
     },
@@ -190,6 +208,24 @@
     },
     "settings_title": {
         "message": "Indstillinger"
+    },
+    "referral_get_free_traffic": {
+        "message": "Få gratis trafik!"
+    },
+    "settings_referral_info": {
+        "message": "Invitér venner til at deltage i vores ninja-klan og få mere gratis data i en måned. Modtag 1 GB for hver ven, der tilmelder sig: De får også 1 GB ekstra gratis! (Du kan i alt få 10 GB gratis!)"
+    },
+    "settings_referral_invited_friends": {
+        "message": "Inviterede venner %count%/%limit%"
+    },
+    "settings_referral_limit_reached": {
+        "message": "Du har allerede modtaget dine 10 GB gratis data, men dine venner kan stadig få 1 GB ekstra gratis data, hvis du inviterer dem!"
+    },
+    "settings_referral_copy_link": {
+        "message": "Kopiér link"
+    },
+    "settings_referral_link_copied": {
+        "message": "Link kopieret"
     },
     "settings_rate_us": {
         "message": "Bedøm os"
@@ -465,8 +501,59 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Fortsæt"
     },
-    "popup_marketing_consent_checkbox": {
+    "popup_newsletter_title": {
+        "message": "AdGuard-nyhedsbrev"
+    },
+    "popup_newsletter_info": {
         "message": "Send mig e-mails med specialtilbud og AdGuard-nyheder"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "Abonnér"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "Nej tak"
+    },
+    "popup_onboarding_trusted_vpn": {
+        "message": "Betroet VPN"
+    },
+    "popup_onboarding_trusted_vpn_info": {
+        "message": "Fra udvikleren af den verdensberømt adblocker"
+    },
+    "popup_onboarding_numerous_locations": {
+        "message": "Adskillige placeringer"
+    },
+    "popup_onboarding_numerous_locations_info": {
+        "message": "Opret forbindelse til enhver af vores servere verden over"
+    },
+    "popup_onboarding_fastest_servers": {
+        "message": "Hurtigste servere"
+    },
+    "popup_onboarding_fastest_servers_info": {
+        "message": "Vi bruger banebrydende teknologier for at garantere den højeste forbindelseshastighed"
+    },
+    "popup_onboarding_next": {
+        "message": "Næste"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "Ubegrænset VPN"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Ubegrænset data"
+    },
+    "popup_upgrade_screen_unlimited_speed": {
+        "message": "Ubegrænset hastighed"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "Alle placeringer"
+    },
+    "popup_upgrade_screen_streaming": {
+        "message": "Streaming"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "Opgradere"
+    },
+    "popup_upgrade_screen_continue_free": {
+        "message": "Fortsæt gratis"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> tilbage denne måned",
@@ -545,6 +632,6 @@
         "message": "Du er logget ud af AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "Bemærk, at denne forbindelse ikke er sikker. For at fortsætte med at surfe anonymt, så klik på AdGuard VPN-ikonet, og log ind igen."
+        "message": "Forbindelsen er ikke er sikker. For at fortsætte med at surfe anonymt, så klik på AdGuard VPN-ikonet, og log ind igen."
     }
 }

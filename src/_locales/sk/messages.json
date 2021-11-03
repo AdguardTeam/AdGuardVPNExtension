@@ -158,6 +158,24 @@
     "auth_sign_in_link": {
         "message": "Prihlásiť sa pomocou účtu AdGuard"
     },
+    "auth_title": {
+        "message": "Autorizácia"
+    },
+    "auth_info": {
+        "message": "Prihlásiť sa pomocou účtu AdGuard alebo sociálnych sietí"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Prihlásiť sa prihlasovacím menom AdGuard"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Prihlásiť sa pomocou Apple"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Prihlásiť sa pomocou Google"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Prihlásiť sa pomocou Facebook"
+    },
     "auth_header_sign_in_account": {
         "message": "Prihlasujete sa pomocou účtu AdGuard"
     },
@@ -190,6 +208,24 @@
     },
     "settings_title": {
         "message": "Nastavenia"
+    },
+    "referral_get_free_traffic": {
+        "message": "Získajte bezplatné dáta!"
+    },
+    "settings_referral_info": {
+        "message": "Pozvite svojich priateľov, aby sa pripojili k nášmu klanu ninja a získajte viac bezplatných dát na mesiac. Získajte 1 GB za každého priateľa, ktorý sa zaregistruje: získa tiež 1 GB navyše zadarmo! (celkovo môžete získať 10 GB zadarmo!)"
+    },
+    "settings_referral_invited_friends": {
+        "message": "Pozvaní priatelia %count%/%limit%"
+    },
+    "settings_referral_limit_reached": {
+        "message": "Už ste dostali svojich 10 GB bezplatných dát. Ale Vaši priatelia môžu stále získať 1 GB ďalších bezplatných dát, ak ich pozvete!"
+    },
+    "settings_referral_copy_link": {
+        "message": "Kopírovať odkaz"
+    },
+    "settings_referral_link_copied": {
+        "message": "Odkaz bol skopírovaný"
     },
     "settings_rate_us": {
         "message": "Ohodnoťte nás"
@@ -465,8 +501,59 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Pokračovať"
     },
-    "popup_marketing_consent_checkbox": {
+    "popup_newsletter_title": {
+        "message": "Novinky Adguard"
+    },
+    "popup_newsletter_info": {
         "message": "Posielajte mi e-mail správy so špeciálnymi ponukami a novinkami AdGuard"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "Získať predplatné"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "Nie, ďakujem"
+    },
+    "popup_onboarding_trusted_vpn": {
+        "message": "Dôveryhodná VPN"
+    },
+    "popup_onboarding_trusted_vpn_info": {
+        "message": "Od vývojára svetoznámeho blokovača reklám"
+    },
+    "popup_onboarding_numerous_locations": {
+        "message": "Početné lokality"
+    },
+    "popup_onboarding_numerous_locations_info": {
+        "message": "Pripojte sa ku ktorémukoľvek z našich serverov umiestnených po celom svete"
+    },
+    "popup_onboarding_fastest_servers": {
+        "message": "Najrýchlejšie servery"
+    },
+    "popup_onboarding_fastest_servers_info": {
+        "message": "Na zabezpečenie najvyššej rýchlosti pripojenia používame najmodernejšie technológie"
+    },
+    "popup_onboarding_next": {
+        "message": "Ďalej"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "Neobmedzená VPN"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Neobmedzené dáta"
+    },
+    "popup_upgrade_screen_unlimited_speed": {
+        "message": "Neobmedzená rýchlosť"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "Všetky lokality"
+    },
+    "popup_upgrade_screen_streaming": {
+        "message": "Streamovanie"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "Aktualizácia"
+    },
+    "popup_upgrade_screen_continue_free": {
+        "message": "Pokračovať bezplatne"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> zostáva do konca mesiaca",
@@ -543,8 +630,5 @@
     },
     "options_signedout_page_title": {
         "message": "Odhlásili ste sa z AdGuard VPN"
-    },
-    "options_signedout_page_description": {
-        "message": "Upozorňujeme, že Vaše pripojenie nie je bezpečné. Ak chcete pokračovať v surfovaní súkromne, kliknite na ikonu Adguard VPN a znova sa prihláste."
     }
 }

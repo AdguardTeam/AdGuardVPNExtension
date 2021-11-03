@@ -128,6 +128,18 @@
     "auth_sign_in_link": {
         "message": "Logg på med AdGuard-konto"
     },
+    "auth_title": {
+        "message": "Autorisasjon"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Fortsett med Apple"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Fortsett med Google"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Fortsett med Facebook"
+    },
     "auth_header_sign_in_account": {
         "message": "Du logger på med AdGuard-kontoen din"
     },
@@ -412,6 +424,30 @@
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Fortsett"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "Abonner"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "Nei takk"
+    },
+    "popup_onboarding_fastest_servers": {
+        "message": "Raskeste tjenere"
+    },
+    "popup_onboarding_next": {
+        "message": "Neste"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "Ubegrenset VPN"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Ubegrenset data"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "Alle posisjoner"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "Oppgrader"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> gjenstår denne måneden",

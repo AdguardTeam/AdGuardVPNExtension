@@ -158,6 +158,21 @@
     "auth_sign_in_link": {
         "message": "Σύνδεση με λογαριασμό AdGuard"
     },
+    "auth_title": {
+        "message": "Εξουσιοδότηση"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Συνέχεια με AdGuard"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Συνεχίστε με την Apple"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Συνεχίστε με το Google"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Συνεχίστε με το Facebook"
+    },
     "auth_header_sign_in_account": {
         "message": "Συνδεθείτε με λογαριασμό AdGuard"
     },
@@ -465,8 +480,53 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Συνέχεια"
     },
-    "popup_marketing_consent_checkbox": {
+    "popup_newsletter_title": {
+        "message": "Ενημερωτικό δελτίο AdGuard"
+    },
+    "popup_newsletter_info": {
         "message": "Στείλτε μου emails με ειδικές προσφορές και ειδήσεις AdGuard"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "ΕΝΑΡΞΗ ΔΟΚΙΜΗΣ"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "Όχι, ευχαριστώ"
+    },
+    "popup_onboarding_trusted_vpn": {
+        "message": "Αξιόπιστο VPN"
+    },
+    "popup_onboarding_numerous_locations": {
+        "message": "Πολλές τοποθεσίες"
+    },
+    "popup_onboarding_numerous_locations_info": {
+        "message": "Συνδεθείτε σε οποιονδήποτε από τους διακομιστές μας που βρίσκονται σε όλο τον κόσμο"
+    },
+    "popup_onboarding_fastest_servers": {
+        "message": "Ταχύτεροι διακομιστές"
+    },
+    "popup_onboarding_fastest_servers_info": {
+        "message": "Χρησιμοποιούμε τεχνολογίες αιχμής για να εγγυηθούμε την υψηλότερη ταχύτητα σύνδεσης"
+    },
+    "popup_onboarding_next": {
+        "message": "Επόμενο"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "Απεριόριστο VPN"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Απεριόριστα δεδομένα"
+    },
+    "popup_upgrade_screen_unlimited_speed": {
+        "message": "Απεριόριστη ταχύτητα"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "Όλες οι τοποθεσίες"
+    },
+    "popup_upgrade_screen_streaming": {
+        "message": "Streaming"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "Αναβάθμιση"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value%%unit%</span> απομένουν αυτόν τον μήνα",
@@ -543,8 +603,5 @@
     },
     "options_signedout_page_title": {
         "message": "Έχετε αποσυνδεθεί από το AdGuard VPN"
-    },
-    "options_signedout_page_description": {
-        "message": "Παρακαλούμε λάβετε υπόψην ότι η σύνδεσή σας δεν είναι ασφαλής. Για να συνεχίσετε να σερφάρετε ιδιωτικά, κάντε κλικ στο εικονίδιο AdGuard VPN και συνδεθείτε ξανά."
     }
 }

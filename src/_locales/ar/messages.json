@@ -125,6 +125,12 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "استمرار"
     },
+    "popup_newsletter_no_subscribe": {
+        "message": "لا, شكراً"
+    },
+    "popup_onboarding_next": {
+        "message": "التالي"
+    },
     "options_selective_mode_popup_button_switch_now": {
         "message": "التبديل الآن"
     },

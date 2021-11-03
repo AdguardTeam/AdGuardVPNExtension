@@ -62,6 +62,9 @@
     "popup_settings_open_settings": {
         "message": "Настройки"
     },
+    "popup_onboarding_next": {
+        "message": "Следващ"
+    },
     "options_exclusions_delete_cancel_button": {
         "message": "Отказ"
     },

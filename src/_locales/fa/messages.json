@@ -149,6 +149,12 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "ادامه"
     },
+    "popup_onboarding_next": {
+        "message": "بعدي"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "ارتقاء"
+    },
     "options_exclusions_delete_cancel_button": {
         "message": "لغو"
     },

@@ -56,6 +56,12 @@
     "premium_upgrade": {
         "message": "Արդիացնել"
     },
+    "popup_onboarding_next": {
+        "message": "Հաջորդը"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "Արդիացնել"
+    },
     "options_exclusions_delete_cancel_button": {
         "message": "Չեղարկել"
     },

@@ -143,6 +143,12 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Tęsti"
     },
+    "popup_newsletter_no_subscribe": {
+        "message": "Ne, ačiū"
+    },
+    "popup_onboarding_next": {
+        "message": "Toliau"
+    },
     "options_selective_mode_popup_button_switch_now": {
         "message": "Perjungti dabar"
     },

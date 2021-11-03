@@ -158,6 +158,21 @@
     "auth_sign_in_link": {
         "message": "Bejelentkezés AdGuard fiókkal"
     },
+    "auth_title": {
+        "message": "Hitelesítés"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Folytatás AdGuard fiókkal"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Folytatás Apple fiókkal"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Folytatás Google fiókkal"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Folytatás Facebook fiókkal"
+    },
     "auth_header_sign_in_account": {
         "message": "Bejelentkezés AdGuard fiókkal"
     },
@@ -465,8 +480,53 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Folytatás"
     },
-    "popup_marketing_consent_checkbox": {
-        "message": "E-mailek fogadása a különleges ajánlatokról és az AdGuard híreiről"
+    "popup_newsletter_title": {
+        "message": "AdGuard hírlevél"
+    },
+    "popup_newsletter_info": {
+        "message": "Emailek fogadása a különleges ajánlatokról és az AdGuard híreiről"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "Előfizetés"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "Nem, köszönöm"
+    },
+    "popup_onboarding_trusted_vpn": {
+        "message": "Megbízható VPN"
+    },
+    "popup_onboarding_numerous_locations": {
+        "message": "Számos helyszín"
+    },
+    "popup_onboarding_numerous_locations_info": {
+        "message": "Csatlakozzon bármelyik szerverünkhöz, a világ bármelyik részén"
+    },
+    "popup_onboarding_fastest_servers": {
+        "message": "A leggyorsabb szerverek"
+    },
+    "popup_onboarding_fastest_servers_info": {
+        "message": "A legmagasabb szintű technológiákat alkalmazzuk a legnagyobb sebesség garantálásához"
+    },
+    "popup_onboarding_next": {
+        "message": "Következő"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "Korlátlan VPN"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Korlátlan adatkeret"
+    },
+    "popup_upgrade_screen_unlimited_speed": {
+        "message": "Korlátlan sebesség"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "Minden végpont"
+    },
+    "popup_upgrade_screen_streaming": {
+        "message": "Streaming"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "Frissítés"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> maradt ebben a hónapban",
@@ -543,8 +603,5 @@
     },
     "options_signedout_page_title": {
         "message": "Kijelentkezett az AdGuard VPN-ből"
-    },
-    "options_signedout_page_description": {
-        "message": "Kérjük, vegye figyelembe, hogy a kapcsolat nem biztonságos. A privát szörfözés folytatásához kattintson az AdGuard VPN ikonra, és jelentkezzen be újra."
     }
 }

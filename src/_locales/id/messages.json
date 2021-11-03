@@ -119,6 +119,12 @@
     "auth_sign_in_link": {
         "message": "Masuk dengan akun AdGuard"
     },
+    "auth_title": {
+        "message": "Otorisasi"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Lanjutkan dengan AdGuard"
+    },
     "auth_header_sign_in_account": {
         "message": "Anda masuk dengan akaun AdGuard"
     },
@@ -403,6 +409,54 @@
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Lanjut"
+    },
+    "popup_newsletter_title": {
+        "message": "Buletin AdGuard"
+    },
+    "popup_newsletter_info": {
+        "message": "Kirimi saya email dengan penawaran khusus dan berita AdGuard"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "Berlangganan"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "Tidak, terima kasih"
+    },
+    "popup_onboarding_trusted_vpn": {
+        "message": "VPN Terpercaya"
+    },
+    "popup_onboarding_numerous_locations": {
+        "message": "Banyak lokasi"
+    },
+    "popup_onboarding_numerous_locations_info": {
+        "message": "Hubungkan ke server kami mana pun yang terletak di seluruh dunia"
+    },
+    "popup_onboarding_fastest_servers": {
+        "message": "Server-server tercepat"
+    },
+    "popup_onboarding_fastest_servers_info": {
+        "message": "Kami menggunakan teknologi mutakhir untuk menjamin kecepatan koneksi tertinggi"
+    },
+    "popup_onboarding_next": {
+        "message": "Lanjut"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "VPN tanpa batas"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Data tak terbatas"
+    },
+    "popup_upgrade_screen_unlimited_speed": {
+        "message": "Kecepatan tanpa batas"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "Semua lokasi"
+    },
+    "popup_upgrade_screen_streaming": {
+        "message": "Streaming"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "Tingkatkan"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value%%unit%</span> sisa bulan ini",

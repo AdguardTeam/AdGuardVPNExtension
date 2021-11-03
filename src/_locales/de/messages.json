@@ -158,6 +158,21 @@
     "auth_sign_in_link": {
         "message": "Mit AdGuard-Konto anmelden"
     },
+    "auth_title": {
+        "message": "Autorisierung"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Mit AdGuard-Konto anmelden"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Mit Apple anmelden"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Mit Google anmelden"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Mit Facebook anmelden"
+    },
     "auth_header_sign_in_account": {
         "message": "Sie werden mit dem AdGuard-Konto angemeldet"
     },
@@ -465,8 +480,53 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Weiter"
     },
-    "popup_marketing_consent_checkbox": {
+    "popup_newsletter_title": {
+        "message": "AdGuard Newsletter"
+    },
+    "popup_newsletter_info": {
         "message": "Benachrichtigen Sie mich per E-Mail über Sonderangebote und Neuigkeiten von AdGuard"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "TESTVERSION STARTEN"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "Nein, danke"
+    },
+    "popup_onboarding_trusted_vpn": {
+        "message": "Vertrauenswürdiges VPN"
+    },
+    "popup_onboarding_numerous_locations": {
+        "message": "Zahlreiche Serverstandorte"
+    },
+    "popup_onboarding_numerous_locations_info": {
+        "message": "Verbinden Sie sich mit einem unserer Server auf der ganzen Welt"
+    },
+    "popup_onboarding_fastest_servers": {
+        "message": "Schnellste Server"
+    },
+    "popup_onboarding_fastest_servers_info": {
+        "message": "Wir verwenden modernste Technologien, um die höchste Verbindungsgeschwindigkeit zu gewährleisten"
+    },
+    "popup_onboarding_next": {
+        "message": "Weiter"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "Unbegrenztes VPN"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Unbegrenzte Daten"
+    },
+    "popup_upgrade_screen_unlimited_speed": {
+        "message": "Unbegrenzte Geschwindigkeit"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "Alle Standorten"
+    },
+    "popup_upgrade_screen_streaming": {
+        "message": "Streaming"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "Umsteigen"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> diese Monat verbleibend",
@@ -543,8 +603,5 @@
     },
     "options_signedout_page_title": {
         "message": "Sie haben sich bei AdGuard VPN abgemeldet"
-    },
-    "options_signedout_page_description": {
-        "message": "Bitte beachten Sie, dass Ihre Verbindung derzeit ungeschützt ist. Um privat weiterzusurfen, klicken Sie auf das AdGuard VPN-Symbol und melden Sie sich erneut an."
     }
 }
