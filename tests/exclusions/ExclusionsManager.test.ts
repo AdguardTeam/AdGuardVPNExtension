@@ -94,5 +94,16 @@ describe('ExclusionsManager', () => {
         expect(exclusionsData.ips).toHaveLength(1);
         expect(exclusionsData.ips[0].hostname).toEqual('192.0.2.1');
         expect(exclusionsData.ips[0].enabled).toBeTruthy();
+
+        // add duplicated data
+        exclusionsManager.addService('github');
+        exclusionsManager.addExclusionsGroup('example.org');
+        exclusionsManager.addIp('192.0.2.1');
+
+        exclusionsData = exclusionsManager.getExclusionsData();
+
+        expect(exclusionsData.services).toHaveLength(1);
+        expect(exclusionsData.exclusions).toHaveLength(1);
+        expect(exclusionsData.ips).toHaveLength(1);
     });
 });
