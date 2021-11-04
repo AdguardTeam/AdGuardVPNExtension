@@ -1,4 +1,5 @@
 import { ExclusionsGroup } from './ExclusionsGroup';
+import { Exclusion } from './Exclusion';
 import { Service } from './Service';
 import { servicesManager } from './ServicesManager';
 import { log } from '../../lib/logger';
@@ -6,6 +7,7 @@ import { log } from '../../lib/logger';
 interface ExclusionsData {
     excludedServices: Service[],
     exclusionsGroups: ExclusionsGroup[],
+    excludedIps: Exclusion[];
 }
 
 class ExclusionsManager implements ExclusionsData {
@@ -13,9 +15,12 @@ class ExclusionsManager implements ExclusionsData {
 
     exclusionsGroups: ExclusionsGroup[];
 
+    excludedIps: Exclusion[];
+
     constructor() {
         this.excludedServices = [];
         this.exclusionsGroups = [];
+        this.excludedIps = [];
     }
 
     addService(serviceId: string) {
@@ -48,10 +53,24 @@ class ExclusionsManager implements ExclusionsData {
             .filter((exclusionsGroup) => exclusionsGroup.hostname !== hostname);
     }
 
+    addIp(ip: string) {
+        if (!this.excludedIps
+            .some((excludedIp) => excludedIp.hostname === ip)) {
+            const excludedIp = new Exclusion(ip);
+            this.excludedIps.push(excludedIp);
+        }
+    }
+
+    removeIp(ip: string) {
+        this.excludedIps = this.excludedIps
+            .filter((excludedIp) => excludedIp.hostname !== ip);
+    }
+
     getExclusionsData() {
         return {
             services: this.excludedServices,
             exclusions: this.exclusionsGroups,
+            ips: this.excludedIps,
         };
     }
 

@@ -39,29 +39,34 @@ const GITHUB_SERVICE_DATA = {
 jest.mock('../../src/background/exclusions/ServicesManager');
 
 describe('ExclusionsManager', () => {
-    it('add and remove exclusions and services test', () => {
+    it('add and remove ips, exclusions and services test', () => {
         servicesManager.getService.mockImplementation(() => FACEBOOK_SERVICE_DATA);
 
         exclusionsManager.addService('facebook');
         exclusionsManager.addExclusionsGroup('test.com');
+        exclusionsManager.addIp('192.100.27.34');
 
         let exclusionsData = exclusionsManager.getExclusionsData();
 
         expect(exclusionsData.services).toHaveLength(1);
         expect(exclusionsData.exclusions).toHaveLength(1);
+        expect(exclusionsData.ips).toHaveLength(1);
 
         servicesManager.getService.mockImplementation(() => GITHUB_SERVICE_DATA);
 
         exclusionsManager.addService('github');
         exclusionsManager.addExclusionsGroup('example.org');
+        exclusionsManager.addIp('192.0.2.1');
 
         exclusionsData = exclusionsManager.getExclusionsData();
 
         expect(exclusionsData.services).toHaveLength(2);
         expect(exclusionsData.exclusions).toHaveLength(2);
+        expect(exclusionsData.ips).toHaveLength(2);
 
         exclusionsManager.removeService('facebook');
         exclusionsManager.removeExclusionsGroup('test.com');
+        exclusionsManager.removeIp('192.100.27.34');
 
         exclusionsData = exclusionsManager.getExclusionsData();
 
@@ -85,5 +90,9 @@ describe('ExclusionsManager', () => {
         expect(exclusionsData.exclusions[0].exclusions[0].enabled).toBeTruthy();
         expect(exclusionsData.exclusions[0].exclusions[1].hostname).toEqual('*.example.org');
         expect(exclusionsData.exclusions[0].exclusions[1].enabled).toBeTruthy();
+
+        expect(exclusionsData.ips).toHaveLength(1);
+        expect(exclusionsData.ips[0].hostname).toEqual('192.0.2.1');
+        expect(exclusionsData.ips[0].enabled).toBeTruthy();
     });
 });
