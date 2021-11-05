@@ -2,10 +2,17 @@ import { nanoid } from 'nanoid';
 
 import { Exclusion } from './Exclusion';
 
+export enum State {
+    Enabled = 'enabled',
+    PartlyEnabled = 'partly.enabled',
+    Disabled = 'disabled',
+}
+
 export interface ExclusionsGroupInterface {
     id: string;
     hostname: string;
     exclusions: Exclusion[];
+    state: State;
 }
 
 export class ExclusionsGroup implements ExclusionsGroupInterface {
@@ -15,11 +22,14 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
 
     exclusions: Exclusion[];
 
+    state: State;
+
     constructor(hostname: string) {
         this.id = nanoid();
         this.hostname = this.prepareHostname(hostname);
         this.exclusions = [];
         this.addDefaultExclusions();
+        this.state = State.Enabled;
     }
 
     prepareHostname(hostname: string) {
@@ -67,7 +77,7 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
     }
 
     /**
-     * Sets enabled state for provided subdomain
+     * Sets state for provided subdomain
      */
     setSubdomainState(url: string, enabled: boolean) {
         this.exclusions.forEach((exclusion) => {
@@ -76,5 +86,40 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
                 exclusion.enabled = enabled;
             }
         });
+        this.updateExclusionsGroupState();
+    }
+
+    /**
+     * Toggles state for provided subdomain
+     */
+    toggleSubdomainState(id: string) {
+        this.exclusions.forEach((exclusion: Exclusion) => {
+            if (exclusion.id === id) {
+                // eslint-disable-next-line no-param-reassign
+                exclusion.enabled = !exclusion.enabled;
+            }
+        });
+        this.updateExclusionsGroupState();
+    }
+
+    updateExclusionsGroupState() {
+        const enabledExclusions = this.exclusions
+            .filter((exclusion: Exclusion) => exclusion.enabled);
+
+        if (enabledExclusions.length === this.exclusions.length) {
+            this.state = State.Enabled;
+        } else if (!enabledExclusions.length) {
+            this.state = State.Disabled;
+        } else {
+            this.state = State.PartlyEnabled;
+        }
+    }
+
+    toggleExclusionsGroupState() {
+        if (this.state === State.Enabled || this.state === State.PartlyEnabled) {
+            this.state = State.Disabled;
+        } else {
+            this.state = State.Enabled;
+        }
     }
 }

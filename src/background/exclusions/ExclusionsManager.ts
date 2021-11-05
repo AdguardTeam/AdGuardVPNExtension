@@ -10,7 +10,32 @@ interface ExclusionsData {
     excludedIps: Exclusion[];
 }
 
-class ExclusionsManager implements ExclusionsData {
+interface ExclusionsManagerInterface {
+    excludedServices: Service[],
+    exclusionsGroups: ExclusionsGroup[],
+    excludedIps: Exclusion[];
+
+    addService(serviceId: string): void;
+    removeService(serviceId: string): void;
+    // addSubdomainToServiceExclusionsGroup(serviceId: string, id: string, subdomain: string): void;
+    // removeSubdomainFromServiceExclusionsGroup(serviceId: string, id: string, subdomain: string);
+    // switch service state
+    // switch service ExclusionsGroup state
+    // switch service ExclusionsGroup exclusion state
+
+    addExclusionsGroup(hostname: string): void;
+    removeExclusionsGroup(hostname: string): void;
+    // addSubdomainToExclusionsGroup(id: string, subdomain: string): void;
+    // removeSubdomainFromExclusionsGroup(id: string, subdomain: string): void;
+    // switch ExclusionsGroup state
+    // switch ExclusionsGroup exclusion state
+
+    addIp(ip: string): void;
+    removeIp(ip: string): void;
+    toggleIpState(id: string): void;
+}
+
+class ExclusionsManager implements ExclusionsData, ExclusionsManagerInterface {
     excludedServices: Service[];
 
     exclusionsGroups: ExclusionsGroup[];
@@ -64,6 +89,15 @@ class ExclusionsManager implements ExclusionsData {
     removeIp(ip: string) {
         this.excludedIps = this.excludedIps
             .filter((excludedIp) => excludedIp.hostname !== ip);
+    }
+
+    toggleIpState(id:string) {
+        this.excludedIps.forEach((ip) => {
+            if (ip.id === id) {
+                // eslint-disable-next-line no-param-reassign
+                ip.enabled = !ip.enabled;
+            }
+        });
     }
 
     getExclusionsData() {

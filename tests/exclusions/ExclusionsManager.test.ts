@@ -106,4 +106,16 @@ describe('ExclusionsManager', () => {
         expect(exclusionsData.exclusions).toHaveLength(1);
         expect(exclusionsData.ips).toHaveLength(1);
     });
+
+    it('toggle ips, exclusions and services state test', () => {
+        exclusionsManager.addIp('192.100.27.34');
+        let exclusionsData = exclusionsManager.getExclusionsData();
+
+        expect(exclusionsData.ips[0].enabled).toBeTruthy();
+        const ipId = exclusionsData.ips[0].id;
+        exclusionsManager.toggleIpState(ipId);
+        exclusionsData = exclusionsManager.getExclusionsData();
+
+        expect(exclusionsData.ips[0].enabled).toBeFalsy();
+    });
 });
