@@ -9,7 +9,7 @@ import credentials from './credentials';
 import authCache from './authentication/authCache';
 import appStatus from './appStatus';
 import { settings } from './settings';
-import exclusions from './exclusions';
+import exclusions, { servicesManager } from './exclusions';
 import management from './management';
 import permissionsError from './permissionsChecker/permissionsError';
 import permissionsChecker from './permissionsChecker';
@@ -44,6 +44,8 @@ const getOptionsData = async () => {
         currentMode: exclusionsCurrentMode,
     };
 
+    const servicesData = servicesManager.getServicesData();
+
     const isAuthenticated = await auth.isAuthenticated();
     // AG-644 set current endpoint in order to avoid bug in permissions checker
     await endpoints.getSelectedLocation();
@@ -58,6 +60,7 @@ const getOptionsData = async () => {
         dnsServer,
         appearanceTheme,
         exclusionsData,
+        servicesData,
         isAuthenticated,
     };
 };

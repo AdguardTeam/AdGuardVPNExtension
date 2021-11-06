@@ -32,6 +32,8 @@ export class SettingsStore {
         [EXCLUSIONS_MODES.REGULAR]: false,
     };
 
+    @observable servicesData;
+
     @observable isRateVisible = true;
 
     @observable appVersion;
@@ -223,6 +225,7 @@ export class SettingsStore {
         this.dnsServer = data.dnsServer;
         this.appearanceTheme = data.appearanceTheme;
         this.setExclusions(data.exclusionsData);
+        this.servicesData = data.servicesData;
     };
 
     @action

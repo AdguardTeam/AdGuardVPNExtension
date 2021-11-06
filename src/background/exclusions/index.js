@@ -8,3 +8,5 @@ const exclusions = new Exclusions(browserApi, proxy, settings);
 export default exclusions;
 
 export { exclusionsManager } from './ExclusionsManager';
+
+export { servicesManager } from './ServicesManager';
