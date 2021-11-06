@@ -59,12 +59,12 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
     }
 
     /**
-     * Adds subdomain to exclusions group
+     * Adds subdomain to ExclusionsGroup
      */
     addSubdomain(name: string) {
         const subdomainUrl = `${name}.${this.hostname}`;
 
-        // check if same domain exist in exclusions group already
+        // check if same domain exist in ExclusionsGroup already
         if (this.exclusions.some((exclusion) => exclusion.hostname === subdomainUrl)) {
             return;
         }
@@ -77,7 +77,15 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
     }
 
     /**
+     * Removes subdomain from ExclusionsGroup
+     */
+    removeSubdomain(id: string) {
+        this.exclusions = this.exclusions.filter((exclusion) => exclusion.id !== id);
+    }
+
+    /**
      * Sets state for provided subdomain
+     * TODO: refactor to remove this method and use toggleSubdomainState() instead
      */
     setSubdomainState(url: string, enabled: boolean) {
         this.exclusions.forEach((exclusion) => {
@@ -90,7 +98,7 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
     }
 
     /**
-     * Toggles state for provided subdomain
+     * Toggles state of subdomain
      */
     toggleSubdomainState(id: string) {
         this.exclusions.forEach((exclusion: Exclusion) => {
@@ -102,6 +110,9 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
         this.updateExclusionsGroupState();
     }
 
+    /**
+     * Sets ExclusionsGroup state according to enabled/disabled subdomains
+     */
     updateExclusionsGroupState() {
         const enabledExclusions = this.exclusions
             .filter((exclusion: Exclusion) => exclusion.enabled);
@@ -115,11 +126,15 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
         }
     }
 
+    /**
+     * Toggles ExclusionsGroup state
+     */
     toggleExclusionsGroupState() {
         if (this.state === State.Enabled || this.state === State.PartlyEnabled) {
             this.state = State.Disabled;
         } else {
             this.state = State.Enabled;
         }
+        // TODO: handle subdomains states ..??
     }
 }

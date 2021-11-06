@@ -17,18 +17,26 @@ interface ExclusionsManagerInterface {
 
     addService(serviceId: string): void;
     removeService(serviceId: string): void;
-    // addSubdomainToServiceExclusionsGroup(serviceId: string, id: string, subdomain: string): void;
-    // removeSubdomainFromServiceExclusionsGroup(serviceId: string, id: string, subdomain: string);
-    // switch service state
-    // switch service ExclusionsGroup state
-    // switch service ExclusionsGroup exclusion state
+    addSubdomainToServiceExclusionsGroup(
+        serviceId: string,
+        exclusionsGroupId: string,
+        subdomain: string,
+    ): void;
+    removeSubdomainFromServiceExclusionsGroup(
+        serviceId: string,
+        exclusionsGroupId: string,
+        subdomainId: string,
+    ): void;
+    // toggle service state
+    // toggle service ExclusionsGroup state
+    // toggle service ExclusionsGroup exclusion state
 
     addExclusionsGroup(hostname: string): void;
     removeExclusionsGroup(hostname: string): void;
-    // addSubdomainToExclusionsGroup(id: string, subdomain: string): void;
-    // removeSubdomainFromExclusionsGroup(id: string, subdomain: string): void;
-    // switch ExclusionsGroup state
-    // switch ExclusionsGroup exclusion state
+    addSubdomainToExclusionsGroup(id: string, subdomain: string): void;
+    removeSubdomainFromExclusionsGroup(id: string, subdomain: string): void;
+    // toggle ExclusionsGroup state
+    // toggle ExclusionsGroup exclusion state
 
     addIp(ip: string): void;
     removeIp(ip: string): void;
@@ -49,25 +57,59 @@ class ExclusionsManager implements ExclusionsData, ExclusionsManagerInterface {
     }
 
     addService(serviceId: string) {
-        if (!this.excludedServices
-            .some((excludedService) => excludedService.serviceId === serviceId)) {
-            const service = servicesManager.getService(serviceId);
-            if (!service) {
-                log.error(`Unable to add service. There is no service '${serviceId}'`);
-                return;
-            }
-            this.excludedServices.push(service);
+        if (this.excludedServices
+            .some((excludedService: Service) => excludedService.serviceId === serviceId)) {
+            return;
         }
+        const service = servicesManager.getService(serviceId);
+        if (!service) {
+            log.error(`Unable to add service. There is no service '${serviceId}'`);
+            return;
+        }
+        this.excludedServices.push(service);
     }
 
     removeService(serviceId: string) {
         this.excludedServices = this.excludedServices
-            .filter((excludedService) => excludedService.serviceId !== serviceId);
+            .filter((excludedService: Service) => excludedService.serviceId !== serviceId);
+    }
+
+    addSubdomainToServiceExclusionsGroup(
+        serviceId: string,
+        exclusionsGroupId: string,
+        subdomain: string,
+    ) {
+        this.excludedServices.forEach((service: Service) => {
+            if (service.serviceId === serviceId) {
+                service.exclusionsGroups.forEach((exclusionsGroup) => {
+                    if (exclusionsGroup.id === exclusionsGroupId) {
+                        exclusionsGroup.addSubdomain(subdomain);
+                    }
+                });
+            }
+        });
+    }
+
+    removeSubdomainFromServiceExclusionsGroup(
+        serviceId: string,
+        exclusionsGroupId: string,
+        subdomainId: string,
+    ) {
+        this.excludedServices.forEach((service: Service) => {
+            if (service.serviceId === serviceId) {
+                service.exclusionsGroups.forEach((exclusionsGroup) => {
+                    if (exclusionsGroup.id === exclusionsGroupId) {
+                        exclusionsGroup.removeSubdomain(subdomainId);
+                    }
+                });
+            }
+        });
     }
 
     addExclusionsGroup(hostname: string) {
+        // TODO: check services list for provided hostname
         if (!this.exclusionsGroups
-            .some((exclusionsGroup) => exclusionsGroup.hostname === hostname)) {
+            .some((exclusionsGroup: ExclusionsGroup) => exclusionsGroup.hostname === hostname)) {
             const exclusionsGroup = new ExclusionsGroup(hostname);
             this.exclusionsGroups.push(exclusionsGroup);
         }
@@ -75,12 +117,28 @@ class ExclusionsManager implements ExclusionsData, ExclusionsManagerInterface {
 
     removeExclusionsGroup(hostname: string) {
         this.exclusionsGroups = this.exclusionsGroups
-            .filter((exclusionsGroup) => exclusionsGroup.hostname !== hostname);
+            .filter((exclusionsGroup: ExclusionsGroup) => exclusionsGroup.hostname !== hostname);
+    }
+
+    addSubdomainToExclusionsGroup(id: string, subdomain: string) {
+        this.exclusionsGroups.forEach((exclusionsGroup: ExclusionsGroup) => {
+            if (exclusionsGroup.id === id) {
+                exclusionsGroup.addSubdomain(subdomain);
+            }
+        });
+    }
+
+    removeSubdomainFromExclusionsGroup(exclusionsGroupId: string, subdomainId: string) {
+        this.exclusionsGroups.forEach((exclusionsGroup: ExclusionsGroup) => {
+            if (exclusionsGroup.id === exclusionsGroupId) {
+                exclusionsGroup.removeSubdomain(subdomainId);
+            }
+        });
     }
 
     addIp(ip: string) {
         if (!this.excludedIps
-            .some((excludedIp) => excludedIp.hostname === ip)) {
+            .some((excludedIp: Exclusion) => excludedIp.hostname === ip)) {
             const excludedIp = new Exclusion(ip);
             this.excludedIps.push(excludedIp);
         }
@@ -88,11 +146,11 @@ class ExclusionsManager implements ExclusionsData, ExclusionsManagerInterface {
 
     removeIp(ip: string) {
         this.excludedIps = this.excludedIps
-            .filter((excludedIp) => excludedIp.hostname !== ip);
+            .filter((excludedIp: Exclusion) => excludedIp.hostname !== ip);
     }
 
     toggleIpState(id:string) {
-        this.excludedIps.forEach((ip) => {
+        this.excludedIps.forEach((ip: Exclusion) => {
             if (ip.id === id) {
                 // eslint-disable-next-line no-param-reassign
                 ip.enabled = !ip.enabled;
@@ -106,6 +164,12 @@ class ExclusionsManager implements ExclusionsData, ExclusionsManagerInterface {
             exclusions: this.exclusionsGroups,
             ips: this.excludedIps,
         };
+    }
+
+    clearExclusionsData() {
+        this.excludedServices = [];
+        this.exclusionsGroups = [];
+        this.excludedIps = [];
     }
 
     async init() {

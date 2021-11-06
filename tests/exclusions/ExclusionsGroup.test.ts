@@ -13,7 +13,7 @@ describe('ExclusionsGroup', () => {
         expect(exampleGroup.exclusions[1].enabled).toBeTruthy();
     });
 
-    it('add exclusion to exclusion group', () => {
+    it('add and remove exclusion to exclusion group', () => {
         const exampleGroup = new ExclusionsGroup('http://www.example.org');
         // check hostname is cleaned out of 'https' and 'www'
         expect(exampleGroup.hostname).toEqual('example.org');
@@ -46,14 +46,27 @@ describe('ExclusionsGroup', () => {
         exampleGroup.addSubdomain('sub.test3');
         expect(exampleGroup.exclusions.length).toEqual(5);
         expect(exampleGroup.exclusions[4].hostname).toEqual('sub.test3.example.org');
+
+        exampleGroup.removeSubdomain('test1');
+        exampleGroup.removeSubdomain('sub.test3');
+        expect(exampleGroup.exclusions.length).toEqual(2);
+        expect(exampleGroup.exclusions[0].hostname).toEqual('example.org');
+        expect(exampleGroup.exclusions[1].hostname).toEqual('*.example.org');
+        expect(exampleGroup.exclusions[2].hostname).toEqual('test2.example.org');
     });
 
     it('Exclusions group and subdomain states', () => {
         const exampleGroup = new ExclusionsGroup('example.org');
         expect(exampleGroup.state).toEqual(State.Enabled);
         exampleGroup.addSubdomain('test');
+
+        expect(exampleGroup.exclusions[1].hostname).toEqual('*.example.org');
+        // `*.example.org` state should be disabled after adding subdomain
+        expect(exampleGroup.exclusions[1].enabled).toBeFalsy();
+        // group state should be PartlyEnabled
         expect(exampleGroup.state).toEqual(State.PartlyEnabled);
         expect(exampleGroup.exclusions[2].hostname).toEqual('test.example.org');
+
         // disable all domains
         exampleGroup.toggleSubdomainState(exampleGroup.exclusions[2].id);
         exampleGroup.toggleSubdomainState(exampleGroup.exclusions[0].id);

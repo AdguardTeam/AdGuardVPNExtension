@@ -39,7 +39,11 @@ const GITHUB_SERVICE_DATA = {
 jest.mock('../../src/background/exclusions/ServicesManager');
 
 describe('ExclusionsManager', () => {
-    it('add and remove ips, exclusions and services test', () => {
+    afterEach(() => {
+        exclusionsManager.clearExclusionsData();
+    });
+
+    it('add and remove ips, exclusions groups and services', () => {
         servicesManager.getService.mockImplementation(() => FACEBOOK_SERVICE_DATA);
 
         exclusionsManager.addService('facebook');
@@ -107,15 +111,67 @@ describe('ExclusionsManager', () => {
         expect(exclusionsData.ips).toHaveLength(1);
     });
 
+    it('add and remove subdomain to ExclusionsGroup', () => {
+        exclusionsManager.addExclusionsGroup('example.org');
+        let exclusionsData = exclusionsManager.getExclusionsData();
+        const exclusionsGroupId = exclusionsData.exclusions[0].id;
+        exclusionsManager.addSubdomainToExclusionsGroup(exclusionsGroupId, 'test');
+
+        exclusionsData = exclusionsManager.getExclusionsData();
+        expect(exclusionsData.exclusions[0].exclusions.length).toEqual(3);
+        expect(exclusionsData.exclusions[0].exclusions[0].hostname).toEqual('example.org');
+        expect(exclusionsData.exclusions[0].exclusions[1].hostname).toEqual('*.example.org');
+        expect(exclusionsData.exclusions[0].exclusions[1].enabled).toBeFalsy();
+        expect(exclusionsData.exclusions[0].exclusions[2].hostname).toEqual('test.example.org');
+        expect(exclusionsData.exclusions[0].exclusions[2].enabled).toBeTruthy();
+
+        const subdomainId = exclusionsData.exclusions[0].exclusions[2].id;
+        exclusionsManager.removeSubdomainFromExclusionsGroup(exclusionsGroupId, subdomainId);
+        exclusionsData = exclusionsManager.getExclusionsData();
+
+        expect(exclusionsData.exclusions[0].exclusions.length).toEqual(2);
+        expect(exclusionsData.exclusions[0].exclusions.some((exclusion) => exclusion.hostname === 'test.example.org')).toBeFalsy();
+    });
+
+    it('add and remove subdomain to Service\'s ExclusionsGroup', () => {
+        servicesManager.getService.mockImplementation(() => GITHUB_SERVICE_DATA);
+        exclusionsManager.addService('github');
+        let exclusionsData = exclusionsManager.getExclusionsData();
+        const exclusionsGroupId = exclusionsData.services[0].exclusionsGroups[0].id;
+        // add subdomain 'test' to github.com exclusions group in GitHub service
+        exclusionsManager.addSubdomainToServiceExclusionsGroup('github', exclusionsGroupId, 'test');
+        exclusionsData = exclusionsManager.getExclusionsData();
+
+        expect(exclusionsData.services[0].serviceId).toEqual('github');
+        expect(exclusionsData.services[0].exclusionsGroups[0].exclusions.length).toEqual(3);
+        expect(exclusionsData.services[0].exclusionsGroups[0].exclusions[2].hostname).toEqual('test.github.com');
+
+        const subdomainId = exclusionsData.services[0].exclusionsGroups[0].exclusions[2].id;
+        // remove subdomain 'test' from github.com exclusions group in GitHub service
+        exclusionsManager.removeSubdomainFromServiceExclusionsGroup('github', exclusionsGroupId, subdomainId);
+        exclusionsData = exclusionsManager.getExclusionsData();
+
+        expect(exclusionsData.services[0].exclusionsGroups[0].exclusions.length).toEqual(2);
+        expect(exclusionsData.services[0].exclusionsGroups[0].exclusions
+            .some((exclusion) => exclusion.hostname === 'test.github.com')).toBeFalsy();
+    });
+
     it('toggle ips, exclusions and services state test', () => {
-        exclusionsManager.addIp('192.100.27.34');
+        exclusionsManager.addIp('192.100.50.33');
         let exclusionsData = exclusionsManager.getExclusionsData();
 
+        expect(exclusionsData.ips[0].hostname).toEqual('192.100.50.33');
         expect(exclusionsData.ips[0].enabled).toBeTruthy();
+
         const ipId = exclusionsData.ips[0].id;
         exclusionsManager.toggleIpState(ipId);
         exclusionsData = exclusionsManager.getExclusionsData();
 
         expect(exclusionsData.ips[0].enabled).toBeFalsy();
+
+        exclusionsManager.toggleIpState(ipId);
+        exclusionsData = exclusionsManager.getExclusionsData();
+
+        expect(exclusionsData.ips[0].enabled).toBeTruthy();
     });
 });
