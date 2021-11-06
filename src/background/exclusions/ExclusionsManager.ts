@@ -11,10 +11,6 @@ interface ExclusionsData {
 }
 
 interface ExclusionsManagerInterface {
-    excludedServices: Service[],
-    exclusionsGroups: ExclusionsGroup[],
-    excludedIps: Exclusion[];
-
     addService(serviceId: string): void;
     removeService(serviceId: string): void;
     addSubdomainToServiceExclusionsGroup(

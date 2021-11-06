@@ -47,9 +47,12 @@ describe('ExclusionsGroup', () => {
         expect(exampleGroup.exclusions.length).toEqual(5);
         expect(exampleGroup.exclusions[4].hostname).toEqual('sub.test3.example.org');
 
-        exampleGroup.removeSubdomain('test1');
-        exampleGroup.removeSubdomain('sub.test3');
-        expect(exampleGroup.exclusions.length).toEqual(2);
+        const subdomainId1 = exampleGroup.exclusions[2].id; // test1.example.org
+        const subdomainId2 = exampleGroup.exclusions[4].id; // sub.test3.example.org
+        exampleGroup.removeSubdomain(subdomainId1);
+        exampleGroup.removeSubdomain(subdomainId2);
+
+        expect(exampleGroup.exclusions.length).toEqual(3);
         expect(exampleGroup.exclusions[0].hostname).toEqual('example.org');
         expect(exampleGroup.exclusions[1].hostname).toEqual('*.example.org');
         expect(exampleGroup.exclusions[2].hostname).toEqual('test2.example.org');
