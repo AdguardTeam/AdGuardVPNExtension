@@ -17,13 +17,14 @@ export class GlobalStore {
 
     @action
     async getOptionsData() {
-        const { rootStore: { settingsStore, authStore } } = this;
+        const { rootStore: { settingsStore, authStore, exclusionsStore } } = this;
         this.setInitStatus(REQUEST_STATUSES.PENDING);
 
         try {
             const optionsData = await messenger.getOptionsData();
             settingsStore.setOptionsData(optionsData);
             authStore.setIsAuthenticated(optionsData.isAuthenticated);
+            exclusionsStore.setServicesData(optionsData.servicesData);
             this.setInitStatus(REQUEST_STATUSES.DONE);
         } catch (e) {
             log.error(e.message);
