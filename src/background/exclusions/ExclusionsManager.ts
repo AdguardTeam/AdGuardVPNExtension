@@ -39,6 +39,7 @@ interface ExclusionsManagerInterface {
     toggleIpState(id: string): void;
 }
 
+// TODO: turn ExclusionsManager to ExclusionsHandler
 class ExclusionsManager implements ExclusionsData, ExclusionsManagerInterface {
     excludedServices: Service[];
 
