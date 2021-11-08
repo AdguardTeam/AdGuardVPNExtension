@@ -209,8 +209,8 @@
     "settings_title": {
         "message": "Settings"
     },
-    "options_menu_referral_program": {
-        "message": "Referral program"
+    "options_menu_free_traffic": {
+        "message": "Free VPN traffic"
     },
     "referral_get_free_traffic": {
         "message": "Get free VPN traffic!"
