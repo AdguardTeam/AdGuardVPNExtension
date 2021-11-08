@@ -158,6 +158,21 @@
     "auth_sign_in_link": {
         "message": "Prijavite se s AdGuard računom"
     },
+    "auth_title": {
+        "message": "Autorizacija"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Nastavi s AdGuardom"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Nastavite sa Apple računom"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Nastavite koristeći Google račun"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Nastavite koristeći Facebook"
+    },
     "auth_header_sign_in_account": {
         "message": "Prijavljujete se s AdGuard računom"
     },
@@ -268,6 +283,18 @@
     },
     "settings_dns_selector_quad9_desc": {
         "message": "Besplatna, alternativna DNS usluga s zaštitom od krađe identiteta i špijunskih programa"
+    },
+    "settings_theme_label": {
+        "message": "Tema"
+    },
+    "settings_theme_system": {
+        "message": "Zadano sustavom"
+    },
+    "settings_theme_dark": {
+        "message": "Tamna"
+    },
+    "settings_theme_light": {
+        "message": "Svijetla"
     },
     "settings_exclusion_add": {
         "message": "Dodaj web stranicu"
@@ -447,11 +474,59 @@
         "message": "Prihvaćanje <eula>pravila o EULA-i</eula> i <privacy>privatnosti</privacy>",
         "description": "WARNING! Respect spaces between tags"
     },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "Dopustite AdGuardu prikupljanje <link> anonimiziranih podataka o korištenju aplikacije kako bi AdGuard VPN bio bolji"
+    },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Nastavi"
     },
-    "popup_marketing_consent_checkbox": {
-        "message": "Pošaljite mi e-poštu s posebnim ponudama i AdGuard vijestima"
+    "popup_newsletter_title": {
+        "message": "AdGuard newsletter"
+    },
+    "popup_newsletter_info": {
+        "message": "Šaljite mi e-mailove sa posebnim ponudama i AdGuard novostima"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "Pretplatite se"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "Ne, hvala"
+    },
+    "popup_onboarding_trusted_vpn": {
+        "message": "Povjerljiv VPN"
+    },
+    "popup_onboarding_numerous_locations": {
+        "message": "Brojne lokacije"
+    },
+    "popup_onboarding_numerous_locations_info": {
+        "message": "Povežite se s bilo kojim od naših poslužitelja koji se nalaze diljem svijeta"
+    },
+    "popup_onboarding_fastest_servers": {
+        "message": "Najbrži poslužitelji"
+    },
+    "popup_onboarding_fastest_servers_info": {
+        "message": "Koristimo najnovije tehnologije kako bismo osigurali najbolju brzinu"
+    },
+    "popup_onboarding_next": {
+        "message": "Sljedeće"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "Neograničen VPN"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Neograničeni podaci"
+    },
+    "popup_upgrade_screen_unlimited_speed": {
+        "message": "sve lokacije, podrška 24/7"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "Sve lokacije"
+    },
+    "popup_upgrade_screen_streaming": {
+        "message": "Strujanje"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "Nadogradi"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> preostalo ovaj mjesec",
@@ -516,5 +591,17 @@
     },
     "popup_connections_limit_title": {
         "message": "Dosegnuto ograničenje veza"
+    },
+    "popup_desktop_vpn_enabled_title": {
+        "message": "AdGuard VPN je već povezan"
+    },
+    "popup_desktop_vpn_enabled_description": {
+        "message": "AdGuard VPN je omogućen u aplikaciji za stolna računala, stoga je proširenje automatski onemogućeno"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "U redu"
+    },
+    "options_signedout_page_title": {
+        "message": "Odjavili ste se iz AdGuard VPN-a"
     }
 }

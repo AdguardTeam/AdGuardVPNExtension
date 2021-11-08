@@ -63,7 +63,7 @@
         "message": "Kysymyksiä ja vastauksia"
     },
     "options_support_report_title": {
-        "message": "Ilmoita virheestä"
+        "message": "Ilmoita viasta"
     },
     "options_support_report_description": {
         "message": "Jos jokin sovelluksessa ei toimi oikein"
@@ -81,7 +81,7 @@
         "message": "Keskustele keskustelualueellamme, sosiaalisissa verkoissa tai GitHubissa"
     },
     "options_report_bug_title": {
-        "message": "Ilmoita virheestä"
+        "message": "Ilmoita viasta"
     },
     "options_bug_report_email_label": {
         "message": "Sähköposti"
@@ -158,6 +158,24 @@
     "auth_sign_in_link": {
         "message": "Kirjaudu AdGuard-tunnuksella"
     },
+    "auth_title": {
+        "message": "Todennus"
+    },
+    "auth_info": {
+        "message": "Jatka AdGuard-tunnuksellasi tai sosiaalisilla verkostoilla"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Jatka AdGuardilla"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Jatka Applella"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Jatka Googlella"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Jatka Facebookilla"
+    },
     "auth_header_sign_in_account": {
         "message": "Olet kirjautumassa AdGuard-tunnuksella"
     },
@@ -190,6 +208,24 @@
     },
     "settings_title": {
         "message": "Asetukset"
+    },
+    "referral_get_free_traffic": {
+        "message": "Hanki ilmaista tiedonsiirtoa!"
+    },
+    "settings_referral_info": {
+        "message": "Kutsu kaverit mukaan ninjaklaaniimme ja saat lisää ilmaista kuukausittaista tiedonsiirtoa! Saat 1 Gt jokaista kaveria kohden: he saavat myös 1 Gt veloituksetta! (Kaikkiaan voit saada veloituksetta 10 Gt!)"
+    },
+    "settings_referral_invited_friends": {
+        "message": "Kavereita kutsuttu %count%/%limit%"
+    },
+    "settings_referral_limit_reached": {
+        "message": "Olet jo saanut 10 Gt ilmaisen tiedonsirtosi. Kaverisi voivat kuitenkin saada 1 Gt enemmän ilmaista tiedonsiirtoa, jos kutsut heidät!"
+    },
+    "settings_referral_copy_link": {
+        "message": "Kopioi linkki"
+    },
+    "settings_referral_link_copied": {
+        "message": "Linkki kopioitiin"
     },
     "settings_rate_us": {
         "message": "Arvostele meidät"
@@ -465,8 +501,59 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Jatka"
     },
-    "popup_marketing_consent_checkbox": {
+    "popup_newsletter_title": {
+        "message": "AdGuardin uutiskirje"
+    },
+    "popup_newsletter_info": {
         "message": "Lähetä minulle erikoistarjouksia ja AdGuard-uutisia sähköpostitse"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "Tilaa"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "Ei kiitos"
+    },
+    "popup_onboarding_trusted_vpn": {
+        "message": "Luotettu VPN"
+    },
+    "popup_onboarding_trusted_vpn_info": {
+        "message": "Maailmankuulun mainosten estäjän kehittäjältä"
+    },
+    "popup_onboarding_numerous_locations": {
+        "message": "Lukuisia sijainteja"
+    },
+    "popup_onboarding_numerous_locations_info": {
+        "message": "Yhdistä mihin tahansa palvelimistamme maailmalla"
+    },
+    "popup_onboarding_fastest_servers": {
+        "message": "Nopeimmat palvelimet"
+    },
+    "popup_onboarding_fastest_servers_info": {
+        "message": "Käytämme huipputeknologiaa taataksemme korkeimman yhteysnopeuden"
+    },
+    "popup_onboarding_next": {
+        "message": "Seuraava"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "Rajaton VPN"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Rajaton tiedonsiirto"
+    },
+    "popup_upgrade_screen_unlimited_speed": {
+        "message": "Rajaton nopeus"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "Kaikki sijainnit"
+    },
+    "popup_upgrade_screen_streaming": {
+        "message": "Suoratoisto"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "Tilaa"
+    },
+    "popup_upgrade_screen_continue_free": {
+        "message": "Jatka ilmaista käyttöä"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> jäljellä tässä kuussa",
@@ -545,6 +632,6 @@
         "message": "Olet kirjautunut ulos AdGuard VPN -palvelusta"
     },
     "options_signedout_page_description": {
-        "message": "Huomioithan, ettei yhteytesi ole suojattu. Jatkaaksesi verkon selausta yksityisesti, klikkaa AdGuard VPN -kuvaketta ja kirjaudu sisään uudelleen."
+        "message": "Yhteyttäsi ole suojattu. Jatkaaksesi selausta yksityisesti, klikkaa AdGuard VPN -kuvaketta ja kirjaudu sisään uudelleen."
     }
 }

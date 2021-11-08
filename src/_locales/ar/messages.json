@@ -1,1 +1,152 @@
-{}
+{
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
+    "authentication_error_account_disabled": {
+        "message": "الحساب معطل"
+    },
+    "authentication_error_wrong_credentials": {
+        "message": "كلمة مرور خاطئة"
+    },
+    "about_title": {
+        "message": "حول"
+    },
+    "options_support_title": {
+        "message": "الدعم"
+    },
+    "options_support_faq_title": {
+        "message": "أسئلة مكررة"
+    },
+    "options_support_discuss_title": {
+        "message": "مناقشة"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "تضمين تقرير التشخيص في الرسالة"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "رسالة"
+    },
+    "account_title": {
+        "message": "حسابي"
+    },
+    "rate_hide": {
+        "message": "إخفاء"
+    },
+    "auth_confirm": {
+        "message": "تاكيد"
+    },
+    "auth_password": {
+        "message": "كلمه المرور"
+    },
+    "eula": {
+        "message": "الترخيص"
+    },
+    "privacy_policy": {
+        "message": "سياسة الخصوصية"
+    },
+    "settings_title": {
+        "message": "الإعدادات"
+    },
+    "settings_webrtc_label": {
+        "message": "RTCحظر شبكة"
+    },
+    "settings_dns_selector_default_title": {
+        "message": "افتراضي"
+    },
+    "settings_dns_selector_adguard_title": {
+        "message": "AdGuard DNS"
+    },
+    "settings_dns_selector_adguard_family_title": {
+        "message": "AdGuard DNS خدمة حماية الاسرة"
+    },
+    "settings_dns_selector_adguard_family_desc": {
+        "message": "البحث الآمن وحظر محتوى البالغين + AdGuard DNS"
+    },
+    "settings_dns_selector_google_title": {
+        "message": "Google DNS"
+    },
+    "settings_dns_selector_google_desc": {
+        "message": "خدمة DNSالبديلة المجانية من غوغل"
+    },
+    "settings_dns_selector_cloudflare_title": {
+        "message": "Cloudflare DNS"
+    },
+    "settings_dns_selector_cloudflare_desc": {
+        "message": "خدمة DNS مجانية من كلاود فلير"
+    },
+    "settings_dns_selector_cisco_title": {
+        "message": "Cisco OpenDNS"
+    },
+    "settings_dns_selector_cisco_desc": {
+        "message": "خادمDNS الذي يحمي جهازك من البرامج الضارة"
+    },
+    "settings_dns_selector_quad9_title": {
+        "message": "Quad9"
+    },
+    "settings_dns_selector_quad9_desc": {
+        "message": "خدمة DNS بديلة مجانية مع الحماية من الخداع وبرامج التجسس"
+    },
+    "settings_theme_label": {
+        "message": "النسق"
+    },
+    "settings_theme_system": {
+        "message": "النظام الافتراضي"
+    },
+    "settings_theme_dark": {
+        "message": "تبديل للوضع الداكن"
+    },
+    "settings_theme_light": {
+        "message": "فاتح"
+    },
+    "settings_exclusions_import_button": {
+        "message": "استيراد"
+    },
+    "settings_exclusions_export_button": {
+        "message": "تصدير"
+    },
+    "settings_exclusion_title": {
+        "message": "الاستثناءات"
+    },
+    "global_error_learn_more": {
+        "message": "التعرف على المزيد"
+    },
+    "global_error_try_again": {
+        "message": "حاول مرة أخرى"
+    },
+    "popup_settings_feedback": {
+        "message": "ردود الفعل"
+    },
+    "popup_settings_open_settings": {
+        "message": "الإعدادات"
+    },
+    "settings_disconnect": {
+        "message": "قطع الاتصال"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "استمرار"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "لا, شكراً"
+    },
+    "popup_onboarding_next": {
+        "message": "التالي"
+    },
+    "options_selective_mode_popup_button_switch_now": {
+        "message": "التبديل الآن"
+    },
+    "options_selective_mode_popup_attention": {
+        "message": "هل تريد التبديل؟"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "إلغاء"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "حذف"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "التعرف على المزيد"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "موافق"
+    }
+}

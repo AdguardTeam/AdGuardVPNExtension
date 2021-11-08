@@ -158,6 +158,21 @@
     "auth_sign_in_link": {
         "message": "Đăng nhập bằng tài khoản AdGuard"
     },
+    "auth_title": {
+        "message": "Ủy quyền"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Tiếp tục với AdGuard của bạn"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Đăng nhập bằng Apple"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Đăng nhập bằng Google"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Đăng nhập bằng Facebook"
+    },
     "auth_header_sign_in_account": {
         "message": "Bạn đang đăng nhập với tài khoản AdGuard"
     },
@@ -268,6 +283,18 @@
     },
     "settings_dns_selector_quad9_desc": {
         "message": "Dịch vụ DNS thay thế miễn phí với sự bảo vệ khỏi lừa đảo và phần mềm gián điệp"
+    },
+    "settings_theme_label": {
+        "message": "Theme"
+    },
+    "settings_theme_system": {
+        "message": "Hệ thống"
+    },
+    "settings_theme_dark": {
+        "message": "Chủ đề màu tối"
+    },
+    "settings_theme_light": {
+        "message": "Sáng"
     },
     "settings_exclusion_add": {
         "message": "Thêm trang web"
@@ -450,8 +477,50 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Tiếp tục"
     },
-    "popup_marketing_consent_checkbox": {
-        "message": "Gửi cho tôi email với các ưu đãi đặc biệt và tin tức AdGuard"
+    "popup_newsletter_title": {
+        "message": "Bản tin AdGuard"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "Đăng ký"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "Không, cảm ơn"
+    },
+    "popup_onboarding_trusted_vpn": {
+        "message": "VPN đáng tin cậy"
+    },
+    "popup_onboarding_numerous_locations": {
+        "message": "Nhiều địa điểm"
+    },
+    "popup_onboarding_numerous_locations_info": {
+        "message": "Kết nối với bất kỳ máy chủ nào của chúng tôi đặt trên toàn thế giới"
+    },
+    "popup_onboarding_fastest_servers": {
+        "message": "Máy chủ nhanh nhất"
+    },
+    "popup_onboarding_fastest_servers_info": {
+        "message": "Chúng tôi sử dụng các công nghệ tiên tiến để đảm bảo tốc độ kết nối cao nhất"
+    },
+    "popup_onboarding_next": {
+        "message": "Tiếp theo"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "VPN không giới hạn"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Dữ liệu không giới hạn"
+    },
+    "popup_upgrade_screen_unlimited_speed": {
+        "message": "tất cả vị trí, hỗ trợ 24/7"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "Tất cả vị trí"
+    },
+    "popup_upgrade_screen_streaming": {
+        "message": "Phát trực tuyến"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "Cập nhật"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value%%unit%</span> còn lại trong tháng này",
@@ -516,5 +585,8 @@
     },
     "popup_connections_limit_title": {
         "message": "Đã đạt đến giới hạn kết nối"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "Ok"
     }
 }

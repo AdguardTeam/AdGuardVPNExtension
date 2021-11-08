@@ -16,6 +16,8 @@ import { translator } from '../common/translator';
 import { fallbackApi } from './api/fallbackApi';
 // eslint-disable-next-line import/no-cycle
 import { settings } from './settings';
+import { AUTH_PROVIDERS } from '../lib/constants';
+import { flagsStorage } from './flagsStorage';
 
 class Auth {
     socialAuthState = null;
@@ -38,7 +40,7 @@ class Auth {
         }
 
         await this.setAccessToken(accessToken);
-
+        await flagsStorage.onAuthenticate();
         return { status: 'ok' };
     }
 
@@ -78,28 +80,16 @@ class Auth {
         };
 
         switch (socialProvider) {
-            case 'google': {
-                params.social_provider = 'google';
+            case AUTH_PROVIDERS.GOOGLE: {
+                params.social_provider = AUTH_PROVIDERS.GOOGLE;
                 break;
             }
-            case 'twitter': {
-                params.social_provider = 'twitter';
+            case AUTH_PROVIDERS.FACEBOOK: {
+                params.social_provider = AUTH_PROVIDERS.FACEBOOK;
                 break;
             }
-            case 'vk': {
-                params.social_provider = 'vk';
-                break;
-            }
-            case 'yandex': {
-                params.social_provider = 'yandex';
-                break;
-            }
-            case 'facebook': {
-                params.social_provider = 'facebook';
-                break;
-            }
-            case 'apple': {
-                params.social_provider = 'apple';
+            case AUTH_PROVIDERS.APPLE: {
+                params.social_provider = AUTH_PROVIDERS.APPLE;
                 break;
             }
             default:
@@ -134,6 +124,7 @@ class Auth {
 
         // Notify options page, in order to update view
         notifier.notifyListeners(notifier.types.AUTHENTICATE_SOCIAL_SUCCESS);
+        await flagsStorage.onAuthenticateSocial();
         await notifications.create({ message: translator.getMessage('authentication_successful_social') });
     }
 
@@ -148,6 +139,7 @@ class Auth {
         await settings.disableProxy(true);
         // set proxy settings to default
         await proxy.resetSettings();
+        await flagsStorage.onDeauthenticate();
         notifier.notifyListeners(notifier.types.USER_DEAUTHENTICATED);
     }
 
@@ -167,6 +159,7 @@ class Auth {
 
         if (accessToken) {
             await this.setAccessToken(accessToken);
+            await flagsStorage.onRegister();
             return { status: 'ok' };
         }
 

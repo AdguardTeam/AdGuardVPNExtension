@@ -1,1 +1,80 @@
-{}
+{
+    "authentication_error_wrong_credentials": {
+        "message": "Невалидна парола"
+    },
+    "about_title": {
+        "message": "Относно"
+    },
+    "options_support_title": {
+        "message": "Поддръжка"
+    },
+    "options_support_faq_title": {
+        "message": "ЧЗВ"
+    },
+    "options_support_discuss_title": {
+        "message": "Дускусия"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "Включване на диагностичния отчет в съобщението"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "Съобщение"
+    },
+    "rate_hide": {
+        "message": "Скрий"
+    },
+    "auth_password": {
+        "message": "Парола"
+    },
+    "privacy_policy": {
+        "message": "Правила за поверителност"
+    },
+    "settings_title": {
+        "message": "Настройки"
+    },
+    "settings_webrtc_label": {
+        "message": "Блокирай WebRTC"
+    },
+    "settings_dns_selector_default_title": {
+        "message": "По подразбиране"
+    },
+    "settings_theme_label": {
+        "message": "Тема"
+    },
+    "settings_theme_light": {
+        "message": "Светъл цвят"
+    },
+    "settings_exclusions_import_button": {
+        "message": "Импортирай"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Експортирай"
+    },
+    "settings_exclusion_title": {
+        "message": "Изключения"
+    },
+    "global_error_learn_more": {
+        "message": "Научи повече"
+    },
+    "popup_settings_feedback": {
+        "message": "Обратна връзка"
+    },
+    "popup_settings_open_settings": {
+        "message": "Настройки"
+    },
+    "popup_onboarding_next": {
+        "message": "Следващ"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "Отказ"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Изтрий"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Научи повече"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "Добре"
+    }
+}

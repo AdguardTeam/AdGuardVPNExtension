@@ -6,7 +6,7 @@ import { reactTranslator } from '../../../../common/reactTranslator';
 import { PROMO_SCREEN_STATES } from '../../../../lib/constants';
 
 const GlobalControl = observer(() => {
-    const { settingsStore, vpnStore } = useContext(rootStore);
+    const { settingsStore, vpnStore, authStore } = useContext(rootStore);
 
     const { isExcluded, exclusionsInverted } = settingsStore;
 
@@ -14,7 +14,7 @@ const GlobalControl = observer(() => {
         await settingsStore.setProxyState(true);
         if (!vpnStore.isPremiumToken
             && settingsStore.promoScreenState === PROMO_SCREEN_STATES.DISPLAY_AFTER_CONNECT_CLICK) {
-            await settingsStore.setSalePromoStatus(PROMO_SCREEN_STATES.DISPLAY_ON_POPUP_OPEN);
+            await authStore.setSalePromoStatus(PROMO_SCREEN_STATES.DISPLAY_ON_POPUP_OPEN);
         }
     };
 

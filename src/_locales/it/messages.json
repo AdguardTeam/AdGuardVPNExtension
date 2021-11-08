@@ -158,6 +158,24 @@
     "auth_sign_in_link": {
         "message": "Accedi con profilo AdGuard"
     },
+    "auth_title": {
+        "message": "Autorizzazione"
+    },
+    "auth_info": {
+        "message": "Continua con il tuo profilo AdGuard o con accesso tramite reti social"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Continua con AdGuard"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Continua con Apple"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Continua con Google"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Continua con Facebook"
+    },
     "auth_header_sign_in_account": {
         "message": "Stai accedendo con profilo AdGuard"
     },
@@ -190,6 +208,24 @@
     },
     "settings_title": {
         "message": "Impostazioni"
+    },
+    "referral_get_free_traffic": {
+        "message": "Ottieni traffico gratuito!"
+    },
+    "settings_referral_info": {
+        "message": "Invita i tuoi amici a unirsi al nostro clan ninja e ottieni più dati gratuiti per un mese. Ricevi 1 GB per ogni amico iscritto: anch\\'essi riceveranno 1 GB extra gratuito! (Potrai ottenere 10 GB in totale gratuitamente!)"
+    },
+    "settings_referral_invited_friends": {
+        "message": "Amici invitati %count%/%limit%"
+    },
+    "settings_referral_limit_reached": {
+        "message": "Hai già ricevuto i tuoi 10 GB di dati gratuiti. Ma i tuoi amici potrebbero ancora ottenere 1 GB di dati aggiuntivi gratuiti se li invitassi!"
+    },
+    "settings_referral_copy_link": {
+        "message": "Copia link"
+    },
+    "settings_referral_link_copied": {
+        "message": "Link copiato"
     },
     "settings_rate_us": {
         "message": "Valutaci"
@@ -465,8 +501,59 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Procedi"
     },
-    "popup_marketing_consent_checkbox": {
+    "popup_newsletter_title": {
+        "message": "Newsletter AdGuard"
+    },
+    "popup_newsletter_info": {
         "message": "Inviami e-mail con offerte speciali e notizie su AdGuard"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "Effettua sottoscrizione"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "No, grazie"
+    },
+    "popup_onboarding_trusted_vpn": {
+        "message": "VPN fidato"
+    },
+    "popup_onboarding_trusted_vpn_info": {
+        "message": "Dallo sviluppatore del blocca-annunci di fama mondiale"
+    },
+    "popup_onboarding_numerous_locations": {
+        "message": "Numerose località"
+    },
+    "popup_onboarding_numerous_locations_info": {
+        "message": "Connettiti a qualunque dei nostri server in tutto il mondo"
+    },
+    "popup_onboarding_fastest_servers": {
+        "message": "Server ultraveloci"
+    },
+    "popup_onboarding_fastest_servers_info": {
+        "message": "Utilizziamo tecnologie avanzate per garantire la massima velocità di connessione"
+    },
+    "popup_onboarding_next": {
+        "message": "Avanti"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "VPN Illimitata"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Dati illimitati"
+    },
+    "popup_upgrade_screen_unlimited_speed": {
+        "message": "Velocità illimitata"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "Tutte le località"
+    },
+    "popup_upgrade_screen_streaming": {
+        "message": "Streaming"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "Aggiorna"
+    },
+    "popup_upgrade_screen_continue_free": {
+        "message": "Continua gratuitamente"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> rimanenti questo mese",
@@ -545,6 +632,6 @@
         "message": "Ti sei disconnesso da AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "Tieni a mente che la tua connessione non è sicura. Per continuare a navigare in privato, clicca sull\\'icona AdGuard VPN e accedi nuovamente."
+        "message": "La tua connessione non è sicura. Per continuare a navigare in privato, clicca sull\\'icona AdGuard VPN e accedi nuovamente."
     }
 }

@@ -158,6 +158,24 @@
     "auth_sign_in_link": {
         "message": "Aanmelden met AdGuard account"
     },
+    "auth_title": {
+        "message": "Autorisatie"
+    },
+    "auth_info": {
+        "message": "Doorgaan met je AdGuard-account of met sociale netwerk aanmelding"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Doorgaan met AdGuard"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Doorgaan met Apple"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Doorgaan met Google"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Doorgaan met Facebook"
+    },
     "auth_header_sign_in_account": {
         "message": "Je meldt je aan met je AdGuard account"
     },
@@ -190,6 +208,24 @@
     },
     "settings_title": {
         "message": "Instellingen"
+    },
+    "referral_get_free_traffic": {
+        "message": "Gratis dataverkeer verkrijgen!"
+    },
+    "settings_referral_info": {
+        "message": "Nodig je vrienden uit om lid te worden van onze ninja-clan en ontvang een maand lang meer gratis dataverkeer. Ontvang 1 GB voor elke vriend die zich aanmeldt: ze krijgen ook gratis 1 GB extra! (Je krijgt in totaal 10 GB gratis!)"
+    },
+    "settings_referral_invited_friends": {
+        "message": "Uitgenodigde vrienden %count%/%limit%"
+    },
+    "settings_referral_limit_reached": {
+        "message": "Je hebt al jouw 10 GB gratis gegevens ontvangen. Maar je vrienden kunnen nog steeds 1 GB aanvullende gratis gegevens krijgen als je ze uitnodigt!"
+    },
+    "settings_referral_copy_link": {
+        "message": "Koppeling kopiëren"
+    },
+    "settings_referral_link_copied": {
+        "message": "Koppeling gekopieerd"
     },
     "settings_rate_us": {
         "message": "Waardeer ons"
@@ -465,8 +501,59 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Doorgaan"
     },
-    "popup_marketing_consent_checkbox": {
+    "popup_newsletter_title": {
+        "message": "AdGuard-nieuwsbrief"
+    },
+    "popup_newsletter_info": {
         "message": "Mij e-mails sturen met speciale aanbiedingen en AdGuard-nieuws"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "Abonneren"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "Nee, bedankt"
+    },
+    "popup_onboarding_trusted_vpn": {
+        "message": "Vertrouwd VPN"
+    },
+    "popup_onboarding_trusted_vpn_info": {
+        "message": "Van de ontwikkelaar van de wereldbekende advertentieblokkeerder"
+    },
+    "popup_onboarding_numerous_locations": {
+        "message": "Talloze locaties"
+    },
+    "popup_onboarding_numerous_locations_info": {
+        "message": "Verbinden met onze servers overal ter wereld"
+    },
+    "popup_onboarding_fastest_servers": {
+        "message": "Snelste servers"
+    },
+    "popup_onboarding_fastest_servers_info": {
+        "message": "We gebruiken de allernieuwste technologiën om je de hoogste snelheid te garanderen"
+    },
+    "popup_onboarding_next": {
+        "message": "Volgende"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "Onbeperkt VPN"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Onbeperkte data"
+    },
+    "popup_upgrade_screen_unlimited_speed": {
+        "message": "Onbeperkte snelheid"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "Alle locaties"
+    },
+    "popup_upgrade_screen_streaming": {
+        "message": "Streamen"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "Upgraden"
+    },
+    "popup_upgrade_screen_continue_free": {
+        "message": "Doorgaan zonder kosten"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> nog over deze maand",
@@ -545,6 +632,6 @@
         "message": "Je bent afgemeld bij AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "Houd er rekening mee dat je verbinding niet beveiligd is. Om privé verder te surfen, klik je op het AdGuard VPN-pictogram en meld je opnieuw aan."
+        "message": "Je verbinding is niet veilig. Om privé te blijven surfen, klik je op het pictogram Adguard VPN en meld je weer aan."
     }
 }

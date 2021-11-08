@@ -8,6 +8,8 @@ import auth from '../auth';
 import { settings } from '../settings';
 import { SETTINGS_IDS } from '../../lib/constants';
 import { vpnApi } from '../api';
+import { updateService } from '../updateService';
+import { flagsStorage } from '../flagsStorage';
 
 class PopupData {
     constructor({
@@ -60,6 +62,8 @@ class PopupData {
         const connectivityState = { value: connectivityService.state.value };
         const desktopVpnEnabled = await this.getDesktopEnabled();
         const promoNotification = await promoNotifications.getCurrentNotification();
+        const { isFirstRun } = updateService;
+        const flagsStorageData = await flagsStorage.getFlagsStorageData();
 
         // If error check permissions when popup is opened, ignoring multiple retries
         if (error) {
@@ -87,6 +91,8 @@ class PopupData {
             connectivityState,
             promoNotification,
             desktopVpnEnabled,
+            isFirstRun,
+            flagsStorageData,
         };
     };
 

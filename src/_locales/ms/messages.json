@@ -1,1 +1,50 @@
-{}
+{
+    "options_support_report_title": {
+        "message": "Laporkan pepijat"
+    },
+    "options_report_bug_title": {
+        "message": "Laporkan pepijat"
+    },
+    "account_title": {
+        "message": "akaun"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Teruskan dengan Apple"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Teruskan dengan Google"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Teruskan dengan Facebook"
+    },
+    "settings_dns_selector_cloudflare_desc": {
+        "message": "Percuma servis DNS oleh Cloudfare"
+    },
+    "settings_theme_light": {
+        "message": "Cerah"
+    },
+    "settings_exclusions_import_button": {
+        "message": "Import"
+    },
+    "settings_exclusions_export_button": {
+        "message": "Eksport"
+    },
+    "global_error_learn_more": {
+        "message": "Ketahui lebih lanjut"
+    },
+    "popup_settings_feedback": {
+        "message": "Maklumbalas"
+    },
+    "settings_disconnect": {
+        "message": "sambungan terputus"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "Langgan"
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "Langgan"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "Ketahui lebih lanjut"
+    }
+}

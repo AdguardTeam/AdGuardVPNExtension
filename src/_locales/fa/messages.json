@@ -1,1 +1,170 @@
-{}
+{
+    "authentication_error_account_disabled": {
+        "message": "حساب غیرفعال شده است"
+    },
+    "authentication_error_wrong_credentials": {
+        "message": "رمزعبور اشتباه است"
+    },
+    "about_title": {
+        "message": "درباره"
+    },
+    "options_support_title": {
+        "message": "پشتيباني"
+    },
+    "options_support_faq_title": {
+        "message": "پرسش و پاسخ"
+    },
+    "options_support_discuss_title": {
+        "message": "انجمن برنامه"
+    },
+    "options_bug_report_email_label": {
+        "message": "ایمیل"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "شامل یک گزارش تشخیصی به این پیام"
+    },
+    "options_bug_report_send_button": {
+        "message": "ارسال"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "پيام"
+    },
+    "account_title": {
+        "message": "اکانت"
+    },
+    "account_sign_out": {
+        "message": "خروج"
+    },
+    "rate_hide": {
+        "message": "پنهان کن"
+    },
+    "auth_confirm": {
+        "message": "تأیید"
+    },
+    "auth_password": {
+        "message": "رمزعبور"
+    },
+    "auth_recover": {
+        "message": "رمزعبور را فراموش کرده اید؟"
+    },
+    "auth_sign_in": {
+        "message": "ورود"
+    },
+    "auth_sign_in_button": {
+        "message": "ورود"
+    },
+    "eula": {
+        "message": "تواقنامه نهایی با کاربر"
+    },
+    "privacy_policy": {
+        "message": "سیاست حریم خصوصی"
+    },
+    "settings_title": {
+        "message": "تنظیمات"
+    },
+    "settings_webrtc_label": {
+        "message": "مسدودسازی وب آر تی سی"
+    },
+    "settings_dns_selector_default_title": {
+        "message": "پيش فرض"
+    },
+    "settings_dns_selector_adguard_title": {
+        "message": "AdGuard DNS"
+    },
+    "settings_dns_selector_adguard_family_title": {
+        "message": "حفاظت خانواده AdGuard DNS"
+    },
+    "settings_dns_selector_adguard_family_desc": {
+        "message": "دی اِن اِس AdGuard با جستجوی اَمن و محدودسازی محتوای بزرگسال"
+    },
+    "settings_dns_selector_google_title": {
+        "message": "Google DNS"
+    },
+    "settings_dns_selector_google_desc": {
+        "message": "سرویس دی اِن اِس جایگزین رایگان از گوگل"
+    },
+    "settings_dns_selector_cloudflare_title": {
+        "message": "Cloudflare DNS"
+    },
+    "settings_dns_selector_cloudflare_desc": {
+        "message": "سرویس DNS رایگان با Cloudflare"
+    },
+    "settings_dns_selector_cisco_title": {
+        "message": "Cisco OpenDNS"
+    },
+    "settings_dns_selector_cisco_desc": {
+        "message": "سرور دی اِن اِس با فیلترینگ سفارشی سازی و حفاظت از رایانه در برابر بد افزار"
+    },
+    "settings_dns_selector_quad9_title": {
+        "message": "Quad9"
+    },
+    "settings_dns_selector_quad9_desc": {
+        "message": "سرویس DNS جایگزین رایگان برای حفاظت در برابر فیشینگ و جاسوس افزار"
+    },
+    "settings_theme_label": {
+        "message": "پوسته"
+    },
+    "settings_theme_system": {
+        "message": "سیستم"
+    },
+    "settings_theme_dark": {
+        "message": "پوسته تیره"
+    },
+    "settings_theme_light": {
+        "message": "روشن"
+    },
+    "settings_exclusions_import_button": {
+        "message": "وارد کردن"
+    },
+    "settings_exclusions_export_button": {
+        "message": "خروجيگيري"
+    },
+    "settings_exclusion_title": {
+        "message": "مدیریت استثنائات..."
+    },
+    "global_error_title": {
+        "message": "خطا رخ داده"
+    },
+    "global_error_learn_more": {
+        "message": "بیشتر بدانید"
+    },
+    "global_error_try_again": {
+        "message": "امتحان دوباره"
+    },
+    "popup_settings_feedback": {
+        "message": "دیدگاه"
+    },
+    "popup_settings_open_settings": {
+        "message": "تنظیمات"
+    },
+    "popup_settings_sign_out": {
+        "message": "خروج"
+    },
+    "premium_upgrade": {
+        "message": "ارتقاء"
+    },
+    "settings_disconnect": {
+        "message": "قطع ارتباط"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "ادامه"
+    },
+    "popup_onboarding_next": {
+        "message": "بعدي"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "ارتقاء"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "لغو"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "حذف"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "بیشتر بدانید"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "تأیید"
+    }
+}

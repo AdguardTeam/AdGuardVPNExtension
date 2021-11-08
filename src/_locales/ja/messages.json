@@ -158,6 +158,24 @@
     "auth_sign_in_link": {
         "message": "AdGuardアカウントでログインする"
     },
+    "auth_title": {
+        "message": "認証"
+    },
+    "auth_info": {
+        "message": "お持ちのAdGuardアカウントやSNSアカウントでログイン"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "AdGuardアカウントで続ける"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Appleで続ける"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Googleで続ける"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Facebookで続ける"
+    },
     "auth_header_sign_in_account": {
         "message": "お持ちのAdGuardアカウントでのログイン"
     },
@@ -190,6 +208,24 @@
     },
     "settings_title": {
         "message": "設定"
+    },
+    "referral_get_free_traffic": {
+        "message": "無料データ量をGET！"
+    },
+    "settings_referral_info": {
+        "message": "お友だちをAdGuard VPN部に招待して、無料月間データ量をゲットしましょう。お友だちが登録すると、1人につき1GBが招待した方にプレゼントされ、さらに、招待されたお友だちにも1GBがプラスされます。(※招待する方は合計で最大10GBの無料データ量を取得いただけます。)"
+    },
+    "settings_referral_invited_friends": {
+        "message": "招待済みお友だち数: %count%/%limit%"
+    },
+    "settings_referral_limit_reached": {
+        "message": "お客様はすでに10GBの無料データ量を受け取っています。しかし、お友だちを招待いただければ、お友だちは1GBの無料データ量を受け取ることができます。"
+    },
+    "settings_referral_copy_link": {
+        "message": "リンクをコピー"
+    },
+    "settings_referral_link_copied": {
+        "message": "リンクコピー済み"
     },
     "settings_rate_us": {
         "message": "ご評価いただければ幸いです。"
@@ -465,8 +501,59 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "続ける"
     },
-    "popup_marketing_consent_checkbox": {
-        "message": "AdGuardに関するニュース・最新情報やお得情報メールを受け取る"
+    "popup_newsletter_title": {
+        "message": "AdGuardニュースレター"
+    },
+    "popup_newsletter_info": {
+        "message": "AdGuardニュース・製品情報やお得情報のメールを受け取る"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "無料お試しスタート"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "いいえ、結構"
+    },
+    "popup_onboarding_trusted_vpn": {
+        "message": "信頼されているVPN"
+    },
+    "popup_onboarding_trusted_vpn_info": {
+        "message": "有名な広告ブロッカー『AdGuard』の開発者が開発したVPNサービス。"
+    },
+    "popup_onboarding_numerous_locations": {
+        "message": "多数のロケーション"
+    },
+    "popup_onboarding_numerous_locations_info": {
+        "message": "世界中にある数多くのサーバーに接続できます。"
+    },
+    "popup_onboarding_fastest_servers": {
+        "message": "最速サーバー"
+    },
+    "popup_onboarding_fastest_servers_info": {
+        "message": "最高の接続速度を確保するために、常に最先端の技術を使用しています。"
+    },
+    "popup_onboarding_next": {
+        "message": "次へ"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "無制限版VPN"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "無限のデータ量"
+    },
+    "popup_upgrade_screen_unlimited_speed": {
+        "message": "接続速度無制限"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "ずべてのロケーション"
+    },
+    "popup_upgrade_screen_streaming": {
+        "message": "ストリーミングサービス対応"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "アップグレード"
+    },
+    "popup_upgrade_screen_continue_free": {
+        "message": "無料版で続ける"
     },
     "popup_free_traffic_info": {
         "message": "今月の残りデータ量: <span>%value% %unit%</span>",

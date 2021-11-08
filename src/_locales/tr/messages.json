@@ -158,6 +158,24 @@
     "auth_sign_in_link": {
         "message": "AdGuard hesabıyla giriş yap"
     },
+    "auth_title": {
+        "message": "Yetkilendirme"
+    },
+    "auth_info": {
+        "message": "AdGuard hesabınızla veya sosyal ağ giriş yapmayla devam edin"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "AdGuard ile devam edin"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Apple ile devam edin"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Google ile devam edin"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Facebook ile devam edin"
+    },
     "auth_header_sign_in_account": {
         "message": "AdGuard hesabıyla giriş yapıyorsunuz"
     },
@@ -190,6 +208,24 @@
     },
     "settings_title": {
         "message": "Ayarlar"
+    },
+    "referral_get_free_traffic": {
+        "message": "Ücretsiz kota edinin!"
+    },
+    "settings_referral_info": {
+        "message": "Arkadaşlarınızı ninja klanımıza katılmaya davet edin ve bir ay boyunca daha fazla ücretsiz veri alın. Kaydolan her arkadaşınız için 1 GB kazanın: ayrıca onlarda ücretsiz olarak 1 GB ekstra kazanır! (Toplamda 10 GB'ı ücretsiz alabilirsiniz!)"
+    },
+    "settings_referral_invited_friends": {
+        "message": "Davet edilen arkadaşlar %count%/%limit%"
+    },
+    "settings_referral_limit_reached": {
+        "message": "10 GB'lık ücretsiz verilerinizi zaten aldınız. Ancak arkadaşlarınızı davet ederseniz, yine de 1 GB ek ücretsiz veri alabilirler!"
+    },
+    "settings_referral_copy_link": {
+        "message": "Bağlantıyı kopyala"
+    },
+    "settings_referral_link_copied": {
+        "message": "Bağlantı kopyalandı"
     },
     "settings_rate_us": {
         "message": "Bizi değerlendirin"
@@ -465,8 +501,59 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Devam et"
     },
-    "popup_marketing_consent_checkbox": {
+    "popup_newsletter_title": {
+        "message": "AdGuard bülteni"
+    },
+    "popup_newsletter_info": {
         "message": "Bana özel teklifler ve AdGuard haberleri içeren e-postalar gönder"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "Abone ol"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "Hayır, teşekkürler"
+    },
+    "popup_onboarding_trusted_vpn": {
+        "message": "Güvenilir VPN"
+    },
+    "popup_onboarding_trusted_vpn_info": {
+        "message": "Dünyaca ünlü reklam engelleyicinin geliştiricisi tarafından"
+    },
+    "popup_onboarding_numerous_locations": {
+        "message": "Çok sayıda konum"
+    },
+    "popup_onboarding_numerous_locations_info": {
+        "message": "Dünyanın her yerinde bulunan sunucularımızdan herhangi birine bağlanın"
+    },
+    "popup_onboarding_fastest_servers": {
+        "message": "En hızlı sunucular"
+    },
+    "popup_onboarding_fastest_servers_info": {
+        "message": "En yüksek bağlantı hızını garanti etmek için en son teknolojileri kullanıyoruz"
+    },
+    "popup_onboarding_next": {
+        "message": "Sonraki"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "Sınırsız VPN"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Sınırsız veri"
+    },
+    "popup_upgrade_screen_unlimited_speed": {
+        "message": "Sınırsız hız"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "Tüm konumlar"
+    },
+    "popup_upgrade_screen_streaming": {
+        "message": "Yayın akışı"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "Yükselt"
+    },
+    "popup_upgrade_screen_continue_free": {
+        "message": "Ücretsiz devam et"
     },
     "popup_free_traffic_info": {
         "message": "Bu ay <span>%value% %unit%</span> kaldı",
@@ -545,6 +632,6 @@
         "message": "AdGuard VPN'den çıkış yaptınız"
     },
     "options_signedout_page_description": {
-        "message": "Bağlantınızın güvenli olmadığını lütfen unutmayın. Gizli olarak gezinmeye devam etmek için AdGuard VPN simgesine tıklayın ve tekrar giriş yapın."
+        "message": "Bağlantınız güvenli değil. Gizli olarak gezinmeye devam etmek için AdGuard VPN simgesine tıklayın ve tekrar giriş yapın."
     }
 }

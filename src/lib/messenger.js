@@ -306,6 +306,16 @@ class Messenger {
         const type = MESSAGES_TYPES.OPEN_PREMIUM_PROMO_PAGE;
         return this.sendMessage(type);
     }
+
+    /**
+     * Sets value for key in flags storage
+     * @param key
+     * @param value
+     */
+    async setFlag(key, value) {
+        const type = MESSAGES_TYPES.SET_FLAG;
+        return this.sendMessage(type, { key, value });
+    }
 }
 
 export default new Messenger();
