@@ -24,7 +24,7 @@ export const Sidebar = observer(() => {
                 </NavLink>
                 {!isPremiumToken && (
                     <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/referral-program">
-                        {reactTranslator.getMessage('referral_get_free_traffic')}
+                        {reactTranslator.getMessage('referral_program')}
                     </NavLink>
                 )}
                 <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/account">

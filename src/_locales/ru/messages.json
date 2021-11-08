@@ -209,6 +209,9 @@
     "settings_title": {
         "message": "Настройки"
     },
+    "referral_program": {
+        "message": "Реферальная программа"
+    },
     "referral_get_free_traffic": {
         "message": "Получить бесплатный трафик!"
     },
