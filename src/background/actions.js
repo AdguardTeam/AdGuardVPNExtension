@@ -7,7 +7,15 @@ import { UPGRADE_LICENSE_URL } from './config';
 import tabs from './tabs';
 
 const openOptionsPage = async () => {
-    return browser.runtime.openOptionsPage();
+    const tabs = await browser.tabs.query({});
+    const optionsUrl = browser.runtime.getURL('options.html');
+    const optionsTab = tabs.find((tab) => tab.url?.startsWith(optionsUrl));
+
+    if (optionsTab) {
+        await browser.tabs.update(optionsTab.id, { active: true, url: optionsUrl });
+    } else {
+        await browser.runtime.openOptionsPage();
+    }
 };
 
 const setIcon = async (details) => {
