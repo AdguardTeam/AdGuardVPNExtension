@@ -9,7 +9,7 @@ import tabs from '../../background/tabs';
 import { log } from '../../lib/logger';
 import { getHostname, getProtocol } from '../../lib/helpers';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
-import { SETTINGS_IDS, PROMO_SCREEN_STATES, APPEARANCE_THEME_DEFAULT } from '../../lib/constants';
+import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT } from '../../lib/constants';
 import messenger from '../../lib/messenger';
 import { STATE } from '../../background/connectivity/connectivityService/connectivityConstants';
 
@@ -35,8 +35,6 @@ export class SettingsStore {
     @observable desktopVpnEnabled;
 
     @observable isRateVisible;
-
-    @observable promoScreenState = PROMO_SCREEN_STATES.DISPLAY_AFTER_CONNECT_CLICK;
 
     @observable freeUserClickedPremiumLocation = false;
 
@@ -290,22 +288,6 @@ export class SettingsStore {
         await messenger.setSetting(SETTINGS_IDS.RATE_SHOW, false);
         runInAction(() => {
             this.isRateVisible = false;
-        });
-    };
-
-    @action
-    setSalePromoStatus = async (state) => {
-        await messenger.setSetting(SETTINGS_IDS.SALE_SHOW, state);
-        runInAction(() => {
-            this.promoScreenState = state;
-        });
-    }
-
-    @action
-    getPromoScreenStatus = async () => {
-        const value = await messenger.getSetting(SETTINGS_IDS.SALE_SHOW);
-        runInAction(() => {
-            this.promoScreenState = value;
         });
     };
 

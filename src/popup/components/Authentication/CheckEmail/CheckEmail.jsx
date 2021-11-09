@@ -9,7 +9,6 @@ import { REQUEST_STATUSES } from '../../../stores/consts';
 import Submit from '../Submit';
 import InputField from '../InputField';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { Checkbox } from '../Checkbox';
 
 export const CheckEmail = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -30,10 +29,6 @@ export const CheckEmail = observer(() => {
 
     const openSignUpCheck = async () => {
         await authStore.openSignUpCheck();
-    };
-
-    const handleMarketingConsentChange = async (value) => {
-        await authStore.setMarketingConsent(value);
     };
 
     const formClassName = classnames(
@@ -113,16 +108,6 @@ export const CheckEmail = observer(() => {
                         </div>
                     )}
                 </div>
-
-                {!authStore.signInCheck && (
-                    <Checkbox
-                        id="marketing_consent"
-                        checked={authStore.marketingConsent}
-                        onChange={handleMarketingConsentChange}
-                        label={reactTranslator.getMessage('popup_marketing_consent_checkbox')}
-                        labelSize="small"
-                    />
-                )}
             </div>
 
             {getSubmitButton()}

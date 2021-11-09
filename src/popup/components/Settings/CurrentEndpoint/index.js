@@ -9,7 +9,12 @@ import { PROMO_SCREEN_STATES } from '../../../../lib/constants';
 import Ping from '../../Ping';
 
 const CurrentEndpoint = observer(() => {
-    const { vpnStore, settingsStore, uiStore } = useContext(rootStore);
+    const {
+        vpnStore,
+        settingsStore,
+        uiStore,
+        authStore,
+    } = useContext(rootStore);
 
     const {
         countryNameToDisplay,
@@ -21,7 +26,7 @@ const CurrentEndpoint = observer(() => {
     const { isConnected } = settingsStore;
 
     const setSaleVisibleHandler = async () => {
-        await settingsStore.setSalePromoStatus(PROMO_SCREEN_STATES.DISPLAY_ON_POPUP_OPEN);
+        await authStore.setSalePromoStatus(PROMO_SCREEN_STATES.DISPLAY_ON_POPUP_OPEN);
     };
 
     const clickHandler = (e) => {

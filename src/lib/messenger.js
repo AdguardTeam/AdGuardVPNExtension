@@ -312,6 +312,16 @@ class Messenger {
         return this.sendMessage(type);
     }
 
+    /**
+     * Sets value for key in flags storage
+     * @param key
+     * @param value
+     */
+    async setFlag(key, value) {
+        const type = MESSAGES_TYPES.SET_FLAG;
+        return this.sendMessage(type, { key, value });
+    }
+
     async getReferralData() {
         const type = MESSAGES_TYPES.GET_REFERRAL_DATA;
         return this.sendMessage(type);

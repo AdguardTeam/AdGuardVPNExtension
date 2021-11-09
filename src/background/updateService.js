@@ -2,44 +2,32 @@ import browserApi from './browserApi';
 
 const APP_VERSION_KEY = 'update.service.app.version';
 
-const getAppVersionFromStorage = () => {
-    return browserApi.storage.get(APP_VERSION_KEY);
-};
+class UpdateService {
+    init = async () => {
+        this.prevVersion = await this.getAppVersionFromStorage();
+        this.currentVersion = await this.getAppVersionFromManifest();
 
-const getAppVersionFromManifest = () => {
-    return browserApi.runtime.getManifest().version;
-};
+        this.isFirstRun = (this.currentVersion !== this.prevVersion && !this.prevVersion);
+        this.isUpdate = !!(this.currentVersion !== this.prevVersion && this.prevVersion);
 
-const setAppVersionInStorage = (appVersion) => {
-    return browserApi.storage.set(APP_VERSION_KEY, appVersion);
-};
+        await this.setAppVersionInStorage(this.currentVersion);
+    }
 
-/**
- * Returns run info
- * @returns {Promise<{
- *  isFirstRun: boolean,
- *  isUpdate: boolean,
- *  currentVersion: string,
- *  prevVersion: string
- *  }>}
- */
-const getRunInfo = async () => {
-    const prevVersion = await getAppVersionFromStorage();
-    const currentVersion = await getAppVersionFromManifest();
-
-    await setAppVersionInStorage(currentVersion);
-
-    const isFirstRun = (currentVersion !== prevVersion && !prevVersion);
-    const isUpdate = !!(currentVersion !== prevVersion && prevVersion);
-
-    return {
-        isFirstRun,
-        isUpdate,
-        currentVersion,
-        prevVersion,
+    getAppVersionFromStorage = async () => {
+        return browserApi.storage.get(APP_VERSION_KEY);
     };
-};
 
-export default {
-    getRunInfo,
-};
+    getAppVersionFromManifest = async () => {
+        return browserApi.runtime.getManifest().version;
+    };
+
+    setAppVersionInStorage = async (appVersion) => {
+        return browserApi.storage.set(APP_VERSION_KEY, appVersion);
+    };
+
+    setIsFirstRun = (value) => {
+        this.isFirstRun = value;
+    };
+}
+
+export const updateService = new UpdateService();

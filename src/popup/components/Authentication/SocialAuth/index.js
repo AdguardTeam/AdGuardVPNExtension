@@ -1,1 +1,0 @@
-export { SocialAuth } from './SocialAuth';

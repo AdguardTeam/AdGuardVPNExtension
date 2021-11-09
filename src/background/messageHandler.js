@@ -22,6 +22,7 @@ import vpnProvider from './providers/vpnProvider';
 import accountProvider from './providers/accountProvider';
 import { logStorage } from '../lib/log-storage';
 import { setDesktopVpnEnabled } from './connectivity/connectivityService/connectivityFSM';
+import { flagsStorage } from './flagsStorage';
 
 const eventListeners = {};
 
@@ -309,6 +310,10 @@ const messageHandler = async (message, sender) => {
         case MESSAGES_TYPES.GET_REFERRAL_DATA: {
             const accessToken = await auth.getAccessToken();
             return accountProvider.getReferralData(accessToken);
+        }
+        case MESSAGES_TYPES.SET_FLAG: {
+            const { key, value } = data;
+            return flagsStorage.set(key, value);
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

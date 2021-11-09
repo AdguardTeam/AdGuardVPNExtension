@@ -1,7 +1,6 @@
 export const SETTINGS_IDS = {
     PROXY_ENABLED: 'proxy.enabled',
     RATE_SHOW: 'rate.show',
-    SALE_SHOW: 'sale.show',
     USER_SET_PROMO_SHOW: 'user.set.promo.show',
     EXCLUSIONS: 'exclusions.list',
     HANDLE_WEBRTC_ENABLED: 'webrtc.handle.enabled',
@@ -75,6 +74,9 @@ export const MESSAGES_TYPES = {
     SET_DESKTOP_VPN_ENABLED: 'set.desktop.vpn.enabled',
     OPEN_PREMIUM_PROMO_PAGE: 'open.premium.promo.page',
     GET_REFERRAL_DATA: 'get.referral.data',
+    GET_USER_SERVICE_DATA: 'get.user.state',
+    SET_FLAG: 'set.flag',
+    GET_IS_FIRST_RUN: 'get.is.first.run',
 };
 
 export const ERROR_STATUSES = {
@@ -83,8 +85,11 @@ export const ERROR_STATUSES = {
 };
 
 export const PROMO_SCREEN_STATES = {
+    // display if user clicks on connect button
     DISPLAY_AFTER_CONNECT_CLICK: 'display.after.connect.click',
+    // display if user opens extension's popup window
     DISPLAY_ON_POPUP_OPEN: 'display.on.popup.open',
+    // don't display
     DO_NOT_DISPLAY: 'do.not.display',
 };
 
@@ -92,3 +97,18 @@ export const PROMO_SCREEN_STATES = {
 export const FORCE_CANCELLED = 'Connection was cancelled by user';
 
 export const UNINSTALL_URL = 'https://adguard-vpn.com/forward.html?action=adguard_uninstal_ext&from=background_page&app=vpn_extension';
+
+export const AUTH_PROVIDERS = {
+    ADGUARD: 'adguard',
+    APPLE: 'apple',
+    GOOGLE: 'google',
+    FACEBOOK: 'facebook',
+};
+
+export const FLAGS_FIELDS = {
+    IS_NEW_USER: 'isNewUser',
+    IS_SOCIAL_AUTH: 'isSocialAuth',
+    SHOW_ONBOARDING: 'showOnboarding',
+    SHOW_UPGRADE_SCREEN: 'showUpgradeScreen',
+    SALE_SHOW: 'saleShow',
+};
