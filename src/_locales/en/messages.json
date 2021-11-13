@@ -158,6 +158,24 @@
     "auth_sign_in_link": {
         "message": "Sign in with AdGuard account"
     },
+    "auth_title": {
+        "message": "Authorization"
+    },
+    "auth_info": {
+        "message": "Continue with your AdGuard account or with social login"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Continue with AdGuard"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Continue with Apple"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Continue with Google"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Continue with Facebook"
+    },
     "auth_header_sign_in_account": {
         "message": "You are signing in with AdGuard account"
     },
@@ -190,6 +208,24 @@
     },
     "settings_title": {
         "message": "Settings"
+    },
+    "referral_get_free_traffic": {
+        "message": "Get free VPN traffic!"
+    },
+    "settings_referral_info": {
+        "message": "Invite your friends to join our ninja clan and get more free VPN traffic for a month. Receive 1 GB for each friend who signs up: they also get 1 GB extra for free! You can get 10 GB in total for free."
+    },
+    "settings_referral_invited_friends": {
+        "message": "Invited friends %count%/%limit%"
+    },
+    "settings_referral_limit_reached": {
+        "message": "You've already received your 10 GB of free VPN traffic. But your friends can still get 1 GB of additional free VPN traffic if you invite them!"
+    },
+    "settings_referral_copy_link": {
+        "message": "Copy link"
+    },
+    "settings_referral_link_copied": {
+        "message": "Link copied"
     },
     "settings_rate_us": {
         "message": "Rate us"
@@ -465,8 +501,59 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Continue"
     },
-    "popup_marketing_consent_checkbox": {
+    "popup_newsletter_title": {
+        "message": "AdGuard newsletter"
+    },
+    "popup_newsletter_info": {
         "message": "Send me emails with special offers and AdGuard news"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "Subscribe"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "No, thanks"
+    },
+    "popup_onboarding_trusted_vpn": {
+        "message": "Trusted VPN"
+    },
+    "popup_onboarding_trusted_vpn_info": {
+        "message": "By the developer of the world-famous ad blocker"
+    },
+    "popup_onboarding_numerous_locations": {
+        "message": "Numerous locations"
+    },
+    "popup_onboarding_numerous_locations_info": {
+        "message": "Connect to any of our servers located all over the world"
+    },
+    "popup_onboarding_fastest_servers": {
+        "message": "Fastest servers"
+    },
+    "popup_onboarding_fastest_servers_info": {
+        "message": "We use cutting-edge technologies to guarantee the highest connection speed"
+    },
+    "popup_onboarding_next": {
+        "message": "Next"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "Unlimited VPN"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Unlimited data"
+    },
+    "popup_upgrade_screen_unlimited_speed": {
+        "message": "Unlimited speed"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "All locations"
+    },
+    "popup_upgrade_screen_streaming": {
+        "message": "Streaming"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "Upgrade"
+    },
+    "popup_upgrade_screen_continue_free": {
+        "message": "Continue for free"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> remaining this month",
@@ -545,6 +632,6 @@
         "message": "You have signed out of AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "Please note that your connection is not secure. To continue surfing privately, click on the AdGuard VPN icon and sign in again."
+        "message": "Your connection is not secure. To continue surfing privately, click the AdGuard VPN icon and sign in again."
     }
 }

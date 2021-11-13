@@ -158,6 +158,24 @@
     "auth_sign_in_link": {
         "message": "Увійти з обліковим записом AdGuard"
     },
+    "auth_title": {
+        "message": "Вхід"
+    },
+    "auth_info": {
+        "message": "Продовжити зі своїм обліковим записом AdGuard або через соціальні мережі"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Увійдіть з обліковим записом AdGuard"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "Продовжити з Apple"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "Продовжити з Google"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "Продовжити з Facebook"
+    },
     "auth_header_sign_in_account": {
         "message": "Ви входите з обліковим записом AdGuard"
     },
@@ -190,6 +208,24 @@
     },
     "settings_title": {
         "message": "Налаштування"
+    },
+    "referral_get_free_traffic": {
+        "message": "Отримайте безкоштовний трафік!"
+    },
+    "settings_referral_info": {
+        "message": "Запрошуйте своїх друзів приєднатись до нашого ніндзя-клану та отримуйте ще більше безкоштовного трафіку на місяць. По 1 ГБ вам та другу, що зареєструється! Всього можна отримати 10 ГБ!"
+    },
+    "settings_referral_invited_friends": {
+        "message": "Запрошені друзі %count%/%limit%"
+    },
+    "settings_referral_limit_reached": {
+        "message": "Ви вже отримали усі 10 ГБ беззкоштовного трафіку. Але ваші друзі досі можуть отримати 1 ГБ додаткового трафіку, якщо ви їх запросите!"
+    },
+    "settings_referral_copy_link": {
+        "message": "Копіювати посилання"
+    },
+    "settings_referral_link_copied": {
+        "message": "Посилання скопійовано"
     },
     "settings_rate_us": {
         "message": "Оцініть нас"
@@ -465,8 +501,59 @@
     "popup_auth_policy_agreement_continue_button": {
         "message": "Продовжити"
     },
-    "popup_marketing_consent_checkbox": {
+    "popup_newsletter_title": {
+        "message": "Листи AdGuard"
+    },
+    "popup_newsletter_info": {
         "message": "Надсилати мені листи зі спеціальними пропозиціями та новинами AdGuard"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "Передплатити"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "Ні, дякую"
+    },
+    "popup_onboarding_trusted_vpn": {
+        "message": "Надійний VPN"
+    },
+    "popup_onboarding_trusted_vpn_info": {
+        "message": "Під творців відомого блокувальника реклами"
+    },
+    "popup_onboarding_numerous_locations": {
+        "message": "Численні місцезнаходження"
+    },
+    "popup_onboarding_numerous_locations_info": {
+        "message": "Підключайтесь до будь-якого з наших серверів по всьому світу"
+    },
+    "popup_onboarding_fastest_servers": {
+        "message": "Найшвидші сервери"
+    },
+    "popup_onboarding_fastest_servers_info": {
+        "message": "Ми використовуємо новітні технології, щоб забезпечити високу швидкість з'єднання"
+    },
+    "popup_onboarding_next": {
+        "message": "Далі"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "Необмежений VPN"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Необмежений трафік"
+    },
+    "popup_upgrade_screen_unlimited_speed": {
+        "message": "Необмежена швидкість"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "Усі місцезнаходження"
+    },
+    "popup_upgrade_screen_streaming": {
+        "message": "Стрімінг"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "Покращити"
+    },
+    "popup_upgrade_screen_continue_free": {
+        "message": "Продовжити безкоштовно"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> залишилося цього місяця",
@@ -545,6 +632,6 @@
         "message": "Ви вийшли з AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "Зверніть увагу, що тепер ваше з'єднання не захищене. Щоб безпечно користуватись інтернетом, натисніть на піктограму AdGuard VPN та увійдіть знову."
+        "message": "Ваше з'єднання не захищене. Щоб продовжувати безпечно користуватись інтернетом, натисніть на піктограму AdGuard VPN та увійдіть знову."
     }
 }

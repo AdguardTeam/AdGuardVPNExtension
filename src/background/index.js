@@ -17,13 +17,14 @@ import popupData from './popupData';
 import { proxy } from './proxy';
 import { settings } from './settings';
 import tabs from './tabs';
-import updateService from './updateService';
+import { updateService } from './updateService';
 import { vpnApi } from './api';
 import browserActionIcon from './browserActionIcon';
 import { openThankYouPage } from './postinstall';
 import { endpointsTldExclusions } from './proxy/endpointsTldExclusions';
 import { logStorage } from '../lib/log-storage';
 import { fallbackApi } from './api/fallbackApi';
+import { flagsStorage } from './flagsStorage';
 
 import './networkConnectionObserver';
 import './uninstall';
@@ -54,8 +55,9 @@ global.adguard = {
         messaging.init(); // messaging is on the top, for popup be able to communicate with back
         await fallbackApi.init();
         await proxy.init();
-        const runInfo = await updateService.getRunInfo();
-        await openThankYouPage(runInfo);
+        await updateService.init();
+        await openThankYouPage();
+        await flagsStorage.init();
         permissionsChecker.init(); // should be initiated before auth module
         await auth.init();
         await settings.init();

@@ -30,6 +30,9 @@ import { PROMO_SCREEN_STATES } from '../../../lib/constants';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
 import { TrafficLimitExceeded } from '../Settings/TrafficLimitExceeded';
 import { ConnectionsLimitError } from '../ConnectionsLimitError';
+import { Onboarding } from '../Authentication/Onboarding';
+import { Newsletter } from '../Authentication/Newsletter';
+import { UpgradeScreen } from '../Authentication/UpgradeScreen';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -43,7 +46,27 @@ export const App = observer(() => {
         globalStore,
     } = useContext(rootStore);
 
-    const { desktopVpnEnabled } = settingsStore;
+    const {
+        desktopVpnEnabled,
+        canControlProxy,
+        hasGlobalError,
+        checkPermissionsState,
+        hasLimitExceededError,
+        displayExclusionScreen,
+        canBeExcluded,
+        showLimitExceededScreen,
+    } = settingsStore;
+
+    const {
+        requestProcessState,
+        authenticated,
+        showUpgradeScreen,
+        promoScreenState,
+    } = authStore;
+
+    const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
+
+    const { premiumPromoEnabled, isPremiumToken } = vpnStore;
 
     useEffect(() => {
         settingsStore.getAppearanceTheme();
@@ -131,8 +154,6 @@ export const App = observer(() => {
         return null;
     }
 
-    const { requestProcessState, authenticated } = authStore;
-
     if (!authenticated) {
         return (
             <>
@@ -144,19 +165,27 @@ export const App = observer(() => {
         );
     }
 
-    const {
-        canControlProxy,
-        hasGlobalError,
-        checkPermissionsState,
-        hasLimitExceededError,
-        promoScreenState,
-        displayExclusionScreen,
-        canBeExcluded,
-        showLimitExceededScreen,
-    } = settingsStore;
+    if (authStore.renderNewsletter) {
+        return <Newsletter />;
+    }
 
-    const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
-    const { premiumPromoEnabled, isPremiumToken } = vpnStore;
+    if (authStore.renderOnboarding) {
+        return (
+            <>
+                <Onboarding />
+                <Icons />
+            </>
+        );
+    }
+
+    if (showUpgradeScreen && !isPremiumToken) {
+        return (
+            <>
+                <UpgradeScreen />
+                <Icons />
+            </>
+        );
+    }
 
     if ((hasGlobalError && !hasLimitExceededError) || !canControlProxy || desktopVpnEnabled) {
         const showMenuButton = authenticated && canControlProxy;

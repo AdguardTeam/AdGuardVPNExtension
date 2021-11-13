@@ -8,20 +8,25 @@ import { reactTranslator } from '../../../common/reactTranslator';
 import './promo-sale.pcss';
 
 const PromoSale = observer(() => {
-    const { vpnStore, settingsStore, uiStore } = useContext(rootStore);
+    const {
+        vpnStore,
+        settingsStore,
+        uiStore,
+        authStore,
+    } = useContext(rootStore);
 
     const upgradeClickHandler = async (e) => {
         e.preventDefault();
         settingsStore.setPremiumLocationClickedByFreeUser(false);
         uiStore.closeEndpointsSearch();
-        await settingsStore.setSalePromoStatus(PROMO_SCREEN_STATES.DO_NOT_DISPLAY);
+        await authStore.setSalePromoStatus(PROMO_SCREEN_STATES.DO_NOT_DISPLAY);
         await vpnStore.openPremiumPromoPage();
     };
 
     const hideSaleClickHandler = async () => {
         settingsStore.setPremiumLocationClickedByFreeUser(false);
         uiStore.closeEndpointsSearch();
-        await settingsStore.setSalePromoStatus(PROMO_SCREEN_STATES.DO_NOT_DISPLAY);
+        await authStore.setSalePromoStatus(PROMO_SCREEN_STATES.DO_NOT_DISPLAY);
     };
 
     const features = [

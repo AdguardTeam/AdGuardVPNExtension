@@ -29,7 +29,7 @@ const ExtraOptions = observer(() => {
         await authStore.deauthenticate();
         await settingsStore.setProxyState(false);
         await settingsStore.clearPermissionError();
-        await settingsStore.setSalePromoStatus(PROMO_SCREEN_STATES.DISPLAY_AFTER_CONNECT_CLICK);
+        await authStore.setSalePromoStatus(PROMO_SCREEN_STATES.DISPLAY_AFTER_CONNECT_CLICK);
         uiStore.closeOptionsModal();
     };
 

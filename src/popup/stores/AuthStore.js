@@ -9,10 +9,11 @@ import isNil from 'lodash/isNil';
 
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
 import messenger from '../../lib/messenger';
-import { SETTINGS_IDS } from '../../lib/constants';
+import { SETTINGS_IDS, AUTH_PROVIDERS, FLAGS_FIELDS } from '../../lib/constants';
 
 const AUTH_STEPS = {
     POLICY_AGREEMENT: 'policyAgreement',
+    AUTHORIZATION: 'authorization',
     CHECK_EMAIL: 'checkEmail',
     SIGN_IN: 'signIn',
     REGISTRATION: 'registration',
@@ -24,17 +25,19 @@ const DEFAULTS = {
         username: '',
         password: '',
         twoFactor: '',
-        marketingConsent: false,
+        marketingConsent: null,
     },
     authenticated: false,
     need2fa: false,
     error: null,
     field: '',
-    step: AUTH_STEPS.CHECK_EMAIL,
+    step: AUTH_STEPS.AUTHORIZATION,
     agreement: true,
     policyAgreement: false,
     helpUsImprove: false,
     signInCheck: false,
+    showOnboarding: true,
+    showUpgradeScreen: true,
 };
 
 export class AuthStore {
@@ -56,7 +59,19 @@ export class AuthStore {
 
     @observable requestProcessState = REQUEST_STATUSES.DONE;
 
-    @observable signInCheck = false;
+    @observable signInCheck = DEFAULTS.signInCheck;
+
+    @observable isNewUser;
+
+    @observable isFirstRun;
+
+    @observable isSocialAuth;
+
+    @observable showOnboarding;
+
+    @observable showUpgradeScreen;
+
+    @observable promoScreenState;
 
     STEPS = AUTH_STEPS;
 
@@ -119,6 +134,44 @@ export class AuthStore {
         });
     };
 
+    @action
+    setFlagsStorageData = (flagsStorageData) => {
+        this.isNewUser = flagsStorageData[FLAGS_FIELDS.IS_NEW_USER];
+        this.isSocialAuth = flagsStorageData[FLAGS_FIELDS.IS_SOCIAL_AUTH];
+        this.showOnboarding = flagsStorageData[FLAGS_FIELDS.SHOW_ONBOARDING];
+        this.showUpgradeScreen = flagsStorageData[FLAGS_FIELDS.SHOW_UPGRADE_SCREEN];
+        this.promoScreenState = flagsStorageData[FLAGS_FIELDS.SALE_SHOW];
+    }
+
+    @action
+    setShowOnboarding = async (value) => {
+        await messenger.setFlag(FLAGS_FIELDS.SHOW_ONBOARDING, value);
+        runInAction(() => {
+            this.showOnboarding = value;
+        });
+    };
+
+    @action
+    setShowUpgradeScreen = async (value) => {
+        await messenger.setFlag(FLAGS_FIELDS.SHOW_UPGRADE_SCREEN, value);
+        runInAction(() => {
+            this.showUpgradeScreen = value;
+        });
+    };
+
+    @action
+    setSalePromoStatus = async (state) => {
+        await messenger.setFlag(FLAGS_FIELDS.SALE_SHOW, state);
+        runInAction(() => {
+            this.promoScreenState = state;
+        });
+    }
+
+    @action
+    setIsFirstRun = (value) => {
+        this.isFirstRun = value;
+    }
+
     @computed
     get disableRegister() {
         const { username, password } = this.credentials;
@@ -135,6 +188,22 @@ export class AuthStore {
             return true;
         }
         return false;
+    }
+
+    // AG-10009 Newsletter subscription screen
+    @computed
+    get renderNewsletter() {
+        return this.marketingConsent === null
+        && ((this.isFirstRun && this.isNewUser)
+            || (this.isFirstRun && !this.isNewUser && this.isSocialAuth)
+            || (!this.isFirstRun && this.isNewUser && !this.isSocialAuth));
+    }
+
+    // AG-10009 Onboarding screen
+    @computed
+    get renderOnboarding() {
+        return this.showOnboarding
+            && (this.isFirstRun || (!this.isFirstRun && this.isNewUser && !this.isSocialAuth));
     }
 
     @action
@@ -250,6 +319,16 @@ export class AuthStore {
     };
 
     @action
+    proceedAuthorization = async (provider) => {
+        if (provider === AUTH_PROVIDERS.ADGUARD) {
+            await this.openSignUpCheck();
+            await this.switchStep(this.STEPS.CHECK_EMAIL);
+        } else {
+            await this.openSocialAuth(provider);
+        }
+    };
+
+    @action
     openSocialAuth = async (social) => {
         await messenger.startSocialAuth(social, this.marketingConsent);
         window.close();
@@ -265,9 +344,18 @@ export class AuthStore {
     };
 
     @action
-    showCheckEmail = async () => {
-        await this.switchStep(AUTH_STEPS.CHECK_EMAIL);
-    };
+    showAuthorizationScreen = async () => {
+        await this.switchStep(this.STEPS.AUTHORIZATION);
+    }
+
+    @action
+    showPrevAuthScreen = async () => {
+        await this.switchStep(
+            this.step === this.STEPS.CHECK_EMAIL
+                ? this.STEPS.AUTHORIZATION
+                : this.STEPS.CHECK_EMAIL,
+        );
+    }
 
     @action
     resetPasswords = async () => {
@@ -324,7 +412,7 @@ export class AuthStore {
     onPolicyAgreementReceived = async () => {
         await messenger.setSetting(SETTINGS_IDS.POLICY_AGREEMENT, this.policyAgreement);
         await messenger.setSetting(SETTINGS_IDS.HELP_US_IMPROVE, this.helpUsImprove);
-        await this.showCheckEmail();
+        await this.showAuthorizationScreen();
     };
 
     @action

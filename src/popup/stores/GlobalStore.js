@@ -42,6 +42,8 @@ export class GlobalStore {
                 promoNotification,
                 policyAgreement,
                 desktopVpnEnabled,
+                isFirstRun,
+                flagsStorageData,
             } = popupData;
 
             if (!isAuthenticated) {
@@ -60,19 +62,21 @@ export class GlobalStore {
                 settingsStore.setGlobalError(null);
             }
 
-            authStore.setIsAuthenticated(isAuthenticated);
-            authStore.setPolicyAgreement(policyAgreement);
+            authStore.setFlagsStorageData(flagsStorageData);
+            authStore.setIsFirstRun(isFirstRun);
+            settingsStore.setCanControlProxy(canControlProxy);
+            settingsStore.setConnectivityState(connectivityState);
+            settingsStore.setIsRoutable(isRoutable);
+            settingsStore.setPromoNotification(promoNotification);
+            settingsStore.setDesktopVpnEnabled(desktopVpnEnabled);
             vpnStore.setVpnInfo(vpnInfo);
             vpnStore.setLocations(locations);
             vpnStore.setSelectedLocation(selectedLocation);
             vpnStore.setIsPremiumToken(isPremiumToken);
-            settingsStore.setConnectivityState(connectivityState);
-            settingsStore.setCanControlProxy(canControlProxy);
-            settingsStore.setIsRoutable(isRoutable);
-            settingsStore.setPromoNotification(promoNotification);
-            settingsStore.setDesktopVpnEnabled(desktopVpnEnabled);
+            authStore.setIsAuthenticated(isAuthenticated);
+            await authStore.getAuthCacheFromBackground();
+            await authStore.setPolicyAgreement(policyAgreement);
             await settingsStore.checkRateStatus();
-            await settingsStore.getPromoScreenStatus();
             await settingsStore.checkIsExcluded();
             await settingsStore.getExclusionsInverted();
             this.setInitStatus(REQUEST_STATUSES.DONE);
