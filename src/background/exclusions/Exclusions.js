@@ -2,8 +2,8 @@
 import { ExclusionsHandler } from './ExclusionsHandler';
 import { log } from '../../lib/logger';
 import notifier from '../../lib/notifier';
-import { EXCLUSIONS_MODES } from './exclusionsConstants';
 import { State } from './ExclusionsGroup';
+import { EXCLUSIONS_MODES } from '../../common/exclusionsConstants';
 
 class Exclusions {
     MODES = EXCLUSIONS_MODES;

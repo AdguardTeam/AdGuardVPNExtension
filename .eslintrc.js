@@ -25,13 +25,13 @@ module.exports = {
         },
         'import/resolver': {
             node: {
-                extensions: ['.js', '.jsx', '.ts', '.json'],
+                extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
             },
         },
     },
     rules: {
         'no-shadow': 'off',
-        'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+        'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
         'import/no-extraneous-dependencies': 0,
         indent: ['error', 4, { SwitchCase: 1 }],
         'react/jsx-indent': 'off',
@@ -72,6 +72,7 @@ module.exports = {
                 js: 'never',
                 jsx: 'never',
                 ts: 'never',
+                tsx: 'never',
             },
         ],
     },

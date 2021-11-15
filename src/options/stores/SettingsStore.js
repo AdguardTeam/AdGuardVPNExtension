@@ -9,7 +9,7 @@ import { log } from '../../lib/logger';
 import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT } from '../../lib/constants';
 import { DNS_DEFAULT } from '../../background/dns/dnsConstants';
 import messenger from '../../lib/messenger';
-import { EXCLUSIONS_MODES } from '../../background/exclusions/exclusionsConstants';
+import { EXCLUSIONS_MODES } from '../../common/exclusionsConstants';
 
 export class SettingsStore {
     @observable exclusions = {

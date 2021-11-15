@@ -43,13 +43,13 @@ const config = {
         filename: '[name].js',
     },
     resolve: {
-        extensions: ['*', '.js', '.jsx', '.ts'],
+        extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],
     },
 
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,
+                test: /\.(ts|js)x?$/,
                 exclude: /node_modules/,
                 use: ['cache-loader', { loader: 'babel-loader', options: { babelrc: true } }],
             },

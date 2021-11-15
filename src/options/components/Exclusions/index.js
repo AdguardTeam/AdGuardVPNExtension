@@ -4,10 +4,10 @@ import Mode from './Mode';
 import { Title } from '../ui/Title';
 import { reactTranslator } from '../../../common/reactTranslator';
 
-import './settings.pcss';
+import './exclusions.pcss';
 import '../ui/radio.pcss';
 
-const Settings = () => (
+const Exclusions = () => (
     <>
         <Title title={reactTranslator.getMessage('settings_exclusion_title')} />
         <div className="settings">
@@ -16,4 +16,4 @@ const Settings = () => (
     </>
 );
 
-export default Settings;
+export default Exclusions;
