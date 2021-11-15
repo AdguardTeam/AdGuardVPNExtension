@@ -6,7 +6,7 @@ import connectivity from './connectivity';
 import contextMenu from './contextMenu';
 import credentials from './credentials';
 import endpoints from './endpoints';
-import exclusions, { exclusionsManager } from './exclusions';
+import exclusions from './exclusions';
 import { log } from '../lib/logger';
 import management from './management';
 import messaging from './messageHandler';
@@ -63,7 +63,7 @@ global.adguard = {
         await settings.init();
         await credentials.init();
         await exclusions.init();
-        await exclusionsManager.init();
+        // await exclusionsManager.init();
         await endpointsTldExclusions.init();
         settings.applySettings(); // we have to apply settings when credentials are ready
         endpoints.init(); // update endpoints list on extension or browser restart

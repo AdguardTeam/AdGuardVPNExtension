@@ -39,19 +39,44 @@ interface ExclusionsManagerInterface {
     toggleIpState(id: string): void;
 }
 
-// TODO: turn ExclusionsManager to ExclusionsHandler
-class ExclusionsManager implements ExclusionsData, ExclusionsManagerInterface {
+export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInterface {
     excludedServices: Service[];
 
     exclusionsGroups: ExclusionsGroup[];
 
     excludedIps: Exclusion[];
 
-    constructor() {
-        this.excludedServices = [];
-        this.exclusionsGroups = [];
-        this.excludedIps = [];
+    mode: string;
+
+    updateHandler: any;
+
+    constructor(updateHandler, exclusions: ExclusionsData, mode: string) {
+        this.updateHandler = updateHandler;
+        this.excludedServices = exclusions.excludedServices;
+        this.exclusionsGroups = exclusions.exclusionsGroups;
+        this.excludedIps = exclusions.excludedIps;
+        this.mode = mode;
     }
+
+    get exclusionsData() {
+        return {
+            excludedServices: this.excludedServices,
+            exclusionsGroups: this.exclusionsGroups,
+            excludedIps: this.excludedIps,
+        };
+    }
+
+    getExclusions() {
+        return this.exclusionsData;
+    }
+
+    handleExclusionsUpdate = (exclusions: ExclusionsData|undefined) => {
+        if (exclusions) {
+            this.updateHandler(this.mode, this.exclusionsData, exclusions);
+        } else {
+            this.updateHandler(this.mode, this.exclusionsData);
+        }
+    };
 
     addService(serviceId: string) {
         if (this.excludedServices
@@ -155,6 +180,7 @@ class ExclusionsManager implements ExclusionsData, ExclusionsManagerInterface {
         });
     }
 
+    // TODO: get rid of it or rename
     getExclusionsData() {
         return {
             services: this.excludedServices,
@@ -174,4 +200,4 @@ class ExclusionsManager implements ExclusionsData, ExclusionsManagerInterface {
     }
 }
 
-export const exclusionsManager = new ExclusionsManager();
+export const exclusionsHandler = new ExclusionsHandler(() => {}, {}, 'true');

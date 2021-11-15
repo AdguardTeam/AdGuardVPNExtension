@@ -7,6 +7,7 @@ const exclusions = new Exclusions(browserApi, proxy, settings);
 
 export default exclusions;
 
-export { exclusionsManager } from './ExclusionsManager';
+// eslint-disable-next-line import/named
+export { ExclusionsHandler } from './ExclusionsHandler';
 
 export { servicesManager } from './ServicesManager';

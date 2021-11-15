@@ -1,4 +1,5 @@
-import ExclusionsHandler from './ExclusionsHandler';
+// eslint-disable-next-line import/named
+import { ExclusionsHandler } from './ExclusionsHandler';
 import { log } from '../../lib/logger';
 import notifier from '../../lib/notifier';
 import { EXCLUSIONS_MODES } from './exclusionsConstants';
@@ -48,12 +49,14 @@ class Exclusions {
     handleExclusionsUpdate = async () => {
         notifier.notifyListeners(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE);
 
-        const enabledExclusions = this.current.getExclusionsList()
+        // TODO: get enabled exclusions properly
+        const enabledExclusions = this.current.getExclusions()
             .filter(({ enabled }) => enabled)
             .map(({ hostname }) => hostname);
 
         await this.proxy.setBypassList(enabledExclusions, this.inverted);
 
+        // TODO: set enabled exclusions properly
         const exclusionsRepository = {
             inverted: this.inverted,
             [this.MODES.SELECTIVE]: this.selective.exclusions,
