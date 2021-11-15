@@ -8,15 +8,15 @@ import { EXCLUSIONS_MODES } from '../../../../common/exclusionsConstants';
 import { reactTranslator } from '../../../../common/reactTranslator';
 
 export const ModeSelector = observer(() => {
-    const { settingsStore } = useContext(rootStore);
+    const { exclusionsStore } = useContext(rootStore);
     const [isOpen, setOpen] = useState(false);
     const openModal = () => setOpen(true);
     const closeModal = () => setOpen(false);
 
     const {
-        exclusionsCurrentMode,
+        currentMode,
         toggleInverted,
-    } = settingsStore;
+    } = exclusionsStore;
 
     const onChange = (type: EXCLUSIONS_MODES) => async () => {
         if (type === EXCLUSIONS_MODES.SELECTIVE) {
@@ -43,7 +43,7 @@ export const ModeSelector = observer(() => {
     };
 
     const renderRadioButton = (exclusionsType: EXCLUSIONS_MODES) => {
-        const enabled = exclusionsType === exclusionsCurrentMode;
+        const enabled = exclusionsType === currentMode;
         const titleClass = classnames('radio__title', { 'radio__title--active': enabled });
 
         const xlinkHref = classnames({

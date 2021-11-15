@@ -3,20 +3,23 @@ import {
     observable,
 } from 'mobx';
 import { EXCLUSIONS_MODES } from '../../common/exclusionsConstants';
+import messenger from '../../lib/messenger';
 
 export class ExclusionsStore {
     @observable exclusions = {
         [EXCLUSIONS_MODES.SELECTIVE]: {
-            ips: [],
+            excludedIps: [],
             exclusionsGroups: [],
-            services: [],
+            excludedServices: [],
         },
         [EXCLUSIONS_MODES.REGULAR]: {
-            ips: [],
+            excludedIps: [],
             exclusionsGroups: [],
-            services: [],
+            excludedServices: [],
         },
     };
+
+    @observable currentMode;
 
     @observable servicesData;
 
@@ -24,4 +27,31 @@ export class ExclusionsStore {
     setServicesData = (servicesData) => {
         this.servicesData = servicesData;
     }
+
+    @action
+    setExclusionsData = (exclusionsData) => {
+        this.exclusions = exclusionsData;
+        this.currentMode = exclusionsData.currentMode;
+    }
+
+    @action
+    getExcludedServicesList = (mode) => {
+        return this.exclusions[mode].excludedServices.map((service) => service.serviceName);
+    }
+
+    @action
+    getExclusionsGroupsList = (mode) => {
+        return this.exclusions[mode].exclusionsGroups.map((group) => group.hostname);
+    }
+
+    @action
+    getExcludedIpsList = (mode) => {
+        return this.exclusions[mode].excludedIps.map((ip) => ip.hostname);
+    }
+
+    @action
+    toggleInverted = async (mode) => {
+        this.currentMode = mode;
+        await messenger.setExclusionsMode(mode);
+    };
 }

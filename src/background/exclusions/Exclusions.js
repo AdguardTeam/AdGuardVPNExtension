@@ -20,8 +20,16 @@ class Exclusions {
 
         this.exclusions = this.settings.getExclusions() || {};
 
-        const selective = this.exclusions?.[this.MODES.SELECTIVE] ?? [];
-        const regular = this.exclusions?.[this.MODES.REGULAR] ?? [];
+        const selective = this.exclusions?.[this.MODES.SELECTIVE] ?? {
+            excludedServices: [],
+            exclusionsGroups: [],
+            excludedIps: [],
+        };
+        const regular = this.exclusions?.[this.MODES.REGULAR] ?? {
+            excludedServices: [],
+            exclusionsGroups: [],
+            excludedIps: [],
+        };
 
         this.inverted = this.exclusions?.inverted ?? false;
 
@@ -78,24 +86,26 @@ class Exclusions {
             }
         });
 
-        const enabledIps = exclusionsData
+        const enabledIps = exclusionsData.excludedIps
             .filter(({ enabled }) => enabled)
             .map(({ hostname }) => hostname);
 
+        const enabledExclusions = [...enabledServices, ...enabledGroups, ...enabledIps].flat();
+
         await this.proxy
-            .setBypassList([...enabledServices, ...enabledGroups, ...enabledIps], this.inverted);
+            .setBypassList(enabledExclusions, this.inverted);
 
         const exclusionsRepository = {
             inverted: this.inverted,
             [this.MODES.SELECTIVE]: {
-                excludedServices: this.selective.exclusions.excludedServices,
-                exclusionsGroups: this.selective.exclusions.exclusionsGroups,
-                excludedIps: this.selective.exclusions.excludedIps,
+                excludedServices: this.selective.excludedServices,
+                exclusionsGroups: this.selective.exclusionsGroups,
+                excludedIps: this.selective.excludedIps,
             },
             [this.MODES.REGULAR]: {
-                excludedServices: this.regular.exclusions.excludedServices,
-                exclusionsGroups: this.regular.exclusions.exclusionsGroups,
-                excludedIps: this.regular.exclusions.excludedIps,
+                excludedServices: this.regular.excludedServices,
+                exclusionsGroups: this.regular.exclusionsGroups,
+                excludedIps: this.regular.excludedIps,
             },
         };
 

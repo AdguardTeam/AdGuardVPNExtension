@@ -26,6 +26,22 @@ import { flagsStorage } from './flagsStorage';
 const eventListeners = {};
 
 const getOptionsData = async () => {
+    // ui debugging
+    exclusions.regular.clearExclusionsData();
+    exclusions.selective.clearExclusionsData();
+    //
+    // exclusions.regular?.addIp('192.168.11.11');
+    // exclusions.regular?.addExclusionsGroup('dnsleaktest.com');
+    // exclusions.regular?.addExclusionsGroup('test.com');
+    // exclusions.regular?.addExclusionsGroup('example.org');
+    // exclusions.regular?.addService('facebook');
+    //
+    // exclusions.selective?.addIp('192.177.15.12');
+    // exclusions.selective?.addExclusionsGroup('yandex.ru');
+    // exclusions.selective?.addExclusionsGroup('google.com');
+    // exclusions.selective?.addExclusionsGroup('dnsleaktest.com');
+    // exclusions.selective?.addService('github');
+
     const appVersion = appStatus.version;
     const username = await credentials.getUsername();
     const isRateVisible = settings.getSetting(SETTINGS_IDS.RATE_SHOW);
@@ -35,14 +51,10 @@ const getOptionsData = async () => {
     const dnsServer = settings.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER);
     const appearanceTheme = settings.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
 
-    const regularExclusions = exclusions.regular?.getExclusionsList();
-    const selectiveExclusions = exclusions.selective?.getExclusionsList();
-    const exclusionsCurrentMode = exclusions.current?.mode;
-
     const exclusionsData = {
-        regular: regularExclusions,
-        selective: selectiveExclusions,
-        currentMode: exclusionsCurrentMode,
+        regular: exclusions.regular?.getExclusions(),
+        selective: exclusions.selective?.getExclusions(),
+        currentMode: exclusions.current?.mode,
     };
 
     const servicesData = servicesManager.getServicesData();
@@ -189,8 +201,8 @@ const messageHandler = async (message, sender) => {
             break;
         }
         case MESSAGES_TYPES.GET_EXCLUSIONS: {
-            const regularExclusions = exclusions.regular.getExclusionsList();
-            const selectiveExclusions = exclusions.selective.getExclusionsList();
+            const regularExclusions = exclusions.regular.getExclusions();
+            const selectiveExclusions = exclusions.selective.getExclusions();
             const exclusionsCurrentMode = exclusions.current.mode;
 
             return {

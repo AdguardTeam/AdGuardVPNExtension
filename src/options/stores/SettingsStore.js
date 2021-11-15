@@ -60,12 +60,12 @@ export class SettingsStore {
         });
     };
 
-    @action
-    setExclusions = (exclusions) => {
-        this.exclusions[EXCLUSIONS_MODES.REGULAR] = exclusions.regular;
-        this.exclusions[EXCLUSIONS_MODES.SELECTIVE] = exclusions.selective;
-        this.exclusionsCurrentMode = exclusions.currentMode;
-    };
+    // @action
+    // setExclusions = (exclusions) => {
+    //     this.exclusions[EXCLUSIONS_MODES.REGULAR] = exclusions.regular;
+    //     this.exclusions[EXCLUSIONS_MODES.SELECTIVE] = exclusions.selective;
+    //     this.exclusionsCurrentMode = exclusions.currentMode;
+    // };
 
     @action
     removeFromExclusions = async (mode, id) => {
@@ -159,12 +159,6 @@ export class SettingsStore {
         await messenger.disableProxy(true);
     };
 
-    @action
-    toggleInverted = async (mode) => {
-        this.exclusionsCurrentMode = mode;
-        await messenger.setExclusionsMode(mode);
-    };
-
     unicodeExclusionsByType(exclusionsType) {
         return this.exclusions[exclusionsType]
             .slice()
@@ -222,7 +216,7 @@ export class SettingsStore {
         this.helpUsImprove = data.helpUsImprove;
         this.dnsServer = data.dnsServer;
         this.appearanceTheme = data.appearanceTheme;
-        this.setExclusions(data.exclusionsData);
+        // this.setExclusions(data.exclusionsData);
     };
 
     @action

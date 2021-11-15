@@ -61,7 +61,6 @@ export const App = observer(() => {
         authStore,
         settingsStore,
         globalStore,
-        exclusionsStore,
     } = useContext(rootStore);
 
     useAppearanceTheme(settingsStore.appearanceTheme);
@@ -123,9 +122,6 @@ export const App = observer(() => {
             removeListenerCallback();
         };
     }, []);
-
-    const { servicesData } = exclusionsStore;
-    console.log(servicesData);
 
     // show nothing while data is loading
     if (status === REQUEST_STATUSES.PENDING) {

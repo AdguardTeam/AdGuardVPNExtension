@@ -7,6 +7,7 @@ import { Search } from './Search';
 
 import './exclusions.pcss';
 import '../ui/radio.pcss';
+import { ExclusionsList } from './ExclusionsList';
 
 export const Exclusions2 = () => {
     return (
@@ -15,6 +16,7 @@ export const Exclusions2 = () => {
             <div className="settings">
                 <ModeSelector />
                 <Search />
+                <ExclusionsList />
             </div>
         </>
     );

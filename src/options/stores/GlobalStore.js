@@ -25,6 +25,7 @@ export class GlobalStore {
             settingsStore.setOptionsData(optionsData);
             authStore.setIsAuthenticated(optionsData.isAuthenticated);
             exclusionsStore.setServicesData(optionsData.servicesData);
+            exclusionsStore.setExclusionsData(optionsData.exclusionsData);
             this.setInitStatus(REQUEST_STATUSES.DONE);
         } catch (e) {
             log.error(e.message);
