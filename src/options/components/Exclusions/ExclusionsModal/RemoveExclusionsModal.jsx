@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ExclusionsModal } from './ExclusionsModal';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { EXCLUSIONS_MODES } from '../../../../background/exclusions/exclusionsConstants';
+import { EXCLUSIONS_MODES } from '../../../../common/exclusionsConstants';
 
 export const RemoveExclusionsModal = ({
     isOpen, closeModal, handleCancelClick, handleDeleteClick, currentMode,

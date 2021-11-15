@@ -2,7 +2,7 @@ import {
     action,
     observable,
 } from 'mobx';
-import { EXCLUSIONS_MODES } from '../../background/exclusions/exclusionsConstants';
+import { EXCLUSIONS_MODES } from '../../common/exclusionsConstants';
 
 export class ExclusionsStore {
     @observable exclusions = {

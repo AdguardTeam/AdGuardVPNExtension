@@ -3,15 +3,11 @@ import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
-import Form from './Form';
-import List from './List';
 import { rootStore } from '../../../stores';
 import { EXCLUSIONS_MODES } from '../../../../common/exclusionsConstants';
 import { reactTranslator } from '../../../../common/reactTranslator';
 
-Modal.setAppElement('#root');
-
-const Mode = observer(() => {
+export const ModeSelector = observer(() => {
     const { settingsStore } = useContext(rootStore);
     const [isOpen, setOpen] = useState(false);
     const openModal = () => setOpen(true);
@@ -22,7 +18,7 @@ const Mode = observer(() => {
         toggleInverted,
     } = settingsStore;
 
-    const onChange = (type) => async () => {
+    const onChange = (type: EXCLUSIONS_MODES) => async () => {
         if (type === EXCLUSIONS_MODES.SELECTIVE) {
             openModal();
             return;
@@ -35,11 +31,6 @@ const Mode = observer(() => {
         closeModal();
     };
 
-    const modes = [
-        EXCLUSIONS_MODES.REGULAR,
-        EXCLUSIONS_MODES.SELECTIVE,
-    ];
-
     const titles = {
         [EXCLUSIONS_MODES.REGULAR]: {
             title: reactTranslator.getMessage('settings_exclusion_regular_title'),
@@ -51,7 +42,7 @@ const Mode = observer(() => {
         },
     };
 
-    const renderControls = (exclusionsType) => {
+    const renderRadioButton = (exclusionsType: EXCLUSIONS_MODES) => {
         const enabled = exclusionsType === exclusionsCurrentMode;
         const titleClass = classnames('radio__title', { 'radio__title--active': enabled });
 
@@ -61,16 +52,18 @@ const Mode = observer(() => {
         });
 
         return (
-            <div className="radio" onClick={enabled ? undefined : onChange(exclusionsType)}>
-                <svg className="radio__icon">
-                    <use xlinkHref={xlinkHref} />
-                </svg>
-                <div className="radio__label">
-                    <div className={titleClass}>
-                        {titles[exclusionsType].title}
-                    </div>
-                    <div className="radio__description">
-                        {titles[exclusionsType].description}
+            <div className="settings__control">
+                <div className="radio" onClick={enabled ? undefined : onChange(exclusionsType)}>
+                    <svg className="radio__icon">
+                        <use xlinkHref={xlinkHref} />
+                    </svg>
+                    <div className="radio__label">
+                        <div className={titleClass}>
+                            {titles[exclusionsType].title}
+                        </div>
+                        <div className="radio__description">
+                            {titles[exclusionsType].description}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -95,9 +88,23 @@ const Mode = observer(() => {
                     </svg>
                 </button>
                 <div className="modal__icon" />
-                <div className="modal__title">{reactTranslator.getMessage('options_selective_mode_popup_attention')}</div>
-                <div className="modal__message">{reactTranslator.getMessage('options_selective_mode_popup_message')}</div>
-                <button type="button" onClick={toggleSelectiveMode} className="button modal__button">{reactTranslator.getMessage('options_selective_mode_popup_button_switch_now')}</button>
+                <div
+                    className="modal__title"
+                >
+                    {reactTranslator.getMessage('options_selective_mode_popup_attention')}
+                </div>
+                <div
+                    className="modal__message"
+                >
+                    {reactTranslator.getMessage('options_selective_mode_popup_message')}
+                </div>
+                <button
+                    type="button"
+                    onClick={toggleSelectiveMode}
+                    className="button modal__button"
+                >
+                    {reactTranslator.getMessage('options_selective_mode_popup_button_switch_now')}
+                </button>
             </Modal>
             <div className="settings__section">
                 <div className="settings__title">
@@ -105,20 +112,11 @@ const Mode = observer(() => {
                 </div>
                 <div className="settings__group">
                     <div className="settings__controls">
-                        {modes.map((type) => (
-                            <div className="settings__control" key={type}>
-                                {renderControls(type)}
-                            </div>
-                        ))}
-                    </div>
-                    <div className="settings__control">
-                        {/* <Form /> */}
-                        {/* <List /> */}
+                        {renderRadioButton(EXCLUSIONS_MODES.REGULAR)}
+                        {renderRadioButton(EXCLUSIONS_MODES.SELECTIVE)}
                     </div>
                 </div>
             </div>
         </>
     );
 });
-
-export default Mode;
