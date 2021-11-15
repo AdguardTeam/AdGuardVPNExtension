@@ -22,6 +22,8 @@ export class Service implements ServiceInterface {
 
     exclusionsGroups: ExclusionsGroup[];
 
+    // TODO: add state
+
     constructor(service: ServiceInterface) {
         this.serviceId = service.serviceId;
         this.serviceName = service.serviceName;

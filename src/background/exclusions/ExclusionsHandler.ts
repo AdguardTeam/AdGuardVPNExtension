@@ -70,14 +70,6 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
         return this.exclusionsData;
     }
 
-    handleExclusionsUpdate = (exclusions: ExclusionsData|undefined) => {
-        if (exclusions) {
-            this.updateHandler(this.mode, this.exclusionsData, exclusions);
-        } else {
-            this.updateHandler(this.mode, this.exclusionsData);
-        }
-    };
-
     addService(serviceId: string) {
         if (this.excludedServices
             .some((excludedService: Service) => excludedService.serviceId === serviceId)) {
@@ -89,11 +81,13 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
             return;
         }
         this.excludedServices.push(service);
+        this.updateHandler();
     }
 
     removeService(serviceId: string) {
         this.excludedServices = this.excludedServices
             .filter((excludedService: Service) => excludedService.serviceId !== serviceId);
+        this.updateHandler();
     }
 
     addSubdomainToServiceExclusionsGroup(
@@ -110,6 +104,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
                 });
             }
         });
+        this.updateHandler();
     }
 
     removeSubdomainFromServiceExclusionsGroup(
@@ -126,6 +121,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
                 });
             }
         });
+        this.updateHandler();
     }
 
     addExclusionsGroup(hostname: string) {
@@ -135,11 +131,13 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
             const exclusionsGroup = new ExclusionsGroup(hostname);
             this.exclusionsGroups.push(exclusionsGroup);
         }
+        this.updateHandler();
     }
 
     removeExclusionsGroup(hostname: string) {
         this.exclusionsGroups = this.exclusionsGroups
             .filter((exclusionsGroup: ExclusionsGroup) => exclusionsGroup.hostname !== hostname);
+        this.updateHandler();
     }
 
     addSubdomainToExclusionsGroup(id: string, subdomain: string) {
@@ -148,6 +146,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
                 exclusionsGroup.addSubdomain(subdomain);
             }
         });
+        this.updateHandler();
     }
 
     removeSubdomainFromExclusionsGroup(exclusionsGroupId: string, subdomainId: string) {
@@ -156,6 +155,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
                 exclusionsGroup.removeSubdomain(subdomainId);
             }
         });
+        this.updateHandler();
     }
 
     addIp(ip: string) {
@@ -164,11 +164,13 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
             const excludedIp = new Exclusion(ip);
             this.excludedIps.push(excludedIp);
         }
+        this.updateHandler();
     }
 
     removeIp(ip: string) {
         this.excludedIps = this.excludedIps
             .filter((excludedIp: Exclusion) => excludedIp.hostname !== ip);
+        this.updateHandler();
     }
 
     toggleIpState(id:string) {
@@ -178,6 +180,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
                 ip.enabled = !ip.enabled;
             }
         });
+        this.updateHandler();
     }
 
     // TODO: get rid of it or rename
@@ -199,5 +202,3 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
         await servicesManager.init();
     }
 }
-
-export const exclusionsHandler = new ExclusionsHandler(() => {}, {}, 'true');

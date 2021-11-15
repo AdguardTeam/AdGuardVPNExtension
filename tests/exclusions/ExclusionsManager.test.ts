@@ -1,7 +1,13 @@
 // eslint-disable-next-line import/named
-import { exclusionsHandler } from '../../src/background/exclusions/ExclusionsHandler';
+import { ExclusionsHandler } from '../../src/background/exclusions/ExclusionsHandler';
 import { servicesManager } from '../../src/background/exclusions/ServicesManager';
 import { ExclusionsGroup } from '../../src/background/exclusions/ExclusionsGroup';
+
+const exclusionsHandler = new ExclusionsHandler(() => {}, {
+    excludedServices: [],
+    exclusionsGroups: [],
+    excludedIps: [],
+}, 'true');
 
 const FACEBOOK_SERVICE_DATA = {
     serviceId: 'facebook',

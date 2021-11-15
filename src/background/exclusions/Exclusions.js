@@ -3,6 +3,7 @@ import { ExclusionsHandler } from './ExclusionsHandler';
 import { log } from '../../lib/logger';
 import notifier from '../../lib/notifier';
 import { EXCLUSIONS_MODES } from './exclusionsConstants';
+import { State } from './ExclusionsGroup';
 
 class Exclusions {
     MODES = EXCLUSIONS_MODES;
@@ -39,6 +40,7 @@ class Exclusions {
 
         notifier.addSpecifiedListener(notifier.types.NON_ROUTABLE_DOMAIN_ADDED, (payload) => {
             if (this.currentHandler.mode === this.MODES.REGULAR) {
+                // TODO handle properly
                 this.currentHandler.addToExclusions(payload, true, { forceEnable: false });
             }
         });
@@ -49,18 +51,49 @@ class Exclusions {
     handleExclusionsUpdate = async () => {
         notifier.notifyListeners(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE);
 
-        // TODO: get enabled exclusions properly
-        const enabledExclusions = this.current.getExclusions()
+        const exclusionsData = this.current.getExclusions();
+
+        // eslint-disable-next-line array-callback-return
+        const enabledServices = exclusionsData.excludedServices.map((service) => {
+            // TODO: handle state
+            // eslint-disable-next-line consistent-return,array-callback-return
+            service.exclusionsGroups.map((group) => {
+                if (group.state === State.Enabled || group.state === State.PartlyEnabled) {
+                    return group.exclusions
+                        .filter(({ enabled }) => enabled)
+                        .map(({ hostname }) => hostname);
+                }
+            });
+        });
+
+        // eslint-disable-next-line consistent-return,array-callback-return
+        const enabledGroups = exclusionsData.exclusionsGroups.map((group) => {
+            if (group.state === State.Enabled || group.state === State.PartlyEnabled) {
+                return group.exclusions
+                    .filter(({ enabled }) => enabled)
+                    .map(({ hostname }) => hostname);
+            }
+        });
+
+        const enabledIps = exclusionsData
             .filter(({ enabled }) => enabled)
             .map(({ hostname }) => hostname);
 
-        await this.proxy.setBypassList(enabledExclusions, this.inverted);
+        await this.proxy
+            .setBypassList([...enabledServices, ...enabledGroups, ...enabledIps], this.inverted);
 
-        // TODO: set enabled exclusions properly
         const exclusionsRepository = {
             inverted: this.inverted,
-            [this.MODES.SELECTIVE]: this.selective.exclusions,
-            [this.MODES.REGULAR]: this.regular.exclusions,
+            [this.MODES.SELECTIVE]: {
+                excludedServices: this.selective.exclusions.excludedServices,
+                exclusionsGroups: this.selective.exclusions.exclusionsGroups,
+                excludedIps: this.selective.exclusions.excludedIps,
+            },
+            [this.MODES.REGULAR]: {
+                excludedServices: this.regular.exclusions.excludedServices,
+                exclusionsGroups: this.regular.exclusions.exclusionsGroups,
+                excludedIps: this.regular.exclusions.excludedIps,
+            },
         };
 
         this.settings.setExclusions(exclusionsRepository);
@@ -97,10 +130,11 @@ class Exclusions {
         }
     }
 
+    // TODO: handle adding to exclusions (ip case)
     addRegularExclusions(exclusions) {
         let addedExclusions = 0;
         exclusions.forEach((exclusion) => {
-            const result = this.regular.addToExclusions(exclusion);
+            const result = this.regular.addExclusionsGroup(exclusion);
             if (result) {
                 addedExclusions += 1;
             }
@@ -108,10 +142,11 @@ class Exclusions {
         return addedExclusions;
     }
 
+    // TODO: handle adding to exclusions (ip case)
     addSelectiveExclusions(exclusions) {
         let addedExclusions = 0;
         exclusions.forEach((exclusion) => {
-            const result = this.selective.addToExclusions(exclusion);
+            const result = this.selective.addExclusionsGroup(exclusion);
             if (result) {
                 addedExclusions += 1;
             }
@@ -131,19 +166,23 @@ class Exclusions {
         return this.currentHandler;
     }
 
+    // TODO: enable vpn by url
+    // eslint-disable-next-line no-unused-vars
     async enableVpnByUrl(url) {
         if (this.inverted) {
-            await this.currentHandler.addToExclusions(url);
+            // await this.currentHandler.addToExclusions(url);
         } else {
-            await this.currentHandler.disableExclusionByUrl(url);
+            // await this.currentHandler.disableExclusionByUrl(url);
         }
     }
 
+    // TODO: disable vpn by url
+    // eslint-disable-next-line no-unused-vars
     async disableVpnByUrl(url) {
         if (this.inverted) {
-            await this.currentHandler.disableExclusionByUrl(url);
+            // await this.currentHandler.disableExclusionByUrl(url);
         } else {
-            await this.currentHandler.addToExclusions(url);
+            // await this.currentHandler.addToExclusions(url);
         }
     }
 
