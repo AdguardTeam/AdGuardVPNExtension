@@ -4,6 +4,7 @@ import { log } from '../../lib/logger';
 import notifier from '../../lib/notifier';
 import { State } from './ExclusionsGroup';
 import { EXCLUSIONS_MODES } from '../../common/exclusionsConstants';
+import { servicesManager } from './ServicesManager';
 
 class Exclusions {
     MODES = EXCLUSIONS_MODES;
@@ -15,6 +16,8 @@ class Exclusions {
     }
 
     init = async () => {
+        await servicesManager.init();
+
         this.exclusions = this.settings.getExclusions() || {};
 
         const selective = this.exclusions?.[this.MODES.SELECTIVE] ?? [];

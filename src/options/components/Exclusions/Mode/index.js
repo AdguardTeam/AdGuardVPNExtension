@@ -3,8 +3,8 @@ import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
-import Form from './Form';
-import List from './List';
+// import Form from './Form';
+// import List from './List';
 import { rootStore } from '../../../stores';
 import { EXCLUSIONS_MODES } from '../../../../common/exclusionsConstants';
 import { reactTranslator } from '../../../../common/reactTranslator';

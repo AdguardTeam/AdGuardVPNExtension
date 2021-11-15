@@ -197,8 +197,4 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
         this.exclusionsGroups = [];
         this.excludedIps = [];
     }
-
-    async init() {
-        await servicesManager.init();
-    }
 }
