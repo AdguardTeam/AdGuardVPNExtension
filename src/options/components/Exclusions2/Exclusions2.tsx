@@ -4,8 +4,9 @@ import { reactTranslator } from '../../../common/reactTranslator';
 import { Title } from '../ui/Title';
 import { ModeSelector } from './ModeSelector';
 import { Search } from './Search';
-import { Controls } from './Controls';
+import { Actions } from './Actions';
 import { List } from './List';
+import { AddExclusionModal } from './ExclusionsModal/AddExclusionsModal/AddExclusionModal';
 
 import './exclusions.pcss';
 import '../ui/radio.pcss';
@@ -17,8 +18,9 @@ export const Exclusions2 = () => {
             <div className="settings">
                 <ModeSelector />
                 <Search />
-                <Controls />
+                <Actions />
                 <List />
+                <AddExclusionModal />
             </div>
         </>
     );
