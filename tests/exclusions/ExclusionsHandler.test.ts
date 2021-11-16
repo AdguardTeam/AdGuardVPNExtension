@@ -82,29 +82,28 @@ describe('ExclusionsManager', () => {
         exclusionsData = exclusionsHandler.getExclusions();
         expect(exclusionsData.exclusionsGroups).toHaveLength(1);
         // eslint-disable-next-line no-unused-vars
-        const exclusion = exclusionsData.exclusionsGroups[0];
-        expect(exclusionsHandler.isExcluded('http://example.org')).toEqual(true);
+        const exclusionsGroup = exclusionsData.exclusionsGroups[0];
+        expect(exclusionsHandler.isExcluded('http://example.org')).toBeTruthy();
+        expect(exclusionsData.exclusionsGroups[0].state).toEqual(State.Enabled);
 
-        // TODO finish test (add method toggle ExclusionsGroup state)
-        // exclusionsHandler.toggleExclusion(exclusion.id);
-        // exclusionsList = exclusionsHandler.getExclusionsList();
-        // expect(exclusionsList.length).toEqual(1);
-        // expect(exclusionsList[0].enabled).toBeFalsy();
-        // expect(exclusionsList[0].hostname).toEqual('example.org');
-        // expect(exclusionsHandler.isExcluded('http://example.org')).toEqual(false);
+        exclusionsHandler.toggleExclusionsGroupState(exclusionsGroup.id);
+        exclusionsData = exclusionsHandler.getExclusions();
+        expect(exclusionsData.exclusionsGroups).toHaveLength(1);
+        expect(exclusionsData.exclusionsGroups[0].state).toEqual(State.Disabled);
+        expect(exclusionsData.exclusionsGroups[0].hostname).toEqual('example.org');
+        expect(exclusionsHandler.isExcluded('http://example.org')).toBeFalsy();
     });
 
-    // TODO finish test (add method toggle ExclusionsGroup state)
-    // it('should toggle correctly', () => {
-    //     exclusionsHandler.addUrlToExclusions('http://example.org');
-    //     const exclusionsList = exclusionsHandler.getExclusions();
-    //     expect(exclusionsList.length).toEqual(1);
-    //     expect(exclusionsHandler.isExcluded('http://example.org')).toBeTruthy();
-    //     exclusionsHandler.toggleExclusion(exclusionsList[0].id);
-    //     expect(exclusionsHandler.isExcluded('http://example.org')).toBeFalsy();
-    //     exclusionsHandler.toggleExclusion(exclusionsList[0].id);
-    //     expect(exclusionsHandler.isExcluded('http://example.org')).toBeTruthy();
-    // });
+    it('should toggle correctly', () => {
+        exclusionsHandler.addUrlToExclusions('http://example.org');
+        const exclusionsData = exclusionsHandler.getExclusions();
+        expect(exclusionsData.exclusionsGroups).toHaveLength(1);
+        expect(exclusionsHandler.isExcluded('http://example.org')).toBeTruthy();
+        exclusionsHandler.toggleExclusionsGroupState(exclusionsData.exclusionsGroups[0].id);
+        expect(exclusionsHandler.isExcluded('http://example.org')).toBeFalsy();
+        exclusionsHandler.toggleExclusionsGroupState(exclusionsData.exclusionsGroups[0].id);
+        expect(exclusionsHandler.isExcluded('http://example.org')).toBeTruthy();
+    });
 
     it('should add more than one correctly', async () => {
         await exclusionsHandler.addUrlToExclusions('http://example.org');

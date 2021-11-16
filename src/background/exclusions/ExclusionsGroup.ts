@@ -144,9 +144,20 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
     toggleExclusionsGroupState() {
         if (this.state === State.Enabled || this.state === State.PartlyEnabled) {
             this.state = State.Disabled;
+            this.setSubdomainsState(false);
         } else {
             this.state = State.Enabled;
+            this.setSubdomainsState(true);
         }
-        // TODO: handle subdomains states ..??
+    }
+
+    /**
+     * Sets provided state for all subdomains
+     */
+    setSubdomainsState(enabled: boolean) {
+        this.exclusions.forEach((exclusion) => {
+            // eslint-disable-next-line no-param-reassign
+            exclusion.enabled = enabled;
+        });
     }
 }

@@ -37,8 +37,8 @@ interface ExclusionsManagerInterface {
     removeExclusionsGroup(id: string): void;
     addSubdomainToExclusionsGroup(id: string, subdomain: string): void;
     removeSubdomainFromExclusionsGroup(id: string, subdomain: string): void;
-    // toggle ExclusionsGroup state
-    // toggle ExclusionsGroup exclusion state
+    toggleExclusionsGroupState(id: string): void;
+    // toggle ExclusionsGroup subdomain state
 
     addIp(ip: string): void;
     removeIp(ip: string): void;
@@ -200,6 +200,15 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
         this.exclusionsGroups.forEach((exclusionsGroup: ExclusionsGroup) => {
             if (exclusionsGroup.id === exclusionsGroupId) {
                 exclusionsGroup.removeSubdomain(subdomainId);
+            }
+        });
+        await this.updateHandler();
+    }
+
+    async toggleExclusionsGroupState(exclusionsGroupId: string) {
+        this.exclusionsGroups.forEach((exclusionsGroup: ExclusionsGroup) => {
+            if (exclusionsGroup.id === exclusionsGroupId) {
+                exclusionsGroup.toggleExclusionsGroupState();
             }
         });
         await this.updateHandler();
