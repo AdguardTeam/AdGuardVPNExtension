@@ -1,10 +1,10 @@
-import { ExclusionsGroup } from './ExclusionsGroup';
+import { ExclusionsGroup, State } from './ExclusionsGroup';
 import { Exclusion } from './Exclusion';
 import { Service } from './Service';
 import { servicesManager } from './ServicesManager';
 import { log } from '../../lib/logger';
-// import { getHostname } from '../../lib/helpers';
-// import { areHostnamesEqual, shExpMatch } from '../../lib/string-utils';
+import { getHostname } from '../../lib/helpers';
+import { areHostnamesEqual, shExpMatch } from '../../lib/string-utils';
 
 interface ExclusionsData {
     excludedServices: Service[],
@@ -186,44 +186,48 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
     }
 
     /**
-     * Returns exclusion by url
+     * Checks if there are enabled exclusions for provided url
      * @param url
      * @param includeWildcards
+     * @return boolean
      */
-    getExclusionsByUrl = (url: string, includeWildcards = true) => {
-        // const hostname = getHostname(url);
-        // if (!hostname) {
-        //     return undefined;
-        // }
-        // debugger;
-        // const ips = this.excludedIps
-        //     .filter((exclusion) => areHostnamesEqual(hostname, exclusion.hostname)
-        //         || (includeWildcards && shExpMatch(hostname, exclusion.hostname)));
-        //
-        // const groups = this.exclusionsGroups.map((group) => {
-        //     return group.exclusions.filter((exclusion) => areHostnamesEqual(hostname, exclusion.hostname)
-        //         || (includeWildcards && shExpMatch(hostname, exclusion.hostname)));
-        // });
-        //
+    checkEnabledExclusionsByUrl = (url: string, includeWildcards = true) => {
+        const hostname = getHostname(url);
+        if (!hostname) {
+            return undefined;
+        }
+
+        const enabledIpsByUrl = this.excludedIps
+            .filter((exclusion) => {
+                return (areHostnamesEqual(hostname, exclusion.hostname)
+                    || (includeWildcards && shExpMatch(hostname, exclusion.hostname)))
+                    && exclusion.enabled;
+            });
+
+        const enabledGroupsByUrl = this.exclusionsGroups.filter((group) => {
+            return group.exclusions.some((exclusion) => {
+                return (group.state === State.Enabled || group.state === State.PartlyEnabled)
+                    && (areHostnamesEqual(hostname, exclusion.hostname)
+                        || (includeWildcards && shExpMatch(hostname, exclusion.hostname)))
+                    && exclusion.enabled;
+            });
+        });
+
         // const services = this.excludedServices.map((service) => {
         //     return service.exclusionsGroups.map((group) => {
         //         return group.exclusions.filter((exclusion) => areHostnamesEqual(hostname, exclusion.hostname)
         //             || (includeWildcards && shExpMatch(hostname, exclusion.hostname)));
         //     });
         // });
-        //
-        // const result = [...ips, ...groups, ...services].flat();
-        //
-        return [];
+
+        return !!([...enabledIpsByUrl, ...enabledGroupsByUrl].length);
     };
 
     isExcluded = (url: string) => {
         if (!url) {
             return false;
         }
-
-        const exclusions = this.getExclusionsByUrl(url);
-        return exclusions.some((exclusion) => exclusion.enabled);
+        return this.checkEnabledExclusionsByUrl(url);
     };
 
     clearExclusionsData() {

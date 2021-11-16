@@ -65,7 +65,7 @@ class Exclusions {
         const exclusionsData = this.current.getExclusions();
 
         // eslint-disable-next-line array-callback-return
-        const enabledServices = exclusionsData.excludedServices.map((service) => {
+        const enabledServicesHostnames = exclusionsData.excludedServices.map((service) => {
             // TODO: handle state
             // eslint-disable-next-line consistent-return,array-callback-return
             service.exclusionsGroups.map((group) => {
@@ -77,20 +77,22 @@ class Exclusions {
             });
         });
 
-        // eslint-disable-next-line consistent-return,array-callback-return
-        const enabledGroups = exclusionsData.exclusionsGroups.map((group) => {
-            if (group.state === State.Enabled || group.state === State.PartlyEnabled) {
-                return group.exclusions
-                    .filter(({ enabled }) => enabled)
-                    .map(({ hostname }) => hostname);
-            }
+        const enabledGroupsHostnames = exclusionsData.exclusionsGroups.map((group) => {
+            return group.exclusions.filter((exclusion) => {
+                return (group.state === State.Enabled || group.state === State.PartlyEnabled)
+                    && exclusion.enabled;
+            }).map(({ hostname }) => hostname);
         });
 
         const enabledIps = exclusionsData.excludedIps
             .filter(({ enabled }) => enabled)
             .map(({ hostname }) => hostname);
 
-        const enabledExclusions = [...enabledServices, ...enabledGroups, ...enabledIps].flat();
+        const enabledExclusions = [
+            ...enabledServicesHostnames,
+            ...enabledGroupsHostnames,
+            ...enabledIps,
+        ].flat();
 
         await this.proxy
             .setBypassList(enabledExclusions, this.inverted);
