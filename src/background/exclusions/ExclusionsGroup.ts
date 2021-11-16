@@ -73,7 +73,7 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
         this.exclusions.push(exclusion);
 
         // disable subdomains pattern exclusion (*.domain.com)
-        this.setSubdomainState(this.subdomainsPattern(this.hostname), false);
+        this.setSubdomainStateByUrl(this.subdomainsPattern(this.hostname), false);
     }
 
     /**
@@ -84,12 +84,24 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
     }
 
     /**
-     * Sets state for provided subdomain
-     * TODO: refactor to remove this method and use toggleSubdomainState() instead
+     * Sets state for provided subdomain by url
      */
-    setSubdomainState(url: string, enabled: boolean) {
+    setSubdomainStateByUrl(url: string, enabled: boolean) {
         this.exclusions.forEach((exclusion) => {
             if (exclusion.hostname === url) {
+                // eslint-disable-next-line no-param-reassign
+                exclusion.enabled = enabled;
+            }
+        });
+        this.updateExclusionsGroupState();
+    }
+
+    /**
+     * Sets state for provided subdomain by id
+     */
+    setSubdomainStateById(id: string, enabled: boolean) {
+        this.exclusions.forEach((exclusion) => {
+            if (exclusion.id === id) {
                 // eslint-disable-next-line no-param-reassign
                 exclusion.enabled = enabled;
             }

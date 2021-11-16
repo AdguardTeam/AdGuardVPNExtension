@@ -27,13 +27,13 @@ const eventListeners = {};
 
 const getOptionsData = async () => {
     // ui debugging
-    exclusions.clearExclusions();
+    await exclusions.clearExclusions();
 
-    exclusions.regular?.addIp('94.100.180.200');
-    exclusions.regular?.addIp('333.333.333.333');
+    await exclusions.regular?.addIp('94.100.180.200');
+    await exclusions.regular?.addIp('333.333.333.333');
     // exclusions.regular?.addExclusionsGroup('dnsleaktest.com');
-    exclusions.regular?.addExclusionsGroup('test.com');
-    exclusions.regular?.addExclusionsGroup('example.org');
+    await exclusions.regular?.addExclusionsGroup('test.com');
+    await exclusions.regular?.addExclusionsGroup('example.org');
     // exclusions.regular?.addService('facebook');
 
     exclusions.selective?.addIp('192.177.15.12');

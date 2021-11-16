@@ -51,8 +51,7 @@ class Exclusions {
 
         notifier.addSpecifiedListener(notifier.types.NON_ROUTABLE_DOMAIN_ADDED, (payload) => {
             if (this.currentHandler.mode === this.MODES.REGULAR) {
-                // TODO handle properly
-                this.currentHandler.addToExclusions(payload, true, { forceEnable: false });
+                this.currentHandler.addUrlToExclusions(payload);
             }
         });
 
@@ -219,9 +218,9 @@ class Exclusions {
         return this.inverted;
     }
 
-    clearExclusions() {
-        this.regular.clearExclusionsData();
-        this.selective.clearExclusionsData();
+    async clearExclusions() {
+        await this.regular.clearExclusionsData();
+        await this.selective.clearExclusionsData();
         const emptyExclusions = {
             inverted: this.inverted,
             [this.MODES.SELECTIVE]: {
