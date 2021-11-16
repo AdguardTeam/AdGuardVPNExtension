@@ -27,19 +27,17 @@ const eventListeners = {};
 
 const getOptionsData = async () => {
     // ui debugging
-    exclusions.regular.clearExclusionsData();
-    exclusions.selective.clearExclusionsData();
-    //
-    // exclusions.regular?.addIp('192.168.11.11');
-    // exclusions.regular?.addExclusionsGroup('dnsleaktest.com');
-    // exclusions.regular?.addExclusionsGroup('test.com');
-    // exclusions.regular?.addExclusionsGroup('example.org');
+    exclusions.clearExclusions();
+
+    exclusions.regular?.addIp('192.168.11.11');
+    exclusions.regular?.addExclusionsGroup('dnsleaktest.com');
+    exclusions.regular?.addExclusionsGroup('test.com');
+    exclusions.regular?.addExclusionsGroup('example.org');
     // exclusions.regular?.addService('facebook');
-    //
-    // exclusions.selective?.addIp('192.177.15.12');
-    // exclusions.selective?.addExclusionsGroup('yandex.ru');
-    // exclusions.selective?.addExclusionsGroup('google.com');
-    // exclusions.selective?.addExclusionsGroup('dnsleaktest.com');
+
+    exclusions.selective?.addIp('192.177.15.12');
+    exclusions.selective?.addExclusionsGroup('yandex.ru');
+    exclusions.selective?.addExclusionsGroup('google.com');
     // exclusions.selective?.addService('github');
 
     const appVersion = appStatus.version;

@@ -216,6 +216,25 @@ class Exclusions {
     isInverted() {
         return this.inverted;
     }
+
+    clearExclusions() {
+        this.regular.clearExclusionsData();
+        this.selective.clearExclusionsData();
+        const emptyExclusions = {
+            inverted: this.inverted,
+            [this.MODES.SELECTIVE]: {
+                excludedServices: [],
+                exclusionsGroups: [],
+                excludedIps: [],
+            },
+            [this.MODES.REGULAR]: {
+                excludedServices: [],
+                exclusionsGroups: [],
+                excludedIps: [],
+            },
+        };
+        this.settings.setExclusions(emptyExclusions);
+    }
 }
 
 export default Exclusions;
