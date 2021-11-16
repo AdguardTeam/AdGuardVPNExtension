@@ -58,8 +58,8 @@ describe('ExclusionsManager', () => {
     });
 
     it('should return false if hostname is NOT in exclusions', () => {
-        expect(exclusionsHandler.isExcluded('http://example.org')).toEqual(false);
-        expect(exclusionsHandler.isExcluded('xn--b1aew.xn--p1ai/')).toEqual(false);
+        expect(exclusionsHandler.isExcluded('http://example.org')).toBeFalsy();
+        expect(exclusionsHandler.isExcluded('xn--b1aew.xn--p1ai/')).toBeFalsy();
     });
 
     it('should return true if hostname is IN exclusions', async () => {
@@ -68,8 +68,8 @@ describe('ExclusionsManager', () => {
         const exclusionsData = exclusionsHandler.getExclusions();
 
         expect(exclusionsData.exclusionsGroups).toHaveLength(2);
-        expect(exclusionsHandler.isExcluded('http://example.org')).toEqual(true);
-        expect(exclusionsHandler.isExcluded('https://xn--b1aew.xn--p1ai/contacts')).toEqual(true);
+        expect(exclusionsHandler.isExcluded('http://example.org')).toBeTruthy();
+        expect(exclusionsHandler.isExcluded('https://xn--b1aew.xn--p1ai/contacts')).toBeTruthy();
     });
 
     it('should return false if hostname is IN exclusions and is not enabled', () => {
@@ -233,7 +233,7 @@ describe('ExclusionsManager', () => {
             .some((exclusion) => exclusion.hostname === 'test.github.com')).toBeFalsy();
     });
 
-    it('toggle ips, exclusions and services state test', async () => {
+    it('toggle ip state', async () => {
         await exclusionsHandler.addIp('192.100.50.33');
         let exclusionsData = exclusionsHandler.getExclusions();
 
@@ -252,26 +252,44 @@ describe('ExclusionsManager', () => {
         expect(exclusionsData.excludedIps[0].enabled).toBeTruthy();
     });
 
-    it('subdomains states on adding duplicated exclusions group', () => {
-        exclusionsHandler.addExclusionsGroup('test.com');
+    it('subdomains states on toggling exclusions group state and adding duplicated group', () => {
+        exclusionsHandler.addExclusionsGroup('example.org');
         let exclusionsData = exclusionsHandler.getExclusions();
+        expect(exclusionsData.exclusionsGroups[0].state).toEqual(State.Enabled);
         const groupId = exclusionsData.exclusionsGroups[0].id;
         // add subdomain
-        exclusionsHandler.addSubdomainToExclusionsGroup(groupId, 'example');
+        exclusionsHandler.addSubdomainToExclusionsGroup(groupId, 'test');
+        expect(exclusionsHandler.isExcluded('http://test.example.org')).toBeTruthy();
+
         exclusionsData = exclusionsHandler.getExclusions();
         expect(exclusionsData.exclusionsGroups).toHaveLength(1);
         expect(exclusionsData.exclusionsGroups[0].state).toEqual(State.PartlyEnabled);
         expect(exclusionsData.exclusionsGroups[0].exclusions).toHaveLength(3);
-        expect(exclusionsData.exclusionsGroups[0].exclusions[1].hostname).toEqual('*.test.com');
+        expect(exclusionsData.exclusionsGroups[0].exclusions[1].hostname).toEqual('*.example.org');
         // subdomains pattern state should be disabled after adding subdomain
         expect(exclusionsData.exclusionsGroups[0].exclusions[1].enabled).toBeFalsy();
 
+        // toggle group state
+        exclusionsHandler.toggleExclusionsGroupState(groupId);
+        exclusionsData = exclusionsHandler.getExclusions();
+        expect(exclusionsData.exclusionsGroups).toHaveLength(1);
+        expect(exclusionsData.exclusionsGroups[0].state).toEqual(State.Disabled);
+        expect(exclusionsHandler.isExcluded('http://test.example.org')).toBeFalsy();
+        expect(exclusionsHandler.isExcluded('www.example.org')).toBeFalsy();
+
+        exclusionsData.exclusionsGroups[0].exclusions.forEach((exclusion) => {
+            // all subdomain should be disabled after disabling exclusions group
+            expect(exclusion.enabled).toBeFalsy();
+        });
+
         // add duplicated exclusions group
-        exclusionsHandler.addExclusionsGroup('test.com');
+        exclusionsHandler.addExclusionsGroup('example.org');
         exclusionsData = exclusionsHandler.getExclusions();
 
         expect(exclusionsData.exclusionsGroups).toHaveLength(1);
         expect(exclusionsData.exclusionsGroups[0].state).toEqual(State.Enabled);
+        expect(exclusionsHandler.isExcluded('http://test.example.org')).toBeTruthy();
+        expect(exclusionsHandler.isExcluded('www.example.org')).toBeTruthy();
         expect(exclusionsData.exclusionsGroups[0].exclusions).toHaveLength(3);
         exclusionsData.exclusionsGroups[0].exclusions.forEach((exclusion) => {
             // all subdomain should be enabled after adding duplicated exclusions group
