@@ -17,6 +17,7 @@ interface ExclusionsData {
 }
 
 interface ExclusionsManagerInterface {
+    // methods for services
     addService(serviceId: string): void;
     removeService(serviceId: string): void;
     addSubdomainToServiceExclusionsGroup(
@@ -29,20 +30,31 @@ interface ExclusionsManagerInterface {
         exclusionsGroupId: string,
         subdomainId: string,
     ): void;
-    // toggle service state
-    // toggle service ExclusionsGroup state
-    // toggle service ExclusionsGroup exclusion state
+    // toggleServiceState
 
+    // toggleExclusionsGroupStateInService
+    // or replace with universal method for ExclusionsGroup and Service
+
+    // toggleSubdomainStateInExclusionsGroupInService
+    // or replace with universal method for ExclusionsGroup and Service
+
+    // methods for groups
     addExclusionsGroup(hostname: string): void;
     removeExclusionsGroup(id: string): void;
     addSubdomainToExclusionsGroup(id: string, subdomain: string): void;
-    removeSubdomainFromExclusionsGroup(id: string, subdomain: string): void;
+    removeSubdomainFromExclusionsGroup(exclusionsGroupId: string, subdomainId: string): void;
     toggleExclusionsGroupState(id: string): void;
-    // toggle ExclusionsGroup subdomain state
+    toggleSubdomainStateInExclusionsGroup(exclusionsGroupId: string, subdomainId: string): void;
 
+    // methods for ips
     addIp(ip: string): void;
     removeIp(ip: string): void;
     toggleIpState(id: string): void;
+
+    // common methods
+    getExclusions(): ExclusionsData;
+    addUrlToExclusions(url: string): void;
+    isExcluded(url: string): boolean|undefined;
 }
 
 export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInterface {
@@ -209,6 +221,15 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
         this.exclusionsGroups.forEach((exclusionsGroup: ExclusionsGroup) => {
             if (exclusionsGroup.id === exclusionsGroupId) {
                 exclusionsGroup.toggleExclusionsGroupState();
+            }
+        });
+        await this.updateHandler();
+    }
+
+    async toggleSubdomainStateInExclusionsGroup(exclusionsGroupId: string, subdomainId: string) {
+        this.exclusionsGroups.forEach((exclusionsGroup: ExclusionsGroup) => {
+            if (exclusionsGroup.id === exclusionsGroupId) {
+                exclusionsGroup.toggleSubdomainState(subdomainId);
             }
         });
         await this.updateHandler();

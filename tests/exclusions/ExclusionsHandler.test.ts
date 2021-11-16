@@ -296,4 +296,33 @@ describe('ExclusionsManager', () => {
             expect(exclusion.enabled).toBeTruthy();
         });
     });
+
+    it('toggle subdomains state in exclusions group', () => {
+        exclusionsHandler.addExclusionsGroup('example.org');
+        let exclusionsData = exclusionsHandler.getExclusions();
+        const groupId = exclusionsData.exclusionsGroups[0].id;
+        // add subdomain
+        exclusionsHandler.addSubdomainToExclusionsGroup(groupId, 'test');
+        expect(exclusionsHandler.isExcluded('http://test.example.org')).toBeTruthy();
+
+        exclusionsData = exclusionsHandler.getExclusions();
+        expect(exclusionsData.exclusionsGroups[0].exclusions).toHaveLength(3);
+        expect(exclusionsData.exclusionsGroups[0].exclusions[2].hostname).toEqual('test.example.org');
+        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled).toBeTruthy();
+        // *.example.org should be disabled
+        expect(exclusionsData.exclusionsGroups[0].exclusions[1].enabled).toBeFalsy();
+
+        const subdomain1Id = exclusionsData.exclusionsGroups[0].exclusions[0].id;
+        const subdomain3Id = exclusionsData.exclusionsGroups[0].exclusions[2].id;
+        // disable all subdomains
+        exclusionsHandler.toggleSubdomainStateInExclusionsGroup(groupId, subdomain1Id);
+        exclusionsHandler.toggleSubdomainStateInExclusionsGroup(groupId, subdomain3Id);
+
+        exclusionsData = exclusionsHandler.getExclusions();
+        expect(exclusionsData.exclusionsGroups[0].exclusions[0].enabled).toBeFalsy();
+        expect(exclusionsData.exclusionsGroups[0].exclusions[1].enabled).toBeFalsy();
+        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled).toBeFalsy();
+        // exclusions group should be disabled
+        expect(exclusionsData.exclusionsGroups[0].state).toEqual(State.Disabled);
+    });
 });
