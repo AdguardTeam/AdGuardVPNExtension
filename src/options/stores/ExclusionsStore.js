@@ -1,7 +1,9 @@
 import {
     action,
     observable,
+    computed,
 } from 'mobx';
+
 import { EXCLUSIONS_MODES } from '../../common/exclusionsConstants';
 import messenger from '../../lib/messenger';
 
@@ -25,11 +27,13 @@ export class ExclusionsStore {
 
     @action
     setServicesData = (servicesData) => {
+        console.log(servicesData);
         this.servicesData = servicesData;
     }
 
     @action
     setExclusionsData = (exclusionsData) => {
+        console.log(exclusionsData);
         this.exclusions = exclusionsData;
         this.currentMode = exclusionsData.currentMode;
     }
@@ -47,6 +51,17 @@ export class ExclusionsStore {
     @action
     getExcludedIpsList = (mode) => {
         return this.exclusions[mode].excludedIps.map((ip) => ip.hostname);
+    }
+
+    @computed
+    get preparedExclusions() {
+        // FIXME what sorting should be?
+        const currentModeExclusions = this.exclusions[this.currentMode];
+        const services = currentModeExclusions.excludedServices.map((service) => service.serviceName);
+        const groups = currentModeExclusions.exclusionsGroups.map((group) => group.hostname);
+        const excludedIps = currentModeExclusions.excludedIps.map((ip) => ip.hostname);
+
+        return [...services, ...groups, ...excludedIps];
     }
 
     @action
