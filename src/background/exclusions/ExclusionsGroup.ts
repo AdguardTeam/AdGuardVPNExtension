@@ -1,8 +1,8 @@
-import {nanoid} from 'nanoid';
+import { nanoid } from 'nanoid';
 
-import {Exclusion} from './Exclusion';
-import {prepareUrl} from '../../lib/helpers';
-import {STATE} from '../../common/exclusionsConstants';
+import { Exclusion } from './Exclusion';
+import { prepareUrl } from '../../lib/helpers';
+import { STATE } from '../../common/exclusionsConstants';
 
 export interface ExclusionsGroupInterface {
     id: string;

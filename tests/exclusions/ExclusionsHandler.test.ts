@@ -343,8 +343,10 @@ describe('ExclusionsManager', () => {
         expect(exclusionsData.excludedServices[0].state).toEqual(STATE.Enabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].hostname).toEqual('facebook.com');
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].state).toEqual(STATE.Enabled);
-        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[0].enabled).toBeTruthy();
-        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[1].enabled).toBeTruthy();
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[0]
+            .enabled).toBeTruthy();
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[1]
+            .enabled).toBeTruthy();
         expect(exclusionsData.excludedServices[0].exclusionsGroups[1].state).toEqual(STATE.Enabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[2].state).toEqual(STATE.Enabled);
 
@@ -353,10 +355,15 @@ describe('ExclusionsManager', () => {
         exclusionsData = exclusionsHandler.getExclusions();
         // everything should become disabled
         expect(exclusionsData.excludedServices[0].state).toEqual(STATE.Disabled);
-        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].state).toEqual(STATE.Disabled);
-        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[0].enabled).toBeFalsy();
-        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[1].enabled).toBeFalsy();
-        expect(exclusionsData.excludedServices[0].exclusionsGroups[1].state).toEqual(STATE.Disabled);
-        expect(exclusionsData.excludedServices[0].exclusionsGroups[2].state).toEqual(STATE.Disabled);
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].state)
+            .toEqual(STATE.Disabled);
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[0].enabled)
+            .toBeFalsy();
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[1].enabled)
+            .toBeFalsy();
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[1].state)
+            .toEqual(STATE.Disabled);
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[2].state)
+            .toEqual(STATE.Disabled);
     });
 });
