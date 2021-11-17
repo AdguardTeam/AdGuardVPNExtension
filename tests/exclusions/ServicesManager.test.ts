@@ -76,6 +76,7 @@ const ALIEXPRESS_SERVICE_DATA = {
     categories: ['SHOP'],
     iconUrl: 'https://icons.adguard.org/icon?domain=aliexpress.com',
     modifiedTime: '2021-09-14T10:23:00+0000',
+    state: STATE.Enabled,
     exclusionsGroups: [
         {
             id: 'zzzzzzzzz',

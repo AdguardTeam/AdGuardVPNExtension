@@ -1,8 +1,8 @@
-import { nanoid } from 'nanoid';
+import {nanoid} from 'nanoid';
 
-import { Exclusion } from './Exclusion';
-import { prepareUrl } from '../../lib/helpers';
-import { STATE } from '../../common/exclusionsConstants';
+import {Exclusion} from './Exclusion';
+import {prepareUrl} from '../../lib/helpers';
+import {STATE} from '../../common/exclusionsConstants';
 
 export interface ExclusionsGroupInterface {
     id: string;
@@ -137,6 +137,22 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
             this.state = STATE.Enabled;
             this.setSubdomainsState(true);
         }
+    }
+
+    /**
+     * Enables ExclusionsGroup
+     */
+    enableExclusionsGroup() {
+        this.state = STATE.Enabled;
+        this.setSubdomainsState(true);
+    }
+
+    /**
+     * Disables ExclusionsGroup
+     */
+    disableExclusionsGroup() {
+        this.state = STATE.Disabled;
+        this.setSubdomainsState(false);
     }
 
     /**

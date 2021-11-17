@@ -99,11 +99,10 @@ class ExclusionsManager implements ExclusionsInfo {
             // TODO: handle state
             // eslint-disable-next-line consistent-return,array-callback-return
             service.exclusionsGroups.map((group) => {
-                if (group.state === STATE.Enabled || group.state === STATE.PartlyEnabled) {
-                    return group.exclusions
+                return (group.state === STATE.Enabled || group.state === STATE.PartlyEnabled)
+                    && group.exclusions
                         .filter(({ enabled }) => enabled)
                         .map(({ hostname }) => hostname);
-                }
             });
         });
 

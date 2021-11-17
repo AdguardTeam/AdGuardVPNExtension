@@ -29,7 +29,7 @@ interface ExclusionsManagerInterface {
         exclusionsGroupId: string,
         subdomainId: string,
     ): void;
-    // toggleServiceState
+    toggleServiceState(serviceId: string): void;
 
     // toggleExclusionsGroupStateInService
     // or replace with universal method for ExclusionsGroup and Service
@@ -98,7 +98,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
     async addService(serviceId: string) {
         if (this.excludedServices
             .some((excludedService: Service) => excludedService.serviceId === serviceId)) {
-            // TODO enable service
+            // TODO enable service and add test
             return;
         }
         const service = servicesManager.getService(serviceId);
@@ -145,6 +145,15 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
                         exclusionsGroup.removeSubdomain(subdomainId);
                     }
                 });
+            }
+        });
+        await this.updateHandler();
+    }
+
+    async toggleServiceState(serviceId: string) {
+        this.excludedServices.forEach((service: Service) => {
+            if (service.serviceId === serviceId) {
+                service.toggleServiceState();
             }
         });
         await this.updateHandler();

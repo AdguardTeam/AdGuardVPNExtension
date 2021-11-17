@@ -31,11 +31,40 @@ export class Service implements ServiceInterface {
         this.iconUrl = service.iconUrl;
         this.categories = service.categories;
         this.modifiedTime = service.modifiedTime;
-        this.exclusionsGroups = [];
+        this.exclusionsGroups = service.exclusionsGroups || [];
+        this.state = STATE.Enabled;
     }
 
     addExclusionsGroup(hostname: string) {
         const exclusionsGroups = new ExclusionsGroup(hostname);
         this.exclusionsGroups.push(exclusionsGroups);
+    }
+
+    /**
+     * Enables all ExclusionsGroups
+     */
+    enableExclusionsGroups() {
+        this.exclusionsGroups.forEach((group: ExclusionsGroup) => {
+            group.enableExclusionsGroup();
+        });
+    }
+
+    /**
+     * Disables all ExclusionsGroups
+     */
+    disableExclusionsGroups() {
+        this.exclusionsGroups.forEach((group: ExclusionsGroup) => {
+            group.disableExclusionsGroup();
+        });
+    }
+
+    toggleServiceState() {
+        if (this.state === STATE.Enabled || this.state === STATE.PartlyEnabled) {
+            this.state = STATE.Disabled;
+            this.disableExclusionsGroups();
+        } else {
+            this.state = STATE.Enabled;
+            this.enableExclusionsGroups();
+        }
     }
 }
