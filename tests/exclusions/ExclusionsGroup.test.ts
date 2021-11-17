@@ -1,4 +1,5 @@
-import { ExclusionsGroup, State } from '../../src/background/exclusions/ExclusionsGroup';
+import { ExclusionsGroup } from '../../src/background/exclusions/ExclusionsGroup';
+import { STATE } from '../../src/common/exclusionsConstants';
 
 // TODO fine tune tsconfig.json
 describe('ExclusionsGroup', () => {
@@ -60,14 +61,14 @@ describe('ExclusionsGroup', () => {
 
     it('Exclusions group and subdomain states', () => {
         const exampleGroup = new ExclusionsGroup('example.org');
-        expect(exampleGroup.state).toEqual(State.Enabled);
+        expect(exampleGroup.state).toEqual(STATE.Enabled);
         exampleGroup.addSubdomain('test');
 
         expect(exampleGroup.exclusions[1].hostname).toEqual('*.example.org');
         // `*.example.org` state should be disabled after adding subdomain
         expect(exampleGroup.exclusions[1].enabled).toBeFalsy();
         // group state should be PartlyEnabled
-        expect(exampleGroup.state).toEqual(State.PartlyEnabled);
+        expect(exampleGroup.state).toEqual(STATE.PartlyEnabled);
         expect(exampleGroup.exclusions[2].hostname).toEqual('test.example.org');
 
         // disable all domains
@@ -77,11 +78,11 @@ describe('ExclusionsGroup', () => {
         expect(exampleGroup.exclusions[1].enabled).toBeFalsy();
         expect(exampleGroup.exclusions[2].enabled).toBeFalsy();
         // group state should be disabled
-        expect(exampleGroup.state).toEqual(State.Disabled);
+        expect(exampleGroup.state).toEqual(STATE.Disabled);
         // enable some domain
         exampleGroup.toggleSubdomainState(exampleGroup.exclusions[2].id);
         expect(exampleGroup.exclusions[2].enabled).toBeTruthy();
         // group state should be partly enabled
-        expect(exampleGroup.state).toEqual(State.PartlyEnabled);
+        expect(exampleGroup.state).toEqual(STATE.PartlyEnabled);
     });
 });

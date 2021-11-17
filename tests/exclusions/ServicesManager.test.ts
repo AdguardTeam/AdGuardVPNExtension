@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid';
 
 import { servicesManager } from '../../src/background/exclusions/ServicesManager';
 import vpnProvider from '../../src/background/providers/vpnProvider';
-import { State } from '../../src/background/exclusions/ExclusionsGroup';
+import { STATE } from '../../src/common/exclusionsConstants';
 
 jest.mock('../../src/background/providers/vpnProvider');
 jest.mock('nanoid');
@@ -92,7 +92,7 @@ const ALIEXPRESS_SERVICE_DATA = {
                     hostname: '*.aliexpress.com',
                 },
             ],
-            state: State.Enabled,
+            state: STATE.Enabled,
         },
         {
             id: 'zzzzzzzzz',
@@ -109,7 +109,7 @@ const ALIEXPRESS_SERVICE_DATA = {
                     hostname: '*.aliexpress.ru',
                 },
             ],
-            state: State.Enabled,
+            state: STATE.Enabled,
         },
     ],
 };

@@ -3,3 +3,9 @@ export enum EXCLUSIONS_MODES {
     SELECTIVE = 'selective',
     REGULAR = 'regular',
 }
+
+export enum STATE {
+    Enabled = 'enabled',
+    PartlyEnabled = 'partly.enabled',
+    Disabled = 'disabled',
+}

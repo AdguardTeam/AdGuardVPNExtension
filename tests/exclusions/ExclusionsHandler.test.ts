@@ -1,6 +1,7 @@
 import { ExclusionsHandler } from '../../src/background/exclusions/ExclusionsHandler';
 import { servicesManager } from '../../src/background/exclusions/ServicesManager';
-import { ExclusionsGroup, State } from '../../src/background/exclusions/ExclusionsGroup';
+import { ExclusionsGroup } from '../../src/background/exclusions/ExclusionsGroup';
+import { STATE } from '../../src/common/exclusionsConstants';
 
 const exclusionsHandler = new ExclusionsHandler(() => {}, {
     excludedServices: [],
@@ -84,12 +85,12 @@ describe('ExclusionsManager', () => {
         // eslint-disable-next-line no-unused-vars
         const exclusionsGroup = exclusionsData.exclusionsGroups[0];
         expect(exclusionsHandler.isExcluded('http://example.org')).toBeTruthy();
-        expect(exclusionsData.exclusionsGroups[0].state).toEqual(State.Enabled);
+        expect(exclusionsData.exclusionsGroups[0].state).toEqual(STATE.Enabled);
 
         exclusionsHandler.toggleExclusionsGroupState(exclusionsGroup.id);
         exclusionsData = exclusionsHandler.getExclusions();
         expect(exclusionsData.exclusionsGroups).toHaveLength(1);
-        expect(exclusionsData.exclusionsGroups[0].state).toEqual(State.Disabled);
+        expect(exclusionsData.exclusionsGroups[0].state).toEqual(STATE.Disabled);
         expect(exclusionsData.exclusionsGroups[0].hostname).toEqual('example.org');
         expect(exclusionsHandler.isExcluded('http://example.org')).toBeFalsy();
     });
@@ -255,7 +256,7 @@ describe('ExclusionsManager', () => {
     it('subdomains states on toggling exclusions group state and adding duplicated group', () => {
         exclusionsHandler.addExclusionsGroup('example.org');
         let exclusionsData = exclusionsHandler.getExclusions();
-        expect(exclusionsData.exclusionsGroups[0].state).toEqual(State.Enabled);
+        expect(exclusionsData.exclusionsGroups[0].state).toEqual(STATE.Enabled);
         const groupId = exclusionsData.exclusionsGroups[0].id;
         // add subdomain
         exclusionsHandler.addSubdomainToExclusionsGroup(groupId, 'test');
@@ -263,7 +264,7 @@ describe('ExclusionsManager', () => {
 
         exclusionsData = exclusionsHandler.getExclusions();
         expect(exclusionsData.exclusionsGroups).toHaveLength(1);
-        expect(exclusionsData.exclusionsGroups[0].state).toEqual(State.PartlyEnabled);
+        expect(exclusionsData.exclusionsGroups[0].state).toEqual(STATE.PartlyEnabled);
         expect(exclusionsData.exclusionsGroups[0].exclusions).toHaveLength(3);
         expect(exclusionsData.exclusionsGroups[0].exclusions[1].hostname).toEqual('*.example.org');
         // subdomains pattern state should be disabled after adding subdomain
@@ -273,7 +274,7 @@ describe('ExclusionsManager', () => {
         exclusionsHandler.toggleExclusionsGroupState(groupId);
         exclusionsData = exclusionsHandler.getExclusions();
         expect(exclusionsData.exclusionsGroups).toHaveLength(1);
-        expect(exclusionsData.exclusionsGroups[0].state).toEqual(State.Disabled);
+        expect(exclusionsData.exclusionsGroups[0].state).toEqual(STATE.Disabled);
         expect(exclusionsHandler.isExcluded('http://test.example.org')).toBeFalsy();
         expect(exclusionsHandler.isExcluded('www.example.org')).toBeFalsy();
 
@@ -287,7 +288,7 @@ describe('ExclusionsManager', () => {
         exclusionsData = exclusionsHandler.getExclusions();
 
         expect(exclusionsData.exclusionsGroups).toHaveLength(1);
-        expect(exclusionsData.exclusionsGroups[0].state).toEqual(State.Enabled);
+        expect(exclusionsData.exclusionsGroups[0].state).toEqual(STATE.Enabled);
         expect(exclusionsHandler.isExcluded('http://test.example.org')).toBeTruthy();
         expect(exclusionsHandler.isExcluded('www.example.org')).toBeTruthy();
         expect(exclusionsData.exclusionsGroups[0].exclusions).toHaveLength(3);
@@ -323,6 +324,6 @@ describe('ExclusionsManager', () => {
         expect(exclusionsData.exclusionsGroups[0].exclusions[1].enabled).toBeFalsy();
         expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled).toBeFalsy();
         // exclusions group should be disabled
-        expect(exclusionsData.exclusionsGroups[0].state).toEqual(State.Disabled);
+        expect(exclusionsData.exclusionsGroups[0].state).toEqual(STATE.Disabled);
     });
 });

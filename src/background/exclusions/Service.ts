@@ -1,4 +1,5 @@
 import { ExclusionsGroup } from './ExclusionsGroup';
+import { STATE } from '../../common/exclusionsConstants';
 
 export interface ServiceInterface {
     serviceId: string;
@@ -22,7 +23,7 @@ export class Service implements ServiceInterface {
 
     exclusionsGroups: ExclusionsGroup[];
 
-    // TODO: add state
+    state: STATE;
 
     constructor(service: ServiceInterface) {
         this.serviceId = service.serviceId;

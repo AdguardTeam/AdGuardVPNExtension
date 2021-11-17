@@ -2,18 +2,13 @@ import { nanoid } from 'nanoid';
 
 import { Exclusion } from './Exclusion';
 import { prepareUrl } from '../../lib/helpers';
-
-export enum State {
-    Enabled = 'enabled',
-    PartlyEnabled = 'partly.enabled',
-    Disabled = 'disabled',
-}
+import { STATE } from '../../common/exclusionsConstants';
 
 export interface ExclusionsGroupInterface {
     id: string;
     hostname: string;
     exclusions: Exclusion[];
-    state: State;
+    state: STATE;
 }
 
 export class ExclusionsGroup implements ExclusionsGroupInterface {
@@ -23,14 +18,14 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
 
     exclusions: Exclusion[];
 
-    state: State;
+    state: STATE;
 
     constructor(hostname: string) {
         this.id = nanoid();
         this.hostname = prepareUrl(hostname);
         this.exclusions = [];
         this.addDefaultExclusions();
-        this.state = State.Enabled;
+        this.state = STATE.Enabled;
     }
 
     /**
@@ -123,11 +118,11 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
             .filter((exclusion: Exclusion) => exclusion.enabled);
 
         if (enabledExclusions.length === this.exclusions.length) {
-            this.state = State.Enabled;
+            this.state = STATE.Enabled;
         } else if (!enabledExclusions.length) {
-            this.state = State.Disabled;
+            this.state = STATE.Disabled;
         } else {
-            this.state = State.PartlyEnabled;
+            this.state = STATE.PartlyEnabled;
         }
     }
 
@@ -135,11 +130,11 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
      * Toggles ExclusionsGroup state
      */
     toggleExclusionsGroupState() {
-        if (this.state === State.Enabled || this.state === State.PartlyEnabled) {
-            this.state = State.Disabled;
+        if (this.state === STATE.Enabled || this.state === STATE.PartlyEnabled) {
+            this.state = STATE.Disabled;
             this.setSubdomainsState(false);
         } else {
-            this.state = State.Enabled;
+            this.state = STATE.Enabled;
             this.setSubdomainsState(true);
         }
     }

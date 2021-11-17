@@ -1,4 +1,5 @@
-import { ExclusionsGroup, State } from './ExclusionsGroup';
+import { ExclusionsGroup } from './ExclusionsGroup';
+import { STATE } from '../../common/exclusionsConstants';
 import { Exclusion } from './Exclusion';
 import { Service } from './Service';
 import { servicesManager } from './ServicesManager';
@@ -97,6 +98,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
     async addService(serviceId: string) {
         if (this.excludedServices
             .some((excludedService: Service) => excludedService.serviceId === serviceId)) {
+            // TODO enable service
             return;
         }
         const service = servicesManager.getService(serviceId);
@@ -267,7 +269,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
 
         const enabledGroupsByUrl = this.exclusionsGroups.filter((group) => {
             return group.exclusions.some((exclusion) => {
-                return (group.state === State.Enabled || group.state === State.PartlyEnabled)
+                return (group.state === STATE.Enabled || group.state === STATE.PartlyEnabled)
                     && (areHostnamesEqual(hostname, exclusion.hostname)
                         || (includeWildcards && shExpMatch(hostname, exclusion.hostname)))
                     && exclusion.enabled;

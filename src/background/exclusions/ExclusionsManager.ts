@@ -1,10 +1,10 @@
 import { ExclusionsHandler } from './ExclusionsHandler';
 import { log } from '../../lib/logger';
 import notifier from '../../lib/notifier';
-import { ExclusionsGroup, State } from './ExclusionsGroup';
+import { ExclusionsGroup } from './ExclusionsGroup';
 import { Exclusion } from './Exclusion';
 import { Service } from './Service';
-import { EXCLUSIONS_MODES } from '../../common/exclusionsConstants';
+import { EXCLUSIONS_MODES, STATE } from '../../common/exclusionsConstants';
 import { servicesManager } from './ServicesManager';
 
 interface ExclusionsInfo {
@@ -99,7 +99,7 @@ class ExclusionsManager implements ExclusionsInfo {
             // TODO: handle state
             // eslint-disable-next-line consistent-return,array-callback-return
             service.exclusionsGroups.map((group) => {
-                if (group.state === State.Enabled || group.state === State.PartlyEnabled) {
+                if (group.state === STATE.Enabled || group.state === STATE.PartlyEnabled) {
                     return group.exclusions
                         .filter(({ enabled }) => enabled)
                         .map(({ hostname }) => hostname);
@@ -110,7 +110,7 @@ class ExclusionsManager implements ExclusionsInfo {
         const enabledGroupsHostnames = exclusionsData.exclusionsGroups
             .map((group: ExclusionsGroup) => {
                 return group.exclusions.filter((exclusion) => {
-                    return (group.state === State.Enabled || group.state === State.PartlyEnabled)
+                    return (group.state === STATE.Enabled || group.state === STATE.PartlyEnabled)
                         && exclusion.enabled;
                 }).map(({ hostname }) => hostname);
             });
