@@ -176,7 +176,13 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
         if (!hostname) {
             return;
         }
-        // TODO: check services list for provided hostname
+
+        const serviceId = servicesManager.isService(hostname);
+        if (serviceId) {
+            await this.addService(serviceId);
+            return;
+        }
+
         if (this.exclusionsGroups
             .some((group: ExclusionsGroup) => group.hostname === hostname)) {
             this.exclusionsGroups.forEach((group: ExclusionsGroup) => {

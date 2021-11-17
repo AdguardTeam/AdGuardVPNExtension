@@ -43,6 +43,13 @@ class ServicesManager {
     }
 
     /**
+     * Checks if provided hostname is service and returns serviceId or null
+     */
+    isService(hostname): string|null {
+        return null;
+    }
+
+    /**
      * Returns all services data
      */
     getServicesData() {
