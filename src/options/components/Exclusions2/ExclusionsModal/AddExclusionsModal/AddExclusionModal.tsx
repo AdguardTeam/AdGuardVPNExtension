@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import { ExclusionsModal } from '../ExclusionsModal';
 import { rootStore } from '../../../../stores';
 import { AddExclusionMode } from '../../../../stores/ExclusionsStore';
-import { ServiceMode } from './ServiceMode';
+import { ServiceMode } from './ServiceMode/ServiceMode';
 import { ManualMode } from './ManualMode';
 
 export const AddExclusionModal = observer(() => {
@@ -29,17 +29,21 @@ export const AddExclusionModal = observer(() => {
 
     const ModeSelectButtons = {
         service: {
-            classname: classnames({enabled: exclusionsStore.addExclusionMode === AddExclusionMode.SERVICE})
+            classname: classnames({
+                enabled: exclusionsStore.addExclusionMode === AddExclusionMode.SERVICE,
+            }),
         },
         manual: {
-            classname: classnames({enabled: exclusionsStore.addExclusionMode === AddExclusionMode.MANUAL})
+            classname: classnames({
+                enabled: exclusionsStore.addExclusionMode === AddExclusionMode.MANUAL,
+            }),
         },
     };
 
     const MODE_MAP = {
         [AddExclusionMode.SERVICE]: () => <ServiceMode />,
         [AddExclusionMode.MANUAL]: () => <ManualMode />,
-    }
+    };
 
     const mode = MODE_MAP[exclusionsStore.addExclusionMode];
 

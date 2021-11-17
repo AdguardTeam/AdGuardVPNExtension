@@ -40,6 +40,8 @@ export class ExclusionsStore {
 
     @observable addExclusionMode = DEFAULT_ADD_EXCLUSION_MODE;
 
+    @observable unfoldedServiceCategories: string[] = [];
+
     // FIXME remove any
     @action
     setServicesData = (servicesData: any) => {
@@ -116,5 +118,51 @@ export class ExclusionsStore {
     @action
     setAddExclusionMode = (mode: AddExclusionMode) => {
         this.addExclusionMode = mode;
+    }
+
+    @computed
+    get preparedServicesData() {
+        // FIXME remove ts-ignore
+        // @ts-ignore
+        const categories = this.servicesData.reduce((acc, serviceData) => {
+            const { categories, serviceId } = serviceData;
+            // FIXME remove ts-ignore
+            // @ts-ignore
+            categories.forEach((category) => {
+                const foundCategory = acc[category];
+                if (!foundCategory) {
+                    acc[category] = { id: category, title: category, services: [serviceId] };
+                } else {
+                    foundCategory.services.push(serviceId);
+                }
+            });
+            return acc;
+        }, {});
+
+        // FIXME remove ts-ignore
+        // @ts-ignore
+        const services = this.servicesData.reduce((acc, serviceData) => {
+            const { serviceId } = serviceData;
+            acc[serviceId] = serviceData;
+            return acc;
+        }, {});
+
+        return {
+            categories,
+            services,
+        };
+    }
+
+    @action
+    toggleCategoryVisibility(id: string) {
+        const isUnfolded = this.unfoldedServiceCategories
+            .some((categoryId) => categoryId === id);
+
+        if (isUnfolded) {
+            this.unfoldedServiceCategories = this.unfoldedServiceCategories
+                .filter((categoryId) => categoryId !== id);
+        } else {
+            this.unfoldedServiceCategories.push(id);
+        }
     }
 }
