@@ -1,31 +1,46 @@
-// eslint-disable-next-line import/named
 import { ExclusionsHandler } from './ExclusionsHandler';
 import { log } from '../../lib/logger';
 import notifier from '../../lib/notifier';
-import { State } from './ExclusionsGroup';
+import { ExclusionsGroup, State } from './ExclusionsGroup';
+import { Exclusion } from './Exclusion';
+import { Service } from './Service';
 import { EXCLUSIONS_MODES } from '../../common/exclusionsConstants';
 import { servicesManager } from './ServicesManager';
 
-class Exclusions {
-    MODES = EXCLUSIONS_MODES;
+interface ExclusionsInfo {
+    inverted: boolean,
+    [EXCLUSIONS_MODES.SELECTIVE]: {
+        excludedServices: Service[],
+        exclusionsGroups: ExclusionsGroup[],
+        excludedIps: Exclusion[],
+    },
+    [EXCLUSIONS_MODES.REGULAR]: {
+        excludedServices: Service[],
+        exclusionsGroups: ExclusionsGroup[],
+        excludedIps: Exclusion[],
+    },
+}
 
-    exclusions: any;
-
+class Exclusions implements ExclusionsInfo {
     browser: any;
 
     proxy: any;
 
     settings: any;
 
+    MODES = EXCLUSIONS_MODES;
+
+    exclusions: ExclusionsInfo;
+
     inverted: boolean;
 
-    regularModeHandler: any;
+    regularModeHandler: ExclusionsHandler;
 
-    selectiveModeHandler: any;
+    selectiveModeHandler: ExclusionsHandler;
 
-    currentHandler: any;
+    currentHandler: ExclusionsHandler;
 
-    constructor(browser, proxy, settings) {
+    constructor(browser: {}, proxy: {}, settings: {}) {
         this.browser = browser;
         this.proxy = proxy;
         this.settings = settings;
@@ -80,7 +95,7 @@ class Exclusions {
         const exclusionsData = this.current.getExclusions();
 
         // eslint-disable-next-line array-callback-return
-        const enabledServicesHostnames = exclusionsData.excludedServices.map((service) => {
+        const enabledServicesHostnames = exclusionsData.excludedServices.map((service: Service) => {
             // TODO: handle state
             // eslint-disable-next-line consistent-return,array-callback-return
             service.exclusionsGroups.map((group) => {
@@ -92,12 +107,13 @@ class Exclusions {
             });
         });
 
-        const enabledGroupsHostnames = exclusionsData.exclusionsGroups.map((group) => {
-            return group.exclusions.filter((exclusion) => {
-                return (group.state === State.Enabled || group.state === State.PartlyEnabled)
-                    && exclusion.enabled;
-            }).map(({ hostname }) => hostname);
-        });
+        const enabledGroupsHostnames = exclusionsData.exclusionsGroups
+            .map((group: ExclusionsGroup) => {
+                return group.exclusions.filter((exclusion) => {
+                    return (group.state === State.Enabled || group.state === State.PartlyEnabled)
+                        && exclusion.enabled;
+                }).map(({ hostname }) => hostname);
+            });
 
         const enabledIps = exclusionsData.excludedIps
             .filter(({ enabled }) => enabled)
@@ -129,7 +145,7 @@ class Exclusions {
         this.settings.setExclusions(exclusionsRepository);
     };
 
-    async setCurrentMode(mode) {
+    async setCurrentMode(mode: EXCLUSIONS_MODES) {
         switch (mode) {
             case this.MODES.SELECTIVE: {
                 this.currentHandler = this.selectiveModeHandler;
@@ -147,7 +163,7 @@ class Exclusions {
         await this.handleExclusionsUpdate();
     }
 
-    getHandler(mode) {
+    getHandler(mode: EXCLUSIONS_MODES) {
         switch (mode) {
             case this.MODES.SELECTIVE: {
                 return this.selective;
