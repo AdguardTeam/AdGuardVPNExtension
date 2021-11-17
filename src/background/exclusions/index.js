@@ -1,9 +1,9 @@
 import browserApi from '../browserApi';
-import Exclusions from './Exclusions';
+import ExclusionsManager from './ExclusionsManager';
 import { proxy } from '../proxy';
 import { settings } from '../settings';
 
-const exclusions = new Exclusions(browserApi, proxy, settings);
+const exclusions = new ExclusionsManager(browserApi, proxy, settings);
 
 export default exclusions;
 

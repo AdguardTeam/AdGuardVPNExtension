@@ -21,7 +21,7 @@ interface ExclusionsInfo {
     },
 }
 
-class Exclusions implements ExclusionsInfo {
+class ExclusionsManager implements ExclusionsInfo {
     browser: any;
 
     proxy: any;
@@ -270,4 +270,4 @@ class Exclusions implements ExclusionsInfo {
     }
 }
 
-export default Exclusions;
+export default ExclusionsManager;

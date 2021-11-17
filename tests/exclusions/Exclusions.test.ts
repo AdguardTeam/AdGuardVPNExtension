@@ -1,4 +1,4 @@
-import Exclusions from '../../src/background/exclusions/Exclusions';
+import ExclusionsManager from '../../src/background/exclusions/ExclusionsManager';
 import { sleep } from '../../src/lib/helpers';
 import { servicesManager } from '../../src/background/exclusions/ServicesManager';
 
@@ -32,7 +32,7 @@ const browser = {
     },
 };
 
-const exclusions = new Exclusions(browser, proxy, settings);
+const exclusions = new ExclusionsManager(browser, proxy, settings);
 
 beforeAll(async (done) => {
     await exclusions.init();
