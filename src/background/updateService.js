@@ -24,6 +24,10 @@ class UpdateService {
     setAppVersionInStorage = async (appVersion) => {
         return browserApi.storage.set(APP_VERSION_KEY, appVersion);
     };
+
+    setIsFirstRunFalse = () => {
+        this.isFirstRun = false;
+    };
 }
 
 export const updateService = new UpdateService();
