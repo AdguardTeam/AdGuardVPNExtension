@@ -25,8 +25,8 @@ class UpdateService {
         return browserApi.storage.set(APP_VERSION_KEY, appVersion);
     };
 
-    setIsFirstRun = (value) => {
-        this.isFirstRun = value;
+    setIsFirstRunFalse = () => {
+        this.isFirstRun = false;
     };
 }
 
