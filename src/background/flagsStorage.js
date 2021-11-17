@@ -1,5 +1,4 @@
 import browserApi from './browserApi';
-import { updateService } from './updateService';
 import { FLAGS_FIELDS, PROMO_SCREEN_STATES } from '../lib/constants';
 import { log } from '../lib/logger';
 
@@ -74,7 +73,6 @@ class FlagsStorage {
      */
     onDeauthenticate = async () => {
         await this.setDefaults();
-        await updateService.setIsFirstRun(false);
     };
 
     init = async () => {
