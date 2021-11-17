@@ -1,11 +1,15 @@
 import { Service, ServiceInterface } from './Service';
 import vpnProvider from '../providers/vpnProvider';
+import { prepareUrl } from '../../lib/helpers';
 
 class ServicesManager {
     services: Service[];
 
+    servicesDomains: any[];
+
     constructor() {
         this.services = [];
+        this.servicesDomains = [];
     }
 
     // TODO
@@ -17,6 +21,7 @@ class ServicesManager {
         this.services = [];
         const servicesData = await vpnProvider.getExclusionsServices();
         const servicesDomains = await vpnProvider.getExclusionsServicesDomains([]);
+        this.servicesDomains = servicesDomains;
 
         servicesData.forEach((serviceData: ServiceInterface) => {
             const service = new Service(serviceData);
@@ -45,8 +50,13 @@ class ServicesManager {
     /**
      * Checks if provided hostname is service and returns serviceId or null
      */
-    isService(hostname): string|null {
-        return null;
+    isService(url: string): string|null {
+        const hostname = prepareUrl(url);
+        const service = this.servicesDomains.find((service) => {
+            return service.domains.includes(hostname);
+        });
+
+        return service ? service.serviceId : null;
     }
 
     /**

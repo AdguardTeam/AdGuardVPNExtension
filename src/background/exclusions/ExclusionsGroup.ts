@@ -1,6 +1,7 @@
 import { nanoid } from 'nanoid';
 
 import { Exclusion } from './Exclusion';
+import { prepareUrl } from '../../lib/helpers';
 
 export enum State {
     Enabled = 'enabled',
@@ -26,18 +27,10 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
 
     constructor(hostname: string) {
         this.id = nanoid();
-        this.hostname = this.prepareHostname(hostname);
+        this.hostname = prepareUrl(hostname);
         this.exclusions = [];
         this.addDefaultExclusions();
         this.state = State.Enabled;
-    }
-
-    prepareHostname(hostname: string) {
-        return hostname
-            ?.trim()
-            ?.toLowerCase()
-            ?.replace(/http(s)?:\/\/(www\.)?/, '')
-            ?.replace(/\/$/, '');
     }
 
     /**

@@ -1,11 +1,9 @@
-import punycode from 'punycode';
-
 import { ExclusionsGroup, State } from './ExclusionsGroup';
 import { Exclusion } from './Exclusion';
 import { Service } from './Service';
 import { servicesManager } from './ServicesManager';
 import { log } from '../../lib/logger';
-import { getHostname } from '../../lib/helpers';
+import { getHostname, prepareUrl } from '../../lib/helpers';
 import { areHostnamesEqual, shExpMatch } from '../../lib/string-utils';
 
 const IP_REGEX = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/;
@@ -96,24 +94,6 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
         }
     }
 
-    /**
-     * Normalizes exclusions url
-     * 1. trims it
-     * 2. converts to lowercase
-     * 3. removes `https://www.` and `/` at the end of the line
-     * 4. converts to ASCII
-     * @param {string} rawUrl
-     * @return {string | undefined}
-     */
-    prepareUrl = (rawUrl: string) => {
-        const url = rawUrl
-            ?.trim()
-            ?.toLowerCase()
-            ?.replace(/http(s)?:\/\/(www\.)?/, '')
-            ?.replace(/\/$/, '');
-        return punycode.toASCII(url);
-    }
-
     async addService(serviceId: string) {
         if (this.excludedServices
             .some((excludedService: Service) => excludedService.serviceId === serviceId)) {
@@ -169,7 +149,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
     }
 
     async addExclusionsGroup(dirtyUrl: string) {
-        const url = this.prepareUrl(dirtyUrl);
+        const url = prepareUrl(dirtyUrl);
         // save hostnames as ASCII because 'pacScript.url' supports only ASCII URLs
         // https://chromium.googlesource.com/chromium/src/+/3a46e0bf9308a42642689c4b73b6b8622aeecbe5/chrome/browser/extensions/api/proxy/proxy_api_helpers.cc#115
         const hostname = getHostname(url);

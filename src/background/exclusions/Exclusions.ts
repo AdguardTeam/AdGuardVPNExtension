@@ -9,6 +9,22 @@ import { servicesManager } from './ServicesManager';
 class Exclusions {
     MODES = EXCLUSIONS_MODES;
 
+    exclusions: any;
+
+    browser: any;
+
+    proxy: any;
+
+    settings: any;
+
+    inverted: boolean;
+
+    regularModeHandler: any;
+
+    selectiveModeHandler: any;
+
+    currentHandler: any;
+
     constructor(browser, proxy, settings) {
         this.browser = browser;
         this.proxy = proxy;
@@ -182,7 +198,7 @@ class Exclusions {
 
     // TODO: enable vpn by url
     // eslint-disable-next-line no-unused-vars
-    async enableVpnByUrl(url) {
+    async enableVpnByUrl(url: string) {
         if (this.inverted) {
             // await this.currentHandler.addToExclusions(url);
         } else {
@@ -192,7 +208,7 @@ class Exclusions {
 
     // TODO: disable vpn by url
     // eslint-disable-next-line no-unused-vars
-    async disableVpnByUrl(url) {
+    async disableVpnByUrl(url: string) {
         if (this.inverted) {
             // await this.currentHandler.disableExclusionByUrl(url);
         } else {
@@ -206,7 +222,7 @@ class Exclusions {
      * @param url
      * @returns {boolean}
      */
-    isVpnEnabledByUrl(url) {
+    isVpnEnabledByUrl(url: string) {
         if (!this.currentHandler) {
             return true;
         }

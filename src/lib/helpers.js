@@ -1,3 +1,5 @@
+import punycode from 'punycode';
+
 /**
  * Returns the value of the property from the cache,
  * otherwise, calculates it using the callback, memoizes it, and returns the value
@@ -55,6 +57,24 @@ export const getProtocol = (url) => {
     const urlObj = getUrlProperties(url);
     const protocol = (urlObj && urlObj.protocol) ? urlObj.protocol : url;
     return protocol;
+};
+
+/**
+ * Normalizes exclusions url
+ * 1. trims it
+ * 2. converts to lowercase
+ * 3. removes `https://www.` and `/` at the end of the line
+ * 4. converts to ASCII
+ * @param {string} rawUrl
+ * @return {string | undefined}
+ */
+export const prepareUrl = (rawUrl) => {
+    const url = rawUrl
+        ?.trim()
+        ?.toLowerCase()
+        ?.replace(/(http(s)?:\/\/)?(www\.)?/, '')
+        ?.replace(/\/$/, '');
+    return punycode.toASCII(url);
 };
 
 /**
