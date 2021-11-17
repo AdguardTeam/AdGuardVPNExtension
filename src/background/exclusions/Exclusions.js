@@ -51,8 +51,7 @@ class Exclusions {
 
         notifier.addSpecifiedListener(notifier.types.NON_ROUTABLE_DOMAIN_ADDED, (payload) => {
             if (this.currentHandler.mode === this.MODES.REGULAR) {
-                // TODO handle properly
-                this.currentHandler.addToExclusions(payload, true, { forceEnable: false });
+                this.currentHandler.addUrlToExclusions(payload);
             }
         });
 
@@ -65,7 +64,7 @@ class Exclusions {
         const exclusionsData = this.current.getExclusions();
 
         // eslint-disable-next-line array-callback-return
-        const enabledServices = exclusionsData.excludedServices.map((service) => {
+        const enabledServicesHostnames = exclusionsData.excludedServices.map((service) => {
             // TODO: handle state
             // eslint-disable-next-line consistent-return,array-callback-return
             service.exclusionsGroups.map((group) => {
@@ -77,20 +76,22 @@ class Exclusions {
             });
         });
 
-        // eslint-disable-next-line consistent-return,array-callback-return
-        const enabledGroups = exclusionsData.exclusionsGroups.map((group) => {
-            if (group.state === State.Enabled || group.state === State.PartlyEnabled) {
-                return group.exclusions
-                    .filter(({ enabled }) => enabled)
-                    .map(({ hostname }) => hostname);
-            }
+        const enabledGroupsHostnames = exclusionsData.exclusionsGroups.map((group) => {
+            return group.exclusions.filter((exclusion) => {
+                return (group.state === State.Enabled || group.state === State.PartlyEnabled)
+                    && exclusion.enabled;
+            }).map(({ hostname }) => hostname);
         });
 
         const enabledIps = exclusionsData.excludedIps
             .filter(({ enabled }) => enabled)
             .map(({ hostname }) => hostname);
 
-        const enabledExclusions = [...enabledServices, ...enabledGroups, ...enabledIps].flat();
+        const enabledExclusions = [
+            ...enabledServicesHostnames,
+            ...enabledGroupsHostnames,
+            ...enabledIps,
+        ].flat();
 
         await this.proxy
             .setBypassList(enabledExclusions, this.inverted);
@@ -217,9 +218,9 @@ class Exclusions {
         return this.inverted;
     }
 
-    clearExclusions() {
-        this.regular.clearExclusionsData();
-        this.selective.clearExclusionsData();
+    async clearExclusions() {
+        await this.regular.clearExclusionsData();
+        await this.selective.clearExclusionsData();
         const emptyExclusions = {
             inverted: this.inverted,
             [this.MODES.SELECTIVE]: {

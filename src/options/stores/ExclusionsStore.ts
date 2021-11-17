@@ -45,14 +45,14 @@ export class ExclusionsStore {
     // FIXME remove any
     @action
     setServicesData = (servicesData: any) => {
-        console.log(servicesData);
+        // console.log(servicesData);
         this.servicesData = servicesData;
     }
 
     // FIXME remove any
     @action
     setExclusionsData = (exclusionsData: any) => {
-        console.log(exclusionsData);
+        // console.log(exclusionsData);
         this.exclusions = exclusionsData;
         this.currentMode = exclusionsData.currentMode;
     }
