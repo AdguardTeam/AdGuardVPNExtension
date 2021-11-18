@@ -210,16 +210,16 @@
         "message": "Setări"
     },
     "referral_get_free_traffic": {
-        "message": "Obțineți trafic gratuit!"
+        "message": "Obțineți date VPN gratuit!"
     },
     "settings_referral_info": {
-        "message": "Invitați-vă prietenii să se alăture clanului nostru ninja și obțineți mai multe date gratuite timp de o lună. Primiți 1 GB pentru fiecare prieten care se înscrie: ei primesc de asemenea, 1 GB în plus gratuit! (Puteți obține 10 GB în total gratuit!)"
+        "message": "Invitați-vă prietenii să se alăture clanului nostru ninja și obțineți mai multe date VPN gratuite timp de o lună. Primiți 1 GB pentru fiecare prieten care se înscrie: ei primesc de asemenea, 1 GB în plus gratuit! Puteți obține 10 GB în total gratuit."
     },
     "settings_referral_invited_friends": {
         "message": "Prieteni invitați %count%/%limit%"
     },
     "settings_referral_limit_reached": {
-        "message": "Ați primit deja cei 10 GB de date gratuite. Dar prietenii pot obține în continuare 1 GB de date gratuite suplimentare, dacă îi invitați!"
+        "message": "Ați primit deja cei 10 GB de date VPN gratuite. Dar prietenii pot obține în continuare 1 GB de date VPN gratuite suplimentare, dacă îi invitați!"
     },
     "settings_referral_copy_link": {
         "message": "Copiere link"

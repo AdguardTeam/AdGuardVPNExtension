@@ -3,7 +3,7 @@
         "message": "AdGuard VPN — Yksityisyyttä ja turvaa"
     },
     "description": {
-        "message": "Tekee Internetistä avoimemman ja suojaa tietojasi. Huippuluokan VPN kuuluisan mainosten estäjän kehittäjiltä."
+        "message": "Tekee Internetistä avoimemman ja suojaa tietojasi. Huippuluokan VPN kuuluisan mainoseston kehittäjiltä."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -87,7 +87,7 @@
         "message": "Sähköposti"
     },
     "options_bug_report_include_log_label": {
-        "message": "Sisällytä diagnostiikkaraportti viestiin"
+        "message": "Sisällytä viestiin diagnostiikkaraportti"
     },
     "options_bug_report_email_invalid": {
         "message": "Virheellinen sähköpostiosoite"
@@ -120,7 +120,7 @@
         "message": "Käyttäjätili"
     },
     "account_edit": {
-        "message": "Hallitse"
+        "message": "Hallinnoi"
     },
     "account_sign_out": {
         "message": "Kirjaudu ulos"
@@ -150,7 +150,7 @@
         "message": "Luo tili"
     },
     "auth_sign_in": {
-        "message": "Kirjaudu sisään"
+        "message": "Kirjaudu"
     },
     "auth_sign_in_button": {
         "message": "Kirjaudu"
@@ -210,16 +210,16 @@
         "message": "Asetukset"
     },
     "referral_get_free_traffic": {
-        "message": "Hanki ilmaista tiedonsiirtoa!"
+        "message": "Hanki ilmaista VPN-tiedonsiirtoa!"
     },
     "settings_referral_info": {
-        "message": "Kutsu kaverit mukaan ninjaklaaniimme ja saat lisää ilmaista kuukausittaista tiedonsiirtoa! Saat 1 Gt jokaista kaveria kohden: he saavat myös 1 Gt veloituksetta! (Kaikkiaan voit saada veloituksetta 10 Gt!)"
+        "message": "Kutsu kaverit mukaan ninjaklaaniimme ja saat lisää ilmaista kuukausittaista VPN-tiedonsiirtoa! Saat jokaisesta rekisteröityneestä kaverista 1 Gt ja he saavat myös 1 Gt ilmaiseksi! Voit ansaita ilmaista tiedonsiirtoa kaikkiaan 10 Gt."
     },
     "settings_referral_invited_friends": {
         "message": "Kavereita kutsuttu %count%/%limit%"
     },
     "settings_referral_limit_reached": {
-        "message": "Olet jo saanut 10 Gt ilmaisen tiedonsirtosi. Kaverisi voivat kuitenkin saada 1 Gt enemmän ilmaista tiedonsiirtoa, jos kutsut heidät!"
+        "message": "Olet jo saanut kaikki 10 Gt ilmaisesta VPN-tiedonsiirrostasi. Kaverisi voivat kuitenkin saada 1 Gt enemmän ilmaista VPN-tiedonsiirtoa, jos kutsut heidät!"
     },
     "settings_referral_copy_link": {
         "message": "Kopioi linkki"
@@ -252,7 +252,7 @@
         "message": "Tavallinen tila"
     },
     "settings_dns_label": {
-        "message": "Käytettävä DNS-palvelin"
+        "message": "DNS-palvelin"
     },
     "settings_dns_desc": {
         "message": "Verkkotunnusjärjestelmä (DNS) on Internetin vastine puhelinluettelolle. Se sisältää hakemiston verkkotunnuksista ja muuttaa ne IP-osoitteiksi."
@@ -279,7 +279,7 @@
         "message": "AdGuard DNS Family Protection"
     },
     "settings_dns_selector_adguard_family_desc": {
-        "message": "AdGuard DNS + Turvallinen haku ja aikuisille tarkoitetun sisällön suodatus"
+        "message": "AdGuard DNS + Turvallinen haku ja aikuisille tarkoitetun sisällön esto"
     },
     "settings_dns_selector_google_title": {
         "message": "Google DNS"
@@ -309,7 +309,7 @@
         "message": "Teema"
     },
     "settings_theme_system": {
-        "message": "Järjestelmän oletus"
+        "message": "Järjestelmä"
     },
     "settings_theme_dark": {
         "message": "Tumma"
@@ -517,7 +517,7 @@
         "message": "Luotettu VPN"
     },
     "popup_onboarding_trusted_vpn_info": {
-        "message": "Maailmankuulun mainosten estäjän kehittäjältä"
+        "message": "Maailmankuulun mainoseston kehittäjältä"
     },
     "popup_onboarding_numerous_locations": {
         "message": "Lukuisia sijainteja"

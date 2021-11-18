@@ -210,16 +210,16 @@
         "message": "Instellingen"
     },
     "referral_get_free_traffic": {
-        "message": "Gratis dataverkeer verkrijgen!"
+        "message": "Gratis VPN-dataverkeer verkrijgen!"
     },
     "settings_referral_info": {
-        "message": "Nodig je vrienden uit om lid te worden van onze ninja-clan en ontvang een maand lang meer gratis dataverkeer. Ontvang 1 GB voor elke vriend die zich aanmeldt: ze krijgen ook gratis 1 GB extra! (Je krijgt in totaal 10 GB gratis!)"
+        "message": "Nodig je vrienden uit om lid te worden van onze ninja-clan en ontvang een maand lang meer gratis VPN-dataverkeer. Ontvang 1 GB voor elke vriend die zich aanmeldt: ze krijgen ook gratis 1 GB extra! Je kan in totaal 10 GB gratis krijgen."
     },
     "settings_referral_invited_friends": {
         "message": "Uitgenodigde vrienden %count%/%limit%"
     },
     "settings_referral_limit_reached": {
-        "message": "Je hebt al jouw 10 GB gratis gegevens ontvangen. Maar je vrienden kunnen nog steeds 1 GB aanvullende gratis gegevens krijgen als je ze uitnodigt!"
+        "message": "Je hebt al jouw 10 GB gratis VPN-dataverkeer ontvangen. Maar je vrienden kunnen nog steeds 1 GB aanvullend gratis VPN-dataverkeer krijgen als je ze uitnodigt!"
     },
     "settings_referral_copy_link": {
         "message": "Koppeling kopiëren"

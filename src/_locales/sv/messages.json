@@ -39,7 +39,7 @@
         "message": "Rapportera ett fel"
     },
     "options_support_feedback_title": {
-        "message": "Lämna din feedback"
+        "message": "Lämna feedback"
     },
     "options_support_discuss_title": {
         "message": "Diskutera"
@@ -113,9 +113,6 @@
     "auth_header_2fa_subtitle": {
         "message": "Tvåfaktorautentisering"
     },
-    "auth_header_2fa": {
-        "message": "Skriv in din autentiserings kod"
-    },
     "auth_placeholder_2fa": {
         "message": "Autentiseringskod"
     },
@@ -127,6 +124,9 @@
     },
     "settings_title": {
         "message": "Inställningar"
+    },
+    "settings_referral_copy_link": {
+        "message": "Kopiera länk"
     },
     "settings_rate_us": {
         "message": "Betygsätt oss"
@@ -255,7 +255,7 @@
         "message": "Anslut"
     },
     "popup_feedback_button": {
-        "message": "Lämna din feedback"
+        "message": "Lämna feedback"
     },
     "upgrade_features_data": {
         "message": "Obegränsad data"
@@ -269,6 +269,12 @@
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Fortsätt"
+    },
+    "popup_newsletter_title": {
+        "message": "AdGuard Nyhetsbrev"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "Prenumerera"
     },
     "popup_onboarding_next": {
         "message": "Nästa"

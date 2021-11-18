@@ -475,7 +475,7 @@
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Dopustite AdGuardu prikupljanje <link> anonimiziranih podataka o korištenju aplikacije kako bi AdGuard VPN bio bolji"
+        "message": "Dopustite AdGuardu prikupljanje <link>anonimiziranih podataka</link> o korištenju aplikacije kako bi AdGuard VPN bio bolji"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Nastavi"

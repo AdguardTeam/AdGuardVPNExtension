@@ -18,7 +18,7 @@
         "message": "La password è troppo breve. Dovrebbe avere almeno 8 caratteri."
     },
     "registration_error_compromised_password": {
-        "message": "La password che hai inserito è stata trovata in un <a>database pubblico</a> di password compromesse. Ti preghiamo di provarne un\\'altra."
+        "message": "La password che hai inserito è stata trovata in un <a>database pubblico</a> di password compromesse. Ti preghiamo di provarne un'altra."
     },
     "registration_error_unique_constraint": {
         "message": "Questo valore è già utilizzato"
@@ -213,13 +213,13 @@
         "message": "Ottieni traffico gratuito!"
     },
     "settings_referral_info": {
-        "message": "Invita i tuoi amici a unirsi al nostro clan ninja e ottieni più dati gratuiti per un mese. Ricevi 1 GB per ogni amico iscritto: anch\\'essi riceveranno 1 GB extra gratuito! (Potrai ottenere 10 GB in totale gratuitamente!)"
+        "message": "Invita i tuoi amici a unirsi al nostro clan ninja e ottieni più di traffico VPN gratuito per un mese. Ricevi 1 GB per ogni amico iscritto: anch'essi riceveranno 1 GB extra gratuito! Potrai ottenere 10 GB in totale gratuitamente."
     },
     "settings_referral_invited_friends": {
         "message": "Amici invitati %count%/%limit%"
     },
     "settings_referral_limit_reached": {
-        "message": "Hai già ricevuto i tuoi 10 GB di dati gratuiti. Ma i tuoi amici potrebbero ancora ottenere 1 GB di dati aggiuntivi gratuiti se li invitassi!"
+        "message": "Hai già ricevuto i tuoi 10 GB di traffico VPN gratuiti. Ma i tuoi amici potrebbero ancora ottenere 1 GB di traffico VPN aggiuntivi gratuiti se li invitassi!"
     },
     "settings_referral_copy_link": {
         "message": "Copia link"
@@ -255,7 +255,7 @@
         "message": "Utilizza server DNS"
     },
     "settings_dns_desc": {
-        "message": "Il DNS (Domain Name System) è l\\'equivalente telematico di una rubrica. Mantiene un percorso di nomi di dominio e li traduce in indirizzi IP (Internet Protocol)."
+        "message": "Il DNS (Domain Name System) è l'equivalente telematico di una rubrica. Mantiene un percorso di nomi di dominio e li traduce in indirizzi IP (Internet Protocol)."
     },
     "settings_dns_selector_default_title": {
         "message": "Predefinito"
@@ -492,11 +492,11 @@
         "message": "VPN disattivata su questo sito web"
     },
     "popup_auth_policy_agreement": {
-        "message": "Accetta <eula>l\\'EULA</eula> e la <privacy>Politica sulla riservatezza</privacy>",
+        "message": "Accetta <eula>l'EULA</eula> e la <privacy>Politica sulla riservatezza</privacy>",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Consenti ad AdGuard di raccogliere <link>dati anonimi</link> sull\\'utilizzo dell\\'app per migliorare AdGuard VPN"
+        "message": "Consenti ad AdGuard di raccogliere <link>dati anonimi</link> sull'utilizzo dell'app per migliorare AdGuard VPN"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Procedi"
@@ -623,7 +623,7 @@
         "message": "AdGuard VPN è già connessa"
     },
     "popup_desktop_vpn_enabled_description": {
-        "message": "AdGuard VPN è attiva sull'\\app desktop quindi l\\'estensione è stata disattivata automaticamente"
+        "message": "AdGuard VPN è attiva sull'app desktop quindi l'estensione è stata disattivata automaticamente"
     },
     "popup_desktop_vpn_enabled_button": {
         "message": "Ok"
@@ -632,6 +632,6 @@
         "message": "Ti sei disconnesso da AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "La tua connessione non è sicura. Per continuare a navigare in privato, clicca sull\\'icona AdGuard VPN e accedi nuovamente."
+        "message": "La tua connessione non è sicura. Per continuare a navigare in privato, clicca sull'icona AdGuard VPN e accedi nuovamente."
     }
 }
