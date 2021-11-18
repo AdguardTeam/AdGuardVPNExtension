@@ -95,10 +95,9 @@ class ExclusionsManager implements ExclusionsInfo {
         notifier.notifyListeners(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE);
 
         const exclusionsData = this.current.getExclusions();
-        const enabledExclusions = this.getEnabledExclusionsHostnames(exclusionsData);
+        const enabledExclusionsList = this.getEnabledExclusionsHostnames(exclusionsData);
 
-        await this.proxy
-            .setBypassList(enabledExclusions, this.inverted);
+        await this.proxy.setBypassList(enabledExclusionsList, this.inverted);
 
         const exclusionsRepository = {
             inverted: this.inverted,
