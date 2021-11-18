@@ -29,16 +29,16 @@ const getOptionsData = async () => {
     // ui debugging
     await exclusions.clearExclusions();
 
-    await exclusions.regular?.addIp('94.100.180.200');
-    await exclusions.regular?.addIp('333.333.333.333');
-    // exclusions.regular?.addExclusionsGroup('dnsleaktest.com');
-    await exclusions.regular?.addExclusionsGroup('test.com');
-    await exclusions.regular?.addExclusionsGroup('example.org');
-    // exclusions.regular?.addService('facebook');
+    // await exclusions.regular?.addIp('94.100.180.200');
+    // await exclusions.regular?.addIp('333.333.333.333');
+    // // exclusions.regular?.addExclusionsGroup('dnsleaktest.com');
+    // await exclusions.regular?.addExclusionsGroup('test.com');
+    // await exclusions.regular?.addExclusionsGroup('example.org');
+    exclusions.regular?.addService('facebook');
 
-    exclusions.selective?.addIp('192.177.15.12');
-    exclusions.selective?.addExclusionsGroup('yandex.ru');
-    exclusions.selective?.addExclusionsGroup('google.com');
+    // exclusions.selective?.addIp('192.177.15.12');
+    // exclusions.selective?.addExclusionsGroup('yandex.ru');
+    // exclusions.selective?.addExclusionsGroup('google.com');
     // exclusions.selective?.addService('github');
 
     const appVersion = appStatus.version;

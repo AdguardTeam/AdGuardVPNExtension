@@ -9,7 +9,7 @@ import { areHostnamesEqual, shExpMatch } from '../../lib/string-utils';
 
 const IP_REGEX = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/;
 
-interface ExclusionsData {
+export interface ExclusionsData {
     excludedServices: Service[],
     exclusionsGroups: ExclusionsGroup[],
     excludedIps: Exclusion[];
