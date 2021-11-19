@@ -210,16 +210,16 @@
         "message": "设置"
     },
     "referral_get_free_traffic": {
-        "message": "获取免费流量！"
+        "message": "获取免费 VPN 流量！"
     },
     "settings_referral_info": {
-        "message": "邀请您的朋友加入忍者家族并获得一个月内可用的免费流量！每拉一个朋友来注册就能收到 1 GB 流量。同时也会给您的朋友赠送 1 GB 的免费流量！（您至多可以收到 10 GB 的免费流量！）"
+        "message": "邀请您的朋友加入忍者家族并获得一个月内可用的 VPN 免费流量！每拉一个朋友来注册就能收到 1 GB 流量。同时也会给您的朋友赠送 1 GB 的免费流量！（您至多可以收到 10 GB 的免费流量！）"
     },
     "settings_referral_invited_friends": {
         "message": "已邀请的朋友 %count%/%limit%"
     },
     "settings_referral_limit_reached": {
-        "message": "您已经总计收到了 10 GB 的免费流量。但如您继续邀请其他朋友，您的朋友们还有机会收到 1 GB 的额外免费流量！"
+        "message": "您已经总计收到了 10 GB 的 VPN 免费流量。但如您继续邀请其他朋友，您的朋友们还有机会收到 1 GB 的 VPN 额外免费流量！"
     },
     "settings_referral_copy_link": {
         "message": "复制链接"

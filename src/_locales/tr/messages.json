@@ -150,7 +150,7 @@
         "message": "Kaydol"
     },
     "auth_sign_in": {
-        "message": "Giriş yapın"
+        "message": "Giriş yap"
     },
     "auth_sign_in_button": {
         "message": "Giriş yap"
@@ -186,7 +186,7 @@
         "message": "<div>%username%</div> Olarak giriş yapıyorsunuz "
     },
     "auth_header_sing_in_notice": {
-        "message": "<div>%username%</div> zaten bir hesabınız var"
+        "message": "<div>%username%</div> adında zaten bir hesabınız var"
     },
     "auth_header_registration": {
         "message": "<div>%username%</div> Olarak kaydoluyorsunuz"
@@ -210,16 +210,16 @@
         "message": "Ayarlar"
     },
     "referral_get_free_traffic": {
-        "message": "Ücretsiz kota edinin!"
+        "message": "Ücretsiz VPN verisi edinin!"
     },
     "settings_referral_info": {
-        "message": "Arkadaşlarınızı ninja klanımıza katılmaya davet edin ve bir ay boyunca daha fazla ücretsiz veri alın. Kaydolan her arkadaşınız için 1 GB kazanın: ayrıca onlarda ücretsiz olarak 1 GB ekstra kazanır! (Toplamda 10 GB'ı ücretsiz alabilirsiniz!)"
+        "message": "Arkadaşlarınızı ninja klanımıza katılmaya davet edin ve bir ay boyunca daha fazla ücretsiz VPN verisi alın. Kaydolan her arkadaşınız için 1 GB kazanın: ayrıca onlarda ücretsiz olarak 1 GB ekstra kazanır! Toplamda 10 GB ücretsiz alabilirsiniz."
     },
     "settings_referral_invited_friends": {
         "message": "Davet edilen arkadaşlar %count%/%limit%"
     },
     "settings_referral_limit_reached": {
-        "message": "10 GB'lık ücretsiz verilerinizi zaten aldınız. Ancak arkadaşlarınızı davet ederseniz, yine de 1 GB ek ücretsiz veri alabilirler!"
+        "message": "10 GB ücretsiz VPN verinizi zaten aldınız. Ancak arkadaşlarınızı davet ederseniz, yine de 1 GB ek ücretsiz VPN verisi alabilirler!"
     },
     "settings_referral_copy_link": {
         "message": "Bağlantıyı kopyala"

@@ -210,16 +210,16 @@
         "message": "Indstillinger"
     },
     "referral_get_free_traffic": {
-        "message": "Få gratis trafik!"
+        "message": "Få gratis VPN-trafik!"
     },
     "settings_referral_info": {
-        "message": "Invitér venner til at deltage i vores ninja-klan og få mere gratis data i en måned. Modtag 1 GB for hver ven, der tilmelder sig: De får også 1 GB ekstra gratis! (Du kan i alt få 10 GB gratis!)"
+        "message": "Invitér venner til at deltage i vores ninja-klan og få mere gratis VPN-trafik i én måned. Modtag 1 GB for hver ven, der tilmelder sig: De får også 1 GB ekstra gratis! Du kan i alt få 10 GB gratis."
     },
     "settings_referral_invited_friends": {
         "message": "Inviterede venner %count%/%limit%"
     },
     "settings_referral_limit_reached": {
-        "message": "Du har allerede modtaget dine 10 GB gratis data, men dine venner kan stadig få 1 GB ekstra gratis data, hvis du inviterer dem!"
+        "message": "Du har allerede modtaget dine 10 GB gratis VPN-trafik, men dine venner kan stadig få 1 GB ekstra VPN-trafik gratis, hvis du inviterer dem!"
     },
     "settings_referral_copy_link": {
         "message": "Kopiér link"

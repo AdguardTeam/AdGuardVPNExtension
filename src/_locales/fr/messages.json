@@ -161,6 +161,9 @@
     "auth_title": {
         "message": "Enregistrement"
     },
+    "auth_info": {
+        "message": "Continuer avec votre compte AdGuard ou celui d'un réseau social"
+    },
     "auth_sign_in_provider_adguard": {
         "message": "Continuer avec AdGuard"
     },
@@ -205,6 +208,24 @@
     },
     "settings_title": {
         "message": "Paramètres"
+    },
+    "referral_get_free_traffic": {
+        "message": "Obtenez du trafic VPN gratuit !"
+    },
+    "settings_referral_info": {
+        "message": "Invitez vos amis à se joindre à notre clan ninja et d'obtenir plus de trafic VPN par mois gratuit. Recevez 1 Go pour chaque ami qui s'inscrit : eux aussi ils recevront 1 Go de plus gratuit ! C'est possible d'obtenir un total de 10 Go gratuits."
+    },
+    "settings_referral_invited_friends": {
+        "message": "Amis invités %count%/%limit%"
+    },
+    "settings_referral_limit_reached": {
+        "message": "Vous avez déjà bénéficié de vos 10 Go de données gratuites. Mais vos amis peuvent toujours bénéficier de 1 Go de données gratuites supplémentaires si vous les invitez !"
+    },
+    "settings_referral_copy_link": {
+        "message": "Copier le lien"
+    },
+    "settings_referral_link_copied": {
+        "message": "Lien copié"
     },
     "settings_rate_us": {
         "message": "Évaluez-nous"
@@ -495,6 +516,9 @@
     "popup_onboarding_trusted_vpn": {
         "message": "VPN fiable"
     },
+    "popup_onboarding_trusted_vpn_info": {
+        "message": "Par les développeurs du fameux bloqueur de pub"
+    },
     "popup_onboarding_numerous_locations": {
         "message": "Localisations nombreuses"
     },
@@ -527,6 +551,9 @@
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Mise à niveau "
+    },
+    "popup_upgrade_screen_continue_free": {
+        "message": "Continuer gratuitement"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> restant ce mois-ci",
@@ -603,5 +630,8 @@
     },
     "options_signedout_page_title": {
         "message": "Vous vous êtes déconnecté(e) de AdGuard VPN"
+    },
+    "options_signedout_page_description": {
+        "message": "Votre connexion n'est pas sécurisée. Pour continuer à surfer l'Internet en toute confidentialité, cliquez l'icône AdGuard VPN et reconnectez-vous."
     }
 }

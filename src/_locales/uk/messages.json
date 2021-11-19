@@ -162,10 +162,10 @@
         "message": "Вхід"
     },
     "auth_info": {
-        "message": "Продовжити зі своїм обліковим записом AdGuard або через соціальні мережі"
+        "message": "Увійти з обліковим записом AdGuard або через соціальні мережі"
     },
     "auth_sign_in_provider_adguard": {
-        "message": "Увійдіть з обліковим записом AdGuard"
+        "message": "Продовжити з AdGuard"
     },
     "auth_sign_in_provider_apple": {
         "message": "Продовжити з Apple"
@@ -210,16 +210,16 @@
         "message": "Налаштування"
     },
     "referral_get_free_traffic": {
-        "message": "Отримайте безкоштовний трафік!"
+        "message": "Отримайте безкоштовний VPN-трафік!"
     },
     "settings_referral_info": {
-        "message": "Запрошуйте своїх друзів приєднатись до нашого ніндзя-клану та отримуйте ще більше безкоштовного трафіку на місяць. По 1 ГБ вам та другу, що зареєструється! Всього можна отримати 10 ГБ!"
+        "message": "Запрошуйте своїх друзів приєднатись до нашого ніндзя-клану та отримуйте ще більше безкоштовного трафіку на місяць. По 1 ГБ вам та другу, що зареєструється! Всього можна отримати 10 ГБ."
     },
     "settings_referral_invited_friends": {
         "message": "Запрошені друзі %count%/%limit%"
     },
     "settings_referral_limit_reached": {
-        "message": "Ви вже отримали усі 10 ГБ беззкоштовного трафіку. Але ваші друзі досі можуть отримати 1 ГБ додаткового трафіку, якщо ви їх запросите!"
+        "message": "Ви вже отримали усі 10 ГБ безкоштовного трафіку. Але ваші друзі досі можуть отримати по 1 ГБ додаткового трафіку, якщо ви їх запросите!"
     },
     "settings_referral_copy_link": {
         "message": "Копіювати посилання"
@@ -261,7 +261,7 @@
         "message": "Усталений"
     },
     "settings_dns_selector_default_desc": {
-        "message": "Автоматично використовувати усталений DNS-сервер під час підключення до VPN"
+        "message": "Автоматично використовувати усталений DNS-сервер під час під'єднання до VPN"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -273,7 +273,7 @@
         "message": "AdGuard DNS без фільтрування"
     },
     "settings_dns_selector_adguard_nonfiltering_desc": {
-        "message": "Безпечний DNS-сервер без записів активності (не фільтрує рекламу і трекери)"
+        "message": "Безпечний DNS-сервер без запису активності (не фільтрує рекламу і трекери)"
     },
     "settings_dns_selector_adguard_family_title": {
         "message": "AdGuard DNS з сімейним захистом"
@@ -366,7 +366,7 @@
         "message": "Спробувати знову"
     },
     "authentication_successful_social": {
-        "message": "Ви успішно авторизувались! Можете відкрити AdGuard VPN та підключитись."
+        "message": "Ви успішно авторизувались! Можете відкрити AdGuard VPN та під'єднатись."
     },
     "control_error_description": {
         "message": "Схоже, що інше розширення в браузері Chrome може мати контроль над з'єднанням. Вимкніть його, будь ласка."
@@ -426,22 +426,22 @@
         "message": "Придбати"
     },
     "settings_disconnect": {
-        "message": "Від'єднати"
+        "message": "Від'єднатись"
     },
     "settings_vpn_connecting": {
-        "message": "З'єднання..."
+        "message": "Під'єднання..."
     },
     "settings_connect": {
-        "message": "Підключитись"
+        "message": "Під'єднатися"
     },
     "settings_vpn_enabled": {
-        "message": "Підключено"
+        "message": "Під'єднано"
     },
     "settings_vpn_disabled": {
         "message": "Від'єднано"
     },
     "popup_traffic_limit_exceeded_title": {
-        "message": "Швидкість знижено"
+        "message": "Швидкість з'єднання знижено"
     },
     "popup_traffic_limit_exceeded_description": {
         "message": "Ви досягли обмеження безплатного обсягу даних, тому AdGuard VPN тепер працює повільніше."
@@ -523,7 +523,7 @@
         "message": "Численні місцезнаходження"
     },
     "popup_onboarding_numerous_locations_info": {
-        "message": "Підключайтесь до будь-якого з наших серверів по всьому світу"
+        "message": "Під'єднуйтесь до будь-якого з наших серверів по всьому світу"
     },
     "popup_onboarding_fastest_servers": {
         "message": "Найшвидші сервери"
@@ -602,7 +602,7 @@
         "message": "Zip-архів «%filename%» не містить файлів з прийнятними розширеннями: %extensions%"
     },
     "popup_connections_limit_description_start": {
-        "message": "Досягнуто максимальну кількість з'єднань: %maxDevicesAllowed%."
+        "message": "Досягнуто максимальну кількість під'єднань: %maxDevicesAllowed%."
     },
     "popup_connections_limit_description_end_free": {
         "message": "Щоб додати більше пристроїв, оформіть підписку на AdGuard VPN."
@@ -617,10 +617,10 @@
         "message": "Докладніше"
     },
     "popup_connections_limit_title": {
-        "message": "Досягнуто ліміт з'єднань"
+        "message": "Досягнуто ліміт під'єднань"
     },
     "popup_desktop_vpn_enabled_title": {
-        "message": "AdGuard VPN уже підключено"
+        "message": "AdGuard VPN уже під'єднано"
     },
     "popup_desktop_vpn_enabled_description": {
         "message": "AdGuard VPN увімкнено в програмі, тому розширення автоматично вимкнено"

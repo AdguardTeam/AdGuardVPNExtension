@@ -210,7 +210,7 @@
         "message": "設定"
     },
     "referral_get_free_traffic": {
-        "message": "取得免費的流量！"
+        "message": "取得免費的 VPN 流量！"
     },
     "settings_referral_invited_friends": {
         "message": "邀請了朋友 %count%/%limit%"
