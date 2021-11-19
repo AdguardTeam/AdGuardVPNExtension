@@ -1,1 +1,1 @@
-export { AddExclusionsModal } from './AddExclusionModal';
+export { AddExclusionModal } from './AddExclusionModal';

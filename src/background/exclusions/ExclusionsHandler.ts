@@ -47,13 +47,14 @@ interface ExclusionsManagerInterface {
 
     // methods for ips
     addIp(ip: string): void;
-    removeIp(ip: string): void;
+    removeIp(id: string): void;
     toggleIpState(id: string): void;
 
     // common methods
     getExclusions(): ExclusionsData;
     addUrlToExclusions(url: string): void;
     isExcluded(url: string): boolean|undefined;
+    removeExclusion(id: string): void;
 }
 
 export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInterface {
@@ -88,10 +89,36 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
     }
 
     async addUrlToExclusions(hostname: string) {
+        // TODO validation ??
         if (IP_REGEX.test(hostname)) {
             await this.addIp(hostname);
         } else {
             await this.addExclusionsGroup(hostname);
+        }
+    }
+
+    /**
+     * Removes top-level exclusion by id
+     * @param id
+     */
+    async removeExclusion(id: string) {
+        const serviceId = this.excludedServices
+            .find((excludedService: Service) => excludedService.serviceId === id)?.serviceId;
+        if (serviceId) {
+            await this.removeService(serviceId);
+            return;
+        }
+
+        const exclusionsGroupId = this.exclusionsGroups
+            .find((exclusionsGroup: ExclusionsGroup) => exclusionsGroup.id === id)?.id;
+        if (exclusionsGroupId) {
+            await this.removeExclusionsGroup(exclusionsGroupId);
+            return;
+        }
+
+        const ipId = this.excludedIps.find((excludedIp: Exclusion) => excludedIp.id === id)?.id;
+        if (ipId) {
+            await this.removeIp(ipId);
         }
     }
 
@@ -241,9 +268,9 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
         await this.updateHandler();
     }
 
-    async removeIp(ip: string) {
+    async removeIp(id: string) {
         this.excludedIps = this.excludedIps
-            .filter((excludedIp: Exclusion) => excludedIp.hostname !== ip);
+            .filter((excludedIp: Exclusion) => excludedIp.id !== id);
         await this.updateHandler();
     }
 

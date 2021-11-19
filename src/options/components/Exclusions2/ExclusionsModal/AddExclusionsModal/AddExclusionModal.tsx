@@ -6,7 +6,8 @@ import { ExclusionsModal } from '../ExclusionsModal';
 import { rootStore } from '../../../../stores';
 import { AddExclusionMode } from '../../../../stores/ExclusionsStore';
 import { ServiceMode } from './ServiceMode/ServiceMode';
-import { ManualMode } from './ManualMode';
+import { ManualMode } from './ManualMode/ManualMode';
+import '../exclusions-modal.pcss';
 
 export const AddExclusionModal = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
@@ -29,14 +30,16 @@ export const AddExclusionModal = observer(() => {
 
     const ModeSelectButtons = {
         service: {
-            classname: classnames({
-                enabled: exclusionsStore.addExclusionMode === AddExclusionMode.SERVICE,
-            }),
+            classname: classnames(
+                'mode-select-button',
+                { enabled: exclusionsStore.addExclusionMode === AddExclusionMode.SERVICE },
+            ),
         },
         manual: {
-            classname: classnames({
-                enabled: exclusionsStore.addExclusionMode === AddExclusionMode.MANUAL,
-            }),
+            classname: classnames(
+                'mode-select-button',
+                { enabled: exclusionsStore.addExclusionMode === AddExclusionMode.MANUAL },
+            ),
         },
     };
 
@@ -54,7 +57,7 @@ export const AddExclusionModal = observer(() => {
             // FIXME add to translations
             title="Add a website"
         >
-            <div className="mode-selectors">
+            <div className="modal__mode-selectors">
                 {/* // FIXME add to translations */}
                 <button
                     onClick={onServiceModeClick}

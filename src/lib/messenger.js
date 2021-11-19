@@ -157,9 +157,14 @@ class Messenger {
         return this.sendMessage(type, { force });
     }
 
-    async addToExclusions(url, enabled, options) {
-        const type = MESSAGES_TYPES.ADD_TO_EXCLUSIONS;
-        return this.sendMessage(type, { url, enabled, options });
+    async addUrlToExclusions(url) {
+        const type = MESSAGES_TYPES.ADD_URL_TO_EXCLUSIONS;
+        return this.sendMessage(type, { url });
+    }
+
+    async removeExclusion(id) {
+        const type = MESSAGES_TYPES.REMOVE_EXCLUSION;
+        return this.sendMessage(type, { id });
     }
 
     async removeFromExclusions(url) {
@@ -228,7 +233,7 @@ class Messenger {
     }
 
     async getExclusionsData() {
-        const type = MESSAGES_TYPES.GET_EXCLUSIONS;
+        const type = MESSAGES_TYPES.GET_EXCLUSIONS_DATA;
         return this.sendMessage(type);
     }
 

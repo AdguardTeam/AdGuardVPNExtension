@@ -1,0 +1,38 @@
+.list {
+    margin-top: 20px;
+
+    &__index {
+        display: flex;
+        padding: 10px 0 10px 20px;
+        border-radius: 5px;
+        list-style: none;
+        position: relative;
+
+        &__icon {
+            width: 24px;
+            height: auto;
+            margin-right: 12px;
+        }
+
+        &__remove-button {
+            position: absolute;
+            right: 10px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            visibility: hidden;
+
+            &:hover {
+                filter: brightness(.7);
+            }
+        }
+
+        &:hover {
+            background: var(--grayF7);
+
+            & .list__index__remove-button {
+                visibility: visible;
+            }
+        }
+    }
+}

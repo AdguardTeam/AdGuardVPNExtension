@@ -1,6 +1,8 @@
 import React from 'react';
 import Modal from 'react-modal';
 
+import './exclusions-modal.pcss';
+
 interface ExclusionsModalProps {
     isOpen: boolean,
     closeModal: () => void,

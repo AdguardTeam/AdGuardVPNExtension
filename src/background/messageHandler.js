@@ -26,21 +26,6 @@ import { flagsStorage } from './flagsStorage';
 const eventListeners = {};
 
 const getOptionsData = async () => {
-    // ui debugging
-    await exclusions.clearExclusions();
-
-    // await exclusions.regular?.addIp('94.100.180.200');
-    // await exclusions.regular?.addIp('333.333.333.333');
-    // // exclusions.regular?.addExclusionsGroup('dnsleaktest.com');
-    // await exclusions.regular?.addExclusionsGroup('test.com');
-    // await exclusions.regular?.addExclusionsGroup('example.org');
-    exclusions.regular?.addService('facebook');
-
-    // exclusions.selective?.addIp('192.177.15.12');
-    // exclusions.selective?.addExclusionsGroup('yandex.ru');
-    // exclusions.selective?.addExclusionsGroup('google.com');
-    // exclusions.selective?.addService('github');
-
     const appVersion = appStatus.version;
     const username = await credentials.getUsername();
     const isRateVisible = settings.getSetting(SETTINGS_IDS.RATE_SHOW);
@@ -159,9 +144,13 @@ const messageHandler = async (message, sender) => {
             const { force } = data;
             return settings.disableProxy(force);
         }
-        case MESSAGES_TYPES.ADD_TO_EXCLUSIONS: {
-            const { url, enabled, options } = data;
-            return exclusions.current.addToExclusions(url, enabled, options);
+        case MESSAGES_TYPES.ADD_URL_TO_EXCLUSIONS: {
+            const { url } = data;
+            return exclusions.current.addUrlToExclusions(url);
+        }
+        case MESSAGES_TYPES.REMOVE_EXCLUSION: {
+            const { id } = data;
+            return exclusions.current.removeExclusion(id);
         }
         case MESSAGES_TYPES.REMOVE_FROM_EXCLUSIONS: {
             const { url } = data;
@@ -199,15 +188,11 @@ const messageHandler = async (message, sender) => {
             await permissionsChecker.checkPermissions();
             break;
         }
-        case MESSAGES_TYPES.GET_EXCLUSIONS: {
-            const regularExclusions = exclusions.regular.getExclusions();
-            const selectiveExclusions = exclusions.selective.getExclusions();
-            const exclusionsCurrentMode = exclusions.current.mode;
-
+        case MESSAGES_TYPES.GET_EXCLUSIONS_DATA: {
             return {
-                regular: regularExclusions,
-                selective: selectiveExclusions,
-                currentMode: exclusionsCurrentMode,
+                regular: exclusions.regular?.getExclusions(),
+                selective: exclusions.selective?.getExclusions(),
+                currentMode: exclusions.current?.mode,
             };
         }
         case MESSAGES_TYPES.SET_EXCLUSIONS_MODE: {

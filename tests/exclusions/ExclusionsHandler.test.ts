@@ -147,7 +147,8 @@ describe('ExclusionsManager', () => {
         await exclusionsHandler.removeService('facebook');
         // remove test.com group
         await exclusionsHandler.removeExclusionsGroup(groupId);
-        await exclusionsHandler.removeIp('192.100.27.34');
+        expect(exclusionsData.excludedIps[0].hostname).toEqual('192.100.27.34');
+        await exclusionsHandler.removeIp(exclusionsData.excludedIps[0].id);
 
         exclusionsData = exclusionsHandler.getExclusions();
 

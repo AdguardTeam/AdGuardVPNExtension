@@ -11,6 +11,27 @@ const Icons = () => (
             <use fill="#131313" fillRule="evenodd" transform="translate(-2 -1)" xlinkHref="#a" />
         </svg>
 
+        <svg id="basket" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path fillRule="evenodd" clipRule="evenodd" d="M7 9H17L16.2367 19.0755C16.1972 19.597 15.7625 20 15.2396 20H8.76044C8.23746 20 7.80281 19.597 7.7633 19.0755L7 9Z" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M6 6.5H18" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M14 6V4L10 4V6" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path fillRule="evenodd" clipRule="evenodd" d="M13.5 12V17V12Z" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path fillRule="evenodd" clipRule="evenodd" d="M10.5 12V17V12Z" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+
+        <svg id="disabled" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path fillRule="evenodd" clipRule="evenodd" d="M19 1H1V19H19V1Z" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+
+        <svg id="enabled" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path fillRule="evenodd" clipRule="evenodd" d="M20 20V0H0V20H20ZM15.5691 7.4885C15.8389 7.1742 15.8028 6.7007 15.4885 6.43091C15.1742 6.16112 14.7007 6.1972 14.4309 6.5115L8.95457 12.8913L5.53551 9.40443C5.24551 9.10867 4.77066 9.10401 4.4749 9.39401C4.17915 9.68401 4.17448 10.1589 4.46449 10.4546L9.02803 15.1087L15.5691 7.4885Z" fill="#74A352" />
+        </svg>
+
+        <svg id="partly-enabled" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path fillRule="evenodd" clipRule="evenodd" d="M19 1H1V19H19V1Z" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <rect x="7.5" y="7.5" width="5" height="5" stroke="#74A352" strokeWidth="5" strokeLinejoin="round" />
+        </svg>
+
         <symbol id="social_facebook" viewBox="0 0 112.196 112.196" fill="currentColor">
             <circle cx="56.098" cy="56.098" r="56.098" fill="#3b5998" />
             <path d="M70.201 58.294h-10.01v36.672H45.025V58.294h-7.213V45.406h7.213v-8.34c0-5.964 2.833-15.303 15.301-15.303l11.234.047v12.51h-8.151c-1.337 0-3.217.668-3.217 3.513v7.585h11.334l-1.325 12.876z" fill="#fff" />

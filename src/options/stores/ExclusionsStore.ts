@@ -57,6 +57,12 @@ export class ExclusionsStore {
         this.currentMode = exclusionsData.currentMode;
     }
 
+    @action
+    updateExclusionsData = async () => {
+        const exclusionsData = await messenger.getExclusionsData();
+        this.setExclusionsData(exclusionsData);
+    }
+
     // FIXME remove any
     @action
     getExcludedServicesList = (mode: any) => {
@@ -89,11 +95,32 @@ export class ExclusionsStore {
         const currentModeExclusions = this.exclusions[this.currentMode];
         const services = currentModeExclusions.excludedServices
         // @ts-ignore
-            .map((service) => service.serviceName);
+            .map((service) => {
+                return {
+                    id: service.serviceId,
+                    name: service.serviceName,
+                    iconUrl: service.iconUrl,
+                    state: service.state,
+                };
+            });
         // @ts-ignore
-        const groups = currentModeExclusions.exclusionsGroups.map((group) => group.hostname);
+        const groups = currentModeExclusions.exclusionsGroups.map((group) => {
+            return {
+                id: group.id,
+                name: group.hostname,
+                iconUrl: '/assets/images/ip-icon.svg',
+                state: group.state,
+            };
+        });
         // @ts-ignore
-        const excludedIps = currentModeExclusions.excludedIps.map((ip) => ip.hostname);
+        const excludedIps = currentModeExclusions.excludedIps.map((ip) => {
+            return {
+                id: ip.id,
+                name: ip.hostname,
+                iconUrl: '/assets/images/ip-icon.svg',
+                state: ip.enabled,
+            };
+        });
 
         return [...services, ...groups, ...excludedIps];
     }
@@ -165,4 +192,17 @@ export class ExclusionsStore {
             this.unfoldedServiceCategories.push(id);
         }
     }
+
+    @action
+    addUrlToExclusions = async (url: string) => {
+        // TODO Validation for url?..
+        await messenger.addUrlToExclusions(url);
+        await this.updateExclusionsData();
+    };
+
+    @action
+    removeExclusion = async (id: string) => {
+        await messenger.removeExclusion(id);
+        await this.updateExclusionsData();
+    };
 }

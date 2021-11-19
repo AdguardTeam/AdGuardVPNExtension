@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 
 import { rootStore } from '../../../stores';
+import './actions.pcss';
 
 // TODO
 //  - import
@@ -21,13 +22,19 @@ export const Actions = () => {
 
     return (
         <>
-            <div>
+            <div className="actions">
                 {/* FIXME add to translations */}
-                <button type="button" onClick={onAddExclusionClick}>Add a website</button>
+                <button
+                    type="button"
+                    className="actions__add-website"
+                    onClick={onAddExclusionClick}
+                >
+                    + Add a website
+                </button>
             </div>
             {/* FIXME add tooltip? */}
             <div onClick={onMoreActionsClick}>
-                ...
+                {/* ... */}
             </div>
         </>
     );
