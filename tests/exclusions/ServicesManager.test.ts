@@ -2,7 +2,8 @@ import { nanoid } from 'nanoid';
 
 import { servicesManager } from '../../src/background/exclusions/ServicesManager';
 import vpnProvider from '../../src/background/providers/vpnProvider';
-import { STATE } from '../../src/common/exclusionsConstants';
+import { Service } from '../../src/background/exclusions/Service';
+import { ExclusionsGroup } from '../../src/background/exclusions/ExclusionsGroup';
 
 jest.mock('../../src/background/providers/vpnProvider');
 jest.mock('nanoid');
@@ -70,50 +71,17 @@ const SERVICES_DOMAINS = [
     },
 ];
 
-const ALIEXPRESS_SERVICE_DATA = {
+const ALIEXPRESS_SERVICE_DATA = new Service({
     serviceId: 'aliexpress',
     serviceName: 'Aliexpress',
     categories: ['SHOP'],
     iconUrl: 'https://icons.adguard.org/icon?domain=aliexpress.com',
     modifiedTime: '2021-09-14T10:23:00+0000',
-    state: STATE.Enabled,
     exclusionsGroups: [
-        {
-            id: 'zzzzzzzzz',
-            hostname: 'aliexpress.com',
-            exclusions: [
-                {
-                    id: 'zzzzzzzzz',
-                    enabled: true,
-                    hostname: 'aliexpress.com',
-                },
-                {
-                    id: 'zzzzzzzzz',
-                    enabled: true,
-                    hostname: '*.aliexpress.com',
-                },
-            ],
-            state: STATE.Enabled,
-        },
-        {
-            id: 'zzzzzzzzz',
-            hostname: 'aliexpress.ru',
-            exclusions: [
-                {
-                    id: 'zzzzzzzzz',
-                    enabled: true,
-                    hostname: 'aliexpress.ru',
-                },
-                {
-                    id: 'zzzzzzzzz',
-                    enabled: true,
-                    hostname: '*.aliexpress.ru',
-                },
-            ],
-            state: STATE.Enabled,
-        },
+        new ExclusionsGroup('aliexpress.com'),
+        new ExclusionsGroup('aliexpress.ru'),
     ],
-};
+});
 
 vpnProvider.getExclusionsServices.mockImplementation(() => SERVICES_DATA);
 vpnProvider.getExclusionsServicesDomains.mockImplementation(() => SERVICES_DOMAINS);
@@ -127,7 +95,8 @@ describe('ServicesManager tests', () => {
     it('initialization', async () => {
         const servicesData = servicesManager.getServicesData();
         expect(servicesData).toHaveLength(5);
-        expect(servicesData[0]).toEqual(ALIEXPRESS_SERVICE_DATA);
+        expect(JSON.stringify(servicesData[0]))
+            .toStrictEqual(JSON.stringify(ALIEXPRESS_SERVICE_DATA));
         expect(servicesData[1].serviceId).toEqual('amazon');
         expect(servicesData[1].categories).toEqual(['SHOP']);
         expect(servicesData[1].exclusionsGroups).toHaveLength(27);
@@ -144,7 +113,8 @@ describe('ServicesManager tests', () => {
 
     it('getService', async () => {
         const aliexpressServiceData = servicesManager.getService('aliexpress');
-        expect(aliexpressServiceData).toEqual(ALIEXPRESS_SERVICE_DATA);
+        expect(JSON.stringify(aliexpressServiceData))
+            .toStrictEqual(JSON.stringify(ALIEXPRESS_SERVICE_DATA));
 
         const wrongService = servicesManager.getService('vkdjnvkdhfb');
         expect(wrongService).toBeUndefined();
