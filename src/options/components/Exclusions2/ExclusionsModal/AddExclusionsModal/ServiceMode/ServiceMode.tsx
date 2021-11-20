@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Search } from '../../../Search';
 import { ServicesList } from './ServicesList';
 
 import './service-mode.pcss';
+import { rootStore } from '../../../../../stores';
 
 export const ServiceMode = () => {
+    const { exclusionsStore } = useContext(rootStore);
     const handleAddServices = () => {
-
+        // add founded service
     };
 
-    const handleCancelAddExclusions = () => {
-
+    const closeModal = () => {
+        exclusionsStore.closeAddExclusionModal();
     };
 
     return (
@@ -22,7 +24,7 @@ export const ServiceMode = () => {
                 <button
                     type="button"
                     className="button button--medium button--outline-secondary"
-                    onClick={handleCancelAddExclusions}
+                    onClick={closeModal}
                 >
                     Cancel
                 </button>
