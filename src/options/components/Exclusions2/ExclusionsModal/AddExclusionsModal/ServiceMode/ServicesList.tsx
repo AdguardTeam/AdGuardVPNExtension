@@ -7,12 +7,10 @@ import { ServiceCategory } from './ServiceCategory';
 export const ServicesList = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
 
-    console.log(exclusionsStore.preparedServicesData);
-
     const { categories } = exclusionsStore.preparedServicesData;
 
     return (
-        <ul>
+        <ul className="services-list">
             {Object.values(categories).map((category) => {
                 // FIXME remove ts-ignore
                 // @ts-ignore

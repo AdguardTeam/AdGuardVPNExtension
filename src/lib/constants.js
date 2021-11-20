@@ -61,6 +61,7 @@ export const MESSAGES_TYPES = {
     TOGGLE_EXCLUSION_BY_MODE: 'toggle.exclusion.by.mode',
     TOGGLE_EXCLUSION_STATE: 'toggle.exclusion.state',
     RENAME_EXCLUSION_BY_MODE: 'rename.exclusion.by.mode',
+    ADD_SERVICE: 'add.service',
     ADD_EXCLUSION_BY_MODE: 'add.exclusion.by.mode',
     ADD_SELECTIVE_EXCLUSIONS: 'add.exclusions.selective',
     ADD_REGULAR_EXCLUSIONS: 'add.exclusions.regular',

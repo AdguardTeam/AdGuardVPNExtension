@@ -214,4 +214,10 @@ export class ExclusionsStore {
         await messenger.toggleExclusionState(id, type);
         await this.updateExclusionsData();
     }
+
+    @action
+    addService = async (id: string) => {
+        await messenger.addService(id);
+        await this.updateExclusionsData();
+    }
 }

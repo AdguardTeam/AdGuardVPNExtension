@@ -26,7 +26,7 @@ export const Actions = () => {
                 {/* FIXME add to translations */}
                 <button
                     type="button"
-                    className="actions__add-website"
+                    className="actions__add-website simple-button"
                     onClick={onAddExclusionClick}
                 >
                     + Add a website

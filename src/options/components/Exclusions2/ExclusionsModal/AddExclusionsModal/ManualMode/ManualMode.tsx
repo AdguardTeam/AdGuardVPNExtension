@@ -35,14 +35,14 @@ export const ManualMode = () => {
             <div className="manual-mode__actions">
                 <button
                     type="button"
-                    className="button button--medium button--outline-primary"
+                    className="button button--medium button--outline-secondary"
                     onClick={closeModal}
                 >
                     Cancel
                 </button>
                 <button
                     type="button"
-                    className="button button--medium button--outline-secondary"
+                    className="button button--medium button--primary"
                     onClick={addUrl}
                 >
                     Add manually

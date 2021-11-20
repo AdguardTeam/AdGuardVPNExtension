@@ -172,6 +172,11 @@ class Messenger {
         return this.sendMessage(type, { id, exclusionType });
     }
 
+    async addService(id) {
+        const type = MESSAGES_TYPES.ADD_SERVICE;
+        return this.sendMessage(type, { id });
+    }
+
     async removeFromExclusions(url) {
         const type = MESSAGES_TYPES.REMOVE_FROM_EXCLUSIONS;
         return this.sendMessage(type, { url });

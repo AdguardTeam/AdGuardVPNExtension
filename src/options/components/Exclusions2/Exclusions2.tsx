@@ -17,7 +17,7 @@ export const Exclusions2 = () => {
             <Title title={reactTranslator.getMessage('settings_exclusion_title')} />
             <div className="settings">
                 <ModeSelector />
-                <Search />
+                <Search placeholder="Search website" />
                 <Actions />
                 <List />
                 <AddExclusionModal />

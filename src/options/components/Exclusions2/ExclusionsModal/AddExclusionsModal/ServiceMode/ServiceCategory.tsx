@@ -26,14 +26,19 @@ export const ServiceCategory = observer(({ category }) => {
     const unfoldCategory = exclusionsStore.unfoldedServiceCategories
         .some((id) => id === category.id);
 
-    const categoryServicesClassname = cn('categoryServices', {
+    const categoryClassname = cn('category', {
+        category__unfolded: unfoldCategory,
+        category__folded: !unfoldCategory,
+    });
+
+    const categoryServicesClassname = cn('category__services', {
         [s.show]: unfoldCategory,
         [s.hide]: !unfoldCategory,
     });
 
     return (
-        <div className="category" onClick={handleClickOnCategory}>
-            <div className="categoryTitle">
+        <div className={categoryClassname} onClick={handleClickOnCategory}>
+            <div className="category__title">
                 {category.title}
             </div>
             <div className={categoryServicesClassname}>

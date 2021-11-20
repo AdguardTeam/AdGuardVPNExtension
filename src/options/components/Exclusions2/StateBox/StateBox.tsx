@@ -1,15 +1,22 @@
 import React from 'react';
 
-import { STATE } from '../../../../common/exclusionsConstants';
+import { STATE, TYPE } from '../../../../common/exclusionsConstants';
 
 import './statebox.pcss';
+
+interface StateBoxProps {
+    id: string,
+    type: TYPE,
+    state: STATE | boolean,
+    toggleHandler: (id: string, type: TYPE) => React.MouseEventHandler<HTMLButtonElement>,
+}
 
 export const StateBox = ({
     id,
     type,
     state,
     toggleHandler,
-}) => {
+}: StateBoxProps) => {
     const getStateIcon = () => {
         if (state === STATE.Enabled || state === true) {
             return '#enabled';
