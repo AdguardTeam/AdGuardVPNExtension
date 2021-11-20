@@ -161,6 +161,9 @@
     "auth_title": {
         "message": "Autorisierung"
     },
+    "auth_info": {
+        "message": "Melden Sie sich mit Ihrem AdGuard-Konto oder mit einem Sozialer Login"
+    },
     "auth_sign_in_provider_adguard": {
         "message": "Mit AdGuard-Konto anmelden"
     },
@@ -205,6 +208,24 @@
     },
     "settings_title": {
         "message": "Einstellungen"
+    },
+    "referral_get_free_traffic": {
+        "message": "Holen Sie sich kostenlostes Datenvolumen!"
+    },
+    "settings_referral_info": {
+        "message": "Laden Sie Ihre Freunde dazu ein, unserem Ninja-Clan beizutreten, und erhalten dafür einen Monat lang zusätzliches kostenloses Datenvolumen. Für jede(n) Freund(in), der sich dadurch anmeldet, erhalten Sie 1 GB: er erhält ebenfalls 1 GB extra kostenlos! Sie können insgesamt 10 GB kostenlos erhalten."
+    },
+    "settings_referral_invited_friends": {
+        "message": "Eingeladene Freunde %count%/%limit%"
+    },
+    "settings_referral_limit_reached": {
+        "message": "Sie haben bereits Ihre 10 GB kostenloses Datenvolumen erhalten. Aber Ihre Freunde können immer noch 1 GB zusätzliches Gratis-Datenvolumen erhalten, wenn Sie diese einladen!"
+    },
+    "settings_referral_copy_link": {
+        "message": "Link kopieren"
+    },
+    "settings_referral_link_copied": {
+        "message": "Link kopiert"
     },
     "settings_rate_us": {
         "message": "Bewerten Sie uns"
@@ -487,13 +508,16 @@
         "message": "Benachrichtigen Sie mich per E-Mail über Sonderangebote und Neuigkeiten von AdGuard"
     },
     "popup_newsletter_subscribe": {
-        "message": "TESTVERSION STARTEN"
+        "message": "Abonnieren"
     },
     "popup_newsletter_no_subscribe": {
         "message": "Nein, danke"
     },
     "popup_onboarding_trusted_vpn": {
         "message": "Vertrauenswürdiges VPN"
+    },
+    "popup_onboarding_trusted_vpn_info": {
+        "message": "Vom Entwickler des weltberühmten Werbeblockers"
     },
     "popup_onboarding_numerous_locations": {
         "message": "Zahlreiche Serverstandorte"
@@ -527,6 +551,9 @@
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Umsteigen"
+    },
+    "popup_upgrade_screen_continue_free": {
+        "message": "Kostenlos fortsetzen"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> diese Monat verbleibend",
@@ -603,5 +630,8 @@
     },
     "options_signedout_page_title": {
         "message": "Sie haben sich bei AdGuard VPN abgemeldet"
+    },
+    "options_signedout_page_description": {
+        "message": "Ihre Verbindung derzeit ungeschützt ist. Um privat weiterzusurfen, klicken Sie auf das AdGuard VPN-Symbol und melden Sie sich erneut an."
     }
 }
