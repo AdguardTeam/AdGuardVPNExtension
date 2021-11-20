@@ -12,13 +12,17 @@ export const ManualMode = () => {
         exclusionsStore.closeAddExclusionModal();
     };
 
-    const addUrl = async () => {
+    const addUrl = async (e) => {
+        e.preventDefault();
         await exclusionsStore.addUrlToExclusions(inputValue);
         closeModal();
     };
 
     return (
-        <form className="manual-mode">
+        <form
+            className="manual-mode"
+            onSubmit={addUrl}
+        >
             <label>
                 Domain name:
                 <input

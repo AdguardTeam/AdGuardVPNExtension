@@ -9,3 +9,9 @@ export enum STATE {
     PartlyEnabled = 'partly.enabled',
     Disabled = 'disabled',
 }
+
+export enum TYPE {
+    IP = 'ip',
+    GROUP = 'group',
+    SERVICE = 'service',
+}

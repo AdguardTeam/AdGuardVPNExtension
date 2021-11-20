@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
-import { Checkbox } from '../Checkbox';
 
+import { TYPE } from '../../../../common/exclusionsConstants';
+import { StateBox } from '../StateBox';
 import { rootStore } from '../../../stores';
 
 import './list.pcss';
@@ -9,8 +10,12 @@ import './list.pcss';
 export const List = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
 
-    const removeExclusion = (id: string) => () => {
-        exclusionsStore.removeExclusion(id);
+    const removeExclusion = (id: string, type: TYPE) => () => {
+        exclusionsStore.removeExclusion(id, type);
+    };
+
+    const toggleState = (id: string, type: TYPE) => () => {
+        exclusionsStore.toggleExclusionState(id, type);
     };
 
     const renderedExclusions = exclusionsStore.preparedExclusions.map((exclusion) => {
@@ -19,9 +24,11 @@ export const List = observer(() => {
                 key={exclusion.name}
                 className="list__index"
             >
-                <Checkbox
+                <StateBox
                     id={exclusion.id}
+                    type={exclusion.type}
                     state={exclusion.state}
+                    toggleHandler={toggleState}
                 />
                 <img
                     src={exclusion.iconUrl}
@@ -32,9 +39,9 @@ export const List = observer(() => {
                 <button
                     type="button"
                     className="list__index__remove-button"
-                    onClick={removeExclusion(exclusion.id)}
+                    onClick={removeExclusion(exclusion.id, exclusion.type)}
                 >
-                    <svg className="icon icon--support">
+                    <svg className="list__index__remove-button__icon">
                         <use xlinkHref="#basket" />
                     </svg>
                 </button>

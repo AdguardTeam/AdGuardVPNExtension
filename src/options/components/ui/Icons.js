@@ -28,8 +28,8 @@ const Icons = () => (
         </svg>
 
         <svg id="partly-enabled" width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path fillRule="evenodd" clipRule="evenodd" d="M19 1H1V19H19V1Z" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <rect x="7.5" y="7.5" width="5" height="5" stroke="#74A352" strokeWidth="5" strokeLinejoin="round" />
+            <path fillRule="evenodd" clipRule="evenodd" d="M19 1H1V19H19V1Z" stroke="#74A352" strokeWidth="1.5" />
+            <rect x="7.5" y="7.5" width="5" height="5" stroke="#74A352" strokeWidth="5" />
         </svg>
 
         <symbol id="social_facebook" viewBox="0 0 112.196 112.196" fill="currentColor">

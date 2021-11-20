@@ -4,7 +4,7 @@ import {
     computed,
 } from 'mobx';
 
-import { EXCLUSIONS_MODES } from '../../common/exclusionsConstants';
+import { EXCLUSIONS_MODES, TYPE } from '../../common/exclusionsConstants';
 import messenger from '../../lib/messenger';
 
 export enum AddExclusionMode {
@@ -101,6 +101,7 @@ export class ExclusionsStore {
                     name: service.serviceName,
                     iconUrl: service.iconUrl,
                     state: service.state,
+                    type: TYPE.SERVICE,
                 };
             });
         // @ts-ignore
@@ -110,6 +111,7 @@ export class ExclusionsStore {
                 name: group.hostname,
                 iconUrl: '/assets/images/ip-icon.svg',
                 state: group.state,
+                type: TYPE.GROUP,
             };
         });
         // @ts-ignore
@@ -119,6 +121,7 @@ export class ExclusionsStore {
                 name: ip.hostname,
                 iconUrl: '/assets/images/ip-icon.svg',
                 state: ip.enabled,
+                type: TYPE.IP,
             };
         });
 
@@ -201,8 +204,14 @@ export class ExclusionsStore {
     };
 
     @action
-    removeExclusion = async (id: string) => {
-        await messenger.removeExclusion(id);
+    removeExclusion = async (id: string, type: TYPE) => {
+        await messenger.removeExclusion(id, type);
         await this.updateExclusionsData();
     };
+
+    @action
+    toggleExclusionState = async (id: string, type: TYPE) => {
+        await messenger.toggleExclusionState(id, type);
+        await this.updateExclusionsData();
+    }
 }

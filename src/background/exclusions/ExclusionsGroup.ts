@@ -129,7 +129,7 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
     /**
      * Toggles ExclusionsGroup state
      */
-    toggleExclusionsGroupState() {
+    toggleExclusionsGroupState = () => {
         if (this.state === STATE.Enabled || this.state === STATE.PartlyEnabled) {
             this.state = STATE.Disabled;
             this.setSubdomainsState(false);

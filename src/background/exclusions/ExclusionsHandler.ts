@@ -1,5 +1,5 @@
 import { ExclusionsGroup } from './ExclusionsGroup';
-import { STATE } from '../../common/exclusionsConstants';
+import { STATE, TYPE } from '../../common/exclusionsConstants';
 import { Exclusion } from './Exclusion';
 import { Service } from './Service';
 import { servicesManager } from './ServicesManager';
@@ -54,7 +54,7 @@ interface ExclusionsManagerInterface {
     getExclusions(): ExclusionsData;
     addUrlToExclusions(url: string): void;
     isExcluded(url: string): boolean|undefined;
-    removeExclusion(id: string): void;
+    removeExclusion(id: string, type: TYPE): void;
 }
 
 export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInterface {
@@ -98,27 +98,50 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
     }
 
     /**
-     * Removes top-level exclusion by id
+     * Removes top-level exclusion
      * @param id
+     * @param type
      */
-    async removeExclusion(id: string) {
-        const serviceId = this.excludedServices
-            .find((excludedService: Service) => excludedService.serviceId === id)?.serviceId;
-        if (serviceId) {
-            await this.removeService(serviceId);
-            return;
+    async removeExclusion(id: string, type: TYPE) {
+        switch (type) {
+            case TYPE.SERVICE: {
+                await this.removeService(id);
+                break;
+            }
+            case TYPE.GROUP: {
+                await this.removeExclusionsGroup(id);
+                break;
+            }
+            case TYPE.IP: {
+                await this.removeIp(id);
+                break;
+            }
+            default:
+                log.error(`Unknown exclusion type: ${type}`);
         }
+    }
 
-        const exclusionsGroupId = this.exclusionsGroups
-            .find((exclusionsGroup: ExclusionsGroup) => exclusionsGroup.id === id)?.id;
-        if (exclusionsGroupId) {
-            await this.removeExclusionsGroup(exclusionsGroupId);
-            return;
-        }
-
-        const ipId = this.excludedIps.find((excludedIp: Exclusion) => excludedIp.id === id)?.id;
-        if (ipId) {
-            await this.removeIp(ipId);
+    /**
+     * Toggles top-level exclusion state
+     * @param id
+     * @param type
+     */
+    async toggleExclusionState(id: string, type: TYPE) {
+        switch (type) {
+            case TYPE.SERVICE: {
+                await this.toggleServiceState(id);
+                break;
+            }
+            case TYPE.GROUP: {
+                await this.toggleExclusionsGroupState(id);
+                break;
+            }
+            case TYPE.IP: {
+                await this.toggleIpState(id);
+                break;
+            }
+            default:
+                log.error(`Unknown exclusion type: ${type}`);
         }
     }
 
@@ -296,14 +319,13 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
             return undefined;
         }
 
-        const enabledIpsByUrl = this.excludedIps
-            .filter((exclusion) => {
-                return (areHostnamesEqual(hostname, exclusion.hostname)
-                    || (includeWildcards && shExpMatch(hostname, exclusion.hostname)))
-                    && exclusion.enabled;
-            });
+        const isExcludedIp = this.excludedIps.some((exclusion) => {
+            return (areHostnamesEqual(hostname, exclusion.hostname)
+                || (includeWildcards && shExpMatch(hostname, exclusion.hostname)))
+                && exclusion.enabled;
+        });
 
-        const enabledGroupsByUrl = this.exclusionsGroups.filter((group) => {
+        const isExclusionsGroup = this.exclusionsGroups.some((group) => {
             return group.exclusions.some((exclusion) => {
                 return (group.state === STATE.Enabled || group.state === STATE.PartlyEnabled)
                     && (areHostnamesEqual(hostname, exclusion.hostname)
@@ -312,15 +334,19 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
             });
         });
 
-        // const services = this.excludedServices.map((service) => {
-        //     return service.exclusionsGroups.map((group) => {
-        // eslint-disable-next-line max-len
-        //         return group.exclusions.filter((exclusion) => areHostnamesEqual(hostname, exclusion.hostname)
-        //             || (includeWildcards && shExpMatch(hostname, exclusion.hostname)));
-        //     });
-        // });
+        const isExcludedService = this.excludedServices.some((service) => {
+            return service.exclusionsGroups.some((group) => {
+                return group.exclusions.some((exclusion) => {
+                    // eslint-disable-next-line max-len
+                    return (service.state === STATE.Enabled || service.state === STATE.PartlyEnabled)
+                    && (group.state === STATE.Enabled || group.state === STATE.PartlyEnabled)
+                    && (areHostnamesEqual(hostname, exclusion.hostname)
+                        || (includeWildcards && shExpMatch(hostname, exclusion.hostname)));
+                });
+            });
+        });
 
-        return !!([...enabledIpsByUrl, ...enabledGroupsByUrl].length);
+        return isExcludedIp || isExclusionsGroup || isExcludedService;
     };
 
     isExcluded = (url: string) => {

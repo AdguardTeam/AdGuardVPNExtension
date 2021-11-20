@@ -149,8 +149,12 @@ const messageHandler = async (message, sender) => {
             return exclusions.current.addUrlToExclusions(url);
         }
         case MESSAGES_TYPES.REMOVE_EXCLUSION: {
-            const { id } = data;
-            return exclusions.current.removeExclusion(id);
+            const { id, exclusionType } = data;
+            return exclusions.current.removeExclusion(id, exclusionType);
+        }
+        case MESSAGES_TYPES.TOGGLE_EXCLUSION_STATE: {
+            const { id, exclusionType } = data;
+            return exclusions.current.toggleExclusionState(id, exclusionType);
         }
         case MESSAGES_TYPES.REMOVE_FROM_EXCLUSIONS: {
             const { url } = data;

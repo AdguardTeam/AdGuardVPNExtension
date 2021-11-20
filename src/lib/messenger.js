@@ -162,9 +162,14 @@ class Messenger {
         return this.sendMessage(type, { url });
     }
 
-    async removeExclusion(id) {
+    async removeExclusion(id, exclusionType) {
         const type = MESSAGES_TYPES.REMOVE_EXCLUSION;
-        return this.sendMessage(type, { id });
+        return this.sendMessage(type, { id, exclusionType });
+    }
+
+    async toggleExclusionState(id, exclusionType) {
+        const type = MESSAGES_TYPES.TOGGLE_EXCLUSION_STATE;
+        return this.sendMessage(type, { id, exclusionType });
     }
 
     async removeFromExclusions(url) {

@@ -58,7 +58,7 @@ export class Service implements ServiceInterface {
         });
     }
 
-    toggleServiceState() {
+    toggleServiceState = () => {
         if (this.state === STATE.Enabled || this.state === STATE.PartlyEnabled) {
             this.state = STATE.Disabled;
             this.disableExclusionsGroups();
