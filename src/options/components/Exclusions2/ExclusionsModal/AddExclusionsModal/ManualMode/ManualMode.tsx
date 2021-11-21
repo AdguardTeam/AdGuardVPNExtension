@@ -12,7 +12,7 @@ export const ManualMode = () => {
         exclusionsStore.closeAddExclusionModal();
     };
 
-    const addUrl = async (e) => {
+    const addUrl = async (e: any) => {
         e.preventDefault();
         await exclusionsStore.addUrlToExclusions(inputValue);
         closeModal();

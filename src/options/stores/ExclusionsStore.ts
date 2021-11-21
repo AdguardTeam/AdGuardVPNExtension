@@ -63,30 +63,6 @@ export class ExclusionsStore {
         this.setExclusionsData(exclusionsData);
     }
 
-    // FIXME remove any
-    @action
-    getExcludedServicesList = (mode: any) => {
-        // FIXME remove ts-ignore
-        // @ts-ignore
-        return this.exclusions[mode].excludedServices.map((service) => service.serviceName);
-    }
-
-    // FIXME remove any
-    @action
-    getExclusionsGroupsList = (mode: any) => {
-        // FIXME remove ts-ignore
-        // @ts-ignore
-        return this.exclusions[mode].exclusionsGroups.map((group) => group.hostname);
-    }
-
-    // FIXME remove any
-    @action
-    getExcludedIpsList = (mode: any) => {
-        // FIXME remove ts-ignore
-        // @ts-ignore
-        return this.exclusions[mode].excludedIps.map((ip) => ip.hostname);
-    }
-
     // FIXME remove ts-ignore
     @computed
     get preparedExclusions() {
@@ -150,6 +126,11 @@ export class ExclusionsStore {
         this.addExclusionMode = mode;
     }
 
+    isExcludedService = (serviceId: string) => {
+        return this.exclusions[this.currentMode].excludedServices
+            .some((service) => service.serviceId === serviceId);
+    }
+
     @computed
     get preparedServicesData() {
         // FIXME remove ts-ignore
@@ -161,7 +142,11 @@ export class ExclusionsStore {
             categories.forEach((category) => {
                 const foundCategory = acc[category];
                 if (!foundCategory) {
-                    acc[category] = { id: category, title: category, services: [serviceId] };
+                    acc[category] = {
+                        id: category,
+                        title: category.replace('_', ' ').toLowerCase(),
+                        services: [serviceId],
+                    };
                 } else {
                     foundCategory.services.push(serviceId);
                 }
@@ -173,7 +158,10 @@ export class ExclusionsStore {
         // @ts-ignore
         const services = this.servicesData.reduce((acc, serviceData) => {
             const { serviceId } = serviceData;
-            acc[serviceId] = serviceData;
+            acc[serviceId] = {
+                ...serviceData,
+                excluded: this.isExcludedService(serviceId),
+            };
             return acc;
         }, {});
 

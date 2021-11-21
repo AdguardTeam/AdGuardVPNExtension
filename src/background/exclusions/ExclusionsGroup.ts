@@ -20,12 +20,20 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
 
     state: STATE;
 
-    constructor(hostname: string) {
-        this.id = nanoid();
-        this.hostname = prepareUrl(hostname);
-        this.exclusions = [];
-        this.addDefaultExclusions();
-        this.state = STATE.Enabled;
+    constructor(exclusionsGroupData: ExclusionsGroupInterface | string) {
+        if (typeof exclusionsGroupData === 'string') {
+            this.id = nanoid();
+            this.hostname = prepareUrl(exclusionsGroupData);
+            this.exclusions = [];
+            this.addDefaultExclusions();
+            this.state = STATE.Enabled;
+        } else {
+            this.id = exclusionsGroupData.id;
+            this.hostname = exclusionsGroupData.hostname;
+            this.exclusions = exclusionsGroupData.exclusions
+                ?.map((exclusion) => new Exclusion(exclusion));
+            this.state = exclusionsGroupData.state;
+        }
     }
 
     /**

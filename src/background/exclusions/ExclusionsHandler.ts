@@ -55,6 +55,8 @@ interface ExclusionsManagerInterface {
     addUrlToExclusions(url: string): void;
     isExcluded(url: string): boolean|undefined;
     removeExclusion(id: string, type: TYPE): void;
+    toggleExclusionState(id: string, type: TYPE): void;
+    clearExclusionsData(): void;
 }
 
 export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInterface {
@@ -70,9 +72,12 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
 
     constructor(updateHandler: () => void, exclusions: ExclusionsData, mode: string) {
         this.updateHandler = updateHandler;
-        this.excludedServices = exclusions.excludedServices || [];
-        this.exclusionsGroups = exclusions.exclusionsGroups || [];
-        this.excludedIps = exclusions.excludedIps || [];
+        this.excludedServices = exclusions.excludedServices
+            .map((service) => new Service(service)) || [];
+        this.exclusionsGroups = exclusions.exclusionsGroups
+            .map((group) => new ExclusionsGroup(group)) || [];
+        this.excludedIps = exclusions.excludedIps
+            .map((ip) => new Exclusion(ip)) || [];
         this.mode = mode;
     }
 
@@ -146,9 +151,12 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
     }
 
     async addService(serviceId: string) {
-        if (this.excludedServices
-            .some((excludedService: Service) => excludedService.serviceId === serviceId)) {
-            // TODO enable service and add test
+        if (this.excludedServices.some((service: Service) => service.serviceId === serviceId)) {
+            this.excludedServices.forEach((service: Service) => {
+                if (service.serviceId === serviceId) {
+                    service.enableService();
+                }
+            });
             return;
         }
         const service = servicesManager.getService(serviceId);
@@ -211,8 +219,6 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
 
     async addExclusionsGroup(dirtyUrl: string) {
         const url = prepareUrl(dirtyUrl);
-        // save hostnames as ASCII because 'pacScript.url' supports only ASCII URLs
-        // https://chromium.googlesource.com/chromium/src/+/3a46e0bf9308a42642689c4b73b6b8622aeecbe5/chrome/browser/extensions/api/proxy/proxy_api_helpers.cc#115
         const hostname = getHostname(url);
         if (!hostname) {
             return;
@@ -224,8 +230,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
             return;
         }
 
-        if (this.exclusionsGroups
-            .some((group: ExclusionsGroup) => group.hostname === hostname)) {
+        if (this.exclusionsGroups.some((group: ExclusionsGroup) => group.hostname === hostname)) {
             this.exclusionsGroups.forEach((group: ExclusionsGroup) => {
                 if (group.hostname === hostname) {
                     group.exclusions.forEach((exclusion) => {
@@ -283,8 +288,14 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
     }
 
     async addIp(ip: string) {
-        if (!this.excludedIps
-            .some((excludedIp: Exclusion) => excludedIp.hostname === ip)) {
+        if (this.excludedIps.some((excludedIp: Exclusion) => excludedIp.hostname === ip)) {
+            this.excludedIps.forEach((excludedIp: Exclusion) => {
+                if (excludedIp.hostname === ip) {
+                    // eslint-disable-next-line no-param-reassign
+                    excludedIp.enabled = true;
+                }
+            });
+        } else {
             const excludedIp = new Exclusion(ip);
             this.excludedIps.push(excludedIp);
         }
@@ -292,8 +303,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
     }
 
     async removeIp(id: string) {
-        this.excludedIps = this.excludedIps
-            .filter((excludedIp: Exclusion) => excludedIp.id !== id);
+        this.excludedIps = this.excludedIps.filter((excludedIp: Exclusion) => excludedIp.id !== id);
         await this.updateHandler();
     }
 

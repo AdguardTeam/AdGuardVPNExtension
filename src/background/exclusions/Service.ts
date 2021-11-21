@@ -8,6 +8,7 @@ export interface ServiceInterface {
     categories: string[];
     modifiedTime: string;
     exclusionsGroups: ExclusionsGroup[];
+    state: STATE;
 }
 
 export class Service implements ServiceInterface {
@@ -31,8 +32,9 @@ export class Service implements ServiceInterface {
         this.iconUrl = service.iconUrl;
         this.categories = service.categories;
         this.modifiedTime = service.modifiedTime;
-        this.exclusionsGroups = service.exclusionsGroups || [];
-        this.state = STATE.Enabled;
+        this.exclusionsGroups = service.exclusionsGroups
+            ?.map((group) => new ExclusionsGroup(group)) || [];
+        this.state = service.state || STATE.Enabled;
     }
 
     addExclusionsGroup(hostname: string) {
@@ -58,13 +60,21 @@ export class Service implements ServiceInterface {
         });
     }
 
+    enableService() {
+        this.state = STATE.Enabled;
+        this.enableExclusionsGroups();
+    }
+
+    disableService() {
+        this.state = STATE.Disabled;
+        this.disableExclusionsGroups();
+    }
+
     toggleServiceState = () => {
         if (this.state === STATE.Enabled || this.state === STATE.PartlyEnabled) {
-            this.state = STATE.Disabled;
-            this.disableExclusionsGroups();
+            this.disableService();
         } else {
-            this.state = STATE.Enabled;
-            this.enableExclusionsGroups();
+            this.enableService();
         }
     }
 }

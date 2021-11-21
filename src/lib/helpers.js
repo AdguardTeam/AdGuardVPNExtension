@@ -39,13 +39,15 @@ const getUrlProperties = (url) => {
 
 /**
  * Returns hostname of url if it was correct, otherwise return input url
- * @param {string} url
- * @returns {string}
+ * @param {string | undefined } url
+ * @returns {string | null}
  */
 export const getHostname = (url) => {
+    if (!url) {
+        return null;
+    }
     const urlObj = getUrlProperties(url);
-    const hostname = (urlObj && urlObj.hostname) ? urlObj.hostname : url;
-    return hostname;
+    return (urlObj && urlObj.hostname) ? urlObj.hostname : url;
 };
 
 /**
@@ -65,6 +67,8 @@ export const getProtocol = (url) => {
  * 2. converts to lowercase
  * 3. removes `https://www.` and `/` at the end of the line
  * 4. converts to ASCII
+ * save hostnames as ASCII because 'pacScript.url' supports only ASCII URLs
+ * https://chromium.googlesource.com/chromium/src/+/3a46e0bf9308a42642689c4b73b6b8622aeecbe5/chrome/browser/extensions/api/proxy/proxy_api_helpers.cc#115
  * @param {string} rawUrl
  * @return {string | undefined}
  */
