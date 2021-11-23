@@ -40,6 +40,11 @@ export class ExclusionsStore {
 
     @observable exclusionIdToShowSettings: string | null = null;
 
+    /**
+     * Temp list used to keep state of services to be enabled or disabled
+     */
+    @observable servicesToToggle: string[] = [];
+
     // FIXME remove any
     @action
     setServicesData = (servicesData: any) => {
@@ -206,6 +211,15 @@ export class ExclusionsStore {
         await messenger.addService(id);
         await this.updateExclusionsData();
     }
+
+    @action
+    addToServicesToToggle = (id: string) => {
+        if (this.servicesToToggle.includes(id)) {
+            this.servicesToToggle = this.servicesToToggle.filter((serviceId) => serviceId !== id);
+        } else {
+            this.servicesToToggle.push(id);
+        }
+    };
 
     @action
     setExclusionIdToShowSettings = (id: string|null) => {

@@ -5,9 +5,9 @@ export enum EXCLUSIONS_MODES {
 }
 
 export enum STATE {
-    Enabled = 'enabled',
-    PartlyEnabled = 'partly.enabled',
-    Disabled = 'disabled',
+    Enabled = 'Enabled',
+    PartlyEnabled = 'PartlyEnabled',
+    Disabled = 'Disabled',
 }
 
 export enum TYPE {

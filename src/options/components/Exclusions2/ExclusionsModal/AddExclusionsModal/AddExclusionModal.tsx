@@ -60,20 +60,20 @@ export const AddExclusionModal = observer(() => {
             title="Add a website"
         >
             <div className="modal__mode-selectors">
-                {/* // FIXME add to translations */}
                 <button
                     onClick={onServiceModeClick}
                     type="button"
                     className={ModeSelectButtons.service.classname}
                 >
+                    {/* FIXME add to translations */}
                     From the list
                 </button>
-                {/* // FIXME add to translations */}
                 <button
                     onClick={onManualModeClick}
                     type="button"
                     className={ModeSelectButtons.manual.classname}
                 >
+                    {/* FIXME add to translations */}
                     Manually
                 </button>
             </div>

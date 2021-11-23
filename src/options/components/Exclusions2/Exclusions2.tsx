@@ -8,7 +8,7 @@ import { ModeSelector } from './ModeSelector';
 import { Search } from './Search';
 import { Actions } from './Actions';
 import { List } from './List';
-import { AddExclusionModal } from './ExclusionsModal/AddExclusionsModal/AddExclusionModal';
+import { AddExclusionModal } from './ExclusionsModal/AddExclusionsModal';
 import { ExclusionSettings } from './ExclusionSettings';
 
 import './exclusions.pcss';
@@ -28,10 +28,12 @@ export const Exclusions2 = observer(() => {
         <>
             <Title
                 title={reactTranslator.getMessage('settings_exclusion_title')}
+                // FIXME add to translations
                 subtitle="Please select the VPN mode"
             />
             <div className="settings">
                 <ModeSelector />
+                {/* FIXME add to translations */}
                 <Search placeholder="Search website" />
                 <Actions />
                 <List />
