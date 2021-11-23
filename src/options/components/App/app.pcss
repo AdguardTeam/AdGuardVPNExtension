@@ -15,6 +15,7 @@
     min-height: 500px;
     padding-left: 50px;
     border-left: 1px solid var(--border-color);
+    position: relative;
 
     &__title {
         display: flex;
@@ -22,6 +23,15 @@
         justify-content: space-between;
         margin: 0 0 64px;
         font-size: 3rem;
+    }
+
+    &__subtitle {
+        margin: 0;
+        font-size: 16px;
+        /* TODO fix all titles and remove position: absolute */
+        position: absolute;
+        top: 47px;
+        left: 100px;
     }
 
     &__link {

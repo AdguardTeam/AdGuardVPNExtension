@@ -26,8 +26,6 @@ export const AddExclusionModal = observer(() => {
         exclusionsStore.setAddExclusionMode(AddExclusionMode.MANUAL);
     };
 
-    console.log(exclusionsStore.addExclusionMode);
-
     const ModeSelectButtons = {
         service: {
             classname: classnames(

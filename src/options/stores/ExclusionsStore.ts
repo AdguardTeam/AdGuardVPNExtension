@@ -1,8 +1,4 @@
-import {
-    action,
-    observable,
-    computed,
-} from 'mobx';
+import { action, computed, observable } from 'mobx';
 
 import { EXCLUSIONS_MODES, TYPE } from '../../common/exclusionsConstants';
 import messenger from '../../lib/messenger';
@@ -41,6 +37,8 @@ export class ExclusionsStore {
     @observable addExclusionMode = DEFAULT_ADD_EXCLUSION_MODE;
 
     @observable unfoldedServiceCategories: string[] = [];
+
+    @observable exclusionIdToShowSettings: string | null = null;
 
     // FIXME remove any
     @action
@@ -207,5 +205,36 @@ export class ExclusionsStore {
     addService = async (id: string) => {
         await messenger.addService(id);
         await this.updateExclusionsData();
+    }
+
+    @action
+    setExclusionIdToShowSettings = (id: string|null) => {
+        this.exclusionIdToShowSettings = id;
+    }
+
+    @action
+    toggleSubdomainStateInExclusionsGroup = async (
+        exclusionsGroupId: string,
+        subdomainId: string,
+    ) => {
+        await messenger.toggleSubdomainStateInExclusionsGroup(exclusionsGroupId, subdomainId);
+        await this.updateExclusionsData();
+    }
+
+    @action
+    getExclusionById = (id: string | null) => {
+        if (!id) {
+            return null;
+        }
+        const groupsInServices = this.exclusions[this.currentMode].excludedServices
+            .map(({ exclusionsGroups }) => exclusionsGroups.map((group) => group)).flat();
+
+        const flatExclusions = [
+            ...Object.values(this.exclusions[this.currentMode]).flat(),
+            ...groupsInServices,
+        ];
+
+        return flatExclusions
+            .find((exclusion) => exclusion.id === id || exclusion.serviceId === id);
     }
 }

@@ -168,6 +168,11 @@ const messageHandler = async (message, sender) => {
             const { url } = data;
             return exclusions.current.isExcluded(url);
         }
+        case MESSAGES_TYPES.TOGGLE_SUBDOMAIN_STATE_IN_EXCLUSIONS_GROUP: {
+            const { exclusionsGroupId, subdomainId } = data;
+            return exclusions.current
+                .toggleSubdomainStateInExclusionsGroup(exclusionsGroupId, subdomainId);
+        }
         case MESSAGES_TYPES.CHECK_EMAIL: {
             const { email } = data;
             const appId = await credentials.getAppId();

@@ -187,6 +187,11 @@ class Messenger {
         return this.sendMessage(type, { url });
     }
 
+    async toggleSubdomainStateInExclusionsGroup(exclusionsGroupId, subdomainId) {
+        const type = MESSAGES_TYPES.TOGGLE_SUBDOMAIN_STATE_IN_EXCLUSIONS_GROUP;
+        return this.sendMessage(type, { exclusionsGroupId, subdomainId });
+    }
+
     async checkEmail(email) {
         const type = MESSAGES_TYPES.CHECK_EMAIL;
         return this.sendMessage(type, { email });

@@ -29,7 +29,7 @@ export const Actions = () => {
                     className="actions__add-website simple-button"
                     onClick={onAddExclusionClick}
                 >
-                    + Add a website
+                    Add a website
                 </button>
             </div>
             {/* FIXME add tooltip? */}

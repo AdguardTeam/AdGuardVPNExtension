@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
+import cn from 'classnames';
 
 import { TYPE } from '../../../../common/exclusionsConstants';
 import { StateBox } from '../StateBox';
@@ -18,6 +19,16 @@ export const List = observer(() => {
         exclusionsStore.toggleExclusionState(id, type);
     };
 
+    const showExclusionSettings = (id: string, type: TYPE) => () => {
+        if (type !== TYPE.IP) {
+            exclusionsStore.setExclusionIdToShowSettings(id);
+        }
+    };
+
+    const listIndexTitleClasses = (type: TYPE) => cn('list__index__title', {
+        'ip-title': type === TYPE.IP,
+    });
+
     const renderedExclusions = exclusionsStore.preparedExclusions.map((exclusion) => {
         return (
             <li
@@ -30,12 +41,17 @@ export const List = observer(() => {
                     state={exclusion.state}
                     toggleHandler={toggleState}
                 />
-                <img
-                    src={exclusion.iconUrl}
-                    className="list__index__icon"
-                    alt="exclusion icon"
-                />
-                {exclusion.name}
+                <div
+                    className={listIndexTitleClasses(exclusion.type)}
+                    onClick={showExclusionSettings(exclusion.id, exclusion.type)}
+                >
+                    <img
+                        src={exclusion.iconUrl}
+                        className="list__index__title__icon"
+                        alt="exclusion icon"
+                    />
+                    {exclusion.name}
+                </div>
                 <button
                     type="button"
                     className="list__index__remove-button"
@@ -50,10 +66,8 @@ export const List = observer(() => {
     });
 
     return (
-        <div className="list">
-            <ul>
-                {renderedExclusions}
-            </ul>
-        </div>
+        <>
+            {renderedExclusions}
+        </>
     );
 });

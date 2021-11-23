@@ -107,9 +107,6 @@ export const ModeSelector = observer(() => {
                 </button>
             </Modal>
             <div className="settings__section">
-                <div className="settings__title">
-                    {reactTranslator.getMessage('settings_connection_mode_title')}
-                </div>
                 <div className="settings__group">
                     <div className="settings__controls">
                         {renderRadioButton(EXCLUSIONS_MODES.REGULAR)}
