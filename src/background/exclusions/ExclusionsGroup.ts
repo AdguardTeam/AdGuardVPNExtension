@@ -66,10 +66,9 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
         }
 
         const exclusion = new Exclusion(subdomainUrl);
+        exclusion.enabled = false;
         this.exclusions.push(exclusion);
-
-        // disable subdomains pattern exclusion (*.domain.com)
-        this.setSubdomainStateByUrl(this.subdomainsPattern(this.hostname), false);
+        this.updateExclusionsGroupState();
     }
 
     /**

@@ -22,11 +22,10 @@ describe('ExclusionsGroup', () => {
         exampleGroup.addSubdomain('test1');
 
         expect(exampleGroup.exclusions[1].hostname).toEqual('*.example.org');
-        // subdomain pattern exclusion should be disabled if added new subdomain
-        expect(exampleGroup.exclusions[1].enabled).toBeFalsy();
         expect(exampleGroup.exclusions.length).toEqual(3);
         expect(exampleGroup.exclusions[2].hostname).toEqual('test1.example.org');
-        expect(exampleGroup.exclusions[2].enabled).toBeTruthy();
+        // subdomain pattern exclusion should be disabled if added new subdomain
+        expect(exampleGroup.exclusions[2].enabled).toBeFalsy();
 
         exampleGroup.addSubdomain('test2');
 
@@ -65,15 +64,14 @@ describe('ExclusionsGroup', () => {
         exampleGroup.addSubdomain('test');
 
         expect(exampleGroup.exclusions[1].hostname).toEqual('*.example.org');
-        // `*.example.org` state should be disabled after adding subdomain
-        expect(exampleGroup.exclusions[1].enabled).toBeFalsy();
         // group state should be PartlyEnabled
         expect(exampleGroup.state).toEqual(STATE.PartlyEnabled);
         expect(exampleGroup.exclusions[2].hostname).toEqual('test.example.org');
+        expect(exampleGroup.exclusions[2].enabled).toBeFalsy();
 
         // disable all domains
-        exampleGroup.toggleSubdomainState(exampleGroup.exclusions[2].id);
         exampleGroup.toggleSubdomainState(exampleGroup.exclusions[0].id);
+        exampleGroup.toggleSubdomainState(exampleGroup.exclusions[1].id);
         expect(exampleGroup.exclusions[0].enabled).toBeFalsy();
         expect(exampleGroup.exclusions[1].enabled).toBeFalsy();
         expect(exampleGroup.exclusions[2].enabled).toBeFalsy();

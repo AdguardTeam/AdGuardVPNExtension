@@ -384,6 +384,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
         return isExcludedIp || isExclusionsGroup || isExcludedService;
     };
 
+    // TODO add more tests
     isExcluded = (url: string) => {
         if (!url) {
             return false;

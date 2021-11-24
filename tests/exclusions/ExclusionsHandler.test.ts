@@ -201,9 +201,8 @@ describe('ExclusionsManager', () => {
         expect(exclusionsData.exclusionsGroups[0].exclusions.length).toEqual(3);
         expect(exclusionsData.exclusionsGroups[0].exclusions[0].hostname).toEqual('example.org');
         expect(exclusionsData.exclusionsGroups[0].exclusions[1].hostname).toEqual('*.example.org');
-        expect(exclusionsData.exclusionsGroups[0].exclusions[1].enabled).toBeFalsy();
         expect(exclusionsData.exclusionsGroups[0].exclusions[2].hostname).toEqual('test.example.org');
-        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled).toBeTruthy();
+        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled).toBeFalsy();
 
         const subdomainId = exclusionsData.exclusionsGroups[0].exclusions[2].id;
         await exclusionsHandler.removeSubdomainFromExclusionsGroup(exclusionsGroupId, subdomainId);
@@ -269,8 +268,9 @@ describe('ExclusionsManager', () => {
         expect(exclusionsData.exclusionsGroups[0].state).toEqual(STATE.PartlyEnabled);
         expect(exclusionsData.exclusionsGroups[0].exclusions).toHaveLength(3);
         expect(exclusionsData.exclusionsGroups[0].exclusions[1].hostname).toEqual('*.example.org');
-        // subdomains pattern state should be disabled after adding subdomain
-        expect(exclusionsData.exclusionsGroups[0].exclusions[1].enabled).toBeFalsy();
+        expect(exclusionsData.exclusionsGroups[0].exclusions[2].hostname).toEqual('test.example.org');
+        // added subdomain should be disabled
+        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled).toBeFalsy();
 
         // toggle group state
         await exclusionsHandler.toggleExclusionsGroupState(groupId);
@@ -310,16 +310,15 @@ describe('ExclusionsManager', () => {
 
         exclusionsData = exclusionsHandler.getExclusions();
         expect(exclusionsData.exclusionsGroups[0].exclusions).toHaveLength(3);
+        expect(exclusionsData.exclusionsGroups[0].exclusions[1].enabled).toBeTruthy();
         expect(exclusionsData.exclusionsGroups[0].exclusions[2].hostname).toEqual('test.example.org');
-        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled).toBeTruthy();
-        // *.example.org should be disabled
-        expect(exclusionsData.exclusionsGroups[0].exclusions[1].enabled).toBeFalsy();
+        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled).toBeFalsy();
 
         const subdomain1Id = exclusionsData.exclusionsGroups[0].exclusions[0].id;
-        const subdomain3Id = exclusionsData.exclusionsGroups[0].exclusions[2].id;
+        const subdomain2Id = exclusionsData.exclusionsGroups[0].exclusions[1].id;
         // disable all subdomains
         await exclusionsHandler.toggleSubdomainStateInExclusionsGroup(groupId, subdomain1Id);
-        await exclusionsHandler.toggleSubdomainStateInExclusionsGroup(groupId, subdomain3Id);
+        await exclusionsHandler.toggleSubdomainStateInExclusionsGroup(groupId, subdomain2Id);
 
         exclusionsData = exclusionsHandler.getExclusions();
         expect(exclusionsData.exclusionsGroups[0].exclusions[0].enabled).toBeFalsy();
