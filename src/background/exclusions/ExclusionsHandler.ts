@@ -22,7 +22,7 @@ interface ExclusionsManagerInterface {
     toggleServiceState(serviceId: string): void;
     toggleExclusionsGroupStateInService(serviceId: string, exclusionsGroupId: string): void;
     removeExclusionsGroupFromService(serviceId: string, exclusionsGroupId: string): void;
-    addSubdomainToServiceExclusionsGroup(
+    addSubdomainToExclusionsGroupInService(
         serviceId: string,
         exclusionsGroupId: string,
         subdomain: string,
@@ -203,18 +203,14 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
         await this.updateHandler();
     }
 
-    async addSubdomainToServiceExclusionsGroup(
+    async addSubdomainToExclusionsGroupInService(
         serviceId: string,
         exclusionsGroupId: string,
         subdomain: string,
     ) {
         this.excludedServices.forEach((service: Service) => {
             if (service.serviceId === serviceId) {
-                service.exclusionsGroups.forEach((exclusionsGroup) => {
-                    if (exclusionsGroup.id === exclusionsGroupId) {
-                        exclusionsGroup.addSubdomain(subdomain);
-                    }
-                });
+                service.addSubdomainToExclusionsGroup(exclusionsGroupId, subdomain);
             }
         });
         await this.updateHandler();

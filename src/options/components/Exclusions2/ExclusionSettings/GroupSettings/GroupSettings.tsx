@@ -103,7 +103,10 @@ export const GroupSettings = observer(({ exclusionData, parentServiceId }) => {
             >
                 {reactTranslator.getMessage('settings_exclusion_add_subdomain')}
             </button>
-            <SubdomainModal groupId={exclusionData.id} />
+            <SubdomainModal
+                groupId={exclusionData.id}
+                parentServiceId={parentServiceId}
+            />
         </div>
     );
 });

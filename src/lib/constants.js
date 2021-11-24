@@ -67,6 +67,7 @@ export const MESSAGES_TYPES = {
     REMOVE_SUBDOMAIN_FROM_EXCLUSIONS_GROUP: 'remove.subdomain.from.exclusions.group',
     REMOVE_SUBDOMAIN_FROM_EXCLUSIONS_GROUP_IN_SERVICE: 'remove.subdomain.from.exclusions.group.in.service',
     TOGGLE_SUBDOMAIN_IN_EXCLUSIONS_GROUP_IN_SERVICE: 'toggle.subdomain.in.exclusions.group.in.service',
+    ADD_SUBDOMAIN_TO_EXCLUSIONS_GROUP_IN_SERVICE: 'add.subdomain.to.exclusions.group.in.service',
     RENAME_EXCLUSION_BY_MODE: 'rename.exclusion.by.mode',
     ADD_SERVICE: 'add.service',
     ADD_EXCLUSION_BY_MODE: 'add.exclusion.by.mode',

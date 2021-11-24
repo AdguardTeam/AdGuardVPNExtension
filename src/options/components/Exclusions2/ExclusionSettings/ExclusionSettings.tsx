@@ -31,7 +31,7 @@ export const ExclusionSettings = observer(() => {
         return (
             <GroupSettings
                 exclusionData={exclusionData}
-                parentServiceId="null"
+                parentServiceId={null}
             />
         );
     };

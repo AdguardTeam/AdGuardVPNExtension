@@ -219,7 +219,7 @@ describe('ExclusionsManager', () => {
         let exclusionsData = exclusionsHandler.getExclusions();
         const exclusionsGroupId = exclusionsData.excludedServices[0].exclusionsGroups[0].id;
         // add subdomain 'test' to github.com exclusions group in GitHub service
-        await exclusionsHandler.addSubdomainToServiceExclusionsGroup('github', exclusionsGroupId, 'test');
+        await exclusionsHandler.addSubdomainToExclusionsGroupInService('github', exclusionsGroupId, 'test');
         exclusionsData = exclusionsHandler.getExclusions();
 
         expect(exclusionsData.excludedServices[0].serviceId).toEqual('github');

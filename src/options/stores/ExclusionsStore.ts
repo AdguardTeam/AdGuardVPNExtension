@@ -326,6 +326,20 @@ export class ExclusionsStore {
         await this.updateExclusionsData();
     }
 
+    @action
+    addSubdomainToExclusionsGroupInService = async (
+        serviceId: string,
+        exclusionsGroupId:string,
+        subdomainId: string,
+    ) => {
+        await messenger.addSubdomainToExclusionsGroupInService(
+            serviceId,
+            exclusionsGroupId,
+            subdomainId,
+        );
+        await this.updateExclusionsData();
+    }
+
     @computed
     get exclusionDataToShow() {
         if (!this.exclusionIdToShowSettings) {

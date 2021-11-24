@@ -82,6 +82,20 @@ export class Service implements ServiceInterface {
     };
 
     /**
+     * Adds subdomain to ExclusionsGroups
+     * @param exclusionsGroupId
+     * @param subdomain
+     */
+    addSubdomainToExclusionsGroup = (exclusionsGroupId: string, subdomain: string) => {
+        this.exclusionsGroups.forEach((group: ExclusionsGroup) => {
+            if (group.id === exclusionsGroupId) {
+                group.addSubdomain(subdomain);
+            }
+        });
+        this.updateServiceState();
+    };
+
+    /**
      * Toggles domain state in ExclusionsGroups
      * @param exclusionsGroupId
      * @param domainId

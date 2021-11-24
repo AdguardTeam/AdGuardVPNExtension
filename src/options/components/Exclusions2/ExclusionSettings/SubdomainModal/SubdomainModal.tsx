@@ -9,7 +9,7 @@ import './subdomain-modal.pcss';
 
 // FIXME remove @ts-ignore
 // @ts-ignore
-export const SubdomainModal = observer(({ groupId }) => {
+export const SubdomainModal = observer(({ groupId, parentServiceId }) => {
     const { exclusionsStore } = useContext(rootStore);
 
     const [inputValue, setInputValue] = useState('');
@@ -22,6 +22,12 @@ export const SubdomainModal = observer(({ groupId }) => {
 
     const addSubdomain = async () => {
         if (inputValue) {
+            if (parentServiceId) {
+                await exclusionsStore
+                    .addSubdomainToExclusionsGroupInService(parentServiceId, groupId, inputValue);
+                closeModal();
+                return;
+            }
             await exclusionsStore.addSubdomainToExclusionsGroup(groupId, inputValue);
             closeModal();
         }

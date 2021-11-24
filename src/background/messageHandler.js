@@ -195,21 +195,27 @@ const messageHandler = async (message, sender) => {
         }
         case MESSAGES_TYPES.REMOVE_SUBDOMAIN_FROM_EXCLUSIONS_GROUP_IN_SERVICE: {
             const { serviceId, exclusionsGroupId, subdomainId } = data;
-            return exclusions.current
-                .removeSubdomainFromExclusionsGroupInService(
-                    serviceId,
-                    exclusionsGroupId,
-                    subdomainId,
-                );
+            return exclusions.current.removeSubdomainFromExclusionsGroupInService(
+                serviceId,
+                exclusionsGroupId,
+                subdomainId,
+            );
         }
         case MESSAGES_TYPES.TOGGLE_SUBDOMAIN_IN_EXCLUSIONS_GROUP_IN_SERVICE: {
             const { serviceId, exclusionsGroupId, subdomainId } = data;
-            return exclusions.current
-                .toggleSubdomainStateInExclusionsGroupInService(
-                    serviceId,
-                    exclusionsGroupId,
-                    subdomainId,
-                );
+            return exclusions.current.toggleSubdomainStateInExclusionsGroupInService(
+                serviceId,
+                exclusionsGroupId,
+                subdomainId,
+            );
+        }
+        case MESSAGES_TYPES.ADD_SUBDOMAIN_TO_EXCLUSIONS_GROUP_IN_SERVICE: {
+            const { serviceId, exclusionsGroupId, subdomainId } = data;
+            return exclusions.current.addSubdomainToExclusionsGroupInService(
+                serviceId,
+                exclusionsGroupId,
+                subdomainId,
+            );
         }
         case MESSAGES_TYPES.CHECK_EMAIL: {
             const { email } = data;
