@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-// import { TYPE } from '../../../../common/exclusionsConstants';
 import { rootStore } from '../../../stores';
 import { ServiceSettings } from './ServiceSettings';
 import { GroupSettings } from './GroupSettings';
@@ -11,13 +10,35 @@ export const ExclusionSettings = observer(() => {
 
     const exclusionData = exclusionsStore.exclusionDataToShow;
 
+    const renderSettings = () => {
+        if (exclusionData?.serviceId) {
+            return (
+                <ServiceSettings exclusionData={exclusionData} />
+            );
+        }
+
+        const parentServiceId = exclusionsStore.isGroupInService(exclusionData?.id);
+
+        if (parentServiceId) {
+            return (
+                <GroupSettings
+                    exclusionData={exclusionData}
+                    parentServiceId={parentServiceId}
+                />
+            );
+        }
+
+        return (
+            <GroupSettings
+                exclusionData={exclusionData}
+                parentServiceId="null"
+            />
+        );
+    };
+
     return (
         <div className="exclusion-settings">
-            {
-                exclusionData.serviceId
-                    ? <ServiceSettings exclusionData={exclusionData} />
-                    : <GroupSettings exclusionData={exclusionData} />
-            }
+            {renderSettings()}
         </div>
     );
 });

@@ -298,6 +298,34 @@ export class ExclusionsStore {
         await this.updateExclusionsData();
     }
 
+    @action
+    removeSubdomainFromExclusionsGroupInService = async (
+        serviceId: string,
+        exclusionsGroupId:string,
+        subdomainId: string,
+    ) => {
+        await messenger.removeSubdomainFromExclusionsGroupInService(
+            serviceId,
+            exclusionsGroupId,
+            subdomainId,
+        );
+        await this.updateExclusionsData();
+    }
+
+    @action
+    toggleSubdomainStateInExclusionsGroupInService = async (
+        serviceId: string,
+        exclusionsGroupId:string,
+        subdomainId: string,
+    ) => {
+        await messenger.toggleSubdomainStateInExclusionsGroupInService(
+            serviceId,
+            exclusionsGroupId,
+            subdomainId,
+        );
+        await this.updateExclusionsData();
+    }
+
     @computed
     get exclusionDataToShow() {
         if (!this.exclusionIdToShowSettings) {
@@ -316,6 +344,14 @@ export class ExclusionsStore {
             .find(({ id }) => id === this.exclusionIdToShowSettings);
 
         return serviceData || servicesGroupData || groupData || null;
+    }
+
+    @action
+    isGroupInService = (groupId: string) => {
+        const service = this.exclusions[this.currentMode].excludedServices
+            .find((service) => service.exclusionsGroups
+                .find(({ id }) => id === groupId));
+        return service ? service.serviceId : null;
     }
 
     @action

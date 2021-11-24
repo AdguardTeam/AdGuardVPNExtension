@@ -11,7 +11,7 @@ import { SubdomainModal } from '../SubdomainModal';
 
 // FIXME remove @ts-ignore
 // @ts-ignore
-export const GroupSettings = observer(({ exclusionData }) => {
+export const GroupSettings = observer(({ exclusionData, parentServiceId }) => {
     const { exclusionsStore } = useContext(rootStore);
 
     const goBack = () => {
@@ -19,10 +19,26 @@ export const GroupSettings = observer(({ exclusionData }) => {
     };
 
     const toggleState = (subdomainId: string) => async () => {
+        if (parentServiceId) {
+            await exclusionsStore.toggleSubdomainStateInExclusionsGroupInService(
+                parentServiceId,
+                exclusionData.id,
+                subdomainId,
+            );
+            return;
+        }
         await exclusionsStore.toggleSubdomainStateInExclusionsGroup(exclusionData.id, subdomainId);
     };
 
     const removeDomain = (subdomainId: string) => async () => {
+        if (parentServiceId) {
+            await exclusionsStore.removeSubdomainFromExclusionsGroupInService(
+                parentServiceId,
+                exclusionData.id,
+                subdomainId,
+            );
+            return;
+        }
         await exclusionsStore.removeSubdomainFromExclusionsGroup(exclusionData.id, subdomainId);
     };
 

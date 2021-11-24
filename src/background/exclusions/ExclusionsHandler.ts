@@ -27,14 +27,16 @@ interface ExclusionsManagerInterface {
         exclusionsGroupId: string,
         subdomain: string,
     ): void;
-    removeSubdomainFromServiceExclusionsGroup(
+    removeSubdomainFromExclusionsGroupInService(
         serviceId: string,
         exclusionsGroupId: string,
         subdomainId: string,
     ): void;
-
-    // toggleSubdomainStateInExclusionsGroupInService
-    // or replace with universal method for ExclusionsGroup and Service
+    toggleSubdomainStateInExclusionsGroupInService(
+        serviceId: string,
+        exclusionsGroupId: string,
+        subdomainId: string,
+    ): void;
 
     // methods for groups
     addExclusionsGroup(hostname: string): void;
@@ -192,6 +194,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
     }
 
     async removeExclusionsGroupFromService(serviceId: string, exclusionsGroupId: string) {
+        // TODO add 'Reset to default' button
         this.excludedServices.forEach((service: Service) => {
             if (service.serviceId === serviceId) {
                 service.removeExclusionsGroup(exclusionsGroupId);
@@ -217,18 +220,27 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
         await this.updateHandler();
     }
 
-    async removeSubdomainFromServiceExclusionsGroup(
+    async removeSubdomainFromExclusionsGroupInService(
         serviceId: string,
         exclusionsGroupId: string,
         subdomainId: string,
     ) {
         this.excludedServices.forEach((service: Service) => {
             if (service.serviceId === serviceId) {
-                service.exclusionsGroups.forEach((exclusionsGroup) => {
-                    if (exclusionsGroup.id === exclusionsGroupId) {
-                        exclusionsGroup.removeSubdomain(subdomainId);
-                    }
-                });
+                service.removeDomainFromExclusionsGroup(exclusionsGroupId, subdomainId);
+            }
+        });
+        await this.updateHandler();
+    }
+
+    async toggleSubdomainStateInExclusionsGroupInService(
+        serviceId: string,
+        exclusionsGroupId: string,
+        subdomainId: string,
+    ) {
+        this.excludedServices.forEach((service: Service) => {
+            if (service.serviceId === serviceId) {
+                service.toggleDomainStateInExclusionsGroup(exclusionsGroupId, subdomainId);
             }
         });
         await this.updateHandler();

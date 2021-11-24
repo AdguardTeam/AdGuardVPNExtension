@@ -228,7 +228,7 @@ describe('ExclusionsManager', () => {
 
         const subdomainId = exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[2].id;
         // remove subdomain 'test' from github.com exclusions group in GitHub service
-        await exclusionsHandler.removeSubdomainFromServiceExclusionsGroup('github', exclusionsGroupId, subdomainId);
+        await exclusionsHandler.removeSubdomainFromExclusionsGroupInService('github', exclusionsGroupId, subdomainId);
         exclusionsData = exclusionsHandler.getExclusions();
 
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions.length).toEqual(2);

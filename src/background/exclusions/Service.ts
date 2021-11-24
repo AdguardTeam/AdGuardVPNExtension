@@ -68,6 +68,34 @@ export class Service implements ServiceInterface {
     };
 
     /**
+     * Removes subdomain from ExclusionsGroups
+     * @param exclusionsGroupId
+     * @param domainId
+     */
+    removeDomainFromExclusionsGroup = (exclusionsGroupId: string, domainId: string) => {
+        this.exclusionsGroups.forEach((group: ExclusionsGroup) => {
+            if (group.id === exclusionsGroupId) {
+                group.removeSubdomain(domainId);
+            }
+        });
+        this.updateServiceState();
+    };
+
+    /**
+     * Toggles domain state in ExclusionsGroups
+     * @param exclusionsGroupId
+     * @param domainId
+     */
+    toggleDomainStateInExclusionsGroup = (exclusionsGroupId: string, domainId: string) => {
+        this.exclusionsGroups.forEach((group: ExclusionsGroup) => {
+            if (group.id === exclusionsGroupId) {
+                group.toggleSubdomainState(domainId);
+            }
+        });
+        this.updateServiceState();
+    };
+
+    /**
      * Enables all ExclusionsGroups
      */
     enableExclusionsGroups() {

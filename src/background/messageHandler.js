@@ -193,6 +193,24 @@ const messageHandler = async (message, sender) => {
             return exclusions.current
                 .toggleExclusionsGroupStateInService(serviceId, exclusionsGroupId);
         }
+        case MESSAGES_TYPES.REMOVE_SUBDOMAIN_FROM_EXCLUSIONS_GROUP_IN_SERVICE: {
+            const { serviceId, exclusionsGroupId, subdomainId } = data;
+            return exclusions.current
+                .removeSubdomainFromExclusionsGroupInService(
+                    serviceId,
+                    exclusionsGroupId,
+                    subdomainId,
+                );
+        }
+        case MESSAGES_TYPES.TOGGLE_SUBDOMAIN_IN_EXCLUSIONS_GROUP_IN_SERVICE: {
+            const { serviceId, exclusionsGroupId, subdomainId } = data;
+            return exclusions.current
+                .toggleSubdomainStateInExclusionsGroupInService(
+                    serviceId,
+                    exclusionsGroupId,
+                    subdomainId,
+                );
+        }
         case MESSAGES_TYPES.CHECK_EMAIL: {
             const { email } = data;
             const appId = await credentials.getAppId();
