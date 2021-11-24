@@ -318,7 +318,52 @@
         "message": "Light"
     },
     "settings_exclusion_add": {
+        "message": "Add"
+    },
+    "settings_exclusion_add_website": {
         "message": "Add a website"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "Add a subdomain"
+    },
+    "settings_exclusion_select_mode": {
+        "message": "Please select the VPN mode"
+    },
+    "settings_exclusion_service_settings_subtitle": {
+        "message": "AdGuard VPN is off for the checked domains"
+    },
+    "settings_exclusion_group_settings_subtitle": {
+        "message": "AdGuard VPN is off for the checked domains and subdomains"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Domain name:"
+    },
+    "settings_exclusion_subdomain_name": {
+        "message": "Subdomain name:"
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "From the list"
+    },
+    "settings_exclusion_add_manually": {
+        "message": "Manually"
+    },
+    "settings_exclusion_add_manually_add": {
+        "message": "Add manually"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "Cancel"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Remove"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Save"
+    },
+    "settings_exclusion_search_website": {
+        "message": "Search website"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Search"
     },
     "settings_exclusions_import_button": {
         "message": "Import"

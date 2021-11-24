@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react';
 
 import { rootStore } from '../../../../../stores/index';
+import { reactTranslator } from '../../../../../../common/reactTranslator';
+
 import './manual-mode.pcss';
 
 export const ManualMode = () => {
@@ -24,7 +26,7 @@ export const ManualMode = () => {
             onSubmit={addUrl}
         >
             <label>
-                Domain name:
+                {reactTranslator.getMessage('settings_exclusion_domain_name')}
                 <input
                     type="text"
                     className="manual-mode__input"
@@ -38,14 +40,14 @@ export const ManualMode = () => {
                     className="button button--medium button--outline-secondary"
                     onClick={closeModal}
                 >
-                    Cancel
+                    {reactTranslator.getMessage('settings_exclusion_modal_cancel')}
                 </button>
                 <button
                     type="button"
                     className="button button--medium button--primary"
                     onClick={addUrl}
                 >
-                    Add manually
+                    {reactTranslator.getMessage('settings_exclusion_add_manually_add')}
                 </button>
             </div>
         </form>

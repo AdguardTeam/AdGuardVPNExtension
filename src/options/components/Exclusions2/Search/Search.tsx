@@ -1,10 +1,11 @@
 import React from 'react';
 
-import './search.pcss';
 import Icon from '../../../../popup/components/ui/Icon';
 
+import './search.pcss';
+
 interface SearchProps {
-    placeholder: string,
+    placeholder: React.ReactNode,
     value: string,
     onChange: (value: string) => void,
     onClear: () => void,
@@ -32,7 +33,7 @@ export const Search = ({
                 type="text"
                 className="search__input"
                 value={value}
-                placeholder={placeholder}
+                placeholder={placeholder?.toString()}
                 onChange={handleChange}
             />
             {/* FIXME fix style */}

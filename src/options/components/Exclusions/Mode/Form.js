@@ -74,7 +74,7 @@ const Form = observer(() => {
                     <svg className="icon icon--button icon--checked settings__add-icon">
                         <use xlinkHref="#plus" />
                     </svg>
-                    {reactTranslator.getMessage('settings_exclusion_add')}
+                    {reactTranslator.getMessage('settings_exclusion_add_website')}
                 </button>
                 <Actions />
             </div>

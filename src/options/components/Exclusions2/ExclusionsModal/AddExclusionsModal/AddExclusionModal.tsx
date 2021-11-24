@@ -7,6 +7,7 @@ import { rootStore } from '../../../../stores';
 import { AddExclusionMode } from '../../../../stores/ExclusionsStore';
 import { ServiceMode } from './ServiceMode/ServiceMode';
 import { ManualMode } from './ManualMode/ManualMode';
+import { reactTranslator } from '../../../../../common/reactTranslator';
 
 import '../exclusions-modal.pcss';
 
@@ -56,8 +57,7 @@ export const AddExclusionModal = observer(() => {
         <ExclusionsModal
             isOpen={isOpen}
             closeModal={onClose}
-            // FIXME add to translations
-            title="Add a website"
+            title={reactTranslator.getMessage('settings_exclusion_add_website')}
         >
             <div className="modal__mode-selectors">
                 <button
@@ -65,16 +65,14 @@ export const AddExclusionModal = observer(() => {
                     type="button"
                     className={ModeSelectButtons.service.classname}
                 >
-                    {/* FIXME add to translations */}
-                    From the list
+                    {reactTranslator.getMessage('settings_exclusion_add_website')}
                 </button>
                 <button
                     onClick={onManualModeClick}
                     type="button"
                     className={ModeSelectButtons.manual.classname}
                 >
-                    {/* FIXME add to translations */}
-                    Manually
+                    {reactTranslator.getMessage('settings_exclusion_add_manually')}
                 </button>
             </div>
             <div className="mode">

@@ -28,8 +28,7 @@ export const Exclusions2 = observer(() => {
         <>
             <Title
                 title={reactTranslator.getMessage('settings_exclusion_title')}
-                // FIXME add to translations
-                subtitle="Please select the VPN mode"
+                subtitle={reactTranslator.getMessage('settings_exclusion_select_mode')}
             />
             <div className="settings">
                 <ModeSelector />

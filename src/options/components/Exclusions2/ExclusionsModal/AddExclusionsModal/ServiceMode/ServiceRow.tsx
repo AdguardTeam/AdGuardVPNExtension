@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../../../../stores';
 import { STATE } from '../../../../../../common/exclusionsConstants';
 import { SearchHighlighter } from '../../../Search/SearchHighlighter';
+import { reactTranslator } from '../../../../../../common/reactTranslator';
 
 import './service-mode.pcss';
 
@@ -26,17 +27,11 @@ export const ServiceRow = observer(({ service }) => {
     const addService = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         exclusionsStore.addToServicesToToggle(service.serviceId);
-
-        // await exclusionsStore.addService(service.serviceId);
-        // exclusionsStore.closeAddExclusionModal();
     };
 
     const removeService = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         exclusionsStore.addToServicesToToggle(service.serviceId);
-
-        // await exclusionsStore.removeExclusion(service.serviceId, TYPE.SERVICE);
-        // exclusionsStore.closeAddExclusionModal();
     };
 
     const buttonsMap = {
@@ -46,8 +41,7 @@ export const ServiceRow = observer(({ service }) => {
                 className="simple-button"
                 onClick={addService}
             >
-                {/* FIXME add to translations */}
-                Add
+                {reactTranslator.getMessage('settings_exclusion_add')}
             </button>
         ),
         remove: () => (
@@ -56,8 +50,7 @@ export const ServiceRow = observer(({ service }) => {
                 className="simple-button service-row__actions__remove"
                 onClick={removeService}
             >
-                {/* FIXME add to translations */}
-                Remove
+                {reactTranslator.getMessage('settings_exclusion_modal_remove')}
             </button>
         ),
     };

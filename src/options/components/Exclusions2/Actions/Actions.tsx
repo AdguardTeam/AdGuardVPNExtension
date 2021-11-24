@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 
 import { rootStore } from '../../../stores';
+import { reactTranslator } from '../../../../common/reactTranslator';
+
 import './actions.pcss';
 
 // TODO
@@ -23,13 +25,12 @@ export const Actions = () => {
     return (
         <>
             <div className="actions">
-                {/* FIXME add to translations */}
                 <button
                     type="button"
                     className="actions__add-website simple-button"
                     onClick={onAddExclusionClick}
                 >
-                    Add a website
+                    {reactTranslator.getMessage('settings_exclusion_add_website')}
                 </button>
             </div>
             {/* FIXME add tooltip? */}

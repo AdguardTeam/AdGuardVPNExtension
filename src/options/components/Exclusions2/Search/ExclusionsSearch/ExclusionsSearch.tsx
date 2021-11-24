@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 
 import { Search } from '../Search';
 import { rootStore } from '../../../../stores';
+import { reactTranslator } from '../../../../../common/reactTranslator';
 
 export const ExclusionsSearch = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
@@ -17,8 +18,7 @@ export const ExclusionsSearch = observer(() => {
 
     return (
         <Search
-            // FIXME add to translations
-            placeholder="Search website"
+            placeholder={reactTranslator.getMessage('settings_exclusion_search_website')}
             value={exclusionsStore.exclusionsSearchValue}
             onChange={onChange}
             onClear={onClear}

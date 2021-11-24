@@ -3,9 +3,12 @@ import { observer } from 'mobx-react';
 
 import { ExclusionsModal } from '../../ExclusionsModal/ExclusionsModal';
 import { rootStore } from '../../../../stores';
+import { reactTranslator } from '../../../../../common/reactTranslator';
 
 import './subdomain-modal.pcss';
 
+// FIXME remove @ts-ignore
+// @ts-ignore
 export const SubdomainModal = observer(({ groupId }) => {
     const { exclusionsStore } = useContext(rootStore);
 
@@ -28,15 +31,14 @@ export const SubdomainModal = observer(({ groupId }) => {
         <ExclusionsModal
             isOpen={isOpen}
             closeModal={closeModal}
-            // FIXME add to translations
-            title="Add a subdomain"
+            title={reactTranslator.getMessage('settings_exclusion_subdomain_name')}
         >
             <form
                 className="subdomain-modal"
                 onSubmit={addSubdomain}
             >
                 <label>
-                    Subdomain name:
+                    {reactTranslator.getMessage('settings_exclusion_add')}
                     <input
                         type="text"
                         className="subdomain-modal__input"
@@ -51,7 +53,7 @@ export const SubdomainModal = observer(({ groupId }) => {
                         disabled={!inputValue}
                         onClick={addSubdomain}
                     >
-                        Add
+                        {reactTranslator.getMessage('settings_exclusion_add')}
                     </button>
                 </div>
             </form>

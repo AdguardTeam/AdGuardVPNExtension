@@ -5,9 +5,10 @@ import { rootStore } from '../../../../stores';
 import { Title } from '../../../ui/Title';
 import { StateBox } from '../../StateBox';
 import { TYPE } from '../../../../../common/exclusionsConstants';
+import { SubdomainModal } from '../SubdomainModal';
+import { reactTranslator } from '../../../../../common/reactTranslator';
 
 import './group-settings.pcss';
-import { SubdomainModal } from '../SubdomainModal';
 
 // FIXME remove @ts-ignore
 // @ts-ignore
@@ -62,6 +63,7 @@ export const GroupSettings = observer(({ exclusionData, parentServiceId }) => {
                 <div className="group__settings__domain__hostname">
                     {exclusion.hostname}
                     <div className="group__settings__domain__hostname__status">
+                        {/* TODO handle status properly */}
                         {index === 0 ? 'domain' : 'subdomain'}
                     </div>
                 </div>
@@ -88,7 +90,7 @@ export const GroupSettings = observer(({ exclusionData, parentServiceId }) => {
                 </button>
                 <Title
                     title={exclusionData.hostname}
-                    subtitle="AdGuard VPN is off for the checked domains and subdomains"
+                    subtitle={reactTranslator.getMessage('settings_exclusion_group_settings_subtitle')}
                 />
             </div>
             <div className="group__settings">
@@ -99,7 +101,7 @@ export const GroupSettings = observer(({ exclusionData, parentServiceId }) => {
                 className="group__add-subdomain simple-button"
                 onClick={onAddSubdomainClick}
             >
-                Add a subdomain
+                {reactTranslator.getMessage('settings_exclusion_add_subdomain')}
             </button>
             <SubdomainModal groupId={exclusionData.id} />
         </div>

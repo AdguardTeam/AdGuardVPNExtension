@@ -53,6 +53,7 @@ export const ServiceCategory = observer(({ category }) => {
     return (
         <div className={categoryClassname}>
             <div className="category__title" onClick={handleClickOnCategory}>
+                {/* TODO Add localization for categories */}
                 {category.title}
             </div>
             <div className={categoryServicesClassname}>

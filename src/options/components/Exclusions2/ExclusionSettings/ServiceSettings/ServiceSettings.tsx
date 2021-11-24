@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-// import { TYPE } from '../../../../common/exclusionsConstants';
 import { rootStore } from '../../../../stores';
 import { Title } from '../../../ui/Title';
 import { StateBox } from '../../StateBox';
 import { TYPE } from '../../../../../common/exclusionsConstants';
+import { reactTranslator } from '../../../../../common/reactTranslator';
 
 import './service-settings.pcss';
 
@@ -72,7 +72,7 @@ export const ServiceSettings = observer(({ exclusionData }) => {
                 </button>
                 <Title
                     title={exclusionData.serviceName}
-                    subtitle="AdGuard VPN is off for the checked domains"
+                    subtitle={reactTranslator.getMessage('settings_exclusion_service_settings_subtitle')}
                 />
             </div>
             <div className="service__settings">
