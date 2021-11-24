@@ -8,6 +8,7 @@ import { ServiceRow } from './ServiceRow';
 // FIXME fix linter
 // @ts-ignore
 import s from './service-category.module.pcss';
+import { containsIgnoreCase } from '../../../Search/SearchHighlighter/helpers';
 
 // FIXME add props interface
 // @ts-ignore
@@ -17,6 +18,19 @@ export const ServiceCategory = observer(({ category }) => {
 
     const categoryServices = category.services.map((serviceId: string) => {
         return services[serviceId];
+    });
+
+    // FIXME remove @ts-ignore
+    // @ts-ignore
+    const filteredServices = categoryServices.filter((service) => {
+        if (exclusionsStore.servicesSearchValue.length === 0) {
+            return true;
+        }
+
+        // FIXME find out how should work search
+        //  1. we should hide all categories?
+        //  2. we should unwrap all categories?
+        return containsIgnoreCase(service.serviceName, exclusionsStore.servicesSearchValue);
     });
 
     const handleClickOnCategory = () => {
@@ -45,7 +59,7 @@ export const ServiceCategory = observer(({ category }) => {
                 {
                     // FIXME remove ts-ignore
                     // @ts-ignore
-                    categoryServices.map((service) => {
+                    filteredServices.map((service) => {
                         return (<ServiceRow key={service.serviceId} service={service} />);
                     })
                 }

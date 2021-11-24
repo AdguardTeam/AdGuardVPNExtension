@@ -45,6 +45,8 @@ export class ExclusionsStore {
 
     @observable exclusionsSearchValue: string = '';
 
+    @observable servicesSearchValue: string = '';
+
     /**
      * Temp list used to keep state of services to be enabled or disabled
      */
@@ -307,5 +309,10 @@ export class ExclusionsStore {
     @action
     setExclusionsSearchValue = (value: string) => {
         this.exclusionsSearchValue = value;
+    }
+
+    @action
+    setServicesSearchValue = (value: string) => {
+        this.servicesSearchValue = value;
     }
 }

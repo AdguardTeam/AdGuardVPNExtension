@@ -6,6 +6,7 @@ import { ServicesList } from './ServicesList';
 import { rootStore } from '../../../../../stores';
 
 import './service-mode.pcss';
+import { ServicesSearch } from '../../../Search/ServicesSearch';
 
 export const ServiceMode = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
@@ -21,8 +22,7 @@ export const ServiceMode = observer(() => {
 
     return (
         <div className="service-mode">
-            {/* FIXME add search */}
-            {/* <Search placeholder="Search" /> */}
+            <ServicesSearch />
             <ServicesList />
             <div className="service-mode__actions">
                 <button
