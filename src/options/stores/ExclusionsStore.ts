@@ -276,6 +276,12 @@ export class ExclusionsStore {
         exclusionsGroupId: string,
         subdomainId: string,
     ) => {
+        this.exclusions[this.currentMode].exclusionsGroups.forEach((group) => {
+            if (group.id === exclusionsGroupId && group.exclusions[0].id === subdomainId) {
+                // show exclusions list if main domain was removed
+                this.exclusionIdToShowSettings = null;
+            }
+        });
         await messenger.removeSubdomainFromExclusionsGroup(exclusionsGroupId, subdomainId);
         await this.updateExclusionsData();
     }
@@ -304,6 +310,14 @@ export class ExclusionsStore {
         exclusionsGroupId:string,
         subdomainId: string,
     ) => {
+        const exclusionsGroupToRemove = this.exclusions[this.currentMode].excludedServices
+            .find((service) => service.serviceId === serviceId)
+            .exclusionsGroups.find((group) => group.id === exclusionsGroupId);
+        if (exclusionsGroupToRemove.exclusions[0].id === subdomainId) {
+            // show service screen if main domain was removed
+            this.exclusionIdToShowSettings = serviceId;
+        }
+
         await messenger.removeSubdomainFromExclusionsGroupInService(
             serviceId,
             exclusionsGroupId,

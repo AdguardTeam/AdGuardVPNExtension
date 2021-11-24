@@ -288,6 +288,10 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
     async removeSubdomainFromExclusionsGroup(exclusionsGroupId: string, subdomainId: string) {
         this.exclusionsGroups.forEach((exclusionsGroup: ExclusionsGroup) => {
             if (exclusionsGroup.id === exclusionsGroupId) {
+                // remove group if main domain was removed
+                if (exclusionsGroup.exclusions[0].id === subdomainId) {
+                    this.removeExclusionsGroup(exclusionsGroup.id);
+                }
                 exclusionsGroup.removeSubdomain(subdomainId);
             }
         });

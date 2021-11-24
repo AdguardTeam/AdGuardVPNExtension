@@ -75,6 +75,9 @@ export class Service implements ServiceInterface {
     removeDomainFromExclusionsGroup = (exclusionsGroupId: string, domainId: string) => {
         this.exclusionsGroups.forEach((group: ExclusionsGroup) => {
             if (group.id === exclusionsGroupId) {
+                if (group.exclusions[0].id === domainId) {
+                    this.removeExclusionsGroup(exclusionsGroupId);
+                }
                 group.removeSubdomain(domainId);
             }
         });
