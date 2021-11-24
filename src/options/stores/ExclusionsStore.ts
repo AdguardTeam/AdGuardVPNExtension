@@ -2,6 +2,7 @@ import { action, computed, observable } from 'mobx';
 
 import { EXCLUSIONS_MODES, TYPE } from '../../common/exclusionsConstants';
 import messenger from '../../lib/messenger';
+import { containsIgnoreCase } from '../components/Exclusions2/Search/SearchHighlighter/helpers';
 
 export enum AddExclusionMode {
     SERVICE = 'SERVICE',
@@ -41,6 +42,8 @@ export class ExclusionsStore {
     @observable unfoldedServiceCategories: string[] = [];
 
     @observable exclusionIdToShowSettings: string | null = null;
+
+    @observable exclusionsSearchValue: string = '';
 
     /**
      * Temp list used to keep state of services to be enabled or disabled
@@ -106,7 +109,17 @@ export class ExclusionsStore {
             };
         });
 
-        return [...services, ...groups, ...excludedIps];
+        const allExclusions = [...services, ...groups, ...excludedIps];
+
+        const filteredExclusions = allExclusions.filter((exclusion) => {
+            if (this.exclusionsSearchValue.length === 0) {
+                return true;
+            }
+
+            return containsIgnoreCase(exclusion.name, this.exclusionsSearchValue);
+        });
+
+        return filteredExclusions;
     }
 
     // FIXME remove any
@@ -289,5 +302,10 @@ export class ExclusionsStore {
             .find(({ id }) => id === this.exclusionIdToShowSettings);
 
         return serviceData || servicesGroupData || groupData || null;
+    }
+
+    @action
+    setExclusionsSearchValue = (value: string) => {
+        this.exclusionsSearchValue = value;
     }
 }

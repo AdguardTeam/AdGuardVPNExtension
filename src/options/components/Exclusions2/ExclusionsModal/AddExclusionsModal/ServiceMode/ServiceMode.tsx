@@ -21,7 +21,8 @@ export const ServiceMode = observer(() => {
 
     return (
         <div className="service-mode">
-            <Search placeholder="Search" />
+            {/* FIXME add search */}
+            {/* <Search placeholder="Search" /> */}
             <ServicesList />
             <div className="service-mode__actions">
                 <button

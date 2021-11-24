@@ -7,6 +7,7 @@ import { StateBox } from '../StateBox';
 import { rootStore } from '../../../stores';
 
 import './list.pcss';
+import { SearchHighlighter } from '../Search/SearchHighlighter';
 
 export const List = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
@@ -50,7 +51,10 @@ export const List = observer(() => {
                         className="list__index__title__icon"
                         alt="exclusion icon"
                     />
-                    {exclusion.name}
+                    <SearchHighlighter
+                        value={exclusion.name}
+                        search={exclusionsStore.exclusionsSearchValue}
+                    />
                 </div>
                 <button
                     type="button"

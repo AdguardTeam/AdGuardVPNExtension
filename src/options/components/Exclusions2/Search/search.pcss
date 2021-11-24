@@ -1,4 +1,5 @@
 .search {
+    position: relative;
 
     &__input {
         display: block;
@@ -13,5 +14,18 @@
         &:focus {
             outline: none;
         }
+    }
+
+    /*FIXME style*/
+    &__clear {
+        position: absolute;
+        right: 10px;
+        top: 7px;
+    }
+
+    /*FIXME styles*/
+    &__cross {
+        width: 24px;
+        height: 24px;
     }
 }
