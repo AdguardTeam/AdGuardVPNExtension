@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { observer } from 'mobx-react';
 
 import { Search } from '../../../Search';
 import { ServicesList } from './ServicesList';
@@ -6,15 +7,16 @@ import { rootStore } from '../../../../../stores';
 
 import './service-mode.pcss';
 
-export const ServiceMode = () => {
+export const ServiceMode = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
-
-    const handleAddServices = () => {
-        // add selected services
-    };
 
     const closeModal = () => {
         exclusionsStore.closeAddExclusionModal();
+    };
+
+    const handleSaveServices = async () => {
+        await exclusionsStore.saveServicesToToggle();
+        closeModal();
     };
 
     return (
@@ -33,8 +35,8 @@ export const ServiceMode = () => {
                 <button
                     type="button"
                     className="button button--medium button--primary"
-                    disabled
-                    onClick={handleAddServices}
+                    disabled={!exclusionsStore.servicesToToggle.length}
+                    onClick={handleSaveServices}
                 >
                     {/* FIXME add to translations */}
                     Save
@@ -42,4 +44,4 @@ export const ServiceMode = () => {
             </div>
         </div>
     );
-};
+});

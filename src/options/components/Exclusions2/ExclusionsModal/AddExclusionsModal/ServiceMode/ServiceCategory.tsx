@@ -37,8 +37,8 @@ export const ServiceCategory = observer(({ category }) => {
     });
 
     return (
-        <div className={categoryClassname} onClick={handleClickOnCategory}>
-            <div className="category__title">
+        <div className={categoryClassname}>
+            <div className="category__title" onClick={handleClickOnCategory}>
                 {category.title}
             </div>
             <div className={categoryServicesClassname}>

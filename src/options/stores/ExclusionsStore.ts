@@ -34,6 +34,8 @@ export class ExclusionsStore {
 
     @observable addExclusionModalOpen = false;
 
+    @observable addSubdomainModalOpen = false;
+
     @observable addExclusionMode = DEFAULT_ADD_EXCLUSION_MODE;
 
     @observable unfoldedServiceCategories: string[] = [];
@@ -129,6 +131,16 @@ export class ExclusionsStore {
         this.addExclusionMode = mode;
     }
 
+    @action
+    openAddSubdomainModal = () => {
+        this.addSubdomainModalOpen = true;
+    };
+
+    @action
+    closeAddSubdomainModal = () => {
+        this.addSubdomainModalOpen = false;
+    };
+
     isExcludedService = (serviceId: string) => {
         return this.exclusions[this.currentMode].excludedServices
             .some((service) => service.serviceId === serviceId);
@@ -222,6 +234,15 @@ export class ExclusionsStore {
     };
 
     @action
+    saveServicesToToggle = async () => {
+        this.servicesToToggle.forEach((serviceId) => {
+            this.addService(serviceId);
+        });
+        this.servicesToToggle = [];
+        await this.updateExclusionsData();
+    }
+
+    @action
     setExclusionIdToShowSettings = (id: string|null) => {
         this.exclusionIdToShowSettings = id;
     }
@@ -236,19 +257,37 @@ export class ExclusionsStore {
     }
 
     @action
-    getExclusionById = (id: string | null) => {
-        if (!id) {
+    removeSubdomainFromExclusionsGroup = async (
+        exclusionsGroupId: string,
+        subdomainId: string,
+    ) => {
+        await messenger.removeSubdomainFromExclusionsGroup(exclusionsGroupId, subdomainId);
+        await this.updateExclusionsData();
+    }
+
+    @action
+    addSubdomainToExclusionsGroup = async (exclusionsGroupId: string, subdomain: string) => {
+        await messenger.addSubdomainToExclusionsGroup(exclusionsGroupId, subdomain);
+        await this.updateExclusionsData();
+    }
+
+    @computed
+    get exclusionDataToShow() {
+        if (!this.exclusionIdToShowSettings) {
             return null;
         }
-        const groupsInServices = this.exclusions[this.currentMode].excludedServices
-            .map(({ exclusionsGroups }) => exclusionsGroups.map((group) => group)).flat();
 
-        const flatExclusions = [
-            ...Object.values(this.exclusions[this.currentMode]).flat(),
-            ...groupsInServices,
-        ];
+        const serviceData = this.exclusions[this.currentMode].excludedServices
+            .find(({ serviceId }) => serviceId === this.exclusionIdToShowSettings);
 
-        return flatExclusions
-            .find((exclusion) => exclusion.id === id || exclusion.serviceId === id);
+        const servicesGroupData = this.exclusions[this.currentMode].excludedServices
+            .map(({ exclusionsGroups }) => exclusionsGroups)
+            .flat()
+            .find(({ id }) => id === this.exclusionIdToShowSettings);
+
+        const groupData = this.exclusions[this.currentMode].exclusionsGroups
+            .find(({ id }) => id === this.exclusionIdToShowSettings);
+
+        return serviceData || servicesGroupData || groupData || null;
     }
 }

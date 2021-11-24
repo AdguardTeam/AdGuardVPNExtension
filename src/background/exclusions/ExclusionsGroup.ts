@@ -77,6 +77,7 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
      */
     removeSubdomain(id: string) {
         this.exclusions = this.exclusions.filter((exclusion) => exclusion.id !== id);
+        this.updateExclusionsGroupState();
     }
 
     /**

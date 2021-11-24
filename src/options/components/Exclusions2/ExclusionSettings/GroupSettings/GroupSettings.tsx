@@ -7,6 +7,7 @@ import { StateBox } from '../../StateBox';
 import { TYPE } from '../../../../../common/exclusionsConstants';
 
 import './group-settings.pcss';
+import { SubdomainModal } from '../SubdomainModal';
 
 // FIXME remove @ts-ignore
 // @ts-ignore
@@ -17,8 +18,16 @@ export const GroupSettings = observer(({ exclusionData }) => {
         exclusionsStore.setExclusionIdToShowSettings(null);
     };
 
-    const toggleState = (subdomainId: string) => () => {
-        exclusionsStore.toggleSubdomainStateInExclusionsGroup(exclusionData.id, subdomainId);
+    const toggleState = (subdomainId: string) => async () => {
+        await exclusionsStore.toggleSubdomainStateInExclusionsGroup(exclusionData.id, subdomainId);
+    };
+
+    const removeDomain = (subdomainId: string) => () => {
+        exclusionsStore.removeSubdomainFromExclusionsGroup(exclusionData.id, subdomainId);
+    };
+
+    const onAddSubdomainClick = () => {
+        exclusionsStore.openAddSubdomainModal();
     };
 
     // FIXME remove any
@@ -43,7 +52,7 @@ export const GroupSettings = observer(({ exclusionData }) => {
                 <button
                     type="button"
                     className="group__settings__domain__remove-button"
-                    // onClick={removeExclusion(exclusion.id, exclusion.type)}
+                    onClick={removeDomain(exclusion.id)}
                 >
                     <svg className="group__settings__domain__remove-button__icon">
                         <use xlinkHref="#basket" />
@@ -72,10 +81,11 @@ export const GroupSettings = observer(({ exclusionData }) => {
             <button
                 type="button"
                 className="group__add-subdomain simple-button"
-                // onClick={onAddExclusionClick}
+                onClick={onAddSubdomainClick}
             >
                 Add a subdomain
             </button>
+            <SubdomainModal groupId={exclusionData.id} />
         </div>
     );
 });

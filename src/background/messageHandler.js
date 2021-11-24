@@ -173,6 +173,16 @@ const messageHandler = async (message, sender) => {
             return exclusions.current
                 .toggleSubdomainStateInExclusionsGroup(exclusionsGroupId, subdomainId);
         }
+        case MESSAGES_TYPES.REMOVE_SUBDOMAIN_FROM_EXCLUSIONS_GROUP: {
+            const { exclusionsGroupId, subdomainId } = data;
+            return exclusions.current
+                .removeSubdomainFromExclusionsGroup(exclusionsGroupId, subdomainId);
+        }
+        case MESSAGES_TYPES.ADD_SUBDOMAIN_TO_EXCLUSIONS_GROUP: {
+            const { exclusionsGroupId, subdomain } = data;
+            return exclusions.current
+                .addSubdomainToExclusionsGroup(exclusionsGroupId, subdomain);
+        }
         case MESSAGES_TYPES.CHECK_EMAIL: {
             const { email } = data;
             const appId = await credentials.getAppId();

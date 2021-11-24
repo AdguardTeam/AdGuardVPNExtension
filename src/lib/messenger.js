@@ -192,6 +192,16 @@ class Messenger {
         return this.sendMessage(type, { exclusionsGroupId, subdomainId });
     }
 
+    async removeSubdomainFromExclusionsGroup(exclusionsGroupId, subdomainId) {
+        const type = MESSAGES_TYPES.REMOVE_SUBDOMAIN_FROM_EXCLUSIONS_GROUP;
+        return this.sendMessage(type, { exclusionsGroupId, subdomainId });
+    }
+
+    async addSubdomainToExclusionsGroup(exclusionsGroupId, subdomain) {
+        const type = MESSAGES_TYPES.ADD_SUBDOMAIN_TO_EXCLUSIONS_GROUP;
+        return this.sendMessage(type, { exclusionsGroupId, subdomain });
+    }
+
     async checkEmail(email) {
         const type = MESSAGES_TYPES.CHECK_EMAIL;
         return this.sendMessage(type, { email });

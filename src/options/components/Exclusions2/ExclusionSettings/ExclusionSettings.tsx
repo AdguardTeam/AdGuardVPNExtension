@@ -8,9 +8,8 @@ import { GroupSettings } from './GroupSettings';
 
 export const ExclusionSettings = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
-    const { exclusionIdToShowSettings } = exclusionsStore;
 
-    const exclusionData = exclusionsStore.getExclusionById(exclusionIdToShowSettings);
+    const exclusionData = exclusionsStore.exclusionDataToShow;
 
     return (
         <div className="exclusion-settings">
