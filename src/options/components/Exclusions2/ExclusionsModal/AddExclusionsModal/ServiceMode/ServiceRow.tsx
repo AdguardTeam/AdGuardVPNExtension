@@ -2,9 +2,10 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../../../stores';
+import { STATE } from '../../../../../../common/exclusionsConstants';
+import { SearchHighlighter } from '../../../Search/SearchHighlighter';
 
 import './service-mode.pcss';
-import { STATE } from '../../../../../../common/exclusionsConstants';
 
 // FIXME remove any
 const determineButtonState = (service: any, servicesToToggle: string[]) => {
@@ -68,7 +69,12 @@ export const ServiceRow = observer(({ service }) => {
     return (
         <div className="service-row">
             <img className="service-row__icon" src={service.iconUrl} alt={service.serviceName} />
-            <div className="service-row__title">{service.serviceName}</div>
+            <div className="service-row__title">
+                <SearchHighlighter
+                    value={service.serviceName}
+                    search={exclusionsStore.servicesSearchValue}
+                />
+            </div>
             <div className="service-row__actions">
                 {actionButton}
             </div>
