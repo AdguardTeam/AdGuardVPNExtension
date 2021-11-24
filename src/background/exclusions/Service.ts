@@ -37,10 +37,35 @@ export class Service implements ServiceInterface {
         this.state = service.state || STATE.Enabled;
     }
 
+    /**
+     * Adds new ExclusionsGroup
+     */
     addExclusionsGroup(hostname: string) {
+        // TODO check existing
         const exclusionsGroups = new ExclusionsGroup(hostname);
         this.exclusionsGroups.push(exclusionsGroups);
     }
+
+    /**
+     * Removes ExclusionsGroup by id
+     */
+    removeExclusionsGroup(id: string) {
+        this.exclusionsGroups = this.exclusionsGroups.filter((group) => group.id !== id);
+        this.updateServiceState();
+    }
+
+    /**
+     * Toggles ExclusionsGroups state
+     * @param id
+     */
+    toggleExclusionsGroupState = (id: string) => {
+        this.exclusionsGroups.forEach((group: ExclusionsGroup) => {
+            if (group.id === id) {
+                group.toggleExclusionsGroupState();
+            }
+        });
+        this.updateServiceState();
+    };
 
     /**
      * Enables all ExclusionsGroups
@@ -75,6 +100,25 @@ export class Service implements ServiceInterface {
             this.disableService();
         } else {
             this.enableService();
+        }
+    }
+
+    /**
+     * Sets Service state according to the states of ExclusionsGroups
+     */
+    updateServiceState() {
+        const enabledGroups = this.exclusionsGroups
+            .filter((exclusion: ExclusionsGroup) => exclusion.state === STATE.Enabled);
+
+        const disabledGroups = this.exclusionsGroups
+            .filter((exclusion: ExclusionsGroup) => exclusion.state === STATE.Disabled);
+
+        if (enabledGroups.length === this.exclusionsGroups.length) {
+            this.state = STATE.Enabled;
+        } else if (disabledGroups.length === this.exclusionsGroups.length) {
+            this.state = STATE.Disabled;
+        } else {
+            this.state = STATE.PartlyEnabled;
         }
     }
 }

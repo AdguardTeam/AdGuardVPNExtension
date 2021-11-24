@@ -202,6 +202,16 @@ class Messenger {
         return this.sendMessage(type, { exclusionsGroupId, subdomain });
     }
 
+    async removeExclusionsGroupFromService(serviceId, exclusionsGroupId) {
+        const type = MESSAGES_TYPES.REMOVE_EXCLUSIONS_GROUP_FROM_SERVICE;
+        return this.sendMessage(type, { serviceId, exclusionsGroupId });
+    }
+
+    async toggleExclusionsGroupStateInService(serviceId, exclusionsGroupId) {
+        const type = MESSAGES_TYPES.TOGGLE_EXCLUSIONS_GROUP_STATE_IN_SERVICE;
+        return this.sendMessage(type, { serviceId, exclusionsGroupId });
+    }
+
     async checkEmail(email) {
         const type = MESSAGES_TYPES.CHECK_EMAIL;
         return this.sendMessage(type, { email });

@@ -22,8 +22,8 @@ export const GroupSettings = observer(({ exclusionData }) => {
         await exclusionsStore.toggleSubdomainStateInExclusionsGroup(exclusionData.id, subdomainId);
     };
 
-    const removeDomain = (subdomainId: string) => () => {
-        exclusionsStore.removeSubdomainFromExclusionsGroup(exclusionData.id, subdomainId);
+    const removeDomain = (subdomainId: string) => async () => {
+        await exclusionsStore.removeSubdomainFromExclusionsGroup(exclusionData.id, subdomainId);
     };
 
     const onAddSubdomainClick = () => {

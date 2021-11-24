@@ -286,6 +286,18 @@ export class ExclusionsStore {
         await this.updateExclusionsData();
     }
 
+    @action
+    toggleExclusionsGroupStateInService = async (serviceId: string, exclusionsGroupId: string) => {
+        await messenger.toggleExclusionsGroupStateInService(serviceId, exclusionsGroupId);
+        await this.updateExclusionsData();
+    }
+
+    @action
+    removeExclusionsGroupFromService = async (serviceId: string, exclusionsGroupId: string) => {
+        await messenger.removeExclusionsGroupFromService(serviceId, exclusionsGroupId);
+        await this.updateExclusionsData();
+    }
+
     @computed
     get exclusionDataToShow() {
         if (!this.exclusionIdToShowSettings) {

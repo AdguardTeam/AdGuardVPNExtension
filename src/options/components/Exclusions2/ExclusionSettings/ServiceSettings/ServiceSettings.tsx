@@ -22,9 +22,12 @@ export const ServiceSettings = observer(({ exclusionData }) => {
         exclusionsStore.setExclusionIdToShowSettings(id);
     };
 
-    // eslint-disable-next-line no-unused-vars
-    const toggleState = (subdomainId: string) => () => {
-        // ...
+    const toggleState = (id: string) => async () => {
+        await exclusionsStore.toggleExclusionsGroupStateInService(exclusionData.serviceId, id);
+    };
+
+    const removeExclusionsGroup = (id: string) => async () => {
+        await exclusionsStore.removeExclusionsGroupFromService(exclusionData.serviceId, id);
     };
 
     // FIXME remove any
@@ -49,7 +52,7 @@ export const ServiceSettings = observer(({ exclusionData }) => {
                 <button
                     type="button"
                     className="service__settings__group__remove-button"
-                    // onClick={}
+                    onClick={removeExclusionsGroup(group.id)}
                 >
                     <svg className="service__settings__group__remove-button__icon">
                         <use xlinkHref="#basket" />

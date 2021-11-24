@@ -329,7 +329,7 @@ describe('ExclusionsManager', () => {
         expect(exclusionsData.exclusionsGroups[0].state).toEqual(STATE.Disabled);
     });
 
-    it('services test', async () => {
+    it('service state test', async () => {
         servicesManager.getService.mockImplementation(() => FACEBOOK_SERVICE_DATA);
         servicesManager.isService.mockImplementation(() => 'facebook');
 
@@ -366,5 +366,36 @@ describe('ExclusionsManager', () => {
             .toEqual(STATE.Disabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[2].state)
             .toEqual(STATE.Disabled);
+    });
+
+    it('service exclusions groups test', async () => {
+        servicesManager.getService.mockImplementation(() => GITHUB_SERVICE_DATA);
+        servicesManager.isService.mockImplementation(() => 'github');
+
+        // add to exclusions http://www.facebook.com, it should become service
+        await exclusionsHandler.addUrlToExclusions('http://www.github.com');
+        let exclusionsData = exclusionsHandler.getExclusions();
+
+        expect(exclusionsData.excludedServices).toHaveLength(1);
+        expect(exclusionsData.excludedServices[0].serviceId).toEqual('github');
+        expect(exclusionsData.excludedServices[0].exclusionsGroups).toHaveLength(6);
+
+        const { serviceId } = exclusionsData.excludedServices[0];
+        const groupId = exclusionsData.excludedServices[0].exclusionsGroups[0].id;
+        // disable exclusions group
+        await exclusionsHandler.toggleExclusionsGroupStateInService(serviceId, groupId);
+
+        exclusionsData = exclusionsHandler.getExclusions();
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].state)
+            .toEqual(STATE.Disabled);
+        // service should become partly enabled
+        expect(exclusionsData.excludedServices[0].state).toEqual(STATE.PartlyEnabled);
+
+        // delete disabled exclusions group
+        await exclusionsHandler.removeExclusionsGroupFromService(serviceId, groupId);
+        exclusionsData = exclusionsHandler.getExclusions();
+        expect(exclusionsData.excludedServices[0].exclusionsGroups).toHaveLength(5);
+        // service should become enabled
+        expect(exclusionsData.excludedServices[0].state).toEqual(STATE.Enabled);
     });
 });
