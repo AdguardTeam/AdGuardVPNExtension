@@ -27,9 +27,6 @@ export const ServiceCategory = observer(({ category }) => {
             return true;
         }
 
-        // FIXME find out how should work search
-        //  1. we should hide all categories?
-        //  2. we should unwrap all categories?
         return containsIgnoreCase(service.serviceName, exclusionsStore.servicesSearchValue);
     });
 
@@ -37,8 +34,8 @@ export const ServiceCategory = observer(({ category }) => {
         exclusionsStore.toggleCategoryVisibility(category.id);
     };
 
-    const unfoldCategory = exclusionsStore.unfoldedServiceCategories
-        .some((id) => id === category.id);
+    const unfoldCategory = exclusionsStore.unfoldAllServiceCategories
+        || exclusionsStore.unfoldedServiceCategories.some((id) => id === category.id);
 
     const categoryClassname = cn('category', {
         category__unfolded: unfoldCategory,
@@ -49,6 +46,10 @@ export const ServiceCategory = observer(({ category }) => {
         [s.show]: unfoldCategory,
         [s.hide]: !unfoldCategory,
     });
+
+    if (filteredServices.length === 0) {
+        return null;
+    }
 
     return (
         <div className={categoryClassname}>

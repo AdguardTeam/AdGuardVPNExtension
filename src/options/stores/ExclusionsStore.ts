@@ -41,6 +41,8 @@ export class ExclusionsStore {
 
     @observable unfoldedServiceCategories: string[] = [];
 
+    @observable unfoldAllServiceCategories: boolean = false;
+
     @observable exclusionIdToShowSettings: string | null = null;
 
     @observable exclusionsSearchValue: string = '';
@@ -388,8 +390,15 @@ export class ExclusionsStore {
     }
 
     @action
+    setUnfoldAllServiceCategories = (unfold: boolean) => {
+        this.unfoldAllServiceCategories = unfold;
+    };
+
+    @action
     setServicesSearchValue = (value: string) => {
         this.servicesSearchValue = value;
+
+        this.setUnfoldAllServiceCategories(this.servicesSearchValue.length > 0);
     }
 
     @action
