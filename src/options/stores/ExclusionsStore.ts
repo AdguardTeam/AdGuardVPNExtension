@@ -164,6 +164,11 @@ export class ExclusionsStore {
     }
 
     @computed
+    get excludedServices() {
+        return this.exclusions[this.currentMode].excludedServices;
+    }
+
+    @computed
     get preparedServicesData() {
         // FIXME remove ts-ignore
         // @ts-ignore
@@ -376,11 +381,15 @@ export class ExclusionsStore {
         return serviceData || servicesGroupData || groupData || null;
     }
 
+    /**
+     * Checks if ExclusionsGroup is inside Service and returns Service id or null
+     * @param exclusionsGroupId
+     */
     @action
-    isGroupInService = (groupId: string) => {
+    isExclusionsGroupInsideService = (exclusionsGroupId: string) => {
         const service = this.exclusions[this.currentMode].excludedServices
             .find((service) => service.exclusionsGroups
-                .find(({ id }) => id === groupId));
+                .find(({ id }) => id === exclusionsGroupId));
         return service ? service.serviceId : null;
     }
 
