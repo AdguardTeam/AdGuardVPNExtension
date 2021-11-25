@@ -391,4 +391,10 @@ export class ExclusionsStore {
     setServicesSearchValue = (value: string) => {
         this.servicesSearchValue = value;
     }
+
+    @action
+    resetServiceData = async (serviceId: string) => {
+        await messenger.resetServiceData(serviceId);
+        await this.updateExclusionsData();
+    }
 }

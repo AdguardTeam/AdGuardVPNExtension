@@ -231,6 +231,11 @@ class Messenger {
         return this.sendMessage(type, { serviceId, exclusionsGroupId, subdomainId });
     }
 
+    async resetServiceData(serviceId) {
+        const type = MESSAGES_TYPES.RESET_SERVICE_DATA;
+        return this.sendMessage(type, { serviceId });
+    }
+
     async checkEmail(email) {
         const type = MESSAGES_TYPES.CHECK_EMAIL;
         return this.sendMessage(type, { email });

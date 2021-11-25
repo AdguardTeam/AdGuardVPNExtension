@@ -37,6 +37,7 @@ interface ExclusionsManagerInterface {
         exclusionsGroupId: string,
         subdomainId: string,
     ): void;
+    resetServiceData(serviceId: string): void;
 
     // methods for groups
     addExclusionsGroup(hostname: string): void;
@@ -153,18 +154,15 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
 
     async addService(serviceId: string) {
         if (this.excludedServices.some((service: Service) => service.serviceId === serviceId)) {
-            this.excludedServices.forEach((service: Service) => {
-                if (service.serviceId === serviceId) {
-                    service.enableService();
-                }
-            });
+            await this.resetServiceData(serviceId);
             return;
         }
-        const service = servicesManager.getService(serviceId);
-        if (!service) {
+        const serviceData = servicesManager.getService(serviceId);
+        if (!serviceData) {
             log.error(`Unable to add service. There is no service '${serviceId}'`);
             return;
         }
+        const service = new Service(serviceData);
         this.excludedServices.push(service);
         await this.updateHandler();
     }
@@ -184,6 +182,20 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
         await this.updateHandler();
     }
 
+    async resetServiceData(serviceId: string) {
+        this.excludedServices.forEach((service: Service) => {
+            if (service.serviceId === serviceId) {
+                const serviceData = servicesManager.getService(serviceId);
+                if (serviceData) {
+                    // eslint-disable-next-line no-param-reassign
+                    service.exclusionsGroups = serviceData.exclusionsGroups;
+                }
+                service.enableService();
+            }
+        });
+        await this.updateHandler();
+    }
+
     async toggleExclusionsGroupStateInService(serviceId: string, exclusionsGroupId: string) {
         this.excludedServices.forEach((service: Service) => {
             if (service.serviceId === serviceId) {
@@ -194,7 +206,6 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
     }
 
     async removeExclusionsGroupFromService(serviceId: string, exclusionsGroupId: string) {
-        // TODO add 'Reset to default' button
         this.excludedServices.forEach((service: Service) => {
             if (service.serviceId === serviceId) {
                 service.removeExclusionsGroup(exclusionsGroupId);

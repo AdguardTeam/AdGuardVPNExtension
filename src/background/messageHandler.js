@@ -217,6 +217,10 @@ const messageHandler = async (message, sender) => {
                 subdomainId,
             );
         }
+        case MESSAGES_TYPES.RESET_SERVICE_DATA: {
+            const { serviceId } = data;
+            return exclusions.current.resetServiceData(serviceId);
+        }
         case MESSAGES_TYPES.CHECK_EMAIL: {
             const { email } = data;
             const appId = await credentials.getAppId();

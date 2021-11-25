@@ -30,6 +30,10 @@ export const ServiceSettings = observer(({ exclusionData }) => {
         await exclusionsStore.removeExclusionsGroupFromService(exclusionData.serviceId, id);
     };
 
+    const resetServiceData = async () => {
+        await exclusionsStore.resetServiceData(exclusionData.serviceId);
+    };
+
     // FIXME remove any
     const renderedExclusionsGroups = exclusionData.exclusionsGroups.map((group: any) => {
         return (
@@ -78,6 +82,13 @@ export const ServiceSettings = observer(({ exclusionData }) => {
             <div className="service__settings">
                 {renderedExclusionsGroups}
             </div>
+            <button
+                type="button"
+                className="button button--medium button--outline-secondary service__reset"
+                onClick={resetServiceData}
+            >
+                {reactTranslator.getMessage('settings_exclusion_reset_to_default')}
+            </button>
         </div>
     );
 });

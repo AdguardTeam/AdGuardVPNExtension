@@ -359,6 +359,9 @@
     "settings_exclusion_modal_save": {
         "message": "Save"
     },
+    "settings_exclusion_reset_to_default": {
+        "message": "Reset to default"
+    },
     "settings_exclusion_search_website": {
         "message": "Search website"
     },
