@@ -88,11 +88,17 @@ class VpnApi extends Api {
         return this.makeRequest(path, method);
     }
 
-    EXCLUSION_SERVICES = { path: 'v1/exclusion_services', method: 'GET' };
+    EXCLUSION_SERVICES = { path: 'v2/exclusion_services', method: 'GET' };
 
     getExclusionsServices = () => {
         const { path, method } = this.EXCLUSION_SERVICES;
-        return this.makeRequest(path, method);
+        const language = browser.i18n.getUILanguage();
+
+        const params = {
+            locale: language,
+        };
+
+        return this.makeRequest(path, method, { params });
     };
 
     EXCLUSION_SERVICE_DOMAINS = { path: 'v1/exclusion_services/domains', method: 'GET' };
