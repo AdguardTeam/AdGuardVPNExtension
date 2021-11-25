@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../../../stores';
 import { Title } from '../../../ui/Title';
 import { StateBox } from '../../StateBox';
-import { TYPE } from '../../../../../common/exclusionsConstants';
+import { EXCLUSIONS_MODES, TYPE } from '../../../../../common/exclusionsConstants';
 import { SubdomainModal } from '../SubdomainModal';
 import { reactTranslator } from '../../../../../common/reactTranslator';
 
@@ -46,6 +46,10 @@ export const GroupSettings = observer(({ exclusionData, parentServiceId }) => {
     const onAddSubdomainClick = () => {
         exclusionsStore.openAddSubdomainModal();
     };
+
+    const subtitle = exclusionsStore.currentMode === EXCLUSIONS_MODES.REGULAR
+        ? reactTranslator.getMessage('settings_exclusion_group_settings_subtitle_regular_mode')
+        : reactTranslator.getMessage('settings_exclusion_group_settings_subtitle_selecive_mode');
 
     // FIXME remove any
     const renderedExclusions = exclusionData.exclusions.map((exclusion: any, index: number) => {
@@ -90,7 +94,7 @@ export const GroupSettings = observer(({ exclusionData, parentServiceId }) => {
                 </button>
                 <Title
                     title={exclusionData.hostname}
-                    subtitle={reactTranslator.getMessage('settings_exclusion_group_settings_subtitle')}
+                    subtitle={subtitle}
                 />
             </div>
             <div className="group__settings">

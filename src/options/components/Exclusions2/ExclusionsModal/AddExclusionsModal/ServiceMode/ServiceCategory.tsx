@@ -4,7 +4,6 @@ import cn from 'classnames';
 
 import { rootStore } from '../../../../../stores';
 import { ServiceRow } from './ServiceRow';
-import { STATE } from '../../../../../../common/exclusionsConstants';
 
 // FIXME fix linter
 // @ts-ignore
