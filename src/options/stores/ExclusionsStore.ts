@@ -415,4 +415,10 @@ export class ExclusionsStore {
         await messenger.resetServiceData(serviceId);
         await this.updateExclusionsData();
     }
+
+    @action
+    clearExclusionsList = async () => {
+        await messenger.clearExclusionsList();
+        await this.updateExclusionsData();
+    }
 }

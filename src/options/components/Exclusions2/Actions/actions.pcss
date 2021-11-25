@@ -1,5 +1,6 @@
 .actions {
     margin: 30px 0 10px;
+    position: relative;
 
     &__add-website {
         font-size: 17px;
@@ -8,5 +9,51 @@
         background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 12H20' stroke='%2374A352' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M12 4L12 20' stroke='%2374A352' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E%0A");
         background-repeat: no-repeat;
         background-position: left center;
+    }
+
+    &__more-actions-button {
+        position: absolute;
+        right: 13px;
+        top: -3px;
+        background: none;
+        border: none;
+        border-radius: 2px;
+        padding: 7px 12px 5px;
+        cursor: pointer;
+
+        &:hover {
+            & + .actions__more-actions-list {
+                visibility: visible;
+            }
+        }
+
+        &__icon {
+            width: 2px;
+            height: 12px;
+        }
+    }
+
+    &__more-actions-list {
+        position: absolute;
+        right: 20px;
+        top: 10px;
+        z-index: 1;
+        background: var(--white);
+        list-style: none;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        visibility: hidden;
+
+        &:hover {
+            visibility: visible;
+        }
+
+        & li {
+            padding: 15px 35px 15px 25px;
+            cursor: pointer;
+
+            &:hover {
+                background: var(--grayF7);
+            }
+        }
     }
 }

@@ -11,6 +11,10 @@ const Icons = () => (
             <use fill="#131313" fillRule="evenodd" transform="translate(-2 -1)" xlinkHref="#a" />
         </svg>
 
+        <svg id="more-actions" width="2" height="12" viewBox="0 0 2 12" fill="none">
+            <path fillRule="evenodd" clipRule="evenodd" d="M1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2ZM1 7C0.447715 7 0 6.55228 0 6C0 5.44772 0.447715 5 1 5C1.55228 5 2 5.44772 2 6C2 6.55228 1.55228 7 1 7ZM0 11C0 11.5523 0.447715 12 1 12C1.55228 12 2 11.5523 2 11C2 10.4477 1.55228 10 1 10C0.447715 10 0 10.4477 0 11Z" fill="#4D4D4D" />
+        </svg>
+
         <svg id="basket" width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path fillRule="evenodd" clipRule="evenodd" d="M7 9H17L16.2367 19.0755C16.1972 19.597 15.7625 20 15.2396 20H8.76044C8.23746 20 7.80281 19.597 7.7633 19.0755L7 9Z" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             <path d="M6 6.5H18" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

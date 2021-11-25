@@ -17,6 +17,10 @@ export const Actions = () => {
         exclusionsStore.openAddExclusionModal();
     };
 
+    const onRemoveAllClick = async () => {
+        await exclusionsStore.clearExclusionsList();
+    };
+
     const onMoreActionsClick = () => {
         // FIXME implement
         console.log('onMoreActionsClick');
@@ -32,6 +36,19 @@ export const Actions = () => {
                 >
                     {reactTranslator.getMessage('settings_exclusion_add_website')}
                 </button>
+                <button
+                    type="button"
+                    className="actions__more-actions-button"
+                >
+                    <svg className="actions__more-actions-button__icon">
+                        <use xlinkHref="#more-actions" />
+                    </svg>
+                </button>
+                <ul className="actions__more-actions-list">
+                    <li>Export exclusions</li>
+                    <li>Import exclusions</li>
+                    <li onClick={onRemoveAllClick}>Remove all</li>
+                </ul>
             </div>
             {/* FIXME add tooltip? */}
             <div onClick={onMoreActionsClick}>

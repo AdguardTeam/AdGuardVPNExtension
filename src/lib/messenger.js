@@ -236,6 +236,11 @@ class Messenger {
         return this.sendMessage(type, { serviceId });
     }
 
+    async clearExclusionsList() {
+        const type = MESSAGES_TYPES.CLEAR_EXCLUSIONS_LIST;
+        return this.sendMessage(type);
+    }
+
     async checkEmail(email) {
         const type = MESSAGES_TYPES.CHECK_EMAIL;
         return this.sendMessage(type, { email });
