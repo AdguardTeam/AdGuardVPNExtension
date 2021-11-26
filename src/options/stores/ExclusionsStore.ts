@@ -1,4 +1,8 @@
 import { action, computed, observable } from 'mobx';
+import JSZip from 'jszip';
+import format from 'date-fns/format';
+// @ts-ignore
+import FileSaver from 'file-saver';
 
 import { EXCLUSIONS_MODES, TYPE } from '../../common/exclusionsConstants';
 import messenger from '../../lib/messenger';
@@ -418,7 +422,25 @@ export class ExclusionsStore {
 
     @action
     clearExclusionsList = async () => {
+        // TODO show dialog popup first
         await messenger.clearExclusionsList();
         await this.updateExclusionsData();
     }
+
+    exportExclusions = async () => {
+        const nowFormatted = format(Date.now(), 'yyyy_MM_dd-HH_mm_ss');
+        const ZIP_FILENAME = `exclusions-${nowFormatted}.zip`;
+
+        const EXCLUSION_FILES_EXTENSIONS = {
+            REGULAR: '.regular.txt',
+            SELECTIVE: '.selective.txt',
+        };
+
+        const zip = new JSZip();
+        zip.file(`${nowFormatted}${EXCLUSION_FILES_EXTENSIONS.REGULAR}`, JSON.stringify(this.exclusions[EXCLUSIONS_MODES.REGULAR], null, 4));
+        zip.file(`${nowFormatted}${EXCLUSION_FILES_EXTENSIONS.SELECTIVE}`, JSON.stringify(this.exclusions[EXCLUSIONS_MODES.SELECTIVE], null, 4));
+
+        const zipContent = await zip.generateAsync({ type: 'blob' });
+        FileSaver.saveAs(zipContent, ZIP_FILENAME);
+    };
 }

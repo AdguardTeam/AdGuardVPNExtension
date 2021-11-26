@@ -5,16 +5,16 @@ import { reactTranslator } from '../../../../common/reactTranslator';
 
 import './actions.pcss';
 
-// TODO
-//  - import
-//  - export
-//  - remove
-//  - add exclusion
+// TODO import
 export const Actions = () => {
     const { exclusionsStore } = useContext(rootStore);
 
     const onAddExclusionClick = () => {
         exclusionsStore.openAddExclusionModal();
+    };
+
+    const onExportExclusionsClick = async () => {
+        await exclusionsStore.exportExclusions();
     };
 
     const onRemoveAllClick = async () => {
@@ -45,7 +45,7 @@ export const Actions = () => {
                     </svg>
                 </button>
                 <ul className="actions__more-actions-list">
-                    <li>Export exclusions</li>
+                    <li onClick={onExportExclusionsClick}>Export exclusions</li>
                     <li>Import exclusions</li>
                     <li onClick={onRemoveAllClick}>Remove all</li>
                 </ul>
