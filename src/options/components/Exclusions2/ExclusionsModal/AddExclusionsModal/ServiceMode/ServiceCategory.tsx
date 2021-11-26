@@ -16,9 +16,10 @@ export const ServiceCategory = observer(({ category }) => {
     const { exclusionsStore } = useContext(rootStore);
     const { services } = exclusionsStore.preparedServicesData;
 
-    const categoryServices = category.services.map((serviceId: string) => {
-        return services[serviceId];
-    });
+    const categoryServices = category.services
+        .map((serviceId: string) => services[serviceId])
+        .filter((serviceData) => !(exclusionsStore.excludedServices
+            .some((service) => serviceData.serviceId === service.serviceId)));
 
     // FIXME remove @ts-ignore
     // @ts-ignore

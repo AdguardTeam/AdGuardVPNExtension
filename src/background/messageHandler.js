@@ -221,6 +221,9 @@ const messageHandler = async (message, sender) => {
             const { serviceId } = data;
             return exclusions.current.resetServiceData(serviceId);
         }
+        case MESSAGES_TYPES.CLEAR_EXCLUSIONS_LIST: {
+            return exclusions.current.clearExclusionsData();
+        }
         case MESSAGES_TYPES.CHECK_EMAIL: {
             const { email } = data;
             const appId = await credentials.getAppId();

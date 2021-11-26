@@ -9,7 +9,7 @@ import './subdomain-modal.pcss';
 
 // FIXME remove @ts-ignore
 // @ts-ignore
-export const SubdomainModal = observer(({ groupId, parentServiceId }) => {
+export const SubdomainModal = observer(({ exclusionData, parentServiceId }) => {
     const { exclusionsStore } = useContext(rootStore);
 
     const [inputValue, setInputValue] = useState('');
@@ -18,18 +18,25 @@ export const SubdomainModal = observer(({ groupId, parentServiceId }) => {
 
     const closeModal = () => {
         exclusionsStore.closeAddSubdomainModal();
+        setInputValue('');
     };
 
-    const addSubdomain = async () => {
+    const addSubdomain = async (e) => {
+        e.preventDefault();
         if (inputValue) {
             if (parentServiceId) {
-                await exclusionsStore
-                    .addSubdomainToExclusionsGroupInService(parentServiceId, groupId, inputValue);
+                await exclusionsStore.addSubdomainToExclusionsGroupInService(
+                    parentServiceId,
+                    exclusionData.id,
+                    inputValue,
+                );
                 closeModal();
+                setInputValue('');
                 return;
             }
-            await exclusionsStore.addSubdomainToExclusionsGroup(groupId, inputValue);
+            await exclusionsStore.addSubdomainToExclusionsGroup(exclusionData.id, inputValue);
             closeModal();
+            setInputValue('');
         }
     };
 
@@ -37,20 +44,23 @@ export const SubdomainModal = observer(({ groupId, parentServiceId }) => {
         <ExclusionsModal
             isOpen={isOpen}
             closeModal={closeModal}
-            title={reactTranslator.getMessage('settings_exclusion_subdomain_name')}
+            title={reactTranslator.getMessage('settings_exclusion_add_subdomain')}
         >
             <form
                 className="subdomain-modal"
                 onSubmit={addSubdomain}
             >
                 <label>
-                    {reactTranslator.getMessage('settings_exclusion_add')}
+                    {reactTranslator.getMessage('settings_exclusion_subdomain_name')}
                     <input
                         type="text"
                         className="subdomain-modal__input"
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                     />
+                    <div className="subdomain-modal__hostname">
+                        {exclusionData.hostname}
+                    </div>
                 </label>
                 <div className="subdomain-modal__actions">
                     <button

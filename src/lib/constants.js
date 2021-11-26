@@ -70,6 +70,7 @@ export const MESSAGES_TYPES = {
     ADD_SUBDOMAIN_TO_EXCLUSIONS_GROUP_IN_SERVICE: 'add.subdomain.to.exclusions.group.in.service',
     RENAME_EXCLUSION_BY_MODE: 'rename.exclusion.by.mode',
     RESET_SERVICE_DATA: 'reset.service.data',
+    CLEAR_EXCLUSIONS_LIST: 'clear.exclusions.list',
     ADD_SERVICE: 'add.service',
     ADD_EXCLUSION_BY_MODE: 'add.exclusion.by.mode',
     ADD_SELECTIVE_EXCLUSIONS: 'add.exclusions.selective',

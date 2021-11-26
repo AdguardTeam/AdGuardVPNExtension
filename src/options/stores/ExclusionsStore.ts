@@ -1,4 +1,8 @@
 import { action, computed, observable } from 'mobx';
+import JSZip from 'jszip';
+import format from 'date-fns/format';
+// @ts-ignore
+import FileSaver from 'file-saver';
 
 import { EXCLUSIONS_MODES, TYPE } from '../../common/exclusionsConstants';
 import messenger from '../../lib/messenger';
@@ -161,6 +165,11 @@ export class ExclusionsStore {
     isExcludedService = (serviceId: string) => {
         return this.exclusions[this.currentMode].excludedServices
             .some((service) => service.serviceId === serviceId);
+    }
+
+    @computed
+    get excludedServices() {
+        return this.exclusions[this.currentMode].excludedServices;
     }
 
     @computed
@@ -376,11 +385,15 @@ export class ExclusionsStore {
         return serviceData || servicesGroupData || groupData || null;
     }
 
+    /**
+     * Checks if ExclusionsGroup is inside Service and returns Service id or null
+     * @param exclusionsGroupId
+     */
     @action
-    isGroupInService = (groupId: string) => {
+    isExclusionsGroupInsideService = (exclusionsGroupId: string) => {
         const service = this.exclusions[this.currentMode].excludedServices
             .find((service) => service.exclusionsGroups
-                .find(({ id }) => id === groupId));
+                .find(({ id }) => id === exclusionsGroupId));
         return service ? service.serviceId : null;
     }
 
@@ -406,4 +419,28 @@ export class ExclusionsStore {
         await messenger.resetServiceData(serviceId);
         await this.updateExclusionsData();
     }
+
+    @action
+    clearExclusionsList = async () => {
+        // TODO show dialog popup first
+        await messenger.clearExclusionsList();
+        await this.updateExclusionsData();
+    }
+
+    exportExclusions = async () => {
+        const nowFormatted = format(Date.now(), 'yyyy_MM_dd-HH_mm_ss');
+        const ZIP_FILENAME = `exclusions-${nowFormatted}.zip`;
+
+        const EXCLUSION_FILES_EXTENSIONS = {
+            REGULAR: '.regular.txt',
+            SELECTIVE: '.selective.txt',
+        };
+
+        const zip = new JSZip();
+        zip.file(`${nowFormatted}${EXCLUSION_FILES_EXTENSIONS.REGULAR}`, JSON.stringify(this.exclusions[EXCLUSIONS_MODES.REGULAR], null, 4));
+        zip.file(`${nowFormatted}${EXCLUSION_FILES_EXTENSIONS.SELECTIVE}`, JSON.stringify(this.exclusions[EXCLUSIONS_MODES.SELECTIVE], null, 4));
+
+        const zipContent = await zip.generateAsync({ type: 'blob' });
+        FileSaver.saveAs(zipContent, ZIP_FILENAME);
+    };
 }

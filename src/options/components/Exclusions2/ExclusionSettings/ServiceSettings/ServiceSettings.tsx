@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../../../stores';
 import { Title } from '../../../ui/Title';
 import { StateBox } from '../../StateBox';
-import { TYPE } from '../../../../../common/exclusionsConstants';
+import { EXCLUSIONS_MODES, TYPE } from '../../../../../common/exclusionsConstants';
 import { reactTranslator } from '../../../../../common/reactTranslator';
 
 import './service-settings.pcss';
@@ -33,6 +33,10 @@ export const ServiceSettings = observer(({ exclusionData }) => {
     const resetServiceData = async () => {
         await exclusionsStore.resetServiceData(exclusionData.serviceId);
     };
+
+    const subtitle = exclusionsStore.currentMode === EXCLUSIONS_MODES.REGULAR
+        ? reactTranslator.getMessage('settings_exclusion_service_settings_subtitle_regular_mode')
+        : reactTranslator.getMessage('settings_exclusion_service_settings_subtitle_selective_mode');
 
     // FIXME remove any
     const renderedExclusionsGroups = exclusionData.exclusionsGroups.map((group: any) => {
@@ -76,7 +80,7 @@ export const ServiceSettings = observer(({ exclusionData }) => {
                 </button>
                 <Title
                     title={exclusionData.serviceName}
-                    subtitle={reactTranslator.getMessage('settings_exclusion_service_settings_subtitle')}
+                    subtitle={subtitle}
                 />
             </div>
             <div className="service__settings">

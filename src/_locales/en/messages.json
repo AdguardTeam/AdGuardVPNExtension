@@ -329,11 +329,17 @@
     "settings_exclusion_select_mode": {
         "message": "Please select the VPN mode"
     },
-    "settings_exclusion_service_settings_subtitle": {
+    "settings_exclusion_service_settings_subtitle_regular_mode": {
         "message": "AdGuard VPN is off for the checked domains"
     },
-    "settings_exclusion_group_settings_subtitle": {
+    "settings_exclusion_service_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN is on for the checked domains"
+    },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
         "message": "AdGuard VPN is off for the checked domains and subdomains"
+    },
+    "settings_exclusion_group_settings_subtitle_selecive_mode": {
+        "message": "AdGuard VPN is on for the checked domains and subdomains"
     },
     "settings_exclusion_domain_name": {
         "message": "Domain name:"
@@ -367,6 +373,15 @@
     },
     "settings_exclusion_placeholder_search": {
         "message": "Search"
+    },
+    "settings_exclusions_action_export": {
+        "message": "Export exclusions"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Import exclusions"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Remove all"
     },
     "settings_exclusions_import_button": {
         "message": "Import"

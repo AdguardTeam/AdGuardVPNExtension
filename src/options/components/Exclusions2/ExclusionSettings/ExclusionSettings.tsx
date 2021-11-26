@@ -17,7 +17,7 @@ export const ExclusionSettings = observer(() => {
             );
         }
 
-        const parentServiceId = exclusionsStore.isGroupInService(exclusionData?.id);
+        const parentServiceId = exclusionsStore.isExclusionsGroupInsideService(exclusionData?.id);
 
         if (parentServiceId) {
             return (
