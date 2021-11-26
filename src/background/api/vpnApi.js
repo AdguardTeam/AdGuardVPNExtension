@@ -88,8 +88,7 @@ class VpnApi extends Api {
         return this.makeRequest(path, method);
     }
 
-    // FIXME update api to v2 version
-    EXCLUSION_SERVICES = { path: 'v1/exclusion_services', method: 'GET' };
+    EXCLUSION_SERVICES = { path: 'v2/exclusion_services', method: 'GET' };
 
     getExclusionsServices = () => {
         const { path, method } = this.EXCLUSION_SERVICES;

@@ -1,15 +1,14 @@
 module.exports = {
-    parser: 'babel-eslint',
+    parser: '@typescript-eslint/parser',
     extends: [
         'airbnb',
+        'airbnb-typescript',
         'plugin:react/recommended',
     ],
-    plugins: ['react'],
     parserOptions: {
-        ecmaFeatures: {
-            jsx: true,
-        },
+        project: ['tsconfig.eslint.json'],
     },
+    plugins: ['react'],
     env: {
         browser: true,
         node: true,
@@ -30,12 +29,14 @@ module.exports = {
         },
     },
     rules: {
-        'no-shadow': 'off',
+        'no-shadow': 0,
+        '@typescript-eslint/no-shadow': 0,
         'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
         'import/no-extraneous-dependencies': 0,
         indent: ['error', 4, { SwitchCase: 1 }],
         'react/jsx-indent': 'off',
         'react/jsx-indent-props': 'off',
+        '@typescript-eslint/indent': ['error', 4],
         'no-underscore-dangle': 'off',
         'react/destructuring-assignment': [
             'error',

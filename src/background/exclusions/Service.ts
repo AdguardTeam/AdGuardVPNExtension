@@ -7,8 +7,9 @@ export interface ServiceInterface {
     iconUrl: string;
     categories: string[];
     modifiedTime: string;
-    exclusionsGroups: ExclusionsGroup[];
-    state: STATE;
+    exclusionsGroups?: ExclusionsGroup[];
+    state?: STATE;
+    domains?: string[];
 }
 
 export class Service implements ServiceInterface {
@@ -35,6 +36,14 @@ export class Service implements ServiceInterface {
         this.exclusionsGroups = service.exclusionsGroups
             ?.map((group) => new ExclusionsGroup(group)) || [];
         this.state = service.state || STATE.Enabled;
+
+        const { domains } = service;
+
+        if (domains) {
+            domains.forEach((domain: string) => {
+                this.addExclusionsGroup(domain);
+            });
+        }
     }
 
     /**
@@ -146,7 +155,7 @@ export class Service implements ServiceInterface {
         } else {
             this.enableService();
         }
-    }
+    };
 
     /**
      * Sets Service state according to the states of ExclusionsGroups

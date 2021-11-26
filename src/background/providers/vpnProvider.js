@@ -246,42 +246,49 @@ const requestSupport = async ({
     }
 };
 
-// TODO if no services returned, use default list
-// TODO if services were returned recently,
-//  but they are not returned now, we should use services from the storage
 const getExclusionsServices = async () => {
     let exclusionsServices;
     try {
         exclusionsServices = await vpnApi.getExclusionsServices();
     } catch (e) {
         log.error(e);
-        exclusionsServices = [];
+        exclusionsServices = {};
     }
 
-    // [ {
-    //     "service_id" : "whatsapp",
-    //     "service_name" : "WhatsApp",
-    //     "icon_url" : "https://icons.adguard.org/icon?domain=whatsapp.com",
-    //     "categories" : [ "MESSENGERS" ],
-    //     "modified_time" : "2021-10-29T09:58:04+0000"
-    // } ]
-    return exclusionsServices.map((exclusionService) => {
-        const {
-            service_id: serviceId,
-            service_name: serviceName,
-            icon_url: iconUrl,
-            categories,
-            modified_time: modifiedTime,
-        } = exclusionService;
+    const { categories, services } = exclusionsServices;
 
-        return {
-            serviceId,
-            serviceName,
-            iconUrl,
-            categories,
-            modifiedTime,
-        };
-    });
+    const processedCategories = categories.reduce((acc, category) => {
+        acc[category.id] = category;
+        return acc;
+    }, {});
+
+    const processedServices = services
+        .map((exclusionService) => {
+            const {
+                service_id: serviceId,
+                service_name: serviceName,
+                icon_url: iconUrl,
+                categories,
+                modified_time: modifiedTime,
+            } = exclusionService;
+
+            return {
+                serviceId,
+                serviceName,
+                iconUrl,
+                categories,
+                modifiedTime,
+            };
+        })
+        .reduce((acc, service) => {
+            acc[service.serviceId] = service;
+            return acc;
+        }, {});
+
+    return {
+        categories: processedCategories,
+        services: processedServices,
+    };
 };
 
 const getExclusionsServicesDomains = async (serviceIds) => {
@@ -292,17 +299,23 @@ const getExclusionsServicesDomains = async (serviceIds) => {
         log.error(e);
         exclusionServiceDomains = [];
     }
-    return exclusionServiceDomains.services.map((exclusion) => {
-        const {
-            service_id: serviceId,
-            domains,
-        } = exclusion;
 
-        return {
-            serviceId,
-            domains,
-        };
-    });
+    return exclusionServiceDomains.services
+        .map((service) => {
+            const {
+                service_id: serviceId,
+                domains,
+            } = service;
+
+            return {
+                serviceId,
+                domains,
+            };
+        })
+        .reduce((acc, service) => {
+            acc[service.serviceId] = service;
+            return acc;
+        }, {});
 };
 
 const vpnProvider = {
