@@ -374,6 +374,15 @@
     "settings_exclusion_placeholder_search": {
         "message": "Search"
     },
+    "settings_exclusions_action_export": {
+        "message": "Export exclusions"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Import exclusions"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Remove all"
+    },
     "settings_exclusions_import_button": {
         "message": "Import"
     },

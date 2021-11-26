@@ -17,6 +17,10 @@ export const Actions = () => {
         await exclusionsStore.exportExclusions();
     };
 
+    const onImportExclusionsClick = async () => {
+        // await exclusionsStore.importExclusions();
+    };
+
     const onRemoveAllClick = async () => {
         await exclusionsStore.clearExclusionsList();
     };
@@ -45,9 +49,15 @@ export const Actions = () => {
                     </svg>
                 </button>
                 <ul className="actions__more-actions-list">
-                    <li onClick={onExportExclusionsClick}>Export exclusions</li>
-                    <li>Import exclusions</li>
-                    <li onClick={onRemoveAllClick}>Remove all</li>
+                    <li onClick={onExportExclusionsClick}>
+                        {reactTranslator.getMessage('settings_exclusions_action_export')}
+                    </li>
+                    <li onClick={onImportExclusionsClick}>
+                        {reactTranslator.getMessage('settings_exclusions_action_import')}
+                    </li>
+                    <li onClick={onRemoveAllClick}>
+                        {reactTranslator.getMessage('settings_exclusions_action_remove_all')}
+                    </li>
                 </ul>
             </div>
             {/* FIXME add tooltip? */}
