@@ -29,18 +29,16 @@ const ExclusionsDisable = observer(() => {
     return (
         <div className="settings settings--exclusions-disable">
             <div className="settings__main">
-                <>
-                    <StatusImage />
-                    <Status />
-                    <button
-                        onClick={button}
-                        type="button"
-                        className="button button--medium button--green"
-                    >
-                        {reactTranslator.getMessage('popup_settings_enable_vpn_short')}
-                    </button>
-                    <SiteInfo />
-                </>
+                <StatusImage />
+                <Status />
+                <button
+                    onClick={button}
+                    type="button"
+                    className="button button--medium button--green"
+                >
+                    {reactTranslator.getMessage('popup_settings_enable_vpn_short')}
+                </button>
+                <SiteInfo />
             </div>
         </div>
     );

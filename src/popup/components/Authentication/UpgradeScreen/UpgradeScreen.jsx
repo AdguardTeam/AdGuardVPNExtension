@@ -6,7 +6,7 @@ import { CloseButton } from '../../ui/CloseButton';
 
 import './upgrade-screen.pcss';
 
-export const UpgradeScreen = () => {
+export var UpgradeScreen = function () {
     const { authStore, vpnStore } = useContext(rootStore);
 
     const handleUpgradeClick = async () => {

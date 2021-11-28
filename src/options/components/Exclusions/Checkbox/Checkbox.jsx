@@ -6,14 +6,14 @@ import { useOnClickOutside } from './useOnClickOutside';
 
 import './checkbox.pcss';
 
-export const Checkbox = ({
+export var Checkbox = function ({
     id,
     label,
     checked,
     handleToggle,
     handleRename,
     handleRemove,
-}) => {
+}) {
     const [hostname, setHostname] = useState(label);
     const [isChanged, setIsChanged] = useState(false);
 

@@ -176,30 +176,6 @@ class ExclusionsManager implements ExclusionsInfo {
         }
     }
 
-    // TODO: handle adding to exclusions (ip case)
-    addRegularExclusions(exclusions) {
-        let addedExclusions = 0;
-        exclusions.forEach((exclusion) => {
-            const result = this.regular.addExclusionsGroup(exclusion);
-            if (result) {
-                addedExclusions += 1;
-            }
-        });
-        return addedExclusions;
-    }
-
-    // TODO: handle adding to exclusions (ip case)
-    addSelectiveExclusions(exclusions) {
-        let addedExclusions = 0;
-        exclusions.forEach((exclusion) => {
-            const result = this.selective.addExclusionsGroup(exclusion);
-            if (result) {
-                addedExclusions += 1;
-            }
-        });
-        return addedExclusions;
-    }
-
     get selective() {
         return this.selectiveModeHandler;
     }
@@ -267,6 +243,24 @@ class ExclusionsManager implements ExclusionsInfo {
             },
         };
         this.settings.setExclusions(emptyExclusions);
+    }
+
+    async importExclusionsData(exclusionsData) {
+        try {
+            exclusionsData.forEach((entry) => {
+                const entryData = JSON.parse(entry.content);
+                if (entry.type === EXCLUSIONS_MODES.REGULAR) {
+                    this.regular.importExclusionsData(entryData);
+                }
+                if (entry.type === EXCLUSIONS_MODES.SELECTIVE) {
+                    this.selective.importExclusionsData(entryData);
+                }
+            });
+        } catch (e: any) {
+            throw new Error(`Unable to import exclusions data due to the error: ${e.message}`);
+        }
+        await this.handleExclusionsUpdate();
+        debugger;
     }
 }
 

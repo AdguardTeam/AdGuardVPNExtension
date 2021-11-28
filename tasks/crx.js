@@ -23,9 +23,7 @@ const { outputPath } = ENV_MAP[BUILD_ENV];
 const WRITE_PATH = path.resolve(__dirname, BUILD_PATH, outputPath);
 const LOAD_PATH = path
     .resolve(__dirname, BUILD_PATH, outputPath, BROWSERS.CHROME);
-const MANIFEST_PATH = path.resolve(
-    __dirname, BUILD_PATH, outputPath, BROWSERS.CHROME, MANIFEST_NAME,
-);
+const MANIFEST_PATH = path.resolve(__dirname, BUILD_PATH, outputPath, BROWSERS.CHROME, MANIFEST_NAME);
 
 const getPrivateKey = async () => {
     const certificatePath = CERTIFICATE_PATHS[BUILD_ENV];

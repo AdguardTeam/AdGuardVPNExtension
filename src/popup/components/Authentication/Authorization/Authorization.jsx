@@ -7,7 +7,7 @@ import Icon from '../../ui/Icon';
 
 import './authorization.pcss';
 
-export const Authorization = () => {
+export var Authorization = function () {
     const { authStore } = useContext(rootStore);
 
     const authClickHandler = (provider) => async () => {

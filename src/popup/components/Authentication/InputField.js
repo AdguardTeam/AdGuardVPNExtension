@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-const InputField = ({
+const InputField = function ({
     id,
     type,
     value,
@@ -9,7 +9,7 @@ const InputField = ({
     error,
     className = '',
     placeholder = '',
-}) => {
+}) {
     const inputClassName = classnames(
         `form__input ${className}`,
         { 'form__input--error': error },

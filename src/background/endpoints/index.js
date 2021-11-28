@@ -159,7 +159,7 @@ class Endpoints {
         });
 
         return filteredLocations;
-    }
+    };
 
     updateEndpointsExclusions = (locations) => {
         const endpoints = _.flattenDeep(locations.map((location) => {
@@ -171,7 +171,7 @@ class Endpoints {
         const uniqTopLevelDomains = _.uniq(topLevelDomains);
 
         endpointsTldExclusions.addEndpointsTldExclusions(uniqTopLevelDomains);
-    }
+    };
 
     /**
      * Updates locations list
@@ -232,7 +232,7 @@ class Endpoints {
         } else {
             log.debug('Was unable to find current location');
         }
-    }
+    };
 
     getVpnInfoRemotely = async () => {
         let vpnToken;
@@ -308,7 +308,7 @@ class Endpoints {
     getLocations = () => {
         const locations = locationsService.getLocationsWithPing();
         return locations;
-    }
+    };
 
     getSelectedLocation = async () => {
         const selectedLocation = await locationsService.getSelectedLocation();

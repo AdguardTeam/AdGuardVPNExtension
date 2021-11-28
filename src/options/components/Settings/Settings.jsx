@@ -8,15 +8,17 @@ import { Title } from '../ui/Title';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { AppearanceTheme } from './AppearanceTheme';
 
-export const Settings = () => (
-    <>
-        <Title title={reactTranslator.getMessage('settings_title')} />
-        <div className="settings">
-            <WebRTC />
-            <ContextMenus />
-            <AppearanceTheme />
-            <HelpUsImprove />
-            <Dns />
-        </div>
-    </>
-);
+export var Settings = function () {
+    return (
+        <>
+            <Title title={reactTranslator.getMessage('settings_title')} />
+            <div className="settings">
+                <WebRTC />
+                <ContextMenus />
+                <AppearanceTheme />
+                <HelpUsImprove />
+                <Dns />
+            </div>
+        </>
+    );
+};

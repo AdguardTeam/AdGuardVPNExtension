@@ -4,7 +4,7 @@ import { rootStore } from '../../../../stores';
 
 const NOTIFICATION_CLEAR_TIMEOUT_MS = 5000;
 
-export const Notification = ({ notification }) => {
+export var Notification = function ({ notification }) {
     const { notificationsStore } = useContext(rootStore);
 
     useEffect(() => {

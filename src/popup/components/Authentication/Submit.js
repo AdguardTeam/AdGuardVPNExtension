@@ -2,9 +2,9 @@ import React from 'react';
 
 import DotsLoader from '../ui/DotsLoader';
 
-const Submit = ({
+const Submit = function ({
     processing, disabled, text,
-}) => {
+}) {
     if (processing) {
         return <DotsLoader />;
     }

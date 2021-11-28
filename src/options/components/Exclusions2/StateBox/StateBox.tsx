@@ -11,12 +11,12 @@ interface StateBoxProps {
     toggleHandler: (id: string, type: TYPE) => React.MouseEventHandler<HTMLButtonElement>,
 }
 
-export const StateBox = ({
+export var StateBox = function ({
     id,
     type,
     state,
     toggleHandler,
-}: StateBoxProps) => {
+}: StateBoxProps) {
     const getStateIcon = () => {
         if (state === STATE.Enabled || state === true) {
             return '#enabled';

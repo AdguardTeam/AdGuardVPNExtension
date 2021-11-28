@@ -5,7 +5,7 @@ import { reactTranslator } from '../../../../common/reactTranslator';
 
 import './newsletter.pcss';
 
-export const Newsletter = () => {
+export var Newsletter = function () {
     const { authStore } = useContext(rootStore);
 
     const handleClick = (value) => async () => {

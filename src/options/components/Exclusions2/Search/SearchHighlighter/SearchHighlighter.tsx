@@ -11,7 +11,7 @@ interface SearchHighlighterProps {
     search: string,
 }
 
-export const SearchHighlighter = ({ value, search }: SearchHighlighterProps) => {
+export var SearchHighlighter = function ({ value, search }: SearchHighlighterProps) {
     const renderStr = () => {
         const chunks = findChunks(value, search);
 

@@ -241,6 +241,11 @@ class Messenger {
         return this.sendMessage(type);
     }
 
+    async importExclusionsData(exclusionsData) {
+        const type = MESSAGES_TYPES.IMPORT_EXCLUSIONS_DATA;
+        return this.sendMessage(type, { exclusionsData });
+    }
+
     async checkEmail(email) {
         const type = MESSAGES_TYPES.CHECK_EMAIL;
         return this.sendMessage(type, { email });

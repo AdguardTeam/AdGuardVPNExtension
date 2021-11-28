@@ -1,13 +1,23 @@
-import React, { useContext } from 'react';
+import React, {
+    useContext, useState, useRef, useEffect,
+} from 'react';
+import classnames from 'classnames';
 
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
+import { RemoveAllModal } from './RemoveAllModal';
 
 import './actions.pcss';
+import { readExclusionsFile } from './fileHelpers';
+import { translator } from '../../../../common/translator';
 
-// TODO import
-export const Actions = () => {
-    const { exclusionsStore } = useContext(rootStore);
+export var Actions = function () {
+    const { exclusionsStore, notificationsStore } = useContext(rootStore);
+
+    const [isMoreActionsMenuOpen, setIsMoreActionsMenuOpen] = useState(false);
+
+    const importEl = useRef(null);
+    const moreActionsMenu = useRef(null);
 
     const onAddExclusionClick = () => {
         exclusionsStore.openAddExclusionModal();
@@ -17,18 +27,44 @@ export const Actions = () => {
         await exclusionsStore.exportExclusions();
     };
 
-    const onImportExclusionsClick = async () => {
-        // await exclusionsStore.importExclusions();
+    const onImportExclusionsClick = () => {
+        // @ts-ignore
+        importEl.current.click();
     };
 
     const onRemoveAllClick = async () => {
-        await exclusionsStore.clearExclusionsList();
+        await exclusionsStore.openRemoveAllModal();
     };
 
     const onMoreActionsClick = () => {
-        // FIXME implement
-        console.log('onMoreActionsClick');
+        setIsMoreActionsMenuOpen(!isMoreActionsMenuOpen);
     };
+
+    const inputChangeHandler = async (e) => {
+        const [file] = e.target.files;
+        e.target.value = '';
+
+        try {
+            const exclusionsData = await readExclusionsFile(file);
+            await exclusionsStore.importExclusions(exclusionsData);
+            notificationsStore.notifySuccess(translator.getMessage('options_exclusions_import_successful'));
+        } catch (e) {
+            notificationsStore.notifyError(e.message);
+        }
+    };
+
+    useEffect(() => {
+        // @ts-ignore
+        moreActionsMenu.current.focus();
+    });
+
+    const moreActionsButtonClassnames = classnames('actions__more-actions-button', {
+        active: isMoreActionsMenuOpen,
+    });
+
+    const moreActionsListClassnames = classnames('actions__more-actions-list', {
+        visible: isMoreActionsMenuOpen,
+    });
 
     return (
         <>
@@ -42,24 +78,40 @@ export const Actions = () => {
                 </button>
                 <button
                     type="button"
-                    className="actions__more-actions-button"
+                    className={moreActionsButtonClassnames}
+                    onMouseDown={onMoreActionsClick}
                 >
                     <svg className="actions__more-actions-button__icon">
                         <use xlinkHref="#more-actions" />
                     </svg>
                 </button>
-                <ul className="actions__more-actions-list">
+                <ul
+                    className={moreActionsListClassnames}
+                    ref={moreActionsMenu}
+                    tabIndex={-1}
+                    onBlur={() => setIsMoreActionsMenuOpen(false)}
+                >
                     <li onClick={onExportExclusionsClick}>
+                        {/* TODO disable if there are no exclusions */}
                         {reactTranslator.getMessage('settings_exclusions_action_export')}
                     </li>
                     <li onClick={onImportExclusionsClick}>
                         {reactTranslator.getMessage('settings_exclusions_action_import')}
                     </li>
                     <li onClick={onRemoveAllClick}>
+                        {/* TODO disable if there are no exclusions */}
                         {reactTranslator.getMessage('settings_exclusions_action_remove_all')}
                     </li>
                 </ul>
+                <input
+                    type="file"
+                    accept=".txt, .zip"
+                    ref={importEl}
+                    onChange={inputChangeHandler}
+                    style={{ display: 'none' }}
+                />
             </div>
+            <RemoveAllModal />
             {/* FIXME add tooltip? */}
             <div onClick={onMoreActionsClick}>
                 {/* ... */}

@@ -1,9 +1,9 @@
 import React from 'react';
 import Modal from 'react-modal';
 
-export const ExclusionsModal = ({
+export var ExclusionsModal = function ({
     isOpen, closeModal, title, description, children,
-}) => {
+}) {
     return (
         <Modal
             isOpen={isOpen}

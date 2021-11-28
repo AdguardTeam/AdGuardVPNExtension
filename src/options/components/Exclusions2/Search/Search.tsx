@@ -11,12 +11,12 @@ interface SearchProps {
     onClear: () => void,
 }
 
-export const Search = ({
+export var Search = function ({
     placeholder,
     value,
     onChange,
     onClear,
-}: SearchProps) => {
+}: SearchProps) {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         onChange(e.target.value);
     };

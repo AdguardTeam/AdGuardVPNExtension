@@ -13,16 +13,14 @@ export const HelpUsImprove = observer(() => {
     };
 
     return (
-        <>
-            <div className="settings__group">
-                <Switch
-                    id="help-us-improve"
-                    title={reactTranslator.getMessage('settings_help_us_improve_title')}
-                    desc={reactTranslator.getMessage('settings_help_us_improve_description')}
-                    handleToggle={handleToggle}
-                    checked={settingsStore.helpUsImprove}
-                />
-            </div>
-        </>
+        <div className="settings__group">
+            <Switch
+                id="help-us-improve"
+                title={reactTranslator.getMessage('settings_help_us_improve_title')}
+                desc={reactTranslator.getMessage('settings_help_us_improve_description')}
+                handleToggle={handleToggle}
+                checked={settingsStore.helpUsImprove}
+            />
+        </div>
     );
 });

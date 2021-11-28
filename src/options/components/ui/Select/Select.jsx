@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './select.pcss';
 
-export const Select = ((props) => {
+export var Select = function (props) {
     const {
         currentValue,
         options,
@@ -70,4 +70,4 @@ export const Select = ((props) => {
             </ul>
         </div>
     );
-});
+};

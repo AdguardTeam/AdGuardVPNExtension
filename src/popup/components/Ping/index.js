@@ -6,7 +6,7 @@ import { PING_WITH_WARNING } from '../../stores/consts';
 
 import './ping.pcss';
 
-const Ping = ({ ping }) => {
+const Ping = function ({ ping }) {
     if (!ping) {
         return null;
     }

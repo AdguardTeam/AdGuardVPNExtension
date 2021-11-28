@@ -67,7 +67,7 @@ class VpnApi extends Api {
         };
 
         return this.makeRequest(path, method, config);
-    }
+    };
 
     SUPPORT_REQUEST = { path: 'v1/support', method: 'POST' };
 
@@ -79,14 +79,14 @@ class VpnApi extends Api {
         };
 
         return this.makeRequest(path, method, config);
-    }
+    };
 
     GET_DESKTOP_VPN_CONNECTION_STATUS = { path: 'v1/vpn_connected', method: 'GET' };
 
     getDesktopVpnConnectionStatus = () => {
         const { path, method } = this.GET_DESKTOP_VPN_CONNECTION_STATUS;
         return this.makeRequest(path, method);
-    }
+    };
 
     EXCLUSION_SERVICES = { path: 'v2/exclusion_services', method: 'GET' };
 

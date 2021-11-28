@@ -7,7 +7,7 @@ import { CloseButton } from '../../ui/CloseButton';
 
 import './onboarding.pcss';
 
-export const Slide = (props) => {
+export var Slide = function (props) {
     const { authStore } = useContext(rootStore);
 
     const {

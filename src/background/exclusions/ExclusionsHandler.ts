@@ -55,7 +55,7 @@ interface ExclusionsManagerInterface {
     // common methods
     getExclusions(): ExclusionsData;
     addUrlToExclusions(url: string): void;
-    isExcluded(url: string): boolean|undefined;
+    isExcluded(url: string): boolean | undefined;
     removeExclusion(id: string, type: TYPE): void;
     toggleExclusionState(id: string, type: TYPE): void;
     clearExclusionsData(): void;
@@ -406,6 +406,23 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
         }
         return this.checkEnabledExclusionsByUrl(url);
     };
+
+    async importExclusionsData(exclusionsData: ExclusionsData) {
+        exclusionsData.excludedServices.forEach((service) => {
+            this.removeService(service.serviceId);
+            this.excludedServices.push(new Service(service));
+        });
+
+        exclusionsData.exclusionsGroups.forEach((group) => {
+            this.removeExclusionsGroup(group.id);
+            this.exclusionsGroups.push(new ExclusionsGroup(group));
+        });
+
+        exclusionsData.excludedIps.forEach((ip) => {
+            this.removeIp(ip.id);
+            this.excludedIps.push(new Exclusion(ip));
+        });
+    }
 
     async clearExclusionsData() {
         this.excludedServices = [];

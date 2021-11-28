@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { rootStore } from '../../stores';
 
-export const BackButton = () => {
+export var BackButton = function () {
     const { authStore } = useContext(rootStore);
 
     const handleBackClick = async () => {

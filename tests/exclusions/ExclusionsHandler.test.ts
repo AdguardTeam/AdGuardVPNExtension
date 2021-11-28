@@ -3,6 +3,7 @@ import { servicesManager } from '../../src/background/exclusions/ServicesManager
 import { Service } from '../../src/background/exclusions/Service';
 import { ExclusionsGroup } from '../../src/background/exclusions/ExclusionsGroup';
 import { STATE } from '../../src/common/exclusionsConstants';
+import { testExclusionsData } from './resources/exclusions-data';
 
 const exclusionsHandler = new ExclusionsHandler(() => {}, {
     excludedServices: [],
@@ -396,5 +397,44 @@ describe('ExclusionsManager', () => {
         expect(exclusionsData.excludedServices[0].exclusionsGroups).toHaveLength(5);
         // service should become enabled
         expect(exclusionsData.excludedServices[0].state).toEqual(STATE.Enabled);
+    });
+
+    it('import exclusions data', async () => {
+        await exclusionsHandler.importExclusionsData(testExclusionsData);
+        let exclusionsData = exclusionsHandler.getExclusions();
+        expect(exclusionsData.excludedServices).toHaveLength(1);
+        expect(exclusionsData.excludedServices[0].serviceId).toEqual('github');
+        expect(exclusionsData.excludedServices[0].state).toEqual(STATE.Enabled);
+        expect(exclusionsData.exclusionsGroups).toHaveLength(1);
+        expect(exclusionsData.exclusionsGroups[0].hostname).toEqual('example.org');
+        expect(exclusionsData.exclusionsGroups[0].state).toEqual(STATE.Enabled);
+        expect(exclusionsData.excludedIps).toHaveLength(1);
+        expect(exclusionsData.excludedIps[0].hostname).toEqual('192.168.35.41');
+        expect(exclusionsData.excludedIps[0].enabled).toBeTruthy();
+
+        // disable all imported exclusions
+        await exclusionsHandler.toggleServiceState('github');
+        await exclusionsHandler.toggleExclusionsGroupState(exclusionsData.exclusionsGroups[0].id);
+        await exclusionsHandler.toggleIpState(exclusionsData.excludedIps[0].id);
+
+        exclusionsData = exclusionsHandler.getExclusions();
+        expect(exclusionsData.excludedServices[0].state).toEqual(STATE.Disabled);
+        expect(exclusionsData.exclusionsGroups[0].state).toEqual(STATE.Disabled);
+        expect(exclusionsData.excludedIps[0].enabled).toBeFalsy();
+
+        // import same exclusions one more time
+        await exclusionsHandler.importExclusionsData(testExclusionsData);
+        exclusionsData = exclusionsHandler.getExclusions();
+
+        // exclusions should not be duplicated and should be enabled (as had been exported)
+        expect(exclusionsData.excludedServices).toHaveLength(1);
+        expect(exclusionsData.excludedServices[0].serviceId).toEqual('github');
+        expect(exclusionsData.excludedServices[0].state).toEqual(STATE.Enabled);
+        expect(exclusionsData.exclusionsGroups).toHaveLength(1);
+        expect(exclusionsData.exclusionsGroups[0].hostname).toEqual('example.org');
+        expect(exclusionsData.exclusionsGroups[0].state).toEqual(STATE.Enabled);
+        expect(exclusionsData.excludedIps).toHaveLength(1);
+        expect(exclusionsData.excludedIps[0].hostname).toEqual('192.168.35.41');
+        expect(exclusionsData.excludedIps[0].enabled).toBeTruthy();
     });
 });

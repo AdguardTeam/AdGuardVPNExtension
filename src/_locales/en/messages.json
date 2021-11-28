@@ -383,6 +383,12 @@
     "settings_exclusions_action_remove_all": {
         "message": "Remove all"
     },
+    "settings_exclusions_remove_all_exclusions": {
+        "message": "Remove all exclusions"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "Are you sure you want to continue? The entire list of exclusions will be removed."
+    },
     "settings_exclusions_import_button": {
         "message": "Import"
     },
@@ -656,7 +662,7 @@
         "message": "All exclusions from the Selective mode will be deleted."
     },
     "options_exclusions_import_successful": {
-        "message": "Imported exclusions: %count%"
+        "message": "Exclusions imported successfully"
     },
     "options_exclusions_import_error_wrong_extensions": {
         "message": "Exclusions file should have one of the following extensions: %extensions%"

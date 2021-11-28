@@ -55,24 +55,24 @@ export class AuthStore {
     }
 
     @action
-    setDefaults = () => {
-        this.credentials = DEFAULTS.credentials;
-        this.authenticated = DEFAULTS.authenticated;
-        this.need2fa = DEFAULTS.need2fa;
-        this.error = DEFAULTS.error;
-        this.step = DEFAULTS.step;
-    };
+        setDefaults = () => {
+            this.credentials = DEFAULTS.credentials;
+            this.authenticated = DEFAULTS.authenticated;
+            this.need2fa = DEFAULTS.need2fa;
+            this.error = DEFAULTS.error;
+            this.step = DEFAULTS.step;
+        };
 
     @action
-    resetError = () => {
-        this.error = DEFAULTS.error;
-    };
+        resetError = () => {
+            this.error = DEFAULTS.error;
+        };
 
     @action
-    setPasswordAgainError = () => {
-        this.error = reactTranslator.getMessage('registration_error_front_unique_validation');
-        this.field = 'passwordAgain';
-    };
+        setPasswordAgainError = () => {
+            this.error = reactTranslator.getMessage('registration_error_front_unique_validation');
+            this.field = 'passwordAgain';
+        };
 
     validate = debounce((field, value) => {
         if (field === 'passwordAgain') {
@@ -89,31 +89,31 @@ export class AuthStore {
     }, 500);
 
     @action
-    onCredentialsChange = async (field, value) => {
-        this.resetError();
-        this.credentials[field] = value;
-        this.validate(field, value);
-        await messenger.updateAuthCache(field, value);
-    };
+        onCredentialsChange = async (field, value) => {
+            this.resetError();
+            this.credentials[field] = value;
+            this.validate(field, value);
+            await messenger.updateAuthCache(field, value);
+        };
 
     @action
-    getAuthCacheFromBackground = async () => {
-        const {
-            username,
-            password,
-            step,
-        } = await messenger.getAuthCache();
-        runInAction(() => {
-            this.credentials = {
-                ...this.credentials,
+        getAuthCacheFromBackground = async () => {
+            const {
                 username,
                 password,
-            };
-            if (step) {
-                this.step = step;
-            }
-        });
-    };
+                step,
+            } = await messenger.getAuthCache();
+            runInAction(() => {
+                this.credentials = {
+                    ...this.credentials,
+                    username,
+                    password,
+                };
+                if (step) {
+                    this.step = step;
+                }
+            });
+        };
 
     @computed
     get disableRegister() {
@@ -144,100 +144,100 @@ export class AuthStore {
     }
 
     @action
-    authenticate = async () => {
-        this.requestProcessState = REQUEST_STATUSES.PENDING;
-        const response = await messenger.authenticateUser(toJS(this.credentials));
+        authenticate = async () => {
+            this.requestProcessState = REQUEST_STATUSES.PENDING;
+            const response = await messenger.authenticateUser(toJS(this.credentials));
 
-        if (response.error) {
+            if (response.error) {
+                runInAction(() => {
+                    this.requestProcessState = REQUEST_STATUSES.ERROR;
+                    this.error = response.error;
+                });
+                return;
+            }
+
+            if (response.status === 'ok') {
+                await messenger.clearAuthCache();
+                await this.rootStore.globalStore.getOptionsData();
+                runInAction(() => {
+                    this.requestProcessState = REQUEST_STATUSES.DONE;
+                    this.authenticated = true;
+                    this.need2fa = false;
+                    this.credentials = DEFAULTS.credentials;
+                });
+                return;
+            }
+
+            if (response.status === '2fa_required') {
+                runInAction(async () => {
+                    this.requestProcessState = REQUEST_STATUSES.DONE;
+                    this.need2fa = true;
+                    await this.switchStep(this.STEPS.TWO_FACTOR);
+                });
+            }
+        };
+
+    @action
+        register = async () => {
+            this.requestProcessState = REQUEST_STATUSES.PENDING;
+            const response = await messenger.registerUser(this.credentials);
+            if (response.error) {
+                runInAction(() => {
+                    this.requestProcessState = REQUEST_STATUSES.ERROR;
+                    this.error = response.error;
+                    this.field = response.field;
+                });
+                return;
+            }
+            if (response.status === 'ok') {
+                await messenger.clearAuthCache();
+                await this.rootStore.globalStore.getOptionsData();
+                runInAction(() => {
+                    this.requestProcessState = REQUEST_STATUSES.DONE;
+                    this.authenticated = true;
+                    this.credentials = DEFAULTS.credentials;
+                });
+            }
+        };
+
+    @action
+        setIsAuthenticated = (value) => {
+            this.authenticated = value;
+        };
+
+    @action
+        deauthenticate = async () => {
+            await messenger.deauthenticateUser();
+            await this.rootStore.settingsStore.disableProxy();
             runInAction(() => {
-                this.requestProcessState = REQUEST_STATUSES.ERROR;
-                this.error = response.error;
+                this.setDefaults();
             });
-            return;
-        }
+        };
 
-        if (response.status === 'ok') {
-            await messenger.clearAuthCache();
-            await this.rootStore.globalStore.getOptionsData();
+    @action
+        openSocialAuth = async (social) => {
+            await messenger.startSocialAuth(social);
+        };
+
+    @action
+        switchStep = async (step) => {
+            this.step = step;
+            this.resetError();
+            await messenger.updateAuthCache('step', step);
+        };
+
+    @action
+        showRegistration = async () => {
+            await this.switchStep(AUTH_STEPS.REGISTRATION);
+        };
+
+    @action
+        showSignIn = async () => {
+            await this.switchStep(AUTH_STEPS.SIGN_IN);
             runInAction(() => {
-                this.requestProcessState = REQUEST_STATUSES.DONE;
-                this.authenticated = true;
-                this.need2fa = false;
-                this.credentials = DEFAULTS.credentials;
-            });
-            return;
-        }
-
-        if (response.status === '2fa_required') {
-            runInAction(async () => {
-                this.requestProcessState = REQUEST_STATUSES.DONE;
-                this.need2fa = true;
-                await this.switchStep(this.STEPS.TWO_FACTOR);
-            });
-        }
-    };
-
-    @action
-    register = async () => {
-        this.requestProcessState = REQUEST_STATUSES.PENDING;
-        const response = await messenger.registerUser(this.credentials);
-        if (response.error) {
-            runInAction(() => {
-                this.requestProcessState = REQUEST_STATUSES.ERROR;
-                this.error = response.error;
-                this.field = response.field;
-            });
-            return;
-        }
-        if (response.status === 'ok') {
-            await messenger.clearAuthCache();
-            await this.rootStore.globalStore.getOptionsData();
-            runInAction(() => {
-                this.requestProcessState = REQUEST_STATUSES.DONE;
-                this.authenticated = true;
-                this.credentials = DEFAULTS.credentials;
-            });
-        }
-    };
-
-    @action
-    setIsAuthenticated = (value) => {
-        this.authenticated = value;
-    };
-
-    @action
-    deauthenticate = async () => {
-        await messenger.deauthenticateUser();
-        await this.rootStore.settingsStore.disableProxy();
-        runInAction(() => {
-            this.setDefaults();
-        });
-    };
-
-    @action
-    openSocialAuth = async (social) => {
-        await messenger.startSocialAuth(social);
-    };
-
-    @action
-    switchStep = async (step) => {
-        this.step = step;
-        this.resetError();
-        await messenger.updateAuthCache('step', step);
-    };
-
-    @action
-    showRegistration = async () => {
-        await this.switchStep(AUTH_STEPS.REGISTRATION);
-    };
-
-    @action
-    showSignIn = async () => {
-        await this.switchStep(AUTH_STEPS.SIGN_IN);
-        runInAction(() => {
             // clear two factor field
             // issue AG-2070
-            this.credentials.twoFactor = DEFAULTS.credentials.twoFactor;
-        });
-    };
+                this.credentials.twoFactor = DEFAULTS.credentials.twoFactor;
+            });
+        };
 }

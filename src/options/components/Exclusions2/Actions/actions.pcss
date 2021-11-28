@@ -21,10 +21,8 @@
         padding: 7px 12px 5px;
         cursor: pointer;
 
-        &:hover {
-            & + .actions__more-actions-list {
-                visibility: visible;
-            }
+        &.active {
+            background: var(--grayF7);
         }
 
         &__icon {
@@ -35,15 +33,15 @@
 
     &__more-actions-list {
         position: absolute;
-        right: 20px;
-        top: 10px;
+        right: 30px;
+        top: 15px;
         z-index: 1;
         background: var(--white);
         list-style: none;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         visibility: hidden;
 
-        &:hover {
+        &.visible {
             visibility: visible;
         }
 

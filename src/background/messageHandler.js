@@ -224,6 +224,10 @@ const messageHandler = async (message, sender) => {
         case MESSAGES_TYPES.CLEAR_EXCLUSIONS_LIST: {
             return exclusions.current.clearExclusionsData();
         }
+        case MESSAGES_TYPES.IMPORT_EXCLUSIONS_DATA: {
+            const { exclusionsData } = data;
+            return exclusions.importExclusionsData(exclusionsData);
+        }
         case MESSAGES_TYPES.CHECK_EMAIL: {
             const { email } = data;
             const appId = await credentials.getAppId();

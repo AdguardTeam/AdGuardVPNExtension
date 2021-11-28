@@ -5,7 +5,7 @@ import { reactTranslator } from '../../../../../../common/reactTranslator';
 
 import './manual-mode.pcss';
 
-export const ManualMode = () => {
+export var ManualMode = function () {
     const { exclusionsStore } = useContext(rootStore);
 
     const [inputValue, setInputValue] = useState('');
