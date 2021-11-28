@@ -148,7 +148,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
                 break;
             }
             default:
-                log.error(`Unknown exclusion type: ${type}`);
+                throw new Error(`Unknown exclusion type: ${type}`);
         }
     }
 

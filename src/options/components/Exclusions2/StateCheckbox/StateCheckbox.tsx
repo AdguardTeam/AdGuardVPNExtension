@@ -2,21 +2,21 @@ import React from 'react';
 
 import { STATE, TYPE } from '../../../../common/exclusionsConstants';
 
-import './statebox.pcss';
+import './statecheckbox.pcss';
 
-interface StateBoxProps {
+interface StateCheckboxProps {
     id: string,
     type: TYPE,
     state: STATE | boolean,
     toggleHandler: (id: string, type: TYPE) => React.MouseEventHandler<HTMLButtonElement>,
 }
 
-export var StateBox = function ({
+export var StateCheckbox = function ({
     id,
     type,
     state,
     toggleHandler,
-}: StateBoxProps) {
+}: StateCheckboxProps) {
     const getStateIcon = () => {
         if (state === STATE.Enabled || state === true) {
             return '#enabled';
@@ -29,11 +29,11 @@ export var StateBox = function ({
 
     return (
         <button
-            className="statebox"
+            className="state-checkbox"
             type="button"
             onClick={toggleHandler(id, type)}
         >
-            <svg className="statebox__icon">
+            <svg className="state-checkbox__icon">
                 <use xlinkHref={getStateIcon()} />
             </svg>
         </button>

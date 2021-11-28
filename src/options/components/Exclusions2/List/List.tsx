@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import cn from 'classnames';
 
 import { TYPE } from '../../../../common/exclusionsConstants';
-import { StateBox } from '../StateBox';
+import { StateCheckbox } from '../StateCheckbox';
 import { rootStore } from '../../../stores';
 
 import './list.pcss';
@@ -36,7 +36,7 @@ export const List = observer(() => {
                 key={exclusion.name}
                 className="list__index"
             >
-                <StateBox
+                <StateCheckbox
                     id={exclusion.id}
                     type={exclusion.type}
                     state={exclusion.state}

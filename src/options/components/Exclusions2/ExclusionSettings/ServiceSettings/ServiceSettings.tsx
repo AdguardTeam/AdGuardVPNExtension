@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../../stores';
 import { Title } from '../../../ui/Title';
-import { StateBox } from '../../StateBox';
+import { StateCheckbox } from '../../StateCheckbox';
 import { EXCLUSIONS_MODES, TYPE } from '../../../../../common/exclusionsConstants';
 import { reactTranslator } from '../../../../../common/reactTranslator';
 
@@ -45,7 +45,7 @@ export const ServiceSettings = observer(({ exclusionData }) => {
                 className="service__settings__group"
                 key={group.hostname}
             >
-                <StateBox
+                <StateCheckbox
                     id={group.id}
                     type={TYPE.GROUP}
                     state={group.state}

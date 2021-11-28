@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../../stores';
 import { Title } from '../../../ui/Title';
-import { StateBox } from '../../StateBox';
+import { StateCheckbox } from '../../StateCheckbox';
 import { EXCLUSIONS_MODES, TYPE } from '../../../../../common/exclusionsConstants';
 import { SubdomainModal } from '../SubdomainModal';
 import { reactTranslator } from '../../../../../common/reactTranslator';
@@ -58,7 +58,7 @@ export const GroupSettings = observer(({ exclusionData, parentServiceId }) => {
                 className="group__settings__domain"
                 key={exclusion.hostname}
             >
-                <StateBox
+                <StateCheckbox
                     id={exclusion.id}
                     type={TYPE.GROUP}
                     state={exclusion.enabled}
