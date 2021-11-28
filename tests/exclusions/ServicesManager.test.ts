@@ -10,71 +10,91 @@ jest.mock('nanoid');
 
 nanoid.mockImplementation(() => 'zzzzzzzzz');
 
-const SERVICES_DATA = [
-    {
-        categories: ['SHOP'],
-        iconUrl: 'https://icons.adguard.org/icon?domain=aliexpress.com',
-        modifiedTime: '2021-09-14T10:23:00+0000',
-        serviceId: 'aliexpress',
-        serviceName: 'Aliexpress',
+const SERVICES_DATA = {
+    services: {
+        aliexpress: {
+            categories: ['SHOP'],
+            iconUrl: 'https://icons.adguard.org/icon?domain=aliexpress.com',
+            modifiedTime: '2021-09-14T10:23:00+0000',
+            serviceId: 'aliexpress',
+            serviceName: 'Aliexpress',
+        },
+        amazon: {
+            categories: ['SHOP'],
+            iconUrl: 'https://icons.adguard.org/icon?domain=amazon.com',
+            modifiedTime: '2021-09-14T10:23:00+0000',
+            serviceId: 'amazon',
+            serviceName: 'Amazon',
+        },
+        amazonvideo: {
+            categories: ['VIDEO'],
+            iconUrl: 'https://icons.adguard.org/icon?domain=amazonvideo.com',
+            modifiedTime: '2021-09-14T10:23:00+0000',
+            serviceId: 'amazonvideo',
+            serviceName: 'Amazon prime',
+        },
+        atlassian: {
+            categories: ['WORK'],
+            iconUrl: 'https://icons.adguard.org/icon?domain=atlassian.com',
+            modifiedTime: '2021-09-14T10:23:00+0000',
+            serviceId: 'atlassian',
+            serviceName: 'Atlassian',
+        },
+        baidu: {
+            categories: ['SEARCH'],
+            iconUrl: 'https://icons.adguard.org/icon?domain=baidu.com',
+            modifiedTime: '2021-09-14T10:23:00+0000',
+            serviceId: 'baidu',
+            serviceName: 'Baidu',
+        },
     },
-    {
-        categories: ['SHOP'],
-        iconUrl: 'https://icons.adguard.org/icon?domain=amazon.com',
-        modifiedTime: '2021-09-14T10:23:00+0000',
-        serviceId: 'amazon',
-        serviceName: 'Amazon',
+    categories: {
+        SHOP: {
+            id: 'SHOP',
+            name: 'Shopping'
+        },
+        VIDEO: {
+            id: 'VIDEO',
+            name: 'Video streaming services',
+        },
+        WORK: {
+            id: 'WORK',
+            name: 'Work communication tools',
+        },
+        SEARCH: {
+            id: 'SEARCH',
+            name: 'Search engines',
+        },
     },
-    {
-        categories: ['VIDEO'],
-        iconUrl: 'https://icons.adguard.org/icon?domain=amazonvideo.com',
-        modifiedTime: '2021-09-14T10:23:00+0000',
-        serviceId: 'amazonvideo',
-        serviceName: 'Amazon prime',
-    },
-    {
-        categories: ['WORK'],
-        iconUrl: 'https://icons.adguard.org/icon?domain=atlassian.com',
-        modifiedTime: '2021-09-14T10:23:00+0000',
-        serviceId: 'atlassian',
-        serviceName: 'Atlassian',
-    },
-    {
-        categories: ['SEARCH'],
-        iconUrl: 'https://icons.adguard.org/icon?domain=baidu.com',
-        modifiedTime: '2021-09-14T10:23:00+0000',
-        serviceId: 'baidu',
-        serviceName: 'Baidu',
-    },
-];
+};
 
-const SERVICES_DOMAINS = [
-    {
+const SERVICES_DOMAINS = {
+    aliexpress: {
         domains: ['aliexpress.com', 'aliexpress.ru'],
         serviceId: 'aliexpress',
     },
-    {
+    amazon: {
         domains: ['a2z.com', 'amazon-corp.com', 'amazon.ca', 'amazon.co.jp', 'amazon.co.uk', 'amazon.com', 'amazon.com.au', 'amazon.com.mx', 'amazon.de', 'amazon.es', 'amazon.eu', 'amazon.fr', 'amazon.in', 'amazon.it', 'amazon.nl', 'amazon.sa', 'amazonbrowserapp.co.uk', 'amazonbrowserapp.es', 'amazoncognito.com', 'amazoncrl.com', 'amazonpay.com', 'amazonpay.in', 'amazontrust.com', 'associates-amazon.com', 'images-amazon.com', 'media-amazon.com', 'ssl-images-amazon.com'],
         serviceId: 'amazon',
     },
-    {
+    amazonvideo: {
         domains: ['aiv-cdn.net', 'aiv-delivery.net', 'amazonvideo.com', 'atv-ext-eu.amazon.com', 'atv-ext-fe.amazon.com', 'atv-ext.amazon.com', 'atv-ps.amazon.com', 'primevideo.com', 'pv-cdn.net'],
         serviceId: 'amazonvideo',
     },
-    {
+    atlassian: {
         domains: ['atlassian.com', 'atlassian.net', 'bitbucket.org'],
         serviceId: 'atlassian',
     },
-    {
+    baidu: {
         domains: ['baidu.com', 'baiducontent.com', 'baidupcs.com', 'baidustatic.com', 'bcebos.com', 'bdimg.com', 'bdstatic.com', 'gshifen.com', 'popin.cc', 'shifen.com', 'wshifen.com'],
         serviceId: 'baidu',
     },
-];
+};
 
 const ALIEXPRESS_SERVICE_DATA = new Service({
     serviceId: 'aliexpress',
     serviceName: 'Aliexpress',
-    categories: ['SHOP'],
+    categories: ['Shopping'],
     iconUrl: 'https://icons.adguard.org/icon?domain=aliexpress.com',
     modifiedTime: '2021-09-14T10:23:00+0000',
     exclusionsGroups: [
@@ -98,7 +118,7 @@ describe('ServicesManager tests', () => {
         expect(JSON.stringify(servicesData[0]))
             .toStrictEqual(JSON.stringify(ALIEXPRESS_SERVICE_DATA));
         expect(servicesData[1].serviceId).toEqual('amazon');
-        expect(servicesData[1].categories).toEqual(['SHOP']);
+        expect(servicesData[1].categories).toEqual(['Shopping']);
         expect(servicesData[1].exclusionsGroups).toHaveLength(27);
         expect(servicesData[1].exclusionsGroups[0].hostname).toEqual('a2z.com');
         expect(servicesData[1].exclusionsGroups[0].exclusions[0].hostname).toEqual('a2z.com');
