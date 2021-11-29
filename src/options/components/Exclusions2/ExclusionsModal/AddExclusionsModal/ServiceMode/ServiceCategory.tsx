@@ -5,20 +5,31 @@ import cn from 'classnames';
 import { rootStore } from '../../../../../stores';
 import { ServiceRow } from './ServiceRow';
 
+import { containsIgnoreCase } from '../../../Search/SearchHighlighter/helpers';
+import { PreparedServiceCategory } from '../../../../../stores/ExclusionsStore';
+
 // FIXME fix linter
 // @ts-ignore
 import s from './service-category.module.pcss';
-import { containsIgnoreCase } from '../../../Search/SearchHighlighter/helpers';
 
-// FIXME add props interface
-// @ts-ignore
-export const ServiceCategory = observer(({ category }) => {
+export interface ServiceCategoryProps {
+    category: PreparedServiceCategory;
+}
+
+export const ServiceCategory = observer(({ category }: ServiceCategoryProps) => {
+    console.log(category);
+
     const { exclusionsStore } = useContext(rootStore);
     const { services } = exclusionsStore.preparedServicesData;
 
+    // @ts-ignore
     const categoryServices = category.services
+        // FIXME: remove ts-ignore
+        // @ts-ignore
         .map((serviceId: string) => services[serviceId])
         .filter((serviceData) => !(exclusionsStore.excludedServices
+            // FIXME: remove ts-ignore
+            // @ts-ignore
             .some((service) => serviceData.serviceId === service.serviceId)));
 
     // FIXME remove @ts-ignore
@@ -55,8 +66,7 @@ export const ServiceCategory = observer(({ category }) => {
     return (
         <div className={categoryClassname}>
             <div className="category__title" onClick={handleClickOnCategory}>
-                {/* FIXME Add localization for categories */}
-                {category.title}
+                {category.name}
             </div>
             <div className={categoryServicesClassname}>
                 {

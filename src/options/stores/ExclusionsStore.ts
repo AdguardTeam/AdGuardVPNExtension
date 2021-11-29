@@ -7,6 +7,15 @@ import FileSaver from 'file-saver';
 import { ExclusionsModes, ExclusionsTypes } from '../../common/exclusionsConstants';
 import messenger from '../../lib/messenger';
 import { containsIgnoreCase } from '../components/Exclusions2/Search/SearchHighlighter/helpers';
+import { Service, ServiceCategory } from '../../background/exclusions/Service';
+
+export interface PreparedServiceCategory extends ServiceCategory {
+    services: string[]
+}
+
+interface PreparedServiceCategories {
+    [key: string]: PreparedServiceCategory
+}
 
 export enum AddExclusionMode {
     SERVICE = 'SERVICE',
@@ -35,7 +44,7 @@ export class ExclusionsStore {
 
     // FIXME remove ts-ignore
     // @ts-ignore
-    @observable servicesData;
+    @observable servicesData: Service[];
 
     @observable addExclusionModalOpen = false;
 
@@ -60,12 +69,9 @@ export class ExclusionsStore {
      */
     @observable servicesToToggle: string[] = [];
 
-    // FIXME remove any
-    @action
-        setServicesData = (servicesData: any) => {
-        // console.log(servicesData);
-            this.servicesData = servicesData;
-        };
+    @action setServicesData = (servicesData: Service[]) => {
+        this.servicesData = servicesData;
+    };
 
     // FIXME remove any
     @action
@@ -186,18 +192,15 @@ export class ExclusionsStore {
 
     @computed
     get preparedServicesData() {
-        // FIXME remove ts-ignore
-        // @ts-ignore
         const categories = this.servicesData.reduce((acc, serviceData) => {
             const { categories, serviceId } = serviceData;
-            // FIXME remove ts-ignore
-            // @ts-ignore
+
             categories.forEach((category) => {
-                const foundCategory = acc[category];
+                const foundCategory = acc[category.id];
                 if (!foundCategory) {
-                    acc[category] = {
-                        id: category,
-                        title: category.replace('_', ' ').toLowerCase(),
+                    acc[category.id] = {
+                        id: category.id,
+                        name: category.name,
                         services: [serviceId],
                     };
                 } else {
@@ -205,12 +208,14 @@ export class ExclusionsStore {
                 }
             });
             return acc;
-        }, {});
+        }, {} as PreparedServiceCategories);
 
         // FIXME remove ts-ignore
         // @ts-ignore
         const services = this.servicesData.reduce((acc, serviceData) => {
             const { serviceId } = serviceData;
+            // FIXME remove tes-ignore
+            // @ts-ignore
             acc[serviceId] = {
                 ...serviceData,
                 excluded: this.isExcludedService(serviceId),

@@ -58,13 +58,13 @@ class ServicesManager {
 
         Object.values(services).forEach((rawService: RawService) => {
             const categories = rawService.categories.map((categoryId) => {
-                return this.categories[categoryId].name;
+                const category = this.categories[categoryId];
+                return category;
             });
 
             const { domains } = servicesDomains[rawService.serviceId];
             const service = new Service({ ...rawService, categories, domains });
 
-            console.log(service);
             this.services.push(service);
         });
     }

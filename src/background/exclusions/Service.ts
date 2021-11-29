@@ -1,11 +1,16 @@
 import { ExclusionsGroup } from './ExclusionsGroup';
 import { ExclusionStates } from '../../common/exclusionsConstants';
 
+export interface ServiceCategory {
+    id: string,
+    name: string,
+}
+
 export interface ServiceInterface {
     serviceId: string;
     serviceName: string;
     iconUrl: string;
-    categories: string[];
+    categories: ServiceCategory[];
     modifiedTime: string;
     exclusionsGroups?: ExclusionsGroup[];
     state?: ExclusionStates;
@@ -19,7 +24,7 @@ export class Service implements ServiceInterface {
 
     iconUrl: string;
 
-    categories: string[];
+    categories: ServiceCategory[];
 
     modifiedTime: string;
 
@@ -150,7 +155,8 @@ export class Service implements ServiceInterface {
     }
 
     toggleServiceState = () => {
-        if (this.state === ExclusionStates.Enabled || this.state === ExclusionStates.PartlyEnabled) {
+        if (this.state === ExclusionStates.Enabled
+            || this.state === ExclusionStates.PartlyEnabled) {
             this.disableService();
         } else {
             this.enableService();
