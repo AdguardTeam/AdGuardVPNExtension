@@ -2,7 +2,7 @@ import React from 'react';
 import Lottie from 'react-lottie';
 import animationData from './enabledStatusAnimation.json';
 
-const EnabledStatusAnimation = function () {
+const EnabledStatusAnimation = () => {
     const defaultOptions = {
         loop: true,
         autoplay: true,

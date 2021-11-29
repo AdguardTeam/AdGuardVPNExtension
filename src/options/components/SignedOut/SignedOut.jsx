@@ -4,7 +4,7 @@ import { reactTranslator } from '../../../common/reactTranslator';
 
 import './signedout.pcss';
 
-export var SignedOut = function () {
+export const SignedOut = () => {
     return (
         <div className="signedout">
             <div className="signedout__image" />

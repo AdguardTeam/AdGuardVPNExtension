@@ -4,9 +4,9 @@ import { ExclusionsModal } from './ExclusionsModal';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { ExclusionsModes } from '../../../../common/exclusionsConstants';
 
-export var RemoveExclusionsModal = function ({
+export const RemoveExclusionsModal = ({
     isOpen, closeModal, handleCancelClick, handleDeleteClick, currentMode,
-}) {
+}) => {
     const title = reactTranslator.getMessage('options_exclusions_delete_title');
 
     let description;

@@ -5,7 +5,7 @@ interface TitleProps {
     subtitle?: string | React.ReactNode,
 }
 
-export var Title = function ({ title, subtitle }: TitleProps) {
+export const Title = ({ title, subtitle }: TitleProps) => {
     const renderSubtitle = (
         <div className="content__subtitle">
             {subtitle}

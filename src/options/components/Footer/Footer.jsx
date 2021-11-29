@@ -7,7 +7,7 @@ import './footer.pcss';
 
 const getCurrentYear = () => new Date().getFullYear();
 
-export var Footer = function () {
+export const Footer = () => {
     return (
         <footer className="footer">
             <div className="footer__inner">

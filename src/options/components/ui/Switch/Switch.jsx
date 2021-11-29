@@ -2,13 +2,13 @@ import React from 'react';
 
 import './switch.pcss';
 
-export var Switch = function ({
+export const Switch = ({
     id,
     title,
     desc,
     checked,
     handleToggle,
-}) {
+}) => {
     return (
         <div className="switch">
             <div className="switch__info">

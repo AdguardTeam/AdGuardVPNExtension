@@ -169,7 +169,7 @@ class NonRoutableService {
             }
             this.clearStaleValues(this.webRequestErrorHostnames);
         }
-    };
+    }
 
     /**
      * Adds hostname in the storage and notifies exclusions, to add hostname in the list

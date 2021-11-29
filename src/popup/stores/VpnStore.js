@@ -36,52 +36,52 @@ export class VpnStore {
     @observable isPremiumToken;
 
     @action
-        setSearchValue = (value) => {
+    setSearchValue = (value) => {
         // do not trim, or change logic see issue AG-2233
-            this.searchValue = value;
-        };
+        this.searchValue = value;
+    };
 
     @action
-        setLocations = (locations) => {
-            if (!locations) {
-                return;
-            }
+    setLocations = (locations) => {
+        if (!locations) {
+            return;
+        }
 
-            this.locations = locations;
-        };
-
-    @action
-        updateLocationState = (state) => {
-            const id = state.locationId;
-            this.pings[id] = state;
-        };
+        this.locations = locations;
+    }
 
     @action
-        selectLocation = async (id) => {
-            const selectedLocation = this.locations.find((location) => {
-                return location.id === id;
-            });
-
-            if (!selectedLocation) {
-                throw new Error(`No endpoint with id: "${id}" found`);
-            }
-
-            await messenger.setCurrentLocation(toJS(selectedLocation), true);
-            runInAction(() => {
-                this.selectedLocation = { ...selectedLocation };
-            });
-        };
+    updateLocationState = (state) => {
+        const id = state.locationId;
+        this.pings[id] = state;
+    };
 
     @action
-        setSelectedLocation = (location) => {
-            if (!location) {
-                return;
-            }
-            if (!this.selectedLocation
+    selectLocation = async (id) => {
+        const selectedLocation = this.locations.find((location) => {
+            return location.id === id;
+        });
+
+        if (!selectedLocation) {
+            throw new Error(`No endpoint with id: "${id}" found`);
+        }
+
+        await messenger.setCurrentLocation(toJS(selectedLocation), true);
+        runInAction(() => {
+            this.selectedLocation = { ...selectedLocation };
+        });
+    };
+
+    @action
+    setSelectedLocation = (location) => {
+        if (!location) {
+            return;
+        }
+        if (!this.selectedLocation
             || (this.selectedLocation && this.selectedLocation.id !== location.id)) {
-                this.selectedLocation = { ...location };
-            }
-        };
+            this.selectedLocation = { ...location };
+        }
+    };
 
     @computed
     get filteredLocations() {
@@ -127,7 +127,7 @@ export class VpnStore {
             return { ...location, ping, available };
         }
         return location;
-    };
+    }
 
     @computed
     get fastestLocations() {
@@ -171,12 +171,12 @@ export class VpnStore {
     }
 
     @action
-        setVpnInfo = (vpnInfo) => {
-            if (!vpnInfo) {
-                return;
-            }
-            this.vpnInfo = vpnInfo;
-        };
+    setVpnInfo = (vpnInfo) => {
+        if (!vpnInfo) {
+            return;
+        }
+        this.vpnInfo = vpnInfo;
+    };
 
     @computed
     get bandwidthFreeMbits() {
@@ -248,17 +248,17 @@ export class VpnStore {
     }
 
     @action
-        openPremiumPromoPage = async () => {
-            await messenger.openPremiumPromoPage();
-        };
+    openPremiumPromoPage = async () => {
+        await messenger.openPremiumPromoPage();
+    }
 
     @action
-        setTooManyDevicesConnected = (state) => {
-            this.tooManyDevicesConnected = state;
-        };
+    setTooManyDevicesConnected = (state) => {
+        this.tooManyDevicesConnected = state;
+    };
 
     @action
-        setMaxDevicesAllowed = (maxDevicesAllowed) => {
-            this.maxDevicesAllowed = maxDevicesAllowed;
-        };
+    setMaxDevicesAllowed = (maxDevicesAllowed) => {
+        this.maxDevicesAllowed = maxDevicesAllowed;
+    }
 }

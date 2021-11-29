@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 import './dots-indicator.pcss';
 
-export var DotsIndicator = function (props) {
+export const DotsIndicator = (props) => {
     const {
         dotsAmount,
         activeDot,

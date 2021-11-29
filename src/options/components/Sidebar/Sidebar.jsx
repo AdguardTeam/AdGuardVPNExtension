@@ -6,7 +6,7 @@ import { reactTranslator } from '../../../common/reactTranslator';
 
 import './sidebar.pcss';
 
-export var Sidebar = function () {
+export const Sidebar = () => {
     return (
         <div className="sidebar">
             <svg className="logo sidebar__logo" />

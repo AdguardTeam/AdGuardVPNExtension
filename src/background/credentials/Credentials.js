@@ -329,7 +329,7 @@ class Credentials {
         }
 
         return !!vpnToken.licenseKey;
-    };
+    }
 
     async getUsername() {
         if (this.currentUsername) {

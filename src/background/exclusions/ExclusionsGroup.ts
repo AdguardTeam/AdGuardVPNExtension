@@ -145,7 +145,7 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
             this.state = ExclusionStates.Enabled;
             this.setSubdomainsState(true);
         }
-    };
+    }
 
     /**
      * Enables ExclusionsGroup

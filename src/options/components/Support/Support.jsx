@@ -9,7 +9,7 @@ import { reactTranslator } from '../../../common/reactTranslator';
 
 import './support.pcss';
 
-export var Support = function () {
+export const Support = () => {
     const history = useHistory();
     const query = new URLSearchParams(useLocation().search);
 

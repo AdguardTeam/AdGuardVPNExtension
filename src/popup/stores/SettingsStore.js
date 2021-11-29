@@ -49,9 +49,9 @@ export class SettingsStore {
     }
 
     @action
-        prohibitExclusion = () => {
-            this.canBeExcluded = false;
-        };
+    prohibitExclusion = () => {
+        this.canBeExcluded = false;
+    };
 
     @action
     async checkProxyControl() {
@@ -62,112 +62,112 @@ export class SettingsStore {
     }
 
     @action
-        setCanControlProxy = ({ canControlProxy }) => {
-            this.canControlProxy = canControlProxy;
-        };
+    setCanControlProxy = ({ canControlProxy }) => {
+        this.canControlProxy = canControlProxy;
+    };
 
     @action
-        enableProxy = async (force = false) => {
-            await messenger.enableProxy(force);
-        };
+    enableProxy = async (force = false) => {
+        await messenger.enableProxy(force);
+    };
 
     @action
-        disableProxy = async (force = false) => {
-            await messenger.disableProxy(force);
-        };
+    disableProxy = async (force = false) => {
+        await messenger.disableProxy(force);
+    };
 
     @action
-        reconnectProxy = async () => {
-            await this.disableProxy(true);
+    reconnectProxy = async () => {
+        await this.disableProxy(true);
+        await this.enableProxy(true);
+    };
+
+    @action
+    setProxyState = async (value) => {
+        if (value) {
             await this.enableProxy(true);
-        };
+        } else {
+            await this.disableProxy(true);
+        }
+    };
 
     @action
-        setProxyState = async (value) => {
-            if (value) {
-                await this.enableProxy(true);
-            } else {
-                await this.disableProxy(true);
-            }
-        };
-
-    @action
-        addToExclusions = async () => {
-            try {
-                await messenger.addToExclusions(
-                    this.currentTabHostname,
-                    true,
-                    { considerWildcard: false },
-                );
-                runInAction(() => {
-                    this.isExcluded = true;
-                });
-            } catch (e) {
-                log.error(e);
-            }
-        };
-
-    @action
-        removeFromExclusions = async () => {
-            try {
-                await messenger.removeFromExclusions(this.currentTabHostname);
-                runInAction(() => {
-                    this.isExcluded = false;
-                });
-            } catch (e) {
-                log.error(e);
-            }
-        };
-
-    @action
-        checkIsExcluded = async () => {
-            try {
-                await this.getCurrentTabHostname();
-                const result = await messenger.getIsExcluded(this.currentTabHostname);
-                runInAction(() => {
-                    this.isExcluded = result;
-                });
-            } catch (e) {
-                log.error(e);
-            }
-        };
-
-    @action
-        getExclusionsInverted = async () => {
-            const exclusionsInverted = await messenger.getExclusionsInverted();
+    addToExclusions = async () => {
+        try {
+            await messenger.addToExclusions(
+                this.currentTabHostname,
+                true,
+                { considerWildcard: false },
+            );
             runInAction(() => {
-                this.exclusionsInverted = exclusionsInverted;
+                this.isExcluded = true;
             });
-        };
+        } catch (e) {
+            log.error(e);
+        }
+    };
 
     @action
-        getCurrentTabHostname = async () => {
-            try {
-                const result = await tabs.getCurrent();
-                const { url } = result;
-                runInAction(() => {
-                    const hostname = getHostname(url);
-                    const protocol = getProtocol(url);
-                    this.currentTabHostname = hostname;
-
-                    switch (protocol) {
-                        case 'https:':
-                            break;
-                        case 'http:':
-                            break;
-                        default:
-                            this.prohibitExclusion();
-                    }
-                });
-            } catch (e) {
-                log.error(e);
-            }
-        };
+    removeFromExclusions = async () => {
+        try {
+            await messenger.removeFromExclusions(this.currentTabHostname);
+            runInAction(() => {
+                this.isExcluded = false;
+            });
+        } catch (e) {
+            log.error(e);
+        }
+    };
 
     @action
-        setIsRoutable = (value) => {
-            this.isRoutable = value;
-        };
+    checkIsExcluded = async () => {
+        try {
+            await this.getCurrentTabHostname();
+            const result = await messenger.getIsExcluded(this.currentTabHostname);
+            runInAction(() => {
+                this.isExcluded = result;
+            });
+        } catch (e) {
+            log.error(e);
+        }
+    };
+
+    @action
+    getExclusionsInverted = async () => {
+        const exclusionsInverted = await messenger.getExclusionsInverted();
+        runInAction(() => {
+            this.exclusionsInverted = exclusionsInverted;
+        });
+    }
+
+    @action
+    getCurrentTabHostname = async () => {
+        try {
+            const result = await tabs.getCurrent();
+            const { url } = result;
+            runInAction(() => {
+                const hostname = getHostname(url);
+                const protocol = getProtocol(url);
+                this.currentTabHostname = hostname;
+
+                switch (protocol) {
+                    case 'https:':
+                        break;
+                    case 'http:':
+                        break;
+                    default:
+                        this.prohibitExclusion();
+                }
+            });
+        } catch (e) {
+            log.error(e);
+        }
+    };
+
+    @action
+    setIsRoutable = (value) => {
+        this.isRoutable = value;
+    };
 
     @action
     setGlobalError(data) {
@@ -266,30 +266,30 @@ export class SettingsStore {
     }
 
     @action
-        setDesktopVpnEnabled = (status) => {
-            this.desktopVpnEnabled = status;
-        };
+    setDesktopVpnEnabled = (status) => {
+        this.desktopVpnEnabled = status;
+    }
 
     @action
-        setBackgroundDesktopVpnEnabled = (status) => {
-            messenger.setDesktopVpnEnabled(status);
-        };
+    setBackgroundDesktopVpnEnabled = (status) => {
+        messenger.setDesktopVpnEnabled(status);
+    }
 
     @action
-        checkRateStatus = async () => {
-            const value = await messenger.getSetting(SETTINGS_IDS.RATE_SHOW);
-            runInAction(() => {
-                this.isRateVisible = value;
-            });
-        };
+    checkRateStatus = async () => {
+        const value = await messenger.getSetting(SETTINGS_IDS.RATE_SHOW);
+        runInAction(() => {
+            this.isRateVisible = value;
+        });
+    };
 
     @action
-        hideRate = async () => {
-            await messenger.setSetting(SETTINGS_IDS.RATE_SHOW, false);
-            runInAction(() => {
-                this.isRateVisible = false;
-            });
-        };
+    hideRate = async () => {
+        await messenger.setSetting(SETTINGS_IDS.RATE_SHOW, false);
+        runInAction(() => {
+            this.isRateVisible = false;
+        });
+    };
 
     @computed
     get displayExclusionScreen() {
@@ -298,20 +298,20 @@ export class SettingsStore {
     }
 
     @action
-        setPremiumLocationClickedByFreeUser = (state) => {
-            this.freeUserClickedPremiumLocation = state;
-        };
+    setPremiumLocationClickedByFreeUser = (state) => {
+        this.freeUserClickedPremiumLocation = state;
+    }
 
     @action
-        setPromoNotification = (promoNotification) => {
-            this.promoNotification = promoNotification;
-        };
+    setPromoNotification = (promoNotification) => {
+        this.promoNotification = promoNotification;
+    }
 
     @action
-        getAppearanceTheme = async () => {
-            const value = await messenger.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
-            runInAction(() => {
-                this.appearanceTheme = value;
-            });
-        };
+    getAppearanceTheme = async () => {
+        const value = await messenger.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
+        runInAction(() => {
+            this.appearanceTheme = value;
+        });
+    };
 }

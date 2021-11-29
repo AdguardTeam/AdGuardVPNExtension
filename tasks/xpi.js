@@ -22,7 +22,9 @@ const buildDir = path.resolve(__dirname, BUILD_PATH, outputPath);
 const fileDir = path.resolve(buildDir, FIREFOX_UPDATER_FILENAME);
 
 const getFirefoxManifest = async () => {
-    const MANIFEST_PATH = path.resolve(__dirname, BUILD_PATH, outputPath, BROWSERS.FIREFOX, MANIFEST_NAME);
+    const MANIFEST_PATH = path.resolve(
+        __dirname, BUILD_PATH, outputPath, BROWSERS.FIREFOX, MANIFEST_NAME,
+    );
     const manifestBuffer = await fs.readFile(MANIFEST_PATH);
     const manifest = JSON.parse(manifestBuffer.toString());
     return manifest;
@@ -116,7 +118,9 @@ const createUpdateJson = async (manifest) => {
 };
 
 const updateFirefoxManifest = async () => {
-    const MANIFEST_PATH = path.resolve(__dirname, BUILD_PATH, outputPath, BROWSERS.FIREFOX, MANIFEST_NAME);
+    const MANIFEST_PATH = path.resolve(
+        __dirname, BUILD_PATH, outputPath, BROWSERS.FIREFOX, MANIFEST_NAME,
+    );
     const manifest = JSON.parse(await fs.readFile(MANIFEST_PATH, 'utf-8'));
     manifest.browser_specific_settings.gecko.update_url = FIREFOX_UPDATE_URL;
     await fs.writeFile(MANIFEST_PATH, JSON.stringify(manifest, null, 4));
