@@ -9,8 +9,15 @@
     "allowJs": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
     "skipLibCheck": true,
-    "noImplicitAny": true,
+    // strict flag turns to true next flags:
+    // - alwaysStrict
+    // - noImplicitAny
+    // - strictNullChecks
+    // - strictFunctionTypes,
+    // - strictPropertyInitialization
+    // - noImplicitThis
+    // - strictBindCallApply
+    "strict": true,
   }
 }
