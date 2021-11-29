@@ -13,7 +13,7 @@
     }
 
     &__section {
-        padding-left: 10px;
+        padding-left: 17px;
     }
 
     &__group {
@@ -81,7 +81,7 @@
 
     &__control {
         &:first-child {
-            margin-right: 20px;
+            margin-bottom: 25px;
         }
     }
 
@@ -123,16 +123,17 @@
 
 .modal {
     width: 500px;
-    min-height: 334px;
+    min-height: 280px;
+    max-height: 500px;
+    overflow: scroll;
     background: var(--white);
     position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding: 8px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
-    align-items: center;
     outline: none;
 
     &--big {
@@ -140,7 +141,9 @@
     }
 
     &__close-icon {
-        align-self: flex-end;
+        position: fixed;
+        right: 20px;
+        top: 20px;
     }
 
     &__icon {
@@ -151,14 +154,6 @@
         background-repeat: no-repeat;
         margin-top: 16px;
         margin-bottom: 8px;
-    }
-
-    &__title {
-        letter-spacing: 0;
-        margin-bottom: 8px;
-        text-align: center;
-        font-size: 28px;
-        line-height: 30px;
     }
 
     &__message {

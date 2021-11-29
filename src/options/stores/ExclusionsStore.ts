@@ -4,7 +4,7 @@ import format from 'date-fns/format';
 import FileSaver from 'file-saver';
 
 import { ExclusionsModes, ExclusionsTypes } from '../../common/exclusionsConstants';
-import { containsIgnoreCase } from '../components/Exclusions2/Search/SearchHighlighter/helpers';
+import { containsIgnoreCase } from '../components/Exclusions/Search/SearchHighlighter/helpers';
 import { Service, ServiceCategory, ServiceInterface } from '../../background/exclusions/Service';
 import messenger from '../../lib/messenger';
 

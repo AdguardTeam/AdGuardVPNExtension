@@ -5,9 +5,9 @@ import cn from 'classnames';
 import { ExclusionsTypes } from '../../../../common/exclusionsConstants';
 import { StateCheckbox } from '../StateCheckbox';
 import { rootStore } from '../../../stores';
+import { SearchHighlighter } from '../Search/SearchHighlighter';
 
 import './list.pcss';
-import { SearchHighlighter } from '../Search/SearchHighlighter';
 
 export const List = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
@@ -70,6 +70,7 @@ export const List = observer(() => {
     });
 
     return (
+        // eslint-disable-next-line react/jsx-no-useless-fragment
         <>
             {renderedExclusions}
         </>

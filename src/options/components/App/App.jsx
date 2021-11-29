@@ -23,7 +23,7 @@ import notifier from '../../../lib/notifier';
 import { Support } from '../Support';
 import { Notifications } from '../ui/Notifications';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
-import { Exclusions2 } from '../Exclusions2';
+import { Exclusions2 } from '../Exclusions';
 
 Modal.setAppElement('#root');
 
