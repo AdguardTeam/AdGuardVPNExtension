@@ -49,9 +49,7 @@ export class ExclusionsStore {
     // @ts-ignore
     @observable currentMode;
 
-    // FIXME remove ts-ignore
-    // @ts-ignore
-    @observable servicesData: Service[];
+    @observable servicesData: Service[] = [];
 
     @observable addExclusionModalOpen = false;
 
@@ -80,19 +78,15 @@ export class ExclusionsStore {
         this.servicesData = servicesData;
     };
 
-    // FIXME remove any
-    @action
-        setExclusionsData = (exclusionsData: any) => {
-        // console.log(exclusionsData);
-            this.exclusions = exclusionsData;
-            this.currentMode = exclusionsData.currentMode;
-        };
+    @action setExclusionsData = (exclusionsData: any) => {
+        this.exclusions = exclusionsData;
+        this.currentMode = exclusionsData.currentMode;
+    };
 
-    @action
-        updateExclusionsData = async () => {
-            const exclusionsData = await messenger.getExclusionsData();
-            this.setExclusionsData(exclusionsData);
-        };
+    @action updateExclusionsData = async () => {
+        const exclusionsData = await messenger.getExclusionsData();
+        this.setExclusionsData(exclusionsData);
+    };
 
     // FIXME remove ts-ignore
     @computed
@@ -251,157 +245,147 @@ export class ExclusionsStore {
         }
     }
 
-    @action
-        addUrlToExclusions = async (url: string) => {
-        // TODO Validation for url?..
-            await messenger.addUrlToExclusions(url);
-            await this.updateExclusionsData();
-        };
+    @action addUrlToExclusions = async (url: string) => {
+        await messenger.addUrlToExclusions(url);
+        await this.updateExclusionsData();
+    };
 
-    @action
-        removeExclusion = async (id: string, type: ExclusionsTypes) => {
-            await messenger.removeExclusion(id, type);
-            await this.updateExclusionsData();
-        };
+    @action removeExclusion = async (id: string, type: ExclusionsTypes) => {
+        await messenger.removeExclusion(id, type);
+        await this.updateExclusionsData();
+    };
 
-    @action
-        toggleExclusionState = async (id: string, type: ExclusionsTypes) => {
-            await messenger.toggleExclusionState(id, type);
-            await this.updateExclusionsData();
-        };
+    @action toggleExclusionState = async (id: string, type: ExclusionsTypes) => {
+        await messenger.toggleExclusionState(id, type);
+        await this.updateExclusionsData();
+    };
 
-    @action
-        addService = async (id: string) => {
-            await messenger.addService(id);
-            await this.updateExclusionsData();
-        };
+    @action addService = async (id: string) => {
+        await messenger.addService(id);
+        await this.updateExclusionsData();
+    };
 
-    @action
-        addToServicesToToggle = (id: string) => {
-            if (this.servicesToToggle.includes(id)) {
-                this.servicesToToggle = this.servicesToToggle
-                    .filter((serviceId) => serviceId !== id);
-            } else {
-                this.servicesToToggle.push(id);
+    @action addToServicesToToggle = (id: string) => {
+        if (this.servicesToToggle.includes(id)) {
+            this.servicesToToggle = this.servicesToToggle
+                .filter((serviceId) => serviceId !== id);
+        } else {
+            this.servicesToToggle.push(id);
+        }
+    };
+
+    @action saveServicesToToggle = async () => {
+        this.servicesToToggle.forEach((serviceId) => {
+            this.addService(serviceId);
+        });
+        this.servicesToToggle = [];
+        await this.updateExclusionsData();
+    };
+
+    @action setExclusionIdToShowSettings = (id: string | null) => {
+        this.exclusionIdToShowSettings = id;
+    };
+
+    @action toggleSubdomainStateInExclusionsGroup = async (
+        exclusionsGroupId: string,
+        subdomainId: string,
+    ) => {
+        await messenger.toggleSubdomainStateInExclusionsGroup(exclusionsGroupId, subdomainId);
+        await this.updateExclusionsData();
+    };
+
+    @action removeSubdomainFromExclusionsGroup = async (
+        exclusionsGroupId: string,
+        subdomainId: string,
+    ) => {
+        // FIXME remove @ts-ignore
+        // @ts-ignore
+        this.exclusions[this.currentMode].exclusionsGroups.forEach((group) => {
+            if (group.id === exclusionsGroupId && group.exclusions[0].id === subdomainId) {
+            // show exclusions list if main domain was removed
+                this.exclusionIdToShowSettings = null;
             }
-        };
+        });
+        await messenger.removeSubdomainFromExclusionsGroup(exclusionsGroupId, subdomainId);
+        await this.updateExclusionsData();
+    };
 
-    @action
-        saveServicesToToggle = async () => {
-            this.servicesToToggle.forEach((serviceId) => {
-                this.addService(serviceId);
-            });
-            this.servicesToToggle = [];
-            await this.updateExclusionsData();
-        };
+    @action addSubdomainToExclusionsGroup = async (
+        exclusionsGroupId: string,
+        subdomain: string,
+    ) => {
+        await messenger.addSubdomainToExclusionsGroup(exclusionsGroupId, subdomain);
+        await this.updateExclusionsData();
+    };
 
-    @action
-        setExclusionIdToShowSettings = (id: string | null) => {
-            this.exclusionIdToShowSettings = id;
-        };
+    @action toggleExclusionsGroupStateInService = async (
+        serviceId: string,
+        exclusionsGroupId: string,
+    ) => {
+        await messenger.toggleExclusionsGroupStateInService(serviceId, exclusionsGroupId);
+        await this.updateExclusionsData();
+    };
 
-    @action
-        toggleSubdomainStateInExclusionsGroup = async (
-            exclusionsGroupId: string,
-            subdomainId: string,
-        ) => {
-            await messenger.toggleSubdomainStateInExclusionsGroup(exclusionsGroupId, subdomainId);
-            await this.updateExclusionsData();
-        };
+    @action removeExclusionsGroupFromService = async (
+        serviceId: string,
+        exclusionsGroupId: string,
+    ) => {
+        await messenger.removeExclusionsGroupFromService(serviceId, exclusionsGroupId);
+        await this.updateExclusionsData();
+    };
 
-    @action
-        removeSubdomainFromExclusionsGroup = async (
-            exclusionsGroupId: string,
-            subdomainId: string,
-        ) => {
-            // FIXME remove @ts-ignore
-            // @ts-ignore
-            this.exclusions[this.currentMode].exclusionsGroups.forEach((group) => {
-                if (group.id === exclusionsGroupId && group.exclusions[0].id === subdomainId) {
-                // show exclusions list if main domain was removed
-                    this.exclusionIdToShowSettings = null;
-                }
-            });
-            await messenger.removeSubdomainFromExclusionsGroup(exclusionsGroupId, subdomainId);
-            await this.updateExclusionsData();
-        };
-
-    @action
-        addSubdomainToExclusionsGroup = async (exclusionsGroupId: string, subdomain: string) => {
-            await messenger.addSubdomainToExclusionsGroup(exclusionsGroupId, subdomain);
-            await this.updateExclusionsData();
-        };
-
-    @action
-        toggleExclusionsGroupStateInService = async (
-            serviceId: string,
-            exclusionsGroupId: string,
-        ) => {
-            await messenger.toggleExclusionsGroupStateInService(serviceId, exclusionsGroupId);
-            await this.updateExclusionsData();
-        };
-
-    @action
-        removeExclusionsGroupFromService = async (serviceId: string, exclusionsGroupId: string) => {
-            await messenger.removeExclusionsGroupFromService(serviceId, exclusionsGroupId);
-            await this.updateExclusionsData();
-        };
-
-    @action
-        removeSubdomainFromExclusionsGroupInService = async (
-            serviceId: string,
-            exclusionsGroupId:string,
-            subdomainId: string,
-        ) => {
-            // FIXME remove @ts-ignore
-            // @ts-ignore
-            const exclusionsGroupToRemove = this.exclusions[this.currentMode].excludedServices
-                // FIXME remove @ts-ignore
-                // @ts-ignore
-                .find((service) => service.serviceId === serviceId)
-                // FIXME remove @ts-ignore
-                // @ts-ignore
-                .exclusionsGroups.find((group) => group.id === exclusionsGroupId);
-            if (exclusionsGroupToRemove.exclusions[0].id === subdomainId) {
+    @action removeSubdomainFromExclusionsGroupInService = async (
+        serviceId: string,
+        exclusionsGroupId:string,
+        subdomainId: string,
+    ) => {
+        // FIXME remove @ts-ignore
+        // @ts-ignore
+        const exclusionsGroupToRemove = this.exclusions[this.currentMode].excludedServices
+        // FIXME remove @ts-ignore
+        // @ts-ignore
+            .find((service) => service.serviceId === serviceId)
+        // FIXME remove @ts-ignore
+        // @ts-ignore
+            .exclusionsGroups.find((group) => group.id === exclusionsGroupId);
+        if (exclusionsGroupToRemove.exclusions[0].id === subdomainId) {
             // show service screen if main domain was removed
-                this.exclusionIdToShowSettings = serviceId;
-            }
+            this.exclusionIdToShowSettings = serviceId;
+        }
 
-            await messenger.removeSubdomainFromExclusionsGroupInService(
-                serviceId,
-                exclusionsGroupId,
-                subdomainId,
-            );
-            await this.updateExclusionsData();
-        };
+        await messenger.removeSubdomainFromExclusionsGroupInService(
+            serviceId,
+            exclusionsGroupId,
+            subdomainId,
+        );
+        await this.updateExclusionsData();
+    };
 
-    @action
-        toggleSubdomainStateInExclusionsGroupInService = async (
-            serviceId: string,
-            exclusionsGroupId:string,
-            subdomainId: string,
-        ) => {
-            await messenger.toggleSubdomainStateInExclusionsGroupInService(
-                serviceId,
-                exclusionsGroupId,
-                subdomainId,
-            );
-            await this.updateExclusionsData();
-        };
+    @action toggleSubdomainStateInExclusionsGroupInService = async (
+        serviceId: string,
+        exclusionsGroupId:string,
+        subdomainId: string,
+    ) => {
+        await messenger.toggleSubdomainStateInExclusionsGroupInService(
+            serviceId,
+            exclusionsGroupId,
+            subdomainId,
+        );
+        await this.updateExclusionsData();
+    };
 
-    @action
-        addSubdomainToExclusionsGroupInService = async (
-            serviceId: string,
-            exclusionsGroupId:string,
-            subdomainId: string,
-        ) => {
-            await messenger.addSubdomainToExclusionsGroupInService(
-                serviceId,
-                exclusionsGroupId,
-                subdomainId,
-            );
-            await this.updateExclusionsData();
-        };
+    @action addSubdomainToExclusionsGroupInService = async (
+        serviceId: string,
+        exclusionsGroupId:string,
+        subdomainId: string,
+    ) => {
+        await messenger.addSubdomainToExclusionsGroupInService(
+            serviceId,
+            exclusionsGroupId,
+            subdomainId,
+        );
+        await this.updateExclusionsData();
+    };
 
     @computed
     get exclusionDataToShow() {
@@ -441,48 +425,42 @@ export class ExclusionsStore {
      * Checks if ExclusionsGroup is inside Service and returns Service id or null
      * @param exclusionsGroupId
      */
-    @action
-        isExclusionsGroupInsideService = (exclusionsGroupId: string) => {
+    @action isExclusionsGroupInsideService = (exclusionsGroupId: string) => {
+        // FIXME remove @ts-ignore
+        // @ts-ignore
+        const service = this.exclusions[this.currentMode].excludedServices
+        // FIXME remove @ts-ignore
+        // @ts-ignore
+            .find((service) => service.exclusionsGroups
             // FIXME remove @ts-ignore
             // @ts-ignore
-            const service = this.exclusions[this.currentMode].excludedServices
-                // FIXME remove @ts-ignore
-                // @ts-ignore
-                .find((service) => service.exclusionsGroups
-                    // FIXME remove @ts-ignore
-                    // @ts-ignore
-                    .find(({ id }) => id === exclusionsGroupId));
-            return service ? service.serviceId : null;
-        };
+                .find(({ id }) => id === exclusionsGroupId));
+        return service ? service.serviceId : null;
+    };
 
-    @action
-        setExclusionsSearchValue = (value: string) => {
-            this.exclusionsSearchValue = value;
-        };
+    @action setExclusionsSearchValue = (value: string) => {
+        this.exclusionsSearchValue = value;
+    };
 
-    @action
-        setUnfoldAllServiceCategories = (unfold: boolean) => {
-            this.unfoldAllServiceCategories = unfold;
-        };
+    @action setUnfoldAllServiceCategories = (unfold: boolean) => {
+        this.unfoldAllServiceCategories = unfold;
+    };
 
-    @action
-        setServicesSearchValue = (value: string) => {
-            this.servicesSearchValue = value;
+    @action setServicesSearchValue = (value: string) => {
+        this.servicesSearchValue = value;
 
-            this.setUnfoldAllServiceCategories(this.servicesSearchValue.length > 0);
-        };
+        this.setUnfoldAllServiceCategories(this.servicesSearchValue.length > 0);
+    };
 
-    @action
-        resetServiceData = async (serviceId: string) => {
-            await messenger.resetServiceData(serviceId);
-            await this.updateExclusionsData();
-        };
+    @action resetServiceData = async (serviceId: string) => {
+        await messenger.resetServiceData(serviceId);
+        await this.updateExclusionsData();
+    };
 
-    @action
-        clearExclusionsList = async () => {
-            await messenger.clearExclusionsList();
-            await this.updateExclusionsData();
-        };
+    @action clearExclusionsList = async () => {
+        await messenger.clearExclusionsList();
+        await this.updateExclusionsData();
+    };
 
     exportExclusions = async () => {
         const nowFormatted = format(Date.now(), 'yyyy_MM_dd-HH_mm_ss');
