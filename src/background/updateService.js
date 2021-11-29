@@ -11,7 +11,7 @@ class UpdateService {
         this.isUpdate = !!(this.currentVersion !== this.prevVersion && this.prevVersion);
 
         await this.setAppVersionInStorage(this.currentVersion);
-    };
+    }
 
     getAppVersionFromStorage = async () => {
         return browserApi.storage.get(APP_VERSION_KEY);

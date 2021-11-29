@@ -4,7 +4,7 @@ import Icon from '../Icon';
 
 import './close-button.pcss';
 
-export var CloseButton = function (props) {
+export const CloseButton = (props) => {
     const { handler } = props;
 
     const clickHandler = () => {

@@ -10,32 +10,32 @@ export class UiStore {
     @observable isConnecting = false;
 
     @action
-        enableConnecting = () => {
-            this.isConnecting = true;
-        };
+    enableConnecting = () => {
+        this.isConnecting = true;
+    };
 
     @action
-        disableConnecting = () => {
-            this.isConnecting = false;
-        };
+    disableConnecting = () => {
+        this.isConnecting = false;
+    };
 
     @action
-        openEndpointsSearch = () => {
-            this.isOpenEndpointsSearch = true;
-        };
+    openEndpointsSearch = () => {
+        this.isOpenEndpointsSearch = true;
+    };
 
     @action
-        closeEndpointsSearch = () => {
-            this.isOpenEndpointsSearch = false;
-        };
+    closeEndpointsSearch = () => {
+        this.isOpenEndpointsSearch = false;
+    };
 
     @action
-        openOptionsModal = () => {
-            this.isOpenOptionsModal = true;
-        };
+    openOptionsModal = () => {
+        this.isOpenOptionsModal = true;
+    };
 
     @action
-        closeOptionsModal = () => {
-            this.isOpenOptionsModal = false;
-        };
+    closeOptionsModal = () => {
+        this.isOpenOptionsModal = false;
+    };
 }

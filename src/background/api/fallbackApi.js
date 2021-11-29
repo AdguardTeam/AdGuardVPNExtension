@@ -34,12 +34,12 @@ export class FallbackApi {
     setVpnApiUrl = (url) => {
         this.vpnApiUrl = url;
         apiUrlCache.set(VPN_API_URL_KEY, this.vpnApiUrl);
-    };
+    }
 
     setAuthApiUrl = (url) => {
         this.authApiUrl = url;
         apiUrlCache.set(AUTH_API_URL_KEY, this.authApiUrl);
-    };
+    }
 
     getVpnApiUrl = async () => {
         if (apiUrlCache.isNeedUpdate(VPN_API_URL_KEY)) {
@@ -48,7 +48,7 @@ export class FallbackApi {
         }
 
         return this.vpnApiUrl;
-    };
+    }
 
     getAuthApiUrl = async () => {
         if (apiUrlCache.isNeedUpdate(AUTH_API_URL_KEY)) {
@@ -57,22 +57,22 @@ export class FallbackApi {
         }
 
         return this.authApiUrl;
-    };
+    }
 
     getAuthBaseUrl = async () => {
         const authApiUrl = await this.getAuthApiUrl();
         return `${authApiUrl}/oauth/authorize`;
-    };
+    }
 
     getAuthRedirectUri = async () => {
         const authApiUrl = await this.getAuthApiUrl();
         return `${authApiUrl}/oauth.html?adguard-vpn=1`;
-    };
+    }
 
     getAccountApiUrl = async () => {
         const vpnApiUrl = await this.getVpnApiUrl();
         return `${vpnApiUrl}/account`;
-    };
+    }
 
     async init() {
         const countryInfo = await this.getCountryInfo();
@@ -122,7 +122,7 @@ export class FallbackApi {
         localStorageBkp = Number.isNaN(localStorageBkp) ? 0 : localStorageBkp;
 
         return !!localStorageBkp;
-    };
+    }
 
     getCountryInfo = async () => {
         try {

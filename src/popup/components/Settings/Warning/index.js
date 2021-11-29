@@ -1,7 +1,7 @@
 import React from 'react';
 import './warning.pcss';
 
-const Warning = function (props) {
+const Warning = (props) => {
     const {
         desc,
         mod,

@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-const PasswordField = function ({
+const PasswordField = ({
     id,
     password,
     handleChange,
@@ -10,7 +10,7 @@ const PasswordField = function ({
     handleInputTypeChange,
     icon,
     placeholder = '',
-}) {
+}) => {
     const inputClassName = classnames('form__input form__input--password', { 'form__input--error': error });
 
     return (

@@ -3,9 +3,9 @@ import React from 'react';
 import { ExclusionsModal } from './ExclusionsModal';
 import { reactTranslator } from '../../../../common/reactTranslator';
 
-export var SelectListModal = function ({
+export const SelectListModal = ({
     isOpen, closeModal, handleRegularClick, handleSelectiveClick,
-}) {
+}) => {
     const title = reactTranslator.getMessage('options_exclusions_import_select_title');
     return (
         <ExclusionsModal

@@ -52,7 +52,7 @@ class EndpointsTldExclusions {
         const endpointsTldExclusions = this.convertEndpointTldToExclusion(endpointsTlds);
 
         this.handleEndpointsTldExclusionsListUpdate(endpointsTldExclusions);
-    };
+    }
 
     /**
      * Converts endpoints tld to exclusion
@@ -84,7 +84,7 @@ class EndpointsTldExclusions {
 
         this.updateStorage();
         proxy.setEndpointsTldExclusions(this.endpointsTldExclusionsList);
-    };
+    }
 
     init = async () => {
         try {
@@ -97,7 +97,7 @@ class EndpointsTldExclusions {
             log.error(e);
         }
         log.debug('Endpoints tld exclusions module initiated');
-    };
+    }
 }
 
 const endpointsTldExclusions = new EndpointsTldExclusions();

@@ -11,7 +11,7 @@ import './actions.pcss';
 import { readExclusionsFile } from './fileHelpers';
 import { translator } from '../../../../common/translator';
 
-export var Actions = function () {
+export const Actions = () => {
     const { exclusionsStore, notificationsStore } = useContext(rootStore);
 
     const [isMoreActionsMenuOpen, setIsMoreActionsMenuOpen] = useState(false);

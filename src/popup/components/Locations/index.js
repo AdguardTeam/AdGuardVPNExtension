@@ -119,16 +119,18 @@ const Locations = observer(() => {
             />
             <div className="endpoints__scroll">
                 {!showSearchResults && (
-                    <div className="endpoints__list">
-                        <div className="endpoints__title">
-                            {reactTranslator.getMessage('endpoints_fastest')}
+                    <>
+                        <div className="endpoints__list">
+                            <div className="endpoints__title">
+                                {reactTranslator.getMessage('endpoints_fastest')}
+                            </div>
+                            {fastestLocations.length > 0 ? (
+                                renderLocations(fastestLocations)
+                            ) : (
+                                <Skeleton />
+                            )}
                         </div>
-                        {fastestLocations.length > 0 ? (
-                            renderLocations(fastestLocations)
-                        ) : (
-                            <Skeleton />
-                        )}
-                    </div>
+                    </>
                 )}
 
                 {renderFilteredEndpoint()}

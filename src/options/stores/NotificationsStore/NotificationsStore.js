@@ -8,18 +8,18 @@ export class NotificationsStore {
     }
 
     @observable
-        notifications = [];
+    notifications = [];
 
     @action
-        addNotification = (notification) => {
-            this.notifications.push(notification);
-        };
+    addNotification = (notification) => {
+        this.notifications.push(notification);
+    }
 
     @action
-        removeNotification = (notificationId) => {
-            this.notifications = this.notifications
-                .filter((notification) => notification.id !== notificationId);
-        };
+    removeNotification = (notificationId) => {
+        this.notifications = this.notifications
+            .filter((notification) => notification.id !== notificationId);
+    }
 
     notifySuccess = (message) => {
         this.addNotification(new SuccessNotification(message));

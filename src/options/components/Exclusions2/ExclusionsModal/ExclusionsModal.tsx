@@ -11,13 +11,13 @@ interface ExclusionsModalProps {
     children?: React.ReactNode,
 }
 
-export var ExclusionsModal = function ({
+export const ExclusionsModal = ({
     isOpen,
     closeModal,
     title,
     description,
     children,
-}: ExclusionsModalProps) {
+}: ExclusionsModalProps) => {
     return (
         <Modal
             isOpen={isOpen}

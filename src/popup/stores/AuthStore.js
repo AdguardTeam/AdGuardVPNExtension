@@ -80,97 +80,97 @@ export class AuthStore {
     }
 
     @action
-        setDefaults = () => {
-            this.credentials = DEFAULTS.credentials;
-            this.authenticated = DEFAULTS.authenticated;
-            this.need2fa = DEFAULTS.need2fa;
-            this.error = DEFAULTS.error;
-            this.step = DEFAULTS.step;
-            this.signInCheck = DEFAULTS.signInCheck;
-        };
+    setDefaults = () => {
+        this.credentials = DEFAULTS.credentials;
+        this.authenticated = DEFAULTS.authenticated;
+        this.need2fa = DEFAULTS.need2fa;
+        this.error = DEFAULTS.error;
+        this.step = DEFAULTS.step;
+        this.signInCheck = DEFAULTS.signInCheck;
+    };
 
     @action
-        resetError = () => {
-            this.error = DEFAULTS.error;
-        };
+    resetError = () => {
+        this.error = DEFAULTS.error;
+    };
 
     @action
-        onCredentialsChange = async (field, value) => {
-            this.resetError();
-            this.credentials[field] = value;
-            await messenger.updateAuthCache(field, value);
-        };
+    onCredentialsChange = async (field, value) => {
+        this.resetError();
+        this.credentials[field] = value;
+        await messenger.updateAuthCache(field, value);
+    };
 
     @action
-        getAuthCacheFromBackground = async () => {
-            const {
+    getAuthCacheFromBackground = async () => {
+        const {
+            username,
+            password,
+            step,
+            signInCheck,
+            policyAgreement,
+            helpUsImprove,
+            marketingConsent,
+        } = await messenger.getAuthCache();
+        runInAction(() => {
+            this.credentials = {
+                ...this.credentials,
                 username,
                 password,
-                step,
-                signInCheck,
-                policyAgreement,
-                helpUsImprove,
                 marketingConsent,
-            } = await messenger.getAuthCache();
-            runInAction(() => {
-                this.credentials = {
-                    ...this.credentials,
-                    username,
-                    password,
-                    marketingConsent,
-                };
-                if (step) {
-                    this.step = step;
-                }
-                if (signInCheck) {
-                    this.signInCheck = signInCheck;
-                }
-                if (!isNil(policyAgreement)) {
-                    this.policyAgreement = policyAgreement;
-                }
-                if (!isNil(helpUsImprove)) {
-                    this.helpUsImprove = helpUsImprove;
-                }
-            });
-        };
+            };
+            if (step) {
+                this.step = step;
+            }
+            if (signInCheck) {
+                this.signInCheck = signInCheck;
+            }
+            if (!isNil(policyAgreement)) {
+                this.policyAgreement = policyAgreement;
+            }
+            if (!isNil(helpUsImprove)) {
+                this.helpUsImprove = helpUsImprove;
+            }
+        });
+    };
 
     @action
-        setFlagsStorageData = (flagsStorageData) => {
-            this.isNewUser = flagsStorageData[FLAGS_FIELDS.IS_NEW_USER];
-            this.isSocialAuth = flagsStorageData[FLAGS_FIELDS.IS_SOCIAL_AUTH];
-            this.showOnboarding = flagsStorageData[FLAGS_FIELDS.SHOW_ONBOARDING];
-            this.showUpgradeScreen = flagsStorageData[FLAGS_FIELDS.SHOW_UPGRADE_SCREEN];
-            this.promoScreenState = flagsStorageData[FLAGS_FIELDS.SALE_SHOW];
-        };
+    setFlagsStorageData = (flagsStorageData) => {
+        this.isNewUser = flagsStorageData[FLAGS_FIELDS.IS_NEW_USER];
+        this.isSocialAuth = flagsStorageData[FLAGS_FIELDS.IS_SOCIAL_AUTH];
+        this.showOnboarding = flagsStorageData[FLAGS_FIELDS.SHOW_ONBOARDING];
+        this.showUpgradeScreen = flagsStorageData[FLAGS_FIELDS.SHOW_UPGRADE_SCREEN];
+        this.promoScreenState = flagsStorageData[FLAGS_FIELDS.SALE_SHOW];
+    }
 
     @action
-        setShowOnboarding = async (value) => {
-            await messenger.setFlag(FLAGS_FIELDS.SHOW_ONBOARDING, value);
-            runInAction(() => {
-                this.showOnboarding = value;
-            });
-        };
+    setShowOnboarding = async (value) => {
+        await messenger.setFlag(FLAGS_FIELDS.SHOW_ONBOARDING, value);
+        runInAction(() => {
+            this.showOnboarding = value;
+        });
+    };
 
     @action
-        setShowUpgradeScreen = async (value) => {
-            await messenger.setFlag(FLAGS_FIELDS.SHOW_UPGRADE_SCREEN, value);
-            runInAction(() => {
-                this.showUpgradeScreen = value;
-            });
-        };
+    setShowUpgradeScreen = async (value) => {
+        await messenger.setFlag(FLAGS_FIELDS.SHOW_UPGRADE_SCREEN, value);
+        runInAction(() => {
+            this.showUpgradeScreen = value;
+        });
+    };
 
     @action
-        setSalePromoStatus = async (state) => {
-            await messenger.setFlag(FLAGS_FIELDS.SALE_SHOW, state);
-            runInAction(() => {
-                this.promoScreenState = state;
-            });
-        };
+    setSalePromoStatus = async (state) => {
+        await messenger.setFlag(FLAGS_FIELDS.SALE_SHOW, state);
+        runInAction(() => {
+            this.promoScreenState = state;
+        });
+    }
 
     @action
-        setIsFirstRun = (value) => {
-            this.isFirstRun = value;
-        };
+    setIsFirstRun = (value) => {
+        this.isFirstRun = value;
+    }
 
     @computed
     get disableRegister() {
@@ -207,221 +207,221 @@ export class AuthStore {
     }
 
     @action
-        authenticate = async () => {
-            this.requestProcessState = REQUEST_STATUSES.PENDING;
-            const response = await messenger.authenticateUser(toJS(this.credentials));
+    authenticate = async () => {
+        this.requestProcessState = REQUEST_STATUSES.PENDING;
+        const response = await messenger.authenticateUser(toJS(this.credentials));
 
-            if (response.error) {
-                runInAction(() => {
-                    this.requestProcessState = REQUEST_STATUSES.ERROR;
-                    this.error = response.error;
-                });
-                return;
-            }
+        if (response.error) {
+            runInAction(() => {
+                this.requestProcessState = REQUEST_STATUSES.ERROR;
+                this.error = response.error;
+            });
+            return;
+        }
 
-            if (response.status === 'ok') {
-                await messenger.clearAuthCache();
-                await messenger.checkPermissions();
-                await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
-                runInAction(() => {
-                    this.requestProcessState = REQUEST_STATUSES.DONE;
-                    this.authenticated = true;
-                    this.need2fa = false;
-                    this.credentials = DEFAULTS.credentials;
-                });
-                return;
-            }
-
-            if (response.status === '2fa_required') {
-                runInAction(async () => {
-                    this.requestProcessState = REQUEST_STATUSES.DONE;
-                    this.need2fa = true;
-                    await this.switchStep(this.STEPS.TWO_FACTOR);
-                });
-            }
-        };
-
-    @action
-        checkEmail = async () => {
-            this.requestProcessState = REQUEST_STATUSES.PENDING;
-
-            const response = await messenger.checkEmail(this.credentials.username);
-
-            if (response.error) {
-                runInAction(() => {
-                    this.requestProcessState = REQUEST_STATUSES.ERROR;
-                    this.error = response.error;
-                });
-                return;
-            }
-
-            if (response.canRegister) {
-                await this.switchStep(this.STEPS.REGISTRATION);
-            } else {
-                await this.switchStep(this.STEPS.SIGN_IN);
-            }
-
+        if (response.status === 'ok') {
+            await messenger.clearAuthCache();
+            await messenger.checkPermissions();
+            await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
             runInAction(() => {
                 this.requestProcessState = REQUEST_STATUSES.DONE;
+                this.authenticated = true;
+                this.need2fa = false;
+                this.credentials = DEFAULTS.credentials;
             });
-        };
+            return;
+        }
+
+        if (response.status === '2fa_required') {
+            runInAction(async () => {
+                this.requestProcessState = REQUEST_STATUSES.DONE;
+                this.need2fa = true;
+                await this.switchStep(this.STEPS.TWO_FACTOR);
+            });
+        }
+    };
 
     @action
-        register = async () => {
-            this.requestProcessState = REQUEST_STATUSES.PENDING;
-            const response = await messenger.registerUser(toJS(this.credentials));
-            if (response.error) {
-                runInAction(() => {
-                    this.requestProcessState = REQUEST_STATUSES.ERROR;
-                    this.error = response.error;
-                    this.field = response.field;
-                    if (response.field === 'username') {
-                        this.switchStep(this.STEPS.CHECK_EMAIL, false);
-                        this.resetPasswords();
-                    }
-                });
-                return;
-            }
-            if (response.status === 'ok') {
-                await messenger.clearAuthCache();
-                await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
-                runInAction(() => {
-                    this.requestProcessState = REQUEST_STATUSES.DONE;
-                    this.authenticated = true;
-                    this.credentials = DEFAULTS.credentials;
-                });
-            }
-        };
+    checkEmail = async () => {
+        this.requestProcessState = REQUEST_STATUSES.PENDING;
+
+        const response = await messenger.checkEmail(this.credentials.username);
+
+        if (response.error) {
+            runInAction(() => {
+                this.requestProcessState = REQUEST_STATUSES.ERROR;
+                this.error = response.error;
+            });
+            return;
+        }
+
+        if (response.canRegister) {
+            await this.switchStep(this.STEPS.REGISTRATION);
+        } else {
+            await this.switchStep(this.STEPS.SIGN_IN);
+        }
+
+        runInAction(() => {
+            this.requestProcessState = REQUEST_STATUSES.DONE;
+        });
+    };
 
     @action
-        isAuthenticated = async () => {
-            this.requestProcessState = REQUEST_STATUSES.PENDING;
-            const result = await messenger.isAuthenticated();
-            if (result) {
-                runInAction(() => {
-                    this.authenticated = true;
-                });
-            }
+    register = async () => {
+        this.requestProcessState = REQUEST_STATUSES.PENDING;
+        const response = await messenger.registerUser(toJS(this.credentials));
+        if (response.error) {
+            runInAction(() => {
+                this.requestProcessState = REQUEST_STATUSES.ERROR;
+                this.error = response.error;
+                this.field = response.field;
+                if (response.field === 'username') {
+                    this.switchStep(this.STEPS.CHECK_EMAIL, false);
+                    this.resetPasswords();
+                }
+            });
+            return;
+        }
+        if (response.status === 'ok') {
+            await messenger.clearAuthCache();
+            await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
             runInAction(() => {
                 this.requestProcessState = REQUEST_STATUSES.DONE;
+                this.authenticated = true;
+                this.credentials = DEFAULTS.credentials;
             });
-        };
+        }
+    };
 
     @action
-        setIsAuthenticated = (value) => {
-            this.authenticated = value;
-        };
-
-    @action
-        deauthenticate = async () => {
-            this.setDefaults();
-            await messenger.deauthenticateUser();
-        };
-
-    @action
-        proceedAuthorization = async (provider) => {
-            if (provider === AUTH_PROVIDERS.ADGUARD) {
-                await this.openSignUpCheck();
-                await this.switchStep(this.STEPS.CHECK_EMAIL);
-            } else {
-                await this.openSocialAuth(provider);
-            }
-        };
-
-    @action
-        openSocialAuth = async (social) => {
-            await messenger.startSocialAuth(social, this.marketingConsent);
-            window.close();
-        };
-
-    @action
-        switchStep = async (step, shouldResetErrors = true) => {
-            this.step = step;
-            if (shouldResetErrors) {
-                this.resetError();
-            }
-            await messenger.updateAuthCache('step', step);
-        };
-
-    @action
-        showAuthorizationScreen = async () => {
-            await this.switchStep(this.STEPS.AUTHORIZATION);
-        };
-
-    @action
-        showPrevAuthScreen = async () => {
-            await this.switchStep(
-                this.step === this.STEPS.CHECK_EMAIL
-                    ? this.STEPS.AUTHORIZATION
-                    : this.STEPS.CHECK_EMAIL,
-            );
-        };
-
-    @action
-        resetPasswords = async () => {
-            await messenger.updateAuthCache('password', DEFAULTS.credentials.password);
-            await messenger.updateAuthCache('twoFactor', DEFAULTS.credentials.twoFactor);
+    isAuthenticated = async () => {
+        this.requestProcessState = REQUEST_STATUSES.PENDING;
+        const result = await messenger.isAuthenticated();
+        if (result) {
             runInAction(() => {
-                this.credentials.password = DEFAULTS.credentials.password;
-                this.credentials.twoFactor = DEFAULTS.credentials.twoFactor;
+                this.authenticated = true;
             });
-        };
+        }
+        runInAction(() => {
+            this.requestProcessState = REQUEST_STATUSES.DONE;
+        });
+    };
 
     @action
-        openSignInCheck = async () => {
-            await messenger.updateAuthCache('signInCheck', true);
-
-            runInAction(() => {
-                this.signInCheck = true;
-            });
-        };
+    setIsAuthenticated = (value) => {
+        this.authenticated = value;
+    };
 
     @action
-        openSignUpCheck = async () => {
-            await messenger.updateAuthCache('signInCheck', false);
-
-            runInAction(() => {
-                this.signInCheck = false;
-            });
-        };
+    deauthenticate = async () => {
+        this.setDefaults();
+        await messenger.deauthenticateUser();
+    };
 
     @action
-        setPolicyAgreement = async (value) => {
-            await messenger.updateAuthCache('policyAgreement', value);
-            runInAction(() => {
-                this.policyAgreement = value;
-            });
-        };
+    proceedAuthorization = async (provider) => {
+        if (provider === AUTH_PROVIDERS.ADGUARD) {
+            await this.openSignUpCheck();
+            await this.switchStep(this.STEPS.CHECK_EMAIL);
+        } else {
+            await this.openSocialAuth(provider);
+        }
+    };
 
     @action
-        handleInitPolicyAgreement = async (policyAgreement) => {
-            if (!policyAgreement) {
-                await this.switchStep(AUTH_STEPS.POLICY_AGREEMENT);
-            }
-        };
+    openSocialAuth = async (social) => {
+        await messenger.startSocialAuth(social, this.marketingConsent);
+        window.close();
+    };
 
     @action
-        setHelpUsImprove = async (value) => {
-            await messenger.updateAuthCache('helpUsImprove', value);
-            runInAction(() => {
-                this.helpUsImprove = value;
-            });
-        };
+    switchStep = async (step, shouldResetErrors = true) => {
+        this.step = step;
+        if (shouldResetErrors) {
+            this.resetError();
+        }
+        await messenger.updateAuthCache('step', step);
+    };
 
     @action
-        onPolicyAgreementReceived = async () => {
-            await messenger.setSetting(SETTINGS_IDS.POLICY_AGREEMENT, this.policyAgreement);
-            await messenger.setSetting(SETTINGS_IDS.HELP_US_IMPROVE, this.helpUsImprove);
-            await this.showAuthorizationScreen();
-        };
+    showAuthorizationScreen = async () => {
+        await this.switchStep(this.STEPS.AUTHORIZATION);
+    }
 
     @action
-        setMarketingConsent = async (value) => {
-            await messenger.updateAuthCache('marketingConsent', value);
-            runInAction(() => {
-                this.credentials.marketingConsent = value;
-            });
-        };
+    showPrevAuthScreen = async () => {
+        await this.switchStep(
+            this.step === this.STEPS.CHECK_EMAIL
+                ? this.STEPS.AUTHORIZATION
+                : this.STEPS.CHECK_EMAIL,
+        );
+    }
+
+    @action
+    resetPasswords = async () => {
+        await messenger.updateAuthCache('password', DEFAULTS.credentials.password);
+        await messenger.updateAuthCache('twoFactor', DEFAULTS.credentials.twoFactor);
+        runInAction(() => {
+            this.credentials.password = DEFAULTS.credentials.password;
+            this.credentials.twoFactor = DEFAULTS.credentials.twoFactor;
+        });
+    }
+
+    @action
+    openSignInCheck = async () => {
+        await messenger.updateAuthCache('signInCheck', true);
+
+        runInAction(() => {
+            this.signInCheck = true;
+        });
+    }
+
+    @action
+    openSignUpCheck = async () => {
+        await messenger.updateAuthCache('signInCheck', false);
+
+        runInAction(() => {
+            this.signInCheck = false;
+        });
+    }
+
+    @action
+    setPolicyAgreement = async (value) => {
+        await messenger.updateAuthCache('policyAgreement', value);
+        runInAction(() => {
+            this.policyAgreement = value;
+        });
+    };
+
+    @action
+    handleInitPolicyAgreement = async (policyAgreement) => {
+        if (!policyAgreement) {
+            await this.switchStep(AUTH_STEPS.POLICY_AGREEMENT);
+        }
+    };
+
+    @action
+    setHelpUsImprove = async (value) => {
+        await messenger.updateAuthCache('helpUsImprove', value);
+        runInAction(() => {
+            this.helpUsImprove = value;
+        });
+    }
+
+    @action
+    onPolicyAgreementReceived = async () => {
+        await messenger.setSetting(SETTINGS_IDS.POLICY_AGREEMENT, this.policyAgreement);
+        await messenger.setSetting(SETTINGS_IDS.HELP_US_IMPROVE, this.helpUsImprove);
+        await this.showAuthorizationScreen();
+    };
+
+    @action
+    setMarketingConsent = async (value) => {
+        await messenger.updateAuthCache('marketingConsent', value);
+        runInAction(() => {
+            this.credentials.marketingConsent = value;
+        });
+    };
 
     @computed
     get marketingConsent() {
