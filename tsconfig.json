@@ -1,14 +1,16 @@
 {
   "compilerOptions": {
-    "experimentalDecorators": true,
+    "baseUrl": "src",
     "target": "esnext",
     "jsx": "react",
-    "module": "commonjs",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "experimentalDecorators": true,
     "allowJs": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "skipLibCheck": true
-  },
-  "include": ["src"]
+    "skipLibCheck": true,
+    "noImplicitAny": true,
+  }
 }

@@ -3,13 +3,10 @@ import { observer } from 'mobx-react';
 import cn from 'classnames';
 
 import { rootStore } from '../../../../../stores';
-import { ServiceRow } from './ServiceRow';
-
-import { containsIgnoreCase } from '../../../Search/SearchHighlighter/helpers';
 import { PreparedServiceCategory } from '../../../../../stores/ExclusionsStore';
+import { ServiceRow } from './ServiceRow';
+import { containsIgnoreCase } from '../../../Search/SearchHighlighter/helpers';
 
-// FIXME fix linter
-// @ts-ignore
 import s from './service-category.module.pcss';
 
 export interface ServiceCategoryProps {
@@ -17,23 +14,18 @@ export interface ServiceCategoryProps {
 }
 
 export const ServiceCategory = observer(({ category }: ServiceCategoryProps) => {
-    console.log(category);
-
     const { exclusionsStore } = useContext(rootStore);
     const { services } = exclusionsStore.preparedServicesData;
 
-    // @ts-ignore
     const categoryServices = category.services
-        // FIXME: remove ts-ignore
-        // @ts-ignore
         .map((serviceId: string) => services[serviceId])
         .filter((serviceData) => !(exclusionsStore.excludedServices
-            // FIXME: remove ts-ignore
+            // FIXME remove @ts-ignore
             // @ts-ignore
-            .some((service) => serviceData.serviceId === service.serviceId)));
+            .some((service) => {
+                return serviceData.serviceId === service.serviceId;
+            })));
 
-    // FIXME remove @ts-ignore
-    // @ts-ignore
     const filteredServices = categoryServices.filter((service) => {
         if (exclusionsStore.servicesSearchValue.length === 0) {
             return true;
@@ -70,8 +62,6 @@ export const ServiceCategory = observer(({ category }: ServiceCategoryProps) => 
             </div>
             <div className={categoryServicesClassname}>
                 {
-                    // FIXME remove ts-ignore
-                    // @ts-ignore
                     filteredServices.map((service) => {
                         return (<ServiceRow key={service.serviceId} service={service} />);
                     })
