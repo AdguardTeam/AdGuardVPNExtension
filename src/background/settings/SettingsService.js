@@ -2,8 +2,10 @@ import throttle from 'lodash/throttle';
 import { log } from '../../lib/logger';
 import { SETTINGS_IDS } from '../../lib/constants';
 import browserApi from '../browserApi';
+import { ExclusionsModes, ExclusionStates } from '../../common/exclusionsConstants';
+import { ExclusionsGroup } from '../exclusions/ExclusionsGroup';
 
-const SCHEME_VERSION = '8';
+const SCHEME_VERSION = '9';
 const THROTTLE_TIMEOUT = 100;
 
 class SettingsService {
@@ -129,6 +131,45 @@ class SettingsService {
         };
     };
 
+    // TODO handle services websites migration when proper services adding will be fixed
+    migrateFrom8to9 = (oldSettings) => {
+        const regularExclusionsGroups = oldSettings[SETTINGS_IDS.EXCLUSIONS].regular
+            .map(({ hostname, enabled }) => {
+                const exclusionsGroup = new ExclusionsGroup(hostname);
+                if (!enabled) {
+                    exclusionsGroup.disableExclusionsGroup();
+                }
+                return exclusionsGroup;
+            });
+
+        const selectiveExclusions = oldSettings[SETTINGS_IDS.EXCLUSIONS].selective
+            .map(({ hostname, enabled }) => {
+                const exclusionsGroup = new ExclusionsGroup(hostname);
+                if (!enabled) {
+                    exclusionsGroup.disableExclusionsGroup();
+                }
+                return exclusionsGroup;
+            });
+
+        return {
+            ...oldSettings,
+            VERSION: '9',
+            [SETTINGS_IDS.EXCLUSIONS]: {
+                inverted: oldSettings[SETTINGS_IDS.EXCLUSIONS].inverted,
+                [ExclusionsModes.Regular]: {
+                    excludedServices: [],
+                    exclusionsGroups: [...regularExclusionsGroups],
+                    excludedIps: [],
+                },
+                [ExclusionsModes.Selective]: {
+                    excludedServices: [],
+                    exclusionsGroups: [...selectiveExclusions],
+                    excludedIps: [],
+                },
+            },
+        };
+    };
+
     /**
      * In order to add migration, create new function which modifies old settings into new
      * And add this migration under related old settings scheme version
@@ -143,6 +184,7 @@ class SettingsService {
         5: this.migrateFrom5to6,
         6: this.migrateFrom6to7,
         7: this.migrateFrom7to8,
+        8: this.migrateFrom8to9,
     };
 
     async applyMigrations(oldVersion, newVersion, oldSettings) {
