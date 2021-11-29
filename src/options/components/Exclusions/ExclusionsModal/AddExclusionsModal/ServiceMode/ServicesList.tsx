@@ -12,8 +12,6 @@ export const ServicesList = observer(() => {
     return (
         <ul className="services-list">
             {Object.values(categories).map((category) => {
-                // FIXME remove ts-ignore
-                // @ts-ignore
                 return (<ServiceCategory key={category.id} category={category} />);
             })}
         </ul>

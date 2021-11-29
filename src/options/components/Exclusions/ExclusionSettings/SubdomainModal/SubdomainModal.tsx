@@ -21,7 +21,9 @@ export const SubdomainModal = observer(({ exclusionData, parentServiceId }) => {
         setInputValue('');
     };
 
-    const addSubdomain = async (e) => {
+    const addSubdomain = async (
+        e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>,
+    ) => {
         e.preventDefault();
         if (inputValue) {
             if (parentServiceId) {

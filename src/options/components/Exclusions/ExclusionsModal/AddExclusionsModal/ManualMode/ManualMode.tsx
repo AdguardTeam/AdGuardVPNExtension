@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 
-import { rootStore } from '../../../../../stores/index';
+import { rootStore } from '../../../../../stores';
 import { reactTranslator } from '../../../../../../common/reactTranslator';
 
 import './manual-mode.pcss';
@@ -14,7 +14,9 @@ export const ManualMode = () => {
         exclusionsStore.closeAddExclusionModal();
     };
 
-    const addUrl = async (e: any) => {
+    const addUrl = async (
+        e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
+    ) => {
         e.preventDefault();
         await exclusionsStore.addUrlToExclusions(inputValue);
         closeModal();
