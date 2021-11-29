@@ -15,7 +15,7 @@ const {
     CRX_NAME,
 } = require('./consts');
 const { updateManifest } = require('./helpers');
-const packageJson = require('../package');
+const packageJson = require('../package.json');
 
 const { BUILD_ENV } = process.env;
 const { outputPath } = ENV_MAP[BUILD_ENV];
@@ -24,7 +24,11 @@ const WRITE_PATH = path.resolve(__dirname, BUILD_PATH, outputPath);
 const LOAD_PATH = path
     .resolve(__dirname, BUILD_PATH, outputPath, BROWSERS.CHROME);
 const MANIFEST_PATH = path.resolve(
-    __dirname, BUILD_PATH, outputPath, BROWSERS.CHROME, MANIFEST_NAME,
+    __dirname,
+    BUILD_PATH,
+    outputPath,
+    BROWSERS.CHROME,
+    MANIFEST_NAME,
 );
 
 const getPrivateKey = async () => {

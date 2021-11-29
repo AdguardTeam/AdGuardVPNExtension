@@ -65,7 +65,9 @@ module.exports = {
         'jsx-a11y/no-noninteractive-element-interactions': 'off',
         'jsx-a11y/anchor-is-valid': 'off',
         'jsx-a11y/no-static-element-interactions': 'off',
-        'react/prop-types': 'off', // TODO remove this rule when app will grow bigger
+        // Since we do not use prop-types
+        'react/prop-types': 'off',
+        'react/require-default-props': 'off',
         'class-methods-use-this': 'off',
         'import/prefer-default-export': 'off',
         'arrow-body-style': 'off',

@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const _ = require('lodash');
 const {
     LOCALES_PATH,
@@ -6,7 +7,7 @@ const {
     ENVS,
     BUILD_ENV,
 } = require('./consts');
-const pJson = require('../package');
+const pJson = require('../package.json');
 
 const getNameByEnv = (env = ENVS.DEV) => {
     // eslint-disable-next-line import/no-dynamic-require, global-require

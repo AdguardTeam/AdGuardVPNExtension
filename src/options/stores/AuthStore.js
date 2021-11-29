@@ -54,8 +54,7 @@ export class AuthStore {
         this.rootStore = rootStore;
     }
 
-    @action
-    setDefaults = () => {
+    @action setDefaults = () => {
         this.credentials = DEFAULTS.credentials;
         this.authenticated = DEFAULTS.authenticated;
         this.need2fa = DEFAULTS.need2fa;
@@ -63,13 +62,11 @@ export class AuthStore {
         this.step = DEFAULTS.step;
     };
 
-    @action
-    resetError = () => {
+    @action resetError = () => {
         this.error = DEFAULTS.error;
     };
 
-    @action
-    setPasswordAgainError = () => {
+    @action setPasswordAgainError = () => {
         this.error = reactTranslator.getMessage('registration_error_front_unique_validation');
         this.field = 'passwordAgain';
     };
@@ -88,16 +85,14 @@ export class AuthStore {
         }
     }, 500);
 
-    @action
-    onCredentialsChange = async (field, value) => {
+    @action onCredentialsChange = async (field, value) => {
         this.resetError();
         this.credentials[field] = value;
         this.validate(field, value);
         await messenger.updateAuthCache(field, value);
     };
 
-    @action
-    getAuthCacheFromBackground = async () => {
+    @action getAuthCacheFromBackground = async () => {
         const {
             username,
             password,
@@ -143,8 +138,7 @@ export class AuthStore {
         return false;
     }
 
-    @action
-    authenticate = async () => {
+    @action authenticate = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
         const response = await messenger.authenticateUser(toJS(this.credentials));
 
@@ -177,8 +171,7 @@ export class AuthStore {
         }
     };
 
-    @action
-    register = async () => {
+    @action register = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
         const response = await messenger.registerUser(this.credentials);
         if (response.error) {
@@ -200,13 +193,11 @@ export class AuthStore {
         }
     };
 
-    @action
-    setIsAuthenticated = (value) => {
+    @action setIsAuthenticated = (value) => {
         this.authenticated = value;
     };
 
-    @action
-    deauthenticate = async () => {
+    @action deauthenticate = async () => {
         await messenger.deauthenticateUser();
         await this.rootStore.settingsStore.disableProxy();
         runInAction(() => {
@@ -214,25 +205,21 @@ export class AuthStore {
         });
     };
 
-    @action
-    openSocialAuth = async (social) => {
+    @action openSocialAuth = async (social) => {
         await messenger.startSocialAuth(social);
     };
 
-    @action
-    switchStep = async (step) => {
+    @action switchStep = async (step) => {
         this.step = step;
         this.resetError();
         await messenger.updateAuthCache('step', step);
     };
 
-    @action
-    showRegistration = async () => {
+    @action showRegistration = async () => {
         await this.switchStep(AUTH_STEPS.REGISTRATION);
     };
 
-    @action
-    showSignIn = async () => {
+    @action showSignIn = async () => {
         await this.switchStep(AUTH_STEPS.SIGN_IN);
         runInAction(() => {
             // clear two factor field

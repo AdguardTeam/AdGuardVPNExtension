@@ -51,7 +51,7 @@ const SERVICES_DATA = {
     categories: {
         SHOP: {
             id: 'SHOP',
-            name: 'Shopping'
+            name: 'Shopping',
         },
         VIDEO: {
             id: 'VIDEO',

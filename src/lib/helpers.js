@@ -193,7 +193,7 @@ export const runWithCancel = (fn, ...args) => {
                 } catch (e) {
                     return reject(e);
                 }
-                // eslint-disable-next-line no-use-before-define
+                // eslint-disable-next-line @typescript-eslint/no-use-before-define
                 next(result);
             }
         }
@@ -206,7 +206,7 @@ export const runWithCancel = (fn, ...args) => {
             } catch (e) {
                 return reject(e);
             }
-            // eslint-disable-next-line no-use-before-define
+            // eslint-disable-next-line @typescript-eslint/no-use-before-define
             next(result);
         }
 

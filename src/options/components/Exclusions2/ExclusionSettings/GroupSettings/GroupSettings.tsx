@@ -7,6 +7,7 @@ import { StateCheckbox } from '../../StateCheckbox';
 import { ExclusionsModes, ExclusionsTypes } from '../../../../../common/exclusionsConstants';
 import { SubdomainModal } from '../SubdomainModal';
 import { reactTranslator } from '../../../../../common/reactTranslator';
+import { translator } from '../../../../../common/translator';
 
 import './group-settings.pcss';
 
@@ -48,8 +49,8 @@ export const GroupSettings = observer(({ exclusionData, parentServiceId }) => {
     };
 
     const subtitle = exclusionsStore.currentMode === ExclusionsModes.Regular
-        ? reactTranslator.getMessage('settings_exclusion_group_settings_subtitle_regular_mode')
-        : reactTranslator.getMessage('settings_exclusion_group_settings_subtitle_selecive_mode');
+        ? translator.getMessage('settings_exclusion_group_settings_subtitle_regular_mode')
+        : translator.getMessage('settings_exclusion_group_settings_subtitle_selective_mode');
 
     // FIXME remove any
     const renderedExclusions = exclusionData.exclusions.map((exclusion: any, index: number) => {

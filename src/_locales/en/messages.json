@@ -338,7 +338,7 @@
     "settings_exclusion_group_settings_subtitle_regular_mode": {
         "message": "AdGuard VPN is off for the checked domains and subdomains"
     },
-    "settings_exclusion_group_settings_subtitle_selecive_mode": {
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
         "message": "AdGuard VPN is on for the checked domains and subdomains"
     },
     "settings_exclusion_domain_name": {

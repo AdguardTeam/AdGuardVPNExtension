@@ -98,7 +98,7 @@ class SettingsService {
             [SETTINGS_IDS.SELECTED_LOCATION_KEY]: selectedLocation,
             [SETTINGS_IDS.LOCATION_SELECTED_BY_USER_KEY]: isSelectedByUser,
         };
-    }
+    };
 
     migrateFrom6to7 = (oldSettings) => {
         return {

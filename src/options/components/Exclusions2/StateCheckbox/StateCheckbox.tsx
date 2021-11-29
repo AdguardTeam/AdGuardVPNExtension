@@ -8,15 +8,18 @@ interface StateCheckboxProps {
     id: string,
     type: ExclusionsTypes,
     state: ExclusionStates | boolean,
-    toggleHandler: (id: string, type: ExclusionsTypes) => React.MouseEventHandler<HTMLButtonElement>,
+    toggleHandler: (
+        id: string,
+        type: ExclusionsTypes
+    ) => React.MouseEventHandler<HTMLButtonElement>,
 }
 
-export var StateCheckbox = function ({
+export const StateCheckbox = ({
     id,
     type,
     state,
     toggleHandler,
-}: StateCheckboxProps) {
+}: StateCheckboxProps) => {
     const getStateIcon = () => {
         if (state === ExclusionStates.Enabled || state === true) {
             return '#enabled';

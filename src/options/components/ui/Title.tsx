@@ -1,8 +1,8 @@
 import React from 'react';
 
 interface TitleProps {
-    title: string | React.ReactNode,
-    subtitle?: string | React.ReactNode,
+    title: string,
+    subtitle?: string,
 }
 
 export const Title = ({ title, subtitle }: TitleProps) => {

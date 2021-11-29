@@ -41,5 +41,8 @@ export const SearchHighlighter = ({ value, search }: SearchHighlighterProps) => 
         );
     }
 
-    return <>{value}</>;
+    return (
+        // eslint-disable-next-line react/jsx-no-useless-fragment
+        <>{value}</>
+    );
 };

@@ -32,34 +32,34 @@ const RatePopup = observer(() => {
         handleHideRate();
     };
 
+    if (!isRateVisible) {
+        return null;
+    }
+
     return (
-        <>
-            {isRateVisible ? (
-                <div className="rate rate--extra-option">
-                    <div className="rate__text">
-                        {reactTranslator.getMessage('settings_rate_us')}
-                    </div>
-                    <div className="rate__stars">
-                        {RATING_STARS.map((star) => (
-                            <Fragment key={star}>
-                                <input
-                                    type="radio"
-                                    value={star}
-                                    name="rating"
-                                    id={`rating-${star}`}
-                                    className="rate__input"
-                                    onChange={handleChange}
-                                />
-                                <label
-                                    htmlFor={`rating-${star}`}
-                                    className="rate__star"
-                                />
-                            </Fragment>
-                        ))}
-                    </div>
-                </div>
-            ) : ''}
-        </>
+        <div className="rate rate--extra-option">
+            <div className="rate__text">
+                {reactTranslator.getMessage('settings_rate_us')}
+            </div>
+            <div className="rate__stars">
+                {RATING_STARS.map((star) => (
+                    <Fragment key={star}>
+                        <input
+                            type="radio"
+                            value={star}
+                            name="rating"
+                            id={`rating-${star}`}
+                            className="rate__input"
+                            onChange={handleChange}
+                        />
+                        <label
+                            htmlFor={`rating-${star}`}
+                            className="rate__star"
+                        />
+                    </Fragment>
+                ))}
+            </div>
+        </div>
     );
 });
 

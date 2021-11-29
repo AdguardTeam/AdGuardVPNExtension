@@ -99,7 +99,7 @@ class EndpointConnectivity {
 
         await sleepIfNecessary(this.entryTime, MIN_CONNECTION_DURATION_MS);
         connectivityService.send(EVENT.WS_CLOSE);
-    }
+    };
 
     handleWebsocketOpen = async () => {
         if (this.connectionTimeoutId) {
@@ -133,7 +133,7 @@ class EndpointConnectivity {
         webrtc.blockWebRTC();
         await sleepIfNecessary(this.entryTime, MIN_CONNECTION_DURATION_MS);
         connectivityService.send(EVENT.CONNECTION_SUCCESS);
-    }
+    };
 
     /**
      * Handles WS errors
@@ -150,14 +150,14 @@ class EndpointConnectivity {
         webrtc.unblockWebRTC();
         await sleepIfNecessary(this.entryTime, MIN_CONNECTION_DURATION_MS);
         connectivityService.send(EVENT.WS_ERROR);
-    }
+    };
 
     isWebsocketConnectionOpen = () => {
         if (this.ws) {
             return this.ws.readyState === this.ws.OPEN;
         }
         return false;
-    }
+    };
 
     start = (entryTime) => {
         this.entryTime = entryTime;
