@@ -7,6 +7,9 @@ module.exports = {
     ],
     parserOptions: {
         project: ['tsconfig.eslint.json'],
+        ecmaFeatures: {
+            jsx: true,
+        },
     },
     plugins: ['react'],
     env: {
@@ -45,6 +48,7 @@ module.exports = {
                 ignoreClassFields: true,
             },
         ],
+        'react/function-component-definition': 0,
         'jsx-a11y/label-has-associated-control': [2, {
             labelComponents: ['label'],
             labelAttributes: ['htmlFor'],

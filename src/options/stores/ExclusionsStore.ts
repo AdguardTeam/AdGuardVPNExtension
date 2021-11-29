@@ -144,10 +144,10 @@ export class ExclusionsStore {
             this.addExclusionModalOpen = true;
         };
 
-    @action
-        closeAddExclusionModal = () => {
-            this.addExclusionModalOpen = false;
-        };
+    @action closeAddExclusionModal = () => {
+        this.addExclusionModalOpen = false;
+        this.setServicesSearchValue('');
+    };
 
     @action
         setAddExclusionMode = (mode: AddExclusionMode) => {
