@@ -377,7 +377,8 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
 
         const isExclusionsGroup = this.exclusionsGroups.some((group) => {
             return group.exclusions.some((exclusion) => {
-                return (group.state === ExclusionStates.Enabled || group.state === ExclusionStates.PartlyEnabled)
+                return (group.state === ExclusionStates.Enabled
+                        || group.state === ExclusionStates.PartlyEnabled)
                     && (areHostnamesEqual(hostname, exclusion.hostname)
                         || (includeWildcards && shExpMatch(hostname, exclusion.hostname)))
                     && exclusion.enabled;
@@ -387,9 +388,10 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
         const isExcludedService = this.excludedServices.some((service) => {
             return service.exclusionsGroups.some((group) => {
                 return group.exclusions.some((exclusion) => {
-                    // eslint-disable-next-line max-len
-                    return (service.state === ExclusionStates.Enabled || service.state === ExclusionStates.PartlyEnabled)
-                    && (group.state === ExclusionStates.Enabled || group.state === ExclusionStates.PartlyEnabled)
+                    return (service.state === ExclusionStates.Enabled
+                        || service.state === ExclusionStates.PartlyEnabled)
+                    && (group.state === ExclusionStates.Enabled
+                        || group.state === ExclusionStates.PartlyEnabled)
                     && (areHostnamesEqual(hostname, exclusion.hostname)
                         || (includeWildcards && shExpMatch(hostname, exclusion.hostname)));
                 });

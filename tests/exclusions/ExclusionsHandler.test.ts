@@ -343,13 +343,16 @@ describe('ExclusionsManager', () => {
         // everything should be enabled
         expect(exclusionsData.excludedServices[0].state).toEqual(ExclusionStates.Enabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].hostname).toEqual('facebook.com');
-        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].state).toEqual(ExclusionStates.Enabled);
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].state)
+            .toEqual(ExclusionStates.Enabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[0]
             .enabled).toBeTruthy();
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[1]
             .enabled).toBeTruthy();
-        expect(exclusionsData.excludedServices[0].exclusionsGroups[1].state).toEqual(ExclusionStates.Enabled);
-        expect(exclusionsData.excludedServices[0].exclusionsGroups[2].state).toEqual(ExclusionStates.Enabled);
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[1].state)
+            .toEqual(ExclusionStates.Enabled);
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[2].state)
+            .toEqual(ExclusionStates.Enabled);
 
         // disable service
         await exclusionsHandler.toggleServiceState(exclusionsData.excludedServices[0].serviceId);

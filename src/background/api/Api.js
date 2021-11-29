@@ -19,6 +19,7 @@ export class Api {
         return this.baseUrlStr;
     }
 
+    // eslint-disable-next-line default-param-last
     async makeRequest(path, method = 'POST', config) {
         const url = `https://${await this.getBaseUrl()}/${path}`;
         try {

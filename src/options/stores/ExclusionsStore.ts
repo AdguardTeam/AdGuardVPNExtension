@@ -29,7 +29,7 @@ export enum AddExclusionMode {
     MANUAL = 'MANUAL',
 }
 
-const DEFAULT_ADD_EXCLUSION_MODE = AddExclusionMode.SERVICE;
+const DEFAULT_ADD_EXCLUSION_MODE = AddExclusionMode.MANUAL;
 
 export class ExclusionsStore {
     @observable exclusions = {

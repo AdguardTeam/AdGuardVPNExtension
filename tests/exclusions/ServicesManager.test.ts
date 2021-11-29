@@ -94,7 +94,10 @@ const SERVICES_DOMAINS = {
 const ALIEXPRESS_SERVICE_DATA = new Service({
     serviceId: 'aliexpress',
     serviceName: 'Aliexpress',
-    categories: ['Shopping'],
+    categories: [{
+        id: 'SHOP',
+        name: 'Shopping',
+    }],
     iconUrl: 'https://icons.adguard.org/icon?domain=aliexpress.com',
     modifiedTime: '2021-09-14T10:23:00+0000',
     exclusionsGroups: [
@@ -118,7 +121,8 @@ describe('ServicesManager tests', () => {
         expect(JSON.stringify(servicesData[0]))
             .toStrictEqual(JSON.stringify(ALIEXPRESS_SERVICE_DATA));
         expect(servicesData[1].serviceId).toEqual('amazon');
-        expect(servicesData[1].categories).toEqual(['Shopping']);
+        expect(servicesData[1].categories[0].id).toEqual('SHOP');
+        expect(servicesData[1].categories[0].name).toEqual('Shopping');
         expect(servicesData[1].exclusionsGroups).toHaveLength(27);
         expect(servicesData[1].exclusionsGroups[0].hostname).toEqual('a2z.com');
         expect(servicesData[1].exclusionsGroups[0].exclusions[0].hostname).toEqual('a2z.com');

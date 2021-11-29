@@ -15,7 +15,7 @@ export const ManualMode = () => {
     };
 
     const addUrl = async (
-        e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
+        e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>,
     ) => {
         e.preventDefault();
         await exclusionsStore.addUrlToExclusions(inputValue);
@@ -48,6 +48,7 @@ export const ManualMode = () => {
                     type="button"
                     className="button button--medium button--primary"
                     onClick={addUrl}
+                    disabled={!inputValue}
                 >
                     {reactTranslator.getMessage('settings_exclusion_add_manually_add')}
                 </button>

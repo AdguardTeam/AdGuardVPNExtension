@@ -75,7 +75,7 @@ export const AddExclusionModal = observer(() => {
                     {reactTranslator.getMessage('settings_exclusion_add_manually')}
                 </button>
             </div>
-            <div className="mode">
+            <div className="modal__mode">
                 {mode()}
             </div>
         </ExclusionsModal>

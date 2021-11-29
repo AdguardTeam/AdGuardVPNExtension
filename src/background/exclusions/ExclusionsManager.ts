@@ -120,17 +120,20 @@ class ExclusionsManager implements ExclusionsInfo {
         // TODO refactor
         const enabledServicesHostnames = exclusionsData.excludedServices.map((service: Service) => {
             return service.exclusionsGroups.filter((group) => {
-                return (service.state === ExclusionStates.Enabled || service.state === ExclusionStates.PartlyEnabled)
-                    && (group.state === ExclusionStates.Enabled || group.state === ExclusionStates.PartlyEnabled)
-                    && group.exclusions.filter(({ enabled }) => enabled);
+                return (service.state === ExclusionStates.Enabled
+                    || service.state === ExclusionStates.PartlyEnabled)
+                        && (group.state === ExclusionStates.Enabled
+                            || group.state === ExclusionStates.PartlyEnabled)
+                        && group.exclusions.filter(({ enabled }) => enabled);
             }).map(({ exclusions }) => exclusions.map(({ hostname }) => hostname));
         });
 
         const enabledGroupsHostnames = exclusionsData.exclusionsGroups
             .map((group: ExclusionsGroup) => {
                 return group.exclusions.filter((exclusion) => {
-                    return (group.state === ExclusionStates.Enabled || group.state === ExclusionStates.PartlyEnabled)
-                        && exclusion.enabled;
+                    return (group.state === ExclusionStates.Enabled
+                        || group.state === ExclusionStates.PartlyEnabled)
+                            && exclusion.enabled;
                 }).map(({ hostname }) => hostname);
             });
 
@@ -189,24 +192,24 @@ class ExclusionsManager implements ExclusionsInfo {
     }
 
     // TODO: enable vpn by url
-    // eslint-disable-next-line no-unused-vars
-    async enableVpnByUrl(url: string) {
-        if (this.inverted) {
-            // await this.currentHandler.addToExclusions(url);
-        } else {
-            // await this.currentHandler.disableExclusionByUrl(url);
-        }
-    }
+    // // eslint-disable-next-line no-unused-vars
+    // async enableVpnByUrl(url: string) {
+    //     if (this.inverted) {
+    //         // await this.currentHandler.addToExclusions(url);
+    //     } else {
+    //         // await this.currentHandler.disableExclusionByUrl(url);
+    //     }
+    // }
 
     // TODO: disable vpn by url
-    // eslint-disable-next-line no-unused-vars
-    async disableVpnByUrl(url: string) {
-        if (this.inverted) {
-            // await this.currentHandler.disableExclusionByUrl(url);
-        } else {
-            // await this.currentHandler.addToExclusions(url);
-        }
-    }
+    // // eslint-disable-next-line no-unused-vars
+    // async disableVpnByUrl(url: string) {
+    //     if (this.inverted) {
+    //         // await this.currentHandler.disableExclusionByUrl(url);
+    //     } else {
+    //         // await this.currentHandler.addToExclusions(url);
+    //     }
+    // }
 
     /**
      * Checks if vpn is enabled for url
@@ -260,7 +263,6 @@ class ExclusionsManager implements ExclusionsInfo {
             throw new Error(`Unable to import exclusions data due to the error: ${e.message}`);
         }
         await this.handleExclusionsUpdate();
-        debugger;
     }
 }
 
