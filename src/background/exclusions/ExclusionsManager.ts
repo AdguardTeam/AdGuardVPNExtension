@@ -251,7 +251,12 @@ class ExclusionsManager implements ExclusionsInfo {
     async importExclusionsData(exclusionsData) {
         try {
             exclusionsData.forEach((entry) => {
-                const entryData = JSON.parse(entry.content);
+                let entryData;
+                if (entry.content[0] === '{') {
+                    entryData = JSON.parse(entry.content);
+                } else {
+                    entryData = entry.content.split('\n');
+                }
                 if (entry.type === ExclusionsModes.Regular) {
                     this.regular.importExclusionsData(entryData);
                 }

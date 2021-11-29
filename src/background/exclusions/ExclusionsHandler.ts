@@ -409,21 +409,33 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
         return this.checkEnabledExclusionsByUrl(url);
     };
 
-    async importExclusionsData(exclusionsData: ExclusionsData) {
-        exclusionsData.excludedServices.forEach((service) => {
-            this.removeService(service.serviceId);
-            this.excludedServices.push(new Service(service));
-        });
+    async importExclusionsData(exclusionsData: ExclusionsData | string[]) {
+        if (exclusionsData.constructor === Array) {
+            exclusionsData.forEach((exclusion) => {
+                this.addExclusionsGroup(exclusion);
+            });
+            return;
+        }
+        if ('excludedServices' in exclusionsData) {
+            exclusionsData.excludedServices.forEach((service) => {
+                this.removeService(service.serviceId);
+                this.excludedServices.push(new Service(service));
+            });
+        }
 
-        exclusionsData.exclusionsGroups.forEach((group) => {
-            this.removeExclusionsGroup(group.id);
-            this.exclusionsGroups.push(new ExclusionsGroup(group));
-        });
+        if ('exclusionsGroups' in exclusionsData) {
+            exclusionsData.exclusionsGroups.forEach((group) => {
+                this.removeExclusionsGroup(group.id);
+                this.exclusionsGroups.push(new ExclusionsGroup(group));
+            });
+        }
 
-        exclusionsData.excludedIps.forEach((ip) => {
-            this.removeIp(ip.id);
-            this.excludedIps.push(new Exclusion(ip));
-        });
+        if ('excludedIps' in exclusionsData) {
+            exclusionsData.excludedIps.forEach((ip) => {
+                this.removeIp(ip.id);
+                this.excludedIps.push(new Exclusion(ip));
+            });
+        }
     }
 
     async clearExclusionsData() {
