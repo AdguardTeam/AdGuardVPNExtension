@@ -9,27 +9,27 @@ import { log } from '../../lib/logger';
 import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT } from '../../lib/constants';
 import { DNS_DEFAULT } from '../../background/dns/dnsConstants';
 import messenger from '../../lib/messenger';
-import { EXCLUSIONS_MODES } from '../../common/exclusionsConstants';
+import { ExclusionsModes } from '../../common/exclusionsConstants';
 
 export class SettingsStore {
     @observable exclusions = {
-        [EXCLUSIONS_MODES.SELECTIVE]: [],
-        [EXCLUSIONS_MODES.REGULAR]: [],
+        [ExclusionsModes.Selective]: [],
+        [ExclusionsModes.Regular]: [],
     };
 
     @observable exclusionsInputs = {
-        [EXCLUSIONS_MODES.SELECTIVE]: '',
-        [EXCLUSIONS_MODES.REGULAR]: '',
+        [ExclusionsModes.Selective]: '',
+        [ExclusionsModes.Regular]: '',
     };
 
     @observable exclusionsCheckboxes = {
-        [EXCLUSIONS_MODES.SELECTIVE]: true,
-        [EXCLUSIONS_MODES.REGULAR]: true,
+        [ExclusionsModes.Selective]: true,
+        [ExclusionsModes.Regular]: true,
     };
 
     @observable areFormsVisible = {
-        [EXCLUSIONS_MODES.SELECTIVE]: false,
-        [EXCLUSIONS_MODES.REGULAR]: false,
+        [ExclusionsModes.Selective]: false,
+        [ExclusionsModes.Regular]: false,
     };
 
     @observable isRateVisible = true;
@@ -54,16 +54,16 @@ export class SettingsStore {
         getExclusions = async () => {
             const exclusionsData = await messenger.getExclusionsData();
             runInAction(() => {
-                this.exclusions[EXCLUSIONS_MODES.REGULAR] = exclusionsData.regular;
-                this.exclusions[EXCLUSIONS_MODES.SELECTIVE] = exclusionsData.selective;
+                this.exclusions[ExclusionsModes.Regular] = exclusionsData.regular;
+                this.exclusions[ExclusionsModes.Selective] = exclusionsData.selective;
                 this.exclusionsCurrentMode = exclusionsData.currentMode;
             });
         };
 
     // @action
     // setExclusions = (exclusions) => {
-    //     this.exclusions[EXCLUSIONS_MODES.REGULAR] = exclusions.regular;
-    //     this.exclusions[EXCLUSIONS_MODES.SELECTIVE] = exclusions.selective;
+    //     this.exclusions[EXCLUSIONS_MODES.Regular] = exclusions.regular;
+    //     this.exclusions[EXCLUSIONS_MODES.Selective] = exclusions.selective;
     //     this.exclusionsCurrentMode = exclusions.currentMode;
     // };
 

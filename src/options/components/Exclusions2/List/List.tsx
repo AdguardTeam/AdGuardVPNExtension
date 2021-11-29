@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 
-import { TYPE } from '../../../../common/exclusionsConstants';
+import { ExclusionsTypes } from '../../../../common/exclusionsConstants';
 import { StateCheckbox } from '../StateCheckbox';
 import { rootStore } from '../../../stores';
 
@@ -12,22 +12,22 @@ import { SearchHighlighter } from '../Search/SearchHighlighter';
 export const List = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
 
-    const removeExclusion = (id: string, type: TYPE) => () => {
+    const removeExclusion = (id: string, type: ExclusionsTypes) => () => {
         exclusionsStore.removeExclusion(id, type);
     };
 
-    const toggleState = (id: string, type: TYPE) => () => {
+    const toggleState = (id: string, type: ExclusionsTypes) => () => {
         exclusionsStore.toggleExclusionState(id, type);
     };
 
-    const showExclusionSettings = (id: string, type: TYPE) => () => {
-        if (type !== TYPE.IP) {
+    const showExclusionSettings = (id: string, type: ExclusionsTypes) => () => {
+        if (type !== ExclusionsTypes.Ip) {
             exclusionsStore.setExclusionIdToShowSettings(id);
         }
     };
 
-    const listIndexTitleClasses = (type: TYPE) => cn('list__index__title', {
-        'ip-title': type === TYPE.IP,
+    const listIndexTitleClasses = (type: ExclusionsTypes) => cn('list__index__title', {
+        'ip-title': type === ExclusionsTypes.Ip,
     });
 
     const renderedExclusions = exclusionsStore.preparedExclusions.map((exclusion) => {

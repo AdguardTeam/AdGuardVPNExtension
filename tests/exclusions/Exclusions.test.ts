@@ -97,20 +97,20 @@ describe('exclusions', () => {
 
     it('current handler should fit to inverted status, and handle switch', async () => {
         const expectedMode = exclusions.isInverted()
-            ? exclusions.MODES.SELECTIVE
-            : exclusions.MODES.REGULAR;
+            ? exclusions.MODES.Selective
+            : exclusions.MODES.Regular;
         expect(exclusions.current.mode).toBe(expectedMode);
 
-        await exclusions.setCurrentMode(exclusions.MODES.REGULAR);
-        expect(exclusions.current.mode).toBe(exclusions.MODES.REGULAR);
+        await exclusions.setCurrentMode(exclusions.MODES.Regular);
+        expect(exclusions.current.mode).toBe(exclusions.MODES.Regular);
 
-        await exclusions.setCurrentMode(exclusions.MODES.SELECTIVE);
-        expect(exclusions.current.mode).toBe(exclusions.MODES.SELECTIVE);
+        await exclusions.setCurrentMode(exclusions.MODES.Selective);
+        expect(exclusions.current.mode).toBe(exclusions.MODES.Selective);
     });
 
     it('should return right mode of handler', () => {
-        expect(exclusions.regular.mode).toBe(exclusions.MODES.REGULAR);
-        expect(exclusions.selective.mode).toBe(exclusions.MODES.SELECTIVE);
+        expect(exclusions.regular.mode).toBe(exclusions.MODES.Regular);
+        expect(exclusions.selective.mode).toBe(exclusions.MODES.Selective);
     });
 
     it('should return false if hostname is NOT in exclusions', () => {
@@ -118,7 +118,7 @@ describe('exclusions', () => {
     });
 
     it('should return true if hostname was added in current', async () => {
-        await exclusions.setCurrentMode(exclusions.MODES.REGULAR);
+        await exclusions.setCurrentMode(exclusions.MODES.Regular);
 
         let exclusionsInStorage = settings.getExclusions();
         expect(exclusionsInStorage).toEqual({
@@ -150,7 +150,7 @@ describe('exclusions', () => {
             .some((group) => blacklistedDomain.includes(group.hostname));
         expect(hasDomain).toBeTruthy();
 
-        await exclusions.setCurrentMode(exclusions.MODES.SELECTIVE);
+        await exclusions.setCurrentMode(exclusions.MODES.Selective);
         expect(exclusions.current.isExcluded(blacklistedDomain)).toBeFalsy();
         exclusionsInStorage = settings.getExclusions();
         expect(exclusionsInStorage.selective).toEqual({

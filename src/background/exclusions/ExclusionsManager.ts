@@ -4,17 +4,17 @@ import notifier from '../../lib/notifier';
 import { ExclusionsGroup } from './ExclusionsGroup';
 import { Exclusion } from './Exclusion';
 import { Service } from './Service';
-import { EXCLUSIONS_MODES, STATE } from '../../common/exclusionsConstants';
+import { ExclusionsModes, ExclusionStates } from '../../common/exclusionsConstants';
 import { servicesManager } from './ServicesManager';
 
 interface ExclusionsInfo {
     inverted: boolean,
-    [EXCLUSIONS_MODES.SELECTIVE]: {
+    [ExclusionsModes.Selective]: {
         excludedServices: Service[],
         exclusionsGroups: ExclusionsGroup[],
         excludedIps: Exclusion[],
     },
-    [EXCLUSIONS_MODES.REGULAR]: {
+    [ExclusionsModes.Regular]: {
         excludedServices: Service[],
         exclusionsGroups: ExclusionsGroup[],
         excludedIps: Exclusion[],
@@ -28,7 +28,7 @@ class ExclusionsManager implements ExclusionsInfo {
 
     settings: any;
 
-    MODES = EXCLUSIONS_MODES;
+    MODES = ExclusionsModes;
 
     exclusions: ExclusionsInfo;
 
@@ -51,12 +51,12 @@ class ExclusionsManager implements ExclusionsInfo {
 
         this.exclusions = this.settings.getExclusions() || {};
 
-        const selective = this.exclusions?.[this.MODES.SELECTIVE] ?? {
+        const selective = this.exclusions?.[this.MODES.Selective] ?? {
             excludedServices: [],
             exclusionsGroups: [],
             excludedIps: [],
         };
-        const regular = this.exclusions?.[this.MODES.REGULAR] ?? {
+        const regular = this.exclusions?.[this.MODES.Regular] ?? {
             excludedServices: [],
             exclusionsGroups: [],
             excludedIps: [],
@@ -67,13 +67,13 @@ class ExclusionsManager implements ExclusionsInfo {
         this.selectiveModeHandler = new ExclusionsHandler(
             this.handleExclusionsUpdate,
             selective,
-            this.MODES.SELECTIVE,
+            this.MODES.Selective,
         );
 
         this.regularModeHandler = new ExclusionsHandler(
             this.handleExclusionsUpdate,
             regular,
-            this.MODES.REGULAR,
+            this.MODES.Regular,
         );
 
         this.currentHandler = this.inverted ? this.selectiveModeHandler : this.regularModeHandler;
@@ -82,7 +82,7 @@ class ExclusionsManager implements ExclusionsInfo {
 
         // @ts-ignore
         notifier.addSpecifiedListener(notifier.types.NON_ROUTABLE_DOMAIN_ADDED, (payload) => {
-            if (this.currentHandler.mode === this.MODES.REGULAR) {
+            if (this.currentHandler.mode === this.MODES.Regular) {
                 this.currentHandler.addUrlToExclusions(payload);
             }
         });
@@ -101,12 +101,12 @@ class ExclusionsManager implements ExclusionsInfo {
 
         const exclusionsRepository = {
             inverted: this.inverted,
-            [this.MODES.SELECTIVE]: {
+            [this.MODES.Selective]: {
                 excludedServices: this.selective.excludedServices,
                 exclusionsGroups: this.selective.exclusionsGroups,
                 excludedIps: this.selective.excludedIps,
             },
-            [this.MODES.REGULAR]: {
+            [this.MODES.Regular]: {
                 excludedServices: this.regular.excludedServices,
                 exclusionsGroups: this.regular.exclusionsGroups,
                 excludedIps: this.regular.excludedIps,
@@ -120,8 +120,8 @@ class ExclusionsManager implements ExclusionsInfo {
         // TODO refactor
         const enabledServicesHostnames = exclusionsData.excludedServices.map((service: Service) => {
             return service.exclusionsGroups.filter((group) => {
-                return (service.state === STATE.Enabled || service.state === STATE.PartlyEnabled)
-                    && (group.state === STATE.Enabled || group.state === STATE.PartlyEnabled)
+                return (service.state === ExclusionStates.Enabled || service.state === ExclusionStates.PartlyEnabled)
+                    && (group.state === ExclusionStates.Enabled || group.state === ExclusionStates.PartlyEnabled)
                     && group.exclusions.filter(({ enabled }) => enabled);
             }).map(({ exclusions }) => exclusions.map(({ hostname }) => hostname));
         });
@@ -129,7 +129,7 @@ class ExclusionsManager implements ExclusionsInfo {
         const enabledGroupsHostnames = exclusionsData.exclusionsGroups
             .map((group: ExclusionsGroup) => {
                 return group.exclusions.filter((exclusion) => {
-                    return (group.state === STATE.Enabled || group.state === STATE.PartlyEnabled)
+                    return (group.state === ExclusionStates.Enabled || group.state === ExclusionStates.PartlyEnabled)
                         && exclusion.enabled;
                 }).map(({ hostname }) => hostname);
             });
@@ -145,14 +145,14 @@ class ExclusionsManager implements ExclusionsInfo {
         ].flat(2);
     }
 
-    async setCurrentMode(mode: EXCLUSIONS_MODES) {
+    async setCurrentMode(mode: ExclusionsModes) {
         switch (mode) {
-            case this.MODES.SELECTIVE: {
+            case this.MODES.Selective: {
                 this.currentHandler = this.selectiveModeHandler;
                 this.inverted = true;
                 break;
             }
-            case this.MODES.REGULAR: {
+            case this.MODES.Regular: {
                 this.currentHandler = this.regularModeHandler;
                 this.inverted = false;
                 break;
@@ -163,12 +163,12 @@ class ExclusionsManager implements ExclusionsInfo {
         await this.handleExclusionsUpdate();
     }
 
-    getHandler(mode: EXCLUSIONS_MODES) {
+    getHandler(mode: ExclusionsModes) {
         switch (mode) {
-            case this.MODES.SELECTIVE: {
+            case this.MODES.Selective: {
                 return this.selective;
             }
-            case this.MODES.REGULAR: {
+            case this.MODES.Regular: {
                 return this.regular;
             }
             default:
@@ -231,12 +231,12 @@ class ExclusionsManager implements ExclusionsInfo {
         await this.selective.clearExclusionsData();
         const emptyExclusions = {
             inverted: this.inverted,
-            [this.MODES.SELECTIVE]: {
+            [this.MODES.Selective]: {
                 excludedServices: [],
                 exclusionsGroups: [],
                 excludedIps: [],
             },
-            [this.MODES.REGULAR]: {
+            [this.MODES.Regular]: {
                 excludedServices: [],
                 exclusionsGroups: [],
                 excludedIps: [],
@@ -249,10 +249,10 @@ class ExclusionsManager implements ExclusionsInfo {
         try {
             exclusionsData.forEach((entry) => {
                 const entryData = JSON.parse(entry.content);
-                if (entry.type === EXCLUSIONS_MODES.REGULAR) {
+                if (entry.type === ExclusionsModes.Regular) {
                     this.regular.importExclusionsData(entryData);
                 }
-                if (entry.type === EXCLUSIONS_MODES.SELECTIVE) {
+                if (entry.type === ExclusionsModes.Selective) {
                     this.selective.importExclusionsData(entryData);
                 }
             });

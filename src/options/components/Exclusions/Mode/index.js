@@ -23,7 +23,7 @@ const Mode = observer(() => {
     } = settingsStore;
 
     const onChange = (type) => async () => {
-        if (type === EXCLUSIONS_MODES.SELECTIVE) {
+        if (type === EXCLUSIONS_MODES.Selective) {
             openModal();
             return;
         }
@@ -31,21 +31,21 @@ const Mode = observer(() => {
     };
 
     const toggleSelectiveMode = async () => {
-        await toggleInverted(EXCLUSIONS_MODES.SELECTIVE);
+        await toggleInverted(EXCLUSIONS_MODES.Selective);
         closeModal();
     };
 
     const modes = [
-        EXCLUSIONS_MODES.REGULAR,
-        EXCLUSIONS_MODES.SELECTIVE,
+        EXCLUSIONS_MODES.Regular,
+        EXCLUSIONS_MODES.Selective,
     ];
 
     const titles = {
-        [EXCLUSIONS_MODES.REGULAR]: {
+        [EXCLUSIONS_MODES.Regular]: {
             title: reactTranslator.getMessage('settings_exclusion_regular_title'),
             description: reactTranslator.getMessage('settings_exclusion_regular_description'),
         },
-        [EXCLUSIONS_MODES.SELECTIVE]: {
+        [EXCLUSIONS_MODES.Selective]: {
             title: reactTranslator.getMessage('settings_exclusion_selective_title'),
             description: reactTranslator.getMessage('settings_exclusion_selective_description'),
         },

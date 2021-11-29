@@ -1,5 +1,5 @@
 import { ExclusionsGroup } from './ExclusionsGroup';
-import { STATE, TYPE } from '../../common/exclusionsConstants';
+import { ExclusionStates, ExclusionsTypes } from '../../common/exclusionsConstants';
 import { Exclusion } from './Exclusion';
 import { Service } from './Service';
 import { servicesManager } from './ServicesManager';
@@ -56,8 +56,8 @@ interface ExclusionsManagerInterface {
     getExclusions(): ExclusionsData;
     addUrlToExclusions(url: string): void;
     isExcluded(url: string): boolean | undefined;
-    removeExclusion(id: string, type: TYPE): void;
-    toggleExclusionState(id: string, type: TYPE): void;
+    removeExclusion(id: string, type: ExclusionsTypes): void;
+    toggleExclusionState(id: string, type: ExclusionsTypes): void;
     clearExclusionsData(): void;
 }
 
@@ -109,17 +109,17 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
      * @param id
      * @param type
      */
-    async removeExclusion(id: string, type: TYPE) {
+    async removeExclusion(id: string, type: ExclusionsTypes) {
         switch (type) {
-            case TYPE.SERVICE: {
+            case ExclusionsTypes.Service: {
                 await this.removeService(id);
                 break;
             }
-            case TYPE.GROUP: {
+            case ExclusionsTypes.Group: {
                 await this.removeExclusionsGroup(id);
                 break;
             }
-            case TYPE.IP: {
+            case ExclusionsTypes.Ip: {
                 await this.removeIp(id);
                 break;
             }
@@ -133,17 +133,17 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
      * @param id
      * @param type
      */
-    async toggleExclusionState(id: string, type: TYPE) {
+    async toggleExclusionState(id: string, type: ExclusionsTypes) {
         switch (type) {
-            case TYPE.SERVICE: {
+            case ExclusionsTypes.Service: {
                 await this.toggleServiceState(id);
                 break;
             }
-            case TYPE.GROUP: {
+            case ExclusionsTypes.Group: {
                 await this.toggleExclusionsGroupState(id);
                 break;
             }
-            case TYPE.IP: {
+            case ExclusionsTypes.Ip: {
                 await this.toggleIpState(id);
                 break;
             }
@@ -377,7 +377,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
 
         const isExclusionsGroup = this.exclusionsGroups.some((group) => {
             return group.exclusions.some((exclusion) => {
-                return (group.state === STATE.Enabled || group.state === STATE.PartlyEnabled)
+                return (group.state === ExclusionStates.Enabled || group.state === ExclusionStates.PartlyEnabled)
                     && (areHostnamesEqual(hostname, exclusion.hostname)
                         || (includeWildcards && shExpMatch(hostname, exclusion.hostname)))
                     && exclusion.enabled;
@@ -388,8 +388,8 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
             return service.exclusionsGroups.some((group) => {
                 return group.exclusions.some((exclusion) => {
                     // eslint-disable-next-line max-len
-                    return (service.state === STATE.Enabled || service.state === STATE.PartlyEnabled)
-                    && (group.state === STATE.Enabled || group.state === STATE.PartlyEnabled)
+                    return (service.state === ExclusionStates.Enabled || service.state === ExclusionStates.PartlyEnabled)
+                    && (group.state === ExclusionStates.Enabled || group.state === ExclusionStates.PartlyEnabled)
                     && (areHostnamesEqual(hostname, exclusion.hostname)
                         || (includeWildcards && shExpMatch(hostname, exclusion.hostname)));
                 });

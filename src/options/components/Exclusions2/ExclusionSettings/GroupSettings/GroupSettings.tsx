@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../../../stores';
 import { Title } from '../../../ui/Title';
 import { StateCheckbox } from '../../StateCheckbox';
-import { EXCLUSIONS_MODES, TYPE } from '../../../../../common/exclusionsConstants';
+import { ExclusionsModes, ExclusionsTypes } from '../../../../../common/exclusionsConstants';
 import { SubdomainModal } from '../SubdomainModal';
 import { reactTranslator } from '../../../../../common/reactTranslator';
 
@@ -47,7 +47,7 @@ export const GroupSettings = observer(({ exclusionData, parentServiceId }) => {
         exclusionsStore.openAddSubdomainModal();
     };
 
-    const subtitle = exclusionsStore.currentMode === EXCLUSIONS_MODES.REGULAR
+    const subtitle = exclusionsStore.currentMode === ExclusionsModes.Regular
         ? reactTranslator.getMessage('settings_exclusion_group_settings_subtitle_regular_mode')
         : reactTranslator.getMessage('settings_exclusion_group_settings_subtitle_selecive_mode');
 
@@ -60,7 +60,7 @@ export const GroupSettings = observer(({ exclusionData, parentServiceId }) => {
             >
                 <StateCheckbox
                     id={exclusion.id}
-                    type={TYPE.GROUP}
+                    type={ExclusionsTypes.Group}
                     state={exclusion.enabled}
                     toggleHandler={toggleState}
                 />

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ExclusionsModal } from './ExclusionsModal';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { EXCLUSIONS_MODES } from '../../../../common/exclusionsConstants';
+import { ExclusionsModes } from '../../../../common/exclusionsConstants';
 
 export var RemoveExclusionsModal = function ({
     isOpen, closeModal, handleCancelClick, handleDeleteClick, currentMode,
@@ -10,9 +10,9 @@ export var RemoveExclusionsModal = function ({
     const title = reactTranslator.getMessage('options_exclusions_delete_title');
 
     let description;
-    if (currentMode === EXCLUSIONS_MODES.REGULAR) {
+    if (currentMode === ExclusionsModes.Regular) {
         description = reactTranslator.getMessage('options_exclusions_delete_regular_description');
-    } else if (currentMode === EXCLUSIONS_MODES.SELECTIVE) {
+    } else if (currentMode === ExclusionsModes.Selective) {
         description = reactTranslator.getMessage('options_exclusions_delete_selective_description');
     }
 

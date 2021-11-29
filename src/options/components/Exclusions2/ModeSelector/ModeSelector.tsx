@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
 import { rootStore } from '../../../stores';
-import { EXCLUSIONS_MODES } from '../../../../common/exclusionsConstants';
+import { ExclusionsModes } from '../../../../common/exclusionsConstants';
 import { reactTranslator } from '../../../../common/reactTranslator';
 
 export const ModeSelector = observer(() => {
@@ -18,8 +18,8 @@ export const ModeSelector = observer(() => {
         toggleInverted,
     } = exclusionsStore;
 
-    const onChange = (type: EXCLUSIONS_MODES) => async () => {
-        if (type === EXCLUSIONS_MODES.SELECTIVE) {
+    const onChange = (type: ExclusionsModes) => async () => {
+        if (type === ExclusionsModes.Selective) {
             openModal();
             return;
         }
@@ -27,22 +27,22 @@ export const ModeSelector = observer(() => {
     };
 
     const toggleSelectiveMode = async () => {
-        await toggleInverted(EXCLUSIONS_MODES.SELECTIVE);
+        await toggleInverted(ExclusionsModes.Selective);
         closeModal();
     };
 
     const titles = {
-        [EXCLUSIONS_MODES.REGULAR]: {
+        [ExclusionsModes.Regular]: {
             title: reactTranslator.getMessage('settings_exclusion_regular_title'),
             description: reactTranslator.getMessage('settings_exclusion_regular_description'),
         },
-        [EXCLUSIONS_MODES.SELECTIVE]: {
+        [ExclusionsModes.Selective]: {
             title: reactTranslator.getMessage('settings_exclusion_selective_title'),
             description: reactTranslator.getMessage('settings_exclusion_selective_description'),
         },
     };
 
-    const renderRadioButton = (exclusionsType: EXCLUSIONS_MODES) => {
+    const renderRadioButton = (exclusionsType: ExclusionsModes) => {
         const enabled = exclusionsType === currentMode;
         const titleClass = classnames('radio__title', { 'radio__title--active': enabled });
 
@@ -109,8 +109,8 @@ export const ModeSelector = observer(() => {
             <div className="settings__section">
                 <div className="settings__group">
                     <div className="settings__controls">
-                        {renderRadioButton(EXCLUSIONS_MODES.REGULAR)}
-                        {renderRadioButton(EXCLUSIONS_MODES.SELECTIVE)}
+                        {renderRadioButton(ExclusionsModes.Regular)}
+                        {renderRadioButton(ExclusionsModes.Selective)}
                     </div>
                 </div>
             </div>

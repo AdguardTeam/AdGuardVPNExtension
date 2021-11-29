@@ -2,13 +2,13 @@ import { nanoid } from 'nanoid';
 
 import { Exclusion } from './Exclusion';
 import { prepareUrl } from '../../lib/helpers';
-import { STATE } from '../../common/exclusionsConstants';
+import { ExclusionStates } from '../../common/exclusionsConstants';
 
 export interface ExclusionsGroupInterface {
     id: string;
     hostname: string;
     exclusions: Exclusion[];
-    state: STATE;
+    state: ExclusionStates;
 }
 
 export class ExclusionsGroup implements ExclusionsGroupInterface {
@@ -18,7 +18,7 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
 
     exclusions: Exclusion[];
 
-    state: STATE;
+    state: ExclusionStates;
 
     constructor(exclusionsGroupData: ExclusionsGroupInterface | string) {
         if (typeof exclusionsGroupData === 'string') {
@@ -26,7 +26,7 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
             this.hostname = prepareUrl(exclusionsGroupData);
             this.exclusions = [];
             this.addDefaultExclusions();
-            this.state = STATE.Enabled;
+            this.state = ExclusionStates.Enabled;
         } else {
             this.id = exclusionsGroupData.id;
             this.hostname = exclusionsGroupData.hostname;
@@ -126,11 +126,11 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
             .filter((exclusion: Exclusion) => exclusion.enabled);
 
         if (enabledExclusions.length === this.exclusions.length) {
-            this.state = STATE.Enabled;
+            this.state = ExclusionStates.Enabled;
         } else if (!enabledExclusions.length) {
-            this.state = STATE.Disabled;
+            this.state = ExclusionStates.Disabled;
         } else {
-            this.state = STATE.PartlyEnabled;
+            this.state = ExclusionStates.PartlyEnabled;
         }
     }
 
@@ -138,11 +138,11 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
      * Toggles ExclusionsGroup state
      */
     toggleExclusionsGroupState = () => {
-        if (this.state === STATE.Enabled || this.state === STATE.PartlyEnabled) {
-            this.state = STATE.Disabled;
+        if (this.state === ExclusionStates.Enabled || this.state === ExclusionStates.PartlyEnabled) {
+            this.state = ExclusionStates.Disabled;
             this.setSubdomainsState(false);
         } else {
-            this.state = STATE.Enabled;
+            this.state = ExclusionStates.Enabled;
             this.setSubdomainsState(true);
         }
     };
@@ -151,7 +151,7 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
      * Enables ExclusionsGroup
      */
     enableExclusionsGroup() {
-        this.state = STATE.Enabled;
+        this.state = ExclusionStates.Enabled;
         this.setSubdomainsState(true);
     }
 
@@ -159,7 +159,7 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
      * Disables ExclusionsGroup
      */
     disableExclusionsGroup() {
-        this.state = STATE.Disabled;
+        this.state = ExclusionStates.Disabled;
         this.setSubdomainsState(false);
     }
 

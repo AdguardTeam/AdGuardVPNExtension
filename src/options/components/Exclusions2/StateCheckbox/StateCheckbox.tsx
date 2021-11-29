@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { STATE, TYPE } from '../../../../common/exclusionsConstants';
+import { ExclusionStates, ExclusionsTypes } from '../../../../common/exclusionsConstants';
 
 import './statecheckbox.pcss';
 
 interface StateCheckboxProps {
     id: string,
-    type: TYPE,
-    state: STATE | boolean,
-    toggleHandler: (id: string, type: TYPE) => React.MouseEventHandler<HTMLButtonElement>,
+    type: ExclusionsTypes,
+    state: ExclusionStates | boolean,
+    toggleHandler: (id: string, type: ExclusionsTypes) => React.MouseEventHandler<HTMLButtonElement>,
 }
 
 export var StateCheckbox = function ({
@@ -18,10 +18,10 @@ export var StateCheckbox = function ({
     toggleHandler,
 }: StateCheckboxProps) {
     const getStateIcon = () => {
-        if (state === STATE.Enabled || state === true) {
+        if (state === ExclusionStates.Enabled || state === true) {
             return '#enabled';
         }
-        if (state === STATE.PartlyEnabled) {
+        if (state === ExclusionStates.PartlyEnabled) {
             return '#partly-enabled';
         }
         return '#disabled';

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../../../stores';
-import { STATE } from '../../../../../../common/exclusionsConstants';
+import { ExclusionStates } from '../../../../../../common/exclusionsConstants';
 import { SearchHighlighter } from '../../../Search/SearchHighlighter';
 import { reactTranslator } from '../../../../../../common/reactTranslator';
 
@@ -13,10 +13,10 @@ const determineButtonState = (service: any, servicesToToggle: string[]) => {
     const isInToggle = servicesToToggle.some((serviceId: any) => serviceId === service.serviceId);
 
     if (isInToggle) {
-        return service.state !== STATE.Disabled;
+        return service.state !== ExclusionStates.Disabled;
     }
 
-    return service.state === STATE.Disabled;
+    return service.state === ExclusionStates.Disabled;
 };
 
 // FIXME remove ts-ignore

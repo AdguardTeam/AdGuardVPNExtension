@@ -4,7 +4,7 @@ import format from 'date-fns/format';
 // @ts-ignore
 import FileSaver from 'file-saver';
 
-import { EXCLUSIONS_MODES, TYPE } from '../../common/exclusionsConstants';
+import { ExclusionsModes, ExclusionsTypes } from '../../common/exclusionsConstants';
 import messenger from '../../lib/messenger';
 import { containsIgnoreCase } from '../components/Exclusions2/Search/SearchHighlighter/helpers';
 
@@ -17,12 +17,12 @@ const DEFAULT_ADD_EXCLUSION_MODE = AddExclusionMode.SERVICE;
 
 export class ExclusionsStore {
     @observable exclusions = {
-        [EXCLUSIONS_MODES.SELECTIVE]: {
+        [ExclusionsModes.Selective]: {
             excludedIps: [],
             exclusionsGroups: [],
             excludedServices: [],
         },
-        [EXCLUSIONS_MODES.REGULAR]: {
+        [ExclusionsModes.Regular]: {
             excludedIps: [],
             exclusionsGroups: [],
             excludedServices: [],
@@ -95,7 +95,7 @@ export class ExclusionsStore {
                     name: service.serviceName,
                     iconUrl: service.iconUrl,
                     state: service.state,
-                    type: TYPE.SERVICE,
+                    type: ExclusionsTypes.Service,
                 };
             });
         // @ts-ignore
@@ -105,7 +105,7 @@ export class ExclusionsStore {
                 name: group.hostname,
                 iconUrl: '/assets/images/ip-icon.svg',
                 state: group.state,
-                type: TYPE.GROUP,
+                type: ExclusionsTypes.Group,
             };
         });
         // @ts-ignore
@@ -115,7 +115,7 @@ export class ExclusionsStore {
                 name: ip.hostname,
                 iconUrl: '/assets/images/ip-icon.svg',
                 state: ip.enabled,
-                type: TYPE.IP,
+                type: ExclusionsTypes.Ip,
             };
         });
 
@@ -245,13 +245,13 @@ export class ExclusionsStore {
         };
 
     @action
-        removeExclusion = async (id: string, type: TYPE) => {
+        removeExclusion = async (id: string, type: ExclusionsTypes) => {
             await messenger.removeExclusion(id, type);
             await this.updateExclusionsData();
         };
 
     @action
-        toggleExclusionState = async (id: string, type: TYPE) => {
+        toggleExclusionState = async (id: string, type: ExclusionsTypes) => {
             await messenger.toggleExclusionState(id, type);
             await this.updateExclusionsData();
         };
@@ -448,8 +448,8 @@ export class ExclusionsStore {
         };
 
         const zip = new JSZip();
-        zip.file(`${nowFormatted}${EXCLUSION_FILES_EXTENSIONS.REGULAR}`, JSON.stringify(this.exclusions[EXCLUSIONS_MODES.REGULAR], null, 4));
-        zip.file(`${nowFormatted}${EXCLUSION_FILES_EXTENSIONS.SELECTIVE}`, JSON.stringify(this.exclusions[EXCLUSIONS_MODES.SELECTIVE], null, 4));
+        zip.file(`${nowFormatted}${EXCLUSION_FILES_EXTENSIONS.REGULAR}`, JSON.stringify(this.exclusions[ExclusionsModes.Regular], null, 4));
+        zip.file(`${nowFormatted}${EXCLUSION_FILES_EXTENSIONS.SELECTIVE}`, JSON.stringify(this.exclusions[ExclusionsModes.Selective], null, 4));
 
         const zipContent = await zip.generateAsync({ type: 'blob' });
         FileSaver.saveAs(zipContent, ZIP_FILENAME);

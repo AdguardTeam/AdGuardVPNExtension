@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../../../stores';
 import { Title } from '../../../ui/Title';
 import { StateCheckbox } from '../../StateCheckbox';
-import { EXCLUSIONS_MODES, TYPE } from '../../../../../common/exclusionsConstants';
+import { ExclusionsModes, ExclusionsTypes } from '../../../../../common/exclusionsConstants';
 import { reactTranslator } from '../../../../../common/reactTranslator';
 
 import './service-settings.pcss';
@@ -34,7 +34,7 @@ export const ServiceSettings = observer(({ exclusionData }) => {
         await exclusionsStore.resetServiceData(exclusionData.serviceId);
     };
 
-    const subtitle = exclusionsStore.currentMode === EXCLUSIONS_MODES.REGULAR
+    const subtitle = exclusionsStore.currentMode === ExclusionsModes.Regular
         ? reactTranslator.getMessage('settings_exclusion_service_settings_subtitle_regular_mode')
         : reactTranslator.getMessage('settings_exclusion_service_settings_subtitle_selective_mode');
 
@@ -47,7 +47,7 @@ export const ServiceSettings = observer(({ exclusionData }) => {
             >
                 <StateCheckbox
                     id={group.id}
-                    type={TYPE.GROUP}
+                    type={ExclusionsTypes.Group}
                     state={group.state}
                     toggleHandler={toggleState}
                 />

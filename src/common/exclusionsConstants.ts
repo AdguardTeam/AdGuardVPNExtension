@@ -1,17 +1,17 @@
 // Extracted in the separate file because this variable is also used in the options page
-export enum EXCLUSIONS_MODES {
-    SELECTIVE = 'selective',
-    REGULAR = 'regular',
+export enum ExclusionsModes {
+    Selective = 'selective',
+    Regular = 'regular',
 }
 
-export enum STATE {
+export enum ExclusionStates {
     Enabled = 'Enabled',
     PartlyEnabled = 'PartlyEnabled',
     Disabled = 'Disabled',
 }
 
-export enum TYPE {
-    IP = 'ip',
-    GROUP = 'group',
-    SERVICE = 'service',
+export enum ExclusionsTypes {
+    Ip = 'ip',
+    Group = 'group',
+    Service = 'service',
 }

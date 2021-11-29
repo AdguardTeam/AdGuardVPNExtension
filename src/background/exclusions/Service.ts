@@ -1,5 +1,5 @@
 import { ExclusionsGroup } from './ExclusionsGroup';
-import { STATE } from '../../common/exclusionsConstants';
+import { ExclusionStates } from '../../common/exclusionsConstants';
 
 export interface ServiceInterface {
     serviceId: string;
@@ -8,7 +8,7 @@ export interface ServiceInterface {
     categories: string[];
     modifiedTime: string;
     exclusionsGroups?: ExclusionsGroup[];
-    state?: STATE;
+    state?: ExclusionStates;
     domains?: string[];
 }
 
@@ -25,7 +25,7 @@ export class Service implements ServiceInterface {
 
     exclusionsGroups: ExclusionsGroup[];
 
-    state: STATE;
+    state: ExclusionStates;
 
     constructor(service: ServiceInterface) {
         this.serviceId = service.serviceId;
@@ -35,7 +35,7 @@ export class Service implements ServiceInterface {
         this.modifiedTime = service.modifiedTime;
         this.exclusionsGroups = service.exclusionsGroups
             ?.map((group) => new ExclusionsGroup(group)) || [];
-        this.state = service.state || STATE.Enabled;
+        this.state = service.state || ExclusionStates.Enabled;
 
         const { domains } = service;
 
@@ -140,17 +140,17 @@ export class Service implements ServiceInterface {
     }
 
     enableService() {
-        this.state = STATE.Enabled;
+        this.state = ExclusionStates.Enabled;
         this.enableExclusionsGroups();
     }
 
     disableService() {
-        this.state = STATE.Disabled;
+        this.state = ExclusionStates.Disabled;
         this.disableExclusionsGroups();
     }
 
     toggleServiceState = () => {
-        if (this.state === STATE.Enabled || this.state === STATE.PartlyEnabled) {
+        if (this.state === ExclusionStates.Enabled || this.state === ExclusionStates.PartlyEnabled) {
             this.disableService();
         } else {
             this.enableService();
@@ -162,17 +162,17 @@ export class Service implements ServiceInterface {
      */
     updateServiceState() {
         const enabledGroups = this.exclusionsGroups
-            .filter((exclusion: ExclusionsGroup) => exclusion.state === STATE.Enabled);
+            .filter((exclusion: ExclusionsGroup) => exclusion.state === ExclusionStates.Enabled);
 
         const disabledGroups = this.exclusionsGroups
-            .filter((exclusion: ExclusionsGroup) => exclusion.state === STATE.Disabled);
+            .filter((exclusion: ExclusionsGroup) => exclusion.state === ExclusionStates.Disabled);
 
         if (enabledGroups.length === this.exclusionsGroups.length) {
-            this.state = STATE.Enabled;
+            this.state = ExclusionStates.Enabled;
         } else if (disabledGroups.length === this.exclusionsGroups.length) {
-            this.state = STATE.Disabled;
+            this.state = ExclusionStates.Disabled;
         } else {
-            this.state = STATE.PartlyEnabled;
+            this.state = ExclusionStates.PartlyEnabled;
         }
     }
 }
