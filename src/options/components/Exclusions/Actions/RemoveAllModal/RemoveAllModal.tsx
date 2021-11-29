@@ -7,8 +7,6 @@ import { reactTranslator } from '../../../../../common/reactTranslator';
 
 import './remove-all-modal.pcss';
 
-// FIXME remove @ts-ignore
-// @ts-ignore
 export const RemoveAllModal = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
 

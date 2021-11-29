@@ -3,7 +3,6 @@
     "baseUrl": "src",
     "target": "esnext",
     "jsx": "react",
-    "module": "ESNext",
     "moduleResolution": "Node",
     "experimentalDecorators": true,
     "allowJs": true,

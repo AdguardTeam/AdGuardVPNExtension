@@ -5,12 +5,12 @@ import { rootStore } from '../../../../../stores';
 import { ExclusionStates } from '../../../../../../common/exclusionsConstants';
 import { SearchHighlighter } from '../../../Search/SearchHighlighter';
 import { reactTranslator } from '../../../../../../common/reactTranslator';
+import { PreparedService } from '../../../../../stores/ExclusionsStore';
 
 import './service-mode.pcss';
 
-// FIXME remove any
-const determineButtonState = (service: any, servicesToToggle: string[]) => {
-    const isInToggle = servicesToToggle.some((serviceId: any) => serviceId === service.serviceId);
+const determineButtonState = (service: PreparedService, servicesToToggle: string[]) => {
+    const isInToggle = servicesToToggle.some((serviceId) => serviceId === service.serviceId);
 
     if (isInToggle) {
         return service.state !== ExclusionStates.Disabled;
@@ -19,9 +19,11 @@ const determineButtonState = (service: any, servicesToToggle: string[]) => {
     return service.state === ExclusionStates.Disabled;
 };
 
-// FIXME remove ts-ignore
-// @ts-ignore
-export const ServiceRow = observer(({ service }) => {
+interface ServiceRowProps {
+    service: PreparedService;
+}
+
+export const ServiceRow = observer(({ service }: ServiceRowProps) => {
     const { exclusionsStore } = useContext(rootStore);
 
     const addService = async (e: React.MouseEvent<HTMLButtonElement>) => {
