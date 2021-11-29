@@ -14,7 +14,10 @@ const exclusionsHandler = new ExclusionsHandler(() => {}, {
 const FACEBOOK_SERVICE_DATA = new Service({
     serviceId: 'facebook',
     serviceName: 'Facebook',
-    categories: ['SOCIAL_NETWORKS'],
+    categories: [{
+        id: 'SOCIAL_NETWORKS',
+        name: 'Social Networks',
+    }],
     iconUrl: 'https://icons.adguard.org/icon?domain=facebook.com',
     modifiedTime: '2021-09-14T10:23:00+0000',
     exclusionsGroups: [
@@ -29,7 +32,10 @@ const FACEBOOK_SERVICE_DATA = new Service({
 const GITHUB_SERVICE_DATA = new Service({
     serviceId: 'github',
     serviceName: 'GitHub',
-    categories: ['WORK'],
+    categories: [{
+        id: 'WORK',
+        name: 'Work Communication Tools',
+    }],
     iconUrl: 'https://icons.adguard.org/icon?domain=github.com',
     modifiedTime: '2021-09-14T10:23:00+0000',
     exclusionsGroups: [
@@ -47,7 +53,7 @@ const GITHUB_SERVICE_DATA = new Service({
 
 jest.mock('../../src/background/exclusions/ServicesManager');
 
-describe('ExclusionsManager', () => {
+describe('ExclusionsHandler', () => {
     afterEach(async (done) => {
         await exclusionsHandler.clearExclusionsData();
         done();
@@ -340,8 +346,8 @@ describe('ExclusionsManager', () => {
         expect(exclusionsData.excludedServices).toHaveLength(1);
         expect(exclusionsData.excludedServices[0].serviceId).toEqual('facebook');
         expect(exclusionsData.exclusionsGroups).toHaveLength(0);
-        // everything should be enabled
-        expect(exclusionsData.excludedServices[0].state).toEqual(ExclusionStates.Enabled);
+        // facebook.com should be enabled, all other exclusions groups should be disabled
+        expect(exclusionsData.excludedServices[0].state).toEqual(ExclusionStates.PartlyEnabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].hostname).toEqual('facebook.com');
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].state)
             .toEqual(ExclusionStates.Enabled);
@@ -350,9 +356,9 @@ describe('ExclusionsManager', () => {
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[1]
             .enabled).toBeTruthy();
         expect(exclusionsData.excludedServices[0].exclusionsGroups[1].state)
-            .toEqual(ExclusionStates.Enabled);
+            .toEqual(ExclusionStates.Disabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[2].state)
-            .toEqual(ExclusionStates.Enabled);
+            .toEqual(ExclusionStates.Disabled);
 
         // disable service
         await exclusionsHandler.toggleServiceState(exclusionsData.excludedServices[0].serviceId);
@@ -375,7 +381,7 @@ describe('ExclusionsManager', () => {
         servicesManager.getService.mockImplementation(() => GITHUB_SERVICE_DATA);
         servicesManager.isService.mockImplementation(() => 'github');
 
-        // add to exclusions http://www.facebook.com, it should become service
+        // add to exclusions http://www.github.com, it should become service
         await exclusionsHandler.addUrlToExclusions('http://www.github.com');
         let exclusionsData = exclusionsHandler.getExclusions();
 
@@ -391,11 +397,16 @@ describe('ExclusionsManager', () => {
         exclusionsData = exclusionsHandler.getExclusions();
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].state)
             .toEqual(ExclusionStates.Disabled);
-        // service should become partly enabled
-        expect(exclusionsData.excludedServices[0].state).toEqual(ExclusionStates.PartlyEnabled);
+        // service should become disabled, because all other exclusions groups were disabled by default
+        expect(exclusionsData.excludedServices[0].state).toEqual(ExclusionStates.Disabled);
 
         // delete disabled exclusions group
         await exclusionsHandler.removeExclusionsGroupFromService(serviceId, groupId);
+        exclusionsData = exclusionsHandler.getExclusions();
+        // enable other groups
+        exclusionsData.excludedServices[0].exclusionsGroups.forEach((group) => {
+            exclusionsHandler.toggleExclusionsGroupStateInService(serviceId, group.id);
+        })
         exclusionsData = exclusionsHandler.getExclusions();
         expect(exclusionsData.excludedServices[0].exclusionsGroups).toHaveLength(5);
         // service should become enabled
@@ -439,5 +450,23 @@ describe('ExclusionsManager', () => {
         expect(exclusionsData.excludedIps).toHaveLength(1);
         expect(exclusionsData.excludedIps[0].hostname).toEqual('192.168.35.41');
         expect(exclusionsData.excludedIps[0].enabled).toBeTruthy();
+    });
+
+    it('add manually service domain (case 2)', async () => {
+        // add to exclusions http://www.github.com, it should become service
+        await exclusionsHandler.addUrlToExclusions('www.github.com');
+        let exclusionsData = exclusionsHandler.getExclusions();
+
+        expect(exclusionsData.excludedServices).toHaveLength(1);
+        expect(exclusionsData.excludedServices[0].serviceId).toEqual('github');
+        expect(exclusionsData.excludedServices[0].exclusionsGroups).toHaveLength(6);
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].hostname).toEqual('github.com');
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].state).toEqual(ExclusionStates.Enabled);
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[1].hostname).toEqual('github.io');
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[1].state).toEqual(ExclusionStates.Disabled);
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[2].state).toEqual(ExclusionStates.Disabled);
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[3].state).toEqual(ExclusionStates.Disabled);
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[4].state).toEqual(ExclusionStates.Disabled);
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[5].state).toEqual(ExclusionStates.Disabled);
     });
 });
