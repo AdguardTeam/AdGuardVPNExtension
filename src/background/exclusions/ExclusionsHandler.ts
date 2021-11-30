@@ -164,10 +164,6 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
             return;
         }
         const serviceData = servicesManager.getService(serviceId);
-        if (!serviceData) {
-            log.error(`Unable to add service. There is no service '${serviceId}'`);
-            return;
-        }
         const service = new Service(serviceData);
         this.excludedServices.push(service);
         await this.updateHandler();
