@@ -337,7 +337,7 @@ describe('ExclusionsHandler', () => {
 
     it('service state test', async () => {
         servicesManager.getService.mockImplementation(() => FACEBOOK_SERVICE_DATA);
-        servicesManager.isService.mockImplementation(() => 'facebook');
+        servicesManager.getServiceIdByUrl.mockImplementation(() => 'facebook');
 
         // add to exclusions http://www.facebook.com, it should become service
         await exclusionsHandler.addUrlToExclusions('http://www.facebook.com');
@@ -379,7 +379,7 @@ describe('ExclusionsHandler', () => {
 
     it('service exclusions groups test', async () => {
         servicesManager.getService.mockImplementation(() => GITHUB_SERVICE_DATA);
-        servicesManager.isService.mockImplementation(() => 'github');
+        servicesManager.getServiceIdByUrl.mockImplementation(() => 'github');
 
         // add to exclusions http://www.github.com, it should become service
         await exclusionsHandler.addUrlToExclusions('http://www.github.com');
@@ -481,7 +481,7 @@ describe('ExclusionsHandler', () => {
 
     it('service default data', async () => {
         servicesManager.getService.mockImplementation(() => GITHUB_SERVICE_DATA);
-        servicesManager.isService.mockImplementation(() => 'github');
+        servicesManager.getServiceIdByUrl.mockImplementation(() => 'github');
         // add github service
         await exclusionsHandler.addService('github');
         let exclusionsData = exclusionsHandler.getExclusions();
@@ -518,7 +518,7 @@ describe('ExclusionsHandler', () => {
 
     it('service exclusions groups default data', async () => {
         servicesManager.getService.mockImplementation(() => GITHUB_SERVICE_DATA);
-        servicesManager.isService.mockImplementation(() => 'github');
+        servicesManager.getServiceIdByUrl.mockImplementation(() => 'github');
         // add github service
         await exclusionsHandler.addService('github');
         let exclusionsData = exclusionsHandler.getExclusions();

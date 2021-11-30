@@ -254,7 +254,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
             return;
         }
 
-        const serviceId = servicesManager.isService(hostname);
+        const serviceId = servicesManager.getServiceIdByUrl(hostname);
         if (serviceId) {
             await this.addService(serviceId);
             // if service added manually as domain,
