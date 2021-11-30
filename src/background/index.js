@@ -6,7 +6,7 @@ import connectivity from './connectivity';
 import contextMenu from './contextMenu';
 import credentials from './credentials';
 import endpoints from './endpoints';
-import exclusions from './exclusions';
+import exclusions, { servicesManager } from './exclusions';
 import { log } from '../lib/logger';
 import management from './management';
 import messaging from './messageHandler';
@@ -60,6 +60,7 @@ global.adguard = {
         await flagsStorage.init();
         permissionsChecker.init(); // should be initiated before auth module
         await auth.init();
+        await servicesManager.init();
         await settings.init();
         await credentials.init();
         await exclusions.init();

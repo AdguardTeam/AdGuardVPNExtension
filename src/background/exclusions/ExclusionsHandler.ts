@@ -263,7 +263,8 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
         const serviceId = servicesManager.isService(hostname);
         if (serviceId) {
             await this.addService(serviceId);
-            // if service added manually as domain, the only domain's exclusions group should be enabled
+            // if service added manually as domain,
+            // the only domain's exclusions group should be enabled
             await this.toggleServiceState(serviceId);
             this.excludedServices.forEach((service) => {
                 if (service.serviceId === serviceId) {
@@ -271,7 +272,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
                         if (group.hostname === hostname) {
                             service.toggleExclusionsGroupState(group.id);
                         }
-                    })
+                    });
                 }
             });
             return;

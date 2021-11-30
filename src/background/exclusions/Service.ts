@@ -144,15 +144,15 @@ export class Service implements ServiceInterface {
         });
     }
 
-    enableService() {
+    enableService = () => {
         this.state = ExclusionStates.Enabled;
         this.enableExclusionsGroups();
-    }
+    };
 
-    disableService() {
+    disableService = () => {
         this.state = ExclusionStates.Disabled;
         this.disableExclusionsGroups();
-    }
+    };
 
     toggleServiceState = () => {
         if (this.state === ExclusionStates.Enabled

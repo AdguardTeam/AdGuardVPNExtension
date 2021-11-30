@@ -2,8 +2,10 @@ import throttle from 'lodash/throttle';
 import { log } from '../../lib/logger';
 import { SETTINGS_IDS } from '../../lib/constants';
 import browserApi from '../browserApi';
-import { ExclusionsModes, ExclusionStates } from '../../common/exclusionsConstants';
+import { ExclusionsModes } from '../../common/exclusionsConstants';
 import { ExclusionsGroup } from '../exclusions/ExclusionsGroup';
+import { Service } from '../exclusions/Service';
+// import { servicesManager } from '../exclusions';
 
 const SCHEME_VERSION = '9';
 const THROTTLE_TIMEOUT = 100;
@@ -131,25 +133,52 @@ class SettingsService {
         };
     };
 
-    // TODO handle services websites migration when proper services adding will be fixed
-    migrateFrom8to9 = (oldSettings) => {
-        const regularExclusionsGroups = oldSettings[SETTINGS_IDS.EXCLUSIONS].regular
-            .map(({ hostname, enabled }) => {
-                const exclusionsGroup = new ExclusionsGroup(hostname);
-                if (!enabled) {
-                    exclusionsGroup.disableExclusionsGroup();
-                }
-                return exclusionsGroup;
-            });
+    /**
+     * Converts old type exclusions list into ExclusionsGroups and Services
+     * @param exclusions
+     * @return {{exclusionsGroups: [], services: []}}
+     */
+    convertExclusions(exclusions) {
+        const services = [];
+        const exclusionsGroups = [];
 
-        const selectiveExclusions = oldSettings[SETTINGS_IDS.EXCLUSIONS].selective
-            .map(({ hostname, enabled }) => {
+        exclusions.forEach(({ hostname, enabled }) => {
+            // const serviceId = servicesManager.isService(hostname);
+            const serviceId = null;
+            if (serviceId) {
+                // const serviceData = servicesManager.getService(serviceId);
+                // const service = new Service(serviceData);
+                // service.disableService();
+                // if (enabled) {
+                //     service.exclusionsGroups.forEach((group) => {
+                //         if (group.hostname === hostname) {
+                //             service.toggleExclusionsGroupState(group.id);
+                //         }
+                //     });
+                // }
+                // services.push(service);
+            } else {
                 const exclusionsGroup = new ExclusionsGroup(hostname);
                 if (!enabled) {
                     exclusionsGroup.disableExclusionsGroup();
                 }
-                return exclusionsGroup;
-            });
+                exclusionsGroups.push(exclusionsGroup);
+            }
+        });
+
+        return {
+            services,
+            exclusionsGroups,
+        };
+    }
+
+    migrateFrom8to9 = (oldSettings) => {
+        const regularExclusions = this.convertExclusions(
+            oldSettings[SETTINGS_IDS.EXCLUSIONS].regular,
+        );
+        const selectiveExclusions = this.convertExclusions(
+            oldSettings[SETTINGS_IDS.EXCLUSIONS].selective,
+        );
 
         return {
             ...oldSettings,
@@ -157,13 +186,13 @@ class SettingsService {
             [SETTINGS_IDS.EXCLUSIONS]: {
                 inverted: oldSettings[SETTINGS_IDS.EXCLUSIONS].inverted,
                 [ExclusionsModes.Regular]: {
-                    excludedServices: [],
-                    exclusionsGroups: [...regularExclusionsGroups],
+                    excludedServices: [...regularExclusions.services],
+                    exclusionsGroups: [...regularExclusions.exclusionsGroups],
                     excludedIps: [],
                 },
                 [ExclusionsModes.Selective]: {
-                    excludedServices: [],
-                    exclusionsGroups: [...selectiveExclusions],
+                    excludedServices: [...selectiveExclusions.services],
+                    exclusionsGroups: [...selectiveExclusions.exclusionsGroups],
                     excludedIps: [],
                 },
             },

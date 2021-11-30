@@ -5,7 +5,6 @@ import { ExclusionsGroup } from './ExclusionsGroup';
 import { Exclusion } from './Exclusion';
 import { Service } from './Service';
 import { ExclusionsModes, ExclusionStates } from '../../common/exclusionsConstants';
-import { servicesManager } from './ServicesManager';
 
 interface ExclusionsInfo {
     inverted: boolean,
@@ -47,8 +46,6 @@ class ExclusionsManager implements ExclusionsInfo {
     }
 
     init = async () => {
-        await servicesManager.init();
-
         this.exclusions = this.settings.getExclusions() || {};
 
         const selective = this.exclusions?.[this.MODES.Selective] ?? {
