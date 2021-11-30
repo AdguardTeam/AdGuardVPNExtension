@@ -183,16 +183,8 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
     }
 
     async resetServiceData(serviceId: string) {
-        this.excludedServices.forEach((service: Service) => {
-            if (service.serviceId === serviceId) {
-                const serviceData = servicesManager.getService(serviceId);
-                if (serviceData) {
-                    // eslint-disable-next-line no-param-reassign
-                    service.exclusionsGroups = serviceData.exclusionsGroups;
-                }
-                service.enableService();
-            }
-        });
+        await this.removeService(serviceId);
+        await this.addService(serviceId);
         await this.updateHandler();
     }
 
