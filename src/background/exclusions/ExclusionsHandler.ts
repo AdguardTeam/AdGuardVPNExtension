@@ -95,8 +95,14 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
         return this.exclusionsData;
     }
 
-    async addUrlToExclusions(hostname: string) {
-        // TODO validation ??
+    async addUrlToExclusions(url: string) {
+        const hostname = getHostname(url);
+
+        if (!hostname) {
+            return;
+        }
+
+        // FIXME: should add validation?
         if (IP_REGEX.test(hostname)) {
             await this.addIp(hostname);
         } else {
