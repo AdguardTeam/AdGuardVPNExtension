@@ -29,7 +29,7 @@ class AuthApi extends Api {
             data: qs.stringify(data),
         };
 
-        return this.makeRequest(path, method, config);
+        return this.makeRequest(path, config, method);
     }
 
     REGISTER_USER = { path: 'api/1.0/registration', method: 'POST' };
@@ -58,7 +58,7 @@ class AuthApi extends Api {
             data: qs.stringify(data),
         };
 
-        return this.makeRequest(path, method, config);
+        return this.makeRequest(path, config, method);
     }
 
     USER_LOOKUP = { path: 'api/1.0/user_lookup', method: 'POST' };
@@ -71,7 +71,7 @@ class AuthApi extends Api {
                 request_id: appId,
             }),
         };
-        return this.makeRequest(path, method, config);
+        return this.makeRequest(path, config, method);
     }
 }
 
