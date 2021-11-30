@@ -143,6 +143,7 @@ class SettingsService {
         const exclusionsGroups = [];
 
         exclusions.forEach(({ hostname, enabled }) => {
+            // TODO fix import servicesManager to be able to create Services
             // const serviceId = servicesManager.isService(hostname);
             const serviceId = null;
             if (serviceId) {
