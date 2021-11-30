@@ -52,7 +52,7 @@ export const ServiceSettings = observer(({ exclusionData }) => {
         'button--medium',
         'button--outline-secondary',
         'service__reset',
-        { 'hidden':  isModifiedService()},
+        { hidden: isModifiedService() },
     );
 
     // FIXME remove any

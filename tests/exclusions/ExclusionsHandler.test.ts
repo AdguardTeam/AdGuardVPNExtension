@@ -496,7 +496,8 @@ describe('ExclusionsHandler', () => {
 
         // remove 'github.com' ExclusionsGroup from Service
         await exclusionsHandler.removeExclusionsGroupFromService(
-            'github', exclusionsData.excludedServices[0].exclusionsGroups[0].id
+            'github',
+            exclusionsData.excludedServices[0].exclusionsGroups[0].id,
         );
         exclusionsData = exclusionsHandler.getExclusions();
         expect(exclusionsData.excludedServices[0].exclusionsGroups).toHaveLength(5);
