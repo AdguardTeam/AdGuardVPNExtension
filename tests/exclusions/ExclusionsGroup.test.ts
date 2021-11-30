@@ -9,9 +9,9 @@ describe('ExclusionsGroup', () => {
         expect(exampleGroup.hostname).toEqual('example.org');
         expect(exampleGroup.exclusions.length).toEqual(2);
         expect(exampleGroup.exclusions[0].hostname).toEqual('example.org');
-        expect(exampleGroup.exclusions[0].enabled).toBeTruthy();
+        expect(exampleGroup.exclusions[0].enabled).toEqual(ExclusionStates.Enabled);
         expect(exampleGroup.exclusions[1].hostname).toEqual('*.example.org');
-        expect(exampleGroup.exclusions[1].enabled).toBeTruthy();
+        expect(exampleGroup.exclusions[1].enabled).toEqual(ExclusionStates.Enabled);
     });
 
     it('add and remove exclusion to exclusion group', () => {
@@ -25,7 +25,7 @@ describe('ExclusionsGroup', () => {
         expect(exampleGroup.exclusions.length).toEqual(3);
         expect(exampleGroup.exclusions[2].hostname).toEqual('test1.example.org');
         // subdomain pattern exclusion should be disabled if added new subdomain
-        expect(exampleGroup.exclusions[2].enabled).toBeFalsy();
+        expect(exampleGroup.exclusions[2].enabled).toEqual(ExclusionStates.Disabled);
 
         exampleGroup.addSubdomain('test2');
 
@@ -67,19 +67,19 @@ describe('ExclusionsGroup', () => {
         // group state should be PartlyEnabled
         expect(exampleGroup.state).toEqual(ExclusionStates.PartlyEnabled);
         expect(exampleGroup.exclusions[2].hostname).toEqual('test.example.org');
-        expect(exampleGroup.exclusions[2].enabled).toBeFalsy();
+        expect(exampleGroup.exclusions[2].enabled).toEqual(ExclusionStates.Disabled);
 
         // disable all domains
         exampleGroup.toggleSubdomainState(exampleGroup.exclusions[0].id);
         exampleGroup.toggleSubdomainState(exampleGroup.exclusions[1].id);
-        expect(exampleGroup.exclusions[0].enabled).toBeFalsy();
-        expect(exampleGroup.exclusions[1].enabled).toBeFalsy();
-        expect(exampleGroup.exclusions[2].enabled).toBeFalsy();
+        expect(exampleGroup.exclusions[0].enabled).toEqual(ExclusionStates.Disabled);
+        expect(exampleGroup.exclusions[1].enabled).toEqual(ExclusionStates.Disabled);
+        expect(exampleGroup.exclusions[2].enabled).toEqual(ExclusionStates.Disabled);
         // group state should be disabled
         expect(exampleGroup.state).toEqual(ExclusionStates.Disabled);
         // enable some domain
         exampleGroup.toggleSubdomainState(exampleGroup.exclusions[2].id);
-        expect(exampleGroup.exclusions[2].enabled).toBeTruthy();
+        expect(exampleGroup.exclusions[2].enabled).toEqual(ExclusionStates.Enabled);
         // group state should be partly enabled
         expect(exampleGroup.state).toEqual(ExclusionStates.PartlyEnabled);
     });

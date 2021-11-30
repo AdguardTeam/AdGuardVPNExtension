@@ -16,12 +16,12 @@ export const testExclusionsData = {
                         {
                             id: '-rHx9Ay5UJLfOOhMMC2Uq',
                             hostname: 'ghcr.io',
-                            enabled: true,
+                            enabled: 'Enabled',
                         },
                         {
                             id: 'jyclVWHOjIL0FWLZTfb2t',
                             hostname: '*.ghcr.io',
-                            enabled: true,
+                            enabled: 'Enabled',
                         },
                     ],
                     state: 'Enabled',
@@ -33,12 +33,12 @@ export const testExclusionsData = {
                         {
                             id: 'sGzDW0lhUzcywW0j2bfFR',
                             hostname: 'github.com',
-                            enabled: true,
+                            enabled: 'Enabled',
                         },
                         {
                             id: 'y2_AhtrQP_Ae5eBwsh8QI',
                             hostname: '*.github.com',
-                            enabled: true,
+                            enabled: 'Enabled',
                         },
                     ],
                     state: 'Enabled',
@@ -50,12 +50,12 @@ export const testExclusionsData = {
                         {
                             id: 'PoYhyAgPIQPOn-DfPlw7A',
                             hostname: 'github.io',
-                            enabled: true,
+                            enabled: 'Enabled',
                         },
                         {
                             id: 'XgwqF54rRSXJ0h1pYomD9',
                             hostname: '*.github.io',
-                            enabled: true,
+                            enabled: 'Enabled',
                         },
                     ],
                     state: 'Enabled',
@@ -67,12 +67,12 @@ export const testExclusionsData = {
                         {
                             id: '04J1Vz-TYw123Ht4DWGWV',
                             hostname: 'githubapp.com',
-                            enabled: true,
+                            enabled: 'Enabled',
                         },
                         {
                             id: 'jFbOJb7dpkQmdZHZFxhQp',
                             hostname: '*.githubapp.com',
-                            enabled: true,
+                            enabled: 'Enabled',
                         },
                     ],
                     state: 'Enabled',
@@ -84,12 +84,12 @@ export const testExclusionsData = {
                         {
                             id: 'XUGlocJVu5xMOYeoocSC3',
                             hostname: 'githubassets.com',
-                            enabled: true,
+                            enabled: 'Enabled',
                         },
                         {
                             id: 'U8sOwhCxdhvr9LulgAh_D',
                             hostname: '*.githubassets.com',
-                            enabled: true,
+                            enabled: 'Enabled',
                         },
                     ],
                     state: 'Enabled',
@@ -101,12 +101,12 @@ export const testExclusionsData = {
                         {
                             id: 'z5rCepkLEScPdZ4h7hAMi',
                             hostname: 'githubusercontent.com',
-                            enabled: true,
+                            enabled: 'Enabled',
                         },
                         {
                             id: 'vi2jQQ-1bjsmUnzLEJyzf',
                             hostname: '*.githubusercontent.com',
-                            enabled: true,
+                            enabled: 'Enabled',
                         },
                     ],
                     state: 'Enabled',
@@ -123,12 +123,12 @@ export const testExclusionsData = {
                 {
                     id: 'RJMwFQORRkgsTruzzaWNe',
                     hostname: 'example.org',
-                    enabled: true,
+                    enabled: 'Enabled',
                 },
                 {
                     id: 'lBvG7kSOfb52g2rs-H6k0',
                     hostname: '*.example.org',
-                    enabled: true,
+                    enabled: 'Enabled',
                 },
             ],
             state: 'Enabled',
@@ -138,7 +138,7 @@ export const testExclusionsData = {
         {
             id: '5pkJQyFxPu8KJkZBqQnk_',
             hostname: '192.168.35.41',
-            enabled: true,
+            enabled: 'Enabled',
         },
     ],
 };

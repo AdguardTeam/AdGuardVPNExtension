@@ -66,7 +66,7 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
         }
 
         const exclusion = new Exclusion(subdomainUrl);
-        exclusion.enabled = false;
+        exclusion.enabled = ExclusionStates.Disabled;
         this.exclusions.push(exclusion);
         this.updateExclusionsGroupState();
     }
@@ -82,7 +82,7 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
     /**
      * Sets state for provided subdomain by url
      */
-    setSubdomainStateByUrl(url: string, enabled: boolean) {
+    setSubdomainStateByUrl(url: string, enabled: ExclusionStates) {
         this.exclusions.forEach((exclusion) => {
             if (exclusion.hostname === url) {
                 // eslint-disable-next-line no-param-reassign
@@ -95,7 +95,7 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
     /**
      * Sets state for provided subdomain by id
      */
-    setSubdomainStateById(id: string, enabled: boolean) {
+    setSubdomainStateById(id: string, enabled: ExclusionStates) {
         this.exclusions.forEach((exclusion) => {
             if (exclusion.id === id) {
                 // eslint-disable-next-line no-param-reassign
@@ -112,7 +112,9 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
         this.exclusions.forEach((exclusion: Exclusion) => {
             if (exclusion.id === id) {
                 // eslint-disable-next-line no-param-reassign
-                exclusion.enabled = !exclusion.enabled;
+                exclusion.enabled = exclusion.enabled === ExclusionStates.Enabled
+                    ? ExclusionStates.Disabled
+                    : ExclusionStates.Enabled;
             }
         });
         this.updateExclusionsGroupState();
@@ -123,7 +125,7 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
      */
     updateExclusionsGroupState() {
         const enabledExclusions = this.exclusions
-            .filter((exclusion: Exclusion) => exclusion.enabled);
+            .filter((exclusion: Exclusion) => exclusion.enabled === ExclusionStates.Enabled);
 
         if (enabledExclusions.length === this.exclusions.length) {
             this.state = ExclusionStates.Enabled;
@@ -141,10 +143,10 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
         if (this.state === ExclusionStates.Enabled
             || this.state === ExclusionStates.PartlyEnabled) {
             this.state = ExclusionStates.Disabled;
-            this.setSubdomainsState(false);
+            this.setSubdomainsState(ExclusionStates.Disabled);
         } else {
             this.state = ExclusionStates.Enabled;
-            this.setSubdomainsState(true);
+            this.setSubdomainsState(ExclusionStates.Enabled);
         }
     };
 
@@ -153,7 +155,7 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
      */
     enableExclusionsGroup() {
         this.state = ExclusionStates.Enabled;
-        this.setSubdomainsState(true);
+        this.setSubdomainsState(ExclusionStates.Enabled);
     }
 
     /**
@@ -161,13 +163,13 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
      */
     disableExclusionsGroup() {
         this.state = ExclusionStates.Disabled;
-        this.setSubdomainsState(false);
+        this.setSubdomainsState(ExclusionStates.Disabled);
     }
 
     /**
      * Sets provided state for all subdomains
      */
-    setSubdomainsState(enabled: boolean) {
+    setSubdomainsState(enabled: ExclusionStates) {
         this.exclusions.forEach((exclusion) => {
             // eslint-disable-next-line no-param-reassign
             exclusion.enabled = enabled;

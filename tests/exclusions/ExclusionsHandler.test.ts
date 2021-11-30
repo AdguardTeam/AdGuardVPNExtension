@@ -167,10 +167,10 @@ describe('ExclusionsHandler', () => {
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions).toHaveLength(2);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[0].hostname).toEqual('github.com');
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0]
-            .exclusions[0].enabled).toBeTruthy();
+            .exclusions[0].enabled).toEqual(ExclusionStates.Enabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[1].hostname).toEqual('*.github.com');
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0]
-            .exclusions[1].enabled).toBeTruthy();
+            .exclusions[1].enabled).toEqual(ExclusionStates.Enabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[1].hostname).toEqual('github.io');
         expect(exclusionsData.excludedServices[0].exclusionsGroups[2].hostname).toEqual('githubapp.com');
 
@@ -178,13 +178,13 @@ describe('ExclusionsHandler', () => {
         expect(exclusionsData.exclusionsGroups[0].hostname).toEqual('example.org');
         expect(exclusionsData.exclusionsGroups[0].exclusions).toHaveLength(2);
         expect(exclusionsData.exclusionsGroups[0].exclusions[0].hostname).toEqual('example.org');
-        expect(exclusionsData.exclusionsGroups[0].exclusions[0].enabled).toBeTruthy();
+        expect(exclusionsData.exclusionsGroups[0].exclusions[0].enabled).toEqual(ExclusionStates.Enabled);
         expect(exclusionsData.exclusionsGroups[0].exclusions[1].hostname).toEqual('*.example.org');
-        expect(exclusionsData.exclusionsGroups[0].exclusions[1].enabled).toBeTruthy();
+        expect(exclusionsData.exclusionsGroups[0].exclusions[1].enabled).toEqual(ExclusionStates.Enabled);
 
         expect(exclusionsData.excludedIps).toHaveLength(1);
         expect(exclusionsData.excludedIps[0].hostname).toEqual('192.0.2.1');
-        expect(exclusionsData.excludedIps[0].enabled).toBeTruthy();
+        expect(exclusionsData.excludedIps[0].enabled).toEqual(ExclusionStates.Enabled);
 
         // add duplicated data
         await exclusionsHandler.addService('github');
@@ -209,7 +209,7 @@ describe('ExclusionsHandler', () => {
         expect(exclusionsData.exclusionsGroups[0].exclusions[0].hostname).toEqual('example.org');
         expect(exclusionsData.exclusionsGroups[0].exclusions[1].hostname).toEqual('*.example.org');
         expect(exclusionsData.exclusionsGroups[0].exclusions[2].hostname).toEqual('test.example.org');
-        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled).toBeFalsy();
+        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled).toEqual(ExclusionStates.Disabled);
 
         const subdomainId = exclusionsData.exclusionsGroups[0].exclusions[2].id;
         await exclusionsHandler.removeSubdomainFromExclusionsGroup(exclusionsGroupId, subdomainId);
@@ -247,18 +247,18 @@ describe('ExclusionsHandler', () => {
         let exclusionsData = exclusionsHandler.getExclusions();
 
         expect(exclusionsData.excludedIps[0].hostname).toEqual('192.100.50.33');
-        expect(exclusionsData.excludedIps[0].enabled).toBeTruthy();
+        expect(exclusionsData.excludedIps[0].enabled).toEqual(ExclusionStates.Enabled);
 
         const ipId = exclusionsData.excludedIps[0].id;
         await exclusionsHandler.toggleIpState(ipId);
         exclusionsData = exclusionsHandler.getExclusions();
 
-        expect(exclusionsData.excludedIps[0].enabled).toBeFalsy();
+        expect(exclusionsData.excludedIps[0].enabled).toEqual(ExclusionStates.Disabled);
 
         await exclusionsHandler.toggleIpState(ipId);
         exclusionsData = exclusionsHandler.getExclusions();
 
-        expect(exclusionsData.excludedIps[0].enabled).toBeTruthy();
+        expect(exclusionsData.excludedIps[0].enabled).toEqual(ExclusionStates.Enabled);
     });
 
     it('subdomains states on toggling exclusions group state and adding duplicated group', async () => {
@@ -277,7 +277,7 @@ describe('ExclusionsHandler', () => {
         expect(exclusionsData.exclusionsGroups[0].exclusions[1].hostname).toEqual('*.example.org');
         expect(exclusionsData.exclusionsGroups[0].exclusions[2].hostname).toEqual('test.example.org');
         // added subdomain should be disabled
-        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled).toBeFalsy();
+        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled).toEqual(ExclusionStates.Disabled);
 
         // toggle group state
         await exclusionsHandler.toggleExclusionsGroupState(groupId);
@@ -289,7 +289,7 @@ describe('ExclusionsHandler', () => {
 
         exclusionsData.exclusionsGroups[0].exclusions.forEach((exclusion) => {
             // all subdomain should be disabled after disabling exclusions group
-            expect(exclusion.enabled).toBeFalsy();
+            expect(exclusion.enabled).toEqual(ExclusionStates.Disabled);
         });
 
         // add duplicated exclusions group
@@ -303,7 +303,7 @@ describe('ExclusionsHandler', () => {
         expect(exclusionsData.exclusionsGroups[0].exclusions).toHaveLength(3);
         exclusionsData.exclusionsGroups[0].exclusions.forEach((exclusion) => {
             // all subdomain should be enabled after adding duplicated exclusions group
-            expect(exclusion.enabled).toBeTruthy();
+            expect(exclusion.enabled).toEqual(ExclusionStates.Enabled);
         });
     });
 
@@ -317,9 +317,9 @@ describe('ExclusionsHandler', () => {
 
         exclusionsData = exclusionsHandler.getExclusions();
         expect(exclusionsData.exclusionsGroups[0].exclusions).toHaveLength(3);
-        expect(exclusionsData.exclusionsGroups[0].exclusions[1].enabled).toBeTruthy();
+        expect(exclusionsData.exclusionsGroups[0].exclusions[1].enabled).toEqual(ExclusionStates.Enabled);
         expect(exclusionsData.exclusionsGroups[0].exclusions[2].hostname).toEqual('test.example.org');
-        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled).toBeFalsy();
+        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled).toEqual(ExclusionStates.Disabled);
 
         const subdomain1Id = exclusionsData.exclusionsGroups[0].exclusions[0].id;
         const subdomain2Id = exclusionsData.exclusionsGroups[0].exclusions[1].id;
@@ -328,9 +328,9 @@ describe('ExclusionsHandler', () => {
         await exclusionsHandler.toggleSubdomainStateInExclusionsGroup(groupId, subdomain2Id);
 
         exclusionsData = exclusionsHandler.getExclusions();
-        expect(exclusionsData.exclusionsGroups[0].exclusions[0].enabled).toBeFalsy();
-        expect(exclusionsData.exclusionsGroups[0].exclusions[1].enabled).toBeFalsy();
-        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled).toBeFalsy();
+        expect(exclusionsData.exclusionsGroups[0].exclusions[0].enabled).toEqual(ExclusionStates.Disabled);
+        expect(exclusionsData.exclusionsGroups[0].exclusions[1].enabled).toEqual(ExclusionStates.Disabled);
+        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled).toEqual(ExclusionStates.Disabled);
         // exclusions group should be disabled
         expect(exclusionsData.exclusionsGroups[0].state).toEqual(ExclusionStates.Disabled);
     });
@@ -352,9 +352,9 @@ describe('ExclusionsHandler', () => {
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].state)
             .toEqual(ExclusionStates.Enabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[0]
-            .enabled).toBeTruthy();
+            .enabled).toEqual(ExclusionStates.Enabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[1]
-            .enabled).toBeTruthy();
+            .enabled).toEqual(ExclusionStates.Enabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[1].state)
             .toEqual(ExclusionStates.Disabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[2].state)
@@ -368,9 +368,9 @@ describe('ExclusionsHandler', () => {
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].state)
             .toEqual(ExclusionStates.Disabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[0].enabled)
-            .toBeFalsy();
+            .toEqual(ExclusionStates.Disabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[1].enabled)
-            .toBeFalsy();
+            .toEqual(ExclusionStates.Disabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[1].state)
             .toEqual(ExclusionStates.Disabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[2].state)
@@ -425,7 +425,7 @@ describe('ExclusionsHandler', () => {
         expect(exclusionsData.exclusionsGroups[0].state).toEqual(ExclusionStates.Enabled);
         expect(exclusionsData.excludedIps).toHaveLength(1);
         expect(exclusionsData.excludedIps[0].hostname).toEqual('192.168.35.41');
-        expect(exclusionsData.excludedIps[0].enabled).toBeTruthy();
+        expect(exclusionsData.excludedIps[0].enabled).toEqual(ExclusionStates.Enabled);
 
         // disable all imported exclusions
         await exclusionsHandler.toggleServiceState('github');
@@ -435,7 +435,7 @@ describe('ExclusionsHandler', () => {
         exclusionsData = exclusionsHandler.getExclusions();
         expect(exclusionsData.excludedServices[0].state).toEqual(ExclusionStates.Disabled);
         expect(exclusionsData.exclusionsGroups[0].state).toEqual(ExclusionStates.Disabled);
-        expect(exclusionsData.excludedIps[0].enabled).toBeFalsy();
+        expect(exclusionsData.excludedIps[0].enabled).toEqual(ExclusionStates.Disabled);
 
         // import same exclusions one more time
         await exclusionsHandler.importExclusionsData(testExclusionsData);
@@ -450,7 +450,7 @@ describe('ExclusionsHandler', () => {
         expect(exclusionsData.exclusionsGroups[0].state).toEqual(ExclusionStates.Enabled);
         expect(exclusionsData.excludedIps).toHaveLength(1);
         expect(exclusionsData.excludedIps[0].hostname).toEqual('192.168.35.41');
-        expect(exclusionsData.excludedIps[0].enabled).toBeTruthy();
+        expect(exclusionsData.excludedIps[0].enabled).toEqual(ExclusionStates.Enabled);
     });
 
     it('add manually service domain (case 2)', async () => {

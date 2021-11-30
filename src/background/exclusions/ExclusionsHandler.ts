@@ -276,7 +276,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
             this.exclusionsGroups.forEach((group: ExclusionsGroup) => {
                 if (group.hostname === hostname) {
                     group.exclusions.forEach((exclusion) => {
-                        group.setSubdomainStateById(exclusion.id, true);
+                        group.setSubdomainStateById(exclusion.id, ExclusionStates.Enabled);
                     });
                 }
             });
@@ -338,7 +338,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
             this.excludedIps.forEach((excludedIp: Exclusion) => {
                 if (excludedIp.hostname === ip) {
                     // eslint-disable-next-line no-param-reassign
-                    excludedIp.enabled = true;
+                    excludedIp.enabled = ExclusionStates.Enabled;
                 }
             });
         } else {
@@ -357,7 +357,9 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
         this.excludedIps.forEach((ip: Exclusion) => {
             if (ip.id === id) {
                 // eslint-disable-next-line no-param-reassign
-                ip.enabled = !ip.enabled;
+                ip.enabled = ip.enabled === ExclusionStates.Enabled
+                    ? ExclusionStates.Disabled
+                    : ExclusionStates.Enabled;
             }
         });
         await this.updateHandler();

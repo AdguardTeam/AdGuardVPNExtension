@@ -1,9 +1,11 @@
 import { nanoid } from 'nanoid';
 
+import { ExclusionStates } from '../../common/exclusionsConstants';
+
 interface ExclusionInterface {
     id: string;
     hostname: string;
-    enabled: boolean;
+    enabled: ExclusionStates;
 }
 
 export class Exclusion implements ExclusionInterface {
@@ -11,13 +13,13 @@ export class Exclusion implements ExclusionInterface {
 
     hostname: string;
 
-    enabled: boolean;
+    enabled: ExclusionStates;
 
     constructor(exclusionData: ExclusionInterface | string) {
         if (typeof exclusionData === 'string') {
             this.id = nanoid();
             this.hostname = exclusionData;
-            this.enabled = true;
+            this.enabled = ExclusionStates.Enabled;
         } else {
             this.id = exclusionData.id;
             this.hostname = exclusionData.hostname;

@@ -7,7 +7,7 @@ import './statecheckbox.pcss';
 interface StateCheckboxProps {
     id: string,
     type: ExclusionsTypes,
-    state: ExclusionStates | boolean,
+    state: ExclusionStates,
     toggleHandler: (
         id: string,
         type: ExclusionsTypes
@@ -21,7 +21,7 @@ export const StateCheckbox = ({
     toggleHandler,
 }: StateCheckboxProps) => {
     const getStateIcon = () => {
-        if (state === ExclusionStates.Enabled || state === true) {
+        if (state === ExclusionStates.Enabled) {
             return '#enabled';
         }
         if (state === ExclusionStates.PartlyEnabled) {
