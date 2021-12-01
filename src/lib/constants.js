@@ -73,6 +73,7 @@ export const MESSAGES_TYPES = {
     CLEAR_EXCLUSIONS_LIST: 'clear.exclusions.list',
     IMPORT_EXCLUSIONS_DATA: 'import.exclusions.data',
     ADD_SERVICE: 'add.service',
+    TOGGLE_SERVICES: 'toggle.services',
     ADD_EXCLUSION_BY_MODE: 'add.exclusion.by.mode',
     ADD_SELECTIVE_EXCLUSIONS: 'add.exclusions.selective',
     ADD_REGULAR_EXCLUSIONS: 'add.exclusions.regular',

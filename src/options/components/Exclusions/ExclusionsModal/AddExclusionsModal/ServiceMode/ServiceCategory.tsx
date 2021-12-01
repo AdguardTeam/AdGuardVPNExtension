@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 
+import { ServiceRow } from './ServiceRow';
 import { rootStore } from '../../../../../stores';
 import { PreparedServiceCategory } from '../../../../../stores/ExclusionsStore';
-import { ServiceRow } from './ServiceRow';
 import { containsIgnoreCase } from '../../../Search/SearchHighlighter/helpers';
 
 import s from './service-category.module.pcss';
@@ -18,11 +18,7 @@ export const ServiceCategory = observer(({ category }: ServiceCategoryProps) => 
     const { services } = exclusionsStore.preparedServicesData;
 
     const categoryServices = category.services
-        .map((serviceId: string) => services[serviceId])
-        .filter((serviceData) => !(exclusionsStore.excludedServices
-            .some((service) => {
-                return serviceData.serviceId === service.serviceId;
-            })));
+        .map((serviceId: string) => services[serviceId]);
 
     const filteredServices = categoryServices.filter((service) => {
         if (exclusionsStore.servicesSearchValue.length === 0) {

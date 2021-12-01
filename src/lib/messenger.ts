@@ -99,17 +99,17 @@ class Messenger {
 
     async getOptionsData() {
         const type = MESSAGES_TYPES.GET_OPTIONS_DATA;
-        return this.sendMessage(type);
+        return this.sendMessage(type, {});
     }
 
     async getVpnFailurePage() {
         const type = MESSAGES_TYPES.GET_VPN_FAILURE_PAGE;
-        return this.sendMessage(type);
+        return this.sendMessage(type, {});
     }
 
     async openOptionsPage() {
         const type = MESSAGES_TYPES.OPEN_OPTIONS_PAGE;
-        return this.sendMessage(type);
+        return this.sendMessage(type, {});
     }
 
     async setCurrentLocation(location, isSelectedByUser) {
@@ -124,7 +124,7 @@ class Messenger {
 
     async deauthenticateUser() {
         const type = MESSAGES_TYPES.DEAUTHENTICATE_USER;
-        return this.sendMessage(type);
+        return this.sendMessage(type, {});
     }
 
     async updateAuthCache(field, value) {
@@ -134,17 +134,17 @@ class Messenger {
 
     async getAuthCache() {
         const type = MESSAGES_TYPES.GET_AUTH_CACHE;
-        return this.sendMessage(type);
+        return this.sendMessage(type, {});
     }
 
     async clearAuthCache() {
         const type = MESSAGES_TYPES.CLEAR_AUTH_CACHE;
-        return this.sendMessage(type);
+        return this.sendMessage(type, {});
     }
 
     async getCanControlProxy() {
         const type = MESSAGES_TYPES.GET_CAN_CONTROL_PROXY;
-        return this.sendMessage(type);
+        return this.sendMessage(type, {});
     }
 
     async enableProxy(force) {
@@ -175,6 +175,11 @@ class Messenger {
     async addService(id) {
         const type = MESSAGES_TYPES.ADD_SERVICE;
         return this.sendMessage(type, { id });
+    }
+
+    async toggleServices(ids: string[]) {
+        const type = MESSAGES_TYPES.TOGGLE_SERVICES;
+        return this.sendMessage(type, { ids });
     }
 
     async removeFromExclusions(url) {
@@ -231,14 +236,14 @@ class Messenger {
         return this.sendMessage(type, { serviceId, exclusionsGroupId, subdomain });
     }
 
-    async resetServiceData(serviceId) {
+    async resetServiceData(serviceId: string) {
         const type = MESSAGES_TYPES.RESET_SERVICE_DATA;
         return this.sendMessage(type, { serviceId });
     }
 
     async clearExclusionsList() {
         const type = MESSAGES_TYPES.CLEAR_EXCLUSIONS_LIST;
-        return this.sendMessage(type);
+        return this.sendMessage(type, {});
     }
 
     async importExclusionsData(exclusionsData) {
@@ -246,14 +251,14 @@ class Messenger {
         return this.sendMessage(type, { exclusionsData });
     }
 
-    async checkEmail(email) {
+    async checkEmail(email: string) {
         const type = MESSAGES_TYPES.CHECK_EMAIL;
         return this.sendMessage(type, { email });
     }
 
     async disableOtherExtensions() {
         const type = MESSAGES_TYPES.DISABLE_OTHER_EXTENSIONS;
-        return this.sendMessage(type);
+        return this.sendMessage(type, {});
     }
 
     async registerUser(credentials) {
@@ -263,7 +268,7 @@ class Messenger {
 
     async isAuthenticated() {
         const type = MESSAGES_TYPES.IS_AUTHENTICATED;
-        return this.sendMessage(type);
+        return this.sendMessage(type, {});
     }
 
     async startSocialAuth(social, marketingConsent) {
@@ -273,37 +278,37 @@ class Messenger {
 
     async clearPermissionsError() {
         const type = MESSAGES_TYPES.CLEAR_PERMISSIONS_ERROR;
-        return this.sendMessage(type);
+        return this.sendMessage(type, {});
     }
 
     async checkPermissions() {
         const type = MESSAGES_TYPES.CHECK_PERMISSIONS;
-        return this.sendMessage(type);
+        return this.sendMessage(type, {});
     }
 
     async getExclusionsInverted() {
         const type = MESSAGES_TYPES.GET_EXCLUSIONS_INVERTED;
-        return this.sendMessage(type);
+        return this.sendMessage(type, {});
     }
 
-    async getSetting(settingId) {
+    async getSetting(settingId: string) {
         const type = MESSAGES_TYPES.GET_SETTING_VALUE;
         return this.sendMessage(type, { settingId });
     }
 
-    async setSetting(settingId, value) {
+    async setSetting(settingId: string, value: any) {
         const type = MESSAGES_TYPES.SET_SETTING_VALUE;
         return this.sendMessage(type, { settingId, value });
     }
 
     async getUsername() {
         const type = MESSAGES_TYPES.GET_USERNAME;
-        return this.sendMessage(type);
+        return this.sendMessage(type, {});
     }
 
     async getExclusionsData() {
         const type = MESSAGES_TYPES.GET_EXCLUSIONS_DATA;
-        return this.sendMessage(type);
+        return this.sendMessage(type, {});
     }
 
     async setExclusionsMode(mode) {
@@ -311,7 +316,7 @@ class Messenger {
         return this.sendMessage(type, { mode });
     }
 
-    async removeExclusionByMode(mode, id) {
+    async removeExclusionByMode(mode, id: string) {
         const type = MESSAGES_TYPES.REMOVE_EXCLUSION_BY_MODE;
         return this.sendMessage(type, { mode, id });
     }
@@ -338,12 +343,12 @@ class Messenger {
 
     async getSelectedLocation() {
         const type = MESSAGES_TYPES.GET_SELECTED_LOCATION;
-        return this.sendMessage(type);
+        return this.sendMessage(type, {});
     }
 
     async checkIsPremiumToken() {
         const type = MESSAGES_TYPES.CHECK_IS_PREMIUM_TOKEN;
-        return this.sendMessage(type);
+        return this.sendMessage(type, {});
     }
 
     async setNotificationViewed(withDelay) {
@@ -378,7 +383,7 @@ class Messenger {
 
     async openPremiumPromoPage() {
         const type = MESSAGES_TYPES.OPEN_PREMIUM_PROMO_PAGE;
-        return this.sendMessage(type);
+        return this.sendMessage(type, {});
     }
 
     /**

@@ -160,6 +160,10 @@ const messageHandler = async (message, sender) => {
             const { id } = data;
             return exclusions.current.addService(id);
         }
+        case MESSAGES_TYPES.TOGGLE_SERVICES: {
+            const { ids } = data;
+            return exclusions.current.toggleServices(ids);
+        }
         case MESSAGES_TYPES.REMOVE_FROM_EXCLUSIONS: {
             const { url } = data;
             return exclusions.current.disableExclusionByUrl(url);

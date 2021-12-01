@@ -60,13 +60,6 @@ export class SettingsStore {
             });
         };
 
-    // @action
-    // setExclusions = (exclusions) => {
-    //     this.exclusions[EXCLUSIONS_MODES.Regular] = exclusions.regular;
-    //     this.exclusions[EXCLUSIONS_MODES.Selective] = exclusions.selective;
-    //     this.exclusionsCurrentMode = exclusions.currentMode;
-    // };
-
     @action
         removeFromExclusions = async (mode, id) => {
             try {
@@ -216,7 +209,6 @@ export class SettingsStore {
             this.helpUsImprove = data.helpUsImprove;
             this.dnsServer = data.dnsServer;
             this.appearanceTheme = data.appearanceTheme;
-        // this.setExclusions(data.exclusionsData);
         };
 
     @action

@@ -1,9 +1,9 @@
-import { action, computed, observable } from 'mobx';
+import { action, computed, observable, runInAction } from 'mobx';
 import JSZip from 'jszip';
 import format from 'date-fns/format';
 import FileSaver from 'file-saver';
 
-import { ExclusionsModes, ExclusionsTypes } from '../../common/exclusionsConstants';
+import { ExclusionsModes, ExclusionStates, ExclusionsTypes } from '../../common/exclusionsConstants';
 import { containsIgnoreCase } from '../components/Exclusions/Search/SearchHighlighter/helpers';
 import { Service, ServiceCategory, ServiceInterface } from '../../background/exclusions/Service';
 import { ExclusionsGroup } from '../../background/exclusions/ExclusionsGroup';
@@ -20,12 +20,8 @@ interface PreparedServiceCategories {
     [key: string]: PreparedServiceCategory
 }
 
-export interface PreparedService extends ServiceInterface {
-    excluded: boolean
-}
-
 interface PreparedServices {
-    [key: string]: PreparedService
+    [key: string]: ServiceInterface
 }
 
 export enum AddExclusionMode {
@@ -223,12 +219,27 @@ export class ExclusionsStore {
             return acc;
         }, {} as PreparedServiceCategories);
 
-        const services = this.servicesData.reduce((acc, serviceData) => {
-            const { serviceId } = serviceData;
-            acc[serviceId] = {
+        // FIXME: prepare data on background page before return
+        const servicesWithActualState = this.servicesData.map((serviceData) => {
+            const excluded = this.excludedServices.find((excluded) => {
+                return excluded.serviceId === serviceData.serviceId;
+            });
+
+            let state = ExclusionStates.Disabled;
+
+            if (excluded) {
+                state = ExclusionStates.Enabled;
+            }
+
+            return {
                 ...serviceData,
-                excluded: this.isExcludedService(serviceId),
+                state,
             };
+        });
+
+        const services = servicesWithActualState.reduce((acc, serviceData) => {
+            const { serviceId } = serviceData;
+            acc[serviceId] = serviceData;
             return acc;
         }, {} as PreparedServices);
 
@@ -253,22 +264,18 @@ export class ExclusionsStore {
 
     @action addUrlToExclusions = async (url: string) => {
         await messenger.addUrlToExclusions(url);
-        await this.updateExclusionsData();
     };
 
     @action removeExclusion = async (id: string, type: ExclusionsTypes) => {
         await messenger.removeExclusion(id, type);
-        await this.updateExclusionsData();
     };
 
     @action toggleExclusionState = async (id: string, type: ExclusionsTypes) => {
         await messenger.toggleExclusionState(id, type);
-        await this.updateExclusionsData();
     };
 
     @action addService = async (id: string) => {
         await messenger.addService(id);
-        await this.updateExclusionsData();
     };
 
     @action addToServicesToToggle = (id: string) => {
@@ -280,12 +287,14 @@ export class ExclusionsStore {
         }
     };
 
-    @action saveServicesToToggle = async () => {
-        this.servicesToToggle.forEach((serviceId) => {
-            this.addService(serviceId);
+    /**
+     * Removes services from exclusions list if they were added otherwise adds them
+     */
+    @action toggleServices = async () => {
+        await messenger.toggleServices(this.servicesToToggle);
+        runInAction(() => {
+            this.servicesToToggle = [];
         });
-        this.servicesToToggle = [];
-        await this.updateExclusionsData();
     };
 
     @action setExclusionIdToShowSettings = (id: string | null) => {
@@ -297,7 +306,6 @@ export class ExclusionsStore {
         subdomainId: string,
     ) => {
         await messenger.toggleSubdomainStateInExclusionsGroup(exclusionsGroupId, subdomainId);
-        await this.updateExclusionsData();
     };
 
     @action removeSubdomainFromExclusionsGroup = async (
@@ -311,7 +319,6 @@ export class ExclusionsStore {
             }
         });
         await messenger.removeSubdomainFromExclusionsGroup(exclusionsGroupId, subdomainId);
-        await this.updateExclusionsData();
     };
 
     @action addSubdomainToExclusionsGroup = async (
@@ -319,7 +326,6 @@ export class ExclusionsStore {
         subdomain: string,
     ) => {
         await messenger.addSubdomainToExclusionsGroup(exclusionsGroupId, subdomain);
-        await this.updateExclusionsData();
     };
 
     @action toggleExclusionsGroupStateInService = async (
@@ -327,7 +333,6 @@ export class ExclusionsStore {
         exclusionsGroupId: string,
     ) => {
         await messenger.toggleExclusionsGroupStateInService(serviceId, exclusionsGroupId);
-        await this.updateExclusionsData();
     };
 
     @action removeExclusionsGroupFromService = async (
@@ -335,7 +340,6 @@ export class ExclusionsStore {
         exclusionsGroupId: string,
     ) => {
         await messenger.removeExclusionsGroupFromService(serviceId, exclusionsGroupId);
-        await this.updateExclusionsData();
     };
 
     @action removeSubdomainFromExclusionsGroupInService = async (
@@ -365,7 +369,6 @@ export class ExclusionsStore {
             exclusionsGroupId,
             subdomainId,
         );
-        await this.updateExclusionsData();
     };
 
     @action toggleSubdomainStateInExclusionsGroupInService = async (
@@ -378,7 +381,6 @@ export class ExclusionsStore {
             exclusionsGroupId,
             subdomainId,
         );
-        await this.updateExclusionsData();
     };
 
     @action addSubdomainToExclusionsGroupInService = async (
@@ -391,7 +393,6 @@ export class ExclusionsStore {
             exclusionsGroupId,
             subdomain,
         );
-        await this.updateExclusionsData();
     };
 
     @computed
@@ -441,12 +442,10 @@ export class ExclusionsStore {
 
     @action resetServiceData = async (serviceId: string) => {
         await messenger.resetServiceData(serviceId);
-        await this.updateExclusionsData();
     };
 
     @action clearExclusionsList = async () => {
         await messenger.clearExclusionsList();
-        await this.updateExclusionsData();
     };
 
     exportExclusions = async () => {
@@ -468,6 +467,5 @@ export class ExclusionsStore {
 
     @action importExclusions = async (exclusionsData: ExclusionsDataToImport[]) => {
         await messenger.importExclusionsData(exclusionsData);
-        await this.updateExclusionsData();
     };
 }

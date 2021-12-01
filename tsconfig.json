@@ -3,7 +3,7 @@
     "baseUrl": "src",
     "target": "esnext",
     "jsx": "react",
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
     "experimentalDecorators": true,
     "allowJs": true,
     "esModuleInterop": true,
@@ -19,5 +19,5 @@
     // - noImplicitThis
     // - strictBindCallApply
     "strict": true,
-  }
+  },
 }

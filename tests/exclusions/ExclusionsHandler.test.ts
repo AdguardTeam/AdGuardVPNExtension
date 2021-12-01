@@ -57,10 +57,8 @@ const getServiceMock = servicesManager.getService as jest.MockedFunction<() => S
 jest.mock('../../src/background/exclusions/ServicesManager');
 
 describe('ExclusionsHandler', () => {
-    // @ts-ignore
-    afterEach(async (done) => {
+    afterEach(async () => {
         await exclusionsHandler.clearExclusionsData();
-        done();
     });
 
     it('should be empty after construction', () => {

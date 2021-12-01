@@ -61,6 +61,7 @@ export const App = observer(() => {
         authStore,
         settingsStore,
         globalStore,
+        exclusionsStore,
     } = useContext(rootStore);
 
     useAppearanceTheme(settingsStore.appearanceTheme);
@@ -93,10 +94,7 @@ export const App = observer(() => {
                             break;
                         }
                         case notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE: {
-                            if (settingsStore.isAddingExclusions) {
-                                return;
-                            }
-                            await settingsStore.getExclusions();
+                            await exclusionsStore.updateExclusionsData();
                             break;
                         }
                         case notifier.types.USER_AUTHENTICATED: {

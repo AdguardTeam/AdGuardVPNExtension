@@ -37,9 +37,8 @@ describe('SettingsService', () => {
             settingsService = new SettingsService(storage, defaults);
         });
 
-        afterEach(async (done) => {
+        afterEach(async () => {
             await settingsService.clearSettings();
-            done();
         });
 
         it('inits correctly if storage is empty', async () => {
@@ -84,9 +83,8 @@ describe('SettingsService', () => {
             settingsService.init();
         });
 
-        afterEach(async (done) => {
+        afterEach(async () => {
             await settingsService.clearSettings();
-            done();
         });
 
         it('saves settings to the storage throttled', async () => {

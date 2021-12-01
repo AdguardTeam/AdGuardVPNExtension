@@ -115,10 +115,8 @@ const getExclusionsServicesDomainsMock = vpnProvider
     .getExclusionsServicesDomains as jest.MockedFunction<() => any>;
 getExclusionsServicesDomainsMock.mockImplementation(() => SERVICES_DOMAINS);
 
-// @ts-ignore
-beforeAll(async (done) => {
+beforeAll(async () => {
     await servicesManager.init();
-    done();
 });
 
 describe('ServicesManager tests', () => {
