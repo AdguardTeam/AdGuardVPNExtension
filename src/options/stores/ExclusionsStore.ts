@@ -173,10 +173,9 @@ export class ExclusionsStore {
             this.addExclusionMode = mode;
         };
 
-    @action
-        openAddSubdomainModal = () => {
-            this.addSubdomainModalOpen = true;
-        };
+    @action openAddSubdomainModal = () => {
+        this.addSubdomainModalOpen = true;
+    };
 
     @action
         closeAddSubdomainModal = () => {
@@ -384,12 +383,12 @@ export class ExclusionsStore {
     @action addSubdomainToExclusionsGroupInService = async (
         serviceId: string,
         exclusionsGroupId:string,
-        subdomainId: string,
+        subdomain: string,
     ) => {
         await messenger.addSubdomainToExclusionsGroupInService(
             serviceId,
             exclusionsGroupId,
-            subdomainId,
+            subdomain,
         );
         await this.updateExclusionsData();
     };

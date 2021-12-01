@@ -226,9 +226,9 @@ class Messenger {
         return this.sendMessage(type, { serviceId, exclusionsGroupId, subdomainId });
     }
 
-    async addSubdomainToExclusionsGroupInService(serviceId, exclusionsGroupId, subdomainId) {
+    async addSubdomainToExclusionsGroupInService(serviceId, exclusionsGroupId, subdomain) {
         const type = MESSAGES_TYPES.ADD_SUBDOMAIN_TO_EXCLUSIONS_GROUP_IN_SERVICE;
-        return this.sendMessage(type, { serviceId, exclusionsGroupId, subdomainId });
+        return this.sendMessage(type, { serviceId, exclusionsGroupId, subdomain });
     }
 
     async resetServiceData(serviceId) {

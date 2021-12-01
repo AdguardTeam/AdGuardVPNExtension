@@ -66,7 +66,7 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
         }
 
         const exclusion = new Exclusion(subdomainUrl);
-        exclusion.enabled = ExclusionStates.Disabled;
+        exclusion.enabled = ExclusionStates.Enabled;
         this.exclusions.push(exclusion);
         this.updateExclusionsGroupState();
     }

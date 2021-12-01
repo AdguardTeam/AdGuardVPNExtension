@@ -4,25 +4,35 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../../stores';
 import { ServiceSettings } from './ServiceSettings';
 import { GroupSettings } from './GroupSettings';
+import { Service } from '../../../../background/exclusions/Service';
+import { ExclusionsGroup } from '../../../../background/exclusions/ExclusionsGroup';
 
 export const ExclusionSettings = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
 
     const exclusionData = exclusionsStore.exclusionDataToShow;
 
+    if (!exclusionData) {
+        return null;
+    }
+
     const renderSettings = () => {
-        if (exclusionData?.serviceId) {
+        // FIXME: figure out how to avoid type casting
+        if ((exclusionData as Service).serviceId) {
             return (
                 <ServiceSettings exclusionData={exclusionData} />
             );
         }
 
-        const parentServiceId = exclusionsStore.isExclusionsGroupInsideService(exclusionData?.id);
+        const parentServiceId = exclusionsStore.isExclusionsGroupInsideService(
+            // FIXME: figure out how to avoid type casting
+            (exclusionData as ExclusionsGroup).id,
+        );
 
         if (parentServiceId) {
             return (
                 <GroupSettings
-                    exclusionData={exclusionData}
+                    exclusionData={exclusionData as ExclusionsGroup}
                     parentServiceId={parentServiceId}
                 />
             );
@@ -30,7 +40,7 @@ export const ExclusionSettings = observer(() => {
 
         return (
             <GroupSettings
-                exclusionData={exclusionData}
+                exclusionData={exclusionData as ExclusionsGroup}
                 parentServiceId={null}
             />
         );

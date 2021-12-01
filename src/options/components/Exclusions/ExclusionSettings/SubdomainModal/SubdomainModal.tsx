@@ -6,10 +6,17 @@ import { rootStore } from '../../../../stores';
 import { reactTranslator } from '../../../../../common/reactTranslator';
 
 import './subdomain-modal.pcss';
+import { ExclusionsGroup } from '../../../../../background/exclusions/ExclusionsGroup';
 
-// FIXME remove @ts-ignore
-// @ts-ignore
-export const SubdomainModal = observer(({ exclusionData, parentServiceId }) => {
+interface SubdomainModalProps {
+    exclusionData: ExclusionsGroup;
+    parentServiceId: string | null;
+}
+
+export const SubdomainModal = observer(({
+    exclusionData,
+    parentServiceId,
+}: SubdomainModalProps) => {
     const { exclusionsStore } = useContext(rootStore);
 
     const [inputValue, setInputValue] = useState('');

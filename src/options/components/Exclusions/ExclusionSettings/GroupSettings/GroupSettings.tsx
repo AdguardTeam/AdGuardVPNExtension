@@ -8,13 +8,21 @@ import { ExclusionsModes, ExclusionsTypes } from '../../../../../common/exclusio
 import { SubdomainModal } from '../SubdomainModal';
 import { reactTranslator } from '../../../../../common/reactTranslator';
 import { translator } from '../../../../../common/translator';
+import { ExclusionsGroup } from '../../../../../background/exclusions/ExclusionsGroup';
 
 import './group-settings.pcss';
 
-// FIXME remove @ts-ignore
-// @ts-ignore
-export const GroupSettings = observer(({ exclusionData, parentServiceId }) => {
+interface GroupSettingsProps {
+    exclusionData: ExclusionsGroup | null;
+    parentServiceId: string | null;
+}
+
+export const GroupSettings = observer(({ exclusionData, parentServiceId }: GroupSettingsProps) => {
     const { exclusionsStore } = useContext(rootStore);
+
+    if (!exclusionData) {
+        return null;
+    }
 
     const goBack = () => {
         exclusionsStore.setExclusionIdToShowSettings(null);
@@ -52,8 +60,7 @@ export const GroupSettings = observer(({ exclusionData, parentServiceId }) => {
         ? translator.getMessage('settings_exclusion_group_settings_subtitle_regular_mode')
         : translator.getMessage('settings_exclusion_group_settings_subtitle_selective_mode');
 
-    // FIXME remove any
-    const renderedExclusions = exclusionData.exclusions.map((exclusion: any, index: number) => {
+    const renderedExclusions = exclusionData.exclusions.map((exclusion, index) => {
         return (
             <div
                 className="group__settings__domain"
@@ -68,7 +75,7 @@ export const GroupSettings = observer(({ exclusionData, parentServiceId }) => {
                 <div className="group__settings__domain__hostname">
                     {exclusion.hostname}
                     <div className="group__settings__domain__hostname__status">
-                        {/* TODO handle status properly */}
+                        {/* FIXME: handle status properly, and add to translations */}
                         {index === 0 ? 'domain' : 'subdomain'}
                     </div>
                 </div>

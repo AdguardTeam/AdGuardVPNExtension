@@ -210,11 +210,11 @@ const messageHandler = async (message, sender) => {
             );
         }
         case MESSAGES_TYPES.ADD_SUBDOMAIN_TO_EXCLUSIONS_GROUP_IN_SERVICE: {
-            const { serviceId, exclusionsGroupId, subdomainId } = data;
+            const { serviceId, exclusionsGroupId, subdomain } = data;
             return exclusions.current.addSubdomainToExclusionsGroupInService(
                 serviceId,
                 exclusionsGroupId,
-                subdomainId,
+                subdomain,
             );
         }
         case MESSAGES_TYPES.RESET_SERVICE_DATA: {
