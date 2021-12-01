@@ -8,7 +8,8 @@ import { ExclusionsGroup } from '../../src/background/exclusions/ExclusionsGroup
 jest.mock('../../src/background/providers/vpnProvider');
 jest.mock('nanoid');
 
-nanoid.mockImplementation(() => 'zzzzzzzzz');
+const nanoidMock = nanoid as jest.MockedFunction<() => string>;
+nanoidMock.mockImplementation(() => 'zzzzzzzzz');
 
 const SERVICES_DATA = {
     services: {
@@ -106,9 +107,15 @@ const ALIEXPRESS_SERVICE_DATA = new Service({
     ],
 });
 
-vpnProvider.getExclusionsServices.mockImplementation(() => SERVICES_DATA);
-vpnProvider.getExclusionsServicesDomains.mockImplementation(() => SERVICES_DOMAINS);
+const getExclusionsServicesMock = vpnProvider
+    .getExclusionsServices as jest.MockedFunction<() => any>;
+getExclusionsServicesMock.mockImplementation(() => SERVICES_DATA);
 
+const getExclusionsServicesDomainsMock = vpnProvider
+    .getExclusionsServicesDomains as jest.MockedFunction<() => any>;
+getExclusionsServicesDomainsMock.mockImplementation(() => SERVICES_DOMAINS);
+
+// @ts-ignore
 beforeAll(async (done) => {
     await servicesManager.init();
     done();

@@ -22,8 +22,12 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
 
     constructor(exclusionsGroupData: ExclusionsGroupInterface | string) {
         if (typeof exclusionsGroupData === 'string') {
+            const hostname = prepareUrl(exclusionsGroupData);
+            if (!hostname) {
+                throw new Error('Unable to create ExclusionsGroup: invalid url');
+            }
             this.id = nanoid();
-            this.hostname = prepareUrl(exclusionsGroupData);
+            this.hostname = hostname;
             this.exclusions = [];
             this.addDefaultExclusions();
             this.state = ExclusionStates.Enabled;

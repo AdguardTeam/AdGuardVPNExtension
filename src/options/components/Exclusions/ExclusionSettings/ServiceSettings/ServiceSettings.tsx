@@ -6,14 +6,22 @@ import { rootStore } from '../../../../stores';
 import { Title } from '../../../ui/Title';
 import { StateCheckbox } from '../../StateCheckbox';
 import { ExclusionsModes, ExclusionsTypes, ExclusionStates } from '../../../../../common/exclusionsConstants';
+import { ExclusionsGroup } from '../../../../../background/exclusions/ExclusionsGroup';
 import { reactTranslator } from '../../../../../common/reactTranslator';
 import { translator } from '../../../../../common/translator';
 
 import './service-settings.pcss';
 
-// FIXME remove @ts-ignore
-// @ts-ignore
-export const ServiceSettings = observer(({ exclusionData }) => {
+interface ServiceSettingsProps {
+    exclusionData: {
+        serviceId: string,
+        serviceName: string,
+        state: ExclusionStates,
+        exclusionsGroups: ExclusionsGroup[],
+    }
+}
+
+export const ServiceSettings = observer(({ exclusionData }: ServiceSettingsProps) => {
     const { exclusionsStore } = useContext(rootStore);
 
     const goBack = () => {

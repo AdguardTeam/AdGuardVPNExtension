@@ -8,6 +8,7 @@ import { containsIgnoreCase } from '../components/Exclusions/Search/SearchHighli
 import { Service, ServiceCategory, ServiceInterface } from '../../background/exclusions/Service';
 import { ExclusionsGroup } from '../../background/exclusions/ExclusionsGroup';
 import { Exclusion } from '../../background/exclusions/Exclusion';
+import { ExclusionsDataToImport } from '../../background/exclusions/ExclusionsManager';
 // FIXME: convert to named export
 import messenger from '../../lib/messenger';
 
@@ -465,9 +466,7 @@ export class ExclusionsStore {
         FileSaver.saveAs(zipContent, ZIP_FILENAME);
     };
 
-    // FIXME remove @ts-ignore
-    // @ts-ignore
-    @action importExclusions = async (exclusionsData) => {
+    @action importExclusions = async (exclusionsData: ExclusionsDataToImport[]) => {
         await messenger.importExclusionsData(exclusionsData);
         await this.updateExclusionsData();
     };

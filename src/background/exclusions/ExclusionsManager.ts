@@ -6,7 +6,7 @@ import { Exclusion } from './Exclusion';
 import { Service } from './Service';
 import { ExclusionsModes, ExclusionStates } from '../../common/exclusionsConstants';
 
-interface ExclusionsInfo {
+export interface ExclusionsInfo {
     inverted: boolean,
     [ExclusionsModes.Selective]: {
         excludedServices: Service[],
@@ -18,6 +18,11 @@ interface ExclusionsInfo {
         exclusionsGroups: ExclusionsGroup[],
         excludedIps: Exclusion[],
     },
+}
+
+export interface ExclusionsDataToImport {
+    type: string,
+    content: string,
 }
 
 class ExclusionsManager implements ExclusionsInfo {
@@ -245,7 +250,7 @@ class ExclusionsManager implements ExclusionsInfo {
         this.settings.setExclusions(emptyExclusions);
     }
 
-    async importExclusionsData(exclusionsData) {
+    async importExclusionsData(exclusionsData: ExclusionsDataToImport[]) {
         try {
             exclusionsData.forEach((entry) => {
                 let entryData;

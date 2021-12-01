@@ -20,7 +20,7 @@ export const ExclusionSettings = observer(() => {
         // FIXME: figure out how to avoid type casting
         if ((exclusionData as Service).serviceId) {
             return (
-                <ServiceSettings exclusionData={exclusionData} />
+                <ServiceSettings exclusionData={exclusionData as Service} />
             );
         }
 

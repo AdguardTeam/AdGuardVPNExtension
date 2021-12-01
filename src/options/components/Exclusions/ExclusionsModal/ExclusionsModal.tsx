@@ -7,7 +7,7 @@ interface ExclusionsModalProps {
     isOpen: boolean,
     closeModal: () => void,
     title?: React.ReactNode,
-    description?: string,
+    description?: string | React.ReactNode,
     children?: React.ReactNode,
 }
 

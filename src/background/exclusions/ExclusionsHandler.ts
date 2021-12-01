@@ -164,9 +164,11 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
             return;
         }
         const serviceData = servicesManager.getService(serviceId);
-        const service = new Service(serviceData);
-        this.excludedServices.push(service);
-        await this.updateHandler();
+        if (serviceData) {
+            const service = new Service(serviceData);
+            this.excludedServices.push(service);
+            await this.updateHandler();
+        }
     }
 
     async removeService(serviceId: string) {

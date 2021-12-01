@@ -49,11 +49,15 @@ const GITHUB_SERVICE_DATA = new Service({
     ],
 });
 
-// TODO fine tune tsconfig.json
+const getServiceIdByUrlMock = servicesManager
+    .getServiceIdByUrl as jest.MockedFunction<(url: string) => string | null>;
+
+const getServiceMock = servicesManager.getService as jest.MockedFunction<() => Service>;
 
 jest.mock('../../src/background/exclusions/ServicesManager');
 
 describe('ExclusionsHandler', () => {
+    // @ts-ignore
     afterEach(async (done) => {
         await exclusionsHandler.clearExclusionsData();
         done();
@@ -126,7 +130,7 @@ describe('ExclusionsHandler', () => {
     });
 
     it('add and remove ips, exclusions groups and services', async () => {
-        servicesManager.getService.mockImplementation(() => FACEBOOK_SERVICE_DATA);
+        getServiceMock.mockImplementation(() => FACEBOOK_SERVICE_DATA);
 
         await exclusionsHandler.addService('facebook');
         await exclusionsHandler.addExclusionsGroup('test.com');
@@ -139,7 +143,7 @@ describe('ExclusionsHandler', () => {
         expect(exclusionsData.exclusionsGroups).toHaveLength(1);
         expect(exclusionsData.excludedIps).toHaveLength(1);
 
-        servicesManager.getService.mockImplementation(() => GITHUB_SERVICE_DATA);
+        getServiceMock.mockImplementation(() => GITHUB_SERVICE_DATA);
 
         await exclusionsHandler.addService('github');
         await exclusionsHandler.addExclusionsGroup('example.org');
@@ -224,7 +228,7 @@ describe('ExclusionsHandler', () => {
     });
 
     it('add and remove subdomain to Service\'s ExclusionsGroup', async () => {
-        servicesManager.getService.mockImplementation(() => GITHUB_SERVICE_DATA);
+        getServiceMock.mockImplementation(() => GITHUB_SERVICE_DATA);
         await exclusionsHandler.addService('github');
         let exclusionsData = exclusionsHandler.getExclusions();
         const exclusionsGroupId = exclusionsData.excludedServices[0].exclusionsGroups[0].id;
@@ -346,8 +350,8 @@ describe('ExclusionsHandler', () => {
     });
 
     it('service state test', async () => {
-        servicesManager.getService.mockImplementation(() => FACEBOOK_SERVICE_DATA);
-        servicesManager.getServiceIdByUrl.mockImplementation(() => 'facebook');
+        getServiceMock.mockImplementation(() => FACEBOOK_SERVICE_DATA);
+        getServiceIdByUrlMock.mockImplementation(() => 'facebook');
 
         // add to exclusions http://www.facebook.com, it should become service
         await exclusionsHandler.addUrlToExclusions('http://www.facebook.com');
@@ -388,8 +392,8 @@ describe('ExclusionsHandler', () => {
     });
 
     it('service exclusions groups test', async () => {
-        servicesManager.getService.mockImplementation(() => GITHUB_SERVICE_DATA);
-        servicesManager.getServiceIdByUrl.mockImplementation(() => 'github');
+        getServiceMock.mockImplementation(() => GITHUB_SERVICE_DATA);
+        getServiceIdByUrlMock.mockImplementation(() => 'github');
 
         // add to exclusions http://www.github.com, it should become service
         await exclusionsHandler.addUrlToExclusions('http://www.github.com');
@@ -490,8 +494,8 @@ describe('ExclusionsHandler', () => {
     });
 
     it('service default data', async () => {
-        servicesManager.getService.mockImplementation(() => GITHUB_SERVICE_DATA);
-        servicesManager.getServiceIdByUrl.mockImplementation(() => 'github');
+        getServiceMock.mockImplementation(() => GITHUB_SERVICE_DATA);
+        getServiceIdByUrlMock.mockImplementation(() => 'github');
         // add github service
         await exclusionsHandler.addService('github');
         let exclusionsData = exclusionsHandler.getExclusions();
@@ -527,8 +531,8 @@ describe('ExclusionsHandler', () => {
     });
 
     it('service exclusions groups default data', async () => {
-        servicesManager.getService.mockImplementation(() => GITHUB_SERVICE_DATA);
-        servicesManager.getServiceIdByUrl.mockImplementation(() => 'github');
+        getServiceMock.mockImplementation(() => GITHUB_SERVICE_DATA);
+        getServiceIdByUrlMock.mockImplementation(() => 'github');
         // add github service
         await exclusionsHandler.addService('github');
         let exclusionsData = exclusionsHandler.getExclusions();

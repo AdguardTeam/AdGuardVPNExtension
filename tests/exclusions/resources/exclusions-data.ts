@@ -1,12 +1,15 @@
-export const testExclusionsData = {
+import { ExclusionStates } from '../../../src/common/exclusionsConstants';
+
+export const testExclusionsData: any = {
     excludedServices: [
         {
             serviceId: 'github',
             serviceName: 'GitHub',
             iconUrl: 'https://icons.adguard.org/icon?domain=github.com',
-            categories: [
-                'Work communication tools',
-            ],
+            categories: {
+                id: 'WORK',
+                name: 'Work communication tools',
+            },
             modifiedTime: '2021-09-14T10:23:00+0000',
             exclusionsGroups: [
                 {
@@ -16,15 +19,15 @@ export const testExclusionsData = {
                         {
                             id: '-rHx9Ay5UJLfOOhMMC2Uq',
                             hostname: 'ghcr.io',
-                            enabled: 'Enabled',
+                            enabled: ExclusionStates.Enabled,
                         },
                         {
                             id: 'jyclVWHOjIL0FWLZTfb2t',
                             hostname: '*.ghcr.io',
-                            enabled: 'Enabled',
+                            enabled: ExclusionStates.Enabled,
                         },
                     ],
-                    state: 'Enabled',
+                    state: ExclusionStates.Enabled,
                 },
                 {
                     id: 'CGinYTAxmw7ufr31o1CKG',
@@ -33,15 +36,15 @@ export const testExclusionsData = {
                         {
                             id: 'sGzDW0lhUzcywW0j2bfFR',
                             hostname: 'github.com',
-                            enabled: 'Enabled',
+                            enabled: ExclusionStates.Enabled,
                         },
                         {
                             id: 'y2_AhtrQP_Ae5eBwsh8QI',
                             hostname: '*.github.com',
-                            enabled: 'Enabled',
+                            enabled: ExclusionStates.Enabled,
                         },
                     ],
-                    state: 'Enabled',
+                    state: ExclusionStates.Enabled,
                 },
                 {
                     id: 'FMa_zQlXzWL5BUu9ZOiZg',
@@ -50,15 +53,15 @@ export const testExclusionsData = {
                         {
                             id: 'PoYhyAgPIQPOn-DfPlw7A',
                             hostname: 'github.io',
-                            enabled: 'Enabled',
+                            enabled: ExclusionStates.Enabled,
                         },
                         {
                             id: 'XgwqF54rRSXJ0h1pYomD9',
                             hostname: '*.github.io',
-                            enabled: 'Enabled',
+                            enabled: ExclusionStates.Enabled,
                         },
                     ],
-                    state: 'Enabled',
+                    state: ExclusionStates.Enabled,
                 },
                 {
                     id: 'xdy8LKxjYxKuq43OETpUr',
@@ -67,15 +70,15 @@ export const testExclusionsData = {
                         {
                             id: '04J1Vz-TYw123Ht4DWGWV',
                             hostname: 'githubapp.com',
-                            enabled: 'Enabled',
+                            enabled: ExclusionStates.Enabled,
                         },
                         {
                             id: 'jFbOJb7dpkQmdZHZFxhQp',
                             hostname: '*.githubapp.com',
-                            enabled: 'Enabled',
+                            enabled: ExclusionStates.Enabled,
                         },
                     ],
-                    state: 'Enabled',
+                    state: ExclusionStates.Enabled,
                 },
                 {
                     id: 'nGkpMW-t-W5Dej0k0wA_o',
@@ -84,15 +87,15 @@ export const testExclusionsData = {
                         {
                             id: 'XUGlocJVu5xMOYeoocSC3',
                             hostname: 'githubassets.com',
-                            enabled: 'Enabled',
+                            enabled: ExclusionStates.Enabled,
                         },
                         {
                             id: 'U8sOwhCxdhvr9LulgAh_D',
                             hostname: '*.githubassets.com',
-                            enabled: 'Enabled',
+                            enabled: ExclusionStates.Enabled,
                         },
                     ],
-                    state: 'Enabled',
+                    state: ExclusionStates.Enabled,
                 },
                 {
                     id: '1l9afcX-R6yYzt2wopsM0',
@@ -101,18 +104,18 @@ export const testExclusionsData = {
                         {
                             id: 'z5rCepkLEScPdZ4h7hAMi',
                             hostname: 'githubusercontent.com',
-                            enabled: 'Enabled',
+                            enabled: ExclusionStates.Enabled,
                         },
                         {
                             id: 'vi2jQQ-1bjsmUnzLEJyzf',
                             hostname: '*.githubusercontent.com',
-                            enabled: 'Enabled',
+                            enabled: ExclusionStates.Enabled,
                         },
                     ],
-                    state: 'Enabled',
+                    state: ExclusionStates.Enabled,
                 },
             ],
-            state: 'Enabled',
+            state: ExclusionStates.Enabled,
         },
     ],
     exclusionsGroups: [
@@ -123,22 +126,22 @@ export const testExclusionsData = {
                 {
                     id: 'RJMwFQORRkgsTruzzaWNe',
                     hostname: 'example.org',
-                    enabled: 'Enabled',
+                    enabled: ExclusionStates.Enabled,
                 },
                 {
                     id: 'lBvG7kSOfb52g2rs-H6k0',
                     hostname: '*.example.org',
-                    enabled: 'Enabled',
+                    enabled: ExclusionStates.Enabled,
                 },
             ],
-            state: 'Enabled',
+            state: ExclusionStates.Enabled,
         },
     ],
     excludedIps: [
         {
             id: '5pkJQyFxPu8KJkZBqQnk_',
             hostname: '192.168.35.41',
-            enabled: 'Enabled',
+            enabled: ExclusionStates.Enabled,
         },
     ],
 };

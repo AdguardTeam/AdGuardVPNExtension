@@ -15,7 +15,7 @@ export const EXCLUSION_DATA_TYPES = {
     TXT: 'txt',
 };
 
-const readFile = (file) => {
+const readFile = (file: Blob) => {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
 
@@ -29,7 +29,7 @@ const readFile = (file) => {
     });
 };
 
-const readZipFile = async (file) => {
+const readZipFile = async (file: File) => {
     const zip = new JSZip();
     const zipContent = await zip.loadAsync(file);
 
@@ -89,7 +89,7 @@ const readZipFile = async (file) => {
     return resultExclusions;
 };
 
-export const readExclusionsFile = async (file) => {
+export const readExclusionsFile = async (file: File) => {
     const fileName = file.name;
     switch (true) {
         case (fileName.endsWith(`.${EXCLUSIONS_FILES_MARKERS.REGULAR}`)

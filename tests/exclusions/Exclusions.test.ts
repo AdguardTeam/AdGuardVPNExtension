@@ -1,10 +1,12 @@
-import ExclusionsManager from '../../src/background/exclusions/ExclusionsManager';
 import { sleep } from '../../src/lib/helpers';
 import { servicesManager } from '../../src/background/exclusions/ServicesManager';
+import ExclusionsManager, { ExclusionsInfo } from '../../src/background/exclusions/ExclusionsManager';
+import { ExclusionsModes } from '../../src/common/exclusionsConstants';
 
 jest.mock('../../src/background/exclusions/ServicesManager');
 
-servicesManager.init.mockImplementation(() => {});
+const initMock = servicesManager.init as jest.MockedFunction<() => Promise<void>>;
+initMock.mockImplementation(() => new Promise(() => {}));
 
 jest.mock('../../src/lib/logger');
 
@@ -14,7 +16,19 @@ const proxy = {
 };
 
 const settings = (() => {
-    let settingsStorage = {};
+    let settingsStorage = {
+        inverted: false,
+        [ExclusionsModes.Selective]: {
+            excludedServices: [],
+            exclusionsGroups: [],
+            excludedIps: [],
+        },
+        [ExclusionsModes.Regular]: {
+            excludedServices: [],
+            exclusionsGroups: [],
+            excludedIps: [],
+        },
+    };
     return {
         setExclusions: jest.fn((data) => {
             settingsStorage = data;
@@ -34,12 +48,14 @@ const browser = {
 
 const exclusions = new ExclusionsManager(browser, proxy, settings);
 
+// @ts-ignore
 beforeAll(async (done) => {
     await exclusions.init();
     done();
 });
 
 describe('modules bound with exclusions work as expected', () => {
+    // @ts-ignore
     afterAll(async (done) => {
         await exclusions.current.clearExclusionsData();
         done();
@@ -120,7 +136,8 @@ describe('exclusions', () => {
     it('should return true if hostname was added in current', async () => {
         await exclusions.setCurrentMode(exclusions.MODES.Regular);
 
-        let exclusionsInStorage = settings.getExclusions();
+        let exclusionsInStorage: ExclusionsInfo = settings.getExclusions();
+
         expect(exclusionsInStorage).toEqual({
             inverted: false,
             regular: {
@@ -174,6 +191,7 @@ describe('exclusions', () => {
 });
 
 describe('urls w/ www and w/o www', () => {
+    // @ts-ignore
     afterEach(async (done) => {
         await exclusions.current.clearExclusionsData();
         done();
@@ -202,6 +220,7 @@ describe('urls w/ www and w/o www', () => {
 });
 
 describe('works with wildcards', () => {
+    // @ts-ignore
     afterEach(async (done) => {
         await exclusions.current.clearExclusionsData();
         done();
@@ -220,6 +239,7 @@ describe('works with wildcards', () => {
 });
 
 describe('Exclusions order', () => {
+    // @ts-ignore
     afterEach(async (done) => {
         await exclusions.current.clearExclusionsData();
         done();

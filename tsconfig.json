@@ -9,6 +9,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
+    "strictPropertyInitialization": false,
     // strict flag turns to true next flags:
     // - alwaysStrict
     // - noImplicitAny

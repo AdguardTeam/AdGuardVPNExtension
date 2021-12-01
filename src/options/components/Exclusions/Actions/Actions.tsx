@@ -6,10 +6,11 @@ import classnames from 'classnames';
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { RemoveAllModal } from './RemoveAllModal';
-
-import './actions.pcss';
+import { ExclusionsDataToImport } from '../../../../background/exclusions/ExclusionsManager';
 import { readExclusionsFile } from './fileHelpers';
 import { translator } from '../../../../common/translator';
+
+import './actions.pcss';
 
 export const Actions = () => {
     const { exclusionsStore, notificationsStore } = useContext(rootStore);
@@ -41,14 +42,15 @@ export const Actions = () => {
     };
 
     const inputChangeHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        // @ts-ignore
         const [file] = e.target.files;
         e.target.value = '';
 
         try {
             const exclusionsData = await readExclusionsFile(file);
-            await exclusionsStore.importExclusions(exclusionsData);
+            await exclusionsStore.importExclusions(exclusionsData as ExclusionsDataToImport[]);
             notificationsStore.notifySuccess(translator.getMessage('options_exclusions_import_successful'));
-        } catch (e) {
+        } catch (e: any) {
             notificationsStore.notifyError(e.message);
         }
     };
