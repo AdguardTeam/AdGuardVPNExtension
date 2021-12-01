@@ -40,7 +40,7 @@ export const Actions = () => {
         setIsMoreActionsMenuOpen(!isMoreActionsMenuOpen);
     };
 
-    const inputChangeHandler = async (e) => {
+    const inputChangeHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const [file] = e.target.files;
         e.target.value = '';
 

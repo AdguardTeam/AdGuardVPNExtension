@@ -2,14 +2,24 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 
-import { ExclusionsTypes } from '../../../../../common/exclusionsConstants';
+import { ExclusionsTypes, ExclusionStates } from '../../../../../common/exclusionsConstants';
 import { StateCheckbox } from '../../StateCheckbox';
 import { rootStore } from '../../../../stores';
 import { SearchHighlighter } from '../../Search/SearchHighlighter';
 
 import './list-item.pcss';
 
-export const ListItem = observer(({ exclusion }) => {
+export interface TopLevelExclusion {
+    exclusion: {
+        id: string,
+        name: string,
+        type: ExclusionsTypes,
+        state: ExclusionStates,
+        iconUrl: string,
+    }
+}
+
+export const ListItem = observer(({ exclusion }: TopLevelExclusion) => {
     const { exclusionsStore } = useContext(rootStore);
 
     const removeExclusion = (id: string, type: ExclusionsTypes) => () => {

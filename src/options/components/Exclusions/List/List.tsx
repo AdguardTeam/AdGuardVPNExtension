@@ -11,7 +11,7 @@ export const List = observer(() => {
         <ul>
             {
                 exclusionsStore.preparedExclusions.map((exclusion) => (
-                    <ListItem exclusion={exclusion} />
+                    <ListItem exclusion={exclusion} key={exclusion.id} />
                 ))
             }
         </ul>

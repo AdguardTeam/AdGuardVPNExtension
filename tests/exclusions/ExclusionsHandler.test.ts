@@ -166,11 +166,11 @@ describe('ExclusionsHandler', () => {
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].hostname).toEqual('github.com');
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions).toHaveLength(2);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[0].hostname).toEqual('github.com');
-        expect(exclusionsData.excludedServices[0].exclusionsGroups[0]
-            .exclusions[0].enabled).toEqual(ExclusionStates.Enabled);
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[0].enabled)
+            .toEqual(ExclusionStates.Enabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[1].hostname).toEqual('*.github.com');
-        expect(exclusionsData.excludedServices[0].exclusionsGroups[0]
-            .exclusions[1].enabled).toEqual(ExclusionStates.Enabled);
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[1].enabled)
+            .toEqual(ExclusionStates.Enabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[1].hostname).toEqual('github.io');
         expect(exclusionsData.excludedServices[0].exclusionsGroups[2].hostname).toEqual('githubapp.com');
 
@@ -178,9 +178,12 @@ describe('ExclusionsHandler', () => {
         expect(exclusionsData.exclusionsGroups[0].hostname).toEqual('example.org');
         expect(exclusionsData.exclusionsGroups[0].exclusions).toHaveLength(2);
         expect(exclusionsData.exclusionsGroups[0].exclusions[0].hostname).toEqual('example.org');
-        expect(exclusionsData.exclusionsGroups[0].exclusions[0].enabled).toEqual(ExclusionStates.Enabled);
-        expect(exclusionsData.exclusionsGroups[0].exclusions[1].hostname).toEqual('*.example.org');
-        expect(exclusionsData.exclusionsGroups[0].exclusions[1].enabled).toEqual(ExclusionStates.Enabled);
+        expect(exclusionsData.exclusionsGroups[0].exclusions[0].enabled)
+            .toEqual(ExclusionStates.Enabled);
+        expect(exclusionsData.exclusionsGroups[0].exclusions[1].hostname)
+            .toEqual('*.example.org');
+        expect(exclusionsData.exclusionsGroups[0].exclusions[1].enabled)
+            .toEqual(ExclusionStates.Enabled);
 
         expect(exclusionsData.excludedIps).toHaveLength(1);
         expect(exclusionsData.excludedIps[0].hostname).toEqual('192.0.2.1');
@@ -209,7 +212,8 @@ describe('ExclusionsHandler', () => {
         expect(exclusionsData.exclusionsGroups[0].exclusions[0].hostname).toEqual('example.org');
         expect(exclusionsData.exclusionsGroups[0].exclusions[1].hostname).toEqual('*.example.org');
         expect(exclusionsData.exclusionsGroups[0].exclusions[2].hostname).toEqual('test.example.org');
-        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled).toEqual(ExclusionStates.Disabled);
+        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled)
+            .toEqual(ExclusionStates.Disabled);
 
         const subdomainId = exclusionsData.exclusionsGroups[0].exclusions[2].id;
         await exclusionsHandler.removeSubdomainFromExclusionsGroup(exclusionsGroupId, subdomainId);
@@ -277,7 +281,8 @@ describe('ExclusionsHandler', () => {
         expect(exclusionsData.exclusionsGroups[0].exclusions[1].hostname).toEqual('*.example.org');
         expect(exclusionsData.exclusionsGroups[0].exclusions[2].hostname).toEqual('test.example.org');
         // added subdomain should be disabled
-        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled).toEqual(ExclusionStates.Disabled);
+        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled)
+            .toEqual(ExclusionStates.Disabled);
 
         // toggle group state
         await exclusionsHandler.toggleExclusionsGroupState(groupId);
@@ -317,9 +322,11 @@ describe('ExclusionsHandler', () => {
 
         exclusionsData = exclusionsHandler.getExclusions();
         expect(exclusionsData.exclusionsGroups[0].exclusions).toHaveLength(3);
-        expect(exclusionsData.exclusionsGroups[0].exclusions[1].enabled).toEqual(ExclusionStates.Enabled);
+        expect(exclusionsData.exclusionsGroups[0].exclusions[1].enabled)
+            .toEqual(ExclusionStates.Enabled);
         expect(exclusionsData.exclusionsGroups[0].exclusions[2].hostname).toEqual('test.example.org');
-        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled).toEqual(ExclusionStates.Disabled);
+        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled)
+            .toEqual(ExclusionStates.Disabled);
 
         const subdomain1Id = exclusionsData.exclusionsGroups[0].exclusions[0].id;
         const subdomain2Id = exclusionsData.exclusionsGroups[0].exclusions[1].id;
@@ -328,9 +335,12 @@ describe('ExclusionsHandler', () => {
         await exclusionsHandler.toggleSubdomainStateInExclusionsGroup(groupId, subdomain2Id);
 
         exclusionsData = exclusionsHandler.getExclusions();
-        expect(exclusionsData.exclusionsGroups[0].exclusions[0].enabled).toEqual(ExclusionStates.Disabled);
-        expect(exclusionsData.exclusionsGroups[0].exclusions[1].enabled).toEqual(ExclusionStates.Disabled);
-        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled).toEqual(ExclusionStates.Disabled);
+        expect(exclusionsData.exclusionsGroups[0].exclusions[0].enabled)
+            .toEqual(ExclusionStates.Disabled);
+        expect(exclusionsData.exclusionsGroups[0].exclusions[1].enabled)
+            .toEqual(ExclusionStates.Disabled);
+        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled)
+            .toEqual(ExclusionStates.Disabled);
         // exclusions group should be disabled
         expect(exclusionsData.exclusionsGroups[0].state).toEqual(ExclusionStates.Disabled);
     });
