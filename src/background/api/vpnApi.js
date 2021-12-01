@@ -17,7 +17,7 @@ class VpnApi extends Api {
             language,
         };
 
-        return this.makeRequest(path, method, { params });
+        return this.makeRequest(path, { params }, method);
     };
 
     GET_VPN_CREDENTIALS = { path: 'v1/proxy_credentials', method: 'POST' };
@@ -34,14 +34,14 @@ class VpnApi extends Api {
             data: qs.stringify(data),
         };
 
-        return this.makeRequest(path, method, config);
+        return this.makeRequest(path, config, method);
     };
 
     GET_CURRENT_LOCATION = { path: 'v1/geo_location', method: 'GET' };
 
     getCurrentLocation = () => {
         const { path, method } = this.GET_CURRENT_LOCATION;
-        return this.makeRequest(path, method);
+        return this.makeRequest(path, {}, method);
     };
 
     VPN_EXTENSION_INFO = { path: 'v1/info/extension', method: 'GET' };
@@ -52,7 +52,7 @@ class VpnApi extends Api {
         const params = {
             token: vpnToken,
         };
-        return this.makeRequest(path, method, { params });
+        return this.makeRequest(path, { params }, method);
     };
 
     TRACK_EXTENSION_INSTALL = { path: 'v1/init/extension', method: 'POST' };
@@ -66,7 +66,7 @@ class VpnApi extends Api {
             }),
         };
 
-        return this.makeRequest(path, method, config);
+        return this.makeRequest(path, config, method);
     };
 
     SUPPORT_REQUEST = { path: 'v1/support', method: 'POST' };
@@ -78,14 +78,14 @@ class VpnApi extends Api {
             data,
         };
 
-        return this.makeRequest(path, method, config);
+        return this.makeRequest(path, config, method);
     };
 
     GET_DESKTOP_VPN_CONNECTION_STATUS = { path: 'v1/vpn_connected', method: 'GET' };
 
     getDesktopVpnConnectionStatus = () => {
         const { path, method } = this.GET_DESKTOP_VPN_CONNECTION_STATUS;
-        return this.makeRequest(path, method);
+        return this.makeRequest(path, {}, method);
     };
 
     EXCLUSION_SERVICES = { path: 'v2/exclusion_services', method: 'GET' };
@@ -98,7 +98,7 @@ class VpnApi extends Api {
             locale: language,
         };
 
-        return this.makeRequest(path, method, { params });
+        return this.makeRequest(path, { params }, method);
     };
 
     EXCLUSION_SERVICE_DOMAINS = { path: 'v1/exclusion_services/domains', method: 'GET' };
@@ -110,7 +110,7 @@ class VpnApi extends Api {
             data: servicesIds.map((serviceId) => `service_id=${serviceId}`),
         };
 
-        return this.makeRequest(path, method, config);
+        return this.makeRequest(path, config, method);
     };
 }
 

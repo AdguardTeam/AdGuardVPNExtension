@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
+import classnames from 'classnames';
 
 import { rootStore } from '../../../../stores';
 import { Title } from '../../../ui/Title';
 import { StateCheckbox } from '../../StateCheckbox';
-import { ExclusionsModes, ExclusionsTypes } from '../../../../../common/exclusionsConstants';
+import { ExclusionsModes, ExclusionsTypes, ExclusionStates } from '../../../../../common/exclusionsConstants';
 import { reactTranslator } from '../../../../../common/reactTranslator';
 import { translator } from '../../../../../common/translator';
 
@@ -38,6 +39,21 @@ export const ServiceSettings = observer(({ exclusionData }) => {
     const subtitle = exclusionsStore.currentMode === ExclusionsModes.Regular
         ? translator.getMessage('settings_exclusion_service_settings_subtitle_regular_mode')
         : translator.getMessage('settings_exclusion_service_settings_subtitle_selective_mode');
+
+    const isModifiedService = () => {
+        const defaultServiceData = exclusionsStore.servicesData
+            .find(({ serviceId }) => serviceId === exclusionData.serviceId);
+        return exclusionData.exclusionsGroups.length === defaultServiceData?.exclusionsGroups.length
+            && exclusionData.state === ExclusionStates.Enabled;
+    };
+
+    const resetButtonClass = classnames(
+        'button',
+        'button--medium',
+        'button--outline-secondary',
+        'service__reset',
+        { hidden: isModifiedService() },
+    );
 
     // FIXME remove any
     const renderedExclusionsGroups = exclusionData.exclusionsGroups.map((group: any) => {
@@ -89,7 +105,7 @@ export const ServiceSettings = observer(({ exclusionData }) => {
             </div>
             <button
                 type="button"
-                className="button button--medium button--outline-secondary service__reset"
+                className={resetButtonClass}
                 onClick={resetServiceData}
             >
                 {reactTranslator.getMessage('settings_exclusion_reset_to_default')}

@@ -9,7 +9,7 @@ class AccountApi extends Api {
         const config = {
             headers: { Authorization: `Bearer ${accessToken}` },
         };
-        return this.makeRequest(path, method, config);
+        return this.makeRequest(path, config, method);
     }
 
     GET_ACCOUNT_INFO = { path: 'account/info', method: 'GET' };
@@ -19,7 +19,7 @@ class AccountApi extends Api {
         const config = {
             headers: { Authorization: `Bearer ${accessToken}` },
         };
-        return this.makeRequest(path, method, config);
+        return this.makeRequest(path, config, method);
     }
 }
 

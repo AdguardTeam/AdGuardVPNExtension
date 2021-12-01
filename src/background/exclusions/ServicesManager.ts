@@ -79,7 +79,7 @@ class ServicesManager {
     /**
      * Checks if provided hostname is service and returns serviceId or null
      */
-    isService(url: string): string | null {
+    getServiceIdByUrl(url: string): string | null {
         const hostname = prepareUrl(url);
         if (!hostname) {
             return null;

@@ -166,11 +166,11 @@ describe('ExclusionsHandler', () => {
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].hostname).toEqual('github.com');
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions).toHaveLength(2);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[0].hostname).toEqual('github.com');
-        expect(exclusionsData.excludedServices[0].exclusionsGroups[0]
-            .exclusions[0].enabled).toBeTruthy();
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[0].enabled)
+            .toEqual(ExclusionStates.Enabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[1].hostname).toEqual('*.github.com');
-        expect(exclusionsData.excludedServices[0].exclusionsGroups[0]
-            .exclusions[1].enabled).toBeTruthy();
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[1].enabled)
+            .toEqual(ExclusionStates.Enabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[1].hostname).toEqual('github.io');
         expect(exclusionsData.excludedServices[0].exclusionsGroups[2].hostname).toEqual('githubapp.com');
 
@@ -178,13 +178,16 @@ describe('ExclusionsHandler', () => {
         expect(exclusionsData.exclusionsGroups[0].hostname).toEqual('example.org');
         expect(exclusionsData.exclusionsGroups[0].exclusions).toHaveLength(2);
         expect(exclusionsData.exclusionsGroups[0].exclusions[0].hostname).toEqual('example.org');
-        expect(exclusionsData.exclusionsGroups[0].exclusions[0].enabled).toBeTruthy();
-        expect(exclusionsData.exclusionsGroups[0].exclusions[1].hostname).toEqual('*.example.org');
-        expect(exclusionsData.exclusionsGroups[0].exclusions[1].enabled).toBeTruthy();
+        expect(exclusionsData.exclusionsGroups[0].exclusions[0].enabled)
+            .toEqual(ExclusionStates.Enabled);
+        expect(exclusionsData.exclusionsGroups[0].exclusions[1].hostname)
+            .toEqual('*.example.org');
+        expect(exclusionsData.exclusionsGroups[0].exclusions[1].enabled)
+            .toEqual(ExclusionStates.Enabled);
 
         expect(exclusionsData.excludedIps).toHaveLength(1);
         expect(exclusionsData.excludedIps[0].hostname).toEqual('192.0.2.1');
-        expect(exclusionsData.excludedIps[0].enabled).toBeTruthy();
+        expect(exclusionsData.excludedIps[0].enabled).toEqual(ExclusionStates.Enabled);
 
         // add duplicated data
         await exclusionsHandler.addService('github');
@@ -209,7 +212,8 @@ describe('ExclusionsHandler', () => {
         expect(exclusionsData.exclusionsGroups[0].exclusions[0].hostname).toEqual('example.org');
         expect(exclusionsData.exclusionsGroups[0].exclusions[1].hostname).toEqual('*.example.org');
         expect(exclusionsData.exclusionsGroups[0].exclusions[2].hostname).toEqual('test.example.org');
-        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled).toBeFalsy();
+        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled)
+            .toEqual(ExclusionStates.Disabled);
 
         const subdomainId = exclusionsData.exclusionsGroups[0].exclusions[2].id;
         await exclusionsHandler.removeSubdomainFromExclusionsGroup(exclusionsGroupId, subdomainId);
@@ -247,18 +251,18 @@ describe('ExclusionsHandler', () => {
         let exclusionsData = exclusionsHandler.getExclusions();
 
         expect(exclusionsData.excludedIps[0].hostname).toEqual('192.100.50.33');
-        expect(exclusionsData.excludedIps[0].enabled).toBeTruthy();
+        expect(exclusionsData.excludedIps[0].enabled).toEqual(ExclusionStates.Enabled);
 
         const ipId = exclusionsData.excludedIps[0].id;
         await exclusionsHandler.toggleIpState(ipId);
         exclusionsData = exclusionsHandler.getExclusions();
 
-        expect(exclusionsData.excludedIps[0].enabled).toBeFalsy();
+        expect(exclusionsData.excludedIps[0].enabled).toEqual(ExclusionStates.Disabled);
 
         await exclusionsHandler.toggleIpState(ipId);
         exclusionsData = exclusionsHandler.getExclusions();
 
-        expect(exclusionsData.excludedIps[0].enabled).toBeTruthy();
+        expect(exclusionsData.excludedIps[0].enabled).toEqual(ExclusionStates.Enabled);
     });
 
     it('subdomains states on toggling exclusions group state and adding duplicated group', async () => {
@@ -277,7 +281,8 @@ describe('ExclusionsHandler', () => {
         expect(exclusionsData.exclusionsGroups[0].exclusions[1].hostname).toEqual('*.example.org');
         expect(exclusionsData.exclusionsGroups[0].exclusions[2].hostname).toEqual('test.example.org');
         // added subdomain should be disabled
-        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled).toBeFalsy();
+        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled)
+            .toEqual(ExclusionStates.Disabled);
 
         // toggle group state
         await exclusionsHandler.toggleExclusionsGroupState(groupId);
@@ -289,7 +294,7 @@ describe('ExclusionsHandler', () => {
 
         exclusionsData.exclusionsGroups[0].exclusions.forEach((exclusion) => {
             // all subdomain should be disabled after disabling exclusions group
-            expect(exclusion.enabled).toBeFalsy();
+            expect(exclusion.enabled).toEqual(ExclusionStates.Disabled);
         });
 
         // add duplicated exclusions group
@@ -303,7 +308,7 @@ describe('ExclusionsHandler', () => {
         expect(exclusionsData.exclusionsGroups[0].exclusions).toHaveLength(3);
         exclusionsData.exclusionsGroups[0].exclusions.forEach((exclusion) => {
             // all subdomain should be enabled after adding duplicated exclusions group
-            expect(exclusion.enabled).toBeTruthy();
+            expect(exclusion.enabled).toEqual(ExclusionStates.Enabled);
         });
     });
 
@@ -317,9 +322,11 @@ describe('ExclusionsHandler', () => {
 
         exclusionsData = exclusionsHandler.getExclusions();
         expect(exclusionsData.exclusionsGroups[0].exclusions).toHaveLength(3);
-        expect(exclusionsData.exclusionsGroups[0].exclusions[1].enabled).toBeTruthy();
+        expect(exclusionsData.exclusionsGroups[0].exclusions[1].enabled)
+            .toEqual(ExclusionStates.Enabled);
         expect(exclusionsData.exclusionsGroups[0].exclusions[2].hostname).toEqual('test.example.org');
-        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled).toBeFalsy();
+        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled)
+            .toEqual(ExclusionStates.Disabled);
 
         const subdomain1Id = exclusionsData.exclusionsGroups[0].exclusions[0].id;
         const subdomain2Id = exclusionsData.exclusionsGroups[0].exclusions[1].id;
@@ -328,16 +335,19 @@ describe('ExclusionsHandler', () => {
         await exclusionsHandler.toggleSubdomainStateInExclusionsGroup(groupId, subdomain2Id);
 
         exclusionsData = exclusionsHandler.getExclusions();
-        expect(exclusionsData.exclusionsGroups[0].exclusions[0].enabled).toBeFalsy();
-        expect(exclusionsData.exclusionsGroups[0].exclusions[1].enabled).toBeFalsy();
-        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled).toBeFalsy();
+        expect(exclusionsData.exclusionsGroups[0].exclusions[0].enabled)
+            .toEqual(ExclusionStates.Disabled);
+        expect(exclusionsData.exclusionsGroups[0].exclusions[1].enabled)
+            .toEqual(ExclusionStates.Disabled);
+        expect(exclusionsData.exclusionsGroups[0].exclusions[2].enabled)
+            .toEqual(ExclusionStates.Disabled);
         // exclusions group should be disabled
         expect(exclusionsData.exclusionsGroups[0].state).toEqual(ExclusionStates.Disabled);
     });
 
     it('service state test', async () => {
         servicesManager.getService.mockImplementation(() => FACEBOOK_SERVICE_DATA);
-        servicesManager.isService.mockImplementation(() => 'facebook');
+        servicesManager.getServiceIdByUrl.mockImplementation(() => 'facebook');
 
         // add to exclusions http://www.facebook.com, it should become service
         await exclusionsHandler.addUrlToExclusions('http://www.facebook.com');
@@ -352,9 +362,9 @@ describe('ExclusionsHandler', () => {
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].state)
             .toEqual(ExclusionStates.Enabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[0]
-            .enabled).toBeTruthy();
+            .enabled).toEqual(ExclusionStates.Enabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[1]
-            .enabled).toBeTruthy();
+            .enabled).toEqual(ExclusionStates.Enabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[1].state)
             .toEqual(ExclusionStates.Disabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[2].state)
@@ -368,9 +378,9 @@ describe('ExclusionsHandler', () => {
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].state)
             .toEqual(ExclusionStates.Disabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[0].enabled)
-            .toBeFalsy();
+            .toEqual(ExclusionStates.Disabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[1].enabled)
-            .toBeFalsy();
+            .toEqual(ExclusionStates.Disabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[1].state)
             .toEqual(ExclusionStates.Disabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[2].state)
@@ -379,7 +389,7 @@ describe('ExclusionsHandler', () => {
 
     it('service exclusions groups test', async () => {
         servicesManager.getService.mockImplementation(() => GITHUB_SERVICE_DATA);
-        servicesManager.isService.mockImplementation(() => 'github');
+        servicesManager.getServiceIdByUrl.mockImplementation(() => 'github');
 
         // add to exclusions http://www.github.com, it should become service
         await exclusionsHandler.addUrlToExclusions('http://www.github.com');
@@ -425,7 +435,7 @@ describe('ExclusionsHandler', () => {
         expect(exclusionsData.exclusionsGroups[0].state).toEqual(ExclusionStates.Enabled);
         expect(exclusionsData.excludedIps).toHaveLength(1);
         expect(exclusionsData.excludedIps[0].hostname).toEqual('192.168.35.41');
-        expect(exclusionsData.excludedIps[0].enabled).toBeTruthy();
+        expect(exclusionsData.excludedIps[0].enabled).toEqual(ExclusionStates.Enabled);
 
         // disable all imported exclusions
         await exclusionsHandler.toggleServiceState('github');
@@ -435,7 +445,7 @@ describe('ExclusionsHandler', () => {
         exclusionsData = exclusionsHandler.getExclusions();
         expect(exclusionsData.excludedServices[0].state).toEqual(ExclusionStates.Disabled);
         expect(exclusionsData.exclusionsGroups[0].state).toEqual(ExclusionStates.Disabled);
-        expect(exclusionsData.excludedIps[0].enabled).toBeFalsy();
+        expect(exclusionsData.excludedIps[0].enabled).toEqual(ExclusionStates.Disabled);
 
         // import same exclusions one more time
         await exclusionsHandler.importExclusionsData(testExclusionsData);
@@ -450,7 +460,7 @@ describe('ExclusionsHandler', () => {
         expect(exclusionsData.exclusionsGroups[0].state).toEqual(ExclusionStates.Enabled);
         expect(exclusionsData.excludedIps).toHaveLength(1);
         expect(exclusionsData.excludedIps[0].hostname).toEqual('192.168.35.41');
-        expect(exclusionsData.excludedIps[0].enabled).toBeTruthy();
+        expect(exclusionsData.excludedIps[0].enabled).toEqual(ExclusionStates.Enabled);
     });
 
     it('add manually service domain (case 2)', async () => {
@@ -477,5 +487,90 @@ describe('ExclusionsHandler', () => {
             .toEqual(ExclusionStates.Disabled);
         expect(exclusionsData.excludedServices[0].exclusionsGroups[5].state)
             .toEqual(ExclusionStates.Disabled);
+    });
+
+    it('service default data', async () => {
+        servicesManager.getService.mockImplementation(() => GITHUB_SERVICE_DATA);
+        servicesManager.getServiceIdByUrl.mockImplementation(() => 'github');
+        // add github service
+        await exclusionsHandler.addService('github');
+        let exclusionsData = exclusionsHandler.getExclusions();
+
+        expect(exclusionsData.excludedServices).toHaveLength(1);
+        expect(exclusionsData.excludedServices[0].serviceId).toEqual('github');
+        expect(exclusionsData.excludedServices[0].exclusionsGroups).toHaveLength(6);
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].hostname)
+            .toEqual('github.com');
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].state)
+            .toEqual(ExclusionStates.Enabled);
+
+        // remove 'github.com' ExclusionsGroup from Service
+        await exclusionsHandler.removeExclusionsGroupFromService(
+            'github',
+            exclusionsData.excludedServices[0].exclusionsGroups[0].id,
+        );
+        exclusionsData = exclusionsHandler.getExclusions();
+        expect(exclusionsData.excludedServices[0].exclusionsGroups).toHaveLength(5);
+
+        // remove service
+        await exclusionsHandler.removeService('github');
+        exclusionsData = exclusionsHandler.getExclusions();
+        expect(exclusionsData.excludedServices).toHaveLength(0);
+
+        // add same service one more time
+        await exclusionsHandler.addService('github.com');
+        exclusionsData = exclusionsHandler.getExclusions();
+
+        expect(exclusionsData.excludedServices[0].serviceId).toEqual('github');
+        // amount of ExclusionsGroups should should be similar to default service data
+        expect(exclusionsData.excludedServices[0].exclusionsGroups).toHaveLength(6);
+    });
+
+    it('service exclusions groups default data', async () => {
+        servicesManager.getService.mockImplementation(() => GITHUB_SERVICE_DATA);
+        servicesManager.getServiceIdByUrl.mockImplementation(() => 'github');
+        // add github service
+        await exclusionsHandler.addService('github');
+        let exclusionsData = exclusionsHandler.getExclusions();
+
+        expect(exclusionsData.excludedServices).toHaveLength(1);
+        expect(exclusionsData.excludedServices[0].serviceId).toEqual('github');
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].hostname)
+            .toEqual('github.com');
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[1].hostname)
+            .toEqual('*.github.com');
+
+        // remove '*.github.com' exclusion from 'github.com' ExclusionsGroup from github Service
+        await exclusionsHandler.removeSubdomainFromExclusionsGroupInService(
+            'github',
+            exclusionsData.excludedServices[0].exclusionsGroups[0].id,
+            exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[1].id,
+        );
+
+        exclusionsData = exclusionsHandler.getExclusions();
+        expect(exclusionsData.excludedServices[0].serviceId).toEqual('github');
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].hostname)
+            .toEqual('github.com');
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[0].hostname)
+            .toEqual('github.com');
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions)
+            .toHaveLength(1);
+
+        // remove service
+        await exclusionsHandler.removeService('github');
+        exclusionsData = exclusionsHandler.getExclusions();
+        expect(exclusionsData.excludedServices).toHaveLength(0);
+
+        // add same service one more time
+        await exclusionsHandler.addService('github.com');
+        exclusionsData = exclusionsHandler.getExclusions();
+
+        // ExclusionsGroups should have same amount of exclusions as default service data
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions)
+            .toHaveLength(2);
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[0].hostname)
+            .toEqual('github.com');
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[1].hostname)
+            .toEqual('*.github.com');
     });
 });

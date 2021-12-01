@@ -164,10 +164,6 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
             return;
         }
         const serviceData = servicesManager.getService(serviceId);
-        if (!serviceData) {
-            log.error(`Unable to add service. There is no service '${serviceId}'`);
-            return;
-        }
         const service = new Service(serviceData);
         this.excludedServices.push(service);
         await this.updateHandler();
@@ -189,16 +185,8 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
     }
 
     async resetServiceData(serviceId: string) {
-        this.excludedServices.forEach((service: Service) => {
-            if (service.serviceId === serviceId) {
-                const serviceData = servicesManager.getService(serviceId);
-                if (serviceData) {
-                    // eslint-disable-next-line no-param-reassign
-                    service.exclusionsGroups = serviceData.exclusionsGroups;
-                }
-                service.enableService();
-            }
-        });
+        await this.removeService(serviceId);
+        await this.addService(serviceId);
         await this.updateHandler();
     }
 
@@ -266,7 +254,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
             return;
         }
 
-        const serviceId = servicesManager.isService(hostname);
+        const serviceId = servicesManager.getServiceIdByUrl(hostname);
         if (serviceId) {
             await this.addService(serviceId);
             // if service added manually as domain,
@@ -288,7 +276,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
             this.exclusionsGroups.forEach((group: ExclusionsGroup) => {
                 if (group.hostname === hostname) {
                     group.exclusions.forEach((exclusion) => {
-                        group.setSubdomainStateById(exclusion.id, true);
+                        group.setSubdomainStateById(exclusion.id, ExclusionStates.Enabled);
                     });
                 }
             });
@@ -350,7 +338,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
             this.excludedIps.forEach((excludedIp: Exclusion) => {
                 if (excludedIp.hostname === ip) {
                     // eslint-disable-next-line no-param-reassign
-                    excludedIp.enabled = true;
+                    excludedIp.enabled = ExclusionStates.Enabled;
                 }
             });
         } else {
@@ -369,7 +357,9 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
         this.excludedIps.forEach((ip: Exclusion) => {
             if (ip.id === id) {
                 // eslint-disable-next-line no-param-reassign
-                ip.enabled = !ip.enabled;
+                ip.enabled = ip.enabled === ExclusionStates.Enabled
+                    ? ExclusionStates.Disabled
+                    : ExclusionStates.Enabled;
             }
         });
         await this.updateHandler();

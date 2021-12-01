@@ -164,6 +164,8 @@ export class ExclusionsStore {
     @action closeAddExclusionModal = () => {
         this.addExclusionModalOpen = false;
         this.setServicesSearchValue('');
+        this.servicesToToggle = [];
+        this.unfoldedServiceCategories = [];
     };
 
     @action

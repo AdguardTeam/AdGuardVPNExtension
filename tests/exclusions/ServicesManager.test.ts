@@ -145,28 +145,28 @@ describe('ServicesManager tests', () => {
     });
 
     it('isService', async () => {
-        let serviceId = servicesManager.isService('aliexpress.com');
+        let serviceId = servicesManager.getServiceIdByUrl('aliexpress.com');
         expect(serviceId).toEqual('aliexpress');
 
-        serviceId = servicesManager.isService('bitbucket.org');
+        serviceId = servicesManager.getServiceIdByUrl('bitbucket.org');
         expect(serviceId).toEqual('atlassian');
 
-        serviceId = servicesManager.isService('www.bitbucket.org');
+        serviceId = servicesManager.getServiceIdByUrl('www.bitbucket.org');
         expect(serviceId).toEqual('atlassian');
 
-        serviceId = servicesManager.isService('http://bitbucket.org');
+        serviceId = servicesManager.getServiceIdByUrl('http://bitbucket.org');
         expect(serviceId).toEqual('atlassian');
 
-        serviceId = servicesManager.isService('http://www.bitbucket.org/');
+        serviceId = servicesManager.getServiceIdByUrl('http://www.bitbucket.org/');
         expect(serviceId).toEqual('atlassian');
 
-        let notService = servicesManager.isService('example.org');
+        let notService = servicesManager.getServiceIdByUrl('example.org');
         expect(notService).toBeNull();
 
-        notService = servicesManager.isService('bitbucket.com');
+        notService = servicesManager.getServiceIdByUrl('bitbucket.com');
         expect(notService).toBeNull();
 
-        notService = servicesManager.isService('bitbucket');
+        notService = servicesManager.getServiceIdByUrl('bitbucket');
         expect(notService).toBeNull();
     });
 });
