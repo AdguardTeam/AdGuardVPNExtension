@@ -34,15 +34,13 @@ const browser = {
 
 const exclusions = new ExclusionsManager(browser, proxy, settings);
 
-beforeAll(async (done) => {
+beforeAll(async () => {
     await exclusions.init();
-    done();
 });
 
 describe('modules bound with exclusions work as expected', () => {
-    afterAll(async (done) => {
+    afterAll(async () => {
         await exclusions.current.clearExclusionsData();
-        done();
     });
 
     it('should be called once after initialization', async () => {
@@ -174,9 +172,8 @@ describe('exclusions', () => {
 });
 
 describe('urls w/ www and w/o www', () => {
-    afterEach(async (done) => {
+    afterEach(async () => {
         await exclusions.current.clearExclusionsData();
-        done();
     });
 
     it('can add strings and consider domains w/ and w/o www to be equal', async () => {
@@ -202,9 +199,8 @@ describe('urls w/ www and w/o www', () => {
 });
 
 describe('works with wildcards', () => {
-    afterEach(async (done) => {
+    afterEach(async () => {
         await exclusions.current.clearExclusionsData();
-        done();
     });
 
     it('finds simple wildcards', async () => {
@@ -220,9 +216,8 @@ describe('works with wildcards', () => {
 });
 
 describe('Exclusions order', () => {
-    afterEach(async (done) => {
+    afterEach(async () => {
         await exclusions.current.clearExclusionsData();
-        done();
     });
 
     it('exclusions order doesn\'t change after adding new exclusion', async () => {

@@ -49,14 +49,11 @@ const GITHUB_SERVICE_DATA = new Service({
     ],
 });
 
-// TODO fine tune tsconfig.json
-
 jest.mock('../../src/background/exclusions/ServicesManager');
 
 describe('ExclusionsHandler', () => {
-    afterEach(async (done) => {
+    afterEach(async () => {
         await exclusionsHandler.clearExclusionsData();
-        done();
     });
 
     it('should be empty after construction', () => {

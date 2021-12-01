@@ -14,9 +14,8 @@ const storage = (() => {
 
 const nonRoutableService = new NonRoutableService(storage);
 
-beforeAll(async (done) => {
+beforeAll(async () => {
     await nonRoutableService.init();
-    done();
 });
 
 describe('is routable works', () => {

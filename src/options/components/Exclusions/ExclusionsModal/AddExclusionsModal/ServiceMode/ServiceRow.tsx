@@ -5,11 +5,17 @@ import { rootStore } from '../../../../../stores';
 import { ExclusionStates } from '../../../../../../common/exclusionsConstants';
 import { SearchHighlighter } from '../../../Search/SearchHighlighter';
 import { reactTranslator } from '../../../../../../common/reactTranslator';
-import { PreparedService } from '../../../../../stores/ExclusionsStore';
+import { Service, ServiceInterface } from '../../../../../../background/exclusions/Service';
 
 import './service-mode.pcss';
+import { toJS } from 'mobx';
 
-const determineButtonState = (service: PreparedService, servicesToToggle: string[]) => {
+/**
+ * Returns true if service can be added, and returns false if service can be removed
+ * @param service
+ * @param servicesToToggle
+ */
+export const canAddService = (service: ServiceInterface, servicesToToggle: string[]) => {
     const isInToggle = servicesToToggle.some((serviceId) => serviceId === service.serviceId);
 
     if (isInToggle) {
@@ -20,7 +26,7 @@ const determineButtonState = (service: PreparedService, servicesToToggle: string
 };
 
 interface ServiceRowProps {
-    service: PreparedService;
+    service: Service;
 }
 
 export const ServiceRow = observer(({ service }: ServiceRowProps) => {
@@ -57,9 +63,9 @@ export const ServiceRow = observer(({ service }: ServiceRowProps) => {
         ),
     };
 
-    const shouldAddService = determineButtonState(service, exclusionsStore.servicesToToggle);
+    const serviceCanBeAdded = canAddService(service, exclusionsStore.servicesToToggle);
 
-    const actionButton = shouldAddService ? buttonsMap.remove() : buttonsMap.add();
+    const actionButton = serviceCanBeAdded ? buttonsMap.add() : buttonsMap.remove();
 
     return (
         <div className="service-row">

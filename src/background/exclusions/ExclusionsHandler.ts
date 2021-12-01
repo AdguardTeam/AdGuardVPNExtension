@@ -159,14 +159,34 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
     }
 
     async addService(serviceId: string) {
-        if (this.excludedServices.some((service: Service) => service.serviceId === serviceId)) {
-            await this.resetServiceData(serviceId);
+        if (this.excludedServices.some((service) => service.serviceId === serviceId)) {
             return;
         }
         const serviceData = servicesManager.getService(serviceId);
+        if (!serviceData) {
+            throw new Error(`Was unable to find service with id: ${serviceId}`);
+        }
         const service = new Service(serviceData);
         this.excludedServices.push(service);
         await this.updateHandler();
+    }
+
+    /**
+     * Removes services from list if they were added otherwise adds them
+     * @param ids
+     */
+    async toggleServices(ids: string[]) {
+        ids.forEach((id) => {
+            const serviceAdded = this.excludedServices.find((service) => {
+                return service.serviceId === id;
+            });
+
+            if (serviceAdded) {
+                this.removeService(id);
+            } else {
+                this.addService(id);
+            }
+        });
     }
 
     async removeService(serviceId: string) {

@@ -109,9 +109,8 @@ const ALIEXPRESS_SERVICE_DATA = new Service({
 vpnProvider.getExclusionsServices.mockImplementation(() => SERVICES_DATA);
 vpnProvider.getExclusionsServicesDomains.mockImplementation(() => SERVICES_DOMAINS);
 
-beforeAll(async (done) => {
+beforeAll(async () => {
     await servicesManager.init();
-    done();
 });
 
 describe('ServicesManager tests', () => {

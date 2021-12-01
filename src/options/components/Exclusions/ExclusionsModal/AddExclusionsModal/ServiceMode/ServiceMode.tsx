@@ -16,7 +16,7 @@ export const ServiceMode = observer(() => {
     };
 
     const handleSaveServices = async () => {
-        await exclusionsStore.saveServicesToToggle();
+        await exclusionsStore.toggleServices();
         closeModal();
     };
 
