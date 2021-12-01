@@ -36,9 +36,9 @@ const getOptionsData = async () => {
     const appearanceTheme = settings.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
 
     const exclusionsData = {
-        regular: exclusions.regular?.getExclusions(),
-        selective: exclusions.selective?.getExclusions(),
-        currentMode: exclusions.current?.mode,
+        regular: exclusions.regular.getExclusions(),
+        selective: exclusions.selective.getExclusions(),
+        currentMode: exclusions.current.mode,
     };
 
     const servicesData = servicesManager.getServicesData();

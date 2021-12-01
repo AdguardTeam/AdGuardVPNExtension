@@ -4,7 +4,7 @@ import { SETTINGS_IDS } from '../../lib/constants';
 import browserApi from '../browserApi';
 import { ExclusionsModes } from '../../common/exclusionsConstants';
 import { ExclusionsGroup } from '../exclusions/ExclusionsGroup';
-import { Service } from '../exclusions/Service';
+// import { Service } from '../exclusions/Service';
 // import { servicesManager } from '../exclusions';
 
 const SCHEME_VERSION = '9';

@@ -6,6 +6,9 @@ import FileSaver from 'file-saver';
 import { ExclusionsModes, ExclusionsTypes } from '../../common/exclusionsConstants';
 import { containsIgnoreCase } from '../components/Exclusions/Search/SearchHighlighter/helpers';
 import { Service, ServiceCategory, ServiceInterface } from '../../background/exclusions/Service';
+import { ExclusionsGroup } from '../../background/exclusions/ExclusionsGroup';
+import { Exclusion } from '../../background/exclusions/Exclusion';
+// FIXME: convert to named export
 import messenger from '../../lib/messenger';
 
 export interface PreparedServiceCategory extends ServiceCategory {
@@ -31,8 +34,24 @@ export enum AddExclusionMode {
 
 const DEFAULT_ADD_EXCLUSION_MODE = AddExclusionMode.MANUAL;
 
+interface ExclusionModeInterface {
+    excludedIps: Exclusion[];
+    exclusionsGroups: ExclusionsGroup[];
+    excludedServices: Service[];
+}
+
+interface ExclusionsInterface {
+    [ExclusionsModes.Selective]: ExclusionModeInterface;
+    [ExclusionsModes.Regular]: ExclusionModeInterface;
+}
+
+// FIXME unite with interface from background page
+interface ExclusionsData extends ExclusionsInterface{
+    currentMode: ExclusionsModes;
+}
+
 export class ExclusionsStore {
-    @observable exclusions = {
+    @observable exclusions: ExclusionsInterface = {
         [ExclusionsModes.Selective]: {
             excludedIps: [],
             exclusionsGroups: [],
@@ -45,9 +64,7 @@ export class ExclusionsStore {
         },
     };
 
-    // FIXME remove ts-ignore
-    // @ts-ignore
-    @observable currentMode;
+    @observable currentMode = ExclusionsModes.Regular;
 
     @observable servicesData: Service[] = [];
 
@@ -78,7 +95,7 @@ export class ExclusionsStore {
         this.servicesData = servicesData;
     };
 
-    @action setExclusionsData = (exclusionsData: any) => {
+    @action setExclusionsData = (exclusionsData: ExclusionsData) => {
         this.exclusions = exclusionsData;
         this.currentMode = exclusionsData.currentMode;
     };
@@ -88,14 +105,10 @@ export class ExclusionsStore {
         this.setExclusionsData(exclusionsData);
     };
 
-    // FIXME remove ts-ignore
-    @computed
     get preparedExclusions() {
-        // FIXME what sorting should be?
-        // @ts-ignore
         const currentModeExclusions = this.exclusions[this.currentMode];
+
         const services = currentModeExclusions.excludedServices
-        // @ts-ignore
             .map((service) => {
                 return {
                     id: service.serviceId,
@@ -105,7 +118,7 @@ export class ExclusionsStore {
                     type: ExclusionsTypes.Service,
                 };
             });
-        // @ts-ignore
+
         const groups = currentModeExclusions.exclusionsGroups.map((group) => {
             return {
                 id: group.id,
@@ -115,7 +128,7 @@ export class ExclusionsStore {
                 type: ExclusionsTypes.Group,
             };
         });
-        // @ts-ignore
+
         const excludedIps = currentModeExclusions.excludedIps.map((ip) => {
             return {
                 id: ip.id,
@@ -139,17 +152,14 @@ export class ExclusionsStore {
         return filteredExclusions;
     }
 
-    // FIXME remove any
-    @action
-        toggleInverted = async (mode: any) => {
-            this.currentMode = mode;
-            await messenger.setExclusionsMode(mode);
-        };
+    @action toggleInverted = async (mode: ExclusionsModes) => {
+        this.currentMode = mode;
+        await messenger.setExclusionsMode(mode);
+    };
 
-    @action
-        openAddExclusionModal = () => {
-            this.addExclusionModalOpen = true;
-        };
+    @action openAddExclusionModal = () => {
+        this.addExclusionModalOpen = true;
+    };
 
     @action closeAddExclusionModal = () => {
         this.addExclusionModalOpen = false;
@@ -182,18 +192,12 @@ export class ExclusionsStore {
         };
 
     isExcludedService = (serviceId: string) => {
-        // FIXME remove @ts-ignore
-        // @ts-ignore
         return this.exclusions[this.currentMode].excludedServices
-            // FIXME remove @ts-ignore
-            // @ts-ignore
             .some((service) => service.serviceId === serviceId);
     };
 
     @computed
     get excludedServices() {
-        // FIXME remove @ts-ignore
-        // @ts-ignore
         return this.exclusions[this.currentMode].excludedServices;
     }
 
@@ -298,11 +302,9 @@ export class ExclusionsStore {
         exclusionsGroupId: string,
         subdomainId: string,
     ) => {
-        // FIXME remove @ts-ignore
-        // @ts-ignore
         this.exclusions[this.currentMode].exclusionsGroups.forEach((group) => {
             if (group.id === exclusionsGroupId && group.exclusions[0].id === subdomainId) {
-            // show exclusions list if main domain was removed
+                // show exclusions list if main domain was removed
                 this.exclusionIdToShowSettings = null;
             }
         });
@@ -339,15 +341,18 @@ export class ExclusionsStore {
         exclusionsGroupId:string,
         subdomainId: string,
     ) => {
-        // FIXME remove @ts-ignore
-        // @ts-ignore
-        const exclusionsGroupToRemove = this.exclusions[this.currentMode].excludedServices
-        // FIXME remove @ts-ignore
-        // @ts-ignore
-            .find((service) => service.serviceId === serviceId)
-        // FIXME remove @ts-ignore
-        // @ts-ignore
-            .exclusionsGroups.find((group) => group.id === exclusionsGroupId);
+        const excludedService = this.exclusions[this.currentMode].excludedServices
+            .find((service) => service.serviceId === serviceId);
+        if (!excludedService) {
+            throw new Error('Service should be found');
+        }
+
+        const exclusionsGroupToRemove = excludedService.exclusionsGroups
+            .find((group) => group.id === exclusionsGroupId);
+        if (!exclusionsGroupToRemove) {
+            throw new Error('Group should be found');
+        }
+
         if (exclusionsGroupToRemove.exclusions[0].id === subdomainId) {
             // show service screen if main domain was removed
             this.exclusionIdToShowSettings = serviceId;
@@ -393,29 +398,15 @@ export class ExclusionsStore {
             return null;
         }
 
-        // FIXME remove @ts-ignore
-        // @ts-ignore
         const serviceData = this.exclusions[this.currentMode].excludedServices
-            // FIXME remove @ts-ignore
-            // @ts-ignore
             .find(({ serviceId }) => serviceId === this.exclusionIdToShowSettings);
 
-        // FIXME remove @ts-ignore
-        // @ts-ignore
         const servicesGroupData = this.exclusions[this.currentMode].excludedServices
-            // FIXME remove @ts-ignore
-            // @ts-ignore
             .map(({ exclusionsGroups }) => exclusionsGroups)
             .flat()
-            // FIXME remove @ts-ignore
-            // @ts-ignore
             .find(({ id }) => id === this.exclusionIdToShowSettings);
 
-        // FIXME remove @ts-ignore
-        // @ts-ignore
         const groupData = this.exclusions[this.currentMode].exclusionsGroups
-            // FIXME remove @ts-ignore
-            // @ts-ignore
             .find(({ id }) => id === this.exclusionIdToShowSettings);
 
         return serviceData || servicesGroupData || groupData || null;
@@ -426,14 +417,8 @@ export class ExclusionsStore {
      * @param exclusionsGroupId
      */
     @action isExclusionsGroupInsideService = (exclusionsGroupId: string) => {
-        // FIXME remove @ts-ignore
-        // @ts-ignore
         const service = this.exclusions[this.currentMode].excludedServices
-        // FIXME remove @ts-ignore
-        // @ts-ignore
             .find((service) => service.exclusionsGroups
-            // FIXME remove @ts-ignore
-            // @ts-ignore
                 .find(({ id }) => id === exclusionsGroupId));
         return service ? service.serviceId : null;
     };

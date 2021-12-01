@@ -83,7 +83,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
         this.mode = mode;
     }
 
-    get exclusionsData() {
+    get exclusionsData(): ExclusionsData {
         return {
             excludedServices: this.excludedServices,
             exclusionsGroups: this.exclusionsGroups,
