@@ -1,8 +1,10 @@
 import browser from 'webextension-polyfill';
 import { nanoid } from 'nanoid';
+
 import { MESSAGES_TYPES } from './constants';
 import { log } from './logger';
-import { ExclusionsTypes } from "../common/exclusionsConstants";
+import { ExclusionsModes, ExclusionsTypes } from '../common/exclusionsConstants';
+import { ExclusionsDataToImport } from '../background/exclusions/ExclusionsManager';
 
 class Messenger {
     async sendMessage(type: string, data: any) {
@@ -26,8 +28,9 @@ class Messenger {
      * @param events Events for listening
      * @param callback Event listener callback
      */
-    createEventListener = async (events, callback) => {
-        const eventListener = (...args) => {
+    createEventListener = async (events: any, callback: (arg0: any) => void) => {
+        const eventListener = (...args: { type: any; data: any; }[]) => {
+            // @ts-ignore
             callback(...args);
         };
 
@@ -62,8 +65,9 @@ class Messenger {
      * @param callback
      * @returns {function}
      */
-    createLongLivedConnection = (events, callback) => {
-        const eventListener = (...args) => {
+    createLongLivedConnection = (events: any, callback: (arg0: any) => void) => {
+        const eventListener = (...args: { type: any; data: any; }[]) => {
+            // @ts-ignore
             callback(...args);
         };
 
@@ -113,12 +117,19 @@ class Messenger {
         return this.sendMessage(type, {});
     }
 
-    async setCurrentLocation(location, isSelectedByUser: boolean) {
+    async setCurrentLocation(location: any, isSelectedByUser: boolean) {
         const type = MESSAGES_TYPES.SET_SELECTED_LOCATION;
         return this.sendMessage(type, { location, isSelectedByUser });
     }
 
-    async authenticateUser(credentials) {
+    async authenticateUser(
+        credentials: {
+            username: string;
+            password: string;
+            passwordAgain: string;
+            twoFactor: string;
+        },
+    ) {
         const type = MESSAGES_TYPES.AUTHENTICATE_USER;
         return this.sendMessage(type, { credentials });
     }
@@ -255,7 +266,7 @@ class Messenger {
         return this.sendMessage(type, {});
     }
 
-    async importExclusionsData(exclusionsData) {
+    async importExclusionsData(exclusionsData: ExclusionsDataToImport[]) {
         const type = MESSAGES_TYPES.IMPORT_EXCLUSIONS_DATA;
         return this.sendMessage(type, { exclusionsData });
     }
@@ -270,7 +281,12 @@ class Messenger {
         return this.sendMessage(type, {});
     }
 
-    async registerUser(credentials) {
+    async registerUser(credentials: {
+        username: string;
+        password: string;
+        passwordAgain: string;
+        twoFactor: string;
+    }) {
         const type = MESSAGES_TYPES.REGISTER_USER;
         return this.sendMessage(type, { credentials });
     }
@@ -320,12 +336,12 @@ class Messenger {
         return this.sendMessage(type, {});
     }
 
-    async setExclusionsMode(mode) {
+    async setExclusionsMode(mode: ExclusionsModes) {
         const type = MESSAGES_TYPES.SET_EXCLUSIONS_MODE;
         return this.sendMessage(type, { mode });
     }
 
-    async removeExclusionByMode(mode, id: string) {
+    async removeExclusionByMode(mode: ExclusionsModes, id: string) {
         const type = MESSAGES_TYPES.REMOVE_EXCLUSION_BY_MODE;
         return this.sendMessage(type, { mode, id });
     }
@@ -355,17 +371,7 @@ class Messenger {
         return this.sendMessage(type, { email, message, includeLog });
     }
 
-    async addRegularExclusions(exclusions) {
-        const type = MESSAGES_TYPES.ADD_REGULAR_EXCLUSIONS;
-        return this.sendMessage(type, { exclusions });
-    }
-
-    async addSelectiveExclusions(exclusions) {
-        const type = MESSAGES_TYPES.ADD_SELECTIVE_EXCLUSIONS;
-        return this.sendMessage(type, { exclusions });
-    }
-
-    async setDesktopVpnEnabled(status) {
+    async setDesktopVpnEnabled(status: boolean) {
         const type = MESSAGES_TYPES.SET_DESKTOP_VPN_ENABLED;
         return this.sendMessage(type, { status });
     }
