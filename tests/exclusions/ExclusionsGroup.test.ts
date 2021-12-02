@@ -82,4 +82,22 @@ describe('ExclusionsGroup', () => {
         // group state should be partly enabled
         expect(exampleGroup.state).toEqual(ExclusionStates.Disabled);
     });
+
+    it('add subdomain test', async () => {
+        const exampleGroup = new ExclusionsGroup('www.test.com');
+        expect(exampleGroup.exclusions).toHaveLength(2);
+        // add url 'https://www.music.test.com' instead of subdomain name
+        exampleGroup.addSubdomain('https://www.music.test.com');
+        expect(exampleGroup.exclusions).toHaveLength(3);
+        expect(exampleGroup.exclusions[0].hostname).toEqual('test.com');
+        expect(exampleGroup.exclusions[1].hostname).toEqual('*.test.com');
+        // new subdomain should become 'music.test.com'
+        expect(exampleGroup.exclusions[2].hostname).toEqual('music.test.com');
+
+        // add url 'https://www.video.example.com' instead of subdomain name
+        exampleGroup.addSubdomain('https://www.video.example.com');
+        expect(exampleGroup.exclusions).toHaveLength(4);
+        // new subdomain should become 'video.example.com.test.com'
+        expect(exampleGroup.exclusions[3].hostname).toEqual('video.example.com.test.com');
+    });
 });

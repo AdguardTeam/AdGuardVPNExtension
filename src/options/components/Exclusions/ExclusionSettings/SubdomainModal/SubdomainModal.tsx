@@ -4,9 +4,9 @@ import { observer } from 'mobx-react';
 import { ExclusionsModal } from '../../ExclusionsModal/ExclusionsModal';
 import { rootStore } from '../../../../stores';
 import { reactTranslator } from '../../../../../common/reactTranslator';
+import { ExclusionsGroup } from '../../../../../background/exclusions/ExclusionsGroup';
 
 import './subdomain-modal.pcss';
-import { ExclusionsGroup } from '../../../../../background/exclusions/ExclusionsGroup';
 
 interface SubdomainModalProps {
     exclusionData: ExclusionsGroup;
@@ -17,7 +17,7 @@ export const SubdomainModal = observer(({
     exclusionData,
     parentServiceId,
 }: SubdomainModalProps) => {
-    const { exclusionsStore } = useContext(rootStore);
+    const { exclusionsStore, notificationsStore } = useContext(rootStore);
 
     const [inputValue, setInputValue] = useState('');
 
@@ -32,6 +32,11 @@ export const SubdomainModal = observer(({
         e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>,
     ) => {
         e.preventDefault();
+        // TODO do we need harder validation by regex?
+        if (inputValue.includes(' ')) {
+            notificationsStore.notifyError(reactTranslator.getMessage('settings_exclusion_invalid_subdomain'));
+            return;
+        }
         if (inputValue) {
             if (parentServiceId) {
                 await exclusionsStore.addSubdomainToExclusionsGroupInService(

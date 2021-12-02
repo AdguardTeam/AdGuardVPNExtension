@@ -4,6 +4,8 @@ import { Exclusion } from './Exclusion';
 import { prepareUrl } from '../../lib/helpers';
 import { ExclusionStates } from '../../common/exclusionsConstants';
 
+const SUBDOMAIN_NAME_REGEX = /^\w+$/;
+
 export interface ExclusionsGroupInterface {
     id: string;
     hostname: string;
@@ -59,10 +61,28 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
     }
 
     /**
+     * Returns subdomain url
+     */
+    resolveSubdomainUrl(name: string) {
+        if (SUBDOMAIN_NAME_REGEX.test(name)) {
+            return `${name}.${this.hostname}`;
+        }
+        const subdomainUrl = prepareUrl(name);
+        if (!subdomainUrl) {
+            // TODO handle errors of ExclusionsGroup
+            throw new Error('Unable to create ExclusionsGroup: invalid subdomain');
+        }
+        if (subdomainUrl.endsWith(this.hostname)) {
+            return subdomainUrl;
+        }
+        return `${subdomainUrl}.${this.hostname}`;
+    }
+
+    /**
      * Adds subdomain to ExclusionsGroup
      */
     addSubdomain(name: string) {
-        const subdomainUrl = `${name}.${this.hostname}`;
+        const subdomainUrl = this.resolveSubdomainUrl(name);
 
         // check if same domain exist in ExclusionsGroup already
         if (this.exclusions.some((exclusion) => exclusion.hostname === subdomainUrl)) {

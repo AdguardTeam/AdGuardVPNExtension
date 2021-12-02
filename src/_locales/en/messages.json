@@ -326,6 +326,9 @@
     "settings_exclusion_add_subdomain": {
         "message": "Add a subdomain"
     },
+    "settings_exclusion_invalid_subdomain": {
+        "message": "Invalid subdomain"
+    },
     "settings_exclusion_select_mode": {
         "message": "Please select the VPN mode"
     },
