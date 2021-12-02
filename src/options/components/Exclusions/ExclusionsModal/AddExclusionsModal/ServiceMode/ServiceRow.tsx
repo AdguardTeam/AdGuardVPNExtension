@@ -8,7 +8,6 @@ import { reactTranslator } from '../../../../../../common/reactTranslator';
 import { Service, ServiceInterface } from '../../../../../../background/exclusions/Service';
 
 import './service-mode.pcss';
-import { toJS } from 'mobx';
 
 /**
  * Returns true if service can be added, and returns false if service can be removed

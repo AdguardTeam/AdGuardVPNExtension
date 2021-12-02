@@ -577,6 +577,6 @@ describe('ExclusionsHandler', () => {
     });
 
     it('disable exclusion by url', async () => {
-        expect(1).toEqual(1);
+        // TODO add test
     });
 });

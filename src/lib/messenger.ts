@@ -2,9 +2,10 @@ import browser from 'webextension-polyfill';
 import { nanoid } from 'nanoid';
 import { MESSAGES_TYPES } from './constants';
 import { log } from './logger';
+import { ExclusionsTypes } from "../common/exclusionsConstants";
 
 class Messenger {
-    async sendMessage(type, data) {
+    async sendMessage(type: string, data: any) {
         log.debug(`Request type: "${type}"`);
         if (data) {
             log.debug('Request data:', data);
@@ -30,7 +31,7 @@ class Messenger {
             callback(...args);
         };
 
-        let listenerId;
+        let listenerId: string | null;
         const type = MESSAGES_TYPES.ADD_EVENT_LISTENER;
         listenerId = await this.sendMessage(type, { events });
 
@@ -92,7 +93,7 @@ class Messenger {
         return onUnload;
     };
 
-    async getPopupData(url, numberOfTries) {
+    async getPopupData(url: string, numberOfTries: number) {
         const type = MESSAGES_TYPES.GET_POPUP_DATA;
         return this.sendMessage(type, { url, numberOfTries });
     }
@@ -112,7 +113,7 @@ class Messenger {
         return this.sendMessage(type, {});
     }
 
-    async setCurrentLocation(location, isSelectedByUser) {
+    async setCurrentLocation(location, isSelectedByUser: boolean) {
         const type = MESSAGES_TYPES.SET_SELECTED_LOCATION;
         return this.sendMessage(type, { location, isSelectedByUser });
     }
@@ -127,7 +128,7 @@ class Messenger {
         return this.sendMessage(type, {});
     }
 
-    async updateAuthCache(field, value) {
+    async updateAuthCache(field: string, value: string) {
         const type = MESSAGES_TYPES.UPDATE_AUTH_CACHE;
         return this.sendMessage(type, { field, value });
     }
@@ -147,32 +148,32 @@ class Messenger {
         return this.sendMessage(type, {});
     }
 
-    async enableProxy(force) {
+    async enableProxy(force: boolean) {
         const type = MESSAGES_TYPES.ENABLE_PROXY;
         return this.sendMessage(type, { force });
     }
 
-    async disableProxy(force) {
+    async disableProxy(force: boolean) {
         const type = MESSAGES_TYPES.DISABLE_PROXY;
         return this.sendMessage(type, { force });
     }
 
-    async addUrlToExclusions(url) {
+    async addUrlToExclusions(url: string) {
         const type = MESSAGES_TYPES.ADD_URL_TO_EXCLUSIONS;
         return this.sendMessage(type, { url });
     }
 
-    async removeExclusion(id, exclusionType) {
+    async removeExclusion(id: string, exclusionType: ExclusionsTypes) {
         const type = MESSAGES_TYPES.REMOVE_EXCLUSION;
         return this.sendMessage(type, { id, exclusionType });
     }
 
-    async toggleExclusionState(id, exclusionType) {
+    async toggleExclusionState(id: string, exclusionType: ExclusionsTypes) {
         const type = MESSAGES_TYPES.TOGGLE_EXCLUSION_STATE;
         return this.sendMessage(type, { id, exclusionType });
     }
 
-    async addService(id) {
+    async addService(id: string) {
         const type = MESSAGES_TYPES.ADD_SERVICE;
         return this.sendMessage(type, { id });
     }
@@ -182,56 +183,64 @@ class Messenger {
         return this.sendMessage(type, { ids });
     }
 
-    async removeFromExclusions(url) {
+    async removeFromExclusions(url: string) {
         const type = MESSAGES_TYPES.REMOVE_FROM_EXCLUSIONS;
         return this.sendMessage(type, { url });
     }
 
-    async getIsExcluded(url) {
+    async getIsExcluded(url: string) {
         const type = MESSAGES_TYPES.GET_IS_EXCLUDED;
         return this.sendMessage(type, { url });
     }
 
-    async toggleSubdomainStateInExclusionsGroup(exclusionsGroupId, subdomainId) {
+    async toggleSubdomainStateInExclusionsGroup(exclusionsGroupId: string, subdomainId: string) {
         const type = MESSAGES_TYPES.TOGGLE_SUBDOMAIN_STATE_IN_EXCLUSIONS_GROUP;
         return this.sendMessage(type, { exclusionsGroupId, subdomainId });
     }
 
-    async removeSubdomainFromExclusionsGroup(exclusionsGroupId, subdomainId) {
+    async removeSubdomainFromExclusionsGroup(exclusionsGroupId: string, subdomainId: string) {
         const type = MESSAGES_TYPES.REMOVE_SUBDOMAIN_FROM_EXCLUSIONS_GROUP;
         return this.sendMessage(type, { exclusionsGroupId, subdomainId });
     }
 
-    async addSubdomainToExclusionsGroup(exclusionsGroupId, subdomain) {
+    async addSubdomainToExclusionsGroup(exclusionsGroupId: string, subdomain: string) {
         const type = MESSAGES_TYPES.ADD_SUBDOMAIN_TO_EXCLUSIONS_GROUP;
         return this.sendMessage(type, { exclusionsGroupId, subdomain });
     }
 
-    async removeExclusionsGroupFromService(serviceId, exclusionsGroupId) {
+    async removeExclusionsGroupFromService(serviceId: string, exclusionsGroupId: string) {
         const type = MESSAGES_TYPES.REMOVE_EXCLUSIONS_GROUP_FROM_SERVICE;
         return this.sendMessage(type, { serviceId, exclusionsGroupId });
     }
 
-    async toggleExclusionsGroupStateInService(serviceId, exclusionsGroupId) {
+    async toggleExclusionsGroupStateInService(serviceId: string, exclusionsGroupId: string) {
         const type = MESSAGES_TYPES.TOGGLE_EXCLUSIONS_GROUP_STATE_IN_SERVICE;
         return this.sendMessage(type, { serviceId, exclusionsGroupId });
     }
 
-    async removeSubdomainFromExclusionsGroupInService(serviceId, exclusionsGroupId, subdomainId) {
+    async removeSubdomainFromExclusionsGroupInService(
+        serviceId: string,
+        exclusionsGroupId: string,
+        subdomainId: string,
+    ) {
         const type = MESSAGES_TYPES.REMOVE_SUBDOMAIN_FROM_EXCLUSIONS_GROUP_IN_SERVICE;
         return this.sendMessage(type, { serviceId, exclusionsGroupId, subdomainId });
     }
 
     async toggleSubdomainStateInExclusionsGroupInService(
-        serviceId,
-        exclusionsGroupId,
-        subdomainId,
+        serviceId: string,
+        exclusionsGroupId: string,
+        subdomainId: string,
     ) {
         const type = MESSAGES_TYPES.TOGGLE_SUBDOMAIN_IN_EXCLUSIONS_GROUP_IN_SERVICE;
         return this.sendMessage(type, { serviceId, exclusionsGroupId, subdomainId });
     }
 
-    async addSubdomainToExclusionsGroupInService(serviceId, exclusionsGroupId, subdomain) {
+    async addSubdomainToExclusionsGroupInService(
+        serviceId: string,
+        exclusionsGroupId: string,
+        subdomain: string,
+    ) {
         const type = MESSAGES_TYPES.ADD_SUBDOMAIN_TO_EXCLUSIONS_GROUP_IN_SERVICE;
         return this.sendMessage(type, { serviceId, exclusionsGroupId, subdomain });
     }
@@ -271,7 +280,7 @@ class Messenger {
         return this.sendMessage(type, {});
     }
 
-    async startSocialAuth(social, marketingConsent) {
+    async startSocialAuth(social: string, marketingConsent: boolean) {
         const type = MESSAGES_TYPES.START_SOCIAL_AUTH;
         return this.sendMessage(type, { social, marketingConsent });
     }
@@ -321,26 +330,6 @@ class Messenger {
         return this.sendMessage(type, { mode, id });
     }
 
-    async removeExclusionsByMode(mode) {
-        const type = MESSAGES_TYPES.REMOVE_EXCLUSIONS_BY_MODE;
-        return this.sendMessage(type, { mode });
-    }
-
-    async toggleExclusionByMode(mode, id) {
-        const type = MESSAGES_TYPES.TOGGLE_EXCLUSION_BY_MODE;
-        return this.sendMessage(type, { mode, id });
-    }
-
-    async renameExclusionByMode(mode, id, name) {
-        const type = MESSAGES_TYPES.RENAME_EXCLUSION_BY_MODE;
-        return this.sendMessage(type, { mode, id, name });
-    }
-
-    async addExclusionByMode(mode, url, enabled) {
-        const type = MESSAGES_TYPES.ADD_EXCLUSION_BY_MODE;
-        return this.sendMessage(type, { mode, url, enabled });
-    }
-
     async getSelectedLocation() {
         const type = MESSAGES_TYPES.GET_SELECTED_LOCATION;
         return this.sendMessage(type, {});
@@ -351,17 +340,17 @@ class Messenger {
         return this.sendMessage(type, {});
     }
 
-    async setNotificationViewed(withDelay) {
+    async setNotificationViewed(withDelay: boolean) {
         const type = MESSAGES_TYPES.SET_NOTIFICATION_VIEWED;
         return this.sendMessage(type, { withDelay });
     }
 
-    async openTab(url) {
+    async openTab(url: string) {
         const type = MESSAGES_TYPES.OPEN_TAB;
         return this.sendMessage(type, { url });
     }
 
-    async reportBug(email, message, includeLog) {
+    async reportBug(email: string, message: string, includeLog: boolean) {
         const type = MESSAGES_TYPES.REPORT_BUG;
         return this.sendMessage(type, { email, message, includeLog });
     }
@@ -391,7 +380,7 @@ class Messenger {
      * @param key
      * @param value
      */
-    async setFlag(key, value) {
+    async setFlag(key: string, value: string) {
         const type = MESSAGES_TYPES.SET_FLAG;
         return this.sendMessage(type, { key, value });
     }

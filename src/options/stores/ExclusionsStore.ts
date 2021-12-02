@@ -1,4 +1,9 @@
-import { action, computed, observable, runInAction } from 'mobx';
+import {
+    action,
+    computed,
+    observable,
+    runInAction,
+} from 'mobx';
 import JSZip from 'jszip';
 import format from 'date-fns/format';
 import FileSaver from 'file-saver';
