@@ -374,6 +374,9 @@
     "settings_exclusion_placeholder_search": {
         "message": "Search"
     },
+    "settings_exclusion_nothing_found": {
+        "message": "No results found"
+    },
     "settings_exclusions_action_export": {
         "message": "Export exclusions"
     },
