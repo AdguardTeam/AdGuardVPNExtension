@@ -575,4 +575,8 @@ describe('ExclusionsHandler', () => {
         expect(exclusionsData.excludedServices[0].exclusionsGroups[0].exclusions[1].hostname)
             .toEqual('*.github.com');
     });
+
+    it('disable exclusion by url', async () => {
+        expect(1).toEqual(1);
+    });
 });

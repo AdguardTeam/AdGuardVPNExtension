@@ -69,7 +69,7 @@ export class Service implements ServiceInterface {
     }
 
     /**
-     * Toggles ExclusionsGroups state
+     * Toggles ExclusionsGroup state
      * @param id
      */
     toggleExclusionsGroupState = (id: string) => {

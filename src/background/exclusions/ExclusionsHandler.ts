@@ -1,11 +1,11 @@
-import { ExclusionsGroup } from './ExclusionsGroup';
-import { ExclusionStates, ExclusionsTypes } from '../../common/exclusionsConstants';
-import { Exclusion } from './Exclusion';
-import { Service } from './Service';
-import { servicesManager } from './ServicesManager';
-import { log } from '../../lib/logger';
-import { getHostname, prepareUrl } from '../../lib/helpers';
-import { areHostnamesEqual, shExpMatch } from '../../lib/string-utils';
+import {ExclusionsGroup} from './ExclusionsGroup';
+import {ExclusionStates, ExclusionsTypes} from '../../common/exclusionsConstants';
+import {Exclusion} from './Exclusion';
+import {Service} from './Service';
+import {servicesManager} from './ServicesManager';
+import {log} from '../../lib/logger';
+import {getHostname, prepareUrl} from '../../lib/helpers';
+import {areHostnamesEqual, shExpMatch} from '../../lib/string-utils';
 
 const IP_REGEX = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/;
 
@@ -55,6 +55,7 @@ interface ExclusionsManagerInterface {
     // common methods
     getExclusions(): ExclusionsData;
     addUrlToExclusions(url: string): void;
+    disableExclusionByUrl(url: string): void;
     isExcluded(url: string): boolean | undefined;
     removeExclusion(id: string, type: ExclusionsTypes): void;
     toggleExclusionState(id: string, type: ExclusionsTypes): void;
@@ -132,6 +133,34 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
             default:
                 log.error(`Unknown exclusion type: ${type}`);
         }
+    }
+
+    /**
+     * Disables top-level exclusion by url
+     * @param url
+     */
+    async disableExclusionByUrl(url: string) {
+        const hostname = getHostname(url);
+
+        if (!hostname) {
+            return;
+        }
+
+        this.exclusionsGroups.forEach((group) => {
+            if (group.hostname === hostname) {
+                group.disableExclusionsGroup();
+            }
+        });
+
+        this.excludedServices.forEach((service) => {
+            service.exclusionsGroups.forEach((group) => {
+                if (group.hostname === hostname) {
+                    service.toggleExclusionsGroupState(group.id);
+                }
+            });
+        });
+
+        await this.updateHandler();
     }
 
     /**

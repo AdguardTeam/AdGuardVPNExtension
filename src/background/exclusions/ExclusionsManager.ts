@@ -193,19 +193,17 @@ class ExclusionsManager implements ExclusionsInfo {
         return this.currentHandler;
     }
 
-    // TODO: enable vpn by url
     async enableVpnByUrl(url: string) {
         if (this.inverted) {
             await this.currentHandler.addUrlToExclusions(url);
         } else {
-            // await this.currentHandler.addUrlToExclusions(url);
+            await this.currentHandler.disableExclusionByUrl(url);
         }
     }
 
-    // TODO: disable vpn by url
     async disableVpnByUrl(url: string) {
         if (this.inverted) {
-            // await this.currentHandler.disableExclusionByUrl(url);
+            await this.currentHandler.disableExclusionByUrl(url);
         } else {
             await this.currentHandler.addUrlToExclusions(url);
         }
