@@ -87,11 +87,7 @@ export class SettingsStore {
 
     @action addToExclusions = async () => {
         try {
-            await messenger.addToExclusions(
-                this.currentTabHostname,
-                true,
-                { considerWildcard: false },
-            );
+            await messenger.addUrlToExclusions(this.currentTabHostname);
             runInAction(() => {
                 this.isExcluded = true;
             });
