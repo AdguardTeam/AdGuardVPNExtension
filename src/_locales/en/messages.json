@@ -329,6 +329,15 @@
     "settings_exclusion_invalid_subdomain": {
         "message": "Invalid subdomain"
     },
+    "settings_exclusion_status_domain": {
+        "message": "domain"
+    },
+    "settings_exclusion_status_subdomain": {
+        "message": "subdomain"
+    },
+    "settings_exclusion_status_all_subdomains": {
+        "message": "all subdomains"
+    },
     "settings_exclusion_select_mode": {
         "message": "Please select the VPN mode"
     },

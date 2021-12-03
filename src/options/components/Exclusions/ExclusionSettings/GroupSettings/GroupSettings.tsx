@@ -52,6 +52,16 @@ export const GroupSettings = observer(({ exclusionData, parentServiceId }: Group
         await exclusionsStore.removeSubdomainFromExclusionsGroup(exclusionData.id, subdomainId);
     };
 
+    const getExclusionStatus = (hostname: string) => {
+        if (hostname === exclusionData.hostname) {
+            return translator.getMessage('settings_exclusion_status_domain');
+        }
+        if (hostname.startsWith('*')) {
+            return translator.getMessage('settings_exclusion_status_all_subdomains');
+        }
+        return translator.getMessage('settings_exclusion_status_subdomain');
+    }
+
     const onAddSubdomainClick = () => {
         exclusionsStore.openAddSubdomainModal();
     };
@@ -75,8 +85,7 @@ export const GroupSettings = observer(({ exclusionData, parentServiceId }: Group
                 <div className="group__settings__domain__hostname">
                     {exclusion.hostname}
                     <div className="group__settings__domain__hostname__status">
-                        {/* FIXME: handle status properly, and add to translations */}
-                        {index === 0 ? 'domain' : 'subdomain'}
+                        {getExclusionStatus(exclusion.hostname)}
                     </div>
                 </div>
                 <button
