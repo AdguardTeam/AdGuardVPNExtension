@@ -36,8 +36,7 @@ const getOptionsData = async () => {
     const appearanceTheme = settings.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
 
     const exclusionsData = {
-        regular: exclusions.regular.getExclusions(),
-        selective: exclusions.selective.getExclusions(),
+        exclusions: exclusions.current.getExclusions(),
         currentMode: exclusions.current.mode,
     };
 
@@ -262,9 +261,8 @@ const messageHandler = async (message, sender) => {
         }
         case MESSAGES_TYPES.GET_EXCLUSIONS_DATA: {
             return {
-                regular: exclusions.regular?.getExclusions(),
-                selective: exclusions.selective?.getExclusions(),
-                currentMode: exclusions.current?.mode,
+                exclusions: exclusions.current.getExclusions(),
+                currentMode: exclusions.current.mode,
             };
         }
         case MESSAGES_TYPES.SET_EXCLUSIONS_MODE: {

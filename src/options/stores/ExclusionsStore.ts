@@ -36,34 +36,23 @@ export enum AddExclusionMode {
 
 const DEFAULT_ADD_EXCLUSION_MODE = AddExclusionMode.MANUAL;
 
-interface ExclusionModeInterface {
+interface ExclusionsInterface {
     excludedIps: Exclusion[];
     exclusionsGroups: ExclusionsGroup[];
     excludedServices: Service[];
 }
 
-interface ExclusionsInterface {
-    [ExclusionsModes.Selective]: ExclusionModeInterface;
-    [ExclusionsModes.Regular]: ExclusionModeInterface;
-}
-
 // FIXME unite with interface from background page
-interface ExclusionsData extends ExclusionsInterface{
+interface ExclusionsData {
+    exclusions: ExclusionsInterface;
     currentMode: ExclusionsModes;
 }
 
 export class ExclusionsStore {
     @observable exclusions: ExclusionsInterface = {
-        [ExclusionsModes.Selective]: {
-            excludedIps: [],
-            exclusionsGroups: [],
-            excludedServices: [],
-        },
-        [ExclusionsModes.Regular]: {
-            excludedIps: [],
-            exclusionsGroups: [],
-            excludedServices: [],
-        },
+        excludedIps: [],
+        exclusionsGroups: [],
+        excludedServices: [],
     };
 
     @observable currentMode = ExclusionsModes.Regular;
@@ -98,7 +87,7 @@ export class ExclusionsStore {
     };
 
     @action setExclusionsData = (exclusionsData: ExclusionsData) => {
-        this.exclusions = exclusionsData;
+        this.exclusions = exclusionsData.exclusions;
         this.currentMode = exclusionsData.currentMode;
     };
 
@@ -108,9 +97,7 @@ export class ExclusionsStore {
     };
 
     get preparedExclusions() {
-        const currentModeExclusions = this.exclusions[this.currentMode];
-
-        const services = currentModeExclusions.excludedServices
+        const services = this.exclusions.excludedServices
             .map((service) => {
                 return {
                     id: service.serviceId,
@@ -121,7 +108,7 @@ export class ExclusionsStore {
                 };
             });
 
-        const groups = currentModeExclusions.exclusionsGroups.map((group) => {
+        const groups = this.exclusions.exclusionsGroups.map((group) => {
             return {
                 id: group.id,
                 name: group.hostname,
@@ -131,7 +118,7 @@ export class ExclusionsStore {
             };
         });
 
-        const excludedIps = currentModeExclusions.excludedIps.map((ip) => {
+        const excludedIps = this.exclusions.excludedIps.map((ip) => {
             return {
                 id: ip.id,
                 name: ip.hostname,
@@ -195,13 +182,13 @@ export class ExclusionsStore {
         };
 
     isExcludedService = (serviceId: string) => {
-        return this.exclusions[this.currentMode].excludedServices
+        return this.exclusions.excludedServices
             .some((service) => service.serviceId === serviceId);
     };
 
     @computed
     get excludedServices() {
-        return this.exclusions[this.currentMode].excludedServices;
+        return this.exclusions.excludedServices;
     }
 
     @computed
@@ -317,7 +304,7 @@ export class ExclusionsStore {
         exclusionsGroupId: string,
         subdomainId: string,
     ) => {
-        this.exclusions[this.currentMode].exclusionsGroups.forEach((group) => {
+        this.exclusions.exclusionsGroups.forEach((group) => {
             if (group.id === exclusionsGroupId && group.exclusions[0].id === subdomainId) {
                 // show exclusions list if main domain was removed
                 this.exclusionIdToShowSettings = null;
@@ -352,7 +339,7 @@ export class ExclusionsStore {
         exclusionsGroupId:string,
         subdomainId: string,
     ) => {
-        const excludedService = this.exclusions[this.currentMode].excludedServices
+        const excludedService = this.exclusions.excludedServices
             .find((service) => service.serviceId === serviceId);
         if (!excludedService) {
             throw new Error('Service should be found');
@@ -406,15 +393,15 @@ export class ExclusionsStore {
             return null;
         }
 
-        const serviceData = this.exclusions[this.currentMode].excludedServices
+        const serviceData = this.exclusions.excludedServices
             .find(({ serviceId }) => serviceId === this.exclusionIdToShowSettings);
 
-        const servicesGroupData = this.exclusions[this.currentMode].excludedServices
+        const servicesGroupData = this.exclusions.excludedServices
             .map(({ exclusionsGroups }) => exclusionsGroups)
             .flat()
             .find(({ id }) => id === this.exclusionIdToShowSettings);
 
-        const groupData = this.exclusions[this.currentMode].exclusionsGroups
+        const groupData = this.exclusions.exclusionsGroups
             .find(({ id }) => id === this.exclusionIdToShowSettings);
 
         return serviceData || servicesGroupData || groupData || null;
@@ -425,7 +412,7 @@ export class ExclusionsStore {
      * @param exclusionsGroupId
      */
     @action isExclusionsGroupInsideService = (exclusionsGroupId: string) => {
-        const service = this.exclusions[this.currentMode].excludedServices
+        const service = this.exclusions.excludedServices
             .find((service) => service.exclusionsGroups
                 .find(({ id }) => id === exclusionsGroupId));
         return service ? service.serviceId : null;
@@ -457,14 +444,18 @@ export class ExclusionsStore {
         const nowFormatted = format(Date.now(), 'yyyy_MM_dd-HH_mm_ss');
         const ZIP_FILENAME = `exclusions-${nowFormatted}.zip`;
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const EXCLUSION_FILES_EXTENSIONS = {
             REGULAR: '.regular.txt',
             SELECTIVE: '.selective.txt',
         };
 
         const zip = new JSZip();
-        zip.file(`${nowFormatted}${EXCLUSION_FILES_EXTENSIONS.REGULAR}`, JSON.stringify(this.exclusions[ExclusionsModes.Regular], null, 4));
-        zip.file(`${nowFormatted}${EXCLUSION_FILES_EXTENSIONS.SELECTIVE}`, JSON.stringify(this.exclusions[ExclusionsModes.Selective], null, 4));
+        // FIXME get exclusions from store, check format
+        // eslint-disable-next-line max-len
+        // zip.file(`${nowFormatted}${EXCLUSION_FILES_EXTENSIONS.REGULAR}`, JSON.stringify(this.exclusions[ExclusionsModes.Regular], null, 4));
+        // eslint-disable-next-line max-len
+        // zip.file(`${nowFormatted}${EXCLUSION_FILES_EXTENSIONS.SELECTIVE}`, JSON.stringify(this.exclusions[ExclusionsModes.Selective], null, 4));
 
         const zipContent = await zip.generateAsync({ type: 'blob' });
         FileSaver.saveAs(zipContent, ZIP_FILENAME);
