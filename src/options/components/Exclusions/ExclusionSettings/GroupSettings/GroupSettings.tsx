@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
+import classnames from 'classnames';
 
-import { rootStore } from '../../../../stores';
+import { rootStore} from '../../../../stores';
 import { Title } from '../../../ui/Title';
 import { StateCheckbox } from '../../StateCheckbox';
-import { ExclusionsModes, ExclusionsTypes } from '../../../../../common/exclusionsConstants';
+import { ExclusionsModes, ExclusionStates, ExclusionsTypes } from '../../../../../common/exclusionsConstants';
 import { SubdomainModal } from '../SubdomainModal';
 import { reactTranslator } from '../../../../../common/reactTranslator';
 import { translator } from '../../../../../common/translator';
@@ -60,20 +61,29 @@ export const GroupSettings = observer(({ exclusionData, parentServiceId }: Group
             return translator.getMessage('settings_exclusion_status_all_subdomains');
         }
         return translator.getMessage('settings_exclusion_status_subdomain');
-    }
+    };
 
     const onAddSubdomainClick = () => {
         exclusionsStore.openAddSubdomainModal();
     };
 
+    const exclusionClassNames = (hostname: string) => classnames('group__settings__domain', {
+        useless: hostname !== exclusionData.hostname
+            && !hostname.startsWith('*')
+            && exclusionData.exclusions.some((exclusion) => {
+                return exclusion.hostname.startsWith('*')
+                    && exclusion.enabled === ExclusionStates.Enabled;
+            }),
+    });
+
     const subtitle = exclusionsStore.currentMode === ExclusionsModes.Regular
         ? translator.getMessage('settings_exclusion_group_settings_subtitle_regular_mode')
         : translator.getMessage('settings_exclusion_group_settings_subtitle_selective_mode');
 
-    const renderedExclusions = exclusionData.exclusions.map((exclusion, index) => {
+    const renderedExclusions = exclusionData.exclusions.map((exclusion) => {
         return (
             <div
-                className="group__settings__domain"
+                className={exclusionClassNames(exclusion.hostname)}
                 key={exclusion.hostname}
             >
                 <StateCheckbox
