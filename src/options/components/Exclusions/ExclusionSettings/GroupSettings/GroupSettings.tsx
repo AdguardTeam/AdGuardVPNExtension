@@ -26,7 +26,7 @@ export const GroupSettings = observer(({ exclusionData, parentServiceId }: Group
     }
 
     const goBack = () => {
-        exclusionsStore.setExclusionIdToShowSettings(null);
+        exclusionsStore.setExclusionIdToShowSettings(parentServiceId || null);
     };
 
     const toggleState = (subdomainId: string) => async () => {
