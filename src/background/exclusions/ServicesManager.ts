@@ -72,7 +72,7 @@ class ServicesManager {
     /**
      * Returns service by id
      */
-    getService(serviceId: string) {
+    getService(serviceId: string): Service | undefined {
         return this.services.find((service) => service.serviceId === serviceId);
     }
 

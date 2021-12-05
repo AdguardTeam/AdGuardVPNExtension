@@ -55,9 +55,19 @@ export class Service implements ServiceInterface {
      * Adds new ExclusionsGroup
      */
     addExclusionsGroup(hostname: string) {
-        // TODO check existing
+        if (this.exclusionsGroups.some((group) => group.hostname === hostname)) {
+            this.exclusionsGroups.forEach((group) => {
+                if (group.hostname === hostname) {
+                    group.enableExclusionsGroup();
+                }
+            });
+            this.updateServiceState();
+            return;
+        }
+
         const exclusionsGroups = new ExclusionsGroup(hostname);
         this.exclusionsGroups.push(exclusionsGroups);
+        this.updateServiceState();
     }
 
     /**
@@ -121,6 +131,20 @@ export class Service implements ServiceInterface {
         this.exclusionsGroups.forEach((group: ExclusionsGroup) => {
             if (group.id === exclusionsGroupId) {
                 group.toggleSubdomainState(domainId);
+            }
+        });
+        this.updateServiceState();
+    };
+
+    /**
+     * Enables domain in ExclusionsGroups
+     * @param exclusionsGroupId
+     * @param hostname
+     */
+    enableDomainInExclusionsGroupByHostname = (exclusionsGroupId: string, hostname: string) => {
+        this.exclusionsGroups.forEach((group: ExclusionsGroup) => {
+            if (group.id === exclusionsGroupId) {
+                group.setSubdomainStateByUrl(hostname, ExclusionStates.Enabled);
             }
         });
         this.updateServiceState();

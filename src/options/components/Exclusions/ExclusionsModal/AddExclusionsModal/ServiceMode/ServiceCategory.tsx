@@ -7,6 +7,7 @@ import { rootStore } from '../../../../../stores';
 import { PreparedServiceCategory } from '../../../../../stores/ExclusionsStore';
 import { containsIgnoreCase } from '../../../Search/SearchHighlighter/helpers';
 
+// @ts-ignore
 import s from './service-category.module.pcss';
 
 export interface ServiceCategoryProps {
@@ -57,6 +58,7 @@ export const ServiceCategory = observer(({ category }: ServiceCategoryProps) => 
             <div className={categoryServicesClassname}>
                 {
                     filteredServices.map((service) => {
+                        // @ts-ignore
                         return (<ServiceRow key={service.serviceId} service={service} />);
                     })
                 }

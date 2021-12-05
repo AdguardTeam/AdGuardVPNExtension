@@ -177,17 +177,23 @@ export class ExclusionsGroup implements ExclusionsGroupInterface {
     /**
      * Enables ExclusionsGroup
      */
+    setExclusionsGroupState(enabled: ExclusionStates) {
+        this.state = enabled;
+        this.setSubdomainsState(enabled);
+    }
+
+    /**
+     * Enables ExclusionsGroup
+     */
     enableExclusionsGroup() {
-        this.state = ExclusionStates.Enabled;
-        this.setSubdomainsState(ExclusionStates.Enabled);
+        this.setExclusionsGroupState(ExclusionStates.Enabled);
     }
 
     /**
      * Disables ExclusionsGroup
      */
     disableExclusionsGroup() {
-        this.state = ExclusionStates.Disabled;
-        this.setSubdomainsState(ExclusionStates.Disabled);
+        this.setExclusionsGroupState(ExclusionStates.Disabled);
     }
 
     /**

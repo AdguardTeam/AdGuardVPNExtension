@@ -577,6 +577,113 @@ describe('ExclusionsHandler', () => {
     });
 
     it('disable exclusion by url', async () => {
-        // TODO add test
+        getServiceMock.mockImplementation(() => FACEBOOK_SERVICE_DATA);
+        // add service
+        await exclusionsHandler.addService('facebook');
+        getServiceIdByUrlMock.mockImplementation(() => null);
+        // add exclusions group
+        await exclusionsHandler.addUrlToExclusions('http://www.test.com');
+
+        let exclusionsData = exclusionsHandler.getExclusions();
+        expect(exclusionsData.excludedServices).toHaveLength(1);
+        expect(exclusionsData.excludedServices[0].state).toEqual(ExclusionStates.Enabled);
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].hostname).toEqual('facebook.com');
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].state)
+            .toEqual(ExclusionStates.Enabled);
+        expect(exclusionsData.exclusionsGroups).toHaveLength(1);
+        expect(exclusionsData.exclusionsGroups[0].state).toEqual(ExclusionStates.Enabled);
+        expect(exclusionsData.exclusionsGroups[0].exclusions[0].hostname).toEqual('test.com');
+        expect(exclusionsData.exclusionsGroups[0].exclusions[0].enabled)
+            .toEqual(ExclusionStates.Enabled);
+
+        expect(exclusionsData.exclusionsGroups[0].hostname).toEqual('test.com');
+
+        // disable service and exclusions group
+        await exclusionsHandler.disableExclusionByUrl('test.com');
+        await exclusionsHandler.disableExclusionByUrl('facebook.com');
+        exclusionsData = exclusionsHandler.getExclusions();
+        // service should be partly enabled
+        expect(exclusionsData.excludedServices[0].state).toEqual(ExclusionStates.PartlyEnabled);
+        // exclusions group in service should be disabled
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].state)
+            .toEqual(ExclusionStates.Disabled);
+        // exclusions group should be disabled
+        expect(exclusionsData.exclusionsGroups[0].state).toEqual(ExclusionStates.Disabled);
+        expect(exclusionsData.exclusionsGroups[0].exclusions[0].enabled)
+            .toEqual(ExclusionStates.Disabled);
+    });
+
+    it('reset service data', async () => {
+        getServiceMock.mockImplementation(() => FACEBOOK_SERVICE_DATA);
+        // add facebook service
+        await exclusionsHandler.addService('facebook');
+        let exclusionsData = exclusionsHandler.getExclusions();
+
+        expect(exclusionsData.excludedServices).toHaveLength(1);
+        expect(exclusionsData.excludedServices[0].state).toEqual(ExclusionStates.Enabled);
+        expect(exclusionsData.excludedServices[0].exclusionsGroups).toHaveLength(5);
+
+        // disable facebook.com exclusions group in facebook service
+        await exclusionsHandler.toggleExclusionsGroupStateInService(
+            exclusionsData.excludedServices[0].serviceId,
+            exclusionsData.excludedServices[0].exclusionsGroups[0].id,
+        );
+
+        // add 'test' subdomain to fb.com exclusions group in facebook service
+        await exclusionsHandler.addSubdomainToExclusionsGroupInService(
+            exclusionsData.excludedServices[0].serviceId,
+            exclusionsData.excludedServices[0].exclusionsGroups[2].id,
+            'test',
+        );
+
+        // disable test.fb.com subdomain in fb.com exclusions group in facebook service
+        await exclusionsHandler.toggleSubdomainStateInExclusionsGroupInService(
+            exclusionsData.excludedServices[0].serviceId,
+            exclusionsData.excludedServices[0].exclusionsGroups[2].id,
+            exclusionsData.excludedServices[0].exclusionsGroups[2].exclusions[2].id,
+        );
+
+        // delete facebook.net exclusions group from facebook service
+        await exclusionsHandler.removeExclusionsGroupFromService(
+            exclusionsData.excludedServices[0].serviceId,
+            exclusionsData.excludedServices[0].exclusionsGroups[1].id,
+        );
+
+        exclusionsData = exclusionsHandler.getExclusions();
+        expect(exclusionsData.excludedServices[0].state).toEqual(ExclusionStates.PartlyEnabled);
+        expect(exclusionsData.excludedServices[0].exclusionsGroups).toHaveLength(4);
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].state)
+            .toEqual(ExclusionStates.Disabled);
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[1].hostname)
+            .toEqual('fb.com');
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[1].state)
+            .toEqual(ExclusionStates.PartlyEnabled);
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[1].exclusions[2].hostname)
+            .toEqual('test.fb.com');
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[1].exclusions[2].enabled)
+            .toEqual(ExclusionStates.Disabled);
+
+        // reset service data
+        await exclusionsHandler.resetServiceData(exclusionsData.excludedServices[0].serviceId);
+        exclusionsData = exclusionsHandler.getExclusions();
+        expect(exclusionsData.excludedServices[0].state).toEqual(ExclusionStates.PartlyEnabled);
+        expect(exclusionsData.excludedServices[0].exclusionsGroups).toHaveLength(5);
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].hostname)
+            .toEqual('facebook.com');
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[0].state)
+            .toEqual(ExclusionStates.Enabled);
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[1].hostname)
+            .toEqual('facebook.net');
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[1].state)
+            .toEqual(ExclusionStates.Enabled);
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[2].hostname)
+            .toEqual('fb.com');
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[2].state)
+            .toEqual(ExclusionStates.PartlyEnabled);
+        // manually added subdomain should not be deleted and should have the same state (disabled)
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[2].exclusions[2].hostname)
+            .toEqual('test.fb.com');
+        expect(exclusionsData.excludedServices[0].exclusionsGroups[2].exclusions[2].enabled)
+            .toEqual(ExclusionStates.Disabled);
     });
 });

@@ -136,7 +136,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
     }
 
     /**
-     * Disables top-level exclusion by url
+     * Disables exclusion by url
      * @param url
      */
     async disableExclusionByUrl(url: string) {
@@ -233,8 +233,44 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
     }
 
     async resetServiceData(serviceId: string) {
-        await this.removeService(serviceId);
-        await this.addService(serviceId);
+        this.excludedServices.forEach((service) => {
+            if (service.serviceId === serviceId) {
+                const defaultServiceData = servicesManager.getService(serviceId);
+                if (!defaultServiceData) {
+                    return;
+                }
+                const defaultService = new Service(defaultServiceData);
+
+                service.exclusionsGroups.forEach((group) => {
+                    service.enableDomainInExclusionsGroupByHostname(group.id, group.hostname);
+                    const allSubdomainsHostname = `*.${group.hostname}`;
+                    const allSubdomainsExclusion = group.exclusions
+                        .find(({ hostname }) => hostname === allSubdomainsHostname);
+                    if (allSubdomainsExclusion) {
+                        service.enableDomainInExclusionsGroupByHostname(
+                            group.id,
+                            allSubdomainsHostname,
+                        );
+                    } else {
+                        service.addSubdomainToExclusionsGroup(
+                            group.id,
+                            allSubdomainsHostname,
+                        );
+                    }
+                });
+
+                defaultService.exclusionsGroups.forEach((group) => {
+                    if (!service.exclusionsGroups
+                        .some(({ hostname }) => hostname === group.hostname)) {
+                        service.exclusionsGroups.push(group);
+                    }
+                });
+
+                service.exclusionsGroups.sort((a, b) => {
+                    return a.hostname > b.hostname ? 1 : -1;
+                });
+            }
+        });
         await this.updateHandler();
     }
 
