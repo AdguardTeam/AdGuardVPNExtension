@@ -1,5 +1,4 @@
-/* eslint-disable */
-import { getHostname } from '../../lib/helpers';
+/* eslint-disable max-classes-per-file,no-continue */
 import { ExclusionStates } from '../../common/exclusionsConstants';
 
 class ExclusionDto {
@@ -54,13 +53,14 @@ class ExclusionNode {
     removeChild(id: string) {
         const foundChild = this.children.find((child) => child.id === id);
         if (foundChild) {
-            this.children = this.children.filter((child) => child.id === foundChild.id);
+            this.children = this.children.filter((child) => child.id !== foundChild.id);
         } else {
             for (let i = 0; i < this.children.length; i += 1) {
                 const child = this.children[i];
                 child.removeChild(id);
             }
         }
+        // FIXME: if this.children length === 0, remove parents to root
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -106,21 +106,7 @@ interface IndexedServicesInterface {
     services: ServicesInterface,
 }
 
-// 'example.org' -> 'example.org',
-// '*.example.org' -> 'example.org',
-
-// const IndexedServices = {
-//     service: {
-//         1: {
-//             id: 1,
-//             groups: [1, 2],
-//         },
-//     },
-//     'example.org': '1',
-// };
-
 const getTld = (hostname: string) => {
-    // TODO implement more complex logic
     return hostname.replace('*.', '');
 };
 
@@ -177,49 +163,19 @@ export class ExclusionsHandler {
                 continue;
             }
 
-            // if (this.exclusions[hostname]) {
-            //     // example.org
-            //     // *.example.org
-            //     // mail.example.org
-            //     // TODO
-            //     continue;
-            // }
+            // if not in the service
+            // remove _group from interpolation, temp solution
+            const groupNode = new ExclusionNode(hostnameTld, hostnameTld);
+            this.groupIndex[hostnameTld] = groupNode;
+            const exclusionNode = new ExclusionNode(exclusion.id, exclusion.hostname);
+            groupNode.addChild(exclusionNode);
+            this.exclusionsTree.addChild(groupNode);
         }
     }
 
-    // addExclusionByUrl(url: string) {
-    //     const hostname = getHostname(url);
-    //     if (!hostname) {
-    //         throw new Error(`Can not create exclusion from: ${url}`);
-    //     }
-    //     // FIXME check if is ip
-    //     // FIXME check if is tld
-    //     // FIXME check if is in the service
-    //     const isTld = true;
-    //     if (isTld) {
-    //         // synthetic exclusion for group
-    //         const exclusion = new ExclusionNode(hostname);
-    //
-    //         // real exclusions
-    //         const hostnameExclusion = new ExclusionNode(hostname);
-    //         const wildcardExclusion = new ExclusionNode(`*.${hostname}`);
-    //         exclusion.addChild(hostnameExclusion);
-    //         exclusion.addChild(wildcardExclusion);
-    //         this.exclusionsTree.addChild(exclusion);
-    //
-    //         // TODO save real exclusions to the exclusions list
-    //         this.exclusions.push(hostnameExclusion);
-    //         this.exclusions.push(wildcardExclusion);
-    //
-    //         this.exclusionsTree.addChild(exclusion);
-    //     }
-    // }
-
-    // removeExclusion(id: string) {
-    //     this.exclusions.removeExclusion(id);
-    //
-    //     this.exclusions.removeChild(id);
-    // }
+    removeExclusion(id: string) {
+        this.exclusionsTree.removeChild(id);
+    }
 
     getExclusions() {
         return this.exclusionsTree.serialize();

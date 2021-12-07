@@ -29,23 +29,23 @@ describe('ExclusionsTree', () => {
 
         const services = {
             services: {
-                1: {
-                    id: '1',
+                '1_service': {
+                    id: '1_service',
                     name: 'example',
                     groups: [
                         {
-                            id: '1',
+                            id: '1_group',
                             value: 'example.org',
                         },
                         {
-                            id: '2',
+                            id: '2_group',
                             value: 'example.net',
                         },
                     ],
                 },
             },
-            'example.org': '1',
-            '*.example.org': '1',
+            'example.org': '1_service',
+            '*.example.org': '1_service',
         };
 
         const exclusionHandler = new ExclusionsHandler(exclusions, services);
@@ -60,11 +60,11 @@ describe('ExclusionsTree', () => {
             state: ExclusionStates.Enabled,
             children: [
                 {
-                    id: '1',
+                    id: '1_service',
                     value: 'example',
                     state: ExclusionStates.Enabled,
                     children: [{
-                        id: '1',
+                        id: '1_group',
                         value: 'example.org',
                         state: ExclusionStates.Enabled,
                         children: [
@@ -87,12 +87,133 @@ describe('ExclusionsTree', () => {
         });
     });
 
-    // it('removes exclusions', () => {
-    //     const exclusionsTree = new ExclusionsHandler();
-    //     exclusionsTree.addExclusionByUrl('https://example.org');
-    //     exclusionsTree.removeExclusion('2');
-    //
-    //     const exclusions = exclusionsTree.getExclusions();
-    //     expect(exclusions).toEqual([]);
-    // });
+    it('adds exclusions which is not in the service', () => {
+        const exclusions = [
+            { id: '1', hostname: 'example.org', state: ExclusionStates.Enabled },
+            { id: '2', hostname: 'example.net', state: ExclusionStates.Enabled },
+        ];
+
+        const services = {
+            services: {
+                '1_service': {
+                    id: '1_service',
+                    name: 'example',
+                    groups: [
+                        {
+                            id: '1_group',
+                            value: 'example.org',
+                        },
+                    ],
+                },
+            },
+            'example.org': '1_service',
+            '*.example.org': '1_service',
+        };
+
+        const exclusionHandler = new ExclusionsHandler(exclusions, services);
+
+        exclusionHandler.generateTree();
+
+        const exclusionsTree = exclusionHandler.getExclusions();
+
+        expect(exclusionsTree).toEqual({
+            id: 'root',
+            value: 'root',
+            state: ExclusionStates.Enabled,
+            children: [
+                {
+                    id: '1_service',
+                    value: 'example',
+                    state: ExclusionStates.Enabled,
+                    children: [{
+                        id: '1_group',
+                        value: 'example.org',
+                        state: ExclusionStates.Enabled,
+                        children: [
+                            {
+                                id: '1',
+                                value: 'example.org',
+                                state: ExclusionStates.Enabled,
+                                children: [],
+                            },
+                        ],
+                    }],
+                },
+                {
+                    id: 'example.net',
+                    value: 'example.net',
+                    state: ExclusionStates.Enabled,
+                    children: [
+                        {
+                            id: '2',
+                            value: 'example.net',
+                            state: ExclusionStates.Enabled,
+                            children: [],
+                        },
+                    ],
+                },
+            ],
+        });
+    });
+
+    it('removes exclusions', () => {
+        const exclusions = [
+            { id: '1', hostname: 'example.org', state: ExclusionStates.Enabled },
+            { id: '2', hostname: '*.example.org', state: ExclusionStates.Enabled },
+        ];
+
+        const services = {
+            services: {
+                '1_service': {
+                    id: '1_service',
+                    name: 'example',
+                    groups: [
+                        {
+                            id: '1_group',
+                            value: 'example.org',
+                        },
+                        {
+                            id: '2_group',
+                            value: 'example.net',
+                        },
+                    ],
+                },
+            },
+            'example.org': '1_service',
+            '*.example.org': '1_service',
+        };
+
+        const exclusionHandler = new ExclusionsHandler(exclusions, services);
+        exclusionHandler.generateTree();
+
+        exclusionHandler.removeExclusion('1');
+
+        const exclusionsTree = exclusionHandler.getExclusions();
+
+        expect(exclusionsTree).toEqual({
+            id: 'root',
+            value: 'root',
+            state: ExclusionStates.Enabled,
+            children: [
+                {
+                    id: '1_service',
+                    value: 'example',
+                    state: ExclusionStates.Enabled,
+                    children: [{
+                        id: '1_group',
+                        value: 'example.org',
+                        state: ExclusionStates.Enabled,
+                        children: [
+                            {
+                                id: '2',
+                                value: '*.example.org',
+                                state: ExclusionStates.Enabled,
+                                children: [],
+                            },
+                        ],
+                    }],
+                },
+            ],
+        });
+    });
 });
