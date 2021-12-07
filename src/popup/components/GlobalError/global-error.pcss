@@ -10,6 +10,20 @@
     line-height: 1.4;
     color: var(--gray-base);
 
+    &__pic {
+        width: 100%;
+        height: calc(100% + var(--header-height));
+        position: absolute;
+        z-index: -1;
+        top: calc(var(--header-height) * -1);
+        left: 0;
+        background-image: url('../../../assets/images/clouds.svg');
+
+        @media (prefers-color-scheme: dark) {
+            background-image: url('../../../assets/images/space.svg');
+        }
+    }
+
     &--upgrade {
         &:after {
             display: none;
@@ -27,7 +41,7 @@
     &__content {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        align-items: center;
         text-align: center;
 
         &--centered {
@@ -37,40 +51,35 @@
 
     &__icon {
         width: 100%;
+        max-width: 225px;
         height: 215px;
-        margin: -20px auto 8px;
+        margin: -20px auto 24px;
         background-image: url(../../../../src/assets/images/confused.svg);
         background-position: center bottom;
         background-repeat: no-repeat;
+        background-size: contain;
 
         &--error {
-            margin: 0 auto 8px;
+            margin: 0 auto 24px;
             background-image: url(../../../../src/assets/images/not-found.svg);
         }
 
         &--reduced {
-            margin: 0 auto 8px;
+            margin: 0 auto 24px;
             height: 224px;
             background-image: url(../../../assets/images/tired.svg);
         }
 
         &--trouble {
-            margin-top: 20px;
+            margin-top: 10px;
         }
     }
 
     &__title {
-        margin-bottom: 10px;
-        font-size: 2.6rem;
+        margin-bottom: 8px;
+        font-size: 2.4rem;
         font-weight: 700;
-        line-height: 24px;
-
-        &--regular {
-            margin-bottom: 16px;
-            font-size: 2.8rem;
-            font-weight: 400;
-            line-height: 3rem;
-        }
+        line-height: 28px;
     }
 
     &__actions {
@@ -79,8 +88,7 @@
     }
 
     &__description {
-        max-width: 240px;
-        margin-bottom: 40px;
+        margin-bottom: 24px;
 
         &--reduced {
             max-width: none;
@@ -96,7 +104,7 @@
 
     &__button {
         &:first-child {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         &--reduced {
@@ -123,5 +131,17 @@
         text-align: center;
         font-size: 1.6rem;
         color: var(--orange);
+    }
+}
+
+.light-mode {
+    .global-error__pic {
+        background-image: url('../../../assets/images/clouds.svg');
+    }
+}
+
+.dark-mode {
+    .global-error__pic {
+        background-image: url('../../../assets/images/space.svg');
     }
 }

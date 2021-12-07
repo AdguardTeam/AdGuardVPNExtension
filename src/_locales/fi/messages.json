@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — Yksityisyyttä ja turvaa"
+        "message": "AdGuard VPN — Yksityisyyttä ja tietoturvaa"
     },
     "description": {
         "message": "Tekee Internetistä avoimemman ja suojaa tietojasi. Huippuluokan VPN kuuluisan mainoseston kehittäjiltä."
@@ -309,7 +309,7 @@
         "message": "Teema"
     },
     "settings_theme_system": {
-        "message": "Järjestelmä"
+        "message": "Seuraa järjestelmää"
     },
     "settings_theme_dark": {
         "message": "Tumma"
@@ -632,6 +632,6 @@
         "message": "Olet kirjautunut ulos AdGuard VPN -palvelusta"
     },
     "options_signedout_page_description": {
-        "message": "Yhteyttäsi ole suojattu. Jatkaaksesi selausta yksityisesti, klikkaa AdGuard VPN -kuvaketta ja kirjaudu sisään uudelleen."
+        "message": "Yhteyttäsi ole suojattu. Jatkaaksesi selausta yksityisesti, paina AdGuard VPN -kuvaketta ja kirjaudu sisään uudelleen."
     }
 }

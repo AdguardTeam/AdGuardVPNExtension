@@ -3,7 +3,6 @@ import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
 
-import StatusImage from '../StatusImage';
 import Status from '../Status';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import SiteInfo from '../SiteInfo';
@@ -28,9 +27,9 @@ const ExclusionsDisable = observer(() => {
 
     return (
         <div className="settings settings--exclusions-disable">
+            <div className="settings__pic" />
             <div className="settings__main">
                 <>
-                    <StatusImage />
                     <Status />
                     <button
                         onClick={button}

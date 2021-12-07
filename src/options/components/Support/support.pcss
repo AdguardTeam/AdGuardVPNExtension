@@ -1,13 +1,20 @@
 .support-items {
     .support-item {
         display: flex;
-        margin-top: 16px;
-        padding-bottom: 16px;
+        padding: 16px;
+        border-radius: 8px;
+        width: calc(100% + 32px);
+        transform: translateX(-16px);
         align-items: center;
         cursor: pointer;
+        transition: var(--t3) background-color;
 
-        &:hover .support-item__title {
-            text-decoration: underline;
+        &:hover {
+            background-color: #f3f3f3;
+
+            @media (prefers-color-scheme: dark) {
+                background-color: #4d4d4d;
+            }
         }
 
         .support-item__area {
@@ -19,17 +26,34 @@
             }
         }
 
-        &:not(:last-child) {
-            border-bottom: 1px solid var(--border-color);
-        }
-
         &__title {
             font-size: 16px;
+            font-weight: 500;
+            line-height: 19px;
         }
 
         &__description {
-            font-size: 13px;
+            font-size: 14px;
+            line-height: 20px;
             color: var(--gray88);
         }
     }
 }
+
+
+.dark-mode {
+    .support-item {
+        &:hover {
+            background-color: #4d4d4d;
+        }
+    }
+}
+
+.light-mode {
+    .support-item {
+        &:hover {
+            background-color: #f3f3f3;
+        }
+    }
+}
+

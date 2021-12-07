@@ -28,7 +28,9 @@ const eventListeners = {};
 const getOptionsData = async () => {
     const appVersion = appStatus.version;
     const username = await credentials.getUsername();
+    const nextBillDate = await credentials.nextBillDate();
     const isRateVisible = settings.getSetting(SETTINGS_IDS.RATE_SHOW);
+    const isPremiumFeaturesShow = settings.getSetting(SETTINGS_IDS.PREMIUM_FEATURES_SHOW);
     const webRTCEnabled = settings.getSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED);
     const contextMenusEnabled = settings.getSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED);
     const helpUsImprove = settings.getSetting(SETTINGS_IDS.HELP_US_IMPROVE);
@@ -52,7 +54,9 @@ const getOptionsData = async () => {
     return {
         appVersion,
         username,
+        nextBillDate,
         isRateVisible,
+        isPremiumFeaturesShow,
         webRTCEnabled,
         contextMenusEnabled,
         helpUsImprove,

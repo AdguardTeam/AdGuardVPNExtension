@@ -4,6 +4,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    position: absolute;
+    bottom: 100%;
 
     &--feedback {
         padding: 10px 13px 11px;
@@ -15,7 +17,6 @@
         width: 100%;
         height: 4px;
         background-color: var(--grayd8);
-        border-radius: 5px;
     }
 
     &__progress-in {
@@ -23,7 +24,6 @@
         min-width: 5px;
         height: 4px;
         background-color: var(--green700);
-        border-radius: 5px;
 
         &.yellow {
             background-color: #e5c35f;
@@ -42,7 +42,9 @@
     }
 
     &__text {
+        color: #fff;
         font-size: 1.4rem;
+        font-weight: 500;
         line-height: 16px;
         margin-right: 10px;
     }
@@ -63,10 +65,10 @@
         flex: 1;
         min-width: 130px;
         padding: 8px 12px;
-        font-weight: 700;
+        font-weight: 500;
         letter-spacing: 0.06rem;
         border-radius: 5px;
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         white-space: nowrap;
 
         &--feedback {

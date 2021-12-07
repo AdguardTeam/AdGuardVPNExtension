@@ -8,6 +8,11 @@
     color: var(--gray-base);
     cursor: pointer;
     border-top: 1px solid var(--grayd8);
+    background-color: #fff;
+
+    @media (prefers-color-scheme: dark) {
+        background: #0f0f18;
+    }
 
     .ping {
         font-weight: 700;
@@ -32,3 +37,17 @@
         margin-right: 15px;
     }
 }
+
+
+.light-mode {
+    .endpoint {
+        background-color: #fff;
+    }
+}
+
+.dark-mode {
+    .endpoint {
+        background: #0f0f18;
+    }
+}
+

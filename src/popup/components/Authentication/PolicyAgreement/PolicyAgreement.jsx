@@ -6,7 +6,6 @@ import { popupActions } from '../../../actions/popupActions';
 import { EULA_URL, PRIVACY_URL } from '../../../../background/config';
 import { rootStore } from '../../../stores';
 import { Checkbox } from '../Checkbox';
-import Icon from '../../ui/Icon';
 
 const POLICY_AGREEMENT_ID = 'policy_agreement';
 const HELP_US_IMPROVE_ID = 'help_us_improve';
@@ -43,12 +42,7 @@ export const PolicyAgreement = observer(() => {
 
     return (
         <>
-            <div className="auth__logo">
-                <Icon icon="auth_logo" className="auth__logo-icon" />
-                <div className="auth__logo-title">
-                    {reactTranslator.getMessage('short_name')}
-                </div>
-            </div>
+            <div className="logo auth__logo" />
             <div className="form__group form__group--wide">
                 <Checkbox
                     id={POLICY_AGREEMENT_ID}
@@ -58,7 +52,7 @@ export const PolicyAgreement = observer(() => {
                         eula: (chunks) => (
                             <a
                                 onClick={handleEulaClick}
-                                className="button button--link-green button--link-medium"
+                                className="button button--link-green"
                             >
                                 {chunks}
                             </a>
@@ -66,7 +60,7 @@ export const PolicyAgreement = observer(() => {
                         privacy: (chunks) => (
                             <a
                                 onClick={handlePrivacyClick}
-                                className="button button--link-green button--link-medium"
+                                className="button button--link-green"
                             >
                                 {chunks}
                             </a>
@@ -83,7 +77,7 @@ export const PolicyAgreement = observer(() => {
                         link: (chunks) => (
                             <a
                                 onClick={handleAnonymousDataLinkClick}
-                                className="button button--link-green button--link-medium"
+                                className="button button--link-green"
                             >
                                 {chunks}
                             </a>

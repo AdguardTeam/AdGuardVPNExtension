@@ -69,12 +69,12 @@ const GlobalControl = observer(() => {
 
     const buttonStates = {
         disconnect: {
-            className: 'button--outline-secondary',
+            className: 'button--background-white',
             message: reactTranslator.getMessage('settings_disconnect'),
             handler: disconnectHandler,
         },
         connecting: {
-            className: 'button--outline-secondary button--disabled',
+            className: 'button--background-white button--disabled',
             message: reactTranslator.getMessage('settings_disconnect'),
         },
         connect: {

@@ -11,11 +11,11 @@ import { AppearanceTheme } from './AppearanceTheme';
 export const Settings = () => (
     <>
         <Title title={reactTranslator.getMessage('settings_title')} />
-        <div className="settings">
-            <WebRTC />
-            <ContextMenus />
+        <div className="general-settings">
             <AppearanceTheme />
+            <ContextMenus />
             <HelpUsImprove />
+            <WebRTC />
             <Dns />
         </div>
     </>

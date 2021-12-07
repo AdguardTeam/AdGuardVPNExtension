@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { Slide } from './Slide';
+import { Slider } from '../../ui/Slider';
 
 import './onboarding.pcss';
 
@@ -42,9 +42,15 @@ export const Onboarding = observer(() => {
         setCurrentSlideIndex(index);
     };
 
+    const handleCloseClick = async () => {
+        await authStore.setShowOnboarding(false);
+    };
+
     return (
         <div className="onboarding">
-            <Slide
+            <Slider
+                button
+                handleCloseClick={handleCloseClick}
                 slideIndex={currentSlideIndex}
                 slideData={slides[currentSlideIndex]}
                 nextSlideHandler={nextSlideHandler}

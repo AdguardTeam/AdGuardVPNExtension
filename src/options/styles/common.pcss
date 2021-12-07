@@ -2,6 +2,12 @@
     box-sizing: border-box;
 }
 
+html,
+body,
+#root {
+    height: 100%;
+}
+
 html {
     font-size: 10px;
 }
@@ -17,7 +23,7 @@ body {
     font-size: 1.6rem;
     line-height: 1.4;
     color: var(--gray-base);
-    background-color: var(--white);
+    background-color: var(--white-strong);
 }
 
 .hidden {
@@ -34,6 +40,10 @@ body {
     @media (prefers-color-scheme: dark) {
         background-image: url('../../assets/images/logo-vpn-dark.svg');
     }
+}
+
+.general-settings {
+    min-height: 680px;
 }
 
 

@@ -11,7 +11,6 @@ import './app.pcss';
 
 import { rootStore } from '../../stores';
 import { Sidebar } from '../Sidebar';
-import { Footer } from '../Footer';
 import { Settings } from '../Settings';
 import { Account } from '../Account';
 import { About } from '../About';
@@ -30,19 +29,17 @@ Modal.setAppElement('#root');
 const getContent = (authenticated, requestProcessState) => {
     if (authenticated) {
         return (
-            <div className="container">
-                <div className="wrapper">
-                    <Sidebar />
-                    <div className="content">
-                        <Switch>
-                            <Route path="/" exact component={Exclusions} />
-                            <Route path="/settings" component={Settings} />
-                            <Route path="/account" component={Account} />
-                            <Route path="/about" component={About} />
-                            <Route path="/support" component={Support} />
-                            <Route component={Settings} />
-                        </Switch>
-                    </div>
+            <div className="wrapper">
+                <Sidebar />
+                <div className="content">
+                    <Switch>
+                        <Route path="/" exact component={Settings} />
+                        <Route path="/exclusions" exact component={Exclusions} />
+                        <Route path="/account" component={Account} />
+                        <Route path="/about" component={About} />
+                        <Route path="/support" component={Support} />
+                        <Route component={Settings} />
+                    </Switch>
                 </div>
             </div>
         );
@@ -86,7 +83,6 @@ export const App = observer(() => {
                 events,
                 async (message) => {
                     const { type } = message;
-
                     switch (type) {
                         case notifier.types.AUTHENTICATE_SOCIAL_SUCCESS: {
                             authStore.setIsAuthenticated(true);
@@ -101,6 +97,7 @@ export const App = observer(() => {
                         }
                         case notifier.types.USER_AUTHENTICATED: {
                             authStore.setIsAuthenticated(true);
+                            await settingsStore.requestIsPremiumToken();
                             await settingsStore.updateCurrentUsername();
                             break;
                         }
@@ -135,7 +132,6 @@ export const App = observer(() => {
             {getContent(authenticated, requestProcessState)}
             <Notifications />
             <Icons />
-            <Footer />
         </HashRouter>
     );
 });

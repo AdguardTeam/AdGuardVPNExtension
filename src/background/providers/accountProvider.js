@@ -24,6 +24,7 @@ const getVpnToken = async (accessToken) => {
         time_expires_sec: timeExpiresSec,
         license_key: licenseKey,
         subscription,
+        vpn_subscription: vpnSubscription,
     } = vpnToken;
 
     return {
@@ -32,6 +33,7 @@ const getVpnToken = async (accessToken) => {
         timeExpiresSec,
         licenseKey,
         subscription,
+        vpnSubscription,
     };
 };
 
