@@ -55,6 +55,7 @@ export const BugReporter = observer(({ closeHandler }) => {
 
     const [formErrors, setFormErrors] = useState(DEFAULT_ERROR_STATE);
     const [formState, setFormState] = useState(DEFAULT_FORM_STATE);
+    const [emailInput, setEmailInput] = useState(formState[FIELDS.EMAIL]);
 
     const validators = {
         [FIELDS.EMAIL]: (value) => {
@@ -124,6 +125,15 @@ export const BugReporter = observer(({ closeHandler }) => {
         });
     };
 
+    const emailChangeHandler = (e) => {
+        const { target: { value } } = e;
+        setEmailInput(value);
+    };
+
+    const emailCleanHandler = () => {
+        setEmailInput('');
+    };
+
     let buttonText = reactTranslator.getMessage('options_bug_report_send_button');
     let isButtonDisabled = !formState[FIELDS.EMAIL] || !formState[FIELDS.MESSAGE];
 
@@ -155,19 +165,23 @@ export const BugReporter = observer(({ closeHandler }) => {
                 <Title title={bugReportTitle} />
 
                 <div className="bug-report">
-                    <div className="bug-report__description">
-                        <svg className="icon icon--check icon--button bug-report__check">
-                            <use xlinkHref="#check" />
-                        </svg>
-                        {reactTranslator.getMessage('options_bug_report_page_success')}
+                    <div className="bug-report__done">
+                        <img
+                            src="../../../../../assets/images/ninja-like.svg"
+                            className="bug-report__image"
+                            alt="slide"
+                        />
+                        <div className="bug-report__description">
+                            {reactTranslator.getMessage('options_bug_report_page_success')}
+                        </div>
+                        <button
+                            type="button"
+                            onClick={newReportClickHandler}
+                            className="button button--medium button--primary bug-report__action"
+                        >
+                            {reactTranslator.getMessage('options_bug_report_new_report_button')}
+                        </button>
                     </div>
-                    <button
-                        type="button"
-                        onClick={newReportClickHandler}
-                        className="button button--medium button--outline-primary bug-report__action"
-                    >
-                        {reactTranslator.getMessage('options_bug_report_new_report_button')}
-                    </button>
                 </div>
             </>
         );
@@ -182,43 +196,60 @@ export const BugReporter = observer(({ closeHandler }) => {
             <div className="bug-report">
                 <form
                     className="bug-report__form"
+                    noValidate
                     onSubmit={handleSubmit}
                     onChange={formChangeHandler}
                 >
-                    <label
-                        className="bug-report__label"
-                        htmlFor={FIELDS.EMAIL}
-                    >
-                        {reactTranslator.getMessage('options_bug_report_email_label')}
-                    </label>
-                    <div className={emailClassName}>
-                        <input
-                            className="input__in input__in--content"
-                            id={FIELDS.EMAIL}
-                            type="email"
-                            placeholder="example@mail.com"
-                            defaultValue={formState[FIELDS.EMAIL]}
-                        />
-                        <div className="input__error">{formErrors[FIELDS.EMAIL]}</div>
+                    <div className="bug-report__input">
+                        <label
+                            className="bug-report__label"
+                            htmlFor={FIELDS.EMAIL}
+                        >
+                            {reactTranslator.getMessage('options_bug_report_email_label')}
+                        </label>
+                        <div className={emailClassName}>
+                            <input
+                                className="input__in input__in--content input__in--close"
+                                id={FIELDS.EMAIL}
+                                type="email"
+                                placeholder="example@mail.com"
+                                value={emailInput}
+                                onChange={emailChangeHandler}
+                            />
+                            {emailInput && (
+                                <button
+                                    type="button"
+                                    className="button button--icon input__close"
+                                    onClick={emailCleanHandler}
+                                >
+                                    <svg className="icon icon--button icon--cross">
+                                        <use xlinkHref="#cross" />
+                                    </svg>
+                                </button>
+                            )}
+                            <div className="input__error">{formErrors[FIELDS.EMAIL]}</div>
+                        </div>
                     </div>
-                    <label
-                        className="bug-report__label"
-                        htmlFor={FIELDS.MESSAGE}
-                    >
-                        {reactTranslator.getMessage('options_bug_report_textarea_label')}
-                    </label>
-                    <div className={messageClassName}>
-                        {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
-                        <textarea
-                            className="input__in input__in--content input__in--textarea"
-                            id={FIELDS.MESSAGE}
-                            placeholder={reactTranslator.getMessage('options_bug_report_textarea_placeholder')}
-                            defaultValue={formState[FIELDS.MESSAGE]}
-                        />
-                        <div className="input__error">
-                            <span>{formErrors[FIELDS.MESSAGE]}</span>
-                            { requestState.matches(REQUEST_STATES.ERROR)
-                            && <span>{reactTranslator.getMessage('options_bug_report_request_error')}</span>}
+                    <div className="bug-report__input">
+                        <label
+                            className="bug-report__label"
+                            htmlFor={FIELDS.MESSAGE}
+                        >
+                            {reactTranslator.getMessage('options_bug_report_textarea_label')}
+                        </label>
+                        <div className={messageClassName}>
+                            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+                            <textarea
+                                className="input__in input__in--content input__in--textarea"
+                                id={FIELDS.MESSAGE}
+                                placeholder={reactTranslator.getMessage('options_bug_report_textarea_placeholder')}
+                                defaultValue={formState[FIELDS.MESSAGE]}
+                            />
+                            <div className="input__error">
+                                <span>{formErrors[FIELDS.MESSAGE]}</span>
+                                { requestState.matches(REQUEST_STATES.ERROR)
+                                && <span>{reactTranslator.getMessage('options_bug_report_request_error')}</span>}
+                            </div>
                         </div>
                     </div>
                     <div className="bug-report__checkbox">

@@ -9,16 +9,12 @@
     color: var(--brand-primary);
     background-color: transparent;
     border: 1px solid transparent;
-    border-radius: 8px;
+    border-radius: 4px;
     cursor: pointer;
 
     &:focus {
         box-shadow: 0 0 2px 1px var(--shadow);
         outline: none;
-    }
-
-    &:hover {
-        background-color: var(--grayF7)
     }
 
     &:disabled {
@@ -27,9 +23,8 @@
     }
 
     &--medium {
-        min-width: 200px;
-        padding: 12px 20px;
-        text-transform: uppercase;
+        min-width: 140px;
+        padding: 8px 20px;
     }
 
     &--block {
@@ -39,38 +34,43 @@
 
     &--primary {
         color: #fff;
-        background-color: var(--brand-primary);
+        background-color: var(--green700);
+        transition: var(--t3) background-color;
 
         &:hover,
         &:focus {
             color: #fff;
-            background-color: var(--brand-secondary);
+            background-color: var(--green900);
         }
 
         &:disabled {
-            background-color: var(--brand-primary);
+            background-color: var(--graya4);
         }
     }
 
-    &--outline-primary {
-        color: var(--brand-primary);
-        border-color: var(--brand-primary);
+    &--outline-gray {
+        color: var(--gray-base);
+        border-color: var(--gray-base);
+        transition: var(--t3) background-color;
 
         &:hover,
         &:focus {
-            color: var(--brand-primary);
-            border-color: var(--brand-primary);
+            background-color: var(--grayF3);
+
+            @media (prefers-color-scheme: dark) {
+                background-color: rgba(243, 243, 243, 0.05);
+            }
         }
     }
 
-    &--outline-secondary {
-        color: var(--gray88);
-        border-color: var(--gray88);
+    &--outline-red {
+        color: var(--redDark);
+        border-color: var(--redDark);
+        transition: var(--t3) background-color;
 
         &:hover,
         &:focus {
-            color: var(--gray88);
-            border-color: var(--gray88);
+            background-color: rgba(191, 72, 41, 0.05);
         }
     }
 
@@ -120,6 +120,24 @@
 
         &:last-child {
             margin-right: 0;
+        }
+    }
+}
+
+.dark-mode {
+    .button--outline-gray {
+        &:hover,
+        &:focus {
+            background-color: rgba(243, 243, 243, 0.05);
+        }
+    }
+}
+
+.light-mode {
+    .button--outline-gray {
+        &:hover,
+        &:focus {
+            background-color: var(--grayF3);
         }
     }
 }

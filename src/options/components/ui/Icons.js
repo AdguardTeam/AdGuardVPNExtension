@@ -94,10 +94,7 @@ const Icons = () => (
         </symbol>
 
         <symbol id="arrow" viewBox="0 0 24 24">
-            <g fill="none" fillRule="evenodd">
-                <path fill="#878787" fillOpacity=".01" d="M0 0h24v24H0z" />
-                <path stroke="#888" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 18l6-6-6-6" />
-            </g>
+            <path d="M9 18L15 12L9 6" fill="none" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </symbol>
 
         <symbol id="back-arrow" viewBox="0 0 24 24">

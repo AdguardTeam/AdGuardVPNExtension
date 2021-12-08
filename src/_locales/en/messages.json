@@ -122,8 +122,26 @@
     "account_edit": {
         "message": "Manage"
     },
+    "account_version": {
+        "message": "Version"
+    },
+    "account_signed": {
+        "message": "Signed in with"
+    },
+    "account_free": {
+        "message": "Free"
+    },
+    "account_unlimited": {
+        "message": "Unlimited"
+    },
+    "account_next_charge": {
+        "message": "(Next charge %date%)"
+    },
     "account_sign_out": {
         "message": "Sign out"
+    },
+    "account_unlimited_title": {
+        "message": "Get the Unlimited version!"
     },
     "rate_description": {
         "message": "Hey, we are a team from AdGuard and it is very important for us to know your opinion about our product. Please rate it."
@@ -199,6 +217,9 @@
     },
     "auth_placeholder_2fa": {
         "message": "Authentication code"
+    },
+    "official_website": {
+        "message": "Official website"
     },
     "eula": {
         "message": "EULA"
@@ -621,14 +642,32 @@
     "popup_upgrade_screen_title": {
         "message": "Unlimited VPN"
     },
+    "popup_upgrade_screen_desc": {
+        "message": "It’s time to upgrade your license!"
+    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Unlimited data"
+    },
+    "popup_upgrade_screen_unlimited_data_desc": {
+        "message": "The only limit is that your data is never  shared. Surf to your heart’s content!"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "Unlimited speed"
     },
+    "popup_upgrade_screen_unlimited_speed_desc": {
+        "message": "No speed restrictions. Get the most out of your service provider!"
+    },
     "popup_upgrade_screen_all_locations": {
         "message": "All locations"
+    },
+    "popup_upgrade_screen_all_locations_desc": {
+        "message": "6 continents and dozens of countries. Choose a city and surf the Net safely!"
+    },
+    "popup_upgrade_screen_streaming_support": {
+        "message": "Streaming support"
+    },
+    "popup_upgrade_screen_streaming_support_desc": {
+        "message": "All major streaming services are available. Watch anything, anywhere!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Streaming"

@@ -366,7 +366,7 @@
         "message": "再次嘗試"
     },
     "authentication_successful_social": {
-        "message": "成功地驗證！您可開啟 AdGuard VPN 並開始使用它。"
+        "message": "成功地驗證了！您可開啟 AdGuard VPN 並開始使用它。"
     },
     "control_error_description": {
         "message": "看似另一個 Chrome 擴充功能正在嘗試控制您的連線。請在您的瀏覽器中禁用其它的擴充功能。"

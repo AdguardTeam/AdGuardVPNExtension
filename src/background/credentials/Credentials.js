@@ -331,6 +331,39 @@ class Credentials {
         return !!vpnToken.licenseKey;
     };
 
+    /**
+     * Returns next bill date in the numeric representation
+     * @returns {Promise<number|null>} next bill date in ms
+     */
+    nextBillDate = async () => {
+        let vpnToken;
+        try {
+            vpnToken = await this.gainValidVpnToken();
+        } catch (e) {
+            return null;
+        }
+
+        if (!vpnToken) {
+            return null;
+        }
+
+        const { next_bill_date_iso: nextBillDateIso } = vpnToken.vpnSubscription || {};
+
+        if (!nextBillDateIso) {
+            return null;
+        }
+
+        let time;
+        try {
+            time = new Date(nextBillDateIso);
+        } catch (e) {
+            log.debug('Was unable to parse time from:', nextBillDateIso, e);
+            return null;
+        }
+
+        return time.getTime();
+    };
+
     async getUsername() {
         if (this.currentUsername) {
             return this.currentUsername;

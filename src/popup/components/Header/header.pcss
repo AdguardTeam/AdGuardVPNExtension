@@ -5,12 +5,40 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 24px;
+    padding: 16px;
+    height: var(--header-height);
 
     &__setting {
         width: 24px;
         height: 24px;
         padding: 0;
         color: var(--gray-base);
+    }
+}
+
+.logo {
+    width: 124px;
+    height: 24px;
+    background-image: url('../../../assets/images/logo-vpn.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+
+    @media (prefers-color-scheme: dark) {
+        background-image: url('../../../assets/images/logo-vpn-dark.svg');
+    }
+}
+
+.light-mode {
+    .logo {
+        background-image: url('../../../assets/images/logo-vpn.svg');
+    }
+}
+
+.dark-mode {
+    .logo {
+        background-image: url('../../../assets/images/logo-vpn-dark.svg');
     }
 }

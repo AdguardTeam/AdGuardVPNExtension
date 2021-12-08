@@ -1,54 +1,66 @@
 .sidebar {
-    width: var(--sidebar-width);
-    padding-right: 80px;
+    border-right: 1px solid var(--border-color);
+
+    @media (prefers-color-scheme: dark) {
+        border-right: 1px solid transparent;
+    }
+
+    &__in {
+        display: flex;
+        flex-direction: column;
+        width: var(--sidebar-width);
+        padding: 40px 0;
+        background-color: var(--white);
+        min-height: 100vh;
+    }
 
     &__logo {
-        margin-bottom: 58px;
+        margin: 0 0 33px 40px;
     }
 
     &__nav {
         display: flex;
+        width: 100%;
         flex-direction: column;
         align-items: flex-start;
-        margin: -10px 0 0 -22px;
     }
 
     &__link {
+        width: 100%;
         position: relative;
-        margin-bottom: 35px;
-        padding: 10px 25px 8px;
+        padding: 10px 27px 10px 40px;
         text-decoration: none;
         color: var(--gray-base);
-
-        &:after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 22px;
-            width: calc(100% - 44px);
-            height: 4px;
-            background-color: var(--brand-primary);
-            border-radius: 4px;
-            opacity: 0;
-            visibility: hidden;
-        }
+        transition: var(--t3) color, var(--t3) background-color;
 
         &:hover,
         &:focus {
-            font-weight: 700;
+            color: var(--green700);
         }
 
         &--active {
-            font-weight: 700;
-
-            &:after {
-                opacity: 1;
-                visibility: visible;
-            }
+            color: var(--green700);
+            background-color: var(--green300);
         }
     }
 
     &__rate {
         min-width: 170px;
+        margin-top: auto;
+        padding: 35px 40px 0;
+        position: static;
+        bottom: 0;
+    }
+}
+
+.light-mode {
+    .sidebar {
+        border-right: 1px solid var(--border-color);
+    }
+}
+
+.dark-mode {
+    .sidebar {
+        border-right: 1px solid transparent;
     }
 }

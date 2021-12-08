@@ -12,6 +12,10 @@ import messenger from '../../lib/messenger';
 export class SettingsStore {
     @observable isRateVisible = true;
 
+    @observable isPremiumToken;
+
+    @observable premiumFeatures = true;
+
     @observable appVersion;
 
     @observable currentUsername;
@@ -26,10 +30,27 @@ export class SettingsStore {
 
     @observable dnsServer = DNS_DEFAULT;
 
+    @observable nextBillDate;
+
+    @action
+    async requestIsPremiumToken() {
+        const isPremiumToken = await messenger.checkIsPremiumToken();
+        runInAction(() => {
+            this.isPremiumToken = isPremiumToken;
+        });
+    }
+
     @action hideRate = async () => {
         await messenger.setSetting(SETTINGS_IDS.RATE_SHOW, false);
         runInAction(() => {
             this.isRateVisible = false;
+        });
+    };
+
+    @action hidePremiumFeatures = async () => {
+        await messenger.setSetting(SETTINGS_IDS.PREMIUM_FEATURES_SHOW, false);
+        runInAction(() => {
+            this.premiumFeatures = false;
         });
     };
 
@@ -88,7 +109,9 @@ export class SettingsStore {
     @action setOptionsData = (data) => {
         this.appVersion = data.appVersion;
         this.currentUsername = data.username;
+        this.nextBillDate = data.nextBillDate;
         this.isRateVisible = data.isRateVisible;
+        this.premiumFeatures = data.isPremiumFeaturesShow;
         this.webRTCEnabled = data.webRTCEnabled;
         this.contextMenusEnabled = data.contextMenusEnabled;
         this.helpUsImprove = data.helpUsImprove;
@@ -101,5 +124,9 @@ export class SettingsStore {
         runInAction(() => {
             this.currentUsername = currentUsername;
         });
+    };
+
+    @action openPremiumPromoPage = async () => {
+        await messenger.openPremiumPromoPage();
     };
 }

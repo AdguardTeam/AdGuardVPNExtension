@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
-import { BUILD_ENV } from '../../../background/config';
 
 import './header.pcss';
 import { rootStore } from '../../stores';
@@ -18,19 +17,10 @@ const Header = observer(({ showMenuButton }) => {
         'header--main': showMenuButton,
     });
 
-    const shouldShowBeta = BUILD_ENV !== 'release';
-
     return (
         <div className={headerClass}>
             <div className="header__logo">
-                <svg className="icon icon--logo">
-                    <use xlinkHref="#logo" />
-                </svg>
-                {shouldShowBeta && (
-                    <svg className="icon icon--beta">
-                        <use xlinkHref="#beta" />
-                    </svg>
-                )}
+                <div className="logo" />
             </div>
             {showMenuButton && (
                 <button
@@ -39,7 +29,7 @@ const Header = observer(({ showMenuButton }) => {
                     tabIndex="0"
                     onClick={handleOpenModal}
                 >
-                    <svg className="icon icon--button icon--options">
+                    <svg className="icon icon--button">
                         <use xlinkHref="#bar" />
                     </svg>
                 </button>

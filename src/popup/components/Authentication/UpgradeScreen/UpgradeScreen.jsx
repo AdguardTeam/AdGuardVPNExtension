@@ -1,8 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { CloseButton } from '../../ui/CloseButton';
+import { Slider } from '../../ui/Slider';
+import { UNLIMITED_FEATURES } from '../../../../common/components/constants';
 
 import './upgrade-screen.pcss';
 
@@ -18,33 +20,49 @@ export const UpgradeScreen = () => {
         await authStore.setShowUpgradeScreen(false);
     };
 
-    const benefits = {
-        data: 'popup_upgrade_screen_unlimited_data',
-        speed: 'popup_upgrade_screen_unlimited_speed',
-        locations: 'popup_upgrade_screen_all_locations',
-        streaming: 'popup_upgrade_screen_streaming',
+    const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+
+    const nextSlideHandler = async () => {
+        if (currentSlideIndex !== UNLIMITED_FEATURES.length - 1) {
+            return setCurrentSlideIndex(currentSlideIndex + 1);
+        }
+
+        return setCurrentSlideIndex(0);
+    };
+
+    const prevSlideHandler = async () => {
+        if (currentSlideIndex !== 0) {
+            return setCurrentSlideIndex(currentSlideIndex - 1);
+        }
+
+        return setCurrentSlideIndex(UNLIMITED_FEATURES.length - 1);
+    };
+
+    const setCurrentSlide = (index) => {
+        setCurrentSlideIndex(index);
     };
 
     return (
         <div className="upgrade-screen">
             <CloseButton handler={handleSkipClick} />
-            <img
-                src="../../../../assets/images/upgrade.svg"
-                className="upgrade-screen__image"
-                alt="upgrade-screen"
+            <div className="upgrade-screen__head">
+                <div className="upgrade-screen__title">
+                    {reactTranslator.getMessage('popup_upgrade_screen_title')}
+                </div>
+                <div className="upgrade-screen__desc">
+                    {reactTranslator.getMessage('popup_upgrade_screen_desc')}
+                </div>
+            </div>
+            <Slider
+                arrows
+                sliderMod="medium"
+                slideIndex={currentSlideIndex}
+                slideData={UNLIMITED_FEATURES[currentSlideIndex]}
+                nextSlideHandler={nextSlideHandler}
+                prevSlideHandler={prevSlideHandler}
+                navigationHandler={setCurrentSlide}
+                slidesAmount={UNLIMITED_FEATURES.length}
             />
-            <div className="upgrade-screen__title">
-                {reactTranslator.getMessage('popup_upgrade_screen_title')}
-            </div>
-            <div className="upgrade-screen__info">
-                {Object.keys(benefits).map((benefit) => {
-                    return (
-                        <div className="upgrade-screen__benefit" key={benefit}>
-                            {reactTranslator.getMessage(benefits[benefit])}
-                        </div>
-                    );
-                })}
-            </div>
             <button
                 type="button"
                 onClick={handleUpgradeClick}

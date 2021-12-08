@@ -35,6 +35,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    position: relative;
 }
 
 .hidden {
@@ -45,4 +46,28 @@ button,
 input,
 textarea {
     font-family: inherit;
+}
+
+.logo {
+    width: 206px;
+    height: 40px;
+    background-image: url('../../assets/images/logo-vpn.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    @media (prefers-color-scheme: dark) {
+        background-image: url('../../assets/images/logo-vpn-dark.svg');
+    }
+}
+
+.light-mode {
+    .logo {
+        background-image: url('../../assets/images/logo-vpn.svg');
+    }
+}
+
+.dark-mode {
+    .logo {
+        background-image: url('../../assets/images/logo-vpn-dark.svg');
+    }
 }

@@ -130,6 +130,9 @@ const GlobalError = observer(() => {
 
     return (
         <div className="global-error">
+            {errorType === ERROR_TYPES.PERMISSION && (
+                <div className="global-error__pic" />
+            )}
             <div className="global-error__content">
                 <div className={`global-error__icon global-error__icon--${icon}`} />
                 {title && (

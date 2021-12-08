@@ -231,7 +231,7 @@
         "message": "Bizi değerlendirin"
     },
     "settings_webrtc_label": {
-        "message": "WebRTC'yi engelle"
+        "message": "WebRTC'i engelle"
     },
     "settings_webrtc_desc": {
         "message": "WebRTC çoğu İnternet tarayıcısında, üçüncü taraf bir sitenin gerçek IP adresinizi algılamasına ve sizi tanımlamak için kullanmasına izin veren özel bir programdır"
@@ -243,7 +243,7 @@
         "message": "Geliştirmemize yardımcı ol"
     },
     "settings_help_us_improve_description": {
-        "message": "Adguard VPN'nin çökme raporlarını, teknik ve etkileşim verilerini toplamasına izin verin. Kişisel verileriniz paylaşılmaz."
+        "message": "AdGuard VPN'in çökme raporları, teknik ve etkileşim verilerini toplamasına izin verin. Bu anonimdir."
     },
     "context_menu_selective_mode": {
         "message": "Seçici mod"

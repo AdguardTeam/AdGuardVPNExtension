@@ -28,7 +28,7 @@ export const AppearanceTheme = observer(() => {
     return (
         <div className="settings__group">
             <div className="settings__item">
-                <div>
+                <div className="settings__item-content">
                     <div className="settings__item-title">
                         {reactTranslator.getMessage('settings_theme_label')}
                     </div>

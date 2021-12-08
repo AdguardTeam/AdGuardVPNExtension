@@ -68,12 +68,9 @@ const Locations = observer(() => {
 
         if (emptySearchResults) {
             return (
-                <>
-                    <div className="endpoints__not-found" />
-                    <div className="endpoints__title endpoints__title--big">
-                        {reactTranslator.getMessage('endpoints_not_found')}
-                    </div>
-                </>
+                <div className="endpoints__title endpoints__title--not-found">
+                    {reactTranslator.getMessage('endpoints_not_found')}
+                </div>
             );
         }
 

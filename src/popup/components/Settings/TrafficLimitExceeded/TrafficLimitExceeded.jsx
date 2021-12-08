@@ -30,7 +30,7 @@ const TrafficLimitExceeded = observer(() => {
             </div>
             <div className="global-error__content global-error__content--centered">
                 <div className="global-error__icon global-error__icon--reduced" />
-                <div className="global-error__title global-error__title--regular">
+                <div className="global-error__title">
                     {reactTranslator.getMessage('popup_traffic_limit_exceeded_title')}
                 </div>
                 <div className="global-error__description global-error__description--reduced">

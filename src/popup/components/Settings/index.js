@@ -6,7 +6,6 @@ import { rootStore } from '../../stores';
 
 import GlobalControl from './GlobalControl';
 import Status from './Status';
-import StatusImage from './StatusImage';
 import { TrafficLimitExceeded } from './TrafficLimitExceeded';
 
 import './settings.pcss';
@@ -40,8 +39,8 @@ const Settings = observer(() => {
 
     return (
         <div className={settingsClass}>
+            <div className="settings__pic" />
             <div className="settings__main">
-                <StatusImage />
                 <Status />
                 <GlobalControl />
             </div>

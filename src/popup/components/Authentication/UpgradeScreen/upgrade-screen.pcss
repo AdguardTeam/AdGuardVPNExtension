@@ -1,19 +1,31 @@
 .upgrade-screen {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding: 40px 0;
+    padding: 56px 0 30px;
+    height: 100%;
+    background: var(--blue-gradient);
 
     &__image {
         width: 78%;
     }
 
+    &__head {
+        margin-bottom: 77px;
+    }
+
     &__title {
-        font-size: 2.6rem;
-        font-weight: 500;
-        margin: 11px 0 9px;
+        font-size: 32px;
+        line-height: 36px;
+        font-weight: bold;
+        margin: 0 auto 8px;
         text-align: center;
+    }
+
+    &__desc {
+        font-size: 16px;
+        text-align: center;
+        line-height: 22px;
     }
 
     &__info {
@@ -43,8 +55,9 @@
     }
 
     &__subscribe-button {
-        width: 70%;
-        margin-bottom: 4px;
+        max-width: 288px;
+        width: 100%;
+        margin-top: auto;
     }
 
     &__continue-button {
@@ -55,5 +68,6 @@
         cursor: pointer;
         background: none;
         border: none;
+        margin-top: 19px;
     }
 }
