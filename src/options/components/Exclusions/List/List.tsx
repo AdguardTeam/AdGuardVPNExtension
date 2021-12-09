@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import { ListItem } from './ListItem';
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
+import { ExclusionDtoInterface } from '../../../../common/exclusionsConstants';
 
 export const List = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
@@ -19,7 +20,7 @@ export const List = observer(() => {
     return (
         <ul>
             {
-                exclusionsStore.preparedExclusions.map((exclusion) => (
+                exclusionsStore.preparedExclusions.map((exclusion: ExclusionDtoInterface) => (
                     <ListItem exclusion={exclusion} key={exclusion.id} />
                 ))
             }

@@ -1,8 +1,8 @@
 import { nanoid } from 'nanoid';
 
 import { Exclusion } from './Exclusion';
-import { prepareUrl } from '../../lib/helpers';
-import { ExclusionStates } from '../../common/exclusionsConstants';
+import { prepareUrl } from '../../../lib/helpers';
+import { ExclusionStates } from '../../../common/exclusionsConstants';
 
 const SUBDOMAIN_NAME_REGEX = /^\w+$/;
 

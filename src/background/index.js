@@ -6,10 +6,10 @@ import connectivity from './connectivity';
 import contextMenu from './contextMenu';
 import credentials from './credentials';
 import endpoints from './endpoints';
-import exclusions, { servicesManager } from './exclusions';
+import { exclusions } from './exclusions';
 import { log } from '../lib/logger';
 import management from './management';
-import messaging from './messageHandler';
+import messaging from './messagesHandler';
 import nonRoutable from './routability/nonRoutable';
 import permissionsChecker from './permissionsChecker';
 import permissionsError from './permissionsChecker/permissionsError';
@@ -60,7 +60,6 @@ global.adguard = {
         await flagsStorage.init();
         permissionsChecker.init(); // should be initiated before auth module
         await auth.init();
-        await servicesManager.init();
         await settings.init();
         await credentials.init();
         await exclusions.init();
@@ -72,6 +71,8 @@ global.adguard = {
         browserActionIcon.init();
         log.info('Extension loaded all necessary modules');
     } catch (e) {
-        log.error('Unable to start extension because of error:', e && e.message);
+        console.log(e);
+        // FIXME uncomment;
+        // log.error('Unable to start extension because of error:', e && e.message);
     }
 })();

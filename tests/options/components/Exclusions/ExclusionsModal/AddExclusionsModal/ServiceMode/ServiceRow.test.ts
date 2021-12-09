@@ -2,7 +2,7 @@ import {
     canAddService,
 } from '../../../../../../../src/options/components/Exclusions/ExclusionsModal/AddExclusionsModal/ServiceMode/ServiceRow';
 import { ExclusionStates } from '../../../../../../../src/common/exclusionsConstants';
-import { ServiceInterface } from '../../../../../../../src/background/exclusions/Service';
+import { ServiceInterface } from '../../../../../../../src/background/exclusions/services/Service';
 
 const generateService = (props: Partial<ServiceInterface>): ServiceInterface => {
     const mockedService: ServiceInterface = {

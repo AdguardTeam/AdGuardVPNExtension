@@ -9,7 +9,7 @@ import credentials from './credentials';
 import authCache from './authentication/authCache';
 import appStatus from './appStatus';
 import { settings } from './settings';
-import exclusions, { servicesManager } from './exclusions';
+import { exclusions } from './exclusions';
 import management from './management';
 import permissionsError from './permissionsChecker/permissionsError';
 import permissionsChecker from './permissionsChecker';
@@ -18,10 +18,11 @@ import notifier from '../lib/notifier';
 import { locationsService } from './endpoints/locationsService';
 import { promoNotifications } from './promoNotifications';
 import tabs from './tabs';
-import vpnProvider from './providers/vpnProvider';
+import { vpnProvider } from './providers/vpnProvider';
 import { logStorage } from '../lib/log-storage';
 import { setDesktopVpnEnabled } from './connectivity/connectivityService/connectivityFSM';
 import { flagsStorage } from './flagsStorage';
+import { ExclusionsData } from '../common/exclusionsConstants';
 
 const eventListeners = {};
 
@@ -37,12 +38,12 @@ const getOptionsData = async () => {
     const dnsServer = settings.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER);
     const appearanceTheme = settings.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
 
-    const exclusionsData = {
-        exclusions: exclusions.current.getExclusions(),
-        currentMode: exclusions.current.mode,
-    };
+    const exclusionsData: ExclusionsData = {
+        exclusions: exclusions.getExclusions(),
+        currentMode: exclusions.getMode(),
+    }
 
-    const servicesData = servicesManager.getServicesData();
+    const servicesData = exclusions.getServices();
 
     const isAuthenticated = await auth.isAuthenticated();
     // AG-644 set current endpoint in order to avoid bug in permissions checker
@@ -65,7 +66,7 @@ const getOptionsData = async () => {
     };
 };
 
-const messageHandler = async (message, sender) => {
+const messagesHandler = async (message, sender) => {
     const { type, data } = message;
 
     // Here we keep track of event listeners added through notifier
@@ -149,7 +150,7 @@ const messageHandler = async (message, sender) => {
         }
         case MESSAGES_TYPES.ADD_URL_TO_EXCLUSIONS: {
             const { url } = data;
-            return exclusions.current.addUrlToExclusions(url);
+            return exclusions.addUrlToExclusions(url);
         }
         case MESSAGES_TYPES.REMOVE_EXCLUSION: {
             const { id, exclusionType } = data;
@@ -229,7 +230,7 @@ const messageHandler = async (message, sender) => {
             return exclusions.current.resetServiceData(serviceId);
         }
         case MESSAGES_TYPES.CLEAR_EXCLUSIONS_LIST: {
-            return exclusions.current.clearExclusionsData();
+            return exclusions.clearExclusionsData();
         }
         case MESSAGES_TYPES.IMPORT_EXCLUSIONS_DATA: {
             const { exclusionsData } = data;
@@ -265,9 +266,9 @@ const messageHandler = async (message, sender) => {
         }
         case MESSAGES_TYPES.GET_EXCLUSIONS_DATA: {
             return {
-                exclusions: exclusions.current.getExclusions(),
-                currentMode: exclusions.current.mode,
-            };
+                exclusions: exclusions.getExclusions(),
+                currentMode: exclusions.getMode(),
+            } as ExclusionsData;
         }
         case MESSAGES_TYPES.SET_EXCLUSIONS_MODE: {
             const { mode } = data;
@@ -414,7 +415,7 @@ const longLivedMessageHandler = (port) => {
 };
 
 const init = () => {
-    browser.runtime.onMessage.addListener(messageHandler);
+    browser.runtime.onMessage.addListener(messagesHandler);
     browser.runtime.onConnect.addListener(longLivedMessageHandler);
 };
 

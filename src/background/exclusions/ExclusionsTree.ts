@@ -1,20 +1,23 @@
+// FIXME remove eslint rules
 /* eslint-disable max-classes-per-file,no-continue */
-import { ExclusionStates } from '../../common/exclusionsConstants';
+import { ExclusionDtoInterface, ExclusionStates } from '../../common/exclusionsConstants';
+import { ExclusionsManager, IndexedExclusionsInterface } from './exclusions/ExclusionsManager';
+import { ServicesManager, IndexedServicesInterface } from './services/ServicesManager';
 
-class ExclusionDto {
+class ExclusionDto implements ExclusionDtoInterface {
     id: string;
 
     value: string;
 
     state: ExclusionStates;
 
-    children: ExclusionDto[];
+    children: ExclusionDtoInterface[];
 
     constructor(
         id: string,
         value: string,
         state: ExclusionStates,
-        children: ExclusionDto[],
+        children: ExclusionDtoInterface[],
     ) {
         this.id = id;
         this.value = value;
@@ -50,19 +53,7 @@ class ExclusionNode {
         this.children.push(child);
     }
 
-    removeChild(id: string) {
-        const foundChild = this.children.find((child) => child.id === id);
-        if (foundChild) {
-            this.children = this.children.filter((child) => child.id !== foundChild.id);
-        } else {
-            for (let i = 0; i < this.children.length; i += 1) {
-                const child = this.children[i];
-                child.removeChild(id);
-            }
-        }
-        // FIXME: if this.children length === 0, remove parents to root
-    }
-
+    // FIXME calculate state
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     calculateState(children: ExclusionNode[]): ExclusionStates {
         return ExclusionStates.Enabled;
@@ -81,32 +72,6 @@ class ExclusionNode {
     }
 }
 
-interface ExclusionInterface {
-    id: string,
-    hostname: string,
-    state: ExclusionStates,
-}
-
-interface GroupsInterface {
-    id: string,
-    value: string,
-}
-
-interface ServiceInterface {
-    id: string,
-    name: string,
-    groups: GroupsInterface[],
-}
-
-interface ServicesInterface {
-    [id: string]: ServiceInterface,
-}
-
-interface IndexedServicesInterface {
-    [id: string]: string | ServicesInterface
-    services: ServicesInterface,
-}
-
 const getTld = (hostname: string) => {
     return hostname.replace('*.', '');
 };
@@ -114,44 +79,50 @@ const getTld = (hostname: string) => {
 export class ExclusionsTree {
     exclusionsTree = new ExclusionNode('root', 'root');
 
-    groupIndex: { [key: string]: ExclusionNode } = {};
+    exclusionsManager: ExclusionsManager;
 
-    exclusions: ExclusionInterface[];
+    servicesManager: ServicesManager;
 
-    services: IndexedServicesInterface;
+    groupIndex: { [index: string]: ExclusionNode } = {};
 
     constructor(
-        exclusions: ExclusionInterface[] = [],
-        services: IndexedServicesInterface = { services: {} },
+        exclusionsManager: ExclusionsManager,
+        servicesManager: ServicesManager,
     ) {
-        this.exclusions = exclusions;
-        this.services = services;
+        this.exclusionsManager = exclusionsManager;
+        this.servicesManager = servicesManager;
     }
 
     generateTree() {
-        for (let i = 0; i < this.exclusions.length; i += 1) {
-            const exclusion = this.exclusions[i];
+        const indexedServices: IndexedServicesInterface = this.servicesManager.getIndexedServices();
+        // eslint-disable-next-line max-len
+        const indexedExclusions: IndexedExclusionsInterface = this.exclusionsManager.getIndexedExclusions();
+        const exclusions = this.exclusionsManager.getExclusions();
+        const services = this.servicesManager.getServices();
+        this.groupIndex = {};
+
+        for (let i = 0; i < exclusions.length; i += 1) {
+            const exclusion = exclusions[i];
+
+            // FIXME find better method for getTld;
             const hostnameTld = getTld(exclusion.hostname);
 
-            if (this.groupIndex[hostnameTld]) {
+            const groupNode = this.groupIndex[hostnameTld];
+
+            if (groupNode) {
                 const exclusionNode = new ExclusionNode(exclusion.id, exclusion.hostname);
-                this.groupIndex[hostnameTld].addChild(exclusionNode);
+                groupNode.addChild(exclusionNode);
                 continue;
             }
 
-            if (this.services[hostnameTld]) {
-                const id = this.services[hostnameTld] as string;
-                const service = this.services.services[id];
-                const serviceNode = new ExclusionNode(service.id, service.name);
+            const serviceId = indexedServices[hostnameTld];
 
-                const group = service.groups.find((group) => group.value === hostnameTld);
+            if (serviceId) {
+                const service = services[serviceId];
 
-                if (!group) {
-                    // TODO add exclusion outside of service
-                    continue;
-                }
+                const serviceNode = new ExclusionNode(service.serviceName, service.serviceName);
 
-                const groupNode = new ExclusionNode(group.id, group.value);
+                const groupNode = new ExclusionNode(hostnameTld, hostnameTld);
                 this.groupIndex[hostnameTld] = groupNode;
 
                 const exclusionNode = new ExclusionNode(exclusion.id, exclusion.hostname);
@@ -164,17 +135,22 @@ export class ExclusionsTree {
                 continue;
             }
 
-            // if not in the service
-            // remove _group from interpolation, temp solution
-            const groupNode = new ExclusionNode(hostnameTld, hostnameTld);
-            this.groupIndex[hostnameTld] = groupNode;
             const exclusionNode = new ExclusionNode(exclusion.id, exclusion.hostname);
-            groupNode.addChild(exclusionNode);
-            this.exclusionsTree.addChild(groupNode);
+
+            if (indexedExclusions[hostnameTld].length > 1) {
+                const groupNode = new ExclusionNode(hostnameTld, hostnameTld);
+                this.groupIndex[hostnameTld] = groupNode;
+                groupNode.addChild(exclusionNode);
+                this.exclusionsTree.addChild(groupNode);
+                continue;
+            }
+
+            this.exclusionsTree.addChild(exclusionNode);
         }
     }
 
     getExclusions() {
-        return this.exclusionsTree.serialize();
+        const exclusionsRoot = this.exclusionsTree.serialize();
+        return exclusionsRoot.children;
     }
 }

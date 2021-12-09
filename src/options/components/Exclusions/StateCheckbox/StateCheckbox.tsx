@@ -1,22 +1,19 @@
 import React from 'react';
 
-import { ExclusionStates, ExclusionsTypes } from '../../../../common/exclusionsConstants';
+import { ExclusionStates } from '../../../../common/exclusionsConstants';
 
 import './statecheckbox.pcss';
 
 interface StateCheckboxProps {
     id: string,
-    type: ExclusionsTypes,
     state: ExclusionStates,
     toggleHandler: (
         id: string,
-        type: ExclusionsTypes
     ) => React.MouseEventHandler<HTMLButtonElement>,
 }
 
 export const StateCheckbox = ({
     id,
-    type,
     state,
     toggleHandler,
 }: StateCheckboxProps) => {
@@ -34,7 +31,7 @@ export const StateCheckbox = ({
         <button
             className="state-checkbox"
             type="button"
-            onClick={toggleHandler(id, type)}
+            onClick={toggleHandler(id)}
         >
             <svg className="state-checkbox__icon">
                 <use xlinkHref={getStateIcon()} />

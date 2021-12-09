@@ -3,9 +3,9 @@ import { log } from '../../lib/logger';
 import { SETTINGS_IDS } from '../../lib/constants';
 import browserApi from '../browserApi';
 import { ExclusionsModes } from '../../common/exclusionsConstants';
-import { ExclusionsGroup } from '../exclusions/ExclusionsGroup';
+import { ExclusionsGroup } from '../exclusions/exclusions/ExclusionsGroup';
 // import { Service } from '../exclusions/Service';
-// import { servicesManager } from '../exclusions';
+// import { services } from '../exclusions';
 
 const SCHEME_VERSION = '9';
 const THROTTLE_TIMEOUT = 100;
@@ -143,11 +143,11 @@ class SettingsService {
         const exclusionsGroups = [];
 
         exclusions.forEach(({ hostname, enabled }) => {
-            // TODO fix import servicesManager to be able to create Services
-            // const serviceId = servicesManager.getServiceByUrl(hostname);
+            // TODO fix import services to be able to create Services
+            // const serviceId = services.getServiceByUrl(hostname);
             const serviceId = null;
             if (serviceId) {
-                // const serviceData = servicesManager.getService(serviceId);
+                // const serviceData = services.getService(serviceId);
                 // const service = new Service(serviceData);
                 // service.disableService();
                 // if (enabled) {

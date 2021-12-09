@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { ExclusionsModal } from '../../ExclusionsModal/ExclusionsModal';
 import { rootStore } from '../../../../stores';
 import { reactTranslator } from '../../../../../common/reactTranslator';
-import { ExclusionsGroup } from '../../../../../background/exclusions/ExclusionsGroup';
+import { ExclusionsGroup } from '../../../../../background/exclusions/exclusions/ExclusionsGroup';
 
 import './subdomain-modal.pcss';
 

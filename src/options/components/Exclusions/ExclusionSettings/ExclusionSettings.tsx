@@ -4,8 +4,8 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../../stores';
 import { ServiceSettings } from './ServiceSettings';
 import { GroupSettings } from './GroupSettings';
-import { Service } from '../../../../background/exclusions/Service';
-import { ExclusionsGroup } from '../../../../background/exclusions/ExclusionsGroup';
+import { Service } from '../../../../background/exclusions/services/Service';
+import { ExclusionsGroup } from '../../../../background/exclusions/exclusions/ExclusionsGroup';
 
 export const ExclusionSettings = observer(() => {
     const { exclusionsStore } = useContext(rootStore);

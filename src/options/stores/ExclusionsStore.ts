@@ -2,20 +2,21 @@ import {
     action,
     computed,
     observable,
-    runInAction,
+    runInAction, toJS,
 } from 'mobx';
 import JSZip from 'jszip';
 import format from 'date-fns/format';
 import FileSaver from 'file-saver';
 
-import { ExclusionsModes, ExclusionStates, ExclusionsTypes } from '../../common/exclusionsConstants';
+import { ExclusionsData, ExclusionsModes, ExclusionStates, ExclusionsTypes } from '../../common/exclusionsConstants';
 import { containsIgnoreCase } from '../components/Exclusions/Search/SearchHighlighter/helpers';
-import { Service, ServiceCategory, ServiceInterface } from '../../background/exclusions/Service';
-import { ExclusionsGroup } from '../../background/exclusions/ExclusionsGroup';
-import { Exclusion } from '../../background/exclusions/Exclusion';
-import { ExclusionsDataToImport } from '../../background/exclusions/ExclusionsManager';
+import { Service, ServiceCategory, ServiceInterface } from '../../background/exclusions/services/Service';
+import { ExclusionsGroup } from '../../background/exclusions/exclusions/ExclusionsGroup';
+import { Exclusion } from '../../background/exclusions/exclusions/Exclusion';
+import { ExclusionsDataToImport } from '../../background/exclusions/Exclusions';
 // FIXME: convert to named export
 import messenger from '../../lib/messenger';
+import { ExclusionDtoInterface } from '../../background/exclusions/ExclusionsTree';
 
 export interface PreparedServiceCategory extends ServiceCategory {
     services: string[]
@@ -42,18 +43,8 @@ interface ExclusionsInterface {
     excludedServices: Service[];
 }
 
-// FIXME unite with interface from background page
-interface ExclusionsData {
-    exclusions: ExclusionsInterface;
-    currentMode: ExclusionsModes;
-}
-
 export class ExclusionsStore {
-    @observable exclusions: ExclusionsInterface = {
-        excludedIps: [],
-        exclusionsGroups: [],
-        excludedServices: [],
-    };
+    @observable exclusions: ExclusionDtoInterface;
 
     @observable currentMode = ExclusionsModes.Regular;
 
@@ -87,6 +78,7 @@ export class ExclusionsStore {
     };
 
     @action setExclusionsData = (exclusionsData: ExclusionsData) => {
+        console.log(exclusionsData);
         this.exclusions = exclusionsData.exclusions;
         this.currentMode = exclusionsData.currentMode;
     };
@@ -97,48 +89,50 @@ export class ExclusionsStore {
     };
 
     get preparedExclusions() {
-        const services = this.exclusions.excludedServices
-            .map((service) => {
-                return {
-                    id: service.serviceId,
-                    name: service.serviceName,
-                    iconUrl: service.iconUrl,
-                    state: service.state,
-                    type: ExclusionsTypes.Service,
-                };
-            });
-
-        const groups = this.exclusions.exclusionsGroups.map((group) => {
-            return {
-                id: group.id,
-                name: group.hostname,
-                iconUrl: '/assets/images/ip-icon.svg',
-                state: group.state,
-                type: ExclusionsTypes.Group,
-            };
-        });
-
-        const excludedIps = this.exclusions.excludedIps.map((ip) => {
-            return {
-                id: ip.id,
-                name: ip.hostname,
-                iconUrl: '/assets/images/ip-icon.svg',
-                state: ip.enabled,
-                type: ExclusionsTypes.Ip,
-            };
-        });
-
-        const allExclusions = [...services, ...groups, ...excludedIps];
-
-        const filteredExclusions = allExclusions.filter((exclusion) => {
-            if (this.exclusionsSearchValue.length === 0) {
-                return true;
-            }
-
-            return containsIgnoreCase(exclusion.name, this.exclusionsSearchValue);
-        });
-
-        return filteredExclusions;
+        console.log(toJS(this.exclusions));
+        // const services = this.exclusions.excludedServices
+        //     .map((service) => {
+        //         return {
+        //             id: service.serviceId,
+        //             name: service.serviceName,
+        //             iconUrl: service.iconUrl,
+        //             state: service.state,
+        //             type: ExclusionsTypes.Service,
+        //         };
+        //     });
+        //
+        // const groups = this.exclusions.exclusionsGroups.map((group) => {
+        //     return {
+        //         id: group.id,
+        //         name: group.hostname,
+        //         iconUrl: '/assets/images/ip-icon.svg',
+        //         state: group.state,
+        //         type: ExclusionsTypes.Group,
+        //     };
+        // });
+        //
+        // const excludedIps = this.exclusions.excludedIps.map((ip) => {
+        //     return {
+        //         id: ip.id,
+        //         name: ip.hostname,
+        //         iconUrl: '/assets/images/ip-icon.svg',
+        //         state: ip.enabled,
+        //         type: ExclusionsTypes.Ip,
+        //     };
+        // });
+        //
+        // const allExclusions = [...services, ...groups, ...excludedIps];
+        //
+        // const filteredExclusions = allExclusions.filter((exclusion) => {
+        //     if (this.exclusionsSearchValue.length === 0) {
+        //         return true;
+        //     }
+        //
+        //     return containsIgnoreCase(exclusion.name, this.exclusionsSearchValue);
+        // });
+        //
+        // return filteredExclusions;
+        return this.exclusions;
     }
 
     @action toggleInverted = async (mode: ExclusionsModes) => {
@@ -213,23 +207,23 @@ export class ExclusionsStore {
 
         // FIXME: prepare data on background page before return
         const servicesWithActualState = this.servicesData.map((serviceData) => {
-            const excluded = this.excludedServices.find((excluded) => {
-                return excluded.serviceId === serviceData.serviceId;
-            });
-
-            let state = ExclusionStates.Disabled;
-
-            if (excluded) {
-                state = ExclusionStates.Enabled;
-            }
+            // const excluded = this.excludedServices.find((excluded) => {
+            //     return excluded.serviceId === serviceData.serviceId;
+            // });
+            //
+            // let state = ExclusionStates.Disabled;
+            //
+            // if (excluded) {
+            //     state = ExclusionStates.Enabled;
+            // }
 
             return {
                 ...serviceData,
-                state,
+                state: ExclusionStates.Disabled,
             };
         });
 
-        const services = servicesWithActualState.reduce((acc, serviceData) => {
+        const services = this.servicesData.reduce((acc, serviceData) => {
             const { serviceId } = serviceData;
             acc[serviceId] = serviceData;
             return acc;
@@ -258,12 +252,12 @@ export class ExclusionsStore {
         await messenger.addUrlToExclusions(url);
     };
 
-    @action removeExclusion = async (id: string, type: ExclusionsTypes) => {
-        await messenger.removeExclusion(id, type);
+    @action removeExclusion = async (id: string) => {
+        await messenger.removeExclusion(id);
     };
 
-    @action toggleExclusionState = async (id: string, type: ExclusionsTypes) => {
-        await messenger.toggleExclusionState(id, type);
+    @action toggleExclusionState = async (id: string) => {
+        await messenger.toggleExclusionState(id);
     };
 
     @action addService = async (id: string) => {

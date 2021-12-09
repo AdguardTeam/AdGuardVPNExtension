@@ -1,9 +1,9 @@
 import { nanoid } from 'nanoid';
 
-import { servicesManager } from '../../src/background/exclusions/ServicesManager';
-import vpnProvider from '../../src/background/providers/vpnProvider';
-import { Service } from '../../src/background/exclusions/Service';
-import { ExclusionsGroup } from '../../src/background/exclusions/ExclusionsGroup';
+import { services } from '../../src/background/exclusions/services/Services';
+import { vpnProvider } from '../../src/background/providers/vpnProvider';
+import { Service } from '../../src/background/exclusions/services/Service';
+import { ExclusionsGroup } from '../../src/background/exclusions/exclusions/ExclusionsGroup';
 
 jest.mock('../../src/background/providers/vpnProvider');
 jest.mock('nanoid');
@@ -116,12 +116,12 @@ const getExclusionsServicesDomainsMock = vpnProvider
 getExclusionsServicesDomainsMock.mockImplementation(() => SERVICES_DOMAINS);
 
 beforeAll(async () => {
-    await servicesManager.init();
+    await services.init();
 });
 
 describe('ServicesManager tests', () => {
     it('initialization', async () => {
-        const servicesData = servicesManager.getServicesData();
+        const servicesData = services.getServicesData();
         expect(servicesData).toHaveLength(5);
         expect(JSON.stringify(servicesData[0]))
             .toStrictEqual(JSON.stringify(ALIEXPRESS_SERVICE_DATA));
@@ -141,37 +141,37 @@ describe('ServicesManager tests', () => {
     });
 
     it('getService', async () => {
-        const aliexpressServiceData = servicesManager.getService('aliexpress');
+        const aliexpressServiceData = services.getService('aliexpress');
         expect(JSON.stringify(aliexpressServiceData))
             .toStrictEqual(JSON.stringify(ALIEXPRESS_SERVICE_DATA));
 
-        const wrongService = servicesManager.getService('vkdjnvkdhfb');
+        const wrongService = services.getService('vkdjnvkdhfb');
         expect(wrongService).toBeUndefined();
     });
 
     it('isService', async () => {
-        let serviceId = servicesManager.getServiceIdByUrl('aliexpress.com');
+        let serviceId = services.getServiceIdByUrl('aliexpress.com');
         expect(serviceId).toEqual('aliexpress');
 
-        serviceId = servicesManager.getServiceIdByUrl('bitbucket.org');
+        serviceId = services.getServiceIdByUrl('bitbucket.org');
         expect(serviceId).toEqual('atlassian');
 
-        serviceId = servicesManager.getServiceIdByUrl('www.bitbucket.org');
+        serviceId = services.getServiceIdByUrl('www.bitbucket.org');
         expect(serviceId).toEqual('atlassian');
 
-        serviceId = servicesManager.getServiceIdByUrl('http://bitbucket.org');
+        serviceId = services.getServiceIdByUrl('http://bitbucket.org');
         expect(serviceId).toEqual('atlassian');
 
-        serviceId = servicesManager.getServiceIdByUrl('http://www.bitbucket.org/');
+        serviceId = services.getServiceIdByUrl('http://www.bitbucket.org/');
         expect(serviceId).toEqual('atlassian');
 
-        let notService = servicesManager.getServiceIdByUrl('example.org');
+        let notService = services.getServiceIdByUrl('example.org');
         expect(notService).toBeNull();
 
-        notService = servicesManager.getServiceIdByUrl('bitbucket.com');
+        notService = services.getServiceIdByUrl('bitbucket.com');
         expect(notService).toBeNull();
 
-        notService = servicesManager.getServiceIdByUrl('bitbucket');
+        notService = services.getServiceIdByUrl('bitbucket');
         expect(notService).toBeNull();
     });
 });

@@ -318,7 +318,7 @@ const getExclusionsServicesDomains = async (serviceIds) => {
         }, {});
 };
 
-const vpnProvider = {
+export const vpnProvider = {
     getCurrentLocation,
     getVpnExtensionInfo,
     getVpnCredentials,
@@ -328,5 +328,3 @@ const vpnProvider = {
     getExclusionsServices,
     getExclusionsServicesDomains,
 };
-
-export default vpnProvider;

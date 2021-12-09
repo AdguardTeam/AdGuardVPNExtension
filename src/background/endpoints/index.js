@@ -7,7 +7,7 @@ import { getLocationWithLowestPing, sleep } from '../../lib/helpers';
 import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
 import notifier from '../../lib/notifier';
 import { proxy } from '../proxy';
-import vpnProvider from '../providers/vpnProvider';
+import { vpnProvider } from '../providers/vpnProvider';
 import { LocationWithPing } from './LocationWithPing';
 import { endpointsTldExclusions } from '../proxy/endpointsTldExclusions';
 

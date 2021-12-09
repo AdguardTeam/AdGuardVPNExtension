@@ -1,7 +1,7 @@
-import { ExclusionsHandler } from '../../src/background/exclusions/ExclusionsHandler';
-import { servicesManager } from '../../src/background/exclusions/ServicesManager';
-import { Service } from '../../src/background/exclusions/Service';
-import { ExclusionsGroup } from '../../src/background/exclusions/ExclusionsGroup';
+import { ExclusionsHandler } from '../../src/background/exclusions/exclusions/ExclusionsHandler';
+import { services } from '../../src/background/exclusions/services/Services';
+import { Service } from '../../src/background/exclusions/services/Service';
+import { ExclusionsGroup } from '../../src/background/exclusions/exclusions/ExclusionsGroup';
 import { ExclusionStates } from '../../src/common/exclusionsConstants';
 import { testExclusionsData } from './resources/exclusions-data';
 
@@ -49,10 +49,10 @@ const GITHUB_SERVICE_DATA = new Service({
     ],
 });
 
-const getServiceIdByUrlMock = servicesManager
+const getServiceIdByUrlMock = services
     .getServiceIdByUrl as jest.MockedFunction<(url: string) => string | null>;
 
-const getServiceMock = servicesManager.getService as jest.MockedFunction<() => Service>;
+const getServiceMock = services.getService as jest.MockedFunction<() => Service>;
 
 jest.mock('../../src/background/exclusions/ServicesManager');
 

@@ -5,7 +5,7 @@ import { rootStore } from '../../../../../stores';
 import { ExclusionStates } from '../../../../../../common/exclusionsConstants';
 import { SearchHighlighter } from '../../../Search/SearchHighlighter';
 import { reactTranslator } from '../../../../../../common/reactTranslator';
-import { Service, ServiceInterface } from '../../../../../../background/exclusions/Service';
+import { Service, ServiceInterface } from '../../../../../../background/exclusions/services/Service';
 
 import './service-mode.pcss';
 

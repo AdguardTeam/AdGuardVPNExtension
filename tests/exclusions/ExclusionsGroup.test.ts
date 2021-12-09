@@ -1,4 +1,4 @@
-import { ExclusionsGroup } from '../../src/background/exclusions/ExclusionsGroup';
+import { ExclusionsGroup } from '../../src/background/exclusions/exclusions/ExclusionsGroup';
 import { ExclusionStates } from '../../src/common/exclusionsConstants';
 
 describe('ExclusionsGroup', () => {

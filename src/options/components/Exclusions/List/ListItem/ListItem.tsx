@@ -2,58 +2,49 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 
-import { ExclusionsTypes, ExclusionStates } from '../../../../../common/exclusionsConstants';
+import { ExclusionsTypes, ExclusionDtoInterface } from '../../../../../common/exclusionsConstants';
 import { StateCheckbox } from '../../StateCheckbox';
 import { rootStore } from '../../../../stores';
 import { SearchHighlighter } from '../../Search/SearchHighlighter';
 
 import './list-item.pcss';
 
-export interface TopLevelExclusion {
-    exclusion: {
-        id: string,
-        name: string,
-        type: ExclusionsTypes,
-        state: ExclusionStates,
-        iconUrl: string,
-    }
+interface ListItemProps {
+    exclusion: ExclusionDtoInterface;
 }
 
-export const ListItem = observer(({ exclusion }: TopLevelExclusion) => {
+export const ListItem = observer(({ exclusion }: ListItemProps) => {
     const { exclusionsStore } = useContext(rootStore);
 
-    const removeExclusion = (id: string, type: ExclusionsTypes) => () => {
-        exclusionsStore.removeExclusion(id, type);
+    const removeExclusion = (id: string) => () => {
+        exclusionsStore.removeExclusion(id);
     };
 
-    const toggleState = (id: string, type: ExclusionsTypes) => () => {
-        exclusionsStore.toggleExclusionState(id, type);
+    const toggleState = (id: string) => () => {
+        exclusionsStore.toggleExclusionState(id);
     };
 
-    const showExclusionSettings = (id: string, type: ExclusionsTypes) => () => {
-        if (type !== ExclusionsTypes.Ip) {
-            exclusionsStore.setExclusionIdToShowSettings(id);
-        }
+    const followToChildren = (id: string) => () => {
+        exclusionsStore.setExclusionIdToShowSettings(id);
     };
 
-    const listIndexTitleClasses = (type: ExclusionsTypes) => cn('list-item__title', {
-        'ip-title': type === ExclusionsTypes.Ip,
+    const listIndexTitleClasses = (hasChildren: boolean) => cn('list-item__title', {
+        'ip-title': !hasChildren,
     });
 
     return (
         <li
-            key={exclusion.name}
+            key={exclusion.id}
             className="list-item"
         >
             <StateCheckbox
                 id={exclusion.id}
-                type={exclusion.type}
                 state={exclusion.state}
                 toggleHandler={toggleState}
             />
             <div
-                className={listIndexTitleClasses(exclusion.type)}
-                onClick={showExclusionSettings(exclusion.id, exclusion.type)}
+                className={listIndexTitleClasses(exclusion.children.length > 0)}
+                onClick={followToChildren(exclusion.id)}
             >
                 <img
                     src={exclusion.iconUrl}
@@ -61,14 +52,14 @@ export const ListItem = observer(({ exclusion }: TopLevelExclusion) => {
                     alt="exclusion icon"
                 />
                 <SearchHighlighter
-                    value={exclusion.name}
+                    value={exclusion.value}
                     search={exclusionsStore.exclusionsSearchValue}
                 />
             </div>
             <button
                 type="button"
                 className="list-item__remove-button"
-                onClick={removeExclusion(exclusion.id, exclusion.type)}
+                onClick={removeExclusion(exclusion.id)}
             >
                 <svg className="list-item__remove-button__icon">
                     <use xlinkHref="#basket" />

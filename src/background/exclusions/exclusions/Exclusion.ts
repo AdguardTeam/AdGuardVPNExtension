@@ -1,16 +1,13 @@
 import { nanoid } from 'nanoid';
 
-import { ExclusionStates } from '../../common/exclusionsConstants';
+import { ExclusionStates } from '../../../common/exclusionsConstants';
 
 interface ExclusionInterface {
-    id: string;
     hostname: string;
     enabled: ExclusionStates;
 }
 
 export class Exclusion implements ExclusionInterface {
-    id: string;
-
     hostname: string;
 
     enabled: ExclusionStates;

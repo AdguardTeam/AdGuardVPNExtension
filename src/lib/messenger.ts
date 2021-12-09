@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid';
 import { MESSAGES_TYPES } from './constants';
 import { log } from './logger';
 import { ExclusionsModes, ExclusionsTypes } from '../common/exclusionsConstants';
-import { ExclusionsDataToImport } from '../background/exclusions/ExclusionsManager';
+import { ExclusionsDataToImport } from '../background/exclusions/Exclusions';
 
 class Messenger {
     async sendMessage(type: string, data?: unknown) {
@@ -174,14 +174,14 @@ class Messenger {
         return this.sendMessage(type, { url });
     }
 
-    async removeExclusion(id: string, exclusionType: ExclusionsTypes) {
+    async removeExclusion(id: string) {
         const type = MESSAGES_TYPES.REMOVE_EXCLUSION;
-        return this.sendMessage(type, { id, exclusionType });
+        return this.sendMessage(type, { id });
     }
 
-    async toggleExclusionState(id: string, exclusionType: ExclusionsTypes) {
+    async toggleExclusionState(id: string) {
         const type = MESSAGES_TYPES.TOGGLE_EXCLUSION_STATE;
-        return this.sendMessage(type, { id, exclusionType });
+        return this.sendMessage(type, { id });
     }
 
     async addService(id: string) {

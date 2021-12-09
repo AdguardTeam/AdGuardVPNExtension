@@ -1,11 +1,11 @@
 import { sleep } from '../../src/lib/helpers';
-import { servicesManager } from '../../src/background/exclusions/ServicesManager';
-import ExclusionsManager, { ExclusionsInfo } from '../../src/background/exclusions/ExclusionsManager';
+import { services } from '../../src/background/exclusions/services/Services';
+import ExclusionsManager, { ExclusionsInfo } from '../../src/background/exclusions/Exclusions';
 import { ExclusionsModes } from '../../src/common/exclusionsConstants';
 
 jest.mock('../../src/background/exclusions/ServicesManager');
 
-const initMock = servicesManager.init as jest.MockedFunction<() => Promise<void>>;
+const initMock = services.init as jest.MockedFunction<() => Promise<void>>;
 initMock.mockImplementation(() => new Promise(() => {}));
 
 jest.mock('../../src/lib/logger');

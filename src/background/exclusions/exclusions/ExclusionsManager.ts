@@ -1,23 +1,16 @@
-import { ExclusionsHandler, ExclusionsData } from './ExclusionsHandler';
-import { log } from '../../lib/logger';
-import notifier from '../../lib/notifier';
+import { ExclusionsData, ExclusionsModes, ExclusionStates } from '../../../common/exclusionsConstants';
+import { ExclusionsHandler } from './ExclusionsHandler';
+import notifier from '../../../lib/notifier';
+import { log } from '../../../lib/logger';
+import { settings } from '../../settings';
+import { Service } from '../services/Service';
 import { ExclusionsGroup } from './ExclusionsGroup';
 import { Exclusion } from './Exclusion';
-import { Service } from './Service';
-import { ExclusionsModes, ExclusionStates } from '../../common/exclusionsConstants';
 
 export interface ExclusionsInfo {
     inverted: boolean,
-    [ExclusionsModes.Selective]: {
-        excludedServices: Service[],
-        exclusionsGroups: ExclusionsGroup[],
-        excludedIps: Exclusion[],
-    },
-    [ExclusionsModes.Regular]: {
-        excludedServices: Service[],
-        exclusionsGroups: ExclusionsGroup[],
-        excludedIps: Exclusion[],
-    },
+    [ExclusionsModes.Selective]: Exclusion[],
+    [ExclusionsModes.Regular]: Exclusion[],
 }
 
 export interface ExclusionsDataToImport {
@@ -25,108 +18,115 @@ export interface ExclusionsDataToImport {
     content: string,
 }
 
-class ExclusionsManager implements ExclusionsInfo {
-    browser: any;
+export interface IndexedExclusionsInterface {
+    [id: string]: string[];
+}
 
-    proxy: any;
+export interface ExclusionInterface {
+    id: string,
+    hostname: string,
+    state: ExclusionStates,
+}
 
-    settings: any;
-
-    MODES = ExclusionsModes;
-
-    exclusions: ExclusionsInfo;
-
+interface PersistedExclusions {
+    [ExclusionsModes.Regular]: ExclusionInterface[];
+    [ExclusionsModes.Selective]: ExclusionInterface[];
     inverted: boolean;
+}
 
-    regularModeHandler: ExclusionsHandler;
+const DefaultExclusions: PersistedExclusions = {
+    [ExclusionsModes.Regular]: [],
+    [ExclusionsModes.Selective]: [],
+    inverted: false,
+};
+
+export class ExclusionsManager {
+    exclusions: PersistedExclusions = DefaultExclusions;
+
+    inverted: boolean = DefaultExclusions.inverted;
 
     selectiveModeHandler: ExclusionsHandler;
 
+    regularModeHandler: ExclusionsHandler;
+
     currentHandler: ExclusionsHandler;
 
-    constructor(browser: {}, proxy: {}, settings: {}) {
-        this.browser = browser;
-        this.proxy = proxy;
-        this.settings = settings;
-    }
-
     init = async () => {
-        this.exclusions = this.settings.getExclusions() || {};
+        this.exclusions = settings.getExclusions() as PersistedExclusions;
 
-        const selective = this.exclusions?.[this.MODES.Selective] ?? {
-            excludedServices: [],
-            exclusionsGroups: [],
-            excludedIps: [],
-        };
-        const regular = this.exclusions?.[this.MODES.Regular] ?? {
-            excludedServices: [],
-            exclusionsGroups: [],
-            excludedIps: [],
-        };
+        const regular = this.exclusions[ExclusionsModes.Regular] ?? [];
 
-        this.inverted = this.exclusions?.inverted ?? false;
+        const selective = this.exclusions[ExclusionsModes.Selective] ?? [];
+
+        this.inverted = this.exclusions.inverted ?? false;
 
         this.selectiveModeHandler = new ExclusionsHandler(
             this.handleExclusionsUpdate,
             selective,
-            this.MODES.Selective,
+            ExclusionsModes.Selective,
         );
 
         this.regularModeHandler = new ExclusionsHandler(
             this.handleExclusionsUpdate,
             regular,
-            this.MODES.Regular,
+            ExclusionsModes.Regular,
         );
 
         this.currentHandler = this.inverted ? this.selectiveModeHandler : this.regularModeHandler;
+
         // update bypass list in proxy on init
         await this.handleExclusionsUpdate();
 
         // @ts-ignore
         notifier.addSpecifiedListener(notifier.types.NON_ROUTABLE_DOMAIN_ADDED, (payload) => {
-            if (this.currentHandler.mode === this.MODES.Regular) {
+            if (this.currentHandler.mode === ExclusionsModes.Regular) {
                 this.currentHandler.addUrlToExclusions(payload);
             }
         });
 
-        log.info('ExclusionsHandler list is ready');
+        log.info('ExclusionsManager is ready');
     };
 
     handleExclusionsUpdate = async () => {
-        // @ts-ignore
-        notifier.notifyListeners(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE);
-
-        const exclusionsData = this.current.getExclusions();
-        const enabledExclusionsList = this.getEnabledExclusionsHostnames(exclusionsData);
-
-        await this.proxy.setBypassList(enabledExclusionsList, this.inverted);
-
+        // FIXME uncomment
+        // // @ts-ignore
+        // notifier.notifyListeners(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE);
+        //
+        // const exclusionsData = this.current.getExclusions();
+        // const enabledExclusionsList = this.getEnabledExclusionsHostnames(exclusionsData);
+        //
+        // await this.proxy.setBypassList(enabledExclusionsList, this.inverted);
+        //
         const exclusionsRepository = {
             inverted: this.inverted,
-            [this.MODES.Selective]: {
-                excludedServices: this.selective.excludedServices,
-                exclusionsGroups: this.selective.exclusionsGroups,
-                excludedIps: this.selective.excludedIps,
-            },
-            [this.MODES.Regular]: {
-                excludedServices: this.regular.excludedServices,
-                exclusionsGroups: this.regular.exclusionsGroups,
-                excludedIps: this.regular.excludedIps,
-            },
+            [ExclusionsModes.Selective]: this.selective.exclusions,
+            [ExclusionsModes.Regular]: this.regular.exclusions,
         };
 
-        this.settings.setExclusions(exclusionsRepository);
+        settings.setExclusions(exclusionsRepository);
     };
+
+    get regular() {
+        return this.regularModeHandler;
+    }
+
+    get selective() {
+        return this.selectiveModeHandler;
+    }
+
+    get current() {
+        return this.currentHandler;
+    }
 
     getEnabledExclusionsHostnames(exclusionsData: ExclusionsData): string[] {
         // TODO refactor
         const enabledServicesHostnames = exclusionsData.excludedServices.map((service: Service) => {
             return service.exclusionsGroups.filter((group) => {
                 return (service.state === ExclusionStates.Enabled
-                    || service.state === ExclusionStates.PartlyEnabled)
-                        && (group.state === ExclusionStates.Enabled
-                            || group.state === ExclusionStates.PartlyEnabled)
-                        && group.exclusions.filter(({ enabled }) => enabled);
+                        || service.state === ExclusionStates.PartlyEnabled)
+                    && (group.state === ExclusionStates.Enabled
+                        || group.state === ExclusionStates.PartlyEnabled)
+                    && group.exclusions.filter(({ enabled }) => enabled);
             }).map(({ exclusions }) => exclusions.map(({ hostname }) => hostname));
         });
 
@@ -134,8 +134,8 @@ class ExclusionsManager implements ExclusionsInfo {
             .map((group: ExclusionsGroup) => {
                 return group.exclusions.filter((exclusion) => {
                     return (group.state === ExclusionStates.Enabled
-                        || group.state === ExclusionStates.PartlyEnabled)
-                            && exclusion.enabled;
+                            || group.state === ExclusionStates.PartlyEnabled)
+                        && exclusion.enabled;
                 }).map(({ hostname }) => hostname);
             });
 
@@ -152,12 +152,12 @@ class ExclusionsManager implements ExclusionsInfo {
 
     async setCurrentMode(mode: ExclusionsModes) {
         switch (mode) {
-            case this.MODES.Selective: {
+            case ExclusionsModes.Selective: {
                 this.currentHandler = this.selectiveModeHandler;
                 this.inverted = true;
                 break;
             }
-            case this.MODES.Regular: {
+            case ExclusionsModes.Regular: {
                 this.currentHandler = this.regularModeHandler;
                 this.inverted = false;
                 break;
@@ -170,27 +170,15 @@ class ExclusionsManager implements ExclusionsInfo {
 
     getHandler(mode: ExclusionsModes) {
         switch (mode) {
-            case this.MODES.Selective: {
+            case ExclusionsModes.Selective: {
                 return this.selective;
             }
-            case this.MODES.Regular: {
+            case ExclusionsModes.Regular: {
                 return this.regular;
             }
             default:
                 throw Error(`Wrong mode requested: ${mode}`);
         }
-    }
-
-    get selective() {
-        return this.selectiveModeHandler;
-    }
-
-    get regular() {
-        return this.regularModeHandler;
-    }
-
-    get current() {
-        return this.currentHandler;
     }
 
     async enableVpnByUrl(url: string) {
@@ -232,18 +220,10 @@ class ExclusionsManager implements ExclusionsInfo {
         await this.selective.clearExclusionsData();
         const emptyExclusions = {
             inverted: this.inverted,
-            [this.MODES.Selective]: {
-                excludedServices: [],
-                exclusionsGroups: [],
-                excludedIps: [],
-            },
-            [this.MODES.Regular]: {
-                excludedServices: [],
-                exclusionsGroups: [],
-                excludedIps: [],
-            },
+            [ExclusionsModes.Selective]: [],
+            [ExclusionsModes.Regular]: [],
         };
-        this.settings.setExclusions(emptyExclusions);
+        settings.setExclusions(emptyExclusions);
     }
 
     async importExclusionsData(exclusionsData: ExclusionsDataToImport[]) {
@@ -267,6 +247,14 @@ class ExclusionsManager implements ExclusionsInfo {
         }
         await this.handleExclusionsUpdate();
     }
+
+    getExclusions(): ExclusionInterface[] {
+        return this.currentHandler.getExclusions();
+    }
+
+    getIndexedExclusions(): IndexedExclusionsInterface {
+        return this.currentHandler.getIndexedExclusions();
+    }
 }
 
-export default ExclusionsManager;
+export const exclusionsManager = new ExclusionsManager();

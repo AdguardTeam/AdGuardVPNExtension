@@ -9,7 +9,7 @@ import { ExclusionsModes, ExclusionStates, ExclusionsTypes } from '../../../../.
 import { SubdomainModal } from '../SubdomainModal';
 import { reactTranslator } from '../../../../../common/reactTranslator';
 import { translator } from '../../../../../common/translator';
-import { ExclusionsGroup } from '../../../../../background/exclusions/ExclusionsGroup';
+import { ExclusionsGroup } from '../../../../../background/exclusions/exclusions/ExclusionsGroup';
 
 import './group-settings.pcss';
 

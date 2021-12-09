@@ -1,19 +1,37 @@
+import { nanoid } from 'nanoid';
+import { getDomain } from 'tldts';
+import ipaddr from 'ipaddr.js';
 import { ExclusionsGroup } from './ExclusionsGroup';
-import { ExclusionStates, ExclusionsTypes } from '../../common/exclusionsConstants';
+import {
+    ExclusionsData,
+    ExclusionsModes,
+    ExclusionStates,
+    ExclusionsTypes,
+} from '../../../common/exclusionsConstants';
 import { Exclusion } from './Exclusion';
-import { Service } from './Service';
-import { servicesManager } from './ServicesManager';
-import { log } from '../../lib/logger';
-import { getHostname, prepareUrl } from '../../lib/helpers';
-import { areHostnamesEqual, shExpMatch } from '../../lib/string-utils';
+import { Service } from '../services/Service';
+import { getHostname, prepareUrl } from '../../../lib/helpers';
+import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
+import { ExclusionInterface, IndexedExclusionsInterface } from './ExclusionsManager';
 
-const IP_REGEX = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/;
-
-export interface ExclusionsData {
-    excludedServices: Service[],
-    exclusionsGroups: ExclusionsGroup[],
-    excludedIps: Exclusion[];
-}
+/**
+ * Here eTld means eTLD + 1
+ */
+const getETld = (hostname: string) => {
+    const SEPARATOR = '.';
+    if (ipaddr.isValid(hostname)) {
+        return hostname;
+    }
+    const parts = hostname.split(SEPARATOR);
+    const domainParts = parts.splice(parts.length - 2, 2);
+    while (parts.length > 0) {
+        const domain = getDomain(domainParts.join(SEPARATOR));
+        if (domain) {
+            return domain;
+        }
+    }
+    return null;
+};
 
 interface ExclusionsManagerInterface {
     // methods for services
@@ -62,38 +80,58 @@ interface ExclusionsManagerInterface {
     clearExclusionsData(): void;
 }
 
-export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInterface {
-    excludedServices: Service[];
+interface UpdateHandler {
+    (): void;
+}
 
-    exclusionsGroups: ExclusionsGroup[];
+export class ExclusionsHandler {
+    exclusions: ExclusionInterface[];
 
-    excludedIps: Exclusion[];
-
-    mode: string;
+    exclusionsIndex: IndexedExclusionsInterface;
 
     updateHandler: () => void;
 
-    constructor(updateHandler: () => void, exclusions: ExclusionsData, mode: string) {
+    public mode: ExclusionsModes;
+
+    constructor(
+        updateHandler: UpdateHandler,
+        exclusions: ExclusionInterface[],
+        mode: ExclusionsModes,
+    ) {
         this.updateHandler = updateHandler;
-        this.excludedServices = exclusions.excludedServices
-            .map((service) => new Service(service)) || [];
-        this.exclusionsGroups = exclusions.exclusionsGroups
-            .map((group) => new ExclusionsGroup(group)) || [];
-        this.excludedIps = exclusions.excludedIps
-            .map((ip) => new Exclusion(ip)) || [];
+        this.exclusions = exclusions;
+        this.exclusionsIndex = this.getExclusionsIndex(exclusions);
         this.mode = mode;
     }
 
-    get exclusionsData(): ExclusionsData {
-        return {
-            excludedServices: this.excludedServices,
-            exclusionsGroups: this.exclusionsGroups,
-            excludedIps: this.excludedIps,
-        };
+    getExclusions(): ExclusionInterface[] {
+        return this.exclusions;
     }
 
-    getExclusions() {
-        return this.exclusionsData;
+    getIndexedExclusions(): IndexedExclusionsInterface {
+        return this.exclusionsIndex;
+    }
+
+    getExclusionsIndex(exclusions: ExclusionInterface[]) {
+        const indexedExclusions = exclusions.reduce((
+            acc: IndexedExclusionsInterface,
+            exclusion,
+        ) => {
+            let domain = getETld(exclusion.hostname);
+
+            if (!domain) {
+                domain = exclusion.hostname;
+            }
+
+            if (acc[domain]) {
+                acc[domain].push(exclusion.id);
+            } else {
+                acc[domain] = [exclusion.id];
+            }
+            return acc;
+        }, {});
+
+        return indexedExclusions;
     }
 
     async addUrlToExclusions(url: string) {
@@ -103,36 +141,18 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
             return;
         }
 
-        // FIXME: should add validation?
-        if (IP_REGEX.test(hostname)) {
-            await this.addIp(hostname);
-        } else {
-            await this.addExclusionsGroup(hostname);
-        }
+        this.exclusions.push({ id: nanoid(), hostname, state: ExclusionStates.Enabled });
+        this.updateHandler();
     }
 
     /**
-     * Removes top-level exclusion
+     * Removes exclusions
      * @param id
-     * @param type
      */
-    async removeExclusion(id: string, type: ExclusionsTypes) {
-        switch (type) {
-            case ExclusionsTypes.Service: {
-                await this.removeService(id);
-                break;
-            }
-            case ExclusionsTypes.Group: {
-                await this.removeExclusionsGroup(id);
-                break;
-            }
-            case ExclusionsTypes.Ip: {
-                await this.removeIp(id);
-                break;
-            }
-            default:
-                log.error(`Unknown exclusion type: ${type}`);
-        }
+    async removeExclusion(id: string) {
+        this.exclusions = this.exclusions.filter((exclusion) => exclusion.id !== id);
+        // FIXME build new index
+        await this.updateHandler();
     }
 
     /**
@@ -146,19 +166,19 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
             return;
         }
 
-        this.exclusionsGroups.forEach((group) => {
-            if (group.hostname === hostname) {
-                group.disableExclusionsGroup();
-            }
-        });
-
-        this.excludedServices.forEach((service) => {
-            service.exclusionsGroups.forEach((group) => {
-                if (group.hostname === hostname) {
-                    service.toggleExclusionsGroupState(group.id);
-                }
-            });
-        });
+        // this.exclusionsGroups.forEach((group) => {
+        //     if (group.hostname === hostname) {
+        //         group.disableExclusionsGroup();
+        //     }
+        // });
+        //
+        // this.excludedServices.forEach((service) => {
+        //     service.exclusionsGroups.forEach((group) => {
+        //         if (group.hostname === hostname) {
+        //             service.toggleExclusionsGroupState(group.id);
+        //         }
+        //     });
+        // });
 
         await this.updateHandler();
     }
@@ -191,7 +211,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
         if (this.excludedServices.some((service) => service.serviceId === serviceId)) {
             return;
         }
-        const serviceData = servicesManager.getService(serviceId);
+        const serviceData = services.getService(serviceId);
         if (serviceData) {
             const service = new Service(serviceData);
             this.excludedServices.push(service);
@@ -235,7 +255,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
     async resetServiceData(serviceId: string) {
         this.excludedServices.forEach((service) => {
             if (service.serviceId === serviceId) {
-                const defaultServiceData = servicesManager.getService(serviceId);
+                const defaultServiceData = services.getService(serviceId);
                 if (!defaultServiceData) {
                     return;
                 }
@@ -338,7 +358,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
             return;
         }
 
-        const serviceId = servicesManager.getServiceIdByUrl(hostname);
+        const serviceId = services.getServiceIdByUrl(hostname);
         if (serviceId) {
             await this.addService(serviceId);
             // if service added manually as domain,
@@ -531,9 +551,7 @@ export class ExclusionsHandler implements ExclusionsData, ExclusionsManagerInter
     }
 
     async clearExclusionsData() {
-        this.excludedServices = [];
-        this.exclusionsGroups = [];
-        this.excludedIps = [];
+        this.exclusions = [];
         await this.updateHandler();
     }
 }

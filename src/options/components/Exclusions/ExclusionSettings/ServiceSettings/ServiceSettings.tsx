@@ -6,7 +6,7 @@ import { rootStore } from '../../../../stores';
 import { Title } from '../../../ui/Title';
 import { StateCheckbox } from '../../StateCheckbox';
 import { ExclusionsModes, ExclusionsTypes, ExclusionStates } from '../../../../../common/exclusionsConstants';
-import { ExclusionsGroup } from '../../../../../background/exclusions/ExclusionsGroup';
+import { ExclusionsGroup } from '../../../../../background/exclusions/exclusions/ExclusionsGroup';
 import { reactTranslator } from '../../../../../common/reactTranslator';
 import { translator } from '../../../../../common/translator';
 
