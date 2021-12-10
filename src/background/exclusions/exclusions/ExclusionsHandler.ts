@@ -17,19 +17,32 @@ import { ExclusionInterface, IndexedExclusionsInterface } from './ExclusionsMana
 /**
  * Here eTld means eTLD + 1
  */
-const getETld = (hostname: string) => {
+export const getETld = (hostname: string) => {
     const SEPARATOR = '.';
+
     if (ipaddr.isValid(hostname)) {
         return hostname;
     }
+
     const parts = hostname.split(SEPARATOR);
-    const domainParts = parts.splice(parts.length - 2, 2);
+    let domainParts = parts.splice(parts.length - 2, 2);
+    const domain = getDomain(domainParts.join(SEPARATOR));
+    if (domain) {
+        return domain;
+    }
+
     while (parts.length > 0) {
+        const nextPart = parts.pop();
+        if (nextPart) {
+            domainParts = [nextPart, ...domainParts];
+        }
+
         const domain = getDomain(domainParts.join(SEPARATOR));
         if (domain) {
             return domain;
         }
     }
+
     return null;
 };
 
@@ -142,7 +155,9 @@ export class ExclusionsHandler {
         }
 
         this.exclusions.push({ id: nanoid(), hostname, state: ExclusionStates.Enabled });
-        this.updateHandler();
+        this.exclusionsIndex = this.getExclusionsIndex(this.exclusions);
+
+        await this.updateHandler();
     }
 
     /**
@@ -151,7 +166,18 @@ export class ExclusionsHandler {
      */
     async removeExclusion(id: string) {
         this.exclusions = this.exclusions.filter((exclusion) => exclusion.id !== id);
+
         // FIXME build new index
+        await this.updateHandler();
+    }
+
+    async removeExclusions(idsToRemove: string[]) {
+        console.log(idsToRemove);
+        this.exclusions = this.exclusions.filter((exclusion) => {
+            return !idsToRemove.includes(exclusion.id);
+        });
+
+        this.exclusionsIndex = this.getExclusionsIndex(this.exclusions);
         await this.updateHandler();
     }
 

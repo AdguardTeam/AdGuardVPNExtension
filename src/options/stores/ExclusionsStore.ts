@@ -90,39 +90,7 @@ export class ExclusionsStore {
 
     get preparedExclusions() {
         console.log(toJS(this.exclusions));
-        // const services = this.exclusions.excludedServices
-        //     .map((service) => {
-        //         return {
-        //             id: service.serviceId,
-        //             name: service.serviceName,
-        //             iconUrl: service.iconUrl,
-        //             state: service.state,
-        //             type: ExclusionsTypes.Service,
-        //         };
-        //     });
-        //
-        // const groups = this.exclusions.exclusionsGroups.map((group) => {
-        //     return {
-        //         id: group.id,
-        //         name: group.hostname,
-        //         iconUrl: '/assets/images/ip-icon.svg',
-        //         state: group.state,
-        //         type: ExclusionsTypes.Group,
-        //     };
-        // });
-        //
-        // const excludedIps = this.exclusions.excludedIps.map((ip) => {
-        //     return {
-        //         id: ip.id,
-        //         name: ip.hostname,
-        //         iconUrl: '/assets/images/ip-icon.svg',
-        //         state: ip.enabled,
-        //         type: ExclusionsTypes.Ip,
-        //     };
-        // });
-        //
-        // const allExclusions = [...services, ...groups, ...excludedIps];
-        //
+        // FIXME filter first level of exclusions
         // const filteredExclusions = allExclusions.filter((exclusion) => {
         //     if (this.exclusionsSearchValue.length === 0) {
         //         return true;

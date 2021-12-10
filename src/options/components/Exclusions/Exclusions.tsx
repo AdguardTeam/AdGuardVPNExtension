@@ -14,7 +14,7 @@ import { translator } from '../../../common/translator';
 import './exclusions.pcss';
 import '../ui/radio.pcss';
 
-export const Exclusions2 = observer(() => {
+export const Exclusions = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
     const { exclusionIdToShowSettings } = exclusionsStore;
 

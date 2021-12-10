@@ -150,11 +150,16 @@ const messagesHandler = async (message, sender) => {
         }
         case MESSAGES_TYPES.ADD_URL_TO_EXCLUSIONS: {
             const { url } = data;
-            return exclusions.addUrlToExclusions(url);
+            try {
+                return await exclusions.addUrlToExclusions(url);
+            } catch (e) {
+                console.log(e);
+                throw new Error(e.message);
+            }
         }
         case MESSAGES_TYPES.REMOVE_EXCLUSION: {
-            const { id, exclusionType } = data;
-            return exclusions.current.removeExclusion(id, exclusionType);
+            const { id } = data;
+            return exclusions.removeExclusion(id);
         }
         case MESSAGES_TYPES.TOGGLE_EXCLUSION_STATE: {
             const { id, exclusionType } = data;

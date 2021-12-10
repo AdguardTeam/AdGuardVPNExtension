@@ -37,6 +37,7 @@ export class ExclusionsService {
     }
 
     async addUrlToExclusions(url: string) {
+        console.log(url);
         // FIXME remove knowledge about current
         // check if domain is in the service, or group
         const hostname = getHostname(url);
@@ -54,6 +55,13 @@ export class ExclusionsService {
             await exclusionsManager.current.addUrlToExclusions(url);
             await exclusionsManager.current.addUrlToExclusions(wildcardHostname);
         }
+
+        this.updateTree();
+    }
+
+    async removeExclusion(id: string) {
+        const exclusionsToRemove = this.exclusionsTree.getPathExclusions(id);
+        await exclusionsManager.current.removeExclusions(exclusionsToRemove);
 
         this.updateTree();
     }

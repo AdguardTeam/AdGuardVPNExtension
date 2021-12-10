@@ -1,1 +1,1 @@
-export { Exclusions2 } from './Exclusions2';
+export { Exclusions } from './Exclusions';

@@ -22,7 +22,7 @@ import notifier from '../../../lib/notifier';
 import { Support } from '../Support';
 import { Notifications } from '../ui/Notifications';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
-import { Exclusions2 } from '../Exclusions';
+import { Exclusions } from '../Exclusions';
 
 Modal.setAppElement('#root');
 
@@ -34,7 +34,7 @@ const getContent = (authenticated, requestProcessState) => {
                 <div className="content">
                     <Switch>
                         <Route path="/" exact component={Settings} />
-                        <Route path="/exclusions" exact component={Exclusions2} />
+                        <Route path="/exclusions" exact component={Exclusions} />
                         <Route path="/account" component={Account} />
                         <Route path="/about" component={About} />
                         <Route path="/support" component={Support} />

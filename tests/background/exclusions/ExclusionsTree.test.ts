@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 
-import { ExclusionsTree } from '../../../src/background/exclusions/ExclusionsTree';
+import { ExclusionNode, ExclusionsTree } from '../../../src/background/exclusions/ExclusionsTree';
 import { ExclusionStates } from '../../../src/common/exclusionsConstants';
 import clearAllMocks = jest.clearAllMocks;
 
@@ -153,6 +153,31 @@ describe('ExclusionsTree', () => {
                     ],
                 },
             ],
+        });
+    });
+
+    describe('ExclusionNode', () => {
+        describe('getPathExclusions', () => {
+            it('returns one exclusion if no children found', () => {
+                const tree = new ExclusionNode('root', 'root');
+                tree.addChild(new ExclusionNode('1', 'example.org'));
+                tree.addChild(new ExclusionNode('2', 'example.net'));
+
+                const exclusions = tree.getPathExclusions('2');
+                expect(exclusions).toEqual(['2']);
+            });
+
+            it('returns all leaf children', () => {
+                const tree = new ExclusionNode('root', 'root');
+                tree.addChild(new ExclusionNode('1', 'example.org'));
+                const secondExclusion = new ExclusionNode('2', 'example.net');
+                secondExclusion.addChild(new ExclusionNode('3', '*.example.net'));
+                secondExclusion.addChild(new ExclusionNode('4', 'test.example.net'));
+                tree.addChild(secondExclusion);
+
+                const exclusions = tree.getPathExclusions('2');
+                expect(exclusions).toEqual(['3', '4']);
+            });
         });
     });
 });
