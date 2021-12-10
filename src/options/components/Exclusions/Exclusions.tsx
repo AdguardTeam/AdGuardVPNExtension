@@ -16,9 +16,8 @@ import '../ui/radio.pcss';
 
 export const Exclusions = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
-    const { exclusionIdToShowSettings } = exclusionsStore;
 
-    if (exclusionIdToShowSettings) {
+    if (exclusionsStore.selectedExclusionId) {
         return (
             <ExclusionSettings />
         );

@@ -24,8 +24,12 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
         exclusionsStore.toggleExclusionState(id);
     };
 
-    const followToChildren = (id: string) => () => {
-        exclusionsStore.setExclusionIdToShowSettings(id);
+    const followToChildren = (exclusion: ExclusionDtoInterface) => () => {
+        if (exclusion.children.length === 0) {
+            return;
+        }
+
+        exclusionsStore.setExclusionIdToShowSettings(exclusion.id);
     };
 
     const listIndexTitleClasses = (hasChildren: boolean) => cn('list-item__title', {
@@ -44,7 +48,7 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
             />
             <div
                 className={listIndexTitleClasses(exclusion.children.length > 0)}
-                onClick={followToChildren(exclusion.id)}
+                onClick={followToChildren(exclusion)}
             >
                 {/* FIXME get icons for sites with icons service */}
                 <img

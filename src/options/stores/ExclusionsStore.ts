@@ -8,8 +8,7 @@ import JSZip from 'jszip';
 import format from 'date-fns/format';
 import FileSaver from 'file-saver';
 
-import { ExclusionsData, ExclusionsModes, ExclusionStates, ExclusionsTypes } from '../../common/exclusionsConstants';
-import { containsIgnoreCase } from '../components/Exclusions/Search/SearchHighlighter/helpers';
+import { ExclusionsData, ExclusionsModes, ExclusionStates, } from '../../common/exclusionsConstants';
 import { Service, ServiceCategory, ServiceInterface } from '../../background/exclusions/services/Service';
 import { ExclusionsGroup } from '../../background/exclusions/exclusions/ExclusionsGroup';
 import { Exclusion } from '../../background/exclusions/exclusions/Exclusion';
@@ -62,7 +61,7 @@ export class ExclusionsStore {
 
     @observable unfoldAllServiceCategories: boolean = false;
 
-    @observable exclusionIdToShowSettings: string | null = null;
+    @observable selectedExclusionId: string | null = null;
 
     @observable exclusionsSearchValue: string = '';
 
@@ -252,7 +251,7 @@ export class ExclusionsStore {
     };
 
     @action setExclusionIdToShowSettings = (id: string | null) => {
-        this.exclusionIdToShowSettings = id;
+        this.selectedExclusionId = id;
     };
 
     @action toggleSubdomainStateInExclusionsGroup = async (
@@ -269,7 +268,7 @@ export class ExclusionsStore {
         this.exclusions.exclusionsGroups.forEach((group) => {
             if (group.id === exclusionsGroupId && group.exclusions[0].id === subdomainId) {
                 // show exclusions list if main domain was removed
-                this.exclusionIdToShowSettings = null;
+                this.selectedExclusionId = null;
             }
         });
         await messenger.removeSubdomainFromExclusionsGroup(exclusionsGroupId, subdomainId);
@@ -315,7 +314,7 @@ export class ExclusionsStore {
 
         if (exclusionsGroupToRemove.exclusions[0].id === subdomainId) {
             // show service screen if main domain was removed
-            this.exclusionIdToShowSettings = serviceId;
+            this.selectedExclusionId = serviceId;
         }
 
         await messenger.removeSubdomainFromExclusionsGroupInService(
@@ -350,23 +349,19 @@ export class ExclusionsStore {
     };
 
     @computed
-    get exclusionDataToShow() {
-        if (!this.exclusionIdToShowSettings) {
+    get selectedExclusionChildren() {
+        if (!this.selectedExclusionId) {
             return null;
         }
 
-        const serviceData = this.exclusions.excludedServices
-            .find(({ serviceId }) => serviceId === this.exclusionIdToShowSettings);
+        const foundExclusion: ExclusionDtoInterface = this.exclusions
+            .find((exclusion: ExclusionDtoInterface) => exclusion.id === this.selectedExclusionId);
 
-        const servicesGroupData = this.exclusions.excludedServices
-            .map(({ exclusionsGroups }) => exclusionsGroups)
-            .flat()
-            .find(({ id }) => id === this.exclusionIdToShowSettings);
+        if (!foundExclusion) {
+            return [];
+        }
 
-        const groupData = this.exclusions.exclusionsGroups
-            .find(({ id }) => id === this.exclusionIdToShowSettings);
-
-        return serviceData || servicesGroupData || groupData || null;
+        return foundExclusion.children;
     }
 
     /**
