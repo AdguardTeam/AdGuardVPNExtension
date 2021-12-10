@@ -162,8 +162,8 @@ const messagesHandler = async (message, sender) => {
             return exclusions.removeExclusion(id);
         }
         case MESSAGES_TYPES.TOGGLE_EXCLUSION_STATE: {
-            const { id, exclusionType } = data;
-            return exclusions.current.toggleExclusionState(id, exclusionType);
+            const { id } = data;
+            return exclusions.toggleExclusionState(id);
         }
         case MESSAGES_TYPES.ADD_SERVICE: {
             const { id } = data;

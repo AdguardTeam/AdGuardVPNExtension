@@ -95,6 +95,31 @@ export class ExclusionNode {
         // @ts-ignore
         return childrenPathExclusions.flat(Infinity);
     }
+
+    findNode(id: string): ExclusionNode | null {
+        if (this.id === id) {
+            return this;
+        }
+
+        for (let i = 0; i < this.children.length; i += 1) {
+            const child = this.children[i];
+            const node = child.findNode(id);
+            if (node) {
+                return node;
+            }
+        }
+
+        return null;
+    }
+
+    getExclusionNodeState(id: string): ExclusionStates | null {
+        const foundNode = this.findNode(id);
+        if (foundNode) {
+            return foundNode.state;
+        }
+
+        return null;
+    }
 }
 
 export class ExclusionsTree {
@@ -115,12 +140,14 @@ export class ExclusionsTree {
     }
 
     generateTree() {
+        this.groupIndex = {};
+        this.exclusionsTree = new ExclusionNode('root', 'root');
+
         const indexedServices: IndexedServicesInterface = this.servicesManager.getIndexedServices();
         // eslint-disable-next-line max-len
         const indexedExclusions: IndexedExclusionsInterface = this.exclusionsManager.getIndexedExclusions();
         const exclusions = this.exclusionsManager.getExclusions();
         const services = this.servicesManager.getServices();
-        this.groupIndex = {};
 
         console.log(exclusions);
         console.log(indexedExclusions);
@@ -178,6 +205,7 @@ export class ExclusionsTree {
     }
 
     getExclusions() {
+        console.log(this.exclusionsTree);
         const exclusionsRoot = this.exclusionsTree.serialize();
         return exclusionsRoot.children;
     }
@@ -187,5 +215,13 @@ export class ExclusionsTree {
      */
     getPathExclusions(id: string) {
         return this.exclusionsTree.getPathExclusions(id);
+    }
+
+    /**
+     * Returns state of exclusion node by id
+     * @param id
+     */
+    getExclusionState(id: string) {
+        return this.exclusionsTree.getExclusionNodeState(id);
     }
 }

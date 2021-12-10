@@ -3,6 +3,7 @@ import { exclusionsManager } from './exclusions/ExclusionsManager';
 import { servicesManager } from './services/ServicesManager';
 import { ExclusionsTree } from './ExclusionsTree';
 import { getHostname } from '../../lib/helpers';
+import { ExclusionStates } from '../../common/exclusionsConstants';
 
 export class ExclusionsService {
     exclusionsTree: ExclusionsTree;
@@ -18,7 +19,11 @@ export class ExclusionsService {
     }
 
     getExclusions() {
-        return this.exclusionsTree.getExclusions();
+        const exclusions = this.exclusionsTree.getExclusions();
+
+        console.log(exclusions);
+
+        return exclusions;
     }
 
     getMode() {
@@ -64,6 +69,22 @@ export class ExclusionsService {
         await exclusionsManager.current.removeExclusions(exclusionsToRemove);
 
         this.updateTree();
+    }
+
+    async toggleExclusionState(id: string) {
+        const targetExclusionState = this.exclusionsTree.getExclusionState(id);
+        if (!targetExclusionState) {
+            throw new Error(`There is no such id in the tree: ${id}`);
+        }
+
+        const exclusionsToToggle = this.exclusionsTree.getPathExclusions(id);
+
+        // handle partlyEnabled state
+        const state = targetExclusionState === ExclusionStates.Enabled
+            ? ExclusionStates.Disabled
+            : ExclusionStates.Enabled;
+
+        await exclusionsManager.current.setExclusionsState(exclusionsToToggle, state);
     }
 
     async clearExclusionsData() {

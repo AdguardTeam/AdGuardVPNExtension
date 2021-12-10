@@ -171,10 +171,23 @@ export class ExclusionsHandler {
         await this.updateHandler();
     }
 
-    async removeExclusions(idsToRemove: string[]) {
-        console.log(idsToRemove);
+    async removeExclusions(ids: string[]) {
+        console.log(ids);
         this.exclusions = this.exclusions.filter((exclusion) => {
-            return !idsToRemove.includes(exclusion.id);
+            return !ids.includes(exclusion.id);
+        });
+
+        this.exclusionsIndex = this.getExclusionsIndex(this.exclusions);
+        await this.updateHandler();
+    }
+
+    async setExclusionsState(ids: string[], state: ExclusionStates) {
+        console.log(ids);
+        this.exclusions = this.exclusions.map((ex) => {
+            return {
+                ...ex,
+                state,
+            };
         });
 
         this.exclusionsIndex = this.getExclusionsIndex(this.exclusions);
