@@ -60,7 +60,6 @@ export const App = observer(() => {
     const {
         requestProcessState,
         authenticated,
-        showUpgradeScreen,
         promoScreenState,
     } = authStore;
 
@@ -178,7 +177,7 @@ export const App = observer(() => {
         );
     }
 
-    if (showUpgradeScreen && !isPremiumToken) {
+    if (!isPremiumToken && authStore.renderUpgradeScreen) {
         return (
             <>
                 <UpgradeScreen />

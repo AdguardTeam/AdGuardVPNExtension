@@ -194,16 +194,25 @@ export class AuthStore {
     @computed
     get renderNewsletter() {
         return this.marketingConsent === null
-        && ((this.isFirstRun && this.isNewUser)
-            || (this.isFirstRun && !this.isNewUser && this.isSocialAuth)
-            || (!this.isFirstRun && this.isNewUser && !this.isSocialAuth));
+            && ((this.isFirstRun && this.isSocialAuth)
+                || (this.isNewUser && !this.isSocialAuth));
     }
 
-    // AG-10009 Onboarding screen
+    // AG-10009 Promo screens (onboarding and upgrade screen) should be shown
+    // only on first run or for new users authenticated via mail
+    @computed
+    get shouldRenderPromo() {
+        return this.isFirstRun || (this.isNewUser && !this.isSocialAuth);
+    }
+
     @computed
     get renderOnboarding() {
-        return this.showOnboarding
-            && (this.isFirstRun || (!this.isFirstRun && this.isNewUser && !this.isSocialAuth));
+        return this.showOnboarding && this.shouldRenderPromo;
+    }
+
+    @computed
+    get renderUpgradeScreen() {
+        return this.showUpgradeScreen && this.shouldRenderPromo;
     }
 
     @action
