@@ -173,7 +173,11 @@ export class ExclusionsTree {
             const groupNode = this.groupIndex[hostnameTld];
 
             if (groupNode) {
-                const exclusionNode = new ExclusionNode(exclusion.id, exclusion.hostname);
+                const exclusionNode = new ExclusionNode(
+                    exclusion.id,
+                    exclusion.hostname,
+                    exclusion.state,
+                );
                 groupNode.addChild(exclusionNode);
                 continue;
             }
@@ -188,7 +192,11 @@ export class ExclusionsTree {
                 const groupNode = new ExclusionNode(hostnameTld, hostnameTld);
                 this.groupIndex[hostnameTld] = groupNode;
 
-                const exclusionNode = new ExclusionNode(exclusion.id, exclusion.hostname);
+                const exclusionNode = new ExclusionNode(
+                    exclusion.id,
+                    exclusion.hostname,
+                    exclusion.state,
+                );
 
                 groupNode.addChild(exclusionNode);
                 serviceNode.addChild(groupNode);
@@ -198,7 +206,11 @@ export class ExclusionsTree {
                 continue;
             }
 
-            const exclusionNode = new ExclusionNode(exclusion.id, exclusion.hostname);
+            const exclusionNode = new ExclusionNode(
+                exclusion.id,
+                exclusion.hostname,
+                exclusion.state,
+            );
 
             if (indexedExclusions[hostnameTld].length > 1) {
                 const groupNode = new ExclusionNode(hostnameTld, hostnameTld);

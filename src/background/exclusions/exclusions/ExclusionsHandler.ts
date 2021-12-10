@@ -184,10 +184,13 @@ export class ExclusionsHandler {
     async setExclusionsState(ids: string[], state: ExclusionStates) {
         console.log(ids);
         this.exclusions = this.exclusions.map((ex) => {
-            return {
-                ...ex,
-                state,
-            };
+            if (ids.includes(ex.id)) {
+                return {
+                    ...ex,
+                    state,
+                };
+            }
+            return ex;
         });
 
         this.exclusionsIndex = this.getExclusionsIndex(this.exclusions);

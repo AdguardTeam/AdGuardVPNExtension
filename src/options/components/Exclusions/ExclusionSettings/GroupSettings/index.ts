@@ -1,1 +1,0 @@
-export { GroupSettings } from './GroupSettings';

@@ -2,27 +2,22 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
+import { toJS } from 'mobx';
 import { rootStore } from '../../../../stores';
 import { Title } from '../../../ui/Title';
 import { StateCheckbox } from '../../StateCheckbox';
-import {
-    ExclusionDtoInterface,
-    ExclusionsModes,
-    ExclusionStates,
-    ExclusionsTypes,
-} from '../../../../../common/exclusionsConstants';
-import { SubdomainModal } from '../SubdomainModal';
+import { ExclusionDtoInterface, ExclusionsModes } from '../../../../../common/exclusionsConstants';
 import { reactTranslator } from '../../../../../common/reactTranslator';
 import { translator } from '../../../../../common/translator';
 
-import './group-settings.pcss';
+import './children-list-item.pcss';
 
 interface GroupSettingsProps {
     exclusions: ExclusionDtoInterface[];
     parentId: string | null;
 }
 
-export const GroupSettings = observer(({ exclusions, parentId }: GroupSettingsProps) => {
+export const ChildrenListItem = observer(({ exclusions, parentId }: GroupSettingsProps) => {
     const { exclusionsStore } = useContext(rootStore);
 
     if (!exclusions) {
@@ -33,37 +28,21 @@ export const GroupSettings = observer(({ exclusions, parentId }: GroupSettingsPr
         exclusionsStore.setExclusionIdToShowSettings(parentId || null);
     };
 
-    const toggleState = (subdomainId: string) => async () => {
-        // if (parentId) {
-        //     await exclusionsStore.toggleSubdomainStateInExclusionsGroupInService(
-        //         parentId,
-        //         exclusions.id,
-        //         subdomainId,
-        //     );
-        //     return;
-        // }
-        // await exclusionsStore.toggleSubdomainStateInExclusionsGroup(exclusions.id, subdomainId);
+    const toggleState = (id: string) => async () => {
+        await exclusionsStore.toggleExclusionState(id);
     };
 
-    const removeDomain = (subdomainId: string) => async () => {
-        if (parentId) {
-            await exclusionsStore.removeSubdomainFromExclusionsGroupInService(
-                parentId,
-                exclusions.id,
-                subdomainId,
-            );
-            return;
-        }
-        await exclusionsStore.removeSubdomainFromExclusionsGroup(exclusions.id, subdomainId);
+    const removeDomain = (id: string) => async () => {
+        await exclusionsStore.removeExclusion(id);
     };
 
-    const getExclusionStatus = (hostname: string) => {
+    const getExclusionDescription = (hostname: string) => {
         // if (hostname === exclusions.hostname) {
         //     return translator.getMessage('settings_exclusion_status_domain');
         // }
-        // if (hostname.startsWith('*')) {
-        //     return translator.getMessage('settings_exclusion_status_all_subdomains');
-        // }
+        if (hostname.startsWith('*')) {
+            return translator.getMessage('settings_exclusion_status_all_subdomains');
+        }
         return translator.getMessage('settings_exclusion_status_subdomain');
     };
 
@@ -85,6 +64,7 @@ export const GroupSettings = observer(({ exclusions, parentId }: GroupSettingsPr
         : translator.getMessage('settings_exclusion_group_settings_subtitle_selective_mode');
 
     const renderedExclusions = exclusions.map((exclusion) => {
+        console.log(toJS(exclusion));
         return (
             <div
                 className={exclusionClassNames(exclusion.value)}
@@ -98,7 +78,7 @@ export const GroupSettings = observer(({ exclusions, parentId }: GroupSettingsPr
                 <div className="group__settings__domain__hostname">
                     {exclusion.value}
                     <div className="group__settings__domain__hostname__status">
-                        {getExclusionStatus(exclusion.value)}
+                        {getExclusionDescription(exclusion.value)}
                     </div>
                 </div>
                 <button
@@ -139,10 +119,10 @@ export const GroupSettings = observer(({ exclusions, parentId }: GroupSettingsPr
             >
                 {reactTranslator.getMessage('settings_exclusion_add_subdomain')}
             </button>
-            {/* <SubdomainModal */}
-            {/*    exclusionData={exclusions} */}
-            {/*    parentServiceId={parentId} */}
-            {/* /> */}
+             {/*<SubdomainModal*/}
+             {/*   exclusionData={exclusions}*/}
+             {/*   parentServiceId={parentId}*/}
+             {/*/>*/}
         </div>
     );
 });

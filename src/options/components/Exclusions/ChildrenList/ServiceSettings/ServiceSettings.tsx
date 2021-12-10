@@ -72,7 +72,6 @@ export const ServiceSettings = observer(({ exclusionData }: ServiceSettingsProps
             >
                 <StateCheckbox
                     id={group.id}
-                    type={ExclusionsTypes.Group}
                     state={group.state}
                     toggleHandler={toggleState}
                 />

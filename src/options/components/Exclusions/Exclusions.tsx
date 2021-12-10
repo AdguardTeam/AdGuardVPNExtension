@@ -7,7 +7,7 @@ import { ModeSelector } from './ModeSelector';
 import { Actions } from './Actions';
 import { List } from './List';
 import { AddExclusionModal } from './ExclusionsModal/AddExclusionsModal';
-import { ExclusionSettings } from './ExclusionSettings';
+import { ChildrenList } from './ChildrenList';
 import { ExclusionsSearch } from './Search/ExclusionsSearch';
 import { translator } from '../../../common/translator';
 
@@ -19,7 +19,7 @@ export const Exclusions = observer(() => {
 
     if (exclusionsStore.selectedExclusionId) {
         return (
-            <ExclusionSettings />
+            <ChildrenList />
         );
     }
 

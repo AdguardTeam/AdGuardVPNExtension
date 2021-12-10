@@ -8,7 +8,7 @@ import JSZip from 'jszip';
 import format from 'date-fns/format';
 import FileSaver from 'file-saver';
 
-import { ExclusionsData, ExclusionsModes, ExclusionStates, } from '../../common/exclusionsConstants';
+import { ExclusionsData, ExclusionsModes, ExclusionStates } from '../../common/exclusionsConstants';
 import { Service, ServiceCategory, ServiceInterface } from '../../background/exclusions/services/Service';
 import { ExclusionsGroup } from '../../background/exclusions/exclusions/ExclusionsGroup';
 import { Exclusion } from '../../background/exclusions/exclusions/Exclusion';

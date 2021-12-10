@@ -89,14 +89,14 @@ export class ExclusionsManager {
 
     handleExclusionsUpdate = async () => {
         // FIXME uncomment
-        // // @ts-ignore
-        // notifier.notifyListeners(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE);
-        //
+        // @ts-ignore
+        notifier.notifyListeners(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE);
+
         // const exclusionsData = this.current.getExclusions();
         // const enabledExclusionsList = this.getEnabledExclusionsHostnames(exclusionsData);
         //
-        // await this.proxy.setBypassList(enabledExclusionsList, this.inverted);
-        //
+        // await proxy.setBypassList(enabledExclusionsList, this.inverted);
+
         const exclusionsRepository = {
             inverted: this.inverted,
             [ExclusionsModes.Selective]: this.selective.exclusions,
