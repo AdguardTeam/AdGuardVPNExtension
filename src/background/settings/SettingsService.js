@@ -1,11 +1,8 @@
 import throttle from 'lodash/throttle';
+
 import { log } from '../../lib/logger';
 import { SETTINGS_IDS } from '../../lib/constants';
 import browserApi from '../browserApi';
-import { ExclusionsModes } from '../../common/exclusionsConstants';
-import { ExclusionsGroup } from '../exclusions/exclusions/ExclusionsGroup';
-// import { Service } from '../exclusions/Service';
-// import { services } from '../exclusions';
 
 const SCHEME_VERSION = '9';
 const THROTTLE_TIMEOUT = 100;
@@ -133,72 +130,7 @@ class SettingsService {
         };
     };
 
-    /**
-     * Converts old type exclusions list into ExclusionsGroups and Services
-     * @param exclusions
-     * @return {{exclusionsGroups: [], services: []}}
-     */
-    convertExclusions(exclusions) {
-        const services = [];
-        const exclusionsGroups = [];
-
-        exclusions.forEach(({ hostname, enabled }) => {
-            // TODO fix import services to be able to create Services
-            // const serviceId = services.getServiceByUrl(hostname);
-            const serviceId = null;
-            if (serviceId) {
-                // const serviceData = services.getService(serviceId);
-                // const service = new Service(serviceData);
-                // service.disableService();
-                // if (enabled) {
-                //     service.exclusionsGroups.forEach((group) => {
-                //         if (group.hostname === hostname) {
-                //             service.toggleExclusionsGroupState(group.id);
-                //         }
-                //     });
-                // }
-                // services.push(service);
-            } else {
-                const exclusionsGroup = new ExclusionsGroup(hostname);
-                if (!enabled) {
-                    exclusionsGroup.disableExclusionsGroup();
-                }
-                exclusionsGroups.push(exclusionsGroup);
-            }
-        });
-
-        return {
-            services,
-            exclusionsGroups,
-        };
-    }
-
-    migrateFrom8to9 = (oldSettings) => {
-        const regularExclusions = this.convertExclusions(
-            oldSettings[SETTINGS_IDS.EXCLUSIONS].regular,
-        );
-        const selectiveExclusions = this.convertExclusions(
-            oldSettings[SETTINGS_IDS.EXCLUSIONS].selective,
-        );
-
-        return {
-            ...oldSettings,
-            VERSION: '9',
-            [SETTINGS_IDS.EXCLUSIONS]: {
-                inverted: oldSettings[SETTINGS_IDS.EXCLUSIONS].inverted,
-                [ExclusionsModes.Regular]: {
-                    excludedServices: [...regularExclusions.services],
-                    exclusionsGroups: [...regularExclusions.exclusionsGroups],
-                    excludedIps: [],
-                },
-                [ExclusionsModes.Selective]: {
-                    excludedServices: [...selectiveExclusions.services],
-                    exclusionsGroups: [...selectiveExclusions.exclusionsGroups],
-                    excludedIps: [],
-                },
-            },
-        };
-    };
+    // FIXME add migration from old exclusions to the new one
 
     /**
      * In order to add migration, create new function which modifies old settings into new
@@ -214,7 +146,6 @@ class SettingsService {
         5: this.migrateFrom5to6,
         6: this.migrateFrom6to7,
         7: this.migrateFrom7to8,
-        8: this.migrateFrom8to9,
     };
 
     async applyMigrations(oldVersion, newVersion, oldSettings) {

@@ -23,7 +23,7 @@ import { ExclusionsScreen } from '../Settings/ExclusionsScreen';
 import { rootStore } from '../../stores';
 import { REQUEST_STATUSES } from '../../stores/consts';
 import { log } from '../../../lib/logger';
-import messenger from '../../../lib/messenger';
+import { messenger } from '../../../lib/messenger';
 import notifier from '../../../lib/notifier';
 import PromoSale from '../PromoSale';
 import { PROMO_SCREEN_STATES } from '../../../lib/constants';

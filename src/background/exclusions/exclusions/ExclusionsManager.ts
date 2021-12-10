@@ -1,17 +1,12 @@
 import { ExclusionsData, ExclusionsModes, ExclusionStates } from '../../../common/exclusionsConstants';
+// FIXME remove cycle dependency
+// eslint-disable-next-line import/no-cycle
 import { ExclusionsHandler } from './ExclusionsHandler';
 import notifier from '../../../lib/notifier';
 import { log } from '../../../lib/logger';
 import { settings } from '../../settings';
 import { Service } from '../services/Service';
 import { ExclusionsGroup } from './ExclusionsGroup';
-import { Exclusion } from './Exclusion';
-
-export interface ExclusionsInfo {
-    inverted: boolean,
-    [ExclusionsModes.Selective]: Exclusion[],
-    [ExclusionsModes.Regular]: Exclusion[],
-}
 
 export interface ExclusionsDataToImport {
     type: string,

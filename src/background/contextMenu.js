@@ -2,7 +2,7 @@ import browser from 'webextension-polyfill';
 import throttle from 'lodash/throttle';
 
 import notifier from '../lib/notifier';
-import exclusions from './exclusions';
+import { exclusions } from './exclusions';
 import tabs from './tabs';
 import { translator } from '../common/translator';
 import { settings } from './settings';
@@ -44,12 +44,14 @@ const CONTEXT_MENU_ITEMS = {
         id: 'selective_mode',
         type: 'radio',
         title: translator.getMessage('context_menu_selective_mode'),
+        // FIXME add methods
         onclick: () => exclusions.setCurrentMode(exclusions.MODES.Selective),
     },
     regular_mode: {
         id: 'regular_mode',
         type: 'radio',
         title: translator.getMessage('context_menu_regular_mode'),
+        // FIXME add methods
         onclick: () => exclusions.setCurrentMode(exclusions.MODES.Regular),
     },
 };
@@ -63,6 +65,7 @@ const getContextMenuItems = (tabUrl) => {
 
     if (isHttp(tabUrl)) {
         let vpnSwitcher;
+        // FIXME add methods
         if (exclusions.isVpnEnabledByUrl(tabUrl)) {
             vpnSwitcher = { ...CONTEXT_MENU_ITEMS.disable_vpn };
             vpnSwitcher.onclick = () => exclusions.disableVpnByUrl(tabUrl);
@@ -81,6 +84,7 @@ const getContextMenuItems = (tabUrl) => {
         ...CONTEXT_MENU_ITEMS.selective_mode,
     };
 
+    // FIXME add methods
     if (exclusions.isInverted()) {
         selectiveModeItem.checked = true;
     } else {

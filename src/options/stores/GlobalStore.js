@@ -6,7 +6,7 @@ import {
 
 import { REQUEST_STATUSES } from './consts';
 import { log } from '../../lib/logger';
-import messenger from '../../lib/messenger';
+import { messenger } from '../../lib/messenger';
 
 export class GlobalStore {
     @observable initStatus = REQUEST_STATUSES.PENDING;

@@ -8,14 +8,10 @@ import JSZip from 'jszip';
 import format from 'date-fns/format';
 import FileSaver from 'file-saver';
 
-import { ExclusionsData, ExclusionsModes, ExclusionStates } from '../../common/exclusionsConstants';
+import { ExclusionDtoInterface, ExclusionsData, ExclusionsModes } from '../../common/exclusionsConstants';
 import { Service, ServiceCategory, ServiceInterface } from '../../background/exclusions/services/Service';
-import { ExclusionsGroup } from '../../background/exclusions/exclusions/ExclusionsGroup';
-import { Exclusion } from '../../background/exclusions/exclusions/Exclusion';
-import { ExclusionsDataToImport } from '../../background/exclusions/Exclusions';
-// FIXME: convert to named export
-import messenger from '../../lib/messenger';
-import { ExclusionDtoInterface } from '../../background/exclusions/ExclusionsTree';
+import { messenger } from '../../lib/messenger';
+import { containsIgnoreCase } from '../components/Exclusions/Search/SearchHighlighter/helpers';
 
 export interface PreparedServiceCategory extends ServiceCategory {
     services: string[]
@@ -36,11 +32,26 @@ export enum AddExclusionMode {
 
 const DEFAULT_ADD_EXCLUSION_MODE = AddExclusionMode.MANUAL;
 
-interface ExclusionsInterface {
-    excludedIps: Exclusion[];
-    exclusionsGroups: ExclusionsGroup[];
-    excludedServices: Service[];
-}
+// FIXME move to helpers
+const findExclusionById = (
+    exclusions: ExclusionDtoInterface,
+    id: string,
+): ExclusionDtoInterface | null => {
+    for (let i = 0; i < exclusions.length; i += 1) {
+        let exclusion = exclusions[i];
+        if (exclusion.id === id) {
+            return exclusion;
+        }
+
+        exclusion = findExclusionById(exclusion.children, id);
+
+        if (exclusion) {
+            return exclusion;
+        }
+    }
+
+    return null;
+};
 
 export class ExclusionsStore {
     @observable exclusions: ExclusionDtoInterface;
@@ -88,18 +99,23 @@ export class ExclusionsStore {
     };
 
     get preparedExclusions() {
-        console.log(toJS(this.exclusions));
-        // FIXME filter first level of exclusions
-        // const filteredExclusions = allExclusions.filter((exclusion) => {
-        //     if (this.exclusionsSearchValue.length === 0) {
-        //         return true;
-        //     }
-        //
-        //     return containsIgnoreCase(exclusion.name, this.exclusionsSearchValue);
-        // });
-        //
-        // return filteredExclusions;
-        return this.exclusions;
+        const filteredExclusions: ExclusionDtoInterface[] = this.exclusions
+            .filter((exclusion: ExclusionDtoInterface) => {
+                if (this.exclusionsSearchValue.length === 0) {
+                    return true;
+                }
+
+                return containsIgnoreCase(exclusion.name, this.exclusionsSearchValue);
+            });
+
+        const sortedExclusions = filteredExclusions
+            .sort((a: ExclusionDtoInterface, b: ExclusionDtoInterface) => {
+                return a.value > b.value ? 1 : -1;
+            });
+
+        console.log([...sortedExclusions].map((e) => toJS(e)));
+
+        return sortedExclusions;
     }
 
     @action toggleInverted = async (mode: ExclusionsModes) => {
@@ -118,29 +134,25 @@ export class ExclusionsStore {
         this.unfoldedServiceCategories = [];
     };
 
-    @action
-        setAddExclusionMode = (mode: AddExclusionMode) => {
-            this.addExclusionMode = mode;
-        };
+    @action setAddExclusionMode = (mode: AddExclusionMode) => {
+        this.addExclusionMode = mode;
+    };
 
     @action openAddSubdomainModal = () => {
         this.addSubdomainModalOpen = true;
     };
 
-    @action
-        closeAddSubdomainModal = () => {
-            this.addSubdomainModalOpen = false;
-        };
+    @action closeAddSubdomainModal = () => {
+        this.addSubdomainModalOpen = false;
+    };
 
-    @action
-        openRemoveAllModal = () => {
-            this.removeAllModalOpen = true;
-        };
+    @action openRemoveAllModal = () => {
+        this.removeAllModalOpen = true;
+    };
 
-    @action
-        closeRemoveAllModal = () => {
-            this.removeAllModalOpen = false;
-        };
+    @action closeRemoveAllModal = () => {
+        this.removeAllModalOpen = false;
+    };
 
     isExcludedService = (serviceId: string) => {
         return this.exclusions.excludedServices
@@ -171,24 +183,6 @@ export class ExclusionsStore {
             });
             return acc;
         }, {} as PreparedServiceCategories);
-
-        // FIXME: prepare data on background page before return
-        const servicesWithActualState = this.servicesData.map((serviceData) => {
-            // const excluded = this.excludedServices.find((excluded) => {
-            //     return excluded.serviceId === serviceData.serviceId;
-            // });
-            //
-            // let state = ExclusionStates.Disabled;
-            //
-            // if (excluded) {
-            //     state = ExclusionStates.Enabled;
-            // }
-
-            return {
-                ...serviceData,
-                state: ExclusionStates.Disabled,
-            };
-        });
 
         const services = this.servicesData.reduce((acc, serviceData) => {
             const { serviceId } = serviceData;
@@ -349,13 +343,15 @@ export class ExclusionsStore {
     };
 
     @computed
-    get selectedExclusionChildren() {
+    get selectedExclusionChildren(): ExclusionDtoInterface {
         if (!this.selectedExclusionId) {
-            return null;
+            return [];
         }
 
-        const foundExclusion: ExclusionDtoInterface = this.exclusions
-            .find((exclusion: ExclusionDtoInterface) => exclusion.id === this.selectedExclusionId);
+        const foundExclusion: ExclusionDtoInterface = findExclusionById(
+            this.exclusions,
+            this.selectedExclusionId,
+        );
 
         if (!foundExclusion) {
             return [];

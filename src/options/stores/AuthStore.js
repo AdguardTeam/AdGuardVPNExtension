@@ -8,7 +8,7 @@ import {
 import debounce from 'lodash/debounce';
 
 import { REQUEST_STATUSES } from './consts';
-import messenger from '../../lib/messenger';
+import { messenger } from '../../lib/messenger';
 import { reactTranslator } from '../../common/reactTranslator';
 
 const AUTH_STEPS = {

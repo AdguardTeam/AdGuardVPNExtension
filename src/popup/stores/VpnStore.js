@@ -6,7 +6,7 @@ import {
     toJS,
 } from 'mobx';
 
-import messenger from '../../lib/messenger';
+import { messenger } from '../../lib/messenger';
 
 export class VpnStore {
     constructor(rootStore) {

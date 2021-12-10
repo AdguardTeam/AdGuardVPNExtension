@@ -1,7 +1,7 @@
 import throttle from 'lodash/throttle';
 import notifier from '../lib/notifier';
 import actions from './actions';
-import exclusions from './exclusions';
+import { exclusions } from './exclusions';
 import tabs from './tabs';
 import { isHttp } from '../lib/string-utils';
 import auth from './auth';
@@ -11,9 +11,11 @@ import { isVPNConnected } from './connectivity/connectivityService/connectivityF
 class BrowserActionIcon {
     isVpnEnabledForUrl = (id, url) => {
         if (id && url && isHttp(url)) {
+            // FIXME add methods
             return exclusions.isVpnEnabledByUrl(url);
         }
         if (!isHttp(url)) {
+            // FIXME add methods
             // disable icon in tabs with no url only for selective mode
             return !exclusions.isInverted();
         }

@@ -119,10 +119,10 @@ export const ChildrenListItem = observer(({ exclusions, parentId }: GroupSetting
             >
                 {reactTranslator.getMessage('settings_exclusion_add_subdomain')}
             </button>
-             {/*<SubdomainModal*/}
-             {/*   exclusionData={exclusions}*/}
-             {/*   parentServiceId={parentId}*/}
-             {/*/>*/}
+            {/* <SubdomainModal */}
+            {/*   exclusionData={exclusions} */}
+            {/*   parentServiceId={parentId} */}
+            {/* /> */}
         </div>
     );
 });

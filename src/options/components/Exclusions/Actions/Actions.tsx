@@ -6,9 +6,9 @@ import classnames from 'classnames';
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { RemoveAllModal } from './RemoveAllModal';
-import { ExclusionsDataToImport } from '../../../../background/exclusions/Exclusions';
 import { readExclusionsFile } from './fileHelpers';
 import { translator } from '../../../../common/translator';
+import { ExclusionsDataToImport } from '../../../../background/exclusions/exclusions/ExclusionsManager';
 
 import './actions.pcss';
 

@@ -71,8 +71,6 @@ global.adguard = {
         browserActionIcon.init();
         log.info('Extension loaded all necessary modules');
     } catch (e) {
-        console.log(e);
-        // FIXME uncomment;
-        // log.error('Unable to start extension because of error:', e && e.message);
+        log.error('Unable to start extension because of error:', e && e.message);
     }
 })();

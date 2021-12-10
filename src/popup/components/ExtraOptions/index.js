@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../stores';
 import { popupActions } from '../../actions/popupActions';
 import { POPUP_FEEDBACK_URL, OTHER_PRODUCTS_URL } from '../../../background/config';
-import messenger from '../../../lib/messenger';
+import { messenger } from '../../../lib/messenger';
 import Option from './Option';
 import { reactTranslator } from '../../../common/reactTranslator';
 import Rate from '../Rate';

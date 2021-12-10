@@ -1,5 +1,6 @@
 import { Service, ServiceCategory } from './Service';
 import { vpnProvider } from '../../providers/vpnProvider';
+import { ExclusionStates } from '../../../common/exclusionsConstants';
 
 interface RawServiceCategory {
     id: string;
@@ -27,6 +28,7 @@ export interface ServiceDto {
     serviceId: string,
     serviceName: string,
     iconUrl: string,
+    state?: ExclusionStates,
     categories: ServiceCategory[],
 }
 

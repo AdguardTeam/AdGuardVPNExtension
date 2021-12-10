@@ -12,9 +12,9 @@ export enum ExclusionStates {
 }
 
 export enum ExclusionsTypes {
-    Ip = 'ip',
-    Group = 'group',
-    Service = 'service',
+    Service = 'Service',
+    Group = 'Group',
+    Exclusion = 'Exclusion',
 }
 
 export interface ExclusionDtoInterface {
@@ -26,10 +26,12 @@ export interface ExclusionDtoInterface {
 
     iconUrl?: string;
 
+    type: ExclusionsTypes
+
     children: ExclusionDtoInterface[];
 }
 
 export interface ExclusionsData {
-    exclusions: ExclusionDtoInterface;
+    exclusions: ExclusionDtoInterface[];
     currentMode: ExclusionsModes;
 }

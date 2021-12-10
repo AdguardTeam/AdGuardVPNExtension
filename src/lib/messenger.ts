@@ -392,4 +392,4 @@ class Messenger {
     }
 }
 
-export default new Messenger();
+export const messenger = new Messenger();

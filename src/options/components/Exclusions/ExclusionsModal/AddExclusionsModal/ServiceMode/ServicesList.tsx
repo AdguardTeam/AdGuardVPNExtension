@@ -7,6 +7,7 @@ import { ServiceCategory } from './ServiceCategory';
 export const ServicesList = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
 
+    console.log(exclusionsStore.preparedServicesData);
     const { categories } = exclusionsStore.preparedServicesData;
 
     return (

@@ -1,6 +1,6 @@
 // FIXME remove eslint rules
 /* eslint-disable max-classes-per-file,no-continue */
-import { ExclusionDtoInterface, ExclusionStates } from '../../common/exclusionsConstants';
+import { ExclusionDtoInterface, ExclusionStates, ExclusionsTypes } from '../../common/exclusionsConstants';
 import { ExclusionsManager, IndexedExclusionsInterface } from './exclusions/ExclusionsManager';
 import { IndexedServicesInterface, ServicesManager, servicesManager } from './services/ServicesManager';
 import { getETld } from './exclusions/ExclusionsHandler';
@@ -12,19 +12,28 @@ class ExclusionDto implements ExclusionDtoInterface {
 
     state: ExclusionStates;
 
+    type: ExclusionsTypes;
+
     iconUrl?: string;
 
     children: ExclusionDtoInterface[];
 
-    constructor(
+    constructor({
+        id,
+        value,
+        state,
+        type,
+        children,
+    }: {
         id: string,
         value: string,
         state: ExclusionStates,
-        children: ExclusionDtoInterface[],
-    ) {
+        type: ExclusionsTypes,
+        children: ExclusionDtoInterface[], }) {
         this.id = id;
         this.value = value;
         this.state = state;
+        this.type = type;
         this.children = children;
 
         const service = servicesManager.getService(id);
@@ -34,6 +43,20 @@ class ExclusionDto implements ExclusionDtoInterface {
     }
 }
 
+interface ExclusionNodeMap {
+    [id: string]: ExclusionNode;
+}
+
+interface ExclusionNodeArgs {
+    id: string;
+
+    value: string;
+
+    state?: ExclusionStates;
+
+    type?: ExclusionsTypes;
+}
+
 export class ExclusionNode {
     id: string;
 
@@ -41,25 +64,29 @@ export class ExclusionNode {
 
     state: ExclusionStates;
 
-    children: ExclusionNode[];
+    type: ExclusionsTypes;
 
-    constructor(
-        id: string,
-        value: string,
-        state: ExclusionStates = ExclusionStates.Enabled,
-    ) {
+    children: ExclusionNodeMap = {};
+
+    constructor({
+        id,
+        value,
+        type = ExclusionsTypes.Exclusion,
+        state = ExclusionStates.Enabled,
+    }: ExclusionNodeArgs) {
         this.id = id;
         this.value = value;
         this.state = state;
-        this.children = [];
+        this.type = type;
     }
 
     hasChildren() {
-        return this.children.length > 0;
+        return Object.values(this.children).length > 0;
     }
 
     addChild(child: ExclusionNode) {
-        this.children.push(child);
+        this.children[child.id] = child;
+
         this.state = this.calculateState(this.getLeafs());
     }
 
@@ -83,8 +110,14 @@ export class ExclusionNode {
     }
 
     serialize(): ExclusionDto {
-        const children = this.children.map((child) => child.serialize());
-        return new ExclusionDto(this.id, this.value, this.state, children);
+        const children = Object.values(this.children).map((child) => child.serialize());
+        return new ExclusionDto({
+            id: this.id,
+            value: this.value,
+            state: this.state,
+            type: this.type,
+            children,
+        });
     }
 
     /**
@@ -92,7 +125,7 @@ export class ExclusionNode {
      */
     getLeafs(): ExclusionNode[] {
         if (this.hasChildren()) {
-            const childrenLeafs = this.children.map((child) => child.getLeafs());
+            const childrenLeafs = Object.values(this.children).map((child) => child.getLeafs());
             // FIXME remove ts-ignore
             // @ts-ignore
             return childrenLeafs.flat(Infinity);
@@ -111,22 +144,26 @@ export class ExclusionNode {
         if (this.id === id) {
             return this.getLeafsIds();
         }
-        if (this.children.length === 0) {
+        if (Object.values(this.children).length === 0) {
             return [];
         }
-        const childrenPathExclusions = this.children.map((child) => child.getPathExclusions(id));
+        const childrenPathExclusions = Object.values(this.children)
+            .map((child) => child.getPathExclusions(id));
+        // FIXME remove @ts-ignore
         // @ts-ignore
         return childrenPathExclusions.flat(Infinity);
     }
 
-    findNode(id: string): ExclusionNode | null {
+    getExclusionNode(id: string): ExclusionNode | null {
         if (this.id === id) {
             return this;
         }
 
-        for (let i = 0; i < this.children.length; i += 1) {
-            const child = this.children[i];
-            const node = child.findNode(id);
+        const children = Object.values(this.children);
+
+        for (let i = 0; i < children.length; i += 1) {
+            const child = children[i];
+            const node = child.getExclusionNode(id);
             if (node) {
                 return node;
             }
@@ -136,7 +173,7 @@ export class ExclusionNode {
     }
 
     getExclusionNodeState(id: string): ExclusionStates | null {
-        const foundNode = this.findNode(id);
+        const foundNode = this.getExclusionNode(id);
         if (foundNode) {
             return foundNode.state;
         }
@@ -146,13 +183,11 @@ export class ExclusionNode {
 }
 
 export class ExclusionsTree {
-    exclusionsTree = new ExclusionNode('root', 'root');
+    exclusionsTree = new ExclusionNode({ id: 'root', value: 'root' });
 
     exclusionsManager: ExclusionsManager;
 
     servicesManager: ServicesManager;
-
-    groupIndex: { [index: string]: ExclusionNode } = {};
 
     constructor(
         exclusionsManager: ExclusionsManager,
@@ -163,8 +198,7 @@ export class ExclusionsTree {
     }
 
     generateTree() {
-        this.groupIndex = {};
-        this.exclusionsTree = new ExclusionNode('root', 'root');
+        this.exclusionsTree = new ExclusionNode({ id: 'root', value: 'root' });
 
         const indexedServices: IndexedServicesInterface = this.servicesManager.getIndexedServices();
         // eslint-disable-next-line max-len
@@ -175,40 +209,36 @@ export class ExclusionsTree {
         for (let i = 0; i < exclusions.length; i += 1) {
             const exclusion = exclusions[i];
 
-            // FIXME find better method for getTld;
             const hostnameTld = getETld(exclusion.hostname);
 
             if (!hostnameTld) {
                 throw new Error(`All hostnames should have eTld: ${exclusion.hostname}`);
             }
 
-            const groupNode = this.groupIndex[hostnameTld];
-
-            if (groupNode) {
-                const exclusionNode = new ExclusionNode(
-                    exclusion.id,
-                    exclusion.hostname,
-                    exclusion.state,
-                );
-                groupNode.addChild(exclusionNode);
-                continue;
-            }
+            const exclusionNode = new ExclusionNode({
+                id: exclusion.id,
+                value: exclusion.hostname,
+                state: exclusion.state,
+            });
 
             const serviceId = indexedServices[hostnameTld];
 
             if (serviceId) {
                 const service = services[serviceId];
 
-                const serviceNode = new ExclusionNode(service.serviceName, service.serviceName);
+                const serviceNode = this.exclusionsTree.getExclusionNode(service.serviceId)
+                    ?? new ExclusionNode({
+                        id: service.serviceId,
+                        value: service.serviceName,
+                        type: ExclusionsTypes.Service,
+                    });
 
-                const groupNode = new ExclusionNode(hostnameTld, hostnameTld);
-                this.groupIndex[hostnameTld] = groupNode;
-
-                const exclusionNode = new ExclusionNode(
-                    exclusion.id,
-                    exclusion.hostname,
-                    exclusion.state,
-                );
+                const groupNode = serviceNode.getExclusionNode(hostnameTld)
+                    ?? new ExclusionNode({
+                        id: hostnameTld,
+                        value: hostnameTld,
+                        type: ExclusionsTypes.Group,
+                    });
 
                 groupNode.addChild(exclusionNode);
                 serviceNode.addChild(groupNode);
@@ -218,17 +248,17 @@ export class ExclusionsTree {
                 continue;
             }
 
-            const exclusionNode = new ExclusionNode(
-                exclusion.id,
-                exclusion.hostname,
-                exclusion.state,
-            );
-
             if (indexedExclusions[hostnameTld].length > 1) {
-                const groupNode = new ExclusionNode(hostnameTld, hostnameTld);
-                this.groupIndex[hostnameTld] = groupNode;
+                const groupNode = this.exclusionsTree.getExclusionNode(hostnameTld)
+                    ?? new ExclusionNode({
+                        id: hostnameTld,
+                        value: hostnameTld,
+                        type: ExclusionsTypes.Group,
+                    });
+
                 groupNode.addChild(exclusionNode);
                 this.exclusionsTree.addChild(groupNode);
+
                 continue;
             }
 
@@ -254,5 +284,9 @@ export class ExclusionsTree {
      */
     getExclusionState(id: string) {
         return this.exclusionsTree.getExclusionNodeState(id);
+    }
+
+    getExclusionNode(id: string) {
+        return this.exclusionsTree.getExclusionNode(id);
     }
 }

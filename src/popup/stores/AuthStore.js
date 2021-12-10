@@ -8,7 +8,7 @@ import {
 import isNil from 'lodash/isNil';
 
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
-import messenger from '../../lib/messenger';
+import { messenger } from '../../lib/messenger';
 import { SETTINGS_IDS, AUTH_PROVIDERS, FLAGS_FIELDS } from '../../lib/constants';
 
 const AUTH_STEPS = {

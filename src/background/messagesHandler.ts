@@ -171,7 +171,7 @@ const messagesHandler = async (message, sender) => {
         }
         case MESSAGES_TYPES.TOGGLE_SERVICES: {
             const { ids } = data;
-            return exclusions.current.toggleServices(ids);
+            return exclusions.toggleServices(ids);
         }
         case MESSAGES_TYPES.REMOVE_FROM_EXCLUSIONS: {
             const { url } = data;
@@ -180,55 +180,6 @@ const messagesHandler = async (message, sender) => {
         case MESSAGES_TYPES.GET_IS_EXCLUDED: {
             const { url } = data;
             return exclusions.current.isExcluded(url);
-        }
-        case MESSAGES_TYPES.TOGGLE_SUBDOMAIN_STATE_IN_EXCLUSIONS_GROUP: {
-            const { exclusionsGroupId, subdomainId } = data;
-            return exclusions.current
-                .toggleSubdomainStateInExclusionsGroup(exclusionsGroupId, subdomainId);
-        }
-        case MESSAGES_TYPES.REMOVE_SUBDOMAIN_FROM_EXCLUSIONS_GROUP: {
-            const { exclusionsGroupId, subdomainId } = data;
-            return exclusions.current
-                .removeSubdomainFromExclusionsGroup(exclusionsGroupId, subdomainId);
-        }
-        case MESSAGES_TYPES.ADD_SUBDOMAIN_TO_EXCLUSIONS_GROUP: {
-            const { exclusionsGroupId, subdomain } = data;
-            return exclusions.current
-                .addSubdomainToExclusionsGroup(exclusionsGroupId, subdomain);
-        }
-        case MESSAGES_TYPES.REMOVE_EXCLUSIONS_GROUP_FROM_SERVICE: {
-            const { serviceId, exclusionsGroupId } = data;
-            return exclusions.current
-                .removeExclusionsGroupFromService(serviceId, exclusionsGroupId);
-        }
-        case MESSAGES_TYPES.TOGGLE_EXCLUSIONS_GROUP_STATE_IN_SERVICE: {
-            const { serviceId, exclusionsGroupId } = data;
-            return exclusions.current
-                .toggleExclusionsGroupStateInService(serviceId, exclusionsGroupId);
-        }
-        case MESSAGES_TYPES.REMOVE_SUBDOMAIN_FROM_EXCLUSIONS_GROUP_IN_SERVICE: {
-            const { serviceId, exclusionsGroupId, subdomainId } = data;
-            return exclusions.current.removeSubdomainFromExclusionsGroupInService(
-                serviceId,
-                exclusionsGroupId,
-                subdomainId,
-            );
-        }
-        case MESSAGES_TYPES.TOGGLE_SUBDOMAIN_IN_EXCLUSIONS_GROUP_IN_SERVICE: {
-            const { serviceId, exclusionsGroupId, subdomainId } = data;
-            return exclusions.current.toggleSubdomainStateInExclusionsGroupInService(
-                serviceId,
-                exclusionsGroupId,
-                subdomainId,
-            );
-        }
-        case MESSAGES_TYPES.ADD_SUBDOMAIN_TO_EXCLUSIONS_GROUP_IN_SERVICE: {
-            const { serviceId, exclusionsGroupId, subdomain } = data;
-            return exclusions.current.addSubdomainToExclusionsGroupInService(
-                serviceId,
-                exclusionsGroupId,
-                subdomain,
-            );
         }
         case MESSAGES_TYPES.RESET_SERVICE_DATA: {
             const { serviceId } = data;
@@ -298,23 +249,11 @@ const messagesHandler = async (message, sender) => {
             await handler.toggleExclusion(id);
             break;
         }
-        case MESSAGES_TYPES.RENAME_EXCLUSION_BY_MODE: {
-            const { mode, id, name } = data;
-            const handler = exclusions.getHandler(mode);
-            await handler.renameExclusion(id, name);
-            break;
-        }
         case MESSAGES_TYPES.ADD_EXCLUSION_BY_MODE: {
             const { mode, url, enabled } = data;
             const handler = exclusions.getHandler(mode);
             handler.addToExclusions(url, enabled);
             break;
-        }
-        case MESSAGES_TYPES.ADD_REGULAR_EXCLUSIONS: {
-            return exclusions.addRegularExclusions(data.exclusions);
-        }
-        case MESSAGES_TYPES.ADD_SELECTIVE_EXCLUSIONS: {
-            return exclusions.addSelectiveExclusions(data.exclusions);
         }
         case MESSAGES_TYPES.GET_SELECTED_LOCATION: {
             return endpoints.getSelectedLocation();

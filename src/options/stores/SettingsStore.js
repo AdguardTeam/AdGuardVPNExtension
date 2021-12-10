@@ -7,7 +7,7 @@ import punycode from 'punycode/';
 
 import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT } from '../../lib/constants';
 import { DNS_DEFAULT } from '../../background/dns/dnsConstants';
-import messenger from '../../lib/messenger';
+import { messenger } from '../../lib/messenger';
 
 export class SettingsStore {
     @observable isRateVisible = true;

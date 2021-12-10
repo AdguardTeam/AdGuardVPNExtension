@@ -1,4 +1,5 @@
 import ipaddr from 'ipaddr.js';
+
 import { exclusionsManager } from './exclusions/ExclusionsManager';
 import { servicesManager } from './services/ServicesManager';
 import { ExclusionsTree } from './ExclusionsTree';
@@ -20,6 +21,7 @@ export class ExclusionsService {
 
     getExclusions() {
         const exclusions = this.exclusionsTree.getExclusions();
+        console.log(exclusions);
 
         return exclusions;
     }
@@ -36,7 +38,23 @@ export class ExclusionsService {
      * Returns services with state
      */
     getServices() {
-        return servicesManager.getServicesDto();
+        let services = servicesManager.getServicesDto();
+
+        services = services.map((service) => {
+            const state = this.exclusionsTree.getExclusionState(service.serviceId);
+            if (!state) {
+                return {
+                    ...service,
+                    state: ExclusionStates.Disabled,
+                };
+            }
+            return {
+                ...service,
+                state,
+            };
+        });
+
+        return services;
     }
 
     async addUrlToExclusions(url: string) {
@@ -55,8 +73,7 @@ export class ExclusionsService {
             await exclusionsManager.current.addUrlToExclusions(hostname);
         } else {
             const wildcardHostname = `*.${hostname}`;
-            await exclusionsManager.current.addUrlToExclusions(url);
-            await exclusionsManager.current.addUrlToExclusions(wildcardHostname);
+            await exclusionsManager.current.addExclusions([hostname, wildcardHostname]);
         }
 
         this.updateTree();
@@ -77,14 +94,11 @@ export class ExclusionsService {
 
         const exclusionsToToggle = this.exclusionsTree.getPathExclusions(id);
 
-        console.log(exclusionsToToggle);
-
         // handle partlyEnabled state
         const state = targetExclusionState === ExclusionStates.Enabled
             ? ExclusionStates.Disabled
             : ExclusionStates.Enabled;
 
-        console.log({ state });
         await exclusionsManager.current.setExclusionsState(exclusionsToToggle, state);
 
         this.updateTree();
@@ -92,6 +106,42 @@ export class ExclusionsService {
 
     async clearExclusionsData() {
         await exclusionsManager.current.clearExclusionsData();
+
+        this.updateTree();
+    }
+
+    async toggleServices(servicesIds: string[]) {
+        const servicesIdsToRemove = servicesIds.filter((id) => {
+            const exclusionNode = this.exclusionsTree.getExclusionNode(id);
+            return !!exclusionNode;
+        });
+
+        const exclusionsToRemove = servicesIdsToRemove.map((id) => {
+            return this.exclusionsTree.getPathExclusions(id);
+        }).flat();
+
+        await exclusionsManager.current.removeExclusions(exclusionsToRemove);
+
+        const servicesIdsToAdd = servicesIds.filter((id) => {
+            const exclusionNode = this.exclusionsTree.getExclusionNode(id);
+            return !exclusionNode;
+        });
+
+        const servicesDomainsToAdd = servicesIdsToAdd.map((id) => {
+            const service = servicesManager.getService(id);
+            if (!service) {
+                return [];
+            }
+
+            return service.domains;
+        }).flat();
+
+        const servicesDomainsWithWildcards = servicesDomainsToAdd.map((hostname) => {
+            const wildcardHostname = `*.${hostname}`;
+            return [hostname, wildcardHostname];
+        }).flat();
+
+        await exclusionsManager.current.addExclusions(servicesDomainsWithWildcards);
 
         this.updateTree();
     }

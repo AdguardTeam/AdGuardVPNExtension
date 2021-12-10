@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 
 import { popupActions } from '../../actions/popupActions';
-import messenger from '../../../lib/messenger';
+import { messenger } from '../../../lib/messenger';
 import { rootStore } from '../../stores';
 
 import './promo-notification-modal.pcss';
