@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 
-import { ExclusionsTypes, ExclusionDtoInterface } from '../../../../../common/exclusionsConstants';
+import { ExclusionDtoInterface } from '../../../../../common/exclusionsConstants';
 import { StateCheckbox } from '../../StateCheckbox';
 import { rootStore } from '../../../../stores';
 import { SearchHighlighter } from '../../Search/SearchHighlighter';
@@ -46,8 +46,9 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
                 className={listIndexTitleClasses(exclusion.children.length > 0)}
                 onClick={followToChildren(exclusion.id)}
             >
+                {/* FIXME get icons for sites with icons service */}
                 <img
-                    src={exclusion.iconUrl}
+                    src={exclusion.iconUrl || './assets/images/ip-icon.svg'}
                     className="list-item__title__icon"
                     alt="exclusion icon"
                 />

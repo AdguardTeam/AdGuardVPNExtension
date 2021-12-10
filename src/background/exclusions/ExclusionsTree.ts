@@ -2,7 +2,7 @@
 /* eslint-disable max-classes-per-file,no-continue */
 import { ExclusionDtoInterface, ExclusionStates } from '../../common/exclusionsConstants';
 import { ExclusionsManager, IndexedExclusionsInterface } from './exclusions/ExclusionsManager';
-import { ServicesManager, IndexedServicesInterface } from './services/ServicesManager';
+import { ServicesManager, IndexedServicesInterface, servicesManager } from './services/ServicesManager';
 import { getETld } from './exclusions/ExclusionsHandler';
 
 class ExclusionDto implements ExclusionDtoInterface {
@@ -11,6 +11,8 @@ class ExclusionDto implements ExclusionDtoInterface {
     value: string;
 
     state: ExclusionStates;
+
+    iconUrl?: string;
 
     children: ExclusionDtoInterface[];
 
@@ -24,6 +26,11 @@ class ExclusionDto implements ExclusionDtoInterface {
         this.value = value;
         this.state = state;
         this.children = children;
+
+        const service = servicesManager.getService(id);
+        if (service) {
+            this.iconUrl = service.iconUrl;
+        }
     }
 }
 
@@ -34,12 +41,13 @@ export class ExclusionNode {
 
     state: ExclusionStates;
 
-    // TODO add icon url
-    // iconUrl?: string;
-
     children: ExclusionNode[];
 
-    constructor(id: string, value: string, state: ExclusionStates = ExclusionStates.Enabled) {
+    constructor(
+        id: string,
+        value: string,
+        state: ExclusionStates = ExclusionStates.Enabled,
+    ) {
         this.id = id;
         this.value = value;
         this.state = state;

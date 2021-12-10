@@ -51,6 +51,15 @@ export class ServicesManager {
         return this.services;
     }
 
+    getService(id: string): Service | null {
+        const service = this.services[id];
+        if (!service) {
+            return null;
+        }
+
+        return service;
+    }
+
     getIndexedServices() {
         return this.servicesIndex;
     }
