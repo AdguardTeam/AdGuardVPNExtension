@@ -3,19 +3,14 @@ import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { PROMO_SCREEN_STATES } from '../../../../lib/constants';
 
 const GlobalControl = observer(() => {
-    const { settingsStore, vpnStore, authStore } = useContext(rootStore);
+    const { settingsStore } = useContext(rootStore);
 
     const { isExcluded, exclusionsInverted } = settingsStore;
 
     const connectHandler = async () => {
         await settingsStore.setProxyState(true);
-        if (!vpnStore.isPremiumToken
-            && settingsStore.promoScreenState === PROMO_SCREEN_STATES.DISPLAY_AFTER_CONNECT_CLICK) {
-            await authStore.setSalePromoStatus(PROMO_SCREEN_STATES.DISPLAY_ON_POPUP_OPEN);
-        }
     };
 
     const disconnectHandler = async () => {

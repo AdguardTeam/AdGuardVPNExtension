@@ -71,8 +71,6 @@ export class AuthStore {
 
     @observable showUpgradeScreen;
 
-    @observable promoScreenState;
-
     STEPS = AUTH_STEPS;
 
     constructor(rootStore) {
@@ -140,7 +138,6 @@ export class AuthStore {
         this.isSocialAuth = flagsStorageData[FLAGS_FIELDS.IS_SOCIAL_AUTH];
         this.showOnboarding = flagsStorageData[FLAGS_FIELDS.SHOW_ONBOARDING];
         this.showUpgradeScreen = flagsStorageData[FLAGS_FIELDS.SHOW_UPGRADE_SCREEN];
-        this.promoScreenState = flagsStorageData[FLAGS_FIELDS.SALE_SHOW];
     }
 
     @action
@@ -158,14 +155,6 @@ export class AuthStore {
             this.showUpgradeScreen = value;
         });
     };
-
-    @action
-    setSalePromoStatus = async (state) => {
-        await messenger.setFlag(FLAGS_FIELDS.SALE_SHOW, state);
-        runInAction(() => {
-            this.promoScreenState = state;
-        });
-    }
 
     @action
     setIsFirstRun = (value) => {
