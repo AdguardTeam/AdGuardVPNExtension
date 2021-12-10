@@ -21,8 +21,6 @@ export class ExclusionsService {
     getExclusions() {
         const exclusions = this.exclusionsTree.getExclusions();
 
-        console.log(exclusions);
-
         return exclusions;
     }
 
@@ -86,6 +84,7 @@ export class ExclusionsService {
             ? ExclusionStates.Disabled
             : ExclusionStates.Enabled;
 
+        console.log({ state });
         await exclusionsManager.current.setExclusionsState(exclusionsToToggle, state);
 
         this.updateTree();

@@ -41,7 +41,7 @@ const getOptionsData = async () => {
     const exclusionsData: ExclusionsData = {
         exclusions: exclusions.getExclusions(),
         currentMode: exclusions.getMode(),
-    }
+    };
 
     const servicesData = exclusions.getServices();
 

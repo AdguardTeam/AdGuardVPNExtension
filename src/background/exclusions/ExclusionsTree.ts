@@ -2,7 +2,7 @@
 /* eslint-disable max-classes-per-file,no-continue */
 import { ExclusionDtoInterface, ExclusionStates } from '../../common/exclusionsConstants';
 import { ExclusionsManager, IndexedExclusionsInterface } from './exclusions/ExclusionsManager';
-import { ServicesManager, IndexedServicesInterface, servicesManager } from './services/ServicesManager';
+import { IndexedServicesInterface, ServicesManager, servicesManager } from './services/ServicesManager';
 import { getETld } from './exclusions/ExclusionsHandler';
 
 class ExclusionDto implements ExclusionDtoInterface {
@@ -60,36 +60,51 @@ export class ExclusionNode {
 
     addChild(child: ExclusionNode) {
         this.children.push(child);
+        this.state = this.calculateState(this.getLeafs());
     }
 
-    // FIXME calculate state
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    calculateState(children: ExclusionNode[]): ExclusionStates {
-        return ExclusionStates.Enabled;
-    }
+    // FIXME compare with all available services
+    calculateState(exclusionNodes: ExclusionNode[]): ExclusionStates {
+        const allEnabled = exclusionNodes
+            .every((exclusionNode) => exclusionNode.state === ExclusionStates.Enabled);
 
-    getState(): ExclusionStates {
-        if (this.hasChildren()) {
-            return this.calculateState(this.children);
+        if (allEnabled) {
+            return ExclusionStates.Enabled;
         }
-        return this.state;
+
+        const allDisabled = exclusionNodes
+            .every((exclusionNode) => exclusionNode.state === ExclusionStates.Disabled);
+
+        if (allDisabled) {
+            return ExclusionStates.Disabled;
+        }
+
+        return ExclusionStates.PartlyEnabled;
     }
 
     serialize(): ExclusionDto {
         const children = this.children.map((child) => child.serialize());
-        return new ExclusionDto(this.id, this.value, this.getState(), children);
+        return new ExclusionDto(this.id, this.value, this.state, children);
+    }
+
+    /**
+     * Returns leafs of current node, or node itself if it doesn't have children
+     */
+    getLeafs(): ExclusionNode[] {
+        if (this.hasChildren()) {
+            const childrenLeafs = this.children.map((child) => child.getLeafs());
+            // FIXME remove ts-ignore
+            // @ts-ignore
+            return childrenLeafs.flat(Infinity);
+        }
+        return [this];
     }
 
     /**
      * Returns leafs ids of current node
      */
     getLeafsIds(): string[] {
-        if (this.hasChildren()) {
-            const childrenLeafs = this.children.map((child) => child.getLeafsIds());
-            // @ts-ignore
-            return childrenLeafs.flat(Infinity);
-        }
-        return [this.id];
+        return this.getLeafs().map((exclusionNode) => exclusionNode.id);
     }
 
     getPathExclusions(id: string): string[] {
@@ -157,9 +172,6 @@ export class ExclusionsTree {
         const exclusions = this.exclusionsManager.getExclusions();
         const services = this.servicesManager.getServices();
 
-        console.log(exclusions);
-        console.log(indexedExclusions);
-
         for (let i = 0; i < exclusions.length; i += 1) {
             const exclusion = exclusions[i];
 
@@ -225,7 +237,6 @@ export class ExclusionsTree {
     }
 
     getExclusions() {
-        console.log(this.exclusionsTree);
         const exclusionsRoot = this.exclusionsTree.serialize();
         return exclusionsRoot.children;
     }
