@@ -8,7 +8,12 @@ import JSZip from 'jszip';
 import format from 'date-fns/format';
 import FileSaver from 'file-saver';
 
-import { ExclusionDtoInterface, ExclusionsData, ExclusionsModes } from '../../common/exclusionsConstants';
+import {
+    ExclusionDtoInterface,
+    ExclusionsData,
+    ExclusionsModes,
+    ExclusionsTypes
+} from '../../common/exclusionsConstants';
 import { Service, ServiceCategory, ServiceInterface } from '../../background/exclusions/services/Service';
 import { messenger } from '../../lib/messenger';
 import { containsIgnoreCase } from '../components/Exclusions/Search/SearchHighlighter/helpers';
@@ -73,6 +78,8 @@ export class ExclusionsStore {
     @observable unfoldAllServiceCategories: boolean = false;
 
     @observable selectedExclusionId: string | null = null;
+
+    @observable selectedServiceId: string | null = null;
 
     @observable exclusionsSearchValue: string = '';
 
@@ -244,8 +251,20 @@ export class ExclusionsStore {
         });
     };
 
-    @action setExclusionIdToShowSettings = (id: string | null) => {
-        this.selectedExclusionId = id;
+    @action selectExclusion = (exclusion: ExclusionDtoInterface) => {
+        this.selectedExclusionId = exclusion.id;
+
+        if (exclusion.type === ExclusionsTypes.Service) {
+            this.selectedServiceId = exclusion.id;
+        }
+    };
+
+    @action goBackHandler = () => {
+        this.selectedExclusionId = this.selectedExclusion.type === ExclusionsTypes.Service
+            ? null
+            : this.selectedServiceId;
+
+        this.selectedServiceId = null;
     };
 
     @action toggleSubdomainStateInExclusionsGroup = async (
@@ -359,17 +378,6 @@ export class ExclusionsStore {
 
         return foundExclusion;
     }
-
-    /**
-     * Checks if ExclusionsGroup is inside Service and returns Service id or null
-     * @param exclusionsGroupId
-     */
-    @action isExclusionsGroupInsideService = (exclusionsGroupId: string) => {
-        const service = this.exclusions.excludedServices
-            .find((service) => service.exclusionsGroups
-                .find(({ id }) => id === exclusionsGroupId));
-        return service ? service.serviceId : null;
-    };
 
     @action setExclusionsSearchValue = (value: string) => {
         this.exclusionsSearchValue = value;

@@ -13,7 +13,6 @@ export const ChildrenList = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
 
     const selectedExclusion = exclusionsStore.selectedExclusion;
-    debugger;
 
     if (selectedExclusion.children.length === 0) {
         return null;
@@ -24,7 +23,7 @@ export const ChildrenList = observer(() => {
         : reactTranslator.getMessage('settings_exclusion_group_settings_subtitle_selecive_mode');
 
     const goBackHandler = () => {
-        exclusionsStore.setExclusionIdToShowSettings(null);
+        exclusionsStore.goBackHandler();
     }
 
     return (

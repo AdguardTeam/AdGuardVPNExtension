@@ -28,8 +28,7 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
         if (exclusion.children.length === 0) {
             return;
         }
-
-        exclusionsStore.setExclusionIdToShowSettings(exclusion.id);
+        exclusionsStore.selectExclusion(exclusion);
     };
 
     const listIndexTitleClasses = (hasChildren: boolean) => cn('list-item__title', {
