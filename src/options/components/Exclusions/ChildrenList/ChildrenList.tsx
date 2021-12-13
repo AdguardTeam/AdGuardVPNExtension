@@ -4,8 +4,9 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../../stores';
 import { Title } from '../../ui/Title';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { ListItem } from '../List/ListItem';
-import { ExclusionDtoInterface, ExclusionsModes } from '../../../../common/exclusionsConstants';
+import { ExclusionsModes, ExclusionsTypes } from '../../../../common/exclusionsConstants';
+import { ExclusionsList } from './ExclusionsList';
+import { GroupsList } from './GroupsList';
 
 import './children-list.pcss';
 
@@ -14,16 +15,23 @@ export const ChildrenList = observer(() => {
 
     const selectedExclusion = exclusionsStore.selectedExclusion;
 
-    if (selectedExclusion.children.length === 0) {
+    if (selectedExclusion.children?.length === 0) {
         return null;
     }
 
+    // TODO handle subtitle for services and groups
     const subtitle = exclusionsStore.currentMode === ExclusionsModes.Regular
         ? reactTranslator.getMessage('settings_exclusion_group_settings_subtitle_regular_mode')
         : reactTranslator.getMessage('settings_exclusion_group_settings_subtitle_selecive_mode');
 
     const goBackHandler = () => {
         exclusionsStore.goBackHandler();
+    }
+
+    const renderChildrenList = () => {
+        return selectedExclusion.type === ExclusionsTypes.Service
+            ? <GroupsList />
+            : <ExclusionsList />;
     }
 
     return (
@@ -42,12 +50,7 @@ export const ChildrenList = observer(() => {
                 </div>
             </div>
             <div className="settings">
-                {
-                    exclusionsStore.selectedExclusion.children
-                        .map((exclusion: ExclusionDtoInterface) => {
-                            return (<ListItem exclusion={exclusion} key={exclusion.id} />);
-                        })
-                }
+                {renderChildrenList()}
             </div>
         </>
     );

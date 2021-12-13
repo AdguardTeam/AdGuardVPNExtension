@@ -4,19 +4,10 @@ import { observer } from 'mobx-react';
 import { ExclusionsModal } from '../../ExclusionsModal/ExclusionsModal';
 import { rootStore } from '../../../../stores';
 import { reactTranslator } from '../../../../../common/reactTranslator';
-import { ExclusionsGroup } from '../../../../../background/exclusions/exclusions/ExclusionsGroup';
 
 import './subdomain-modal.pcss';
 
-interface SubdomainModalProps {
-    exclusionData: ExclusionsGroup;
-    parentServiceId: string | null;
-}
-
-export const SubdomainModal = observer(({
-    exclusionData,
-    parentServiceId,
-}: SubdomainModalProps) => {
+export const SubdomainModal = observer(() => {
     const { exclusionsStore, notificationsStore } = useContext(rootStore);
 
     const [inputValue, setInputValue] = useState('');
@@ -38,17 +29,7 @@ export const SubdomainModal = observer(({
             return;
         }
         if (inputValue) {
-            if (parentServiceId) {
-                await exclusionsStore.addSubdomainToExclusionsGroupInService(
-                    parentServiceId,
-                    exclusionData.id,
-                    inputValue,
-                );
-                closeModal();
-                setInputValue('');
-                return;
-            }
-            await exclusionsStore.addSubdomainToExclusionsGroup(exclusionData.id, inputValue);
+            exclusionsStore.addUrlToExclusions(inputValue); // FIXME use proper method
             closeModal();
             setInputValue('');
         }
@@ -73,7 +54,7 @@ export const SubdomainModal = observer(({
                         onChange={(e) => setInputValue(e.target.value)}
                     />
                     <div className="subdomain-modal__hostname">
-                        {exclusionData.hostname}
+                        {exclusionsStore.selectedExclusion.value}
                     </div>
                 </label>
                 <div className="subdomain-modal__actions">
