@@ -343,7 +343,7 @@ export class ExclusionsStore {
     };
 
     @computed
-    get selectedExclusionChildren(): ExclusionDtoInterface {
+    get selectedExclusion(): ExclusionDtoInterface {
         if (!this.selectedExclusionId) {
             return [];
         }
@@ -357,7 +357,7 @@ export class ExclusionsStore {
             return [];
         }
 
-        return foundExclusion.children;
+        return foundExclusion;
     }
 
     /**

@@ -3,29 +3,48 @@ import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
 import { Title } from '../../ui/Title';
-import { translator } from '../../../../common/translator';
+import { reactTranslator } from '../../../../common/reactTranslator';
 import { ListItem } from '../List/ListItem';
-import { ExclusionDtoInterface } from '../../../../common/exclusionsConstants';
+import { ExclusionDtoInterface, ExclusionsModes } from '../../../../common/exclusionsConstants';
+
+import './children-list.pcss';
 
 export const ChildrenList = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
 
-    const exclusions = exclusionsStore.selectedExclusionChildren;
+    const selectedExclusion = exclusionsStore.selectedExclusion;
+    debugger;
 
-    if (exclusions.length === 0) {
+    if (selectedExclusion.children.length === 0) {
         return null;
+    }
+
+    const subtitle = exclusionsStore.currentMode === ExclusionsModes.Regular
+        ? reactTranslator.getMessage('settings_exclusion_group_settings_subtitle_regular_mode')
+        : reactTranslator.getMessage('settings_exclusion_group_settings_subtitle_selecive_mode');
+
+    const goBackHandler = () => {
+        exclusionsStore.setExclusionIdToShowSettings(null);
     }
 
     return (
         <>
-            {/* FIXME add back button and actual titles */}
-            <Title
-                title={translator.getMessage('settings_exclusion_title')}
-                subtitle={translator.getMessage('settings_exclusion_select_mode')}
-            />
+            <div className="children-list__title">
+                <button className="children-list__back-button back-button" type="button" onClick={goBackHandler}>
+                    <svg className="icon icon--button">
+                        <use xlinkHref="#arrow" />
+                    </svg>
+                </button>
+                <div>
+                    <Title
+                        title={selectedExclusion.value}
+                        subtitle={subtitle as string}
+                    />
+                </div>
+            </div>
             <div className="settings">
                 {
-                    exclusionsStore.selectedExclusionChildren
+                    exclusionsStore.selectedExclusion.children
                         .map((exclusion: ExclusionDtoInterface) => {
                             return (<ListItem exclusion={exclusion} key={exclusion.id} />);
                         })
