@@ -1,5 +1,5 @@
 import browserApi from './browserApi';
-import { FLAGS_FIELDS, PROMO_SCREEN_STATES } from '../lib/constants';
+import { FLAGS_FIELDS } from '../lib/constants';
 import { log } from '../lib/logger';
 import { updateService } from './updateService';
 
@@ -10,8 +10,6 @@ const DEFAULTS = {
     [FLAGS_FIELDS.SHOW_ONBOARDING]: true,
     // upgrade screen should be displayed for non-premium users after onboarding screen
     [FLAGS_FIELDS.SHOW_UPGRADE_SCREEN]: true,
-    // promo screen should be displayed if non-premium user clicks on connect button
-    [FLAGS_FIELDS.SALE_SHOW]: PROMO_SCREEN_STATES.DISPLAY_AFTER_CONNECT_CLICK,
 };
 
 /**

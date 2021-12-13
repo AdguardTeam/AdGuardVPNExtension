@@ -25,8 +25,6 @@ import { REQUEST_STATUSES } from '../../stores/consts';
 import { log } from '../../../lib/logger';
 import messenger from '../../../lib/messenger';
 import notifier from '../../../lib/notifier';
-import PromoSale from '../PromoSale';
-import { PROMO_SCREEN_STATES } from '../../../lib/constants';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
 import { TrafficLimitExceeded } from '../Settings/TrafficLimitExceeded';
 import { ConnectionsLimitError } from '../ConnectionsLimitError';
@@ -60,8 +58,6 @@ export const App = observer(() => {
     const {
         requestProcessState,
         authenticated,
-        showUpgradeScreen,
-        promoScreenState,
     } = authStore;
 
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
@@ -178,7 +174,7 @@ export const App = observer(() => {
         );
     }
 
-    if (showUpgradeScreen && !isPremiumToken) {
+    if (!isPremiumToken && authStore.renderUpgradeScreen) {
         return (
             <>
                 <UpgradeScreen />
@@ -224,19 +220,6 @@ export const App = observer(() => {
                 unmountOnExit
             >
                 <Locations />
-            </CSSTransition>
-            <CSSTransition
-                in={
-                    (!isPremiumToken
-                        && promoScreenState === PROMO_SCREEN_STATES.DISPLAY_ON_POPUP_OPEN
-                        && settingsStore.isConnected)
-                    || settingsStore.freeUserClickedPremiumLocation
-                }
-                timeout={300}
-                classNames="fade"
-                unmountOnExit
-            >
-                <PromoSale />
             </CSSTransition>
             {displayExclusionScreen && canBeExcluded
                 ? <ExclusionsScreen />

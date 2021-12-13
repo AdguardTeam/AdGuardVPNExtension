@@ -71,8 +71,6 @@ export class AuthStore {
 
     @observable showUpgradeScreen;
 
-    @observable promoScreenState;
-
     STEPS = AUTH_STEPS;
 
     constructor(rootStore) {
@@ -140,7 +138,6 @@ export class AuthStore {
         this.isSocialAuth = flagsStorageData[FLAGS_FIELDS.IS_SOCIAL_AUTH];
         this.showOnboarding = flagsStorageData[FLAGS_FIELDS.SHOW_ONBOARDING];
         this.showUpgradeScreen = flagsStorageData[FLAGS_FIELDS.SHOW_UPGRADE_SCREEN];
-        this.promoScreenState = flagsStorageData[FLAGS_FIELDS.SALE_SHOW];
     }
 
     @action
@@ -158,14 +155,6 @@ export class AuthStore {
             this.showUpgradeScreen = value;
         });
     };
-
-    @action
-    setSalePromoStatus = async (state) => {
-        await messenger.setFlag(FLAGS_FIELDS.SALE_SHOW, state);
-        runInAction(() => {
-            this.promoScreenState = state;
-        });
-    }
 
     @action
     setIsFirstRun = (value) => {
@@ -194,16 +183,25 @@ export class AuthStore {
     @computed
     get renderNewsletter() {
         return this.marketingConsent === null
-        && ((this.isFirstRun && this.isNewUser)
-            || (this.isFirstRun && !this.isNewUser && this.isSocialAuth)
-            || (!this.isFirstRun && this.isNewUser && !this.isSocialAuth));
+            && ((this.isFirstRun && this.isSocialAuth)
+                || (this.isNewUser && !this.isSocialAuth));
     }
 
-    // AG-10009 Onboarding screen
+    // AG-10009 Promo screens (onboarding and upgrade screen) should be shown
+    // only on first run or for new users authenticated via mail
+    @computed
+    get shouldRenderPromo() {
+        return this.isFirstRun || (this.isNewUser && !this.isSocialAuth);
+    }
+
     @computed
     get renderOnboarding() {
-        return this.showOnboarding
-            && (this.isFirstRun || (!this.isFirstRun && this.isNewUser && !this.isSocialAuth));
+        return this.showOnboarding && this.shouldRenderPromo;
+    }
+
+    @computed
+    get renderUpgradeScreen() {
+        return this.showUpgradeScreen && this.shouldRenderPromo;
     }
 
     @action

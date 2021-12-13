@@ -5,7 +5,6 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../../stores';
 
 import './endpoint.pcss';
-import { PROMO_SCREEN_STATES } from '../../../../lib/constants';
 import Ping from '../../Ping';
 
 const CurrentEndpoint = observer(() => {
@@ -13,7 +12,6 @@ const CurrentEndpoint = observer(() => {
         vpnStore,
         settingsStore,
         uiStore,
-        authStore,
     } = useContext(rootStore);
 
     const {
@@ -25,16 +23,8 @@ const CurrentEndpoint = observer(() => {
 
     const { isConnected } = settingsStore;
 
-    const setSaleVisibleHandler = async () => {
-        await authStore.setSalePromoStatus(PROMO_SCREEN_STATES.DISPLAY_ON_POPUP_OPEN);
-    };
-
     const clickHandler = (e) => {
         e.preventDefault();
-        if (!vpnStore.isPremiumToken
-            && settingsStore.promoScreenState === PROMO_SCREEN_STATES.DISPLAY_AFTER_CONNECT_CLICK) {
-            setSaleVisibleHandler();
-        }
         uiStore.openEndpointsSearch();
     };
 

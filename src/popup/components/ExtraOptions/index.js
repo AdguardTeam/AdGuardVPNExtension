@@ -9,7 +9,6 @@ import messenger from '../../../lib/messenger';
 import Option from './Option';
 import { reactTranslator } from '../../../common/reactTranslator';
 import Rate from '../Rate';
-import { PROMO_SCREEN_STATES } from '../../../lib/constants';
 
 import './extra-options.pcss';
 
@@ -29,7 +28,6 @@ const ExtraOptions = observer(() => {
         await authStore.deauthenticate();
         await settingsStore.setProxyState(false);
         await settingsStore.clearPermissionError();
-        await authStore.setSalePromoStatus(PROMO_SCREEN_STATES.DISPLAY_AFTER_CONNECT_CLICK);
         uiStore.closeOptionsModal();
     };
 
