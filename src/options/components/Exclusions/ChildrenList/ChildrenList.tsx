@@ -1,13 +1,16 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
+import classnames from 'classnames';
 
 import { rootStore } from '../../../stores';
 import { Title } from '../../ui/Title';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { ExclusionsModes } from '../../../../common/exclusionsConstants';
-import { ExclusionsList } from './ExclusionsList';
+import { ExclusionDtoInterface, ExclusionsModes, ExclusionsTypes } from '../../../../common/exclusionsConstants';
+import { ChildrenListItem } from './ChildrenListItem';
+import { SubdomainModal } from './SubdomainModal';
 
 import './children-list.pcss';
+
 
 export const ChildrenList = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
@@ -27,6 +30,28 @@ export const ChildrenList = observer(() => {
         exclusionsStore.goBackHandler();
     }
 
+    const resetServiceData = async () => {
+        // TODO reset service data
+    };
+
+    const onAddSubdomainClick = () => {
+        exclusionsStore.openAddSubdomainModal();
+    };
+
+    const resetButtonClass = classnames(
+        'button',
+        'button--medium',
+        'button--outline-gray',
+        'children-list__reset',
+        { hidden: selectedExclusion.type !== ExclusionsTypes.Service },
+    );
+
+    const addSubdomainButtonClass = classnames(
+        'children-list__add-subdomain',
+        'simple-button',
+        { hidden: selectedExclusion.type !== ExclusionsTypes.Group },
+    );
+
     return (
         <>
             <div className="children-list__title">
@@ -42,9 +67,28 @@ export const ChildrenList = observer(() => {
                     />
                 </div>
             </div>
-            <div className="settings">
-                <ExclusionsList />
+            <div>
+                {
+                    selectedExclusion.children.map((exclusion: ExclusionDtoInterface) => {
+                        return <ChildrenListItem exclusion={exclusion} key={exclusion.id}/>
+                    })
+                }
             </div>
+            <button
+                type="button"
+                className={resetButtonClass}
+                onClick={resetServiceData}
+            >
+                {reactTranslator.getMessage('settings_exclusion_reset_to_default')}
+            </button>
+            <button
+                type="button"
+                className={addSubdomainButtonClass}
+                onClick={onAddSubdomainClick}
+            >
+                {reactTranslator.getMessage('settings_exclusion_add_subdomain')}
+            </button>
+            <SubdomainModal />
         </>
     );
 });
