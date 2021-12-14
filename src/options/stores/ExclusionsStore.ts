@@ -2,7 +2,8 @@ import {
     action,
     computed,
     observable,
-    runInAction, toJS,
+    runInAction,
+    toJS,
 } from 'mobx';
 import JSZip from 'jszip';
 import format from 'date-fns/format';
@@ -59,7 +60,7 @@ const findExclusionById = (
 };
 
 export class ExclusionsStore {
-    @observable exclusions: ExclusionDtoInterface;
+    @observable exclusions: ExclusionDtoInterface[];
 
     @observable currentMode = ExclusionsModes.Regular;
 
@@ -78,8 +79,6 @@ export class ExclusionsStore {
     @observable unfoldAllServiceCategories: boolean = false;
 
     @observable selectedExclusionId: string | null = null;
-
-    @observable selectedServiceId: string | null = null;
 
     @observable exclusionsSearchValue: string = '';
 
@@ -251,20 +250,22 @@ export class ExclusionsStore {
         });
     };
 
-    @action selectExclusion = (exclusion: ExclusionDtoInterface) => {
-        this.selectedExclusionId = exclusion.id;
-
-        if (exclusion.type === ExclusionsTypes.Service) {
-            this.selectedServiceId = exclusion.id;
-        }
+    @action setSelectedExclusionId = (id: string) => {
+        this.selectedExclusionId = id;
     };
 
-    @action goBackHandler = () => {
-        this.selectedExclusionId = this.selectedExclusion.type === ExclusionsTypes.Service
-            ? null
-            : this.selectedServiceId;
+    getParentExclusion(exclusion: ExclusionDtoInterface): ExclusionDtoInterface | undefined {
+        if (exclusion.type === ExclusionsTypes.Service) {
+            return;
+        }
+        return this.exclusions.find((group) => {
+            return group.children?.find(({ id }) => exclusion.id === id);
+        });
+    }
 
-        this.selectedServiceId = null;
+    @action goBackHandler = () => {
+        const parentExclusion = this.getParentExclusion(this.selectedExclusion);
+        this.selectedExclusionId = parentExclusion?.id || null;
     };
 
     @action toggleSubdomainStateInExclusionsGroup = async (

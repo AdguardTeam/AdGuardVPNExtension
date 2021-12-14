@@ -13,8 +13,8 @@ export const GroupsList = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
 
 
-    const showGroupSettings = (exclusion: ExclusionDtoInterface) => () => {
-        exclusionsStore.selectExclusion(exclusion);
+    const showGroupSettings = (id: string) => () => {
+        exclusionsStore.setSelectedExclusionId(id);
     };
 
     const toggleState = (id: string) => () => {
@@ -55,7 +55,7 @@ export const GroupsList = observer(() => {
                             />
                             <div
                                 className="service__settings__group__hostname"
-                                onClick={showGroupSettings(exclusion)}
+                                onClick={showGroupSettings(exclusion.id)}
                             >
                                 {exclusion.value}
                             </div>
