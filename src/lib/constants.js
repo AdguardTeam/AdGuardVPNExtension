@@ -90,15 +90,6 @@ export const ERROR_STATUSES = {
     INVALID_TOKEN_ERROR: 'invalid.token.error',
 };
 
-export const PROMO_SCREEN_STATES = {
-    // display if user clicks on connect button
-    DISPLAY_AFTER_CONNECT_CLICK: 'display.after.connect.click',
-    // display if user opens extension's popup window
-    DISPLAY_ON_POPUP_OPEN: 'display.on.popup.open',
-    // don't display
-    DO_NOT_DISPLAY: 'do.not.display',
-};
-
 // Error text thrown when connection is canceled by user. See issue - AG-2291
 export const FORCE_CANCELLED = 'Connection was cancelled by user';
 
