@@ -70,6 +70,7 @@ export class ExclusionsService {
         // FIXME check if is in the service
         // FIXME check if is in the group
         if (ipaddr.isValid(hostname)) {
+            debugger;
             await exclusionsManager.current.addUrlToExclusions(hostname);
         } else {
             const wildcardHostname = `*.${hostname}`;

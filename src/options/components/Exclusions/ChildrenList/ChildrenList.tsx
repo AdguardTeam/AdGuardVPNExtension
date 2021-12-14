@@ -4,9 +4,8 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../../stores';
 import { Title } from '../../ui/Title';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { ExclusionsModes, ExclusionsTypes } from '../../../../common/exclusionsConstants';
+import { ExclusionsModes } from '../../../../common/exclusionsConstants';
 import { ExclusionsList } from './ExclusionsList';
-import { GroupsList } from './GroupsList';
 
 import './children-list.pcss';
 
@@ -28,12 +27,6 @@ export const ChildrenList = observer(() => {
         exclusionsStore.goBackHandler();
     }
 
-    const renderChildrenList = () => {
-        return selectedExclusion.type === ExclusionsTypes.Service
-            ? <GroupsList />
-            : <ExclusionsList />;
-    }
-
     return (
         <>
             <div className="children-list__title">
@@ -50,7 +43,7 @@ export const ChildrenList = observer(() => {
                 </div>
             </div>
             <div className="settings">
-                {renderChildrenList()}
+                <ExclusionsList />
             </div>
         </>
     );

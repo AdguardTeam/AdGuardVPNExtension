@@ -4,7 +4,11 @@ import classnames from 'classnames';
 
 import { rootStore} from '../../../../stores';
 import { StateCheckbox } from '../../StateCheckbox';
-import { ExclusionDtoInterface, ExclusionStates } from '../../../../../common/exclusionsConstants';
+import {
+    ExclusionDtoInterface,
+    ExclusionStates,
+    ExclusionsTypes,
+} from '../../../../../common/exclusionsConstants';
 import { SubdomainModal } from '../SubdomainModal';
 import { reactTranslator } from '../../../../../common/reactTranslator';
 import { translator } from '../../../../../common/translator';
@@ -14,6 +18,8 @@ import './exclusions-list.pcss';
 export const ExclusionsList = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
 
+    const selectedExclusion = exclusionsStore.selectedExclusion;
+
     const toggleState = (id: string) => () => {
         exclusionsStore.toggleExclusionState(id);
     };
@@ -22,7 +28,13 @@ export const ExclusionsList = observer(() => {
         exclusionsStore.removeExclusion(id);
     };
 
-    const selectedExclusion = exclusionsStore.selectedExclusion;
+    const resetServiceData = async () => {
+        // TODO reset service data
+    };
+
+    const showGroupSettings = (id: string) => () => {
+        exclusionsStore.setSelectedExclusionId(id);
+    };
 
     const getExclusionStatus = (hostname: string) => {
         if (hostname === selectedExclusion.value) {
@@ -38,7 +50,9 @@ export const ExclusionsList = observer(() => {
         exclusionsStore.openAddSubdomainModal();
     };
 
-    const exclusionClassNames = (hostname: string) => classnames('group__settings__domain', {
+    const exclusionClassNames = (hostname: string) => classnames('exclusions-list__item', {
+        'service-exclusion': selectedExclusion.type === ExclusionsTypes.Service,
+        'group-exclusion': selectedExclusion.type === ExclusionsTypes.Group,
         useless: hostname !== selectedExclusion.value
             && !hostname.startsWith('*')
             && selectedExclusion.children.some((exclusion) => {
@@ -47,9 +61,44 @@ export const ExclusionsList = observer(() => {
             }),
     });
 
+    const resetButtonClass = classnames(
+        'button',
+        'button--medium',
+        'button--outline-gray',
+        'exclusions-list__reset',
+        { hidden: selectedExclusion.type !== ExclusionsTypes.Service },
+    );
+
+    const addSubdomainButtonClass = classnames(
+        'exclusions-list__add-subdomain',
+        'simple-button',
+        { hidden: selectedExclusion.type !== ExclusionsTypes.Group },
+    );
+
+    const renderExclusion = (exclusion: ExclusionDtoInterface) => {
+        if (selectedExclusion.type === ExclusionsTypes.Service) {
+            return (
+                <div
+                    className="exclusions-list__item__hostname1"
+                    onClick={showGroupSettings(exclusion.id)}
+                >
+                    {exclusion.value}
+                </div>
+            );
+        } else {
+            return (
+                <div className="exclusions-list__item__hostname2">
+                    {exclusion.value}
+                    <div className="exclusions-list__item__hostname2__status">
+                        {getExclusionStatus(exclusion.value)}
+                    </div>
+                </div>
+            );
+        }
+    };
 
     return (
-        <div className="group">
+        <div className="exclusions-list">
             {
                 selectedExclusion.children.map((exclusion: ExclusionDtoInterface) => {
                     return (
@@ -62,18 +111,13 @@ export const ExclusionsList = observer(() => {
                                 state={exclusion.state}
                                 toggleHandler={toggleState}
                             />
-                            <div className="group__settings__domain__hostname">
-                                {exclusion.value}
-                                <div className="group__settings__domain__hostname__status">
-                                    {getExclusionStatus(exclusion.value)}
-                                </div>
-                            </div>
+                            {renderExclusion(exclusion)}
                             <button
                                 type="button"
-                                className="group__settings__domain__remove-button"
+                                className="exclusions-list__item__remove-button"
                                 onClick={removeExclusion(exclusion.id)}
                             >
-                                <svg className="group__settings__domain__remove-button__icon">
+                                <svg className="exclusions-list__item__remove-button__icon">
                                     <use xlinkHref="#basket" />
                                 </svg>
                             </button>
@@ -83,7 +127,14 @@ export const ExclusionsList = observer(() => {
             }
             <button
                 type="button"
-                className="group__add-subdomain simple-button"
+                className={resetButtonClass}
+                onClick={resetServiceData}
+            >
+                {reactTranslator.getMessage('settings_exclusion_reset_to_default')}
+            </button>
+            <button
+                type="button"
+                className={addSubdomainButtonClass}
                 onClick={onAddSubdomainClick}
             >
                 {reactTranslator.getMessage('settings_exclusion_add_subdomain')}
