@@ -40,11 +40,11 @@ const DEFAULT_ADD_EXCLUSION_MODE = AddExclusionMode.MANUAL;
 
 // FIXME move to helpers
 const findExclusionById = (
-    exclusions: ExclusionDtoInterface,
+    exclusions: ExclusionDtoInterface[],
     id: string,
 ): ExclusionDtoInterface | null => {
     for (let i = 0; i < exclusions.length; i += 1) {
-        let exclusion = exclusions[i];
+        let exclusion: ExclusionDtoInterface | null = exclusions[i];
         if (exclusion.id === id) {
             return exclusion;
         }
@@ -110,8 +110,7 @@ export class ExclusionsStore {
                 if (this.exclusionsSearchValue.length === 0) {
                     return true;
                 }
-
-                return containsIgnoreCase(exclusion.name, this.exclusionsSearchValue);
+                return containsIgnoreCase(exclusion.value, this.exclusionsSearchValue);
             });
 
         const sortedExclusions = filteredExclusions
@@ -159,16 +158,6 @@ export class ExclusionsStore {
     @action closeRemoveAllModal = () => {
         this.removeAllModalOpen = false;
     };
-
-    isExcludedService = (serviceId: string) => {
-        return this.exclusions.excludedServices
-            .some((service) => service.serviceId === serviceId);
-    };
-
-    @computed
-    get excludedServices() {
-        return this.exclusions.excludedServices;
-    }
 
     @computed
     get preparedServicesData() {
@@ -275,19 +264,6 @@ export class ExclusionsStore {
         await messenger.toggleSubdomainStateInExclusionsGroup(exclusionsGroupId, subdomainId);
     };
 
-    @action removeSubdomainFromExclusionsGroup = async (
-        exclusionsGroupId: string,
-        subdomainId: string,
-    ) => {
-        this.exclusions.exclusionsGroups.forEach((group) => {
-            if (group.id === exclusionsGroupId && group.exclusions[0].id === subdomainId) {
-                // show exclusions list if main domain was removed
-                this.selectedExclusionId = null;
-            }
-        });
-        await messenger.removeSubdomainFromExclusionsGroup(exclusionsGroupId, subdomainId);
-    };
-
     @action addSubdomainToExclusionsGroup = async (
         exclusionsGroupId: string,
         subdomain: string,
@@ -368,7 +344,7 @@ export class ExclusionsStore {
             return [];
         }
 
-        const foundExclusion: ExclusionDtoInterface = findExclusionById(
+        const foundExclusion = findExclusionById(
             this.exclusions,
             this.selectedExclusionId,
         );
