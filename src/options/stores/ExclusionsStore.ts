@@ -204,6 +204,26 @@ export class ExclusionsStore {
         await messenger.addUrlToExclusions(url);
     };
 
+    @action addSubdomainToExclusions = async (subdomain: string) => {
+        if (!this.selectedExclusionId) {
+            return;
+        }
+
+        const foundExclusion = findExclusionById(
+            this.exclusions,
+            this.selectedExclusionId,
+        );
+
+        if (!foundExclusion) {
+            return;
+        }
+
+        const domain = foundExclusion.value;
+        const domainToAdd = `${subdomain}.${domain}`;
+
+        await messenger.addUrlToExclusions(domainToAdd);
+    };
+
     @action removeExclusion = async (id: string) => {
         await messenger.removeExclusion(id);
     };

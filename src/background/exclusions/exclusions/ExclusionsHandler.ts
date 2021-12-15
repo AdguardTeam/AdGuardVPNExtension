@@ -103,10 +103,13 @@ export class ExclusionsHandler {
         });
 
         this.exclusionsIndex = this.getExclusionsIndex(this.exclusions);
-        console.log(this.exclusionsIndex);
-        console.log(this.exclusions);
+
         await this.updateHandler();
     }
+
+    hasETld = (eTld: string) => {
+        return !!this.exclusionsIndex[eTld];
+    };
 
     async addUrlToExclusions(url: string) {
         const hostname = getHostname(url);
