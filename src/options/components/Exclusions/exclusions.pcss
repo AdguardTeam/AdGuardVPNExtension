@@ -141,17 +141,16 @@
     }
 
     &__icon {
-        width: 73px;
+        width: 100%;
         min-height: 80px;
         background-image: url('../../../assets/images/trouble-head.svg');
-        background-position: center bottom;
+        background-position: center;
         background-repeat: no-repeat;
-        margin-top: 16px;
-        margin-bottom: 8px;
+        margin-top: 20px;
     }
 
     &__message {
-        margin: 0 60px 24px;
+        margin: 0 30px 24px;
         font-size: 16px;
         line-height: 22px;
         text-align: center;
@@ -188,6 +187,21 @@
 
         &--first {
             margin-right: 16px;
+        }
+    }
+
+    &.select-mode-confirm {
+        height: 350px;
+        text-align: center;
+
+        & .modal__title {
+            font-size: 29px;
+            margin: 10px 0 15px;
+        }
+
+        & .modal__button {
+            width: 200px;
+            margin: 0 auto;
         }
     }
 }

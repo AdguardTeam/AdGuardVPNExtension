@@ -74,7 +74,7 @@ export const ModeSelector = observer(() => {
         <>
             <Modal
                 isOpen={isOpen}
-                className="modal"
+                className="modal select-mode-confirm"
                 overlayClassName="overlay overlay--fullscreen"
                 onRequestClose={closeModal}
             >
