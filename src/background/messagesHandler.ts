@@ -183,7 +183,7 @@ const messagesHandler = async (message, sender) => {
         }
         case MESSAGES_TYPES.RESET_SERVICE_DATA: {
             const { serviceId } = data;
-            return exclusions.current.resetServiceData(serviceId);
+            return exclusions.resetServiceData(serviceId);
         }
         case MESSAGES_TYPES.CLEAR_EXCLUSIONS_LIST: {
             return exclusions.clearExclusionsData();

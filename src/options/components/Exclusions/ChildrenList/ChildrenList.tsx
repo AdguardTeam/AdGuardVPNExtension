@@ -30,8 +30,8 @@ export const ChildrenList = observer(() => {
         exclusionsStore.goBackHandler();
     }
 
-    const resetServiceData = async () => {
-        // TODO reset service data
+    const resetServiceData = (id: string) => () => {
+        exclusionsStore.resetServiceData(id);
     };
 
     const onAddSubdomainClick = () => {
@@ -77,7 +77,7 @@ export const ChildrenList = observer(() => {
             <button
                 type="button"
                 className={resetButtonClass}
-                onClick={resetServiceData}
+                onClick={resetServiceData(selectedExclusion.id)}
             >
                 {reactTranslator.getMessage('settings_exclusion_reset_to_default')}
             </button>

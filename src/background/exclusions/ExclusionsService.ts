@@ -192,4 +192,9 @@ export class ExclusionsService {
     isInverted() {
         return exclusionsManager.inverted;
     }
+
+    async resetServiceData(id: string) {
+        exclusionsManager.current.resetServiceData(id);
+        this.updateTree();
+    }
 }

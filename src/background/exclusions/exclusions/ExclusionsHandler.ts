@@ -193,4 +193,8 @@ export class ExclusionsHandler {
 
         return exclusions.some((exclusion) => exclusion.state === ExclusionStates.Enabled);
     };
+
+    resetServiceData = (id: string) => {
+        // TODO reset service data
+    }
 }
