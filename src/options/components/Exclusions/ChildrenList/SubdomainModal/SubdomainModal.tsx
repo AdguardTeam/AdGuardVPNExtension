@@ -29,7 +29,7 @@ export const SubdomainModal = observer(() => {
             return;
         }
         if (inputValue) {
-            exclusionsStore.addUrlToExclusions(inputValue); // FIXME use proper method
+            await exclusionsStore.addSubdomainToExclusions(inputValue);
             closeModal();
             setInputValue('');
         }

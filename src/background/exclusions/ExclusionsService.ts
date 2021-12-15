@@ -5,6 +5,7 @@ import { servicesManager } from './services/ServicesManager';
 import { ExclusionsTree } from './ExclusionsTree';
 import { getHostname } from '../../lib/helpers';
 import { ExclusionStates } from '../../common/exclusionsConstants';
+import { getETld } from './exclusions/ExclusionsHandler';
 
 export class ExclusionsService {
     exclusionsTree: ExclusionsTree;
@@ -58,7 +59,6 @@ export class ExclusionsService {
     }
 
     async addUrlToExclusions(url: string) {
-        console.log(url);
         // FIXME remove knowledge about current
         // check if domain is in the service, or group
         const hostname = getHostname(url);
@@ -68,13 +68,21 @@ export class ExclusionsService {
         }
 
         // FIXME check if is in the service
-        // FIXME check if is in the group
         if (ipaddr.isValid(hostname)) {
-            debugger;
             await exclusionsManager.current.addUrlToExclusions(hostname);
         } else {
-            const wildcardHostname = `*.${hostname}`;
-            await exclusionsManager.current.addExclusions([hostname, wildcardHostname]);
+            const eTld = getETld(hostname);
+
+            if (!eTld) {
+                return;
+            }
+
+            if (exclusionsManager.current.hasETld(eTld)) {
+                await exclusionsManager.current.addExclusions([hostname]);
+            } else {
+                const wildcardHostname = `*.${hostname}`;
+                await exclusionsManager.current.addExclusions([hostname, wildcardHostname]);
+            }
         }
 
         this.updateTree();
