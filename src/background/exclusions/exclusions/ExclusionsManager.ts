@@ -1,12 +1,11 @@
-import { ExclusionsData, ExclusionsModes, ExclusionStates } from '../../../common/exclusionsConstants';
+import { ExclusionsModes, ExclusionStates } from '../../../common/exclusionsConstants';
 // FIXME remove cycle dependency
 // eslint-disable-next-line import/no-cycle
 import { ExclusionsHandler } from './ExclusionsHandler';
 import notifier from '../../../lib/notifier';
 import { log } from '../../../lib/logger';
 import { settings } from '../../settings';
-import { Service } from '../services/Service';
-import { ExclusionsGroup } from './ExclusionsGroup';
+import { proxy } from '../../proxy';
 
 export interface ExclusionsDataToImport {
     type: string,
@@ -83,14 +82,17 @@ export class ExclusionsManager {
     };
 
     handleExclusionsUpdate = async () => {
-        // FIXME uncomment
         // @ts-ignore
         notifier.notifyListeners(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE);
 
-        const exclusionsData = this.current.getExclusions();
-        // const enabledExclusionsList = this.getEnabledExclusionsHostnames(exclusionsData);
-        debugger;
-        // await proxy.setBypassList(enabledExclusionsList, this.inverted);
+        const exclusionsData = this.getExclusions();
+        const enabledExclusionsList = exclusionsData.map((exclusion) => {
+            if (exclusion.state === ExclusionStates.Enabled) {
+                return exclusion.hostname;
+            }
+        })
+
+        await proxy.setBypassList(enabledExclusionsList, this.inverted);
 
         const exclusionsRepository = {
             inverted: this.inverted,
@@ -111,38 +113,6 @@ export class ExclusionsManager {
 
     get current() {
         return this.currentHandler;
-    }
-
-    getEnabledExclusionsHostnames(exclusionsData: ExclusionsData): string[] {
-        // TODO refactor
-        const enabledServicesHostnames = exclusionsData.excludedServices.map((service: Service) => {
-            return service.exclusionsGroups.filter((group) => {
-                return (service.state === ExclusionStates.Enabled
-                        || service.state === ExclusionStates.PartlyEnabled)
-                    && (group.state === ExclusionStates.Enabled
-                        || group.state === ExclusionStates.PartlyEnabled)
-                    && group.exclusions.filter(({ enabled }) => enabled);
-            }).map(({ exclusions }) => exclusions.map(({ hostname }) => hostname));
-        });
-
-        const enabledGroupsHostnames = exclusionsData.exclusionsGroups
-            .map((group: ExclusionsGroup) => {
-                return group.exclusions.filter((exclusion) => {
-                    return (group.state === ExclusionStates.Enabled
-                            || group.state === ExclusionStates.PartlyEnabled)
-                        && exclusion.enabled;
-                }).map(({ hostname }) => hostname);
-            });
-
-        const enabledIps = exclusionsData.excludedIps
-            .filter(({ enabled }) => enabled)
-            .map(({ hostname }) => hostname);
-
-        return [
-            ...enabledServicesHostnames,
-            ...enabledGroupsHostnames,
-            ...enabledIps,
-        ].flat(2);
     }
 
     async setCurrentMode(mode: ExclusionsModes) {
@@ -202,7 +172,7 @@ export class ExclusionsManager {
         if (!this.currentHandler) {
             return true;
         }
-        const isExcluded = this.currentHandler.isExcluded(url);
+        const isExcluded = this.currentHandler.isExcludedByUrl(url);
         return this.inverted ? isExcluded : !isExcluded;
     }
 

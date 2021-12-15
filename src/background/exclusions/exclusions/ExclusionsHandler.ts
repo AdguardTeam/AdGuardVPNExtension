@@ -2,14 +2,12 @@ import { nanoid } from 'nanoid';
 import { getDomain } from 'tldts';
 import ipaddr from 'ipaddr.js';
 
-import {
-    ExclusionsModes,
-    ExclusionStates,
-} from '../../../common/exclusionsConstants';
+import { ExclusionsModes, ExclusionStates } from '../../../common/exclusionsConstants';
 import { getHostname } from '../../../lib/helpers';
 // FIXME interfaces to common directory to solve cycle dependency
 // eslint-disable-next-line import/no-cycle
 import { ExclusionInterface, IndexedExclusionsInterface } from './ExclusionsManager';
+import { shExpMatch, areHostnamesEqual } from '../../../lib/string-utils';
 
 /**
  * Here eTld means eTLD + 1
@@ -165,5 +163,17 @@ export class ExclusionsHandler {
     async clearExclusionsData() {
         this.exclusions = [];
         await this.updateHandler();
+    }
+
+    isExcludedByUrl(url: string) {
+        const hostname = getHostname(url);
+        if (!hostname) {
+            return undefined;
+        }
+        return this.exclusions.some((exclusion) => {
+            return exclusion.state === ExclusionStates.Enabled
+                && (areHostnamesEqual(hostname, exclusion.hostname)
+                || shExpMatch(hostname, exclusion.hostname));
+        });
     }
 }

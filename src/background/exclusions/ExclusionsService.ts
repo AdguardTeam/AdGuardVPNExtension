@@ -160,4 +160,28 @@ export class ExclusionsService {
 
         this.updateTree();
     }
+
+    isVpnEnabledByUrl(url: string) {
+        return exclusionsManager.isVpnEnabledByUrl(url);
+    }
+
+    isInverted() {
+        return exclusionsManager.isInverted();
+    }
+
+    async disableVpnByUrl(url: string) {
+        if (this.isInverted()) {
+            // TODO disable exclusion by url
+        } else {
+            await this.addUrlToExclusions(url);
+        }
+    }
+
+    async enableVpnByUrl(url: string) {
+        if (this.isInverted()) {
+            await this.addUrlToExclusions(url);
+        } else {
+            // TODO disable exclusion by url
+        }
+    }
 }
