@@ -22,7 +22,6 @@ export class ExclusionsService {
 
     getExclusions() {
         const exclusions = this.exclusionsTree.getExclusions();
-        console.log(exclusions);
 
         return exclusions;
     }
@@ -64,7 +63,6 @@ export class ExclusionsService {
     }
 
     async addUrlToExclusions(url: string) {
-        console.log(url);
         // FIXME remove knowledge about current
         // check if domain is in the service, or group
         const hostname = getHostname(url);
@@ -161,14 +159,6 @@ export class ExclusionsService {
         this.updateTree();
     }
 
-    isVpnEnabledByUrl(url: string) {
-        return exclusionsManager.isVpnEnabledByUrl(url);
-    }
-
-    isInverted() {
-        return exclusionsManager.isInverted();
-    }
-
     async disableVpnByUrl(url: string) {
         if (this.isInverted()) {
             // TODO disable exclusion by url
@@ -183,5 +173,24 @@ export class ExclusionsService {
         } else {
             // TODO disable exclusion by url
         }
+    }
+
+    /**
+     * Checks if vpn is enabled for url
+     * If this function is called when currentHandler is not set yet it returns true
+     * @param url
+     * @returns {boolean}
+     */
+    isVpnEnabledByUrl(url: string) {
+        if (!exclusionsManager.currentHandler) {
+            return true;
+        }
+
+        const isExcluded = exclusionsManager.currentHandler.isExcluded(url);
+        return exclusionsManager.inverted ? isExcluded : !isExcluded;
+    }
+
+    isInverted() {
+        return exclusionsManager.inverted;
     }
 }

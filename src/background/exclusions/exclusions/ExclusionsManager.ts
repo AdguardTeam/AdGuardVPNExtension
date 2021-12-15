@@ -85,12 +85,9 @@ export class ExclusionsManager {
         // @ts-ignore
         notifier.notifyListeners(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE);
 
-        const exclusionsData = this.getExclusions();
-        const enabledExclusionsList = exclusionsData.map((exclusion) => {
-            if (exclusion.state === ExclusionStates.Enabled) {
-                return exclusion.hostname;
-            }
-        })
+        const enabledExclusionsList = this.currentHandler.getExclusions()
+            .filter(({ state }) => state === ExclusionStates.Enabled)
+            .map(({ hostname }) => hostname);
 
         await proxy.setBypassList(enabledExclusionsList, this.inverted);
 
@@ -172,7 +169,7 @@ export class ExclusionsManager {
         if (!this.currentHandler) {
             return true;
         }
-        const isExcluded = this.currentHandler.isExcludedByUrl(url);
+        const isExcluded = this.currentHandler.isExcluded(url);
         return this.inverted ? isExcluded : !isExcluded;
     }
 

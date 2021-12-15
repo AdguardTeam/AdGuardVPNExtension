@@ -7,7 +7,7 @@ import { getHostname } from '../../../lib/helpers';
 // FIXME interfaces to common directory to solve cycle dependency
 // eslint-disable-next-line import/no-cycle
 import { ExclusionInterface, IndexedExclusionsInterface } from './ExclusionsManager';
-import { shExpMatch, areHostnamesEqual } from '../../../lib/string-utils';
+import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
 
 /**
  * Here eTld means eTLD + 1
@@ -165,15 +165,32 @@ export class ExclusionsHandler {
         await this.updateHandler();
     }
 
-    isExcludedByUrl(url: string) {
+    /**
+     * Returns exclusion by url
+     * @param url
+     * @param includeWildcards
+     */
+    getExclusionsByUrl = (url: string, includeWildcards = true) => {
         const hostname = getHostname(url);
         if (!hostname) {
             return undefined;
         }
-        return this.exclusions.some((exclusion) => {
-            return exclusion.state === ExclusionStates.Enabled
-                && (areHostnamesEqual(hostname, exclusion.hostname)
-                || shExpMatch(hostname, exclusion.hostname));
-        });
-    }
+        return this.exclusions
+            .filter((exclusion) => areHostnamesEqual(hostname, exclusion.hostname)
+                || (includeWildcards && shExpMatch(hostname, exclusion.hostname)));
+    };
+
+    isExcluded = (url: string) => {
+        if (!url) {
+            return false;
+        }
+
+        const exclusions = this.getExclusionsByUrl(url);
+
+        if (!exclusions) {
+            return false;
+        }
+
+        return exclusions.some((exclusion) => exclusion.state === ExclusionStates.Enabled);
+    };
 }
