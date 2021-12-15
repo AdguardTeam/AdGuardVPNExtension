@@ -107,10 +107,9 @@ export class ExclusionsService {
 
         const exclusionsToToggle = this.exclusionsTree.getPathExclusions(id);
 
-        // handle partlyEnabled state
-        const state = targetExclusionState === ExclusionStates.Enabled
-            ? ExclusionStates.Disabled
-            : ExclusionStates.Enabled;
+        const state = targetExclusionState === ExclusionStates.Disabled
+            ? ExclusionStates.Enabled
+            : ExclusionStates.Disabled;
 
         await exclusionsManager.current.setExclusionsState(exclusionsToToggle, state);
 
