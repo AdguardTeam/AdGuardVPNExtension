@@ -1,7 +1,11 @@
 import React, {
-    useContext, useState, useRef, useEffect,
+    useContext,
+    useState,
+    useRef,
+    useEffect,
 } from 'react';
 import classnames from 'classnames';
+import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
@@ -12,7 +16,7 @@ import { ExclusionsDataToImport } from '../../../../background/exclusions/exclus
 
 import './actions.pcss';
 
-export const Actions = () => {
+export const Actions = observer(() => {
     const { exclusionsStore, notificationsStore } = useContext(rootStore);
 
     const [isMoreActionsMenuOpen, setIsMoreActionsMenuOpen] = useState(false);
@@ -58,7 +62,7 @@ export const Actions = () => {
     useEffect(() => {
         // @ts-ignore
         moreActionsMenu.current.focus();
-    });
+    }, [moreActionsMenu]);
 
     const moreActionsButtonClassnames = classnames('actions__more-actions-button', {
         active: isMoreActionsMenuOpen,
@@ -67,6 +71,10 @@ export const Actions = () => {
     const moreActionsListClassnames = classnames('actions__more-actions-list', {
         visible: isMoreActionsMenuOpen,
     });
+
+    if (exclusionsStore.exclusionsSearchValue.length > 0) {
+        return null;
+    }
 
     return (
         <>
@@ -120,4 +128,4 @@ export const Actions = () => {
             </div>
         </>
     );
-};
+});

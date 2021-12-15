@@ -3,7 +3,6 @@ import {
     computed,
     observable,
     runInAction,
-    toJS,
 } from 'mobx';
 import JSZip from 'jszip';
 import format from 'date-fns/format';
@@ -13,7 +12,7 @@ import {
     ExclusionDtoInterface,
     ExclusionsData,
     ExclusionsModes,
-    ExclusionsTypes
+    ExclusionsTypes,
 } from '../../common/exclusionsConstants';
 import { Service, ServiceCategory, ServiceInterface } from '../../background/exclusions/services/Service';
 import { messenger } from '../../lib/messenger';
@@ -94,7 +93,6 @@ export class ExclusionsStore {
     };
 
     @action setExclusionsData = (exclusionsData: ExclusionsData) => {
-        console.log(exclusionsData);
         this.exclusions = exclusionsData.exclusions;
         this.currentMode = exclusionsData.currentMode;
     };
@@ -117,8 +115,6 @@ export class ExclusionsStore {
             .sort((a: ExclusionDtoInterface, b: ExclusionDtoInterface) => {
                 return a.value > b.value ? 1 : -1;
             });
-
-        console.log([...sortedExclusions].map((e) => toJS(e)));
 
         return sortedExclusions;
     }
@@ -245,8 +241,9 @@ export class ExclusionsStore {
 
     getParentExclusion(exclusion: ExclusionDtoInterface): ExclusionDtoInterface | undefined {
         if (exclusion.type === ExclusionsTypes.Service) {
-            return;
+            return undefined;
         }
+
         return this.exclusions.find((group) => {
             return group.children?.find(({ id }) => exclusion.id === id);
         });
