@@ -22,7 +22,6 @@ export class ExclusionsService {
 
     getExclusions() {
         const exclusions = this.exclusionsTree.getExclusions();
-        console.log(exclusions);
 
         return exclusions;
     }
@@ -153,5 +152,24 @@ export class ExclusionsService {
         await exclusionsManager.current.addExclusions(servicesDomainsWithWildcards);
 
         this.updateTree();
+    }
+
+    /**
+     * Checks if vpn is enabled for url
+     * If this function is called when currentHandler is not set yet it returns true
+     * @param url
+     * @returns {boolean}
+     */
+    isVpnEnabledByUrl(url: string) {
+        if (!exclusionsManager.currentHandler) {
+            return true;
+        }
+
+        const isExcluded = exclusionsManager.currentHandler.isExcluded(url);
+        return exclusionsManager.inverted ? isExcluded : !isExcluded;
+    }
+
+    isInverted() {
+        return exclusionsManager.inverted;
     }
 }

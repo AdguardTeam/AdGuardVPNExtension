@@ -2,14 +2,12 @@ import { nanoid } from 'nanoid';
 import { getDomain } from 'tldts';
 import ipaddr from 'ipaddr.js';
 
-import {
-    ExclusionsModes,
-    ExclusionStates,
-} from '../../../common/exclusionsConstants';
+import { ExclusionsModes, ExclusionStates } from '../../../common/exclusionsConstants';
 import { getHostname } from '../../../lib/helpers';
 // FIXME interfaces to common directory to solve cycle dependency
 // eslint-disable-next-line import/no-cycle
 import { ExclusionInterface, IndexedExclusionsInterface } from './ExclusionsManager';
+import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
 
 /**
  * Here eTld means eTLD + 1
@@ -166,4 +164,33 @@ export class ExclusionsHandler {
         this.exclusions = [];
         await this.updateHandler();
     }
+
+    /**
+     * Returns exclusion by url
+     * @param url
+     * @param includeWildcards
+     */
+    getExclusionsByUrl = (url: string, includeWildcards = true) => {
+        const hostname = getHostname(url);
+        if (!hostname) {
+            return undefined;
+        }
+        return this.exclusions
+            .filter((exclusion) => areHostnamesEqual(hostname, exclusion.hostname)
+                || (includeWildcards && shExpMatch(hostname, exclusion.hostname)));
+    };
+
+    isExcluded = (url: string) => {
+        if (!url) {
+            return false;
+        }
+
+        const exclusions = this.getExclusionsByUrl(url);
+
+        if (!exclusions) {
+            return false;
+        }
+
+        return exclusions.some((exclusion) => exclusion.state === ExclusionStates.Enabled);
+    };
 }
