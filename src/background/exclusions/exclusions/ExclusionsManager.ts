@@ -87,9 +87,9 @@ export class ExclusionsManager {
         // @ts-ignore
         notifier.notifyListeners(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE);
 
-        // const exclusionsData = this.current.getExclusions();
+        const exclusionsData = this.current.getExclusions();
         // const enabledExclusionsList = this.getEnabledExclusionsHostnames(exclusionsData);
-        //
+        debugger;
         // await proxy.setBypassList(enabledExclusionsList, this.inverted);
 
         const exclusionsRepository = {

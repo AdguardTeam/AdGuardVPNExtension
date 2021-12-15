@@ -228,7 +228,7 @@ const messagesHandler = async (message, sender) => {
         }
         case MESSAGES_TYPES.SET_EXCLUSIONS_MODE: {
             const { mode } = data;
-            await exclusions.setCurrentMode(mode);
+            await exclusions.setMode(mode);
             break;
         }
         case MESSAGES_TYPES.REMOVE_EXCLUSION_BY_MODE: {

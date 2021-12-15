@@ -4,7 +4,7 @@ import { exclusionsManager } from './exclusions/ExclusionsManager';
 import { servicesManager } from './services/ServicesManager';
 import { ExclusionsTree } from './ExclusionsTree';
 import { getHostname } from '../../lib/helpers';
-import { ExclusionStates } from '../../common/exclusionsConstants';
+import { ExclusionStates, ExclusionsModes } from '../../common/exclusionsConstants';
 
 export class ExclusionsService {
     exclusionsTree: ExclusionsTree;
@@ -28,6 +28,11 @@ export class ExclusionsService {
 
     getMode() {
         return exclusionsManager.current.mode;
+    }
+
+    async setMode(mode: ExclusionsModes) {
+        await exclusionsManager.setCurrentMode(mode);
+        this.updateTree();
     }
 
     updateTree() {
