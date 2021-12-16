@@ -1,0 +1,93 @@
+.exclusions-list {
+
+    &__item {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        padding: 10px 0 10px 30px;
+        border-radius: 5px;
+
+        &:first-child {
+            padding-left: 15px;
+        }
+
+        &.service-exclusion {
+            padding: 10px 0 10px 15px;
+
+            &:first-child {
+                padding-left: 15px !important;
+            }
+        }
+
+        &:hover {
+            background: var(--grayF7);
+
+            & .exclusions-list__item__remove-button {
+                visibility: visible;
+            }
+        }
+
+        &__hostname2 {
+            font-size: 16px;
+            color: var(--gray-base);
+            cursor: default;
+
+            &__status {
+                font-size: 14px;
+                color: var(--gray88);
+                padding-left: 2px;
+            }
+        }
+
+        &__hostname1 {
+            font-size: 16px;
+            color: var(--gray-base);
+            margin-top: 2px;
+            width: 85%;
+            background-image: url("data:image/svg+xml,%3Csvg width='6' height='10' viewBox='0 0 6 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.930664 8.96449L4.99986 5.0349L1.07028 0.965703' stroke='%23A4A4A4' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+            background-position: right center;
+            background-repeat: no-repeat;
+            cursor: pointer;
+        }
+
+        &__remove-button {
+            position: absolute;
+            right: 10px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            visibility: hidden;
+
+            &:hover {
+                filter: brightness(.7);
+            }
+
+            &__icon {
+                width: 24px;
+                height: 24px;
+            }
+        }
+
+        &.useless {
+            opacity: .5;
+        }
+    }
+
+    &__add-subdomain {
+        font-size: 17px;
+        margin: 15px 0 0 28px;
+        padding-left: 36px;
+        background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 12H20' stroke='%2374A352' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M12 4L12 20' stroke='%2374A352' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E%0A");
+        background-repeat: no-repeat;
+        background-position: left center;
+        cursor: pointer;
+    }
+
+    &__reset {
+        margin-top: 25px;
+    }
+}
+
+.hidden {
+    display: none;
+}

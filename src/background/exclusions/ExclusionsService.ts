@@ -71,13 +71,14 @@ export class ExclusionsService {
             return;
         }
 
-        const existingExclusion = exclusionsManager.current.getExclusionsByUrl(hostname);
-        if (existingExclusion) {
-            existingExclusion.forEach((exclusion) => {
-                exclusion.state = ExclusionStates.Enabled;
-            });
-            this.updateTree();
-            return;
+        const existingExclusions = exclusionsManager.current.getExclusionsByUrl(hostname);
+        if (existingExclusions?.length) {
+            for (const exclusion of existingExclusions) {
+                if (exclusion.hostname.includes(hostname)) {
+                    exclusion.state = ExclusionStates.Enabled;
+                    return;
+                }
+            }
         }
 
         if (ipaddr.isValid(hostname)) {
@@ -202,10 +203,12 @@ export class ExclusionsService {
     }
 
     async resetServiceData(id: string) {
-        const service = this.exclusionsTree.getExclusionNode(id);
-        Object.values(service?.children).forEach((child) => {
-            this.addUrlToExclusions(child.value);
-            this.addUrlToExclusions(`*.${child.value}`);
-        })
+        const defaultServiceData = servicesManager.getService(id);
+
+        defaultServiceData?.domains.forEach((domain) => {
+            this.addUrlToExclusions(domain);
+            this.addUrlToExclusions(`*.${domain}`);
+        });
+        this.updateTree();
     }
 }
