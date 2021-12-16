@@ -437,7 +437,10 @@ export class ExclusionsStore {
             return [ domainExclusion, allSubdomainsExclusion, ...subdomainsExclusions ]
                 .filter((exclusion) => exclusion);
         } else {
-            return selectedExclusion.children;
+            return selectedExclusion.children
+                .sort((a, b) => {
+                    return a.value > b.value ? 1 : -1;
+                });
         }
     }
 }
