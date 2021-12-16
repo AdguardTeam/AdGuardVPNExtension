@@ -40,7 +40,7 @@ export interface ServicesInterface {
 
 interface ServiceManagerInterface {
     init: () => Promise<void>;
-    getServices: () => Promise<ServicesInterface>;
+    getServices: () => ServicesInterface;
 }
 
 export class ServicesManager implements ServiceManagerInterface {
