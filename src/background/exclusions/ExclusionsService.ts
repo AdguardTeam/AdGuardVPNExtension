@@ -71,7 +71,15 @@ export class ExclusionsService {
             return;
         }
 
-        // FIXME check if is in the service
+        const existingExclusion = exclusionsManager.current.getExclusionsByUrl(hostname);
+        if (existingExclusion) {
+            existingExclusion.forEach((exclusion) => {
+                exclusion.state = ExclusionStates.Enabled;
+            });
+            this.updateTree();
+            return;
+        }
+
         if (ipaddr.isValid(hostname)) {
             await exclusionsManager.current.addUrlToExclusions(hostname);
         } else {
@@ -194,7 +202,10 @@ export class ExclusionsService {
     }
 
     async resetServiceData(id: string) {
-        exclusionsManager.current.resetServiceData(id);
-        this.updateTree();
+        const service = this.exclusionsTree.getExclusionNode(id);
+        Object.values(service?.children).forEach((child) => {
+            this.addUrlToExclusions(child.value);
+            this.addUrlToExclusions(`*.${child.value}`);
+        })
     }
 }

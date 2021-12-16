@@ -389,6 +389,7 @@ export class ExclusionsStore {
 
     @action resetServiceData = async (serviceId: string) => {
         await messenger.resetServiceData(serviceId);
+        await this.updateExclusionsData();
     };
 
     @action clearExclusionsList = async () => {
