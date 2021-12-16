@@ -420,4 +420,24 @@ export class ExclusionsStore {
     @action importExclusions = async (exclusionsData: ExclusionsDataToImport[]) => {
         await messenger.importExclusionsData(exclusionsData);
     };
+
+    get sortedExclusions() {
+        const selectedExclusion = this.selectedExclusion;
+        if (selectedExclusion.type === ExclusionsTypes.Group) {
+            const domainExclusion = selectedExclusion.children
+                .find(({ value }) => value === selectedExclusion.value) || null;
+
+            const allSubdomainsExclusion = selectedExclusion.children
+                .find(({ value }) => value.startsWith('*.')) || null;
+
+            const subdomainsExclusions = selectedExclusion.children
+                .filter(({ value }) => value !== domainExclusion?.value
+                    && value !== allSubdomainsExclusion?.value);
+
+            return [ domainExclusion, allSubdomainsExclusion, ...subdomainsExclusions ]
+                .filter((exclusion) => exclusion);
+        } else {
+            return selectedExclusion.children;
+        }
+    }
 }

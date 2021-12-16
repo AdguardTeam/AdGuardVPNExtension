@@ -69,7 +69,7 @@ export const ChildrenList = observer(() => {
             </div>
             <div>
                 {
-                    selectedExclusion.children.map((exclusion: ExclusionDtoInterface) => {
+                    exclusionsStore.sortedExclusions.map((exclusion: ExclusionDtoInterface) => {
                         return <ChildrenListItem exclusion={exclusion} key={exclusion.id}/>
                     })
                 }
