@@ -1,8 +1,12 @@
 // FIXME remove eslint rules
 /* eslint-disable max-classes-per-file,no-continue */
 import { ExclusionDtoInterface, ExclusionStates, ExclusionsTypes } from '../../common/exclusionsConstants';
-import { ExclusionsManager, IndexedExclusionsInterface } from './exclusions/ExclusionsManager';
-import { IndexedServicesInterface, ServicesManager, servicesManager } from './services/ServicesManager';
+import { ExclusionInterface, IndexedExclusionsInterface } from './exclusions/ExclusionsManager';
+import {
+    IndexedServicesInterface,
+    ServicesInterface,
+    servicesManager,
+} from './services/ServicesManager';
 import { getETld } from './exclusions/ExclusionsHandler';
 
 class ExclusionDto implements ExclusionDtoInterface {
@@ -185,26 +189,18 @@ export class ExclusionNode {
 export class ExclusionsTree {
     exclusionsTree = new ExclusionNode({ id: 'root', value: 'root' });
 
-    exclusionsManager: ExclusionsManager;
-
-    servicesManager: ServicesManager;
-
-    constructor(
-        exclusionsManager: ExclusionsManager,
-        servicesManager: ServicesManager,
-    ) {
-        this.exclusionsManager = exclusionsManager;
-        this.servicesManager = servicesManager;
-    }
-
-    generateTree() {
+    generateTree({
+        exclusions,
+        indexedExclusions,
+        services,
+        indexedServices,
+    }: {
+        exclusions: ExclusionInterface[];
+        indexedExclusions: IndexedExclusionsInterface;
+        services: ServicesInterface;
+        indexedServices: IndexedServicesInterface;
+    }) {
         this.exclusionsTree = new ExclusionNode({ id: 'root', value: 'root' });
-
-        const indexedServices: IndexedServicesInterface = this.servicesManager.getIndexedServices();
-        // eslint-disable-next-line max-len
-        const indexedExclusions: IndexedExclusionsInterface = this.exclusionsManager.getIndexedExclusions();
-        const exclusions = this.exclusionsManager.getExclusions();
-        const services = this.servicesManager.getServices();
 
         for (let i = 0; i < exclusions.length; i += 1) {
             const exclusion = exclusions[i];

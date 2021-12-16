@@ -8,15 +8,12 @@ import { ExclusionStates, ExclusionsModes } from '../../common/exclusionsConstan
 import { getETld } from './exclusions/ExclusionsHandler';
 
 export class ExclusionsService {
-    exclusionsTree: ExclusionsTree;
-
-    constructor() {
-        this.exclusionsTree = new ExclusionsTree(exclusionsManager, servicesManager);
-    }
+    exclusionsTree = new ExclusionsTree();
 
     async init() {
         await exclusionsManager.init();
         await servicesManager.init();
+
         this.updateTree();
     }
 
@@ -32,11 +29,17 @@ export class ExclusionsService {
 
     async setMode(mode: ExclusionsModes) {
         await exclusionsManager.setCurrentMode(mode);
+
         this.updateTree();
     }
 
     updateTree() {
-        this.exclusionsTree.generateTree();
+        this.exclusionsTree.generateTree({
+            exclusions: exclusionsManager.getExclusions(),
+            indexedExclusions: exclusionsManager.getIndexedExclusions(),
+            services: servicesManager.getServices(),
+            indexedServices: servicesManager.getIndexedServices(),
+        });
     }
 
     /**
@@ -203,9 +206,14 @@ export class ExclusionsService {
 
     async resetServiceData(id: string) {
         const service = this.exclusionsTree.getExclusionNode(id);
-        Object.values(service?.children).forEach((child) => {
+
+        if (!service) {
+            return;
+        }
+
+        Object.values(service.children).forEach((child) => {
             this.addUrlToExclusions(child.value);
             this.addUrlToExclusions(`*.${child.value}`);
-        })
+        });
     }
 }
