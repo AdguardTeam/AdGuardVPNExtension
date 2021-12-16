@@ -247,15 +247,9 @@ const requestSupport = async ({
 };
 
 const getExclusionsServices = async () => {
-    let exclusionsServices;
-    try {
-        exclusionsServices = await vpnApi.getExclusionsServices();
-    } catch (e) {
-        log.error(e);
-        exclusionsServices = {};
-    }
+    const exclusionsServices = await vpnApi.getExclusionsServices();
 
-    const { categories, services } = exclusionsServices;
+    const { categories = [], services = [] } = exclusionsServices;
 
     const processedCategories = categories.reduce((acc, category) => {
         acc[category.id] = category;
@@ -292,13 +286,7 @@ const getExclusionsServices = async () => {
 };
 
 const getExclusionsServicesDomains = async (serviceIds) => {
-    let exclusionServiceDomains;
-    try {
-        exclusionServiceDomains = await vpnApi.getExclusionServiceDomains(serviceIds);
-    } catch (e) {
-        log.error(e);
-        exclusionServiceDomains = [];
-    }
+    const exclusionServiceDomains = await vpnApi.getExclusionServiceDomains(serviceIds);
 
     return exclusionServiceDomains.services
         .map((service) => {

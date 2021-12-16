@@ -1,6 +1,8 @@
 import { Service, ServiceCategory } from './Service';
 import { vpnProvider } from '../../providers/vpnProvider';
 import { ExclusionStates } from '../../../common/exclusionsConstants';
+import browserApi from '../../browserApi';
+import { log } from '../../../lib/logger';
 
 interface RawServiceCategory {
     id: string;
@@ -36,25 +38,50 @@ export interface ServicesInterface {
     [serviceId: string]: Service,
 }
 
-export class ServicesManager {
-    services: ServicesInterface = {};
+interface ServiceManagerInterface {
+    init: () => Promise<void>;
+    getServices: () => ServicesInterface;
+}
 
-    servicesIndex: IndexedServicesInterface = {};
+export class ServicesManager implements ServiceManagerInterface {
+    private services: ServicesInterface | null = null;
 
-    async init() {
-        this.services = await this.updateServices();
-        this.servicesIndex = this.getServicesIndex(this.services);
-    }
+    private servicesIndex: IndexedServicesInterface | null = null;
+
+    private lastUpdateTimeMs: number | null = null;
+
+    // Update once in 24 hours
+    private UPDATE_TIMEOUT_MS = 1000 * 60 * 60 * 24;
+
+    // Key constant for storage
+    private EXCLUSION_SERVICES_STORAGE_KEY = 'exclusions_services';
+
+    public init = async () => {
+        await this.updateServices();
+
+        if (!this.services) {
+            const services = await this.getServicesFromStorage();
+            if (services) {
+                this.setServices(services);
+            }
+        }
+    };
 
     /**
      * Returns services data
      */
-    getServices(): ServicesInterface {
-        return this.services;
+    getServices() {
+        this.updateServices();
+        return this.services ?? {};
     }
 
     getService(id: string): Service | null {
+        if (!this.services) {
+            return null;
+        }
+
         const service = this.services[id];
+
         if (!service) {
             return null;
         }
@@ -63,7 +90,7 @@ export class ServicesManager {
     }
 
     getIndexedServices() {
-        return this.servicesIndex;
+        return this.servicesIndex ?? {};
     }
 
     /**
@@ -84,6 +111,12 @@ export class ServicesManager {
      * Returns services data for list
      */
     getServicesDto(): ServiceDto[] {
+        this.updateServices();
+
+        if (!this.services) {
+            return [];
+        }
+
         return Object.values(this.services).map((service) => {
             return {
                 serviceId: service.serviceId,
@@ -94,13 +127,36 @@ export class ServicesManager {
         });
     }
 
-    // FIXME
-    //  - fetch services from backend
-    //  - handle persistence
-    //  - or from storage
+    setServices(services: ServicesInterface) {
+        this.services = services;
+        this.servicesIndex = this.getServicesIndex(services);
+    }
+
     async updateServices() {
-        const services:Service[] = [];
+        const shouldUpdate = this.lastUpdateTimeMs === null
+            || (Date.now() - this.lastUpdateTimeMs) > this.UPDATE_TIMEOUT_MS;
+
+        if (!shouldUpdate) {
+            return;
+        }
+
+        try {
+            const services = await this.getServicesFromServer();
+            await this.saveServicesInStorage(services);
+            this.setServices(services);
+            this.lastUpdateTimeMs = Date.now();
+        } catch (e: any) {
+            log.error(new Error(`Was unable to get services due to: ${e.message}`));
+        }
+    }
+
+    /**
+     * Gets exclusions services from server
+     */
+    async getServicesFromServer() {
+        const services: ServicesInterface = {};
         const rawExclusionServices = await vpnProvider.getExclusionsServices();
+
         const {
             services: rawServices,
             categories: rawCategories,
@@ -117,13 +173,22 @@ export class ServicesManager {
             const { domains } = servicesDomains[rawService.serviceId];
             const service = new Service({ ...rawService, categories, domains });
 
-            services.push(service);
+            services[service.serviceId] = service;
         });
 
-        return services.reduce((acc: ServicesInterface, service) => {
-            acc[service.serviceId] = service;
-            return acc;
-        }, {});
+        return services;
+    }
+
+    async saveServicesInStorage(services: ServicesInterface): Promise<void> {
+        await browserApi.storage.set(this.EXCLUSION_SERVICES_STORAGE_KEY, services);
+    }
+
+    async getServicesFromStorage(): Promise<ServicesInterface> {
+        const services = await browserApi.storage.get(
+            this.EXCLUSION_SERVICES_STORAGE_KEY,
+        ) as ServicesInterface;
+
+        return services ?? null;
     }
 }
 
