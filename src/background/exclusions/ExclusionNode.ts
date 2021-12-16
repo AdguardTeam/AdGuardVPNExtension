@@ -130,6 +130,33 @@ export class ExclusionNode {
         return null;
     }
 
+    getParentExclusionNode(id: string): ExclusionNode | null {
+        if (this.id === id) {
+            return null;
+        }
+        const children = Object.values(this.children);
+        return this.findParentNode(children, id) || null;
+    }
+
+    findParentNode(children: ExclusionNode[], id: string): ExclusionNode | undefined {
+        for (let i = 0; i < children.length; i += 1) {
+            const child = children[i];
+
+            if (child.id === id) {
+                return this;
+            }
+
+            if (Object.values(child.children).some((exclusion) => exclusion?.id === id)) {
+                return child;
+            } else {
+                const parentNode = this.findParentNode(Object.values(child.children), id)
+                if (parentNode) {
+                    return parentNode;
+                }
+            }
+        }
+    }
+
     getExclusionNodeState(id: string): ExclusionStates | null {
         const foundNode = this.getExclusionNode(id);
         if (foundNode) {

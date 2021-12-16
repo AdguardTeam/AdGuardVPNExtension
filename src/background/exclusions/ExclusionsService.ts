@@ -106,7 +106,14 @@ export class ExclusionsService {
 
     async removeExclusion(id: string) {
         const exclusionsToRemove = this.exclusionsTree.getPathExclusions(id);
-        await exclusionsManager.current.removeExclusions(exclusionsToRemove);
+        const exclusionNode = this.exclusionsTree.getExclusionNode(id);
+        const parentNode = this.exclusionsTree.getParentExclusionNode(id);
+
+        if (parentNode && parentNode.value === exclusionNode?.value) {
+            await this.removeExclusion(parentNode.id);
+        } else {
+            await exclusionsManager.current.removeExclusions(exclusionsToRemove);
+        }
 
         this.updateTree();
     }

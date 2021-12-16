@@ -255,7 +255,7 @@ export class ExclusionsStore {
         });
     };
 
-    @action setSelectedExclusionId = (id: string) => {
+    @action setSelectedExclusionId = (id: string | null) => {
         this.selectedExclusionId = id;
     };
 
@@ -438,7 +438,7 @@ export class ExclusionsStore {
                 .filter((exclusion) => exclusion);
         } else {
             return selectedExclusion.children
-                .sort((a, b) => {
+                ?.sort((a, b) => {
                     return a.value > b.value ? 1 : -1;
                 });
         }

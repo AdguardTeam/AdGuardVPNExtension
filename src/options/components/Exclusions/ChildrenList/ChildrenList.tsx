@@ -52,6 +52,18 @@ export const ChildrenList = observer(() => {
         { hidden: selectedExclusion.type !== ExclusionsTypes.Group },
     );
 
+    const renderExclusions = () => {
+        if (!exclusionsStore.sortedExclusions?.length) {
+            exclusionsStore.setSelectedExclusionId(null);
+            return;
+        }
+        return exclusionsStore.sortedExclusions.map((exclusion) => {
+            if (exclusion) {
+                return <ChildrenListItem exclusion={exclusion} key={exclusion.id} />
+            }
+        })
+    }
+
     return (
         <>
             <div className="children-list__title">
@@ -68,11 +80,7 @@ export const ChildrenList = observer(() => {
                 </div>
             </div>
             <div>
-                {
-                    exclusionsStore.sortedExclusions.map((exclusion: ExclusionDtoInterface) => {
-                        return <ChildrenListItem exclusion={exclusion} key={exclusion.id}/>
-                    })
-                }
+                {renderExclusions()}
             </div>
             <button
                 type="button"

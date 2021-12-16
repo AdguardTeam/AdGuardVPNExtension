@@ -104,4 +104,8 @@ export class ExclusionsTree {
     getExclusionNode(id: string) {
         return this.exclusionsTree.getExclusionNode(id);
     }
+
+    getParentExclusionNode(id: string) {
+        return this.exclusionsTree.getParentExclusionNode(id);
+    }
 }
