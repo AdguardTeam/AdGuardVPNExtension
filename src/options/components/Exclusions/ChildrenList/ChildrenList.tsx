@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import { rootStore } from '../../../stores';
 import { Title } from '../../ui/Title';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { ExclusionDtoInterface, ExclusionsModes, ExclusionsTypes } from '../../../../common/exclusionsConstants';
+import { ExclusionsModes, ExclusionsTypes } from '../../../../common/exclusionsConstants';
 import { ChildrenListItem } from './ChildrenListItem';
 import { SubdomainModal } from './SubdomainModal';
 

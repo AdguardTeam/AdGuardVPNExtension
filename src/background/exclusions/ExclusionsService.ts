@@ -5,7 +5,7 @@ import { servicesManager } from './services/ServicesManager';
 import { ExclusionsTree } from './ExclusionsTree';
 import { getHostname } from '../../lib/helpers';
 import { ExclusionStates, ExclusionsModes } from '../../common/exclusionsConstants';
-import { getETld } from './exclusions/ExclusionsHandler';
+import { getETld, getSubdomain } from './exclusions/ExclusionsHandler';
 
 export class ExclusionsService {
     exclusionsTree = new ExclusionsTree();
@@ -92,11 +92,19 @@ export class ExclusionsService {
                 return;
             }
 
+            const subdomain = getSubdomain(hostname, eTld);
+
             if (exclusionsManager.current.hasETld(eTld)) {
                 await exclusionsManager.current.addExclusions([hostname]);
             } else {
-                const wildcardHostname = `*.${hostname}`;
-                await exclusionsManager.current.addExclusions([hostname, wildcardHostname]);
+                if (subdomain) {
+                    const wildcardHostname = `*.${eTld}`;
+                    const subdomainHostname = `${subdomain}${eTld}`;
+                    await exclusionsManager.current.addExclusions([eTld, wildcardHostname, subdomainHostname]);
+                } else {
+                    const wildcardHostname = `*.${hostname}`;
+                    await exclusionsManager.current.addExclusions([hostname, wildcardHostname]);
+                }
             }
         }
 
