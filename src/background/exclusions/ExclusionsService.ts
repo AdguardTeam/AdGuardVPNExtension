@@ -67,7 +67,6 @@ export class ExclusionsService {
 
     async addUrlToExclusions(url: string) {
         // FIXME remove knowledge about current
-        // check if domain is in the service, or group
         const hostname = getHostname(url);
 
         if (!hostname) {

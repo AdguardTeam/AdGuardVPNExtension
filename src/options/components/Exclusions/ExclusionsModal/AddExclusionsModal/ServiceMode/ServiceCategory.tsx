@@ -8,13 +8,13 @@ import { PreparedServiceCategory } from '../../../../../stores/ExclusionsStore';
 import { containsIgnoreCase } from '../../../Search/SearchHighlighter/helpers';
 
 import s from './service-category.module.pcss';
-import { toJS } from 'mobx';
 
 export interface ServiceCategoryProps {
     category: PreparedServiceCategory;
+    emptySearchHandler: (value: boolean) => void;
 }
 
-export const ServiceCategory = observer(({ category }: ServiceCategoryProps) => {
+export const ServiceCategory = observer(({ category, emptySearchHandler }: ServiceCategoryProps) => {
     const { exclusionsStore } = useContext(rootStore);
     const { services } = exclusionsStore.preparedServicesData;
 
@@ -28,6 +28,8 @@ export const ServiceCategory = observer(({ category }: ServiceCategoryProps) => 
 
         return containsIgnoreCase(service.serviceName, exclusionsStore.servicesSearchValue);
     });
+
+    emptySearchHandler(exclusionsStore.servicesSearchValue && !filteredServices.length);
 
     const handleClickOnCategory = () => {
         exclusionsStore.toggleCategoryVisibility(category.id);
