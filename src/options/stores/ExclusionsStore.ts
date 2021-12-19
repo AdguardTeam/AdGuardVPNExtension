@@ -201,7 +201,8 @@ export class ExclusionsStore {
     }
 
     @action addUrlToExclusions = async (url: string) => {
-        await messenger.addUrlToExclusions(url);
+        const urlToAdd = url.replace('www.', '');
+        await messenger.addUrlToExclusions(urlToAdd);
     };
 
     @action addSubdomainToExclusions = async (subdomain: string) => {
@@ -219,6 +220,13 @@ export class ExclusionsStore {
         }
 
         const domain = foundExclusion.value;
+
+        if (subdomain.includes(domain)) {
+            const domainToAdd = subdomain.replace('www.', '');
+            await messenger.addUrlToExclusions(domainToAdd);
+            return;
+        }
+
         const domainToAdd = `${subdomain}.${domain}`;
 
         await messenger.addUrlToExclusions(domainToAdd);
