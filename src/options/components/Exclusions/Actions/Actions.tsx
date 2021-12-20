@@ -21,8 +21,8 @@ export const Actions = observer(() => {
 
     const [isMoreActionsMenuOpen, setIsMoreActionsMenuOpen] = useState(false);
 
-    const importEl = useRef(null);
-    const moreActionsMenu = useRef(null);
+    const importEl = useRef<HTMLInputElement>(null);
+    const moreActionsMenu = useRef<HTMLUListElement>(null);
 
     const onAddExclusionClick = () => {
         exclusionsStore.openAddExclusionModal();
@@ -33,8 +33,9 @@ export const Actions = observer(() => {
     };
 
     const onImportExclusionsClick = () => {
-        // @ts-ignore
-        importEl.current.click();
+        if (importEl.current) {
+            importEl.current.click();
+        }
     };
 
     const onRemoveAllClick = async () => {
@@ -46,7 +47,10 @@ export const Actions = observer(() => {
     };
 
     const inputChangeHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        // @ts-ignore
+        if (!e.target.files) {
+            return;
+        }
+
         const [file] = e.target.files;
         e.target.value = '';
 
@@ -60,8 +64,9 @@ export const Actions = observer(() => {
     };
 
     useEffect(() => {
-        // @ts-ignore
-        moreActionsMenu.current.focus();
+        if (moreActionsMenu.current) {
+            moreActionsMenu.current.focus();
+        }
     }, [moreActionsMenu]);
 
     const moreActionsButtonClassnames = classnames('actions__more-actions-button', {
@@ -102,14 +107,15 @@ export const Actions = observer(() => {
                     onBlur={() => setIsMoreActionsMenuOpen(false)}
                 >
                     <li onClick={onExportExclusionsClick}>
-                        {/* TODO disable if there are no exclusions */}
+                        {/* FIXME disable if there are no exclusions */}
                         {reactTranslator.getMessage('settings_exclusions_action_export')}
                     </li>
                     <li onClick={onImportExclusionsClick}>
                         {reactTranslator.getMessage('settings_exclusions_action_import')}
                     </li>
                     <li onClick={onRemoveAllClick}>
-                        {/* TODO disable if there are no exclusions */}
+                        {/* FIXME after remove, add correctly third-level domains */}
+                        {/* FIXME disable if there are no exclusions */}
                         {reactTranslator.getMessage('settings_exclusions_action_remove_all')}
                     </li>
                 </ul>

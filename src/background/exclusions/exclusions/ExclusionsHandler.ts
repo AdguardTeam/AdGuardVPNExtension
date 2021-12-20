@@ -193,6 +193,8 @@ export class ExclusionsHandler {
 
     async clearExclusionsData() {
         this.exclusions = [];
+        this.exclusionsIndex = this.getExclusionsIndex(this.exclusions);
+
         await this.updateHandler();
     }
 

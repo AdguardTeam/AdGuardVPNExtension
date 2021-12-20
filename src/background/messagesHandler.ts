@@ -321,6 +321,12 @@ const messagesHandler = async (message, sender) => {
             const { key, value } = data;
             return flagsStorage.set(key, value);
         }
+        case MESSAGES_TYPES.GET_REGULAR_EXCLUSIONS: {
+            return exclusions.getRegularExclusions();
+        }
+        case MESSAGES_TYPES.GET_SELECTIVE_EXCLUSIONS: {
+            return exclusions.getSelectiveExclusions();
+        }
         default:
             throw new Error(`Unknown message type received: ${type}`);
     }

@@ -1,11 +1,13 @@
 import ipaddr from 'ipaddr.js';
 
-import { exclusionsManager } from './exclusions/ExclusionsManager';
+import { ExclusionInterface, exclusionsManager } from './exclusions/ExclusionsManager';
 import { servicesManager } from './services/ServicesManager';
 import { ExclusionsTree } from './ExclusionsTree';
 import { getHostname } from '../../lib/helpers';
 import { ExclusionsModes, ExclusionStates } from '../../common/exclusionsConstants';
 import { getETld, getSubdomain } from './exclusions/ExclusionsHandler';
+import { exclusions } from './index';
+import { identity } from 'lodash';
 
 export class ExclusionsService {
     exclusionsTree = new ExclusionsTree();
@@ -246,5 +248,33 @@ export class ExclusionsService {
             this.addUrlToExclusions(`*.${domain}`);
         });
         this.updateTree();
+    }
+
+    // FIXME consider moving this function to the separate service
+    prepareExclusionsForExport(exclusions: ExclusionInterface[]) {
+        return exclusions.map((ex) => {
+            if (ex.state === ExclusionStates.Enabled) {
+                return ex.hostname;
+            }
+            return null;
+        })
+            .filter(identity)
+            .join('\n');
+    }
+
+    /**
+     * Returns regular exclusions for export
+     */
+    getRegularExclusions() {
+        const exclusions = exclusionsManager.regular.getExclusions();
+        return this.prepareExclusionsForExport(exclusions);
+    }
+
+    /**
+     * Returns selective exclusions for export
+     */
+    getSelectiveExclusions() {
+        const exclusions = exclusionsManager.selective.getExclusions();
+        return this.prepareExclusionsForExport(exclusions);
     }
 }
