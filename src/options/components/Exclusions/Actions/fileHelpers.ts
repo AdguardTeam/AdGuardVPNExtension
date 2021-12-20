@@ -9,11 +9,11 @@ const EXCLUSIONS_FILES_MARKERS = {
     TXT: '.txt',
 };
 
-export const EXCLUSION_DATA_TYPES = {
-    REGULAR: 'regular',
-    SELECTIVE: 'selective',
-    TXT: 'txt',
-};
+export enum ExclusionDataTypes {
+    Regular = 'Regular',
+    Selective = 'Selective',
+    Txt = 'Txt',
+}
 
 const readFile = (file: Blob) => {
     return new Promise((resolve, reject) => {
@@ -72,7 +72,7 @@ const readZipFile = async (file: File) => {
         // https://stuk.github.io/jszip/documentation/api_zipobject/async.html
         const regularExclusionsString = await regularExclusionsFile.async('text');
         resultExclusions.push({
-            type: EXCLUSION_DATA_TYPES.REGULAR,
+            type: ExclusionDataTypes.Regular,
             content: regularExclusionsString,
         });
     }
@@ -81,7 +81,7 @@ const readZipFile = async (file: File) => {
         // https://stuk.github.io/jszip/documentation/api_zipobject/async.html
         const selectiveExclusionsString = await selectiveExclusionsFile.async('text');
         resultExclusions.push({
-            type: EXCLUSION_DATA_TYPES.SELECTIVE,
+            type: ExclusionDataTypes.Selective,
             content: selectiveExclusionsString,
         });
     }
@@ -94,17 +94,17 @@ export const readExclusionsFile = async (file: File) => {
     switch (true) {
         case (fileName.endsWith(`.${EXCLUSIONS_FILES_MARKERS.REGULAR}`)
             || fileName === EXCLUSIONS_FILES_MARKERS.REGULAR): {
-            return [{ type: EXCLUSION_DATA_TYPES.REGULAR, content: await readFile(file) }];
+            return [{ type: ExclusionDataTypes.Regular, content: await readFile(file) }];
         }
         case (fileName.endsWith(`.${EXCLUSIONS_FILES_MARKERS.SELECTIVE}`)
             || fileName === EXCLUSIONS_FILES_MARKERS.SELECTIVE): {
-            return [{ type: EXCLUSION_DATA_TYPES.SELECTIVE, content: await readFile(file) }];
+            return [{ type: ExclusionDataTypes.Selective, content: await readFile(file) }];
         }
         case (fileName.endsWith(EXCLUSIONS_FILES_MARKERS.ZIP)): {
             return readZipFile(file);
         }
         case (fileName.endsWith(EXCLUSIONS_FILES_MARKERS.TXT)): {
-            return [{ type: EXCLUSION_DATA_TYPES.TXT, content: await readFile(file) }];
+            return [{ type: ExclusionDataTypes.Txt, content: await readFile(file) }];
         }
         default: {
             const errorMessage = translator.getMessage(

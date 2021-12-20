@@ -6,15 +6,34 @@ import React, {
 } from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
+import punycode from 'punycode/punycode';
+import { identity } from 'lodash';
 
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { RemoveAllModal } from './RemoveAllModal';
-import { readExclusionsFile } from './fileHelpers';
+import { ExclusionDataTypes, readExclusionsFile } from './fileHelpers';
 import { translator } from '../../../../common/translator';
 import { ExclusionsDataToImport } from '../../../../background/exclusions/exclusions/ExclusionsManager';
+import { isValidExclusion } from '../../../../lib/string-utils';
 
 import './actions.pcss';
+import { log } from '../../../../lib/logger';
+
+const prepareExclusionsAfterImport = (exclusionsString: string) => {
+    return exclusionsString
+        .split('\n')
+        .map((str) => str.trim())
+        .filter(identity)
+        .filter((exclusionStr) => {
+            if (isValidExclusion(exclusionStr)) {
+                return true;
+            }
+            log.debug(`Invalid exclusion: ${exclusionStr}`);
+            return false;
+        })
+        .reverse();
+};
 
 export const Actions = observer(() => {
     const { exclusionsStore, notificationsStore } = useContext(rootStore);
@@ -46,6 +65,27 @@ export const Actions = observer(() => {
         setIsMoreActionsMenuOpen(!isMoreActionsMenuOpen);
     };
 
+
+    const handleExclusionsData = async (exclusionsData) => {
+        const txtExclusionsData = exclusionsData.find((d) => d.type === ExclusionDataTypes.Txt);
+        if (txtExclusionsData) {
+            return handleTxtExclusionsData(txtExclusionsData.content);
+        }
+
+        let addedExclusions = 0;
+
+        for (let i = 0; i < exclusionsData.length; i += 1) {
+            const { type, content } = exclusionsData[i];
+            if (type === ExclusionDataTypes.Regular) {
+                addedExclusions += await handleRegularExclusionsString(content);
+            } else if (type === ExclusionDataTypes.Selective) {
+                addedExclusions += await handleSelectiveExclusionsString(content);
+            }
+        }
+
+        return addedExclusions;
+    };
+
     const inputChangeHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files) {
             return;
@@ -56,8 +96,13 @@ export const Actions = observer(() => {
 
         try {
             const exclusionsData = await readExclusionsFile(file);
-            await exclusionsStore.importExclusions(exclusionsData as ExclusionsDataToImport[]);
-            notificationsStore.notifySuccess(translator.getMessage('options_exclusions_import_successful'));
+            const exclusionsAdded = await handleExclusionsData(exclusionsData);
+            if (exclusionsAdded !== null) {
+                notificationsStore.notifySuccess(translator.getMessage(
+                    'options_exclusions_import_successful',
+                    { count: exclusionsAdded },
+                ));
+            }
         } catch (e: any) {
             notificationsStore.notifyError(e.message);
         }
@@ -114,7 +159,6 @@ export const Actions = observer(() => {
                         {reactTranslator.getMessage('settings_exclusions_action_import')}
                     </li>
                     <li onClick={onRemoveAllClick}>
-                        {/* FIXME after remove, add correctly third-level domains */}
                         {/* FIXME disable if there are no exclusions */}
                         {reactTranslator.getMessage('settings_exclusions_action_remove_all')}
                     </li>
