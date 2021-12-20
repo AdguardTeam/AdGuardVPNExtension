@@ -3,8 +3,7 @@ import { nanoid } from 'nanoid';
 
 import { MESSAGES_TYPES } from './constants';
 import { log } from './logger';
-import { ExclusionsModes, ExclusionsTypes } from '../common/exclusionsConstants';
-import { ExclusionsDataToImport } from '../background/exclusions/Exclusions';
+import { ExclusionsModes } from '../common/exclusionsConstants';
 
 class Messenger {
     async sendMessage(type: string, data?: unknown) {
@@ -266,10 +265,11 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async importExclusionsData(exclusionsData: ExclusionsDataToImport[]) {
-        const type = MESSAGES_TYPES.IMPORT_EXCLUSIONS_DATA;
-        return this.sendMessage(type, { exclusionsData });
-    }
+    // FIXME implement
+    // async importExclusionsData(exclusionsData: ExclusionsDataToImport[]) {
+    //     const type = MESSAGES_TYPES.IMPORT_EXCLUSIONS_DATA;
+    //     return this.sendMessage(type, { exclusionsData });
+    // }
 
     async checkEmail(email: string) {
         const type = MESSAGES_TYPES.CHECK_EMAIL;

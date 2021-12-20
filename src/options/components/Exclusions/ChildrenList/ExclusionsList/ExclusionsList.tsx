@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
-import { rootStore} from '../../../../stores';
+import { rootStore } from '../../../../stores';
 import { ExclusionDtoInterface, ExclusionsTypes } from '../../../../../common/exclusionsConstants';
 import { SubdomainModal } from '../SubdomainModal';
 import { reactTranslator } from '../../../../../common/reactTranslator';
@@ -12,8 +12,7 @@ import './exclusions-list.pcss';
 
 export const ExclusionsList = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
-
-    const selectedExclusion = exclusionsStore.selectedExclusion;
+    const { selectedExclusion } = exclusionsStore;
 
     const resetServiceData = async () => {
         // TODO reset service data
@@ -41,7 +40,7 @@ export const ExclusionsList = observer(() => {
         <div className="exclusions-list">
             {
                 selectedExclusion.children.map((exclusion: ExclusionDtoInterface) => {
-                    return <ChildrenListItem exclusion={exclusion} />
+                    return <ChildrenListItem exclusion={exclusion} key={exclusion.id} />;
                 })
             }
             <button

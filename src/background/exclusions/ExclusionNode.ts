@@ -135,10 +135,10 @@ export class ExclusionNode {
             return null;
         }
         const children = Object.values(this.children);
-        return this.findParentNode(children, id) || null;
+        return this.findParentNode(children, id);
     }
 
-    findParentNode(children: ExclusionNode[], id: string): ExclusionNode | undefined {
+    findParentNode(children: ExclusionNode[], id: string): ExclusionNode | null {
         for (let i = 0; i < children.length; i += 1) {
             const child = children[i];
 
@@ -148,13 +148,14 @@ export class ExclusionNode {
 
             if (Object.values(child.children).some((exclusion) => exclusion?.id === id)) {
                 return child;
-            } else {
-                const parentNode = this.findParentNode(Object.values(child.children), id)
-                if (parentNode) {
-                    return parentNode;
-                }
+            }
+
+            const parentNode = this.findParentNode(Object.values(child.children), id);
+            if (parentNode) {
+                return parentNode;
             }
         }
+        return null;
     }
 
     getExclusionNodeState(id: string): ExclusionStates | null {

@@ -1,8 +1,8 @@
-import { ExclusionNode } from 'background/exclusions/ExclusionNode';
+// import { ExclusionNode } from 'background/exclusions/ExclusionNode';
 import { nanoid } from 'nanoid';
 
-import { ExclusionsTree } from '../../../src/background/exclusions/ExclusionsTree';
-import { ExclusionStates } from '../../../src/common/exclusionsConstants';
+// import { ExclusionsTree } from '../../../src/background/exclusions/ExclusionsTree';
+// import { ExclusionStates } from '../../../src/common/exclusionsConstants';
 import clearAllMocks = jest.clearAllMocks;
 
 jest.mock('nanoid');
@@ -23,31 +23,31 @@ describe('ExclusionsTree', () => {
     });
 
     it('generate exclusions which are in the service', () => {
-        const exclusions = [
-            { id: '1', hostname: 'example.org', state: ExclusionStates.Enabled },
-            { id: '2', hostname: '*.example.org', state: ExclusionStates.Enabled },
-        ];
-
-        const services = {
-            services: {
-                '1_service': {
-                    id: '1_service',
-                    name: 'example',
-                    groups: [
-                        {
-                            id: '1_group',
-                            value: 'example.org',
-                        },
-                        {
-                            id: '2_group',
-                            value: 'example.net',
-                        },
-                    ],
-                },
-            },
-            'example.org': '1_service',
-            '*.example.org': '1_service',
-        };
+        // const exclusions = [
+        //     { id: '1', hostname: 'example.org', state: ExclusionStates.Enabled },
+        //     { id: '2', hostname: '*.example.org', state: ExclusionStates.Enabled },
+        // ];
+        //
+        // const services = {
+        //     services: {
+        //         '1_service': {
+        //             id: '1_service',
+        //             name: 'example',
+        //             groups: [
+        //                 {
+        //                     id: '1_group',
+        //                     value: 'example.org',
+        //                 },
+        //                 {
+        //                     id: '2_group',
+        //                     value: 'example.net',
+        //                 },
+        //             ],
+        //         },
+        //     },
+        //     'example.org': '1_service',
+        //     '*.example.org': '1_service',
+        // };
 
         // FIXME fix test
         expect(1).toEqual(1);
@@ -92,27 +92,27 @@ describe('ExclusionsTree', () => {
     });
 
     it('generate exclusions which are not in the service', () => {
-        const exclusions = [
-            { id: '1', hostname: 'example.org', state: ExclusionStates.Enabled },
-            { id: '2', hostname: 'example.net', state: ExclusionStates.Enabled },
-        ];
-
-        const services = {
-            services: {
-                '1_service': {
-                    id: '1_service',
-                    name: 'example',
-                    groups: [
-                        {
-                            id: '1_group',
-                            value: 'example.org',
-                        },
-                    ],
-                },
-            },
-            'example.org': '1_service',
-            '*.example.org': '1_service',
-        };
+        // const exclusions = [
+        //     { id: '1', hostname: 'example.org', state: ExclusionStates.Enabled },
+        //     { id: '2', hostname: 'example.net', state: ExclusionStates.Enabled },
+        // ];
+        //
+        // const services = {
+        //     services: {
+        //         '1_service': {
+        //             id: '1_service',
+        //             name: 'example',
+        //             groups: [
+        //                 {
+        //                     id: '1_group',
+        //                     value: 'example.org',
+        //                 },
+        //             ],
+        //         },
+        //     },
+        //     'example.org': '1_service',
+        //     '*.example.org': '1_service',
+        // };
 
         // FIXME fix test
         expect(1).toEqual(1);

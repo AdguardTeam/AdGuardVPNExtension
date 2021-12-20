@@ -133,7 +133,7 @@ export class AuthStore {
         this.isSocialAuth = flagsStorageData[FLAGS_FIELDS.IS_SOCIAL_AUTH];
         this.showOnboarding = flagsStorageData[FLAGS_FIELDS.SHOW_ONBOARDING];
         this.showUpgradeScreen = flagsStorageData[FLAGS_FIELDS.SHOW_UPGRADE_SCREEN];
-    }
+    };
 
     @action setShowOnboarding = async (value) => {
         await messenger.setFlag(FLAGS_FIELDS.SHOW_ONBOARDING, value);
@@ -149,8 +149,7 @@ export class AuthStore {
         });
     };
 
-    @action
-    setIsFirstRun = (value) => {
+    @action setIsFirstRun = (value) => {
         this.isFirstRun = value;
     };
 

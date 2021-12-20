@@ -128,19 +128,19 @@ describe('ServicesManager tests', () => {
         const servicesData = await servicesManager.getServices();
 
         expect(Object.values(servicesData)).toHaveLength(5);
-        expect(JSON.stringify(servicesData['aliexpress']))
+        expect(JSON.stringify(servicesData.aliexpress))
             .toStrictEqual(JSON.stringify(ALIEXPRESS_SERVICE_DATA));
-        expect(servicesData['amazon'].serviceId).toEqual('amazon');
-        expect(servicesData['amazon'].categories[0].id).toEqual('SHOP');
-        expect(servicesData['amazon'].categories[0].name).toEqual('Shopping');
-        expect(servicesData['amazon'].domains).toHaveLength(27);
-        expect(servicesData['amazon'].domains[0]).toEqual('a2z.com');
-        expect(servicesData['amazonvideo'].serviceId).toEqual('amazonvideo');
-        expect(servicesData['amazonvideo'].domains).toHaveLength(9);
-        expect(servicesData['atlassian'].serviceId).toEqual('atlassian');
-        expect(servicesData['atlassian'].domains).toHaveLength(3);
-        expect(servicesData['baidu'].serviceId).toEqual('baidu');
-        expect(servicesData['baidu'].domains).toHaveLength(11);
+        expect(servicesData.amazon.serviceId).toEqual('amazon');
+        expect(servicesData.amazon.categories[0].id).toEqual('SHOP');
+        expect(servicesData.amazon.categories[0].name).toEqual('Shopping');
+        expect(servicesData.amazon.domains).toHaveLength(27);
+        expect(servicesData.amazon.domains[0]).toEqual('a2z.com');
+        expect(servicesData.amazonvideo.serviceId).toEqual('amazonvideo');
+        expect(servicesData.amazonvideo.domains).toHaveLength(9);
+        expect(servicesData.atlassian.serviceId).toEqual('atlassian');
+        expect(servicesData.atlassian.domains).toHaveLength(3);
+        expect(servicesData.baidu.serviceId).toEqual('baidu');
+        expect(servicesData.baidu.domains).toHaveLength(11);
     });
 
     it('test setServices and getService', async () => {

@@ -10,11 +10,11 @@ export const ServicesList = observer(() => {
 
     const { categories } = exclusionsStore.preparedServicesData;
 
-    const [ emptySearch, setEmptySearch ] = useState(false);
+    const [emptySearch, setEmptySearch] = useState(false);
 
     const emptySearchHandler = (value: boolean) => {
         setEmptySearch(value);
-    }
+    };
 
     if (exclusionsStore.servicesSearchValue && emptySearch) {
         return (

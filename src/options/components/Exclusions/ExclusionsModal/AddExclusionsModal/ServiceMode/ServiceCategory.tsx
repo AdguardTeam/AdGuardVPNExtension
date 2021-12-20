@@ -14,7 +14,10 @@ export interface ServiceCategoryProps {
     emptySearchHandler: (value: boolean) => void;
 }
 
-export const ServiceCategory = observer(({ category, emptySearchHandler }: ServiceCategoryProps) => {
+export const ServiceCategory = observer(({
+    category,
+    emptySearchHandler,
+}: ServiceCategoryProps) => {
     const { exclusionsStore } = useContext(rootStore);
     const { services } = exclusionsStore.preparedServicesData;
 

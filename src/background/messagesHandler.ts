@@ -153,7 +153,6 @@ const messagesHandler = async (message, sender) => {
             try {
                 return await exclusions.addUrlToExclusions(url);
             } catch (e) {
-                console.log(e);
                 throw new Error(e.message);
             }
         }

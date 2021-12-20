@@ -11,11 +11,9 @@ import { SubdomainModal } from './SubdomainModal';
 
 import './children-list.pcss';
 
-
 export const ChildrenList = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
-
-    const selectedExclusion = exclusionsStore.selectedExclusion;
+    const { selectedExclusion } = exclusionsStore;
 
     if (selectedExclusion.children?.length === 0) {
         return null;
@@ -28,7 +26,7 @@ export const ChildrenList = observer(() => {
 
     const goBackHandler = () => {
         exclusionsStore.goBackHandler();
-    }
+    };
 
     const resetServiceData = (id: string) => () => {
         exclusionsStore.resetServiceData(id);
@@ -57,12 +55,13 @@ export const ChildrenList = observer(() => {
             exclusionsStore.setSelectedExclusionId(null);
             return;
         }
+        // eslint-disable-next-line
         return exclusionsStore.sortedExclusions.map((exclusion) => {
             if (exclusion) {
-                return <ChildrenListItem exclusion={exclusion} key={exclusion.id} />
+                return <ChildrenListItem exclusion={exclusion} key={exclusion.id} />;
             }
-        })
-    }
+        });
+    };
 
     return (
         <>

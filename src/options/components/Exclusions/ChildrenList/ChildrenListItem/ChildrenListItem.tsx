@@ -19,8 +19,7 @@ interface ChildrenListItemProps {
 
 export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) => {
     const { exclusionsStore } = useContext(rootStore);
-
-    const selectedExclusion = exclusionsStore.selectedExclusion;
+    const { selectedExclusion } = exclusionsStore;
 
     const toggleState = (id: string) => () => {
         exclusionsStore.toggleExclusionState(id);
@@ -65,16 +64,15 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
                     {exclusion.value}
                 </div>
             );
-        } else {
-            return (
-                <div className="children-list-item__group-hostname">
-                    {exclusion.value}
-                    <div className="children-list-item__group-hostname__status">
-                        {getExclusionStatus(exclusion.value)}
-                    </div>
-                </div>
-            );
         }
+        return (
+            <div className="children-list-item__group-hostname">
+                {exclusion.value}
+                <div className="children-list-item__group-hostname__status">
+                    {getExclusionStatus(exclusion.value)}
+                </div>
+            </div>
+        );
     };
 
     return (
