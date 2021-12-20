@@ -54,7 +54,7 @@ export const SubdomainModal = observer(() => {
                         onChange={(e) => setInputValue(e.target.value)}
                     />
                     <div className="subdomain-modal__hostname">
-                        {exclusionsStore.selectedExclusion.value}
+                        {exclusionsStore.selectedExclusion?.value}
                     </div>
                 </label>
                 <div className="subdomain-modal__actions">
