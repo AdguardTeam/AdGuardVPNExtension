@@ -1,3 +1,4 @@
+/* tslint:disable */
 import browser from 'webextension-polyfill';
 
 import { MESSAGES_TYPES, SETTINGS_IDS } from '../lib/constants';

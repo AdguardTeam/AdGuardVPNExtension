@@ -203,58 +203,6 @@ class Messenger {
         return this.sendMessage(type, { url });
     }
 
-    async toggleSubdomainStateInExclusionsGroup(exclusionsGroupId: string, subdomainId: string) {
-        const type = MESSAGES_TYPES.TOGGLE_SUBDOMAIN_STATE_IN_EXCLUSIONS_GROUP;
-        return this.sendMessage(type, { exclusionsGroupId, subdomainId });
-    }
-
-    async removeSubdomainFromExclusionsGroup(exclusionsGroupId: string, subdomainId: string) {
-        const type = MESSAGES_TYPES.REMOVE_SUBDOMAIN_FROM_EXCLUSIONS_GROUP;
-        return this.sendMessage(type, { exclusionsGroupId, subdomainId });
-    }
-
-    async addSubdomainToExclusionsGroup(exclusionsGroupId: string, subdomain: string) {
-        const type = MESSAGES_TYPES.ADD_SUBDOMAIN_TO_EXCLUSIONS_GROUP;
-        return this.sendMessage(type, { exclusionsGroupId, subdomain });
-    }
-
-    async removeExclusionsGroupFromService(serviceId: string, exclusionsGroupId: string) {
-        const type = MESSAGES_TYPES.REMOVE_EXCLUSIONS_GROUP_FROM_SERVICE;
-        return this.sendMessage(type, { serviceId, exclusionsGroupId });
-    }
-
-    async toggleExclusionsGroupStateInService(serviceId: string, exclusionsGroupId: string) {
-        const type = MESSAGES_TYPES.TOGGLE_EXCLUSIONS_GROUP_STATE_IN_SERVICE;
-        return this.sendMessage(type, { serviceId, exclusionsGroupId });
-    }
-
-    async removeSubdomainFromExclusionsGroupInService(
-        serviceId: string,
-        exclusionsGroupId: string,
-        subdomainId: string,
-    ) {
-        const type = MESSAGES_TYPES.REMOVE_SUBDOMAIN_FROM_EXCLUSIONS_GROUP_IN_SERVICE;
-        return this.sendMessage(type, { serviceId, exclusionsGroupId, subdomainId });
-    }
-
-    async toggleSubdomainStateInExclusionsGroupInService(
-        serviceId: string,
-        exclusionsGroupId: string,
-        subdomainId: string,
-    ) {
-        const type = MESSAGES_TYPES.TOGGLE_SUBDOMAIN_IN_EXCLUSIONS_GROUP_IN_SERVICE;
-        return this.sendMessage(type, { serviceId, exclusionsGroupId, subdomainId });
-    }
-
-    async addSubdomainToExclusionsGroupInService(
-        serviceId: string,
-        exclusionsGroupId: string,
-        subdomain: string,
-    ) {
-        const type = MESSAGES_TYPES.ADD_SUBDOMAIN_TO_EXCLUSIONS_GROUP_IN_SERVICE;
-        return this.sendMessage(type, { serviceId, exclusionsGroupId, subdomain });
-    }
-
     async resetServiceData(serviceId: string) {
         const type = MESSAGES_TYPES.RESET_SERVICE_DATA;
         return this.sendMessage(type, { serviceId });

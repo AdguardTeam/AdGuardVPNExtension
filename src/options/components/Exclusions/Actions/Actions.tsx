@@ -10,9 +10,9 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { RemoveAllModal } from './RemoveAllModal';
-import { readExclusionsFile } from './fileHelpers';
+// import { readExclusionsFile } from './fileHelpers';
 import { translator } from '../../../../common/translator';
-import { ExclusionsDataToImport } from '../../../../background/exclusions/exclusions/ExclusionsManager';
+// import { ExclusionsDataToImport } from '../../../../background/exclusions/exclusions/ExclusionsManager';
 
 import './actions.pcss';
 
@@ -47,12 +47,13 @@ export const Actions = observer(() => {
 
     const inputChangeHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
         // @ts-ignore
-        const [file] = e.target.files;
+        const [file] = e.target.files; // eslint-disable-line no-unused-vars
         e.target.value = '';
 
         try {
-            const exclusionsData = await readExclusionsFile(file);
-            await exclusionsStore.importExclusions(exclusionsData as ExclusionsDataToImport[]);
+            // FIXME
+            // const exclusionsData = await readExclusionsFile(file);
+            // await exclusionsStore.importExclusions(exclusionsData as ExclusionsDataToImport[]);
             notificationsStore.notifySuccess(translator.getMessage('options_exclusions_import_successful'));
         } catch (e: any) {
             notificationsStore.notifyError(e.message);

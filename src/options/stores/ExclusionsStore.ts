@@ -278,95 +278,16 @@ export class ExclusionsStore {
     }
 
     @action goBackHandler = () => {
-        const parentExclusion = this.getParentExclusion(this.selectedExclusion);
-        this.selectedExclusionId = parentExclusion?.id || null;
-    };
-
-    @action toggleSubdomainStateInExclusionsGroup = async (
-        exclusionsGroupId: string,
-        subdomainId: string,
-    ) => {
-        await messenger.toggleSubdomainStateInExclusionsGroup(exclusionsGroupId, subdomainId);
-    };
-
-    @action addSubdomainToExclusionsGroup = async (
-        exclusionsGroupId: string,
-        subdomain: string,
-    ) => {
-        await messenger.addSubdomainToExclusionsGroup(exclusionsGroupId, subdomain);
-    };
-
-    @action toggleExclusionsGroupStateInService = async (
-        serviceId: string,
-        exclusionsGroupId: string,
-    ) => {
-        await messenger.toggleExclusionsGroupStateInService(serviceId, exclusionsGroupId);
-    };
-
-    @action removeExclusionsGroupFromService = async (
-        serviceId: string,
-        exclusionsGroupId: string,
-    ) => {
-        await messenger.removeExclusionsGroupFromService(serviceId, exclusionsGroupId);
-    };
-
-    @action removeSubdomainFromExclusionsGroupInService = async (
-        serviceId: string,
-        exclusionsGroupId:string,
-        subdomainId: string,
-    ) => {
-        const excludedService = this.exclusions.excludedServices
-            .find((service) => service.serviceId === serviceId);
-        if (!excludedService) {
-            throw new Error('Service should be found');
+        if (this.selectedExclusion) {
+            const parentExclusion = this.getParentExclusion(this.selectedExclusion);
+            this.selectedExclusionId = parentExclusion?.id || null;
         }
-
-        const exclusionsGroupToRemove = excludedService.exclusionsGroups
-            .find((group) => group.id === exclusionsGroupId);
-        if (!exclusionsGroupToRemove) {
-            throw new Error('Group should be found');
-        }
-
-        if (exclusionsGroupToRemove.exclusions[0].id === subdomainId) {
-            // show service screen if main domain was removed
-            this.selectedExclusionId = serviceId;
-        }
-
-        await messenger.removeSubdomainFromExclusionsGroupInService(
-            serviceId,
-            exclusionsGroupId,
-            subdomainId,
-        );
-    };
-
-    @action toggleSubdomainStateInExclusionsGroupInService = async (
-        serviceId: string,
-        exclusionsGroupId:string,
-        subdomainId: string,
-    ) => {
-        await messenger.toggleSubdomainStateInExclusionsGroupInService(
-            serviceId,
-            exclusionsGroupId,
-            subdomainId,
-        );
-    };
-
-    @action addSubdomainToExclusionsGroupInService = async (
-        serviceId: string,
-        exclusionsGroupId:string,
-        subdomain: string,
-    ) => {
-        await messenger.addSubdomainToExclusionsGroupInService(
-            serviceId,
-            exclusionsGroupId,
-            subdomain,
-        );
     };
 
     @computed
-    get selectedExclusion(): ExclusionDtoInterface {
+    get selectedExclusion(): ExclusionDtoInterface | null {
         if (!this.selectedExclusionId) {
-            return [];
+            return null;
         }
 
         const foundExclusion = findExclusionById(
@@ -375,7 +296,7 @@ export class ExclusionsStore {
         );
 
         if (!foundExclusion) {
-            return [];
+            return null;
         }
 
         return foundExclusion;
@@ -425,13 +346,14 @@ export class ExclusionsStore {
         FileSaver.saveAs(zipContent, ZIP_FILENAME);
     };
 
-    @action importExclusions = async (exclusionsData: ExclusionsDataToImport[]) => {
-        await messenger.importExclusionsData(exclusionsData);
-    };
+    // FIXME
+    // @action importExclusions = async (exclusionsData: ExclusionsDataToImport[]) => {
+    //     await messenger.importExclusionsData(exclusionsData);
+    // };
 
     get sortedExclusions() {
         const { selectedExclusion } = this;
-        if (selectedExclusion.type === ExclusionsTypes.Group) {
+        if (this.selectedExclusion && selectedExclusion?.type === ExclusionsTypes.Group) {
             const domainExclusion = selectedExclusion.children
                 .find(({ value }) => value === selectedExclusion.value) || null;
 
@@ -445,7 +367,7 @@ export class ExclusionsStore {
             return [domainExclusion, allSubdomainsExclusion, ...subdomainsExclusions]
                 .filter((exclusion) => exclusion);
         }
-        return selectedExclusion.children
+        return selectedExclusion?.children
             ?.sort((a, b) => {
                 return a.value > b.value ? 1 : -1;
             });

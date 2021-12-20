@@ -32,7 +32,7 @@ export const ServiceCategory = observer(({
         return containsIgnoreCase(service.serviceName, exclusionsStore.servicesSearchValue);
     });
 
-    emptySearchHandler(exclusionsStore.servicesSearchValue && !filteredServices.length);
+    emptySearchHandler(!!(exclusionsStore.servicesSearchValue && !filteredServices.length));
 
     const handleClickOnCategory = () => {
         exclusionsStore.toggleCategoryVisibility(category.id);
