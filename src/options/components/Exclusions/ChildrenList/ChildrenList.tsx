@@ -15,7 +15,7 @@ export const ChildrenList = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
     const { selectedExclusion } = exclusionsStore;
 
-    if (selectedExclusion.children?.length === 0) {
+    if (selectedExclusion?.children?.length === 0) {
         return null;
     }
 
@@ -41,13 +41,14 @@ export const ChildrenList = observer(() => {
         'button--medium',
         'button--outline-gray',
         'children-list__reset',
-        { hidden: selectedExclusion.type !== ExclusionsTypes.Service },
+        { visible: selectedExclusion?.type === ExclusionsTypes.Service
+                && !exclusionsStore.isServiceDefaultState(selectedExclusion?.id) },
     );
 
     const addSubdomainButtonClass = classnames(
         'children-list__add-subdomain',
         'simple-button',
-        { hidden: selectedExclusion.type !== ExclusionsTypes.Group },
+        { hidden: selectedExclusion?.type !== ExclusionsTypes.Group },
     );
 
     const renderExclusions = () => {
@@ -73,7 +74,7 @@ export const ChildrenList = observer(() => {
                 </button>
                 <div>
                     <Title
-                        title={selectedExclusion.value}
+                        title={selectedExclusion?.value}
                         subtitle={subtitle as string}
                     />
                 </div>
@@ -84,7 +85,7 @@ export const ChildrenList = observer(() => {
             <button
                 type="button"
                 className={resetButtonClass}
-                onClick={resetServiceData(selectedExclusion.id)}
+                onClick={resetServiceData(selectedExclusion?.id)}
             >
                 {reactTranslator.getMessage('settings_exclusion_reset_to_default')}
             </button>

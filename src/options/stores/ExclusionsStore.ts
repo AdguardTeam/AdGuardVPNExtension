@@ -12,6 +12,7 @@ import {
     ExclusionDtoInterface,
     ExclusionsData,
     ExclusionsModes,
+    ExclusionStates,
     ExclusionsTypes,
 } from '../../common/exclusionsConstants';
 import { Service, ServiceCategory, ServiceInterface } from '../../background/exclusions/services/Service';
@@ -295,11 +296,7 @@ export class ExclusionsStore {
             this.selectedExclusionId,
         );
 
-        if (!foundExclusion) {
-            return null;
-        }
-
-        return foundExclusion;
+        return foundExclusion || null;
     }
 
     @action setExclusionsSearchValue = (value: string) => {
@@ -375,5 +372,30 @@ export class ExclusionsStore {
             ?.sort((a, b) => {
                 return a.value > b.value ? 1 : -1;
             });
+    }
+
+    /**
+     * Checks is services is in default state:
+     * 1. all exclusions groups are presented in service
+     * 2. domain and subdomain pattern exclusions are presented and enabled
+     * @param id
+     */
+    isServiceDefaultState = (id: string) => {
+        const defaultServiceData = this.preparedServicesData?.services[id];
+
+        const isFullChildrenList = this.selectedExclusion?.children?.length === defaultServiceData?.domains.length;
+
+        const isModifiedDomains = this.selectedExclusion?.children.some((child) => {
+            const defaultDomainExclusion = child.children.find((exclusion) => exclusion.value === child.value
+                && exclusion.state === ExclusionStates.Enabled);
+
+            const defaultAllSubdomainExclusion = child.children
+                .find((exclusion) => exclusion.value === `*.${child.value}`
+                    && exclusion.state === ExclusionStates.Enabled);
+
+            return !(defaultDomainExclusion && defaultAllSubdomainExclusion);
+        });
+
+        return isFullChildrenList && !isModifiedDomains;
     }
 }

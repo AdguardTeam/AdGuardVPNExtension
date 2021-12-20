@@ -123,6 +123,7 @@ export class ServicesManager implements ServiceManagerInterface {
                 serviceName: service.serviceName,
                 iconUrl: service.iconUrl,
                 categories: service.categories,
+                domains: service.domains,
             };
         });
     }
