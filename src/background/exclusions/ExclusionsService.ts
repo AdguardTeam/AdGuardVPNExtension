@@ -85,6 +85,13 @@ export class ExclusionsService {
         //     }
         // }
 
+        const existingExclusion = exclusionsManager.current.getExclusionByHostname(hostname);
+        if (existingExclusion) {
+            await exclusionsManager.current.enableExclusion(existingExclusion.id);
+            this.updateTree();
+            return;
+        }
+
         if (ipaddr.isValid(hostname)) {
             await exclusionsManager.current.addUrlToExclusions(hostname);
         } else {

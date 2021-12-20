@@ -133,6 +133,26 @@ export class ExclusionsHandler {
         await this.updateHandler();
     }
 
+    getExclusionByHostname(hostname: string) {
+        return this.exclusions
+            .find((exclusion) => areHostnamesEqual(hostname, exclusion.hostname));
+    }
+
+    async enableExclusion(id: string) {
+        this.exclusions = this.exclusions.map((ex) => {
+            if (ex.id === id) {
+                return {
+                    ...ex,
+                    state: ExclusionStates.Enabled,
+                };
+            }
+            return ex;
+        });
+
+        this.exclusionsIndex = this.getExclusionsIndex(this.exclusions);
+        await this.updateHandler();
+    }
+
     async removeExclusions(ids: string[]) {
         this.exclusions = this.exclusions.filter((exclusion) => {
             return !ids.includes(exclusion.id);
