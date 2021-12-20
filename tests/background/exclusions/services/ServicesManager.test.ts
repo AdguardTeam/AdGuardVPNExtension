@@ -1,11 +1,10 @@
 import { nanoid } from 'nanoid';
 
-import { services } from '../../src/background/exclusions/services/Services';
-import { vpnProvider } from '../../src/background/providers/vpnProvider';
-import { Service } from '../../src/background/exclusions/services/Service';
-import { ExclusionsGroup } from '../../src/background/exclusions/exclusions/ExclusionsGroup';
+import { servicesManager } from '../../../../src/background/exclusions/services/ServicesManager';
+import { vpnProvider } from '../../../../src/background/providers/vpnProvider';
+import { Service } from '../../../../src/background/exclusions/services/Service';
 
-jest.mock('../../src/background/providers/vpnProvider');
+jest.mock('../../../../src/background/providers/vpnProvider');
 jest.mock('nanoid');
 
 const nanoidMock = nanoid as jest.MockedFunction<() => string>;
@@ -101,9 +100,9 @@ const ALIEXPRESS_SERVICE_DATA = new Service({
     }],
     iconUrl: 'https://icons.adguard.org/icon?domain=aliexpress.com',
     modifiedTime: '2021-09-14T10:23:00+0000',
-    exclusionsGroups: [
-        new ExclusionsGroup('aliexpress.com'),
-        new ExclusionsGroup('aliexpress.ru'),
+    domains: [
+        'aliexpress.com',
+        'aliexpress.ru',
     ],
 });
 
@@ -115,63 +114,44 @@ const getExclusionsServicesDomainsMock = vpnProvider
     .getExclusionsServicesDomains as jest.MockedFunction<() => any>;
 getExclusionsServicesDomainsMock.mockImplementation(() => SERVICES_DOMAINS);
 
-beforeAll(async () => {
-    await services.init();
-});
+const getServicesFromStorageMock = jest.fn();
+servicesManager.getServicesFromStorage = getServicesFromStorageMock;
+getServicesFromStorageMock.mockReturnValue({});
+
+const saveServicesInStorageMock = jest.fn();
+servicesManager.saveServicesInStorage = saveServicesInStorageMock;
+saveServicesInStorageMock.mockReturnValue({});
 
 describe('ServicesManager tests', () => {
-    it('initialization', async () => {
-        const servicesData = services.getServicesData();
-        expect(servicesData).toHaveLength(5);
-        expect(JSON.stringify(servicesData[0]))
+    it('test initialization', async () => {
+        await servicesManager.init();
+        const servicesData = await servicesManager.getServices();
+
+        expect(Object.values(servicesData)).toHaveLength(5);
+        expect(JSON.stringify(servicesData['aliexpress']))
             .toStrictEqual(JSON.stringify(ALIEXPRESS_SERVICE_DATA));
-        expect(servicesData[1].serviceId).toEqual('amazon');
-        expect(servicesData[1].categories[0].id).toEqual('SHOP');
-        expect(servicesData[1].categories[0].name).toEqual('Shopping');
-        expect(servicesData[1].exclusionsGroups).toHaveLength(27);
-        expect(servicesData[1].exclusionsGroups[0].hostname).toEqual('a2z.com');
-        expect(servicesData[1].exclusionsGroups[0].exclusions[0].hostname).toEqual('a2z.com');
-        expect(servicesData[1].exclusionsGroups[0].exclusions[1].hostname).toEqual('*.a2z.com');
-        expect(servicesData[2].serviceId).toEqual('amazonvideo');
-        expect(servicesData[2].exclusionsGroups).toHaveLength(9);
-        expect(servicesData[3].serviceId).toEqual('atlassian');
-        expect(servicesData[3].exclusionsGroups).toHaveLength(3);
-        expect(servicesData[4].serviceId).toEqual('baidu');
-        expect(servicesData[4].exclusionsGroups).toHaveLength(11);
+        expect(servicesData['amazon'].serviceId).toEqual('amazon');
+        expect(servicesData['amazon'].categories[0].id).toEqual('SHOP');
+        expect(servicesData['amazon'].categories[0].name).toEqual('Shopping');
+        expect(servicesData['amazon'].domains).toHaveLength(27);
+        expect(servicesData['amazon'].domains[0]).toEqual('a2z.com');
+        expect(servicesData['amazonvideo'].serviceId).toEqual('amazonvideo');
+        expect(servicesData['amazonvideo'].domains).toHaveLength(9);
+        expect(servicesData['atlassian'].serviceId).toEqual('atlassian');
+        expect(servicesData['atlassian'].domains).toHaveLength(3);
+        expect(servicesData['baidu'].serviceId).toEqual('baidu');
+        expect(servicesData['baidu'].domains).toHaveLength(11);
     });
 
-    it('getService', async () => {
-        const aliexpressServiceData = services.getService('aliexpress');
+    it('test setServices and getService', async () => {
+        const servicesData = await servicesManager.getServicesFromServer();
+        servicesManager.setServices(servicesData);
+
+        const aliexpressServiceData = servicesManager.getService('aliexpress');
         expect(JSON.stringify(aliexpressServiceData))
             .toStrictEqual(JSON.stringify(ALIEXPRESS_SERVICE_DATA));
 
-        const wrongService = services.getService('vkdjnvkdhfb');
-        expect(wrongService).toBeUndefined();
-    });
-
-    it('isService', async () => {
-        let serviceId = services.getServiceIdByUrl('aliexpress.com');
-        expect(serviceId).toEqual('aliexpress');
-
-        serviceId = services.getServiceIdByUrl('bitbucket.org');
-        expect(serviceId).toEqual('atlassian');
-
-        serviceId = services.getServiceIdByUrl('www.bitbucket.org');
-        expect(serviceId).toEqual('atlassian');
-
-        serviceId = services.getServiceIdByUrl('http://bitbucket.org');
-        expect(serviceId).toEqual('atlassian');
-
-        serviceId = services.getServiceIdByUrl('http://www.bitbucket.org/');
-        expect(serviceId).toEqual('atlassian');
-
-        let notService = services.getServiceIdByUrl('example.org');
-        expect(notService).toBeNull();
-
-        notService = services.getServiceIdByUrl('bitbucket.com');
-        expect(notService).toBeNull();
-
-        notService = services.getServiceIdByUrl('bitbucket');
-        expect(notService).toBeNull();
+        const wrongService = servicesManager.getService('wrongServiceId');
+        expect(wrongService).toBeNull();
     });
 });

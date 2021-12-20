@@ -73,6 +73,7 @@ export class ExclusionsService {
             return;
         }
 
+        // FIXME
         const existingExclusions = exclusionsManager.current.getExclusionsByUrl(hostname);
         if (existingExclusions?.length) {
             for (const exclusion of existingExclusions) {
