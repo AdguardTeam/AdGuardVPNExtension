@@ -385,17 +385,18 @@ export class ExclusionsStore {
 
         const isFullChildrenList = this.selectedExclusion?.children?.length === defaultServiceData?.domains.length;
 
-        const isModifiedDomains = this.selectedExclusion?.children.some((child) => {
-            const defaultDomainExclusion = child.children.find((exclusion) => exclusion.value === child.value
-                && exclusion.state === ExclusionStates.Enabled);
+        const isDefaultDomainsState = this.selectedExclusion?.children.every((child) => {
+            const defaultDomainExclusion = child.children
+                .find((exclusion) => exclusion.value === child.value
+                    && exclusion.state === ExclusionStates.Enabled);
 
             const defaultAllSubdomainExclusion = child.children
                 .find((exclusion) => exclusion.value === `*.${child.value}`
                     && exclusion.state === ExclusionStates.Enabled);
 
-            return !(defaultDomainExclusion && defaultAllSubdomainExclusion);
+            return defaultDomainExclusion && defaultAllSubdomainExclusion;
         });
 
-        return isFullChildrenList && !isModifiedDomains;
+        return isFullChildrenList && isDefaultDomainsState;
     }
 }
