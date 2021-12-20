@@ -66,12 +66,11 @@ export const MESSAGES_TYPES = {
     IMPORT_EXCLUSIONS_DATA: 'import.exclusions.data',
     ADD_SERVICE: 'add.service',
     TOGGLE_SERVICES: 'toggle.services',
-    ADD_EXCLUSION_BY_MODE: 'add.exclusion.by.mode',
-    // ADD_SELECTIVE_EXCLUSIONS: 'add.exclusions.selective',
-    // ADD_REGULAR_EXCLUSIONS: 'add.exclusions.regular',
+    // FIXME remove if not used anymore
+    // ADD_EXCLUSION_BY_MODE: 'add.exclusion.by.mode',
     GET_SETTING_VALUE: 'get.setting.value',
     SET_SETTING_VALUE: 'set.setting.value',
-    GET_APP_VERSION: 'get.app.version',
+    // GET_APP_VERSION: 'get.app.version',
     GET_USERNAME: 'get.username',
     GET_SELECTED_LOCATION: 'get.selected.location',
     CHECK_IS_PREMIUM_TOKEN: 'check.is.premium.token',
@@ -80,9 +79,11 @@ export const MESSAGES_TYPES = {
     REPORT_BUG: 'post.report.bug',
     SET_DESKTOP_VPN_ENABLED: 'set.desktop.vpn.enabled',
     OPEN_PREMIUM_PROMO_PAGE: 'open.premium.promo.page',
-    GET_USER_SERVICE_DATA: 'get.user.state',
+    // GET_USER_SERVICE_DATA: 'get.user.state',
     SET_FLAG: 'set.flag',
-    GET_IS_FIRST_RUN: 'get.is.first.run',
+    // GET_IS_FIRST_RUN: 'get.is.first.run',
+    GET_REGULAR_EXCLUSIONS: 'get.regular.exclusions',
+    GET_SELECTIVE_EXCLUSIONS: 'get.selective.exclusions',
 };
 
 export const ERROR_STATUSES = {

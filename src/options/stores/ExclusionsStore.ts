@@ -336,11 +336,15 @@ export class ExclusionsStore {
         };
 
         const zip = new JSZip();
-        // FIXME get exclusions from store, check format
-        // eslint-disable-next-line max-len
-        // zip.file(`${nowFormatted}${EXCLUSION_FILES_EXTENSIONS.REGULAR}`, JSON.stringify(this.exclusions[ExclusionsModes.Regular], null, 4));
-        // eslint-disable-next-line max-len
-        // zip.file(`${nowFormatted}${EXCLUSION_FILES_EXTENSIONS.SELECTIVE}`, JSON.stringify(this.exclusions[ExclusionsModes.Selective], null, 4));
+
+        const regularExclusions = await messenger.getRegularExclusions();
+        const selectiveExclusions = await messenger.getSelectiveExclusions();
+
+        console.log(regularExclusions);
+        console.log(selectiveExclusions);
+
+        zip.file(`${nowFormatted}${EXCLUSION_FILES_EXTENSIONS.REGULAR}`, regularExclusions);
+        zip.file(`${nowFormatted}${EXCLUSION_FILES_EXTENSIONS.SELECTIVE}`, selectiveExclusions);
 
         const zipContent = await zip.generateAsync({ type: 'blob' });
         FileSaver.saveAs(zipContent, ZIP_FILENAME);

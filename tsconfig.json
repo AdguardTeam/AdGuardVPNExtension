@@ -3,6 +3,7 @@
     "baseUrl": "src",
     "target": "esnext",
     "jsx": "react",
+    "lib": ["DOM", "DOM.Iterable"],
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "allowJs": true,
@@ -18,6 +19,6 @@
     // - strictPropertyInitialization
     // - noImplicitThis
     // - strictBindCallApply
-    "strict": true,
-  },
+    "strict": true
+  }
 }

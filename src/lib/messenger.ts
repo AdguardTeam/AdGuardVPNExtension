@@ -338,6 +338,16 @@ class Messenger {
         const type = MESSAGES_TYPES.SET_FLAG;
         return this.sendMessage(type, { key, value });
     }
+
+    getRegularExclusions() {
+        const type = MESSAGES_TYPES.GET_REGULAR_EXCLUSIONS;
+        return this.sendMessage(type);
+    }
+
+    getSelectiveExclusions() {
+        const type = MESSAGES_TYPES.GET_SELECTIVE_EXCLUSIONS;
+        return this.sendMessage(type);
+    }
 }
 
 export const messenger = new Messenger();
