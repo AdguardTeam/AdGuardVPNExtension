@@ -1,4 +1,6 @@
 import ipaddr from 'ipaddr.js';
+// @ts-ignore
+import { identity } from 'lodash';
 
 import { ExclusionInterface, exclusionsManager } from './exclusions/ExclusionsManager';
 import { servicesManager } from './services/ServicesManager';
@@ -6,8 +8,6 @@ import { ExclusionsTree } from './ExclusionsTree';
 import { getHostname } from '../../lib/helpers';
 import { ExclusionsModes, ExclusionStates } from '../../common/exclusionsConstants';
 import { getETld, getSubdomain } from './exclusions/ExclusionsHandler';
-import { exclusions } from './index';
-import { identity } from 'lodash';
 
 export class ExclusionsService {
     exclusionsTree = new ExclusionsTree();

@@ -6,7 +6,7 @@ import React, {
 } from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
-import punycode from 'punycode/punycode';
+// @ts-ignore
 import { identity } from 'lodash';
 
 import { rootStore } from '../../../stores';
@@ -14,7 +14,6 @@ import { reactTranslator } from '../../../../common/reactTranslator';
 import { RemoveAllModal } from './RemoveAllModal';
 import { ExclusionDataTypes, readExclusionsFile } from './fileHelpers';
 import { translator } from '../../../../common/translator';
-import { ExclusionsDataToImport } from '../../../../background/exclusions/exclusions/ExclusionsManager';
 import { isValidExclusion } from '../../../../lib/string-utils';
 
 import './actions.pcss';

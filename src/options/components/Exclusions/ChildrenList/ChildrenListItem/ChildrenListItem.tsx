@@ -34,7 +34,7 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
     };
 
     const getExclusionStatus = (hostname: string) => {
-        if (hostname === selectedExclusion.value) {
+        if (hostname === selectedExclusion?.value) {
             return translator.getMessage('settings_exclusion_status_domain');
         }
         if (hostname.startsWith('*')) {
@@ -44,8 +44,8 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
     };
 
     const exclusionClassNames = (hostname: string) => classnames('children-list-item', {
-        'service-exclusion': selectedExclusion.type === ExclusionsTypes.Service,
-        useless: hostname !== selectedExclusion.value
+        'service-exclusion': selectedExclusion?.type === ExclusionsTypes.Service,
+        useless: hostname !== selectedExclusion?.value
             && !hostname.startsWith('*')
             && selectedExclusion.children.some((exclusion) => {
                 return exclusion.value.startsWith('*')
@@ -55,7 +55,7 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
 
     // TODO refactor renderExclusion
     const renderExclusion = (exclusion: ExclusionDtoInterface) => {
-        if (selectedExclusion.type === ExclusionsTypes.Service) {
+        if (selectedExclusion?.type === ExclusionsTypes.Service) {
             return (
                 <div
                     className="children-list-item__service-hostname"
