@@ -4,7 +4,7 @@ import { exclusionsManager } from './exclusions/ExclusionsManager';
 import { servicesManager } from './services/ServicesManager';
 import { ExclusionsTree } from './ExclusionsTree';
 import { getHostname } from '../../lib/helpers';
-import { ExclusionStates, ExclusionsModes } from '../../common/exclusionsConstants';
+import { ExclusionsModes, ExclusionStates } from '../../common/exclusionsConstants';
 import { getETld, getSubdomain } from './exclusions/ExclusionsHandler';
 
 export class ExclusionsService {
@@ -73,15 +73,17 @@ export class ExclusionsService {
             return;
         }
 
-        const existingExclusions = exclusionsManager.current.getExclusionsByUrl(hostname);
-        if (existingExclusions?.length) {
-            for (const exclusion of existingExclusions) {
-                if (exclusion.hostname.includes(hostname)) {
-                    exclusion.state = ExclusionStates.Enabled;
-                    return;
-                }
-            }
-        }
+        // FIXME do not mutate exclusions state
+        // FIXME add comments for cases
+        // const existingExclusions = exclusionsManager.current.getExclusionsByUrl(hostname);
+        // if (existingExclusions?.length) {
+        //     for (const exclusion of existingExclusions) {
+        //         if (exclusion.hostname.includes(hostname)) {
+        //             exclusion.state = ExclusionStates.Enabled;
+        //             return;
+        //         }
+        //     }
+        // }
 
         if (ipaddr.isValid(hostname)) {
             await exclusionsManager.current.addUrlToExclusions(hostname);
@@ -92,18 +94,24 @@ export class ExclusionsService {
                 return;
             }
 
-            const subdomain = getSubdomain(hostname, eTld);
-
             if (exclusionsManager.current.hasETld(eTld)) {
-                await exclusionsManager.current.addExclusions([hostname]);
+                await exclusionsManager.current.addExclusions([{ value: hostname }]);
             } else {
+                const subdomain = getSubdomain(hostname, eTld);
                 if (subdomain) {
                     const wildcardHostname = `*.${eTld}`;
                     const subdomainHostname = `${subdomain}${eTld}`;
-                    await exclusionsManager.current.addExclusions([eTld, wildcardHostname, subdomainHostname]);
+                    await exclusionsManager.current.addExclusions([
+                        { value: eTld, enabled: false },
+                        { value: wildcardHostname, enabled: false },
+                        { value: subdomainHostname, enabled: true },
+                    ]);
                 } else {
                     const wildcardHostname = `*.${hostname}`;
-                    await exclusionsManager.current.addExclusions([hostname, wildcardHostname]);
+                    await exclusionsManager.current.addExclusions([
+                        { value: hostname },
+                        { value: wildcardHostname },
+                    ]);
                 }
             }
         }
@@ -176,7 +184,7 @@ export class ExclusionsService {
 
         const servicesDomainsWithWildcards = servicesDomainsToAdd.map((hostname) => {
             const wildcardHostname = `*.${hostname}`;
-            return [hostname, wildcardHostname];
+            return [{ value: hostname }, { value: wildcardHostname }];
         }).flat();
 
         await exclusionsManager.current.addExclusions(servicesDomainsWithWildcards);

@@ -102,9 +102,13 @@ export class ExclusionsHandler {
         return indexedExclusions;
     }
 
-    async addExclusions(hostnames: string[]) {
-        hostnames.forEach((hostname) => {
-            this.exclusions.push({ id: nanoid(), hostname, state: ExclusionStates.Enabled });
+    async addExclusions(exclusionsToAdd: {
+        value: string,
+        enabled?: boolean,
+    }[]) {
+        exclusionsToAdd.forEach(({ value, enabled = true }) => {
+            const state = enabled ? ExclusionStates.Enabled : ExclusionStates.Disabled;
+            this.exclusions.push({ id: nanoid(), hostname: value, state });
         });
 
         this.exclusionsIndex = this.getExclusionsIndex(this.exclusions);
