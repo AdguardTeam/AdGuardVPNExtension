@@ -15,12 +15,17 @@ export enum ExclusionDataTypes {
     Txt = 'Txt',
 }
 
-const readFile = (file: Blob) => {
+export interface ExclusionsImportData {
+    type: ExclusionDataTypes,
+    content: string,
+}
+
+const readFile = (file: Blob): Promise<string> => {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
 
         reader.onload = () => {
-            resolve(reader.result);
+            resolve(reader.result as string);
         };
 
         reader.onerror = reject;
@@ -29,7 +34,9 @@ const readFile = (file: Blob) => {
     });
 };
 
-const readZipFile = async (file: File) => {
+const readZipFile = async (
+    file: File,
+): Promise<ExclusionsImportData[]> => {
     const zip = new JSZip();
     const zipContent = await zip.loadAsync(file);
 
@@ -89,7 +96,9 @@ const readZipFile = async (file: File) => {
     return resultExclusions;
 };
 
-export const readExclusionsFile = async (file: File) => {
+export const readExclusionsFile = async (
+    file: File,
+): Promise<ExclusionsImportData[]> => {
     const fileName = file.name;
     switch (true) {
         case (fileName.endsWith(`.${EXCLUSIONS_FILES_MARKERS.REGULAR}`)

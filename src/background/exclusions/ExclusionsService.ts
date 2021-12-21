@@ -221,7 +221,6 @@ export class ExclusionsService {
      * Checks if vpn is enabled for url
      * If this function is called when currentHandler is not set yet it returns true
      * @param url
-     * @returns {boolean}
      */
     isVpnEnabledByUrl(url: string) {
         if (!exclusionsManager.currentHandler) {
@@ -276,5 +275,19 @@ export class ExclusionsService {
     getSelectiveExclusions() {
         const exclusions = exclusionsManager.selective.getExclusions();
         return this.prepareExclusionsForExport(exclusions);
+    }
+
+    async addRegularExclusions(exclusions: string[]) {
+        const exclusionsWithState = exclusions.map((ex) => ({ value: ex, enabled: true }));
+        await exclusionsManager.regular.addExclusions(exclusionsWithState);
+        // FIXME do not add same exclusions, and calculate how much exclusions were added
+        return exclusions.length;
+    }
+
+    async addSelectiveExclusions(exclusions: string[]) {
+        const exclusionsWithState = exclusions.map((ex) => ({ value: ex, enabled: true }));
+        await exclusionsManager.regular.addExclusions(exclusionsWithState);
+        // FIXME do not add same exclusions, and calculate how much exclusions were added
+        return exclusions.length;
     }
 }

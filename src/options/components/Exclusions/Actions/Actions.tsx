@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 import React, {
     useContext,
     useState,
@@ -6,18 +7,18 @@ import React, {
 } from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
-// @ts-ignore
 import { identity } from 'lodash';
 
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { RemoveAllModal } from './RemoveAllModal';
-import { ExclusionDataTypes, readExclusionsFile } from './fileHelpers';
+import { ExclusionDataTypes, ExclusionsImportData, readExclusionsFile } from './fileHelpers';
 import { translator } from '../../../../common/translator';
 import { isValidExclusion } from '../../../../lib/string-utils';
+import { log } from '../../../../lib/logger';
+import { messenger } from '../../../../lib/messenger';
 
 import './actions.pcss';
-import { log } from '../../../../lib/logger';
 
 const prepareExclusionsAfterImport = (exclusionsString: string) => {
     return exclusionsString
@@ -32,6 +33,18 @@ const prepareExclusionsAfterImport = (exclusionsString: string) => {
             return false;
         })
         .reverse();
+};
+
+const handleRegularExclusionsString = async (exclusionsString: string): Promise<number> => {
+    const regularExclusions = prepareExclusionsAfterImport(exclusionsString);
+    console.log(regularExclusions);
+    return messenger.addRegularExclusions(regularExclusions);
+};
+
+const handleSelectiveExclusionsString = async (exclusionsString: string): Promise<number> => {
+    const selectiveExclusions = prepareExclusionsAfterImport(exclusionsString);
+    console.log(selectiveExclusions);
+    return messenger.addSelectiveExclusions(selectiveExclusions);
 };
 
 export const Actions = observer(() => {
@@ -64,12 +77,12 @@ export const Actions = observer(() => {
         setIsMoreActionsMenuOpen(!isMoreActionsMenuOpen);
     };
 
-
-    const handleExclusionsData = async (exclusionsData) => {
-        const txtExclusionsData = exclusionsData.find((d) => d.type === ExclusionDataTypes.Txt);
-        if (txtExclusionsData) {
-            return handleTxtExclusionsData(txtExclusionsData.content);
-        }
+    const handleExclusionsData = async (exclusionsData: ExclusionsImportData[]) => {
+        // FIXME should we handle txt file? ask Denis
+        // const txtExclusionsData = exclusionsData.find((d) => d.type === ExclusionDataTypes.Txt);
+        // if (txtExclusionsData) {
+        //     return handleTxtExclusionsData(txtExclusionsData.content);
+        // }
 
         let addedExclusions = 0;
 

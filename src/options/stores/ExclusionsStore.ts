@@ -326,7 +326,6 @@ export class ExclusionsStore {
         const nowFormatted = format(Date.now(), 'yyyy_MM_dd-HH_mm_ss');
         const ZIP_FILENAME = `exclusions-${nowFormatted}.zip`;
 
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const EXCLUSION_FILES_EXTENSIONS = {
             REGULAR: '.regular.txt',
             SELECTIVE: '.selective.txt',
@@ -337,20 +336,12 @@ export class ExclusionsStore {
         const regularExclusions = await messenger.getRegularExclusions();
         const selectiveExclusions = await messenger.getSelectiveExclusions();
 
-        console.log(regularExclusions);
-        console.log(selectiveExclusions);
-
         zip.file(`${nowFormatted}${EXCLUSION_FILES_EXTENSIONS.REGULAR}`, regularExclusions);
         zip.file(`${nowFormatted}${EXCLUSION_FILES_EXTENSIONS.SELECTIVE}`, selectiveExclusions);
 
         const zipContent = await zip.generateAsync({ type: 'blob' });
         FileSaver.saveAs(zipContent, ZIP_FILENAME);
     };
-
-    // FIXME
-    // @action importExclusions = async (exclusionsData: ExclusionsDataToImport[]) => {
-    //     await messenger.importExclusionsData(exclusionsData);
-    // };
 
     get sortedExclusions() {
         const { selectedExclusion } = this;

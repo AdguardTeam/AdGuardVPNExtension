@@ -213,12 +213,6 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    // FIXME implement
-    // async importExclusionsData(exclusionsData: ExclusionsDataToImport[]) {
-    //     const type = MESSAGES_TYPES.IMPORT_EXCLUSIONS_DATA;
-    //     return this.sendMessage(type, { exclusionsData });
-    // }
-
     async checkEmail(email: string) {
         const type = MESSAGES_TYPES.CHECK_EMAIL;
         return this.sendMessage(type, { email });
@@ -347,6 +341,16 @@ class Messenger {
     getSelectiveExclusions() {
         const type = MESSAGES_TYPES.GET_SELECTIVE_EXCLUSIONS;
         return this.sendMessage(type);
+    }
+
+    addRegularExclusions(exclusions: string[]) {
+        const type = MESSAGES_TYPES.ADD_REGULAR_EXCLUSIONS;
+        return this.sendMessage(type, { exclusions });
+    }
+
+    addSelectiveExclusions(exclusions: string[]) {
+        const type = MESSAGES_TYPES.ADD_SELECTIVE_EXCLUSIONS;
+        return this.sendMessage(type, { exclusions });
     }
 }
 

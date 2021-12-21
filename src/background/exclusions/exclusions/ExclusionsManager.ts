@@ -7,11 +7,6 @@ import { log } from '../../../lib/logger';
 import { settings } from '../../settings';
 import { proxy } from '../../proxy';
 
-export interface ExclusionsDataToImport {
-    type: string,
-    content: string,
-}
-
 export interface IndexedExclusionsInterface {
     [id: string]: string[];
 }
@@ -187,28 +182,6 @@ export class ExclusionsManager {
         };
         settings.setExclusions(emptyExclusions);
     }
-
-    // async importExclusionsData(exclusionsData: ExclusionsDataToImport[]) {
-    //     try {
-    //         exclusionsData.forEach((entry) => {
-    //             let entryData;
-    //             if (entry.content[0] === '{') {
-    //                 entryData = JSON.parse(entry.content);
-    //             } else {
-    //                 entryData = entry.content.split('\n');
-    //             }
-    //             if (entry.type === ExclusionsModes.Regular) {
-    //                 this.regular.importExclusionsData(entryData);
-    //             }
-    //             if (entry.type === ExclusionsModes.Selective) {
-    //                 this.selective.importExclusionsData(entryData);
-    //             }
-    //         });
-    //     } catch (e: any) {
-    //         throw new Error(`Unable to import exclusions data due to the error: ${e.message}`);
-    //     }
-    //     await this.handleExclusionsUpdate();
-    // }
 
     getExclusions(): ExclusionInterface[] {
         return this.currentHandler.getExclusions();

@@ -188,10 +188,6 @@ const messagesHandler = async (message, sender) => {
         case MESSAGES_TYPES.CLEAR_EXCLUSIONS_LIST: {
             return exclusions.clearExclusionsData();
         }
-        case MESSAGES_TYPES.IMPORT_EXCLUSIONS_DATA: {
-            const { exclusionsData } = data;
-            return exclusions.importExclusionsData(exclusionsData);
-        }
         case MESSAGES_TYPES.CHECK_EMAIL: {
             const { email } = data;
             const appId = await credentials.getAppId();
@@ -248,6 +244,12 @@ const messagesHandler = async (message, sender) => {
             const handler = exclusions.getHandler(mode);
             await handler.toggleExclusion(id);
             break;
+        }
+        case MESSAGES_TYPES.ADD_REGULAR_EXCLUSIONS: {
+            return exclusions.addRegularExclusions(data.exclusions);
+        }
+        case MESSAGES_TYPES.ADD_SELECTIVE_EXCLUSIONS: {
+            return exclusions.addSelectiveExclusions(data.exclusions);
         }
         case MESSAGES_TYPES.ADD_EXCLUSION_BY_MODE: {
             const { mode, url, enabled } = data;
