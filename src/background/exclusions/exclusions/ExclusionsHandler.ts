@@ -49,7 +49,7 @@ export const getSubdomain = (hostname: string, eTld: string) => {
 };
 
 interface UpdateHandler {
-    (): void;
+    (): Promise<void>;
 }
 
 export class ExclusionsHandler {
@@ -68,8 +68,15 @@ export class ExclusionsHandler {
     ) {
         this.updateHandler = updateHandler;
         this.exclusions = exclusions;
-        this.exclusionsIndex = this.getExclusionsIndex(exclusions);
+        this.exclusionsIndex = ExclusionsHandler.getExclusionsIndex(exclusions);
         this.mode = mode;
+    }
+
+    async onUpdate() {
+        this.exclusionsIndex = ExclusionsHandler.getExclusionsIndex(this.exclusions);
+        console.log(this.exclusions);
+        console.log(this.exclusionsIndex);
+        await this.updateHandler();
     }
 
     getExclusions(): ExclusionInterface[] {
@@ -80,7 +87,7 @@ export class ExclusionsHandler {
         return this.exclusionsIndex;
     }
 
-    getExclusionsIndex(exclusions: ExclusionInterface[]) {
+    public static getExclusionsIndex(exclusions: ExclusionInterface[]) {
         const indexedExclusions = exclusions.reduce((
             acc: IndexedExclusionsInterface,
             exclusion,
@@ -111,9 +118,7 @@ export class ExclusionsHandler {
             this.exclusions.push({ id: nanoid(), hostname: value, state });
         });
 
-        this.exclusionsIndex = this.getExclusionsIndex(this.exclusions);
-
-        await this.updateHandler();
+        await this.onUpdate();
     }
 
     hasETld = (eTld: string) => {
@@ -128,9 +133,8 @@ export class ExclusionsHandler {
         }
 
         this.exclusions.push({ id: nanoid(), hostname, state: ExclusionStates.Enabled });
-        this.exclusionsIndex = this.getExclusionsIndex(this.exclusions);
 
-        await this.updateHandler();
+        await this.onUpdate();
     }
 
     getExclusionByHostname(hostname: string) {
@@ -149,8 +153,7 @@ export class ExclusionsHandler {
             return ex;
         });
 
-        this.exclusionsIndex = this.getExclusionsIndex(this.exclusions);
-        await this.updateHandler();
+        await this.onUpdate();
     }
 
     async removeExclusions(ids: string[]) {
@@ -158,8 +161,7 @@ export class ExclusionsHandler {
             return !ids.includes(exclusion.id);
         });
 
-        this.exclusionsIndex = this.getExclusionsIndex(this.exclusions);
-        await this.updateHandler();
+        await this.onUpdate();
     }
 
     async setExclusionsState(ids: string[], state: ExclusionStates) {
@@ -173,8 +175,7 @@ export class ExclusionsHandler {
             return ex;
         });
 
-        this.exclusionsIndex = this.getExclusionsIndex(this.exclusions);
-        await this.updateHandler();
+        await this.onUpdate();
     }
 
     /**
@@ -188,14 +189,13 @@ export class ExclusionsHandler {
             return;
         }
 
-        await this.updateHandler();
+        await this.onUpdate();
     }
 
     async clearExclusionsData() {
         this.exclusions = [];
-        this.exclusionsIndex = this.getExclusionsIndex(this.exclusions);
 
-        await this.updateHandler();
+        await this.onUpdate();
     }
 
     /**

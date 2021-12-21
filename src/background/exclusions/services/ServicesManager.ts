@@ -97,7 +97,7 @@ export class ServicesManager implements ServiceManagerInterface {
      * Returns map with services index by domain
      * @param services
      */
-    getServicesIndex(services: ServicesInterface): IndexedServicesInterface {
+    public static getServicesIndex(services: ServicesInterface): IndexedServicesInterface {
         return Object.values(services).reduce((acc: IndexedServicesInterface, service) => {
             service.domains.forEach((domain) => {
                 acc[domain] = service.serviceId;
@@ -129,8 +129,9 @@ export class ServicesManager implements ServiceManagerInterface {
     }
 
     setServices(services: ServicesInterface) {
+        console.log(services);
         this.services = services;
-        this.servicesIndex = this.getServicesIndex(services);
+        this.servicesIndex = ServicesManager.getServicesIndex(services);
     }
 
     async updateServices() {
