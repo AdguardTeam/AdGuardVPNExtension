@@ -1,13 +1,13 @@
 import ipaddr from 'ipaddr.js';
 // @ts-ignore
-import { identity } from 'lodash';
+import {identity} from 'lodash';
 
-import { ExclusionInterface, exclusionsManager } from './exclusions/ExclusionsManager';
-import { servicesManager } from './services/ServicesManager';
-import { ExclusionsTree } from './ExclusionsTree';
-import { getHostname } from '../../lib/helpers';
-import { ExclusionsModes, ExclusionStates } from '../../common/exclusionsConstants';
-import { getETld, getSubdomain } from './exclusions/ExclusionsHandler';
+import {ExclusionInterface, exclusionsManager} from './exclusions/ExclusionsManager';
+import {servicesManager} from './services/ServicesManager';
+import {ExclusionsTree} from './ExclusionsTree';
+import {getHostname} from '../../lib/helpers';
+import {ExclusionsModes, ExclusionStates} from '../../common/exclusionsConstants';
+import {getETld, getSubdomain} from './exclusions/ExclusionsHandler';
 
 export class ExclusionsService {
     exclusionsTree = new ExclusionsTree();
@@ -75,21 +75,30 @@ export class ExclusionsService {
             return;
         }
 
-        // FIXME do not mutate exclusions state
-        // FIXME add comments for cases
-        // const existingExclusions = exclusionsManager.current.getExclusionsByUrl(hostname);
-        // if (existingExclusions?.length) {
-        //     for (const exclusion of existingExclusions) {
-        //         if (exclusion.hostname.includes(hostname)) {
-        //             exclusion.state = ExclusionStates.Enabled;
-        //             return;
-        //         }
-        //     }
-        // }
-
         const existingExclusion = exclusionsManager.current.getExclusionByHostname(hostname);
         if (existingExclusion) {
             await exclusionsManager.current.enableExclusion(existingExclusion.id);
+            this.updateTree();
+            return;
+        }
+
+        // add service manually by domain
+        const serviceData = servicesManager.getServicesDto().find((service) => service.domains.includes(hostname));
+        if (serviceData) {
+            await this.addServices([serviceData.serviceId]);
+
+            // disable all exclusions in service
+            const exclusionsToDisable = this.exclusionsTree.getPathExclusions(serviceData.serviceId);
+            await exclusionsManager.current.setExclusionsState(exclusionsToDisable, ExclusionStates.Disabled);
+
+            // enable only added exclusion
+            const domainExclusion = exclusionsManager.current.getExclusionByHostname(hostname);
+            const subdomainExclusion = exclusionsManager.current.getExclusionByHostname(`*.${hostname}`);
+            if (domainExclusion && subdomainExclusion) {
+                await exclusionsManager.current
+                    .setExclusionsState([domainExclusion.id, subdomainExclusion.id], ExclusionStates.Enabled);
+            }
+
             this.updateTree();
             return;
         }
@@ -124,6 +133,26 @@ export class ExclusionsService {
                 }
             }
         }
+
+        this.updateTree();
+    }
+
+    async addServices(serviceIds: string[]) {
+        const servicesDomainsToAdd = serviceIds.map((id) => {
+            const service = servicesManager.getService(id);
+            if (!service) {
+                return [];
+            }
+
+            return service.domains;
+        }).flat();
+
+        const servicesDomainsWithWildcards = servicesDomainsToAdd.map((hostname) => {
+            const wildcardHostname = `*.${hostname}`;
+            return [{ value: hostname }, { value: wildcardHostname }];
+        }).flat();
+
+        await exclusionsManager.current.addExclusions(servicesDomainsWithWildcards);
 
         this.updateTree();
     }
@@ -182,28 +211,12 @@ export class ExclusionsService {
             return !exclusionNode;
         });
 
-        const servicesDomainsToAdd = servicesIdsToAdd.map((id) => {
-            const service = servicesManager.getService(id);
-            if (!service) {
-                return [];
-            }
-
-            return service.domains;
-        }).flat();
-
-        const servicesDomainsWithWildcards = servicesDomainsToAdd.map((hostname) => {
-            const wildcardHostname = `*.${hostname}`;
-            return [{ value: hostname }, { value: wildcardHostname }];
-        }).flat();
-
-        await exclusionsManager.current.addExclusions(servicesDomainsWithWildcards);
-
-        this.updateTree();
+        await this.addServices(servicesIdsToAdd);
     }
 
     async disableVpnByUrl(url: string) {
         if (this.isInverted()) {
-            // TODO disable exclusion by url
+            // FIXME disable exclusion by url
         } else {
             await this.addUrlToExclusions(url);
         }
@@ -213,7 +226,7 @@ export class ExclusionsService {
         if (this.isInverted()) {
             await this.addUrlToExclusions(url);
         } else {
-            // TODO disable exclusion by url
+            // FIXME disable exclusion by url
         }
     }
 

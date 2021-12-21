@@ -32,6 +32,7 @@ export interface ServiceDto {
     iconUrl: string,
     state?: ExclusionStates,
     categories: ServiceCategory[],
+    domains: string[],
 }
 
 export interface ServicesInterface {
