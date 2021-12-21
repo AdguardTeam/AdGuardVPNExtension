@@ -74,8 +74,6 @@ export class ExclusionsHandler {
 
     async onUpdate() {
         this.exclusionsIndex = ExclusionsHandler.getExclusionsIndex(this.exclusions);
-        console.log(this.exclusions);
-        console.log(this.exclusionsIndex);
         await this.updateHandler();
     }
 

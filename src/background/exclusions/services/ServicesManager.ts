@@ -129,7 +129,6 @@ export class ServicesManager implements ServiceManagerInterface {
     }
 
     setServices(services: ServicesInterface) {
-        console.log(services);
         this.services = services;
         this.servicesIndex = ServicesManager.getServicesIndex(services);
     }

@@ -1,5 +1,5 @@
 import { ExclusionsHandler, getETld } from '../../../../src/background/exclusions/exclusions/ExclusionsHandler';
-import { ExclusionsModes, ExclusionStates } from '../../../../src/common/exclusionsConstants';
+import { ExclusionStates } from '../../../../src/common/exclusionsConstants';
 
 describe('ExclusionsHandler', () => {
     describe('getExclusionsIndex', () => {
@@ -8,8 +8,8 @@ describe('ExclusionsHandler', () => {
                 { id: '1', hostname: 'example.org', state: ExclusionStates.Enabled },
                 { id: '2', hostname: '*.example.org', state: ExclusionStates.Enabled },
             ];
-            const exclusionsHandler = new ExclusionsHandler(() => {}, [], ExclusionsModes.Regular);
-            const indexedExclusions = exclusionsHandler.getExclusionsIndex(exclusions);
+
+            const indexedExclusions = ExclusionsHandler.getExclusionsIndex(exclusions);
 
             expect(indexedExclusions).toEqual({
                 'example.org': ['1', '2'],

@@ -66,6 +66,7 @@ export class ExclusionsManager {
         // update bypass list in proxy on init
         await this.handleExclusionsUpdate();
 
+        // FIXME remove @ts-ignore
         // @ts-ignore
         notifier.addSpecifiedListener(notifier.types.NON_ROUTABLE_DOMAIN_ADDED, (payload) => {
             if (this.currentHandler.mode === ExclusionsModes.Regular) {
@@ -77,6 +78,7 @@ export class ExclusionsManager {
     };
 
     handleExclusionsUpdate = async () => {
+        // FIXME remove @ts-ignore
         // @ts-ignore
         notifier.notifyListeners(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE);
 
