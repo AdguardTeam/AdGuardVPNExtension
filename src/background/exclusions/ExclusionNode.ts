@@ -13,6 +13,11 @@ interface ExclusionNodeArgs {
     state?: ExclusionStates;
 
     type?: ExclusionsTypes;
+
+    meta?: {
+        domains: string[],
+        iconUrl: string,
+    }
 }
 
 export class ExclusionNode {
@@ -26,16 +31,25 @@ export class ExclusionNode {
 
     children: ExclusionNodeMap = {};
 
+    meta: {
+        domains: string[],
+        iconUrl: string,
+    }
+
     constructor({
         id,
         value,
         type = ExclusionsTypes.Exclusion,
         state = ExclusionStates.Enabled,
+        meta,
     }: ExclusionNodeArgs) {
         this.id = id;
         this.value = value;
         this.state = state;
         this.type = type;
+        if (meta) {
+            this.meta = meta;
+        }
     }
 
     hasChildren() {
@@ -45,13 +59,20 @@ export class ExclusionNode {
     addChild(child: ExclusionNode) {
         this.children[child.id] = child;
 
-        this.state = this.calculateState(this.getLeafs());
+        this.state = this.calculateState(this.getLeafs(), this);
     }
 
-    // FIXME compare with all available services
-    calculateState(exclusionNodes: ExclusionNode[]): ExclusionStates {
+    calculateState(exclusionNodes: ExclusionNode[], node: ExclusionNode): ExclusionStates {
         const allEnabled = exclusionNodes
             .every((exclusionNode) => exclusionNode.state === ExclusionStates.Enabled);
+
+        if (node.type === ExclusionsTypes.Service) {
+            const childrenAmount = Object.values(node.children).length;
+
+            if (allEnabled && node.meta?.domains.length !== childrenAmount) {
+                return ExclusionStates.PartlyEnabled;
+            }
+        }
 
         if (allEnabled) {
             return ExclusionStates.Enabled;
@@ -75,6 +96,7 @@ export class ExclusionNode {
             state: this.state,
             type: this.type,
             children,
+            iconUrl: this.meta?.iconUrl,
         });
     }
 

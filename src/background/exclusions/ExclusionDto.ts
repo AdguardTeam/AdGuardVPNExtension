@@ -1,5 +1,4 @@
 import { ExclusionDtoInterface, ExclusionStates, ExclusionsTypes } from '../../common/exclusionsConstants';
-import { servicesManager } from './services/ServicesManager';
 
 export class ExclusionDto implements ExclusionDtoInterface {
     id: string;
@@ -20,21 +19,23 @@ export class ExclusionDto implements ExclusionDtoInterface {
         state,
         type,
         children,
+        iconUrl,
     }: {
         id: string,
         value: string,
         state: ExclusionStates,
         type: ExclusionsTypes,
-        children: ExclusionDtoInterface[], }) {
+        children: ExclusionDtoInterface[],
+        iconUrl: string,
+    }) {
         this.id = id;
         this.value = value;
         this.state = state;
         this.type = type;
         this.children = children;
 
-        const service = servicesManager.getService(id);
-        if (service) {
-            this.iconUrl = service.iconUrl;
+        if (iconUrl) {
+            this.iconUrl = iconUrl;
         }
     }
 }

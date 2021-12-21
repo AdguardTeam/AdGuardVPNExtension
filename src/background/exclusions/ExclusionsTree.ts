@@ -46,6 +46,10 @@ export class ExclusionsTree {
                         id: service.serviceId,
                         value: service.serviceName,
                         type: ExclusionsTypes.Service,
+                        meta: {
+                            domains: service.domains,
+                            iconUrl: service.iconUrl,
+                        },
                     });
 
                 const groupNode = serviceNode.getExclusionNode(hostnameTld)
