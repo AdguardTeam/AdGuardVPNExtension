@@ -239,7 +239,7 @@ export class ExclusionsService {
 
     /**
      * Checks if vpn is enabled for url
-     * If this function is called when currentHandler is not set yet it returns true
+     * If this function is called when currentHandler is not set yet, it returns true
      * @param url
      */
     isVpnEnabledByUrl(url: string) {

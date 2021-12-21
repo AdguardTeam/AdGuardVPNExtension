@@ -1,5 +1,5 @@
 // tslint:disable
-import browser from 'webextension-polyfill';
+import browser, { Runtime } from 'webextension-polyfill';
 
 import { MESSAGES_TYPES, SETTINGS_IDS } from '../lib/constants';
 import auth from './auth';
@@ -341,8 +341,8 @@ const messagesHandler = async (message, sender) => {
  * We can't use simple one-time connections, because they can intercept each other
  * Causing issues like AG-2074
  */
-const longLivedMessageHandler = (port) => {
-    let listenerId;
+const longLivedMessageHandler = (port: Runtime.Port) => {
+    let listenerId: number;
 
     log.debug(`Connecting to the port "${port.name}"`);
     port.onMessage.addListener((message) => {
@@ -353,7 +353,7 @@ const longLivedMessageHandler = (port) => {
                 const type = MESSAGES_TYPES.NOTIFY_LISTENERS;
                 try {
                     port.postMessage({ type, data });
-                } catch (e) {
+                } catch (e: any) {
                     log.error(e.message);
                 }
             });

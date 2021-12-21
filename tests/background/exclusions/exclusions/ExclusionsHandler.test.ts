@@ -8,6 +8,7 @@ describe('ExclusionsHandler', () => {
                 { id: '1', hostname: 'example.org', state: ExclusionStates.Enabled },
                 { id: '2', hostname: '*.example.org', state: ExclusionStates.Enabled },
             ];
+
             const indexedExclusions = ExclusionsHandler.getExclusionsIndex(exclusions);
 
             expect(indexedExclusions).toEqual({
