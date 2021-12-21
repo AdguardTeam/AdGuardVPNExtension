@@ -29,7 +29,7 @@ describe('fileHelpers', () => {
                 const regularFile = createTxtFile(expectedContent, 'regular.txt');
                 const regularResult = await readExclusionsFile(regularFile);
                 const [{ type, content }] = regularResult;
-                expect(type).toBe('regular');
+                expect(type).toBe('Regular');
                 expect(content).toBe(expectedContent);
             });
 
@@ -37,7 +37,7 @@ describe('fileHelpers', () => {
                 const selectiveFile = createTxtFile(expectedContent, 'selective.txt');
                 const selectiveResult = await readExclusionsFile(selectiveFile);
                 const [{ type, content }] = selectiveResult;
-                expect(type).toBe('selective');
+                expect(type).toBe('Selective');
                 expect(content).toBe(expectedContent);
             });
         });
@@ -50,7 +50,7 @@ describe('fileHelpers', () => {
 
                 const result = await readExclusionsFile(file);
                 const [{ type, content }] = result;
-                expect(type).toBe('regular');
+                expect(type).toBe('Regular');
                 expect(content).toBe(expectedContent);
             });
 
@@ -59,7 +59,7 @@ describe('fileHelpers', () => {
 
                 const result = await readExclusionsFile(file);
                 const [{ type, content }] = result;
-                expect(type).toBe('selective');
+                expect(type).toBe('Selective');
                 expect(content).toBe(expectedContent);
             });
         });
@@ -69,7 +69,7 @@ describe('fileHelpers', () => {
             const file = createTxtFile(expectedContent, 'text-file.txt');
             const result = await readExclusionsFile(file);
             const [{ type, content }] = result;
-            expect(type).toBe('txt');
+            expect(type).toBe('Txt');
             expect(content).toBe(expectedContent);
         });
 
@@ -84,9 +84,9 @@ describe('fileHelpers', () => {
             const result = await readExclusionsFile(zipFile);
             expect(result.length).toBe(2);
 
-            expect(result.some((r) => r.type === 'regular')).toBeTruthy();
+            expect(result.some((r) => r.type === 'Regular')).toBeTruthy();
             expect(result.some((r) => r.content === expectedRegularContent)).toBeTruthy();
-            expect(result.some((r) => r.type === 'selective')).toBeTruthy();
+            expect(result.some((r) => r.type === 'Selective')).toBeTruthy();
             expect(result.some((r) => r.content === expectedSelectiveContent)).toBeTruthy();
         });
 
@@ -101,9 +101,9 @@ describe('fileHelpers', () => {
             const result = await readExclusionsFile(zipFile);
             expect(result.length).toBe(2);
 
-            expect(result.some((r) => r.type === 'regular')).toBeTruthy();
+            expect(result.some((r) => r.type === 'Regular')).toBeTruthy();
             expect(result.some((r) => r.content === expectedRegularContent)).toBeTruthy();
-            expect(result.some((r) => r.type === 'selective')).toBeTruthy();
+            expect(result.some((r) => r.type === 'Selective')).toBeTruthy();
             expect(result.some((r) => r.content === expectedSelectiveContent)).toBeTruthy();
         });
     });
