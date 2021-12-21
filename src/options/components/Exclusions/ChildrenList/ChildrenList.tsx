@@ -41,8 +41,10 @@ export const ChildrenList = observer(() => {
         'button--medium',
         'button--outline-gray',
         'children-list__reset',
-        { visible: selectedExclusion?.type === ExclusionsTypes.Service
-                && !exclusionsStore.isServiceDefaultState(selectedExclusion?.id) },
+        {
+            visible: selectedExclusion?.type === ExclusionsTypes.Service
+                && !exclusionsStore.isServiceDefaultState(selectedExclusion?.id),
+        },
     );
 
     const addSubdomainButtonClass = classnames(

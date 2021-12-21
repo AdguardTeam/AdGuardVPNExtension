@@ -37,13 +37,11 @@ const prepareExclusionsAfterImport = (exclusionsString: string) => {
 
 const handleRegularExclusionsString = async (exclusionsString: string): Promise<number> => {
     const regularExclusions = prepareExclusionsAfterImport(exclusionsString);
-    console.log(regularExclusions);
     return messenger.addRegularExclusions(regularExclusions);
 };
 
 const handleSelectiveExclusionsString = async (exclusionsString: string): Promise<number> => {
     const selectiveExclusions = prepareExclusionsAfterImport(exclusionsString);
-    console.log(selectiveExclusions);
     return messenger.addSelectiveExclusions(selectiveExclusions);
 };
 

@@ -34,7 +34,7 @@ export class ExclusionNode {
     meta: {
         domains: string[],
         iconUrl: string,
-    }
+    };
 
     constructor({
         id,

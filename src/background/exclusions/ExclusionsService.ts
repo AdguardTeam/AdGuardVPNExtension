@@ -1,13 +1,13 @@
 import ipaddr from 'ipaddr.js';
 // @ts-ignore
-import {identity} from 'lodash';
+import { identity } from 'lodash';
 
-import {ExclusionInterface, exclusionsManager} from './exclusions/ExclusionsManager';
-import {servicesManager} from './services/ServicesManager';
-import {ExclusionsTree} from './ExclusionsTree';
-import {getHostname} from '../../lib/helpers';
-import {ExclusionsModes, ExclusionStates} from '../../common/exclusionsConstants';
-import {getETld, getSubdomain} from './exclusions/ExclusionsHandler';
+import { ExclusionInterface, exclusionsManager } from './exclusions/ExclusionsManager';
+import { servicesManager } from './services/ServicesManager';
+import { ExclusionsTree } from './ExclusionsTree';
+import { getHostname } from '../../lib/helpers';
+import { ExclusionsModes, ExclusionStates } from '../../common/exclusionsConstants';
+import { getETld, getSubdomain } from './exclusions/ExclusionsHandler';
 
 export class ExclusionsService {
     exclusionsTree = new ExclusionsTree();
@@ -83,20 +83,27 @@ export class ExclusionsService {
         }
 
         // add service manually by domain
-        const serviceData = servicesManager.getServicesDto().find((service) => service.domains.includes(hostname));
+        const serviceData = servicesManager.getServicesDto()
+            .find((service) => service.domains.includes(hostname));
         if (serviceData) {
             await this.addServices([serviceData.serviceId]);
 
             // disable all exclusions in service
-            const exclusionsToDisable = this.exclusionsTree.getPathExclusions(serviceData.serviceId);
-            await exclusionsManager.current.setExclusionsState(exclusionsToDisable, ExclusionStates.Disabled);
+            const exclusionsToDisable = this.exclusionsTree
+                .getPathExclusions(serviceData.serviceId);
+            await exclusionsManager.current
+                .setExclusionsState(exclusionsToDisable, ExclusionStates.Disabled);
 
             // enable only added exclusion
-            const domainExclusion = exclusionsManager.current.getExclusionByHostname(hostname);
-            const subdomainExclusion = exclusionsManager.current.getExclusionByHostname(`*.${hostname}`);
+            const domainExclusion = exclusionsManager.current
+                .getExclusionByHostname(hostname);
+            const subdomainExclusion = exclusionsManager.current
+                .getExclusionByHostname(`*.${hostname}`);
             if (domainExclusion && subdomainExclusion) {
-                await exclusionsManager.current
-                    .setExclusionsState([domainExclusion.id, subdomainExclusion.id], ExclusionStates.Enabled);
+                await exclusionsManager.current.setExclusionsState(
+                    [domainExclusion.id, subdomainExclusion.id],
+                    ExclusionStates.Enabled,
+                );
             }
 
             this.updateTree();

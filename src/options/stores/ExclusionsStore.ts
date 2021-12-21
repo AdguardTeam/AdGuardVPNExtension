@@ -374,7 +374,9 @@ export class ExclusionsStore {
     isServiceDefaultState = (id: string) => {
         const defaultServiceData = this.preparedServicesData?.services[id];
 
-        const isFullChildrenList = this.selectedExclusion?.children?.length === defaultServiceData?.domains.length;
+        const isFullChildrenList = (
+            this.selectedExclusion?.children?.length === defaultServiceData?.domains.length
+        );
 
         const isDefaultDomainsState = this.selectedExclusion?.children.every((child) => {
             const defaultDomainExclusion = child.children
@@ -389,5 +391,5 @@ export class ExclusionsStore {
         });
 
         return isFullChildrenList && isDefaultDomainsState;
-    }
+    };
 }
