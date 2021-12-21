@@ -410,6 +410,9 @@
     "settings_exclusion_nothing_found": {
         "message": "No results found"
     },
+    "settings_exclusion_connection_problem": {
+        "message": "Connection problem"
+    },
     "settings_exclusions_action_export": {
         "message": "Export exclusions"
     },

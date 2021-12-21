@@ -10,6 +10,14 @@ export const ServicesList = observer(() => {
 
     const { categories } = exclusionsStore.preparedServicesData;
 
+    if (!Object.keys(categories).length) {
+        return (
+            <div className="services-list__connection-problem">
+                {reactTranslator.getMessage('settings_exclusion_connection_problem')}
+            </div>
+        );
+    }
+
     const [emptySearch, setEmptySearch] = useState(false);
 
     const emptySearchHandler = (value: boolean) => {
