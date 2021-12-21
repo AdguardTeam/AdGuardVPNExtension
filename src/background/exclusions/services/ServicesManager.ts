@@ -147,8 +147,13 @@ export class ServicesManager implements ServiceManagerInterface {
             await this.saveServicesInStorage(services);
             this.setServices(services);
             this.lastUpdateTimeMs = Date.now();
+            log.info('Services data updated successfully');
         } catch (e: any) {
             log.error(new Error(`Was unable to get services due to: ${e.message}`));
+            setTimeout(() => {
+                log.warn('Trying to get services');
+                this.updateServices();
+            }, 5000);
         }
     }
 
