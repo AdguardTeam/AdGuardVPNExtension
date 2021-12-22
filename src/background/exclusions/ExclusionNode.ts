@@ -20,6 +20,36 @@ interface ExclusionNodeArgs {
     }
 }
 
+export const coveredBy = (current: string, target: string) => {
+    const currentParts = current.split('.');
+    const targetParts = target.split('.');
+
+    while (currentParts.length > 0 && targetParts.length > 0) {
+        const lastCurrent = currentParts.pop();
+        const lastTarget = targetParts.pop();
+        if (lastCurrent !== lastTarget) {
+            if (lastTarget === '*' && lastCurrent !== '*') {
+                return true;
+            }
+            return false;
+        }
+    }
+
+    return false;
+};
+
+export const selectConsiderable = <T extends { value: string }>(nodes: T[]): T[] => {
+    let result = [...nodes];
+    for (let i = 0; i < nodes.length; i += 1) {
+        const node = nodes[i];
+        result = result.filter((rNode) => {
+            return !coveredBy(rNode.value, node.value);
+        });
+    }
+
+    return result;
+};
+
 export class ExclusionNode {
     id: string;
 
@@ -31,7 +61,7 @@ export class ExclusionNode {
 
     children: ExclusionNodeMap = {};
 
-    meta: {
+    meta?: {
         domains: string[],
         iconUrl: string,
     };
@@ -63,7 +93,9 @@ export class ExclusionNode {
     }
 
     calculateState(exclusionNodes: ExclusionNode[], node: ExclusionNode): ExclusionStates {
-        const allEnabled = exclusionNodes
+        const considerableExclusions = selectConsiderable(exclusionNodes);
+
+        const allEnabled = considerableExclusions
             .every((exclusionNode) => exclusionNode.state === ExclusionStates.Enabled);
 
         if (node.type === ExclusionsTypes.Service) {

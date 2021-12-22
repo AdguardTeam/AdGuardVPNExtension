@@ -26,7 +26,7 @@ export class ExclusionDto implements ExclusionDtoInterface {
         state: ExclusionStates,
         type: ExclusionsTypes,
         children: ExclusionDtoInterface[],
-        iconUrl: string,
+        iconUrl?: string,
     }) {
         this.id = id;
         this.value = value;

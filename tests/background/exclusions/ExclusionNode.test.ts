@@ -1,6 +1,36 @@
-import { ExclusionNode } from '../../../src/background/exclusions/ExclusionNode';
+import { coveredBy, ExclusionNode, selectConsiderable } from '../../../src/background/exclusions/ExclusionNode';
+import { ExclusionStates } from '../../../src/common/exclusionsConstants';
 
 describe('ExclusionNode', () => {
+    it('ignores state of exclusions, which are covered by wildcard exclusions during state calculations', () => {
+        const tree = new ExclusionNode({ id: 'example.org', value: 'example.org' });
+        tree.addChild(new ExclusionNode({ id: '0', value: 'example.org', state: ExclusionStates.Enabled }));
+        tree.addChild(new ExclusionNode({ id: '1', value: '*.example.org', state: ExclusionStates.Enabled }));
+        tree.addChild(new ExclusionNode({ id: '2', value: 'test.example.org', state: ExclusionStates.Disabled }));
+
+        const exclusion = tree.getExclusionNode('example.org');
+        expect(exclusion!.state).toBe(ExclusionStates.Enabled);
+    });
+
+    describe('coveredBy', () => {
+        expect(coveredBy('example.org', '*.org')).toBeTruthy();
+        expect(coveredBy('test.example.org', '*.org')).toBeTruthy();
+        expect(coveredBy('test.example.org', '*.example.org')).toBeTruthy();
+        expect(coveredBy('test.example.org', 'mail.example.org')).toBeFalsy();
+        expect(coveredBy('test.example.org', '*.example.net')).toBeFalsy();
+        expect(coveredBy('example.org', '*.example.org')).toBeFalsy();
+    });
+
+    describe('selectConsiderable', () => {
+        const nodes = [
+            { value: 'example.org' },
+            { value: '*.example.org' },
+            { value: 'test.example.org' },
+        ];
+
+        expect(selectConsiderable(nodes)).toEqual([{ value: 'example.org' }, { value: '*.example.org' }]);
+    });
+
     describe('getPathExclusions', () => {
         it('returns one exclusion if no children found', () => {
             const tree = new ExclusionNode({ id: 'root', value: 'root' });
