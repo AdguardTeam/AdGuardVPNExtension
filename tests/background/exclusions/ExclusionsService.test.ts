@@ -91,4 +91,32 @@ describe('ExclusionsService', () => {
         expect(exclusionsService.isVpnEnabledByUrl('https://example.org')).toBeFalsy();
         expect(exclusionsService.isVpnEnabledByUrl('https://test.example.org')).toBeFalsy();
     });
+
+    it('should add three exclusions if more than two level hostname added', async () => {
+        const exclusionsService = new ExclusionsService();
+        await exclusionsService.init();
+
+        await exclusionsService.addUrlToExclusions('test.example.org');
+
+        const exclusions = exclusionsService.getExclusions();
+        expect(exclusions[0].children).toHaveLength(3);
+        expect(exclusions[0].children.map((ex) => ex.value)).toEqual([
+            'example.org',
+            '*.example.org',
+            'test.example.org',
+        ]);
+    });
+
+    it('should add two exclusions if hostname with wildcard added', async () => {
+        const exclusionsService = new ExclusionsService();
+        await exclusionsService.init();
+
+        await exclusionsService.addUrlToExclusions('*.example.org');
+        const exclusions = exclusionsService.getExclusions();
+        expect(exclusions[0].children).toHaveLength(2);
+        expect(exclusions[0].children.map((ex) => ex.value)).toEqual([
+            'example.org',
+            '*.example.org',
+        ]);
+    });
 });

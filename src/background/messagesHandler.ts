@@ -24,15 +24,13 @@ import { setDesktopVpnEnabled } from './connectivity/connectivityService/connect
 import { flagsStorage } from './flagsStorage';
 import { ExclusionsData } from '../common/exclusionsConstants';
 
-import MessageSender = Runtime.MessageSender;
-
 interface Message {
     type: MessageType,
     data: any
 }
 
 interface EventListeners {
-    [index: string]: MessageSender;
+    [index: string]: Runtime.MessageSender;
 }
 
 const eventListeners: EventListeners = {};
@@ -77,7 +75,7 @@ const getOptionsData = async () => {
     };
 };
 
-const messagesHandler = async (message: Message, sender: MessageSender) => {
+const messagesHandler = async (message: Message, sender: Runtime.MessageSender) => {
     const { type, data } = message;
 
     // Here we keep track of event listeners added through notifier

@@ -9,6 +9,10 @@ import { ExclusionsModes, ExclusionStates } from '../../common/exclusionsConstan
 import { getETld, getSubdomain } from './exclusions/ExclusionsHandler';
 import { ExclusionInterface } from './exclusions/exclusionsTypes';
 
+const isWildcard = (targetString: string) => {
+    return targetString === '*';
+};
+
 export class ExclusionsService {
     exclusionsTree = new ExclusionsTree();
 
@@ -123,13 +127,21 @@ export class ExclusionsService {
             } else {
                 const subdomain = getSubdomain(hostname, eTld);
                 if (subdomain) {
-                    const wildcardHostname = `*.${eTld}`;
-                    const subdomainHostname = `${subdomain}${eTld}`;
-                    await exclusionsManager.current.addExclusions([
-                        { value: eTld, enabled: false },
-                        { value: wildcardHostname, enabled: false },
-                        { value: subdomainHostname, enabled: true },
-                    ]);
+                    if (isWildcard(subdomain)) {
+                        const subdomainHostname = `${subdomain}.${eTld}`;
+                        await exclusionsManager.current.addExclusions([
+                            { value: eTld, enabled: false },
+                            { value: subdomainHostname, enabled: true },
+                        ]);
+                    } else {
+                        const wildcardHostname = `*.${eTld}`;
+                        const subdomainHostname = `${subdomain}.${eTld}`;
+                        await exclusionsManager.current.addExclusions([
+                            { value: eTld, enabled: false },
+                            { value: wildcardHostname, enabled: false },
+                            { value: subdomainHostname, enabled: true },
+                        ]);
+                    }
                 } else {
                     const wildcardHostname = `*.${hostname}`;
                     await exclusionsManager.current.addExclusions([

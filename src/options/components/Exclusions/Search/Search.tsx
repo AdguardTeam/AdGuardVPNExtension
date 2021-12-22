@@ -36,7 +36,6 @@ export const Search = ({
                 placeholder={placeholder?.toString()}
                 onChange={handleChange}
             />
-            {/* FIXME fix style */}
             {showClearIcon && (
                 <button
                     type="button"

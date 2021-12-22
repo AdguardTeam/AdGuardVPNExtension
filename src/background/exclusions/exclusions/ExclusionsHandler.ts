@@ -43,7 +43,8 @@ export const getSubdomain = (hostname: string, eTld: string) => {
     // TODO use regular expression to get subdomain
     return hostname
         .replace(eTld, '')
-        .replace('www.', '');
+        .replace('www.', '')
+        .slice(0, -1);
 };
 
 interface UpdateHandler {
