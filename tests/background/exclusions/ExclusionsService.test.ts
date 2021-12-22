@@ -1,4 +1,5 @@
 import { ExclusionsService } from '../../../src/background/exclusions/ExclusionsService';
+import { ExclusionsModes } from '../../../src/common/exclusionsConstants';
 
 jest.mock('../../../src/background/browserApi');
 
@@ -40,6 +41,7 @@ describe('ExclusionsService', () => {
 
         const exclusionsData = exclusionsService.getExclusions();
         expect(exclusionsData).toHaveLength(0);
+        expect(exclusionsService.getMode()).toBeTruthy();
     });
 
     it('returns true if domains are not excluded ', async () => {
@@ -62,9 +64,6 @@ describe('ExclusionsService', () => {
         expect(exclusionsService.isVpnEnabledByUrl('https://example.org/test')).toBeFalsy();
         expect(exclusionsService.isVpnEnabledByUrl('https://mail.example.org/test')).toBeFalsy();
         expect(exclusionsService.isVpnEnabledByUrl('https://example.com')).toBeTruthy();
-
-        await exclusionsService.addUrlToExclusions('https://мвд.рф/');
-        expect(exclusionsService.isVpnEnabledByUrl('https://xn--b1aew.xn--p1ai')).toBeFalsy();
     });
 
     it('should toggle exclusion group', async () => {
@@ -118,5 +117,22 @@ describe('ExclusionsService', () => {
             'example.org',
             '*.example.org',
         ]);
+    });
+
+    it('punycode test', async () => {
+        const exclusionsService = new ExclusionsService();
+        await exclusionsService.init();
+        await exclusionsService.setMode(ExclusionsModes.Regular);
+        expect(exclusionsService.getMode()).toBeTruthy();
+
+        await exclusionsService.addUrlToExclusions('https://сайт.рф/');
+        expect(exclusionsService.isVpnEnabledByUrl('https://xn--80aswg.xn--p1ai/')).toBeFalsy();
+        expect(exclusionsService.isVpnEnabledByUrl('xn--80aswg.xn--p1ai')).toBeFalsy();
+        expect(exclusionsService.isVpnEnabledByUrl('сайт.рф')).toBeFalsy();
+
+        await exclusionsService.addUrlToExclusions('http://xn--e1afmkfd.xn--p1ai/');
+        expect(exclusionsService.isVpnEnabledByUrl('пример.рф')).toBeFalsy();
+        expect(exclusionsService.isVpnEnabledByUrl('http://xn--e1afmkfd.xn--p1ai/')).toBeFalsy();
+        expect(exclusionsService.isVpnEnabledByUrl('xn--e1afmkfd.xn--p1ai')).toBeFalsy();
     });
 });

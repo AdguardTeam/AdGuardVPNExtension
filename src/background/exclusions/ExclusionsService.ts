@@ -1,5 +1,6 @@
 import ipaddr from 'ipaddr.js';
 import { identity } from 'lodash';
+import punycode from 'punycode';
 
 import { exclusionsManager } from './exclusions/ExclusionsManager';
 import { servicesManager } from './services/ServicesManager';
@@ -72,11 +73,14 @@ export class ExclusionsService {
     }
 
     async addUrlToExclusions(url: string) {
-        const hostname = getHostname(url);
+        const unicodeHostname = getHostname(url);
 
-        if (!hostname) {
+        if (!unicodeHostname) {
             return;
         }
+
+        // convert to ASCII
+        const hostname = punycode.toASCII(unicodeHostname);
 
         const existingExclusion = exclusionsManager.current.getExclusionByHostname(hostname);
         if (existingExclusion) {
@@ -258,7 +262,7 @@ export class ExclusionsService {
             return true;
         }
 
-        const isExcluded = exclusionsManager.currentHandler.isExcluded(url);
+        const isExcluded = exclusionsManager.currentHandler.isExcluded(punycode.toASCII(url));
         return exclusionsManager.inverted ? isExcluded : !isExcluded;
     }
 

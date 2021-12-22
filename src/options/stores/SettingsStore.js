@@ -3,7 +3,6 @@ import {
     observable,
     runInAction,
 } from 'mobx';
-import punycode from 'punycode/';
 
 import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT } from '../../lib/constants';
 import { DNS_DEFAULT } from '../../background/dns/dnsConstants';
@@ -57,19 +56,6 @@ export class SettingsStore {
     @action disableProxy = async () => {
         await messenger.disableProxy(true);
     };
-
-    // FIXME check that this logic is not broken
-    /**
-     * Displays correctly punyicode exclusions
-     * @param exclusionsType
-     * @return {*}
-     */
-    unicodeExclusionsByType(exclusionsType) {
-        return this.exclusions[exclusionsType]
-            .slice()
-            .reverse()
-            .map((ex) => ({ ...ex, unicodeHostname: punycode.toUnicode(ex.hostname) }));
-    }
 
     @action setWebRTCValue = async (value) => {
         await messenger.setSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED, value);

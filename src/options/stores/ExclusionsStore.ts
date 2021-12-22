@@ -7,6 +7,7 @@ import {
 import JSZip from 'jszip';
 import format from 'date-fns/format';
 import FileSaver from 'file-saver';
+import punycode from 'punycode';
 
 import {
     ExclusionDtoInterface,
@@ -98,13 +99,26 @@ export class ExclusionsStore {
     };
 
     @action setExclusionsData = (exclusionsData: ExclusionsData) => {
-        this.exclusions = exclusionsData.exclusions;
+        this.exclusions = this.convertExclusionsValuesToUnicode(exclusionsData.exclusions);
         this.currentMode = exclusionsData.currentMode;
     };
 
     @action updateExclusionsData = async () => {
         const exclusionsData = await messenger.getExclusionsData();
         this.setExclusionsData(exclusionsData);
+    };
+
+    @action convertExclusionsValuesToUnicode = (exclusions: ExclusionDtoInterface[]) => {
+        return exclusions.map((exclusion) => {
+            const unicodeExclusion = exclusion;
+            unicodeExclusion.value = punycode.toUnicode(exclusion.value);
+            unicodeExclusion.children = exclusion.children.map((child) => {
+                const unicodeChild = child;
+                unicodeChild.value = punycode.toUnicode(child.value);
+                return unicodeChild;
+            });
+            return unicodeExclusion;
+        });
     };
 
     get preparedExclusions() {
@@ -244,10 +258,6 @@ export class ExclusionsStore {
     @action toggleExclusionState = async (id: string) => {
         await messenger.toggleExclusionState(id);
     };
-
-    // @action addService = async (id: string) => {
-    //     await messenger.addService(id);
-    // };
 
     @action addToServicesToToggle = (id: string) => {
         if (this.servicesToToggle.includes(id)) {
