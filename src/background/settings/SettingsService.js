@@ -197,7 +197,6 @@ class SettingsService {
     }
 
     persist = throttle(async (settings = this.settings) => {
-        console.log(this.storage);
         await this.storage.set(this.SETTINGS_KEY, settings);
     }, THROTTLE_TIMEOUT, { leading: false });
 
