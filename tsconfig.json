@@ -3,7 +3,7 @@
     "baseUrl": "src",
     "target": "esnext",
     "jsx": "react",
-    "lib": ["DOM", "DOM.Iterable"],
+    "lib": ["esnext", "DOM", "DOM.Iterable"],
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "allowJs": true,

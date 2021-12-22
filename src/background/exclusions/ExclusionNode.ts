@@ -106,9 +106,7 @@ export class ExclusionNode {
     getLeafs(): ExclusionNode[] {
         if (this.hasChildren()) {
             const childrenLeafs = Object.values(this.children).map((child) => child.getLeafs());
-            // FIXME remove ts-ignore
-            // @ts-ignore
-            return childrenLeafs.flat(Infinity);
+            return childrenLeafs.flat();
         }
         return [this];
     }
@@ -129,9 +127,8 @@ export class ExclusionNode {
         }
         const childrenPathExclusions = Object.values(this.children)
             .map((child) => child.getPathExclusions(id));
-        // FIXME remove @ts-ignore
-        // @ts-ignore
-        return childrenPathExclusions.flat(Infinity);
+
+        return childrenPathExclusions.flat();
     }
 
     getExclusionNode(id: string): ExclusionNode | null {

@@ -1,13 +1,13 @@
 import ipaddr from 'ipaddr.js';
-// @ts-ignore
 import { identity } from 'lodash';
 
-import { ExclusionInterface, exclusionsManager } from './exclusions/ExclusionsManager';
+import { exclusionsManager } from './exclusions/ExclusionsManager';
 import { servicesManager } from './services/ServicesManager';
 import { ExclusionsTree } from './ExclusionsTree';
 import { getHostname } from '../../lib/helpers';
 import { ExclusionsModes, ExclusionStates } from '../../common/exclusionsConstants';
 import { getETld, getSubdomain } from './exclusions/ExclusionsHandler';
+import { ExclusionInterface } from './exclusions/exclusionsTypes';
 
 export class ExclusionsService {
     exclusionsTree = new ExclusionsTree();
@@ -68,7 +68,6 @@ export class ExclusionsService {
     }
 
     async addUrlToExclusions(url: string) {
-        // FIXME remove knowledge about current
         const hostname = getHostname(url);
 
         if (!hostname) {
@@ -269,7 +268,6 @@ export class ExclusionsService {
         this.updateTree();
     }
 
-    // FIXME consider moving this function to the separate service
     prepareExclusionsForExport(exclusions: ExclusionInterface[]) {
         return exclusions.map((ex) => {
             if (ex.state === ExclusionStates.Enabled) {
