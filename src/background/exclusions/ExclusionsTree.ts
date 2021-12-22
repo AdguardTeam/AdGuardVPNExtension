@@ -1,9 +1,9 @@
 /* eslint-disable no-continue */
 import { ExclusionsTypes } from '../../common/exclusionsConstants';
-import { ExclusionInterface, IndexedExclusionsInterface } from './exclusions/ExclusionsManager';
 import { IndexedServicesInterface, ServicesInterface } from './services/ServicesManager';
 import { getETld } from './exclusions/ExclusionsHandler';
 import { ExclusionNode } from './ExclusionNode';
+import { ExclusionInterface, IndexedExclusionsInterface } from './exclusions/exclusionsTypes';
 
 export class ExclusionsTree {
     exclusionsTree = new ExclusionNode({ id: 'root', value: 'root' });

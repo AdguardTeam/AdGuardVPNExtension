@@ -15,14 +15,13 @@ export const ChildrenList = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
     const { selectedExclusion } = exclusionsStore;
 
-    if (selectedExclusion?.children?.length === 0) {
+    if (!selectedExclusion || selectedExclusion.children.length === 0) {
         return null;
     }
 
-    // TODO handle subtitle for services and groups
     const subtitle = exclusionsStore.currentMode === ExclusionsModes.Regular
         ? reactTranslator.getMessage('settings_exclusion_group_settings_subtitle_regular_mode')
-        : reactTranslator.getMessage('settings_exclusion_group_settings_subtitle_selecive_mode');
+        : reactTranslator.getMessage('settings_exclusion_group_settings_subtitle_selective_mode');
 
     const goBackHandler = () => {
         exclusionsStore.goBackHandler();
@@ -42,27 +41,28 @@ export const ChildrenList = observer(() => {
         'button--outline-gray',
         'children-list__reset',
         {
-            visible: selectedExclusion?.type === ExclusionsTypes.Service
-                && !exclusionsStore.isServiceDefaultState(selectedExclusion?.id),
+            visible: selectedExclusion.type === ExclusionsTypes.Service
+                && !exclusionsStore.isServiceDefaultState(selectedExclusion.id),
         },
     );
 
     const addSubdomainButtonClass = classnames(
         'children-list__add-subdomain',
         'simple-button',
-        { hidden: selectedExclusion?.type !== ExclusionsTypes.Group },
+        { hidden: selectedExclusion.type !== ExclusionsTypes.Group },
     );
 
     const renderExclusions = () => {
         if (!exclusionsStore.sortedExclusions?.length) {
             exclusionsStore.setSelectedExclusionId(null);
-            return;
+            return undefined;
         }
-        // eslint-disable-next-line
+
         return exclusionsStore.sortedExclusions.map((exclusion) => {
             if (exclusion) {
                 return <ChildrenListItem exclusion={exclusion} key={exclusion.id} />;
             }
+            return undefined;
         });
     };
 
@@ -76,7 +76,7 @@ export const ChildrenList = observer(() => {
                 </button>
                 <div>
                     <Title
-                        title={selectedExclusion?.value}
+                        title={selectedExclusion.value}
                         subtitle={subtitle as string}
                     />
                 </div>
@@ -87,7 +87,7 @@ export const ChildrenList = observer(() => {
             <button
                 type="button"
                 className={resetButtonClass}
-                onClick={resetServiceData(selectedExclusion?.id)}
+                onClick={resetServiceData(selectedExclusion.id)}
             >
                 {reactTranslator.getMessage('settings_exclusion_reset_to_default')}
             </button>

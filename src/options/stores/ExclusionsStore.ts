@@ -15,7 +15,7 @@ import {
     ExclusionStates,
     ExclusionsTypes,
 } from '../../common/exclusionsConstants';
-import { Service, ServiceCategory, ServiceInterface } from '../../background/exclusions/services/Service';
+import { ServiceCategory, ServiceInterface } from '../../background/exclusions/services/Service';
 import { messenger } from '../../lib/messenger';
 import { containsIgnoreCase } from '../components/Exclusions/Search/SearchHighlighter/helpers';
 
@@ -68,7 +68,7 @@ export class ExclusionsStore {
 
     @observable currentMode = ExclusionsModes.Regular;
 
-    @observable servicesData: Service[] = [];
+    @observable servicesData: ServiceViewInterface[] = [];
 
     @observable addExclusionModalOpen = false;
 
@@ -93,7 +93,7 @@ export class ExclusionsStore {
      */
     @observable servicesToToggle: string[] = [];
 
-    @action setServicesData = (servicesData: Service[]) => {
+    @action setServicesData = (servicesData: ServiceViewInterface[]) => {
         this.servicesData = servicesData;
     };
 
@@ -245,9 +245,9 @@ export class ExclusionsStore {
         await messenger.toggleExclusionState(id);
     };
 
-    @action addService = async (id: string) => {
-        await messenger.addService(id);
-    };
+    // @action addService = async (id: string) => {
+    //     await messenger.addService(id);
+    // };
 
     @action addToServicesToToggle = (id: string) => {
         if (this.servicesToToggle.includes(id)) {

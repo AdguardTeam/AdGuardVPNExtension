@@ -1,7 +1,7 @@
 import browser from 'webextension-polyfill';
 import { nanoid } from 'nanoid';
 
-import { MESSAGES_TYPES } from './constants';
+import { MessageType } from './constants';
 import { log } from './logger';
 import { ExclusionsModes } from '../common/exclusionsConstants';
 
@@ -33,11 +33,11 @@ class Messenger {
         };
 
         let listenerId: string | null;
-        const type = MESSAGES_TYPES.ADD_EVENT_LISTENER;
+        const type = MessageType.ADD_EVENT_LISTENER;
         listenerId = await this.sendMessage(type, { events });
 
         browser.runtime.onMessage.addListener((message) => {
-            if (message.type === MESSAGES_TYPES.NOTIFY_LISTENERS) {
+            if (message.type === MessageType.NOTIFY_LISTENERS) {
                 const [type, data] = message.data;
                 eventListener({ type, data });
             }
@@ -45,7 +45,7 @@ class Messenger {
 
         const onUnload = async () => {
             if (listenerId) {
-                const type = MESSAGES_TYPES.REMOVE_EVENT_LISTENER;
+                const type = MessageType.REMOVE_EVENT_LISTENER;
                 await this.sendMessage(type, { listenerId });
                 listenerId = null;
             }
@@ -69,10 +69,10 @@ class Messenger {
         };
 
         const port = browser.runtime.connect({ name: `popup_${nanoid()}` });
-        port.postMessage({ type: MESSAGES_TYPES.ADD_LONG_LIVED_CONNECTION, data: { events } });
+        port.postMessage({ type: MessageType.ADD_LONG_LIVED_CONNECTION, data: { events } });
 
         port.onMessage.addListener((message) => {
-            if (message.type === MESSAGES_TYPES.NOTIFY_LISTENERS) {
+            if (message.type === MessageType.NOTIFY_LISTENERS) {
                 const [type, data] = message.data;
                 eventListener({ type, data });
             }
@@ -95,27 +95,27 @@ class Messenger {
     };
 
     async getPopupData(url: string, numberOfTries: number) {
-        const type = MESSAGES_TYPES.GET_POPUP_DATA;
+        const type = MessageType.GET_POPUP_DATA;
         return this.sendMessage(type, { url, numberOfTries });
     }
 
     async getOptionsData() {
-        const type = MESSAGES_TYPES.GET_OPTIONS_DATA;
+        const type = MessageType.GET_OPTIONS_DATA;
         return this.sendMessage(type);
     }
 
     async getVpnFailurePage() {
-        const type = MESSAGES_TYPES.GET_VPN_FAILURE_PAGE;
+        const type = MessageType.GET_VPN_FAILURE_PAGE;
         return this.sendMessage(type);
     }
 
     async openOptionsPage() {
-        const type = MESSAGES_TYPES.OPEN_OPTIONS_PAGE;
+        const type = MessageType.OPEN_OPTIONS_PAGE;
         return this.sendMessage(type);
     }
 
     async setCurrentLocation(location: any, isSelectedByUser: boolean) {
-        const type = MESSAGES_TYPES.SET_SELECTED_LOCATION;
+        const type = MessageType.SET_SELECTED_LOCATION;
         return this.sendMessage(type, { location, isSelectedByUser });
     }
 
@@ -127,97 +127,97 @@ class Messenger {
             twoFactor: string;
         },
     ) {
-        const type = MESSAGES_TYPES.AUTHENTICATE_USER;
+        const type = MessageType.AUTHENTICATE_USER;
         return this.sendMessage(type, { credentials });
     }
 
     async deauthenticateUser() {
-        const type = MESSAGES_TYPES.DEAUTHENTICATE_USER;
+        const type = MessageType.DEAUTHENTICATE_USER;
         return this.sendMessage(type);
     }
 
     async updateAuthCache(field: string, value: string) {
-        const type = MESSAGES_TYPES.UPDATE_AUTH_CACHE;
+        const type = MessageType.UPDATE_AUTH_CACHE;
         return this.sendMessage(type, { field, value });
     }
 
     async getAuthCache() {
-        const type = MESSAGES_TYPES.GET_AUTH_CACHE;
+        const type = MessageType.GET_AUTH_CACHE;
         return this.sendMessage(type);
     }
 
     async clearAuthCache() {
-        const type = MESSAGES_TYPES.CLEAR_AUTH_CACHE;
+        const type = MessageType.CLEAR_AUTH_CACHE;
         return this.sendMessage(type);
     }
 
     async getCanControlProxy() {
-        const type = MESSAGES_TYPES.GET_CAN_CONTROL_PROXY;
+        const type = MessageType.GET_CAN_CONTROL_PROXY;
         return this.sendMessage(type);
     }
 
     async enableProxy(force: boolean) {
-        const type = MESSAGES_TYPES.ENABLE_PROXY;
+        const type = MessageType.ENABLE_PROXY;
         return this.sendMessage(type, { force });
     }
 
     async disableProxy(force: boolean) {
-        const type = MESSAGES_TYPES.DISABLE_PROXY;
+        const type = MessageType.DISABLE_PROXY;
         return this.sendMessage(type, { force });
     }
 
     async addUrlToExclusions(url: string) {
-        const type = MESSAGES_TYPES.ADD_URL_TO_EXCLUSIONS;
+        const type = MessageType.ADD_URL_TO_EXCLUSIONS;
         return this.sendMessage(type, { url });
     }
 
     async removeExclusion(id: string) {
-        const type = MESSAGES_TYPES.REMOVE_EXCLUSION;
+        const type = MessageType.REMOVE_EXCLUSION;
         return this.sendMessage(type, { id });
     }
 
     async toggleExclusionState(id: string) {
-        const type = MESSAGES_TYPES.TOGGLE_EXCLUSION_STATE;
+        const type = MessageType.TOGGLE_EXCLUSION_STATE;
         return this.sendMessage(type, { id });
     }
 
-    async addService(id: string) {
-        const type = MESSAGES_TYPES.ADD_SERVICE;
-        return this.sendMessage(type, { id });
-    }
+    // async addService(id: string) {
+    //     const type = MessageType.ADD_SERVICE;
+    //     return this.sendMessage(type, { id });
+    // }
 
     async toggleServices(ids: string[]) {
-        const type = MESSAGES_TYPES.TOGGLE_SERVICES;
+        const type = MessageType.TOGGLE_SERVICES;
         return this.sendMessage(type, { ids });
     }
 
     async removeFromExclusions(url: string) {
-        const type = MESSAGES_TYPES.REMOVE_FROM_EXCLUSIONS;
+        const type = MessageType.REMOVE_FROM_EXCLUSIONS;
         return this.sendMessage(type, { url });
     }
 
     async getIsExcluded(url: string) {
-        const type = MESSAGES_TYPES.GET_IS_EXCLUDED;
+        const type = MessageType.GET_IS_EXCLUDED;
         return this.sendMessage(type, { url });
     }
 
     async resetServiceData(serviceId: string) {
-        const type = MESSAGES_TYPES.RESET_SERVICE_DATA;
+        const type = MessageType.RESET_SERVICE_DATA;
         return this.sendMessage(type, { serviceId });
     }
 
     async clearExclusionsList() {
-        const type = MESSAGES_TYPES.CLEAR_EXCLUSIONS_LIST;
+        const type = MessageType.CLEAR_EXCLUSIONS_LIST;
         return this.sendMessage(type);
     }
 
     async checkEmail(email: string) {
-        const type = MESSAGES_TYPES.CHECK_EMAIL;
+        const type = MessageType.CHECK_EMAIL;
         return this.sendMessage(type, { email });
     }
 
     async disableOtherExtensions() {
-        const type = MESSAGES_TYPES.DISABLE_OTHER_EXTENSIONS;
+        const type = MessageType.DISABLE_OTHER_EXTENSIONS;
         return this.sendMessage(type);
     }
 
@@ -227,97 +227,97 @@ class Messenger {
         passwordAgain: string;
         twoFactor: string;
     }) {
-        const type = MESSAGES_TYPES.REGISTER_USER;
+        const type = MessageType.REGISTER_USER;
         return this.sendMessage(type, { credentials });
     }
 
     async isAuthenticated() {
-        const type = MESSAGES_TYPES.IS_AUTHENTICATED;
+        const type = MessageType.IS_AUTHENTICATED;
         return this.sendMessage(type);
     }
 
     async startSocialAuth(social: string, marketingConsent: boolean) {
-        const type = MESSAGES_TYPES.START_SOCIAL_AUTH;
+        const type = MessageType.START_SOCIAL_AUTH;
         return this.sendMessage(type, { social, marketingConsent });
     }
 
     async clearPermissionsError() {
-        const type = MESSAGES_TYPES.CLEAR_PERMISSIONS_ERROR;
+        const type = MessageType.CLEAR_PERMISSIONS_ERROR;
         return this.sendMessage(type);
     }
 
     async checkPermissions() {
-        const type = MESSAGES_TYPES.CHECK_PERMISSIONS;
+        const type = MessageType.CHECK_PERMISSIONS;
         return this.sendMessage(type);
     }
 
     async getExclusionsInverted() {
-        const type = MESSAGES_TYPES.GET_EXCLUSIONS_INVERTED;
+        const type = MessageType.GET_EXCLUSIONS_INVERTED;
         return this.sendMessage(type);
     }
 
     async getSetting(settingId: string) {
-        const type = MESSAGES_TYPES.GET_SETTING_VALUE;
+        const type = MessageType.GET_SETTING_VALUE;
         return this.sendMessage(type, { settingId });
     }
 
     async setSetting(settingId: string, value: any) {
-        const type = MESSAGES_TYPES.SET_SETTING_VALUE;
+        const type = MessageType.SET_SETTING_VALUE;
         return this.sendMessage(type, { settingId, value });
     }
 
     async getUsername() {
-        const type = MESSAGES_TYPES.GET_USERNAME;
+        const type = MessageType.GET_USERNAME;
         return this.sendMessage(type);
     }
 
     async getExclusionsData() {
-        const type = MESSAGES_TYPES.GET_EXCLUSIONS_DATA;
+        const type = MessageType.GET_EXCLUSIONS_DATA;
         return this.sendMessage(type);
     }
 
     async setExclusionsMode(mode: ExclusionsModes) {
-        const type = MESSAGES_TYPES.SET_EXCLUSIONS_MODE;
+        const type = MessageType.SET_EXCLUSIONS_MODE;
         return this.sendMessage(type, { mode });
     }
 
     async removeExclusionByMode(mode: ExclusionsModes, id: string) {
-        const type = MESSAGES_TYPES.REMOVE_EXCLUSION_BY_MODE;
+        const type = MessageType.REMOVE_EXCLUSION_BY_MODE;
         return this.sendMessage(type, { mode, id });
     }
 
     async getSelectedLocation() {
-        const type = MESSAGES_TYPES.GET_SELECTED_LOCATION;
+        const type = MessageType.GET_SELECTED_LOCATION;
         return this.sendMessage(type);
     }
 
     async checkIsPremiumToken() {
-        const type = MESSAGES_TYPES.CHECK_IS_PREMIUM_TOKEN;
+        const type = MessageType.CHECK_IS_PREMIUM_TOKEN;
         return this.sendMessage(type);
     }
 
     async setNotificationViewed(withDelay: boolean) {
-        const type = MESSAGES_TYPES.SET_NOTIFICATION_VIEWED;
+        const type = MessageType.SET_NOTIFICATION_VIEWED;
         return this.sendMessage(type, { withDelay });
     }
 
     async openTab(url: string) {
-        const type = MESSAGES_TYPES.OPEN_TAB;
+        const type = MessageType.OPEN_TAB;
         return this.sendMessage(type, { url });
     }
 
     async reportBug(email: string, message: string, includeLog: boolean) {
-        const type = MESSAGES_TYPES.REPORT_BUG;
+        const type = MessageType.REPORT_BUG;
         return this.sendMessage(type, { email, message, includeLog });
     }
 
     async setDesktopVpnEnabled(status: boolean) {
-        const type = MESSAGES_TYPES.SET_DESKTOP_VPN_ENABLED;
+        const type = MessageType.SET_DESKTOP_VPN_ENABLED;
         return this.sendMessage(type, { status });
     }
 
     async openPremiumPromoPage() {
-        const type = MESSAGES_TYPES.OPEN_PREMIUM_PROMO_PAGE;
+        const type = MessageType.OPEN_PREMIUM_PROMO_PAGE;
         return this.sendMessage(type);
     }
 
@@ -327,27 +327,27 @@ class Messenger {
      * @param value
      */
     async setFlag(key: string, value: string) {
-        const type = MESSAGES_TYPES.SET_FLAG;
+        const type = MessageType.SET_FLAG;
         return this.sendMessage(type, { key, value });
     }
 
     getRegularExclusions() {
-        const type = MESSAGES_TYPES.GET_REGULAR_EXCLUSIONS;
+        const type = MessageType.GET_REGULAR_EXCLUSIONS;
         return this.sendMessage(type);
     }
 
     getSelectiveExclusions() {
-        const type = MESSAGES_TYPES.GET_SELECTIVE_EXCLUSIONS;
+        const type = MessageType.GET_SELECTIVE_EXCLUSIONS;
         return this.sendMessage(type);
     }
 
     addRegularExclusions(exclusions: string[]) {
-        const type = MESSAGES_TYPES.ADD_REGULAR_EXCLUSIONS;
+        const type = MessageType.ADD_REGULAR_EXCLUSIONS;
         return this.sendMessage(type, { exclusions });
     }
 
     addSelectiveExclusions(exclusions: string[]) {
-        const type = MESSAGES_TYPES.ADD_SELECTIVE_EXCLUSIONS;
+        const type = MessageType.ADD_SELECTIVE_EXCLUSIONS;
         return this.sendMessage(type, { exclusions });
     }
 }

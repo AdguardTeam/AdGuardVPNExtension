@@ -1,7 +1,6 @@
-// tslint:disable
 import browser, { Runtime } from 'webextension-polyfill';
 
-import { MESSAGES_TYPES, SETTINGS_IDS } from '../lib/constants';
+import { MessageType, SETTINGS_IDS } from '../lib/constants';
 import auth from './auth';
 import popupData from './popupData';
 import endpoints from './endpoints';
@@ -25,7 +24,18 @@ import { setDesktopVpnEnabled } from './connectivity/connectivityService/connect
 import { flagsStorage } from './flagsStorage';
 import { ExclusionsData } from '../common/exclusionsConstants';
 
-const eventListeners = {};
+import MessageSender = Runtime.MessageSender;
+
+interface Message {
+    type: MessageType,
+    data: any
+}
+
+interface EventListeners {
+    [index: string]: MessageSender;
+}
+
+const eventListeners: EventListeners = {};
 
 const getOptionsData = async () => {
     const appVersion = appStatus.version;
@@ -67,21 +77,23 @@ const getOptionsData = async () => {
     };
 };
 
-const messagesHandler = async (message, sender) => {
+const messagesHandler = async (message: Message, sender: MessageSender) => {
     const { type, data } = message;
 
     // Here we keep track of event listeners added through notifier
 
     switch (type) {
-        case MESSAGES_TYPES.ADD_EVENT_LISTENER: {
+        case MessageType.ADD_EVENT_LISTENER: {
             const { events } = data;
             const listenerId = notifier.addSpecifiedListener(events, async (...data) => {
                 const sender = eventListeners[listenerId];
                 if (sender) {
-                    const type = MESSAGES_TYPES.NOTIFY_LISTENERS;
+                    const type = MessageType.NOTIFY_LISTENERS;
                     try {
-                        await browser.tabs.sendMessage(sender.tab.id, { type, data });
-                    } catch (e) {
+                        if (sender.tab?.id) {
+                            await browser.tabs.sendMessage(sender.tab.id, { type, data });
+                        }
+                    } catch (e: any) {
                         log.error(e.message);
                     }
                 }
@@ -89,203 +101,207 @@ const messagesHandler = async (message, sender) => {
             eventListeners[listenerId] = sender;
             return Promise.resolve(listenerId);
         }
-        case MESSAGES_TYPES.REMOVE_EVENT_LISTENER: {
+        case MessageType.REMOVE_EVENT_LISTENER: {
             const { listenerId } = data;
             notifier.removeListener(listenerId);
             delete eventListeners[listenerId];
             break;
         }
-        case MESSAGES_TYPES.AUTHENTICATE_SOCIAL: {
-            const { tab: { id } } = sender;
-            const { queryString } = message;
+        case MessageType.AUTHENTICATE_SOCIAL: {
+            const id = sender?.tab?.id;
+            if (!id) {
+                return undefined;
+            }
+
+            const { queryString } = message.data;
             return auth.authenticateSocial(queryString, id);
         }
-        case MESSAGES_TYPES.GET_POPUP_DATA: {
+        case MessageType.GET_POPUP_DATA: {
             const { url, numberOfTries } = data;
             return popupData.getPopupDataRetry(url, numberOfTries);
         }
-        case MESSAGES_TYPES.GET_OPTIONS_DATA: {
+        case MessageType.GET_OPTIONS_DATA: {
             return getOptionsData();
         }
-        case MESSAGES_TYPES.GET_VPN_FAILURE_PAGE: {
+        case MessageType.GET_VPN_FAILURE_PAGE: {
             return endpoints.getVpnFailurePage();
         }
-        case MESSAGES_TYPES.OPEN_OPTIONS_PAGE: {
+        case MessageType.OPEN_OPTIONS_PAGE: {
             return actions.openOptionsPage();
         }
-        case MESSAGES_TYPES.SET_SELECTED_LOCATION: {
+        case MessageType.SET_SELECTED_LOCATION: {
             const { location, isSelectedByUser } = data;
             await locationsService.setSelectedLocation(location.id, isSelectedByUser);
             break;
         }
-        case MESSAGES_TYPES.DEAUTHENTICATE_USER: {
+        case MessageType.DEAUTHENTICATE_USER: {
             await auth.deauthenticate();
             await credentials.persistVpnToken(null);
             break;
         }
-        case MESSAGES_TYPES.AUTHENTICATE_USER: {
+        case MessageType.AUTHENTICATE_USER: {
             const { credentials } = data;
             return auth.authenticate(credentials);
         }
-        case MESSAGES_TYPES.UPDATE_AUTH_CACHE: {
+        case MessageType.UPDATE_AUTH_CACHE: {
             const { field, value } = data;
             authCache.updateCache(field, value);
             break;
         }
-        case MESSAGES_TYPES.GET_AUTH_CACHE: {
+        case MessageType.GET_AUTH_CACHE: {
             return authCache.getCache();
         }
-        case MESSAGES_TYPES.CLEAR_AUTH_CACHE: {
+        case MessageType.CLEAR_AUTH_CACHE: {
             return authCache.clearCache();
         }
-        case MESSAGES_TYPES.GET_CAN_CONTROL_PROXY: {
+        case MessageType.GET_CAN_CONTROL_PROXY: {
             return appStatus.canControlProxy();
         }
-        case MESSAGES_TYPES.ENABLE_PROXY: {
+        case MessageType.ENABLE_PROXY: {
             const { force } = data;
             return settings.enableProxy(force);
         }
-        case MESSAGES_TYPES.DISABLE_PROXY: {
+        case MessageType.DISABLE_PROXY: {
             const { force } = data;
             return settings.disableProxy(force);
         }
-        case MESSAGES_TYPES.ADD_URL_TO_EXCLUSIONS: {
+        case MessageType.ADD_URL_TO_EXCLUSIONS: {
             const { url } = data;
             try {
                 return await exclusions.addUrlToExclusions(url);
-            } catch (e) {
+            } catch (e: any) {
                 throw new Error(e.message);
             }
         }
-        case MESSAGES_TYPES.REMOVE_EXCLUSION: {
+        case MessageType.REMOVE_EXCLUSION: {
             const { id } = data;
             return exclusions.removeExclusion(id);
         }
-        case MESSAGES_TYPES.TOGGLE_EXCLUSION_STATE: {
+        case MessageType.TOGGLE_EXCLUSION_STATE: {
             const { id } = data;
             return exclusions.toggleExclusionState(id);
         }
-        case MESSAGES_TYPES.ADD_SERVICE: {
-            const { id } = data;
-            return exclusions.current.addService(id);
-        }
-        case MESSAGES_TYPES.TOGGLE_SERVICES: {
+        // case MessageType.ADD_SERVICE: {
+        //     const { id } = data;
+        //     return exclusions.current.addService(id);
+        // }
+        case MessageType.TOGGLE_SERVICES: {
             const { ids } = data;
             return exclusions.toggleServices(ids);
         }
-        case MESSAGES_TYPES.REMOVE_FROM_EXCLUSIONS: {
-            const { url } = data;
-            return exclusions.current.disableExclusionByUrl(url);
-        }
-        case MESSAGES_TYPES.GET_IS_EXCLUDED: {
-            const { url } = data;
-            return exclusions.current.isExcluded(url);
-        }
-        case MESSAGES_TYPES.RESET_SERVICE_DATA: {
+        // case MessageType.REMOVE_FROM_EXCLUSIONS: {
+        //     const { url } = data;
+        //     return exclusions.current.disableExclusionByUrl(url);
+        // }
+        // case MessageType.GET_IS_EXCLUDED: {
+        //     const { url } = data;
+        //     return exclusions.current.isExcluded(url);
+        // }
+        case MessageType.RESET_SERVICE_DATA: {
             const { serviceId } = data;
             return exclusions.resetServiceData(serviceId);
         }
-        case MESSAGES_TYPES.CLEAR_EXCLUSIONS_LIST: {
+        case MessageType.CLEAR_EXCLUSIONS_LIST: {
             return exclusions.clearExclusionsData();
         }
-        case MESSAGES_TYPES.CHECK_EMAIL: {
+        case MessageType.CHECK_EMAIL: {
             const { email } = data;
             const appId = await credentials.getAppId();
             return auth.userLookup(email, appId);
         }
-        case MESSAGES_TYPES.DISABLE_OTHER_EXTENSIONS: {
+        case MessageType.DISABLE_OTHER_EXTENSIONS: {
             await management.turnOffProxyExtensions();
             break;
         }
-        case MESSAGES_TYPES.REGISTER_USER: {
+        case MessageType.REGISTER_USER: {
             const { credentials } = data;
             return auth.register(credentials);
         }
-        case MESSAGES_TYPES.IS_AUTHENTICATED: {
+        case MessageType.IS_AUTHENTICATED: {
             return auth.isAuthenticated();
         }
-        case MESSAGES_TYPES.START_SOCIAL_AUTH: {
+        case MessageType.START_SOCIAL_AUTH: {
             const { social, marketingConsent } = data;
             return auth.startSocialAuth(social, marketingConsent);
         }
-        case MESSAGES_TYPES.CLEAR_PERMISSIONS_ERROR: {
+        case MessageType.CLEAR_PERMISSIONS_ERROR: {
             permissionsError.clearError();
             break;
         }
-        case MESSAGES_TYPES.CHECK_PERMISSIONS: {
+        case MessageType.CHECK_PERMISSIONS: {
             await permissionsChecker.checkPermissions();
             break;
         }
-        case MESSAGES_TYPES.GET_EXCLUSIONS_DATA: {
+        case MessageType.GET_EXCLUSIONS_DATA: {
             return {
                 exclusions: exclusions.getExclusions(),
                 currentMode: exclusions.getMode(),
             } as ExclusionsData;
         }
-        case MESSAGES_TYPES.SET_EXCLUSIONS_MODE: {
+        case MessageType.SET_EXCLUSIONS_MODE: {
             const { mode } = data;
             await exclusions.setMode(mode);
             break;
         }
-        case MESSAGES_TYPES.REMOVE_EXCLUSION_BY_MODE: {
-            const { mode, id } = data;
-            const handler = exclusions.getHandler(mode);
-            await handler.removeFromExclusions(id);
-            break;
-        }
-        case MESSAGES_TYPES.REMOVE_EXCLUSIONS_BY_MODE: {
-            const { mode } = data;
-            const handler = exclusions.getHandler(mode);
-            await handler.removeExclusions();
-            break;
-        }
-        case MESSAGES_TYPES.TOGGLE_EXCLUSION_BY_MODE: {
-            const { mode, id } = data;
-            const handler = exclusions.getHandler(mode);
-            await handler.toggleExclusion(id);
-            break;
-        }
-        case MESSAGES_TYPES.ADD_REGULAR_EXCLUSIONS: {
+        // case MessageType.REMOVE_EXCLUSION_BY_MODE: {
+        //     const { mode, id } = data;
+        //     const handler = exclusions.getHandler(mode);
+        //     await handler.removeFromExclusions(id);
+        //     break;
+        // }
+        // case MessageType.REMOVE_EXCLUSIONS_BY_MODE: {
+        //     const { mode } = data;
+        //     const handler = exclusions.getHandler(mode);
+        //     await handler.removeExclusions();
+        //     break;
+        // }
+        // case MessageType.TOGGLE_EXCLUSION_BY_MODE: {
+        //     const { mode, id } = data;
+        //     const handler = exclusions.getHandler(mode);
+        //     await handler.toggleExclusion(id);
+        //     break;
+        // }
+        case MessageType.ADD_REGULAR_EXCLUSIONS: {
             return exclusions.addRegularExclusions(data.exclusions);
         }
-        case MESSAGES_TYPES.ADD_SELECTIVE_EXCLUSIONS: {
+        case MessageType.ADD_SELECTIVE_EXCLUSIONS: {
             return exclusions.addSelectiveExclusions(data.exclusions);
         }
-        case MESSAGES_TYPES.ADD_EXCLUSION_BY_MODE: {
-            const { mode, url, enabled } = data;
-            const handler = exclusions.getHandler(mode);
-            handler.addToExclusions(url, enabled);
-            break;
-        }
-        case MESSAGES_TYPES.GET_SELECTED_LOCATION: {
+        // case MessageType.ADD_EXCLUSION_BY_MODE: {
+        //     const { mode, url, enabled } = data;
+        //     const handler = exclusions.getHandler(mode);
+        //     handler.addToExclusions(url, enabled);
+        //     break;
+        // }
+        case MessageType.GET_SELECTED_LOCATION: {
             return endpoints.getSelectedLocation();
         }
-        case MESSAGES_TYPES.GET_EXCLUSIONS_INVERTED: {
+        case MessageType.GET_EXCLUSIONS_INVERTED: {
             return exclusions.isInverted();
         }
-        case MESSAGES_TYPES.GET_SETTING_VALUE: {
+        case MessageType.GET_SETTING_VALUE: {
             const { settingId } = data;
             return settings.getSetting(settingId);
         }
-        case MESSAGES_TYPES.SET_SETTING_VALUE: {
+        case MessageType.SET_SETTING_VALUE: {
             const { settingId, value } = data;
             return settings.setSetting(settingId, value);
         }
-        case MESSAGES_TYPES.GET_USERNAME: {
+        case MessageType.GET_USERNAME: {
             return credentials.getUsername();
         }
-        case MESSAGES_TYPES.CHECK_IS_PREMIUM_TOKEN: {
+        case MessageType.CHECK_IS_PREMIUM_TOKEN: {
             return credentials.isPremiumToken();
         }
-        case MESSAGES_TYPES.SET_NOTIFICATION_VIEWED: {
+        case MessageType.SET_NOTIFICATION_VIEWED: {
             const { withDelay } = data;
             return promoNotifications.setNotificationViewed(withDelay);
         }
-        case MESSAGES_TYPES.OPEN_TAB: {
+        case MessageType.OPEN_TAB: {
             const { url } = data;
             return tabs.openTab(url);
         }
-        case MESSAGES_TYPES.REPORT_BUG: {
+        case MessageType.REPORT_BUG: {
             const { email, message, includeLog } = data;
             const appId = await credentials.getAppId();
             let token;
@@ -297,7 +313,7 @@ const messagesHandler = async (message, sender) => {
             }
             const { version } = appStatus;
 
-            const reportData = {
+            const reportData: any = {
                 appId,
                 token,
                 email,
@@ -311,22 +327,22 @@ const messagesHandler = async (message, sender) => {
 
             return vpnProvider.requestSupport(reportData);
         }
-        case MESSAGES_TYPES.SET_DESKTOP_VPN_ENABLED: {
+        case MessageType.SET_DESKTOP_VPN_ENABLED: {
             const { status } = data;
             setDesktopVpnEnabled(status);
             break;
         }
-        case MESSAGES_TYPES.OPEN_PREMIUM_PROMO_PAGE: {
+        case MessageType.OPEN_PREMIUM_PROMO_PAGE: {
             return actions.openPremiumPromoPage();
         }
-        case MESSAGES_TYPES.SET_FLAG: {
+        case MessageType.SET_FLAG: {
             const { key, value } = data;
             return flagsStorage.set(key, value);
         }
-        case MESSAGES_TYPES.GET_REGULAR_EXCLUSIONS: {
+        case MessageType.GET_REGULAR_EXCLUSIONS: {
             return exclusions.getRegularExclusions();
         }
-        case MESSAGES_TYPES.GET_SELECTIVE_EXCLUSIONS: {
+        case MessageType.GET_SELECTIVE_EXCLUSIONS: {
             return exclusions.getSelectiveExclusions();
         }
         default:
@@ -342,15 +358,15 @@ const messagesHandler = async (message, sender) => {
  * Causing issues like AG-2074
  */
 const longLivedMessageHandler = (port: Runtime.Port) => {
-    let listenerId: number;
+    let listenerId: string;
 
     log.debug(`Connecting to the port "${port.name}"`);
     port.onMessage.addListener((message) => {
         const { type, data } = message;
-        if (type === MESSAGES_TYPES.ADD_LONG_LIVED_CONNECTION) {
+        if (type === MessageType.ADD_LONG_LIVED_CONNECTION) {
             const { events } = data;
             listenerId = notifier.addSpecifiedListener(events, async (...data) => {
-                const type = MESSAGES_TYPES.NOTIFY_LISTENERS;
+                const type = MessageType.NOTIFY_LISTENERS;
                 try {
                     port.postMessage({ type, data });
                 } catch (e: any) {

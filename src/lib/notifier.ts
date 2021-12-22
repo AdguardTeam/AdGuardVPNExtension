@@ -112,7 +112,7 @@ export class Notifier {
      * Unsubscribe listener
      * @param listenerId Index of listener to unsubscribe
      */
-    removeListener(listenerId: number) {
+    removeListener(listenerId: string) {
         delete this.listeners[listenerId];
         delete this.listenersEvents[listenerId];
     }

@@ -47,7 +47,7 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
         'service-exclusion': selectedExclusion?.type === ExclusionsTypes.Service,
         useless: hostname !== selectedExclusion?.value
             && !hostname.startsWith('*')
-            && selectedExclusion.children.some((exclusion) => {
+            && selectedExclusion?.children.some((exclusion) => {
                 return exclusion.value.startsWith('*')
                     && exclusion.state === ExclusionStates.Enabled;
             }),
