@@ -270,18 +270,29 @@ export class ExclusionsService {
         return exclusionsManager.inverted;
     }
 
+    private async addExclusion(domain: string) {
+        const exclusion = exclusionsManager.current.getExclusionByHostname(domain);
+        if (exclusion) {
+            await exclusionsManager.current.enableExclusion(exclusion.id);
+        } else {
+            await exclusionsManager.current.addExclusions([{ value: domain }]);
+        }
+        this.updateTree();
+    }
+
     async resetServiceData(id: string) {
         const defaultServiceData = servicesManager.getService(id);
-
         if (!defaultServiceData) {
             return;
         }
 
-        defaultServiceData?.domains.forEach((domain) => {
-            this.addUrlToExclusions(domain);
-            this.addUrlToExclusions(`*.${domain}`);
-        });
-        this.updateTree();
+        /* eslint-disable no-restricted-syntax */
+        for (const domain of defaultServiceData.domains) {
+            /* eslint-disable no-await-in-loop */
+            await this.addExclusion(domain);
+            /* eslint-disable no-await-in-loop */
+            await this.addExclusion(`*.${domain}`);
+        }
     }
 
     prepareExclusionsForExport(exclusions: ExclusionInterface[]) {
