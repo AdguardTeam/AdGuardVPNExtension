@@ -19,6 +19,10 @@ import { Service, ServiceCategory, ServiceInterface } from '../../background/exc
 import { messenger } from '../../lib/messenger';
 import { containsIgnoreCase } from '../components/Exclusions/Search/SearchHighlighter/helpers';
 
+export interface ServiceViewInterface extends ServiceInterface{
+    state: ExclusionStates;
+}
+
 export interface PreparedServiceCategory extends ServiceCategory {
     services: string[]
 }
@@ -28,7 +32,7 @@ interface PreparedServiceCategories {
 }
 
 interface PreparedServices {
-    [key: string]: ServiceInterface
+    [key: string]: ServiceViewInterface
 }
 
 export enum AddExclusionMode {

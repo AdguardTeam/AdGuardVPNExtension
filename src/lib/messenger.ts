@@ -27,9 +27,8 @@ class Messenger {
      * @param events Events for listening
      * @param callback Event listener callback
      */
-    createEventListener = async (events: any, callback: (arg0: any) => void) => {
-        const eventListener = (...args: { type: any; data: any; }[]) => {
-            // @ts-ignore
+    createEventListener = async (events: any, callback: (...args: any[]) => void) => {
+        const eventListener = (...args: any[]) => {
             callback(...args);
         };
 
@@ -64,9 +63,8 @@ class Messenger {
      * @param callback
      * @returns {function}
      */
-    createLongLivedConnection = (events: any, callback: (arg0: any) => void) => {
+    createLongLivedConnection = (events: any, callback: (...args: any[]) => void) => {
         const eventListener = (...args: { type: any; data: any; }[]) => {
-            // @ts-ignore
             callback(...args);
         };
 

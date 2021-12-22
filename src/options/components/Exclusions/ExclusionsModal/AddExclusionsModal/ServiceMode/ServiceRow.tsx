@@ -5,26 +5,16 @@ import { rootStore } from '../../../../../stores';
 import { ExclusionStates } from '../../../../../../common/exclusionsConstants';
 import { SearchHighlighter } from '../../../Search/SearchHighlighter';
 import { reactTranslator } from '../../../../../../common/reactTranslator';
-import { Service, ServiceCategory } from '../../../../../../background/exclusions/services/Service';
+import { ServiceViewInterface } from '../../../../../stores/ExclusionsStore';
 
 import './service-mode.pcss';
-
-export interface ServiceInterface {
-    serviceId: string;
-    serviceName: string;
-    iconUrl: string;
-    modifiedTime: string;
-    categories: ServiceCategory[];
-    domains: string[];
-    state: ExclusionStates;
-}
 
 /**
  * Returns true if service can be added, and returns false if service can be removed
  * @param service
  * @param servicesToToggle
  */
-export const canAddService = (service: ServiceInterface, servicesToToggle: string[]) => {
+export const canAddService = (service: ServiceViewInterface, servicesToToggle: string[]) => {
     const isInToggle = servicesToToggle.some((serviceId) => serviceId === service.serviceId);
 
     if (isInToggle) {
@@ -35,7 +25,7 @@ export const canAddService = (service: ServiceInterface, servicesToToggle: strin
 };
 
 interface ServiceRowProps {
-    service: Service;
+    service: ServiceViewInterface;
 }
 
 export const ServiceRow = observer(({ service }: ServiceRowProps) => {

@@ -1,11 +1,11 @@
 import {
     canAddService,
-    ServiceInterface,
 } from '../../../../../../../src/options/components/Exclusions/ExclusionsModal/AddExclusionsModal/ServiceMode/ServiceRow';
 import { ExclusionStates } from '../../../../../../../src/common/exclusionsConstants';
+import { ServiceViewInterface } from '../../../../../../../src/options/stores/ExclusionsStore';
 
-const generateService = (props: Partial<ServiceInterface>): ServiceInterface => {
-    const mockedService: ServiceInterface = {
+const generateService = (props: Partial<ServiceViewInterface>): ServiceViewInterface => {
+    const mockedService: ServiceViewInterface = {
         serviceId: 'string',
         serviceName: 'string',
         iconUrl: 'string',

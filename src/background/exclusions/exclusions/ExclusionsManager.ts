@@ -68,8 +68,6 @@ export class ExclusionsManager {
     };
 
     handleExclusionsUpdate = async () => {
-        // FIXME remove @ts-ignore
-        // @ts-ignore
         notifier.notifyListeners(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE);
 
         const enabledExclusionsList = this.currentHandler.getExclusions()

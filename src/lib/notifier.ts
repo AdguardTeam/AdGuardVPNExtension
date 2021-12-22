@@ -29,7 +29,7 @@ enum NotifierType {
 }
 
 type NotifierTypeMap = {
-    [key in keyof typeof NotifierType]: string
+    [key in keyof typeof NotifierType]: NotifierType
 };
 
 type EventMap = {
