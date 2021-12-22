@@ -11,11 +11,9 @@ import { isVPNConnected } from './connectivity/connectivityService/connectivityF
 class BrowserActionIcon {
     isVpnEnabledForUrl = (id, url) => {
         if (id && url && isHttp(url)) {
-            // FIXME add methods
             return exclusions.isVpnEnabledByUrl(url);
         }
         if (!isHttp(url)) {
-            // FIXME add methods
             // disable icon in tabs with no url only for selective mode
             return !exclusions.isInverted();
         }

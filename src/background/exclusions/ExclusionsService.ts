@@ -310,4 +310,8 @@ export class ExclusionsService {
         // FIXME do not add same exclusions, and calculate how much exclusions were added
         return exclusions.length;
     }
+
+    async setCurrentMode(mode: ExclusionsModes) {
+        await exclusionsManager.setCurrentMode(mode);
+    }
 }

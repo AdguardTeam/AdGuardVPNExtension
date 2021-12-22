@@ -8,6 +8,7 @@ import { translator } from '../common/translator';
 import { settings } from './settings';
 import { isHttp } from '../lib/string-utils';
 import { log } from '../lib/logger';
+import { ExclusionsModes } from '../common/exclusionsConstants';
 
 // All contexts except "browser_action", "page_action" and "launcher"
 const contexts = ['page', 'frame', 'selection', 'link', 'editable', 'image', 'video', 'audio'];
@@ -44,15 +45,13 @@ const CONTEXT_MENU_ITEMS = {
         id: 'selective_mode',
         type: 'radio',
         title: translator.getMessage('context_menu_selective_mode'),
-        // FIXME add methods
-        onclick: () => exclusions.setCurrentMode(exclusions.MODES.Selective),
+        onclick: () => exclusions.setCurrentMode(ExclusionsModes.Selective),
     },
     regular_mode: {
         id: 'regular_mode',
         type: 'radio',
         title: translator.getMessage('context_menu_regular_mode'),
-        // FIXME add methods
-        onclick: () => exclusions.setCurrentMode(exclusions.MODES.Regular),
+        onclick: () => exclusions.setCurrentMode(ExclusionsModes.Regular),
     },
 };
 
@@ -65,7 +64,6 @@ const getContextMenuItems = (tabUrl) => {
 
     if (isHttp(tabUrl)) {
         let vpnSwitcher;
-        // FIXME add methods
         if (exclusions.isVpnEnabledByUrl(tabUrl)) {
             vpnSwitcher = { ...CONTEXT_MENU_ITEMS.disable_vpn };
             vpnSwitcher.onclick = () => exclusions.disableVpnByUrl(tabUrl);
@@ -84,7 +82,6 @@ const getContextMenuItems = (tabUrl) => {
         ...CONTEXT_MENU_ITEMS.selective_mode,
     };
 
-    // FIXME add methods
     if (exclusions.isInverted()) {
         selectiveModeItem.checked = true;
     } else {
