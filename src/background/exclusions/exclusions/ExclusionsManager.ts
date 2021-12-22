@@ -1,21 +1,10 @@
 import { ExclusionsModes, ExclusionStates } from '../../../common/exclusionsConstants';
-// FIXME remove cycle dependency
-// eslint-disable-next-line import/no-cycle
 import { ExclusionsHandler } from './ExclusionsHandler';
 import notifier from '../../../lib/notifier';
 import { log } from '../../../lib/logger';
 import { settings } from '../../settings';
 import { proxy } from '../../proxy';
-
-export interface IndexedExclusionsInterface {
-    [id: string]: string[];
-}
-
-export interface ExclusionInterface {
-    id: string,
-    hostname: string,
-    state: ExclusionStates,
-}
+import { ExclusionInterface, IndexedExclusionsInterface } from './exclusionsTypes';
 
 interface PersistedExclusions {
     [ExclusionsModes.Regular]: ExclusionInterface[];

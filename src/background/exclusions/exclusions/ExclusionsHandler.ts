@@ -4,10 +4,8 @@ import ipaddr from 'ipaddr.js';
 
 import { ExclusionsModes, ExclusionStates } from '../../../common/exclusionsConstants';
 import { getHostname } from '../../../lib/helpers';
-// FIXME interfaces to common directory to solve cycle dependency
-// eslint-disable-next-line import/no-cycle
-import { ExclusionInterface, IndexedExclusionsInterface } from './ExclusionsManager';
 import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
+import { ExclusionInterface, IndexedExclusionsInterface } from './exclusionsTypes';
 
 /**
  * Here eTld means eTLD + 1
