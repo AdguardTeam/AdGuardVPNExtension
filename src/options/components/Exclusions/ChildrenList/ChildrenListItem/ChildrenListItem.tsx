@@ -43,12 +43,14 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
         return translator.getMessage('settings_exclusion_status_subdomain');
     };
 
+    const wildcardExclusion = `*.${selectedExclusion?.value}`;
+
     const exclusionClassNames = (hostname: string) => classnames('children-list-item', {
         'service-exclusion': selectedExclusion?.type === ExclusionsTypes.Service,
         useless: hostname !== selectedExclusion?.value
-            && !hostname.startsWith('*')
+            && !hostname.startsWith(wildcardExclusion)
             && selectedExclusion?.children.some((exclusion) => {
-                return exclusion.value.startsWith('*')
+                return exclusion.value.startsWith(wildcardExclusion)
                     && exclusion.state === ExclusionStates.Enabled;
             }),
     });
