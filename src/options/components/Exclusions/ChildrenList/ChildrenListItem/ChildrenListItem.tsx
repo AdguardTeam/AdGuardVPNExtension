@@ -25,8 +25,8 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
         exclusionsStore.toggleExclusionState(id);
     };
 
-    const removeExclusion = (id: string) => async () => {
-        await exclusionsStore.removeExclusion(id);
+    const removeExclusion = (exclusion: ExclusionDtoInterface) => async () => {
+        await exclusionsStore.removeExclusion(exclusion);
     };
 
     const showGroupSettings = (id: string) => () => {
@@ -91,7 +91,7 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
             <button
                 type="button"
                 className="children-list-item__remove-button"
-                onClick={removeExclusion(exclusion.id)}
+                onClick={removeExclusion(exclusion)}
             >
                 <svg className="children-list-item__remove-button__icon">
                     <use xlinkHref="#basket" />
