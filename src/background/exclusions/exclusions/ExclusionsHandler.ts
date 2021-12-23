@@ -51,6 +51,12 @@ interface UpdateHandler {
     (): Promise<void>;
 }
 
+export interface AddExclusionArgs {
+    value: string,
+    enabled?: boolean,
+    overwriteState?: boolean
+}
+
 export class ExclusionsHandler {
     exclusions: ExclusionInterface[];
 
@@ -106,16 +112,23 @@ export class ExclusionsHandler {
         return indexedExclusions;
     }
 
-    async addExclusions(exclusionsToAdd: {
-        value: string,
-        enabled?: boolean,
-    }[]) {
-        exclusionsToAdd.forEach(({ value, enabled = true }) => {
+    async addExclusions(exclusionsToAdd: AddExclusionArgs[]) {
+        let addedCount = 0;
+        exclusionsToAdd.forEach(({ value, enabled = true, overwriteState = false }) => {
             const state = enabled ? ExclusionStates.Enabled : ExclusionStates.Disabled;
-            this.exclusions.push({ id: nanoid(), hostname: value, state });
+            const existingIndex = this.exclusions.findIndex((ex) => ex.hostname === value);
+            if (existingIndex > -1) {
+                if (overwriteState) {
+                    this.exclusions[existingIndex].state = state;
+                }
+            } else {
+                this.exclusions.push({ id: nanoid(), hostname: value, state });
+                addedCount += 1;
+            }
         });
 
         await this.onUpdate();
+        return addedCount;
     }
 
     hasETld = (eTld: string) => {
@@ -161,7 +174,10 @@ export class ExclusionsHandler {
         await this.onUpdate();
     }
 
-    async setExclusionsState(ids: string[], state: ExclusionStates) {
+    async setExclusionsState(
+        ids: string[],
+        state: Exclude<ExclusionStates, ExclusionStates.PartlyEnabled>,
+    ) {
         this.exclusions = this.exclusions.map((ex) => {
             if (ids.includes(ex.id)) {
                 return {

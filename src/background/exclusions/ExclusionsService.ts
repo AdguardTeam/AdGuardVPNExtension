@@ -7,7 +7,7 @@ import { servicesManager } from './services/ServicesManager';
 import { ExclusionsTree } from './ExclusionsTree';
 import { getHostname } from '../../lib/helpers';
 import { ExclusionsModes, ExclusionStates } from '../../common/exclusionsConstants';
-import { getETld, getSubdomain } from './exclusions/ExclusionsHandler';
+import { AddExclusionArgs, getETld, getSubdomain } from './exclusions/ExclusionsHandler';
 import { ExclusionInterface } from './exclusions/exclusionsTypes';
 
 const isWildcard = (targetString: string) => {
@@ -72,15 +72,55 @@ export class ExclusionsService {
         return services;
     }
 
-    async addUrlToExclusions(url: string) {
-        const unicodeHostname = getHostname(url);
+    supplementExclusion(url: string): AddExclusionArgs[] {
+        const hostname = getHostname(url);
+        if (!hostname) {
+            return [];
+        }
 
-        if (!unicodeHostname) {
+        const eTld = getETld(hostname);
+        if (!eTld) {
+            return [];
+        }
+
+        const subdomain = getSubdomain(hostname, eTld);
+
+        if (subdomain) {
+            if (isWildcard(subdomain)) {
+                const subdomainHostname = `${subdomain}.${eTld}`;
+                return [
+                    { value: eTld, enabled: false },
+                    { value: subdomainHostname, enabled: true, overwriteState: true },
+                ];
+            }
+
+            const wildcardHostname = `*.${eTld}`;
+            const subdomainHostname = `${subdomain}.${eTld}`;
+            return [
+                { value: eTld, enabled: false },
+                { value: wildcardHostname, enabled: false },
+                { value: subdomainHostname, enabled: true, overwriteState: true },
+            ];
+        }
+
+        const wildcardHostname = `*.${hostname}`;
+
+        return [
+            { value: hostname, enabled: true, overwriteState: true },
+            { value: wildcardHostname, enabled: false },
+        ];
+    }
+
+    async addUrlToExclusions(url: string) {
+        const hostname = getHostname(url);
+
+        if (!hostname) {
             return;
         }
 
-        // convert to ASCII
-        const hostname = punycode.toASCII(unicodeHostname);
+        // FIXME @oleg.l consider removing, in what cases getHostname doesn't return value in ascii?
+        // // convert to ASCII
+        // const hostname = punycode.toASCII(unicodeHostname);
 
         const existingExclusion = exclusionsManager.current.getExclusionByHostname(hostname);
         if (existingExclusion) {
@@ -322,18 +362,28 @@ export class ExclusionsService {
         return this.prepareExclusionsForExport(exclusions);
     }
 
-    async addRegularExclusions(exclusions: string[]) {
-        const exclusionsWithState = exclusions.map((ex) => ({ value: ex, enabled: true }));
-        await exclusionsManager.regular.addExclusions(exclusionsWithState);
-        // FIXME do not add same exclusions, and calculate how much exclusions were added
-        return exclusions.length;
+    async addGeneralExclusions(exclusions: string[]) {
+        const exclusionsWithState = exclusions.flatMap((ex) => {
+            return this.supplementExclusion(ex);
+        });
+
+        const addedCount = await exclusionsManager.regular.addExclusions(exclusionsWithState);
+
+        this.updateTree();
+
+        return addedCount;
     }
 
     async addSelectiveExclusions(exclusions: string[]) {
-        const exclusionsWithState = exclusions.map((ex) => ({ value: ex, enabled: true }));
-        await exclusionsManager.regular.addExclusions(exclusionsWithState);
-        // FIXME do not add same exclusions, and calculate how much exclusions were added
-        return exclusions.length;
+        const exclusionsWithState = exclusions.flatMap((ex) => {
+            return this.supplementExclusion(ex);
+        });
+
+        const addedCount = await exclusionsManager.selective.addExclusions(exclusionsWithState);
+
+        this.updateTree();
+
+        return addedCount;
     }
 
     async setCurrentMode(mode: ExclusionsModes) {

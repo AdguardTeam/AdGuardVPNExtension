@@ -2,6 +2,7 @@ import { ExclusionsHandler } from '../../../src/background/exclusions/exclusions
 import { ServicesManager } from '../../../src/background/exclusions/services/ServicesManager';
 import { ExclusionsTree } from '../../../src/background/exclusions/ExclusionsTree';
 import { ExclusionStates, ExclusionsTypes } from '../../../src/common/exclusionsConstants';
+import { ExclusionInterface } from '../../../src/background/exclusions/exclusions/exclusionsTypes';
 
 jest.mock('../../../src/lib/logger.js');
 
@@ -11,7 +12,7 @@ describe('ExclusionsTree', () => {
     });
 
     it('generates exclusions which are not in the service', () => {
-        const exclusions = [
+        const exclusions: ExclusionInterface[] = [
             { id: '1', hostname: 'example.org', state: ExclusionStates.Enabled },
             { id: '2', hostname: '*.example.org', state: ExclusionStates.Enabled },
         ];
@@ -60,7 +61,7 @@ describe('ExclusionsTree', () => {
     });
 
     it('generate exclusions which are in the service', () => {
-        const exclusions = [
+        const exclusions: ExclusionInterface[] = [
             { id: '0', hostname: 'aliexpress.com', state: ExclusionStates.Enabled },
             { id: '1', hostname: '*.aliexpress.com', state: ExclusionStates.Enabled },
             { id: '2', hostname: 'aliexpress.ru', state: ExclusionStates.Enabled },

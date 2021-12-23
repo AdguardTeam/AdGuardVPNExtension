@@ -260,7 +260,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         //     break;
         // }
         case MessageType.ADD_REGULAR_EXCLUSIONS: {
-            return exclusions.addRegularExclusions(data.exclusions);
+            return exclusions.addGeneralExclusions(data.exclusions);
         }
         case MessageType.ADD_SELECTIVE_EXCLUSIONS: {
             return exclusions.addSelectiveExclusions(data.exclusions);
