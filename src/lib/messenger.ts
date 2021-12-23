@@ -181,6 +181,11 @@ class Messenger {
         return this.sendMessage(type, { id });
     }
 
+    async getParentExclusion(id: string) {
+        const type = MessageType.GET_PARENT_EXCLUSION;
+        return this.sendMessage(type, { id });
+    }
+
     // async addService(id: string) {
     //     const type = MessageType.ADD_SERVICE;
     //     return this.sendMessage(type, { id });

@@ -233,6 +233,10 @@ export class ExclusionsService {
         this.updateTree();
     }
 
+    async getParentExclusion(id: string) {
+        return this.exclusionsTree.getParentExclusionNode(id);
+    }
+
     async toggleExclusionState(id: string) {
         const targetExclusionState = this.exclusionsTree.getExclusionState(id);
         if (!targetExclusionState) {
