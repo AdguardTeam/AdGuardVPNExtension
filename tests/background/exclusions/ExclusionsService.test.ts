@@ -34,7 +34,7 @@ jest.mock('../../../src/background/providers/vpnProvider', () => {
 const SERVICE_DATA = {
     categories: {
         id: 'SHOP',
-        name: 'Shopping'
+        name: 'Shopping',
     },
     iconUrl: 'https://icons.adguard.org/icon?domain=aliexpress.com',
     serviceId: 'aliexpress',
@@ -44,7 +44,7 @@ const SERVICE_DATA = {
         'aliexpress.com',
         'aliexpress.ru',
     ],
-}
+};
 
 const getServicesDtoMock = jest.fn();
 servicesManager.getServicesDto = getServicesDtoMock;
