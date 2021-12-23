@@ -321,7 +321,6 @@ export class ExclusionsService {
         } else {
             await exclusionsManager.current.addExclusions([{ value: domain }]);
         }
-        this.updateTree();
     }
 
     async resetServiceData(id: string) {
@@ -336,6 +335,8 @@ export class ExclusionsService {
             await this.addExclusion(domain);
             /* eslint-disable no-await-in-loop */
             await this.addExclusion(`*.${domain}`);
+
+            this.updateTree();
         }
     }
 
