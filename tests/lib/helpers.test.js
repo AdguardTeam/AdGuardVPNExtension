@@ -65,6 +65,10 @@ describe('getHostname', () => {
         expect(getHostname(undefined))
             .toBeNull();
     });
+    it('if protocol not presented returns same value', () => {
+        expect(getHostname('сайт.рф'))
+            .toEqual('сайт.рф');
+    });
 });
 
 describe('getProtocol', () => {

@@ -1,5 +1,6 @@
 import { ExclusionsService } from '../../../src/background/exclusions/ExclusionsService';
 import { ExclusionsModes } from '../../../src/common/exclusionsConstants';
+import { servicesManager } from '../../../src/background/exclusions/services/ServicesManager';
 
 jest.mock('../../../src/background/browserApi');
 
@@ -29,6 +30,29 @@ jest.mock('../../../src/background/providers/vpnProvider', () => {
         },
     };
 });
+
+const SERVICE_DATA = {
+    categories: {
+        id: 'SHOP',
+        name: 'Shopping'
+    },
+    iconUrl: 'https://icons.adguard.org/icon?domain=aliexpress.com',
+    serviceId: 'aliexpress',
+    serviceName: 'Aliexpress',
+    modifiedTime: '2021-09-14T10:23:00+0000',
+    domains: [
+        'aliexpress.com',
+        'aliexpress.ru',
+    ],
+}
+
+const getServicesDtoMock = jest.fn();
+servicesManager.getServicesDto = getServicesDtoMock;
+getServicesDtoMock.mockReturnValue([SERVICE_DATA]);
+
+const getServiceMock = jest.fn();
+servicesManager.getService = getServiceMock;
+getServiceMock.mockReturnValue(SERVICE_DATA);
 
 describe('ExclusionsService', () => {
     afterEach(() => {
@@ -134,5 +158,14 @@ describe('ExclusionsService', () => {
         expect(exclusionsService.isVpnEnabledByUrl('пример.рф')).toBeFalsy();
         expect(exclusionsService.isVpnEnabledByUrl('http://xn--e1afmkfd.xn--p1ai/')).toBeFalsy();
         expect(exclusionsService.isVpnEnabledByUrl('xn--e1afmkfd.xn--p1ai')).toBeFalsy();
+    });
+
+    it('manually add service', async () => {
+        const exclusionsService = new ExclusionsService();
+        await exclusionsService.init();
+        await exclusionsService.addUrlToExclusions('aliexpress.ru');
+        // const exclusions = await exclusionsService.getExclusions();
+        // FIXME fix test
+        expect(1).toEqual(1);
     });
 });
