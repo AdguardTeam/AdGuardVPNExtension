@@ -179,10 +179,10 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             const { id } = data;
             return exclusions.toggleExclusionState(id);
         }
-        // case MessageType.ADD_SERVICE: {
-        //     const { id } = data;
-        //     return exclusions.current.addService(id);
-        // }
+        case MessageType.GET_PARENT_EXCLUSION: {
+            const { id } = data;
+            return exclusions.getParentExclusion(id);
+        }
         case MessageType.TOGGLE_SERVICES: {
             const { ids } = data;
             return exclusions.toggleServices(ids);
@@ -190,10 +190,6 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         // case MessageType.REMOVE_FROM_EXCLUSIONS: {
         //     const { url } = data;
         //     return exclusions.current.disableExclusionByUrl(url);
-        // }
-        // case MessageType.GET_IS_EXCLUDED: {
-        //     const { url } = data;
-        //     return exclusions.current.isExcluded(url);
         // }
         case MessageType.RESET_SERVICE_DATA: {
             const { serviceId } = data;

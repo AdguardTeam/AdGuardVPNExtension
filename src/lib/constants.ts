@@ -63,6 +63,7 @@ export enum MessageType {
     TOGGLE_EXCLUSION_STATE = 'toggle.exclusion.state',
     RESET_SERVICE_DATA = 'reset.service.data',
     CLEAR_EXCLUSIONS_LIST = 'clear.exclusions.list',
+    GET_PARENT_EXCLUSION = 'get.parent.exclusion',
     // ADD_SERVICE = 'add.service',
     TOGGLE_SERVICES = 'toggle.services',
     // FIXME remove if not used anymore
