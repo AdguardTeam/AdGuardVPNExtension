@@ -333,7 +333,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             const { key, value } = data;
             return flagsStorage.set(key, value);
         }
-        case MessageType.GET_REGULAR_EXCLUSIONS: {
+        case MessageType.GET_GENERAL_EXCLUSIONS: {
             return exclusions.getRegularExclusions();
         }
         case MessageType.GET_SELECTIVE_EXCLUSIONS: {

@@ -4,9 +4,6 @@ import {
     observable,
     runInAction,
 } from 'mobx';
-import JSZip from 'jszip';
-import format from 'date-fns/format';
-import FileSaver from 'file-saver';
 import punycode from 'punycode';
 
 import {
@@ -340,27 +337,6 @@ export class ExclusionsStore {
 
     @action clearExclusionsList = async () => {
         await messenger.clearExclusionsList();
-    };
-
-    exportExclusions = async () => {
-        const nowFormatted = format(Date.now(), 'yyyy_MM_dd-HH_mm_ss');
-        const ZIP_FILENAME = `exclusions-${nowFormatted}.zip`;
-
-        const EXCLUSION_FILES_EXTENSIONS = {
-            REGULAR: '.regular.txt',
-            SELECTIVE: '.selective.txt',
-        };
-
-        const zip = new JSZip();
-
-        const regularExclusions = await messenger.getRegularExclusions();
-        const selectiveExclusions = await messenger.getSelectiveExclusions();
-
-        zip.file(`${nowFormatted}${EXCLUSION_FILES_EXTENSIONS.REGULAR}`, regularExclusions);
-        zip.file(`${nowFormatted}${EXCLUSION_FILES_EXTENSIONS.SELECTIVE}`, selectiveExclusions);
-
-        const zipContent = await zip.generateAsync({ type: 'blob' });
-        FileSaver.saveAs(zipContent, ZIP_FILENAME);
     };
 
     get sortedExclusions() {

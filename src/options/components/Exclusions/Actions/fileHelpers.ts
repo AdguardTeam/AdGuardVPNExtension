@@ -3,6 +3,10 @@ import JSZip from 'jszip';
 import { translator } from '../../../../common/translator';
 
 const EXCLUSIONS_FILES_MARKERS = {
+    GENERAL: 'general.txt',
+    /**
+     * @deprecated in the favor of general.txt
+     */
     REGULAR: 'regular.txt',
     SELECTIVE: 'selective.txt',
     ZIP: '.zip',
@@ -10,7 +14,11 @@ const EXCLUSIONS_FILES_MARKERS = {
 };
 
 export enum ExclusionDataTypes {
+    /**
+     * @deprecated in the favor of general
+     */
     Regular = 'Regular',
+    General = 'General',
     Selective = 'Selective',
     Txt = 'Txt',
 }
@@ -49,6 +57,10 @@ const readZipFile = async (
         return !last.startsWith(HIDDEN_FILES_START);
     });
 
+    const generalExclusionsFile = files.find((file) => {
+        return file.name.endsWith(EXCLUSIONS_FILES_MARKERS.GENERAL);
+    });
+
     const regularExclusionsFile = files.find((file) => {
         return file.name.endsWith(EXCLUSIONS_FILES_MARKERS.REGULAR);
     });
@@ -57,8 +69,9 @@ const readZipFile = async (
         return file.name.endsWith(EXCLUSIONS_FILES_MARKERS.SELECTIVE);
     });
 
-    if (!regularExclusionsFile && !selectiveExclusionsFile) {
+    if (!generalExclusionsFile && !selectiveExclusionsFile && !regularExclusionsFile) {
         const requiredExtensionsString = [
+            EXCLUSIONS_FILES_MARKERS.GENERAL,
             EXCLUSIONS_FILES_MARKERS.REGULAR,
             EXCLUSIONS_FILES_MARKERS.SELECTIVE,
         ]
@@ -75,12 +88,21 @@ const readZipFile = async (
     }
 
     const resultExclusions = [];
+    if (generalExclusionsFile) {
+        // https://stuk.github.io/jszip/documentation/api_zipobject/async.html
+        const generalExclusionsString = await generalExclusionsFile.async('text');
+        resultExclusions.push({
+            type: ExclusionDataTypes.General,
+            content: generalExclusionsString,
+        });
+    }
+
     if (regularExclusionsFile) {
         // https://stuk.github.io/jszip/documentation/api_zipobject/async.html
-        const regularExclusionsString = await regularExclusionsFile.async('text');
+        const generalExclusionsString = await regularExclusionsFile.async('text');
         resultExclusions.push({
-            type: ExclusionDataTypes.Regular,
-            content: regularExclusionsString,
+            type: ExclusionDataTypes.General,
+            content: generalExclusionsString,
         });
     }
 
@@ -101,9 +123,13 @@ export const readExclusionsFile = async (
 ): Promise<ExclusionsImportData[]> => {
     const fileName = file.name;
     switch (true) {
+        case (fileName.endsWith(`.${EXCLUSIONS_FILES_MARKERS.GENERAL}`)
+            || fileName === EXCLUSIONS_FILES_MARKERS.GENERAL): {
+            return [{ type: ExclusionDataTypes.General, content: await readFile(file) }];
+        }
         case (fileName.endsWith(`.${EXCLUSIONS_FILES_MARKERS.REGULAR}`)
             || fileName === EXCLUSIONS_FILES_MARKERS.REGULAR): {
-            return [{ type: ExclusionDataTypes.Regular, content: await readFile(file) }];
+            return [{ type: ExclusionDataTypes.General, content: await readFile(file) }];
         }
         case (fileName.endsWith(`.${EXCLUSIONS_FILES_MARKERS.SELECTIVE}`)
             || fileName === EXCLUSIONS_FILES_MARKERS.SELECTIVE): {

@@ -8,6 +8,9 @@ import React, {
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
 import { identity } from 'lodash';
+import format from 'date-fns/format';
+import JSZip from 'jszip';
+import FileSaver from 'file-saver';
 
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
@@ -35,14 +38,35 @@ const prepareExclusionsAfterImport = (exclusionsString: string) => {
         .reverse();
 };
 
-const handleRegularExclusionsString = async (exclusionsString: string): Promise<number> => {
-    const regularExclusions = prepareExclusionsAfterImport(exclusionsString);
-    return messenger.addRegularExclusions(regularExclusions);
+const handleGeneralExclusions = async (exclusionsString: string): Promise<number> => {
+    const generalExclusions = prepareExclusionsAfterImport(exclusionsString);
+    return messenger.addRegularExclusions(generalExclusions);
 };
 
 const handleSelectiveExclusionsString = async (exclusionsString: string): Promise<number> => {
     const selectiveExclusions = prepareExclusionsAfterImport(exclusionsString);
     return messenger.addSelectiveExclusions(selectiveExclusions);
+};
+
+const exportExclusions = async () => {
+    const nowFormatted = format(Date.now(), 'yyyy_MM_dd-HH_mm_ss');
+    const ZIP_FILENAME = `exclusions-${nowFormatted}.zip`;
+
+    const EXCLUSION_FILES_EXTENSIONS = {
+        GENERAL: '.general.txt',
+        SELECTIVE: '.selective.txt',
+    };
+
+    const zip = new JSZip();
+
+    const generalExclusions = await messenger.getGeneralExclusions();
+    const selectiveExclusions = await messenger.getSelectiveExclusions();
+
+    zip.file(`${nowFormatted}${EXCLUSION_FILES_EXTENSIONS.GENERAL}`, generalExclusions);
+    zip.file(`${nowFormatted}${EXCLUSION_FILES_EXTENSIONS.SELECTIVE}`, selectiveExclusions);
+
+    const zipContent = await zip.generateAsync({ type: 'blob' });
+    FileSaver.saveAs(zipContent, ZIP_FILENAME);
 };
 
 export const Actions = observer(() => {
@@ -58,7 +82,7 @@ export const Actions = observer(() => {
     };
 
     const onExportExclusionsClick = async () => {
-        await exclusionsStore.exportExclusions();
+        await exportExclusions();
     };
 
     const onImportExclusionsClick = () => {
@@ -86,8 +110,8 @@ export const Actions = observer(() => {
 
         for (let i = 0; i < exclusionsData.length; i += 1) {
             const { type, content } = exclusionsData[i];
-            if (type === ExclusionDataTypes.Regular) {
-                addedExclusions += await handleRegularExclusionsString(content);
+            if (type === ExclusionDataTypes.General) {
+                addedExclusions += await handleGeneralExclusions(content);
             } else if (type === ExclusionDataTypes.Selective) {
                 addedExclusions += await handleSelectiveExclusionsString(content);
             }

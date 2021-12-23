@@ -81,10 +81,8 @@ export enum MessageType {
     OPEN_PREMIUM_PROMO_PAGE = 'open.premium.promo.page',
     ADD_REGULAR_EXCLUSIONS = 'add.regular.exclusions',
     ADD_SELECTIVE_EXCLUSIONS = 'add.selective.exclusions',
-    // GET_USER_SERVICE_DATA = 'get.user.state',
     SET_FLAG = 'set.flag',
-    // GET_IS_FIRST_RUN = 'get.is.first.run',
-    GET_REGULAR_EXCLUSIONS = 'get.regular.exclusions',
+    GET_GENERAL_EXCLUSIONS = 'get.general.exclusions',
     GET_SELECTIVE_EXCLUSIONS = 'get.selective.exclusions',
 }
 
