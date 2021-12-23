@@ -112,15 +112,15 @@ export class ExclusionsService {
     }
 
     async addUrlToExclusions(url: string) {
-        const hostname = getHostname(url);
+        const unicodeHostname = getHostname(url);
 
-        if (!hostname) {
+        if (!unicodeHostname) {
             return;
         }
 
-        // FIXME @oleg.l consider removing, in what cases getHostname doesn't return value in ascii?
-        // // convert to ASCII
-        // const hostname = punycode.toASCII(unicodeHostname);
+        // if provided url has no protocol, getHostname returns unicode url
+        // TODO fix getHostname
+        const hostname = punycode.toASCII(unicodeHostname);
 
         const existingExclusion = exclusionsManager.current.getExclusionByHostname(hostname);
         if (existingExclusion) {
