@@ -25,8 +25,8 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
         exclusionsStore.toggleExclusionState(id);
     };
 
-    const removeExclusion = (id: string) => () => {
-        exclusionsStore.removeExclusion(id);
+    const removeExclusion = (id: string) => async () => {
+        await exclusionsStore.removeExclusion(id);
     };
 
     const showGroupSettings = (id: string) => () => {

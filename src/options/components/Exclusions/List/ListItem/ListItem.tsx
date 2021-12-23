@@ -16,8 +16,8 @@ interface ListItemProps {
 export const ListItem = observer(({ exclusion }: ListItemProps) => {
     const { exclusionsStore } = useContext(rootStore);
 
-    const removeExclusion = (id: string) => () => {
-        exclusionsStore.removeExclusion(id);
+    const removeExclusion = (id: string) => async () => {
+        await exclusionsStore.removeExclusion(id);
     };
 
     const toggleState = (id: string) => () => {
