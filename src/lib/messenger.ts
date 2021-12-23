@@ -331,8 +331,8 @@ class Messenger {
         return this.sendMessage(type, { key, value });
     }
 
-    getRegularExclusions() {
-        const type = MessageType.GET_REGULAR_EXCLUSIONS;
+    getGeneralExclusions() {
+        const type = MessageType.GET_GENERAL_EXCLUSIONS;
         return this.sendMessage(type);
     }
 
