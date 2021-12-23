@@ -314,15 +314,6 @@ export class ExclusionsService {
         return exclusionsManager.inverted;
     }
 
-    private async addExclusion(domain: string) {
-        const exclusion = exclusionsManager.current.getExclusionByHostname(domain);
-        if (exclusion) {
-            await exclusionsManager.current.enableExclusion(exclusion.id);
-        } else {
-            await exclusionsManager.current.addExclusions([{ value: domain }]);
-        }
-    }
-
     async resetServiceData(id: string) {
         const defaultServiceData = servicesManager.getService(id);
         if (!defaultServiceData) {
@@ -332,9 +323,18 @@ export class ExclusionsService {
         /* eslint-disable no-restricted-syntax */
         for (const domain of defaultServiceData.domains) {
             /* eslint-disable no-await-in-loop */
-            await this.addExclusion(domain);
-            /* eslint-disable no-await-in-loop */
-            await this.addExclusion(`*.${domain}`);
+            await exclusionsManager.current.addExclusions([
+                {
+                    value: domain,
+                    enabled: true,
+                    overwriteState: true,
+                },
+                {
+                    value: `*.${domain}`,
+                    enabled: true,
+                    overwriteState: true,
+                },
+            ]);
 
             this.updateTree();
         }
