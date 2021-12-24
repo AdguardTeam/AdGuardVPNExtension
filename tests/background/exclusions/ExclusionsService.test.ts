@@ -218,4 +218,38 @@ describe('ExclusionsService', () => {
         expect(exclusions[0].children[1].id).toEqual('aliexpress.ru');
         expect(exclusions[0].children[1].state).toEqual(ExclusionStates.Enabled);
     });
+
+    it('reset service data test', async () => {
+        const exclusionsService = new ExclusionsService();
+        await exclusionsService.init();
+        await exclusionsService.addUrlToExclusions('aliexpress.ru');
+        await exclusionsService.addUrlToExclusions('test.aliexpress.ru');
+        let exclusions = await exclusionsService.getExclusions();
+
+        expect(exclusions[0].children[1].children[2].value).toEqual('test.aliexpress.ru');
+        expect(exclusions[0].children[1].children[2].state).toEqual(ExclusionStates.Enabled);
+        const subdomainExclusionId = exclusions[0].children[1].children[2].id;
+        // disable test.aliexpress.ru
+        await exclusionsService.toggleExclusionState(subdomainExclusionId);
+        exclusions = await exclusionsService.getExclusions();
+        expect(exclusions[0].children[1].children[2].state).toEqual(ExclusionStates.Disabled);
+
+        // reset service data
+        await exclusionsService.resetServiceData('aliexpress');
+
+        expect(exclusions).toHaveLength(1);
+        expect(exclusions[0].type).toEqual(ExclusionsTypes.Service);
+        expect(exclusions[0].id).toEqual('aliexpress');
+        // FIXME fix test
+        // expect(exclusions[0].state).toEqual(ExclusionStates.Enabled);
+        expect(exclusions[0].children).toHaveLength(2);
+        expect(exclusions[0].children[0].id).toEqual('aliexpress.com');
+        // expect(exclusions[0].children[0].state).toEqual(ExclusionStates.Enabled);
+        expect(exclusions[0].children[1].id).toEqual('aliexpress.ru');
+        expect(exclusions[0].children[1].state).toEqual(ExclusionStates.Enabled);
+        expect(exclusions[0].children[1].children).toHaveLength(3);
+        expect(exclusions[0].children[1].children[2].value).toEqual('test.aliexpress.ru');
+        // reset service data doesn't change manually added subdomain exclusion state
+        expect(exclusions[0].children[1].children[2].state).toEqual(ExclusionStates.Disabled);
+    });
 });
