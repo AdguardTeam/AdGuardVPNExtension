@@ -35,3 +35,5 @@ export interface ExclusionsData {
     exclusions: ExclusionDtoInterface[];
     currentMode: ExclusionsModes;
 }
+
+export const ICON_FOR_DOMAIN = 'https://icons.adguard.org/icon?domain=';

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 
-import { ExclusionDtoInterface } from '../../../../../common/exclusionsConstants';
+import { ExclusionDtoInterface, ICON_FOR_DOMAIN } from '../../../../../common/exclusionsConstants';
 import { StateCheckbox } from '../../StateCheckbox';
 import { rootStore } from '../../../../stores';
 import { SearchHighlighter } from '../../Search/SearchHighlighter';
@@ -49,11 +49,12 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
                 className={listIndexTitleClasses(exclusion.children.length > 0)}
                 onClick={followToChildren(exclusion)}
             >
-                {/* FIXME get icons for sites with icons service */}
                 <img
-                    src={exclusion.iconUrl || './assets/images/ip-icon.svg'}
+                    src={exclusion.iconUrl || `${ICON_FOR_DOMAIN}${exclusion.value}`}
                     className="list-item__title__icon"
                     alt="exclusion icon"
+                    // @ts-ignore
+                    onError={(e) => e.target.src="./assets/images/ip-icon.svg"}
                 />
                 <SearchHighlighter
                     value={exclusion.value}
