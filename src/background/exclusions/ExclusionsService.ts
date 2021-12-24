@@ -335,9 +335,9 @@ export class ExclusionsService {
                     overwriteState: true,
                 },
             ]);
-
-            this.updateTree();
         }
+
+        this.updateTree();
     }
 
     prepareExclusionsForExport(exclusions: ExclusionInterface[]) {
