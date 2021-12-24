@@ -112,15 +112,13 @@ export class ExclusionsService {
     }
 
     async addUrlToExclusions(url: string) {
-        const unicodeHostname = getHostname(url);
+        const hostname = getHostname(url);
 
-        if (!unicodeHostname) {
+        if (!hostname) {
             return;
         }
 
-        // if provided url has no protocol, getHostname returns unicode url
-        // TODO fix getHostname
-        const hostname = punycode.toASCII(unicodeHostname);
+        //FIXME handle wildcard subdomains exclusions (*.test.example.org)
 
         const existingExclusion = exclusionsManager.current.getExclusionByHostname(hostname);
         if (existingExclusion) {

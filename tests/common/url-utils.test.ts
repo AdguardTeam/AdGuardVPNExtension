@@ -68,6 +68,14 @@ describe('getProtocol', () => {
     it('should return the argument if it is incorrect URL - undefined', () => {
         expect(getProtocol(undefined)).toBeNull();
     });
+
+    it('should return null if invoked with URL without protocol', () => {
+        expect(getProtocol('example.org')).toBeNull();
+    });
+
+    it('should return null if invoked with cyrillic URL without protocol', () => {
+        expect(getProtocol('пример.рф')).toBeNull();
+    });
 });
 
 describe('getHostname', () => {
@@ -91,5 +99,13 @@ describe('getHostname', () => {
     });
     it('should return the argument if it is incorrect URL - undefined', () => {
         expect(getHostname(undefined)).toBeNull();
+    });
+    it('should return hostname if invoked with URL without protocol', () => {
+        expect(getHostname('test.com')).toEqual('test.com');
+        expect(getHostname('test.com/test/')).toEqual('test.com');
+    });
+    it('should return punycode hostname if invoked with cyrillic URL without protocol', () => {
+        expect(getHostname('мвд.рф')).toEqual('xn--b1aew.xn--p1ai');
+        expect(getHostname('мвд.рф/тест/')).toEqual('xn--b1aew.xn--p1ai');
     });
 });

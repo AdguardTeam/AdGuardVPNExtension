@@ -109,11 +109,9 @@ export class ExclusionsStore {
         return exclusions.map((exclusion) => {
             const unicodeExclusion = exclusion;
             unicodeExclusion.value = punycode.toUnicode(exclusion.value);
-            unicodeExclusion.children = exclusion.children.map((child) => {
-                const unicodeChild = child;
-                unicodeChild.value = punycode.toUnicode(child.value);
-                return unicodeChild;
-            });
+            if (unicodeExclusion.children.length) {
+                unicodeExclusion.children = this.convertExclusionsValuesToUnicode(unicodeExclusion.children);
+            }
             return unicodeExclusion;
         });
     };
