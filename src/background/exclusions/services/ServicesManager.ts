@@ -161,27 +161,7 @@ export class ServicesManager implements ServiceManagerInterface {
      * Gets exclusions services from server
      */
     async getServicesFromServer() {
-        const services: ServicesInterface = {};
-        const rawExclusionServices = await vpnProvider.getExclusionsServices();
-
-        const {
-            services: rawServices,
-            categories: rawCategories,
-        } = rawExclusionServices as RawExclusionServices;
-
-        const servicesDomains = await vpnProvider.getExclusionsServicesDomains([]);
-
-        Object.values(rawServices).forEach((rawService: RawService) => {
-            const categories = rawService.categories.map((categoryId) => {
-                const category = rawCategories[categoryId];
-                return category;
-            });
-
-            const { domains } = servicesDomains[rawService.serviceId];
-            const service = new Service({ ...rawService, categories, domains });
-
-            services[service.serviceId] = service;
-        });
+        const services = await vpnProvider.getExclusionsServices() as ServicesInterface;
 
         return services;
     }

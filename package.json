@@ -28,7 +28,8 @@
         "crx:release": "export BUILD_ENV=release; yarn build:chrome && node tasks/crx.js",
         "xpi:release": "export BUILD_ENV=release; yarn build:firefox && node tasks/xpi.js",
         "artifacts:beta": "yarn crx:beta && yarn xpi:beta",
-        "artifacts:release": "yarn crx:release && yarn xpi:release"
+        "artifacts:release": "yarn crx:release && yarn xpi:release",
+        "resources": "ts-node tasks/resources"
     },
     "husky": {
         "hooks": {
