@@ -1,5 +1,5 @@
 import { ExclusionsService } from '../../../src/background/exclusions/ExclusionsService';
-import { ExclusionsModes } from '../../../src/common/exclusionsConstants';
+import { ExclusionsModes, ExclusionStates, ExclusionsTypes } from '../../../src/common/exclusionsConstants';
 import { servicesManager } from '../../../src/background/exclusions/services/ServicesManager';
 
 jest.mock('../../../src/background/browserApi');
@@ -53,6 +53,17 @@ getServicesDtoMock.mockReturnValue([SERVICE_DATA]);
 const getServiceMock = jest.fn();
 servicesManager.getService = getServiceMock;
 getServiceMock.mockReturnValue(SERVICE_DATA);
+
+const getServicesMock = jest.fn();
+servicesManager.getServices = getServicesMock;
+getServicesMock.mockReturnValue({ aliexpress: SERVICE_DATA });
+
+const getIndexedServicesMock = jest.fn();
+servicesManager.getIndexedServices = getIndexedServicesMock;
+getIndexedServicesMock.mockReturnValue({
+    'aliexpress.com': 'aliexpress',
+    'aliexpress.ru': 'aliexpress',
+});
 
 describe('ExclusionsService', () => {
     afterEach(() => {
@@ -190,12 +201,21 @@ describe('ExclusionsService', () => {
         expect(exclusionsService.isVpnEnabledByUrl('xn--e1afmkfd.xn--p1ai')).toBeFalsy();
     });
 
-    it('manually add service', async () => {
+    it('manually add service by domain', async () => {
         const exclusionsService = new ExclusionsService();
         await exclusionsService.init();
         await exclusionsService.addUrlToExclusions('aliexpress.ru');
-        // const exclusions = await exclusionsService.getExclusions();
-        // FIXME fix test
-        expect(1).toEqual(1);
+        const exclusions = await exclusionsService.getExclusions();
+
+        // the only added domain group should be enabled and rest are disabled
+        expect(exclusions).toHaveLength(1);
+        expect(exclusions[0].type).toEqual(ExclusionsTypes.Service);
+        expect(exclusions[0].id).toEqual('aliexpress');
+        expect(exclusions[0].state).toEqual(ExclusionStates.PartlyEnabled);
+        expect(exclusions[0].children).toHaveLength(2);
+        expect(exclusions[0].children[0].id).toEqual('aliexpress.com');
+        expect(exclusions[0].children[0].state).toEqual(ExclusionStates.Disabled);
+        expect(exclusions[0].children[1].id).toEqual('aliexpress.ru');
+        expect(exclusions[0].children[1].state).toEqual(ExclusionStates.Enabled);
     });
 });
