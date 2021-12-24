@@ -1,12 +1,8 @@
-const path = require('path');
-
 const dotenv = require('dotenv');
 // Retrieves config from .env file and assigns it to the process.env
 dotenv.config();
 
 const SRC_PATH = '../src';
-const LOCALES_PATH = path.join(__dirname, SRC_PATH, '_locales/en/messages');
-
 const ENVS = {
     DEV: 'dev',
     BETA: 'beta',
@@ -64,7 +60,6 @@ const CHROME_UPDATE_CRX = `https://static.adguard.com/extensions/adguardvpn/${de
 const FIREFOX_UPDATE_XPI = `https://static.adguard.com/extensions/adguardvpn/${deployPath}/${XPI_NAME}`;
 
 module.exports = {
-    LOCALES_PATH,
     ENV_MAP,
     SRC_PATH,
     IS_DEV,
