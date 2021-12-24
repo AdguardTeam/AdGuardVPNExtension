@@ -342,18 +342,9 @@ export class ExclusionsStore {
     get sortedExclusions() {
         const { selectedExclusion } = this;
         if (this.selectedExclusion && selectedExclusion?.type === ExclusionsTypes.Group) {
-            const domainExclusion = selectedExclusion.children
-                .find(({ value }) => value === selectedExclusion.value) || null;
-
-            const allSubdomainsExclusion = selectedExclusion.children
-                .find(({ value }) => value.startsWith('*.')) || null;
-
-            const subdomainsExclusions = selectedExclusion.children
-                .filter(({ value }) => value !== domainExclusion?.value
-                    && value !== allSubdomainsExclusion?.value);
-
-            return [domainExclusion, allSubdomainsExclusion, ...subdomainsExclusions]
-                .filter((exclusion) => exclusion);
+            return selectedExclusion?.children
+                .sort((a) => (a.value === `*.${selectedExclusion.value}` ? -1 : 1))
+                .sort((a) => (a.value === selectedExclusion.value ? -1 : 1));
         }
         return selectedExclusion?.children
             ?.sort((a, b) => {
