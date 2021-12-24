@@ -1,51 +1,9 @@
 import { nanoid } from 'nanoid';
-import { getDomain } from 'tldts';
-import ipaddr from 'ipaddr.js';
 
 import { ExclusionsModes, ExclusionStates } from '../../../common/exclusionsConstants';
-import { getHostname } from '../../../lib/helpers';
 import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
 import { ExclusionInterface, IndexedExclusionsInterface } from './exclusionsTypes';
-
-/**
- * Here eTld means eTLD + 1
- */
-export const getETld = (hostname: string) => {
-    const SEPARATOR = '.';
-
-    if (ipaddr.isValid(hostname)) {
-        return hostname;
-    }
-
-    const parts = hostname.split(SEPARATOR);
-    let domainParts = parts.splice(parts.length - 2, 2);
-    const domain = getDomain(domainParts.join(SEPARATOR));
-    if (domain) {
-        return domain;
-    }
-
-    while (parts.length > 0) {
-        const nextPart = parts.pop();
-        if (nextPart) {
-            domainParts = [nextPart, ...domainParts];
-        }
-
-        const domain = getDomain(domainParts.join(SEPARATOR));
-        if (domain) {
-            return domain;
-        }
-    }
-
-    return null;
-};
-
-export const getSubdomain = (hostname: string, eTld: string) => {
-    // TODO use regular expression to get subdomain
-    return hostname
-        .replace(eTld, '')
-        .replace('www.', '')
-        .slice(0, -1);
-};
+import { getETld, getHostname } from '../../../common/url-utils';
 
 interface UpdateHandler {
     (): Promise<void>;

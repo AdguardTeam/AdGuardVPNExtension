@@ -21,47 +21,6 @@ export const lazyGet = (obj, prop, func) => {
 };
 
 /**
- * Returns hostname of url if it was correct, otherwise return input url
- * @param {string} url
- * @returns {string}
- */
-const getUrlProperties = (url) => {
-    let urlObj;
-
-    try {
-        urlObj = new URL(url);
-    } catch (e) {
-        return url;
-    }
-
-    return urlObj;
-};
-
-/**
- * Returns hostname of url if it was correct, otherwise return input url
- * @param {string | undefined } url
- * @returns {string | null}
- */
-export const getHostname = (url) => {
-    if (!url) {
-        return null;
-    }
-    const urlObj = getUrlProperties(url);
-    return (urlObj && urlObj.hostname) ? urlObj.hostname : url;
-};
-
-/**
- * Returns protocol of url if it was correct, otherwise return input url
- * @param {string} url
- * @returns {string}
- */
-export const getProtocol = (url) => {
-    const urlObj = getUrlProperties(url);
-    const protocol = (urlObj && urlObj.protocol) ? urlObj.protocol : url;
-    return protocol;
-};
-
-/**
  * Normalizes exclusions url
  * 1. trims it
  * 2. converts to lowercase

@@ -7,11 +7,11 @@ import {
 
 import tabs from '../../background/tabs';
 import { log } from '../../lib/logger';
-import { getHostname, getProtocol } from '../../lib/helpers';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
 import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT } from '../../lib/constants';
 import { messenger } from '../../lib/messenger';
 import { STATE } from '../../background/connectivity/connectivityService/connectivityConstants';
+import { getHostname, getProtocol } from '../../common/url-utils';
 
 export class SettingsStore {
     @observable canControlProxy = false;

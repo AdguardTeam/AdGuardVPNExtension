@@ -2,11 +2,12 @@
 import throttle from 'lodash/throttle';
 import ipaddr from 'ipaddr.js';
 import browser from 'webextension-polyfill';
+
 import { log } from '../../lib/logger';
 import notifier from '../../lib/notifier';
-import { getHostname } from '../../lib/helpers';
 import { NON_ROUTABLE_CIDR_NETS } from './constants';
 import tabs from '../tabs';
+import { getHostname } from '../../common/url-utils';
 
 /**
  * This module notifies user about non routable domains

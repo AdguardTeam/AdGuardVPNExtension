@@ -119,6 +119,36 @@ describe('ExclusionsService', () => {
         ]);
     });
 
+    describe('should add toplevel domains', () => {
+        it('works for one part tld', async () => {
+            const exclusionsService = new ExclusionsService();
+            await exclusionsService.init();
+
+            await exclusionsService.addUrlToExclusions('com');
+
+            const exclusions = exclusionsService.getExclusions();
+            expect(exclusions[0].children).toHaveLength(2);
+            expect(exclusions[0].children.map((ex) => ex.value)).toEqual([
+                'com',
+                '*.com',
+            ]);
+        });
+
+        it('works for two parts tld', async () => {
+            const exclusionsService = new ExclusionsService();
+            await exclusionsService.init();
+
+            await exclusionsService.addUrlToExclusions('blogspot.ru');
+            const exclusions = exclusionsService.getExclusions();
+
+            expect(exclusions[0].children).toHaveLength(2);
+            expect(exclusions[0].children.map((ex) => ex.value)).toEqual([
+                'blogspot.ru',
+                '*.blogspot.ru',
+            ]);
+        });
+    });
+
     it('punycode test', async () => {
         const exclusionsService = new ExclusionsService();
         await exclusionsService.init();

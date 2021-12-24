@@ -5,10 +5,10 @@ import punycode from 'punycode';
 import { exclusionsManager } from './exclusions/ExclusionsManager';
 import { servicesManager } from './services/ServicesManager';
 import { ExclusionsTree } from './ExclusionsTree';
-import { getHostname } from '../../lib/helpers';
 import { ExclusionsModes, ExclusionStates } from '../../common/exclusionsConstants';
-import { AddExclusionArgs, getETld, getSubdomain } from './exclusions/ExclusionsHandler';
+import { AddExclusionArgs } from './exclusions/ExclusionsHandler';
 import { ExclusionInterface } from './exclusions/exclusionsTypes';
+import { getETld, getHostname, getSubdomain } from '../../common/url-utils';
 
 const isWildcard = (targetString: string) => {
     return targetString === '*';

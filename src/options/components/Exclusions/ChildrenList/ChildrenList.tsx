@@ -8,6 +8,7 @@ import { reactTranslator } from '../../../../common/reactTranslator';
 import { ExclusionsModes, ExclusionsTypes } from '../../../../common/exclusionsConstants';
 import { ChildrenListItem } from './ChildrenListItem';
 import { SubdomainModal } from './SubdomainModal';
+import { isTopLevel } from '../../../../common/url-utils';
 
 import './children-list.pcss';
 
@@ -49,7 +50,10 @@ export const ChildrenList = observer(() => {
     const addSubdomainButtonClass = classnames(
         'children-list__add-subdomain',
         'simple-button',
-        { hidden: selectedExclusion.type !== ExclusionsTypes.Group },
+        {
+            hidden: selectedExclusion.type !== ExclusionsTypes.Group
+                || isTopLevel(selectedExclusion.value),
+        },
     );
 
     const renderExclusions = () => {
