@@ -16,8 +16,8 @@ interface ListItemProps {
 export const ListItem = observer(({ exclusion }: ListItemProps) => {
     const { exclusionsStore } = useContext(rootStore);
 
-    const removeExclusion = (id: string) => async () => {
-        await exclusionsStore.removeExclusion(id);
+    const removeExclusion = (exclusion: ExclusionDtoInterface) => async () => {
+        await exclusionsStore.removeExclusion(exclusion);
     };
 
     const toggleState = (id: string) => () => {
@@ -63,7 +63,7 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
             <button
                 type="button"
                 className="list-item__remove-button"
-                onClick={removeExclusion(exclusion.id)}
+                onClick={removeExclusion(exclusion)}
             >
                 <svg className="list-item__remove-button__icon">
                     <use xlinkHref="#basket" />

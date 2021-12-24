@@ -248,14 +248,14 @@ export class ExclusionsStore {
         await messenger.addUrlToExclusions(domainToAdd);
     };
 
-    @action removeExclusion = async (id: string) => {
+    @action removeExclusion = async (exclusion: ExclusionDtoInterface) => {
         if (this.selectedExclusionId) {
             const parentExclusion = await messenger.getParentExclusion(this.selectedExclusionId);
-            if (parentExclusion.id !== 'root') {
+            if (parentExclusion.id !== 'root' && parentExclusion.meta?.domains.includes(exclusion.value)) {
                 this.setSelectedExclusionId(parentExclusion.id);
             }
         }
-        await messenger.removeExclusion(id);
+        await messenger.removeExclusion(exclusion.id);
     };
 
     @action toggleExclusionState = async (id: string) => {

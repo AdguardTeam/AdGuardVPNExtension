@@ -112,15 +112,15 @@ export class ExclusionsService {
     }
 
     async addUrlToExclusions(url: string) {
-        const hostname = getHostname(url);
+        const unicodeHostname = getHostname(url);
 
-        if (!hostname) {
+        if (!unicodeHostname) {
             return;
         }
 
-        // FIXME @oleg.l consider removing, in what cases getHostname doesn't return value in ascii?
-        // // convert to ASCII
-        // const hostname = punycode.toASCII(unicodeHostname);
+        // if provided url has no protocol, getHostname returns unicode url
+        // TODO fix getHostname
+        const hostname = punycode.toASCII(unicodeHostname);
 
         const existingExclusion = exclusionsManager.current.getExclusionByHostname(hostname);
         if (existingExclusion) {
@@ -314,16 +314,6 @@ export class ExclusionsService {
         return exclusionsManager.inverted;
     }
 
-    private async addExclusion(domain: string) {
-        const exclusion = exclusionsManager.current.getExclusionByHostname(domain);
-        if (exclusion) {
-            await exclusionsManager.current.enableExclusion(exclusion.id);
-        } else {
-            await exclusionsManager.current.addExclusions([{ value: domain }]);
-        }
-        this.updateTree();
-    }
-
     async resetServiceData(id: string) {
         const defaultServiceData = servicesManager.getService(id);
         if (!defaultServiceData) {
@@ -333,10 +323,21 @@ export class ExclusionsService {
         /* eslint-disable no-restricted-syntax */
         for (const domain of defaultServiceData.domains) {
             /* eslint-disable no-await-in-loop */
-            await this.addExclusion(domain);
-            /* eslint-disable no-await-in-loop */
-            await this.addExclusion(`*.${domain}`);
+            await exclusionsManager.current.addExclusions([
+                {
+                    value: domain,
+                    enabled: true,
+                    overwriteState: true,
+                },
+                {
+                    value: `*.${domain}`,
+                    enabled: true,
+                    overwriteState: true,
+                },
+            ]);
         }
+
+        this.updateTree();
     }
 
     prepareExclusionsForExport(exclusions: ExclusionInterface[]) {
