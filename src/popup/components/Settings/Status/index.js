@@ -21,7 +21,7 @@ const Status = observer(() => {
     const renderVpnStatusSubstring = () => {
         return exclusionsInverted
             ? reactTranslator.getMessage('context_menu_selective_mode')
-            : reactTranslator.getMessage('context_menu_regular_mode');
+            : reactTranslator.getMessage('context_menu_general_mode');
     };
 
     const renderVpnStatusTitle = () => {

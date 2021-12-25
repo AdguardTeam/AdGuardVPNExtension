@@ -6,6 +6,8 @@ import classnames from 'classnames';
 import { rootStore } from '../../../stores';
 import { ExclusionsModes } from '../../../../common/exclusionsConstants';
 import { reactTranslator } from '../../../../common/reactTranslator';
+import {translator} from "../../../../common/translator";
+import {Title} from "../../ui/Title";
 
 export const ModeSelector = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
@@ -33,8 +35,8 @@ export const ModeSelector = observer(() => {
 
     const titles = {
         [ExclusionsModes.Regular]: {
-            title: reactTranslator.getMessage('settings_exclusion_regular_title'),
-            description: reactTranslator.getMessage('settings_exclusion_regular_description'),
+            title: reactTranslator.getMessage('settings_exclusion_general_title'),
+            description: reactTranslator.getMessage('settings_exclusion_general_description'),
         },
         [ExclusionsModes.Selective]: {
             title: reactTranslator.getMessage('settings_exclusion_selective_title'),
@@ -106,7 +108,12 @@ export const ModeSelector = observer(() => {
                     {reactTranslator.getMessage('options_selective_mode_popup_button_switch_now')}
                 </button>
             </Modal>
+            {/* FIXME remove confirmation modal and add buttons Save and Cancel */}
+            {/* FIXME move change mode modal here */}
             <div className="settings__section">
+                <Title
+                    title={translator.getMessage('settings_exclusion_change_mode')}
+                />
                 <div className="settings__group">
                     <div className="settings__controls">
                         {renderRadioButton(ExclusionsModes.Regular)}

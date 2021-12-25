@@ -50,7 +50,7 @@ const CONTEXT_MENU_ITEMS = {
     regular_mode: {
         id: 'regular_mode',
         type: 'radio',
-        title: translator.getMessage('context_menu_regular_mode'),
+        title: translator.getMessage('context_menu_general_mode'),
         onclick: () => exclusions.setCurrentMode(ExclusionsModes.Regular),
     },
 };

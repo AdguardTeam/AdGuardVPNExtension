@@ -269,8 +269,8 @@
     "context_menu_selective_mode": {
         "message": "Selective mode"
     },
-    "context_menu_regular_mode": {
-        "message": "Regular mode"
+    "context_menu_general_mode": {
+        "message": "General mode"
     },
     "settings_dns_label": {
         "message": "Use DNS server"
@@ -359,9 +359,6 @@
     "settings_exclusion_status_all_subdomains": {
         "message": "all subdomains"
     },
-    "settings_exclusion_select_mode": {
-        "message": "Please select the VPN mode"
-    },
     "settings_exclusion_service_settings_subtitle_regular_mode": {
         "message": "AdGuard VPN is off for the checked domains"
     },
@@ -443,17 +440,20 @@
     "settings_connection_mode_title": {
         "message": "Operating mode"
     },
-    "settings_exclusion_regular_title": {
-        "message": "Regular mode"
+    "settings_exclusion_change_mode": {
+        "message": "Change mode"
     },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN won’t work on websites from the list below"
+    "settings_exclusion_general_title": {
+        "message": "General mode"
+    },
+    "settings_exclusion_general_description": {
+        "message": "AdGuard VPN is on everywhere except websites added to exclusions"
     },
     "settings_exclusion_selective_title": {
         "message": "Selective mode"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN will only work on websites from the list below"
+        "message": "AdGuard VPN is on only for the websites added to exclusions"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Subdomains"
