@@ -68,6 +68,8 @@ export class ExclusionsStore {
 
     @observable servicesData: ServiceViewInterface[] = [];
 
+    @observable modeSelectorModalOpen = false;
+
     @observable addExclusionModalOpen = false;
 
     @observable addSubdomainModalOpen = false;
@@ -133,7 +135,11 @@ export class ExclusionsStore {
         return sortedExclusions;
     }
 
-    @action toggleInverted = async (mode: ExclusionsModes) => {
+    @action setModeSelectorModalOpen = (value: boolean) => {
+        this.modeSelectorModalOpen = value;
+    };
+
+    @action setCurrentMode = async (mode: ExclusionsModes) => {
         this.currentMode = mode;
         await messenger.setExclusionsMode(mode);
     };
