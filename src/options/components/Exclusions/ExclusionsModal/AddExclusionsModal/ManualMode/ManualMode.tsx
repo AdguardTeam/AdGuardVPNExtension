@@ -39,14 +39,14 @@ export const ManualMode = () => {
             <div className="manual-mode__actions">
                 <button
                     type="button"
-                    className="button button--medium button--outline-secondary"
+                    className="button button--large button--outline-gray"
                     onClick={closeModal}
                 >
                     {reactTranslator.getMessage('settings_exclusion_modal_cancel')}
                 </button>
                 <button
                     type="button"
-                    className="button button--medium button--primary"
+                    className="button button--large button--primary"
                     onClick={addUrl}
                     disabled={!inputValue}
                 >

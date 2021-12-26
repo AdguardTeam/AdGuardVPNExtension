@@ -60,7 +60,7 @@ export const SubdomainModal = observer(() => {
                 <div className="subdomain-modal__actions">
                     <button
                         type="button"
-                        className="button button--medium button--primary"
+                        className="button button--large button--primary"
                         disabled={!inputValue}
                         onClick={addSubdomain}
                     >

@@ -27,14 +27,14 @@ export const ServiceMode = observer(() => {
             <div className="service-mode__actions">
                 <button
                     type="button"
-                    className="button button--medium button--outline-secondary"
+                    className="button button--large button--outline-gray"
                     onClick={closeModal}
                 >
                     {reactTranslator.getMessage('settings_exclusion_modal_cancel')}
                 </button>
                 <button
                     type="button"
-                    className="button button--medium button--primary"
+                    className="button button--large button--primary"
                     disabled={!exclusionsStore.servicesToToggle.length}
                     onClick={handleSaveServices}
                 >
