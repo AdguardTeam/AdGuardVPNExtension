@@ -4,22 +4,12 @@ import { ExclusionStates } from '../../../common/exclusionsConstants';
 import browserApi from '../../browserApi';
 import { log } from '../../../lib/logger';
 
-interface RawServiceCategory {
-    id: string;
-    name: string;
-}
-
 export interface RawService {
     serviceId: string,
     serviceName: string,
     iconUrl: string,
     categories: string[],
     modifiedTime: string,
-}
-
-interface RawExclusionServices {
-    services: { [index: string]: RawService };
-    categories: { [index: string]: RawServiceCategory };
 }
 
 export interface IndexedServicesInterface {
@@ -150,10 +140,6 @@ export class ServicesManager implements ServiceManagerInterface {
             log.info('Services data updated successfully');
         } catch (e: any) {
             log.error(new Error(`Was unable to get services due to: ${e.message}`));
-            setTimeout(() => {
-                log.warn('Trying to get services');
-                this.updateServices();
-            }, 5000);
         }
     }
 

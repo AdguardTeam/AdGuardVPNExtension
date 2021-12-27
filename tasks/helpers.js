@@ -8,7 +8,7 @@ const {
 } = require('./consts');
 const pJson = require('../package.json');
 
-const getNameByEnv = (env = ENVS.DEV, name) => {
+const getNameByEnv = (name, env = ENVS.DEV) => {
     const envData = ENV_MAP[env];
     if (!envData) {
         throw new Error(`Wrong environment: ${env}`);
@@ -25,7 +25,7 @@ const updateManifest = (manifestJson, browserManifestDiff) => {
         throw new Error('unable to parse json from manifest');
     }
     const devPolicy = IS_DEV ? { content_security_policy: "script-src 'self' 'unsafe-eval'; object-src 'self'" } : {};
-    const name = getNameByEnv(BUILD_ENV, manifest.name);
+    const name = getNameByEnv(manifest.name, BUILD_ENV);
     const permissions = _.uniq([
         ...(manifest.permissions || []),
         ...(browserManifestDiff.permissions || []),
