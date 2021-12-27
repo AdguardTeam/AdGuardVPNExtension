@@ -7,12 +7,17 @@
         height: 45px;
         padding: 0 20px;
         border-radius: 7px;
+        color: var(--gray-base);
         background-color: var(--grayF7);
         border: none;
         font-size: 15px;
 
         &:focus {
             outline: none;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            background-color: #131313;
         }
     }
 
@@ -35,5 +40,21 @@
     &__nothing-found {
         text-align: center;
         margin-top: 120px;
+    }
+}
+
+.light-mode {
+    .input {
+        &__in {
+            background-color: var(--grayF7);
+        }
+    }
+}
+
+.dark-mode {
+    .input {
+        &__in {
+            background-color: #131313;
+        }
     }
 }
