@@ -150,10 +150,6 @@ export class ServicesManager implements ServiceManagerInterface {
             log.info('Services data updated successfully');
         } catch (e: any) {
             log.error(new Error(`Was unable to get services due to: ${e.message}`));
-            setTimeout(() => {
-                log.warn('Trying to get services');
-                this.updateServices();
-            }, 5000);
         }
     }
 
