@@ -1,100 +1,86 @@
-import { vpnApi } from '../src/background/api';
-import browser from 'webextension-polyfill';
-import axios from 'axios';
-import CustomError from '../src/lib/CustomError';
-import { ERROR_STATUSES } from '../src/lib/constants';
+import axios, { AxiosRequestConfig } from 'axios';
+import dotenv from 'dotenv';
+import fs from 'fs';
+import path from 'path';
 
-const makeRequest = async (path, config, method = 'POST') => {
-    const url = `https://${await this.getBaseUrl()}/${path}`;
-    try {
-        const response = await axios({
-            url,
-            method,
-            ...config,
-        });
-        return response.data;
-    } catch (error) {
-        if (error.response) {
-            throw new CustomError(error.response.status, JSON.stringify(error.response.data));
-        }
-        throw new CustomError(ERROR_STATUSES.NETWORK_ERROR, `${url} | ${error.message || JSON.stringify(error)}`);
-    }
-}
+import {
+    ExclusionServices,
+    processExclusionServices,
+    processExclusionServicesDomains,
+} from '../src/common/data-processors';
+
+dotenv.config();
+
+const makeRequest = async (path: string, config: Partial<AxiosRequestConfig>, method = 'POST') => {
+    const url = `https://${process.env.VPN_API_URL}/api/${path}`;
+
+    const response = await axios({
+        url,
+        method,
+        ...config,
+    } as AxiosRequestConfig);
+
+    return response.data;
+};
 
 const EXCLUSION_SERVICES = { path: 'v2/exclusion_services', method: 'GET' };
 
-const getExclusionsServices = () => {
+const getExclusionServicesFromServer = () => {
     const { path, method } = EXCLUSION_SERVICES;
-    const language = browser.i18n.getUILanguage();
 
     const params = {
-        locale: language,
+        locale: 'en',
     };
 
-    return this.makeRequest(path, { params }, method);
+    return makeRequest(path, { params }, method);
 };
 
-export const getExclusionsServices = async () => {
-    const exclusionsServices = await vpnApi.getExclusionsServices();
+const EXCLUSION_SERVICE_DOMAINS = { path: 'v1/exclusion_services/domains', method: 'GET' };
 
-    const { categories = [], services = [] } = exclusionsServices;
+const getExclusionServicesDomainsFromServer = (servicesIds: string[] = []) => {
+    const { path, method } = EXCLUSION_SERVICE_DOMAINS;
 
-    const processedCategories = categories.reduce((acc, category) => {
-        acc[category.id] = category;
-        return acc;
-    }, {});
+    const params = {
+        service_id: servicesIds.join(','),
+    };
 
-    const processedServices = services
-        .map((exclusionService) => {
-            const {
-                service_id: serviceId,
-                service_name: serviceName,
-                icon_url: iconUrl,
-                categories,
-                modified_time: modifiedTime,
-            } = exclusionService;
+    return makeRequest(path, { params }, method);
+};
 
-            return {
-                serviceId,
-                serviceName,
-                iconUrl,
-                categories,
-                modifiedTime,
-            };
-        })
-        .reduce((acc, service) => {
-            acc[service.serviceId] = service;
-            return acc;
-        }, {});
+const getExclusionsServicesFromServer = async () => {
+    const rawExclusionServices = await getExclusionServicesFromServer();
+    const rawServicesDomains = await getExclusionServicesDomainsFromServer();
 
-    const servicesResult = {};
+    const servicesDomains = processExclusionServicesDomains(rawServicesDomains);
+    const exclusionServices = processExclusionServices(rawExclusionServices, servicesDomains);
 
-    const servicesDomains = await getExclusionsServicesDomains([]);
+    return exclusionServices;
+};
 
-    Object.values(processedServices).forEach((rawService) => {
-        const categories = rawService.categories.map((categoryId) => {
-            const category = processedCategories[categoryId];
-            return category;
-        });
+const saveExclusionServicesInFile = (services: ExclusionServices) => {
+    const EXCLUSION_SERVICES_PATH = path.resolve(__dirname, '../src/assets/prebuild-data/');
+    const EXCLUSION_SERVICES_FILE = 'exclusion-services.json';
 
-        const { domains } = servicesDomains[rawService.serviceId];
-        const service = { ...rawService, categories, domains };
+    const exclusionServicesJson = JSON.stringify(services, null, 4);
 
-        servicesResult[service.serviceId] = service;
-    });
+    fs.mkdirSync(EXCLUSION_SERVICES_PATH, { recursive: true });
 
-    return servicesResult;
+    fs.writeFileSync(
+        path.join(EXCLUSION_SERVICES_PATH, EXCLUSION_SERVICES_FILE),
+        exclusionServicesJson,
+    );
 };
 
 const updateExclusionServices = async () => {
-    const services = await getExclusionsServices();
-    console.log(services);
+    const services = await getExclusionsServicesFromServer();
+    saveExclusionServicesInFile(services);
 };
 
 const resources = async () => {
     try {
         updateExclusionServices();
     } catch (e) {
+        // eslint-disable-next-line no-console
         console.log(e);
         process.exit(1);
     }
