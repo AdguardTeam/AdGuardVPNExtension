@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import Modal from "react-modal";
+import Modal from 'react-modal';
 
 import { Title } from '../../../../ui/Title';
 import { rootStore } from '../../../../../stores';
@@ -13,13 +13,13 @@ export const ManualMode = () => {
     const [inputValue, setInputValue] = useState('');
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
+    const closeExclusionModal = () => {
+        exclusionsStore.closeAddExclusionModal();
+    };
+
     const closeModals = () => {
         setIsConfirmModalOpen(false);
         closeExclusionModal();
-    };
-
-    const closeExclusionModal = () => {
-        exclusionsStore.closeAddExclusionModal();
     };
 
     const addUrl = async (

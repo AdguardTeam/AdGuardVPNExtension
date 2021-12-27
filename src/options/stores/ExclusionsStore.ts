@@ -385,7 +385,6 @@ export class ExclusionsStore {
         return isFullChildrenList && isDefaultDomainsState;
     };
 
-
     // FIXME add validation
     validateUrl = (url: string): boolean => {
         if (url) {
