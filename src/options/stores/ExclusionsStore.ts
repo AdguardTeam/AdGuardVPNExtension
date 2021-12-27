@@ -5,6 +5,7 @@ import {
     runInAction,
 } from 'mobx';
 import punycode from 'punycode';
+import { getDomain } from 'tldts';
 
 import {
     ExclusionDtoInterface,
@@ -385,11 +386,12 @@ export class ExclusionsStore {
         return isFullChildrenList && isDefaultDomainsState;
     };
 
-    // FIXME add validation
+    /**
+     * Checks if provided url is valid domain
+     * @param url
+     */
     validateUrl = (url: string): boolean => {
-        if (url) {
-            return false;
-        }
-        return false;
+        const domain = getDomain(url);
+        return !!domain;
     };
 }
