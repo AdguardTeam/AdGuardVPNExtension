@@ -1,6 +1,6 @@
 import { Service, ServiceCategory } from './Service';
 import { vpnProvider } from '../../providers/vpnProvider';
-import { ExclusionStates } from '../../../common/exclusionsConstants';
+import { ExclusionState } from '../../../common/exclusionsConstants';
 import browserApi from '../../browserApi';
 import { log } from '../../../lib/logger';
 
@@ -20,7 +20,7 @@ export interface ServiceDto {
     serviceId: string,
     serviceName: string,
     iconUrl: string,
-    state?: ExclusionStates,
+    state?: ExclusionState,
     categories: ServiceCategory[],
     domains: string[],
 }

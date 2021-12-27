@@ -1,11 +1,11 @@
-import { ExclusionDtoInterface, ExclusionStates, ExclusionsTypes } from '../../common/exclusionsConstants';
+import { ExclusionDtoInterface, ExclusionState, ExclusionsTypes } from '../../common/exclusionsConstants';
 
 export class ExclusionDto implements ExclusionDtoInterface {
     id: string;
 
     value: string;
 
-    state: ExclusionStates;
+    state: ExclusionState;
 
     type: ExclusionsTypes;
 
@@ -23,7 +23,7 @@ export class ExclusionDto implements ExclusionDtoInterface {
     }: {
         id: string,
         value: string,
-        state: ExclusionStates,
+        state: ExclusionState,
         type: ExclusionsTypes,
         children: ExclusionDtoInterface[],
         iconUrl?: string,

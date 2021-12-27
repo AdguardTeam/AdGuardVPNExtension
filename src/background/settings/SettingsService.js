@@ -3,9 +3,15 @@ import throttle from 'lodash/throttle';
 import { log } from '../../lib/logger';
 import { SETTINGS_IDS } from '../../lib/constants';
 import browserApi from '../browserApi';
+import { servicesManager } from '../exclusions/services/ServicesManager';
+import { getETld } from '../../common/url-utils';
 
 const SCHEME_VERSION = '9';
 const THROTTLE_TIMEOUT = 100;
+
+const comlimentExclusions = (exclusions) => {
+
+};
 
 class SettingsService {
     constructor(storage, defaults) {
@@ -130,7 +136,30 @@ class SettingsService {
         };
     };
 
-    // FIXME add migration from old exclusions to the new one
+    /**
+     * Migration to new settings considering services
+     * @param oldSettings
+     */
+    migrateFrom8to9 = async (oldSettings) => {
+        const migrateExclusions = (exclusions) => {
+            const exclusionsWithSubdomains = addSubdomainsIfNecessary(exclusions);
+
+        };
+
+        const oldExclusions = oldSettings[SETTINGS_IDS.EXCLUSIONS];
+        const newRegular = await migrateExclusions(oldExclusions.regular);
+        const newSelective = await migrateExclusions(oldExclusions.selective);
+
+        return {
+            ...oldSettings,
+            VERSION: '9',
+            [SETTINGS_IDS.EXCLUSIONS]: {
+                regular: newRegular,
+                selective: newSelective,
+                inverted: oldExclusions.inverted,
+            },
+        };
+    };
 
     /**
      * In order to add migration, create new function which modifies old settings into new

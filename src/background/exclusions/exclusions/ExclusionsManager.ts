@@ -1,4 +1,4 @@
-import { ExclusionsModes, ExclusionStates } from '../../../common/exclusionsConstants';
+import { ExclusionsModes, ExclusionState } from '../../../common/exclusionsConstants';
 import { ExclusionsHandler } from './ExclusionsHandler';
 import notifier from '../../../lib/notifier';
 import { log } from '../../../lib/logger';
@@ -71,7 +71,7 @@ export class ExclusionsManager {
         notifier.notifyListeners(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE);
 
         const enabledExclusionsList = this.currentHandler.getExclusions()
-            .filter(({ state }) => state === ExclusionStates.Enabled)
+            .filter(({ state }) => state === ExclusionState.Enabled)
             .map(({ hostname }) => hostname);
 
         await proxy.setBypassList(enabledExclusionsList, this.inverted);

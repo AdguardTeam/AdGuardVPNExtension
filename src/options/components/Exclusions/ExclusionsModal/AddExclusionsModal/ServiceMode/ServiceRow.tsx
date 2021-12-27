@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../../../stores';
-import { ExclusionStates } from '../../../../../../common/exclusionsConstants';
+import { ExclusionState } from '../../../../../../common/exclusionsConstants';
 import { SearchHighlighter } from '../../../Search/SearchHighlighter';
 import { reactTranslator } from '../../../../../../common/reactTranslator';
 import { ServiceViewInterface } from '../../../../../stores/ExclusionsStore';
@@ -18,10 +18,10 @@ export const canAddService = (service: ServiceViewInterface, servicesToToggle: s
     const isInToggle = servicesToToggle.some((serviceId) => serviceId === service.serviceId);
 
     if (isInToggle) {
-        return service.state !== ExclusionStates.Disabled;
+        return service.state !== ExclusionState.Disabled;
     }
 
-    return service.state === ExclusionStates.Disabled;
+    return service.state === ExclusionState.Disabled;
 };
 
 interface ServiceRowProps {

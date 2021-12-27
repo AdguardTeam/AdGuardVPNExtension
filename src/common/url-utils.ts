@@ -1,4 +1,4 @@
-import {getDomain, parse} from 'tldts';
+import { getDomain, parse } from 'tldts';
 import ipaddr from 'ipaddr.js';
 
 /**
@@ -88,6 +88,25 @@ const getUrlProperties = (url: string): string | URL => {
 };
 
 /**
+ * Returns protocol of url if it was correct, otherwise return null
+ * @param {string} url
+ * @returns {string}
+ */
+export const getProtocol = (url: unknown): string | null => {
+    if (!url) {
+        return null;
+    }
+
+    const urlObj = getUrlProperties(url as string);
+
+    if (typeof urlObj === 'string') {
+        return null;
+    }
+
+    return urlObj.protocol || null;
+};
+
+/**
  * Returns hostname of url if it was correct, otherwise return input url
  * @param {string | undefined } url
  * @returns {string | null}
@@ -110,23 +129,4 @@ export const getHostname = (url: unknown) => {
     }
 
     return urlObj.hostname ? urlObj.hostname : urlString;
-};
-
-/**
- * Returns protocol of url if it was correct, otherwise return null
- * @param {string} url
- * @returns {string}
- */
-export const getProtocol = (url: unknown): string | null => {
-    if (!url) {
-        return null;
-    }
-
-    const urlObj = getUrlProperties(url as string);
-
-    if (typeof urlObj === 'string') {
-        return null;
-    }
-
-    return urlObj.protocol || null;
 };

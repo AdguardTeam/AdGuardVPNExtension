@@ -5,7 +5,7 @@ export enum ExclusionsModes {
     Regular = 'regular',
 }
 
-export enum ExclusionStates {
+export enum ExclusionState {
     Enabled = 'Enabled',
     PartlyEnabled = 'PartlyEnabled',
     Disabled = 'Disabled',
@@ -22,7 +22,7 @@ export interface ExclusionDtoInterface {
 
     value: string;
 
-    state: ExclusionStates;
+    state: ExclusionState;
 
     iconUrl?: string;
 
