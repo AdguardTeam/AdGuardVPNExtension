@@ -112,7 +112,8 @@ export class ExclusionsStore {
             const unicodeExclusion = exclusion;
             unicodeExclusion.value = punycode.toUnicode(exclusion.value);
             if (unicodeExclusion.children.length) {
-                unicodeExclusion.children = this.convertExclusionsValuesToUnicode(unicodeExclusion.children);
+                unicodeExclusion.children = this
+                    .convertExclusionsValuesToUnicode(unicodeExclusion.children);
             }
             return unicodeExclusion;
         });

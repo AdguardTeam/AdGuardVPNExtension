@@ -20,7 +20,7 @@ export const ModeSelectorModal = observer(() => {
         setMode(exclusionsStore.currentMode);
     };
 
-    const handleSaveMode = async() => {
+    const handleSaveMode = async () => {
         await exclusionsStore.setCurrentMode(mode);
         exclusionsStore.setModeSelectorModalOpen(false);
     };

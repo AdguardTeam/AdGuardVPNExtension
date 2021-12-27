@@ -37,7 +37,7 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
         'ip-title': !hasChildren,
     });
 
-    useEffect (() => {
+    useEffect(() => {
         if (exclusion.type === ExclusionsTypes.Service && exclusion.iconUrl) {
             // @ts-ignore
             icon.current.src = exclusion.iconUrl;
@@ -50,7 +50,6 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
                 // @ts-ignore
                 icon.current.src = preloadedIcon.src;
             };
-
         }
     });
 
