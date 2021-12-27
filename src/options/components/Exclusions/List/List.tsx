@@ -5,6 +5,7 @@ import { ListItem } from './ListItem';
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { ExclusionDtoInterface } from '../../../../common/exclusionsConstants';
+import { Loader } from '../Loader';
 
 export const List = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
@@ -18,12 +19,15 @@ export const List = observer(() => {
     }
 
     return (
-        <ul>
-            {
-                exclusionsStore.preparedExclusions.map((exclusion: ExclusionDtoInterface) => (
-                    <ListItem exclusion={exclusion} key={exclusion.id} />
-                ))
-            }
-        </ul>
+        <div className="loader__container">
+            <ul>
+                {
+                    exclusionsStore.preparedExclusions.map((exclusion: ExclusionDtoInterface) => (
+                        <ListItem exclusion={exclusion} key={exclusion.id} />
+                    ))
+                }
+            </ul>
+            <Loader />
+        </div>
     );
 });

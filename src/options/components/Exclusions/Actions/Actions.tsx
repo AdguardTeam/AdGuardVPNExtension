@@ -125,6 +125,8 @@ export const Actions = observer(() => {
             return;
         }
 
+        exclusionsStore.setImportingExclusions(true);
+
         const [file] = e.target.files;
         e.target.value = '';
 
@@ -137,8 +139,10 @@ export const Actions = observer(() => {
                     { count: exclusionsAdded },
                 ));
             }
+            exclusionsStore.setImportingExclusions(false);
         } catch (e: any) {
             notificationsStore.notifyError(e.message);
+            exclusionsStore.setImportingExclusions(false);
         }
     };
 

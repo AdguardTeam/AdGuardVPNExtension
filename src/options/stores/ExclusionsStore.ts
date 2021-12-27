@@ -91,6 +91,8 @@ export class ExclusionsStore {
 
     @observable servicesSearchValue: string = '';
 
+    @observable importingExclusions: boolean = false;
+
     /**
      * Temp list used to keep state of services to be enabled or disabled
      */
@@ -399,5 +401,9 @@ export class ExclusionsStore {
     validateUrl = (url: string): boolean => {
         const domain = getDomain(url);
         return !!domain;
+    };
+
+    @action setImportingExclusions = (value: boolean) => {
+        this.importingExclusions = value;
     };
 }
