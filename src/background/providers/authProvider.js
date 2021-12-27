@@ -20,6 +20,7 @@ const accessTokenModel = {
 };
 
 const getAccessToken = async (credentials) => {
+    const TOO_MANY_REQUESTS_CODE = 429;
     let accessTokenData;
 
     const errorsMap = {
@@ -28,12 +29,14 @@ const getAccessToken = async (credentials) => {
         account_disabled: translator.getMessage('authentication_error_account_disabled'),
         account_locked: translator.getMessage('authentication_error_account_locked'),
         bad_credentials: translator.getMessage('authentication_error_wrong_credentials'),
+        [TOO_MANY_REQUESTS_CODE]: translator.getMessage('authentication_too_many_requests'),
         default: translator.getMessage('authentication_error_default'),
     };
 
     try {
         accessTokenData = await authApi.getAccessToken(credentials);
     } catch (e) {
+        const errorStatusCode = e.status;
         let errorMessage;
 
         try {
@@ -49,7 +52,7 @@ const getAccessToken = async (credentials) => {
             throw new Error(JSON.stringify({ status: errorCode }));
         }
 
-        const error = errorsMap[errorCode] || errorsMap.default;
+        const error = errorsMap[errorCode] || errorsMap[errorStatusCode] || errorsMap.default;
 
         throw new Error(JSON.stringify({ error }));
     }
