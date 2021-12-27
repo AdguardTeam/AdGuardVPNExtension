@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 
-import { ExclusionDtoInterface, ICON_FOR_DOMAIN } from '../../../../../common/exclusionsConstants';
+import { ExclusionsTypes, ExclusionDtoInterface, ICON_FOR_DOMAIN } from '../../../../../common/exclusionsConstants';
 import { StateCheckbox } from '../../StateCheckbox';
 import { rootStore } from '../../../../stores';
 import { SearchHighlighter } from '../../Search/SearchHighlighter';
@@ -15,6 +15,8 @@ interface ListItemProps {
 
 export const ListItem = observer(({ exclusion }: ListItemProps) => {
     const { exclusionsStore } = useContext(rootStore);
+
+    const icon = useRef(null);
 
     const removeExclusion = (exclusion: ExclusionDtoInterface) => async () => {
         await exclusionsStore.removeExclusion(exclusion);
@@ -35,6 +37,23 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
         'ip-title': !hasChildren,
     });
 
+    useEffect (() => {
+        if (exclusion.type === ExclusionsTypes.Service && exclusion.iconUrl) {
+            // @ts-ignore
+            icon.current.src = exclusion.iconUrl;
+        }
+
+        if (exclusion.type === ExclusionsTypes.Group) {
+            const preloadedIcon = new Image();
+            preloadedIcon.src = `${ICON_FOR_DOMAIN}${exclusion.value}`;
+            preloadedIcon.onload = () => {
+                // @ts-ignore
+                icon.current.src = preloadedIcon.src;
+            };
+
+        }
+    });
+
     return (
         <li
             key={exclusion.id}
@@ -50,11 +69,10 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
                 onClick={followToChildren(exclusion)}
             >
                 <img
-                    src={exclusion.iconUrl || `${ICON_FOR_DOMAIN}${exclusion.value}`}
+                    src="./assets/images/ip-icon.svg"
+                    ref={icon}
                     className="list-item__title__icon"
                     alt="exclusion icon"
-                    // @ts-ignore
-                    onError={(e) => e.target.src="./assets/images/ip-icon.svg"}
                 />
                 <SearchHighlighter
                     value={exclusion.value}
