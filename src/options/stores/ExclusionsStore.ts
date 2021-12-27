@@ -75,6 +75,8 @@ export class ExclusionsStore {
 
     @observable addSubdomainModalOpen = false;
 
+    @observable resetServiceModalOpen = false;
+
     @observable removeAllModalOpen = false;
 
     @observable addExclusionMode = DEFAULT_ADD_EXCLUSION_MODE;
@@ -139,6 +141,10 @@ export class ExclusionsStore {
 
     @action setModeSelectorModalOpen = (value: boolean) => {
         this.modeSelectorModalOpen = value;
+    };
+
+    @action setResetServiceModalOpen = (value: boolean) => {
+        this.resetServiceModalOpen = value;
     };
 
     @action setCurrentMode = async (mode: ExclusionsModes) => {
