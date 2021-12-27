@@ -10,7 +10,7 @@ import {
     ExclusionDtoInterface,
     ExclusionsData,
     ExclusionsModes,
-    ExclusionStates,
+    ExclusionState,
     ExclusionsTypes,
 } from '../../common/exclusionsConstants';
 import { ServiceCategory, ServiceInterface } from '../../background/exclusions/services/Service';
@@ -18,7 +18,7 @@ import { messenger } from '../../lib/messenger';
 import { containsIgnoreCase } from '../components/Exclusions/Search/SearchHighlighter/helpers';
 
 export interface ServiceViewInterface extends ServiceInterface{
-    state: ExclusionStates;
+    state: ExclusionState;
 }
 
 export interface PreparedServiceCategory extends ServiceCategory {
@@ -373,11 +373,11 @@ export class ExclusionsStore {
         const isDefaultDomainsState = this.selectedExclusion?.children.every((child) => {
             const defaultDomainExclusion = child.children
                 .find((exclusion) => exclusion.value === child.value
-                    && exclusion.state === ExclusionStates.Enabled);
+                    && exclusion.state === ExclusionState.Enabled);
 
             const defaultAllSubdomainExclusion = child.children
                 .find((exclusion) => exclusion.value === `*.${child.value}`
-                    && exclusion.state === ExclusionStates.Enabled);
+                    && exclusion.state === ExclusionState.Enabled);
 
             return defaultDomainExclusion && defaultAllSubdomainExclusion;
         });

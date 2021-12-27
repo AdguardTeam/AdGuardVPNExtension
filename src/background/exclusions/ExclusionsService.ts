@@ -5,12 +5,12 @@ import punycode from 'punycode';
 import { exclusionsManager } from './exclusions/ExclusionsManager';
 import { servicesManager } from './services/ServicesManager';
 import { ExclusionsTree } from './ExclusionsTree';
-import { ExclusionsModes, ExclusionStates } from '../../common/exclusionsConstants';
+import { ExclusionsModes, ExclusionState } from '../../common/exclusionsConstants';
 import { AddExclusionArgs } from './exclusions/ExclusionsHandler';
 import { ExclusionInterface } from './exclusions/exclusionsTypes';
 import { getETld, getHostname, getSubdomain } from '../../common/url-utils';
 
-const isWildcard = (targetString: string) => {
+export const isWildcard = (targetString: string) => {
     return targetString === '*';
 };
 
@@ -60,7 +60,7 @@ export class ExclusionsService {
             if (!state) {
                 return {
                     ...service,
-                    state: ExclusionStates.Disabled,
+                    state: ExclusionState.Disabled,
                 };
             }
             return {
@@ -137,7 +137,7 @@ export class ExclusionsService {
             const exclusionsToDisable = this.exclusionsTree
                 .getPathExclusions(serviceData.serviceId);
             await exclusionsManager.current
-                .setExclusionsState(exclusionsToDisable, ExclusionStates.Disabled);
+                .setExclusionsState(exclusionsToDisable, ExclusionState.Disabled);
 
             // enable only added exclusion
             const domainExclusion = exclusionsManager.current
@@ -147,7 +147,7 @@ export class ExclusionsService {
             if (domainExclusion && subdomainExclusion) {
                 await exclusionsManager.current.setExclusionsState(
                     [domainExclusion.id, subdomainExclusion.id],
-                    ExclusionStates.Enabled,
+                    ExclusionState.Enabled,
                 );
             }
 
@@ -243,9 +243,9 @@ export class ExclusionsService {
 
         const exclusionsToToggle = this.exclusionsTree.getPathExclusions(id);
 
-        const state = targetExclusionState === ExclusionStates.Disabled
-            ? ExclusionStates.Enabled
-            : ExclusionStates.Disabled;
+        const state = targetExclusionState === ExclusionState.Disabled
+            ? ExclusionState.Enabled
+            : ExclusionState.Disabled;
 
         await exclusionsManager.current.setExclusionsState(exclusionsToToggle, state);
 
@@ -340,7 +340,7 @@ export class ExclusionsService {
 
     prepareExclusionsForExport(exclusions: ExclusionInterface[]) {
         return exclusions.map((ex) => {
-            if (ex.state === ExclusionStates.Enabled) {
+            if (ex.state === ExclusionState.Enabled) {
                 return ex.hostname;
             }
             return null;

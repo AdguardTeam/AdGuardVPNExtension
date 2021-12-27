@@ -1,15 +1,15 @@
 import { coveredBy, ExclusionNode, selectConsiderable } from '../../../src/background/exclusions/ExclusionNode';
-import { ExclusionStates } from '../../../src/common/exclusionsConstants';
+import { ExclusionState } from '../../../src/common/exclusionsConstants';
 
 describe('ExclusionNode', () => {
     it('ignores state of exclusions, which are covered by wildcard exclusions during state calculations', () => {
         const tree = new ExclusionNode({ id: 'example.org', value: 'example.org' });
-        tree.addChild(new ExclusionNode({ id: '0', value: 'example.org', state: ExclusionStates.Enabled }));
-        tree.addChild(new ExclusionNode({ id: '1', value: '*.example.org', state: ExclusionStates.Enabled }));
-        tree.addChild(new ExclusionNode({ id: '2', value: 'test.example.org', state: ExclusionStates.Disabled }));
+        tree.addChild(new ExclusionNode({ id: '0', value: 'example.org', state: ExclusionState.Enabled }));
+        tree.addChild(new ExclusionNode({ id: '1', value: '*.example.org', state: ExclusionState.Enabled }));
+        tree.addChild(new ExclusionNode({ id: '2', value: 'test.example.org', state: ExclusionState.Disabled }));
 
         const exclusion = tree.getExclusionNode('example.org');
-        expect(exclusion!.state).toBe(ExclusionStates.Enabled);
+        expect(exclusion!.state).toBe(ExclusionState.Enabled);
     });
 
     describe('coveredBy', () => {
