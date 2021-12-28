@@ -137,5 +137,36 @@ describe('exclusion-helpers', () => {
                 ], 'hostname'),
             );
         });
+
+        it('does not lose exclusions without service', () => {
+            const exclusions: ExclusionInterface[] = [
+                { id: '1', hostname: 'example.org', state: ExclusionState.Enabled },
+                { id: '2', hostname: '*.example.net', state: ExclusionState.Enabled },
+                { id: '3', hostname: 'example.com', state: ExclusionState.Enabled },
+            ];
+
+            const services: ServicesInterface = {
+                example: {
+                    serviceId: 'example',
+                    serviceName: 'Example',
+                    iconUrl: 'url',
+                    modifiedTime: 'time',
+                    categories: [{ id: 'shop', name: 'shop' }],
+                    domains: ['example.org', 'example.net'],
+                },
+            };
+
+            const complementedExclusions = complementedExclusionsWithServices(exclusions, services);
+
+            expect(_.sortBy(ignoreId(complementedExclusions), 'hostname')).toEqual(
+                _.sortBy([
+                    { hostname: 'example.org', state: ExclusionState.Enabled },
+                    { hostname: '*.example.org', state: ExclusionState.Disabled },
+                    { hostname: 'example.net', state: ExclusionState.Disabled },
+                    { hostname: '*.example.net', state: ExclusionState.Enabled },
+                    { hostname: 'example.com', state: ExclusionState.Enabled },
+                ], 'hostname'),
+            );
+        });
     });
 });

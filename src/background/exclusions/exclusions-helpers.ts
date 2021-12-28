@@ -187,11 +187,19 @@ export const complementedExclusionsWithServices = (
 
         const service = services[servicesIndex[eTld]];
 
-        if (!service) {
-            return acc;
+        if (service) {
+            return complementExclusionsMapWithServiceDomains(acc, exclusion, service.domains);
         }
 
-        return complementExclusionsMapWithServiceDomains(acc, exclusion, service.domains);
+        const foundGroup = acc[eTld];
+
+        if (foundGroup) {
+            foundGroup[exclusion.hostname] = exclusion;
+        } else {
+            acc[eTld] = { [exclusion.hostname]: exclusion };
+        }
+
+        return acc;
     }, {} as IndexedExclusionsMap);
 
     return Object.values(complementedExclusions).flatMap((group) => Object.values(group));
