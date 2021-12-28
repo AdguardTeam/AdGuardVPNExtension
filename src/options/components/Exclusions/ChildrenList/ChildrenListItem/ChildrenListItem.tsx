@@ -6,7 +6,7 @@ import { rootStore } from '../../../../stores';
 import { StateCheckbox } from '../../StateCheckbox';
 import {
     ExclusionDtoInterface,
-    ExclusionStates,
+    ExclusionState,
     ExclusionsTypes,
 } from '../../../../../common/exclusionsConstants';
 import { translator } from '../../../../../common/translator';
@@ -51,7 +51,7 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
             && !hostname.startsWith(wildcardExclusion)
             && selectedExclusion?.children.some((exclusion) => {
                 return exclusion.value.startsWith(wildcardExclusion)
-                    && exclusion.state === ExclusionStates.Enabled;
+                    && exclusion.state === ExclusionState.Enabled;
             }),
     });
 

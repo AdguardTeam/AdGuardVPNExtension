@@ -1,7 +1,7 @@
 import {
     canAddService,
 } from '../../../../../../../src/options/components/Exclusions/ExclusionsModal/AddExclusionsModal/ServiceMode/ServiceRow';
-import { ExclusionStates } from '../../../../../../../src/common/exclusionsConstants';
+import { ExclusionState } from '../../../../../../../src/common/exclusionsConstants';
 import { ServiceViewInterface } from '../../../../../../../src/options/stores/ExclusionsStore';
 
 const generateService = (props: Partial<ServiceViewInterface>): ServiceViewInterface => {
@@ -11,7 +11,7 @@ const generateService = (props: Partial<ServiceViewInterface>): ServiceViewInter
         iconUrl: 'string',
         categories: [],
         modifiedTime: 'string',
-        state: ExclusionStates.Enabled,
+        state: ExclusionState.Enabled,
         domains: [],
     };
 
@@ -24,7 +24,7 @@ const generateService = (props: Partial<ServiceViewInterface>): ServiceViewInter
 describe('ServiceRow', () => {
     describe('canAddService', () => {
         it('correctly decides button state for disabled service', () => {
-            const service = generateService({ serviceId: 'first', state: ExclusionStates.Disabled });
+            const service = generateService({ serviceId: 'first', state: ExclusionState.Disabled });
 
             expect(canAddService(service, [])).toBeTruthy();
             expect(canAddService(service, ['first'])).toBeFalsy();
@@ -32,12 +32,12 @@ describe('ServiceRow', () => {
         });
 
         it('correctly decides button state for enabled or partly enabled service', () => {
-            const enabledService = generateService({ serviceId: 'first', state: ExclusionStates.Enabled });
+            const enabledService = generateService({ serviceId: 'first', state: ExclusionState.Enabled });
 
             expect(canAddService(enabledService, ['first'])).toBeTruthy();
             expect(canAddService(enabledService, ['second'])).toBeFalsy();
 
-            const partyEnabledService = generateService({ serviceId: 'first', state: ExclusionStates.PartlyEnabled });
+            const partyEnabledService = generateService({ serviceId: 'first', state: ExclusionState.PartlyEnabled });
             expect(canAddService(partyEnabledService, ['first'])).toBeTruthy();
             expect(canAddService(partyEnabledService, ['second'])).toBeFalsy();
         });

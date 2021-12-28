@@ -61,6 +61,9 @@ yarn dev
 
 Builds will be located in the `build` directory
 
+### Update resources
+Before releasing new versions do not forget to update exclusions-services data, which will be used for migration if remote data was not received from the servers.
+
 ### Artifact builds
 * `CREDENTIALS_PASSWORD=<password> artifacts:beta`
 * `CREDENTIALS_PASSWORD=<password> artifacts:release`

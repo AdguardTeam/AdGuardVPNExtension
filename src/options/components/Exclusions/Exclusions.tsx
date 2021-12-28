@@ -26,7 +26,7 @@ export const Exclusions = observer(() => {
 
     const openModeSelectorModal = () => {
         exclusionsStore.setModeSelectorModalOpen(true);
-    }
+    };
 
     const mode = exclusionsStore.currentMode === ExclusionsModes.Regular
         ? reactTranslator.getMessage('settings_exclusion_general_title')
@@ -42,7 +42,8 @@ export const Exclusions = observer(() => {
                 <Title
                     title={translator.getMessage('settings_exclusion_title')}
                 />
-                <span className="exclusions__mode__title">{mode}: </span>
+                <span className="exclusions__mode__title">{mode}</span>
+                <span>: </span>
                 <span>{modeDescription}</span>
                 <button
                     type="button"

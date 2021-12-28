@@ -1,0 +1,27 @@
+.loader {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: var(--white-fog);
+    justify-content: center;
+    align-items: center;
+
+    &__visible {
+        display: flex;
+    }
+
+    &__spinner {
+        /* FIXME add proper style for spinner */
+        width: 30px;
+        height: 30px;
+        border-radius: 30px;
+        background: var(--brand-primary);
+    }
+
+    &__container {
+        position: relative;
+    }
+}

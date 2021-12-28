@@ -5,12 +5,13 @@ import {
     runInAction,
 } from 'mobx';
 import punycode from 'punycode';
+import { getDomain } from 'tldts';
 
 import {
     ExclusionDtoInterface,
     ExclusionsData,
     ExclusionsModes,
-    ExclusionStates,
+    ExclusionState,
     ExclusionsTypes,
 } from '../../common/exclusionsConstants';
 import { ServiceCategory, ServiceInterface } from '../../background/exclusions/services/Service';
@@ -18,7 +19,7 @@ import { messenger } from '../../lib/messenger';
 import { containsIgnoreCase } from '../components/Exclusions/Search/SearchHighlighter/helpers';
 
 export interface ServiceViewInterface extends ServiceInterface{
-    state: ExclusionStates;
+    state: ExclusionState;
 }
 
 export interface PreparedServiceCategory extends ServiceCategory {
@@ -74,6 +75,8 @@ export class ExclusionsStore {
 
     @observable addSubdomainModalOpen = false;
 
+    @observable resetServiceModalOpen = false;
+
     @observable removeAllModalOpen = false;
 
     @observable addExclusionMode = DEFAULT_ADD_EXCLUSION_MODE;
@@ -87,6 +90,8 @@ export class ExclusionsStore {
     @observable exclusionsSearchValue: string = '';
 
     @observable servicesSearchValue: string = '';
+
+    @observable importingExclusions: boolean = false;
 
     /**
      * Temp list used to keep state of services to be enabled or disabled
@@ -112,7 +117,8 @@ export class ExclusionsStore {
             const unicodeExclusion = exclusion;
             unicodeExclusion.value = punycode.toUnicode(exclusion.value);
             if (unicodeExclusion.children.length) {
-                unicodeExclusion.children = this.convertExclusionsValuesToUnicode(unicodeExclusion.children);
+                unicodeExclusion.children = this
+                    .convertExclusionsValuesToUnicode(unicodeExclusion.children);
             }
             return unicodeExclusion;
         });
@@ -137,6 +143,10 @@ export class ExclusionsStore {
 
     @action setModeSelectorModalOpen = (value: boolean) => {
         this.modeSelectorModalOpen = value;
+    };
+
+    @action setResetServiceModalOpen = (value: boolean) => {
+        this.resetServiceModalOpen = value;
     };
 
     @action setCurrentMode = async (mode: ExclusionsModes) => {
@@ -372,15 +382,28 @@ export class ExclusionsStore {
         const isDefaultDomainsState = this.selectedExclusion?.children.every((child) => {
             const defaultDomainExclusion = child.children
                 .find((exclusion) => exclusion.value === child.value
-                    && exclusion.state === ExclusionStates.Enabled);
+                    && exclusion.state === ExclusionState.Enabled);
 
             const defaultAllSubdomainExclusion = child.children
                 .find((exclusion) => exclusion.value === `*.${child.value}`
-                    && exclusion.state === ExclusionStates.Enabled);
+                    && exclusion.state === ExclusionState.Enabled);
 
             return defaultDomainExclusion && defaultAllSubdomainExclusion;
         });
 
         return isFullChildrenList && isDefaultDomainsState;
+    };
+
+    /**
+     * Checks if provided url is valid domain
+     * @param url
+     */
+    validateUrl = (url: string): boolean => {
+        const domain = getDomain(url);
+        return !!domain;
+    };
+
+    @action setImportingExclusions = (value: boolean) => {
+        this.importingExclusions = value;
     };
 }

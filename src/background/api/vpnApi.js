@@ -106,11 +106,13 @@ class VpnApi extends Api {
     getExclusionServiceDomains = (servicesIds) => {
         const { path, method } = this.EXCLUSION_SERVICE_DOMAINS;
 
-        const config = {
-            data: servicesIds.map((serviceId) => `service_id=${serviceId}`),
+        const servicesIdsParam = servicesIds.length > 0 ? servicesIds.join(',') : null;
+
+        const params = {
+            service_id: servicesIdsParam,
         };
 
-        return this.makeRequest(path, config, method);
+        return this.makeRequest(path, { params }, method);
     };
 }
 

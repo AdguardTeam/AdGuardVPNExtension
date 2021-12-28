@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 
-import { ExclusionsModes, ExclusionStates } from '../../../common/exclusionsConstants';
+import { ExclusionsModes, ExclusionState } from '../../../common/exclusionsConstants';
 import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
 import { ExclusionInterface, IndexedExclusionsInterface } from './exclusionsTypes';
 import { getETld, getHostname } from '../../../common/url-utils';
@@ -73,7 +73,7 @@ export class ExclusionsHandler {
     async addExclusions(exclusionsToAdd: AddExclusionArgs[]) {
         let addedCount = 0;
         exclusionsToAdd.forEach(({ value, enabled = true, overwriteState = false }) => {
-            const state = enabled ? ExclusionStates.Enabled : ExclusionStates.Disabled;
+            const state = enabled ? ExclusionState.Enabled : ExclusionState.Disabled;
             const existingIndex = this.exclusions.findIndex((ex) => ex.hostname === value);
             if (existingIndex > -1) {
                 if (overwriteState) {
@@ -100,7 +100,7 @@ export class ExclusionsHandler {
             return;
         }
 
-        this.exclusions.push({ id: nanoid(), hostname, state: ExclusionStates.Enabled });
+        this.exclusions.push({ id: nanoid(), hostname, state: ExclusionState.Enabled });
 
         await this.onUpdate();
     }
@@ -115,7 +115,7 @@ export class ExclusionsHandler {
             if (ex.id === id) {
                 return {
                     ...ex,
-                    state: ExclusionStates.Enabled,
+                    state: ExclusionState.Enabled,
                 };
             }
             return ex;
@@ -134,7 +134,7 @@ export class ExclusionsHandler {
 
     async setExclusionsState(
         ids: string[],
-        state: Exclude<ExclusionStates, ExclusionStates.PartlyEnabled>,
+        state: Exclude<ExclusionState, ExclusionState.PartlyEnabled>,
     ) {
         this.exclusions = this.exclusions.map((ex) => {
             if (ids.includes(ex.id)) {
@@ -195,6 +195,6 @@ export class ExclusionsHandler {
             return false;
         }
 
-        return exclusions.some((exclusion) => exclusion.state === ExclusionStates.Enabled);
+        return exclusions.some((exclusion) => exclusion.state === ExclusionState.Enabled);
     };
 }

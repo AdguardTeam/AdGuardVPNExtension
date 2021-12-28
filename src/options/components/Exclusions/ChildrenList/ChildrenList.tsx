@@ -8,6 +8,7 @@ import { reactTranslator } from '../../../../common/reactTranslator';
 import { ExclusionsModes, ExclusionsTypes } from '../../../../common/exclusionsConstants';
 import { ChildrenListItem } from './ChildrenListItem';
 import { SubdomainModal } from './SubdomainModal';
+import { ResetServiceModal } from './ResetServiceModal';
 import { isTopLevel } from '../../../../common/url-utils';
 
 import './children-list.pcss';
@@ -28,8 +29,8 @@ export const ChildrenList = observer(() => {
         exclusionsStore.goBackHandler();
     };
 
-    const resetServiceData = (id: string) => () => {
-        exclusionsStore.resetServiceData(id);
+    const openResetServiceModal = () => {
+        exclusionsStore.setResetServiceModalOpen(true);
     };
 
     const onAddSubdomainClick = () => {
@@ -91,7 +92,7 @@ export const ChildrenList = observer(() => {
             <button
                 type="button"
                 className={resetButtonClass}
-                onClick={resetServiceData(selectedExclusion.id)}
+                onClick={openResetServiceModal}
             >
                 {reactTranslator.getMessage('settings_exclusion_reset_to_default')}
             </button>
@@ -103,6 +104,7 @@ export const ChildrenList = observer(() => {
                 {reactTranslator.getMessage('settings_exclusion_add_subdomain')}
             </button>
             <SubdomainModal />
+            <ResetServiceModal serviceId={selectedExclusion.id} />
         </>
     );
 });

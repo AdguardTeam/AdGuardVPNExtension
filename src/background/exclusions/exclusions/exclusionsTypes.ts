@@ -1,9 +1,9 @@
-import { ExclusionStates } from '../../../common/exclusionsConstants';
+import { ExclusionState } from '../../../common/exclusionsConstants';
 
 export interface ExclusionInterface {
     id: string,
     hostname: string,
-    state: Exclude<ExclusionStates, ExclusionStates.PartlyEnabled>,
+    state: Exclude<ExclusionState, ExclusionState.PartlyEnabled>,
 }
 
 export interface IndexedExclusionsInterface {

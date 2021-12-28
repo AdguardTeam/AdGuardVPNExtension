@@ -1,4 +1,4 @@
-import { ExclusionStates, ExclusionsTypes } from '../../common/exclusionsConstants';
+import { ExclusionState, ExclusionsTypes } from '../../common/exclusionsConstants';
 import { ExclusionDto } from './ExclusionDto';
 
 interface ExclusionNodeMap {
@@ -10,7 +10,7 @@ interface ExclusionNodeArgs {
 
     value: string;
 
-    state?: ExclusionStates;
+    state?: ExclusionState;
 
     type?: ExclusionsTypes;
 
@@ -55,7 +55,7 @@ export class ExclusionNode {
 
     value: string;
 
-    state: ExclusionStates;
+    state: ExclusionState;
 
     type: ExclusionsTypes;
 
@@ -70,7 +70,7 @@ export class ExclusionNode {
         id,
         value,
         type = ExclusionsTypes.Exclusion,
-        state = ExclusionStates.Enabled,
+        state = ExclusionState.Enabled,
         meta,
     }: ExclusionNodeArgs) {
         this.id = id;
@@ -92,32 +92,32 @@ export class ExclusionNode {
         this.state = this.calculateState(this.getLeafs(), this);
     }
 
-    calculateState(exclusionNodes: ExclusionNode[], node: ExclusionNode): ExclusionStates {
+    calculateState(exclusionNodes: ExclusionNode[], node: ExclusionNode): ExclusionState {
         const considerableExclusions = selectConsiderable(exclusionNodes);
 
         const allEnabled = considerableExclusions
-            .every((exclusionNode) => exclusionNode.state === ExclusionStates.Enabled);
+            .every((exclusionNode) => exclusionNode.state === ExclusionState.Enabled);
 
         if (node.type === ExclusionsTypes.Service) {
             const childrenAmount = Object.values(node.children).length;
 
             if (allEnabled && node.meta?.domains.length !== childrenAmount) {
-                return ExclusionStates.PartlyEnabled;
+                return ExclusionState.PartlyEnabled;
             }
         }
 
         if (allEnabled) {
-            return ExclusionStates.Enabled;
+            return ExclusionState.Enabled;
         }
 
         const allDisabled = exclusionNodes
-            .every((exclusionNode) => exclusionNode.state === ExclusionStates.Disabled);
+            .every((exclusionNode) => exclusionNode.state === ExclusionState.Disabled);
 
         if (allDisabled) {
-            return ExclusionStates.Disabled;
+            return ExclusionState.Disabled;
         }
 
-        return ExclusionStates.PartlyEnabled;
+        return ExclusionState.PartlyEnabled;
     }
 
     serialize(): ExclusionDto {
@@ -209,7 +209,7 @@ export class ExclusionNode {
         return null;
     }
 
-    getExclusionNodeState(id: string): ExclusionStates | null {
+    getExclusionNodeState(id: string): ExclusionState | null {
         const foundNode = this.getExclusionNode(id);
         if (foundNode) {
             return foundNode.state;

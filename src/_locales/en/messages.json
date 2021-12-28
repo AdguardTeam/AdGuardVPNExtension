@@ -44,6 +44,9 @@
     "authentication_error_wrong_credentials": {
         "message": "Wrong password"
     },
+    "authentication_too_many_requests": {
+        "message": "We received too many requests from your IP address. Please try again later."
+    },
     "authentication_error_default": {
         "message": "An error occurred, try again later"
     },
@@ -386,6 +389,9 @@
     "settings_exclusion_add_manually_add": {
         "message": "Add manually"
     },
+    "settings_exclusions_add_invalid_domain": {
+        "message": "\"com\" is not a valid domain. Do you want to add it to the list?"
+    },
     "settings_exclusion_modal_cancel": {
         "message": "Cancel"
     },
@@ -397,6 +403,12 @@
     },
     "settings_exclusion_reset_to_default": {
         "message": "Reset to default"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Reset"
+    },
+    "settings_exclusion_reset_service_confirmation_message": {
+        "message": "Reset the default settings for Facebook? This will restore any missing domains and set all check marks to on."
     },
     "settings_exclusion_search_website": {
         "message": "Search website"
@@ -652,7 +664,7 @@
         "message": "Unlimited data"
     },
     "popup_upgrade_screen_unlimited_data_desc": {
-        "message": "The only limit is that your data is never  shared. Surf to your heart’s content!"
+        "message": "The only limit is that your data is never shared. Surf to your heart’s content!"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "Unlimited speed"

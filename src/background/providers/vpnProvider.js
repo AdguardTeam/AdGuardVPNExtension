@@ -3,6 +3,7 @@ import JSZip from 'jszip';
 
 import { vpnApi } from '../api';
 import { log } from '../../lib/logger';
+import { processExclusionServices, processExclusionServicesDomains } from '../../common/data-processors';
 
 /**
  * Prepares locations data
@@ -249,78 +250,19 @@ const requestSupport = async ({
 
 const getExclusionsServicesDomains = async (serviceIds) => {
     const exclusionServiceDomains = await vpnApi.getExclusionServiceDomains(serviceIds);
-
-    return exclusionServiceDomains.services
-        .map((service) => {
-            const {
-                service_id: serviceId,
-                domains,
-            } = service;
-
-            return {
-                serviceId,
-                domains,
-            };
-        })
-        .reduce((acc, service) => {
-            acc[service.serviceId] = service;
-            return acc;
-        }, {});
+    return processExclusionServicesDomains(exclusionServiceDomains);
 };
 
 /**
  * Moved to separate module in order to not mangle with webextension-polyfill
  */
 export const getExclusionsServices = async () => {
-    const exclusionsServices = await vpnApi.getExclusionsServices();
+    const [exclusionsServices, servicesDomains] = await Promise.all([
+        vpnApi.getExclusionsServices(),
+        getExclusionsServicesDomains([]),
+    ]);
 
-    const { categories = [], services = [] } = exclusionsServices;
-
-    const processedCategories = categories.reduce((acc, category) => {
-        acc[category.id] = category;
-        return acc;
-    }, {});
-
-    const processedServices = services
-        .map((exclusionService) => {
-            const {
-                service_id: serviceId,
-                service_name: serviceName,
-                icon_url: iconUrl,
-                categories,
-                modified_time: modifiedTime,
-            } = exclusionService;
-
-            return {
-                serviceId,
-                serviceName,
-                iconUrl,
-                categories,
-                modifiedTime,
-            };
-        })
-        .reduce((acc, service) => {
-            acc[service.serviceId] = service;
-            return acc;
-        }, {});
-
-    const servicesResult = {};
-
-    const servicesDomains = await getExclusionsServicesDomains([]);
-
-    Object.values(processedServices).forEach((rawService) => {
-        const categories = rawService.categories.map((categoryId) => {
-            const category = processedCategories[categoryId];
-            return category;
-        });
-
-        const { domains } = servicesDomains[rawService.serviceId];
-        const service = { ...rawService, categories, domains };
-
-        servicesResult[service.serviceId] = service;
-    });
-
-    return servicesResult;
+    return processExclusionServices(exclusionsServices, servicesDomains);
 };
 
 export const vpnProvider = {
