@@ -31,12 +31,12 @@ export class ExclusionsHandler {
     ) {
         this.updateHandler = updateHandler;
         this.exclusions = exclusions;
-        this.exclusionsIndex = ExclusionsHandler.getExclusionsIndex(exclusions);
+        this.exclusionsIndex = ExclusionsHandler.buildExclusionsIndex(exclusions);
         this.mode = mode;
     }
 
     async onUpdate() {
-        this.exclusionsIndex = ExclusionsHandler.getExclusionsIndex(this.exclusions);
+        this.exclusionsIndex = ExclusionsHandler.buildExclusionsIndex(this.exclusions);
         await this.updateHandler();
     }
 
@@ -48,7 +48,7 @@ export class ExclusionsHandler {
         return this.exclusionsIndex;
     }
 
-    public static getExclusionsIndex(exclusions: ExclusionInterface[]) {
+    public static buildExclusionsIndex(exclusions: ExclusionInterface[]) {
         const indexedExclusions = exclusions.reduce((
             acc: IndexedExclusionsInterface,
             exclusion,
@@ -70,7 +70,7 @@ export class ExclusionsHandler {
         return indexedExclusions;
     }
 
-    async addExclusions(exclusionsToAdd: AddExclusionArgs[]) {
+    async addExclusions(exclusionsToAdd: AddExclusionArgs[]): Promise<number> {
         let addedCount = 0;
         exclusionsToAdd.forEach(({ value, enabled = true, overwriteState = false }) => {
             const state = enabled ? ExclusionState.Enabled : ExclusionState.Disabled;

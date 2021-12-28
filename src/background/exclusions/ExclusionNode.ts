@@ -5,7 +5,7 @@ interface ExclusionNodeMap {
     [id: string]: ExclusionNode;
 }
 
-interface ExclusionNodeArgs {
+interface ExclusionNodeProps {
     id: string;
 
     value: string;
@@ -72,7 +72,7 @@ export class ExclusionNode {
         type = ExclusionsTypes.Exclusion,
         state = ExclusionState.Enabled,
         meta,
-    }: ExclusionNodeArgs) {
+    }: ExclusionNodeProps) {
         this.id = id;
         this.value = value;
         this.state = state;
@@ -154,6 +154,7 @@ export class ExclusionNode {
         if (this.id === id) {
             return this.getLeafsIds();
         }
+
         if (Object.values(this.children).length === 0) {
             return [];
         }

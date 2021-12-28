@@ -1,4 +1,4 @@
-// Extracted in the separate file because this variable is also used in the options page
+// Extracted in the separate file because these entities are also used in the options page
 
 export enum ExclusionsModes {
     Selective = 'selective',

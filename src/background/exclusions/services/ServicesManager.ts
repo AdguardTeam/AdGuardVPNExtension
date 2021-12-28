@@ -7,14 +7,6 @@ import { ExclusionState } from '../../../common/exclusionsConstants';
 import browserApi from '../../browserApi';
 import { log } from '../../../lib/logger';
 
-export interface RawService {
-    serviceId: string,
-    serviceName: string,
-    iconUrl: string,
-    categories: string[],
-    modifiedTime: string,
-}
-
 export interface IndexedServicesInterface {
     [id: string]: string
 }
