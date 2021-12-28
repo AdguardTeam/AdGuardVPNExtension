@@ -13,7 +13,7 @@ import { ExclusionState } from '../../common/exclusionsConstants';
 const SCHEME_VERSION = '9';
 const THROTTLE_TIMEOUT = 100;
 
-class SettingsService {
+export class SettingsService {
     constructor(storage, defaults) {
         this.storage = storage;
         this.defaults = defaults;
@@ -266,5 +266,3 @@ class SettingsService {
         await this.storage.remove(this.SETTINGS_KEY);
     }
 }
-
-export default SettingsService;

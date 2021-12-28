@@ -167,7 +167,7 @@ export class ServicesManager implements ServiceManagerInterface {
 
     async getServicesForMigration() {
         const SERVICES_RESPONSE_TIMEOUT_MS = 1000;
-        let timeout;
+        let timeout: NodeJS.Timeout;
         const getFromAssetsWithTimeout = () => new Promise<ServicesInterface>((resolve) => {
             timeout = setTimeout(async () => {
                 const services = await this.getServicesFromAssets();
@@ -178,7 +178,7 @@ export class ServicesManager implements ServiceManagerInterface {
         });
 
         const getServicesFromServer = async () => {
-            const services = await this.getServicesFromServer()
+            const services = await this.getServicesFromServer();
             clearTimeout(timeout);
             return services;
         };
