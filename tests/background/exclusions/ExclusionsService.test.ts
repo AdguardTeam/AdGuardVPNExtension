@@ -252,4 +252,25 @@ describe('ExclusionsService', () => {
         // reset service doesn't change manually added subdomain exclusion state
         expect(exclusions[0].children[1].children[2].state).toEqual(ExclusionState.Disabled);
     });
+
+    it('disableVpnByUrl and enableVpnByUrl test', async () => {
+        const exclusionsService = new ExclusionsService();
+        await exclusionsService.init();
+
+        await exclusionsService.disableVpnByUrl('example.org');
+        let exclusions = await exclusionsService.getExclusions();
+
+        expect(exclusions).toHaveLength(1);
+        expect(exclusions[0].value).toEqual('example.org');
+        expect(exclusions[0].state).toEqual(ExclusionState.Enabled);
+
+        await exclusionsService.enableVpnByUrl('example.org');
+        exclusions = await exclusionsService.getExclusions();
+
+        expect(exclusions).toHaveLength(1);
+        expect(exclusions[0].value).toEqual('example.org');
+        expect(exclusions[0].state).toEqual(ExclusionState.PartlyEnabled);
+        expect(exclusions[0].children[0].value).toEqual('example.org');
+        expect(exclusions[0].children[0].state).toEqual(ExclusionState.Disabled);
+    });
 });

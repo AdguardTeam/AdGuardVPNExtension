@@ -281,7 +281,8 @@ export class ExclusionsService {
 
     async disableVpnByUrl(url: string) {
         if (this.isInverted()) {
-            // FIXME disable exclusion by url
+            await exclusionsManager.current.disableExclusionByUrl(url);
+            this.updateTree();
         } else {
             await this.addUrlToExclusions(url);
         }
@@ -291,7 +292,8 @@ export class ExclusionsService {
         if (this.isInverted()) {
             await this.addUrlToExclusions(url);
         } else {
-            // FIXME disable exclusion by url
+            await exclusionsManager.current.disableExclusionByUrl(url);
+            this.updateTree();
         }
     }
 

@@ -155,11 +155,16 @@ export class ExclusionsHandler {
      */
     async disableExclusionByUrl(url: string) {
         const hostname = getHostname(url);
-
         if (!hostname) {
             return;
         }
 
+        const exclusion = this.getExclusionByHostname(hostname);
+        if (!exclusion) {
+            return;
+        }
+
+        await this.setExclusionsState([exclusion.id], ExclusionState.Disabled);
         await this.onUpdate();
     }
 
