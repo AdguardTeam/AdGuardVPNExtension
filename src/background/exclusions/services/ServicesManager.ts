@@ -1,3 +1,6 @@
+import browser from 'webextension-polyfill';
+import axios from 'axios';
+
 import { Service, ServiceCategory } from './Service';
 import { vpnProvider } from '../../providers/vpnProvider';
 import { ExclusionState } from '../../../common/exclusionsConstants';
@@ -148,6 +151,42 @@ export class ServicesManager implements ServiceManagerInterface {
      */
     async getServicesFromServer() {
         const services = await vpnProvider.getExclusionsServices() as ServicesInterface;
+
+        return services;
+    }
+
+    /**
+     * Gets exclusion services from assets,
+     * used in migration in the cases when services server is not working
+     */
+    async getServicesFromAssets(): Promise<ServicesInterface> {
+        const path = browser.runtime.getURL('assets/prebuild-data/exclusion-services.json');
+        const response = await axios.get(path);
+        return response.data;
+    }
+
+    async getServicesForMigration() {
+        const SERVICES_RESPONSE_TIMEOUT_MS = 1000;
+        let timeout: NodeJS.Timeout;
+        const getFromAssetsWithTimeout = () => new Promise<ServicesInterface>((resolve) => {
+            timeout = setTimeout(async () => {
+                const services = await this.getServicesFromAssets();
+                log.debug(`Did not get services from server in ${SERVICES_RESPONSE_TIMEOUT_MS}`);
+                log.debug('Return services from assets');
+                resolve(services);
+            }, SERVICES_RESPONSE_TIMEOUT_MS);
+        });
+
+        const getServicesFromServer = async () => {
+            const services = await this.getServicesFromServer();
+            clearTimeout(timeout);
+            return services;
+        };
+
+        const services = await Promise.race([
+            getServicesFromServer(),
+            getFromAssetsWithTimeout(),
+        ]);
 
         return services;
     }

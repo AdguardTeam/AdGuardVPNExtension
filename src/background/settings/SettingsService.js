@@ -4,16 +4,16 @@ import { log } from '../../lib/logger';
 import { SETTINGS_IDS } from '../../lib/constants';
 import browserApi from '../browserApi';
 import { servicesManager } from '../exclusions/services/ServicesManager';
-import { getETld } from '../../common/url-utils';
+import {
+    complementedExclusionsWithServices,
+    complementExclusions,
+} from '../exclusions/exclusions-helpers';
+import { ExclusionState } from '../../common/exclusionsConstants';
 
 const SCHEME_VERSION = '9';
 const THROTTLE_TIMEOUT = 100;
 
-const comlimentExclusions = (exclusions) => {
-
-};
-
-class SettingsService {
+export class SettingsService {
     constructor(storage, defaults) {
         this.storage = storage;
         this.defaults = defaults;
@@ -141,14 +141,32 @@ class SettingsService {
      * @param oldSettings
      */
     migrateFrom8to9 = async (oldSettings) => {
-        const migrateExclusions = (exclusions) => {
-            const exclusionsWithSubdomains = addSubdomainsIfNecessary(exclusions);
+        const updateExclusionsState = (oldExclusions) => {
+            return oldExclusions.map((exclusion) => {
+                return {
+                    id: exclusion.id,
+                    hostname: exclusion.hostname,
+                    state: exclusion.enabled ? ExclusionState.Enabled : ExclusionState.Disabled,
+                };
+            });
+        };
 
+        const services = await servicesManager.getServicesForMigration();
+
+        const migrateExclusions = (exclusions) => {
+            const exclusionsWithUpdatedState = updateExclusionsState(exclusions);
+            const complementedExclusions = complementExclusions(exclusionsWithUpdatedState);
+            const exclusionsComplementedWithServices = complementedExclusionsWithServices(
+                complementedExclusions,
+                services,
+            );
+
+            return exclusionsComplementedWithServices;
         };
 
         const oldExclusions = oldSettings[SETTINGS_IDS.EXCLUSIONS];
-        const newRegular = await migrateExclusions(oldExclusions.regular);
-        const newSelective = await migrateExclusions(oldExclusions.selective);
+        const newRegular = migrateExclusions(oldExclusions.regular);
+        const newSelective = migrateExclusions(oldExclusions.selective);
 
         return {
             ...oldSettings,
@@ -175,6 +193,7 @@ class SettingsService {
         5: this.migrateFrom5to6,
         6: this.migrateFrom6to7,
         7: this.migrateFrom7to8,
+        8: this.migrateFrom8to9,
     };
 
     async applyMigrations(oldVersion, newVersion, oldSettings) {
@@ -247,5 +266,3 @@ class SettingsService {
         await this.storage.remove(this.SETTINGS_KEY);
     }
 }
-
-export default SettingsService;

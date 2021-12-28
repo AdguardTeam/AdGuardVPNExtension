@@ -8,11 +8,12 @@ import { ExclusionsTree } from './ExclusionsTree';
 import { ExclusionsModes, ExclusionState } from '../../common/exclusionsConstants';
 import { AddExclusionArgs } from './exclusions/ExclusionsHandler';
 import { ExclusionInterface } from './exclusions/exclusionsTypes';
-import { getETld, getHostname, getSubdomain } from '../../common/url-utils';
-
-export const isWildcard = (targetString: string) => {
-    return targetString === '*';
-};
+import {
+    getETld,
+    getHostname,
+    getSubdomain,
+    isWildcard,
+} from '../../common/url-utils';
 
 export class ExclusionsService {
     exclusionsTree = new ExclusionsTree();

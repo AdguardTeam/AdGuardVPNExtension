@@ -130,3 +130,11 @@ export const getHostname = (url: unknown) => {
 
     return urlObj.hostname ? urlObj.hostname : urlString;
 };
+
+/**
+ * Checks if string is wildcard
+ * @param targetString
+ */
+export const isWildcard = (targetString: string) => {
+    return targetString === '*';
+};
