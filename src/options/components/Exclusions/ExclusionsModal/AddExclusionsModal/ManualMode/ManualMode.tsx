@@ -46,11 +46,13 @@ export const ManualMode = () => {
                 className="manual-mode"
                 onSubmit={addUrl}
             >
-                <label>
-                    {reactTranslator.getMessage('settings_exclusion_domain_name')}
+                <label className="input">
+                    <div className="input__label">
+                        {reactTranslator.getMessage('settings_exclusion_domain_name')}
+                    </div>
                     <input
                         type="text"
-                        className="manual-mode__input"
+                        className="input__in input__in--content"
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                     />
