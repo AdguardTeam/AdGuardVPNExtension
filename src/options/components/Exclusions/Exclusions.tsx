@@ -7,6 +7,7 @@ import { ModeSelectorModal } from './ModeSelectorModal';
 import { Actions } from './Actions';
 import { List } from './List';
 import { AddExclusionModal } from './ExclusionsModal/AddExclusionsModal';
+import { ConfirmAddModal } from './ExclusionsModal/ConfirmAddModal';
 import { ChildrenList } from './ChildrenList';
 import { ExclusionsSearch } from './Search/ExclusionsSearch';
 import { translator } from '../../../common/translator';
@@ -58,6 +59,7 @@ export const Exclusions = observer(() => {
                 <Actions />
                 <List />
                 <AddExclusionModal />
+                <ConfirmAddModal />
             </div>
             <ModeSelectorModal />
         </div>

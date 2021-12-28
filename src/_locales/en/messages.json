@@ -390,7 +390,7 @@
         "message": "Add manually"
     },
     "settings_exclusions_add_invalid_domain": {
-        "message": "\"com\" is not a valid domain. Do you want to add it to the list?"
+        "message": "is not a valid domain. Do you want to add it to the list?"
     },
     "settings_exclusion_modal_cancel": {
         "message": "Cancel"

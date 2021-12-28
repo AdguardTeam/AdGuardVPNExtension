@@ -79,6 +79,10 @@ export class ExclusionsStore {
 
     @observable removeAllModalOpen = false;
 
+    @observable confirmAddModalOpen = false;
+
+    @observable urlToConfirm: string | null = null;
+
     @observable addExclusionMode = DEFAULT_ADD_EXCLUSION_MODE;
 
     @observable unfoldedServiceCategories: string[] = [];
@@ -147,6 +151,14 @@ export class ExclusionsStore {
 
     @action setResetServiceModalOpen = (value: boolean) => {
         this.resetServiceModalOpen = value;
+    };
+
+    @action setConfirmAddModalOpen = (value: boolean) => {
+        this.confirmAddModalOpen = value;
+    };
+
+    @action setUrlToConfirm = (value: string | null) => {
+        this.urlToConfirm = value;
     };
 
     @action setCurrentMode = async (mode: ExclusionsModes) => {

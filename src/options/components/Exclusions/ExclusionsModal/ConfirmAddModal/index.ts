@@ -1,0 +1,1 @@
+export { ConfirmAddModal } from './ConfirmAddModal';
