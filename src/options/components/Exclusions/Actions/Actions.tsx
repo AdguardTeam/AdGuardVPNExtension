@@ -20,6 +20,7 @@ import { translator } from '../../../../common/translator';
 import { isValidExclusion } from '../../../../lib/string-utils';
 import { log } from '../../../../lib/logger';
 import { messenger } from '../../../../lib/messenger';
+import { SelectListModal } from './SelectListModal/SelectListModal';
 
 import './actions.pcss';
 
@@ -38,7 +39,7 @@ const prepareExclusionsAfterImport = (exclusionsString: string) => {
         .reverse();
 };
 
-const handleGeneralExclusions = async (exclusionsString: string): Promise<number> => {
+const handleGeneralExclusionsString = async (exclusionsString: string): Promise<number> => {
     const generalExclusions = prepareExclusionsAfterImport(exclusionsString);
     return messenger.addRegularExclusions(generalExclusions);
 };
@@ -77,6 +78,44 @@ export const Actions = observer(() => {
     const importEl = useRef<HTMLInputElement>(null);
     const moreActionsMenu = useRef<HTMLUListElement>(null);
 
+    const [isSelectListModalOpen, setSelectListModalState] = useState(false);
+    const [fileContent, setFileContent] = useState('');
+
+    const closeSelectListModal = () => {
+        setSelectListModalState(false);
+        setFileContent('');
+    };
+
+    const openSelectListModal = () => {
+        setSelectListModalState(true);
+    };
+
+    const handleRegularClick = async () => {
+        const exclusionsAddedCount = await handleGeneralExclusionsString(fileContent);
+        notificationsStore.notifySuccess(
+            translator.getMessage(
+                'options_exclusions_import_successful',
+                { count: exclusionsAddedCount },
+            ),
+        );
+        closeSelectListModal();
+    };
+
+    const handleSelectiveClick = async () => {
+        const exclusionsAddedCount = await handleSelectiveExclusionsString(fileContent);
+        notificationsStore.notifySuccess(translator.getMessage(
+            'options_exclusions_import_successful',
+            { count: exclusionsAddedCount },
+        ));
+        closeSelectListModal();
+    };
+
+    const handleTxtExclusionsData = (content: string) => {
+        setFileContent(content);
+        openSelectListModal();
+        return null;
+    };
+
     const onAddExclusionClick = () => {
         exclusionsStore.openAddExclusionModal();
     };
@@ -100,18 +139,18 @@ export const Actions = observer(() => {
     };
 
     const handleExclusionsData = async (exclusionsData: ExclusionsImportData[]) => {
-        // FIXME should we handle txt file? ask Denis
-        // const txtExclusionsData = exclusionsData.find((d) => d.type === ExclusionDataTypes.Txt);
-        // if (txtExclusionsData) {
-        //     return handleTxtExclusionsData(txtExclusionsData.content);
-        // }
+        const txtExclusionsData = exclusionsData.find((d) => d.type === ExclusionDataTypes.Txt);
+
+        if (txtExclusionsData) {
+            return handleTxtExclusionsData(txtExclusionsData.content);
+        }
 
         let addedExclusions = 0;
 
         for (let i = 0; i < exclusionsData.length; i += 1) {
             const { type, content } = exclusionsData[i];
             if (type === ExclusionDataTypes.General) {
-                addedExclusions += await handleGeneralExclusions(content);
+                addedExclusions += await handleGeneralExclusionsString(content);
             } else if (type === ExclusionDataTypes.Selective) {
                 addedExclusions += await handleSelectiveExclusionsString(content);
             }
@@ -209,6 +248,12 @@ export const Actions = observer(() => {
                     style={{ display: 'none' }}
                 />
             </div>
+            <SelectListModal
+                isOpen={isSelectListModalOpen}
+                closeModal={closeSelectListModal}
+                handleRegularClick={handleRegularClick}
+                handleSelectiveClick={handleSelectiveClick}
+            />
             <RemoveAllModal />
             {/* FIXME add tooltip? */}
             <div onClick={onMoreActionsClick}>
