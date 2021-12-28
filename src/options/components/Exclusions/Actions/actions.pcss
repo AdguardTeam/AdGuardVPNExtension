@@ -21,10 +21,6 @@
         padding: 7px 12px 5px;
         cursor: pointer;
 
-        &.active {
-            background: var(--grayF7);
-        }
-
         &__icon {
             width: 2px;
             height: 12px;
@@ -51,6 +47,30 @@
 
             &:hover {
                 background: var(--grayF7);
+
+                @media (prefers-color-scheme: dark) {
+                    background-color: #4d4d4d;
+                }
+            }
+        }
+    }
+}
+
+.light-mode {
+    .actions {
+        &__more-actions-list {
+            &:hover {
+                background-color: #f3f3f3;
+            }
+        }
+    }
+}
+
+.dark-mode {
+    .actions {
+        &__more-actions-list {
+            &:hover {
+                background-color: #4d4d4d;
             }
         }
     }

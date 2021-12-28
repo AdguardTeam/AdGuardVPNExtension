@@ -14,7 +14,7 @@
 .services-list {
     margin-top: 20px;
     max-height: 182px;
-    overflow: scroll;
+    overflow-y: auto;
 
     &__connection-problem {
         text-align: center;
@@ -46,9 +46,13 @@
     }
 
     &__services {
-        background: var(--grayF7);
+        background: var(--grayF3);
         padding: 5px 10px;
         border-radius: 5px;
+
+        @media (prefers-color-scheme: dark) {
+            background-color: #131313;
+        }
     }
 }
 
@@ -84,5 +88,18 @@
     }
 }
 
+.light-mode {
+    .category {
+        &__services {
+            background: var(--grayF3);
+        }
+    }
+}
 
-
+.dark-mode {
+    .category {
+        &__services {
+            background-color: #131313;
+        }
+    }
+}

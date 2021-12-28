@@ -2,9 +2,8 @@ import ipaddr from 'ipaddr.js';
 import { nanoid } from 'nanoid';
 
 import { ExclusionInterface } from './exclusions/exclusionsTypes';
-import { getETld, getSubdomain } from '../../common/url-utils';
+import { getETld, getSubdomain, isWildcard } from '../../common/url-utils';
 import { log } from '../../lib/logger';
-import { isWildcard } from './ExclusionsService';
 import { ExclusionState } from '../../common/exclusionsConstants';
 import { ServicesInterface } from './services/ServicesManager';
 

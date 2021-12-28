@@ -8,11 +8,12 @@ import {
     complementedExclusionsWithServices,
     complementExclusions,
 } from '../exclusions/exclusions-helpers';
+import { ExclusionState } from '../../common/exclusionsConstants';
 
 const SCHEME_VERSION = '9';
 const THROTTLE_TIMEOUT = 100;
 
-class SettingsService {
+export class SettingsService {
     constructor(storage, defaults) {
         this.storage = storage;
         this.defaults = defaults;
@@ -140,10 +141,21 @@ class SettingsService {
      * @param oldSettings
      */
     migrateFrom8to9 = async (oldSettings) => {
+        const updateExclusionsState = (oldExclusions) => {
+            return oldExclusions.map((exclusion) => {
+                return {
+                    id: exclusion.id,
+                    hostname: exclusion.hostname,
+                    state: exclusion.enabled ? ExclusionState.Enabled : ExclusionState.Disabled,
+                };
+            });
+        };
+
         const services = await servicesManager.getServicesForMigration();
 
         const migrateExclusions = (exclusions) => {
-            const complementedExclusions = complementExclusions(exclusions);
+            const exclusionsWithUpdatedState = updateExclusionsState(exclusions);
+            const complementedExclusions = complementExclusions(exclusionsWithUpdatedState);
             const exclusionsComplementedWithServices = complementedExclusionsWithServices(
                 complementedExclusions,
                 services,
@@ -254,5 +266,3 @@ class SettingsService {
         await this.storage.remove(this.SETTINGS_KEY);
     }
 }
-
-export default SettingsService;
