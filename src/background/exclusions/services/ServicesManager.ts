@@ -6,7 +6,6 @@ import { vpnProvider } from '../../providers/vpnProvider';
 import { ExclusionState } from '../../../common/exclusionsConstants';
 import browserApi from '../../browserApi';
 import { log } from '../../../lib/logger';
-import { sleep } from '../../../lib/helpers';
 
 export interface RawService {
     serviceId: string,
@@ -168,8 +167,9 @@ export class ServicesManager implements ServiceManagerInterface {
 
     async getServicesForMigration() {
         const SERVICES_RESPONSE_TIMEOUT_MS = 1000;
+        let timeout;
         const getFromAssetsWithTimeout = () => new Promise<ServicesInterface>((resolve) => {
-            setTimeout(async () => {
+            timeout = setTimeout(async () => {
                 const services = await this.getServicesFromAssets();
                 log.debug(`Did not get services from server in ${SERVICES_RESPONSE_TIMEOUT_MS}`);
                 log.debug('Return services from assets');
@@ -177,8 +177,14 @@ export class ServicesManager implements ServiceManagerInterface {
             }, SERVICES_RESPONSE_TIMEOUT_MS);
         });
 
+        const getServicesFromServer = async () => {
+            const services = await this.getServicesFromServer()
+            clearTimeout(timeout);
+            return services;
+        };
+
         const services = await Promise.race([
-            this.getServicesFromServer(),
+            getServicesFromServer(),
             getFromAssetsWithTimeout(),
         ]);
 
