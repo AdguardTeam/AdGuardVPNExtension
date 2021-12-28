@@ -79,6 +79,7 @@ export class GlobalStore {
             await settingsStore.checkRateStatus();
             await settingsStore.checkIsExcluded();
             await settingsStore.getExclusionsInverted();
+            await settingsStore.setDisplayExclusionScreen();
             this.setInitStatus(REQUEST_STATUSES.DONE);
         } catch (e) {
             log.error(e.message);

@@ -23,6 +23,7 @@ import { logStorage } from '../lib/log-storage';
 import { setDesktopVpnEnabled } from './connectivity/connectivityService/connectivityFSM';
 import { flagsStorage } from './flagsStorage';
 import { ExclusionsData } from '../common/exclusionsConstants';
+import { exclusionsManager } from './exclusions/exclusions/ExclusionsManager';
 
 interface Message {
     type: MessageType,
@@ -171,6 +172,18 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
                 throw new Error(e.message);
             }
         }
+        case MessageType.DISABLE_VPN_BY_URL: {
+            const { url } = data;
+            return exclusions.disableVpnByUrl(url);
+        }
+        case MessageType.ENABLE_VPN_BY_URL: {
+            const { url } = data;
+            return exclusions.enableVpnByUrl(url);
+        }
+        case MessageType.IS_VPN_ENABLED_BY_URL: {
+            const { url } = data;
+            return exclusionsManager.isVpnEnabledByUrl(url);
+        }
         case MessageType.REMOVE_EXCLUSION: {
             const { id } = data;
             return exclusions.removeExclusion(id);
@@ -187,10 +200,6 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             const { ids } = data;
             return exclusions.toggleServices(ids);
         }
-        // case MessageType.REMOVE_FROM_EXCLUSIONS: {
-        //     const { url } = data;
-        //     return exclusions.current.disableExclusionByUrl(url);
-        // }
         case MessageType.RESET_SERVICE_DATA: {
             const { serviceId } = data;
             return exclusions.resetServiceData(serviceId);

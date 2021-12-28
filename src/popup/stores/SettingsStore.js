@@ -44,6 +44,8 @@ export class SettingsStore {
 
     @observable appearanceTheme = APPEARANCE_THEME_DEFAULT;
 
+    @observable displayExclusionScreen = false;
+
     constructor(rootStore) {
         this.rootStore = rootStore;
     }
@@ -85,9 +87,10 @@ export class SettingsStore {
         }
     };
 
-    @action addToExclusions = async () => {
+    @action disableVpnOnCurrentTab = async () => {
         try {
-            await messenger.addUrlToExclusions(this.currentTabHostname);
+            await messenger.disableVpnByUrl(this.currentTabHostname);
+            await this.setDisplayExclusionScreen();
             runInAction(() => {
                 this.isExcluded = true;
             });
@@ -96,9 +99,10 @@ export class SettingsStore {
         }
     };
 
-    @action removeFromExclusions = async () => {
+    @action enableVpnOnCurrentTab = async () => {
         try {
-            await messenger.removeFromExclusions(this.currentTabHostname);
+            await messenger.enableVpnByUrl(this.currentTabHostname);
+            await this.setDisplayExclusionScreen();
             runInAction(() => {
                 this.isExcluded = false;
             });
@@ -271,11 +275,11 @@ export class SettingsStore {
         });
     };
 
-    @computed
-    get displayExclusionScreen() {
-        return (this.isExcluded && !this.exclusionsInverted)
-        || (!this.isExcluded && this.exclusionsInverted);
-    }
+    // @computed
+    // get displayExclusionScreen() {
+    //     return (this.isExcluded && !this.exclusionsInverted)
+    //     || (!this.isExcluded && this.exclusionsInverted);
+    // }
 
     @action setPremiumLocationClickedByFreeUser = (state) => {
         this.freeUserClickedPremiumLocation = state;
@@ -289,6 +293,13 @@ export class SettingsStore {
         const value = await messenger.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
         runInAction(() => {
             this.appearanceTheme = value;
+        });
+    };
+
+    @action setDisplayExclusionScreen = async () => {
+        const isVpnEnabledByUrl = await messenger.isVpnEnabledByUrl(this.currentTabHostname);
+        runInAction(() => {
+            this.displayExclusionScreen = !isVpnEnabledByUrl;
         });
     };
 }

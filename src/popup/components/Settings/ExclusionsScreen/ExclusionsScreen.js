@@ -11,11 +11,11 @@ export const ExclusionsScreen = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
     const removeFromExclusions = async () => {
-        await settingsStore.removeFromExclusions();
+        await settingsStore.enableVpnOnCurrentTab();
     };
 
     const addToExclusions = async () => {
-        await settingsStore.addToExclusions();
+        await settingsStore.disableVpnOnCurrentTab();
     };
 
     const buttonsInfo = {
@@ -23,7 +23,8 @@ export const ExclusionsScreen = observer(() => {
         remove: removeFromExclusions,
     };
 
-    const button = settingsStore.isExcluded ? buttonsInfo.remove : buttonsInfo.add;
+    // FIXME do we need addToExclusions here?
+    const button = settingsStore.displayExclusionScreen ? buttonsInfo.remove : buttonsInfo.add;
 
     return (
         <div className="settings settings--exclusions-disable">

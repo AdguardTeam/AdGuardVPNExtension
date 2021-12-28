@@ -176,6 +176,21 @@ class Messenger {
         return this.sendMessage(type, { id });
     }
 
+    async disableVpnByUrl(url: string) {
+        const type = MessageType.DISABLE_VPN_BY_URL;
+        return this.sendMessage(type, { url });
+    }
+
+    async enableVpnByUrl(url: string) {
+        const type = MessageType.ENABLE_VPN_BY_URL;
+        return this.sendMessage(type, { url });
+    }
+
+    async isVpnEnabledByUrl(url: string) {
+        const type = MessageType.IS_VPN_ENABLED_BY_URL;
+        return this.sendMessage(type, { url });
+    }
+
     async toggleExclusionState(id: string) {
         const type = MessageType.TOGGLE_EXCLUSION_STATE;
         return this.sendMessage(type, { id });
@@ -185,11 +200,6 @@ class Messenger {
         const type = MessageType.GET_PARENT_EXCLUSION;
         return this.sendMessage(type, { id });
     }
-
-    // async addService(id: string) {
-    //     const type = MessageType.ADD_SERVICE;
-    //     return this.sendMessage(type, { id });
-    // }
 
     async toggleServices(ids: string[]) {
         const type = MessageType.TOGGLE_SERVICES;
