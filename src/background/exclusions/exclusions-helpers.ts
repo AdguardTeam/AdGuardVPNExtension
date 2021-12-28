@@ -1,10 +1,12 @@
 import ipaddr from 'ipaddr.js';
 import { nanoid } from 'nanoid';
+
 import { ExclusionInterface } from './exclusions/exclusionsTypes';
 import { getETld, getSubdomain } from '../../common/url-utils';
 import { log } from '../../lib/logger';
 import { isWildcard } from './ExclusionsService';
 import { ExclusionState } from '../../common/exclusionsConstants';
+import { ServicesInterface } from './services/ServicesManager';
 
 interface ExclusionGroup {
     [key: string]: ExclusionInterface;
@@ -93,6 +95,103 @@ export const complementExclusions = (exclusions: ExclusionInterface[]) => {
         }
 
         return acc;
+    }, {} as IndexedExclusionsMap);
+
+    return Object.values(complementedExclusions).flatMap((group) => Object.values(group));
+};
+
+const createServicesIndex = (services: ServicesInterface) => {
+    return Object.values(services).reduce((acc, service) => {
+        service.domains.forEach((domain) => {
+            acc[domain] = service.serviceId;
+        });
+
+        return acc;
+    }, {} as { [domain: string]: string });
+};
+
+const generateExclusionsFromDomains = (domains: string[]): ExclusionInterface[] => {
+    return domains.flatMap((domain) => {
+        return [
+            { id: nanoid(), hostname: domain, state: ExclusionState.Disabled },
+            { id: nanoid(), hostname: `*.${domain}`, state: ExclusionState.Disabled },
+        ];
+    });
+};
+
+const complementExclusionsGroupWithDomains = (
+    exclusionGroup: ExclusionGroup,
+    exclusion: ExclusionInterface,
+    domain: string,
+) => {
+    const resultGroup = { ...exclusionGroup };
+
+    const generatedExclusions = generateExclusionsFromDomains([domain]);
+    generatedExclusions.forEach((exclusion) => {
+        if (resultGroup[exclusion.hostname]) {
+            return;
+        }
+        resultGroup[exclusion.hostname] = exclusion;
+    });
+
+    const foundExclusion = resultGroup[exclusion.hostname];
+    if (foundExclusion) {
+        // after exclusions added from domains, update state for existing exclusion
+        resultGroup[exclusion.hostname] = { ...foundExclusion, state: exclusion.state };
+    }
+
+    return resultGroup;
+};
+
+const complementExclusionsMapWithServiceDomains = (
+    map: IndexedExclusionsMap,
+    exclusion: ExclusionInterface,
+    domains: string[],
+) => {
+    const resultMap = { ...map };
+
+    domains.forEach((domain) => {
+        const exclusionsGroup = resultMap[domain];
+
+        if (exclusionsGroup) {
+            resultMap[domain] = complementExclusionsGroupWithDomains(
+                exclusionsGroup,
+                exclusion,
+                domain,
+            );
+        } else {
+            resultMap[domain] = complementExclusionsGroupWithDomains(
+                {},
+                exclusion,
+                domain,
+            );
+        }
+    });
+
+    return resultMap;
+};
+
+export const complementedExclusionsWithServices = (
+    exclusions: ExclusionInterface[],
+    services: ServicesInterface,
+) => {
+    const servicesIndex = createServicesIndex(services);
+
+    const complementedExclusions = exclusions.reduce((acc, exclusion) => {
+        const eTld = getETld(exclusion.hostname);
+
+        if (!eTld) {
+            log.debug(`Exclusion hostname ${exclusion} doesn't have eTld`);
+            return acc;
+        }
+
+        const service = services[servicesIndex[eTld]];
+
+        if (!service) {
+            return acc;
+        }
+
+        return complementExclusionsMapWithServiceDomains(acc, exclusion, service.domains);
     }, {} as IndexedExclusionsMap);
 
     return Object.values(complementedExclusions).flatMap((group) => Object.values(group));
