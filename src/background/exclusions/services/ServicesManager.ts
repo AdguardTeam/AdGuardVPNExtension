@@ -6,7 +6,6 @@ import { vpnProvider } from '../../providers/vpnProvider';
 import { ExclusionState } from '../../../common/exclusionsConstants';
 import browserApi from '../../browserApi';
 import { log } from '../../../lib/logger';
-import { sleep } from '../../../lib/helpers';
 
 export interface RawService {
     serviceId: string,

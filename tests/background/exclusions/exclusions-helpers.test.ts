@@ -3,11 +3,10 @@ import _ from 'lodash';
 import { ExclusionState } from '../../../src/common/exclusionsConstants';
 import {
     complementedExclusionsWithServices,
-    complementExclusions
+    complementExclusions,
 } from '../../../src/background/exclusions/exclusions-helpers';
 import { ExclusionInterface } from '../../../src/background/exclusions/exclusions/exclusionsTypes';
 import { ServicesInterface } from '../../../src/background/exclusions/services/ServicesManager';
-import { ServiceCategory } from '../../../src/background/exclusions/services/Service';
 
 jest.mock('../../../src/lib/logger.js');
 
