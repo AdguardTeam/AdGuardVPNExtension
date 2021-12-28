@@ -1,5 +1,14 @@
 import { ExclusionDtoInterface, ExclusionState, ExclusionsTypes } from '../../common/exclusionsConstants';
 
+interface ExclusionDtoProps {
+    id: string;
+    value: string;
+    state: ExclusionState;
+    type: ExclusionsTypes;
+    children: ExclusionDtoInterface[];
+    iconUrl?: string;
+}
+
 export class ExclusionDto implements ExclusionDtoInterface {
     id: string;
 
@@ -20,14 +29,7 @@ export class ExclusionDto implements ExclusionDtoInterface {
         type,
         children,
         iconUrl,
-    }: {
-        id: string,
-        value: string,
-        state: ExclusionState,
-        type: ExclusionsTypes,
-        children: ExclusionDtoInterface[],
-        iconUrl?: string,
-    }) {
+    }: ExclusionDtoProps) {
         this.id = id;
         this.value = value;
         this.state = state;

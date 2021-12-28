@@ -17,7 +17,7 @@ describe('ExclusionsTree', () => {
             { id: '2', hostname: '*.example.org', state: ExclusionState.Enabled },
         ];
 
-        const indexedExclusions = ExclusionsHandler.getExclusionsIndex(exclusions);
+        const indexedExclusions = ExclusionsHandler.buildExclusionsIndex(exclusions);
 
         const services = {};
 
@@ -68,7 +68,7 @@ describe('ExclusionsTree', () => {
             { id: '3', hostname: '*.aliexpress.ru', state: ExclusionState.Enabled },
         ];
 
-        const indexedExclusions = ExclusionsHandler.getExclusionsIndex(exclusions);
+        const indexedExclusions = ExclusionsHandler.buildExclusionsIndex(exclusions);
 
         const services = {
             aliexpress: {
