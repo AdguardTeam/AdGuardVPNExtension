@@ -336,12 +336,10 @@ export class ExclusionsStore {
             return null;
         }
 
-        const foundExclusion = findExclusionById(
+        return findExclusionById(
             this.exclusions,
             this.selectedExclusionId,
         );
-
-        return foundExclusion || null;
     }
 
     @action setExclusionsSearchValue = (value: string) => {
