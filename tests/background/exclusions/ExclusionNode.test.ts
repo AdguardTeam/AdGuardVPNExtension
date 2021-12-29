@@ -53,4 +53,31 @@ describe('ExclusionNode', () => {
             expect(exclusions).toEqual(['3', '4']);
         });
     });
+
+    describe('getParentExclusionNode', () => {
+        it('returns parent exclusion node or null', () => {
+            const tree = new ExclusionNode({ id: 'root', value: 'root' });
+            tree.addChild(new ExclusionNode({ id: '1', value: 'example.org' }));
+
+            const exclusion = new ExclusionNode({ id: '2', value: 'example.net' });
+            exclusion.addChild(new ExclusionNode({ id: '3', value: 'test.example.net' }));
+
+            tree.addChild(exclusion);
+
+            let parentNode = tree.getParentExclusionNode('1');
+            expect(parentNode?.id).toEqual('root');
+
+            parentNode = tree.getParentExclusionNode('2');
+            expect(parentNode?.id).toEqual('root');
+
+            parentNode = tree.getParentExclusionNode('3');
+            expect(parentNode?.id).toEqual('2');
+
+            parentNode = tree.getParentExclusionNode('4');
+            expect(parentNode).toBeNull();
+
+            parentNode = tree.getParentExclusionNode('root');
+            expect(parentNode).toBeNull();
+        });
+    });
 });
