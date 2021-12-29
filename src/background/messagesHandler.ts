@@ -246,36 +246,12 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             await exclusions.setMode(mode);
             break;
         }
-        // case MessageType.REMOVE_EXCLUSION_BY_MODE: {
-        //     const { mode, id } = data;
-        //     const handler = exclusions.getHandler(mode);
-        //     await handler.removeFromExclusions(id);
-        //     break;
-        // }
-        // case MessageType.REMOVE_EXCLUSIONS_BY_MODE: {
-        //     const { mode } = data;
-        //     const handler = exclusions.getHandler(mode);
-        //     await handler.removeExclusions();
-        //     break;
-        // }
-        // case MessageType.TOGGLE_EXCLUSION_BY_MODE: {
-        //     const { mode, id } = data;
-        //     const handler = exclusions.getHandler(mode);
-        //     await handler.toggleExclusion(id);
-        //     break;
-        // }
         case MessageType.ADD_REGULAR_EXCLUSIONS: {
             return exclusions.addGeneralExclusions(data.exclusions);
         }
         case MessageType.ADD_SELECTIVE_EXCLUSIONS: {
             return exclusions.addSelectiveExclusions(data.exclusions);
         }
-        // case MessageType.ADD_EXCLUSION_BY_MODE: {
-        //     const { mode, url, enabled } = data;
-        //     const handler = exclusions.getHandler(mode);
-        //     handler.addToExclusions(url, enabled);
-        //     break;
-        // }
         case MessageType.GET_SELECTED_LOCATION: {
             return endpoints.getSelectedLocation();
         }

@@ -206,11 +206,6 @@ class Messenger {
         return this.sendMessage(type, { ids });
     }
 
-    async removeFromExclusions(url: string) {
-        const type = MessageType.REMOVE_FROM_EXCLUSIONS;
-        return this.sendMessage(type, { url });
-    }
-
     async getIsExcluded(url: string) {
         const type = MessageType.GET_IS_EXCLUDED;
         return this.sendMessage(type, { url });
@@ -294,11 +289,6 @@ class Messenger {
     async setExclusionsMode(mode: ExclusionsModes) {
         const type = MessageType.SET_EXCLUSIONS_MODE;
         return this.sendMessage(type, { mode });
-    }
-
-    async removeExclusionByMode(mode: ExclusionsModes, id: string) {
-        const type = MessageType.REMOVE_EXCLUSION_BY_MODE;
-        return this.sendMessage(type, { mode, id });
     }
 
     async getSelectedLocation() {
