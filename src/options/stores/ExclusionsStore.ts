@@ -158,8 +158,9 @@ export class ExclusionsStore {
         this.confirmAddModalOpen = value;
     };
 
-    @action setUrlToConfirm = (value: string | null) => {
+    @action confirmUrlToAdd = (value: string | null) => {
         this.urlToConfirm = value;
+        this.setConfirmAddModalOpen(true);
     };
 
     @action setCurrentMode = async (mode: ExclusionsModes) => {

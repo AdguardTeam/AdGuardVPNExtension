@@ -22,8 +22,7 @@ export const ManualMode = () => {
         if (exclusionsStore.validateUrl(inputValue)) {
             await exclusionsStore.addUrlToExclusions(inputValue);
         } else {
-            exclusionsStore.setUrlToConfirm(inputValue);
-            exclusionsStore.setConfirmAddModalOpen(true);
+            exclusionsStore.confirmUrlToAdd(inputValue);
         }
         closeExclusionModal();
     };
