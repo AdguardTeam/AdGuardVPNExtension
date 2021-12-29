@@ -210,7 +210,10 @@ export class ExclusionsService {
 
         const servicesDomainsWithWildcards = servicesDomainsToAdd.map((hostname) => {
             const wildcardHostname = `*.${hostname}`;
-            return [{ value: hostname }, { value: wildcardHostname }];
+            return [
+                { value: hostname },
+                { value: wildcardHostname },
+            ];
         }).flat();
 
         await exclusionsManager.current.addExclusions(servicesDomainsWithWildcards);

@@ -36,4 +36,18 @@ export interface ExclusionsData {
     currentMode: ExclusionsModes;
 }
 
+export interface ServiceCategory {
+    id: string,
+    name: string,
+}
+
+export interface ServiceInterface {
+    serviceId: string;
+    serviceName: string;
+    iconUrl: string;
+    modifiedTime: string;
+    categories: ServiceCategory[];
+    domains: string[];
+}
+
 export const ICON_FOR_DOMAIN = 'https://icons.adguard.org/icon?domain=';

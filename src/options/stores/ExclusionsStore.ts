@@ -13,8 +13,9 @@ import {
     ExclusionsModes,
     ExclusionState,
     ExclusionsTypes,
+    ServiceCategory,
+    ServiceInterface,
 } from '../../common/exclusionsConstants';
-import { ServiceCategory, ServiceInterface } from '../../background/exclusions/services/Service';
 import { messenger } from '../../lib/messenger';
 import { containsIgnoreCase } from '../components/Exclusions/Search/SearchHighlighter/helpers';
 
@@ -367,15 +368,20 @@ export class ExclusionsStore {
 
     get sortedExclusions() {
         const { selectedExclusion } = this;
-        if (this.selectedExclusion && selectedExclusion?.type === ExclusionsTypes.Group) {
-            return selectedExclusion?.children
+
+        if (!selectedExclusion) {
+            return null;
+        }
+
+        if (selectedExclusion.type === ExclusionsTypes.Group) {
+            return selectedExclusion.children
                 .sort((a) => (a.value === `*.${selectedExclusion.value}` ? -1 : 1))
                 .sort((a) => (a.value === selectedExclusion.value ? -1 : 1));
         }
-        return selectedExclusion?.children
-            ?.sort((a, b) => {
-                return a.value > b.value ? 1 : -1;
-            });
+
+        return selectedExclusion.children.sort((a, b) => {
+            return a.value > b.value ? 1 : -1;
+        });
     }
 
     /**

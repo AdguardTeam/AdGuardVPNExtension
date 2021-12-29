@@ -1,9 +1,9 @@
 import browser from 'webextension-polyfill';
 import axios from 'axios';
 
-import { Service, ServiceCategory } from './Service';
+import { Service } from './Service';
 import { vpnProvider } from '../../providers/vpnProvider';
-import { ExclusionState } from '../../../common/exclusionsConstants';
+import { ExclusionState, ServiceCategory } from '../../../common/exclusionsConstants';
 import browserApi from '../../browserApi';
 import { log } from '../../../lib/logger';
 
