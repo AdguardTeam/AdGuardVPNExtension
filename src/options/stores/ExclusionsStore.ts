@@ -391,7 +391,7 @@ export class ExclusionsStore {
      * @param id
      */
     isServiceDefaultState = (id: string) => {
-        const defaultServiceData = this.preparedServicesData?.services[id];
+        const defaultServiceData = this.preparedServicesData.services[id];
 
         const isFullChildrenList = (
             this.selectedExclusion?.children?.length === defaultServiceData?.domains.length

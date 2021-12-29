@@ -12,21 +12,21 @@ interface StateCheckboxProps {
     ) => React.MouseEventHandler<HTMLButtonElement>,
 }
 
+const getStateIcon = (state: ExclusionState) => {
+    if (state === ExclusionState.Enabled) {
+        return '#enabled';
+    }
+    if (state === ExclusionState.PartlyEnabled) {
+        return '#partly-enabled';
+    }
+    return '#disabled';
+};
+
 export const StateCheckbox = ({
     id,
     state,
     toggleHandler,
 }: StateCheckboxProps) => {
-    const getStateIcon = () => {
-        if (state === ExclusionState.Enabled) {
-            return '#enabled';
-        }
-        if (state === ExclusionState.PartlyEnabled) {
-            return '#partly-enabled';
-        }
-        return '#disabled';
-    };
-
     return (
         <button
             className="state-checkbox"
@@ -34,7 +34,7 @@ export const StateCheckbox = ({
             onClick={toggleHandler(id)}
         >
             <svg className="state-checkbox__icon">
-                <use xlinkHref={getStateIcon()} />
+                <use xlinkHref={getStateIcon(state)} />
             </svg>
         </button>
     );
