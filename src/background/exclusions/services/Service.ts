@@ -1,16 +1,4 @@
-export interface ServiceCategory {
-    id: string,
-    name: string,
-}
-
-export interface ServiceInterface {
-    serviceId: string;
-    serviceName: string;
-    iconUrl: string;
-    modifiedTime: string;
-    categories: ServiceCategory[];
-    domains: string[];
-}
+import { ServiceCategory, ServiceInterface } from '../../../common/exclusionsConstants';
 
 export class Service implements ServiceInterface {
     serviceId: string;
