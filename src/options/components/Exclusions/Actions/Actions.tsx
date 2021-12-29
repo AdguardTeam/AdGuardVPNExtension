@@ -189,7 +189,7 @@ export const Actions = observer(() => {
         if (moreActionsMenu.current) {
             moreActionsMenu.current.focus();
         }
-    }, [moreActionsMenu]);
+    });
 
     const moreActionsButtonClassnames = classnames('actions__more-actions-button', {
         active: isMoreActionsMenuOpen,
