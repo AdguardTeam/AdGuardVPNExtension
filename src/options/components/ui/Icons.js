@@ -121,6 +121,12 @@ const Icons = () => (
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 18c6 0 10-3 10-7s-4-7-10-7S2 7 2 11c0 2 1 4 3 5l1 1 1 1H6h0v1h0v2l1-1h1l1-1s0 0 0 0h0l1-1h2zm0-6v-1m-4 1v-1m8 1v-1" />
             </g>
         </symbol>
+
+        <symbol id="spinner" fill="none" viewBox="0 0 24 24">
+            <path d="M6.2903 5.04276C6.40404 4.94931 6.52011 4.8586 6.63842 4.77072" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M8.55511 3.68292C8.82001 3.57307 9.0913 3.47551 9.36826 3.39095C9.51032 3.34758 9.65388 3.30762 9.79883 3.27119" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C9.51472 21 7.26472 19.9926 5.63604 18.364C4.80704 17.535 4.13901 16.545 3.68286 15.4449" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </symbol>
     </svg>
 );
 

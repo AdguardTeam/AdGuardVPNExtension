@@ -15,7 +15,9 @@ export const Loader = observer(() => {
 
     return (
         <div className={loaderClass}>
-            <div className="loader__spinner" />
+            <svg className="loader__spinner">
+                <use xlinkHref="#spinner" />
+            </svg>
         </div>
     );
 });

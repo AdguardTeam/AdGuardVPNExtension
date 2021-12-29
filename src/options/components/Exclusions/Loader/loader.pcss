@@ -1,3 +1,8 @@
+@keyframes spin {
+    0% {transform: rotate(0)}
+    100% {transform: rotate(360deg)}
+}
+
 .loader {
     display: none;
     position: absolute;
@@ -14,11 +19,8 @@
     }
 
     &__spinner {
-        /* FIXME add proper style for spinner */
+        animation: spin 2s linear infinite;
         width: 30px;
-        height: 30px;
-        border-radius: 30px;
-        background: var(--brand-primary);
     }
 
     &__container {
