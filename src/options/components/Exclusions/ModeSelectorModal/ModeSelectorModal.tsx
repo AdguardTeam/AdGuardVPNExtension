@@ -96,7 +96,7 @@ export const ModeSelectorModal = observer(() => {
                 <div className="settings__change-mode-actions">
                     <button
                         type="button"
-                        className="button button--large button--outline-gray"
+                        className="button button--large button--outline-secondary"
                         onClick={closeModal}
                     >
                         {reactTranslator.getMessage('settings_exclusion_modal_cancel')}

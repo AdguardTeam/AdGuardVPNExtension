@@ -14,6 +14,7 @@
 
         &:focus {
             outline: none;
+            box-shadow: inset 0 0 0 1px var(--grayD8);
         }
 
         @media (prefers-color-scheme: dark) {
@@ -40,20 +41,21 @@
     &__nothing-found {
         text-align: center;
         margin-top: 90px;
+        color: var(--gray88);
     }
 }
 
 .light-mode {
-    .input {
-        &__in {
+    .search {
+        &__input {
             background-color: var(--grayF7);
         }
     }
 }
 
 .dark-mode {
-    .input {
-        &__in {
+    .search {
+        &__input {
             background-color: #131313;
         }
     }
