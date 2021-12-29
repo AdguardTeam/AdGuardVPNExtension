@@ -17,11 +17,11 @@ const GlobalControl = observer(() => {
         await settingsStore.setProxyState(false);
     };
 
-    const disableVpnOnCurrentTab = async () => {
+    const disableVpnForCurrentSite = async () => {
         await settingsStore.disableVpnOnCurrentTab();
     };
 
-    const enableVpnOnCurrentTab = async () => {
+    const enableVpnForCurrentSite = async () => {
         await settingsStore.enableVpnOnCurrentTab();
     };
 
@@ -41,11 +41,11 @@ const GlobalControl = observer(() => {
         const buttonsInfo = {
             add: {
                 text: getText(exclusionsInverted),
-                handler: disableVpnOnCurrentTab,
+                handler: disableVpnForCurrentSite,
             },
             remove: {
                 text: getText(!exclusionsInverted),
-                handler: enableVpnOnCurrentTab,
+                handler: enableVpnForCurrentSite,
             },
         };
 
