@@ -82,7 +82,7 @@ export class ExclusionsStore {
 
     @observable confirmAddModalOpen = false;
 
-    @observable urlToConfirm: string | null = null;
+    @observable urlToConfirm: string | undefined;
 
     @observable addExclusionMode = DEFAULT_ADD_EXCLUSION_MODE;
 
@@ -158,7 +158,7 @@ export class ExclusionsStore {
         this.confirmAddModalOpen = value;
     };
 
-    @action confirmUrlToAdd = (value: string | null) => {
+    @action confirmUrlToAdd = (value: string) => {
         this.urlToConfirm = value;
         this.setConfirmAddModalOpen(true);
     };

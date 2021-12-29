@@ -14,7 +14,6 @@ export const ConfirmAddModal = observer(() => {
 
     const closeModal = () => {
         exclusionsStore.setConfirmAddModalOpen(false);
-        exclusionsStore.setUrlToConfirm(null);
     };
 
     const confirmAddUrl = async () => {
@@ -23,8 +22,6 @@ export const ConfirmAddModal = observer(() => {
         }
         closeModal();
     };
-
-    const invalidDomainMessage = `"${urlToConfirm}" ${reactTranslator.getMessage('settings_exclusions_add_invalid_domain')}`;
 
     return (
         <Modal
@@ -47,7 +44,7 @@ export const ConfirmAddModal = observer(() => {
                     title={reactTranslator.getMessage('settings_exclusion_add_website') as string}
                 />
                 <div className="confirm-add-modal__message">
-                    {invalidDomainMessage}
+                    {reactTranslator.getMessage('settings_exclusions_add_invalid_domain', { url: urlToConfirm })}
                 </div>
             </div>
             <div className="confirm-add-modal__actions">
