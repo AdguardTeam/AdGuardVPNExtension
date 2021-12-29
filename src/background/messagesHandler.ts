@@ -192,10 +192,6 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             const { id } = data;
             return exclusions.toggleExclusionState(id);
         }
-        case MessageType.GET_PARENT_EXCLUSION: {
-            const { id } = data;
-            return exclusions.getParentExclusion(id);
-        }
         case MessageType.TOGGLE_SERVICES: {
             const { ids } = data;
             return exclusions.toggleServices(ids);

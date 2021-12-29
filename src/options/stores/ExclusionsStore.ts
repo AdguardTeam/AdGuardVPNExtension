@@ -277,9 +277,11 @@ export class ExclusionsStore {
     };
 
     @action removeExclusion = async (exclusion: ExclusionDtoInterface) => {
-        if (this.selectedExclusionId) {
-            const parentExclusion = await messenger.getParentExclusion(this.selectedExclusionId);
-            if (parentExclusion?.id !== 'root' && parentExclusion?.meta?.domains.includes(exclusion.value)) {
+        if (this.selectedExclusionId && this.selectedExclusion) {
+            const parentExclusion = this.getParentExclusion(this.selectedExclusion);
+
+            if (parentExclusion?.id !== 'root' && parentExclusion?.children
+                .some(({ value }) => value === exclusion.value)) {
                 this.setSelectedExclusionId(parentExclusion.id);
             }
         }

@@ -196,11 +196,6 @@ class Messenger {
         return this.sendMessage(type, { id });
     }
 
-    async getParentExclusion(id: string) {
-        const type = MessageType.GET_PARENT_EXCLUSION;
-        return this.sendMessage(type, { id });
-    }
-
     async toggleServices(ids: string[]) {
         const type = MessageType.TOGGLE_SERVICES;
         return this.sendMessage(type, { ids });
