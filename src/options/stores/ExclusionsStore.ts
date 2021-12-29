@@ -279,7 +279,7 @@ export class ExclusionsStore {
     @action removeExclusion = async (exclusion: ExclusionDtoInterface) => {
         if (this.selectedExclusionId) {
             const parentExclusion = await messenger.getParentExclusion(this.selectedExclusionId);
-            if (parentExclusion.id !== 'root' && parentExclusion.meta?.domains.includes(exclusion.value)) {
+            if (parentExclusion?.id !== 'root' && parentExclusion?.meta?.domains.includes(exclusion.value)) {
                 this.setSelectedExclusionId(parentExclusion.id);
             }
         }

@@ -43,9 +43,6 @@ export const AddExclusionModal = observer(() => {
         },
     };
 
-    // FIXME add screens to handle cases:
-    //  1. when exclusions were not received from the backend
-    //  2. or when exclusions were not found?
     const MODE_MAP = {
         [AddExclusionMode.SERVICE]: () => <ServiceMode />,
         [AddExclusionMode.MANUAL]: () => <ManualMode />,

@@ -57,19 +57,12 @@ export const ChildrenList = observer(() => {
         },
     );
 
-    const renderExclusions = () => {
-        if (!exclusionsStore.sortedExclusions?.length) {
-            exclusionsStore.setSelectedExclusionId(null);
-            return undefined;
+    const renderExclusions = () => exclusionsStore.sortedExclusions?.map((exclusion) => {
+        if (exclusion) {
+            return <ChildrenListItem exclusion={exclusion} key={exclusion.id} />;
         }
-
-        return exclusionsStore.sortedExclusions.map((exclusion) => {
-            if (exclusion) {
-                return <ChildrenListItem exclusion={exclusion} key={exclusion.id} />;
-            }
-            return undefined;
-        });
-    };
+        return undefined;
+    });
 
     return (
         <>
