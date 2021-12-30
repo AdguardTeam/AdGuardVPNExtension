@@ -28,6 +28,7 @@ export const ExclusionsScreen = observer(() => {
 
     return (
         <div className="settings settings--exclusions-disable">
+            <div className="settings__pic" />
             <div className="settings__main">
                 <Status />
                 <button
