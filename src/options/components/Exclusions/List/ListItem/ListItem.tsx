@@ -78,6 +78,9 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
                     search={exclusionsStore.exclusionsSearchValue}
                 />
             </div>
+            <svg className="icon list-item__arrow">
+                <use xlinkHref="#arrow" />
+            </svg>
             <button
                 type="button"
                 className="list-item__remove-button"

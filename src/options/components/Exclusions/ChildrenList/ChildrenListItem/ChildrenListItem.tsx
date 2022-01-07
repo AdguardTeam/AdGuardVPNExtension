@@ -88,6 +88,9 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
                 toggleHandler={toggleState}
             />
             {renderExclusion(exclusion)}
+            <svg className="icon children-list-item__arrow">
+                <use xlinkHref="#arrow" />
+            </svg>
             <button
                 type="button"
                 className="children-list-item__remove-button"
