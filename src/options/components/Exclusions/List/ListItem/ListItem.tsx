@@ -45,7 +45,7 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
 
         if (exclusion.type === ExclusionsTypes.Group) {
             const preloadedIcon = new Image();
-            preloadedIcon.src = `${ICON_FOR_DOMAIN}${exclusion.value}`;
+            preloadedIcon.src = `${ICON_FOR_DOMAIN}${exclusion.hostname}`;
             preloadedIcon.onload = () => {
                 // @ts-ignore
                 icon.current.src = preloadedIcon.src;
@@ -74,7 +74,7 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
                     alt="exclusion icon"
                 />
                 <SearchHighlighter
-                    value={exclusion.value}
+                    value={exclusion.hostname}
                     search={exclusionsStore.exclusionsSearchValue}
                 />
             </div>

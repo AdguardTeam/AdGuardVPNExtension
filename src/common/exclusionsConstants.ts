@@ -20,7 +20,7 @@ export enum ExclusionsTypes {
 export interface ExclusionDtoInterface {
     id: string;
 
-    value: string;
+    hostname: string;
 
     state: ExclusionState;
 

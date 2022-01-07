@@ -8,7 +8,7 @@ interface ExclusionNodeMap {
 interface ExclusionNodeProps {
     id: string;
 
-    value: string;
+    hostname: string;
 
     state?: ExclusionState;
 
@@ -38,12 +38,12 @@ export const coveredBy = (current: string, target: string) => {
     return false;
 };
 
-export const selectConsiderable = <T extends { value: string }>(nodes: T[]): T[] => {
+export const selectConsiderable = <T extends { hostname: string }>(nodes: T[]): T[] => {
     let result = [...nodes];
     for (let i = 0; i < nodes.length; i += 1) {
         const node = nodes[i];
         result = result.filter((rNode) => {
-            return !coveredBy(rNode.value, node.value);
+            return !coveredBy(rNode.hostname, node.hostname);
         });
     }
 
@@ -53,7 +53,7 @@ export const selectConsiderable = <T extends { value: string }>(nodes: T[]): T[]
 export class ExclusionNode {
     id: string;
 
-    value: string;
+    hostname: string;
 
     state: ExclusionState;
 
@@ -68,13 +68,13 @@ export class ExclusionNode {
 
     constructor({
         id,
-        value,
+        hostname,
         type = ExclusionsTypes.Exclusion,
         state = ExclusionState.Enabled,
         meta,
     }: ExclusionNodeProps) {
         this.id = id;
-        this.value = value;
+        this.hostname = hostname;
         this.state = state;
         this.type = type;
         if (meta) {
@@ -124,7 +124,7 @@ export class ExclusionNode {
         const children = Object.values(this.children).map((child) => child.serialize());
         return new ExclusionDto({
             id: this.id,
-            value: this.value,
+            hostname: this.hostname,
             state: this.state,
             type: this.type,
             children,

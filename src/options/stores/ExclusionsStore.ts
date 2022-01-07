@@ -120,7 +120,7 @@ export class ExclusionsStore {
     @action convertExclusionsValuesToUnicode = (exclusions: ExclusionDtoInterface[]) => {
         return exclusions.map((exclusion) => {
             const unicodeExclusion = exclusion;
-            unicodeExclusion.value = punycode.toUnicode(exclusion.value);
+            unicodeExclusion.hostname = punycode.toUnicode(exclusion.hostname);
             if (unicodeExclusion.children.length) {
                 unicodeExclusion.children = this
                     .convertExclusionsValuesToUnicode(unicodeExclusion.children);
@@ -135,12 +135,12 @@ export class ExclusionsStore {
                 if (this.exclusionsSearchValue.length === 0) {
                     return true;
                 }
-                return containsIgnoreCase(exclusion.value, this.exclusionsSearchValue);
+                return containsIgnoreCase(exclusion.hostname, this.exclusionsSearchValue);
             });
 
         const sortedExclusions = filteredExclusions
             .sort((a: ExclusionDtoInterface, b: ExclusionDtoInterface) => {
-                return a.value > b.value ? 1 : -1;
+                return a.hostname > b.hostname ? 1 : -1;
             });
 
         return sortedExclusions;
@@ -263,7 +263,7 @@ export class ExclusionsStore {
             return;
         }
 
-        const domain = foundExclusion.value;
+        const domain = foundExclusion.hostname;
 
         if (subdomain.includes(domain)) {
             const domainToAdd = subdomain.replace('www.', '');
@@ -281,7 +281,7 @@ export class ExclusionsStore {
             const parentExclusion = this.getParentExclusion(this.selectedExclusion);
 
             if (parentExclusion?.id !== 'root' && parentExclusion?.children
-                .some(({ value }) => value === exclusion.value)) {
+                .some(({ hostname }) => hostname === exclusion.hostname)) {
                 this.setSelectedExclusionId(parentExclusion.id);
             }
         }
@@ -376,12 +376,12 @@ export class ExclusionsStore {
 
         if (selectedExclusion.type === ExclusionsTypes.Group) {
             return selectedExclusion.children
-                .sort((a) => (a.value === `*.${selectedExclusion.value}` ? -1 : 1))
-                .sort((a) => (a.value === selectedExclusion.value ? -1 : 1));
+                .sort((a) => (a.hostname === `*.${selectedExclusion.hostname}` ? -1 : 1))
+                .sort((a) => (a.hostname === selectedExclusion.hostname ? -1 : 1));
         }
 
         return selectedExclusion.children.sort((a, b) => {
-            return a.value > b.value ? 1 : -1;
+            return a.hostname > b.hostname ? 1 : -1;
         });
     }
 
@@ -400,11 +400,11 @@ export class ExclusionsStore {
 
         const isDefaultDomainsState = this.selectedExclusion?.children.every((child) => {
             const defaultDomainExclusion = child.children
-                .find((exclusion) => exclusion.value === child.value
+                .find((exclusion) => exclusion.hostname === child.hostname
                     && exclusion.state === ExclusionState.Enabled);
 
             const defaultAllSubdomainExclusion = child.children
-                .find((exclusion) => exclusion.value === `*.${child.value}`
+                .find((exclusion) => exclusion.hostname === `*.${child.hostname}`
                     && exclusion.state === ExclusionState.Enabled);
 
             return defaultDomainExclusion && defaultAllSubdomainExclusion;

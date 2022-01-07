@@ -226,7 +226,7 @@ export class ExclusionsService {
         const exclusionNode = this.exclusionsTree.getExclusionNode(id);
         const parentNode = this.exclusionsTree.getParentExclusionNode(id);
 
-        if (parentNode && parentNode.value === exclusionNode?.value) {
+        if (parentNode && parentNode.hostname === exclusionNode?.hostname) {
             await this.removeExclusion(parentNode.id);
         } else {
             await exclusionsManager.current.removeExclusions(exclusionsToRemove);

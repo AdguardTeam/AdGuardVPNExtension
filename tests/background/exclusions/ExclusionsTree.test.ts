@@ -37,20 +37,20 @@ describe('ExclusionsTree', () => {
         expect(exclusionsData).toEqual([
             {
                 id: 'example.org',
-                value: 'example.org',
+                hostname: 'example.org',
                 state: ExclusionState.Enabled,
                 type: ExclusionsTypes.Group,
                 children: [
                     {
                         id: '1',
-                        value: 'example.org',
+                        hostname: 'example.org',
                         state: ExclusionState.Enabled,
                         type: ExclusionsTypes.Exclusion,
                         children: [],
                     },
                     {
                         id: '2',
-                        value: '*.example.org',
+                        hostname: '*.example.org',
                         state: ExclusionState.Enabled,
                         type: ExclusionsTypes.Exclusion,
                         children: [],
@@ -105,26 +105,26 @@ describe('ExclusionsTree', () => {
         expect(exclusionsData).toEqual([
             {
                 id: 'aliexpress',
-                value: 'Aliexpress',
+                hostname: 'Aliexpress',
                 state: ExclusionState.Enabled,
                 type: ExclusionsTypes.Service,
                 iconUrl: 'https://icons.adguard.org/icon?domain=aliexpress.com',
                 children: [{
                     id: 'aliexpress.com',
-                    value: 'aliexpress.com',
+                    hostname: 'aliexpress.com',
                     state: ExclusionState.Enabled,
                     type: ExclusionsTypes.Group,
                     children: [
                         {
                             id: '0',
-                            value: 'aliexpress.com',
+                            hostname: 'aliexpress.com',
                             state: ExclusionState.Enabled,
                             type: ExclusionsTypes.Exclusion,
                             children: [],
                         },
                         {
                             id: '1',
-                            value: '*.aliexpress.com',
+                            hostname: '*.aliexpress.com',
                             state: ExclusionState.Enabled,
                             type: ExclusionsTypes.Exclusion,
                             children: [],
@@ -133,20 +133,20 @@ describe('ExclusionsTree', () => {
                 },
                 {
                     id: 'aliexpress.ru',
-                    value: 'aliexpress.ru',
+                    hostname: 'aliexpress.ru',
                     state: ExclusionState.Enabled,
                     type: ExclusionsTypes.Group,
                     children: [
                         {
                             id: '2',
-                            value: 'aliexpress.ru',
+                            hostname: 'aliexpress.ru',
                             state: ExclusionState.Enabled,
                             type: ExclusionsTypes.Exclusion,
                             children: [],
                         },
                         {
                             id: '3',
-                            value: '*.aliexpress.ru',
+                            hostname: '*.aliexpress.ru',
                             state: ExclusionState.Enabled,
                             type: ExclusionsTypes.Exclusion,
                             children: [],

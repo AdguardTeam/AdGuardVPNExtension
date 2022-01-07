@@ -6,7 +6,7 @@ import { ExclusionInterface, IndexedExclusionsInterface } from './exclusions/exc
 import { getETld } from '../../common/url-utils';
 
 export class ExclusionsTree {
-    exclusionsTree = new ExclusionNode({ id: 'root', value: 'root' });
+    exclusionsTree = new ExclusionNode({ id: 'root', hostname: 'root' });
 
     generateTree({
         exclusions,
@@ -19,7 +19,7 @@ export class ExclusionsTree {
         services: ServicesInterface;
         indexedServices: IndexedServicesInterface;
     }) {
-        this.exclusionsTree = new ExclusionNode({ id: 'root', value: 'root' });
+        this.exclusionsTree = new ExclusionNode({ id: 'root', hostname: 'root' });
 
         for (let i = 0; i < exclusions.length; i += 1) {
             const exclusion = exclusions[i];
@@ -32,7 +32,7 @@ export class ExclusionsTree {
 
             const exclusionNode = new ExclusionNode({
                 id: exclusion.id,
-                value: exclusion.hostname,
+                hostname: exclusion.hostname,
                 state: exclusion.state,
             });
 
@@ -44,7 +44,7 @@ export class ExclusionsTree {
                 const serviceNode = this.exclusionsTree.getExclusionNode(service.serviceId)
                     ?? new ExclusionNode({
                         id: service.serviceId,
-                        value: service.serviceName,
+                        hostname: service.serviceName,
                         type: ExclusionsTypes.Service,
                         meta: {
                             domains: service.domains,
@@ -55,7 +55,7 @@ export class ExclusionsTree {
                 const groupNode = serviceNode.getExclusionNode(hostnameTld)
                     ?? new ExclusionNode({
                         id: hostnameTld,
-                        value: hostnameTld,
+                        hostname: hostnameTld,
                         type: ExclusionsTypes.Group,
                     });
 
@@ -71,7 +71,7 @@ export class ExclusionsTree {
                 const groupNode = this.exclusionsTree.getExclusionNode(hostnameTld)
                     ?? new ExclusionNode({
                         id: hostnameTld,
-                        value: hostnameTld,
+                        hostname: hostnameTld,
                         type: ExclusionsTypes.Group,
                     });
 

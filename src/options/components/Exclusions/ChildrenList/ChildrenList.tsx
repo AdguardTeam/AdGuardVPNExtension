@@ -53,7 +53,7 @@ export const ChildrenList = observer(() => {
         'simple-button',
         {
             hidden: selectedExclusion.type !== ExclusionsTypes.Group
-                || isTopLevel(selectedExclusion.value),
+                || isTopLevel(selectedExclusion.hostname),
         },
     );
 
@@ -74,7 +74,7 @@ export const ChildrenList = observer(() => {
                 </button>
                 <div>
                     <Title
-                        title={selectedExclusion.value}
+                        title={selectedExclusion.hostname}
                         subtitle={subtitle as string}
                     />
                 </div>

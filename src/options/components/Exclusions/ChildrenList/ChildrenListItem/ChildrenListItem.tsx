@@ -34,7 +34,7 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
     };
 
     const getExclusionStatus = (hostname: string) => {
-        if (hostname === selectedExclusion?.value) {
+        if (hostname === selectedExclusion?.hostname) {
             return translator.getMessage('settings_exclusion_status_domain');
         }
         if (hostname.startsWith('*')) {
@@ -43,14 +43,14 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
         return translator.getMessage('settings_exclusion_status_subdomain');
     };
 
-    const wildcardExclusion = `*.${selectedExclusion?.value}`;
+    const wildcardExclusion = `*.${selectedExclusion?.hostname}`;
 
     const exclusionClassNames = (hostname: string) => classnames('children-list-item', {
         'service-exclusion': selectedExclusion?.type === ExclusionsTypes.Service,
-        useless: hostname !== selectedExclusion?.value
+        useless: hostname !== selectedExclusion?.hostname
             && !hostname.startsWith(wildcardExclusion)
             && selectedExclusion?.children.some((exclusion) => {
-                return exclusion.value.startsWith(wildcardExclusion)
+                return exclusion.hostname.startsWith(wildcardExclusion)
                     && exclusion.state === ExclusionState.Enabled;
             }),
     });
@@ -63,15 +63,15 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
                     className="children-list-item__service-hostname"
                     onClick={showGroupSettings(exclusion.id)}
                 >
-                    {exclusion.value}
+                    {exclusion.hostname}
                 </div>
             );
         }
         return (
             <div className="children-list-item__group-hostname">
-                {exclusion.value}
+                {exclusion.hostname}
                 <div className="children-list-item__group-hostname__status">
-                    {getExclusionStatus(exclusion.value)}
+                    {getExclusionStatus(exclusion.hostname)}
                 </div>
             </div>
         );
@@ -79,8 +79,8 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
 
     return (
         <div
-            className={exclusionClassNames(exclusion.value)}
-            key={exclusion.value}
+            className={exclusionClassNames(exclusion.hostname)}
+            key={exclusion.hostname}
         >
             <StateCheckbox
                 id={exclusion.id}
