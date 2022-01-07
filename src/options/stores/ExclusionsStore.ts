@@ -425,4 +425,9 @@ export class ExclusionsStore {
     @action setImportingExclusions = (value: boolean) => {
         this.importingExclusions = value;
     };
+
+    @computed
+    get isExclusionsListEmpty() {
+        return !this.exclusions.length;
+    }
 }

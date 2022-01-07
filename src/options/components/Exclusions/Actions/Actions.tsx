@@ -203,6 +203,8 @@ export const Actions = observer(() => {
         return null;
     }
 
+    const actionClassnames = classnames({ 'actions__hidden-action': exclusionsStore.isExclusionsListEmpty });
+
     return (
         <>
             <div className="actions">
@@ -228,15 +230,19 @@ export const Actions = observer(() => {
                     tabIndex={-1}
                     onBlur={() => setIsMoreActionsMenuOpen(false)}
                 >
-                    <li onClick={onExportExclusionsClick}>
-                        {/* FIXME disable if there are no exclusions */}
+                    <li
+                        className={actionClassnames}
+                        onClick={onExportExclusionsClick}
+                    >
                         {reactTranslator.getMessage('settings_exclusions_action_export')}
                     </li>
                     <li onClick={onImportExclusionsClick}>
                         {reactTranslator.getMessage('settings_exclusions_action_import')}
                     </li>
-                    <li onClick={onRemoveAllClick}>
-                        {/* FIXME disable if there are no exclusions */}
+                    <li
+                        className={actionClassnames}
+                        onClick={onRemoveAllClick}
+                    >
                         {reactTranslator.getMessage('settings_exclusions_action_remove_all')}
                     </li>
                 </ul>
