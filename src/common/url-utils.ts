@@ -108,15 +108,19 @@ export const getProtocol = (url: unknown): string | null => {
 
 /**
  * Returns hostname of url if it was correct, otherwise return input url
- * @param {string | undefined } url
+ * @param {string | undefined | null } url
  * @returns {string | null}
  */
-export const getHostname = (url: unknown) => {
+export const getHostname = (url: string | undefined | null) => {
     if (!url) {
         return null;
     }
 
     let urlString = String(url);
+
+    if (urlString.match(/(^|:\/\/)www\./)) {
+        urlString = urlString.replace('www.', '');
+    }
 
     if (!getProtocol(urlString)) {
         urlString = `https://${urlString}`;

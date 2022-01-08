@@ -108,4 +108,12 @@ describe('getHostname', () => {
         expect(getHostname('мвд.рф')).toEqual('xn--b1aew.xn--p1ai');
         expect(getHostname('мвд.рф/тест/')).toEqual('xn--b1aew.xn--p1ai');
     });
+    it('should return hostname without WWW', () => {
+        expect(getHostname('http://www.example.com')).toEqual('example.com');
+        expect(getHostname('www.example.com')).toEqual('example.com');
+        expect(getHostname('https://www.example.com')).toEqual('example.com');
+        expect(getHostname('http://testwww.com')).toEqual('testwww.com');
+        expect(getHostname('testwww.com')).toEqual('testwww.com');
+        expect(getHostname('https://www.testwww.com')).toEqual('testwww.com');
+    });
 });
