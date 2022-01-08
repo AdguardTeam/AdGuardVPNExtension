@@ -59,12 +59,17 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
     const renderExclusion = (exclusion: ExclusionDtoInterface) => {
         if (selectedExclusion?.type === ExclusionsTypes.Service) {
             return (
-                <div
-                    className="children-list-item__service-hostname"
-                    onClick={showGroupSettings(exclusion.id)}
-                >
-                    {exclusion.hostname}
-                </div>
+                <>
+                    <div
+                        className="children-list-item__service-hostname"
+                        onClick={showGroupSettings(exclusion.id)}
+                    >
+                        {exclusion.hostname}
+                    </div>
+                    <svg className="icon children-list-item__arrow">
+                        <use xlinkHref="#arrow" />
+                    </svg>
+                </>
             );
         }
         return (
@@ -88,9 +93,6 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
                 toggleHandler={toggleState}
             />
             {renderExclusion(exclusion)}
-            <svg className="icon children-list-item__arrow">
-                <use xlinkHref="#arrow" />
-            </svg>
             <button
                 type="button"
                 className="children-list-item__remove-button"
