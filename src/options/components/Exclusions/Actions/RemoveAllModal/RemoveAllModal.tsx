@@ -8,7 +8,7 @@ import { reactTranslator } from '../../../../../common/reactTranslator';
 import './remove-all-modal.pcss';
 
 export const RemoveAllModal = observer(() => {
-    const { exclusionsStore } = useContext(rootStore);
+    const { exclusionsStore, notificationsStore } = useContext(rootStore);
 
     const isOpen = exclusionsStore.removeAllModalOpen;
 
@@ -19,6 +19,7 @@ export const RemoveAllModal = observer(() => {
     const removeAllExclusions = async () => {
         await exclusionsStore.clearExclusionsList();
         closeModal();
+        notificationsStore.notifySuccess(reactTranslator.getMessage('options_exclusions_remove_all_success'));
     };
 
     return (

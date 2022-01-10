@@ -733,6 +733,9 @@
     "options_exclusions_import_successful": {
         "message": "Imported exclusions: %count%"
     },
+    "options_exclusions_remove_all_success": {
+        "message": "All exclusions for current mode successfully removed."
+    },
     "options_exclusions_import_error_wrong_extensions": {
         "message": "Exclusions file should have one of the following extensions: %extensions%"
     },

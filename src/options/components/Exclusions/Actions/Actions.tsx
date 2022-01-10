@@ -261,10 +261,6 @@ export const Actions = observer(() => {
                 handleSelectiveClick={handleSelectiveClick}
             />
             <RemoveAllModal />
-            {/* FIXME add tooltip? */}
-            <div onClick={onMoreActionsClick}>
-                {/* ... */}
-            </div>
         </>
     );
 });
