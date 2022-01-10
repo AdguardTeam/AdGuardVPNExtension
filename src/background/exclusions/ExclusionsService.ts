@@ -324,10 +324,8 @@ export class ExclusionsService {
             return;
         }
 
-        /* eslint-disable no-restricted-syntax */
-        for (const domain of defaultServiceData.domains) {
-            /* eslint-disable no-await-in-loop */
-            await exclusionsManager.current.addExclusions([
+        const exclusionsToAdd = defaultServiceData.domains.flatMap((domain) => {
+            return [
                 {
                     value: domain,
                     enabled: true,
@@ -338,8 +336,10 @@ export class ExclusionsService {
                     enabled: true,
                     overwriteState: true,
                 },
-            ]);
-        }
+            ];
+        });
+
+        await exclusionsManager.current.addExclusions(exclusionsToAdd);
 
         this.updateTree();
     }
