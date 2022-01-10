@@ -5,7 +5,8 @@ import punycode from 'punycode';
 import { exclusionsManager } from './exclusions/ExclusionsManager';
 import { servicesManager } from './services/ServicesManager';
 import { ExclusionsTree } from './ExclusionsTree';
-import { ExclusionsModes, ExclusionState } from '../../common/exclusionsConstants';
+import { ExclusionNode } from './ExclusionNode';
+import { ExclusionsModes, ExclusionState, ExclusionsTypes } from '../../common/exclusionsConstants';
 import { AddExclusionArgs } from './exclusions/ExclusionsHandler';
 import { ExclusionInterface } from './exclusions/exclusionsTypes';
 import {
@@ -221,16 +222,20 @@ export class ExclusionsService {
         this.updateTree();
     }
 
+    isMainDomain(exclusionNode: ExclusionNode | null): boolean {
+        return !exclusionNode?.hostname.match(/.+\..+\./);
+    }
+
     async removeExclusion(id: string) {
-        const exclusionsToRemove = this.exclusionsTree.getPathExclusions(id);
+        let exclusionsToRemove = this.exclusionsTree.getPathExclusions(id);
         const exclusionNode = this.exclusionsTree.getExclusionNode(id);
         const parentNode = this.exclusionsTree.getParentExclusionNode(id);
 
-        if (parentNode && parentNode.hostname === exclusionNode?.hostname) {
-            await this.removeExclusion(parentNode.id);
-        } else {
-            await exclusionsManager.current.removeExclusions(exclusionsToRemove);
+        if (parentNode?.type === ExclusionsTypes.Group && this.isMainDomain(exclusionNode)) {
+            exclusionsToRemove = this.exclusionsTree.getPathExclusions(parentNode.id);
         }
+
+        await exclusionsManager.current.removeExclusions(exclusionsToRemove);
 
         this.updateTree();
     }

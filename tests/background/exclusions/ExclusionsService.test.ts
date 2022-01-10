@@ -273,4 +273,37 @@ describe('ExclusionsService', () => {
         expect(exclusions[0].children[0].hostname).toEqual('example.org');
         expect(exclusions[0].children[0].state).toEqual(ExclusionState.Disabled);
     });
+
+    it('should remove group if main domain has been removed', async () => {
+        const exclusionsService = new ExclusionsService();
+        await exclusionsService.init();
+        await exclusionsService.addUrlToExclusions('aliexpress.com');
+        await exclusionsService.addUrlToExclusions('test.com');
+        let exclusions = await exclusionsService.getExclusions();
+
+        expect(exclusions).toHaveLength(2);
+        expect(exclusions[0].children[0].children[0].hostname).toEqual('aliexpress.com');
+        let mainDomainExclusionId = exclusions[0].children[0].children[0].id;
+
+        await exclusionsService.removeExclusion(mainDomainExclusionId);
+        exclusions = await exclusionsService.getExclusions();
+
+        expect(exclusions).toHaveLength(2);
+        expect(exclusions[0].id).toEqual('aliexpress');
+        expect(exclusions[0].children).toHaveLength(1);
+        expect(exclusions[0].children[0].id).toEqual('aliexpress.ru');
+        mainDomainExclusionId = exclusions[0].children[0].children[0].id;
+        expect(exclusions[1].id).toEqual('test.com');
+
+        await exclusionsService.removeExclusion(mainDomainExclusionId);
+        exclusions = await exclusionsService.getExclusions();
+        expect(exclusions).toHaveLength(1);
+        expect(exclusions[0].id).toEqual('test.com');
+
+        mainDomainExclusionId = exclusions[0].children[0].id;
+        await exclusionsService.removeExclusion(mainDomainExclusionId);
+        exclusions = await exclusionsService.getExclusions();
+
+        expect(exclusions).toHaveLength(0);
+    });
 });
