@@ -196,11 +196,6 @@ class Messenger {
         return this.sendMessage(type, { ids });
     }
 
-    async getIsExcluded(url: string) {
-        const type = MessageType.GET_IS_EXCLUDED;
-        return this.sendMessage(type, { url });
-    }
-
     async resetServiceData(serviceId: string) {
         const type = MessageType.RESET_SERVICE_DATA;
         return this.sendMessage(type, { serviceId });
