@@ -23,8 +23,7 @@ export const ExclusionsScreen = observer(() => {
         remove: removeFromExclusions,
     };
 
-    // FIXME do we need addToExclusions here?
-    const button = settingsStore.displayExclusionScreen ? buttonsInfo.remove : buttonsInfo.add;
+    const button = settingsStore.isExcluded ? buttonsInfo.remove : buttonsInfo.add;
 
     return (
         <div className="settings settings--exclusions-disable">

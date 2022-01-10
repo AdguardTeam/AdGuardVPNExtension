@@ -23,7 +23,6 @@ import { logStorage } from '../lib/log-storage';
 import { setDesktopVpnEnabled } from './connectivity/connectivityService/connectivityFSM';
 import { flagsStorage } from './flagsStorage';
 import { ExclusionsData, ServiceDto } from '../common/exclusionsConstants';
-import { exclusionsManager } from './exclusions/exclusions/ExclusionsManager';
 
 interface Message {
     type: MessageType,
@@ -179,10 +178,6 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         case MessageType.ENABLE_VPN_BY_URL: {
             const { url } = data;
             return exclusions.enableVpnByUrl(url);
-        }
-        case MessageType.IS_VPN_ENABLED_BY_URL: {
-            const { url } = data;
-            return exclusionsManager.isVpnEnabledByUrl(url);
         }
         case MessageType.REMOVE_EXCLUSION: {
             const { id } = data;

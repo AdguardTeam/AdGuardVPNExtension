@@ -44,6 +44,7 @@ export class GlobalStore {
                 desktopVpnEnabled,
                 isFirstRun,
                 flagsStorageData,
+                isVpnEnabledByUrl,
             } = popupData;
 
             if (!isAuthenticated) {
@@ -77,9 +78,9 @@ export class GlobalStore {
             await authStore.getAuthCacheFromBackground();
             await authStore.setPolicyAgreement(policyAgreement);
             await settingsStore.checkRateStatus();
-            await settingsStore.checkIsExcluded();
             await settingsStore.getExclusionsInverted();
-            await settingsStore.setDisplayExclusionScreen();
+            await settingsStore.getCurrentTabHostname();
+            settingsStore.setIsExcluded(!isVpnEnabledByUrl);
             this.setInitStatus(REQUEST_STATUSES.DONE);
         } catch (e) {
             log.error(e.message);

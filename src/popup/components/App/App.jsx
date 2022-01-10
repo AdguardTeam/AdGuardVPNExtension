@@ -50,7 +50,7 @@ export const App = observer(() => {
         hasGlobalError,
         checkPermissionsState,
         hasLimitExceededError,
-        displayExclusionScreen,
+        isExcluded,
         canBeExcluded,
         showLimitExceededScreen,
     } = settingsStore;
@@ -221,7 +221,7 @@ export const App = observer(() => {
             >
                 <Locations />
             </CSSTransition>
-            {displayExclusionScreen && canBeExcluded
+            {isExcluded && canBeExcluded
                 ? <ExclusionsScreen />
                 : (
                     <>

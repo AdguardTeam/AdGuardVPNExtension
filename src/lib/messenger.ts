@@ -186,11 +186,6 @@ class Messenger {
         return this.sendMessage(type, { url });
     }
 
-    async isVpnEnabledByUrl(url: string) {
-        const type = MessageType.IS_VPN_ENABLED_BY_URL;
-        return this.sendMessage(type, { url });
-    }
-
     async toggleExclusionState(id: string) {
         const type = MessageType.TOGGLE_EXCLUSION_STATE;
         return this.sendMessage(type, { id });

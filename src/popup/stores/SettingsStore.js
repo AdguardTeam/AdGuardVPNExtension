@@ -44,8 +44,6 @@ export class SettingsStore {
 
     @observable appearanceTheme = APPEARANCE_THEME_DEFAULT;
 
-    @observable displayExclusionScreen = false;
-
     constructor(rootStore) {
         this.rootStore = rootStore;
     }
@@ -90,10 +88,7 @@ export class SettingsStore {
     @action disableVpnOnCurrentTab = async () => {
         try {
             await messenger.disableVpnByUrl(this.currentTabHostname);
-            await this.setDisplayExclusionScreen();
-            runInAction(() => {
-                this.isExcluded = true;
-            });
+            this.setIsExcluded(true);
         } catch (e) {
             log.error(e);
         }
@@ -102,22 +97,7 @@ export class SettingsStore {
     @action enableVpnOnCurrentTab = async () => {
         try {
             await messenger.enableVpnByUrl(this.currentTabHostname);
-            await this.setDisplayExclusionScreen();
-            runInAction(() => {
-                this.isExcluded = false;
-            });
-        } catch (e) {
-            log.error(e);
-        }
-    };
-
-    @action checkIsExcluded = async () => {
-        try {
-            await this.getCurrentTabHostname();
-            const result = await messenger.getIsExcluded(this.currentTabHostname);
-            runInAction(() => {
-                this.isExcluded = result;
-            });
+            this.setIsExcluded(false);
         } catch (e) {
             log.error(e);
         }
@@ -275,12 +255,6 @@ export class SettingsStore {
         });
     };
 
-    // @computed
-    // get displayExclusionScreen() {
-    //     return (this.isExcluded && !this.exclusionsInverted)
-    //     || (!this.isExcluded && this.exclusionsInverted);
-    // }
-
     @action setPremiumLocationClickedByFreeUser = (state) => {
         this.freeUserClickedPremiumLocation = state;
     };
@@ -296,10 +270,7 @@ export class SettingsStore {
         });
     };
 
-    @action setDisplayExclusionScreen = async () => {
-        const isVpnEnabledByUrl = await messenger.isVpnEnabledByUrl(this.currentTabHostname);
-        runInAction(() => {
-            this.displayExclusionScreen = !isVpnEnabledByUrl;
-        });
+    @action setIsExcluded = (value) => {
+        this.isExcluded = value;
     };
 }

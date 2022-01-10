@@ -40,11 +40,11 @@ const GlobalControl = observer(() => {
 
         const buttonsInfo = {
             add: {
-                text: getText(exclusionsInverted),
+                text: getText(!exclusionsInverted),
                 handler: disableVpnForCurrentSite,
             },
             remove: {
-                text: getText(!exclusionsInverted),
+                text: getText(exclusionsInverted),
                 handler: enableVpnForCurrentSite,
             },
         };
