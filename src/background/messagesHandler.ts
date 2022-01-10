@@ -22,7 +22,7 @@ import { vpnProvider } from './providers/vpnProvider';
 import { logStorage } from '../lib/log-storage';
 import { setDesktopVpnEnabled } from './connectivity/connectivityService/connectivityFSM';
 import { flagsStorage } from './flagsStorage';
-import { ExclusionsData } from '../common/exclusionsConstants';
+import { ExclusionsData, ServiceDto } from '../common/exclusionsConstants';
 import { exclusionsManager } from './exclusions/exclusions/ExclusionsManager';
 
 interface Message {
@@ -233,9 +233,15 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         }
         case MessageType.GET_EXCLUSIONS_DATA: {
             return {
-                exclusions: exclusions.getExclusions(),
-                currentMode: exclusions.getMode(),
-            } as ExclusionsData;
+                exclusionsData: {
+                    exclusions: exclusions.getExclusions(),
+                    currentMode: exclusions.getMode(),
+                },
+                services: exclusions.getServices(),
+            } as {
+                exclusionsData: ExclusionsData,
+                services: ServiceDto[],
+            };
         }
         case MessageType.SET_EXCLUSIONS_MODE: {
             const { mode } = data;

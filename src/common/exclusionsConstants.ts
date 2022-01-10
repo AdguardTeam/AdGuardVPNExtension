@@ -50,4 +50,13 @@ export interface ServiceInterface {
     domains: string[];
 }
 
+export interface ServiceDto {
+    serviceId: string,
+    serviceName: string,
+    iconUrl: string,
+    state?: ExclusionState,
+    categories: ServiceCategory[],
+    domains: string[],
+}
+
 export const ICON_FOR_DOMAIN = 'https://icons.adguard.org/icon?domain=';

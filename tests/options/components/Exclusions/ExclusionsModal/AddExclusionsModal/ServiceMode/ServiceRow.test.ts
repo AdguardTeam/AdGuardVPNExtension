@@ -1,16 +1,14 @@
 import {
     canAddService,
 } from '../../../../../../../src/options/components/Exclusions/ExclusionsModal/AddExclusionsModal/ServiceMode/ServiceRow';
-import { ExclusionState } from '../../../../../../../src/common/exclusionsConstants';
-import { ServiceViewInterface } from '../../../../../../../src/options/stores/ExclusionsStore';
+import { ExclusionState, ServiceDto } from '../../../../../../../src/common/exclusionsConstants';
 
-const generateService = (props: Partial<ServiceViewInterface>): ServiceViewInterface => {
-    const mockedService: ServiceViewInterface = {
+const generateService = (props: Partial<ServiceDto>): ServiceDto => {
+    const mockedService: ServiceDto = {
         serviceId: 'string',
         serviceName: 'string',
         iconUrl: 'string',
         categories: [],
-        modifiedTime: 'string',
         state: ExclusionState.Enabled,
         domains: [],
     };

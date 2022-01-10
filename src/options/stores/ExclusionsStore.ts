@@ -14,14 +14,10 @@ import {
     ExclusionState,
     ExclusionsTypes,
     ServiceCategory,
-    ServiceInterface,
+    ServiceDto,
 } from '../../common/exclusionsConstants';
 import { messenger } from '../../lib/messenger';
 import { containsIgnoreCase } from '../components/Exclusions/Search/SearchHighlighter/helpers';
-
-export interface ServiceViewInterface extends ServiceInterface{
-    state: ExclusionState;
-}
 
 export interface PreparedServiceCategory extends ServiceCategory {
     services: string[]
@@ -32,7 +28,7 @@ interface PreparedServiceCategories {
 }
 
 interface PreparedServices {
-    [key: string]: ServiceViewInterface
+    [key: string]: ServiceDto
 }
 
 export enum AddExclusionMode {
@@ -68,7 +64,7 @@ export class ExclusionsStore {
 
     @observable currentMode = ExclusionsModes.Regular;
 
-    @observable servicesData: ServiceViewInterface[] = [];
+    @observable servicesData: ServiceDto[] = [];
 
     @observable modeSelectorModalOpen = false;
 
@@ -103,7 +99,7 @@ export class ExclusionsStore {
      */
     @observable servicesToToggle: string[] = [];
 
-    @action setServicesData = (servicesData: ServiceViewInterface[]) => {
+    @action setServicesData = (servicesData: ServiceDto[]) => {
         this.servicesData = servicesData;
     };
 
@@ -113,8 +109,9 @@ export class ExclusionsStore {
     };
 
     @action updateExclusionsData = async () => {
-        const exclusionsData = await messenger.getExclusionsData();
+        const { exclusionsData, services } = await messenger.getExclusionsData();
         this.setExclusionsData(exclusionsData);
+        this.setServicesData(services);
     };
 
     @action convertExclusionsValuesToUnicode = (exclusions: ExclusionDtoInterface[]) => {

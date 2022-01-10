@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 
 import { MessageType } from './constants';
 import { log } from './logger';
-import { ExclusionsModes } from '../common/exclusionsConstants';
+import { ExclusionsData, ExclusionsModes, ServiceDto } from '../common/exclusionsConstants';
 
 class Messenger {
     async sendMessage(type: string, data?: unknown) {
@@ -276,7 +276,10 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async getExclusionsData() {
+    async getExclusionsData(): Promise<{
+        exclusionsData: ExclusionsData,
+        services: ServiceDto[],
+    }> {
         const type = MessageType.GET_EXCLUSIONS_DATA;
         return this.sendMessage(type);
     }

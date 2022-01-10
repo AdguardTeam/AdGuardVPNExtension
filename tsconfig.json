@@ -3,7 +3,11 @@
     "baseUrl": "src",
     "target": "esnext",
     "jsx": "react",
-    "lib": ["esnext", "DOM", "DOM.Iterable"],
+    "lib": [
+      "esnext",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "allowJs": true,
@@ -11,7 +15,7 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "strictPropertyInitialization": false,
-    // strict flag turns to true next flags:
+    // strict flag sets to true next flags:
     // - alwaysStrict
     // - noImplicitAny
     // - strictNullChecks

@@ -2,10 +2,9 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../../../stores';
-import { ExclusionState } from '../../../../../../common/exclusionsConstants';
+import { ExclusionState, ServiceDto } from '../../../../../../common/exclusionsConstants';
 import { SearchHighlighter } from '../../../Search/SearchHighlighter';
 import { reactTranslator } from '../../../../../../common/reactTranslator';
-import { ServiceViewInterface } from '../../../../../stores/ExclusionsStore';
 
 import './service-mode.pcss';
 
@@ -14,7 +13,7 @@ import './service-mode.pcss';
  * @param service
  * @param servicesToToggle
  */
-export const canAddService = (service: ServiceViewInterface, servicesToToggle: string[]) => {
+export const canAddService = (service: ServiceDto, servicesToToggle: string[]) => {
     const isInToggle = servicesToToggle.some((serviceId) => serviceId === service.serviceId);
 
     if (isInToggle) {
@@ -25,7 +24,7 @@ export const canAddService = (service: ServiceViewInterface, servicesToToggle: s
 };
 
 interface ServiceRowProps {
-    service: ServiceViewInterface;
+    service: ServiceDto;
 }
 
 export const ServiceRow = observer(({ service }: ServiceRowProps) => {

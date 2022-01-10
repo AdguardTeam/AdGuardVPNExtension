@@ -3,21 +3,12 @@ import axios from 'axios';
 
 import { Service } from './Service';
 import { vpnProvider } from '../../providers/vpnProvider';
-import { ExclusionState, ServiceCategory } from '../../../common/exclusionsConstants';
 import browserApi from '../../browserApi';
 import { log } from '../../../lib/logger';
+import { ServiceDto } from '../../../common/exclusionsConstants';
 
 export interface IndexedServicesInterface {
     [id: string]: string
-}
-
-export interface ServiceDto {
-    serviceId: string,
-    serviceName: string,
-    iconUrl: string,
-    state?: ExclusionState,
-    categories: ServiceCategory[],
-    domains: string[],
 }
 
 export interface ServicesInterface {

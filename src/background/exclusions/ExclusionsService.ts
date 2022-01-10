@@ -280,6 +280,8 @@ export class ExclusionsService {
         });
 
         await this.addServices(servicesIdsToAdd);
+
+        return this.getServices();
     }
 
     async disableVpnByUrl(url: string) {
