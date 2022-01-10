@@ -69,7 +69,7 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
                 </svg>
             </>
         );
-    }
+    };
 
     const renderGroupExclusionItem = () => {
         return (
@@ -80,7 +80,7 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
                 </div>
             </div>
         );
-    }
+    };
 
     const renderExclusion = () => {
         return selectedExclusion?.type === ExclusionsTypes.Service
