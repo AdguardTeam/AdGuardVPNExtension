@@ -23,7 +23,6 @@ export const SubdomainModal = observer(() => {
         e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>,
     ) => {
         e.preventDefault();
-        // TODO do we need harder validation by regex?
         if (inputValue.includes(' ')) {
             notificationsStore.notifyError(reactTranslator.getMessage('settings_exclusion_invalid_subdomain'));
             return;
