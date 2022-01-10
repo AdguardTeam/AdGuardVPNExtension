@@ -55,23 +55,23 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
             }),
     });
 
-    // TODO refactor renderExclusion
-    const renderExclusion = (exclusion: ExclusionDtoInterface) => {
-        if (selectedExclusion?.type === ExclusionsTypes.Service) {
-            return (
-                <>
-                    <div
-                        className="children-list-item__service-hostname"
-                        onClick={showGroupSettings(exclusion.id)}
-                    >
-                        {exclusion.hostname}
-                    </div>
-                    <svg className="icon children-list-item__arrow">
-                        <use xlinkHref="#arrow" />
-                    </svg>
-                </>
-            );
-        }
+    const renderServiceExclusionItem = () => {
+        return (
+            <>
+                <div
+                    className="children-list-item__service-hostname"
+                    onClick={showGroupSettings(exclusion.id)}
+                >
+                    {exclusion.hostname}
+                </div>
+                <svg className="icon children-list-item__arrow">
+                    <use xlinkHref="#arrow" />
+                </svg>
+            </>
+        );
+    }
+
+    const renderGroupExclusionItem = () => {
         return (
             <div className="children-list-item__group-hostname">
                 {exclusion.hostname}
@@ -80,6 +80,12 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
                 </div>
             </div>
         );
+    }
+
+    const renderExclusion = () => {
+        return selectedExclusion?.type === ExclusionsTypes.Service
+            ? renderServiceExclusionItem()
+            : renderGroupExclusionItem();
     };
 
     return (
@@ -92,7 +98,7 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
                 state={exclusion.state}
                 toggleHandler={toggleState}
             />
-            {renderExclusion(exclusion)}
+            {renderExclusion()}
             <button
                 type="button"
                 className="children-list-item__remove-button"
