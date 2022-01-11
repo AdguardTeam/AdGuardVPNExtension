@@ -92,6 +92,8 @@ export class ExclusionsStore {
 
     @observable servicesSearchValue: string = '';
 
+    @observable servicesSearchResults: boolean[] = [];
+
     @observable importingExclusions: boolean = false;
 
     @observable isAllExclusionsListsEmpty: boolean;
@@ -437,5 +439,19 @@ export class ExclusionsStore {
     @computed
     get isCurrentModeExclusionsListEmpty() {
         return !this.exclusions.length;
+    }
+
+    @action resetServicesSearchResult = () => {
+        this.servicesSearchResults = [];
+    };
+
+    @action handleServicesSearchResult = (value: boolean) => {
+        this.servicesSearchResults.push(value);
+    };
+
+    @computed
+    get isServicesSearchEmpty() {
+        return this.servicesSearchResults.length
+            && !this.servicesSearchResults.some((result) => result);
     }
 }

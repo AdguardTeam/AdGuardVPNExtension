@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../../../stores';
@@ -18,13 +18,7 @@ export const ServicesList = observer(() => {
         );
     }
 
-    const [emptySearch, setEmptySearch] = useState(false);
-
-    const emptySearchHandler = (value: boolean) => {
-        setEmptySearch(value);
-    };
-
-    if (exclusionsStore.servicesSearchValue && emptySearch) {
+    if (exclusionsStore.servicesSearchValue && exclusionsStore.isServicesSearchEmpty) {
         return (
             <div className="search__nothing-found">
                 {reactTranslator.getMessage('settings_exclusion_nothing_found')}
@@ -39,7 +33,6 @@ export const ServicesList = observer(() => {
                     <ServiceCategory
                         key={category.id}
                         category={category}
-                        emptySearchHandler={emptySearchHandler}
                     />
                 );
             })}
