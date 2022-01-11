@@ -116,4 +116,9 @@ describe('getHostname', () => {
         expect(getHostname('testwww.com')).toEqual('testwww.com');
         expect(getHostname('https://www.testwww.com')).toEqual('testwww.com');
     });
+    it('handle wildcard', () => {
+        expect(getHostname('*.com')).toEqual('*.com');
+        expect(getHostname('*.example.com')).toEqual('*.example.com');
+        expect(getHostname('*.test.example.com')).toEqual('*.test.example.com');
+    });
 });

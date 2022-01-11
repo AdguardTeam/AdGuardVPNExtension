@@ -132,7 +132,9 @@ export const getHostname = (url: string | undefined | null) => {
         return urlString;
     }
 
-    return urlObj.hostname ? urlObj.hostname : urlString;
+    const hostname = urlObj.hostname.replace('%2A', '*');
+
+    return hostname || urlString;
 };
 
 /**

@@ -120,8 +120,6 @@ export class ExclusionsService {
             return;
         }
 
-        // FIXME handle wildcard subdomains exclusions (*.test.example.org)
-
         const existingExclusion = exclusionsManager.current.getExclusionByHostname(hostname);
         if (existingExclusion) {
             await exclusionsManager.current.enableExclusion(existingExclusion.id);
