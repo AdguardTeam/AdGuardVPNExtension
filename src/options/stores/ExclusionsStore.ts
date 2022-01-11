@@ -94,6 +94,8 @@ export class ExclusionsStore {
 
     @observable importingExclusions: boolean = false;
 
+    @observable isAllExclusionsListsEmpty: boolean;
+
     /**
      * Temp list used to keep state of services to be enabled or disabled
      */
@@ -109,9 +111,18 @@ export class ExclusionsStore {
     };
 
     @action updateExclusionsData = async () => {
-        const { exclusionsData, services } = await messenger.getExclusionsData();
+        const {
+            exclusionsData,
+            services,
+            isAllExclusionsListsEmpty,
+        } = await messenger.getExclusionsData();
         this.setExclusionsData(exclusionsData);
         this.setServicesData(services);
+        this.setIsAllExclusionsListsEmpty(isAllExclusionsListsEmpty);
+    };
+
+    @action setIsAllExclusionsListsEmpty = (value: boolean) => {
+        this.isAllExclusionsListsEmpty = value;
     };
 
     @action convertExclusionsValuesToUnicode = (exclusions: ExclusionDtoInterface[]) => {
@@ -424,7 +435,7 @@ export class ExclusionsStore {
     };
 
     @computed
-    get isExclusionsListEmpty() {
+    get isCurrentModeExclusionsListEmpty() {
         return !this.exclusions.length;
     }
 }

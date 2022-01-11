@@ -233,9 +233,12 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
                     currentMode: exclusions.getMode(),
                 },
                 services: exclusions.getServices(),
+                isAllExclusionsListsEmpty: !(exclusions.getRegularExclusions().length
+                    || exclusions.getSelectiveExclusions().length),
             } as {
                 exclusionsData: ExclusionsData,
                 services: ServiceDto[],
+                isAllExclusionsListsEmpty: boolean,
             };
         }
         case MessageType.SET_EXCLUSIONS_MODE: {

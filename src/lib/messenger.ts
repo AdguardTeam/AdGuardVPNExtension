@@ -269,6 +269,7 @@ class Messenger {
     async getExclusionsData(): Promise<{
         exclusionsData: ExclusionsData,
         services: ServiceDto[],
+        isAllExclusionsListsEmpty: boolean,
     }> {
         const type = MessageType.GET_EXCLUSIONS_DATA;
         return this.sendMessage(type);

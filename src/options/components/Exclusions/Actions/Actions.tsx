@@ -203,7 +203,13 @@ export const Actions = observer(() => {
         return null;
     }
 
-    const actionClassnames = classnames({ 'actions__hidden-action': exclusionsStore.isExclusionsListEmpty });
+    const exportClassnames = classnames({
+        'actions__hidden-action': exclusionsStore.isAllExclusionsListsEmpty,
+    });
+
+    const removeAllClassnames = classnames({
+        'actions__hidden-action': exclusionsStore.isCurrentModeExclusionsListEmpty,
+    });
 
     return (
         <>
@@ -231,7 +237,7 @@ export const Actions = observer(() => {
                     onBlur={() => setIsMoreActionsMenuOpen(false)}
                 >
                     <li
-                        className={actionClassnames}
+                        className={exportClassnames}
                         onClick={onExportExclusionsClick}
                     >
                         {reactTranslator.getMessage('settings_exclusions_action_export')}
@@ -240,7 +246,7 @@ export const Actions = observer(() => {
                         {reactTranslator.getMessage('settings_exclusions_action_import')}
                     </li>
                     <li
-                        className={actionClassnames}
+                        className={removeAllClassnames}
                         onClick={onRemoveAllClick}
                     >
                         {reactTranslator.getMessage('settings_exclusions_action_remove_all')}
