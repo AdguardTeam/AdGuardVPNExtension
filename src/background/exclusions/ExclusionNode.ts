@@ -198,11 +198,7 @@ export class ExclusionNode {
                 return this;
             }
 
-            if (Object.values(child.children).some((exclusion) => exclusion?.id === id)) {
-                return child;
-            }
-
-            const parentNode = this.findParentNode(Object.values(child.children), id);
+            const parentNode = child.findParentNode(Object.values(child.children), id);
             if (parentNode) {
                 return parentNode;
             }
