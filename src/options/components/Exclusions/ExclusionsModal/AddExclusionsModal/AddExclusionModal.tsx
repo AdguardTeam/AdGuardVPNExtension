@@ -62,7 +62,7 @@ export const AddExclusionModal = observer(() => {
                     type="button"
                     className={ModeSelectButtons.service.classname}
                 >
-                    {reactTranslator.getMessage('settings_exclusion_add_website')}
+                    {reactTranslator.getMessage('settings_exclusion_add_from_list')}
                 </button>
                 <button
                     onClick={onManualModeClick}
