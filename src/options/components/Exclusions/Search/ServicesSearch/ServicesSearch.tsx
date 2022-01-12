@@ -9,7 +9,6 @@ export const ServicesSearch = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
 
     const onChange = (value: string) => {
-        exclusionsStore.resetServicesSearchResult();
         exclusionsStore.setServicesSearchValue(value);
     };
 

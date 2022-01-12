@@ -18,7 +18,7 @@ export const ServicesList = observer(() => {
         );
     }
 
-    if (exclusionsStore.servicesSearchValue && exclusionsStore.isServicesSearchEmpty) {
+    if (exclusionsStore.isServicesSearchEmpty) {
         return (
             <div className="search__nothing-found">
                 {reactTranslator.getMessage('settings_exclusion_nothing_found')}

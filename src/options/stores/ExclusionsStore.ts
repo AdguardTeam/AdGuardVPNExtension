@@ -441,36 +441,13 @@ export class ExclusionsStore {
         return !this.exclusions.length;
     }
 
-    @action resetServicesSearchResult = () => {
-        this.servicesSearchResults = [];
-    };
-
-    @action handleServicesSearchResult = (value: boolean) => {
-        this.servicesSearchResults.push(value);
-    };
-
     @computed
     get isServicesSearchEmpty() {
-        return this.servicesSearchResults.length
-            && !this.servicesSearchResults.some((result) => result);
-    }
-
-    getFilteredServicesForCategory(category: PreparedServiceCategory) {
-        const categoryServices = category.services
-            .map((serviceId: string) => this.preparedServicesData.services[serviceId]);
-
-        const filteredServices = categoryServices.filter((service) => {
-            if (this.servicesSearchValue.length === 0) {
-                return true;
-            }
-
-            return containsIgnoreCase(service.serviceName, this.servicesSearchValue);
-        });
-
         if (this.servicesSearchValue) {
-            this.handleServicesSearchResult(!!filteredServices.length);
+            return !this.servicesData.some((service) => {
+                return containsIgnoreCase(service.serviceName, this.servicesSearchValue);
+            });
         }
-
-        return filteredServices;
+        return false;
     }
 }
