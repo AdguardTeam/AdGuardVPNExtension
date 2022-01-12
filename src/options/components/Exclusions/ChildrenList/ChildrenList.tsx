@@ -97,7 +97,7 @@ export const ChildrenList = observer(() => {
                 {reactTranslator.getMessage('settings_exclusion_add_subdomain')}
             </button>
             <SubdomainModal />
-            <ResetServiceModal serviceId={selectedExclusion.id} />
+            <ResetServiceModal />
         </>
     );
 });

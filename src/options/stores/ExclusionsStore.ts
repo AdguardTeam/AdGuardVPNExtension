@@ -187,6 +187,7 @@ export class ExclusionsStore {
         this.setServicesSearchValue('');
         this.servicesToToggle = [];
         this.unfoldedServiceCategories = [];
+        this.setAddExclusionMode(AddExclusionMode.MANUAL);
     };
 
     @action setAddExclusionMode = (mode: AddExclusionMode) => {

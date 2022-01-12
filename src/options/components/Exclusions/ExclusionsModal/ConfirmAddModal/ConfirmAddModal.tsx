@@ -41,7 +41,7 @@ export const ConfirmAddModal = observer(() => {
             </button>
             <div className="settings__section">
                 <Title
-                    title={reactTranslator.getMessage('settings_exclusion_add_website') as string}
+                    title={reactTranslator.getMessage('settings_exclusion_add_website')}
                 />
                 <div className="confirm-add-modal__message">
                     {reactTranslator.getMessage('settings_exclusions_add_invalid_domain', { url: urlToConfirm })}
