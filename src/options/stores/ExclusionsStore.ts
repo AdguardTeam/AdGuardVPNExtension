@@ -454,4 +454,23 @@ export class ExclusionsStore {
         return this.servicesSearchResults.length
             && !this.servicesSearchResults.some((result) => result);
     }
+
+    getFilteredServicesForCategory(category: PreparedServiceCategory) {
+        const categoryServices = category.services
+            .map((serviceId: string) => this.preparedServicesData.services[serviceId]);
+
+        const filteredServices = categoryServices.filter((service) => {
+            if (this.servicesSearchValue.length === 0) {
+                return true;
+            }
+
+            return containsIgnoreCase(service.serviceName, this.servicesSearchValue);
+        });
+
+        if (this.servicesSearchValue) {
+            this.handleServicesSearchResult(!!filteredServices.length);
+        }
+
+        return filteredServices;
+    }
 }

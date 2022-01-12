@@ -5,7 +5,6 @@ import cn from 'classnames';
 import { ServiceRow } from './ServiceRow';
 import { rootStore } from '../../../../../stores';
 import { PreparedServiceCategory } from '../../../../../stores/ExclusionsStore';
-import { containsIgnoreCase } from '../../../Search/SearchHighlighter/helpers';
 
 // @ts-ignore
 import s from './service-category.module.pcss';
@@ -18,22 +17,8 @@ export const ServiceCategory = observer(({
     category,
 }: ServiceCategoryProps) => {
     const { exclusionsStore } = useContext(rootStore);
-    const { services } = exclusionsStore.preparedServicesData;
 
-    const categoryServices = category.services
-        .map((serviceId: string) => services[serviceId]);
-
-    const filteredServices = categoryServices.filter((service) => {
-        if (exclusionsStore.servicesSearchValue.length === 0) {
-            return true;
-        }
-
-        return containsIgnoreCase(service.serviceName, exclusionsStore.servicesSearchValue);
-    });
-
-    if (exclusionsStore.servicesSearchValue) {
-        exclusionsStore.handleServicesSearchResult(!!filteredServices.length);
-    }
+    const filteredServices = exclusionsStore.getFilteredServicesForCategory(category);
 
     const handleClickOnCategory = () => {
         exclusionsStore.toggleCategoryVisibility(category.id);
