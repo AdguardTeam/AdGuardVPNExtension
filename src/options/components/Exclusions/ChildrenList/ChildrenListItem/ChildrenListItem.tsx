@@ -57,17 +57,15 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
 
     const renderServiceExclusionItem = () => {
         return (
-            <>
-                <div
-                    className="children-list-item__service-hostname"
-                    onClick={showGroupSettings(exclusion.id)}
-                >
-                    {exclusion.hostname}
-                    <svg className="icon children-list-item__arrow">
-                        <use xlinkHref="#arrow" />
-                    </svg>
-                </div>
-            </>
+            <div
+                className="children-list-item__service-hostname"
+                onClick={showGroupSettings(exclusion.id)}
+            >
+                {exclusion.hostname}
+                <svg className="icon children-list-item__arrow">
+                    <use xlinkHref="#arrow" />
+                </svg>
+            </div>
         );
     };
 
