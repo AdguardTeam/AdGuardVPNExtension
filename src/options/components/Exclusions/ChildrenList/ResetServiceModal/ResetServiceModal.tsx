@@ -5,22 +5,24 @@ import Modal from 'react-modal';
 import { rootStore } from '../../../../stores';
 import { reactTranslator } from '../../../../../common/reactTranslator';
 import { Title } from '../../../ui/Title';
+import { translator } from '../../../../../common/translator';
 
 import './reset-service-modal.pcss';
 
-interface ResetServiceModalProps {
-    serviceId: string;
-}
-
-export const ResetServiceModal = observer(({ serviceId }: ResetServiceModalProps) => {
+export const ResetServiceModal = observer(() => {
     const { exclusionsStore } = useContext(rootStore);
+    const { selectedExclusion } = exclusionsStore;
+
+    if (!selectedExclusion) {
+        return null;
+    }
 
     const closeModal = () => {
         exclusionsStore.setResetServiceModalOpen(false);
     };
 
     const resetServiceData = async () => {
-        await exclusionsStore.resetServiceData(serviceId);
+        await exclusionsStore.resetServiceData(selectedExclusion.id);
         closeModal();
     };
 
@@ -42,9 +44,12 @@ export const ResetServiceModal = observer(({ serviceId }: ResetServiceModalProps
             </button>
             <div className="settings__section">
                 <Title
-                    title={reactTranslator.getMessage('settings_exclusion_reset_to_default') as string}
+                    title={translator.getMessage('settings_exclusion_reset_to_default')}
                 />
-                {reactTranslator.getMessage('settings_exclusion_reset_service_confirmation_message')}
+                {reactTranslator.getMessage(
+                    'settings_exclusion_reset_service_confirmation_message',
+                    { hostname: selectedExclusion.hostname },
+                )}
             </div>
             <div className="reset-service-modal__actions">
                 <button

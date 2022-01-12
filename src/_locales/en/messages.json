@@ -408,7 +408,7 @@
         "message": "Reset"
     },
     "settings_exclusion_reset_service_confirmation_message": {
-        "message": "Reset the default settings for Facebook? This will restore any missing domains and set all check marks to on."
+        "message": "Reset the default settings for %hostname%? This will restore any missing domains and set all check marks to on."
     },
     "settings_exclusion_search_website": {
         "message": "Search website"
