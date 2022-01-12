@@ -63,10 +63,10 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
                     onClick={showGroupSettings(exclusion.id)}
                 >
                     {exclusion.hostname}
+                    <svg className="icon children-list-item__arrow">
+                        <use xlinkHref="#arrow" />
+                    </svg>
                 </div>
-                <svg className="icon children-list-item__arrow">
-                    <use xlinkHref="#arrow" />
-                </svg>
             </>
         );
     };
