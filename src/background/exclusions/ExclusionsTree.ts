@@ -1,4 +1,6 @@
 /* eslint-disable no-continue */
+import ipaddr from 'ipaddr.js';
+
 import { ExclusionsTypes } from '../../common/exclusionsConstants';
 import { IndexedServicesInterface, ServicesInterface } from './services/ServicesManager';
 import { ExclusionNode } from './ExclusionNode';
@@ -67,7 +69,7 @@ export class ExclusionsTree {
                 continue;
             }
 
-            if (indexedExclusions[hostnameTld].length > 1) {
+            if (indexedExclusions[hostnameTld].length && !ipaddr.isValid(hostnameTld)) {
                 const groupNode = this.exclusionsTree.getExclusionNode(hostnameTld)
                     ?? new ExclusionNode({
                         id: hostnameTld,

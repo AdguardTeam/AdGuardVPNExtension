@@ -328,4 +328,15 @@ describe('ExclusionsService', () => {
         expect(exclusions[0].children).toHaveLength(1);
         expect(exclusions[0].children[0].hostname).toEqual('example.org');
     });
+
+    it('ip address should be a separate exclusion', async () => {
+        const exclusionsService = new ExclusionsService();
+        await exclusionsService.init();
+        await exclusionsService.addUrlToExclusions('192.168.11.1');
+        const exclusions = exclusionsService.getExclusions();
+
+        expect(exclusions).toHaveLength(1);
+        expect(exclusions[0].type).toEqual(ExclusionsTypes.Exclusion);
+        expect(exclusions[0].hostname).toEqual('192.168.11.1');
+    });
 });
