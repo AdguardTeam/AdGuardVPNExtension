@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface TitleProps {
-    title: string,
+    title: React.ReactNode,
     subtitle?: string,
 }
 
