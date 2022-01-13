@@ -94,6 +94,9 @@ export const ChildrenList = observer(() => {
                 className={addSubdomainButtonClass}
                 onClick={onAddSubdomainClick}
             >
+                <svg className="icon icon--button">
+                    <use xlinkHref="#plus" />
+                </svg>
                 {reactTranslator.getMessage('settings_exclusion_add_subdomain')}
             </button>
             <SubdomainModal />
