@@ -193,6 +193,7 @@ describe('ExclusionsTree', () => {
         ExclusionsTree was generated in: ${average} ms
         On Mac M1 Pro with 10 cores and 16 GB exclusions tree is build in 35ms
         `);
-        expect(average).toBeLessThan(100);
+        // we use 200 ms, for ci to be able to build tree in this time too
+        expect(average).toBeLessThan(200);
     });
 });
