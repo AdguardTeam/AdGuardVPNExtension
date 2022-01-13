@@ -219,6 +219,9 @@ export const Actions = observer(() => {
                     className="actions__add-website simple-button"
                     onClick={onAddExclusionClick}
                 >
+                    <svg className="icon icon--button">
+                        <use xlinkHref="#plus" />
+                    </svg>
                     {reactTranslator.getMessage('settings_exclusion_add_website')}
                 </button>
                 <button
