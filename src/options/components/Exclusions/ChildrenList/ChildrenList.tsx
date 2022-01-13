@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
-import classnames from 'classnames';
 
 import { rootStore } from '../../../stores';
 import { Title } from '../../ui/Title';
@@ -37,25 +36,38 @@ export const ChildrenList = observer(() => {
         exclusionsStore.openAddSubdomainModal();
     };
 
-    const resetButtonClass = classnames(
-        'button',
-        'button--medium',
-        'button--outline-gray',
-        'children-list__reset',
-        {
-            visible: selectedExclusion.type === ExclusionsTypes.Service
-                && !exclusionsStore.isServiceDefaultState(selectedExclusion.id),
-        },
-    );
+    const isModifiedService = selectedExclusion.type === ExclusionsTypes.Service
+        && !exclusionsStore.isServiceDefaultState(selectedExclusion.id);
 
-    const addSubdomainButtonClass = classnames(
-        'children-list__add-subdomain',
-        'simple-button',
-        {
-            hidden: selectedExclusion.type !== ExclusionsTypes.Group
-                || isTopLevel(selectedExclusion.hostname),
-        },
-    );
+    const isExclusionsGroup = selectedExclusion.type === ExclusionsTypes.Group
+        && !isTopLevel(selectedExclusion.hostname);
+
+    const renderResetButton = () => {
+        return (
+            <button
+                type="button"
+                className="button button--medium button--outline-gray children-list__reset"
+                onClick={openResetServiceModal}
+            >
+                {reactTranslator.getMessage('settings_exclusion_reset_to_default')}
+            </button>
+        );
+    };
+
+    const renderAddSubdomainButton = () => {
+        return (
+            <button
+                type="button"
+                className="children-list__add-subdomain simple-button"
+                onClick={onAddSubdomainClick}
+            >
+                <svg className="icon icon--button">
+                    <use xlinkHref="#plus" />
+                </svg>
+                {reactTranslator.getMessage('settings_exclusion_add_subdomain')}
+            </button>
+        );
+    };
 
     const renderExclusions = () => exclusionsStore.sortedExclusions?.map((exclusion) => {
         if (exclusion) {
@@ -82,23 +94,8 @@ export const ChildrenList = observer(() => {
             <div>
                 {renderExclusions()}
             </div>
-            <button
-                type="button"
-                className={resetButtonClass}
-                onClick={openResetServiceModal}
-            >
-                {reactTranslator.getMessage('settings_exclusion_reset_to_default')}
-            </button>
-            <button
-                type="button"
-                className={addSubdomainButtonClass}
-                onClick={onAddSubdomainClick}
-            >
-                <svg className="icon icon--button">
-                    <use xlinkHref="#plus" />
-                </svg>
-                {reactTranslator.getMessage('settings_exclusion_add_subdomain')}
-            </button>
+            {isModifiedService && renderResetButton()}
+            {isExclusionsGroup && renderAddSubdomainButton()}
             <SubdomainModal />
             <ResetServiceModal />
         </>
