@@ -118,7 +118,11 @@ export class ExclusionsService {
         ];
     }
 
-    async addUrlToExclusions(url: string) {
+    /**
+     * Adds url to exclusions and returns amount of added exclusions
+     * @param url
+     */
+    async addUrlToExclusions(url: string): Promise<number> {
         const hostname = getHostname(url);
 
         if (!hostname) {
@@ -210,7 +214,11 @@ export class ExclusionsService {
         return 2;
     }
 
-    async addServices(serviceIds: string[]) {
+    /**
+     * Adds services to exclusions and returns amount of added exclusions
+     * @param serviceIds
+     */
+    async addServices(serviceIds: string[]): Promise<number> {
         const servicesDomainsToAdd = serviceIds.map((id) => {
             const service = servicesManager.getService(id);
             if (!service) {
@@ -238,7 +246,11 @@ export class ExclusionsService {
         return !exclusionNode?.hostname.match(/.+\..+\./);
     }
 
-    async removeExclusion(id: string) {
+    /**
+     * Removes exclusion by id and returns amount of removed exclusions
+     * @param id
+     */
+    async removeExclusion(id: string): Promise<number> {
         let exclusionsToRemove = this.exclusionsTree.getPathExclusions(id);
         const exclusionNode = this.exclusionsTree.getExclusionNode(id);
         const parentNode = this.exclusionsTree.getParentExclusionNode(id);
