@@ -2,6 +2,7 @@
 import throttle from 'lodash/throttle';
 import ipaddr from 'ipaddr.js';
 import browser from 'webextension-polyfill';
+import { isIP } from 'is-ip';
 
 import { log } from '../../lib/logger';
 import notifier from '../../lib/notifier';
@@ -208,7 +209,7 @@ class NonRoutableService {
             return false;
         }
 
-        if (!ipaddr.isValid(hostname)) {
+        if (!isIP(hostname)) {
             return true;
         }
 

@@ -1,5 +1,5 @@
-import ipaddr from 'ipaddr.js';
 import { nanoid } from 'nanoid';
+import { isIP } from 'is-ip';
 
 import { ExclusionInterface } from './exclusions/exclusionsTypes';
 import { getETld, getSubdomain, isWildcard } from '../../common/url-utils';
@@ -25,7 +25,7 @@ const generateExclusions = (exclusion: ExclusionInterface): ExclusionInterface[]
         return [exclusion];
     }
 
-    if (ipaddr.isValid(hostname)) {
+    if (isIP(hostname)) {
         return [exclusion];
     }
 

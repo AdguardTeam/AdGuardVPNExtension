@@ -1,5 +1,5 @@
 import { getDomain, parse } from 'tldts';
-import ipaddr from 'ipaddr.js';
+import { isIP } from 'is-ip';
 
 /**
  * Removes wildcard mark from the beginning of hostname
@@ -31,7 +31,7 @@ export const getETld = (hostname: string) => {
     const SEPARATOR = '.';
 
     // if hostname is ip address we return it unchanged
-    if (ipaddr.isValid(hostname)) {
+    if (isIP(hostname)) {
         return hostname;
     }
 

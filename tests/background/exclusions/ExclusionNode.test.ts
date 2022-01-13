@@ -1,4 +1,4 @@
-import { coveredBy, ExclusionNode, selectConsiderable } from '../../../src/background/exclusions/ExclusionNode';
+import { coveredBy, ExclusionNode, selectEffective } from '../../../src/background/exclusions/ExclusionNode';
 import { ExclusionState } from '../../../src/common/exclusionsConstants';
 
 describe('ExclusionNode', () => {
@@ -21,14 +21,14 @@ describe('ExclusionNode', () => {
         expect(coveredBy('example.org', '*.example.org')).toBeFalsy();
     });
 
-    describe('selectConsiderable', () => {
+    describe('selectEffective', () => {
         const nodes = [
             { hostname: 'example.org' },
             { hostname: '*.example.org' },
             { hostname: 'test.example.org' },
         ];
 
-        expect(selectConsiderable(nodes)).toEqual([{ hostname: 'example.org' }, { hostname: '*.example.org' }]);
+        expect(selectEffective(nodes)).toEqual([{ hostname: 'example.org' }, { hostname: '*.example.org' }]);
     });
 
     describe('getPathExclusions', () => {

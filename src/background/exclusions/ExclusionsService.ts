@@ -1,6 +1,6 @@
-import ipaddr from 'ipaddr.js';
 import { identity } from 'lodash';
 import punycode from 'punycode';
+import { isIP } from 'is-ip';
 
 import { exclusionsManager } from './exclusions/ExclusionsManager';
 import { servicesManager } from './services/ServicesManager';
@@ -155,7 +155,7 @@ export class ExclusionsService {
             return;
         }
 
-        if (ipaddr.isValid(hostname)) {
+        if (isIP(hostname)) {
             await exclusionsManager.current.addUrlToExclusions(hostname);
         } else {
             const eTld = getETld(hostname);

@@ -21,6 +21,10 @@ interface ExclusionNodeProps {
 }
 
 export const coveredBy = (current: string, target: string) => {
+    if (!target.includes('*')) {
+        return false;
+    }
+
     const currentParts = current.split('.');
     const targetParts = target.split('.');
 
@@ -28,24 +32,27 @@ export const coveredBy = (current: string, target: string) => {
         const lastCurrent = currentParts.pop();
         const lastTarget = targetParts.pop();
         if (lastCurrent !== lastTarget) {
-            if (lastTarget === '*' && lastCurrent !== '*') {
-                return true;
-            }
-            return false;
+            return lastTarget === '*' && lastCurrent !== '*';
         }
     }
 
     return false;
 };
 
-export const selectConsiderable = <T extends { hostname: string }>(nodes: T[]): T[] => {
+/**
+ * Selects nodes which effect on the state of the parent
+ * e.g. for the list [*.example.org, test.example.org] will be returned only [*.example.org],
+ * as test.example.org is covered by *.example.org
+ * @param nodes
+ */
+export const selectEffective = <T extends { hostname: string }>(nodes: T[]): T[] => {
     let result = [...nodes];
-    for (let i = 0; i < nodes.length; i += 1) {
-        const node = nodes[i];
-        result = result.filter((rNode) => {
-            return !coveredBy(rNode.hostname, node.hostname);
+    const wildcardNodes = nodes.filter((node) => node.hostname.includes('*'));
+    result = result.filter((node) => {
+        return !wildcardNodes.some((wildcardNode) => {
+            return coveredBy(node.hostname, wildcardNode.hostname);
         });
-    }
+    });
 
     return result;
 };
@@ -82,26 +89,24 @@ export class ExclusionNode {
         }
     }
 
-    hasChildren() {
-        return Object.values(this.children).length > 0;
-    }
-
     addChild(child: ExclusionNode) {
         this.children[child.id] = child;
 
-        this.state = this.calculateState(this.getLeafs(), this);
+        this.state = this.calculateState();
     }
 
-    calculateState(exclusionNodes: ExclusionNode[], node: ExclusionNode): ExclusionState {
-        const considerableExclusions = selectConsiderable(exclusionNodes);
+    calculateState(): ExclusionState {
+        const children = Object.values(this.children);
 
-        const allEnabled = considerableExclusions
+        const effectiveExclusions = selectEffective(children);
+
+        const allEnabled = effectiveExclusions
             .every((exclusionNode) => exclusionNode.state === ExclusionState.Enabled);
 
-        if (node.type === ExclusionsTypes.Service) {
-            const childrenAmount = Object.values(node.children).length;
+        if (this.type === ExclusionsTypes.Service) {
+            const childrenAmount = children.length;
 
-            if (allEnabled && node.meta?.domains.length !== childrenAmount) {
+            if (allEnabled && this.meta?.domains.length !== childrenAmount) {
                 return ExclusionState.PartlyEnabled;
             }
         }
@@ -110,7 +115,7 @@ export class ExclusionNode {
             return ExclusionState.Enabled;
         }
 
-        const allDisabled = exclusionNodes
+        const allDisabled = children
             .every((exclusionNode) => exclusionNode.state === ExclusionState.Disabled);
 
         if (allDisabled) {
@@ -122,6 +127,7 @@ export class ExclusionNode {
 
     serialize(): ExclusionDto {
         const children = Object.values(this.children).map((child) => child.serialize());
+
         return new ExclusionDto({
             id: this.id,
             hostname: this.hostname,
@@ -136,9 +142,9 @@ export class ExclusionNode {
      * Returns leafs of current node, or node itself if it doesn't have children
      */
     getLeafs(): ExclusionNode[] {
-        if (this.hasChildren()) {
-            const childrenLeafs = Object.values(this.children).map((child) => child.getLeafs());
-            return childrenLeafs.flat();
+        const children = Object.values(this.children);
+        if (children.length > 0) {
+            return children.flatMap((child) => child.getLeafs());
         }
         return [this];
     }
@@ -167,6 +173,11 @@ export class ExclusionNode {
     getExclusionNode(id: string): ExclusionNode | null {
         if (this.id === id) {
             return this;
+        }
+
+        const foundChildren = this.children[id];
+        if (foundChildren) {
+            return foundChildren;
         }
 
         const children = Object.values(this.children);
