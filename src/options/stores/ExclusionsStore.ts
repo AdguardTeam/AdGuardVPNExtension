@@ -5,6 +5,7 @@ import {
     runInAction,
 } from 'mobx';
 import punycode from 'punycode';
+import { isIP } from 'is-ip';
 import { getDomain } from 'tldts';
 
 import {
@@ -429,8 +430,10 @@ export class ExclusionsStore {
      * @param url
      */
     validateUrl = (url: string): boolean => {
-        const domain = getDomain(url);
-        return !!domain;
+        const isValidDomain = !!getDomain(url);
+        const isValidIp = isIP(url);
+
+        return isValidDomain || isValidIp;
     };
 
     @action setImportingExclusions = (value: boolean) => {
