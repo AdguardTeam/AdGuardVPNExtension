@@ -9,7 +9,7 @@ import { reactTranslator } from '../../../../../common/reactTranslator';
 import './confirm-add-modal.pcss';
 
 export const ConfirmAddModal = observer(() => {
-    const { exclusionsStore } = useContext(rootStore);
+    const { exclusionsStore, notificationsStore } = useContext(rootStore);
     const { confirmAddModalOpen, urlToConfirm } = exclusionsStore;
 
     const closeModal = () => {
@@ -18,7 +18,11 @@ export const ConfirmAddModal = observer(() => {
 
     const confirmAddUrl = async () => {
         if (urlToConfirm) {
-            await exclusionsStore.addUrlToExclusions(urlToConfirm);
+            const addedExclusionsCount = await exclusionsStore.addUrlToExclusions(urlToConfirm);
+            notificationsStore.notifySuccess(reactTranslator.getMessage(
+                'options_exclusions_added_exclusions',
+                { count: addedExclusionsCount },
+            ));
         }
         closeModal();
     };

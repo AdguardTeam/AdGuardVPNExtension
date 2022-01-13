@@ -16,6 +16,11 @@ import {
     isWildcard,
 } from '../../common/url-utils';
 
+interface ToggleServicesResult {
+    added: number,
+    deleted: number,
+}
+
 export class ExclusionsService {
     exclusionsTree = new ExclusionsTree();
 
@@ -117,21 +122,21 @@ export class ExclusionsService {
         const hostname = getHostname(url);
 
         if (!hostname) {
-            return;
+            return 0;
         }
 
         const existingExclusion = exclusionsManager.current.getExclusionByHostname(hostname);
         if (existingExclusion) {
             await exclusionsManager.current.enableExclusion(existingExclusion.id);
             this.updateTree();
-            return;
+            return 0;
         }
 
         // add service manually by domain
         const serviceData = servicesManager.getServicesDto()
             .find((service) => service.domains.includes(hostname));
         if (serviceData) {
-            await this.addServices([serviceData.serviceId]);
+            const addedExclusionsCount = await this.addServices([serviceData.serviceId]);
 
             // disable all exclusions in service
             const exclusionsToDisable = this.exclusionsTree
@@ -152,49 +157,57 @@ export class ExclusionsService {
             }
 
             this.updateTree();
-            return;
+            return addedExclusionsCount;
         }
 
         if (isIP(hostname)) {
             await exclusionsManager.current.addUrlToExclusions(hostname);
-        } else {
-            const eTld = getETld(hostname);
-
-            if (!eTld) {
-                return;
-            }
-
-            if (exclusionsManager.current.hasETld(eTld)) {
-                await exclusionsManager.current.addExclusions([{ value: hostname }]);
-            } else {
-                const subdomain = getSubdomain(hostname, eTld);
-                if (subdomain) {
-                    if (isWildcard(subdomain)) {
-                        const subdomainHostname = `${subdomain}.${eTld}`;
-                        await exclusionsManager.current.addExclusions([
-                            { value: eTld, enabled: false },
-                            { value: subdomainHostname, enabled: true },
-                        ]);
-                    } else {
-                        const wildcardHostname = `*.${eTld}`;
-                        const subdomainHostname = `${subdomain}.${eTld}`;
-                        await exclusionsManager.current.addExclusions([
-                            { value: eTld, enabled: false },
-                            { value: wildcardHostname, enabled: false },
-                            { value: subdomainHostname, enabled: true },
-                        ]);
-                    }
-                } else {
-                    const wildcardHostname = `*.${hostname}`;
-                    await exclusionsManager.current.addExclusions([
-                        { value: hostname },
-                        { value: wildcardHostname },
-                    ]);
-                }
-            }
+            this.updateTree();
+            return 1;
         }
 
+        const eTld = getETld(hostname);
+
+        if (!eTld) {
+            return 0;
+        }
+
+        if (exclusionsManager.current.hasETld(eTld)) {
+            await exclusionsManager.current.addExclusions([{ value: hostname }]);
+            this.updateTree();
+            return 1;
+        }
+
+        const subdomain = getSubdomain(hostname, eTld);
+        if (subdomain) {
+            if (isWildcard(subdomain)) {
+                const subdomainHostname = `${subdomain}.${eTld}`;
+                await exclusionsManager.current.addExclusions([
+                    { value: eTld, enabled: false },
+                    { value: subdomainHostname, enabled: true },
+                ]);
+                this.updateTree();
+                return 2;
+            }
+
+            const wildcardHostname = `*.${eTld}`;
+            const subdomainHostname = `${subdomain}.${eTld}`;
+            await exclusionsManager.current.addExclusions([
+                { value: eTld, enabled: false },
+                { value: wildcardHostname, enabled: false },
+                { value: subdomainHostname, enabled: true },
+            ]);
+            this.updateTree();
+            return 3;
+        }
+
+        const wildcardHostname = `*.${hostname}`;
+        await exclusionsManager.current.addExclusions([
+            { value: hostname },
+            { value: wildcardHostname },
+        ]);
         this.updateTree();
+        return 2;
     }
 
     async addServices(serviceIds: string[]) {
@@ -218,6 +231,7 @@ export class ExclusionsService {
         await exclusionsManager.current.addExclusions(servicesDomainsWithWildcards);
 
         this.updateTree();
+        return servicesDomainsWithWildcards.length;
     }
 
     isMainDomain(exclusionNode: ExclusionNode | null): boolean {
@@ -267,7 +281,7 @@ export class ExclusionsService {
         this.updateTree();
     }
 
-    async toggleServices(servicesIds: string[]) {
+    async toggleServices(servicesIds: string[]): Promise<ToggleServicesResult> {
         const servicesIdsToRemove = servicesIds.filter((id) => {
             const exclusionNode = this.exclusionsTree.getExclusionNode(id);
             return !!exclusionNode;
@@ -284,9 +298,12 @@ export class ExclusionsService {
             return !exclusionNode;
         });
 
-        await this.addServices(servicesIdsToAdd);
+        const addedExclusionsCount = await this.addServices(servicesIdsToAdd);
 
-        return this.getServices();
+        return {
+            added: addedExclusionsCount,
+            deleted: exclusionsToRemove.length,
+        };
     }
 
     async disableVpnByUrl(url: string) {

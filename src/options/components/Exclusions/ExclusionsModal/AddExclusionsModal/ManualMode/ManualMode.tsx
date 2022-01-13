@@ -6,7 +6,7 @@ import { reactTranslator } from '../../../../../../common/reactTranslator';
 import './manual-mode.pcss';
 
 export const ManualMode = () => {
-    const { exclusionsStore } = useContext(rootStore);
+    const { exclusionsStore, notificationsStore } = useContext(rootStore);
 
     const [inputValue, setInputValue] = useState('');
 
@@ -20,7 +20,11 @@ export const ManualMode = () => {
         e.preventDefault();
 
         if (exclusionsStore.validateUrl(inputValue)) {
-            await exclusionsStore.addUrlToExclusions(inputValue);
+            const addedExclusionsCount = await exclusionsStore.addUrlToExclusions(inputValue);
+            notificationsStore.notifySuccess(reactTranslator.getMessage(
+                'options_exclusions_added_exclusions',
+                { count: addedExclusionsCount },
+            ));
         } else {
             exclusionsStore.confirmUrlToAdd(inputValue);
         }

@@ -22,7 +22,7 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
     const removeExclusion = (exclusion: ExclusionDtoInterface) => async () => {
         const deletedExclusionsCount = await exclusionsStore.removeExclusion(exclusion);
         notificationsStore.notifySuccess(reactTranslator.getMessage(
-            'options_exclusions_deleted_domains',
+            'options_exclusions_deleted_exclusions',
             { count: deletedExclusionsCount },
         ));
     };

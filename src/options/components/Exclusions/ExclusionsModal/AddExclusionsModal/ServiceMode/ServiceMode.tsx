@@ -9,14 +9,26 @@ import { reactTranslator } from '../../../../../../common/reactTranslator';
 import './service-mode.pcss';
 
 export const ServiceMode = observer(() => {
-    const { exclusionsStore } = useContext(rootStore);
+    const { exclusionsStore, notificationsStore } = useContext(rootStore);
 
     const closeModal = () => {
         exclusionsStore.closeAddExclusionModal();
     };
 
     const handleSaveServices = async () => {
-        await exclusionsStore.toggleServices();
+        const toggleServicesResult = await exclusionsStore.toggleServices();
+        if (toggleServicesResult.added) {
+            notificationsStore.notifySuccess(reactTranslator.getMessage(
+                'options_exclusions_added_exclusions',
+                { count: toggleServicesResult.added },
+            ));
+        }
+        if (toggleServicesResult.deleted) {
+            notificationsStore.notifySuccess(reactTranslator.getMessage(
+                'options_exclusions_deleted_exclusions',
+                { count: toggleServicesResult.deleted },
+            ));
+        }
         closeModal();
     };
 

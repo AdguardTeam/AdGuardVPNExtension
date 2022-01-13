@@ -28,7 +28,11 @@ export const SubdomainModal = observer(() => {
             return;
         }
         if (inputValue) {
-            await exclusionsStore.addSubdomainToExclusions(inputValue);
+            const addedExclusionsCount = await exclusionsStore.addSubdomainToExclusions(inputValue);
+            notificationsStore.notifySuccess(reactTranslator.getMessage(
+                'options_exclusions_added_exclusions',
+                { count: addedExclusionsCount },
+            ));
             closeModal();
             setInputValue('');
         }

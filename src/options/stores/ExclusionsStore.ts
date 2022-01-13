@@ -257,12 +257,13 @@ export class ExclusionsStore {
     }
 
     @action addUrlToExclusions = async (url: string) => {
-        await messenger.addUrlToExclusions(url);
+        const addedExclusionsCount = await messenger.addUrlToExclusions(url);
+        return addedExclusionsCount;
     };
 
     @action addSubdomainToExclusions = async (subdomain: string) => {
         if (!this.selectedExclusionId) {
-            return;
+            return 0;
         }
 
         const foundExclusion = findExclusionById(
@@ -271,19 +272,20 @@ export class ExclusionsStore {
         );
 
         if (!foundExclusion) {
-            return;
+            return 0;
         }
 
         const domain = foundExclusion.hostname;
 
         if (subdomain.includes(domain)) {
-            await messenger.addUrlToExclusions(subdomain);
-            return;
+            const addedExclusionsCount = await messenger.addUrlToExclusions(subdomain);
+            return addedExclusionsCount;
         }
 
         const domainToAdd = `${subdomain}.${domain}`;
 
-        await messenger.addUrlToExclusions(domainToAdd);
+        const addedExclusionsCount = await messenger.addUrlToExclusions(domainToAdd);
+        return addedExclusionsCount;
     };
 
     @action removeExclusion = async (exclusion: ExclusionDtoInterface) => {
@@ -317,10 +319,12 @@ export class ExclusionsStore {
      * Removes services from exclusions list if they were added otherwise adds them
      */
     @action toggleServices = async () => {
-        await messenger.toggleServices(this.servicesToToggle);
+        const toggleServicesResult = await messenger.toggleServices(this.servicesToToggle);
         runInAction(() => {
             this.servicesToToggle = [];
         });
+
+        return toggleServicesResult;
     };
 
     @action setSelectedExclusionId = (id: string | null) => {

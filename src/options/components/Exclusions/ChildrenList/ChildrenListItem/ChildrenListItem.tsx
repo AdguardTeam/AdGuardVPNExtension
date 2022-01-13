@@ -28,7 +28,7 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
     const removeExclusion = (exclusion: ExclusionDtoInterface) => async () => {
         const deletedExclusionsCount = await exclusionsStore.removeExclusion(exclusion);
         notificationsStore.notifySuccess(reactTranslator.getMessage(
-            'options_exclusions_deleted_domains',
+            'options_exclusions_deleted_exclusions',
             { count: deletedExclusionsCount },
         ));
     };

@@ -733,10 +733,10 @@
     "options_exclusions_import_successful": {
         "message": "Imported exclusions: %count%"
     },
-    "options_exclusions_deleted_domains": {
+    "options_exclusions_deleted_exclusions": {
         "message": "Deleted exclusions: %count%"
     },
-    "options_exclusions_added_domains": {
+    "options_exclusions_added_exclusions": {
         "message": "Added exclusions: %count%"
     },
     "options_exclusions_remove_all_success": {
