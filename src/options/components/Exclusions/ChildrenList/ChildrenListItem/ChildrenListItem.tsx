@@ -9,7 +9,7 @@ import {
     ExclusionState,
     ExclusionsTypes,
 } from '../../../../../common/exclusionsConstants';
-import { translator } from '../../../../../common/translator';
+import { reactTranslator } from '../../../../../common/reactTranslator';
 
 import './children-list-item.pcss';
 
@@ -18,7 +18,7 @@ interface ChildrenListItemProps {
 }
 
 export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) => {
-    const { exclusionsStore } = useContext(rootStore);
+    const { exclusionsStore, notificationsStore } = useContext(rootStore);
     const { selectedExclusion } = exclusionsStore;
 
     const toggleState = (id: string) => () => {
@@ -26,7 +26,11 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
     };
 
     const removeExclusion = (exclusion: ExclusionDtoInterface) => async () => {
-        await exclusionsStore.removeExclusion(exclusion);
+        const deletedExclusionsCount = await exclusionsStore.removeExclusion(exclusion);
+        notificationsStore.notifySuccess(reactTranslator.getMessage(
+            'options_exclusions_deleted_domains',
+            { count: deletedExclusionsCount },
+        ));
     };
 
     const showGroupSettings = (id: string) => () => {
@@ -35,12 +39,12 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
 
     const getExclusionStatus = (hostname: string) => {
         if (hostname === selectedExclusion?.hostname) {
-            return translator.getMessage('settings_exclusion_status_domain');
+            return reactTranslator.getMessage('settings_exclusion_status_domain');
         }
         if (hostname.startsWith('*')) {
-            return translator.getMessage('settings_exclusion_status_all_subdomains');
+            return reactTranslator.getMessage('settings_exclusion_status_all_subdomains');
         }
-        return translator.getMessage('settings_exclusion_status_subdomain');
+        return reactTranslator.getMessage('settings_exclusion_status_subdomain');
     };
 
     const wildcardExclusion = `*.${selectedExclusion?.hostname}`;

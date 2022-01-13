@@ -733,6 +733,12 @@
     "options_exclusions_import_successful": {
         "message": "Imported exclusions: %count%"
     },
+    "options_exclusions_deleted_domains": {
+        "message": "Deleted exclusions: %count%"
+    },
+    "options_exclusions_added_domains": {
+        "message": "Added exclusions: %count%"
+    },
     "options_exclusions_remove_all_success": {
         "message": "All exclusions for current mode successfully removed."
     },

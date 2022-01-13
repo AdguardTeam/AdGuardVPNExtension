@@ -6,6 +6,7 @@ import { ExclusionsTypes, ExclusionDtoInterface, ICON_FOR_DOMAIN } from '../../.
 import { StateCheckbox } from '../../StateCheckbox';
 import { rootStore } from '../../../../stores';
 import { SearchHighlighter } from '../../Search/SearchHighlighter';
+import { reactTranslator } from '../../../../../common/reactTranslator';
 
 import './list-item.pcss';
 
@@ -14,12 +15,16 @@ interface ListItemProps {
 }
 
 export const ListItem = observer(({ exclusion }: ListItemProps) => {
-    const { exclusionsStore } = useContext(rootStore);
+    const { exclusionsStore, notificationsStore } = useContext(rootStore);
 
     const icon = useRef(null);
 
     const removeExclusion = (exclusion: ExclusionDtoInterface) => async () => {
-        await exclusionsStore.removeExclusion(exclusion);
+        const deletedExclusionsCount = await exclusionsStore.removeExclusion(exclusion);
+        notificationsStore.notifySuccess(reactTranslator.getMessage(
+            'options_exclusions_deleted_domains',
+            { count: deletedExclusionsCount },
+        ));
     };
 
     const toggleState = (id: string) => () => {

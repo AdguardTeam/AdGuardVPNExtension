@@ -236,6 +236,8 @@ export class ExclusionsService {
         await exclusionsManager.current.removeExclusions(exclusionsToRemove);
 
         this.updateTree();
+
+        return exclusionsToRemove.length;
     }
 
     async getParentExclusion(id: string) {

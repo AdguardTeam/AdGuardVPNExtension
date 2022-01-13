@@ -295,7 +295,9 @@ export class ExclusionsStore {
                 this.setSelectedExclusionId(parentExclusion.id);
             }
         }
-        await messenger.removeExclusion(exclusion.id);
+        const deletedExclusionsCount = await messenger.removeExclusion(exclusion.id);
+
+        return deletedExclusionsCount;
     };
 
     @action toggleExclusionState = async (id: string) => {
