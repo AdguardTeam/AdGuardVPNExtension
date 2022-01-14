@@ -90,6 +90,22 @@ export class ExclusionsService {
             return [];
         }
 
+        const serviceData = servicesManager.getServicesDto()
+            .find((service) => service.domains.includes(hostname));
+
+        if (serviceData) {
+            const exclusionArgs: AddExclusionArgs[] = [];
+            serviceData.domains.forEach((domain) => {
+                const forceEnable = domain === hostname;
+                exclusionArgs.push(
+                    { value: domain, enabled: forceEnable, overwriteState: forceEnable },
+                    { value: `*.${domain}`, enabled: false, overwriteState: false },
+                );
+            });
+
+            return exclusionArgs;
+        }
+
         const subdomain = getSubdomain(hostname, eTld);
 
         if (subdomain) {
