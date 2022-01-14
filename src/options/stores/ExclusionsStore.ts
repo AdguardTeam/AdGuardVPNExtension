@@ -141,20 +141,12 @@ export class ExclusionsStore {
     };
 
     get preparedExclusions() {
-        const filteredExclusions: ExclusionDtoInterface[] = this.exclusions
-            .filter((exclusion: ExclusionDtoInterface) => {
-                if (this.exclusionsSearchValue.length === 0) {
-                    return true;
-                }
-                return containsIgnoreCase(exclusion.hostname, this.exclusionsSearchValue);
-            });
-
-        const sortedExclusions = filteredExclusions
-            .sort((a: ExclusionDtoInterface, b: ExclusionDtoInterface) => {
-                return a.hostname > b.hostname ? 1 : -1;
-            });
-
-        return sortedExclusions;
+        return this.exclusions.filter((exclusion: ExclusionDtoInterface) => {
+            if (this.exclusionsSearchValue.length === 0) {
+                return true;
+            }
+            return containsIgnoreCase(exclusion.hostname, this.exclusionsSearchValue);
+        });
     }
 
     @action setModeSelectorModalOpen = (value: boolean) => {
