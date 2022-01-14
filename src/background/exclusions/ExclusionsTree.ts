@@ -7,8 +7,15 @@ import { ExclusionNode } from './ExclusionNode';
 import { ExclusionInterface, IndexedExclusionsInterface } from './exclusions/exclusionsTypes';
 import { getETld } from '../../common/url-utils';
 
+type ExclusionsNodesIndex = Map<string, ExclusionNode>;
+
 export class ExclusionsTree {
     exclusionsTree = new ExclusionNode({ id: 'root', hostname: 'root' });
+
+    /**
+     * Map used to keep links to the nodes for faster search of existing nodes
+     */
+    exclusionsNodesIndex: ExclusionsNodesIndex = new Map();
 
     generateTree({
         exclusions,
@@ -21,6 +28,7 @@ export class ExclusionsTree {
         services: ServicesInterface;
         indexedServices: IndexedServicesInterface;
     }) {
+        this.exclusionsNodesIndex = new Map();
         this.exclusionsTree = new ExclusionNode({ id: 'root', hostname: 'root' });
 
         for (let i = 0; i < exclusions.length; i += 1) {
@@ -43,7 +51,7 @@ export class ExclusionsTree {
             if (serviceId) {
                 const service = services[serviceId];
 
-                const serviceNode = this.exclusionsTree.getExclusionNode(service.serviceId)
+                const serviceNode = this.getExclusionNode(service.serviceId)
                     ?? new ExclusionNode({
                         id: service.serviceId,
                         hostname: service.serviceName,
@@ -54,37 +62,46 @@ export class ExclusionsTree {
                         },
                     });
 
-                const groupNode = serviceNode.getExclusionNode(hostnameTld)
+                const groupNode = this.getExclusionNode(hostnameTld)
                     ?? new ExclusionNode({
                         id: hostnameTld,
                         hostname: hostnameTld,
                         type: ExclusionsTypes.Group,
                     });
 
-                groupNode.addChild(exclusionNode);
-                serviceNode.addChild(groupNode);
-
-                this.exclusionsTree.addChild(serviceNode);
+                this.addChild(groupNode, exclusionNode);
+                this.addChild(serviceNode, groupNode);
+                this.addChild(this.exclusionsTree, serviceNode);
 
                 continue;
             }
 
             if (indexedExclusions[hostnameTld].length && !isIP(hostnameTld)) {
-                const groupNode = this.exclusionsTree.getExclusionNode(hostnameTld)
+                const groupNode = this.getExclusionNode(hostnameTld)
                     ?? new ExclusionNode({
                         id: hostnameTld,
                         hostname: hostnameTld,
                         type: ExclusionsTypes.Group,
                     });
 
-                groupNode.addChild(exclusionNode);
-                this.exclusionsTree.addChild(groupNode);
+                this.addChild(groupNode, exclusionNode);
+                this.addChild(this.exclusionsTree, groupNode);
 
                 continue;
             }
 
-            this.exclusionsTree.addChild(exclusionNode);
+            this.addChild(this.exclusionsTree, exclusionNode);
         }
+    }
+
+    /**
+     * Adding child nodes through this method in order to increase speed of search of nodes
+     * @param targetNode
+     * @param childNode
+     */
+    addChild(targetNode: ExclusionNode, childNode: ExclusionNode) {
+        this.exclusionsNodesIndex.set(childNode.id, childNode);
+        targetNode.addChild(childNode);
     }
 
     getExclusions() {
@@ -108,7 +125,11 @@ export class ExclusionsTree {
     }
 
     getExclusionNode(id: string) {
-        return this.exclusionsTree.getExclusionNode(id);
+        if (this.exclusionsNodesIndex.has(id)) {
+            return this.exclusionsNodesIndex.get(id) ?? null;
+        }
+
+        return null;
     }
 
     getParentExclusionNode(id: string) {

@@ -1,9 +1,8 @@
+/* eslint-disable no-restricted-syntax */
 import { ExclusionState, ExclusionsTypes } from '../../common/exclusionsConstants';
 import { ExclusionDto } from './ExclusionDto';
 
-interface ExclusionNodeMap {
-    [id: string]: ExclusionNode;
-}
+type ExclusionNodeMap = Map<string, ExclusionNode>;
 
 interface ExclusionNodeProps {
     id: string;
@@ -66,7 +65,7 @@ export class ExclusionNode {
 
     type: ExclusionsTypes;
 
-    children: ExclusionNodeMap = {};
+    children: ExclusionNodeMap = new Map<string, ExclusionNode>();
 
     meta?: {
         domains: string[],
@@ -90,13 +89,13 @@ export class ExclusionNode {
     }
 
     addChild(child: ExclusionNode) {
-        this.children[child.id] = child;
+        this.children.set(child.id, child);
 
         this.state = this.calculateState();
     }
 
     calculateState(): ExclusionState {
-        const children = Object.values(this.children);
+        const children = [...this.children.values()];
 
         const effectiveExclusions = selectEffective(children);
 
@@ -126,7 +125,7 @@ export class ExclusionNode {
     }
 
     serialize(): ExclusionDto {
-        const children = Object.values(this.children).map((child) => child.serialize());
+        const children = [...this.children.values()].map((child) => child.serialize());
 
         return new ExclusionDto({
             id: this.id,
@@ -142,7 +141,7 @@ export class ExclusionNode {
      * Returns leafs of current node, or node itself if it doesn't have children
      */
     getLeafs(): ExclusionNode[] {
-        const children = Object.values(this.children);
+        const children = [...this.children.values()];
         if (children.length > 0) {
             return children.flatMap((child) => child.getLeafs());
         }
@@ -161,10 +160,11 @@ export class ExclusionNode {
             return this.getLeafsIds();
         }
 
-        if (Object.values(this.children).length === 0) {
+        if (this.children.size === 0) {
             return [];
         }
-        const childrenPathExclusions = Object.values(this.children)
+
+        const childrenPathExclusions = [...this.children.values()]
             .map((child) => child.getPathExclusions(id));
 
         return childrenPathExclusions.flat();
@@ -175,15 +175,13 @@ export class ExclusionNode {
             return this;
         }
 
-        const foundChildren = this.children[id];
+        const foundChildren = this.children.get(id);
         if (foundChildren) {
             return foundChildren;
         }
 
-        const children = Object.values(this.children);
-
-        for (let i = 0; i < children.length; i += 1) {
-            const child = children[i];
+        // eslint-disable-next-line no-restricted-syntax
+        for (const child of this.children.values()) {
             const node = child.getExclusionNode(id);
             if (node) {
                 return node;
@@ -197,19 +195,16 @@ export class ExclusionNode {
         if (this.id === id) {
             return null;
         }
-        const children = Object.values(this.children);
-        return this.findParentNode(children, id);
+        return this.findParentNode(id);
     }
 
-    findParentNode(children: ExclusionNode[], id: string): ExclusionNode | null {
-        for (let i = 0; i < children.length; i += 1) {
-            const child = children[i];
-
+    findParentNode(id: string): ExclusionNode | null {
+        for (const child of this.children.values()) {
             if (child.id === id) {
                 return this;
             }
 
-            const parentNode = child.findParentNode(Object.values(child.children), id);
+            const parentNode = child.findParentNode(id);
             if (parentNode) {
                 return parentNode;
             }

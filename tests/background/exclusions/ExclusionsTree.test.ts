@@ -191,9 +191,9 @@ describe('ExclusionsTree', () => {
         console.log(`
         For ${exclusions.length} exclusions and ${Object.values(services).length} services with ${domains.length} domains
         ExclusionsTree was generated in: ${average} ms
-        On Mac M1 Pro with 10 cores and 16 GB exclusions tree is build in 35ms
+        On MacBook Pro (15-inch, 2019), with 2,6 GHz 6-Core Intel Core i7 and 16 GB 2400 MHz DDR4 is built in ~30-40ms
         `);
-        // we use 200 ms, for ci to be able to build tree in this time too
-        expect(average).toBeLessThan(200);
+        const MAX_BUILD_TIME = 100;
+        expect(average).toBeLessThan(MAX_BUILD_TIME);
     });
 });
