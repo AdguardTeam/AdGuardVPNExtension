@@ -52,6 +52,9 @@ const getOptionsData = async () => {
         currentMode: exclusions.getMode(),
     };
 
+    const isAllExclusionsListsEmpty =  !(exclusions.getRegularExclusions().length
+        || exclusions.getSelectiveExclusions().length);
+
     const servicesData = exclusions.getServices();
 
     const isAuthenticated = await auth.isAuthenticated();
@@ -72,6 +75,7 @@ const getOptionsData = async () => {
         exclusionsData,
         servicesData,
         isAuthenticated,
+        isAllExclusionsListsEmpty,
     };
 };
 
