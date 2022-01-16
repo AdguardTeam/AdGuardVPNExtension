@@ -1,7 +1,7 @@
 /* eslint-disable no-continue */
 import { isIP } from 'is-ip';
 
-import { ExclusionsTypes } from '../../common/exclusionsConstants';
+import { ExclusionDtoInterface, ExclusionsTypes } from '../../common/exclusionsConstants';
 import { IndexedServicesInterface, ServicesInterface } from './services/ServicesManager';
 import { ExclusionNode } from './ExclusionNode';
 import { ExclusionInterface, IndexedExclusionsInterface } from './exclusions/exclusionsTypes';
@@ -104,7 +104,10 @@ export class ExclusionsTree {
         targetNode.addChild(childNode);
     }
 
-    getExclusions() {
+    /**
+     * Returns exclusions
+     */
+    getExclusions(): ExclusionDtoInterface[] {
         const exclusionsRoot = this.exclusionsTree.serialize();
         return exclusionsRoot.children;
     }
@@ -124,6 +127,10 @@ export class ExclusionsTree {
         return this.exclusionsTree.getExclusionNodeState(id);
     }
 
+    /**
+     * Returns exclusion node
+     * @param id
+     */
     getExclusionNode(id: string) {
         if (this.exclusionsNodesIndex.has(id)) {
             return this.exclusionsNodesIndex.get(id) ?? null;
@@ -132,6 +139,10 @@ export class ExclusionsTree {
         return null;
     }
 
+    /**
+     * Returns parent exclusion node
+     * @param id
+     */
     getParentExclusionNode(id: string) {
         return this.exclusionsTree.getParentExclusionNode(id);
     }
