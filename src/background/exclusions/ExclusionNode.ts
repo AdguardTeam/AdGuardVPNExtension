@@ -88,12 +88,19 @@ export class ExclusionNode {
         }
     }
 
+    /**
+     * Adds child to exclusion node
+     * @param child
+     */
     addChild(child: ExclusionNode) {
         this.children.set(child.id, child);
 
         this.state = this.calculateState();
     }
 
+    /**
+     * Calculates state of exclusion node according to children
+     */
     calculateState(): ExclusionState {
         const children = [...this.children.values()];
 
@@ -155,6 +162,10 @@ export class ExclusionNode {
         return this.getLeafs().map((exclusionNode) => exclusionNode.id);
     }
 
+    /**
+     * Returns the list of exclusion's children ids
+     * @param id
+     */
     getPathExclusions(id: string): string[] {
         if (this.id === id) {
             return this.getLeafsIds();
@@ -170,6 +181,10 @@ export class ExclusionNode {
         return childrenPathExclusions.flat();
     }
 
+    /**
+     * Returns exclusion node by provided id
+     * @param id
+     */
     getExclusionNode(id: string): ExclusionNode | null {
         if (this.id === id) {
             return this;
@@ -191,6 +206,10 @@ export class ExclusionNode {
         return null;
     }
 
+    /**
+     * Returns parent exclusion node by provided id
+     * @param id
+     */
     getParentExclusionNode(id: string): ExclusionNode | null {
         if (this.id === id) {
             return null;
@@ -212,6 +231,10 @@ export class ExclusionNode {
         return null;
     }
 
+    /**
+     * Returns state of exclusion node
+     * @param id
+     */
     getExclusionNodeState(id: string): ExclusionState | null {
         const foundNode = this.getExclusionNode(id);
         if (foundNode) {
