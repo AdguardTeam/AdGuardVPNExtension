@@ -48,7 +48,12 @@ export class ExclusionsHandler {
         return this.exclusionsIndex;
     }
 
-    public static buildExclusionsIndex(exclusions: ExclusionInterface[]) {
+    /**
+     * Creates exclusions index for provided exclusions
+     * @param exclusions
+     */
+    public static buildExclusionsIndex(exclusions: ExclusionInterface[])
+        : IndexedExclusionsInterface {
         const indexedExclusions = exclusions.reduce((
             acc: IndexedExclusionsInterface,
             exclusion,
@@ -70,6 +75,10 @@ export class ExclusionsHandler {
         return indexedExclusions;
     }
 
+    /**
+     * Adds prepared exclusions and returns amount of added
+     * @param exclusionsToAdd
+     */
     async addExclusions(exclusionsToAdd: AddExclusionArgs[]): Promise<number> {
         let addedCount = 0;
         exclusionsToAdd.forEach(({ value, enabled = true, overwriteState = false }) => {
@@ -93,6 +102,10 @@ export class ExclusionsHandler {
         return !!this.exclusionsIndex[eTld];
     };
 
+    /**
+     * Adds exclusion by provided url
+     * @param url
+     */
     async addUrlToExclusions(url: string) {
         const hostname = getHostname(url);
 
@@ -105,11 +118,19 @@ export class ExclusionsHandler {
         await this.onUpdate();
     }
 
-    getExclusionByHostname(hostname: string) {
+    /**
+     * Returns exclusions by provided hostname
+     * @param hostname
+     */
+    getExclusionByHostname(hostname: string): ExclusionInterface | undefined {
         return this.exclusions
             .find((exclusion) => areHostnamesEqual(hostname, exclusion.hostname));
     }
 
+    /**
+     * Enables exclusion by provided id
+     * @param id
+     */
     async enableExclusion(id: string) {
         this.exclusions = this.exclusions.map((ex) => {
             if (ex.id === id) {
@@ -124,6 +145,10 @@ export class ExclusionsHandler {
         await this.onUpdate();
     }
 
+    /**
+     * Removes exclusions by provided ids
+     * @param ids
+     */
     async removeExclusions(ids: string[]) {
         this.exclusions = this.exclusions.filter((exclusion) => {
             return !ids.includes(exclusion.id);
@@ -132,6 +157,11 @@ export class ExclusionsHandler {
         await this.onUpdate();
     }
 
+    /**
+     * Sets provided state for exclusions with ids
+     * @param ids
+     * @param state
+     */
     async setExclusionsState(
         ids: string[],
         state: Exclude<ExclusionState, ExclusionState.PartlyEnabled>,
@@ -168,6 +198,9 @@ export class ExclusionsHandler {
         await this.onUpdate();
     }
 
+    /**
+     * Removes exclusions data
+     */
     async clearExclusionsData() {
         this.exclusions = [];
 
@@ -189,7 +222,11 @@ export class ExclusionsHandler {
                 || (includeWildcards && shExpMatch(hostname, exclusion.hostname)));
     };
 
-    isExcluded = (url: string) => {
+    /**
+     * Checks provided url is excluded
+     * @param url
+     */
+    isExcluded = (url: string): boolean => {
         if (!url) {
             return false;
         }
