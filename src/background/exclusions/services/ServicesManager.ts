@@ -52,6 +52,9 @@ export class ServicesManager implements ServiceManagerInterface {
         return this.services ?? {};
     }
 
+    /**
+     * Returns service by provided id
+     */
     getService(id: string): Service | null {
         if (!this.services) {
             return null;
@@ -66,7 +69,10 @@ export class ServicesManager implements ServiceManagerInterface {
         return service;
     }
 
-    getIndexedServices() {
+    /**
+     * Returns services index
+     */
+    getIndexedServices(): IndexedServicesInterface {
         return this.servicesIndex ?? {};
     }
 
@@ -105,11 +111,17 @@ export class ServicesManager implements ServiceManagerInterface {
         });
     }
 
+    /**
+     * Sets service and services index
+     */
     setServices(services: ServicesInterface) {
         this.services = services;
         this.servicesIndex = ServicesManager.getServicesIndex(services);
     }
 
+    /**
+     * Updates services
+     */
     async updateServices() {
         const shouldUpdate = this.lastUpdateTimeMs === null
             || (Date.now() - this.lastUpdateTimeMs) > this.UPDATE_TIMEOUT_MS;
@@ -148,6 +160,9 @@ export class ServicesManager implements ServiceManagerInterface {
         return response.data;
     }
 
+    /**
+     * Returns services data from server or from assets
+     */
     async getServicesForMigration() {
         const SERVICES_RESPONSE_TIMEOUT_MS = 1000;
         let timeout: NodeJS.Timeout;
@@ -174,10 +189,17 @@ export class ServicesManager implements ServiceManagerInterface {
         return services;
     }
 
+    /**
+     * Saves provided services in storage
+     * @param services
+     */
     async saveServicesInStorage(services: ServicesInterface): Promise<void> {
         await browserApi.storage.set(this.EXCLUSION_SERVICES_STORAGE_KEY, services);
     }
 
+    /**
+     * Returns services data from storage
+     */
     async getServicesFromStorage(): Promise<ServicesInterface> {
         const services = await browserApi.storage.get(
             this.EXCLUSION_SERVICES_STORAGE_KEY,
