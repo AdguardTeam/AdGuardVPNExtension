@@ -15,6 +15,7 @@ import {
     getSubdomain,
     isWildcard,
 } from '../../common/url-utils';
+import notifier from '../../lib/notifier';
 
 interface ToggleServicesResult {
     added: number,
@@ -29,6 +30,15 @@ export class ExclusionsService {
         await servicesManager.init();
 
         this.updateTree();
+
+        notifier.addSpecifiedListener(
+            notifier.types.NON_ROUTABLE_DOMAIN_ADDED,
+            (payload: string) => {
+                if (this.getMode() === ExclusionsModes.Regular) {
+                    this.addUrlToExclusions(payload);
+                }
+            },
+        );
     }
 
     getExclusions() {

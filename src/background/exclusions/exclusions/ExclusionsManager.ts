@@ -55,15 +55,6 @@ export class ExclusionsManager {
         // update bypass list in proxy on init
         await this.handleExclusionsUpdate();
 
-        notifier.addSpecifiedListener(
-            notifier.types.NON_ROUTABLE_DOMAIN_ADDED,
-            (payload: string) => {
-                if (this.currentHandler.mode === ExclusionsModes.Regular) {
-                    this.currentHandler.addUrlToExclusions(payload);
-                }
-            },
-        );
-
         log.info('ExclusionsManager is ready');
     };
 
