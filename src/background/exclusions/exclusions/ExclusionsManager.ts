@@ -58,6 +58,9 @@ export class ExclusionsManager {
         log.info('ExclusionsManager is ready');
     };
 
+    /**
+     * Applies enabled exclusions to proxy config and save them to local storage
+     */
     handleExclusionsUpdate = async () => {
         notifier.notifyListeners(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE);
 
@@ -88,6 +91,10 @@ export class ExclusionsManager {
         return this.currentHandler;
     }
 
+    /**
+     * Sets current exclusion mode
+     * @param mode
+     */
     async setCurrentMode(mode: ExclusionsModes) {
         switch (mode) {
             case ExclusionsModes.Selective: {
@@ -106,6 +113,10 @@ export class ExclusionsManager {
         await this.handleExclusionsUpdate();
     }
 
+    /**
+     * Returns exclusions handler for current mode
+     * @param mode
+     */
     getHandler(mode: ExclusionsModes) {
         switch (mode) {
             case ExclusionsModes.Selective: {
@@ -119,6 +130,9 @@ export class ExclusionsManager {
         }
     }
 
+    /**
+     * Adds or disables exclusion according to current mode
+     */
     async enableVpnByUrl(url: string) {
         if (this.inverted) {
             await this.currentHandler.addUrlToExclusions(url);
@@ -127,6 +141,9 @@ export class ExclusionsManager {
         }
     }
 
+    /**
+     * Disables or adds exclusion according to current mode
+     */
     async disableVpnByUrl(url: string) {
         if (this.inverted) {
             await this.currentHandler.disableExclusionByUrl(url);
@@ -153,6 +170,9 @@ export class ExclusionsManager {
         return this.inverted;
     }
 
+    /**
+     * Removes all exclusions data
+     */
     async clearExclusions() {
         await this.regular.clearExclusionsData();
         await this.selective.clearExclusionsData();
@@ -164,10 +184,16 @@ export class ExclusionsManager {
         settings.setExclusions(emptyExclusions);
     }
 
+    /**
+     * Returns exclusions for current mode
+     */
     getExclusions(): ExclusionInterface[] {
         return this.currentHandler.getExclusions();
     }
 
+    /**
+     * Returns indexed exclusions for current mode
+     */
     getIndexedExclusions(): IndexedExclusionsInterface {
         return this.currentHandler.getIndexedExclusions();
     }
