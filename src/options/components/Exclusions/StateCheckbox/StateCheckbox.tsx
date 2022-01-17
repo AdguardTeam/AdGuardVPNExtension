@@ -5,11 +5,8 @@ import { ExclusionState } from '../../../../common/exclusionsConstants';
 import './statecheckbox.pcss';
 
 interface StateCheckboxProps {
-    id: string,
     state: ExclusionState,
-    toggleHandler: (
-        id: string,
-    ) => React.MouseEventHandler<HTMLButtonElement>,
+    toggleHandler: () => void,
 }
 
 const getStateIcon = (state: ExclusionState) => {
@@ -23,7 +20,6 @@ const getStateIcon = (state: ExclusionState) => {
 };
 
 export const StateCheckbox = ({
-    id,
     state,
     toggleHandler,
 }: StateCheckboxProps) => {
@@ -31,7 +27,7 @@ export const StateCheckbox = ({
         <button
             className="state-checkbox"
             type="button"
-            onClick={toggleHandler(id)}
+            onClick={toggleHandler}
         >
             <svg className="state-checkbox__icon">
                 <use xlinkHref={getStateIcon(state)} />

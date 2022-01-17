@@ -21,8 +21,8 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
     const { exclusionsStore, notificationsStore } = useContext(rootStore);
     const { selectedExclusion } = exclusionsStore;
 
-    const toggleState = (id: string) => () => {
-        exclusionsStore.toggleExclusionState(id);
+    const toggleState = () => {
+        exclusionsStore.toggleExclusionState(exclusion.id);
     };
 
     const removeExclusion = (exclusion: ExclusionDtoInterface) => async () => {
@@ -96,7 +96,6 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
             key={exclusion.hostname}
         >
             <StateCheckbox
-                id={exclusion.id}
                 state={exclusion.state}
                 toggleHandler={toggleState}
             />

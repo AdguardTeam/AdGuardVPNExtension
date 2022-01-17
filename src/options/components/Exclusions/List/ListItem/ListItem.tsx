@@ -27,8 +27,8 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
         ));
     };
 
-    const toggleState = (id: string) => () => {
-        exclusionsStore.toggleExclusionState(id);
+    const toggleState = () => {
+        exclusionsStore.toggleExclusionState(exclusion.id);
     };
 
     const followToChildren = (exclusion: ExclusionDtoInterface) => () => {
@@ -64,7 +64,6 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
             className="list-item"
         >
             <StateCheckbox
-                id={exclusion.id}
                 state={exclusion.state}
                 toggleHandler={toggleState}
             />
