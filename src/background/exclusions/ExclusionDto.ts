@@ -9,6 +9,11 @@ interface ExclusionDtoProps {
     iconUrl?: string;
 }
 
+/**
+ * Class for exclusion data to operate in frontend.
+ * Exclusions relations based on hierarchical structure of children:
+ * Service -> Exclusions Group -> Exclusion
+ */
 export class ExclusionDto implements ExclusionDtoInterface {
     id: string;
 
