@@ -473,7 +473,7 @@ export class ExclusionsService {
     prepareExclusionsForExport(exclusions: ExclusionInterface[]): string {
         return exclusions.map((ex) => {
             if (ex.state === ExclusionState.Enabled) {
-                return ex.hostname;
+                return punycode.toUnicode(ex.hostname);
             }
             return null;
         })
