@@ -734,10 +734,10 @@
         "message": "Imported exclusions: %count%"
     },
     "options_exclusions_deleted_exclusions": {
-        "message": "Deleted exclusions: %count%"
+        "message": "Deleted exclusions: %count%."
     },
     "options_exclusions_added_exclusions": {
-        "message": "Added exclusions: %count%"
+        "message": "Added exclusions: %count%."
     },
     "options_exclusions_remove_all_success": {
         "message": "All exclusions for current mode successfully removed."

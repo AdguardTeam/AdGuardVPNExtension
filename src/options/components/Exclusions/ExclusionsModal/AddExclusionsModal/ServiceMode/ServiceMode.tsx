@@ -17,18 +17,17 @@ export const ServiceMode = observer(() => {
 
     const handleSaveServices = async () => {
         const toggleServicesResult = await exclusionsStore.toggleServices();
-        if (toggleServicesResult.added) {
-            notificationsStore.notifySuccess(reactTranslator.getMessage(
-                'options_exclusions_added_exclusions',
-                { count: toggleServicesResult.added },
-            ));
-        }
-        if (toggleServicesResult.deleted) {
-            notificationsStore.notifySuccess(reactTranslator.getMessage(
-                'options_exclusions_deleted_exclusions',
-                { count: toggleServicesResult.deleted },
-            ));
-        }
+        const { added, deleted } = toggleServicesResult;
+
+        const addedExclusionsMessage = added
+            ? reactTranslator.getMessage('options_exclusions_added_exclusions', { count: added })
+            : '';
+
+        const deletedExclusionsMessage = deleted
+            ? reactTranslator.getMessage('options_exclusions_deleted_exclusions', { count: deleted })
+            : '';
+
+        notificationsStore.notifySuccess(`${addedExclusionsMessage} ${deletedExclusionsMessage}`);
         closeModal();
     };
 
