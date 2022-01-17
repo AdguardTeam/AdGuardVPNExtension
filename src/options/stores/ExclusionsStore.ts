@@ -385,8 +385,9 @@ export class ExclusionsStore {
         if (selectedExclusion.type === ExclusionsTypes.Group) {
             return selectedExclusion.children
                 .sort((a, b) => {
-                    return a.hostname === `*.${selectedExclusion.hostname}`
-                    && b.hostname !== selectedExclusion.hostname ? -1 : 1;
+                    return a.hostname === selectedExclusion.hostname
+                        || (a.hostname === `*.${selectedExclusion.hostname}`
+                            && b.hostname !== selectedExclusion.hostname) ? -1 : 1;
                 });
         }
 
