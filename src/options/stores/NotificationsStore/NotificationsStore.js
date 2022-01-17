@@ -18,11 +18,17 @@ export class NotificationsStore {
             .filter((notification) => notification.id !== notificationId);
     };
 
+    @action clearNotifications() {
+        this.notifications = [];
+    }
+
     notifySuccess = (message) => {
+        this.clearNotifications();
         this.addNotification(new SuccessNotification(message));
     };
 
     notifyError = (message) => {
+        this.clearNotifications();
         this.addNotification(new ErrorNotification(message));
     };
 }
