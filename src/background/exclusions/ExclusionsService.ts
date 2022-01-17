@@ -421,7 +421,7 @@ export class ExclusionsService {
      * @param url
      */
     isVpnEnabledByUrl(url: string) {
-        if (!exclusionsManager.currentHandler) {
+        if (!url || !exclusionsManager.currentHandler) {
             return true;
         }
 
