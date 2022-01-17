@@ -44,6 +44,9 @@
     "authentication_error_wrong_credentials": {
         "message": "Няслушны пароль"
     },
+    "authentication_too_many_requests": {
+        "message": "Мы атрымалі зашмат запытаў з вашага IP-адраса. Калі ласка, паспрабуйце пазней."
+    },
     "authentication_error_default": {
         "message": "Адбылася памылка, паспрабуйце пазней"
     },
@@ -122,8 +125,26 @@
     "account_edit": {
         "message": "Рэдагаваць"
     },
+    "account_version": {
+        "message": "Версія"
+    },
+    "account_signed": {
+        "message": "Увайшлі з дапамогай"
+    },
+    "account_free": {
+        "message": "Бясплатны"
+    },
+    "account_unlimited": {
+        "message": "Акаўнт"
+    },
+    "account_next_charge": {
+        "message": "(Наступная плата %date%)"
+    },
     "account_sign_out": {
         "message": "Выйсці"
+    },
+    "account_unlimited_title": {
+        "message": "Атрымайце безлімітную версію!"
     },
     "rate_description": {
         "message": "Прывітанне, мы каманда AdGuard, і для нас вельмі важна ведаць вашу думку пра наш прадукт. Калі ласка, ацаніце яго."
@@ -199,6 +220,9 @@
     },
     "auth_placeholder_2fa": {
         "message": "Код аўтарызацыі"
+    },
+    "official_website": {
+        "message": "Афіцыйны сайт"
     },
     "eula": {
         "message": "Ліцэнзійнае пагадненне"
@@ -537,14 +561,32 @@
     "popup_upgrade_screen_title": {
         "message": "Безлімітны VPN"
     },
+    "popup_upgrade_screen_desc": {
+        "message": "Час палепшыць ліцэнзію!"
+    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Неабмежаваны трафік"
+    },
+    "popup_upgrade_screen_unlimited_data_desc": {
+        "message": "Адзінае абмежаванне палягае ў тым, што вашы даныя ніколі \nне перадаюцца. Займайцеся сёрфінгам колькі душа жадае!"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "усе лакацыі, падтрымка 24/7"
     },
+    "popup_upgrade_screen_unlimited_speed_desc": {
+        "message": "Ніякіх абмежаванняў хуткасці. Атрымайце максімум магчымасцяў вашага правайдара!"
+    },
     "popup_upgrade_screen_all_locations": {
         "message": "Усе месцівы"
+    },
+    "popup_upgrade_screen_all_locations_desc": {
+        "message": "6 кантынентаў і дзясяткі краін. Абярыце горад і карыстайцеся інтэрнэтам бяспечна!"
+    },
+    "popup_upgrade_screen_streaming_support": {
+        "message": "Падтрымка струменевай перадачы"
+    },
+    "popup_upgrade_screen_streaming_support_desc": {
+        "message": "Даступныя ўсе галоўныя стрымінгавыя сэрвісы. Глядзі што хочаш і дзе хочаш!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Струменевая перадача"

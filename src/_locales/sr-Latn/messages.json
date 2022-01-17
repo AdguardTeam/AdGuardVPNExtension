@@ -80,6 +80,15 @@
     "account_edit": {
         "message": "Upravljaj"
     },
+    "account_version": {
+        "message": "Verzija"
+    },
+    "account_free": {
+        "message": "Besplatni nalog"
+    },
+    "account_unlimited": {
+        "message": "Premium nalog"
+    },
     "account_sign_out": {
         "message": "Odjavi se"
     },
@@ -139,6 +148,9 @@
     },
     "auth_placeholder_2fa": {
         "message": "Kod autentifikacije"
+    },
+    "official_website": {
+        "message": "Zvanična stranica"
     },
     "eula": {
         "message": "LUKK"

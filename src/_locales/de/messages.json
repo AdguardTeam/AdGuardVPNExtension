@@ -122,8 +122,26 @@
     "account_edit": {
         "message": "Verwalten"
     },
+    "account_version": {
+        "message": "Version"
+    },
+    "account_signed": {
+        "message": "Angemeldet als"
+    },
+    "account_free": {
+        "message": "Kostenlos"
+    },
+    "account_unlimited": {
+        "message": "Unbegrenzt"
+    },
+    "account_next_charge": {
+        "message": "(Nächste Zahlung %date%)"
+    },
     "account_sign_out": {
         "message": "Abmelden"
+    },
+    "account_unlimited_title": {
+        "message": "Holen Sie sich die Uneingeschränkte Version!"
     },
     "rate_description": {
         "message": "Hallo, dem Team von AdGuard ist es sehr wichtig, Ihre Meinung zu unserem Produkt zu erfahren. Bitte geben Sie eine Bewertung ab."
@@ -162,10 +180,10 @@
         "message": "Autorisierung"
     },
     "auth_info": {
-        "message": "Melden Sie sich mit Ihrem AdGuard-Konto oder mit einem Sozialer Login"
+        "message": "Melden Sie sich mit Ihrem AdGuard-Konto oder mit einem sozialen Netzwerk an"
     },
     "auth_sign_in_provider_adguard": {
-        "message": "Mit AdGuard-Konto anmelden"
+        "message": "Mit AdGuard anmelden"
     },
     "auth_sign_in_provider_apple": {
         "message": "Mit Apple anmelden"
@@ -199,6 +217,9 @@
     },
     "auth_placeholder_2fa": {
         "message": "Authentifizierungsschlüssel"
+    },
+    "official_website": {
+        "message": "Offizielle Website"
     },
     "eula": {
         "message": "Endbenutzer-Lizenzvertrag"
@@ -318,7 +339,7 @@
         "message": "Hell"
     },
     "settings_exclusion_add": {
-        "message": "Webseite hinzufügen"
+        "message": "Website hinzufügen"
     },
     "settings_exclusions_import_button": {
         "message": "Importieren"
@@ -330,7 +351,7 @@
         "message": "Alle löschen"
     },
     "settings_exclusion_title": {
-        "message": "Ausnahmen"
+        "message": "Ausschlüsse"
     },
     "settings_connection_mode_title": {
         "message": "Betriebsmodus"
@@ -345,7 +366,7 @@
         "message": "Selektiver Modus"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN funktioniert nur auf den Webseiten aus dieser Liste"
+        "message": "AdGuard VPN wird nur auf Websites aus dieser Liste funktionieren"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Subdomains"
@@ -489,7 +510,7 @@
         "message": "befindet sich in Ihrem lokalen Netzwerk und es kann nicht via VPN zugegeriffen werden"
     },
     "popup_site_status_vpn_disabled": {
-        "message": "VPN ist auf dieser Webseite deaktiviert"
+        "message": "VPN ist auf dieser Website deaktiviert"
     },
     "popup_auth_policy_agreement": {
         "message": "Akzeptieren Sie<eula>Endbenutzer-Lizenzvertrag</eula> und <privacy>Datenschutzbestimmungen</privacy>.",
@@ -505,7 +526,7 @@
         "message": "AdGuard Newsletter"
     },
     "popup_newsletter_info": {
-        "message": "Benachrichtigen Sie mich per E-Mail über Sonderangebote und Neuigkeiten von AdGuard"
+        "message": "Ich möchte über Sonderangebote und News von AdGuard erfahren"
     },
     "popup_newsletter_subscribe": {
         "message": "Abonnieren"
@@ -537,14 +558,29 @@
     "popup_upgrade_screen_title": {
         "message": "Unbegrenztes VPN"
     },
+    "popup_upgrade_screen_desc": {
+        "message": "Es ist an der Zeit, Ihre Lizenz zu erweitern!"
+    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Unbegrenzte Daten"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "Unbegrenzte Geschwindigkeit"
     },
+    "popup_upgrade_screen_unlimited_speed_desc": {
+        "message": "Keine Geschwindigkeitseinschränkungen. Holen Sie das Beste aus Ihrem Internetanschluss heraus!"
+    },
     "popup_upgrade_screen_all_locations": {
         "message": "Alle Standorten"
+    },
+    "popup_upgrade_screen_all_locations_desc": {
+        "message": "6 Kontinente und Dutzende Länder. Wählen Sie eine Stadt und surfen Sie sicher im Netz!"
+    },
+    "popup_upgrade_screen_streaming_support": {
+        "message": "Unterstützung von Streaming-Diensten"
+    },
+    "popup_upgrade_screen_streaming_support_desc": {
+        "message": "Alle wichtigen Streaming-Dienste sind verfügbar. Schauen Sie alles, überall!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Streaming"
@@ -569,7 +605,7 @@
         "message": "Möchten Sie wirklich wechseln?"
     },
     "options_exclusions_import_select_title": {
-        "message": "Ausschlüsse importieren in:"
+        "message": "Ausschlüsse importieren nach:"
     },
     "options_exclusions_import_select_regular": {
         "message": "Standardliste"

@@ -30,7 +30,7 @@
         "message": "Om"
     },
     "options_support_title": {
-        "message": "Kundtjänst"
+        "message": "Support"
     },
     "options_support_faq_title": {
         "message": "FAQ"
@@ -67,6 +67,12 @@
     },
     "account_title": {
         "message": "Konto"
+    },
+    "account_version": {
+        "message": "Version"
+    },
+    "account_free": {
+        "message": "Gratis"
     },
     "account_sign_out": {
         "message": "Logga ut"
@@ -116,6 +122,9 @@
     "auth_placeholder_2fa": {
         "message": "Autentiseringskod"
     },
+    "official_website": {
+        "message": "Officiell webbplats"
+    },
     "eula": {
         "message": "EULA"
     },
@@ -136,6 +145,9 @@
     },
     "settings_dns_selector_default_title": {
         "message": "Standard"
+    },
+    "settings_dns_selector_default_desc": {
+        "message": "Använd standard DNS servrar automatiskt när de är anslutna till VPN"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -254,6 +266,12 @@
     "settings_connect": {
         "message": "Anslut"
     },
+    "settings_vpn_enabled": {
+        "message": "Ansluten"
+    },
+    "settings_vpn_disabled": {
+        "message": "Bortkopplad"
+    },
     "popup_feedback_button": {
         "message": "Lämna feedback"
     },
@@ -276,17 +294,26 @@
     "popup_newsletter_subscribe": {
         "message": "Prenumerera"
     },
+    "popup_newsletter_no_subscribe": {
+        "message": "Nej, tack"
+    },
     "popup_onboarding_next": {
         "message": "Nästa"
     },
     "popup_upgrade_screen_title": {
         "message": "Obegränsad VPN"
     },
+    "popup_upgrade_screen_desc": {
+        "message": "Det är dags att uppgradera din licens!"
+    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Obegränsad data"
     },
     "popup_upgrade_screen_all_locations": {
         "message": "Alla platser"
+    },
+    "popup_upgrade_screen_all_locations_desc": {
+        "message": "6 kontinenter och dussintals länder. Välj en stad och surfa säkert på nätet!"
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Uppgradera"

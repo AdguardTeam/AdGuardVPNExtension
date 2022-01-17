@@ -122,8 +122,26 @@
     "account_edit": {
         "message": "管理"
     },
+    "account_version": {
+        "message": "版本"
+    },
+    "account_signed": {
+        "message": "用以下账号登录"
+    },
+    "account_free": {
+        "message": "免费"
+    },
+    "account_unlimited": {
+        "message": "无限制"
+    },
+    "account_next_charge": {
+        "message": "(下次付款日期 %date%)"
+    },
     "account_sign_out": {
         "message": "退出"
+    },
+    "account_unlimited_title": {
+        "message": "获取无限版！"
     },
     "rate_description": {
         "message": "嗨，我们是 AdGuard 团队！对我们来说，了解用户对我们产品的评价是非常重要的。请您对 AdGuard 产品进行评价。"
@@ -199,6 +217,9 @@
     },
     "auth_placeholder_2fa": {
         "message": "验证码"
+    },
+    "official_website": {
+        "message": "官方网站"
     },
     "eula": {
         "message": "最终用户许可协议"
@@ -537,14 +558,29 @@
     "popup_upgrade_screen_title": {
         "message": "无限制 VPN"
     },
+    "popup_upgrade_screen_desc": {
+        "message": "是时候升级您的许可证！"
+    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "无限数据"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "无限速度"
     },
+    "popup_upgrade_screen_unlimited_speed_desc": {
+        "message": "无速度限制。从服务提供商那里获得最大价值！"
+    },
     "popup_upgrade_screen_all_locations": {
         "message": "所有位置"
+    },
+    "popup_upgrade_screen_all_locations_desc": {
+        "message": "六个大洲及海量国家与地区。选择一座城市并开始安全浏览！"
+    },
+    "popup_upgrade_screen_streaming_support": {
+        "message": "流媒体服务"
+    },
+    "popup_upgrade_screen_streaming_support_desc": {
+        "message": "大部分主流流媒体服务都可用。随时随地享受！"
     },
     "popup_upgrade_screen_streaming": {
         "message": "串流"

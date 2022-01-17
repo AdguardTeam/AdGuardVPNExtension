@@ -44,6 +44,9 @@
     "authentication_error_wrong_credentials": {
         "message": "Password errata"
     },
+    "authentication_too_many_requests": {
+        "message": "Abbiamo ricevuto troppe richieste dal tuo indirizzo IP. Ti invitiamo a riprovare più tardi."
+    },
     "authentication_error_default": {
         "message": "Si è verificato un errore, riprova più tardi"
     },
@@ -122,8 +125,26 @@
     "account_edit": {
         "message": "Gestisci"
     },
+    "account_version": {
+        "message": "Versione"
+    },
+    "account_signed": {
+        "message": "Accesso eseguito con"
+    },
+    "account_free": {
+        "message": "Gratuito"
+    },
+    "account_unlimited": {
+        "message": "Illimitato"
+    },
+    "account_next_charge": {
+        "message": "(Prossima fatturazione %date%)"
+    },
     "account_sign_out": {
         "message": "Disconnetti"
+    },
+    "account_unlimited_title": {
+        "message": "Ottieni versione Illimitata!"
     },
     "rate_description": {
         "message": "Ehi, siamo un team di AdGuard ed è molto importante per noi conoscere la vostra opinione sul nostro prodotto. Per favore, valutatelo."
@@ -200,6 +221,9 @@
     "auth_placeholder_2fa": {
         "message": "Codice di autenticazione"
     },
+    "official_website": {
+        "message": "Sito web ufficiale"
+    },
     "eula": {
         "message": "EULA"
     },
@@ -264,22 +288,22 @@
         "message": "Utilizza automaticamente i server DNS predefiniti quando connesso alla VPN"
     },
     "settings_dns_selector_adguard_title": {
-        "message": "DNS di AdGuard"
+        "message": "AdGuard DNS"
     },
     "settings_dns_selector_adguard_desc": {
-        "message": "Rimuove annunci e traccianti dal tuo dispositivo"
+        "message": "Rimuove annunci e tracciatori dal tuo dispositivo"
     },
     "settings_dns_selector_adguard_nonfiltering_title": {
-        "message": "DNS di AdGuard Non-filtranti"
+        "message": "AdGuard DNS Non-filtrante"
     },
     "settings_dns_selector_adguard_nonfiltering_desc": {
-        "message": "DNS protetto senza registrazione delle attività (non filtra annunci e traccianti)"
+        "message": "DNS protetto senza registrazione delle attività (non filtra annunci e tracciatori)"
     },
     "settings_dns_selector_adguard_family_title": {
-        "message": "Protezione Famiglia AdGuard DNS"
+        "message": "AdGuard DNS Protezione Famiglia"
     },
     "settings_dns_selector_adguard_family_desc": {
-        "message": "DNS di AdGuard + SafeSearch e blocco dei contenuti per adulti"
+        "message": "AdGuard DNS + SafeSearch e blocco dei contenuti per adulti"
     },
     "settings_dns_selector_google_title": {
         "message": "DNS Google"
@@ -480,7 +504,7 @@
         "message": "Continua in modo gratuito"
     },
     "options_title": {
-        "message": "Opzioni AdGuard VPN"
+        "message": "Opzioni di AdGuard VPN"
     },
     "offline_title": {
         "message": "Offline"
@@ -537,14 +561,32 @@
     "popup_upgrade_screen_title": {
         "message": "VPN Illimitata"
     },
+    "popup_upgrade_screen_desc": {
+        "message": "È ora di aggiornare la tua licenza!"
+    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Dati illimitati"
+    },
+    "popup_upgrade_screen_unlimited_data_desc": {
+        "message": "L'unico limite è che i tuoi dati non verranno mai \ncondivisi. Naviga verso il contenuto del tuo cuore!"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "Velocità illimitata"
     },
+    "popup_upgrade_screen_unlimited_speed_desc": {
+        "message": "Senza limitazioni di velocità. Ricevi il massimo dal fornitore del tuo servizio!"
+    },
     "popup_upgrade_screen_all_locations": {
         "message": "Tutte le località"
+    },
+    "popup_upgrade_screen_all_locations_desc": {
+        "message": "Scegli una città e naviga in Rete in sicurezza!"
+    },
+    "popup_upgrade_screen_streaming_support": {
+        "message": "Supporto streaming"
+    },
+    "popup_upgrade_screen_streaming_support_desc": {
+        "message": "Tutte le maggiori piattaforme di streaming sono disponibili. Guarda qualsiasi cosa, ovunque!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Streaming"
@@ -560,7 +602,7 @@
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_selective_mode_popup_message": {
-        "message": "In modalità Selettiva AdGuard VPN funzionerà solo sui siti web consentiti che hai aggiunto alla lista."
+        "message": "In Modalità Selettiva AdGuard VPN funzionerà solo sui siti web consentiti che hai aggiunto alla lista."
     },
     "options_selective_mode_popup_button_switch_now": {
         "message": "Cambia ora"

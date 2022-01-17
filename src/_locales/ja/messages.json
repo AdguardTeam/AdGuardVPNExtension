@@ -122,8 +122,23 @@
     "account_edit": {
         "message": "アカウント管理"
     },
+    "account_version": {
+        "message": "バージョン"
+    },
+    "account_free": {
+        "message": "無料版"
+    },
+    "account_unlimited": {
+        "message": "無制限版"
+    },
+    "account_next_charge": {
+        "message": "(次回の請求日 %date%)"
+    },
     "account_sign_out": {
         "message": "ログアウト"
+    },
+    "account_unlimited_title": {
+        "message": "無制限版を入手しよう！"
     },
     "rate_description": {
         "message": "AdGuardチームです。私たちにとってユーザー様のご意見が一番大事です。ぜひ本製品をご評価いただくようお願いいたします。"
@@ -199,6 +214,9 @@
     },
     "auth_placeholder_2fa": {
         "message": "認証コード"
+    },
+    "official_website": {
+        "message": "公式ホームページ"
     },
     "eula": {
         "message": "利用許諾契約(EULA)"
@@ -537,14 +555,29 @@
     "popup_upgrade_screen_title": {
         "message": "無制限版VPN"
     },
+    "popup_upgrade_screen_desc": {
+        "message": "ライセンスをアップグレードしてみてはいかがでしょうか。"
+    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "無限のデータ量"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "接続速度無制限"
     },
+    "popup_upgrade_screen_unlimited_speed_desc": {
+        "message": "速度制限なし。お使いのインターネットプロバイダ提供のフルスピードでVPN接続をご利用いただけます。"
+    },
     "popup_upgrade_screen_all_locations": {
         "message": "ずべてのロケーション"
+    },
+    "popup_upgrade_screen_all_locations_desc": {
+        "message": "6つの大陸、数十の国。接続したい都市を選択して、安全にネットをお楽しみください。また、海外出張・旅行中で日本と同じネット環境も再現可能。"
+    },
+    "popup_upgrade_screen_streaming_support": {
+        "message": "ストリーミングサービスに対応"
+    },
+    "popup_upgrade_screen_streaming_support_desc": {
+        "message": "主要なストリーミングサービスすべてに対応。何でも、どこでも閲覧可能！"
     },
     "popup_upgrade_screen_streaming": {
         "message": "ストリーミングサービス対応"

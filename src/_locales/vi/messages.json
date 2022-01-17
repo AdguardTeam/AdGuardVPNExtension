@@ -122,6 +122,15 @@
     "account_edit": {
         "message": "Chỉnh sửa"
     },
+    "account_version": {
+        "message": "Phiên bản"
+    },
+    "account_free": {
+        "message": "Miễn phí"
+    },
+    "account_unlimited": {
+        "message": "Không giới hạn"
+    },
     "account_sign_out": {
         "message": "Đăng xuất"
     },
@@ -196,6 +205,9 @@
     },
     "auth_placeholder_2fa": {
         "message": "Mã xác thực"
+    },
+    "official_website": {
+        "message": "Trang chủ chính thức"
     },
     "eula": {
         "message": "EULA"

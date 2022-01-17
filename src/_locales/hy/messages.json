@@ -20,6 +20,9 @@
     "options_bug_report_textarea_label": {
         "message": "Հաղորդագրություն"
     },
+    "account_version": {
+        "message": "Տարբերակ՝"
+    },
     "auth_password": {
         "message": "Գաղտնաբառ"
     },

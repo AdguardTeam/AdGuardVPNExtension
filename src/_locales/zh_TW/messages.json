@@ -44,6 +44,9 @@
     "authentication_error_wrong_credentials": {
         "message": "錯誤的密碼"
     },
+    "authentication_too_many_requests": {
+        "message": "我們收到了太多來自您的 IP 位址之請求。請稍後再試。"
+    },
     "authentication_error_default": {
         "message": "錯誤已發生，稍後再試"
     },
@@ -122,6 +125,15 @@
     "account_edit": {
         "message": "管理"
     },
+    "account_version": {
+        "message": "版本"
+    },
+    "account_free": {
+        "message": "免費的"
+    },
+    "account_unlimited": {
+        "message": "無限制的"
+    },
     "account_sign_out": {
         "message": "登出"
     },
@@ -199,6 +211,9 @@
     },
     "auth_placeholder_2fa": {
         "message": "驗證代碼"
+    },
+    "official_website": {
+        "message": "官方的網站"
     },
     "eula": {
         "message": "終端用戶授權協定"
@@ -514,7 +529,7 @@
         "message": "不，謝謝"
     },
     "popup_onboarding_trusted_vpn": {
-        "message": "信任的 VPN"
+        "message": "受信任的 VPN"
     },
     "popup_onboarding_trusted_vpn_info": {
         "message": "由世界知名的廣告封鎖器的開發者"
@@ -545,6 +560,9 @@
     },
     "popup_upgrade_screen_all_locations": {
         "message": "所有的位置"
+    },
+    "popup_upgrade_screen_streaming_support": {
+        "message": "串流支援"
     },
     "popup_upgrade_screen_streaming": {
         "message": "串流"
