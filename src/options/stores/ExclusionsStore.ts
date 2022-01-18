@@ -3,6 +3,7 @@ import {
     computed,
     observable,
     runInAction,
+    toJS,
 } from 'mobx';
 import punycode from 'punycode';
 import { isIP } from 'is-ip';
@@ -311,7 +312,7 @@ export class ExclusionsStore {
      * Removes services from exclusions list if they were added otherwise adds them
      */
     @action toggleServices = async () => {
-        const toggleServicesResult = await messenger.toggleServices(this.servicesToToggle);
+        const toggleServicesResult = await messenger.toggleServices(toJS(this.servicesToToggle));
         runInAction(() => {
             this.servicesToToggle = [];
         });
