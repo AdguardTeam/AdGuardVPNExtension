@@ -19,6 +19,7 @@ import { locationsService } from './endpoints/locationsService';
 import { promoNotifications } from './promoNotifications';
 import tabs from './tabs';
 import { vpnProvider } from './providers/vpnProvider';
+import accountProvider from './providers/accountProvider';
 import { logStorage } from '../lib/log-storage';
 import { setDesktopVpnEnabled } from './connectivity/connectivityService/connectivityFSM';
 import { flagsStorage } from './flagsStorage';
@@ -58,6 +59,8 @@ const getOptionsData = async () => {
     const servicesData = exclusions.getServices();
 
     const isAuthenticated = await auth.isAuthenticated();
+    const isPremiumToken = await credentials.isPremiumToken();
+
     // AG-644 set current endpoint in order to avoid bug in permissions checker
     await endpoints.getSelectedLocation();
 
@@ -75,6 +78,7 @@ const getOptionsData = async () => {
         exclusionsData,
         servicesData,
         isAuthenticated,
+        isPremiumToken,
         isAllExclusionsListsEmpty,
     };
 };
@@ -130,6 +134,14 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         }
         case MessageType.OPEN_OPTIONS_PAGE: {
             return actions.openOptionsPage();
+        }
+        case MessageType.OPEN_REFERRAL_OPTIONS: {
+            await actions.openReferralOptions();
+            break;
+        }
+        case MessageType.GET_REFERRAL_DATA: {
+            const accessToken = await auth.getAccessToken();
+            return accountProvider.getReferralData(accessToken);
         }
         case MessageType.SET_SELECTED_LOCATION: {
             const { location, isSelectedByUser } = data;

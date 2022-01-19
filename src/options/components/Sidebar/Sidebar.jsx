@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { observer } from 'mobx-react';
 import { NavLink } from 'react-router-dom';
 
 import { Rate } from './Rate';
 import { reactTranslator } from '../../../common/reactTranslator';
+import { rootStore } from '../../stores';
 
 import './sidebar.pcss';
 
-export const Sidebar = () => {
+export const Sidebar = observer(() => {
+    const { authStore } = useContext(rootStore);
+    const { isPremiumToken } = authStore;
+
     return (
         <div className="sidebar">
             <div className="sidebar__in">
@@ -18,6 +23,11 @@ export const Sidebar = () => {
                     <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/exclusions">
                         {reactTranslator.getMessage('settings_exclusion_title')}
                     </NavLink>
+                    {!isPremiumToken && (
+                        <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/referral-program">
+                            {reactTranslator.getMessage('options_menu_free_traffic')}
+                        </NavLink>
+                    )}
                     <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/account">
                         {reactTranslator.getMessage('account_title')}
                     </NavLink>
@@ -34,4 +44,4 @@ export const Sidebar = () => {
             </div>
         </div>
     );
-};
+});

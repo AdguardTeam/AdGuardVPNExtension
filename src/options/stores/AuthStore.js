@@ -48,6 +48,8 @@ export class AuthStore {
 
     @observable requestProcessState = REQUEST_STATUSES.DONE;
 
+    @observable isPremiumToken;
+
     STEPS = AUTH_STEPS;
 
     constructor(rootStore) {
@@ -196,6 +198,17 @@ export class AuthStore {
     @action setIsAuthenticated = (value) => {
         this.authenticated = value;
     };
+
+    @action setIsPremiumToken = (isPremiumToken) => {
+        this.isPremiumToken = isPremiumToken;
+    };
+
+    @action async requestIsPremiumToken() {
+        const isPremiumToken = await messenger.checkIsPremiumToken();
+        runInAction(() => {
+            this.isPremiumToken = isPremiumToken;
+        });
+    }
 
     @action deauthenticate = async () => {
         await messenger.deauthenticateUser();

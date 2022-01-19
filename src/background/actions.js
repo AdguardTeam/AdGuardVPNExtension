@@ -135,6 +135,17 @@ const openPremiumPromoPage = async () => {
     await tabs.openTab(url);
 };
 
+/**
+ * Opens Options page on Referral Program section
+ */
+const openReferralOptions = async () => {
+    const optionsUrl = browser.runtime.getURL('options.html');
+    const referralOptionsUrl = `${optionsUrl}#referral-program`;
+    await browser.runtime.openOptionsPage();
+    const optionsTab = await tabs.getActive();
+    await tabs.update(optionsTab.id, referralOptionsUrl);
+};
+
 const actions = {
     openOptionsPage,
     setIconEnabled,
@@ -144,6 +155,7 @@ const actions = {
     clearBadgeText,
     getPremiumPromoPageUrl,
     openPremiumPromoPage,
+    openReferralOptions,
 };
 
 export default actions;

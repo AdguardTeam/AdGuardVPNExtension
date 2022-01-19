@@ -114,6 +114,16 @@ class Messenger {
         return this.sendMessage(type);
     }
 
+    async openReferralOptions() {
+        const type = MessageType.OPEN_REFERRAL_OPTIONS;
+        return this.sendMessage(type);
+    }
+
+    async getReferralData() {
+        const type = MessageType.GET_REFERRAL_DATA;
+        return this.sendMessage(type);
+    }
+
     async setCurrentLocation(location: any, isSelectedByUser: boolean) {
         const type = MessageType.SET_SELECTED_LOCATION;
         return this.sendMessage(type, { location, isSelectedByUser });

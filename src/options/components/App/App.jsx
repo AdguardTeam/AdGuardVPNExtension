@@ -12,6 +12,7 @@ import './app.pcss';
 import { rootStore } from '../../stores';
 import { Sidebar } from '../Sidebar';
 import { Settings } from '../Settings';
+import { Referral } from '../Referral';
 import { Account } from '../Account';
 import { About } from '../About';
 import { SignedOut } from '../SignedOut';
@@ -26,7 +27,7 @@ import { Exclusions } from '../Exclusions';
 
 Modal.setAppElement('#root');
 
-const getContent = (authenticated, requestProcessState) => {
+const getContent = (authenticated, requestProcessState, isPremiumToken) => {
     if (authenticated) {
         return (
             <div className="wrapper">
@@ -35,6 +36,9 @@ const getContent = (authenticated, requestProcessState) => {
                     <Switch>
                         <Route path="/" exact component={Settings} />
                         <Route path="/exclusions" exact component={Exclusions} />
+                        {!isPremiumToken && (
+                            <Route path="/referral-program" component={Referral} />
+                        )}
                         <Route path="/account" component={Account} />
                         <Route path="/about" component={About} />
                         <Route path="/support" component={Support} />
@@ -95,14 +99,13 @@ export const App = observer(() => {
                             break;
                         }
                         case notifier.types.USER_AUTHENTICATED: {
+                            await authStore.requestIsPremiumToken();
                             authStore.setIsAuthenticated(true);
                             await settingsStore.requestIsPremiumToken();
-                            await settingsStore.updateCurrentUsername();
                             break;
                         }
                         case notifier.types.USER_DEAUTHENTICATED: {
                             authStore.setIsAuthenticated(false);
-                            await settingsStore.updateCurrentUsername();
                             break;
                         }
                         default: {
@@ -124,11 +127,11 @@ export const App = observer(() => {
         return null;
     }
 
-    const { authenticated, requestProcessState } = authStore;
+    const { authenticated, requestProcessState, isPremiumToken } = authStore;
 
     return (
         <HashRouter hashType="noslash">
-            {getContent(authenticated, requestProcessState)}
+            {getContent(authenticated, requestProcessState, isPremiumToken)}
             <Notifications />
             <Icons />
         </HashRouter>

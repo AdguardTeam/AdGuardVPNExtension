@@ -25,6 +25,7 @@ export class GlobalStore {
             settingsStore.setOptionsData(optionsData);
             settingsStore.requestIsPremiumToken();
             authStore.setIsAuthenticated(optionsData.isAuthenticated);
+            authStore.setIsPremiumToken(optionsData.isPremiumToken);
             exclusionsStore.setServicesData(optionsData.servicesData);
             exclusionsStore.setExclusionsData(optionsData.exclusionsData);
             exclusionsStore.setIsAllExclusionsListsEmpty(optionsData.isAllExclusionsListsEmpty);

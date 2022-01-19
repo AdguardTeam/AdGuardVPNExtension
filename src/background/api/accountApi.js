@@ -21,6 +21,16 @@ class AccountApi extends Api {
         };
         return this.makeRequest(path, config, method);
     }
+
+    GET_REFERRAL_DATA = { path: 'vpn_invites', method: 'GET' };
+
+    getReferralData = async (accessToken) => {
+        const { path, method } = this.GET_REFERRAL_DATA;
+        const config = {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        };
+        return this.makeRequest(path, config, method);
+    };
 }
 
 export const accountApi = new AccountApi(async () => `${await fallbackApi.getAccountApiUrl()}/api/1.0`);
