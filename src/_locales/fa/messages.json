@@ -32,6 +32,9 @@
     "account_title": {
         "message": "اکانت"
     },
+    "account_version": {
+        "message": "نسخه"
+    },
     "account_sign_out": {
         "message": "خروج"
     },

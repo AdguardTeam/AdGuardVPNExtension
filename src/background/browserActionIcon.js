@@ -1,7 +1,7 @@
 import throttle from 'lodash/throttle';
 import notifier from '../lib/notifier';
 import actions from './actions';
-import exclusions from './exclusions';
+import { exclusions } from './exclusions';
 import tabs from './tabs';
 import { isHttp } from '../lib/string-utils';
 import auth from './auth';

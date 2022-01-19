@@ -14,14 +14,14 @@ const Status = observer(() => {
         isConnected,
         isConnectingIdle,
         isConnectingRetrying,
-        displayExclusionScreen,
+        isExcluded,
         canBeExcluded,
     } = settingsStore;
 
     const renderVpnStatusSubstring = () => {
         return exclusionsInverted
             ? reactTranslator.getMessage('context_menu_selective_mode')
-            : reactTranslator.getMessage('context_menu_regular_mode');
+            : reactTranslator.getMessage('context_menu_general_mode');
     };
 
     const renderVpnStatusTitle = () => {
@@ -29,7 +29,7 @@ const Status = observer(() => {
             return reactTranslator.getMessage('settings_vpn_connecting');
         }
 
-        if (isConnected && !displayExclusionScreen) {
+        if (isConnected && !isExcluded) {
             return reactTranslator.getMessage('settings_vpn_enabled');
         }
 

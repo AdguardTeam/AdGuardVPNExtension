@@ -41,10 +41,8 @@ const Settings = observer(() => {
         <div className={settingsClass}>
             <div className="settings__pic" />
             <div className="settings__main">
-                <>
-                    <Status />
-                    <GlobalControl />
-                </>
+                <Status />
+                <GlobalControl />
             </div>
         </div>
     );

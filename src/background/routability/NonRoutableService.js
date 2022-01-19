@@ -2,11 +2,13 @@
 import throttle from 'lodash/throttle';
 import ipaddr from 'ipaddr.js';
 import browser from 'webextension-polyfill';
+import { isIP } from 'is-ip';
+
 import { log } from '../../lib/logger';
 import notifier from '../../lib/notifier';
-import { getHostname } from '../../lib/helpers';
 import { NON_ROUTABLE_CIDR_NETS } from './constants';
 import tabs from '../tabs';
+import { getHostname } from '../../common/url-utils';
 
 /**
  * This module notifies user about non routable domains
@@ -169,7 +171,7 @@ class NonRoutableService {
             }
             this.clearStaleValues(this.webRequestErrorHostnames);
         }
-    }
+    };
 
     /**
      * Adds hostname in the storage and notifies exclusions, to add hostname in the list
@@ -207,7 +209,7 @@ class NonRoutableService {
             return false;
         }
 
-        if (!ipaddr.isValid(hostname)) {
+        if (!isIP(hostname)) {
             return true;
         }
 

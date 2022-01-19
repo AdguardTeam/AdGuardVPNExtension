@@ -44,6 +44,9 @@
     "authentication_error_wrong_credentials": {
         "message": "Verkeerd wachtwoord"
     },
+    "authentication_too_many_requests": {
+        "message": "We hebben te veel verzoeken ontvangen van jouw IP-adres. Probeer het later nog eens."
+    },
     "authentication_error_default": {
         "message": "Er is een fout opgetreden. Probeer later opnieuw"
     },
@@ -122,8 +125,26 @@
     "account_edit": {
         "message": "Beheren"
     },
+    "account_version": {
+        "message": "Versie"
+    },
+    "account_signed": {
+        "message": "Aangemeld met"
+    },
+    "account_free": {
+        "message": "Gratis"
+    },
+    "account_unlimited": {
+        "message": "Onbeperkt"
+    },
+    "account_next_charge": {
+        "message": "(Volgende afschrijving %date%)"
+    },
     "account_sign_out": {
         "message": "Afmelden"
+    },
+    "account_unlimited_title": {
+        "message": "De Unlimited-versie verkrijgen!"
     },
     "rate_description": {
         "message": "Hallo, we zijn een team van AdGuard en het is erg belangrijk voor ons om jouw mening over ons product te weten. Beoordeel het alsjeblieft."
@@ -199,6 +220,9 @@
     },
     "auth_placeholder_2fa": {
         "message": "Authenticatiecode"
+    },
+    "official_website": {
+        "message": "Officiële website"
     },
     "eula": {
         "message": "EULA"
@@ -537,14 +561,32 @@
     "popup_upgrade_screen_title": {
         "message": "Onbeperkt VPN"
     },
+    "popup_upgrade_screen_desc": {
+        "message": "Het is tijd om je licentie te upgraden!"
+    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Onbeperkte data"
+    },
+    "popup_upgrade_screen_unlimited_data_desc": {
+        "message": "De enige beperking is dat je gegevens nooit worden gedeeld. Surf naar hartelust!"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "Onbeperkte snelheid"
     },
+    "popup_upgrade_screen_unlimited_speed_desc": {
+        "message": "Geen snelheidsbeperkingen. Haal het maximale uit je dienstverlener!"
+    },
     "popup_upgrade_screen_all_locations": {
         "message": "Alle locaties"
+    },
+    "popup_upgrade_screen_all_locations_desc": {
+        "message": "6 continenten en tientallen landen. Kies een plaats en surf veilig op internet!"
+    },
+    "popup_upgrade_screen_streaming_support": {
+        "message": "Ondersteuning voor streaming"
+    },
+    "popup_upgrade_screen_streaming_support_desc": {
+        "message": "Alle grote streamingdiensten zijn beschikbaar. Bekijk alles, overal!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Streamen"

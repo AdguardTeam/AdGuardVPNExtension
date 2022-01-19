@@ -122,8 +122,26 @@
     "account_edit": {
         "message": "관리"
     },
+    "account_version": {
+        "message": "버전"
+    },
+    "account_signed": {
+        "message": "로그인함:"
+    },
+    "account_free": {
+        "message": "무료 계정"
+    },
+    "account_unlimited": {
+        "message": "무제한 계정"
+    },
+    "account_next_charge": {
+        "message": "(다음 결제일 %date%)"
+    },
     "account_sign_out": {
         "message": "로그아웃"
+    },
+    "account_unlimited_title": {
+        "message": "무제한 버전 이용하기!"
     },
     "rate_description": {
         "message": "안녕하세요, AdGuard 팀은 제품에 대한 사용자 의견을 중요하게 생각하고 있습니다. 만족도를 평가해주세요."
@@ -200,6 +218,9 @@
     "auth_placeholder_2fa": {
         "message": "인증 코드"
     },
+    "official_website": {
+        "message": "공식 웹사이트"
+    },
     "eula": {
         "message": "EULA"
     },
@@ -255,7 +276,7 @@
         "message": "DNS 서버 사용하기"
     },
     "settings_dns_desc": {
-        "message": "도메인 네임 시스템(DNS) 은 서버는 인터넷의 전화번호부 같은 역할을 합니다. DNS는 도메인 이름들을 저장하고 그 이름들을 인터넷 프로토콜(IP) 주소로 변환해줍니다."
+        "message": "도메인 네임 시스템(DNS) 서버는 인터넷의 전화번호부 같은 역할을 합니다. DNS는 도메인 이름들의 목록을 유지관리하고, 이를 인터넷 프로토콜(IP) 주소로 변환해줍니다."
     },
     "settings_dns_selector_default_title": {
         "message": "기본"
@@ -537,14 +558,29 @@
     "popup_upgrade_screen_title": {
         "message": "무제한 VPN"
     },
+    "popup_upgrade_screen_desc": {
+        "message": "라이선스를 업그레이드할 때입니다!"
+    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "무제한 데이터"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "무제한 속도"
     },
+    "popup_upgrade_screen_unlimited_speed_desc": {
+        "message": "속도 제한 없음. 인터넷 서비스를 최대한 활용해보세요!"
+    },
     "popup_upgrade_screen_all_locations": {
         "message": "모든 위치"
+    },
+    "popup_upgrade_screen_all_locations_desc": {
+        "message": "6개 대륙, 수십 개의 국가 및 도시중에서 선택하여 안전하게 인터넷을 사용하세요!"
+    },
+    "popup_upgrade_screen_streaming_support": {
+        "message": "스트리밍 지원"
+    },
+    "popup_upgrade_screen_streaming_support_desc": {
+        "message": "모든 주요 스트리밍 서비스를 이용할 수 있습니다. 어디서든, 무엇이든지 시청하세요!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "스트리밍"

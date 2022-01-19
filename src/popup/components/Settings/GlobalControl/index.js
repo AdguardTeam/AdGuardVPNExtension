@@ -17,12 +17,12 @@ const GlobalControl = observer(() => {
         await settingsStore.setProxyState(false);
     };
 
-    const addToExclusions = async () => {
-        await settingsStore.addToExclusions();
+    const disableVpnForCurrentSite = async () => {
+        await settingsStore.disableVpnOnCurrentTab();
     };
 
-    const removeFromExclusions = async () => {
-        await settingsStore.removeFromExclusions();
+    const enableVpnForCurrentSite = async () => {
+        await settingsStore.enableVpnOnCurrentTab();
     };
 
     const renderExclusionButton = (isExcluded, exclusionsInverted) => {
@@ -40,12 +40,12 @@ const GlobalControl = observer(() => {
 
         const buttonsInfo = {
             add: {
-                text: getText(exclusionsInverted),
-                handler: addToExclusions,
+                text: getText(!exclusionsInverted),
+                handler: disableVpnForCurrentSite,
             },
             remove: {
-                text: getText(!exclusionsInverted),
-                handler: removeFromExclusions,
+                text: getText(exclusionsInverted),
+                handler: enableVpnForCurrentSite,
             },
         };
 

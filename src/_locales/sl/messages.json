@@ -44,6 +44,9 @@
     "authentication_error_wrong_credentials": {
         "message": "Žal, napačno geslo"
     },
+    "authentication_too_many_requests": {
+        "message": "Preveč zahtev je bilo prejetih z vašega naslova IP. Poskusite znova pozneje."
+    },
     "authentication_error_default": {
         "message": "Prišlo je do napake, poskusite pozneje znova"
     },
@@ -122,6 +125,21 @@
     "account_edit": {
         "message": "Upravljaj"
     },
+    "account_version": {
+        "message": "Različica"
+    },
+    "account_signed": {
+        "message": "Prijavljen z"
+    },
+    "account_free": {
+        "message": "Brezplačen"
+    },
+    "account_unlimited": {
+        "message": "Neomejen"
+    },
+    "account_next_charge": {
+        "message": "(Naslednje polnjenje %date%)"
+    },
     "account_sign_out": {
         "message": "Odjava"
     },
@@ -199,6 +217,9 @@
     },
     "auth_placeholder_2fa": {
         "message": "Koda za preverjanje pristnosti"
+    },
+    "official_website": {
+        "message": "Uradna spletna stran"
     },
     "eula": {
         "message": "Licenčna pogodba za končnega uporabnika"
@@ -545,6 +566,9 @@
     },
     "popup_upgrade_screen_all_locations": {
         "message": "Vse lokacije"
+    },
+    "popup_upgrade_screen_streaming_support": {
+        "message": "Podpora za pretakanje"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Pretakanje"

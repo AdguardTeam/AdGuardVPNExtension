@@ -44,6 +44,9 @@
     "authentication_error_wrong_credentials": {
         "message": "Неверный пароль"
     },
+    "authentication_too_many_requests": {
+        "message": "Мы получили слишком много запросов с вашего IP-адреса. Пожалуйста, попробуйте позже."
+    },
     "authentication_error_default": {
         "message": "Произошла ошибка. Попробуйте позже"
     },
@@ -122,8 +125,26 @@
     "account_edit": {
         "message": "Управлять"
     },
+    "account_version": {
+        "message": "Версия"
+    },
+    "account_signed": {
+        "message": "Вы вошли, используя почту"
+    },
+    "account_free": {
+        "message": "Бесплатный"
+    },
+    "account_unlimited": {
+        "message": "Безлимитный"
+    },
+    "account_next_charge": {
+        "message": "(Следующий платёж %date%)"
+    },
     "account_sign_out": {
         "message": "Выйти"
+    },
+    "account_unlimited_title": {
+        "message": "Получите безлимитную версию!"
     },
     "rate_description": {
         "message": "Привет, мы команда AdGuard, и для нас очень важно знать ваше мнение о нашем продукте. Пожалуйста, оцените его.\n"
@@ -199,6 +220,9 @@
     },
     "auth_placeholder_2fa": {
         "message": "Код аутентификации"
+    },
+    "official_website": {
+        "message": "Официальный сайт"
     },
     "eula": {
         "message": "Лицензионное соглашение"
@@ -540,11 +564,26 @@
     "popup_upgrade_screen_unlimited_data": {
         "message": "Неограниченный трафик"
     },
+    "popup_upgrade_screen_unlimited_data_desc": {
+        "message": "Единственное ограничение — мы никогда не делимся вашими данными. Путешествуйте по сети, сколько душе угодно!"
+    },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "Неограниченная скорость"
     },
+    "popup_upgrade_screen_unlimited_speed_desc": {
+        "message": "Никаких ограничений скорости. Получите максимум возможностей вашего провайдера!"
+    },
     "popup_upgrade_screen_all_locations": {
         "message": "Все локации"
+    },
+    "popup_upgrade_screen_all_locations_desc": {
+        "message": "5 континентов и десятки стран. Выберите город и пользуйтесь интернетом безопасно!"
+    },
+    "popup_upgrade_screen_streaming_support": {
+        "message": "Стриминг "
+    },
+    "popup_upgrade_screen_streaming_support_desc": {
+        "message": "Доступны все главные стриминговые сервисы. Смотрите что угодно и где угодно!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Доступен стриминг"

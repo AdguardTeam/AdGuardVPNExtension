@@ -1,15 +1,17 @@
 module.exports = {
-    parser: 'babel-eslint',
+    parser: '@typescript-eslint/parser',
     extends: [
         'airbnb',
+        'airbnb-typescript',
         'plugin:react/recommended',
     ],
-    plugins: ['react'],
     parserOptions: {
+        project: ['tsconfig.eslint.json'],
         ecmaFeatures: {
             jsx: true,
         },
     },
+    plugins: ['react'],
     env: {
         browser: true,
         node: true,
@@ -23,14 +25,21 @@ module.exports = {
             pragma: 'React',
             version: 'detect',
         },
+        'import/resolver': {
+            node: {
+                extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+            },
+        },
     },
     rules: {
-        'no-shadow': 'off',
-        'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+        'no-shadow': 0,
+        '@typescript-eslint/no-shadow': 0,
+        'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
         'import/no-extraneous-dependencies': 0,
         indent: ['error', 4, { SwitchCase: 1 }],
         'react/jsx-indent': 'off',
         'react/jsx-indent-props': 'off',
+        '@typescript-eslint/indent': ['error', 4],
         'no-underscore-dangle': 'off',
         'react/destructuring-assignment': [
             'error',
@@ -39,6 +48,7 @@ module.exports = {
                 ignoreClassFields: true,
             },
         ],
+        'react/function-component-definition': 0,
         'jsx-a11y/label-has-associated-control': [2, {
             labelComponents: ['label'],
             labelAttributes: ['htmlFor'],
@@ -55,10 +65,22 @@ module.exports = {
         'jsx-a11y/no-noninteractive-element-interactions': 'off',
         'jsx-a11y/anchor-is-valid': 'off',
         'jsx-a11y/no-static-element-interactions': 'off',
-        'react/prop-types': 'off', // TODO remove this rule when app will grow bigger
+        // Since we do not use prop-types
+        'react/prop-types': 'off',
+        'react/require-default-props': 'off',
         'class-methods-use-this': 'off',
         'import/prefer-default-export': 'off',
         'arrow-body-style': 'off',
         'react/display-name': 'off',
+        'import/extensions': [
+            'error',
+            'ignorePackages',
+            {
+                js: 'never',
+                jsx: 'never',
+                ts: 'never',
+                tsx: 'never',
+            },
+        ],
     },
 };

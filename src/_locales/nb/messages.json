@@ -92,6 +92,15 @@
     "account_edit": {
         "message": "Håndter"
     },
+    "account_version": {
+        "message": "Versjon"
+    },
+    "account_free": {
+        "message": "Gratis"
+    },
+    "account_unlimited": {
+        "message": "Ubegrenset"
+    },
     "account_sign_out": {
         "message": "Logg av"
     },
@@ -163,6 +172,9 @@
     },
     "auth_placeholder_2fa": {
         "message": "Autentiseringskode"
+    },
+    "official_website": {
+        "message": "Offisielt nettsted"
     },
     "eula": {
         "message": "EULA"

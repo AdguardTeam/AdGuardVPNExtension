@@ -13,17 +13,15 @@ const Webrtc = observer(() => {
     };
 
     return (
-        <>
-            <div className="settings__group">
-                <Switch
-                    id="webrtc"
-                    title={reactTranslator.getMessage('settings_webrtc_label')}
-                    desc={reactTranslator.getMessage('settings_webrtc_desc')}
-                    handleToggle={handleCheckboxChange}
-                    checked={settingsStore.webRTCEnabled}
-                />
-            </div>
-        </>
+        <div className="settings__group">
+            <Switch
+                id="webrtc"
+                title={reactTranslator.getMessage('settings_webrtc_label')}
+                desc={reactTranslator.getMessage('settings_webrtc_desc')}
+                handleToggle={handleCheckboxChange}
+                checked={settingsStore.webRTCEnabled}
+            />
+        </div>
     );
 });
 

@@ -1,0 +1,60 @@
+.subdomain-modal {
+    &__input {
+        color: var(--gray-base);
+        display: block;
+        width: 100%;
+        height: 45px;
+        padding: 0 10px;
+        border-radius: 7px;
+        background-color: var(--grayF7);
+        border: 1px solid var(--grayD8);
+        font-size: 15px;
+        margin-top: 5px;
+
+        @media (prefers-color-scheme: dark) {
+            background-color: #131313;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    &__actions {
+        margin-top: 24px;
+
+        & button {
+            margin-right: 20px;
+            text-transform: none;
+        }
+    }
+
+    & label {
+        position: relative;
+        display: block;
+    }
+
+    &__hostname {
+        position: absolute;
+        top: 37px;
+        right: 20px;
+        padding-left: 20px;
+        border-left: 1px solid var(--grayD8);
+    }
+}
+
+.light-mode {
+    .subdomain-modal {
+        &__input {
+            background-color: var(--grayF7);
+        }
+    }
+}
+
+.dark-mode {
+    .subdomain-modal {
+        &__input {
+            background-color: #131313;
+        }
+    }
+}

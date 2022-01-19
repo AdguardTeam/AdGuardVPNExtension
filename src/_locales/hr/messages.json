@@ -122,8 +122,26 @@
     "account_edit": {
         "message": "Upravljanje"
     },
+    "account_version": {
+        "message": "Verzija"
+    },
+    "account_signed": {
+        "message": "Prijavljeno uz pomoć"
+    },
+    "account_free": {
+        "message": "Besplatno"
+    },
+    "account_unlimited": {
+        "message": "Unlimited"
+    },
+    "account_next_charge": {
+        "message": "(Next charge %date%)"
+    },
     "account_sign_out": {
         "message": "Odjava"
+    },
+    "account_unlimited_title": {
+        "message": "Kupite neograničenu inačicu!"
     },
     "rate_description": {
         "message": "Hej, mi smo tim iz AdGuarda i vrlo nam je važno čuti vaše mišljenje o našem proizvodu. Molimo ocijenite ga."
@@ -161,6 +179,9 @@
     "auth_title": {
         "message": "Autorizacija"
     },
+    "auth_info": {
+        "message": "Nastavite sa vašim AdGuard korisničkim računom ili a računom društvene mreže"
+    },
     "auth_sign_in_provider_adguard": {
         "message": "Nastavi s AdGuardom"
     },
@@ -197,6 +218,9 @@
     "auth_placeholder_2fa": {
         "message": "Autentikacijski kôd"
     },
+    "official_website": {
+        "message": "Službena stranica"
+    },
     "eula": {
         "message": "EULA"
     },
@@ -205,6 +229,24 @@
     },
     "settings_title": {
         "message": "Postavke"
+    },
+    "referral_get_free_traffic": {
+        "message": "Dobite besplatni VPN promet!"
+    },
+    "settings_referral_info": {
+        "message": "Pozovite vaše prijatelje u naš Ninja klan i dobite više besplatnog VPN prometa mjesečno. dobit ćete 1 Gb za svakog prijatelja koji se prijavi: oni također dobivaju dodatan gigabajt za prijavu! Ukupno možete dobiti 10 GB besplatno."
+    },
+    "settings_referral_invited_friends": {
+        "message": "Pozvani prijatelji %count%/%limit%"
+    },
+    "settings_referral_limit_reached": {
+        "message": "Već ste dobilo 10 GB vašeg besplatnog VPN prometa, ali vaši prijatelji mogu dobiti dodatan gigabajt ako ih pozovete!"
+    },
+    "settings_referral_copy_link": {
+        "message": "Kopiraj link"
+    },
+    "settings_referral_link_copied": {
+        "message": "Link kopiran"
     },
     "settings_rate_us": {
         "message": "Ocijenite nas"
@@ -495,6 +537,9 @@
     "popup_onboarding_trusted_vpn": {
         "message": "Povjerljiv VPN"
     },
+    "popup_onboarding_trusted_vpn_info": {
+        "message": "Razvija tvrtka koja razvija poznati blokator reklama"
+    },
     "popup_onboarding_numerous_locations": {
         "message": "Brojne lokacije"
     },
@@ -513,20 +558,38 @@
     "popup_upgrade_screen_title": {
         "message": "Neograničen VPN"
     },
+    "popup_upgrade_screen_desc": {
+        "message": "Vrijeme je za nadogradnju vaše licence!"
+    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Neograničeni podaci"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "sve lokacije, podrška 24/7"
     },
+    "popup_upgrade_screen_unlimited_speed_desc": {
+        "message": "Nema ograničenja brzine. Izvucite više od vašeg davatelja internetskih usluga!"
+    },
     "popup_upgrade_screen_all_locations": {
         "message": "Sve lokacije"
+    },
+    "popup_upgrade_screen_all_locations_desc": {
+        "message": "6 kontinenata i puno država. Izaberite jednu državu i surfajte internetom!"
+    },
+    "popup_upgrade_screen_streaming_support": {
+        "message": "Podrška strujanja"
+    },
+    "popup_upgrade_screen_streaming_support_desc": {
+        "message": "Svi veliki streaming servisi su dostupni. Gledajte bilo što bilo gdje!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Strujanje"
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Nadogradi"
+    },
+    "popup_upgrade_screen_continue_free": {
+        "message": "Nastavite besplatno"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> preostalo ovaj mjesec",
@@ -603,5 +666,8 @@
     },
     "options_signedout_page_title": {
         "message": "Odjavili ste se iz AdGuard VPN-a"
+    },
+    "options_signedout_page_description": {
+        "message": "Imajte na umu da vaša veza nije sigurna. Da biste nastavili privatno surfati, kliknite na ikonu AdGuard VPN i ponovno se prijavite."
     }
 }

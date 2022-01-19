@@ -41,6 +41,15 @@
     "account_title": {
         "message": "Paskyra"
     },
+    "account_version": {
+        "message": "Versija"
+    },
+    "account_free": {
+        "message": "Nemokama paskyra"
+    },
+    "account_unlimited": {
+        "message": "Neribotas"
+    },
     "account_sign_out": {
         "message": "Atsijungti"
     },

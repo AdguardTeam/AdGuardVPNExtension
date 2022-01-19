@@ -44,6 +44,9 @@
     "authentication_error_wrong_credentials": {
         "message": "Nesprávne heslo"
     },
+    "authentication_too_many_requests": {
+        "message": "Dostali sme príliš veľa dopytov z Vašej IP adresy. Skúste sa znova prihlásiť neskôr."
+    },
     "authentication_error_default": {
         "message": "Vyskytla sa chyba, skúste zopakovať neskôr"
     },
@@ -122,8 +125,26 @@
     "account_edit": {
         "message": "Spravovať"
     },
+    "account_version": {
+        "message": "Verzia"
+    },
+    "account_signed": {
+        "message": "Prihlásený s"
+    },
+    "account_free": {
+        "message": "Bezplatná"
+    },
+    "account_unlimited": {
+        "message": "Neobmedzená"
+    },
+    "account_next_charge": {
+        "message": "(Nasledujúci poplatok %date%)"
+    },
     "account_sign_out": {
         "message": "Odhlásiť sa"
+    },
+    "account_unlimited_title": {
+        "message": "Získať Neobmedzenú verziu!"
     },
     "rate_description": {
         "message": "Hej, sme tím spoločnosti AdGuard a je pre nás veľmi dôležité poznať Váš názor na náš produkt. Ohodnoťte ho."
@@ -199,6 +220,9 @@
     },
     "auth_placeholder_2fa": {
         "message": "Autorizačný kód"
+    },
+    "official_website": {
+        "message": "Oficiálna stránka"
     },
     "eula": {
         "message": "Zmluva EULA"
@@ -537,14 +561,29 @@
     "popup_upgrade_screen_title": {
         "message": "Neobmedzená VPN"
     },
+    "popup_upgrade_screen_desc": {
+        "message": "Je čas na upgrade Vašej licencie!"
+    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Neobmedzené dáta"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "Neobmedzená rýchlosť"
     },
+    "popup_upgrade_screen_unlimited_speed_desc": {
+        "message": "Bez obmedzenia rýchlosti. Získajte maximum od svojho internetového operátora!"
+    },
     "popup_upgrade_screen_all_locations": {
         "message": "Všetky lokality"
+    },
+    "popup_upgrade_screen_all_locations_desc": {
+        "message": "6 kontinentov a desiatky krajín. Vyberte si mesto a bezpečne surfujte na internete!"
+    },
+    "popup_upgrade_screen_streaming_support": {
+        "message": "Podpora streamovania"
+    },
+    "popup_upgrade_screen_streaming_support_desc": {
+        "message": "K dispozícii sú všetky hlavné streamovacie služby. Sledujte čokoľvek a kdekoľvek!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Streamovanie"

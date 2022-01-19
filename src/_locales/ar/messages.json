@@ -29,6 +29,12 @@
     "account_title": {
         "message": "حسابي"
     },
+    "account_version": {
+        "message": "الإصدار"
+    },
+    "account_free": {
+        "message": "حساب مجاني"
+    },
     "rate_hide": {
         "message": "إخفاء"
     },

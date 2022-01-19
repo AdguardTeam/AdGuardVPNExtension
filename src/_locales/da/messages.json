@@ -44,6 +44,9 @@
     "authentication_error_wrong_credentials": {
         "message": "Forkert adgangskode"
     },
+    "authentication_too_many_requests": {
+        "message": "For mange forespørgsler modtaget fra din IP-adresse. Forsøg igen senere."
+    },
     "authentication_error_default": {
         "message": "En fejl opstod, forsøg igen senere"
     },
@@ -122,8 +125,26 @@
     "account_edit": {
         "message": "Håndtere"
     },
+    "account_version": {
+        "message": "Version"
+    },
+    "account_signed": {
+        "message": "Logget ind med"
+    },
+    "account_free": {
+        "message": "Gratis"
+    },
+    "account_unlimited": {
+        "message": "Ubegrænset"
+    },
+    "account_next_charge": {
+        "message": "(Næste opkrævning %date%)"
+    },
     "account_sign_out": {
         "message": "Log ud"
+    },
+    "account_unlimited_title": {
+        "message": "Køb den ubegrænsede version!"
     },
     "rate_description": {
         "message": "Hej, vi er et team fra AdGuard, og det er meget vigtigt for os at kende din mening om vores produkt. Bedøm det derfor venligst."
@@ -199,6 +220,9 @@
     },
     "auth_placeholder_2fa": {
         "message": "Godkendelseskode"
+    },
+    "official_website": {
+        "message": "Officiel webside"
     },
     "eula": {
         "message": "EULA"
@@ -537,14 +561,29 @@
     "popup_upgrade_screen_title": {
         "message": "Ubegrænset VPN"
     },
+    "popup_upgrade_screen_desc": {
+        "message": "Det er tid til at opgradere din licens!"
+    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Ubegrænset data"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "Ubegrænset hastighed"
     },
+    "popup_upgrade_screen_unlimited_speed_desc": {
+        "message": "Ingen hastighedsbegrænsninger. Få mest muligt ud af tjenesteudbyderen!"
+    },
     "popup_upgrade_screen_all_locations": {
         "message": "Alle placeringer"
+    },
+    "popup_upgrade_screen_all_locations_desc": {
+        "message": "6 kontinenter og snesevis af lande. Vælg en by og surf sikkert på nettet!"
+    },
+    "popup_upgrade_screen_streaming_support": {
+        "message": "Streamingsupport"
+    },
+    "popup_upgrade_screen_streaming_support_desc": {
+        "message": "Alle større streamingtjenester er tilgængelige. Se hvad som helst, hvor som helst!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Streaming"

@@ -15,14 +15,14 @@ import { Settings } from '../Settings';
 import { Account } from '../Account';
 import { About } from '../About';
 import { SignedOut } from '../SignedOut';
-import Exclusions from '../Exclusions';
 import { Preloader } from '../Preloader';
 import Icons from '../ui/Icons';
-import messenger from '../../../lib/messenger';
+import { messenger } from '../../../lib/messenger';
 import notifier from '../../../lib/notifier';
 import { Support } from '../Support';
 import { Notifications } from '../ui/Notifications';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
+import { Exclusions } from '../Exclusions';
 
 Modal.setAppElement('#root');
 
@@ -58,6 +58,7 @@ export const App = observer(() => {
         authStore,
         settingsStore,
         globalStore,
+        exclusionsStore,
     } = useContext(rootStore);
 
     useAppearanceTheme(settingsStore.appearanceTheme);
@@ -83,16 +84,14 @@ export const App = observer(() => {
                 events,
                 async (message) => {
                     const { type } = message;
+
                     switch (type) {
                         case notifier.types.AUTHENTICATE_SOCIAL_SUCCESS: {
                             authStore.setIsAuthenticated(true);
                             break;
                         }
                         case notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE: {
-                            if (settingsStore.isAddingExclusions) {
-                                return;
-                            }
-                            await settingsStore.getExclusions();
+                            await exclusionsStore.updateExclusionsData();
                             break;
                         }
                         case notifier.types.USER_AUTHENTICATED: {

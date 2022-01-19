@@ -27,6 +27,11 @@
         padding: 8px 20px;
     }
 
+    &--large {
+        min-width: 200px;
+        padding: 8px 40px;
+    }
+
     &--block {
         display: block;
         width: 100%;
@@ -71,6 +76,19 @@
         &:hover,
         &:focus {
             background-color: rgba(191, 72, 41, 0.05);
+        }
+    }
+
+    &--outline-secondary {
+        border-color: var(--gray88);
+        color: var(--gray88);
+
+        &:hover {
+            background-color: rgba(19, 19, 19, 0.05);
+        }
+
+        &:active {
+            background-color: rgba(19, 19, 19, 0.1);
         }
     }
 
@@ -139,5 +157,32 @@
         &:focus {
             background-color: var(--grayF3);
         }
+    }
+}
+
+.simple-button {
+    border: none;
+    background: none;
+    color: var(--brand-primary);
+    cursor: pointer;
+
+    &:focus {
+        outline: none;
+    }
+
+    &:hover {
+        color: var(--brand-secondary);
+    }
+}
+
+.back-button {
+    cursor: pointer;
+    border: 0;
+    background: transparent;
+    transform: rotate(180deg);
+    padding: 12px 8px 5px 16px;
+
+    &:hover {
+        filter: brightness(.7);
     }
 }

@@ -2,12 +2,13 @@ import browser from 'webextension-polyfill';
 import throttle from 'lodash/throttle';
 
 import notifier from '../lib/notifier';
-import exclusions from './exclusions';
+import { exclusions } from './exclusions';
 import tabs from './tabs';
 import { translator } from '../common/translator';
 import { settings } from './settings';
 import { isHttp } from '../lib/string-utils';
 import { log } from '../lib/logger';
+import { ExclusionsModes } from '../common/exclusionsConstants';
 
 // All contexts except "browser_action", "page_action" and "launcher"
 const contexts = ['page', 'frame', 'selection', 'link', 'editable', 'image', 'video', 'audio'];
@@ -44,13 +45,13 @@ const CONTEXT_MENU_ITEMS = {
         id: 'selective_mode',
         type: 'radio',
         title: translator.getMessage('context_menu_selective_mode'),
-        onclick: () => exclusions.setCurrentMode(exclusions.MODES.SELECTIVE),
+        onclick: () => exclusions.setMode(ExclusionsModes.Selective),
     },
     regular_mode: {
         id: 'regular_mode',
         type: 'radio',
-        title: translator.getMessage('context_menu_regular_mode'),
-        onclick: () => exclusions.setCurrentMode(exclusions.MODES.REGULAR),
+        title: translator.getMessage('context_menu_general_mode'),
+        onclick: () => exclusions.setMode(ExclusionsModes.Regular),
     },
 };
 

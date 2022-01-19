@@ -32,40 +32,40 @@ export const Rate = observer(() => {
         handleHideRate();
     };
 
+    if (!isRateVisible) {
+        return null;
+    }
+
     return (
-        <>
-            {isRateVisible ? (
-                <div className="rate">
-                    <div className="rate__text">
-                        {reactTranslator.getMessage('rate_description')}
-                    </div>
-                    <div className="rate__stars">
-                        {RATING_STARS.map((star) => (
-                            <Fragment key={star}>
-                                <input
-                                    type="radio"
-                                    value={star}
-                                    name="rating"
-                                    id={`rating-${star}`}
-                                    className="rate__input"
-                                    onChange={handleChange}
-                                />
-                                <label
-                                    htmlFor={`rating-${star}`}
-                                    className="rate__star"
-                                />
-                            </Fragment>
-                        ))}
-                    </div>
-                    <button
-                        type="button"
-                        className="rate__hide"
-                        onClick={handleHideRate}
-                    >
-                        {reactTranslator.getMessage('rate_hide')}
-                    </button>
-                </div>
-            ) : ''}
-        </>
+        <div className="rate">
+            <div className="rate__text">
+                {reactTranslator.getMessage('rate_description')}
+            </div>
+            <div className="rate__stars">
+                {RATING_STARS.map((star) => (
+                    <Fragment key={star}>
+                        <input
+                            type="radio"
+                            value={star}
+                            name="rating"
+                            id={`rating-${star}`}
+                            className="rate__input"
+                            onChange={handleChange}
+                        />
+                        <label
+                            htmlFor={`rating-${star}`}
+                            className="rate__star"
+                        />
+                    </Fragment>
+                ))}
+            </div>
+            <button
+                type="button"
+                className="rate__hide"
+                onClick={handleHideRate}
+            >
+                {reactTranslator.getMessage('rate_hide')}
+            </button>
+        </div>
     );
 });

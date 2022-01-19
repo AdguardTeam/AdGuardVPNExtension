@@ -7,11 +7,11 @@ import {
 
 import tabs from '../../background/tabs';
 import { log } from '../../lib/logger';
-import { getHostname, getProtocol } from '../../lib/helpers';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
 import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT } from '../../lib/constants';
-import messenger from '../../lib/messenger';
+import { messenger } from '../../lib/messenger';
 import { STATE } from '../../background/connectivity/connectivityService/connectivityConstants';
+import { getHostname, getProtocol } from '../../common/url-utils';
 
 export class SettingsStore {
     @observable canControlProxy = false;
@@ -48,8 +48,7 @@ export class SettingsStore {
         this.rootStore = rootStore;
     }
 
-    @action
-    prohibitExclusion = () => {
+    @action prohibitExclusion = () => {
         this.canBeExcluded = false;
     };
 
@@ -61,29 +60,24 @@ export class SettingsStore {
         });
     }
 
-    @action
-    setCanControlProxy = ({ canControlProxy }) => {
+    @action setCanControlProxy = ({ canControlProxy }) => {
         this.canControlProxy = canControlProxy;
     };
 
-    @action
-    enableProxy = async (force = false) => {
+    @action enableProxy = async (force = false) => {
         await messenger.enableProxy(force);
     };
 
-    @action
-    disableProxy = async (force = false) => {
+    @action disableProxy = async (force = false) => {
         await messenger.disableProxy(force);
     };
 
-    @action
-    reconnectProxy = async () => {
+    @action reconnectProxy = async () => {
         await this.disableProxy(true);
         await this.enableProxy(true);
     };
 
-    @action
-    setProxyState = async (value) => {
+    @action setProxyState = async (value) => {
         if (value) {
             await this.enableProxy(true);
         } else {
@@ -91,57 +85,32 @@ export class SettingsStore {
         }
     };
 
-    @action
-    addToExclusions = async () => {
+    @action disableVpnOnCurrentTab = async () => {
         try {
-            await messenger.addToExclusions(
-                this.currentTabHostname,
-                true,
-                { considerWildcard: false },
-            );
-            runInAction(() => {
-                this.isExcluded = true;
-            });
+            await messenger.disableVpnByUrl(this.currentTabHostname);
+            this.setIsExcluded(true);
         } catch (e) {
             log.error(e);
         }
     };
 
-    @action
-    removeFromExclusions = async () => {
+    @action enableVpnOnCurrentTab = async () => {
         try {
-            await messenger.removeFromExclusions(this.currentTabHostname);
-            runInAction(() => {
-                this.isExcluded = false;
-            });
+            await messenger.enableVpnByUrl(this.currentTabHostname);
+            this.setIsExcluded(false);
         } catch (e) {
             log.error(e);
         }
     };
 
-    @action
-    checkIsExcluded = async () => {
-        try {
-            await this.getCurrentTabHostname();
-            const result = await messenger.getIsExcluded(this.currentTabHostname);
-            runInAction(() => {
-                this.isExcluded = result;
-            });
-        } catch (e) {
-            log.error(e);
-        }
-    };
-
-    @action
-    getExclusionsInverted = async () => {
+    @action getExclusionsInverted = async () => {
         const exclusionsInverted = await messenger.getExclusionsInverted();
         runInAction(() => {
             this.exclusionsInverted = exclusionsInverted;
         });
-    }
+    };
 
-    @action
-    getCurrentTabHostname = async () => {
+    @action getCurrentTabHostname = async () => {
         try {
             const result = await tabs.getCurrent();
             const { url } = result;
@@ -164,8 +133,7 @@ export class SettingsStore {
         }
     };
 
-    @action
-    setIsRoutable = (value) => {
+    @action setIsRoutable = (value) => {
         this.isRoutable = value;
     };
 
@@ -265,53 +233,44 @@ export class SettingsStore {
         return this.connectivityState.value === STATE.CONNECTING_RETRYING;
     }
 
-    @action
-    setDesktopVpnEnabled = (status) => {
+    @action setDesktopVpnEnabled = (status) => {
         this.desktopVpnEnabled = status;
-    }
+    };
 
-    @action
-    setBackgroundDesktopVpnEnabled = (status) => {
+    @action setBackgroundDesktopVpnEnabled = (status) => {
         messenger.setDesktopVpnEnabled(status);
-    }
+    };
 
-    @action
-    checkRateStatus = async () => {
+    @action checkRateStatus = async () => {
         const value = await messenger.getSetting(SETTINGS_IDS.RATE_SHOW);
         runInAction(() => {
             this.isRateVisible = value;
         });
     };
 
-    @action
-    hideRate = async () => {
+    @action hideRate = async () => {
         await messenger.setSetting(SETTINGS_IDS.RATE_SHOW, false);
         runInAction(() => {
             this.isRateVisible = false;
         });
     };
 
-    @computed
-    get displayExclusionScreen() {
-        return (this.isExcluded && !this.exclusionsInverted)
-        || (!this.isExcluded && this.exclusionsInverted);
-    }
-
-    @action
-    setPremiumLocationClickedByFreeUser = (state) => {
+    @action setPremiumLocationClickedByFreeUser = (state) => {
         this.freeUserClickedPremiumLocation = state;
-    }
+    };
 
-    @action
-    setPromoNotification = (promoNotification) => {
+    @action setPromoNotification = (promoNotification) => {
         this.promoNotification = promoNotification;
-    }
+    };
 
-    @action
-    getAppearanceTheme = async () => {
+    @action getAppearanceTheme = async () => {
         const value = await messenger.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
         runInAction(() => {
             this.appearanceTheme = value;
         });
+    };
+
+    @action setIsExcluded = (value) => {
+        this.isExcluded = value;
     };
 }

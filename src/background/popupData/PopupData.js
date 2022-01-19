@@ -10,6 +10,7 @@ import { SETTINGS_IDS } from '../../lib/constants';
 import { vpnApi } from '../api';
 import { updateService } from '../updateService';
 import { flagsStorage } from '../flagsStorage';
+import { exclusions } from '../exclusions';
 
 class PopupData {
     constructor({
@@ -64,6 +65,7 @@ class PopupData {
         const promoNotification = await promoNotifications.getCurrentNotification();
         const { isFirstRun } = updateService;
         const flagsStorageData = await flagsStorage.getFlagsStorageData();
+        const isVpnEnabledByUrl = exclusions.isVpnEnabledByUrl(url);
 
         // If error check permissions when popup is opened, ignoring multiple retries
         if (error) {
@@ -93,6 +95,7 @@ class PopupData {
             desktopVpnEnabled,
             isFirstRun,
             flagsStorageData,
+            isVpnEnabledByUrl,
         };
     };
 

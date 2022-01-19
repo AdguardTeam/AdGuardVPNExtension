@@ -1,4 +1,7 @@
 import browser from 'webextension-polyfill';
-import { MESSAGES_TYPES } from '../lib/constants';
+import { MessageType } from '../lib/constants';
 
-browser.runtime.sendMessage({ type: MESSAGES_TYPES.AUTHENTICATE_SOCIAL, queryString: window.location.href.split('#')[1] });
+browser.runtime.sendMessage({
+    type: MessageType.AUTHENTICATE_SOCIAL,
+    data: { queryString: window.location.href.split('#')[1] },
+});

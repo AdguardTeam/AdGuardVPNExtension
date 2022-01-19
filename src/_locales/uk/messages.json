@@ -122,8 +122,26 @@
     "account_edit": {
         "message": "Керувати"
     },
+    "account_version": {
+        "message": "Версія"
+    },
+    "account_signed": {
+        "message": "Ви ввійшли за допомогою"
+    },
+    "account_free": {
+        "message": "Безкоштовний"
+    },
+    "account_unlimited": {
+        "message": "Необмежений"
+    },
+    "account_next_charge": {
+        "message": "(Наступна плата %date%)"
+    },
     "account_sign_out": {
         "message": "Вийти"
+    },
+    "account_unlimited_title": {
+        "message": "Отримайте безлімітну версію!"
     },
     "rate_description": {
         "message": "Для нас дуже важливо дізнатись вашу думку про це розширення. Оцінить його, будь ласка."
@@ -199,6 +217,9 @@
     },
     "auth_placeholder_2fa": {
         "message": "Код підтвердження"
+    },
+    "official_website": {
+        "message": "Офіційний сайт"
     },
     "eula": {
         "message": "Ліцензійна угода"
@@ -537,14 +558,32 @@
     "popup_upgrade_screen_title": {
         "message": "Необмежений VPN"
     },
+    "popup_upgrade_screen_desc": {
+        "message": "Настав час покращити вашу ліцензію!"
+    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Необмежений трафік"
+    },
+    "popup_upgrade_screen_unlimited_data_desc": {
+        "message": "Жодних обмежень. Переглядайте будь-який вміст абсолютно безпечно!"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "Необмежена швидкість"
     },
+    "popup_upgrade_screen_unlimited_speed_desc": {
+        "message": "Жодних обмежень швидкості. Користуйтесь на максимум, який надає провайдер!"
+    },
     "popup_upgrade_screen_all_locations": {
         "message": "Усі місцезнаходження"
+    },
+    "popup_upgrade_screen_all_locations_desc": {
+        "message": "6 континентів та десятки країн. Вибирайте місто та безпечно користуйтесь інтернетом!"
+    },
+    "popup_upgrade_screen_streaming_support": {
+        "message": "Підтримка стрімингу"
+    },
+    "popup_upgrade_screen_streaming_support_desc": {
+        "message": "Доступні усі популярні стріминг-сервіси. Дивіться будь-що і будь-де!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Стрімінг"

@@ -44,6 +44,9 @@
     "authentication_error_wrong_credentials": {
         "message": "Contraseña incorrecta"
     },
+    "authentication_too_many_requests": {
+        "message": "Hemos recibido demasiadas peticiones desde tu dirección IP. Por favor, inténtalo de nuevo más tarde."
+    },
     "authentication_error_default": {
         "message": "Se ha producido un error, inténtalo de nuevo más tarde"
     },
@@ -122,8 +125,26 @@
     "account_edit": {
         "message": "Administrar"
     },
+    "account_version": {
+        "message": "Versión"
+    },
+    "account_signed": {
+        "message": "Iniciaste sesión con"
+    },
+    "account_free": {
+        "message": "Gratis"
+    },
+    "account_unlimited": {
+        "message": "Ilimitado"
+    },
+    "account_next_charge": {
+        "message": "(Próxima carga %date%)"
+    },
     "account_sign_out": {
         "message": "Cerrar sesión"
+    },
+    "account_unlimited_title": {
+        "message": "¡Obtén la versión ilimitada!"
     },
     "rate_description": {
         "message": "Hola, somos el equipo de AdGuard, y es muy importante para nosotros saber tu opinión sobre nuestro producto. Por favor, califícalo."
@@ -199,6 +220,9 @@
     },
     "auth_placeholder_2fa": {
         "message": "Código de autenticación"
+    },
+    "official_website": {
+        "message": "Sitio web oficial"
     },
     "eula": {
         "message": "Acuerdo de licencia"
@@ -537,20 +561,38 @@
     "popup_upgrade_screen_title": {
         "message": "VPN ilimitada"
     },
+    "popup_upgrade_screen_desc": {
+        "message": "¡Es hora de mejorar tu licencia!"
+    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Datos ilimitados"
+    },
+    "popup_upgrade_screen_unlimited_data_desc": {
+        "message": "El único límite es que tus datos nunca se comparten. ¡Navega a tu antojo!"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "Velocidad ilimitada"
     },
+    "popup_upgrade_screen_unlimited_speed_desc": {
+        "message": "Sin restricciones de velocidad. ¡Aprovecha al máximo tu proveedor de servicios!"
+    },
     "popup_upgrade_screen_all_locations": {
         "message": "Todas las ubicaciones"
+    },
+    "popup_upgrade_screen_all_locations_desc": {
+        "message": "6 continentes y decenas de países. ¡Elige una ciudad y navega por Internet con seguridad!"
+    },
+    "popup_upgrade_screen_streaming_support": {
+        "message": "Soporte para streaming"
+    },
+    "popup_upgrade_screen_streaming_support_desc": {
+        "message": "Todos los principales servicios de streaming están disponibles. ¡Mira cualquier cosa, en cualquier lugar!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Streaming"
     },
     "popup_upgrade_screen_upgrade_button": {
-        "message": "Actualizar"
+        "message": "Mejorar"
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Continuar gratis"

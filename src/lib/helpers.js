@@ -1,3 +1,5 @@
+import punycode from 'punycode';
+
 /**
  * Returns the value of the property from the cache,
  * otherwise, calculates it using the callback, memoizes it, and returns the value
@@ -19,42 +21,23 @@ export const lazyGet = (obj, prop, func) => {
 };
 
 /**
- * Returns hostname of url if it was correct, otherwise return input url
- * @param {string} url
- * @returns {string}
+ * Normalizes exclusions url
+ * 1. trims it
+ * 2. converts to lowercase
+ * 3. removes `https://www.` and `/` at the end of the line
+ * 4. converts to ASCII
+ * save hostnames as ASCII because 'pacScript.url' supports only ASCII URLs
+ * https://chromium.googlesource.com/chromium/src/+/3a46e0bf9308a42642689c4b73b6b8622aeecbe5/chrome/browser/extensions/api/proxy/proxy_api_helpers.cc#115
+ * @param {string} rawUrl
+ * @return {string | undefined}
  */
-const getUrlProperties = (url) => {
-    let urlObj;
-
-    try {
-        urlObj = new URL(url);
-    } catch (e) {
-        return url;
-    }
-
-    return urlObj;
-};
-
-/**
- * Returns hostname of url if it was correct, otherwise return input url
- * @param {string} url
- * @returns {string}
- */
-export const getHostname = (url) => {
-    const urlObj = getUrlProperties(url);
-    const hostname = (urlObj && urlObj.hostname) ? urlObj.hostname : url;
-    return hostname;
-};
-
-/**
- * Returns protocol of url if it was correct, otherwise return input url
- * @param {string} url
- * @returns {string}
- */
-export const getProtocol = (url) => {
-    const urlObj = getUrlProperties(url);
-    const protocol = (urlObj && urlObj.protocol) ? urlObj.protocol : url;
-    return protocol;
+export const prepareUrl = (rawUrl) => {
+    const url = rawUrl
+        ?.trim()
+        ?.toLowerCase()
+        ?.replace(/(http(s)?:\/\/)?(www\.)?/, '')
+        ?.replace(/\/$/, '');
+    return punycode.toASCII(url);
 };
 
 /**
@@ -169,7 +152,7 @@ export const runWithCancel = (fn, ...args) => {
                 } catch (e) {
                     return reject(e);
                 }
-                // eslint-disable-next-line no-use-before-define
+                // eslint-disable-next-line @typescript-eslint/no-use-before-define
                 next(result);
             }
         }
@@ -182,7 +165,7 @@ export const runWithCancel = (fn, ...args) => {
             } catch (e) {
                 return reject(e);
             }
-            // eslint-disable-next-line no-use-before-define
+            // eslint-disable-next-line @typescript-eslint/no-use-before-define
             next(result);
         }
 

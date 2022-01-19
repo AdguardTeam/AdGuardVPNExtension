@@ -7,7 +7,7 @@ import {
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
 import { log } from '../../lib/logger';
 import tabs from '../../background/tabs';
-import messenger from '../../lib/messenger';
+import { messenger } from '../../lib/messenger';
 
 export class GlobalStore {
     @observable initStatus = REQUEST_STATUSES.PENDING;
@@ -44,6 +44,7 @@ export class GlobalStore {
                 desktopVpnEnabled,
                 isFirstRun,
                 flagsStorageData,
+                isVpnEnabledByUrl,
             } = popupData;
 
             if (!isAuthenticated) {
@@ -77,8 +78,9 @@ export class GlobalStore {
             await authStore.getAuthCacheFromBackground();
             await authStore.setPolicyAgreement(policyAgreement);
             await settingsStore.checkRateStatus();
-            await settingsStore.checkIsExcluded();
             await settingsStore.getExclusionsInverted();
+            await settingsStore.getCurrentTabHostname();
+            settingsStore.setIsExcluded(!isVpnEnabledByUrl);
             this.setInitStatus(REQUEST_STATUSES.DONE);
         } catch (e) {
             log.error(e.message);

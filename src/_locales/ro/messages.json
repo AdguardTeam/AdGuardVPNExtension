@@ -44,6 +44,9 @@
     "authentication_error_wrong_credentials": {
         "message": "Parolă greșită"
     },
+    "authentication_too_many_requests": {
+        "message": "Am primit prea multe solicitări de la adresa dvs. IP. Vă rugăm să încercați din nou mai târziu."
+    },
     "authentication_error_default": {
         "message": "A apărut o eroare, reîncercați mai târziu"
     },
@@ -122,8 +125,26 @@
     "account_edit": {
         "message": "Gestiune"
     },
+    "account_version": {
+        "message": "Versiune"
+    },
+    "account_signed": {
+        "message": "Conectat cu"
+    },
+    "account_free": {
+        "message": "Gratuit"
+    },
+    "account_unlimited": {
+        "message": "Nelimitat"
+    },
+    "account_next_charge": {
+        "message": "(Plata următoare %date%)"
+    },
     "account_sign_out": {
         "message": "Deconectare"
+    },
+    "account_unlimited_title": {
+        "message": "Obțineți versiunea nelimitată!"
     },
     "rate_description": {
         "message": "Hei, suntem o echipă de la AdGuard și pentru noi este esențial să vă știm părerea despre produsul nostru. Vă rugăm să-l evaluați."
@@ -199,6 +220,9 @@
     },
     "auth_placeholder_2fa": {
         "message": "Cod de autentificare"
+    },
+    "official_website": {
+        "message": "Pagină oficială"
     },
     "eula": {
         "message": "EULA"
@@ -537,14 +561,32 @@
     "popup_upgrade_screen_title": {
         "message": "VPN nelimitat"
     },
+    "popup_upgrade_screen_desc": {
+        "message": "Este timpul să vă actualizați licența!"
+    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Date nelimitate"
+    },
+    "popup_upgrade_screen_unlimited_data_desc": {
+        "message": "Singura limită este că datele dvs. nu sunt niciodată partajate. Navigați după pofta inimii!"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "Viteză nelimitată"
     },
+    "popup_upgrade_screen_unlimited_speed_desc": {
+        "message": "Fără restricții de viteză. Profitați la maximum de furnizorul dvs. de servicii!"
+    },
     "popup_upgrade_screen_all_locations": {
         "message": "Toate locațiile"
+    },
+    "popup_upgrade_screen_all_locations_desc": {
+        "message": "6 continente și zeci de țări. Alegeți un oraș și navigați pe net în siguranță!"
+    },
+    "popup_upgrade_screen_streaming_support": {
+        "message": "Asistență pentru streaming"
+    },
+    "popup_upgrade_screen_streaming_support_desc": {
+        "message": "Toate serviciile de streaming majore sunt disponibile. Urmăriți orice, oriunde!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Streaming"

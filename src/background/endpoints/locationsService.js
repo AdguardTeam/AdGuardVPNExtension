@@ -3,7 +3,7 @@ import { log } from '../../lib/logger';
 import { measurePingToEndpointViaFetch } from '../connectivity/pingHelpers';
 import notifier from '../../lib/notifier';
 import { LocationWithPing } from './LocationWithPing';
-import vpnProvider from '../providers/vpnProvider';
+import { vpnProvider } from '../providers/vpnProvider';
 import { Location } from './Location';
 import { SETTINGS_IDS } from '../../lib/constants';
 // eslint-disable-next-line import/no-cycle

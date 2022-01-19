@@ -122,6 +122,15 @@
     "account_edit": {
         "message": "Επεξεργασία"
     },
+    "account_version": {
+        "message": "Έκδοση"
+    },
+    "account_free": {
+        "message": "Δωρεάν"
+    },
+    "account_unlimited": {
+        "message": "Απεριόριστο"
+    },
     "account_sign_out": {
         "message": "Αποσύνδεση"
     },
@@ -196,6 +205,9 @@
     },
     "auth_placeholder_2fa": {
         "message": "Κωδικός ελέγχου ταυτότητας"
+    },
+    "official_website": {
+        "message": "Επίσημη ιστοσελίδα"
     },
     "eula": {
         "message": "EULA"

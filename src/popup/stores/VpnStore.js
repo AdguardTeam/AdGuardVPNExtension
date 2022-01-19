@@ -6,7 +6,7 @@ import {
     toJS,
 } from 'mobx';
 
-import messenger from '../../lib/messenger';
+import { messenger } from '../../lib/messenger';
 
 export class VpnStore {
     constructor(rootStore) {
@@ -35,29 +35,25 @@ export class VpnStore {
 
     @observable isPremiumToken;
 
-    @action
-    setSearchValue = (value) => {
+    @action setSearchValue = (value) => {
         // do not trim, or change logic see issue AG-2233
         this.searchValue = value;
     };
 
-    @action
-    setLocations = (locations) => {
+    @action setLocations = (locations) => {
         if (!locations) {
             return;
         }
 
         this.locations = locations;
-    }
+    };
 
-    @action
-    updateLocationState = (state) => {
+    @action updateLocationState = (state) => {
         const id = state.locationId;
         this.pings[id] = state;
     };
 
-    @action
-    selectLocation = async (id) => {
+    @action selectLocation = async (id) => {
         const selectedLocation = this.locations.find((location) => {
             return location.id === id;
         });
@@ -72,8 +68,7 @@ export class VpnStore {
         });
     };
 
-    @action
-    setSelectedLocation = (location) => {
+    @action setSelectedLocation = (location) => {
         if (!location) {
             return;
         }
@@ -127,7 +122,7 @@ export class VpnStore {
             return { ...location, ping, available };
         }
         return location;
-    }
+    };
 
     @computed
     get fastestLocations() {
@@ -170,8 +165,7 @@ export class VpnStore {
         return this.selectedLocation?.cityName;
     }
 
-    @action
-    setVpnInfo = (vpnInfo) => {
+    @action setVpnInfo = (vpnInfo) => {
         if (!vpnInfo) {
             return;
         }
@@ -247,18 +241,15 @@ export class VpnStore {
         return ping;
     }
 
-    @action
-    openPremiumPromoPage = async () => {
+    @action openPremiumPromoPage = async () => {
         await messenger.openPremiumPromoPage();
-    }
+    };
 
-    @action
-    setTooManyDevicesConnected = (state) => {
+    @action setTooManyDevicesConnected = (state) => {
         this.tooManyDevicesConnected = state;
     };
 
-    @action
-    setMaxDevicesAllowed = (maxDevicesAllowed) => {
+    @action setMaxDevicesAllowed = (maxDevicesAllowed) => {
         this.maxDevicesAllowed = maxDevicesAllowed;
-    }
+    };
 }

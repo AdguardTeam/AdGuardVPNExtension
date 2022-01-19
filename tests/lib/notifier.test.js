@@ -99,8 +99,11 @@ describe('notifies specified listeners', () => {
     testNotifier.addSpecifiedListener(testNotifier.types.SETTING_UPDATED, firstListener);
     testNotifier.addSpecifiedListener(testNotifier.types.PROXY_ENABLED, secondListener);
     describe('notifies first listeners', () => {
-        beforeAll(() => testNotifier.notifyListeners(testNotifier.types.SETTING_UPDATED,
-            settingId, settingValue));
+        beforeAll(() => testNotifier.notifyListeners(
+            testNotifier.types.SETTING_UPDATED,
+            settingId,
+            settingValue,
+        ));
         it('values should be equal', () => expect(changing.first.id)
             .toEqual('first'));
         it('values should be equal', () => expect(changing.first.setting)
@@ -113,8 +116,10 @@ describe('notifies specified listeners', () => {
             .toEqual(0));
     });
     describe('notifies second listeners', () => {
-        beforeAll(() => testNotifier.notifyListeners(testNotifier.types.PROXY_ENABLED,
-            proxyStatus));
+        beforeAll(() => testNotifier.notifyListeners(
+            testNotifier.types.PROXY_ENABLED,
+            proxyStatus,
+        ));
         it('proxy status should remain unchanged', () => expect(changing.second.proxyStatus)
             .toEqual(true));
         it('second listener should be called once', () => expect(changing.second.counter)

@@ -45,7 +45,7 @@
         "message": "Tanya Jawab"
     },
     "options_support_report_title": {
-        "message": "Laporkan masalah"
+        "message": "Laporkan bug"
     },
     "options_support_report_description": {
         "message": "Jika ada sesuatu yang tidak berfungsi dengan benar di program"
@@ -60,7 +60,7 @@
         "message": "Diskusi"
     },
     "options_report_bug_title": {
-        "message": "Laporkan masalah"
+        "message": "Laporkan bug"
     },
     "options_bug_report_email_label": {
         "message": "Email"
@@ -82,6 +82,15 @@
     },
     "account_edit": {
         "message": "Kelola"
+    },
+    "account_version": {
+        "message": "Versi"
+    },
+    "account_free": {
+        "message": "Gratis"
+    },
+    "account_unlimited": {
+        "message": "Tanpa batas"
     },
     "account_sign_out": {
         "message": "Keluar"
@@ -148,6 +157,9 @@
     },
     "auth_placeholder_2fa": {
         "message": "Autentikasi kode"
+    },
+    "official_website": {
+        "message": "Situs resmi"
     },
     "eula": {
         "message": "EULA"
@@ -451,6 +463,9 @@
     },
     "popup_upgrade_screen_all_locations": {
         "message": "Semua lokasi"
+    },
+    "popup_upgrade_screen_streaming_support": {
+        "message": "Dukungan streaming"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Streaming"

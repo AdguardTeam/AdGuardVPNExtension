@@ -1,0 +1,236 @@
+.exclusions {
+    &__mode {
+        margin-left: 20px;
+
+        &__title {
+            font-weight: bold;
+        }
+
+        &__change-mode-btn {
+            font-size: 16px;
+            margin: 7px 0 40px;
+            padding: 0;
+        }
+    }
+}
+
+.settings {
+    &__title {
+        margin-bottom: 30px;
+        font-size: 1.8rem;
+        font-weight: 700;
+    }
+
+    &__subtitle {
+        margin-bottom: 15px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+
+    &__group {
+        padding: 16px 0;
+    }
+
+    &__group-ico {
+        flex-shrink: 0;
+        width: 24px;
+        height: 24px;
+        margin-right: 8px;
+        background-repeat: no-repeat;
+        background-position: 50%;
+        color: var(--brand-primary);
+        position: relative;
+        top: -1px;
+    }
+
+    &__list,
+    &__form {
+        margin-left: 10px;
+    }
+
+    &__list-item {
+        position: relative;
+        width: 100%;
+        padding: 8px 8px 8px 15px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+
+        &--active,
+        &:hover,
+        &:focus {
+            border-color: #efefef;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__add {
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        line-height: 1;
+
+        &:focus {
+            box-shadow: none;
+        }
+    }
+
+    &__add-icon {
+        margin-right: 12px;
+    }
+
+    &__control {
+        &:first-child {
+            margin-bottom: 25px;
+        }
+    }
+
+    &__controls {
+        display: flex;
+        margin-bottom: 30px;
+        flex-direction: column;
+
+        &--import-export {
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+
+    &__import-export {
+        margin-left: auto;
+    }
+
+    &__item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-right: 15px;
+    }
+
+    &__item-title {
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: var(--gray-base);
+    }
+
+    &__item-content {
+        max-width: 420px;
+    }
+
+    &__item-desc {
+        margin: 5px 20px 0 0;
+        font-size: 1.4rem;
+        line-height: 1.6rem;
+        color: var(--gray88);
+    }
+
+    &__change-mode-actions .button:first-child {
+        margin-right: 20px;
+    }
+}
+
+.modal {
+    width: 560px;
+    max-height: 500px;
+    overflow-y: auto;
+    background: var(--white-strong);
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    outline: none;
+
+    &--big {
+        width: 600px;
+    }
+
+    &__close-icon {
+        position: fixed;
+        right: 20px;
+        top: 20px;
+    }
+
+    &__icon {
+        width: 100%;
+        min-height: 80px;
+        background-image: url('../../../assets/images/trouble-head.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        margin-top: 20px;
+    }
+
+    &__message {
+        margin: 0 30px 24px;
+        font-size: 16px;
+        line-height: 22px;
+        text-align: center;
+    }
+
+    &__buttons {
+        padding-top: 32px;
+    }
+
+    &__button {
+        height: 44px;
+        padding: 0 10px;
+        min-width: 220px;
+        border: 1px solid var(--gray88);
+        border-radius: 8px;
+        font-size: 16px;
+        color: var(--gray88);
+        letter-spacing: 0.38px;
+        text-align: center;
+        line-height: 16px;
+        text-transform: uppercase;
+
+        &--red {
+            border-color: var(--redDark);
+            background-color: var(--redDark);
+            color: var(--white);
+
+            &:hover {
+                border-color: var(--red);
+                background-color: var(--red);
+            }
+        }
+
+        &--first {
+            margin-right: 16px;
+        }
+    }
+
+    &.select-mode {
+        height: 400px;
+
+        & .modal__title {
+            font-size: 29px;
+            margin: 10px 0 15px;
+        }
+
+        & .modal__button {
+            width: 200px;
+            margin: 0 auto;
+        }
+    }
+}
+
+.overlay {
+    background-color: var(--overlay);
+    position: fixed;
+    top: 0;
+
+    &--fullscreen {
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+}

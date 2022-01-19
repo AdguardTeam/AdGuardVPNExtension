@@ -68,11 +68,9 @@ const Locations = observer(() => {
 
         if (emptySearchResults) {
             return (
-                <>
-                    <div className="endpoints__title endpoints__title--not-found">
-                        {reactTranslator.getMessage('endpoints_not_found')}
-                    </div>
-                </>
+                <div className="endpoints__title endpoints__title--not-found">
+                    {reactTranslator.getMessage('endpoints_not_found')}
+                </div>
             );
         }
 
@@ -118,18 +116,16 @@ const Locations = observer(() => {
             />
             <div className="endpoints__scroll">
                 {!showSearchResults && (
-                    <>
-                        <div className="endpoints__list">
-                            <div className="endpoints__title">
-                                {reactTranslator.getMessage('endpoints_fastest')}
-                            </div>
-                            {fastestLocations.length > 0 ? (
-                                renderLocations(fastestLocations)
-                            ) : (
-                                <Skeleton />
-                            )}
+                    <div className="endpoints__list">
+                        <div className="endpoints__title">
+                            {reactTranslator.getMessage('endpoints_fastest')}
                         </div>
-                    </>
+                        {fastestLocations.length > 0 ? (
+                            renderLocations(fastestLocations)
+                        ) : (
+                            <Skeleton />
+                        )}
+                    </div>
                 )}
 
                 {renderFilteredEndpoint()}

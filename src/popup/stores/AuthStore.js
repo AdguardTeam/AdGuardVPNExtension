@@ -8,7 +8,7 @@ import {
 import isNil from 'lodash/isNil';
 
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
-import messenger from '../../lib/messenger';
+import { messenger } from '../../lib/messenger';
 import { SETTINGS_IDS, AUTH_PROVIDERS, FLAGS_FIELDS } from '../../lib/constants';
 
 const AUTH_STEPS = {
@@ -77,8 +77,7 @@ export class AuthStore {
         this.rootStore = rootStore;
     }
 
-    @action
-    setDefaults = () => {
+    @action setDefaults = () => {
         this.credentials = DEFAULTS.credentials;
         this.authenticated = DEFAULTS.authenticated;
         this.need2fa = DEFAULTS.need2fa;
@@ -87,20 +86,17 @@ export class AuthStore {
         this.signInCheck = DEFAULTS.signInCheck;
     };
 
-    @action
-    resetError = () => {
+    @action resetError = () => {
         this.error = DEFAULTS.error;
     };
 
-    @action
-    onCredentialsChange = async (field, value) => {
+    @action onCredentialsChange = async (field, value) => {
         this.resetError();
         this.credentials[field] = value;
         await messenger.updateAuthCache(field, value);
     };
 
-    @action
-    getAuthCacheFromBackground = async () => {
+    @action getAuthCacheFromBackground = async () => {
         const {
             username,
             password,
@@ -132,34 +128,30 @@ export class AuthStore {
         });
     };
 
-    @action
-    setFlagsStorageData = (flagsStorageData) => {
+    @action setFlagsStorageData = (flagsStorageData) => {
         this.isNewUser = flagsStorageData[FLAGS_FIELDS.IS_NEW_USER];
         this.isSocialAuth = flagsStorageData[FLAGS_FIELDS.IS_SOCIAL_AUTH];
         this.showOnboarding = flagsStorageData[FLAGS_FIELDS.SHOW_ONBOARDING];
         this.showUpgradeScreen = flagsStorageData[FLAGS_FIELDS.SHOW_UPGRADE_SCREEN];
-    }
+    };
 
-    @action
-    setShowOnboarding = async (value) => {
+    @action setShowOnboarding = async (value) => {
         await messenger.setFlag(FLAGS_FIELDS.SHOW_ONBOARDING, value);
         runInAction(() => {
             this.showOnboarding = value;
         });
     };
 
-    @action
-    setShowUpgradeScreen = async (value) => {
+    @action setShowUpgradeScreen = async (value) => {
         await messenger.setFlag(FLAGS_FIELDS.SHOW_UPGRADE_SCREEN, value);
         runInAction(() => {
             this.showUpgradeScreen = value;
         });
     };
 
-    @action
-    setIsFirstRun = (value) => {
+    @action setIsFirstRun = (value) => {
         this.isFirstRun = value;
-    }
+    };
 
     @computed
     get disableRegister() {
@@ -204,8 +196,7 @@ export class AuthStore {
         return this.showUpgradeScreen && this.shouldRenderPromo;
     }
 
-    @action
-    authenticate = async () => {
+    @action authenticate = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
         const response = await messenger.authenticateUser(toJS(this.credentials));
 
@@ -239,8 +230,7 @@ export class AuthStore {
         }
     };
 
-    @action
-    checkEmail = async () => {
+    @action checkEmail = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
 
         const response = await messenger.checkEmail(this.credentials.username);
@@ -264,8 +254,7 @@ export class AuthStore {
         });
     };
 
-    @action
-    register = async () => {
+    @action register = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
         const response = await messenger.registerUser(toJS(this.credentials));
         if (response.error) {
@@ -291,8 +280,7 @@ export class AuthStore {
         }
     };
 
-    @action
-    isAuthenticated = async () => {
+    @action isAuthenticated = async () => {
         this.requestProcessState = REQUEST_STATUSES.PENDING;
         const result = await messenger.isAuthenticated();
         if (result) {
@@ -305,19 +293,16 @@ export class AuthStore {
         });
     };
 
-    @action
-    setIsAuthenticated = (value) => {
+    @action setIsAuthenticated = (value) => {
         this.authenticated = value;
     };
 
-    @action
-    deauthenticate = async () => {
+    @action deauthenticate = async () => {
         this.setDefaults();
         await messenger.deauthenticateUser();
     };
 
-    @action
-    proceedAuthorization = async (provider) => {
+    @action proceedAuthorization = async (provider) => {
         if (provider === AUTH_PROVIDERS.ADGUARD) {
             await this.openSignUpCheck();
             await this.switchStep(this.STEPS.CHECK_EMAIL);
@@ -326,14 +311,12 @@ export class AuthStore {
         }
     };
 
-    @action
-    openSocialAuth = async (social) => {
+    @action openSocialAuth = async (social) => {
         await messenger.startSocialAuth(social, this.marketingConsent);
         window.close();
     };
 
-    @action
-    switchStep = async (step, shouldResetErrors = true) => {
+    @action switchStep = async (step, shouldResetErrors = true) => {
         this.step = step;
         if (shouldResetErrors) {
             this.resetError();
@@ -341,80 +324,70 @@ export class AuthStore {
         await messenger.updateAuthCache('step', step);
     };
 
-    @action
-    showAuthorizationScreen = async () => {
+    @action showAuthorizationScreen = async () => {
         await this.switchStep(this.STEPS.AUTHORIZATION);
-    }
+    };
 
-    @action
-    showPrevAuthScreen = async () => {
+    @action showPrevAuthScreen = async () => {
         await this.switchStep(
             this.step === this.STEPS.CHECK_EMAIL
                 ? this.STEPS.AUTHORIZATION
                 : this.STEPS.CHECK_EMAIL,
         );
-    }
+    };
 
-    @action
-    resetPasswords = async () => {
+    @action resetPasswords = async () => {
         await messenger.updateAuthCache('password', DEFAULTS.credentials.password);
         await messenger.updateAuthCache('twoFactor', DEFAULTS.credentials.twoFactor);
         runInAction(() => {
             this.credentials.password = DEFAULTS.credentials.password;
             this.credentials.twoFactor = DEFAULTS.credentials.twoFactor;
         });
-    }
+    };
 
-    @action
-    openSignInCheck = async () => {
+    @action openSignInCheck = async () => {
         await messenger.updateAuthCache('signInCheck', true);
 
         runInAction(() => {
             this.signInCheck = true;
         });
-    }
+    };
 
-    @action
-    openSignUpCheck = async () => {
+    @action openSignUpCheck = async () => {
         await messenger.updateAuthCache('signInCheck', false);
 
         runInAction(() => {
             this.signInCheck = false;
         });
-    }
+    };
 
-    @action
-    setPolicyAgreement = async (value) => {
+    @action setPolicyAgreement = async (value) => {
         await messenger.updateAuthCache('policyAgreement', value);
         runInAction(() => {
             this.policyAgreement = value;
         });
     };
 
-    @action
-    handleInitPolicyAgreement = async (policyAgreement) => {
+    @action handleInitPolicyAgreement = async (policyAgreement) => {
         if (!policyAgreement) {
             await this.switchStep(AUTH_STEPS.POLICY_AGREEMENT);
         }
     };
 
-    @action
-    setHelpUsImprove = async (value) => {
+    @action setHelpUsImprove = async (value) => {
         await messenger.updateAuthCache('helpUsImprove', value);
         runInAction(() => {
             this.helpUsImprove = value;
         });
-    }
+    };
 
-    @action
-    onPolicyAgreementReceived = async () => {
+    @action onPolicyAgreementReceived = async () => {
         await messenger.setSetting(SETTINGS_IDS.POLICY_AGREEMENT, this.policyAgreement);
         await messenger.setSetting(SETTINGS_IDS.HELP_US_IMPROVE, this.helpUsImprove);
         await this.showAuthorizationScreen();
     };
 
-    @action
-    setMarketingConsent = async (value) => {
+    @action setMarketingConsent = async (value) => {
         await messenger.updateAuthCache('marketingConsent', value);
         runInAction(() => {
             this.credentials.marketingConsent = value;

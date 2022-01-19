@@ -1,9 +1,10 @@
 import browser from 'webextension-polyfill';
-import { getHostname } from '../../../lib/helpers';
+
 import { CONNECTION_TYPE_FIREFOX } from '../proxyConsts';
 import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
 import { IPV4_REGEX } from '../../routability/constants';
 import { convertCidrToNet, isInNet } from '../../routability/utils';
+import { getHostname } from '../../../common/url-utils';
 
 /**
  * @typedef proxyConfig

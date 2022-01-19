@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
-import messenger from '../../../lib/messenger';
+import { messenger } from '../../../lib/messenger';
 import { FEEDBACK_URL, FAQ_URL, DISCUSS_URL } from '../../../background/config';
 import { Title } from '../ui/Title';
 import { BugReporter } from './BugReporter';

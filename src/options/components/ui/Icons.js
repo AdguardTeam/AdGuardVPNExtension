@@ -11,6 +11,31 @@ const Icons = () => (
             <use fill="#131313" fillRule="evenodd" transform="translate(-2 -1)" xlinkHref="#a" />
         </svg>
 
+        <svg id="more-actions" width="2" height="12" viewBox="0 0 2 12" fill="none">
+            <path fillRule="evenodd" clipRule="evenodd" d="M1 2C0.447715 2 0 1.55228 0 1C0 0.447715 0.447715 0 1 0C1.55228 0 2 0.447715 2 1C2 1.55228 1.55228 2 1 2ZM1 7C0.447715 7 0 6.55228 0 6C0 5.44772 0.447715 5 1 5C1.55228 5 2 5.44772 2 6C2 6.55228 1.55228 7 1 7ZM0 11C0 11.5523 0.447715 12 1 12C1.55228 12 2 11.5523 2 11C2 10.4477 1.55228 10 1 10C0.447715 10 0 10.4477 0 11Z" fill="#4D4D4D" />
+        </svg>
+
+        <svg id="basket" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path fillRule="evenodd" clipRule="evenodd" d="M7 9H17L16.2367 19.0755C16.1972 19.597 15.7625 20 15.2396 20H8.76044C8.23746 20 7.80281 19.597 7.7633 19.0755L7 9Z" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M6 6.5H18" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M14 6V4L10 4V6" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path fillRule="evenodd" clipRule="evenodd" d="M13.5 12V17V12Z" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path fillRule="evenodd" clipRule="evenodd" d="M10.5 12V17V12Z" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+
+        <svg id="disabled" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path fillRule="evenodd" clipRule="evenodd" d="M19 1H1V19H19V1Z" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+
+        <svg id="enabled" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path fillRule="evenodd" clipRule="evenodd" d="M20 20V0H0V20H20ZM15.5691 7.4885C15.8389 7.1742 15.8028 6.7007 15.4885 6.43091C15.1742 6.16112 14.7007 6.1972 14.4309 6.5115L8.95457 12.8913L5.53551 9.40443C5.24551 9.10867 4.77066 9.10401 4.4749 9.39401C4.17915 9.68401 4.17448 10.1589 4.46449 10.4546L9.02803 15.1087L15.5691 7.4885Z" fill="#74A352" />
+        </svg>
+
+        <svg id="partly-enabled" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path fillRule="evenodd" clipRule="evenodd" d="M19 1H1V19H19V1Z" stroke="#74A352" strokeWidth="1.5" />
+            <rect x="7.5" y="7.5" width="5" height="5" stroke="#74A352" strokeWidth="5" />
+        </svg>
+
         <symbol id="social_facebook" viewBox="0 0 112.196 112.196" fill="currentColor">
             <circle cx="56.098" cy="56.098" r="56.098" fill="#3b5998" />
             <path d="M70.201 58.294h-10.01v36.672H45.025V58.294h-7.213V45.406h7.213v-8.34c0-5.964 2.833-15.303 15.301-15.303l11.234.047v12.51h-8.151c-1.337 0-3.217.668-3.217 3.513v7.585h11.334l-1.325 12.876z" fill="#fff" />
@@ -95,6 +120,12 @@ const Icons = () => (
                 <path fill="none" fillOpacity="0" d="M0 0h24v24H0z" />
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 18c6 0 10-3 10-7s-4-7-10-7S2 7 2 11c0 2 1 4 3 5l1 1 1 1H6h0v1h0v2l1-1h1l1-1s0 0 0 0h0l1-1h2zm0-6v-1m-4 1v-1m8 1v-1" />
             </g>
+        </symbol>
+
+        <symbol id="spinner" fill="none" viewBox="0 0 24 24">
+            <path d="M6.2903 5.04276C6.40404 4.94931 6.52011 4.8586 6.63842 4.77072" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M8.55511 3.68292C8.82001 3.57307 9.0913 3.47551 9.36826 3.39095C9.51032 3.34758 9.65388 3.30762 9.79883 3.27119" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C9.51472 21 7.26472 19.9926 5.63604 18.364C4.80704 17.535 4.13901 16.545 3.68286 15.4449" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </symbol>
     </svg>
 );

@@ -14,7 +14,7 @@ const {
     XPI_NAME,
     FIREFOX_UPDATE_URL,
 } = require('./consts');
-const packageJson = require('../package');
+const packageJson = require('../package.json');
 
 const { outputPath } = ENV_MAP[process.env.BUILD_ENV];
 
@@ -23,7 +23,11 @@ const fileDir = path.resolve(buildDir, FIREFOX_UPDATER_FILENAME);
 
 const getFirefoxManifest = async () => {
     const MANIFEST_PATH = path.resolve(
-        __dirname, BUILD_PATH, outputPath, BROWSERS.FIREFOX, MANIFEST_NAME,
+        __dirname,
+        BUILD_PATH,
+        outputPath,
+        BROWSERS.FIREFOX,
+        MANIFEST_NAME,
     );
     const manifestBuffer = await fs.readFile(MANIFEST_PATH);
     const manifest = JSON.parse(manifestBuffer.toString());
@@ -35,7 +39,7 @@ async function generateXpi() {
     const credentialsPath = path.resolve(__dirname, '../private/AdguardVPN/mozilla_credentials.json');
 
     // require called here in order to escape errors, until this module is really necessary
-    // eslint-disable-next-line global-require, import/no-unresolved
+    // eslint-disable-next-line global-require, import/no-unresolved,import/extensions
     const cryptor = require('../private/cryptor/dist');
     const credentialsContent = await cryptor(process.env.CREDENTIALS_PASSWORD)
         .getDecryptedContent(credentialsPath);
@@ -95,7 +99,7 @@ const createUpdateJsonContent = (
 
 const createUpdateJson = async (manifest) => {
     try {
-        // eslint-disable-next-line camelcase
+        // eslint-disable-next-line camelcase,@typescript-eslint/naming-convention
         const { id, strict_min_version } = manifest.browser_specific_settings.gecko;
 
         const fileContent = createUpdateJsonContent(
@@ -119,7 +123,11 @@ const createUpdateJson = async (manifest) => {
 
 const updateFirefoxManifest = async () => {
     const MANIFEST_PATH = path.resolve(
-        __dirname, BUILD_PATH, outputPath, BROWSERS.FIREFOX, MANIFEST_NAME,
+        __dirname,
+        BUILD_PATH,
+        outputPath,
+        BROWSERS.FIREFOX,
+        MANIFEST_NAME,
     );
     const manifest = JSON.parse(await fs.readFile(MANIFEST_PATH, 'utf-8'));
     manifest.browser_specific_settings.gecko.update_url = FIREFOX_UPDATE_URL;

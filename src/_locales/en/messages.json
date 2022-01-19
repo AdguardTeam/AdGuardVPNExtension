@@ -272,8 +272,8 @@
     "context_menu_selective_mode": {
         "message": "Selective mode"
     },
-    "context_menu_regular_mode": {
-        "message": "Regular mode"
+    "context_menu_general_mode": {
+        "message": "General mode"
     },
     "settings_dns_label": {
         "message": "Use DNS server"
@@ -342,7 +342,100 @@
         "message": "Light"
     },
     "settings_exclusion_add": {
+        "message": "Add"
+    },
+    "settings_exclusion_add_website": {
         "message": "Add a website"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "Add a subdomain"
+    },
+    "settings_exclusion_invalid_subdomain": {
+        "message": "Invalid subdomain"
+    },
+    "settings_exclusion_status_domain": {
+        "message": "domain"
+    },
+    "settings_exclusion_status_subdomain": {
+        "message": "subdomain"
+    },
+    "settings_exclusion_status_all_subdomains": {
+        "message": "all subdomains"
+    },
+    "settings_exclusion_service_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN is off for the checked domains"
+    },
+    "settings_exclusion_service_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN is on for the checked domains"
+    },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN is off for the checked domains and subdomains"
+    },
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN is on for the checked domains and subdomains"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Domain name:"
+    },
+    "settings_exclusion_subdomain_name": {
+        "message": "Subdomain name:"
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "From the list"
+    },
+    "settings_exclusion_add_manually": {
+        "message": "Manually"
+    },
+    "settings_exclusion_add_manually_add": {
+        "message": "Add manually"
+    },
+    "settings_exclusions_add_invalid_domain": {
+        "message": "\"%url%\" is not a valid domain. Do you want to add it to the list?"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "Cancel"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Remove"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Save"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "Reset to default"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Reset"
+    },
+    "settings_exclusion_reset_service_confirmation_message": {
+        "message": "Reset the default settings for %hostname%? This will restore any missing domains and set all check marks to on."
+    },
+    "settings_exclusion_search_website": {
+        "message": "Search website"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Search"
+    },
+    "settings_exclusion_nothing_found": {
+        "message": "No results found"
+    },
+    "settings_exclusion_connection_problem": {
+        "message": "Connection problem"
+    },
+    "settings_exclusions_action_export": {
+        "message": "Export exclusions"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Import exclusions"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Remove all"
+    },
+    "settings_exclusions_remove_all_exclusions": {
+        "message": "Remove all exclusions"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "Are you sure you want to continue? The entire list of exclusions will be removed."
     },
     "settings_exclusions_import_button": {
         "message": "Import"
@@ -359,17 +452,20 @@
     "settings_connection_mode_title": {
         "message": "Operating mode"
     },
-    "settings_exclusion_regular_title": {
-        "message": "Regular mode"
+    "settings_exclusion_change_mode": {
+        "message": "Change mode"
     },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN won’t work on websites from the list below"
+    "settings_exclusion_general_title": {
+        "message": "General mode"
+    },
+    "settings_exclusion_general_description": {
+        "message": "AdGuard VPN is on everywhere except websites added to exclusions"
     },
     "settings_exclusion_selective_title": {
         "message": "Selective mode"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN will only work on websites from the list below"
+        "message": "AdGuard VPN is on only for the websites added to exclusions"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Subdomains"
@@ -636,6 +732,15 @@
     },
     "options_exclusions_import_successful": {
         "message": "Imported exclusions: %count%"
+    },
+    "options_exclusions_deleted_exclusions": {
+        "message": "Deleted exclusions: %count%."
+    },
+    "options_exclusions_added_exclusions": {
+        "message": "Added exclusions: %count%."
+    },
+    "options_exclusions_remove_all_success": {
+        "message": "All exclusions for current mode successfully removed."
     },
     "options_exclusions_import_error_wrong_extensions": {
         "message": "Exclusions file should have one of the following extensions: %extensions%"

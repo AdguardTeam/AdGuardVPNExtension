@@ -33,7 +33,7 @@
         "message": "2FA gerekli"
     },
     "authentication_error_2fa_invalid": {
-        "message": "Geçersiz kod"
+        "message": "Kod geçersiz"
     },
     "authentication_error_account_disabled": {
         "message": "Hesap devre dışıdır"
@@ -43,6 +43,9 @@
     },
     "authentication_error_wrong_credentials": {
         "message": "Yanlış parola"
+    },
+    "authentication_too_many_requests": {
+        "message": "IP adresinizden çok fazla istek aldık. Lütfen daha sonra tekrar deneyin."
     },
     "authentication_error_default": {
         "message": "Hata oluştu, daha sonra tekrar deneyiniz"
@@ -96,7 +99,7 @@
         "message": "Bu alan zorunlu"
     },
     "options_bug_report_request_error": {
-        "message": "Bir hata oluştu. Lütfen daha sonra tekrar deneyiniz."
+        "message": "Bir hata oluştu. Lütfen daha sonra tekrar deneyin."
     },
     "options_bug_report_send_button": {
         "message": "Gönder"
@@ -122,8 +125,26 @@
     "account_edit": {
         "message": "Yönet"
     },
+    "account_version": {
+        "message": "Sürüm"
+    },
+    "account_signed": {
+        "message": "ile giriş yapıldı"
+    },
+    "account_free": {
+        "message": "Ücretsiz"
+    },
+    "account_unlimited": {
+        "message": "Sınırsız"
+    },
+    "account_next_charge": {
+        "message": "(Sonraki ücret %date%)"
+    },
     "account_sign_out": {
         "message": "Oturumu kapat"
+    },
+    "account_unlimited_title": {
+        "message": "Sınırsız sürümü edinin!"
     },
     "rate_description": {
         "message": "Hey, biz AdGuard'dan bir ekibiz ve ürünümüz hakkındaki düşüncelerinizi bilmek bizim için çok önemlidir. Lütfen oylayın."
@@ -199,6 +220,9 @@
     },
     "auth_placeholder_2fa": {
         "message": "Kimlik doğrulama kodu"
+    },
+    "official_website": {
+        "message": "Resmi site"
     },
     "eula": {
         "message": "SKLS"
@@ -537,14 +561,32 @@
     "popup_upgrade_screen_title": {
         "message": "Sınırsız VPN"
     },
+    "popup_upgrade_screen_desc": {
+        "message": "Lisansınızı yükseltme zamanı!"
+    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Sınırsız veri"
+    },
+    "popup_upgrade_screen_unlimited_data_desc": {
+        "message": "Tek sınır, verilerinizin asla paylaşılmamasıdır. Dilediğiniz kadar gezinin!"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "Sınırsız hız"
     },
+    "popup_upgrade_screen_unlimited_speed_desc": {
+        "message": "Hız kısıtlaması yok. Servis sağlayıcınızdan en iyi şekilde yararlanın!"
+    },
     "popup_upgrade_screen_all_locations": {
         "message": "Tüm konumlar"
+    },
+    "popup_upgrade_screen_all_locations_desc": {
+        "message": "6 kıta ve onlarca ülke. Bir şehir seçin ve internette güvenli bir şekilde gezinin!"
+    },
+    "popup_upgrade_screen_streaming_support": {
+        "message": "Akış desteği"
+    },
+    "popup_upgrade_screen_streaming_support_desc": {
+        "message": "Tüm büyük veri akış hizmetleri mevcuttur. Her şeyi, her yerde izleyin!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Yayın akışı"

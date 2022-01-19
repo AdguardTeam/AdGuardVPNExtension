@@ -1,0 +1,5522 @@
+[
+    {
+        "hostname": "aliexpress.com",
+        "id": "tFKZ5xaKAIGvAHAPZQFVm",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.aliexpress.com",
+        "id": "Xu03GPASW8MRO-oC_Lue_",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "aliexpress.ru",
+        "id": "-usIrhBf-LCWwjuh3eMgL",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.aliexpress.ru",
+        "id": "w85jdO_nO7kGPQifi8-Kx",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "a2z.com",
+        "id": "GUmYno1nTyYptL_cSsIOZ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.a2z.com",
+        "id": "F9actEqjnszRRGVa7gG92",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "amazon-corp.com",
+        "id": "PiatuWfGKB7s7AryBP8q8",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.amazon-corp.com",
+        "id": "bsXIx1C4Qd_lBpSJi36a2",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "amazon.ca",
+        "id": "vB_96-Lso8Z5um0dfg6kV",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.amazon.ca",
+        "id": "qY1XU20OTn4TwB_uZEdl0",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "amazon.co.jp",
+        "id": "31N2unY_YTBOjnrc44Xqa",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.amazon.co.jp",
+        "id": "gcoMcZxe0UjtFBon8YxDm",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "amazon.co.uk",
+        "id": "HaFXZT_D5shpwrrfJuyUH",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.amazon.co.uk",
+        "id": "8q_wC1KqdflmsRuQ1osiD",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "amazon.com",
+        "id": "ZFkXlRoxDh4lharJgTsZj",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.amazon.com",
+        "id": "yhErCm8dgIJij4nV5B9AN",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "amazon.com.au",
+        "id": "l8X463onz6MuPVyzsvY5x",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.amazon.com.au",
+        "id": "rcbzxQab6c40vegaNF8Jj",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "amazon.com.mx",
+        "id": "JsHzoVph7PXffJcaS8cEZ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.amazon.com.mx",
+        "id": "AwnSny1P6r9mMov3PbQMe",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "amazon.de",
+        "id": "1hP2sTIpo4OjBU6cZPFAo",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.amazon.de",
+        "id": "nUS8ldPhpHS3me9Fkx2i5",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "amazon.es",
+        "id": "6mavzwfk7SmX-rx7r5tzE",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.amazon.es",
+        "id": "ksB_kmk2dqdWxaN2CZ9h-",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "amazon.eu",
+        "id": "KKN0SuzUAHHynKKGKRTdz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.amazon.eu",
+        "id": "KCc4HGsrLSKtShCU1Kn0r",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "amazon.fr",
+        "id": "0Q99nSm_48UmFWBRzb6bz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.amazon.fr",
+        "id": "juXExYZNYLutqdW4MJqdD",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "amazon.in",
+        "id": "YVATKfWU4qnIikA1gXwuu",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.amazon.in",
+        "id": "sCTMKEgUrvBy4hRt78xh_",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "amazon.it",
+        "id": "J3y8CrKHRlLuH58MsaIQS",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.amazon.it",
+        "id": "Ee6rB12UFybHWjDMkRI6O",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "amazon.nl",
+        "id": "2G85Yu27rH2R_MlsrKz5E",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.amazon.nl",
+        "id": "Ifb4eaf8m-2spqm41WgsY",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "amazon.sa",
+        "id": "QOqbs0d_X1YfuQBU5igsz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.amazon.sa",
+        "id": "N7qPC_r32SPgCYx6uwUy-",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "amazonbrowserapp.co.uk",
+        "id": "RGsYtzoannHe3s3eK4FF0",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.amazonbrowserapp.co.uk",
+        "id": "kRZhYqSQySvVek_DTnRZq",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "amazonbrowserapp.es",
+        "id": "-SO_3buX_0_sna3cqHe2r",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.amazonbrowserapp.es",
+        "id": "-DqENEuMBJsH5V8xZ0Jwf",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "amazoncognito.com",
+        "id": "Rewq-JsPBCD9Def37jJjG",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.amazoncognito.com",
+        "id": "TJeEx-f73TY4YizItaSc0",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "amazoncrl.com",
+        "id": "QQPC7CHmXOEvlAewzYHrz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.amazoncrl.com",
+        "id": "Z51R-WzkclKQufd6DU-Ge",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "amazonpay.com",
+        "id": "JoV6d3OgQmdxlxn5SB8r9",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.amazonpay.com",
+        "id": "4nfk6ZdnC2XtOtr95FAc2",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "amazonpay.in",
+        "id": "gJZoHE-kArwu7zpCDa_lE",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.amazonpay.in",
+        "id": "goZY9DMaXb4Cc12kufGEI",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "amazontrust.com",
+        "id": "35gONhZpxM0ITQdD3gjac",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.amazontrust.com",
+        "id": "CoeaSFGdFx6qeFN8PXNDM",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "associates-amazon.com",
+        "id": "4K-ShQTr1szFOy5Ngi47b",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.associates-amazon.com",
+        "id": "m5j4Y111L03iAX_b-y5Kw",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "images-amazon.com",
+        "id": "9VaA5gRJeefWYrVdt5rOj",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.images-amazon.com",
+        "id": "WTa1GjRM1SlXUZQ4g93cP",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "media-amazon.com",
+        "id": "-H013hqcnm85ZPvPupYxe",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.media-amazon.com",
+        "id": "ba1-RK6xM8i1mK4lhu3dT",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ssl-images-amazon.com",
+        "id": "miyGtEJAVuVBwNbFhkSkR",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ssl-images-amazon.com",
+        "id": "vN74cmofm9fazBbyOIg6o",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "craigslist.ca",
+        "id": "5S8Fn_S4gIAVhMy_fl8yt",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.craigslist.ca",
+        "id": "I8r8EQpkE58UTLVnSdWdx",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "craigslist.org",
+        "id": "Zb5qanPZkajRPRIjSEtHM",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.craigslist.org",
+        "id": "0tJga0UbCOtlvAcFSBjYm",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ebay-us.com",
+        "id": "Ggt0a9oisvSfYCU9w79Me",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ebay-us.com",
+        "id": "LNb72mLCsuvJpyhOad-kq",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ebay.be",
+        "id": "1ZrOjzK-aTsUYLFc2x4Zz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ebay.be",
+        "id": "4sft7lUtHLT6Kb3rZETVT",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ebay.ca",
+        "id": "qDBP_zTO_uRADA_5MgEfP",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ebay.ca",
+        "id": "iSskheUmrtuiO7nfHQloW",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ebay.co.jp",
+        "id": "IZxXZSe6ku4N8OcEMREZb",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ebay.co.jp",
+        "id": "MEw4imrMPY5H8uWeB13Mw",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ebay.co.uk",
+        "id": "vunB_c7gaIbmNS1FMm8R_",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ebay.co.uk",
+        "id": "EhF-NOY4udgP6wl6eDqL2",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ebay.com",
+        "id": "OJIGqiAbQSXskq8l_NxH8",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ebay.com",
+        "id": "MfHtu87fOVEx5uENJxZkX",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ebay.com.au",
+        "id": "mwovxNm-5_XsrsYqOdH0-",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ebay.com.au",
+        "id": "q4N2fDVGvE7MSUxrVdkpF",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ebay.com.my",
+        "id": "CbcNiZsYADBh0TseqyTkJ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ebay.com.my",
+        "id": "yBmDIKAnVeDmdqxPFpKbP",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ebay.fr",
+        "id": "wHsU_YizYU_aJaMDLQbh1",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ebay.fr",
+        "id": "cK60kfRpsZ64sXyr48t-p",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ebayadservices.com",
+        "id": "zCyNGkNQhJkADsaadLtFm",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ebayadservices.com",
+        "id": "jVevYAg3o1_r3BdA_-LR-",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ebaycdn.net",
+        "id": "SthwJHKafLs_SfcxqEFwd",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ebaycdn.net",
+        "id": "wKP4tf6Z_KBT4EvEjqy1D",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ebaydesc.com",
+        "id": "G4i9Jfo3ZwVeUUkbSdAaY",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ebaydesc.com",
+        "id": "s78oiQbjbL-jcaVXQCCow",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ebayimg.com",
+        "id": "g5ps4NEC4Sws_lkBYYMhk",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ebayimg.com",
+        "id": "q7fsYIvVqJMWCOr4iBRyY",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ebayrtm.com",
+        "id": "BErQSlxRjKOB-dpJCJTjC",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ebayrtm.com",
+        "id": "Tl_mYEVbo4YBIcVAOBpo3",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ebaystatic.com",
+        "id": "vlw-mglhKUWkriAEcPt4w",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ebaystatic.com",
+        "id": "WQB2Gwb0hIMnuy7lZFzzq",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ebaystratus.com",
+        "id": "3ZxbQ1ACwQTkzeSP8UUn4",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ebaystratus.com",
+        "id": "fUN9-fdscLQL3YqavGfLZ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "etsy.com",
+        "id": "-0DChBeJz0AplyRXDhU1Z",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.etsy.com",
+        "id": "n6718N7TRE8DT3D_UgmIL",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "etsy.me",
+        "id": "cjYFkjOwf540hXGZqjYdM",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.etsy.me",
+        "id": "2YckeBEvHrfNDHm-hZ-a_",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "etsystatic.com",
+        "id": "MjcLmOHVad0nFkY_qAjvQ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.etsystatic.com",
+        "id": "v98l7Rcxzw6C5C0bWJXGp",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "atlassian.com",
+        "id": "3GYTdadYR-ochAfVo7LzC",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.atlassian.com",
+        "id": "O1rkbQzNDDXbTzzYZivNF",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "atlassian.net",
+        "id": "yunr_fASS3H96asCvyGnf",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.atlassian.net",
+        "id": "Je6ukU72qUtC97URx54Tg",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "bitbucket.org",
+        "id": "GY5HXvgCnRlVlYZP4MDYD",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.bitbucket.org",
+        "id": "3QzCeBnuE_X-6El7iXHuc",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ghcr.io",
+        "id": "CM6G_7f2wO5o_VsJjjj3Q",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ghcr.io",
+        "id": "gnENmJQoJhd9nCjlVH-a6",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "github.com",
+        "id": "u3VO3IY1F2QgS07GOaJ3E",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.github.com",
+        "id": "trGs5eFd7g2SdwqvUtaz9",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "github.io",
+        "id": "e8RVMuLX8Av7mWhb4HsK1",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.github.io",
+        "id": "iLOvat1JMTRinCXTg89Rz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "githubapp.com",
+        "id": "cJG3RvAnSuMGFe2yG37C9",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.githubapp.com",
+        "id": "Jwpk91TMqAPYjQYygBrxT",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "githubassets.com",
+        "id": "hhFpVo3WIHnmQYLEItP9n",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.githubassets.com",
+        "id": "cEVm5GDuL_e7Q8COasQEW",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "githubusercontent.com",
+        "id": "_x6FrY55NmdjKi73H_VvN",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.githubusercontent.com",
+        "id": "eohrtpLlY-7osTIFixctl",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "gitlab-static.net",
+        "id": "30h6kHYQZR-mretV5m_h9",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.gitlab-static.net",
+        "id": "QAk_LjGMOddd1luSXmUxT",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "gitlab.com",
+        "id": "-tDtZzuKXR_C8u--3mQiZ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.gitlab.com",
+        "id": "sxFLPi8X72WiCVddGXGhO",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "gitlab.io",
+        "id": "W9foOtYFL9iIrb8gv7juM",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.gitlab.io",
+        "id": "NfXCymo-6_Z4glyLtg4IX",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "gitlab.net",
+        "id": "Cr6DO3GdGr1fGCdsGlQzK",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.gitlab.net",
+        "id": "8sH0E2dFIy5AvvShAGATU",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "assets-yammer.com",
+        "id": "55ykLPblBd-b0yy14KD_O",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.assets-yammer.com",
+        "id": "CjWY5ZWRKtvK6NKeTbjWm",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "footprintdns.com",
+        "id": "RE9nGkRLIoCDvnJbhoJna",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.footprintdns.com",
+        "id": "BhBrcJUNOWfEBnZxlNDJQ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "microsoftonline-p.com",
+        "id": "E3qhWXA4wDQBifr5QJyXZ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.microsoftonline-p.com",
+        "id": "qSXheqxkssA_w9ahVeSbJ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "microsoftonline.com",
+        "id": "KxxxEuZ02Ja7Xs-348WpQ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.microsoftonline.com",
+        "id": "FYlAcV_mjaJibmt1VRjyx",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "msocdn.com",
+        "id": "aKtHxZ_t_jPnfDBtQmEpS",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.msocdn.com",
+        "id": "0CeC9f7QAhcHnaD0-7wte",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "msocsp.com",
+        "id": "OuBlMbgTqXCNUN9395og_",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.msocsp.com",
+        "id": "WRklq_hrXkYzwAjhN80uK",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "o365filtering.com",
+        "id": "x7rB8LraRwXkQdMQAvLEB",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.o365filtering.com",
+        "id": "1UmmnSLoMPH34xMGqn6V-",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "office.com",
+        "id": "idGje-st6sYXKp9ot72nV",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.office.com",
+        "id": "4xW8Ar2NB3c9SERHfBdy6",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "office.de",
+        "id": "VZeCotKvJewIcpOJdePDi",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.office.de",
+        "id": "y9nvt-mNo9as4xRLcuPvE",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "office.microsoft",
+        "id": "4ng_VlKke0kfIbhA0YrIY",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.office.microsoft",
+        "id": "6EbJCkicoe1wYcfyV2aMz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "office.net",
+        "id": "H4EmzuA6XZ3T6L52tWwn_",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.office.net",
+        "id": "yvNEbu4Z0XSTaF9TC161W",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "office365.com",
+        "id": "i0j5YZEoUZlHY2q0uiWFx",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.office365.com",
+        "id": "NSGhWTl4dqs7ox_Xz09-p",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "office365.us",
+        "id": "GC6DdiOazXyz_fwSA6oXV",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.office365.us",
+        "id": "2rEi_V6sGXhT38jKmfL2z",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "live.com",
+        "id": "VCDqf6jPJSLa6uV4DsMsE",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.live.com",
+        "id": "Y1WsViFYc7JbEnXe6dHDx",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "microsoft.com",
+        "id": "QmFqsDM0x0kia5JYV7YE7",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.microsoft.com",
+        "id": "eajrjbPt35cky_UETxr4X",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "onmicrosoft.com",
+        "id": "Os_DwUMPBHqNQTTccp9iM",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.onmicrosoft.com",
+        "id": "tcidMPq_18Chw7n7VVJ5U",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "svc.ms",
+        "id": "EjO7vVJDLM278Q8dCWsyB",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.svc.ms",
+        "id": "jZOXpdHWyv6ZG5sHrDPuc",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yammer.com",
+        "id": "NClFlcrqpNutV2DiE2VQO",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yammer.com",
+        "id": "Q-avD9_gEXvs00ln86lc7",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "lync.com",
+        "id": "pEPCEBlM9Dr49jRwqNQeV",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.lync.com",
+        "id": "tl99lGVJBdTccugvoFqjn",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "sfbassets.com",
+        "id": "RaL9bJJ8YETuWfLOK95iU",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.sfbassets.com",
+        "id": "Q3-6WrJVDuxAttf0e5UGE",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "cloudapp.net",
+        "id": "dXYeq80cj5WL3Yo8M1Xeh",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.cloudapp.net",
+        "id": "tW8vdCGNiDUSr-aKL2-GJ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "skype.com",
+        "id": "Mk_Dd9QoqAvgzItCCAYu7",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.skype.com",
+        "id": "o63DCQtbjVuG9_fl4-BZ2",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "skypeassets.com",
+        "id": "m5tNBDo9gs55clAgIn7S0",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.skypeassets.com",
+        "id": "lwCLFV0SbgDA6v6tEPZV1",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "skypeforbusiness.com",
+        "id": "v6mQMxLXTNrcML_3y-DL_",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.skypeforbusiness.com",
+        "id": "_PSF9ReXTnx9eMzvHqx6p",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "slack-core.com",
+        "id": "LQt6pEa3NpMaS_zLMDSjA",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.slack-core.com",
+        "id": "yKZGLAMB-aKrnc51AFrp-",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "slack-edge.com",
+        "id": "mHsfnpiL0aNsUhDOzxhbn",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.slack-edge.com",
+        "id": "wqsSCamL6KtYbCyoG3gmJ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "slack-files.com",
+        "id": "gVAoZ-BVwBu2kBiG9Snz0",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.slack-files.com",
+        "id": "AJJ1gJsX_HVZcddyYFZ-X",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "slack-imgs.com",
+        "id": "HIEjMGqhW_CR-w60hU6iX",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.slack-imgs.com",
+        "id": "4H4xs6182UQXklhCvb6A-",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "slack-msgs.com",
+        "id": "V48wModPl4N1fi8qlOfXs",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.slack-msgs.com",
+        "id": "tpd2Ip46bRLAt-bxe75CR",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "slack-redir.net",
+        "id": "IrA8cnEMmcnPdAYaLox2K",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.slack-redir.net",
+        "id": "av8v9V9KUT828cIMRUe5s",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "slack.com",
+        "id": "nAvefyZZMXyvqqSouTXLL",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.slack.com",
+        "id": "rX5OV3XaromZsZriADT1o",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "slackb.com",
+        "id": "vL8FqEG-stVFj4lQVXrP4",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.slackb.com",
+        "id": "N-1ewZESUFi1YzfSc6j7F",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "zoom.us",
+        "id": "lBV5haWdsxMKdGdxpcWCb",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.zoom.us",
+        "id": "LOa1MLiCGNr6mNwlX1RkF",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "zoomgov.com",
+        "id": "Rmu_OFO4wW48lEMwvg8rz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.zoomgov.com",
+        "id": "IAnr8EcqXLBmtmx_Fl9AT",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "baidu.com",
+        "id": "jsQ4aHbKVn5C_GdYxEUWg",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.baidu.com",
+        "id": "lCVCc_CN1C8iKUEbrXXID",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "baiducontent.com",
+        "id": "zmT_cYkiGK0pIYl7dA7Mu",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.baiducontent.com",
+        "id": "3CoN6gMXcQU0LVDWBzmpz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "baidupcs.com",
+        "id": "xipnGfj42VBVu3zPTqG8h",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.baidupcs.com",
+        "id": "CeHL21zttKgd1v-Fd4w4B",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "baidustatic.com",
+        "id": "OLNnBUrJCeT5HrEbVWlJl",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.baidustatic.com",
+        "id": "GZsu63o2dUqMpSaoa0jWG",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "bcebos.com",
+        "id": "e8w0aHYuhpi6PnjoHTfuy",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.bcebos.com",
+        "id": "nBmBrOxoxYBWt0s5xIwRp",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "bdimg.com",
+        "id": "rygJQAZ9IH085JdGPEjFY",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.bdimg.com",
+        "id": "xfNPetT9gY5m4o0Fqdrt_",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "bdstatic.com",
+        "id": "p-PKYlLbm9IsslRF6XShw",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.bdstatic.com",
+        "id": "-UecQ_NO8LUhql-aRZicy",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "gshifen.com",
+        "id": "nOrEXiujdc65z36j24Kht",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.gshifen.com",
+        "id": "NQusF8PPBOD76bfpNC756",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "popin.cc",
+        "id": "mXDTJdxERd7eCJb4wjOYp",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.popin.cc",
+        "id": "NeRGoyhmQ_UTjjo5PunIe",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "shifen.com",
+        "id": "I37IHAsIUnZdMgcJdGTRI",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.shifen.com",
+        "id": "aBBbym6ImoOfsL2NL_Cmv",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "wshifen.com",
+        "id": "zROVokvGcLFmfc23rnq7o",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.wshifen.com",
+        "id": "XGUNZjxt4KyyZ9sndQlLU",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "bi.ng",
+        "id": "xZ42-D72Om9FmLHolMJH8",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.bi.ng",
+        "id": "9uIBgMSUxIa-5LIHxPaqU",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "bing.com",
+        "id": "po3Ker1DA47K35bgAVTHs",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.bing.com",
+        "id": "8iPS2O_3RyVGOopCAlvm9",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "bing.com.bo",
+        "id": "dvGmvJkr7g_m9PdN3nIgx",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.bing.com.bo",
+        "id": "BXMWOB4j_MoTMqgEdVq6R",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "bing.com.co",
+        "id": "R8-30BmQdhX-g9LFw9xG6",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.bing.com.co",
+        "id": "xkwm_tZ2kt-N0RYUg3m9Y",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "bing.com.cy",
+        "id": "e24xRdPVQrVfKM1uv0pnV",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.bing.com.cy",
+        "id": "8BVo80XGyiWm1yNnpZIJM",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "bing.com.gt",
+        "id": "Mzuz5XcboIYiap4o20-eA",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.bing.com.gt",
+        "id": "IGgH2SzFw9dAWnY9fwVRC",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "bing.jp",
+        "id": "xiyTl9OKcX40HP477fL1B",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.bing.jp",
+        "id": "WRmi8ovkVsUWTRVp4G55B",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "bing.net",
+        "id": "Pm8pV1B5OnLPW9udBQm6S",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.bing.net",
+        "id": "KxGV93TddtyWSsEWg-Mwa",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "bingapis.com",
+        "id": "AXsF7_7Ype7XL4TdOsXxJ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.bingapis.com",
+        "id": "yo1fJnmTpPiF6gJoUuMSE",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "bingforbusiness.com",
+        "id": "WSp9ISmBM1z6wJPUAJQyA",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.bingforbusiness.com",
+        "id": "fjzHMqLQL8XNU-GntCyV1",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "duckduckgo.com",
+        "id": "yTuLImI26pGTTK6J9Trbp",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.duckduckgo.com",
+        "id": "HQLEqaqWKFkqdABFXVcJO",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "1e100.net",
+        "id": "0UD18WafIiDr2oGN-34zU",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.1e100.net",
+        "id": "InytBnoWYrYHZ-lex8gYK",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "g.co",
+        "id": "tYoRm4GfwkNE4UOfbjpRv",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.g.co",
+        "id": "-DK1g_S7xzE4bXFdoYF6v",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ggpht.com",
+        "id": "J-ywS2njcxSEEyTkmNgs2",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ggpht.com",
+        "id": "wLOxx_vAUYIUlKDcoNSKO",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "goo.gl",
+        "id": "1TUhcxZZ0ChRxDXdOQ1Tb",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.goo.gl",
+        "id": "usV10AuLk-NfQkXe2e6sg",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.ad",
+        "id": "r9tgdBx_VYUvxpZSUJR4S",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.ad",
+        "id": "zZdGOMIdy9Oy2eNCBdtdr",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.ae",
+        "id": "pIxBGk_qU2WWq0CPae1FF",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.ae",
+        "id": "bEAd8cBTrQiZUWfawXJcz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.al",
+        "id": "0UuBb35yZ4AYilTzPr_Uf",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.al",
+        "id": "p1-OMI2SuOY7OFPTiKkVl",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.am",
+        "id": "buQXVm1AvpcHPMq-rNVUJ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.am",
+        "id": "rGYUZoXLawzR7lE_GU975",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.as",
+        "id": "XknlCjFLq1uO18UqgggzS",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.as",
+        "id": "4lG152p59NBDapn6AEPFU",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.at",
+        "id": "NekW1MBWC-SHrmVkO3Ryq",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.at",
+        "id": "QZvPyGCweqc_B_n4ULZ7s",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.az",
+        "id": "h2qcQ3HCyUPUG0bgzhE_O",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.az",
+        "id": "Bm1p-XSCFccl3T1X5ry8F",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.ba",
+        "id": "w8XoIASgheWF_muoXhXZt",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.ba",
+        "id": "N96aI5Y-i9deyrARgD6KK",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.be",
+        "id": "Ubs4dlbSUxe7f6XLcWQek",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.be",
+        "id": "_sWoI1Dyh1Okj6sLJGmth",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.bf",
+        "id": "-hK37K0SV6BSS5xDMS25l",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.bf",
+        "id": "YKZdxLSDiI4wy1tlQnbkh",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.bg",
+        "id": "4cFxkZwKOQhGepby2QPDV",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.bg",
+        "id": "zmvB07YcXGbfzdGW9v8ub",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.bi",
+        "id": "VCld9llpjSlmRRPKn_Tvk",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.bi",
+        "id": "WeG1wtDs-rslzL9Oge2xy",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.bj",
+        "id": "Q9c_YbAar07AcJVrLg9Jk",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.bj",
+        "id": "DKeg_mkmvfZAP9Sah9oGw",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.bs",
+        "id": "Z5eNkjdxuTsOEyrpCGHXi",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.bs",
+        "id": "B3bqcOUJ4sCj_b6ID88Xb",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.bt",
+        "id": "2YupiSBPH2lkVYXH3wTjX",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.bt",
+        "id": "u9IVbElh3H0tDFQj4uHFk",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.by",
+        "id": "O50uEF3VbzOd0ldTDMBza",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.by",
+        "id": "5YHadPwH9TUQ0LzT0lMY-",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.ca",
+        "id": "sFmQcvcNUkzW03AnTWi0f",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.ca",
+        "id": "-Gd6NSnY2LYLK91EJKawF",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.cat",
+        "id": "kSev-VjC3_umPLZj1H4iN",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.cat",
+        "id": "gnv8N3IkshKuu9JgmiMuO",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.cd",
+        "id": "XRSK8pIbXTPRnkBEIGR1m",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.cd",
+        "id": "U3dMqGq3K9ibTCS3UcN3-",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.cf",
+        "id": "iocqUIKEMu60lp9NwdOYz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.cf",
+        "id": "uMC18FucwJbVKb1JXOh9c",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.cg",
+        "id": "usPItmM5x21xKO_uOMThs",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.cg",
+        "id": "_f9LLIO31Ch7cGjm-1bpW",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.ch",
+        "id": "Dv8w8IrBPibZhAZ9wFVZR",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.ch",
+        "id": "s-LpmV7hIOzlT7T9JGKaH",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.ci",
+        "id": "9JU2K8kMcdMyiikmDEsGe",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.ci",
+        "id": "WkEpKj4D1u0RhvqOHa9IW",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.cl",
+        "id": "mrS3eRNBQ7GF_LIjHCGV6",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.cl",
+        "id": "qYxidgE-V07T6MotYBNa5",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.cm",
+        "id": "Z2G49OXYWIuYfRa2hAOJo",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.cm",
+        "id": "8WrIzzjdw4Fmtk1FJm7vo",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.cn",
+        "id": "sKXtBAf4o6x53dHALWthp",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.cn",
+        "id": "25p4kdRXnbl9J81xkbN9v",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.co.ao",
+        "id": "c-qmM4tU4iSUB7mCClcS-",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.co.ao",
+        "id": "9qdITMxDDANN38hS9SYi8",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.co.bw",
+        "id": "vnCqxH67tic8-4-EK2PyC",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.co.bw",
+        "id": "6ditLRPCMbz-jObk7Fg8I",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.co.ck",
+        "id": "OyiuDEfAq-xZ66K2Ab9jg",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.co.ck",
+        "id": "MjcvWGyVrlFrXrphWYcTm",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.co.cr",
+        "id": "Tlbh3GuKnUEHmD0rqBv-N",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.co.cr",
+        "id": "nhkkKW2kFgQ-xI2lt5Zub",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.co.id",
+        "id": "ey57j0dflH1waB5StPFBI",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.co.id",
+        "id": "VHV8yWvFOCntxm2MgnDhD",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.co.il",
+        "id": "4sDwMmvmCdnnXuo31XCLI",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.co.il",
+        "id": "x4-WBHgIrXEpSttxokViI",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.co.in",
+        "id": "keDvuVbE4pyVICmQf9OXB",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.co.in",
+        "id": "R_pcaSVqRrIudlz_0yCfk",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.co.jp",
+        "id": "i6DfY4L_2yJp_vAyLs7Ey",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.co.jp",
+        "id": "g-1_pV9VhnIdWIUfaaudz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.co.ke",
+        "id": "_YD6gQK-DR3_HJGzpa6-r",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.co.ke",
+        "id": "P-juv0AbL3hQFPaNon6wE",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.co.kr",
+        "id": "p2x_lVL_Gd9HCqV8r0TzG",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.co.kr",
+        "id": "8z9w4eTQqwrLc6Hq4ZUVS",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.co.ls",
+        "id": "LFKBaDMkueRWnGtRJjFFF",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.co.ls",
+        "id": "3z2WFyOBfZbiTvOgxijyt",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.co.ma",
+        "id": "ElAWj0BnCDtCGzPPTspeW",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.co.ma",
+        "id": "jR_TDjAfGPynuY4DH1iSF",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.co.mz",
+        "id": "22ab2tn1ozXqeWCtXv2J0",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.co.mz",
+        "id": "zmosquFgh8qXA_0gvL_wk",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.co.nz",
+        "id": "-SAo7I5YRJTJmiRzPrHB6",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.co.nz",
+        "id": "6PY9e-tuGy_vpa6GDilvS",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.co.th",
+        "id": "lFvZ_dpKod-hchzjs0_1S",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.co.th",
+        "id": "90vL8vCGBtEHXOKb2Fgdu",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.co.tz",
+        "id": "XEXmzmCAQ7KeCblf6zIBg",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.co.tz",
+        "id": "eojMUUrJkabRsFJjXvvk2",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.co.ug",
+        "id": "D2DcRptMRgyo1sNgHGzBH",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.co.ug",
+        "id": "qGae1_WDLCmYDGFJ8Xalq",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.co.uk",
+        "id": "uD98DOsLf0f0RLSe-M07F",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.co.uk",
+        "id": "BJmp2jYy8XaR5AsI7OzYO",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.co.uz",
+        "id": "Qdev0cI2qlzWlNpI5DQpr",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.co.uz",
+        "id": "W5tkXujSXPlTiuZPwNH_t",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.co.ve",
+        "id": "vDB031UlQ1kdEVR7z5pCu",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.co.ve",
+        "id": "L6OOV5WPg7LapeMCtSx4F",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.co.vi",
+        "id": "rN9DhxfrN12EHEDD7Lza_",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.co.vi",
+        "id": "yC89PJofLEYhGFGkh-R4d",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.co.za",
+        "id": "f4xN3cD2z4B458ASnSLnm",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.co.za",
+        "id": "7areQ8p03acvPQFk_zh3J",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.co.zm",
+        "id": "EkJivbqQHgBHZ5VYVTmvO",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.co.zm",
+        "id": "F8gwdZqu6GgJAHhSdQhhA",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.co.zw",
+        "id": "MuUkfIxSLzOakZQVcS6sP",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.co.zw",
+        "id": "IgwhXJsfX2rW98H98m8Oz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com",
+        "id": "3qITqFnPMZd4xNvb1Pb5F",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com",
+        "id": "A17H8u2JdDz2XhH3kAH6F",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.af",
+        "id": "PFUvu7SPcYQ6_k5jCpwF0",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.af",
+        "id": "lTdRG7tKLXUgJo6Vk2Y_U",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.ag",
+        "id": "OlL2iwH-2tLiRMMgbDHgQ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.ag",
+        "id": "cd4g2h97i-aXBNveJdxvp",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.ai",
+        "id": "VFf_xesFjS4PdRxzP-JWY",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.ai",
+        "id": "fi0ZOZOZB2GhbsK7WO26i",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.ar",
+        "id": "1iQ79a_eOex3h_pirGVX0",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.ar",
+        "id": "TuB6TaNIA1uRXbaBxWYob",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.au",
+        "id": "Vcqk3o39eMrE40ZjBI5yp",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.au",
+        "id": "S2vLFv3odJuWqdMMc1xO_",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.bd",
+        "id": "GMlpOMB5c6BTzAuZzc6jS",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.bd",
+        "id": "PqzZzHWTGg-augDErHyr3",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.bh",
+        "id": "vBaYAmTLcEhoB9lLm3_Zm",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.bh",
+        "id": "7AqWxZMmQRJhN_Wlv85O-",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.bn",
+        "id": "854jrJAdSE7WqHTp90gaO",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.bn",
+        "id": "8KrKxeo8cPiHYaGdHb8sH",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.bo",
+        "id": "U004cg488Iy8G2Hg2LIIH",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.bo",
+        "id": "lEy5HKaCIW8Mf-U2OAKIM",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.br",
+        "id": "7tNfhLZeM-gBWjyAfrX6e",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.br",
+        "id": "WvjZfML1FdBfFdY2RIml3",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.bz",
+        "id": "yOW6wimT8xP66BiZfS4bG",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.bz",
+        "id": "-4_kx5udsiiMjevqXPmp3",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.co",
+        "id": "yDj_977Gu9erofHp1UH47",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.co",
+        "id": "HInj6I7slgN93eJIGVuUF",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.cu",
+        "id": "-V5IzsbmjqxtQAUnqTf7n",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.cu",
+        "id": "zIStu7Ouo5cBwZmqaA2sN",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.cy",
+        "id": "vmbmYNtdj6yY__9MIp2fb",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.cy",
+        "id": "VxDKasI-GbwRFZpjLUS8E",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.do",
+        "id": "1OzXgaj0blMldL13jlkTV",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.do",
+        "id": "1DaG0ED2WpY7nIEvoJjn-",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.ec",
+        "id": "Yg2IXkPwqVzjp84INokU7",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.ec",
+        "id": "ReJnAta0h3mfv4mYsxdNa",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.eg",
+        "id": "73-MzM0Pg6hEjpIUZxUYE",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.eg",
+        "id": "OZ9jCzmNarJJRTNF0nr22",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.et",
+        "id": "LRSPy5DJ3c267IA2w6iLq",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.et",
+        "id": "VObRS-u0TBqQHN3Tu27Qd",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.fj",
+        "id": "7WJlpRI26YeAI7TJSVElW",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.fj",
+        "id": "bPPeebaNqz4n2bmEDmV8J",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.gh",
+        "id": "atRiYr6IeAzLt_7x4dvXz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.gh",
+        "id": "VKGimlBxbJEWzlmR0EJgo",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.gi",
+        "id": "MR0tuU2XY7_L90X-615Ax",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.gi",
+        "id": "LlWfXaeL_o1nOczI1j5sX",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.gt",
+        "id": "TtKi8S2u3IrtIkvQXjIgz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.gt",
+        "id": "X8tizGmy7YK_KbJ010Qus",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.hk",
+        "id": "FeWnVCD5bbeQj3gEIjM0u",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.hk",
+        "id": "BwkSiWNgWH_pdV-b4Ct_5",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.jm",
+        "id": "FMtFiMTdPELOhvyURqRiQ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.jm",
+        "id": "k5ARcCnLsUjx_JSdv6LYz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.kh",
+        "id": "8oTSlmERMT_jPaxVqV6QL",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.kh",
+        "id": "M695MIoaSjGFFb-nzbtp0",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.kw",
+        "id": "cObozaw9_w5G1mqo6n41h",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.kw",
+        "id": "TIt_J8ADNFMRevzcPkRiQ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.lb",
+        "id": "TiJpE6VRd2R-JIzpI8L84",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.lb",
+        "id": "a1EjsS8W7MAQvLL3PwzPu",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.ly",
+        "id": "nzp0tiRfuAvtnWA--DNW-",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.ly",
+        "id": "gA9P_wSLJAWjg9HXfJryg",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.mm",
+        "id": "5Uz9VCwnv7e08K799zoQN",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.mm",
+        "id": "Gf6LaL0Q1kh-Vw6dhRxHC",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.mt",
+        "id": "YU1wEPCaKjW14CRv12AR0",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.mt",
+        "id": "hSAvJ6fHbDG5CXBYicjy6",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.mx",
+        "id": "NGK3_mutkZsASfppsyTwb",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.mx",
+        "id": "1VL8hlKefxzNdr6bbVNDy",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.my",
+        "id": "spcYmIoibLDi_uUKcaMC6",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.my",
+        "id": "bjk8ci7hmeCXtV5lKkvpM",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.na",
+        "id": "0j0pxRYv-jjfdOP8XnZYf",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.na",
+        "id": "5QRExDz3nkojNff75pe8z",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.ng",
+        "id": "5no9jLEZib1OgdB5MTkEX",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.ng",
+        "id": "Df1m5LFcSNTkN3xcbQ1cd",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.ni",
+        "id": "MOo7Y4FJVH2_eThqQFiKk",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.ni",
+        "id": "HMcYGAf7q36SjTVtD5tsK",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.np",
+        "id": "4v9HYfWMJ-jfw_-wKjw7X",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.np",
+        "id": "cHp9WL7ZAM5GP2ySzPrBN",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.om",
+        "id": "0G4PylsUc_zoLBlYeLzeu",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.om",
+        "id": "YB5iOdYSGrUIBXP9WzoLP",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.pa",
+        "id": "M-ZKswi8MufhMCWmVHuMi",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.pa",
+        "id": "Jjxf5TZ2dgbfBp-eY1jc6",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.pe",
+        "id": "ulPyMJxTFnp7LCDBBfbbG",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.pe",
+        "id": "4HgRbbatViePbQmwYyiKF",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.pg",
+        "id": "mop2320YYV0YiKRXZ8GC1",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.pg",
+        "id": "zB5Esi85R_hzym9tPwlVh",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.ph",
+        "id": "j07QmjnL1VoRKW3cHiPA2",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.ph",
+        "id": "pJKSWXVI0kYBxf3UaqQzk",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.pk",
+        "id": "yKxisgQcUO3HAC6kFe7ux",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.pk",
+        "id": "0Dckdk_ODS_QwFklMrHwu",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.pr",
+        "id": "0AF0XLDgPuUT9Sr9FkvTs",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.pr",
+        "id": "lrEAb8aj-r0njL99WZtb9",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.py",
+        "id": "Lbc5o9mbhN66RPe8dQXzI",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.py",
+        "id": "wcgSbdwfSOntSVQEa5G5V",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.qa",
+        "id": "0G7sTqcXLxdgg8akxWGR-",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.qa",
+        "id": "YTS7jTcDU9zzcVWJrLX02",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.sa",
+        "id": "IR0OY59oAvEC39Bj0NiCa",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.sa",
+        "id": "FbQyFQq6XcZ05vPh_1tVz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.sb",
+        "id": "CsKv9tpBjmcLgISCff6Rx",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.sb",
+        "id": "cCnuc0jGbdfNM5L2Zc54t",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.sg",
+        "id": "z6C8g9oVfsODi3vdCc77P",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.sg",
+        "id": "vSpZQ-UMTLe7BoZz8YDB8",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.sl",
+        "id": "e-dQOBmvMg0o7Q1BR6j3c",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.sl",
+        "id": "cV170BDggyKyvaNnrZEih",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.sv",
+        "id": "Zag3ZGtcnUOcEuZRzsWAV",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.sv",
+        "id": "7Wlk5ZYkJ2tJvbhxc-6Gg",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.tj",
+        "id": "nDB5A5tj1ffFcz-YbNqra",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.tj",
+        "id": "McxCCKsBzrCcNlFCtpjfo",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.tr",
+        "id": "yS8syTT9zPfTwETAYtx8N",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.tr",
+        "id": "c4a8VV2ti-CJTgdwVkU73",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.tw",
+        "id": "42AjcIUhEdkn0IVkhSzaY",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.tw",
+        "id": "XdomMF5Pl13T70Bsb-60w",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.ua",
+        "id": "qhUFnAE-uv4kxR666eX5k",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.ua",
+        "id": "r6CHJ3oQBHODjt7Vnf5_h",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.uy",
+        "id": "q9_67lGr7t8YUTDLi9fNa",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.uy",
+        "id": "zDy9KiiRCql8B0av7lw4w",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.vc",
+        "id": "SUkrOtOmqumTT_1n7SE-L",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.vc",
+        "id": "jhxnH5mkOxHWvXsxoU7dF",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.com.vn",
+        "id": "Gm6OFtfKM4nBwaCk-VRLH",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.com.vn",
+        "id": "0xbJCm4HQej8qu_YYpBJP",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.cv",
+        "id": "eoAxvLDUH1IRizpP4fB1-",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.cv",
+        "id": "1QYkLlTnU43sJMA732mHO",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.cz",
+        "id": "p2pXxZyhuTREXIDoKyFml",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.cz",
+        "id": "OCjmiJ7GgWLBI8pv2YF2H",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.de",
+        "id": "mucevohn0zaXtHJjpcGW5",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.de",
+        "id": "F2KZ3KNYpx8MRQ3-YFUCf",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.dj",
+        "id": "X7yMCDUWUs3twE_yUgqse",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.dj",
+        "id": "a2xzE3lm9ug3B_g6i1M2V",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.dk",
+        "id": "6AXSJgxlVBABOYo3oDuvX",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.dk",
+        "id": "IgPMuw1iOIffx4cxefBwv",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.dm",
+        "id": "ZEWPL27byA4NFMOGCN0Mc",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.dm",
+        "id": "0JQtNqs5HcO89F20XHvPV",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.dz",
+        "id": "LTJ4F4ixDsyVKcjvsEqYc",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.dz",
+        "id": "8BJXXlg_ZqXlQLBmhKmjf",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.ee",
+        "id": "LteiYs54TNBXKda9MpJEX",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.ee",
+        "id": "C_fnjunjjAJw-KWfx5wiF",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.es",
+        "id": "XjCIoyzA2BTz3CQbISsZG",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.es",
+        "id": "XvEW6gAt663ItJF4vfNbw",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.fi",
+        "id": "yxY3f49rQt4R1RRb5zl3C",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.fi",
+        "id": "EgVj530u13R_kuTnXKZyo",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.fm",
+        "id": "7ud7-I4tJQElrMAXQPwa8",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.fm",
+        "id": "3z04ZSBDWIzqWY2hASSfP",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.fr",
+        "id": "fxjq7_-v0QEbLbig-XQMz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.fr",
+        "id": "fLXPjZ9yRwr8skhhWi-_I",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.ga",
+        "id": "SRoFvPPJJQAsQSoiPPRoT",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.ga",
+        "id": "fovyNCOstZhWYh0pl9qTM",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.ge",
+        "id": "8vSeci_K9RQ8ZUpprtR2i",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.ge",
+        "id": "JCxNlkm0ubiego_lp_4C4",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.gg",
+        "id": "3WXQsvY4kGLzI38lQSSzT",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.gg",
+        "id": "_iv7my7dYrAAZqRO-ACFW",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.gl",
+        "id": "WfwicUb5KBe2RBBEYqFwg",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.gl",
+        "id": "Bf4hqXHM19IfaSv6YkpLl",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.gm",
+        "id": "2Ufv2TFIHdRn3b4vSG3Ri",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.gm",
+        "id": "uagJquoDSCx7eULI6Y6Bi",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.gr",
+        "id": "W3yCi111Zns4goofLrAAR",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.gr",
+        "id": "F_F4ydTxho6QfBbwoX-Rp",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.gy",
+        "id": "68hlr21ZU4CUUhuIeuJie",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.gy",
+        "id": "FhqmYrU4qhe57a1Busc3o",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.hn",
+        "id": "xZuSrSqb5Tgliss9H-JPR",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.hn",
+        "id": "xVPKrsG1kiyVl1nhReigS",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.hr",
+        "id": "zAHHbmqVurmHAAQvNupTM",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.hr",
+        "id": "OJ6pFtYBDJcNm0QjXNGoM",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.ht",
+        "id": "56R3TcJ8t9KL5UM1rxcUj",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.ht",
+        "id": "UI5l8CTU2QNrMOtwkFOMI",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.hu",
+        "id": "ZZ3yKv1W4A7pItRtMD0En",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.hu",
+        "id": "D92WKfXelQyt2e0KOxiIX",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.ie",
+        "id": "G2kewc05jV_umrDyYsZ7o",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.ie",
+        "id": "A6sZZhx3DlQO0o0BHR_iO",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.im",
+        "id": "41xdCP0V5i--LVHACiApC",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.im",
+        "id": "a9nLE5yq8Fpz958FC_6hQ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.in",
+        "id": "KAwKst_q13A2NWgis8v0Z",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.in",
+        "id": "sKeFK7pSWZbwVnZ61Qf5M",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.iq",
+        "id": "C86JPUgSQf4ILvzFOkUCJ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.iq",
+        "id": "fWO8p-h3RTrCJ1vThk8Gc",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.is",
+        "id": "R2VDwwu8xQdF2cFG8j_ok",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.is",
+        "id": "6so2QiiyCaaw8HRPas3v5",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.it",
+        "id": "zeT3xTkRJcVl-Ss2mR4kR",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.it",
+        "id": "LjLUwwFmuBxlCfroAlMxN",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.je",
+        "id": "9veBpDNa5PFYtBDIsZ9pN",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.je",
+        "id": "iovibNIvZwFt86s75OtfF",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.jo",
+        "id": "EL-d4EKvWsI0I08bEMQ7V",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.jo",
+        "id": "mBs8GGh01LYIPTfL8EmSE",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.kg",
+        "id": "vIndcnRRCywnaytiWG1d-",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.kg",
+        "id": "LG82JZ5qNJM-6pPXakGpI",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.ki",
+        "id": "FrdSgSjlXlMdMx1m51pNT",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.ki",
+        "id": "kc9UOU4YX4IPau5q0xh1p",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.kz",
+        "id": "pm2DJ8SQF0L02_CHiGVAa",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.kz",
+        "id": "tv0DP-ZpHVW6T1QDHY6gu",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.la",
+        "id": "M6oIPRO53-lWCCQMeaBFn",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.la",
+        "id": "jTwgUTtshlYyLQt9iSJey",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.li",
+        "id": "i_DWyjo66wgE4lf7_om_-",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.li",
+        "id": "E3dl2uu6jrUZpBcELnirR",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.lk",
+        "id": "uOebuOksAeH79SSVpYWXp",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.lk",
+        "id": "w0YC3NtZTzLufa9T1iGEP",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.lt",
+        "id": "TaY6CetS_j4jQTnx1bE8C",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.lt",
+        "id": "vsClVJ2yVLUNKO0oLBcqJ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.lu",
+        "id": "OW89WGOWQYThjp8St8jkI",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.lu",
+        "id": "XOiWQdRIMKmVk0nkOiGo1",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.lv",
+        "id": "kIQRd3nhqRKkzUpVL79TC",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.lv",
+        "id": "cmOXIhikVvBQLMcNiDcAy",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.md",
+        "id": "FaFwDYQWueVnQ9tf_kUXD",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.md",
+        "id": "bg78tNvMNRs45-34SFSHg",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.me",
+        "id": "HwVBn6ZAm_4kWF0pFHo53",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.me",
+        "id": "EVy7qMwIxk--104oXLyf8",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.mg",
+        "id": "dXT8OysfKiC7mqfGQyqa4",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.mg",
+        "id": "FwTKXAz-m7_4iOVo8voDF",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.mk",
+        "id": "dTQvA6MwVejMuqEedyJJs",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.mk",
+        "id": "eL3AgrRhtCB8D42zypzza",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.ml",
+        "id": "onKi1CWrwv5Xy5oLgwEku",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.ml",
+        "id": "hx4Bn0IN61AWaASEqYYmt",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.mn",
+        "id": "bPXeH9g0MRHWbgN0KYzTR",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.mn",
+        "id": "uWhgXjfDiBmegxOPvhgpG",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.ms",
+        "id": "7-f-GwuhYrwtY8brJWuN3",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.ms",
+        "id": "_uDYdndM1_y5kBpqpBO3l",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.mu",
+        "id": "R1Rimba8tFxBUjCflmPm3",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.mu",
+        "id": "33k9ZrXraTYoRTMJnI8m6",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.mv",
+        "id": "FulGtaJv9-Ro-BGrxz6Ai",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.mv",
+        "id": "K896SnFqpVVWwchcL52Rw",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.mw",
+        "id": "ATAlM9Ui1mEZi0XcQh3Fd",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.mw",
+        "id": "K3HjIpfYjtAcwrWafWjzh",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.ne",
+        "id": "W001r2HevWJ8_7u9dIRFI",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.ne",
+        "id": "_SCBe4OYfyLQCJqZK2AKL",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.net",
+        "id": "P5VAyudSw6IKyY618NVW1",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.net",
+        "id": "S6Kr--2E8IiWC2m-lR0gu",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.nl",
+        "id": "kLHEbmGwGLzDl5gHIeGsK",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.nl",
+        "id": "rQJ65uhfGcUxG9A8AppqW",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.no",
+        "id": "W05VNZnXo4vGr8q5m8edG",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.no",
+        "id": "mN3TaDaF-m15gZ4dn6xTP",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.nr",
+        "id": "kYdGikmW67BKh3PIO4138",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.nr",
+        "id": "FVEi9vGDM6kOThzRqlR3U",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.nu",
+        "id": "W8cCIF-Osfo5K9zXUxhmR",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.nu",
+        "id": "IXas5Q66eD-p0QgJuvDK-",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.org",
+        "id": "MF2hvQtJdwbKsbRQrQDoo",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.org",
+        "id": "DKa2KzrKV8ae6EGWkQNWw",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.pl",
+        "id": "NtFfjdKhKJHrp5YILH_wp",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.pl",
+        "id": "8Q7YlaEuEYlSeXw_2k5hO",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.pn",
+        "id": "wlqqsKNPGOfBol8BkOuMP",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.pn",
+        "id": "a0FYRlxk72gk8PxwFTh4P",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.ps",
+        "id": "JekNWBev2rvvxxmR54CZJ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.ps",
+        "id": "_baTqyLdUW78zbdwq0xTR",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.pt",
+        "id": "dPZnmvuGEOWtdNPda4oNd",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.pt",
+        "id": "DXMcU5bkVbr952yLHyXVr",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.ro",
+        "id": "-ufNwSVum1w3tZj1thxQz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.ro",
+        "id": "RKdFo2NGjTXRqM_6yt5E7",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.rs",
+        "id": "96gv7lkpLX8xunDl0kvt_",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.rs",
+        "id": "gXikNnsBrFVrCt4_FC6tS",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.ru",
+        "id": "ihqmXksVD9NBwwylPV-c5",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.ru",
+        "id": "xsLHCzdOeDKBG528ofM6T",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.rw",
+        "id": "diqcqYlqMgYslzpbcbcAL",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.rw",
+        "id": "YZGVyMmd8PfRAdqnkgUED",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.sc",
+        "id": "g3HwqaeEo1mLbfyBQQCVC",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.sc",
+        "id": "Hz_acwFmqEztuS-wLSpYs",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.se",
+        "id": "2fg-S3tIncKdBdgpvPS8S",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.se",
+        "id": "MavgzxWfseoOdSl-BWq4i",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.sh",
+        "id": "mYP6UnMOvHICCyxiYkqDh",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.sh",
+        "id": "eGD30UVkUen2QtWzRdH4s",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.si",
+        "id": "389kdaPw6Iv_IlPsECs7J",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.si",
+        "id": "8oavsBKE9UlXz5lL6WyqG",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.sk",
+        "id": "jpO_t31t2ggKkzpOMCKql",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.sk",
+        "id": "jy-p35gc13c4tifgQViOD",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.sm",
+        "id": "cOcJyKjL517q2aTzpdUkE",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.sm",
+        "id": "OxkOrsdQUSSb8vPTF7LfR",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.sn",
+        "id": "jN0Be6Ej_tyOERNyABj2S",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.sn",
+        "id": "OHKilYIY3GBZ9uLopxIQV",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.so",
+        "id": "-UXY3HFmJMC9vs14hBE5u",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.so",
+        "id": "rvOa3kGSN-TBuyVizjcl_",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.sr",
+        "id": "SgoUmnyrSWefrnGLx2a9_",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.sr",
+        "id": "sPZwExwT2SRxDazcqnFvE",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.st",
+        "id": "6K7EBps0BGpTn7iRtyYCU",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.st",
+        "id": "ZjwcyH62X-u-qqLCc-VCt",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.td",
+        "id": "0cf7nzuzYQTlVnhbQGpwU",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.td",
+        "id": "eRqyaz143lukPIk5ZJyNt",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.tg",
+        "id": "DSDtPy9Lc7QcgTmvmlPxB",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.tg",
+        "id": "AbxsJi99PhrxPv9j9TUFc",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.tk",
+        "id": "o1x-rXhbUYncK1XGn839d",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.tk",
+        "id": "j3mg3CelIVsCdRzJ78qXk",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.tl",
+        "id": "8iPUi2Vo1l1PUaeQhx5-s",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.tl",
+        "id": "tUZgDMeUBHjrvyVyNHCYw",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.tm",
+        "id": "GD8vLoz3VgkE4PwoSin_W",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.tm",
+        "id": "0D8lQLyr3kxU9X5KOoDvL",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.tn",
+        "id": "obgnmHNyhV8oZkWrb15-p",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.tn",
+        "id": "9VfgDqvTD0SRnUG4U5FER",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.to",
+        "id": "1ryUI6RfOjkgVzAF7g9iO",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.to",
+        "id": "Dge4rYmyTCb_sh29-SXvv",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.tt",
+        "id": "nnIQoZBqkycaj-s0lp7f7",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.tt",
+        "id": "gXAQFSL4i-fkMfP920iEU",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.vg",
+        "id": "vZP5mDwTt4ykimIqW6h2x",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.vg",
+        "id": "05PURcQ6cnZcXNc4uwPw6",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.vu",
+        "id": "i-lVDjK8l5SpXDeY8rQC5",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.vu",
+        "id": "3fV47qdaGIkNfjxQ8cHvK",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "google.ws",
+        "id": "n8g3-SP_zXXMH06a9chSh",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.google.ws",
+        "id": "3-fYwcGb18MPa6ba2OauW",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "googleapis.com",
+        "id": "4IbjDCA3StDyImwUaTfBw",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.googleapis.com",
+        "id": "g9969K7cVtOkmm0PWx-8F",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "googlecode.com",
+        "id": "ZRDFYCiTg0XOgGb203__f",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.googlecode.com",
+        "id": "qs0dnbyMdBuzfA5x9NumE",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "googlehosted.com",
+        "id": "9EoAp6woMhlzqZ60HSlj8",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.googlehosted.com",
+        "id": "8C2DLhCpyT9huzqamuVMq",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "googleoptimize.com",
+        "id": "ypT8RBiEP3r-F697Yh6iI",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.googleoptimize.com",
+        "id": "0ul1-qb2sVKHam-v_AvpW",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "googleusercontent.com",
+        "id": "wu18WhxOlur0YPhUwKvMo",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.googleusercontent.com",
+        "id": "pkpPtV-nh3ZbMNGZ0DwFz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "googleweblight.in",
+        "id": "2W7XYd-uLM-hxG_F2hfMA",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.googleweblight.in",
+        "id": "YufLE-e8K98UReWcIR9Li",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "googlezip.net",
+        "id": "ivCUrR060O2Z3oWm0yyM9",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.googlezip.net",
+        "id": "pKIhsBeiTIovMyUyC697c",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "gstatic.com",
+        "id": "y2mZ0ayCXv_vOjsDkUpQj",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.gstatic.com",
+        "id": "GKY5Vn0_unkkwnx5PRV2N",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "gvt2.com",
+        "id": "48PkWjy1vlYtq7E9ZLK-b",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.gvt2.com",
+        "id": "jJjXWQDDxOgbxr8r0CmNh",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "gvt3.com",
+        "id": "AbGPK3ZmSvJiRB70bjGRb",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.gvt3.com",
+        "id": "7yrbOfqbzx0v3unWdR7h0",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "withgoogle.com",
+        "id": "ZiJdqDRH9R86czodfr80m",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.withgoogle.com",
+        "id": "MDz5wZ4j9_I8CghoLEQUj",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yahoo-inc.com",
+        "id": "Zr72Ms6-eLNGr3OOQ2-F_",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yahoo-inc.com",
+        "id": "aGsY9so50UOcjVnbDqTQp",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yahoo-net.jp",
+        "id": "ADM88kk0QushAw1OczlTE",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yahoo-net.jp",
+        "id": "gSg5zpYa-7eML64jKFYyH",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yahoo.cm",
+        "id": "yqD538be353_giI8J9JqO",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yahoo.cm",
+        "id": "XJEI0MbaApZDKFOIo7VlV",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yahoo.cn",
+        "id": "aAQMGGDm5hocrAeUBQUO_",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yahoo.cn",
+        "id": "S-7k9Z6n8I0B3IpGhkimK",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yahoo.co.id",
+        "id": "rmGe0CrjWBmjiU5Xvyel2",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yahoo.co.id",
+        "id": "r0jjitUF1EUoGuHrpr_H4",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yahoo.co.jp",
+        "id": "g631aLiv25erko0a0H0Ce",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yahoo.co.jp",
+        "id": "feEVjzdH8VmlvDVOg18Uw",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yahoo.co.kr",
+        "id": "Z7qZcPP-vPMFOOuIjNLTo",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yahoo.co.kr",
+        "id": "rimgkYncJ_9xF7hNoijoQ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yahoo.co.uk",
+        "id": "RwnNTxE7eeekdZ4XTEH1_",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yahoo.co.uk",
+        "id": "7DpJCAFePs2KlsgHz5YrC",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yahoo.com",
+        "id": "NF9jq9I-UxsRktUwIM8ei",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yahoo.com",
+        "id": "dRNirCKR2lqQe6gkovBQl",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yahoo.com.cn",
+        "id": "lAlzGBqxMx6rPcXAxCwbw",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yahoo.com.cn",
+        "id": "HSSahGpV5HTYR2Ko0JQ8T",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yahoo.com.hk",
+        "id": "M60_PgENW8lek-Lh0KzI_",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yahoo.com.hk",
+        "id": "yP146Eb-jplINERFJA-x1",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yahoo.com.sg",
+        "id": "sLiIlSUZpfIA5msmouU9H",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yahoo.com.sg",
+        "id": "KZ4RKLLLPt_Jw0nxaT6jb",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yahoo.com.tw",
+        "id": "Ga9EOcyBjVj6birc6q5V6",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yahoo.com.tw",
+        "id": "_f1dtJWMtz0ycvsuw1NQz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yahoo.com.vn",
+        "id": "RFKXWXrGbYA14ZCCyXgdK",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yahoo.com.vn",
+        "id": "qVg8hEJLjP2kyInm8EaLW",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yahoo.fr",
+        "id": "5eQ85SDdzw0vSyotz67NX",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yahoo.fr",
+        "id": "PVJ_8OffjWjBEoSbIUMmI",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yahoo.net",
+        "id": "CZTjvVexIwTE7WcPPDOnm",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yahoo.net",
+        "id": "vsoRQDR4OLAdD_n6cr2rU",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yahoo.tw",
+        "id": "RwWOiVwe8A1FshGyFZyDS",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yahoo.tw",
+        "id": "1WddIYQWytgh9t7592_YJ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yahooapis.com",
+        "id": "ARLGQxrEIiGX50ncZRvq5",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yahooapis.com",
+        "id": "n_cVqwbXKxni0vgwdzhFG",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yahooapis.jp",
+        "id": "h1NWNfuq-hIq2RSklwltA",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yahooapis.jp",
+        "id": "xWJrFaMTCyhyxDo5_3pIg",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yahoodns.net",
+        "id": "o_Q4NafIl5wvx3Idi-WJs",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yahoodns.net",
+        "id": "hIzFlVXvJyoBm2M1Sgt2m",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yahoofinance.com",
+        "id": "UgbXPqL9xwhHxKRELl70O",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yahoofinance.com",
+        "id": "g5ETm9C25sTWHQGiU8T3R",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yahoomail.jp",
+        "id": "b1oKesurtLFzJHtmeye8c",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yahoomail.jp",
+        "id": "giacIaQGByOG0RSESwu4O",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yahoosmallbusiness.com",
+        "id": "YEy0gbHx2JhmkfqdB8Xun",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yahoosmallbusiness.com",
+        "id": "Vu6ysBwloR7LVPuA6i2YK",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yimg.com",
+        "id": "OxGeCYwtfy2nUSqQFjYSk",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yimg.com",
+        "id": "M04JtVGETvfhPM5N9-4nj",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yandex.com",
+        "id": "oPlgabinQkD7s0IyGOZEr",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yandex.com",
+        "id": "ei7FN6ODr72hvkPb6GkHI",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yandex.com.tr",
+        "id": "ZXVnOLKNT1jvdgJ8RqnZL",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yandex.com.tr",
+        "id": "JHx_GNC6tjbGkHnT51Udj",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yandex.kz",
+        "id": "DM8ZLe9_t_o40W5TTyWpa",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yandex.kz",
+        "id": "BHt51MJ346mYvK3jIR1XU",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yandex.net",
+        "id": "08r15QDXFejJO1mXYG1QQ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yandex.net",
+        "id": "1Cn1HQhPHFsFxKd56UWk7",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yandex.ru",
+        "id": "6uANriiVNmRHOyY9Yx3MT",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yandex.ru",
+        "id": "EkqhQ_fSRHpf_9SAMC9QU",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yandex.ua",
+        "id": "HMqqKQ8PqVlY4qcxGLnkl",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yandex.ua",
+        "id": "I5RIOO6DnWBLNM9EZo_Fh",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "yastatic.net",
+        "id": "faxI7rZER35I5o_SEm4DN",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.yastatic.net",
+        "id": "IBWhskUtxR6fZCmZknBiF",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "deezer.com",
+        "id": "pO_XGnh09DyrhxOLWnVkV",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.deezer.com",
+        "id": "IvKv_PNbETtVCNbw-6IZD",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "dzcdn.net",
+        "id": "eiF1laChqfnblZULjz7mv",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.dzcdn.net",
+        "id": "l1NuoaxOFRSmahmG08YbM",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "last.fm",
+        "id": "BDlQdGd6RaYZ2HPsXzxa6",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.last.fm",
+        "id": "m0zUdyElu0mhfTwpC4RUA",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "p-cdn.com",
+        "id": "nw3o08-AXIYvomYE-evpv",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.p-cdn.com",
+        "id": "RCdcR8PtRvbSRmRj-WpGK",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "p-cdn.us",
+        "id": "AVjV3uP6081uijXc4kGXR",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.p-cdn.us",
+        "id": "gv9AZTI144TcorCAqEDxB",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "pandora.com",
+        "id": "yiC9N8TiRxTpdYnO4qO9b",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.pandora.com",
+        "id": "dwOju0E9qMWvBcz4Hrtyc",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "sndcdn.com",
+        "id": "mO1u-fNJSKAZ1LlnPAT7s",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.sndcdn.com",
+        "id": "pRAfJ0trVL2PR8ROJ3uAH",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "soundcloud.com",
+        "id": "byxEc3oFEEUxY7iN2KWCw",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.soundcloud.com",
+        "id": "fTE7bgQzuacMwInhMYqHH",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "pscdn.co",
+        "id": "bm65ZSwZM0BcPCp-jjget",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.pscdn.co",
+        "id": "l9erN6eTyFGEjoYchp1mP",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "scdn.co",
+        "id": "c8OCydxXXfN8cbjkb_cfG",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.scdn.co",
+        "id": "Iqaq-HvLnccTDvMaucP5X",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "spotify.com",
+        "id": "yXWJg_gvFmpqtqc3xqLeL",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.spotify.com",
+        "id": "29VfnFXzSBdqGUgJ6Sy1N",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "spotifycdn.com",
+        "id": "QGhannOCoiu6WVlgX9ET0",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.spotifycdn.com",
+        "id": "Q-fzWRUTlnchfk5goLfQg",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "spotifycdn.net",
+        "id": "H7VPnXPCs4fbT_oc5oWe8",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.spotifycdn.net",
+        "id": "t9ctnTT8IzwG0UpbC7j-b",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "spotilocal.com",
+        "id": "qQL3rzB6wT4xtqKYyqd0j",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.spotilocal.com",
+        "id": "hIRo2F2Uf-jaQ4AEOGkqZ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "discord.com",
+        "id": "UDvICh1yff2DmdJxWmuQb",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.discord.com",
+        "id": "vOO6esuazJJ5vVbs2AKj5",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "discord.gg",
+        "id": "O5-1furBQbT0kZIu3hSJi",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.discord.gg",
+        "id": "HTWHWyzJ1d3yovCH59VtR",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "discord.media",
+        "id": "xr9s-F58GclLgVA_nzMr7",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.discord.media",
+        "id": "6fvSOFfehDJMK-J_pstIF",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "discordapp.com",
+        "id": "myiBbAytx4tFEgt_xAw1-",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.discordapp.com",
+        "id": "R5TMUEyPSDcWCBWGmsmhY",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "discordapp.net",
+        "id": "hgdIy-bK6MgYbmYi8VyOo",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.discordapp.net",
+        "id": "s-1Uh-luRBj-1T4zu1tpM",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "discordstatus.com",
+        "id": "T3A6hFW_onLb4REXhuMVb",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.discordstatus.com",
+        "id": "kkR70JS9VuktpUzUUelSH",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "daum.net",
+        "id": "w7u-7Z72sWD0MOV0EVEis",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.daum.net",
+        "id": "4bNauFDv_OtFgG8WpBNA1",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "kakao.com",
+        "id": "JVswLf4kO5rmts8cmnMoP",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.kakao.com",
+        "id": "jTEPlqbI1uWlJocuWgAHF",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "kik.com",
+        "id": "xK4UfU2alMWmmOIg9MsBN",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.kik.com",
+        "id": "a8P-uZPaClAz49KFfvSxW",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "m.me",
+        "id": "dRlzOTmxCjaxsg0sxKHpS",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.m.me",
+        "id": "P49URm7YJy9Y1PoSMQrP5",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "messenger.com",
+        "id": "pbB4v02iJed9pbtlNBtSn",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.messenger.com",
+        "id": "zoMgEzJXLj-K43Q32epAl",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "msngr.com",
+        "id": "ZHEWDHqA61tp4mEXUO_RR",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.msngr.com",
+        "id": "KlZZhIP1stntfY7BkGVGp",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "signal.org",
+        "id": "QzrYLLmmigRQxKzs7A4Ez",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.signal.org",
+        "id": "edHnNgyIOdGMklml-unci",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "whispersystems.org",
+        "id": "wqxiTW_UCmK4R7HY3bTGo",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.whispersystems.org",
+        "id": "tkslokQLsvTCXml-XZZ9G",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "t.me",
+        "id": "9HuOFmYH3nPj0-KaSr9TC",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.t.me",
+        "id": "r4PvIiZstm8WFYxwoNeBQ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "telegram.org",
+        "id": "wdxxHqxgF1JgfI3Eu2pzK",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.telegram.org",
+        "id": "t72hHy4MXekfCrQO73QGb",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "telesco.pe",
+        "id": "0qW2ugFDyekVmwzQhOmNf",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.telesco.pe",
+        "id": "smOGKfy6Qe3DWBxew4cRg",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "wechat.com",
+        "id": "bgLGynZEfOL4r6eocMHai",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.wechat.com",
+        "id": "yNmXUrjczGownqOm8SjDm",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "whatsapp.com",
+        "id": "DnKmCFPlsRGIBm0mEB-ez",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.whatsapp.com",
+        "id": "H4m_iN6QnSBEyUow8_T7O",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "whatsapp.net",
+        "id": "9qsWpY1OG8sS9F9MbZPvH",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.whatsapp.net",
+        "id": "dHtO-f1Z35JZasJHBBiW7",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "disney-plus.net",
+        "id": "4JOmtSmlimjBS36tq8xP7",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.disney-plus.net",
+        "id": "4pdt_WuMD0ai8zXn2EqyE",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "disneyplus.com",
+        "id": "GwgukWp7R6DaOynygK3ge",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.disneyplus.com",
+        "id": "PH6G5nwozztZ1tqSNhdOd",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "dssott.com",
+        "id": "rsjt_pGIVNPPRpacyfkv6",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.dssott.com",
+        "id": "dA1JRrfUHEK1gnBzM-KuA",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "bamgrid.com",
+        "id": "LnQM-zirYI7FglJQ6RuqB",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.bamgrid.com",
+        "id": "Ec0AqiqYjwDAg8p5VQKtR",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "hbo.com",
+        "id": "dAUcpBw3R_zDaXMOBKESD",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.hbo.com",
+        "id": "x_JsBqQzwwDQw3pDWAae6",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "hbogo.co.th",
+        "id": "qY7NstxyZyyzGw5FAWp5x",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.hbogo.co.th",
+        "id": "viLWe_QqC8MMASVNECBLY",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "hbogo.com",
+        "id": "T6kuu4P4KS29WtcF28eVc",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.hbogo.com",
+        "id": "IzaNJbrqGPH1bSUdkyu1t",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "hbogo.eu",
+        "id": "oj9vq-tKv0c5N3lNX_2kL",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.hbogo.eu",
+        "id": "IlgqtYOhbOUovoq-KhmmP",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "hbogoasia.com",
+        "id": "ovuoGUJNpKZefhNVG31BL",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.hbogoasia.com",
+        "id": "friiriJfn2MSfOtjl264_",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "hbogoasia.id",
+        "id": "_JNo-h1XxxLdgQdug1s7l",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.hbogoasia.id",
+        "id": "SqRlpwUIuh0w3pHqU-pET",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "hbogoasia.ph",
+        "id": "QK8swOLfVEuzfRH_Po3Kg",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.hbogoasia.ph",
+        "id": "7gm_QtDpifEDPMb8EwaAy",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "hbomax.com",
+        "id": "0r58Nk-b-86jVpQ81F1Jf",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.hbomax.com",
+        "id": "YV920sngmJBd5B2p8Fj2m",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "hbomaxcdn.com",
+        "id": "dX72eHm-nBkgmSdtvuupy",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.hbomaxcdn.com",
+        "id": "mcCUm-lX3BqCHH74l-LYD",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "hulu.com",
+        "id": "obL4myw8M26yY_VVX6sVG",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.hulu.com",
+        "id": "GAYVl-YXSmy_K_YSfDQmw",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "huluad.com",
+        "id": "gwfkX26gfrUt3yjAG9caW",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.huluad.com",
+        "id": "HIMfNMjAMxw-oGtxidjyw",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "huluim.com",
+        "id": "2HVRJkdmfGI2tcKZzHUoB",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.huluim.com",
+        "id": "KVGrwRzl2j1WfdLn6e7bN",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "hulumail.com",
+        "id": "tJBKKGnOmh1ZBXggrF44m",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.hulumail.com",
+        "id": "nJ26_AYR9twZ7apivVdOR",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "huluqa.com",
+        "id": "pjjaoOn7LhMcAqLpMjdOm",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.huluqa.com",
+        "id": "97o7Mwo7qE28ydCpWhhCM",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "hulustream.com",
+        "id": "JHv0ca5ygSGFs7usGpOIs",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.hulustream.com",
+        "id": "l6177ym4TySyAeG6zO6ty",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "netflix.com",
+        "id": "lEkS78_ME-khpUMgpM3V8",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.netflix.com",
+        "id": "McjBBJhmdgNy0F0-IMIzX",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "netflix.net",
+        "id": "fjgz48bbTHtPZE-GbVrOF",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.netflix.net",
+        "id": "kucmP7jJRSrw3WMUb0ZpD",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "nflxext.com",
+        "id": "hlDXrdA4a4lvMoRMjSC91",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.nflxext.com",
+        "id": "e2o-jUMeGH46fQVjKRrIV",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "nflximg.com",
+        "id": "lXAkNXq51XJBNAlRJmMUj",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.nflximg.com",
+        "id": "JGDIVB0CggKVJRZUYVvx8",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "nflximg.net",
+        "id": "A-CtPzo2Njkt4NGeMh03x",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.nflximg.net",
+        "id": "TKhi2kFMG4sPYoaJH112V",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "nflxso.net",
+        "id": "xgZiw8Gv2AkfVrat0ng5U",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.nflxso.net",
+        "id": "KkNa0tcaxyRUy4JdAX9qN",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "nflxvideo.net",
+        "id": "rCMIlBBgubmLONP7zVQAf",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.nflxvideo.net",
+        "id": "NVi8M1ketVoE_wajHItNU",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "vimeo.com",
+        "id": "2jaj4qZZ7YGStg7796txx",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.vimeo.com",
+        "id": "xd5vP4D7kU9c3oT2TRxWf",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "vimeocdn.com",
+        "id": "5DwTK8TT6dvvtEo5TGhPX",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.vimeocdn.com",
+        "id": "rvmnamFJAv4z5ch2Vje0q",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "gvt1.com",
+        "id": "YE1MzTBM2--5JjDbWYKTW",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.gvt1.com",
+        "id": "O9jrKRZmTnAJ4sAxBb_ak",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "youtu.be",
+        "id": "MX3mBl-cFAN8_trqacuU5",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.youtu.be",
+        "id": "_K8NoI_taaplCdZshabk4",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "youtube-nocookie.com",
+        "id": "rtx0_UhDbfXDwoB3pODZn",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.youtube-nocookie.com",
+        "id": "oTq-JdRSdzNIfJHQn2Hlu",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "youtube.com",
+        "id": "RlfvnWecTa_xA8_lyoBax",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.youtube.com",
+        "id": "jtPRgE4LU5xnRKEWt8P-_",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "youtubeeducation.com",
+        "id": "sDWdKmXCwnoW3c2DvdFk7",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.youtubeeducation.com",
+        "id": "sxJ6YJvijcXsmd5441zGX",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ytimg.com",
+        "id": "J9zrICXL5HDy9lC5Zk4Gv",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ytimg.com",
+        "id": "Z0vNhvaC6Rcr6YMCWsQTN",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "epicgames.com",
+        "id": "O4clryUQoOhPQms37k1-V",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.epicgames.com",
+        "id": "LlTwyl5jEQlIAy2JNJYXr",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "epicgames.dev",
+        "id": "cghO7x7w4qD75x3elQAk8",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.epicgames.dev",
+        "id": "VMbqJiFe0A6QA2pRpxgRn",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "epicgames.net",
+        "id": "F8nnq1FkrbaYXuP2ZpkPw",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.epicgames.net",
+        "id": "eojEZLCypI3518xMCFCvo",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "unrealengine.com",
+        "id": "moFVO7rT1gpIFxhngh_l-",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.unrealengine.com",
+        "id": "SuP9KXHvLkeBZBDf8-8Kb",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "gog-statics.com",
+        "id": "PDPgtb7v814mjhPT7N9Tm",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.gog-statics.com",
+        "id": "rx8dg2n7VV4Tj0JM5ctmC",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "gog.com",
+        "id": "qb5zzQWS6ctmomsre5wVw",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.gog.com",
+        "id": "N8XhlRIJiDm-J2yhVKe2d",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "gogalaxy.com",
+        "id": "HM6uYAhDKoNtnewg1FbWm",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.gogalaxy.com",
+        "id": "5Y7h8wE6ChpG0Wy4ivXTf",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "gogcdn.net",
+        "id": "AiKvaAqZVhUDkSNaEP-iq",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.gogcdn.net",
+        "id": "lHXo9RTIkuY44RoOL5Drx",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "origin.com",
+        "id": "YgpemRJtaf_7qkUR9ZKIP",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.origin.com",
+        "id": "6S4v3d3H-GffdRi-7Od39",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "playstation.com",
+        "id": "100Slvr7ER0PclCx1igI-",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.playstation.com",
+        "id": "9tOSz5LzEdlaaoEcubTTd",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "playstation.net",
+        "id": "KcpGOAn8pSdPDUXT-Enf8",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.playstation.net",
+        "id": "UimOVchmuY4FYySMdtyTO",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "sonyentertainmentnetwork.com",
+        "id": "hu7ov-_pc2inEu0wtGRVV",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.sonyentertainmentnetwork.com",
+        "id": "arBgcnggtdYwnJSkQ-sVE",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "rockstargames.com",
+        "id": "HfNHAu7riKiR3m3PfuwDz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.rockstargames.com",
+        "id": "SSXUSg0N-3v93IOM410dY",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "steamcommunity.com",
+        "id": "ZCb-8qqL6dOH4dZYWukLF",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.steamcommunity.com",
+        "id": "c24YjBokeikTOB3ab_QfD",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "steamcontent.com",
+        "id": "nbd8wROe4Ol85kREENMmd",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.steamcontent.com",
+        "id": "k3V_lE86rJ1keq7fUfO1q",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "steampowered.com",
+        "id": "8901NCoXdXnIOTuTXRCob",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.steampowered.com",
+        "id": "k52PKC0u29vHiFAO-5OuX",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "steamstatic.com",
+        "id": "PcifPhm5q9sTqIVeEAzRO",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.steamstatic.com",
+        "id": "3jIiox0iYZAuOduPVb5En",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "steamusercontent.com",
+        "id": "BbbOfATtbCz-2lH4sZKc1",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.steamusercontent.com",
+        "id": "OUZh6DPnpIkyl9huA0njb",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "valvesoftware.com",
+        "id": "CCefyCHrpDHQzLrdICEIt",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.valvesoftware.com",
+        "id": "5lCFXBPYcjs3e5m9B_J1V",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ext-twitch.tv",
+        "id": "MHDtU2wXLe0bIb5HujK7Y",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ext-twitch.tv",
+        "id": "cYlXjEciphFyVv5kHa5AS",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "jtvnw.net",
+        "id": "rUkyXPqa-EEmUU4DhKvV9",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.jtvnw.net",
+        "id": "sCS4GqSYv2aiQfpWxTqi1",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "live-video.net",
+        "id": "6tJZ1EEqVbmmlTz2BX_K7",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.live-video.net",
+        "id": "atxkoNcm6MW4zLvVUTOyq",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ttvnw.net",
+        "id": "y5g24meVvMRSw_5f1hUp2",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ttvnw.net",
+        "id": "4hKfncPgLDcd4-F5Th4Al",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "twitch.tv",
+        "id": "I46VddBoVtHP3HthFDU-F",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.twitch.tv",
+        "id": "CmaRKQXnjp_aFNq-WL6Fh",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "twitchcdn.net",
+        "id": "PJnQCnKhbGYzPdWfNeD8u",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.twitchcdn.net",
+        "id": "UYUzPBjTOCzSQiHwAeQ5k",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "twitchsvc.net",
+        "id": "gSmfIE-pMxIAUnQNxZ0Gd",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.twitchsvc.net",
+        "id": "7r5ordZ9DhNiVTE2edEDx",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ubi.com",
+        "id": "BoB7kVLFG-GzYHYdgByN_",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ubi.com",
+        "id": "YpuI6BLmDFuHtduvTaju6",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ubisoft.com",
+        "id": "pOj5RssGHof_KLRBHMdaR",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ubisoft.com",
+        "id": "HP2uBTxBn3z6I7kUjW8CL",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ubisoft.org",
+        "id": "n8hKTWh8tPZiyv0AaTEP7",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ubisoft.org",
+        "id": "rCpgUfwQOjXv-Wtl8dTZN",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ubisoftconnect.com",
+        "id": "sBMgAvRmUae_9rHifLTBz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ubisoftconnect.com",
+        "id": "CDh0nC_AElqMe6ZL-3uZj",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "gamepass.com",
+        "id": "t7_KyTO1tfCn6c4nbyDDG",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.gamepass.com",
+        "id": "kLAC3U0pEhWkw1BNrStMu",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "xbox.com",
+        "id": "GhhRicG4bwCYEYPe3IdeH",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.xbox.com",
+        "id": "-YrfE_VKc7U3k1EN4JQU7",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "xboxab.com",
+        "id": "LyMbFC5II6lEkt1Q7zeXa",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.xboxab.com",
+        "id": "jkA5gNKS7r8exil2C2Ic5",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "xboxab.net",
+        "id": "SN1X96fIvgZoup1OJ1BAt",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.xboxab.net",
+        "id": "-2x8shp0T0jrntHWA4EfN",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "xboxlive.com",
+        "id": "lLU4RrfVK1Zhb04laawB8",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.xboxlive.com",
+        "id": "bZXgYJENHonKqeI70JO2L",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "xboxservices.com",
+        "id": "jLu7Ui_V23PG9BGbddVqp",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.xboxservices.com",
+        "id": "fw4aE37C7aAOJ8oQ9CcVI",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "accountkit.com",
+        "id": "Jdoeq5u6sLSz9ZyjWAaT0",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.accountkit.com",
+        "id": "dBJ5mFc3nAbeCphW2CrOQ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "atdmt.com",
+        "id": "HpdpBjEZk92OZ9Lt-qGQH",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.atdmt.com",
+        "id": "PCliEZq1-4gkc8E3yO-uN",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "atlassolutions.com",
+        "id": "imbyXX0q2oy9r39okbJSG",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.atlassolutions.com",
+        "id": "2i_qCxuuVK1BtHb89Bbid",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "facebook.com",
+        "id": "kUz4wyxHYFJLFOPG_Klix",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.facebook.com",
+        "id": "ftOGMmkl07wrccRoUYpsj",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "facebook.net",
+        "id": "tYYR5XLwsGrfVc2_WWRzF",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.facebook.net",
+        "id": "konim2npj1oZ5xUvlXGW_",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "facebookmail.com",
+        "id": "yXzN3ss8Y2mNfxEAyvcQb",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.facebookmail.com",
+        "id": "8ssa9A9r5MIjHdXnqc1i9",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "fb.com",
+        "id": "1NdujqTGuVcYdWWY1lVA-",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.fb.com",
+        "id": "0YcsQk3F2X9yI3CAgTGdV",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "fb.gg",
+        "id": "OKwK4aFENJtuu5x6FpEVq",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.fb.gg",
+        "id": "JoBLSAER8COI3lnCN4kUz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "fb.watch",
+        "id": "5mWBHzSMsbhLb2C54hYuy",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.fb.watch",
+        "id": "OyG5hAoUdtayUbzYYyzc-",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "fbcdn.net",
+        "id": "c9QyURa8CHr4WBpl2B1Vz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.fbcdn.net",
+        "id": "ezbmWT8KwrpIX5MkCklem",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "fbsbx.com",
+        "id": "0vwJelQzVIP92sV7405hZ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.fbsbx.com",
+        "id": "dbMl5V6SzqinBqJ-s07tW",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "fbwat.ch",
+        "id": "1Y4PUMXEH7iE_S5FGo0Fp",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.fbwat.ch",
+        "id": "4roEJ0MCr18BA_5k__k_j",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "parse.com",
+        "id": "rc3MkaBj5HXRnTTwCfcE7",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.parse.com",
+        "id": "Zlle73b-YwXXVQ0f7yKwn",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "flickr.com",
+        "id": "Qqd6vA7IjsTv8h7hCHwfx",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.flickr.com",
+        "id": "MDjMwq_6AWKAIAHlfnjJm",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "flickrprints.com",
+        "id": "MqU-tZnFZQRB_dYOfXJ_e",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.flickrprints.com",
+        "id": "x4TmNkRhZIsS9YLw-mlLI",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "staticflickr.com",
+        "id": "XRUr0pBfNGAVVxnyh-VQd",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.staticflickr.com",
+        "id": "hMXjCRyUpBeDy1xkZlpYy",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "cdninstagram.com",
+        "id": "WSUkKD_mjLAvG_1f0duYu",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.cdninstagram.com",
+        "id": "ICXvaIGHJtpm2Ji-wpmBX",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "instagram.com",
+        "id": "UT5ZTldvQ9TGrappi1__a",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.instagram.com",
+        "id": "aEPrLkzhMsIHDbkaYBqZC",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "bizographics.com",
+        "id": "JBunF2_jXVNMsqjUDV_aJ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.bizographics.com",
+        "id": "aktRaeNqpagroT48sUaNj",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "licdn.com",
+        "id": "qdnkc_Nlx64puOXo3QOHu",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.licdn.com",
+        "id": "_nRNRIqLqdT9W5IJjaU2b",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "linkedin.at",
+        "id": "PMBQXgeH_Wz3IOwCmvXuM",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.linkedin.at",
+        "id": "aomyQLdllofHajBMoMkCt",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "linkedin.com",
+        "id": "yIMIQFuljfak7QukLMsKQ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.linkedin.com",
+        "id": "vgX53TYqnxg_BbfSbc04Q",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "pinimg.com",
+        "id": "rUu-t-J_iiAuqd-ZuS9sD",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.pinimg.com",
+        "id": "jgJb-0HflIBH_lTdVh_1P",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "pinterest.ca",
+        "id": "UxMkOVIruq9AwpZBLEGKD",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.pinterest.ca",
+        "id": "3ivDghwWU7moW6f_BCe52",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "pinterest.cl",
+        "id": "7X8LhywOzP2GyWc6exQU8",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.pinterest.cl",
+        "id": "i2c3LbYRTNyK6lS6aabSS",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "pinterest.co.kr",
+        "id": "aZfueBE0E2byY_oTyVLQk",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.pinterest.co.kr",
+        "id": "y6I_8NmsOMPcxEO2nhMem",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "pinterest.co.uk",
+        "id": "p_O2txRacCZekdd0zE72T",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.pinterest.co.uk",
+        "id": "ryclrznHatRVYLrTRL_XT",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "pinterest.com",
+        "id": "fYnfaSzN-BVUn-OJFgL_x",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.pinterest.com",
+        "id": "Oi0RjCMYLfpdcpiH7y5rf",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "pinterest.com.mx",
+        "id": "eyA8Qetr9GiWoGKkY5ftp",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.pinterest.com.mx",
+        "id": "cpZmCdBAzsxDkWArWcylp",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "pinterest.de",
+        "id": "HcXvuUUoxDLfm2xuCojHN",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.pinterest.de",
+        "id": "dgLhWJkgdMQ7JRH2LB2zc",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "pinterest.dk",
+        "id": "IsSX3iIU9gpm-pFgdhwLY",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.pinterest.dk",
+        "id": "-kGFDFYgJKD1i_go3UKkZ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "pinterest.es",
+        "id": "_VeBxykXTBBlNH1-w-7zD",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.pinterest.es",
+        "id": "JbmwruKQoUV9DgeLgQTuU",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "pinterest.fr",
+        "id": "lzbz0LgmkRyboS49YLlCW",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.pinterest.fr",
+        "id": "GFzBhmXBgY9Hij5RfmZe_",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "pinterest.jp",
+        "id": "Cis9fUmgHGmuf634gAsNk",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.pinterest.jp",
+        "id": "QVZxwE3v7nL1STO3NG2YR",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "pinterest.nz",
+        "id": "ttilUi1dvzxk5IjnbaxKz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.pinterest.nz",
+        "id": "b302CJwKFabI682ScJp5h",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "pinterest.pt",
+        "id": "JaYTnJfL0dEBs0tZcssrx",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.pinterest.pt",
+        "id": "cBxJqbD1WEYcf2GnQijcg",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "pinterest.ru",
+        "id": "fXqSx8V9bjDvxAUXGNJS9",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.pinterest.ru",
+        "id": "u9mfJIbnlAoisPsS6BUq1",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "pinterest.se",
+        "id": "7TcnANM9c4vxank9yCDH2",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.pinterest.se",
+        "id": "U9ywpP62fqLQkyvoVTmE0",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "redd.it",
+        "id": "UkkOLllXwQMytIC6hwcxF",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.redd.it",
+        "id": "qkonzIfiKhmyGCxXRX3AB",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "reddit.com",
+        "id": "5_Yy5LFz4eXk1y3AXU6Mh",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.reddit.com",
+        "id": "eAap9XQRCsgs1YrgH6z13",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "redditinc.com",
+        "id": "k19jeSyVSy4uRKOCVvKcR",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.redditinc.com",
+        "id": "_FrDmWYHRpFreUqEbtpDu",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "redditmail.com",
+        "id": "qqDJzZzasiitnJldBZBzh",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.redditmail.com",
+        "id": "8fFIe1arV31gVDBSlHZ8C",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "redditmedia.com",
+        "id": "WU_gUygrHZevRXiqyaRRG",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.redditmedia.com",
+        "id": "Y-CpGwrX5U9Jp_OGi69dU",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "redditstatic.com",
+        "id": "BAgg7cm1TJUbUObW1gA6q",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.redditstatic.com",
+        "id": "hsMTliUvB_NJ7mMvXD1Rb",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "redditstatus.com",
+        "id": "UrO40lCv2Xrs6YJPsSTdw",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.redditstatus.com",
+        "id": "IdJvJ2GyoPTXOUt3NrFNG",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "addlive.io",
+        "id": "Xp_JqtdRpyGH43H8oLAVJ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.addlive.io",
+        "id": "Z6vpUXMfs_JilbG99kbNJ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "feelinsonice.com",
+        "id": "S0U4WOQ8Dq6pvENKLCcyH",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.feelinsonice.com",
+        "id": "5C2Z1Ppx9JPCHs9jSzjMF",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "sc-cdn.net",
+        "id": "rQmGS80ONJ4IwUwbiKXDz",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.sc-cdn.net",
+        "id": "qcnNu1NGHCWJAhFcFyCoI",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "sc-corp.net",
+        "id": "jw5YQJodNbmsz1FuQDnQa",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.sc-corp.net",
+        "id": "rl8wM0qreNIOGLZchHQlP",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "sc-gw.com",
+        "id": "OIvDSOBt9ooSCoI8nt3I9",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.sc-gw.com",
+        "id": "JNIbfcfTxcMArxCFJqgGY",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "sc-jpl.com",
+        "id": "swGM4oAfr8HuvL3aPyDU7",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.sc-jpl.com",
+        "id": "n7A8wJRiygwdWJGTQxklL",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "sc-prod.net",
+        "id": "WtkHHV2eQxaqO5nWuHipx",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.sc-prod.net",
+        "id": "UH-r-lHUMeyi4UcQUCis6",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "sc-static.net",
+        "id": "gQI5BR6q2cAP7Dlbfewho",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.sc-static.net",
+        "id": "_sTkZG4HFj2Nn8sJ2p7IR",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "snap-dev.net",
+        "id": "HG7HhHO1luaZod51Q8UpI",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.snap-dev.net",
+        "id": "uN26Txrruv9zj7pSGL3Dg",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "snapads.com",
+        "id": "xlJdj37kKJ3gA7x8JNWIv",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.snapads.com",
+        "id": "qXEcu6re7LuFMgKO8FPIj",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "snapchat.com",
+        "id": "wI_HarYTv5OIlVFXW0RqY",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.snapchat.com",
+        "id": "CviScvyRjb7j7n897R5MS",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "snapkit.com",
+        "id": "zNGH4Koj9pzGlsES0Sf2U",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.snapkit.com",
+        "id": "kYirVR1iMoX75DMbrDlAS",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "byteoversea.com",
+        "id": "obMASe_kD1-HxkYk3nIp5",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.byteoversea.com",
+        "id": "aGwIHkcNQ2rpBlix9jLT7",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "bytecdn.cn",
+        "id": "2QsyAxPLVS3mdvHEPD-Pl",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.bytecdn.cn",
+        "id": "Ua1O1jiKR_bWPsnAR-v9g",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "byted.org",
+        "id": "g70VNotXXateDJflsLV_a",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.byted.org",
+        "id": "8_hz4B59eN5xrxzvdVPwF",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "bytedanceapi.com",
+        "id": "vi5Y31taURCZJ2WEJeARf",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.bytedanceapi.com",
+        "id": "85rgGxpd3mH5MKb-sG2o1",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "byteoversea.net",
+        "id": "FnPpcpZNCwfBvCpeHQDX4",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.byteoversea.net",
+        "id": "MxtPWLn5ShsoBOZTx09B4",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ibytedtos.com",
+        "id": "UlimVCBgpMaNYpXexR8Uo",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ibytedtos.com",
+        "id": "aaeisrIahtp1sGL3EdqLE",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "isnssdk.com",
+        "id": "edaAVRALb4l14hJ2QaBf9",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.isnssdk.com",
+        "id": "wJri0fryIJ08WGFsU4s5h",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "muscdn.com",
+        "id": "pcjWHnEs_katvDyDV57Q2",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.muscdn.com",
+        "id": "KqdNoSlKwvsray8dt7iCw",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "musemuse.cn",
+        "id": "aQOgppZNJ0NghIp5tXX2y",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.musemuse.cn",
+        "id": "-umxmSF7-aVqvUEdpKmCM",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "musical.ly",
+        "id": "_PZ7ao1z12zca-YLgFoyS",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.musical.ly",
+        "id": "Q_nQa7px8k1WFZLBEJcgU",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ibyteimg.com",
+        "id": "G8f9QfkKGuSo_GUb5HnK8",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ibyteimg.com",
+        "id": "277DN_EkPg46dnvMeGOWO",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "sgsnssdk.com",
+        "id": "uHbEc0w35pKDy37lW3y_v",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.sgsnssdk.com",
+        "id": "k4VRtVsnaakGBtg_jXV4R",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "tiktok.com",
+        "id": "sRLLO0hVjHun-nmV-ynI4",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.tiktok.com",
+        "id": "jfhPHLmNFmaBRUhKSgFPA",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "tiktokcdn-in.com",
+        "id": "fLZshccOCu3h6DPMeVeES",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.tiktokcdn-in.com",
+        "id": "Ef6pf3HNxP59ZltRCcYUd",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "tiktokcdn.com",
+        "id": "d-XN7jtWtR_WSeOuYGVdH",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.tiktokcdn.com",
+        "id": "1MeMcpkvTJxufbXlf0YQL",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "worldfcdn.com",
+        "id": "Q9GssLN0yp7bRE8S-I3ee",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.worldfcdn.com",
+        "id": "S7khkWyDVWzQ5kOpHkeuk",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "wsdvs.com",
+        "id": "79BAJCiXWkTfNDkgGHmjU",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.wsdvs.com",
+        "id": "_IknJBMN1nznSiqfDCUm1",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "tiktokv.com",
+        "id": "tkgOYEFxXNqbFOA6ZXrmn",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.tiktokv.com",
+        "id": "Te9KS4vuYrw3ocCjYXZn6",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ttoversea.net",
+        "id": "cQ-NJ8LktWSVnWaV2PSur",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ttoversea.net",
+        "id": "IykZ6UnU8UYD3TuU_oQub",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "gotinder.com",
+        "id": "KOR-mjuoE06YVdo2SRfvx",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.gotinder.com",
+        "id": "e_w81KguwBvJmJzwhuLTI",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "tinder.com",
+        "id": "06as4jqP9FiIk9pxp8v_D",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.tinder.com",
+        "id": "d9Nrp8aWe_CSF99KuVpIX",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "tindersparks.com",
+        "id": "4SX_7i0a-U_smp9VaYdES",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.tindersparks.com",
+        "id": "tjXgzUQxzNgP0BStwM2Bo",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "tumblr.com",
+        "id": "aeWlbrvz7_4djnND7s4Ky",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.tumblr.com",
+        "id": "-cEQYikgani_jSN1cjnUV",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "ads-twitter.com",
+        "id": "jFAgbl6FioAOxhe97-l0b",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.ads-twitter.com",
+        "id": "JGZ2pFxlfeT0NQ0MbqFQA",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "t.co",
+        "id": "zuezr1aViOnEoYVjOYTud",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.t.co",
+        "id": "ogmTklrv2g76VhLn_uH2I",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "twimg.com",
+        "id": "On0oIlX7JdA9I7tJjMCqb",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.twimg.com",
+        "id": "HrW6GerC6KcQCH7aR5t9N",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "twitter.com",
+        "id": "x-1OKLO2l9nXs2k7uDSG8",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.twitter.com",
+        "id": "28Yzud-YGsjC6bk42tSXN",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "twttr.com",
+        "id": "OrL5aDrSnjNR8REN7Peiw",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.twttr.com",
+        "id": "txVCzuzAayTk94mK2_-YP",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "userapi.com",
+        "id": "TXv1iA9B_HFzLY1wcKQsq",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.userapi.com",
+        "id": "5W_Sly7CwWFlVN96Cld_6",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "vk-portal.net",
+        "id": "YOlgX_7vihKF95C1e6nF6",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.vk-portal.net",
+        "id": "TkUJ4XDbrjlXr-Kb3RmCJ",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "vk.com",
+        "id": "L8gNcL9NezbUJGV5x3OW0",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.vk.com",
+        "id": "AmbCftGGqfLP3ugftRObS",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "vkuservideo.net",
+        "id": "MiT1mF4XrSRsxPz8HArhj",
+        "state": "Enabled"
+    },
+    {
+        "hostname": "*.vkuservideo.net",
+        "id": "Def1zeHVjawGxmSd-98yk",
+        "state": "Enabled"
+    }
+]

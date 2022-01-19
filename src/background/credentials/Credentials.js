@@ -145,7 +145,7 @@ class Credentials {
     async gainValidVpnCredentials(forceRemote = false, useLocalFallback = true) {
         let vpnCredentials;
         try {
-            vpnCredentials = await this.gainVpnCredentials(forceRemote, useLocalFallback);
+            vpnCredentials = await this.gainVpnCredentials(useLocalFallback, forceRemote);
         } catch (e) {
             this.permissionsError.setError(e);
             throw e;
@@ -239,7 +239,7 @@ class Credentials {
         return vpnCredentials;
     };
 
-    async gainVpnCredentials(forceRemote = false, useLocalFallback) {
+    async gainVpnCredentials(useLocalFallback, forceRemote = false) {
         let vpnCredentials;
 
         if (forceRemote) {
@@ -329,7 +329,7 @@ class Credentials {
         }
 
         return !!vpnToken.licenseKey;
-    }
+    };
 
     /**
      * Returns next bill date in the numeric representation
@@ -362,7 +362,7 @@ class Credentials {
         }
 
         return time.getTime();
-    }
+    };
 
     async getUsername() {
         if (this.currentUsername) {

@@ -13,15 +13,13 @@ export const ContextMenus = observer(() => {
     };
 
     return (
-        <>
-            <div className="settings__group">
-                <Switch
-                    id="context-menus"
-                    title={reactTranslator.getMessage('settings_context_menus_title')}
-                    handleToggle={handleToggle}
-                    checked={settingsStore.contextMenusEnabled}
-                />
-            </div>
-        </>
+        <div className="settings__group">
+            <Switch
+                id="context-menus"
+                title={reactTranslator.getMessage('settings_context_menus_title')}
+                handleToggle={handleToggle}
+                checked={settingsStore.contextMenusEnabled}
+            />
+        </div>
     );
 });

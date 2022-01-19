@@ -3,6 +3,7 @@ import JSZip from 'jszip';
 
 import { vpnApi } from '../api';
 import { log } from '../../lib/logger';
+import { processExclusionServices, processExclusionServicesDomains } from '../../common/data-processors';
 
 /**
  * Prepares locations data
@@ -10,7 +11,8 @@ import { log } from '../../lib/logger';
  * @returns {Promise<*>}
  */
 const getLocationsData = async (vpnToken) => {
-    const locationsData = await vpnApi.getLocations(vpnToken);
+    const language = browser.i18n.getUILanguage();
+    const locationsData = await vpnApi.getLocations(vpnToken, language);
 
     const { locations = [] } = locationsData;
 
@@ -246,13 +248,29 @@ const requestSupport = async ({
     }
 };
 
-const vpnProvider = {
+const getExclusionsServicesDomains = async (serviceIds) => {
+    const exclusionServiceDomains = await vpnApi.getExclusionServiceDomains(serviceIds);
+    return processExclusionServicesDomains(exclusionServiceDomains);
+};
+
+/**
+ * Moved to separate module in order to not mangle with webextension-polyfill
+ */
+export const getExclusionsServices = async () => {
+    const [exclusionsServices, servicesDomains] = await Promise.all([
+        vpnApi.getExclusionsServices(),
+        getExclusionsServicesDomains([]),
+    ]);
+
+    return processExclusionServices(exclusionsServices, servicesDomains);
+};
+
+export const vpnProvider = {
     getCurrentLocation,
     getVpnExtensionInfo,
     getVpnCredentials,
     postExtensionInstalled,
     getLocationsData,
     requestSupport,
+    getExclusionsServices,
 };
-
-export default vpnProvider;

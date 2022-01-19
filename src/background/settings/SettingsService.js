@@ -1,12 +1,19 @@
 import throttle from 'lodash/throttle';
+
 import { log } from '../../lib/logger';
 import { SETTINGS_IDS } from '../../lib/constants';
 import browserApi from '../browserApi';
+import { servicesManager } from '../exclusions/services/ServicesManager';
+import {
+    complementedExclusionsWithServices,
+    complementExclusions,
+} from '../exclusions/exclusions-helpers';
+import { ExclusionState } from '../../common/exclusionsConstants';
 
-const SCHEME_VERSION = '8';
+const SCHEME_VERSION = '9';
 const THROTTLE_TIMEOUT = 100;
 
-class SettingsService {
+export class SettingsService {
     constructor(storage, defaults) {
         this.storage = storage;
         this.defaults = defaults;
@@ -98,7 +105,7 @@ class SettingsService {
             [SETTINGS_IDS.SELECTED_LOCATION_KEY]: selectedLocation,
             [SETTINGS_IDS.LOCATION_SELECTED_BY_USER_KEY]: isSelectedByUser,
         };
-    }
+    };
 
     migrateFrom6to7 = (oldSettings) => {
         return {
@@ -130,6 +137,49 @@ class SettingsService {
     };
 
     /**
+     * Migration to new settings considering services
+     * @param oldSettings
+     */
+    migrateFrom8to9 = async (oldSettings) => {
+        const updateExclusionsState = (oldExclusions) => {
+            return oldExclusions.map((exclusion) => {
+                return {
+                    id: exclusion.id,
+                    hostname: exclusion.hostname,
+                    state: exclusion.enabled ? ExclusionState.Enabled : ExclusionState.Disabled,
+                };
+            });
+        };
+
+        const services = await servicesManager.getServicesForMigration();
+
+        const migrateExclusions = (exclusions) => {
+            const exclusionsWithUpdatedState = updateExclusionsState(exclusions);
+            const complementedExclusions = complementExclusions(exclusionsWithUpdatedState);
+            const exclusionsComplementedWithServices = complementedExclusionsWithServices(
+                complementedExclusions,
+                services,
+            );
+
+            return exclusionsComplementedWithServices;
+        };
+
+        const oldExclusions = oldSettings[SETTINGS_IDS.EXCLUSIONS];
+        const newRegular = migrateExclusions(oldExclusions.regular);
+        const newSelective = migrateExclusions(oldExclusions.selective);
+
+        return {
+            ...oldSettings,
+            VERSION: '9',
+            [SETTINGS_IDS.EXCLUSIONS]: {
+                regular: newRegular,
+                selective: newSelective,
+                inverted: oldExclusions.inverted,
+            },
+        };
+    };
+
+    /**
      * In order to add migration, create new function which modifies old settings into new
      * And add this migration under related old settings scheme version
      * For example if your migration function migrates your settings from scheme 4 to 5, then add
@@ -143,6 +193,7 @@ class SettingsService {
         5: this.migrateFrom5to6,
         6: this.migrateFrom6to7,
         7: this.migrateFrom7to8,
+        8: this.migrateFrom8to9,
     };
 
     async applyMigrations(oldVersion, newVersion, oldSettings) {
@@ -215,5 +266,3 @@ class SettingsService {
         await this.storage.remove(this.SETTINGS_KEY);
     }
 }
-
-export default SettingsService;

@@ -20,6 +20,9 @@
     "options_bug_report_textarea_label": {
         "message": "Съобщение"
     },
+    "account_version": {
+        "message": "Версия"
+    },
     "rate_hide": {
         "message": "Скрий"
     },

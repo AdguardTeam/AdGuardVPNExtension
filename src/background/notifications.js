@@ -11,7 +11,7 @@ class Notifications {
             message: options.message,
         };
         await browser.notifications.create(nanoid(), notificationOptions);
-    }
+    };
 }
 
 const notifications = new Notifications();

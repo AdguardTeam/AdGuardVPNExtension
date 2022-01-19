@@ -6,7 +6,7 @@ import {
 
 import { REQUEST_STATUSES } from './consts';
 import { log } from '../../lib/logger';
-import messenger from '../../lib/messenger';
+import { messenger } from '../../lib/messenger';
 
 export class GlobalStore {
     @observable initStatus = REQUEST_STATUSES.PENDING;
@@ -17,7 +17,7 @@ export class GlobalStore {
 
     @action
     async getOptionsData() {
-        const { rootStore: { settingsStore, authStore } } = this;
+        const { rootStore: { settingsStore, authStore, exclusionsStore } } = this;
         this.setInitStatus(REQUEST_STATUSES.PENDING);
 
         try {
@@ -25,6 +25,9 @@ export class GlobalStore {
             settingsStore.setOptionsData(optionsData);
             settingsStore.requestIsPremiumToken();
             authStore.setIsAuthenticated(optionsData.isAuthenticated);
+            exclusionsStore.setServicesData(optionsData.servicesData);
+            exclusionsStore.setExclusionsData(optionsData.exclusionsData);
+            exclusionsStore.setIsAllExclusionsListsEmpty(optionsData.isAllExclusionsListsEmpty);
             this.setInitStatus(REQUEST_STATUSES.DONE);
         } catch (e) {
             log.error(e.message);

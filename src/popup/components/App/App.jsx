@@ -18,12 +18,12 @@ import Settings from '../Settings';
 import { PromoNotificationModal } from '../PromoNotificationModal';
 import Icons from '../ui/Icons';
 import CurrentEndpoint from '../Settings/CurrentEndpoint';
-import ExclusionsScreen from '../Settings/ExclusionsScreen';
+import { ExclusionsScreen } from '../Settings/ExclusionsScreen';
 
 import { rootStore } from '../../stores';
 import { REQUEST_STATUSES } from '../../stores/consts';
 import { log } from '../../../lib/logger';
-import messenger from '../../../lib/messenger';
+import { messenger } from '../../../lib/messenger';
 import notifier from '../../../lib/notifier';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
 import { TrafficLimitExceeded } from '../Settings/TrafficLimitExceeded';
@@ -50,7 +50,7 @@ export const App = observer(() => {
         hasGlobalError,
         checkPermissionsState,
         hasLimitExceededError,
-        displayExclusionScreen,
+        isExcluded,
         canBeExcluded,
         showLimitExceededScreen,
     } = settingsStore;
@@ -221,7 +221,7 @@ export const App = observer(() => {
             >
                 <Locations />
             </CSSTransition>
-            {displayExclusionScreen && canBeExcluded
+            {isExcluded && canBeExcluded
                 ? <ExclusionsScreen />
                 : (
                     <>

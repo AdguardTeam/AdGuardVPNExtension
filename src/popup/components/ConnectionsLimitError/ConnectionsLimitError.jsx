@@ -5,7 +5,7 @@ import isNil from 'lodash/isNil';
 
 import { log } from '../../../lib/logger';
 import { rootStore } from '../../stores';
-import messenger from '../../../lib/messenger';
+import { messenger } from '../../../lib/messenger';
 import { reactTranslator } from '../../../common/reactTranslator';
 
 import './popup-error.pcss';

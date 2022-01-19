@@ -122,6 +122,15 @@
     "account_edit": {
         "message": "Kezelés"
     },
+    "account_version": {
+        "message": "Verzió"
+    },
+    "account_free": {
+        "message": "Ingyenes"
+    },
+    "account_unlimited": {
+        "message": "Korlátlan"
+    },
     "account_sign_out": {
         "message": "Kijelentkezés"
     },
@@ -196,6 +205,9 @@
     },
     "auth_placeholder_2fa": {
         "message": "Megerősítő kód"
+    },
+    "official_website": {
+        "message": "Hivatalos webhely"
     },
     "eula": {
         "message": "EULA"
@@ -521,6 +533,9 @@
     },
     "popup_upgrade_screen_all_locations": {
         "message": "Minden végpont"
+    },
+    "popup_upgrade_screen_streaming_support": {
+        "message": "Streaming támogatás"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Streaming"

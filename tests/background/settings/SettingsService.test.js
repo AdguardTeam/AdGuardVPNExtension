@@ -1,4 +1,4 @@
-import SettingsService from '../../../src/background/settings/SettingsService';
+import { SettingsService } from '../../../src/background/settings/SettingsService';
 import { sleep } from '../../../src/lib/helpers';
 
 jest.mock('../../../src/lib/logger');
@@ -28,7 +28,7 @@ let settingsService;
 describe('SettingsService', () => {
     describe('init', () => {
         const expectedSettings = {
-            VERSION: '8',
+            VERSION: '9',
             enabled: true,
             showPromo: true,
         };
@@ -37,9 +37,8 @@ describe('SettingsService', () => {
             settingsService = new SettingsService(storage, defaults);
         });
 
-        afterEach(async (done) => {
+        afterEach(async () => {
             await settingsService.clearSettings();
-            done();
         });
 
         it('inits correctly if storage is empty', async () => {
@@ -62,7 +61,7 @@ describe('SettingsService', () => {
         });
 
         it('inits correctly if versions do not match', async () => {
-            const unmatchedVersion = '9';
+            const unmatchedVersion = '10';
             storage.set(settingsService.SETTINGS_KEY, {
                 ...expectedSettings,
                 VERSION: unmatchedVersion,
@@ -70,7 +69,7 @@ describe('SettingsService', () => {
             await settingsService.init();
             const settings = settingsService.getSettings();
             expect(settings.VERSION)
-                .toBe('8');
+                .toBe('9');
             expect(settings.enabled)
                 .toBe(defaults.enabled);
             expect(settings.showPromo)
@@ -84,9 +83,8 @@ describe('SettingsService', () => {
             settingsService.init();
         });
 
-        afterEach(async (done) => {
+        afterEach(async () => {
             await settingsService.clearSettings();
-            done();
         });
 
         it('saves settings to the storage throttled', async () => {

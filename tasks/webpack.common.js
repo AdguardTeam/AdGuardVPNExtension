@@ -43,13 +43,13 @@ const config = {
         filename: '[name].js',
     },
     resolve: {
-        extensions: ['*', '.js', '.jsx'],
+        extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],
     },
 
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,
+                test: /\.(ts|js)x?$/,
                 exclude: /node_modules/,
                 use: ['cache-loader', { loader: 'babel-loader', options: { babelrc: true } }],
             },
@@ -58,7 +58,21 @@ const config = {
                 exclude: /node_modules/,
                 use: [
                     'style-loader',
-                    { loader: 'css-loader', options: { importLoaders: 1 } },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1,
+                            modules: {
+                                compileType: 'module',
+                                mode: 'local',
+                                auto: true,
+                                exportGlobals: false,
+                                localIdentName: IS_DEV ? '[path][name]__[local]--[hash:base64:5]' : '[hash:base64]',
+                                exportLocalsConvention: 'camelCaseOnly',
+                                exportOnlyLocals: false,
+                            },
+                        },
+                    },
                     'postcss-loader',
                 ],
             },

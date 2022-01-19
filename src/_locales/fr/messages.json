@@ -122,8 +122,26 @@
     "account_edit": {
         "message": "Gérer"
     },
+    "account_version": {
+        "message": "Version"
+    },
+    "account_signed": {
+        "message": "Connecté avec"
+    },
+    "account_free": {
+        "message": "Compte gratuit"
+    },
+    "account_unlimited": {
+        "message": "Compte illimité"
+    },
+    "account_next_charge": {
+        "message": "(Prochaine facture %date%)"
+    },
     "account_sign_out": {
         "message": "Déconnexion"
+    },
+    "account_unlimited_title": {
+        "message": "Obtenez la version Illimitée !"
     },
     "rate_description": {
         "message": "Hé, nous sommes une équipe d’AdGuard et il est très important pour nous de connaître votre opinion sur notre produit. Veuillez le noter."
@@ -199,6 +217,9 @@
     },
     "auth_placeholder_2fa": {
         "message": "Code d’authentification"
+    },
+    "official_website": {
+        "message": "Site Web officiel"
     },
     "eula": {
         "message": "CLUF"
@@ -537,14 +558,29 @@
     "popup_upgrade_screen_title": {
         "message": "VPN illimité"
     },
+    "popup_upgrade_screen_desc": {
+        "message": "Il est temps de mettre à jour votre licence !"
+    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Données illimitées"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "Vitesse illimitée"
     },
+    "popup_upgrade_screen_unlimited_speed_desc": {
+        "message": "Aucune limitation de vitesse. Tirez le maximum de votre fournisseur de services !"
+    },
     "popup_upgrade_screen_all_locations": {
         "message": "Toutes les localisations"
+    },
+    "popup_upgrade_screen_all_locations_desc": {
+        "message": "6 continents et des dizaines de pays. Choisissez une ville et surfez sur le Net en toute sécurité !"
+    },
+    "popup_upgrade_screen_streaming_support": {
+        "message": "Prise en charge du streaming"
+    },
+    "popup_upgrade_screen_streaming_support_desc": {
+        "message": "Tous les principaux services de streaming sont disponibles. Regardez ce que vous voulez, partout !"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Streaming"

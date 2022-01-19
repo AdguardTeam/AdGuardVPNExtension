@@ -1,0 +1,64 @@
+.list-item {
+    display: flex;
+    align-items: center;
+    padding: 0 0 0 20px;
+    border-radius: 5px;
+    list-style: none;
+    position: relative;
+
+    &__title {
+        display: flex;
+        align-items: center;
+        width: 85%;
+        padding: 10px 0;
+        cursor: pointer;
+
+        &.ip-title {
+            cursor: default;
+
+            & .list-item__arrow {
+                display: none;
+            }
+        }
+
+        &__icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 12px;
+        }
+    }
+
+    &__arrow {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        right: 55px;
+    }
+
+    &__remove-button {
+        position: absolute;
+        right: 10px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        visibility: hidden;
+        transition: var(--t3) background;
+
+        &:hover {
+            filter: brightness(.7);
+        }
+
+        &__icon {
+            width: 24px;
+            height: 24px;
+        }
+    }
+
+    &:hover {
+        background: var(--grayF3);
+
+        & .list-item__remove-button {
+            visibility: visible;
+        }
+    }
+}

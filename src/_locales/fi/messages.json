@@ -44,6 +44,9 @@
     "authentication_error_wrong_credentials": {
         "message": "Väärä salasana"
     },
+    "authentication_too_many_requests": {
+        "message": "Vastaanotimme liian monta pyyntöä IP-osoitteestasi. Yritä uudelleen myöhemmin."
+    },
     "authentication_error_default": {
         "message": "Tapahtui virhe. Yritä myöhemmin uudelleen."
     },
@@ -122,8 +125,26 @@
     "account_edit": {
         "message": "Hallinnoi"
     },
+    "account_version": {
+        "message": "Versio"
+    },
+    "account_signed": {
+        "message": "Kirjautuneena tunnuksella"
+    },
+    "account_free": {
+        "message": "Ilmainen"
+    },
+    "account_unlimited": {
+        "message": "Rajaton"
+    },
+    "account_next_charge": {
+        "message": "(seuraava veloitus %date%)"
+    },
     "account_sign_out": {
         "message": "Kirjaudu ulos"
+    },
+    "account_unlimited_title": {
+        "message": "Hanki rajoittamaton versio!"
     },
     "rate_description": {
         "message": "Hei, olemme AdGuardin tiimi ja meille on erittäin tärkeää, että kerrot meille mielipiteesi tuotteesta. Arvioi se, kiitos."
@@ -199,6 +220,9 @@
     },
     "auth_placeholder_2fa": {
         "message": "Todennuskoodi"
+    },
+    "official_website": {
+        "message": "Virallinen sivusto"
     },
     "eula": {
         "message": "EULA"
@@ -351,7 +375,7 @@
         "message": "Aliverkkotunnukset"
     },
     "settings_exclusion_subdomains_text": {
-        "message": "Voit lisätä verkkotunnuksia (esim. google.com) tai aliverkkotunnuksia (esim. *.google.fi)"
+        "message": "Voit lisätä verkkotunnuksia (esim. google.fi) tai aliverkkotunnuksia (esim. *.google.fi)"
     },
     "global_error_title": {
         "message": "Tapahtui virhe"
@@ -537,14 +561,32 @@
     "popup_upgrade_screen_title": {
         "message": "Rajaton VPN"
     },
+    "popup_upgrade_screen_desc": {
+        "message": "On aika päivittää lisenssisi!"
+    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Rajaton tiedonsiirto"
+    },
+    "popup_upgrade_screen_unlimited_data_desc": {
+        "message": "Ainoa rajoitus on, ettei tietojasi jaeta koskaan. Surffaa sydämesi kyllyydestä!"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "Rajaton nopeus"
     },
+    "popup_upgrade_screen_unlimited_speed_desc": {
+        "message": "Ei nopeusrajoituksia. Ota palveluntarjoajastasi kaikki irti!"
+    },
     "popup_upgrade_screen_all_locations": {
         "message": "Kaikki sijainnit"
+    },
+    "popup_upgrade_screen_all_locations_desc": {
+        "message": "Kuusi mannerta ja kymmeniä maita. Valitse kaupunki ja surffaa netissä turvallisesti!"
+    },
+    "popup_upgrade_screen_streaming_support": {
+        "message": "Suoratoiston tuki"
+    },
+    "popup_upgrade_screen_streaming_support_desc": {
+        "message": "Kaikki merkittävät suoratoistopalvelut ovat käytettävissä. Katso mitä tahansa, missä tahansa!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Suoratoisto"
@@ -584,7 +626,7 @@
         "message": "Poista"
     },
     "options_exclusions_delete_title": {
-        "message": "Poista poikkeukset"
+        "message": "Poikkeuksien poisto"
     },
     "options_exclusions_delete_regular_description": {
         "message": "Kaikki tavallisen tilan poikkeukset poistetaan."
@@ -596,10 +638,10 @@
         "message": "Poikkeuksia tuotiin: %count%"
     },
     "options_exclusions_import_error_wrong_extensions": {
-        "message": "Poikkeustiedostolla tulee olla jokin seuraavista tiedostopäätteistä: %extensions%"
+        "message": "Poikkeustiedostolla tulee olla joku seuraavista tiedostopäätteistä: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Zip-tiedosto: \"%filename%\" ei sisällä teidostoja poikkeuksilla: %extensions%"
+        "message": "Zip-tiedosto: \"%filename%\" ei sisällä tiedostoja poikkeuksilla: %extensions%"
     },
     "popup_connections_limit_description_start": {
         "message": "Olet saavuttanut yhteyksien enimmäismäärän: %maxDevicesAllowed%."
