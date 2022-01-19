@@ -657,9 +657,6 @@
     "popup_upgrade_screen_title": {
         "message": "Unlimited VPN"
     },
-    "popup_upgrade_screen_desc": {
-        "message": "It’s time to upgrade your license!"
-    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Unlimited data"
     },
