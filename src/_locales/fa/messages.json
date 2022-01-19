@@ -41,9 +41,6 @@
     "rate_hide": {
         "message": "پنهان کن"
     },
-    "auth_confirm": {
-        "message": "تأیید"
-    },
     "auth_password": {
         "message": "رمزعبور"
     },
@@ -115,6 +112,27 @@
     },
     "settings_theme_light": {
         "message": "روشن"
+    },
+    "settings_exclusion_add": {
+        "message": "افزودن"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "لغو"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "حذف"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "ذخیره"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "ريست"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "جستجو"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "حذف همه"
     },
     "settings_exclusions_import_button": {
         "message": "وارد کردن"

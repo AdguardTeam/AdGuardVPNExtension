@@ -38,9 +38,6 @@
     "rate_hide": {
         "message": "إخفاء"
     },
-    "auth_confirm": {
-        "message": "تاكيد"
-    },
     "auth_password": {
         "message": "كلمه المرور"
     },
@@ -103,6 +100,27 @@
     },
     "settings_theme_light": {
         "message": "فاتح"
+    },
+    "settings_exclusion_add_website": {
+        "message": "أضف استثناءًا"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "إلغاء"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "حذف"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "حفظ"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "إعادة تعيين"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "بحث"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "حذف الكل"
     },
     "settings_exclusions_import_button": {
         "message": "استيراد"

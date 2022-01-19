@@ -239,8 +239,8 @@
     "context_menu_selective_mode": {
         "message": "Szelektív mód"
     },
-    "context_menu_regular_mode": {
-        "message": "Hagyományos mód"
+    "context_menu_general_mode": {
+        "message": "Általános mód"
     },
     "settings_dns_label": {
         "message": "DNS szerver használata"
@@ -309,7 +309,64 @@
         "message": "Világos"
     },
     "settings_exclusion_add": {
+        "message": "Hozzáad"
+    },
+    "settings_exclusion_add_website": {
         "message": "Webhely hozzáadása"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "Adjon hozzá egy aldomaint"
+    },
+    "settings_exclusion_service_settings_subtitle_regular_mode": {
+        "message": "Az AdGuard VPN ki van kapcsolva a jelölt domain címeken"
+    },
+    "settings_exclusion_service_settings_subtitle_selective_mode": {
+        "message": "Az AdGuard VPN be van kapcsolva a bejelölt domain címeken"
+    },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
+        "message": "Az AdGuard VPN ki van kapcsolva a jelölt domaineken és aldomaineken"
+    },
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
+        "message": "Az AdGuard VPN be van kapcsolva a jelölt domaineken és aldomaineken"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Domain név:"
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "A listából"
+    },
+    "settings_exclusion_add_manually": {
+        "message": "Manuálisan"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "Mégsem"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Eltávolítás"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Mentés"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "Vissza alaphelyzetbe"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Visszaállítás"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Keresés"
+    },
+    "settings_exclusion_connection_problem": {
+        "message": "Csatlakozási probléma"
+    },
+    "settings_exclusions_action_export": {
+        "message": "Kivételek exportálása"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Kivételek importálása"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Összes eltávolítása"
     },
     "settings_exclusions_import_button": {
         "message": "Importálás"
@@ -326,17 +383,14 @@
     "settings_connection_mode_title": {
         "message": "Működés módja"
     },
-    "settings_exclusion_regular_title": {
-        "message": "Hagyományos mód"
+    "settings_exclusion_general_title": {
+        "message": "Általános mód"
     },
-    "settings_exclusion_regular_description": {
-        "message": "Az AdGuard VPN nem műklödik a listán szereplő webhelyeken"
+    "settings_exclusion_general_description": {
+        "message": "Az AdGuard VPN nem működik a kivételek listáján szereplő webhelyeken"
     },
     "settings_exclusion_selective_title": {
         "message": "Szelektív mód"
-    },
-    "settings_exclusion_selective_description": {
-        "message": "Az AdGuard VPN csak a listán szereplő webhelyeken működik"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Aldomainek"

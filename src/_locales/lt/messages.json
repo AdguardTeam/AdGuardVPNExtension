@@ -56,9 +56,6 @@
     "rate_hide": {
         "message": "Paslėpti"
     },
-    "auth_confirm": {
-        "message": "Patvirtinti"
-    },
     "auth_password": {
         "message": "Slaptažodis"
     },
@@ -121,6 +118,36 @@
     },
     "settings_theme_dark": {
         "message": "Tamsi tema"
+    },
+    "settings_exclusion_add_website": {
+        "message": "Pridėti svetainę"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Domeno vardas:"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "Atšaukti"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Pašalinti"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Išsaugoti"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Atstatyti"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Paieška"
+    },
+    "settings_exclusions_action_export": {
+        "message": "Eksportuoti išimtis"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Importuoti išimtis"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Pašalinti viską"
     },
     "settings_exclusions_import_button": {
         "message": "Importas"

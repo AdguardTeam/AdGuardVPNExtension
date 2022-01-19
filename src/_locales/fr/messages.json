@@ -44,6 +44,9 @@
     "authentication_error_wrong_credentials": {
         "message": "Mot de passe incorrect"
     },
+    "authentication_too_many_requests": {
+        "message": "Nous avons reçu trop de requêtes de votre adresse IP. Veuillez réessayer plus tard."
+    },
     "authentication_error_default": {
         "message": "Une erreur s’est produite, réessayez plus tard"
     },
@@ -269,8 +272,8 @@
     "context_menu_selective_mode": {
         "message": "Mode sélectif"
     },
-    "context_menu_regular_mode": {
-        "message": "Mode régulier"
+    "context_menu_general_mode": {
+        "message": "Mode général"
     },
     "settings_dns_label": {
         "message": "Utiliser le serveur DNS"
@@ -339,7 +342,100 @@
         "message": "Clair"
     },
     "settings_exclusion_add": {
-        "message": "Ajouter un site web"
+        "message": "Ajouter"
+    },
+    "settings_exclusion_add_website": {
+        "message": "Ajouter un site Web"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "Ajouter un sous-domaine"
+    },
+    "settings_exclusion_invalid_subdomain": {
+        "message": "Sous-domaine non-valide"
+    },
+    "settings_exclusion_status_domain": {
+        "message": "domaine"
+    },
+    "settings_exclusion_status_subdomain": {
+        "message": "sous-domaine"
+    },
+    "settings_exclusion_status_all_subdomains": {
+        "message": "tous les sous-domaines"
+    },
+    "settings_exclusion_service_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN est désactivé pour les domaines cochés"
+    },
+    "settings_exclusion_service_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN est activé pour les domaines cochés"
+    },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN est désactivé pour les domaines et sous-domaines cochés"
+    },
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN est activé pour les domaines et sous-domaines cochés"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Nom de domaine :"
+    },
+    "settings_exclusion_subdomain_name": {
+        "message": "Nom de sous-domaine :"
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "Depuis la liste"
+    },
+    "settings_exclusion_add_manually": {
+        "message": "Manuellement"
+    },
+    "settings_exclusion_add_manually_add": {
+        "message": "Ajouter manuellement"
+    },
+    "settings_exclusions_add_invalid_domain": {
+        "message": "\"%url%\" n'est pas un domaine valide. Souhaitez-vous l'ajouter à la liste ?"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "Annuler"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Supprimer"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Sauvegarder"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "Restaurer par défaut"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Réinitialiser"
+    },
+    "settings_exclusion_reset_service_confirmation_message": {
+        "message": "Restaurer les paramètres par défaut pour %hostname% ? Ceci restaurera tous les domaines manquants et cochera toutes les cases en les activant."
+    },
+    "settings_exclusion_search_website": {
+        "message": "Rechercher le site web"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Rechercher"
+    },
+    "settings_exclusion_nothing_found": {
+        "message": "Aucun résultat trouvé"
+    },
+    "settings_exclusion_connection_problem": {
+        "message": "Problème de connexion"
+    },
+    "settings_exclusions_action_export": {
+        "message": "Exporter les exclusions"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Importer les exclusions"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Tou supprimer"
+    },
+    "settings_exclusions_remove_all_exclusions": {
+        "message": "Supprimer toutes les exclusions"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "Souhaitez-vous vraiment continuer ? La liste entière des exclusions sera supprimée."
     },
     "settings_exclusions_import_button": {
         "message": "Importer"
@@ -356,17 +452,20 @@
     "settings_connection_mode_title": {
         "message": "Mode de fonctionnement"
     },
-    "settings_exclusion_regular_title": {
-        "message": "Mode régulier"
+    "settings_exclusion_change_mode": {
+        "message": "Changer le mode"
     },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN ne fonctionnera pas sur les sites Web listés ci-dessous"
+    "settings_exclusion_general_title": {
+        "message": "Mode général"
+    },
+    "settings_exclusion_general_description": {
+        "message": "AdGuard VPN est activé partout sauf sur les sites web ajoutés à la liste des exclusions"
     },
     "settings_exclusion_selective_title": {
         "message": "Mode sélectif"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN fonctionnera uniquement sur les sites Web de la liste ci-dessous"
+        "message": "AdGuard VPN fonctionnera uniquement sur les sites web ajoutés à la liste d'exclusions"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Sous-domaines"
@@ -558,11 +657,11 @@
     "popup_upgrade_screen_title": {
         "message": "VPN illimité"
     },
-    "popup_upgrade_screen_desc": {
-        "message": "Il est temps de mettre à jour votre licence !"
-    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Données illimitées"
+    },
+    "popup_upgrade_screen_unlimited_data_desc": {
+        "message": "La seule limitation est que vos données ne sont jamais partagées. Surfez à loisir !"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "Vitesse illimitée"
@@ -630,6 +729,15 @@
     },
     "options_exclusions_import_successful": {
         "message": "Exclusions importées : %count%"
+    },
+    "options_exclusions_deleted_exclusions": {
+        "message": "Exclusions supprimées : %count%"
+    },
+    "options_exclusions_added_exclusions": {
+        "message": "Exclusions ajoutées : %count%"
+    },
+    "options_exclusions_remove_all_success": {
+        "message": "Toutes les exclusions du mode actuel ont été supprimées."
     },
     "options_exclusions_import_error_wrong_extensions": {
         "message": "Le fichier d'exclusions doit avoir l'une des extensions suivantes : %extensions%"

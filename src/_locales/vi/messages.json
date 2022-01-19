@@ -239,7 +239,7 @@
     "context_menu_selective_mode": {
         "message": "Chế độ chọn lọc"
     },
-    "context_menu_regular_mode": {
+    "context_menu_general_mode": {
         "message": "Chế độ thông thường"
     },
     "settings_dns_label": {
@@ -309,7 +309,64 @@
         "message": "Sáng"
     },
     "settings_exclusion_add": {
+        "message": "Thêm"
+    },
+    "settings_exclusion_add_website": {
         "message": "Thêm trang web"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "Thêm tên miền con"
+    },
+    "settings_exclusion_service_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN được tắt với những tên miền được chọn"
+    },
+    "settings_exclusion_service_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN được bật với những tên miền được chọn"
+    },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN được tắt với những tên miền và tên miền con được chọn"
+    },
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN được bật với những tên miền và tên miền con được chọn"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Tên miền:"
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "Từ danh sách"
+    },
+    "settings_exclusion_add_manually": {
+        "message": "Thủ công"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "Huỷ"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Xoá"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Lưu"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "Đặt lại mặc định"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Đặt lại"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Tìm kiếm"
+    },
+    "settings_exclusion_connection_problem": {
+        "message": "Vấn đề kết nối"
+    },
+    "settings_exclusions_action_export": {
+        "message": "Xuất danh sách loại trừ"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Nhập danh sách loại trừ"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Xoá tất cả"
     },
     "settings_exclusions_import_button": {
         "message": "Nhập"
@@ -326,17 +383,14 @@
     "settings_connection_mode_title": {
         "message": "Chế độ kết nối VPN"
     },
-    "settings_exclusion_regular_title": {
+    "settings_exclusion_general_title": {
         "message": "Chế độ thông thường"
     },
-    "settings_exclusion_regular_description": {
+    "settings_exclusion_general_description": {
         "message": "AdGuard không hoạt động trên trang này dựa theo danh sách này"
     },
     "settings_exclusion_selective_title": {
         "message": "Chế độ chọn lọc"
-    },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN không hoạt động trên trang này dựa theo danh sách này"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Tên miền phụ"

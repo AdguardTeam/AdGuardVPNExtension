@@ -272,9 +272,6 @@
     "context_menu_selective_mode": {
         "message": "Выбарковы рэжым"
     },
-    "context_menu_regular_mode": {
-        "message": "Звычайны рэжым"
-    },
     "settings_dns_label": {
         "message": "Абраны DNS-сервер"
     },
@@ -341,8 +338,62 @@
     "settings_theme_light": {
         "message": "Светлая"
     },
-    "settings_exclusion_add": {
+    "settings_exclusion_add_website": {
         "message": "Дадаць сайт"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "Дадаць паддамен"
+    },
+    "settings_exclusion_service_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN адключаны для даменаў, адзначаных галачкай"
+    },
+    "settings_exclusion_service_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN падлучаны для даменаў, адзначаных галачкай"
+    },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN адключаны для даменаў і паддаменаў, адзначаных галачкай"
+    },
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN падлучаны для даменаў і паддаменаў, адзначаных галачкай"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Даменавае імя:"
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "Са спіса"
+    },
+    "settings_exclusion_add_manually": {
+        "message": "Ручна"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "Скасаванне"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Выдаліць"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Захаваць"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "Вярнуць налады да прадвызначаных"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Скінуць"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Пошук"
+    },
+    "settings_exclusion_connection_problem": {
+        "message": "Праблема злучэння"
+    },
+    "settings_exclusions_action_export": {
+        "message": "Экспартаваць выняткі"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Імпартаваць выняткі"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Выдаліць усё"
     },
     "settings_exclusions_import_button": {
         "message": "Імпарт"
@@ -359,17 +410,11 @@
     "settings_connection_mode_title": {
         "message": "Рэжым падлучэння"
     },
-    "settings_exclusion_regular_title": {
-        "message": "Звычайны рэжым"
-    },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard не працуе на сайтах з гэтага спіса"
+    "settings_exclusion_general_description": {
+        "message": "AdGuard VPN не будзе працаваць на сайтах са спіса выняткаў"
     },
     "settings_exclusion_selective_title": {
         "message": "Выбарковы рэжым"
-    },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN працуе толькі на сайтах з гэтага спіса"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Паддамены"
@@ -560,9 +605,6 @@
     },
     "popup_upgrade_screen_title": {
         "message": "Безлімітны VPN"
-    },
-    "popup_upgrade_screen_desc": {
-        "message": "Час палепшыць ліцэнзію!"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Неабмежаваны трафік"

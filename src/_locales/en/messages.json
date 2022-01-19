@@ -657,9 +657,6 @@
     "popup_upgrade_screen_title": {
         "message": "Unlimited VPN"
     },
-    "popup_upgrade_screen_desc": {
-        "message": "It’s time to upgrade your license!"
-    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Unlimited data"
     },
@@ -734,10 +731,10 @@
         "message": "Imported exclusions: %count%"
     },
     "options_exclusions_deleted_exclusions": {
-        "message": "Deleted exclusions: %count%."
+        "message": "Deleted exclusions: %count%"
     },
     "options_exclusions_added_exclusions": {
-        "message": "Added exclusions: %count%."
+        "message": "Added exclusions: %count%"
     },
     "options_exclusions_remove_all_success": {
         "message": "All exclusions for current mode successfully removed."

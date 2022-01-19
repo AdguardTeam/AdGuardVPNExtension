@@ -128,14 +128,23 @@
     "account_version": {
         "message": "版本"
     },
+    "account_signed": {
+        "message": "已用以下帳戶登入"
+    },
     "account_free": {
         "message": "免費的"
     },
     "account_unlimited": {
         "message": "無限制的"
     },
+    "account_next_charge": {
+        "message": "(下次收費 %date%)"
+    },
     "account_sign_out": {
         "message": "登出"
+    },
+    "account_unlimited_title": {
+        "message": "獲取無限版！"
     },
     "rate_description": {
         "message": "嗨，我們是來自 AdGuard 的團隊，而了解您對我們的產品之意見對於我們是非常重要的。請對它評分。"
@@ -263,8 +272,8 @@
     "context_menu_selective_mode": {
         "message": "選擇性模式"
     },
-    "context_menu_regular_mode": {
-        "message": "常規模式"
+    "context_menu_general_mode": {
+        "message": "一般模式"
     },
     "settings_dns_label": {
         "message": "使用 DNS 伺服器"
@@ -333,7 +342,100 @@
         "message": "淺色"
     },
     "settings_exclusion_add": {
+        "message": "新增"
+    },
+    "settings_exclusion_add_website": {
         "message": "新增一個網站"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "新增一個子網域"
+    },
+    "settings_exclusion_invalid_subdomain": {
+        "message": "無效的子網域"
+    },
+    "settings_exclusion_status_domain": {
+        "message": "網域"
+    },
+    "settings_exclusion_status_subdomain": {
+        "message": "子網域"
+    },
+    "settings_exclusion_status_all_subdomains": {
+        "message": "所有子網域"
+    },
+    "settings_exclusion_service_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN 已為所選的網域禁用"
+    },
+    "settings_exclusion_service_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN 已為所選的網域啟用"
+    },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN 已為所選的網域和子網域禁用"
+    },
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN 已為所選的網域和子網域啟用"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "域名："
+    },
+    "settings_exclusion_subdomain_name": {
+        "message": "子網域名稱："
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "從該清單中"
+    },
+    "settings_exclusion_add_manually": {
+        "message": "手動地"
+    },
+    "settings_exclusion_add_manually_add": {
+        "message": "手動新增"
+    },
+    "settings_exclusions_add_invalid_domain": {
+        "message": "%url% 為無效的子網域，請問您要加入至清單中嗎？"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "取消"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "移除"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "儲存"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "重置為預設"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "重置"
+    },
+    "settings_exclusion_reset_service_confirmation_message": {
+        "message": "確定要重設 %hostname% 的設定嗎？ 將還原所有缺少的網域並全數啟用。"
+    },
+    "settings_exclusion_search_website": {
+        "message": "搜尋網站"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "搜尋"
+    },
+    "settings_exclusion_nothing_found": {
+        "message": "無搜尋結果"
+    },
+    "settings_exclusion_connection_problem": {
+        "message": "連線問題"
+    },
+    "settings_exclusions_action_export": {
+        "message": "匯出例外"
+    },
+    "settings_exclusions_action_import": {
+        "message": "匯入例外"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "移除全部"
+    },
+    "settings_exclusions_remove_all_exclusions": {
+        "message": "移除所有例外"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "您確定要繼續嗎？這將會移除清單中所有例外。"
     },
     "settings_exclusions_import_button": {
         "message": "匯入"
@@ -350,17 +452,20 @@
     "settings_connection_mode_title": {
         "message": "運作模式"
     },
-    "settings_exclusion_regular_title": {
-        "message": "常規模式"
+    "settings_exclusion_change_mode": {
+        "message": "更變模式"
     },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN 將不對來自以下清單中的網站起作用"
+    "settings_exclusion_general_title": {
+        "message": "一般模式"
+    },
+    "settings_exclusion_general_description": {
+        "message": "AdGuard VPN 將不對來自該例外清單中之網站起作用"
     },
     "settings_exclusion_selective_title": {
         "message": "選擇性模式"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN 將僅對來自以下清單中的網站起作用"
+        "message": "AdGuard VPN 僅對被加至例外中的網站為開著"
     },
     "settings_exclusion_subdomains_title": {
         "message": "子網域"
@@ -555,14 +660,26 @@
     "popup_upgrade_screen_unlimited_data": {
         "message": "無限的流量"
     },
+    "popup_upgrade_screen_unlimited_data_desc": {
+        "message": "唯一一個限制是您的數據永遠不會被分享。隨心所欲地上網！"
+    },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "無限制的速度"
+    },
+    "popup_upgrade_screen_unlimited_speed_desc": {
+        "message": "無速度限制。從服務提供商那裡獲得最大價值！"
     },
     "popup_upgrade_screen_all_locations": {
         "message": "所有的位置"
     },
+    "popup_upgrade_screen_all_locations_desc": {
+        "message": "六個大洲及海量國家與地區。選擇一座城市並開始安全瀏覽！"
+    },
     "popup_upgrade_screen_streaming_support": {
         "message": "串流支援"
+    },
+    "popup_upgrade_screen_streaming_support_desc": {
+        "message": "大部分主流串流服務都可用。隨時隨地享受！"
     },
     "popup_upgrade_screen_streaming": {
         "message": "串流"
@@ -612,6 +729,15 @@
     },
     "options_exclusions_import_successful": {
         "message": "已匯入的例外：%count%"
+    },
+    "options_exclusions_deleted_exclusions": {
+        "message": "已移除的例外數量：%count%"
+    },
+    "options_exclusions_added_exclusions": {
+        "message": "已新增的例外數量：%count%"
+    },
+    "options_exclusions_remove_all_success": {
+        "message": "已成功移除此模式下的所有例外。"
     },
     "options_exclusions_import_error_wrong_extensions": {
         "message": "例外檔案應有以下副檔名之一：%extensions%"

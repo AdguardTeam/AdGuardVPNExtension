@@ -272,8 +272,8 @@
     "context_menu_selective_mode": {
         "message": "Выборочный режим"
     },
-    "context_menu_regular_mode": {
-        "message": "Обычный режим"
+    "context_menu_general_mode": {
+        "message": "Основной режим"
     },
     "settings_dns_label": {
         "message": "Использовать сервер DNS"
@@ -342,7 +342,100 @@
         "message": "Светлая"
     },
     "settings_exclusion_add": {
-        "message": "Добавить веб-сайт"
+        "message": "Добавить"
+    },
+    "settings_exclusion_add_website": {
+        "message": "Добавить сайт"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "Добавить поддомен"
+    },
+    "settings_exclusion_invalid_subdomain": {
+        "message": "Некорректный поддомен"
+    },
+    "settings_exclusion_status_domain": {
+        "message": "домен"
+    },
+    "settings_exclusion_status_subdomain": {
+        "message": "поддомен"
+    },
+    "settings_exclusion_status_all_subdomains": {
+        "message": "все поддомены"
+    },
+    "settings_exclusion_service_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN отключен для доменов, отмеченных галочкой"
+    },
+    "settings_exclusion_service_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN подключен для доменов, отмеченных галочкой"
+    },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN отключен для доменов и поддоменов, отмеченных галочкой"
+    },
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN подключен для доменов и поддоменов, отмеченных галочкой"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Доменное имя:"
+    },
+    "settings_exclusion_subdomain_name": {
+        "message": "Имя поддомена:"
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "Из списка"
+    },
+    "settings_exclusion_add_manually": {
+        "message": "Вручную"
+    },
+    "settings_exclusion_add_manually_add": {
+        "message": "Добавить вручную"
+    },
+    "settings_exclusions_add_invalid_domain": {
+        "message": "«%url%» — некорректный домен. Вы хотите добавить его в список?"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "Отмена"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Удалить"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Сохранить"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "Вернуть настройки по умолчанию"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Сброс"
+    },
+    "settings_exclusion_reset_service_confirmation_message": {
+        "message": "Вернуть настройки по умолчанию для %hostname%? Это восстановит все отсутствующие домены и установит флажки."
+    },
+    "settings_exclusion_search_website": {
+        "message": "Поиск сайта"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Поиск"
+    },
+    "settings_exclusion_nothing_found": {
+        "message": "Ничего не найдено"
+    },
+    "settings_exclusion_connection_problem": {
+        "message": "Проблема соединения"
+    },
+    "settings_exclusions_action_export": {
+        "message": "Экспортировать исключения"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Импортировать исключения"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Удалить все"
+    },
+    "settings_exclusions_remove_all_exclusions": {
+        "message": "Удалить все исключения"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "Вы уверены, что хотите продолжить? Список исключений будет удалён."
     },
     "settings_exclusions_import_button": {
         "message": "Импортировать"
@@ -359,17 +452,20 @@
     "settings_connection_mode_title": {
         "message": "Режим работы"
     },
-    "settings_exclusion_regular_title": {
-        "message": "Обычный режим"
+    "settings_exclusion_change_mode": {
+        "message": "Изменить режим"
     },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN не будет работать на сайтах из списка ниже"
+    "settings_exclusion_general_title": {
+        "message": "Основной режим"
+    },
+    "settings_exclusion_general_description": {
+        "message": "AdGuard VPN не будет работать на сайтах из списка исключений"
     },
     "settings_exclusion_selective_title": {
         "message": "Выборочный режим"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN будет работать только на сайтах из списка ниже"
+        "message": "AdGuard VPN будет работать только на сайтах из списка исключений"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Поддомены"
@@ -633,6 +729,15 @@
     },
     "options_exclusions_import_successful": {
         "message": "Импортированные исключения: %count%"
+    },
+    "options_exclusions_deleted_exclusions": {
+        "message": "Удалённые исключения: %count%"
+    },
+    "options_exclusions_added_exclusions": {
+        "message": "Добавленные исключения: %count%"
+    },
+    "options_exclusions_remove_all_success": {
+        "message": "Все исключения для текущего режима успешно удалены."
     },
     "options_exclusions_import_error_wrong_extensions": {
         "message": "У файла с исключениями должно быть одно из расширений: %extensions%"

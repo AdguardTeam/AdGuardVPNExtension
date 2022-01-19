@@ -44,6 +44,9 @@
     "authentication_error_wrong_credentials": {
         "message": "Неправильний пароль"
     },
+    "authentication_too_many_requests": {
+        "message": "Ми отримали забагато запитів з вашої IP-адреси. Спробуйте пізніше, будь ласка."
+    },
     "authentication_error_default": {
         "message": "Сталася помилка, спробуйте пізніше"
     },
@@ -269,8 +272,8 @@
     "context_menu_selective_mode": {
         "message": "Вибірковий режим"
     },
-    "context_menu_regular_mode": {
-        "message": "Звичайний режим"
+    "context_menu_general_mode": {
+        "message": "Основний режим"
     },
     "settings_dns_label": {
         "message": "Використовувати DNS-сервер"
@@ -339,7 +342,100 @@
         "message": "Світла"
     },
     "settings_exclusion_add": {
+        "message": "Додати"
+    },
+    "settings_exclusion_add_website": {
         "message": "Додати вебсайт"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "Додати піддомен"
+    },
+    "settings_exclusion_invalid_subdomain": {
+        "message": "Неправильний піддомен"
+    },
+    "settings_exclusion_status_domain": {
+        "message": "домен"
+    },
+    "settings_exclusion_status_subdomain": {
+        "message": "піддомен"
+    },
+    "settings_exclusion_status_all_subdomains": {
+        "message": "усі піддомени"
+    },
+    "settings_exclusion_service_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN вимкнено для помічених галкою доменів"
+    },
+    "settings_exclusion_service_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN увімкнено для помічених галкою доменів"
+    },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN вимкнено для помічених галкою доменів та піддоменів"
+    },
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN увімкнено для помічених галкою доменів та піддоменів"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Назва домену:"
+    },
+    "settings_exclusion_subdomain_name": {
+        "message": "Назва піддомену:"
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "Зі списку"
+    },
+    "settings_exclusion_add_manually": {
+        "message": "Вручну"
+    },
+    "settings_exclusion_add_manually_add": {
+        "message": "Додати вручну"
+    },
+    "settings_exclusions_add_invalid_domain": {
+        "message": "«%url%» — це неправильний домен. Дійсно хочете додати його до списку?"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "Скасувати"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Вилучити"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Зберегти"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "Відновити усталені"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Скинути"
+    },
+    "settings_exclusion_reset_service_confirmation_message": {
+        "message": "Скинути усталені налаштування для %hostname%? Після цього відсутні домени буде відновлено та усі пункти будуть помічені галками."
+    },
+    "settings_exclusion_search_website": {
+        "message": "Пошук сайту"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Пошук"
+    },
+    "settings_exclusion_nothing_found": {
+        "message": "Нічого не знайдено"
+    },
+    "settings_exclusion_connection_problem": {
+        "message": "Проблема зі з'єднанням"
+    },
+    "settings_exclusions_action_export": {
+        "message": "Експортувати винятки"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Імпортувати винятки"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Видалити все"
+    },
+    "settings_exclusions_remove_all_exclusions": {
+        "message": "Видалити всі винятки"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "Ви дійсно хочете продовжити? Увесь список винятнів буде видалено."
     },
     "settings_exclusions_import_button": {
         "message": "Імпортувати"
@@ -356,17 +452,20 @@
     "settings_connection_mode_title": {
         "message": "Режим роботи"
     },
-    "settings_exclusion_regular_title": {
-        "message": "Звичайний режим"
+    "settings_exclusion_change_mode": {
+        "message": "Змінити режим"
     },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN не працюватиме на вебсайтах із наведеного нижче списку"
+    "settings_exclusion_general_title": {
+        "message": "Основний режим"
+    },
+    "settings_exclusion_general_description": {
+        "message": "AdGuard VPN працюватиме всюди, окрім сайтів-винятків"
     },
     "settings_exclusion_selective_title": {
         "message": "Вибірковий режим"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN працюватиме лише на вебсайтах із наведеного нижче списку"
+        "message": "AdGuard VPN працюватиме лише на сайтах, які додано до винятків"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Піддомени"
@@ -558,9 +657,6 @@
     "popup_upgrade_screen_title": {
         "message": "Необмежений VPN"
     },
-    "popup_upgrade_screen_desc": {
-        "message": "Настав час покращити вашу ліцензію!"
-    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Необмежений трафік"
     },
@@ -633,6 +729,15 @@
     },
     "options_exclusions_import_successful": {
         "message": "Імпортовано винятків: %count%"
+    },
+    "options_exclusions_deleted_exclusions": {
+        "message": "Видалено винятків: %count%"
+    },
+    "options_exclusions_added_exclusions": {
+        "message": "Додано винятків: %count%"
+    },
+    "options_exclusions_remove_all_success": {
+        "message": "Усі винятки для поточного режиму видалено."
     },
     "options_exclusions_import_error_wrong_extensions": {
         "message": "Файл винятків мусить мати одне з разширень: %extensions%"

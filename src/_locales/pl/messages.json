@@ -272,8 +272,8 @@
     "context_menu_selective_mode": {
         "message": "Tryb selektywny"
     },
-    "context_menu_regular_mode": {
-        "message": "Tryb zwykły"
+    "context_menu_general_mode": {
+        "message": "Protokół AdGuard VPN"
     },
     "settings_dns_label": {
         "message": "Użyj serwera DNS"
@@ -342,7 +342,100 @@
         "message": "Jasny"
     },
     "settings_exclusion_add": {
+        "message": "Dodaj"
+    },
+    "settings_exclusion_add_website": {
         "message": "Dodaj stronę internetową"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "Dodaj subdomenę"
+    },
+    "settings_exclusion_invalid_subdomain": {
+        "message": "Nieprawidłowa subdomena"
+    },
+    "settings_exclusion_status_domain": {
+        "message": "domena"
+    },
+    "settings_exclusion_status_subdomain": {
+        "message": "subdomena"
+    },
+    "settings_exclusion_status_all_subdomains": {
+        "message": "wszystkie subdomeny"
+    },
+    "settings_exclusion_service_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN jest wyłączony dla zaznaczonych domen"
+    },
+    "settings_exclusion_service_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN jest włączony dla zaznaczonych domen"
+    },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN jest wyłączony dla zaznaczonych domen i subdomen"
+    },
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN jest włączony dla zaznaczonych domen i subdomen"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Nazwa domeny:"
+    },
+    "settings_exclusion_subdomain_name": {
+        "message": "Nazwa subdomeny:"
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "Z listy"
+    },
+    "settings_exclusion_add_manually": {
+        "message": "Ręcznie"
+    },
+    "settings_exclusion_add_manually_add": {
+        "message": "Dodaj ręcznie"
+    },
+    "settings_exclusions_add_invalid_domain": {
+        "message": "\"%url%\" nie jest poprawną domeną. Czy chcesz dodać ją do listy?"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "Anuluj"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Usuń"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Zapisz"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "Przywróć ustawienia domyślne"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Zresetuj"
+    },
+    "settings_exclusion_reset_service_confirmation_message": {
+        "message": "Zresetować ustawienia domyślne dla %hostname%? Spowoduje to przywrócenie brakujących domen i włączenie wszystkich znaczników wyboru."
+    },
+    "settings_exclusion_search_website": {
+        "message": "Wyszukaj witrynę"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Wyszukaj"
+    },
+    "settings_exclusion_nothing_found": {
+        "message": "Nie znaleziono wyników"
+    },
+    "settings_exclusion_connection_problem": {
+        "message": "Problem z połączeniem"
+    },
+    "settings_exclusions_action_export": {
+        "message": "Eksportuj wykluczenia"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Importuj wykluczenia"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Usuń wszystkie"
+    },
+    "settings_exclusions_remove_all_exclusions": {
+        "message": "Usuń wszystkie wykluczenia"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "Jesteś pewien, że chcesz kontynuować? Cała lista wykluczeń zostanie usunięta."
     },
     "settings_exclusions_import_button": {
         "message": "Importuj"
@@ -359,17 +452,20 @@
     "settings_connection_mode_title": {
         "message": "Tryb pracy"
     },
-    "settings_exclusion_regular_title": {
-        "message": "Tryb zwykły"
+    "settings_exclusion_change_mode": {
+        "message": "Zmień tryb"
     },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN nie będzie działać w witrynach z poniższej listy"
+    "settings_exclusion_general_title": {
+        "message": "Protokół AdGuard VPN"
+    },
+    "settings_exclusion_general_description": {
+        "message": "AdGuard VPN jest dostępny wszędzie, z wyjątkiem witryn dodanych do wykluczeń"
     },
     "settings_exclusion_selective_title": {
         "message": "Tryb selektywny"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN będzie działać tylko na stronach internetowych z poniższej listy"
+        "message": "AdGuard VPN jest włączony tylko dla witryn dodanych do wykluczeń"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Subdomeny"
@@ -561,9 +657,6 @@
     "popup_upgrade_screen_title": {
         "message": "Nieograniczony VPN"
     },
-    "popup_upgrade_screen_desc": {
-        "message": "Czas uaktualnić licencję!"
-    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Nieograniczone dane"
     },
@@ -636,6 +729,15 @@
     },
     "options_exclusions_import_successful": {
         "message": "Zaimportowanych wykluczeń: %count%"
+    },
+    "options_exclusions_deleted_exclusions": {
+        "message": "Usunięte wykluczenia: %count%"
+    },
+    "options_exclusions_added_exclusions": {
+        "message": "Dodane wykluczenia: %count%"
+    },
+    "options_exclusions_remove_all_success": {
+        "message": "Wszystkie wykluczenia dla bieżącego trybu zostały pomyślnie usunięte."
     },
     "options_exclusions_import_error_wrong_extensions": {
         "message": "Plik wykluczeń powinien mieć jedno z następujących rozszerzeń: %extensions%"

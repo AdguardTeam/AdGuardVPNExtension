@@ -272,8 +272,8 @@
     "context_menu_selective_mode": {
         "message": "Selectieve modus"
     },
-    "context_menu_regular_mode": {
-        "message": "Standaard modus"
+    "context_menu_general_mode": {
+        "message": "Algemene modus"
     },
     "settings_dns_label": {
         "message": "DNS-server gebruiken"
@@ -342,7 +342,100 @@
         "message": "Licht"
     },
     "settings_exclusion_add": {
+        "message": "Toevoegen"
+    },
+    "settings_exclusion_add_website": {
         "message": "Website toevoegen"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "Subdomein toevoegen"
+    },
+    "settings_exclusion_invalid_subdomain": {
+        "message": "Ongeldig subdomein"
+    },
+    "settings_exclusion_status_domain": {
+        "message": "domein"
+    },
+    "settings_exclusion_status_subdomain": {
+        "message": "subdomein"
+    },
+    "settings_exclusion_status_all_subdomains": {
+        "message": "alle subdomeinen"
+    },
+    "settings_exclusion_service_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN is uitgeschakeld voor de geselecteerde domeinen"
+    },
+    "settings_exclusion_service_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN is ingeschakeld voor de geselecteerde domeinen"
+    },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN is uitgeschakeld voor de geselecteerde domeinen en subdomeinen"
+    },
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN is ingeschakeld voor de geselecteerde domeinen en subdomeinen"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Domeinnaam:"
+    },
+    "settings_exclusion_subdomain_name": {
+        "message": "Subdomeinnaam:"
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "Van de lijst"
+    },
+    "settings_exclusion_add_manually": {
+        "message": "Handmatig"
+    },
+    "settings_exclusion_add_manually_add": {
+        "message": "Handmatig toevoegen"
+    },
+    "settings_exclusions_add_invalid_domain": {
+        "message": "\"%url%\" is geen geldig domein. Wil je deze aan de lijst toevoegen?"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "Annuleren"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Verwijderen"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Opslaan"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "Standaardwaarden herstellen"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Herstellen"
+    },
+    "settings_exclusion_reset_service_confirmation_message": {
+        "message": "De standaardinstellingen voor %hostname% herstellen? Hiermee worden alle ontbrekende domeinen hersteld en worden alle vinkjes aangezet."
+    },
+    "settings_exclusion_search_website": {
+        "message": "Website zoeken"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Zoeken"
+    },
+    "settings_exclusion_nothing_found": {
+        "message": "Geen resultaten gevonden"
+    },
+    "settings_exclusion_connection_problem": {
+        "message": "Verbindingsprobleem"
+    },
+    "settings_exclusions_action_export": {
+        "message": "Uitsluitingen exporteren"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Uitsluitingen importeren"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Alles verwijderen"
+    },
+    "settings_exclusions_remove_all_exclusions": {
+        "message": "Alle uitsluitingen verwijderen"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "Weet je zeker dat je door wilt gaan? De volledige lijst met uitsluitingen wordt verwijderd."
     },
     "settings_exclusions_import_button": {
         "message": "Importeren"
@@ -359,17 +452,20 @@
     "settings_connection_mode_title": {
         "message": "Werkingsmodus"
     },
-    "settings_exclusion_regular_title": {
-        "message": "Standaard modus"
+    "settings_exclusion_change_mode": {
+        "message": "Modus wijzigen"
     },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN werkt niet op de websites uit deze lijst"
+    "settings_exclusion_general_title": {
+        "message": "Algemene modus"
+    },
+    "settings_exclusion_general_description": {
+        "message": "Adguard VPN staat overal aan, behalve op websites toegevoegd aan uitsluitingen"
     },
     "settings_exclusion_selective_title": {
         "message": "Selectieve modus"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN werkt alleen voor de websites uit deze lijst"
+        "message": "AdGuard VPN is alleen actief op de websites uit deze lijst"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Subdomeinen"
@@ -561,9 +657,6 @@
     "popup_upgrade_screen_title": {
         "message": "Onbeperkt VPN"
     },
-    "popup_upgrade_screen_desc": {
-        "message": "Het is tijd om je licentie te upgraden!"
-    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Onbeperkte data"
     },
@@ -636,6 +729,15 @@
     },
     "options_exclusions_import_successful": {
         "message": "Geïmporteerde uitzonderingen: %count%"
+    },
+    "options_exclusions_deleted_exclusions": {
+        "message": "Verwijderde uitsluitingen: %count%"
+    },
+    "options_exclusions_added_exclusions": {
+        "message": "Toegevoegde uitsluitingen: %count%"
+    },
+    "options_exclusions_remove_all_success": {
+        "message": "Alle uitsluitingen voor de huidige modus zijn succesvol verwijderd."
     },
     "options_exclusions_import_error_wrong_extensions": {
         "message": "Bestand met uitzonderingen dient een van deze uitbreidingen te bevatten: %extensions%"

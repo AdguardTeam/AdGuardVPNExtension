@@ -269,8 +269,8 @@
     "context_menu_selective_mode": {
         "message": "Selektivni način"
     },
-    "context_menu_regular_mode": {
-        "message": "Zadani način"
+    "context_menu_general_mode": {
+        "message": "Općeniti način"
     },
     "settings_dns_label": {
         "message": "Koristi DNS poslužitelj"
@@ -339,7 +339,64 @@
         "message": "Svijetla"
     },
     "settings_exclusion_add": {
+        "message": "DODAJ"
+    },
+    "settings_exclusion_add_website": {
         "message": "Dodaj web stranicu"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "Dodavanje poddomene"
+    },
+    "settings_exclusion_service_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN je isključen za provjerene domene"
+    },
+    "settings_exclusion_service_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN je uključen za provjerene domene"
+    },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN je isključen za provjerene domene i poddomene"
+    },
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN uključen je za provjerene domene i poddomene"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Naziv domene:"
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "S popisa"
+    },
+    "settings_exclusion_add_manually": {
+        "message": "Ručno"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "Poništi"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Ukloni"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Spremi"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "Postavi zadano"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Poništavanje"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Pretraga"
+    },
+    "settings_exclusion_connection_problem": {
+        "message": "Problem s vezom"
+    },
+    "settings_exclusions_action_export": {
+        "message": "Izvoz iznimki"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Uvoz iznimki"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Ukloni sve"
     },
     "settings_exclusions_import_button": {
         "message": "Uvoz"
@@ -356,17 +413,14 @@
     "settings_connection_mode_title": {
         "message": "Način rada"
     },
-    "settings_exclusion_regular_title": {
-        "message": "Zadani način"
+    "settings_exclusion_general_title": {
+        "message": "Općeniti način"
     },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN neće raditi na web stranicama s popisa ispod"
+    "settings_exclusion_general_description": {
+        "message": "AdGuard VPN je uključen svugdje osim na web stranicama koje su dodane na crnu listu"
     },
     "settings_exclusion_selective_title": {
         "message": "Selektivni način"
-    },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN će raditi samo na web stranicama s popisa ispod"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Poddomene"
@@ -557,9 +611,6 @@
     },
     "popup_upgrade_screen_title": {
         "message": "Neograničen VPN"
-    },
-    "popup_upgrade_screen_desc": {
-        "message": "Vrijeme je za nadogradnju vaše licence!"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Neograničeni podaci"

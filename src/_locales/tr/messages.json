@@ -272,8 +272,8 @@
     "context_menu_selective_mode": {
         "message": "Seçici mod"
     },
-    "context_menu_regular_mode": {
-        "message": "Normal mod"
+    "context_menu_general_mode": {
+        "message": "Genel mod"
     },
     "settings_dns_label": {
         "message": "DNS sunucusu kullan"
@@ -342,7 +342,100 @@
         "message": "Açık"
     },
     "settings_exclusion_add": {
+        "message": "Ekle"
+    },
+    "settings_exclusion_add_website": {
         "message": "Site ekle"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "Alt alan adı ekle"
+    },
+    "settings_exclusion_invalid_subdomain": {
+        "message": "Geçersiz alt alan adı"
+    },
+    "settings_exclusion_status_domain": {
+        "message": "alan adı"
+    },
+    "settings_exclusion_status_subdomain": {
+        "message": "alt alan adı"
+    },
+    "settings_exclusion_status_all_subdomains": {
+        "message": "tüm alt alan adları"
+    },
+    "settings_exclusion_service_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN, seçilen alan adları için kapalı"
+    },
+    "settings_exclusion_service_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN, seçilen alan adları için açık"
+    },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN, seçilen alan adları ve alt alan adları için kapalı"
+    },
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN, seçilen alan adları ve alt alan adları için açık"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Alan adı:"
+    },
+    "settings_exclusion_subdomain_name": {
+        "message": "Alt alan adı:"
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "Listeden"
+    },
+    "settings_exclusion_add_manually": {
+        "message": "El ile"
+    },
+    "settings_exclusion_add_manually_add": {
+        "message": "El ile ekle"
+    },
+    "settings_exclusions_add_invalid_domain": {
+        "message": "\"%url%\" geçerli bir alan adı değil. Listeye eklemek istiyor musunuz?"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "İptal"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Kaldır"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Kaydet"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "Varsayılana sıfırla"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Sıfırla"
+    },
+    "settings_exclusion_reset_service_confirmation_message": {
+        "message": "%hostname% için varsayılan ayarlar sıfırlansın mı? Bu, eksik alan adlarını geri yükleyecek ve tüm onay işaretlerini açık olarak ayarlayacaktır."
+    },
+    "settings_exclusion_search_website": {
+        "message": "Web sitesi ara"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Ara"
+    },
+    "settings_exclusion_nothing_found": {
+        "message": "Sonuç bulunamadı"
+    },
+    "settings_exclusion_connection_problem": {
+        "message": "Bağlantı sorunu"
+    },
+    "settings_exclusions_action_export": {
+        "message": "İstisnaları dışa aktar"
+    },
+    "settings_exclusions_action_import": {
+        "message": "İstisnaları içe aktar"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Tümünü kaldır"
+    },
+    "settings_exclusions_remove_all_exclusions": {
+        "message": "Tüm istisnaları kaldır"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "Devam etmek istediğinize emin misiniz? Tüm istisnalar listesi kaldırılacaktır."
     },
     "settings_exclusions_import_button": {
         "message": "İçe aktar"
@@ -359,17 +452,20 @@
     "settings_connection_mode_title": {
         "message": "Çalışma modu"
     },
-    "settings_exclusion_regular_title": {
-        "message": "Normal mod"
+    "settings_exclusion_change_mode": {
+        "message": "Modu değiştir"
     },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN aşağıdaki listedeki web sitelerinde çalışmaz"
+    "settings_exclusion_general_title": {
+        "message": "Genel mod"
+    },
+    "settings_exclusion_general_description": {
+        "message": "AAdGuard VPN, istisnalara eklenen siteler dışında her yerde açık"
     },
     "settings_exclusion_selective_title": {
         "message": "Seçici mod"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN yalnızca aşağıdaki listedeki web sitelerinde çalışır"
+        "message": "AdGuard VPN yalnızca istisnalara eklenen siteler için açıktır"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Alt alan adı"
@@ -561,9 +657,6 @@
     "popup_upgrade_screen_title": {
         "message": "Sınırsız VPN"
     },
-    "popup_upgrade_screen_desc": {
-        "message": "Lisansınızı yükseltme zamanı!"
-    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Sınırsız veri"
     },
@@ -636,6 +729,15 @@
     },
     "options_exclusions_import_successful": {
         "message": "İçe aktarılan istisnalar: %count%"
+    },
+    "options_exclusions_deleted_exclusions": {
+        "message": "Silinen istisnalar: %count%"
+    },
+    "options_exclusions_added_exclusions": {
+        "message": "Eklenen istisnalar: %count%"
+    },
+    "options_exclusions_remove_all_success": {
+        "message": "Mevcut mod için tüm istisnalar başarıyla kaldırıldı."
     },
     "options_exclusions_import_error_wrong_extensions": {
         "message": "İstisnalar dosyası bu uzantılardan birine sahip olmalıdır: %extensions%"

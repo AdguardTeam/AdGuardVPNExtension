@@ -272,8 +272,8 @@
     "context_menu_selective_mode": {
         "message": "Modul selectiv"
     },
-    "context_menu_regular_mode": {
-        "message": "Modul normal"
+    "context_menu_general_mode": {
+        "message": "Modul general"
     },
     "settings_dns_label": {
         "message": "Folosiți server DNS"
@@ -342,7 +342,100 @@
         "message": "Luminoasă"
     },
     "settings_exclusion_add": {
+        "message": "Adaugă"
+    },
+    "settings_exclusion_add_website": {
         "message": "Adăugați un site"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "Adăugați un subdomeniu"
+    },
+    "settings_exclusion_invalid_subdomain": {
+        "message": "Subdomeniu invalid"
+    },
+    "settings_exclusion_status_domain": {
+        "message": "domeniu"
+    },
+    "settings_exclusion_status_subdomain": {
+        "message": "subdomeniu"
+    },
+    "settings_exclusion_status_all_subdomains": {
+        "message": "toate subdomeniile"
+    },
+    "settings_exclusion_service_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN este oprit pentru domeniile verificate"
+    },
+    "settings_exclusion_service_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN este activat pentru domeniile verificate"
+    },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN este oprit pentru domeniile și subdomeniile verificate"
+    },
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN este activat pentru domeniile și subdomeniile verificate"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Nume domeniu:"
+    },
+    "settings_exclusion_subdomain_name": {
+        "message": "Numele subdomeniului:"
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "Din listă"
+    },
+    "settings_exclusion_add_manually": {
+        "message": "Manual"
+    },
+    "settings_exclusion_add_manually_add": {
+        "message": "Adăugați manual"
+    },
+    "settings_exclusions_add_invalid_domain": {
+        "message": "%url% nu este un domeniu valid. Doriți să-l adăugați în listă?"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "Anulare"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Elimină"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Salvați"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "Resetare la implicit"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Resetare"
+    },
+    "settings_exclusion_reset_service_confirmation_message": {
+        "message": "Doriți să restabiliți setările implicite pentru %hostname%? Aceasta va restaura toate domeniile care lipsesc și va seta toate bifele de control la Activat."
+    },
+    "settings_exclusion_search_website": {
+        "message": "Căutați site-ul web"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Caută"
+    },
+    "settings_exclusion_nothing_found": {
+        "message": "Nu s-a găsit niciun rezultat"
+    },
+    "settings_exclusion_connection_problem": {
+        "message": "Problemă de conectare"
+    },
+    "settings_exclusions_action_export": {
+        "message": "Export de excluderi"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Import de excluderi"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Elimină tot"
+    },
+    "settings_exclusions_remove_all_exclusions": {
+        "message": "Eliminați toate excluderile"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "Sunteți sigur că doriți să continuați? Întreaga listă de excluderi va fi eliminată."
     },
     "settings_exclusions_import_button": {
         "message": "Import"
@@ -359,17 +452,20 @@
     "settings_connection_mode_title": {
         "message": "Mod de operare"
     },
-    "settings_exclusion_regular_title": {
-        "message": "Modul normal"
+    "settings_exclusion_change_mode": {
+        "message": "Schimbați modul"
     },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN nu va funcționa pe site-urile din lista de mai jos"
+    "settings_exclusion_general_title": {
+        "message": "Modul general"
+    },
+    "settings_exclusion_general_description": {
+        "message": "AdGuard VPN este activat peste tot, cu excepția site-urilor web adăugate la excluderi"
     },
     "settings_exclusion_selective_title": {
         "message": "Modul selectiv"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN va funcționa numai pe site-urile din lista de mai jos"
+        "message": "AdGuard VPN este activat numai pentru site-urile web adăugate la excluderi"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Subdomenii"
@@ -561,9 +657,6 @@
     "popup_upgrade_screen_title": {
         "message": "VPN nelimitat"
     },
-    "popup_upgrade_screen_desc": {
-        "message": "Este timpul să vă actualizați licența!"
-    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Date nelimitate"
     },
@@ -636,6 +729,15 @@
     },
     "options_exclusions_import_successful": {
         "message": "Excluderi importate: %count%"
+    },
+    "options_exclusions_deleted_exclusions": {
+        "message": "Excluderi șterse: %count%"
+    },
+    "options_exclusions_added_exclusions": {
+        "message": "Excluderi adăugate: %count%"
+    },
+    "options_exclusions_remove_all_success": {
+        "message": "Au fost eliminate cu succes toate excluderile modului curent."
     },
     "options_exclusions_import_error_wrong_extensions": {
         "message": "Fișierul de excluderi trebuie să aibă una dintre următoarele extensii: %extensions%"

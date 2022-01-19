@@ -47,6 +47,24 @@
     "settings_theme_light": {
         "message": "Светъл цвят"
     },
+    "settings_exclusion_modal_cancel": {
+        "message": "Отказ"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Премахни"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Запази"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Нулиране"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Търси"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Премахни всички"
+    },
     "settings_exclusions_import_button": {
         "message": "Импортирай"
     },

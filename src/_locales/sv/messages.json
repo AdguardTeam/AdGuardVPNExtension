@@ -194,6 +194,42 @@
     "settings_theme_light": {
         "message": "Ljust"
     },
+    "settings_exclusion_add": {
+        "message": "Lägg till"
+    },
+    "settings_exclusion_add_website": {
+        "message": "Lägg till en webbplats"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "Lägg till en underdomän"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Domännamn:"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "Avbryt"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Ta bort"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Spara"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "Återställ till standard"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Återställ"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Sök"
+    },
+    "settings_exclusion_nothing_found": {
+        "message": "Inga resultat hittades"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Ta bort alla"
+    },
     "settings_exclusions_import_button": {
         "message": "Importera"
     },
@@ -302,9 +338,6 @@
     },
     "popup_upgrade_screen_title": {
         "message": "Obegränsad VPN"
-    },
-    "popup_upgrade_screen_desc": {
-        "message": "Det är dags att uppgradera din licens!"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Obegränsad data"

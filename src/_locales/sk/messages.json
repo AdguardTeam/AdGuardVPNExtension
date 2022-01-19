@@ -272,8 +272,8 @@
     "context_menu_selective_mode": {
         "message": "Výberový režim"
     },
-    "context_menu_regular_mode": {
-        "message": "Štandardný režim"
+    "context_menu_general_mode": {
+        "message": "Všeobecný režim"
     },
     "settings_dns_label": {
         "message": "Použiť DNS server"
@@ -342,7 +342,100 @@
         "message": "Svetlá"
     },
     "settings_exclusion_add": {
+        "message": "Pridať"
+    },
+    "settings_exclusion_add_website": {
         "message": "Pridať webovú stránku"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "Pridať subdoménu"
+    },
+    "settings_exclusion_invalid_subdomain": {
+        "message": "Neplatná subdoména"
+    },
+    "settings_exclusion_status_domain": {
+        "message": "doména"
+    },
+    "settings_exclusion_status_subdomain": {
+        "message": "subdoména"
+    },
+    "settings_exclusion_status_all_subdomains": {
+        "message": "všetky subdomény"
+    },
+    "settings_exclusion_service_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN je vypnutá pre kontrolované domény"
+    },
+    "settings_exclusion_service_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN je zapnutá pre kontrolované domény"
+    },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN je vypnutá pre kontrolované domény a subdomény"
+    },
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN je zapnutá pre kontrolované domény a subdomény"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Meno domény:"
+    },
+    "settings_exclusion_subdomain_name": {
+        "message": "Meno subdomény:"
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "Zo zoznamu"
+    },
+    "settings_exclusion_add_manually": {
+        "message": "Ručne"
+    },
+    "settings_exclusion_add_manually_add": {
+        "message": "Pridať manuálne"
+    },
+    "settings_exclusions_add_invalid_domain": {
+        "message": "\"%url%\" nie je platná doména. Chcete ju pridať do zoznamu?"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "Zrušiť"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Odstrániť"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Uložiť"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "Obnoviť predvolené nastavenia"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Obnoviť"
+    },
+    "settings_exclusion_reset_service_confirmation_message": {
+        "message": "Obnoviť predvolené nastavenia pre %hostname%? Týmto sa obnovia všetky chýbajúce domény a všetky začiarknutia sa nastavia na zapnuté."
+    },
+    "settings_exclusion_search_website": {
+        "message": "Vyhľadať webovú stránku"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Hľadať"
+    },
+    "settings_exclusion_nothing_found": {
+        "message": "Nenašli sa žiadne výsledky"
+    },
+    "settings_exclusion_connection_problem": {
+        "message": "Problém so spojením"
+    },
+    "settings_exclusions_action_export": {
+        "message": "Export výnimiek"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Import výnimiek"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Odstrániť všetko"
+    },
+    "settings_exclusions_remove_all_exclusions": {
+        "message": "Odstrániť všetky výnimky"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "Ste si istý, že chcete pokračovať? Celý zoznam výnimiek bude odstránený."
     },
     "settings_exclusions_import_button": {
         "message": "Import"
@@ -359,17 +452,20 @@
     "settings_connection_mode_title": {
         "message": "Režim práce"
     },
-    "settings_exclusion_regular_title": {
-        "message": "Štandardný režim"
+    "settings_exclusion_change_mode": {
+        "message": "Zmeniť režim"
     },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN nebude fungovať na webových stránkach z nižšie uvedeného zoznamu"
+    "settings_exclusion_general_title": {
+        "message": "Všeobecný režim"
+    },
+    "settings_exclusion_general_description": {
+        "message": "AdGuard VPN je zapnutá všade okrem webových stránok pridaných do výnimiek"
     },
     "settings_exclusion_selective_title": {
         "message": "Výberový režim"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN bude fungovať iba na webových stránkach zo zoznamu uvedeného nižšie"
+        "message": "AdGuard VPN je zapnutá iba pre webové stránky pridané do výnimiek"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Subdomény"
@@ -561,11 +657,11 @@
     "popup_upgrade_screen_title": {
         "message": "Neobmedzená VPN"
     },
-    "popup_upgrade_screen_desc": {
-        "message": "Je čas na upgrade Vašej licencie!"
-    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Neobmedzené dáta"
+    },
+    "popup_upgrade_screen_unlimited_data_desc": {
+        "message": "Jediným obmedzením je, že Vaše údaje sa nikdy nezdieľajú. Surfujte do sýtosti!"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "Neobmedzená rýchlosť"
@@ -633,6 +729,15 @@
     },
     "options_exclusions_import_successful": {
         "message": "Importované výnimky: %count%"
+    },
+    "options_exclusions_deleted_exclusions": {
+        "message": "Vymazané výnimky: %count%"
+    },
+    "options_exclusions_added_exclusions": {
+        "message": "Pridané výnimky: %count%"
+    },
+    "options_exclusions_remove_all_success": {
+        "message": "Všetky výnimky pre aktuálny režim boli úspešne odstránené."
     },
     "options_exclusions_import_error_wrong_extensions": {
         "message": "Súbor so zoznamom výnimiek by mal mať jednu z prípon: %extensions%"

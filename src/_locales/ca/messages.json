@@ -17,6 +17,9 @@
     "settings_theme_light": {
         "message": "Clar"
     },
+    "settings_exclusion_domain_name": {
+        "message": "Nom de domini:"
+    },
     "settings_exclusions_import_button": {
         "message": "Importeu"
     },

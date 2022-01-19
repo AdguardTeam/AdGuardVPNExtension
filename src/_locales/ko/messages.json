@@ -44,6 +44,9 @@
     "authentication_error_wrong_credentials": {
         "message": "잘못된 비밀번호입니다"
     },
+    "authentication_too_many_requests": {
+        "message": "이 IP 주소에서 너무 많은 요청을 받았습니다. 나중에 다시 요청하십시오."
+    },
     "authentication_error_default": {
         "message": "오류가 발생했습니다, 다시 시도해주세요"
     },
@@ -269,7 +272,7 @@
     "context_menu_selective_mode": {
         "message": "선별적 모드"
     },
-    "context_menu_regular_mode": {
+    "context_menu_general_mode": {
         "message": "일반 모드"
     },
     "settings_dns_label": {
@@ -339,7 +342,100 @@
         "message": "라이트 테마"
     },
     "settings_exclusion_add": {
+        "message": "추가"
+    },
+    "settings_exclusion_add_website": {
         "message": "웹사이트 추가"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "서브 도메인 추가"
+    },
+    "settings_exclusion_invalid_subdomain": {
+        "message": "유효하지 않은 서브 도메인입니다"
+    },
+    "settings_exclusion_status_domain": {
+        "message": "도메인"
+    },
+    "settings_exclusion_status_subdomain": {
+        "message": "서브 도메인"
+    },
+    "settings_exclusion_status_all_subdomains": {
+        "message": "모든 서브 도메인"
+    },
+    "settings_exclusion_service_settings_subtitle_regular_mode": {
+        "message": "선택한 도메인에 대해 AdGuard VPN이 꺼집니다"
+    },
+    "settings_exclusion_service_settings_subtitle_selective_mode": {
+        "message": "선택한 도메인에 대해 AdGuard VPN이 켜집니다"
+    },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
+        "message": "선택한 도메인 및 서브 도메인에 대해 AdGuard VPN이 꺼집니다"
+    },
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
+        "message": "선택한 도메인 및 서브 도메인에 대해 AdGuard VPN이 켜집니다"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "도메인 명:"
+    },
+    "settings_exclusion_subdomain_name": {
+        "message": "서브 도메인 이름:"
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "목록에서 선택"
+    },
+    "settings_exclusion_add_manually": {
+        "message": "수동"
+    },
+    "settings_exclusion_add_manually_add": {
+        "message": "수동으로 추가"
+    },
+    "settings_exclusions_add_invalid_domain": {
+        "message": "'%url%' 도메인은 유효한 도메인이 아닙니다. 목록에 추가하시겠습니까?"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "취소"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "제거"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "저장"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "기본값으로 초기화"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "초기화"
+    },
+    "settings_exclusion_reset_service_confirmation_message": {
+        "message": "%hostname%에 대한 설정을 기본값으로 초기화하시겠습니까? 그렇게 하면 손실된 도메인이 복구되고 모든 체크 박스가 체크됩니다."
+    },
+    "settings_exclusion_search_website": {
+        "message": "웹 사이트 검색"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "검색"
+    },
+    "settings_exclusion_nothing_found": {
+        "message": "검색 결과 없음"
+    },
+    "settings_exclusion_connection_problem": {
+        "message": "연결 문제"
+    },
+    "settings_exclusions_action_export": {
+        "message": "예외 목록 내보내기"
+    },
+    "settings_exclusions_action_import": {
+        "message": "예외 목록 불러오기"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "모두 제거"
+    },
+    "settings_exclusions_remove_all_exclusions": {
+        "message": "모든 예외 항목 제거"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "계속하시겠습니까? 그렇게 하면 예외 목록이 제거됩니다."
     },
     "settings_exclusions_import_button": {
         "message": "불러오기"
@@ -356,17 +452,20 @@
     "settings_connection_mode_title": {
         "message": "운영 모드"
     },
-    "settings_exclusion_regular_title": {
+    "settings_exclusion_change_mode": {
+        "message": "모드 변경"
+    },
+    "settings_exclusion_general_title": {
         "message": "일반 모드"
     },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN은 이 목록에 있는 웹사이트에서는 작동하지 않습니다"
+    "settings_exclusion_general_description": {
+        "message": "AdGuard VPN은 예외 목록에 있는 웹 사이트에서는 작동하지 않습니다"
     },
     "settings_exclusion_selective_title": {
         "message": "선별적 모드"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN이 이 목록에 있는 웹사이트에서만 작동됩니다"
+        "message": "AdGuard VPN이 예외 목록에 있는 웹 사이트에서만 작동됩니다"
     },
     "settings_exclusion_subdomains_title": {
         "message": "서브도메인"
@@ -558,11 +657,11 @@
     "popup_upgrade_screen_title": {
         "message": "무제한 VPN"
     },
-    "popup_upgrade_screen_desc": {
-        "message": "라이선스를 업그레이드할 때입니다!"
-    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "무제한 데이터"
+    },
+    "popup_upgrade_screen_unlimited_data_desc": {
+        "message": "정보가 결코 유포되지 않는 것이 유일한 제한 사항입니다. 마음껏 인터넷 서핑을 즐기세요!"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "무제한 속도"
@@ -630,6 +729,15 @@
     },
     "options_exclusions_import_successful": {
         "message": "예외 %count%개 불러옴"
+    },
+    "options_exclusions_deleted_exclusions": {
+        "message": "삭제된 예외 항목: %count%"
+    },
+    "options_exclusions_added_exclusions": {
+        "message": "추가된 예외 항목: %count%"
+    },
+    "options_exclusions_remove_all_success": {
+        "message": "현재 모드에 대한 모든 예외 항목이 성공적으로 제거되었습니다."
     },
     "options_exclusions_import_error_wrong_extensions": {
         "message": "예외 파일에는 다음 확장자 중 하나가 있어야 합니다: %extensions%"

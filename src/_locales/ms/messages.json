@@ -23,6 +23,15 @@
     "settings_theme_light": {
         "message": "Cerah"
     },
+    "settings_exclusion_domain_name": {
+        "message": "Nama domain:"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Tetapkan semula"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Buang semua"
+    },
     "settings_exclusions_import_button": {
         "message": "Import"
     },
