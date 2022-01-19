@@ -1,4 +1,4 @@
-import { identity } from 'lodash';
+import identity from 'lodash/identity';
 import punycode from 'punycode';
 import { isIP } from 'is-ip';
 

@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CreateFileWebpack = require('create-file-webpack');
+
 const { genAppConfig } = require('./appConfig');
 const {
     SRC_PATH,
@@ -30,7 +31,6 @@ const config = {
     devtool: IS_DEV ? 'eval-source-map' : false,
     optimization: {
         minimize: false,
-
     },
     entry: {
         background: BACKGROUND_PATH,

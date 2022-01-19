@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import flattenDeep from 'lodash/flattenDeep';
+import uniq from 'lodash/uniq';
+import isEmpty from 'lodash/isEmpty';
 import qs from 'qs';
 import { getDomain } from 'tldts';
 
@@ -162,13 +164,13 @@ class Endpoints {
     };
 
     updateEndpointsExclusions = (locations) => {
-        const endpoints = _.flattenDeep(locations.map((location) => {
+        const endpoints = flattenDeep(locations.map((location) => {
             return location.endpoints;
         }));
 
         const domainNames = endpoints.map((endpoint) => endpoint.domainName);
         const topLevelDomains = domainNames.map((domainName) => getDomain(domainName));
-        const uniqTopLevelDomains = _.uniq(topLevelDomains);
+        const uniqTopLevelDomains = uniq(topLevelDomains);
 
         endpointsTldExclusions.addEndpointsTldExclusions(uniqTopLevelDomains);
     };
@@ -181,7 +183,7 @@ class Endpoints {
     updateLocations = async (shouldReconnect = false) => {
         const locations = await this.getLocationsFromServer();
 
-        if (!locations || _.isEmpty(locations)) {
+        if (!locations || isEmpty(locations)) {
             return;
         }
 
@@ -326,7 +328,7 @@ class Endpoints {
 
         const locations = locationsService.getLocations();
 
-        if (_.isEmpty(locations)) {
+        if (isEmpty(locations)) {
             return null;
         }
 

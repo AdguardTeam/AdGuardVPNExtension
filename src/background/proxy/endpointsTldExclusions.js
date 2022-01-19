@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import throttle from 'lodash/throttle';
+import isEqual from 'lodash/isEqual';
+import sortBy from 'lodash/sortBy';
 
 import { log } from '../../lib/logger';
 import browserApi from '../browserApi';
@@ -35,7 +37,7 @@ class EndpointsTldExclusions {
      * Updates storage in a throttled way
      * @type {(function(): Promise<void>) & Cancelable}
      */
-    updateStorage = _.throttle(async () => {
+    updateStorage = throttle(async () => {
         try {
             await browserApi.storage.set(this.STORAGE_KEY, this.endpointsTldExclusionsList);
             log.debug('Endpoints tld exclusions saved in the storage');
@@ -73,9 +75,9 @@ class EndpointsTldExclusions {
      */
     handleEndpointsTldExclusionsListUpdate = (endpointsTldExclusions) => {
         // if lists have same values, do nothing
-        if (_.isEqual(
-            _.sortBy(this.endpointsTldExclusionsList),
-            _.sortBy(endpointsTldExclusions),
+        if (isEqual(
+            sortBy(this.endpointsTldExclusionsList),
+            sortBy(endpointsTldExclusions),
         )) {
             return;
         }

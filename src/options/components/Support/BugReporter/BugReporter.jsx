@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { observer } from 'mobx-react';
 import { useMachine } from '@xstate/react';
-import { identity } from 'lodash';
+import identity from 'lodash/identity';
 import classnames from 'classnames';
 
 import { Title } from '../../ui/Title';

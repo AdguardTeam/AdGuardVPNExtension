@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
-import { identity } from 'lodash';
+import identity from 'lodash/identity';
 import format from 'date-fns/format';
 import JSZip from 'jszip';
 import FileSaver from 'file-saver';
