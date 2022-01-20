@@ -171,6 +171,7 @@ export class SettingsService {
         return {
             ...oldSettings,
             VERSION: '9',
+            [SETTINGS_IDS.PREMIUM_FEATURES_SHOW]: this.defaults[SETTINGS_IDS.PREMIUM_FEATURES_SHOW],
             [SETTINGS_IDS.EXCLUSIONS]: {
                 regular: newRegular,
                 selective: newSelective,
