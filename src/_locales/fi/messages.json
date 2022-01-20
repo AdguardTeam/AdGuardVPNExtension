@@ -128,6 +128,9 @@
     "account_version": {
         "message": "Versio"
     },
+    "account_current_plan": {
+        "message": "Nykyinen tilaus"
+    },
     "account_signed": {
         "message": "Kirjautuneena tunnuksella"
     },

@@ -53,7 +53,7 @@ export const Account = observer(() => {
             <div className="account">
                 <div className="account__info">
                     <div className="account__name">
-                        {reactTranslator.getMessage('account_version')}
+                        {reactTranslator.getMessage('account_current_plan')}
                     </div>
                     <div className="account__desc">
                         {isPremiumToken

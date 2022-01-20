@@ -128,6 +128,9 @@
     "account_version": {
         "message": "Versie"
     },
+    "account_current_plan": {
+        "message": "Huidige abonnement"
+    },
     "account_signed": {
         "message": "Aangemeld met"
     },

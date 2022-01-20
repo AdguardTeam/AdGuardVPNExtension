@@ -128,6 +128,9 @@
     "account_version": {
         "message": "버전"
     },
+    "account_current_plan": {
+        "message": "사용 중인 플랜"
+    },
     "account_signed": {
         "message": "로그인함:"
     },

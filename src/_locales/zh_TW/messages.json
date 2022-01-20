@@ -128,6 +128,9 @@
     "account_version": {
         "message": "版本"
     },
+    "account_current_plan": {
+        "message": "現行的方案"
+    },
     "account_signed": {
         "message": "已用以下帳戶登入"
     },
@@ -138,7 +141,7 @@
         "message": "無限制的"
     },
     "account_next_charge": {
-        "message": "(下次收費 %date%)"
+        "message": "（下次收費 %date%）"
     },
     "account_sign_out": {
         "message": "登出"
@@ -387,10 +390,10 @@
         "message": "手動地"
     },
     "settings_exclusion_add_manually_add": {
-        "message": "手動新增"
+        "message": "手動地新增"
     },
     "settings_exclusions_add_invalid_domain": {
-        "message": "%url% 為無效的子網域，請問您要加入至清單中嗎？"
+        "message": "\"%url%\"不是有效的網域。您想要新增它至該清單中嗎？"
     },
     "settings_exclusion_modal_cancel": {
         "message": "取消"
@@ -408,7 +411,7 @@
         "message": "重置"
     },
     "settings_exclusion_reset_service_confirmation_message": {
-        "message": "確定要重設 %hostname% 的設定嗎？ 將還原所有缺少的網域並全數啟用。"
+        "message": "對 %hostname% 重置為預設設定嗎？這將恢復任何遺失的網域並勾選所有的網域。"
     },
     "settings_exclusion_search_website": {
         "message": "搜尋網站"
@@ -435,7 +438,7 @@
         "message": "移除所有例外"
     },
     "settings_exclusions_remove_all_exclusions_message": {
-        "message": "您確定要繼續嗎？這將會移除清單中所有例外。"
+        "message": "您確定您想要繼續嗎？例外的整個清單將被移除。"
     },
     "settings_exclusions_import_button": {
         "message": "匯入"
@@ -453,7 +456,7 @@
         "message": "運作模式"
     },
     "settings_exclusion_change_mode": {
-        "message": "更變模式"
+        "message": "更改模式"
     },
     "settings_exclusion_general_title": {
         "message": "一般模式"
@@ -661,25 +664,25 @@
         "message": "無限的流量"
     },
     "popup_upgrade_screen_unlimited_data_desc": {
-        "message": "唯一一個限制是您的數據永遠不會被分享。隨心所欲地上網！"
+        "message": "唯一一個底限是您的資料永不被分享。盡情地瀏覽！"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "無限制的速度"
     },
     "popup_upgrade_screen_unlimited_speed_desc": {
-        "message": "無速度限制。從服務提供商那裡獲得最大價值！"
+        "message": "無速度限制。極其充分地利用您的服務供應商！"
     },
     "popup_upgrade_screen_all_locations": {
         "message": "所有的位置"
     },
     "popup_upgrade_screen_all_locations_desc": {
-        "message": "六個大洲及海量國家與地區。選擇一座城市並開始安全瀏覽！"
+        "message": "六大洲及許多國家。選擇一座城市並安全地瀏覽網路！"
     },
     "popup_upgrade_screen_streaming_support": {
         "message": "串流支援"
     },
     "popup_upgrade_screen_streaming_support_desc": {
-        "message": "大部分主流串流服務都可用。隨時隨地享受！"
+        "message": "所有主要的串流服務為可用的。在任何地方觀看任何內容！"
     },
     "popup_upgrade_screen_streaming": {
         "message": "串流"
@@ -731,13 +734,13 @@
         "message": "已匯入的例外：%count%"
     },
     "options_exclusions_deleted_exclusions": {
-        "message": "已移除的例外數量：%count%"
+        "message": "已刪除的例外：%count%"
     },
     "options_exclusions_added_exclusions": {
-        "message": "已新增的例外數量：%count%"
+        "message": "已新增的例外：%count%"
     },
     "options_exclusions_remove_all_success": {
-        "message": "已成功移除此模式下的所有例外。"
+        "message": "在現行模式下的所有例外被成功地移除。"
     },
     "options_exclusions_import_error_wrong_extensions": {
         "message": "例外檔案應有以下副檔名之一：%extensions%"
