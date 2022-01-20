@@ -128,6 +128,9 @@
     "account_version": {
         "message": "Versione"
     },
+    "account_current_plan": {
+        "message": "Piano attuale"
+    },
     "account_signed": {
         "message": "Accesso eseguito con"
     },

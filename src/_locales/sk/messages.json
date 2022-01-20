@@ -128,6 +128,9 @@
     "account_version": {
         "message": "Verzia"
     },
+    "account_current_plan": {
+        "message": "Aktuálne predplatné"
+    },
     "account_signed": {
         "message": "Prihlásený s"
     },

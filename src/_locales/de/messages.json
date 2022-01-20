@@ -105,7 +105,7 @@
         "message": "Senden"
     },
     "options_bug_report_sending_button": {
-        "message": "Wird gesendet..."
+        "message": "Wird gesendet …"
     },
     "options_bug_report_textarea_placeholder": {
         "message": "Beschreiben Sie das Problem hier …"
@@ -127,6 +127,9 @@
     },
     "account_version": {
         "message": "Version"
+    },
+    "account_current_plan": {
+        "message": "Aktuelles Abonnement"
     },
     "account_signed": {
         "message": "Angemeldet als"
