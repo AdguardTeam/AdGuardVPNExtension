@@ -534,7 +534,7 @@
         "message": "Arama sonucu"
     },
     "endpoints_search": {
-        "message": "Konum arayın"
+        "message": "Konum ara"
     },
     "endpoints_not_found": {
         "message": "Konum bulunamadı"
