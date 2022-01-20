@@ -120,5 +120,7 @@ describe('getHostname', () => {
         expect(getHostname('*.com')).toEqual('*.com');
         expect(getHostname('*.example.com')).toEqual('*.example.com');
         expect(getHostname('*.test.example.com')).toEqual('*.test.example.com');
+        expect(getHostname('https://*.com')).toEqual('*.com');
+        expect(getHostname('https://*.example.com')).toEqual('*.example.com');
     });
 });
