@@ -14,7 +14,11 @@ const getNameByEnv = (name, env = ENVS.DEV) => {
         throw new Error(`Wrong environment: ${env}`);
     }
 
-    return envData.name ? `${name} ${envData.name}` : `${name}`;
+    if (!envData.name || name.endsWith(envData.name)) {
+        return name;
+    }
+
+    return `${name} ${envData.name}`;
 };
 
 const updateManifest = (manifestJson, browserManifestDiff) => {
@@ -25,7 +29,9 @@ const updateManifest = (manifestJson, browserManifestDiff) => {
         throw new Error('unable to parse json from manifest');
     }
     const devPolicy = IS_DEV ? { content_security_policy: "script-src 'self' 'unsafe-eval'; object-src 'self'" } : {};
+
     const name = getNameByEnv(manifest.name, BUILD_ENV);
+
     const permissions = _.uniq([
         ...(manifest.permissions || []),
         ...(browserManifestDiff.permissions || []),
