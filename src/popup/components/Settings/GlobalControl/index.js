@@ -7,8 +7,6 @@ import { reactTranslator } from '../../../../common/reactTranslator';
 const GlobalControl = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
-    const { isExcluded, exclusionsInverted } = settingsStore;
-
     const connectHandler = async () => {
         await settingsStore.setProxyState(true);
     };
@@ -21,43 +19,14 @@ const GlobalControl = observer(() => {
         await settingsStore.disableVpnOnCurrentTab();
     };
 
-    const enableVpnForCurrentSite = async () => {
-        await settingsStore.enableVpnOnCurrentTab();
-    };
-
-    const renderExclusionButton = (isExcluded, exclusionsInverted) => {
-        const texts = {
-            enable: reactTranslator.getMessage('popup_settings_enable_vpn'),
-            disable: reactTranslator.getMessage('popup_settings_disable_vpn'),
-        };
-
-        const getText = (enable) => {
-            if (enable) {
-                return texts.enable;
-            }
-            return texts.disable;
-        };
-
-        const buttonsInfo = {
-            add: {
-                text: getText(!exclusionsInverted),
-                handler: disableVpnForCurrentSite,
-            },
-            remove: {
-                text: getText(exclusionsInverted),
-                handler: enableVpnForCurrentSite,
-            },
-        };
-
-        const button = isExcluded ? buttonsInfo.remove : buttonsInfo.add;
-
+    const renderExclusionButton = () => {
         return (
             <button
-                onClick={button.handler}
+                onClick={disableVpnForCurrentSite}
                 type="button"
                 className="button button--inline settings__exclusion-btn"
             >
-                {button.text}
+                {reactTranslator.getMessage('popup_settings_disable_vpn')}
             </button>
         );
     };
@@ -111,7 +80,7 @@ const GlobalControl = observer(() => {
             >
                 {buttonState.message}
             </button>
-            {settingsStore.canBeExcluded && renderExclusionButton(isExcluded, exclusionsInverted)}
+            {settingsStore.canBeExcluded && renderExclusionButton()}
         </>
     );
 });
