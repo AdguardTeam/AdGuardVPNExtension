@@ -4,22 +4,8 @@ const {
     ENV_MAP,
     IS_DEV,
     ENVS,
-    BUILD_ENV,
 } = require('./consts');
 const pJson = require('../package.json');
-
-const getNameByEnv = (name, env = ENVS.DEV) => {
-    const envData = ENV_MAP[env];
-    if (!envData) {
-        throw new Error(`Wrong environment: ${env}`);
-    }
-
-    if (!envData.name || name.endsWith(envData.name)) {
-        return name;
-    }
-
-    return `${name} ${envData.name}`;
-};
 
 const updateManifest = (manifestJson, browserManifestDiff) => {
     let manifest;
@@ -29,9 +15,6 @@ const updateManifest = (manifestJson, browserManifestDiff) => {
         throw new Error('unable to parse json from manifest');
     }
     const devPolicy = IS_DEV ? { content_security_policy: "script-src 'self' 'unsafe-eval'; object-src 'self'" } : {};
-
-    const name = getNameByEnv(manifest.name, BUILD_ENV);
-
     const permissions = _.uniq([
         ...(manifest.permissions || []),
         ...(browserManifestDiff.permissions || []),
@@ -40,7 +23,6 @@ const updateManifest = (manifestJson, browserManifestDiff) => {
         ...manifest,
         ...browserManifestDiff,
         ...devPolicy,
-        name,
         permissions,
         version: pJson.version,
     };
@@ -55,4 +37,27 @@ const getOutputPathByEnv = (env = ENVS.DEV) => {
     return envData.outputPath;
 };
 
-module.exports = { getNameByEnv, updateManifest, getOutputPathByEnv };
+const updateLocalesMSGName = (content, env) => {
+    const envData = ENV_MAP[env];
+
+    if (!envData) {
+        throw new Error(`Wrong environment: ${env}`);
+    }
+
+    const { name } = envData;
+
+    const messages = JSON.parse(content.toString());
+
+    if (messages.name && name.length > 0) {
+        const envName = ` ${name}`;
+        messages.name.message += envName;
+    }
+
+    return JSON.stringify(messages, null, 4);
+};
+
+module.exports = {
+    updateManifest,
+    getOutputPathByEnv,
+    updateLocalesMSGName,
+};

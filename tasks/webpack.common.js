@@ -12,7 +12,7 @@ const {
     BUILD_ENV,
     BUILD_PATH,
 } = require('./consts');
-const { getOutputPathByEnv } = require('./helpers');
+const { getOutputPathByEnv, updateLocalesMSGName } = require('./helpers');
 
 const BACKGROUND_PATH = path.resolve(__dirname, SRC_PATH, 'background');
 const OPTIONS_PATH = path.resolve(__dirname, SRC_PATH, 'options');
@@ -121,6 +121,12 @@ const config = {
                     context: 'src',
                     from: '_locales/',
                     to: '_locales/',
+                    transform: (content) => {
+                        return updateLocalesMSGName(
+                            content,
+                            process.env.BUILD_ENV,
+                        );
+                    },
                 },
             ],
         }),
