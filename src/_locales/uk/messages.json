@@ -128,6 +128,9 @@
     "account_version": {
         "message": "Версія"
     },
+    "account_current_plan": {
+        "message": "Поточна підписка"
+    },
     "account_signed": {
         "message": "Ви ввійшли за допомогою"
     },

@@ -381,7 +381,7 @@
         "message": "Nombre del dominio:"
     },
     "settings_exclusion_subdomain_name": {
-        "message": "Nombre de subdominio:"
+        "message": "Nombre del subdominio:"
     },
     "settings_exclusion_add_from_list": {
         "message": "De la lista"
@@ -411,7 +411,7 @@
         "message": "Restablecer"
     },
     "settings_exclusion_reset_service_confirmation_message": {
-        "message": "¿Restablecer la configuración predeterminada de %hostname%? Esto recuperará los dominios que faltan y activará todas las marcas de verificación."
+        "message": "¿Restablecer la configuración predeterminada de %hostname%? Esto restaurará los dominios faltantes y habilitará todas las casillas."
     },
     "settings_exclusion_search_website": {
         "message": "Buscar sitio web"
@@ -420,7 +420,7 @@
         "message": "Buscar"
     },
     "settings_exclusion_nothing_found": {
-        "message": "No se ha encontrado nada"
+        "message": "No se ha encontrado resultados"
     },
     "settings_exclusion_connection_problem": {
         "message": "Problema de conexión"
@@ -740,7 +740,7 @@
         "message": "Exclusiones añadidas: %count%"
     },
     "options_exclusions_remove_all_success": {
-        "message": "Todas las exclusiones del modo actual se han eliminado con éxito."
+        "message": "Todas las exclusiones del modo actual se han eliminado correctamente."
     },
     "options_exclusions_import_error_wrong_extensions": {
         "message": "El archivo de exclusiones debe tener una de las siguientes extensiones: %extensions%"

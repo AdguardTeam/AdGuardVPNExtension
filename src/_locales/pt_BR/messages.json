@@ -128,6 +128,9 @@
     "account_version": {
         "message": "Versão"
     },
+    "account_current_plan": {
+        "message": "Plano atual"
+    },
     "account_signed": {
         "message": "Entrado com"
     },

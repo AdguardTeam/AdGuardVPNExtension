@@ -71,6 +71,9 @@
     "account_version": {
         "message": "Version"
     },
+    "account_current_plan": {
+        "message": "Nuvarande plan"
+    },
     "account_free": {
         "message": "Gratis"
     },

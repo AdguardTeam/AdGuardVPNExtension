@@ -393,7 +393,7 @@
         "message": "수동으로 추가"
     },
     "settings_exclusions_add_invalid_domain": {
-        "message": "'%url%' 도메인은 유효한 도메인이 아닙니다. 목록에 추가하시겠습니까?"
+        "message": "'%url%' 도메인은 유효한 도메인이 아닙니다. 그래도 목록에 추가하시겠습니까?"
     },
     "settings_exclusion_modal_cancel": {
         "message": "취소"
@@ -411,7 +411,7 @@
         "message": "초기화"
     },
     "settings_exclusion_reset_service_confirmation_message": {
-        "message": "%hostname%에 대한 설정을 기본값으로 초기화하시겠습니까? 그렇게 하면 손실된 도메인이 복구되고 모든 체크 박스가 체크됩니다."
+        "message": "%hostname%에 대한 설정을 기본값으로 초기화하시겠습니까? 손실된 도메인이 복구되고 모든 체크 박스가 체크됩니다."
     },
     "settings_exclusion_search_website": {
         "message": "웹 사이트 검색"
@@ -438,7 +438,7 @@
         "message": "모든 예외 항목 제거"
     },
     "settings_exclusions_remove_all_exclusions_message": {
-        "message": "계속하시겠습니까? 그렇게 하면 예외 목록이 제거됩니다."
+        "message": "계속하시겠습니까? 예외 목록이 제거됩니다."
     },
     "settings_exclusions_import_button": {
         "message": "불러오기"
@@ -731,13 +731,13 @@
         "message": "선별 모드로 적용한 모든 예외가 삭제됩니다."
     },
     "options_exclusions_import_successful": {
-        "message": "예외 %count%개 불러옴"
+        "message": "가져온 예외 항목: %count%개"
     },
     "options_exclusions_deleted_exclusions": {
-        "message": "삭제된 예외 항목: %count%"
+        "message": "삭제된 예외 항목: %count%개"
     },
     "options_exclusions_added_exclusions": {
-        "message": "추가된 예외 항목: %count%"
+        "message": "추가된 예외 항목: %count%개"
     },
     "options_exclusions_remove_all_success": {
         "message": "현재 모드에 대한 모든 예외 항목이 성공적으로 제거되었습니다."
