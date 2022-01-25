@@ -497,9 +497,6 @@
     "control_error_disable": {
         "message": "Вимкнути"
     },
-    "popup_settings_enable_vpn": {
-        "message": "Увімкнути VPN на цьому вебсайті"
-    },
     "popup_settings_enable_vpn_short": {
         "message": "Увімкнути"
     },

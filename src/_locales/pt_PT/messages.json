@@ -497,9 +497,6 @@
     "control_error_disable": {
         "message": "Desativar"
     },
-    "popup_settings_enable_vpn": {
-        "message": "Ativar VPN neste sítio"
-    },
     "popup_settings_enable_vpn_short": {
         "message": "Ativar neste sítio"
     },

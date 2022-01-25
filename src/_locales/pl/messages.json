@@ -497,9 +497,6 @@
     "control_error_disable": {
         "message": "Wyłącz"
     },
-    "popup_settings_enable_vpn": {
-        "message": "Włącz VPN na tej stronie"
-    },
     "popup_settings_enable_vpn_short": {
         "message": "Włącz"
     },

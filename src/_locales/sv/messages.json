@@ -257,9 +257,6 @@
     "control_error_disable": {
         "message": "Inaktivera det"
     },
-    "popup_settings_enable_vpn": {
-        "message": "Aktivera VPN på denna webbplats"
-    },
     "popup_settings_enable_vpn_short": {
         "message": "Aktivera"
     },
@@ -374,5 +371,11 @@
     },
     "options_signedout_page_title": {
         "message": "Du har loggat ut ur AdGuard VPN"
+    },
+    "name": {
+        "message": "AdGuard VPN — Privacy & Security"
+    },
+    "description": {
+        "message": "Makes the Internet open and your data safe. Topnotch VPN from the creators of the famous ad blocker."
     }
 }

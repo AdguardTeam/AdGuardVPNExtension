@@ -449,9 +449,6 @@
     "control_error_disable": {
         "message": "Onemogoči jih"
     },
-    "popup_settings_enable_vpn": {
-        "message": "Omogoči VPN na tej spletni strani"
-    },
     "popup_settings_enable_vpn_short": {
         "message": "Omogoči"
     },

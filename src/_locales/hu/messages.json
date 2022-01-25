@@ -419,9 +419,6 @@
     "control_error_disable": {
         "message": "Letiltás"
     },
-    "popup_settings_enable_vpn": {
-        "message": "VPN engedélyezése ezen a webhelyen"
-    },
     "popup_settings_enable_vpn_short": {
         "message": "Engedélyezés itt"
     },

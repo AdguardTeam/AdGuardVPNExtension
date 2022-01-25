@@ -497,9 +497,6 @@
     "control_error_disable": {
         "message": "Poista käytöstä"
     },
-    "popup_settings_enable_vpn": {
-        "message": "Ota VPN käyttöön tällä sivustolla"
-    },
     "popup_settings_enable_vpn_short": {
         "message": "Käytä sivustolla"
     },

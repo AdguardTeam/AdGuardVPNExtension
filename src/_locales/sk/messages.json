@@ -497,9 +497,6 @@
     "control_error_disable": {
         "message": "Vypnúť"
     },
-    "popup_settings_enable_vpn": {
-        "message": "Zapnúť VPN na tejto stránke"
-    },
     "popup_settings_enable_vpn_short": {
         "message": "Zapnúť"
     },

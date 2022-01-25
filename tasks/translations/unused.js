@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import { cliLog, getLocaleMessages } from './helpers';
+import { cliLog, readMessagesByLocale } from './helpers';
 
 import {
     BASE_LOCALE,
@@ -54,7 +54,7 @@ const getSrcFilesContents = (dirPath, contents = []) => {
  * Checks if there are unused base-locale strings in source files
  */
 export const checkUnusedMessages = async () => {
-    const baseLocaleTranslations = await getLocaleMessages(BASE_LOCALE);
+    const baseLocaleTranslations = await readMessagesByLocale(BASE_LOCALE);
     const baseMessages = Object.keys(baseLocaleTranslations);
 
     const filesContents = getSrcFilesContents(SRC_DIR);

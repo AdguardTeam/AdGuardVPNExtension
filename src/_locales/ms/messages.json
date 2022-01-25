@@ -55,5 +55,14 @@
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Ketahui lebih lanjut"
+    },
+    "name": {
+        "message": "AdGuard VPN — Privacy & Security"
+    },
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
+    "description": {
+        "message": "Makes the Internet open and your data safe. Topnotch VPN from the creators of the famous ad blocker."
     }
 }

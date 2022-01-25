@@ -317,9 +317,6 @@
     "control_error_disable": {
         "message": "Isključi to"
     },
-    "popup_settings_enable_vpn": {
-        "message": "Uključi VPn na ovom sajtu"
-    },
     "popup_settings_enable_vpn_short": {
         "message": "Uključi"
     },
@@ -470,5 +467,8 @@
     },
     "popup_desktop_vpn_enabled_button": {
         "message": "U redu"
+    },
+    "description": {
+        "message": "Makes the Internet open and your data safe. Topnotch VPN from the creators of the famous ad blocker."
     }
 }

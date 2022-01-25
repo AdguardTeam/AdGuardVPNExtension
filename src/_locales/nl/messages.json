@@ -497,9 +497,6 @@
     "control_error_disable": {
         "message": "Uitschakelen"
     },
-    "popup_settings_enable_vpn": {
-        "message": "VPN Inschakelen op deze website"
-    },
     "popup_settings_enable_vpn_short": {
         "message": "Inschakelen"
     },

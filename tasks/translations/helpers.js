@@ -28,8 +28,19 @@ export const cliLog = {
  * @param {string} locale
  * @returns {Object}
  */
-export const getLocaleMessages = async (locale) => {
+export const readMessagesByLocale = async (locale) => {
     const filePath = path.join(LOCALES_ABSOLUTE_PATH, locale, LOCALE_DATA_FILENAME);
     const fileContent = await fs.promises.readFile(filePath, 'utf-8');
     return JSON.parse(fileContent);
+};
+
+/**
+ * Save file by path with passed content
+ * @param {Object} messages
+ * @param {string} locale
+ */
+export const writeMessagesByLocale = async (messages, locale) => {
+    const localePath = path.join(LOCALES_ABSOLUTE_PATH, locale, LOCALE_DATA_FILENAME);
+    const messagesString = JSON.stringify(messages, null, 4);
+    await fs.promises.writeFile(localePath, messagesString);
 };

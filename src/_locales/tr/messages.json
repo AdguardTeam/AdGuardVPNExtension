@@ -497,9 +497,6 @@
     "control_error_disable": {
         "message": "Devre dışı bırak"
     },
-    "popup_settings_enable_vpn": {
-        "message": "Bu sitede VPN'i etkinleştir"
-    },
     "popup_settings_enable_vpn_short": {
         "message": "Etkinleştir"
     },

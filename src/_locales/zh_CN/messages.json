@@ -497,9 +497,6 @@
     "control_error_disable": {
         "message": "禁用"
     },
-    "popup_settings_enable_vpn": {
-        "message": "在此网站上开启 VPN"
-    },
     "popup_settings_enable_vpn_short": {
         "message": "在此网站上启用"
     },

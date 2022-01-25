@@ -187,5 +187,14 @@
     },
     "popup_desktop_vpn_enabled_button": {
         "message": "تأیید"
+    },
+    "name": {
+        "message": "AdGuard VPN — Privacy & Security"
+    },
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
+    "description": {
+        "message": "Makes the Internet open and your data safe. Topnotch VPN from the creators of the famous ad blocker."
     }
 }

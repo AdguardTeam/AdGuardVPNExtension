@@ -202,5 +202,8 @@
     },
     "popup_desktop_vpn_enabled_button": {
         "message": "Ok"
+    },
+    "description": {
+        "message": "Makes the Internet open and your data safe. Topnotch VPN from the creators of the famous ad blocker."
     }
 }

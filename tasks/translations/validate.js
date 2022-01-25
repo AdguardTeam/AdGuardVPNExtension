@@ -1,11 +1,12 @@
 import _ from 'lodash';
 import { validator } from '@adguard/translate';
 
-import { cliLog, getLocaleMessages } from './helpers';
+import { cliLog, readMessagesByLocale, writeMessagesByLocale } from './helpers';
 
 import {
     BASE_LOCALE,
     LANGUAGES,
+    PERSISTENT_MESSAGES,
     REQUIRED_LOCALES,
     THRESHOLD_PERCENTAGE,
 } from './locales-constants';
@@ -96,12 +97,12 @@ const validateMessage = (baseKey, baseLocaleTranslations, localeTranslations) =>
  */
 export const checkTranslations = async (locales, flags) => {
     const { isMinimum = false, isInfo = false } = flags;
-    const baseLocaleTranslations = await getLocaleMessages(BASE_LOCALE);
+    const baseLocaleTranslations = await readMessagesByLocale(BASE_LOCALE);
     const baseMessages = Object.keys(baseLocaleTranslations);
     const baseMessagesCount = baseMessages.length;
 
     const translationResults = await Promise.all(locales.map(async (locale) => {
-        const localeTranslations = await getLocaleMessages(locale);
+        const localeTranslations = await readMessagesByLocale(locale);
         const localeMessages = Object.keys(localeTranslations);
         const localeMessagesCount = localeMessages.length;
 
@@ -183,4 +184,32 @@ export const checkTranslations = async (locales, flags) => {
     }
 
     return translationResults;
+};
+
+/**
+ * Adds required message from base locale if locale doesn't contains it
+ * @param {string[]} locales
+ */
+export const addRequiredFields = async (locales) => {
+    const nonBaseLocales = locales.filter((locale) => locale !== BASE_LOCALE);
+    const requiredFields = PERSISTENT_MESSAGES;
+
+    const baseLocaleMessages = await readMessagesByLocale(BASE_LOCALE);
+
+    const result = await Promise.all(nonBaseLocales.map(async (locale) => {
+        const localeMessages = await readMessagesByLocale(locale);
+        const result = [];
+        requiredFields.forEach((requiredField) => {
+            if (!localeMessages?.[requiredField]) {
+                result.push(`From base locale to ${locale} copied: "${requiredField}"`);
+                localeMessages[requiredField] = baseLocaleMessages[requiredField];
+            }
+        });
+
+        await writeMessagesByLocale(localeMessages, locale);
+
+        return result.join('\n');
+    }));
+
+    return result.filter((i) => i).join('\n');
 };
