@@ -241,7 +241,7 @@ export class SettingsService {
         if (version === SCHEME_VERSION) {
             return settings;
         }
-        log.warn(`Expected scheme version ${SCHEME_VERSION} and got ${version}`);
+        log.debug(`Expected scheme version ${SCHEME_VERSION} and got ${version}`);
         return this.migrateSettings(settings);
     }
 
