@@ -38,7 +38,7 @@ export const ServiceMode = observer(() => {
             <div className="service-mode__actions">
                 <button
                     type="button"
-                    className="button button--large button--outline-gray"
+                    className="button button--large button--outline-secondary"
                     onClick={closeModal}
                 >
                     {reactTranslator.getMessage('settings_exclusion_modal_cancel')}

@@ -247,8 +247,8 @@ export const BugReporter = observer(({ closeHandler }) => {
                             />
                             <div className="input__error">
                                 <span>{formErrors[FIELDS.MESSAGE]}</span>
-                                { requestState.matches(REQUEST_STATES.ERROR)
-                                && <span>{reactTranslator.getMessage('options_bug_report_request_error')}</span>}
+                                {requestState.matches(REQUEST_STATES.ERROR)
+                                    && <span>{reactTranslator.getMessage('options_bug_report_request_error')}</span>}
                             </div>
                         </div>
                     </div>

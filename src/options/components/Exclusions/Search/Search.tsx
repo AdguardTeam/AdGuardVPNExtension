@@ -1,7 +1,5 @@
 import React from 'react';
 
-import Icon from '../../../../popup/components/ui/Icon';
-
 import './search.pcss';
 
 interface SearchProps {
@@ -25,26 +23,28 @@ export const Search = ({
         onClear();
     };
 
-    const showClearIcon = value.length > 0;
-
     return (
         <form className="search">
-            <input
-                type="text"
-                className="search__input"
-                value={value}
-                placeholder={placeholder?.toString()}
-                onChange={handleChange}
-            />
-            {showClearIcon && (
-                <button
-                    type="button"
-                    className="button search__clear"
-                    onClick={handleClear}
-                >
-                    <Icon icon="cross" className="search__cross" />
-                </button>
-            )}
+            <label className="input">
+                <input
+                    type="text"
+                    className="input__in input__in--clear"
+                    value={value}
+                    placeholder={placeholder?.toString()}
+                    onChange={handleChange}
+                />
+                {value.length > 0 && (
+                    <button
+                        type="button"
+                        className="button input__clear"
+                        onClick={handleClear}
+                    >
+                        <svg className="icon icon--button icon--cross">
+                            <use xlinkHref="#cross" />
+                        </svg>
+                    </button>
+                )}
+            </label>
         </form>
     );
 };

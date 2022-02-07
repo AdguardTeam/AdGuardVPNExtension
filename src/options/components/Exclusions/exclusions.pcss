@@ -12,6 +12,10 @@
             padding: 0;
         }
     }
+
+    &__search {
+        margin-bottom: 16px;
+    }
 }
 
 .settings {
@@ -136,18 +140,19 @@
 }
 
 .modal {
-    width: 560px;
-    max-height: 500px;
+    width: 500px;
+    max-height: 535px;
     overflow-y: auto;
     background: var(--white-strong);
     position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding: 30px;
+    padding: 40px;
     display: flex;
     flex-direction: column;
     outline: none;
+    border-radius: 4px;
 
     &--big {
         width: 600px;

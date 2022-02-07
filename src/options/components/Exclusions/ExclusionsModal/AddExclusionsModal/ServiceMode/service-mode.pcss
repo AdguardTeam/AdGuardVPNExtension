@@ -13,7 +13,7 @@
 
 .services-list {
     margin-top: 20px;
-    max-height: 182px;
+    max-height: 160px;
     overflow-y: auto;
 
     &__connection-problem {
@@ -56,14 +56,14 @@
 
 .service-row {
     display: flex;
-    grid-gap: 10px;
-    justify-content: left;
-    padding: 7px 0;
+    grid-gap: 11px;
+    align-content: center;
+    padding: 8px 0;
     position: relative;
     cursor: default;
 
     &__title {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     &__icon {
@@ -74,15 +74,18 @@
     }
 
     &__actions {
-        position: absolute;
-        right: 10px;
+        margin-left: auto;
 
         & .simple-button {
-            font-size: 15px;
+            font-size: 16px;
         }
 
         &__remove {
-            color: var(--gray-base);
+            color: var(--gray88);
+
+            &:hover {
+                color: var(--gray-base);
+            }
         }
     }
 }

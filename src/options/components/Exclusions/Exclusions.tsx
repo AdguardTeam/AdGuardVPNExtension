@@ -57,7 +57,9 @@ export const Exclusions = observer(() => {
                 </div>
             </div>
             <div>
-                <ExclusionsSearch />
+                <div className="exclusions__search">
+                    <ExclusionsSearch />
+                </div>
                 <Actions />
                 <List />
                 <AddExclusionModal />
