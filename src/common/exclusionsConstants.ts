@@ -20,19 +20,21 @@ export enum ExclusionsTypes {
 export interface ExclusionDtoInterface {
     id: string;
 
+    parentId: string | null;
+
     hostname: string;
 
     state: ExclusionState;
 
     iconUrl?: string;
 
-    type: ExclusionsTypes
+    type: ExclusionsTypes;
 
     children: ExclusionDtoInterface[];
 }
 
 export interface ExclusionsData {
-    exclusions: ExclusionDtoInterface[];
+    exclusions: ExclusionDtoInterface;
     currentMode: ExclusionsModes;
 }
 

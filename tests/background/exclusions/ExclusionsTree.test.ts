@@ -34,18 +34,20 @@ describe('ExclusionsTree', () => {
 
         const exclusionsData = exclusionsTree.getExclusions();
 
-        expect(exclusionsData).toEqual([
+        expect(exclusionsData.children).toEqual([
             {
                 id: 'example.org',
                 hostname: 'example.org',
                 state: ExclusionState.Enabled,
                 type: ExclusionsTypes.Group,
+                parentId: 'root',
                 children: [
                     {
                         id: '1',
                         hostname: 'example.org',
                         state: ExclusionState.Enabled,
                         type: ExclusionsTypes.Exclusion,
+                        parentId: 'example.org',
                         children: [],
                     },
                     {
@@ -53,6 +55,7 @@ describe('ExclusionsTree', () => {
                         hostname: '*.example.org',
                         state: ExclusionState.Enabled,
                         type: ExclusionsTypes.Exclusion,
+                        parentId: 'example.org',
                         children: [],
                     },
                 ],
@@ -102,24 +105,27 @@ describe('ExclusionsTree', () => {
 
         const exclusionsData = exclusionsTree.getExclusions();
 
-        expect(exclusionsData).toEqual([
+        expect(exclusionsData.children).toEqual([
             {
                 id: 'aliexpress',
                 hostname: 'Aliexpress',
                 state: ExclusionState.Enabled,
                 type: ExclusionsTypes.Service,
                 iconUrl: 'https://icons.adguard.org/icon?domain=aliexpress.com',
+                parentId: 'root',
                 children: [{
                     id: 'aliexpress.com',
                     hostname: 'aliexpress.com',
                     state: ExclusionState.Enabled,
                     type: ExclusionsTypes.Group,
+                    parentId: 'aliexpress',
                     children: [
                         {
                             id: '0',
                             hostname: 'aliexpress.com',
                             state: ExclusionState.Enabled,
                             type: ExclusionsTypes.Exclusion,
+                            parentId: 'aliexpress.com',
                             children: [],
                         },
                         {
@@ -127,6 +133,7 @@ describe('ExclusionsTree', () => {
                             hostname: '*.aliexpress.com',
                             state: ExclusionState.Enabled,
                             type: ExclusionsTypes.Exclusion,
+                            parentId: 'aliexpress.com',
                             children: [],
                         },
                     ],
@@ -136,12 +143,14 @@ describe('ExclusionsTree', () => {
                     hostname: 'aliexpress.ru',
                     state: ExclusionState.Enabled,
                     type: ExclusionsTypes.Group,
+                    parentId: 'aliexpress',
                     children: [
                         {
                             id: '2',
                             hostname: 'aliexpress.ru',
                             state: ExclusionState.Enabled,
                             type: ExclusionsTypes.Exclusion,
+                            parentId: 'aliexpress.ru',
                             children: [],
                         },
                         {
@@ -149,6 +158,7 @@ describe('ExclusionsTree', () => {
                             hostname: '*.aliexpress.ru',
                             state: ExclusionState.Enabled,
                             type: ExclusionsTypes.Exclusion,
+                            parentId: 'aliexpress.ru',
                             children: [],
                         },
                     ],

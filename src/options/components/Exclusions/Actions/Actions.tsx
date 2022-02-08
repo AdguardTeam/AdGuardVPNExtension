@@ -23,6 +23,7 @@ import { messenger } from '../../../../lib/messenger';
 import { SelectListModal } from './SelectListModal/SelectListModal';
 
 import './actions.pcss';
+import { ExclusionsModes } from '../../../../common/exclusionsConstants';
 
 const prepareExclusionsAfterImport = (exclusionsString: string) => {
     return exclusionsString
@@ -97,16 +98,26 @@ export const Actions = observer(() => {
                 'options_exclusions_import_successful',
                 { count: exclusionsAddedCount },
             ),
+            {
+                action: reactTranslator.getMessage('settings_exclusions_undo'),
+                handler: exclusionsStore.restoreExclusions,
+            },
         );
         closeSelectListModal();
     };
 
     const handleSelectiveClick = async () => {
         const exclusionsAddedCount = await handleSelectiveExclusionsString(fileContent);
-        notificationsStore.notifySuccess(translator.getMessage(
-            'options_exclusions_import_successful',
-            { count: exclusionsAddedCount },
-        ));
+        notificationsStore.notifySuccess(
+            translator.getMessage(
+                'options_exclusions_import_successful',
+                { count: exclusionsAddedCount },
+            ),
+            {
+                action: reactTranslator.getMessage('settings_exclusions_undo'),
+                handler: exclusionsStore.restoreExclusions,
+            },
+        );
         closeSelectListModal();
     };
 
@@ -145,16 +156,23 @@ export const Actions = observer(() => {
             return handleTxtExclusionsData(txtExclusionsData.content);
         }
 
-        let addedExclusions = 0;
+        const exclusionsContentMap = {
+            [ExclusionsModes.Regular]: [] as string[],
+            [ExclusionsModes.Selective]: [] as string[],
+        };
 
         for (let i = 0; i < exclusionsData.length; i += 1) {
             const { type, content } = exclusionsData[i];
             if (type === ExclusionDataTypes.General) {
-                addedExclusions += await handleGeneralExclusionsString(content);
+                // eslint-disable-next-line max-len
+                exclusionsContentMap[ExclusionsModes.Regular] = prepareExclusionsAfterImport(content);
             } else if (type === ExclusionDataTypes.Selective) {
-                addedExclusions += await handleSelectiveExclusionsString(content);
+                // eslint-disable-next-line max-len
+                exclusionsContentMap[ExclusionsModes.Selective] = prepareExclusionsAfterImport(content);
             }
         }
+
+        const addedExclusions = messenger.addExclusionsMap(exclusionsContentMap);
 
         return addedExclusions;
     };
@@ -173,10 +191,16 @@ export const Actions = observer(() => {
             const exclusionsData = await readExclusionsFile(file);
             const exclusionsAdded = await handleExclusionsData(exclusionsData);
             if (exclusionsAdded !== null) {
-                notificationsStore.notifySuccess(translator.getMessage(
-                    'options_exclusions_import_successful',
-                    { count: exclusionsAdded },
-                ));
+                notificationsStore.notifySuccess(
+                    translator.getMessage(
+                        'options_exclusions_import_successful',
+                        { count: exclusionsAdded },
+                    ),
+                    {
+                        action: reactTranslator.getMessage('settings_exclusions_undo'),
+                        handler: exclusionsStore.restoreExclusions,
+                    },
+                );
             }
             exclusionsStore.setImportingExclusions(false);
         } catch (e: any) {

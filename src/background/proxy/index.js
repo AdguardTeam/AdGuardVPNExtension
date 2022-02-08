@@ -20,8 +20,8 @@ const DEFAULTS = {
 
 const PROXY_AUTH_TYPES = {
     PREFIX: 'prefix',
-    AUTH_HANDLER: 'authHandler'
-}
+    AUTH_HANDLER: 'authHandler',
+};
 
 class ExtensionProxy {
     constructor() {
@@ -130,12 +130,12 @@ class ExtensionProxy {
             return [...this.endpointsTldExclusions];
         }
         return [];
-    }
+    };
 
     setEndpointsTldExclusions = async (endpointsTldExclusions = []) => {
         this.endpointsTldExclusions = endpointsTldExclusions;
         await this.applyConfig();
-    }
+    };
 
     getBypassList() {
         if (this.bypassList) {
@@ -210,4 +210,3 @@ class ExtensionProxy {
 }
 
 export const proxy = new ExtensionProxy();
-

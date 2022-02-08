@@ -1,10 +1,16 @@
 import React, { useContext, useEffect } from 'react';
 import cn from 'classnames';
+
 import { rootStore } from '../../../../stores';
+import { Notification } from '../../../../stores/NotificationsStore/Notification';
 
 const NOTIFICATION_CLEAR_TIMEOUT_MS = 5000;
 
-export const Notification = ({ notification }) => {
+interface NotificationProps {
+    notification: Notification,
+}
+
+export const NotificationUi = ({ notification }: NotificationProps) => {
     const { notificationsStore } = useContext(rootStore);
 
     useEffect(() => {
@@ -26,11 +32,27 @@ export const Notification = ({ notification }) => {
         success: notification.isSuccess(),
     });
 
-    return (
-        <div className={notificationClassnames}>
-            <div className="notification__message">
-                {notification.message}
-            </div>
+    let button;
+
+    if (notification.action) {
+        const { action } = notification;
+
+        const handleAction = () => {
+            action.handler();
+            handleCloseNotification();
+        };
+
+        button = (
+            <button
+                type="button"
+                className="button notification__button"
+                onClick={handleAction}
+            >
+                {action.action}
+            </button>
+        );
+    } else {
+        button = (
             <button
                 type="button"
                 className="button"
@@ -40,6 +62,15 @@ export const Notification = ({ notification }) => {
                     <use xlinkHref="#cross" />
                 </svg>
             </button>
+        );
+    }
+
+    return (
+        <div className={notificationClassnames}>
+            <div className="notification__message">
+                {notification.message}
+            </div>
+            {button}
         </div>
     );
 };

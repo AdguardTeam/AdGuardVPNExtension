@@ -19,10 +19,16 @@ export const ConfirmAddModal = observer(() => {
     const confirmAddUrl = async () => {
         if (urlToConfirm) {
             const addedExclusionsCount = await exclusionsStore.addUrlToExclusions(urlToConfirm);
-            notificationsStore.notifySuccess(reactTranslator.getMessage(
-                'options_exclusions_added_exclusions',
-                { count: addedExclusionsCount },
-            ));
+            notificationsStore.notifySuccess(
+                reactTranslator.getMessage(
+                    'options_exclusions_added_exclusions',
+                    { count: addedExclusionsCount },
+                ),
+                {
+                    action: reactTranslator.getMessage('settings_exclusions_undo'),
+                    handler: exclusionsStore.restoreExclusions,
+                },
+            );
         }
         closeModal();
     };

@@ -54,7 +54,6 @@ export enum MessageType {
     CLEAR_PERMISSIONS_ERROR = 'clear.permissions.error',
     CHECK_PERMISSIONS = 'check.permissions',
     GET_EXCLUSIONS_INVERTED = 'get.exclusions.inverted',
-    GET_EXCLUSIONS = 'get.exclusions',
     GET_EXCLUSIONS_DATA = 'get.exclusions.data',
     SET_EXCLUSIONS_MODE = 'set.exclusions.mode',
     TOGGLE_EXCLUSION_STATE = 'toggle.exclusion.state',
@@ -76,6 +75,8 @@ export enum MessageType {
     SET_FLAG = 'set.flag',
     GET_GENERAL_EXCLUSIONS = 'get.general.exclusions',
     GET_SELECTIVE_EXCLUSIONS = 'get.selective.exclusions',
+    RESTORE_EXCLUSIONS = 'restore.exclusions',
+    ADD_EXCLUSIONS_MAP = 'add.exclusions.map',
 }
 
 export const ERROR_STATUSES = {

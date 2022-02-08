@@ -44,6 +44,11 @@ export class ExclusionsHandler {
         return this.exclusions;
     }
 
+    async setExclusions(exclusions: ExclusionInterface[]) {
+        this.exclusions = exclusions;
+        await this.onUpdate();
+    }
+
     getIndexedExclusions(): IndexedExclusionsInterface {
         return this.exclusionsIndex;
     }

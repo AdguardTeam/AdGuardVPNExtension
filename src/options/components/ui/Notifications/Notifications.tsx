@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
-import { Notification } from './Notification';
+import { NotificationUi } from './NotificationUi';
 
 import './notifications.pcss';
 
@@ -13,7 +13,7 @@ export const Notifications = observer(() => {
     return (
         <div className="notifications">
             {notifications.map((notification) => {
-                return <Notification key={notification.id} notification={notification} />;
+                return <NotificationUi key={notification.id} notification={notification} />;
             })}
         </div>
     );

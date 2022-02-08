@@ -27,10 +27,16 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
 
     const removeExclusion = (exclusion: ExclusionDtoInterface) => async () => {
         const deletedExclusionsCount = await exclusionsStore.removeExclusion(exclusion);
-        notificationsStore.notifySuccess(reactTranslator.getMessage(
-            'options_exclusions_deleted_exclusions',
-            { count: deletedExclusionsCount },
-        ));
+        notificationsStore.notifySuccess(
+            reactTranslator.getMessage(
+                'options_exclusions_deleted_exclusions',
+                { count: deletedExclusionsCount },
+            ),
+            {
+                action: reactTranslator.getMessage('settings_exclusions_undo'),
+                handler: exclusionsStore.restoreExclusions,
+            },
+        );
     };
 
     const showGroupSettings = (id: string) => () => {

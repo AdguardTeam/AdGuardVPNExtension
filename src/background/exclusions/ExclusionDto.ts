@@ -2,6 +2,7 @@ import { ExclusionDtoInterface, ExclusionState, ExclusionsTypes } from '../../co
 
 interface ExclusionDtoProps {
     id: string;
+    parentId: string | null;
     hostname: string;
     state: ExclusionState;
     type: ExclusionsTypes;
@@ -16,6 +17,8 @@ interface ExclusionDtoProps {
  */
 export class ExclusionDto implements ExclusionDtoInterface {
     id: string;
+
+    parentId: string | null;
 
     hostname: string;
 
@@ -34,12 +37,14 @@ export class ExclusionDto implements ExclusionDtoInterface {
         type,
         children,
         iconUrl,
+        parentId,
     }: ExclusionDtoProps) {
         this.id = id;
         this.hostname = hostname;
         this.state = state;
         this.type = type;
         this.children = children;
+        this.parentId = parentId;
 
         if (iconUrl) {
             this.iconUrl = iconUrl;

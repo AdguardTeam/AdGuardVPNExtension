@@ -27,7 +27,14 @@ export const ServiceMode = observer(() => {
             ? reactTranslator.getMessage('options_exclusions_deleted_exclusions', { count: deleted })
             : '';
 
-        notificationsStore.notifySuccess(`${addedExclusionsMessage} ${deletedExclusionsMessage}`);
+        notificationsStore.notifySuccess(
+            `${addedExclusionsMessage} ${deletedExclusionsMessage}`,
+            {
+                action: reactTranslator.getMessage('settings_exclusions_undo'),
+                handler: exclusionsStore.restoreExclusions,
+            },
+        );
+
         closeModal();
     };
 

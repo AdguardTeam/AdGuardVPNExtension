@@ -29,10 +29,16 @@ export const SubdomainModal = observer(() => {
         }
         if (inputValue) {
             const addedExclusionsCount = await exclusionsStore.addSubdomainToExclusions(inputValue);
-            notificationsStore.notifySuccess(reactTranslator.getMessage(
-                'options_exclusions_added_exclusions',
-                { count: addedExclusionsCount },
-            ));
+            notificationsStore.notifySuccess(
+                reactTranslator.getMessage(
+                    'options_exclusions_added_exclusions',
+                    { count: addedExclusionsCount },
+                ),
+                {
+                    action: reactTranslator.getMessage('settings_exclusions_undo'),
+                    handler: exclusionsStore.restoreExclusions,
+                },
+            );
             closeModal();
             setInputValue('');
         }

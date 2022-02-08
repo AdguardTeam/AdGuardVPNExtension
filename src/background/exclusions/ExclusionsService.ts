@@ -2,7 +2,7 @@ import identity from 'lodash/identity';
 import punycode from 'punycode';
 import { isIP } from 'is-ip';
 
-import { exclusionsManager } from './exclusions/ExclusionsManager';
+import { AllExclusions, exclusionsManager } from './exclusions/ExclusionsManager';
 import { servicesManager } from './services/ServicesManager';
 import { ExclusionsTree } from './ExclusionsTree';
 import { ExclusionNode } from './ExclusionNode';
@@ -31,6 +31,11 @@ interface ToggleServicesResult {
 export class ExclusionsService {
     exclusionsTree = new ExclusionsTree();
 
+    /**
+     * Here we keep previous exclusions state in order to make possible undo action
+     */
+    previousExclusions: null | AllExclusions;
+
     async init() {
         await exclusionsManager.init();
         await servicesManager.init();
@@ -50,7 +55,7 @@ export class ExclusionsService {
     /**
      * Returns exclusions
      */
-    getExclusions(): ExclusionDtoInterface[] {
+    getExclusions(): ExclusionDtoInterface {
         return this.exclusionsTree.getExclusions();
     }
 
@@ -167,10 +172,22 @@ export class ExclusionsService {
     }
 
     /**
+     * Creates data necessary for exclusions to add
+     * @param exclusions
+     */
+    supplementExclusions(exclusions: string[]) {
+        return exclusions.flatMap((ex) => {
+            return this.supplementExclusion(ex);
+        });
+    }
+
+    /**
      * Adds url to exclusions and returns amount of added exclusions
      * @param url
      */
     async addUrlToExclusions(url: string): Promise<number> {
+        this.savePreviousExclusions();
+
         const hostname = getHostname(url);
 
         if (!hostname) {
@@ -298,7 +315,7 @@ export class ExclusionsService {
      * Checks provided exclusion is main domain exclusion
      * @param exclusionNode
      */
-    isMainDomain(exclusionNode: ExclusionNode | null): boolean {
+    isBasicExclusion(exclusionNode: ExclusionNode | null): boolean {
         return !exclusionNode?.hostname.match(/.+\..+\./);
     }
 
@@ -307,11 +324,13 @@ export class ExclusionsService {
      * @param id
      */
     async removeExclusion(id: string): Promise<number> {
+        this.savePreviousExclusions();
+
         let exclusionsToRemove = this.exclusionsTree.getPathExclusions(id);
         const exclusionNode = this.exclusionsTree.getExclusionNode(id);
         const parentNode = this.exclusionsTree.getParentExclusionNode(id);
 
-        if (parentNode?.type === ExclusionsTypes.Group && this.isMainDomain(exclusionNode)) {
+        if (parentNode?.type === ExclusionsTypes.Group && this.isBasicExclusion(exclusionNode)) {
             exclusionsToRemove = this.exclusionsTree.getPathExclusions(parentNode.id);
         }
 
@@ -320,14 +339,6 @@ export class ExclusionsService {
         this.updateTree();
 
         return exclusionsToRemove.length;
-    }
-
-    /**
-     * Returns parent exclusion node
-     * @param id
-     */
-    async getParentExclusion(id: string): Promise<ExclusionNode | null> {
-        return this.exclusionsTree.getParentExclusionNode(id);
     }
 
     /**
@@ -355,6 +366,7 @@ export class ExclusionsService {
      * Removes exclusions for current mode
      */
     async clearExclusionsData() {
+        this.savePreviousExclusions();
         await exclusionsManager.current.clearExclusionsData();
 
         this.updateTree();
@@ -365,6 +377,8 @@ export class ExclusionsService {
      * @param servicesIds
      */
     async toggleServices(servicesIds: string[]): Promise<ToggleServicesResult> {
+        this.savePreviousExclusions();
+
         const servicesIdsToRemove = servicesIds.filter((id) => {
             const exclusionNode = this.exclusionsTree.getExclusionNode(id);
             return !!exclusionNode;
@@ -503,6 +517,8 @@ export class ExclusionsService {
      * @param exclusions
      */
     async addGeneralExclusions(exclusions: string[]) {
+        this.savePreviousExclusions();
+
         const exclusionsWithState = exclusions.flatMap((ex) => {
             return this.supplementExclusion(ex);
         });
@@ -520,14 +536,55 @@ export class ExclusionsService {
      * @param exclusions
      */
     async addSelectiveExclusions(exclusions: string[]) {
-        const exclusionsWithState = exclusions.flatMap((ex) => {
-            return this.supplementExclusion(ex);
-        });
+        this.savePreviousExclusions();
 
+        const exclusionsWithState = this.supplementExclusions(exclusions);
         const addedCount = await exclusionsManager.selective.addExclusions(exclusionsWithState);
 
         this.updateTree();
 
         return addedCount;
+    }
+
+    async addExclusionsMap(exclusionsMap: {
+        [ExclusionsModes.Selective]: string[],
+        [ExclusionsModes.Regular]: string[],
+    }) {
+        this.savePreviousExclusions();
+
+        const regularExclusionsWithState = this.supplementExclusions(
+            exclusionsMap[ExclusionsModes.Regular],
+        );
+        const selectiveExclusionsWithState = this.supplementExclusions(
+            exclusionsMap[ExclusionsModes.Selective],
+        );
+        const addedRegularCount = await exclusionsManager.regular.addExclusions(
+            regularExclusionsWithState,
+        );
+        const addedSelectiveCount = await exclusionsManager.selective.addExclusions(
+            selectiveExclusionsWithState,
+        );
+
+        this.updateTree();
+        return addedRegularCount + addedSelectiveCount;
+    }
+
+    /**
+     * Gets exclusions from exclusions manager and saves them to previousExclusions property
+     */
+    savePreviousExclusions = () => {
+        this.previousExclusions = exclusionsManager.getAllExclusions();
+    };
+
+    /**
+     * Restores previous exclusions
+     */
+    async restoreExclusions() {
+        if (this.previousExclusions) {
+            await exclusionsManager.setAllExclusions(this.previousExclusions);
+            this.updateTree();
+        }
+
+        this.previousExclusions = null;
     }
 }

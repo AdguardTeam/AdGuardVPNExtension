@@ -410,6 +410,9 @@
     "settings_exclusion_reset_button": {
         "message": "Reset"
     },
+    "settings_exclusions_undo": {
+        "message": "Undo"
+    },
     "settings_exclusion_reset_service_confirmation_message": {
         "message": "Reset the default settings for %hostname%? This will restore any missing domains and set all check marks to on."
     },

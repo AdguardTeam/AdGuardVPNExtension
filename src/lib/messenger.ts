@@ -191,6 +191,11 @@ class Messenger {
         return this.sendMessage(type, { id });
     }
 
+    async restoreExclusions() {
+        const type = MessageType.RESTORE_EXCLUSIONS;
+        return this.sendMessage(type);
+    }
+
     async toggleServices(ids: string[]) {
         const type = MessageType.TOGGLE_SERVICES;
         return this.sendMessage(type, { ids });
@@ -343,6 +348,14 @@ class Messenger {
     addSelectiveExclusions(exclusions: string[]) {
         const type = MessageType.ADD_SELECTIVE_EXCLUSIONS;
         return this.sendMessage(type, { exclusions });
+    }
+
+    addExclusionsMap(exclusionsMap: {
+        [ExclusionsModes.Regular]: string[],
+        [ExclusionsModes.Selective]: string[],
+    }) {
+        const type = MessageType.ADD_EXCLUSIONS_MAP;
+        return this.sendMessage(type, { exclusionsMap });
     }
 }
 
