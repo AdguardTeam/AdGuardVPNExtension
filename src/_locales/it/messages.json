@@ -1,9 +1,9 @@
 {
     "name": {
-        "message": "AdGuard VPN — Privacy e Sicurezza"
+        "message": "AdGuard VPN — vpn & proxy web anonimo"
     },
     "description": {
-        "message": "Rende Internet aperto e i vostri dati sicuri. VPN di prim'ordine dai creatori del famoso blocca-annunci."
+        "message": "Naviga in sicurezza e velocità con AdGuard VPN. Proteggi la tua privacy online e usa un ip anonimo con il nostro proxy vpn privato."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -249,10 +249,10 @@
         "message": "Hai già ricevuto i tuoi 10 GB di traffico VPN gratuiti. Ma i tuoi amici potrebbero ancora ottenere 1 GB di traffico VPN aggiuntivi gratuiti se li invitassi!"
     },
     "settings_referral_copy_link": {
-        "message": "Copia link"
+        "message": "Copia indirizzo"
     },
     "settings_referral_link_copied": {
-        "message": "Link copiato"
+        "message": "Indirizzo copiato"
     },
     "settings_rate_us": {
         "message": "Valutaci"

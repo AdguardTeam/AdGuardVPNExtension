@@ -1,9 +1,9 @@
 {
     "name": {
-        "message": "AdGuard VPN — 隐私 & 安全"
+        "message": "AdGuard VPN — 极速且安全的 VPN"
     },
     "description": {
-        "message": "让互联网更加开放，也让您的数据更加安全。由知名广告拦截器开发者开发的强大 VPN 。"
+        "message": "保护用户隐私的工具，试用 AdGuard VPN 快速并匿名安全浏览网页 。"
     },
     "short_name": {
         "message": "AdGuard VPN"

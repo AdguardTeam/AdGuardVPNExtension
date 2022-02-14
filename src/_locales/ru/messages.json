@@ -1,9 +1,9 @@
 {
     "name": {
-        "message": "AdGuard VPN — Приватность и Безопасность"
+        "message": "AdGuard VPN — быстрый и безопасный vpn proxy"
     },
     "description": {
-        "message": "С AdGuard VPN интернет будет открытым, а ваши данные — защищёнными. Первоклассный VPN от создателей знаменитого блокировщика рекламы.\n"
+        "message": "Анонимайзер AdGuard VPN для быстрого и безопасного сёрфинга в интернете. Скройте IP и сохраняйте анонимность в Сети с proxy-сервером AdGuard VPN."
     },
     "short_name": {
         "message": "AdGuard VPN"

@@ -12,58 +12,45 @@ import notifier from '../lib/notifier';
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const ny2022Notification = {
-    id: 'ny2022',
+const release2022Notification = {
+    id: 'release2022',
     locales: {
         en: {
-            btn: 'Unwrap your gift',
+            title: 'Release Giveaway',
+            btn: 'Join',
         },
         ru: {
-            btn: 'Открыть подарок',
-        },
-        es: {
-            btn: 'Abre tu regalo',
+            title: 'Розыгрыш к релизу',
+            btn: 'Участвовать',
         },
         fr: {
-            btn: 'Ouvrir mon cadeau',
-        },
-        it: {
-            btn: 'Scarta il regalo',
+            title: 'Giveaway VPN ',
+            btn: 'Participer',
         },
         de: {
-            btn: 'Ihr Geschenk auspacken',
+            title: 'Release-Gewinnspiel',
+            btn: 'Mitmachen',
         },
         ja: {
-            btn: 'プレゼントをもらう',
-        },
-        ko: {
-            btn: '선물 받기',
-        },
-        zh_cn: {
-            btn: '抓个礼物',
-        },
-        zh_tw: {
-            btn: '享好禮',
-        },
-        uk: {
-            btn: 'Отримайте подарунок',
+            title: 'VPN利用者様限定抽選',
+            btn: '参加する',
         },
     },
     // will be selected for locale, see usage of getNotificationText
     text: '',
-    url: 'https://adguard-vpn.com/forward.html?action=ny2022vpn&from=popup&app=vpn_extension',
-    from: '24 December 2021 12:00:00',
-    to: '01 January 2022 23:59:00',
+    url: 'https://adguard-vpn.com/forward.html?action=release2022vpn&from=popup&app=vpn_extension',
+    from: '18 February 2022 12:00:00',
+    to: '24 February 2022 23:59:00',
     type: 'animated',
     get icons() {
-        return lazyGet(ny2022Notification, 'icons', () => ({
+        return lazyGet(release2022Notification, 'icons', () => ({
             ENABLED: {
-                19: getUrl('assets/images/icons/ny-enabled-19.png'),
-                38: getUrl('assets/images/icons/ny-enabled-38.png'),
+                19: getUrl('assets/images/icons/release-on-19.png'),
+                38: getUrl('assets/images/icons/release-on-38.png'),
             },
             DISABLED: {
-                19: getUrl('assets/images/icons/ny-disabled-19.png'),
-                38: getUrl('assets/images/icons/ny-disabled-38.png'),
+                19: getUrl('assets/images/icons/release-off-19.png'),
+                38: getUrl('assets/images/icons/release-off-38.png'),
             },
         }));
     },
@@ -85,7 +72,7 @@ const ny2022Notification = {
  * @property {string} type;
  */
 const notifications = {
-    ny2022: ny2022Notification,
+    release2022: release2022Notification,
 };
 
 /**

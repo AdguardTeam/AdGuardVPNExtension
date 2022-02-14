@@ -189,12 +189,12 @@
         "message": "تأیید"
     },
     "name": {
-        "message": "AdGuard VPN — Privacy & Security"
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
     },
     "short_name": {
         "message": "AdGuard VPN"
     },
     "description": {
-        "message": "Makes the Internet open and your data safe. Topnotch VPN from the creators of the famous ad blocker."
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

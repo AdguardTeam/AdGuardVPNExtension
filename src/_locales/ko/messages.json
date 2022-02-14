@@ -1,9 +1,9 @@
 {
     "name": {
-        "message": "AdGuard VPN — 개인정보 보호 & 보안"
+        "message": "AdGuard VPN - 빠른 VPN & 보안 개인 프록시"
     },
     "description": {
-        "message": "인터넷을 제약 없는 공간으로 만들고 데이터를 안전하게 보호합니다. 유명 광고 차단기를 만든 곳에서 개발한 최고의 VPN입니다."
+        "message": "AdGuard VPN을 사용하여 크롬, 웨일 등 다양한 브라우저에서 안전하게 웹 서핑을 해 보세요! 또한 개인 VPN 프록시로 개인정보를 보호하고 익명을 유지할 수 있습니다."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -129,10 +129,10 @@
         "message": "버전"
     },
     "account_current_plan": {
-        "message": "사용 중인 플랜"
+        "message": "사용 중인 요금제"
     },
     "account_signed": {
-        "message": "로그인함:"
+        "message": "다음 이메일로 로그인함"
     },
     "account_free": {
         "message": "무료 계정"

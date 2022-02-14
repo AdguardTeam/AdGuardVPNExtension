@@ -1,9 +1,9 @@
 {
     "name": {
-        "message": "AdGuard VPN - プライバシー&セキュリティ"
+        "message": "AdGuard VPN — 公共Wi-Fiでもネットが安心のVPN"
     },
     "description": {
-        "message": "インターネットを無制限に、個人情報は安全に。有名な広告ブロッカー『AdGuard』の作成者が開発したトップクラスVPN。"
+        "message": "オンラインで個人情報プライバシーを守るために設計されたAdGuard VPNを使って、高速かつ安全なインターネットをお楽しみください。"
     },
     "short_name": {
         "message": "AdGuard VPN"

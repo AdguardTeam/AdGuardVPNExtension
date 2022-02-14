@@ -1,9 +1,9 @@
 {
     "name": {
-        "message": "AdGuard VPN — Privatsphäre und Sicherheit"
+        "message": "AdGuard VPN — Schneller VPN und anonymer Proxy"
     },
     "description": {
-        "message": "Macht das Internet offen und Ihre Daten sicher. Erstklassiges VPN von den Entwicklern des berühmten Werbeblockers."
+        "message": "Surfen Sie anonym mit AdGuard VPN. Verbinden Sie sich schnell zu jedem Standort und verbergen Sie Ihre IP mit unserem VPN-Proxy."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -612,7 +612,7 @@
         "message": "VPN ist auf dieser Website deaktiviert"
     },
     "popup_auth_policy_agreement": {
-        "message": "Akzeptieren Sie<eula>Endbenutzer-Lizenzvertrag</eula> und <privacy>Datenschutzbestimmungen</privacy>.",
+        "message": "Akzeptieren Sie <eula>Endbenutzer-Lizenzvertrag</eula> und <privacy>Datenschutzbestimmungen</privacy>.",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {

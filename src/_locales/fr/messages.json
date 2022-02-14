@@ -1,9 +1,9 @@
 {
     "name": {
-        "message": "AdGuard VPN - Confidentialité & Sécurité"
+        "message": "AdGuard VPN — proxy VPN sécurisé et rapide"
     },
     "description": {
-        "message": "Rend l'Internet plus sûr et protège vos données. Un VPN de qualité par les créateurs du célèbre bloqueur de pubs."
+        "message": "Utilisez AdGuard VPN pour changer ou cacher votre adresse IP et un surfing d’Internet rapide et sécurisé avec notre proxy vpn privé."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -616,7 +616,7 @@
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Permettre à AdGuard de recueillir des<link>données anonymes</link> sur l'utilisation de l'application pour améliorer AdGuard VPN"
+        "message": "Permettre à AdGuard de recueillir des <link>données anonymes</link> sur l'utilisation de l'application pour améliorer AdGuard VPN"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Continuer"

@@ -288,7 +288,7 @@
         "message": "Varsayılan"
     },
     "settings_dns_selector_default_desc": {
-        "message": "VPN'e bağlandığında varsayılan DNS sunucularını otomatik olarak kullan"
+        "message": "VPN'e bağlandığında varsayılan DNS sunucularını otomatik olarak kullanın"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"

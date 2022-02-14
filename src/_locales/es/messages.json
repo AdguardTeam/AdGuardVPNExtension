@@ -1,9 +1,9 @@
 {
     "name": {
-        "message": "AdGuard VPN — Privacidad y seguridad"
+        "message": "AdGuard VPN — VPN rápido y proxy seguro"
     },
     "description": {
-        "message": "Haz que Internet esté abierto y tus datos estén seguros. VPN de primera categoría de los creadores del famoso bloqueador de anuncios."
+        "message": "Explora los navegadores de forma segura y rápida. Protege tu privacidad y mantente en el anonimato con nuestro proxy vpn privado."
     },
     "short_name": {
         "message": "AdGuard VPN"
