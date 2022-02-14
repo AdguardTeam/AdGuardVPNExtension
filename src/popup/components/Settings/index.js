@@ -1,13 +1,14 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
+import Lottie from 'lottie-react';
 
 import { rootStore } from '../../stores';
 
 import GlobalControl from './GlobalControl';
 import Status from './Status';
 import { TrafficLimitExceeded } from './TrafficLimitExceeded';
-
+import on from '../../../assets/lottie/on.json';
 import './settings.pcss';
 
 const Settings = observer(() => {
@@ -39,7 +40,10 @@ const Settings = observer(() => {
 
     return (
         <div className={settingsClass}>
-            <div className="settings__pic" />
+            {/* <div className="settings__pic" /> */}
+            <div className="settings__animation">
+                <Lottie animationData={on} loop />
+            </div>
             <div className="settings__main">
                 <Status />
                 <GlobalControl />
