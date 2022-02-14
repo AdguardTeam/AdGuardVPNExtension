@@ -1,9 +1,9 @@
 {
     "name": {
-        "message": "AdGuard VPN — vpn & proxy web anonimo"
+        "message": "AdGuard VPN — vpn veloce e proxy privato sicuro"
     },
     "description": {
-        "message": "Naviga in sicurezza e velocità con AdGuard VPN. Proteggi la tua privacy online e usa un ip anonimo con il nostro proxy vpn privato."
+        "message": "Usa AdGuard VPN per navigare il Internet in sicurezza e velocità. Proteggi la tua privacy e rimani anonimo con il nostro proxy vpn privato."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -409,6 +409,9 @@
     },
     "settings_exclusion_reset_button": {
         "message": "Reimposta"
+    },
+    "settings_exclusions_undo": {
+        "message": "Annulla"
     },
     "settings_exclusion_reset_service_confirmation_message": {
         "message": "Reimpostare le preferenze ai valori predefiniti per %hostname%? Ciò ripristinerà tutti i domini mancanti e attiverà tutti i segni di spunta."

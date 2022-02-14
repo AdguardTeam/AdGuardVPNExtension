@@ -1,10 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN - Adatvédelem & Biztonság"
-    },
-    "description": {
-        "message": "Megnyitja Ön előtt az internet lehetőségeit, miközben védi adatait. A legjobb VPN a híres hirdetésblokkoló alkotóitól."
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -353,6 +347,9 @@
     "settings_exclusion_reset_button": {
         "message": "Visszaállítás"
     },
+    "settings_exclusions_undo": {
+        "message": "Visszavonás"
+    },
     "settings_exclusion_placeholder_search": {
         "message": "Keresés"
     },
@@ -669,5 +666,11 @@
     },
     "options_signedout_page_title": {
         "message": "Kijelentkezett az AdGuard VPN-ből"
+    },
+    "name": {
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

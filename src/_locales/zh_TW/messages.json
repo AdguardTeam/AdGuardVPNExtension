@@ -1,9 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — 極速且安全的 VPN"
-    },
-    "description": {
-        "message": "使網際網路開放且您的資料安全。來自知名的廣告封鎖器之創作者的一流的 VPN。"
+        "message": "AdGuard VPN — 快速的 vpn & 安全私人的代理"
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -410,6 +407,9 @@
     "settings_exclusion_reset_button": {
         "message": "重置"
     },
+    "settings_exclusions_undo": {
+        "message": "復原"
+    },
     "settings_exclusion_reset_service_confirmation_message": {
         "message": "對 %hostname% 重置為預設設定嗎？這將恢復任何遺失的網域並勾選所有的網域。"
     },
@@ -777,5 +777,8 @@
     },
     "options_signedout_page_description": {
         "message": "您的連線為不安全的。要繼續秘密地瀏覽，點擊 AdGuard VPN 圖示並再次登入。"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

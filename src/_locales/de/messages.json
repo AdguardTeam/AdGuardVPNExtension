@@ -410,6 +410,9 @@
     "settings_exclusion_reset_button": {
         "message": "Zurücksetzen"
     },
+    "settings_exclusions_undo": {
+        "message": "Rückgängig"
+    },
     "settings_exclusion_reset_service_confirmation_message": {
         "message": "Möchten Sie die Standardeinstellungen für %hostname%? zurücksetzen? Dadurch werden alle fehlenden Domains wiederhergestellt und alle Häkchen auf „Aktiviert” gesetzt."
     },

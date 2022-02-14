@@ -1,10 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN - Απόρρητο και Ασφάλεια"
-    },
-    "description": {
-        "message": "Κάνει το Διαδίκτυο ανοιχτό και τα δεδομένα σας ασφαλή. Topnotch VPN από τους δημιουργούς του διάσημου αποκλειστή διαφημίσεων."
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -326,6 +320,9 @@
     "settings_exclusion_reset_button": {
         "message": "Επαναφορά"
     },
+    "settings_exclusions_undo": {
+        "message": "Αναίρεση"
+    },
     "settings_exclusion_placeholder_search": {
         "message": "Αναζήτηση"
     },
@@ -636,5 +633,11 @@
     },
     "options_signedout_page_title": {
         "message": "Έχετε αποσυνδεθεί από το AdGuard VPN"
+    },
+    "name": {
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

@@ -1,9 +1,9 @@
 {
     "name": {
-        "message": "AdGuard VPN — proxy VPN sécurisé et rapide"
+        "message": "AdGuard VPN — VPN rapide et proxy privé sécurisé"
     },
     "description": {
-        "message": "Utilisez AdGuard VPN pour changer ou cacher votre adresse IP et un surfing d’Internet rapide et sécurisé avec notre proxy vpn privé."
+        "message": "Utilisez AdGuard VPN pour un surfing d’Internet rapide et sécurisé. Protégez votre confidentialité et anonymat avec notre proxy vpn privé."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -409,6 +409,9 @@
     },
     "settings_exclusion_reset_button": {
         "message": "Réinitialiser"
+    },
+    "settings_exclusions_undo": {
+        "message": "Annuler"
     },
     "settings_exclusion_reset_service_confirmation_message": {
         "message": "Restaurer les paramètres par défaut pour %hostname% ? Ceci restaurera tous les domaines manquants et cochera toutes les cases en les activant."

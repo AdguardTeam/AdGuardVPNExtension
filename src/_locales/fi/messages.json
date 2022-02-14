@@ -1,10 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN — Yksityisyyttä ja tietoturvaa"
-    },
-    "description": {
-        "message": "Tekee Internetistä avoimemman ja suojaa tietojasi. Huippuluokan VPN kuuluisan mainoseston kehittäjiltä."
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -410,6 +404,9 @@
     "settings_exclusion_reset_button": {
         "message": "Palauta"
     },
+    "settings_exclusions_undo": {
+        "message": "Kumoa"
+    },
     "settings_exclusion_reset_service_confirmation_message": {
         "message": "Palautetaanko oletusasetukset osoitteelle %hostname%? Tämä palauttaa kaikki puuttuvat verkkotunnukset ja merkitsee ne valituiksi."
     },
@@ -777,5 +774,11 @@
     },
     "options_signedout_page_description": {
         "message": "Yhteyttäsi ole suojattu. Jatkaaksesi selausta yksityisesti, paina AdGuard VPN -kuvaketta ja kirjaudu sisään uudelleen."
+    },
+    "name": {
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

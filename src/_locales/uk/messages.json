@@ -1,10 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN — Приватність та Безпека"
-    },
-    "description": {
-        "message": "Робить інтернет відкритим і безпечним. Першокласний VPN від авторів відомого блокувальника реклами."
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -410,6 +404,9 @@
     "settings_exclusion_reset_button": {
         "message": "Скинути"
     },
+    "settings_exclusions_undo": {
+        "message": "Відмінити"
+    },
     "settings_exclusion_reset_service_confirmation_message": {
         "message": "Скинути усталені налаштування для %hostname%? Після цього відсутні домени буде відновлено та усі пункти будуть помічені галками."
     },
@@ -777,5 +774,11 @@
     },
     "options_signedout_page_description": {
         "message": "Ваше з'єднання не захищене. Щоб продовжувати безпечно користуватись інтернетом, натисніть на піктограму AdGuard VPN та увійдіть знову."
+    },
+    "name": {
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

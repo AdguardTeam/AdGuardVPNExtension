@@ -1,7 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN — Privatliv og sikkerhet"
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -290,6 +287,9 @@
     "settings_exclusion_reset_button": {
         "message": "Tilbakestill"
     },
+    "settings_exclusions_undo": {
+        "message": "Angre"
+    },
     "settings_exclusion_placeholder_search": {
         "message": "Søk"
     },
@@ -518,6 +518,9 @@
     },
     "popup_desktop_vpn_enabled_button": {
         "message": "OK"
+    },
+    "name": {
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
     },
     "description": {
         "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."

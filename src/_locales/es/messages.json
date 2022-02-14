@@ -1,10 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN — VPN rápido y proxy seguro"
-    },
-    "description": {
-        "message": "Explora los navegadores de forma segura y rápida. Protege tu privacidad y mantente en el anonimato con nuestro proxy vpn privado."
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -410,6 +404,9 @@
     "settings_exclusion_reset_button": {
         "message": "Restablecer"
     },
+    "settings_exclusions_undo": {
+        "message": "Deshacer"
+    },
     "settings_exclusion_reset_service_confirmation_message": {
         "message": "¿Restablecer la configuración predeterminada de %hostname%? Esto restaurará los dominios faltantes y habilitará todas las casillas."
     },
@@ -777,5 +774,11 @@
     },
     "options_signedout_page_description": {
         "message": "Tu conexión no es segura. Para seguir navegando de forma privada, haz clic en el icono de AdGuard VPN y vuelve a iniciar sesión."
+    },
+    "name": {
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

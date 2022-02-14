@@ -1,10 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN - Súkromie a bezpečnosť"
-    },
-    "description": {
-        "message": "Zabezpečí otvorený internet a bezpečie Vašich údajov. Špičková VPN sieť od tvorcov známeho blokovača reklám."
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -410,6 +404,9 @@
     "settings_exclusion_reset_button": {
         "message": "Obnoviť"
     },
+    "settings_exclusions_undo": {
+        "message": "Vrátiť"
+    },
     "settings_exclusion_reset_service_confirmation_message": {
         "message": "Obnoviť predvolené nastavenia pre %hostname%? Týmto sa obnovia všetky chýbajúce domény a všetky začiarknutia sa nastavia na zapnuté."
     },
@@ -777,5 +774,11 @@
     },
     "options_signedout_page_description": {
         "message": "Vaše pripojenie nie je bezpečné. Ak chcete pokračovať v súkromnom surfovaní, kliknite na ikonu AdGuard VPN a znova sa prihláste."
+    },
+    "name": {
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

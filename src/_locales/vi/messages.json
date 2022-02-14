@@ -1,10 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN - Quyền riêng tư & Bảo mật"
-    },
-    "description": {
-        "message": "Làm cho Internet mở và dữ liệu của bạn an toàn. VPN tốt nhất từ những người tạo ra trình chặn quảng cáo nổi tiếng."
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -353,6 +347,9 @@
     "settings_exclusion_reset_button": {
         "message": "Đặt lại"
     },
+    "settings_exclusions_undo": {
+        "message": "Hoàn tác"
+    },
     "settings_exclusion_placeholder_search": {
         "message": "Tìm kiếm"
     },
@@ -651,5 +648,11 @@
     },
     "popup_desktop_vpn_enabled_button": {
         "message": "Ok"
+    },
+    "name": {
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

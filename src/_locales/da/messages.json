@@ -1,10 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN — Fortrolighed og Sikkerhed"
-    },
-    "description": {
-        "message": "Gør Internet åbent og dine data sikre. Topklasse VPN fra skaberne af den berømte adblocker."
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -410,6 +404,9 @@
     "settings_exclusion_reset_button": {
         "message": "Nulstil"
     },
+    "settings_exclusions_undo": {
+        "message": "Fortryd"
+    },
     "settings_exclusion_reset_service_confirmation_message": {
         "message": "Nulstil %hostname% til standardindstillingerne? Dette gendanner evt. manglende domæner og markerer alle afkrydsningsfelter."
     },
@@ -774,5 +771,11 @@
     },
     "options_signedout_page_description": {
         "message": "Forbindelsen er ikke er sikker. For at fortsætte med at surfe anonymt, så klik på AdGuard VPN-ikonet, og log ind igen."
+    },
+    "name": {
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

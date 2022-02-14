@@ -1,10 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN — Privatnost i Sigurnost"
-    },
-    "description": {
-        "message": "Internet čini otvorenim, a vaše podatke sigurnima. Vrhunski VPN od stvaralaca poznatog blokera oglasa."
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -383,6 +377,9 @@
     "settings_exclusion_reset_button": {
         "message": "Poništavanje"
     },
+    "settings_exclusions_undo": {
+        "message": "Poništi"
+    },
     "settings_exclusion_placeholder_search": {
         "message": "Pretraga"
     },
@@ -717,5 +714,11 @@
     },
     "options_signedout_page_description": {
         "message": "Imajte na umu da vaša veza nije sigurna. Da biste nastavili privatno surfati, kliknite na ikonu AdGuard VPN i ponovno se prijavite."
+    },
+    "name": {
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

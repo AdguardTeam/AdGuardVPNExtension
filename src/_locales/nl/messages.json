@@ -1,9 +1,9 @@
 {
     "name": {
-        "message": "AdGuard VPN — Privacy & Veiligheid"
+        "message": "AdGuard VPN — snelle VPN & veilige privéproxy"
     },
     "description": {
-        "message": "Maakt het internet open en houdt jouw gegevens veilig. Topnotch VPN van de makers van de beroemde adblocker."
+        "message": "AdGuard VPN gebruiken om snel, veilig en beveiligd op internet te surfen. Je privacy beschermen en anoniem blijven met onze privé-VPN-proxy."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -409,6 +409,9 @@
     },
     "settings_exclusion_reset_button": {
         "message": "Herstellen"
+    },
+    "settings_exclusions_undo": {
+        "message": "Ongedaan maken"
     },
     "settings_exclusion_reset_service_confirmation_message": {
         "message": "De standaardinstellingen voor %hostname% herstellen? Hiermee worden alle ontbrekende domeinen hersteld en worden alle vinkjes aangezet."

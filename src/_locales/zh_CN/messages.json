@@ -1,10 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN — 极速且安全的 VPN"
-    },
-    "description": {
-        "message": "保护用户隐私的工具，试用 AdGuard VPN 快速并匿名安全浏览网页 。"
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -410,6 +404,9 @@
     "settings_exclusion_reset_button": {
         "message": "重置"
     },
+    "settings_exclusions_undo": {
+        "message": "撤销"
+    },
     "settings_exclusion_reset_service_confirmation_message": {
         "message": "将默认设置重置为 %hostname% 吗？该操作将会还原所有网域并开启全部选项。"
     },
@@ -777,5 +774,11 @@
     },
     "options_signedout_page_description": {
         "message": "您的连接不安全。为了继续匿名浏览，请点击 AdGuard VPN 图标并重新登录。"
+    },
+    "name": {
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

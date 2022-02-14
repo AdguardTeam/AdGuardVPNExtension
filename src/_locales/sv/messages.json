@@ -224,6 +224,9 @@
     "settings_exclusion_reset_button": {
         "message": "Återställ"
     },
+    "settings_exclusions_undo": {
+        "message": "Ångra"
+    },
     "settings_exclusion_placeholder_search": {
         "message": "Sök"
     },

@@ -90,6 +90,7 @@ to the directory `./private/AdguardVPN`
 * `yarn locales:upload` used to upload base `en` locale
 * `yarn locales:download` run to download and save all locales
 * `yarn locales:validate` used to validate locales
+* `yarn locales:validate --min` used to validate only major locales
 
 <a id="proto"></a>
 ### Proto scheme update

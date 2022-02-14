@@ -1,10 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN — Gizlilik ve Güvenlik"
-    },
-    "description": {
-        "message": "İnternetin erişilebilir ve verilerinizin güvende olmasını sağlar. Ünlü reklam engelleyicinin yaratıcılarından en iyi VPN."
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -410,6 +404,9 @@
     "settings_exclusion_reset_button": {
         "message": "Sıfırla"
     },
+    "settings_exclusions_undo": {
+        "message": "Geri al"
+    },
     "settings_exclusion_reset_service_confirmation_message": {
         "message": "%hostname% için varsayılan ayarlar sıfırlansın mı? Bu, eksik alan adlarını geri yükleyecek ve tüm onay işaretlerini açık olarak ayarlayacaktır."
     },
@@ -777,5 +774,11 @@
     },
     "options_signedout_page_description": {
         "message": "Bağlantınız güvenli değil. Gizli olarak gezinmeye devam etmek için AdGuard VPN simgesine tıklayın ve tekrar giriş yapın."
+    },
+    "name": {
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

@@ -1,10 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN — 公共Wi-Fiでもネットが安心のVPN"
-    },
-    "description": {
-        "message": "オンラインで個人情報プライバシーを守るために設計されたAdGuard VPNを使って、高速かつ安全なインターネットをお楽しみください。"
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -410,6 +404,9 @@
     "settings_exclusion_reset_button": {
         "message": "リセット"
     },
+    "settings_exclusions_undo": {
+        "message": "元に戻す"
+    },
     "settings_exclusion_reset_service_confirmation_message": {
         "message": "%hostname% のデフォルト設定をリセットしますか？これにより、欠落していたドメインが復元され、すべてのチェックマークがオンになります。"
     },
@@ -777,5 +774,11 @@
     },
     "options_signedout_page_description": {
         "message": "お客様の接続は現在セキュアでないことにご注意ください。プライベートで安全にサーフィンを続けるには、AdGuard VPNのアイコンをクリックし、再度ログインしてください。"
+    },
+    "name": {
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

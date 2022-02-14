@@ -1,10 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN — Прыватнасць і Бяспека"
-    },
-    "description": {
-        "message": "Робіць Інтэрнэт адкрытым і забяспечвае бяспеку вашых дадзеных. Першакласны VPN ад стваральнікаў знакамітага рэкламнага блакавальніка."
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -380,6 +374,9 @@
     "settings_exclusion_reset_button": {
         "message": "Скінуць"
     },
+    "settings_exclusions_undo": {
+        "message": "Скасаваць"
+    },
     "settings_exclusion_placeholder_search": {
         "message": "Пошук"
     },
@@ -714,5 +711,11 @@
     },
     "options_signedout_page_description": {
         "message": "Звярніце ўвагу, што злучэнне не абаронена. Каб працягнуць карыстацца інтэрнэтам бяспечна, націсніце на іконку AdGuard VPN і зноў увайдзіце ў дадатак."
+    },
+    "name": {
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

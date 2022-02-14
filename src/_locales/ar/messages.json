@@ -116,6 +116,9 @@
     "settings_exclusion_reset_button": {
         "message": "إعادة تعيين"
     },
+    "settings_exclusions_undo": {
+        "message": "تراجع"
+    },
     "settings_exclusion_placeholder_search": {
         "message": "بحث"
     },

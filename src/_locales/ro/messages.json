@@ -1,9 +1,9 @@
 {
     "name": {
-        "message": "AdGuard VPN — Intimitate & Securitate"
+        "message": "AdGuard VPN — vpn rapid și proxy privat sigur"
     },
     "description": {
-        "message": "Face Internetul deschis și datele dvs. sigure. VPN de top de la creatorii celebrului blocant al reclamelor."
+        "message": "Utilizați AdGuard VPN pentru o navigare rapidă, sigură și securizată pe internet. Protejați-vă intimitatea și rămâneți anonim cu proxy-ul nostru VPN privat."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -409,6 +409,9 @@
     },
     "settings_exclusion_reset_button": {
         "message": "Resetare"
+    },
+    "settings_exclusions_undo": {
+        "message": "Anulare"
     },
     "settings_exclusion_reset_service_confirmation_message": {
         "message": "Doriți să restabiliți setările implicite pentru %hostname%? Aceasta va restaura toate domeniile care lipsesc și va seta toate bifele de control la Activat."
