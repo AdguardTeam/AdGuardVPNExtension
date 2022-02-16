@@ -215,10 +215,6 @@ export const Actions = observer(() => {
         }
     });
 
-    const moreActionsButtonClassnames = classnames('actions__more-actions-button', {
-        active: isMoreActionsMenuOpen,
-    });
-
     const moreActionsListClassnames = classnames('actions__more-actions-list', {
         visible: isMoreActionsMenuOpen,
     });
@@ -248,15 +244,16 @@ export const Actions = observer(() => {
                     </svg>
                     {reactTranslator.getMessage('settings_exclusion_add_website')}
                 </button>
-                <button
-                    type="button"
-                    className={moreActionsButtonClassnames}
-                    onMouseDown={onMoreActionsClick}
-                >
-                    <svg className="actions__more-actions-button__icon">
-                        <use xlinkHref="#more-actions" />
-                    </svg>
-                </button>
+                <div className="selector selector--gray">
+                    <div
+                        className="selector__value"
+                        onClick={onMoreActionsClick}
+                    >
+                        <div className="selector__value-title">
+                            {reactTranslator.getMessage('settings_exclusion_actions')}
+                        </div>
+                    </div>
+                </div>
                 <ul
                     className={moreActionsListClassnames}
                     ref={moreActionsMenu}

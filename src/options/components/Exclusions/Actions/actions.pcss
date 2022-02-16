@@ -1,4 +1,7 @@
 .actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin: 24px 0 10px;
     position: relative;
 
@@ -20,22 +23,18 @@
         border-radius: 2px;
         padding: 7px 12px 5px;
         cursor: pointer;
-
-        &__icon {
-            width: 2px;
-            height: 12px;
-        }
     }
 
     &__more-actions-list {
         position: absolute;
-        right: 30px;
-        top: 15px;
+        right: 0;
+        top: 30px;
         z-index: 1;
         background: var(--white);
         list-style: none;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         visibility: hidden;
+        outline: none;
 
         &.visible {
             visibility: visible;

@@ -1,6 +1,6 @@
 .selector {
     &__value {
-        padding: 0 20px 0 10px;
+        padding: 0 30px 0 10px;
         background-color: var(--white-strong);
         background-image: url('../../../../assets/images/arrow-down.svg');
         background-position: 100% center;
@@ -81,6 +81,12 @@
             font-size: 1.3rem;
             line-height: 1.2;
             margin: 3px 20px 0 0;
+        }
+    }
+
+    &--gray {
+        & .selector__value-title {
+            color: var(--gray88);
         }
     }
 }
