@@ -11,6 +11,7 @@ import Status from './Status';
 import { TrafficLimitExceeded } from './TrafficLimitExceeded';
 import on from '../../../assets/lottie/on.json';
 import off from '../../../assets/lottie/off.json';
+import { CanvasAnimation } from './CanvasAnimation';
 import './settings.pcss';
 
 const Settings = observer(() => {
@@ -40,23 +41,27 @@ const Settings = observer(() => {
         );
     }
 
+    console.log(isConnected);
+
     return (
         <div className={settingsClass}>
-            {/* <div className="settings__pic" />
-            <div className="settings__animation settings__animation--hidden">
+            {/* TODO pic */}
+            {/* <div className="settings__pic" /> */}
+
+            {/* TODO Lottie */}
+            {/* <div className="settings__animation settings__animation--hidden">
+                {isConnected
+                    ? <Lottie animationData={on} />
+                    : <Lottie animationData={off} loop />}
+            </div>
+            <div className="settings__animation">
                 {isConnected
                     ? <Lottie animationData={on} />
                     : <Lottie animationData={off} loop />}
             </div> */}
-            {/* <div className="settings__animation">
-                {isConnected
-                    ? <Lottie animationData={on} />
-                    : <Lottie animationData={off} loop />}
-            </div> */}
-            {/* <video autoPlay loop={!isConnected} className="settings__video">
-                <source src="../../../assets/videos/off.mp4" />
-            </video> */}
-            {!isConnected && (
+
+            {/* TODO video */}
+            {/* {!isConnected && (
                 <video autoPlay loop className="settings__video">
                     <source src="../../../assets/videos/off.mp4" />
                 </video>
@@ -65,7 +70,12 @@ const Settings = observer(() => {
                 <video autoPlay className="settings__video">
                     <source src="../../../assets/videos/on.mp4" />
                 </video>
-            )}
+            )} */}
+
+            <div className="settings__animation">
+                <CanvasAnimation animationDir={isConnected ? 'on' : 'off'} />
+                {/* {isConnected ? <CanvasAnimation animationDir="on" /> : <CanvasAnimation animationDir="off" />} */}
+            </div>
             <div className="settings__main">
                 <Status />
                 <GlobalControl />

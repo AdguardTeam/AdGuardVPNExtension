@@ -1,0 +1,1 @@
+export { CanvasAnimation } from './CanvasAnimation';
