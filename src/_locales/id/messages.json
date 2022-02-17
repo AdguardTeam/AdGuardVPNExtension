@@ -257,6 +257,9 @@
     "settings_exclusion_add_website": {
         "message": "Tambah situs"
     },
+    "settings_exclusion_actions": {
+        "message": "Aksi"
+    },
     "settings_exclusion_add_subdomain": {
         "message": "Tambahkan subdomain"
     },

@@ -116,6 +116,9 @@
     "settings_exclusion_add": {
         "message": "افزودن"
     },
+    "settings_exclusion_actions": {
+        "message": "اقدامات"
+    },
     "settings_exclusion_modal_cancel": {
         "message": "لغو"
     },

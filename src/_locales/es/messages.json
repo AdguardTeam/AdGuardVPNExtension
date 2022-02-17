@@ -1,4 +1,10 @@
 {
+    "name": {
+        "message": "AdGuard VPN — VPN rápido y proxy seguro"
+    },
+    "description": {
+        "message": "Utiliza AdGuard VPN para navegar por Internet de forma rápida, segura y protegida. Protege tu privacidad y mantente en el anonimato con nuestro proxy VPN privado."
+    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -343,6 +349,9 @@
     },
     "settings_exclusion_add_website": {
         "message": "Añadir sitio web"
+    },
+    "settings_exclusion_actions": {
+        "message": "Acciones"
     },
     "settings_exclusion_add_subdomain": {
         "message": "Añadir subdominio"
@@ -774,11 +783,5 @@
     },
     "options_signedout_page_description": {
         "message": "Tu conexión no es segura. Para seguir navegando de forma privada, haz clic en el icono de AdGuard VPN y vuelve a iniciar sesión."
-    },
-    "name": {
-        "message": "AdGuard VPN — fast vpn & secure private proxy"
-    },
-    "description": {
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

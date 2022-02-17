@@ -104,6 +104,9 @@
     "settings_exclusion_add_website": {
         "message": "أضف استثناءًا"
     },
+    "settings_exclusion_actions": {
+        "message": "الإجراءات"
+    },
     "settings_exclusion_modal_cancel": {
         "message": "إلغاء"
     },

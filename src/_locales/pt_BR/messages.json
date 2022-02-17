@@ -344,6 +344,9 @@
     "settings_exclusion_add_website": {
         "message": "Adicionar um site"
     },
+    "settings_exclusion_actions": {
+        "message": "Ações"
+    },
     "settings_exclusion_add_subdomain": {
         "message": "Adicionar um subdomínio"
     },

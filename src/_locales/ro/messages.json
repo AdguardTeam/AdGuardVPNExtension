@@ -350,6 +350,9 @@
     "settings_exclusion_add_website": {
         "message": "Adăugați un site"
     },
+    "settings_exclusion_actions": {
+        "message": "Acțiuni"
+    },
     "settings_exclusion_add_subdomain": {
         "message": "Adăugați un subdomeniu"
     },

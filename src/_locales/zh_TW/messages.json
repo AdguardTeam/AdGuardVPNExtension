@@ -2,6 +2,9 @@
     "name": {
         "message": "AdGuard VPN — 快速的 vpn & 安全私人的代理"
     },
+    "description": {
+        "message": "使用 AdGuard VPN 以快速地、可靠地、安全地於網際網路上瀏覽。用我們私人的 vpn 代理保護您的隱私並保持匿名。"
+    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -346,6 +349,9 @@
     },
     "settings_exclusion_add_website": {
         "message": "新增一個網站"
+    },
+    "settings_exclusion_actions": {
+        "message": "動作"
     },
     "settings_exclusion_add_subdomain": {
         "message": "新增一個子網域"
@@ -777,8 +783,5 @@
     },
     "options_signedout_page_description": {
         "message": "您的連線為不安全的。要繼續秘密地瀏覽，點擊 AdGuard VPN 圖示並再次登入。"
-    },
-    "description": {
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

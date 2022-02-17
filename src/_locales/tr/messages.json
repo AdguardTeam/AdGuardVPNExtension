@@ -1,4 +1,7 @@
 {
+    "name": {
+        "message": "AdGuard VPN — hızlı vpn ve güvenli özel proxy"
+    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -343,6 +346,9 @@
     },
     "settings_exclusion_add_website": {
         "message": "Site ekle"
+    },
+    "settings_exclusion_actions": {
+        "message": "Eylemler"
     },
     "settings_exclusion_add_subdomain": {
         "message": "Alt alan adı ekle"
@@ -774,9 +780,6 @@
     },
     "options_signedout_page_description": {
         "message": "Bağlantınız güvenli değil. Gizli olarak gezinmeye devam etmek için AdGuard VPN simgesine tıklayın ve tekrar giriş yapın."
-    },
-    "name": {
-        "message": "AdGuard VPN — fast vpn & secure private proxy"
     },
     "description": {
         "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."

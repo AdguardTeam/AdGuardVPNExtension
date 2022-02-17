@@ -47,6 +47,9 @@
     "settings_theme_light": {
         "message": "Светъл цвят"
     },
+    "settings_exclusion_actions": {
+        "message": "Действия"
+    },
     "settings_exclusion_modal_cancel": {
         "message": "Отказ"
     },

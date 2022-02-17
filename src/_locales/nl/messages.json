@@ -350,6 +350,9 @@
     "settings_exclusion_add_website": {
         "message": "Website toevoegen"
     },
+    "settings_exclusion_actions": {
+        "message": "Acties"
+    },
     "settings_exclusion_add_subdomain": {
         "message": "Subdomein toevoegen"
     },

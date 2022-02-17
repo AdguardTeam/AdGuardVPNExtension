@@ -272,6 +272,9 @@
     "settings_exclusion_add_website": {
         "message": "Legg til et nettsted"
     },
+    "settings_exclusion_actions": {
+        "message": "Handlinger"
+    },
     "settings_exclusion_domain_name": {
         "message": "Domenenavn:"
     },

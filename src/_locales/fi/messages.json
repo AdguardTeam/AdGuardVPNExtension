@@ -1,4 +1,10 @@
 {
+    "name": {
+        "message": "AdGuard VPN — nopea VPN ja turvallinen yksityinen välityspalvelin"
+    },
+    "description": {
+        "message": "Surffaile Internetissä nopeasti ja turvallisesti AdGuard VPN:llä. Suojaa yksityisyyttäsi ja pysy nimettömänä yksityisella VPN-välityspalvelimellamme."
+    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -344,6 +350,9 @@
     "settings_exclusion_add_website": {
         "message": "Lisää sivusto"
     },
+    "settings_exclusion_actions": {
+        "message": "Toiminnot"
+    },
     "settings_exclusion_add_subdomain": {
         "message": "Lisää aliverkkotunnus"
     },
@@ -459,13 +468,13 @@
         "message": "Tavallinen tila"
     },
     "settings_exclusion_general_description": {
-        "message": "AdGuard VPN on käytössä kaikkialla, paitsi poikkeuksiin lisätyillä verkkosivustoilla"
+        "message": "AdGuard VPN on käytössä kaikkialla, paitsi poikkeuksiin lisätyillä verkkosivustoilla."
     },
     "settings_exclusion_selective_title": {
         "message": "Valikoiva tila"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN on käytössä vain poikkeuksiin lisätyillä verkkosivustoilla"
+        "message": "AdGuard VPN on käytössä vain poikkeuksiin lisätyillä verkkosivustoilla."
     },
     "settings_exclusion_subdomains_title": {
         "message": "Aliverkkotunnukset"
@@ -613,7 +622,7 @@
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Salli AdGuardin kerätä <link>nimettömiä tietoja</link> sovelluksen käytöstä AdGuard VPN:n parantamiseksi"
+        "message": "Salli AdGuardin kerätä <link>joitakin nimettömiä tietoja</link> sovelluksen käytöstä AdGuard VPN:n parantamiseksi."
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Jatka"
@@ -774,11 +783,5 @@
     },
     "options_signedout_page_description": {
         "message": "Yhteyttäsi ole suojattu. Jatkaaksesi selausta yksityisesti, paina AdGuard VPN -kuvaketta ja kirjaudu sisään uudelleen."
-    },
-    "name": {
-        "message": "AdGuard VPN — fast vpn & secure private proxy"
-    },
-    "description": {
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

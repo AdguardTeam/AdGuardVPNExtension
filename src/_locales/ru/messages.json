@@ -1,4 +1,10 @@
 {
+    "name": {
+        "message": "AdGuard VPN — быстрый и безопасный vpn proxy"
+    },
+    "description": {
+        "message": "Анонимайзер AdGuard VPN для быстрого и безопасного сёрфинга в интернете. Скройте IP и сохраняйте анонимность в Сети с proxy-сервером AdGuard VPN."
+    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -343,6 +349,9 @@
     },
     "settings_exclusion_add_website": {
         "message": "Добавить сайт"
+    },
+    "settings_exclusion_actions": {
+        "message": "Действия"
     },
     "settings_exclusion_add_subdomain": {
         "message": "Добавить поддомен"
@@ -774,11 +783,5 @@
     },
     "options_signedout_page_description": {
         "message": "Обратите внимание, что соединение не защищено. Чтобы продолжить пользоваться интернетом безопасно, нажмите на иконку AdGuard VPN и снова войдите в приложение."
-    },
-    "name": {
-        "message": "AdGuard VPN — fast vpn & secure private proxy"
-    },
-    "description": {
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

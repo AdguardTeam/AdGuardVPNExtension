@@ -338,6 +338,9 @@
     "settings_exclusion_add_website": {
         "message": "Dodaj spletno stran"
     },
+    "settings_exclusion_actions": {
+        "message": "Akcij"
+    },
     "settings_exclusion_add_subdomain": {
         "message": "Dodaj poddomena"
     },

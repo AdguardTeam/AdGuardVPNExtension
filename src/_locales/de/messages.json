@@ -350,6 +350,9 @@
     "settings_exclusion_add_website": {
         "message": "Website hinzufügen"
     },
+    "settings_exclusion_actions": {
+        "message": "Aktionen"
+    },
     "settings_exclusion_add_subdomain": {
         "message": "Subdomain hinzufügen"
     },
@@ -393,7 +396,7 @@
         "message": "Manuell hinzufügen"
     },
     "settings_exclusions_add_invalid_domain": {
-        "message": "„%url%“ ist eine ungültige Domain. Soll sie trotzdem zur Liste hinzugefügt werden?"
+        "message": "„%url%“ ist eine ungültige Domain. Möchten Sie sie trotzdem zur Liste hinzufügen?"
     },
     "settings_exclusion_modal_cancel": {
         "message": "Abbrechen"
@@ -411,7 +414,7 @@
         "message": "Zurücksetzen"
     },
     "settings_exclusions_undo": {
-        "message": "Rückgängig"
+        "message": "Widerrufen"
     },
     "settings_exclusion_reset_service_confirmation_message": {
         "message": "Möchten Sie die Standardeinstellungen für %hostname%? zurücksetzen? Dadurch werden alle fehlenden Domains wiederhergestellt und alle Häkchen auf „Aktiviert” gesetzt."
@@ -441,7 +444,7 @@
         "message": "Alle Ausschlüsse entfernen"
     },
     "settings_exclusions_remove_all_exclusions_message": {
-        "message": "Möchten Sie wiirklich fortfahren? Dadurch wird die gesamte Ausschlussliste entfernt."
+        "message": "Möchten Sie fortfahren? Die gesamte Ausschlussliste wird entfernt."
     },
     "settings_exclusions_import_button": {
         "message": "Importieren"

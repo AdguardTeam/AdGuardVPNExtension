@@ -344,6 +344,9 @@
     "settings_exclusion_add_website": {
         "message": "웹사이트 추가"
     },
+    "settings_exclusion_actions": {
+        "message": "가능한 동작"
+    },
     "settings_exclusion_add_subdomain": {
         "message": "서브 도메인 추가"
     },

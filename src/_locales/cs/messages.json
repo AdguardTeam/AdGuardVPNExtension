@@ -1,4 +1,10 @@
 {
+    "name": {
+        "message": "AdGuard VPN — rychlá VPN a bezpečný soukromý proxy server"
+    },
+    "description": {
+        "message": "Pomocí AdGuard VPN můžete surfovat na internetu rychle, bezpečně a spolehlivě. Chraňte své soukromí a zůstaňte v anonymitě s naším soukromým proxy serverem VPN."
+    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -343,6 +349,9 @@
     },
     "settings_exclusion_add_website": {
         "message": "Přidat stránku"
+    },
+    "settings_exclusion_actions": {
+        "message": "Akce"
     },
     "settings_exclusion_add_subdomain": {
         "message": "Přidat subdoménu"
@@ -774,11 +783,5 @@
     },
     "options_signedout_page_description": {
         "message": "Vaše připojení není zabezpečené. Chcete-li pokračovat v soukromém surfování, klikněte na ikonu AdGuard VPN a znovu se přihlaste."
-    },
-    "name": {
-        "message": "AdGuard VPN — fast vpn & secure private proxy"
-    },
-    "description": {
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

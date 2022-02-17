@@ -119,6 +119,9 @@
     "settings_exclusion_add_website": {
         "message": "Pridėti svetainę"
     },
+    "settings_exclusion_actions": {
+        "message": "Veiksmai"
+    },
     "settings_exclusion_domain_name": {
         "message": "Domeno vardas:"
     },

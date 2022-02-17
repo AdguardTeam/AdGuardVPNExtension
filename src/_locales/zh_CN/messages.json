@@ -344,6 +344,9 @@
     "settings_exclusion_add_website": {
         "message": "添加网站"
     },
+    "settings_exclusion_actions": {
+        "message": "活跃状态"
+    },
     "settings_exclusion_add_subdomain": {
         "message": "添加子域名"
     },

@@ -344,6 +344,9 @@
     "settings_exclusion_add_website": {
         "message": "Pridať webovú stránku"
     },
+    "settings_exclusion_actions": {
+        "message": "Akcie"
+    },
     "settings_exclusion_add_subdomain": {
         "message": "Pridať subdoménu"
     },

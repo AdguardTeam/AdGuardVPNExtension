@@ -308,6 +308,9 @@
     "settings_exclusion_add_website": {
         "message": "Thêm trang web"
     },
+    "settings_exclusion_actions": {
+        "message": "Thao tác"
+    },
     "settings_exclusion_add_subdomain": {
         "message": "Thêm tên miền con"
     },

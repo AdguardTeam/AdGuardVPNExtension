@@ -203,6 +203,9 @@
     "settings_exclusion_add_website": {
         "message": "Lägg till en webbplats"
     },
+    "settings_exclusion_actions": {
+        "message": "Åtgärder"
+    },
     "settings_exclusion_add_subdomain": {
         "message": "Lägg till en underdomän"
     },

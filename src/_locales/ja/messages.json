@@ -344,6 +344,9 @@
     "settings_exclusion_add_website": {
         "message": "ウェブサイトを追加する"
     },
+    "settings_exclusion_actions": {
+        "message": "操作"
+    },
     "settings_exclusion_add_subdomain": {
         "message": "サブドメインを追加する"
     },

@@ -344,6 +344,9 @@
     "settings_exclusion_add_website": {
         "message": "Додати вебсайт"
     },
+    "settings_exclusion_actions": {
+        "message": "Дії"
+    },
     "settings_exclusion_add_subdomain": {
         "message": "Додати піддомен"
     },

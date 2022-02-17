@@ -1,4 +1,10 @@
 {
+    "name": {
+        "message": "AdGuard VPN — hurtigt VPN og sikker privat proxy"
+    },
+    "description": {
+        "message": "Brug AdGuard VPN til at surfe på Internet hurtigt, trygt og sikkert. Beskyt fortroligheden og forbliv anonym med vores private VPN-proxy."
+    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -343,6 +349,9 @@
     },
     "settings_exclusion_add_website": {
         "message": "Tilføj et websted"
+    },
+    "settings_exclusion_actions": {
+        "message": "Handlinger"
     },
     "settings_exclusion_add_subdomain": {
         "message": "Tilføj et underdomæne"
@@ -771,11 +780,5 @@
     },
     "options_signedout_page_description": {
         "message": "Forbindelsen er ikke er sikker. For at fortsætte med at surfe anonymt, så klik på AdGuard VPN-ikonet, og log ind igen."
-    },
-    "name": {
-        "message": "AdGuard VPN — fast vpn & secure private proxy"
-    },
-    "description": {
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

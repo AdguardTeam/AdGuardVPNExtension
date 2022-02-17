@@ -308,6 +308,9 @@
     "settings_exclusion_add_website": {
         "message": "Webhely hozzáadása"
     },
+    "settings_exclusion_actions": {
+        "message": "Műveletek"
+    },
     "settings_exclusion_add_subdomain": {
         "message": "Adjon hozzá egy aldomaint"
     },

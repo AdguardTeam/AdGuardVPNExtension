@@ -335,6 +335,9 @@
     "settings_exclusion_add_website": {
         "message": "Дадаць сайт"
     },
+    "settings_exclusion_actions": {
+        "message": "Дзеянні"
+    },
     "settings_exclusion_add_subdomain": {
         "message": "Дадаць паддамен"
     },

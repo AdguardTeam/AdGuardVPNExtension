@@ -305,6 +305,9 @@
     "settings_exclusion_add_website": {
         "message": "Προσθήκη ενός ιστότοπου"
     },
+    "settings_exclusion_actions": {
+        "message": "Ενέργειες"
+    },
     "settings_exclusion_domain_name": {
         "message": "Όνομα τομέα:"
     },
