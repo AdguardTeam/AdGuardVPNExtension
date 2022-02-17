@@ -2,16 +2,16 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
-import Lottie from 'lottie-react';
+// import Lottie from 'lottie-react';
 
 import { rootStore } from '../../stores';
 
 import GlobalControl from './GlobalControl';
 import Status from './Status';
 import { TrafficLimitExceeded } from './TrafficLimitExceeded';
-import on from '../../../assets/lottie/on.json';
-import off from '../../../assets/lottie/off.json';
-import { CanvasAnimation } from './CanvasAnimation';
+// import on from '../../../assets/lottie/on.json';
+// import off from '../../../assets/lottie/off.json';
+// import { CanvasAnimation } from './CanvasAnimation';
 import './settings.pcss';
 
 const Settings = observer(() => {
@@ -41,8 +41,6 @@ const Settings = observer(() => {
         );
     }
 
-    console.log(isConnected);
-
     return (
         <div className={settingsClass}>
             {/* TODO pic */}
@@ -61,7 +59,7 @@ const Settings = observer(() => {
             </div> */}
 
             {/* TODO video */}
-            {/* {!isConnected && (
+            {!isConnected && (
                 <video autoPlay loop className="settings__video">
                     <source src="../../../assets/videos/off.mp4" />
                 </video>
@@ -70,12 +68,17 @@ const Settings = observer(() => {
                 <video autoPlay className="settings__video">
                     <source src="../../../assets/videos/on.mp4" />
                 </video>
-            )} */}
+            )}
 
-            <div className="settings__animation">
-                <CanvasAnimation animationDir={isConnected ? 'on' : 'off'} />
-                {/* {isConnected ? <CanvasAnimation animationDir="on" /> : <CanvasAnimation animationDir="off" />} */}
-            </div>
+            {/* TODO Canvas */}
+            {/* <div className="settings__animation">
+                {isConnected && (
+                    <CanvasAnimation animationDir="on" />
+                )}
+                {!isConnected && (
+                    <CanvasAnimation animationDir="off" loop />
+                )}
+            </div> */}
             <div className="settings__main">
                 <Status />
                 <GlobalControl />

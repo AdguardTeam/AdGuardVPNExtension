@@ -44,7 +44,7 @@ export const CanvasAnimation = ({ loop, animationDir }: CanvasAnimationProps) =>
                 }
             }, framesPerSecond);
         }
-    }, [animationDir]);
+    }, []);
 
     return <canvas aria-label="animation" ref={canvasRef} />;
 };
