@@ -38,6 +38,8 @@ const getOutputPathByEnv = (env = ENVS.DEV) => {
 };
 
 const updateLocalesMSGName = (content, env) => {
+    // Chrome Web Store allows only 45 symbol long names
+    const NAME_MAX_LENGTH = 45;
     const envData = ENV_MAP[env];
 
     if (!envData) {
@@ -51,6 +53,14 @@ const updateLocalesMSGName = (content, env) => {
     if (messages.name && name.length > 0) {
         const envName = ` ${name}`;
         messages.name.message += envName;
+        // if name with suffix is too long, use short name + plus suffix
+        if (messages.name.message.length > NAME_MAX_LENGTH) {
+            messages.name.message = messages.short_name.message + envName;
+        }
+
+        if (messages.name.message.length > NAME_MAX_LENGTH) {
+            throw new Error('Chrome Web Store allows only 45 symbol long names');
+        }
     }
 
     return JSON.stringify(messages, null, 4);
