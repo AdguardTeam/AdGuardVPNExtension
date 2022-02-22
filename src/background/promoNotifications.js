@@ -39,8 +39,8 @@ const release2022Notification = {
     // will be selected for locale, see usage of getNotificationText
     text: '',
     url: 'https://adguard-vpn.com/forward.html?action=release2022vpn&from=popup&app=vpn_extension',
-    from: '18 February 2022 12:00:00',
-    to: '24 February 2022 23:59:00',
+    from: '03 March 2022 12:00:00',
+    to: '09 March 2022 23:59:00',
     type: 'animated',
     get icons() {
         return lazyGet(release2022Notification, 'icons', () => ({
@@ -72,13 +72,9 @@ const release2022Notification = {
  * @property {string} type;
  */
 
-// TODO remove
-const notifications = {};
-
-// TODO uncomment
-// const notifications = {
-//     release2022: release2022Notification,
-// };
+const notifications = {
+    release2022: release2022Notification,
+};
 
 /**
  * Gets the last time a notification was shown.
