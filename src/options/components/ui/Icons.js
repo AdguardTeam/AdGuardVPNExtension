@@ -49,7 +49,8 @@ const Icons = () => (
         </symbol>
 
         <symbol id="plus" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-            <path d="M4 12L20 12M12 4L12 20" />
+            <path d="M4 12H20" />
+            <path d="M12 4L12 20" />
         </symbol>
 
         <symbol id="cross" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">

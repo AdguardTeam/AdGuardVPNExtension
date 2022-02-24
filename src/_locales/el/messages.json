@@ -1,10 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN - Απόρρητο και Ασφάλεια"
-    },
-    "description": {
-        "message": "Κάνει το Διαδίκτυο ανοιχτό και τα δεδομένα σας ασφαλή. Topnotch VPN από τους δημιουργούς του διάσημου αποκλειστή διαφημίσεων."
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -239,8 +233,8 @@
     "context_menu_selective_mode": {
         "message": "Επιλεκτική λειτουργία"
     },
-    "context_menu_regular_mode": {
-        "message": "Κανονική λειτουργία"
+    "context_menu_general_mode": {
+        "message": "Γενική λειτουργία"
     },
     "settings_dns_label": {
         "message": "Χρήση διακομιστή DNS"
@@ -308,8 +302,41 @@
     "settings_theme_light": {
         "message": "Φωτεινό"
     },
-    "settings_exclusion_add": {
-        "message": "Προσθήκη ιστότοπου"
+    "settings_exclusion_add_website": {
+        "message": "Προσθήκη ενός ιστότοπου"
+    },
+    "settings_exclusion_actions": {
+        "message": "Ενέργειες"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Όνομα τομέα:"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "Ακύρωση"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Αφαίρεση"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Αποθήκευση"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Επαναφορά"
+    },
+    "settings_exclusions_undo": {
+        "message": "Αναίρεση"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Αναζήτηση"
+    },
+    "settings_exclusions_action_export": {
+        "message": "Εξαγωγή εξαιρέσεων"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Εισαγωγή εξαιρέσεων"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Αφαίρεση όλων"
     },
     "settings_exclusions_import_button": {
         "message": "Εισαγωγή"
@@ -326,17 +353,14 @@
     "settings_connection_mode_title": {
         "message": "Λειτουργία σύνδεσης VPN"
     },
-    "settings_exclusion_regular_title": {
-        "message": "Κανονική λειτουργία"
+    "settings_exclusion_general_title": {
+        "message": "Γενική λειτουργία"
     },
-    "settings_exclusion_regular_description": {
-        "message": "Το AdGuard VPN δεν λειτουργεί στους ιστότοπους από αυτήν τη λίστα:"
+    "settings_exclusion_general_description": {
+        "message": "Το AdGuard VPN δεν θα λειτουργεί στους ιστότοπους από τη λίστα εξαιρέσεων"
     },
     "settings_exclusion_selective_title": {
         "message": "Επιλεκτική λειτουργία"
-    },
-    "settings_exclusion_selective_description": {
-        "message": "Το AdGuard VPN λειτουργεί μόνο σε ιστότοπους από αυτήν τη λίστα:"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Υποτομείς"
@@ -364,9 +388,6 @@
     },
     "control_error_disable": {
         "message": "Απενεργοποιήστε τη"
-    },
-    "popup_settings_enable_vpn": {
-        "message": "Ενεργοποίηση VPN σε αυτόν τον ιστότοπο"
     },
     "popup_settings_enable_vpn_short": {
         "message": "Ενεργοποίηση"
@@ -615,5 +636,11 @@
     },
     "options_signedout_page_title": {
         "message": "Έχετε αποσυνδεθεί από το AdGuard VPN"
+    },
+    "name": {
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

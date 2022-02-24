@@ -1,7 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN - privatumas ir saugumas"
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -55,9 +52,6 @@
     },
     "rate_hide": {
         "message": "Paslėpti"
-    },
-    "auth_confirm": {
-        "message": "Patvirtinti"
     },
     "auth_password": {
         "message": "Slaptažodis"
@@ -122,6 +116,39 @@
     "settings_theme_dark": {
         "message": "Tamsi tema"
     },
+    "settings_exclusion_add_website": {
+        "message": "Pridėti svetainę"
+    },
+    "settings_exclusion_actions": {
+        "message": "Veiksmai"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Domeno vardas:"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "Atšaukti"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Pašalinti"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Išsaugoti"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Atstatyti"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Paieška"
+    },
+    "settings_exclusions_action_export": {
+        "message": "Eksportuoti išimtis"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Importuoti išimtis"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Pašalinti viską"
+    },
     "settings_exclusions_import_button": {
         "message": "Importas"
     },
@@ -175,5 +202,11 @@
     },
     "popup_desktop_vpn_enabled_button": {
         "message": "Ok"
+    },
+    "name": {
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

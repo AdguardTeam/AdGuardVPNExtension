@@ -1,10 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN — Прыватнасць і Бяспека"
-    },
-    "description": {
-        "message": "Робіць Інтэрнэт адкрытым і забяспечвае бяспеку вашых дадзеных. Першакласны VPN ад стваральнікаў знакамітага рэкламнага блакавальніка."
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -272,9 +266,6 @@
     "context_menu_selective_mode": {
         "message": "Выбарковы рэжым"
     },
-    "context_menu_regular_mode": {
-        "message": "Звычайны рэжым"
-    },
     "settings_dns_label": {
         "message": "Абраны DNS-сервер"
     },
@@ -341,8 +332,68 @@
     "settings_theme_light": {
         "message": "Светлая"
     },
-    "settings_exclusion_add": {
+    "settings_exclusion_add_website": {
         "message": "Дадаць сайт"
+    },
+    "settings_exclusion_actions": {
+        "message": "Дзеянні"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "Дадаць паддамен"
+    },
+    "settings_exclusion_service_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN адключаны для даменаў, адзначаных галачкай"
+    },
+    "settings_exclusion_service_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN падлучаны для даменаў, адзначаных галачкай"
+    },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN адключаны для даменаў і паддаменаў, адзначаных галачкай"
+    },
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN падлучаны для даменаў і паддаменаў, адзначаных галачкай"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Даменавае імя:"
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "Са спіса"
+    },
+    "settings_exclusion_add_manually": {
+        "message": "Ручна"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "Скасаванне"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Выдаліць"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Захаваць"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "Вярнуць налады да прадвызначаных"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Скінуць"
+    },
+    "settings_exclusions_undo": {
+        "message": "Скасаваць"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Пошук"
+    },
+    "settings_exclusion_connection_problem": {
+        "message": "Праблема злучэння"
+    },
+    "settings_exclusions_action_export": {
+        "message": "Экспартаваць выняткі"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Імпартаваць выняткі"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Выдаліць усё"
     },
     "settings_exclusions_import_button": {
         "message": "Імпарт"
@@ -359,17 +410,11 @@
     "settings_connection_mode_title": {
         "message": "Рэжым падлучэння"
     },
-    "settings_exclusion_regular_title": {
-        "message": "Звычайны рэжым"
-    },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard не працуе на сайтах з гэтага спіса"
+    "settings_exclusion_general_description": {
+        "message": "AdGuard VPN не будзе працаваць на сайтах са спіса выняткаў"
     },
     "settings_exclusion_selective_title": {
         "message": "Выбарковы рэжым"
-    },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN працуе толькі на сайтах з гэтага спіса"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Паддамены"
@@ -397,9 +442,6 @@
     },
     "control_error_disable": {
         "message": "Адключыць"
-    },
-    "popup_settings_enable_vpn": {
-        "message": "Уключыць VPN на гэтым сайце"
     },
     "popup_settings_enable_vpn_short": {
         "message": "Уключыць"
@@ -561,9 +603,6 @@
     "popup_upgrade_screen_title": {
         "message": "Безлімітны VPN"
     },
-    "popup_upgrade_screen_desc": {
-        "message": "Час палепшыць ліцэнзію!"
-    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Неабмежаваны трафік"
     },
@@ -675,5 +714,11 @@
     },
     "options_signedout_page_description": {
         "message": "Звярніце ўвагу, што злучэнне не абаронена. Каб працягнуць карыстацца інтэрнэтам бяспечна, націсніце на іконку AdGuard VPN і зноў увайдзіце ў дадатак."
+    },
+    "name": {
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

@@ -19,7 +19,13 @@ export const RemoveAllModal = observer(() => {
     const removeAllExclusions = async () => {
         await exclusionsStore.clearExclusionsList();
         closeModal();
-        notificationsStore.notifySuccess(reactTranslator.getMessage('options_exclusions_remove_all_success'));
+        notificationsStore.notifySuccess(
+            reactTranslator.getMessage('options_exclusions_remove_all_success'),
+            {
+                action: reactTranslator.getMessage('settings_exclusions_undo'),
+                handler: exclusionsStore.restoreExclusions,
+            },
+        );
     };
 
     return (

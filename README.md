@@ -21,7 +21,7 @@
 <image src="https://user-images.githubusercontent.com/17472907/98386395-2df6d600-2061-11eb-9cf1-1a77cc35d9d8.png" width="250"> <image src="https://user-images.githubusercontent.com/17472907/98386416-318a5d00-2061-11eb-860e-d210a789f4cb.png" width="250">
 </p>
 
-AdGuard VPN serves to protect your online privacy, encrypt your connection, hide your IP address and websites you visit from anyone (including your Internet provider) and to ensure anonymous browsing on the web. Cutting edge technologies and multiple customization options will help conceal your location and unblock geographically restricted websites or other content.
+AdGuard VPN serves to protect your online privacy, encrypt your connection, hide your IP address and websites you visit from anyone (including your ISP). Cutting-edge technologies and multiple customization options will help conceal your location and ensure anonymous browsing on the web.
 
 To get more information and to download AdGuard VPN visit our website [https://adguard-vpn.com/](https://adguard-vpn.com/).
 
@@ -90,6 +90,7 @@ to the directory `./private/AdguardVPN`
 * `yarn locales:upload` used to upload base `en` locale
 * `yarn locales:download` run to download and save all locales
 * `yarn locales:validate` used to validate locales
+* `yarn locales:validate --min` used to validate only major locales
 
 <a id="proto"></a>
 ### Proto scheme update

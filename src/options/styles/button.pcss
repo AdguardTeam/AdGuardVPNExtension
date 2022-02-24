@@ -163,7 +163,8 @@
 .simple-button {
     border: none;
     background: none;
-    color: var(--brand-primary);
+    color: var(--green700);
+    transition: var(--t3) color;
     cursor: pointer;
 
     &:focus {
@@ -171,7 +172,7 @@
     }
 
     &:hover {
-        color: var(--brand-secondary);
+        color: var(--green900);
     }
 }
 
@@ -181,6 +182,7 @@
     background: transparent;
     transform: rotate(180deg);
     padding: 12px 8px 5px 16px;
+    outline: none;
 
     &:hover {
         filter: brightness(.7);

@@ -1,9 +1,9 @@
 {
     "name": {
-        "message": "AdGuard VPN — Fortrolighed og Sikkerhed"
+        "message": "AdGuard VPN — hurtigt VPN og sikker privat proxy"
     },
     "description": {
-        "message": "Gør Internet åbent og dine data sikre. Topklasse VPN fra skaberne af den berømte adblocker."
+        "message": "Brug AdGuard VPN til at surfe på Internet hurtigt, trygt og sikkert. Beskyt fortroligheden og forbliv anonym med vores private VPN-proxy."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -127,6 +127,9 @@
     },
     "account_version": {
         "message": "Version"
+    },
+    "account_current_plan": {
+        "message": "Aktuel abonnementstype"
     },
     "account_signed": {
         "message": "Logget ind med"
@@ -272,8 +275,8 @@
     "context_menu_selective_mode": {
         "message": "Selektiv tilstand"
     },
-    "context_menu_regular_mode": {
-        "message": "Almindelig tilstand"
+    "context_menu_general_mode": {
+        "message": "Generel tilstand"
     },
     "settings_dns_label": {
         "message": "Brug DNS-server"
@@ -342,7 +345,106 @@
         "message": "Lyst"
     },
     "settings_exclusion_add": {
+        "message": "Tilføj"
+    },
+    "settings_exclusion_add_website": {
         "message": "Tilføj et websted"
+    },
+    "settings_exclusion_actions": {
+        "message": "Handlinger"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "Tilføj et underdomæne"
+    },
+    "settings_exclusion_invalid_subdomain": {
+        "message": "Ugyldigt underdomæne"
+    },
+    "settings_exclusion_status_domain": {
+        "message": "domæne"
+    },
+    "settings_exclusion_status_subdomain": {
+        "message": "underdomæne"
+    },
+    "settings_exclusion_status_all_subdomains": {
+        "message": "alle underdomæner"
+    },
+    "settings_exclusion_service_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN er slået fra for afkrydsede domæner"
+    },
+    "settings_exclusion_service_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN er slået til for afkrydsede domæner"
+    },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN er slået fra for afkrydsede domæner og underdomæner"
+    },
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN er slået til for afkrydsede domæner og underdomæner"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Domænenavn:"
+    },
+    "settings_exclusion_subdomain_name": {
+        "message": "Underdomænenavn:"
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "Fra listen"
+    },
+    "settings_exclusion_add_manually": {
+        "message": "Manuelt"
+    },
+    "settings_exclusion_add_manually_add": {
+        "message": "Tilføj manuelt"
+    },
+    "settings_exclusions_add_invalid_domain": {
+        "message": "\"%url%\" er ikke et gyldigt domæne. Føj det til listen?"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "Afbryd"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Fjern"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Gem"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "Nulstil til standardindstillinger"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Nulstil"
+    },
+    "settings_exclusions_undo": {
+        "message": "Fortryd"
+    },
+    "settings_exclusion_reset_service_confirmation_message": {
+        "message": "Nulstil %hostname% til standardindstillingerne? Dette gendanner evt. manglende domæner og markerer alle afkrydsningsfelter."
+    },
+    "settings_exclusion_search_website": {
+        "message": "Find websted"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Søg"
+    },
+    "settings_exclusion_nothing_found": {
+        "message": "Ingen resultater"
+    },
+    "settings_exclusion_connection_problem": {
+        "message": "Forbindelsesproblem"
+    },
+    "settings_exclusions_action_export": {
+        "message": "Eksmportér undtagelser"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Importér undtagelser"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Fjern alt"
+    },
+    "settings_exclusions_remove_all_exclusions": {
+        "message": "Fjern alle undtagelser"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "Sikker på, at du vil fortsætte? Hele listen over undtagelser fjernes."
     },
     "settings_exclusions_import_button": {
         "message": "Importér"
@@ -359,17 +461,20 @@
     "settings_connection_mode_title": {
         "message": "Driftstilstand"
     },
-    "settings_exclusion_regular_title": {
-        "message": "Almindelig tilstand"
+    "settings_exclusion_change_mode": {
+        "message": "Skift tilstand"
     },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN fungerer ikke på webstederne fra nedenstående liste"
+    "settings_exclusion_general_title": {
+        "message": "Generel tilstand"
+    },
+    "settings_exclusion_general_description": {
+        "message": "AdGuard VPN er slået til overalt undtagen for websteder tilføjet Undtagelser"
     },
     "settings_exclusion_selective_title": {
         "message": "Selektiv tilstand"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN fungerer kun på webstederne fra nedenstående liste"
+        "message": "AdGuard VPN fungerer kun for de websteder, som er føjet til undtagelser"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Underdomæner"
@@ -397,9 +502,6 @@
     },
     "control_error_disable": {
         "message": "Deaktivér den"
-    },
-    "popup_settings_enable_vpn": {
-        "message": "Aktivér VPN på dette websted"
     },
     "popup_settings_enable_vpn_short": {
         "message": "Aktivér"
@@ -561,9 +663,6 @@
     "popup_upgrade_screen_title": {
         "message": "Ubegrænset VPN"
     },
-    "popup_upgrade_screen_desc": {
-        "message": "Det er tid til at opgradere din licens!"
-    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Ubegrænset data"
     },
@@ -633,6 +732,15 @@
     },
     "options_exclusions_import_successful": {
         "message": "Importerede undtagelser: %count%"
+    },
+    "options_exclusions_deleted_exclusions": {
+        "message": "Slettede undtagelser: %count%"
+    },
+    "options_exclusions_added_exclusions": {
+        "message": "Tilføjede undtagelser: %count%"
+    },
+    "options_exclusions_remove_all_success": {
+        "message": "Alle undtagelser for den aktuelle tilstand er nu fjernet."
     },
     "options_exclusions_import_error_wrong_extensions": {
         "message": "Filtypen for Undtagelser skal være én af flg.:%extensions%"

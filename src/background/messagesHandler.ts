@@ -268,6 +268,9 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         case MessageType.ADD_SELECTIVE_EXCLUSIONS: {
             return exclusions.addSelectiveExclusions(data.exclusions);
         }
+        case MessageType.ADD_EXCLUSIONS_MAP: {
+            return exclusions.addExclusionsMap(data.exclusionsMap);
+        }
         case MessageType.GET_SELECTED_LOCATION: {
             return endpoints.getSelectedLocation();
         }
@@ -339,6 +342,9 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         }
         case MessageType.GET_SELECTIVE_EXCLUSIONS: {
             return exclusions.getSelectiveExclusions();
+        }
+        case MessageType.RESTORE_EXCLUSIONS: {
+            return exclusions.restoreExclusions();
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

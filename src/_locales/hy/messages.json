@@ -41,6 +41,27 @@
     "settings_theme_label": {
         "message": "Ֆոն"
     },
+    "settings_exclusion_modal_cancel": {
+        "message": "Չեղարկել"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Հեռացնել"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Պահպանել"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Վերակայել"
+    },
+    "settings_exclusions_undo": {
+        "message": "Հետարկել"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Որոնում"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Հեռացնել բոլորը"
+    },
     "settings_exclusions_import_button": {
         "message": "Ներմուծել"
     },
@@ -73,5 +94,14 @@
     },
     "popup_desktop_vpn_enabled_button": {
         "message": "Լավ"
+    },
+    "name": {
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
+    },
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

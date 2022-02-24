@@ -1,10 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN - プライバシー&セキュリティ"
-    },
-    "description": {
-        "message": "インターネットを無制限に、個人情報は安全に。有名な広告ブロッカー『AdGuard』の作成者が開発したトップクラスVPN。"
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -43,6 +37,9 @@
     },
     "authentication_error_wrong_credentials": {
         "message": "パスワードが違います"
+    },
+    "authentication_too_many_requests": {
+        "message": "お使いのIPアドレスからのリクエストが多すぎます。しばらく経ってからもう一度お試しください。"
     },
     "authentication_error_default": {
         "message": "エラーが発生してしまいました。後ほどもう一度お試しください。"
@@ -123,7 +120,13 @@
         "message": "アカウント管理"
     },
     "account_version": {
-        "message": "バージョン"
+        "message": "ご利用中プラン"
+    },
+    "account_current_plan": {
+        "message": "ご利用中プラン"
+    },
+    "account_signed": {
+        "message": "アカウントのメールアドレス"
     },
     "account_free": {
         "message": "無料版"
@@ -266,8 +269,8 @@
     "context_menu_selective_mode": {
         "message": "指定モード"
     },
-    "context_menu_regular_mode": {
-        "message": "レギュラーモード"
+    "context_menu_general_mode": {
+        "message": "標準モード"
     },
     "settings_dns_label": {
         "message": "DNSサーバーを使用する"
@@ -338,6 +341,105 @@
     "settings_exclusion_add": {
         "message": "ウェブサイトを追加する"
     },
+    "settings_exclusion_add_website": {
+        "message": "ウェブサイトを追加する"
+    },
+    "settings_exclusion_actions": {
+        "message": "操作"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "サブドメインを追加する"
+    },
+    "settings_exclusion_invalid_subdomain": {
+        "message": "無効なサブドメイン"
+    },
+    "settings_exclusion_status_domain": {
+        "message": "ドメイン"
+    },
+    "settings_exclusion_status_subdomain": {
+        "message": "サブドメイン"
+    },
+    "settings_exclusion_status_all_subdomains": {
+        "message": "すべてのサブドメイン"
+    },
+    "settings_exclusion_service_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPNはチェック入りドメインに対してオフです"
+    },
+    "settings_exclusion_service_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPNはチェック入りドメインに対してオンです"
+    },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPNはチェック入りドメインとサブドメインに対してオフです"
+    },
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPNはチェック入りドメインとサブドメインに対してオンです"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "ドメイン名:"
+    },
+    "settings_exclusion_subdomain_name": {
+        "message": "サブドメイン名:"
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "リストから選ぶ"
+    },
+    "settings_exclusion_add_manually": {
+        "message": "手動で追加する"
+    },
+    "settings_exclusion_add_manually_add": {
+        "message": "手動で追加する"
+    },
+    "settings_exclusions_add_invalid_domain": {
+        "message": "\"%url%\"は有効なドメインではありません。リストに追加しますか？"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "キャンセル"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "削除"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "保存"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "デフォルトにリセット"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "リセット"
+    },
+    "settings_exclusions_undo": {
+        "message": "元に戻す"
+    },
+    "settings_exclusion_reset_service_confirmation_message": {
+        "message": "%hostname% のデフォルト設定をリセットしますか？これにより、欠落していたドメインが復元され、すべてのチェックマークがオンになります。"
+    },
+    "settings_exclusion_search_website": {
+        "message": "ウェブサイトを検索"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "検索"
+    },
+    "settings_exclusion_nothing_found": {
+        "message": "結果が見つかりません"
+    },
+    "settings_exclusion_connection_problem": {
+        "message": "接続トラブル"
+    },
+    "settings_exclusions_action_export": {
+        "message": "除外リストをエクスポート"
+    },
+    "settings_exclusions_action_import": {
+        "message": "除外リストをインポート"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "全て削除"
+    },
+    "settings_exclusions_remove_all_exclusions": {
+        "message": "すべての除外項目を削除する"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "続行してよろしいですか？除外リストが完全に削除されます。"
+    },
     "settings_exclusions_import_button": {
         "message": "インポートする"
     },
@@ -353,17 +455,20 @@
     "settings_connection_mode_title": {
         "message": "動作モード"
     },
-    "settings_exclusion_regular_title": {
-        "message": "レギュラーモード"
+    "settings_exclusion_change_mode": {
+        "message": "モードを変更する"
     },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard VPNは下のリストのウェブサイトに対してオフになります:"
+    "settings_exclusion_general_title": {
+        "message": "標準モード"
+    },
+    "settings_exclusion_general_description": {
+        "message": "対象外リストのウェブサイトに対してAdGuard VPNはオフになります。"
     },
     "settings_exclusion_selective_title": {
         "message": "指定モード"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPNは下のリストのウェブサイトに対してのみオンになります:"
+        "message": "AdGuard VPNは以下の除外リストのウェブサイトに対してのみオンになります。"
     },
     "settings_exclusion_subdomains_title": {
         "message": "サブドメインも使用可能"
@@ -391,9 +496,6 @@
     },
     "control_error_disable": {
         "message": "無効にする"
-    },
-    "popup_settings_enable_vpn": {
-        "message": "このサイトでVPNを有効にする"
     },
     "popup_settings_enable_vpn_short": {
         "message": "このページで有効にする"
@@ -555,11 +657,11 @@
     "popup_upgrade_screen_title": {
         "message": "無制限版VPN"
     },
-    "popup_upgrade_screen_desc": {
-        "message": "ライセンスをアップグレードしてみてはいかがでしょうか。"
-    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "無限のデータ量"
+    },
+    "popup_upgrade_screen_unlimited_data_desc": {
+        "message": "お好みの世界中コンテンツに制限なくアクセス！"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "接続速度無制限"
@@ -628,6 +730,15 @@
     "options_exclusions_import_successful": {
         "message": "インポート完了した除外項目数: %count%"
     },
+    "options_exclusions_deleted_exclusions": {
+        "message": "削除された除外項目数: %count%"
+    },
+    "options_exclusions_added_exclusions": {
+        "message": "追加された除外項目数: %count%"
+    },
+    "options_exclusions_remove_all_success": {
+        "message": "現在のモードにおけるすべての除外項目が正常に削除されました。"
+    },
     "options_exclusions_import_error_wrong_extensions": {
         "message": "除外項目を含むファイルは次の拡張子のいずれでないとインポートできません: %extensions%"
     },
@@ -666,5 +777,11 @@
     },
     "options_signedout_page_description": {
         "message": "お客様の接続は現在セキュアでないことにご注意ください。プライベートで安全にサーフィンを続けるには、AdGuard VPNのアイコンをクリックし、再度ログインしてください。"
+    },
+    "name": {
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

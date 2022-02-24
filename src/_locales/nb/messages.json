@@ -1,7 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN — Privatliv og sikkerhet"
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -203,8 +200,8 @@
     "context_menu_selective_mode": {
         "message": "Selektiv modus"
     },
-    "context_menu_regular_mode": {
-        "message": "Vanlig modus"
+    "context_menu_general_mode": {
+        "message": "Generell modus"
     },
     "settings_dns_label": {
         "message": "Bruk DNS-tjener"
@@ -272,8 +269,41 @@
     "settings_theme_light": {
         "message": "Lyst"
     },
-    "settings_exclusion_add": {
+    "settings_exclusion_add_website": {
         "message": "Legg til et nettsted"
+    },
+    "settings_exclusion_actions": {
+        "message": "Handlinger"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Domenenavn:"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "Avbryt"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Fjern"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Lagre"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Tilbakestill"
+    },
+    "settings_exclusions_undo": {
+        "message": "Angre"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Søk"
+    },
+    "settings_exclusions_action_export": {
+        "message": "Eksporter unntak"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Importer unntak"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Fjern alle"
     },
     "settings_exclusions_import_button": {
         "message": "Importer"
@@ -290,17 +320,11 @@
     "settings_connection_mode_title": {
         "message": "Driftsmodus"
     },
-    "settings_exclusion_regular_title": {
-        "message": "Vanlig modus"
-    },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN vil ikke fungere på nettsteder fra listen nedenfor"
+    "settings_exclusion_general_title": {
+        "message": "Generell modus"
     },
     "settings_exclusion_selective_title": {
         "message": "Selektiv modus"
-    },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN vil bare fungere på nettsteder fra listen nedenfor"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Underdomener"
@@ -325,9 +349,6 @@
     },
     "control_error_disable": {
         "message": "Skru den av"
-    },
-    "popup_settings_enable_vpn": {
-        "message": "Skru på VPN på dette nettstedet"
     },
     "popup_settings_enable_vpn_short": {
         "message": "Skru"
@@ -500,5 +521,11 @@
     },
     "popup_desktop_vpn_enabled_button": {
         "message": "OK"
+    },
+    "name": {
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

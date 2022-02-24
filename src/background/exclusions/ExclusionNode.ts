@@ -67,6 +67,8 @@ export class ExclusionNode {
 
     children: ExclusionNodeMap = new Map<string, ExclusionNode>();
 
+    parentId: string | null;
+
     meta?: {
         domains: string[],
         iconUrl: string,
@@ -80,6 +82,7 @@ export class ExclusionNode {
         meta,
     }: ExclusionNodeProps) {
         this.id = id;
+        this.parentId = null;
         this.hostname = hostname;
         this.state = state;
         this.type = type;
@@ -93,6 +96,8 @@ export class ExclusionNode {
      * @param child
      */
     addChild(child: ExclusionNode) {
+        // eslint-disable-next-line no-param-reassign
+        child.parentId = this.id;
         this.children.set(child.id, child);
 
         this.state = this.calculateState();
@@ -136,6 +141,7 @@ export class ExclusionNode {
 
         return new ExclusionDto({
             id: this.id,
+            parentId: this.parentId,
             hostname: this.hostname,
             state: this.state,
             type: this.type,
@@ -211,22 +217,9 @@ export class ExclusionNode {
      * @param id
      */
     getParentExclusionNode(id: string): ExclusionNode | null {
-        if (this.id === id) {
-            return null;
-        }
-        return this.findParentNode(id);
-    }
-
-    findParentNode(id: string): ExclusionNode | null {
-        for (const child of this.children.values()) {
-            if (child.id === id) {
-                return this;
-            }
-
-            const parentNode = child.findParentNode(id);
-            if (parentNode) {
-                return parentNode;
-            }
+        const node = this.getExclusionNode(id);
+        if (node?.parentId) {
+            return this.getExclusionNode(node.parentId);
         }
         return null;
     }

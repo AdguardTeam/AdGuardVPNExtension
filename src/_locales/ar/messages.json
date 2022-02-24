@@ -38,9 +38,6 @@
     "rate_hide": {
         "message": "إخفاء"
     },
-    "auth_confirm": {
-        "message": "تاكيد"
-    },
     "auth_password": {
         "message": "كلمه المرور"
     },
@@ -104,6 +101,33 @@
     "settings_theme_light": {
         "message": "فاتح"
     },
+    "settings_exclusion_add_website": {
+        "message": "أضف استثناءًا"
+    },
+    "settings_exclusion_actions": {
+        "message": "الإجراءات"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "إلغاء"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "حذف"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "حفظ"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "إعادة تعيين"
+    },
+    "settings_exclusions_undo": {
+        "message": "تراجع"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "بحث"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "حذف الكل"
+    },
     "settings_exclusions_import_button": {
         "message": "استيراد"
     },
@@ -154,5 +178,11 @@
     },
     "popup_desktop_vpn_enabled_button": {
         "message": "موافق"
+    },
+    "name": {
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

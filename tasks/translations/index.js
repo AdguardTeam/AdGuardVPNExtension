@@ -3,7 +3,7 @@ import { program } from 'commander';
 
 import { downloadAndSave } from './download';
 import { uploadBaseLocale } from './upload';
-import { checkTranslations } from './validate';
+import { addRequiredFields, checkTranslations } from './validate';
 import { checkUnusedMessages } from './unused';
 
 import { cliLog } from './helpers';
@@ -61,6 +61,21 @@ const unused = async () => {
     }
 };
 
+/**
+ * Checks if required fields exists, if not adds them from base locale and prints info
+ * @param {string[]} locales
+ * @returns {Promise<void>}
+ */
+const addRequired = async (locales) => {
+    try {
+        const result = await addRequiredFields(locales);
+        cliLog.info(result);
+    } catch (e) {
+        cliLog.error(`An error during adding required occurred: ${e.message}`);
+        process.exit(1);
+    }
+};
+
 program
     .command('download')
     .description('Downloads messages from localization service')
@@ -76,6 +91,7 @@ program
             isMinimum = false;
         }
         await download(locales);
+        await addRequired(locales);
         await validate(locales, isMinimum);
     });
 

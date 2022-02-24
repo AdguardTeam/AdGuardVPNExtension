@@ -40,18 +40,24 @@ export enum AddExclusionMode {
 
 const DEFAULT_ADD_EXCLUSION_MODE = AddExclusionMode.MANUAL;
 
-// FIXME move to helpers
 const findExclusionById = (
-    exclusions: ExclusionDtoInterface[],
-    id: string,
+    exclusionsTree: ExclusionDtoInterface,
+    exclusionId: string,
 ): ExclusionDtoInterface | null => {
-    for (let i = 0; i < exclusions.length; i += 1) {
-        let exclusion: ExclusionDtoInterface | null = exclusions[i];
-        if (exclusion.id === id) {
-            return exclusion;
+    if (exclusionsTree.id === exclusionId) {
+        return exclusionsTree;
+    }
+
+    const { children } = exclusionsTree;
+
+    for (let i = 0; i < children.length; i += 1) {
+        const child = children[i];
+
+        if (child.id === exclusionId) {
+            return child;
         }
 
-        exclusion = findExclusionById(exclusion.children, id);
+        const exclusion = findExclusionById(child, exclusionId);
 
         if (exclusion) {
             return exclusion;
@@ -61,8 +67,17 @@ const findExclusionById = (
     return null;
 };
 
+const convertExclusionsValuesToUnicode = (exclusionsTree: ExclusionDtoInterface) => {
+    const unicodeTree = { ...exclusionsTree };
+    unicodeTree.hostname = punycode.toUnicode(unicodeTree.hostname);
+    unicodeTree.children = unicodeTree.children.map((child) => {
+        return convertExclusionsValuesToUnicode(child);
+    });
+    return unicodeTree;
+};
+
 export class ExclusionsStore {
-    @observable exclusions: ExclusionDtoInterface[];
+    @observable exclusionsTree: ExclusionDtoInterface;
 
     @observable currentMode = ExclusionsModes.Regular;
 
@@ -109,9 +124,28 @@ export class ExclusionsStore {
         this.servicesData = servicesData;
     };
 
+    updateSelectedExclusionOnTreeUpdate() {
+        if (!this.selectedExclusionId) {
+            return;
+        }
+
+        const selectedExclusion = findExclusionById(this.exclusionsTree, this.selectedExclusionId);
+
+        if (!selectedExclusion) {
+            this.setSelectedExclusionId(null);
+            return;
+        }
+
+        if (selectedExclusion.children.length === 0) {
+            this.setSelectedExclusionId(selectedExclusion?.parentId);
+        }
+    }
+
     @action setExclusionsData = (exclusionsData: ExclusionsData) => {
-        this.exclusions = this.convertExclusionsValuesToUnicode(exclusionsData.exclusions);
+        this.exclusionsTree = convertExclusionsValuesToUnicode(exclusionsData.exclusions);
         this.currentMode = exclusionsData.currentMode;
+
+        this.updateSelectedExclusionOnTreeUpdate();
     };
 
     @action updateExclusionsData = async () => {
@@ -129,25 +163,13 @@ export class ExclusionsStore {
         this.isAllExclusionsListsEmpty = value;
     };
 
-    @action convertExclusionsValuesToUnicode = (exclusions: ExclusionDtoInterface[]) => {
-        return exclusions.map((exclusion) => {
-            const unicodeExclusion = exclusion;
-            unicodeExclusion.hostname = punycode.toUnicode(exclusion.hostname);
-            if (unicodeExclusion.children.length) {
-                unicodeExclusion.children = this
-                    .convertExclusionsValuesToUnicode(unicodeExclusion.children);
-            }
-            return unicodeExclusion;
-        });
-    };
-
     get preparedExclusions() {
-        return this.exclusions.filter((exclusion: ExclusionDtoInterface) => {
+        return this.exclusionsTree.children.filter((exclusion: ExclusionDtoInterface) => {
             if (this.exclusionsSearchValue.length === 0) {
                 return true;
             }
             return containsIgnoreCase(exclusion.hostname, this.exclusionsSearchValue);
-        });
+        }) ?? [];
     }
 
     @action setModeSelectorModalOpen = (value: boolean) => {
@@ -259,10 +281,7 @@ export class ExclusionsStore {
             return 0;
         }
 
-        const foundExclusion = findExclusionById(
-            this.exclusions,
-            this.selectedExclusionId,
-        );
+        const foundExclusion = findExclusionById(this.exclusionsTree, this.selectedExclusionId);
 
         if (!foundExclusion) {
             return 0;
@@ -281,15 +300,34 @@ export class ExclusionsStore {
         return addedExclusionsCount;
     };
 
-    @action removeExclusion = async (exclusion: ExclusionDtoInterface) => {
-        if (this.selectedExclusionId && this.selectedExclusion) {
-            const parentExclusion = this.getParentExclusion(this.selectedExclusion);
-
-            if (parentExclusion?.id !== 'root' && parentExclusion?.children
-                .some(({ hostname }) => hostname === exclusion.hostname)) {
-                this.setSelectedExclusionId(parentExclusion.id);
-            }
+    /**
+     * Goes one level up if selected exclusion doesn't have more exclusions
+     * or if it was exclusion with base domain
+     * @param exclusion
+     */
+    updateSelectedExclusionOnRemove(exclusion: ExclusionDtoInterface) {
+        if (!exclusion.parentId) {
+            return;
         }
+
+        const parent = findExclusionById(this.exclusionsTree, exclusion.parentId);
+        if (!parent || !parent.parentId) {
+            return;
+        }
+
+        if (parent.children.length <= 1 || exclusion.hostname === parent.hostname) {
+            const parentParent = findExclusionById(this.exclusionsTree, parent.parentId);
+            if (!parentParent) {
+                return;
+            }
+
+            this.setSelectedExclusionId(parentParent.id);
+        }
+    }
+
+    @action removeExclusion = async (exclusion: ExclusionDtoInterface) => {
+        this.updateSelectedExclusionOnRemove(exclusion);
+
         const deletedExclusionsCount = await messenger.removeExclusion(exclusion.id);
 
         return deletedExclusionsCount;
@@ -297,6 +335,13 @@ export class ExclusionsStore {
 
     @action toggleExclusionState = async (id: string) => {
         await messenger.toggleExclusionState(id);
+    };
+
+    /**
+     * Cancel exclusions remove
+     */
+    restoreExclusions = async () => {
+        await messenger.restoreExclusions();
     };
 
     @action addToServicesToToggle = (id: string) => {
@@ -329,7 +374,7 @@ export class ExclusionsStore {
             return undefined;
         }
 
-        return this.exclusions.find((group) => {
+        return this.exclusionsTree.children.find((group) => {
             return group.children?.find(({ id }) => exclusion.id === id);
         });
     }
@@ -343,14 +388,11 @@ export class ExclusionsStore {
 
     @computed
     get selectedExclusion(): ExclusionDtoInterface | null {
-        if (!this.selectedExclusionId) {
+        if (!this.selectedExclusionId || this.selectedExclusionId === 'root') {
             return null;
         }
 
-        return findExclusionById(
-            this.exclusions,
-            this.selectedExclusionId,
-        );
+        return findExclusionById(this.exclusionsTree, this.selectedExclusionId);
     }
 
     @action setExclusionsSearchValue = (value: string) => {
@@ -442,7 +484,7 @@ export class ExclusionsStore {
 
     @computed
     get isCurrentModeExclusionsListEmpty() {
-        return !this.exclusions.length;
+        return !this.exclusionsTree.children.length;
     }
 
     @computed

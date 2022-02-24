@@ -49,9 +49,6 @@ export const UpgradeScreen = () => {
                 <div className="upgrade-screen__title">
                     {reactTranslator.getMessage('popup_upgrade_screen_title')}
                 </div>
-                <div className="upgrade-screen__desc">
-                    {reactTranslator.getMessage('popup_upgrade_screen_desc')}
-                </div>
             </div>
             <Slider
                 arrows

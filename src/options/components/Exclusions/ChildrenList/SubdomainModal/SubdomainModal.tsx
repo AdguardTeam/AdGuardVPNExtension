@@ -29,10 +29,16 @@ export const SubdomainModal = observer(() => {
         }
         if (inputValue) {
             const addedExclusionsCount = await exclusionsStore.addSubdomainToExclusions(inputValue);
-            notificationsStore.notifySuccess(reactTranslator.getMessage(
-                'options_exclusions_added_exclusions',
-                { count: addedExclusionsCount },
-            ));
+            notificationsStore.notifySuccess(
+                reactTranslator.getMessage(
+                    'options_exclusions_added_exclusions',
+                    { count: addedExclusionsCount },
+                ),
+                {
+                    action: reactTranslator.getMessage('settings_exclusions_undo'),
+                    handler: exclusionsStore.restoreExclusions,
+                },
+            );
             closeModal();
             setInputValue('');
         }
@@ -48,11 +54,13 @@ export const SubdomainModal = observer(() => {
                 className="subdomain-modal"
                 onSubmit={addSubdomain}
             >
-                <label>
-                    {reactTranslator.getMessage('settings_exclusion_subdomain_name')}
+                <label className="input">
+                    <div className="input__label">
+                        {reactTranslator.getMessage('settings_exclusion_subdomain_name')}
+                    </div>
                     <input
                         type="text"
-                        className="subdomain-modal__input"
+                        className="input__in input__in--content input__in--subdomain"
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                     />
@@ -61,6 +69,13 @@ export const SubdomainModal = observer(() => {
                     </div>
                 </label>
                 <div className="subdomain-modal__actions">
+                    <button
+                        type="button"
+                        className="button button--medium button--outline-secondary"
+                        onClick={closeModal}
+                    >
+                        {reactTranslator.getMessage('settings_exclusion_modal_cancel')}
+                    </button>
                     <button
                         type="button"
                         className="button button--large button--primary"

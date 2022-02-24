@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { observer } from 'mobx-react';
 import { useMachine } from '@xstate/react';
-import { identity } from 'lodash';
+import identity from 'lodash/identity';
 import classnames from 'classnames';
 
 import { Title } from '../../ui/Title';
@@ -247,8 +247,8 @@ export const BugReporter = observer(({ closeHandler }) => {
                             />
                             <div className="input__error">
                                 <span>{formErrors[FIELDS.MESSAGE]}</span>
-                                { requestState.matches(REQUEST_STATES.ERROR)
-                                && <span>{reactTranslator.getMessage('options_bug_report_request_error')}</span>}
+                                {requestState.matches(REQUEST_STATES.ERROR)
+                                    && <span>{reactTranslator.getMessage('options_bug_report_request_error')}</span>}
                             </div>
                         </div>
                     </div>

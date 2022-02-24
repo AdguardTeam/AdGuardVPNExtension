@@ -1,10 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN — privacidade e segurança"
-    },
-    "description": {
-        "message": "Torna a Internet aberta e seus dados seguros. VPN de primeira linha dos criadores do famoso bloqueador de anúncios."
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -127,6 +121,9 @@
     },
     "account_version": {
         "message": "Versão"
+    },
+    "account_current_plan": {
+        "message": "Plano atual"
     },
     "account_signed": {
         "message": "Entrado com"
@@ -272,8 +269,8 @@
     "context_menu_selective_mode": {
         "message": "Modo seletivo"
     },
-    "context_menu_regular_mode": {
-        "message": "Modo normal"
+    "context_menu_general_mode": {
+        "message": "Modo geral"
     },
     "settings_dns_label": {
         "message": "Usar servidor DNS"
@@ -342,7 +339,106 @@
         "message": "Claro"
     },
     "settings_exclusion_add": {
+        "message": "Adicionar"
+    },
+    "settings_exclusion_add_website": {
         "message": "Adicionar um site"
+    },
+    "settings_exclusion_actions": {
+        "message": "Ações"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "Adicionar um subdomínio"
+    },
+    "settings_exclusion_invalid_subdomain": {
+        "message": "Subdomínio inválido"
+    },
+    "settings_exclusion_status_domain": {
+        "message": "domínio"
+    },
+    "settings_exclusion_status_subdomain": {
+        "message": "subdomínio"
+    },
+    "settings_exclusion_status_all_subdomains": {
+        "message": "todos os subdomínios"
+    },
+    "settings_exclusion_service_settings_subtitle_regular_mode": {
+        "message": "O AdGuard VPN está desativado para os domínios marcados"
+    },
+    "settings_exclusion_service_settings_subtitle_selective_mode": {
+        "message": "O AdGuard VPN está ativado para os domínios marcados"
+    },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
+        "message": "O AdGuard VPN está desativado para os domínios e subdomínios marcados"
+    },
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
+        "message": "O AdGuard VPN está ativado para os domínios e subdomínios marcados"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Nome de domínio:"
+    },
+    "settings_exclusion_subdomain_name": {
+        "message": "Nome do subdomínio:"
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "Da lista"
+    },
+    "settings_exclusion_add_manually": {
+        "message": "Manualmente"
+    },
+    "settings_exclusion_add_manually_add": {
+        "message": "Adicionar manualmente"
+    },
+    "settings_exclusions_add_invalid_domain": {
+        "message": "\"%url%\" não é um domínio valido. Você quer adicionar na lista?"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "Cancelar"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Remover"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Salvar"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "Redefinir para o padrão"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Redefinir"
+    },
+    "settings_exclusions_undo": {
+        "message": "Desfazer"
+    },
+    "settings_exclusion_reset_service_confirmation_message": {
+        "message": "Redefinir as configurações padrão para %hostname%? Isso restaurará todos os domínios ausentes e ativará todas as marcas de seleção."
+    },
+    "settings_exclusion_search_website": {
+        "message": "Pesquisar site"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Procurar"
+    },
+    "settings_exclusion_nothing_found": {
+        "message": "Nenhum resultado encontrado"
+    },
+    "settings_exclusion_connection_problem": {
+        "message": "Problema de conexão"
+    },
+    "settings_exclusions_action_export": {
+        "message": "Exportar exclusões"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Importar exclusões"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Remover todos"
+    },
+    "settings_exclusions_remove_all_exclusions": {
+        "message": "Remover todas as exclusões"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "Você tem certeza que quer continuar? A lista de exclusões será removida."
     },
     "settings_exclusions_import_button": {
         "message": "Importar"
@@ -359,17 +455,20 @@
     "settings_connection_mode_title": {
         "message": "Modo operacional"
     },
-    "settings_exclusion_regular_title": {
-        "message": "Modo normal"
+    "settings_exclusion_change_mode": {
+        "message": "Alterar modo"
     },
-    "settings_exclusion_regular_description": {
-        "message": "O AdGuard VPN não funciona em sites da lista abaixo"
+    "settings_exclusion_general_title": {
+        "message": "Modo geral"
+    },
+    "settings_exclusion_general_description": {
+        "message": "O AdGuard VPN está disponível em todos os lugares, exceto em sites adicionados às exclusões"
     },
     "settings_exclusion_selective_title": {
         "message": "Modo seletivo"
     },
     "settings_exclusion_selective_description": {
-        "message": "O AdGuard VPN só funcionará em sites da lista abaixo"
+        "message": "O AdGuard VPN está ativada apenas para os sites adicionados às exclusões"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Subdomínios"
@@ -397,9 +496,6 @@
     },
     "control_error_disable": {
         "message": "Desativar"
-    },
-    "popup_settings_enable_vpn": {
-        "message": "Ativar VPN neste site"
     },
     "popup_settings_enable_vpn_short": {
         "message": "Ativar neste site"
@@ -561,9 +657,6 @@
     "popup_upgrade_screen_title": {
         "message": "VPN ilimitada"
     },
-    "popup_upgrade_screen_desc": {
-        "message": "É hora de atualizar sua licença!"
-    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Dados ilimitados"
     },
@@ -637,6 +730,15 @@
     "options_exclusions_import_successful": {
         "message": "Exclusões importadas: %count%"
     },
+    "options_exclusions_deleted_exclusions": {
+        "message": "Exclusões excluidas: %count%"
+    },
+    "options_exclusions_added_exclusions": {
+        "message": "Exclusões adicionadas: %count%"
+    },
+    "options_exclusions_remove_all_success": {
+        "message": "Todas as exclusões no modo atual foram removidas com sucesso."
+    },
     "options_exclusions_import_error_wrong_extensions": {
         "message": "O arquivo de exclusões deve ter uma das seguintes extensões: %extensions%"
     },
@@ -675,5 +777,11 @@
     },
     "options_signedout_page_description": {
         "message": "Sua conexão não é segura. Para continuar a navegar com privacidade, clique no ícone do AdGuard VPN e entre novamente."
+    },
+    "name": {
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

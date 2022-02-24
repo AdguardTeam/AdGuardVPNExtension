@@ -47,6 +47,30 @@
     "settings_theme_light": {
         "message": "Светъл цвят"
     },
+    "settings_exclusion_actions": {
+        "message": "Действия"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "Отказ"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Премахни"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Запази"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Нулиране"
+    },
+    "settings_exclusions_undo": {
+        "message": "Отмени"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Търси"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Премахни всички"
+    },
     "settings_exclusions_import_button": {
         "message": "Импортирай"
     },
@@ -79,5 +103,14 @@
     },
     "popup_desktop_vpn_enabled_button": {
         "message": "Добре"
+    },
+    "name": {
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
+    },
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

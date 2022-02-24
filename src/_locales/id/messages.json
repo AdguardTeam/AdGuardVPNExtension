@@ -1,7 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN — Privasi & Keamanan"
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -188,8 +185,8 @@
     "context_menu_selective_mode": {
         "message": "Mode selektif"
     },
-    "context_menu_regular_mode": {
-        "message": "Mode reguler"
+    "context_menu_general_mode": {
+        "message": "Protokol VPN AdGuard"
     },
     "settings_dns_label": {
         "message": "Pakai server DNS"
@@ -257,8 +254,62 @@
     "settings_theme_light": {
         "message": "Terang"
     },
-    "settings_exclusion_add": {
+    "settings_exclusion_add_website": {
         "message": "Tambah situs"
+    },
+    "settings_exclusion_actions": {
+        "message": "Aksi"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "Tambahkan subdomain"
+    },
+    "settings_exclusion_service_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN tidak aktif untuk domain yang diperiksa"
+    },
+    "settings_exclusion_service_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN aktif untuk domain yang diperiksa"
+    },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN tidak aktif untuk domain dan subdomain yang dicentang"
+    },
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN aktif untuk domain dan subdomain yang diperiksa"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Nama domain:"
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "Dari daftar"
+    },
+    "settings_exclusion_add_manually": {
+        "message": "Secara manual"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "Batal"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Buang"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Simpan"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "Setel ulang ke default"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Reset"
+    },
+    "settings_exclusions_undo": {
+        "message": "Urungkan"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Cari"
+    },
+    "settings_exclusion_connection_problem": {
+        "message": "Masalah koneksi"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Buang semua"
     },
     "settings_exclusions_import_button": {
         "message": "Impor"
@@ -272,17 +323,14 @@
     "settings_connection_mode_title": {
         "message": "Mode operasi"
     },
-    "settings_exclusion_regular_title": {
-        "message": "Mode reguler"
+    "settings_exclusion_general_title": {
+        "message": "Protokol VPN AdGuard"
     },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN tidak bekerja di situs dari daftar dibawah ini"
+    "settings_exclusion_general_description": {
+        "message": "AdGuard VPN ada di mana-mana kecuali situs web yang ditambahkan ke pengecualian"
     },
     "settings_exclusion_selective_title": {
         "message": "Mode selektif"
-    },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN hanya bekerja di situs dari daftar dibawah ini"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Subdomain"
@@ -307,9 +355,6 @@
     },
     "control_error_disable": {
         "message": "Nonaktifkan"
-    },
-    "popup_settings_enable_vpn": {
-        "message": "Aktifkan VPN pada situs ini"
     },
     "popup_settings_enable_vpn_short": {
         "message": "Aktifkan"
@@ -503,5 +548,11 @@
     },
     "popup_desktop_vpn_enabled_button": {
         "message": "Ok"
+    },
+    "name": {
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

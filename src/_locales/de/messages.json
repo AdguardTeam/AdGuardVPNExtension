@@ -1,9 +1,9 @@
 {
     "name": {
-        "message": "AdGuard VPN — Privatsphäre und Sicherheit"
+        "message": "AdGuard VPN — Schneller VPN und anonymer Proxy"
     },
     "description": {
-        "message": "Macht das Internet offen und Ihre Daten sicher. Erstklassiges VPN von den Entwicklern des berühmten Werbeblockers."
+        "message": "Surfen Sie anonym mit AdGuard VPN. Verbinden Sie sich schnell zu jedem Standort und verbergen Sie Ihre IP mit unserem VPN-Proxy."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -43,6 +43,9 @@
     },
     "authentication_error_wrong_credentials": {
         "message": "Ungültiges Passwort"
+    },
+    "authentication_too_many_requests": {
+        "message": "Es wurden zu viele Anfragen von Ihrer IP-Adresse empfangen. Bitte versuchen Sie es später noch einmal."
     },
     "authentication_error_default": {
         "message": "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal."
@@ -102,7 +105,7 @@
         "message": "Senden"
     },
     "options_bug_report_sending_button": {
-        "message": "Wird gesendet..."
+        "message": "Wird gesendet …"
     },
     "options_bug_report_textarea_placeholder": {
         "message": "Beschreiben Sie das Problem hier …"
@@ -124,6 +127,9 @@
     },
     "account_version": {
         "message": "Version"
+    },
+    "account_current_plan": {
+        "message": "Aktuelles Abonnement"
     },
     "account_signed": {
         "message": "Angemeldet als"
@@ -269,8 +275,8 @@
     "context_menu_selective_mode": {
         "message": "Selektiver Modus"
     },
-    "context_menu_regular_mode": {
-        "message": "Standardmodus"
+    "context_menu_general_mode": {
+        "message": "Allgemeiner Modus"
     },
     "settings_dns_label": {
         "message": "DNS-Server verwenden"
@@ -339,7 +345,106 @@
         "message": "Hell"
     },
     "settings_exclusion_add": {
+        "message": "Hinzufügen"
+    },
+    "settings_exclusion_add_website": {
         "message": "Website hinzufügen"
+    },
+    "settings_exclusion_actions": {
+        "message": "Aktionen"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "Subdomain hinzufügen"
+    },
+    "settings_exclusion_invalid_subdomain": {
+        "message": "Ungültige Subdomain"
+    },
+    "settings_exclusion_status_domain": {
+        "message": "Domain"
+    },
+    "settings_exclusion_status_subdomain": {
+        "message": "Subdomain"
+    },
+    "settings_exclusion_status_all_subdomains": {
+        "message": "alle Subdomains"
+    },
+    "settings_exclusion_service_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN ist für die ausgewählten Domains deaktiviert"
+    },
+    "settings_exclusion_service_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN ist für die ausgewählten Domains aktiviert"
+    },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN ist für die ausgewählten Domains und Subdomains deaktiviert"
+    },
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN ist für die ausgewählten Domains und Subdomains aktiviert"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Domainname:"
+    },
+    "settings_exclusion_subdomain_name": {
+        "message": "Subdomain-Name:"
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "Aus der Liste"
+    },
+    "settings_exclusion_add_manually": {
+        "message": "Manuell"
+    },
+    "settings_exclusion_add_manually_add": {
+        "message": "Manuell hinzufügen"
+    },
+    "settings_exclusions_add_invalid_domain": {
+        "message": "„%url%“ ist eine ungültige Domain. Möchten Sie sie trotzdem zur Liste hinzufügen?"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "Abbrechen"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Entfernen"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Speichern"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "Auf Standardwerte zurücksetzen"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Zurücksetzen"
+    },
+    "settings_exclusions_undo": {
+        "message": "Widerrufen"
+    },
+    "settings_exclusion_reset_service_confirmation_message": {
+        "message": "Möchten Sie die Standardeinstellungen für %hostname%? zurücksetzen? Dadurch werden alle fehlenden Domains wiederhergestellt und alle Häkchen auf „Aktiviert” gesetzt."
+    },
+    "settings_exclusion_search_website": {
+        "message": "Website suchen"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Suchen"
+    },
+    "settings_exclusion_nothing_found": {
+        "message": "Nichts gefunden"
+    },
+    "settings_exclusion_connection_problem": {
+        "message": "Verbindungsproblem"
+    },
+    "settings_exclusions_action_export": {
+        "message": "Ausschlüsse exportieren"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Ausschlüsse importieren"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Alle entfernen"
+    },
+    "settings_exclusions_remove_all_exclusions": {
+        "message": "Alle Ausschlüsse entfernen"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "Möchten Sie fortfahren? Die gesamte Ausschlussliste wird entfernt."
     },
     "settings_exclusions_import_button": {
         "message": "Importieren"
@@ -356,17 +461,20 @@
     "settings_connection_mode_title": {
         "message": "Betriebsmodus"
     },
-    "settings_exclusion_regular_title": {
-        "message": "Standardmodus"
+    "settings_exclusion_change_mode": {
+        "message": "Modus wechseln"
     },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN auf Websites der folgenden Ausnahmeliste nicht ausführen"
+    "settings_exclusion_general_title": {
+        "message": "Allgemeiner Modus"
+    },
+    "settings_exclusion_general_description": {
+        "message": "AdGuard VPN ist auf allen Websites aktiv, außer auf jenen, die in der Ausschlussliste enthalten sind"
     },
     "settings_exclusion_selective_title": {
         "message": "Selektiver Modus"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN wird nur auf Websites aus dieser Liste funktionieren"
+        "message": "AdGuard VPN wird nur auf Websites aus der Ausschlussliste funktionieren"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Subdomains"
@@ -394,9 +502,6 @@
     },
     "control_error_disable": {
         "message": "Deaktivieren"
-    },
-    "popup_settings_enable_vpn": {
-        "message": "VPN auf dieser Website aktivieren"
     },
     "popup_settings_enable_vpn_short": {
         "message": "Aktivieren"
@@ -513,7 +618,7 @@
         "message": "VPN ist auf dieser Website deaktiviert"
     },
     "popup_auth_policy_agreement": {
-        "message": "Akzeptieren Sie<eula>Endbenutzer-Lizenzvertrag</eula> und <privacy>Datenschutzbestimmungen</privacy>.",
+        "message": "Akzeptieren Sie <eula>Endbenutzer-Lizenzvertrag</eula> und <privacy>Datenschutzbestimmungen</privacy>.",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
@@ -558,11 +663,11 @@
     "popup_upgrade_screen_title": {
         "message": "Unbegrenztes VPN"
     },
-    "popup_upgrade_screen_desc": {
-        "message": "Es ist an der Zeit, Ihre Lizenz zu erweitern!"
-    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Unbegrenzte Daten"
+    },
+    "popup_upgrade_screen_unlimited_data_desc": {
+        "message": "Die einzige Einschränkung ist, dass Ihre Daten niemals weitergegeben werden. Surfen Sie nach Lust und Laune!"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "Unbegrenzte Geschwindigkeit"
@@ -630,6 +735,15 @@
     },
     "options_exclusions_import_successful": {
         "message": "%count% Ausschlüsse wurden importiert"
+    },
+    "options_exclusions_deleted_exclusions": {
+        "message": "Gelöschte Ausschlüsse: %count%"
+    },
+    "options_exclusions_added_exclusions": {
+        "message": "Hinzugefügte Ausschlüsse: %count%"
+    },
+    "options_exclusions_remove_all_success": {
+        "message": "Alle Ausschlüsse für den aktuellen Modus wurden erfolgreich entfernt."
     },
     "options_exclusions_import_error_wrong_extensions": {
         "message": "Die Ausschlussliste muss eine der folgenden Dateiendungen erhalten: %extensions%"

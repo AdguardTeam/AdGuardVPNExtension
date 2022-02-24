@@ -24,7 +24,10 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
         notificationsStore.notifySuccess(reactTranslator.getMessage(
             'options_exclusions_deleted_exclusions',
             { count: deletedExclusionsCount },
-        ));
+        ), {
+            action: reactTranslator.getMessage('settings_exclusions_undo'),
+            handler: exclusionsStore.restoreExclusions,
+        });
     };
 
     const toggleState = () => {

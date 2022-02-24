@@ -1,7 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN — privatnost i bezbednost"
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -179,8 +176,8 @@
     "context_menu_selective_mode": {
         "message": "Selektivni način rada"
     },
-    "context_menu_regular_mode": {
-        "message": "Uobičajeni način rada"
+    "context_menu_general_mode": {
+        "message": "Opšti način rada"
     },
     "settings_dns_label": {
         "message": "Koristi DNS server"
@@ -249,7 +246,37 @@
         "message": "Svetlo"
     },
     "settings_exclusion_add": {
+        "message": "Dodaj"
+    },
+    "settings_exclusion_add_website": {
         "message": "Dodaj sajt"
+    },
+    "settings_exclusion_actions": {
+        "message": "Radnje"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Domen:"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "Otkaži"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Ukloni"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Sačuvaj"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Resetuj"
+    },
+    "settings_exclusions_undo": {
+        "message": "Opozovi"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Traži"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Ukloni sve"
     },
     "settings_exclusions_import_button": {
         "message": "Uvezi"
@@ -263,17 +290,11 @@
     "settings_connection_mode_title": {
         "message": "Način VPN povezivanja"
     },
-    "settings_exclusion_regular_title": {
-        "message": "Uobičajeni način rada"
-    },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard VPn ne radi na sajtovima sa ove liste:"
+    "settings_exclusion_general_title": {
+        "message": "Opšti način rada"
     },
     "settings_exclusion_selective_title": {
         "message": "Selektivni način rada"
-    },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN radi samo na sajtovima sa ove liste:"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Poddomeni"
@@ -298,9 +319,6 @@
     },
     "control_error_disable": {
         "message": "Isključi to"
-    },
-    "popup_settings_enable_vpn": {
-        "message": "Uključi VPn na ovom sajtu"
     },
     "popup_settings_enable_vpn_short": {
         "message": "Uključi"
@@ -452,5 +470,11 @@
     },
     "popup_desktop_vpn_enabled_button": {
         "message": "U redu"
+    },
+    "name": {
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

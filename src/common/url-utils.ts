@@ -1,6 +1,8 @@
 import { getDomain, parse } from 'tldts';
 import { isIP } from 'is-ip';
 
+const HTTPS_PROTOCOL = 'https://';
+
 /**
  * Removes wildcard mark from the beginning of hostname
  * @param hostname
@@ -123,13 +125,17 @@ export const getHostname = (url: string | undefined | null) => {
     }
 
     if (!getProtocol(urlString)) {
-        urlString = `https://${urlString}`;
+        urlString = `${HTTPS_PROTOCOL}${urlString}`;
     }
 
     const urlObj = getUrlProperties(urlString);
 
     if (typeof urlObj === 'string') {
-        return urlString;
+        // if urlObj is string,
+        // it means that getUrlProperties got error and returned url,
+        // and HTTPS_PROTOCOL has to be removed.
+        // it is firefox issue: new URL(<domain>) throws error if domain has wildcard
+        return urlString.replace(HTTPS_PROTOCOL, '');
     }
 
     const hostname = urlObj.hostname.replace('%2A', '*');

@@ -1,9 +1,9 @@
 {
     "name": {
-        "message": "AdGuard VPN — Privacy & Security"
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
     },
     "description": {
-        "message": "Makes the Internet open and your data safe. Topnotch VPN from the creators of the famous ad blocker."
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -127,6 +127,9 @@
     },
     "account_version": {
         "message": "Version"
+    },
+    "account_current_plan": {
+        "message": "Current plan"
     },
     "account_signed": {
         "message": "Signed in with"
@@ -350,6 +353,9 @@
     "settings_exclusion_add_website": {
         "message": "Add a website"
     },
+    "settings_exclusion_actions": {
+        "message": "Actions"
+    },
     "settings_exclusion_add_subdomain": {
         "message": "Add a subdomain"
     },
@@ -409,6 +415,9 @@
     },
     "settings_exclusion_reset_button": {
         "message": "Reset"
+    },
+    "settings_exclusions_undo": {
+        "message": "Undo"
     },
     "settings_exclusion_reset_service_confirmation_message": {
         "message": "Reset the default settings for %hostname%? This will restore any missing domains and set all check marks to on."
@@ -496,9 +505,6 @@
     },
     "control_error_disable": {
         "message": "Disable it"
-    },
-    "popup_settings_enable_vpn": {
-        "message": "Enable VPN on this website"
     },
     "popup_settings_enable_vpn_short": {
         "message": "Enable on this site"
@@ -660,9 +666,6 @@
     "popup_upgrade_screen_title": {
         "message": "Unlimited VPN"
     },
-    "popup_upgrade_screen_desc": {
-        "message": "It’s time to upgrade your license!"
-    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Unlimited data"
     },
@@ -737,10 +740,10 @@
         "message": "Imported exclusions: %count%"
     },
     "options_exclusions_deleted_exclusions": {
-        "message": "Deleted exclusions: %count%."
+        "message": "Deleted exclusions: %count%"
     },
     "options_exclusions_added_exclusions": {
-        "message": "Added exclusions: %count%."
+        "message": "Added exclusions: %count%"
     },
     "options_exclusions_remove_all_success": {
         "message": "All exclusions for current mode successfully removed."

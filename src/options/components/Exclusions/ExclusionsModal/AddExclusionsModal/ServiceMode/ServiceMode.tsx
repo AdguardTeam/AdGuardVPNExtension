@@ -27,7 +27,14 @@ export const ServiceMode = observer(() => {
             ? reactTranslator.getMessage('options_exclusions_deleted_exclusions', { count: deleted })
             : '';
 
-        notificationsStore.notifySuccess(`${addedExclusionsMessage} ${deletedExclusionsMessage}`);
+        notificationsStore.notifySuccess(
+            `${addedExclusionsMessage} ${deletedExclusionsMessage}`,
+            {
+                action: reactTranslator.getMessage('settings_exclusions_undo'),
+                handler: exclusionsStore.restoreExclusions,
+            },
+        );
+
         closeModal();
     };
 
@@ -38,7 +45,7 @@ export const ServiceMode = observer(() => {
             <div className="service-mode__actions">
                 <button
                     type="button"
-                    className="button button--large button--outline-gray"
+                    className="button button--large button--outline-secondary"
                     onClick={closeModal}
                 >
                     {reactTranslator.getMessage('settings_exclusion_modal_cancel')}

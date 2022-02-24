@@ -1,9 +1,9 @@
 {
     "name": {
-        "message": "AdGuard VPN — Yksityisyyttä ja tietoturvaa"
+        "message": "AdGuard VPN — nopea VPN ja turvallinen yksityinen välityspalvelin"
     },
     "description": {
-        "message": "Tekee Internetistä avoimemman ja suojaa tietojasi. Huippuluokan VPN kuuluisan mainoseston kehittäjiltä."
+        "message": "Surffaile Internetissä nopeasti ja turvallisesti AdGuard VPN:llä. Suojaa yksityisyyttäsi ja pysy nimettömänä yksityisella VPN-välityspalvelimellamme."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -127,6 +127,9 @@
     },
     "account_version": {
         "message": "Versio"
+    },
+    "account_current_plan": {
+        "message": "Nykyinen tilaus"
     },
     "account_signed": {
         "message": "Kirjautuneena tunnuksella"
@@ -272,7 +275,7 @@
     "context_menu_selective_mode": {
         "message": "Valikoiva tila"
     },
-    "context_menu_regular_mode": {
+    "context_menu_general_mode": {
         "message": "Tavallinen tila"
     },
     "settings_dns_label": {
@@ -342,7 +345,106 @@
         "message": "Vaalea"
     },
     "settings_exclusion_add": {
+        "message": "Lisää"
+    },
+    "settings_exclusion_add_website": {
         "message": "Lisää sivusto"
+    },
+    "settings_exclusion_actions": {
+        "message": "Toiminnot"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "Lisää aliverkkotunnus"
+    },
+    "settings_exclusion_invalid_subdomain": {
+        "message": "Väärä aliverkkotunnus"
+    },
+    "settings_exclusion_status_domain": {
+        "message": "verkkotunnus"
+    },
+    "settings_exclusion_status_subdomain": {
+        "message": "aliverkkotunnus"
+    },
+    "settings_exclusion_status_all_subdomains": {
+        "message": "kaikki aliverkkotunnukset"
+    },
+    "settings_exclusion_service_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN ei ole käytössä merkityillä verkkotunnuksilla"
+    },
+    "settings_exclusion_service_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN on käytössä merkityillä verkkotunnuksilla"
+    },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN ei ole käytössä merkityillä verkko- ja aliverkkotunnuksilla"
+    },
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN on käytössä merkityillä verkko- ja aliverkkotunnuksilla"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "Verkkotunnus:"
+    },
+    "settings_exclusion_subdomain_name": {
+        "message": "Aliverkkotunnuksen nimi:"
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "Listalta"
+    },
+    "settings_exclusion_add_manually": {
+        "message": "Manuaalisesti"
+    },
+    "settings_exclusion_add_manually_add": {
+        "message": "Lisää manuaalisesti"
+    },
+    "settings_exclusions_add_invalid_domain": {
+        "message": "\"%url%\" ei ole kelvollinen verkkotunnus. Haluatko lisätä sen listaan?"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "Peruuta"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "Poista"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "Tallenna"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "Palauta oletukset"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "Palauta"
+    },
+    "settings_exclusions_undo": {
+        "message": "Kumoa"
+    },
+    "settings_exclusion_reset_service_confirmation_message": {
+        "message": "Palautetaanko oletusasetukset osoitteelle %hostname%? Tämä palauttaa kaikki puuttuvat verkkotunnukset ja merkitsee ne valituiksi."
+    },
+    "settings_exclusion_search_website": {
+        "message": "Etsi sivustoista"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "Haku"
+    },
+    "settings_exclusion_nothing_found": {
+        "message": "Tuloksia ei löytynyt"
+    },
+    "settings_exclusion_connection_problem": {
+        "message": "Yhteysongelma"
+    },
+    "settings_exclusions_action_export": {
+        "message": "Vie poikkeukset"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Tuo poikkeukset"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "Poista kaikki"
+    },
+    "settings_exclusions_remove_all_exclusions": {
+        "message": "Poista kaikki poikkeukset"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "Haluatko varmasti jatkaa? Koko lista ja kaikki sen sisältämät poikkeukset poistetaan."
     },
     "settings_exclusions_import_button": {
         "message": "Tuo"
@@ -359,17 +461,20 @@
     "settings_connection_mode_title": {
         "message": "Toimintatila"
     },
-    "settings_exclusion_regular_title": {
+    "settings_exclusion_change_mode": {
+        "message": "Vaihda tilaa"
+    },
+    "settings_exclusion_general_title": {
         "message": "Tavallinen tila"
     },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN ei toimi alla olevan listan sivustoilla"
+    "settings_exclusion_general_description": {
+        "message": "AdGuard VPN on käytössä kaikkialla, paitsi poikkeuksiin lisätyillä verkkosivustoilla."
     },
     "settings_exclusion_selective_title": {
         "message": "Valikoiva tila"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN toimii vain alla olevan listan sivustoilla"
+        "message": "AdGuard VPN on käytössä vain poikkeuksiin lisätyillä verkkosivustoilla."
     },
     "settings_exclusion_subdomains_title": {
         "message": "Aliverkkotunnukset"
@@ -397,9 +502,6 @@
     },
     "control_error_disable": {
         "message": "Poista käytöstä"
-    },
-    "popup_settings_enable_vpn": {
-        "message": "Ota VPN käyttöön tällä sivustolla"
     },
     "popup_settings_enable_vpn_short": {
         "message": "Käytä sivustolla"
@@ -438,7 +540,7 @@
         "message": "Hakutulokset"
     },
     "endpoints_search": {
-        "message": "Etsi sijaintia"
+        "message": "Etsi sijainneista"
     },
     "endpoints_not_found": {
         "message": "Sijaintia ei löytynyt"
@@ -520,7 +622,7 @@
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Salli AdGuardin kerätä <link>nimettömiä tietoja</link> sovelluksen käytöstä AdGuard VPN:n parantamiseksi"
+        "message": "Salli AdGuardin kerätä <link>joitakin nimettömiä tietoja</link> sovelluksen käytöstä AdGuard VPN:n parantamiseksi."
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Jatka"
@@ -560,9 +662,6 @@
     },
     "popup_upgrade_screen_title": {
         "message": "Rajaton VPN"
-    },
-    "popup_upgrade_screen_desc": {
-        "message": "On aika päivittää lisenssisi!"
     },
     "popup_upgrade_screen_unlimited_data": {
         "message": "Rajaton tiedonsiirto"
@@ -636,6 +735,15 @@
     },
     "options_exclusions_import_successful": {
         "message": "Poikkeuksia tuotiin: %count%"
+    },
+    "options_exclusions_deleted_exclusions": {
+        "message": "Poikkeuksia poistettu: %count%"
+    },
+    "options_exclusions_added_exclusions": {
+        "message": "Poikkeuksia lisätty: %count%"
+    },
+    "options_exclusions_remove_all_success": {
+        "message": "Nykyisen käyttötilan kaikki poikkeukset on poistettu."
     },
     "options_exclusions_import_error_wrong_extensions": {
         "message": "Poikkeustiedostolla tulee olla joku seuraavista tiedostopäätteistä: %extensions%"

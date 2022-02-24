@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
-import { identity } from 'lodash';
+import identity from 'lodash/identity';
 import format from 'date-fns/format';
 import JSZip from 'jszip';
 import FileSaver from 'file-saver';
@@ -23,6 +23,7 @@ import { messenger } from '../../../../lib/messenger';
 import { SelectListModal } from './SelectListModal/SelectListModal';
 
 import './actions.pcss';
+import { ExclusionsModes } from '../../../../common/exclusionsConstants';
 
 const prepareExclusionsAfterImport = (exclusionsString: string) => {
     return exclusionsString
@@ -97,16 +98,26 @@ export const Actions = observer(() => {
                 'options_exclusions_import_successful',
                 { count: exclusionsAddedCount },
             ),
+            {
+                action: reactTranslator.getMessage('settings_exclusions_undo'),
+                handler: exclusionsStore.restoreExclusions,
+            },
         );
         closeSelectListModal();
     };
 
     const handleSelectiveClick = async () => {
         const exclusionsAddedCount = await handleSelectiveExclusionsString(fileContent);
-        notificationsStore.notifySuccess(translator.getMessage(
-            'options_exclusions_import_successful',
-            { count: exclusionsAddedCount },
-        ));
+        notificationsStore.notifySuccess(
+            translator.getMessage(
+                'options_exclusions_import_successful',
+                { count: exclusionsAddedCount },
+            ),
+            {
+                action: reactTranslator.getMessage('settings_exclusions_undo'),
+                handler: exclusionsStore.restoreExclusions,
+            },
+        );
         closeSelectListModal();
     };
 
@@ -145,16 +156,23 @@ export const Actions = observer(() => {
             return handleTxtExclusionsData(txtExclusionsData.content);
         }
 
-        let addedExclusions = 0;
+        const exclusionsContentMap = {
+            [ExclusionsModes.Regular]: [] as string[],
+            [ExclusionsModes.Selective]: [] as string[],
+        };
 
         for (let i = 0; i < exclusionsData.length; i += 1) {
             const { type, content } = exclusionsData[i];
             if (type === ExclusionDataTypes.General) {
-                addedExclusions += await handleGeneralExclusionsString(content);
+                // eslint-disable-next-line max-len
+                exclusionsContentMap[ExclusionsModes.Regular] = prepareExclusionsAfterImport(content);
             } else if (type === ExclusionDataTypes.Selective) {
-                addedExclusions += await handleSelectiveExclusionsString(content);
+                // eslint-disable-next-line max-len
+                exclusionsContentMap[ExclusionsModes.Selective] = prepareExclusionsAfterImport(content);
             }
         }
+
+        const addedExclusions = messenger.addExclusionsMap(exclusionsContentMap);
 
         return addedExclusions;
     };
@@ -173,10 +191,16 @@ export const Actions = observer(() => {
             const exclusionsData = await readExclusionsFile(file);
             const exclusionsAdded = await handleExclusionsData(exclusionsData);
             if (exclusionsAdded !== null) {
-                notificationsStore.notifySuccess(translator.getMessage(
-                    'options_exclusions_import_successful',
-                    { count: exclusionsAdded },
-                ));
+                notificationsStore.notifySuccess(
+                    translator.getMessage(
+                        'options_exclusions_import_successful',
+                        { count: exclusionsAdded },
+                    ),
+                    {
+                        action: reactTranslator.getMessage('settings_exclusions_undo'),
+                        handler: exclusionsStore.restoreExclusions,
+                    },
+                );
             }
             exclusionsStore.setImportingExclusions(false);
         } catch (e: any) {
@@ -189,10 +213,6 @@ export const Actions = observer(() => {
         if (moreActionsMenu.current) {
             moreActionsMenu.current.focus();
         }
-    });
-
-    const moreActionsButtonClassnames = classnames('actions__more-actions-button', {
-        active: isMoreActionsMenuOpen,
     });
 
     const moreActionsListClassnames = classnames('actions__more-actions-list', {
@@ -224,15 +244,16 @@ export const Actions = observer(() => {
                     </svg>
                     {reactTranslator.getMessage('settings_exclusion_add_website')}
                 </button>
-                <button
-                    type="button"
-                    className={moreActionsButtonClassnames}
-                    onMouseDown={onMoreActionsClick}
-                >
-                    <svg className="actions__more-actions-button__icon">
-                        <use xlinkHref="#more-actions" />
-                    </svg>
-                </button>
+                <div className="selector selector--gray">
+                    <div
+                        className="selector__value"
+                        onClick={onMoreActionsClick}
+                    >
+                        <div className="selector__value-title">
+                            {reactTranslator.getMessage('settings_exclusion_actions')}
+                        </div>
+                    </div>
+                </div>
                 <ul
                     className={moreActionsListClassnames}
                     ref={moreActionsMenu}

@@ -12,6 +12,8 @@ interface PersistedExclusions {
     inverted: boolean;
 }
 
+export type AllExclusions = Omit<PersistedExclusions, 'inverted'>;
+
 const DefaultExclusions: PersistedExclusions = {
     [ExclusionsModes.Regular]: [],
     [ExclusionsModes.Selective]: [],
@@ -118,6 +120,34 @@ export class ExclusionsManager {
      */
     getExclusions(): ExclusionInterface[] {
         return this.currentHandler.getExclusions();
+    }
+
+    /**
+     * Returns exclusions for both modes
+     */
+    getAllExclusions(): AllExclusions {
+        return {
+            regular: [...this.regular.getExclusions()],
+            selective: [...this.selective.getExclusions()],
+        };
+    }
+
+    /**
+     * Sets exclusions to both mode handlers
+     * @param allExclusions
+     */
+    async setAllExclusions(allExclusions: AllExclusions) {
+        const { regular, selective } = allExclusions;
+
+        await this.regular.setExclusions(regular);
+        await this.selective.setExclusions(selective);
+    }
+
+    /**
+     * Sets exclusions to current mode handler
+     */
+    setExclusions(exclusions: ExclusionInterface[]): Promise<void> {
+        return this.currentHandler.setExclusions(exclusions);
     }
 
     /**

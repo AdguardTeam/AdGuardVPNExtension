@@ -1,10 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN — 隐私 & 安全"
-    },
-    "description": {
-        "message": "让互联网更加开放，也让您的数据更加安全。由知名广告拦截器开发者开发的强大 VPN 。"
-    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -43,6 +37,9 @@
     },
     "authentication_error_wrong_credentials": {
         "message": "密码错误"
+    },
+    "authentication_too_many_requests": {
+        "message": "我们从您的 IP 地址接收到了太多请求，请稍后再试。"
     },
     "authentication_error_default": {
         "message": "发生错误，请稍后再试"
@@ -124,6 +121,9 @@
     },
     "account_version": {
         "message": "版本"
+    },
+    "account_current_plan": {
+        "message": "您的订阅方案"
     },
     "account_signed": {
         "message": "用以下账号登录"
@@ -269,8 +269,8 @@
     "context_menu_selective_mode": {
         "message": "选择模式"
     },
-    "context_menu_regular_mode": {
-        "message": "常规模式"
+    "context_menu_general_mode": {
+        "message": "通用模式"
     },
     "settings_dns_label": {
         "message": "使用 DNS 服务器"
@@ -339,7 +339,106 @@
         "message": "亮色主题"
     },
     "settings_exclusion_add": {
+        "message": "添加"
+    },
+    "settings_exclusion_add_website": {
         "message": "添加网站"
+    },
+    "settings_exclusion_actions": {
+        "message": "活跃状态"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "添加子域名"
+    },
+    "settings_exclusion_invalid_subdomain": {
+        "message": "无效子域名"
+    },
+    "settings_exclusion_status_domain": {
+        "message": "域名"
+    },
+    "settings_exclusion_status_subdomain": {
+        "message": "子域名"
+    },
+    "settings_exclusion_status_all_subdomains": {
+        "message": "所有子域名"
+    },
+    "settings_exclusion_service_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN 已为所选域名停用"
+    },
+    "settings_exclusion_service_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN 已为所选域名启用"
+    },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN 已为所选域名及子域名停用"
+    },
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN 已为所选域名及子域名启用"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "域名:"
+    },
+    "settings_exclusion_subdomain_name": {
+        "message": "子域名名称："
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "从列表中"
+    },
+    "settings_exclusion_add_manually": {
+        "message": "手动"
+    },
+    "settings_exclusion_add_manually_add": {
+        "message": "手动添加"
+    },
+    "settings_exclusions_add_invalid_domain": {
+        "message": "\"%url%\"不是一个有效的域名，您要添加它到列表中吗？"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "取消"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "移除"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "保存"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "重置回默认状态"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "重置"
+    },
+    "settings_exclusions_undo": {
+        "message": "撤销"
+    },
+    "settings_exclusion_reset_service_confirmation_message": {
+        "message": "将默认设置重置为 %hostname% 吗？该操作将会还原所有网域并开启全部选项。"
+    },
+    "settings_exclusion_search_website": {
+        "message": "搜索网站"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "搜索"
+    },
+    "settings_exclusion_nothing_found": {
+        "message": "没有结果"
+    },
+    "settings_exclusion_connection_problem": {
+        "message": "连接问题"
+    },
+    "settings_exclusions_action_export": {
+        "message": "导出排除项"
+    },
+    "settings_exclusions_action_import": {
+        "message": "导入排除项"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "移除全部"
+    },
+    "settings_exclusions_remove_all_exclusions": {
+        "message": "删除所有排除项"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "您确定想要继续吗？完整排除项列表将会被移除。"
     },
     "settings_exclusions_import_button": {
         "message": "导入"
@@ -356,17 +455,20 @@
     "settings_connection_mode_title": {
         "message": "操作模式"
     },
-    "settings_exclusion_regular_title": {
-        "message": "常规模式"
+    "settings_exclusion_change_mode": {
+        "message": "切换模式"
     },
-    "settings_exclusion_regular_description": {
-        "message": "AdGuard VPN 不会在下列的网站上运行"
+    "settings_exclusion_general_title": {
+        "message": "通用模式"
+    },
+    "settings_exclusion_general_description": {
+        "message": "AdGuard VPN 不会在排除列表中的网站上运行"
     },
     "settings_exclusion_selective_title": {
         "message": "选择模式"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN 只会在下列的网站上运行"
+        "message": "AdGuard VPN 只会在排除项列表内的网站上运行"
     },
     "settings_exclusion_subdomains_title": {
         "message": "子域名"
@@ -394,9 +496,6 @@
     },
     "control_error_disable": {
         "message": "禁用"
-    },
-    "popup_settings_enable_vpn": {
-        "message": "在此网站上开启 VPN"
     },
     "popup_settings_enable_vpn_short": {
         "message": "在此网站上启用"
@@ -558,11 +657,11 @@
     "popup_upgrade_screen_title": {
         "message": "无限制 VPN"
     },
-    "popup_upgrade_screen_desc": {
-        "message": "是时候升级您的许可证！"
-    },
     "popup_upgrade_screen_unlimited_data": {
         "message": "无限数据"
+    },
+    "popup_upgrade_screen_unlimited_data_desc": {
+        "message": "唯一一个限制是您的数据永远不会被分享。随心所欲地上网！"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "无限速度"
@@ -631,6 +730,15 @@
     "options_exclusions_import_successful": {
         "message": "已导入的排除项：%count%"
     },
+    "options_exclusions_deleted_exclusions": {
+        "message": "已删除的排除项：%count%"
+    },
+    "options_exclusions_added_exclusions": {
+        "message": "已添加的排除项：%count%"
+    },
+    "options_exclusions_remove_all_success": {
+        "message": "已成功移除用于此模式的所有排除项。"
+    },
     "options_exclusions_import_error_wrong_extensions": {
         "message": "排除项文件要包含以下扩展名之一：%extensions%"
     },
@@ -669,5 +777,11 @@
     },
     "options_signedout_page_description": {
         "message": "您的连接不安全。为了继续匿名浏览，请点击 AdGuard VPN 图标并重新登录。"
+    },
+    "name": {
+        "message": "AdGuard VPN — fast vpn & secure private proxy"
+    },
+    "description": {
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

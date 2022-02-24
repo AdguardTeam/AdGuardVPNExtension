@@ -107,9 +107,9 @@ export class ExclusionsTree {
     /**
      * Returns exclusions
      */
-    getExclusions(): ExclusionDtoInterface[] {
+    getExclusions(): ExclusionDtoInterface {
         const exclusionsRoot = this.exclusionsTree.serialize();
-        return exclusionsRoot.children;
+        return exclusionsRoot;
     }
 
     /**

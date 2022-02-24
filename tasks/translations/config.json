@@ -15,12 +15,13 @@
     "locales_data_format": "chrome",
     "locales_data_filename": "messages.json",
     "required_locales": [
-        "ru",
         "de",
+        "es",
         "fr",
         "it",
         "ja",
         "ko",
+        "ru",
         "zh_CN",
         "zh_TW"
     ],

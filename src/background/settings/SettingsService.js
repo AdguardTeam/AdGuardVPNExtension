@@ -171,6 +171,7 @@ export class SettingsService {
         return {
             ...oldSettings,
             VERSION: '9',
+            [SETTINGS_IDS.PREMIUM_FEATURES_SHOW]: this.defaults[SETTINGS_IDS.PREMIUM_FEATURES_SHOW],
             [SETTINGS_IDS.EXCLUSIONS]: {
                 regular: newRegular,
                 selective: newSelective,
@@ -240,7 +241,7 @@ export class SettingsService {
         if (version === SCHEME_VERSION) {
             return settings;
         }
-        log.warn(`Expected scheme version ${SCHEME_VERSION} and got ${version}`);
+        log.debug(`Expected scheme version ${SCHEME_VERSION} and got ${version}`);
         return this.migrateSettings(settings);
     }
 

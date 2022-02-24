@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CreateFileWebpack = require('create-file-webpack');
+
 const { genAppConfig } = require('./appConfig');
 const {
     SRC_PATH,
@@ -11,7 +12,7 @@ const {
     BUILD_ENV,
     BUILD_PATH,
 } = require('./consts');
-const { getOutputPathByEnv } = require('./helpers');
+const { getOutputPathByEnv, updateLocalesMSGName } = require('./helpers');
 
 const BACKGROUND_PATH = path.resolve(__dirname, SRC_PATH, 'background');
 const OPTIONS_PATH = path.resolve(__dirname, SRC_PATH, 'options');
@@ -30,7 +31,6 @@ const config = {
     devtool: IS_DEV ? 'eval-source-map' : false,
     optimization: {
         minimize: false,
-
     },
     entry: {
         background: BACKGROUND_PATH,
@@ -121,6 +121,12 @@ const config = {
                     context: 'src',
                     from: '_locales/',
                     to: '_locales/',
+                    transform: (content) => {
+                        return updateLocalesMSGName(
+                            content,
+                            process.env.BUILD_ENV,
+                        );
+                    },
                 },
             ],
         }),

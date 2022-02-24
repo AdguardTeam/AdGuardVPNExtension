@@ -46,16 +46,20 @@ export const Exclusions = observer(() => {
                 <span className="exclusions__mode__title">{mode}</span>
                 <span>: </span>
                 <span>{modeDescription}</span>
-                <button
-                    type="button"
-                    className="exclusions__mode__change-mode-btn simple-button"
-                    onClick={openModeSelectorModal}
-                >
-                    {translator.getMessage('settings_exclusion_change_mode')}
-                </button>
+                <div>
+                    <button
+                        type="button"
+                        className="exclusions__mode__change-mode-btn simple-button"
+                        onClick={openModeSelectorModal}
+                    >
+                        {translator.getMessage('settings_exclusion_change_mode')}
+                    </button>
+                </div>
             </div>
             <div>
-                <ExclusionsSearch />
+                <div className="exclusions__search">
+                    <ExclusionsSearch />
+                </div>
                 <Actions />
                 <List />
                 <AddExclusionModal />

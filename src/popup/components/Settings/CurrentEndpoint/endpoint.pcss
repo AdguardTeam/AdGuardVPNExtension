@@ -9,6 +9,7 @@
     cursor: pointer;
     border-top: 1px solid var(--grayd8);
     background-color: #fff;
+    transition: var(--t3) background-color;
 
     @media (prefers-color-scheme: dark) {
         background: #0f0f18;
@@ -20,6 +21,10 @@
 
     &:hover {
         background-color: var(--grayf3);
+
+        @media (prefers-color-scheme: dark) {
+            background: #1B1B24;
+        }
     }
 
     &__title {
@@ -42,12 +47,20 @@
 .light-mode {
     .endpoint {
         background-color: #fff;
+
+        &:hover {
+            background-color: var(--grayf3);
+        }
     }
 }
 
 .dark-mode {
     .endpoint {
         background: #0f0f18;
+
+        &:hover {
+            background: #1B1B24;
+        }
     }
 }
 
