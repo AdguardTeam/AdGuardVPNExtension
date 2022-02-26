@@ -72,9 +72,13 @@ const release2022Notification = {
  * @property {string} type;
  */
 
-const notifications = {
-    release2022: release2022Notification,
-};
+// TODO remove
+const notifications = {};
+
+// TODO uncomment
+// const notifications = {
+//     release2022: release2022Notification,
+// };
 
 /**
  * Gets the last time a notification was shown.
