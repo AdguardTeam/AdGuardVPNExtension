@@ -169,7 +169,7 @@ export class ExclusionsStore {
                 return true;
             }
             return containsIgnoreCase(exclusion.hostname, this.exclusionsSearchValue);
-        }) ?? [];
+        }).sort((a, b) => a.hostname.localeCompare(b.hostname)) ?? [];
     }
 
     @action setModeSelectorModalOpen = (value: boolean) => {
