@@ -19,7 +19,7 @@ export const SearchHighlighter = ({ value, search }: SearchHighlighterProps) => 
             const isSearchMatch = chunk.toLowerCase() === search.toLowerCase();
 
             const chunkClassName = cn({
-                search__highlight: isSearchMatch,
+                highlighter__search: isSearchMatch,
             });
 
             return (
@@ -35,9 +35,9 @@ export const SearchHighlighter = ({ value, search }: SearchHighlighterProps) => 
 
     if (search.length > 0 && containsIgnoreCase(value, search)) {
         return (
-            <>
+            <div className="highlighter">
                 {renderStr()}
-            </>
+            </div>
         );
     }
 
