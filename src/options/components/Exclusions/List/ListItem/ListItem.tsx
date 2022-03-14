@@ -17,7 +17,7 @@ interface ListItemProps {
 export const ListItem = observer(({ exclusion }: ListItemProps) => {
     const { exclusionsStore, notificationsStore } = useContext(rootStore);
 
-    const icon = useRef(null);
+    const icon = useRef<HTMLImageElement>(null);
 
     const removeExclusion = (exclusion: ExclusionDtoInterface) => async () => {
         const deletedExclusionsCount = await exclusionsStore.removeExclusion(exclusion);
@@ -46,8 +46,7 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
     });
 
     useEffect(() => {
-        if (exclusion.type === ExclusionsTypes.Service && exclusion.iconUrl) {
-            // @ts-ignore
+        if (icon.current && exclusion.type === ExclusionsTypes.Service && exclusion.iconUrl) {
             icon.current.src = exclusion.iconUrl;
         }
 
@@ -55,8 +54,9 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
             const preloadedIcon = new Image();
             preloadedIcon.src = `${ICON_FOR_DOMAIN}${exclusion.hostname}`;
             preloadedIcon.onload = () => {
-                // @ts-ignore
-                icon.current.src = preloadedIcon.src;
+                if (icon.current) {
+                    icon.current.src = preloadedIcon.src;
+                }
             };
         }
     });
