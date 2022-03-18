@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import { messenger } from '../../../lib/messenger';
-import { FEEDBACK_URL, FAQ_URL, DISCUSS_URL } from '../../../background/config';
+import { FEEDBACK_URL, FAQ_URL } from '../../../background/config';
 import { Title } from '../ui/Title';
 import { BugReporter } from './BugReporter';
 import { reactTranslator } from '../../../common/reactTranslator';
@@ -43,11 +43,6 @@ export const Support = () => {
             description: reactTranslator.getMessage('options_support_feedback_description'),
             iconXlink: '#send-feedback',
             clickHandler: createOpenUrlHandler(FEEDBACK_URL),
-        }, {
-            title: reactTranslator.getMessage('options_support_discuss_title'),
-            description: reactTranslator.getMessage('options_support_discuss_description'),
-            iconXlink: '#chat',
-            clickHandler: createOpenUrlHandler(DISCUSS_URL),
         },
     ];
 

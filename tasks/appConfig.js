@@ -59,7 +59,6 @@ const COMMON = {
     // Options page
     WEBSITE_URL: `https://${WEBSITE_DOMAIN}/forward.html?action=adguard_site&from=options_screen&app=vpn_extension`,
     FAQ_URL: `https://${WEBSITE_DOMAIN}/forward.html?action=faq&from=options_screen&app=vpn_extension`,
-    DISCUSS_URL: `https://${WEBSITE_DOMAIN}/forward.html?action=discuss&from=options_screen&app=vpn_extension`,
     SUGGEST_FEATURE: `https://${WEBSITE_DOMAIN}/forward.html?action=suggest_feature&from=options_screen&app=vpn_extension`,
     THANK_YOU_PAGE_URL: `https://${WEBSITE_DOMAIN}/forward.html?action=thank_you&from=background_page&app=vpn_extension`,
     PASSWORD_RECOVERY_URL: `https://${WEBSITE_DOMAIN}/forward.html?action=recovery_password&from=popup&app=vpn_extension`,
