@@ -385,7 +385,7 @@ class Endpoints {
         }
 
         const vpnFailurePage = this.vpnInfo && this.vpnInfo.vpnFailurePage;
-        const appId = credentials.getAppId();
+        const appId = await credentials.getAppId();
 
         const queryString = qs.stringify({ token, app_id: appId });
 

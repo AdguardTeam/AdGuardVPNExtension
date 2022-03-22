@@ -211,7 +211,7 @@ class EndpointConnectivity {
      * @returns {Promise<null|number>}
      */
     sendPingMessage = async () => {
-        const appId = credentials.getAppId();
+        const appId = await credentials.getAppId();
         try {
             const ping = await sendPingMessage(this.ws, this.vpnToken, appId);
             return ping;

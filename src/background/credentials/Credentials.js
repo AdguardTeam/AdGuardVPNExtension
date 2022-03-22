@@ -1,6 +1,7 @@
 import { nanoid } from 'nanoid';
 import md5 from 'crypto-js/md5';
 import lodashGet from 'lodash/get';
+
 import accountProvider from '../providers/accountProvider';
 import { log } from '../../lib/logger';
 import notifier from '../../lib/notifier';
@@ -13,7 +14,11 @@ class Credentials {
     VPN_CREDENTIALS_KEY = 'credentials.vpn';
 
     constructor({
-        browserApi, vpnProvider, permissionsError, proxy, auth,
+        browserApi,
+        vpnProvider,
+        permissionsError,
+        proxy,
+        auth,
     }) {
         this.storage = browserApi.storage;
         this.vpnProvider = vpnProvider;
@@ -165,7 +170,7 @@ class Credentials {
      * @returns {Promise}
      */
     async getVpnCredentialsRemote() {
-        const appId = this.getAppId();
+        const appId = await this.getAppId();
 
         const vpnToken = await this.gainValidVpnToken();
         const vpnCredentials = await this.vpnProvider.getVpnCredentials(appId, vpnToken.token);
@@ -284,7 +289,7 @@ class Credentials {
     async getAccessCredentials() {
         const { token } = await this.gainValidVpnToken();
         const { result: { credentials } } = await this.gainValidVpnCredentials();
-        const appId = this.getAppId();
+        const appId = await this.getAppId();
         return {
             credentialsHash: md5(`${appId}:${token}:${credentials}`).toString(),
             credentials: { username: token, password: credentials },
@@ -292,7 +297,11 @@ class Credentials {
         };
     }
 
-    async gainAppId() {
+    /**
+     * Retrieves app id from storage or generates the new one and saves it in the storage
+     * @return {Promise<*>}
+     */
+    gainAppId = async () => {
         let appId = await this.storage.get(this.APP_ID_KEY);
 
         if (!appId) {
@@ -300,12 +309,21 @@ class Credentials {
             appId = nanoid();
             await this.storage.set(this.APP_ID_KEY, appId);
         }
-        return appId;
-    }
 
-    getAppId() {
+        return appId;
+    };
+
+    /**
+     * Returns app id from memory or generates the new one
+     * @return {Promise<*>}
+     */
+    getAppId = async () => {
+        if (!this.appId) {
+            this.appId = await this.gainAppId();
+        }
+
         return this.appId;
-    }
+    };
 
     async fetchUsername() {
         const accessToken = await this.auth.getAccessToken();
@@ -384,17 +402,14 @@ class Credentials {
      * @returns {Promise<void>}
      */
     async trackInstallation() {
-        if (!this.appId) {
-            throw new Error('appId is required for tracking installations');
-        }
-
         const TRACKED_INSTALLATIONS_KEY = 'credentials.tracked.installations';
         try {
             const tracked = await this.storage.get(TRACKED_INSTALLATIONS_KEY);
             if (tracked) {
                 return;
             }
-            await this.vpnProvider.postExtensionInstalled(this.appId);
+            const appId = await this.getAppId();
+            await this.vpnProvider.postExtensionInstalled(appId);
             await this.storage.set(TRACKED_INSTALLATIONS_KEY, true);
             log.info('Installation successfully tracked');
         } catch (e) {
@@ -416,7 +431,6 @@ class Credentials {
                 this.handleUserDeauthentication.bind(this),
             );
 
-            this.appId = await this.gainAppId();
             await this.trackInstallation();
 
             // On extension initialisation use local fallback if was unable to get data remotely
