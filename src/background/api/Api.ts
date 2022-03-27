@@ -1,17 +1,30 @@
 import axios from 'axios';
+
 import { ERROR_STATUSES } from '../../lib/constants';
 import CustomError from '../../lib/CustomError';
 
-export class Api {
-    constructor(baseUrl) {
+interface ApiInterface {
+    baseUrlFn: () => Promise<string>,
+    baseUrlStr: string,
+    getBaseUrl(): Promise<string>,
+    makeRequest(path: string, config: any, method: string): Promise<any>
+}
+
+export class Api implements ApiInterface {
+    baseUrlFn: () => Promise<string>;
+
+    baseUrlStr: string;
+
+    constructor(baseUrl: () => Promise<string> | string) {
         if (typeof baseUrl === 'function') {
+            // @ts-ignore
             this.baseUrlFn = baseUrl;
         } else {
             this.baseUrlStr = baseUrl;
         }
     }
 
-    async getBaseUrl() {
+    async getBaseUrl(): Promise<string> {
         if (this.baseUrlFn) {
             const baseUrlStr = await this.baseUrlFn();
             return baseUrlStr;
@@ -19,7 +32,7 @@ export class Api {
         return this.baseUrlStr;
     }
 
-    async makeRequest(path, config, method = 'POST') {
+    async makeRequest(path: string, config: any, method: string = 'POST') {
         const url = `https://${await this.getBaseUrl()}/${path}`;
         try {
             const response = await axios({
@@ -28,7 +41,7 @@ export class Api {
                 ...config,
             });
             return response.data;
-        } catch (error) {
+        } catch (error: any) {
             if (error.response) {
                 throw new CustomError(error.response.status, JSON.stringify(error.response.data));
             }
