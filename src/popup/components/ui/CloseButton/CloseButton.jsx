@@ -14,6 +14,7 @@ export const CloseButton = (props) => {
     return (
         <div className="close-button">
             <button
+                className="button button--close"
                 type="button"
                 onClick={clickHandler}
             >
