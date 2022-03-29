@@ -104,7 +104,8 @@ class Endpoints {
             return null;
         }
 
-        const locations = await locationsService.getLocationsFromServer(vpnToken.token);
+        const appId = await credentials.getAppId();
+        const locations = await locationsService.getLocationsFromServer(appId, vpnToken.token);
         return locations;
     };
 
@@ -137,8 +138,9 @@ class Endpoints {
      */
     refreshData = async () => {
         try {
+            const appId = await credentials.getAppId();
             const { vpnToken } = await this.refreshTokens();
-            const vpnInfo = await vpnProvider.getVpnExtensionInfo(vpnToken.token);
+            const vpnInfo = await vpnProvider.getVpnExtensionInfo(appId, vpnToken.token);
             await this.updateLocations(true);
             this.vpnInfo = vpnInfo;
         } catch (e) {
@@ -245,8 +247,8 @@ class Endpoints {
             log.debug('Unable to get endpoints info because: ', e.message);
             return null;
         }
-
-        let vpnInfo = await vpnProvider.getVpnExtensionInfo(vpnToken.token);
+        const appId = await credentials.getAppId();
+        let vpnInfo = await vpnProvider.getVpnExtensionInfo(appId, vpnToken.token);
         let shouldReconnect = false;
 
         if (vpnInfo.refreshTokens) {
@@ -263,7 +265,7 @@ class Endpoints {
                 shouldReconnect = true;
             }
 
-            vpnInfo = await vpnProvider.getVpnExtensionInfo(updatedVpnToken.token);
+            vpnInfo = await vpnProvider.getVpnExtensionInfo(appId, updatedVpnToken.token);
         }
 
         await this.updateLocations(shouldReconnect);
@@ -373,11 +375,13 @@ class Endpoints {
         // undefined values will be omitted in the querystring
         const token = vpnToken.token || undefined;
 
+        const appId = await credentials.getAppId();
+
         // if no endpoints info, then get endpoints failure url with empty token
         let appendToQueryString = false;
         if (!this.vpnInfo) {
             try {
-                this.vpnInfo = await vpnProvider.getVpnExtensionInfo(token);
+                this.vpnInfo = await vpnProvider.getVpnExtensionInfo(appId, token);
             } catch (e) {
                 this.vpnInfo = { vpnFailurePage: POPUP_DEFAULT_SUPPORT_URL };
                 appendToQueryString = true;
@@ -385,7 +389,6 @@ class Endpoints {
         }
 
         const vpnFailurePage = this.vpnInfo && this.vpnInfo.vpnFailurePage;
-        const appId = await credentials.getAppId();
 
         const queryString = qs.stringify({ token, app_id: appId });
 

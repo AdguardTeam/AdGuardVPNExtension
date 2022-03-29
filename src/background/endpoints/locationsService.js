@@ -271,11 +271,12 @@ const setLocations = (newLocations) => {
 
 /**
  * Retrieves locations from server
+ * @param appId
  * @param vpnToken
  * @returns {Promise<Location[]>}
  */
-const getLocationsFromServer = async (vpnToken) => {
-    const locationsData = await vpnProvider.getLocationsData(vpnToken);
+const getLocationsFromServer = async (appId, vpnToken) => {
+    const locationsData = await vpnProvider.getLocationsData(appId, vpnToken);
 
     const locations = locationsData.map((locationData) => {
         return new Location(locationData);

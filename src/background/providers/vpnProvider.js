@@ -10,9 +10,8 @@ import { processExclusionServices, processExclusionServicesDomains } from '../..
  * @param vpnToken
  * @returns {Promise<*>}
  */
-const getLocationsData = async (vpnToken) => {
-    const language = browser.i18n.getUILanguage();
-    const locationsData = await vpnApi.getLocations(vpnToken, language);
+const getLocationsData = async (appId, vpnToken) => {
+    const locationsData = await vpnApi.getLocations(appId, vpnToken);
 
     const { locations = [] } = locationsData;
 
@@ -126,8 +125,8 @@ const getCurrentLocation = async () => {
     };
 };
 
-const getVpnExtensionInfo = async (vpnToken) => {
-    const info = await vpnApi.getVpnExtensionInfo(vpnToken);
+const getVpnExtensionInfo = async (appId, vpnToken) => {
+    const info = await vpnApi.getVpnExtensionInfo(appId, vpnToken);
 
     const {
         bandwidth_free_mbits: bandwidthFreeMbits,

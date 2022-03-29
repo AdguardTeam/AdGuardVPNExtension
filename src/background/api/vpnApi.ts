@@ -115,10 +115,10 @@ interface ExclusionServiceDomainsData extends AxiosResponse {
 }
 
 interface VpnApiInterface {
-    getLocations(vpnToken: string): Promise<LocationsData>,
+    getLocations(appId: string, vpnToken: string): Promise<LocationsData>,
     getVpnCredentials(appId: string, vpnToken: string): Promise<VpnCredentials>,
     getCurrentLocation(): Promise<CurrentLocationData>,
-    getVpnExtensionInfo(vpnToken: string): Promise<VpnExtensionInfo>,
+    getVpnExtensionInfo(appId: string, vpnToken: string): Promise<VpnExtensionInfo>,
     postExtensionInstalled(appId: string): Promise<PostExtensionInstalledData>,
     requestSupport(data: RequestSupportData): Promise<AxiosResponse>,
     getDesktopVpnConnectionStatus(): Promise<VpnConnectionStatus>,
@@ -130,11 +130,12 @@ interface VpnApiInterface {
 class VpnApi extends Api implements VpnApiInterface {
     GET_LOCATIONS = { path: 'v2/locations/extension', method: 'GET' };
 
-    getLocations = (vpnToken: string): Promise<LocationsData> => {
+    getLocations = (appId: string, vpnToken: string): Promise<LocationsData> => {
         const { path, method } = this.GET_LOCATIONS;
         const language = browser.i18n.getUILanguage();
 
         const params = {
+            app_id: appId,
             token: vpnToken,
             language,
         };
@@ -168,10 +169,11 @@ class VpnApi extends Api implements VpnApiInterface {
 
     VPN_EXTENSION_INFO = { path: 'v1/info/extension', method: 'GET' };
 
-    getVpnExtensionInfo = (vpnToken: string): Promise<VpnExtensionInfo> => {
+    getVpnExtensionInfo = (appId: string, vpnToken: string): Promise<VpnExtensionInfo> => {
         const { path, method } = this.VPN_EXTENSION_INFO;
 
         const params = {
+            app_id: appId,
             token: vpnToken,
         };
         return this.makeRequest(path, { params }, method);

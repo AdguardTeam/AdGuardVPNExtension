@@ -5,6 +5,7 @@ import lodashGet from 'lodash/get';
 import accountProvider from '../providers/accountProvider';
 import { log } from '../../lib/logger';
 import notifier from '../../lib/notifier';
+import { vpnProvider } from '../providers/vpnProvider';
 
 class Credentials {
     VPN_TOKEN_KEY = 'credentials.token';
@@ -12,6 +13,12 @@ class Credentials {
     APP_ID_KEY = 'credentials.app.id';
 
     VPN_CREDENTIALS_KEY = 'credentials.vpn';
+
+    // Update once in 24 hours
+    UPDATE_CREDENTIALS_INTERVAL_MS = 1000 * 60 * 60 * 24;
+
+    // Update once in hour
+    UPDATE_VPN_INFO_INTERVAL_MS = 1000 * 60 * 60;
 
     constructor({
         browserApi,
@@ -424,8 +431,52 @@ class Credentials {
         this.currentUsername = null;
     }
 
+    /**
+     * Updates credentials every 24 hours (UPDATE_CREDENTIALS_INTERVAL_MS)
+     */
+    initCredentialsPeriodicUpdate() {
+        const { gainValidVpnCredentials, UPDATE_CREDENTIALS_INTERVAL_MS } = this;
+
+        setInterval(async () => {
+            const forceRemote = true;
+            this.vpnCredentials = await gainValidVpnCredentials(forceRemote);
+        }, UPDATE_CREDENTIALS_INTERVAL_MS);
+    }
+
+    /**
+     * Updates vpn extension info every hour (UPDATE_VPN_INFO_INTERVAL_MS)
+     */
+    initVpnExtensionInfoPeriodicUpdate() {
+        const {
+            gainValidVpnToken,
+            gainValidVpnCredentials,
+            getAppId,
+            UPDATE_VPN_INFO_INTERVAL_MS,
+        } = this;
+
+        setInterval(async () => {
+            const forceRemote = true;
+            const vpnToken = await gainValidVpnToken(forceRemote);
+            const appId = await getAppId();
+            const vpnInfo = await vpnProvider.getVpnExtensionInfo(appId, vpnToken);
+            if (vpnInfo.refreshTokens) {
+                this.vpnCredentials = await gainValidVpnCredentials(forceRemote);
+            }
+        }, UPDATE_VPN_INFO_INTERVAL_MS);
+    }
+
+    initPeriodicUpdates() {
+        this.initCredentialsPeriodicUpdate();
+        this.initVpnExtensionInfoPeriodicUpdate();
+    }
+
     async init() {
         try {
+            notifier.addSpecifiedListener(
+                notifier.types.USER_AUTHENTICATED,
+                this.initPeriodicUpdates.bind(this),
+            );
+
             notifier.addSpecifiedListener(
                 notifier.types.USER_DEAUTHENTICATED,
                 this.handleUserDeauthentication.bind(this),
