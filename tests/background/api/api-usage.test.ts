@@ -7,14 +7,20 @@ const UPDATE_CREDENTIALS_INTERVAL_MS = 1000 * 60 * 60 * 24;
 
 const UPDATE_VPN_INFO_INTERVAL_MS = 1000 * 60 * 60;
 
-const browserApi = {};
+const browserApi = {
+    storage: {
+        set: jest.fn(),
+        get: jest.fn(),
+        remove: jest.fn(),
+    },
+};
 
 const CREDENTIALS_DATA = {
-    license_status: 'TEST',
-    time_expires_sec: 10000,
+    license_status: 'VALID',
+    time_expires_sec: 9999561439,
     result: {
-        credentials: 'test',
-        expires_in_sec: 10000,
+        credentials: '8wHFnx4R3dqMxG5C',
+        expires_in_sec: 86399999,
     },
     data: {},
     status: 200,
@@ -50,32 +56,32 @@ const credentials = new Credentials({ browserApi, vpnProvider });
 jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ token: 'test_token' });
 jest.spyOn(credentials, 'getAppId').mockResolvedValue('test_app_id');
 jest.spyOn(credentials, 'trackInstallation').mockResolvedValue();
+jest.spyOn(credentials, 'fetchUsername').mockResolvedValue('test@example.com');
+jest.spyOn(credentials, 'updateProxyCredentials').mockResolvedValue();
 jest.spyOn(vpnApi, 'getVpnCredentials').mockResolvedValue(CREDENTIALS_DATA);
 jest.spyOn(vpnApi, 'getVpnExtensionInfo').mockResolvedValue(VPN_INFO_DATA);
 
-jest.useFakeTimers('modern');
+jest.useFakeTimers();
 
 describe('Api usage tests', () => {
-    afterAll(() => {
-        jest.clearAllMocks();
+    beforeAll(async () => {
+        await credentials.init();
     });
 
-    it('v1/proxy_credentials api have to be called once on credentials initialization', async () => {
-        await credentials.init();
+    it('v1/proxy_credentials api have to be called once on credentials initialization', () => {
         expect(vpnApi.getVpnCredentials).toBeCalledTimes(1);
+
+        notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
+        jest.advanceTimersByTime(UPDATE_CREDENTIALS_INTERVAL_MS + 100);
     });
 
-    it('v1/proxy_credentials api have to be called every 12 hours', async () => {
-        await credentials.init();
-        notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
-        jest.runTimersToTime(UPDATE_CREDENTIALS_INTERVAL_MS / 2 + 100);
+    it('v1/proxy_credentials api have to be called every 12 hours', () => {
         expect(vpnApi.getVpnCredentials).toBeCalledTimes(2);
+
+        jest.advanceTimersByTime(UPDATE_VPN_INFO_INTERVAL_MS + 100);
     });
 
-    it('v1/info/extension api have to be called every hour', async () => {
-        await credentials.init();
-        notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
-        jest.runTimersToTime(UPDATE_VPN_INFO_INTERVAL_MS + 100);
-        expect(vpnApi.getVpnExtensionInfo).toBeCalledTimes(1);
+    it('v1/info/extension api have to be called every hour', () => {
+        expect(vpnApi.getVpnExtensionInfo).toBeCalledTimes(25);
     });
 });

@@ -435,12 +435,13 @@ class Credentials {
      * Updates credentials every 24 hours (UPDATE_CREDENTIALS_INTERVAL_MS)
      */
     initCredentialsPeriodicUpdate() {
-        const { gainValidVpnCredentials, UPDATE_CREDENTIALS_INTERVAL_MS } = this;
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        const this_ = this;
 
         setInterval(async () => {
             const forceRemote = true;
-            this.vpnCredentials = await gainValidVpnCredentials(forceRemote);
-        }, UPDATE_CREDENTIALS_INTERVAL_MS);
+            this_.vpnCredentials = await this_.gainValidVpnCredentials(forceRemote);
+        }, this_.UPDATE_CREDENTIALS_INTERVAL_MS);
     }
 
     /**
