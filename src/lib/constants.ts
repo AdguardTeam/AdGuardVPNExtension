@@ -103,3 +103,9 @@ export const FLAGS_FIELDS = {
     SHOW_UPGRADE_SCREEN: 'showUpgradeScreen',
     SALE_SHOW: 'saleShow',
 };
+
+// 24 hours
+export const UPDATE_CREDENTIALS_INTERVAL_MS = 1000 * 60 * 60 * 24;
+
+// 1 hour
+export const UPDATE_VPN_INFO_INTERVAL_MS = 1000 * 60 * 60;

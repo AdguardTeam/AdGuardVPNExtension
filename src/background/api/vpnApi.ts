@@ -9,28 +9,28 @@ import { fallbackApi } from './fallbackApi';
 const API_PREFIX = '/api';
 
 interface VpnCredentials extends AxiosResponse {
-    license_status: string,
-    time_expires_sec: number,
+    license_status: string;
+    time_expires_sec: number;
     result: {
         credentials: string,
         expires_in_sec: number,
-    },
+    };
 }
 
 interface VpnExtensionInfo extends AxiosResponse {
-    bandwidth_free_mbits: number,
-    premium_promo_page: string,
-    premium_promo_enabled: boolean,
-    refresh_tokens: boolean,
-    vpn_failure_page: string,
-    used_downloaded_bytes: number,
-    used_uploaded_bytes: number,
-    max_downloaded_bytes: number,
-    max_uploaded_bytes: number,
-    renewal_traffic_date: string,
-    connected_devices_count: number,
-    max_devices_count: number,
-    vpn_connected: boolean,
+    bandwidth_free_mbits: number;
+    premium_promo_page: string;
+    premium_promo_enabled: boolean;
+    refresh_tokens: boolean;
+    vpn_failure_page: string;
+    used_downloaded_bytes: number;
+    used_uploaded_bytes: number;
+    max_downloaded_bytes: number;
+    max_uploaded_bytes: number;
+    renewal_traffic_date: string;
+    connected_devices_count: number;
+    max_devices_count: number;
+    vpn_connected: boolean;
 }
 
 interface LocationsData extends AxiosResponse {
@@ -51,46 +51,46 @@ interface LocationsData extends AxiosResponse {
             ipv6_address: string,
             public_key: string,
         }],
-    }],
+    }];
 }
 
 interface CurrentLocationData extends AxiosResponse {
-    ip: string,
-    country_code: string,
+    ip: string;
+    country_code: string;
     country: {
         names: [{
             locale: string,
             name: string,
         }],
-    },
+    };
     location: {
         latitude: number,
         longitude: number,
-    },
+    };
     city: {
         names: [{
             locale: string,
             name: string,
         }],
-    },
+    };
 }
 
 interface PostExtensionInstalledData extends AxiosResponse {
-    social_providers: [string],
+    social_providers: [string];
 }
 
 interface RequestSupportData extends AxiosResponse {
-    app_id: string,
-    token: string,
-    email: string,
-    subject: string,
-    message: string,
-    version: string,
-    app_logs: any,
+    app_id: string;
+    token: string;
+    email: string;
+    subject: string;
+    message: string;
+    version: string;
+    app_logs: any;
 }
 
 interface VpnConnectionStatus extends AxiosResponse {
-    connected: boolean,
+    connected: boolean;
 }
 
 interface ExclusionsServicesData extends AxiosResponse {
@@ -100,30 +100,30 @@ interface ExclusionsServicesData extends AxiosResponse {
         icon_url: string,
         categories: [string],
         modified_time: string,
-    }],
+    }];
     categories: [{
         id: string,
         name: string,
-    }],
+    }];
 }
 
 interface ExclusionServiceDomainsData extends AxiosResponse {
     services: [{
         service_id: string,
         domains: [string],
-    }],
+    }];
 }
 
 interface VpnApiInterface {
-    getLocations(appId: string, vpnToken: string): Promise<LocationsData>,
-    getVpnCredentials(appId: string, vpnToken: string): Promise<VpnCredentials>,
-    getCurrentLocation(): Promise<CurrentLocationData>,
-    getVpnExtensionInfo(appId: string, vpnToken: string): Promise<VpnExtensionInfo>,
-    postExtensionInstalled(appId: string): Promise<PostExtensionInstalledData>,
-    requestSupport(data: RequestSupportData): Promise<AxiosResponse>,
-    getDesktopVpnConnectionStatus(): Promise<VpnConnectionStatus>,
-    getExclusionsServices(): Promise<ExclusionsServicesData>,
-    getExclusionServiceDomains(servicesIds: [string]): Promise<ExclusionServiceDomainsData>,
+    getLocations(appId: string, vpnToken: string): Promise<LocationsData>;
+    getVpnCredentials(appId: string, vpnToken: string): Promise<VpnCredentials>;
+    getCurrentLocation(): Promise<CurrentLocationData>;
+    getVpnExtensionInfo(appId: string, vpnToken: string): Promise<VpnExtensionInfo>;
+    postExtensionInstalled(appId: string): Promise<PostExtensionInstalledData>;
+    requestSupport(data: RequestSupportData): Promise<AxiosResponse>;
+    getDesktopVpnConnectionStatus(): Promise<VpnConnectionStatus>;
+    getExclusionsServices(): Promise<ExclusionsServicesData>;
+    getExclusionServiceDomains(servicesIds: [string]): Promise<ExclusionServiceDomainsData>;
 }
 
 // projects/ADGUARD/repos/adguard-vpn-backend-service/browse

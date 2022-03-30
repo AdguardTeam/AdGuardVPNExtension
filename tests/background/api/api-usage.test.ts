@@ -2,10 +2,10 @@ import Credentials from '../../../src/background/credentials/Credentials';
 import { vpnProvider } from '../../../src/background/providers/vpnProvider';
 import { vpnApi } from '../../../src/background/api';
 import notifier from '../../../src/lib/notifier';
-
-const UPDATE_CREDENTIALS_INTERVAL_MS = 1000 * 60 * 60 * 24;
-
-const UPDATE_VPN_INFO_INTERVAL_MS = 1000 * 60 * 60;
+import {
+    UPDATE_CREDENTIALS_INTERVAL_MS,
+    UPDATE_VPN_INFO_INTERVAL_MS,
+} from '../../../src/lib/constants';
 
 const browserApi = {
     storage: {
@@ -50,10 +50,21 @@ const VPN_INFO_DATA = {
     config: {},
 };
 
+const VPN_TOKEN_DATA = {
+    token: 'test_token',
+    licenseStatus: 'VALID',
+    timeExpiresSec: 23223224,
+    licenseKey: 'test_key',
+    subscription: false,
+    vpnSubscription: {
+        next_bill_date_iso: '2011-10-05T14:48:00.000Z',
+    },
+};
+
 // @ts-ignore
 const credentials = new Credentials({ browserApi, vpnProvider });
 
-jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ token: 'test_token' });
+jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue(VPN_TOKEN_DATA);
 jest.spyOn(credentials, 'getAppId').mockResolvedValue('test_app_id');
 jest.spyOn(credentials, 'trackInstallation').mockResolvedValue();
 jest.spyOn(credentials, 'fetchUsername').mockResolvedValue('test@example.com');
