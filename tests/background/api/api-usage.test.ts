@@ -2,10 +2,10 @@ import Credentials from '../../../src/background/credentials/Credentials';
 import { vpnProvider } from '../../../src/background/providers/vpnProvider';
 import { vpnApi } from '../../../src/background/api';
 import notifier from '../../../src/lib/notifier';
-import {
-    UPDATE_CREDENTIALS_INTERVAL_MS,
-    UPDATE_VPN_INFO_INTERVAL_MS,
-} from '../../../src/lib/constants';
+import { UPDATE_CREDENTIALS_INTERVAL_MS } from '../../../src/lib/constants';
+
+const EXPIRES_IN_SEC_START = 90000;
+const EXPIRES_IN_SEC_AFTER_24H = 3600;
 
 const browserApi = {
     storage: {
@@ -15,18 +15,20 @@ const browserApi = {
     },
 };
 
-const CREDENTIALS_DATA = {
-    license_status: 'VALID',
-    time_expires_sec: 9999561439,
-    result: {
-        credentials: '8wHFnx4R3dqMxG5C',
-        expires_in_sec: 86399999,
-    },
-    data: {},
-    status: 200,
-    statusText: '',
-    headers: '',
-    config: {},
+const getCredentialsData = (expiresInSec: number) => {
+    return {
+        license_status: 'VALID',
+        time_expires_sec: 9999561439,
+        result: {
+            credentials: '8wHFnx4R3dqMxG5C',
+            expires_in_sec: expiresInSec,
+        },
+        data: {},
+        status: 200,
+        statusText: '',
+        headers: '',
+        config: {},
+    };
 };
 
 const VPN_INFO_DATA = {
@@ -69,8 +71,9 @@ jest.spyOn(credentials, 'getAppId').mockResolvedValue('test_app_id');
 jest.spyOn(credentials, 'trackInstallation').mockResolvedValue();
 jest.spyOn(credentials, 'fetchUsername').mockResolvedValue('test@example.com');
 jest.spyOn(credentials, 'updateProxyCredentials').mockResolvedValue();
-jest.spyOn(vpnApi, 'getVpnCredentials').mockResolvedValue(CREDENTIALS_DATA);
 jest.spyOn(vpnApi, 'getVpnExtensionInfo').mockResolvedValue(VPN_INFO_DATA);
+// credentials will expire in 24 + 1 hour = 90000 sec
+jest.spyOn(vpnApi, 'getVpnCredentials').mockResolvedValue(getCredentialsData(EXPIRES_IN_SEC_START));
 
 jest.useFakeTimers();
 
@@ -81,18 +84,31 @@ describe('Api usage tests', () => {
 
     it('v1/proxy_credentials api have to be called once on credentials initialization', () => {
         expect(vpnApi.getVpnCredentials).toBeCalledTimes(1);
+        expect(credentials.vpnCredentials?.result.expiresInSec).toBe(EXPIRES_IN_SEC_START);
 
         notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
+        // advance timers for 24 hours + 100 ms
         jest.advanceTimersByTime(UPDATE_CREDENTIALS_INTERVAL_MS + 100);
+        // credentials will expire in 1 hour
+        jest.spyOn(vpnApi, 'getVpnCredentials').mockResolvedValue(getCredentialsData(EXPIRES_IN_SEC_AFTER_24H));
     });
 
-    it('v1/proxy_credentials api have to be called every 12 hours', () => {
+    it('v1/proxy_credentials api have to be called every 24 hours', () => {
+        // v1/proxy_credentials api have to be called second time after 24 hours passed
         expect(vpnApi.getVpnCredentials).toBeCalledTimes(2);
-
-        jest.advanceTimersByTime(UPDATE_VPN_INFO_INTERVAL_MS + 100);
     });
 
     it('v1/info/extension api have to be called every hour', () => {
-        expect(vpnApi.getVpnExtensionInfo).toBeCalledTimes(25);
+        // v1/info/extension api have to be called 24 times for the last 24 hours
+        expect(vpnApi.getVpnExtensionInfo).toBeCalledTimes(24);
+
+        // advance timers for half an hour + 100 ms
+        jest.advanceTimersByTime(EXPIRES_IN_SEC_AFTER_24H * 1000 + 100);
+    });
+
+    it('v1/proxy_credentials api have to be called in half an hour before credentials expired', () => {
+        // v1/proxy_credentials api have to be called third time
+        expect(vpnApi.getVpnCredentials).toBeCalledTimes(3);
+        expect(credentials.vpnCredentials?.result.expiresInSec).toBe(EXPIRES_IN_SEC_AFTER_24H);
     });
 });

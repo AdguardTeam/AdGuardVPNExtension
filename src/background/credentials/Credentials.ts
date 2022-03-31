@@ -12,6 +12,8 @@ import {
     UPDATE_VPN_INFO_INTERVAL_MS,
 } from '../../lib/constants';
 
+const HALF_HOUR_SEC = 1800;
+
 interface VpnTokenData {
     token: string;
     licenseStatus: string;
@@ -506,11 +508,11 @@ class Credentials {
      */
     initCredentialsPeriodicUpdate(): void {
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        const this_ = this;
+        const self = this;
 
         setInterval(async () => {
             const forceRemote = true;
-            this_.vpnCredentials = await this_.gainValidVpnCredentials(forceRemote);
+            self.vpnCredentials = await self.gainValidVpnCredentials(forceRemote);
         }, UPDATE_CREDENTIALS_INTERVAL_MS);
     }
 
@@ -518,33 +520,54 @@ class Credentials {
      * Updates vpn extension info every hour (UPDATE_VPN_INFO_INTERVAL_MS)
      */
     initVpnExtensionInfoPeriodicUpdate(): void {
-        const {
-            gainValidVpnToken,
-            gainValidVpnCredentials,
-            getAppId,
-        } = this;
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        const self = this;
 
         setInterval(async () => {
             const forceRemote = true;
-            const vpnToken = await gainValidVpnToken(forceRemote);
-            const appId = await getAppId();
+            const vpnToken = await self.gainValidVpnToken(forceRemote);
+            const appId = await self.getAppId();
             const vpnInfo = await vpnProvider.getVpnExtensionInfo(appId, vpnToken?.token);
             if (vpnInfo.refreshTokens) {
-                this.vpnCredentials = await gainValidVpnCredentials(forceRemote);
+                self.vpnCredentials = await self.gainValidVpnCredentials(forceRemote);
             }
         }, UPDATE_VPN_INFO_INTERVAL_MS);
     }
 
-    initPeriodicUpdates(): void {
+    initDataUpdates(): void {
         this.initCredentialsPeriodicUpdate();
         this.initVpnExtensionInfoPeriodicUpdate();
+    }
+
+    /**
+     * Request credentials in half an hour before expired
+     * @returns Promise<void>
+     */
+    async checkCredentialsBeforeExpired(): Promise<void> {
+        const self = this;
+        if (self?.vpnCredentials?.result?.expiresInSec
+            && self.vpnCredentials.result.expiresInSec > HALF_HOUR_SEC) {
+            setTimeout(async () => {
+                await self.getVpnCredentials();
+            }, (self.vpnCredentials.result.expiresInSec - HALF_HOUR_SEC) * 1000);
+        } else {
+            await this.getVpnCredentials();
+        }
+    }
+
+    async getVpnCredentials() {
+        // On extension initialisation use local fallback if was unable to get data remotely
+        // it might be useful on browser restart
+        const forceRemote = true;
+        this.vpnToken = await this.gainValidVpnToken(forceRemote);
+        this.vpnCredentials = await this.gainValidVpnCredentials(forceRemote);
     }
 
     async init(): Promise<void> {
         try {
             notifier.addSpecifiedListener(
                 notifier.types.USER_AUTHENTICATED,
-                this.initPeriodicUpdates.bind(this),
+                this.initDataUpdates.bind(this),
             );
 
             notifier.addSpecifiedListener(
@@ -553,12 +576,8 @@ class Credentials {
             );
 
             await this.trackInstallation();
-
-            // On extension initialisation use local fallback if was unable to get data remotely
-            // it might be useful on browser restart
-            const forceRemote = true;
-            this.vpnToken = await this.gainValidVpnToken(forceRemote);
-            this.vpnCredentials = await this.gainValidVpnCredentials(forceRemote);
+            await this.getVpnCredentials();
+            await this.checkCredentialsBeforeExpired();
             this.currentUsername = await this.fetchUsername();
         } catch (e: any) {
             log.debug('Unable to init credentials module, due to error:', e.message);
