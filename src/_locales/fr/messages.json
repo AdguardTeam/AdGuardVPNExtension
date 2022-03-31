@@ -69,19 +69,13 @@
         "message": "Signaler un bogue"
     },
     "options_support_report_description": {
-        "message": "Si quelque chose ne fonctionne pas correctement dans le programme"
+        "message": "Signalez-nous des bogues potentiels"
     },
     "options_support_feedback_title": {
         "message": "Envoyer un commentaire"
     },
     "options_support_feedback_description": {
         "message": "Soumettre des demandes de fonctionnalités et des suggestions"
-    },
-    "options_support_discuss_title": {
-        "message": "Discuter"
-    },
-    "options_support_discuss_description": {
-        "message": "Discutez sur notre forum, dans les réseaux sociaux ou sur Github"
     },
     "options_report_bug_title": {
         "message": "Signaler un bogue"
@@ -189,7 +183,7 @@
         "message": "Continuer avec votre compte AdGuard ou celui d'un réseau social"
     },
     "auth_sign_in_provider_adguard": {
-        "message": "Continuer avec AdGuard"
+        "message": "Continuer avec Email"
     },
     "auth_sign_in_provider_apple": {
         "message": "Continuer avec Apple"

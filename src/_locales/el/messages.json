@@ -59,20 +59,11 @@
     "options_support_report_title": {
         "message": "Αναφορά σφάλματος"
     },
-    "options_support_report_description": {
-        "message": "Εάν κάτι δεν λειτουργεί σωστά στο πρόγραμμα"
-    },
     "options_support_feedback_title": {
         "message": "Υποβολή σχολίων"
     },
     "options_support_feedback_description": {
         "message": "Υποβολή αιτημάτων και προτάσεων λειτουργιών"
-    },
-    "options_support_discuss_title": {
-        "message": "Συζήτηση"
-    },
-    "options_support_discuss_description": {
-        "message": "Συζητήστε στο φόρουμ μας, στα κοινωνικά δίκτυα ή στο GitHub"
     },
     "options_report_bug_title": {
         "message": "Αναφορά σφάλματος"
@@ -163,9 +154,6 @@
     },
     "auth_title": {
         "message": "Εξουσιοδότηση"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Συνέχεια με AdGuard"
     },
     "auth_sign_in_provider_apple": {
         "message": "Συνεχίστε με την Apple"
@@ -554,6 +542,9 @@
     },
     "popup_upgrade_screen_all_locations": {
         "message": "Όλες οι τοποθεσίες"
+    },
+    "popup_upgrade_screen_streaming_support": {
+        "message": "Υποστήριξη ροής (Stream)"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Streaming"

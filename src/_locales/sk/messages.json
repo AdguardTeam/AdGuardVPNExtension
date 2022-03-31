@@ -1,4 +1,10 @@
 {
+    "name": {
+        "message": "AdGuard VPN — rýchly vpn a bezpečný súkromný proxy"
+    },
+    "description": {
+        "message": "Použite AdGuard VPN na rýchle, bezpečné a bezpečné surfovanie po internete. Chráňte svoje súkromie a zostaňte v anonymite pomocou nášho súkromného vpn proxy."
+    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -63,19 +69,13 @@
         "message": "Nahlásiť chybu"
     },
     "options_support_report_description": {
-        "message": "Ak niečo v programe nefunguje správne"
+        "message": "Pošlite nám správu o prípadnej chybe"
     },
     "options_support_feedback_title": {
         "message": "Poslať spätnú väzbu"
     },
     "options_support_feedback_description": {
         "message": "Poslať požiadavky na funkcie a iné návrhy"
-    },
-    "options_support_discuss_title": {
-        "message": "Prediskutovať"
-    },
-    "options_support_discuss_description": {
-        "message": "Diskutujte na našom fóre, v sociálnych sieťach alebo na GitHub"
     },
     "options_report_bug_title": {
         "message": "Nahlásiť chybu"
@@ -181,9 +181,6 @@
     },
     "auth_info": {
         "message": "Prihlásiť sa pomocou účtu AdGuard alebo sociálnych sietí"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Prihlásiť sa prihlasovacím menom AdGuard"
     },
     "auth_sign_in_provider_apple": {
         "message": "Prihlásiť sa pomocou Apple"
@@ -777,11 +774,5 @@
     },
     "options_signedout_page_description": {
         "message": "Vaše pripojenie nie je bezpečné. Ak chcete pokračovať v súkromnom surfovaní, kliknite na ikonu AdGuard VPN a znova sa prihláste."
-    },
-    "name": {
-        "message": "AdGuard VPN — fast vpn & secure private proxy"
-    },
-    "description": {
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

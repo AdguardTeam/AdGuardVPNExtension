@@ -62,20 +62,11 @@
     "options_support_report_title": {
         "message": "Паведаміць пра памылку"
     },
-    "options_support_report_description": {
-        "message": "Калі нешта ў праграме працуе некарэктна"
-    },
     "options_support_feedback_title": {
         "message": "Пакінуць водгук"
     },
     "options_support_feedback_description": {
         "message": "Адпраўляйце запыты і прапановы"
-    },
-    "options_support_discuss_title": {
-        "message": "Абмеркаваць"
-    },
-    "options_support_discuss_description": {
-        "message": "Абмеркаваць на форуме, у сацыяльных сетках ці на GitHub"
     },
     "options_report_bug_title": {
         "message": "Паведаміць пра памылку"
@@ -178,9 +169,6 @@
     },
     "auth_info": {
         "message": "Працягнуць з дапамогай акаўнта AdGuard ці сацыяльных сетак"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Працягнуць з дапамогай акаўнта AdGuard"
     },
     "auth_sign_in_provider_apple": {
         "message": "Працягнуць з Apple"
@@ -332,6 +320,9 @@
     "settings_theme_light": {
         "message": "Светлая"
     },
+    "settings_exclusion_add": {
+        "message": "ДАДАЦЬ"
+    },
     "settings_exclusion_add_website": {
         "message": "Дадаць сайт"
     },
@@ -415,6 +406,9 @@
     },
     "settings_exclusion_selective_title": {
         "message": "Выбарковы рэжым"
+    },
+    "settings_exclusion_selective_description": {
+        "message": "AdGuard VPN працуе толькі на сайтах з гэтага спіса"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Паддамены"

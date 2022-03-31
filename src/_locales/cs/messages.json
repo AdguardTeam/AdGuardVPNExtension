@@ -69,19 +69,13 @@
         "message": "Nahlásit chybu"
     },
     "options_support_report_description": {
-        "message": "Pokud v programu něco nefunguje správně"
+        "message": "Pošlete nám zprávu o potenciální chybě"
     },
     "options_support_feedback_title": {
         "message": "Zanechat zpětnou vazbu"
     },
     "options_support_feedback_description": {
         "message": "Odešlete požadavky a návrhy funkcí"
-    },
-    "options_support_discuss_title": {
-        "message": "Diskuze"
-    },
-    "options_support_discuss_description": {
-        "message": "Diskutujte na našem fóru, sociálních sítích nebo na GitHubu"
     },
     "options_report_bug_title": {
         "message": "Nahlásit chybu"
@@ -187,9 +181,6 @@
     },
     "auth_info": {
         "message": "Pokračujte pomocí svého AdGuard účtu nebo pomocí sociálních sítí"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Pokračovat s AdGuard účtem"
     },
     "auth_sign_in_provider_apple": {
         "message": "Pokračovat s Apple účtem"

@@ -20,9 +20,6 @@
     "settings_dns_selector_cloudflare_desc": {
         "message": "Percuma servis DNS oleh Cloudfare"
     },
-    "settings_theme_light": {
-        "message": "Cerah"
-    },
     "settings_exclusion_domain_name": {
         "message": "Nama domain:"
     },

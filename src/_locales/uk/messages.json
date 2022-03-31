@@ -1,4 +1,10 @@
 {
+    "name": {
+        "message": "AdGuard VPN — швидкий та безпечний vpn proxy"
+    },
+    "description": {
+        "message": "Використовуйте AdGuard VPN, щоб швидко та безпечно користуватись інтернетом. Захистіть свою приватність та станьте анонімними з проксі-сервером AdGuard VPN."
+    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -63,19 +69,13 @@
         "message": "Повідомити про помилку"
     },
     "options_support_report_description": {
-        "message": "Якщо щось не працює правильно в програмі"
+        "message": "Повідомте нам, якщо щось не працює"
     },
     "options_support_feedback_title": {
         "message": "Залишити відгук"
     },
     "options_support_feedback_description": {
         "message": "Подавайте запити нових функцій та пропозиції"
-    },
-    "options_support_discuss_title": {
-        "message": "Обговорити"
-    },
-    "options_support_discuss_description": {
-        "message": "Обговорити на нашому форумі, в соціальних мережах чи на GitHub"
     },
     "options_report_bug_title": {
         "message": "Повідомити про помилку"
@@ -181,9 +181,6 @@
     },
     "auth_info": {
         "message": "Увійти з обліковим записом AdGuard або через соціальні мережі"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Продовжити з AdGuard"
     },
     "auth_sign_in_provider_apple": {
         "message": "Продовжити з Apple"
@@ -740,7 +737,7 @@
         "message": "Усі винятки для поточного режиму видалено."
     },
     "options_exclusions_import_error_wrong_extensions": {
-        "message": "Файл винятків мусить мати одне з разширень: %extensions%"
+        "message": "Файл винятків мусить мати одне з розширень: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
         "message": "Zip-архів «%filename%» не містить файлів з прийнятними розширеннями: %extensions%"
@@ -777,11 +774,5 @@
     },
     "options_signedout_page_description": {
         "message": "Ваше з'єднання не захищене. Щоб продовжувати безпечно користуватись інтернетом, натисніть на піктограму AdGuard VPN та увійдіть знову."
-    },
-    "name": {
-        "message": "AdGuard VPN — fast vpn & secure private proxy"
-    },
-    "description": {
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

@@ -14,9 +14,6 @@
     "options_bug_report_send_button": {
         "message": "Envia"
     },
-    "settings_theme_light": {
-        "message": "Clar"
-    },
     "settings_exclusion_domain_name": {
         "message": "Nom de domini:"
     },
