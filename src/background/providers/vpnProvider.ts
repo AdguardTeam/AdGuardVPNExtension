@@ -4,18 +4,122 @@ import JSZip from 'jszip';
 import { vpnApi } from '../api';
 import { log } from '../../lib/logger';
 import { processExclusionServices, processExclusionServicesDomains } from '../../common/data-processors';
+import { LocationApiData, EndpointApiData } from '../api/vpnApi';
+import { Service } from '../exclusions/services/Service';
+
+const DEFAULT_LOCALE = 'en';
+
+export interface CredentialsDataInterface {
+    licenseStatus: string;
+    result: {
+        credentials: string;
+        expiresInSec: number;
+    },
+    timeExpiresSec: number;
+}
+
+interface NameInterface {
+    locale: string;
+    name: string;
+}
+
+interface VpnExtensionInfoInterface {
+    bandwidthFreeMbits: number;
+    premiumPromoPage: string;
+    premiumPromoEnabled: boolean;
+    refreshTokens: boolean;
+    vpnFailurePage: string;
+    usedDownloadedBytes: number;
+    usedUploadedBytes: number;
+    maxDownloadedBytes: number;
+    maxUploadedBytes: number;
+    renewalTrafficDate: string;
+}
+
+interface CurrentLocationData {
+    ip: string;
+    cityName: string | null;
+    countryName: string | null;
+    countryCode: string;
+    coordinates: [
+        longitude: number,
+        latitude: number,
+    ],
+}
+
+interface LocationProviderData {
+    id: string;
+    cityName: string | null;
+    countryName: string | null;
+    countryCode: string;
+    coordinates: [
+        longitude: number,
+        latitude: number,
+    ],
+    premiumOnly: boolean;
+    pingBonus: number;
+    endpoints: EndpointProviderData[];
+}
+
+interface EndpointProviderData {
+    id: string;
+    ipv4Address: string;
+    ipv6Address: string;
+    domainName: string;
+    publicKey: string;
+}
+
+interface RequestSupportParameters {
+    appId: string;
+    token: string;
+    email: string;
+    message: string;
+    version: string;
+    appLogs: string;
+}
+
+export interface ServicesInterface {
+    [serviceId: string]: Service,
+}
+
+export interface VpnProviderInterface {
+    getLocationsData:(appId: string, vpnToken: string) => Promise<LocationProviderData[]>;
+    getCurrentLocation: () => Promise<CurrentLocationData>;
+    getVpnCredentials: (
+        appId: string,
+        vpnToken: string | undefined,
+    ) => Promise<CredentialsDataInterface>;
+    postExtensionInstalled: (appId: string) => Promise<{ social_providers: [string] }>;
+    getVpnExtensionInfo: (
+        appId: string,
+        vpnToken: string | undefined,
+    ) => Promise<VpnExtensionInfoInterface>;
+    requestSupport: ({
+        appId,
+        token,
+        email,
+        message,
+        version,
+        appLogs,
+    }: RequestSupportParameters) => Promise<{ status: string, error: any }>;
+    getExclusionsServices: () => Promise<ServicesInterface>;
+}
 
 /**
  * Prepares locations data
+ * @param appId
  * @param vpnToken
  * @returns {Promise<*>}
  */
-const getLocationsData = async (appId, vpnToken) => {
+const getLocationsData = async (
+    appId: string,
+    vpnToken: string,
+): Promise<LocationProviderData[]> => {
     const locationsData = await vpnApi.getLocations(appId, vpnToken);
 
     const { locations = [] } = locationsData;
 
-    const prepareEndpointData = (endpoint) => {
+    const prepareEndpointData = (endpoint: EndpointApiData): EndpointProviderData => {
         const {
             domain_name: domainName,
             ipv4_address: ipv4Address,
@@ -32,7 +136,7 @@ const getLocationsData = async (appId, vpnToken) => {
         };
     };
 
-    const prepareLocationData = (location) => {
+    const prepareLocationData = (location: LocationApiData): LocationProviderData => {
         const {
             city_name: cityName,
             country_code: countryCode,
@@ -62,7 +166,7 @@ const getLocationsData = async (appId, vpnToken) => {
     return preparedLocations;
 };
 
-const getSplitter = (localeCode) => {
+const getSplitter = (localeCode: string): string | null => {
     const dashSplitter = '-';
     const underscoreSplitter = '_';
     if (localeCode.indexOf(dashSplitter) > -1) {
@@ -74,18 +178,15 @@ const getSplitter = (localeCode) => {
     return null;
 };
 
-const getLocaleFirstPart = (localeCode, splitter) => {
+const getLocaleFirstPart = (localeCode: string, splitter: string): string => {
     const [firstPart] = localeCode.split(splitter);
     return firstPart;
 };
 
-const getLocalizedName = (names, locale) => {
+const getLocalizedName = (names: [NameInterface], locale = DEFAULT_LOCALE): string | null => {
     if (!names) {
         return null;
     }
-    const DEFAULT_LOCALE = 'en';
-    // eslint-disable-next-line no-param-reassign
-    locale = locale || DEFAULT_LOCALE;
 
     const name = names.find((localizedName) => locale === localizedName.locale);
     if (name) {
@@ -101,7 +202,7 @@ const getLocalizedName = (names, locale) => {
     return getLocalizedName(names, localeFirstPart);
 };
 
-const getCurrentLocation = async () => {
+const getCurrentLocation = async (): Promise<CurrentLocationData> => {
     const currentLocation = await vpnApi.getCurrentLocation();
 
     const {
@@ -125,7 +226,10 @@ const getCurrentLocation = async () => {
     };
 };
 
-const getVpnExtensionInfo = async (appId, vpnToken) => {
+const getVpnExtensionInfo = async (
+    appId: string,
+    vpnToken: string | undefined,
+): Promise<VpnExtensionInfoInterface> => {
     const info = await vpnApi.getVpnExtensionInfo(appId, vpnToken);
 
     const {
@@ -155,11 +259,14 @@ const getVpnExtensionInfo = async (appId, vpnToken) => {
     };
 };
 
-const getVpnCredentials = async (appId, vpnToken) => {
+const getVpnCredentials = async (
+    appId: string,
+    vpnToken: string | undefined,
+): Promise<CredentialsDataInterface> => {
     let responseData;
     try {
         responseData = await vpnApi.getVpnCredentials(appId, vpnToken);
-    } catch (e) {
+    } catch (e: any) {
         if (e.status === 400) {
             let errorMessageData;
 
@@ -197,11 +304,11 @@ const getVpnCredentials = async (appId, vpnToken) => {
     };
 };
 
-const postExtensionInstalled = async (appId) => {
+const postExtensionInstalled = async (appId: string): Promise<{ social_providers: [string] }> => {
     return vpnApi.postExtensionInstalled(appId);
 };
 
-const prepareLogs = async (appLogs) => {
+const prepareLogs = async (appLogs: string) => {
     const LOGS_FILENAME = 'logs.txt';
 
     const zip = new JSZip();
@@ -217,7 +324,7 @@ const requestSupport = async ({
     message,
     version,
     appLogs,
-}) => {
+}: RequestSupportParameters): Promise<{ status: string, error: any }> => {
     const BUG_REPORT_SUBJECT = '[VPN Browser extension] Bug report';
     const LOGS_ZIP_FILENAME = 'logs.zip';
 
@@ -237,8 +344,8 @@ const requestSupport = async ({
 
     try {
         await vpnApi.requestSupport(formData);
-        return { status: 'ok' };
-    } catch (e) {
+        return { status: 'ok', error: null };
+    } catch (e: any) {
         log.error(e);
         return {
             status: e.status,
@@ -247,7 +354,7 @@ const requestSupport = async ({
     }
 };
 
-const getExclusionsServicesDomains = async (serviceIds) => {
+const getExclusionsServicesDomains = async (serviceIds: [string]) => {
     const exclusionServiceDomains = await vpnApi.getExclusionServiceDomains(serviceIds);
     return processExclusionServicesDomains(exclusionServiceDomains);
 };
@@ -255,16 +362,16 @@ const getExclusionsServicesDomains = async (serviceIds) => {
 /**
  * Moved to separate module in order to not mangle with webextension-polyfill
  */
-export const getExclusionsServices = async () => {
+export const getExclusionsServices = async (): Promise<ServicesInterface> => {
     const [exclusionsServices, servicesDomains] = await Promise.all([
         vpnApi.getExclusionsServices(),
-        getExclusionsServicesDomains([]),
+        getExclusionsServicesDomains(['']),
     ]);
 
     return processExclusionServices(exclusionsServices, servicesDomains);
 };
 
-export const vpnProvider = {
+export const vpnProvider: VpnProviderInterface = {
     getCurrentLocation,
     getVpnExtensionInfo,
     getVpnCredentials,

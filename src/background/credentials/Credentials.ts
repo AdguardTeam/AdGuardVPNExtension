@@ -6,7 +6,7 @@ import lodashGet from 'lodash/get';
 import accountProvider from '../providers/accountProvider';
 import { log } from '../../lib/logger';
 import notifier from '../../lib/notifier';
-import { vpnProvider } from '../providers/vpnProvider';
+import { vpnProvider, CredentialsDataInterface, VpnProviderInterface } from '../providers/vpnProvider';
 import {
     UPDATE_CREDENTIALS_INTERVAL_MS,
     UPDATE_VPN_INFO_INTERVAL_MS,
@@ -21,20 +21,6 @@ interface VpnTokenData {
     vpnSubscription: {
         next_bill_date_iso: string,
     };
-}
-
-interface CredentialsData {
-    licenseStatus: string;
-    result: {
-        credentials: string;
-        expiresInSec: number;
-    },
-    timeExpiresSec: number;
-}
-
-interface VpnProviderInterface {
-    getVpnCredentials: (appId: string, token: string | undefined) => Promise<CredentialsData>;
-    postExtensionInstalled: (appId: string) => Promise<{ social_providers: [string] }>;
 }
 
 interface StorageInterface {
@@ -90,7 +76,7 @@ class Credentials {
 
     vpnToken: VpnTokenData | null | undefined;
 
-    vpnCredentials: CredentialsData | null | undefined;
+    vpnCredentials: CredentialsDataInterface | null | undefined;
 
     appId: string;
 
@@ -233,7 +219,7 @@ class Credentials {
      * @returns {Promise<*>}
      */
     async gainValidVpnCredentials(forceRemote = false, useLocalFallback = true):
-    Promise<CredentialsData> {
+    Promise<CredentialsDataInterface> {
         let vpnCredentials;
         try {
             vpnCredentials = await this.gainVpnCredentials(useLocalFallback, forceRemote);
@@ -281,7 +267,7 @@ class Credentials {
      * @param vpnCredentials
      * @returns {boolean}
      */
-    areCredentialsValid(vpnCredentials: CredentialsData | null | undefined): boolean {
+    areCredentialsValid(vpnCredentials: CredentialsDataInterface | null | undefined): boolean {
         const VALID_CREDENTIALS_STATUS = 'VALID';
         const LIMIT_EXCEEDED_CREDENTIALS_STATUS = 'LIMIT_EXCEEDED';
 
@@ -316,12 +302,15 @@ class Credentials {
      * @param oldCred
      * @returns {boolean}
      */
-    areCredentialsEqual = (newCred: CredentialsData, oldCred: CredentialsData): boolean => {
+    areCredentialsEqual = (
+        newCred: CredentialsDataInterface,
+        oldCred: CredentialsDataInterface,
+    ): boolean => {
         const path = 'result.credentials';
         return lodashGet(newCred, path) === lodashGet(oldCred, path);
     };
 
-    getVpnCredentialsLocal = async (): Promise<CredentialsData> => {
+    getVpnCredentialsLocal = async (): Promise<CredentialsDataInterface> => {
         if (this.vpnCredentials) {
             return this.vpnCredentials;
         }
@@ -331,7 +320,7 @@ class Credentials {
     };
 
     async gainVpnCredentials(useLocalFallback: boolean, forceRemote = false):
-    Promise<CredentialsData | undefined | null> {
+    Promise<CredentialsDataInterface | undefined | null> {
         let vpnCredentials;
 
         if (forceRemote) {
@@ -539,7 +528,7 @@ class Credentials {
             const forceRemote = true;
             const vpnToken = await gainValidVpnToken(forceRemote);
             const appId = await getAppId();
-            const vpnInfo = await vpnProvider.getVpnExtensionInfo(appId, vpnToken);
+            const vpnInfo = await vpnProvider.getVpnExtensionInfo(appId, vpnToken?.token);
             if (vpnInfo.refreshTokens) {
                 this.vpnCredentials = await gainValidVpnCredentials(forceRemote);
             }

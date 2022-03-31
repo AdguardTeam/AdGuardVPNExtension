@@ -2,7 +2,8 @@
 import { isIP } from 'is-ip';
 
 import { ExclusionDtoInterface, ExclusionsTypes } from '../../common/exclusionsConstants';
-import { IndexedServicesInterface, ServicesInterface } from './services/ServicesManager';
+import { IndexedServicesInterface } from './services/ServicesManager';
+import { ServicesInterface } from '../providers/vpnProvider';
 import { ExclusionNode } from './ExclusionNode';
 import { ExclusionInterface, IndexedExclusionsInterface } from './exclusions/exclusionsTypes';
 import { getETld } from '../../common/url-utils';

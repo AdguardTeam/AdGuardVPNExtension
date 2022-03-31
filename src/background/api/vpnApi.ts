@@ -17,7 +17,7 @@ interface VpnCredentials extends AxiosResponse {
     };
 }
 
-interface VpnExtensionInfo extends AxiosResponse {
+export interface VpnExtensionInfo extends AxiosResponse {
     bandwidth_free_mbits: number;
     premium_promo_page: string;
     premium_promo_enabled: boolean;
@@ -33,25 +33,29 @@ interface VpnExtensionInfo extends AxiosResponse {
     vpn_connected: boolean;
 }
 
+export interface EndpointApiData {
+    domain_name: string;
+    ipsec_domain_name: string;
+    ipsec_remote_identifier: string;
+    ipv4_address: string;
+    ipv6_address: string;
+    public_key: string;
+}
+
+export interface LocationApiData {
+    id: string;
+    country_name: string;
+    country_code: string;
+    city_name: string;
+    premium_only: boolean;
+    latitude: number;
+    longitude: number;
+    ping_bonus: number;
+    endpoints: [];
+}
+
 interface LocationsData extends AxiosResponse {
-    locations: [{
-        id: string,
-        country_name: string,
-        country_code: string,
-        city_name: string,
-        premium_only: boolean,
-        latitude: number,
-        longitude: number,
-        ping_bonus: number,
-        endpoints: [{
-            domain_name: string,
-            ipsec_domain_name: string,
-            ipsec_remote_identifier: string,
-            ipv4_address: string,
-            ipv6_address: string,
-            public_key: string,
-        }],
-    }];
+    locations: [LocationApiData];
 }
 
 interface CurrentLocationData extends AxiosResponse {
@@ -77,16 +81,6 @@ interface CurrentLocationData extends AxiosResponse {
 
 interface PostExtensionInstalledData extends AxiosResponse {
     social_providers: [string];
-}
-
-interface RequestSupportData extends AxiosResponse {
-    app_id: string;
-    token: string;
-    email: string;
-    subject: string;
-    message: string;
-    version: string;
-    app_logs: any;
 }
 
 interface VpnConnectionStatus extends AxiosResponse {
@@ -120,7 +114,7 @@ interface VpnApiInterface {
     getCurrentLocation(): Promise<CurrentLocationData>;
     getVpnExtensionInfo(appId: string, vpnToken: string): Promise<VpnExtensionInfo>;
     postExtensionInstalled(appId: string): Promise<PostExtensionInstalledData>;
-    requestSupport(data: RequestSupportData): Promise<AxiosResponse>;
+    requestSupport(data: FormData): Promise<AxiosResponse>;
     getDesktopVpnConnectionStatus(): Promise<VpnConnectionStatus>;
     getExclusionsServices(): Promise<ExclusionsServicesData>;
     getExclusionServiceDomains(servicesIds: [string]): Promise<ExclusionServiceDomainsData>;
@@ -145,7 +139,7 @@ class VpnApi extends Api implements VpnApiInterface {
 
     GET_VPN_CREDENTIALS = { path: 'v1/proxy_credentials', method: 'POST' };
 
-    getVpnCredentials = (appId: string, vpnToken: string): Promise<VpnCredentials> => {
+    getVpnCredentials = (appId: string, vpnToken: string | undefined): Promise<VpnCredentials> => {
         const { path, method } = this.GET_VPN_CREDENTIALS;
 
         const data = {
@@ -169,7 +163,8 @@ class VpnApi extends Api implements VpnApiInterface {
 
     VPN_EXTENSION_INFO = { path: 'v1/info/extension', method: 'GET' };
 
-    getVpnExtensionInfo = (appId: string, vpnToken: string): Promise<VpnExtensionInfo> => {
+    getVpnExtensionInfo = (appId: string, vpnToken: string | undefined):
+    Promise<VpnExtensionInfo> => {
         const { path, method } = this.VPN_EXTENSION_INFO;
 
         const params = {
@@ -195,7 +190,7 @@ class VpnApi extends Api implements VpnApiInterface {
 
     SUPPORT_REQUEST = { path: 'v1/support', method: 'POST' };
 
-    requestSupport = (data: RequestSupportData): Promise<AxiosResponse> => {
+    requestSupport = (data: FormData): Promise<AxiosResponse> => {
         const { path, method } = this.SUPPORT_REQUEST;
 
         const config = {
