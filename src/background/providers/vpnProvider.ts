@@ -83,26 +83,26 @@ export interface ServicesInterface {
 }
 
 export interface VpnProviderInterface {
-    getLocationsData:(appId: string, vpnToken: string) => Promise<LocationProviderData[]>;
-    getCurrentLocation: () => Promise<CurrentLocationData>;
-    getVpnCredentials: (
+    getLocationsData(appId: string, vpnToken: string): Promise<LocationProviderData[]>;
+    getCurrentLocation(): Promise<CurrentLocationData>;
+    getVpnCredentials(
         appId: string,
         vpnToken: string | undefined,
-    ) => Promise<CredentialsDataInterface>;
-    postExtensionInstalled: (appId: string) => Promise<{ social_providers: [string] }>;
-    getVpnExtensionInfo: (
+    ): Promise<CredentialsDataInterface>;
+    postExtensionInstalled(appId: string): Promise<{ social_providers: [string] }>;
+    getVpnExtensionInfo(
         appId: string,
         vpnToken: string | undefined,
-    ) => Promise<VpnExtensionInfoInterface>;
-    requestSupport: ({
+    ): Promise<VpnExtensionInfoInterface>;
+    requestSupport({
         appId,
         token,
         email,
         message,
         version,
         appLogs,
-    }: RequestSupportParameters) => Promise<{ status: string, error: any }>;
-    getExclusionsServices: () => Promise<ServicesInterface>;
+    }: RequestSupportParameters): Promise<{ status: string, error: any }>;
+    getExclusionsServices(): Promise<ServicesInterface>;
 }
 
 /**

@@ -11,6 +11,7 @@ import {
     UPDATE_CREDENTIALS_INTERVAL_MS,
     UPDATE_VPN_INFO_INTERVAL_MS,
 } from '../../lib/constants';
+import { ErrorInterface, PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 
 const HALF_HOUR_SEC = 1800;
 
@@ -28,10 +29,6 @@ interface VpnTokenData {
 interface StorageInterface {
     set: (key: string, data: any) => Promise<any>;
     get: (key: string) => Promise<any>;
-}
-
-interface PermissionsErrorInterface {
-    setError: (error: Error) => void;
 }
 
 interface AuthInterface {
@@ -59,7 +56,64 @@ interface CredentialsParameters {
     auth: AuthInterface;
 }
 
-class Credentials {
+export interface CredentialsInterface {
+    VPN_TOKEN_KEY: string;
+    APP_ID_KEY: string;
+    VPN_CREDENTIALS_KEY: string;
+    storage: StorageInterface;
+    vpnProvider: VpnProviderInterface | null | undefined;
+    permissionsError: PermissionsErrorInterface;
+    proxy: ProxyInterface;
+    auth: AuthInterface;
+    vpnToken: VpnTokenData | null | undefined;
+    vpnCredentials: CredentialsDataInterface | null | undefined;
+    appId: string;
+    currentUsername: string | null;
+
+    getVpnTokenLocal(): Promise<VpnTokenData | null | undefined>;
+    persistVpnToken(token: VpnTokenData | null): Promise<void>;
+    getVpnTokenRemote(): Promise<VpnTokenData | null | undefined>;
+    gainVpnToken(
+        forceRemote: boolean,
+        useLocalFallback: boolean,
+    ): Promise<VpnTokenData | null | undefined>;
+    isTokenValid(vpnToken: VpnTokenData | null | undefined): boolean;
+    gainValidVpnToken(
+        forceRemote: boolean,
+        useLocalFallback: boolean,
+    ): Promise<VpnTokenData | null | undefined>;
+    gainValidVpnCredentials(
+        forceRemote: boolean,
+        useLocalFallback: boolean,
+    ): Promise<CredentialsDataInterface>;
+    getVpnCredentialsRemote(): Promise<CredentialsDataInterface | null>;
+    areCredentialsValid(vpnCredentials: CredentialsDataInterface | null | undefined): boolean;
+    areCredentialsEqual(
+        newCred: CredentialsDataInterface,
+        oldCred: CredentialsDataInterface
+    ): boolean;
+    getVpnCredentialsLocal(): Promise<CredentialsDataInterface>;
+    gainVpnCredentials(
+        useLocalFallback: boolean,
+        forceRemote: boolean,
+    ): Promise<CredentialsDataInterface | undefined | null>;
+    updateProxyCredentials(): Promise<void>;
+    gainAppId(): Promise<string>;
+    getAppId(): Promise<string>;
+    isPremiumToken(): Promise<boolean>;
+    nextBillDate(): Promise<number | null>;
+    getUsername(): Promise<string | null>;
+    trackInstallation(): Promise<void>;
+    handleUserDeauthentication(): Promise<void>;
+    initCredentialsPeriodicUpdate(): void;
+    initVpnExtensionInfoPeriodicUpdate(): void;
+    initDataUpdates(): void;
+    checkCredentialsBeforeExpired(): Promise<void>;
+    updateVpnCredentials(): Promise<void>;
+    init(): Promise<void>;
+}
+
+class Credentials implements CredentialsInterface {
     VPN_TOKEN_KEY = 'credentials.token';
 
     APP_ID_KEY = 'credentials.app.id';
@@ -153,8 +207,10 @@ class Credentials {
         return vpnToken;
     }
 
-    async gainVpnToken(forceRemote = false, useLocalFallback = true):
-    Promise<VpnTokenData | null | undefined> {
+    async gainVpnToken(
+        forceRemote = false,
+        useLocalFallback = true,
+    ): Promise<VpnTokenData | null | undefined> {
         let vpnToken;
 
         if (forceRemote) {
@@ -201,13 +257,15 @@ class Credentials {
         return !(licenseStatus !== VALID_VPN_TOKEN_STATUS || timeExpiresSec < currentTimeSec);
     }
 
-    async gainValidVpnToken(forceRemote = false, useLocalFallback = true):
-    Promise<VpnTokenData | null | undefined> {
+    async gainValidVpnToken(
+        forceRemote = false,
+        useLocalFallback = true,
+    ): Promise<VpnTokenData | null | undefined> {
         const vpnToken = await this.gainVpnToken(forceRemote, useLocalFallback);
 
         if (!this.isTokenValid(vpnToken)) {
             const error = Error(`Vpn token is not valid. Token: ${JSON.stringify(vpnToken)}`);
-            this.permissionsError.setError(error);
+            this.permissionsError.setError(error as ErrorInterface);
             throw error;
         }
 
@@ -220,8 +278,10 @@ class Credentials {
      * @param useLocalFallback
      * @returns {Promise<*>}
      */
-    async gainValidVpnCredentials(forceRemote = false, useLocalFallback = true):
-    Promise<CredentialsDataInterface> {
+    async gainValidVpnCredentials(
+        forceRemote = false,
+        useLocalFallback = true,
+    ): Promise<CredentialsDataInterface> {
         let vpnCredentials;
         try {
             vpnCredentials = await this.gainVpnCredentials(useLocalFallback, forceRemote);
@@ -232,7 +292,7 @@ class Credentials {
 
         if (!vpnCredentials || !this.areCredentialsValid(vpnCredentials)) {
             const error = Error(`Vpn credentials are not valid: Credentials: ${JSON.stringify(vpnCredentials)}`);
-            this.permissionsError.setError(error);
+            this.permissionsError.setError(error as ErrorInterface);
             throw error;
         }
 
@@ -243,7 +303,7 @@ class Credentials {
      * Returns valid vpn credentials or null
      * @returns {Promise}
      */
-    async getVpnCredentialsRemote() {
+    async getVpnCredentialsRemote(): Promise<CredentialsDataInterface | null> {
         const appId = await this.getAppId();
 
         const vpnToken = await this.gainValidVpnToken();
@@ -321,8 +381,10 @@ class Credentials {
         return vpnCredentials;
     };
 
-    async gainVpnCredentials(useLocalFallback: boolean, forceRemote = false):
-    Promise<CredentialsDataInterface | undefined | null> {
+    async gainVpnCredentials(
+        useLocalFallback: boolean,
+        forceRemote = false,
+    ): Promise<CredentialsDataInterface | undefined | null> {
         let vpnCredentials;
 
         if (forceRemote) {
@@ -507,7 +569,6 @@ class Credentials {
      * Updates credentials every 24 hours (UPDATE_CREDENTIALS_INTERVAL_MS)
      */
     initCredentialsPeriodicUpdate(): void {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const self = this;
 
         setInterval(async () => {
@@ -520,7 +581,6 @@ class Credentials {
      * Updates vpn extension info every hour (UPDATE_VPN_INFO_INTERVAL_MS)
      */
     initVpnExtensionInfoPeriodicUpdate(): void {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         const self = this;
 
         setInterval(async () => {
@@ -548,14 +608,14 @@ class Credentials {
         if (self?.vpnCredentials?.result?.expiresInSec
             && self.vpnCredentials.result.expiresInSec > HALF_HOUR_SEC) {
             setTimeout(async () => {
-                await self.getVpnCredentials();
+                await self.updateVpnCredentials();
             }, (self.vpnCredentials.result.expiresInSec - HALF_HOUR_SEC) * 1000);
         } else {
-            await this.getVpnCredentials();
+            await this.updateVpnCredentials();
         }
     }
 
-    async getVpnCredentials() {
+    async updateVpnCredentials(): Promise<void> {
         // On extension initialisation use local fallback if was unable to get data remotely
         // it might be useful on browser restart
         const forceRemote = true;
@@ -576,7 +636,7 @@ class Credentials {
             );
 
             await this.trackInstallation();
-            await this.getVpnCredentials();
+            await this.updateVpnCredentials();
             await this.checkCredentialsBeforeExpired();
             this.currentUsername = await this.fetchUsername();
         } catch (e: any) {

@@ -4,16 +4,44 @@ import { ERROR_STATUSES } from '../../lib/constants';
 import notifier from '../../lib/notifier';
 import { settings } from '../settings';
 import endpointConnectivity from '../connectivity/endpointConnectivity';
+import { PermissionsErrorInterface, ErrorInterface } from './permissionsError';
+import { CredentialsInterface } from '../credentials/Credentials';
 
-class PermissionsChecker {
+interface PermissionsCheckerParameters {
+    credentials: CredentialsInterface;
+    permissionsError: PermissionsErrorInterface;
+}
+
+interface PermissionsCheckerInterface {
+    CHECK_THROTTLE_TIMEOUT_MS: number;
+    permissionsError: PermissionsErrorInterface;
+    credentials: CredentialsInterface;
+    intervalId: NodeJS.Timer | null;
+
+    updatePermissionsErrorHandler(error: ErrorInterface): Promise<void>;
+    checkPermissions(): Promise<void>;
+    startChecker(): void;
+    stopChecker(): void;
+    handleUserAuthentication(): void;
+    handleUserDeauthentication(): void;
+    init(): void;
+}
+
+class PermissionsChecker implements PermissionsCheckerInterface {
     CHECK_THROTTLE_TIMEOUT_MS = 60 * 1000;
 
-    constructor({ credentials, permissionsError }) {
+    permissionsError: PermissionsErrorInterface;
+
+    credentials: CredentialsInterface;
+
+    intervalId: NodeJS.Timer | null = null;
+
+    constructor({ credentials, permissionsError }: PermissionsCheckerParameters) {
         this.credentials = credentials;
         this.permissionsError = permissionsError;
     }
 
-    updatePermissionsErrorHandler = async (error) => {
+    updatePermissionsErrorHandler = async (error: ErrorInterface): Promise<void> => {
         log.error('Permissions were not updated due to:', error.message);
         // do not consider network error as a reason to set permission error
         // or if websocket connection still is open
@@ -27,12 +55,12 @@ class PermissionsChecker {
         // in order not to block connections with broken proxy
         try {
             await settings.disableProxy(true);
-        } catch (e) {
+        } catch (e: any) {
             log.error(e.message);
         }
     };
 
-    checkPermissions = async () => {
+    checkPermissions = async (): Promise<void> => {
         try {
             // Use local fallback if there are some network problems or
             // if backend service is redeployed
@@ -43,16 +71,14 @@ class PermissionsChecker {
             this.permissionsError.clearError();
             notifier.notifyListeners(notifier.types.UPDATE_BROWSER_ACTION_ICON);
             log.info('Permissions were checked successfully');
-        } catch (e) {
+        } catch (e: any) {
             await this.updatePermissionsErrorHandler(e);
         }
     };
 
     throttledCheckPermissions = throttle(this.checkPermissions, this.CHECK_THROTTLE_TIMEOUT_MS);
 
-    intervalId = null;
-
-    startChecker = () => {
+    startChecker = (): void => {
         log.info('Permissions interval checker started');
 
         const TIME_CHECK_INTERVAL_MS = 5 * 1000; // 5 sec
@@ -73,7 +99,7 @@ class PermissionsChecker {
         }, TIME_CHECK_INTERVAL_MS);
     };
 
-    stopChecker = () => {
+    stopChecker = (): void => {
         if (this.intervalId) {
             log.info('Permissions interval checker stopped');
             clearInterval(this.intervalId);
@@ -81,17 +107,17 @@ class PermissionsChecker {
         }
     };
 
-    handleUserAuthentication = () => {
+    handleUserAuthentication = (): void => {
         this.permissionsError.clearError();
         this.startChecker();
     };
 
-    handleUserDeauthentication = () => {
+    handleUserDeauthentication = (): void => {
         this.permissionsError.clearError();
         this.stopChecker();
     };
 
-    init = () => {
+    init = (): void => {
         notifier.addSpecifiedListener(
             notifier.types.USER_AUTHENTICATED,
             this.handleUserAuthentication,
