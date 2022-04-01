@@ -163,8 +163,10 @@ class VpnApi extends Api implements VpnApiInterface {
 
     VPN_EXTENSION_INFO = { path: 'v1/info/extension', method: 'GET' };
 
-    getVpnExtensionInfo = (appId: string, vpnToken: string | undefined):
-    Promise<VpnExtensionInfo> => {
+    getVpnExtensionInfo = (
+        appId: string,
+        vpnToken: string | undefined,
+    ): Promise<VpnExtensionInfo> => {
         const { path, method } = this.VPN_EXTENSION_INFO;
 
         const params = {
