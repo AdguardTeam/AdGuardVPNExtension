@@ -1,13 +1,23 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 
 import { ERROR_STATUSES } from '../../lib/constants';
 import CustomError from '../../lib/CustomError';
+
+interface ConfigInterface {
+    params?: {
+        app_id?: string;
+        token?: string;
+        locale?: string;
+        service_id?: string | null;
+    };
+    data?: string | FormData;
+}
 
 interface ApiInterface {
     baseUrlFn: () => Promise<string>,
     baseUrlStr: string,
     getBaseUrl(): Promise<string>,
-    makeRequest(path: string, config: any, method: string): Promise<any>
+    makeRequest(path: string, config: ConfigInterface, method: string): Promise<any>
 }
 
 export class Api implements ApiInterface {
@@ -31,14 +41,14 @@ export class Api implements ApiInterface {
         return this.baseUrlStr;
     }
 
-    async makeRequest(path: string, config: any, method: string = 'POST') {
+    async makeRequest(path: string, config: ConfigInterface, method: string = 'POST') {
         const url = `https://${await this.getBaseUrl()}/${path}`;
         try {
             const response = await axios({
                 url,
                 method,
                 ...config,
-            });
+            } as AxiosRequestConfig);
             return response.data;
         } catch (error: any) {
             if (error.response) {
