@@ -15,9 +15,8 @@ export class Api implements ApiInterface {
 
     baseUrlStr: string;
 
-    constructor(baseUrl: () => Promise<string> | string) {
+    constructor(baseUrl: () => Promise<string>) {
         if (typeof baseUrl === 'function') {
-            // @ts-ignore
             this.baseUrlFn = baseUrl;
         } else {
             this.baseUrlStr = baseUrl;

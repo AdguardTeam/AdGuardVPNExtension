@@ -87,12 +87,12 @@ export interface VpnProviderInterface {
     getCurrentLocation(): Promise<CurrentLocationData>;
     getVpnCredentials(
         appId: string,
-        vpnToken: string | undefined,
+        vpnToken: string,
     ): Promise<CredentialsDataInterface>;
     postExtensionInstalled(appId: string): Promise<{ social_providers: [string] }>;
     getVpnExtensionInfo(
         appId: string,
-        vpnToken: string | undefined,
+        vpnToken: string,
     ): Promise<VpnExtensionInfoInterface>;
     requestSupport({
         appId,
@@ -228,7 +228,7 @@ const getCurrentLocation = async (): Promise<CurrentLocationData> => {
 
 const getVpnExtensionInfo = async (
     appId: string,
-    vpnToken: string | undefined,
+    vpnToken: string,
 ): Promise<VpnExtensionInfoInterface> => {
     const info = await vpnApi.getVpnExtensionInfo(appId, vpnToken);
 
@@ -261,7 +261,7 @@ const getVpnExtensionInfo = async (
 
 const getVpnCredentials = async (
     appId: string,
-    vpnToken: string | undefined,
+    vpnToken: string,
 ): Promise<CredentialsDataInterface> => {
     let responseData;
     try {

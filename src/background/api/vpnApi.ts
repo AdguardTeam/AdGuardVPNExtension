@@ -1,4 +1,3 @@
-// @ts-ignore
 import qs from 'qs';
 import browser from 'webextension-polyfill';
 import { AxiosResponse } from 'axios';
@@ -139,7 +138,7 @@ class VpnApi extends Api implements VpnApiInterface {
 
     GET_VPN_CREDENTIALS = { path: 'v1/proxy_credentials', method: 'POST' };
 
-    getVpnCredentials = (appId: string, vpnToken: string | undefined): Promise<VpnCredentials> => {
+    getVpnCredentials = (appId: string, vpnToken: string): Promise<VpnCredentials> => {
         const { path, method } = this.GET_VPN_CREDENTIALS;
 
         const data = {
@@ -165,7 +164,7 @@ class VpnApi extends Api implements VpnApiInterface {
 
     getVpnExtensionInfo = (
         appId: string,
-        vpnToken: string | undefined,
+        vpnToken: string,
     ): Promise<VpnExtensionInfo> => {
         const { path, method } = this.VPN_EXTENSION_INFO;
 

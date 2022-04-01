@@ -1,5 +1,4 @@
 import { nanoid } from 'nanoid';
-// @ts-ignore
 import md5 from 'crypto-js/md5';
 import lodashGet from 'lodash/get';
 
@@ -61,7 +60,7 @@ export interface CredentialsInterface {
     APP_ID_KEY: string;
     VPN_CREDENTIALS_KEY: string;
     storage: StorageInterface;
-    vpnProvider: VpnProviderInterface | null;
+    vpnProvider: VpnProviderInterface;
     permissionsError: PermissionsErrorInterface;
     proxy: ProxyInterface;
     auth: AuthInterface;
@@ -122,7 +121,7 @@ class Credentials implements CredentialsInterface {
 
     storage: StorageInterface;
 
-    vpnProvider: VpnProviderInterface | null;
+    vpnProvider: VpnProviderInterface;
 
     permissionsError: PermissionsErrorInterface;
 
@@ -307,7 +306,10 @@ class Credentials implements CredentialsInterface {
         const appId = await this.getAppId();
 
         const vpnToken = await this.gainValidVpnToken();
-        const vpnCredentials = await this.vpnProvider?.getVpnCredentials(appId, vpnToken?.token);
+        if (!vpnToken) {
+            return null;
+        }
+        const vpnCredentials = await this.vpnProvider.getVpnCredentials(appId, vpnToken.token);
 
         if (!vpnCredentials || !this.areCredentialsValid(vpnCredentials)) {
             return null;
@@ -582,8 +584,11 @@ class Credentials implements CredentialsInterface {
         setInterval(async () => {
             const forceRemote = true;
             const vpnToken = await this.gainValidVpnToken(forceRemote);
+            if (!vpnToken) {
+                return;
+            }
             const appId = await this.getAppId();
-            const vpnInfo = await vpnProvider.getVpnExtensionInfo(appId, vpnToken?.token);
+            const vpnInfo = await vpnProvider.getVpnExtensionInfo(appId, vpnToken.token);
             if (vpnInfo.refreshTokens) {
                 this.vpnCredentials = await this.gainValidVpnCredentials(forceRemote);
             }
