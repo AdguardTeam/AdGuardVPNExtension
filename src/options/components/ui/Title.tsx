@@ -1,11 +1,13 @@
 import React from 'react';
+import cn from 'classnames';
 
 interface TitleProps {
     title: React.ReactNode,
     subtitle?: string,
+    onClick?: () => void;
 }
 
-export const Title = ({ title, subtitle }: TitleProps) => {
+export const Title = ({ title, subtitle, onClick }: TitleProps) => {
     const renderSubtitle = (subtitle?: string) => {
         if (!subtitle) {
             return null;
@@ -20,7 +22,13 @@ export const Title = ({ title, subtitle }: TitleProps) => {
 
     return (
         <>
-            <h2 className="content__title">
+            <h2
+                className={cn(
+                    'content__title',
+                    { 'content__title--pointer': onClick },
+                )}
+                onClick={onClick}
+            >
                 {title}
             </h2>
             {renderSubtitle(subtitle)}
