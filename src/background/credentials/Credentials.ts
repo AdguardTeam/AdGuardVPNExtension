@@ -568,31 +568,27 @@ class Credentials implements CredentialsInterface {
     /**
      * Updates credentials every 24 hours (UPDATE_CREDENTIALS_INTERVAL_MS)
      */
-    initCredentialsPeriodicUpdate(): void {
-        const self = this;
-
+    initCredentialsPeriodicUpdate = (): void => {
         setInterval(async () => {
             const forceRemote = true;
-            self.vpnCredentials = await self.gainValidVpnCredentials(forceRemote);
+            this.vpnCredentials = await this.gainValidVpnCredentials(forceRemote);
         }, UPDATE_CREDENTIALS_INTERVAL_MS);
-    }
+    };
 
     /**
      * Updates vpn extension info every hour (UPDATE_VPN_INFO_INTERVAL_MS)
      */
-    initVpnExtensionInfoPeriodicUpdate(): void {
-        const self = this;
-
+    initVpnExtensionInfoPeriodicUpdate = (): void => {
         setInterval(async () => {
             const forceRemote = true;
-            const vpnToken = await self.gainValidVpnToken(forceRemote);
-            const appId = await self.getAppId();
+            const vpnToken = await this.gainValidVpnToken(forceRemote);
+            const appId = await this.getAppId();
             const vpnInfo = await vpnProvider.getVpnExtensionInfo(appId, vpnToken?.token);
             if (vpnInfo.refreshTokens) {
-                self.vpnCredentials = await self.gainValidVpnCredentials(forceRemote);
+                this.vpnCredentials = await this.gainValidVpnCredentials(forceRemote);
             }
         }, UPDATE_VPN_INFO_INTERVAL_MS);
-    }
+    };
 
     initDataUpdates(): void {
         this.initCredentialsPeriodicUpdate();
@@ -603,17 +599,16 @@ class Credentials implements CredentialsInterface {
      * Request credentials in half an hour before expired
      * @returns Promise<void>
      */
-    async checkCredentialsBeforeExpired(): Promise<void> {
-        const self = this;
-        if (self?.vpnCredentials?.result?.expiresInSec
-            && self.vpnCredentials.result.expiresInSec > HALF_HOUR_SEC) {
+    checkCredentialsBeforeExpired = async (): Promise<void> => {
+        if (this?.vpnCredentials?.result?.expiresInSec
+            && this.vpnCredentials.result.expiresInSec > HALF_HOUR_SEC) {
             setTimeout(async () => {
-                await self.updateVpnCredentials();
-            }, (self.vpnCredentials.result.expiresInSec - HALF_HOUR_SEC) * 1000);
+                await this.updateVpnCredentials();
+            }, (this.vpnCredentials.result.expiresInSec - HALF_HOUR_SEC) * 1000);
         } else {
             await this.updateVpnCredentials();
         }
-    }
+    };
 
     async updateVpnCredentials(): Promise<void> {
         // On extension initialisation use local fallback if was unable to get data remotely
