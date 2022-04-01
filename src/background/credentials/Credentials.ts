@@ -61,33 +61,33 @@ export interface CredentialsInterface {
     APP_ID_KEY: string;
     VPN_CREDENTIALS_KEY: string;
     storage: StorageInterface;
-    vpnProvider: VpnProviderInterface | null | undefined;
+    vpnProvider: VpnProviderInterface | null;
     permissionsError: PermissionsErrorInterface;
     proxy: ProxyInterface;
     auth: AuthInterface;
-    vpnToken: VpnTokenData | null | undefined;
-    vpnCredentials: CredentialsDataInterface | null | undefined;
+    vpnToken: VpnTokenData | null;
+    vpnCredentials: CredentialsDataInterface | null;
     appId: string;
     currentUsername: string | null;
 
-    getVpnTokenLocal(): Promise<VpnTokenData | null | undefined>;
+    getVpnTokenLocal(): Promise<VpnTokenData | null>;
     persistVpnToken(token: VpnTokenData | null): Promise<void>;
-    getVpnTokenRemote(): Promise<VpnTokenData | null | undefined>;
+    getVpnTokenRemote(): Promise<VpnTokenData | null>;
     gainVpnToken(
         forceRemote: boolean,
         useLocalFallback: boolean,
-    ): Promise<VpnTokenData | null | undefined>;
-    isTokenValid(vpnToken: VpnTokenData | null | undefined): boolean;
+    ): Promise<VpnTokenData | null>;
+    isTokenValid(vpnToken: VpnTokenData | null): boolean;
     gainValidVpnToken(
         forceRemote: boolean,
         useLocalFallback: boolean,
-    ): Promise<VpnTokenData | null | undefined>;
+    ): Promise<VpnTokenData | null>;
     gainValidVpnCredentials(
         forceRemote: boolean,
         useLocalFallback: boolean,
     ): Promise<CredentialsDataInterface>;
     getVpnCredentialsRemote(): Promise<CredentialsDataInterface | null>;
-    areCredentialsValid(vpnCredentials: CredentialsDataInterface | null | undefined): boolean;
+    areCredentialsValid(vpnCredentials: CredentialsDataInterface | null): boolean;
     areCredentialsEqual(
         newCred: CredentialsDataInterface,
         oldCred: CredentialsDataInterface
@@ -96,7 +96,7 @@ export interface CredentialsInterface {
     gainVpnCredentials(
         useLocalFallback: boolean,
         forceRemote: boolean,
-    ): Promise<CredentialsDataInterface | undefined | null>;
+    ): Promise<CredentialsDataInterface | null>;
     updateProxyCredentials(): Promise<void>;
     gainAppId(): Promise<string>;
     getAppId(): Promise<string>;
@@ -122,7 +122,7 @@ class Credentials implements CredentialsInterface {
 
     storage: StorageInterface;
 
-    vpnProvider: VpnProviderInterface | null | undefined;
+    vpnProvider: VpnProviderInterface | null;
 
     permissionsError: PermissionsErrorInterface;
 
@@ -130,9 +130,9 @@ class Credentials implements CredentialsInterface {
 
     auth: AuthInterface;
 
-    vpnToken: VpnTokenData | null | undefined;
+    vpnToken: VpnTokenData | null;
 
-    vpnCredentials: CredentialsDataInterface | null | undefined;
+    vpnCredentials: CredentialsDataInterface | null;
 
     appId: string;
 
@@ -156,12 +156,12 @@ class Credentials implements CredentialsInterface {
      * Returns token from memory or retrieves it from storage
      * @returns {Promise<*>}
      */
-    async getVpnTokenLocal(): Promise<VpnTokenData | null | undefined> {
+    async getVpnTokenLocal(): Promise<VpnTokenData | null> {
         if (this.vpnToken) {
             return this.vpnToken;
         }
         this.vpnToken = await this.storage.get(this.VPN_TOKEN_KEY);
-        return this.vpnToken;
+        return this.vpnToken || null;
     }
 
     /**
@@ -182,7 +182,7 @@ class Credentials implements CredentialsInterface {
         );
     }
 
-    async getVpnTokenRemote(): Promise<VpnTokenData | null | undefined> {
+    async getVpnTokenRemote(): Promise<VpnTokenData | null> {
         const accessToken = await this.auth.getAccessToken();
 
         let vpnToken = null;
@@ -210,8 +210,8 @@ class Credentials implements CredentialsInterface {
     async gainVpnToken(
         forceRemote = false,
         useLocalFallback = true,
-    ): Promise<VpnTokenData | null | undefined> {
-        let vpnToken;
+    ): Promise<VpnTokenData | null> {
+        let vpnToken = null;
 
         if (forceRemote) {
             try {
@@ -241,7 +241,7 @@ class Credentials implements CredentialsInterface {
      * @param vpnToken
      * @returns {boolean}
      */
-    isTokenValid(vpnToken: VpnTokenData | null | undefined): boolean {
+    isTokenValid(vpnToken: VpnTokenData | null): boolean {
         const VALID_VPN_TOKEN_STATUS = 'VALID';
         if (!vpnToken) {
             return false;
@@ -260,8 +260,8 @@ class Credentials implements CredentialsInterface {
     async gainValidVpnToken(
         forceRemote = false,
         useLocalFallback = true,
-    ): Promise<VpnTokenData | null | undefined> {
-        const vpnToken = await this.gainVpnToken(forceRemote, useLocalFallback);
+    ): Promise<VpnTokenData | null> {
+        const vpnToken = await this.gainVpnToken(forceRemote, useLocalFallback) || null;
 
         if (!this.isTokenValid(vpnToken)) {
             const error = Error(`Vpn token is not valid. Token: ${JSON.stringify(vpnToken)}`);
@@ -329,7 +329,7 @@ class Credentials implements CredentialsInterface {
      * @param vpnCredentials
      * @returns {boolean}
      */
-    areCredentialsValid(vpnCredentials: CredentialsDataInterface | null | undefined): boolean {
+    areCredentialsValid(vpnCredentials: CredentialsDataInterface | null): boolean {
         const VALID_CREDENTIALS_STATUS = 'VALID';
         const LIMIT_EXCEEDED_CREDENTIALS_STATUS = 'LIMIT_EXCEEDED';
 
@@ -384,8 +384,8 @@ class Credentials implements CredentialsInterface {
     async gainVpnCredentials(
         useLocalFallback: boolean,
         forceRemote = false,
-    ): Promise<CredentialsDataInterface | undefined | null> {
-        let vpnCredentials;
+    ): Promise<CredentialsDataInterface | null> {
+        let vpnCredentials = null;
 
         if (forceRemote) {
             try {
@@ -401,7 +401,7 @@ class Credentials implements CredentialsInterface {
             if (!this.areCredentialsValid(vpnCredentials) && useLocalFallback) {
                 vpnCredentials = await this.getVpnCredentialsLocal();
             }
-            return vpnCredentials;
+            return vpnCredentials || null;
         }
 
         vpnCredentials = await this.getVpnCredentialsLocal();
