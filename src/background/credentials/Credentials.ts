@@ -11,6 +11,7 @@ import {
     UPDATE_VPN_INFO_INTERVAL_MS,
 } from '../../lib/constants';
 import { ErrorInterface, PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
+import { StorageInterface } from '../browserApi/storage';
 
 const HALF_HOUR_SEC = 1800;
 
@@ -23,11 +24,6 @@ interface VpnTokenData {
     vpnSubscription: {
         next_bill_date_iso: string,
     };
-}
-
-interface StorageInterface {
-    set: (key: string, data: any) => Promise<any>;
-    get: (key: string) => Promise<any>;
 }
 
 interface AuthInterface {
