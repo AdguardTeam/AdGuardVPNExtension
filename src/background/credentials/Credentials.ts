@@ -12,6 +12,7 @@ import {
 } from '../../lib/constants';
 import { ErrorInterface, PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import { StorageInterface } from '../browserApi/storage';
+import { ExtensionProxyInterface } from '../proxy';
 
 const HALF_HOUR_SEC = 1800;
 
@@ -26,19 +27,18 @@ interface VpnTokenData {
     };
 }
 
+interface AccessCredentialsData {
+    credentialsHash: string,
+    credentials: {
+        username: string | null,
+        password: string,
+    },
+    token: string | null,
+}
+
 interface AuthInterface {
     getAccessToken: () => Promise<string>;
     deauthenticate: () => void;
-}
-
-interface ProxyInterface {
-    setAccessPrefix: (
-        credentialsHash: string,
-        credentials: {
-            username: string | undefined,
-            password: string,
-        },
-    ) => Promise<{ domainName: any }>;
 }
 
 interface CredentialsParameters {
@@ -47,7 +47,7 @@ interface CredentialsParameters {
     };
     vpnProvider: VpnProviderInterface;
     permissionsError: PermissionsErrorInterface;
-    proxy: ProxyInterface;
+    proxy: ExtensionProxyInterface;
     auth: AuthInterface;
 }
 
@@ -58,7 +58,7 @@ export interface CredentialsInterface {
     storage: StorageInterface;
     vpnProvider: VpnProviderInterface;
     permissionsError: PermissionsErrorInterface;
-    proxy: ProxyInterface;
+    proxy: ExtensionProxyInterface;
     auth: AuthInterface;
     vpnToken: VpnTokenData | null;
     vpnCredentials: CredentialsDataInterface | null;
@@ -121,7 +121,7 @@ class Credentials implements CredentialsInterface {
 
     permissionsError: PermissionsErrorInterface;
 
-    proxy: ProxyInterface;
+    proxy: ExtensionProxyInterface;
 
     auth: AuthInterface;
 
@@ -424,9 +424,9 @@ class Credentials implements CredentialsInterface {
      *                      credentials: {password: string, username: string}
      *                  }>}
      */
-    async getAccessCredentials() {
+    async getAccessCredentials(): Promise<AccessCredentialsData> {
         const vpnToken = await this.gainValidVpnToken();
-        const token = vpnToken?.token;
+        const token = vpnToken?.token || null;
         const { result: { credentials } } = await this.gainValidVpnCredentials();
         const appId = await this.getAppId();
         return {
