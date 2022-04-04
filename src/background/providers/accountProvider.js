@@ -1,7 +1,13 @@
+import browser from 'webextension-polyfill';
+
 import { accountApi } from '../api';
 
 // FIXME use url from tds
 const REFERRAL_URL = 'https://adguard-vpn.com/join/';
+const REFERRAL_URL_DEV = 'https://dev.adguard-vpn.com/join/';
+const REFERRAL_URL_SUFFIX = '/form.html';
+
+const DEV_NAME_SUFFIX = 'Dev';
 
 const getVpnToken = async (accessToken) => {
     const vpnTokenData = await accountApi.getVpnToken(accessToken);
@@ -42,14 +48,17 @@ const getVpnToken = async (accessToken) => {
 
 const getReferralData = async (accessToken) => {
     const referralData = await accountApi.getReferralData(accessToken);
+    // TODO use url from tds for inviteUrl
     const {
         invite_id: inviteId,
         invites_count: invitesCount,
         max_invites_count: maxInvitesCount,
     } = referralData;
-    // FIXME use url from tds for inviteUrl
+    const manifest = browser.runtime.getManifest();
+    const isDev = manifest.name.endsWith(DEV_NAME_SUFFIX);
+    const inviteUrl = `${isDev ? REFERRAL_URL_DEV : REFERRAL_URL}${inviteId}${REFERRAL_URL_SUFFIX}`;
     return {
-        inviteUrl: `${REFERRAL_URL}${inviteId}`,
+        inviteUrl,
         invitesCount,
         maxInvitesCount,
     };
