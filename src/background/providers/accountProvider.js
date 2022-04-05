@@ -1,10 +1,11 @@
 import { accountApi } from '../api';
 
-import { BUILD_ENV } from '../config';
+import { BUILD_ENV, WEBSITE_DOMAIN } from '../config';
 
-// FIXME use url from tds
-const REFERRAL_URL = 'https://adguard-vpn.com/join/';
-const REFERRAL_URL_DEV = 'https://dev.adguard-vpn.com/join/';
+// TODO use url from tds
+const HTTPS_PROTOCOL = 'https://';
+const DEV_SUBDOMAIN = 'dev.';
+const REFERRAL_URL_KEYWORD = '/join/';
 const REFERRAL_URL_SUFFIX = '/form.html';
 
 const DEV_ENV = 'dev';
@@ -55,7 +56,7 @@ const getReferralData = async (accessToken) => {
         max_invites_count: maxInvitesCount,
     } = referralData;
     const isDev = BUILD_ENV === DEV_ENV;
-    const inviteUrl = `${isDev ? REFERRAL_URL_DEV : REFERRAL_URL}${inviteId}${REFERRAL_URL_SUFFIX}`;
+    const inviteUrl = `${HTTPS_PROTOCOL}${isDev ? DEV_SUBDOMAIN : ''}${WEBSITE_DOMAIN}${REFERRAL_URL_KEYWORD}${inviteId}${REFERRAL_URL_SUFFIX}`;
     return {
         inviteUrl,
         invitesCount,

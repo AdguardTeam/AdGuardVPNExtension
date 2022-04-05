@@ -45,6 +45,7 @@ const STAGE_CONF = {
 };
 
 const COMMON = {
+    WEBSITE_DOMAIN,
     // Websocket
     WS_API_URL_TEMPLATE: 'wss://{{host}}:443/user?hash={{hash}}',
     // Privacy and EULA
