@@ -5,16 +5,10 @@ import lodashGet from 'lodash/get';
 import accountProvider from '../providers/accountProvider';
 import { log } from '../../lib/logger';
 import notifier from '../../lib/notifier';
-import { vpnProvider, CredentialsDataInterface, VpnProviderInterface } from '../providers/vpnProvider';
-import {
-    UPDATE_CREDENTIALS_INTERVAL_MS,
-    UPDATE_VPN_INFO_INTERVAL_MS,
-} from '../../lib/constants';
-import { ErrorInterface, PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
+import { CredentialsDataInterface, VpnProviderInterface } from '../providers/vpnProvider';
+import { ErrorData, PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import { StorageInterface } from '../browserApi/storage';
 import { ExtensionProxyInterface } from '../proxy';
-
-const HALF_HOUR_SEC = 1800;
 
 interface VpnTokenData {
     token: string;
@@ -85,7 +79,7 @@ export interface CredentialsInterface {
     areCredentialsValid(vpnCredentials: CredentialsDataInterface | null): boolean;
     areCredentialsEqual(
         newCred: CredentialsDataInterface,
-        oldCred: CredentialsDataInterface
+        oldCred: CredentialsDataInterface | null,
     ): boolean;
     getVpnCredentialsLocal(): Promise<CredentialsDataInterface>;
     gainVpnCredentials(
@@ -100,10 +94,6 @@ export interface CredentialsInterface {
     getUsername(): Promise<string | null>;
     trackInstallation(): Promise<void>;
     handleUserDeauthentication(): Promise<void>;
-    initCredentialsPeriodicUpdate(): void;
-    initVpnExtensionInfoPeriodicUpdate(): void;
-    initDataUpdates(): void;
-    checkCredentialsBeforeExpired(): Promise<void>;
     updateVpnCredentials(): Promise<void>;
     init(): Promise<void>;
 }
@@ -260,7 +250,7 @@ class Credentials implements CredentialsInterface {
 
         if (!this.isTokenValid(vpnToken)) {
             const error = Error(`Vpn token is not valid. Token: ${JSON.stringify(vpnToken)}`);
-            this.permissionsError.setError(error as ErrorInterface);
+            this.permissionsError.setError(error as ErrorData);
             throw error;
         }
 
@@ -287,7 +277,7 @@ class Credentials implements CredentialsInterface {
 
         if (!vpnCredentials || !this.areCredentialsValid(vpnCredentials)) {
             const error = Error(`Vpn credentials are not valid: Credentials: ${JSON.stringify(vpnCredentials)}`);
-            this.permissionsError.setError(error as ErrorInterface);
+            this.permissionsError.setError(error as ErrorData);
             throw error;
         }
 
@@ -364,7 +354,7 @@ class Credentials implements CredentialsInterface {
      */
     areCredentialsEqual = (
         newCred: CredentialsDataInterface,
-        oldCred: CredentialsDataInterface,
+        oldCred: CredentialsDataInterface | null,
     ): boolean => {
         const path = 'result.credentials';
         return lodashGet(newCred, path) === lodashGet(oldCred, path);
@@ -563,54 +553,6 @@ class Credentials implements CredentialsInterface {
         this.currentUsername = null;
     }
 
-    /**
-     * Updates credentials every 24 hours (UPDATE_CREDENTIALS_INTERVAL_MS)
-     */
-    initCredentialsPeriodicUpdate = (): void => {
-        setInterval(async () => {
-            const forceRemote = true;
-            this.vpnCredentials = await this.gainValidVpnCredentials(forceRemote);
-        }, UPDATE_CREDENTIALS_INTERVAL_MS);
-    };
-
-    /**
-     * Updates vpn extension info every hour (UPDATE_VPN_INFO_INTERVAL_MS)
-     */
-    initVpnExtensionInfoPeriodicUpdate = (): void => {
-        setInterval(async () => {
-            const forceRemote = true;
-            const vpnToken = await this.gainValidVpnToken(forceRemote);
-            if (!vpnToken) {
-                return;
-            }
-            const appId = await this.getAppId();
-            const vpnInfo = await vpnProvider.getVpnExtensionInfo(appId, vpnToken.token);
-            if (vpnInfo.refreshTokens) {
-                this.vpnCredentials = await this.gainValidVpnCredentials(forceRemote);
-            }
-        }, UPDATE_VPN_INFO_INTERVAL_MS);
-    };
-
-    initDataUpdates(): void {
-        this.initCredentialsPeriodicUpdate();
-        this.initVpnExtensionInfoPeriodicUpdate();
-    }
-
-    /**
-     * Request credentials in half an hour before expired
-     * @returns Promise<void>
-     */
-    checkCredentialsBeforeExpired = async (): Promise<void> => {
-        if (this?.vpnCredentials?.result?.expiresInSec
-            && this.vpnCredentials.result.expiresInSec > HALF_HOUR_SEC) {
-            setTimeout(async () => {
-                await this.updateVpnCredentials();
-            }, (this.vpnCredentials.result.expiresInSec - HALF_HOUR_SEC) * 1000);
-        } else {
-            await this.updateVpnCredentials();
-        }
-    };
-
     async updateVpnCredentials(): Promise<void> {
         // On extension initialisation use local fallback if was unable to get data remotely
         // it might be useful on browser restart
@@ -622,18 +564,12 @@ class Credentials implements CredentialsInterface {
     async init(): Promise<void> {
         try {
             notifier.addSpecifiedListener(
-                notifier.types.USER_AUTHENTICATED,
-                this.initDataUpdates.bind(this),
-            );
-
-            notifier.addSpecifiedListener(
                 notifier.types.USER_DEAUTHENTICATED,
                 this.handleUserDeauthentication.bind(this),
             );
 
             await this.trackInstallation();
             await this.updateVpnCredentials();
-            await this.checkCredentialsBeforeExpired();
             this.currentUsername = await this.fetchUsername();
         } catch (e: any) {
             log.debug('Unable to init credentials module, due to error:', e.message);

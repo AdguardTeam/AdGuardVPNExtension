@@ -1,33 +1,33 @@
 import notifier from '../../lib/notifier';
 
-export interface ErrorInterface extends Error {
+export interface ErrorData extends Error {
     status: string;
     message: string;
 }
 
 export interface PermissionsErrorInterface {
-    error: ErrorInterface | null;
-    setError(error: ErrorInterface): void;
-    notifyOnUpdate(error: ErrorInterface | null): void;
+    error: ErrorData | null;
+    setError(error: ErrorData): void;
+    notifyOnUpdate(error: ErrorData | null): void;
     getError(): Error | null;
     clearError(): void;
 }
 
 class PermissionsError implements PermissionsErrorInterface {
-    error: ErrorInterface | null;
+    error: ErrorData | null;
 
     constructor() {
         this.error = null;
     }
 
-    setError = (error: ErrorInterface): void => {
+    setError = (error: ErrorData): void => {
         if (this.error !== error) {
             this.notifyOnUpdate(error);
         }
         this.error = error;
     };
 
-    notifyOnUpdate = (error: ErrorInterface | null): void => {
+    notifyOnUpdate = (error: ErrorData | null): void => {
         // Firefox doesn't support object created by constructor,
         // so we have to convert error to the simple object
         const simplifiedError = error ? {
@@ -38,7 +38,7 @@ class PermissionsError implements PermissionsErrorInterface {
         notifier.notifyListeners(notifier.types.PERMISSIONS_ERROR_UPDATE, simplifiedError);
     };
 
-    getError = (): ErrorInterface | null => {
+    getError = (): ErrorData | null => {
         return this.error;
     };
 

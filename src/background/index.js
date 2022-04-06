@@ -58,10 +58,10 @@ global.adguard = {
         await updateService.init();
         await openThankYouPage();
         await flagsStorage.init();
+        await credentials.init();
         permissionsChecker.init(); // should be initiated before auth module
         await auth.init();
         await settings.init();
-        await credentials.init();
         await exclusions.init();
         await endpointsTldExclusions.init();
         settings.applySettings(); // we have to apply settings when credentials are ready
