@@ -5,7 +5,7 @@ import {
     UPDATE_VPN_INFO_INTERVAL_MS,
 } from '../../../src/background/permissionsChecker/PermissionsChecker';
 
-const TEST_PERIOD_S = 60 * 60 * 5; // 5 hours
+const TEST_PERIOD_SEC = 60 * 60 * 5; // 5 hours
 
 const getCredentialsData = (expiresInSec: number) => {
     return {
@@ -82,33 +82,33 @@ describe('PermissionsChecker tests', () => {
     });
 
     it('Check permissions in half an hour before credentials expired', () => {
-        permissionsChecker.credentials.vpnCredentials = getCredentialsData(TEST_PERIOD_S);
+        permissionsChecker.credentials.vpnCredentials = getCredentialsData(TEST_PERIOD_SEC);
         permissionsChecker.init();
         notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
         expect(permissionsChecker.checkPermissions).toBeCalledTimes(0);
 
         // advance timers for 5 hours
-        jest.advanceTimersByTime(TEST_PERIOD_S * 1000);
+        jest.advanceTimersByTime(TEST_PERIOD_SEC * 1000);
         expect(permissionsChecker.checkPermissions).toBeCalledTimes(1);
     });
 
     it('Check permissions in half an hour before ACTUAL credentials expired', () => {
-        permissionsChecker.credentials.vpnCredentials = getCredentialsData(TEST_PERIOD_S);
+        permissionsChecker.credentials.vpnCredentials = getCredentialsData(TEST_PERIOD_SEC);
         permissionsChecker.init();
         notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
         expect(permissionsChecker.checkPermissions).toBeCalledTimes(0);
 
         // advance timers for 1 hour
-        jest.advanceTimersByTime((TEST_PERIOD_S * 1000) / 5);
+        jest.advanceTimersByTime((TEST_PERIOD_SEC * 1000) / 5);
 
         expect(permissionsChecker.checkPermissions).toBeCalledTimes(0);
 
-        permissionsChecker.credentials.vpnCredentials = getCredentialsData(TEST_PERIOD_S * 2);
+        permissionsChecker.credentials.vpnCredentials = getCredentialsData(TEST_PERIOD_SEC * 2);
         notifier.notifyListeners(notifier.types.USER_DEAUTHENTICATED);
         notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
 
         // advance timers for 12 hours
-        jest.advanceTimersByTime(TEST_PERIOD_S * 1000 * 2 + 100);
+        jest.advanceTimersByTime(TEST_PERIOD_SEC * 1000 * 2 + 100);
         expect(permissionsChecker.checkPermissions).toBeCalledTimes(1);
     });
 });

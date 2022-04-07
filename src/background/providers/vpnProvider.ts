@@ -365,7 +365,7 @@ const getExclusionsServicesDomains = async (serviceIds: string[]) => {
 export const getExclusionsServices = async (): Promise<ServicesInterface> => {
     const [exclusionsServices, servicesDomains] = await Promise.all([
         vpnApi.getExclusionsServices(),
-        getExclusionsServicesDomains(['']),
+        getExclusionsServicesDomains([]),
     ]);
 
     return processExclusionServices(exclusionsServices, servicesDomains);

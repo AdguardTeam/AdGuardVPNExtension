@@ -17,7 +17,7 @@ const CURRENT_ENDPOINT_KEY = 'proxyCurrentEndpoint';
 
 const DEFAULTS = {
     currentEndpoint: null,
-    currentHost: null,
+    currentHost: '',
 };
 
 const PROXY_AUTH_TYPES = {
@@ -51,7 +51,7 @@ export interface ExtensionProxyInterface {
     bypassList: string[];
     endpointsTldExclusions: any[];
     currentEndpoint: EndpointInterface | null;
-    currentHost: string | null;
+    currentHost: string;
     proxyAuthorizationType: string;
     currentConfig: ConfigData;
     inverted: boolean;
@@ -96,7 +96,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
 
     currentEndpoint: EndpointInterface | null;
 
-    currentHost: string | null;
+    currentHost: string;
 
     proxyAuthorizationType: string;
 
