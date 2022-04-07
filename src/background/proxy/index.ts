@@ -11,7 +11,7 @@ import { DEFAULT_EXCLUSIONS, LEVELS_OF_CONTROL } from './proxyConsts';
 import { NON_ROUTABLE_CIDR_NETS } from '../routability/constants';
 import { fallbackApi } from '../api/fallbackApi';
 import { LocationInterface } from '../endpoints/Location';
-import { EndpointData } from '../endpoints/Endpoint';
+import { EndpointInterface } from '../endpoints/Endpoint';
 
 const CURRENT_ENDPOINT_KEY = 'proxyCurrentEndpoint';
 
@@ -50,7 +50,7 @@ export interface ExtensionProxyInterface {
     isActive: boolean;
     bypassList: string[];
     endpointsTldExclusions: any[];
-    currentEndpoint: EndpointData | null;
+    currentEndpoint: EndpointInterface | null;
     currentHost: string | null;
     proxyAuthorizationType: string;
     currentConfig: ConfigData;
@@ -80,10 +80,10 @@ export interface ExtensionProxyInterface {
     ): Promise<{ domainName: string }>;
     getDomainName(): Promise<string | null>;
     setCurrentEndpoint(
-        endpoint: EndpointData,
+        endpoint: EndpointInterface,
         location: LocationInterface,
     ): Promise<{ domainName: string }>;
-    getCurrentEndpoint(): Promise<EndpointData | null>;
+    getCurrentEndpoint(): Promise<EndpointInterface | null>;
     resetSettings(): Promise<void>;
 }
 
@@ -94,7 +94,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
 
     endpointsTldExclusions: any[];
 
-    currentEndpoint: EndpointData | null;
+    currentEndpoint: EndpointInterface | null;
 
     currentHost: string | null;
 
@@ -272,7 +272,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
     };
 
     setCurrentEndpoint = async (
-        endpoint: EndpointData,
+        endpoint: EndpointInterface,
         location: LocationInterface,
     ): Promise<{ domainName: string }> => {
         this.currentEndpoint = endpoint;
@@ -284,7 +284,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
         return { domainName };
     };
 
-    getCurrentEndpoint = async (): Promise<EndpointData | null> => {
+    getCurrentEndpoint = async (): Promise<EndpointInterface | null> => {
         if (!this.currentEndpoint) {
             this.currentEndpoint = await browserApi.storage.get(CURRENT_ENDPOINT_KEY);
         }

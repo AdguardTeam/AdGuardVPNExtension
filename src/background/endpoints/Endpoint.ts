@@ -1,4 +1,4 @@
-export interface EndpointData {
+export interface EndpointInterface {
     id: string;
     ipv4Address: string;
     ipv6Address: string;
@@ -8,7 +8,7 @@ export interface EndpointData {
 /**
  * Class representing endpoint structure
  */
-export class Endpoint implements EndpointData {
+export class Endpoint implements EndpointInterface {
     id: string;
 
     ipv4Address: string;
@@ -25,7 +25,7 @@ export class Endpoint implements EndpointData {
         ipv6Address,
         domainName,
         publicKey,
-    }: EndpointData) {
+    }: EndpointInterface) {
         this.id = id;
         this.ipv4Address = ipv4Address;
         this.ipv6Address = ipv6Address;

@@ -1,11 +1,11 @@
-import { Endpoint, EndpointData } from './Endpoint';
+import { Endpoint, EndpointInterface } from './Endpoint';
 
 interface LocationData {
     id: string,
     countryName: string,
     cityName: string,
     countryCode: string,
-    endpoints: EndpointData[],
+    endpoints: EndpointInterface[],
     coordinates: string,
     premiumOnly: string,
     pingBonus: string,
@@ -14,7 +14,7 @@ interface LocationData {
 export interface LocationInterface extends LocationData {
     available: boolean;
     ping: number | null;
-    endpoint: EndpointData | null;
+    endpoint: EndpointInterface | null;
 }
 
 export class Location {
@@ -26,7 +26,7 @@ export class Location {
 
     countryCode: string;
 
-    endpoints: EndpointData[];
+    endpoints: EndpointInterface[];
 
     coordinates: string;
 
@@ -38,7 +38,7 @@ export class Location {
 
     ping: number | null;
 
-    endpoint: EndpointData | null;
+    endpoint: EndpointInterface | null;
 
     constructor(locationData: LocationData) {
         this.id = locationData.id;
