@@ -1,5 +1,4 @@
-import browser from 'webextension-polyfill';
-import { Manifest } from 'webextension-polyfill/namespaces/manifest';
+import browser, { Manifest } from 'webextension-polyfill';
 
 interface SendMessageParameters {
     message: any;

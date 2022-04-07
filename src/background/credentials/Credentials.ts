@@ -70,7 +70,7 @@ export interface CredentialsInterface {
     gainValidVpnToken(
         forceRemote: boolean,
         useLocalFallback: boolean,
-    ): Promise<VpnTokenData | null>;
+    ): Promise<VpnTokenData>;
     gainValidVpnCredentials(
         forceRemote: boolean,
         useLocalFallback: boolean,
@@ -244,10 +244,10 @@ class Credentials implements CredentialsInterface {
     async gainValidVpnToken(
         forceRemote = false,
         useLocalFallback = true,
-    ): Promise<VpnTokenData | null> {
-        const vpnToken = await this.gainVpnToken(forceRemote, useLocalFallback) || null;
+    ): Promise<VpnTokenData> | never {
+        const vpnToken = await this.gainVpnToken(forceRemote, useLocalFallback);
 
-        if (!this.isTokenValid(vpnToken)) {
+        if (!vpnToken || !this.isTokenValid(vpnToken)) {
             const error = Error(`Vpn token is not valid. Token: ${JSON.stringify(vpnToken)}`);
             this.permissionsError.setError(error as ErrorData);
             throw error;
@@ -537,7 +537,7 @@ class Credentials implements CredentialsInterface {
                 return;
             }
             const appId = await this.getAppId();
-            await this.vpnProvider?.postExtensionInstalled(appId);
+            await this.vpnProvider.postExtensionInstalled(appId);
             await this.storage.set(TRACKED_INSTALLATIONS_KEY, true);
             log.info('Installation successfully tracked');
         } catch (e: any) {
