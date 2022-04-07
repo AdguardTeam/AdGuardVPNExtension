@@ -3,7 +3,7 @@ import notifier from '../../../src/lib/notifier';
 import {
     UPDATE_CREDENTIALS_INTERVAL_MS,
     UPDATE_VPN_INFO_INTERVAL_MS,
-} from '../../../src/lib/constants';
+} from '../../../src/background/permissionsChecker/PermissionsChecker';
 
 const TEST_PERIOD_S = 60 * 60 * 5; // 5 hours
 

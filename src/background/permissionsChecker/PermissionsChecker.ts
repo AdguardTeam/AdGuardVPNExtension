@@ -1,9 +1,5 @@
 import { log } from '../../lib/logger';
-import {
-    ERROR_STATUSES,
-    UPDATE_CREDENTIALS_INTERVAL_MS,
-    UPDATE_VPN_INFO_INTERVAL_MS,
-} from '../../lib/constants';
+import { ERROR_STATUSES } from '../../lib/constants';
 import notifier from '../../lib/notifier';
 import { settings } from '../settings';
 import endpointConnectivity from '../connectivity/endpointConnectivity';
@@ -33,6 +29,8 @@ interface PermissionsCheckerInterface {
     init(): void;
 }
 
+export const UPDATE_CREDENTIALS_INTERVAL_MS = 1000 * 60 * 60 * 12; // 12 hours
+export const UPDATE_VPN_INFO_INTERVAL_MS = 1000 * 60 * 60; // 1 hour
 const EXPIRE_CHECK_TIME_SEC = 60 * 30; // 30 min
 
 class PermissionsChecker implements PermissionsCheckerInterface {
