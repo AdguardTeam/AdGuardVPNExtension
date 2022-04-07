@@ -1,14 +1,17 @@
 import { Endpoint, EndpointInterface } from './Endpoint';
 
-interface LocationData {
-    id: string,
-    countryName: string,
-    cityName: string,
-    countryCode: string,
-    endpoints: EndpointInterface[],
-    coordinates: string,
-    premiumOnly: string,
-    pingBonus: string,
+export interface LocationData {
+    id: string;
+    countryName: string;
+    cityName: string;
+    countryCode: string;
+    endpoints: EndpointInterface[];
+    coordinates: [
+        longitude: number,
+        latitude: number,
+    ];
+    premiumOnly: boolean;
+    pingBonus: number;
 }
 
 export interface LocationInterface extends LocationData {
@@ -28,11 +31,14 @@ export class Location {
 
     endpoints: EndpointInterface[];
 
-    coordinates: string;
+    coordinates: [
+        longitude: number,
+        latitude: number,
+    ];
 
-    premiumOnly: string;
+    premiumOnly: boolean;
 
-    pingBonus: string;
+    pingBonus: number;
 
     available: boolean;
 
