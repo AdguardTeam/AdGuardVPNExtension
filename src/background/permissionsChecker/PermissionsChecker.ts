@@ -19,9 +19,9 @@ interface PermissionsCheckerParameters {
 interface PermissionsCheckerInterface {
     permissionsError: PermissionsErrorInterface;
     credentials: CredentialsInterface;
-    checkCredentials: NodeJS.Timer | null;
-    checkVpnInfo: NodeJS.Timer | null;
-    checkExpiredCredentials: NodeJS.Timer | null;
+    regularCredentialsCheck: NodeJS.Timer | null;
+    regularVpnInfoCheck: NodeJS.Timer | null;
+    expiredCredentialsCheck: NodeJS.Timer | null;
 
     updatePermissionsErrorHandler(error: ErrorData): Promise<void>;
     checkPermissions(): Promise<void>;
@@ -40,11 +40,11 @@ class PermissionsChecker implements PermissionsCheckerInterface {
 
     credentials: CredentialsInterface;
 
-    checkCredentials: NodeJS.Timer | null = null;
+    regularCredentialsCheck: NodeJS.Timer | null = null;
 
-    checkVpnInfo: NodeJS.Timer | null = null;
+    regularVpnInfoCheck: NodeJS.Timer | null = null;
 
-    checkExpiredCredentials: NodeJS.Timer | null = null;
+    expiredCredentialsCheck: NodeJS.Timer | null = null;
 
     constructor({ credentials, permissionsError }: PermissionsCheckerParameters) {
         this.credentials = credentials;
@@ -80,10 +80,10 @@ class PermissionsChecker implements PermissionsCheckerInterface {
         }
         if (this.credentials.vpnCredentials?.result?.expiresInSec
             && this.credentials.vpnCredentials.result.expiresInSec > EXPIRE_CHECK_TIME_SEC) {
-            if (this.checkExpiredCredentials) {
-                clearTimeout(this.checkExpiredCredentials);
+            if (this.expiredCredentialsCheck) {
+                clearTimeout(this.expiredCredentialsCheck);
             }
-            this.checkExpiredCredentials = setTimeout(async () => {
+            this.expiredCredentialsCheck = setTimeout(async () => {
                 await this.checkPermissions();
                 // eslint-disable-next-line max-len
             }, (this.credentials.vpnCredentials.result.expiresInSec - EXPIRE_CHECK_TIME_SEC) * 1000);
@@ -135,40 +135,40 @@ class PermissionsChecker implements PermissionsCheckerInterface {
     startChecker = (): void => {
         log.info('Credentials and VPN info checker started');
 
-        if (this.checkCredentials) {
-            clearInterval(this.checkCredentials);
+        if (this.regularCredentialsCheck) {
+            clearInterval(this.regularCredentialsCheck);
         }
 
-        this.checkCredentials = setInterval(async () => {
+        this.regularCredentialsCheck = setInterval(async () => {
             await this.checkPermissions();
         }, UPDATE_CREDENTIALS_INTERVAL_MS);
 
-        if (this.checkVpnInfo) {
-            clearInterval(this.checkVpnInfo);
+        if (this.regularVpnInfoCheck) {
+            clearInterval(this.regularVpnInfoCheck);
         }
 
-        this.checkVpnInfo = setInterval(async () => {
+        this.regularVpnInfoCheck = setInterval(async () => {
             await this.getVpnInfo();
         }, UPDATE_VPN_INFO_INTERVAL_MS);
     };
 
     stopChecker = (): void => {
-        if (this.checkCredentials) {
+        if (this.regularCredentialsCheck) {
             log.info('Credentials checker stopped');
-            clearInterval(this.checkCredentials);
-            this.checkCredentials = null;
+            clearInterval(this.regularCredentialsCheck);
+            this.regularCredentialsCheck = null;
         }
 
-        if (this.checkVpnInfo) {
+        if (this.regularVpnInfoCheck) {
             log.info('VPN info checker stopped');
-            clearInterval(this.checkVpnInfo);
-            this.checkVpnInfo = null;
+            clearInterval(this.regularVpnInfoCheck);
+            this.regularVpnInfoCheck = null;
         }
 
-        if (this.checkExpiredCredentials) {
+        if (this.expiredCredentialsCheck) {
             log.info('Checker before credentials expired stopped');
-            clearTimeout(this.checkExpiredCredentials);
-            this.checkExpiredCredentials = null;
+            clearTimeout(this.expiredCredentialsCheck);
+            this.expiredCredentialsCheck = null;
         }
     };
 
