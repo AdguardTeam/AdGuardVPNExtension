@@ -89,7 +89,7 @@ export interface VpnProviderInterface {
         appId: string,
         vpnToken: string,
     ): Promise<CredentialsDataInterface>;
-    postExtensionInstalled(appId: string): Promise<{ social_providers: [string] }>;
+    postExtensionInstalled(appId: string): Promise<{ social_providers: string[] }>;
     getVpnExtensionInfo(
         appId: string,
         vpnToken: string,
@@ -304,7 +304,7 @@ const getVpnCredentials = async (
     };
 };
 
-const postExtensionInstalled = async (appId: string): Promise<{ social_providers: [string] }> => {
+const postExtensionInstalled = async (appId: string): Promise<{ social_providers: string[] }> => {
     return vpnApi.postExtensionInstalled(appId);
 };
 
@@ -354,7 +354,7 @@ const requestSupport = async ({
     }
 };
 
-const getExclusionsServicesDomains = async (serviceIds: [string]) => {
+const getExclusionsServicesDomains = async (serviceIds: string[]) => {
     const exclusionServiceDomains = await vpnApi.getExclusionServiceDomains(serviceIds);
     return processExclusionServicesDomains(exclusionServiceDomains);
 };

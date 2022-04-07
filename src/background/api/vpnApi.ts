@@ -79,7 +79,7 @@ interface CurrentLocationData extends AxiosResponse {
 }
 
 interface PostExtensionInstalledData extends AxiosResponse {
-    social_providers: [string];
+    social_providers: string[];
 }
 
 interface VpnConnectionStatus extends AxiosResponse {
@@ -91,7 +91,7 @@ interface ExclusionsServicesData extends AxiosResponse {
         service_id: string,
         service_name: string,
         icon_url: string,
-        categories: [string],
+        categories: string[],
         modified_time: string,
     }];
     categories: [{
@@ -103,7 +103,7 @@ interface ExclusionsServicesData extends AxiosResponse {
 interface ExclusionServiceDomainsData extends AxiosResponse {
     services: [{
         service_id: string,
-        domains: [string],
+        domains: string[],
     }];
 }
 
@@ -116,7 +116,7 @@ interface VpnApiInterface {
     requestSupport(data: FormData): Promise<AxiosResponse>;
     getDesktopVpnConnectionStatus(): Promise<VpnConnectionStatus>;
     getExclusionsServices(): Promise<ExclusionsServicesData>;
-    getExclusionServiceDomains(servicesIds: [string]): Promise<ExclusionServiceDomainsData>;
+    getExclusionServiceDomains(servicesIds: string[]): Promise<ExclusionServiceDomainsData>;
 }
 
 // projects/ADGUARD/repos/adguard-vpn-backend-service/browse
@@ -223,7 +223,7 @@ class VpnApi extends Api implements VpnApiInterface {
 
     EXCLUSION_SERVICE_DOMAINS = { path: 'v1/exclusion_services/domains', method: 'GET' };
 
-    getExclusionServiceDomains = (servicesIds: [string]): Promise<ExclusionServiceDomainsData> => {
+    getExclusionServiceDomains = (servicesIds: string[]): Promise<ExclusionServiceDomainsData> => {
         const { path, method } = this.EXCLUSION_SERVICE_DOMAINS;
 
         const servicesIdsParam = servicesIds.length > 0 ? servicesIds.join(',') : null;
