@@ -10,7 +10,7 @@ import { ErrorData, PermissionsErrorInterface } from '../permissionsChecker/perm
 import { StorageInterface } from '../browserApi/storage';
 import { ExtensionProxyInterface } from '../proxy';
 
-interface VpnTokenData {
+export interface VpnTokenData {
     token: string;
     licenseStatus: string;
     timeExpiresSec: number;

@@ -23,7 +23,7 @@ interface NameInterface {
     name: string;
 }
 
-interface VpnExtensionInfoInterface {
+export interface VpnExtensionInfoInterface {
     bandwidthFreeMbits: number;
     premiumPromoPage: string;
     premiumPromoEnabled: boolean;

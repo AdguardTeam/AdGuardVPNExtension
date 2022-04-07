@@ -9,18 +9,19 @@ import { getLocationWithLowestPing, sleep } from '../../lib/helpers';
 import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
 import notifier from '../../lib/notifier';
 import { proxy } from '../proxy';
-import { vpnProvider } from '../providers/vpnProvider';
+import { vpnProvider, VpnExtensionInfoInterface } from '../providers/vpnProvider';
 import { LocationWithPing } from './LocationWithPing';
 import { endpointsTldExclusions } from '../proxy/endpointsTldExclusions';
 
 // eslint-disable-next-line import/no-cycle
 import connectivity from '../connectivity';
-// eslint-disable-next-line import/no-cycle
 import credentials from '../credentials';
-// eslint-disable-next-line import/no-cycle
 import { locationsService, isMeasuringPingInProgress } from './locationsService';
 // eslint-disable-next-line import/no-cycle
 import { isVPNDisconnectedIdle } from '../connectivity/connectivityService/connectivityFSM';
+import { EndpointInterface } from './Endpoint';
+import { LocationInterface } from './Location';
+import { VpnTokenData } from '../credentials/Credentials';
 
 /**
  * Endpoint properties
@@ -48,7 +49,7 @@ import { isVPNDisconnectedIdle } from '../connectivity/connectivityService/conne
  * Endpoints manages endpoints, vpn, current location information.
  */
 class Endpoints {
-    vpnInfo = null;
+    vpnInfo: VpnExtensionInfoInterface | null = null;
 
     constructor() {
         notifier.addSpecifiedListener(
@@ -63,7 +64,7 @@ class Endpoints {
      * @param {Location} location
      * @returns {Promise<void>}
      */
-    reconnectEndpoint = async (endpoint, location) => {
+    reconnectEndpoint = async (endpoint: EndpointInterface, location: LocationInterface) => {
         const { domainName } = await proxy.setCurrentEndpoint(endpoint, location);
         const { credentialsHash, token } = await credentials.getAccessCredentials();
         await connectivity.endpointConnectivity.setCredentials(domainName, token, credentialsHash);
@@ -78,7 +79,7 @@ class Endpoints {
      * @param {Location} targetLocation
      * @returns {Location}
      */
-    getClosestLocation = (locations, targetLocation) => {
+    getClosestLocation = (locations: LocationInterface[], targetLocation: LocationInterface) => {
         const sameCityEndpoint = locations.find((endpoint) => {
             return endpoint.cityName === targetLocation.cityName;
         });
@@ -99,7 +100,7 @@ class Endpoints {
 
         try {
             vpnToken = await credentials.gainValidVpnToken();
-        } catch (e) {
+        } catch (e: any) {
             log.debug('Unable to get endpoints token because: ', e.message);
             return null;
         }
@@ -109,7 +110,7 @@ class Endpoints {
         return locations;
     };
 
-    vpnTokenChanged = (oldVpnToken, newVpnToken) => {
+    vpnTokenChanged = (oldVpnToken: VpnTokenData, newVpnToken: VpnTokenData) => {
         if (!oldVpnToken || !newVpnToken) {
             return false;
         }
@@ -143,7 +144,7 @@ class Endpoints {
             const vpnInfo = await vpnProvider.getVpnExtensionInfo(appId, vpnToken.token);
             await this.updateLocations(true);
             this.vpnInfo = vpnInfo;
-        } catch (e) {
+        } catch (e: any) {
             log.debug(e.message);
         }
     };
@@ -154,7 +155,7 @@ class Endpoints {
      * @param isPremiumToken
      * @returns {*}
      */
-    filterLocationsMatchingToken = (locations, isPremiumToken) => {
+    filterLocationsMatchingToken = (locations: LocationInterface[], isPremiumToken: boolean) => {
         const filteredLocations = locations.filter((location) => {
             if (isPremiumToken) {
                 return true;
@@ -165,7 +166,7 @@ class Endpoints {
         return filteredLocations;
     };
 
-    updateEndpointsExclusions = (locations) => {
+    updateEndpointsExclusions = (locations: LocationInterface[]) => {
         const endpoints = flattenDeep(locations.map((location) => {
             return location.endpoints;
         }));
@@ -203,6 +204,9 @@ class Endpoints {
             try {
                 // eslint-disable-next-line max-len
                 const closestEndpoint = await locationsService.getEndpointByLocation(closestLocation);
+                if (!closestEndpoint) {
+                    return;
+                }
                 await this.reconnectEndpoint(closestEndpoint, closestLocation);
             } catch (e) {
                 log.debug(e);
@@ -231,6 +235,9 @@ class Endpoints {
                 );
                 // eslint-disable-next-line max-len
                 const closestEndpoint = await locationsService.getEndpointByLocation(closestLocation);
+                if (!closestEndpoint) {
+                    return;
+                }
                 await this.reconnectEndpoint(closestEndpoint, closestLocation);
             }
         } else {
@@ -243,7 +250,7 @@ class Endpoints {
 
         try {
             vpnToken = await credentials.gainValidVpnToken();
-        } catch (e) {
+        } catch (e: any) {
             log.debug('Unable to get endpoints info because: ', e.message);
             return null;
         }
@@ -368,12 +375,12 @@ class Endpoints {
         let vpnToken;
         try {
             vpnToken = await credentials.gainValidVpnToken();
-        } catch (e) {
+        } catch (e: any) {
             log.error('Unable to get valid endpoints token. Error: ', e.message);
         }
 
         // undefined values will be omitted in the querystring
-        const token = vpnToken.token || undefined;
+        const token = vpnToken?.token || undefined;
 
         const appId = await credentials.getAppId();
 

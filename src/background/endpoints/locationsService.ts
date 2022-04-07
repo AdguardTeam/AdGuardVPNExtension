@@ -35,11 +35,11 @@ interface LocationsServiceInterface {
     getLocationsFromServer(appId: string, vpnToken: string): Promise<Location[]>;
     getEndpointByLocation(
         location: LocationInterface,
-        forcePrevEndpoint: boolean,
+        forcePrevEndpoint?: boolean,
     ): Promise<EndpointInterface | null>;
     getLocationByEndpoint(endpointId: string): LocationInterface | null;
     getLocationsWithPing(): LocationWithPing[];
-    setSelectedLocation(id: string, isLocationSelectedByUser: boolean): Promise<void>;
+    setSelectedLocation(id: string, isLocationSelectedByUser?: boolean): Promise<void>;
     getSelectedLocation(): Promise<LocationInterface | null>;
     getLocations(): LocationInterface[];
     getEndpoint(

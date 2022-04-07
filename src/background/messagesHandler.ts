@@ -3,7 +3,7 @@ import browser, { Runtime } from 'webextension-polyfill';
 import { MessageType, SETTINGS_IDS } from '../lib/constants';
 import auth from './auth';
 import popupData from './popupData';
-import endpoints from './endpoints';
+import { endpoints } from './endpoints';
 import actions from './actions';
 import credentials from './credentials';
 import authCache from './authentication/authCache';

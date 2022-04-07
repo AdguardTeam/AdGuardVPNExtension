@@ -5,7 +5,7 @@ import authCache from './authentication/authCache';
 import connectivity from './connectivity';
 import contextMenu from './contextMenu';
 import credentials from './credentials';
-import endpoints from './endpoints';
+import { endpoints } from './endpoints';
 import { exclusions } from './exclusions';
 import { log } from '../lib/logger';
 import management from './management';
