@@ -94,7 +94,6 @@ export interface CredentialsInterface {
     getUsername(): Promise<string | null>;
     trackInstallation(): Promise<void>;
     handleUserDeauthentication(): Promise<void>;
-    updateVpnCredentials(): Promise<void>;
     init(): Promise<void>;
 }
 
@@ -553,14 +552,6 @@ class Credentials implements CredentialsInterface {
         this.currentUsername = null;
     }
 
-    async updateVpnCredentials(): Promise<void> {
-        // On extension initialisation use local fallback if was unable to get data remotely
-        // it might be useful on browser restart
-        const forceRemote = true;
-        this.vpnToken = await this.gainValidVpnToken(forceRemote);
-        this.vpnCredentials = await this.gainValidVpnCredentials(forceRemote);
-    }
-
     async init(): Promise<void> {
         try {
             notifier.addSpecifiedListener(
@@ -569,7 +560,11 @@ class Credentials implements CredentialsInterface {
             );
 
             await this.trackInstallation();
-            await this.updateVpnCredentials();
+            // On extension initialisation use local fallback if was unable to get data remotely
+            // it might be useful on browser restart
+            const forceRemote = true;
+            this.vpnToken = await this.gainValidVpnToken(forceRemote);
+            this.vpnCredentials = await this.gainValidVpnCredentials(forceRemote);
             this.currentUsername = await this.fetchUsername();
         } catch (e: any) {
             log.debug('Unable to init credentials module, due to error:', e.message);
