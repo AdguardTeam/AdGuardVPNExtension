@@ -296,11 +296,11 @@ class Credentials implements CredentialsInterface {
         }
         const vpnCredentials = await this.vpnProvider.getVpnCredentials(appId, vpnToken.token);
 
-        if (!vpnCredentials || !this.areCredentialsValid(vpnCredentials)) {
+        if (!this.areCredentialsValid(vpnCredentials)) {
             return null;
         }
 
-        if (this.vpnCredentials && !this.areCredentialsEqual(vpnCredentials, this.vpnCredentials)) {
+        if (!this.areCredentialsEqual(vpnCredentials, this.vpnCredentials)) {
             this.vpnCredentials = vpnCredentials;
             await this.storage.set(this.VPN_CREDENTIALS_KEY, vpnCredentials);
             await this.updateProxyCredentials();
@@ -388,7 +388,7 @@ class Credentials implements CredentialsInterface {
             if (!this.areCredentialsValid(vpnCredentials) && useLocalFallback) {
                 vpnCredentials = await this.getVpnCredentialsLocal();
             }
-            return vpnCredentials || null;
+            return vpnCredentials;
         }
 
         vpnCredentials = await this.getVpnCredentialsLocal();
@@ -415,7 +415,7 @@ class Credentials implements CredentialsInterface {
      */
     async getAccessCredentials(): Promise<AccessCredentialsData> {
         const vpnToken = await this.gainValidVpnToken();
-        const token = vpnToken?.token || null;
+        const { token } = vpnToken;
         const { result: { credentials } } = await this.gainValidVpnCredentials();
         const appId = await this.getAppId();
         return {
