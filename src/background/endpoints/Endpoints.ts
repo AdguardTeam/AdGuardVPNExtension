@@ -9,7 +9,7 @@ import { getLocationWithLowestPing, sleep } from '../../lib/helpers';
 import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
 import notifier from '../../lib/notifier';
 import { proxy } from '../proxy';
-import { vpnProvider, VpnExtensionInfoInterface } from '../providers/vpnProvider';
+import { vpnProvider, VpnExtensionInfoInterface, CredentialsDataInterface } from '../providers/vpnProvider';
 import { LocationWithPing } from './LocationWithPing';
 import { endpointsTldExclusions } from '../proxy/endpointsTldExclusions';
 
@@ -45,11 +45,19 @@ import { VpnTokenData } from '../credentials/Credentials';
  * @property {boolean} premiumOnly
  */
 
+interface EndpointsInterface {
+    refreshData(): Promise<void>;
+    getVpnInfo(): Promise<VpnExtensionInfoInterface | null>;
+    getLocations(): LocationWithPing[];
+    getVpnFailurePage(): Promise<string>;
+    init(): void;
+}
+
 /**
  * Endpoints manages endpoints, vpn, current location information.
  */
-class Endpoints {
-    vpnInfo: VpnExtensionInfoInterface | null = null;
+class Endpoints implements EndpointsInterface {
+    vpnInfo?: VpnExtensionInfoInterface;
 
     constructor() {
         notifier.addSpecifiedListener(
@@ -64,7 +72,10 @@ class Endpoints {
      * @param {Location} location
      * @returns {Promise<void>}
      */
-    reconnectEndpoint = async (endpoint: EndpointInterface, location: LocationInterface) => {
+    reconnectEndpoint = async (
+        endpoint: EndpointInterface,
+        location: LocationInterface,
+    ): Promise<void> => {
         const { domainName } = await proxy.setCurrentEndpoint(endpoint, location);
         const { credentialsHash, token } = await credentials.getAccessCredentials();
         await connectivity.endpointConnectivity.setCredentials(domainName, token, credentialsHash);
@@ -79,7 +90,10 @@ class Endpoints {
      * @param {Location} targetLocation
      * @returns {Location}
      */
-    getClosestLocation = (locations: LocationInterface[], targetLocation: LocationInterface) => {
+    getClosestLocation = (
+        locations: LocationInterface[],
+        targetLocation: LocationInterface,
+    ): LocationInterface => {
         const sameCityEndpoint = locations.find((endpoint) => {
             return endpoint.cityName === targetLocation.cityName;
         });
@@ -95,7 +109,7 @@ class Endpoints {
      * Gets endpoints remotely and updates them if there were no errors
      * @returns {Promise<null|*>}
      */
-    getLocationsFromServer = async () => {
+    getLocationsFromServer = async (): Promise<LocationInterface[] | null> => {
         let vpnToken;
 
         try {
@@ -110,7 +124,7 @@ class Endpoints {
         return locations;
     };
 
-    vpnTokenChanged = (oldVpnToken: VpnTokenData, newVpnToken: VpnTokenData) => {
+    vpnTokenChanged = (oldVpnToken: VpnTokenData, newVpnToken: VpnTokenData): boolean => {
         if (!oldVpnToken || !newVpnToken) {
             return false;
         }
@@ -121,7 +135,10 @@ class Endpoints {
      * Updates vpn tokens and credentials
      * @returns {Promise<{vpnToken: *, vpnCredentials: *}>}
      */
-    refreshTokens = async () => {
+    refreshTokens = async (): Promise<{
+        vpnToken: VpnTokenData,
+        vpnCredentials: CredentialsDataInterface,
+    }> => {
         log.info('Refreshing tokens');
         const vpnToken = await credentials.gainValidVpnToken(true, false);
         const vpnCredentials = await credentials.gainValidVpnCredentials(true, false);
@@ -137,7 +154,7 @@ class Endpoints {
      * 4. Check if user didn't get over traffic limits
      * @returns {Promise<void>}
      */
-    refreshData = async () => {
+    refreshData = async (): Promise<void> => {
         try {
             const appId = await credentials.getAppId();
             const { vpnToken } = await this.refreshTokens();
@@ -155,7 +172,10 @@ class Endpoints {
      * @param isPremiumToken
      * @returns {*}
      */
-    filterLocationsMatchingToken = (locations: LocationInterface[], isPremiumToken: boolean) => {
+    filterLocationsMatchingToken = (
+        locations: LocationInterface[],
+        isPremiumToken: boolean,
+    ): LocationInterface[] => {
         const filteredLocations = locations.filter((location) => {
             if (isPremiumToken) {
                 return true;
@@ -166,7 +186,7 @@ class Endpoints {
         return filteredLocations;
     };
 
-    updateEndpointsExclusions = (locations: LocationInterface[]) => {
+    updateEndpointsExclusions = (locations: LocationInterface[]): void => {
         const endpoints = flattenDeep(locations.map((location) => {
             return location.endpoints;
         }));
@@ -174,6 +194,10 @@ class Endpoints {
         const domainNames = endpoints.map((endpoint) => endpoint.domainName);
         const topLevelDomains = domainNames.map((domainName) => getDomain(domainName));
         const uniqTopLevelDomains = uniq(topLevelDomains);
+
+        if (uniqTopLevelDomains) {
+            return;
+        }
 
         endpointsTldExclusions.addEndpointsTldExclusions(uniqTopLevelDomains);
     };
@@ -183,7 +207,7 @@ class Endpoints {
      * @param shouldReconnect
      * @returns {Promise<void>}
      */
-    updateLocations = async (shouldReconnect = false) => {
+    updateLocations = async (shouldReconnect = false): Promise<void> => {
         const locations = await this.getLocationsFromServer();
 
         if (!locations || isEmpty(locations)) {
@@ -245,7 +269,7 @@ class Endpoints {
         }
     };
 
-    getVpnInfoRemotely = async () => {
+    getVpnInfoRemotely = async (): Promise<VpnExtensionInfoInterface | null> => {
         let vpnToken;
 
         try {
@@ -290,7 +314,7 @@ class Endpoints {
      * Returns vpn info cached value and launches remote vpn info getting
      * @returns vpnInfo or null
      */
-    getVpnInfo = async () => {
+    getVpnInfo = async (): Promise<VpnExtensionInfoInterface | null> => {
         if (this.vpnInfo) {
             // no await here in order to return cached vpnInfo
             // and launch function with promise execution
@@ -316,7 +340,7 @@ class Endpoints {
         return this.vpnInfo;
     };
 
-    getLocations = () => {
+    getLocations = (): LocationWithPing[] => {
         const locations = locationsService.getLocationsWithPing();
         return locations;
     };
@@ -332,7 +356,7 @@ class Endpoints {
             || (!isLocationSelectedByUser && isVPNDisabled);
 
         if (!shouldSelectFasterLocation) {
-            return new LocationWithPing(selectedLocation);
+            return new LocationWithPing(selectedLocation as LocationWithPing);
         }
 
         const locations = locationsService.getLocations();
@@ -351,7 +375,8 @@ class Endpoints {
         }
 
         const pingsCalculated = filteredLocations.every((location) => {
-            return (location.available && location.ping > 0) || !location.available;
+            return (location.available
+                && location.ping && location.ping > 0) || !location.available;
         });
 
         const PINGS_WAIT_TIMEOUT_MS = 1000;
@@ -371,7 +396,7 @@ class Endpoints {
         return new LocationWithPing(fastestLocation);
     };
 
-    getVpnFailurePage = async () => {
+    getVpnFailurePage = async (): Promise<string> => {
         let vpnToken;
         try {
             vpnToken = await credentials.gainValidVpnToken();
@@ -388,9 +413,23 @@ class Endpoints {
         let appendToQueryString = false;
         if (!this.vpnInfo) {
             try {
+                if (!token) {
+                    throw new Error('No token provided');
+                }
                 this.vpnInfo = await vpnProvider.getVpnExtensionInfo(appId, token);
             } catch (e) {
-                this.vpnInfo = { vpnFailurePage: POPUP_DEFAULT_SUPPORT_URL };
+                this.vpnInfo = {
+                    vpnFailurePage: POPUP_DEFAULT_SUPPORT_URL,
+                    bandwidthFreeMbits: 0,
+                    premiumPromoPage: '',
+                    premiumPromoEnabled: false,
+                    refreshTokens: false,
+                    usedDownloadedBytes: 0,
+                    usedUploadedBytes: 0,
+                    maxDownloadedBytes: 0,
+                    maxUploadedBytes: 0,
+                    renewalTrafficDate: '',
+                };
                 appendToQueryString = true;
             }
         }
@@ -404,11 +443,11 @@ class Endpoints {
         return `${vpnFailurePage}${separator}${queryString}`;
     };
 
-    clearVpnInfo() {
+    clearVpnInfo(): void {
         delete this.vpnInfo;
     }
 
-    init() {
+    init(): void {
         // Clear vpn info on deauthentication in order to set correct vpn info after next login
         notifier.addSpecifiedListener(
             notifier.types.USER_DEAUTHENTICATED,
