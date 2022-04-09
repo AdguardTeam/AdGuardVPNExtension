@@ -39,7 +39,7 @@ const PromoNotificationModal = observer(() => {
         return null;
     }
 
-    const { btn, title } = promoNotification.text;
+    const { btn, title, desc } = promoNotification.text;
 
     return (
         <Modal
@@ -49,27 +49,34 @@ const PromoNotificationModal = observer(() => {
             className="holiday-notify__wrap"
             overlayClassName="holiday-notify"
         >
-            <div
-                className="holiday-notify__close"
-                onClick={onCloseHandler}
-            />
             <div className="holiday-notify__content">
-                <div className="holiday-notify__title">
-                    <div className="holiday-notify__title-in">
-                        {title}
-                    </div>
-                </div>
-                {btn
-                    && (
-                        <div className="holiday-notify__bottom">
-                            <div
-                                className="holiday-notify__btn"
-                                onClick={btnClickHandler}
-                            >
-                                {btn}
-                            </div>
+                <div className="holiday-notify__inner">
+                    <div
+                        className="holiday-notify__close"
+                        onClick={onCloseHandler}
+                    />
+                    <div className="holiday-notify__title">
+                        <div className="holiday-notify__title-in">
+                            {title}
                         </div>
-                    )}
+                        {desc && (
+                            <div className="holiday-notify__title-in">
+                                {desc}
+                            </div>
+                        )}
+                    </div>
+                    {btn
+                        && (
+                            <div className="holiday-notify__bottom">
+                                <div
+                                    className="holiday-notify__btn"
+                                    onClick={btnClickHandler}
+                                >
+                                    {btn}
+                                </div>
+                            </div>
+                        )}
+                </div>
             </div>
         </Modal>
     );
