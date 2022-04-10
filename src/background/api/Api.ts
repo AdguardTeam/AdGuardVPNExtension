@@ -14,10 +14,7 @@ interface ConfigInterface {
 }
 
 interface ApiInterface {
-    baseUrlFn(): Promise<string>,
-    baseUrlStr: string,
-    getBaseUrl(): Promise<string>,
-    makeRequest(path: string, config: ConfigInterface, method: Method): Promise<any>
+    makeRequest(path: string, config: ConfigInterface, method: Method): Promise<any>;
 }
 
 export class Api implements ApiInterface {

@@ -1,8 +1,6 @@
 import browser from 'webextension-polyfill';
 
 interface WebRTCInterface {
-    WEB_RTC_HANDLING_ALLOWED: boolean;
-    handleBlockWebRTC(webRTCDisabled: boolean): void;
     blockWebRTC(): void;
     unblockWebRTC(force: boolean): void;
     setWebRTCHandlingAllowed(webRTCHandlingAllowed: boolean, proxyEnabled: boolean): void;

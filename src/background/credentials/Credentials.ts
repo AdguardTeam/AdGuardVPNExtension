@@ -46,27 +46,13 @@ interface CredentialsParameters {
 }
 
 export interface CredentialsInterface {
-    VPN_TOKEN_KEY: string;
-    APP_ID_KEY: string;
-    VPN_CREDENTIALS_KEY: string;
-    storage: StorageInterface;
-    vpnProvider: VpnProviderInterface;
-    permissionsError: PermissionsErrorInterface;
-    proxy: ExtensionProxyInterface;
-    auth: AuthInterface;
-    vpnToken: VpnTokenData | null;
     vpnCredentials: CredentialsDataInterface | null;
-    appId: string;
-    currentUsername: string | null;
 
-    getVpnTokenLocal(): Promise<VpnTokenData | null>;
     persistVpnToken(token: VpnTokenData | null): Promise<void>;
-    getVpnTokenRemote(): Promise<VpnTokenData | null>;
     gainVpnToken(
         forceRemote: boolean,
         useLocalFallback: boolean,
     ): Promise<VpnTokenData | null>;
-    isTokenValid(vpnToken: VpnTokenData | null): boolean;
     gainValidVpnToken(
         forceRemote: boolean,
         useLocalFallback: boolean,
@@ -75,25 +61,15 @@ export interface CredentialsInterface {
         forceRemote: boolean,
         useLocalFallback: boolean,
     ): Promise<CredentialsDataInterface>;
-    getVpnCredentialsRemote(): Promise<CredentialsDataInterface | null>;
-    areCredentialsValid(vpnCredentials: CredentialsDataInterface | null): boolean;
     areCredentialsEqual(
         newCred: CredentialsDataInterface,
         oldCred: CredentialsDataInterface | null,
     ): boolean;
-    getVpnCredentialsLocal(): Promise<CredentialsDataInterface>;
-    gainVpnCredentials(
-        useLocalFallback: boolean,
-        forceRemote: boolean,
-    ): Promise<CredentialsDataInterface | null>;
-    updateProxyCredentials(): Promise<void>;
-    gainAppId(): Promise<string>;
     getAppId(): Promise<string>;
     isPremiumToken(): Promise<boolean>;
     nextBillDate(): Promise<number | null>;
     getUsername(): Promise<string | null>;
     trackInstallation(): Promise<void>;
-    handleUserDeauthentication(): Promise<void>;
     init(): Promise<void>;
 }
 

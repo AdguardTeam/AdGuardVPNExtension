@@ -47,30 +47,12 @@ interface ConfigData {
 }
 
 export interface ExtensionProxyInterface {
-    isActive: boolean;
-    bypassList: string[];
-    endpointsTldExclusions: any[];
-    currentEndpoint: EndpointInterface | null;
-    currentHost: string;
-    proxyAuthorizationType: string;
-    currentConfig: ConfigData;
-    inverted: boolean;
-    credentials: AccessCredentials;
-    currentPrefix: string;
-
     init(): Promise<void>;
     turnOn(): Promise<void>;
     turnOff(): Promise<void>;
     canControlProxy(): Promise<CanControlProxy>
-    getConfig(): Promise<ConfigData>;
-    updateConfig(): Promise<void>;
-    applyConfig(): Promise<void>;
-    // TODO rewrite endpointTldExclusions.js to ts anr remove any
-    getEndpointsTldExclusions(): any;
     setEndpointsTldExclusions(endpointsTldExclusions: any): Promise<void>;
-    getBypassList(): string[];
     setBypassList(exclusions: string[], inverted: boolean): Promise<void>;
-    setHost(prefix: string, domainName: string): Promise<void>;
     setAccessPrefix(
         credentialsHash: string,
         credentials: {
@@ -83,7 +65,6 @@ export interface ExtensionProxyInterface {
         endpoint: EndpointInterface,
         location: LocationInterface,
     ): Promise<{ domainName: string }>;
-    getCurrentEndpoint(): Promise<EndpointInterface | null>;
     resetSettings(): Promise<void>;
 }
 

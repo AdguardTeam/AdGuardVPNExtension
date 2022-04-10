@@ -13,19 +13,7 @@ interface PermissionsCheckerParameters {
 }
 
 interface PermissionsCheckerInterface {
-    permissionsError: PermissionsErrorInterface;
-    credentials: CredentialsInterface;
-    regularCredentialsCheck: NodeJS.Timer | null;
-    regularVpnInfoCheck: NodeJS.Timer | null;
-    expiredCredentialsCheck: NodeJS.Timer | null;
-
-    updatePermissionsErrorHandler(error: ErrorData): Promise<void>;
     checkPermissions(): Promise<void>;
-    getVpnInfo(): Promise<void>;
-    startChecker(): void;
-    stopChecker(): void;
-    handleUserAuthentication(): Promise<void>;
-    handleUserDeauthentication(): void;
     init(): void;
 }
 

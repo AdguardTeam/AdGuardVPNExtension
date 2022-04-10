@@ -6,9 +6,7 @@ export interface ErrorData extends Error {
 }
 
 export interface PermissionsErrorInterface {
-    error: ErrorData | null;
     setError(error: ErrorData): void;
-    notifyOnUpdate(error: ErrorData | null): void;
     getError(): Error | null;
     clearError(): void;
 }
