@@ -72,7 +72,7 @@ class PermissionsChecker implements PermissionsCheckerInterface {
      * Request credentials in half an hour before expired
      * @returns Promise<void>
      */
-    checkCredentialsBeforeExpired = async (): Promise<void> => {
+    planCredentialsCheckBeforeExpired = async (): Promise<void> => {
         if (!this.credentials.vpnCredentials) {
             return;
         }
@@ -101,7 +101,7 @@ class PermissionsChecker implements PermissionsCheckerInterface {
                 vpnCredentials,
                 this.credentials.vpnCredentials,
             )) {
-                await this.checkCredentialsBeforeExpired();
+                await this.planCredentialsCheckBeforeExpired();
             }
             // if no error, clear permissionError
             this.permissionsError.clearError();
@@ -173,7 +173,7 @@ class PermissionsChecker implements PermissionsCheckerInterface {
     handleUserAuthentication = async (): Promise<void> => {
         this.permissionsError.clearError();
         this.startChecker();
-        await this.checkCredentialsBeforeExpired();
+        await this.planCredentialsCheckBeforeExpired();
     };
 
     handleUserDeauthentication = (): void => {
