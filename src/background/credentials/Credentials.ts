@@ -220,7 +220,7 @@ class Credentials implements CredentialsInterface {
     async gainValidVpnToken(
         forceRemote = false,
         useLocalFallback = true,
-    ): Promise<VpnTokenData> | never {
+    ): Promise<VpnTokenData> {
         const vpnToken = await this.gainVpnToken(forceRemote, useLocalFallback);
 
         if (!vpnToken || !this.isTokenValid(vpnToken)) {
