@@ -195,10 +195,8 @@ class Endpoints implements EndpointsInterface {
         const topLevelDomains = domainNames.map((domainName) => getDomain(domainName));
         const uniqTopLevelDomains = uniq(topLevelDomains);
 
-        if (uniqTopLevelDomains) {
-            return;
-        }
-
+        // FIXME remove ts-ignore
+        // @ts-ignore
         endpointsTldExclusions.addEndpointsTldExclusions(uniqTopLevelDomains);
     };
 
