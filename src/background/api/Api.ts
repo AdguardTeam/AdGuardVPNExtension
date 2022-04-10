@@ -22,7 +22,7 @@ export class Api implements ApiInterface {
 
     baseUrlStr: string;
 
-    constructor(baseUrl: () => Promise<string>) {
+    constructor(baseUrl: string | (() => Promise<string>)) {
         if (typeof baseUrl === 'function') {
             this.baseUrlFn = baseUrl;
         } else {
