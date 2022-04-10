@@ -96,6 +96,11 @@ class PermissionsChecker implements PermissionsCheckerInterface {
             notifier.notifyListeners(notifier.types.UPDATE_BROWSER_ACTION_ICON);
             log.info('Permissions were checked successfully');
         } catch (e: any) {
+            // if got an error on token or credentials check,
+            // stop credentials check before expired
+            if (this.expiredCredentialsCheck) {
+                clearTimeout(this.expiredCredentialsCheck);
+            }
             await this.updatePermissionsErrorHandler(e);
         }
     };
