@@ -50,11 +50,11 @@ export interface LocationApiData {
     latitude: number;
     longitude: number;
     ping_bonus: number;
-    endpoints: [];
+    endpoints: EndpointApiData[];
 }
 
 interface LocationsData extends AxiosResponse {
-    locations: [LocationApiData];
+    locations: LocationApiData[];
 }
 
 interface CurrentLocationData extends AxiosResponse {

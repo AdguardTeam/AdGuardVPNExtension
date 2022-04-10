@@ -61,7 +61,7 @@ interface LocationProviderData {
     endpoints: EndpointProviderData[];
 }
 
-interface EndpointProviderData {
+export interface EndpointProviderData {
     id: string;
     ipv4Address: string;
     ipv6Address: string;
