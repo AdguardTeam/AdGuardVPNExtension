@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, Method } from 'axios';
 
 import { ERROR_STATUSES } from '../../lib/constants';
 import CustomError from '../../lib/CustomError';
@@ -17,7 +17,7 @@ interface ApiInterface {
     baseUrlFn(): Promise<string>,
     baseUrlStr: string,
     getBaseUrl(): Promise<string>,
-    makeRequest(path: string, config: ConfigInterface, method: string): Promise<any>
+    makeRequest(path: string, config: ConfigInterface, method: Method): Promise<any>
 }
 
 export class Api implements ApiInterface {
@@ -41,7 +41,7 @@ export class Api implements ApiInterface {
         return this.baseUrlStr;
     }
 
-    async makeRequest(path: string, config: ConfigInterface, method: string = 'POST') {
+    async makeRequest(path: string, config: ConfigInterface, method: Method = 'POST') {
         const url = `https://${await this.getBaseUrl()}/${path}`;
         try {
             const response = await axios({
