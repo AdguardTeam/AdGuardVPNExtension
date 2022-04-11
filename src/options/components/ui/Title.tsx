@@ -21,7 +21,7 @@ export const Title = ({ title, subtitle, onClick }: TitleProps) => {
     };
 
     return (
-        <>
+        <div>
             <h2
                 className={cn(
                     'content__title',
@@ -32,6 +32,6 @@ export const Title = ({ title, subtitle, onClick }: TitleProps) => {
                 {title}
             </h2>
             {renderSubtitle(subtitle)}
-        </>
+        </div>
     );
 };
