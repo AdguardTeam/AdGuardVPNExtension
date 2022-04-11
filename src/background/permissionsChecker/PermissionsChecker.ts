@@ -73,8 +73,6 @@ class PermissionsChecker implements PermissionsCheckerInterface {
                 await this.checkPermissions();
                 // eslint-disable-next-line max-len
             }, (this.credentials.vpnCredentials.result.expiresInSec - EXPIRE_CHECK_TIME_SEC) * 1000);
-        } else {
-            await this.checkPermissions();
         }
     };
 
