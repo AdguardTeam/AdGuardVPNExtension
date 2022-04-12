@@ -26,11 +26,11 @@ class PermissionsChecker implements PermissionsCheckerInterface {
 
     credentials: CredentialsInterface;
 
-    regularCredentialsCheck: NodeJS.Timer | null = null;
+    credentialsCheckTimerId: NodeJS.Timer | null = null;
 
-    regularVpnInfoCheck: NodeJS.Timer | null = null;
+    vpnInfoCheckTimerId: NodeJS.Timer | null = null;
 
-    expiredCredentialsCheck: NodeJS.Timer | null = null;
+    expiredCredentialsCheckTimeoutId: NodeJS.Timeout | null = null;
 
     constructor({ credentials, permissionsError }: PermissionsCheckerParameters) {
         this.credentials = credentials;
@@ -66,10 +66,10 @@ class PermissionsChecker implements PermissionsCheckerInterface {
         }
         if (this.credentials.vpnCredentials?.result?.expiresInSec
             && this.credentials.vpnCredentials.result.expiresInSec > EXPIRE_CHECK_TIME_SEC) {
-            if (this.expiredCredentialsCheck) {
-                clearTimeout(this.expiredCredentialsCheck);
+            if (this.expiredCredentialsCheckTimeoutId) {
+                clearTimeout(this.expiredCredentialsCheckTimeoutId);
             }
-            this.expiredCredentialsCheck = setTimeout(async () => {
+            this.expiredCredentialsCheckTimeoutId = setTimeout(async () => {
                 await this.checkPermissions();
                 // eslint-disable-next-line max-len
             }, (this.credentials.vpnCredentials.result.expiresInSec - EXPIRE_CHECK_TIME_SEC) * 1000);
@@ -96,8 +96,8 @@ class PermissionsChecker implements PermissionsCheckerInterface {
         } catch (e: any) {
             // if got an error on token or credentials check,
             // stop credentials check before expired
-            if (this.expiredCredentialsCheck) {
-                clearTimeout(this.expiredCredentialsCheck);
+            if (this.expiredCredentialsCheckTimeoutId) {
+                clearTimeout(this.expiredCredentialsCheckTimeoutId);
             }
             await this.updatePermissionsErrorHandler(e);
         }
@@ -124,40 +124,40 @@ class PermissionsChecker implements PermissionsCheckerInterface {
     startChecker = (): void => {
         log.info('Credentials and VPN info checker started');
 
-        if (this.regularCredentialsCheck) {
-            clearInterval(this.regularCredentialsCheck);
+        if (this.credentialsCheckTimerId) {
+            clearInterval(this.credentialsCheckTimerId);
         }
 
-        this.regularCredentialsCheck = setInterval(async () => {
+        this.credentialsCheckTimerId = setInterval(async () => {
             await this.checkPermissions();
         }, UPDATE_CREDENTIALS_INTERVAL_MS);
 
-        if (this.regularVpnInfoCheck) {
-            clearInterval(this.regularVpnInfoCheck);
+        if (this.vpnInfoCheckTimerId) {
+            clearInterval(this.vpnInfoCheckTimerId);
         }
 
-        this.regularVpnInfoCheck = setInterval(async () => {
+        this.vpnInfoCheckTimerId = setInterval(async () => {
             await this.getVpnInfo();
         }, UPDATE_VPN_INFO_INTERVAL_MS);
     };
 
     stopChecker = (): void => {
-        if (this.regularCredentialsCheck) {
+        if (this.credentialsCheckTimerId) {
             log.info('Credentials checker stopped');
-            clearInterval(this.regularCredentialsCheck);
-            this.regularCredentialsCheck = null;
+            clearInterval(this.credentialsCheckTimerId);
+            this.credentialsCheckTimerId = null;
         }
 
-        if (this.regularVpnInfoCheck) {
+        if (this.vpnInfoCheckTimerId) {
             log.info('VPN info checker stopped');
-            clearInterval(this.regularVpnInfoCheck);
-            this.regularVpnInfoCheck = null;
+            clearInterval(this.vpnInfoCheckTimerId);
+            this.vpnInfoCheckTimerId = null;
         }
 
-        if (this.expiredCredentialsCheck) {
+        if (this.expiredCredentialsCheckTimeoutId) {
             log.info('Checker before credentials expired stopped');
-            clearTimeout(this.expiredCredentialsCheck);
-            this.expiredCredentialsCheck = null;
+            clearTimeout(this.expiredCredentialsCheckTimeoutId);
+            this.expiredCredentialsCheckTimeoutId = null;
         }
     };
 
