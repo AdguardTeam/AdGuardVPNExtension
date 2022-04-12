@@ -116,6 +116,7 @@ class PermissionsChecker implements PermissionsCheckerInterface {
             }
             // if no error, clear vpnInfoError
             this.permissionsError.clearError();
+            log.info('VPN info was checked successfully');
         } catch (e: any) {
             await this.updatePermissionsErrorHandler(e);
         }
