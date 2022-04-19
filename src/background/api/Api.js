@@ -2,6 +2,8 @@ import axios from 'axios';
 import { ERROR_STATUSES } from '../../lib/constants';
 import CustomError from '../../lib/CustomError';
 
+const REQUEST_TIMEOUT_MS = 1000 * 30; // 30 seconds
+
 export class Api {
     constructor(baseUrl) {
         if (typeof baseUrl === 'function') {
@@ -25,6 +27,7 @@ export class Api {
             const response = await axios({
                 url,
                 method,
+                timeout: REQUEST_TIMEOUT_MS,
                 ...config,
             });
             return response.data;
