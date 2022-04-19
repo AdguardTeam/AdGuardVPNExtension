@@ -9,7 +9,9 @@ const Preloader = observer(({ isOpen }) => {
             isOpen={isOpen}
             className="preloader"
             overlayClassName="preloader__overlay"
-        />
+        >
+            <div className="preloader__in" />
+        </Modal>
     );
 });
 

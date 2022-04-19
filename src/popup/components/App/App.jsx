@@ -60,6 +60,8 @@ export const App = observer(() => {
         authenticated,
     } = authStore;
 
+    const { initStatus } = globalStore;
+
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
 
     const { premiumPromoEnabled, isPremiumToken } = vpnStore;
@@ -143,7 +145,13 @@ export const App = observer(() => {
 
     useAppearanceTheme(settingsStore.appearanceTheme);
 
-    // show nothing while data is loading, except cases after authentication
+    // show preloader while data is loading
+    if (initStatus === REQUEST_STATUSES.PENDING) {
+        return (
+            <Preloader isOpen />
+        );
+    }
+
     if (authStore.requestProcessState !== REQUEST_STATUSES.PENDING
         && settingsStore.checkPermissionsState !== REQUEST_STATUSES.PENDING
         && globalStore.status === REQUEST_STATUSES.PENDING) {
