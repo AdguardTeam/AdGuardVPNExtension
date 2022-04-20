@@ -1,14 +1,10 @@
 import { accountApi } from '../api';
 
-import { BUILD_ENV, WEBSITE_DOMAIN } from '../config';
+import { WEBSITE_DOMAIN } from '../config';
 
-// TODO use url from tds
 const HTTPS_PROTOCOL = 'https://';
-const DEV_SUBDOMAIN = 'dev.';
 const REFERRAL_URL_KEYWORD = '/join/';
 const REFERRAL_URL_SUFFIX = '/form.html';
-
-const DEV_ENV = 'dev';
 
 const getVpnToken = async (accessToken) => {
     const vpnTokenData = await accountApi.getVpnToken(accessToken);
@@ -49,14 +45,12 @@ const getVpnToken = async (accessToken) => {
 
 const getReferralData = async (accessToken) => {
     const referralData = await accountApi.getReferralData(accessToken);
-    // TODO use url from tds for inviteUrl
     const {
         invite_id: inviteId,
         invites_count: invitesCount,
         max_invites_count: maxInvitesCount,
     } = referralData;
-    const isDev = BUILD_ENV === DEV_ENV;
-    const inviteUrl = `${HTTPS_PROTOCOL}${isDev ? DEV_SUBDOMAIN : ''}${WEBSITE_DOMAIN}${REFERRAL_URL_KEYWORD}${inviteId}${REFERRAL_URL_SUFFIX}`;
+    const inviteUrl = `${HTTPS_PROTOCOL}${WEBSITE_DOMAIN}${REFERRAL_URL_KEYWORD}${inviteId}${REFERRAL_URL_SUFFIX}`;
     return {
         inviteUrl,
         invitesCount,
