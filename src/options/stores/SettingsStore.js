@@ -8,6 +8,7 @@ import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT } from '../../lib/constants';
 import { DNS_DEFAULT } from '../../background/dns/dnsConstants';
 import { messenger } from '../../lib/messenger';
 import { REQUEST_STATUSES } from './consts';
+import { log } from '../../lib/logger';
 
 export class SettingsStore {
     @observable isRateVisible = true;
@@ -117,6 +118,7 @@ export class SettingsStore {
         const referralData = await messenger.getReferralData();
         const { inviteUrl, invitesCount, maxInvitesCount } = referralData;
         if (Number.isNaN(invitesCount)) {
+            log.warn('Referral data request failed');
             this.referralDataRequestStatus = REQUEST_STATUSES.ERROR;
             return;
         }
