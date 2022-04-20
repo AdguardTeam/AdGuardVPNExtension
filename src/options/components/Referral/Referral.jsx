@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { Title } from '../ui/Title';
 import { rootStore } from '../../stores';
-import { DotsLoader } from '../../../popup/components/ui/DotsLoader';
+import { DotsLoader } from '../../../common/components/DotsLoader';
 import { REQUEST_STATUSES } from '../../stores/consts';
 
 import './referral.pcss';
