@@ -1,12 +1,12 @@
 import browser from 'webextension-polyfill';
+
 import { Prefs } from './prefs';
 import { log } from '../lib/logger';
 import { promoNotifications } from './promoNotifications';
 import credentials from './credentials';
 import { UPGRADE_LICENSE_URL } from './config';
 import tabs from './tabs';
-
-const REFERRAL_PROGRAM_ANCHOR = '#referral-program';
+import { REFERRAL_PROGRAM_LINK } from '../lib/constants';
 
 const openOptionsPage = async () => {
     const tabs = await browser.tabs.query({});
@@ -142,7 +142,7 @@ const openPremiumPromoPage = async () => {
  */
 const openReferralOptions = async () => {
     const optionsUrl = browser.runtime.getURL('options.html');
-    const referralOptionsUrl = `${optionsUrl}${REFERRAL_PROGRAM_ANCHOR}`;
+    const referralOptionsUrl = `${optionsUrl}#${REFERRAL_PROGRAM_LINK}`;
     await browser.runtime.openOptionsPage();
     const optionsTab = await tabs.getActive();
     await tabs.update(optionsTab.id, referralOptionsUrl);

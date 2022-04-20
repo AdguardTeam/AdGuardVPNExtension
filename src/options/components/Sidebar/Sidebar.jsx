@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { Rate } from './Rate';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { rootStore } from '../../stores';
+import { REFERRAL_PROGRAM_LINK } from '../../../lib/constants';
 
 import './sidebar.pcss';
 
@@ -24,7 +25,7 @@ export const Sidebar = observer(() => {
                         {reactTranslator.getMessage('settings_exclusion_title')}
                     </NavLink>
                     {!isPremiumToken && (
-                        <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/referral-program">
+                        <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to={`/${REFERRAL_PROGRAM_LINK}`}>
                             {reactTranslator.getMessage('options_menu_free_traffic')}
                         </NavLink>
                     )}

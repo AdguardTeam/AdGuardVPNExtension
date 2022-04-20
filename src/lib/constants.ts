@@ -105,3 +105,5 @@ export const FLAGS_FIELDS = {
     SHOW_UPGRADE_SCREEN: 'showUpgradeScreen',
     SALE_SHOW: 'saleShow',
 };
+
+export const REFERRAL_PROGRAM_LINK = 'referral-program';
