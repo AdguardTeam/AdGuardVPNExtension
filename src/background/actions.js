@@ -6,6 +6,8 @@ import credentials from './credentials';
 import { UPGRADE_LICENSE_URL } from './config';
 import tabs from './tabs';
 
+const REFERRAL_PROGRAM_ANCHOR = '#referral-program';
+
 const openOptionsPage = async () => {
     const tabs = await browser.tabs.query({});
     const optionsUrl = browser.runtime.getURL('options.html');
@@ -140,7 +142,7 @@ const openPremiumPromoPage = async () => {
  */
 const openReferralOptions = async () => {
     const optionsUrl = browser.runtime.getURL('options.html');
-    const referralOptionsUrl = `${optionsUrl}#referral-program`;
+    const referralOptionsUrl = `${optionsUrl}${REFERRAL_PROGRAM_ANCHOR}`;
     await browser.runtime.openOptionsPage();
     const optionsTab = await tabs.getActive();
     await tabs.update(optionsTab.id, referralOptionsUrl);
