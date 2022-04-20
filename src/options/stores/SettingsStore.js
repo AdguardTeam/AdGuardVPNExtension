@@ -113,6 +113,13 @@ export class SettingsStore {
         this.appearanceTheme = data.appearanceTheme;
     };
 
+    @action updateCurrentUsername = async () => {
+        const currentUsername = await messenger.getUsername();
+        runInAction(() => {
+            this.currentUsername = currentUsername;
+        });
+    };
+
     @action updateReferralData = async () => {
         this.referralDataRequestStatus = REQUEST_STATUSES.PENDING;
         const referralData = await messenger.getReferralData();

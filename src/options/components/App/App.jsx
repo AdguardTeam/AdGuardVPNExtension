@@ -102,10 +102,12 @@ export const App = observer(() => {
                             await authStore.requestIsPremiumToken();
                             authStore.setIsAuthenticated(true);
                             await settingsStore.requestIsPremiumToken();
+                            await settingsStore.updateCurrentUsername();
                             break;
                         }
                         case notifier.types.USER_DEAUTHENTICATED: {
                             authStore.setIsAuthenticated(false);
+                            await settingsStore.updateCurrentUsername();
                             break;
                         }
                         default: {
