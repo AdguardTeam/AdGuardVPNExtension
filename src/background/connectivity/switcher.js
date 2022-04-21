@@ -10,7 +10,7 @@ import credentials from '../credentials';
 // eslint-disable-next-line import/no-cycle
 import { locationsService } from '../endpoints/locationsService';
 // eslint-disable-next-line import/no-cycle
-import endpoints from '../endpoints';
+import { endpoints } from '../endpoints';
 // eslint-disable-next-line import/no-cycle
 import connectivity from './index';
 // eslint-disable-next-line import/no-cycle

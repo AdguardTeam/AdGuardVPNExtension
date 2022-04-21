@@ -2,17 +2,13 @@ import browser from 'webextension-polyfill';
 import axios from 'axios';
 
 import { Service } from './Service';
-import { vpnProvider } from '../../providers/vpnProvider';
+import { vpnProvider, ServicesInterface } from '../../providers/vpnProvider';
 import browserApi from '../../browserApi';
 import { log } from '../../../lib/logger';
 import { ServiceDto } from '../../../common/exclusionsConstants';
 
 export interface IndexedServicesInterface {
     [id: string]: string
-}
-
-export interface ServicesInterface {
-    [serviceId: string]: Service,
 }
 
 interface ServiceManagerInterface {

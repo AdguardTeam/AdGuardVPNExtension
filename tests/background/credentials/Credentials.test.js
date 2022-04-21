@@ -136,7 +136,7 @@ describe('Credentials', () => {
             const browserApi = buildBrowserApi();
             const credentials = new Credentials({ browserApi });
             const vpnToken = await credentials.getVpnTokenLocal();
-            expect(vpnToken).toEqual(undefined);
+            expect(vpnToken).toEqual(null);
         });
 
         it('caches vpn token in memory', async () => {

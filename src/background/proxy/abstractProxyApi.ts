@@ -1,4 +1,5 @@
-const errorFunction = () => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const errorFunction = (arg?: any) => {
     throw new Error('Seems like webpack didn\'t inject proper proxy api');
 };
 

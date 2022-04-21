@@ -1,11 +1,19 @@
 import browser from 'webextension-polyfill';
 
-class WebRTC {
+interface WebRTCInterface {
+    blockWebRTC(): void;
+    unblockWebRTC(force: boolean): void;
+    setWebRTCHandlingAllowed(webRTCHandlingAllowed: boolean, proxyEnabled: boolean): void;
+}
+
+class WebRTC implements WebRTCInterface {
+    WEB_RTC_HANDLING_ALLOWED: boolean;
+
     constructor() {
         this.WEB_RTC_HANDLING_ALLOWED = false;
     }
 
-    handleBlockWebRTC = (webRTCDisabled) => {
+    handleBlockWebRTC = (webRTCDisabled: boolean): void => {
         // Edge doesn't support privacy api
         // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/privacy
         if (!browser.privacy) {
@@ -40,21 +48,21 @@ class WebRTC {
         }
     };
 
-    blockWebRTC = () => {
+    blockWebRTC = (): void => {
         if (!this.WEB_RTC_HANDLING_ALLOWED) {
             return;
         }
         this.handleBlockWebRTC(true);
     };
 
-    unblockWebRTC = (force = false) => {
+    unblockWebRTC = (force = false): void => {
         if (!this.WEB_RTC_HANDLING_ALLOWED && !force) {
             return;
         }
         this.handleBlockWebRTC(false);
     };
 
-    setWebRTCHandlingAllowed = (webRTCHandlingAllowed, proxyEnabled) => {
+    setWebRTCHandlingAllowed = (webRTCHandlingAllowed: boolean, proxyEnabled: boolean): void => {
         this.WEB_RTC_HANDLING_ALLOWED = webRTCHandlingAllowed;
         if (!webRTCHandlingAllowed || !proxyEnabled) {
             this.unblockWebRTC(true);

@@ -2,29 +2,68 @@ import isEmpty from 'lodash/isEmpty';
 import { log } from '../../lib/logger';
 import { measurePingToEndpointViaFetch } from '../connectivity/pingHelpers';
 import notifier from '../../lib/notifier';
-import { LocationWithPing } from './LocationWithPing';
+import { LocationWithPing, LocationWithPingParameters } from './LocationWithPing';
 import { vpnProvider } from '../providers/vpnProvider';
-import { Location } from './Location';
+import { Location, LocationInterface, LocationData } from './Location';
 import { SETTINGS_IDS } from '../../lib/constants';
 // eslint-disable-next-line import/no-cycle
 import { settings } from '../settings';
+import { EndpointInterface } from './Endpoint';
+
+interface PingData {
+    ping: number | null;
+    available: boolean;
+    lastMeasurementTime: number;
+    endpoint: EndpointInterface | null;
+    isMeasuring: boolean;
+}
+
+interface IncomingPingData {
+    ping?: number | null;
+    available?: boolean;
+    lastMeasurementTime?: number;
+    endpoint?: EndpointInterface | null;
+    isMeasuring?: boolean;
+}
+
+interface PingsCacheInterface {
+    [id: string]: PingData;
+}
+
+interface LocationsServiceInterface {
+    getIsLocationSelectedByUser(): Promise<boolean>;
+    getLocationsFromServer(appId: string, vpnToken: string): Promise<Location[]>;
+    getEndpointByLocation(
+        location: LocationInterface,
+        forcePrevEndpoint?: boolean,
+    ): Promise<EndpointInterface | null>;
+    getLocationByEndpoint(endpointId: string): LocationInterface | null;
+    getLocationsWithPing(): LocationWithPing[];
+    setSelectedLocation(id: string, isLocationSelectedByUser?: boolean): Promise<void>;
+    getSelectedLocation(): Promise<LocationInterface | null>;
+    getLocations(): LocationInterface[];
+    getEndpoint(
+        location: LocationInterface,
+        forcePrevEndpoint: boolean,
+    ): Promise<EndpointInterface | null>;
+}
 
 const PING_TTL_MS = 1000 * 60 * 10; // 10 minutes
 
-const pingsCache = {};
+const pingsCache: PingsCacheInterface = {};
 
-let locations = [];
+let locations: LocationInterface[] = [];
 
-let selectedLocation = null;
+let selectedLocation: LocationInterface | null = null;
 
 /**
  * Returns locations instances
  */
-const getLocations = () => {
+const getLocations = (): LocationInterface[] => {
     return locations;
 };
 
-const getPingFromCache = (id) => {
+const getPingFromCache = (id: string) => {
     return {
         locationId: id,
         ...pingsCache[id],
@@ -36,7 +75,7 @@ const getPingFromCache = (id) => {
  * @param location
  * @param state
  */
-const setLocationAvailableState = (location, state) => {
+const setLocationAvailableState = (location: LocationInterface, state: boolean): void => {
     // eslint-disable-next-line no-param-reassign
     location.available = state;
 };
@@ -46,7 +85,7 @@ const setLocationAvailableState = (location, state) => {
  * @param location
  * @param ping
  */
-const setLocationPing = (location, ping) => {
+const setLocationPing = (location: LocationInterface, ping: number | null): void => {
     // eslint-disable-next-line no-param-reassign
     location.ping = ping;
 };
@@ -56,7 +95,13 @@ const setLocationPing = (location, ping) => {
  * @param {Location} location
  * @param {Endpoint} endpoint
  */
-const setLocationEndpoint = (location, endpoint) => {
+const setLocationEndpoint = (
+    location: LocationInterface,
+    endpoint: EndpointInterface | null,
+): void => {
+    if (!endpoint) {
+        return;
+    }
     // eslint-disable-next-line no-param-reassign
     location.endpoint = endpoint;
 };
@@ -65,18 +110,18 @@ const setLocationEndpoint = (location, endpoint) => {
  * Returns locations with pings, used for UI
  * @returns {*}
  */
-const getLocationsWithPing = () => {
+const getLocationsWithPing = (): LocationWithPing[] => {
     return locations.map((location) => {
         const cachedPingData = getPingFromCache(location.id);
         if (cachedPingData) {
             setLocationPing(location, cachedPingData.ping);
             setLocationAvailableState(location, cachedPingData.available);
         }
-        return new LocationWithPing(location);
+        return new LocationWithPing(location as LocationWithPingParameters);
     });
 };
 
-const updatePingsCache = (id, newData) => {
+const updatePingsCache = (id: string, newData: IncomingPingData): void => {
     const oldData = pingsCache[id];
     if (oldData) {
         pingsCache[id] = { ...oldData, ...newData };
@@ -86,6 +131,7 @@ const updatePingsCache = (id, newData) => {
             available: true,
             lastMeasurementTime: 0,
             endpoint: null,
+            isMeasuring: true,
             ...newData,
         };
     }
@@ -97,7 +143,10 @@ const updatePingsCache = (id, newData) => {
  * @param endpoint
  * @returns {*}
  */
-const moveToTheStart = (endpoints, endpoint) => {
+const moveToTheStart = (
+    endpoints: EndpointInterface[],
+    endpoint: EndpointInterface,
+): EndpointInterface[] => {
     const foundEndpoint = endpoints.find((e) => e.id === endpoint.id);
     let result = endpoints;
     if (foundEndpoint) {
@@ -115,8 +164,11 @@ const moveToTheStart = (endpoints, endpoint) => {
  *  selected endpoint only
  * @returns {Promise<{endpoint: <Endpoint>, ping: (number|null)}>}
  */
-const getEndpointAndPing = async (location, forcePrevEndpoint = false) => {
-    let endpoint;
+const getEndpointAndPing = async (
+    location: LocationInterface,
+    forcePrevEndpoint = false,
+): Promise<{ ping: number | null, endpoint: EndpointInterface | null }> => {
+    let endpoint = null;
     let ping = null;
     let i = 0;
 
@@ -163,7 +215,7 @@ const getEndpointAndPing = async (location, forcePrevEndpoint = false) => {
  * @param location
  * @returns {Promise<void>}
  */
-const measurePing = async (location) => {
+const measurePing = async (location: LocationInterface): Promise<void> => {
     const { id } = location;
 
     // Do not begin pings measurement while it is measuring yet
@@ -215,7 +267,7 @@ let isMeasuring = false;
 /**
  * Measure pings for all locations
  */
-const measurePings = () => {
+const measurePings = (): void => {
     if (isMeasuring) {
         return;
     }
@@ -238,9 +290,9 @@ export const isMeasuringPingInProgress = () => {
     return isMeasuring;
 };
 
-const setLocations = (newLocations) => {
+const setLocations = (newLocations: LocationInterface[]) => {
     // copy previous pings data
-    locations = newLocations.map((location) => {
+    locations = newLocations.map((location: LocationInterface) => {
         const pingCache = pingsCache[location.id];
         if (pingCache) {
             setLocationPing(location, pingCache.ping);
@@ -254,7 +306,7 @@ const setLocations = (newLocations) => {
     // otherwise could happen cases when selected location contains wrong endpoints inside itself
     if (selectedLocation) {
         const actualLocation = locations.find((location) => {
-            return location.id === selectedLocation.id;
+            return location.id === selectedLocation?.id;
         });
 
         selectedLocation = actualLocation || selectedLocation;
@@ -271,14 +323,15 @@ const setLocations = (newLocations) => {
 
 /**
  * Retrieves locations from server
+ * @param appId
  * @param vpnToken
  * @returns {Promise<Location[]>}
  */
-const getLocationsFromServer = async (vpnToken) => {
-    const locationsData = await vpnProvider.getLocationsData(vpnToken);
+const getLocationsFromServer = async (appId: string, vpnToken: string): Promise<Location[]> => {
+    const locationsData = await vpnProvider.getLocationsData(appId, vpnToken);
 
     const locations = locationsData.map((locationData) => {
-        return new Location(locationData);
+        return new Location(locationData as LocationData);
     });
 
     // During endpoint deployments, api can return empty list of locations
@@ -298,7 +351,10 @@ const getLocationsFromServer = async (vpnToken) => {
  * @param {boolean} forcePrevEndpoint
  * @returns {Promise<*>}
  */
-const getEndpoint = async (location, forcePrevEndpoint) => {
+const getEndpoint = async (
+    location: LocationInterface,
+    forcePrevEndpoint: boolean,
+): Promise<EndpointInterface | null> => {
     if (!location) {
         return null;
     }
@@ -338,14 +394,21 @@ const getEndpoint = async (location, forcePrevEndpoint) => {
  * @param {boolean} forcePrevEndpoint
  * @returns {Promise<*>}
  */
-const getEndpointByLocation = async (location, forcePrevEndpoint) => {
-    let targetLocation = location;
+const getEndpointByLocation = async (
+    location: LocationInterface,
+    forcePrevEndpoint: boolean,
+): Promise<EndpointInterface | null> => {
+    let targetLocation: LocationInterface | undefined = location;
 
     // This could be empty on extension restart, but after we try to use the most fresh data
     if (locations && locations.length > 0) {
         targetLocation = locations.find((l) => {
             return l.id === location.id;
         });
+    }
+
+    if (!targetLocation) {
+        return null;
     }
 
     return getEndpoint(targetLocation, forcePrevEndpoint);
@@ -355,7 +418,7 @@ const getEndpointByLocation = async (location, forcePrevEndpoint) => {
  * Returns location by endpoint id
  * @param endpointId
  */
-const getLocationByEndpoint = (endpointId) => {
+const getLocationByEndpoint = (endpointId: string): LocationInterface | null => {
     if (!endpointId) {
         return null;
     }
@@ -364,7 +427,7 @@ const getLocationByEndpoint = (endpointId) => {
         return location.endpoints.some((endpoint) => endpoint.id === endpointId);
     });
 
-    return location;
+    return location || null;
 };
 
 /**
@@ -373,8 +436,8 @@ const getLocationByEndpoint = (endpointId) => {
  * @param {boolean} isLocationSelectedByUser - Flag indicating that location was selected by user
  * @returns {Promise<void>}
  */
-const setSelectedLocation = async (id, isLocationSelectedByUser = false) => {
-    selectedLocation = locations.find((location) => location.id === id);
+const setSelectedLocation = async (id: string, isLocationSelectedByUser = false): Promise<void> => {
+    selectedLocation = locations.find((location) => location.id === id) || null;
     await settings.setSetting(SETTINGS_IDS.SELECTED_LOCATION_KEY, selectedLocation);
     if (isLocationSelectedByUser) {
         await settings.setSetting(
@@ -384,10 +447,9 @@ const setSelectedLocation = async (id, isLocationSelectedByUser = false) => {
     }
 };
 
-const getIsLocationSelectedByUser = async () => {
+const getIsLocationSelectedByUser = async (): Promise<boolean> => {
     const isLocationSelectedByUser = await settings.getSetting(
         SETTINGS_IDS.LOCATION_SELECTED_BY_USER_KEY,
-        selectedLocation,
     );
     return isLocationSelectedByUser;
 };
@@ -397,7 +459,7 @@ const getIsLocationSelectedByUser = async () => {
  *  when we connect to the location there is no time to find better location
  * @returns {Promise<null|object>} return null or selected location
  */
-const getSelectedLocation = async () => {
+const getSelectedLocation = async (): Promise<LocationInterface | null> => {
     if (!selectedLocation) {
         // eslint-disable-next-line max-len
         const storedSelectedLocation = await settings.getSetting(SETTINGS_IDS.SELECTED_LOCATION_KEY);
@@ -412,7 +474,7 @@ const getSelectedLocation = async () => {
     return selectedLocation;
 };
 
-export const locationsService = {
+export const locationsService: LocationsServiceInterface = {
     getIsLocationSelectedByUser,
     getLocationsFromServer,
     getEndpointByLocation,
