@@ -2,7 +2,7 @@ import axios from 'axios';
 import { ERROR_STATUSES } from '../../lib/constants';
 import CustomError from '../../lib/CustomError';
 
-const REQUEST_TIMEOUT_MS = 1000 * 7; // 7 seconds
+const REQUEST_TIMEOUT_MS = 1000 * 6; // 6 seconds
 
 export class Api {
     constructor(baseUrl) {
