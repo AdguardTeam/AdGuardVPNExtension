@@ -12,7 +12,6 @@ import FeedbackMessage from '../InfoMessage/FeedbackMessage';
 import Locations from '../Locations';
 import Authentication from '../Authentication';
 import ExtraOptions from '../ExtraOptions';
-import Preloader from '../Preloader';
 import GlobalError from '../GlobalError';
 import Settings from '../Settings';
 import { PromoNotificationModal } from '../PromoNotificationModal';
@@ -31,6 +30,7 @@ import { ConnectionsLimitError } from '../ConnectionsLimitError';
 import { Onboarding } from '../Authentication/Onboarding';
 import { Newsletter } from '../Authentication/Newsletter';
 import { UpgradeScreen } from '../Authentication/UpgradeScreen';
+import DotsLoader from '../ui/DotsLoader';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -143,10 +143,12 @@ export const App = observer(() => {
 
     useAppearanceTheme(settingsStore.appearanceTheme);
 
-    // show preloader while data is loading
+    // show dots-loader while data is loading
     if (initStatus === REQUEST_STATUSES.PENDING) {
         return (
-            <Preloader isOpen />
+            <div className="data-loader">
+                <DotsLoader />
+            </div>
         );
     }
 
