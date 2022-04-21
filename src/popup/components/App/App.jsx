@@ -161,8 +161,6 @@ export const App = observer(() => {
     if (!authenticated) {
         return (
             <>
-                {requestProcessState === REQUEST_STATUSES.PENDING
-                && <Preloader isOpen={requestProcessState === REQUEST_STATUSES.PENDING} />}
                 <Authentication />
                 <Icons />
             </>
@@ -195,8 +193,6 @@ export const App = observer(() => {
         const showMenuButton = authenticated && canControlProxy;
         return (
             <>
-                {checkPermissionsState === REQUEST_STATUSES.PENDING
-                && <Preloader isOpen={checkPermissionsState === REQUEST_STATUSES.PENDING} />}
                 {isOpenOptionsModal && <ExtraOptions />}
                 <Header showMenuButton={showMenuButton} />
                 <Icons />
@@ -208,7 +204,6 @@ export const App = observer(() => {
     if (showLimitExceededScreen || !canControlProxy) {
         return (
             <>
-                <Preloader isOpen={checkPermissionsState === REQUEST_STATUSES.PENDING} />
                 <TrafficLimitExceeded />
                 <Icons />
             </>
