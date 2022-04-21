@@ -61,6 +61,11 @@ Test:
       pattern: chrome.zip
       shared: true
       required: true
+    - name: opera.zip
+      location: build/dev
+      pattern: opera.zip
+      shared: true
+      required: true
     - name: firefox.zip
       location: build/dev
       pattern: firefox.zip
@@ -79,6 +84,11 @@ Test:
     - name: chrome-prod.zip
       location: build/dev
       pattern: chrome-prod.zip
+      shared: true
+      required: true
+    - name: opera-prod.zip
+      location: build/dev
+      pattern: opera-prod.zip
       shared: true
       required: true
     - name: firefox-prod.zip
