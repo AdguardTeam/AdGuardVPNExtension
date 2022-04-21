@@ -48,7 +48,6 @@ export const App = observer(() => {
         desktopVpnEnabled,
         canControlProxy,
         hasGlobalError,
-        checkPermissionsState,
         hasLimitExceededError,
         isExcluded,
         canBeExcluded,
@@ -56,7 +55,6 @@ export const App = observer(() => {
     } = settingsStore;
 
     const {
-        requestProcessState,
         authenticated,
     } = authStore;
 
