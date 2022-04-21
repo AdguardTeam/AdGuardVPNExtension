@@ -62,20 +62,11 @@
     "options_support_report_title": {
         "message": "Prijavi napako"
     },
-    "options_support_report_description": {
-        "message": "Če v programu nekaj ne deluje pravilno"
-    },
     "options_support_feedback_title": {
         "message": "Pošljite povratne informacije"
     },
     "options_support_feedback_description": {
         "message": "Pošlji zahteve za funkcije in predloge"
-    },
-    "options_support_discuss_title": {
-        "message": "Pogovor"
-    },
-    "options_support_discuss_description": {
-        "message": "Pogovorite se na našem forumu, na družbenih omrežjih ali na GitHubu"
     },
     "options_report_bug_title": {
         "message": "Prijavi napako"
@@ -175,9 +166,6 @@
     },
     "auth_info": {
         "message": "Nadaljuj s svojim računom AdGuard ali s prijavo družbenega omrežja"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Nadaljuj z AdGuard"
     },
     "auth_sign_in_provider_apple": {
         "message": "Nadaljuj z Apple"

@@ -69,19 +69,13 @@
         "message": "Fehler melden"
     },
     "options_support_report_description": {
-        "message": "Wenn in der Anwendung etwas nicht richtig funktioniert"
+        "message": "Bericht über möglichen Fehler senden"
     },
     "options_support_feedback_title": {
         "message": "Feedback senden"
     },
     "options_support_feedback_description": {
         "message": "Wünsche und Vorschläge für neue Funktionen einreichen"
-    },
-    "options_support_discuss_title": {
-        "message": "Diskutieren Sie mit"
-    },
-    "options_support_discuss_description": {
-        "message": "Diskutieren Sie in unserem Forum, in sozialen Netzwerken oder auf Github"
     },
     "options_report_bug_title": {
         "message": "Fehler melden"
@@ -189,7 +183,7 @@
         "message": "Melden Sie sich mit Ihrem AdGuard-Konto oder mit einem sozialen Netzwerk an"
     },
     "auth_sign_in_provider_adguard": {
-        "message": "Mit AdGuard anmelden"
+        "message": "Mit E-Mail anmelden"
     },
     "auth_sign_in_provider_apple": {
         "message": "Mit Apple anmelden"
@@ -336,7 +330,7 @@
         "message": "Farbschema"
     },
     "settings_theme_system": {
-        "message": "Farbschema des Systems"
+        "message": "Systemvorgaben"
     },
     "settings_theme_dark": {
         "message": "Dunkel"
@@ -468,13 +462,13 @@
         "message": "Allgemeiner Modus"
     },
     "settings_exclusion_general_description": {
-        "message": "AdGuard VPN ist auf allen Websites aktiv, außer auf jenen, die in der Ausschlussliste enthalten sind"
+        "message": "AdGuard VPN funktioniert nicht auf Websites aus der Ausschlussliste"
     },
     "settings_exclusion_selective_title": {
         "message": "Selektiver Modus"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN wird nur auf Websites aus der Ausschlussliste funktionieren"
+        "message": "AdGuard VPN funktioniert nur auf Websites aus der Ausschlussliste"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Subdomains"
@@ -579,7 +573,7 @@
         "message": "Wir freuen uns über Ihre Bewertung"
     },
     "popup_feedback_button": {
-        "message": "Bewertung hinterlassen"
+        "message": "Feedback senden"
     },
     "settings_run_upgrade_early_bird": {
         "message": "Preise für Frühbesteller"

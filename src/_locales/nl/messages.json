@@ -69,19 +69,13 @@
         "message": "Een fout rapporteren"
     },
     "options_support_report_description": {
-        "message": "Als er iets niet correct werkt in het programma"
+        "message": "Ons een rapport over een potentiële fout sturen"
     },
     "options_support_feedback_title": {
         "message": "Feedback geven"
     },
     "options_support_feedback_description": {
         "message": "Functieverzoeken en suggesties indienen"
-    },
-    "options_support_discuss_title": {
-        "message": "Discussie"
-    },
-    "options_support_discuss_description": {
-        "message": "Bespreken op ons forum, op sociale netwerken, of op GitHub"
     },
     "options_report_bug_title": {
         "message": "Een fout rapporteren"
@@ -187,9 +181,6 @@
     },
     "auth_info": {
         "message": "Doorgaan met je AdGuard-account of met sociale netwerk aanmelding"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Doorgaan met AdGuard"
     },
     "auth_sign_in_provider_apple": {
         "message": "Doorgaan met Apple"
@@ -300,7 +291,7 @@
         "message": "AdGuard DNS niet gefilterd"
     },
     "settings_dns_selector_adguard_nonfiltering_desc": {
-        "message": "DNS beveiligen zonder vastleggen van activiteiten (filtert geen ads en volgers)"
+        "message": "Beveiligde DNS zonder vastleggen van activiteiten (filtert geen advertenties en volgers)"
     },
     "settings_dns_selector_adguard_family_title": {
         "message": "AdGuard Family Protection"

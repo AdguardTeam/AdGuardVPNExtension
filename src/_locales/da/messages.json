@@ -69,19 +69,13 @@
         "message": "Anmeld en fejl"
     },
     "options_support_report_description": {
-        "message": "Hvis noget ikke fungerer korrekt i programmet"
+        "message": "Indsend en anmeldelse om en potentiel fejl"
     },
     "options_support_feedback_title": {
         "message": "Giv feedback"
     },
     "options_support_feedback_description": {
         "message": "Indsend funktionsanmodninger og forslag"
-    },
-    "options_support_discuss_title": {
-        "message": "Debattér"
-    },
-    "options_support_discuss_description": {
-        "message": "Debattér på vores forum, sociale netværk eller Github"
     },
     "options_report_bug_title": {
         "message": "Anmeld en fejl"
@@ -187,9 +181,6 @@
     },
     "auth_info": {
         "message": "Fortsæt med din AdGuard-konto eller socialt netværk"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Fortsæt med AdGuard"
     },
     "auth_sign_in_provider_apple": {
         "message": "Fortsæt med Apple"
@@ -666,6 +657,9 @@
     "popup_upgrade_screen_unlimited_data": {
         "message": "Ubegrænset data"
     },
+    "popup_upgrade_screen_unlimited_data_desc": {
+        "message": "Dine data vil aldrig blive delt. Surf af hjertets lyst!"
+    },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "Ubegrænset hastighed"
     },
@@ -679,7 +673,7 @@
         "message": "6 kontinenter og snesevis af lande. Vælg en by og surf sikkert på nettet!"
     },
     "popup_upgrade_screen_streaming_support": {
-        "message": "Streamingsupport"
+        "message": "Understøttelse for streaming"
     },
     "popup_upgrade_screen_streaming_support_desc": {
         "message": "Alle større streamingtjenester er tilgængelige. Se hvad som helst, hvor som helst!"

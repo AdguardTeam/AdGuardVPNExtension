@@ -59,7 +59,7 @@ export const ConnectionsLimitError = observer(() => {
             unmountOnExit
         >
             <div className="popup-error">
-                <button className="button popup-error__close" type="button" onClick={handleCloseClick}>
+                <button className="button button--close popup-error__close" type="button" onClick={handleCloseClick}>
                     <svg className="icon icon--button">
                         <use xlinkHref="#cross" />
                     </svg>

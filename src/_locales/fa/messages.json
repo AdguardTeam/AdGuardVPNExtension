@@ -14,9 +14,6 @@
     "options_support_faq_title": {
         "message": "پرسش و پاسخ"
     },
-    "options_support_discuss_title": {
-        "message": "انجمن برنامه"
-    },
     "options_bug_report_email_label": {
         "message": "ایمیل"
     },
@@ -106,12 +103,6 @@
     },
     "settings_theme_system": {
         "message": "سیستم"
-    },
-    "settings_theme_dark": {
-        "message": "پوسته تیره"
-    },
-    "settings_theme_light": {
-        "message": "روشن"
     },
     "settings_exclusion_add": {
         "message": "افزودن"

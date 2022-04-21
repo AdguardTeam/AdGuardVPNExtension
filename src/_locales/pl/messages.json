@@ -69,19 +69,13 @@
         "message": "Zgłoś błąd"
     },
     "options_support_report_description": {
-        "message": "Jeśli coś nie działa poprawnie w programie"
+        "message": "Wyślij nam zgłoszenie potencjalnego błędu"
     },
     "options_support_feedback_title": {
         "message": "Zostaw komentarz"
     },
     "options_support_feedback_description": {
         "message": "Wyślij propozycję funkcji i sugestii"
-    },
-    "options_support_discuss_title": {
-        "message": "Podyskutuj"
-    },
-    "options_support_discuss_description": {
-        "message": "Porozmawiaj na naszym forum, w sieciach społecznościowych lub na GitHub"
     },
     "options_report_bug_title": {
         "message": "Zgłoś błąd"
@@ -187,9 +181,6 @@
     },
     "auth_info": {
         "message": "Kontynuuj za pomocą konta AdGuard lub logowania społecznościowego"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Kontynuuj z AdGuard"
     },
     "auth_sign_in_provider_apple": {
         "message": "Kontynuuj z Apple"

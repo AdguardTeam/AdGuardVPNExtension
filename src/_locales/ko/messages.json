@@ -1,4 +1,10 @@
 {
+    "name": {
+        "message": "AdGuard VPN - 빠른 VPN & 보안 개인 프록시"
+    },
+    "description": {
+        "message": "AdGuard VPN을 사용하여 안전하게 웹 서핑을 해 보세요! 또한 개인 VPN 프록시로 개인정보를 보호하고 익명을 유지할 수 있습니다."
+    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -63,19 +69,13 @@
         "message": "버그 신고"
     },
     "options_support_report_description": {
-        "message": "프로그램이 제대로 작동하지 않는 경우 수행할 작업"
+        "message": "잠재적인 버그에 대한 보고서 보내기"
     },
     "options_support_feedback_title": {
         "message": "피드백 남기기"
     },
     "options_support_feedback_description": {
         "message": "기능 요청 또는 제안 제출"
-    },
-    "options_support_discuss_title": {
-        "message": "토론장"
-    },
-    "options_support_discuss_description": {
-        "message": "포럼, SNS 또는 GitHub에서 토론"
     },
     "options_report_bug_title": {
         "message": "버그 신고"
@@ -183,7 +183,7 @@
         "message": "SNS 또는 AdGuard 계정으로 진행"
     },
     "auth_sign_in_provider_adguard": {
-        "message": "AdGuard 계정으로 진행"
+        "message": "이메일로 진행"
     },
     "auth_sign_in_provider_apple": {
         "message": "Apple 계정으로 진행"
@@ -777,11 +777,5 @@
     },
     "options_signedout_page_description": {
         "message": "연결이 안전하지 않습니다. 비공개적으로 인터넷 서핑을 계속하려면 AdGuard VPN 아이콘을 누르고 다시 로그인하세요."
-    },
-    "name": {
-        "message": "AdGuard VPN — fast vpn & secure private proxy"
-    },
-    "description": {
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

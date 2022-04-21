@@ -1,4 +1,10 @@
 {
+    "name": {
+        "message": "AdGuard VPN — 极速 VPN 且安全的私人代理"
+    },
+    "description": {
+        "message": "使用 AdGuard VPN 快速安全浏览网页 。保护隐私并用我们的私人 VPN 代理保持匿名性。"
+    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -63,19 +69,13 @@
         "message": "报告错误"
     },
     "options_support_report_description": {
-        "message": "如果软件运行异常"
+        "message": "给我们发送关于潜在错误的报告"
     },
     "options_support_feedback_title": {
         "message": "留下反馈"
     },
     "options_support_feedback_description": {
         "message": "提交功能请求和建议"
-    },
-    "options_support_discuss_title": {
-        "message": "讨论"
-    },
-    "options_support_discuss_description": {
-        "message": "在我们的论坛、社交媒体或 GitHub 上讨论"
     },
     "options_report_bug_title": {
         "message": "报告错误"
@@ -183,7 +183,7 @@
         "message": "使用您的 AdGuard 账号或社交账号登录"
     },
     "auth_sign_in_provider_adguard": {
-        "message": "使用 AdGuard 登录"
+        "message": "用电子邮件继续"
     },
     "auth_sign_in_provider_apple": {
         "message": "使用 Apple 继续"
@@ -777,11 +777,5 @@
     },
     "options_signedout_page_description": {
         "message": "您的连接不安全。为了继续匿名浏览，请点击 AdGuard VPN 图标并重新登录。"
-    },
-    "name": {
-        "message": "AdGuard VPN — fast vpn & secure private proxy"
-    },
-    "description": {
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

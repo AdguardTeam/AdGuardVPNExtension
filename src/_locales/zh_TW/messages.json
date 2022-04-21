@@ -69,19 +69,13 @@
         "message": "報告程式錯誤"
     },
     "options_support_report_description": {
-        "message": "如果某事物未在程式中正確地運作"
+        "message": "傳送有關可能的程式錯誤之報告給我們"
     },
     "options_support_feedback_title": {
         "message": "留下回饋意見"
     },
     "options_support_feedback_description": {
         "message": "提交功能請求和建議"
-    },
-    "options_support_discuss_title": {
-        "message": "討論"
-    },
-    "options_support_discuss_description": {
-        "message": "於我們的論壇、社群網路或 GitHub 上討論"
     },
     "options_report_bug_title": {
         "message": "報告程式錯誤"
@@ -189,7 +183,7 @@
         "message": "用您的 AdGuard 帳戶或社群登入繼續"
     },
     "auth_sign_in_provider_adguard": {
-        "message": "用 AdGuard 繼續"
+        "message": "用電子郵件繼續"
     },
     "auth_sign_in_provider_apple": {
         "message": "用 Apple 繼續"

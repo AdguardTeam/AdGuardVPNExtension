@@ -2,6 +2,9 @@
     "name": {
         "message": "AdGuard VPN — hızlı vpn ve güvenli özel proxy"
     },
+    "description": {
+        "message": "İnternette hızlı, güvenli ve güvenilir bir şekilde gezinmek için AdGuard VPN kullanın. Özel vpn proxy'mizle gizliliğinizi koruyun ve anonim kalın."
+    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -30,7 +33,7 @@
         "message": "2FA gerekli"
     },
     "authentication_error_2fa_invalid": {
-        "message": "Kod geçersiz"
+        "message": "Geçersiz kod"
     },
     "authentication_error_account_disabled": {
         "message": "Hesap devre dışıdır"
@@ -66,19 +69,13 @@
         "message": "Hata bildir"
     },
     "options_support_report_description": {
-        "message": "Programda bir şey düzgün çalışmıyorsa"
+        "message": "Olası bir hata hakkında bize bir rapor gönderin"
     },
     "options_support_feedback_title": {
         "message": "Geri bildirimde bulun"
     },
     "options_support_feedback_description": {
         "message": "Yeni özellik isteği veya öneri gönderin"
-    },
-    "options_support_discuss_title": {
-        "message": "Tartışın"
-    },
-    "options_support_discuss_description": {
-        "message": "Forumumuzda, sosyal ağlarda veya GitHub'da tartışın"
     },
     "options_report_bug_title": {
         "message": "Hata bildir"
@@ -141,7 +138,7 @@
         "message": "(Sonraki ücret %date%)"
     },
     "account_sign_out": {
-        "message": "Oturumu kapat"
+        "message": "Çıkış yap"
     },
     "account_unlimited_title": {
         "message": "Sınırsız sürümü edinin!"
@@ -185,9 +182,6 @@
     "auth_info": {
         "message": "AdGuard hesabınızla veya sosyal ağ giriş yapmayla devam edin"
     },
-    "auth_sign_in_provider_adguard": {
-        "message": "AdGuard ile devam edin"
-    },
     "auth_sign_in_provider_apple": {
         "message": "Apple ile devam edin"
     },
@@ -204,7 +198,7 @@
         "message": "Kaydolarak AdGuard hesabınızı oluşturursunuz"
     },
     "auth_header_sign_in": {
-        "message": "<div>%username%</div> Olarak giriş yapıyorsunuz "
+        "message": "<div>%username%</div> olarak giriş yapıyorsunuz "
     },
     "auth_header_sing_in_notice": {
         "message": "<div>%username%</div> adında zaten bir hesabınız var"
@@ -369,13 +363,13 @@
         "message": "AdGuard VPN, seçilen alan adları için kapalı"
     },
     "settings_exclusion_service_settings_subtitle_selective_mode": {
-        "message": "AdGuard VPN, seçilen alan adları için açık"
+        "message": "AdGuard VPN seçilen alan adları için açık"
     },
     "settings_exclusion_group_settings_subtitle_regular_mode": {
         "message": "AdGuard VPN, seçilen alan adları ve alt alan adları için kapalı"
     },
     "settings_exclusion_group_settings_subtitle_selective_mode": {
-        "message": "AdGuard VPN, seçilen alan adları ve alt alan adları için açık"
+        "message": "AdGuard VPN seçilen alan adları ve alt alan adları için açık"
     },
     "settings_exclusion_domain_name": {
         "message": "Alan adı:"
@@ -465,13 +459,13 @@
         "message": "Genel mod"
     },
     "settings_exclusion_general_description": {
-        "message": "AAdGuard VPN, istisnalara eklenen siteler dışında her yerde açık"
+        "message": "AdGuard VPN istisnalara eklenen siteler dışında her yerde açık"
     },
     "settings_exclusion_selective_title": {
         "message": "Seçici mod"
     },
     "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN yalnızca istisnalara eklenen siteler için açıktır"
+        "message": "AdGuard VPN yalnızca istisnalara eklenen siteler için açık"
     },
     "settings_exclusion_subdomains_title": {
         "message": "Alt alan adı"
@@ -516,7 +510,7 @@
         "message": "Ayarlar"
     },
     "popup_settings_sign_out": {
-        "message": "Oturumu kapat"
+        "message": "Çıkış yap"
     },
     "context_menu_enable_vpn": {
         "message": "Bu sitede VPN'i etkinleştir"
@@ -679,10 +673,10 @@
         "message": "6 kıta ve onlarca ülke. Bir şehir seçin ve internette güvenli bir şekilde gezinin!"
     },
     "popup_upgrade_screen_streaming_support": {
-        "message": "Akış desteği"
+        "message": "Canlı yayın akışı desteği"
     },
     "popup_upgrade_screen_streaming_support_desc": {
-        "message": "Tüm büyük veri akış hizmetleri mevcuttur. Her şeyi, her yerde izleyin!"
+        "message": "Tüm büyük canlı yayın veri akış hizmetleri mevcuttur. Her şeyi, her yerde izleyin!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Yayın akışı"
@@ -698,13 +692,13 @@
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_selective_mode_popup_message": {
-        "message": "Seçici modda AdGuard VPN, yalnızca listeye eklediğiniz izin verilen web sitelerinde çalışır."
+        "message": "Seçici modda AdGuard VPN yalnızca listeye eklediğiniz izin verilen sitelerde çalışır."
     },
     "options_selective_mode_popup_button_switch_now": {
         "message": "Şimdi değiştir"
     },
     "options_selective_mode_popup_attention": {
-        "message": "Değiştirmek istediğine emin misiniz?"
+        "message": "Değiştirmek istediğinize emin misiniz?"
     },
     "options_exclusions_import_select_title": {
         "message": "İstisnaları içe aktar:"
@@ -725,10 +719,10 @@
         "message": "İstisnaları kaldır"
     },
     "options_exclusions_delete_regular_description": {
-        "message": "Normal modun tüm istisnaları silinecek."
+        "message": "Normal modun tüm istisnaları silinecektir."
     },
     "options_exclusions_delete_selective_description": {
-        "message": "Seçici modun tüm istisnaları silinecek."
+        "message": "Seçici modun tüm istisnaları silinecektir."
     },
     "options_exclusions_import_successful": {
         "message": "İçe aktarılan istisnalar: %count%"
@@ -780,8 +774,5 @@
     },
     "options_signedout_page_description": {
         "message": "Bağlantınız güvenli değil. Gizli olarak gezinmeye devam etmek için AdGuard VPN simgesine tıklayın ve tekrar giriş yapın."
-    },
-    "description": {
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

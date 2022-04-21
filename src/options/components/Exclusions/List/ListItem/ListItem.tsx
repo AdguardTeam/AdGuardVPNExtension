@@ -47,6 +47,11 @@ export const ListItem = observer(({ exclusion }: ListItemProps) => {
 
     useEffect(() => {
         if (icon.current && exclusion.type === ExclusionsTypes.Service && exclusion.iconUrl) {
+            icon.current.onerror = () => {
+                if (icon.current) {
+                    icon.current.src = './assets/images/ip-icon.svg';
+                }
+            };
             icon.current.src = exclusion.iconUrl;
         }
 

@@ -8,6 +8,9 @@
     "registration_error_not_valid": {
         "message": "Detta värde är ogiltigt"
     },
+    "registration_error_min_length": {
+        "message": "Lösenordet är för kort. Den måste innehålla minst 8 tecken."
+    },
     "registration_error_unique_constraint": {
         "message": "Användarnamnet är redan taget"
     },
@@ -40,9 +43,6 @@
     },
     "options_support_feedback_title": {
         "message": "Lämna feedback"
-    },
-    "options_support_discuss_title": {
-        "message": "Diskutera"
     },
     "options_report_bug_title": {
         "message": "Rapportera ett fel"
@@ -77,6 +77,9 @@
     "account_free": {
         "message": "Gratis"
     },
+    "account_unlimited": {
+        "message": "Obegränsad"
+    },
     "account_sign_out": {
         "message": "Logga ut"
     },
@@ -107,9 +110,6 @@
     "auth_sign_in_button": {
         "message": "Logga in"
     },
-    "auth_sign_in_provider_adguard": {
-        "message": "Fortsätt med AdGuard"
-    },
     "auth_sign_in_provider_apple": {
         "message": "Fortsätt med Apple"
     },
@@ -121,6 +121,9 @@
     },
     "auth_header_2fa_subtitle": {
         "message": "Tvåfaktorautentisering"
+    },
+    "auth_header_2fa": {
+        "message": "Ange autentiseringskod"
     },
     "auth_placeholder_2fa": {
         "message": "Autentiseringskod"
@@ -146,11 +149,11 @@
     "settings_webrtc_label": {
         "message": "Blockera WebRTC"
     },
+    "context_menu_selective_mode": {
+        "message": "Selektivt läge"
+    },
     "settings_dns_selector_default_title": {
         "message": "Standard"
-    },
-    "settings_dns_selector_default_desc": {
-        "message": "Använd standard DNS servrar automatiskt när de är anslutna till VPN"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -212,6 +215,12 @@
     "settings_exclusion_domain_name": {
         "message": "Domännamn:"
     },
+    "settings_exclusion_add_manually": {
+        "message": "Manuellt"
+    },
+    "settings_exclusion_add_manually_add": {
+        "message": "Lägg till manuellt"
+    },
     "settings_exclusion_modal_cancel": {
         "message": "Avbryt"
     },
@@ -236,6 +245,15 @@
     "settings_exclusion_nothing_found": {
         "message": "Inga resultat hittades"
     },
+    "settings_exclusion_connection_problem": {
+        "message": "Anslutningsproblem"
+    },
+    "settings_exclusions_action_export": {
+        "message": "Exportuteslutningar"
+    },
+    "settings_exclusions_action_import": {
+        "message": "Importera undantag"
+    },
     "settings_exclusions_action_remove_all": {
         "message": "Ta bort alla"
     },
@@ -250,6 +268,15 @@
     },
     "settings_exclusion_title": {
         "message": "Exkluderingar"
+    },
+    "settings_connection_mode_title": {
+        "message": "Driftläge"
+    },
+    "settings_exclusion_selective_title": {
+        "message": "Selektivt läge"
+    },
+    "settings_exclusion_selective_description": {
+        "message": "AdGuard VPN fungerar bara på webbplatser från listan nedan"
     },
     "global_error_title": {
         "message": "Fel uppstod"
@@ -323,6 +350,12 @@
     "upgrade_features_all_locations": {
         "message": "Alla platser"
     },
+    "upgrade_features_devices": {
+        "message": "Upp till 5 enheter"
+    },
+    "offline_title": {
+        "message": "Offline"
+    },
     "popup_auth_policy_agreement": {
         "message": "Acceptera <eula>EULA</eula> och <privacy>Integritetspolicy</privacy>",
         "description": "WARNING! Respect spaces between tags"
@@ -357,11 +390,23 @@
     "popup_upgrade_screen_upgrade_button": {
         "message": "Uppgradera"
     },
+    "options_exclusions_import_select_title": {
+        "message": "Importera undantag till:"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "Vanlig lista"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "Selektiv lista"
+    },
     "options_exclusions_delete_cancel_button": {
         "message": "Avbryt"
     },
     "options_exclusions_delete_approve_button": {
         "message": "Radera"
+    },
+    "options_exclusions_delete_title": {
+        "message": "Ta bort undantag"
     },
     "popup_connections_limit_description_cta_button_free": {
         "message": "Prenumerera"

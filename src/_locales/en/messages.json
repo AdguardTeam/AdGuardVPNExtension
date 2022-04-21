@@ -183,7 +183,7 @@
         "message": "Continue with your AdGuard account or with social login"
     },
     "auth_sign_in_provider_adguard": {
-        "message": "Continue with AdGuard"
+        "message": "Continue with Email"
     },
     "auth_sign_in_provider_apple": {
         "message": "Continue with Apple"

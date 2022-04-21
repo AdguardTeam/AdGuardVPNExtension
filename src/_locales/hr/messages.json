@@ -59,20 +59,11 @@
     "options_support_report_title": {
         "message": "Prijavite pogrešku"
     },
-    "options_support_report_description": {
-        "message": "Ako nešto ne radi ispravno u programu"
-    },
     "options_support_feedback_title": {
         "message": "Ostavite povratnu informaciju"
     },
     "options_support_feedback_description": {
         "message": "Pošaljite zahtjeve i prijedloge značajki"
-    },
-    "options_support_discuss_title": {
-        "message": "Diskusija"
-    },
-    "options_support_discuss_description": {
-        "message": "Raspravljajte na našem forumu, na društvenim mrežama ili na GitHub-u"
     },
     "options_report_bug_title": {
         "message": "Prijavite pogrešku"
@@ -175,9 +166,6 @@
     },
     "auth_info": {
         "message": "Nastavite sa vašim AdGuard korisničkim računom ili a računom društvene mreže"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Nastavi s AdGuardom"
     },
     "auth_sign_in_provider_apple": {
         "message": "Nastavite sa Apple računom"
@@ -625,7 +613,7 @@
         "message": "6 kontinenata i puno država. Izaberite jednu državu i surfajte internetom!"
     },
     "popup_upgrade_screen_streaming_support": {
-        "message": "Podrška strujanja"
+        "message": "Podrška za strujanje"
     },
     "popup_upgrade_screen_streaming_support_desc": {
         "message": "Svi veliki streaming servisi su dostupni. Gledajte bilo što bilo gdje!"
