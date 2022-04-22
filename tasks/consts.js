@@ -13,6 +13,7 @@ const BROWSERS = {
     CHROME: 'chrome',
     FIREFOX: 'firefox',
     EDGE: 'edge',
+    OPERA: 'opera',
 };
 
 // Used only to change output filenames
