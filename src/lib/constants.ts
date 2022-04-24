@@ -106,4 +106,4 @@ export const FLAGS_FIELDS = {
     SALE_SHOW: 'saleShow',
 };
 
-export const REFERRAL_PROGRAM_LINK = 'referral-program';
+export const REFERRAL_PROGRAM = 'referral-program';

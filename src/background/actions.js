@@ -6,17 +6,20 @@ import { promoNotifications } from './promoNotifications';
 import credentials from './credentials';
 import { UPGRADE_LICENSE_URL } from './config';
 import tabs from './tabs';
-import { REFERRAL_PROGRAM_LINK } from '../lib/constants';
+import { REFERRAL_PROGRAM } from '../lib/constants';
 
-const openOptionsPage = async () => {
-    const tabs = await browser.tabs.query({});
-    const optionsUrl = browser.runtime.getURL('options.html');
-    const optionsTab = tabs.find((tab) => tab.url?.startsWith(optionsUrl));
+const openOptionsPage = async (anchor = null) => {
+    let optionsUrl = browser.runtime.getURL('options.html');
+    const optionsTab = await tabs.getTabByUrl(optionsUrl);
+
+    if (anchor) {
+        optionsUrl = `${optionsUrl}${anchor}`;
+    }
 
     if (optionsTab) {
-        await browser.tabs.update(optionsTab.id, { active: true, url: optionsUrl });
+        await tabs.update(optionsTab.id, optionsUrl);
     } else {
-        await browser.runtime.openOptionsPage();
+        await tabs.openTab(optionsUrl);
     }
 };
 
@@ -141,11 +144,7 @@ const openPremiumPromoPage = async () => {
  * Opens Options page on Referral Program section
  */
 const openReferralOptions = async () => {
-    const optionsUrl = browser.runtime.getURL('options.html');
-    const referralOptionsUrl = `${optionsUrl}#${REFERRAL_PROGRAM_LINK}`;
-    await browser.runtime.openOptionsPage();
-    const optionsTab = await tabs.getActive();
-    await tabs.update(optionsTab.id, referralOptionsUrl);
+    await openOptionsPage(`#${REFERRAL_PROGRAM}`);
 };
 
 const actions = {

@@ -87,9 +87,14 @@ class Tabs {
         }
     }
 
+    async getTabByUrl(url) {
+        const tabs = await browser.tabs.query({ url });
+        return tabs[0];
+    }
+
     async update(tabId, url) {
         try {
-            await browser.tabs.update(tabId, { url });
+            await browser.tabs.update(tabId, { url, active: true });
         } catch (e) {
             log.error(e.message);
         }

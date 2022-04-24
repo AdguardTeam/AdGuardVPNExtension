@@ -20,7 +20,7 @@ import { Support } from '../Support';
 import { Notifications } from '../ui/Notifications';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
 import { Exclusions } from '../Exclusions';
-import { REFERRAL_PROGRAM_LINK } from '../../../lib/constants';
+import { REFERRAL_PROGRAM } from '../../../lib/constants';
 
 import '../../styles/main.pcss';
 import './app.pcss';
@@ -37,7 +37,7 @@ const getContent = (authenticated, requestProcessState, isPremiumToken) => {
                         <Route path="/" exact component={Settings} />
                         <Route path="/exclusions" exact component={Exclusions} />
                         {!isPremiumToken && (
-                            <Route path={`/${REFERRAL_PROGRAM_LINK}`} component={Referral} />
+                            <Route path={`/${REFERRAL_PROGRAM}`} component={Referral} />
                         )}
                         <Route path="/account" component={Account} />
                         <Route path="/about" component={About} />
