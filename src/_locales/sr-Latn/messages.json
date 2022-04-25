@@ -44,17 +44,11 @@
     "options_support_report_title": {
         "message": "Prijavi grešku"
     },
-    "options_support_report_description": {
-        "message": "Ako nešto ne radi dobro u programu"
-    },
     "options_support_feedback_title": {
         "message": "Ostavite povratne informacije"
     },
     "options_support_feedback_description": {
         "message": "Pošaljite zahtev za novom opcijom ili predloge"
-    },
-    "options_support_discuss_title": {
-        "message": "Forum programa"
     },
     "options_report_bug_title": {
         "message": "Prijavi grešku"
@@ -238,12 +232,6 @@
     },
     "settings_theme_system": {
         "message": "Sistemski"
-    },
-    "settings_theme_dark": {
-        "message": "Tamno"
-    },
-    "settings_theme_light": {
-        "message": "Svetlo"
     },
     "settings_exclusion_add": {
         "message": "Dodaj"

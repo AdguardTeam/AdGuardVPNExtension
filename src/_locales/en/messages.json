@@ -69,19 +69,13 @@
         "message": "Report a bug"
     },
     "options_support_report_description": {
-        "message": "If something doesn't work correctly in the program"
+        "message": "Send us a report on a potential bug"
     },
     "options_support_feedback_title": {
         "message": "Leave feedback"
     },
     "options_support_feedback_description": {
         "message": "Submit feature requests and suggestions"
-    },
-    "options_support_discuss_title": {
-        "message": "Discuss"
-    },
-    "options_support_discuss_description": {
-        "message": "Discuss on our forum, in social networks, or on Github"
     },
     "options_report_bug_title": {
         "message": "Report a bug"
@@ -189,7 +183,7 @@
         "message": "Continue with your AdGuard account or with social login"
     },
     "auth_sign_in_provider_adguard": {
-        "message": "Continue with AdGuard"
+        "message": "Continue with Email"
     },
     "auth_sign_in_provider_apple": {
         "message": "Continue with Apple"

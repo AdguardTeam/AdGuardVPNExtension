@@ -12,45 +12,108 @@ import notifier from '../lib/notifier';
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const release2022Notification = {
-    id: 'release2022',
+const easter2022Notification = {
+    id: 'easter2022',
     locales: {
         en: {
-            title: 'Release Giveaway',
-            btn: 'Join',
+            title: 'Easter Sale:',
+            desc: '80% off',
+            btn: 'Grab the deal',
         },
-        ru: {
-            title: 'Розыгрыш к релизу',
-            btn: 'Участвовать',
+        es: {
+            title: 'Oferta de Pascua:',
+            desc: '80% off',
+            btn: 'Aprovechar',
         },
-        fr: {
-            title: 'Giveaway VPN ',
-            btn: 'Participer',
+        ko: {
+            title: '부활절 세일:',
+            desc: '80% 할인',
+            btn: '할인 받기',
         },
         de: {
-            title: 'Release-Gewinnspiel',
-            btn: 'Mitmachen',
+            title: 'Oster-Sale:',
+            desc: '80% Rabatt',
+            btn: 'Schnappen',
         },
-        ja: {
-            title: 'VPN利用者様限定抽選',
-            btn: '参加する',
+        fr: {
+            title: 'Promo Pâques :',
+            desc: 'remise 80%',
+            btn: 'Voir offre',
+        },
+        it: {
+            title: 'Promo di Pasqua:',
+            desc: '80% di sconto',
+            btn: 'Sconto qui',
+        },
+        zh_cn: {
+            title: '春季大优惠，',
+            desc: '享2折！',
+            btn: '把握好机会',
+        },
+        zh_tw: {
+            title: '春季優惠，',
+            desc: '享2折！',
+            btn: '把握機會',
+        },
+        uk: {
+            title: 'Весняні знижки:',
+            desc: '−80%',
+            btn: 'Отримати угоду',
+        },
+        be: {
+            title: 'Вясновыя зніжкі:',
+            desc: '−80%',
+            btn: 'Атрымаць здзелку',
+        },
+        ar: {
+            title: 'تخفيضات الربيع:',
+            desc: '80٪ خصم',
+            btn: 'احصل على الصفقة',
+        },
+        id: {
+            title: 'Penjualan musim semi',
+            btn: 'Dapatkan diskon 80%',
+        },
+        tr: {
+            title: 'Bahar satışı',
+            btn: '%80 indirim',
+        },
+        vi: {
+            title: 'Giảm giá mùa',
+            desc: 'xuân',
+            btn: 'Giảm giá 80%',
+        },
+        pl: {
+            title: 'Wyprzedaż',
+            desc: 'wielkanocna',
+            btn: '80% taniej',
+        },
+        pt_pt: {
+            title: 'Promoção da',
+            desc: 'Páscoa',
+            btn: 'Conseguir 80% off',
+        },
+        pt_br: {
+            title: 'Promoção da',
+            desc: 'Páscoa',
+            btn: 'Conseguir 80% off',
         },
     },
     // will be selected for locale, see usage of getNotificationText
     text: '',
-    url: 'https://adguard-vpn.com/forward.html?action=release2022vpn&from=popup&app=vpn_extension',
-    from: '03 March 2022 12:00:00',
-    to: '09 March 2022 23:59:00',
+    url: 'https://adguard-vpn.com/forward.html?action=easter2022vpn&from=popup&app=vpn_extension',
+    from: '14 April 2022 12:00:00',
+    to: '20 April 2022 23:59:00',
     type: 'animated',
     get icons() {
-        return lazyGet(release2022Notification, 'icons', () => ({
+        return lazyGet(easter2022Notification, 'icons', () => ({
             ENABLED: {
-                19: getUrl('assets/images/icons/release-on-19.png'),
-                38: getUrl('assets/images/icons/release-on-38.png'),
+                19: getUrl('assets/images/icons/easter-on-19.png'),
+                38: getUrl('assets/images/icons/easter-on-38.png'),
             },
             DISABLED: {
-                19: getUrl('assets/images/icons/release-off-19.png'),
-                38: getUrl('assets/images/icons/release-off-38.png'),
+                19: getUrl('assets/images/icons/easter-off-19.png'),
+                38: getUrl('assets/images/icons/easter-off-38.png'),
             },
         }));
     },
@@ -73,7 +136,7 @@ const release2022Notification = {
  */
 
 const notifications = {
-    release2022: release2022Notification,
+    easter2022: easter2022Notification,
 };
 
 /**

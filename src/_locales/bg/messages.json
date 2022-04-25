@@ -11,9 +11,6 @@
     "options_support_faq_title": {
         "message": "ЧЗВ"
     },
-    "options_support_discuss_title": {
-        "message": "Дускусия"
-    },
     "options_bug_report_include_log_label": {
         "message": "Включване на диагностичния отчет в съобщението"
     },
@@ -43,9 +40,6 @@
     },
     "settings_theme_label": {
         "message": "Тема"
-    },
-    "settings_theme_light": {
-        "message": "Светъл цвят"
     },
     "settings_exclusion_actions": {
         "message": "Действия"

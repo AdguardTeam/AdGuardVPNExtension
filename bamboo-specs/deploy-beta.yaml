@@ -20,6 +20,7 @@ Chrome WebStore:
         artifacts:
           - name: edge.zip
           - name: chrome.zip
+          - name: opera.zip
           - name: firefox.zip
           - name: build.txt
           - name: chrome.crx
@@ -57,6 +58,7 @@ static.adguard.com:
         artifacts:
           - name: edge.zip
           - name: chrome.zip
+          - name: opera.zip
           - name: firefox.zip
           - name: build.txt
           - name: chrome.crx
@@ -96,6 +98,7 @@ GitHub:
         artifacts:
           - name: edge.zip
           - name: chrome.zip
+          - name: opera.zip
           - name: firefox.zip
           - name: build.txt
           - name: chrome.crx

@@ -116,13 +116,6 @@ const Icons = () => (
             </g>
         </symbol>
 
-        <symbol id="chat" viewBox="0 0 24 24">
-            <g fill="none" fillRule="evenodd">
-                <path fill="none" fillOpacity="0" d="M0 0h24v24H0z" />
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 18c6 0 10-3 10-7s-4-7-10-7S2 7 2 11c0 2 1 4 3 5l1 1 1 1H6h0v1h0v2l1-1h1l1-1s0 0 0 0h0l1-1h2zm0-6v-1m-4 1v-1m8 1v-1" />
-            </g>
-        </symbol>
-
         <symbol id="spinner" fill="none" viewBox="0 0 24 24">
             <path d="M6.2903 5.04276C6.40404 4.94931 6.52011 4.8586 6.63842 4.77072" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             <path d="M8.55511 3.68292C8.82001 3.57307 9.0913 3.47551 9.36826 3.39095C9.51032 3.34758 9.65388 3.30762 9.79883 3.27119" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

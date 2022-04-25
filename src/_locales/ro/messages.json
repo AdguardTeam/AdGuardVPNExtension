@@ -69,19 +69,13 @@
         "message": "Raportați o eroare"
     },
     "options_support_report_description": {
-        "message": "Dacă ceva nu funcționează corect în program"
+        "message": "Trimiteți-ne un raport privind o eroare potențială"
     },
     "options_support_feedback_title": {
         "message": "Lăsați un feedback"
     },
     "options_support_feedback_description": {
         "message": "Trimiteți cereri de funcții și sugestii"
-    },
-    "options_support_discuss_title": {
-        "message": "Discuții"
-    },
-    "options_support_discuss_description": {
-        "message": "Discutați pe forumul nostru, în rețelele sociale sau pe GitHub"
     },
     "options_report_bug_title": {
         "message": "Raportați o eroare"
@@ -187,9 +181,6 @@
     },
     "auth_info": {
         "message": "Continuați cu contul dvs. AdGuard sau cu conectarea socială"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Continuați cu AdGuard"
     },
     "auth_sign_in_provider_apple": {
         "message": "Continuați cu Apple"

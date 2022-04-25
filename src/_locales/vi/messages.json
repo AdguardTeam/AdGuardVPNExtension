@@ -59,20 +59,11 @@
     "options_support_report_title": {
         "message": "Báo cáo lỗi"
     },
-    "options_support_report_description": {
-        "message": "Nếu một cái gì đó không hoạt động chính xác trong chương trình"
-    },
     "options_support_feedback_title": {
         "message": "Để lại phản hồi"
     },
     "options_support_feedback_description": {
         "message": "Gửi các yêu cầu và đề xuất về tính năng"
-    },
-    "options_support_discuss_title": {
-        "message": "Thảo luận"
-    },
-    "options_support_discuss_description": {
-        "message": "Thảo luận trên diễn đàn của chúng tôi, trên mạng xã hội hoặc trên Github"
     },
     "options_report_bug_title": {
         "message": "Báo cáo lỗi"
@@ -163,9 +154,6 @@
     },
     "auth_title": {
         "message": "Ủy quyền"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Tiếp tục với AdGuard của bạn"
     },
     "auth_sign_in_provider_apple": {
         "message": "Đăng nhập bằng Apple"
@@ -295,12 +283,6 @@
     },
     "settings_theme_system": {
         "message": "Hệ thống"
-    },
-    "settings_theme_dark": {
-        "message": "Chủ đề màu tối"
-    },
-    "settings_theme_light": {
-        "message": "Sáng"
     },
     "settings_exclusion_add": {
         "message": "Thêm"
@@ -515,6 +497,9 @@
     "upgrade_features_devices": {
         "message": "Lên đến 5 thiết bị"
     },
+    "upgrade_features_streaming": {
+        "message": "Hỗ trợ phát trực tuyến"
+    },
     "continue_us_free_button": {
         "message": "Tiếp tục sử dụng miễn phí"
     },
@@ -578,6 +563,9 @@
     },
     "popup_upgrade_screen_all_locations": {
         "message": "Tất cả vị trí"
+    },
+    "popup_upgrade_screen_streaming_support": {
+        "message": "Hỗ trợ phát trực tuyến"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Phát trực tuyến"

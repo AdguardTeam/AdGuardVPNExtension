@@ -1,4 +1,10 @@
 {
+    "name": {
+        "message": "AdGuard VPN — 公共Wi-Fiでもネットが安心のVPN"
+    },
+    "description": {
+        "message": "オンラインで個人情報プライバシーを守るAdGuard VPNを使って、高速かつ安全なインターネットをお楽しみください。"
+    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -63,19 +69,13 @@
         "message": "バグ・不具合を報告する"
     },
     "options_support_report_description": {
-        "message": "拡張機能が正常に作動しない場合など"
+        "message": "不具合をご報告いただけます。"
     },
     "options_support_feedback_title": {
         "message": "フィードバックを送信する"
     },
     "options_support_feedback_description": {
         "message": "ぜひ新機能や改善のご提案等をお送りください。"
-    },
-    "options_support_discuss_title": {
-        "message": "AdGuard VPNについて議論する"
-    },
-    "options_support_discuss_description": {
-        "message": "AdGuardのフォーラム、SNS、GitHub"
     },
     "options_report_bug_title": {
         "message": "バグ・不具合を報告する"
@@ -183,7 +183,7 @@
         "message": "お持ちのAdGuardアカウントやSNSアカウントでログイン"
     },
     "auth_sign_in_provider_adguard": {
-        "message": "AdGuardアカウントで続ける"
+        "message": "メールアドレスで続ける"
     },
     "auth_sign_in_provider_apple": {
         "message": "Appleで続ける"
@@ -676,7 +676,7 @@
         "message": "6つの大陸、数十の国。接続したい都市を選択して、安全にネットをお楽しみください。また、海外出張・旅行中で日本と同じネット環境も再現可能。"
     },
     "popup_upgrade_screen_streaming_support": {
-        "message": "ストリーミングサービスに対応"
+        "message": "ストリーミングサービス対応"
     },
     "popup_upgrade_screen_streaming_support_desc": {
         "message": "主要なストリーミングサービスすべてに対応。何でも、どこでも閲覧可能！"
@@ -777,11 +777,5 @@
     },
     "options_signedout_page_description": {
         "message": "お客様の接続は現在セキュアでないことにご注意ください。プライベートで安全にサーフィンを続けるには、AdGuard VPNのアイコンをクリックし、再度ログインしてください。"
-    },
-    "name": {
-        "message": "AdGuard VPN — fast vpn & secure private proxy"
-    },
-    "description": {
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

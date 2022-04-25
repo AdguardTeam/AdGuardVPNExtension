@@ -48,7 +48,7 @@ Build:
             export WEBSITE_DOMAIN="${bamboo.prodVpnDomain}"
             export CREDENTIALS_PASSWORD="${bamboo.extensionsPassphrase}"
 
-            # build with prod API endpoints edge.zip, chrome.zip, firefox.zip
+            # build with prod API endpoints edge.zip, chrome.zip, firefox.zip, opera.zip
             yarn beta
 
             # build artifacts chrome.crx, firefox.xpi
@@ -72,6 +72,11 @@ Build:
     - name: chrome.zip
       location: build/beta
       pattern: chrome.zip
+      shared: true
+      required: true
+    - name: opera.zip
+      location: build/beta
+      pattern: opera.zip
       shared: true
       required: true
     - name: firefox.zip

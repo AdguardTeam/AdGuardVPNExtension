@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — nopea VPN ja turvallinen yksityinen välityspalvelin"
+        "message": "AdGuard VPN — nopea vpn ja turvallinen yksityinen välityspalvelin"
     },
     "description": {
         "message": "Surffaile Internetissä nopeasti ja turvallisesti AdGuard VPN:llä. Suojaa yksityisyyttäsi ja pysy nimettömänä yksityisella VPN-välityspalvelimellamme."
@@ -69,19 +69,13 @@
         "message": "Ilmoita viasta"
     },
     "options_support_report_description": {
-        "message": "Jos jokin sovelluksessa ei toimi oikein"
+        "message": "Ilmoita meille mahdollisesta virheestä"
     },
     "options_support_feedback_title": {
         "message": "Lähetä palautetta"
     },
     "options_support_feedback_description": {
         "message": "Lähetä ominaisuus- ja kehitysehdotuksia"
-    },
-    "options_support_discuss_title": {
-        "message": "Keskustele"
-    },
-    "options_support_discuss_description": {
-        "message": "Keskustele keskustelualueellamme, sosiaalisissa verkoissa tai GitHubissa"
     },
     "options_report_bug_title": {
         "message": "Ilmoita viasta"
@@ -187,9 +181,6 @@
     },
     "auth_info": {
         "message": "Jatka AdGuard-tunnuksellasi tai sosiaalisilla verkostoilla"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Jatka AdGuardilla"
     },
     "auth_sign_in_provider_apple": {
         "message": "Jatka Applella"

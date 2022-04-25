@@ -69,19 +69,13 @@
         "message": "Сообщить об ошибке"
     },
     "options_support_report_description": {
-        "message": "Если что-то в программе работает некорректно"
+        "message": "Отправить отчёт об ошибке"
     },
     "options_support_feedback_title": {
         "message": "Оставить отзыв"
     },
     "options_support_feedback_description": {
         "message": "Отправить запрос на новую функцию или другое предложение"
-    },
-    "options_support_discuss_title": {
-        "message": "Обсудить"
-    },
-    "options_support_discuss_description": {
-        "message": "Обсудить на форуме, в социальных сетях или на GitHub"
     },
     "options_report_bug_title": {
         "message": "Сообщить об ошибке"
@@ -189,16 +183,16 @@
         "message": "Войти через аккаунт AdGuard или через социальные сети"
     },
     "auth_sign_in_provider_adguard": {
-        "message": "Продолжить с AdGuard"
+        "message": "Войти с помощью почты"
     },
     "auth_sign_in_provider_apple": {
-        "message": "Продолжить с Apple"
+        "message": "Войти через Apple"
     },
     "auth_sign_in_provider_google": {
-        "message": "Продолжить с Google"
+        "message": "Войти через Google"
     },
     "auth_sign_in_provider_facebook": {
-        "message": "Продолжить с Facebook"
+        "message": "Войти через Facebook"
     },
     "auth_header_sign_in_account": {
         "message": "Вы авторизуетесь с помощью аккаунта AdGuard"

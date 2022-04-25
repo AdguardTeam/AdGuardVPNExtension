@@ -105,8 +105,8 @@ const Icons = () => (
         </symbol>
 
         <svg id="cross" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M6.42857 6.42857L17.6043 17.6043" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" />
-            <path d="M6.42857 17.5714L17.6043 6.39563" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" />
+            <path d="M6.42857 6.42857L17.6043 17.6043" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            <path d="M6.42857 17.5714L17.6043 6.39563" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
         </svg>
 
         <symbol id="checked" viewBox="0 0 24 24" fill="#74a352">

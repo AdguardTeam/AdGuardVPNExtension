@@ -1,4 +1,4 @@
-import endpoints from '../../../src/background/endpoints';
+import { endpoints } from '../../../src/background/endpoints';
 import { settings } from '../../../src/background/settings';
 import { vpnProvider } from '../../../src/background/providers/vpnProvider';
 import credentials from '../../../src/background/credentials';

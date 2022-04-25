@@ -5,7 +5,7 @@ import { ExclusionInterface } from './exclusions/exclusionsTypes';
 import { getETld, getSubdomain, isWildcard } from '../../common/url-utils';
 import { log } from '../../lib/logger';
 import { ExclusionState } from '../../common/exclusionsConstants';
-import { ServicesInterface } from './services/ServicesManager';
+import { ServicesInterface } from '../providers/vpnProvider';
 
 interface ExclusionGroup {
     [key: string]: ExclusionInterface;

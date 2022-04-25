@@ -69,19 +69,13 @@
         "message": "Segnala un bug"
     },
     "options_support_report_description": {
-        "message": "Se qualcosa non funzionasse correttamente nel programma"
+        "message": "Inviaci un segnale su dei potenziali bug"
     },
     "options_support_feedback_title": {
         "message": "Lascia feedback"
     },
     "options_support_feedback_description": {
         "message": "Invia richieste di funzionalità e suggerimenti"
-    },
-    "options_support_discuss_title": {
-        "message": "Discuti"
-    },
-    "options_support_discuss_description": {
-        "message": "Discutine sul nostro forum, nelle reti sociali, o su GitHub"
     },
     "options_report_bug_title": {
         "message": "Segnala un bug"
@@ -189,7 +183,7 @@
         "message": "Continua con il tuo profilo AdGuard o con accesso tramite reti social"
     },
     "auth_sign_in_provider_adguard": {
-        "message": "Continua con AdGuard"
+        "message": "Continua con Email"
     },
     "auth_sign_in_provider_apple": {
         "message": "Continua con Apple"
@@ -444,7 +438,7 @@
         "message": "Rimuovi tutte le esclusioni"
     },
     "settings_exclusions_remove_all_exclusions_message": {
-        "message": "Sei sicuro di voler continuare? L'intero elenco di esclusioni verrà rimosso."
+        "message": "Sei sicuro di voler proseguire? L'intero elenco di esclusioni verrà rimosso."
     },
     "settings_exclusions_import_button": {
         "message": "Importa"

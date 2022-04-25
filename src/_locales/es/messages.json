@@ -69,19 +69,13 @@
         "message": "Informar de un error"
     },
     "options_support_report_description": {
-        "message": "Si algo no funciona correctamente en el programa"
+        "message": "Envíanos un informe sobre un posible fallo"
     },
     "options_support_feedback_title": {
         "message": "Dejar comentario"
     },
     "options_support_feedback_description": {
         "message": "Envía solicitudes de funciones y sugerencias"
-    },
-    "options_support_discuss_title": {
-        "message": "Debate"
-    },
-    "options_support_discuss_description": {
-        "message": "Debate en nuestro foro, redes sociales o en GitHub"
     },
     "options_report_bug_title": {
         "message": "Informar de un error"
@@ -189,7 +183,7 @@
         "message": "Continúa con tu cuenta AdGuard o con las redes sociales"
     },
     "auth_sign_in_provider_adguard": {
-        "message": "Continuar con AdGuard"
+        "message": "Iniciar sesión con correo"
     },
     "auth_sign_in_provider_apple": {
         "message": "Continuar con Apple"

@@ -63,6 +63,11 @@ Build:
       pattern: chrome.zip
       shared: true
       required: true
+    - name: opera.zip
+      location: build/release
+      pattern: opera.zip
+      shared: true
+      required: true
     - name: firefox.zip
       location: build/release
       pattern: firefox.zip

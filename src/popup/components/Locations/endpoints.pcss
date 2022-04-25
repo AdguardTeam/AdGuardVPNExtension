@@ -40,11 +40,10 @@
         border-radius: 4px;
         outline: none;
         background-color: #f3f3f3;
-        color: #4d4d4d;
+        color: var(--gray-base);
 
         @media (prefers-color-scheme: dark) {
             background-color: #4d4d4d;
-            color: #888888;
         }
     }
 
@@ -58,15 +57,10 @@
         border: 0;
         visibility: hidden;
         opacity: 0;
-        color: #4d4d4d;
-
-        @media (prefers-color-scheme: dark) {
-            color: #888888;
-        }
 
         &--active {
             visibility: visible;
-            opacity: 0.5;
+            opacity: 1;
         }
     }
 
@@ -202,11 +196,6 @@
 
         &__search-in {
             background-color: #f3f3f3;
-            color: #4d4d4d;
-        }
-
-        &__cross {
-            color: #4d4d4d;
         }
     }
 }
@@ -221,11 +210,6 @@
 
         &__search-in {
             background-color: #4d4d4d;
-            color: #888888;
-        }
-
-        &__cross {
-            color: #888888;
         }
     }
 }
