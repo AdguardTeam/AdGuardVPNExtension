@@ -1,6 +1,6 @@
 import browser from 'webextension-polyfill';
 
-import { Prefs } from './prefs';
+import { Prefs, BROWSER_NAMES } from './prefs';
 import { log } from '../lib/logger';
 import { promoNotifications } from './promoNotifications';
 import credentials from './credentials';
@@ -8,18 +8,29 @@ import { UPGRADE_LICENSE_URL } from './config';
 import tabs from './tabs';
 import { REFERRAL_PROGRAM } from '../lib/constants';
 
+/**
+ * Opens options tab with anchor if provided
+ * @param {string | null} anchor
+ * @return {Promise<void>}
+ */
 const openOptionsPage = async (anchor = null) => {
-    let optionsUrl = browser.runtime.getURL('options.html');
-    const optionsTab = await tabs.getTabByUrl(optionsUrl);
+    const optionsUrl = browser.runtime.getURL('options.html');
+    const targetUrl = `${optionsUrl}${anchor ? anchor : ''}`;
 
-    if (anchor) {
-        optionsUrl = `${optionsUrl}${anchor}`;
-    }
-
-    if (optionsTab) {
-        await tabs.update(optionsTab.id, optionsUrl);
+    if (Prefs.browser === BROWSER_NAMES.FIREFOX) {
+        // runtime.openOptionsPage() sometimes causes issue with multiple
+        // options tabs in Firefox, so tabs.query() is used to find options tab by url
+        const optionsTab = await tabs.getTabByUrl(optionsUrl);
+        if (optionsTab) {
+            await tabs.update(optionsTab.id, targetUrl);
+        } else {
+            await tabs.openTab(targetUrl);
+        }
     } else {
-        await tabs.openTab(optionsUrl);
+        // runtime.openOptionsPage() could be used properly in other browsers
+        await browser.runtime.openOptionsPage();
+        const optionsTab = tabs.getActive();
+        await tabs.update(optionsTab.id, targetUrl);
     }
 };
 

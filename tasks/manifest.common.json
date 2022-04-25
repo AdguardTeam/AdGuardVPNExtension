@@ -39,7 +39,6 @@
         "storage",
         "unlimitedStorage",
         "webRequest",
-        "webRequestBlocking",
-        "tabs"
+        "webRequestBlocking"
     ]
 }
