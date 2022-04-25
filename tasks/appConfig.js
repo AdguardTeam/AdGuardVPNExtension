@@ -21,6 +21,12 @@ const URLS_MAP_RELEASE = {
         OPTIONS_STORE_URL: `https://${WEBSITE_DOMAIN}/forward.html?action=edge_store&from=options_screen&app=vpn_extension`,
         FEEDBACK_URL: `https://${WEBSITE_DOMAIN}/forward.html?action=feedback_edge&from=options_screen&app=vpn_extension`,
     },
+    [BROWSERS.OPERA]: {
+        POPUP_STORE_URL: `https://${WEBSITE_DOMAIN}/forward.html?action=opera_store&from=popup&app=vpn_extension`,
+        POPUP_FEEDBACK_URL: `https://${WEBSITE_DOMAIN}/forward.html?action=feedback_opera&from=popup&app=vpn_extension`,
+        OPTIONS_STORE_URL: `https://${WEBSITE_DOMAIN}/forward.html?action=opera_store&from=options_screen&app=vpn_extension`,
+        FEEDBACK_URL: `https://${WEBSITE_DOMAIN}/forward.html?action=feedback_opera&from=options_screen&app=vpn_extension`,
+    },
 };
 
 const URLS_MAP_BETA = {
