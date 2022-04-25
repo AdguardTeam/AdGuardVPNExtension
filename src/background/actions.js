@@ -15,7 +15,7 @@ import { REFERRAL_PROGRAM } from '../lib/constants';
  */
 const openOptionsPage = async (anchor = null) => {
     const optionsUrl = browser.runtime.getURL('options.html');
-    const targetUrl = `${optionsUrl}${anchor ? anchor : ''}`;
+    const targetUrl = `${optionsUrl}${anchor || ''}`;
 
     if (Prefs.browser === BROWSER_NAMES.FIREFOX) {
         // runtime.openOptionsPage() sometimes causes issue with multiple
