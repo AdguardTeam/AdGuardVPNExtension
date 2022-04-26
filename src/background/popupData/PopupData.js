@@ -47,11 +47,7 @@ class PopupData {
             };
         }
 
-        const throttledPermissionsChecker = throttle(
-            this.permissionsChecker.checkPermissions,
-            2000,
-        );
-
+        await this.permissionsChecker.checkPermissions();
         const error = this.permissionsError.getError();
         const isRoutable = this.nonRoutable.isUrlRoutable(url);
         const vpnInfo = await this.endpoints.getVpnInfo();
@@ -69,7 +65,10 @@ class PopupData {
 
         // If error check permissions when popup is opened, ignoring multiple retries
         if (error) {
-            throttledPermissionsChecker();
+            throttle(
+                this.permissionsChecker.checkPermissions,
+                2000,
+            );
         }
 
         const simplifiedError = error ? {
