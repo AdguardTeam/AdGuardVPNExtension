@@ -3,16 +3,16 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ZipWebpackPlugin = require('zip-webpack-plugin');
 const common = require('../webpack.common');
-const { updateManifest, modifyExtensionName } = require('../helpers');
-const chromeManifestDiff = require('./manifest.chrome');
+const { updateManifest } = require('../helpers');
+const operaManifestDiff = require('./manifest.opera');
 const { STAGE_ENV, IS_DEV, STAGE_ENVS } = require('../consts');
 
-const CHROME_PATH = 'chrome';
+const OPERA_PATH = 'opera';
 
-let zipFilename = 'chrome.zip';
+let zipFilename = 'opera.zip';
 
 if (IS_DEV && STAGE_ENV === STAGE_ENVS.PROD) {
-    zipFilename = 'chrome-prod.zip';
+    zipFilename = 'opera-prod.zip';
 }
 
 const plugins = [
@@ -21,14 +21,7 @@ const plugins = [
             {
                 from: path.resolve(__dirname, '../manifest.common.json'),
                 to: 'manifest.json',
-                transform: (content) => {
-                    const updatedManifest = updateManifest(content, chromeManifestDiff);
-                    return modifyExtensionName(
-                        updatedManifest,
-                        process.env.BUILD_ENV,
-                        ' for Chrome',
-                    );
-                },
+                transform: (content) => updateManifest(content, operaManifestDiff),
             },
         ],
     }),
@@ -38,11 +31,11 @@ const plugins = [
     }),
 ];
 
-const chromeConfig = {
+const operaConfig = {
     output: {
-        path: path.join(common.output.path, CHROME_PATH),
+        path: path.join(common.output.path, OPERA_PATH),
     },
     plugins,
 };
 
-module.exports = merge(common, chromeConfig);
+module.exports = merge(common, operaConfig);

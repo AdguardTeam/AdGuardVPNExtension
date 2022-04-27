@@ -29,6 +29,26 @@ const updateManifest = (manifestJson, browserManifestDiff) => {
     return Buffer.from(JSON.stringify(updatedManifest, null, 4));
 };
 
+/**
+ * Adds provided suffix for release build
+ * @param manifestJson
+ * @param env
+ * @param suffix
+ */
+const modifyExtensionName = (manifestJson, env, suffix) => {
+    if (env !== ENVS.RELEASE) {
+        return manifestJson;
+    }
+
+    try {
+        const manifest = JSON.parse(manifestJson.toString());
+        manifest.name += suffix;
+        return Buffer.from(JSON.stringify(manifest, null, 4));
+    } catch (e) {
+        throw new Error('Unable to parse json from manifest');
+    }
+};
+
 const getOutputPathByEnv = (env = ENVS.DEV) => {
     const envData = ENV_MAP[env];
     if (!envData) {
@@ -47,11 +67,17 @@ const updateLocalesMSGName = (content, env) => {
     }
 
     const { name } = envData;
+    const envName = ` ${name}`;
 
     const messages = JSON.parse(content.toString());
 
+    // for dev and beta builds use short name + environment
+    if (env !== ENVS.RELEASE) {
+        messages.name.message = messages.short_name.message + envName;
+        return JSON.stringify(messages, null, 4);
+    }
+
     if (messages.name && name.length > 0) {
-        const envName = ` ${name}`;
         messages.name.message += envName;
         // if name with suffix is too long, use short name + plus suffix
         if (messages.name.message.length > NAME_MAX_LENGTH) {
@@ -68,6 +94,7 @@ const updateLocalesMSGName = (content, env) => {
 
 module.exports = {
     updateManifest,
+    modifyExtensionName,
     getOutputPathByEnv,
     updateLocalesMSGName,
 };

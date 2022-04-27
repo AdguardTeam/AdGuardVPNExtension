@@ -1,6 +1,6 @@
 {
     "name": "adguard-vpn",
-    "version": "1.0.41",
+    "version": "1.0.44",
     "description": "AdGuard VPN",
     "author": "adguard@adguard.com",
     "license": "LGPL-3.0",
@@ -14,6 +14,7 @@
         "build:firefox": "BROWSER=firefox webpack --config tasks/firefox/webpack.firefox.js",
         "build:chrome": "BROWSER=chrome webpack --config tasks/chrome/webpack.chrome.js",
         "build:edge": "BROWSER=edge webpack --config tasks/edge/webpack.edge.js",
+        "build:opera": "BROWSER=opera webpack --config tasks/opera/webpack.opera.js",
         "lint": "eslint . --ext .js,.jsx,.ts,.tsx; tsc --project tsconfig.eslint.json --noEmit ",
         "test": "jest",
         "test:watch": "jest --watch",
