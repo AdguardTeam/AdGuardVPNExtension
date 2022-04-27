@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — швидкий та безпечний vpn proxy"
+        "message": "AdGuard VPN — швидкий та безпечний proxy"
     },
     "description": {
         "message": "Використовуйте AdGuard VPN, щоб швидко та безпечно користуватись інтернетом. Захистіть свою приватність та станьте анонімними з проксі-сервером AdGuard VPN."
@@ -15,7 +15,7 @@
         "message": "Це значення недійсне"
     },
     "registration_error_min_length": {
-        "message": "Пароль надто короткий. Він повинен мати принаймні 8 символів."
+        "message": "Пароль надто короткий. Мусить мати щонайменше 8 символів."
     },
     "registration_error_compromised_password": {
         "message": "Введений пароль знайдено у <a>відкритій базі даних</a> викритих паролів. Будь ласка, спробуйте інший пароль."
@@ -123,7 +123,7 @@
         "message": "Версія"
     },
     "account_current_plan": {
-        "message": "Поточна підписка"
+        "message": "Поточна передплата"
     },
     "account_signed": {
         "message": "Ви ввійшли за допомогою"
@@ -182,6 +182,9 @@
     "auth_info": {
         "message": "Увійти з обліковим записом AdGuard або через соціальні мережі"
     },
+    "auth_sign_in_provider_adguard": {
+        "message": "Продовжити з електронною адресою"
+    },
     "auth_sign_in_provider_apple": {
         "message": "Продовжити з Apple"
     },
@@ -226,6 +229,9 @@
     },
     "settings_title": {
         "message": "Налаштування"
+    },
+    "options_menu_free_traffic": {
+        "message": "Безкоштовний VPN-трафік"
     },
     "referral_get_free_traffic": {
         "message": "Отримайте безкоштовний VPN-трафік!"
@@ -746,13 +752,13 @@
         "message": "Досягнуто максимальну кількість під'єднань: %maxDevicesAllowed%."
     },
     "popup_connections_limit_description_end_free": {
-        "message": "Щоб додати більше пристроїв, оформіть підписку на AdGuard VPN."
+        "message": "Щоб додати більше пристроїв, оформте передплату на AdGuard VPN."
     },
     "popup_connections_limit_description_end_premium": {
         "message": "Щоб додати ще один пристрій, вимкніть AdGuard VPN на будь-якому іншому вашому пристрої."
     },
     "popup_connections_limit_description_cta_button_free": {
-        "message": "Підписатися"
+        "message": "Передплатити"
     },
     "popup_connections_limit_description_cta_button_premium": {
         "message": "Докладніше"

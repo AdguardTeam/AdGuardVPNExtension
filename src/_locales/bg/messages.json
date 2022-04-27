@@ -77,6 +77,9 @@
     "global_error_learn_more": {
         "message": "Научи повече"
     },
+    "global_error_try_again": {
+        "message": "Опитай пак"
+    },
     "popup_settings_feedback": {
         "message": "Обратна връзка"
     },
@@ -99,7 +102,7 @@
         "message": "Добре"
     },
     "name": {
-        "message": "AdGuard VPN — fast vpn & secure private proxy"
+        "message": "AdGuard VPN — free & secure proxy"
     },
     "short_name": {
         "message": "AdGuard VPN"

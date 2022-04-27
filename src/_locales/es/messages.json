@@ -183,7 +183,7 @@
         "message": "Continúa con tu cuenta AdGuard o con las redes sociales"
     },
     "auth_sign_in_provider_adguard": {
-        "message": "Iniciar sesión con correo"
+        "message": "Continuar con correo electrónico"
     },
     "auth_sign_in_provider_apple": {
         "message": "Continuar con Apple"
@@ -229,6 +229,9 @@
     },
     "settings_title": {
         "message": "Configuración"
+    },
+    "options_menu_free_traffic": {
+        "message": "Tráfico VPN gratis"
     },
     "referral_get_free_traffic": {
         "message": "¡Obtén tráfico VPN gratis!"

@@ -1,7 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN — VPN rápida e proxy seguro"
-    },
     "description": {
         "message": "Use o AdGuard VPN para navegar na Internet de forma rápida, segura e protegida. Proteja sua privacidade e permaneça anónimo com nosso proxy de VPN privada."
     },
@@ -181,6 +178,9 @@
     },
     "auth_info": {
         "message": "Continuar com tua conta do AdGuard ou com redes sociais"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Continuar com o e-mail"
     },
     "auth_sign_in_provider_apple": {
         "message": "Continuar com Apple"
@@ -543,13 +543,13 @@
         "message": "Melhorar"
     },
     "settings_disconnect": {
-        "message": "Desconectar"
+        "message": "Desligar"
     },
     "settings_vpn_connecting": {
         "message": "A conectar..."
     },
     "settings_connect": {
-        "message": "Conectar"
+        "message": "Ligar"
     },
     "settings_vpn_enabled": {
         "message": "Conectado"
@@ -774,5 +774,8 @@
     },
     "options_signedout_page_description": {
         "message": "Sua conexão não é segura. Para continuar a navegar com privacidade, clique no ícone do AdGuard VPN e inicie sessão novamente."
+    },
+    "name": {
+        "message": "AdGuard VPN — free & secure proxy"
     }
 }

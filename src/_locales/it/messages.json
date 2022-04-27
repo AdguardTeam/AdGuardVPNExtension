@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — vpn veloce e proxy privato sicuro"
+        "message": "AdGuard VPN — proxy privato gratuito e sicuro"
     },
     "description": {
         "message": "Usa AdGuard VPN per navigare il Internet in sicurezza e velocità. Proteggi la tua privacy e rimani anonimo con il nostro proxy vpn privato."
@@ -229,6 +229,9 @@
     },
     "settings_title": {
         "message": "Impostazioni"
+    },
+    "options_menu_free_traffic": {
+        "message": "Traffico VPN gratuito"
     },
     "referral_get_free_traffic": {
         "message": "Ottieni traffico gratuito!"

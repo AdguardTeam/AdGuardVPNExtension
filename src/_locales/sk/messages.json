@@ -1,7 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN — rýchly vpn a bezpečný súkromný proxy"
-    },
     "description": {
         "message": "Použite AdGuard VPN na rýchle, bezpečné a bezpečné surfovanie po internete. Chráňte svoje súkromie a zostaňte v anonymite pomocou nášho súkromného vpn proxy."
     },
@@ -226,6 +223,9 @@
     },
     "settings_title": {
         "message": "Nastavenia"
+    },
+    "options_menu_free_traffic": {
+        "message": "Bezplatná VPN komunikácia"
     },
     "referral_get_free_traffic": {
         "message": "Získajte bezplatnú VPN komunikáciu!"
@@ -774,5 +774,8 @@
     },
     "options_signedout_page_description": {
         "message": "Vaše pripojenie nie je bezpečné. Ak chcete pokračovať v súkromnom surfovaní, kliknite na ikonu AdGuard VPN a znova sa prihláste."
+    },
+    "name": {
+        "message": "AdGuard VPN — free & secure proxy"
     }
 }

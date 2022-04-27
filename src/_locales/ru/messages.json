@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — быстрый и безопасный vpn proxy"
+        "message": "AdGuard VPN — быстрый и безопасный proxy"
     },
     "description": {
         "message": "Анонимайзер AdGuard VPN для быстрого и безопасного сёрфинга в интернете. Скройте IP и сохраняйте анонимность в Сети с proxy-сервером AdGuard VPN."
@@ -231,7 +231,7 @@
         "message": "Настройки"
     },
     "options_menu_free_traffic": {
-        "message": "Бесплатный трафик"
+        "message": "Бесплатный VPN-трафик"
     },
     "referral_get_free_traffic": {
         "message": "Получите бесплатный VPN-трафик!"

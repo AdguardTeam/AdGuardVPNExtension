@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — 公共Wi-Fiでもネットが安心のVPN"
+        "message": "AdGuard VPN — 公共Wi-Fiでもネットが安全になるVPN"
     },
     "description": {
         "message": "オンラインで個人情報プライバシーを守るAdGuard VPNを使って、高速かつ安全なインターネットをお楽しみください。"
@@ -229,6 +229,9 @@
     },
     "settings_title": {
         "message": "設定"
+    },
+    "options_menu_free_traffic": {
+        "message": "無料データ量"
     },
     "referral_get_free_traffic": {
         "message": "無料データ量をGET！"

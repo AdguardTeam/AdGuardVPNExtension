@@ -230,6 +230,9 @@
     "settings_title": {
         "message": "Einstellungen"
     },
+    "options_menu_free_traffic": {
+        "message": "Kostenloser VPN-Traffic"
+    },
     "referral_get_free_traffic": {
         "message": "Holen Sie sich kostenlostes Datenvolumen!"
     },

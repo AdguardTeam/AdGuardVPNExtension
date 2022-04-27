@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — nopea vpn ja turvallinen yksityinen välityspalvelin"
+        "message": "AdGuard VPN — ilmainen ja turvallinen välityspalvelin"
     },
     "description": {
         "message": "Surffaile Internetissä nopeasti ja turvallisesti AdGuard VPN:llä. Suojaa yksityisyyttäsi ja pysy nimettömänä yksityisella VPN-välityspalvelimellamme."
@@ -174,13 +174,16 @@
         "message": "Kirjaudu"
     },
     "auth_sign_in_link": {
-        "message": "Kirjaudu AdGuard-tunnuksella"
+        "message": "Kirjaudu AdGuard-tilillä"
     },
     "auth_title": {
         "message": "Todennus"
     },
     "auth_info": {
-        "message": "Jatka AdGuard-tunnuksellasi tai sosiaalisilla verkostoilla"
+        "message": "Jatka AdGuard-tililläsi tai sosiaalisella kirjautumisella"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Jatka sähköpostilla"
     },
     "auth_sign_in_provider_apple": {
         "message": "Jatka Applella"
@@ -192,7 +195,7 @@
         "message": "Jatka Facebookilla"
     },
     "auth_header_sign_in_account": {
-        "message": "Olet kirjautumassa AdGuard-tunnuksella"
+        "message": "Olet kirjautumassa AdGuard-tilillä"
     },
     "auth_header_sign_up_create_account": {
         "message": "Rekisteröitymällä luot itsellesi AdGuard-tilin"

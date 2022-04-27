@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — 快速的 vpn & 安全私人的代理"
+        "message": "AdGuard VPN — 快速 & 安全的代理"
     },
     "description": {
         "message": "使用 AdGuard VPN 以快速地、可靠地、安全地於網際網路上瀏覽。用我們私人的 vpn 代理保護您的隱私並保持匿名。"
@@ -229,6 +229,9 @@
     },
     "settings_title": {
         "message": "設定"
+    },
+    "options_menu_free_traffic": {
+        "message": "免費 VPN 流量"
     },
     "referral_get_free_traffic": {
         "message": "取得免費的 VPN 流量！"

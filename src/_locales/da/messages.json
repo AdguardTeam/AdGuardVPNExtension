@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — hurtigt VPN og sikker privat proxy"
+        "message": "AdGuard VPN — gratis og sikker proxy"
     },
     "description": {
         "message": "Brug AdGuard VPN til at surfe på Internet hurtigt, trygt og sikkert. Beskyt fortroligheden og forbliv anonym med vores private VPN-proxy."
@@ -182,6 +182,9 @@
     "auth_info": {
         "message": "Fortsæt med din AdGuard-konto eller socialt netværk"
     },
+    "auth_sign_in_provider_adguard": {
+        "message": "Fortsæt med e-mail"
+    },
     "auth_sign_in_provider_apple": {
         "message": "Fortsæt med Apple"
     },
@@ -226,6 +229,9 @@
     },
     "settings_title": {
         "message": "Indstillinger"
+    },
+    "options_menu_free_traffic": {
+        "message": "Gratis VPN-trafik"
     },
     "referral_get_free_traffic": {
         "message": "Få gratis VPN-trafik!"

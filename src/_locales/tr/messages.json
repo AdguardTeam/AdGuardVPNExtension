@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — hızlı vpn ve güvenli özel proxy"
+        "message": "AdGuard VPN — ücretsiz ve güvenli proxy"
     },
     "description": {
         "message": "İnternette hızlı, güvenli ve güvenilir bir şekilde gezinmek için AdGuard VPN kullanın. Özel vpn proxy'mizle gizliliğinizi koruyun ve anonim kalın."
@@ -182,14 +182,17 @@
     "auth_info": {
         "message": "AdGuard hesabınızla veya sosyal ağ giriş yapmayla devam edin"
     },
+    "auth_sign_in_provider_adguard": {
+        "message": "E-posta ile devam et"
+    },
     "auth_sign_in_provider_apple": {
-        "message": "Apple ile devam edin"
+        "message": "Apple ile devam et"
     },
     "auth_sign_in_provider_google": {
-        "message": "Google ile devam edin"
+        "message": "Google ile devam et"
     },
     "auth_sign_in_provider_facebook": {
-        "message": "Facebook ile devam edin"
+        "message": "Facebook ile devam et"
     },
     "auth_header_sign_in_account": {
         "message": "AdGuard hesabıyla giriş yapıyorsunuz"
@@ -226,6 +229,9 @@
     },
     "settings_title": {
         "message": "Ayarlar"
+    },
+    "options_menu_free_traffic": {
+        "message": "Ücretsiz VPN verisi"
     },
     "referral_get_free_traffic": {
         "message": "Ücretsiz VPN verisi edinin!"
@@ -411,7 +417,7 @@
         "message": "%hostname% için varsayılan ayarlar sıfırlansın mı? Bu, eksik alan adlarını geri yükleyecek ve tüm onay işaretlerini açık olarak ayarlayacaktır."
     },
     "settings_exclusion_search_website": {
-        "message": "Web sitesi ara"
+        "message": "Site ara"
     },
     "settings_exclusion_placeholder_search": {
         "message": "Ara"

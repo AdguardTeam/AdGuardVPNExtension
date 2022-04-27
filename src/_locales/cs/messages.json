@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — rychlá VPN a bezpečný soukromý proxy server"
+        "message": "AdGuard VPN — bezplatný a bezpečný proxy server"
     },
     "description": {
         "message": "Pomocí AdGuard VPN můžete surfovat na internetu rychle, bezpečně a spolehlivě. Chraňte své soukromí a zůstaňte v anonymitě s naším soukromým proxy serverem VPN."
@@ -182,6 +182,9 @@
     "auth_info": {
         "message": "Pokračujte pomocí svého AdGuard účtu nebo pomocí sociálních sítí"
     },
+    "auth_sign_in_provider_adguard": {
+        "message": "Pokračovat pomocí e-mailu"
+    },
     "auth_sign_in_provider_apple": {
         "message": "Pokračovat s Apple účtem"
     },
@@ -226,6 +229,9 @@
     },
     "settings_title": {
         "message": "Nastavení"
+    },
+    "options_menu_free_traffic": {
+        "message": "Datový provoz VPN zdarma"
     },
     "referral_get_free_traffic": {
         "message": "Získejte zdarma datový provoz VPN!"

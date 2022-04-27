@@ -1,7 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN — snelle VPN & veilige privéproxy"
-    },
     "description": {
         "message": "AdGuard VPN gebruiken om snel, veilig en beveiligd op internet te surfen. Je privacy beschermen en anoniem blijven met onze privé-VPN-proxy."
     },
@@ -181,6 +178,9 @@
     },
     "auth_info": {
         "message": "Doorgaan met je AdGuard-account of met sociale netwerk aanmelding"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Doorgaan met e-mail"
     },
     "auth_sign_in_provider_apple": {
         "message": "Doorgaan met Apple"
@@ -774,5 +774,8 @@
     },
     "options_signedout_page_description": {
         "message": "Je verbinding is niet veilig. Om privé te blijven surfen, klik je op het pictogram Adguard VPN en meld je weer aan."
+    },
+    "name": {
+        "message": "AdGuard VPN — free & secure proxy"
     }
 }

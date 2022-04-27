@@ -182,6 +182,9 @@
     "auth_info": {
         "message": "Continuați cu contul dvs. AdGuard sau cu conectarea socială"
     },
+    "auth_sign_in_provider_adguard": {
+        "message": "Continuați cu e-mailul"
+    },
     "auth_sign_in_provider_apple": {
         "message": "Continuați cu Apple"
     },
@@ -226,6 +229,9 @@
     },
     "settings_title": {
         "message": "Setări"
+    },
+    "options_menu_free_traffic": {
+        "message": "Trafic VPN gratuit"
     },
     "referral_get_free_traffic": {
         "message": "Obțineți date VPN gratuit!"

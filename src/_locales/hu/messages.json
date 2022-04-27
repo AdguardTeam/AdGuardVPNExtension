@@ -1,7 +1,4 @@
 {
-    "name": {
-        "message": "AdGuard VPN - gyors vpn & biztonságos privát proxy"
-    },
     "description": {
         "message": "Az AdGuard VPN-nel gyorsan és biztonságosan böngészet. Védje magánéletét és maradjon névtelen a privát vpn proxynk segítségével."
     },
@@ -181,6 +178,9 @@
     },
     "auth_info": {
         "message": "Folytatás AdGuard vagy közösségi média fiókkal"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Folytatás E-mail címmel"
     },
     "auth_sign_in_provider_apple": {
         "message": "Folytatás Apple fiókkal"
@@ -774,5 +774,8 @@
     },
     "options_signedout_page_description": {
         "message": "Az Ön kapcsolata nem biztonságos. A privát böngészés folytatásához kattintson az AdGuard VPN ikonra és jelentkezzen be ismét."
+    },
+    "name": {
+        "message": "AdGuard VPN — free & secure proxy"
     }
 }
