@@ -16,6 +16,11 @@ class PopupActions {
         const vpnFailurePage = await messenger.getVpnFailurePage();
         await this.openTab(vpnFailurePage);
     };
+
+    openReferralOptions = async () => {
+        await messenger.openReferralOptions();
+        window.close();
+    };
 }
 
 export const popupActions = new PopupActions();

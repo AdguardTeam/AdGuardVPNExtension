@@ -6,12 +6,12 @@ import { observer } from 'mobx-react';
 import Modal from 'react-modal';
 import { CSSTransition } from 'react-transition-group';
 
-import Header from '../Header';
+import { Header } from '../Header';
 import InfoMessage from '../InfoMessage';
 import FeedbackMessage from '../InfoMessage/FeedbackMessage';
 import Locations from '../Locations';
 import Authentication from '../Authentication';
-import ExtraOptions from '../ExtraOptions';
+import { ExtraOptions } from '../ExtraOptions';
 import GlobalError from '../GlobalError';
 import Settings from '../Settings';
 import { PromoNotificationModal } from '../PromoNotificationModal';
@@ -30,7 +30,7 @@ import { ConnectionsLimitError } from '../ConnectionsLimitError';
 import { Onboarding } from '../Authentication/Onboarding';
 import { Newsletter } from '../Authentication/Newsletter';
 import { UpgradeScreen } from '../Authentication/UpgradeScreen';
-import DotsLoader from '../ui/DotsLoader';
+import { DotsLoader } from '../../../common/components/DotsLoader';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');

@@ -1,0 +1,69 @@
+.referral {
+    background-image: url("../../../assets/images/free-traffic.svg");
+    background-repeat: no-repeat;
+    padding-top: 240px;
+
+    & h2 {
+        margin-bottom: 10px;
+    }
+    &__image {
+        margin-bottom: 50px;
+    }
+
+    &__info {
+        max-width: 450px;
+    }
+
+    &__status {
+        margin-top: 20px;
+        font-weight: bold;
+    }
+
+    &__link {
+        margin-top: 40px;
+        position: relative;
+
+        &__input {
+            width: 270px;
+            padding: 16px 23px;
+            border: none;
+            border-radius: 6px;
+            background-color: var(--grayF2);
+            color: var(--gray-base);
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        &__copy-button {
+            padding: 16px 23px;
+            font-size: 1.2rem;
+            border-radius: 6px;
+            border: none;
+            background-color: var(--green700);
+            color: var(--pure-white);
+            cursor: pointer;
+
+            &:hover {
+                filter: brightness(1.05);
+            }
+        }
+
+        &__message {
+            font-size: 1.2rem;
+            margin-left: 25px;
+            visibility: hidden;
+            position: absolute;
+            min-width: 100px;
+            top: 13px;
+
+            &__display {
+                visibility: visible;
+            }
+        }
+    }
+}
+
+.dots-loader {
+    position: relative;
+    top: 150px;
+}

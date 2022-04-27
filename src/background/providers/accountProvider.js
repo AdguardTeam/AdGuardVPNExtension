@@ -1,5 +1,11 @@
 import { accountApi } from '../api';
 
+import { WEBSITE_DOMAIN } from '../config';
+
+const HTTPS_PROTOCOL = 'https://';
+const REFERRAL_URL_KEYWORD = '/join/';
+const REFERRAL_URL_SUFFIX = '/form.html';
+
 const getVpnToken = async (accessToken) => {
     const vpnTokenData = await accountApi.getVpnToken(accessToken);
 
@@ -37,6 +43,21 @@ const getVpnToken = async (accessToken) => {
     };
 };
 
+const getReferralData = async (accessToken) => {
+    const referralData = await accountApi.getReferralData(accessToken);
+    const {
+        invite_id: inviteId,
+        invites_count: invitesCount,
+        max_invites_count: maxInvitesCount,
+    } = referralData;
+    const inviteUrl = `${HTTPS_PROTOCOL}${WEBSITE_DOMAIN}${REFERRAL_URL_KEYWORD}${inviteId}${REFERRAL_URL_SUFFIX}`;
+    return {
+        inviteUrl,
+        invitesCount,
+        maxInvitesCount,
+    };
+};
+
 const getAccountInfo = async (accessToken) => {
     const { email } = await accountApi.getAccountInfo(accessToken);
     return email;
@@ -45,4 +66,5 @@ const getAccountInfo = async (accessToken) => {
 export default {
     getVpnToken,
     getAccountInfo,
+    getReferralData,
 };

@@ -75,6 +75,8 @@ export enum MessageType {
     SET_FLAG = 'set.flag',
     GET_GENERAL_EXCLUSIONS = 'get.general.exclusions',
     GET_SELECTIVE_EXCLUSIONS = 'get.selective.exclusions',
+    OPEN_REFERRAL_OPTIONS = 'open.referral.options',
+    GET_REFERRAL_DATA = 'get.referral.data',
     RESTORE_EXCLUSIONS = 'restore.exclusions',
     ADD_EXCLUSIONS_MAP = 'add.exclusions.map',
 }
@@ -103,3 +105,5 @@ export const FLAGS_FIELDS = {
     SHOW_UPGRADE_SCREEN: 'showUpgradeScreen',
     SALE_SHOW: 'saleShow',
 };
+
+export const REFERRAL_PROGRAM = 'referral-program';

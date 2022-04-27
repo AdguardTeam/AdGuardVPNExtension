@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DotsLoader from '../ui/DotsLoader';
+import { DotsLoader } from '../../../common/components/DotsLoader';
 
 const Submit = ({
     processing, disabled, text,

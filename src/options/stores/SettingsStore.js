@@ -7,6 +7,8 @@ import {
 import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT } from '../../lib/constants';
 import { DNS_DEFAULT } from '../../background/dns/dnsConstants';
 import { messenger } from '../../lib/messenger';
+import { REQUEST_STATUSES } from './consts';
+import { log } from '../../lib/logger';
 
 export class SettingsStore {
     @observable isRateVisible = true;
@@ -30,6 +32,12 @@ export class SettingsStore {
     @observable dnsServer = DNS_DEFAULT;
 
     @observable nextBillDate;
+
+    @observable inviteUrl = '';
+
+    @observable invitesCount = 0;
+
+    @observable referralDataRequestStatus;
 
     @action
     async requestIsPremiumToken() {
@@ -109,6 +117,23 @@ export class SettingsStore {
         const currentUsername = await messenger.getUsername();
         runInAction(() => {
             this.currentUsername = currentUsername;
+        });
+    };
+
+    @action updateReferralData = async () => {
+        this.referralDataRequestStatus = REQUEST_STATUSES.PENDING;
+        const referralData = await messenger.getReferralData();
+        const { inviteUrl, invitesCount, maxInvitesCount } = referralData;
+        if (Number.isNaN(invitesCount)) {
+            log.warn('Referral data request failed');
+            this.referralDataRequestStatus = REQUEST_STATUSES.ERROR;
+            return;
+        }
+        runInAction(() => {
+            this.inviteUrl = inviteUrl;
+            this.invitesCount = invitesCount;
+            this.maxInvitesCount = maxInvitesCount;
+            this.referralDataRequestStatus = REQUEST_STATUSES.DONE;
         });
     };
 

@@ -1,20 +1,36 @@
 import browser from 'webextension-polyfill';
-import { Prefs } from './prefs';
+
+import { Prefs, BROWSER_NAMES } from './prefs';
 import { log } from '../lib/logger';
 import { promoNotifications } from './promoNotifications';
 import credentials from './credentials';
 import { UPGRADE_LICENSE_URL } from './config';
 import tabs from './tabs';
+import { REFERRAL_PROGRAM } from '../lib/constants';
 
-const openOptionsPage = async () => {
-    const tabs = await browser.tabs.query({});
+/**
+ * Opens options tab with anchor if provided
+ * @param {string | null} anchor
+ * @return {Promise<void>}
+ */
+const openOptionsPage = async (anchor = null) => {
     const optionsUrl = browser.runtime.getURL('options.html');
-    const optionsTab = tabs.find((tab) => tab.url?.startsWith(optionsUrl));
+    const targetUrl = `${optionsUrl}${anchor || ''}`;
 
-    if (optionsTab) {
-        await browser.tabs.update(optionsTab.id, { active: true, url: optionsUrl });
+    if (Prefs.browser === BROWSER_NAMES.FIREFOX) {
+        // runtime.openOptionsPage() sometimes causes issue with multiple
+        // options tabs in Firefox, so tabs.query() is used to find options tab by url
+        const optionsTab = await tabs.getTabByUrl(optionsUrl);
+        if (optionsTab) {
+            await tabs.update(optionsTab.id, targetUrl);
+        } else {
+            await tabs.openTab(targetUrl);
+        }
     } else {
+        // runtime.openOptionsPage() could be used properly in other browsers
         await browser.runtime.openOptionsPage();
+        const optionsTab = tabs.getActive();
+        await tabs.update(optionsTab.id, targetUrl);
     }
 };
 
@@ -135,6 +151,13 @@ const openPremiumPromoPage = async () => {
     await tabs.openTab(url);
 };
 
+/**
+ * Opens Options page on Referral Program section
+ */
+const openReferralOptions = async () => {
+    await openOptionsPage(`#${REFERRAL_PROGRAM}`);
+};
+
 const actions = {
     openOptionsPage,
     setIconEnabled,
@@ -144,6 +167,7 @@ const actions = {
     clearBadgeText,
     getPremiumPromoPageUrl,
     openPremiumPromoPage,
+    openReferralOptions,
 };
 
 export default actions;

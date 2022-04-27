@@ -3,6 +3,15 @@ import { lazyGet } from '../lib/helpers';
 
 const ICONS_PATH = 'assets/images/icons';
 
+export const BROWSER_NAMES = {
+    CHROME: 'Chrome',
+    FIREFOX: 'Firefox',
+    OPERA: 'Opera',
+    EDGE: 'Edge',
+    EDGE_CHROMIUM: 'EdgeChromium',
+    YA_BROWSER: 'YaBrowser',
+};
+
 export const Prefs = {
     get ICONS() {
         return lazyGet(Prefs, 'ICONS', () => ({
@@ -30,18 +39,18 @@ export const Prefs = {
             let { userAgent } = navigator;
             userAgent = userAgent.toLowerCase();
             if (userAgent.indexOf('yabrowser') >= 0) {
-                browser = 'YaBrowser';
+                browser = BROWSER_NAMES.YA_BROWSER;
             } else if (userAgent.indexOf('edge') >= 0) {
-                browser = 'Edge';
+                browser = BROWSER_NAMES.EDGE;
             } else if (userAgent.indexOf('edg') >= 0) {
-                browser = 'EdgeChromium';
+                browser = BROWSER_NAMES.EDGE_CHROMIUM;
             } else if (userAgent.indexOf('opera') >= 0
                 || userAgent.indexOf('opr') >= 0) {
-                browser = 'Opera';
+                browser = BROWSER_NAMES.OPERA;
             } else if (userAgent.indexOf('firefox') >= 0) {
-                browser = 'Firefox';
+                browser = BROWSER_NAMES.FIREFOX;
             } else {
-                browser = 'Chrome';
+                browser = BROWSER_NAMES.CHROME;
             }
             return browser;
         });
