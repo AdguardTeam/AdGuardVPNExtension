@@ -47,6 +47,11 @@ class PopupData {
             };
         }
 
+        const throttledPermissionsChecker = throttle(
+            this.permissionsChecker.checkPermissions,
+            2000,
+        );
+
         // max_downloaded_bytes in vpnInfo will be recalculated according invited
         // users by referral program only after credentials requested
         await this.permissionsChecker.checkPermissions();
@@ -67,10 +72,7 @@ class PopupData {
 
         // If error check permissions when popup is opened, ignoring multiple retries
         if (error) {
-            throttle(
-                this.permissionsChecker.checkPermissions,
-                2000,
-            );
+            throttledPermissionsChecker();
         }
 
         const simplifiedError = error ? {
