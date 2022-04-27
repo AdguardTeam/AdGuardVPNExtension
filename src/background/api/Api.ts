@@ -3,6 +3,8 @@ import axios, { AxiosRequestConfig, Method } from 'axios';
 import { ERROR_STATUSES } from '../../lib/constants';
 import CustomError from '../../lib/CustomError';
 
+const REQUEST_TIMEOUT_MS = 1000 * 6; // 6 seconds
+
 interface ConfigInterface {
     params?: {
         app_id?: string;
@@ -44,6 +46,7 @@ export class Api implements ApiInterface {
             const response = await axios({
                 url,
                 method,
+                timeout: REQUEST_TIMEOUT_MS,
                 ...config,
             } as AxiosRequestConfig);
             return response.data;
