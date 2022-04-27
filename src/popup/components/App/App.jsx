@@ -30,7 +30,7 @@ import { ConnectionsLimitError } from '../ConnectionsLimitError';
 import { Onboarding } from '../Authentication/Onboarding';
 import { Newsletter } from '../Authentication/Newsletter';
 import { UpgradeScreen } from '../Authentication/UpgradeScreen';
-import DotsLoader from '../ui/DotsLoader';
+import { DotsLoader } from '../../../common/components/DotsLoader';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
