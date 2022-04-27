@@ -12,7 +12,6 @@ import FeedbackMessage from '../InfoMessage/FeedbackMessage';
 import Locations from '../Locations';
 import Authentication from '../Authentication';
 import ExtraOptions from '../ExtraOptions';
-import Preloader from '../Preloader';
 import GlobalError from '../GlobalError';
 import Settings from '../Settings';
 import { PromoNotificationModal } from '../PromoNotificationModal';
@@ -31,6 +30,7 @@ import { ConnectionsLimitError } from '../ConnectionsLimitError';
 import { Onboarding } from '../Authentication/Onboarding';
 import { Newsletter } from '../Authentication/Newsletter';
 import { UpgradeScreen } from '../Authentication/UpgradeScreen';
+import DotsLoader from '../ui/DotsLoader';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -48,7 +48,6 @@ export const App = observer(() => {
         desktopVpnEnabled,
         canControlProxy,
         hasGlobalError,
-        checkPermissionsState,
         hasLimitExceededError,
         isExcluded,
         canBeExcluded,
@@ -56,9 +55,10 @@ export const App = observer(() => {
     } = settingsStore;
 
     const {
-        requestProcessState,
         authenticated,
     } = authStore;
+
+    const { initStatus } = globalStore;
 
     const { isOpenEndpointsSearch, isOpenOptionsModal } = uiStore;
 
@@ -143,7 +143,15 @@ export const App = observer(() => {
 
     useAppearanceTheme(settingsStore.appearanceTheme);
 
-    // show nothing while data is loading, except cases after authentication
+    // show dots-loader while data is loading
+    if (initStatus === REQUEST_STATUSES.PENDING) {
+        return (
+            <div className="data-loader">
+                <DotsLoader />
+            </div>
+        );
+    }
+
     if (authStore.requestProcessState !== REQUEST_STATUSES.PENDING
         && settingsStore.checkPermissionsState !== REQUEST_STATUSES.PENDING
         && globalStore.status === REQUEST_STATUSES.PENDING) {
@@ -153,8 +161,6 @@ export const App = observer(() => {
     if (!authenticated) {
         return (
             <>
-                {requestProcessState === REQUEST_STATUSES.PENDING
-                && <Preloader isOpen={requestProcessState === REQUEST_STATUSES.PENDING} />}
                 <Authentication />
                 <Icons />
             </>
@@ -187,8 +193,6 @@ export const App = observer(() => {
         const showMenuButton = authenticated && canControlProxy;
         return (
             <>
-                {checkPermissionsState === REQUEST_STATUSES.PENDING
-                && <Preloader isOpen={checkPermissionsState === REQUEST_STATUSES.PENDING} />}
                 {isOpenOptionsModal && <ExtraOptions />}
                 <Header showMenuButton={showMenuButton} />
                 <Icons />
@@ -200,7 +204,6 @@ export const App = observer(() => {
     if (showLimitExceededScreen || !canControlProxy) {
         return (
             <>
-                <Preloader isOpen={checkPermissionsState === REQUEST_STATUSES.PENDING} />
                 <TrafficLimitExceeded />
                 <Icons />
             </>
