@@ -227,6 +227,9 @@
     "settings_title": {
         "message": "Instellingen"
     },
+    "options_menu_free_traffic": {
+        "message": "Gratis VPN-dataverkeer"
+    },
     "referral_get_free_traffic": {
         "message": "Gratis VPN-dataverkeer verkrijgen!"
     },

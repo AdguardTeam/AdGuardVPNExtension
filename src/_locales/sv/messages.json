@@ -140,6 +140,9 @@
     "settings_title": {
         "message": "Inställningar"
     },
+    "options_menu_free_traffic": {
+        "message": "Gratis VPN-trafik"
+    },
     "settings_referral_copy_link": {
         "message": "Kopiera länk"
     },

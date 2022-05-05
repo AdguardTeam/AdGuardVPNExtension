@@ -1,4 +1,7 @@
 {
+    "name": {
+        "message": "AdGuard VPN — الخصوصية و الحماية"
+    },
     "description": {
         "message": "من مبتكري برامج حظرالإعلانات الشهيرTopnotch VPNيجعل الإنترنت مفتوحًا ويجعل بياناتك آمنة"
     },
@@ -227,6 +230,9 @@
     "settings_title": {
         "message": "الإعدادات"
     },
+    "options_menu_free_traffic": {
+        "message": "حركة مرور VPN مجانية"
+    },
     "referral_get_free_traffic": {
         "message": "احصل على حركة مرور مجانية!"
     },
@@ -286,6 +292,9 @@
     },
     "settings_dns_selector_adguard_desc": {
         "message": "يزيل الإعلانات والمتتبعون من جهازك"
+    },
+    "settings_dns_selector_adguard_nonfiltering_title": {
+        "message": "عدم تصفية AdGuard DNS"
     },
     "settings_dns_selector_adguard_nonfiltering_desc": {
         "message": "DNS آمن بدون تسجيل نشاط (لا يقوم بتصفية الإعلانات والمتتبعين)"
@@ -569,6 +578,9 @@
     "popup_feedback_button": {
         "message": "اترك ملاحظاتك"
     },
+    "settings_run_upgrade_early_bird": {
+        "message": "أسعار الطيور المبكرة"
+    },
     "sale_title": {
         "message": "على ماذا حصلت:"
     },
@@ -605,6 +617,9 @@
     "popup_auth_policy_agreement": {
         "message": "قبول <eula>سياسة الترخيص للمستخدم النهائية</eula>و <privacy> سياسة الخصوصية</privacy>",
         "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "السماح لـ AdGuard بجمع<link>بيانات مجهولة المصدر</link> حول استخدام التطبيق لتحسين AdGuard VPN"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "استمرار"
@@ -672,6 +687,16 @@
     "popup_upgrade_screen_streaming": {
         "message": "البث"
     },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "ترقيه"
+    },
+    "popup_upgrade_screen_continue_free": {
+        "message": "استمر مجانًا"
+    },
+    "popup_free_traffic_info": {
+        "message": "<span>%value% %unit%</span> المتبقية هذا الشهر",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
     "options_selective_mode_popup_message": {
         "message": "في الوضع الانتقائي  يعمل AdGuard VPN فقط على مواقع الويب المسموح بها التي أضفتها إلى القائمة"
     },
@@ -679,7 +704,10 @@
         "message": "التبديل الآن"
     },
     "options_selective_mode_popup_attention": {
-        "message": "هل تريد التبديل؟"
+        "message": "هل أنت متأكد أنك تريد التبديل؟"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "استيراد استثناءات إلى:"
     },
     "options_exclusions_import_select_regular": {
         "message": "قائمة منتظمة"
@@ -752,8 +780,5 @@
     },
     "options_signedout_page_description": {
         "message": "اتصالك غير آمن. لمتابعة التصفح بشكل خاص ، انقر فوق رمز AdGuard VPN وقم بتسجيل الدخول مرة أخرى."
-    },
-    "name": {
-        "message": "AdGuard VPN — free & secure proxy"
     }
 }
