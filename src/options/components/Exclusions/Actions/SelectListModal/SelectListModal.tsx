@@ -26,14 +26,14 @@ export const SelectListModal = ({
                 <button
                     type="button"
                     onClick={handleRegularClick}
-                    className="button modal__button modal__button--first"
+                    className="button button--outline-light-gray modal__button modal__button--first"
                 >
                     {reactTranslator.getMessage('options_exclusions_import_select_regular')}
                 </button>
                 <button
                     type="button"
                     onClick={handleSelectiveClick}
-                    className="button modal__button"
+                    className="button button--outline-light-gray modal__button"
                 >
                     {reactTranslator.getMessage('options_exclusions_import_select_selective')}
                 </button>
