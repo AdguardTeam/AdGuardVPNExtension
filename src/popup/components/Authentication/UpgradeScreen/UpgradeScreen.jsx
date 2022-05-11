@@ -14,6 +14,7 @@ export const UpgradeScreen = () => {
     const handleUpgradeClick = async () => {
         await authStore.setShowUpgradeScreen(false);
         await vpnStore.openPremiumPromoPage();
+        window.close();
     };
 
     const handleSkipClick = async () => {

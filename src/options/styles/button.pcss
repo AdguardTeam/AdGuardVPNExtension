@@ -53,6 +53,21 @@
         }
     }
 
+    &--outline-light-gray {
+        color: var(--gray88);
+        border-color: var(--gray88);
+        transition: var(--t3) background-color;
+
+        &:hover,
+        &:focus {
+            background-color: var(--grayF3);
+
+            @media (prefers-color-scheme: dark) {
+                background-color: rgba(243, 243, 243, 0.05);
+            }
+        }
+    }
+
     &--outline-gray {
         color: var(--gray-base);
         border-color: var(--gray-base);

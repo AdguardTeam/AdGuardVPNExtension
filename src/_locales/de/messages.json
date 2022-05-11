@@ -231,13 +231,13 @@
         "message": "Einstellungen"
     },
     "options_menu_free_traffic": {
-        "message": "Kostenloser VPN-Traffic"
+        "message": "Kostenlose VPN-Datenmenge"
     },
     "referral_get_free_traffic": {
-        "message": "Holen Sie sich kostenlostes Datenvolumen!"
+        "message": "Erhalten Sie kostenlosen VPN-Traffic!"
     },
     "settings_referral_info": {
-        "message": "Laden Sie Ihre Freunde dazu ein, unserem Ninja-Clan beizutreten, und erhalten dafür einen Monat lang zusätzliches kostenloses Datenvolumen. Für jede(n) Freund(in), der sich dadurch anmeldet, erhalten Sie 1 GB: er erhält ebenfalls 1 GB extra kostenlos! Sie können insgesamt 10 GB kostenlos erhalten."
+        "message": "Laden Sie Ihre Freunde dazu ein, unserem Ninja-Clan beizutreten, und erhalten Sie dafür zusätzlichen Traffic kostenlos — 1 GB für jede(n) Freund(in). Ihre Freunde erhalten ebenfalls 1 GB extra kostenlos! Sie können insgesamt bis zu 10 GB kostenlos bekommen."
     },
     "settings_referral_invited_friends": {
         "message": "Eingeladene Freunde %count%/%limit%"
@@ -258,13 +258,13 @@
         "message": "WebRTC sperren"
     },
     "settings_webrtc_desc": {
-        "message": "WebRTC ist ein spezielles Programm in den meisten Internet-Browsern, das es einer Website eines Drittanbieters ermöglichen kann, Ihre wirkliche IP-Adresse zu ermitteln und Sie damit zu identifizieren."
+        "message": "WebRTC ist ein spezielles Programm in den meisten Internet-Browsern, womit Drittanbieter Ihre wirkliche IP-Adresse ermitteln und Sie identifizieren können"
     },
     "settings_context_menus_title": {
         "message": "AdGuard VPN zum Kontextmenü des Browsers hinzufügen"
     },
     "settings_help_us_improve_title": {
-        "message": "Helfen Sie uns, uns zu verbessern"
+        "message": "AdGuard helfen, besser zu werden"
     },
     "settings_help_us_improve_description": {
         "message": "AdGuard VPN erlauben, Absturzberichte, technische und Interaktionsdaten zu sammeln. Dies erfolgt anonymisiert."
@@ -615,11 +615,11 @@
         "message": "VPN ist auf dieser Website deaktiviert"
     },
     "popup_auth_policy_agreement": {
-        "message": "Akzeptieren Sie <eula>Endbenutzer-Lizenzvertrag</eula> und <privacy>Datenschutzbestimmungen</privacy>.",
+        "message": "Ich akzeptiere den <eula>Endbenutzer-Lizenzvertrag</eula> und <privacy>Datenschutzbestimmungen</privacy>",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "AdGuard ermöglichen, einige <link>anonymisierte Daten</link> über die App-Nutzung zu sammeln, um AdGuard VPN zu verbessern."
+        "message": "Ich erlaube AdGuard, <link>anonymisierte Daten</link> über die App-Nutzung zu sammeln, um AdGuard VPN zu verbessern"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Weiter"
@@ -694,7 +694,7 @@
         "message": "Kostenlos fortsetzen"
     },
     "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> diese Monat verbleibend",
+        "message": "Noch <span>%value% %unit%</span> in diesem Monat verfügbar",
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_selective_mode_popup_message": {

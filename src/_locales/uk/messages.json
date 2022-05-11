@@ -51,7 +51,7 @@
         "message": "Сталася помилка, спробуйте пізніше"
     },
     "global_error_message": {
-        "message": "Сталася помилка, зв'яжіться з нами <a>support@adguard-vpn.com</a>"
+        "message": "Сталася помилка, будь ласка, напишіть про це нам <a>support@adguard-vpn.com</a>"
     },
     "about_title": {
         "message": "Про розширення"
@@ -81,7 +81,7 @@
         "message": "Повідомити про помилку"
     },
     "options_bug_report_email_label": {
-        "message": "Email"
+        "message": "Електронна адреса"
     },
     "options_bug_report_include_log_label": {
         "message": "Додати в повідомлення діагностичний звіт"
@@ -129,7 +129,7 @@
         "message": "Ви ввійшли за допомогою"
     },
     "account_free": {
-        "message": "Безкоштовний"
+        "message": "Безплатний"
     },
     "account_unlimited": {
         "message": "Необмежений"
@@ -231,19 +231,19 @@
         "message": "Налаштування"
     },
     "options_menu_free_traffic": {
-        "message": "Безкоштовний VPN-трафік"
+        "message": "Безплатний VPN-трафік"
     },
     "referral_get_free_traffic": {
-        "message": "Отримайте безкоштовний VPN-трафік!"
+        "message": "Отримайте безплатний VPN-трафік!"
     },
     "settings_referral_info": {
-        "message": "Запрошуйте своїх друзів приєднатись до нашого ніндзя-клану та отримуйте ще більше безкоштовного трафіку на місяць. По 1 ГБ вам та другу, що зареєструється! Всього можна отримати 10 ГБ."
+        "message": "Запрошуйте своїх друзів приєднатись до нашого ніндзя-клану та отримуйте ще більше безплатного трафіку на місяць. По 1 ГБ вам та другу, що зареєструється! Всього можна отримати 10 ГБ."
     },
     "settings_referral_invited_friends": {
         "message": "Запрошені друзі %count%/%limit%"
     },
     "settings_referral_limit_reached": {
-        "message": "Ви вже отримали усі 10 ГБ безкоштовного трафіку. Але ваші друзі досі можуть отримати по 1 ГБ додаткового трафіку, якщо ви їх запросите!"
+        "message": "Ви вже отримали усі 10 ГБ безплатного трафіку. Але ваші друзі досі можуть отримати по 1 ГБ додаткового трафіку, якщо ви їх запросите!"
     },
     "settings_referral_copy_link": {
         "message": "Копіювати посилання"
@@ -297,10 +297,10 @@
         "message": "AdGuard DNS без фільтрування"
     },
     "settings_dns_selector_adguard_nonfiltering_desc": {
-        "message": "Безпечний DNS-сервер без запису активності (не фільтрує рекламу і трекери)"
+        "message": "Безпечний DNS-сервер без запису журналів (не фільтрує рекламу і стеження)"
     },
     "settings_dns_selector_adguard_family_title": {
-        "message": "AdGuard DNS з сімейним захистом"
+        "message": "AdGuard DNS Сімейний захист"
     },
     "settings_dns_selector_adguard_family_desc": {
         "message": "AdGuard DNS + безпечний пошук і блокування вмісту для дорослих"
@@ -309,13 +309,13 @@
         "message": "Google DNS"
     },
     "settings_dns_selector_google_desc": {
-        "message": "Безкоштовний альтернативний сервіс DNS від Google"
+        "message": "Безплатний альтернативний DNS-сервіс від Google"
     },
     "settings_dns_selector_cloudflare_title": {
         "message": "Cloudflare DNS"
     },
     "settings_dns_selector_cloudflare_desc": {
-        "message": "Безкоштовний DNS-сервіс від Cloudflare"
+        "message": "Безплатний DNS-сервіс від Cloudflare"
     },
     "settings_dns_selector_cisco_title": {
         "message": "Cisco OpenDNS"
@@ -327,7 +327,7 @@
         "message": "Quad9"
     },
     "settings_dns_selector_quad9_desc": {
-        "message": "Безкоштовний альтернативний DNS із захистом від шахрайства і зловмисних програм"
+        "message": "Безплатний альтернативний DNS-сервіс із захистом від шахрайства і зловмисних програм"
     },
     "settings_theme_label": {
         "message": "Тема"
@@ -411,7 +411,7 @@
         "message": "Скинути"
     },
     "settings_exclusions_undo": {
-        "message": "Відмінити"
+        "message": "Скасувати"
     },
     "settings_exclusion_reset_service_confirmation_message": {
         "message": "Скинути усталені налаштування для %hostname%? Після цього відсутні домени буде відновлено та усі пункти будуть помічені галками."
@@ -504,7 +504,7 @@
         "message": "Увімкнути"
     },
     "popup_settings_disable_vpn": {
-        "message": "Вимкнути VPN на цьому вебсайті"
+        "message": "Вимкнути VPN на цьому сайті"
     },
     "popup_settings_other_products": {
         "message": "Інші продукти"
@@ -519,10 +519,10 @@
         "message": "Вийти"
     },
     "context_menu_enable_vpn": {
-        "message": "Увімкнути VPN на цьому вебсайті"
+        "message": "Увімкнути VPN на цьому сайті"
     },
     "context_menu_disable_vpn": {
-        "message": "Вимкнути VPN на цьому вебсайті"
+        "message": "Вимкнути VPN на цьому сайті"
     },
     "endpoints_countries": {
         "message": "Місцезнаходження"
@@ -600,7 +600,7 @@
         "message": "Підтримка стрімингу"
     },
     "continue_us_free_button": {
-        "message": "Продовжити безкоштовно"
+        "message": "Продовжити безплатно"
     },
     "options_title": {
         "message": "AdGuard VPN Параметри"
@@ -612,7 +612,7 @@
         "message": "знаходиться у вашій локальній мережі та недоступний через VPN"
     },
     "popup_site_status_vpn_disabled": {
-        "message": "VPN вимкнено на цьому вебсайті"
+        "message": "VPN вимкнено на цьому сайті"
     },
     "popup_auth_policy_agreement": {
         "message": "Прийняти <eula>Ліцензійну угоду з кінцевим користувачем</eula> та <privacy>Політику приватності</privacy>",
@@ -691,7 +691,7 @@
         "message": "Покращити"
     },
     "popup_upgrade_screen_continue_free": {
-        "message": "Продовжити безкоштовно"
+        "message": "Продовжити безплатно"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> залишилося цього місяця",
