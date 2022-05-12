@@ -12,7 +12,7 @@ const {
     BUILD_ENV,
     BUILD_PATH,
 } = require('./consts');
-const { getOutputPathByEnv, updateLocalesMSGName } = require('./helpers');
+const { getOutputPathByEnv, updateLocalesMSGName, modifyExtensionName } = require('./helpers');
 
 const BACKGROUND_PATH = path.resolve(__dirname, SRC_PATH, 'background');
 const OPTIONS_PATH = path.resolve(__dirname, SRC_PATH, 'options');
@@ -20,6 +20,8 @@ const POPUP_PATH = path.resolve(__dirname, SRC_PATH, 'popup');
 const AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/auth.js');
 
 const OUTPUT_PATH = getOutputPathByEnv(BUILD_ENV);
+
+const EN_MESSAGES_PATH = '/en/messages.json';
 
 const packageJson = require('../package.json');
 
@@ -121,10 +123,16 @@ const config = {
                     context: 'src',
                     from: '_locales/',
                     to: '_locales/',
-                    transform: (content) => {
-                        return updateLocalesMSGName(
+                    transform: (content, path) => {
+                        const updateLocales = updateLocalesMSGName(
                             content,
                             process.env.BUILD_ENV,
+                        );
+                        return modifyExtensionName(
+                            updateLocales,
+                            process.env.BUILD_ENV,
+                            ' for Chrome',
+                            process.env.BROWSER === 'chrome' && path.includes(EN_MESSAGES_PATH),
                         );
                     },
                 },

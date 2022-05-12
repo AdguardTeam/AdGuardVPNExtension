@@ -34,15 +34,16 @@ const updateManifest = (manifestJson, browserManifestDiff) => {
  * @param manifestJson
  * @param env
  * @param suffix
+ * @param isTarget
  */
-const modifyExtensionName = (manifestJson, env, suffix) => {
-    if (env !== ENVS.RELEASE) {
+const modifyExtensionName = (manifestJson, env, suffix, isTarget = true) => {
+    if (env !== ENVS.RELEASE || !isTarget) {
         return manifestJson;
     }
 
     try {
         const manifest = JSON.parse(manifestJson.toString());
-        manifest.name += suffix;
+        manifest.name.message += suffix;
         return Buffer.from(JSON.stringify(manifest, null, 4));
     } catch (e) {
         throw new Error('Unable to parse json from manifest');
