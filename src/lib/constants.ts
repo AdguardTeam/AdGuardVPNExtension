@@ -79,6 +79,7 @@ export enum MessageType {
     GET_REFERRAL_DATA = 'get.referral.data',
     RESTORE_EXCLUSIONS = 'restore.exclusions',
     ADD_EXCLUSIONS_MAP = 'add.exclusions.map',
+    EXPORT_LOGS = 'export.logs',
 }
 
 export const ERROR_STATUSES = {

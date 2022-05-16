@@ -23,6 +23,10 @@ export const Support = () => {
         history.push(`/support?${BUG_REPORT_QUERY}`);
     };
 
+    const handleExportLogsClick = async () => {
+        await messenger.exportLogs();
+    };
+
     const closeHandler = () => {
         history.push('/support');
     };
@@ -43,6 +47,12 @@ export const Support = () => {
             description: reactTranslator.getMessage('options_support_feedback_description'),
             iconXlink: '#send-feedback',
             clickHandler: createOpenUrlHandler(FEEDBACK_URL),
+        }, {
+            title: reactTranslator.getMessage('options_support_export_logs'),
+            description: reactTranslator.getMessage('options_support_export_logs_description'),
+            // FIXME add proper icon for export logs
+            iconXlink: '#bullet_on',
+            clickHandler: handleExportLogsClick,
         },
     ];
 

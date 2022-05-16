@@ -346,6 +346,10 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         case MessageType.RESTORE_EXCLUSIONS: {
             return exclusions.restoreExclusions();
         }
+        case MessageType.EXPORT_LOGS: {
+            logStorage.saveLogsToFile();
+            break;
+        }
         default:
             throw new Error(`Unknown message type received: ${type}`);
     }

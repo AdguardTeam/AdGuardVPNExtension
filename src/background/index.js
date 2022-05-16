@@ -70,6 +70,7 @@ global.adguard = {
         contextMenu.init();
         browserActionIcon.init();
         log.info('Extension loaded all necessary modules');
+        log.info(`Started AdGuard VPN ${appStatus.appVersion}`);
     } catch (e) {
         log.error('Unable to start extension because of error:', e && e.message);
     }
