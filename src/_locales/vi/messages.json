@@ -1,4 +1,7 @@
 {
+    "description": {
+        "message": "Làm cho Internet mở và dữ liệu của bạn an toàn. VPN tốt nhất từ những người tạo ra trình chặn quảng cáo nổi tiếng."
+    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -199,6 +202,21 @@
     },
     "settings_title": {
         "message": "Cài đặt"
+    },
+    "settings_referral_info": {
+        "message": "Mời những người bạn tham gia đại gia đình của chúng tôi và nhận thêm lưu lượng VPN miễn phí cho một tháng. Nhận %your_gb% GB cho mỗi người bạn đăng kí: họ cũng nhận được thêm %friend_gb% GB miễn phí! Bạn có thể nhận được tổng cộng %total_gb% GB miễn phí."
+    },
+    "settings_referral_invited_friends": {
+        "message": "Bạn đã mời %count%/%limit%"
+    },
+    "settings_referral_limit_reached": {
+        "message": "Bạn đã nhận được %your_gb% GB lưu lượng VPN miễn phí. Nhưng những người bạn của bạn vẫn có thể nhận thêm %friend_gb% GB lưu lượng VPN miễn phí nếu bạn mời họ!"
+    },
+    "settings_referral_copy_link": {
+        "message": "Chép liên kết"
+    },
+    "settings_referral_link_copied": {
+        "message": "Đã chép liên kết"
     },
     "settings_rate_us": {
         "message": "Đánh giá chúng tôi"
@@ -642,8 +660,5 @@
     },
     "name": {
         "message": "AdGuard VPN — free & secure proxy"
-    },
-    "description": {
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
     }
 }

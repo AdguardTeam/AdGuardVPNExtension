@@ -231,13 +231,13 @@
         "message": "Uzyskaj darmowy ruch VPN!"
     },
     "settings_referral_info": {
-        "message": "Zaproś swoich znajomych do dołączenia do naszego klanu ninja i zdobądź więcej darmowego ruchu VPN na miesiąc. Otrzymaj 1 GB za każdego znajomego, który się zapisze: oni również otrzymają 1 GB ekstra za darmo! W sumie możesz otrzymać 10 GB za darmo."
+        "message": "Zaproś swoich znajomych do dołączenia do naszego klanu ninja i zdobądź więcej darmowego ruchu VPN na miesiąc. Otrzymaj %your_gb% GB za każdego znajomego, który się zapisze: oni również otrzymają %friend_gb% GB ekstra za darmo! W sumie możesz otrzymać %total_gb% GB za darmo."
     },
     "settings_referral_invited_friends": {
         "message": "Zaproszeni przyjaciele %count%/%limit%"
     },
     "settings_referral_limit_reached": {
-        "message": "Otrzymaliście już swoje 10 GB darmowego ruchu VPN. Ale Twoi znajomi wciąż mogą otrzymać 1 GB dodatkowego darmowego ruchu VPN, jeśli ich zaprosisz!"
+        "message": "Otrzymaliście już swoje %your_gb% GB darmowego ruchu VPN. Ale Twoi znajomi wciąż mogą otrzymać %friend_gb% GB dodatkowego darmowego ruchu VPN, jeśli ich zaprosisz!"
     },
     "settings_referral_copy_link": {
         "message": "Skopiuj link"
