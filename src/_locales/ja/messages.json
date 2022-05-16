@@ -237,13 +237,13 @@
         "message": "無料データ量をGET！"
     },
     "settings_referral_info": {
-        "message": "お友だちをAdGuard VPN部に招待して、無料月間データ量をゲットしましょう。お友だちが登録すると、1人につき1GBが招待した方にプレゼントされ、さらに、招待されたお友だちにも1GBがプラスされます。※招待する方は合計で最大10GBの無料データ量を取得いただけます。"
+        "message": "お友だちをAdGuard VPN部に招待して、無料月間データ量をゲットしましょう。お友だちが登録すると、1人につき%your_gb%GBが招待した方にプレゼントされ、さらに、招待されたお友だちにも%friend_gb%GBがプラスされます。※招待する方は合計で最大%total_gb%GBの無料データ量を取得いただけます。"
     },
     "settings_referral_invited_friends": {
         "message": "招待済みお友だち数: %count%/%limit%"
     },
     "settings_referral_limit_reached": {
-        "message": "お客様はすでに10GBの無料データ量を受け取っています。しかし、お友だちを招待いただければ、お友だちは1GBの無料データ量を受け取ることができます。"
+        "message": "お客様はすでに%your_gb%GBの無料通信量を受け取っています。しかし、これからさらにお友だちを招待いただく場合、お友だちはそのまま1人%friend_gb%GBの無料通信量を受け取ることができます。"
     },
     "settings_referral_copy_link": {
         "message": "リンクをコピー"

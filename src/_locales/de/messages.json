@@ -237,13 +237,13 @@
         "message": "Erhalten Sie kostenlosen VPN-Traffic!"
     },
     "settings_referral_info": {
-        "message": "Laden Sie Ihre Freunde dazu ein, unserem Ninja-Clan beizutreten, und erhalten Sie dafür zusätzlichen Traffic kostenlos — 1 GB für jede(n) Freund(in). Ihre Freunde erhalten ebenfalls 1 GB extra kostenlos! Sie können insgesamt bis zu 10 GB kostenlos bekommen."
+        "message": "Laden Sie Ihre Freunde dazu ein, unserem Ninja-Clan beizutreten, und erhalten Sie dafür zusätzlichen Traffic kostenlos — %your_gb% GB für jede(n) Freund(in). Ihre Freunde erhalten ebenfalls %friend_gb% GB extra kostenlos! Sie können insgesamt bis zu %total_gb% GB kostenlos bekommen."
     },
     "settings_referral_invited_friends": {
         "message": "Eingeladene Freunde %count%/%limit%"
     },
     "settings_referral_limit_reached": {
-        "message": "Sie haben bereits Ihre 10 GB kostenloses Datenvolumen erhalten. Aber Ihre Freunde können immer noch 1 GB zusätzliches Gratis-Datenvolumen erhalten, wenn Sie diese einladen!"
+        "message": "Sie haben bereits Ihre %your_gb% GB kostenlosen VPN-Traffic erhalten. Aber Ihre Freunde können immer noch %friend_gb% GB zusätzlichen kostenlosen VPN-Traffic erhalten, wenn Sie sie einladen!"
     },
     "settings_referral_copy_link": {
         "message": "Link kopieren"

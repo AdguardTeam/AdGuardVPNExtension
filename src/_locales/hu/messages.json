@@ -231,13 +231,13 @@
         "message": "Ingyenes VPN forgalom beszerzése!"
     },
     "settings_referral_info": {
-        "message": "Hívja meg ismetőseit, hogy csatlakozzanak az AdGuard VPN-hez, és ezzel további ingyenes VPN forgalmat kap egy hónapig. Minden regisztráló ismerőse után 1 GB extra adatkeretet kap! Ilyen módon akár 10 GB-ot is kaphat ingyen."
+        "message": "Hívja meg ismetőseit, hogy csatlakozzanak az AdGuard VPN-hez, és ezzel további ingyenes VPN forgalmat kap egy hónapig. Kapjon %your_gb% GB-ot minden egyes barátja után, aki regisztrál: ők is kapnak %friend_gb% GB extra ingyen! Ilyen módon akár %total_gb% GB-ot is kaphat ingyen."
     },
     "settings_referral_invited_friends": {
         "message": "Meghívott ismerősök %count%/%limit%"
     },
     "settings_referral_limit_reached": {
-        "message": "Már megkapta a 10 GB ingyenes adatforgalmát. De barátai továbbra is 1 GB további ingyenes adatot kaphatnak, ha meghívja őket!"
+        "message": "Már megkapta az ingyenes %your_gb% GB adatforgalmat. Azonban ismerősei továbbra is kapnak %friend_gb% GB ajándék adatforgalmat, ha meghívja őket!"
     },
     "settings_referral_copy_link": {
         "message": "Link másolása"

@@ -237,13 +237,13 @@
         "message": "Získejte zdarma datový provoz VPN!"
     },
     "settings_referral_info": {
-        "message": "Pozvěte své přátele, aby se připojili k našemu klanu ninjů, a získejte další datový provoz VPN zdarma na měsíc. Získejte 1 GB za každého přítele, který se zaregistruje: dostanou také 1 GB navíc zdarma! Celkem můžete získat 10 GB zdarma."
+        "message": "Pozvěte své přátele, aby se připojili k našemu klanu ninjů, a získejte další datový provoz VPN zdarma na měsíc. Získejte %your_gb% GB za každého přítele, který se zaregistruje: dostanou také %friend_gb% GB navíc zdarma! Celkem můžete získat %total_gb% GB zdarma."
     },
     "settings_referral_invited_friends": {
         "message": "Pozvaní přátelé %count%/%limit%"
     },
     "settings_referral_limit_reached": {
-        "message": "Svých 10 GB dat zdarma jste již obdrželi. Vaši přátelé však mohou získat 1 GB dalšího datového provozu VPN zdarma, pokud je pozvete!"
+        "message": "Svých %your_gb% GB dat zdarma jste již obdrželi. Vaši přátelé však mohou získat %friend_gb% GB dalšího datového provozu VPN zdarma, pokud je pozvete!"
     },
     "settings_referral_copy_link": {
         "message": "Kopírovat odkaz"

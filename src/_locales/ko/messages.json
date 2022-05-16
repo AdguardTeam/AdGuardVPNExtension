@@ -237,13 +237,13 @@
         "message": "사용량 무료로 받기!"
     },
     "settings_referral_info": {
-        "message": "친구를 VPN 서비스에 초대해 매월 사용량을 늘려 보십시오. 친구가 가입하는 경우 1GB를 늘릴 수 있으며 친구도 1GB를 무료로 받을 수 있습니다! (사용량은 무료로 최대 10GB까지 늘릴 수 있습니다!)"
+        "message": "친구를 VPN 서비스에 초대해 매월 사용량을 늘려 보십시오. 친구가 가입하는 경우 %your_gb%GB를 늘릴 수 있으며 친구도 %friend_gb%GB를 무료로 받을 수 있습니다! (사용량은 무료로 최대 %total_gb%GB까지 늘릴 수 있습니다!)"
     },
     "settings_referral_invited_friends": {
         "message": "초대한 친구 %count%/%limit%"
     },
     "settings_referral_limit_reached": {
-        "message": "이미 10GB의 무료 사용량을 추가로 받으셨습니다. 하지만 친구들을 초대한다면 친구들은 여전히 1GB 무료 사용량을 더 받을 수 있습니다!"
+        "message": "이미 %your_gb%GB의 무료 사용량을 추가로 받으셨습니다. 하지만 친구들을 초대한다면 친구들은 여전히 %friend_gb%GB 무료 사용량을 더 받을 수 있습니다!"
     },
     "settings_referral_copy_link": {
         "message": "링크 복사"

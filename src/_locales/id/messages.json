@@ -158,6 +158,21 @@
     "settings_title": {
         "message": "Pengaturan"
     },
+    "settings_referral_info": {
+        "message": "Undang teman Anda untuk bergabung dengan klan ninja kami dan dapatkan lebih banyak lalu lintas VPN gratis selama sebulan. Dapatkan %your_gb% GB untuk setiap teman yang mendaftar: mereka juga mendapatkan ekstra %friend_gb% GB gratis! Anda dapat menerima total %total_gb% GB secara cuma-cuma."
+    },
+    "settings_referral_invited_friends": {
+        "message": "Teman yang diundang %count%/%limit%"
+    },
+    "settings_referral_limit_reached": {
+        "message": "Anda telah menerima %your_gb% GB gratis lalu lintas VPN. Namun, teman Anda masih bisa mendapatkan %friend_gb% GB tambahan lalu lintas VPN gratis jika Anda mengundang mereka!"
+    },
+    "settings_referral_copy_link": {
+        "message": "Salin tautan"
+    },
+    "settings_referral_link_copied": {
+        "message": "Tautan disalin"
+    },
     "settings_rate_us": {
         "message": "Nilai kami"
     },

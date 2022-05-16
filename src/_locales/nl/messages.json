@@ -1,4 +1,7 @@
 {
+    "name": {
+        "message": "AdGuard VPN — snelle & veilige proxy"
+    },
     "description": {
         "message": "AdGuard VPN gebruiken om snel, veilig en beveiligd op internet te surfen. Je privacy beschermen en anoniem blijven met onze privé-VPN-proxy."
     },
@@ -234,13 +237,13 @@
         "message": "Gratis VPN-dataverkeer verkrijgen!"
     },
     "settings_referral_info": {
-        "message": "Nodig je vrienden uit om lid te worden van onze ninja-clan en ontvang een maand lang meer gratis VPN-dataverkeer. Ontvang 1 GB voor elke vriend die zich aanmeldt: ze krijgen ook gratis 1 GB extra! Je kan in totaal 10 GB gratis krijgen."
+        "message": "Nodig je vrienden uit om lid te worden van onze ninja-clan en ontvang een maand lang meer gratis VPN-dataverkeer. Ontvang %your_gb% GB voor elke vriend die zich aanmeldt: ze krijgen ook gratis %friend_gb% GB extra! Je kan in totaal %total_gb% GB gratis krijgen."
     },
     "settings_referral_invited_friends": {
         "message": "Uitgenodigde vrienden %count%/%limit%"
     },
     "settings_referral_limit_reached": {
-        "message": "Je hebt al jouw 10 GB gratis VPN-dataverkeer ontvangen. Maar je vrienden kunnen nog steeds 1 GB aanvullend gratis VPN-dataverkeer krijgen als je ze uitnodigt!"
+        "message": "Je hebt al jouw %your_gb% GB gratis VPN-dataverkeer ontvangen. Maar je vrienden kunnen nog steeds %friend_gb% GB aanvullend gratis VPN-dataverkeer krijgen als je ze uitnodigt!"
     },
     "settings_referral_copy_link": {
         "message": "Koppeling kopiëren"
@@ -777,8 +780,5 @@
     },
     "options_signedout_page_description": {
         "message": "Je verbinding is niet veilig. Om privé te blijven surfen, klik je op het pictogram Adguard VPN en meld je weer aan."
-    },
-    "name": {
-        "message": "AdGuard VPN — free & secure proxy"
     }
 }
