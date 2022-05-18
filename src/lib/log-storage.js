@@ -3,20 +3,27 @@ import browserApi from '../background/browserApi';
 
 const MAX_LOG_SIZE_BYTES = 5 * (2 ** 20); // 5MB
 const LOGS_STORAGE_KEY = 'logs.storage.key';
+const SAVE_STORAGE_LOGS_TIMOUT = 5 * 1000; // 5 sec
 
 export class LogStorage {
     constructor(maxLogSizeBytes = MAX_LOG_SIZE_BYTES) {
         this.maxLogSizeBytes = maxLogSizeBytes;
-        this.logs = [];
-        (async () => {
-            const logsFromStorage = await this.getLogsFromStorage();
-            if (logsFromStorage) {
-                this.logs = logsFromStorage.split('\n');
-            }
-        })();
     }
 
     logSizeBytes = 0;
+
+    logs = [];
+
+    init = async () => {
+        const logsFromStorage = await this.getLogsFromStorage();
+        if (logsFromStorage) {
+            this.logs = logsFromStorage;
+        }
+        // save logs to browser storage every 5 seconds
+        setInterval(async () => {
+            await this.saveLogsToStorage(this.logs);
+        }, SAVE_STORAGE_LOGS_TIMOUT);
+    };
 
     freeSpaceIfNecessary = (size) => {
         while (this.logSizeBytes + size > this.maxLogSizeBytes) {
@@ -38,7 +45,6 @@ export class LogStorage {
         this.freeSpaceIfNecessary(logSize);
         this.logSizeBytes += logSize;
         this.logs.push(logString);
-        this.saveLogsToStorage(this.logs.join('\n'));
     };
 
     toString() {

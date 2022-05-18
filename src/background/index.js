@@ -52,6 +52,7 @@ global.adguard = {
 
 (async () => {
     try {
+        await logStorage.init();
         messaging.init(); // messaging is on the top, for popup be able to communicate with back
         await fallbackApi.init();
         await proxy.init();
@@ -70,8 +71,8 @@ global.adguard = {
         contextMenu.init();
         browserActionIcon.init();
         log.info('Extension loaded all necessary modules');
-        log.info(`Started AdGuard VPN ${appStatus.appVersion}`);
     } catch (e) {
         log.error('Unable to start extension because of error:', e && e.message);
     }
+    log.info(`AdGuard VPN ${appStatus.appVersion} started successfully`);
 })();
