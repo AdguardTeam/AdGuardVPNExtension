@@ -23,10 +23,6 @@ export const Support = () => {
         history.push(`/support?${BUG_REPORT_QUERY}`);
     };
 
-    const handleExportLogsClick = async () => {
-        await messenger.exportLogs();
-    };
-
     const closeHandler = () => {
         history.push('/support');
     };
