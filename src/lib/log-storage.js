@@ -1,4 +1,3 @@
-import { format } from 'date-fns';
 import browserApi from '../background/browserApi';
 
 const MAX_LOG_SIZE_BYTES = 5 * (2 ** 20); // 5MB
@@ -61,22 +60,6 @@ export class LogStorage {
 
     async getLogsFromStorage() {
         return browserApi.storage.get(LOGS_STORAGE_KEY);
-    }
-
-    saveLogsToFile() {
-        const currentTimeString = format(Date.now(), 'yyyyMMdd_HHmmss');
-        const filename = `adguard-vpn_logs_${currentTimeString}.txt`;
-
-        const blob = new Blob([this.logs.join('\n')]);
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.style.display = 'none';
-        link.href = url;
-        link.download = filename;
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        URL.revokeObjectURL(url);
     }
 }
 
