@@ -281,11 +281,6 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async exportLogs() {
-        const type = MessageType.EXPORT_LOGS;
-        return this.sendMessage(type);
-    }
-
     async getExclusionsData(): Promise<{
         exclusionsData: ExclusionsData,
         services: ServiceDto[],
