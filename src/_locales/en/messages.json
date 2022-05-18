@@ -77,12 +77,6 @@
     "options_support_feedback_description": {
         "message": "Submit feature requests and suggestions"
     },
-    "options_support_export_logs": {
-        "message": "Export logs"
-    },
-    "options_support_export_logs_description": {
-        "message": "Save AdGuard VPN logs to file"
-    },
     "options_report_bug_title": {
         "message": "Report a bug"
     },
