@@ -13,7 +13,7 @@ const BAD_RATING_LIMIT = 3;
 
 const feedbackContent = {
     title: reactTranslator.getMessage('popup_confirm_rate_modal_feedback_title'),
-    subtitle: reactTranslator.getMessage('popup_confirm_rate_modal_feedback_title'),
+    subtitle: reactTranslator.getMessage('popup_confirm_rate_modal_feedback_subtitle'),
     buttonText: reactTranslator.getMessage('popup_confirm_rate_modal_leave_feedback_button'),
 };
 
