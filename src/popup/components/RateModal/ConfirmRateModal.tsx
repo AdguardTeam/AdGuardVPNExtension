@@ -5,19 +5,20 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../stores';
 import { PATH_TO_RATING_IMAGES, RATING_IMAGES_MAP } from './constants';
 import { POPUP_STORE_URL, FEEDBACK_URL } from '../../../background/config';
+import { reactTranslator } from '../../../common/reactTranslator';
 
 import './rate-modal.pcss';
 
 const bad = {
-    title: 'Help us improve',
-    subtitle: 'Tell us what went wrong',
-    buttonText: 'Leave feedback',
+    title: reactTranslator.getMessage('popup_confirm_rate_modal_feedback_title'),
+    subtitle: reactTranslator.getMessage('popup_confirm_rate_modal_feedback_title'),
+    buttonText: reactTranslator.getMessage('popup_confirm_rate_modal_leave_feedback_button'),
 };
 
 const good = {
-    title: 'Wow! Can you rate us also in the Chrome Store?',
+    title: reactTranslator.getMessage('popup_confirm_rate_modal_rate_title'),
     subtitle: '',
-    buttonText: 'Go to the Chrome Store',
+    buttonText: reactTranslator.getMessage('popup_confirm_rate_modal_confirm_button'),
 };
 
 export const ConfirmRateModal = observer(() => {
@@ -79,7 +80,7 @@ export const ConfirmRateModal = observer(() => {
                 className="button button--medium button--outline-secondary confirm-rate-modal__button"
                 onClick={closeModal}
             >
-                Cancel
+                {reactTranslator.getMessage('popup_rate_modal_cancel_button')}
             </button>
         </Modal>
     );

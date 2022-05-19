@@ -5,6 +5,7 @@ import classnames from 'classnames';
 
 import { rootStore } from '../../stores';
 import { PATH_TO_RATING_IMAGES, RATING_IMAGES_MAP } from './constants';
+import { reactTranslator } from '../../../common/reactTranslator';
 
 import './rate-modal.pcss';
 
@@ -73,8 +74,12 @@ export const RateModal = observer(() => {
                 className="rate-modal__image"
                 alt="rating"
             />
-            <div className="rate-modal__title">How awesome is AdGuard VPN?</div>
-            <div className="rate-modal__subtitle">Please rate us</div>
+            <div className="rate-modal__title">
+                {reactTranslator.getMessage('popup_rate_modal_title')}
+            </div>
+            <div className="rate-modal__subtitle">
+                {reactTranslator.getMessage('popup_rate_modal_subtitle')}
+            </div>
             <div className="rate-modal__stars">
                 {RATING_STARS.map((star) => (
                     <div
@@ -96,14 +101,14 @@ export const RateModal = observer(() => {
                 onClick={confirmRate}
                 disabled={!rating}
             >
-                Send
+                {reactTranslator.getMessage('popup_rate_modal_send_button')}
             </button>
             <button
                 type="button"
                 className="button button--medium button--outline-secondary rate-modal__button"
                 onClick={closeModal}
             >
-                Cancel
+                {reactTranslator.getMessage('popup_rate_modal_cancel_button')}
             </button>
         </Modal>
     );
