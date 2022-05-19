@@ -1,0 +1,1 @@
+export { RateModal } from './RateModal';

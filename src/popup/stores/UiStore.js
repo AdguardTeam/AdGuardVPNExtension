@@ -9,6 +9,12 @@ export class UiStore {
 
     @observable isConnecting = false;
 
+    @observable isRateModalVisible = true;
+
+    @observable isConfirmRateModalVisible = false;
+
+    @observable rating = 0;
+
     @action enableConnecting = () => {
         this.isConnecting = true;
     };
@@ -31,5 +37,25 @@ export class UiStore {
 
     @action closeOptionsModal = () => {
         this.isOpenOptionsModal = false;
+    };
+
+    @action setRating = (value) => {
+        this.rating = value;
+    };
+
+    @action openRateModal = () => {
+        this.isRateModalVisible = true;
+    };
+
+    @action closeRateModal = () => {
+        this.isRateModalVisible = false;
+    };
+
+    @action openConfirmRateModal = () => {
+        this.isConfirmRateModalVisible = true;
+    };
+
+    @action closeConfirmRateModal = () => {
+        this.isConfirmRateModalVisible = false;
     };
 }

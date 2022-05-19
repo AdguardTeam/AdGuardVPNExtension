@@ -31,6 +31,8 @@ import { Onboarding } from '../Authentication/Onboarding';
 import { Newsletter } from '../Authentication/Newsletter';
 import { UpgradeScreen } from '../Authentication/UpgradeScreen';
 import { DotsLoader } from '../../../common/components/DotsLoader';
+import { RateModal } from '../RateModal';
+import { ConfirmRateModal } from '../RateModal/ConfirmRateModal';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -242,6 +244,8 @@ export const App = observer(() => {
                     </>
                 )}
             <Icons />
+            <RateModal />
+            <ConfirmRateModal />
         </>
     );
 });
