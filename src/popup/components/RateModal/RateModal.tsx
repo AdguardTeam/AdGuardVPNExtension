@@ -11,7 +11,7 @@ import './rate-modal.pcss';
 
 const RATING_STARS = [5, 4, 3, 2, 1];
 
-const DEFAULT_RATING_IMAGE = RATING_IMAGES_MAP[0];
+const DEFAULT_RATING_IMAGE = RATING_IMAGES_MAP[5];
 const DEFAULT_RATING_IMAGE_PATH = `${PATH_TO_RATING_IMAGES}${DEFAULT_RATING_IMAGE}`;
 
 export const RateModal = observer(() => {
@@ -23,6 +23,10 @@ export const RateModal = observer(() => {
     const [mainImagePath, setMainImagePath] = useState<string>(DEFAULT_RATING_IMAGE_PATH);
 
     useEffect(() => {
+        if (!rating && !ratingHovered) {
+            setMainImagePath(DEFAULT_RATING_IMAGE_PATH);
+            return;
+        }
         const imageName = ratingHovered
             ? RATING_IMAGES_MAP[ratingHovered]
             : RATING_IMAGES_MAP[rating];
@@ -39,7 +43,7 @@ export const RateModal = observer(() => {
     };
 
     const handleMouseLeave = () => {
-        setRatingHovered(0);
+        setRatingHovered(null);
     };
 
     const saveRating = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -87,7 +91,7 @@ export const RateModal = observer(() => {
                         id={star.toString()}
                         className={classnames(
                             'rate-modal__star',
-                            { active: star <= rating },
+                            { active: star <= (rating || 0) },
                         )}
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}

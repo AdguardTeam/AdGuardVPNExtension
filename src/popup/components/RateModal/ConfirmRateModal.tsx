@@ -9,13 +9,15 @@ import { reactTranslator } from '../../../common/reactTranslator';
 
 import './rate-modal.pcss';
 
-const bad = {
+const BAD_RATING_LIMIT = 3;
+
+const feedbackContent = {
     title: reactTranslator.getMessage('popup_confirm_rate_modal_feedback_title'),
     subtitle: reactTranslator.getMessage('popup_confirm_rate_modal_feedback_title'),
     buttonText: reactTranslator.getMessage('popup_confirm_rate_modal_leave_feedback_button'),
 };
 
-const good = {
+const storeRatingContent = {
     title: reactTranslator.getMessage('popup_confirm_rate_modal_rate_title'),
     subtitle: '',
     buttonText: reactTranslator.getMessage('popup_confirm_rate_modal_confirm_button'),
@@ -25,14 +27,14 @@ export const ConfirmRateModal = observer(() => {
     const { uiStore } = useContext(rootStore);
     const { rating, isConfirmRateModalVisible } = uiStore;
 
-    const content = rating > 3 ? good : bad;
+    const content = rating > BAD_RATING_LIMIT ? storeRatingContent : feedbackContent;
 
     const closeModal = () => {
         uiStore.closeConfirmRateModal();
     };
 
     const handleConfirm = () => {
-        if (rating > 3) {
+        if (rating > BAD_RATING_LIMIT) {
             window.open(POPUP_STORE_URL, '_blank');
         } else {
             window.open(FEEDBACK_URL, '_blank');
