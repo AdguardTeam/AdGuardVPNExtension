@@ -1,3 +1,5 @@
+import throttle from 'lodash/throttle';
+
 import browserApi from '../background/browserApi';
 
 const MAX_LOG_SIZE_BYTES = 5 * (2 ** 20); // 5MB
@@ -13,16 +15,17 @@ export class LogStorage {
 
     logs = [];
 
-    init = async () => {
-        const logsFromStorage = await this.getLogsFromStorage();
-        if (logsFromStorage) {
-            this.logs = logsFromStorage;
-        }
+    init = () => {
         // save logs to browser storage every 5 seconds
-        setInterval(async () => {
-            await this.saveLogsToStorage(this.logs);
+        setInterval(() => {
+            this.throttledLogsSaver();
         }, SAVE_STORAGE_LOGS_TIMOUT);
     };
+
+    throttledLogsSaver = throttle(
+        this.saveLogsToStorage,
+        SAVE_STORAGE_LOGS_TIMOUT,
+    );
 
     freeSpaceIfNecessary = (size) => {
         while (this.logSizeBytes + size > this.maxLogSizeBytes) {
@@ -46,20 +49,30 @@ export class LogStorage {
         this.logs.push(logString);
     };
 
-    toString() {
-        return this.logs.join('\n');
+    async toString() {
+        const logs = await this.getLogs();
+        return logs.join('\n');
     }
 
     get size() {
         return this.logSizeBytes;
     }
 
-    async saveLogsToStorage(logs) {
-        await browserApi.storage.set(LOGS_STORAGE_KEY, logs);
+    /**
+     * Returns logs from storage merged with current logs
+     */
+    async getLogs() {
+        const storageLogs = await browserApi.storage.get(LOGS_STORAGE_KEY);
+        return storageLogs.concat(this.logs);
     }
 
-    async getLogsFromStorage() {
-        return browserApi.storage.get(LOGS_STORAGE_KEY);
+    /**
+     * Saves all logs to storage and clears current log
+     */
+    async saveLogsToStorage() {
+        const logs = await this.getLogs();
+        await browserApi.storage.set(LOGS_STORAGE_KEY, logs);
+        this.logs = [];
     }
 }
 
