@@ -1,4 +1,7 @@
 import { LogStorage } from '../../src/lib/log-storage';
+import BrowserApi from '../../src/background/browserApi';
+
+jest.spyOn(BrowserApi.storage, 'get').mockResolvedValue([]);
 
 describe('LogStorage', () => {
     let logStorage;
@@ -7,28 +10,28 @@ describe('LogStorage', () => {
         logStorage = new LogStorage();
     });
 
-    it('Stores log in memory', () => {
+    it('Stores log in memory', async () => {
         logStorage.addLog('test');
-        expect(logStorage.toString()).toBe('"test"');
+        expect(await logStorage.getLogsString()).toBe('"test"');
         expect(logStorage.size).toBe(new Blob(['"test"']).size);
 
         logStorage.addLog('test2');
-        expect(logStorage.toString()).toBe('"test"\n"test2"');
+        expect(await logStorage.getLogsString()).toBe('"test"\n"test2"');
         expect(logStorage.size).toBe(new Blob(['"test"']).size + new Blob(['"test2"']).size);
     });
 
-    it('Converts objects to strings', () => {
+    it('Converts objects to strings', async () => {
         const obj = { test: 'test' };
         logStorage.addLog(obj);
-        expect(logStorage.toString()).toBe(JSON.stringify(obj));
+        expect(await logStorage.getLogsString()).toBe(JSON.stringify(obj));
         expect(logStorage.size).toBe(new Blob([JSON.stringify(obj)]).size);
     });
 
-    it('Adds multiple logs', () => {
+    it('Adds multiple logs', async () => {
         const str1 = 'test1';
         const str2 = 'test2';
         logStorage.addLog(str1, str2);
-        expect(logStorage.toString()).toBe(`"${str1}" "${str2}"`);
+        expect(await logStorage.getLogsString()).toBe(`"${str1}" "${str2}"`);
         expect(logStorage.size).toBe(new Blob([`"${str1}" "${str2}"`]).size);
     });
 

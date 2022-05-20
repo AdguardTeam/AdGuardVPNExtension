@@ -49,7 +49,7 @@ export class LogStorage {
         this.logs.push(logString);
     };
 
-    async toString() {
+    async getLogsString() {
         const logs = await this.getLogs();
         return logs.join('\n');
     }

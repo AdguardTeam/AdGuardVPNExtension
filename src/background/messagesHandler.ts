@@ -320,7 +320,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             };
 
             if (includeLog) {
-                reportData.appLogs = await logStorage.toString();
+                reportData.appLogs = await logStorage.getLogsString();
             }
 
             return vpnProvider.requestSupport(reportData);
