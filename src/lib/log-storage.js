@@ -15,13 +15,6 @@ export class LogStorage {
 
     logs = [];
 
-    init = () => {
-        // save logs to browser storage every 5 seconds
-        setInterval(() => {
-            this.throttledLogsSaver();
-        }, SAVE_STORAGE_LOGS_TIMOUT);
-    };
-
     throttledLogsSaver = throttle(
         this.saveLogsToStorage,
         SAVE_STORAGE_LOGS_TIMOUT,
@@ -47,6 +40,7 @@ export class LogStorage {
         this.freeSpaceIfNecessary(logSize);
         this.logSizeBytes += logSize;
         this.logs.push(logString);
+        this.throttledLogsSaver();
     };
 
     async getLogsString() {
@@ -71,8 +65,8 @@ export class LogStorage {
      */
     async saveLogsToStorage() {
         const logs = await this.getLogs();
-        await browserApi.storage.set(LOGS_STORAGE_KEY, logs);
         this.logs = [];
+        await browserApi.storage.set(LOGS_STORAGE_KEY, logs);
     }
 }
 

@@ -52,7 +52,6 @@ global.adguard = {
 
 (async () => {
     try {
-        logStorage.init();
         messaging.init(); // messaging is on the top, for popup be able to communicate with back
         await fallbackApi.init();
         await proxy.init();
