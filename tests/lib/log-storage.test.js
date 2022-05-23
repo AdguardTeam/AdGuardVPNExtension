@@ -1,23 +1,52 @@
-import { LogStorage } from '../../src/lib/log-storage';
-import BrowserApi from '../../src/background/browserApi';
+import { LogStorage, LOGS_STORAGE_KEY } from '../../src/lib/log-storage';
+import browserApi from '../../src/background/browserApi';
 
-jest.spyOn(BrowserApi.storage, 'get').mockResolvedValue([]);
+jest.mock('../../src/background/browserApi', () => {
+    const storage = {};
+    return {
+        storage: {
+            set: jest.fn((key, data) => {
+                storage[key] = data;
+            }),
+            get: jest.fn((key) => {
+                return storage[key];
+            }),
+            remove: jest.fn((key) => {
+                return delete storage[key];
+            }),
+        },
+    };
+});
 
 describe('LogStorage', () => {
     let logStorage;
 
     beforeEach(() => {
         logStorage = new LogStorage();
+        browserApi.storage.remove(LOGS_STORAGE_KEY);
     });
 
     it('Stores log in memory', async () => {
-        logStorage.addLog('test');
-        expect(await logStorage.getLogsString()).toBe('"test"');
-        expect(logStorage.size).toBe(new Blob(['"test"']).size);
+        logStorage.addLog('test1');
+        expect(await logStorage.getLogsString()).toBe('"test1"');
+        expect(logStorage.size).toBe(new Blob(['"test1"']).size);
 
         logStorage.addLog('test2');
-        expect(await logStorage.getLogsString()).toBe('"test"\n"test2"');
-        expect(logStorage.size).toBe(new Blob(['"test"']).size + new Blob(['"test2"']).size);
+        expect(logStorage.logs).toEqual(['"test2"']);
+        expect(await logStorage.getLogsString()).toBe('"test1"\n"test2"');
+        expect(logStorage.size).toBe(
+            new Blob(['"test1"']).size
+            + new Blob(['"test2"']).size,
+        );
+
+        logStorage.addLog('test3');
+        expect(logStorage.logs).toEqual(['"test2"', '"test3"']);
+        expect(await logStorage.getLogsString()).toBe('"test1"\n"test2"\n"test3"');
+        expect(logStorage.size).toBe(
+            new Blob(['"test1"']).size
+            + new Blob(['"test2"']).size
+            + new Blob(['"test3"']).size,
+        );
     });
 
     it('Converts objects to strings', async () => {

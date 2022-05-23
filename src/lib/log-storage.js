@@ -3,7 +3,7 @@ import throttle from 'lodash/throttle';
 import browserApi from '../background/browserApi';
 
 const MAX_LOG_SIZE_BYTES = 5 * (2 ** 20); // 5MB
-const LOGS_STORAGE_KEY = 'logs.storage.key';
+export const LOGS_STORAGE_KEY = 'logs.storage.key';
 const SAVE_STORAGE_LOGS_TIMOUT = 5 * 1000; // 5 sec
 
 export class LogStorage {
@@ -57,6 +57,10 @@ export class LogStorage {
      */
     async getLogs() {
         const storageLogs = await browserApi.storage.get(LOGS_STORAGE_KEY);
+        if (!storageLogs) {
+            return this.logs;
+        }
+
         return storageLogs.concat(this.logs);
     }
 
