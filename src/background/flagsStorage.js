@@ -10,6 +10,7 @@ const DEFAULTS = {
     [FLAGS_FIELDS.SHOW_ONBOARDING]: true,
     // upgrade screen should be displayed for non-premium users after onboarding screen
     [FLAGS_FIELDS.SHOW_UPGRADE_SCREEN]: true,
+    [FLAGS_FIELDS.SHOULD_OPEN_RATE_MODAL]: false,
 };
 
 /**
@@ -73,6 +74,10 @@ class FlagsStorage {
     onDeauthenticate = async () => {
         await this.setDefaults();
         await updateService.setIsFirstRunFalse();
+    };
+
+    setOpenRateModalFlag = async () => {
+        await this.set(FLAGS_FIELDS.SHOULD_OPEN_RATE_MODAL, true);
     };
 
     init = async () => {

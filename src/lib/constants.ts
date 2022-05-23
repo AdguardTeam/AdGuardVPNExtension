@@ -104,6 +104,7 @@ export const FLAGS_FIELDS = {
     SHOW_ONBOARDING: 'showOnboarding',
     SHOW_UPGRADE_SCREEN: 'showUpgradeScreen',
     SALE_SHOW: 'saleShow',
+    SHOULD_OPEN_RATE_MODAL: 'shouldOpenRateModal',
 };
 
 export const REFERRAL_PROGRAM = 'referral-program';

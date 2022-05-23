@@ -80,6 +80,10 @@ export const App = observer(() => {
                     vpnStore.setVpnInfo(data);
                     break;
                 }
+                case notifier.types.OPEN_POPUP_RATE_MODAL: {
+                    authStore.openRateModal();
+                    break;
+                }
                 case notifier.types.LOCATIONS_UPDATED: {
                     vpnStore.setLocations(data);
                     break;
@@ -134,6 +138,7 @@ export const App = observer(() => {
             notifier.types.CONNECTIVITY_STATE_CHANGED,
             notifier.types.TOO_MANY_DEVICES_CONNECTED,
             notifier.types.CONNECTIVITY_DESKTOP_VPN_STATUS_CHANGED,
+            notifier.types.OPEN_POPUP_RATE_MODAL,
         ];
 
         const onUnload = messenger.createLongLivedConnection(events, messageHandler);
@@ -244,7 +249,7 @@ export const App = observer(() => {
                     </>
                 )}
             <Icons />
-            <RateModal />
+            <RateModal isOpen={authStore.showRateModal} />
             <ConfirmRateModal />
         </>
     );

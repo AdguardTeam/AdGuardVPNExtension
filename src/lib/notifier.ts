@@ -26,6 +26,8 @@ enum NotifierType {
 
     // Connectivity context
     CONNECTIVITY_DESKTOP_VPN_STATUS_CHANGED = 'event.connectivity.desktop.vpn.status.changed',
+
+    OPEN_POPUP_RATE_MODAL = 'event.open.popup.rate.modal',
 }
 
 type NotifierTypeMap = {

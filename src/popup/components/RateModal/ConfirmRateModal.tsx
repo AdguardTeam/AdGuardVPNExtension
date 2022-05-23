@@ -24,13 +24,13 @@ const storeRatingContent = {
 };
 
 export const ConfirmRateModal = observer(() => {
-    const { uiStore } = useContext(rootStore);
-    const { rating, isConfirmRateModalVisible } = uiStore;
+    const { authStore } = useContext(rootStore);
+    const { rating, showConfirmRateModal } = authStore;
 
     const content = rating > BAD_RATING_LIMIT ? storeRatingContent : feedbackContent;
 
     const closeModal = () => {
-        uiStore.closeConfirmRateModal();
+        authStore.closeConfirmRateModal();
     };
 
     const handleConfirm = () => {
@@ -48,7 +48,7 @@ export const ConfirmRateModal = observer(() => {
 
     return (
         <Modal
-            isOpen={isConfirmRateModalVisible}
+            isOpen={showConfirmRateModal}
             className="confirm-rate-modal"
             shouldCloseOnOverlayClick
             overlayClassName="confirm-rate-modal__overlay"

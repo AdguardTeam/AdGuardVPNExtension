@@ -71,6 +71,12 @@ export class AuthStore {
 
     @observable showUpgradeScreen;
 
+    @observable showRateModal = false;
+
+    @observable showConfirmRateModal = false;
+
+    @observable rating = 0;
+
     STEPS = AUTH_STEPS;
 
     constructor(rootStore) {
@@ -133,6 +139,7 @@ export class AuthStore {
         this.isSocialAuth = flagsStorageData[FLAGS_FIELDS.IS_SOCIAL_AUTH];
         this.showOnboarding = flagsStorageData[FLAGS_FIELDS.SHOW_ONBOARDING];
         this.showUpgradeScreen = flagsStorageData[FLAGS_FIELDS.SHOW_UPGRADE_SCREEN];
+        this.showRateModal = flagsStorageData[FLAGS_FIELDS.SHOULD_OPEN_RATE_MODAL];
     };
 
     @action setShowOnboarding = async (value) => {
@@ -398,4 +405,30 @@ export class AuthStore {
     get marketingConsent() {
         return this.credentials.marketingConsent;
     }
+
+    @action setRating = (value) => {
+        this.rating = value;
+    };
+
+    @action openRateModal = () => {
+        this.showRateModal = true;
+    };
+
+    @action closeRateModal = async () => {
+        await messenger.setFlag(FLAGS_FIELDS.SHOULD_OPEN_RATE_MODAL, false);
+        runInAction(() => {
+            this.showRateModal = false;
+        });
+    };
+
+    @action openConfirmRateModal = () => {
+        this.showConfirmRateModal = true;
+    };
+
+    @action closeConfirmRateModal = async () => {
+        await messenger.setFlag(FLAGS_FIELDS.SHOULD_OPEN_RATE_MODAL, false);
+        runInAction(() => {
+            this.showConfirmRateModal = false;
+        });
+    };
 }
