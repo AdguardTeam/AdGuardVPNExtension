@@ -2,33 +2,46 @@ import throttle from 'lodash/throttle';
 
 import browserApi from '../background/browserApi';
 
-const MAX_LOG_SIZE_BYTES = 5 * (2 ** 20); // 5MB
+const MAX_LOG_SIZE_BYTES = 2 ** 20; // 1MB
 export const LOGS_STORAGE_KEY = 'logs.storage.key';
 const SAVE_STORAGE_LOGS_TIMOUT = 5 * 1000; // 5 sec
 
-export class LogStorage {
+interface LogStorageInterface {
+    maxLogSizeBytes: number;
+    logSizeBytes: number;
+    logs: string[];
+    addLog(...logStrings: string[]): void;
+    getLogsString(): Promise<string>;
+}
+
+export class LogStorage implements LogStorageInterface {
     constructor(maxLogSizeBytes = MAX_LOG_SIZE_BYTES) {
         this.maxLogSizeBytes = maxLogSizeBytes;
     }
 
-    logSizeBytes = 0;
+    maxLogSizeBytes: number;
 
-    logs = [];
+    logSizeBytes: number = 0;
+
+    logs: string[] = [];
 
     throttledLogsSaver = throttle(
         this.saveLogsToStorage,
         SAVE_STORAGE_LOGS_TIMOUT,
     );
 
-    freeSpaceIfNecessary = (size) => {
+    freeSpaceIfNecessary = (size: number): void => {
         while (this.logSizeBytes + size > this.maxLogSizeBytes) {
             const headLog = this.logs.shift();
+            if (!headLog) {
+                return;
+            }
             const headLogSize = new Blob([headLog]).size;
             this.logSizeBytes -= headLogSize;
         }
     };
 
-    addLog = (...logStrings) => {
+    addLog = (...logStrings: string[]): void => {
         const logString = logStrings.map((arg) => {
             try {
                 return JSON.stringify(arg);
@@ -43,19 +56,19 @@ export class LogStorage {
         this.throttledLogsSaver();
     };
 
-    async getLogsString() {
+    async getLogsString(): Promise<string> {
         const logs = await this.getLogs();
         return logs.join('\n');
     }
 
-    get size() {
+    get size(): number {
         return this.logSizeBytes;
     }
 
     /**
      * Returns logs from storage merged with current logs
      */
-    async getLogs() {
+    async getLogs(): Promise<string[]> {
         const storageLogs = await browserApi.storage.get(LOGS_STORAGE_KEY);
         if (!storageLogs) {
             return this.logs;
@@ -67,7 +80,7 @@ export class LogStorage {
     /**
      * Saves all logs to storage and clears current log
      */
-    async saveLogsToStorage() {
+    async saveLogsToStorage(): Promise<void> {
         const logs = await this.getLogs();
         this.logs = [];
         await browserApi.storage.set(LOGS_STORAGE_KEY, logs);
