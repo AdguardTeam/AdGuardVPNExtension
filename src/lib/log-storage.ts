@@ -4,7 +4,7 @@ import browserApi from '../background/browserApi';
 
 const MAX_LOG_SIZE_BYTES = 2 ** 20; // 1MB
 export const LOGS_STORAGE_KEY = 'logs.storage.key';
-const SAVE_STORAGE_LOGS_TIMOUT = 5 * 1000; // 5 sec
+export const SAVE_STORAGE_LOGS_TIMOUT = 5 * 1000; // 5 sec
 
 export interface LogStorageInterface {
     maxLogSizeBytes: number;
@@ -31,17 +31,6 @@ export class LogStorage implements LogStorageInterface {
         SAVE_STORAGE_LOGS_TIMOUT,
     );
 
-    freeSpaceIfNecessary = (size: number): void => {
-        while (this.logSizeBytes + size > this.maxLogSizeBytes) {
-            const headLog = this.logs.shift();
-            if (!headLog) {
-                return;
-            }
-            const headLogSize = new Blob([headLog]).size;
-            this.logSizeBytes -= headLogSize;
-        }
-    };
-
     addLog = (...logStrings: string[]): void => {
         const logString = logStrings.map((arg) => {
             try {
@@ -51,7 +40,6 @@ export class LogStorage implements LogStorageInterface {
             }
         }).join(' ');
         const logSize = new Blob([logString]).size;
-        this.freeSpaceIfNecessary(logSize);
         this.logSizeBytes += logSize;
         this.logs.push(logString);
         this.throttledLogsSaver();
@@ -78,12 +66,25 @@ export class LogStorage implements LogStorageInterface {
         return storageLogs.concat(this.logs);
     }
 
+    limitLogSize = (logs: string[]): string[] => {
+        while (this.logSizeBytes > this.maxLogSizeBytes) {
+            const headLog = logs.shift();
+            if (!headLog) {
+                return [];
+            }
+            const headLogSize = new Blob([headLog]).size;
+            this.logSizeBytes -= headLogSize;
+        }
+        return logs;
+    };
+
     /**
      * Saves all logs to storage and clears current log
      */
     async saveLogsToStorage(): Promise<void> {
-        const logs = await this.getLogs();
+        let logs = await this.getLogs();
         this.logs = [];
+        logs = this.limitLogSize(logs);
         await browserApi.storage.set(LOGS_STORAGE_KEY, logs);
     }
 }

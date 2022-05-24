@@ -1,4 +1,9 @@
-import { LogStorage, LOGS_STORAGE_KEY, LogStorageInterface } from '../../src/lib/log-storage';
+import {
+    LogStorage,
+    LOGS_STORAGE_KEY,
+    LogStorageInterface,
+    SAVE_STORAGE_LOGS_TIMOUT,
+} from '../../src/lib/log-storage';
 import browserApi from '../../src/background/browserApi';
 
 interface StorageInterface {
@@ -71,7 +76,8 @@ describe('LogStorage', () => {
         expect(logStorage.size).toBe(new Blob([`"${str1}" "${str2}"`]).size);
     });
 
-    it('Does not get over max bytes limit', () => {
+    it('Does not get over max bytes limit', async (done) => {
+        jest.setTimeout(10000);
         const str = 'testtest'; // 8Bytes
         expect(new Blob([str]).size).toBe(8);
 
@@ -83,6 +89,9 @@ describe('LogStorage', () => {
             logStorage.addLog(str);
         }
 
-        expect(logStorage.size).toBeLessThanOrEqual(logStorageMaxSizeBytes);
+        setTimeout(() => {
+            expect(logStorage.size).toBeLessThanOrEqual(logStorageMaxSizeBytes);
+            done();
+        }, SAVE_STORAGE_LOGS_TIMOUT);
     });
 });
