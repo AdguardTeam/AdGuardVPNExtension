@@ -6,12 +6,13 @@ const MAX_LOG_SIZE_BYTES = 2 ** 20; // 1MB
 export const LOGS_STORAGE_KEY = 'logs.storage.key';
 const SAVE_STORAGE_LOGS_TIMOUT = 5 * 1000; // 5 sec
 
-interface LogStorageInterface {
+export interface LogStorageInterface {
     maxLogSizeBytes: number;
     logSizeBytes: number;
     logs: string[];
-    addLog(...logStrings: string[]): void;
+    addLog(...logStrings: string[] | { [key: string]: string }[]): void;
     getLogsString(): Promise<string>;
+    size: number;
 }
 
 export class LogStorage implements LogStorageInterface {

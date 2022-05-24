@@ -1,25 +1,32 @@
-import { LogStorage, LOGS_STORAGE_KEY } from '../../src/lib/log-storage';
+import { LogStorage, LOGS_STORAGE_KEY, LogStorageInterface } from '../../src/lib/log-storage';
 import browserApi from '../../src/background/browserApi';
 
-jest.mock('../../src/background/browserApi', () => {
-    const storage = {};
+interface StorageInterface {
+    [key: string]: any;
+    set: jest.Mock<Promise<void>, [key: string, data: any]>;
+    get: jest.Mock<Promise<string>, [key: string]>;
+    remove: jest.Mock<Promise<boolean>, [key: string]>;
+}
+
+jest.mock('../../src/background/browserApi', (): { storage: StorageInterface } => {
+    const storage: StorageInterface = {
+        set: jest.fn(async (key: string, data: any): Promise<void> => {
+            storage[key] = data;
+        }),
+        get: jest.fn(async (key: string): Promise<string> => {
+            return storage[key];
+        }),
+        remove: jest.fn(async (key: string): Promise<boolean> => {
+            return delete storage[key];
+        }),
+    };
     return {
-        storage: {
-            set: jest.fn((key, data) => {
-                storage[key] = data;
-            }),
-            get: jest.fn((key) => {
-                return storage[key];
-            }),
-            remove: jest.fn((key) => {
-                return delete storage[key];
-            }),
-        },
+        storage,
     };
 });
 
 describe('LogStorage', () => {
-    let logStorage;
+    let logStorage: LogStorageInterface;
 
     beforeEach(() => {
         logStorage = new LogStorage();
