@@ -216,7 +216,7 @@ export class ExclusionsService {
             let exclusionsToDisable = this.exclusionsTree
                 .getPathExclusions(serviceData.serviceId);
 
-            if (exclusionsToDisable.length) {
+            if (existingExclusionsIds.length) {
                 exclusionsToDisable = exclusionsToDisable.filter((exclusionId) => {
                     return !existingExclusionsIds.includes(exclusionId);
                 });
