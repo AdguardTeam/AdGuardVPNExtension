@@ -303,12 +303,13 @@ export class AuthStore {
     };
 
     @action proceedAuthorization = async (provider) => {
-        if (provider === AUTH_PROVIDERS.ADGUARD) {
-            await this.openSignUpCheck();
-            await this.switchStep(this.STEPS.CHECK_EMAIL);
-        } else {
-            await this.openSocialAuth(provider);
-        }
+        await this.openSocialAuth(provider);
+        // if (provider === AUTH_PROVIDERS.ADGUARD) {
+        //     await this.openSignUpCheck();
+        //     await this.switchStep(this.STEPS.CHECK_EMAIL);
+        // } else {
+        //     await this.openSocialAuth(provider);
+        // }
     };
 
     @action openSocialAuth = async (social) => {

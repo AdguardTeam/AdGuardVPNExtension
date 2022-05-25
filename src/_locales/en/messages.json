@@ -177,10 +177,10 @@
         "message": "Sign in with AdGuard account"
     },
     "auth_title": {
-        "message": "Authorization"
+        "message": "Log in or create an account"
     },
-    "auth_info": {
-        "message": "Continue with your AdGuard account or with social login"
+    "auth_sign_in_provider_adguard_label": {
+        "message": "Email"
     },
     "auth_sign_in_provider_adguard": {
         "message": "Continue with Email"
