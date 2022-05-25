@@ -206,6 +206,7 @@ export class ExclusionsService {
         const serviceData = servicesManager.getServicesDto()
             .find((service) => service.domains.includes(hostname));
         if (serviceData) {
+            // get list of existing exclusions in service to keep their state
             const existingExclusionsIds = this.exclusionsTree
                 .getPathExclusions(serviceData.serviceId);
 
