@@ -1,1 +1,0 @@
-export { RateModal } from './RateModal';

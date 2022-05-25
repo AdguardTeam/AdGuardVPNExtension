@@ -14,10 +14,10 @@ const RATING_STARS = [5, 4, 3, 2, 1];
 const DEFAULT_RATING_IMAGE = RATING_IMAGES_MAP[5];
 const DEFAULT_RATING_IMAGE_PATH = `${PATH_TO_RATING_IMAGES}${DEFAULT_RATING_IMAGE}`;
 
-export const RateModal = observer(({ isOpen }: { isOpen: boolean }) => {
+export const RateModal = observer(() => {
     const { authStore } = useContext(rootStore);
 
-    const { rating, setRating } = authStore;
+    const { rating, setRating, showRateModal } = authStore;
 
     const [ratingHovered, setRatingHovered] = useState<number | null>(null);
     const [mainImagePath, setMainImagePath] = useState<string>(DEFAULT_RATING_IMAGE_PATH);
@@ -58,7 +58,7 @@ export const RateModal = observer(({ isOpen }: { isOpen: boolean }) => {
 
     return (
         <Modal
-            isOpen={isOpen}
+            isOpen={showRateModal}
             className="rate-modal"
             shouldCloseOnOverlayClick
             overlayClassName="rate-modal__overlay"

@@ -23,8 +23,7 @@ const openRateModal = async () => {
 
 const handleRateModalOpening = async () => {
     const rateModalDisplayTime = await browserApi.storage.get(RATE_MODAL_DISPLAY_TIME_KEY);
-    const currentDate = new Date();
-    const currentTime = currentDate.getTime();
+    const currentTime = Date.now();
 
     if (!rateModalDisplayTime) {
         await browserApi.storage.set(RATE_MODAL_DISPLAY_TIME_KEY, currentTime + RATE_MODAL_DELAY);
