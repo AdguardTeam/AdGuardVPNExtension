@@ -206,11 +206,21 @@ export class ExclusionsService {
         const serviceData = servicesManager.getServicesDto()
             .find((service) => service.domains.includes(hostname));
         if (serviceData) {
+            const existingExclusionsIds = this.exclusionsTree
+                .getPathExclusions(serviceData.serviceId);
+
             const addedExclusionsCount = await this.addServices([serviceData.serviceId]);
 
-            // disable all exclusions in service
-            const exclusionsToDisable = this.exclusionsTree
+            // disable all exclusions in service except existing
+            let exclusionsToDisable = this.exclusionsTree
                 .getPathExclusions(serviceData.serviceId);
+
+            if (exclusionsToDisable.length) {
+                exclusionsToDisable = exclusionsToDisable.filter((exclusionId) => {
+                    return !existingExclusionsIds.includes(exclusionId);
+                });
+            }
+
             await exclusionsManager.current
                 .setExclusionsState(exclusionsToDisable, ExclusionState.Disabled);
 
