@@ -23,36 +23,10 @@ export const EmailAuth = observer(() => {
         await authStore.onCredentialsChange(name, value);
     };
 
-    const openSignInCheck = async () => {
-        await authStore.openSignInCheck();
-    };
-
-    const openSignUpCheck = async () => {
-        await authStore.openSignUpCheck();
-    };
-
     const formClassName = classnames(
         'form form--login',
         { 'form--error': authStore.error },
     );
-
-    let params = {
-        titleText: 'auth_sign_up',
-        infoText: 'auth_header_sign_up_create_account',
-        buttonText: 'auth_sign_up_button',
-        linkText: 'auth_sign_in_link',
-        linkEvent: openSignInCheck,
-    };
-
-    if (authStore.signInCheck) {
-        params = {
-            titleText: 'auth_sign_in',
-            infoText: 'auth_header_sign_in_account',
-            buttonText: 'auth_sign_in_button',
-            linkText: 'auth_sign_up',
-            linkEvent: openSignUpCheck,
-        };
-    }
 
     const getSubmitButton = () => {
         const { requestProcessState, credentials } = authStore;
@@ -85,6 +59,7 @@ export const EmailAuth = observer(() => {
                         placeholder={reactTranslator.getMessage('auth_email')}
                         inputChangeHandler={inputChangeHandler}
                         error={authStore.error}
+                        label={reactTranslator.getMessage('auth_sign_in_provider_adguard_label')}
                     />
                     {authStore.error && (
                         <div className="form__error">

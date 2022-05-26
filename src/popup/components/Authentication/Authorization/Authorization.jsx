@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { AUTH_PROVIDERS } from '../../../../lib/constants';
-import { EmailAuth} from '../EmailAuth';
+import { EmailAuth } from '../EmailAuth';
 import Icon from '../../ui/Icon';
 
 import './authorization.pcss';

@@ -51,27 +51,14 @@ const SignInForm = observer(() => {
                 </div>
                 <div className="form__info">
                     {
-                        authStore.signInCheck
-                            ? reactTranslator.getMessage('auth_header_sign_in', {
-                                username: authStore.credentials.username,
-                                div: (chunks) => (
-                                    // make sure that css styles won't be broken
-                                    // if div is placed in the translation beginning
-                                    <div className="form__credentials">
-                                        {chunks}
-                                    </div>
-                                ),
-                            })
-                            : reactTranslator.getMessage('auth_header_sing_in_notice', {
-                                username: authStore.credentials.username,
-                                div: (chunks) => (
-                                    // make sure that css styles won't be broken
-                                    // if div is placed in the translation beginning
-                                    <div className="form__credentials">
-                                        {chunks}
-                                    </div>
-                                ),
-                            })
+                        reactTranslator.getMessage('auth_header_sing_in_notice', {
+                            username: authStore.credentials.username,
+                            span: (chunks) => (
+                                <span className="form__credentials">
+                                    {chunks}
+                                </span>
+                            ),
+                        })
                     }
                 </div>
                 <PasswordField
@@ -83,6 +70,7 @@ const SignInForm = observer(() => {
                     icon={icon}
                     inputType={inputType}
                     error={authStore.error}
+                    label={reactTranslator.getMessage('auth_password')}
                 />
                 {authStore.error && (
                     <div className="form__error">

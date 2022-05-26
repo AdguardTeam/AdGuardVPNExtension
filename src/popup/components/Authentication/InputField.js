@@ -1,8 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import { reactTranslator } from '../../../common/reactTranslator';
-
 const InputField = ({
     id,
     type,
@@ -11,6 +9,8 @@ const InputField = ({
     error,
     className = '',
     placeholder = '',
+    label = '',
+    disabled = false,
 }) => {
     const inputClassName = classnames(
         `form__input ${className}`,
@@ -21,7 +21,7 @@ const InputField = ({
         <div className="form__item">
             <label>
                 <div className="form__label">
-                    {reactTranslator.getMessage('auth_sign_in_provider_adguard_label')}
+                    {label}
                 </div>
                 <input
                     id={id}
@@ -33,6 +33,7 @@ const InputField = ({
                     placeholder={placeholder}
                     // eslint-disable-next-line jsx-a11y/no-autofocus
                     autoFocus
+                    disabled={disabled}
                 />
             </label>
         </div>

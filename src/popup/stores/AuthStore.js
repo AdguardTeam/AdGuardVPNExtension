@@ -9,7 +9,7 @@ import isNil from 'lodash/isNil';
 
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
 import { messenger } from '../../lib/messenger';
-import { SETTINGS_IDS, AUTH_PROVIDERS, FLAGS_FIELDS } from '../../lib/constants';
+import { SETTINGS_IDS, FLAGS_FIELDS } from '../../lib/constants';
 
 const AUTH_STEPS = {
     POLICY_AGREEMENT: 'policyAgreement',
@@ -84,6 +84,10 @@ export class AuthStore {
         this.error = DEFAULTS.error;
         this.step = DEFAULTS.step;
         this.signInCheck = DEFAULTS.signInCheck;
+    };
+
+    @action setError = (value) => {
+        this.error = value;
     };
 
     @action resetError = () => {
@@ -327,14 +331,6 @@ export class AuthStore {
 
     @action showAuthorizationScreen = async () => {
         await this.switchStep(this.STEPS.AUTHORIZATION);
-    };
-
-    @action showPrevAuthScreen = async () => {
-        await this.switchStep(
-            this.step === this.STEPS.CHECK_EMAIL
-                ? this.STEPS.AUTHORIZATION
-                : this.STEPS.CHECK_EMAIL,
-        );
     };
 
     @action resetPasswords = async () => {

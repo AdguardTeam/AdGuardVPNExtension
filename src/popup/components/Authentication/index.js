@@ -7,7 +7,6 @@ import { Authorization } from './Authorization';
 import { RegistrationForm } from './RegistrationForm';
 import TwoFactorForm from './TwoFactorForm';
 import { BackButton } from './BackButton';
-import { CheckEmail } from './CheckEmail';
 import { PolicyAgreement } from './PolicyAgreement';
 
 import './auth.pcss';
@@ -18,7 +17,6 @@ const Authentication = observer(() => {
     const getHeader = (step) => {
         const titleMaps = {
             policyAgreement: null,
-            checkEmail: <BackButton />,
             authorization: null,
             signIn: <BackButton />,
             registration: <BackButton />,
@@ -45,7 +43,7 @@ const Authentication = observer(() => {
                 return <PolicyAgreement />;
             }
             default: {
-                return <CheckEmail />;
+                return <Authorization />;
             }
         }
     };

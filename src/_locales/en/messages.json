@@ -15,7 +15,7 @@
         "message": "This value is not valid"
     },
     "registration_error_min_length": {
-        "message": "Password is too short. It must contain at least 8 characters."
+        "message": "Password must contain at least 8 characters"
     },
     "registration_error_compromised_password": {
         "message": "The password you entered was found in a <a>public database</a> of compromised passwords. Please try another."
@@ -158,20 +158,26 @@
     "auth_password": {
         "message": "Password"
     },
+    "auth_password_confirm": {
+        "message": "Confirm password"
+    },
     "auth_recover": {
         "message": "Forgot password?"
     },
     "auth_sign_up": {
-        "message": "Sign up"
+        "message": "Sign Up"
+    },
+    "auth_sign_up_info": {
+        "message": "Create your AdGuard account"
     },
     "auth_sign_up_button": {
         "message": "Sign up"
     },
     "auth_sign_in": {
-        "message": "Sign in"
+        "message": "Enter your password"
     },
     "auth_sign_in_button": {
-        "message": "Sign in"
+        "message": "Log in"
     },
     "auth_sign_in_link": {
         "message": "Sign in with AdGuard account"
@@ -201,10 +207,10 @@
         "message": "By signing up you create your AdGuard account"
     },
     "auth_header_sign_in": {
-        "message": "You are signing in as <div>%username%</div> "
+        "message": "You are signing in as <span>%username%</span> "
     },
     "auth_header_sing_in_notice": {
-        "message": "You already have an account <div>%username%</div>"
+        "message": "Logging in as <span>%username%</span>"
     },
     "auth_header_registration": {
         "message": "You are signing up as <div>%username%</div>"
