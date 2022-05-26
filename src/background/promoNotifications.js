@@ -12,108 +12,118 @@ import notifier from '../lib/notifier';
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const easter2022Notification = {
-    id: 'easter2022',
+const birthday13Notification = {
+    id: 'birthday13',
     locales: {
         en: {
-            title: 'Easter Sale:',
-            desc: '80% off',
-            btn: 'Grab the deal',
+            title: 'AdGuard',
+            desc: 'Anniversary Quiz',
+            btn: 'Play',
+        },
+        ru: {
+            title: 'Нам 13 лет!',
+            desc: 'Отпразднуем?',
+            btn: 'Вперёд!',
         },
         es: {
-            title: 'Oferta de Pascua:',
-            desc: '80% off',
-            btn: 'Aprovechar',
-        },
-        ko: {
-            title: '부활절 세일:',
-            desc: '80% 할인',
-            btn: '할인 받기',
+            title: 'Test de cumpleaños',
+            desc: 'de AdGuard',
+            btn: 'Ponte a prueba',
         },
         de: {
-            title: 'Oster-Sale:',
-            desc: '80% Rabatt',
-            btn: 'Schnappen',
+            title: 'AdGuard-Quiz',
+            desc: 'zum 13. Geburtstag',
+            btn: "Los geht's!",
         },
         fr: {
-            title: 'Promo Pâques :',
-            desc: 'remise 80%',
-            btn: 'Voir offre',
+            title: 'AdGuard fête ses 13',
+            desc: 'ans !',
+            btn: 'Test festif ici',
         },
         it: {
-            title: 'Promo di Pasqua:',
-            desc: '80% di sconto',
-            btn: 'Sconto qui',
+            title: 'AdGuard celebra i',
+            desc: 'suoi 13 anni!',
+            btn: 'Test festivo qui',
+        },
+        ko: {
+            title: 'AdGuard 생일 퀴즈',
+            btn: '퀴즈 시작',
         },
         zh_cn: {
-            title: '春季大优惠，',
-            desc: '享2折！',
-            btn: '把握好机会',
+            title: 'AdGuard 生日会',
+            desc: '知识竞赛',
+            btn: '我要参加！',
         },
         zh_tw: {
-            title: '春季優惠，',
-            desc: '享2折！',
-            btn: '把握機會',
+            title: 'AdGuard 生日派對',
+            desc: '知識競賽',
+            btn: '我要參加！',
+        },
+        ja: {
+            title: 'AdGuard',
+            desc: '創業13周年クイズ',
+            btn: '答えてみる',
         },
         uk: {
-            title: 'Весняні знижки:',
-            desc: '−80%',
-            btn: 'Отримати угоду',
-        },
-        be: {
-            title: 'Вясновыя зніжкі:',
-            desc: '−80%',
-            btn: 'Атрымаць здзелку',
-        },
-        ar: {
-            title: 'تخفيضات الربيع:',
-            desc: '80٪ خصم',
-            btn: 'احصل على الصفقة',
-        },
-        id: {
-            title: 'Penjualan musim semi',
-            btn: 'Dapatkan diskon 80%',
-        },
-        tr: {
-            title: 'Bahar satışı',
-            btn: '%80 indirim',
-        },
-        vi: {
-            title: 'Giảm giá mùa',
-            desc: 'xuân',
-            btn: 'Giảm giá 80%',
-        },
-        pl: {
-            title: 'Wyprzedaż',
-            desc: 'wielkanocna',
-            btn: '80% taniej',
+            title: 'Вікторина до дня',
+            desc: 'народження AdGuard',
+            btn: 'Взяти участь',
         },
         pt_pt: {
-            title: 'Promoção da',
-            desc: 'Páscoa',
-            btn: 'Conseguir 80% off',
+            title: 'Quiz de aniversário',
+            desc: 'AdGuard',
+            btn: 'Teste-se',
         },
         pt_br: {
-            title: 'Promoção da',
-            desc: 'Páscoa',
-            btn: 'Conseguir 80% off',
+            title: 'Quiz de aniversário',
+            desc: 'AdGuard',
+            btn: 'Teste-se',
+        },
+        ar: {
+            title: 'اختبار عيد ميلاد',
+            desc: 'AdGuard',
+            btn: 'اختبر نفسك',
+        },
+        be: {
+            title: 'Тэст дня нараджэння',
+            btn: 'Праверце сябе',
+        },
+        id: {
+            title: 'Kuis ulang tahun',
+            desc: 'AdGuard',
+            btn: 'Uji dirimu',
+        },
+        pl: {
+            title: 'Quiz urodzinowy',
+            desc: 'AdGuard',
+            btn: 'Sprawdź się',
+        },
+        tr: {
+            title: 'AdGuard doğum günü',
+            desc: 'testi',
+            btn: 'Kendini test et',
+        },
+        vi: {
+            title: 'Câu đố sinh nhật',
+            desc: 'AdGuard',
+            btn: 'Tự kiểm tra',
         },
     },
     // will be selected for locale, see usage of getNotificationText
     text: '',
-    url: 'https://adguard-vpn.com/forward.html?action=easter2022vpn&from=popup&app=vpn_extension',
-    from: '14 April 2022 12:00:00',
-    to: '20 April 2022 23:59:00',
+    url: 'https://adguard-vpn.com/forward.html?action=birthday13vpn&from=popup&app=vpn_extension',
+    from: '31 May 2022 12:00:00',
+    to: '5 June 2022 23:59:00',
     type: 'animated',
     get icons() {
-        return lazyGet(easter2022Notification, 'icons', () => ({
+        return lazyGet(birthday13Notification, 'icons', () => ({
             ENABLED: {
-                19: getUrl('assets/images/icons/easter-on-19.png'),
-                38: getUrl('assets/images/icons/easter-on-38.png'),
+                19: getUrl('assets/images/icons/promo-on-19.png'),
+                38: getUrl('assets/images/icons/promo-on-38.png'),
             },
             DISABLED: {
-                19: getUrl('assets/images/icons/easter-off-19.png'),
-                38: getUrl('assets/images/icons/easter-off-38.png'),
+                19: getUrl('assets/images/icons/promo-off-19.png'),
+                38: getUrl('assets/images/icons/promo-off-38.png'),
             },
         }));
     },
@@ -136,7 +146,7 @@ const easter2022Notification = {
  */
 
 const notifications = {
-    easter2022: easter2022Notification,
+    birthday13: birthday13Notification,
 };
 
 /**
