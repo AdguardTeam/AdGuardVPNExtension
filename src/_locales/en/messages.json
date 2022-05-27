@@ -621,7 +621,7 @@
         "message": "VPN is disabled on this website"
     },
     "popup_auth_policy_agreement": {
-        "message": "I have read and agree to AdGuard’s <eula>EULA</eula> and <privacy>Privacy policy</privacy>",
+        "message": "I have read and agree to AdGuard’s <eula>EULA</eula> and <privacy>Privacy Policy</privacy>",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
