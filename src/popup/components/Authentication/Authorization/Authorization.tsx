@@ -11,11 +11,11 @@ import './authorization.pcss';
 export const Authorization = () => {
     const { authStore } = useContext(rootStore);
 
-    const authClickHandler = (provider) => async () => {
+    const authClickHandler = (provider: string) => async () => {
         await authStore.proceedAuthorization(provider);
     };
 
-    const providersTranslations = {
+    const providersTranslations: { [key: string]: React.ReactNode } = {
         [AUTH_PROVIDERS.APPLE]: reactTranslator.getMessage('auth_sign_in_provider_apple'),
         [AUTH_PROVIDERS.GOOGLE]: reactTranslator.getMessage('auth_sign_in_provider_google'),
         [AUTH_PROVIDERS.FACEBOOK]: reactTranslator.getMessage('auth_sign_in_provider_facebook'),

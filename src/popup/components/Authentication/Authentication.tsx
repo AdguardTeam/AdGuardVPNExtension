@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
-import SignInForm from './SignInForm';
+import { SignInForm } from './SignInForm';
 import { Authorization } from './Authorization';
 import { RegistrationForm } from './RegistrationForm';
 import TwoFactorForm from './TwoFactorForm';
@@ -11,11 +11,11 @@ import { PolicyAgreement } from './PolicyAgreement';
 
 import './auth.pcss';
 
-const Authentication = observer(() => {
+export const Authentication = observer(() => {
     const { authStore } = useContext(rootStore);
 
-    const getHeader = (step) => {
-        const titleMaps = {
+    const getHeader = (step: string) => {
+        const titleMaps: { [key: string]: null | React.ReactElement } = {
             policyAgreement: null,
             authorization: null,
             signIn: <BackButton />,
@@ -25,7 +25,7 @@ const Authentication = observer(() => {
         return titleMaps[step] || titleMaps.authorization;
     };
 
-    const getForm = (step) => {
+    const getForm = (step: string) => {
         switch (step) {
             case authStore.STEPS.REGISTRATION: {
                 return <RegistrationForm />;
@@ -59,5 +59,3 @@ const Authentication = observer(() => {
         </div>
     );
 });
-
-export default Authentication;

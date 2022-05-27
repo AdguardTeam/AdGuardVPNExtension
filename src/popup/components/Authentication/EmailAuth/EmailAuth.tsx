@@ -7,18 +7,18 @@ import { rootStore } from '../../../stores';
 import { REQUEST_STATUSES } from '../../../stores/consts';
 
 import Submit from '../Submit';
-import InputField from '../InputField';
+import { InputField } from '../InputField';
 import { reactTranslator } from '../../../../common/reactTranslator';
 
 export const EmailAuth = observer(() => {
     const { authStore } = useContext(rootStore);
 
-    const submitHandler = async (e) => {
+    const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await authStore.checkEmail();
     };
 
-    const inputChangeHandler = async (e) => {
+    const inputChangeHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const { target: { name, value } } = e;
         await authStore.onCredentialsChange(name, value);
     };
@@ -56,10 +56,12 @@ export const EmailAuth = observer(() => {
                         id="username"
                         type="email"
                         value={username}
-                        placeholder={reactTranslator.getMessage('auth_email')}
+                        placeholder={reactTranslator.getMessage('auth_email') as string}
                         inputChangeHandler={inputChangeHandler}
                         error={authStore.error}
-                        label={reactTranslator.getMessage('auth_sign_in_provider_adguard_label')}
+                        label={reactTranslator.getMessage('auth_sign_in_provider_adguard_label') as string}
+                        className={null}
+                        disabled={false}
                     />
                     {authStore.error && (
                         <div className="form__error">

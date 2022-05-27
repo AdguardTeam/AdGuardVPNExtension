@@ -1,7 +1,19 @@
 import React from 'react';
 import classnames from 'classnames';
 
-const InputField = ({
+interface InputFieldParameters {
+    id: string;
+    type: string;
+    value: string;
+    inputChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
+    error: boolean | null;
+    className: string | null;
+    placeholder: string | undefined;
+    label: string;
+    disabled: boolean;
+}
+
+export const InputField = ({
     id,
     type,
     value,
@@ -11,7 +23,7 @@ const InputField = ({
     placeholder = '',
     label = '',
     disabled = false,
-}) => {
+}: InputFieldParameters) => {
     const inputClassName = classnames(
         `form__input ${className}`,
         { 'form__input--error': error },
@@ -39,5 +51,3 @@ const InputField = ({
         </div>
     );
 };
-
-export default InputField;

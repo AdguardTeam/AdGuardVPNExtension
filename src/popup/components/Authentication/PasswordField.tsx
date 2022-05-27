@@ -1,6 +1,19 @@
 import React from 'react';
 import classnames from 'classnames';
 
+interface PasswordFieldParameters {
+    id: string;
+    password: string;
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
+    error: boolean | null;
+    inputType: string;
+    handleInputTypeChange: (() => void) | null;
+    icon: string | null;
+    placeholder: string;
+    label: string | undefined;
+    focus: boolean;
+}
+
 const PasswordField = ({
     id,
     password,
@@ -12,7 +25,7 @@ const PasswordField = ({
     placeholder = '',
     label = '',
     focus = false,
-}) => {
+}: PasswordFieldParameters) => {
     const inputClassName = classnames('form__input form__input--password', { 'form__input--error': error });
 
     return (
@@ -35,9 +48,10 @@ const PasswordField = ({
                 {icon && (
                     <button
                         type="button"
-                        tabIndex="-1"
+                        tabIndex={-1}
                         className="button form__show-password"
-                        onClick={handleInputTypeChange}
+                        onClick={handleInputTypeChange as React
+                            .MouseEventHandler<HTMLButtonElement>}
                     >
                         <svg className="icon icon--button">
                             <use xlinkHref={icon} />

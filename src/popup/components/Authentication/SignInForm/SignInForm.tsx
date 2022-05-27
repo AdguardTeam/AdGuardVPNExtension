@@ -10,15 +10,15 @@ import PasswordField from '../PasswordField';
 import Submit from '../Submit';
 import { reactTranslator } from '../../../../common/reactTranslator';
 
-const SignInForm = observer(() => {
+export const SignInForm = observer(() => {
     const { authStore } = useContext(rootStore);
 
-    const submitHandler = async (e) => {
+    const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await authStore.authenticate();
     };
 
-    const inputChangeHandler = async (e) => {
+    const inputChangeHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const { target: { name, value } } = e;
         await authStore.onCredentialsChange(name, value);
     };
@@ -53,7 +53,7 @@ const SignInForm = observer(() => {
                     {
                         reactTranslator.getMessage('auth_header_sing_in_notice', {
                             username: authStore.credentials.username,
-                            span: (chunks) => (
+                            span: (chunks: string) => (
                                 <span className="form__credentials">
                                     {chunks}
                                 </span>
@@ -62,7 +62,7 @@ const SignInForm = observer(() => {
                     }
                 </div>
                 <PasswordField
-                    placeholder={reactTranslator.getMessage('auth_password')}
+                    placeholder={reactTranslator.getMessage('auth_password') as string}
                     id="password"
                     password={password}
                     handleChange={inputChangeHandler}
@@ -70,7 +70,8 @@ const SignInForm = observer(() => {
                     icon={icon}
                     inputType={inputType}
                     error={authStore.error}
-                    label={reactTranslator.getMessage('auth_password')}
+                    label={reactTranslator.getMessage('auth_password') as string}
+                    focus
                 />
                 {authStore.error && (
                     <div className="form__error">
@@ -97,5 +98,3 @@ const SignInForm = observer(() => {
         </form>
     );
 });
-
-export default SignInForm;

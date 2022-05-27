@@ -6,7 +6,7 @@ import { rootStore } from '../../../stores';
 import { REQUEST_STATUSES } from '../../../stores/consts';
 
 import Submit from '../Submit';
-import InputField from '../InputField';
+import { InputField } from '../InputField';
 import { reactTranslator } from '../../../../common/reactTranslator';
 
 const TwoFactorForm = observer(() => {
