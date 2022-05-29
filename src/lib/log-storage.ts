@@ -4,7 +4,7 @@ import browserApi from '../background/browserApi';
 
 const MAX_LOG_SIZE_BYTES = 2 ** 20; // 1MB
 export const LOGS_STORAGE_KEY = 'logs.storage.key';
-export const SAVE_STORAGE_LOGS_TIMOUT = 5 * 1000; // 5 sec
+export const SAVE_STORAGE_LOGS_TIMEOUT = 5 * 1000; // 5 sec
 
 export interface LogStorageInterface {
     maxLogSizeBytes: number;
@@ -28,7 +28,7 @@ export class LogStorage implements LogStorageInterface {
 
     throttledLogsSaver = throttle(
         this.saveLogsToStorage,
-        SAVE_STORAGE_LOGS_TIMOUT,
+        SAVE_STORAGE_LOGS_TIMEOUT,
     );
 
     addLog = (...logStrings: string[]): void => {
