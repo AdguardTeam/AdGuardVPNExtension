@@ -5,7 +5,7 @@ interface PasswordFieldParameters {
     id: string;
     password: string;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
-    error: boolean | null;
+    error: string | null;
     inputType: string;
     handleInputTypeChange: (() => void) | null;
     icon: string | null;
@@ -18,7 +18,7 @@ const PasswordField = ({
     id,
     password,
     handleChange,
-    error = false,
+    error = null,
     inputType,
     handleInputTypeChange,
     icon,

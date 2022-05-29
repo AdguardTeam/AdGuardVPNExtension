@@ -20,6 +20,17 @@ const AUTH_STEPS = {
     TWO_FACTOR: 'twoFactor',
 };
 
+interface CredentialsType {
+    [key: string]: string | boolean | null;
+}
+
+interface CredentialsInterface extends CredentialsType {
+    username: string;
+    password: string;
+    twoFactor: string;
+    marketingConsent: boolean | null,
+}
+
 const DEFAULTS = {
     credentials: {
         username: '',
@@ -41,13 +52,13 @@ const DEFAULTS = {
 };
 
 export class AuthStore {
-    @observable credentials = DEFAULTS.credentials;
+    @observable credentials: CredentialsInterface = DEFAULTS.credentials;
 
     @observable authenticated = DEFAULTS.authenticated;
 
     @observable need2fa = DEFAULTS.need2fa;
 
-    @observable error = DEFAULTS.error;
+    @observable error: string | null = DEFAULTS.error;
 
     @observable field = DEFAULTS.field;
 
@@ -61,19 +72,21 @@ export class AuthStore {
 
     @observable signInCheck = DEFAULTS.signInCheck;
 
-    @observable isNewUser;
+    @observable isNewUser: boolean;
 
-    @observable isFirstRun;
+    @observable isFirstRun: boolean;
 
-    @observable isSocialAuth;
+    @observable isSocialAuth: boolean;
 
-    @observable showOnboarding;
+    @observable showOnboarding: boolean;
 
-    @observable showUpgradeScreen;
+    @observable showUpgradeScreen: boolean;
 
     STEPS = AUTH_STEPS;
 
-    constructor(rootStore) {
+    rootStore: any;
+
+    constructor(rootStore: any) {
         this.rootStore = rootStore;
     }
 
@@ -86,15 +99,11 @@ export class AuthStore {
         this.signInCheck = DEFAULTS.signInCheck;
     };
 
-    @action setError = (value) => {
-        this.error = value;
-    };
-
     @action resetError = () => {
         this.error = DEFAULTS.error;
     };
 
-    @action onCredentialsChange = async (field, value) => {
+    @action onCredentialsChange = async (field: string, value: string) => {
         this.resetError();
         this.credentials[field] = value;
         await messenger.updateAuthCache(field, value);
@@ -132,28 +141,28 @@ export class AuthStore {
         });
     };
 
-    @action setFlagsStorageData = (flagsStorageData) => {
+    @action setFlagsStorageData = (flagsStorageData: { [key: string]: boolean }) => {
         this.isNewUser = flagsStorageData[FLAGS_FIELDS.IS_NEW_USER];
         this.isSocialAuth = flagsStorageData[FLAGS_FIELDS.IS_SOCIAL_AUTH];
         this.showOnboarding = flagsStorageData[FLAGS_FIELDS.SHOW_ONBOARDING];
         this.showUpgradeScreen = flagsStorageData[FLAGS_FIELDS.SHOW_UPGRADE_SCREEN];
     };
 
-    @action setShowOnboarding = async (value) => {
+    @action setShowOnboarding = async (value: boolean) => {
         await messenger.setFlag(FLAGS_FIELDS.SHOW_ONBOARDING, value);
         runInAction(() => {
             this.showOnboarding = value;
         });
     };
 
-    @action setShowUpgradeScreen = async (value) => {
+    @action setShowUpgradeScreen = async (value: boolean) => {
         await messenger.setFlag(FLAGS_FIELDS.SHOW_UPGRADE_SCREEN, value);
         runInAction(() => {
             this.showUpgradeScreen = value;
         });
     };
 
-    @action setIsFirstRun = (value) => {
+    @action setIsFirstRun = (value: boolean) => {
         this.isFirstRun = value;
     };
 
@@ -297,7 +306,7 @@ export class AuthStore {
         });
     };
 
-    @action setIsAuthenticated = (value) => {
+    @action setIsAuthenticated = (value: boolean) => {
         this.authenticated = value;
     };
 
@@ -306,16 +315,16 @@ export class AuthStore {
         await messenger.deauthenticateUser();
     };
 
-    @action proceedAuthorization = async (provider) => {
+    @action proceedAuthorization = async (provider: string) => {
         await this.openSocialAuth(provider);
     };
 
-    @action openSocialAuth = async (social) => {
+    @action openSocialAuth = async (social: string) => {
         await messenger.startSocialAuth(social, this.marketingConsent);
         window.close();
     };
 
-    @action switchStep = async (step, shouldResetErrors = true) => {
+    @action switchStep = async (step: string, shouldResetErrors: boolean = true) => {
         this.step = step;
         if (shouldResetErrors) {
             this.resetError();
@@ -352,20 +361,20 @@ export class AuthStore {
         });
     };
 
-    @action setPolicyAgreement = async (value) => {
+    @action setPolicyAgreement = async (value: boolean) => {
         await messenger.updateAuthCache('policyAgreement', value);
         runInAction(() => {
             this.policyAgreement = value;
         });
     };
 
-    @action handleInitPolicyAgreement = async (policyAgreement) => {
+    @action handleInitPolicyAgreement = async (policyAgreement: boolean) => {
         if (!policyAgreement) {
             await this.switchStep(AUTH_STEPS.POLICY_AGREEMENT);
         }
     };
 
-    @action setHelpUsImprove = async (value) => {
+    @action setHelpUsImprove = async (value: boolean) => {
         await messenger.updateAuthCache('helpUsImprove', value);
         runInAction(() => {
             this.helpUsImprove = value;
@@ -378,7 +387,7 @@ export class AuthStore {
         await this.showAuthorizationScreen();
     };
 
-    @action setMarketingConsent = async (value) => {
+    @action setMarketingConsent = async (value: boolean | null) => {
         await messenger.updateAuthCache('marketingConsent', value);
         runInAction(() => {
             this.credentials.marketingConsent = value;

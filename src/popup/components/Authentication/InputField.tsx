@@ -6,7 +6,7 @@ interface InputFieldParameters {
     type: string;
     value: string;
     inputChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
-    error: boolean | null;
+    error: string | null;
     className: string | null;
     placeholder: string | undefined;
     label: string;
