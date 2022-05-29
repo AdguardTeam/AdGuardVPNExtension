@@ -79,6 +79,7 @@ export enum MessageType {
     GET_REFERRAL_DATA = 'get.referral.data',
     RESTORE_EXCLUSIONS = 'restore.exclusions',
     ADD_EXCLUSIONS_MAP = 'add.exclusions.map',
+    DISABLE_RATE_MODAL_OPENING = 'disable.rate.modal.opening',
 }
 
 export const ERROR_STATUSES = {
@@ -104,7 +105,6 @@ export const FLAGS_FIELDS = {
     SHOW_ONBOARDING: 'showOnboarding',
     SHOW_UPGRADE_SCREEN: 'showUpgradeScreen',
     SALE_SHOW: 'saleShow',
-    SHOULD_OPEN_RATE_MODAL: 'shouldOpenRateModal',
 };
 
 export const REFERRAL_PROGRAM = 'referral-program';

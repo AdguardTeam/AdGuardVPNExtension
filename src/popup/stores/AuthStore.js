@@ -11,6 +11,9 @@ import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
 import { messenger } from '../../lib/messenger';
 import { SETTINGS_IDS, AUTH_PROVIDERS, FLAGS_FIELDS } from '../../lib/constants';
 
+// FIXME change to 30 min after testing
+const RATE_MODAL_DELAY = 1000 * 60; // 1 min
+
 const AUTH_STEPS = {
     POLICY_AGREEMENT: 'policyAgreement',
     AUTHORIZATION: 'authorization',
@@ -139,7 +142,6 @@ export class AuthStore {
         this.isSocialAuth = flagsStorageData[FLAGS_FIELDS.IS_SOCIAL_AUTH];
         this.showOnboarding = flagsStorageData[FLAGS_FIELDS.SHOW_ONBOARDING];
         this.showUpgradeScreen = flagsStorageData[FLAGS_FIELDS.SHOW_UPGRADE_SCREEN];
-        this.showRateModal = flagsStorageData[FLAGS_FIELDS.SHOULD_OPEN_RATE_MODAL];
     };
 
     @action setShowOnboarding = async (value) => {
@@ -410,12 +412,8 @@ export class AuthStore {
         this.rating = value;
     };
 
-    @action openRateModal = () => {
-        this.showRateModal = true;
-    };
-
     @action closeRateModal = async () => {
-        await messenger.setFlag(FLAGS_FIELDS.SHOULD_OPEN_RATE_MODAL, false);
+        await messenger.disableRateModalOpening();
         runInAction(() => {
             this.showRateModal = false;
         });
@@ -426,9 +424,15 @@ export class AuthStore {
     };
 
     @action closeConfirmRateModal = async () => {
-        await messenger.setFlag(FLAGS_FIELDS.SHOULD_OPEN_RATE_MODAL, false);
+        await messenger.disableRateModalOpening();
         runInAction(() => {
             this.showConfirmRateModal = false;
         });
+    };
+
+    @action handleRateModalOpening = async (countdownStart) => {
+        if (countdownStart) {
+            this.showRateModal = countdownStart + RATE_MODAL_DELAY <= Date.now();
+        }
     };
 }

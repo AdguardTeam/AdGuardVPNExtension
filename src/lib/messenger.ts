@@ -305,6 +305,11 @@ class Messenger {
         return this.sendMessage(type);
     }
 
+    async disableRateModalOpening() {
+        const type = MessageType.DISABLE_RATE_MODAL_OPENING;
+        return this.sendMessage(type);
+    }
+
     async setNotificationViewed(withDelay: boolean) {
         const type = MessageType.SET_NOTIFICATION_VIEWED;
         return this.sendMessage(type, { withDelay });

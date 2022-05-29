@@ -20,12 +20,13 @@ import tabs from './tabs';
 import { updateService } from './updateService';
 import { vpnApi } from './api';
 import browserActionIcon from './browserActionIcon';
-import { initRateModal, openThankYouPage } from './postinstall';
+import { openThankYouPage } from './postinstall';
 import { endpointsTldExclusions } from './proxy/endpointsTldExclusions';
 import { logStorage } from '../lib/log-storage';
 import { fallbackApi } from './api/fallbackApi';
 import { flagsStorage } from './flagsStorage';
 
+import './rateModal';
 import './networkConnectionObserver';
 import './uninstall';
 
@@ -57,7 +58,6 @@ global.adguard = {
         await proxy.init();
         await updateService.init();
         await openThankYouPage();
-        initRateModal();
         await flagsStorage.init();
         await credentials.init();
         permissionsChecker.init(); // should be initiated before auth module
