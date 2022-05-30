@@ -2,7 +2,7 @@ import {
     LogStorage,
     LOGS_STORAGE_KEY,
     LogStorageInterface,
-    SAVE_STORAGE_LOGS_TIMOUT,
+    SAVE_STORAGE_LOGS_TIMEOUT,
 } from '../../src/lib/log-storage';
 import browserApi from '../../src/background/browserApi';
 
@@ -92,6 +92,6 @@ describe('LogStorage', () => {
         setTimeout(() => {
             expect(logStorage.size).toBeLessThanOrEqual(logStorageMaxSizeBytes);
             done();
-        }, SAVE_STORAGE_LOGS_TIMOUT);
+        }, SAVE_STORAGE_LOGS_TIMEOUT);
     });
 });
