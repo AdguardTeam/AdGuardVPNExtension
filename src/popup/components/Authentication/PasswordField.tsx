@@ -5,13 +5,13 @@ interface PasswordFieldParameters {
     id: string;
     password: string;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
-    error: string | null;
+    error?: string | null;
     inputType: string;
-    handleInputTypeChange: (() => void) | null;
-    icon: string | null;
+    handleInputTypeChange?: React.MouseEventHandler<HTMLButtonElement>;
+    icon?: string | null;
     placeholder: string;
     label: string | undefined;
-    focus: boolean;
+    focus?: boolean;
 }
 
 const PasswordField = ({
@@ -50,8 +50,7 @@ const PasswordField = ({
                         type="button"
                         tabIndex={-1}
                         className="button form__show-password"
-                        onClick={handleInputTypeChange as React
-                            .MouseEventHandler<HTMLButtonElement>}
+                        onClick={handleInputTypeChange}
                     >
                         <svg className="icon icon--button">
                             <use xlinkHref={icon} />

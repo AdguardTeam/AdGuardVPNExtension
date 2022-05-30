@@ -8,6 +8,7 @@ import { REQUEST_STATUSES, INPUT_TYPES } from '../../../stores/consts';
 import PasswordField from '../PasswordField';
 import Submit from '../Submit';
 import { reactTranslator } from '../../../../common/reactTranslator';
+import { translator } from '../../../../common/translator';
 import { InputField } from '../InputField';
 
 export const RegistrationForm = observer(() => {
@@ -64,13 +65,12 @@ export const RegistrationForm = observer(() => {
                     value={authStore.credentials.username}
                     inputChangeHandler={inputChangeHandler}
                     error={authStore.error}
-                    label={reactTranslator.getMessage('auth_sign_in_provider_adguard_label') as string}
+                    label={translator.getMessage('auth_sign_in_provider_adguard_label')}
                     className="form__input__email-disabled"
                     disabled
-                    placeholder={undefined}
                 />
                 <PasswordField
-                    placeholder={reactTranslator.getMessage('auth_password') as string}
+                    placeholder={translator.getMessage('auth_password')}
                     id="password"
                     password={password}
                     error={authStore.error}
@@ -78,7 +78,7 @@ export const RegistrationForm = observer(() => {
                     handleChange={inputChangeHandler}
                     handleInputTypeChange={handleInputTypeChange}
                     icon={icon}
-                    label={reactTranslator.getMessage('auth_password') as string}
+                    label={translator.getMessage('auth_password')}
                     focus
                 />
                 {authStore.error && (
@@ -87,16 +87,12 @@ export const RegistrationForm = observer(() => {
                     </div>
                 )}
                 <PasswordField
-                    placeholder={reactTranslator.getMessage('auth_password') as string}
+                    placeholder={translator.getMessage('auth_password')}
                     id="confirm-password"
                     password={confirmPasswordValue}
                     inputType={inputType}
                     handleChange={confirmPasswordChangeHandler}
-                    label={reactTranslator.getMessage('auth_password_confirm') as string}
-                    error={null}
-                    focus={false}
-                    handleInputTypeChange={null}
-                    icon={null}
+                    label={translator.getMessage('auth_password_confirm')}
                 />
             </div>
             <div className="form__btn-wrap form__btn-wrap--register">

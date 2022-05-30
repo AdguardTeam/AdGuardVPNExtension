@@ -8,7 +8,7 @@ import { REQUEST_STATUSES } from '../../../stores/consts';
 
 import Submit from '../Submit';
 import { InputField } from '../InputField';
-import { reactTranslator } from '../../../../common/reactTranslator';
+import { translator } from '../../../../common/translator';
 
 export const EmailAuth = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -35,7 +35,7 @@ export const EmailAuth = observer(() => {
         return (
             <div className="form__btn-wrap">
                 <Submit
-                    text={reactTranslator.getMessage('auth_sign_in_provider_adguard')}
+                    text={translator.getMessage('auth_sign_in_provider_adguard')}
                     processing={requestProcessState === REQUEST_STATUSES.PENDING}
                     disabled={!username || authStore.error}
                 />
@@ -56,12 +56,10 @@ export const EmailAuth = observer(() => {
                         id="username"
                         type="email"
                         value={username}
-                        placeholder={reactTranslator.getMessage('auth_email') as string}
+                        placeholder={translator.getMessage('auth_email')}
                         inputChangeHandler={inputChangeHandler}
                         error={authStore.error}
-                        label={reactTranslator.getMessage('auth_sign_in_provider_adguard_label') as string}
-                        className={null}
-                        disabled={false}
+                        label={translator.getMessage('auth_sign_in_provider_adguard_label')}
                     />
                     {authStore.error && (
                         <div className="form__error">

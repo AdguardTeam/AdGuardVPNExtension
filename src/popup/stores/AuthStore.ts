@@ -20,15 +20,12 @@ const AUTH_STEPS = {
     TWO_FACTOR: 'twoFactor',
 };
 
-interface CredentialsType {
+interface CredentialsInterface {
     [key: string]: string | boolean | null;
-}
-
-interface CredentialsInterface extends CredentialsType {
     username: string;
     password: string;
     twoFactor: string;
-    marketingConsent: boolean | null,
+    marketingConsent: boolean | null;
 }
 
 const DEFAULTS = {
