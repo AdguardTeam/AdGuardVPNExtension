@@ -53,23 +53,21 @@ export const Account = observer(() => {
             <div className="account">
                 <div className="account__info">
                     <div className="account__name">
-                        {reactTranslator.getMessage('account_current_plan')}
+                        {currentUsername}
                     </div>
                     <div className="account__desc">
                         {isPremiumToken
-                            ? reactTranslator.getMessage('account_unlimited')
+                            ? reactTranslator.getMessage('account_monthly_paid')
                             : reactTranslator.getMessage('account_free')}
-                        {billDate && (
-                            ` ${reactTranslator.getMessage('account_next_charge', { date: billDate })}`
-                        )}
                     </div>
-                </div>
-                <div className="account__info">
-                    <div className="account__name">
-                        {reactTranslator.getMessage('account_signed')}
-                    </div>
-                    <div className="account__desc">
-                        {currentUsername}
+
+                    {billDate && (
+                        <div className="account__bill-date">
+                            {reactTranslator.getMessage('account_next_charge', { date: billDate })}
+                        </div>
+                    )}
+                    <div className="account__max-devices">
+                        {reactTranslator.getMessage('account_max_devices_count', { num: authStore.maxDevicesCount })}
                     </div>
                 </div>
                 <div className="account__actions">

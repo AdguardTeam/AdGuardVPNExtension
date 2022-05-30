@@ -17,8 +17,8 @@ export const UNLIMITED_FEATURES = [
         info: reactTranslator.getMessage('popup_upgrade_screen_unlimited_data_desc'),
     },
     {
-        image: 'streaming-support.svg',
-        title: reactTranslator.getMessage('popup_upgrade_screen_streaming_support'),
-        info: reactTranslator.getMessage('popup_upgrade_screen_streaming_support_desc'),
+        image: 'connect-devices.svg',
+        title: reactTranslator.getMessage('popup_upgrade_screen_connect_devices'),
+        info: reactTranslator.getMessage('popup_upgrade_screen_connect_devices_desc'),
     },
 ];

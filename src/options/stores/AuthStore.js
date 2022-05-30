@@ -50,6 +50,8 @@ export class AuthStore {
 
     @observable isPremiumToken;
 
+    @observable maxDevicesCount = 0;
+
     STEPS = AUTH_STEPS;
 
     constructor(rootStore) {
@@ -239,5 +241,9 @@ export class AuthStore {
             // issue AG-2070
             this.credentials.twoFactor = DEFAULTS.credentials.twoFactor;
         });
+    };
+
+    @action setMaxDevicesCount = (value) => {
+        this.maxDevicesCount = value;
     };
 }

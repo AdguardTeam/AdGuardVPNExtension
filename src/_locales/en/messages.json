@@ -117,28 +117,25 @@
         "message": "Account"
     },
     "account_edit": {
-        "message": "Manage"
+        "message": "Manage account"
     },
     "account_version": {
         "message": "Version"
     },
-    "account_current_plan": {
-        "message": "Current plan"
-    },
-    "account_signed": {
-        "message": "Signed in with"
-    },
     "account_free": {
-        "message": "Free"
+        "message": "Free account"
     },
-    "account_unlimited": {
-        "message": "Unlimited"
+    "account_monthly_paid": {
+        "message": "Monthly paid subscription"
+    },
+    "account_max_devices_count": {
+        "message": "Up to %num% simultaneous devices"
     },
     "account_next_charge": {
-        "message": "(Next charge %date%)"
+        "message": "Next billing date %date%"
     },
     "account_sign_out": {
-        "message": "Sign out"
+        "message": "Log out"
     },
     "account_unlimited_title": {
         "message": "Get the Unlimited version!"
@@ -546,7 +543,7 @@
         "message": "Monthly data limit reached. Need more?"
     },
     "premium_upgrade": {
-        "message": "Upgrade"
+        "message": "Get subscription"
     },
     "settings_disconnect": {
         "message": "Disconnect"
@@ -678,11 +675,11 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 continents and dozens of countries. Choose a city and surf the Net safely!"
     },
-    "popup_upgrade_screen_streaming_support": {
-        "message": "Streaming support"
+    "popup_upgrade_screen_connect_devices": {
+        "message": "Up to 5 devices"
     },
-    "popup_upgrade_screen_streaming_support_desc": {
-        "message": "All major streaming services are available. Watch anything, anywhere!"
+    "popup_upgrade_screen_connect_devices_desc": {
+        "message": "Connect all your gadgets to AdGuard VPN at the same time — or protect the entire family!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Streaming"
@@ -779,6 +776,6 @@
         "message": "You have signed out of AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "Your connection is not secure. To continue surfing privately, click the AdGuard VPN icon and sign in again."
+        "message": "Please note: your connection is not secure! To continue surfing privately, click the AdGuard VPN icon and sign in again."
     }
 }
