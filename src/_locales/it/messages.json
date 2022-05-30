@@ -237,13 +237,13 @@
         "message": "Ottieni traffico gratuito!"
     },
     "settings_referral_info": {
-        "message": "Invita i tuoi amici a unirsi al nostro clan ninja e ottieni più di traffico VPN gratuito per un mese. Ricevi 1 GB per ogni amico iscritto: anch'essi riceveranno 1 GB extra gratuito! Potrai ottenere 10 GB in totale gratuitamente."
+        "message": "Invita i tuoi amici a unirsi al nostro clan ninja e ottieni più di traffico VPN gratuito per un mese. Ricevi %your_gb% GB per ogni amico iscritto: anch'essi riceveranno %friend_gb% GB extra gratuito! Potrai ottenere %total_gb% GB in totale gratuitamente."
     },
     "settings_referral_invited_friends": {
         "message": "Amici invitati %count%/%limit%"
     },
     "settings_referral_limit_reached": {
-        "message": "Hai già ricevuto i tuoi 10 GB di traffico VPN gratuiti. Ma i tuoi amici potrebbero ancora ottenere 1 GB di traffico VPN aggiuntivi gratuiti se li invitassi!"
+        "message": "Hai già ricevuto i tuoi %your_gb% GB di traffico VPN gratuiti. Ma i tuoi amici potrebbero ancora ottenere %friend_gb% GB di traffico VPN aggiuntivi gratuiti se li invitassi!"
     },
     "settings_referral_copy_link": {
         "message": "Copia indirizzo"

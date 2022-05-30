@@ -231,13 +231,13 @@
         "message": "Získajte bezplatnú VPN komunikáciu!"
     },
     "settings_referral_info": {
-        "message": "Pozvite svojich priateľov, aby sa pripojili k nášmu klanu ninja a získajte bezplatnú VPN komunikáciu na mesiac. Získajte 1 GB za každého priateľa, ktorý sa zaregistruje: získa tiež 1 GB navyše zadarmo! Celkovo môžete získať 10 GB zadarmo."
+        "message": "Pozvite svojich priateľov, aby sa pripojili k nášmu klanu ninja a získajte bezplatnú VPN komunikáciu na mesiac. Získajte %your_gb% GB za každého priateľa, ktorý sa zaregistruje: získa tiež %friend_gb% GB navyše zadarmo! Celkovo môžete získať %total_gb% GB zadarmo."
     },
     "settings_referral_invited_friends": {
         "message": "Pozvaní priatelia %count%/%limit%"
     },
     "settings_referral_limit_reached": {
-        "message": "Už ste dostali svojich 10 GB bezplatných dát. Ale Vaši priatelia môžu stále získať 1 GB bezplatnej VPN komunikácie, ak ich pozvete!"
+        "message": "Už ste dostali svojich %your_gb% GB bezplatných dát. Ale Vaši priatelia môžu stále získať %friend_gb% GB bezplatnej VPN komunikácie, ak ich pozvete!"
     },
     "settings_referral_copy_link": {
         "message": "Kopírovať odkaz"

@@ -230,17 +230,20 @@
     "settings_title": {
         "message": "Postavke"
     },
+    "options_menu_free_traffic": {
+        "message": "Besplatan VPN promet"
+    },
     "referral_get_free_traffic": {
         "message": "Dobite besplatni VPN promet!"
     },
     "settings_referral_info": {
-        "message": "Pozovite vaše prijatelje u naš Ninja klan i dobite više besplatnog VPN prometa mjesečno. dobit ćete 1 Gb za svakog prijatelja koji se prijavi: oni također dobivaju dodatan gigabajt za prijavu! Ukupno možete dobiti 10 GB besplatno."
+        "message": "Pozovite vaše prijatelje u naš Ninja klan i dobite više besplatnog VPN prometa mjesečno. Dobit ćete %your_gb% GB za svakog prijatelja koji se prijavi: oni također dobivaju dodatan %friend_gb% GB za prijavu! Ukupno možete dobiti %total_gb% GB besplatno."
     },
     "settings_referral_invited_friends": {
         "message": "Pozvani prijatelji %count%/%limit%"
     },
     "settings_referral_limit_reached": {
-        "message": "Već ste dobilo 10 GB vašeg besplatnog VPN prometa, ali vaši prijatelji mogu dobiti dodatan gigabajt ako ih pozovete!"
+        "message": "Već ste dobilo %your_gb% GB vašeg besplatnog VPN prometa, ali vaši prijatelji mogu dobiti dodatan %friend_gb% GB ako ih pozovete!"
     },
     "settings_referral_copy_link": {
         "message": "Kopiraj link"

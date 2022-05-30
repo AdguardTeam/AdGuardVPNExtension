@@ -11,6 +11,7 @@ import { REQUEST_STATUSES } from '../../stores/consts';
 import './referral.pcss';
 
 const REFERRAL_LINK_MESSAGE_DISPLAY_TIME = 2000;
+const REFERRAL_RECEIVE_GB = 1;
 
 export const Referral = observer(() => {
     const { settingsStore } = useContext(rootStore);
@@ -37,7 +38,10 @@ export const Referral = observer(() => {
                     limit: maxInvitesCount,
                 },
             )
-            : reactTranslator.getMessage('settings_referral_limit_reached');
+            : reactTranslator.getMessage('settings_referral_limit_reached', {
+                your_gb: maxInvitesCount,
+                friend_gb: REFERRAL_RECEIVE_GB,
+            });
         return (
             <div>
                 {statusMessage}
@@ -69,7 +73,11 @@ export const Referral = observer(() => {
                     <div className="referral">
                         <Title title={reactTranslator.getMessage('referral_get_free_traffic')} />
                         <div className="referral__info">
-                            {reactTranslator.getMessage('settings_referral_info')}
+                            {reactTranslator.getMessage('settings_referral_info', {
+                                your_gb: REFERRAL_RECEIVE_GB,
+                                friend_gb: REFERRAL_RECEIVE_GB,
+                                total_gb: maxInvitesCount,
+                            })}
                         </div>
                         <div className="referral__status">
                             {getStatusMessage()}

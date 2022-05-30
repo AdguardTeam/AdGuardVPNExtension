@@ -152,6 +152,21 @@
     "settings_title": {
         "message": "Postavke"
     },
+    "settings_referral_info": {
+        "message": "Pozovite svoje prijatelje da se pridruže našem nindža klanu i dobiju više besplatnog VPN saobraćaja na mesec dana. Primite %your_gb% GB za svakog prijatelja koji se prijavi: takođe dobijaju %friend_gb% GB viška besplatno! Ukupno možete dobiti %total_gb% GB besplatno."
+    },
+    "settings_referral_invited_friends": {
+        "message": "Pozvani prijatelji %count%/%limit%"
+    },
+    "settings_referral_limit_reached": {
+        "message": "Već ste primili svojih %your_gb% GB besplatnog VPN saobraćaja. Ali vaši prijatelji i dalje mogu da dobiju %friend_gb% GB dodatnog besplatnog VPN saobraćaja ako ih pozovete!"
+    },
+    "settings_referral_copy_link": {
+        "message": "Kopiraj vezu"
+    },
+    "settings_referral_link_copied": {
+        "message": "Veza kopirana"
+    },
     "settings_rate_us": {
         "message": "Ocenite nas"
     },

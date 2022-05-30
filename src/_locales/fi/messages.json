@@ -234,13 +234,13 @@
         "message": "Hanki ilmaista VPN-tiedonsiirtoa!"
     },
     "settings_referral_info": {
-        "message": "Kutsu kaverit mukaan ninjaklaaniimme ja saat lisää ilmaista kuukausittaista VPN-tiedonsiirtoa! Saat jokaisesta rekisteröityneestä kaverista 1 Gt ja he saavat myös 1 Gt ilmaiseksi! Voit ansaita ilmaista tiedonsiirtoa kaikkiaan 10 Gt."
+        "message": "Kutsu kaverit mukaan ninjaklaaniimme ja saat lisää ilmaista kuukausittaista VPN-tiedonsiirtoa! Saat jokaisesta rekisteröityneestä kaverista %your_gb% Gt ja he saavat myös %friend_gb% Gt ilmaiseksi! Voit ansaita ilmaista tiedonsiirtoa kaikkiaan %total_gb% Gt."
     },
     "settings_referral_invited_friends": {
         "message": "Kavereita kutsuttu %count%/%limit%"
     },
     "settings_referral_limit_reached": {
-        "message": "Olet jo saanut kaikki 10 Gt ilmaisesta VPN-tiedonsiirrostasi. Kaverisi voivat kuitenkin saada 1 Gt enemmän ilmaista VPN-tiedonsiirtoa, jos kutsut heidät!"
+        "message": "Olet jo saanut kaikki %your_gb% Gt ilmaisesta VPN-tiedonsiirrostasi. Kaverisi voivat kuitenkin saada %friend_gb% Gt enemmän ilmaista VPN-tiedonsiirtoa, jos kutsut heidät!"
     },
     "settings_referral_copy_link": {
         "message": "Kopioi linkki"

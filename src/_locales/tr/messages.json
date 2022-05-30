@@ -237,13 +237,13 @@
         "message": "Ücretsiz VPN verisi edinin!"
     },
     "settings_referral_info": {
-        "message": "Arkadaşlarınızı ninja klanımıza katılmaya davet edin ve bir ay boyunca daha fazla ücretsiz VPN verisi alın. Kaydolan her arkadaşınız için 1 GB kazanın: ayrıca onlarda ücretsiz olarak 1 GB ekstra kazanır! Toplamda 10 GB ücretsiz alabilirsiniz."
+        "message": "Arkadaşlarınızı ninja klanımıza katılmaya davet edin ve bir ay boyunca daha fazla ücretsiz VPN verisi alın. Kaydolan her arkadaşınız için %your_gb% GB kazanın: ayrıca onlarda ücretsiz olarak %friend_gb% GB ekstra kazanır! Toplamda %total_gb% GB ücretsiz alabilirsiniz."
     },
     "settings_referral_invited_friends": {
         "message": "Davet edilen arkadaşlar %count%/%limit%"
     },
     "settings_referral_limit_reached": {
-        "message": "10 GB ücretsiz VPN verinizi zaten aldınız. Ancak arkadaşlarınızı davet ederseniz, yine de 1 GB ek ücretsiz VPN verisi alabilirler!"
+        "message": "%your_gb% GB ücretsiz VPN verinizi zaten aldınız. Ancak arkadaşlarınızı davet ederseniz, yine de %friend_gb% GB ek ücretsiz VPN verisi alabilirler!"
     },
     "settings_referral_copy_link": {
         "message": "Bağlantıyı kopyala"
@@ -495,7 +495,7 @@
         "message": "Başarıyla doğrulandı! AdGuard VPN'i açabilir ve kullanmaya başlayabilirsiniz."
     },
     "control_error_description": {
-        "message": "Başka bir Chrome eklentisi bağlantınızı kontrol etmeye çalışıyor gibi görünüyor. Lütfen tarayıcınızdaki diğer eklentiyi devre dışı bırakın."
+        "message": "Başka bir Chrome uzantısı bağlantınızı kontrol etmeye çalışıyor gibi görünüyor. Lütfen tarayıcınızdaki diğer eklentiyi devre dışı bırakın."
     },
     "control_error_disable": {
         "message": "Devre dışı bırak"
