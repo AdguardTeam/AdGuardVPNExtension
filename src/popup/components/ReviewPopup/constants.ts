@@ -1,6 +1,6 @@
 export const PATH_TO_RATING_IMAGES = '../../../assets/images/rate/';
 
-export const RATING_IMAGES_MAP: Record<number, string> = {
+export const RATING_IMAGES_MAP: { [key:number]: string } = {
     1: 'ninja1.svg',
     2: 'ninja2.svg',
     3: 'ninja3.svg',

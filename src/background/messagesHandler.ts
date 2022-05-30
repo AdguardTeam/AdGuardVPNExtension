@@ -338,8 +338,8 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             const { key, value } = data;
             return flagsStorage.set(key, value);
         }
-        case MessageType.DISABLE_RATE_MODAL_OPENING: {
-            await rateModal.disableOpening();
+        case MessageType.SET_RATE_MODAL_VIEWED: {
+            await rateModal.setViewed();
             break;
         }
         case MessageType.GET_GENERAL_EXCLUSIONS: {

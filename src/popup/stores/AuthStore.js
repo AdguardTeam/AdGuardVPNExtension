@@ -413,7 +413,7 @@ export class AuthStore {
     };
 
     @action closeRateModal = async () => {
-        await messenger.disableRateModalOpening();
+        await messenger.setRateModalViewed();
         runInAction(() => {
             this.showRateModal = false;
         });
@@ -424,13 +424,13 @@ export class AuthStore {
     };
 
     @action closeConfirmRateModal = async () => {
-        await messenger.disableRateModalOpening();
+        await messenger.setRateModalViewed();
         runInAction(() => {
             this.showConfirmRateModal = false;
         });
     };
 
-    @action handleRateModalOpening = async (countdownStart) => {
+    @action handleRateModalOpening = (countdownStart) => {
         if (countdownStart) {
             this.showRateModal = countdownStart + RATE_MODAL_DELAY <= Date.now();
         }

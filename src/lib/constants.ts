@@ -79,7 +79,7 @@ export enum MessageType {
     GET_REFERRAL_DATA = 'get.referral.data',
     RESTORE_EXCLUSIONS = 'restore.exclusions',
     ADD_EXCLUSIONS_MAP = 'add.exclusions.map',
-    DISABLE_RATE_MODAL_OPENING = 'disable.rate.modal.opening',
+    SET_RATE_MODAL_VIEWED = 'set.rate.modal.viewed',
 }
 
 export const ERROR_STATUSES = {

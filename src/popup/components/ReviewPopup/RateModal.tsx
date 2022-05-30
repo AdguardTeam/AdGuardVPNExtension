@@ -31,7 +31,7 @@ export const RateModal = observer(() => {
             ? RATING_IMAGES_MAP[ratingHovered]
             : RATING_IMAGES_MAP[rating];
         setMainImagePath(`${PATH_TO_RATING_IMAGES}${imageName}`);
-    });
+    }, [rating, ratingHovered]);
 
     const closeModal = () => {
         authStore.closeRateModal();
