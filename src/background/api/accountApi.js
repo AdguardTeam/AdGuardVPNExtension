@@ -4,7 +4,7 @@ import { fallbackApi } from './fallbackApi';
 class AccountApi extends Api {
     GET_VPN_TOKEN = { path: 'products/licenses/vpn.json', method: 'GET' };
 
-    async getVpnToken(accessToken) {
+    getVpnToken(accessToken) {
         const { path, method } = this.GET_VPN_TOKEN;
         const config = {
             headers: { Authorization: `Bearer ${accessToken}` },
