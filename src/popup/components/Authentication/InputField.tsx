@@ -7,8 +7,8 @@ interface InputFieldParameters {
     value: string;
     inputChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
     error: string | null;
-    className?: string | null;
-    placeholder?: string | undefined;
+    className?: string;
+    placeholder?: string;
     label: string;
     disabled?: boolean;
 }

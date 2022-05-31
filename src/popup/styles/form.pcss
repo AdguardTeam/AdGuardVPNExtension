@@ -54,7 +54,7 @@
         font-family: var(--font-stack);
         font-size: 16px;
         text-align: left;
-        border: 1px solid #a4a4a4;
+        border: 1px solid var(--grayf3);
         border-radius: 8px;
         color: var(--gray-base);
         outline: none;
@@ -62,6 +62,11 @@
         padding: 16px;
         box-shadow: none;
         background-color: var(--grayf3);
+
+        @media (prefers-color-scheme: dark) {
+            background-color: var(--grayf7);
+            border: 1px solid var(--grayf7);
+        }
 
         &:-webkit-autofill:focus,
         &:focus:-webkit-autofill {
@@ -81,7 +86,7 @@
 
         &:focus,
         &:active {
-            border-color: var(--gray-base);
+            border-color: var(--grayd8);
         }
 
         &--error,
@@ -100,12 +105,15 @@
         &:-webkit-autofill:hover,
         &:-webkit-autofill:focus,
         &:-webkit-autofill:active {
-            -webkit-box-shadow: 0 0 0 30px var(--white) inset;
+            -webkit-box-shadow: 0 0 0 30px var(--grayf3) inset;
             -webkit-text-fill-color: var(--gray-base)!important;
+
+            @media (prefers-color-scheme: dark) {
+                -webkit-box-shadow: 0 0 0 30px var(--grayf7) inset;
+            }
         }
 
         &:disabled {
-            border-color: var(--gray-base);
             color: var(--gray-base);
             opacity: .5;
         }

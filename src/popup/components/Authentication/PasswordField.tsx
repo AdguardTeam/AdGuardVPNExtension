@@ -8,7 +8,7 @@ interface PasswordFieldParameters {
     error?: string | null;
     inputType: string;
     handleInputTypeChange?: React.MouseEventHandler<HTMLButtonElement>;
-    icon?: string | null;
+    icon?: string;
     placeholder: string;
     label: string | undefined;
     focus?: boolean;
@@ -18,7 +18,7 @@ const PasswordField = ({
     id,
     password,
     handleChange,
-    error = null,
+    error,
     inputType,
     handleInputTypeChange,
     icon,

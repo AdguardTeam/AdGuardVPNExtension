@@ -189,7 +189,7 @@
         "message": "Email"
     },
     "auth_sign_in_provider_adguard": {
-        "message": "Continue with Email"
+        "message": "Continue with email"
     },
     "auth_sign_in_provider_apple": {
         "message": "Continue with Apple"
