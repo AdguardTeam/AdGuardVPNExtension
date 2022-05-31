@@ -50,8 +50,6 @@ export class AuthStore {
 
     @observable maxDevicesCount = 0;
 
-    @observable subscriptionType = null;
-
     STEPS = AUTH_STEPS;
 
     constructor(rootStore) {
@@ -199,10 +197,6 @@ export class AuthStore {
 
     @action setIsAuthenticated = (value) => {
         this.authenticated = value;
-    };
-
-    @action setSubscriptionType = (subscriptionType) => {
-        this.subscriptionType = subscriptionType;
     };
 
     @action deauthenticate = async () => {

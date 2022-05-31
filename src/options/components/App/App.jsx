@@ -101,8 +101,7 @@ export const App = observer(() => {
                             break;
                         }
                         case notifier.types.USER_AUTHENTICATED: {
-                            authStore.setIsAuthenticated(true);
-                            await settingsStore.requestIsPremiumToken();
+                            await globalStore.getOptionsData();
                             await settingsStore.updateCurrentUsername();
                             break;
                         }

@@ -25,7 +25,6 @@ export class GlobalStore {
             settingsStore.setOptionsData(optionsData);
             await settingsStore.requestIsPremiumToken();
             authStore.setIsAuthenticated(optionsData.isAuthenticated);
-            authStore.setSubscriptionType(optionsData.subscriptionType);
             authStore.setMaxDevicesCount(optionsData.maxDevicesCount);
             exclusionsStore.setServicesData(optionsData.servicesData);
             exclusionsStore.setExclusionsData(optionsData.exclusionsData);

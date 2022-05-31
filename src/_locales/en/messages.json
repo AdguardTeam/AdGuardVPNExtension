@@ -125,8 +125,17 @@
     "account_free": {
         "message": "Free account"
     },
+    "account_unlimited": {
+        "message": "Unlimited subscription"
+    },
     "account_monthly_paid": {
         "message": "Monthly paid subscription"
+    },
+    "account_yearly_paid": {
+        "message": "Yearly paid subscription"
+    },
+    "account_two_year_paid": {
+        "message": "Two-year paid subscription"
     },
     "account_max_devices_count": {
         "message": "Up to %num% simultaneous devices"

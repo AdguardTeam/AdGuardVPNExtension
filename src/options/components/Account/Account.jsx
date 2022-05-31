@@ -19,6 +19,7 @@ export const Account = observer(() => {
         hidePremiumFeatures,
         openPremiumPromoPage,
         nextBillDate,
+        subscriptionType,
     } = settingsStore;
 
     const signOut = async () => {
@@ -47,11 +48,23 @@ export const Account = observer(() => {
         billDate = dateObj.toLocaleDateString('default', formatOptions);
     }
 
-    // const getAccountType = () => {
-    //     if (isPremiumToken) {
-    //         if ()
-    //     }
-    // };
+    const subscriptionsMap = {
+        MONTHLY: reactTranslator.getMessage('account_monthly_paid'),
+        YEARLY: reactTranslator.getMessage('account_yearly_paid'),
+        TWO_YEARS: reactTranslator.getMessage('account_two_year_paid'),
+    };
+
+    const getAccountType = () => {
+        if (!isPremiumToken) {
+            return reactTranslator.getMessage('account_free');
+        }
+
+        if (subscriptionType) {
+            return subscriptionsMap[subscriptionType];
+        }
+
+        return reactTranslator.getMessage('account_unlimited');
+    };
 
     return (
         <>
@@ -62,9 +75,7 @@ export const Account = observer(() => {
                         {currentUsername}
                     </div>
                     <div className="account__desc">
-                        {isPremiumToken
-                            ? reactTranslator.getMessage('account_monthly_paid')
-                            : reactTranslator.getMessage('account_free')}
+                        {getAccountType()}
                     </div>
 
                     {billDate && (
