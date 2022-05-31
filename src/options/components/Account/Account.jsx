@@ -47,6 +47,12 @@ export const Account = observer(() => {
         billDate = dateObj.toLocaleDateString('default', formatOptions);
     }
 
+    // const getAccountType = () => {
+    //     if (isPremiumToken) {
+    //         if ()
+    //     }
+    // };
+
     return (
         <>
             <Title title={reactTranslator.getMessage('account_title')} />

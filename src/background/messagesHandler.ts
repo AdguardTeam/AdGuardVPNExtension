@@ -62,6 +62,7 @@ const getOptionsData = async () => {
 
     const isAuthenticated = await auth.isAuthenticated();
     const isPremiumToken = await credentials.isPremiumToken();
+    const subscriptionType = credentials.getSubscriptionType();
 
     // AG-644 set current endpoint in order to avoid bug in permissions checker
     await endpoints.getSelectedLocation();
@@ -83,6 +84,7 @@ const getOptionsData = async () => {
         isPremiumToken,
         isAllExclusionsListsEmpty,
         maxDevicesCount,
+        subscriptionType,
     };
 };
 

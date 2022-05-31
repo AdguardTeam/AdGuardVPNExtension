@@ -52,6 +52,8 @@ export class AuthStore {
 
     @observable maxDevicesCount = 0;
 
+    @observable subscriptionType = null;
+
     STEPS = AUTH_STEPS;
 
     constructor(rootStore) {
@@ -203,6 +205,10 @@ export class AuthStore {
 
     @action setIsPremiumToken = (isPremiumToken) => {
         this.isPremiumToken = isPremiumToken;
+    };
+
+    @action setSubscriptionType = (subscriptionType) => {
+        this.subscriptionType = subscriptionType;
     };
 
     @action async requestIsPremiumToken() {
