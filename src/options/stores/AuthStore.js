@@ -48,8 +48,6 @@ export class AuthStore {
 
     @observable requestProcessState = REQUEST_STATUSES.DONE;
 
-    @observable isPremiumToken;
-
     @observable maxDevicesCount = 0;
 
     @observable subscriptionType = null;
@@ -203,20 +201,9 @@ export class AuthStore {
         this.authenticated = value;
     };
 
-    @action setIsPremiumToken = (isPremiumToken) => {
-        this.isPremiumToken = isPremiumToken;
-    };
-
     @action setSubscriptionType = (subscriptionType) => {
         this.subscriptionType = subscriptionType;
     };
-
-    @action async requestIsPremiumToken() {
-        const isPremiumToken = await messenger.checkIsPremiumToken();
-        runInAction(() => {
-            this.isPremiumToken = isPremiumToken;
-        });
-    }
 
     @action deauthenticate = async () => {
         await messenger.deauthenticateUser();

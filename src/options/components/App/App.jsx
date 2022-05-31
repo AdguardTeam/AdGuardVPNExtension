@@ -69,6 +69,8 @@ export const App = observer(() => {
 
     const { status } = globalStore;
 
+    const { isPremiumToken } = settingsStore;
+
     useEffect(() => {
         let removeListenerCallback = () => {};
         (async () => {
@@ -99,7 +101,6 @@ export const App = observer(() => {
                             break;
                         }
                         case notifier.types.USER_AUTHENTICATED: {
-                            await authStore.requestIsPremiumToken();
                             authStore.setIsAuthenticated(true);
                             await settingsStore.requestIsPremiumToken();
                             await settingsStore.updateCurrentUsername();
@@ -129,7 +130,7 @@ export const App = observer(() => {
         return null;
     }
 
-    const { authenticated, requestProcessState, isPremiumToken } = authStore;
+    const { authenticated, requestProcessState } = authStore;
 
     return (
         <HashRouter hashType="noslash">

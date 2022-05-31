@@ -23,9 +23,8 @@ export class GlobalStore {
         try {
             const optionsData = await messenger.getOptionsData();
             settingsStore.setOptionsData(optionsData);
-            settingsStore.requestIsPremiumToken();
+            await settingsStore.requestIsPremiumToken();
             authStore.setIsAuthenticated(optionsData.isAuthenticated);
-            authStore.setIsPremiumToken(optionsData.isPremiumToken);
             authStore.setSubscriptionType(optionsData.subscriptionType);
             authStore.setMaxDevicesCount(optionsData.maxDevicesCount);
             exclusionsStore.setServicesData(optionsData.servicesData);
