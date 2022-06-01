@@ -52,9 +52,6 @@ class PopupData {
             2000,
         );
 
-        // max_downloaded_bytes in vpnInfo will be recalculated according invited
-        // users by referral program only after credentials requested
-        await this.permissionsChecker.checkPermissions();
         const error = this.permissionsError.getError();
         const isRoutable = this.nonRoutable.isUrlRoutable(url);
         const vpnInfo = await this.endpoints.getVpnInfo();
