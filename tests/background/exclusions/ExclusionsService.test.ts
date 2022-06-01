@@ -375,4 +375,23 @@ describe('ExclusionsService', () => {
         const restoredExclusions = exclusionsService.getExclusions();
         expect(restoredExclusions).toEqual(exclusions);
     });
+
+    it('keep state of existing exclusions in service after new exclusion added to service', async () => {
+        const exclusionsService = new ExclusionsService();
+        await exclusionsService.init();
+        await exclusionsService.addUrlToExclusions('*.ott.yandex.ru');
+        await exclusionsService.addUrlToExclusions('yastatic.net');
+        const exclusions = exclusionsService.getExclusions();
+
+        expect(exclusions.children).toHaveLength(2);
+        expect(exclusions.children[0].id).toEqual('yandex.ru');
+        expect(exclusions.children[0].state).toEqual(ExclusionState.PartlyEnabled);
+        expect(exclusions.children[0].children[0].hostname).toEqual('yandex.ru');
+        expect(exclusions.children[0].children[0].state).toEqual(ExclusionState.Disabled);
+        expect(exclusions.children[0].children[2].hostname).toEqual('*.ott.yandex.ru');
+        expect(exclusions.children[0].children[2].state).toEqual(ExclusionState.Enabled);
+
+        expect(exclusions.children[1].id).toEqual('yastatic.net');
+        expect(exclusions.children[1].state).toEqual(ExclusionState.Enabled);
+    });
 });

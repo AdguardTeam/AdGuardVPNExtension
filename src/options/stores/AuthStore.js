@@ -48,7 +48,7 @@ export class AuthStore {
 
     @observable requestProcessState = REQUEST_STATUSES.DONE;
 
-    @observable isPremiumToken;
+    @observable maxDevicesCount = 0;
 
     STEPS = AUTH_STEPS;
 
@@ -199,17 +199,6 @@ export class AuthStore {
         this.authenticated = value;
     };
 
-    @action setIsPremiumToken = (isPremiumToken) => {
-        this.isPremiumToken = isPremiumToken;
-    };
-
-    @action async requestIsPremiumToken() {
-        const isPremiumToken = await messenger.checkIsPremiumToken();
-        runInAction(() => {
-            this.isPremiumToken = isPremiumToken;
-        });
-    }
-
     @action deauthenticate = async () => {
         await messenger.deauthenticateUser();
         await this.rootStore.settingsStore.disableProxy();
@@ -239,5 +228,9 @@ export class AuthStore {
             // issue AG-2070
             this.credentials.twoFactor = DEFAULTS.credentials.twoFactor;
         });
+    };
+
+    @action setMaxDevicesCount = (value) => {
+        this.maxDevicesCount = value;
     };
 }
