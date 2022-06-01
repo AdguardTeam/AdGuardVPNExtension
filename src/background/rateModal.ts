@@ -7,28 +7,27 @@ const OPEN_RATE_MODAL_COUNTDOWN_KEY = 'open.rate.modal.countdown';
 const RATE_MODAL_DELAY = 1000 * 30; // 1 min
 
 interface RateModalInterface {
-    getCountdownStart: () => Promise<number | null | undefined>;
+    shouldShowRateModal: () => Promise<boolean>;
     setViewed: () => Promise<void>;
 }
 
 /**
  * Handles rate modal display.
- * Sets time of first login to browser storage and handles it in popup
- * to show rate modal after 30 min.
+ * Sets time of first login to browser storage and handles it to show rate modal after 30 min.
  * After rate modal has been shown, sets null instead of login time.
  */
 class RateModal implements RateModalInterface {
     constructor() {
         notifier.addSpecifiedListener(
             notifier.types.USER_AUTHENTICATED,
-            this.handleOpening,
+            this.handleLoginTime,
         );
     }
 
     /**
      * Gets login time from browser storage
      */
-    getCountdownStart = async (): Promise<number | null | undefined> => {
+    getLoginTime = async (): Promise<number | null | undefined> => {
         return browserApi.storage.get(OPEN_RATE_MODAL_COUNTDOWN_KEY);
     };
 
@@ -36,31 +35,37 @@ class RateModal implements RateModalInterface {
      * Sets login time from browser storage
      * @param value
      */
-    setCountdownStart = async (value: number | null): Promise<void> => {
+    setLoginTime = async (value: number | null): Promise<void> => {
         await browserApi.storage.set(OPEN_RATE_MODAL_COUNTDOWN_KEY, value);
     };
 
-    shouldShowRateModal = async () => {
-        const countdownStart = await this.getCountdownStart();
-        return countdownStart && countdownStart + RATE_MODAL_DELAY <= Date.now();
-    };
+    handleLoginTime = async (): Promise<void> => {
+        const loginTime = await this.getLoginTime();
 
-    handleOpening = async (): Promise<void> => {
-        const countdownStart = await this.getCountdownStart();
-
-        if (countdownStart === null) {
-            // rate modal has been shown already
+        if (loginTime === null) {
+            // null mens that rate modal has been shown already
             return;
         }
 
-        if (countdownStart === undefined) {
+        if (loginTime === undefined) {
             const currentTime = Date.now();
-            await this.setCountdownStart(currentTime);
+            await this.setLoginTime(currentTime);
         }
     };
 
+    /**
+     * Sets login time to null to indicate rate modal has been shown already
+     */
     setViewed = async (): Promise<void> => {
-        await this.setCountdownStart(null);
+        await this.setLoginTime(null);
+    };
+
+    /**
+     * Checks if 30 min passed since login time
+     */
+    shouldShowRateModal = async (): Promise<boolean> => {
+        const loginTime = await this.getLoginTime();
+        return !!(loginTime && (loginTime + RATE_MODAL_DELAY <= Date.now()));
     };
 }
 
