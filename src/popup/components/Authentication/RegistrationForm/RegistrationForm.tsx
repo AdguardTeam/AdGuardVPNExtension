@@ -6,7 +6,7 @@ import classnames from 'classnames';
 import { rootStore } from '../../../stores';
 import { REQUEST_STATUSES, INPUT_TYPES } from '../../../stores/consts';
 import PasswordField from '../PasswordField';
-import Submit from '../Submit';
+import { Submit } from '../Submit';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { translator } from '../../../../common/translator';
 import { InputField } from '../InputField';
@@ -70,7 +70,7 @@ export const RegistrationForm = observer(() => {
                     disabled
                 />
                 <PasswordField
-                    placeholder={translator.getMessage('auth_password')}
+                    placeholder={translator.getMessage('auth_your_password')}
                     id="password"
                     password={password}
                     error={authStore.error}
@@ -87,7 +87,7 @@ export const RegistrationForm = observer(() => {
                     </div>
                 )}
                 <PasswordField
-                    placeholder={translator.getMessage('auth_password')}
+                    placeholder={translator.getMessage('auth_your_password')}
                     id="confirm-password"
                     password={confirmPasswordValue}
                     inputType={inputType}

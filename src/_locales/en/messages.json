@@ -158,6 +158,9 @@
     "auth_password": {
         "message": "Password"
     },
+    "auth_your_password": {
+        "message": "Your password"
+    },
     "auth_password_confirm": {
         "message": "Confirm password"
     },

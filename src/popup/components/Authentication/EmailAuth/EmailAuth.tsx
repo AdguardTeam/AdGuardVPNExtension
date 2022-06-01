@@ -6,7 +6,7 @@ import classnames from 'classnames';
 import { rootStore } from '../../../stores';
 import { REQUEST_STATUSES } from '../../../stores/consts';
 
-import Submit from '../Submit';
+import { Submit } from '../Submit';
 import { InputField } from '../InputField';
 import { translator } from '../../../../common/translator';
 

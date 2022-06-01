@@ -7,8 +7,9 @@ import { popupActions } from '../../../actions/popupActions';
 import { rootStore } from '../../../stores';
 import { REQUEST_STATUSES, INPUT_TYPES } from '../../../stores/consts';
 import PasswordField from '../PasswordField';
-import Submit from '../Submit';
+import { Submit } from '../Submit';
 import { reactTranslator } from '../../../../common/reactTranslator';
+import { translator } from '../../../../common/translator';
 
 export const SignInForm = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -62,7 +63,7 @@ export const SignInForm = observer(() => {
                     }
                 </div>
                 <PasswordField
-                    placeholder={reactTranslator.getMessage('auth_password') as string}
+                    placeholder={translator.getMessage('auth_your_password')}
                     id="password"
                     password={password}
                     handleChange={inputChangeHandler}
@@ -70,7 +71,7 @@ export const SignInForm = observer(() => {
                     icon={icon}
                     inputType={inputType}
                     error={authStore.error}
-                    label={reactTranslator.getMessage('auth_password') as string}
+                    label={translator.getMessage('auth_password')}
                     focus
                 />
                 {authStore.error && (
