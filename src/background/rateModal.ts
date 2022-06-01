@@ -3,8 +3,7 @@ import notifier from '../lib/notifier';
 
 const OPEN_RATE_MODAL_COUNTDOWN_KEY = 'open.rate.modal.countdown';
 
-// FIXME change to 30 min after testing
-const RATE_MODAL_DELAY = 1000 * 30; // 1 min
+const RATE_MODAL_DELAY = 1000 * 60 * 30; // 30 min
 
 interface RateModalInterface {
     shouldShowRateModal: () => Promise<boolean>;

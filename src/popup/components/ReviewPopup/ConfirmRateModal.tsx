@@ -49,14 +49,14 @@ export const ConfirmRateModal = observer(() => {
     return (
         <Modal
             isOpen={showConfirmRateModal}
-            className="confirm-rate-modal"
+            className="rate-modal rate-modal--confirm"
             shouldCloseOnOverlayClick
-            overlayClassName="confirm-rate-modal__overlay"
+            overlayClassName="rate-modal__overlay"
             onRequestClose={closeModal}
         >
             <button
                 type="button"
-                className="button button--icon confirm-rate-modal__close-icon"
+                className="button button--icon rate-modal__close-icon"
                 onClick={closeModal}
             >
                 <svg className="icon icon--button icon--cross">
@@ -65,21 +65,21 @@ export const ConfirmRateModal = observer(() => {
             </button>
             <img
                 src={getMainImagePath()}
-                className="confirm-rate-modal__image"
+                className="rate-modal__image"
                 alt="rating"
             />
-            <div className="confirm-rate-modal__title">{content.title}</div>
-            <div className="confirm-rate-modal__subtitle">{content.subtitle}</div>
+            <div className="rate-modal__title rate-modal--confirm__title">{content.title}</div>
+            <div className="rate-modal__subtitle rate-modal--confirm__subtitle">{content.subtitle}</div>
             <button
                 type="button"
-                className="button button--medium button--green confirm-rate-modal__button"
+                className="button button--medium button--medium--wide button--green rate-modal__button"
                 onClick={handleConfirm}
             >
                 {content.buttonText}
             </button>
             <button
                 type="button"
-                className="button button--medium button--outline-secondary confirm-rate-modal__button"
+                className="button button--medium button--medium--wide button--outline-secondary rate-modal__button"
                 onClick={closeModal}
             >
                 {reactTranslator.getMessage('popup_rate_modal_cancel_button')}

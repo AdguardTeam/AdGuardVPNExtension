@@ -1,5 +1,4 @@
-.rate-modal,
-.confirm-rate-modal {
+.rate-modal {
     position: absolute;
     width: 282px;
     height: 527px;
@@ -68,21 +67,19 @@
     }
 
     &__button {
-        min-width: 250px;
         margin-bottom: 18px;
-        padding: 14px 20px;
-    }
-}
-
-.confirm-rate-modal {
-    height: 440px;
-    top: 87px;
-
-    &__title {
-        padding: 0 20px;
     }
 
-    &__subtitle {
-        margin-bottom: 33px;
+    &--confirm {
+        height: 440px;
+        top: 87px;
+
+        &__title {
+            padding: 0 20px;
+        }
+
+        &__subtitle {
+            margin-bottom: 33px;
+        }
     }
 }

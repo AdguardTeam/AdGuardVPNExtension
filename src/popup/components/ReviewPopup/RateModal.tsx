@@ -101,7 +101,7 @@ export const RateModal = observer(() => {
             </div>
             <button
                 type="button"
-                className="button button--medium button--green rate-modal__button"
+                className="button button--medium button--medium--wide button--green rate-modal__button"
                 onClick={confirmRate}
                 disabled={!rating}
             >
@@ -109,7 +109,7 @@ export const RateModal = observer(() => {
             </button>
             <button
                 type="button"
-                className="button button--medium button--outline-secondary rate-modal__button"
+                className="button button--medium button--medium--wide button--outline-secondary rate-modal__button"
                 onClick={closeModal}
             >
                 {reactTranslator.getMessage('popup_rate_modal_cancel_button')}
