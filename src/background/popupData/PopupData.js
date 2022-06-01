@@ -70,7 +70,7 @@ class PopupData {
         const { isFirstRun } = updateService;
         const flagsStorageData = await flagsStorage.getFlagsStorageData();
         const isVpnEnabledByUrl = exclusions.isVpnEnabledByUrl(url);
-        const shouldShowRateModal = await rateModal.getCountdownStart();
+        const shouldShowRateModal = await rateModal.shouldShowRateModal();
 
         // If error check permissions when popup is opened, ignoring multiple retries
         if (error) {

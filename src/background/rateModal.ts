@@ -3,6 +3,9 @@ import notifier from '../lib/notifier';
 
 const OPEN_RATE_MODAL_COUNTDOWN_KEY = 'open.rate.modal.countdown';
 
+// FIXME change to 30 min after testing
+const RATE_MODAL_DELAY = 1000 * 30; // 1 min
+
 interface RateModalInterface {
     getCountdownStart: () => Promise<number | null | undefined>;
     setViewed: () => Promise<void>;
@@ -35,6 +38,11 @@ class RateModal implements RateModalInterface {
      */
     setCountdownStart = async (value: number | null): Promise<void> => {
         await browserApi.storage.set(OPEN_RATE_MODAL_COUNTDOWN_KEY, value);
+    };
+
+    shouldShowRateModal = async () => {
+        const countdownStart = await this.getCountdownStart();
+        return countdownStart && countdownStart + RATE_MODAL_DELAY <= Date.now();
     };
 
     handleOpening = async (): Promise<void> => {

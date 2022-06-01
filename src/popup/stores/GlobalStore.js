@@ -66,7 +66,7 @@ export class GlobalStore {
 
             authStore.setFlagsStorageData(flagsStorageData);
             authStore.setIsFirstRun(isFirstRun);
-            authStore.handleRateModalOpening(shouldShowRateModal);
+            authStore.setShouldShowRateModal(shouldShowRateModal);
             settingsStore.setCanControlProxy(canControlProxy);
             settingsStore.setConnectivityState(connectivityState);
             settingsStore.setIsRoutable(isRoutable);
