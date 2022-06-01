@@ -4,7 +4,7 @@ import notifier from '../lib/notifier';
 const OPEN_RATE_MODAL_COUNTDOWN_KEY = 'open.rate.modal.countdown';
 
 interface RateModalInterface {
-    getCountdownStart: () => Promise<number | undefined>;
+    getCountdownStart: () => Promise<number | null | undefined>;
     setViewed: () => Promise<void>;
 }
 
@@ -25,7 +25,7 @@ class RateModal implements RateModalInterface {
     /**
      * Gets login time from browser storage
      */
-    getCountdownStart = async (): Promise<number | undefined> => {
+    getCountdownStart = async (): Promise<number | null | undefined> => {
         return browserApi.storage.get(OPEN_RATE_MODAL_COUNTDOWN_KEY);
     };
 
