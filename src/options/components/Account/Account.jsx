@@ -113,7 +113,7 @@ export const Account = observer(() => {
                                 className="button button--medium button--primary account__action"
                                 onClick={upgrade}
                             >
-                                {reactTranslator.getMessage('premium_upgrade')}
+                                {reactTranslator.getMessage('account_get_subscription')}
                             </button>
                             <button
                                 type="button"

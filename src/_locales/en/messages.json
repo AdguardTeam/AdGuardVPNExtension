@@ -137,6 +137,9 @@
     "account_two_year_paid": {
         "message": "Two-year paid subscription"
     },
+    "account_get_subscription": {
+        "message": "Get subscription"
+    },
     "account_max_devices_count": {
         "message": "Up to %num% simultaneous devices"
     },
@@ -552,7 +555,7 @@
         "message": "Monthly data limit reached. Need more?"
     },
     "premium_upgrade": {
-        "message": "Get subscription"
+        "message": "Upgrade"
     },
     "settings_disconnect": {
         "message": "Disconnect"
