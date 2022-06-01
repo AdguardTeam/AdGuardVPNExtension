@@ -47,6 +47,8 @@ const getOptionsData = async () => {
     const helpUsImprove = settings.getSetting(SETTINGS_IDS.HELP_US_IMPROVE);
     const dnsServer = settings.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER);
     const appearanceTheme = settings.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
+    const vpnInfo = await endpoints.getVpnInfo();
+    const maxDevicesCount = vpnInfo?.maxDevicesCount;
 
     const exclusionsData: ExclusionsData = {
         exclusions: exclusions.getExclusions(),
@@ -60,6 +62,7 @@ const getOptionsData = async () => {
 
     const isAuthenticated = await auth.isAuthenticated();
     const isPremiumToken = await credentials.isPremiumToken();
+    const subscriptionType = credentials.getSubscriptionType();
 
     // AG-644 set current endpoint in order to avoid bug in permissions checker
     await endpoints.getSelectedLocation();
@@ -80,6 +83,8 @@ const getOptionsData = async () => {
         isAuthenticated,
         isPremiumToken,
         isAllExclusionsListsEmpty,
+        maxDevicesCount,
+        subscriptionType,
     };
 };
 
