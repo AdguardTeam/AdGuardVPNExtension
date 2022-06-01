@@ -19,6 +19,7 @@ export const Account = observer(() => {
         hidePremiumFeatures,
         openPremiumPromoPage,
         nextBillDate,
+        subscriptionType,
     } = settingsStore;
 
     const signOut = async () => {
@@ -47,29 +48,43 @@ export const Account = observer(() => {
         billDate = dateObj.toLocaleDateString('default', formatOptions);
     }
 
+    const subscriptionsMap = {
+        MONTHLY: reactTranslator.getMessage('account_monthly_paid'),
+        YEARLY: reactTranslator.getMessage('account_yearly_paid'),
+        TWO_YEARS: reactTranslator.getMessage('account_two_year_paid'),
+    };
+
+    const getAccountType = () => {
+        if (!isPremiumToken) {
+            return reactTranslator.getMessage('account_free');
+        }
+
+        if (subscriptionType) {
+            return subscriptionsMap[subscriptionType];
+        }
+
+        return reactTranslator.getMessage('account_unlimited');
+    };
+
     return (
         <>
             <Title title={reactTranslator.getMessage('account_title')} />
             <div className="account">
                 <div className="account__info">
                     <div className="account__name">
-                        {reactTranslator.getMessage('account_current_plan')}
-                    </div>
-                    <div className="account__desc">
-                        {isPremiumToken
-                            ? reactTranslator.getMessage('account_unlimited')
-                            : reactTranslator.getMessage('account_free')}
-                        {billDate && (
-                            ` ${reactTranslator.getMessage('account_next_charge', { date: billDate })}`
-                        )}
-                    </div>
-                </div>
-                <div className="account__info">
-                    <div className="account__name">
-                        {reactTranslator.getMessage('account_signed')}
-                    </div>
-                    <div className="account__desc">
                         {currentUsername}
+                    </div>
+                    <div className="account__desc">
+                        {getAccountType()}
+                    </div>
+
+                    {billDate && (
+                        <div className="account__bill-date">
+                            {reactTranslator.getMessage('account_next_charge', { date: billDate })}
+                        </div>
+                    )}
+                    <div className="account__max-devices">
+                        {reactTranslator.getMessage('account_max_devices_count', { num: authStore.maxDevicesCount })}
                     </div>
                 </div>
                 <div className="account__actions">
@@ -98,7 +113,7 @@ export const Account = observer(() => {
                                 className="button button--medium button--primary account__action"
                                 onClick={upgrade}
                             >
-                                {reactTranslator.getMessage('premium_upgrade')}
+                                {reactTranslator.getMessage('account_get_subscription')}
                             </button>
                             <button
                                 type="button"

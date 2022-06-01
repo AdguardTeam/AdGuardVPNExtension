@@ -10,8 +10,8 @@ import { REFERRAL_PROGRAM } from '../../../lib/constants';
 import './sidebar.pcss';
 
 export const Sidebar = observer(() => {
-    const { authStore } = useContext(rootStore);
-    const { isPremiumToken } = authStore;
+    const { settingsStore } = useContext(rootStore);
+    const { isPremiumToken } = settingsStore;
 
     return (
         <div className="sidebar">

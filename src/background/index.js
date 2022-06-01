@@ -52,6 +52,7 @@ global.adguard = {
 };
 
 (async () => {
+    log.info(`Starting AdGuard VPN ${appStatus.appVersion}`);
     try {
         messaging.init(); // messaging is on the top, for popup be able to communicate with back
         await fallbackApi.init();

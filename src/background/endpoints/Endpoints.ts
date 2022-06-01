@@ -427,6 +427,7 @@ class Endpoints implements EndpointsInterface {
                     maxDownloadedBytes: 0,
                     maxUploadedBytes: 0,
                     renewalTrafficDate: '',
+                    maxDevicesCount: 0,
                 };
                 appendToQueryString = true;
             }

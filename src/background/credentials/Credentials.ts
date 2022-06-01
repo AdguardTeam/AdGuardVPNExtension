@@ -18,6 +18,7 @@ export interface VpnTokenData {
     subscription: boolean;
     vpnSubscription: {
         next_bill_date_iso: string,
+        duration_v2: string,
     };
 }
 
@@ -451,6 +452,13 @@ class Credentials implements CredentialsInterface {
         }
 
         return !!vpnToken.licenseKey;
+    };
+
+    /**
+     * Returns subscription type
+     */
+    getSubscriptionType = () => {
+        return this.vpnToken?.vpnSubscription?.duration_v2;
     };
 
     /**
