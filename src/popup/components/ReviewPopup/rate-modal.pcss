@@ -53,16 +53,19 @@
         width: 39px;
         height: 30px;
         font-size: 0;
-        background-size: 32px 29px;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-image: url('../../../assets/images/rate/star.svg');
         cursor: pointer;
+        color: var(--grayd8);
+
+        &__icon {
+            width: 32px;
+            height: 29px;
+            pointer-events: none;
+        }
 
         &:hover,
         &:hover ~ .rate-modal__star,
         &.active {
-            background-image: url('../../../assets/images/rate/star-active.svg');
+            color: var(--gold);
         }
     }
 

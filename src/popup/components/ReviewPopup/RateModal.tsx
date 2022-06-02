@@ -6,6 +6,7 @@ import classnames from 'classnames';
 import { rootStore } from '../../stores';
 import { PATH_TO_RATING_IMAGES, RATING_IMAGES_MAP } from './constants';
 import { reactTranslator } from '../../../common/reactTranslator';
+import Icon from '../ui/Icon';
 
 import './rate-modal.pcss';
 
@@ -96,7 +97,12 @@ export const RateModal = observer(() => {
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
                         onClick={saveRating}
-                    />
+                    >
+                        <Icon
+                            icon="star"
+                            className="rate-modal__star__icon"
+                        />
+                    </div>
                 ))}
             </div>
             <button
