@@ -99,13 +99,15 @@ export class AuthStore {
         this.signInCheck = DEFAULTS.signInCheck;
     };
 
-    @action resetError = () => {
-        this.error = DEFAULTS.error;
+    @action resetError = async () => {
+        await this.setError(DEFAULTS.error);
     };
 
     @action onCredentialsChange = async (field: string, value: string) => {
-        this.resetError();
-        this.credentials[field] = value;
+        await this.resetError();
+        runInAction(() => {
+            this.credentials[field] = value;
+        });
         await messenger.updateAuthCache(field, value);
     };
 
@@ -119,6 +121,7 @@ export class AuthStore {
             policyAgreement,
             helpUsImprove,
             marketingConsent,
+            authError,
         } = await messenger.getAuthCache();
         runInAction(() => {
             this.credentials = {
@@ -140,6 +143,7 @@ export class AuthStore {
             if (!isNil(helpUsImprove)) {
                 this.helpUsImprove = helpUsImprove;
             }
+            this.error = authError;
         });
     };
 
@@ -215,8 +219,8 @@ export class AuthStore {
         if (response.error) {
             runInAction(() => {
                 this.requestProcessState = REQUEST_STATUSES.ERROR;
-                this.error = response.error;
             });
+            await this.setError(response.error);
             return;
         }
 
@@ -250,8 +254,8 @@ export class AuthStore {
         if (response.error) {
             runInAction(() => {
                 this.requestProcessState = REQUEST_STATUSES.ERROR;
-                this.error = response.error;
             });
+            await this.setError(response.error);
             return;
         }
 
@@ -268,7 +272,7 @@ export class AuthStore {
 
     @action register = async () => {
         if (this.credentials.password !== this.credentials.confirmPassword) {
-            this.error = translator.getMessage('registration_error_confirm_password');
+            await this.setError(translator.getMessage('registration_error_confirm_password'));
             return;
         }
         this.requestProcessState = REQUEST_STATUSES.PENDING;
@@ -276,13 +280,13 @@ export class AuthStore {
         if (response.error) {
             runInAction(() => {
                 this.requestProcessState = REQUEST_STATUSES.ERROR;
-                this.error = response.error;
                 this.field = response.field;
                 if (response.field === 'username') {
                     this.switchStep(this.STEPS.CHECK_EMAIL, false);
                     this.resetPasswords();
                 }
             });
+            await this.setError(response.error);
             return;
         }
         if (response.status === 'ok') {
@@ -330,7 +334,7 @@ export class AuthStore {
     @action switchStep = async (step: string, shouldResetErrors: boolean = true) => {
         this.step = step;
         if (shouldResetErrors) {
-            this.resetError();
+            await this.resetError();
         }
         await messenger.updateAuthCache('step', step);
     };
@@ -341,9 +345,11 @@ export class AuthStore {
 
     @action resetPasswords = async () => {
         await messenger.updateAuthCache('password', DEFAULTS.credentials.password);
+        await messenger.updateAuthCache('confirmPassword', DEFAULTS.credentials.confirmPassword);
         await messenger.updateAuthCache('twoFactor', DEFAULTS.credentials.twoFactor);
         runInAction(() => {
             this.credentials.password = DEFAULTS.credentials.password;
+            this.credentials.confirmPassword = DEFAULTS.credentials.confirmPassword;
             this.credentials.twoFactor = DEFAULTS.credentials.twoFactor;
         });
     };
@@ -394,6 +400,13 @@ export class AuthStore {
         await messenger.updateAuthCache('marketingConsent', value);
         runInAction(() => {
             this.credentials.marketingConsent = value;
+        });
+    };
+
+    @action setError = async (value: string | null) => {
+        await messenger.updateAuthCache('authError', value);
+        runInAction(() => {
+            this.error = value;
         });
     };
 
