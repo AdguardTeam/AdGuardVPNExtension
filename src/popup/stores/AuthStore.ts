@@ -21,22 +21,29 @@ const AUTH_STEPS = {
     TWO_FACTOR: 'twoFactor',
 };
 
+enum CredentialsKeys {
+    Username = 'username',
+    Password = 'password',
+    ConfirmPassword = 'confirmPassword',
+    TwoFactor = 'twoFactor',
+    MarketingConsent = 'marketingConsent',
+}
+
 interface CredentialsInterface {
-    [key: string]: string | boolean | null;
-    username: string;
-    password: string;
-    confirmPassword: string;
-    twoFactor: string;
-    marketingConsent: boolean | null;
+    [CredentialsKeys.Username]: string;
+    [CredentialsKeys.Password]: string;
+    [CredentialsKeys.ConfirmPassword]: string;
+    [CredentialsKeys.TwoFactor]: string;
+    [CredentialsKeys.MarketingConsent]: boolean | null;
 }
 
 const DEFAULTS = {
     credentials: {
-        username: '',
-        password: '',
-        confirmPassword: '',
-        twoFactor: '',
-        marketingConsent: null,
+        [CredentialsKeys.Username]: '',
+        [CredentialsKeys.Password]: '',
+        [CredentialsKeys.ConfirmPassword]: '',
+        [CredentialsKeys.TwoFactor]: '',
+        [CredentialsKeys.MarketingConsent]: null,
     },
     authenticated: false,
     need2fa: false,
@@ -105,8 +112,10 @@ export class AuthStore {
 
     @action onCredentialsChange = async (field: string, value: string) => {
         await this.resetError();
+
         runInAction(() => {
-            this.credentials[field] = value;
+            // @ts-ignore
+            this.credentials[field as CredentialsKeys] = value;
         });
         await messenger.updateAuthCache(field, value);
     };
