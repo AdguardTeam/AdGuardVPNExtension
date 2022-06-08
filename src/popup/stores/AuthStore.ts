@@ -113,6 +113,7 @@ export class AuthStore {
         const {
             username,
             password,
+            confirmPassword,
             step,
             signInCheck,
             policyAgreement,
@@ -124,6 +125,7 @@ export class AuthStore {
                 ...this.credentials,
                 username,
                 password,
+                confirmPassword,
                 marketingConsent,
             };
             if (step) {

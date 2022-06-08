@@ -2,6 +2,7 @@ const AuthCache = () => {
     const DEFAULTS = {
         username: '',
         password: '',
+        confirmPassword: '',
         step: '',
         signInCheck: false,
         policyAgreement: null,
