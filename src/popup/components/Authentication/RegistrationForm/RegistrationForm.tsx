@@ -25,14 +25,7 @@ export const RegistrationForm = observer(() => {
     };
 
     const { requestProcessState, credentials } = authStore;
-    const { password } = credentials;
-
-    const [confirmPasswordValue, setConfirmPasswordValue] = useState(password);
-
-    const confirmPasswordChangeHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { target: { value } } = e;
-        setConfirmPasswordValue(value);
-    };
+    const { password, confirmPassword } = credentials;
 
     const [inputType, setInputType] = useState('password');
 
@@ -63,8 +56,6 @@ export const RegistrationForm = observer(() => {
                     id="username"
                     type="email"
                     value={authStore.credentials.username}
-                    inputChangeHandler={inputChangeHandler}
-                    error={authStore.error}
                     label={translator.getMessage('auth_sign_in_provider_adguard_label')}
                     className="form__input__email-disabled"
                     disabled
@@ -88,10 +79,10 @@ export const RegistrationForm = observer(() => {
                 )}
                 <PasswordField
                     placeholder={translator.getMessage('auth_your_password')}
-                    id="confirm-password"
-                    password={confirmPasswordValue}
+                    id="confirmPassword"
+                    password={confirmPassword}
                     inputType={inputType}
-                    handleChange={confirmPasswordChangeHandler}
+                    handleChange={inputChangeHandler}
                     label={translator.getMessage('auth_password_confirm')}
                 />
             </div>
@@ -99,7 +90,7 @@ export const RegistrationForm = observer(() => {
                 <Submit
                     text={reactTranslator.getMessage('auth_sign_up_button')}
                     processing={requestProcessState === REQUEST_STATUSES.PENDING}
-                    disabled={authStore.disableRegister || (password !== confirmPasswordValue)}
+                    disabled={authStore.disableRegister}
                 />
             </div>
         </form>

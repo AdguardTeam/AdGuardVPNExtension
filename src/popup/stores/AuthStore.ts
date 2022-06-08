@@ -10,6 +10,7 @@ import isNil from 'lodash/isNil';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
 import { messenger } from '../../lib/messenger';
 import { SETTINGS_IDS, FLAGS_FIELDS } from '../../lib/constants';
+import { translator } from '../../common/translator';
 
 const AUTH_STEPS = {
     POLICY_AGREEMENT: 'policyAgreement',
@@ -24,6 +25,7 @@ interface CredentialsInterface {
     [key: string]: string | boolean | null;
     username: string;
     password: string;
+    confirmPassword: string;
     twoFactor: string;
     marketingConsent: boolean | null;
 }
@@ -32,6 +34,7 @@ const DEFAULTS = {
     credentials: {
         username: '',
         password: '',
+        confirmPassword: '',
         twoFactor: '',
         marketingConsent: null,
     },
@@ -165,11 +168,8 @@ export class AuthStore {
 
     @computed
     get disableRegister() {
-        const { username, password } = this.credentials;
-        if (!username || !password) {
-            return true;
-        }
-        return false;
+        const { username, password, confirmPassword } = this.credentials;
+        return !username || !password || !confirmPassword;
     }
 
     @computed
@@ -265,6 +265,10 @@ export class AuthStore {
     };
 
     @action register = async () => {
+        if (this.credentials.password !== this.credentials.confirmPassword) {
+            this.error = translator.getMessage('registration_error_confirm_password');
+            return;
+        }
         this.requestProcessState = REQUEST_STATUSES.PENDING;
         const response = await messenger.registerUser(toJS(this.credentials));
         if (response.error) {

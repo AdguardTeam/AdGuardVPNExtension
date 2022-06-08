@@ -17,6 +17,9 @@
     "registration_error_min_length": {
         "message": "Password must contain at least 8 characters"
     },
+    "registration_error_confirm_password": {
+        "message": "The password confirmation doesn't match"
+    },
     "registration_error_compromised_password": {
         "message": "The password you entered was found in a <a>public database</a> of compromised passwords. Please try another."
     },
