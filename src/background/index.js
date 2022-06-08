@@ -26,6 +26,7 @@ import { logStorage } from '../lib/log-storage';
 import { fallbackApi } from './api/fallbackApi';
 import { flagsStorage } from './flagsStorage';
 
+import './rateModal';
 import './networkConnectionObserver';
 import './uninstall';
 

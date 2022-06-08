@@ -587,6 +587,33 @@
     "popup_feedback_button": {
         "message": "Leave feedback"
     },
+    "popup_rate_modal_title": {
+        "message": "How awesome is AdGuard VPN?"
+    },
+    "popup_rate_modal_subtitle": {
+        "message": "Please rate us"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "Send"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "Cancel"
+    },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "Help us improve"
+    },
+    "popup_confirm_rate_modal_feedback_subtitle": {
+        "message": "Tell us what went wrong"
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
+        "message": "Leave feedback"
+    },
+    "popup_confirm_rate_modal_rate_title": {
+        "message": "Wow! Can you rate us also in the Chrome Store?"
+    },
+    "popup_confirm_rate_modal_confirm_button": {
+        "message": "Go to the Chrome Store"
+    },
     "settings_run_upgrade_early_bird": {
         "message": "Early-bird prices"
     },

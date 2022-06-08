@@ -45,6 +45,7 @@ export class GlobalStore {
                 isFirstRun,
                 flagsStorageData,
                 isVpnEnabledByUrl,
+                shouldShowRateModal,
             } = popupData;
 
             if (!isAuthenticated) {
@@ -65,6 +66,7 @@ export class GlobalStore {
 
             authStore.setFlagsStorageData(flagsStorageData);
             authStore.setIsFirstRun(isFirstRun);
+            authStore.setShouldShowRateModal(shouldShowRateModal);
             settingsStore.setCanControlProxy(canControlProxy);
             settingsStore.setConnectivityState(connectivityState);
             settingsStore.setIsRoutable(isRoutable);

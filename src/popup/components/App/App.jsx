@@ -31,6 +31,7 @@ import { Onboarding } from '../Authentication/Onboarding';
 import { Newsletter } from '../Authentication/Newsletter';
 import { UpgradeScreen } from '../Authentication/UpgradeScreen';
 import { DotsLoader } from '../../../common/components/DotsLoader';
+import { ReviewPopup } from '../ReviewPopup';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -54,9 +55,7 @@ export const App = observer(() => {
         showLimitExceededScreen,
     } = settingsStore;
 
-    const {
-        authenticated,
-    } = authStore;
+    const { authenticated } = authStore;
 
     const { initStatus } = globalStore;
 
@@ -242,6 +241,7 @@ export const App = observer(() => {
                     </>
                 )}
             <Icons />
+            <ReviewPopup />
         </>
     );
 });

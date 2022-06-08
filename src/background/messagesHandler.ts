@@ -24,6 +24,7 @@ import { logStorage } from '../lib/log-storage';
 import { setDesktopVpnEnabled } from './connectivity/connectivityService/connectivityFSM';
 import { flagsStorage } from './flagsStorage';
 import { ExclusionsData, ServiceDto } from '../common/exclusionsConstants';
+import { rateModal } from './rateModal';
 
 interface Message {
     type: MessageType,
@@ -341,6 +342,10 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         case MessageType.SET_FLAG: {
             const { key, value } = data;
             return flagsStorage.set(key, value);
+        }
+        case MessageType.SET_RATE_MODAL_VIEWED: {
+            await rateModal.setViewed();
+            break;
         }
         case MessageType.GET_GENERAL_EXCLUSIONS: {
             return exclusions.getRegularExclusions();

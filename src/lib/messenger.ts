@@ -305,6 +305,11 @@ class Messenger {
         return this.sendMessage(type);
     }
 
+    async setRateModalViewed() {
+        const type = MessageType.SET_RATE_MODAL_VIEWED;
+        return this.sendMessage(type);
+    }
+
     async setNotificationViewed(withDelay: boolean) {
         const type = MessageType.SET_NOTIFICATION_VIEWED;
         return this.sendMessage(type, { withDelay });

@@ -11,6 +11,7 @@ import { vpnApi } from '../api';
 import { updateService } from '../updateService';
 import { flagsStorage } from '../flagsStorage';
 import { exclusions } from '../exclusions';
+import { rateModal } from '../rateModal';
 
 class PopupData {
     constructor({
@@ -66,6 +67,7 @@ class PopupData {
         const { isFirstRun } = updateService;
         const flagsStorageData = await flagsStorage.getFlagsStorageData();
         const isVpnEnabledByUrl = exclusions.isVpnEnabledByUrl(url);
+        const shouldShowRateModal = await rateModal.shouldShowRateModal();
 
         // If error check permissions when popup is opened, ignoring multiple retries
         if (error) {
@@ -96,6 +98,7 @@ class PopupData {
             isFirstRun,
             flagsStorageData,
             isVpnEnabledByUrl,
+            shouldShowRateModal,
         };
     };
 
