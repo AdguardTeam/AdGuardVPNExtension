@@ -112,10 +112,11 @@ export class AuthStore {
 
     @action onCredentialsChange = async (field: string, value: string) => {
         await this.resetError();
+        const key = <CredentialsKeys>field;
 
         runInAction(() => {
             // @ts-ignore
-            this.credentials[field as CredentialsKeys] = value;
+            this.credentials[key as keyof CredentialsInterface] = value;
         });
         await messenger.updateAuthCache(field, value);
     };
