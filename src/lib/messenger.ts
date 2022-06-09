@@ -244,7 +244,7 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async startSocialAuth(social: string, marketingConsent: boolean | null) {
+    async startSocialAuth(social: string, marketingConsent: boolean | string) {
         const type = MessageType.START_SOCIAL_AUTH;
         return this.sendMessage(type, { social, marketingConsent });
     }

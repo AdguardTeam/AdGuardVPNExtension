@@ -34,7 +34,7 @@ interface CredentialsInterface {
     [CredentialsKeys.Password]: string;
     [CredentialsKeys.ConfirmPassword]: string;
     [CredentialsKeys.TwoFactor]: string;
-    [CredentialsKeys.MarketingConsent]: boolean | null;
+    [CredentialsKeys.MarketingConsent]: boolean | string;
 }
 
 const DEFAULTS = {
@@ -43,7 +43,7 @@ const DEFAULTS = {
         [CredentialsKeys.Password]: '',
         [CredentialsKeys.ConfirmPassword]: '',
         [CredentialsKeys.TwoFactor]: '',
-        [CredentialsKeys.MarketingConsent]: null,
+        [CredentialsKeys.MarketingConsent]: '',
     },
     authenticated: false,
     need2fa: false,
@@ -115,7 +115,6 @@ export class AuthStore {
         const key = <CredentialsKeys>field;
 
         runInAction(() => {
-            // @ts-ignore
             this.credentials[key as keyof CredentialsInterface] = value;
         });
         await messenger.updateAuthCache(field, value);
@@ -406,7 +405,7 @@ export class AuthStore {
         await this.showAuthorizationScreen();
     };
 
-    @action setMarketingConsent = async (value: boolean | null) => {
+    @action setMarketingConsent = async (value: boolean) => {
         await messenger.updateAuthCache('marketingConsent', value);
         runInAction(() => {
             this.credentials.marketingConsent = value;
