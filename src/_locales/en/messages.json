@@ -213,7 +213,7 @@
         "message": "By signing up you create your AdGuard account"
     },
     "auth_header_sign_in": {
-        "message": "You are signing in as <span>%username%</span> "
+        "message": "You are logging in as <span>%username%</span>"
     },
     "auth_header_sing_in_notice": {
         "message": "Logging in as <span>%username%</span>"
