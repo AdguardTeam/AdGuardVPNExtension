@@ -16,5 +16,4 @@ class Notifications {
     };
 }
 
-const notifications = new Notifications();
-export default notifications;
+export const notifications = new Notifications();
