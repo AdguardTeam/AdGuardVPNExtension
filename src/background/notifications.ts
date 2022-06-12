@@ -4,9 +4,17 @@ import { translator } from '../common/translator';
 
 const BLANK_IMAGE_PATH = '../assets/images/blank.svg';
 
-class Notifications {
-    create = async (options) => {
-        const notificationOptions = {
+interface NotificationsInterface {
+    create(options: { message: string }): Promise<void>;
+}
+
+class Notifications implements NotificationsInterface {
+    /**
+     * Creates notification with provided message
+     * @param options
+     */
+    create = async (options: { message: string }): Promise<void> => {
+        const notificationOptions: browser.Notifications.CreateNotificationOptions = {
             type: 'basic',
             iconUrl: BLANK_IMAGE_PATH,
             title: translator.getMessage('short_name'),
