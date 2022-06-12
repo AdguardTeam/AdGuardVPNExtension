@@ -127,10 +127,6 @@ export const Actions = observer(() => {
         return null;
     };
 
-    const onAddExclusionClick = () => {
-        exclusionsStore.openAddExclusionModal();
-    };
-
     const onExportExclusionsClick = async () => {
         await exportExclusions();
     };
@@ -238,16 +234,6 @@ export const Actions = observer(() => {
     return (
         <>
             <div className="actions">
-                <button
-                    type="button"
-                    className="actions__add-website simple-button"
-                    onClick={onAddExclusionClick}
-                >
-                    <svg className="icon icon--button">
-                        <use xlinkHref="#plus" />
-                    </svg>
-                    {reactTranslator.getMessage('settings_exclusion_add_website')}
-                </button>
                 <div className="selector selector--gray">
                     <div
                         className="selector__value"
