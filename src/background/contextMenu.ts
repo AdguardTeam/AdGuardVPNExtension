@@ -1,4 +1,4 @@
-import browser from 'webextension-polyfill';
+import browser, { Menus } from 'webextension-polyfill';
 import throttle from 'lodash/throttle';
 
 import notifier from '../lib/notifier';
@@ -10,14 +10,21 @@ import { isHttp } from '../lib/string-utils';
 import { log } from '../lib/logger';
 import { ExclusionsModes } from '../common/exclusionsConstants';
 
-// All contexts except "browser_action", "page_action" and "launcher"
-const contexts = ['page', 'frame', 'selection', 'link', 'editable', 'image', 'video', 'audio'];
+interface ContextMenuInterface {
+    init(): void;
+}
 
-const renewContextMenuItems = async (menuItems) => {
+// All contexts except "browser_action", "page_action" and "launcher"
+const contexts: Menus.ContextType[] = ['page', 'frame', 'selection', 'link', 'editable', 'image', 'video', 'audio'];
+
+const renewContextMenuItems = async (
+    menuItems: Menus.CreateCreatePropertiesType[],
+): Promise<void> => {
     await browser.contextMenus.removeAll();
     await Promise.all(menuItems.map(async (itemOptions) => {
         try {
-            await browser.contextMenus.create({ contexts, ...itemOptions }, () => {
+            const createProperties = { contexts, ...itemOptions };
+            await browser.contextMenus.create(createProperties, () => {
                 if (browser.runtime.lastError) {
                     log.debug(browser.runtime.lastError.message);
                 }
@@ -28,7 +35,7 @@ const renewContextMenuItems = async (menuItems) => {
     }));
 };
 
-const clearContextMenuItems = async () => {
+const clearContextMenuItems = async (): Promise<void> => {
     await browser.contextMenus.removeAll();
 };
 
@@ -43,23 +50,23 @@ const CONTEXT_MENU_ITEMS = {
     },
     selective_mode: {
         id: 'selective_mode',
-        type: 'radio',
+        type: 'radio' as Menus.ItemType,
         title: translator.getMessage('context_menu_selective_mode'),
         onclick: () => exclusions.setMode(ExclusionsModes.Selective),
     },
     regular_mode: {
         id: 'regular_mode',
-        type: 'radio',
+        type: 'radio' as Menus.ItemType,
         title: translator.getMessage('context_menu_general_mode'),
         onclick: () => exclusions.setMode(ExclusionsModes.Regular),
     },
     separator: {
         id: 'separator',
-        type: 'separator',
+        type: 'separator' as Menus.ItemType,
     },
 };
 
-const getContextMenuItems = (tabUrl) => {
+const getContextMenuItems = (tabUrl: string | undefined): Menus.CreateCreatePropertiesType[] => {
     if (!tabUrl) {
         return [];
     }
@@ -67,7 +74,7 @@ const getContextMenuItems = (tabUrl) => {
     const resultItems = [];
 
     if (isHttp(tabUrl)) {
-        let vpnSwitcher;
+        let vpnSwitcher: Menus.CreateCreatePropertiesType;
         if (exclusions.isVpnEnabledByUrl(tabUrl)) {
             vpnSwitcher = { ...CONTEXT_MENU_ITEMS.disable_vpn };
             vpnSwitcher.onclick = () => exclusions.disableVpnByUrl(tabUrl);
@@ -81,11 +88,11 @@ const getContextMenuItems = (tabUrl) => {
     const separator = { ...CONTEXT_MENU_ITEMS.separator };
     resultItems.push(separator);
 
-    const regularModeItem = {
+    const regularModeItem: Menus.CreateCreatePropertiesType = {
         ...CONTEXT_MENU_ITEMS.regular_mode,
     };
 
-    const selectiveModeItem = {
+    const selectiveModeItem: Menus.CreateCreatePropertiesType = {
         ...CONTEXT_MENU_ITEMS.selective_mode,
     };
 
@@ -100,7 +107,7 @@ const getContextMenuItems = (tabUrl) => {
     return resultItems;
 };
 
-const updateContextMenu = async (tab) => {
+const updateContextMenu = async (tab: { url?: string }): Promise<void> => {
     if (!settings.isContextMenuEnabled()) {
         await clearContextMenuItems();
         return;
@@ -109,7 +116,7 @@ const updateContextMenu = async (tab) => {
     await renewContextMenuItems(menuItems);
 };
 
-const init = () => {
+const init = (): void => {
     const throttleTimeoutMs = 100;
     const throttledUpdater = throttle(updateContextMenu, throttleTimeoutMs);
 
@@ -123,8 +130,6 @@ const init = () => {
     });
 };
 
-const contextMenu = {
+export const contextMenu: ContextMenuInterface = {
     init,
 };
-
-export default contextMenu;

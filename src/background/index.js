@@ -3,7 +3,7 @@ import appStatus from './appStatus';
 import auth from './auth';
 import authCache from './authentication/authCache';
 import connectivity from './connectivity';
-import contextMenu from './contextMenu';
+import { contextMenu } from './contextMenu';
 import credentials from './credentials';
 import { endpoints } from './endpoints';
 import { exclusions } from './exclusions';
