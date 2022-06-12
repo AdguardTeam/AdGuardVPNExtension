@@ -53,6 +53,10 @@ const CONTEXT_MENU_ITEMS = {
         title: translator.getMessage('context_menu_general_mode'),
         onclick: () => exclusions.setMode(ExclusionsModes.Regular),
     },
+    separator: {
+        id: 'separator',
+        type: 'separator',
+    },
 };
 
 const getContextMenuItems = (tabUrl) => {
@@ -73,6 +77,9 @@ const getContextMenuItems = (tabUrl) => {
         }
         resultItems.push(vpnSwitcher);
     }
+
+    const separator = { ...CONTEXT_MENU_ITEMS.separator };
+    resultItems.push(separator);
 
     const regularModeItem = {
         ...CONTEXT_MENU_ITEMS.regular_mode,
