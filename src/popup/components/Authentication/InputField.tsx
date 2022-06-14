@@ -41,7 +41,7 @@ export const InputField = ({
                     className={inputClassName}
                     type={type}
                     onChange={inputChangeHandler}
-                    value={value}
+                    defaultValue={value}
                     placeholder={placeholder}
                     // eslint-disable-next-line jsx-a11y/no-autofocus
                     autoFocus

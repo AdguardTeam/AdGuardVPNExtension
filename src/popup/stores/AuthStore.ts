@@ -423,4 +423,9 @@ export class AuthStore {
     get marketingConsent() {
         return this.credentials.marketingConsent;
     }
+
+    @computed
+    get username() {
+        return this.credentials.username;
+    }
 }

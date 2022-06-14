@@ -12,6 +12,7 @@ import { translator } from '../../../../common/translator';
 
 export const EmailAuth = observer(() => {
     const { authStore } = useContext(rootStore);
+    const { username, requestProcessState, error } = authStore;
 
     const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -25,25 +26,18 @@ export const EmailAuth = observer(() => {
 
     const formClassName = classnames(
         'form form--login',
-        { 'form--error': authStore.error },
+        { 'form--error': error },
     );
 
-    const getSubmitButton = () => {
-        const { requestProcessState, credentials } = authStore;
-        const { username } = credentials;
-
-        return (
-            <div className="form__btn-wrap">
-                <Submit
-                    text={translator.getMessage('auth_sign_in_provider_adguard')}
-                    processing={requestProcessState === REQUEST_STATUSES.PENDING}
-                    disabled={!username || authStore.error}
-                />
-            </div>
-        );
-    };
-
-    const { credentials: { username } } = authStore;
+    const getSubmitButton = () => (
+        <div className="form__btn-wrap">
+            <Submit
+                text={translator.getMessage('auth_sign_in_provider_adguard')}
+                processing={requestProcessState === REQUEST_STATUSES.PENDING}
+                disabled={!username || authStore.error}
+            />
+        </div>
+    );
 
     return (
         <form
