@@ -145,7 +145,8 @@ export const Actions = observer(() => {
         await exclusionsStore.openRemoveAllModal();
     };
 
-    const onMoreActionsClick = () => {
+    const onMoreActionsClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation();
         setIsMoreActionsMenuOpen(!isMoreActionsMenuOpen);
     };
 
@@ -209,10 +210,13 @@ export const Actions = observer(() => {
         }
     };
 
+    const closeMoreActionsMenu = () => {
+        setIsMoreActionsMenuOpen(false);
+    };
+
     useEffect(() => {
-        if (moreActionsMenu.current) {
-            moreActionsMenu.current.focus();
-        }
+        window.addEventListener('click', closeMoreActionsMenu);
+        return () => window.removeEventListener('click', closeMoreActionsMenu);
     });
 
     const moreActionsListClassnames = classnames('actions__more-actions-list', {
@@ -258,7 +262,6 @@ export const Actions = observer(() => {
                     className={moreActionsListClassnames}
                     ref={moreActionsMenu}
                     tabIndex={-1}
-                    onBlur={() => setIsMoreActionsMenuOpen(false)}
                 >
                     <li
                         className={exportClassnames}
