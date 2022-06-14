@@ -3,15 +3,16 @@
     top: 0;
     right: 0;
 
-    &__more-actions-button {
-        position: absolute;
-        right: 13px;
-        top: 0;
-        background: none;
+    &__button {
+        color: var(--gray88);
+        font-size: 16px;
         border: none;
-        border-radius: 2px;
-        padding: 7px 12px 5px;
-        cursor: pointer;
+        background-size: 10px;
+        padding: 0 25px 0 0;
+
+        &:focus {
+            outline: none;
+        }
     }
 
     &__more-actions-list {

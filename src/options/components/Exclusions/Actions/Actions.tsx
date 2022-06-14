@@ -141,7 +141,7 @@ export const Actions = observer(() => {
         await exclusionsStore.openRemoveAllModal();
     };
 
-    const onMoreActionsClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const onMoreActionsClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
         setIsMoreActionsMenuOpen(!isMoreActionsMenuOpen);
     };
@@ -234,16 +234,13 @@ export const Actions = observer(() => {
     return (
         <>
             <div className="actions">
-                <div className="selector selector--gray">
-                    <div
-                        className="selector__value"
-                        onClick={onMoreActionsClick}
-                    >
-                        <div className="selector__value-title">
-                            {reactTranslator.getMessage('settings_exclusion_actions')}
-                        </div>
-                    </div>
-                </div>
+                <button
+                    type="button"
+                    className="actions__button selector__value"
+                    onClick={onMoreActionsClick}
+                >
+                    {reactTranslator.getMessage('settings_exclusion_actions')}
+                </button>
                 <ul
                     className={moreActionsListClassnames}
                     ref={moreActionsMenu}
