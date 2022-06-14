@@ -19,7 +19,7 @@
         position: absolute;
         right: 0;
         top: 30px;
-        width: 190px;
+        min-width: 190px;
         z-index: 1;
         background: var(--white);
         list-style: none;
@@ -34,6 +34,7 @@
         & li {
             padding: 15px 35px 15px 25px;
             cursor: pointer;
+            white-space: nowrap;
 
             &:hover {
                 background: var(--grayF7);
