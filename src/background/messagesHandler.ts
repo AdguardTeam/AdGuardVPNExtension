@@ -24,6 +24,7 @@ import { logStorage } from '../lib/log-storage';
 import { setDesktopVpnEnabled } from './connectivity/connectivityService/connectivityFSM';
 import { flagsStorage } from './flagsStorage';
 import { ExclusionsData, ServiceDto } from '../common/exclusionsConstants';
+import { rateModal } from './rateModal';
 
 interface Message {
     type: MessageType,
@@ -47,6 +48,8 @@ const getOptionsData = async () => {
     const helpUsImprove = settings.getSetting(SETTINGS_IDS.HELP_US_IMPROVE);
     const dnsServer = settings.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER);
     const appearanceTheme = settings.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
+    const vpnInfo = await endpoints.getVpnInfo();
+    const maxDevicesCount = vpnInfo?.maxDevicesCount;
 
     const exclusionsData: ExclusionsData = {
         exclusions: exclusions.getExclusions(),
@@ -60,6 +63,7 @@ const getOptionsData = async () => {
 
     const isAuthenticated = await auth.isAuthenticated();
     const isPremiumToken = await credentials.isPremiumToken();
+    const subscriptionType = credentials.getSubscriptionType();
 
     // AG-644 set current endpoint in order to avoid bug in permissions checker
     await endpoints.getSelectedLocation();
@@ -80,6 +84,8 @@ const getOptionsData = async () => {
         isAuthenticated,
         isPremiumToken,
         isAllExclusionsListsEmpty,
+        maxDevicesCount,
+        subscriptionType,
     };
 };
 
@@ -320,7 +326,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             };
 
             if (includeLog) {
-                reportData.appLogs = logStorage.toString();
+                reportData.appLogs = await logStorage.getLogsString();
             }
 
             return vpnProvider.requestSupport(reportData);
@@ -336,6 +342,10 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         case MessageType.SET_FLAG: {
             const { key, value } = data;
             return flagsStorage.set(key, value);
+        }
+        case MessageType.SET_RATE_MODAL_VIEWED: {
+            await rateModal.setViewed();
+            break;
         }
         case MessageType.GET_GENERAL_EXCLUSIONS: {
             return exclusions.getRegularExclusions();

@@ -67,7 +67,7 @@ export const ManualMode = () => {
             <div className="manual-mode__actions">
                 <button
                     type="button"
-                    className="button button--medium button--outline-secondary"
+                    className="button button--large button--outline-secondary"
                     onClick={closeExclusionModal}
                 >
                     {reactTranslator.getMessage('settings_exclusion_modal_cancel')}

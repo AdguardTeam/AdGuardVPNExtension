@@ -116,6 +116,10 @@ const Icons = () => (
         <symbol id="unchecked" viewBox="0 0 24 24" stroke="#888" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5">
             <path d="m21 3h-18v18h18z" />
         </symbol>
+
+        <svg id="star" width="32" height="29" viewBox="0 0 32 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fillRule="evenodd" clipRule="evenodd" fill="currentColor" d="M16.1324 24L6.72787 28.9443L8.52398 18.4721L0.915527 11.0557L11.4302 9.52786L16.1324 0L20.8347 9.52786L31.3493 11.0557L23.7409 18.4721L25.537 28.9443L16.1324 24Z" />
+        </svg>
     </svg>
 );
 

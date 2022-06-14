@@ -31,6 +31,7 @@ const VPN_TOKEN_DATA = {
     subscription: false,
     vpnSubscription: {
         next_bill_date_iso: '2023-10-05T14:48:00.000Z',
+        duration_v2: 'MONTHLY',
     },
 };
 

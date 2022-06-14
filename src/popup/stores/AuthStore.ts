@@ -89,6 +89,12 @@ export class AuthStore {
 
     @observable showUpgradeScreen: boolean;
 
+    @observable showRateModal = false;
+
+    @observable showConfirmRateModal = false;
+
+    @observable rating = 0;
+
     STEPS = AUTH_STEPS;
 
     rootStore: any;
@@ -161,6 +167,7 @@ export class AuthStore {
         this.isSocialAuth = flagsStorageData[FLAGS_FIELDS.IS_SOCIAL_AUTH];
         this.showOnboarding = flagsStorageData[FLAGS_FIELDS.SHOW_ONBOARDING];
         this.showUpgradeScreen = flagsStorageData[FLAGS_FIELDS.SHOW_UPGRADE_SCREEN];
+        this.showRateModal = flagsStorageData[FLAGS_FIELDS.SHOULD_SHOW_RATE_MODAL];
     };
 
     @action setShowOnboarding = async (value: boolean) => {
@@ -428,4 +435,30 @@ export class AuthStore {
     get username() {
         return this.credentials.username;
     }
+
+    @action setRating = (value: number) => {
+        this.rating = value;
+    };
+
+    @action closeRateModal = async () => {
+        await messenger.setRateModalViewed();
+        runInAction(() => {
+            this.showRateModal = false;
+        });
+    };
+
+    @action openConfirmRateModal = () => {
+        this.showConfirmRateModal = true;
+    };
+
+    @action closeConfirmRateModal = async () => {
+        await messenger.setRateModalViewed();
+        runInAction(() => {
+            this.showConfirmRateModal = false;
+        });
+    };
+
+    @action setShouldShowRateModal = (value: boolean) => {
+        this.showRateModal = value;
+    };
 }

@@ -39,6 +39,8 @@ export class SettingsStore {
 
     @observable referralDataRequestStatus;
 
+    @observable subscriptionType = null;
+
     @action
     async requestIsPremiumToken() {
         const isPremiumToken = await messenger.checkIsPremiumToken();
@@ -111,6 +113,7 @@ export class SettingsStore {
         this.helpUsImprove = data.helpUsImprove;
         this.dnsServer = data.dnsServer;
         this.appearanceTheme = data.appearanceTheme;
+        this.subscriptionType = data.subscriptionType;
     };
 
     @action updateCurrentUsername = async () => {
