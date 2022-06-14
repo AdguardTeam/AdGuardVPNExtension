@@ -5,7 +5,7 @@ import authProvider from './providers/authProvider';
 import browserApi from './browserApi';
 import tabs from './tabs';
 import { proxy } from './proxy';
-import notifications from './notifications';
+import { notifications } from './notifications';
 import {
     AUTH_ACCESS_TOKEN_KEY,
     AUTH_CLIENT_ID,
