@@ -1,6 +1,8 @@
 import browser from 'webextension-polyfill';
 import pacGenerator from '../../../lib/pacGenerator';
 
+let GLOBAL_PROXY_CONFIG = {};
+
 const proxyGet = (config = {}) => new Promise((resolve) => {
     browser.proxy.settings.get(config, (details) => {
         resolve(details);
@@ -55,8 +57,12 @@ const convertToChromeConfig = (proxyConfig) => {
         nonRoutableCidrNets,
     } = proxyConfig;
 
+    const { username, password } = GLOBAL_PROXY_CONFIG.credentials;
+
     const proxyAddress = `${host}:${port}`;
+    const proxyAuth = username && password ? `${username}:${password}@` : '';
     const pacScript = pacGenerator.generate(
+        proxyAuth,
         proxyAddress,
         bypassList,
         inverted,
@@ -74,8 +80,6 @@ const convertToChromeConfig = (proxyConfig) => {
         scope: 'regular',
     };
 };
-
-let GLOBAL_PROXY_CONFIG = {};
 
 /**
  * Handles onAuthRequired events

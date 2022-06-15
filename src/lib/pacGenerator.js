@@ -5,19 +5,28 @@ import { IPV4_REGEX } from '../background/routability/constants';
  * Returns pac script text
  * We use pacScriptTimeToLiveMs in order to make pac script file inactive if
  * it remained in the proxy setting after browser restart
- * @param proxy
+ * @param proxyAuth
+ * @param proxyAddress
  * @param exclusionsList
  * @param inverted
  * @param defaultExclusions
  * @param nonRoutableNets
  * @returns {string}
  */
-function proxyPacScript(proxy, exclusionsList, inverted, defaultExclusions, nonRoutableNets) {
+function proxyPacScript(
+    proxyAuth,
+    proxyAddress,
+    exclusionsList,
+    inverted,
+    defaultExclusions,
+    nonRoutableNets,
+) {
     // Used to adjust pacscript after application or browser restart
     const pacScriptTimeToLiveMs = 200;
     // Used to adjust pacscript lifetime after internet reconnection
     // After this period of time pacscript is always considered activated
     const pacScriptActivationTimeoutMs = 2000;
+
     return `
             let active = false;
             const created = ${Date.now()};
@@ -29,7 +38,7 @@ function proxyPacScript(proxy, exclusionsList, inverted, defaultExclusions, nonR
 
             function FindProxyForURL(url, host) {
                 const DIRECT = "DIRECT";
-                const PROXY = "HTTPS ${proxy}";
+                const PROXY = "HTTPS ${proxyAuth}${proxyAddress}";
 
                 if (!active && (Date.now() > started + ${pacScriptActivationTimeoutMs})) {
                     active = true;
@@ -84,8 +93,8 @@ function directPacScript() {
 }
 
 /**
- *
- * @param {string} proxy
+ * @param {string} proxyAuth
+ * @param {string} proxyAddress
  * @param {string[]} exclusionsList
  * @param {boolean} inverted
  * @param {string[]} defaultExclusions
@@ -93,13 +102,14 @@ function directPacScript() {
  * @return {string}
  */
 const generate = (
-    proxy,
+    proxyAuth,
+    proxyAddress,
     exclusionsList = [],
     inverted = false,
     defaultExclusions = [],
     nonRoutableCidrNets = [],
 ) => {
-    if (!proxy) {
+    if (!proxyAddress) {
         return directPacScript();
     }
 
@@ -107,7 +117,14 @@ const generate = (
         return convertCidrToNet(net);
     });
 
-    return proxyPacScript(proxy, exclusionsList, inverted, defaultExclusions, nonRoutableNets);
+    return proxyPacScript(
+        proxyAuth,
+        proxyAddress,
+        exclusionsList,
+        inverted,
+        defaultExclusions,
+        nonRoutableNets,
+    );
 };
 
 export default { generate };
