@@ -40,7 +40,7 @@ const PasswordField = ({
                     className={inputClassName}
                     type={inputType}
                     onChange={handleChange}
-                    value={password}
+                    defaultValue={password}
                     placeholder={placeholder}
                     // eslint-disable-next-line jsx-a11y/no-autofocus
                     autoFocus={focus}
