@@ -37,15 +37,21 @@ export const Exclusions = observer(() => {
         ? reactTranslator.getMessage('settings_exclusion_general_description')
         : reactTranslator.getMessage('settings_exclusion_selective_description');
 
+    const onAddExclusionClick = () => {
+        exclusionsStore.openAddExclusionModal();
+    };
+
     return (
         <div className="settings">
             <div className="exclusions__mode">
                 <Title
                     title={translator.getMessage('settings_exclusion_title')}
                 />
-                <span className="exclusions__mode__title">{mode}</span>
-                <span>: </span>
-                <span>{modeDescription}</span>
+                <div className="exclusions__mode__info">
+                    <span className="exclusions__mode__title">{mode}</span>
+                    <span>: </span>
+                    <span>{modeDescription}</span>
+                </div>
                 <div>
                     <button
                         type="button"
@@ -55,12 +61,22 @@ export const Exclusions = observer(() => {
                         {translator.getMessage('settings_exclusion_change_mode')}
                     </button>
                 </div>
+                <Actions />
             </div>
             <div>
                 <div className="exclusions__search">
                     <ExclusionsSearch />
                 </div>
-                <Actions />
+                <button
+                    type="button"
+                    className="exclusions__add-website simple-button"
+                    onClick={onAddExclusionClick}
+                >
+                    <svg className="icon icon--button">
+                        <use xlinkHref="#plus" />
+                    </svg>
+                    {reactTranslator.getMessage('settings_exclusion_add_website')}
+                </button>
                 <List />
                 <AddExclusionModal />
                 <ConfirmAddModal />
