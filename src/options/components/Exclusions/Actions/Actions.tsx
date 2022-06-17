@@ -127,10 +127,6 @@ export const Actions = observer(() => {
         return null;
     };
 
-    const onAddExclusionClick = () => {
-        exclusionsStore.openAddExclusionModal();
-    };
-
     const onExportExclusionsClick = async () => {
         await exportExclusions();
     };
@@ -145,7 +141,8 @@ export const Actions = observer(() => {
         await exclusionsStore.openRemoveAllModal();
     };
 
-    const onMoreActionsClick = () => {
+    const onMoreActionsClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation();
         setIsMoreActionsMenuOpen(!isMoreActionsMenuOpen);
     };
 
@@ -209,10 +206,13 @@ export const Actions = observer(() => {
         }
     };
 
+    const closeMoreActionsMenu = () => {
+        setIsMoreActionsMenuOpen(false);
+    };
+
     useEffect(() => {
-        if (moreActionsMenu.current) {
-            moreActionsMenu.current.focus();
-        }
+        window.addEventListener('click', closeMoreActionsMenu);
+        return () => window.removeEventListener('click', closeMoreActionsMenu);
     });
 
     const moreActionsListClassnames = classnames('actions__more-actions-list', {
@@ -236,29 +236,15 @@ export const Actions = observer(() => {
             <div className="actions">
                 <button
                     type="button"
-                    className="actions__add-website simple-button"
-                    onClick={onAddExclusionClick}
+                    className="actions__button selector__value"
+                    onClick={onMoreActionsClick}
                 >
-                    <svg className="icon icon--button">
-                        <use xlinkHref="#plus" />
-                    </svg>
-                    {reactTranslator.getMessage('settings_exclusion_add_website')}
+                    {reactTranslator.getMessage('settings_exclusion_actions')}
                 </button>
-                <div className="selector selector--gray">
-                    <div
-                        className="selector__value"
-                        onClick={onMoreActionsClick}
-                    >
-                        <div className="selector__value-title">
-                            {reactTranslator.getMessage('settings_exclusion_actions')}
-                        </div>
-                    </div>
-                </div>
                 <ul
                     className={moreActionsListClassnames}
                     ref={moreActionsMenu}
                     tabIndex={-1}
-                    onBlur={() => setIsMoreActionsMenuOpen(false)}
                 >
                     <li
                         className={exportClassnames}
