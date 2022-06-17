@@ -157,6 +157,7 @@ export const BugReporter = observer(({ closeHandler }) => {
         const newReportClickHandler = () => {
             sendToRequestMachine(REQUEST_EVENTS.START_AGAIN);
             setFormState(DEFAULT_FORM_STATE);
+            setEmailInput(DEFAULT_FORM_STATE[FIELDS.EMAIL]);
             setFormErrors(DEFAULT_ERROR_STATE);
         };
 
