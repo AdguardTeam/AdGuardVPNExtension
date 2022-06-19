@@ -230,6 +230,9 @@
     "settings_title": {
         "message": "Asetukset"
     },
+    "options_menu_free_traffic": {
+        "message": "Ilmaista VPN-tiedonsiirtoa"
+    },
     "referral_get_free_traffic": {
         "message": "Hanki ilmaista VPN-tiedonsiirtoa!"
     },
@@ -749,7 +752,7 @@
         "message": "Olet saavuttanut yhteyksien enimmäismäärän: %maxDevicesAllowed%."
     },
     "popup_connections_limit_description_end_free": {
-        "message": "Lisätäksesi laitteita, harkitse rajatonta AdGuard VPN -tilausta."
+        "message": "Lisätäksesi laitteita, harkitse AdGuard VPN Rajaton -tilausta."
     },
     "popup_connections_limit_description_end_premium": {
         "message": "Lisätäksesi laitteen, katkaise AdGuard VPN joltakin laitteeltasi."

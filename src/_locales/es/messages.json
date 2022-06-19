@@ -237,7 +237,7 @@
         "message": "¡Obtén tráfico VPN gratis!"
     },
     "settings_referral_info": {
-        "message": "Invita a tus amigos a unirse a nuestro clan ninja y obtén más tráfico VPN gratis durante un mes. Recibe %your_gb% GB por cada amigo que se registre: ¡ellos también recibirán %friend_gb% GB extra gratis! Puedes conseguir %total_gb% GB en total gratis."
+        "message": "Invita a tus amigos a unirse a nuestro clan ninja y obtén más tráfico VPN gratis durante un mes. Recibe %your_gb% GB por cada amigo que se registre: ¡ellos también recibirán %friend_gb% GB extra gratis! Tú (usuario que invita) puedes conseguir %total_gb% GB en total gratis."
     },
     "settings_referral_invited_friends": {
         "message": "Amigos invitados %count%/%limit%"

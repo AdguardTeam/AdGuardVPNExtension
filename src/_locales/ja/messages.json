@@ -120,10 +120,10 @@
         "message": "アカウント管理"
     },
     "account_version": {
-        "message": "ご利用中プラン"
+        "message": "バージョン"
     },
     "account_current_plan": {
-        "message": "ご利用中プラン"
+        "message": "ご利用中のプラン"
     },
     "account_signed": {
         "message": "アカウントのメールアドレス"
@@ -237,7 +237,7 @@
         "message": "無料データ量をGET！"
     },
     "settings_referral_info": {
-        "message": "お友だちをAdGuard VPN部に招待して、無料月間データ量をゲットしましょう。お友だちが登録すると、1人につき%your_gb%GBが招待した方にプレゼントされ、さらに、招待されたお友だちにも%friend_gb%GBがプラスされます。※招待する方は合計で最大%total_gb%GBの無料データ量を取得いただけます。"
+        "message": "お友だちをAdGuard VPN部に招待して、無料月間通信量を増やしましょう。お友だちが登録すると、1人につき%your_gb%GBが招待した方にプレゼントされ、さらに、招待されたお友だちにも%friend_gb%GBがプラスされます。※招待する方は最大%total_gb%GBの無料通信量を取得できます。"
     },
     "settings_referral_invited_friends": {
         "message": "招待済みお友だち数: %count%/%limit%"
@@ -273,7 +273,7 @@
         "message": "指定モード"
     },
     "context_menu_general_mode": {
-        "message": "標準モード"
+        "message": "レギュラーモード"
     },
     "settings_dns_label": {
         "message": "DNSサーバーを使用する"
@@ -462,7 +462,7 @@
         "message": "モードを変更する"
     },
     "settings_exclusion_general_title": {
-        "message": "標準モード"
+        "message": "レギュラーモード"
     },
     "settings_exclusion_general_description": {
         "message": "対象外リストのウェブサイトに対してAdGuard VPNはオフになります。"

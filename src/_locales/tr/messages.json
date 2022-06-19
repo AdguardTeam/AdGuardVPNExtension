@@ -75,7 +75,7 @@
         "message": "Geri bildirimde bulun"
     },
     "options_support_feedback_description": {
-        "message": "Yeni özellik isteği veya öneri gönderin"
+        "message": "Yeni özellik talebi veya öneri gönderin"
     },
     "options_report_bug_title": {
         "message": "Hata bildir"
@@ -237,7 +237,7 @@
         "message": "Ücretsiz VPN verisi edinin!"
     },
     "settings_referral_info": {
-        "message": "Arkadaşlarınızı ninja klanımıza katılmaya davet edin ve bir ay boyunca daha fazla ücretsiz VPN verisi alın. Kaydolan her arkadaşınız için %your_gb% GB kazanın: ayrıca onlarda ücretsiz olarak %friend_gb% GB ekstra kazanır! Toplamda %total_gb% GB ücretsiz alabilirsiniz."
+        "message": "Arkadaşlarınızı ninja klanımıza katılmaya davet edin ve bir ay boyunca daha fazla ücretsiz VPN verisi alın. Kaydolan her arkadaşınız için %your_gb% GB alın: ayrıca ücretsiz olarak fazladan %friend_gb% GB alırlar! Siz (davet eden kullanıcı) ücretsiz olarak maksimum fazladan %total_gb% GB edinebilirsiniz."
     },
     "settings_referral_invited_friends": {
         "message": "Davet edilen arkadaşlar %count%/%limit%"
@@ -698,7 +698,7 @@
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_selective_mode_popup_message": {
-        "message": "Seçici modda AdGuard VPN yalnızca listeye eklediğiniz izin verilen sitelerde çalışır."
+        "message": "Seçici modda AdGuard VPN, yalnızca listeye eklediğiniz izin verilen sitelerde çalışır."
     },
     "options_selective_mode_popup_button_switch_now": {
         "message": "Şimdi değiştir"
@@ -725,10 +725,10 @@
         "message": "İstisnaları kaldır"
     },
     "options_exclusions_delete_regular_description": {
-        "message": "Normal modun tüm istisnaları silinecektir."
+        "message": "Normal moddan tüm istisnalar silinecektir."
     },
     "options_exclusions_delete_selective_description": {
-        "message": "Seçici modun tüm istisnaları silinecektir."
+        "message": "Seçici moddan tüm istisnalar silinecektir."
     },
     "options_exclusions_import_successful": {
         "message": "İçe aktarılan istisnalar: %count%"

@@ -237,7 +237,7 @@
         "message": "获取免费 VPN 流量！"
     },
     "settings_referral_info": {
-        "message": "邀请您的朋友加入忍者家族并获得一个月内可用的 VPN 免费流量！每拉一个朋友来注册就能收到 %your_gb% GB 流量。同时也会给您的朋友赠送 %friend_gb% GB 的免费流量！（您至多可以收到 %total_gb% GB 的免费流量！）"
+        "message": "邀请您的朋友加入忍者家族并获得一个月内可用的 VPN 免费流量！每拉一个朋友来注册就能收到 %your_gb%GB 流量。同时也会给您的朋友赠送 %friend_gb%GB 的免费流量！（您至多可以收到 %total_gb%GB 的免费流量！）"
     },
     "settings_referral_invited_friends": {
         "message": "已邀请的朋友 %count%/%limit%"

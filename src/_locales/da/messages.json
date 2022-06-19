@@ -237,7 +237,7 @@
         "message": "Få gratis VPN-trafik!"
     },
     "settings_referral_info": {
-        "message": "Invitér venner til at deltage i vores ninja-klan og få mere gratis VPN-trafik i én måned. Modtag %your_gb% GB for hver ven, der tilmelder sig: De får også %friend_gb% GB ekstra gratis! Du kan i alt få %total_gb% GB gratis."
+        "message": "Invitér venner til at deltage i vores ninja-klan og få mere gratis VPN-trafik i én måned. Modtag %your_gb% GB for hver ven, der tilmelder sig. De får også %friend_gb% GB ekstra gratis! Du (inviterende bruger) kan få maks. %total_gb% GB ekstra gratis."
     },
     "settings_referral_invited_friends": {
         "message": "Inviterede venner %count%/%limit%"

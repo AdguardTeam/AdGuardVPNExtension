@@ -237,7 +237,7 @@
         "message": "Gratis VPN-dataverkeer verkrijgen!"
     },
     "settings_referral_info": {
-        "message": "Nodig je vrienden uit om lid te worden van onze ninja-clan en ontvang een maand lang meer gratis VPN-dataverkeer. Ontvang %your_gb% GB voor elke vriend die zich aanmeldt: ze krijgen ook gratis %friend_gb% GB extra! Je kan in totaal %total_gb% GB gratis krijgen."
+        "message": "Nodig je vrienden uit om lid te worden van onze ninja-clan en ontvang een maand lang meer gratis VPN-dataverkeer. Ontvang %your_gb% GB voor elke vriend die zich aanmeldt: ze krijgen ook gratis %friend_gb% GB extra! Jij (als uitnodiger) kan in totaal %total_gb% GB gratis krijgen."
     },
     "settings_referral_invited_friends": {
         "message": "Uitgenodigde vrienden %count%/%limit%"

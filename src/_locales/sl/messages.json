@@ -1,4 +1,10 @@
 {
+    "name": {
+        "message": "AdGuard VPN – brezplačen in varen namestniški strežnik"
+    },
+    "description": {
+        "message": "Uporabite AdGuard VPN za hitro, varno in varno brskanje po internetu. Zaščitite svojo zasebnost in ostanite anonimni z našim zasebnim namestniškim VPN strežnikom."
+    },
     "short_name": {
         "message": "AdGuard VPN"
     },
@@ -62,6 +68,9 @@
     "options_support_report_title": {
         "message": "Prijavi napako"
     },
+    "options_support_report_description": {
+        "message": "Pošljite nam poročilo o morebitni napaki"
+    },
     "options_support_feedback_title": {
         "message": "Pošljite povratne informacije"
     },
@@ -113,6 +122,9 @@
     "account_version": {
         "message": "Različica"
     },
+    "account_current_plan": {
+        "message": "Trenutni načrt"
+    },
     "account_signed": {
         "message": "Prijavljen z"
     },
@@ -120,13 +132,16 @@
         "message": "Brezplačen"
     },
     "account_unlimited": {
-        "message": "Neomejen"
+        "message": "Neomejen račun"
     },
     "account_next_charge": {
         "message": "(Naslednje polnjenje %date%)"
     },
     "account_sign_out": {
         "message": "Odjava"
+    },
+    "account_unlimited_title": {
+        "message": "Pridobite neomejeno različico!"
     },
     "rate_description": {
         "message": "Hej, smo ekipa AdGuarda in zelo pomembno nam je, da vemo vaše mnenje o našem izdelku. Prosimo ocenite ga."
@@ -166,6 +181,9 @@
     },
     "auth_info": {
         "message": "Nadaljuj s svojim računom AdGuard ali s prijavo družbenega omrežja"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Nadaljuj z elektronsko pošto"
     },
     "auth_sign_in_provider_apple": {
         "message": "Nadaljuj z Apple"
@@ -212,11 +230,14 @@
     "settings_title": {
         "message": "Nastavitve"
     },
+    "options_menu_free_traffic": {
+        "message": "Brezplačen promet VPN"
+    },
     "referral_get_free_traffic": {
         "message": "Pridobite brezplačen promet VPN!"
     },
     "settings_referral_info": {
-        "message": "Povabite svoje prijatelje, da se pridružijo našemu ninja klanu in si zagotovite več brezplačnega prometa VPN za en mesec. Prejmite %your_gb% GB za vsakega prijatelja, ki se prijavi: prav tako brezplačno pridobijo dodaten %friend_gb% GB! Skupaj lahko brezplačno dobite %total_gb% GB."
+        "message": "Povabite svoje prijatelje, da se pridružijo našemu ninja klanu in si zagotovite več brezplačnega prometa VPN za en mesec. Prejmite %your_gb% GB za vsakega prijatelja, ki se prijavi: brezplačno prejmejo tudi %friend_gb% GB! Vi (uporabnik, ki vabi) lahko brezplačno dobite največ %total_gb% dodatnih GB."
     },
     "settings_referral_invited_friends": {
         "message": "Povabljenih prijateljev %count%/%limit%"
@@ -332,6 +353,18 @@
     "settings_exclusion_add_subdomain": {
         "message": "Dodaj poddomena"
     },
+    "settings_exclusion_invalid_subdomain": {
+        "message": "Neveljavna poddomena"
+    },
+    "settings_exclusion_status_domain": {
+        "message": "domena"
+    },
+    "settings_exclusion_status_subdomain": {
+        "message": "poddomena"
+    },
+    "settings_exclusion_status_all_subdomains": {
+        "message": "vse poddomene"
+    },
     "settings_exclusion_service_settings_subtitle_regular_mode": {
         "message": "AdGuard VPN je vypnutá pre zaškrtnuté domény"
     },
@@ -347,11 +380,17 @@
     "settings_exclusion_domain_name": {
         "message": "Ime domene:"
     },
+    "settings_exclusion_subdomain_name": {
+        "message": "Ime poddomene:"
+    },
     "settings_exclusion_add_from_list": {
         "message": "S seznama"
     },
     "settings_exclusion_add_manually": {
         "message": "Ročno"
+    },
+    "settings_exclusion_add_manually_add": {
+        "message": "Ročno dodaj"
     },
     "settings_exclusion_modal_cancel": {
         "message": "Prekliči"

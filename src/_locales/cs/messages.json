@@ -132,7 +132,7 @@
         "message": "Zdarma"
     },
     "account_unlimited": {
-        "message": "Neomezená"
+        "message": "Neomezený"
     },
     "account_next_charge": {
         "message": "(Další platba %date%)"
@@ -237,7 +237,7 @@
         "message": "Získejte zdarma datový provoz VPN!"
     },
     "settings_referral_info": {
-        "message": "Pozvěte své přátele, aby se připojili k našemu klanu ninjů, a získejte další datový provoz VPN zdarma na měsíc. Získejte %your_gb% GB za každého přítele, který se zaregistruje: dostanou také %friend_gb% GB navíc zdarma! Celkem můžete získat %total_gb% GB zdarma."
+        "message": "Pozvěte své přátele, aby se připojili k našemu klanu ninjů, a získejte další datový provoz VPN zdarma na měsíc. Obdržíte %your_gb% GB za každého přítele, který se zaregistruje: ti obdrží také %friend_gb% GB navíc zdarma! Celkem můžete získat %total_gb% GB zdarma."
     },
     "settings_referral_invited_friends": {
         "message": "Pozvaní přátelé %count%/%limit%"

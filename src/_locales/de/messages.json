@@ -237,7 +237,7 @@
         "message": "Erhalten Sie kostenlosen VPN-Traffic!"
     },
     "settings_referral_info": {
-        "message": "Laden Sie Ihre Freunde dazu ein, unserem Ninja-Clan beizutreten, und erhalten Sie dafür zusätzlichen Traffic kostenlos — %your_gb% GB für jede(n) Freund(in). Ihre Freunde erhalten ebenfalls %friend_gb% GB extra kostenlos! Sie können insgesamt bis zu %total_gb% GB kostenlos bekommen."
+        "message": "Laden Sie Ihre Freunde dazu ein, unserem Ninja-Clan beizutreten, und erhalten Sie dafür zusätzlichen Traffic kostenlos — %your_gb% GB für jede(n) Freund(in). Ihre Freunde erhalten ebenfalls %friend_gb% GB extra kostenlos! Sie können insgesamt bis zu %total_gb% GB kostenlos bekommen, indem Sie Freunde einladen."
     },
     "settings_referral_invited_friends": {
         "message": "Eingeladene Freunde %count%/%limit%"

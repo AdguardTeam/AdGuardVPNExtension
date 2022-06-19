@@ -129,10 +129,10 @@
         "message": "다음 이메일로 로그인함"
     },
     "account_free": {
-        "message": "무료 계정"
+        "message": "무료 버전"
     },
     "account_unlimited": {
-        "message": "무제한 계정"
+        "message": "무제한 버전"
     },
     "account_next_charge": {
         "message": "(다음 결제일 %date%)"
@@ -237,7 +237,7 @@
         "message": "사용량 무료로 받기!"
     },
     "settings_referral_info": {
-        "message": "친구를 VPN 서비스에 초대해 매월 사용량을 늘려 보십시오. 친구가 가입하는 경우 %your_gb%GB를 늘릴 수 있으며 친구도 %friend_gb%GB를 무료로 받을 수 있습니다! (사용량은 무료로 최대 %total_gb%GB까지 늘릴 수 있습니다!)"
+        "message": "친구를 VPN 서비스에 초대해 매월 사용량을 늘려 보십시오. 친구가 가입하는 경우 %your_gb%GB를 늘릴 수 있으며 친구도 %friend_gb%GB를 무료로 받을 수 있습니다! 친구들을 초대하면 무료 사용량을 최대 %total_gb%GB까지 늘릴 수 있습니다."
     },
     "settings_referral_invited_friends": {
         "message": "초대한 친구 %count%/%limit%"
@@ -270,7 +270,7 @@
         "message": "AdGuard VPN이 충돌 보고서, 기술 및 상호작용 데이터를 수집할 수 있도록 허용해주세요. 익명으로 처리됩니다."
     },
     "context_menu_selective_mode": {
-        "message": "선별적 모드"
+        "message": "선별 모드"
     },
     "context_menu_general_mode": {
         "message": "일반 모드"
@@ -345,7 +345,7 @@
         "message": "추가"
     },
     "settings_exclusion_add_website": {
-        "message": "웹사이트 추가"
+        "message": "웹 사이트 추가"
     },
     "settings_exclusion_actions": {
         "message": "가능한 동작"
@@ -468,7 +468,7 @@
         "message": "AdGuard VPN은 예외 목록에 있는 웹 사이트에서는 작동하지 않습니다"
     },
     "settings_exclusion_selective_title": {
-        "message": "선별적 모드"
+        "message": "선별 모드"
     },
     "settings_exclusion_selective_description": {
         "message": "AdGuard VPN이 예외 목록에 있는 웹 사이트에서만 작동됩니다"
@@ -713,7 +713,7 @@
         "message": "일반 목록"
     },
     "options_exclusions_import_select_selective": {
-        "message": "선별적 목록"
+        "message": "선별 목록"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "취소"

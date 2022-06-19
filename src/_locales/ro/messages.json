@@ -237,7 +237,7 @@
         "message": "Obțineți date VPN gratuit!"
     },
     "settings_referral_info": {
-        "message": "Invitați-vă prietenii să se alăture clanului nostru ninja și obțineți mai multe date VPN gratuite timp de o lună. Primiți %your_gb% GB pentru fiecare prieten care se înscrie: ei primesc de asemenea, %friend_gb% GB în plus gratuit! Puteți obține %total_gb% GB în total gratuit."
+        "message": "Invitați-vă prietenii să se alăture clanului nostru ninja și obțineți mai mult trafic VPN gratuit pentru o lună. Primiți %your_gb% GB pentru fiecare prieten care se înscrie: aceștia primesc, de asemenea, %friend_gb% GB în plus gratuit! Dumneavoastră (utilizatorul care invită) puteți obține gratuit maximum %total_gb% GB în plus."
     },
     "settings_referral_invited_friends": {
         "message": "Prieteni invitați %count%/%limit%"

@@ -126,13 +126,13 @@
         "message": "Текущий план"
     },
     "account_signed": {
-        "message": "Вы вошли, используя почту"
+        "message": "Вы вошли через почту"
     },
     "account_free": {
         "message": "Бесплатный"
     },
     "account_unlimited": {
-        "message": "Безлимитный"
+        "message": "Безлимитная"
     },
     "account_next_charge": {
         "message": "(Следующий платёж %date%)"
@@ -195,13 +195,13 @@
         "message": "Войти через Facebook"
     },
     "auth_header_sign_in_account": {
-        "message": "Вы авторизуетесь с помощью аккаунта AdGuard"
+        "message": "Вы входите через аккаунт AdGuard"
     },
     "auth_header_sign_up_create_account": {
         "message": "Регистрируясь, вы создаете аккаунт AdGuard"
     },
     "auth_header_sign_in": {
-        "message": "Вы авторизуетесь как <div>%username%</div>"
+        "message": "Вы входите как <div>%username%</div> "
     },
     "auth_header_sing_in_notice": {
         "message": "У вас уже есть аккаунт <div>%username%</div>"
@@ -237,7 +237,7 @@
         "message": "Получите бесплатный VPN-трафик!"
     },
     "settings_referral_info": {
-        "message": "Пригласите друзей присоединиться к нашему клану ниндзя и получите больше бесплатного VPN-трафика на месяц. По %your_gb% ГБ вам и каждому вашему другу, который зарегистрируется! Всего можно получить %total_gb% ГБ."
+        "message": "Пригласите друзей присоединиться к нашему клану ниндзя и получите больше бесплатного VPN-трафика на месяц. %your_gb% ГБ вам и %friend_gb% ГБ каждому вашему другу, который зарегистрируется! Приглашая друзей, можно получить в сумме до %total_gb% бонусных ГБ."
     },
     "settings_referral_invited_friends": {
         "message": "Приглашённые друзья %count%/%limit%"
