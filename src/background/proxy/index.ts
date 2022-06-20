@@ -53,8 +53,7 @@ export interface ExtensionProxyInterface {
     canControlProxy(): Promise<CanControlProxy>
     setEndpointsTldExclusions(endpointsTldExclusions: any): Promise<void>;
     setBypassList(exclusions: string[], inverted: boolean): Promise<void>;
-    setAccessPrefix(
-        credentialsHash: string,
+    setProxyCredentials(
         credentials: {
             password: string,
             username: string | null,
@@ -86,8 +85,6 @@ class ExtensionProxy implements ExtensionProxyInterface {
     inverted: boolean;
 
     credentials: AccessCredentials;
-
-    currentPrefix: string;
 
     constructor() {
         this.isActive = false;
@@ -215,23 +212,20 @@ class ExtensionProxy implements ExtensionProxyInterface {
         await this.applyConfig();
     };
 
-    setHost = async (prefix: string, domainName: string): Promise<void> => {
-        if (!prefix || !domainName) {
+    setHost = async (domainName: string): Promise<void> => {
+        if (!domainName) {
             return;
         }
-        if (this.proxyAuthorizationType === PROXY_AUTH_TYPES.PREFIX) {
-            this.currentHost = `${prefix}.${domainName}`;
-        } else if (this.proxyAuthorizationType === PROXY_AUTH_TYPES.AUTH_HANDLER) {
+        if (this.proxyAuthorizationType === PROXY_AUTH_TYPES.PREFIX
+            || this.proxyAuthorizationType === PROXY_AUTH_TYPES.AUTH_HANDLER) {
             this.currentHost = domainName;
         } else {
             throw new Error(`Wrong proxyAuthorizationType: ${this.proxyAuthorizationType}`);
         }
-        this.currentPrefix = prefix;
         await this.applyConfig();
     };
 
-    setAccessPrefix = async (
-        prefix: string,
+    setProxyCredentials = async (
         credentials: AccessCredentials,
     ): Promise<{ domainName: string }> => {
         const endpoint = await this.getCurrentEndpoint();
@@ -240,7 +234,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
         }
         const { domainName } = endpoint;
         this.credentials = credentials;
-        await this.setHost(prefix, domainName);
+        await this.setHost(domainName);
         return { domainName };
     };
 
@@ -258,7 +252,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
     ): Promise<{ domainName: string }> => {
         this.currentEndpoint = endpoint;
         const { domainName } = this.currentEndpoint;
-        await this.setHost(this.currentPrefix, domainName);
+        await this.setHost(domainName);
         await browserApi.storage.set(CURRENT_ENDPOINT_KEY, endpoint);
         // notify popup
         notifier.notifyListeners(notifier.types.CURRENT_LOCATION_UPDATED, location);

@@ -378,8 +378,8 @@ class Credentials implements CredentialsInterface {
     }
 
     updateProxyCredentials = async (): Promise<void> => {
-        const { credentialsHash, credentials } = await this.getAccessCredentials();
-        await this.proxy.setAccessPrefix(credentialsHash, credentials);
+        const { credentials } = await this.getAccessCredentials();
+        await this.proxy.setProxyCredentials(credentials);
     };
 
     /**
