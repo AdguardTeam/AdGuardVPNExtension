@@ -96,7 +96,29 @@ const onAuthRequiredHandler = (details) => {
     return {};
 };
 
-browser.webRequest.onAuthRequired.addListener(onAuthRequiredHandler, { urls: ['<all_urls>'] }, ['blocking']);
+const clearAuthCache = async (rootDomain, callback) => {
+    // Chrome allow us to clear the authentication credentials for a given
+    // domain by clearing ALL cookies for that domain.
+    // IMPORTANT: you have to use the root domain of the proxy
+    // (eg: if the proxy is at foo.bar.example.com, you need to use example.com).
+
+    const options = {
+        origins: [
+            `http://${rootDomain}`,
+            `https://${rootDomain}`,
+        ],
+    };
+    const types = { cookies: true };
+
+    await browser.browsingData.remove(options, types);
+    callback();
+};
+
+// Make sure that Chrome does not cache proxy credentials.
+// FIXME replace adguard.io with varialbe
+clearAuthCache('adguard.io', () => {
+    browser.webRequest.onAuthRequired.addListener(onAuthRequiredHandler, { urls: ['<all_urls>'] }, ['blocking']);
+});
 
 /**
  * Clears proxy settings

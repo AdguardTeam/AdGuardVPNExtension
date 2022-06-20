@@ -39,6 +39,7 @@
         "storage",
         "unlimitedStorage",
         "webRequest",
-        "webRequestBlocking"
+        "webRequestBlocking",
+        "browsingData"
     ]
 }
