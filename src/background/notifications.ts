@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid';
 import { translator } from '../common/translator';
 
 const BLANK_IMAGE_PATH = '../assets/images/blank.svg';
+const DEFAULT_TITLE = translator.getMessage('short_name');
 
 interface NotificationsInterface {
     create(options: { message: string }): Promise<void>;
@@ -17,7 +18,7 @@ class Notifications implements NotificationsInterface {
         const notificationOptions: browser.Notifications.CreateNotificationOptions = {
             type: 'basic',
             iconUrl: BLANK_IMAGE_PATH,
-            title: options.title || translator.getMessage('short_name'),
+            title: options.title || DEFAULT_TITLE,
             message: options.message,
         };
         await browser.notifications.create(nanoid(), notificationOptions);
