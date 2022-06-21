@@ -6,6 +6,9 @@ jest.mock('webextension-polyfill', () => {
         notifications: {
             create: jest.fn(async () => {}),
         },
+        runtime: {
+            getURL: jest.fn(() => ''),
+        },
     };
 });
 
