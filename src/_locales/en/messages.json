@@ -818,7 +818,7 @@
         "message": "Please note: your connection is not secure! To continue surfing privately, click the AdGuard VPN icon and sign in again."
     },
     "notification_data_limit_reached_title": {
-        "message": "Monthly data limit reached"
+        "message": "You've reached the monthly data limit"
     },
     "notification_data_limit_reached_description": {
         "message": "VPN connection speed has been reduced"
