@@ -1,8 +1,9 @@
 import browser from 'webextension-polyfill';
 import { nanoid } from 'nanoid';
 import { translator } from '../common/translator';
+import { Prefs } from './prefs';
 
-const BLANK_IMAGE_PATH = '../assets/images/blank.svg';
+const DEFAULT_IMAGE_PATH = Prefs.ICONS.ENABLED['128'];
 const DEFAULT_TITLE = translator.getMessage('short_name');
 
 interface NotificationsInterface {
@@ -17,7 +18,7 @@ class Notifications implements NotificationsInterface {
     create = async (options: { title?: string, message: string }): Promise<void> => {
         const notificationOptions: browser.Notifications.CreateNotificationOptions = {
             type: 'basic',
-            iconUrl: BLANK_IMAGE_PATH,
+            iconUrl: DEFAULT_IMAGE_PATH,
             title: options.title || DEFAULT_TITLE,
             message: options.message,
         };
