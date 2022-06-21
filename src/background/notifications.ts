@@ -13,11 +13,11 @@ class Notifications implements NotificationsInterface {
      * Creates notification with provided message
      * @param options
      */
-    create = async (options: { message: string }): Promise<void> => {
+    create = async (options: { title?: string, message: string }): Promise<void> => {
         const notificationOptions: browser.Notifications.CreateNotificationOptions = {
             type: 'basic',
             iconUrl: BLANK_IMAGE_PATH,
-            title: translator.getMessage('short_name'),
+            title: options.title || translator.getMessage('short_name'),
             message: options.message,
         };
         await browser.notifications.create(nanoid(), notificationOptions);
