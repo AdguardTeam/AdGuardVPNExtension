@@ -158,11 +158,17 @@
     "auth_password": {
         "message": "Geslo"
     },
+    "auth_password_confirm": {
+        "message": "Potrdi geslo"
+    },
     "auth_recover": {
         "message": "Pozabljeno geslo?"
     },
     "auth_sign_up": {
         "message": "Prijava"
+    },
+    "auth_sign_up_info": {
+        "message": "Ustvarite svoj račun AdGuard"
     },
     "auth_sign_up_button": {
         "message": "Prijava"
@@ -171,7 +177,7 @@
         "message": "Prijava"
     },
     "auth_sign_in_button": {
-        "message": "Prijava"
+        "message": "Vpis"
     },
     "auth_sign_in_link": {
         "message": "Prijavite se z računom AdGuard"
@@ -181,6 +187,9 @@
     },
     "auth_info": {
         "message": "Nadaljuj s svojim računom AdGuard ali s prijavo družbenega omrežja"
+    },
+    "auth_sign_in_provider_adguard_label": {
+        "message": "E-pošta"
     },
     "auth_sign_in_provider_adguard": {
         "message": "Nadaljuj z elektronsko pošto"
@@ -554,6 +563,21 @@
     "popup_feedback_button": {
         "message": "Pošlji povratne informacije"
     },
+    "popup_rate_modal_subtitle": {
+        "message": "Prosimo, ocenite nas"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "Pošlji"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "Prekliči"
+    },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "Pomagajte nam izboljšati"
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
+        "message": "Pošlji povratne informacije"
+    },
     "settings_run_upgrade_early_bird": {
         "message": "Cene zgodnjih ptic"
     },
@@ -645,8 +669,8 @@
     "popup_upgrade_screen_all_locations": {
         "message": "Vse lokacije"
     },
-    "popup_upgrade_screen_streaming_support": {
-        "message": "Podpora za pretakanje"
+    "popup_upgrade_screen_connect_devices": {
+        "message": "Do 5 naprav"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Pretakanje"

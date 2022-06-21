@@ -158,11 +158,20 @@
     "auth_password": {
         "message": "Lozinka"
     },
+    "auth_your_password": {
+        "message": "Unesite lozinku"
+    },
+    "auth_password_confirm": {
+        "message": "Potvrdi lozinku"
+    },
     "auth_recover": {
         "message": "Zaboravljena lozinka?"
     },
     "auth_sign_up": {
         "message": "Registracija"
+    },
+    "auth_sign_up_info": {
+        "message": "Stvorite vaš AdGuard račun"
     },
     "auth_sign_up_button": {
         "message": "Registracija"
@@ -171,7 +180,7 @@
         "message": "Prijava"
     },
     "auth_sign_in_button": {
-        "message": "Prijava"
+        "message": "PRIJAVA"
     },
     "auth_sign_in_link": {
         "message": "Prijavite se s AdGuard računom"
@@ -181,6 +190,9 @@
     },
     "auth_info": {
         "message": "Nastavite sa vašim AdGuard korisničkim računom ili a računom društvene mreže"
+    },
+    "auth_sign_in_provider_adguard_label": {
+        "message": "E-pošta"
     },
     "auth_sign_in_provider_adguard": {
         "message": "Nastavi s AdGuardom"
@@ -578,6 +590,21 @@
     "popup_feedback_button": {
         "message": "Ostavite povratnu informaciju"
     },
+    "popup_rate_modal_subtitle": {
+        "message": "Molimo, ocijenite nas"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "Pošalji"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "Poništi"
+    },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "Pomognite nam postati bolji"
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
+        "message": "Ostavite povratnu informaciju"
+    },
     "settings_run_upgrade_early_bird": {
         "message": "Cijene za ranoranioce"
     },
@@ -678,11 +705,11 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 kontinenata i puno država. Izaberite jednu državu i surfajte internetom!"
     },
-    "popup_upgrade_screen_streaming_support": {
-        "message": "Podrška za strujanje"
+    "popup_upgrade_screen_connect_devices": {
+        "message": "Do 5 uređaja"
     },
-    "popup_upgrade_screen_streaming_support_desc": {
-        "message": "Svi veliki streaming servisi su dostupni. Gledajte bilo što bilo gdje!"
+    "popup_upgrade_screen_connect_devices_desc": {
+        "message": "Spojite sve vaše gadgete na AdGuard VPN istovremeno — ili zaštitite cijelu obitelj!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Strujanje"

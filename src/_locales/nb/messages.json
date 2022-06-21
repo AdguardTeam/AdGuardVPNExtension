@@ -113,6 +113,9 @@
     "auth_password": {
         "message": "Passord"
     },
+    "auth_password_confirm": {
+        "message": "Bekreft passord"
+    },
     "auth_recover": {
         "message": "Glemt passordet?"
     },
@@ -133,6 +136,9 @@
     },
     "auth_title": {
         "message": "Autorisasjon"
+    },
+    "auth_sign_in_provider_adguard_label": {
+        "message": "E-post"
     },
     "auth_sign_in_provider_apple": {
         "message": "Fortsett med Apple"
@@ -419,6 +425,21 @@
     "popup_feedback_button": {
         "message": "Gi tilbakemelding"
     },
+    "popup_rate_modal_subtitle": {
+        "message": "Vennligst vurder oss"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "Send"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "Avbryt"
+    },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "Hjelp oss med å forbedre"
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
+        "message": "Gi tilbakemelding"
+    },
     "settings_run_upgrade_early_bird": {
         "message": "Priser for de som er tidlig ute"
     },
@@ -475,6 +496,9 @@
     },
     "popup_upgrade_screen_all_locations": {
         "message": "Alle posisjoner"
+    },
+    "popup_upgrade_screen_connect_devices": {
+        "message": "Opptil 5 enheter"
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Oppgrader"

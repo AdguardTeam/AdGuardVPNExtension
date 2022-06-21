@@ -146,6 +146,12 @@
     "auth_password": {
         "message": "Пароль"
     },
+    "auth_your_password": {
+        "message": "Увядзіце пароль"
+    },
+    "auth_password_confirm": {
+        "message": "Пацвердзіць пароль"
+    },
     "auth_recover": {
         "message": "Забылі пароль?"
     },
@@ -515,6 +521,21 @@
     "popup_feedback_button": {
         "message": "Пакінуць водгук"
     },
+    "popup_rate_modal_subtitle": {
+        "message": "Калі ласка, ацаніце яго"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "Адправіць"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "Скасаванне"
+    },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "Дапамажыце нам стаць лепш"
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
+        "message": "Пакінуць водгук"
+    },
     "settings_run_upgrade_early_bird": {
         "message": "Адмысловыя цэны для першых пакупнікоў"
     },
@@ -615,11 +636,8 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 кантынентаў і дзясяткі краін. Абярыце горад і карыстайцеся інтэрнэтам бяспечна!"
     },
-    "popup_upgrade_screen_streaming_support": {
-        "message": "Падтрымка струменевай перадачы"
-    },
-    "popup_upgrade_screen_streaming_support_desc": {
-        "message": "Даступныя ўсе галоўныя стрымінгавыя сэрвісы. Глядзі што хочаш і дзе хочаш!"
+    "popup_upgrade_screen_connect_devices": {
+        "message": "Да 5 прылад"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Струменевая перадача"

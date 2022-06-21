@@ -158,11 +158,20 @@
     "auth_password": {
         "message": "パスワード"
     },
+    "auth_your_password": {
+        "message": "パスワードを入力してください"
+    },
+    "auth_password_confirm": {
+        "message": "パスワードの確認"
+    },
     "auth_recover": {
         "message": "パスワードをお忘れですか？"
     },
     "auth_sign_up": {
         "message": "新規ご登録"
+    },
+    "auth_sign_up_info": {
+        "message": "AdGuardアカウントを作成いただけます"
     },
     "auth_sign_up_button": {
         "message": "登録する"
@@ -181,6 +190,9 @@
     },
     "auth_info": {
         "message": "お持ちのAdGuardアカウントやSNSアカウントでログイン"
+    },
+    "auth_sign_in_provider_adguard_label": {
+        "message": "メールアドレス"
     },
     "auth_sign_in_provider_adguard": {
         "message": "メールアドレスで続ける"
@@ -578,6 +590,21 @@
     "popup_feedback_button": {
         "message": "ご提案・問題を送信"
     },
+    "popup_rate_modal_subtitle": {
+        "message": "ご評価いただければ幸いです"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "送信"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "キャンセル"
+    },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "AdGuard VPNの改善に協力する"
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
+        "message": "ご提案・問題を送信"
+    },
     "settings_run_upgrade_early_bird": {
         "message": "早期割引価格"
     },
@@ -678,11 +705,11 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6つの大陸、数十の国。接続したい都市を選択して、安全にネットをお楽しみください。また、海外出張・旅行中で日本と同じネット環境も再現可能。"
     },
-    "popup_upgrade_screen_streaming_support": {
-        "message": "ストリーミングサービス対応"
+    "popup_upgrade_screen_connect_devices": {
+        "message": "同時にデバイス5台まで使用可能"
     },
-    "popup_upgrade_screen_streaming_support_desc": {
-        "message": "主要なストリーミングサービスすべてに対応。何でも、どこでも閲覧可能！"
+    "popup_upgrade_screen_connect_devices_desc": {
+        "message": "AdGuard VPNに自分の端末、家庭の端末、お友達の端末を接続し、すべて保護！"
     },
     "popup_upgrade_screen_streaming": {
         "message": "ストリーミングサービス対応"

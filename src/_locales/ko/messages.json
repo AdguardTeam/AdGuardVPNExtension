@@ -158,11 +158,20 @@
     "auth_password": {
         "message": "비밀번호"
     },
+    "auth_your_password": {
+        "message": "비밀번호 입력"
+    },
+    "auth_password_confirm": {
+        "message": "비밀번호 확인"
+    },
     "auth_recover": {
         "message": "비밀번호를 잊어버리셨나요?"
     },
     "auth_sign_up": {
         "message": "가입"
+    },
+    "auth_sign_up_info": {
+        "message": "AdGuard 계정 생성"
     },
     "auth_sign_up_button": {
         "message": "가입"
@@ -181,6 +190,9 @@
     },
     "auth_info": {
         "message": "SNS 또는 AdGuard 계정으로 진행"
+    },
+    "auth_sign_in_provider_adguard_label": {
+        "message": "이메일"
     },
     "auth_sign_in_provider_adguard": {
         "message": "이메일로 진행"
@@ -578,6 +590,21 @@
     "popup_feedback_button": {
         "message": "피드백 남기기"
     },
+    "popup_rate_modal_subtitle": {
+        "message": "평가해주세요!"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "전송"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "취소"
+    },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "개선할 수 있도록 도와주세요."
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
+        "message": "피드백 남기기"
+    },
     "settings_run_upgrade_early_bird": {
         "message": "얼리버드 가격"
     },
@@ -678,11 +705,11 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6개 대륙, 수십 개의 국가 및 도시중에서 선택하여 안전하게 인터넷을 사용하세요!"
     },
-    "popup_upgrade_screen_streaming_support": {
-        "message": "스트리밍 지원"
+    "popup_upgrade_screen_connect_devices": {
+        "message": "최대 5개 기기"
     },
-    "popup_upgrade_screen_streaming_support_desc": {
-        "message": "모든 주요 스트리밍 서비스를 이용할 수 있습니다. 어디서든, 무엇이든지 시청하세요!"
+    "popup_upgrade_screen_connect_devices_desc": {
+        "message": "모든 기기를 동시에 AdGuard VPN에 연결하거나, 가족 전체를 보호하세요!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "스트리밍"

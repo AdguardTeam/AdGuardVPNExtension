@@ -155,11 +155,17 @@
     "auth_password": {
         "message": "Hasło"
     },
+    "auth_password_confirm": {
+        "message": "Potwierdź hasło"
+    },
     "auth_recover": {
         "message": "Zapomniałeś hasła?"
     },
     "auth_sign_up": {
         "message": "Zapisz się"
+    },
+    "auth_sign_up_info": {
+        "message": "Utwórz swoje konto AdGuard"
     },
     "auth_sign_up_button": {
         "message": "Zapisz się"
@@ -178,6 +184,9 @@
     },
     "auth_info": {
         "message": "Kontynuuj za pomocą konta AdGuard lub logowania społecznościowego"
+    },
+    "auth_sign_in_provider_adguard_label": {
+        "message": "E-mail"
     },
     "auth_sign_in_provider_adguard": {
         "message": "Kontynuuj przez email"
@@ -572,6 +581,21 @@
     "popup_feedback_button": {
         "message": "Zostaw opinię"
     },
+    "popup_rate_modal_subtitle": {
+        "message": "Oceń nas"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "Wyślij"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "Anuluj"
+    },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "Pomóż nam ulepszyć"
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
+        "message": "Zostaw opinię"
+    },
     "settings_run_upgrade_early_bird": {
         "message": "Cenny dla rannych ptaszków"
     },
@@ -672,11 +696,8 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 kontynentów i kilkadziesiąt krajów. Wybierz miasto i surfuj bezpiecznie po sieci!"
     },
-    "popup_upgrade_screen_streaming_support": {
-        "message": "Obsługa strumieniowania"
-    },
-    "popup_upgrade_screen_streaming_support_desc": {
-        "message": "Dostępne są wszystkie główne usługi streamingowe. Oglądaj wszystko i wszędzie!"
+    "popup_upgrade_screen_connect_devices": {
+        "message": "Do 5 urządzeń"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Streaming"

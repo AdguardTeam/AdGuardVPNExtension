@@ -155,11 +155,17 @@
     "auth_password": {
         "message": "Jelszó"
     },
+    "auth_password_confirm": {
+        "message": "Jelszó megerősítése"
+    },
     "auth_recover": {
         "message": "Elfelejtett jelszó?"
     },
     "auth_sign_up": {
         "message": "Regisztráció"
+    },
+    "auth_sign_up_info": {
+        "message": "Hozza létre AdGuard-fiókját"
     },
     "auth_sign_up_button": {
         "message": "Regisztráció"
@@ -168,7 +174,7 @@
         "message": "Bejelentkezés"
     },
     "auth_sign_in_button": {
-        "message": "Bejelentkezés"
+        "message": "Belépés"
     },
     "auth_sign_in_link": {
         "message": "Bejelentkezés AdGuard fiókkal"
@@ -178,6 +184,9 @@
     },
     "auth_info": {
         "message": "Folytatás AdGuard vagy közösségi média fiókkal"
+    },
+    "auth_sign_in_provider_adguard_label": {
+        "message": "Email"
     },
     "auth_sign_in_provider_adguard": {
         "message": "Folytatás E-mail címmel"
@@ -572,6 +581,21 @@
     "popup_feedback_button": {
         "message": "Visszajelzés küldése"
     },
+    "popup_rate_modal_subtitle": {
+        "message": "Kérjük, értékeljen minket"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "Küldés"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "Mégsem"
+    },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "Segítsen nekünk a fejlesztésben"
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
+        "message": "Visszajelzés küldése"
+    },
     "settings_run_upgrade_early_bird": {
         "message": "Korai árak"
     },
@@ -672,11 +696,8 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 kontinens és több tucat ország. Válasszon várost és böngésszen biztonságosan a neten!"
     },
-    "popup_upgrade_screen_streaming_support": {
-        "message": "Streaming támogatás"
-    },
-    "popup_upgrade_screen_streaming_support_desc": {
-        "message": "Az összes főbb streaming szolgáltatás elérhető. Nézzen meg bármit, bárhol!"
+    "popup_upgrade_screen_connect_devices": {
+        "message": "5 eszközig"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Streaming"

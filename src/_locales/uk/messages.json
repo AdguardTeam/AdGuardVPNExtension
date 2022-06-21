@@ -158,11 +158,20 @@
     "auth_password": {
         "message": "Пароль"
     },
+    "auth_your_password": {
+        "message": "Ваш пароль"
+    },
+    "auth_password_confirm": {
+        "message": "Повторіть новий пароль"
+    },
     "auth_recover": {
         "message": "Забули пароль?"
     },
     "auth_sign_up": {
         "message": "Зареєструватися"
+    },
+    "auth_sign_up_info": {
+        "message": "Створити обліковий запис AdGuard"
     },
     "auth_sign_up_button": {
         "message": "Зареєструватися"
@@ -181,6 +190,9 @@
     },
     "auth_info": {
         "message": "Увійти з обліковим записом AdGuard або через соціальні мережі"
+    },
+    "auth_sign_in_provider_adguard_label": {
+        "message": "Електронна адреса"
     },
     "auth_sign_in_provider_adguard": {
         "message": "Продовжити з електронною адресою"
@@ -578,6 +590,21 @@
     "popup_feedback_button": {
         "message": "Поділитись"
     },
+    "popup_rate_modal_subtitle": {
+        "message": "Будь ласка, оцініть нас"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "Надіслати"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "Скасувати"
+    },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "Допоможіть нам покращити програму"
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
+        "message": "Поділитись"
+    },
     "settings_run_upgrade_early_bird": {
         "message": "Обмежена пропозиція"
     },
@@ -678,11 +705,8 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 континентів та десятки країн. Вибирайте місто та безпечно користуйтесь інтернетом!"
     },
-    "popup_upgrade_screen_streaming_support": {
-        "message": "Підтримка стрімингу"
-    },
-    "popup_upgrade_screen_streaming_support_desc": {
-        "message": "Доступні усі популярні стріминг-сервіси. Дивіться будь-що і будь-де!"
+    "popup_upgrade_screen_connect_devices": {
+        "message": "До п'яти пристроїв"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Стрімінг"

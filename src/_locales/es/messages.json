@@ -158,11 +158,20 @@
     "auth_password": {
         "message": "Contraseña"
     },
+    "auth_your_password": {
+        "message": "Tu contraseña"
+    },
+    "auth_password_confirm": {
+        "message": "Confirmar contraseña"
+    },
     "auth_recover": {
         "message": "¿Olvidaste tu contraseña?"
     },
     "auth_sign_up": {
         "message": "Registrarse"
+    },
+    "auth_sign_up_info": {
+        "message": "Crea tu cuenta AdGuard"
     },
     "auth_sign_up_button": {
         "message": "Registrarse"
@@ -181,6 +190,9 @@
     },
     "auth_info": {
         "message": "Continúa con tu cuenta AdGuard o con las redes sociales"
+    },
+    "auth_sign_in_provider_adguard_label": {
+        "message": "Correo electrónico"
     },
     "auth_sign_in_provider_adguard": {
         "message": "Continuar con correo electrónico"
@@ -578,6 +590,21 @@
     "popup_feedback_button": {
         "message": "Dejar comentario"
     },
+    "popup_rate_modal_subtitle": {
+        "message": "Por favor, califícanos"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "Enviar"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "Cancelar"
+    },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "Ayúdanos a mejorar"
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
+        "message": "Dejar comentario"
+    },
     "settings_run_upgrade_early_bird": {
         "message": "Precios por reserva anticipada"
     },
@@ -678,11 +705,11 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 continentes y decenas de países. ¡Elige una ciudad y navega por Internet con seguridad!"
     },
-    "popup_upgrade_screen_streaming_support": {
-        "message": "Soporte para streaming"
+    "popup_upgrade_screen_connect_devices": {
+        "message": "Hasta 5 dispositivos"
     },
-    "popup_upgrade_screen_streaming_support_desc": {
-        "message": "Todos los principales servicios de streaming están disponibles. ¡Mira cualquier cosa, en cualquier lugar!"
+    "popup_upgrade_screen_connect_devices_desc": {
+        "message": "¡Conecta todos tus gadgets a AdGuard VPN al mismo tiempo, o protege a toda la familia!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Streaming"

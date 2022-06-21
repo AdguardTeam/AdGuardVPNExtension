@@ -158,11 +158,20 @@
     "auth_password": {
         "message": "密碼"
     },
+    "auth_your_password": {
+        "message": "您的密碼"
+    },
+    "auth_password_confirm": {
+        "message": "確認密碼"
+    },
     "auth_recover": {
         "message": "忘了密碼嗎？"
     },
     "auth_sign_up": {
         "message": "註冊"
+    },
+    "auth_sign_up_info": {
+        "message": "創建您的 AdGuard 帳戶"
     },
     "auth_sign_up_button": {
         "message": "註冊"
@@ -181,6 +190,9 @@
     },
     "auth_info": {
         "message": "用您的 AdGuard 帳戶或社群登入繼續"
+    },
+    "auth_sign_in_provider_adguard_label": {
+        "message": "電子郵件位址"
     },
     "auth_sign_in_provider_adguard": {
         "message": "用電子郵件繼續"
@@ -578,6 +590,21 @@
     "popup_feedback_button": {
         "message": "留下回饋意見"
     },
+    "popup_rate_modal_subtitle": {
+        "message": "請對我們評分"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "傳送"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "取消"
+    },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "幫助我們改善"
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
+        "message": "留下回饋意見"
+    },
     "settings_run_upgrade_early_bird": {
         "message": "早鳥價格"
     },
@@ -678,11 +705,11 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "六大洲及許多國家。選擇一座城市並安全地瀏覽網路！"
     },
-    "popup_upgrade_screen_streaming_support": {
-        "message": "串流支援"
+    "popup_upgrade_screen_connect_devices": {
+        "message": "高達 5 台裝置"
     },
-    "popup_upgrade_screen_streaming_support_desc": {
-        "message": "所有主要的串流服務為可用的。在任何地方觀看任何內容！"
+    "popup_upgrade_screen_connect_devices_desc": {
+        "message": "將自己的所有裝置同時連線到 AdGuard VPN，或者保護全家的隱私安全！"
     },
     "popup_upgrade_screen_streaming": {
         "message": "串流"

@@ -158,11 +158,20 @@
     "auth_password": {
         "message": "كلمة المرور"
     },
+    "auth_your_password": {
+        "message": "كلمة المرور الخاصة بك"
+    },
+    "auth_password_confirm": {
+        "message": "تاكيد كلمه المرور"
+    },
     "auth_recover": {
         "message": "نسيت كلمة المرور؟"
     },
     "auth_sign_up": {
         "message": "إنشاء حساب"
+    },
+    "auth_sign_up_info": {
+        "message": "قم بإنشاء حساب AdGuard الخاص بك"
     },
     "auth_sign_up_button": {
         "message": "إنشاء حساب"
@@ -181,6 +190,9 @@
     },
     "auth_info": {
         "message": "استمر بالحساب AdGuard الخاص بك أو بتسجيل الدخول الاجتماعي"
+    },
+    "auth_sign_in_provider_adguard_label": {
+        "message": "البريد الإلكتروني"
     },
     "auth_sign_in_provider_adguard": {
         "message": "استمر عبر البريد الإلكتروني"
@@ -578,6 +590,21 @@
     "popup_feedback_button": {
         "message": "اترك ملاحظاتك"
     },
+    "popup_rate_modal_subtitle": {
+        "message": "الرجاء تقييمنا"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "إرسال"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "إلغاء"
+    },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "ساعدنا لتحسين"
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
+        "message": "اترك ملاحظاتك"
+    },
     "settings_run_upgrade_early_bird": {
         "message": "أسعار الطيور المبكرة"
     },
@@ -678,11 +705,11 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 قارات وعشرات الدول. اختر مدينة وتصفح الإنترنت بأمان!"
     },
-    "popup_upgrade_screen_streaming_support": {
-        "message": "دعم البث"
+    "popup_upgrade_screen_connect_devices": {
+        "message": "ما يصل إلى 5 أجهزة"
     },
-    "popup_upgrade_screen_streaming_support_desc": {
-        "message": "جميع خدمات البث الرئيسية متوفرة. شاهد أي شيء في أي مكان!"
+    "popup_upgrade_screen_connect_devices_desc": {
+        "message": "قم بتوصيل جميع أدواتك ب AdGuard VPN في نفس الوقت - أو قم بحماية جميع أفراد الأسرة!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "البث"

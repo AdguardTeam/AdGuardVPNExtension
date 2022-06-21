@@ -14,8 +14,8 @@
     "registration_error_not_valid": {
         "message": "Это значение недействительно"
     },
-    "registration_error_min_length": {
-        "message": "Пароль слишком короткий. Он должен состоять как минимум из 8 символов."
+    "registration_error_confirm_password": {
+        "message": "Пароли не совпадают"
     },
     "registration_error_compromised_password": {
         "message": "Пароль обнаружен в <a>базе</a> скомпрометированных паролей. Пожалуйста, введите другой пароль."
@@ -140,6 +140,9 @@
     "account_sign_out": {
         "message": "Выйти"
     },
+    "account_max_devices_count": {
+        "message": "До %num% устройств одновременно"
+    },
     "account_unlimited_title": {
         "message": "Получите безлимитную версию!"
     },
@@ -158,11 +161,20 @@
     "auth_password": {
         "message": "Пароль"
     },
+    "auth_your_password": {
+        "message": "Пароль"
+    },
+    "auth_password_confirm": {
+        "message": "Подтвердить пароль"
+    },
     "auth_recover": {
         "message": "Забыли пароль?"
     },
     "auth_sign_up": {
         "message": "Регистрация"
+    },
+    "auth_sign_up_info": {
+        "message": "Создайте личный кабинет AdGuard"
     },
     "auth_sign_up_button": {
         "message": "Зарегистрироваться"
@@ -181,6 +193,9 @@
     },
     "auth_info": {
         "message": "Войти через аккаунт AdGuard или через социальные сети"
+    },
+    "auth_sign_in_provider_adguard_label": {
+        "message": "E-Mail"
     },
     "auth_sign_in_provider_adguard": {
         "message": "Войти с помощью почты"
@@ -578,6 +593,21 @@
     "popup_feedback_button": {
         "message": "Оставить отзыв"
     },
+    "popup_rate_modal_subtitle": {
+        "message": "Пожалуйста, оцените его."
+    },
+    "popup_rate_modal_send_button": {
+        "message": "Отправить"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "Отмена"
+    },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "Помогите нам стать лучше"
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
+        "message": "Оставить отзыв"
+    },
     "settings_run_upgrade_early_bird": {
         "message": "Ограниченное предложение"
     },
@@ -678,11 +708,11 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "5 континентов и десятки стран. Выберите город и пользуйтесь интернетом безопасно!"
     },
-    "popup_upgrade_screen_streaming_support": {
-        "message": "Стриминг "
+    "popup_upgrade_screen_connect_devices": {
+        "message": "До 5  устройств"
     },
-    "popup_upgrade_screen_streaming_support_desc": {
-        "message": "Доступны все главные стриминговые сервисы. Смотрите что угодно и где угодно!"
+    "popup_upgrade_screen_connect_devices_desc": {
+        "message": "Подключите все свои устройства к AdGuard VPN — или защитите всю семью!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Доступен стриминг"

@@ -41,6 +41,9 @@
     "auth_password": {
         "message": "رمزعبور"
     },
+    "auth_password_confirm": {
+        "message": "تأیید رمزعبور"
+    },
     "auth_recover": {
         "message": "رمزعبور را فراموش کرده اید؟"
     },
@@ -49,6 +52,9 @@
     },
     "auth_sign_in_button": {
         "message": "ورود"
+    },
+    "auth_sign_in_provider_adguard_label": {
+        "message": "ایمیل"
     },
     "eula": {
         "message": "تواقنامه نهایی با کاربر"
@@ -163,6 +169,12 @@
     },
     "settings_disconnect": {
         "message": "قطع ارتباط"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "ارسال"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "لغو"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "ادامه"
