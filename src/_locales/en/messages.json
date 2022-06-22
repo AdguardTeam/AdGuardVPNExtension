@@ -15,7 +15,10 @@
         "message": "This value is not valid"
     },
     "registration_error_min_length": {
-        "message": "Password is too short. It must contain at least 8 characters."
+        "message": "Password must contain at least 8 characters"
+    },
+    "registration_error_confirm_password": {
+        "message": "Passwords don’t match"
     },
     "registration_error_compromised_password": {
         "message": "The password you entered was found in a <a>public database</a> of compromised passwords. Please try another."
@@ -167,32 +170,41 @@
     "auth_password": {
         "message": "Password"
     },
+    "auth_your_password": {
+        "message": "Your password"
+    },
+    "auth_password_confirm": {
+        "message": "Confirm password"
+    },
     "auth_recover": {
         "message": "Forgot password?"
     },
     "auth_sign_up": {
         "message": "Sign up"
     },
+    "auth_sign_up_info": {
+        "message": "Create your AdGuard account"
+    },
     "auth_sign_up_button": {
         "message": "Sign up"
     },
     "auth_sign_in": {
-        "message": "Sign in"
+        "message": "Enter your password"
     },
     "auth_sign_in_button": {
-        "message": "Sign in"
+        "message": "Log in"
     },
     "auth_sign_in_link": {
         "message": "Sign in with AdGuard account"
     },
     "auth_title": {
-        "message": "Authorization"
+        "message": "Log in or create an account"
     },
-    "auth_info": {
-        "message": "Continue with your AdGuard account or with social login"
+    "auth_sign_in_provider_adguard_label": {
+        "message": "Email"
     },
     "auth_sign_in_provider_adguard": {
-        "message": "Continue with Email"
+        "message": "Continue with email"
     },
     "auth_sign_in_provider_apple": {
         "message": "Continue with Apple"
@@ -210,10 +222,10 @@
         "message": "By signing up you create your AdGuard account"
     },
     "auth_header_sign_in": {
-        "message": "You are signing in as <div>%username%</div> "
+        "message": "You are logging in as <span>%username%</span>"
     },
     "auth_header_sing_in_notice": {
-        "message": "You already have an account <div>%username%</div>"
+        "message": "Logging in as <span>%username%</span>"
     },
     "auth_header_registration": {
         "message": "You are signing up as <div>%username%</div>"
@@ -651,11 +663,11 @@
         "message": "VPN is disabled on this website"
     },
     "popup_auth_policy_agreement": {
-        "message": "Accept <eula>EULA</eula> and <privacy>Privacy policy</privacy>",
+        "message": "I have read and agree to AdGuard’s <eula>EULA</eula> and <privacy>Privacy Policy</privacy>",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Allow AdGuard to gather <link>anonymized data</link> on the app usage to make AdGuard VPN better"
+        "message": "I allow AdGuard to gather <link>strictly anonymous data</link> on the app usage to make AdGuard VPN even better"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Continue"

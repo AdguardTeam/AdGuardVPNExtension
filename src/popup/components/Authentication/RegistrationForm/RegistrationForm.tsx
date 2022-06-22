@@ -6,24 +6,26 @@ import classnames from 'classnames';
 import { rootStore } from '../../../stores';
 import { REQUEST_STATUSES, INPUT_TYPES } from '../../../stores/consts';
 import PasswordField from '../PasswordField';
-import Submit from '../Submit';
+import { Submit } from '../Submit';
 import { reactTranslator } from '../../../../common/reactTranslator';
+import { translator } from '../../../../common/translator';
+import { InputField } from '../InputField';
 
 export const RegistrationForm = observer(() => {
     const { authStore } = useContext(rootStore);
 
-    const submitHandler = async (e) => {
+    const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await authStore.register();
     };
 
-    const inputChangeHandler = async (e) => {
+    const inputChangeHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const { target: { name, value } } = e;
         await authStore.onCredentialsChange(name, value);
     };
 
     const { requestProcessState, credentials } = authStore;
-    const { password } = credentials;
+    const { password, confirmPassword } = credentials;
 
     const [inputType, setInputType] = useState('password');
 
@@ -48,19 +50,18 @@ export const RegistrationForm = observer(() => {
                     {reactTranslator.getMessage('auth_sign_up')}
                 </div>
                 <div className="form__info">
-                    {reactTranslator.getMessage('auth_header_registration', {
-                        username: authStore.credentials.username,
-                        div: (chunks) => (
-                            // make sure that css styles won't be broken
-                            // if div is placed in the translation beginning
-                            <div className="form__credentials">
-                                {chunks}
-                            </div>
-                        ),
-                    })}
+                    {reactTranslator.getMessage('auth_sign_up_info')}
                 </div>
+                <InputField
+                    id="username"
+                    type="email"
+                    value={authStore.credentials.username}
+                    label={translator.getMessage('auth_sign_in_provider_adguard_label')}
+                    className="form__input__email-disabled"
+                    disabled
+                />
                 <PasswordField
-                    placeholder={reactTranslator.getMessage('auth_password')}
+                    placeholder={translator.getMessage('auth_your_password')}
                     id="password"
                     password={password}
                     error={authStore.error}
@@ -68,12 +69,22 @@ export const RegistrationForm = observer(() => {
                     handleChange={inputChangeHandler}
                     handleInputTypeChange={handleInputTypeChange}
                     icon={icon}
+                    label={translator.getMessage('auth_password')}
+                    focus
                 />
                 {authStore.error && (
                     <div className="form__error">
-                        {ReactHtmlParser(authStore.error)}
+                        {ReactHtmlParser(authStore.error as unknown as string)}
                     </div>
                 )}
+                <PasswordField
+                    placeholder={translator.getMessage('auth_your_password')}
+                    id="confirmPassword"
+                    password={confirmPassword}
+                    inputType={inputType}
+                    handleChange={inputChangeHandler}
+                    label={translator.getMessage('auth_password_confirm')}
+                />
             </div>
             <div className="form__btn-wrap form__btn-wrap--register">
                 <Submit
