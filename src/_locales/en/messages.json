@@ -564,7 +564,7 @@
         "message": "Location not found"
     },
     "popup_traffic_limit_reached": {
-        "message": "Monthly data limit reached. Need more?"
+        "message": "Monthly data limit reached"
     },
     "premium_upgrade": {
         "message": "Upgrade"
