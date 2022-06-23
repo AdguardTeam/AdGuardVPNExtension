@@ -2,7 +2,7 @@
 // export './abstractProxyApi' is replaced during webpack compilation
 // with NormalModuleReplacementPlugin to proper browser implementation
 // from './firefox/proxyApi' or ./chrome/proxyApi
-import proxyApi from './abstractProxyApi';
+import { proxyApi } from './abstractProxyApi';
 
 import { log } from '../../lib/logger';
 import browserApi from '../browserApi';
@@ -35,7 +35,7 @@ interface CanControlProxy {
     cause?: boolean;
 }
 
-interface ConfigData {
+export interface ConfigData {
     bypassList: string[];
     defaultExclusions: string[];
     nonRoutableCidrNets: string[];

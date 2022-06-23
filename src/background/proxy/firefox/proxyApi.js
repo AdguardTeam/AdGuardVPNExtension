@@ -186,11 +186,9 @@ const proxyClear = () => {
     removeAuthHandler();
 };
 
-const proxyApi = {
+export const proxyApi = {
     proxySet,
     proxyGet,
     proxyClear,
     onProxyError,
 };
-
-export default proxyApi;

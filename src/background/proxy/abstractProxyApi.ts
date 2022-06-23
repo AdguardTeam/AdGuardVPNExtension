@@ -9,7 +9,7 @@ const errorFunction = (arg?: any) => {
  * with NormalModuleReplacementPlugin to proper browser implementation
  * from './firefox/proxyApi' or ./chrome/proxyApi
  */
-const abstractProxyApi = (() => {
+export const proxyApi = (() => {
     return {
         proxyGet: errorFunction,
         proxySet: errorFunction,
@@ -20,5 +20,3 @@ const abstractProxyApi = (() => {
         },
     };
 })();
-
-export default abstractProxyApi;
