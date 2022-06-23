@@ -10,7 +10,7 @@ import { Header } from '../Header';
 import InfoMessage from '../InfoMessage';
 import FeedbackMessage from '../InfoMessage/FeedbackMessage';
 import Locations from '../Locations';
-import Authentication from '../Authentication';
+import { Authentication } from '../Authentication';
 import { ExtraOptions } from '../ExtraOptions';
 import GlobalError from '../GlobalError';
 import Settings from '../Settings';
