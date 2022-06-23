@@ -13,7 +13,7 @@ interface ProxyApi {
     clearAuthCache(rootDomain: string, callback: () => void): Promise<void>;
 }
 
-const DEFAULT_PROXY_CONFIG = {
+const DEFAULT_PROXY_CONFIG: ConfigData = {
     bypassList: [''],
     defaultExclusions: [''],
     nonRoutableCidrNets: [''],
@@ -69,7 +69,9 @@ const convertToChromeConfig = (proxyConfig: ConfigData): chrome.types.ChromeSett
  * @param details
  * @returns {{}|{authCredentials: {password: string, username: string}}}
  */
-const onAuthRequiredHandler = (details: chrome.webRequest.WebAuthenticationChallengeDetails) => {
+const onAuthRequiredHandler = (
+    details: chrome.webRequest.WebAuthenticationChallengeDetails,
+): { authCredentials: { username: string, password: string } } | {} => {
     const { challenger } = details;
 
     if (challenger && challenger.host !== GLOBAL_PROXY_CONFIG.host) {
