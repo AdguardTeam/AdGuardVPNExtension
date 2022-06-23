@@ -212,13 +212,13 @@ class ExtensionProxy implements ExtensionProxyInterface {
         await this.applyConfig();
     };
 
-    setHost = async (domainName: string): Promise<void> => {
-        if (!domainName) {
+    setHost = async (ipAddress: string): Promise<void> => {
+        if (!ipAddress) {
             return;
         }
         if (this.proxyAuthorizationType === PROXY_AUTH_TYPES.PREFIX
             || this.proxyAuthorizationType === PROXY_AUTH_TYPES.AUTH_HANDLER) {
-            this.currentHost = domainName;
+            this.currentHost = ipAddress;
         } else {
             throw new Error(`Wrong proxyAuthorizationType: ${this.proxyAuthorizationType}`);
         }
@@ -232,9 +232,9 @@ class ExtensionProxy implements ExtensionProxyInterface {
         if (!endpoint) {
             throw new Error('current endpoint is empty');
         }
-        const { domainName } = endpoint;
+        const { domainName, ipv4Address } = endpoint;
         this.credentials = credentials;
-        await this.setHost(domainName);
+        await this.setHost(ipv4Address);
         await proxyApi.clearAuthCache(domainName);
         return { domainName };
     };
@@ -252,8 +252,8 @@ class ExtensionProxy implements ExtensionProxyInterface {
         location: LocationInterface,
     ): Promise<{ domainName: string }> => {
         this.currentEndpoint = endpoint;
-        const { domainName } = this.currentEndpoint;
-        await this.setHost(domainName);
+        const { domainName, ipv4Address } = this.currentEndpoint;
+        await this.setHost(ipv4Address);
         await browserApi.storage.set(CURRENT_ENDPOINT_KEY, endpoint);
         // notify popup
         notifier.notifyListeners(notifier.types.CURRENT_LOCATION_UPDATED, location);
