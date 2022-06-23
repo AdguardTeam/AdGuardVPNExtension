@@ -228,16 +228,14 @@ export const App = observer(() => {
                 : (
                     <>
                         <Settings />
-                        {!hasLimitExceededError && (
-                            <div className="footer">
-                                {premiumPromoEnabled ? (
-                                    <InfoMessage />
-                                ) : (
-                                    <FeedbackMessage />
-                                )}
-                                <CurrentEndpoint />
-                            </div>
-                        )}
+                        <div className="footer">
+                            {premiumPromoEnabled ? (
+                                <InfoMessage />
+                            ) : (
+                                <FeedbackMessage />
+                            )}
+                            <CurrentEndpoint />
+                        </div>
                     </>
                 )}
             <Icons />
