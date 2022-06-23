@@ -1,5 +1,6 @@
 import pacGenerator from '../../../lib/pacGenerator';
 import { ConfigData } from '../index';
+import { getHostname } from '../../../common/url-utils';
 
 interface ProxyApi {
     proxySet(config: ConfigData): Promise<void>;
@@ -9,6 +10,7 @@ interface ProxyApi {
         addListener: (cb: () => void) => void,
         removeListener: (cb: () => void) => void,
     };
+    clearAuthCache(rootDomain: string, callback: () => void): Promise<void>;
 }
 
 const DEFAULT_PROXY_CONFIG = {
@@ -82,14 +84,15 @@ const onAuthRequiredHandler = (details: chrome.webRequest.WebAuthenticationChall
 };
 
 /**
- * Chrome allow us to clear the authentication credentials for a given
+ * Clears the authentication credentials for a given
  * domain by clearing ALL cookies for that domain.
- * @param rootDomain
+ * @param hostname
  * @param callback
  */
-const clearAuthCache = async (rootDomain: string, callback: () => void) => {
+const clearAuthCache = async (hostname: string, callback = () => {}): Promise<void> => {
     // IMPORTANT: you have to use the root domain of the proxy
     // (eg: if the proxy is at foo.bar.example.com, you need to use example.com).
+    const rootDomain = getHostname(hostname);
     const options = {
         origins: [
             `http://${rootDomain}`,
@@ -103,7 +106,7 @@ const clearAuthCache = async (rootDomain: string, callback: () => void) => {
 };
 
 // Make sure that Chrome does not cache proxy credentials.
-// FIXME replace adguard.io with varialbe
+// FIXME replace adguard.io with variable
 clearAuthCache('adguard.io', () => {
     chrome.webRequest.onAuthRequired.addListener(onAuthRequiredHandler, { urls: ['<all_urls>'] }, ['blocking']);
 });
@@ -156,4 +159,5 @@ export const proxyApi: ProxyApi = {
     proxyGet,
     proxyClear,
     onProxyError,
+    clearAuthCache,
 };

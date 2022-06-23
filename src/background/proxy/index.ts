@@ -235,6 +235,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
         const { domainName } = endpoint;
         this.credentials = credentials;
         await this.setHost(domainName);
+        await proxyApi.clearAuthCache(domainName);
         return { domainName };
     };
 

@@ -14,6 +14,7 @@ export const proxyApi = (() => {
         proxyGet: errorFunction,
         proxySet: errorFunction,
         proxyClear: errorFunction,
+        clearAuthCache: errorFunction,
         onProxyError: {
             addListener: errorFunction,
             removeListener: errorFunction,
