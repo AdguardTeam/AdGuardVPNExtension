@@ -186,9 +186,12 @@ const proxyClear = () => {
     removeAuthHandler();
 };
 
+const clearAuthCache = () => {};
+
 export const proxyApi = {
     proxySet,
     proxyGet,
     proxyClear,
     onProxyError,
+    clearAuthCache,
 };

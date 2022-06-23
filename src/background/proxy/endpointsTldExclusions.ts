@@ -6,6 +6,11 @@ import { log } from '../../lib/logger';
 import browserApi from '../browserApi';
 import { proxy } from './index';
 
+interface EndpointsTldExclusionsInterface {
+    init(): Promise<void>;
+    addEndpointsTldExclusions(endpointsTlds: string[]): void;
+}
+
 /**
  * This module manages exclusions for endpoints
  * We use it in order to make requests to our endpoints (e.g. to determine ping)
@@ -13,25 +18,22 @@ import { proxy } from './index';
  *
  * In this module tld means tld + 1 (e.g. for "endpoint.adguard.io" tld would be "adguard.io" )
  */
-class EndpointsTldExclusions {
+class EndpointsTldExclusions implements EndpointsTldExclusionsInterface {
     /**
      * !!!IMPORTANT!!! do not change this key without migration
      * Storage key used to keep exclusions in the storage
-     * @type {string}
      */
-    STORAGE_KEY = 'endpoints.tld.exclusions';
+    STORAGE_KEY: string = 'endpoints.tld.exclusions';
 
     /**
      * Throttle timeout used to reduce writes to the storage
-     * @type {number}
      */
-    THROTTLE_TIMEOUT_MS = 1000;
+    THROTTLE_TIMEOUT_MS: number = 1000;
 
     /**
      * Endpoints top level domain exclusions list
-     * @type {string[]}
      */
-    endpointsTldExclusionsList = [];
+    endpointsTldExclusionsList: string[] = [];
 
     /**
      * Updates storage in a throttled way
@@ -50,7 +52,7 @@ class EndpointsTldExclusions {
      * Adds endpoints tld exclusions
      * @param {string[]} endpointsTlds - list of second level domains parsed from the endpoints
      */
-    addEndpointsTldExclusions = (endpointsTlds) => {
+    addEndpointsTldExclusions = (endpointsTlds: string[]): void => {
         const endpointsTldExclusions = this.convertEndpointTldToExclusion(endpointsTlds);
 
         this.handleEndpointsTldExclusionsListUpdate(endpointsTldExclusions);
@@ -61,7 +63,7 @@ class EndpointsTldExclusions {
      * @param {string[]} endpointsTlds - endpoints top level domains
      * @returns {string[]}
      */
-    convertEndpointTldToExclusion = (endpointsTlds) => {
+    convertEndpointTldToExclusion = (endpointsTlds: string[]): string[] => {
         const endpointsTldExclusions = endpointsTlds.map((endpointTld) => {
             const endpointTldExclusion = `*.${endpointTld}`;
             return endpointTldExclusion;
@@ -73,7 +75,7 @@ class EndpointsTldExclusions {
      * Updates endpoints top level domains if necessary and notifies proxy to generate new pac file
      * @param endpointsTldExclusions
      */
-    handleEndpointsTldExclusionsListUpdate = (endpointsTldExclusions) => {
+    handleEndpointsTldExclusionsListUpdate = (endpointsTldExclusions: string[]) => {
         // if lists have same values, do nothing
         if (isEqual(
             sortBy(this.endpointsTldExclusionsList),
@@ -88,7 +90,7 @@ class EndpointsTldExclusions {
         proxy.setEndpointsTldExclusions(this.endpointsTldExclusionsList);
     };
 
-    init = async () => {
+    init = async (): Promise<void> => {
         try {
             const storedList = await browserApi.storage.get(this.STORAGE_KEY);
             if (storedList) {
