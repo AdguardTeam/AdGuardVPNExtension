@@ -44,6 +44,9 @@
     "settings_disconnect": {
         "message": "sambungan terputus"
     },
+    "popup_rate_modal_send_button": {
+        "message": "Hantar"
+    },
     "popup_newsletter_subscribe": {
         "message": "Langgan"
     },

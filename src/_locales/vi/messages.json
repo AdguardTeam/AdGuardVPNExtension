@@ -137,6 +137,9 @@
     "auth_password": {
         "message": "Mật khẩu"
     },
+    "auth_password_confirm": {
+        "message": "Xác nhận mật khẩu"
+    },
     "auth_recover": {
         "message": "Quên mật khẩu?"
     },
@@ -158,6 +161,9 @@
     "auth_title": {
         "message": "Ủy quyền"
     },
+    "auth_sign_in_provider_adguard_label": {
+        "message": "Email"
+    },
     "auth_sign_in_provider_apple": {
         "message": "Đăng nhập bằng Apple"
     },
@@ -177,7 +183,7 @@
         "message": "Bạn đang đăng ký là <div>%username%</div> "
     },
     "auth_header_sing_in_notice": {
-        "message": "Bạn đã có tài khoản <div>%username%</div>"
+        "message": "Bạn đã có tài khoản <span>%username%</span>"
     },
     "auth_header_registration": {
         "message": "Bạn đang đăng ký là <div>%username%</div>"
@@ -497,6 +503,21 @@
     "popup_feedback_button": {
         "message": "Để lại phản hồi"
     },
+    "popup_rate_modal_subtitle": {
+        "message": "Hãy đánh giá chúng tôi"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "Gửi"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "Huỷ"
+    },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "Giúp chúng tôi cải thiện"
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
+        "message": "Để lại phản hồi"
+    },
     "settings_run_upgrade_early_bird": {
         "message": "Giá đặt mua sớm"
     },
@@ -582,8 +603,8 @@
     "popup_upgrade_screen_all_locations": {
         "message": "Tất cả vị trí"
     },
-    "popup_upgrade_screen_streaming_support": {
-        "message": "Hỗ trợ phát trực tuyến"
+    "popup_upgrade_screen_connect_devices": {
+        "message": "Lên đến 5 thiết bị"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Phát trực tuyến"

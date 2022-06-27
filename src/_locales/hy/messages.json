@@ -23,6 +23,12 @@
     "auth_password": {
         "message": "Գաղտնաբառ"
     },
+    "auth_password_confirm": {
+        "message": "Հաստատել գաղտնաբառը"
+    },
+    "auth_sign_in_provider_adguard_label": {
+        "message": "Էլ. փոստ"
+    },
     "privacy_policy": {
         "message": "Գաղտնիության քաղաքականություն"
     },
@@ -76,6 +82,9 @@
     },
     "premium_upgrade": {
         "message": "Արդիացնել"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "Չեղարկել"
     },
     "popup_onboarding_next": {
         "message": "Հաջորդը"

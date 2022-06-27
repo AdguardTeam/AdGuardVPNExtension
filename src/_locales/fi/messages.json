@@ -15,7 +15,10 @@
         "message": "Arvo ei ole oikein"
     },
     "registration_error_min_length": {
-        "message": "Salasana on liian lyhyt. Sen täytyy sisältää ainakin 8 merkkiä."
+        "message": "Salasanan täytyy sisältää ainakin 8 merkkiä"
+    },
+    "registration_error_confirm_password": {
+        "message": "Salasanat eivät täsmää"
     },
     "registration_error_compromised_password": {
         "message": "Syöttämäsi salasana löytyi vaarantuneiden salasanojen <a>julkisesta tietokannasta</a>. Kokeile toista salasanaa."
@@ -117,25 +120,25 @@
         "message": "Käyttäjätili"
     },
     "account_edit": {
-        "message": "Hallinnoi"
+        "message": "Hallitse tiliä"
     },
     "account_version": {
         "message": "Versio"
     },
-    "account_current_plan": {
-        "message": "Nykyinen tilaus"
-    },
-    "account_signed": {
-        "message": "Kirjautuneena tunnuksella"
-    },
     "account_free": {
-        "message": "Ilmainen"
+        "message": "Ilmainen tili"
     },
     "account_unlimited": {
-        "message": "Rajaton"
+        "message": "Rajaton tilaus"
+    },
+    "account_get_subscription": {
+        "message": "Hanki tilaus"
+    },
+    "account_max_devices_count": {
+        "message": "Enintään %num% samanaikaista laitetta"
     },
     "account_next_charge": {
-        "message": "(seuraava veloitus %date%)"
+        "message": "Seuraava laskutus %date%"
     },
     "account_sign_out": {
         "message": "Kirjaudu ulos"
@@ -158,17 +161,26 @@
     "auth_password": {
         "message": "Salasana"
     },
+    "auth_your_password": {
+        "message": "Salasana"
+    },
+    "auth_password_confirm": {
+        "message": "Vahvista salasana"
+    },
     "auth_recover": {
         "message": "Salasana unohtunut?"
     },
     "auth_sign_up": {
         "message": "Luo tili"
     },
+    "auth_sign_up_info": {
+        "message": "Luo AdGuard-tilisi"
+    },
     "auth_sign_up_button": {
         "message": "Luo tili"
     },
     "auth_sign_in": {
-        "message": "Kirjaudu"
+        "message": "Syötä salasanasi"
     },
     "auth_sign_in_button": {
         "message": "Kirjaudu"
@@ -177,13 +189,13 @@
         "message": "Kirjaudu AdGuard-tilillä"
     },
     "auth_title": {
-        "message": "Todennus"
+        "message": "Kirjaudu tai luo tili"
     },
-    "auth_info": {
-        "message": "Jatka AdGuard-tililläsi tai sosiaalisella kirjautumisella"
+    "auth_sign_in_provider_adguard_label": {
+        "message": "Sähköposti"
     },
     "auth_sign_in_provider_adguard": {
-        "message": "Jatka sähköpostilla"
+        "message": "Jatka sähköpostiosoitteella"
     },
     "auth_sign_in_provider_apple": {
         "message": "Jatka Applella"
@@ -204,7 +216,7 @@
         "message": "Olet kirjautumassa tunnuksella <div>%username%</div> "
     },
     "auth_header_sing_in_notice": {
-        "message": "Sinulla on jo tili tunnuksella <div>%username%</div>"
+        "message": "Kirjaudutaan tunnuksella <span>%username%</span>"
     },
     "auth_header_registration": {
         "message": "Olet rekisteröitymässä tunnuksella <div>%username%</div>"
@@ -229,6 +241,9 @@
     },
     "settings_title": {
         "message": "Asetukset"
+    },
+    "options_menu_free_traffic": {
+        "message": "Ilmaista VPN-tiedonsiirtoa"
     },
     "referral_get_free_traffic": {
         "message": "Hanki ilmaista VPN-tiedonsiirtoa!"
@@ -575,6 +590,33 @@
     "popup_feedback_button": {
         "message": "Lähetä palautetta"
     },
+    "popup_rate_modal_title": {
+        "message": "Miten mahtava AdGuard VPN on?"
+    },
+    "popup_rate_modal_subtitle": {
+        "message": "Arvioi meidät, kiitos"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "Lähetä"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "Peruuta"
+    },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "Auta meitä parantamaan"
+    },
+    "popup_confirm_rate_modal_feedback_subtitle": {
+        "message": "Kerro, mikä meni pieleen"
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
+        "message": "Lähetä palautetta"
+    },
+    "popup_confirm_rate_modal_rate_title": {
+        "message": "Vau! Arvioisitko meidät myös Chrome Web Storessa?"
+    },
+    "popup_confirm_rate_modal_confirm_button": {
+        "message": "Avaa Chrome Web Store"
+    },
     "settings_run_upgrade_early_bird": {
         "message": "Aikaisen tilaajan hinnat"
     },
@@ -612,11 +654,11 @@
         "message": "VPN ei ole käytössä tällä sivustolla"
     },
     "popup_auth_policy_agreement": {
-        "message": "Hyväksy <eula>EULA</eula> ja <privacy>tietosuojakäytäntö</privacy>",
+        "message": "Olen lukenut ja hyväksyn AdGuardin <eula>EULA</eula>n ja <privacy>tietosuojakäytännön</privacy>",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Salli AdGuardin kerätä <link>joitakin nimettömiä tietoja</link> sovelluksen käytöstä AdGuard VPN:n parantamiseksi."
+        "message": "Salli AdGuardin kerätä <link>joitakin nimettömiä tietoja</link> sovelluksen käytöstä AdGuard VPN:n parantamiseksi"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Jatka"
@@ -675,11 +717,11 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "Kuusi mannerta ja kymmeniä maita. Valitse kaupunki ja surffaa netissä turvallisesti!"
     },
-    "popup_upgrade_screen_streaming_support": {
-        "message": "Suoratoiston tuki"
+    "popup_upgrade_screen_connect_devices": {
+        "message": "Viidelle laitteelle"
     },
-    "popup_upgrade_screen_streaming_support_desc": {
-        "message": "Kaikki merkittävät suoratoistopalvelut ovat käytettävissä. Katso mitä tahansa, missä tahansa!"
+    "popup_upgrade_screen_connect_devices_desc": {
+        "message": "Yhdistä kaikki laitteesi AdGuard VPN:ään samanaikaisesti — tai suojaa koko perhe!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Suoratoisto"
@@ -749,7 +791,7 @@
         "message": "Olet saavuttanut yhteyksien enimmäismäärän: %maxDevicesAllowed%."
     },
     "popup_connections_limit_description_end_free": {
-        "message": "Lisätäksesi laitteita, harkitse rajatonta AdGuard VPN -tilausta."
+        "message": "Lisätäksesi laitteita, harkitse AdGuard VPN Rajaton -tilausta."
     },
     "popup_connections_limit_description_end_premium": {
         "message": "Lisätäksesi laitteen, katkaise AdGuard VPN joltakin laitteeltasi."
@@ -776,6 +818,6 @@
         "message": "Olet kirjautunut ulos AdGuard VPN -palvelusta"
     },
     "options_signedout_page_description": {
-        "message": "Yhteyttäsi ole suojattu. Jatkaaksesi selausta yksityisesti, paina AdGuard VPN -kuvaketta ja kirjaudu sisään uudelleen."
+        "message": "Huomioi: Yhteytesi ei ole turvallinen! Jatkaaksesi selausta yksityisesti, paina AdGuard VPN -kuvaketta ja kirjaudu sisään uudelleen."
     }
 }

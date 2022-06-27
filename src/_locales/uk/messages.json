@@ -15,7 +15,10 @@
         "message": "Це значення недійсне"
     },
     "registration_error_min_length": {
-        "message": "Пароль надто короткий. Мусить мати щонайменше 8 символів."
+        "message": "Пароль мусить мати щонайменше 8 символів"
+    },
+    "registration_error_confirm_password": {
+        "message": "Паролі не збігаються"
     },
     "registration_error_compromised_password": {
         "message": "Введений пароль знайдено у <a>відкритій базі даних</a> викритих паролів. Будь ласка, спробуйте інший пароль."
@@ -117,25 +120,34 @@
         "message": "Обліковий запис"
     },
     "account_edit": {
-        "message": "Керувати"
+        "message": "Керувати обліковим записом"
     },
     "account_version": {
         "message": "Версія"
     },
-    "account_current_plan": {
-        "message": "Поточна передплата"
-    },
-    "account_signed": {
-        "message": "Ви ввійшли за допомогою"
-    },
     "account_free": {
-        "message": "Безплатний"
+        "message": "Безплатний обліковий запис"
     },
     "account_unlimited": {
-        "message": "Необмежений"
+        "message": "Безлімітна передплата"
+    },
+    "account_monthly_paid": {
+        "message": "Місячна передплата"
+    },
+    "account_yearly_paid": {
+        "message": "Річна передплата"
+    },
+    "account_two_year_paid": {
+        "message": "Дворічна передплата"
+    },
+    "account_get_subscription": {
+        "message": "Отримати передплата"
+    },
+    "account_max_devices_count": {
+        "message": "До %num% пристроїв одночасно"
     },
     "account_next_charge": {
-        "message": "(Наступна плата %date%)"
+        "message": "Наступна дата оплати %date%"
     },
     "account_sign_out": {
         "message": "Вийти"
@@ -158,17 +170,26 @@
     "auth_password": {
         "message": "Пароль"
     },
+    "auth_your_password": {
+        "message": "Ваш пароль"
+    },
+    "auth_password_confirm": {
+        "message": "Повторіть новий пароль"
+    },
     "auth_recover": {
         "message": "Забули пароль?"
     },
     "auth_sign_up": {
         "message": "Зареєструватися"
     },
+    "auth_sign_up_info": {
+        "message": "Створити обліковий запис AdGuard"
+    },
     "auth_sign_up_button": {
         "message": "Зареєструватися"
     },
     "auth_sign_in": {
-        "message": "Увійти"
+        "message": "Введіть свій пароль"
     },
     "auth_sign_in_button": {
         "message": "Увійти"
@@ -177,22 +198,22 @@
         "message": "Увійти з обліковим записом AdGuard"
     },
     "auth_title": {
-        "message": "Вхід"
+        "message": "Увійти або створити обліковий запис"
     },
-    "auth_info": {
-        "message": "Увійти з обліковим записом AdGuard або через соціальні мережі"
+    "auth_sign_in_provider_adguard_label": {
+        "message": "Електронна адреса"
     },
     "auth_sign_in_provider_adguard": {
-        "message": "Продовжити з електронною адресою"
+        "message": "Увійти з електронною адресою"
     },
     "auth_sign_in_provider_apple": {
-        "message": "Продовжити з Apple"
+        "message": "Увійти через Apple"
     },
     "auth_sign_in_provider_google": {
-        "message": "Продовжити з Google"
+        "message": "Увійти через Google"
     },
     "auth_sign_in_provider_facebook": {
-        "message": "Продовжити з Facebook"
+        "message": "Увійти через Facebook"
     },
     "auth_header_sign_in_account": {
         "message": "Ви входите з обліковим записом AdGuard"
@@ -204,7 +225,7 @@
         "message": "Ви входите як <div>%username%</div> "
     },
     "auth_header_sing_in_notice": {
-        "message": "Ви вже маєте обліковий запис <div>%username%</div>"
+        "message": "Ви входите як <span>%username%</span>"
     },
     "auth_header_registration": {
         "message": "Ви реєструєтесь як <div>%username%</div>"
@@ -225,7 +246,7 @@
         "message": "Ліцензійна угода"
     },
     "privacy_policy": {
-        "message": "Політика приватності"
+        "message": "Політика конфіденційності"
     },
     "settings_title": {
         "message": "Налаштування"
@@ -237,7 +258,7 @@
         "message": "Отримайте безплатний VPN-трафік!"
     },
     "settings_referral_info": {
-        "message": "Запрошуйте своїх друзів приєднатись до нашого ніндзя-клану та отримуйте ще більше безплатного трафіку на місяць. По %your_gb% ГБ вам та %friend_gb% ГБ другу, що зареєструється! Всього можна отримати %total_gb% ГБ."
+        "message": "Запрошуйте своїх друзів приєднатись до нашого ніндзя-клану та отримуйте більше безплатного трафіку на місяць. %your_gb% ГБ вам та %friend_gb% ГБ другу, що зареєструється! За запрошення друзів ви безплатно можете отримати не більше ніж %total_gb% ГБ."
     },
     "settings_referral_invited_friends": {
         "message": "Запрошені друзі %count%/%limit%"
@@ -273,7 +294,7 @@
         "message": "Вибірковий режим"
     },
     "context_menu_general_mode": {
-        "message": "Основний режим"
+        "message": "Загальний режим"
     },
     "settings_dns_label": {
         "message": "Використовувати DNS-сервер"
@@ -462,7 +483,7 @@
         "message": "Змінити режим"
     },
     "settings_exclusion_general_title": {
-        "message": "Основний режим"
+        "message": "Загальний режим"
     },
     "settings_exclusion_general_description": {
         "message": "AdGuard VPN працюватиме всюди, окрім сайтів-винятків"
@@ -543,7 +564,7 @@
         "message": "Місцезнаходження не знайдено"
     },
     "popup_traffic_limit_reached": {
-        "message": "Досягнуто місячний ліміт трафіку. Треба ще?"
+        "message": "Досягнуто місячний ліміт трафіку"
     },
     "premium_upgrade": {
         "message": "Придбати"
@@ -577,6 +598,33 @@
     },
     "popup_feedback_button": {
         "message": "Поділитись"
+    },
+    "popup_rate_modal_title": {
+        "message": "Вам подобається AdGuard VPN?"
+    },
+    "popup_rate_modal_subtitle": {
+        "message": "Будь ласка, оцініть нас"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "Надіслати"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "Скасувати"
+    },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "Допоможіть нам покращити програму"
+    },
+    "popup_confirm_rate_modal_feedback_subtitle": {
+        "message": "Розкажіть, що не так"
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
+        "message": "Поділитись"
+    },
+    "popup_confirm_rate_modal_rate_title": {
+        "message": "Отакої! А можете оцінити нас у Вебмагазині Chrome?"
+    },
+    "popup_confirm_rate_modal_confirm_button": {
+        "message": "Перейти до Вебмагазину Chrome"
     },
     "settings_run_upgrade_early_bird": {
         "message": "Обмежена пропозиція"
@@ -615,11 +663,11 @@
         "message": "VPN вимкнено на цьому сайті"
     },
     "popup_auth_policy_agreement": {
-        "message": "Прийняти <eula>Ліцензійну угоду з кінцевим користувачем</eula> та <privacy>Політику приватності</privacy>",
+        "message": "Я приймаю <eula>Ліцензійну угоду</eula> та <privacy>Політику конфіденційності</privacy> AdGuard",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Дозволити AdGuard збирати <link>анонімні дані</link> про використання програми, щоб покращити AdGuard VPN"
+        "message": "Я дозволяю AdGuard збирати <link>анонімні дані</link> про використання розширення, щоб покращити AdGuard VPN"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Продовжити"
@@ -678,11 +726,11 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 континентів та десятки країн. Вибирайте місто та безпечно користуйтесь інтернетом!"
     },
-    "popup_upgrade_screen_streaming_support": {
-        "message": "Підтримка стрімингу"
+    "popup_upgrade_screen_connect_devices": {
+        "message": "До п'яти пристроїв"
     },
-    "popup_upgrade_screen_streaming_support_desc": {
-        "message": "Доступні усі популярні стріминг-сервіси. Дивіться будь-що і будь-де!"
+    "popup_upgrade_screen_connect_devices_desc": {
+        "message": "Під'єднайте усі свої пристрої до AdGuard VPN одночасно — захистіть всю родину!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Стрімінг"
@@ -694,17 +742,17 @@
         "message": "Продовжити безплатно"
     },
     "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> залишилося цього місяця",
+        "message": "<span>%value% %unit%</span> залишилось цього місяця",
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_selective_mode_popup_message": {
         "message": "У Вибірковому режимі AdGuard VPN працює тільки на вибраних сайтах, які ви додали до списку."
     },
     "options_selective_mode_popup_button_switch_now": {
-        "message": "Перемкнути"
+        "message": "Змінити"
     },
     "options_selective_mode_popup_attention": {
-        "message": "Ви впевнені, що хочете перемкнути режим?"
+        "message": "Ви впевнені, що хочете змінити режим?"
     },
     "options_exclusions_import_select_title": {
         "message": "Імпортувати винятки до:"
@@ -779,6 +827,6 @@
         "message": "Ви вийшли з AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "Ваше з'єднання не захищене. Щоб продовжувати безпечно користуватись інтернетом, натисніть на піктограму AdGuard VPN та увійдіть знову."
+        "message": "Зверніть увагу, що тепер ваше з'єднання не захищене! Щоб безпечно користуватись інтернетом, натисніть на піктограму AdGuard VPN та увійдіть знову."
     }
 }

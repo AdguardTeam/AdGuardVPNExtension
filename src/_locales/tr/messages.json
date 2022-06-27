@@ -15,7 +15,10 @@
         "message": "Bu değer geçerli değil"
     },
     "registration_error_min_length": {
-        "message": "Parola çok kısa. En az 8 karakter içermelidir."
+        "message": "Parola en az 8 karakter içermelidir"
+    },
+    "registration_error_confirm_password": {
+        "message": "Parolalar uyuşmuyor"
     },
     "registration_error_compromised_password": {
         "message": "Girdiğiniz parola, güvenliği ihlal edilmiş parolalardan oluşan <a>herkese açık bir veri tabanında</a> bulundu. Lütfen başka bir tane deneyin."
@@ -75,7 +78,7 @@
         "message": "Geri bildirimde bulun"
     },
     "options_support_feedback_description": {
-        "message": "Yeni özellik isteği veya öneri gönderin"
+        "message": "Yeni özellik talebi veya öneri gönderin"
     },
     "options_report_bug_title": {
         "message": "Hata bildir"
@@ -117,25 +120,34 @@
         "message": "Hesap"
     },
     "account_edit": {
-        "message": "Yönet"
+        "message": "Hesabı yönet"
     },
     "account_version": {
         "message": "Sürüm"
     },
-    "account_current_plan": {
-        "message": "Şu anki plan"
-    },
-    "account_signed": {
-        "message": "ile giriş yapıldı"
-    },
     "account_free": {
-        "message": "Ücretsiz"
+        "message": "Ücretsiz hesap"
     },
     "account_unlimited": {
-        "message": "Sınırsız"
+        "message": "Sınırsız abonelik"
+    },
+    "account_monthly_paid": {
+        "message": "Aylık ücretli abonelik"
+    },
+    "account_yearly_paid": {
+        "message": "Yıllık ücretli abonelik"
+    },
+    "account_two_year_paid": {
+        "message": "İki yıllık ücretli abonelik"
+    },
+    "account_get_subscription": {
+        "message": "Abonelik al"
+    },
+    "account_max_devices_count": {
+        "message": "Aynı anda %num% cihaza kadar"
     },
     "account_next_charge": {
-        "message": "(Sonraki ücret %date%)"
+        "message": "Sonraki faturalandırma tarihi %date%"
     },
     "account_sign_out": {
         "message": "Çıkış yap"
@@ -158,17 +170,26 @@
     "auth_password": {
         "message": "Parola"
     },
+    "auth_your_password": {
+        "message": "Parolanız"
+    },
+    "auth_password_confirm": {
+        "message": "Parolayı onayla"
+    },
     "auth_recover": {
         "message": "Parolanızı mı unuttunuz?"
     },
     "auth_sign_up": {
         "message": "Kaydol"
     },
+    "auth_sign_up_info": {
+        "message": "AdGuard hesabınızı oluşturun"
+    },
     "auth_sign_up_button": {
         "message": "Kaydol"
     },
     "auth_sign_in": {
-        "message": "Giriş yap"
+        "message": "Parolanızı girin"
     },
     "auth_sign_in_button": {
         "message": "Giriş yap"
@@ -177,10 +198,10 @@
         "message": "AdGuard hesabıyla giriş yap"
     },
     "auth_title": {
-        "message": "Yetkilendirme"
+        "message": "Giriş yap ya da bir hesap oluştur"
     },
-    "auth_info": {
-        "message": "AdGuard hesabınızla veya sosyal ağ giriş yapmayla devam edin"
+    "auth_sign_in_provider_adguard_label": {
+        "message": "E-posta"
     },
     "auth_sign_in_provider_adguard": {
         "message": "E-posta ile devam et"
@@ -204,7 +225,7 @@
         "message": "<div>%username%</div> olarak giriş yapıyorsunuz "
     },
     "auth_header_sing_in_notice": {
-        "message": "<div>%username%</div> adında zaten bir hesabınız var"
+        "message": "<span>%username%</span> olarak giriş yapılıyor"
     },
     "auth_header_registration": {
         "message": "<div>%username%</div> Olarak kaydoluyorsunuz"
@@ -237,7 +258,7 @@
         "message": "Ücretsiz VPN verisi edinin!"
     },
     "settings_referral_info": {
-        "message": "Arkadaşlarınızı ninja klanımıza katılmaya davet edin ve bir ay boyunca daha fazla ücretsiz VPN verisi alın. Kaydolan her arkadaşınız için %your_gb% GB kazanın: ayrıca onlarda ücretsiz olarak %friend_gb% GB ekstra kazanır! Toplamda %total_gb% GB ücretsiz alabilirsiniz."
+        "message": "Arkadaşlarınızı ninja klanımıza katılmaya davet edin ve bir ay boyunca daha fazla ücretsiz VPN verisi alın. Kaydolan her arkadaşınız için %your_gb% GB alın: ayrıca ücretsiz olarak fazladan %friend_gb% GB alırlar! Siz (davet eden kullanıcı) ücretsiz olarak maksimum fazladan %total_gb% GB edinebilirsiniz."
     },
     "settings_referral_invited_friends": {
         "message": "Davet edilen arkadaşlar %count%/%limit%"
@@ -465,7 +486,7 @@
         "message": "Genel mod"
     },
     "settings_exclusion_general_description": {
-        "message": "AdGuard VPN istisnalara eklenen siteler dışında her yerde açık"
+        "message": "AdGuard VPN, istisnalara eklenen siteler dışında her yerde açık"
     },
     "settings_exclusion_selective_title": {
         "message": "Seçici mod"
@@ -543,7 +564,7 @@
         "message": "Konum bulunamadı"
     },
     "popup_traffic_limit_reached": {
-        "message": "Aylık veri sınırına ulaşıldı. Daha fazlasına mı ihtiyacınız var?"
+        "message": "Aylık veri sınırına ulaşıldı"
     },
     "premium_upgrade": {
         "message": "Yükselt"
@@ -577,6 +598,33 @@
     },
     "popup_feedback_button": {
         "message": "Geri bildirimde bulun"
+    },
+    "popup_rate_modal_title": {
+        "message": "AdGuard VPN ne kadar harika?"
+    },
+    "popup_rate_modal_subtitle": {
+        "message": "Lütfen bizi değerlendirin"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "Gönder"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "İptal"
+    },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "Geliştirmemize yardımcı ol"
+    },
+    "popup_confirm_rate_modal_feedback_subtitle": {
+        "message": "Bize neyin ters gittiğini söyleyin"
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
+        "message": "Geri bildirimde bulun"
+    },
+    "popup_confirm_rate_modal_rate_title": {
+        "message": "Vay! Bizi Chrome Store'da da değerlendirebilir misiniz?"
+    },
+    "popup_confirm_rate_modal_confirm_button": {
+        "message": "Chrome Mağazasına gidin"
     },
     "settings_run_upgrade_early_bird": {
         "message": "Erken rezervasyon fiyatları"
@@ -615,11 +663,11 @@
         "message": "VPN bu sitede devre dışı bırakıldı"
     },
     "popup_auth_policy_agreement": {
-        "message": "<eula>SKLS</eula> ve <privacy>Gizlilik politikasını</privacy> kabul edin",
+        "message": "AdGuard'ın <eula>SKLS</eula> ve <privacy>Gizlilik Politikasını</privacy> okudum ve kabul ediyorum",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "AdGuard VPN'i daha iyi hâle getirmek için AdGuard'ın uygulama kullanımı hakkında bazı <link>anonim veriler</link> toplamamıza izin verin"
+        "message": "AdGuard VPN'i daha da iyi hâle getirmek için AdGuard'ın uygulama kullanımına hakkında <link>anonim veriler</link> toplamasına izin veriyorum"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Devam et"
@@ -678,11 +726,11 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 kıta ve onlarca ülke. Bir şehir seçin ve internette güvenli bir şekilde gezinin!"
     },
-    "popup_upgrade_screen_streaming_support": {
-        "message": "Canlı yayın akışı desteği"
+    "popup_upgrade_screen_connect_devices": {
+        "message": "5 cihaza kadar"
     },
-    "popup_upgrade_screen_streaming_support_desc": {
-        "message": "Tüm büyük canlı yayın veri akış hizmetleri mevcuttur. Her şeyi, her yerde izleyin!"
+    "popup_upgrade_screen_connect_devices_desc": {
+        "message": "Tüm cihazlarınızı aynı anda AdGuard VPN'e bağlayın — veya tüm aileyi koruyun!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Yayın akışı"
@@ -698,7 +746,7 @@
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_selective_mode_popup_message": {
-        "message": "Seçici modda AdGuard VPN yalnızca listeye eklediğiniz izin verilen sitelerde çalışır."
+        "message": "Seçici modda AdGuard VPN, yalnızca listeye eklediğiniz izin verilen sitelerde çalışır."
     },
     "options_selective_mode_popup_button_switch_now": {
         "message": "Şimdi değiştir"
@@ -725,10 +773,10 @@
         "message": "İstisnaları kaldır"
     },
     "options_exclusions_delete_regular_description": {
-        "message": "Normal modun tüm istisnaları silinecektir."
+        "message": "Normal moddan tüm istisnalar silinecektir."
     },
     "options_exclusions_delete_selective_description": {
-        "message": "Seçici modun tüm istisnaları silinecektir."
+        "message": "Seçici moddan tüm istisnalar silinecektir."
     },
     "options_exclusions_import_successful": {
         "message": "İçe aktarılan istisnalar: %count%"
@@ -779,6 +827,6 @@
         "message": "AdGuard VPN'den çıkış yaptınız"
     },
     "options_signedout_page_description": {
-        "message": "Bağlantınız güvenli değil. Gizli olarak gezinmeye devam etmek için AdGuard VPN simgesine tıklayın ve tekrar giriş yapın."
+        "message": "Lütfen dikkat: bağlantınız güvenli değil! Gizli olarak gezinmeye devam etmek için AdGuard VPN simgesine tıklayın ve tekrar giriş yapın."
     }
 }

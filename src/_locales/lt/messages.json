@@ -53,6 +53,9 @@
     "auth_password": {
         "message": "Slaptažodis"
     },
+    "auth_password_confirm": {
+        "message": "Patvirtinti slaptažodį"
+    },
     "auth_recover": {
         "message": "Pamiršote slaptažodį?"
     },
@@ -169,6 +172,12 @@
     },
     "settings_disconnect": {
         "message": "Atsijungti"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "Siųsti"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "Atšaukti"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Tęsti"

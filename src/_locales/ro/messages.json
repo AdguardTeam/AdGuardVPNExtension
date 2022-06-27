@@ -15,7 +15,10 @@
         "message": "Valoarea este invalidă"
     },
     "registration_error_min_length": {
-        "message": "Parola este prea scurtă. Acesta trebuie să conțină cel puțin 8 caractere."
+        "message": "Parola trebuie să conțină cel puțin 8 caractere"
+    },
+    "registration_error_confirm_password": {
+        "message": "Parolele nu se potrivesc"
     },
     "registration_error_compromised_password": {
         "message": "Parola introdusă a fost găsită într-o <a>bază de date publică</a> cu parole compromise. Vă rugăm, încercați alta."
@@ -117,28 +120,37 @@
         "message": "Cont"
     },
     "account_edit": {
-        "message": "Gestiune"
+        "message": "Gestionați contul"
     },
     "account_version": {
         "message": "Versiune"
     },
-    "account_current_plan": {
-        "message": "Planul curent"
-    },
-    "account_signed": {
-        "message": "Conectat cu"
-    },
     "account_free": {
-        "message": "Gratuit"
+        "message": "Cont gratuit"
     },
     "account_unlimited": {
-        "message": "Nelimitat"
+        "message": "Abonament nelimitat"
+    },
+    "account_monthly_paid": {
+        "message": "Abonament plătit lunar"
+    },
+    "account_yearly_paid": {
+        "message": "Abonament plătit anual"
+    },
+    "account_two_year_paid": {
+        "message": "Abonament plătit pe doi ani"
+    },
+    "account_get_subscription": {
+        "message": "Obțineți abonamentul"
+    },
+    "account_max_devices_count": {
+        "message": "Până la %num% dispozitive simultan"
     },
     "account_next_charge": {
-        "message": "(Plata următoare %date%)"
+        "message": "Data următoare de facturare %date%"
     },
     "account_sign_out": {
-        "message": "Deconectare"
+        "message": "Deconectați-vă"
     },
     "account_unlimited_title": {
         "message": "Obțineți versiunea nelimitată!"
@@ -158,17 +170,26 @@
     "auth_password": {
         "message": "Parola"
     },
+    "auth_your_password": {
+        "message": "Parola dumneavoastră"
+    },
+    "auth_password_confirm": {
+        "message": "Confirmați parola"
+    },
     "auth_recover": {
         "message": "Ați uitat parola?"
     },
     "auth_sign_up": {
         "message": "Înscriere"
     },
+    "auth_sign_up_info": {
+        "message": "Creați-vă contul AdGuard"
+    },
     "auth_sign_up_button": {
         "message": "Înscrieți-vă"
     },
     "auth_sign_in": {
-        "message": "Conectare"
+        "message": "Introduceți parola d-voastră"
     },
     "auth_sign_in_button": {
         "message": "Conectați-vă"
@@ -177,10 +198,10 @@
         "message": "Conectați-vă cu contul AdGuard"
     },
     "auth_title": {
-        "message": "Autorizație"
+        "message": "Conectați-vă sau creați un cont"
     },
-    "auth_info": {
-        "message": "Continuați cu contul dvs. AdGuard sau cu conectarea socială"
+    "auth_sign_in_provider_adguard_label": {
+        "message": "E-mail"
     },
     "auth_sign_in_provider_adguard": {
         "message": "Continuați cu e-mailul"
@@ -204,7 +225,7 @@
         "message": "V-ați conectat ca <div>%username%</div> "
     },
     "auth_header_sing_in_notice": {
-        "message": "Aveți deja un cont <div>%username%</div>"
+        "message": "Conectarea ca <span>%username%</span>"
     },
     "auth_header_registration": {
         "message": "V-ați înscris ca <div>%username%</div>"
@@ -237,7 +258,7 @@
         "message": "Obțineți date VPN gratuit!"
     },
     "settings_referral_info": {
-        "message": "Invitați-vă prietenii să se alăture clanului nostru ninja și obțineți mai multe date VPN gratuite timp de o lună. Primiți %your_gb% GB pentru fiecare prieten care se înscrie: ei primesc de asemenea, %friend_gb% GB în plus gratuit! Puteți obține %total_gb% GB în total gratuit."
+        "message": "Invitați-vă prietenii să se alăture clanului nostru ninja și obțineți mai mult trafic VPN gratuit pentru o lună. Primiți %your_gb% GB pentru fiecare prieten care se înscrie: aceștia primesc, de asemenea, %friend_gb% GB în plus gratuit! Dumneavoastră (utilizatorul care invită) puteți obține gratuit maximum %total_gb% GB în plus."
     },
     "settings_referral_invited_friends": {
         "message": "Prieteni invitați %count%/%limit%"
@@ -543,7 +564,7 @@
         "message": "Locația nu a fost găsită"
     },
     "popup_traffic_limit_reached": {
-        "message": "Limită lunară de data atinsă. Vreți mai mult?"
+        "message": "Limita lunară de date a fost atinsă"
     },
     "premium_upgrade": {
         "message": "Actualizați"
@@ -577,6 +598,33 @@
     },
     "popup_feedback_button": {
         "message": "Lasă-ți un feedback"
+    },
+    "popup_rate_modal_title": {
+        "message": "Cât de grozav este AdGuard VPN?"
+    },
+    "popup_rate_modal_subtitle": {
+        "message": "Vă rugăm să ne evaluați"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "Trimite"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "Anulare"
+    },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "Ajutați-ne să îmbunătățim"
+    },
+    "popup_confirm_rate_modal_feedback_subtitle": {
+        "message": "Spuneți-ne ce nu a mers bine"
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
+        "message": "Lasă-ți un feedback"
+    },
+    "popup_confirm_rate_modal_rate_title": {
+        "message": "Wow! Ne puteți evalua și în Chrome Store?"
+    },
+    "popup_confirm_rate_modal_confirm_button": {
+        "message": "Accesați Magazinul Chrome"
     },
     "settings_run_upgrade_early_bird": {
         "message": "Prețuri de păsări timpurii"
@@ -615,11 +663,11 @@
         "message": "VPN este dezactivat pe acest site"
     },
     "popup_auth_policy_agreement": {
-        "message": "Acceptați <eula>EULA</eula> și <privacy>Politica de confidențialitate</privacy>",
+        "message": "Am citit și sunt de acord cu <eula>EULA</eula> și <privacy>Politica de confidențialitate</privacy> a AdGuard",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "Permiteți AdGuard să adune <link>date anonime</link> despre utilizarea aplicației, pentru a îmbunătăți AdGuard VPN"
+        "message": "Permit ca AdGuard să colecteze <link>date strict anonime</link> despre utilizarea aplicației pentru a face AdGuard VPN și mai bun"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Continuă"
@@ -678,11 +726,11 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 continente și zeci de țări. Alegeți un oraș și navigați pe net în siguranță!"
     },
-    "popup_upgrade_screen_streaming_support": {
-        "message": "Asistență pentru streaming"
+    "popup_upgrade_screen_connect_devices": {
+        "message": "Până la 5 dispozitive"
     },
-    "popup_upgrade_screen_streaming_support_desc": {
-        "message": "Toate serviciile de streaming majore sunt disponibile. Urmăriți orice, oriunde!"
+    "popup_upgrade_screen_connect_devices_desc": {
+        "message": "Conectați toate gadgeturile dvs. la AdGuard VPN în același timp — sau protejați întreaga familie!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Streaming"
@@ -779,6 +827,6 @@
         "message": "V-ați deconectat de la AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "Conexiunea dvs. nu este sigură. Pentru a continua navigarea în privat, faceți clic pe pictograma AdGuard VPN și conectați-vă din nou."
+        "message": "Vă rugăm să notați: conexiunea dvs. nu este securizată! Pentru a continua navigarea în mod privat, faceți clic pe pictograma AdGuard VPN și conectați-vă din nou."
     }
 }
