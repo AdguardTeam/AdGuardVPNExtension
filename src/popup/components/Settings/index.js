@@ -6,7 +6,6 @@ import { rootStore } from '../../stores';
 
 import GlobalControl from './GlobalControl';
 import Status from './Status';
-import { TrafficLimitExceeded } from './TrafficLimitExceeded';
 
 import './settings.pcss';
 
@@ -15,7 +14,6 @@ const Settings = observer(() => {
 
     const {
         isConnected,
-        hasLimitExceededError,
     } = settingsStore;
 
     const {
@@ -30,12 +28,6 @@ const Settings = observer(() => {
         { 'settings--trial': !isPremiumToken },
         { 'settings--feedback': !premiumPromoEnabled },
     );
-
-    if (hasLimitExceededError) {
-        return (
-            <TrafficLimitExceeded />
-        );
-    }
 
     return (
         <div className={settingsClass}>

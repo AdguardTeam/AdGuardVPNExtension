@@ -14,6 +14,8 @@ import { sleepIfNecessary } from '../../../lib/helpers';
 import { connectivityService } from '../connectivityService/connectivityFSM';
 // eslint-disable-next-line import/no-cycle
 import credentials from '../../credentials';
+import { notifications } from '../../notifications';
+import { translator } from '../../../common/translator';
 
 class EndpointConnectivity {
     PING_SEND_INTERVAL_MS = 1000 * 60;
@@ -262,9 +264,10 @@ class EndpointConnectivity {
         }
     };
 
-    handleErrorMsg = (connectivityErrorMsg) => {
+    handleErrorMsg = async (connectivityErrorMsg) => {
         const NON_ROUTABLE_CODE = 'NON_ROUTABLE';
         const TOO_MANY_DEVICES_CONNECTED = 'TOO_MANY_DEVICES_CONNECTED';
+        const TRAFFIC_LIMIT_REACHED = 'TRAFFIC_LIMIT_REACHED';
 
         const { code, payload } = connectivityErrorMsg;
 
@@ -274,6 +277,12 @@ class EndpointConnectivity {
         if (code === TOO_MANY_DEVICES_CONNECTED) {
             notifier.notifyListeners(notifier.types.TOO_MANY_DEVICES_CONNECTED, payload);
             connectivityService.send(EVENT.TOO_MANY_DEVICES_CONNECTED);
+        }
+        if (code === TRAFFIC_LIMIT_REACHED) {
+            await notifications.create({
+                title: translator.getMessage('notification_data_limit_reached_title'),
+                message: translator.getMessage('notification_data_limit_reached_description'),
+            });
         }
     };
 
@@ -286,7 +295,7 @@ class EndpointConnectivity {
             }
 
             if (connectivityErrorMsg) {
-                this.handleErrorMsg(connectivityErrorMsg);
+                await this.handleErrorMsg(connectivityErrorMsg);
             }
         };
 

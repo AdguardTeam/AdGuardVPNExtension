@@ -222,7 +222,7 @@
         "message": "By signing up you create your AdGuard account"
     },
     "auth_header_sign_in": {
-        "message": "You are signing in as <div>%username%</div> "
+        "message": "You are logging in as <span>%username%</span>"
     },
     "auth_header_sing_in_notice": {
         "message": "Logging in as <span>%username%</span>"
@@ -828,5 +828,11 @@
     },
     "options_signedout_page_description": {
         "message": "Please note: your connection is not secure! To continue surfing privately, click the AdGuard VPN icon and sign in again."
+    },
+    "notification_data_limit_reached_title": {
+        "message": "You've reached the monthly data limit."
+    },
+    "notification_data_limit_reached_description": {
+        "message": "VPN connection speed has been reduced."
     }
 }

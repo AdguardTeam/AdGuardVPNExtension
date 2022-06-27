@@ -7,18 +7,19 @@ import { popupActions } from '../../../actions/popupActions';
 import { rootStore } from '../../../stores';
 import { REQUEST_STATUSES, INPUT_TYPES } from '../../../stores/consts';
 import PasswordField from '../PasswordField';
-import Submit from '../Submit';
+import { Submit } from '../Submit';
 import { reactTranslator } from '../../../../common/reactTranslator';
+import { translator } from '../../../../common/translator';
 
-const SignInForm = observer(() => {
+export const SignInForm = observer(() => {
     const { authStore } = useContext(rootStore);
 
-    const submitHandler = async (e) => {
+    const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await authStore.authenticate();
     };
 
-    const inputChangeHandler = async (e) => {
+    const inputChangeHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const { target: { name, value } } = e;
         await authStore.onCredentialsChange(name, value);
     };
@@ -51,31 +52,18 @@ const SignInForm = observer(() => {
                 </div>
                 <div className="form__info">
                     {
-                        authStore.signInCheck
-                            ? reactTranslator.getMessage('auth_header_sign_in', {
-                                username: authStore.credentials.username,
-                                div: (chunks) => (
-                                    // make sure that css styles won't be broken
-                                    // if div is placed in the translation beginning
-                                    <div className="form__credentials">
-                                        {chunks}
-                                    </div>
-                                ),
-                            })
-                            : reactTranslator.getMessage('auth_header_sing_in_notice', {
-                                username: authStore.credentials.username,
-                                div: (chunks) => (
-                                    // make sure that css styles won't be broken
-                                    // if div is placed in the translation beginning
-                                    <div className="form__credentials">
-                                        {chunks}
-                                    </div>
-                                ),
-                            })
+                        reactTranslator.getMessage('auth_header_sing_in_notice', {
+                            username: authStore.credentials.username,
+                            span: (chunks: string) => (
+                                <span className="form__credentials">
+                                    {chunks}
+                                </span>
+                            ),
+                        })
                     }
                 </div>
                 <PasswordField
-                    placeholder={reactTranslator.getMessage('auth_password')}
+                    placeholder={translator.getMessage('auth_your_password')}
                     id="password"
                     password={password}
                     handleChange={inputChangeHandler}
@@ -83,6 +71,8 @@ const SignInForm = observer(() => {
                     icon={icon}
                     inputType={inputType}
                     error={authStore.error}
+                    label={translator.getMessage('auth_password')}
+                    focus
                 />
                 {authStore.error && (
                     <div className="form__error">
@@ -109,5 +99,3 @@ const SignInForm = observer(() => {
         </form>
     );
 });
-
-export default SignInForm;

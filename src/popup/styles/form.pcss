@@ -25,18 +25,16 @@
 
     &__label {
         display: block;
-        font-size: 1.4rem;
-        text-align: center;
+        font-size: 14px;
+        text-align: left;
         line-height: 16px;
         color: var(--gray88);
+        margin-bottom: 10px;
     }
 
     &__item {
         position: relative;
-    }
-
-    &__item + &__item {
-        margin-top: 25px;
+        margin-bottom: 25px;
     }
 
     &__inline-btn {
@@ -47,24 +45,29 @@
 
     &__inputs {
         position: relative;
-        margin: 30px 0 12px;
-        padding-bottom: 20px;
+        margin: 15px 0 0;
         text-align: center;
     }
 
     &__input {
         width: 100%;
         font-family: var(--font-stack);
-        font-size: 1.6rem;
-        text-align: center;
-        border: 0;
-        border-bottom: 1px solid #a4a4a4;
+        font-size: 16px;
+        text-align: left;
+        border: 1px solid var(--grayf3);
+        border-radius: 8px;
         color: var(--gray-base);
         outline: none;
-        height: 35px;
-        padding: 5px 15px;
+        height: 50px;
+        padding: 16px;
         box-shadow: none;
-        background-color: var(--white);
+        background-color: var(--grayf3);
+        caret-color: var(--gray-base);;
+
+        @media (prefers-color-scheme: dark) {
+            background-color: var(--grayf7);
+            border: 1px solid var(--grayf7);
+        }
 
         &:-webkit-autofill:focus,
         &:focus:-webkit-autofill {
@@ -77,14 +80,14 @@
         }
 
         &::placeholder {
-            font-size: 1.4rem;
+            font-size: 16px;
             color: var(--gray-base);
             opacity: 0.5;
         }
 
         &:focus,
         &:active {
-            border-color: #4d4d4d;
+            border-color: var(--grayd8);
         }
 
         &--error,
@@ -99,23 +102,29 @@
             letter-spacing: 1px;
         }
 
-        &--password {
-            padding-left: 25px;
-            padding-right: 25px;
-        }
-
         &:-webkit-autofill,
         &:-webkit-autofill:hover,
         &:-webkit-autofill:focus,
         &:-webkit-autofill:active {
-            -webkit-box-shadow: 0 0 0 30px var(--white) inset;
+            -webkit-box-shadow: 0 0 0 30px var(--grayf3) inset;
             -webkit-text-fill-color: var(--gray-base)!important;
+
+            @media (prefers-color-scheme: dark) {
+                -webkit-box-shadow: 0 0 0 30px var(--grayf7) inset;
+            }
+        }
+
+        &:disabled {
+            color: var(--gray-base);
+            opacity: .5;
+            border-color: var(--gray-base) !important;
         }
     }
 
     &__btn-wrap {
+        height: 50px;
         text-align: center;
-        margin-bottom: 48px;
+        margin-bottom: 30px;
 
         &--register {
             margin-bottom: 65px;
@@ -126,7 +135,7 @@
         margin-top: auto;
         display: block;
         width: 100%;
-        line-height: 18px;
+        line-height: 22px;
         font-size: 1.6rem;
         user-select: none;
 
@@ -137,10 +146,11 @@
     }
 
     &__error {
-        margin-top: 5px;
-        font-size: 1.4rem;
+        position: relative;
+        top: -23px;
+        font-size: 13px;
         line-height: 18px;
-        text-align: center;
+        text-align: left;
         color: var(--red);
 
         & strong {
@@ -189,12 +199,12 @@
     &__subtitle {
         font-size: 2.2rem;
         font-weight: 700;
-        margin: 14px 0 15px;
+        margin: 0 0 15px;
     }
 
     &__info {
         min-height: 44px;
-        margin-bottom: 30px;
+        margin-bottom: 10px;
     }
 
     &__credentials {
@@ -203,8 +213,8 @@
 
     &__show-password {
         position: absolute;
-        bottom: 3px;
-        right: 0;
+        top: 39px;
+        right: 10px;
         padding: 0;
         color: var(--gray-base);
         opacity: 0.5;
@@ -212,10 +222,6 @@
 
     &__group {
         margin-bottom: 24px;
-
-        &--wide {
-            margin: 0 -16px 24px;
-        }
 
         &--last {
             margin-bottom: 40px;

@@ -29,7 +29,7 @@ const InfoMessage = observer(() => {
     } = vpnStore;
 
     // If user has premium token we do not show any info messages
-    if (!premiumPromoEnabled || isPremiumToken || settingsStore.hasLimitExceededError) {
+    if (!premiumPromoEnabled || isPremiumToken) {
         return null;
     }
 
@@ -47,7 +47,7 @@ const InfoMessage = observer(() => {
 
     const infoMessagesClass = classnames(
         'info-message',
-        { 'info-message--active': settingsStore.proxyEnabled },
+        { 'info-message--active': settingsStore.isConnected },
     );
 
     const formattedRemainingTraffic = formatBytes(remainingTraffic);
