@@ -125,12 +125,6 @@
     "account_version": {
         "message": "Versiune"
     },
-    "account_current_plan": {
-        "message": "Planul curent"
-    },
-    "account_signed": {
-        "message": "Conectat cu"
-    },
     "account_free": {
         "message": "Cont gratuit"
     },
@@ -205,9 +199,6 @@
     },
     "auth_title": {
         "message": "Conectați-vă sau creați un cont"
-    },
-    "auth_info": {
-        "message": "Continuați cu contul dvs. AdGuard sau cu conectarea socială"
     },
     "auth_sign_in_provider_adguard_label": {
         "message": "E-mail"
@@ -573,7 +564,7 @@
         "message": "Locația nu a fost găsită"
     },
     "popup_traffic_limit_reached": {
-        "message": "Limită lunară de data atinsă. Vreți mai mult?"
+        "message": "Limita lunară de date a fost atinsă"
     },
     "premium_upgrade": {
         "message": "Actualizați"

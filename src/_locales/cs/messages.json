@@ -564,7 +564,7 @@
         "message": "Umístění nenalezeno"
     },
     "popup_traffic_limit_reached": {
-        "message": "Měsíční datový limit je dosažen. Potřebujete více?"
+        "message": "Měsíční datový limit je dosažen"
     },
     "premium_upgrade": {
         "message": "Upgradovat"

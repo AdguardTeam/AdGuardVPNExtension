@@ -125,12 +125,6 @@
     "account_version": {
         "message": "Sürüm"
     },
-    "account_current_plan": {
-        "message": "Şu anki plan"
-    },
-    "account_signed": {
-        "message": "ile giriş yapıldı"
-    },
     "account_free": {
         "message": "Ücretsiz hesap"
     },
@@ -492,7 +486,7 @@
         "message": "Genel mod"
     },
     "settings_exclusion_general_description": {
-        "message": "AdGuard VPN istisnalara eklenen siteler dışında her yerde açık"
+        "message": "AdGuard VPN, istisnalara eklenen siteler dışında her yerde açık"
     },
     "settings_exclusion_selective_title": {
         "message": "Seçici mod"
@@ -570,7 +564,7 @@
         "message": "Konum bulunamadı"
     },
     "popup_traffic_limit_reached": {
-        "message": "Aylık veri sınırına ulaşıldı. Daha fazlasına mı ihtiyacınız var?"
+        "message": "Aylık veri sınırına ulaşıldı"
     },
     "premium_upgrade": {
         "message": "Yükselt"
@@ -673,7 +667,7 @@
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "AdGuard VPN'i daha iyi hâle getirmek için AdGuard'ın uygulama kullanımı hakkında bazı <link>anonim veriler</link> toplamamıza izin verin"
+        "message": "AdGuard VPN'i daha da iyi hâle getirmek için AdGuard'ın uygulama kullanımına hakkında <link>anonim veriler</link> toplamasına izin veriyorum"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Devam et"

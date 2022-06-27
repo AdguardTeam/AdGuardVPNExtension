@@ -15,7 +15,10 @@
         "message": "유효하지 않은 값"
     },
     "registration_error_min_length": {
-        "message": "비밀번호가 너무 짧습니다. 8자 이상이어야 합니다."
+        "message": "비밀번호는 8자 이상이어야 합니다"
+    },
+    "registration_error_confirm_password": {
+        "message": "비밀번호가 일치하지 않습니다"
     },
     "registration_error_compromised_password": {
         "message": "입력한 비밀번호가 노출된 비밀번호 <a>공개 데이터베이스</a>에서 발견되었습니다. 다른 비밀번호를 시도해보세요."
@@ -117,25 +120,34 @@
         "message": "계정"
     },
     "account_edit": {
-        "message": "관리"
+        "message": "계정 관리"
     },
     "account_version": {
         "message": "버전"
     },
-    "account_current_plan": {
-        "message": "사용 중인 요금제"
-    },
-    "account_signed": {
-        "message": "다음 이메일로 로그인함"
-    },
     "account_free": {
-        "message": "무료 버전"
+        "message": "무료 계정"
     },
     "account_unlimited": {
-        "message": "무제한 버전"
+        "message": "무제한 구독"
+    },
+    "account_monthly_paid": {
+        "message": "월간 구독"
+    },
+    "account_yearly_paid": {
+        "message": "연간 구독"
+    },
+    "account_two_year_paid": {
+        "message": "2년 구독"
+    },
+    "account_get_subscription": {
+        "message": "구독 구매"
+    },
+    "account_max_devices_count": {
+        "message": "최대 %num%개의 동시 연결"
     },
     "account_next_charge": {
-        "message": "(다음 결제일 %date%)"
+        "message": "다음 결제일 %date%"
     },
     "account_sign_out": {
         "message": "로그아웃"
@@ -177,7 +189,7 @@
         "message": "가입"
     },
     "auth_sign_in": {
-        "message": "로그인"
+        "message": "비밀번호 입력"
     },
     "auth_sign_in_button": {
         "message": "로그인"
@@ -186,10 +198,7 @@
         "message": "AdGuard 계정으로 로그인"
     },
     "auth_title": {
-        "message": "인증"
-    },
-    "auth_info": {
-        "message": "SNS 또는 AdGuard 계정으로 진행"
+        "message": "로그인 또는 계정 생성"
     },
     "auth_sign_in_provider_adguard_label": {
         "message": "이메일"
@@ -216,7 +225,7 @@
         "message": "<div>%username%</div>으로 로그인 중"
     },
     "auth_header_sing_in_notice": {
-        "message": "이미 <div>%username%</div> 계정이 있습니다"
+        "message": "<span>%username%</span>으로 로그인"
     },
     "auth_header_registration": {
         "message": "<div>%username%</div>으로 가입 중"
@@ -555,7 +564,7 @@
         "message": "위치를 찾을 수 없음"
     },
     "popup_traffic_limit_reached": {
-        "message": "월간 데이터 제한에 도달했습니다. 더 필요하신가요?"
+        "message": "월간 데이터 제한에 도달했습니다"
     },
     "premium_upgrade": {
         "message": "업그레이드"
@@ -590,6 +599,9 @@
     "popup_feedback_button": {
         "message": "피드백 남기기"
     },
+    "popup_rate_modal_title": {
+        "message": "AdGuard VPN은 얼마나 멋진가요?"
+    },
     "popup_rate_modal_subtitle": {
         "message": "평가해주세요!"
     },
@@ -602,8 +614,17 @@
     "popup_confirm_rate_modal_feedback_title": {
         "message": "개선할 수 있도록 도와주세요."
     },
+    "popup_confirm_rate_modal_feedback_subtitle": {
+        "message": "무엇이 잘못되었는지 알려 주세요"
+    },
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "피드백 남기기"
+    },
+    "popup_confirm_rate_modal_rate_title": {
+        "message": "Chrome 스토어에서도 평가해 주시겠어요?"
+    },
+    "popup_confirm_rate_modal_confirm_button": {
+        "message": "Chrome Store로 이동"
     },
     "settings_run_upgrade_early_bird": {
         "message": "얼리버드 가격"
@@ -642,11 +663,11 @@
         "message": "이 웹사이트에서 VPN이 비활성화됨"
     },
     "popup_auth_policy_agreement": {
-        "message": "<eula>최종 사용자 라이선스 계약(EULA)</eula> 및 <privacy>개인정보취급방침</privacy>에 동의합니다",
+        "message": "<eula>이용 약관</eula> 및 <privacy>개인정보취급방침</privacy>을 읽었으며 이에 동의합니다",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "AdGuard VPN을 개선할 수 있도록 <link> 익명 처리된 앱 사용량 데이터</link>를 수집하도록 허용해 주세요"
+        "message": "AdGuard VPN을 개선할 수 있도록 <link>익명 처리된 앱 사용량 데이터</link>를 수집하도록 허용해 주세요"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "계속하기"

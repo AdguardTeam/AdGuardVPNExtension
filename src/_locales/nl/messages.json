@@ -564,7 +564,7 @@
         "message": "Locatie niet gevonden"
     },
     "popup_traffic_limit_reached": {
-        "message": "Maandelijkse datalimiet is bereikt. Meer nodig?"
+        "message": "Maandelijkse datalimiet bereikt"
     },
     "premium_upgrade": {
         "message": "Upgraden"

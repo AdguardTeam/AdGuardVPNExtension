@@ -564,7 +564,7 @@
         "message": "Placering ikke fundet"
     },
     "popup_traffic_limit_reached": {
-        "message": "Månedlig datakvote opbrugt. Behov for mere?"
+        "message": "Månedlig datakvote opbrugt"
     },
     "premium_upgrade": {
         "message": "Opgradere"
