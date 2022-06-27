@@ -216,7 +216,7 @@
         "message": "أنت تقوم بتسجيل الدخول باعتبارك <div>%username%</div> "
     },
     "auth_header_sing_in_notice": {
-        "message": "لديك بالفعل حساب <div>%username%</div>"
+        "message": "لديك بالفعل حساب <span>%username%</span>"
     },
     "auth_header_registration": {
         "message": "أنت تقوم بالتسجيل كـ <div>%username%</div>"

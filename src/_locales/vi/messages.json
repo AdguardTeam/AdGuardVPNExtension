@@ -183,7 +183,7 @@
         "message": "Bạn đang đăng ký là <div>%username%</div> "
     },
     "auth_header_sing_in_notice": {
-        "message": "Bạn đã có tài khoản <div>%username%</div>"
+        "message": "Bạn đã có tài khoản <span>%username%</span>"
     },
     "auth_header_registration": {
         "message": "Bạn đang đăng ký là <div>%username%</div>"

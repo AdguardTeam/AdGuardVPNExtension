@@ -210,7 +210,7 @@
         "message": "<div>%username%</div> néven regisztrál "
     },
     "auth_header_sing_in_notice": {
-        "message": "Önnek már van fiókja <div>%username%</div>"
+        "message": "Önnek már van fiókja <span>%username%</span>"
     },
     "auth_header_registration": {
         "message": "<div>%username%</div> néven lép be"

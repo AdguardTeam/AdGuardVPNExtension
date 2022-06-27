@@ -222,7 +222,7 @@
         "message": "Você entrou como <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
-        "message": "Você já tem uma conta <div>%username%</div>"
+        "message": "Você já tem uma conta <span>%username%</span>"
     },
     "auth_header_registration": {
         "message": "Você está se registrando como <div>%username%</div>"

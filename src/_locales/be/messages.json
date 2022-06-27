@@ -195,7 +195,7 @@
         "message": "Вы ўваходзіце як <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
-        "message": "У вас ужо ёсць акаўнт <div>%username%</div>"
+        "message": "У вас ужо ёсць акаўнт <span>%username%</span>"
     },
     "auth_header_registration": {
         "message": "Вы рэгіструецеся як <div>%username%</div>"

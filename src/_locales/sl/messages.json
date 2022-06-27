@@ -213,7 +213,7 @@
         "message": "Prijavljate se kot <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
-        "message": "Že imate račun <div>%username%</div>"
+        "message": "Že imate račun <span>%username%</span>"
     },
     "auth_header_registration": {
         "message": "Prijavljate se kot <div>%username%</div>"

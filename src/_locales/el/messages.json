@@ -183,7 +183,7 @@
         "message": "Συνδεθήκατε ως <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
-        "message": "Έχετε ήδη λογαριασμό <div>%username%</div>"
+        "message": "Έχετε ήδη λογαριασμό <span>%username%</span>"
     },
     "auth_header_registration": {
         "message": "Εγγραφήκατε ως <div>%username%</div>"

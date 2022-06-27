@@ -225,7 +225,7 @@
         "message": "Prijavljujete se kao <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
-        "message": "Već imate nalog <div>%username%</div>"
+        "message": "Već imate nalog <span>%username%</span>"
     },
     "auth_header_registration": {
         "message": "Upisujete se kao <div>%username%</div>"

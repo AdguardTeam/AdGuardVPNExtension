@@ -213,7 +213,7 @@
         "message": "Prihlasujete sa ako <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
-        "message": "Už máte účet <div>%username%</div>"
+        "message": "Už máte účet <span>%username%</span>"
     },
     "auth_header_registration": {
         "message": "Registrujete sa ako <div>%username%</div>"

@@ -222,7 +222,7 @@
         "message": "Ved at tilmelde dig opretter du din AdGuard-konto"
     },
     "auth_header_sign_in": {
-        "message": "Du logger ind som <div>%username%</div>"
+        "message": "Du logger ind som <span>%username%</span>"
     },
     "auth_header_sing_in_notice": {
         "message": "Logger ind som <span>%username%</span>"

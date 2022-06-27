@@ -141,7 +141,7 @@
         "message": "Anda masuk sebagai <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
-        "message": "Anda sudah memiliki akun <div>%username%</div>"
+        "message": "Anda sudah memiliki akun <span>%username%</span>"
     },
     "auth_header_registration": {
         "message": "Anda mendaftar sebagai <div>%username%</div>"

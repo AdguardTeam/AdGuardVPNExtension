@@ -210,7 +210,7 @@
         "message": "Logujesz się jako <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
-        "message": "Masz już konto <div>%username%</div>"
+        "message": "Masz już konto <span>%username%</span>"
     },
     "auth_header_registration": {
         "message": "Logujesz się jako <div>%username%</div>"
