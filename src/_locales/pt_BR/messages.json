@@ -15,7 +15,10 @@
         "message": "Este valor não é válido"
     },
     "registration_error_min_length": {
-        "message": "A senha é muito curta. Deve conter pelo menos 8 caracteres."
+        "message": "A senha deve conter pelo menos 8 caracteres"
+    },
+    "registration_error_confirm_password": {
+        "message": "As senhas não coincidem"
     },
     "registration_error_compromised_password": {
         "message": "A senha digitada foi encontrada em um <a>banco de dados público</a> de senhas comprometidas. Por favor, tente outra."
@@ -117,25 +120,28 @@
         "message": "Conta"
     },
     "account_edit": {
-        "message": "Gerenciar"
+        "message": "Gerenciar conta"
     },
     "account_version": {
         "message": "Versão"
     },
-    "account_current_plan": {
-        "message": "Plano atual"
-    },
-    "account_signed": {
-        "message": "Entrado com"
-    },
     "account_free": {
-        "message": "Gratuita"
+        "message": "Conta gratuita"
     },
-    "account_unlimited": {
-        "message": "Ilimitado"
+    "account_monthly_paid": {
+        "message": "Assinatura paga mensal"
+    },
+    "account_yearly_paid": {
+        "message": "Assinatura paga anual"
+    },
+    "account_two_year_paid": {
+        "message": "Assinatura paga de dois anos"
+    },
+    "account_max_devices_count": {
+        "message": "Até %num% dispositivos simultâneos"
     },
     "account_next_charge": {
-        "message": "(Próxima cobrança %date%)"
+        "message": "Próxima data de cobrança %date%"
     },
     "account_sign_out": {
         "message": "Sair"
@@ -158,17 +164,26 @@
     "auth_password": {
         "message": "Senha"
     },
+    "auth_your_password": {
+        "message": "Sua senha"
+    },
+    "auth_password_confirm": {
+        "message": "Confirmar senha"
+    },
     "auth_recover": {
         "message": "Esqueceu sua senha?"
     },
     "auth_sign_up": {
         "message": "Registrar"
     },
+    "auth_sign_up_info": {
+        "message": "Crie sua conta do AdGuard"
+    },
     "auth_sign_up_button": {
         "message": "Registrar"
     },
     "auth_sign_in": {
-        "message": "Entrar"
+        "message": "Digite a sua senha"
     },
     "auth_sign_in_button": {
         "message": "Entrar"
@@ -181,6 +196,9 @@
     },
     "auth_info": {
         "message": "Continuar com sua conta do AdGuard ou com entradas sociais"
+    },
+    "auth_sign_in_provider_adguard_label": {
+        "message": "E-mail"
     },
     "auth_sign_in_provider_adguard": {
         "message": "Continuar com o e-mail"
@@ -204,7 +222,7 @@
         "message": "Você entrou como <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
-        "message": "Você já tem uma conta <div>%username%</div>"
+        "message": "Você já tem uma conta <span>%username%</span>"
     },
     "auth_header_registration": {
         "message": "Você está se registrando como <div>%username%</div>"
@@ -237,7 +255,7 @@
         "message": "Obtenha tráfego de VPN grátis!"
     },
     "settings_referral_info": {
-        "message": "Convide seus amigos para se juntarem ao nosso clã ninja e obtenha mais tráfego VPN grátis por um mês. Receba %your_gb% GB para cada amigo que se inscrever: eles também ganham %friend_gb% GB extra grátis! Você pode conseguir %total_gb% GB no total gratuitamente."
+        "message": "Convide seus amigos para se juntarem ao nosso clã ninja e obtenha mais tráfego VPN grátis por um mês. Receba %your_gb% GB para cada amigo que se inscrever: eles também ganham %friend_gb% GB extra grátis! Você (usuário convidado) pode obter um máximo de %total_gb% GB extras gratuitamente."
     },
     "settings_referral_invited_friends": {
         "message": "Amigos convidados %limit%/%count%"
@@ -578,6 +596,21 @@
     "popup_feedback_button": {
         "message": "Deixar feedback"
     },
+    "popup_rate_modal_subtitle": {
+        "message": "Por favor, avalie-nos"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "Enviar"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "Cancelar"
+    },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "Ajude-nos a melhorar"
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
+        "message": "Deixar feedback"
+    },
     "settings_run_upgrade_early_bird": {
         "message": "Preços antecipados"
     },
@@ -678,11 +711,11 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 continentes e dezenas de países. Escolha uma cidade e navegue na Internet com segurança!"
     },
-    "popup_upgrade_screen_streaming_support": {
-        "message": "Suporte para streaming"
+    "popup_upgrade_screen_connect_devices": {
+        "message": "Até 5 dispositivos"
     },
-    "popup_upgrade_screen_streaming_support_desc": {
-        "message": "Todos os principais serviços de streaming estão disponíveis. Assista a qualquer coisa, em qualquer lugar!"
+    "popup_upgrade_screen_connect_devices_desc": {
+        "message": "Conecte todos os seus gadgets no AdGuard VPN ao mesmo tempo ou proteja a sua família inteira!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Streaming"

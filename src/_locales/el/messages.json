@@ -134,11 +134,17 @@
     "auth_password": {
         "message": "Κωδικός πρόσβασης"
     },
+    "auth_password_confirm": {
+        "message": "Επιβεβαίωση κωδικού"
+    },
     "auth_recover": {
         "message": "Ξεχάσατε τον κωδικό σας;"
     },
     "auth_sign_up": {
         "message": "Εγγραφή"
+    },
+    "auth_sign_up_info": {
+        "message": "Δημιουργήστε τον λογαριασμό σας AdGuard"
     },
     "auth_sign_up_button": {
         "message": "Εγγραφή"
@@ -154,6 +160,9 @@
     },
     "auth_title": {
         "message": "Εξουσιοδότηση"
+    },
+    "auth_sign_in_provider_adguard_label": {
+        "message": "Email"
     },
     "auth_sign_in_provider_apple": {
         "message": "Συνεχίστε με την Apple"
@@ -174,7 +183,7 @@
         "message": "Συνδεθήκατε ως <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
-        "message": "Έχετε ήδη λογαριασμό <div>%username%</div>"
+        "message": "Έχετε ήδη λογαριασμό <span>%username%</span>"
     },
     "auth_header_registration": {
         "message": "Εγγραφήκατε ως <div>%username%</div>"
@@ -455,6 +464,21 @@
     "popup_feedback_button": {
         "message": "Αφήστε τα σχόλιά σας"
     },
+    "popup_rate_modal_subtitle": {
+        "message": "Παρακαλούμε αξιολογήστε μας"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "Αποστολή"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "Ακύρωση"
+    },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "Βοηθήστε μας να βελτιωθούμε"
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
+        "message": "Αφήστε τα σχόλιά σας"
+    },
     "settings_run_upgrade_early_bird": {
         "message": "Πρώιμες τιμές"
     },
@@ -543,8 +567,8 @@
     "popup_upgrade_screen_all_locations": {
         "message": "Όλες οι τοποθεσίες"
     },
-    "popup_upgrade_screen_streaming_support": {
-        "message": "Υποστήριξη ροής (Stream)"
+    "popup_upgrade_screen_connect_devices": {
+        "message": "Έως 5 συσκευές"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Streaming"

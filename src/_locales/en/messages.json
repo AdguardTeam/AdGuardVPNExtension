@@ -194,9 +194,6 @@
     "auth_sign_in_button": {
         "message": "Log in"
     },
-    "auth_sign_in_link": {
-        "message": "Sign in with AdGuard account"
-    },
     "auth_title": {
         "message": "Log in or create an account"
     },
@@ -215,20 +212,8 @@
     "auth_sign_in_provider_facebook": {
         "message": "Continue with Facebook"
     },
-    "auth_header_sign_in_account": {
-        "message": "You are signing in with AdGuard account"
-    },
-    "auth_header_sign_up_create_account": {
-        "message": "By signing up you create your AdGuard account"
-    },
-    "auth_header_sign_in": {
-        "message": "You are logging in as <span>%username%</span>"
-    },
     "auth_header_sing_in_notice": {
         "message": "Logging in as <span>%username%</span>"
-    },
-    "auth_header_registration": {
-        "message": "You are signing up as <div>%username%</div>"
     },
     "auth_header_2fa_subtitle": {
         "message": "Two-factor authentication"
@@ -386,12 +371,6 @@
     "settings_exclusion_status_all_subdomains": {
         "message": "all subdomains"
     },
-    "settings_exclusion_service_settings_subtitle_regular_mode": {
-        "message": "AdGuard VPN is off for the checked domains"
-    },
-    "settings_exclusion_service_settings_subtitle_selective_mode": {
-        "message": "AdGuard VPN is on for the checked domains"
-    },
     "settings_exclusion_group_settings_subtitle_regular_mode": {
         "message": "AdGuard VPN is off for the checked domains and subdomains"
     },
@@ -464,20 +443,8 @@
     "settings_exclusions_remove_all_exclusions_message": {
         "message": "Are you sure you want to continue? The entire list of exclusions will be removed."
     },
-    "settings_exclusions_import_button": {
-        "message": "Import"
-    },
-    "settings_exclusions_export_button": {
-        "message": "Export"
-    },
-    "settings_exclusions_delete_button": {
-        "message": "Delete all"
-    },
     "settings_exclusion_title": {
         "message": "Exclusions"
-    },
-    "settings_connection_mode_title": {
-        "message": "Operating mode"
     },
     "settings_exclusion_change_mode": {
         "message": "Change mode"
@@ -493,12 +460,6 @@
     },
     "settings_exclusion_selective_description": {
         "message": "AdGuard VPN is on only for the websites added to exclusions"
-    },
-    "settings_exclusion_subdomains_title": {
-        "message": "Subdomains"
-    },
-    "settings_exclusion_subdomains_text": {
-        "message": "You can add domains (e.g. google.com) or all subdomains (e.g. *.google.com)"
     },
     "global_error_title": {
         "message": "Error occurred"
@@ -564,7 +525,7 @@
         "message": "Location not found"
     },
     "popup_traffic_limit_reached": {
-        "message": "Monthly data limit reached. Need more?"
+        "message": "Monthly data limit reached"
     },
     "premium_upgrade": {
         "message": "Upgrade"
@@ -625,30 +586,6 @@
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Go to the Chrome Store"
-    },
-    "settings_run_upgrade_early_bird": {
-        "message": "Early-bird prices"
-    },
-    "sale_title": {
-        "message": "What you get:"
-    },
-    "upgrade_features_data": {
-        "message": "Unlimited data"
-    },
-    "upgrade_features_speed": {
-        "message": "Light-speed servers"
-    },
-    "upgrade_features_all_locations": {
-        "message": "All locations"
-    },
-    "upgrade_features_devices": {
-        "message": "Up to 5 devices"
-    },
-    "upgrade_features_streaming": {
-        "message": "Streaming support"
-    },
-    "continue_us_free_button": {
-        "message": "Keep using for free"
     },
     "options_title": {
         "message": "AdGuard VPN Options"
@@ -732,9 +669,6 @@
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Connect all your gadgets to AdGuard VPN at the same time — or protect the entire family!"
     },
-    "popup_upgrade_screen_streaming": {
-        "message": "Streaming"
-    },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Upgrade"
     },
@@ -744,15 +678,6 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> remaining this month",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_selective_mode_popup_message": {
-        "message": "In Selective mode AdGuard VPN only works on allowed websites that you have added to the list."
-    },
-    "options_selective_mode_popup_button_switch_now": {
-        "message": "Switch now"
-    },
-    "options_selective_mode_popup_attention": {
-        "message": "Are you sure you want to switch?"
     },
     "options_exclusions_import_select_title": {
         "message": "Import exclusions to:"
@@ -827,7 +752,7 @@
         "message": "You have signed out of AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "Please note: your connection is not secure! To continue surfing privately, click the AdGuard VPN icon and sign in again."
+        "message": "Please note: you are not connected to VPN and your traffic is not protected! To continue surfing privately, click the AdGuard VPN icon and sign in again."
     },
     "notification_data_limit_reached_title": {
         "message": "You've reached the monthly data limit."
