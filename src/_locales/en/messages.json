@@ -755,7 +755,7 @@
         "message": "Please note: you are not connected to VPN and your traffic is not protected! To continue surfing privately, click the AdGuard VPN icon and sign in again."
     },
     "notification_data_limit_reached_title": {
-        "message": "You've reached the monthly data limit."
+        "message": "Monthly data limit reached"
     },
     "notification_data_limit_reached_description": {
         "message": "VPN connection speed has been reduced."
