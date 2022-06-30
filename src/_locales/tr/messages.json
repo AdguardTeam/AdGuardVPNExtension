@@ -194,9 +194,6 @@
     "auth_sign_in_button": {
         "message": "Giriş yap"
     },
-    "auth_sign_in_link": {
-        "message": "AdGuard hesabıyla giriş yap"
-    },
     "auth_title": {
         "message": "Giriş yap ya da bir hesap oluştur"
     },
@@ -215,20 +212,8 @@
     "auth_sign_in_provider_facebook": {
         "message": "Facebook ile devam et"
     },
-    "auth_header_sign_in_account": {
-        "message": "AdGuard hesabıyla giriş yapıyorsunuz"
-    },
-    "auth_header_sign_up_create_account": {
-        "message": "Kaydolarak AdGuard hesabınızı oluşturursunuz"
-    },
-    "auth_header_sign_in": {
-        "message": "<div>%username%</div> olarak giriş yapıyorsunuz "
-    },
     "auth_header_sing_in_notice": {
         "message": "<span>%username%</span> olarak giriş yapılıyor"
-    },
-    "auth_header_registration": {
-        "message": "<div>%username%</div> Olarak kaydoluyorsunuz"
     },
     "auth_header_2fa_subtitle": {
         "message": "İki faktörlü kimlik doğrulama"
@@ -315,13 +300,13 @@
         "message": "Cihazınızdaki reklamları ve izleyicileri kaldırır"
     },
     "settings_dns_selector_adguard_nonfiltering_title": {
-        "message": "AdGuard DNS Filtrelemeyen"
+        "message": "AdGuard DNS Non-filtering"
     },
     "settings_dns_selector_adguard_nonfiltering_desc": {
         "message": "Etkinlik günlüğü olmadan güvenli DNS (reklamları ve izleyicileri filtrelemez)"
     },
     "settings_dns_selector_adguard_family_title": {
-        "message": "AdGuard DNS Aile Koruması"
+        "message": "AdGuard DNS Family Protection"
     },
     "settings_dns_selector_adguard_family_desc": {
         "message": "AdGuard DNS + Güvenli Arama ve yetişkin içerik engelleme"
@@ -385,12 +370,6 @@
     },
     "settings_exclusion_status_all_subdomains": {
         "message": "tüm alt alan adları"
-    },
-    "settings_exclusion_service_settings_subtitle_regular_mode": {
-        "message": "AdGuard VPN, seçilen alan adları için kapalı"
-    },
-    "settings_exclusion_service_settings_subtitle_selective_mode": {
-        "message": "AdGuard VPN seçilen alan adları için açık"
     },
     "settings_exclusion_group_settings_subtitle_regular_mode": {
         "message": "AdGuard VPN, seçilen alan adları ve alt alan adları için kapalı"
@@ -464,20 +443,8 @@
     "settings_exclusions_remove_all_exclusions_message": {
         "message": "Devam etmek istediğinize emin misiniz? Tüm istisnalar listesi kaldırılacaktır."
     },
-    "settings_exclusions_import_button": {
-        "message": "İçe aktar"
-    },
-    "settings_exclusions_export_button": {
-        "message": "Dışa aktar"
-    },
-    "settings_exclusions_delete_button": {
-        "message": "Hepsini sil"
-    },
     "settings_exclusion_title": {
         "message": "İstisnalar"
-    },
-    "settings_connection_mode_title": {
-        "message": "Çalışma modu"
     },
     "settings_exclusion_change_mode": {
         "message": "Modu değiştir"
@@ -493,12 +460,6 @@
     },
     "settings_exclusion_selective_description": {
         "message": "AdGuard VPN yalnızca istisnalara eklenen siteler için açık"
-    },
-    "settings_exclusion_subdomains_title": {
-        "message": "Alt alan adı"
-    },
-    "settings_exclusion_subdomains_text": {
-        "message": "Alan adı (ör: google.com) veya tüm alt alan adı (ör: *.google.com) ekleyebilirsiniz"
     },
     "global_error_title": {
         "message": "Hata oluştu"
@@ -626,30 +587,6 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Chrome Mağazasına gidin"
     },
-    "settings_run_upgrade_early_bird": {
-        "message": "Erken rezervasyon fiyatları"
-    },
-    "sale_title": {
-        "message": "Elde edeceğiniz:"
-    },
-    "upgrade_features_data": {
-        "message": "Sınırsız veri"
-    },
-    "upgrade_features_speed": {
-        "message": "Işık hızı sunucular"
-    },
-    "upgrade_features_all_locations": {
-        "message": "Tüm konumlar"
-    },
-    "upgrade_features_devices": {
-        "message": "5 cihaza kadar"
-    },
-    "upgrade_features_streaming": {
-        "message": "Akış desteği"
-    },
-    "continue_us_free_button": {
-        "message": "Ücretsiz kullanmaya devam et"
-    },
     "options_title": {
         "message": "AdGuard VPN Ayarları"
     },
@@ -732,9 +669,6 @@
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Tüm cihazlarınızı aynı anda AdGuard VPN'e bağlayın — veya tüm aileyi koruyun!"
     },
-    "popup_upgrade_screen_streaming": {
-        "message": "Yayın akışı"
-    },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Yükselt"
     },
@@ -744,15 +678,6 @@
     "popup_free_traffic_info": {
         "message": "Bu ay <span>%value% %unit%</span> kaldı",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_selective_mode_popup_message": {
-        "message": "Seçici modda AdGuard VPN, yalnızca listeye eklediğiniz izin verilen sitelerde çalışır."
-    },
-    "options_selective_mode_popup_button_switch_now": {
-        "message": "Şimdi değiştir"
-    },
-    "options_selective_mode_popup_attention": {
-        "message": "Değiştirmek istediğinize emin misiniz?"
     },
     "options_exclusions_import_select_title": {
         "message": "İstisnaları içe aktar:"
@@ -827,6 +752,12 @@
         "message": "AdGuard VPN'den çıkış yaptınız"
     },
     "options_signedout_page_description": {
-        "message": "Lütfen dikkat: bağlantınız güvenli değil! Gizli olarak gezinmeye devam etmek için AdGuard VPN simgesine tıklayın ve tekrar giriş yapın."
+        "message": "Lütfen unutmayın: VPN'e bağlı değilsiniz ve trafiğiniz korunmuyor! Gizli olarak gezinmeye devam etmek için AdGuard VPN simgesine tıklayın ve tekrar giriş yapın."
+    },
+    "notification_data_limit_reached_title": {
+        "message": "Aylık veri sınırına ulaşıldı"
+    },
+    "notification_data_limit_reached_description": {
+        "message": "VPN bağlantı hızı düşürüldü."
     }
 }

@@ -8,9 +8,6 @@
     "registration_error_not_valid": {
         "message": "Detta värde är ogiltigt"
     },
-    "registration_error_min_length": {
-        "message": "Lösenordet är för kort. Den måste innehålla minst 8 tecken."
-    },
     "registration_error_unique_constraint": {
         "message": "Användarnamnet är redan taget"
     },
@@ -71,18 +68,6 @@
     "account_version": {
         "message": "Version"
     },
-    "account_current_plan": {
-        "message": "Nuvarande plan"
-    },
-    "account_free": {
-        "message": "Gratis"
-    },
-    "account_unlimited": {
-        "message": "Obegränsad"
-    },
-    "account_sign_out": {
-        "message": "Logga ut"
-    },
     "rate_hide": {
         "message": "Dölj"
     },
@@ -109,9 +94,6 @@
     },
     "auth_sign_up_button": {
         "message": "Registrera dig"
-    },
-    "auth_sign_in": {
-        "message": "Logga in"
     },
     "auth_sign_in_button": {
         "message": "Logga in"
@@ -215,9 +197,6 @@
     "settings_exclusion_add": {
         "message": "Lägg till"
     },
-    "settings_exclusion_add_website": {
-        "message": "Lägg till en webbplats"
-    },
     "settings_exclusion_actions": {
         "message": "Åtgärder"
     },
@@ -269,20 +248,8 @@
     "settings_exclusions_action_remove_all": {
         "message": "Ta bort alla"
     },
-    "settings_exclusions_import_button": {
-        "message": "Importera"
-    },
-    "settings_exclusions_export_button": {
-        "message": "Exportera"
-    },
-    "settings_exclusions_delete_button": {
-        "message": "Radera alla"
-    },
     "settings_exclusion_title": {
         "message": "Exkluderingar"
-    },
-    "settings_connection_mode_title": {
-        "message": "Driftläge"
     },
     "settings_exclusion_selective_title": {
         "message": "Selektivt läge"
@@ -365,21 +332,8 @@
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "Lämna feedback"
     },
-    "upgrade_features_data": {
-        "message": "Obegränsad data"
-    },
-    "upgrade_features_all_locations": {
-        "message": "Alla platser"
-    },
-    "upgrade_features_devices": {
-        "message": "Upp till 5 enheter"
-    },
     "offline_title": {
         "message": "Offline"
-    },
-    "popup_auth_policy_agreement": {
-        "message": "Acceptera <eula>EULA</eula> och <privacy>Integritetspolicy</privacy>",
-        "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Fortsätt"
@@ -410,9 +364,6 @@
     },
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 kontinenter och dussintals länder. Välj en stad och surfa säkert på nätet!"
-    },
-    "popup_upgrade_screen_connect_devices": {
-        "message": "Upp till 5 enheter"
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Uppgradera"

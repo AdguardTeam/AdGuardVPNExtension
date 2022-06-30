@@ -194,9 +194,6 @@
     "auth_sign_in_button": {
         "message": "Aanmelden"
     },
-    "auth_sign_in_link": {
-        "message": "Aanmelden met AdGuard account"
-    },
     "auth_title": {
         "message": "Aanmelden bij of registreren van een account"
     },
@@ -215,20 +212,8 @@
     "auth_sign_in_provider_facebook": {
         "message": "Doorgaan met Facebook"
     },
-    "auth_header_sign_in_account": {
-        "message": "Je meldt je aan met je AdGuard account"
-    },
-    "auth_header_sign_up_create_account": {
-        "message": "Door je te registreren maak je een AdGuard account aan"
-    },
-    "auth_header_sign_in": {
-        "message": "Je meldt je aan als <div>%username%</div> "
-    },
     "auth_header_sing_in_notice": {
         "message": "Aanmelden als <span>%username%</span>"
-    },
-    "auth_header_registration": {
-        "message": "Je registreert je als <div>%username%</div>"
     },
     "auth_header_2fa_subtitle": {
         "message": "Two-factor authenticatie"
@@ -386,12 +371,6 @@
     "settings_exclusion_status_all_subdomains": {
         "message": "alle subdomeinen"
     },
-    "settings_exclusion_service_settings_subtitle_regular_mode": {
-        "message": "AdGuard VPN is uitgeschakeld voor de geselecteerde domeinen"
-    },
-    "settings_exclusion_service_settings_subtitle_selective_mode": {
-        "message": "AdGuard VPN is ingeschakeld voor de geselecteerde domeinen"
-    },
     "settings_exclusion_group_settings_subtitle_regular_mode": {
         "message": "AdGuard VPN is uitgeschakeld voor de geselecteerde domeinen en subdomeinen"
     },
@@ -464,20 +443,8 @@
     "settings_exclusions_remove_all_exclusions_message": {
         "message": "Weet je zeker dat je door wilt gaan? De volledige lijst met uitsluitingen wordt verwijderd."
     },
-    "settings_exclusions_import_button": {
-        "message": "Importeren"
-    },
-    "settings_exclusions_export_button": {
-        "message": "Exporteren"
-    },
-    "settings_exclusions_delete_button": {
-        "message": "Alles verwijderen"
-    },
     "settings_exclusion_title": {
         "message": "Uitzonderingen"
-    },
-    "settings_connection_mode_title": {
-        "message": "Werkingsmodus"
     },
     "settings_exclusion_change_mode": {
         "message": "Modus wijzigen"
@@ -493,12 +460,6 @@
     },
     "settings_exclusion_selective_description": {
         "message": "AdGuard VPN is alleen actief op de websites uit deze lijst"
-    },
-    "settings_exclusion_subdomains_title": {
-        "message": "Subdomeinen"
-    },
-    "settings_exclusion_subdomains_text": {
-        "message": "Je kunt domeinen toevoegen (bijv. google.com) of alle subdomeinen (bijv. *.google.com)"
     },
     "global_error_title": {
         "message": "Er is een fout opgetreden"
@@ -626,30 +587,6 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Naar de Chrome Store gaan"
     },
-    "settings_run_upgrade_early_bird": {
-        "message": "Early-bird prijzen"
-    },
-    "sale_title": {
-        "message": "Je krijgt:"
-    },
-    "upgrade_features_data": {
-        "message": "Onbeperkte data"
-    },
-    "upgrade_features_speed": {
-        "message": "Supersnelle servers"
-    },
-    "upgrade_features_all_locations": {
-        "message": "Alle locaties"
-    },
-    "upgrade_features_devices": {
-        "message": "Maximaal 5 apparaten"
-    },
-    "upgrade_features_streaming": {
-        "message": "Ondersteuning voor streaming"
-    },
-    "continue_us_free_button": {
-        "message": "Gratis blijven gebruiken"
-    },
     "options_title": {
         "message": "AdGuard VPN Opties"
     },
@@ -732,9 +669,6 @@
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Verbind al je gadgets tegelijkertijd met AdGuard VPN - of bescherm het hele gezin!"
     },
-    "popup_upgrade_screen_streaming": {
-        "message": "Streamen"
-    },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Upgraden"
     },
@@ -744,15 +678,6 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> nog over deze maand",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_selective_mode_popup_message": {
-        "message": "In Selectieve modus werkt AdGuard VPN enkel voor toegestane websites die je aan de lijst hebt toegevoegd."
-    },
-    "options_selective_mode_popup_button_switch_now": {
-        "message": "Nu wisselen"
-    },
-    "options_selective_mode_popup_attention": {
-        "message": "Weet je zeker dat je wil wisselen?"
     },
     "options_exclusions_import_select_title": {
         "message": "Uitzonderingen importeren naar:"
@@ -827,6 +752,12 @@
         "message": "Je bent afgemeld bij AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "Houd er rekening mee dat je verbinding niet beveiligd is! Om privé verder te surfen, klik op het AdGuard VPN-pictogram en meld je opnieuw aan."
+        "message": "Let op: je bent niet verbonden met VPN en je verkeer is niet beveiligd! Om privé verder te surfen, klik je op het AdGuard VPN-pictogram en meld je opnieuw aan."
+    },
+    "notification_data_limit_reached_title": {
+        "message": "Maandelijkse datalimiet bereikt"
+    },
+    "notification_data_limit_reached_description": {
+        "message": "VPN-verbindingssnelheid is verlaagd."
     }
 }

@@ -194,9 +194,6 @@
     "auth_sign_in_button": {
         "message": "Log ind"
     },
-    "auth_sign_in_link": {
-        "message": "Log ind med AdGuard-konto"
-    },
     "auth_title": {
         "message": "Log ind eller opret en konto"
     },
@@ -215,20 +212,8 @@
     "auth_sign_in_provider_facebook": {
         "message": "Fortsæt med Facebook"
     },
-    "auth_header_sign_in_account": {
-        "message": "Du logger ind med AdGuard-konto"
-    },
-    "auth_header_sign_up_create_account": {
-        "message": "Ved at tilmelde dig opretter du din AdGuard-konto"
-    },
-    "auth_header_sign_in": {
-        "message": "Du logger ind som <span>%username%</span>"
-    },
     "auth_header_sing_in_notice": {
         "message": "Logger ind som <span>%username%</span>"
-    },
-    "auth_header_registration": {
-        "message": "Du tilmelder dig som <div>%username%</div>"
     },
     "auth_header_2fa_subtitle": {
         "message": "Tofaktorgodkendelse"
@@ -386,12 +371,6 @@
     "settings_exclusion_status_all_subdomains": {
         "message": "alle underdomæner"
     },
-    "settings_exclusion_service_settings_subtitle_regular_mode": {
-        "message": "AdGuard VPN er slået fra for afkrydsede domæner"
-    },
-    "settings_exclusion_service_settings_subtitle_selective_mode": {
-        "message": "AdGuard VPN er slået til for afkrydsede domæner"
-    },
     "settings_exclusion_group_settings_subtitle_regular_mode": {
         "message": "AdGuard VPN er slået fra for afkrydsede domæner og underdomæner"
     },
@@ -464,20 +443,8 @@
     "settings_exclusions_remove_all_exclusions_message": {
         "message": "Sikker på, at du vil fortsætte? Hele listen over undtagelser fjernes."
     },
-    "settings_exclusions_import_button": {
-        "message": "Importér"
-    },
-    "settings_exclusions_export_button": {
-        "message": "Eksportér"
-    },
-    "settings_exclusions_delete_button": {
-        "message": "Vælg alle"
-    },
     "settings_exclusion_title": {
         "message": "Undtagelser"
-    },
-    "settings_connection_mode_title": {
-        "message": "Driftstilstand"
     },
     "settings_exclusion_change_mode": {
         "message": "Skift tilstand"
@@ -493,12 +460,6 @@
     },
     "settings_exclusion_selective_description": {
         "message": "AdGuard VPN fungerer kun for de websteder, som er føjet til undtagelser"
-    },
-    "settings_exclusion_subdomains_title": {
-        "message": "Underdomæner"
-    },
-    "settings_exclusion_subdomains_text": {
-        "message": "Du kan tilføje domæner (f.eks. google.com) eller alle underdomæner (f.eks. *.google.com)"
     },
     "global_error_title": {
         "message": "Fejl opstået"
@@ -626,30 +587,6 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Gå til Chrome Web Store"
     },
-    "settings_run_upgrade_early_bird": {
-        "message": "Early-bird priser"
-    },
-    "sale_title": {
-        "message": "Hvad du får:"
-    },
-    "upgrade_features_data": {
-        "message": "Ubegrænset data"
-    },
-    "upgrade_features_speed": {
-        "message": "Ultrahurtige servere"
-    },
-    "upgrade_features_all_locations": {
-        "message": "Alle placeringer"
-    },
-    "upgrade_features_devices": {
-        "message": "Op til 5 enheder"
-    },
-    "upgrade_features_streaming": {
-        "message": "Streamingsupport"
-    },
-    "continue_us_free_button": {
-        "message": "Fortsæt med at bruge gratis"
-    },
     "options_title": {
         "message": "AdGuard VPN Indstillinger"
     },
@@ -732,9 +669,6 @@
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Forbind alle dine gadgets til AdGuard VPN på samme tid — eller beskyt hele familien!"
     },
-    "popup_upgrade_screen_streaming": {
-        "message": "Streaming"
-    },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Opgradere"
     },
@@ -744,15 +678,6 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> tilbage denne måned",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_selective_mode_popup_message": {
-        "message": "I Selektiv tilstand fungerer AdGuard VPN kun på tilladte websteder, som du har føjet til listen."
-    },
-    "options_selective_mode_popup_button_switch_now": {
-        "message": "Skift nu"
-    },
-    "options_selective_mode_popup_attention": {
-        "message": "Sikker på, at du vil skifte?"
     },
     "options_exclusions_import_select_title": {
         "message": "Importere undtagelser til:"
@@ -827,6 +752,12 @@
         "message": "Du er logget ud af AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "Bemærk: Forbindelsen er ikke er sikker! For fortsat at surfe anonymt, så klik på AdGuard VPN-ikonet, og log ind igen."
+        "message": "Bemærk: Der er ikke forbundet til VPN, og trafikken er ikke beskyttet! For fortsat at surfe anonymt, så klik på AdGuard VPN-ikonet, og log ind igen."
+    },
+    "notification_data_limit_reached_title": {
+        "message": "Månedlig datakvote opbrugt"
+    },
+    "notification_data_limit_reached_description": {
+        "message": "VPN-forbindelseshastigheden reduceret nu."
     }
 }

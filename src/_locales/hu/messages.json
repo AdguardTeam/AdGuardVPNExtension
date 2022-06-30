@@ -11,9 +11,6 @@
     "registration_error_not_valid": {
         "message": "Érvénytelen érték"
     },
-    "registration_error_min_length": {
-        "message": "A jelszó túl rövid. Legalább 8 karaktert kell tartalmaznia."
-    },
     "registration_error_compromised_password": {
         "message": "A megadott jelszó szerepel a nem biztonságos jelszavak <a>nyilvános adatbázisában</a>. Kérjük, válasszon másik jelszót."
     },
@@ -113,29 +110,8 @@
     "account_title": {
         "message": "Fiók"
     },
-    "account_edit": {
-        "message": "Kezelés"
-    },
     "account_version": {
         "message": "Verzió"
-    },
-    "account_current_plan": {
-        "message": "Jelenlegi csomag"
-    },
-    "account_signed": {
-        "message": "Bejelentkezve ezzel: "
-    },
-    "account_free": {
-        "message": "Ingyenes"
-    },
-    "account_unlimited": {
-        "message": "Korlátlan"
-    },
-    "account_next_charge": {
-        "message": "(Következő számlázás %date%)"
-    },
-    "account_sign_out": {
-        "message": "Kijelentkezés"
     },
     "account_unlimited_title": {
         "message": "Szerezze meg a korlátlan verziót!"
@@ -170,26 +146,11 @@
     "auth_sign_up_button": {
         "message": "Regisztráció"
     },
-    "auth_sign_in": {
-        "message": "Bejelentkezés"
-    },
     "auth_sign_in_button": {
         "message": "Belépés"
     },
-    "auth_sign_in_link": {
-        "message": "Bejelentkezés AdGuard fiókkal"
-    },
-    "auth_title": {
-        "message": "Hitelesítés"
-    },
-    "auth_info": {
-        "message": "Folytatás AdGuard vagy közösségi média fiókkal"
-    },
     "auth_sign_in_provider_adguard_label": {
         "message": "Email"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Folytatás E-mail címmel"
     },
     "auth_sign_in_provider_apple": {
         "message": "Folytatás Apple fiókkal"
@@ -199,21 +160,6 @@
     },
     "auth_sign_in_provider_facebook": {
         "message": "Folytatás Facebook fiókkal"
-    },
-    "auth_header_sign_in_account": {
-        "message": "Bejelentkezés AdGuard fiókkal"
-    },
-    "auth_header_sign_up_create_account": {
-        "message": "A bejelentkezéssel létrehoz egy AdGuard fiókot"
-    },
-    "auth_header_sign_in": {
-        "message": "<div>%username%</div> néven regisztrál "
-    },
-    "auth_header_sing_in_notice": {
-        "message": "Önnek már van fiókja <span>%username%</span>"
-    },
-    "auth_header_registration": {
-        "message": "<div>%username%</div> néven lép be"
     },
     "auth_header_2fa_subtitle": {
         "message": "Kétfaktoros hitelesítés"
@@ -238,9 +184,6 @@
     },
     "referral_get_free_traffic": {
         "message": "Ingyenes VPN forgalom beszerzése!"
-    },
-    "settings_referral_info": {
-        "message": "Hívja meg ismetőseit, hogy csatlakozzanak az AdGuard VPN-hez, és ezzel további ingyenes VPN forgalmat kap egy hónapig. Kapjon %your_gb% GB-ot minden egyes barátja után, aki regisztrál: ők is kapnak %friend_gb% GB extra ingyen! Ilyen módon akár %total_gb% GB-ot is kaphat ingyen."
     },
     "settings_referral_invited_friends": {
         "message": "Meghívott ismerősök %count%/%limit%"
@@ -368,12 +311,6 @@
     "settings_exclusion_status_all_subdomains": {
         "message": "minden aldomain"
     },
-    "settings_exclusion_service_settings_subtitle_regular_mode": {
-        "message": "Az AdGuard VPN ki van kapcsolva a jelölt domain címeken"
-    },
-    "settings_exclusion_service_settings_subtitle_selective_mode": {
-        "message": "Az AdGuard VPN be van kapcsolva a bejelölt domain címeken"
-    },
     "settings_exclusion_group_settings_subtitle_regular_mode": {
         "message": "Az AdGuard VPN ki van kapcsolva a jelölt domaineken és aldomaineken"
     },
@@ -446,20 +383,8 @@
     "settings_exclusions_remove_all_exclusions_message": {
         "message": "Biztosan folytatja? A kivételek teljes listája törölve lesz."
     },
-    "settings_exclusions_import_button": {
-        "message": "Importálás"
-    },
-    "settings_exclusions_export_button": {
-        "message": "Exportálás"
-    },
-    "settings_exclusions_delete_button": {
-        "message": "Összes törlése"
-    },
     "settings_exclusion_title": {
         "message": "Kivételek"
-    },
-    "settings_connection_mode_title": {
-        "message": "Működés módja"
     },
     "settings_exclusion_change_mode": {
         "message": "Módváltás"
@@ -475,12 +400,6 @@
     },
     "settings_exclusion_selective_description": {
         "message": "Az AdGuard VPN csak a listán szereplő webhelyeken működik"
-    },
-    "settings_exclusion_subdomains_title": {
-        "message": "Aldomainek"
-    },
-    "settings_exclusion_subdomains_text": {
-        "message": "Hozzáadhat domaineket (pl. google.hu) vagy aldomaineket (pl. *.google.hu)"
     },
     "global_error_title": {
         "message": "Hiba történt"
@@ -545,9 +464,6 @@
     "endpoints_not_found": {
         "message": "Nem található helyszín"
     },
-    "popup_traffic_limit_reached": {
-        "message": "A havi adatkeret elhasználva. Többre van szüksége?"
-    },
     "premium_upgrade": {
         "message": "Frissítés"
     },
@@ -596,30 +512,6 @@
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "Visszajelzés küldése"
     },
-    "settings_run_upgrade_early_bird": {
-        "message": "Korai árak"
-    },
-    "sale_title": {
-        "message": "Mit kap Ön:"
-    },
-    "upgrade_features_data": {
-        "message": "Korlátlan adatkeret"
-    },
-    "upgrade_features_speed": {
-        "message": "Villámgyors szerverek"
-    },
-    "upgrade_features_all_locations": {
-        "message": "Minden végpont"
-    },
-    "upgrade_features_devices": {
-        "message": "5 eszközig"
-    },
-    "upgrade_features_streaming": {
-        "message": "Streaming támogatás"
-    },
-    "continue_us_free_button": {
-        "message": "Folytatás ingyen"
-    },
     "options_title": {
         "message": "AdGuard VPN Beállítások"
     },
@@ -631,13 +523,6 @@
     },
     "popup_site_status_vpn_disabled": {
         "message": "A VPN le van tiltva ezen a webhelyen"
-    },
-    "popup_auth_policy_agreement": {
-        "message": "Elfogadom az <eula>Végfelhasználói licencszerződést</eula> és az <privacy>Adatvédelmi irányelveket</privacy>",
-        "description": "WARNING! Respect spaces between tags"
-    },
-    "popup_auth_help_us_improve_agreement": {
-        "message": "Engedélyezem az AdGuard számára, hogy <link>névtelen adatokat</link> küldjön az alkalmazás használatával kapcsolatban, segítve ezzel az AdGuar VPN jobbá tételében"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Folytatás"
@@ -697,10 +582,7 @@
         "message": "6 kontinens és több tucat ország. Válasszon várost és böngésszen biztonságosan a neten!"
     },
     "popup_upgrade_screen_connect_devices": {
-        "message": "5 eszközig"
-    },
-    "popup_upgrade_screen_streaming": {
-        "message": "Streaming"
+        "message": "Akár 5 eszközre"
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Frissítés"
@@ -711,15 +593,6 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> maradt ebben a hónapban",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_selective_mode_popup_message": {
-        "message": "A szelektív módban az AdGuard VPN csak azokkal az engedélyezett webhelyekkel megy, amelyeket hozzáadott a listához."
-    },
-    "options_selective_mode_popup_button_switch_now": {
-        "message": "Váltás most"
-    },
-    "options_selective_mode_popup_attention": {
-        "message": "Biztos váltani szeretne?"
     },
     "options_exclusions_import_select_title": {
         "message": "Kizárások importálása ide:"
@@ -792,9 +665,6 @@
     },
     "options_signedout_page_title": {
         "message": "Kijelentkezett az AdGuard VPN-ből"
-    },
-    "options_signedout_page_description": {
-        "message": "Az Ön kapcsolata nem biztonságos. A privát böngészés folytatásához kattintson az AdGuard VPN ikonra és jelentkezzen be ismét."
     },
     "name": {
         "message": "AdGuard VPN — free & secure proxy"

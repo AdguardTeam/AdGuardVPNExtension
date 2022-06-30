@@ -194,9 +194,6 @@
     "auth_sign_in_button": {
         "message": "登入"
     },
-    "auth_sign_in_link": {
-        "message": "用 AdGuard 帳戶登入"
-    },
     "auth_title": {
         "message": "登入或創建帳戶"
     },
@@ -215,20 +212,8 @@
     "auth_sign_in_provider_facebook": {
         "message": "用 Facebook 繼續"
     },
-    "auth_header_sign_in_account": {
-        "message": "您正在用 AdGuard 帳戶登入"
-    },
-    "auth_header_sign_up_create_account": {
-        "message": "透過註冊，您創建您的 AdGuard 帳戶"
-    },
-    "auth_header_sign_in": {
-        "message": "您正在以 <div>%username%</div> 登入"
-    },
     "auth_header_sing_in_notice": {
         "message": "以 <span>%username%</span> 登入"
-    },
-    "auth_header_registration": {
-        "message": "您正在以 <div>%username%</div> 註冊"
     },
     "auth_header_2fa_subtitle": {
         "message": "雙因素驗證"
@@ -386,12 +371,6 @@
     "settings_exclusion_status_all_subdomains": {
         "message": "所有子網域"
     },
-    "settings_exclusion_service_settings_subtitle_regular_mode": {
-        "message": "AdGuard VPN 已為所選的網域禁用"
-    },
-    "settings_exclusion_service_settings_subtitle_selective_mode": {
-        "message": "AdGuard VPN 已為所選的網域啟用"
-    },
     "settings_exclusion_group_settings_subtitle_regular_mode": {
         "message": "AdGuard VPN 已為所選的網域和子網域禁用"
     },
@@ -464,20 +443,8 @@
     "settings_exclusions_remove_all_exclusions_message": {
         "message": "您確定您想要繼續嗎？例外的整個清單將被移除。"
     },
-    "settings_exclusions_import_button": {
-        "message": "匯入"
-    },
-    "settings_exclusions_export_button": {
-        "message": "匯出"
-    },
-    "settings_exclusions_delete_button": {
-        "message": "全部刪除"
-    },
     "settings_exclusion_title": {
         "message": "例外"
-    },
-    "settings_connection_mode_title": {
-        "message": "運作模式"
     },
     "settings_exclusion_change_mode": {
         "message": "更改模式"
@@ -493,12 +460,6 @@
     },
     "settings_exclusion_selective_description": {
         "message": "AdGuard VPN 僅對被加至例外中的網站為開著"
-    },
-    "settings_exclusion_subdomains_title": {
-        "message": "子網域"
-    },
-    "settings_exclusion_subdomains_text": {
-        "message": "您可新增網域（例如，google.com）或所有的子網域（例如，*.google.com）"
     },
     "global_error_title": {
         "message": "錯誤已發生"
@@ -626,30 +587,6 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "前往 Chrome 應用商店"
     },
-    "settings_run_upgrade_early_bird": {
-        "message": "早鳥價格"
-    },
-    "sale_title": {
-        "message": "您得到的事物："
-    },
-    "upgrade_features_data": {
-        "message": "無限的流量"
-    },
-    "upgrade_features_speed": {
-        "message": "光速的伺服器"
-    },
-    "upgrade_features_all_locations": {
-        "message": "所有的位置"
-    },
-    "upgrade_features_devices": {
-        "message": "高達 5 台裝置"
-    },
-    "upgrade_features_streaming": {
-        "message": "串流支援"
-    },
-    "continue_us_free_button": {
-        "message": "免費地繼續使用"
-    },
     "options_title": {
         "message": "AdGuard VPN 選項"
     },
@@ -732,9 +669,6 @@
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "將自己的所有裝置同時連線到 AdGuard VPN，或者保護全家的隱私安全！"
     },
-    "popup_upgrade_screen_streaming": {
-        "message": "串流"
-    },
     "popup_upgrade_screen_upgrade_button": {
         "message": "升級"
     },
@@ -744,15 +678,6 @@
     "popup_free_traffic_info": {
         "message": "本月剩餘 <span>%value% %unit%</span>",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_selective_mode_popup_message": {
-        "message": "在選擇性模式下，AdGuard VPN 僅對您已加至該清單之已允許的網站起作用。"
-    },
-    "options_selective_mode_popup_button_switch_now": {
-        "message": "立即轉換"
-    },
-    "options_selective_mode_popup_attention": {
-        "message": "您確定您想要轉換嗎？"
     },
     "options_exclusions_import_select_title": {
         "message": "匯入例外至："
@@ -827,6 +752,12 @@
         "message": "您已登出 AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "請注意：您的連線為不安全的！要繼續秘密地瀏覽，點擊 AdGuard VPN 圖示並再次登入。"
+        "message": "請注意：您未連線 VPN，因此您的流量不受保護！要繼續秘密地瀏覽，點擊 AdGuard VPN 圖示並再次登入。"
+    },
+    "notification_data_limit_reached_title": {
+        "message": "已達到每月的流量限制"
+    },
+    "notification_data_limit_reached_description": {
+        "message": "VPN 連接速度下降"
     }
 }
