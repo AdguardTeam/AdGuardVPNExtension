@@ -282,7 +282,10 @@
         "message": "General mode"
     },
     "settings_dns_label": {
-        "message": "Use DNS server"
+        "message": "DNS server"
+    },
+    "settings_dns_popular_servers": {
+        "message": "Popular DNS servers"
     },
     "settings_dns_desc": {
         "message": "Domain Name System (DNS) is the internet's equivalent of a phone book. It maintains a directory of domain names and translates them to Internet Protocol (IP) addresses."

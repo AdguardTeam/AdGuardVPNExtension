@@ -96,6 +96,9 @@ export class SettingsStore {
     };
 
     @action setDnsServer = async (value) => {
+        if (!value) {
+            return;
+        }
         await messenger.setSetting(SETTINGS_IDS.SELECTED_DNS_SERVER, value);
         runInAction(() => {
             this.dnsServer = value;

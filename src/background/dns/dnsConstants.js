@@ -15,24 +15,24 @@ export const DNS_SERVERS = {
         ip1: '',
         ip2: '',
     },
-    'adguard-dns': {
-        title: translator.getMessage('settings_dns_selector_adguard_title'),
-        desc: translator.getMessage('settings_dns_selector_adguard_desc'),
-        ip1: '94.140.14.14',
-        ip2: '94.140.15.15',
-    },
-    'adguard-dns-non-filtering': {
-        title: translator.getMessage('settings_dns_selector_adguard_nonfiltering_title'),
-        desc: translator.getMessage('settings_dns_selector_adguard_nonfiltering_desc'),
-        ip1: '94.140.14.140',
-        ip2: '94.140.14.141',
-    },
-    'adguard-dns-family': {
-        title: translator.getMessage('settings_dns_selector_adguard_family_title'),
-        desc: translator.getMessage('settings_dns_selector_adguard_family_desc'),
-        ip1: '94.140.14.15',
-        ip2: '94.140.15.16',
-    },
+    // 'adguard-dns': {
+    //     title: translator.getMessage('settings_dns_selector_adguard_title'),
+    //     desc: translator.getMessage('settings_dns_selector_adguard_desc'),
+    //     ip1: '94.140.14.14',
+    //     ip2: '94.140.15.15',
+    // },
+    // 'adguard-dns-non-filtering': {
+    //     title: translator.getMessage('settings_dns_selector_adguard_nonfiltering_title'),
+    //     desc: translator.getMessage('settings_dns_selector_adguard_nonfiltering_desc'),
+    //     ip1: '94.140.14.140',
+    //     ip2: '94.140.14.141',
+    // },
+    // 'adguard-dns-family': {
+    //     title: translator.getMessage('settings_dns_selector_adguard_family_title'),
+    //     desc: translator.getMessage('settings_dns_selector_adguard_family_desc'),
+    //     ip1: '94.140.14.15',
+    //     ip2: '94.140.15.16',
+    // },
     'google-dns': {
         title: translator.getMessage('settings_dns_selector_google_title'),
         desc: translator.getMessage('settings_dns_selector_google_desc'),
@@ -58,3 +58,5 @@ export const DNS_SERVERS = {
         ip2: '149.112.112.112',
     },
 };
+
+export const DNS_SETTINGS_QUERY = 'dns_settings';
