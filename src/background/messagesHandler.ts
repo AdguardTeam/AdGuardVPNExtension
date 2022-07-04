@@ -50,6 +50,7 @@ const getOptionsData = async () => {
     const appearanceTheme = settings.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
     const vpnInfo = await endpoints.getVpnInfo();
     const maxDevicesCount = vpnInfo?.maxDevicesCount;
+    const customDnsServers = settings.getSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS);
 
     const exclusionsData: ExclusionsData = {
         exclusions: exclusions.getExclusions(),
@@ -86,6 +87,7 @@ const getOptionsData = async () => {
         isAllExclusionsListsEmpty,
         maxDevicesCount,
         subscriptionType,
+        customDnsServers,
     };
 };
 
@@ -355,6 +357,14 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         }
         case MessageType.RESTORE_EXCLUSIONS: {
             return exclusions.restoreExclusions();
+        }
+        case MessageType.ADD_CUSTOM_DNS_SERVER: {
+            const { dnsServerData } = data;
+            return settings.addCustomDnsServer(dnsServerData);
+        }
+        case MessageType.REMOVE_CUSTOM_DNS_SERVER: {
+            const { dnsServerId } = data;
+            return settings.removeCustomDnsServer(dnsServerId);
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

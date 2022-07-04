@@ -15,6 +15,7 @@ export const DNS_SERVERS = {
         ip1: '',
         ip2: '',
     },
+    // FIXME: uncomment adguard servers
     // 'adguard-dns': {
     //     title: translator.getMessage('settings_dns_selector_adguard_title'),
     //     desc: translator.getMessage('settings_dns_selector_adguard_desc'),

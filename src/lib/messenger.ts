@@ -370,6 +370,16 @@ class Messenger {
         const type = MessageType.ADD_EXCLUSIONS_MAP;
         return this.sendMessage(type, { exclusionsMap });
     }
+
+    addCustomDnsServer(dnsServerData: any) {
+        const type = MessageType.ADD_CUSTOM_DNS_SERVER;
+        return this.sendMessage(type, { dnsServerData });
+    }
+
+    removeCustomDnsServer(dnsServerId: string) {
+        const type = MessageType.REMOVE_CUSTOM_DNS_SERVER;
+        return this.sendMessage(type, { dnsServerId });
+    }
 }
 
 export const messenger = new Messenger();

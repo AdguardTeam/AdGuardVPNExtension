@@ -287,6 +287,27 @@
     "settings_dns_popular_servers": {
         "message": "Popular DNS servers"
     },
+    "settings_dns_custom_servers": {
+        "message": "Custom DNS servers"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "Add a custom DNS server"
+    },
+    "settings_dns_edit_custom_server": {
+        "message": "Edit custom DNS server"
+    },
+    "settings_dns_add_custom_server_info": {
+        "message": "<a>Read more</a> about DNS servers"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "Server name"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "DNS server address"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "Save and select"
+    },
     "settings_dns_desc": {
         "message": "Domain Name System (DNS) is the internet's equivalent of a phone book. It maintains a directory of domain names and translates them to Internet Protocol (IP) addresses."
     },

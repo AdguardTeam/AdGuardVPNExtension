@@ -23,6 +23,13 @@ const Icons = () => (
             <path fillRule="evenodd" clipRule="evenodd" d="M10.5 12V17V12Z" stroke="#A4A4A4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
 
+        <svg id="edit" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 20.5H19.9828" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path fillRule="evenodd" clipRule="evenodd" d="M10.7783 16.4351L6.53568 12.1924L13.6067 5.12135C14.7783 3.94978 16.6778 3.94978 17.8494 5.12135V5.12135C19.021 6.29292 19.021 8.19242 17.8494 9.36399L10.7783 16.4351Z" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path fillRule="evenodd" clipRule="evenodd" d="M5.12136 17.8491L6.53557 12.1923L10.7782 16.4349L5.12136 17.8491Z" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M16.7886 9.01046L13.9602 6.18203" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+
         <svg id="disabled" width="20" height="20" viewBox="0 0 20 20" fill="none">
             <path fillRule="evenodd" clipRule="evenodd" d="M19 1H1V19H19V1Z" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>

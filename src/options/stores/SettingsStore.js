@@ -3,6 +3,7 @@ import {
     observable,
     runInAction,
 } from 'mobx';
+import { nanoid } from 'nanoid';
 
 import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT } from '../../lib/constants';
 import { DNS_DEFAULT } from '../../background/dns/dnsConstants';
@@ -30,6 +31,8 @@ export class SettingsStore {
     @observable helpUsImprove = false;
 
     @observable dnsServer = DNS_DEFAULT;
+
+    @observable customDnsServers = [];
 
     @observable nextBillDate;
 
@@ -145,5 +148,25 @@ export class SettingsStore {
 
     @action openPremiumPromoPage = async () => {
         await messenger.openPremiumPromoPage();
+    };
+
+    @action setCustomDnsServers = (dnsServersData) => {
+        this.customDnsServers = dnsServersData;
+    };
+
+    @action addCustomDnsServer = async (dnsServerName, dnsServerAddress) => {
+        log.info(`Adding DNS server: ${dnsServerName} with address: ${dnsServerAddress}`);
+        const dnsServer = {
+            id: nanoid(),
+            title: dnsServerName,
+            ip: dnsServerAddress,
+        };
+        this.customDnsServers.push(dnsServer);
+        await messenger.addCustomDnsServer(dnsServer);
+    };
+
+    @action removeCustomDnsServer = async (dnsServerId) => {
+        this.customDnsServers = this.customDnsServers.filter((server) => server.id !== dnsServerId);
+        await messenger.removeCustomDnsServer(dnsServerId);
     };
 }

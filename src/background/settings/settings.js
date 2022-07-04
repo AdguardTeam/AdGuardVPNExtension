@@ -20,6 +20,7 @@ const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.POLICY_AGREEMENT]: false,
     [SETTINGS_IDS.HELP_US_IMPROVE]: false,
     [SETTINGS_IDS.APPEARANCE_THEME]: APPEARANCE_THEME_DEFAULT,
+    [SETTINGS_IDS.CUSTOM_DNS_SERVERS]: [],
 };
 
 const settingsService = new SettingsService(browserApi.storage, DEFAULT_SETTINGS);
@@ -128,6 +129,22 @@ const isContextMenuEnabled = () => {
     return settingsService.getSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED);
 };
 
+const getCustomDnsServers = () => {
+    return settingsService.getSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS);
+};
+
+const addCustomDnsServer = (dnsServerData) => {
+    const customDnsServers = settingsService.getSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS);
+    customDnsServers.push(dnsServerData);
+    settingsService.setSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS, customDnsServers);
+};
+
+const removeCustomDnsServer = (dnsServerId) => {
+    let customDnsServers = settingsService.getSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS);
+    customDnsServers = customDnsServers.filter((server) => server.id !== dnsServerId);
+    settingsService.setSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS, customDnsServers);
+};
+
 const init = async () => {
     await settingsService.init();
     log.info('Settings module is ready');
@@ -146,4 +163,7 @@ export const settings = {
     getExclusions,
     setExclusions,
     isContextMenuEnabled,
+    getCustomDnsServers,
+    addCustomDnsServer,
+    removeCustomDnsServer,
 };

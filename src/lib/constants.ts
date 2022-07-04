@@ -12,6 +12,7 @@ export const SETTINGS_IDS = {
     POLICY_AGREEMENT: 'policy.agreement',
     HELP_US_IMPROVE: 'help.us.improve',
     APPEARANCE_THEME: 'appearance.theme',
+    CUSTOM_DNS_SERVERS: 'custom.dns.servers',
 };
 
 export const APPEARANCE_THEMES = {
@@ -80,6 +81,8 @@ export enum MessageType {
     RESTORE_EXCLUSIONS = 'restore.exclusions',
     ADD_EXCLUSIONS_MAP = 'add.exclusions.map',
     SET_RATE_MODAL_VIEWED = 'set.rate.modal.viewed',
+    ADD_CUSTOM_DNS_SERVER = 'add.custom.dns.server',
+    REMOVE_CUSTOM_DNS_SERVER = 'remove.custom.dns.server',
 }
 
 export const ERROR_STATUSES = {

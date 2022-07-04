@@ -23,6 +23,7 @@ export class GlobalStore {
         try {
             const optionsData = await messenger.getOptionsData();
             settingsStore.setOptionsData(optionsData);
+            settingsStore.setCustomDnsServers(optionsData.customDnsServers);
             await settingsStore.requestIsPremiumToken();
             authStore.setIsAuthenticated(optionsData.isAuthenticated);
             authStore.setMaxDevicesCount(optionsData.maxDevicesCount);
