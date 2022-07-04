@@ -34,9 +34,10 @@ We appreciate your feedback and always welcome both constructive critisism and n
 You can use GitHub to report a bug or to submit a feature request. To do so, go to [this page](https://github.com/AdguardTeam/AdguardVPNExtension/issues), click the _New issue_ button and choose between creating a bug report or feature request.
 
 - [Development](#development)
-    - [Build](#build)
+    - [Requirements](dev-requirements)
     - [Linting](#linting)
     - [Tests](#tests)
+    - [Build](#build)
     - [Localization](#localization)
     - [Proto scheme update](#proto)
 - [Acknowledgments](#acknowledgments)
@@ -45,21 +46,59 @@ You can use GitHub to report a bug or to submit a feature request. To do so, go 
 <a id="development"></a>
 ## Development
 
-<a id="build"></a>
-### Build
-* `yarn install`
-* Rename `.env.example` to `.env` and fill it with required config data
-* `yarn dev` / `yarn beta` / `yarn release`
-* Also, you can provide environment variables through command line like this:
+<a id="dev-requirements"></a>
+### Requirements
+
+- [node.js LTS](https://nodejs.org/en/download/)
+- NPM v8
+- [yarn v1.22](https://yarnpkg.com/en/docs/install/)
+
+#### Install local dependencies 
 ```
-STAGE_ENV=test \
-VPN_API_URL="vpn_api_url" \
-AUTH_API_URL="auth_api_url" \
-WEBSITE_DOMAIN="website_domain" \
-yarn dev
+  yarn install
 ```
 
-Builds will be located in the `build` directory
+#### Manage environment variables
+* Rename `.env.example` to `.env` and fill it with required config data
+* Also, you can provide environment variables through command line like this:
+```
+  STAGE_ENV=test \
+  VPN_API_URL="vpn_api_url" \
+  AUTH_API_URL="auth_api_url" \
+  WEBSITE_DOMAIN="website_domain" \
+```
+
+<a id="linting"></a>
+### Linting
+```
+  yarn lint
+```
+
+<a id="tests"></a>
+### Tests
+```
+  yarn test
+```
+
+<a id="build"></a>
+### Build
+
+#### Dev version
+```
+  yarn dev
+```
+
+#### Beta version
+```
+  yarn beta
+```
+
+#### Release version
+```
+  yarn release
+```
+
+**Builds will be located in the `build` directory**
 
 ### Update resources
 Before releasing new versions do not forget to update exclusions-services data, which will be used for migration if remote data was not received from the servers.
@@ -75,14 +114,6 @@ Make sure you have added credentials
 * mozilla_credentials.json - encrypted credentials,
 
 to the directory `./private/AdguardVPN`
-
-<a id="linting"></a>
-### Linting
-* `yarn lint`
-
-<a id="tests"></a>
-### Tests
-* `yarn test`
 
 <a id="localization"></a>
 ### Localization
