@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 
@@ -8,32 +8,31 @@ import { reactTranslator } from '../../../../common/reactTranslator';
 interface CustomDnsServerModalProps {
     isOpen: boolean,
     closeModal: () => void,
-    modalType: string,
-    dnsServerData?: {
-        id: string,
-        ip: string,
-        title: string,
-    },
 }
 
 export const CustomDnsServerModal = observer(({
     isOpen,
     closeModal,
-    modalType,
-    dnsServerData,
 }: CustomDnsServerModalProps) => {
     const { settingsStore } = useContext(rootStore);
 
+    const [dnsServerName, setDnsServerName] = useState('');
+    const [dnsServerAddress, setDnsServerAddress] = useState('');
+
+    const modalType = settingsStore.dnsServerToEdit ? 'edit' : 'add';
+
     const dnsInfo = reactTranslator.getMessage('settings_dns_add_custom_server_info', {
         // FIXME check link address and add to tds
-        a: (chunks) => (`<a href="https://adguard-dns.io/kb/general/dns-providers/" target="_blank" class="dns-settings__modal__link">${chunks}</a>`),
+        a: (chunks: string) => (`<a href="https://adguard-dns.io/kb/general/dns-providers/" target="_blank" class="dns-settings__modal__link">${chunks}</a>`),
     });
-
-    const [dnsServerName, setDnsServerName] = useState(modalData[modalType].name);
-    const [dnsServerAddress, setDnsServerAddress] = useState(modalData[modalType].ip);
 
     const addDnsServer = async () => {
         await settingsStore.addCustomDnsServer(dnsServerName, dnsServerAddress);
+        closeModal();
+    };
+
+    const editDnsServer = async () => {
+        await settingsStore.editCustomDnsServer(dnsServerName, dnsServerAddress);
         closeModal();
     };
 
@@ -45,21 +44,31 @@ export const CustomDnsServerModal = observer(({
                     <div dangerouslySetInnerHTML={{ __html: dnsInfo as string }} />
                 </div>
             ),
-            name: '',
-            ip: '',
+            // name: '',
+            // ip: '',
+            submitText: reactTranslator.getMessage('settings_dns_add_custom_server_save_and_select'),
             handler: addDnsServer,
         },
         edit: {
             title: reactTranslator.getMessage('settings_dns_edit_custom_server'),
             info: '',
-            name: dnsServerData?.title,
-            ip: dnsServerData?.ip,
+            // name: settingsStore.dnsServerToEdit?.title,
+            // ip: settingsStore.dnsServerToEdit?.ip,
+            submitText: reactTranslator.getMessage('settings_dns_add_custom_server_save'),
+            handler: editDnsServer,
         },
     };
 
-    // @ts-ignore
+    const serverName = settingsStore.dnsServerToEdit?.title;
+    const serverIp = settingsStore.dnsServerToEdit?.ip;
     const modalTitle = modalData[modalType].title;
     const modalInfo = modalData[modalType].info;
+    const submitButtonText = modalData[modalType].submitText;
+
+    useEffect(() => {
+        setDnsServerName(serverName);
+        setDnsServerAddress(serverIp);
+    });
 
     return (
         <Modal
@@ -80,7 +89,7 @@ export const CustomDnsServerModal = observer(({
             <div className="modal__title dns-settings__modal__title">{modalTitle}</div>
             <div className="dns-settings__modal__content">
                 <form
-                    onSubmit={addDnsServer}
+                    onSubmit={modalData[modalType].handler}
                 >
                     {modalInfo}
                     <div className="form__item">
@@ -126,7 +135,7 @@ export const CustomDnsServerModal = observer(({
                             className="button button--medium button--primary"
                             disabled={!(dnsServerName && dnsServerAddress)}
                         >
-                            {reactTranslator.getMessage('settings_dns_add_custom_server_save')}
+                            {submitButtonText}
                         </button>
                     </div>
                 </form>

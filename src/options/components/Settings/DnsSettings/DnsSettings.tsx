@@ -14,8 +14,7 @@ import './dns-settings.pcss';
 export const DnsSettings = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
-    const [addModalOpen, setAddModalOpen] = useState(false);
-    const [editModalOpen, setEditModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleDnsSelect = async (event: React.MouseEvent<HTMLDivElement>): Promise<void> => {
         const dnsServerId = event.currentTarget.id;
@@ -28,24 +27,22 @@ export const DnsSettings = observer(() => {
         history.push('/');
     };
 
-    const closeAddDnsServerModal = (): void => {
-        setAddModalOpen(false);
+    const openAddDnsServerModal = () => {
+        setIsModalOpen(true);
     };
 
-    const openAddDnsServerModal = () => {
-        setAddModalOpen(true);
+    const closeAddDnsServerModal = (): void => {
+        settingsStore.setDnsServerToEdit(null);
+        setIsModalOpen(false);
     };
 
     const removeDnsServer = (dnsServerId: string): void => {
         settingsStore.removeCustomDnsServer(dnsServerId);
     };
 
-    const openEditDnsServerModal = (): void => {
-        setEditModalOpen(true);
-    };
-
-    const closeEditDnsServerModal = (): void => {
-        setEditModalOpen(false);
+    const openEditDnsServerModal = (server): void => {
+        settingsStore.setDnsServerToEdit(server);
+        setIsModalOpen(true);
     };
 
     const dnsServers = Object.keys(DNS_SERVERS);
@@ -90,7 +87,7 @@ export const DnsSettings = observer(() => {
                         <button
                             type="button"
                             className="button button--icon"
-                            onClick={openEditDnsServerModal}
+                            onClick={() => openEditDnsServerModal(server)}
                         >
                             <svg className="icon">
                                 <use xlinkHref="#edit" />
@@ -106,14 +103,6 @@ export const DnsSettings = observer(() => {
                             </svg>
                         </button>
                     </div>
-                    {editModalOpen && (
-                        <CustomDnsServerModal
-                            isOpen={editModalOpen}
-                            closeModal={closeEditDnsServerModal}
-                            dnsServerData={server}
-                            modalType="edit"
-                        />
-                    )}
                 </div>
             );
         });
@@ -157,9 +146,8 @@ export const DnsSettings = observer(() => {
                 </button>
             </div>
             <CustomDnsServerModal
-                isOpen={addModalOpen}
+                isOpen={isModalOpen}
                 closeModal={closeAddDnsServerModal}
-                modalType="add"
             />
         </div>
     );

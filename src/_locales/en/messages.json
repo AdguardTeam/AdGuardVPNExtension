@@ -305,8 +305,11 @@
     "settings_dns_add_custom_server_address": {
         "message": "DNS server address"
     },
-    "settings_dns_add_custom_server_save": {
+    "settings_dns_add_custom_server_save_and_select": {
         "message": "Save and select"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "Save"
     },
     "settings_dns_desc": {
         "message": "Domain Name System (DNS) is the internet's equivalent of a phone book. It maintains a directory of domain names and translates them to Internet Protocol (IP) addresses."

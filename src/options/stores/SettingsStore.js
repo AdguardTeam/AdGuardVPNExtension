@@ -32,6 +32,8 @@ export class SettingsStore {
 
     @observable dnsServer = DNS_DEFAULT;
 
+    @observable dnsServerToEdit = null;
+
     @observable customDnsServers = [];
 
     @observable nextBillDate;
@@ -165,8 +167,30 @@ export class SettingsStore {
         await messenger.addCustomDnsServer(dnsServer);
     };
 
+    @action editCustomDnsServer = (dnsServerName, dnsServerAddress) => {
+        if (this.dnsServerToEdit) {
+            return;
+        }
+        this.customDnsServers = this.customDnsServers.map((server) => {
+            if (server.id === this.dnsServerToEdit.id) {
+                return {
+                    id: this.dnsServerToEdit.id,
+                    title: dnsServerName,
+                    ip: dnsServerAddress,
+                };
+            }
+            return server;
+        });
+
+        this.dnsServerToEdit = null;
+    };
+
     @action removeCustomDnsServer = async (dnsServerId) => {
         this.customDnsServers = this.customDnsServers.filter((server) => server.id !== dnsServerId);
         await messenger.removeCustomDnsServer(dnsServerId);
+    };
+
+    @action setDnsServerToEdit = (value) => {
+        this.dnsServerToEdit = value;
     };
 }
