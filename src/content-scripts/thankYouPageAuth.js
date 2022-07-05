@@ -9,9 +9,9 @@ const expiresIn = 2909934;
 
 if (accessToken) {
     const credentials = {
-        access_token: accessToken,
-        expires_in: expiresIn,
-        token_type: 'bearer',
+        accessToken,
+        expiresIn,
+        tokenType: 'bearer',
     };
 
     browser.runtime.sendMessage({
