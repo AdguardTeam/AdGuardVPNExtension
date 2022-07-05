@@ -128,6 +128,25 @@ class Auth {
         await notifications.create({ message: translator.getMessage('authentication_successful_social') });
     }
 
+    async authenticateThankYouPage(credentials) {
+        const {
+            access_token: accessToken,
+            expires_in: expiresIn,
+            token_type: tokenType,
+        } = credentials;
+
+        await this.setAccessToken({
+            accessToken,
+            expiresIn,
+            tokenType,
+        });
+
+        // Notify options page, in order to update view
+        notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
+        await flagsStorage.onRegister();
+        await notifications.create({ message: translator.getMessage('authentication_successful_social') });
+    }
+
     async deauthenticate() {
         try {
             await this.removeAccessToken();
