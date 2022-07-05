@@ -122,6 +122,15 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             const { queryString } = message.data;
             return auth.authenticateSocial(queryString, id);
         }
+        case MessageType.AUTHENTICATE_THANKYOU_PAGE: {
+            const id = sender?.tab?.id;
+            debugger
+            if (!id) {
+                return ;
+            }
+            const { credentials } = message.data;
+            return auth.authenticateThankYouPage(credentials);
+        }
         case MessageType.GET_POPUP_DATA: {
             const { url, numberOfTries } = data;
             return popupData.getPopupDataRetry(url, numberOfTries);
@@ -155,6 +164,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         }
         case MessageType.AUTHENTICATE_USER: {
             const { credentials } = data;
+            debugger
             return auth.authenticate(credentials);
         }
         case MessageType.UPDATE_AUTH_CACHE: {

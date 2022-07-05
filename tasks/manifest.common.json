@@ -24,9 +24,14 @@
     },
     "content_scripts": [
         {
-            "matches":["https://*/oauth.html?adguard-vpn=1*"],
-            "js":["auth.js"],
-            "run_at":"document_start"
+            "matches": ["https://*/oauth.html?adguard-vpn=1*"],
+            "js": ["auth.js"],
+            "run_at": "document_start"
+        },
+        {
+            "matches": ["https://dev.adguard-vpn.com/*/thankyou-auth.html"],
+            "js": ["thankYouPageAuth.js"],
+            "run_at": "document_start"
         }
     ],
     "permissions": [
