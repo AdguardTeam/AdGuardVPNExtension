@@ -124,9 +124,8 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         }
         case MessageType.AUTHENTICATE_THANKYOU_PAGE: {
             const id = sender?.tab?.id;
-            debugger
             if (!id) {
-                return ;
+                return undefined;
             }
             const { credentials } = message.data;
             return auth.authenticateThankYouPage(credentials);
@@ -164,7 +163,6 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         }
         case MessageType.AUTHENTICATE_USER: {
             const { credentials } = data;
-            debugger
             return auth.authenticate(credentials);
         }
         case MessageType.UPDATE_AUTH_CACHE: {
