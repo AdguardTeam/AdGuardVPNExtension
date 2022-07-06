@@ -473,7 +473,7 @@
     "global_error_try_again": {
         "message": "Try again"
     },
-    "authentication_successful_social": {
+    "authentication_successful_notification": {
         "message": "Successfully authenticated! You can open AdGuard VPN and start using it."
     },
     "control_error_description": {

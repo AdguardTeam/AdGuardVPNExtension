@@ -19,23 +19,54 @@ import { settings } from './settings';
 import { AUTH_PROVIDERS } from '../lib/constants';
 import { flagsStorage } from './flagsStorage';
 
-class Auth {
-    socialAuthState = null;
+interface AccessTokenInterface {
+    accessToken: string;
+    expiresIn: string;
+    tokenType: string;
+}
 
-    accessTokenData = null;
+interface CredentialsInterface {
+    username: string;
+    password: string;
+    twoFactor: string;
+}
 
-    async authenticate(credentials) {
+interface AuthInterface {
+    authenticate(credentials: CredentialsInterface): Promise<{ status: string }>;
+    isAuthenticated(turnOffProxy?: boolean): Promise<string | boolean>;
+    startSocialAuth(socialProvider: string, marketingConsent: boolean): Promise<void>;
+    getImplicitAuthUrl(socialProvider: string, marketingConsent: boolean): Promise<string>;
+    authenticateSocial(queryString: string, tabId: number): Promise<void>;
+    authenticateThankYouPage(credentials: AccessTokenInterface): Promise<void>;
+    deauthenticate(): Promise<void>;
+    register(
+        credentials: CredentialsInterface,
+    ): Promise<{ status: string } | { error: string, field?: string }>;
+    userLookup(
+        email: string,
+        appId: string,
+    ): Promise<{ canRegister: string } | { error: string }>;
+    getAccessToken(turnOffProxy: boolean): Promise<string>;
+    init(): Promise<void>;
+}
+
+class Auth implements AuthInterface {
+    socialAuthState: string | null = null;
+
+    accessTokenData: AccessTokenInterface | null = null;
+
+    async authenticate(credentials: CredentialsInterface): Promise<{ status: string }> {
         // turn off proxy to be sure it is not enabled before authentication
         try {
             await proxy.turnOff();
-        } catch (e) {
+        } catch (e: any) {
             log.error(e.message);
         }
 
         let accessToken;
         try {
             accessToken = await authProvider.getAccessToken(credentials);
-        } catch (e) {
+        } catch (e: any) {
             return JSON.parse(e.message);
         }
 
@@ -44,7 +75,7 @@ class Auth {
         return { status: 'ok' };
     }
 
-    async isAuthenticated(turnOffProxy) {
+    async isAuthenticated(turnOffProxy?: boolean): Promise<string | boolean> {
         let accessToken;
 
         try {
@@ -56,11 +87,11 @@ class Auth {
         return accessToken;
     }
 
-    async startSocialAuth(socialProvider, marketingConsent) {
+    async startSocialAuth(socialProvider: string, marketingConsent: boolean): Promise<void> {
         // turn off proxy to be sure it is not enabled before authentication
         try {
             await proxy.turnOff();
-        } catch (e) {
+        } catch (e: any) {
             log.error(e.message);
         }
 
@@ -70,13 +101,15 @@ class Auth {
         await tabs.openSocialAuthTab(authUrl);
     }
 
-    async getImplicitAuthUrl(socialProvider, marketingConsent) {
+    async getImplicitAuthUrl(socialProvider: string, marketingConsent: boolean): Promise<string> {
         const params = {
             response_type: 'token',
             client_id: AUTH_CLIENT_ID,
             redirect_uri: `https://${await fallbackApi.getAuthRedirectUri()}`,
             scope: 'trust',
             state: this.socialAuthState,
+            social_provider: '',
+            marketing_consent: false,
         };
 
         switch (socialProvider) {
@@ -103,7 +136,7 @@ class Auth {
         return `https://${await fallbackApi.getAuthBaseUrl()}?${qs.stringify(params)}`;
     }
 
-    async authenticateSocial(queryString, tabId) {
+    async authenticateSocial(queryString: string, tabId: number): Promise<void> {
         const data = qs.parse(queryString);
         const {
             access_token: accessToken,
@@ -114,9 +147,9 @@ class Auth {
 
         if (state && state === this.socialAuthState) {
             await this.setAccessToken({
-                accessToken,
-                expiresIn,
-                tokenType,
+                accessToken: accessToken as string,
+                expiresIn: expiresIn as string,
+                tokenType: tokenType as string,
             });
             await tabs.closeTab(tabId);
             this.socialAuthState = null;
@@ -125,7 +158,7 @@ class Auth {
         // Notify options page, in order to update view
         notifier.notifyListeners(notifier.types.AUTHENTICATE_SOCIAL_SUCCESS);
         await flagsStorage.onAuthenticateSocial();
-        await notifications.create({ message: translator.getMessage('authentication_successful_social') });
+        await notifications.create({ message: translator.getMessage('authentication_successful_notification') });
     }
 
     /**
@@ -133,17 +166,17 @@ class Auth {
      * @param credentials
      * @returns {Promise<void>}
      */
-    async authenticateThankYouPage(credentials) {
+    async authenticateThankYouPage(credentials: AccessTokenInterface): Promise<void> {
         await this.setAccessToken(credentials);
 
         await flagsStorage.onRegister();
-        await notifications.create({ message: translator.getMessage('authentication_successful_social') });
+        await notifications.create({ message: translator.getMessage('authentication_successful_notification') });
     }
 
-    async deauthenticate() {
+    async deauthenticate(): Promise<void> {
         try {
             await this.removeAccessToken();
-        } catch (e) {
+        } catch (e: any) {
             log.error('Unable to remove access token. Error: ', e.message);
         }
 
@@ -155,7 +188,9 @@ class Auth {
         notifier.notifyListeners(notifier.types.USER_DEAUTHENTICATED);
     }
 
-    async register(credentials) {
+    async register(
+        credentials: CredentialsInterface,
+    ): Promise<{ status: string } | { error: string, field?: string }> {
         const locale = navigator.language;
         let accessToken;
         try {
@@ -164,7 +199,7 @@ class Auth {
                 locale,
                 clientId: AUTH_CLIENT_ID,
             });
-        } catch (e) {
+        } catch (e: any) {
             const { error, field } = JSON.parse(e.message);
             return { error, field };
         }
@@ -177,7 +212,7 @@ class Auth {
 
         return {
             error: translator.getMessage('global_error_message', {
-                a: (chunks) => `<a href="mailto:support@adguard-vpn.com" target="_blank">${chunks}</a>`,
+                a: (chunks: string) => `<a href="mailto:support@adguard-vpn.com" target="_blank">${chunks}</a>`,
             }),
         };
     }
@@ -188,28 +223,31 @@ class Auth {
      * @param {string} appId
      * @returns {Promise<{canRegister: string}|{error: string}>}
      */
-    async userLookup(email, appId) {
+    async userLookup(
+        email: string,
+        appId: string,
+    ): Promise<{ canRegister: string } | { error: string }> {
         let response;
         try {
             response = await authProvider.userLookup(email, appId);
-        } catch (e) {
+        } catch (e: any) {
             log.error(e.message);
             return {
                 error: translator.getMessage('global_error_message', {
-                    a: (chunks) => `<a href="mailto:support@adguard-vpn.com" target="_blank">${chunks}</a>`,
+                    a: (chunks: string) => `<a href="mailto:support@adguard-vpn.com" target="_blank">${chunks}</a>`,
                 }),
             };
         }
         return response;
     }
 
-    async setAccessToken(accessToken) {
+    async setAccessToken(accessToken: AccessTokenInterface): Promise<void> {
         this.accessTokenData = accessToken;
         await browserApi.storage.set(AUTH_ACCESS_TOKEN_KEY, accessToken);
         notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
     }
 
-    async removeAccessToken() {
+    async removeAccessToken(): Promise<void> {
         this.accessTokenData = null;
         await browserApi.storage.remove(AUTH_ACCESS_TOKEN_KEY);
     }
@@ -220,7 +258,7 @@ class Auth {
      * @param {boolean} [turnOffProxy=true] - if false do not turns off proxy
      * @returns {Promise<string>}
      */
-    async getAccessToken(turnOffProxy = true) {
+    async getAccessToken(turnOffProxy = true): Promise<string> {
         if (this.accessTokenData && this.accessTokenData.accessToken) {
             return this.accessTokenData.accessToken;
         }
@@ -237,7 +275,7 @@ class Auth {
         if (turnOffProxy) {
             try {
                 await proxy.turnOff();
-            } catch (e) {
+            } catch (e: any) {
                 log.error(e.message);
             }
         }
@@ -246,7 +284,7 @@ class Auth {
         throw new Error('No access token, user is not authenticated');
     }
 
-    async init() {
+    async init(): Promise<void> {
         const accessTokenData = await browserApi.storage.get(AUTH_ACCESS_TOKEN_KEY);
         if (!accessTokenData || !accessTokenData.accessToken) {
             return;

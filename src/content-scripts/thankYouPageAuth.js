@@ -1,21 +1,20 @@
 import browser from 'webextension-polyfill';
 import { MessageType } from '../lib/constants';
 
-const AUTH_TOKEN_KEY = 'access_token';
+const CREDENTIALS_KEY = 'credentials';
+const TOKEN_TYPE = 'bearer';
 
-const accessToken = sessionStorage.getItem(AUTH_TOKEN_KEY);
-// FIXME remove expiresIn and get it from sessionStorage
-const expiresIn = 2909934;
+const credentialsString = sessionStorage.getItem(CREDENTIALS_KEY);
 
-if (accessToken) {
-    const credentials = {
-        accessToken,
-        expiresIn,
-        tokenType: 'bearer',
+if (credentialsString) {
+    const credentials = JSON.parse(credentialsString);
+    const authCredentials = {
+        ...credentials,
+        tokenType: TOKEN_TYPE,
     };
 
     browser.runtime.sendMessage({
         type: MessageType.AUTHENTICATE_THANKYOU_PAGE,
-        data: { credentials },
+        data: { authCredentials },
     });
 }
