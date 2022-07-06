@@ -5,26 +5,26 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 
-interface CustomDnsServerModalProps {
-    isOpen: boolean,
-    closeModal: () => void,
-}
-
-export const CustomDnsServerModal = observer(({
-    isOpen,
-    closeModal,
-}: CustomDnsServerModalProps) => {
+export const CustomDnsServerModal = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
     const [dnsServerName, setDnsServerName] = useState('');
     const [dnsServerAddress, setDnsServerAddress] = useState('');
 
-    const modalType = settingsStore.dnsServerToEdit ? 'edit' : 'add';
-
     const dnsInfo = reactTranslator.getMessage('settings_dns_add_custom_server_info', {
         // FIXME check link address and add to tds
         a: (chunks: string) => (`<a href="https://adguard-dns.io/kb/general/dns-providers/" target="_blank" class="dns-settings__modal__link">${chunks}</a>`),
     });
+
+    const clearInputs = () => {
+        setDnsServerName('');
+        setDnsServerAddress('');
+    };
+
+    const closeModal = () => {
+        clearInputs();
+        settingsStore.closeCustomDnsModalOpen();
+    };
 
     const addDnsServer = async () => {
         await settingsStore.addCustomDnsServer(dnsServerName, dnsServerAddress);
@@ -36,6 +36,8 @@ export const CustomDnsServerModal = observer(({
         closeModal();
     };
 
+    const modalType = settingsStore.dnsServerToEdit ? 'edit' : 'add';
+
     const modalData = {
         add: {
             title: reactTranslator.getMessage('settings_dns_add_custom_server'),
@@ -44,35 +46,31 @@ export const CustomDnsServerModal = observer(({
                     <div dangerouslySetInnerHTML={{ __html: dnsInfo as string }} />
                 </div>
             ),
-            // name: '',
-            // ip: '',
             submitText: reactTranslator.getMessage('settings_dns_add_custom_server_save_and_select'),
             handler: addDnsServer,
         },
         edit: {
             title: reactTranslator.getMessage('settings_dns_edit_custom_server'),
             info: '',
-            // name: settingsStore.dnsServerToEdit?.title,
-            // ip: settingsStore.dnsServerToEdit?.ip,
             submitText: reactTranslator.getMessage('settings_dns_add_custom_server_save'),
             handler: editDnsServer,
         },
     };
 
-    const serverName = settingsStore.dnsServerToEdit?.title;
-    const serverIp = settingsStore.dnsServerToEdit?.ip;
-    const modalTitle = modalData[modalType].title;
-    const modalInfo = modalData[modalType].info;
-    const submitButtonText = modalData[modalType].submitText;
-
     useEffect(() => {
-        setDnsServerName(serverName);
-        setDnsServerAddress(serverIp);
-    });
+        debugger
+        if (settingsStore.dnsServerToEdit) {
+            const { title: serverName } = settingsStore.dnsServerToEdit;
+            const { ip: serverIp } = settingsStore.dnsServerToEdit;
+
+            setDnsServerName(serverName);
+            setDnsServerAddress(serverIp);
+        }
+    }, []);
 
     return (
         <Modal
-            isOpen={isOpen}
+            isOpen={settingsStore.isCustomDnsModalOpen}
             className="modal dns-settings__modal"
             overlayClassName="overlay overlay--fullscreen"
             onRequestClose={closeModal}
@@ -86,12 +84,12 @@ export const CustomDnsServerModal = observer(({
                     <use xlinkHref="#cross" />
                 </svg>
             </button>
-            <div className="modal__title dns-settings__modal__title">{modalTitle}</div>
+            <div className="modal__title dns-settings__modal__title">{modalData[modalType].title}</div>
             <div className="dns-settings__modal__content">
                 <form
                     onSubmit={modalData[modalType].handler}
                 >
-                    {modalInfo}
+                    {modalData[modalType].info}
                     <div className="form__item">
                         <label>
                             <div className="input__label">
@@ -135,7 +133,7 @@ export const CustomDnsServerModal = observer(({
                             className="button button--medium button--primary"
                             disabled={!(dnsServerName && dnsServerAddress)}
                         >
-                            {submitButtonText}
+                            {modalData[modalType].submitText}
                         </button>
                     </div>
                 </form>

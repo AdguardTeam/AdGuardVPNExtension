@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import { useHistory } from 'react-router-dom';
 
@@ -14,8 +14,6 @@ import './dns-settings.pcss';
 export const DnsSettings = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
     const handleDnsSelect = async (event: React.MouseEvent<HTMLDivElement>): Promise<void> => {
         const dnsServerId = event.currentTarget.id;
         await settingsStore.setDnsServer(dnsServerId);
@@ -28,12 +26,7 @@ export const DnsSettings = observer(() => {
     };
 
     const openAddDnsServerModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const closeAddDnsServerModal = (): void => {
-        settingsStore.setDnsServerToEdit(null);
-        setIsModalOpen(false);
+        settingsStore.openCustomDnsModalOpen();
     };
 
     const removeDnsServer = (dnsServerId: string): void => {
@@ -42,7 +35,7 @@ export const DnsSettings = observer(() => {
 
     const openEditDnsServerModal = (server): void => {
         settingsStore.setDnsServerToEdit(server);
-        setIsModalOpen(true);
+        settingsStore.openCustomDnsModalOpen();
     };
 
     const dnsServers = Object.keys(DNS_SERVERS);
@@ -145,10 +138,7 @@ export const DnsSettings = observer(() => {
                     {reactTranslator.getMessage('settings_dns_add_custom_server')}
                 </button>
             </div>
-            <CustomDnsServerModal
-                isOpen={isModalOpen}
-                closeModal={closeAddDnsServerModal}
-            />
+            <CustomDnsServerModal />
         </div>
     );
 });

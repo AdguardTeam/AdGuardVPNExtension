@@ -34,6 +34,8 @@ export class SettingsStore {
 
     @observable dnsServerToEdit = null;
 
+    @observable isCustomDnsModalOpen = false;
+
     @observable customDnsServers = [];
 
     @observable nextBillDate;
@@ -167,7 +169,7 @@ export class SettingsStore {
         await messenger.addCustomDnsServer(dnsServer);
     };
 
-    @action editCustomDnsServer = (dnsServerName, dnsServerAddress) => {
+    @action editCustomDnsServer = async (dnsServerName, dnsServerAddress) => {
         if (this.dnsServerToEdit) {
             return;
         }
@@ -182,7 +184,7 @@ export class SettingsStore {
             return server;
         });
 
-        this.dnsServerToEdit = null;
+        this.setDnsServerToEdit(null);
     };
 
     @action removeCustomDnsServer = async (dnsServerId) => {
@@ -192,5 +194,13 @@ export class SettingsStore {
 
     @action setDnsServerToEdit = (value) => {
         this.dnsServerToEdit = value;
+    };
+
+    @action openCustomDnsModalOpen = () => {
+        this.isCustomDnsModalOpen = true;
+    };
+
+    @action closeCustomDnsModalOpen = () => {
+        this.isCustomDnsModalOpen = false;
     };
 }
