@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
+import { isIP } from 'is-ip';
+import classnames from 'classnames';
 
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
@@ -10,55 +12,69 @@ export const CustomDnsServerModal = observer(() => {
 
     const [dnsServerName, setDnsServerName] = useState('');
     const [dnsServerAddress, setDnsServerAddress] = useState('');
+    const [ipAddressError, setIpAddressError] = useState(false);
+
+    const handleAddressChange = (value: string) => {
+        setDnsServerAddress(value);
+        if (ipAddressError) {
+            setIpAddressError(false);
+        }
+    };
 
     const dnsInfo = reactTranslator.getMessage('settings_dns_add_custom_server_info', {
         // FIXME check link address and add to tds
         a: (chunks: string) => (`<a href="https://adguard-dns.io/kb/general/dns-providers/" target="_blank" class="dns-settings__modal__link">${chunks}</a>`),
     });
 
-    const clearInputs = () => {
+    const clearInputs = (): void => {
         setDnsServerName('');
         setDnsServerAddress('');
     };
 
-    const closeModal = () => {
+    const closeModal = (): void => {
         clearInputs();
+        if (settingsStore.dnsServerToEdit) {
+            settingsStore.setDnsServerToEdit(null);
+        }
         settingsStore.closeCustomDnsModalOpen();
     };
 
-    const addDnsServer = async () => {
+    const isValidIpAddress = (ip: string) => isIP(ip);
+
+    const addDnsServer = async (): Promise<void> => {
+        if (!isValidIpAddress(dnsServerAddress)) {
+            setIpAddressError(true);
+            return;
+        }
         await settingsStore.addCustomDnsServer(dnsServerName, dnsServerAddress);
         closeModal();
     };
 
-    const editDnsServer = async () => {
+    const editDnsServer = async (): Promise<void> => {
+        if (!isValidIpAddress(dnsServerAddress)) {
+            setIpAddressError(true);
+            return;
+        }
         await settingsStore.editCustomDnsServer(dnsServerName, dnsServerAddress);
         closeModal();
     };
 
-    const modalType = settingsStore.dnsServerToEdit ? 'edit' : 'add';
+    const modalType = settingsStore.dnsServerToEdit ? 'editDnsServer' : 'addDnsServer';
 
     const modalData = {
-        add: {
-            title: reactTranslator.getMessage('settings_dns_add_custom_server'),
-            info: (
-                <div className="form__item dns-settings__modal__info">
-                    <div dangerouslySetInnerHTML={{ __html: dnsInfo as string }} />
-                </div>
-            ),
+        addDnsServer: {
+            modalTitle: reactTranslator.getMessage('settings_dns_add_custom_server'),
             submitText: reactTranslator.getMessage('settings_dns_add_custom_server_save_and_select'),
             handler: addDnsServer,
         },
-        edit: {
-            title: reactTranslator.getMessage('settings_dns_edit_custom_server'),
-            info: '',
+        editDnsServer: {
+            modalTitle: reactTranslator.getMessage('settings_dns_edit_custom_server'),
             submitText: reactTranslator.getMessage('settings_dns_add_custom_server_save'),
             handler: editDnsServer,
         },
     };
 
     useEffect(() => {
-        debugger
         if (settingsStore.dnsServerToEdit) {
             const { title: serverName } = settingsStore.dnsServerToEdit;
             const { ip: serverIp } = settingsStore.dnsServerToEdit;
@@ -66,7 +82,14 @@ export const CustomDnsServerModal = observer(() => {
             setDnsServerName(serverName);
             setDnsServerAddress(serverIp);
         }
-    }, []);
+    }, [settingsStore.isCustomDnsModalOpen]);
+
+    const ipAddressInputClasses = classnames(
+        'input__in',
+        'input__in--content',
+        'input__in--clear',
+        { 'dns-settings__modal__input--error': ipAddressError },
+    );
 
     return (
         <Modal
@@ -84,12 +107,16 @@ export const CustomDnsServerModal = observer(() => {
                     <use xlinkHref="#cross" />
                 </svg>
             </button>
-            <div className="modal__title dns-settings__modal__title">{modalData[modalType].title}</div>
+            <div className="modal__title dns-settings__modal__title">{modalData[modalType].modalTitle}</div>
             <div className="dns-settings__modal__content">
                 <form
                     onSubmit={modalData[modalType].handler}
                 >
-                    {modalData[modalType].info}
+                    {settingsStore.dnsServerToEdit && (
+                        <div className="form__item dns-settings__modal__info">
+                            <div dangerouslySetInnerHTML={{ __html: dnsInfo as string }} />
+                        </div>
+                    )}
                     <div className="form__item">
                         <label>
                             <div className="input__label">
@@ -101,8 +128,19 @@ export const CustomDnsServerModal = observer(() => {
                                 type="text"
                                 value={dnsServerName}
                                 onChange={(e) => setDnsServerName(e.target.value)}
-                                placeholder="Name"
+                                placeholder={reactTranslator.getMessage('settings_dns_add_custom_server_name_placeholder') as string}
                             />
+                            {dnsServerName && (
+                                <button
+                                    type="button"
+                                    className="button dns-settings__modal__clear-icon"
+                                    onClick={() => setDnsServerName('')}
+                                >
+                                    <svg className="icon icon--button icon--cross">
+                                        <use xlinkHref="#cross" />
+                                    </svg>
+                                </button>
+                            )}
                         </label>
                     </div>
                     <div className="form__item">
@@ -112,12 +150,28 @@ export const CustomDnsServerModal = observer(() => {
                             </div>
                             <input
                                 id="dns-address"
-                                className="input__in input__in--content input__in--clear"
+                                className={ipAddressInputClasses}
                                 type="text"
                                 value={dnsServerAddress}
-                                onChange={(e) => setDnsServerAddress(e.target.value)}
-                                placeholder="IPv4 or IPv6"
+                                onChange={(e) => handleAddressChange(e.target.value)}
+                                placeholder={reactTranslator.getMessage('settings_dns_add_custom_server_address_placeholder') as string}
                             />
+                            {ipAddressError && (
+                                <div className="dns-settings__modal__error-message">
+                                    {reactTranslator.getMessage('settings_dns_add_custom_server_invalid_address')}
+                                </div>
+                            )}
+                            {dnsServerAddress && (
+                                <button
+                                    type="button"
+                                    className="button dns-settings__modal__clear-icon"
+                                    onClick={() => setDnsServerAddress('')}
+                                >
+                                    <svg className="icon icon--button icon--cross">
+                                        <use xlinkHref="#cross" />
+                                    </svg>
+                                </button>
+                            )}
                         </label>
                     </div>
                     <div className="form__actions">

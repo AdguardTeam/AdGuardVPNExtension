@@ -112,6 +112,16 @@ export class SettingsStore {
         });
     };
 
+    @action setCustomDnsServer = async (dnsServerData) => {
+        if (!dnsServerData.ip) {
+            return;
+        }
+        await messenger.setSetting(SETTINGS_IDS.SELECTED_CUSTOM_DNS_SERVER, dnsServerData);
+        runInAction(() => {
+            this.dnsServer = dnsServerData.id;
+        });
+    };
+
     @action setOptionsData = (data) => {
         this.appVersion = data.appVersion;
         this.currentUsername = data.username;
@@ -170,20 +180,17 @@ export class SettingsStore {
     };
 
     @action editCustomDnsServer = async (dnsServerName, dnsServerAddress) => {
-        if (this.dnsServerToEdit) {
+        if (!this.dnsServerToEdit) {
             return;
         }
-        this.customDnsServers = this.customDnsServers.map((server) => {
-            if (server.id === this.dnsServerToEdit.id) {
-                return {
-                    id: this.dnsServerToEdit.id,
-                    title: dnsServerName,
-                    ip: dnsServerAddress,
-                };
-            }
-            return server;
+
+        const editedDnsServers = await messenger.editCustomDnsServer({
+            id: this.dnsServerToEdit.id,
+            title: dnsServerName,
+            ip: dnsServerAddress,
         });
 
+        this.setCustomDnsServers(editedDnsServers);
         this.setDnsServerToEdit(null);
     };
 

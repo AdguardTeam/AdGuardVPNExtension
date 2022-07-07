@@ -302,8 +302,17 @@
     "settings_dns_add_custom_server_name": {
         "message": "Server name"
     },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Server name"
+    },
     "settings_dns_add_custom_server_address": {
         "message": "DNS server address"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IPv4 or IPv6"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "Ip address is not valid"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Save and select"

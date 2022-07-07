@@ -17,6 +17,14 @@ class Dns {
         this.dnsServer = dnsServer;
         notifier.notifyListeners(notifier.types.DNS_SERVER_SET, this.getDnsServerIp());
     };
+
+    setCustomDnsServer = (dnsServerData) => {
+        if (this.dnsServer === dnsServerData.id) {
+            return;
+        }
+        this.dnsServer = dnsServerData.id;
+        notifier.notifyListeners(notifier.types.DNS_SERVER_SET, dnsServerData.ip);
+    };
 }
 
 const dns = new Dns();

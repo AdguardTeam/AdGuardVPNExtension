@@ -11,12 +11,22 @@ import { CustomDnsServerModal } from './CustomDnsServerModal';
 
 import './dns-settings.pcss';
 
+interface DnsServerData {
+    id: string;
+    title: string;
+    ip: string;
+}
+
 export const DnsSettings = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
     const handleDnsSelect = async (event: React.MouseEvent<HTMLDivElement>): Promise<void> => {
         const dnsServerId = event.currentTarget.id;
         await settingsStore.setDnsServer(dnsServerId);
+    };
+
+    const handleCustomDnsSelect = async (dnsServerData: DnsServerData): Promise<void> => {
+        await settingsStore.setCustomDnsServer(dnsServerData);
     };
 
     const history = useHistory();
@@ -33,7 +43,7 @@ export const DnsSettings = observer(() => {
         settingsStore.removeCustomDnsServer(dnsServerId);
     };
 
-    const openEditDnsServerModal = (server): void => {
+    const openEditDnsServerModal = (server: DnsServerData): void => {
         settingsStore.setDnsServerToEdit(server);
         settingsStore.openCustomDnsModalOpen();
     };
@@ -69,7 +79,7 @@ export const DnsSettings = observer(() => {
                 <div
                     key={server.id}
                     className="settings__item dns-settings__item settings__item__dns-server"
-                    onClick={handleDnsSelect}
+                    onClick={() => handleCustomDnsSelect(server)}
                 >
                     <RadioButton enabled={server.id === settingsStore.dnsServer} />
                     <div>

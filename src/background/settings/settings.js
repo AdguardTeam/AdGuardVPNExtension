@@ -51,6 +51,12 @@ const setSetting = async (id, value, force) => {
             dns.setDnsServer(value);
             break;
         }
+        case SETTINGS_IDS.SELECTED_CUSTOM_DNS_SERVER: {
+            dns.setCustomDnsServer(value);
+            settingsService.setSetting(SETTINGS_IDS.SELECTED_DNS_SERVER, value);
+            log.debug(`Setting with id: "${id}" was set to:`, value);
+            break;
+        }
         default: {
             break;
         }
@@ -139,6 +145,21 @@ const addCustomDnsServer = (dnsServerData) => {
     settingsService.setSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS, customDnsServers);
 };
 
+const editCustomDnsServer = (dnsServerData) => {
+    let customDnsServers = settingsService.getSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS);
+    customDnsServers = customDnsServers.map((server) => {
+        if (server.id === dnsServerData.id) {
+            return {
+                id: server.id,
+                title: dnsServerData.title,
+                ip: dnsServerData.ip,
+            };
+        }
+        return server;
+    });
+    settingsService.setSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS, customDnsServers);
+};
+
 const removeCustomDnsServer = (dnsServerId) => {
     let customDnsServers = settingsService.getSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS);
     customDnsServers = customDnsServers.filter((server) => server.id !== dnsServerId);
@@ -165,5 +186,6 @@ export const settings = {
     isContextMenuEnabled,
     getCustomDnsServers,
     addCustomDnsServer,
+    editCustomDnsServer,
     removeCustomDnsServer,
 };

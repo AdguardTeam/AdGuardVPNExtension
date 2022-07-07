@@ -362,6 +362,11 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             const { dnsServerData } = data;
             return settings.addCustomDnsServer(dnsServerData);
         }
+        case MessageType.EDIT_CUSTOM_DNS_SERVER: {
+            const { dnsServerData } = data;
+            await settings.editCustomDnsServer(dnsServerData);
+            return settings.getCustomDnsServers();
+        }
         case MessageType.REMOVE_CUSTOM_DNS_SERVER: {
             const { dnsServerId } = data;
             return settings.removeCustomDnsServer(dnsServerId);

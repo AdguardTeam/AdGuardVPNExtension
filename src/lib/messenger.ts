@@ -376,6 +376,11 @@ class Messenger {
         return this.sendMessage(type, { dnsServerData });
     }
 
+    editCustomDnsServer(dnsServerData: any) {
+        const type = MessageType.EDIT_CUSTOM_DNS_SERVER;
+        return this.sendMessage(type, { dnsServerData });
+    }
+
     removeCustomDnsServer(dnsServerId: string) {
         const type = MessageType.REMOVE_CUSTOM_DNS_SERVER;
         return this.sendMessage(type, { dnsServerId });
