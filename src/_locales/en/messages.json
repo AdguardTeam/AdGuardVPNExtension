@@ -759,5 +759,11 @@
     },
     "notification_data_limit_reached_description": {
         "message": "VPN connection speed has been reduced."
+    },
+    "notification_data_left_mb": {
+        "message": "There are %num% MB left."
+    },
+    "notification_data_left_description": {
+        "message": "VPN connection speed will be reduced soon."
     }
 }
