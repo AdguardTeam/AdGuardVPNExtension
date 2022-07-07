@@ -133,7 +133,6 @@ class Messenger {
         credentials: {
             username: string;
             password: string;
-            passwordAgain: string;
             twoFactor: string;
         },
     ) {
@@ -146,7 +145,7 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async updateAuthCache(field: string, value: string) {
+    async updateAuthCache(field: string, value: boolean | string | null) {
         const type = MessageType.UPDATE_AUTH_CACHE;
         return this.sendMessage(type, { field, value });
     }
@@ -234,7 +233,6 @@ class Messenger {
     async registerUser(credentials: {
         username: string;
         password: string;
-        passwordAgain: string;
         twoFactor: string;
     }) {
         const type = MessageType.REGISTER_USER;
@@ -246,7 +244,7 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async startSocialAuth(social: string, marketingConsent: boolean) {
+    async startSocialAuth(social: string, marketingConsent: boolean | string) {
         const type = MessageType.START_SOCIAL_AUTH;
         return this.sendMessage(type, { social, marketingConsent });
     }
@@ -340,7 +338,7 @@ class Messenger {
      * @param key
      * @param value
      */
-    async setFlag(key: string, value: string) {
+    async setFlag(key: string, value: string | boolean) {
         const type = MessageType.SET_FLAG;
         return this.sendMessage(type, { key, value });
     }

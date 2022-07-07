@@ -1,6 +1,6 @@
 {
     "name": {
-        "message": "AdGuard VPN — Privatnost i Sigurnost"
+        "message": "AdGuard VPN — besplatni & sigurni proxy"
     },
     "description": {
         "message": "Internet čini otvorenim, a vaše podatke sigurnima. Vrhunski VPN od stvaralaca poznatog blokera oglasa."
@@ -16,6 +16,9 @@
     },
     "registration_error_min_length": {
         "message": "Vrijednost je prekratka. Mora biti najmanje 8 znakova."
+    },
+    "registration_error_confirm_password": {
+        "message": "Lozinke se ne poklapaju"
     },
     "registration_error_compromised_password": {
         "message": "Lozinka koju ste unijeli pronađena je u <a>javnoj bazi</a> ugroženih lozinki. Pokušajte s drugom."
@@ -122,17 +125,26 @@
     "account_version": {
         "message": "Verzija"
     },
-    "account_current_plan": {
-        "message": "Trenutni plan"
-    },
-    "account_signed": {
-        "message": "Prijavljeno uz pomoć"
-    },
     "account_free": {
         "message": "Besplatno"
     },
     "account_unlimited": {
-        "message": "Unlimited"
+        "message": "Neograničena pretlata"
+    },
+    "account_monthly_paid": {
+        "message": "Pretplata koja se plaća mjesečno"
+    },
+    "account_yearly_paid": {
+        "message": "Pretplata koja se plaća godišnje"
+    },
+    "account_two_year_paid": {
+        "message": "Pretplata koja se plaća svake dvije godine"
+    },
+    "account_get_subscription": {
+        "message": "Kupi pretplatu"
+    },
+    "account_max_devices_count": {
+        "message": "Do %num% uređaja istovremeno"
     },
     "account_next_charge": {
         "message": "(Next charge %date%)"
@@ -158,11 +170,20 @@
     "auth_password": {
         "message": "Lozinka"
     },
+    "auth_your_password": {
+        "message": "Unesite lozinku"
+    },
+    "auth_password_confirm": {
+        "message": "Potvrdi lozinku"
+    },
     "auth_recover": {
         "message": "Zaboravljena lozinka?"
     },
     "auth_sign_up": {
         "message": "Registracija"
+    },
+    "auth_sign_up_info": {
+        "message": "Stvorite vaš AdGuard račun"
     },
     "auth_sign_up_button": {
         "message": "Registracija"
@@ -179,8 +200,8 @@
     "auth_title": {
         "message": "Autorizacija"
     },
-    "auth_info": {
-        "message": "Nastavite sa vašim AdGuard korisničkim računom ili a računom društvene mreže"
+    "auth_sign_in_provider_adguard_label": {
+        "message": "E-pošta"
     },
     "auth_sign_in_provider_adguard": {
         "message": "Nastavi s AdGuardom"
@@ -201,10 +222,10 @@
         "message": "Registracijom stvarate svoj AdGuard račun"
     },
     "auth_header_sign_in": {
-        "message": "Prijavljeni ste kao <div>%username%</div>"
+        "message": "Prijavljeni ste kao <div>%username%</div> "
     },
     "auth_header_sing_in_notice": {
-        "message": "Već imate račun <div>%username%</div>"
+        "message": "Već imate račun <span>%username%</span>"
     },
     "auth_header_registration": {
         "message": "Prijavljujete se kao <div>%username%</div>"
@@ -578,6 +599,33 @@
     "popup_feedback_button": {
         "message": "Ostavite povratnu informaciju"
     },
+    "popup_rate_modal_title": {
+        "message": "Kako je divan AdGuard VPN?"
+    },
+    "popup_rate_modal_subtitle": {
+        "message": "Molimo, ocijenite nas"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "Pošalji"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "Poništi"
+    },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "Pomognite nam postati bolji"
+    },
+    "popup_confirm_rate_modal_feedback_subtitle": {
+        "message": "Recite nam što je pošlo po zlu"
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
+        "message": "Ostavite povratnu informaciju"
+    },
+    "popup_confirm_rate_modal_rate_title": {
+        "message": "Vau! Možeš li nas ocijeniti i u Chrome trgovini?"
+    },
+    "popup_confirm_rate_modal_confirm_button": {
+        "message": "Idi u Chrome trgovinu"
+    },
     "settings_run_upgrade_early_bird": {
         "message": "Cijene za ranoranioce"
     },
@@ -667,7 +715,7 @@
         "message": "Jedino je ograničenje da vaši podaci nikada neće biti podijeljeni. Surfajte po vašem ukusu!"
     },
     "popup_upgrade_screen_unlimited_speed": {
-        "message": "sve lokacije, podrška 24/7"
+        "message": "Sve lokacije, podrška 24/7"
     },
     "popup_upgrade_screen_unlimited_speed_desc": {
         "message": "Nema ograničenja brzine. Izvucite više od vašeg davatelja internetskih usluga!"
@@ -678,11 +726,11 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 kontinenata i puno država. Izaberite jednu državu i surfajte internetom!"
     },
-    "popup_upgrade_screen_streaming_support": {
-        "message": "Podrška za strujanje"
+    "popup_upgrade_screen_connect_devices": {
+        "message": "Do 5 uređaja"
     },
-    "popup_upgrade_screen_streaming_support_desc": {
-        "message": "Svi veliki streaming servisi su dostupni. Gledajte bilo što bilo gdje!"
+    "popup_upgrade_screen_connect_devices_desc": {
+        "message": "Spojite sve vaše gadgete na AdGuard VPN istovremeno — ili zaštitite cijelu obitelj!"
     },
     "popup_upgrade_screen_streaming": {
         "message": "Strujanje"

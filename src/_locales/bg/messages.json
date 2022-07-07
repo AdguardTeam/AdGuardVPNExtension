@@ -26,6 +26,9 @@
     "auth_password": {
         "message": "Парола"
     },
+    "auth_password_confirm": {
+        "message": "Потвърдете паролата"
+    },
     "privacy_policy": {
         "message": "Правила за поверителност"
     },
@@ -85,6 +88,9 @@
     },
     "popup_settings_open_settings": {
         "message": "Настройки"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "Отказ"
     },
     "popup_onboarding_next": {
         "message": "Следващ"

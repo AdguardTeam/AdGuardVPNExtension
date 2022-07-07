@@ -95,11 +95,17 @@
     "auth_password": {
         "message": "Lösenord"
     },
+    "auth_password_confirm": {
+        "message": "Bekräfta lösenord"
+    },
     "auth_recover": {
         "message": "Glömt lösenord?"
     },
     "auth_sign_up": {
         "message": "Registrera dig"
+    },
+    "auth_sign_up_info": {
+        "message": "Skapa ditt AdGuard-konto"
     },
     "auth_sign_up_button": {
         "message": "Registrera dig"
@@ -109,6 +115,9 @@
     },
     "auth_sign_in_button": {
         "message": "Logga in"
+    },
+    "auth_sign_in_provider_adguard_label": {
+        "message": "Mejl"
     },
     "auth_sign_in_provider_apple": {
         "message": "Fortsätt med Apple"
@@ -347,6 +356,15 @@
     "popup_feedback_button": {
         "message": "Lämna feedback"
     },
+    "popup_rate_modal_send_button": {
+        "message": "Skicka"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "Avbryt"
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
+        "message": "Lämna feedback"
+    },
     "upgrade_features_data": {
         "message": "Obegränsad data"
     },
@@ -392,6 +410,9 @@
     },
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 kontinenter och dussintals länder. Välj en stad och surfa säkert på nätet!"
+    },
+    "popup_upgrade_screen_connect_devices": {
+        "message": "Upp till 5 enheter"
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Uppgradera"

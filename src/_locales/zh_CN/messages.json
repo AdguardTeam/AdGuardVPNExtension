@@ -17,6 +17,9 @@
     "registration_error_min_length": {
         "message": "此密码太短。必须为 8 个或更多字符。"
     },
+    "registration_error_confirm_password": {
+        "message": "密码不匹配"
+    },
     "registration_error_compromised_password": {
         "message": "你输入的密码在密码泄露的<a>公共数据库</a>中被找到，请尝试其它密码"
     },
@@ -117,25 +120,34 @@
         "message": "账号"
     },
     "account_edit": {
-        "message": "管理"
+        "message": "管理账号"
     },
     "account_version": {
         "message": "版本"
     },
-    "account_current_plan": {
-        "message": "您的订阅方案"
-    },
-    "account_signed": {
-        "message": "用以下账号登录"
-    },
     "account_free": {
-        "message": "免费"
+        "message": "免费账号"
     },
     "account_unlimited": {
-        "message": "无限制"
+        "message": "无限订阅"
+    },
+    "account_monthly_paid": {
+        "message": "月度订阅"
+    },
+    "account_yearly_paid": {
+        "message": "年度订阅"
+    },
+    "account_two_year_paid": {
+        "message": "两年订阅"
+    },
+    "account_get_subscription": {
+        "message": "获取订阅"
+    },
+    "account_max_devices_count": {
+        "message": "最多可以同时连接 %num% 台设备"
     },
     "account_next_charge": {
-        "message": "(下次付款日期 %date%)"
+        "message": "下次付款日期 %date%"
     },
     "account_sign_out": {
         "message": "退出"
@@ -158,17 +170,26 @@
     "auth_password": {
         "message": "密码"
     },
+    "auth_your_password": {
+        "message": "您的密码"
+    },
+    "auth_password_confirm": {
+        "message": "确认密码"
+    },
     "auth_recover": {
         "message": "忘记密码？"
     },
     "auth_sign_up": {
         "message": "注册"
     },
+    "auth_sign_up_info": {
+        "message": "创建您的 AdGuard 账号"
+    },
     "auth_sign_up_button": {
         "message": "注册"
     },
     "auth_sign_in": {
-        "message": "登录"
+        "message": "输入您的密码"
     },
     "auth_sign_in_button": {
         "message": "登录"
@@ -177,10 +198,10 @@
         "message": "用 AdGuard 账号登录"
     },
     "auth_title": {
-        "message": "授权"
+        "message": "登录或创建账号"
     },
-    "auth_info": {
-        "message": "使用您的 AdGuard 账号或社交账号登录"
+    "auth_sign_in_provider_adguard_label": {
+        "message": "电子邮件"
     },
     "auth_sign_in_provider_adguard": {
         "message": "用电子邮件继续"
@@ -204,7 +225,7 @@
         "message": "您正在登录为 <div>%username%</div> "
     },
     "auth_header_sing_in_notice": {
-        "message": "您已有账号 <div>%username%</div>"
+        "message": "使用 <span>%username%</span> 登录"
     },
     "auth_header_registration": {
         "message": "您正在注册为 <div>%username%</div>"
@@ -237,7 +258,7 @@
         "message": "获取免费 VPN 流量！"
     },
     "settings_referral_info": {
-        "message": "邀请您的朋友加入忍者家族并获得一个月内可用的 VPN 免费流量！每拉一个朋友来注册就能收到 %your_gb% GB 流量。同时也会给您的朋友赠送 %friend_gb% GB 的免费流量！（您至多可以收到 %total_gb% GB 的免费流量！）"
+        "message": "邀请您的朋友加入忍者家族并获得一个月内可用的 VPN 免费流量！每拉一个朋友来注册就能收到 %your_gb%GB 流量。同时也会给您的朋友赠送 %friend_gb%GB 的免费流量！（您至多可以收到 %total_gb%GB 的免费流量！）"
     },
     "settings_referral_invited_friends": {
         "message": "已邀请的朋友 %count%/%limit%"
@@ -543,7 +564,7 @@
         "message": "未找到位置"
     },
     "popup_traffic_limit_reached": {
-        "message": "已达到每月流量限制。需要更多流量？"
+        "message": "已达到每月流量限制"
     },
     "premium_upgrade": {
         "message": "升级"
@@ -577,6 +598,33 @@
     },
     "popup_feedback_button": {
         "message": "留下反馈"
+    },
+    "popup_rate_modal_title": {
+        "message": "AdGuard VPN 有多棒？"
+    },
+    "popup_rate_modal_subtitle": {
+        "message": "请给我们评分"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "发送"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "取消"
+    },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "帮我们进一步改进"
+    },
+    "popup_confirm_rate_modal_feedback_subtitle": {
+        "message": "请告诉我们出了什么问题"
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
+        "message": "留下反馈"
+    },
+    "popup_confirm_rate_modal_rate_title": {
+        "message": "您愿意在 Chrome 商店里也给我们打分吗？太谢谢您啦！"
+    },
+    "popup_confirm_rate_modal_confirm_button": {
+        "message": "转到 Chrome 商店"
     },
     "settings_run_upgrade_early_bird": {
         "message": "早鸟优惠价"
@@ -615,11 +663,11 @@
         "message": "VPN 在该网站上已被禁用"
     },
     "popup_auth_policy_agreement": {
-        "message": "接受<eula>最终用户许可协议</eula>和<privacy>隐私政策</privacy>",
+        "message": "我已经阅读并接受 AdGuard 的<eula>最终用户许可协议</eula>和<privacy>隐私政策</privacy>",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
-        "message": "允许 AdGuard 收集关于应用程序运行的<link>匿名数据</link>以帮助改进 AdGuard VPN"
+        "message": "我允许 AdGuard 收集关于应用程序运行的<link>匿名数据</link>以帮助改进 AdGuard VPN"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "继续"
@@ -678,11 +726,11 @@
     "popup_upgrade_screen_all_locations_desc": {
         "message": "六个大洲及海量国家与地区。选择一座城市并开始安全浏览！"
     },
-    "popup_upgrade_screen_streaming_support": {
-        "message": "流媒体服务"
+    "popup_upgrade_screen_connect_devices": {
+        "message": "最多五台设备"
     },
-    "popup_upgrade_screen_streaming_support_desc": {
-        "message": "大部分主流流媒体服务都可用。随时随地享受！"
+    "popup_upgrade_screen_connect_devices_desc": {
+        "message": "将自己的所有设备同时连接到 AdGuard VPN，或者保护全家的隐私安全！"
     },
     "popup_upgrade_screen_streaming": {
         "message": "串流"
@@ -779,6 +827,6 @@
         "message": "您已退出 AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "您的连接不安全。为了继续匿名浏览，请点击 AdGuard VPN 图标并重新登录。"
+        "message": "请注意：您的连接不安全！为了继续匿名浏览，请点击 AdGuard VPN 图标并重新登录。"
     }
 }

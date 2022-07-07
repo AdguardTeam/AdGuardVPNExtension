@@ -93,7 +93,6 @@ export const FORCE_CANCELLED = 'Connection was cancelled by user';
 export const UNINSTALL_URL = 'https://adguard-vpn.com/forward.html?action=adguard_uninstal_ext&from=background_page&app=vpn_extension';
 
 export const AUTH_PROVIDERS = {
-    ADGUARD: 'adguard',
     APPLE: 'apple',
     GOOGLE: 'google',
     FACEBOOK: 'facebook',

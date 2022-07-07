@@ -101,11 +101,17 @@
     "auth_password": {
         "message": "Sandi"
     },
+    "auth_password_confirm": {
+        "message": "Konfirmasi sandi"
+    },
     "auth_recover": {
         "message": "Lupa kata sandi?"
     },
     "auth_sign_up": {
         "message": "Daftar"
+    },
+    "auth_sign_up_info": {
+        "message": "Buat akun AdGuard Anda"
     },
     "auth_sign_up_button": {
         "message": "Daftar"
@@ -122,6 +128,9 @@
     "auth_title": {
         "message": "Otorisasi"
     },
+    "auth_sign_in_provider_adguard_label": {
+        "message": "Email"
+    },
     "auth_header_sign_in_account": {
         "message": "Anda masuk dengan akaun AdGuard"
     },
@@ -132,7 +141,7 @@
         "message": "Anda masuk sebagai <div>%username%</div>"
     },
     "auth_header_sing_in_notice": {
-        "message": "Anda sudah memiliki akun <div>%username%</div>"
+        "message": "Anda sudah memiliki akun <span>%username%</span>"
     },
     "auth_header_registration": {
         "message": "Anda mendaftar sebagai <div>%username%</div>"
@@ -429,6 +438,21 @@
         "message": "Kami ingin mendengar tanggapan Anda"
     },
     "popup_feedback_button": {
+        "message": "Umpan balik"
+    },
+    "popup_rate_modal_subtitle": {
+        "message": "Silahkan nilai kami"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "Kirim"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "Batal"
+    },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "Bantu kami meningkatkan"
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "Umpan balik"
     },
     "settings_run_upgrade_early_bird": {

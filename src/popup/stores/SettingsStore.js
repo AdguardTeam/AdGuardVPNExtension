@@ -182,7 +182,7 @@ export class SettingsStore {
     }
 
     @computed
-    get showLimitExceededScreen() {
+    get hasLimitExceededError() {
         const { vpnStore } = this.rootStore;
 
         const {
@@ -194,8 +194,12 @@ export class SettingsStore {
             return false;
         }
 
-        const hasLimitExceeded = maxDownloadedBytes - usedDownloadedBytes < 0;
-        return hasLimitExceeded && !this.hasLimitExceededDisplayed;
+        return maxDownloadedBytes - usedDownloadedBytes < 0;
+    }
+
+    @computed
+    get showLimitExceededScreen() {
+        return this.hasLimitExceededError && !this.hasLimitExceededDisplayed;
     }
 
     @action
