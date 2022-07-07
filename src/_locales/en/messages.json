@@ -320,6 +320,12 @@
     "settings_dns_add_custom_server_save": {
         "message": "Save"
     },
+    "settings_dns_add_custom_server_notification_success": {
+        "message": "Custom DNS server added"
+    },
+    "settings_dns_delete_custom_server_notification": {
+        "message": "Custom DNS server deleted"
+    },
     "settings_dns_desc": {
         "message": "Domain Name System (DNS) is the internet's equivalent of a phone book. It maintains a directory of domain names and translates them to Internet Protocol (IP) addresses."
     },

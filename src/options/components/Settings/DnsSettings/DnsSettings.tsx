@@ -18,7 +18,7 @@ interface DnsServerData {
 }
 
 export const DnsSettings = observer(() => {
-    const { settingsStore } = useContext(rootStore);
+    const { settingsStore, notificationsStore } = useContext(rootStore);
 
     const handleDnsSelect = async (event: React.MouseEvent<HTMLDivElement>): Promise<void> => {
         const dnsServerId = event.currentTarget.id;
@@ -39,8 +39,16 @@ export const DnsSettings = observer(() => {
         settingsStore.openCustomDnsModalOpen();
     };
 
-    const removeDnsServer = (dnsServerId: string): void => {
-        settingsStore.removeCustomDnsServer(dnsServerId);
+    const removeDnsServer = (dnsServerData: DnsServerData): void => {
+        const { id, title, ip } = dnsServerData;
+        settingsStore.removeCustomDnsServer(id);
+        notificationsStore.notifySuccess(
+            reactTranslator.getMessage('settings_dns_delete_custom_server_notification'),
+            {
+                action: reactTranslator.getMessage('settings_exclusions_undo'),
+                handler: () => settingsStore.addCustomDnsServer(title, ip),
+            },
+        );
     };
 
     const openEditDnsServerModal = (server: DnsServerData): void => {
@@ -99,7 +107,7 @@ export const DnsSettings = observer(() => {
                         <button
                             type="button"
                             className="button button--icon"
-                            onClick={() => removeDnsServer(server.id)}
+                            onClick={() => removeDnsServer(server)}
                         >
                             <svg className="icon">
                                 <use xlinkHref="#basket" />

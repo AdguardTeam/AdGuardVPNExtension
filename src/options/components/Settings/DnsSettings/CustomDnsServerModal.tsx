@@ -8,7 +8,7 @@ import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 
 export const CustomDnsServerModal = observer(() => {
-    const { settingsStore } = useContext(rootStore);
+    const { settingsStore, notificationsStore } = useContext(rootStore);
 
     const [dnsServerName, setDnsServerName] = useState('');
     const [dnsServerAddress, setDnsServerAddress] = useState('');
@@ -46,7 +46,14 @@ export const CustomDnsServerModal = observer(() => {
             setIpAddressError(true);
             return;
         }
-        await settingsStore.addCustomDnsServer(dnsServerName, dnsServerAddress);
+        const dnsServer = await settingsStore.addCustomDnsServer(dnsServerName, dnsServerAddress);
+        notificationsStore.notifySuccess(
+            reactTranslator.getMessage('settings_dns_add_custom_server_notification_success'),
+            {
+                action: reactTranslator.getMessage('settings_exclusions_undo'),
+                handler: () => settingsStore.removeCustomDnsServer(dnsServer.id),
+            },
+        );
         closeModal();
     };
 

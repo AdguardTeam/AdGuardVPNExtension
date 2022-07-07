@@ -4,18 +4,18 @@ import { useHistory } from 'react-router-dom';
 
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { DNS_SERVERS, DNS_SETTINGS_QUERY } from '../../../../background/dns/dnsConstants';
+import { DNS_SETTINGS_QUERY } from '../../../../background/dns/dnsConstants';
 
 export const DnsMenuItem = observer(() => {
     const { settingsStore } = useContext(rootStore);
+
+    const { currentDnsServerName } = settingsStore;
 
     const history = useHistory();
 
     const handleClick = () => {
         history.push(`?${DNS_SETTINGS_QUERY}`);
     };
-
-    const currentDnsServerName = DNS_SERVERS[settingsStore.dnsServer]?.title;
 
     return (
         <div className="settings__group">

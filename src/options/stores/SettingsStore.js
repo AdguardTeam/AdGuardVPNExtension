@@ -2,11 +2,12 @@ import {
     action,
     observable,
     runInAction,
+    computed,
 } from 'mobx';
 import { nanoid } from 'nanoid';
 
 import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT } from '../../lib/constants';
-import { DNS_DEFAULT } from '../../background/dns/dnsConstants';
+import { DNS_DEFAULT, DNS_SERVERS } from '../../background/dns/dnsConstants';
 import { messenger } from '../../lib/messenger';
 import { REQUEST_STATUSES } from './consts';
 import { log } from '../../lib/logger';
@@ -177,6 +178,7 @@ export class SettingsStore {
         };
         this.customDnsServers.push(dnsServer);
         await messenger.addCustomDnsServer(dnsServer);
+        return dnsServer;
     };
 
     @action editCustomDnsServer = async (dnsServerName, dnsServerAddress) => {
@@ -210,4 +212,17 @@ export class SettingsStore {
     @action closeCustomDnsModalOpen = () => {
         this.isCustomDnsModalOpen = false;
     };
+
+    @computed get currentDnsServerName() {
+        if (!this.dnsServer) {
+            return null;
+        }
+        let dnsServerName = DNS_SERVERS[this.dnsServer]?.title;
+        if (!dnsServerName) {
+            const currentDnsServer = this.customDnsServers
+                .find((server) => server.id === this.dnsServer);
+            dnsServerName = currentDnsServer.title;
+        }
+        return dnsServerName;
+    }
 }
