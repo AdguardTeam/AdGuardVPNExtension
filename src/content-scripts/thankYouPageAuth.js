@@ -13,8 +13,12 @@ if (credentialsString) {
         tokenType: TOKEN_TYPE,
     };
 
-    browser.runtime.sendMessage({
-        type: MessageType.AUTHENTICATE_THANKYOU_PAGE,
-        data: { authCredentials },
-    });
+    (async () => {
+        await browser.runtime.sendMessage({
+            type: MessageType.AUTHENTICATE_THANKYOU_PAGE,
+            data: { authCredentials },
+        });
+        // delete credentials from sessionStorage after authentication
+        sessionStorage.removeItem(CREDENTIALS_KEY);
+    })();
 }
