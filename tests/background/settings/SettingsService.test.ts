@@ -4,7 +4,7 @@ import { sleep } from '../../../src/lib/helpers';
 jest.mock('../../../src/lib/logger');
 
 const storage = (() => {
-    const settingsStorage = {};
+    const settingsStorage: { [key: string]: any } = {};
     return {
         set: jest.fn((key, data) => {
             settingsStorage[key] = data;
@@ -23,7 +23,7 @@ const defaults = {
     showPromo: false,
 };
 
-let settingsService;
+let settingsService: SettingsService;
 
 describe('SettingsService', () => {
     describe('init', () => {
