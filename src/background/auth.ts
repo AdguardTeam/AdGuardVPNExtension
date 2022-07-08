@@ -145,11 +145,17 @@ class Auth implements AuthInterface {
             state,
         } = data;
 
+        if (typeof accessToken !== 'string'
+        || typeof expiresIn !== 'string'
+        || typeof tokenType !== 'string') {
+            throw new Error('Unable to get auth credentials, user is not authenticated');
+        }
+
         if (state && state === this.socialAuthState) {
             await this.setAccessToken({
-                accessToken: accessToken as string,
-                expiresIn: expiresIn as string,
-                tokenType: tokenType as string,
+                accessToken,
+                expiresIn,
+                tokenType,
             });
             await tabs.closeTab(tabId);
             this.socialAuthState = null;

@@ -29,7 +29,7 @@
             "run_at":"document_start"
         },
         {
-            "matches": ["https://dev.adguard-vpn.com/*/thankyou-auth.html"],
+            "matches": ["https://*/thankyou-auth.html?new_user*"],
             "js": ["thankYouPageAuth.js"],
             "run_at": "document_start"
         }
