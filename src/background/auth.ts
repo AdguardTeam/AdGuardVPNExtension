@@ -37,7 +37,7 @@ interface AuthInterface {
     startSocialAuth(socialProvider: string, marketingConsent: boolean): Promise<void>;
     getImplicitAuthUrl(socialProvider: string, marketingConsent: boolean): Promise<string>;
     authenticateSocial(queryString: string, tabId: number): Promise<void>;
-    authenticateThankYouPage(credentials: AccessTokenInterface): Promise<void>;
+    authenticateThankYouPage(credentials: AccessTokenInterface, isNewUser: number): Promise<void>;
     deauthenticate(): Promise<void>;
     register(
         credentials: CredentialsInterface,
@@ -170,12 +170,20 @@ class Auth implements AuthInterface {
     /**
      * Authenticate user after registration on thank you page
      * @param credentials
+     * @param isNewUser
      * @returns {Promise<void>}
      */
-    async authenticateThankYouPage(credentials: AccessTokenInterface): Promise<void> {
+    async authenticateThankYouPage(
+        credentials: AccessTokenInterface,
+        isNewUser: number,
+    ): Promise<void> {
         await this.setAccessToken(credentials);
 
-        await flagsStorage.onRegister();
+        if (isNewUser) {
+            await flagsStorage.onRegister();
+        } else {
+            await flagsStorage.onAuthenticate();
+        }
         await notifications.create({ message: translator.getMessage('authentication_successful_notification') });
     }
 

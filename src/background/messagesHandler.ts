@@ -129,8 +129,8 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             return auth.authenticateSocial(queryString, id);
         }
         case MessageType.AUTHENTICATE_THANKYOU_PAGE: {
-            const { authCredentials } = message.data;
-            return auth.authenticateThankYouPage(authCredentials);
+            const { authCredentials, isNewUser } = message.data;
+            return auth.authenticateThankYouPage(authCredentials, isNewUser);
         }
         case MessageType.GET_POPUP_DATA: {
             const { url, numberOfTries } = data;
