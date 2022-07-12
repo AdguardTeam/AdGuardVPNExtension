@@ -7,7 +7,8 @@ class Dns {
     }
 
     getDnsServerIp = () => {
-        return DNS_SERVERS[this.dnsServer].ip1;
+        // FIXME temp solution
+        return this.dnsServer?.ip1 || DNS_SERVERS[this.dnsServer].ip1;
     };
 
     setDnsServer = (dnsServer) => {
@@ -22,8 +23,9 @@ class Dns {
         if (this.dnsServer === dnsServerData.id) {
             return;
         }
-        this.dnsServer = dnsServerData.id;
-        notifier.notifyListeners(notifier.types.DNS_SERVER_SET, dnsServerData.ip);
+        // FIXME fix this.dnsServer type, it has to be string
+        this.dnsServer = dnsServerData;
+        notifier.notifyListeners(notifier.types.DNS_SERVER_SET, dnsServerData.ip1);
     };
 }
 

@@ -114,7 +114,7 @@ export class SettingsStore {
     };
 
     @action setCustomDnsServer = async (dnsServerData) => {
-        if (!dnsServerData.ip) {
+        if (!dnsServerData.ip1) {
             return;
         }
         await messenger.setSetting(SETTINGS_IDS.SELECTED_CUSTOM_DNS_SERVER, dnsServerData);
@@ -174,7 +174,7 @@ export class SettingsStore {
         const dnsServer = {
             id: nanoid(),
             title: dnsServerName,
-            ip: dnsServerAddress,
+            ip1: dnsServerAddress,
         };
         this.customDnsServers.push(dnsServer);
         await messenger.addCustomDnsServer(dnsServer);
@@ -189,7 +189,7 @@ export class SettingsStore {
         const editedDnsServers = await messenger.editCustomDnsServer({
             id: this.dnsServerToEdit.id,
             title: dnsServerName,
-            ip: dnsServerAddress,
+            ip1: dnsServerAddress,
         });
 
         this.setCustomDnsServers(editedDnsServers);
@@ -221,7 +221,10 @@ export class SettingsStore {
         if (!dnsServerName) {
             const currentDnsServer = this.customDnsServers
                 .find((server) => server.id === this.dnsServer);
-            dnsServerName = currentDnsServer.title;
+            // FIXME handle custom servers
+            if (currentDnsServer) {
+                dnsServerName = currentDnsServer.title;
+            }
         }
         return dnsServerName;
     }

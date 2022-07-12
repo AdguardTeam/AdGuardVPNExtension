@@ -152,7 +152,7 @@ const editCustomDnsServer = (dnsServerData) => {
             return {
                 id: server.id,
                 title: dnsServerData.title,
-                ip: dnsServerData.ip,
+                ip1: dnsServerData.ip1,
             };
         }
         return server;

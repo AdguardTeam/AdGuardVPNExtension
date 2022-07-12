@@ -14,7 +14,7 @@ import './dns-settings.pcss';
 interface DnsServerData {
     id: string;
     title: string;
-    ip: string;
+    ip1: string;
 }
 
 export const DnsSettings = observer(() => {
@@ -40,13 +40,13 @@ export const DnsSettings = observer(() => {
     };
 
     const removeDnsServer = (dnsServerData: DnsServerData): void => {
-        const { id, title, ip } = dnsServerData;
+        const { id, title, ip1 } = dnsServerData;
         settingsStore.removeCustomDnsServer(id);
         notificationsStore.notifySuccess(
             reactTranslator.getMessage('settings_dns_delete_custom_server_notification'),
             {
                 action: reactTranslator.getMessage('settings_exclusions_undo'),
-                handler: () => settingsStore.addCustomDnsServer(title, ip),
+                handler: () => settingsStore.addCustomDnsServer(title, ip1),
             },
         );
     };
@@ -92,7 +92,7 @@ export const DnsSettings = observer(() => {
                     <RadioButton enabled={server.id === settingsStore.dnsServer} />
                     <div>
                         <div className="settings__item-title">{server.title}</div>
-                        <div className="settings__item-desc">{server.ip}</div>
+                        <div className="settings__item-desc">{server.ip1}</div>
                     </div>
                     <div className="dns-settings__item__actions">
                         <button

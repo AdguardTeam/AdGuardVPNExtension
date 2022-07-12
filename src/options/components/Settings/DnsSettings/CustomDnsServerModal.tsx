@@ -84,7 +84,7 @@ export const CustomDnsServerModal = observer(() => {
     useEffect(() => {
         if (settingsStore.dnsServerToEdit) {
             const { title: serverName } = settingsStore.dnsServerToEdit;
-            const { ip: serverIp } = settingsStore.dnsServerToEdit;
+            const { ip1: serverIp } = settingsStore.dnsServerToEdit;
 
             setDnsServerName(serverName);
             setDnsServerAddress(serverIp);
