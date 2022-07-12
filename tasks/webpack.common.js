@@ -18,6 +18,7 @@ const BACKGROUND_PATH = path.resolve(__dirname, SRC_PATH, 'background');
 const OPTIONS_PATH = path.resolve(__dirname, SRC_PATH, 'options');
 const POPUP_PATH = path.resolve(__dirname, SRC_PATH, 'popup');
 const AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/auth.js');
+const THANKYOU_PAGE_AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/thankYouPageAuth.js');
 
 const OUTPUT_PATH = getOutputPathByEnv(BUILD_ENV);
 
@@ -39,6 +40,7 @@ const config = {
         options: OPTIONS_PATH,
         popup: POPUP_PATH,
         auth: AUTH_SCRIPT,
+        thankYouPageAuth: THANKYOU_PAGE_AUTH_SCRIPT,
     },
     output: {
         path: path.resolve(__dirname, BUILD_PATH, OUTPUT_PATH),

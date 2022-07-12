@@ -268,6 +268,7 @@ class EndpointConnectivity {
         const NON_ROUTABLE_CODE = 'NON_ROUTABLE';
         const TOO_MANY_DEVICES_CONNECTED = 'TOO_MANY_DEVICES_CONNECTED';
         const TRAFFIC_LIMIT_REACHED = 'TRAFFIC_LIMIT_REACHED';
+        const FREE_TRAFFIC_LEFT_MEGABYTES = 'FREE_TRAFFIC_LEFT_MEGABYTES';
 
         const { code, payload } = connectivityErrorMsg;
 
@@ -282,6 +283,12 @@ class EndpointConnectivity {
             await notifications.create({
                 title: translator.getMessage('notification_data_limit_reached_title'),
                 message: translator.getMessage('notification_data_limit_reached_description'),
+            });
+        }
+        if (code === FREE_TRAFFIC_LEFT_MEGABYTES) {
+            await notifications.create({
+                title: translator.getMessage('notification_data_left_mb', { num: payload }),
+                message: translator.getMessage('notification_data_left_description'),
             });
         }
     };
