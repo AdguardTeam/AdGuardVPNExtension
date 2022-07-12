@@ -8,6 +8,9 @@
     "registration_error_not_valid": {
         "message": "Detta värde är ogiltigt"
     },
+    "registration_error_confirm_password": {
+        "message": "Lösenorden matchar inte"
+    },
     "registration_error_unique_constraint": {
         "message": "Användarnamnet är redan taget"
     },
@@ -364,6 +367,9 @@
     },
     "popup_upgrade_screen_all_locations_desc": {
         "message": "6 kontinenter och dussintals länder. Välj en stad och surfa säkert på nätet!"
+    },
+    "popup_upgrade_screen_connect_devices": {
+        "message": "Upp till 5 enheter"
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Uppgradera"

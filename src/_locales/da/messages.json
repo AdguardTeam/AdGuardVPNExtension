@@ -473,7 +473,7 @@
     "global_error_try_again": {
         "message": "Forsøg igen"
     },
-    "authentication_successful_social": {
+    "authentication_successful_notification": {
         "message": "Godkendt! Du kan åbne AdGuard VPN og begynde at bruge den."
     },
     "control_error_description": {

@@ -413,9 +413,6 @@
     "global_error_try_again": {
         "message": "Próbálja újra"
     },
-    "authentication_successful_social": {
-        "message": "Sikeres hitelesítés! Megnyithatja az AdGuard VPN-t és elkezdheti használni."
-    },
     "control_error_description": {
         "message": "Úgy tűnik, hogy egy másik Chrome-bővítmény megpróbálja irányítani a kapcsolatot. Kérjük, tiltsa le a másik bővítményt a böngészőjében."
     },

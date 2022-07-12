@@ -473,9 +473,6 @@
     "global_error_try_again": {
         "message": "Попробовать снова"
     },
-    "authentication_successful_notification": {
-        "message": "Успешная аутентификация! Можете открыть AdGuard VPN и начать им пользоваться."
-    },
     "control_error_description": {
         "message": "Похоже, что еще одно расширение Chrome пытается контролировать ваше соединение. Пожалуйста, отключите другое расширение в вашем браузере."
     },

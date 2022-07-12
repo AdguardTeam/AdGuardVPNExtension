@@ -300,7 +300,7 @@
         "message": "Entfernt Werbeanzeigen und Tracker von Ihrem Gerät"
     },
     "settings_dns_selector_adguard_nonfiltering_title": {
-        "message": "AdGuard DNS „Nicht filternd”"
+        "message": "AdGuard DNS Ohne Filterung"
     },
     "settings_dns_selector_adguard_nonfiltering_desc": {
         "message": "Verschlüsseltes DNS ohne Aktivitätsprotokollierung (filtert keine Werbeanzeigen und Tracker)"
@@ -473,8 +473,8 @@
     "global_error_try_again": {
         "message": "Erneut versuchen"
     },
-    "authentication_successful_social": {
-        "message": "Erfolgreich authentifiziert! Sie können AdGuard VPN öffnen und es sofort verwenden."
+    "authentication_successful_notification": {
+        "message": "Erfolgreich authentifiziert! Sie können AdGuard VPN jetzt öffnen und sofort verwenden."
     },
     "control_error_description": {
         "message": "Es sieht so aus, als ob eine andere Chrome-Erweiterung versucht, Ihre Verbindung zu kontrollieren. Bitte deaktivieren Sie die andere Erweiterung in Ihrem Browser."

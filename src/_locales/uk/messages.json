@@ -399,7 +399,7 @@
         "message": "Скасувати"
     },
     "settings_exclusion_modal_remove": {
-        "message": "Вилучити"
+        "message": "Видалити"
     },
     "settings_exclusion_modal_save": {
         "message": "Зберегти"
@@ -473,7 +473,7 @@
     "global_error_try_again": {
         "message": "Спробувати знову"
     },
-    "authentication_successful_social": {
+    "authentication_successful_notification": {
         "message": "Ви успішно авторизувались! Можете відкрити AdGuard VPN та під'єднатись."
     },
     "control_error_description": {
@@ -759,5 +759,11 @@
     },
     "notification_data_limit_reached_description": {
         "message": "Швидкість VPN-з'єднання знижено."
+    },
+    "notification_data_left_mb": {
+        "message": "Залишилось %num% МБ."
+    },
+    "notification_data_left_description": {
+        "message": "Швидкість VPN-з'єднання буде зменшено невдовзі."
     }
 }

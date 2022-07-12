@@ -473,9 +473,6 @@
     "global_error_try_again": {
         "message": "다시 시도하기"
     },
-    "authentication_successful_social": {
-        "message": "성공적으로 인증되었습니다! 이제 AdGuard VPN을 사용할 수 있습니다."
-    },
     "control_error_description": {
         "message": "Chrome 확장 프로그램이 연결을 제어하는 것으로 보입니다. 브라우저에서 다른 확장 프로그램을 비활성화해주세요."
     },

@@ -473,7 +473,7 @@
     "global_error_try_again": {
         "message": "Zkusit znovu"
     },
-    "authentication_successful_social": {
+    "authentication_successful_notification": {
         "message": "Úspěšně ověřeno! Můžete otevřít AdGuard VPN a začít ji používat."
     },
     "control_error_description": {
@@ -759,5 +759,11 @@
     },
     "notification_data_limit_reached_description": {
         "message": "Rychlost připojení VPN byla snížena."
+    },
+    "notification_data_left_mb": {
+        "message": "Zbývá %num% MB."
+    },
+    "notification_data_left_description": {
+        "message": "Rychlost připojení VPN bude brzy snížena."
     }
 }

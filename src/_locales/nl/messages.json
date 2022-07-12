@@ -473,8 +473,8 @@
     "global_error_try_again": {
         "message": "Probeer opnieuw"
     },
-    "authentication_successful_social": {
-        "message": "Succesvol aangemeld! Je kan AdGuard VPN openen en gebruiken."
+    "authentication_successful_notification": {
+        "message": "Succesvol geauthenticeerd! Je kunt AdGuard VPN openen en gaan gebruiken."
     },
     "control_error_description": {
         "message": "Het lijkt erop dat een andere Chrome-extensie je verbinding probeert te beheren. Schakel de andere extensie in je browser uit."

@@ -473,8 +473,8 @@
     "global_error_try_again": {
         "message": "Pokušajte ponovno"
     },
-    "authentication_successful_social": {
-        "message": "Uspješno autentificirano! Možete otvoriti AdGuard VPN i početi ga koristiti."
+    "authentication_successful_notification": {
+        "message": "Uspješno provjerena autentičnost! Možete otvoriti AdGuard VPN i početi ga koristiti."
     },
     "control_error_description": {
         "message": "Izgleda da još jedno proširenje Chromea pokušava kontrolirati vašu vezu. Onemogućite drugo proširenje u vašem pregledniku."
@@ -755,7 +755,7 @@
         "message": "Imajte na umu da vaša veza nije sigurna. Da biste nastavili privatno surfati, kliknite na ikonu AdGuard VPN i ponovno se prijavite."
     },
     "notification_data_limit_reached_title": {
-        "message": "Mjesečno ograničenje podatka je dosegnuto. Trebate li više?"
+        "message": "Dosegnuli ste mjesečno ograničenje podataka."
     },
     "notification_data_limit_reached_description": {
         "message": "Brzina VPN veze je smanjena."

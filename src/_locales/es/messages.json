@@ -473,9 +473,6 @@
     "global_error_try_again": {
         "message": "Volver a intentar"
     },
-    "authentication_successful_social": {
-        "message": "¡Autenticado correctamente! Puedes abrir AdGuard VPN y comenzar a usarlo."
-    },
     "control_error_description": {
         "message": "Parece que otra extensión de Chrome está intentando controlar tu conexión. Deshabilita la otra extensión de tu navegador."
     },
@@ -582,10 +579,10 @@
         "message": "Dejar comentario"
     },
     "popup_confirm_rate_modal_rate_title": {
-        "message": "¡Guau! ¿Puedes calificarnos también en la tienda Chrome Web?"
+        "message": "¡Guau! ¿Puedes calificarnos también en la Chrome Web Store?"
     },
     "popup_confirm_rate_modal_confirm_button": {
-        "message": "Ir a la tienda web de Chrome"
+        "message": "Ir a la Chrome Web Store"
     },
     "options_title": {
         "message": "Opciones de AdGuard VPN"
@@ -600,7 +597,7 @@
         "message": "VPN deshabilitado en este sitio web"
     },
     "popup_auth_policy_agreement": {
-        "message": "Aceptar el <eula>acuerdo de licencia</eula> y la <privacy>política de privacidad</privacy>",
+        "message": "He leído y estoy de acuerdo con el <eula>acuerdo de licencia</eula> y la <privacy>política de privacidad</privacy>",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
@@ -752,12 +749,12 @@
         "message": "Has cerrado sesión en AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "Ten en cuenta: ¡no estás conectado a la VPN y tu tráfico no está protegido! Para seguir navegando de forma privada, haz clic en el icono de AdGuard VPN y vuelve a iniciar sesión."
+        "message": "Tener en cuenta: ¡no estás conectado a la VPN y tu tráfico no está protegido! Para seguir navegando de forma privada, haz clic en el icono de AdGuard VPN y vuelve a iniciar sesión."
     },
     "notification_data_limit_reached_title": {
         "message": "Se alcanzó el límite de datos mensual"
     },
     "notification_data_limit_reached_description": {
-        "message": "La velocidad de conexión a la VPN se ha reducido."
+        "message": "La velocidad de conexión VPN se ha reducido."
     }
 }

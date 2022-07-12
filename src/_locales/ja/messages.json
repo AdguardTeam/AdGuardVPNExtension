@@ -473,9 +473,6 @@
     "global_error_try_again": {
         "message": "もう一度試す"
     },
-    "authentication_successful_social": {
-        "message": "認証完了！AdGuard VPNを開き、利用を開始することができます。"
-    },
     "control_error_description": {
         "message": "別のChrome拡張機能があなたの接続を制御しようとしているようです。その拡張機能を無効にしてください。"
     },

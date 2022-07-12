@@ -347,9 +347,6 @@
     "global_error_try_again": {
         "message": "Hãy thử lại"
     },
-    "authentication_successful_social": {
-        "message": "Đã xác thực thành công! Bạn có thể mở AdGuard VPN và bật đường hầm."
-    },
     "control_error_description": {
         "message": "Có vẻ như một tiện ích mở rộng khác của Chrome đang cố gắng kiểm soát kết nối của bạn. Vui lòng tắt tiện ích mở rộng khác trong trình duyệt của bạn."
     },

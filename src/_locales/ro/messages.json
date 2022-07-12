@@ -473,8 +473,8 @@
     "global_error_try_again": {
         "message": "Încercați din nou"
     },
-    "authentication_successful_social": {
-        "message": "Autentificat cu succes! Puteți deschide AdGuard VPN și începe a-l utiliza."
+    "authentication_successful_notification": {
+        "message": "Autentificat cu succes! Puteți deschide AdGuard VPN și puteți începe să-l utilizați."
     },
     "control_error_description": {
         "message": "Se pare că o altă extensie Chrome încearcă să vă controleze conexiunile. Vă rugăm să dezactivați cealaltă extensie în browser."

@@ -473,7 +473,7 @@
     "global_error_try_again": {
         "message": "Tekrar dene"
     },
-    "authentication_successful_social": {
+    "authentication_successful_notification": {
         "message": "Başarıyla doğrulandı! AdGuard VPN'i açabilir ve kullanmaya başlayabilirsiniz."
     },
     "control_error_description": {

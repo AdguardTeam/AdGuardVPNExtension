@@ -437,7 +437,7 @@
     "global_error_try_again": {
         "message": "Skúste znova"
     },
-    "authentication_successful_social": {
+    "authentication_successful_notification": {
         "message": "Úspešne overené! Môžete otvoriť AdGuard VPN a začať ju používať."
     },
     "control_error_description": {

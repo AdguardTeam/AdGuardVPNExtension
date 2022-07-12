@@ -212,6 +212,9 @@
     "auth_sign_in_provider_facebook": {
         "message": "Continuar com Facebook"
     },
+    "auth_header_sing_in_notice": {
+        "message": "Iniciar sessão como <span>%username%</span>"
+    },
     "auth_header_2fa_subtitle": {
         "message": "Autenticação a dois factores"
     },
@@ -470,7 +473,7 @@
     "global_error_try_again": {
         "message": "Tente novamente"
     },
-    "authentication_successful_social": {
+    "authentication_successful_notification": {
         "message": "Autenticado com sucesso! Tu podes abrir o AdGuard VPN e começar a usá-lo."
     },
     "control_error_description": {
@@ -557,6 +560,9 @@
     "popup_feedback_button": {
         "message": "Deixar feedback"
     },
+    "popup_rate_modal_title": {
+        "message": "Quão incrível é o AdGuard VPN?"
+    },
     "popup_rate_modal_subtitle": {
         "message": "Por favor, avalie-nos"
     },
@@ -596,6 +602,9 @@
     "popup_auth_policy_agreement": {
         "message": "Li e concordo com o <eula>contrato</eula> e <privacy>política de privacidade</privacy> do AdGuard",
         "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "Permitir que o AdGuard reúna <link>dados estritamente anónimos</link> sobre o uso do aplicativo para tornar o AdGuard VPN ainda melhor"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Continuar"
@@ -742,7 +751,13 @@
     "options_signedout_page_title": {
         "message": "Você saiu do AdGuard VPN"
     },
+    "options_signedout_page_description": {
+        "message": "Por favor note: você não está conectado à VPN e o seu tráfego não está protegido! Para continuar a navegar com privacidade, clique no ícone AdGuard VPN e inicie sessão novamente."
+    },
     "notification_data_limit_reached_title": {
         "message": "Limite mensal de dados atingido"
+    },
+    "notification_data_limit_reached_description": {
+        "message": "A velocidade da conexão VPN foi reduzida."
     }
 }

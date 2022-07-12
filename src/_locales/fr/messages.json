@@ -473,9 +473,6 @@
     "global_error_try_again": {
         "message": "Essayer à nouveau"
     },
-    "authentication_successful_social": {
-        "message": "Authentification réussie ! Vous pouvez lancer AdGuard VPN."
-    },
     "control_error_description": {
         "message": "Il semble qu’une autre extension Chrome tente de contrôler votre connexion. Veuillez désactiver l’autre extension dans votre navigateur."
     },

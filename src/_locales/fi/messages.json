@@ -291,13 +291,13 @@
         "message": "Suodattaa mainokset, serantapalvelut ja suojaa haittaohjelmilta"
     },
     "settings_dns_selector_adguard_nonfiltering_title": {
-        "message": "AdGuard DNS Non-filtering"
+        "message": "AdGuard DNS Ei-suodattava"
     },
     "settings_dns_selector_adguard_nonfiltering_desc": {
         "message": "Turvallinen DNS-palvelu ilman toimintohistoriaa (ei suodata mainoksia tai seurantapalveluita)"
     },
     "settings_dns_selector_adguard_family_title": {
-        "message": "AdGuard DNS Family Protection"
+        "message": "AdGuard DNS Perhesuojaus"
     },
     "settings_dns_selector_adguard_family_desc": {
         "message": "AdGuard DNS + Turvallinen haku ja aikuisille tarkoitetun sisällön esto"
@@ -464,8 +464,8 @@
     "global_error_try_again": {
         "message": "Yritä uudelleen"
     },
-    "authentication_successful_social": {
-        "message": "Kirjautuminen onnistui! Voit avata AdGuard VPN:n ja aloittaa sen käytön."
+    "authentication_successful_notification": {
+        "message": "Todennus onnistui! Voit avata AdGuard VPN:n ja aloittaa sen käytön."
     },
     "control_error_description": {
         "message": "Näyttää siltä, että toinen Chrome-laajennus yrittää hallita yhteyttäsi. Pyydämme, että otat sen pois käytöstä."
@@ -746,7 +746,7 @@
         "message": "Huomioi: Et ole yhteydessä VPN:ään, eikä tietoliikennettäsi ole suojattu! Jatkaaksesi selausta yksityisesti, paina AdGuard VPN -kuvaketta ja kirjaudu uudelleen."
     },
     "notification_data_limit_reached_title": {
-        "message": "Kuukausittainen tiedonsiirtomäärä on saavutettu"
+        "message": "Kkuukausittainen tiedonsiirtoraja on saavutettu"
     },
     "notification_data_limit_reached_description": {
         "message": "VPN-yhteyden nopeutta on alennettu."

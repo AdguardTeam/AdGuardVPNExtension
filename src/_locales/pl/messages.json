@@ -413,9 +413,6 @@
     "global_error_try_again": {
         "message": "Spróbuj ponownie"
     },
-    "authentication_successful_social": {
-        "message": "Pomyślnie uwierzytelniono! Możesz otworzyć AdGuard VPN i zacząć go używać."
-    },
     "control_error_description": {
         "message": "Wygląda na to, że inne rozszerzenie Chrome próbuje kontrolować twoje połączenie. Wyłącz inne rozszerzenie w przeglądarce."
     },

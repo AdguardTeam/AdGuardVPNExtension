@@ -14,6 +14,9 @@
     "registration_error_not_valid": {
         "message": "القيمة ليست صالحة"
     },
+    "registration_error_min_length": {
+        "message": "كلمة المرور قصيرة جدًا. يجب أن تتكون من 8 أحرف أو أكثر"
+    },
     "registration_error_confirm_password": {
         "message": "كلمات المرور غير متطابقة"
     },
@@ -116,6 +119,9 @@
     "account_title": {
         "message": "الحساب"
     },
+    "account_edit": {
+        "message": "أداره الحساب"
+    },
     "account_version": {
         "message": "الإصدار"
     },
@@ -139,6 +145,12 @@
     },
     "account_max_devices_count": {
         "message": "ما يصل إلى %num% أجهزة متزامنة"
+    },
+    "account_next_charge": {
+        "message": "تاريخ الفاتورة التالية: %date%"
+    },
+    "account_sign_out": {
+        "message": "تسجيل خروج"
     },
     "account_unlimited_title": {
         "message": "احصل على النسخة غير المحدودة!"
@@ -176,11 +188,20 @@
     "auth_sign_up_button": {
         "message": "إنشاء حساب"
     },
+    "auth_sign_in": {
+        "message": "أدخل كلمة المرور الخاصة بك"
+    },
     "auth_sign_in_button": {
         "message": "تسجيل الدخول"
     },
+    "auth_title": {
+        "message": "تسجيل الدخول أو إنشاء حساب"
+    },
     "auth_sign_in_provider_adguard_label": {
         "message": "البريد الإلكتروني"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "المتابعة باستخدام البريد الإلكتروني"
     },
     "auth_sign_in_provider_apple": {
         "message": "الاستمرار بواسطة حساب Apple"
@@ -190,6 +211,9 @@
     },
     "auth_sign_in_provider_facebook": {
         "message": "المتابعة بحساب Facebook"
+    },
+    "auth_header_sing_in_notice": {
+        "message": "تسجيل الدخول باسم <span>%username%</span>"
     },
     "auth_header_2fa_subtitle": {
         "message": "المصادقة الثنائية"
@@ -449,8 +473,8 @@
     "global_error_try_again": {
         "message": "حاول مرة أخرى"
     },
-    "authentication_successful_social": {
-        "message": "تمت المصادقة بنجاح! يمكنك فتح AdGuard VPN والبدء في استخدامه."
+    "authentication_successful_notification": {
+        "message": "تمت المصادقة عليه بنجاح! يمكنك فتح AdGuard VPN والبدء في استخدامه."
     },
     "control_error_description": {
         "message": "يبدو أن امتداد Chrome آخر يحاول التحكم في اتصالك. الرجاء تعطيل الامتداد الآخر في متصفحك."
@@ -499,6 +523,9 @@
     },
     "endpoints_not_found": {
         "message": "لم يتم العثور على الموقع"
+    },
+    "popup_traffic_limit_reached": {
+        "message": "تم الوصول إلى حد البيانات الشهرية"
     },
     "premium_upgrade": {
         "message": "ترقيه"
@@ -571,6 +598,13 @@
     },
     "popup_site_status_vpn_disabled": {
         "message": "على هذا الموقع VPN تم تعطيل"
+    },
+    "popup_auth_policy_agreement": {
+        "message": "لقد قرأت ووافقت على سياسة الخصوصية <eula>EULA</eula> و <privacy>الخاصة بـ AdGuard</privacy>",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "أسمح لـ AdGuard بجمع <link>بيانات مجهولة تمامًا</link> حول استخدام التطبيق لجعل AdGuard VPN أفضل"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "استمرار"
@@ -716,6 +750,9 @@
     },
     "options_signedout_page_title": {
         "message": "لقد قمت بتسجيل الخروج من AdGuard VPN"
+    },
+    "options_signedout_page_description": {
+        "message": "يرجى ملاحظة: أنت غير متصل بشبكة VPN وحركة المرور الخاصة بك غير محمية! لمتابعة التصفح بشكل خاص ، انقر فوق رمز AdGuard VPN وقم بتسجيل الدخول مرة أخرى."
     },
     "notification_data_limit_reached_title": {
         "message": "تم الوصول إلى حد البيانات الشهري"

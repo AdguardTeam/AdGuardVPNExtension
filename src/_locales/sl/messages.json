@@ -398,9 +398,6 @@
     "global_error_try_again": {
         "message": "Poskusi ponovno"
     },
-    "authentication_successful_social": {
-        "message": "Uspešna overovitev pristnosti! Lahko odprete AdGuard VPN in ga začnete uporabljati."
-    },
     "control_error_description": {
         "message": "Zdi se, da druga razširitev za Chrome poskuša nadzorovati vašo povezavo. V vašem brskalniku onemogočite drugo razširitev."
     },

@@ -473,9 +473,6 @@
     "global_error_try_again": {
         "message": "重试"
     },
-    "authentication_successful_social": {
-        "message": "验证成功！您可以开始使用 AdGuard VPN。"
-    },
     "control_error_description": {
         "message": "似乎是另外一个 Chrome 扩展正在控制您的连接，请禁用该扩展。"
     },

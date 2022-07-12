@@ -473,9 +473,6 @@
     "global_error_try_again": {
         "message": "Riprova"
     },
-    "authentication_successful_social": {
-        "message": "Autenticazione riuscita! Puoi aprire AdGuard VPN e iniziare ad utilizzarla."
-    },
     "control_error_description": {
         "message": "Sembra che un'altra estensione di Chrome stia tentando di controllare la tua connessione. Ti preghiamo di disattivare l'altra estensione nel browser."
     },
