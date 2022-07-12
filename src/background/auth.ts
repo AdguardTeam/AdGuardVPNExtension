@@ -37,7 +37,7 @@ interface AuthInterface {
     startSocialAuth(socialProvider: string, marketingConsent: boolean): Promise<void>;
     getImplicitAuthUrl(socialProvider: string, marketingConsent: boolean): Promise<string>;
     authenticateSocial(queryString: string, tabId: number): Promise<void>;
-    authenticateThankYouPage(credentials: AccessTokenInterface, isNewUser: number): Promise<void>;
+    authenticateThankYouPage(credentials: AccessTokenInterface, isNewUser: boolean): Promise<void>;
     deauthenticate(): Promise<void>;
     register(
         credentials: CredentialsInterface,
@@ -175,7 +175,7 @@ class Auth implements AuthInterface {
      */
     async authenticateThankYouPage(
         credentials: AccessTokenInterface,
-        isNewUser: number,
+        isNewUser: boolean,
     ): Promise<void> {
         await this.setAccessToken(credentials);
 

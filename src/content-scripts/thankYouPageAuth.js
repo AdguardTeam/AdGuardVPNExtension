@@ -9,11 +9,13 @@ const TOKEN_TYPE = 'bearer';
 const credentialsString = sessionStorage.getItem(CREDENTIALS_KEY);
 
 if (credentialsString) {
-    const queryString = window.location.href.split('#')[1];
-    const data = qs.parse(queryString);
+    const queryString = window.location.href.split('?')[1];
+    const queryData = qs.parse(queryString);
     const {
-        new_user: isNewUser,
-    } = data;
+        new_user: newUser,
+    } = queryData;
+
+    const isNewUser = !!(parseInt(newUser, 10));
     const credentials = JSON.parse(credentialsString);
     const authCredentials = {
         ...credentials,
