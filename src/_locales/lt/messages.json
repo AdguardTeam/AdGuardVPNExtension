@@ -38,15 +38,6 @@
     "account_version": {
         "message": "Versija"
     },
-    "account_free": {
-        "message": "Nemokama paskyra"
-    },
-    "account_unlimited": {
-        "message": "Neribotas"
-    },
-    "account_sign_out": {
-        "message": "Atsijungti"
-    },
     "rate_hide": {
         "message": "Paslėpti"
     },
@@ -58,12 +49,6 @@
     },
     "auth_recover": {
         "message": "Pamiršote slaptažodį?"
-    },
-    "auth_sign_in": {
-        "message": "Prisijungti"
-    },
-    "auth_sign_in_button": {
-        "message": "Prisijungti"
     },
     "eula": {
         "message": "Licencijos sutartis"
@@ -146,12 +131,6 @@
     "settings_exclusions_action_remove_all": {
         "message": "Pašalinti viską"
     },
-    "settings_exclusions_import_button": {
-        "message": "Importas"
-    },
-    "settings_exclusions_export_button": {
-        "message": "Eksportas"
-    },
     "settings_exclusion_title": {
         "message": "Išimtys"
     },
@@ -188,11 +167,11 @@
     "popup_onboarding_next": {
         "message": "Toliau"
     },
-    "options_selective_mode_popup_button_switch_now": {
-        "message": "Perjungti dabar"
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "Neribotas duomenų kiekis"
     },
-    "options_selective_mode_popup_attention": {
-        "message": "Ar tikrai norite perjungti?"
+    "popup_upgrade_screen_connect_devices": {
+        "message": "Iki 5 įrenginių"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Atšaukti"

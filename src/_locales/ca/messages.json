@@ -17,12 +17,6 @@
     "settings_exclusion_domain_name": {
         "message": "Nom de domini:"
     },
-    "settings_exclusions_import_button": {
-        "message": "Importeu"
-    },
-    "settings_exclusions_export_button": {
-        "message": "Exporteu"
-    },
     "global_error_try_again": {
         "message": "Intenta-ho de nou"
     },
@@ -34,15 +28,6 @@
     },
     "popup_newsletter_subscribe": {
         "message": "Subscriu-te"
-    },
-    "options_selective_mode_popup_message": {
-        "message": "En mode Selectiu, AdGuard VPN només funciona als llocs web permesos que heu afegit a la llista."
-    },
-    "options_selective_mode_popup_button_switch_now": {
-        "message": "Canvia ara"
-    },
-    "options_selective_mode_popup_attention": {
-        "message": "Esteu segur que voleu canviar?"
     },
     "popup_connections_limit_description_cta_button_free": {
         "message": "Subscriu-te"

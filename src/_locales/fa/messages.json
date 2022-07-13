@@ -32,9 +32,6 @@
     "account_version": {
         "message": "نسخه"
     },
-    "account_sign_out": {
-        "message": "خروج"
-    },
     "rate_hide": {
         "message": "پنهان کن"
     },
@@ -46,12 +43,6 @@
     },
     "auth_recover": {
         "message": "رمزعبور را فراموش کرده اید؟"
-    },
-    "auth_sign_in": {
-        "message": "ورود"
-    },
-    "auth_sign_in_button": {
-        "message": "ورود"
     },
     "auth_sign_in_provider_adguard_label": {
         "message": "ایمیل"
@@ -136,12 +127,6 @@
     },
     "settings_exclusions_action_remove_all": {
         "message": "حذف همه"
-    },
-    "settings_exclusions_import_button": {
-        "message": "وارد کردن"
-    },
-    "settings_exclusions_export_button": {
-        "message": "خروجيگيري"
     },
     "settings_exclusion_title": {
         "message": "مدیریت استثنائات..."

@@ -194,9 +194,6 @@
     "auth_sign_in_button": {
         "message": "Prijavi se"
     },
-    "auth_sign_in_link": {
-        "message": "Prijavi se AdGuard nalogom"
-    },
     "auth_title": {
         "message": "Prijavite se ili napravite nalog"
     },
@@ -215,20 +212,8 @@
     "auth_sign_in_provider_facebook": {
         "message": "Nastavi sa Facebook-om"
     },
-    "auth_header_sign_in_account": {
-        "message": "Prijavljujete se AdGuard nalogom"
-    },
-    "auth_header_sign_up_create_account": {
-        "message": "Prijavljivanjem stvarate vaš AdGuard nalog"
-    },
-    "auth_header_sign_in": {
-        "message": "Prijavljujete se kao <div>%username%</div>"
-    },
     "auth_header_sing_in_notice": {
-        "message": "Već imate nalog <span>%username%</span>"
-    },
-    "auth_header_registration": {
-        "message": "Upisujete se kao <div>%username%</div>"
+        "message": "Već imate nalog <div>%username%</div>"
     },
     "auth_header_2fa_subtitle": {
         "message": "Potvrda u dva koraka"
@@ -386,12 +371,6 @@
     "settings_exclusion_status_all_subdomains": {
         "message": "svi poddomeni"
     },
-    "settings_exclusion_service_settings_subtitle_regular_mode": {
-        "message": "AdGuard VPN je isključen za označene domene"
-    },
-    "settings_exclusion_service_settings_subtitle_selective_mode": {
-        "message": "AdGuard VPN je uključen za označene domene"
-    },
     "settings_exclusion_group_settings_subtitle_regular_mode": {
         "message": "AdGuard VPN je isključen za označene domene i poddomene"
     },
@@ -464,20 +443,8 @@
     "settings_exclusions_remove_all_exclusions_message": {
         "message": "Jeste li sigurni da želite da nastavite? Čitava lista izuzetaka će biti uklonjena."
     },
-    "settings_exclusions_import_button": {
-        "message": "Uvezi"
-    },
-    "settings_exclusions_export_button": {
-        "message": "Izvezi"
-    },
-    "settings_exclusions_delete_button": {
-        "message": "Izbriši sve"
-    },
     "settings_exclusion_title": {
         "message": "Izuzeci"
-    },
-    "settings_connection_mode_title": {
-        "message": "Način VPN povezivanja"
     },
     "settings_exclusion_change_mode": {
         "message": "Promeni režim"
@@ -494,12 +461,6 @@
     "settings_exclusion_selective_description": {
         "message": "AdGuard VPN radi samo na sajtovima sa ove liste:"
     },
-    "settings_exclusion_subdomains_title": {
-        "message": "Poddomeni"
-    },
-    "settings_exclusion_subdomains_text": {
-        "message": "Možete dodati domene (npr. google.com) ili sve poddomene (npr. *.google.com)"
-    },
     "global_error_title": {
         "message": "Došlo je do greške"
     },
@@ -512,7 +473,7 @@
     "global_error_try_again": {
         "message": "Pokušaj ponovo"
     },
-    "authentication_successful_social": {
+    "authentication_successful_notification": {
         "message": "Uspešno ste prijavljeni! Možete otvoriti AdGuard VPN i uključiti tunel."
     },
     "control_error_description": {
@@ -562,6 +523,9 @@
     },
     "endpoints_not_found": {
         "message": "Lokacija nije pronađena"
+    },
+    "popup_traffic_limit_reached": {
+        "message": "Dostignuta mesečna granica podataka"
     },
     "premium_upgrade": {
         "message": "Nadogradi"
@@ -622,30 +586,6 @@
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Idite u Chrome prodavnicu"
-    },
-    "settings_run_upgrade_early_bird": {
-        "message": "Rane cene"
-    },
-    "sale_title": {
-        "message": "Šta dobijate:"
-    },
-    "upgrade_features_data": {
-        "message": "Neograničene podatke"
-    },
-    "upgrade_features_speed": {
-        "message": "Najbrže servere"
-    },
-    "upgrade_features_all_locations": {
-        "message": "Sve lokacije"
-    },
-    "upgrade_features_devices": {
-        "message": "Do 5 uređaja"
-    },
-    "upgrade_features_streaming": {
-        "message": "Podrška za strimovanje"
-    },
-    "continue_us_free_button": {
-        "message": "Nastavi besplatno"
     },
     "options_title": {
         "message": "AdGuard VPN opcije"
@@ -729,9 +669,6 @@
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Povežite sve gadžete sa AdGuard VPN-om u isto vreme – ili zaštitite celu porodicu!"
     },
-    "popup_upgrade_screen_streaming": {
-        "message": "Striming"
-    },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Nadogradi"
     },
@@ -741,15 +678,6 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> preostalo ovog meseca",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_selective_mode_popup_message": {
-        "message": "U selektivnom načinu, AdGuard VPN radi samo na dozvoljenim sajtovima koje ste dodali na listu."
-    },
-    "options_selective_mode_popup_button_switch_now": {
-        "message": "Prebaci sada"
-    },
-    "options_selective_mode_popup_attention": {
-        "message": "Jeste li sigurni da želite da se prebacite?"
     },
     "options_exclusions_import_select_title": {
         "message": "Uvezi izuzetke na:"
@@ -824,6 +752,12 @@
         "message": "Odjavili ste se iz AdGuard VPN-a"
     },
     "options_signedout_page_description": {
-        "message": "Vaša veza nije bezbedna. Da biste nastavili privatno surfovanje, kliknite ikonicu AdGuard VPN i prijavite se ponovo."
+        "message": "Pažnja: niste povezani sa VPN-om i vaš saobraćaj nije zaštićen! Da biste nastavili privatno surfovanje, kliknite na ikonu AdGuard VPN i ponovo se prijavite."
+    },
+    "notification_data_limit_reached_title": {
+        "message": "Dostigli ste mesečno ograničenje za podatke."
+    },
+    "notification_data_limit_reached_description": {
+        "message": "Brzina VPN veze je smanjena."
     }
 }

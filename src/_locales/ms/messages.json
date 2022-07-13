@@ -29,12 +29,6 @@
     "settings_exclusions_action_remove_all": {
         "message": "Buang semua"
     },
-    "settings_exclusions_import_button": {
-        "message": "Import"
-    },
-    "settings_exclusions_export_button": {
-        "message": "Eksport"
-    },
     "global_error_learn_more": {
         "message": "Ketahui lebih lanjut"
     },

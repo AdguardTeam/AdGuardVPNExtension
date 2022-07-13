@@ -11,9 +11,6 @@
     "registration_error_not_valid": {
         "message": "Ta wartość jest nieprawidłowa"
     },
-    "registration_error_min_length": {
-        "message": "Hasło jest za krótkie. Musi zawierać co najmniej 8 znaków."
-    },
     "registration_error_compromised_password": {
         "message": "Wprowadzone hasło zostało znalezione w <a>publicznej bazie danych</a> haseł, które zostały naruszone. Spróbuj innego."
     },
@@ -113,29 +110,8 @@
     "account_title": {
         "message": "Konto"
     },
-    "account_edit": {
-        "message": "Zarządzaj"
-    },
     "account_version": {
         "message": "Wersja"
-    },
-    "account_current_plan": {
-        "message": "Obecny plan"
-    },
-    "account_signed": {
-        "message": "Zalogowano przez"
-    },
-    "account_free": {
-        "message": "Darmowy"
-    },
-    "account_unlimited": {
-        "message": "Nieograniczony\n\t"
-    },
-    "account_next_charge": {
-        "message": "(Następna opłata %date%)"
-    },
-    "account_sign_out": {
-        "message": "Wyloguj się"
     },
     "account_unlimited_title": {
         "message": "Pobierz wersję bez ograniczeń!"
@@ -170,26 +146,11 @@
     "auth_sign_up_button": {
         "message": "Zapisz się"
     },
-    "auth_sign_in": {
-        "message": "Zaloguj się"
-    },
     "auth_sign_in_button": {
         "message": "Zaloguj się"
     },
-    "auth_sign_in_link": {
-        "message": "Zaloguj się z kontem AdGuard"
-    },
-    "auth_title": {
-        "message": "Autoryzacja"
-    },
-    "auth_info": {
-        "message": "Kontynuuj za pomocą konta AdGuard lub logowania społecznościowego"
-    },
     "auth_sign_in_provider_adguard_label": {
         "message": "E-mail"
-    },
-    "auth_sign_in_provider_adguard": {
-        "message": "Kontynuuj przez email"
     },
     "auth_sign_in_provider_apple": {
         "message": "Kontynuuj z Apple"
@@ -199,21 +160,6 @@
     },
     "auth_sign_in_provider_facebook": {
         "message": "Kontynuuj z Facebookiem"
-    },
-    "auth_header_sign_in_account": {
-        "message": "Zostaleś zalogowany przy użyciu konta Adguard"
-    },
-    "auth_header_sign_up_create_account": {
-        "message": "Rejestrując się, tworzysz swoje konto AdGuard"
-    },
-    "auth_header_sign_in": {
-        "message": "Logujesz się jako <div>%username%</div>"
-    },
-    "auth_header_sing_in_notice": {
-        "message": "Masz już konto <span>%username%</span>"
-    },
-    "auth_header_registration": {
-        "message": "Logujesz się jako <div>%username%</div>"
     },
     "auth_header_2fa_subtitle": {
         "message": "Uwierzytelnianie dwuskładnikowe"
@@ -238,9 +184,6 @@
     },
     "referral_get_free_traffic": {
         "message": "Uzyskaj darmowy ruch VPN!"
-    },
-    "settings_referral_info": {
-        "message": "Zaproś swoich znajomych do dołączenia do naszego klanu ninja i zdobądź więcej darmowego ruchu VPN na miesiąc. Otrzymaj %your_gb% GB za każdego znajomego, który się zapisze: oni również otrzymają %friend_gb% GB ekstra za darmo! W sumie możesz otrzymać %total_gb% GB za darmo."
     },
     "settings_referral_invited_friends": {
         "message": "Zaproszeni przyjaciele %count%/%limit%"
@@ -368,12 +311,6 @@
     "settings_exclusion_status_all_subdomains": {
         "message": "wszystkie subdomeny"
     },
-    "settings_exclusion_service_settings_subtitle_regular_mode": {
-        "message": "AdGuard VPN jest wyłączony dla zaznaczonych domen"
-    },
-    "settings_exclusion_service_settings_subtitle_selective_mode": {
-        "message": "AdGuard VPN jest włączony dla zaznaczonych domen"
-    },
     "settings_exclusion_group_settings_subtitle_regular_mode": {
         "message": "AdGuard VPN jest wyłączony dla zaznaczonych domen i subdomen"
     },
@@ -446,20 +383,8 @@
     "settings_exclusions_remove_all_exclusions_message": {
         "message": "Jesteś pewien, że chcesz kontynuować? Cała lista wykluczeń zostanie usunięta."
     },
-    "settings_exclusions_import_button": {
-        "message": "Importuj"
-    },
-    "settings_exclusions_export_button": {
-        "message": "Eksportuj"
-    },
-    "settings_exclusions_delete_button": {
-        "message": "Usuń wszystko"
-    },
     "settings_exclusion_title": {
         "message": "Wyjątki"
-    },
-    "settings_connection_mode_title": {
-        "message": "Tryb pracy"
     },
     "settings_exclusion_change_mode": {
         "message": "Zmień tryb"
@@ -476,12 +401,6 @@
     "settings_exclusion_selective_description": {
         "message": "AdGuard VPN jest włączony tylko dla witryn dodanych do wykluczeń"
     },
-    "settings_exclusion_subdomains_title": {
-        "message": "Subdomeny"
-    },
-    "settings_exclusion_subdomains_text": {
-        "message": "Możesz dodać domeny (np. google.com) lub wszystkie subdomeny (np. *.google.com)"
-    },
     "global_error_title": {
         "message": "Wystąpił błąd"
     },
@@ -493,9 +412,6 @@
     },
     "global_error_try_again": {
         "message": "Spróbuj ponownie"
-    },
-    "authentication_successful_social": {
-        "message": "Pomyślnie uwierzytelniono! Możesz otworzyć AdGuard VPN i zacząć go używać."
     },
     "control_error_description": {
         "message": "Wygląda na to, że inne rozszerzenie Chrome próbuje kontrolować twoje połączenie. Wyłącz inne rozszerzenie w przeglądarce."
@@ -545,9 +461,6 @@
     "endpoints_not_found": {
         "message": "Nie znaleziono lokalizacji"
     },
-    "popup_traffic_limit_reached": {
-        "message": "Miesięczny limit danych przekroczony. Potrzebujesz więcej?"
-    },
     "premium_upgrade": {
         "message": "Ulepsz"
     },
@@ -596,30 +509,6 @@
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "Zostaw opinię"
     },
-    "settings_run_upgrade_early_bird": {
-        "message": "Cenny dla rannych ptaszków"
-    },
-    "sale_title": {
-        "message": "Co dostałeś:"
-    },
-    "upgrade_features_data": {
-        "message": "Nieograniczone dane"
-    },
-    "upgrade_features_speed": {
-        "message": "Serwery o dużej szybkości"
-    },
-    "upgrade_features_all_locations": {
-        "message": "Wszystkie lokalizacje"
-    },
-    "upgrade_features_devices": {
-        "message": "Do 5 urządzeń"
-    },
-    "upgrade_features_streaming": {
-        "message": "Obsługa strumieniowania"
-    },
-    "continue_us_free_button": {
-        "message": "Kontynuuj bezpłatnie"
-    },
     "options_title": {
         "message": "Ustawienia AdGuard VPN"
     },
@@ -631,13 +520,6 @@
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN jest wyłączony na tej stronie"
-    },
-    "popup_auth_policy_agreement": {
-        "message": "Zaakceptuj <eula>EULA</eula> i <privacy>Politykę prywatności</privacy>",
-        "description": "WARNING! Respect spaces between tags"
-    },
-    "popup_auth_help_us_improve_agreement": {
-        "message": "Zezwalaj AdGuard na zbieranie <link>anonimowych danych</link> na temat korzystania z aplikacji, aby AdGuard VPN był lepszy"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Kontynuuj"
@@ -679,7 +561,7 @@
         "message": "Nieograniczony VPN"
     },
     "popup_upgrade_screen_unlimited_data": {
-        "message": "Nieograniczone dane"
+        "message": "Nieograniczony transfer"
     },
     "popup_upgrade_screen_unlimited_data_desc": {
         "message": "Jedynym ograniczeniem jest to, że Twoje dane nigdy nie są udostępniane. Surfuj do woli!"
@@ -699,9 +581,6 @@
     "popup_upgrade_screen_connect_devices": {
         "message": "Do 5 urządzeń"
     },
-    "popup_upgrade_screen_streaming": {
-        "message": "Streaming"
-    },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Uaktualnij"
     },
@@ -711,15 +590,6 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> pozostało w tym miesiącu",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_selective_mode_popup_message": {
-        "message": "W trybie selektywnym AdGuard VPN działa tylko na dozwolonych witrynach internetowych, które zostały dodane do listy."
-    },
-    "options_selective_mode_popup_button_switch_now": {
-        "message": "Przełącz teraz"
-    },
-    "options_selective_mode_popup_attention": {
-        "message": "Czy na pewno chcesz się przełączyć?"
     },
     "options_exclusions_import_select_title": {
         "message": "Importuj wykluczenia do:"
@@ -792,9 +662,6 @@
     },
     "options_signedout_page_title": {
         "message": "Wylogowałeś się z AdGuard VPN"
-    },
-    "options_signedout_page_description": {
-        "message": "Twoje połączenie nie jest bezpieczne. Aby kontynuować prywatne surfowanie, kliknij ikonę AdGuard VPN i zaloguj się ponownie."
     },
     "name": {
         "message": "AdGuard VPN — free & secure proxy"
