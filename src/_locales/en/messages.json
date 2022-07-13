@@ -312,7 +312,7 @@
         "message": "IPv4 or IPv6"
     },
     "settings_dns_add_custom_server_invalid_address": {
-        "message": "Ip address is not valid"
+        "message": "Ip address is invalid"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Save and select"

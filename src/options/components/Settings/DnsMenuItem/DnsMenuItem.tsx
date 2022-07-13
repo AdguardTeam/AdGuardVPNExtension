@@ -19,7 +19,7 @@ export const DnsMenuItem = observer(() => {
 
     return (
         <div className="settings__group">
-            <div className="settings__item settings__item__dns-server" onClick={handleClick}>
+            <div className="settings__item settings__item--dns-server" onClick={handleClick}>
                 <div className="settings__item-content">
                     <div className="settings__item-title">
                         {reactTranslator.getMessage('settings_dns_label')}

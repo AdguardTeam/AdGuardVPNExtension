@@ -23,7 +23,7 @@ export const CustomDnsServerModal = observer(() => {
 
     const dnsInfo = reactTranslator.getMessage('settings_dns_add_custom_server_info', {
         // FIXME check link address and add to tds
-        a: (chunks: string) => (`<a href="https://adguard-dns.io/kb/general/dns-providers/" target="_blank" class="dns-settings__modal__link">${chunks}</a>`),
+        a: (chunks: string) => (`<a href="https://adguard-dns.io/kb/general/dns-providers/" target="_blank" class="dns-settings__modal--link">${chunks}</a>`),
     });
 
     const clearInputs = (): void => {
@@ -95,7 +95,7 @@ export const CustomDnsServerModal = observer(() => {
         'input__in',
         'input__in--content',
         'input__in--clear',
-        { 'dns-settings__modal__input--error': ipAddressError },
+        { 'dns-settings__modal--input--error': ipAddressError },
     );
 
     return (
@@ -114,13 +114,13 @@ export const CustomDnsServerModal = observer(() => {
                     <use xlinkHref="#cross" />
                 </svg>
             </button>
-            <div className="modal__title dns-settings__modal__title">{modalData[modalType].modalTitle}</div>
-            <div className="dns-settings__modal__content">
+            <div className="dns-settings__modal--title">{modalData[modalType].modalTitle}</div>
+            <div className="dns-settings__modal--content">
                 <form
                     onSubmit={modalData[modalType].handler}
                 >
-                    {settingsStore.dnsServerToEdit && (
-                        <div className="form__item dns-settings__modal__info">
+                    {!settingsStore.dnsServerToEdit && (
+                        <div className="form__item">
                             <div dangerouslySetInnerHTML={{ __html: dnsInfo as string }} />
                         </div>
                     )}
@@ -140,7 +140,7 @@ export const CustomDnsServerModal = observer(() => {
                             {dnsServerName && (
                                 <button
                                     type="button"
-                                    className="button dns-settings__modal__clear-icon"
+                                    className="button dns-settings__modal--clear-icon"
                                     onClick={() => setDnsServerName('')}
                                 >
                                     <svg className="icon icon--button icon--cross">
@@ -164,14 +164,14 @@ export const CustomDnsServerModal = observer(() => {
                                 placeholder={reactTranslator.getMessage('settings_dns_add_custom_server_address_placeholder') as string}
                             />
                             {ipAddressError && (
-                                <div className="dns-settings__modal__error-message">
+                                <div className="dns-settings__modal--error-message">
                                     {reactTranslator.getMessage('settings_dns_add_custom_server_invalid_address')}
                                 </div>
                             )}
                             {dnsServerAddress && (
                                 <button
                                     type="button"
-                                    className="button dns-settings__modal__clear-icon"
+                                    className="button dns-settings__modal--clear-icon"
                                     onClick={() => setDnsServerAddress('')}
                                 >
                                     <svg className="icon icon--button icon--cross">

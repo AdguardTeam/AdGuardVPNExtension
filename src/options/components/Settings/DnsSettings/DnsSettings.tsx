@@ -69,7 +69,7 @@ export const DnsSettings = observer(() => {
             <div
                 key={dnsServerId}
                 id={dnsServerId}
-                className="settings__item dns-settings__item settings__item__dns-server"
+                className="dns-settings__item"
                 onClick={handleDnsSelect}
             >
                 <RadioButton enabled={dnsServerId === settingsStore.dnsServer} />
@@ -86,7 +86,7 @@ export const DnsSettings = observer(() => {
             return (
                 <div
                     key={server.id}
-                    className="settings__item dns-settings__item settings__item__dns-server"
+                    className="dns-settings__item"
                     onClick={() => handleCustomDnsSelect(server)}
                 >
                     <RadioButton enabled={server.id === settingsStore.dnsServer} />
@@ -94,22 +94,22 @@ export const DnsSettings = observer(() => {
                         <div className="settings__item-title">{server.title}</div>
                         <div className="settings__item-desc">{server.ip1}</div>
                     </div>
-                    <div className="dns-settings__item__actions">
+                    <div className="dns-settings__item--actions">
                         <button
                             type="button"
-                            className="button button--icon"
+                            className="button button--icon dns-settings__item--actions--button"
                             onClick={() => openEditDnsServerModal(server)}
                         >
-                            <svg className="icon">
+                            <svg className="icon icon--button">
                                 <use xlinkHref="#edit" />
                             </svg>
                         </button>
                         <button
                             type="button"
-                            className="button button--icon"
+                            className="button button--icon dns-settings__item--actions--button"
                             onClick={() => removeDnsServer(server)}
                         >
-                            <svg className="icon">
+                            <svg className="icon icon--button">
                                 <use xlinkHref="#basket" />
                             </svg>
                         </button>
