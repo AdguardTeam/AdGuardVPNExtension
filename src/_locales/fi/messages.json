@@ -750,5 +750,11 @@
     },
     "notification_data_limit_reached_description": {
         "message": "VPN-yhteyden nopeutta on alennettu."
+    },
+    "notification_data_left_mb": {
+        "message": "Jäljellä on %num% Mt."
+    },
+    "notification_data_left_description": {
+        "message": "VPN-yhteyden nopeus alennetaan pian."
     }
 }

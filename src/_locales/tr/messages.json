@@ -758,6 +758,12 @@
         "message": "Aylık veri sınırına ulaşıldı"
     },
     "notification_data_limit_reached_description": {
-        "message": "VPN bağlantı hızı düşürüldü."
+        "message": "VPN bağlantı hızı azaltldı."
+    },
+    "notification_data_left_mb": {
+        "message": "%num% MB kaldı."
+    },
+    "notification_data_left_description": {
+        "message": "VPN bağlantı hızı yakında azaltılacaktır."
     }
 }

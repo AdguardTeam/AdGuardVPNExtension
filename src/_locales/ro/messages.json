@@ -759,5 +759,11 @@
     },
     "notification_data_limit_reached_description": {
         "message": "Viteza de conectare la VPN a fost redusă."
+    },
+    "notification_data_left_mb": {
+        "message": "Au mai rămas %num% MB."
+    },
+    "notification_data_left_description": {
+        "message": "Viteza conexiunii VPN va fi redusă în curând."
     }
 }

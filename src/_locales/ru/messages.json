@@ -473,6 +473,9 @@
     "global_error_try_again": {
         "message": "Попробовать снова"
     },
+    "authentication_successful_notification": {
+        "message": "Вы вошли в аккаунт. Можно начинать пользоваться AdGuard VPN."
+    },
     "control_error_description": {
         "message": "Похоже, что еще одно расширение Chrome пытается контролировать ваше соединение. Пожалуйста, отключите другое расширение в вашем браузере."
     },
@@ -756,5 +759,11 @@
     },
     "notification_data_limit_reached_description": {
         "message": "VPN будет работать медленнее."
+    },
+    "notification_data_left_mb": {
+        "message": "Осталось %num% МБ."
+    },
+    "notification_data_left_description": {
+        "message": "Скоро VPN будет работать медленнее."
     }
 }

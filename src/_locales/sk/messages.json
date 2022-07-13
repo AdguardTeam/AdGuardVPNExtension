@@ -708,6 +708,12 @@
     "notification_data_limit_reached_description": {
         "message": "Rýchlosť VPN pripojenia bola znížená."
     },
+    "notification_data_left_mb": {
+        "message": "Zostáva %num% MB."
+    },
+    "notification_data_left_description": {
+        "message": "Rýchlosť pripojenia VPN sa čoskoro zníži."
+    },
     "name": {
         "message": "AdGuard VPN — free & secure proxy"
     }

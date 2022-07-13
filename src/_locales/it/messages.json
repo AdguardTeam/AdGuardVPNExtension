@@ -473,6 +473,9 @@
     "global_error_try_again": {
         "message": "Riprova"
     },
+    "authentication_successful_notification": {
+        "message": "Autenticazione riuscita! Puoi aprire AdGuard VPN e iniziare a utilizzarla."
+    },
     "control_error_description": {
         "message": "Sembra che un'altra estensione di Chrome stia tentando di controllare la tua connessione. Ti preghiamo di disattivare l'altra estensione nel browser."
     },
@@ -756,5 +759,11 @@
     },
     "notification_data_limit_reached_description": {
         "message": "La velocità di connessione VPN è stata ridotta."
+    },
+    "notification_data_left_mb": {
+        "message": "Sono rimasti %num% MB."
+    },
+    "notification_data_left_description": {
+        "message": "La velocità di connessione VPN verrà ridotta presto."
     }
 }

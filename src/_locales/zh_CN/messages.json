@@ -473,6 +473,9 @@
     "global_error_try_again": {
         "message": "重试"
     },
+    "authentication_successful_notification": {
+        "message": "验证成功！您可以开始使用 AdGuard VPN。"
+    },
     "control_error_description": {
         "message": "似乎是另外一个 Chrome 扩展正在控制您的连接，请禁用该扩展。"
     },
@@ -756,5 +759,11 @@
     },
     "notification_data_limit_reached_description": {
         "message": "VPN 连接速度下降"
+    },
+    "notification_data_left_mb": {
+        "message": "剩余的流量为 %num%MB"
+    },
+    "notification_data_left_description": {
+        "message": "VPN 连接速度即将要下降。"
     }
 }

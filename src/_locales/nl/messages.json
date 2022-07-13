@@ -759,5 +759,11 @@
     },
     "notification_data_limit_reached_description": {
         "message": "VPN-verbindingssnelheid is verlaagd."
+    },
+    "notification_data_left_mb": {
+        "message": "Er is nog %num% MB over."
+    },
+    "notification_data_left_description": {
+        "message": "De snelheid van de VPN-verbinding wordt binnenkort verlaagd."
     }
 }

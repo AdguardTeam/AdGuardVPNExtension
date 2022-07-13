@@ -759,5 +759,11 @@
     },
     "notification_data_limit_reached_description": {
         "message": "Die Geschwindigkeit der VPN-Verbindung wurde reduziert."
+    },
+    "notification_data_left_mb": {
+        "message": "Es sind noch %num% MB übrig."
+    },
+    "notification_data_left_description": {
+        "message": "Die Geschwindigkeit der VPN-Verbindung wird in Kürze herabgesetzt."
     }
 }

@@ -473,6 +473,9 @@
     "global_error_try_again": {
         "message": "Volver a intentar"
     },
+    "authentication_successful_notification": {
+        "message": "¡Autenticado correctamente! Puedes abrir AdGuard VPN y comenzar a usarlo."
+    },
     "control_error_description": {
         "message": "Parece que otra extensión de Chrome está intentando controlar tu conexión. Deshabilita la otra extensión de tu navegador."
     },
@@ -756,5 +759,11 @@
     },
     "notification_data_limit_reached_description": {
         "message": "La velocidad de conexión VPN se ha reducido."
+    },
+    "notification_data_left_mb": {
+        "message": "Quedan %num% MB."
+    },
+    "notification_data_left_description": {
+        "message": "La velocidad de conexión VPN se reducirá pronto."
     }
 }

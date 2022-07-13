@@ -473,6 +473,9 @@
     "global_error_try_again": {
         "message": "もう一度試す"
     },
+    "authentication_successful_notification": {
+        "message": "認証完了！AdGuard VPNを開き、利用を開始することができます。"
+    },
     "control_error_description": {
         "message": "別のChrome拡張機能があなたの接続を制御しようとしているようです。その拡張機能を無効にしてください。"
     },
@@ -748,7 +751,19 @@
     "options_signedout_page_title": {
         "message": "AdGuard VPNからログアウトしました"
     },
+    "options_signedout_page_description": {
+        "message": "※VPNに接続されていないので、通信が保護されていません。安全にネット閲覧を続けるには、AdGuard VPNのアイコンをクリックし、再度ログインしてください。"
+    },
     "notification_data_limit_reached_title": {
         "message": "月間無料通信量の上限に達しました。"
+    },
+    "notification_data_limit_reached_description": {
+        "message": "VPN接続速度は低速化しました。"
+    },
+    "notification_data_left_mb": {
+        "message": "通信量の残りは%num%MBです。"
+    },
+    "notification_data_left_description": {
+        "message": "VPN接続速度はまもなく低速化します。"
     }
 }
