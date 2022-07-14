@@ -5,7 +5,7 @@ import { renderTemplate } from '../../../lib/string-utils';
 import notifier from '../../../lib/notifier';
 import { proxy } from '../../proxy';
 import { log } from '../../../lib/logger';
-import dns from '../../dns/dns';
+import { dns } from '../../dns';
 import { sendPingMessage } from '../pingHelpers';
 import webrtc from '../../browserApi/webrtc';
 import { EVENT, MIN_CONNECTION_DURATION_MS } from '../connectivityService/connectivityConstants';

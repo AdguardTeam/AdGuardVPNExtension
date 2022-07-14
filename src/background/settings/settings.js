@@ -3,7 +3,7 @@ import browserApi from '../browserApi';
 import { log } from '../../lib/logger';
 import notifier from '../../lib/notifier';
 import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT } from '../../lib/constants';
-import dns from '../dns/dns';
+import { dns } from '../dns';
 import { DNS_DEFAULT } from '../dns/dnsConstants';
 import webrtc from '../browserApi/webrtc';
 import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
@@ -139,35 +139,17 @@ const getCustomDnsServers = () => {
     return settingsService.getSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS);
 };
 
-const addCustomDnsServer = (dnsServerData) => {
-    const customDnsServers = settingsService.getSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS);
-    customDnsServers.push(dnsServerData);
-    settingsService.setSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS, customDnsServers);
+const setCustomDnsServers = (dnsServersData) => {
+    return settingsService.setSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS, dnsServersData);
 };
 
-const editCustomDnsServer = (dnsServerData) => {
-    let customDnsServers = settingsService.getSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS);
-    customDnsServers = customDnsServers.map((server) => {
-        if (server.id === dnsServerData.id) {
-            return {
-                id: server.id,
-                title: dnsServerData.title,
-                ip1: dnsServerData.ip1,
-            };
-        }
-        return server;
-    });
-    settingsService.setSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS, customDnsServers);
-};
-
-const removeCustomDnsServer = (dnsServerId) => {
-    let customDnsServers = settingsService.getSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS);
-    customDnsServers = customDnsServers.filter((server) => server.id !== dnsServerId);
-    settingsService.setSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS, customDnsServers);
+const getSelectedDnsServer = () => {
+    return settingsService.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER);
 };
 
 const init = async () => {
     await settingsService.init();
+    dns.init();
     log.info('Settings module is ready');
 };
 
@@ -185,7 +167,6 @@ export const settings = {
     setExclusions,
     isContextMenuEnabled,
     getCustomDnsServers,
-    addCustomDnsServer,
-    editCustomDnsServer,
-    removeCustomDnsServer,
+    setCustomDnsServers,
+    getSelectedDnsServer,
 };
