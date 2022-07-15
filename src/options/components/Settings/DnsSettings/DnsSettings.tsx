@@ -25,8 +25,8 @@ export const DnsSettings = observer(() => {
         await settingsStore.setDnsServer(dnsServerId);
     };
 
-    const handleCustomDnsSelect = async (dnsServerData: DnsServerData): Promise<void> => {
-        await settingsStore.setCustomDnsServer(dnsServerData);
+    const handleCustomDnsSelect = async (dnsServerId: string): Promise<void> => {
+        await settingsStore.setDnsServer(dnsServerId);
     };
 
     const history = useHistory();
@@ -87,7 +87,7 @@ export const DnsSettings = observer(() => {
                 <div
                     key={server.id}
                     className="dns-settings__item"
-                    onClick={() => handleCustomDnsSelect(server)}
+                    onClick={() => handleCustomDnsSelect(server.id)}
                 >
                     <RadioButton enabled={server.id === settingsStore.dnsServer} />
                     <div>

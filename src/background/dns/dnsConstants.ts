@@ -8,7 +8,16 @@ import { translator } from '../../common/translator';
 
 export const DNS_DEFAULT = 'default';
 
-export const DNS_SERVERS = {
+interface DnsServers {
+    [key: string]: {
+        title: string;
+        desc: string;
+        ip1: string;
+        ip2: string;
+    }
+}
+
+export const DNS_SERVERS: DnsServers = {
     [DNS_DEFAULT]: {
         title: translator.getMessage('settings_dns_selector_default_title'),
         desc: translator.getMessage('settings_dns_selector_default_desc'),

@@ -113,16 +113,6 @@ export class SettingsStore {
         });
     };
 
-    @action setCustomDnsServer = async (dnsServerData) => {
-        if (!dnsServerData.ip1) {
-            return;
-        }
-        await messenger.setSetting(SETTINGS_IDS.SELECTED_CUSTOM_DNS_SERVER, dnsServerData);
-        runInAction(() => {
-            this.dnsServer = dnsServerData.id;
-        });
-    };
-
     @action setOptionsData = (data) => {
         this.appVersion = data.appVersion;
         this.currentUsername = data.username;
@@ -217,15 +207,12 @@ export class SettingsStore {
         if (!this.dnsServer) {
             return null;
         }
-        let dnsServerName = DNS_SERVERS[this.dnsServer]?.title;
-        if (!dnsServerName) {
-            const currentDnsServer = this.customDnsServers
-                .find((server) => server.id === this.dnsServer);
-            // FIXME handle custom servers
-            if (currentDnsServer) {
-                dnsServerName = currentDnsServer.title;
-            }
+        const customDnsServer = this.customDnsServers
+            .find((server) => server.id === this.dnsServer);
+        if (customDnsServer) {
+            return customDnsServer.title;
         }
-        return dnsServerName;
+
+        return DNS_SERVERS[this.dnsServer]?.title;
     }
 }
