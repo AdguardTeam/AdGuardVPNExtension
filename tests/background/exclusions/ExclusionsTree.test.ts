@@ -203,7 +203,7 @@ describe('ExclusionsTree', () => {
         ExclusionsTree was generated in: ${average} ms
         On MacBook Pro (15-inch, 2019), with 2,6 GHz 6-Core Intel Core i7 and 16 GB 2400 MHz DDR4 is built in ~30-40ms
         `);
-        const MAX_BUILD_TIME = 100;
+        const MAX_BUILD_TIME = 150;
         expect(average).toBeLessThan(MAX_BUILD_TIME);
     });
 });
