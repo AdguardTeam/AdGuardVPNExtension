@@ -31,6 +31,8 @@ Increment:
           - |-
             set -x
             set -e
+            # Fix mixed logs
+            exec 2>&1
             ls -alt
 
             yarn increment
