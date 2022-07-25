@@ -582,10 +582,10 @@
         "message": "Leave feedback"
     },
     "popup_confirm_rate_modal_rate_title": {
-        "message": "Wow! Can you rate us also in the App Store?"
+        "message": "Wow! Can you rate us also in the Extension Store?"
     },
     "popup_confirm_rate_modal_confirm_button": {
-        "message": "Go to the App Store"
+        "message": "Go to the Extension Store"
     },
     "options_title": {
         "message": "AdGuard VPN Options"
