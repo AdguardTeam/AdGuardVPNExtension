@@ -19,7 +19,7 @@ const OPTIONS_PATH = path.resolve(__dirname, SRC_PATH, 'options');
 const POPUP_PATH = path.resolve(__dirname, SRC_PATH, 'popup');
 const AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/auth.js');
 const THANKYOU_PAGE_AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/thankYouPageAuth.js');
-const PRELOAD_THEME_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/preloadTheme.js');
+const PRELOAD_THEME_SCRIPT = path.resolve(__dirname, SRC_PATH, 'options/preloadTheme.ts');
 
 const OUTPUT_PATH = getOutputPathByEnv(BUILD_ENV);
 

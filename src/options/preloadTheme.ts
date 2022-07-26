@@ -4,7 +4,7 @@ import { APPEARANCE_THEMES, THEME_URL_PARAMETER } from '../lib/constants';
     this script is injected at the top of the page to display
     the desired color theme before the main bundle is loaded
 */
-(() => {
+((): void => {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const theme = urlSearchParams.get(THEME_URL_PARAMETER);
     /*
