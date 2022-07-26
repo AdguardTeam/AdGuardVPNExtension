@@ -6,7 +6,8 @@ import { promoNotifications } from './promoNotifications';
 import credentials from './credentials';
 import { UPGRADE_LICENSE_URL } from './config';
 import tabs from './tabs';
-import { REFERRAL_PROGRAM } from '../lib/constants';
+import { REFERRAL_PROGRAM, SETTINGS_IDS, THEME_URL_PARAMETER } from '../lib/constants';
+import { settings } from './settings';
 
 /**
  * Opens options tab with anchor if provided
@@ -15,7 +16,8 @@ import { REFERRAL_PROGRAM } from '../lib/constants';
  */
 const openOptionsPage = async (anchor = null) => {
     const optionsUrl = browser.runtime.getURL('options.html');
-    const targetUrl = `${optionsUrl}${anchor || ''}`;
+    const theme = settings.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
+    const targetUrl = `${optionsUrl}?${THEME_URL_PARAMETER}=${theme}${anchor || ''}`;
 
     if (Prefs.browser === BROWSER_NAMES.FIREFOX) {
         // runtime.openOptionsPage() sometimes causes issue with multiple
