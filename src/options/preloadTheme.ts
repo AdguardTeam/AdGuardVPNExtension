@@ -22,4 +22,12 @@ import { APPEARANCE_THEMES, THEME_URL_PARAMETER } from '../lib/constants';
     if (theme === APPEARANCE_THEMES.LIGHT) {
         document.body.classList.add('body_light');
     }
+
+    const HARDCODED_STYLES_TIMEOUT = 1000;
+
+    // remove redundant hardcoded styles
+    setTimeout(() => {
+        document.body.classList.remove('body_dark');
+        document.body.classList.remove('body_light');
+    }, HARDCODED_STYLES_TIMEOUT);
 })();
