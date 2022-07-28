@@ -86,6 +86,12 @@ const config = {
                     { loader: 'file-loader', options: { outputPath: 'assets' } },
                 ],
             },
+            {
+                test: /\.webm$/,
+                use: [
+                    { loader: 'file-loader', options: { outputPath: 'assets/motion' } },
+                ],
+            },
         ],
     },
     plugins: [
