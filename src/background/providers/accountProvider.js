@@ -2,10 +2,6 @@ import { accountApi } from '../api';
 
 import { WEBSITE_DOMAIN } from '../config';
 
-const HTTPS_PROTOCOL = 'https://';
-const REFERRAL_URL_KEYWORD = '/join/';
-const REFERRAL_URL_SUFFIX = '/form.html';
-
 const getVpnToken = async (accessToken) => {
     const vpnTokenData = await accountApi.getVpnToken(accessToken);
 
@@ -50,7 +46,7 @@ const getReferralData = async (accessToken) => {
         invites_count: invitesCount,
         max_invites_count: maxInvitesCount,
     } = referralData;
-    const inviteUrl = `${HTTPS_PROTOCOL}${WEBSITE_DOMAIN}${REFERRAL_URL_KEYWORD}${inviteId}${REFERRAL_URL_SUFFIX}`;
+    const inviteUrl = `https://${WEBSITE_DOMAIN}/forward.html?action=referral_link&from=options_screen&app=vpn_extension&invite_id=${inviteId}`;
     return {
         inviteUrl,
         invitesCount,
