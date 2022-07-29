@@ -1,6 +1,6 @@
 import { accountApi } from '../api';
 
-import { WEBSITE_DOMAIN } from '../config';
+import { FORWARDER_DOMAIN } from '../config';
 
 const getVpnToken = async (accessToken) => {
     const vpnTokenData = await accountApi.getVpnToken(accessToken);
@@ -46,7 +46,7 @@ const getReferralData = async (accessToken) => {
         invites_count: invitesCount,
         max_invites_count: maxInvitesCount,
     } = referralData;
-    const inviteUrl = `https://${WEBSITE_DOMAIN}/forward.html?action=referral_link&app=vpn_extension&invite_id=${inviteId}`;
+    const inviteUrl = `https://${FORWARDER_DOMAIN}/forward.html?action=referral_link&app=vpn_extension&invite_id=${inviteId}`;
     return {
         inviteUrl,
         invitesCount,

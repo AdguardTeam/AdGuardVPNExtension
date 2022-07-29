@@ -42,7 +42,7 @@ Build:
             STAGE_ENV="prod" \
             VPN_API_URL="${bamboo.prodVpnApiUrl}" \
             AUTH_API_URL="${bamboo.prodAuthApiUrl}" \
-            WEBSITE_DOMAIN="${bamboo.prodVpnDomain}" \
+            FORWARDER_DOMAIN="${bamboo.prodVpnDomain}" \
             yarn release
             rm -rf node_modules
     - inject-variables:
