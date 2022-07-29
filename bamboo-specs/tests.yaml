@@ -42,14 +42,14 @@ Test:
             STAGE_ENV=test \
             VPN_API_URL="${bamboo.devVpnApiUrl}" \
             AUTH_API_URL="${bamboo.devAuthApiUrl}" \
-            FORWARDER_DOMAIN="${bamboo.devVpnDomain}" \
+            WEBSITE_DOMAIN="${bamboo.devVpnDomain}" \
             yarn dev
 
             # build with prod API endpoints
             STAGE_ENV=prod \
             VPN_API_URL="${bamboo.prodVpnApiUrl}" \
             AUTH_API_URL="${bamboo.prodAuthApiUrl}" \
-            FORWARDER_DOMAIN="${bamboo.prodVpnDomain}" \
+            WEBSITE_DOMAIN="${bamboo.prodVpnDomain}" \
             yarn dev
             rm -rf node_modules
   artifacts:
