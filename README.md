@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-    <a href="https://adguard-vpn.com/">Website</a> |
+    <a href="https://link.adtidy.net/forward.html?action=adguard_site&from=readme&app=vpn_extension">Website</a> |
     <a href="https://reddit.com/r/Adguard">Reddit</a> |
     <a href="https://twitter.com/AdGuard">Twitter</a> |
     <a href="https://t.me/adguard_en">Telegram</a>
@@ -23,7 +23,7 @@
 
 AdGuard VPN serves to protect your online privacy, encrypt your connection, hide your IP address and websites you visit from anyone (including your ISP). Cutting-edge technologies and multiple customization options will help conceal your location and ensure anonymous browsing on the web.
 
-To get more information and to download AdGuard VPN visit our website [https://adguard-vpn.com/](https://adguard-vpn.com/).
+To get more information and to download AdGuard VPN visit our website [https://adguard-vpn.com/](https://link.adtidy.net/forward.html?action=adguard_site&from=readme&app=vpn_extension).
 
 <a id="feedback"></a>
 
