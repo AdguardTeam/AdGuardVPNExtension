@@ -1,5 +1,6 @@
 import { authApi } from '../api/authApi';
 import { translator } from '../../common/translator';
+import { WEBSITE_DOMAIN } from '../config';
 
 const accessTokenModel = {
     fromRemoteToLocal: (remoteAccessToken) => {
@@ -70,7 +71,7 @@ const register = async (credentials) => {
         'validation.not_valid': translator.getMessage('registration_error_not_valid'),
         'validation.min_length': translator.getMessage('registration_error_min_length'),
         'validation.compromised.password': translator.getMessage('registration_error_compromised_password', {
-            a: (chunks) => (`<a href="https://adguard-vpn.com/forward.html?action=haveibeenpwned&from=popup&app=vpn_extension" target="_blank" class="link">${chunks}</a>`),
+            a: (chunks) => (`<a href="https://${WEBSITE_DOMAIN}/forward.html?action=haveibeenpwned&from=popup&app=vpn_extension" target="_blank" class="link">${chunks}</a>`),
         }),
         'validation.unique_constraint': translator.getMessage('registration_error_unique_constraint'),
         default: translator.getMessage('registration_error_default'),

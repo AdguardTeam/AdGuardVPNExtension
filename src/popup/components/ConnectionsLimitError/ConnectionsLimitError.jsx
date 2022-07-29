@@ -7,6 +7,7 @@ import { log } from '../../../lib/logger';
 import { rootStore } from '../../stores';
 import { messenger } from '../../../lib/messenger';
 import { reactTranslator } from '../../../common/reactTranslator';
+import { WEBSITE_DOMAIN } from '../../../background/config';
 
 import './popup-error.pcss';
 
@@ -36,8 +37,8 @@ export const ConnectionsLimitError = observer(() => {
     const description = `${descriptionFirstPart} ${descriptionRestPart}`;
 
     const buttonsMap = {
-        free: { title: reactTranslator.getMessage('popup_connections_limit_description_cta_button_free'), url: 'https://adguard-vpn.com/forward.html?action=subscribe&from=popup_connections_limit&app=vpn_extension' },
-        premium: { title: reactTranslator.getMessage('popup_connections_limit_description_cta_button_premium'), url: 'https://adguard-vpn.com/forward.html?action=devices_count&from=popup_connections_limit&app=vpn_extension' },
+        free: { title: reactTranslator.getMessage('popup_connections_limit_description_cta_button_free'), url: `https://${WEBSITE_DOMAIN}/forward.html?action=subscribe&from=popup_connections_limit&app=vpn_extension` },
+        premium: { title: reactTranslator.getMessage('popup_connections_limit_description_cta_button_premium'), url: `https://${WEBSITE_DOMAIN}/forward.html?action=devices_count&from=popup_connections_limit&app=vpn_extension` },
     };
 
     const buttonData = isPremiumToken ? buttonsMap.premium : buttonsMap.free;

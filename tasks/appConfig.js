@@ -73,6 +73,8 @@ const COMMON = {
     // API
     AUTH_ACCESS_TOKEN_KEY: 'auth.access.token',
     AUTH_CLIENT_ID: 'adguard-vpn-extension',
+    // Uninstall page
+    UNINSTALL_PAGE_URL: `https://${WEBSITE_DOMAIN}/forward.html?action=adguard_uninstal_ext&from=background_page&app=vpn_extension`,
 };
 
 const genAppConfig = (browser, stageEnv, buildingEnv) => {
