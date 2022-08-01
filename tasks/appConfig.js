@@ -1,6 +1,6 @@
 const { BROWSERS, ENVS } = require('./consts');
 
-const { WEBSITE_DOMAIN: FORWARDER_DOMAIN } = process.env;
+const { FORWARDER_DOMAIN } = process.env;
 
 const URLS_MAP_RELEASE = {
     [BROWSERS.CHROME]: {
