@@ -152,16 +152,15 @@ export const isWildcard = (targetString: string) => {
 };
 
 /**
- * Sets query parameter with provided value without reloading page
+ * Removes query parameter without reloading page
  * @param parameter
- * @param value
  */
-export const setQueryParameter = (parameter: string, value: string): void => {
+export const removeQueryParameter = (parameter: string): void => {
     const url = new URL(window.location.href);
     if (!url) {
         return;
     }
 
-    url.searchParams.set(parameter, value);
+    url.searchParams.delete(parameter);
     window.history.replaceState(null, '', url);
 };

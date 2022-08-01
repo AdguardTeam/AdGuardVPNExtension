@@ -1,4 +1,5 @@
 import { APPEARANCE_THEMES, THEME_URL_PARAMETER } from '../lib/constants';
+import { removeQueryParameter } from '../common/url-utils';
 
 /*
     this script is injected at the top of the page to display
@@ -7,6 +8,8 @@ import { APPEARANCE_THEMES, THEME_URL_PARAMETER } from '../lib/constants';
 ((): void => {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const theme = urlSearchParams.get(THEME_URL_PARAMETER);
+    // remove redundant query parameter
+    removeQueryParameter(THEME_URL_PARAMETER);
     /*
         if theme parameter is missing or a system theme is selected,
         the desired color is selected using the css media query
