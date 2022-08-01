@@ -109,9 +109,15 @@ export const STATE = {
     /**
      * In this state WS is connected and proxy enabled
      * If an WS error or close event fires, state changes to DISCONNECTED_RETRYING state
-     * If user presses disconnect button, state changes to DISCONNECTED_IDLE state
+     * If user presses disconnect button, state changes to DISCONNECTING state
      */
     CONNECTED: 'connected',
+
+    /**
+     * This state is set after user has pressed disconnect button,
+     * after timeout state changes to DISCONNECTED_IDLE state
+     */
+    DISCONNECTING: 'disconnecting',
 };
 
 /**
