@@ -65,7 +65,7 @@ You can use GitHub to report a bug or to submit a feature request. To do so, go 
   STAGE_ENV=test \
   VPN_API_URL="vpn_api_url" \
   AUTH_API_URL="auth_api_url" \
-  FORWARDER_DOMAIN="website_domain" \
+  FORWARDER_DOMAIN="forwarder_domain" \
 ```
 
 <a id="linting"></a>
