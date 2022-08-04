@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
@@ -26,6 +26,8 @@ const Settings = observer(() => {
         isPremiumToken,
     } = vpnStore;
 
+    const [introHidden, setIntroHidden] = useState(false);
+
     const settingsClass = classnames(
         'settings',
         { 'settings--active': isConnected },
@@ -34,17 +36,40 @@ const Settings = observer(() => {
         { 'settings--feedback': !premiumPromoEnabled },
     );
 
+    const videoClass = classnames(
+        'settings__video',
+        { hidden: introHidden },
+    );
+
     const sourcesMap = {
         [APPEARANCE_THEMES.LIGHT]: {
-            [STATE.CONNECTED]: `${MOTION_FOLDER_PATH}on-day.webm`,
-            [STATE.DISCONNECTED_IDLE]: `${MOTION_FOLDER_PATH}off-day.webm`,
-            [STATE.CONNECTING_IDLE]: `${MOTION_FOLDER_PATH}switch-on-day.webm`,
+            [STATE.CONNECTED]: {
+                intro: `${MOTION_FOLDER_PATH}switch-on-day.webm`,
+                video: `${MOTION_FOLDER_PATH}on-day.webm`,
+            },
+            [STATE.DISCONNECTED_IDLE]: {
+                intro: `${MOTION_FOLDER_PATH}switch-off-day.webm`,
+                video: `${MOTION_FOLDER_PATH}off-day.webm`,
+            },
+            [STATE.CONNECTING_IDLE]: {
+                intro: `${MOTION_FOLDER_PATH}off-day.webm`,
+                video: `${MOTION_FOLDER_PATH}off-day.webm`,
+            },
             // [STATE.DISCONNECTING]: `${MOTION_FOLDER_PATH}switch-off-day.webm`,
         },
         [APPEARANCE_THEMES.DARK]: {
-            [STATE.CONNECTED]: `${MOTION_FOLDER_PATH}on-night.webm`,
-            [STATE.DISCONNECTED_IDLE]: `${MOTION_FOLDER_PATH}off-night.webm`,
-            [STATE.CONNECTING_IDLE]: `${MOTION_FOLDER_PATH}switch-on-night.webm`,
+            [STATE.CONNECTED]: {
+                intro: `${MOTION_FOLDER_PATH}switch-on-night.webm`,
+                video: `${MOTION_FOLDER_PATH}on-night.webm`,
+            },
+            [STATE.DISCONNECTED_IDLE]: {
+                intro: `${MOTION_FOLDER_PATH}switch-off-night.webm`,
+                video: `${MOTION_FOLDER_PATH}off-night.webm`,
+            },
+            [STATE.CONNECTING_IDLE]: {
+                intro: `${MOTION_FOLDER_PATH}off-night.webm`,
+                video: `${MOTION_FOLDER_PATH}off-night.webm`,
+            },
             // [STATE.DISCONNECTING]: `${MOTION_FOLDER_PATH}switch-off-night.webm`,
         },
     };
@@ -53,27 +78,43 @@ const Settings = observer(() => {
         ? [APPEARANCE_THEMES.DARK]
         : [APPEARANCE_THEMES.LIGHT];
 
-    const sourcePath = appearanceTheme === APPEARANCE_THEMES.SYSTEM
-        ? sourcesMap[systemTheme][connectivityState.value]
-        : sourcesMap[appearanceTheme][connectivityState.value];
+    const introUrl = appearanceTheme === APPEARANCE_THEMES.SYSTEM
+        ? sourcesMap[systemTheme][connectivityState.value].intro
+        : sourcesMap[appearanceTheme][connectivityState.value].intro;
 
-    const renderVideo = (url) => {
+    const videoUrl = appearanceTheme === APPEARANCE_THEMES.SYSTEM
+        ? sourcesMap[systemTheme][connectivityState.value].video
+        : sourcesMap[appearanceTheme][connectivityState.value].video;
+
+    const handleVideoEnded = () => {
+        setIntroHidden(true);
+    };
+
+    const renderVideo = (introUrl, videoUrl) => {
+        const introRef = useRef();
         const videoRef = useRef();
 
         useEffect(() => {
+            setIntroHidden(false);
+            introRef.current?.load();
             videoRef.current?.load();
-        }, [url]);
+        }, [introUrl, videoUrl]);
 
         return (
-            <video ref={videoRef} aria-hidden="true" className="settings__video" playsInline autoPlay loop>
-                <source src={url} type="video/webm" />
-            </video>
+            <>
+                <video ref={videoRef} aria-hidden="true" className="settings__video" playsInline autoPlay loop>
+                    <source src={videoUrl} type="video/webm" />
+                </video>
+                <video ref={introRef} aria-hidden="true" className={videoClass} playsInline autoPlay onEnded={handleVideoEnded}>
+                    <source src={introUrl} type="video/webm" />
+                </video>
+            </>
         );
     };
 
     return (
         <div className={settingsClass}>
-            {renderVideo(sourcePath)}
+            {renderVideo(introUrl, videoUrl)}
             <div className="settings__main">
                 <Status />
                 <GlobalControl />
