@@ -39,13 +39,13 @@ const Settings = observer(() => {
             [STATE.CONNECTED]: `${MOTION_FOLDER_PATH}on-day.webm`,
             [STATE.DISCONNECTED_IDLE]: `${MOTION_FOLDER_PATH}off-day.webm`,
             [STATE.CONNECTING_IDLE]: `${MOTION_FOLDER_PATH}switch-on-day.webm`,
-            [STATE.DISCONNECTING]: `${MOTION_FOLDER_PATH}switch-off-day.webm`,
+            // [STATE.DISCONNECTING]: `${MOTION_FOLDER_PATH}switch-off-day.webm`,
         },
         [APPEARANCE_THEMES.DARK]: {
             [STATE.CONNECTED]: `${MOTION_FOLDER_PATH}on-night.webm`,
             [STATE.DISCONNECTED_IDLE]: `${MOTION_FOLDER_PATH}off-night.webm`,
             [STATE.CONNECTING_IDLE]: `${MOTION_FOLDER_PATH}switch-on-night.webm`,
-            [STATE.DISCONNECTING]: `${MOTION_FOLDER_PATH}switch-off-night.webm`,
+            // [STATE.DISCONNECTING]: `${MOTION_FOLDER_PATH}switch-off-night.webm`,
         },
     };
 

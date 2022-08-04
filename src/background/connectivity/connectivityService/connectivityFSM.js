@@ -9,7 +9,6 @@ const MIN_RECONNECTION_DELAY_MS = 1000; // 1 second
 const MAX_RECONNECTION_DELAY_MS = 1000 * 60 * 3; // 3 minutes
 const RECONNECTION_DELAY_GROW_FACTOR = 1.3;
 const RETRY_CONNECTION_TIME_MS = 70000; // 70 seconds
-const DISCONNECTING_DURATION = 1000 * 2; // 2 seconds
 
 const actions = {
     turnOnProxy: async () => {
@@ -205,7 +204,7 @@ const connectivityFSM = new Machine({
             on: {
                 [EVENT.WS_ERROR]: STATE.DISCONNECTED_RETRYING,
                 [EVENT.WS_CLOSE]: STATE.DISCONNECTED_RETRYING,
-                [EVENT.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTING,
+                [EVENT.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTED_IDLE,
                 // this event fires when user has too many devises connected
                 [EVENT.TOO_MANY_DEVICES_CONNECTED]: STATE.DISCONNECTED_IDLE,
                 // if vpn enabled in desktop app
@@ -215,11 +214,6 @@ const connectivityFSM = new Machine({
                 },
             },
             entry: [resetOnSuccessfulConnection],
-        },
-        [STATE.DISCONNECTING]: {
-            after: {
-                [DISCONNECTING_DURATION]: STATE.DISCONNECTED_IDLE,
-            },
         },
     },
 }, { actions, delays });
