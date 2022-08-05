@@ -1,5 +1,7 @@
 import Credentials from '../../../src/background/credentials/Credentials';
 
+jest.mock('../../../src/lib/logger');
+
 const browserApi = {};
 
 const msToSec = (ms) => {

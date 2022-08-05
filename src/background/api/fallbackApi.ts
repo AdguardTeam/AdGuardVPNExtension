@@ -5,9 +5,14 @@ import { AUTH_API_URL, VPN_API_URL, STAGE_ENV } from '../config';
 import { apiUrlCache } from './apiUrlCache';
 
 // DNS over https api
-export const GOOGLE_DOH_URL = 'dns.google/resolve';
-export const CLOUDFLARE_DOH_URL = 'cloudflare-dns.com/dns-query';
-export const ALIDNS_DOH_URL = 'dns.alidns.com/resolve';
+const GOOGLE_DOH_HOSTNAME = 'dns.google';
+export const GOOGLE_DOH_URL = `${GOOGLE_DOH_HOSTNAME}/resolve`;
+
+const CLOUDFLARE_DOH_HOSTNAME = 'cloudflare-dns.com';
+export const CLOUDFLARE_DOH_URL = `${CLOUDFLARE_DOH_HOSTNAME}/dns-query`;
+
+const ALIDNS_DOH_HOSTNAME = 'dns.alidns.com';
+export const ALIDNS_DOH_URL = `${ALIDNS_DOH_HOSTNAME}/resolve`;
 
 const stageSuffix = STAGE_ENV === 'test' ? '-dev' : '';
 export const WHOAMI_URL = `whoami${stageSuffix}.adguard-vpn.online`;
@@ -26,53 +31,18 @@ export const VPN_API_URL_KEY = 'vpn';
 export const AUTH_API_URL_KEY = 'auth';
 
 export class FallbackApi {
-    constructor(vpnApiUrl, authApiUrl) {
-        this.setVpnApiUrl(vpnApiUrl);
-        this.setAuthApiUrl(authApiUrl);
+    vpnApiUrl: string;
+
+    authApiUrl: string;
+
+    /**
+     * Default urls we set already expired,
+     * so we need to check bkp url immediately when bkp url is required
+     */
+    constructor(vpnApiUrl: string, authApiUrl: string) {
+        this.setVpnApiUrl(vpnApiUrl, Date.now());
+        this.setAuthApiUrl(authApiUrl, Date.now());
     }
-
-    setVpnApiUrl = (url) => {
-        this.vpnApiUrl = url;
-        apiUrlCache.set(VPN_API_URL_KEY, this.vpnApiUrl);
-    };
-
-    setAuthApiUrl = (url) => {
-        this.authApiUrl = url;
-        apiUrlCache.set(AUTH_API_URL_KEY, this.authApiUrl);
-    };
-
-    getVpnApiUrl = async () => {
-        if (apiUrlCache.isNeedUpdate(VPN_API_URL_KEY)) {
-            await this.updateVpnApiUrl();
-            return this.vpnApiUrl;
-        }
-
-        return this.vpnApiUrl;
-    };
-
-    getAuthApiUrl = async () => {
-        if (apiUrlCache.isNeedUpdate(AUTH_API_URL_KEY)) {
-            await this.updateAuthApiUrl();
-            return this.authApiUrl;
-        }
-
-        return this.authApiUrl;
-    };
-
-    getAuthBaseUrl = async () => {
-        const authApiUrl = await this.getAuthApiUrl();
-        return `${authApiUrl}/oauth/authorize`;
-    };
-
-    getAuthRedirectUri = async () => {
-        const authApiUrl = await this.getAuthApiUrl();
-        return `${authApiUrl}/oauth.html?adguard-vpn=1`;
-    };
-
-    getAccountApiUrl = async () => {
-        const vpnApiUrl = await this.getVpnApiUrl();
-        return `${vpnApiUrl}/account`;
-    };
 
     async init() {
         const countryInfo = await this.getCountryInfo();
@@ -96,7 +66,61 @@ export class FallbackApi {
         }
     }
 
-    async updateVpnApiUrl() {
+    public getVpnApiUrl = async () => {
+        if (apiUrlCache.needsUpdate(VPN_API_URL_KEY)) {
+            await this.updateVpnApiUrl();
+            return this.vpnApiUrl;
+        }
+
+        return this.vpnApiUrl;
+    };
+
+    public getAuthApiUrl = async () => {
+        if (apiUrlCache.needsUpdate(AUTH_API_URL_KEY)) {
+            await this.updateAuthApiUrl();
+            return this.authApiUrl;
+        }
+
+        return this.authApiUrl;
+    };
+
+    public getAuthBaseUrl = async () => {
+        const authApiUrl = await this.getAuthApiUrl();
+        return `${authApiUrl}/oauth/authorize`;
+    };
+
+    public getAuthRedirectUri = async () => {
+        const authApiUrl = await this.getAuthApiUrl();
+        return `${authApiUrl}/oauth.html?adguard-vpn=1`;
+    };
+
+    public getAccountApiUrl = async () => {
+        const vpnApiUrl = await this.getVpnApiUrl();
+        return `${vpnApiUrl}/account`;
+    };
+
+    public getApiUrlsExclusions = async () => {
+        return [
+            await this.getVpnApiUrl(),
+            await this.getAuthApiUrl(),
+            GOOGLE_DOH_HOSTNAME,
+            CLOUDFLARE_DOH_HOSTNAME,
+            ALIDNS_DOH_HOSTNAME,
+            WHOAMI_URL,
+        ].map((url) => `*${url}`);
+    };
+
+    private setVpnApiUrl = (url: string, expireInMs?: number) => {
+        this.vpnApiUrl = url;
+        apiUrlCache.set(VPN_API_URL_KEY, this.vpnApiUrl, expireInMs);
+    };
+
+    private setAuthApiUrl = (url: string, expiresInMs?: number) => {
+        this.authApiUrl = url;
+        apiUrlCache.set(AUTH_API_URL_KEY, this.authApiUrl, expiresInMs);
+    };
+
+    private async updateVpnApiUrl() {
         const { country } = await this.getCountryInfo();
         const bkpUrl = await this.getBkpVpnApiUrl(country);
         if (bkpUrl) {
@@ -104,7 +128,7 @@ export class FallbackApi {
         }
     }
 
-    async updateAuthApiUrl() {
+    private async updateAuthApiUrl() {
         const { country } = await this.getCountryInfo();
         const bkpUrl = await this.getBkpAuthApiUrl(country);
         if (bkpUrl) {
@@ -116,15 +140,16 @@ export class FallbackApi {
      * Gets bkp flag value from local storage, used for testing purposes
      * @return {boolean}
      */
-    getLocalStorageBkp = () => {
-        let localStorageBkp = Number.parseInt(localStorage.getItem(BKP_KEY), 10);
+    private getLocalStorageBkp = () => {
+        const storedBkp = localStorage.getItem(BKP_KEY);
+        let localStorageBkp = Number.parseInt(String(storedBkp), 10);
 
         localStorageBkp = Number.isNaN(localStorageBkp) ? 0 : localStorageBkp;
 
         return !!localStorageBkp;
     };
 
-    getCountryInfo = async () => {
+    private getCountryInfo = async () => {
         try {
             const { data: { country, bkp } } = await axios.get(
                 `https://${WHOAMI_URL}`,
@@ -137,7 +162,7 @@ export class FallbackApi {
         }
     };
 
-    getBkpUrlByGoogleDoh = async (name) => {
+    private getBkpUrlByGoogleDoh = async (name: string): Promise<string> => {
         const { data } = await axios.get(`https://${GOOGLE_DOH_URL}`, {
             headers: {
                 'Cache-Control': 'no-cache',
@@ -152,10 +177,14 @@ export class FallbackApi {
 
         const { Answer: [{ data: bkpUrl }] } = data;
 
+        if (!FallbackApi.isString(bkpUrl)) {
+            throw new Error('Invalid bkp url from google doh');
+        }
+
         return bkpUrl;
     };
 
-    getBkpUrlByCloudFlareDoh = async (name) => {
+    private getBkpUrlByCloudFlareDoh = async (name: string): Promise<string> => {
         const { data } = await axios.get(`https://${CLOUDFLARE_DOH_URL}`, {
             headers: {
                 'Cache-Control': 'no-cache',
@@ -171,10 +200,14 @@ export class FallbackApi {
 
         const { Answer: [{ data: bkpUrl }] } = data;
 
+        if (!FallbackApi.isString(bkpUrl)) {
+            throw new Error('Invalid bkp url from cloudflare doh');
+        }
+
         return bkpUrl;
     };
 
-    getBkpUrlByAliDnsDoh = async (name) => {
+    private getBkpUrlByAliDnsDoh = async (name: string): Promise<string> => {
         const { data } = await axios.get(`https://${ALIDNS_DOH_URL}`, {
             headers: {
                 'Cache-Control': 'no-cache',
@@ -190,10 +223,14 @@ export class FallbackApi {
 
         const { Answer: [{ data: bkpUrl }] } = data;
 
+        if (!FallbackApi.isString(bkpUrl)) {
+            throw new Error('Invalid bkp url from alidns doh');
+        }
+
         return bkpUrl;
     };
 
-    getBkpUrl = async (hostname) => {
+    private getBkpUrl = async (hostname: string): Promise<null | string> => {
         let bkpUrl;
 
         try {
@@ -214,24 +251,21 @@ export class FallbackApi {
         return bkpUrl;
     };
 
-    getBkpVpnApiUrl = async (country) => {
+    private getBkpVpnApiUrl = async (country: string) => {
         const hostname = `${country.toLowerCase()}.${BKP_API_HOSTNAME_PART}`;
         const bkpApiUrl = await this.getBkpUrl(hostname);
         return bkpApiUrl;
     };
 
-    getBkpAuthApiUrl = async (country) => {
+    private getBkpAuthApiUrl = async (country: string) => {
         const hostname = `${country.toLowerCase()}.${BKP_AUTH_HOSTNAME_PART}`;
         const bkpAuthUrl = await this.getBkpUrl(hostname);
         return bkpAuthUrl;
     };
 
-    getApiUrlsExclusions = async () => {
-        return [
-            await this.getVpnApiUrl(),
-            await this.getAuthApiUrl(),
-        ].map((url) => `*${url}`);
-    };
+    private static isString(val: unknown): boolean {
+        return typeof val === 'string';
+    }
 }
 
 export const fallbackApi = new FallbackApi(VPN_API_URL, AUTH_API_URL);
