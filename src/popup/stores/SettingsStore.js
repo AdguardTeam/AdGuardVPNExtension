@@ -44,6 +44,8 @@ export class SettingsStore {
 
     @observable appearanceTheme = APPEARANCE_THEME_DEFAULT;
 
+    @observable animation = null;
+
     constructor(rootStore) {
         this.rootStore = rootStore;
     }
@@ -80,8 +82,10 @@ export class SettingsStore {
     @action setProxyState = async (value) => {
         if (value) {
             await this.enableProxy(true);
+            this.setAnimation('connected');
         } else {
             await this.disableProxy(true);
+            this.setAnimation('disconnected');
         }
     };
 
@@ -101,6 +105,14 @@ export class SettingsStore {
         } catch (e) {
             log.error(e);
         }
+    };
+
+    @action setAnimation = (value) => {
+        this.animation = value;
+    };
+
+    @action stopAnimation = () => {
+        this.animation = null;
     };
 
     @action getExclusionsInverted = async () => {

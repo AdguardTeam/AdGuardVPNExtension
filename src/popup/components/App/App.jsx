@@ -13,7 +13,7 @@ import Locations from '../Locations';
 import { Authentication } from '../Authentication';
 import { ExtraOptions } from '../ExtraOptions';
 import GlobalError from '../GlobalError';
-import Settings from '../Settings';
+import { Settings } from '../Settings';
 import { PromoNotificationModal } from '../PromoNotificationModal';
 import Icons from '../ui/Icons';
 import CurrentEndpoint from '../Settings/CurrentEndpoint';
