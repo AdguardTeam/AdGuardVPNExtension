@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import { observer } from 'mobx-react';
 
 interface BackgroundVideoProps {
     videoUrl: string,
@@ -8,37 +7,34 @@ interface BackgroundVideoProps {
     onEndedHandler?: () => void,
 }
 
-const BackgroundVideo = observer(({
+const BackgroundVideo = ({
     videoUrl,
     visible = true,
     loop = true,
     onEndedHandler = (() => {}),
 }: BackgroundVideoProps) => {
-    const videoRef = useRef<HTMLVideoElement>();
+    if (!visible) {
+        return null;
+    }
+
+    const videoRef = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
         videoRef.current?.load();
     }, [videoUrl]);
 
-    if (visible) {
-        return (
-            <video
-                // @ts-ignore FIXME remove ts-ignore
-                ref={videoRef}
-                aria-hidden="true"
-                className="settings__video"
-                playsInline
-                autoPlay
-                loop={loop}
-                onEnded={onEndedHandler}
-            >
-                <source src={videoUrl} type="video/webm" />
-                <track kind="captions" />
-            </video>
-        );
-    }
-
-    return null;
-});
+    return (
+        <video
+            ref={videoRef}
+            className="settings__video"
+            autoPlay
+            loop={loop}
+            onEnded={onEndedHandler}
+        >
+            <source src={videoUrl} type="video/webm" />
+            <track kind="captions" />
+        </video>
+    );
+};
 
 export { BackgroundVideo };

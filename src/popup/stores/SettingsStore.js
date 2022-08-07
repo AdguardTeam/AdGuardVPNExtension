@@ -8,7 +8,7 @@ import {
 import tabs from '../../background/tabs';
 import { log } from '../../lib/logger';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
-import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT } from '../../lib/constants';
+import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT, ANIMATION_TYPES } from '../../lib/constants';
 import { messenger } from '../../lib/messenger';
 import { STATE } from '../../background/connectivity/connectivityService/connectivityConstants';
 import { getHostname, getProtocol } from '../../common/url-utils';
@@ -44,7 +44,7 @@ export class SettingsStore {
 
     @observable appearanceTheme = APPEARANCE_THEME_DEFAULT;
 
-    @observable animation = null;
+    @observable animationType = null;
 
     constructor(rootStore) {
         this.rootStore = rootStore;
@@ -82,10 +82,10 @@ export class SettingsStore {
     @action setProxyState = async (value) => {
         if (value) {
             await this.enableProxy(true);
-            this.setAnimation('connected');
+            this.setAnimation(ANIMATION_TYPES.SWITCH_ON);
         } else {
             await this.disableProxy(true);
-            this.setAnimation('disconnected');
+            this.setAnimation(ANIMATION_TYPES.SWITCH_OFF);
         }
     };
 
@@ -108,11 +108,7 @@ export class SettingsStore {
     };
 
     @action setAnimation = (value) => {
-        this.animation = value;
-    };
-
-    @action stopAnimation = () => {
-        this.animation = null;
+        this.animationType = value;
     };
 
     @action getExclusionsInverted = async () => {

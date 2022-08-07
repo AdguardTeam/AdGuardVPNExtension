@@ -107,3 +107,8 @@ export const FLAGS_FIELDS = {
 };
 
 export const REFERRAL_PROGRAM = 'referral-program';
+
+export const ANIMATION_TYPES = {
+    SWITCH_ON: 'switch-on',
+    SWITCH_OFF: 'switch-off',
+};

@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import { rootStore } from '../../stores';
 import GlobalControl from './GlobalControl';
 import Status from './Status';
-import { APPEARANCE_THEMES } from '../../../lib/constants';
+import { APPEARANCE_THEMES, ANIMATION_TYPES } from '../../../lib/constants';
 import { BackgroundVideo } from './BackgroundVideo';
 
 import './settings.pcss';
@@ -18,8 +18,8 @@ const Settings = observer(() => {
     const {
         isConnected,
         appearanceTheme,
-        animation,
-        stopAnimation,
+        animationType,
+        setAnimation,
     } = settingsStore;
 
     const {
@@ -38,15 +38,15 @@ const Settings = observer(() => {
     const sourcesMap = {
         [APPEARANCE_THEMES.LIGHT]: {
             connected: `${MOTION_FOLDER_PATH}on-day.webm`,
-            connecting: `${MOTION_FOLDER_PATH}switch-on-day.webm`,
             disconnected: `${MOTION_FOLDER_PATH}off-day.webm`,
-            disconnecting: `${MOTION_FOLDER_PATH}switch-off-day.webm`,
+            [ANIMATION_TYPES.SWITCH_ON]: `${MOTION_FOLDER_PATH}switch-on-day.webm`,
+            [ANIMATION_TYPES.SWITCH_OFF]: `${MOTION_FOLDER_PATH}switch-off-day.webm`,
         },
         [APPEARANCE_THEMES.DARK]: {
             connected: `${MOTION_FOLDER_PATH}on-night.webm`,
-            connecting: `${MOTION_FOLDER_PATH}switch-on-night.webm`,
             disconnected: `${MOTION_FOLDER_PATH}off-night.webm`,
-            disconnecting: `${MOTION_FOLDER_PATH}switch-off-night.webm`,
+            [ANIMATION_TYPES.SWITCH_ON]: `${MOTION_FOLDER_PATH}switch-on-night.webm`,
+            [ANIMATION_TYPES.SWITCH_OFF]: `${MOTION_FOLDER_PATH}switch-off-night.webm`,
         },
     };
 
@@ -58,22 +58,26 @@ const Settings = observer(() => {
         ? sourcesMap[systemTheme]
         : sourcesMap[appearanceTheme];
 
-    const videoUrl = isConnected ? videoSources.connected : videoSources.disconnected;
+    const backgroundVideoUrl = isConnected
+        ? videoSources.connected
+        : videoSources.disconnected;
 
-    const introUrl = animation === 'connected' ? videoSources.connecting : videoSources.disconnecting;
+    const animationUrl = animationType === ANIMATION_TYPES.SWITCH_ON
+        ? videoSources[ANIMATION_TYPES.SWITCH_ON]
+        : videoSources[ANIMATION_TYPES.SWITCH_OFF];
 
-    const handleIntroEnd = (): void => {
-        stopAnimation();
+    const handleAnimationEnded = (): void => {
+        setAnimation(null);
     };
 
     return (
         <div className={settingsClass}>
-            <BackgroundVideo videoUrl={videoUrl} />
+            <BackgroundVideo videoUrl={backgroundVideoUrl} />
             <BackgroundVideo
-                videoUrl={introUrl}
-                visible={!!animation}
+                videoUrl={animationUrl}
+                visible={!!animationType}
                 loop={false}
-                onEndedHandler={handleIntroEnd}
+                onEndedHandler={handleAnimationEnded}
             />
             <div className="settings__main">
                 <Status />
