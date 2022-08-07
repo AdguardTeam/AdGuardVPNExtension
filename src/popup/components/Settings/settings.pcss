@@ -32,16 +32,6 @@
         top: calc(var(--header-height) * -1);
     }
 
-    &--active {
-        & .settings__pic {
-            background-image: url('../../../assets/images/main-on.svg');
-
-            @media (prefers-color-scheme: dark) {
-                background-image: url('../../../assets/images/main-on-dark.svg');
-            }
-        }
-    }
-
     &__main {
         text-align: center;
         padding-top: 220px;
@@ -71,29 +61,5 @@
         margin-top: 20px;
         font-size: 1.4rem;
         color: #d8d8d8;
-    }
-}
-
-.light-mode {
-    .settings__pic {
-        background-image: url('../../../assets/images/main-off.svg');
-    }
-
-    .settings--active {
-        & .settings__pic {
-            background-image: url('../../../assets/images/main-on.svg');
-        }
-    }
-}
-
-.dark-mode {
-    .settings__pic {
-        background-image: url('../../../assets/images/main-off-dark.svg');
-    }
-
-    .settings--active {
-        & .settings__pic {
-            background-image: url('../../../assets/images/main-on-dark.svg');
-        }
     }
 }

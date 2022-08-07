@@ -84,8 +84,8 @@ export class SettingsStore {
             await this.enableProxy(true);
             this.setAnimation(ANIMATION_TYPES.SWITCH_ON);
         } else {
-            await this.disableProxy(true);
             this.setAnimation(ANIMATION_TYPES.SWITCH_OFF);
+            await this.disableProxy(true);
         }
     };
 
