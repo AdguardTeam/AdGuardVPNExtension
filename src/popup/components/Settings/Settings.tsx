@@ -50,7 +50,8 @@ const Settings = observer(() => {
         },
     };
 
-    const currentTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const darkThemeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const currentTheme = darkThemeMediaQuery.matches
         ? APPEARANCE_THEMES.DARK
         : APPEARANCE_THEMES.LIGHT;
 
@@ -61,7 +62,6 @@ const Settings = observer(() => {
     });
 
     useEffect(() => {
-        const darkThemeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
         darkThemeMediaQuery.addEventListener('change', systemThemeChangeHandler);
         return () => darkThemeMediaQuery.removeEventListener('change', systemThemeChangeHandler);
     }, []);
