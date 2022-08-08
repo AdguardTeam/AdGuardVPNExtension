@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
@@ -50,9 +50,21 @@ const Settings = observer(() => {
         },
     };
 
-    const systemTheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+    const currentTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
         ? APPEARANCE_THEMES.DARK
         : APPEARANCE_THEMES.LIGHT;
+
+    const [systemTheme, setSystemTheme] = useState(currentTheme);
+
+    const systemThemeChangeHandler = ((e: MediaQueryListEvent) => {
+        setSystemTheme(e.matches ? APPEARANCE_THEMES.DARK : APPEARANCE_THEMES.LIGHT);
+    });
+
+    useEffect(() => {
+        const darkThemeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        darkThemeMediaQuery.addEventListener('change', systemThemeChangeHandler);
+        return () => darkThemeMediaQuery.removeEventListener('change', systemThemeChangeHandler);
+    }, []);
 
     const videoSources = appearanceTheme === APPEARANCE_THEMES.SYSTEM
         ? sourcesMap[systemTheme]
