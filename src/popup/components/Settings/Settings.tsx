@@ -37,16 +37,16 @@ const Settings = observer(() => {
 
     const sourcesMap = {
         [APPEARANCE_THEMES.LIGHT]: {
-            connected: `${MOTION_FOLDER_PATH}on-day.webm`,
-            disconnected: `${MOTION_FOLDER_PATH}off-day.webm`,
-            [ANIMATION_TYPES.SWITCH_ON]: `${MOTION_FOLDER_PATH}switch-on-day.webm`,
-            [ANIMATION_TYPES.SWITCH_OFF]: `${MOTION_FOLDER_PATH}switch-off-day.webm`,
+            connected: `${MOTION_FOLDER_PATH}on-light.webm`,
+            disconnected: `${MOTION_FOLDER_PATH}off-light.webm`,
+            [ANIMATION_TYPES.SWITCH_ON]: `${MOTION_FOLDER_PATH}switch-on-light.webm`,
+            [ANIMATION_TYPES.SWITCH_OFF]: `${MOTION_FOLDER_PATH}switch-off-light.webm`,
         },
         [APPEARANCE_THEMES.DARK]: {
-            connected: `${MOTION_FOLDER_PATH}on-night.webm`,
-            disconnected: `${MOTION_FOLDER_PATH}off-night.webm`,
-            [ANIMATION_TYPES.SWITCH_ON]: `${MOTION_FOLDER_PATH}switch-on-night.webm`,
-            [ANIMATION_TYPES.SWITCH_OFF]: `${MOTION_FOLDER_PATH}switch-off-night.webm`,
+            connected: `${MOTION_FOLDER_PATH}on-dark.webm`,
+            disconnected: `${MOTION_FOLDER_PATH}off-dark.webm`,
+            [ANIMATION_TYPES.SWITCH_ON]: `${MOTION_FOLDER_PATH}switch-on-dark.webm`,
+            [ANIMATION_TYPES.SWITCH_OFF]: `${MOTION_FOLDER_PATH}switch-off-dark.webm`,
         },
     };
 
