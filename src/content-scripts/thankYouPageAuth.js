@@ -2,7 +2,6 @@ import browser from 'webextension-polyfill';
 import qs from 'qs';
 
 import { MessageType } from '../lib/constants';
-import { messenger } from '../lib/messenger';
 
 const CREDENTIALS_KEY = 'credentials';
 const TOKEN_TYPE = 'bearer';
@@ -10,13 +9,6 @@ const TOKEN_TYPE = 'bearer';
 (async () => {
     const credentialsString = sessionStorage.getItem(CREDENTIALS_KEY);
     if (!credentialsString) {
-        return;
-    }
-
-    const isAuthenticated = await messenger.isAuthenticated();
-    if (isAuthenticated) {
-        // delete credentials from sessionStorage if user is authentication already
-        sessionStorage.removeItem(CREDENTIALS_KEY);
         return;
     }
 

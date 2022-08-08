@@ -137,6 +137,12 @@ class Auth implements AuthInterface {
     }
 
     async authenticateSocial(queryString: string, tabId: number): Promise<void> {
+        const isAuthenticated = await this.isAuthenticated();
+        if (isAuthenticated) {
+            await tabs.closeTab(tabId);
+            return;
+        }
+
         const data = qs.parse(queryString);
         const {
             access_token: accessToken,
@@ -177,6 +183,11 @@ class Auth implements AuthInterface {
         credentials: AccessTokenInterface,
         isNewUser: boolean,
     ): Promise<void> {
+        const isAuthenticated = await this.isAuthenticated();
+        if (isAuthenticated) {
+            return;
+        }
+
         await this.setAccessToken(credentials);
 
         if (isNewUser) {
