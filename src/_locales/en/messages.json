@@ -473,11 +473,11 @@
     "global_error_try_again": {
         "message": "Try again"
     },
-    "authentication_successful_social": {
+    "authentication_successful_notification": {
         "message": "Successfully authenticated! You can open AdGuard VPN and start using it."
     },
     "control_error_description": {
-        "message": "It looks like another Chrome extension is trying to control your connection. Please disable the other extension in your browser."
+        "message": "It looks like another browser extension is trying to control your connection. Please disable the other extension in your browser."
     },
     "control_error_disable": {
         "message": "Disable it"
@@ -582,10 +582,10 @@
         "message": "Leave feedback"
     },
     "popup_confirm_rate_modal_rate_title": {
-        "message": "Wow! Can you rate us also in the Chrome Store?"
+        "message": "Wow! Can you rate us also in the Extension Store?"
     },
     "popup_confirm_rate_modal_confirm_button": {
-        "message": "Go to the Chrome Store"
+        "message": "Go to the Extension Store"
     },
     "options_title": {
         "message": "AdGuard VPN Options"
@@ -755,9 +755,15 @@
         "message": "Please note: you are not connected to VPN and your traffic is not protected! To continue surfing privately, click the AdGuard VPN icon and sign in again."
     },
     "notification_data_limit_reached_title": {
-        "message": "You've reached the monthly data limit."
+        "message": "Monthly data limit reached"
     },
     "notification_data_limit_reached_description": {
         "message": "VPN connection speed has been reduced."
+    },
+    "notification_data_left_mb": {
+        "message": "There are %num% MB left."
+    },
+    "notification_data_left_description": {
+        "message": "VPN connection speed will be reduced soon."
     }
 }

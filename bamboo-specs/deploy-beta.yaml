@@ -6,7 +6,7 @@ deployment:
 release-naming: ${bamboo.inject.version}-beta
 environments:
   - Chrome WebStore
-  - static.adguard.com
+  - static.adguardvpn.com
   - GitHub
 Chrome WebStore:
   triggers: []
@@ -31,6 +31,8 @@ Chrome WebStore:
           - |-
             set -x
             set -e
+            # Fix mixed logs
+            exec 2>&1
             ls -la
 
             ./bamboo-deploy-publisher/deploy.sh adguard-vpn-webstore-beta
@@ -46,7 +48,7 @@ Chrome WebStore:
             name: Deploy webhook
             url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa
 
-static.adguard.com:
+static.adguardvpn.com:
   triggers: []
   tasks:
     - clean

@@ -194,9 +194,6 @@
     "auth_sign_in_button": {
         "message": "Anmelden"
     },
-    "auth_sign_in_link": {
-        "message": "Mit AdGuard-Konto anmelden"
-    },
     "auth_title": {
         "message": "Anmelden oder ein Konto erstellen"
     },
@@ -215,20 +212,8 @@
     "auth_sign_in_provider_facebook": {
         "message": "Mit Facebook anmelden"
     },
-    "auth_header_sign_in_account": {
-        "message": "Sie werden mit dem AdGuard-Konto angemeldet"
-    },
-    "auth_header_sign_up_create_account": {
-        "message": "Durch Ihre Anmeldung wird auch ein AdGuard-Konto erstellt"
-    },
-    "auth_header_sign_in": {
-        "message": "Sie sind angemeldet als <div>%username%</div>"
-    },
     "auth_header_sing_in_notice": {
         "message": "Angemeldet als <span>%username%</span>"
-    },
-    "auth_header_registration": {
-        "message": "Sie sind registriert als <div>%username%</div>"
     },
     "auth_header_2fa_subtitle": {
         "message": "Zwei-Faktor-Authentifizierung"
@@ -315,7 +300,7 @@
         "message": "Entfernt Werbeanzeigen und Tracker von Ihrem Gerät"
     },
     "settings_dns_selector_adguard_nonfiltering_title": {
-        "message": "AdGuard DNS „Nicht filternd”"
+        "message": "AdGuard DNS Ohne Filterung"
     },
     "settings_dns_selector_adguard_nonfiltering_desc": {
         "message": "Verschlüsseltes DNS ohne Aktivitätsprotokollierung (filtert keine Werbeanzeigen und Tracker)"
@@ -385,12 +370,6 @@
     },
     "settings_exclusion_status_all_subdomains": {
         "message": "alle Subdomains"
-    },
-    "settings_exclusion_service_settings_subtitle_regular_mode": {
-        "message": "AdGuard VPN ist für die ausgewählten Domains deaktiviert"
-    },
-    "settings_exclusion_service_settings_subtitle_selective_mode": {
-        "message": "AdGuard VPN ist für die ausgewählten Domains aktiviert"
     },
     "settings_exclusion_group_settings_subtitle_regular_mode": {
         "message": "AdGuard VPN ist für die ausgewählten Domains und Subdomains deaktiviert"
@@ -464,20 +443,8 @@
     "settings_exclusions_remove_all_exclusions_message": {
         "message": "Möchten Sie fortfahren? Die gesamte Ausschlussliste wird entfernt."
     },
-    "settings_exclusions_import_button": {
-        "message": "Importieren"
-    },
-    "settings_exclusions_export_button": {
-        "message": "Exportieren"
-    },
-    "settings_exclusions_delete_button": {
-        "message": "Alle löschen"
-    },
     "settings_exclusion_title": {
         "message": "Ausschlüsse"
-    },
-    "settings_connection_mode_title": {
-        "message": "Betriebsmodus"
     },
     "settings_exclusion_change_mode": {
         "message": "Modus wechseln"
@@ -494,12 +461,6 @@
     "settings_exclusion_selective_description": {
         "message": "AdGuard VPN funktioniert nur auf Websites aus der Ausschlussliste"
     },
-    "settings_exclusion_subdomains_title": {
-        "message": "Subdomains"
-    },
-    "settings_exclusion_subdomains_text": {
-        "message": "Sie können Domains (z.B. google.com) oder alle Subdomains (z.B. *.google.com) hinzufügen"
-    },
     "global_error_title": {
         "message": "Ein Fehler ist aufgetreten"
     },
@@ -512,8 +473,8 @@
     "global_error_try_again": {
         "message": "Erneut versuchen"
     },
-    "authentication_successful_social": {
-        "message": "Erfolgreich authentifiziert! Sie können AdGuard VPN öffnen und es sofort verwenden."
+    "authentication_successful_notification": {
+        "message": "Erfolgreich authentifiziert! Sie können AdGuard VPN jetzt öffnen und sofort verwenden."
     },
     "control_error_description": {
         "message": "Es sieht so aus, als ob eine andere Chrome-Erweiterung versucht, Ihre Verbindung zu kontrollieren. Bitte deaktivieren Sie die andere Erweiterung in Ihrem Browser."
@@ -626,30 +587,6 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Chrome Store aufrufen"
     },
-    "settings_run_upgrade_early_bird": {
-        "message": "Preise für Frühbesteller"
-    },
-    "sale_title": {
-        "message": "Was Sie erhalten:"
-    },
-    "upgrade_features_data": {
-        "message": "Unbegrenzte Daten"
-    },
-    "upgrade_features_speed": {
-        "message": "Ultraschnelle Server"
-    },
-    "upgrade_features_all_locations": {
-        "message": "Alle Standorte"
-    },
-    "upgrade_features_devices": {
-        "message": "Bis zu 5 Geräte"
-    },
-    "upgrade_features_streaming": {
-        "message": "Unterstützung von Streaming-Diensten"
-    },
-    "continue_us_free_button": {
-        "message": "Als kostenlose Variante nutzen"
-    },
     "options_title": {
         "message": "AdGuard VPN Einstellungen"
     },
@@ -732,9 +669,6 @@
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Verbinden Sie alle Ihre Geräte mit AdGuard VPN — oder schützen Sie Ihre ganze Familie!"
     },
-    "popup_upgrade_screen_streaming": {
-        "message": "Streaming"
-    },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Umsteigen"
     },
@@ -744,15 +678,6 @@
     "popup_free_traffic_info": {
         "message": "Noch <span>%value% %unit%</span> in diesem Monat verfügbar",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_selective_mode_popup_message": {
-        "message": "Im „Selektiven Modus” wird AdGuard VPN nur auf zugelassenen Websites ausgeführt, die zuvor in die Liste hinzugefügt wurden."
-    },
-    "options_selective_mode_popup_button_switch_now": {
-        "message": "Jetzt wechseln"
-    },
-    "options_selective_mode_popup_attention": {
-        "message": "Möchten Sie wirklich wechseln?"
     },
     "options_exclusions_import_select_title": {
         "message": "Ausschlüsse importieren nach:"
@@ -827,6 +752,18 @@
         "message": "Sie haben sich bei AdGuard VPN abgemeldet"
     },
     "options_signedout_page_description": {
-        "message": "Ihre Verbindung derzeit ungeschützt ist. Um privat weiterzusurfen, klicken Sie auf das AdGuard VPN-Symbol und melden Sie sich erneut an."
+        "message": "Sie sind mit AdGuard VPN nicht verbunden. Ihr Traffic ist nicht geschützt. Um privat weiterzusurfen, klicken Sie auf das AdGuard VPN-Symbol und melden Sie sich erneut an."
+    },
+    "notification_data_limit_reached_title": {
+        "message": "Monatliches Datenlimit erreicht"
+    },
+    "notification_data_limit_reached_description": {
+        "message": "Die Geschwindigkeit der VPN-Verbindung wurde reduziert."
+    },
+    "notification_data_left_mb": {
+        "message": "Es sind noch %num% MB übrig."
+    },
+    "notification_data_left_description": {
+        "message": "Die Geschwindigkeit der VPN-Verbindung wird in Kürze herabgesetzt."
     }
 }

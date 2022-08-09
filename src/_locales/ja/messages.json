@@ -194,9 +194,6 @@
     "auth_sign_in_button": {
         "message": "ログイン"
     },
-    "auth_sign_in_link": {
-        "message": "AdGuardアカウントでログインする"
-    },
     "auth_title": {
         "message": "ログインまたはアカウントご登録"
     },
@@ -215,20 +212,8 @@
     "auth_sign_in_provider_facebook": {
         "message": "Facebookで続ける"
     },
-    "auth_header_sign_in_account": {
-        "message": "お持ちのAdGuardアカウントでのログイン"
-    },
-    "auth_header_sign_up_create_account": {
-        "message": "ご登録いただくことでAdGuardアカウントが作成されます"
-    },
-    "auth_header_sign_in": {
-        "message": "<div>%username%</div>としてログインします。"
-    },
     "auth_header_sing_in_notice": {
         "message": "<span>%username%</span> としてログインします。"
-    },
-    "auth_header_registration": {
-        "message": "<div>%username%</div>でご登録します。"
     },
     "auth_header_2fa_subtitle": {
         "message": "２要素認証"
@@ -386,12 +371,6 @@
     "settings_exclusion_status_all_subdomains": {
         "message": "すべてのサブドメイン"
     },
-    "settings_exclusion_service_settings_subtitle_regular_mode": {
-        "message": "AdGuard VPNはチェック入りドメインに対してオフです"
-    },
-    "settings_exclusion_service_settings_subtitle_selective_mode": {
-        "message": "AdGuard VPNはチェック入りドメインに対してオンです"
-    },
     "settings_exclusion_group_settings_subtitle_regular_mode": {
         "message": "AdGuard VPNはチェック入りドメインとサブドメインに対してオフです"
     },
@@ -464,20 +443,8 @@
     "settings_exclusions_remove_all_exclusions_message": {
         "message": "続行してよろしいですか？除外リストが完全に削除されます。"
     },
-    "settings_exclusions_import_button": {
-        "message": "インポートする"
-    },
-    "settings_exclusions_export_button": {
-        "message": "エクスポートする"
-    },
-    "settings_exclusions_delete_button": {
-        "message": "すべてを削除する"
-    },
     "settings_exclusion_title": {
         "message": "VPN対象からの除外"
-    },
-    "settings_connection_mode_title": {
-        "message": "動作モード"
     },
     "settings_exclusion_change_mode": {
         "message": "モードを変更する"
@@ -494,12 +461,6 @@
     "settings_exclusion_selective_description": {
         "message": "AdGuard VPNは以下の除外リストのウェブサイトに対してのみオンになります。"
     },
-    "settings_exclusion_subdomains_title": {
-        "message": "サブドメインも使用可能"
-    },
-    "settings_exclusion_subdomains_text": {
-        "message": "ドメイン（例: 「google.com」）やサブドメイン（例: 「*.google.com」）を追加することができます。"
-    },
     "global_error_title": {
         "message": "エラーが発生しました。"
     },
@@ -512,7 +473,7 @@
     "global_error_try_again": {
         "message": "もう一度試す"
     },
-    "authentication_successful_social": {
+    "authentication_successful_notification": {
         "message": "認証完了！AdGuard VPNを開き、利用を開始することができます。"
     },
     "control_error_description": {
@@ -626,30 +587,6 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Chromeウェブストアへ"
     },
-    "settings_run_upgrade_early_bird": {
-        "message": "早期割引価格"
-    },
-    "sale_title": {
-        "message": "有料版メリット:"
-    },
-    "upgrade_features_data": {
-        "message": "無限のデータ量"
-    },
-    "upgrade_features_speed": {
-        "message": "光速サーバー"
-    },
-    "upgrade_features_all_locations": {
-        "message": "全ロケーション利用可能"
-    },
-    "upgrade_features_devices": {
-        "message": "同時にデバイス5台まで使用可能"
-    },
-    "upgrade_features_streaming": {
-        "message": "ストリーミングサービスに対応"
-    },
-    "continue_us_free_button": {
-        "message": "無料版で続ける"
-    },
     "options_title": {
         "message": "AdGuard VPNオプション"
     },
@@ -709,7 +646,7 @@
         "message": "無制限版VPN"
     },
     "popup_upgrade_screen_unlimited_data": {
-        "message": "無限のデータ量"
+        "message": "データ量無制限"
     },
     "popup_upgrade_screen_unlimited_data_desc": {
         "message": "お好みの世界中コンテンツに制限なくアクセス！"
@@ -727,13 +664,10 @@
         "message": "6つの大陸、数十の国。接続したい都市を選択して、安全にネットをお楽しみください。また、海外出張・旅行中で日本と同じネット環境も再現可能。"
     },
     "popup_upgrade_screen_connect_devices": {
-        "message": "同時にデバイス5台まで使用可能"
+        "message": "同時接則可能デバイス 5台"
     },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "AdGuard VPNに自分の端末、家庭の端末、お友達の端末を接続し、すべて保護！"
-    },
-    "popup_upgrade_screen_streaming": {
-        "message": "ストリーミングサービス対応"
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "アップグレード"
@@ -744,15 +678,6 @@
     "popup_free_traffic_info": {
         "message": "今月の残りデータ量: <span>%value% %unit%</span>",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_selective_mode_popup_message": {
-        "message": "指定モードでは、AdGuard VPNはリストに追加されているサイトに対してのみオンになります。"
-    },
-    "options_selective_mode_popup_button_switch_now": {
-        "message": "動作モードを切り替える"
-    },
-    "options_selective_mode_popup_attention": {
-        "message": "切り替えてもよろしいですか？"
     },
     "options_exclusions_import_select_title": {
         "message": "除外のインポート先:"
@@ -827,6 +752,18 @@
         "message": "AdGuard VPNからログアウトしました"
     },
     "options_signedout_page_description": {
-        "message": "VPNに接続されていないので、通信が保護されていません。安全にネット閲覧を続けるには、AdGuard VPNのアイコンをクリックし、再度ログインしてください。"
+        "message": "※VPNに接続されていないので、通信が保護されていません。安全にネット閲覧を続けるには、AdGuard VPNのアイコンをクリックし、再度ログインしてください。"
+    },
+    "notification_data_limit_reached_title": {
+        "message": "月間無料通信量の上限に達しました。"
+    },
+    "notification_data_limit_reached_description": {
+        "message": "VPN接続速度は低速化しました。"
+    },
+    "notification_data_left_mb": {
+        "message": "通信量の残りは%num%MBです。"
+    },
+    "notification_data_left_description": {
+        "message": "VPN接続速度はまもなく低速化します。"
     }
 }

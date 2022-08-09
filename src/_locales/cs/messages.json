@@ -194,9 +194,6 @@
     "auth_sign_in_button": {
         "message": "Přihlásit se"
     },
-    "auth_sign_in_link": {
-        "message": "Přihlásit se pomocí účtu AdGuard"
-    },
     "auth_title": {
         "message": "Přihlaste se nebo si vytvořte účet"
     },
@@ -215,20 +212,8 @@
     "auth_sign_in_provider_facebook": {
         "message": "Pokračovat s Facebook účtem"
     },
-    "auth_header_sign_in_account": {
-        "message": "Přihlašujete se pomocí AdGuard účtu"
-    },
-    "auth_header_sign_up_create_account": {
-        "message": "Zaregistrováním vytvoříte svůj AdGuard účet"
-    },
-    "auth_header_sign_in": {
-        "message": "Přihlašujete se jako <div>%username%</div> "
-    },
     "auth_header_sing_in_notice": {
         "message": "Přihlašujete se jako <span>%username%</span>"
-    },
-    "auth_header_registration": {
-        "message": "Registrujete se jako <div>%username%</div>"
     },
     "auth_header_2fa_subtitle": {
         "message": "Dvou-faktorové ověření"
@@ -386,12 +371,6 @@
     "settings_exclusion_status_all_subdomains": {
         "message": "všechny subdomény"
     },
-    "settings_exclusion_service_settings_subtitle_regular_mode": {
-        "message": "AdGuard VPN je vypnuta pro zaškrtnuté domény"
-    },
-    "settings_exclusion_service_settings_subtitle_selective_mode": {
-        "message": "AdGuard VPN je zapnuta pro zaškrtnuté domény"
-    },
     "settings_exclusion_group_settings_subtitle_regular_mode": {
         "message": "AdGuard VPN je vypnuta pro zaškrtnuté domény a subdomény"
     },
@@ -464,20 +443,8 @@
     "settings_exclusions_remove_all_exclusions_message": {
         "message": "Opravdu chcete pokračovat? Celý seznam výjimek bude odstraněn."
     },
-    "settings_exclusions_import_button": {
-        "message": "Importovat"
-    },
-    "settings_exclusions_export_button": {
-        "message": "Exportovat"
-    },
-    "settings_exclusions_delete_button": {
-        "message": "Vymazat vše"
-    },
     "settings_exclusion_title": {
         "message": "Výjimky"
-    },
-    "settings_connection_mode_title": {
-        "message": "Pracovní režim"
     },
     "settings_exclusion_change_mode": {
         "message": "Změnit režim"
@@ -494,12 +461,6 @@
     "settings_exclusion_selective_description": {
         "message": "AdGuard VPN je zapnuta pouze pro webové stránky přidané do výjimek"
     },
-    "settings_exclusion_subdomains_title": {
-        "message": "Subdomény"
-    },
-    "settings_exclusion_subdomains_text": {
-        "message": "Můžete přidat domény (např. google.com) nebo všechny subdomény (např. *.google.com)"
-    },
     "global_error_title": {
         "message": "Vyskytla se chyba"
     },
@@ -512,7 +473,7 @@
     "global_error_try_again": {
         "message": "Zkusit znovu"
     },
-    "authentication_successful_social": {
+    "authentication_successful_notification": {
         "message": "Úspěšně ověřeno! Můžete otevřít AdGuard VPN a začít ji používat."
     },
     "control_error_description": {
@@ -626,30 +587,6 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Přejděte do Chrome Store"
     },
-    "settings_run_upgrade_early_bird": {
-        "message": "Ceny pro nejrychlejší"
-    },
-    "sale_title": {
-        "message": "Co získáte:"
-    },
-    "upgrade_features_data": {
-        "message": "Neomezená data"
-    },
-    "upgrade_features_speed": {
-        "message": "Nejrychlejší servery"
-    },
-    "upgrade_features_all_locations": {
-        "message": "Všechna umístění"
-    },
-    "upgrade_features_devices": {
-        "message": "Až pro 5 zařízení"
-    },
-    "upgrade_features_streaming": {
-        "message": "Podpora streamování"
-    },
-    "continue_us_free_button": {
-        "message": "Pokračovat bezplatně"
-    },
     "options_title": {
         "message": "Možnosti AdGuard VPN"
     },
@@ -732,9 +669,6 @@
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Připojte všechna svá zařízení k AdGuard VPN najednou — nebo chraňte celou rodinu!"
     },
-    "popup_upgrade_screen_streaming": {
-        "message": "Streamování"
-    },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Aktualizovat"
     },
@@ -744,15 +678,6 @@
     "popup_free_traffic_info": {
         "message": "Tento měsíc zbývá <span>%value% %unit%</span>",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_selective_mode_popup_message": {
-        "message": "V selektivním režimu funguje AdGuard VPN pouze na povolených webech, které jste přidali do seznamu."
-    },
-    "options_selective_mode_popup_button_switch_now": {
-        "message": "Přepnout nyní"
-    },
-    "options_selective_mode_popup_attention": {
-        "message": "Opravdu chcete přepnout?"
     },
     "options_exclusions_import_select_title": {
         "message": "Importovat výjimky do:"
@@ -827,6 +752,18 @@
         "message": "Odhlásili jste se z AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "Upozornění: vaše připojení není zabezpečené! Chcete-li pokračovat v soukromém surfování, klikněte na ikonu AdGuard VPN a znovu se přihlaste."
+        "message": "Upozornění: nejste připojeni k síti VPN a váš provoz není chráněn! Chcete-li pokračovat v soukromém surfování, klikněte na ikonu AdGuard VPN a znovu se přihlaste."
+    },
+    "notification_data_limit_reached_title": {
+        "message": "Měsíční datový limit je dosažen"
+    },
+    "notification_data_limit_reached_description": {
+        "message": "Rychlost připojení VPN byla snížena."
+    },
+    "notification_data_left_mb": {
+        "message": "Zbývá %num% MB."
+    },
+    "notification_data_left_description": {
+        "message": "Rychlost připojení VPN bude brzy snížena."
     }
 }

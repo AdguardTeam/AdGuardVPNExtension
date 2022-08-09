@@ -27,6 +27,11 @@
             "matches":["https://*/oauth.html?adguard-vpn=1*"],
             "js":["auth.js"],
             "run_at":"document_start"
+        },
+        {
+            "matches": ["https://*/*/thankyou-auth.html?new_user=*"],
+            "js": ["thankYouPageAuth.js"],
+            "run_at": "document_start"
         }
     ],
     "permissions": [

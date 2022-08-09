@@ -43,7 +43,6 @@ const TwoFactorForm = observer(() => {
                     inputChangeHandler={inputChangeHandler}
                     error={authStore.error}
                     placeholder={reactTranslator.getMessage('auth_placeholder_2fa')}
-                    className="form__input--big"
                 />
                 {authStore.error && (
                     <div className="form__error">

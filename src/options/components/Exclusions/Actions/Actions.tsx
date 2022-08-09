@@ -219,10 +219,6 @@ export const Actions = observer(() => {
         visible: isMoreActionsMenuOpen,
     });
 
-    if (exclusionsStore.exclusionsSearchValue.length > 0) {
-        return null;
-    }
-
     const exportClassnames = classnames({
         'actions__hidden-action': exclusionsStore.isAllExclusionsListsEmpty,
     });

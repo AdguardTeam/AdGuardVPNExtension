@@ -18,6 +18,17 @@ jest.mock('../../../src/background/settings', () => {
     };
 });
 
+jest.mock('../../../src/background/api/fallbackApi', () => {
+    return {
+        __esModule: true,
+        fallbackApi: {
+            getApiUrlsExclusions: () => {
+                return [];
+            },
+        },
+    };
+});
+
 jest.mock('../../../src/background/providers/vpnProvider', () => {
     return {
         __esModule: true,

@@ -39,6 +39,8 @@ Addons Mozilla:
             #!/bin/bash
             set -x
             set -e
+            # Fix mixed logs
+            exec 2>&1
             ls -la
 
             EXTENSIONS_PASSPHRASE="${bamboo.extensionsPassphrase}" ./bamboo-deploy-publisher/deploy.sh adguard-vpn-amo

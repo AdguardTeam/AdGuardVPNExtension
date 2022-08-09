@@ -15,10 +15,22 @@ jest.mock('../../../src/background/notifications');
 jest.mock('../../../src/background/browserApi');
 jest.mock('../../../src/background/providers/vpnProvider');
 jest.mock('../../../src/lib/logger');
+jest.mock('../../../src/background/api/fallbackApi');
 
 jest.mock('../../../src/background/endpoints/locationsService', () => ({
     ...jest.requireActual('../../../src/background/endpoints/locationsService'),
 }));
+
+jest.mock('../../../src/background/api/fallbackApi', () => {
+    return {
+        __esModule: true,
+        fallbackApi: {
+            getApiUrlsExclusions: () => {
+                return [];
+            },
+        },
+    };
+});
 
 describe('Endpoints', () => {
     beforeEach(() => {
