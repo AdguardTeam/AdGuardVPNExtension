@@ -1,5 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const errorFunction = (arg?: any) => {
+import { ProxyApiInterface } from './ProxyApiTypes';
+
+const errorFunction = () => {
     throw new Error('Seems like webpack didn\'t inject proper proxy api');
 };
 
@@ -9,12 +10,11 @@ const errorFunction = (arg?: any) => {
  * with NormalModuleReplacementPlugin to proper browser implementation
  * from './firefox/proxyApi' or ./chrome/proxyApi
  */
-export const proxyApi = (() => {
+export const proxyApi: ProxyApiInterface = (() => {
     return {
         proxyGet: errorFunction,
         proxySet: errorFunction,
         proxyClear: errorFunction,
-        clearAuthCache: errorFunction,
         onProxyError: {
             addListener: errorFunction,
             removeListener: errorFunction,

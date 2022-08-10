@@ -5,18 +5,7 @@ import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
 import { IPV4_REGEX } from '../../routability/constants';
 import { convertCidrToNet, isInNet } from '../../routability/utils';
 import { getHostname } from '../../../common/url-utils';
-import { ConfigData } from '../index';
-
-interface ProxyApi {
-    proxySet(proxyConfig: ConfigData): Promise<void>;
-    proxyGet(config: ConfigData): Promise<browser.Types.SettingGetCallbackDetailsType>;
-    proxyClear(): void;
-    onProxyError: {
-        addListener: (cb: () => void) => void,
-        removeListener: (cb: () => void) => void,
-    };
-    clearAuthCache(): void;
-}
+import { ProxyApiInterface, ConfigData } from '../ProxyApiTypes';
 
 interface ProxyConfig {
     inverted?: boolean;
@@ -37,7 +26,6 @@ interface ProxyConfig {
 /**
  * Converts ConfigData to ProxyConfig
  * @param configData
- * @returns {firefoxConfig}
  */
 const convertToFirefoxConfig = (configData: ConfigData): ProxyConfig => {
     const {
@@ -158,10 +146,10 @@ const proxySet = async (proxyConfig: ConfigData): Promise<void> => {
 
 const onProxyError = (() => {
     return {
-        addListener: (cb: () => void) => {
+        addListener: (cb: (details: any) => void) => {
             browser.proxy.onError.addListener(cb);
         },
-        removeListener: (cb: () => void) => {
+        removeListener: (cb: (details: any) => void) => {
             browser.proxy.onError.removeListener(cb);
         },
     };
@@ -171,7 +159,7 @@ const proxyGet = async (config = {}): Promise<browser.Types.SettingGetCallbackDe
     return browser.proxy.settings.get(config);
 };
 
-const proxyClear = (): void => {
+const proxyClear = async (): Promise<void> => {
     GLOBAL_FIREFOX_CONFIG = {
         proxyConfig: directConfig,
     };
@@ -179,12 +167,9 @@ const proxyClear = (): void => {
     removeAuthHandler();
 };
 
-const clearAuthCache = () => {};
-
-export const proxyApi: ProxyApi = {
+export const proxyApi: ProxyApiInterface = {
     proxySet,
     proxyGet,
     proxyClear,
     onProxyError,
-    clearAuthCache,
 };

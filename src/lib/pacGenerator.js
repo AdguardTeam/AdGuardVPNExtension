@@ -13,31 +13,10 @@ import { IPV4_REGEX } from '../background/routability/constants';
  * @returns {string}
  */
 function proxyPacScript(proxy, exclusionsList, inverted, defaultExclusions, nonRoutableNets) {
-    // Used to adjust pacscript after application or browser restart
-    const pacScriptTimeToLiveMs = 200;
-    // Used to adjust pacscript lifetime after internet reconnection
-    // After this period of time pacscript is always considered activated
-    const pacScriptActivationTimeoutMs = 2000;
     return `
-            let active = false;
-            const created = ${Date.now()};
-            const started = Date.now();
-
-            if (started < (created + ${pacScriptTimeToLiveMs})) {
-              active = true;
-            }
-
             function FindProxyForURL(url, host) {
                 const DIRECT = "DIRECT";
                 const PROXY = "HTTPS ${proxy}";
-
-                if (!active && (Date.now() > started + ${pacScriptActivationTimeoutMs})) {
-                    active = true;
-                }
-
-                if (!active) {
-                    return DIRECT;
-                }
 
                 const areHostnamesEqual = (hostnameA, hostnameB) => {
                     const wwwRegex = /^www\\./;

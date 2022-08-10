@@ -12,6 +12,7 @@ import { NON_ROUTABLE_CIDR_NETS } from '../routability/constants';
 import { fallbackApi } from '../api/fallbackApi';
 import { LocationInterface } from '../endpoints/Location';
 import { EndpointInterface } from '../endpoints/Endpoint';
+import { AccessCredentials, ConfigData } from './ProxyApiTypes';
 
 const CURRENT_ENDPOINT_KEY = 'proxyCurrentEndpoint';
 
@@ -25,25 +26,9 @@ const PROXY_AUTH_TYPES = {
     AUTH_HANDLER: 'authHandler',
 };
 
-interface AccessCredentials {
-    username: string,
-    password: string,
-}
-
 interface CanControlProxy {
     canControlProxy: boolean;
-    cause?: boolean;
-}
-
-export interface ConfigData {
-    bypassList: string[];
-    defaultExclusions: string[];
-    nonRoutableCidrNets: string[];
-    host: string | null;
-    port: number;
-    scheme: string;
-    inverted: boolean;
-    credentials: AccessCredentials,
+    cause?: string;
 }
 
 export interface ExtensionProxyInterface {
@@ -94,7 +79,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
         this.currentHost = DEFAULTS.currentHost;
 
         /**
-         * By default we use PREFIX type, because AUTH_HANDLER is not working stable
+         * By default, we use PREFIX type, because AUTH_HANDLER is not working stable
          */
         this.proxyAuthorizationType = PROXY_AUTH_TYPES.PREFIX;
     }
@@ -235,7 +220,6 @@ class ExtensionProxy implements ExtensionProxyInterface {
         const { domainName } = endpoint;
         this.credentials = credentials;
         await this.setHost(domainName);
-        await proxyApi.clearAuthCache(domainName);
         return { domainName };
     };
 

@@ -1,33 +1,8 @@
 import pacGenerator from '../../../lib/pacGenerator';
-import { ConfigData } from '../index';
-import { getHostname } from '../../../common/url-utils';
+import { getETld } from '../../../common/url-utils';
+import { ProxyApiInterface, ConfigData } from '../ProxyApiTypes';
 
-interface ProxyApi {
-    proxySet(config: ConfigData): Promise<void>;
-    proxyGet(config?: ConfigData): Promise<chrome.types.ChromeSettingGetResultDetails>;
-    proxyClear(): Promise<void>;
-    onProxyError: {
-        addListener: (cb: () => void) => void,
-        removeListener: (cb: () => void) => void,
-    };
-    clearAuthCache(rootDomain: string, callback: () => void): Promise<void>;
-}
-
-const DEFAULT_PROXY_CONFIG: ConfigData = {
-    bypassList: [''],
-    defaultExclusions: [''],
-    nonRoutableCidrNets: [''],
-    host: null,
-    port: 0,
-    scheme: '',
-    inverted: false,
-    credentials: {
-        username: '',
-        password: '',
-    },
-};
-
-let GLOBAL_PROXY_CONFIG: ConfigData = DEFAULT_PROXY_CONFIG;
+let GLOBAL_PROXY_CONFIG: ConfigData | null = null;
 
 /**
  * Converts proxyConfig to chromeConfig
@@ -64,6 +39,13 @@ const convertToChromeConfig = (proxyConfig: ConfigData): chrome.types.ChromeSett
     };
 };
 
+type OnAuthRequiredHandlerResponse = {
+    authCredentials: {
+        username: string,
+        password: string,
+    }
+};
+
 /**
  * Handles onAuthRequired events
  * @param details
@@ -71,7 +53,11 @@ const convertToChromeConfig = (proxyConfig: ConfigData): chrome.types.ChromeSett
  */
 const onAuthRequiredHandler = (
     details: chrome.webRequest.WebAuthenticationChallengeDetails,
-): { authCredentials: { username: string, password: string } } | {} => {
+): OnAuthRequiredHandlerResponse | {} => {
+    if (!GLOBAL_PROXY_CONFIG) {
+        return {};
+    }
+
     const { challenger } = details;
 
     if (challenger && challenger.host !== GLOBAL_PROXY_CONFIG.host) {
@@ -86,15 +72,34 @@ const onAuthRequiredHandler = (
 };
 
 /**
+ * Promisified chrome.browsingData.remove
+ * @param options
+ * @param types
+ */
+const removeChromeBrowsingData = (
+    options: chrome.browsingData.RemovalOptions,
+    types: chrome.browsingData.DataTypeSet,
+): Promise<void> => {
+    return new Promise((resolve, reject) => {
+        chrome.browsingData.remove(options, types, () => {
+            if (chrome.runtime.lastError) {
+                reject(chrome.runtime.lastError);
+            }
+            resolve();
+        });
+    });
+};
+
+/**
  * Clears the authentication credentials for a given
  * domain by clearing ALL cookies for that domain.
  * @param hostname
- * @param callback
  */
-const clearAuthCache = async (hostname: string, callback = () => {}): Promise<void> => {
+const clearAuthCache = async (hostname: string): Promise<void> => {
     // IMPORTANT: you have to use the root domain of the proxy
     // (eg: if the proxy is at foo.bar.example.com, you need to use example.com).
-    const rootDomain = getHostname(hostname);
+    const rootDomain = getETld(hostname);
+
     const options = {
         origins: [
             `http://${rootDomain}`,
@@ -103,28 +108,35 @@ const clearAuthCache = async (hostname: string, callback = () => {}): Promise<vo
     };
     const types = { cookies: true };
 
-    await chrome.browsingData.remove(options, types);
-    callback();
+    await removeChromeBrowsingData(options, types);
 };
 
-// Make sure that Chrome does not cache proxy credentials.
-// FIXME replace adguard.io with variable
-clearAuthCache('adguard.io', () => {
-    chrome.webRequest.onAuthRequired.addListener(onAuthRequiredHandler, { urls: ['<all_urls>'] }, ['blocking']);
-});
+/**
+ * Promisified chrome.proxy.settings.set
+ * @param chromeConfig
+ */
+const chromeProxySet = (chromeConfig: chrome.types.ChromeSettingSetDetails): Promise<void> => {
+    return new Promise((resolve) => {
+        chrome.proxy.settings.set(chromeConfig, () => {
+            resolve();
+        });
+    });
+};
 
 /**
  * Sets proxy config
  * @param {proxyConfig} config - proxy config
  * @returns {Promise<void>}
  */
-const proxySet = (config: ConfigData): Promise<void> => new Promise((resolve) => {
+const proxySet = async (config: ConfigData): Promise<void> => {
     GLOBAL_PROXY_CONFIG = config;
     const chromeConfig = convertToChromeConfig(config);
-    chrome.proxy.settings.set(chromeConfig, () => {
-        resolve();
-    });
-});
+
+    chrome.webRequest.onAuthRequired.removeListener(onAuthRequiredHandler);
+    await clearAuthCache(config.host);
+    await chromeProxySet(chromeConfig);
+    chrome.webRequest.onAuthRequired.addListener(onAuthRequiredHandler, { urls: ['<all_urls>'] }, ['blocking']);
+};
 
 const proxyGet = (
     config = {},
@@ -139,7 +151,8 @@ const proxyGet = (
  * @returns {Promise<void>}
  */
 const proxyClear = (): Promise<void> => new Promise((resolve) => {
-    GLOBAL_PROXY_CONFIG = DEFAULT_PROXY_CONFIG;
+    GLOBAL_PROXY_CONFIG = null;
+    chrome.webRequest.onAuthRequired.removeListener(onAuthRequiredHandler);
     chrome.proxy.settings.clear({}, () => {
         resolve();
     });
@@ -147,19 +160,18 @@ const proxyClear = (): Promise<void> => new Promise((resolve) => {
 
 const onProxyError = (() => {
     return {
-        addListener: (cb: () => void) => {
+        addListener: (cb: (details: any) => void) => {
             chrome.proxy.onProxyError.addListener(cb);
         },
-        removeListener: (cb: () => void) => {
+        removeListener: (cb: (details: any) => void) => {
             chrome.proxy.onProxyError.removeListener(cb);
         },
     };
 })();
 
-export const proxyApi: ProxyApi = {
+export const proxyApi: ProxyApiInterface = {
     proxySet,
     proxyGet,
     proxyClear,
     onProxyError,
-    clearAuthCache,
 };
