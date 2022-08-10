@@ -82,7 +82,6 @@ export class SettingsStore {
     @action setProxyState = async (value) => {
         if (value) {
             await this.enableProxy(true);
-            this.setAnimation(ANIMATION_TYPES.SWITCH_ON);
         } else {
             this.setAnimation(ANIMATION_TYPES.SWITCH_OFF);
             await this.disableProxy(true);
@@ -217,6 +216,9 @@ export class SettingsStore {
 
     @action
     setConnectivityState(state) {
+        if (state.value === STATE.CONNECTED) {
+            this.setAnimation(ANIMATION_TYPES.SWITCH_ON);
+        }
         this.connectivityState = state;
     }
 
