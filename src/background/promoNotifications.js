@@ -8,6 +8,7 @@ import { getUrl } from './browserApi/runtime';
 import browserApi from './browserApi';
 import { Prefs } from './prefs';
 import notifier from '../lib/notifier';
+import { FORWARDER_DOMAIN } from './config';
 
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
@@ -111,7 +112,7 @@ const birthday13Notification = {
     },
     // will be selected for locale, see usage of getNotificationText
     text: '',
-    url: 'https://adguard-vpn.com/forward.html?action=birthday13vpn&from=popup&app=vpn_extension',
+    url: `https://${FORWARDER_DOMAIN}/forward.html?action=birthday13vpn&from=popup&app=vpn_extension`,
     from: '31 May 2022 12:00:00',
     to: '5 June 2022 23:59:00',
     type: 'animated',
