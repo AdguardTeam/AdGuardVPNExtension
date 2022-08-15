@@ -3,7 +3,7 @@ import qs from 'qs';
 
 import { MessageType } from '../lib/constants';
 
-const CREDENTIALS_KEY = 'credentials';
+const CREDENTIALS_KEY = 'adg_auth_credentials';
 const TOKEN_TYPE = 'bearer';
 
 (async () => {

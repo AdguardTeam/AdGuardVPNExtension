@@ -139,7 +139,6 @@ class Auth implements AuthInterface {
     async authenticateSocial(queryString: string, tabId: number): Promise<void> {
         const isAuthenticated = await this.isAuthenticated();
         if (isAuthenticated) {
-            await tabs.closeTab(tabId);
             return;
         }
 
