@@ -32,6 +32,7 @@ import { Newsletter } from '../Authentication/Newsletter';
 import { UpgradeScreen } from '../Authentication/UpgradeScreen';
 import { DotsLoader } from '../../../common/components/DotsLoader';
 import { ReviewPopup } from '../ReviewPopup';
+import { ConfirmEmail } from '../ConfirmEmail';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -239,6 +240,7 @@ export const App = observer(() => {
                     </>
                 )}
             <Icons />
+            <ConfirmEmail />
             <ReviewPopup />
         </>
     );

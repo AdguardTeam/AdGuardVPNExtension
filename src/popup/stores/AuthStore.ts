@@ -95,6 +95,10 @@ export class AuthStore {
 
     @observable rating = 0;
 
+    @observable showConfirmEmailModal = false;
+
+    @observable userEmail = '';
+
     STEPS = AUTH_STEPS;
 
     rootStore: any;
@@ -460,5 +464,13 @@ export class AuthStore {
 
     @action setShouldShowRateModal = (value: boolean) => {
         this.showRateModal = value;
+    };
+
+    @action setShowConfirmEmailModal = (value: boolean) => {
+        this.showConfirmEmailModal = value;
+    };
+
+    @action setUserEmail = (value: string) => {
+        this.userEmail = value;
     };
 }
