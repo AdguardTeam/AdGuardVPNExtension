@@ -31,6 +31,16 @@ class AccountApi extends Api {
         };
         return this.makeRequest(path, config, method);
     };
+
+    RESEND_CONFIRM_REGISTRATION_LINK = { path: 'account/resend_confirm_registration_email', method: 'POST' };
+
+    resendConfirmRegistrationLink = async (accessToken) => {
+        const { path, method } = this.RESEND_CONFIRM_REGISTRATION_LINK;
+        const config = {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        };
+        return this.makeRequest(path, config, method);
+    };
 }
 
 export const accountApi = new AccountApi(async () => `${await fallbackApi.getAccountApiUrl()}/api/1.0`);

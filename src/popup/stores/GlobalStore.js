@@ -69,7 +69,7 @@ export class GlobalStore {
             authStore.setIsFirstRun(isFirstRun);
             authStore.setUserEmail(username);
             authStore.setShouldShowRateModal(shouldShowRateModal);
-            authStore.setShowConfirmEmailModal(vpnInfo.emailConfirmationRequired);
+            authStore.setShowConfirmEmail(vpnInfo.emailConfirmationRequired);
             settingsStore.setCanControlProxy(canControlProxy);
             settingsStore.setConnectivityState(connectivityState);
             settingsStore.setIsRoutable(isRoutable);

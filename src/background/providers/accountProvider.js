@@ -1,6 +1,8 @@
 import { accountApi } from '../api';
 
 import { FORWARDER_DOMAIN } from '../config';
+import { notifications } from '../notifications';
+import { translator } from '../../common/translator';
 
 const getVpnToken = async (accessToken) => {
     const vpnTokenData = await accountApi.getVpnToken(accessToken);
@@ -59,8 +61,14 @@ const getAccountInfo = async (accessToken) => {
     return email;
 };
 
+const resendConfirmRegistrationLink = async (accessToken) => {
+    await accountApi.resendConfirmRegistrationLink(accessToken);
+    await notifications.create({ message: translator.getMessage('resend_confirm_registration_link_notification') });
+};
+
 export default {
     getVpnToken,
     getAccountInfo,
     getReferralData,
+    resendConfirmRegistrationLink,
 };

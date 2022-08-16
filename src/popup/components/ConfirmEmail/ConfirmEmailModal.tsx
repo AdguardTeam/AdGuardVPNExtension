@@ -7,12 +7,22 @@ import { reactTranslator } from '../../../common/reactTranslator';
 
 import './confirm-email.pcss';
 
-export const ConfirmEmail = observer(() => {
+export const ConfirmEmailModal = observer(() => {
     const { authStore } = useContext(rootStore);
-    const { showConfirmEmailModal, setShowConfirmEmailModal, userEmail } = authStore;
+    const {
+        showConfirmEmailModal,
+        setShowConfirmEmailModal,
+        userEmail,
+        resendConfirmRegistrationLink,
+    } = authStore;
 
     const closeModal = () => {
         setShowConfirmEmailModal(false);
+    };
+
+    const resendLink = () => {
+        resendConfirmRegistrationLink();
+        closeModal();
     };
 
     return (
@@ -56,7 +66,7 @@ export const ConfirmEmail = observer(() => {
             <button
                 type="button"
                 className="button button--medium button--medium--wide button--outline-secondary confirm-email__button"
-                onClick={() => {}}
+                onClick={resendLink}
             >
                 {reactTranslator.getMessage('confirm_email_resend_link_button')}
             </button>
