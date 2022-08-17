@@ -3,12 +3,12 @@ import cn from 'classnames';
 
 interface TitleProps {
     title: React.ReactNode,
-    subtitle?: string,
+    subtitle?: string | React.ReactNode,
     onClick?: () => void;
 }
 
 export const Title = ({ title, subtitle, onClick }: TitleProps) => {
-    const renderSubtitle = (subtitle?: string) => {
+    const renderSubtitle = (subtitle?: string | React.ReactNode) => {
         if (!subtitle) {
             return null;
         }
