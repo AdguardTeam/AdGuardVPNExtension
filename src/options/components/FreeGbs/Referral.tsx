@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
-import { useHistory } from 'react-router-dom';
 
 import { reactTranslator } from '../../../common/reactTranslator';
 import { Title } from '../ui/Title';
@@ -10,7 +9,7 @@ import { REQUEST_STATUSES } from '../../stores/consts';
 
 const REFERRAL_RECEIVE_GB = 1;
 
-export const Referral = observer(() => {
+export const Referral = observer(({ goBackHandler }: { goBackHandler: () => void }) => {
     const { settingsStore, notificationsStore } = useContext(rootStore);
 
     const {
@@ -39,16 +38,10 @@ export const Referral = observer(() => {
             friend_gb: REFERRAL_RECEIVE_GB,
         });
 
-    const handleCopyLink = async (e) => {
+    const handleCopyLink = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await navigator.clipboard.writeText(inviteUrl);
         notificationsStore.notifySuccess(reactTranslator.getMessage('settings_referral_link_copied'));
-    };
-
-    const history = useHistory();
-
-    const goBackHandler = () => {
-        history.push('/free-gbs');
     };
 
     return (

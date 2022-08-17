@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
-import { useHistory } from 'react-router-dom';
 
 import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';
@@ -8,16 +7,8 @@ import { reactTranslator } from '../../../common/reactTranslator';
 
 const ADD_DEVICE_RECEIVE_GB = 1;
 
-export const AddDevice = observer(() => {
+export const AddDevice = observer(({ goBackHandler }: { goBackHandler: () => void }) => {
     const { settingsStore } = useContext(rootStore);
-
-    // const { isPremiumToken } = settingsStore;
-
-    const history = useHistory();
-
-    const goBackHandler = () => {
-        history.push('/free-gbs');
-    };
 
     return (
         <div>

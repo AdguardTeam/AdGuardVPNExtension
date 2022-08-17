@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
-import { useHistory } from 'react-router-dom';
 
 import { rootStore } from '../../stores';
 import { reactTranslator } from '../../../common/reactTranslator';
@@ -8,15 +7,10 @@ import { Title } from '../ui/Title';
 
 const CONFIRM_EMAIL_RECEIVE_GB = 1;
 
-export const ConfirmEmail = observer(() => {
+export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => void }) => {
     const { settingsStore } = useContext(rootStore);
 
     // const { isPremiumToken } = settingsStore;
-    const history = useHistory();
-
-    const goBackHandler = () => {
-        history.push('/free-gbs');
-    };
 
     return (
         <div>

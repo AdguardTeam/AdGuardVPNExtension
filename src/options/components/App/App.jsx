@@ -8,12 +8,7 @@ import { REQUEST_STATUSES } from '../../stores/consts';
 import { rootStore } from '../../stores';
 import { Sidebar } from '../Sidebar';
 import { Settings } from '../Settings';
-import {
-    FreeGbs,
-    Referral,
-    ConfirmEmail,
-    AddDevice,
-} from '../FreeGbs';
+import { FreeGbs } from '../FreeGbs';
 import { Account } from '../Account';
 import { About } from '../About';
 import { SignedOut } from '../SignedOut';
@@ -44,12 +39,7 @@ const getContent = (authenticated, requestProcessState, isPremiumToken) => {
                         <Route path="/about" component={About} />
                         <Route path="/support" component={Support} />
                         {!isPremiumToken && (
-                            <>
-                                <Route path="/free-gbs" component={FreeGbs} />
-                                <Route path="/referral-program" component={Referral} />
-                                <Route path="/confirm-email" component={ConfirmEmail} />
-                                <Route path="/add-device" component={AddDevice} />
-                            </>
+                            <Route path="/free-gbs" component={FreeGbs} />
                         )}
                         <Route component={Settings} />
                     </Switch>
