@@ -4,7 +4,26 @@ import { FORWARDER_DOMAIN } from '../config';
 import { notifications } from '../notifications';
 import { translator } from '../../common/translator';
 
-const getVpnToken = async (accessToken) => {
+interface ReferralData {
+    inviteUrl: string;
+    invitesCount: number;
+    maxInvitesCount: number;
+}
+
+interface VpnTokenData {
+    token: string;
+    licenseStatus: string;
+    timeExpiresSec: number;
+    licenseKey: string;
+    vpnSubscription: {
+        status: string;
+        next_bill_date_sec: number;
+        next_bill_date_iso: string;
+        duration_v2: string;
+    };
+}
+
+const getVpnToken = async (accessToken: string): Promise<VpnTokenData | null> => {
     const vpnTokenData = await accountApi.getVpnToken(accessToken);
 
     if (!vpnTokenData || !vpnTokenData.tokens) {
@@ -27,7 +46,6 @@ const getVpnToken = async (accessToken) => {
         license_status: licenseStatus,
         time_expires_sec: timeExpiresSec,
         license_key: licenseKey,
-        subscription,
         vpn_subscription: vpnSubscription,
     } = vpnToken;
 
@@ -36,12 +54,11 @@ const getVpnToken = async (accessToken) => {
         licenseStatus,
         timeExpiresSec,
         licenseKey,
-        subscription,
         vpnSubscription,
     };
 };
 
-const getReferralData = async (accessToken) => {
+const getReferralData = async (accessToken: string): Promise<ReferralData> => {
     const referralData = await accountApi.getReferralData(accessToken);
     const {
         invite_id: inviteId,
@@ -56,12 +73,12 @@ const getReferralData = async (accessToken) => {
     };
 };
 
-const getAccountInfo = async (accessToken) => {
+const getAccountInfo = async (accessToken: string): Promise<string> => {
     const { email } = await accountApi.getAccountInfo(accessToken);
     return email;
 };
 
-const resendConfirmRegistrationLink = async (accessToken) => {
+const resendConfirmRegistrationLink = async (accessToken: string): Promise<void> => {
     await accountApi.resendConfirmRegistrationLink(accessToken);
     await notifications.create({ message: translator.getMessage('resend_confirm_registration_link_notification') });
 };
