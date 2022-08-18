@@ -75,7 +75,7 @@ class AccountApi extends Api implements AccountApiInterface {
 
     RESEND_CONFIRM_REGISTRATION_LINK = { path: 'account/resend_confirm_registration_email', method: 'POST' as Method };
 
-    resendConfirmRegistrationLink = async (accessToken: string) => {
+    resendConfirmRegistrationLink = async (accessToken: string): Promise<void> => {
         const { path, method } = this.RESEND_CONFIRM_REGISTRATION_LINK;
         const config = {
             headers: { Authorization: `Bearer ${accessToken}` },
