@@ -779,6 +779,6 @@
         "message": "Resend link"
     },
     "resend_confirm_registration_link_notification": {
-        "message": "The registration link was sent to your email"
+        "message": "The confirmation link was sent to your email"
     }
 }
