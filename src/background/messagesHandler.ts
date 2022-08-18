@@ -149,9 +149,9 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             await actions.openFreeGbsPage();
             break;
         }
-        case MessageType.GET_REFERRAL_DATA: {
+        case MessageType.GET_BONUSES_DATA: {
             const accessToken = await auth.getAccessToken();
-            return accountProvider.getReferralData(accessToken);
+            return accountProvider.getAvailableBonuses(accessToken);
         }
         case MessageType.SET_SELECTED_LOCATION: {
             const { location, isSelectedByUser } = data;

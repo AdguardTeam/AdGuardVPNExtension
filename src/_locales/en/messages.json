@@ -251,6 +251,9 @@
     "settings_referral_limit_reached": {
         "message": "You've already received your %your_gb% GB of free VPN traffic. But your friends can still get %friend_gb% GB of additional free VPN traffic if you invite them!"
     },
+    "settings_referral_invite_link": {
+        "message": "Invite link"
+    },
     "settings_referral_copy_link": {
         "message": "Copy invite link"
     },

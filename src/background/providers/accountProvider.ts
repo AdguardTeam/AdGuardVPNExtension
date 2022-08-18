@@ -4,12 +4,6 @@ import { FORWARDER_DOMAIN } from '../config';
 import { notifications } from '../notifications';
 import { translator } from '../../common/translator';
 
-interface ReferralData {
-    inviteUrl: string;
-    invitesCount: number;
-    maxInvitesCount: number;
-}
-
 interface VpnTokenData {
     token: string;
     licenseStatus: string;
@@ -20,6 +14,20 @@ interface VpnTokenData {
         next_bill_date_sec: number;
         next_bill_date_iso: string;
         duration_v2: string;
+    };
+}
+
+interface BonusesData {
+    confirmBonus: {
+        available: boolean,
+    };
+    multiplatformBonus: {
+        available: boolean,
+    };
+    invitesBonuses: {
+        inviteUrl: string,
+        invitesCount: number,
+        maxInvitesCount: number,
     };
 }
 
@@ -58,21 +66,6 @@ const getVpnToken = async (accessToken: string): Promise<VpnTokenData | null> =>
     };
 };
 
-const getReferralData = async (accessToken: string): Promise<ReferralData> => {
-    const referralData = await accountApi.getReferralData(accessToken);
-    const {
-        invite_id: inviteId,
-        invites_count: invitesCount,
-        max_invites_count: maxInvitesCount,
-    } = referralData;
-    const inviteUrl = `https://${FORWARDER_DOMAIN}/forward.html?action=referral_link&app=vpn_extension&invite_id=${inviteId}`;
-    return {
-        inviteUrl,
-        invitesCount,
-        maxInvitesCount,
-    };
-};
-
 const getAccountInfo = async (accessToken: string): Promise<string> => {
     const { email } = await accountApi.getAccountInfo(accessToken);
     return email;
@@ -83,9 +76,30 @@ const resendConfirmRegistrationLink = async (accessToken: string): Promise<void>
     await notifications.create({ message: translator.getMessage('resend_confirm_registration_link_notification') });
 };
 
+const getAvailableBonuses = async (accessToken: string): Promise<BonusesData> => {
+    const bonusesData = await accountApi.getAvailableBonuses(accessToken);
+    const {
+        confirm_bonus: confirmBonus,
+        multiplatform_bonus: multiplatformBonus,
+    } = bonusesData;
+
+    const inviteId = bonusesData.invites_bonuses.invite_id;
+    const inviteUrl = `https://${FORWARDER_DOMAIN}/forward.html?action=referral_link&app=vpn_extension&invite_id=${inviteId}`;
+
+    return {
+        confirmBonus,
+        multiplatformBonus,
+        invitesBonuses: {
+            inviteUrl,
+            invitesCount: bonusesData.invites_bonuses.invites_count,
+            maxInvitesCount: bonusesData.invites_bonuses.max_invites_count,
+        },
+    };
+};
+
 export default {
     getVpnToken,
     getAccountInfo,
-    getReferralData,
     resendConfirmRegistrationLink,
+    getAvailableBonuses,
 };

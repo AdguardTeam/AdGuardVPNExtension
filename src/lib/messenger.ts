@@ -119,8 +119,8 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async getReferralData() {
-        const type = MessageType.GET_REFERRAL_DATA;
+    async getBonusesData() {
+        const type = MessageType.GET_BONUSES_DATA;
         return this.sendMessage(type);
     }
 

@@ -78,6 +78,7 @@ export enum MessageType {
     GET_SELECTIVE_EXCLUSIONS = 'get.selective.exclusions',
     OPEN_FREE_GBS_PAGE = 'open.free.gbs.page',
     GET_REFERRAL_DATA = 'get.referral.data',
+    GET_BONUSES_DATA = 'get.bonuses.data',
     RESTORE_EXCLUSIONS = 'restore.exclusions',
     ADD_EXCLUSIONS_MAP = 'add.exclusions.map',
     SET_RATE_MODAL_VIEWED = 'set.rate.modal.viewed',

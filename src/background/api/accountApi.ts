@@ -28,17 +28,26 @@ interface AccountInfo {
     time_added_iso: string;
 }
 
-interface ReferralData {
-    invite_id: string;
-    invites_count: number;
-    max_invites_count: number;
-    applied_at_millis: Array<number>;
+interface BonusesData {
+    confirm_bonus: {
+        available: boolean,
+        applied_at_millis: number | null,
+    };
+    invites_bonuses: {
+        invite_id: string,
+        invites_count: number,
+        max_invites_count: number,
+        applied_at_millis: Array<number> | null,
+    };
+    multiplatform_bonus: {
+        available: boolean,
+        applied_at_millis: number | null,
+    };
 }
 
 interface AccountApiInterface {
     getVpnToken(accessToken: string): Promise<VpnTokenData>;
     getAccountInfo(accessToken: string): Promise<AccountInfo>;
-    getReferralData(accessToken: string): Promise<ReferralData>;
     resendConfirmRegistrationLink(accessToken: string): Promise<void>;
 }
 
@@ -63,20 +72,20 @@ class AccountApi extends Api implements AccountApiInterface {
         return this.makeRequest(path, config, method);
     }
 
-    GET_REFERRAL_DATA = { path: 'vpn_invites', method: 'GET' as Method };
+    RESEND_CONFIRM_REGISTRATION_LINK = { path: 'account/resend_confirm_registration_email', method: 'POST' as Method };
 
-    getReferralData = async (accessToken: string): Promise<ReferralData> => {
-        const { path, method } = this.GET_REFERRAL_DATA;
+    resendConfirmRegistrationLink = async (accessToken: string): Promise<void> => {
+        const { path, method } = this.RESEND_CONFIRM_REGISTRATION_LINK;
         const config = {
             headers: { Authorization: `Bearer ${accessToken}` },
         };
         return this.makeRequest(path, config, method);
     };
 
-    RESEND_CONFIRM_REGISTRATION_LINK = { path: 'account/resend_confirm_registration_email', method: 'POST' as Method };
+    GET_AVAILABLE_BONUSES = { path: 'vpn/bonuses', method: 'GET' as Method };
 
-    resendConfirmRegistrationLink = async (accessToken: string): Promise<void> => {
-        const { path, method } = this.RESEND_CONFIRM_REGISTRATION_LINK;
+    getAvailableBonuses = async (accessToken: string): Promise<BonusesData> => {
+        const { path, method } = this.GET_AVAILABLE_BONUSES;
         const config = {
             headers: { Authorization: `Bearer ${accessToken}` },
         };

@@ -4,7 +4,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 import { rootStore } from '../../stores';
 import { reactTranslator } from '../../../common/reactTranslator';
-import { Referral } from './Referral';
+import { InviteFriend } from './InviteFriend';
 import { ConfirmEmail } from './ConfirmEmail';
 import { AddDevice } from './AddDevice';
 import { Title } from '../ui/Title';
@@ -13,9 +13,16 @@ import { REQUEST_STATUSES, COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 
 import './free-gbs.pcss';
 
-const FREE_GBS = 'free-gbs';
+interface RenderItemArguments {
+    title: string | React.ReactNode;
+    status: string | React.ReactNode;
+    query: string;
+    statusDone: string | React.ReactNode;
+    completed: boolean;
+}
 
-const REFERRAL_PROGRAM = 'referral-program';
+const FREE_GBS = 'free-gbs';
+const INVITE_FRIEND = 'invite-friend';
 const CONFIRM_EMAIL = 'confirm-email';
 const ADD_DEVICE = 'add-device';
 
@@ -24,15 +31,18 @@ export const FreeGbs = observer(() => {
 
     useEffect(() => {
         (async () => {
-            await settingsStore.updateReferralData();
+            await settingsStore.updateBonusesData();
         })();
     }, []);
 
     const {
-        invitesCount,
-        maxInvitesCount,
-        referralDataRequestStatus,
+        invitesBonuses,
+        bonusesDataRequestStatus,
+        confirmBonus,
+        multiplatformBonus,
     } = settingsStore;
+
+    const { invitesCount, maxInvitesCount } = invitesBonuses;
 
     const history = useHistory();
     const query = new URLSearchParams(useLocation().search);
@@ -45,48 +55,51 @@ export const FreeGbs = observer(() => {
         history.push(`/${FREE_GBS}?${query}`);
     };
 
-    const referralProgramTitle = `${reactTranslator.getMessage('settings_free_gbs_invite_friend')} (${invitesCount}/${maxInvitesCount})`;
+    const inviteFriendTitle = `${reactTranslator.getMessage('settings_free_gbs_invite_friend')} (${invitesCount}/${maxInvitesCount})`;
 
     const itemsData = [
         {
-            title: referralProgramTitle,
+            title: inviteFriendTitle,
             status: reactTranslator.getMessage('settings_free_gbs_invite_friend_get_GB', { num: maxInvitesCount }),
             statusDone: reactTranslator.getMessage('settings_free_gbs_invite_friend_complete', { num: maxInvitesCount }),
-            query: REFERRAL_PROGRAM,
+            query: INVITE_FRIEND,
+            completed: invitesCount >= maxInvitesCount,
         },
         {
             title: reactTranslator.getMessage('settings_free_gbs_confirm_email_title'),
             status: reactTranslator.getMessage('settings_free_gbs_get_GB', { num: COMPLETE_TASK_BONUS_GB }),
             statusDone: reactTranslator.getMessage('settings_free_gbs_task_complete', { num: COMPLETE_TASK_BONUS_GB }),
             query: CONFIRM_EMAIL,
+            completed: !confirmBonus.available,
         },
         {
             title: reactTranslator.getMessage('settings_free_gbs_add_device_title'),
             status: reactTranslator.getMessage('settings_free_gbs_get_GB', { num: COMPLETE_TASK_BONUS_GB }),
             statusDone: reactTranslator.getMessage('settings_free_gbs_task_complete', { num: COMPLETE_TASK_BONUS_GB }),
             query: ADD_DEVICE,
+            completed: !multiplatformBonus.available,
         },
     ];
-
-    interface RenderItemArguments {
-        title: string | React.ReactNode;
-        status: string | React.ReactNode;
-        query: string;
-    }
 
     const renderItem = ({
         title,
         status,
         query,
+        statusDone,
+        completed,
     }: RenderItemArguments) => {
         return (
             <div className="free-gbs__item" onClick={() => clickItemHandler(query)}>
                 <svg className="icon icon--button free-gbs__item--check-mark">
-                    <use xlinkHref="#check-mark" />
+                    {
+                        completed
+                            ? <use xlinkHref="#check-mark-done" />
+                            : <use xlinkHref="#check-mark" />
+                    }
                 </svg>
                 <div>
                     <div className="free-gbs__item--title">{title}</div>
-                    <div className="free-gbs__item--status">{status}</div>
+                    <div className="free-gbs__item--status">{completed ? statusDone : status}</div>
                 </div>
                 <svg className="icon icon--button free-gbs__item--arrow">
                     <use xlinkHref="#arrow" />
@@ -96,8 +109,8 @@ export const FreeGbs = observer(() => {
     };
 
     switch (true) {
-        case query.has(REFERRAL_PROGRAM): {
-            return <Referral goBackHandler={goBackHandler} />;
+        case query.has(INVITE_FRIEND): {
+            return <InviteFriend goBackHandler={goBackHandler} />;
         }
         case query.has(CONFIRM_EMAIL): {
             return <ConfirmEmail goBackHandler={goBackHandler} />;
@@ -105,7 +118,7 @@ export const FreeGbs = observer(() => {
         case query.has(ADD_DEVICE): {
             return <AddDevice goBackHandler={goBackHandler} />;
         }
-        case referralDataRequestStatus !== REQUEST_STATUSES.DONE: {
+        case bonusesDataRequestStatus !== REQUEST_STATUSES.DONE: {
             return <DotsLoader />;
         }
         default: {
