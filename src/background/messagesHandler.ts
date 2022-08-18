@@ -360,6 +360,10 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         case MessageType.RESTORE_EXCLUSIONS: {
             return exclusions.restoreExclusions();
         }
+        case MessageType.RESEND_CONFIRM_REGISTRATION_LINK: {
+            const accessToken = await auth.getAccessToken();
+            return accountProvider.resendConfirmRegistrationLink(accessToken);
+        }
         default:
             throw new Error(`Unknown message type received: ${type}`);
     }

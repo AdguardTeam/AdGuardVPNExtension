@@ -81,6 +81,7 @@ export enum MessageType {
     RESTORE_EXCLUSIONS = 'restore.exclusions',
     ADD_EXCLUSIONS_MAP = 'add.exclusions.map',
     SET_RATE_MODAL_VIEWED = 'set.rate.modal.viewed',
+    RESEND_CONFIRM_REGISTRATION_LINK = 'resend.confirm.registration.link',
 }
 
 export const ERROR_STATUSES = {
