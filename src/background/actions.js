@@ -6,7 +6,7 @@ import { promoNotifications } from './promoNotifications';
 import credentials from './credentials';
 import { UPGRADE_LICENSE_URL } from './config';
 import tabs from './tabs';
-import { REFERRAL_PROGRAM } from '../lib/constants';
+import { FREE_GBS_ANCHOR } from '../lib/constants';
 
 /**
  * Opens options tab with anchor if provided
@@ -154,8 +154,8 @@ const openPremiumPromoPage = async () => {
 /**
  * Opens Options page on Referral Program section
  */
-const openReferralOptions = async () => {
-    await openOptionsPage(`#${REFERRAL_PROGRAM}`);
+const openFreeGbsPage = async () => {
+    await openOptionsPage(`#${FREE_GBS_ANCHOR}`);
 };
 
 const actions = {
@@ -167,7 +167,7 @@ const actions = {
     clearBadgeText,
     getPremiumPromoPageUrl,
     openPremiumPromoPage,
-    openReferralOptions,
+    openFreeGbsPage,
 };
 
 export default actions;

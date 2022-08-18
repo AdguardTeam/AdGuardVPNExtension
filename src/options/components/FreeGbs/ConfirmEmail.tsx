@@ -4,13 +4,10 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../stores';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { Title } from '../ui/Title';
-
-const CONFIRM_EMAIL_RECEIVE_GB = 1;
+import { COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 
 export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => void }) => {
     const { settingsStore } = useContext(rootStore);
-
-    // const { isPremiumToken } = settingsStore;
 
     return (
         <div>
@@ -26,7 +23,7 @@ export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => 
             <div className="free-gbs__picture free-gbs__confirm-email-pic" />
             <Title title={reactTranslator.getMessage('settings_free_gbs_confirm_email_title')} />
             <div className="free-gbs__info">
-                {reactTranslator.getMessage('settings_free_gbs_confirm_email_info', { your_gb: CONFIRM_EMAIL_RECEIVE_GB })}
+                {reactTranslator.getMessage('settings_free_gbs_confirm_email_info', { your_gb: COMPLETE_TASK_BONUS_GB })}
             </div>
             <button
                 type="button"

@@ -18,7 +18,7 @@ export const Header = observer(({ showMenuButton }) => {
 
     const handleOpenReferral = async (e) => {
         e.preventDefault();
-        await popupActions.openReferralOptions();
+        await popupActions.openFreeGbsPage();
     };
 
     const headerClass = classnames({

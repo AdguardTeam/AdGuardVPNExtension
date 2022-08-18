@@ -266,6 +266,12 @@
     "settings_free_gbs_confirm_email_title": {
         "message": "Confirm your email"
     },
+    "settings_free_gbs_get_GB": {
+        "message": "Get %num% GB"
+    },
+    "settings_free_gbs_task_complete": {
+        "message": "You got %num% GB"
+    },
     "settings_free_gbs_confirm_email_info": {
         "message": "Click the email confirmation link that we sent you at sign up and get %your_gb% GB of free VPN traffic. If you can’t find our email, click the button below."
     },
@@ -283,6 +289,12 @@
     },
     "settings_free_gbs_invite_friend": {
         "message": "Invite a friend"
+    },
+    "settings_free_gbs_invite_friend_get_GB": {
+        "message": "Get up to %num% GB"
+    },
+    "settings_free_gbs_invite_friend_complete": {
+        "message": "You got %num% GB"
     },
     "settings_rate_us": {
         "message": "Rate us"

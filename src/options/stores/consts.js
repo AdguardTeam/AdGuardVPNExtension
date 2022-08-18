@@ -3,3 +3,5 @@ export const REQUEST_STATUSES = {
     PENDING: 'pending',
     ERROR: 'error',
 };
+
+export const COMPLETE_TASK_BONUS_GB = 1;

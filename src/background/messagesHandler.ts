@@ -145,8 +145,8 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         case MessageType.OPEN_OPTIONS_PAGE: {
             return actions.openOptionsPage();
         }
-        case MessageType.OPEN_REFERRAL_OPTIONS: {
-            await actions.openReferralOptions();
+        case MessageType.OPEN_FREE_GBS_PAGE: {
+            await actions.openFreeGbsPage();
             break;
         }
         case MessageType.GET_REFERRAL_DATA: {

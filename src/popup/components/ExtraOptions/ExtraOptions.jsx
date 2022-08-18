@@ -47,7 +47,7 @@ export const ExtraOptions = observer(() => {
     };
 
     const handleGetFreeTrafficClick = async () => {
-        await popupActions.openReferralOptions();
+        await popupActions.openFreeGbsPage();
     };
 
     return (

@@ -114,8 +114,8 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async openReferralOptions() {
-        const type = MessageType.OPEN_REFERRAL_OPTIONS;
+    async openFreeGbsPage() {
+        const type = MessageType.OPEN_FREE_GBS_PAGE;
         return this.sendMessage(type);
     }
 

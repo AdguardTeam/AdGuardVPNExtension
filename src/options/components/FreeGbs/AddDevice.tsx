@@ -4,8 +4,7 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../stores';
 import { Title } from '../ui/Title';
 import { reactTranslator } from '../../../common/reactTranslator';
-
-const ADD_DEVICE_RECEIVE_GB = 1;
+import { COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 
 export const AddDevice = observer(({ goBackHandler }: { goBackHandler: () => void }) => {
     const { settingsStore } = useContext(rootStore);
@@ -24,7 +23,7 @@ export const AddDevice = observer(({ goBackHandler }: { goBackHandler: () => voi
             <div className="free-gbs__picture free-gbs__add-device-pic" />
             <Title title={reactTranslator.getMessage('settings_free_gbs_add_device_title')} />
             <div className="free-gbs__info">
-                {reactTranslator.getMessage('settings_free_gbs_add_device_info', { your_gb: ADD_DEVICE_RECEIVE_GB })}
+                {reactTranslator.getMessage('settings_free_gbs_add_device_info', { your_gb: COMPLETE_TASK_BONUS_GB })}
             </div>
             <img
                 src="../../../assets/images/products.svg"

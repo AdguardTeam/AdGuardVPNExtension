@@ -5,9 +5,7 @@ import { reactTranslator } from '../../../common/reactTranslator';
 import { Title } from '../ui/Title';
 import { rootStore } from '../../stores';
 import { DotsLoader } from '../../../common/components/DotsLoader';
-import { REQUEST_STATUSES } from '../../stores/consts';
-
-const REFERRAL_RECEIVE_GB = 1;
+import { REQUEST_STATUSES, COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 
 export const Referral = observer(({ goBackHandler }: { goBackHandler: () => void }) => {
     const { settingsStore, notificationsStore } = useContext(rootStore);
@@ -35,7 +33,7 @@ export const Referral = observer(({ goBackHandler }: { goBackHandler: () => void
         )
         : reactTranslator.getMessage('settings_referral_limit_reached', {
             your_gb: maxInvitesCount,
-            friend_gb: REFERRAL_RECEIVE_GB,
+            friend_gb: COMPLETE_TASK_BONUS_GB,
         });
 
     const handleCopyLink = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -62,9 +60,9 @@ export const Referral = observer(({ goBackHandler }: { goBackHandler: () => void
                         <Title title={reactTranslator.getMessage('settings_free_gbs_invite_friend')} />
                         <div className="free-gbs__info">
                             {reactTranslator.getMessage('settings_referral_info', {
-                                your_gb: REFERRAL_RECEIVE_GB,
+                                your_gb: COMPLETE_TASK_BONUS_GB,
                                 total_gb: maxInvitesCount,
-                                friend_gb: REFERRAL_RECEIVE_GB,
+                                friend_gb: COMPLETE_TASK_BONUS_GB,
                             })}
                         </div>
                         <div className="free-gbs__referral-status">
