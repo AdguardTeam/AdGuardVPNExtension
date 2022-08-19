@@ -35,6 +35,7 @@ export const Sidebar = observer(() => {
                     {!isPremiumToken && (
                         <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/free-gbs">
                             {reactTranslator.getMessage('settings_free_gbs')}
+                            <span className="sidebar__link--mark" />
                         </NavLink>
                     )}
                 </nav>
