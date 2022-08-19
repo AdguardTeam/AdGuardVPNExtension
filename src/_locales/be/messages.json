@@ -473,9 +473,6 @@
     "global_error_try_again": {
         "message": "Паўтарыць спробу"
     },
-    "control_error_description": {
-        "message": "Здаецца, што яшчэ адно пашырэнне Chrome спрабуе кантраляваць ваша злучэнне. Калі ласка, адключыце іншае пашырэнне ў вашым браўзары."
-    },
     "control_error_disable": {
         "message": "Адключыць"
     },
@@ -577,12 +574,6 @@
     },
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "Пакінуць водгук"
-    },
-    "popup_confirm_rate_modal_rate_title": {
-        "message": "Нічога сабе! Ці можаце вы таксама ацаніць нас у Краме Chrome?"
-    },
-    "popup_confirm_rate_modal_confirm_button": {
-        "message": "Перайдзіце ў краму Chrome"
     },
     "options_title": {
         "message": "Налады AdGuard VPN"
@@ -753,5 +744,8 @@
     },
     "notification_data_limit_reached_title": {
         "message": "Дасягнуты месячны ліміт дадзеных"
+    },
+    "notification_data_limit_reached_description": {
+        "message": "Хуткасць злучэння VPN была зніжана."
     }
 }

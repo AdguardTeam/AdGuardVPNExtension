@@ -477,7 +477,7 @@
         "message": "驗證成功！您可開啟 AdGuard VPN 並開始使用它。"
     },
     "control_error_description": {
-        "message": "看似另一個 Chrome 擴充功能正在嘗試控制您的連線。請在您的瀏覽器中禁用其它的擴充功能。"
+        "message": "看似另一款瀏覽器擴充功能正在嘗試控制您的連線。請在您的瀏覽器中禁用其它的擴充功能。"
     },
     "control_error_disable": {
         "message": "禁用它"
@@ -582,10 +582,10 @@
         "message": "留下回饋意見"
     },
     "popup_confirm_rate_modal_rate_title": {
-        "message": "您願意在 Chrome 商店裡也給我們打分嗎？太謝謝您啦！"
+        "message": "太謝謝您啦！您願意在擴充功能商店裡也給我們打分嗎？"
     },
     "popup_confirm_rate_modal_confirm_button": {
-        "message": "前往 Chrome 應用商店"
+        "message": "前往擴充功能商店"
     },
     "options_title": {
         "message": "AdGuard VPN 選項"

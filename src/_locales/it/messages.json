@@ -477,7 +477,7 @@
         "message": "Autenticazione riuscita! Puoi aprire AdGuard VPN e iniziare a utilizzarla."
     },
     "control_error_description": {
-        "message": "Sembra che un'altra estensione di Chrome stia tentando di controllare la tua connessione. Ti preghiamo di disattivare l'altra estensione nel browser."
+        "message": "Sembra che un'altra estensione di browser stia cercando di controllare la connessione. Si prega di disabilitare l'altra estensione nel browser."
     },
     "control_error_disable": {
         "message": "Disattivala"
@@ -582,10 +582,10 @@
         "message": "Lascia feedback"
     },
     "popup_confirm_rate_modal_rate_title": {
-        "message": "Oh! Puoi valutarci anche nel Chrome Store?"
+        "message": "Oh! Puoi valutarci anche nell'Extension Store?"
     },
     "popup_confirm_rate_modal_confirm_button": {
-        "message": "Vai al Chrome Store"
+        "message": "Vai all'Extension Store"
     },
     "options_title": {
         "message": "Opzioni di AdGuard VPN"

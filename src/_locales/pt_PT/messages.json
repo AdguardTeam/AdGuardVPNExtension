@@ -477,7 +477,7 @@
         "message": "Autenticado com sucesso! Tu podes abrir o AdGuard VPN e começar a usá-lo."
     },
     "control_error_description": {
-        "message": "Parece que outra extensão do Chrome está tentando controlar sua conexão. Desactive a outra extensão no seu navegador."
+        "message": "Parece que noutra extensão do navegador está a tentar controlar a sua conexão. Desative a outra extensão no seu navegador."
     },
     "control_error_disable": {
         "message": "Desativar"
@@ -582,10 +582,10 @@
         "message": "Deixar feedback"
     },
     "popup_confirm_rate_modal_rate_title": {
-        "message": "Uau! Você pode nos avaliar também no Chrome Store?"
+        "message": "Uau! Você pode nos avaliar também na loja de extensão?"
     },
     "popup_confirm_rate_modal_confirm_button": {
-        "message": "Vá para o Chrome Store"
+        "message": "Ir para a loja de extensão"
     },
     "options_title": {
         "message": "Opções do AdGuard VPN"

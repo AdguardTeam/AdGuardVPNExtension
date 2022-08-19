@@ -476,9 +476,6 @@
     "authentication_successful_notification": {
         "message": "Uspešno ste prijavljeni! Možete otvoriti AdGuard VPN i uključiti tunel."
     },
-    "control_error_description": {
-        "message": "Izgleda da drugo Chrome proširenje pokušava da upravlja vašom vezom. Isključite to proširenje u vašem pregledniku."
-    },
     "control_error_disable": {
         "message": "Isključi to"
     },
@@ -580,12 +577,6 @@
     },
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "Ostavite povratne informacije"
-    },
-    "popup_confirm_rate_modal_rate_title": {
-        "message": "Vau! Da li možete da nas ocenite i u Chrome prodavnici?"
-    },
-    "popup_confirm_rate_modal_confirm_button": {
-        "message": "Idite u Chrome prodavnicu"
     },
     "options_title": {
         "message": "AdGuard VPN opcije"
@@ -759,5 +750,11 @@
     },
     "notification_data_limit_reached_description": {
         "message": "Brzina VPN veze je smanjena."
+    },
+    "notification_data_left_mb": {
+        "message": "Preostalo je još %num% MB."
+    },
+    "notification_data_left_description": {
+        "message": "Brzina VPN veze će uskoro biti smanjena."
     }
 }

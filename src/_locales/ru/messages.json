@@ -198,7 +198,7 @@
         "message": "Войдите или создайте аккаунт"
     },
     "auth_sign_in_provider_adguard_label": {
-        "message": "E-Mail"
+        "message": "Email"
     },
     "auth_sign_in_provider_adguard": {
         "message": "Войти через почту"
@@ -477,7 +477,7 @@
         "message": "Вы вошли в аккаунт. Можно начинать пользоваться AdGuard VPN."
     },
     "control_error_description": {
-        "message": "Похоже, что еще одно расширение Chrome пытается контролировать ваше соединение. Пожалуйста, отключите другое расширение в вашем браузере."
+        "message": "Похоже, что ещё одно расширение пытается контролировать ваше соединение. Пожалуйста, отключите другое расширение в браузере."
     },
     "control_error_disable": {
         "message": "Отключить"
@@ -582,10 +582,10 @@
         "message": "Оставить отзыв"
     },
     "popup_confirm_rate_modal_rate_title": {
-        "message": "Спасибо! А можете оставить отзыв в магазине Chrome?"
+        "message": "Спасибо! А можете оставить отзыв в магазине расширений?"
     },
     "popup_confirm_rate_modal_confirm_button": {
-        "message": "Перейти в магазин Chrome"
+        "message": "Перейти в магазин расширений"
     },
     "options_title": {
         "message": "Опции AdGuard VPN"
