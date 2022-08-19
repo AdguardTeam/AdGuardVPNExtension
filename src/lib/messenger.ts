@@ -371,9 +371,9 @@ class Messenger {
         return this.sendMessage(type, { exclusionsMap });
     }
 
-    resendConfirmRegistrationLink() {
+    resendConfirmRegistrationLink(displayNotification: boolean) {
         const type = MessageType.RESEND_CONFIRM_REGISTRATION_LINK;
-        return this.sendMessage(type);
+        return this.sendMessage(type, { displayNotification });
     }
 }
 

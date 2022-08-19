@@ -71,9 +71,14 @@ const getAccountInfo = async (accessToken: string): Promise<string> => {
     return email;
 };
 
-const resendConfirmRegistrationLink = async (accessToken: string): Promise<void> => {
+const resendConfirmRegistrationLink = async (
+    accessToken: string,
+    displayNotification: boolean,
+): Promise<void> => {
     await accountApi.resendConfirmRegistrationLink(accessToken);
-    await notifications.create({ message: translator.getMessage('resend_confirm_registration_link_notification') });
+    if (displayNotification) {
+        await notifications.create({ message: translator.getMessage('resend_confirm_registration_link_notification') });
+    }
 };
 
 const getAvailableBonuses = async (accessToken: string): Promise<BonusesData> => {

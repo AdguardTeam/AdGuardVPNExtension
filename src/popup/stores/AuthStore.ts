@@ -482,6 +482,6 @@ export class AuthStore {
     };
 
     @action resendConfirmRegistrationLink = async () => {
-        await messenger.resendConfirmRegistrationLink();
+        await messenger.resendConfirmRegistrationLink(true);
     };
 }

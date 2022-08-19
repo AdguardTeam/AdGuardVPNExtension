@@ -162,6 +162,6 @@ export class SettingsStore {
     };
 
     @action resendConfirmationLink = async () => {
-        await messenger.resendConfirmRegistrationLink();
+        await messenger.resendConfirmRegistrationLink(false);
     };
 }
