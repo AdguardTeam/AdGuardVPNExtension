@@ -160,4 +160,8 @@ export class SettingsStore {
     @action openPremiumPromoPage = async () => {
         await messenger.openPremiumPromoPage();
     };
+
+    @action resendConfirmationLink = async () => {
+        await messenger.resendConfirmRegistrationLink();
+    };
 }

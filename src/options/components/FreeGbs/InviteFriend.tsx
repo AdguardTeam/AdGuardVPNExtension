@@ -19,19 +19,6 @@ export const InviteFriend = observer(({ goBackHandler }: { goBackHandler: () => 
         })();
     }, []);
 
-    const statusMessage = invitesCount < maxInvitesCount
-        ? reactTranslator.getMessage(
-            'settings_referral_invited_friends',
-            {
-                count: invitesCount,
-                limit: maxInvitesCount,
-            },
-        )
-        : reactTranslator.getMessage('settings_referral_limit_reached', {
-            your_gb: maxInvitesCount,
-            friend_gb: COMPLETE_TASK_BONUS_GB,
-        });
-
     const handleCopyLink = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await navigator.clipboard.writeText(inviteUrl);
@@ -42,49 +29,94 @@ export const InviteFriend = observer(({ goBackHandler }: { goBackHandler: () => 
         return <DotsLoader />;
     }
 
-    return (
-        <div>
-            <button
-                className="free-gbs__back-button"
-                type="button"
-                onClick={goBackHandler}
-            >
-                <svg className="icon icon--button">
-                    <use xlinkHref="#arrow" />
-                </svg>
-            </button>
-            <div className="free-gbs__picture free-gbs__referral-pic" />
-            <Title title={reactTranslator.getMessage('settings_free_gbs_invite_friend')} />
-            <div className="free-gbs__info">
-                {reactTranslator.getMessage('settings_referral_info', {
-                    your_gb: COMPLETE_TASK_BONUS_GB,
-                    total_gb: maxInvitesCount,
-                    friend_gb: COMPLETE_TASK_BONUS_GB,
-                })}
-            </div>
-            <div className="free-gbs__referral-status">
-                {statusMessage}
-            </div>
-            <form
-                className="free-gbs__referral-link"
-                onSubmit={handleCopyLink}
-            >
-                <label>
-                    {reactTranslator.getMessage('settings_referral_invite_link')}
-                    <input
-                        type="text"
-                        id="referral-link"
-                        value={inviteUrl}
-                        disabled
+    switch (true) {
+        case bonusesDataRequestStatus !== REQUEST_STATUSES.DONE: {
+            return <DotsLoader />;
+        }
+        case invitesCount >= maxInvitesCount: {
+            return (
+                <div>
+                    <button
+                        className="free-gbs__back-button"
+                        type="button"
+                        onClick={goBackHandler}
+                    >
+                        <svg className="icon icon--button">
+                            <use xlinkHref="#arrow" />
+                        </svg>
+                    </button>
+                    <div className="free-gbs__picture free-gbs__referral-pic" />
+                    <Title title={reactTranslator.getMessage(
+                        'settings_referral_invited_friends',
+                        {
+                            count: invitesCount,
+                            limit: maxInvitesCount,
+                        },
+                    )}
                     />
-                </label>
-                <button
-                    type="submit"
-                    className="button button--large button--primary"
-                >
-                    {reactTranslator.getMessage('settings_referral_copy_link')}
-                </button>
-            </form>
-        </div>
-    );
+                    <div className="free-gbs__info">{reactTranslator.getMessage('settings_free_gbs_invite_friend_completed_thank_you')}</div>
+                    <button
+                        type="button"
+                        className="button button--large button--outline-gray free-gbs__button"
+                        onClick={goBackHandler}
+                    >
+                        {reactTranslator.getMessage('settings_free_gbs_go_back')}
+                    </button>
+                </div>
+            );
+        }
+        default: {
+            return (
+                <div>
+                    <button
+                        className="free-gbs__back-button"
+                        type="button"
+                        onClick={goBackHandler}
+                    >
+                        <svg className="icon icon--button">
+                            <use xlinkHref="#arrow" />
+                        </svg>
+                    </button>
+                    <div className="free-gbs__picture free-gbs__referral-pic" />
+                    <Title title={reactTranslator.getMessage('settings_free_gbs_invite_friend')} />
+                    <div className="free-gbs__info">
+                        {reactTranslator.getMessage('settings_referral_info', {
+                            your_gb: COMPLETE_TASK_BONUS_GB,
+                            total_gb: maxInvitesCount,
+                            friend_gb: COMPLETE_TASK_BONUS_GB,
+                        })}
+                    </div>
+                    <div className="free-gbs__referral-status">
+                        {reactTranslator.getMessage(
+                            'settings_referral_invited_friends',
+                            {
+                                count: invitesCount,
+                                limit: maxInvitesCount,
+                            },
+                        )}
+                    </div>
+                    <form
+                        className="free-gbs__referral-link"
+                        onSubmit={handleCopyLink}
+                    >
+                        <label>
+                            {reactTranslator.getMessage('settings_referral_invite_link')}
+                            <input
+                                type="text"
+                                id="referral-link"
+                                value={inviteUrl}
+                                disabled
+                            />
+                        </label>
+                        <button
+                            type="submit"
+                            className="button button--large button--primary"
+                        >
+                            {reactTranslator.getMessage('settings_referral_copy_link')}
+                        </button>
+                    </form>
+                </div>
+            );
+        }
+    }
 });
