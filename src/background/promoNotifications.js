@@ -22,9 +22,9 @@ const backToSchool22Notification = {
             btn: 'Get 80% off',
         },
         ru: {
-            title: 'Снова в',
-            desc: 'школу',
-            btn: 'Скидки 80%',
+            title: 'Снова',
+            desc: 'в школу',
+            btn: 'Скидка 75%',
         },
         es: {
             title: 'Vuelta al',
