@@ -22,6 +22,7 @@ Build:
     image: ${bamboo.dockerNode}
     volumes:
       ${system.YARN_DIR}: "${bamboo.cacheYarn}"
+    docker-run-arguments: ['--dns', '94.140.14.140']
   tasks:
     - checkout:
         force-clean-build: 'true'
