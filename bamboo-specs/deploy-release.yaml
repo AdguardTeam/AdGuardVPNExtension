@@ -14,6 +14,7 @@ Addons Mozilla:
     image: adguard/node-ssh:15.14--5
     volumes:
       ${system.YARN_DIR}: "${bamboo.cacheYarn}"
+    docker-run-arguments: ['--dns', '94.140.14.140']
   triggers: []
   tasks:
     - clean
