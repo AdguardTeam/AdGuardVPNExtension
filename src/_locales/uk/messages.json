@@ -141,7 +141,7 @@
         "message": "Дворічна передплата"
     },
     "account_get_subscription": {
-        "message": "Отримати передплата"
+        "message": "Отримати передплату"
     },
     "account_max_devices_count": {
         "message": "До %num% пристроїв одночасно"
@@ -477,7 +477,7 @@
         "message": "Ви успішно авторизувались! Можете відкрити AdGuard VPN та під'єднатись."
     },
     "control_error_description": {
-        "message": "Схоже, що інше розширення в браузері Chrome може мати контроль над з'єднанням. Вимкніть його, будь ласка."
+        "message": "Схоже, що якесь інше браузерне розширення намагається контролювати з'єднання. Вимкніть його, будь ласка."
     },
     "control_error_disable": {
         "message": "Вимкнути"
@@ -582,10 +582,10 @@
         "message": "Поділитись"
     },
     "popup_confirm_rate_modal_rate_title": {
-        "message": "Отакої! А можете оцінити нас у Вебмагазині Chrome?"
+        "message": "Отакої! А можете оцінити нас у Вебмагазині браузера?"
     },
     "popup_confirm_rate_modal_confirm_button": {
-        "message": "Перейти до Вебмагазину Chrome"
+        "message": "Перейти до Вебмагазину браузера"
     },
     "options_title": {
         "message": "AdGuard VPN Параметри"

@@ -759,5 +759,11 @@
     },
     "notification_data_limit_reached_description": {
         "message": "Brzina VPN veze je smanjena."
+    },
+    "notification_data_left_mb": {
+        "message": "Preostalo je %num% MB."
+    },
+    "notification_data_left_description": {
+        "message": "Brzina VPN veze će se uskoro smanjiti."
     }
 }

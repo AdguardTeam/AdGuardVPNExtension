@@ -317,9 +317,6 @@
     "global_error_try_again": {
         "message": "Δοκιμάστε ξανά"
     },
-    "control_error_description": {
-        "message": "Φαίνεται ότι μια άλλη επέκταση Chrome προσπαθεί να ελέγξει τη σύνδεσή σας. Απενεργοποιήστε την άλλη επέκταση στο πρόγραμμα περιήγησής σας."
-    },
     "control_error_disable": {
         "message": "Απενεργοποιήστε τη"
     },

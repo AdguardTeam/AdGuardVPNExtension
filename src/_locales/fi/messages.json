@@ -468,7 +468,7 @@
         "message": "Todennus onnistui! Voit avata AdGuard VPN:n ja aloittaa sen käytön."
     },
     "control_error_description": {
-        "message": "Näyttää siltä, että toinen Chrome-laajennus yrittää hallita yhteyttäsi. Pyydämme, että otat sen pois käytöstä."
+        "message": "Näyttää siltä, että joku muu selainlaajennus pyrkii hallitsemaan yhteyttäsi. Poista se selaimestasi käytöstä."
     },
     "control_error_disable": {
         "message": "Poista käytöstä"
@@ -573,10 +573,10 @@
         "message": "Lähetä palautetta"
     },
     "popup_confirm_rate_modal_rate_title": {
-        "message": "Vau! Arvioisitko meidät myös Chrome Web Storessa?"
+        "message": "Vau! Arvioisitko meidät myös laajennuskaupassa?"
     },
     "popup_confirm_rate_modal_confirm_button": {
-        "message": "Avaa Chrome Web Store"
+        "message": "Avaa laajennuskauppa"
     },
     "options_title": {
         "message": "AdGuard VPN asetukset"

@@ -473,8 +473,8 @@
     "global_error_try_again": {
         "message": "다시 시도하기"
     },
-    "control_error_description": {
-        "message": "Chrome 확장 프로그램이 연결을 제어하는 것으로 보입니다. 브라우저에서 다른 확장 프로그램을 비활성화해주세요."
+    "authentication_successful_notification": {
+        "message": "성공적으로 인증되었습니다! 이제 AdGuard VPN을 사용할 수 있습니다."
     },
     "control_error_disable": {
         "message": "비활성화"
@@ -577,12 +577,6 @@
     },
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "피드백 남기기"
-    },
-    "popup_confirm_rate_modal_rate_title": {
-        "message": "Chrome 스토어에서도 평가해 주시겠어요?"
-    },
-    "popup_confirm_rate_modal_confirm_button": {
-        "message": "Chrome Store로 이동"
     },
     "options_title": {
         "message": "AdGuard VPN 옵션"
@@ -756,5 +750,11 @@
     },
     "notification_data_limit_reached_description": {
         "message": "VPN 연결 속도가 느려졌습니다."
+    },
+    "notification_data_left_mb": {
+        "message": "%num%MB 남음."
+    },
+    "notification_data_left_description": {
+        "message": "곧 VPN 연결 속도가 느려집니다."
     }
 }

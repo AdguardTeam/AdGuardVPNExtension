@@ -477,7 +477,7 @@
         "message": "Succesvol geauthenticeerd! Je kunt AdGuard VPN openen en gaan gebruiken."
     },
     "control_error_description": {
-        "message": "Het lijkt erop dat een andere Chrome-extensie je verbinding probeert te beheren. Schakel de andere extensie in je browser uit."
+        "message": "Het lijkt erop dat een andere browseruitbreiding je verbinding probeert te beheren. Schakel de andere uitbreiding in je browser uit."
     },
     "control_error_disable": {
         "message": "Uitschakelen"
@@ -582,10 +582,10 @@
         "message": "Feedback geven"
     },
     "popup_confirm_rate_modal_rate_title": {
-        "message": "Wauw! Kun je ons ook beoordelen in de Chrome Store?"
+        "message": "Wauw! Kun je ons ook beoordelen in de Extension Store?"
     },
     "popup_confirm_rate_modal_confirm_button": {
-        "message": "Naar de Chrome Store gaan"
+        "message": "Naar de Extension Store gaan"
     },
     "options_title": {
         "message": "AdGuard VPN Opties"
