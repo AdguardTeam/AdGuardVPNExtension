@@ -56,26 +56,28 @@ const PromoNotificationModal = observer(() => {
                         onClick={onCloseHandler}
                     />
                     <div className="holiday-notify__title">
-                        <div className="holiday-notify__title-in">
-                            {title}
-                        </div>
-                        {desc && (
+                        <div className="holiday-notify__title-wrapper">
                             <div className="holiday-notify__title-in">
-                                {desc}
+                                {title}
                             </div>
-                        )}
-                    </div>
-                    {btn
-                        && (
-                            <div className="holiday-notify__bottom">
-                                <div
-                                    className="holiday-notify__btn"
-                                    onClick={btnClickHandler}
-                                >
-                                    {btn}
+                            {desc && (
+                                <div className="holiday-notify__title-in">
+                                    {desc}
                                 </div>
-                            </div>
-                        )}
+                            )}
+                            {btn
+                                && (
+                                    <div className="holiday-notify__bottom">
+                                        <div
+                                            className="holiday-notify__btn"
+                                            onClick={btnClickHandler}
+                                        >
+                                            {btn}
+                                        </div>
+                                    </div>
+                                )}
+                        </div>
+                    </div>
                 </div>
             </div>
         </Modal>

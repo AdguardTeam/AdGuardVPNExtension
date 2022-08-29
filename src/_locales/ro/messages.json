@@ -477,7 +477,7 @@
         "message": "Autentificat cu succes! Puteți deschide AdGuard VPN și puteți începe să-l utilizați."
     },
     "control_error_description": {
-        "message": "Se pare că o altă extensie Chrome încearcă să vă controleze conexiunile. Vă rugăm să dezactivați cealaltă extensie în browser."
+        "message": "Se pare că o altă extensie Chrome încearcă să vă controleze conexiunea. Dezactivați cealaltă extensie din browserul dumneavoastră."
     },
     "control_error_disable": {
         "message": "Dezactivați-l"
@@ -582,10 +582,10 @@
         "message": "Lasă-ți un feedback"
     },
     "popup_confirm_rate_modal_rate_title": {
-        "message": "Wow! Ne puteți evalua și în Chrome Store?"
+        "message": "Wow! Ne puteți evalua și în Chrome Web Store?"
     },
     "popup_confirm_rate_modal_confirm_button": {
-        "message": "Accesați Magazinul Chrome"
+        "message": "Mergeți la Chrome Web Store"
     },
     "options_title": {
         "message": "Opțiuni AdGuard VPN"
