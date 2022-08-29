@@ -477,7 +477,7 @@
         "message": "Başarıyla doğrulandı! AdGuard VPN'i açabilir ve kullanmaya başlayabilirsiniz."
     },
     "control_error_description": {
-        "message": "Başka bir Chrome uzantısı bağlantınızı kontrol etmeye çalışıyor gibi görünüyor. Lütfen tarayıcınızdaki diğer eklentiyi devre dışı bırakın."
+        "message": "Başka bir Tarayıcı uzantısı bağlantınızı kontrol etmeye çalışıyor gibi görünüyor. Lütfen tarayıcınızdaki diğer eklentiyi devre dışı bırakın."
     },
     "control_error_disable": {
         "message": "Devre dışı bırak"
@@ -582,10 +582,10 @@
         "message": "Geri bildirimde bulun"
     },
     "popup_confirm_rate_modal_rate_title": {
-        "message": "Vay! Bizi Chrome Store'da da değerlendirebilir misiniz?"
+        "message": "Vay! Bizi Uzantı Store'da da değerlendirebilir misiniz?"
     },
     "popup_confirm_rate_modal_confirm_button": {
-        "message": "Chrome Mağazasına gidin"
+        "message": "Uzantı Mağazası'na Git"
     },
     "options_title": {
         "message": "AdGuard VPN Ayarları"

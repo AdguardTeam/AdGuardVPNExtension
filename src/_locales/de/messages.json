@@ -673,7 +673,7 @@
         "message": "Umsteigen"
     },
     "popup_upgrade_screen_continue_free": {
-        "message": "Kostenlos fortsetzen"
+        "message": "Kostenlose Version nutzen"
     },
     "popup_free_traffic_info": {
         "message": "Noch <span>%value% %unit%</span> in diesem Monat verfügbar",
