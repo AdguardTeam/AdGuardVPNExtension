@@ -20,6 +20,8 @@ export const APPEARANCE_THEMES = {
     LIGHT: 'LIGHT',
 };
 
+export const THEME_URL_PARAMETER = 'theme';
+
 export const APPEARANCE_THEME_DEFAULT = APPEARANCE_THEMES.SYSTEM;
 
 export enum MessageType {

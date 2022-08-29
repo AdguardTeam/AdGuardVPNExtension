@@ -105,6 +105,6 @@ const getAvailableBonuses = async (accessToken: string): Promise<BonusesData> =>
 export default {
     getVpnToken,
     getAccountInfo,
-    resendConfirmRegistrationLink,
     getAvailableBonuses,
+    resendConfirmRegistrationLink,
 };

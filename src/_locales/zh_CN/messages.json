@@ -477,7 +477,7 @@
         "message": "验证成功！您可以开始使用 AdGuard VPN。"
     },
     "control_error_description": {
-        "message": "似乎是另外一个 Chrome 扩展正在控制您的连接，请禁用该扩展。"
+        "message": "似乎是另外一个浏览器扩展正在控制您的连接。请禁用安装在您的浏览器里的其他扩展。"
     },
     "control_error_disable": {
         "message": "禁用"
@@ -582,10 +582,10 @@
         "message": "留下反馈"
     },
     "popup_confirm_rate_modal_rate_title": {
-        "message": "您愿意在 Chrome 商店里也给我们打分吗？太谢谢您啦！"
+        "message": "太谢谢您啦！您愿意在插件商店里也给我们打分吗？"
     },
     "popup_confirm_rate_modal_confirm_button": {
-        "message": "转到 Chrome 商店"
+        "message": "转到插件商店"
     },
     "options_title": {
         "message": "AdGuard VPN 选项"

@@ -477,7 +477,7 @@
         "message": "Godkendt! Du kan åbne AdGuard VPN og begynde at bruge den."
     },
     "control_error_description": {
-        "message": "Det ser ud til, at en anden Chrome-udvidelse forsøger at kontrollere din forbindelse. Deaktivér den anden udvidelse i din browser."
+        "message": "Det ser ud til, at en anden browserudvidelse forsøger at kontrollere forbindelsen. Deaktivér den pågældende udvidelse i browseren."
     },
     "control_error_disable": {
         "message": "Deaktivér den"
@@ -582,10 +582,10 @@
         "message": "Giv feedback"
     },
     "popup_confirm_rate_modal_rate_title": {
-        "message": "Wow! Kan du også bedømme os i Chrome Web Store?"
+        "message": "Wow! Kan du også bedømme os i Extension Store?"
     },
     "popup_confirm_rate_modal_confirm_button": {
-        "message": "Gå til Chrome Web Store"
+        "message": "Gå til Extension Store"
     },
     "options_title": {
         "message": "AdGuard VPN Indstillinger"
@@ -759,5 +759,11 @@
     },
     "notification_data_limit_reached_description": {
         "message": "VPN-forbindelseshastigheden reduceret nu."
+    },
+    "notification_data_left_mb": {
+        "message": "Der er %num% MB tilbage."
+    },
+    "notification_data_left_description": {
+        "message": "VPN-forbindelseshastigheden reduceres snart."
     }
 }
