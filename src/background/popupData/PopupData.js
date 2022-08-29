@@ -12,6 +12,7 @@ import { updateService } from '../updateService';
 import { flagsStorage } from '../flagsStorage';
 import { exclusions } from '../exclusions';
 import { rateModal } from '../rateModal';
+import credentials from '../credentials';
 
 class PopupData {
     constructor({
@@ -68,6 +69,7 @@ class PopupData {
         const flagsStorageData = await flagsStorage.getFlagsStorageData();
         const isVpnEnabledByUrl = exclusions.isVpnEnabledByUrl(url);
         const shouldShowRateModal = await rateModal.shouldShowRateModal();
+        const username = await credentials.getUsername();
 
         // If error check permissions when popup is opened, ignoring multiple retries
         if (error) {
@@ -99,6 +101,7 @@ class PopupData {
             flagsStorageData,
             isVpnEnabledByUrl,
             shouldShowRateModal,
+            username,
         };
     };
 

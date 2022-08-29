@@ -15,7 +15,6 @@ export interface VpnTokenData {
     licenseStatus: string;
     timeExpiresSec: number;
     licenseKey: string;
-    subscription: boolean;
     vpnSubscription: {
         next_bill_date_iso: string,
         duration_v2: string,

@@ -370,6 +370,11 @@ class Messenger {
         const type = MessageType.ADD_EXCLUSIONS_MAP;
         return this.sendMessage(type, { exclusionsMap });
     }
+
+    resendConfirmRegistrationLink() {
+        const type = MessageType.RESEND_CONFIRM_REGISTRATION_LINK;
+        return this.sendMessage(type);
+    }
 }
 
 export const messenger = new Messenger();

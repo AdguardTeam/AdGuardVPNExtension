@@ -765,5 +765,20 @@
     },
     "notification_data_left_description": {
         "message": "VPN connection speed will be reduced soon."
+    },
+    "confirm_email_title": {
+        "message": "Confirm your email"
+    },
+    "confirm_email_info": {
+        "message": "To get free VPN traffic, please confirm your email address. We’ve sent a confirmation link to"
+    },
+    "confirm_email_close_button": {
+        "message": "Close"
+    },
+    "confirm_email_resend_link_button": {
+        "message": "Resend link"
+    },
+    "resend_confirm_registration_link_notification": {
+        "message": "The confirmation link was sent to your email"
     }
 }
