@@ -240,7 +240,7 @@
         "message": "Free VPN traffic"
     },
     "referral_get_free_traffic": {
-        "message": "Get free VPN traffic!"
+        "message": "Get free GBs!"
     },
     "settings_referral_info": {
         "message": "Get %your_gb% GB of free VPN traffic for a month for each friend who signs up through your invite, up to %total_gb% GB in total. Your friend also gets an extra %friend_gb% GB for free."

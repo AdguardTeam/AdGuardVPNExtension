@@ -158,7 +158,7 @@ const openPremiumPromoPage = async () => {
  * Opens Options page on Referral Program section
  */
 const openFreeGbsPage = async () => {
-    await openOptionsPage(`#${FREE_GBS_ANCHOR}`);
+    await openOptionsPage(FREE_GBS_ANCHOR);
 };
 
 const actions = {
