@@ -108,7 +108,24 @@ export const FLAGS_FIELDS = {
 
 export const REFERRAL_PROGRAM = 'referral-program';
 
-export const ANIMATION_TYPES = {
-    SWITCH_ON: 'switch-on',
-    SWITCH_OFF: 'switch-off',
+export enum AnimationType {
+    SwitchOn = 'switch-on',
+    SwitchOff = 'switch-off',
+}
+
+const MOTION_FOLDER_PATH = '../../../assets/motion/';
+
+export const videoSourcesMap = {
+    [APPEARANCE_THEMES.LIGHT]: {
+        connected: `${MOTION_FOLDER_PATH}on-light.webm`,
+        disconnected: `${MOTION_FOLDER_PATH}off-light.webm`,
+        [AnimationType.SwitchOn]: `${MOTION_FOLDER_PATH}switch-on-light.webm`,
+        [AnimationType.SwitchOff]: `${MOTION_FOLDER_PATH}switch-off-light.webm`,
+    },
+    [APPEARANCE_THEMES.DARK]: {
+        connected: `${MOTION_FOLDER_PATH}on-dark.webm`,
+        disconnected: `${MOTION_FOLDER_PATH}off-dark.webm`,
+        [AnimationType.SwitchOn]: `${MOTION_FOLDER_PATH}switch-on-dark.webm`,
+        [AnimationType.SwitchOff]: `${MOTION_FOLDER_PATH}switch-off-dark.webm`,
+    },
 };

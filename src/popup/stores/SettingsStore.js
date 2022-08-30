@@ -8,7 +8,7 @@ import {
 import tabs from '../../background/tabs';
 import { log } from '../../lib/logger';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
-import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT, ANIMATION_TYPES } from '../../lib/constants';
+import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT, AnimationType } from '../../lib/constants';
 import { messenger } from '../../lib/messenger';
 import { STATE } from '../../background/connectivity/connectivityService/connectivityConstants';
 import { getHostname, getProtocol } from '../../common/url-utils';
@@ -83,7 +83,7 @@ export class SettingsStore {
         if (value) {
             await this.enableProxy(true);
         } else {
-            this.setAnimation(ANIMATION_TYPES.SWITCH_OFF);
+            this.setAnimation(AnimationType.SwitchOff);
             await this.disableProxy(true);
         }
     };
@@ -91,6 +91,9 @@ export class SettingsStore {
     @action disableVpnOnCurrentTab = async () => {
         try {
             await messenger.disableVpnByUrl(this.currentTabHostname);
+            if (this.isConnected) {
+                this.setAnimation(AnimationType.SwitchOff);
+            }
             this.setIsExcluded(true);
         } catch (e) {
             log.error(e);
@@ -101,6 +104,9 @@ export class SettingsStore {
         try {
             await messenger.enableVpnByUrl(this.currentTabHostname);
             this.setIsExcluded(false);
+            if (this.isConnected) {
+                this.setAnimation(AnimationType.SwitchOn);
+            }
         } catch (e) {
             log.error(e);
         }
@@ -216,9 +222,6 @@ export class SettingsStore {
 
     @action
     setConnectivityState(state) {
-        if (state.value === STATE.CONNECTED) {
-            this.setAnimation(ANIMATION_TYPES.SWITCH_ON);
-        }
         this.connectivityState = state;
     }
 
