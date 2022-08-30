@@ -91,6 +91,7 @@ const Settings = observer(() => {
                 loop={false}
                 onEndedHandler={handleAnimationEnded}
             />
+            <div className="settings__video-overlay" />
             <div className="settings__main">
                 <Status />
                 <GlobalControl />
