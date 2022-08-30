@@ -582,10 +582,10 @@
         "message": "ご提案・問題を送信"
     },
     "popup_confirm_rate_modal_rate_title": {
-        "message": "Chromeウェブストアでもご評価いただけますか？"
+        "message": "可能であれば、拡張機能ストアでもご評価いただけますか？"
     },
     "popup_confirm_rate_modal_confirm_button": {
-        "message": "Chromeウェブストアへ"
+        "message": "拡張機能ストアへ移動する"
     },
     "options_title": {
         "message": "AdGuard VPNオプション"

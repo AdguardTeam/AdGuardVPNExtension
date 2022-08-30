@@ -290,9 +290,6 @@
     "global_error_try_again": {
         "message": "Prøv på nytt"
     },
-    "control_error_description": {
-        "message": "Det ser ut som en annen Chrome-utvidelse prøver å styre tilkoblingen din. Vennligst skru av den andre utvidelsen i nettleseren din."
-    },
     "control_error_disable": {
         "message": "Skru den av"
     },

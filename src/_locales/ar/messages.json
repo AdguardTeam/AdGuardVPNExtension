@@ -476,9 +476,6 @@
     "authentication_successful_notification": {
         "message": "تمت المصادقة عليه بنجاح! يمكنك فتح AdGuard VPN والبدء في استخدامه."
     },
-    "control_error_description": {
-        "message": "يبدو أن امتداد Chrome آخر يحاول التحكم في اتصالك. الرجاء تعطيل الامتداد الآخر في متصفحك."
-    },
     "control_error_disable": {
         "message": "قم بتعطيله"
     },
@@ -580,12 +577,6 @@
     },
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "اترك ملاحظاتك"
-    },
-    "popup_confirm_rate_modal_rate_title": {
-        "message": "رائع! هل يمكنك تقييمنا أيضًا في متجر Chrome؟"
-    },
-    "popup_confirm_rate_modal_confirm_button": {
-        "message": "انتقل إلى سوق Chrome"
     },
     "options_title": {
         "message": "AdGuard VPN خيارات"

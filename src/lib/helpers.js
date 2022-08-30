@@ -182,7 +182,3 @@ export const runWithCancel = (fn, ...args) => {
 
     return { promise, cancel };
 };
-
-export const clearFromWrappingQuotes = (str) => {
-    return str.replace(/^"|"$/g, '');
-};

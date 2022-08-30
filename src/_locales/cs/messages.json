@@ -477,7 +477,7 @@
         "message": "Úspěšně ověřeno! Můžete otevřít AdGuard VPN a začít ji používat."
     },
     "control_error_description": {
-        "message": "Vypadá to, že jiné rozšíření Chrome se pokouší ovládat vaše připojení. Vypněte prosím ostatní rozšíření v prohlížeči."
+        "message": "Vypadá to, že jiné rozšíření prohlížeče se pokouší ovládat vaše připojení. Vypněte prosím ostatní rozšíření v prohlížeči."
     },
     "control_error_disable": {
         "message": "Vypnout"
@@ -582,10 +582,10 @@
         "message": "Zanechat zpětnou vazbu"
     },
     "popup_confirm_rate_modal_rate_title": {
-        "message": "Skvělé! Můžete nás ohodnotit také v Chrome Store?"
+        "message": "Skvělé! Můžete nás ohodnotit také v obchodě s rozšířeními?"
     },
     "popup_confirm_rate_modal_confirm_button": {
-        "message": "Přejděte do Chrome Store"
+        "message": "Přejděte do obchodu s rozšířeními"
     },
     "options_title": {
         "message": "Možnosti AdGuard VPN"

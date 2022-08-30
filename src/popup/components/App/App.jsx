@@ -32,6 +32,7 @@ import { Newsletter } from '../Authentication/Newsletter';
 import { UpgradeScreen } from '../Authentication/UpgradeScreen';
 import { DotsLoader } from '../../../common/components/DotsLoader';
 import { ReviewPopup } from '../ReviewPopup';
+import { ConfirmEmailModal, ConfirmEmailNotice } from '../ConfirmEmail';
 import { STATE } from '../../../background/connectivity/connectivityService/connectivityConstants';
 import { AnimationType } from '../../../lib/constants';
 
@@ -232,6 +233,7 @@ export const App = observer(() => {
                 ? <ExclusionsScreen />
                 : (
                     <>
+                        <ConfirmEmailNotice />
                         <Settings />
                         <div className="footer">
                             {premiumPromoEnabled ? (
@@ -244,6 +246,7 @@ export const App = observer(() => {
                     </>
                 )}
             <Icons />
+            <ConfirmEmailModal />
             <ReviewPopup />
         </>
     );

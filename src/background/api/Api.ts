@@ -13,6 +13,9 @@ interface ConfigInterface {
         service_id?: string | null;
     };
     data?: string | FormData;
+    headers?: {
+        Authorization: string,
+    };
 }
 
 interface ApiInterface {

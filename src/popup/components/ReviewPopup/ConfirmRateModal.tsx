@@ -49,14 +49,14 @@ export const ConfirmRateModal = observer(() => {
     return (
         <Modal
             isOpen={showConfirmRateModal}
-            className="rate-modal rate-modal--confirm"
+            className="modal rate-modal rate-modal--confirm"
             shouldCloseOnOverlayClick
-            overlayClassName="rate-modal__overlay"
+            overlayClassName="modal__overlay"
             onRequestClose={closeModal}
         >
             <button
                 type="button"
-                className="button button--icon rate-modal__close-icon"
+                className="button button--icon modal__close-icon"
                 onClick={closeModal}
             >
                 <svg className="icon icon--button icon--cross">
@@ -68,7 +68,7 @@ export const ConfirmRateModal = observer(() => {
                 className="rate-modal__image"
                 alt="rating"
             />
-            <div className="rate-modal__title rate-modal--confirm__title">{content.title}</div>
+            <div className="modal__title rate-modal--confirm__title">{content.title}</div>
             <div className="rate-modal__subtitle rate-modal--confirm__subtitle">{content.subtitle}</div>
             <button
                 type="button"

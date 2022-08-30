@@ -296,9 +296,6 @@
     "global_error_try_again": {
         "message": "Coba lagi"
     },
-    "control_error_description": {
-        "message": "Sepertinya ekstensi Chrome lain sedang mencoba mengendalikan koneksi Anda. Harap nonaktifkan ekstensi lain di browser Anda."
-    },
     "control_error_disable": {
         "message": "Nonaktifkan"
     },

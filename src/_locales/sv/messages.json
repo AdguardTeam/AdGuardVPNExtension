@@ -68,6 +68,9 @@
     "account_title": {
         "message": "Konto"
     },
+    "account_edit": {
+        "message": "Hantera konto"
+    },
     "account_version": {
         "message": "Version"
     },

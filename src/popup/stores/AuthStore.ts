@@ -95,6 +95,12 @@ export class AuthStore {
 
     @observable rating = 0;
 
+    @observable showConfirmEmailModal = false;
+
+    @observable showConfirmEmailNotice = false;
+
+    @observable userEmail = '';
+
     STEPS = AUTH_STEPS;
 
     rootStore: any;
@@ -460,5 +466,22 @@ export class AuthStore {
 
     @action setShouldShowRateModal = (value: boolean) => {
         this.showRateModal = value;
+    };
+
+    @action setShowConfirmEmail = (value: boolean) => {
+        this.showConfirmEmailModal = value;
+        this.showConfirmEmailNotice = value;
+    };
+
+    @action setShowConfirmEmailModal = (value: boolean) => {
+        this.showConfirmEmailModal = value;
+    };
+
+    @action setUserEmail = (value: string) => {
+        this.userEmail = value;
+    };
+
+    @action resendConfirmRegistrationLink = async () => {
+        await messenger.resendConfirmRegistrationLink();
     };
 }
