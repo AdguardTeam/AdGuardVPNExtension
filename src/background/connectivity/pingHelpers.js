@@ -141,6 +141,9 @@ export const measurePingToEndpointViaFetch = async (domainName) => {
             // eslint-disable-next-line no-await-in-loop
             await fetchWithTimeout(requestUrl, FETCH_TIMEOUT_MS);
             const fetchPing = Date.now() - start;
+            if (fetchPing > FETCH_TIMEOUT_MS) {
+                throw new Error('Websocket response is too old');
+            }
             if (!ping || fetchPing < ping) {
                 ping = fetchPing;
             }
