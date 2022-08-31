@@ -194,14 +194,11 @@
     "auth_sign_in_button": {
         "message": "Войти"
     },
-    "auth_sign_in_link": {
-        "message": "Войти с помощью аккаунта AdGuard"
-    },
     "auth_title": {
         "message": "Войдите или создайте аккаунт"
     },
     "auth_sign_in_provider_adguard_label": {
-        "message": "E-Mail"
+        "message": "Email"
     },
     "auth_sign_in_provider_adguard": {
         "message": "Войти через почту"
@@ -215,20 +212,8 @@
     "auth_sign_in_provider_facebook": {
         "message": "Войти через Facebook"
     },
-    "auth_header_sign_in_account": {
-        "message": "Вы входите через аккаунт AdGuard"
-    },
-    "auth_header_sign_up_create_account": {
-        "message": "Регистрируясь, вы создаете аккаунт AdGuard"
-    },
-    "auth_header_sign_in": {
-        "message": "Вы входите как <div>%username%</div> "
-    },
     "auth_header_sing_in_notice": {
         "message": "Вход в аккаунт <span>%username%</span>"
-    },
-    "auth_header_registration": {
-        "message": "Вы регистрируетесь как <div>%username%</div>"
     },
     "auth_header_2fa_subtitle": {
         "message": "Двухфакторная аутентификация"
@@ -386,12 +371,6 @@
     "settings_exclusion_status_all_subdomains": {
         "message": "все поддомены"
     },
-    "settings_exclusion_service_settings_subtitle_regular_mode": {
-        "message": "AdGuard VPN отключен для доменов, отмеченных галочкой"
-    },
-    "settings_exclusion_service_settings_subtitle_selective_mode": {
-        "message": "AdGuard VPN подключен для доменов, отмеченных галочкой"
-    },
     "settings_exclusion_group_settings_subtitle_regular_mode": {
         "message": "AdGuard VPN отключен для доменов и поддоменов, отмеченных галочкой"
     },
@@ -464,20 +443,8 @@
     "settings_exclusions_remove_all_exclusions_message": {
         "message": "Вы уверены, что хотите продолжить? Список исключений будет удалён."
     },
-    "settings_exclusions_import_button": {
-        "message": "Импортировать"
-    },
-    "settings_exclusions_export_button": {
-        "message": "Экспортировать"
-    },
-    "settings_exclusions_delete_button": {
-        "message": "Удалить все"
-    },
     "settings_exclusion_title": {
         "message": "Исключения"
-    },
-    "settings_connection_mode_title": {
-        "message": "Режим работы"
     },
     "settings_exclusion_change_mode": {
         "message": "Изменить режим"
@@ -494,12 +461,6 @@
     "settings_exclusion_selective_description": {
         "message": "AdGuard VPN будет работать только на сайтах из списка исключений"
     },
-    "settings_exclusion_subdomains_title": {
-        "message": "Поддомены"
-    },
-    "settings_exclusion_subdomains_text": {
-        "message": "Вы можете добавлять домены (например, google.com) или все поддомены (например, *.google.com)"
-    },
     "global_error_title": {
         "message": "Произошла ошибка"
     },
@@ -512,11 +473,11 @@
     "global_error_try_again": {
         "message": "Попробовать снова"
     },
-    "authentication_successful_social": {
-        "message": "Успешная аутентификация! Можете открыть AdGuard VPN и начать им пользоваться."
+    "authentication_successful_notification": {
+        "message": "Вы вошли в аккаунт. Можно начинать пользоваться AdGuard VPN."
     },
     "control_error_description": {
-        "message": "Похоже, что еще одно расширение Chrome пытается контролировать ваше соединение. Пожалуйста, отключите другое расширение в вашем браузере."
+        "message": "Похоже, что ещё одно расширение пытается контролировать ваше соединение. Пожалуйста, отключите другое расширение в браузере."
     },
     "control_error_disable": {
         "message": "Отключить"
@@ -621,34 +582,10 @@
         "message": "Оставить отзыв"
     },
     "popup_confirm_rate_modal_rate_title": {
-        "message": "Спасибо! А можете оставить отзыв в магазине Chrome?"
+        "message": "Спасибо! А можете оставить отзыв в магазине расширений?"
     },
     "popup_confirm_rate_modal_confirm_button": {
-        "message": "Перейти в магазин Chrome"
-    },
-    "settings_run_upgrade_early_bird": {
-        "message": "Ограниченное предложение"
-    },
-    "sale_title": {
-        "message": "Что вы получите:"
-    },
-    "upgrade_features_data": {
-        "message": "Неограниченный трафик"
-    },
-    "upgrade_features_speed": {
-        "message": "Ультрабыстрые серверы"
-    },
-    "upgrade_features_all_locations": {
-        "message": "Все локации"
-    },
-    "upgrade_features_devices": {
-        "message": "До 5  устройств"
-    },
-    "upgrade_features_streaming": {
-        "message": "Стриминг"
-    },
-    "continue_us_free_button": {
-        "message": "Продолжить бесплатно"
+        "message": "Перейти в магазин"
     },
     "options_title": {
         "message": "Опции AdGuard VPN"
@@ -709,7 +646,7 @@
         "message": "Безлимитный VPN"
     },
     "popup_upgrade_screen_unlimited_data": {
-        "message": "Неограниченный трафик"
+        "message": "Безлимитный трафик"
     },
     "popup_upgrade_screen_unlimited_data_desc": {
         "message": "Единственное ограничение — мы никогда не делимся вашими данными. Путешествуйте по сети, сколько душе угодно!"
@@ -727,13 +664,10 @@
         "message": "5 континентов и десятки стран. Выберите город и пользуйтесь интернетом безопасно!"
     },
     "popup_upgrade_screen_connect_devices": {
-        "message": "До 5  устройств"
+        "message": "До 5 устройств"
     },
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Подключите все свои устройства к AdGuard VPN — или защитите всю семью!"
-    },
-    "popup_upgrade_screen_streaming": {
-        "message": "Доступен стриминг"
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Улучшить"
@@ -744,15 +678,6 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> осталось в этом месяце",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_selective_mode_popup_message": {
-        "message": "В Выборочном режиме AdGuard VPN работает только на разрешённых сайтах, которые вы добавили в список."
-    },
-    "options_selective_mode_popup_button_switch_now": {
-        "message": "Переключить сейчас"
-    },
-    "options_selective_mode_popup_attention": {
-        "message": "Вы уверены, что хотите переключиться?"
     },
     "options_exclusions_import_select_title": {
         "message": "Импортировать исключения в:"
@@ -827,6 +752,18 @@
         "message": "Вы вышли из AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "Сейчас ваше соединение не защищено. Чтобы оставаться в безопасности, нажмите на иконку AdGuard VPN и войдите в аккаунт заново."
+        "message": "Вы не подключены к AdGuard VPN. Чтобы оставаться в безопасности, нажмите на иконку AdGuard VPN и войдите в аккаунт заново."
+    },
+    "notification_data_limit_reached_title": {
+        "message": "Лимит трафика в этом месяце исчерпан"
+    },
+    "notification_data_limit_reached_description": {
+        "message": "VPN будет работать медленнее."
+    },
+    "notification_data_left_mb": {
+        "message": "Осталось %num% МБ."
+    },
+    "notification_data_left_description": {
+        "message": "Скоро VPN будет работать медленнее."
     }
 }

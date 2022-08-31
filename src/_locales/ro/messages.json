@@ -194,9 +194,6 @@
     "auth_sign_in_button": {
         "message": "Conectați-vă"
     },
-    "auth_sign_in_link": {
-        "message": "Conectați-vă cu contul AdGuard"
-    },
     "auth_title": {
         "message": "Conectați-vă sau creați un cont"
     },
@@ -215,20 +212,8 @@
     "auth_sign_in_provider_facebook": {
         "message": "Continuați cu Facebook"
     },
-    "auth_header_sign_in_account": {
-        "message": "Vă conectați cu contul AdGuard"
-    },
-    "auth_header_sign_up_create_account": {
-        "message": "Prin înscriere vă creați contul AdGuard"
-    },
-    "auth_header_sign_in": {
-        "message": "V-ați conectat ca <div>%username%</div> "
-    },
     "auth_header_sing_in_notice": {
         "message": "Conectarea ca <span>%username%</span>"
-    },
-    "auth_header_registration": {
-        "message": "V-ați înscris ca <div>%username%</div>"
     },
     "auth_header_2fa_subtitle": {
         "message": "Autentificare cu doi factori"
@@ -386,12 +371,6 @@
     "settings_exclusion_status_all_subdomains": {
         "message": "toate subdomeniile"
     },
-    "settings_exclusion_service_settings_subtitle_regular_mode": {
-        "message": "AdGuard VPN este oprit pentru domeniile verificate"
-    },
-    "settings_exclusion_service_settings_subtitle_selective_mode": {
-        "message": "AdGuard VPN este activat pentru domeniile verificate"
-    },
     "settings_exclusion_group_settings_subtitle_regular_mode": {
         "message": "AdGuard VPN este oprit pentru domeniile și subdomeniile verificate"
     },
@@ -464,20 +443,8 @@
     "settings_exclusions_remove_all_exclusions_message": {
         "message": "Sunteți sigur că doriți să continuați? Întreaga listă de excluderi va fi eliminată."
     },
-    "settings_exclusions_import_button": {
-        "message": "Import"
-    },
-    "settings_exclusions_export_button": {
-        "message": "Export"
-    },
-    "settings_exclusions_delete_button": {
-        "message": "Elimină toate"
-    },
     "settings_exclusion_title": {
         "message": "Excluderi"
-    },
-    "settings_connection_mode_title": {
-        "message": "Mod de operare"
     },
     "settings_exclusion_change_mode": {
         "message": "Schimbați modul"
@@ -494,12 +461,6 @@
     "settings_exclusion_selective_description": {
         "message": "AdGuard VPN este activat numai pentru site-urile web adăugate la excluderi"
     },
-    "settings_exclusion_subdomains_title": {
-        "message": "Subdomenii"
-    },
-    "settings_exclusion_subdomains_text": {
-        "message": "Puteți adăuga domenii (ex. google.com) sau toate subdomeniile (ex. *.google.com)"
-    },
     "global_error_title": {
         "message": "A apărut o eroare"
     },
@@ -512,11 +473,11 @@
     "global_error_try_again": {
         "message": "Încercați din nou"
     },
-    "authentication_successful_social": {
-        "message": "Autentificat cu succes! Puteți deschide AdGuard VPN și începe a-l utiliza."
+    "authentication_successful_notification": {
+        "message": "Autentificat cu succes! Puteți deschide AdGuard VPN și puteți începe să-l utilizați."
     },
     "control_error_description": {
-        "message": "Se pare că o altă extensie Chrome încearcă să vă controleze conexiunile. Vă rugăm să dezactivați cealaltă extensie în browser."
+        "message": "Se pare că o altă extensie Chrome încearcă să vă controleze conexiunea. Dezactivați cealaltă extensie din browserul dumneavoastră."
     },
     "control_error_disable": {
         "message": "Dezactivați-l"
@@ -621,34 +582,10 @@
         "message": "Lasă-ți un feedback"
     },
     "popup_confirm_rate_modal_rate_title": {
-        "message": "Wow! Ne puteți evalua și în Chrome Store?"
+        "message": "Wow! Ne puteți evalua și în Chrome Web Store?"
     },
     "popup_confirm_rate_modal_confirm_button": {
-        "message": "Accesați Magazinul Chrome"
-    },
-    "settings_run_upgrade_early_bird": {
-        "message": "Prețuri de păsări timpurii"
-    },
-    "sale_title": {
-        "message": "Ce obțineți:"
-    },
-    "upgrade_features_data": {
-        "message": "Date nelimitate"
-    },
-    "upgrade_features_speed": {
-        "message": "Servere ultrarapide"
-    },
-    "upgrade_features_all_locations": {
-        "message": "Toate locațiile"
-    },
-    "upgrade_features_devices": {
-        "message": "Până la 5 dispozitive"
-    },
-    "upgrade_features_streaming": {
-        "message": "Asistență pentru streaming"
-    },
-    "continue_us_free_button": {
-        "message": "Continuați să utilizați gratuit"
+        "message": "Mergeți la Chrome Web Store"
     },
     "options_title": {
         "message": "Opțiuni AdGuard VPN"
@@ -732,9 +669,6 @@
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Conectați toate gadgeturile dvs. la AdGuard VPN în același timp — sau protejați întreaga familie!"
     },
-    "popup_upgrade_screen_streaming": {
-        "message": "Streaming"
-    },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Actualizați"
     },
@@ -744,15 +678,6 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> rămași luna aceasta",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_selective_mode_popup_message": {
-        "message": "În modul Selectiv AdGuard VPN funcționează numai pe site-urile permise pe care le-ați adăugat la listă."
-    },
-    "options_selective_mode_popup_button_switch_now": {
-        "message": "Comutați acum"
-    },
-    "options_selective_mode_popup_attention": {
-        "message": "Sigur doriți să comutați?"
     },
     "options_exclusions_import_select_title": {
         "message": "Importați excluderi în:"
@@ -827,6 +752,18 @@
         "message": "V-ați deconectat de la AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "Vă rugăm să notați: conexiunea dvs. nu este securizată! Pentru a continua navigarea în mod privat, faceți clic pe pictograma AdGuard VPN și conectați-vă din nou."
+        "message": "Vă rugăm să rețineți: nu sunteți conectat la VPN și traficul dvs. nu este protejat! Pentru a continua să navigați în mod privat, faceți clic pe pictograma AdGuard VPN și conectați-vă din nou."
+    },
+    "notification_data_limit_reached_title": {
+        "message": "Limita lunară de date a fost atinsă"
+    },
+    "notification_data_limit_reached_description": {
+        "message": "Viteza de conectare la VPN a fost redusă."
+    },
+    "notification_data_left_mb": {
+        "message": "Au mai rămas %num% MB."
+    },
+    "notification_data_left_description": {
+        "message": "Viteza conexiunii VPN va fi redusă în curând."
     }
 }

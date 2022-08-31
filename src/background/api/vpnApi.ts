@@ -30,6 +30,7 @@ export interface VpnExtensionInfo extends AxiosResponse {
     connected_devices_count: number;
     max_devices_count: number;
     vpn_connected: boolean;
+    email_confirmation_required: boolean;
 }
 
 export interface EndpointApiData {

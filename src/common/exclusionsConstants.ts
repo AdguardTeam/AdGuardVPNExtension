@@ -61,4 +61,4 @@ export interface ServiceDto {
     domains: string[],
 }
 
-export const ICON_FOR_DOMAIN = 'https://icons.adguard.org/icon?domain=';
+export const ICON_FOR_DOMAIN = 'https://icons.adguardvpn.com/icon?domain=';

@@ -35,6 +35,7 @@ export interface VpnExtensionInfoInterface {
     maxUploadedBytes: number;
     renewalTrafficDate: string;
     maxDevicesCount: number;
+    emailConfirmationRequired: boolean;
 }
 
 interface CurrentLocationData {
@@ -245,6 +246,7 @@ const getVpnExtensionInfo = async (
         max_uploaded_bytes: maxUploadedBytes,
         renewal_traffic_date: renewalTrafficDate,
         max_devices_count: maxDevicesCount,
+        email_confirmation_required: emailConfirmationRequired,
     } = info;
 
     return {
@@ -259,6 +261,7 @@ const getVpnExtensionInfo = async (
         maxUploadedBytes,
         renewalTrafficDate,
         maxDevicesCount,
+        emailConfirmationRequired,
     };
 };
 

@@ -4,6 +4,7 @@ import { servicesManager } from '../../../../src/background/exclusions/services/
 import { vpnProvider } from '../../../../src/background/providers/vpnProvider';
 
 jest.mock('../../../../src/background/providers/vpnProvider');
+jest.mock('../../../../src/lib/logger');
 jest.mock('nanoid');
 
 const nanoidMock = nanoid as jest.MockedFunction<() => string>;

@@ -60,14 +60,14 @@ export const RateModal = observer(() => {
     return (
         <Modal
             isOpen={showRateModal}
-            className="rate-modal"
+            className="modal rate-modal"
             shouldCloseOnOverlayClick
-            overlayClassName="rate-modal__overlay"
+            overlayClassName="modal__overlay"
             onRequestClose={closeModal}
         >
             <button
                 type="button"
-                className="button button--icon rate-modal__close-icon"
+                className="button button--icon modal__close-icon"
                 onClick={closeModal}
             >
                 <svg className="icon icon--button icon--cross">
@@ -79,7 +79,7 @@ export const RateModal = observer(() => {
                 className="rate-modal__image"
                 alt="rating"
             />
-            <div className="rate-modal__title">
+            <div className="modal__title">
                 {reactTranslator.getMessage('popup_rate_modal_title')}
             </div>
             <div className="rate-modal__subtitle">

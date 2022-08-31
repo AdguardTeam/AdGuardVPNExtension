@@ -22,6 +22,8 @@ export const APPEARANCE_THEMES = {
     LIGHT: 'LIGHT',
 };
 
+export const THEME_URL_PARAMETER = 'theme';
+
 export const APPEARANCE_THEME_DEFAULT = APPEARANCE_THEMES.SYSTEM;
 
 export enum MessageType {
@@ -31,6 +33,7 @@ export enum MessageType {
 
     ADD_LONG_LIVED_CONNECTION = 'add.long.lived.connection',
     AUTHENTICATE_SOCIAL = 'authenticate.social',
+    AUTHENTICATE_THANKYOU_PAGE = 'authenticate.thankyou.page',
     GET_POPUP_DATA = 'get.popup.data',
     GET_OPTIONS_DATA = 'get.options.data',
     GET_VPN_FAILURE_PAGE = 'get.vpn.failure.page',
@@ -85,6 +88,7 @@ export enum MessageType {
     ADD_CUSTOM_DNS_SERVER = 'add.custom.dns.server',
     EDIT_CUSTOM_DNS_SERVER = 'edit.custom.dns.server',
     REMOVE_CUSTOM_DNS_SERVER = 'remove.custom.dns.server',
+    RESEND_CONFIRM_REGISTRATION_LINK = 'resend.confirm.registration.link',
 }
 
 export const ERROR_STATUSES = {
@@ -94,8 +98,6 @@ export const ERROR_STATUSES = {
 
 // Error text thrown when connection is canceled by user. See issue - AG-2291
 export const FORCE_CANCELLED = 'Connection was cancelled by user';
-
-export const UNINSTALL_URL = 'https://adguard-vpn.com/forward.html?action=adguard_uninstal_ext&from=background_page&app=vpn_extension';
 
 export const AUTH_PROVIDERS = {
     APPLE: 'apple',

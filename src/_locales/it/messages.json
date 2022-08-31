@@ -194,9 +194,6 @@
     "auth_sign_in_button": {
         "message": "Accedi"
     },
-    "auth_sign_in_link": {
-        "message": "Accedi con profilo AdGuard"
-    },
     "auth_title": {
         "message": "Accedere o creare un account"
     },
@@ -215,20 +212,8 @@
     "auth_sign_in_provider_facebook": {
         "message": "Continua con Facebook"
     },
-    "auth_header_sign_in_account": {
-        "message": "Stai accedendo con profilo AdGuard"
-    },
-    "auth_header_sign_up_create_account": {
-        "message": "Registrandoti creerai il tuo profilo AdGuard"
-    },
-    "auth_header_sign_in": {
-        "message": "Stai accedendo come <div>%username%</div>"
-    },
     "auth_header_sing_in_notice": {
         "message": "Accesso come <span>%username%</span>"
-    },
-    "auth_header_registration": {
-        "message": "Ti stai registrando come <div>%username%</div>"
     },
     "auth_header_2fa_subtitle": {
         "message": "Autenticazione a due fattori"
@@ -386,12 +371,6 @@
     "settings_exclusion_status_all_subdomains": {
         "message": "tutti i sottodomini"
     },
-    "settings_exclusion_service_settings_subtitle_regular_mode": {
-        "message": "AdGuard VPN non funzionerà sui domini verificati"
-    },
-    "settings_exclusion_service_settings_subtitle_selective_mode": {
-        "message": "AdGuard VPN funzionerà sui domini verificati"
-    },
     "settings_exclusion_group_settings_subtitle_regular_mode": {
         "message": "AdGuard VPN non funzionerà sui domini e sottodomini verificati"
     },
@@ -464,20 +443,8 @@
     "settings_exclusions_remove_all_exclusions_message": {
         "message": "Sei sicuro di voler proseguire? L'intero elenco di esclusioni verrà rimosso."
     },
-    "settings_exclusions_import_button": {
-        "message": "Importa"
-    },
-    "settings_exclusions_export_button": {
-        "message": "Esporta"
-    },
-    "settings_exclusions_delete_button": {
-        "message": "Elimina tutto"
-    },
     "settings_exclusion_title": {
         "message": "Esclusioni"
-    },
-    "settings_connection_mode_title": {
-        "message": "Modalità operativa"
     },
     "settings_exclusion_change_mode": {
         "message": "Cambia modalità"
@@ -494,12 +461,6 @@
     "settings_exclusion_selective_description": {
         "message": "AdGuard VPN funzionerà solo sui siti web aggiunti alle esclusioni"
     },
-    "settings_exclusion_subdomains_title": {
-        "message": "Sottodomini"
-    },
-    "settings_exclusion_subdomains_text": {
-        "message": "Puoi aggiungere domini (es. google.it) o tutti i sottodomini (es. *.google.it)"
-    },
     "global_error_title": {
         "message": "Si è verificato un errore"
     },
@@ -512,11 +473,11 @@
     "global_error_try_again": {
         "message": "Riprova"
     },
-    "authentication_successful_social": {
-        "message": "Autenticazione riuscita! Puoi aprire AdGuard VPN e iniziare ad utilizzarla."
+    "authentication_successful_notification": {
+        "message": "Autenticazione riuscita! Puoi aprire AdGuard VPN e iniziare a utilizzarla."
     },
     "control_error_description": {
-        "message": "Sembra che un'altra estensione di Chrome stia tentando di controllare la tua connessione. Ti preghiamo di disattivare l'altra estensione nel browser."
+        "message": "Sembra che un'altra estensione di browser stia cercando di controllare la connessione. Si prega di disabilitare l'altra estensione nel browser."
     },
     "control_error_disable": {
         "message": "Disattivala"
@@ -621,34 +582,10 @@
         "message": "Lascia feedback"
     },
     "popup_confirm_rate_modal_rate_title": {
-        "message": "Oh! Puoi valutarci anche nel Chrome Store?"
+        "message": "Oh! Puoi valutarci anche nell'Extension Store?"
     },
     "popup_confirm_rate_modal_confirm_button": {
-        "message": "Vai al Chrome Store"
-    },
-    "settings_run_upgrade_early_bird": {
-        "message": "Prezzo iniziale"
-    },
-    "sale_title": {
-        "message": "Cosa otterrai:"
-    },
-    "upgrade_features_data": {
-        "message": "Dati illimitati"
-    },
-    "upgrade_features_speed": {
-        "message": "Server super veloci"
-    },
-    "upgrade_features_all_locations": {
-        "message": "Tutte le località"
-    },
-    "upgrade_features_devices": {
-        "message": "Fino a 5 dispositivi"
-    },
-    "upgrade_features_streaming": {
-        "message": "Supporto streaming"
-    },
-    "continue_us_free_button": {
-        "message": "Continua in modo gratuito"
+        "message": "Vai all'Extension Store"
     },
     "options_title": {
         "message": "Opzioni di AdGuard VPN"
@@ -732,9 +669,6 @@
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Collegare tutti i sui dispositivi ad AdGuard VPN allo stesso tempo, o proteggere l'intera famiglia!"
     },
-    "popup_upgrade_screen_streaming": {
-        "message": "Streaming"
-    },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Aggiorna"
     },
@@ -744,15 +678,6 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> rimanenti questo mese",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_selective_mode_popup_message": {
-        "message": "In Modalità Selettiva AdGuard VPN funzionerà solo sui siti web consentiti che hai aggiunto alla lista."
-    },
-    "options_selective_mode_popup_button_switch_now": {
-        "message": "Cambia ora"
-    },
-    "options_selective_mode_popup_attention": {
-        "message": "Sei sicuro di voler cambiare?"
     },
     "options_exclusions_import_select_title": {
         "message": "Importa esclusioni in:"
@@ -827,6 +752,18 @@
         "message": "Ti sei disconnesso da AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "Attenzione: la connessione non è sicura! Per continuare a navigare in privato, fare clic sull'icona di AdGuard VPN e accedere nuovamente."
+        "message": "Attenzione: non siete connessi alla VPN e il vostro traffico non è protetto! Per continuare a navigare privatamente, fare clic sull'icona AdGuard VPN e accedere nuovamente."
+    },
+    "notification_data_limit_reached_title": {
+        "message": "Limite dei dati mensile raggiunto"
+    },
+    "notification_data_limit_reached_description": {
+        "message": "La velocità di connessione VPN è stata ridotta."
+    },
+    "notification_data_left_mb": {
+        "message": "Sono rimasti %num% MB."
+    },
+    "notification_data_left_description": {
+        "message": "La velocità di connessione VPN verrà ridotta presto."
     }
 }

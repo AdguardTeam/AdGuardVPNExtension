@@ -385,6 +385,11 @@ class Messenger {
         const type = MessageType.REMOVE_CUSTOM_DNS_SERVER;
         return this.sendMessage(type, { dnsServerId });
     }
+
+    resendConfirmRegistrationLink() {
+        const type = MessageType.RESEND_CONFIRM_REGISTRATION_LINK;
+        return this.sendMessage(type);
+    }
 }
 
 export const messenger = new Messenger();

@@ -31,6 +31,8 @@ Test:
           - |-
             set -e
             set -x
+            # Fix mixed logs
+            exec 2>&1
 
             yarn install ${bamboo.varsYarn}
             yarn lint
@@ -40,14 +42,14 @@ Test:
             STAGE_ENV=test \
             VPN_API_URL="${bamboo.devVpnApiUrl}" \
             AUTH_API_URL="${bamboo.devAuthApiUrl}" \
-            WEBSITE_DOMAIN="${bamboo.devVpnDomain}" \
+            FORWARDER_DOMAIN="${bamboo.devVpnForwarderDomain}" \
             yarn dev
 
             # build with prod API endpoints
             STAGE_ENV=prod \
             VPN_API_URL="${bamboo.prodVpnApiUrl}" \
             AUTH_API_URL="${bamboo.prodAuthApiUrl}" \
-            WEBSITE_DOMAIN="${bamboo.prodVpnDomain}" \
+            FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}" \
             yarn dev
             rm -rf node_modules
   artifacts:

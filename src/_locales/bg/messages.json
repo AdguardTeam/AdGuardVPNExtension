@@ -68,12 +68,6 @@
     "settings_exclusions_action_remove_all": {
         "message": "Премахни всички"
     },
-    "settings_exclusions_import_button": {
-        "message": "Импортирай"
-    },
-    "settings_exclusions_export_button": {
-        "message": "Експортирай"
-    },
     "settings_exclusion_title": {
         "message": "Изключения"
     },

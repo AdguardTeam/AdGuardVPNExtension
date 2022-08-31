@@ -56,7 +56,7 @@ export const ExtraOptions = observer(() => {
             shouldCloseOnOverlayClick
             onRequestClose={uiStore.closeOptionsModal}
             className="extra-options"
-            overlayClassName="extra-options__overlay"
+            overlayClassName="modal__overlay extra-options__overlay"
         >
             {!isPremiumToken && (
                 <Option

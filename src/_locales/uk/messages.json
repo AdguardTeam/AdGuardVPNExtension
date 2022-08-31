@@ -141,7 +141,7 @@
         "message": "Дворічна передплата"
     },
     "account_get_subscription": {
-        "message": "Отримати передплата"
+        "message": "Отримати передплату"
     },
     "account_max_devices_count": {
         "message": "До %num% пристроїв одночасно"
@@ -194,9 +194,6 @@
     "auth_sign_in_button": {
         "message": "Увійти"
     },
-    "auth_sign_in_link": {
-        "message": "Увійти з обліковим записом AdGuard"
-    },
     "auth_title": {
         "message": "Увійти або створити обліковий запис"
     },
@@ -215,20 +212,8 @@
     "auth_sign_in_provider_facebook": {
         "message": "Увійти через Facebook"
     },
-    "auth_header_sign_in_account": {
-        "message": "Ви входите з обліковим записом AdGuard"
-    },
-    "auth_header_sign_up_create_account": {
-        "message": "Зареєструвавшись, ви створите обліковий запис AdGuard"
-    },
-    "auth_header_sign_in": {
-        "message": "Ви входите як <div>%username%</div> "
-    },
     "auth_header_sing_in_notice": {
         "message": "Ви входите як <span>%username%</span>"
-    },
-    "auth_header_registration": {
-        "message": "Ви реєструєтесь як <div>%username%</div>"
     },
     "auth_header_2fa_subtitle": {
         "message": "Двоетапна перевірка"
@@ -386,12 +371,6 @@
     "settings_exclusion_status_all_subdomains": {
         "message": "усі піддомени"
     },
-    "settings_exclusion_service_settings_subtitle_regular_mode": {
-        "message": "AdGuard VPN вимкнено для помічених галкою доменів"
-    },
-    "settings_exclusion_service_settings_subtitle_selective_mode": {
-        "message": "AdGuard VPN увімкнено для помічених галкою доменів"
-    },
     "settings_exclusion_group_settings_subtitle_regular_mode": {
         "message": "AdGuard VPN вимкнено для помічених галкою доменів та піддоменів"
     },
@@ -420,7 +399,7 @@
         "message": "Скасувати"
     },
     "settings_exclusion_modal_remove": {
-        "message": "Вилучити"
+        "message": "Видалити"
     },
     "settings_exclusion_modal_save": {
         "message": "Зберегти"
@@ -464,20 +443,8 @@
     "settings_exclusions_remove_all_exclusions_message": {
         "message": "Ви дійсно хочете продовжити? Увесь список винятнів буде видалено."
     },
-    "settings_exclusions_import_button": {
-        "message": "Імпортувати"
-    },
-    "settings_exclusions_export_button": {
-        "message": "Експортувати"
-    },
-    "settings_exclusions_delete_button": {
-        "message": "Видалити все"
-    },
     "settings_exclusion_title": {
         "message": "Винятки"
-    },
-    "settings_connection_mode_title": {
-        "message": "Режим роботи"
     },
     "settings_exclusion_change_mode": {
         "message": "Змінити режим"
@@ -494,12 +461,6 @@
     "settings_exclusion_selective_description": {
         "message": "AdGuard VPN працюватиме лише на сайтах, які додано до винятків"
     },
-    "settings_exclusion_subdomains_title": {
-        "message": "Піддомени"
-    },
-    "settings_exclusion_subdomains_text": {
-        "message": "Можете додати домен (наприклад, google.com) або ж усі його піддомени (*.google.com)"
-    },
     "global_error_title": {
         "message": "Сталася помилка"
     },
@@ -512,11 +473,11 @@
     "global_error_try_again": {
         "message": "Спробувати знову"
     },
-    "authentication_successful_social": {
+    "authentication_successful_notification": {
         "message": "Ви успішно авторизувались! Можете відкрити AdGuard VPN та під'єднатись."
     },
     "control_error_description": {
-        "message": "Схоже, що інше розширення в браузері Chrome може мати контроль над з'єднанням. Вимкніть його, будь ласка."
+        "message": "Схоже, що якесь інше браузерне розширення намагається контролювати з'єднання. Вимкніть його, будь ласка."
     },
     "control_error_disable": {
         "message": "Вимкнути"
@@ -564,7 +525,7 @@
         "message": "Місцезнаходження не знайдено"
     },
     "popup_traffic_limit_reached": {
-        "message": "Досягнуто місячний ліміт трафіку"
+        "message": "Вичерпано місячний ліміт трафіку"
     },
     "premium_upgrade": {
         "message": "Придбати"
@@ -621,34 +582,10 @@
         "message": "Поділитись"
     },
     "popup_confirm_rate_modal_rate_title": {
-        "message": "Отакої! А можете оцінити нас у Вебмагазині Chrome?"
+        "message": "Отакої! А можете оцінити нас у Вебмагазині браузера?"
     },
     "popup_confirm_rate_modal_confirm_button": {
-        "message": "Перейти до Вебмагазину Chrome"
-    },
-    "settings_run_upgrade_early_bird": {
-        "message": "Обмежена пропозиція"
-    },
-    "sale_title": {
-        "message": "Що ви отримаєте:"
-    },
-    "upgrade_features_data": {
-        "message": "Необмежений трафік"
-    },
-    "upgrade_features_speed": {
-        "message": "Супер-швидкі сервери"
-    },
-    "upgrade_features_all_locations": {
-        "message": "Усі місцезнаходження"
-    },
-    "upgrade_features_devices": {
-        "message": "До п'яти пристроїв"
-    },
-    "upgrade_features_streaming": {
-        "message": "Підтримка стрімингу"
-    },
-    "continue_us_free_button": {
-        "message": "Продовжити безплатно"
+        "message": "Перейти до Вебмагазину браузера"
     },
     "options_title": {
         "message": "AdGuard VPN Параметри"
@@ -732,9 +669,6 @@
     "popup_upgrade_screen_connect_devices_desc": {
         "message": "Під'єднайте усі свої пристрої до AdGuard VPN одночасно — захистіть всю родину!"
     },
-    "popup_upgrade_screen_streaming": {
-        "message": "Стрімінг"
-    },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Покращити"
     },
@@ -744,15 +678,6 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> залишилось цього місяця",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_selective_mode_popup_message": {
-        "message": "У Вибірковому режимі AdGuard VPN працює тільки на вибраних сайтах, які ви додали до списку."
-    },
-    "options_selective_mode_popup_button_switch_now": {
-        "message": "Змінити"
-    },
-    "options_selective_mode_popup_attention": {
-        "message": "Ви впевнені, що хочете змінити режим?"
     },
     "options_exclusions_import_select_title": {
         "message": "Імпортувати винятки до:"
@@ -827,6 +752,18 @@
         "message": "Ви вийшли з AdGuard VPN"
     },
     "options_signedout_page_description": {
-        "message": "Зверніть увагу, що тепер ваше з'єднання не захищене! Щоб безпечно користуватись інтернетом, натисніть на піктограму AdGuard VPN та увійдіть знову."
+        "message": "Зверніть увагу, що тепер ви не під'єднані до VPN та ваш трафік не захищено! Щоб безпечно користуватись інтернетом, натисніть на піктограму AdGuard VPN та увійдіть знову."
+    },
+    "notification_data_limit_reached_title": {
+        "message": "Вичерпано місячний ліміт трафіку"
+    },
+    "notification_data_limit_reached_description": {
+        "message": "Швидкість VPN-з'єднання знижено."
+    },
+    "notification_data_left_mb": {
+        "message": "Залишилось %num% МБ."
+    },
+    "notification_data_left_description": {
+        "message": "Швидкість VPN-з'єднання буде зменшено невдовзі."
     }
 }

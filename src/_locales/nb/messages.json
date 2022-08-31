@@ -83,20 +83,8 @@
     "account_title": {
         "message": "Konto"
     },
-    "account_edit": {
-        "message": "Håndter"
-    },
     "account_version": {
         "message": "Versjon"
-    },
-    "account_free": {
-        "message": "Gratis"
-    },
-    "account_unlimited": {
-        "message": "Ubegrenset"
-    },
-    "account_sign_out": {
-        "message": "Logg av"
     },
     "rate_description": {
         "message": "Heisann, vi er et team fra AdGuard og det er veldig viktig for oss å vite om din mening om vårt produkt. Vennligst gi det en vurdering."
@@ -125,18 +113,6 @@
     "auth_sign_up_button": {
         "message": "Bli med"
     },
-    "auth_sign_in": {
-        "message": "Logg på"
-    },
-    "auth_sign_in_button": {
-        "message": "Logg på"
-    },
-    "auth_sign_in_link": {
-        "message": "Logg på med AdGuard-konto"
-    },
-    "auth_title": {
-        "message": "Autorisasjon"
-    },
     "auth_sign_in_provider_adguard_label": {
         "message": "E-post"
     },
@@ -148,21 +124,6 @@
     },
     "auth_sign_in_provider_facebook": {
         "message": "Fortsett med Facebook"
-    },
-    "auth_header_sign_in_account": {
-        "message": "Du logger på med AdGuard-kontoen din"
-    },
-    "auth_header_sign_up_create_account": {
-        "message": "Ved å registrere deg, oppretter du AdGuard-kontoen din"
-    },
-    "auth_header_sign_in": {
-        "message": "Du logger på som <div>%username%</div> "
-    },
-    "auth_header_sing_in_notice": {
-        "message": "Du har allerede en konto: <span>%username%</span>"
-    },
-    "auth_header_registration": {
-        "message": "Du lager en konto som <div>%username%</div>"
     },
     "auth_header_2fa_subtitle": {
         "message": "2-trinnspålogging"
@@ -308,32 +269,14 @@
     "settings_exclusions_action_remove_all": {
         "message": "Fjern alle"
     },
-    "settings_exclusions_import_button": {
-        "message": "Importer"
-    },
-    "settings_exclusions_export_button": {
-        "message": "Eksport"
-    },
-    "settings_exclusions_delete_button": {
-        "message": "Slett alle"
-    },
     "settings_exclusion_title": {
         "message": "Unntak"
-    },
-    "settings_connection_mode_title": {
-        "message": "Driftsmodus"
     },
     "settings_exclusion_general_title": {
         "message": "Generell modus"
     },
     "settings_exclusion_selective_title": {
         "message": "Selektiv modus"
-    },
-    "settings_exclusion_subdomains_title": {
-        "message": "Underdomener"
-    },
-    "settings_exclusion_subdomains_text": {
-        "message": "Du kan legge til domener (f.eks. google.com) eller alle underdomener (f.eks. *.google.com)"
     },
     "global_error_title": {
         "message": "En feil oppstod"
@@ -346,9 +289,6 @@
     },
     "global_error_try_again": {
         "message": "Prøv på nytt"
-    },
-    "control_error_description": {
-        "message": "Det ser ut som en annen Chrome-utvidelse prøver å styre tilkoblingen din. Vennligst skru av den andre utvidelsen i nettleseren din."
     },
     "control_error_disable": {
         "message": "Skru den av"
@@ -395,9 +335,6 @@
     "endpoints_not_found": {
         "message": "Stedet ble ikke funnet"
     },
-    "popup_traffic_limit_reached": {
-        "message": "Den månedlige datagrensen har blitt nådd. Behøver du mer?"
-    },
     "premium_upgrade": {
         "message": "Oppgrader"
     },
@@ -439,27 +376,6 @@
     },
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "Gi tilbakemelding"
-    },
-    "settings_run_upgrade_early_bird": {
-        "message": "Priser for de som er tidlig ute"
-    },
-    "sale_title": {
-        "message": "Det du får:"
-    },
-    "upgrade_features_data": {
-        "message": "Ubegrenset data"
-    },
-    "upgrade_features_speed": {
-        "message": "Tjenere med lysets hastighet"
-    },
-    "upgrade_features_all_locations": {
-        "message": "Alle posisjoner"
-    },
-    "upgrade_features_devices": {
-        "message": "Opptil 5 enheter"
-    },
-    "continue_us_free_button": {
-        "message": "Fortsett å bruke det gratis"
     },
     "options_title": {
         "message": "AdGuard VPN-innstillinger"
@@ -506,15 +422,6 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> gjenstår denne måneden",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_selective_mode_popup_message": {
-        "message": "I selektiv modus, fungerer AdGuard VPN kun på tillatte nettsteder som du har lagt til i listen."
-    },
-    "options_selective_mode_popup_button_switch_now": {
-        "message": "Bytt nå"
-    },
-    "options_selective_mode_popup_attention": {
-        "message": "Er du sikker på at du vil skifte?"
     },
     "options_exclusions_import_select_title": {
         "message": "Importer unntak til:"

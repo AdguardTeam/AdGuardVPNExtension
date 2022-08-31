@@ -6,11 +6,12 @@ import {
 } from 'mobx';
 import { nanoid } from 'nanoid';
 
-import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT } from '../../lib/constants';
+import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT, THEME_URL_PARAMETER } from '../../lib/constants';
 import { DNS_DEFAULT, DNS_SERVERS } from '../../background/dns/dnsConstants';
 import { messenger } from '../../lib/messenger';
 import { REQUEST_STATUSES } from './consts';
 import { log } from '../../lib/logger';
+import { setQueryParameter } from '../../common/url-utils';
 
 export class SettingsStore {
     @observable isRateVisible = true;
@@ -83,6 +84,7 @@ export class SettingsStore {
     };
 
     @action setAppearanceTheme = async (value) => {
+        setQueryParameter(THEME_URL_PARAMETER, value);
         await messenger.setSetting(SETTINGS_IDS.APPEARANCE_THEME, value);
         runInAction(() => {
             this.appearanceTheme = value;
