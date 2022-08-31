@@ -1,3 +1,5 @@
+import { WHOAMI_URL } from '../api/fallbackApi';
+
 export const CONNECTION_TYPE_FIREFOX = {
     DIRECT: 'direct',
 };
@@ -12,4 +14,5 @@ export const DEFAULT_EXCLUSIONS = [
     'localhost',
     '*.local',
     '127.0.0.1',
+    WHOAMI_URL,
 ];
