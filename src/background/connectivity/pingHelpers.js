@@ -55,6 +55,11 @@ export const sendPingMessage = (websocket, vpnToken, appId) => {
             if (pingMsg) {
                 const { requestTime } = pingMsg;
                 const ping = receivedTime - requestTime;
+                if (ping > PING_TIMEOUT_MS) {
+                    // ping over 3s should be ignored,
+                    // because the websocket response seems to be too old
+                    reject(new Error('Ping is too long'));
+                }
                 websocket.removeEventListener('message', messageHandler);
                 clearTimeout(timeoutId);
                 resolve(ping);
@@ -141,9 +146,6 @@ export const measurePingToEndpointViaFetch = async (domainName) => {
             // eslint-disable-next-line no-await-in-loop
             await fetchWithTimeout(requestUrl, FETCH_TIMEOUT_MS);
             const fetchPing = Date.now() - start;
-            if (fetchPing > FETCH_TIMEOUT_MS) {
-                throw new Error('Websocket response is too old');
-            }
             if (!ping || fetchPing < ping) {
                 ping = fetchPing;
             }
