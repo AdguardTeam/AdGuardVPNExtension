@@ -28,7 +28,7 @@ export const Newsletter = () => {
             <button
                 type="button"
                 onClick={handleClick(true)}
-                className="button button--medium button--green newsletter__button-subscribe"
+                className="button button--large button--green"
             >
                 {reactTranslator.getMessage('popup_newsletter_subscribe')}
             </button>
