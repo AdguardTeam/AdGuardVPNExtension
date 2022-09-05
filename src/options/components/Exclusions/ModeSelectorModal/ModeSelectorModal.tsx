@@ -26,14 +26,8 @@ export const ModeSelectorModal = observer(() => {
     };
 
     const titles = {
-        [ExclusionsModes.Regular]: {
-            title: reactTranslator.getMessage('settings_exclusion_general_title'),
-            description: reactTranslator.getMessage('settings_exclusion_general_description'),
-        },
-        [ExclusionsModes.Selective]: {
-            title: reactTranslator.getMessage('settings_exclusion_selective_title'),
-            description: reactTranslator.getMessage('settings_exclusion_selective_description'),
-        },
+        [ExclusionsModes.Regular]: reactTranslator.getMessage('settings_exclusion_general_title'),
+        [ExclusionsModes.Selective]: reactTranslator.getMessage('settings_exclusion_selective_title'),
     };
 
     const renderRadioButton = (exclusionsType: ExclusionsModes) => {
@@ -46,21 +40,16 @@ export const ModeSelectorModal = observer(() => {
         });
 
         return (
-            <div className="settings__control">
-                <div
-                    className="radio"
-                    onClick={enabled ? undefined : () => setMode(exclusionsType)}
-                >
-                    <svg className="radio__icon">
-                        <use xlinkHref={xlinkHref} />
-                    </svg>
-                    <div className="radio__label">
-                        <div className={titleClass}>
-                            {titles[exclusionsType].title}
-                        </div>
-                        <div className="radio__description">
-                            {titles[exclusionsType].description}
-                        </div>
+            <div
+                className="radio"
+                onClick={enabled ? undefined : () => setMode(exclusionsType)}
+            >
+                <svg className="radio__icon">
+                    <use xlinkHref={xlinkHref} />
+                </svg>
+                <div className="radio__label">
+                    <div className={titleClass}>
+                        {titles[exclusionsType]}
                     </div>
                 </div>
             </div>
@@ -83,32 +72,28 @@ export const ModeSelectorModal = observer(() => {
                     <use xlinkHref="#cross" />
                 </svg>
             </button>
-            <div className="settings__section">
-                <Title
-                    title={reactTranslator.getMessage('settings_exclusion_change_mode') as string}
-                />
-                <div className="settings__group">
-                    <div className="settings__controls">
-                        {renderRadioButton(ExclusionsModes.Regular)}
-                        {renderRadioButton(ExclusionsModes.Selective)}
-                    </div>
-                </div>
-                <div className="settings__change-mode-actions">
-                    <button
-                        type="button"
-                        className="button button--large button--outline-secondary"
-                        onClick={closeModal}
-                    >
-                        {reactTranslator.getMessage('settings_exclusion_modal_cancel')}
-                    </button>
-                    <button
-                        type="button"
-                        className="button button--large button--primary"
-                        onClick={handleSaveMode}
-                    >
-                        {reactTranslator.getMessage('settings_exclusion_modal_save')}
-                    </button>
-                </div>
+            <Title
+                title={reactTranslator.getMessage('settings_exclusion_change_mode_modal_title')}
+            />
+            <div className="settings__group">
+                {renderRadioButton(ExclusionsModes.Regular)}
+                {renderRadioButton(ExclusionsModes.Selective)}
+            </div>
+            <div className="settings__change-mode-actions">
+                <button
+                    type="button"
+                    className="button button--large button--outline-secondary"
+                    onClick={closeModal}
+                >
+                    {reactTranslator.getMessage('settings_exclusion_modal_cancel')}
+                </button>
+                <button
+                    type="button"
+                    className="button button--large button--primary"
+                    onClick={handleSaveMode}
+                >
+                    {reactTranslator.getMessage('settings_exclusion_modal_save')}
+                </button>
             </div>
         </Modal>
     );

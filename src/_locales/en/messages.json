@@ -446,20 +446,26 @@
     "settings_exclusion_title": {
         "message": "Exclusions"
     },
-    "settings_exclusion_change_mode": {
-        "message": "Change mode"
+    "settings_exclusion_change_mode_modal_title": {
+        "message": "Where VPN is on"
     },
     "settings_exclusion_general_title": {
-        "message": "General mode"
+        "message": "Everywhere except for excluded websites"
     },
-    "settings_exclusion_general_description": {
-        "message": "AdGuard VPN is on everywhere except websites added to exclusions"
+    "settings_exclusion_general_mode_info": {
+        "message": "VPN is on <span>everywhere</span> except for the websites below"
     },
     "settings_exclusion_selective_title": {
-        "message": "Selective mode"
+        "message": "Only on selected websites"
     },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN is on only for the websites added to exclusions"
+    "settings_exclusion_selective_mode_info": {
+        "message": "VPN is on <span>selectively</span>: only for the websites below"
+    },
+    "settings_exclusion_selective_mode_warning": {
+        "message": "Leaving this list empty disables VPN for all websites"
+    },
+    "settings_exclusion_import_button": {
+        "message": "Import"
     },
     "global_error_title": {
         "message": "Error occurred"
@@ -680,13 +686,16 @@
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
-        "message": "Import exclusions to:"
+        "message": "How to use this list of exclusions?"
+    },
+    "options_exclusions_import_select_subtitle": {
+        "message": "Websites from the imported list will be added to existing exclusions"
     },
     "options_exclusions_import_select_regular": {
-        "message": "Regular list"
+        "message": "I want VPN to be off for these websites"
     },
     "options_exclusions_import_select_selective": {
-        "message": "Selective list"
+        "message": "I want VPN to be on for these websites"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Cancel"

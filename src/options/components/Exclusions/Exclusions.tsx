@@ -29,16 +29,37 @@ export const Exclusions = observer(() => {
         exclusionsStore.setModeSelectorModalOpen(true);
     };
 
-    const mode = exclusionsStore.currentMode === ExclusionsModes.Regular
-        ? reactTranslator.getMessage('settings_exclusion_general_title')
-        : reactTranslator.getMessage('settings_exclusion_selective_title');
+    const modeInfoKey = exclusionsStore.currentMode === ExclusionsModes.Regular
+        ? 'settings_exclusion_general_mode_info'
+        : 'settings_exclusion_selective_mode_info';
 
-    const modeDescription = exclusionsStore.currentMode === ExclusionsModes.Regular
-        ? reactTranslator.getMessage('settings_exclusion_general_description')
-        : reactTranslator.getMessage('settings_exclusion_selective_description');
+    const modeInfo = reactTranslator.getMessage(modeInfoKey, {
+        span: (chunks: string) => {
+            return (
+                <span className="exclusions__mode--link" onClick={openModeSelectorModal}>
+                    {chunks}
+                    <svg className="icon icon--pencil">
+                        <use xlinkHref="#pencil" />
+                    </svg>
+                </span>
+            );
+        },
+    });
 
     const onAddExclusionClick = () => {
         exclusionsStore.openAddExclusionModal();
+    };
+
+    const renderSelectiveModeWarning = () => {
+        if (exclusionsStore.currentMode === ExclusionsModes.Selective
+            && !exclusionsStore.exclusionsTree.children.length) {
+            return (
+                <div className="exclusions__mode--warning">
+                    {reactTranslator.getMessage('settings_exclusion_selective_mode_warning')}
+                </div>
+            );
+        }
+        return null;
     };
 
     return (
@@ -47,20 +68,10 @@ export const Exclusions = observer(() => {
                 <Title
                     title={translator.getMessage('settings_exclusion_title')}
                 />
-                <div className="exclusions__mode__info">
-                    <span className="exclusions__mode__title">{mode}</span>
-                    <span>: </span>
-                    <span>{modeDescription}</span>
+                <div className="exclusions__mode--info">
+                    {modeInfo}
                 </div>
-                <div>
-                    <button
-                        type="button"
-                        className="exclusions__mode__change-mode-btn simple-button"
-                        onClick={openModeSelectorModal}
-                    >
-                        {translator.getMessage('settings_exclusion_change_mode')}
-                    </button>
-                </div>
+                {renderSelectiveModeWarning()}
                 <Actions />
             </div>
             <div>

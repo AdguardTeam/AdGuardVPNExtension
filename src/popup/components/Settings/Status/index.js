@@ -10,19 +10,12 @@ const Status = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
     const {
-        exclusionsInverted,
         isConnected,
         isConnectingIdle,
         isConnectingRetrying,
         isExcluded,
         canBeExcluded,
     } = settingsStore;
-
-    const renderVpnStatusSubstring = () => {
-        return exclusionsInverted
-            ? reactTranslator.getMessage('context_menu_selective_mode')
-            : reactTranslator.getMessage('context_menu_general_mode');
-    };
 
     const renderVpnStatusTitle = () => {
         if (isConnectingIdle || isConnectingRetrying) {
@@ -42,12 +35,7 @@ const Status = observer(() => {
 
     return (
         <div className="status">
-            <div className="status__title">
-                {renderVpnStatusTitle()}
-            </div>
-            <div className="status__subtitle">
-                {renderVpnStatusSubstring()}
-            </div>
+            {renderVpnStatusTitle()}
         </div>
     );
 });
