@@ -689,7 +689,7 @@
         "message": "How to use this list of exclusions?"
     },
     "options_exclusions_import_select_subtitle": {
-        "message": "Websites from the imported list will be added to existing exclusions"
+        "message": "Websites from the imported list will be added to the existing exclusions"
     },
     "options_exclusions_import_select_regular": {
         "message": "I want VPN to be off for these websites"
