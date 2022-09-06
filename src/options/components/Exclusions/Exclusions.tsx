@@ -29,22 +29,23 @@ export const Exclusions = observer(() => {
         exclusionsStore.setModeSelectorModalOpen(true);
     };
 
-    const modeInfoKey = exclusionsStore.currentMode === ExclusionsModes.Regular
-        ? 'settings_exclusion_general_mode_info'
-        : 'settings_exclusion_selective_mode_info';
-
-    const modeInfo = reactTranslator.getMessage(modeInfoKey, {
-        span: (chunks: string) => {
-            return (
-                <span className="exclusions__mode--link" onClick={openModeSelectorModal}>
-                    {chunks}
-                    <svg className="icon icon--pencil">
-                        <use xlinkHref="#pencil" />
-                    </svg>
-                </span>
-            );
+    const modeInfo = reactTranslator.getMessage(
+        exclusionsStore.currentMode === ExclusionsModes.Regular
+            ? 'settings_exclusion_general_mode_info'
+            : 'settings_exclusion_selective_mode_info',
+        {
+            span: (chunks: string) => {
+                return (
+                    <span className="exclusions__mode--link" onClick={openModeSelectorModal}>
+                        {chunks}
+                        <svg className="icon icon--pencil">
+                            <use xlinkHref="#pencil" />
+                        </svg>
+                    </span>
+                );
+            },
         },
-    });
+    );
 
     const onAddExclusionClick = () => {
         exclusionsStore.openAddExclusionModal();

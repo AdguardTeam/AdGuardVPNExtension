@@ -6,7 +6,7 @@ import { reactTranslator } from '../../../../common/reactTranslator';
 
 import './status.pcss';
 
-const Status = observer(() => {
+export const Status = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
     const {
@@ -17,7 +17,7 @@ const Status = observer(() => {
         canBeExcluded,
     } = settingsStore;
 
-    const renderVpnStatusTitle = () => {
+    const renderVpnStatusTitle = (): React.ReactNode => {
         if (isConnectingIdle || isConnectingRetrying) {
             return reactTranslator.getMessage('settings_vpn_connecting');
         }
@@ -39,5 +39,3 @@ const Status = observer(() => {
         </div>
     );
 });
-
-export default Status;

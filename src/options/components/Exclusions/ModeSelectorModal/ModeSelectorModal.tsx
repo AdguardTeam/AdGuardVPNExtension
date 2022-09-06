@@ -42,7 +42,7 @@ export const ModeSelectorModal = observer(() => {
         return (
             <div
                 className="radio"
-                onClick={enabled ? undefined : () => setMode(exclusionsType)}
+                onClick={() => setMode(exclusionsType)}
             >
                 <svg className="radio__icon">
                     <use xlinkHref={xlinkHref} />
