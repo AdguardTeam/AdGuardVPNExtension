@@ -18,7 +18,7 @@ import connectivity from '../connectivity';
 import credentials from '../credentials';
 import { locationsService, isMeasuringPingInProgress } from './locationsService';
 // eslint-disable-next-line import/no-cycle
-import { isVPNDisconnectedIdle } from '../connectivity/connectivityService/connectivityFSM';
+import { isVPNConnected, isVPNDisconnectedIdle } from '../connectivity/connectivityService/connectivityFSM';
 import { EndpointInterface } from './Endpoint';
 import { LocationInterface } from './Location';
 import { VpnTokenData } from '../credentials/Credentials';
@@ -106,6 +106,17 @@ class Endpoints implements EndpointsInterface {
     };
 
     /**
+     * Updates selected location and reconnect to endpoint if it was updated as well
+     */
+    async updateSelectedLocation(): Promise<void> {
+        const updatedLocation = locationsService.updateSelectedLocation();
+        // reconnect to endpoint if selected location was updated
+        if (isVPNConnected() && updatedLocation?.endpoint) {
+            await this.reconnectEndpoint(updatedLocation.endpoint, updatedLocation);
+        }
+    }
+
+    /**
      * Gets endpoints remotely and updates them if there were no errors
      * @returns {Promise<null|*>}
      */
@@ -121,6 +132,7 @@ class Endpoints implements EndpointsInterface {
 
         const appId = await credentials.getAppId();
         const locations = await locationsService.getLocationsFromServer(appId, vpnToken.token);
+        await this.updateSelectedLocation();
         return locations;
     };
 
@@ -207,6 +219,7 @@ class Endpoints implements EndpointsInterface {
      */
     updateLocations = async (shouldReconnect = false): Promise<void> => {
         const locations = await this.getLocationsFromServer();
+        await this.updateSelectedLocation();
 
         if (!locations || isEmpty(locations)) {
             return;
