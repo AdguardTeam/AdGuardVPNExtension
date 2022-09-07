@@ -845,6 +845,6 @@
         "message": "Resend link"
     },
     "resend_confirm_registration_link_notification": {
-        "message": "The confirmation link was sent to your email"
+        "message": "Confirmation link resent"
     }
 }
