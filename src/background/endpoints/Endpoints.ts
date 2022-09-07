@@ -219,7 +219,6 @@ class Endpoints implements EndpointsInterface {
      */
     updateLocations = async (shouldReconnect = false): Promise<void> => {
         const locations = await this.getLocationsFromServer();
-        await this.updateSelectedLocation();
 
         if (!locations || isEmpty(locations)) {
             return;
