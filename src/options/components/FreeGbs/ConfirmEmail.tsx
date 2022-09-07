@@ -40,7 +40,7 @@ export const ConfirmEmail = observer(({ goBackHandler }: { goBackHandler: () => 
                 <div className="free-gbs__info">{reactTranslator.getMessage('confirm_email_done_info')}</div>
                 <button
                     type="button"
-                    className="button button--large button--outline-gray free-gbs__button"
+                    className="button button--large button--outline-secondary free-gbs__button"
                     onClick={goBackHandler}
                 >
                     {reactTranslator.getMessage('settings_free_gbs_go_back')}

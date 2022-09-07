@@ -57,7 +57,7 @@ export const InviteFriend = observer(({ goBackHandler }: { goBackHandler: () => 
                     <div className="free-gbs__info">{reactTranslator.getMessage('settings_free_gbs_invite_friend_completed_thank_you')}</div>
                     <button
                         type="button"
-                        className="button button--large button--outline-gray free-gbs__button"
+                        className="button button--large button--outline-secondary free-gbs__button"
                         onClick={goBackHandler}
                     >
                         {reactTranslator.getMessage('settings_free_gbs_go_back')}
