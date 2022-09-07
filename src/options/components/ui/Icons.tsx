@@ -147,6 +147,13 @@ const Icons = () => (
             <path d="M18.421 6.03914L11.632 12.9696" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             <path d="M9.26672 7H8.5C7.39543 7 6.5 7.89543 6.5 9V16C6.5 17.1046 7.39543 18 8.5 18H15.5C16.6046 18 17.5 17.1046 17.5 16V15.2961" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
+
+        <svg id="pencil" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path fillRule="evenodd" clipRule="evenodd" d="M7.18555 10.9567L4.35712 8.12827L9.07117 3.41422C9.85221 2.63318 11.1185 2.63318 11.8996 3.41422V3.41422C12.6806 4.19527 12.6806 5.4616 11.8996 6.24265L7.18555 10.9567Z" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path fillRule="evenodd" clipRule="evenodd" d="M3.41416 11.8995L4.35696 8.12827L7.18539 10.9567L3.41416 11.8995Z" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M11.1925 6.00694L9.30687 4.12132" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+
     </svg>
 );
 
