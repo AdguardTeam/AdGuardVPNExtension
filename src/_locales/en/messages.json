@@ -240,22 +240,73 @@
         "message": "Free VPN traffic"
     },
     "referral_get_free_traffic": {
-        "message": "Get free VPN traffic!"
+        "message": "Get free GBs!"
     },
     "settings_referral_info": {
-        "message": "Invite your friends to join our ninja clan and get more free VPN traffic for a month. Receive %your_gb% GB for each friend who signs up: they also get %friend_gb% GB extra for free! You (inviting user) can get a maximum of %total_gb% extra GB for free."
+        "message": "Get %your_gb% GB of free VPN traffic for a month for each friend who signs up through your invite, up to %total_gb% GB in total. Your friend also gets an extra %friend_gb% GB for free."
     },
     "settings_referral_invited_friends": {
         "message": "Invited friends %count%/%limit%"
     },
-    "settings_referral_limit_reached": {
-        "message": "You've already received your %your_gb% GB of free VPN traffic. But your friends can still get %friend_gb% GB of additional free VPN traffic if you invite them!"
+    "settings_referral_invite_link": {
+        "message": "Invite link"
     },
     "settings_referral_copy_link": {
-        "message": "Copy link"
+        "message": "Copy invite link"
     },
     "settings_referral_link_copied": {
-        "message": "Link copied"
+        "message": "Invite link copied to clipboard"
+    },
+    "settings_free_gbs": {
+        "message": "Free GBs"
+    },
+    "settings_free_gbs_subtitle": {
+        "message": "Complete the tasks to get free VPN traffic!"
+    },
+    "settings_free_gbs_confirm_email_title": {
+        "message": "Confirm your email"
+    },
+    "settings_free_gbs_get_GB": {
+        "message": "Get %num% GB"
+    },
+    "settings_free_gbs_task_complete": {
+        "message": "You got %num% GB"
+    },
+    "settings_free_gbs_confirm_email_info": {
+        "message": "Click the email confirmation link that we sent you at sign up and get %your_gb% GB of free VPN traffic. If you can’t find our email, click the button below."
+    },
+    "settings_free_gbs_confirm_email_resend_link_button": {
+        "message": "Resend link"
+    },
+    "settings_free_gbs_add_device_title": {
+        "message": "Add another device"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "Install AdGuard VPN on one more device, log in to your AdGuard account on it, and get %your_gb% GB"
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "Devices added"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "Congrats with installing AdGuard VPN on multiple devices. Stay safe!"
+    },
+    "settings_free_gbs_add_device_products_button": {
+        "message": "Go to Products"
+    },
+    "settings_free_gbs_invite_friend": {
+        "message": "Invite a friend"
+    },
+    "settings_free_gbs_invite_friend_get_GB": {
+        "message": "Get up to %num% GB"
+    },
+    "settings_free_gbs_invite_friend_complete": {
+        "message": "You got %num% GB"
+    },
+    "settings_free_gbs_invite_friend_completed_thank_you": {
+        "message": "Thanks for using all your invites!"
+    },
+    "settings_free_gbs_go_back": {
+        "message": "Go back"
     },
     "settings_rate_us": {
         "message": "Rate us"
@@ -781,6 +832,12 @@
     "confirm_email_info": {
         "message": "To get free VPN traffic, please confirm your email address. We’ve sent a confirmation link to"
     },
+    "confirm_email_done_title": {
+        "message": "Email address confirmed"
+    },
+    "confirm_email_done_info": {
+        "message": "Thanks for verifying it!"
+    },
     "confirm_email_close_button": {
         "message": "Close"
     },
@@ -788,6 +845,6 @@
         "message": "Resend link"
     },
     "resend_confirm_registration_link_notification": {
-        "message": "The confirmation link was sent to your email"
+        "message": "Confirmation link resent"
     }
 }

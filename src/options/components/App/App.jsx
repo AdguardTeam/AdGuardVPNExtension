@@ -8,7 +8,7 @@ import { REQUEST_STATUSES } from '../../stores/consts';
 import { rootStore } from '../../stores';
 import { Sidebar } from '../Sidebar';
 import { Settings } from '../Settings';
-import { Referral } from '../Referral';
+import { FreeGbs } from '../FreeGbs';
 import { Account } from '../Account';
 import { About } from '../About';
 import { SignedOut } from '../SignedOut';
@@ -20,7 +20,6 @@ import { Support } from '../Support';
 import { Notifications } from '../ui/Notifications';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
 import { Exclusions } from '../Exclusions';
-import { REFERRAL_PROGRAM } from '../../../lib/constants';
 
 import '../../styles/main.pcss';
 import './app.pcss';
@@ -36,12 +35,12 @@ const getContent = (authenticated, requestProcessState, isPremiumToken) => {
                     <Switch>
                         <Route path="/" exact component={Settings} />
                         <Route path="/exclusions" exact component={Exclusions} />
-                        {!isPremiumToken && (
-                            <Route path={`/${REFERRAL_PROGRAM}`} component={Referral} />
-                        )}
                         <Route path="/account" component={Account} />
                         <Route path="/about" component={About} />
                         <Route path="/support" component={Support} />
+                        {!isPremiumToken && (
+                            <Route path="/free-gbs" component={FreeGbs} />
+                        )}
                         <Route component={Settings} />
                     </Switch>
                 </div>

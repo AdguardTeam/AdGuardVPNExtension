@@ -87,7 +87,7 @@ export const ChildrenList = observer(() => {
                 <div>
                     <Title
                         title={selectedExclusion.hostname}
-                        subtitle={subtitle as string}
+                        subtitle={subtitle}
                         onClick={goBackHandler}
                     />
                 </div>
