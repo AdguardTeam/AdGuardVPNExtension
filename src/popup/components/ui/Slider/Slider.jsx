@@ -63,16 +63,18 @@ export const Slider = (props) => {
             <div className="slider__info">
                 {info}
             </div>
-            <DotsIndicator
-                dotsAmount={slidesAmount}
-                activeDot={slideIndex}
-                navigationHandler={navigationHandler}
-            />
+            <div className="slider__indicator">
+                <DotsIndicator
+                    dotsAmount={slidesAmount}
+                    activeDot={slideIndex}
+                    navigationHandler={navigationHandler}
+                />
+            </div>
             {button && (
                 <button
                     type="button"
                     onClick={nextSlideHandler}
-                    className="button button--medium button--green slider__button-next"
+                    className="button button--large button--green slider__button-next"
                 >
                     {reactTranslator.getMessage('popup_onboarding_next')}
                 </button>

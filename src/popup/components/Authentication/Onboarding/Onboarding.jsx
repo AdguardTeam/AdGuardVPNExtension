@@ -14,19 +14,19 @@ export const Onboarding = observer(() => {
 
     const slides = [
         {
-            image: 'trusted-vpn.svg',
-            title: reactTranslator.getMessage('popup_onboarding_trusted_vpn'),
-            info: reactTranslator.getMessage('popup_onboarding_trusted_vpn_info'),
+            image: 'onboarding-unique-protocol.svg',
+            title: reactTranslator.getMessage('popup_onboarding_unique_protocol'),
+            info: reactTranslator.getMessage('popup_onboarding_unique_protocol_info'),
         },
         {
-            image: 'numerous-locations.svg',
-            title: reactTranslator.getMessage('popup_onboarding_numerous_locations'),
-            info: reactTranslator.getMessage('popup_onboarding_numerous_locations_info'),
+            image: 'onboarding-sites-app-exclusions.svg',
+            title: reactTranslator.getMessage('popup_onboarding_sites_apps_exclusions'),
+            info: reactTranslator.getMessage('popup_onboarding_sites_apps_exclusions_info'),
         },
         {
-            image: 'fastest-servers.svg',
-            title: reactTranslator.getMessage('popup_onboarding_fastest_servers'),
-            info: reactTranslator.getMessage('popup_onboarding_fastest_servers_info'),
+            image: 'onboarding-no-logging-policy.svg',
+            title: reactTranslator.getMessage('popup_onboarding_no_logging_policy'),
+            info: reactTranslator.getMessage('popup_onboarding_no_logging_policy_info'),
         },
     ];
 
