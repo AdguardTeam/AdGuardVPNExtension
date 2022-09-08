@@ -33,6 +33,7 @@ interface PingsCacheInterface {
 interface LocationsServiceInterface {
     getIsLocationSelectedByUser(): Promise<boolean>;
     getLocationsFromServer(appId: string, vpnToken: string): Promise<Location[]>;
+    updateSelectedLocation(): LocationInterface | null;
     getEndpointByLocation(
         location: LocationInterface,
         forcePrevEndpoint?: boolean,
@@ -290,6 +291,27 @@ export const isMeasuringPingInProgress = () => {
     return isMeasuring;
 };
 
+/**
+ * Actualizes selected location data.
+ * Returns selected location if it's endpoint was updated.
+ */
+const updateSelectedLocation = (): LocationInterface | null => {
+    const oldSelectedLocation = selectedLocation;
+    if (selectedLocation) {
+        const actualLocation = locations.find((location) => {
+            return location.id === selectedLocation?.id;
+        });
+
+        selectedLocation = actualLocation || selectedLocation;
+
+        if (oldSelectedLocation?.endpoint?.id && selectedLocation?.endpoint?.id
+            && oldSelectedLocation.endpoint.id !== selectedLocation.endpoint.id) {
+            return selectedLocation;
+        }
+    }
+    return null;
+};
+
 const setLocations = (newLocations: LocationInterface[]) => {
     // copy previous pings data
     locations = newLocations.map((location: LocationInterface) => {
@@ -301,16 +323,6 @@ const setLocations = (newLocations: LocationInterface[]) => {
         }
         return location;
     });
-
-    // we should actualize location according to the received locations data,
-    // otherwise could happen cases when selected location contains wrong endpoints inside itself
-    if (selectedLocation) {
-        const actualLocation = locations.find((location) => {
-            return location.id === selectedLocation?.id;
-        });
-
-        selectedLocation = actualLocation || selectedLocation;
-    }
 
     // launch pings measurement
     measurePings();
@@ -477,6 +489,7 @@ const getSelectedLocation = async (): Promise<LocationInterface | null> => {
 export const locationsService: LocationsServiceInterface = {
     getIsLocationSelectedByUser,
     getLocationsFromServer,
+    updateSelectedLocation,
     getEndpointByLocation,
     getLocationByEndpoint,
     getLocationsWithPing,
