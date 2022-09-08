@@ -27,10 +27,23 @@ export const RegistrationForm = observer(() => {
     const { requestProcessState, credentials } = authStore;
     const { password, confirmPassword } = credentials;
 
-    const [inputType, setInputType] = useState('password');
+    const [passwordInputType, setPasswordInputType] = useState(INPUT_TYPES.PASSWORD);
+    const [confirmPasswordInputType, setConfirmPasswordInputType] = useState(INPUT_TYPES.PASSWORD);
 
-    const handleInputTypeChange = () => {
-        setInputType(inputType === INPUT_TYPES.PASSWORD ? INPUT_TYPES.TEXT : INPUT_TYPES.PASSWORD);
+    const handlePasswordInputTypeChange = () => {
+        setPasswordInputType(
+            passwordInputType === INPUT_TYPES.PASSWORD
+                ? INPUT_TYPES.TEXT
+                : INPUT_TYPES.PASSWORD,
+        );
+    };
+
+    const handleConfirmPasswordInputTypeChange = () => {
+        setConfirmPasswordInputType(
+            confirmPasswordInputType === INPUT_TYPES.PASSWORD
+                ? INPUT_TYPES.TEXT
+                : INPUT_TYPES.PASSWORD,
+        );
     };
 
     const formClassName = classnames(
@@ -38,7 +51,8 @@ export const RegistrationForm = observer(() => {
         { 'form--error': authStore.error },
     );
 
-    const icon = inputType === INPUT_TYPES.PASSWORD ? '#closed_eye' : '#open_eye';
+    const passwordIcon = passwordInputType === INPUT_TYPES.PASSWORD ? '#closed_eye' : '#open_eye';
+    const confirmPasswordIcon = confirmPasswordInputType === INPUT_TYPES.PASSWORD ? '#closed_eye' : '#open_eye';
 
     return (
         <form
@@ -65,10 +79,10 @@ export const RegistrationForm = observer(() => {
                     id="password"
                     password={password}
                     error={authStore.error}
-                    inputType={inputType}
+                    inputType={passwordInputType}
                     handleChange={inputChangeHandler}
-                    handleInputTypeChange={handleInputTypeChange}
-                    icon={icon}
+                    handleInputTypeChange={handlePasswordInputTypeChange}
+                    icon={passwordIcon}
                     label={translator.getMessage('auth_password')}
                     focus
                 />
@@ -81,8 +95,10 @@ export const RegistrationForm = observer(() => {
                     placeholder={translator.getMessage('auth_your_password')}
                     id="confirmPassword"
                     password={confirmPassword}
-                    inputType={inputType}
+                    inputType={confirmPasswordInputType}
                     handleChange={inputChangeHandler}
+                    handleInputTypeChange={handleConfirmPasswordInputTypeChange}
+                    icon={confirmPasswordIcon}
                     label={translator.getMessage('auth_password_confirm')}
                 />
             </div>

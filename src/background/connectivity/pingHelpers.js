@@ -55,6 +55,11 @@ export const sendPingMessage = (websocket, vpnToken, appId) => {
             if (pingMsg) {
                 const { requestTime } = pingMsg;
                 const ping = receivedTime - requestTime;
+                if (ping > PING_TIMEOUT_MS) {
+                    // ping over 3s should be ignored,
+                    // because the websocket response seems to be too old
+                    reject(new Error('Ping is too long'));
+                }
                 websocket.removeEventListener('message', messageHandler);
                 clearTimeout(timeoutId);
                 resolve(ping);

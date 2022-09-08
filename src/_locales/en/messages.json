@@ -678,23 +678,23 @@
     "popup_newsletter_no_subscribe": {
         "message": "No, thanks"
     },
-    "popup_onboarding_trusted_vpn": {
-        "message": "Trusted VPN"
+    "popup_onboarding_unique_protocol": {
+        "message": "Unique VPN protocol"
     },
-    "popup_onboarding_trusted_vpn_info": {
-        "message": "By the developer of the world-famous ad blocker"
+    "popup_onboarding_unique_protocol_info": {
+        "message": "AdGuard VPN’s protocol works fast and makes your VPN traffic inconspicuous"
     },
-    "popup_onboarding_numerous_locations": {
-        "message": "Numerous locations"
+    "popup_onboarding_sites_apps_exclusions": {
+        "message": "Sites and apps exclusions"
     },
-    "popup_onboarding_numerous_locations_info": {
-        "message": "Connect to any of our servers located all over the world"
+    "popup_onboarding_sites_apps_exclusions_info": {
+        "message": "Exclusions help you quickly specify the sites or apps for AdGuard VPN protection"
     },
-    "popup_onboarding_fastest_servers": {
-        "message": "Fastest servers"
+    "popup_onboarding_no_logging_policy": {
+        "message": "No-logging policy"
     },
-    "popup_onboarding_fastest_servers_info": {
-        "message": "We use cutting-edge technologies to guarantee the highest connection speed"
+    "popup_onboarding_no_logging_policy_info": {
+        "message": "AdGuard VPN makes you anonymous. It never collects or shares your data with third parties"
     },
     "popup_onboarding_next": {
         "message": "Next"
