@@ -1,0 +1,133 @@
+.free-gbs {
+    &__item {
+        display: flex;
+        padding: 16px;
+        border-radius: 8px;
+        width: calc(100% + 32px);
+        transform: translateX(-16px);
+        align-items: center;
+        cursor: pointer;
+        transition: var(--t3) background-color;
+        text-decoration: none;
+
+        &:hover {
+            background-color: var(--grayF3);
+        }
+
+        &--title {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 19px;
+            color: var(--gray-base);
+        }
+
+        &--status {
+            font-size: 14px;
+            line-height: 25px;
+            color: var(--gray88);
+        }
+
+        &--check-mark {
+            position: relative;
+            top: -10px;
+            margin-right: 17px;
+        }
+
+        &--arrow {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+        }
+    }
+
+    &__picture {
+        width: 200px;
+        height: 200px;
+        background-repeat: no-repeat;
+        margin: -20px 0 10px;
+    }
+
+    &__confirm-email-pic {
+        background-image: url("../../../assets/images/confirm-email-task.svg");
+    }
+
+    &__add-device-pic {
+        background-image: url("../../../assets/images/add-device.svg");
+    }
+
+    &__referral-pic {
+        background-image: url("../../../assets/images/referral.svg");
+    }
+
+    &__info {
+        max-width: 430px;
+        margin-bottom: 25px;
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    &__back-button {
+        cursor: pointer;
+        border: 0;
+        background: transparent;
+        transform: rotate(180deg);
+        padding: 0;
+        margin-left: -35px;
+    }
+
+    &__products-pic {
+        display: block;
+        margin-bottom: 26px;
+    }
+
+    &__referral-status {
+        margin-top: 25px;
+        font-weight: bold;
+    }
+
+    &__referral-link {
+        margin-top: 30px;
+        position: relative;
+
+        & input {
+            width: 420px;
+            padding: 16px 23px;
+            border: none;
+            border-radius: 6px;
+            background-color: var(--grayF2);
+            color: var(--gray-base);
+            margin: 7px 15px 30px 0;
+            font-size: 16px;
+            display: block;
+        }
+
+        & label {
+            font-size: 14px;
+            color: var(--gray88);
+        }
+    }
+
+    &__copy-link-message {
+        font-size: 1.2rem;
+        margin-left: 25px;
+        visibility: hidden;
+        position: absolute;
+        min-width: 100px;
+        top: 13px;
+
+        &__display {
+            visibility: visible;
+        }
+    }
+
+    &__external-link {
+        margin: 0 7px 0 0;
+        position: relative;
+        top: -2px;
+    }
+}
+
+.dots-loader {
+    position: relative;
+    top: 250px;
+}

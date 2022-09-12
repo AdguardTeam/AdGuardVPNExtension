@@ -5,7 +5,6 @@ import { NavLink } from 'react-router-dom';
 import { Rate } from './Rate';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { rootStore } from '../../stores';
-import { REFERRAL_PROGRAM } from '../../../lib/constants';
 
 import './sidebar.pcss';
 
@@ -24,11 +23,6 @@ export const Sidebar = observer(() => {
                     <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/exclusions">
                         {reactTranslator.getMessage('settings_exclusion_title')}
                     </NavLink>
-                    {!isPremiumToken && (
-                        <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to={`/${REFERRAL_PROGRAM}`}>
-                            {reactTranslator.getMessage('options_menu_free_traffic')}
-                        </NavLink>
-                    )}
                     <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/account">
                         {reactTranslator.getMessage('account_title')}
                     </NavLink>
@@ -38,6 +32,12 @@ export const Sidebar = observer(() => {
                     <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/about">
                         {reactTranslator.getMessage('about_title')}
                     </NavLink>
+                    {!isPremiumToken && (
+                        <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/free-gbs">
+                            {reactTranslator.getMessage('settings_free_gbs')}
+                            <span className="sidebar__link--mark" />
+                        </NavLink>
+                    )}
                 </nav>
                 <div className="sidebar__rate">
                     <Rate />
