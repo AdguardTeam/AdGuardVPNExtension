@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
-import Status from '../Status';
+import { Status } from '../Status';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import SiteInfo from '../SiteInfo';
 import { BackgroundVideo } from '../BackgroundVideo';

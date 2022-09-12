@@ -4,13 +4,13 @@ import classnames from 'classnames';
 
 import { rootStore } from '../../stores';
 import GlobalControl from './GlobalControl';
-import Status from './Status';
+import { Status } from './Status';
 import { APPEARANCE_THEMES, AnimationType, videoSourcesMap } from '../../../lib/constants';
 import { BackgroundVideo } from './BackgroundVideo';
 
 import './settings.pcss';
 
-const Settings = observer(() => {
+export const Settings = observer(() => {
     const { settingsStore, vpnStore } = useContext(rootStore);
 
     const {
@@ -82,5 +82,3 @@ const Settings = observer(() => {
         </div>
     );
 });
-
-export { Settings };
