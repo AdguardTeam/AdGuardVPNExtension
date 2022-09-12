@@ -6,6 +6,9 @@ import classnames from 'classnames';
 
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
+import { FORWARDER_DOMAIN } from '../../../../background/config';
+
+const ADGUARD_DNS_KB_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=adguard_dns_kb&from=options_screen&app=vpn_extension`;
 
 export const CustomDnsServerModal = observer(() => {
     const { settingsStore, notificationsStore } = useContext(rootStore);
@@ -22,8 +25,7 @@ export const CustomDnsServerModal = observer(() => {
     };
 
     const dnsInfo = reactTranslator.getMessage('settings_dns_add_custom_server_info', {
-        // FIXME check link address and add to tds
-        a: (chunks: string) => (`<a href="https://adguard-dns.io/kb/general/dns-providers/" target="_blank" class="dns-settings__modal--link">${chunks}</a>`),
+        a: (chunks: string) => (`<a href="${ADGUARD_DNS_KB_LINK}" target="_blank" class="dns-settings__modal--link">${chunks}</a>`),
     });
 
     const clearInputs = (): void => {
