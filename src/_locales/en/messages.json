@@ -363,7 +363,7 @@
         "message": "IPv4 or IPv6"
     },
     "settings_dns_add_custom_server_invalid_address": {
-        "message": "IP address is invalid"
+        "message": "Invalid IP address"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Save and select"
@@ -384,7 +384,7 @@
         "message": "Default"
     },
     "settings_dns_selector_default_desc": {
-        "message": "Automatically use default DNS servers when connected to the VPN"
+        "message": "Uses DNS servers provided by AdGuard VPN"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
