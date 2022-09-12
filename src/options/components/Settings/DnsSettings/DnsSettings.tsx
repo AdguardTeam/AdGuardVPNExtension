@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import { useHistory } from 'react-router-dom';
+import classnames from 'classnames';
 
 import { DNS_SERVERS, DNS_DEFAULT } from '../../../../background/dns/dnsConstants';
 import { rootStore } from '../../../stores';
-import { RadioButton } from '../../ui/RadioButton';
 import { Title } from '../../ui/Title';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { CustomDnsServerModal } from './CustomDnsServerModal';
@@ -49,6 +49,9 @@ export const DnsSettings = observer(() => {
                 handler: () => settingsStore.addCustomDnsServer(title, ip1),
             },
         );
+        if (settingsStore.dnsServer === id) {
+            settingsStore.setDnsServer(DNS_DEFAULT);
+        }
     };
 
     const openEditDnsServerModal = (server: DnsServerData): void => {
@@ -59,8 +62,20 @@ export const DnsSettings = observer(() => {
     const dnsServers = Object.keys(DNS_SERVERS);
     const popularDnsServers = dnsServers.filter((server) => server !== DNS_DEFAULT);
 
+    const renderRadioButton = (dnsServerId: string) => {
+        const enabled = dnsServerId === settingsStore.dnsServer;
+        const xlinkHref = classnames({
+            '#bullet_on': enabled,
+            '#bullet_off': !enabled,
+        });
+        return (
+            <svg className="radio__icon">
+                <use xlinkHref={xlinkHref} />
+            </svg>
+        );
+    };
+
     const renderDnsServer = (dnsServerId: string) => {
-        // @ts-ignore
         const dnsServerData = DNS_SERVERS[dnsServerId];
         if (!dnsServerData) {
             return (<div />);
@@ -72,7 +87,7 @@ export const DnsSettings = observer(() => {
                 className="dns-settings__item"
                 onClick={handleDnsSelect}
             >
-                <RadioButton enabled={dnsServerId === settingsStore.dnsServer} />
+                {renderRadioButton(dnsServerId)}
                 <div>
                     <div className="settings__item-title">{dnsServerData.title}</div>
                     <div className="settings__item-desc">{dnsServerData.desc}</div>
@@ -89,7 +104,7 @@ export const DnsSettings = observer(() => {
                     className="dns-settings__item"
                     onClick={() => handleCustomDnsSelect(server.id)}
                 >
-                    <RadioButton enabled={server.id === settingsStore.dnsServer} />
+                    {renderRadioButton(server.id)}
                     <div>
                         <div className="settings__item-title">{server.title}</div>
                         <div className="settings__item-desc">{server.ip1}</div>

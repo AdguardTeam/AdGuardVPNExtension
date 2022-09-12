@@ -49,7 +49,6 @@ const setSetting = async (id, value, force) => {
         }
         case SETTINGS_IDS.SELECTED_DNS_SERVER: {
             dns.setDnsServer(value);
-            settingsService.setSetting(SETTINGS_IDS.SELECTED_DNS_SERVER, value);
             break;
         }
         default: {

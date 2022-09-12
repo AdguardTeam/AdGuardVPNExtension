@@ -187,6 +187,7 @@ export class SettingsStore {
         };
         this.customDnsServers.push(dnsServer);
         await messenger.addCustomDnsServer(dnsServer);
+        await this.setDnsServer(dnsServer.id);
         return dnsServer;
     };
 

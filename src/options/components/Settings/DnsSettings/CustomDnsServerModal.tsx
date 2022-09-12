@@ -36,6 +36,7 @@ export const CustomDnsServerModal = observer(() => {
         if (settingsStore.dnsServerToEdit) {
             settingsStore.setDnsServerToEdit(null);
         }
+        setIpAddressError(false);
         settingsStore.closeCustomDnsModalOpen();
     };
 
