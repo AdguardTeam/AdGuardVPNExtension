@@ -17,8 +17,8 @@ class PopupActions {
         await this.openTab(vpnFailurePage);
     };
 
-    openReferralOptions = async () => {
-        await messenger.openReferralOptions();
+    openFreeGbsPage = async () => {
+        await messenger.openFreeGbsPage();
         window.close();
     };
 }

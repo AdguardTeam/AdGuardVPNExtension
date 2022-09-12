@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import { rootStore } from '../../stores';
 
 import GlobalControl from './GlobalControl';
-import Status from './Status';
+import { Status } from './Status';
 
 import './settings.pcss';
 

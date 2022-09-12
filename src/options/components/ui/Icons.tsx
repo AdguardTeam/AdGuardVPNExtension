@@ -128,6 +128,39 @@ const Icons = () => (
             <path d="M8.55511 3.68292C8.82001 3.57307 9.0913 3.47551 9.36826 3.39095C9.51032 3.34758 9.65388 3.30762 9.79883 3.27119" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             <path d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C9.51472 21 7.26472 19.9926 5.63604 18.364C4.80704 17.535 4.13901 16.545 3.68286 15.4449" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </symbol>
+
+        <svg id="check-mark" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="12" cy="12" r="5" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="12" cy="12" r="4" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="12" cy="12" r="3" stroke="#888888" strokeWidth="13" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="12" cy="12" r="1" stroke="#888888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="12" cy="12" r="3" stroke="#888888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path fillRule="evenodd" clipRule="evenodd" d="M17.2408 7.83969C17.6055 8.15676 17.6441 8.70944 17.327 9.07412L11.2409 16.0741C11.079 16.2603 10.8461 16.3695 10.5995 16.3748C10.3528 16.3801 10.1154 16.2811 9.94566 16.1021L6.69841 12.6777C6.36589 12.327 6.38059 11.7732 6.73125 11.4407C7.08191 11.1082 7.63574 11.1229 7.96825 11.4735L10.5525 14.1987L16.0063 7.9259C16.3234 7.56122 16.8761 7.52262 17.2408 7.83969Z" fill="white" />
+        </svg>
+
+        <svg id="check-mark-done" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="12" cy="12" r="5" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="12" cy="12" r="4" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="12" cy="12" r="3" stroke="#74A352" strokeWidth="13" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="12" cy="12" r="1" stroke="#74A352" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="12" cy="12" r="3" stroke="#74A352" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path fillRule="evenodd" clipRule="evenodd" d="M17.2408 7.83969C17.6055 8.15676 17.6441 8.70944 17.327 9.07412L11.2409 16.0741C11.079 16.2603 10.8461 16.3695 10.5995 16.3748C10.3528 16.3801 10.1154 16.2811 9.94566 16.1021L6.69841 12.6777C6.36589 12.327 6.38059 11.7732 6.73125 11.4407C7.08191 11.1082 7.63574 11.1229 7.96825 11.4735L10.5525 14.1987L16.0063 7.9259C16.3234 7.56122 16.8761 7.52262 17.2408 7.83969Z" fill="white" />
+        </svg>
+
+        <svg id="external-link" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18.5 11.8334V6.00004L12.7857 6.00004" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M18.421 6.03914L11.632 12.9696" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M9.26672 7H8.5C7.39543 7 6.5 7.89543 6.5 9V16C6.5 17.1046 7.39543 18 8.5 18H15.5C16.6046 18 17.5 17.1046 17.5 16V15.2961" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+
+        <svg id="pencil" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path fillRule="evenodd" clipRule="evenodd" d="M7.18555 10.9567L4.35712 8.12827L9.07117 3.41422C9.85221 2.63318 11.1185 2.63318 11.8996 3.41422V3.41422C12.6806 4.19527 12.6806 5.4616 11.8996 6.24265L7.18555 10.9567Z" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path fillRule="evenodd" clipRule="evenodd" d="M3.41416 11.8995L4.35696 8.12827L7.18539 10.9567L3.41416 11.8995Z" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M11.1925 6.00694L9.30687 4.12132" stroke="#74A352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+
     </svg>
 );
 

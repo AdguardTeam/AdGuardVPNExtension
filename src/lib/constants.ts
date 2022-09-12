@@ -80,8 +80,9 @@ export enum MessageType {
     SET_FLAG = 'set.flag',
     GET_GENERAL_EXCLUSIONS = 'get.general.exclusions',
     GET_SELECTIVE_EXCLUSIONS = 'get.selective.exclusions',
-    OPEN_REFERRAL_OPTIONS = 'open.referral.options',
+    OPEN_FREE_GBS_PAGE = 'open.free.gbs.page',
     GET_REFERRAL_DATA = 'get.referral.data',
+    GET_BONUSES_DATA = 'get.bonuses.data',
     RESTORE_EXCLUSIONS = 'restore.exclusions',
     ADD_EXCLUSIONS_MAP = 'add.exclusions.map',
     SET_RATE_MODAL_VIEWED = 'set.rate.modal.viewed',
@@ -114,4 +115,4 @@ export const FLAGS_FIELDS = {
     SHOULD_SHOW_RATE_MODAL: 'shouldShowRateModal',
 };
 
-export const REFERRAL_PROGRAM = 'referral-program';
+export const FREE_GBS_ANCHOR = 'free-gbs';

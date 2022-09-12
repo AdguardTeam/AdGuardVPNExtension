@@ -1,9 +1,15 @@
 import { locationsService } from '../../../src/background/endpoints/locationsService';
 import { Location } from '../../../src/background/endpoints/Location';
 import * as pingHelpers from '../../../src/background/connectivity/pingHelpers';
+import { vpnProvider } from '../../../src/background/providers/vpnProvider';
+import { endpoints } from '../../../src/background/endpoints';
+import credentials from '../../../src/background/credentials';
 
 jest.mock('../../../src/background/connectivity/pingHelpers');
 jest.mock('../../../src/lib/logger'); // hides redundant log messages during test run
+jest.mock('../../../src/background/settings');
+jest.mock('../../../src/background/browserApi');
+jest.mock('../../../src/background/providers/vpnProvider');
 
 describe('location service', () => {
     it('by default it tries to connect to previously selected endpoint', async () => {
@@ -83,5 +89,61 @@ describe('location service', () => {
         expect(measurePingMock).toBeCalledTimes(2);
         expect(measurePingMock).toHaveBeenNthCalledWith(1, secondEndpoint.domainName);
         expect(measurePingMock).toHaveBeenNthCalledWith(2, firstEndpoint.domainName);
+    });
+
+    it('Update selected location after got locations from server', async () => {
+        const testLocationData1 = [{
+            id: 'test-location',
+            cityName: 'Bangkok',
+            countryName: 'Thailand',
+            countryCode: 'TH',
+            coordinates: [123.123, 132.132],
+            premiumOnly: true,
+            pingBonus: 0,
+            endpoints: [{
+                domainName: '123.domain.org',
+                id: '123.domain.org',
+                ipv4Address: '188.214.106.10',
+                ipv6Address: '2001:ac8:97:1:0:0:0:2',
+                publicKey: 'DZeUHP1y3+fxU6kyyqmd0DB92KVSA7asv4SQZJS562E=',
+            }],
+        }];
+
+        const testLocationData2 = [{
+            id: 'test-location',
+            cityName: 'Bangkok',
+            countryName: 'Thailand',
+            countryCode: 'TH',
+            coordinates: [123.123, 132.132],
+            premiumOnly: true,
+            pingBonus: 0,
+            endpoints: [{
+                domainName: '123.new-domain.org',
+                id: '123.new-domain.org',
+                ipv4Address: '188.214.106.10',
+                ipv6Address: '2001:ac8:97:1:0:0:0:2',
+                publicKey: 'DZeUHP1y3+fxU6kyyqmd0DB92KVSA7asv4SQZJS562E=',
+            }],
+        }];
+
+        jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: false });
+        vpnProvider.getLocationsData.mockImplementation(() => testLocationData1);
+
+        let locations = await endpoints.getLocationsFromServer();
+        expect(locations).toBeDefined();
+        await locationsService.setSelectedLocation('test-location');
+        let selectedLocation = await locationsService.getSelectedLocation();
+        expect(selectedLocation).toBeDefined();
+        expect(selectedLocation.id).toBe('test-location');
+        expect(selectedLocation.endpoints[0].domainName).toBe('123.domain.org');
+
+        vpnProvider.getLocationsData.mockImplementation(() => testLocationData2);
+
+        locations = await endpoints.getLocationsFromServer();
+        expect(locations).toBeDefined();
+        selectedLocation = await locationsService.getSelectedLocation();
+        expect(selectedLocation.id).toBe('test-location');
+        // endpoints of selected location should be updated
+        expect(selectedLocation.endpoints[0].domainName).toBe('123.new-domain.org');
     });
 });

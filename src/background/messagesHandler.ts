@@ -148,13 +148,13 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         case MessageType.OPEN_OPTIONS_PAGE: {
             return actions.openOptionsPage();
         }
-        case MessageType.OPEN_REFERRAL_OPTIONS: {
-            await actions.openReferralOptions();
+        case MessageType.OPEN_FREE_GBS_PAGE: {
+            await actions.openFreeGbsPage();
             break;
         }
-        case MessageType.GET_REFERRAL_DATA: {
+        case MessageType.GET_BONUSES_DATA: {
             const accessToken = await auth.getAccessToken();
-            return accountProvider.getReferralData(accessToken);
+            return accountProvider.getAvailableBonuses(accessToken);
         }
         case MessageType.SET_SELECTED_LOCATION: {
             const { location, isSelectedByUser } = data;
@@ -377,8 +377,9 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             return dns.removeCustomDnsServer(dnsServerId);
         }
         case MessageType.RESEND_CONFIRM_REGISTRATION_LINK: {
+            const { displayNotification } = data;
             const accessToken = await auth.getAccessToken();
-            return accountProvider.resendConfirmRegistrationLink(accessToken);
+            return accountProvider.resendConfirmRegistrationLink(accessToken, displayNotification);
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

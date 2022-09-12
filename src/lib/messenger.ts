@@ -114,13 +114,13 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async openReferralOptions() {
-        const type = MessageType.OPEN_REFERRAL_OPTIONS;
+    async openFreeGbsPage() {
+        const type = MessageType.OPEN_FREE_GBS_PAGE;
         return this.sendMessage(type);
     }
 
-    async getReferralData() {
-        const type = MessageType.GET_REFERRAL_DATA;
+    async getBonusesData() {
+        const type = MessageType.GET_BONUSES_DATA;
         return this.sendMessage(type);
     }
 
@@ -386,9 +386,9 @@ class Messenger {
         return this.sendMessage(type, { dnsServerId });
     }
 
-    resendConfirmRegistrationLink() {
+    resendConfirmRegistrationLink(displayNotification: boolean) {
         const type = MessageType.RESEND_CONFIRM_REGISTRATION_LINK;
-        return this.sendMessage(type);
+        return this.sendMessage(type, { displayNotification });
     }
 }
 

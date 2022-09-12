@@ -42,11 +42,21 @@ export class SettingsStore {
 
     @observable nextBillDate;
 
-    @observable inviteUrl = '';
+    @observable invitesBonuses = {
+        inviteUrl: '',
+        invitesCount: 0,
+        maxInvitesCount: 0,
+    };
 
-    @observable invitesCount = 0;
+    @observable confirmBonus = {
+        available: true,
+    };
 
-    @observable referralDataRequestStatus;
+    @observable multiplatformBonus = {
+        available: true,
+    };
+
+    @observable bonusesDataRequestStatus;
 
     @observable subscriptionType = null;
 
@@ -136,20 +146,27 @@ export class SettingsStore {
         });
     };
 
-    @action updateReferralData = async () => {
-        this.referralDataRequestStatus = REQUEST_STATUSES.PENDING;
-        const referralData = await messenger.getReferralData();
-        const { inviteUrl, invitesCount, maxInvitesCount } = referralData;
-        if (Number.isNaN(invitesCount)) {
-            log.warn('Referral data request failed');
-            this.referralDataRequestStatus = REQUEST_STATUSES.ERROR;
+    @action updateBonusesData = async () => {
+        this.bonusesDataRequestStatus = REQUEST_STATUSES.PENDING;
+        const bonusesData = await messenger.getBonusesData();
+
+        if (!bonusesData) {
+            log.warn('Available bonuses data request failed');
+            this.bonusesDataRequestStatus = REQUEST_STATUSES.ERROR;
             return;
         }
+
+        const { invitesBonuses, confirmBonus, multiplatformBonus } = bonusesData;
+
         runInAction(() => {
-            this.inviteUrl = inviteUrl;
-            this.invitesCount = invitesCount;
-            this.maxInvitesCount = maxInvitesCount;
-            this.referralDataRequestStatus = REQUEST_STATUSES.DONE;
+            this.invitesBonuses = {
+                inviteUrl: invitesBonuses.inviteUrl,
+                invitesCount: invitesBonuses.invitesCount,
+                maxInvitesCount: invitesBonuses.maxInvitesCount,
+            };
+            this.confirmBonus.available = confirmBonus.available;
+            this.multiplatformBonus.available = multiplatformBonus.available;
+            this.bonusesDataRequestStatus = REQUEST_STATUSES.DONE;
         });
     };
 
@@ -217,4 +234,8 @@ export class SettingsStore {
 
         return DNS_SERVERS[this.dnsServer]?.title;
     }
+
+    @action resendConfirmationLink = async () => {
+        await messenger.resendConfirmRegistrationLink(false);
+    };
 }
