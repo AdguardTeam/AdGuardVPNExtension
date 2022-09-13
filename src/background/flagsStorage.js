@@ -89,6 +89,10 @@ class FlagsStorage {
         await updateService.setIsFirstRunFalse();
     };
 
+    setExtensionReady = async () => {
+        await this.set(FLAGS_FIELDS.IS_EXTENSION_READY, true);
+    };
+
     init = async () => {
         await this.setDefaults();
     };
