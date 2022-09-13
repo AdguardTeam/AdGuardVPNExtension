@@ -17,8 +17,6 @@ interface DnsInterface {
     removeCustomDnsServer(dnsServerId: string): void;
 }
 
-const TLS_PREFIX = 'tls://';
-
 export class Dns implements DnsInterface {
     selectedDnsServer: string;
 
@@ -37,7 +35,7 @@ export class Dns implements DnsInterface {
         const currentDnsServerData = this.customDnsServers
             .find((server) => server.id === this.selectedDnsServer);
         if (currentDnsServerData?.ip1) {
-            return `${TLS_PREFIX}${currentDnsServerData.ip1}`;
+            return currentDnsServerData.ip1;
         }
 
         return DNS_SERVERS[this.selectedDnsServer].ip1;

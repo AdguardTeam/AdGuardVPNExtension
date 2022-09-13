@@ -8,6 +8,9 @@ import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { FORWARDER_DOMAIN } from '../../../../background/config';
 
+const DOH_PREFIX = 'https://';
+const TLS_PREFIX = 'tls://';
+
 const ADGUARD_DNS_KB_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=adguard_dns_kb&from=options_screen&app=vpn_extension`;
 
 export const CustomDnsServerModal = observer(() => {
@@ -47,14 +50,23 @@ export const CustomDnsServerModal = observer(() => {
         settingsStore.closeCustomDnsModalOpen();
     };
 
-    const isValidIpAddress = (ip: string) => isIP(ip);
+    const validateAddress = (address: string) => {
+        if (isIP(address) || address.startsWith(TLS_PREFIX)) {
+            return address;
+        }
+        if (!address.startsWith(DOH_PREFIX) && address.includes('.')) {
+            return `${TLS_PREFIX}${address}`;
+        }
+        return null;
+    };
 
     const addDnsServer = async (): Promise<void> => {
-        if (!isValidIpAddress(dnsServerAddress)) {
+        const validDnsAddress = validateAddress(dnsServerAddress);
+        if (!validDnsAddress) {
             setDnsServerAddressError(true);
             return;
         }
-        const dnsServer = await settingsStore.addCustomDnsServer(dnsServerName, dnsServerAddress);
+        const dnsServer = await settingsStore.addCustomDnsServer(dnsServerName, validDnsAddress);
         notificationsStore.notifySuccess(
             reactTranslator.getMessage('settings_dns_add_custom_server_notification_success'),
             {
@@ -66,11 +78,12 @@ export const CustomDnsServerModal = observer(() => {
     };
 
     const editDnsServer = async (): Promise<void> => {
-        if (!isValidIpAddress(dnsServerAddress)) {
+        const validDnsAddress = validateAddress(dnsServerAddress);
+        if (!validDnsAddress) {
             setDnsServerAddressError(true);
             return;
         }
-        await settingsStore.editCustomDnsServer(dnsServerName, dnsServerAddress);
+        await settingsStore.editCustomDnsServer(dnsServerName, validDnsAddress);
         closeModal();
     };
 
