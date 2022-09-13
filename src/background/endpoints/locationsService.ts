@@ -1,7 +1,7 @@
 import isEmpty from 'lodash/isEmpty';
 import { log } from '../../lib/logger';
 import { measurePingToEndpointViaFetch } from '../connectivity/pingHelpers';
-import notifier from '../../lib/notifier';
+import { notifier } from '../../lib/notifier';
 import { LocationWithPing, LocationWithPingParameters } from './LocationWithPing';
 import { vpnProvider } from '../providers/vpnProvider';
 import { Location, LocationInterface, LocationData } from './Location';

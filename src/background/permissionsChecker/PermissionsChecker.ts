@@ -1,6 +1,6 @@
 import { log } from '../../lib/logger';
 import { ERROR_STATUSES } from '../../lib/constants';
-import notifier from '../../lib/notifier';
+import { notifier } from '../../lib/notifier';
 import { settings } from '../settings';
 import endpointConnectivity from '../connectivity/endpointConnectivity';
 import { PermissionsErrorInterface, ErrorData } from './permissionsError';

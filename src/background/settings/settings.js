@@ -1,7 +1,7 @@
 import { SettingsService } from './SettingsService';
 import browserApi from '../browserApi';
 import { log } from '../../lib/logger';
-import notifier from '../../lib/notifier';
+import { notifier } from '../../lib/notifier';
 import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT } from '../../lib/constants';
 import { dns } from '../dns';
 import { DNS_DEFAULT } from '../dns/dnsConstants';

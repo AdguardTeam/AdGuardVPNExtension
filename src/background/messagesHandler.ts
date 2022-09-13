@@ -14,7 +14,7 @@ import management from './management';
 import permissionsError from './permissionsChecker/permissionsError';
 import permissionsChecker from './permissionsChecker';
 import { log } from '../lib/logger';
-import notifier from '../lib/notifier';
+import { notifier } from '../lib/notifier';
 import { locationsService } from './endpoints/locationsService';
 import { promoNotifications } from './promoNotifications';
 import tabs from './tabs';

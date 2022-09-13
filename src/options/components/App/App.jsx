@@ -15,7 +15,7 @@ import { SignedOut } from '../SignedOut';
 import { Preloader } from '../Preloader';
 import Icons from '../ui/Icons';
 import { messenger } from '../../../lib/messenger';
-import notifier from '../../../lib/notifier';
+import { notifier } from '../../../lib/notifier';
 import { Support } from '../Support';
 import { Notifications } from '../ui/Notifications';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';

@@ -1,5 +1,5 @@
 import { DNS_SERVERS } from './dnsConstants';
-import notifier from '../../lib/notifier';
+import { notifier } from '../../lib/notifier';
 import { settings } from '../settings';
 
 interface DnsServerData {
