@@ -8,10 +8,10 @@ import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { FORWARDER_DOMAIN } from '../../../../background/config';
 
-const DOH_PREFIX = 'https://';
-const TLS_PREFIX = 'tls://';
-
 const ADGUARD_DNS_KB_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=adguard_dns_kb&from=options_screen&app=vpn_extension`;
+
+const DOH_PREFIX = 'https://';
+const DOT_PREFIX = 'tls://';
 
 export const CustomDnsServerModal = observer(() => {
     const { settingsStore, notificationsStore } = useContext(rootStore);
@@ -51,11 +51,11 @@ export const CustomDnsServerModal = observer(() => {
     };
 
     const validateAddress = (address: string) => {
-        if (isIP(address) || address.startsWith(TLS_PREFIX)) {
+        if (isIP(address) || address.startsWith(DOT_PREFIX)) {
             return address;
         }
         if (!address.startsWith(DOH_PREFIX) && address.includes('.')) {
-            return `${TLS_PREFIX}${address}`;
+            return `${DOT_PREFIX}${address}`;
         }
         return null;
     };
