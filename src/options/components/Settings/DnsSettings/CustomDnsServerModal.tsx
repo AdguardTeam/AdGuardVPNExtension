@@ -15,12 +15,12 @@ export const CustomDnsServerModal = observer(() => {
 
     const [dnsServerName, setDnsServerName] = useState('');
     const [dnsServerAddress, setDnsServerAddress] = useState('');
-    const [ipAddressError, setIpAddressError] = useState(false);
+    const [dnsServerAddressError, setDnsServerAddressError] = useState(false);
 
     const handleAddressChange = (value: string) => {
         setDnsServerAddress(value);
-        if (ipAddressError) {
-            setIpAddressError(false);
+        if (dnsServerAddressError) {
+            setDnsServerAddressError(false);
         }
     };
 
@@ -28,9 +28,14 @@ export const CustomDnsServerModal = observer(() => {
         a: (chunks: string) => (`<a href="${ADGUARD_DNS_KB_LINK}" target="_blank" class="dns-settings__modal--link">${chunks}</a>`),
     });
 
+    const clearDnsServerAddress = () => {
+        setDnsServerAddress('');
+        setDnsServerAddressError(false);
+    };
+
     const clearInputs = (): void => {
         setDnsServerName('');
-        setDnsServerAddress('');
+        clearDnsServerAddress();
     };
 
     const closeModal = (): void => {
@@ -38,7 +43,7 @@ export const CustomDnsServerModal = observer(() => {
         if (settingsStore.dnsServerToEdit) {
             settingsStore.setDnsServerToEdit(null);
         }
-        setIpAddressError(false);
+        setDnsServerAddressError(false);
         settingsStore.closeCustomDnsModalOpen();
     };
 
@@ -46,7 +51,7 @@ export const CustomDnsServerModal = observer(() => {
 
     const addDnsServer = async (): Promise<void> => {
         if (!isValidIpAddress(dnsServerAddress)) {
-            setIpAddressError(true);
+            setDnsServerAddressError(true);
             return;
         }
         const dnsServer = await settingsStore.addCustomDnsServer(dnsServerName, dnsServerAddress);
@@ -62,7 +67,7 @@ export const CustomDnsServerModal = observer(() => {
 
     const editDnsServer = async (): Promise<void> => {
         if (!isValidIpAddress(dnsServerAddress)) {
-            setIpAddressError(true);
+            setDnsServerAddressError(true);
             return;
         }
         await settingsStore.editCustomDnsServer(dnsServerName, dnsServerAddress);
@@ -98,7 +103,7 @@ export const CustomDnsServerModal = observer(() => {
         'input__in',
         'input__in--content',
         'input__in--clear',
-        { 'dns-settings__modal--input--error': ipAddressError },
+        { 'dns-settings__modal--input--error': dnsServerAddressError },
     );
 
     return (
@@ -166,7 +171,7 @@ export const CustomDnsServerModal = observer(() => {
                                 onChange={(e) => handleAddressChange(e.target.value)}
                                 placeholder={reactTranslator.getMessage('settings_dns_add_custom_server_address_placeholder') as string}
                             />
-                            {ipAddressError && (
+                            {dnsServerAddressError && (
                                 <div className="dns-settings__modal--error-message">
                                     {reactTranslator.getMessage('settings_dns_add_custom_server_invalid_address')}
                                 </div>
@@ -175,7 +180,7 @@ export const CustomDnsServerModal = observer(() => {
                                 <button
                                     type="button"
                                     className="button dns-settings__modal--clear-icon"
-                                    onClick={() => setDnsServerAddress('')}
+                                    onClick={clearDnsServerAddress}
                                 >
                                     <svg className="icon icon--button icon--cross">
                                         <use xlinkHref="#cross" />
