@@ -25,6 +25,7 @@ import { endpointsTldExclusions } from './proxy/endpointsTldExclusions';
 import { logStorage } from '../lib/log-storage';
 import { fallbackApi } from './api/fallbackApi';
 import { flagsStorage } from './flagsStorage';
+import { FLAGS_FIELDS } from '../lib/constants';
 
 import './rateModal';
 import './networkConnectionObserver';
@@ -72,6 +73,7 @@ global.adguard = {
         contextMenu.init();
         browserActionIcon.init();
         log.info('Extension loaded all necessary modules');
+        await flagsStorage.set(FLAGS_FIELDS.IS_EXTENSION_READY, true);
     } catch (e) {
         log.error('Unable to start extension because of error:', e && e.message);
     }

@@ -94,6 +94,11 @@ class Messenger {
         return onUnload;
     };
 
+    async isExtensionReady() {
+        const type = MessageType.IS_EXTENSION_READY;
+        return this.sendMessage(type);
+    }
+
     async getPopupData(url: string, numberOfTries: number) {
         const type = MessageType.GET_POPUP_DATA;
         return this.sendMessage(type, { url, numberOfTries });

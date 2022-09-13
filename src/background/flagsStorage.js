@@ -10,6 +10,7 @@ const DEFAULTS = {
     [FLAGS_FIELDS.SHOW_ONBOARDING]: true,
     // upgrade screen should be displayed for non-premium users after onboarding screen
     [FLAGS_FIELDS.SHOW_UPGRADE_SCREEN]: true,
+    [FLAGS_FIELDS.IS_EXTENSION_READY]: false,
 };
 
 /**
@@ -27,6 +28,19 @@ class FlagsStorage {
         }
         flagsStorageData[key] = value;
         await browserApi.storage.set(FLAGS_STORAGE_KEY, flagsStorageData);
+    };
+
+    /**
+     * Gets flags value for provided key
+     */
+    get = async (key) => {
+        const flagsStorageData = await browserApi.storage.get(FLAGS_STORAGE_KEY);
+        if (!flagsStorageData) {
+            log.error('Unable to get flags data from storage');
+            return null;
+        }
+
+        return flagsStorageData[key];
     };
 
     /**

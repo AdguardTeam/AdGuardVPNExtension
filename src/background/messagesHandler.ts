@@ -1,6 +1,6 @@
 import browser, { Runtime } from 'webextension-polyfill';
 
-import { MessageType, SETTINGS_IDS } from '../lib/constants';
+import { FLAGS_FIELDS, MessageType, SETTINGS_IDS } from '../lib/constants';
 import auth from './auth';
 import popupData from './popupData';
 import { endpoints } from './endpoints';
@@ -364,6 +364,9 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             const { displayNotification } = data;
             const accessToken = await auth.getAccessToken();
             return accountProvider.resendConfirmRegistrationLink(accessToken, displayNotification);
+        }
+        case MessageType.IS_EXTENSION_READY: {
+            return flagsStorage.get(FLAGS_FIELDS.IS_EXTENSION_READY);
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

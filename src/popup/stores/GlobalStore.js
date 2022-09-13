@@ -95,6 +95,11 @@ export class GlobalStore {
 
     @action
     async init() {
+        let isExtensionReady = false;
+        while (!isExtensionReady) {
+            // eslint-disable-next-line no-await-in-loop
+            isExtensionReady = await messenger.isExtensionReady();
+        }
         await this.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
     }
 

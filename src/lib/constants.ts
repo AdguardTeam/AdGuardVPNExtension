@@ -85,6 +85,7 @@ export enum MessageType {
     ADD_EXCLUSIONS_MAP = 'add.exclusions.map',
     SET_RATE_MODAL_VIEWED = 'set.rate.modal.viewed',
     RESEND_CONFIRM_REGISTRATION_LINK = 'resend.confirm.registration.link',
+    IS_EXTENSION_READY = 'is.extension.ready',
 }
 
 export const ERROR_STATUSES = {
@@ -108,6 +109,7 @@ export const FLAGS_FIELDS = {
     SHOW_UPGRADE_SCREEN: 'showUpgradeScreen',
     SALE_SHOW: 'saleShow',
     SHOULD_SHOW_RATE_MODAL: 'shouldShowRateModal',
+    IS_EXTENSION_READY: 'isExtensionReady',
 };
 
 export const FREE_GBS_ANCHOR = 'free-gbs';
