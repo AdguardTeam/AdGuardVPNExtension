@@ -137,88 +137,85 @@ export const CustomDnsServerModal = observer(() => {
             </button>
             <div className="dns-settings__modal--title">{modalData[modalType].modalTitle}</div>
             <div className="dns-settings__modal--content">
-                <form
-                    onSubmit={modalData[modalType].handler}
-                >
-                    {!settingsStore.dnsServerToEdit && (
-                        <div className="form__item">
-                            <div dangerouslySetInnerHTML={{ __html: dnsInfo as string }} />
+                {!settingsStore.dnsServerToEdit && (
+                    <div className="form__item">
+                        <div dangerouslySetInnerHTML={{ __html: dnsInfo as string }} />
+                    </div>
+                )}
+                <div className="form__item">
+                    <label>
+                        <div className="input__label">
+                            {reactTranslator.getMessage('settings_dns_add_custom_server_name')}
                         </div>
-                    )}
-                    <div className="form__item">
-                        <label>
-                            <div className="input__label">
-                                {reactTranslator.getMessage('settings_dns_add_custom_server_name')}
+                        <input
+                            id="dns-name"
+                            className="input__in input__in--content input__in--clear"
+                            type="text"
+                            value={dnsServerName}
+                            onChange={(e) => setDnsServerName(e.target.value)}
+                            placeholder={reactTranslator.getMessage('settings_dns_add_custom_server_name_placeholder') as string}
+                        />
+                        {dnsServerName && (
+                            <button
+                                type="button"
+                                className="button dns-settings__modal--clear-icon"
+                                onClick={() => setDnsServerName('')}
+                            >
+                                <svg className="icon icon--button icon--cross">
+                                    <use xlinkHref="#cross" />
+                                </svg>
+                            </button>
+                        )}
+                    </label>
+                </div>
+                <div className="form__item">
+                    <label>
+                        <div className="input__label">
+                            {reactTranslator.getMessage('settings_dns_add_custom_server_address')}
+                        </div>
+                        <input
+                            id="dns-address"
+                            className={ipAddressInputClasses}
+                            type="text"
+                            value={dnsServerAddress}
+                            onChange={(e) => handleAddressChange(e.target.value)}
+                            placeholder={reactTranslator.getMessage('settings_dns_add_custom_server_address_placeholder') as string}
+                        />
+                        {dnsServerAddressError && (
+                            <div className="dns-settings__modal--error-message">
+                                {reactTranslator.getMessage('settings_dns_add_custom_server_invalid_address')}
                             </div>
-                            <input
-                                id="dns-name"
-                                className="input__in input__in--content input__in--clear"
-                                type="text"
-                                value={dnsServerName}
-                                onChange={(e) => setDnsServerName(e.target.value)}
-                                placeholder={reactTranslator.getMessage('settings_dns_add_custom_server_name_placeholder') as string}
-                            />
-                            {dnsServerName && (
-                                <button
-                                    type="button"
-                                    className="button dns-settings__modal--clear-icon"
-                                    onClick={() => setDnsServerName('')}
-                                >
-                                    <svg className="icon icon--button icon--cross">
-                                        <use xlinkHref="#cross" />
-                                    </svg>
-                                </button>
-                            )}
-                        </label>
-                    </div>
-                    <div className="form__item">
-                        <label>
-                            <div className="input__label">
-                                {reactTranslator.getMessage('settings_dns_add_custom_server_address')}
-                            </div>
-                            <input
-                                id="dns-address"
-                                className={ipAddressInputClasses}
-                                type="text"
-                                value={dnsServerAddress}
-                                onChange={(e) => handleAddressChange(e.target.value)}
-                                placeholder={reactTranslator.getMessage('settings_dns_add_custom_server_address_placeholder') as string}
-                            />
-                            {dnsServerAddressError && (
-                                <div className="dns-settings__modal--error-message">
-                                    {reactTranslator.getMessage('settings_dns_add_custom_server_invalid_address')}
-                                </div>
-                            )}
-                            {dnsServerAddress && (
-                                <button
-                                    type="button"
-                                    className="button dns-settings__modal--clear-icon"
-                                    onClick={clearDnsServerAddress}
-                                >
-                                    <svg className="icon icon--button icon--cross">
-                                        <use xlinkHref="#cross" />
-                                    </svg>
-                                </button>
-                            )}
-                        </label>
-                    </div>
-                    <div className="form__actions">
-                        <button
-                            type="button"
-                            className="button button--medium button--outline-secondary"
-                            onClick={closeModal}
-                        >
-                            {reactTranslator.getMessage('settings_exclusion_modal_cancel')}
-                        </button>
-                        <button
-                            type="submit"
-                            className="button button--medium button--primary"
-                            disabled={!(dnsServerName && dnsServerAddress)}
-                        >
-                            {modalData[modalType].submitText}
-                        </button>
-                    </div>
-                </form>
+                        )}
+                        {dnsServerAddress && (
+                            <button
+                                type="button"
+                                className="button dns-settings__modal--clear-icon"
+                                onClick={clearDnsServerAddress}
+                            >
+                                <svg className="icon icon--button icon--cross">
+                                    <use xlinkHref="#cross" />
+                                </svg>
+                            </button>
+                        )}
+                    </label>
+                </div>
+                <div className="form__actions">
+                    <button
+                        type="button"
+                        className="button button--medium button--outline-secondary"
+                        onClick={closeModal}
+                    >
+                        {reactTranslator.getMessage('settings_exclusion_modal_cancel')}
+                    </button>
+                    <button
+                        type="button"
+                        className="button button--medium button--primary"
+                        disabled={!(dnsServerName && dnsServerAddress)}
+                        onClick={modalData[modalType].handler}
+                    >
+                        {modalData[modalType].submitText}
+                    </button>
+                </div>
             </div>
         </Modal>
     );
