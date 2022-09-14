@@ -95,6 +95,7 @@ export class Dns implements DnsInterface {
 
     restoreCustomDnsServersData = (): DnsServerData[] => {
         this.customDnsServers = this.backupDnsServersData;
+        settings.setCustomDnsServers(this.customDnsServers);
         return this.customDnsServers;
     };
 }
