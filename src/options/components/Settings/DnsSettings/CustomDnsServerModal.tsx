@@ -50,7 +50,7 @@ export const CustomDnsServerModal = observer(() => {
         settingsStore.closeCustomDnsModalOpen();
     };
 
-    const validateAddress = (address: string) => {
+    const handleDnsAddress = (address: string) => {
         if (isIP(address) || address.startsWith(DOT_PREFIX)) {
             return address;
         }
@@ -61,7 +61,7 @@ export const CustomDnsServerModal = observer(() => {
     };
 
     const addDnsServer = async (): Promise<void> => {
-        const validDnsAddress = validateAddress(dnsServerAddress);
+        const validDnsAddress = handleDnsAddress(dnsServerAddress);
         if (!validDnsAddress) {
             setDnsServerAddressError(true);
             return;
@@ -78,7 +78,7 @@ export const CustomDnsServerModal = observer(() => {
     };
 
     const editDnsServer = async (): Promise<void> => {
-        const validDnsAddress = validateAddress(dnsServerAddress);
+        const validDnsAddress = handleDnsAddress(dnsServerAddress);
         if (!validDnsAddress) {
             setDnsServerAddressError(true);
             return;

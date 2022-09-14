@@ -360,7 +360,7 @@
         "message": "DNS server address"
     },
     "settings_dns_add_custom_server_address_placeholder": {
-        "message": "IP or tls://"
+        "message": "IP or TLS"
     },
     "settings_dns_add_custom_server_invalid_address": {
         "message": "Invalid DNS server address"
