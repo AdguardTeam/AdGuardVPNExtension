@@ -381,6 +381,9 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             const accessToken = await auth.getAccessToken();
             return accountProvider.resendConfirmRegistrationLink(accessToken, displayNotification);
         }
+        case MessageType.RESTORE_CUSTOM_DNS_SERVERS_DATA: {
+            return dns.restoreCustomDnsServersData();
+        }
         default:
             throw new Error(`Unknown message type received: ${type}`);
     }

@@ -39,17 +39,16 @@ export const DnsSettings = observer(() => {
         settingsStore.openCustomDnsModalOpen();
     };
 
-    const removeDnsServer = (dnsServerData: DnsServerData): void => {
-        const { id, title, ip1 } = dnsServerData;
-        settingsStore.removeCustomDnsServer(id);
+    const removeDnsServer = (dnsServerId: string): void => {
+        settingsStore.removeCustomDnsServer(dnsServerId);
         notificationsStore.notifySuccess(
             reactTranslator.getMessage('settings_dns_delete_custom_server_notification'),
             {
                 action: reactTranslator.getMessage('settings_exclusions_undo'),
-                handler: () => settingsStore.addCustomDnsServer(title, ip1),
+                handler: () => settingsStore.restoreCustomDnsServersData(),
             },
         );
-        if (settingsStore.dnsServer === id) {
+        if (settingsStore.dnsServer === dnsServerId) {
             settingsStore.setDnsServer(DNS_DEFAULT);
         }
     };
@@ -122,7 +121,7 @@ export const DnsSettings = observer(() => {
                         <button
                             type="button"
                             className="button button--icon dns-settings__item--actions--button"
-                            onClick={() => removeDnsServer(server)}
+                            onClick={() => removeDnsServer(server.id)}
                         >
                             <svg className="icon icon--button">
                                 <use xlinkHref="#basket" />

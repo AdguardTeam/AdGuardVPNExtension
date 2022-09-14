@@ -211,6 +211,13 @@ export class SettingsStore {
         await messenger.removeCustomDnsServer(dnsServerId);
     };
 
+    @action restoreCustomDnsServersData = async () => {
+        const customDnsServersData = await messenger.restoreCustomDnsServersData();
+        runInAction(() => {
+            this.customDnsServers = customDnsServersData;
+        });
+    };
+
     @action setDnsServerToEdit = (value) => {
         this.dnsServerToEdit = value;
     };

@@ -15,12 +15,15 @@ interface DnsInterface {
     addCustomDnsServer(dnsServerData: DnsServerData): void;
     editCustomDnsServer(dnsServerData: DnsServerData): void;
     removeCustomDnsServer(dnsServerId: string): void;
+    restoreCustomDnsServersData(): DnsServerData[];
 }
 
 export class Dns implements DnsInterface {
     selectedDnsServer: string;
 
     customDnsServers: DnsServerData[];
+
+    backupDnsServersData: DnsServerData[];
 
     init = (): void => {
         this.customDnsServers = settings.getCustomDnsServers();
@@ -85,7 +88,13 @@ export class Dns implements DnsInterface {
      * @param dnsServerId
      */
     removeCustomDnsServer = (dnsServerId: string): void => {
+        this.backupDnsServersData = this.customDnsServers;
         this.customDnsServers = this.customDnsServers.filter((server) => server.id !== dnsServerId);
         settings.setCustomDnsServers(this.customDnsServers);
+    };
+
+    restoreCustomDnsServersData = (): DnsServerData[] => {
+        this.customDnsServers = this.backupDnsServersData;
+        return this.customDnsServers;
     };
 }

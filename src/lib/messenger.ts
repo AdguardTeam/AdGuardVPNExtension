@@ -386,6 +386,11 @@ class Messenger {
         return this.sendMessage(type, { dnsServerId });
     }
 
+    restoreCustomDnsServersData() {
+        const type = MessageType.RESTORE_CUSTOM_DNS_SERVERS_DATA;
+        return this.sendMessage(type);
+    }
+
     resendConfirmRegistrationLink(displayNotification: boolean) {
         const type = MessageType.RESEND_CONFIRM_REGISTRATION_LINK;
         return this.sendMessage(type, { displayNotification });
