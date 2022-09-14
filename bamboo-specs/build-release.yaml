@@ -29,8 +29,10 @@ Build:
           - |-
             set -x
             set -e
+
             # Fix mixed logs
             exec 2>&1
+
             ls -alt
 
             yarn install ${bamboo.varsYarn}
@@ -44,6 +46,10 @@ Build:
             AUTH_API_URL="${bamboo.prodAuthApiUrl}" \
             FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}" \
             yarn release
+
+            # build source code for uploading to amo
+            git archive --format=zip --output=build/release/source.zip HEAD
+
             rm -rf node_modules
     - inject-variables:
         file: build/release/build.txt
@@ -78,6 +84,11 @@ Build:
     - name: build.txt
       location: build/release
       pattern: build.txt
+      shared: true
+      required: true
+    - name: source.zip
+      location: build/release
+      pattern: source.zip
       shared: true
       required: true
   requirements:
