@@ -87,7 +87,9 @@ export const CustomDnsServerModal = observer(() => {
         closeModal();
     };
 
-    const modalType = settingsStore.dnsServerToEdit ? ModalType.EditDnsServer : ModalType.AddDnsServer;
+    const modalType = settingsStore.dnsServerToEdit
+        ? ModalType.EditDnsServer
+        : ModalType.AddDnsServer;
 
     const modalData = {
         [ModalType.AddDnsServer]: {
@@ -141,7 +143,7 @@ export const CustomDnsServerModal = observer(() => {
                     <div className="form__item">
                         {
                             reactTranslator.getMessage('settings_dns_add_custom_server_info', {
-                                a: (chunks: string) => (<a href={ADGUARD_DNS_KB_LINK} target="_blank" className="dns-settings__modal--link">{chunks}</a>),
+                                a: (chunks: string) => (<a href={ADGUARD_DNS_KB_LINK} target="_blank" rel="noreferrer" className="dns-settings__modal--link">{chunks}</a>),
                             })
                         }
                     </div>
