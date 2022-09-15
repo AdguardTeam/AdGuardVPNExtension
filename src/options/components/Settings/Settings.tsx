@@ -9,7 +9,7 @@ import { Title } from '../ui/Title';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { AppearanceTheme } from './AppearanceTheme';
 import { DnsSettings } from './DnsSettings';
-import { DNS_SETTINGS_QUERY } from '../../../background/dns/dnsConstants';
+import { DNS_SETTINGS_QUERY } from '../../stores/consts';
 
 export const Settings = () => {
     const query = new URLSearchParams(useLocation().search);

@@ -120,7 +120,7 @@ class EndpointConnectivity {
             return;
         }
 
-        this.sendDnsServerIp(dns.getDnsServerIp());
+        this.sendDnsServerIp(dns.getCurrentDnsServerAddress());
         this.startSendingPingMessages();
 
         try {

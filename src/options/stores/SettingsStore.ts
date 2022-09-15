@@ -13,16 +13,38 @@ import { REQUEST_STATUSES } from './consts';
 import { log } from '../../lib/logger';
 import { setQueryParameter } from '../../common/url-utils';
 
+interface DnsServerData {
+    id: string;
+    address: string;
+    title: string;
+}
+
+interface OptionsData {
+    appVersion: string;
+    username: string;
+    nextBillDate: number;
+    isRateVisible: boolean;
+    isPremiumFeaturesShow: boolean;
+    webRTCEnabled: boolean;
+    contextMenusEnabled: boolean;
+    helpUsImprove: boolean;
+    dnsServer: string;
+    appearanceTheme: string;
+    isPremiumToken: boolean;
+    subscriptionType: string;
+    customDnsServers: DnsServerData[];
+}
+
 export class SettingsStore {
     @observable isRateVisible = true;
 
-    @observable isPremiumToken;
+    @observable isPremiumToken: boolean;
 
     @observable premiumFeatures = true;
 
-    @observable appVersion;
+    @observable appVersion: string;
 
-    @observable currentUsername;
+    @observable currentUsername: string;
 
     @observable webRTCEnabled = false;
 
@@ -34,13 +56,13 @@ export class SettingsStore {
 
     @observable dnsServer = DNS_DEFAULT;
 
-    @observable dnsServerToEdit = null;
+    @observable dnsServerToEdit: DnsServerData | null = null;
 
     @observable isCustomDnsModalOpen = false;
 
-    @observable customDnsServers = [];
+    @observable customDnsServers: DnsServerData[];
 
-    @observable nextBillDate;
+    @observable nextBillDate: number;
 
     @observable invitesBonuses = {
         inviteUrl: '',
@@ -56,44 +78,44 @@ export class SettingsStore {
         available: true,
     };
 
-    @observable bonusesDataRequestStatus;
+    @observable bonusesDataRequestStatus: string;
 
-    @observable subscriptionType = null;
+    @observable subscriptionType: string | null = null;
 
     @action
-    async requestIsPremiumToken() {
+    async requestIsPremiumToken(): Promise<void> {
         const isPremiumToken = await messenger.checkIsPremiumToken();
         runInAction(() => {
             this.isPremiumToken = isPremiumToken;
         });
     }
 
-    @action hideRate = async () => {
+    @action hideRate = async (): Promise<void> => {
         await messenger.setSetting(SETTINGS_IDS.RATE_SHOW, false);
         runInAction(() => {
             this.isRateVisible = false;
         });
     };
 
-    @action hidePremiumFeatures = async () => {
+    @action hidePremiumFeatures = async (): Promise<void> => {
         await messenger.setSetting(SETTINGS_IDS.PREMIUM_FEATURES_SHOW, false);
         runInAction(() => {
             this.premiumFeatures = false;
         });
     };
 
-    @action disableProxy = async () => {
+    @action disableProxy = async (): Promise<void> => {
         await messenger.disableProxy(true);
     };
 
-    @action setWebRTCValue = async (value) => {
+    @action setWebRTCValue = async (value: boolean): Promise<void> => {
         await messenger.setSetting(SETTINGS_IDS.HANDLE_WEBRTC_ENABLED, value);
         runInAction(() => {
             this.webRTCEnabled = value;
         });
     };
 
-    @action setAppearanceTheme = async (value) => {
+    @action setAppearanceTheme = async (value: string): Promise<void> => {
         setQueryParameter(THEME_URL_PARAMETER, value);
         await messenger.setSetting(SETTINGS_IDS.APPEARANCE_THEME, value);
         runInAction(() => {
@@ -101,21 +123,21 @@ export class SettingsStore {
         });
     };
 
-    @action setContextMenusValue = async (value) => {
+    @action setContextMenusValue = async (value: boolean): Promise<void> => {
         await messenger.setSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED, value);
         runInAction(() => {
             this.contextMenusEnabled = value;
         });
     };
 
-    @action setHelpUsImproveValue = async (value) => {
+    @action setHelpUsImproveValue = async (value: boolean): Promise<void> => {
         await messenger.setSetting(SETTINGS_IDS.HELP_US_IMPROVE, value);
         runInAction(() => {
             this.helpUsImprove = value;
         });
     };
 
-    @action setDnsServer = async (value) => {
+    @action setDnsServer = async (value: string): Promise<void> => {
         if (!value) {
             runInAction(() => {
                 this.dnsServer = DNS_DEFAULT;
@@ -128,7 +150,7 @@ export class SettingsStore {
         });
     };
 
-    @action setOptionsData = (data) => {
+    @action setOptionsData = (data: OptionsData): void => {
         this.appVersion = data.appVersion;
         this.currentUsername = data.username;
         this.nextBillDate = data.nextBillDate;
@@ -140,16 +162,17 @@ export class SettingsStore {
         this.dnsServer = data.dnsServer;
         this.appearanceTheme = data.appearanceTheme;
         this.subscriptionType = data.subscriptionType;
+        this.customDnsServers = data.customDnsServers;
     };
 
-    @action updateCurrentUsername = async () => {
+    @action updateCurrentUsername = async (): Promise<void> => {
         const currentUsername = await messenger.getUsername();
         runInAction(() => {
             this.currentUsername = currentUsername;
         });
     };
 
-    @action updateBonusesData = async () => {
+    @action updateBonusesData = async (): Promise<void> => {
         this.bonusesDataRequestStatus = REQUEST_STATUSES.PENDING;
         const bonusesData = await messenger.getBonusesData();
 
@@ -173,20 +196,23 @@ export class SettingsStore {
         });
     };
 
-    @action openPremiumPromoPage = async () => {
+    @action openPremiumPromoPage = async (): Promise<void> => {
         await messenger.openPremiumPromoPage();
     };
 
-    @action setCustomDnsServers = (dnsServersData) => {
+    @action setCustomDnsServers = (dnsServersData: DnsServerData[]): void => {
         this.customDnsServers = dnsServersData;
     };
 
-    @action addCustomDnsServer = async (dnsServerName, dnsServerAddress) => {
+    @action addCustomDnsServer = async (
+        dnsServerName: string,
+        dnsServerAddress: string,
+    ): Promise<DnsServerData> => {
         log.info(`Adding DNS server: ${dnsServerName} with address: ${dnsServerAddress}`);
         const dnsServer = {
             id: nanoid(),
             title: dnsServerName,
-            ip1: dnsServerAddress,
+            address: dnsServerAddress,
         };
         this.customDnsServers.push(dnsServer);
         await messenger.addCustomDnsServer(dnsServer);
@@ -194,7 +220,10 @@ export class SettingsStore {
         return dnsServer;
     };
 
-    @action editCustomDnsServer = async (dnsServerName, dnsServerAddress) => {
+    @action editCustomDnsServer = async (
+        dnsServerName: string,
+        dnsServerAddress: string,
+    ): Promise<void> => {
         if (!this.dnsServerToEdit) {
             return;
         }
@@ -202,14 +231,14 @@ export class SettingsStore {
         const editedDnsServers = await messenger.editCustomDnsServer({
             id: this.dnsServerToEdit.id,
             title: dnsServerName,
-            ip1: dnsServerAddress,
+            address: dnsServerAddress,
         });
 
         this.setCustomDnsServers(editedDnsServers);
         this.setDnsServerToEdit(null);
     };
 
-    @action removeCustomDnsServer = async (dnsServerId) => {
+    @action removeCustomDnsServer = async (dnsServerId: string): Promise<void> => {
         this.customDnsServers = this.customDnsServers.filter((server) => server.id !== dnsServerId);
         await messenger.removeCustomDnsServer(dnsServerId);
     };
@@ -221,19 +250,19 @@ export class SettingsStore {
         });
     };
 
-    @action setDnsServerToEdit = (value) => {
+    @action setDnsServerToEdit = (value: DnsServerData | null): void => {
         this.dnsServerToEdit = value;
     };
 
-    @action openCustomDnsModalOpen = () => {
+    @action openCustomDnsModalOpen = (): void => {
         this.isCustomDnsModalOpen = true;
     };
 
-    @action closeCustomDnsModalOpen = () => {
+    @action closeCustomDnsModalOpen = (): void => {
         this.isCustomDnsModalOpen = false;
     };
 
-    @computed get currentDnsServerName() {
+    @computed get currentDnsServerName(): string | null {
         if (!this.dnsServer) {
             return null;
         }
@@ -246,7 +275,7 @@ export class SettingsStore {
         return DNS_SERVERS[this.dnsServer]?.title;
     }
 
-    @action resendConfirmationLink = async () => {
+    @action resendConfirmationLink = async (): Promise<void> => {
         await messenger.resendConfirmRegistrationLink(false);
     };
 }

@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { DNS_SETTINGS_QUERY } from '../../../../background/dns/dnsConstants';
+import { DNS_SETTINGS_QUERY } from '../../../stores/consts';
 
 export const DnsMenuItem = observer(() => {
     const { settingsStore } = useContext(rootStore);

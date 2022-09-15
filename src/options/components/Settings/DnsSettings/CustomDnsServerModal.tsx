@@ -6,34 +6,34 @@ import classnames from 'classnames';
 
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { FORWARDER_DOMAIN } from '../../../../background/config';
-
-const ADGUARD_DNS_KB_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=adguard_dns_kb&from=options_screen&app=vpn_extension`;
+import { translator } from '../../../../common/translator';
+import { ADGUARD_DNS_KB_LINK } from '../../../../background/config';
 
 const DOH_PREFIX = 'https://';
 const DOT_PREFIX = 'tls://';
+
+enum ModalType {
+    AddDnsServer = 'addDnsServer',
+    EditDnsServer = 'editDnsServer',
+}
 
 export const CustomDnsServerModal = observer(() => {
     const { settingsStore, notificationsStore } = useContext(rootStore);
 
     const [dnsServerName, setDnsServerName] = useState('');
     const [dnsServerAddress, setDnsServerAddress] = useState('');
-    const [dnsServerAddressError, setDnsServerAddressError] = useState(false);
+    const [isDnsServerAddressError, setIsDnsServerAddressError] = useState(false);
 
     const handleAddressChange = (value: string) => {
         setDnsServerAddress(value);
-        if (dnsServerAddressError) {
-            setDnsServerAddressError(false);
+        if (isDnsServerAddressError) {
+            setIsDnsServerAddressError(false);
         }
     };
 
-    const dnsInfo = reactTranslator.getMessage('settings_dns_add_custom_server_info', {
-        a: (chunks: string) => (`<a href="${ADGUARD_DNS_KB_LINK}" target="_blank" class="dns-settings__modal--link">${chunks}</a>`),
-    });
-
     const clearDnsServerAddress = () => {
         setDnsServerAddress('');
-        setDnsServerAddressError(false);
+        setIsDnsServerAddressError(false);
     };
 
     const clearInputs = (): void => {
@@ -46,7 +46,7 @@ export const CustomDnsServerModal = observer(() => {
         if (settingsStore.dnsServerToEdit) {
             settingsStore.setDnsServerToEdit(null);
         }
-        setDnsServerAddressError(false);
+        setIsDnsServerAddressError(false);
         settingsStore.closeCustomDnsModalOpen();
     };
 
@@ -63,7 +63,7 @@ export const CustomDnsServerModal = observer(() => {
     const addDnsServer = async (): Promise<void> => {
         const validDnsAddress = handleDnsAddress(dnsServerAddress);
         if (!validDnsAddress) {
-            setDnsServerAddressError(true);
+            setIsDnsServerAddressError(true);
             return;
         }
         const dnsServer = await settingsStore.addCustomDnsServer(dnsServerName, validDnsAddress);
@@ -80,22 +80,22 @@ export const CustomDnsServerModal = observer(() => {
     const editDnsServer = async (): Promise<void> => {
         const validDnsAddress = handleDnsAddress(dnsServerAddress);
         if (!validDnsAddress) {
-            setDnsServerAddressError(true);
+            setIsDnsServerAddressError(true);
             return;
         }
         await settingsStore.editCustomDnsServer(dnsServerName, validDnsAddress);
         closeModal();
     };
 
-    const modalType = settingsStore.dnsServerToEdit ? 'editDnsServer' : 'addDnsServer';
+    const modalType = settingsStore.dnsServerToEdit ? ModalType.EditDnsServer : ModalType.AddDnsServer;
 
     const modalData = {
-        addDnsServer: {
+        [ModalType.AddDnsServer]: {
             modalTitle: reactTranslator.getMessage('settings_dns_add_custom_server'),
             submitText: reactTranslator.getMessage('settings_dns_add_custom_server_save_and_select'),
             handler: addDnsServer,
         },
-        editDnsServer: {
+        [ModalType.EditDnsServer]: {
             modalTitle: reactTranslator.getMessage('settings_dns_edit_custom_server'),
             submitText: reactTranslator.getMessage('settings_dns_add_custom_server_save'),
             handler: editDnsServer,
@@ -105,10 +105,10 @@ export const CustomDnsServerModal = observer(() => {
     useEffect(() => {
         if (settingsStore.dnsServerToEdit) {
             const { title: serverName } = settingsStore.dnsServerToEdit;
-            const { ip1: serverIp } = settingsStore.dnsServerToEdit;
+            const { address: serverAddress } = settingsStore.dnsServerToEdit;
 
             setDnsServerName(serverName);
-            setDnsServerAddress(serverIp);
+            setDnsServerAddress(serverAddress);
         }
     }, [settingsStore.isCustomDnsModalOpen]);
 
@@ -116,7 +116,7 @@ export const CustomDnsServerModal = observer(() => {
         'input__in',
         'input__in--content',
         'input__in--clear',
-        { 'dns-settings__modal--input--error': dnsServerAddressError },
+        { 'dns-settings__modal--input--error': isDnsServerAddressError },
     );
 
     return (
@@ -139,7 +139,11 @@ export const CustomDnsServerModal = observer(() => {
             <div className="dns-settings__modal--content">
                 {!settingsStore.dnsServerToEdit && (
                     <div className="form__item">
-                        <div dangerouslySetInnerHTML={{ __html: dnsInfo as string }} />
+                        {
+                            reactTranslator.getMessage('settings_dns_add_custom_server_info', {
+                                a: (chunks: string) => (<a href={ADGUARD_DNS_KB_LINK} target="_blank" className="dns-settings__modal--link">{chunks}</a>),
+                            })
+                        }
                     </div>
                 )}
                 <div className="form__item">
@@ -153,7 +157,7 @@ export const CustomDnsServerModal = observer(() => {
                             type="text"
                             value={dnsServerName}
                             onChange={(e) => setDnsServerName(e.target.value)}
-                            placeholder={reactTranslator.getMessage('settings_dns_add_custom_server_name_placeholder') as string}
+                            placeholder={translator.getMessage('settings_dns_add_custom_server_name_placeholder')}
                         />
                         {dnsServerName && (
                             <button
@@ -179,9 +183,9 @@ export const CustomDnsServerModal = observer(() => {
                             type="text"
                             value={dnsServerAddress}
                             onChange={(e) => handleAddressChange(e.target.value)}
-                            placeholder={reactTranslator.getMessage('settings_dns_add_custom_server_address_placeholder') as string}
+                            placeholder={translator.getMessage('settings_dns_add_custom_server_address_placeholder')}
                         />
-                        {dnsServerAddressError && (
+                        {isDnsServerAddressError && (
                             <div className="dns-settings__modal--error-message">
                                 {reactTranslator.getMessage('settings_dns_add_custom_server_invalid_address')}
                             </div>

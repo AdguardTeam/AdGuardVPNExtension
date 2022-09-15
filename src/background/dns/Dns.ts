@@ -5,12 +5,12 @@ import { settings } from '../settings';
 interface DnsServerData {
     id: string;
     title: string;
-    ip1: string;
+    address: string;
 }
 
 interface DnsInterface {
     init(): void;
-    getDnsServerIp(): string;
+    getCurrentDnsServerAddress(): string;
     setDnsServer(dnsServerId: string): void;
     addCustomDnsServer(dnsServerData: DnsServerData): void;
     editCustomDnsServer(dnsServerData: DnsServerData): void;
@@ -23,6 +23,8 @@ export class Dns implements DnsInterface {
 
     customDnsServers: DnsServerData[];
 
+    // backup data for customDnsServers
+    // if user deleted custom dns server and canceled the operation, it will be used to restore data
     backupDnsServersData: DnsServerData[];
 
     init = (): void => {
@@ -34,14 +36,14 @@ export class Dns implements DnsInterface {
     /**
      * Returns ip address of current dns server
      */
-    getDnsServerIp = (): string => {
+    getCurrentDnsServerAddress = (): string => {
         const currentDnsServerData = this.customDnsServers
             .find((server) => server.id === this.selectedDnsServer);
-        if (currentDnsServerData?.ip1) {
-            return currentDnsServerData.ip1;
+        if (currentDnsServerData?.address) {
+            return currentDnsServerData.address;
         }
 
-        return DNS_SERVERS[this.selectedDnsServer].ip1;
+        return DNS_SERVERS[this.selectedDnsServer].address;
     };
 
     /**
@@ -53,7 +55,7 @@ export class Dns implements DnsInterface {
             return;
         }
         this.selectedDnsServer = dnsServerId;
-        notifier.notifyListeners(notifier.types.DNS_SERVER_SET, this.getDnsServerIp());
+        notifier.notifyListeners(notifier.types.DNS_SERVER_SET, this.getCurrentDnsServerAddress());
     };
 
     /**
@@ -75,7 +77,7 @@ export class Dns implements DnsInterface {
                 return {
                     id: server.id,
                     title: dnsServerData.title,
-                    ip1: dnsServerData.ip1,
+                    address: dnsServerData.address,
                 };
             }
             return server;

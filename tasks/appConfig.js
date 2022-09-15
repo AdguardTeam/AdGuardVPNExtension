@@ -75,6 +75,8 @@ const COMMON = {
     AUTH_CLIENT_ID: 'adguard-vpn-extension',
     // Uninstall page
     UNINSTALL_PAGE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=adguard_uninstal_ext&from=background_page&app=vpn_extension`,
+    // AdGuard DNS Knowledge Base
+    ADGUARD_DNS_KB_LINK: `https://${FORWARDER_DOMAIN}/forward.html?action=adguard_dns_kb&from=options_screen&app=vpn_extension`,
 };
 
 const genAppConfig = (browser, stageEnv, buildingEnv) => {

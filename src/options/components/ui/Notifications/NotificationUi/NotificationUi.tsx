@@ -45,7 +45,7 @@ export const NotificationUi = ({ notification }: NotificationProps) => {
         button = (
             <button
                 type="button"
-                className="button notification__button"
+                className="button button--notification notification__button"
                 onClick={handleAction}
             >
                 {action.action}

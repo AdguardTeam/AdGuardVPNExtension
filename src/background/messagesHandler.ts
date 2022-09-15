@@ -364,17 +364,14 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             return exclusions.restoreExclusions();
         }
         case MessageType.ADD_CUSTOM_DNS_SERVER: {
-            const { dnsServerData } = data;
-            return dns.addCustomDnsServer(dnsServerData);
+            return dns.addCustomDnsServer(data.dnsServerData);
         }
         case MessageType.EDIT_CUSTOM_DNS_SERVER: {
-            const { dnsServerData } = data;
-            dns.editCustomDnsServer(dnsServerData);
+            dns.editCustomDnsServer(data.dnsServerData);
             return settings.getCustomDnsServers();
         }
         case MessageType.REMOVE_CUSTOM_DNS_SERVER: {
-            const { dnsServerId } = data;
-            return dns.removeCustomDnsServer(dnsServerId);
+            return dns.removeCustomDnsServer(data.dnsServerId);
         }
         case MessageType.RESEND_CONFIRM_REGISTRATION_LINK: {
             const { displayNotification } = data;

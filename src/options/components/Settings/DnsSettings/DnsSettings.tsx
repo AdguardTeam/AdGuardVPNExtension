@@ -14,7 +14,7 @@ import './dns-settings.pcss';
 interface DnsServerData {
     id: string;
     title: string;
-    ip1: string;
+    address: string;
 }
 
 export const DnsSettings = observer(() => {
@@ -77,7 +77,7 @@ export const DnsSettings = observer(() => {
     const renderDnsServer = (dnsServerId: string) => {
         const dnsServerData = DNS_SERVERS[dnsServerId];
         if (!dnsServerData) {
-            return (<div />);
+            return null;
         }
         return (
             <div
@@ -106,7 +106,7 @@ export const DnsSettings = observer(() => {
                     {renderRadioButton(server.id)}
                     <div>
                         <div className="settings__item-title">{server.title}</div>
-                        <div className="settings__item-desc">{server.ip1}</div>
+                        <div className="settings__item-desc">{server.address}</div>
                     </div>
                     <div className="dns-settings__item--actions">
                         <button
