@@ -1,16 +1,11 @@
-import { DNS_SERVERS } from './dnsConstants';
+import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from './dnsConstants';
 import { notifier } from '../../lib/notifier';
 import { settings } from '../settings';
-
-interface DnsServerData {
-    id: string;
-    title: string;
-    address: string;
-}
+import { DnsServerData } from '../../common/components/constants';
 
 interface DnsInterface {
     init(): void;
-    getCurrentDnsServerAddress(): string;
+    getCurrentDnsServerAddress(): string | null;
     setDnsServer(dnsServerId: string): void;
     addCustomDnsServer(dnsServerData: DnsServerData): void;
     editCustomDnsServer(dnsServerData: DnsServerData): void;
@@ -34,16 +29,18 @@ export class Dns implements DnsInterface {
     };
 
     /**
-     * Returns ip address of current dns server
+     * Returns address of current dns server
      */
-    getCurrentDnsServerAddress = (): string => {
-        const currentDnsServerData = this.customDnsServers
-            .find((server) => server.id === this.selectedDnsServer);
+    getCurrentDnsServerAddress = (): string | null => {
+        const currentDnsServerData = [
+            DEFAULT_DNS_SERVER,
+            ...POPULAR_DNS_SERVERS,
+            ...this.customDnsServers,
+        ].find((server) => server.id === this.selectedDnsServer);
         if (currentDnsServerData?.address) {
             return currentDnsServerData.address;
         }
-
-        return DNS_SERVERS[this.selectedDnsServer].address;
+        return null;
     };
 
     /**

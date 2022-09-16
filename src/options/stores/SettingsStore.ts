@@ -7,17 +7,12 @@ import {
 import { nanoid } from 'nanoid';
 
 import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT, THEME_URL_PARAMETER } from '../../lib/constants';
-import { DNS_DEFAULT, DNS_SERVERS } from '../../background/dns/dnsConstants';
+import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../background/dns/dnsConstants';
 import { messenger } from '../../lib/messenger';
-import { REQUEST_STATUSES } from './consts';
+import { RequestStatus } from './consts';
 import { log } from '../../lib/logger';
 import { setQueryParameter } from '../../common/url-utils';
-
-interface DnsServerData {
-    id: string;
-    address: string;
-    title: string;
-}
+import { DnsServerData } from '../../common/components/constants';
 
 interface OptionsData {
     appVersion: string;
@@ -54,7 +49,7 @@ export class SettingsStore {
 
     @observable helpUsImprove = false;
 
-    @observable dnsServer = DNS_DEFAULT;
+    @observable dnsServer = DEFAULT_DNS_SERVER.id;
 
     @observable dnsServerToEdit: DnsServerData | null = null;
 
@@ -140,7 +135,7 @@ export class SettingsStore {
     @action setDnsServer = async (value: string): Promise<void> => {
         if (!value) {
             runInAction(() => {
-                this.dnsServer = DNS_DEFAULT;
+                this.dnsServer = DEFAULT_DNS_SERVER.id;
             });
             return;
         }
@@ -173,12 +168,12 @@ export class SettingsStore {
     };
 
     @action updateBonusesData = async (): Promise<void> => {
-        this.bonusesDataRequestStatus = REQUEST_STATUSES.PENDING;
+        this.bonusesDataRequestStatus = RequestStatus.Pending;
         const bonusesData = await messenger.getBonusesData();
 
         if (!bonusesData) {
             log.warn('Available bonuses data request failed');
-            this.bonusesDataRequestStatus = REQUEST_STATUSES.ERROR;
+            this.bonusesDataRequestStatus = RequestStatus.Error;
             return;
         }
 
@@ -192,7 +187,7 @@ export class SettingsStore {
             };
             this.confirmBonus.available = confirmBonus.available;
             this.multiplatformBonus.available = multiplatformBonus.available;
-            this.bonusesDataRequestStatus = REQUEST_STATUSES.DONE;
+            this.bonusesDataRequestStatus = RequestStatus.Done;
         });
     };
 
@@ -241,6 +236,9 @@ export class SettingsStore {
     @action removeCustomDnsServer = async (dnsServerId: string): Promise<void> => {
         this.customDnsServers = this.customDnsServers.filter((server) => server.id !== dnsServerId);
         await messenger.removeCustomDnsServer(dnsServerId);
+        if (this.dnsServer === dnsServerId) {
+            await this.setDnsServer(DEFAULT_DNS_SERVER.id);
+        }
     };
 
     @action restoreCustomDnsServersData = async () => {
@@ -263,16 +261,15 @@ export class SettingsStore {
     };
 
     @computed get currentDnsServerName(): string | null {
-        if (!this.dnsServer) {
-            return null;
+        const currentDnsServer = [
+            DEFAULT_DNS_SERVER,
+            ...POPULAR_DNS_SERVERS,
+            ...this.customDnsServers,
+        ].find((server) => server.id === this.dnsServer);
+        if (currentDnsServer) {
+            return currentDnsServer.title;
         }
-        const customDnsServer = this.customDnsServers
-            .find((server) => server.id === this.dnsServer);
-        if (customDnsServer) {
-            return customDnsServer.title;
-        }
-
-        return DNS_SERVERS[this.dnsServer]?.title;
+        return null;
     }
 
     @action resendConfirmationLink = async (): Promise<void> => {

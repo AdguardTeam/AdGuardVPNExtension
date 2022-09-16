@@ -3,29 +3,20 @@ import { observer } from 'mobx-react';
 import { useHistory } from 'react-router-dom';
 import classnames from 'classnames';
 
-import { DNS_SERVERS, DNS_DEFAULT } from '../../../../background/dns/dnsConstants';
+import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../../../background/dns/dnsConstants';
 import { rootStore } from '../../../stores';
 import { Title } from '../../ui/Title';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { CustomDnsServerModal } from './CustomDnsServerModal';
+import { DnsServerData } from '../../../../common/components/constants';
 
 import './dns-settings.pcss';
-
-interface DnsServerData {
-    id: string;
-    title: string;
-    address: string;
-}
 
 export const DnsSettings = observer(() => {
     const { settingsStore, notificationsStore } = useContext(rootStore);
 
     const handleDnsSelect = async (event: React.MouseEvent<HTMLDivElement>): Promise<void> => {
         const dnsServerId = event.currentTarget.id;
-        await settingsStore.setDnsServer(dnsServerId);
-    };
-
-    const handleCustomDnsSelect = async (dnsServerId: string): Promise<void> => {
         await settingsStore.setDnsServer(dnsServerId);
     };
 
@@ -39,7 +30,11 @@ export const DnsSettings = observer(() => {
         settingsStore.openCustomDnsModalOpen();
     };
 
-    const removeDnsServer = (dnsServerId: string): void => {
+    const removeDnsServer = (
+        event: React.MouseEvent<HTMLButtonElement>,
+        dnsServerId: string,
+    ): void => {
+        event.stopPropagation();
         settingsStore.removeCustomDnsServer(dnsServerId);
         notificationsStore.notifySuccess(
             reactTranslator.getMessage('settings_dns_delete_custom_server_notification'),
@@ -48,18 +43,16 @@ export const DnsSettings = observer(() => {
                 handler: () => settingsStore.restoreCustomDnsServersData(),
             },
         );
-        if (settingsStore.dnsServer === dnsServerId) {
-            settingsStore.setDnsServer(DNS_DEFAULT);
-        }
     };
 
-    const openEditDnsServerModal = (server: DnsServerData): void => {
+    const openEditDnsServerModal = (
+        event: React.MouseEvent<HTMLButtonElement>,
+        server: DnsServerData,
+    ): void => {
+        event.stopPropagation();
         settingsStore.setDnsServerToEdit(server);
         settingsStore.openCustomDnsModalOpen();
     };
-
-    const dnsServers = Object.keys(DNS_SERVERS);
-    const popularDnsServers = dnsServers.filter((server) => server !== DNS_DEFAULT);
 
     const renderRadioButton = (dnsServerId: string) => {
         const enabled = dnsServerId === settingsStore.dnsServer;
@@ -74,63 +67,60 @@ export const DnsSettings = observer(() => {
         );
     };
 
-    const renderDnsServer = (dnsServerId: string) => {
-        const dnsServerData = DNS_SERVERS[dnsServerId];
-        if (!dnsServerData) {
-            return null;
-        }
+    const renderActions = (dnsServerData: DnsServerData) => {
         return (
-            <div
-                key={dnsServerId}
-                id={dnsServerId}
-                className="dns-settings__item"
-                onClick={handleDnsSelect}
-            >
-                {renderRadioButton(dnsServerId)}
-                <div>
-                    <div className="settings__item-title">{dnsServerData.title}</div>
-                    <div className="settings__item-desc">{dnsServerData.desc}</div>
-                </div>
+            <div className="dns-settings__item--actions">
+                <button
+                    type="button"
+                    className="button button--icon dns-settings__item--actions--button"
+                    onClick={(event) => openEditDnsServerModal(event, dnsServerData)}
+                >
+                    <svg className="icon icon--button">
+                        <use xlinkHref="#edit" />
+                    </svg>
+                </button>
+                <button
+                    type="button"
+                    className="button button--icon dns-settings__item--actions--button"
+                    onClick={(event) => removeDnsServer(event, dnsServerData.id)}
+                >
+                    <svg className="icon icon--button">
+                        <use xlinkHref="#basket" />
+                    </svg>
+                </button>
             </div>
         );
     };
 
-    const renderCustomDnsServers = () => {
-        return settingsStore.customDnsServers.map((server) => {
-            return (
-                <div
-                    key={server.id}
-                    className="dns-settings__item"
-                    onClick={() => handleCustomDnsSelect(server.id)}
-                >
-                    {renderRadioButton(server.id)}
-                    <div>
-                        <div className="settings__item-title">{server.title}</div>
-                        <div className="settings__item-desc">{server.address}</div>
-                    </div>
-                    <div className="dns-settings__item--actions">
-                        <button
-                            type="button"
-                            className="button button--icon dns-settings__item--actions--button"
-                            onClick={() => openEditDnsServerModal(server)}
-                        >
-                            <svg className="icon icon--button">
-                                <use xlinkHref="#edit" />
-                            </svg>
-                        </button>
-                        <button
-                            type="button"
-                            className="button button--icon dns-settings__item--actions--button"
-                            onClick={() => removeDnsServer(server.id)}
-                        >
-                            <svg className="icon icon--button">
-                                <use xlinkHref="#basket" />
-                            </svg>
-                        </button>
-                    </div>
+    const renderDnsServer = (dnsServerData: DnsServerData) => {
+        if (!dnsServerData) {
+            return null;
+        }
+        const {
+            id,
+            title,
+            address,
+            desc,
+        } = dnsServerData;
+
+        // Custom servers doesn't have description
+        const isCustom = !desc;
+
+        return (
+            <div
+                key={id}
+                id={id}
+                className="dns-settings__item"
+                onClick={handleDnsSelect}
+            >
+                {renderRadioButton(id)}
+                <div>
+                    <div className="settings__item-title">{title}</div>
+                    <div className="settings__item-desc">{isCustom ? address : desc}</div>
                 </div>
-            );
-        });
+                {isCustom && renderActions(dnsServerData)}
+            </div>
+        );
     };
 
     return (
@@ -144,20 +134,20 @@ export const DnsSettings = observer(() => {
                 <Title title={reactTranslator.getMessage('settings_dns_label')} />
             </div>
             <div>
-                {renderDnsServer(DNS_DEFAULT)}
+                {renderDnsServer(DEFAULT_DNS_SERVER)}
             </div>
             <div>
                 <div className="dns-settings__label">
                     {reactTranslator.getMessage('settings_dns_popular_servers')}
                 </div>
-                {popularDnsServers.map(renderDnsServer)}
+                {POPULAR_DNS_SERVERS.map(renderDnsServer)}
             </div>
             <div>
                 <div className="dns-settings__label">
                     {reactTranslator.getMessage('settings_dns_custom_servers')}
                 </div>
                 <div>
-                    {renderCustomDnsServers()}
+                    {settingsStore.customDnsServers.map(renderDnsServer)}
                 </div>
                 <button
                     type="button"
