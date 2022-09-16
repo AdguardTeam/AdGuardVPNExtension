@@ -106,11 +106,10 @@ export const CustomDnsServerModal = observer(() => {
 
     useEffect(() => {
         if (settingsStore.dnsServerToEdit) {
-            const { title: serverName } = settingsStore.dnsServerToEdit;
-            const { address: serverAddress } = settingsStore.dnsServerToEdit;
+            const { title: serverName, address } = settingsStore.dnsServerToEdit;
 
             setDnsServerName(serverName);
-            setDnsServerAddress(serverAddress);
+            setDnsServerAddress(address);
         }
     }, [settingsStore.isCustomDnsModalOpen]);
 

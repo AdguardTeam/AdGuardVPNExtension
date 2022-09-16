@@ -25,6 +25,10 @@ export class Dns implements DnsInterface {
     init = (): void => {
         this.customDnsServers = settings.getCustomDnsServers();
         const selectedDnsServer = settings.getSelectedDnsServer();
+        if (!selectedDnsServer) {
+            this.setDnsServer(DEFAULT_DNS_SERVER.id);
+            return;
+        }
         this.setDnsServer(selectedDnsServer);
     };
 
