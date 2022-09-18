@@ -44,7 +44,7 @@ export class Dns implements DnsInterface {
         if (currentDnsServerData?.address) {
             return currentDnsServerData.address;
         }
-        return null;
+        return DEFAULT_DNS_SERVER.address;
     };
 
     /**
