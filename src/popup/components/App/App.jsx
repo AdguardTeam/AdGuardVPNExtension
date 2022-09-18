@@ -107,7 +107,7 @@ export const App = observer(() => {
                 case notifier.types.CONNECTIVITY_STATE_CHANGED: {
                     settingsStore.setConnectivityState(data);
                     if (data.value === STATE.CONNECTED) {
-                        settingsStore.setAnimation(AnimationType.SwitchOn);
+                        settingsStore.setAnimationType(AnimationType.SwitchOn);
                     }
                     break;
                 }

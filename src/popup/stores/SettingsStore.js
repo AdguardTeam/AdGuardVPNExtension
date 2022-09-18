@@ -83,7 +83,7 @@ export class SettingsStore {
         if (value) {
             await this.enableProxy(true);
         } else {
-            this.setAnimation(AnimationType.SwitchOff);
+            this.setAnimationType(AnimationType.SwitchOff);
             await this.disableProxy(true);
         }
     };
@@ -92,7 +92,7 @@ export class SettingsStore {
         try {
             await messenger.disableVpnByUrl(this.currentTabHostname);
             if (this.isConnected) {
-                this.setAnimation(AnimationType.SwitchOff);
+                this.setAnimationType(AnimationType.SwitchOff);
             }
             this.setIsExcluded(true);
         } catch (e) {
@@ -105,14 +105,14 @@ export class SettingsStore {
             await messenger.enableVpnByUrl(this.currentTabHostname);
             this.setIsExcluded(false);
             if (this.isConnected) {
-                this.setAnimation(AnimationType.SwitchOn);
+                this.setAnimationType(AnimationType.SwitchOn);
             }
         } catch (e) {
             log.error(e);
         }
     };
 
-    @action setAnimation = (value) => {
+    @action setAnimationType = (value) => {
         this.animationType = value;
     };
 
