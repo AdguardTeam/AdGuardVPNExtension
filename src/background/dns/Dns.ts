@@ -5,7 +5,7 @@ import { DnsServerData } from '../../common/components/constants';
 
 interface DnsInterface {
     init(): void;
-    getCurrentDnsServerAddress(): string | null;
+    getCurrentDnsServerAddress(): string;
     setDnsServer(dnsServerId: string): void;
     addCustomDnsServer(dnsServerData: DnsServerData): void;
     editCustomDnsServer(dnsServerData: DnsServerData): void;
@@ -35,7 +35,7 @@ export class Dns implements DnsInterface {
     /**
      * Returns address of current dns server
      */
-    getCurrentDnsServerAddress = (): string | null => {
+    getCurrentDnsServerAddress = (): string => {
         const currentDnsServerData = [
             DEFAULT_DNS_SERVER,
             ...POPULAR_DNS_SERVERS,
