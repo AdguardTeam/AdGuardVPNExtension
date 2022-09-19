@@ -1,6 +1,6 @@
 import browser, { Runtime } from 'webextension-polyfill';
 
-import { FLAGS_FIELDS, MessageType, SETTINGS_IDS } from '../lib/constants';
+import { MessageType, SETTINGS_IDS } from '../lib/constants';
 import auth from './auth';
 import popupData from './popupData';
 import { endpoints } from './endpoints';
