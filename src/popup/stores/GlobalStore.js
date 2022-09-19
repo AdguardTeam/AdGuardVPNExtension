@@ -28,10 +28,6 @@ export class GlobalStore {
         try {
             const popupData = await messenger.getPopupData(tab.url, numberOfTries);
             if (!popupData) {
-                // no popupData means that extension didn't load all necessary modules,
-                // keep pending status to display loader until get message
-                // about the extension is ready
-                this.setInitStatus(REQUEST_STATUSES.PENDING);
                 return;
             }
 
