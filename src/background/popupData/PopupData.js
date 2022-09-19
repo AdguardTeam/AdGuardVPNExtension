@@ -6,7 +6,7 @@ import { connectivityService } from '../connectivity/connectivityService/connect
 import { promoNotifications } from '../promoNotifications';
 import auth from '../auth';
 import { settings } from '../settings';
-import { SETTINGS_IDS } from '../../lib/constants';
+import { FLAGS_FIELDS, SETTINGS_IDS } from '../../lib/constants';
 import { vpnApi } from '../api';
 import { updateService } from '../updateService';
 import { flagsStorage } from '../flagsStorage';
@@ -114,6 +114,10 @@ class PopupData {
     DEFAULT_RETRY_DELAY = 400;
 
     async getPopupDataRetry(url, retryNum = 1, retryDelay = this.DEFAULT_RETRY_DELAY) {
+        const isExtensionReady = await flagsStorage.get(FLAGS_FIELDS.IS_EXTENSION_READY);
+        if (!isExtensionReady) {
+            return null;
+        }
         const backoffIndex = 1.5;
         let data;
 

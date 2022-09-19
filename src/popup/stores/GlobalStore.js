@@ -27,6 +27,13 @@ export class GlobalStore {
 
         try {
             const popupData = await messenger.getPopupData(tab.url, numberOfTries);
+            if (!popupData) {
+                // no popupData means that extension didn't load all necessary modules,
+                // keep pending status to display loader until get message
+                // about the extension is ready
+                this.setInitStatus(REQUEST_STATUSES.PENDING);
+                return;
+            }
 
             const {
                 vpnInfo,
@@ -95,10 +102,7 @@ export class GlobalStore {
 
     @action
     async init() {
-        const isExtensionReady = await messenger.isExtensionReady();
-        if (isExtensionReady) {
-            await this.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
-        }
+        await this.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
     }
 
     @action

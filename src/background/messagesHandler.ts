@@ -365,9 +365,6 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             const accessToken = await auth.getAccessToken();
             return accountProvider.resendConfirmRegistrationLink(accessToken, displayNotification);
         }
-        case MessageType.IS_EXTENSION_READY: {
-            return flagsStorage.get(FLAGS_FIELDS.IS_EXTENSION_READY);
-        }
         default:
             throw new Error(`Unknown message type received: ${type}`);
     }
