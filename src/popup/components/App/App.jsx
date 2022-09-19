@@ -34,7 +34,7 @@ import { DotsLoader } from '../../../common/components/DotsLoader';
 import { ReviewPopup } from '../ReviewPopup';
 import { ConfirmEmailModal, ConfirmEmailNotice } from '../ConfirmEmail';
 import { STATE } from '../../../background/connectivity/connectivityService/connectivityConstants';
-import { AnimationType } from '../../../lib/constants';
+import { Animation } from '../../../lib/constants';
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -107,7 +107,7 @@ export const App = observer(() => {
                 case notifier.types.CONNECTIVITY_STATE_CHANGED: {
                     settingsStore.setConnectivityState(data);
                     if (data.value === STATE.CONNECTED) {
-                        settingsStore.setAnimationType(AnimationType.SwitchOn);
+                        settingsStore.setAnimation(Animation.SwitchOn);
                     }
                     break;
                 }

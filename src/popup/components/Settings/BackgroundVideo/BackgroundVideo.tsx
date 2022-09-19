@@ -7,16 +7,20 @@ import React, {
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
-import { AnimationType, APPEARANCE_THEMES, videoSourcesMap } from '../../../../lib/constants';
+import { Animation, APPEARANCE_THEMES, videoSourcesMap } from '../../../../lib/constants';
 
-export const BackgroundVideo = observer(({ exclusionsScreen }: { exclusionsScreen?: boolean }) => {
+interface BackgroundVideoProps {
+    exclusionsScreen?: boolean;
+}
+
+export const BackgroundVideo = observer(({ exclusionsScreen }: BackgroundVideoProps) => {
     const { settingsStore } = useContext(rootStore);
 
     const {
         isConnected,
         appearanceTheme,
-        animationType,
-        setAnimationType,
+        animation,
+        setAnimation,
     } = settingsStore;
 
     const darkThemeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -40,25 +44,25 @@ export const BackgroundVideo = observer(({ exclusionsScreen }: { exclusionsScree
         : videoSourcesMap[appearanceTheme];
 
     let backgroundVideoUrl = isConnected
-        ? videoSources.connected
-        : videoSources.disconnected;
+        ? videoSources[Animation.Connected]
+        : videoSources[Animation.Disconnected];
 
     if (exclusionsScreen) {
         backgroundVideoUrl = videoSources.disconnected;
     }
 
-    const animationUrl = animationType === AnimationType.SwitchOn
-        ? videoSources[AnimationType.SwitchOn]
-        : videoSources[AnimationType.SwitchOff];
+    const animationUrl = animation === Animation.SwitchOn
+        ? videoSources[Animation.SwitchOn]
+        : videoSources[Animation.SwitchOff];
 
     const handleAnimationEnded = (): void => {
-        if (animationType) {
-            setAnimationType(null);
+        if (animation) {
+            setAnimation(null);
         }
     };
 
     const videoRef = useRef<HTMLVideoElement>(null);
-    const sourceUrl = animationType ? animationUrl : backgroundVideoUrl;
+    const sourceUrl = animation ? animationUrl : backgroundVideoUrl;
 
     useEffect(() => {
         videoRef.current?.load();
@@ -69,7 +73,7 @@ export const BackgroundVideo = observer(({ exclusionsScreen }: { exclusionsScree
             ref={videoRef}
             className="settings__video"
             autoPlay
-            loop={!animationType}
+            loop={!animation}
             onEnded={handleAnimationEnded}
         >
             <source src={sourceUrl} type="video/webm" />

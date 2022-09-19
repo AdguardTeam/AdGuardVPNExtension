@@ -8,7 +8,7 @@ import {
 import tabs from '../../background/tabs';
 import { log } from '../../lib/logger';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
-import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT, AnimationType } from '../../lib/constants';
+import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT, Animation } from '../../lib/constants';
 import { messenger } from '../../lib/messenger';
 import { STATE } from '../../background/connectivity/connectivityService/connectivityConstants';
 import { getHostname, getProtocol } from '../../common/url-utils';
@@ -44,7 +44,7 @@ export class SettingsStore {
 
     @observable appearanceTheme = APPEARANCE_THEME_DEFAULT;
 
-    @observable animationType = null;
+    @observable animation = null;
 
     constructor(rootStore) {
         this.rootStore = rootStore;
@@ -83,7 +83,7 @@ export class SettingsStore {
         if (value) {
             await this.enableProxy(true);
         } else {
-            this.setAnimationType(AnimationType.SwitchOff);
+            this.setAnimation(Animation.SwitchOff);
             await this.disableProxy(true);
         }
     };
@@ -92,7 +92,7 @@ export class SettingsStore {
         try {
             await messenger.disableVpnByUrl(this.currentTabHostname);
             if (this.isConnected) {
-                this.setAnimationType(AnimationType.SwitchOff);
+                this.setAnimation(Animation.SwitchOff);
             }
             this.setIsExcluded(true);
         } catch (e) {
@@ -105,15 +105,15 @@ export class SettingsStore {
             await messenger.enableVpnByUrl(this.currentTabHostname);
             this.setIsExcluded(false);
             if (this.isConnected) {
-                this.setAnimationType(AnimationType.SwitchOn);
+                this.setAnimation(Animation.SwitchOn);
             }
         } catch (e) {
             log.error(e);
         }
     };
 
-    @action setAnimationType = (value) => {
-        this.animationType = value;
+    @action setAnimation = (value) => {
+        this.animation = value;
     };
 
     @action getExclusionsInverted = async () => {

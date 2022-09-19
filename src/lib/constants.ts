@@ -112,7 +112,9 @@ export const FLAGS_FIELDS = {
 
 export const FREE_GBS_ANCHOR = 'free-gbs';
 
-export enum AnimationType {
+export enum Animation {
+    Connected = 'connected',
+    Disconnected = 'disconnected',
     SwitchOn = 'switch-on',
     SwitchOff = 'switch-off',
 }
@@ -121,15 +123,15 @@ const MOTION_FOLDER_PATH = '../../../assets/motion/';
 
 export const videoSourcesMap = {
     [APPEARANCE_THEMES.LIGHT]: {
-        connected: `${MOTION_FOLDER_PATH}on-light.webm`,
-        disconnected: `${MOTION_FOLDER_PATH}off-light.webm`,
-        [AnimationType.SwitchOn]: `${MOTION_FOLDER_PATH}switch-on-light.webm`,
-        [AnimationType.SwitchOff]: `${MOTION_FOLDER_PATH}switch-off-light.webm`,
+        [Animation.Connected]: `${MOTION_FOLDER_PATH}on-light.webm`,
+        [Animation.Disconnected]: `${MOTION_FOLDER_PATH}off-light.webm`,
+        [Animation.SwitchOn]: `${MOTION_FOLDER_PATH}switch-on-light.webm`,
+        [Animation.SwitchOff]: `${MOTION_FOLDER_PATH}switch-off-light.webm`,
     },
     [APPEARANCE_THEMES.DARK]: {
-        connected: `${MOTION_FOLDER_PATH}on-dark.webm`,
-        disconnected: `${MOTION_FOLDER_PATH}off-dark.webm`,
-        [AnimationType.SwitchOn]: `${MOTION_FOLDER_PATH}switch-on-dark.webm`,
-        [AnimationType.SwitchOff]: `${MOTION_FOLDER_PATH}switch-off-dark.webm`,
+        [Animation.Connected]: `${MOTION_FOLDER_PATH}on-dark.webm`,
+        [Animation.Disconnected]: `${MOTION_FOLDER_PATH}off-dark.webm`,
+        [Animation.SwitchOn]: `${MOTION_FOLDER_PATH}switch-on-dark.webm`,
+        [Animation.SwitchOff]: `${MOTION_FOLDER_PATH}switch-off-dark.webm`,
     },
 };
