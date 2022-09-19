@@ -7,12 +7,9 @@ import React, {
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
-import { AnimationType, APPEARANCE_THEMES } from '../../../../lib/constants';
-import { useVideoSourcesMapCache } from './useVideoSourcesMapCache';
+import { AnimationType, APPEARANCE_THEMES, videoSourcesMap } from '../../../../lib/constants';
 
 export const BackgroundVideo = observer(({ exclusionsScreen }: { exclusionsScreen?: boolean }) => {
-    const videoSourcesMap = useVideoSourcesMapCache();
-
     const { settingsStore } = useContext(rootStore);
 
     const {
