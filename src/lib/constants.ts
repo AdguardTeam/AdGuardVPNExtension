@@ -85,7 +85,6 @@ export enum MessageType {
     ADD_EXCLUSIONS_MAP = 'add.exclusions.map',
     SET_RATE_MODAL_VIEWED = 'set.rate.modal.viewed',
     RESEND_CONFIRM_REGISTRATION_LINK = 'resend.confirm.registration.link',
-    IS_EXTENSION_READY = 'is.extension.ready',
 }
 
 export const ERROR_STATUSES = {
