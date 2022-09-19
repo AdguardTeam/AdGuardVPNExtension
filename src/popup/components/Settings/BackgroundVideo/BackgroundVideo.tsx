@@ -7,7 +7,12 @@ import React, {
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
-import { Animation, APPEARANCE_THEMES, videoSourcesMap } from '../../../../lib/constants';
+import {
+    Animation,
+    APPEARANCE_THEMES,
+    videoSourcesMap,
+    videoPostersMap,
+} from '../../../../lib/constants';
 
 interface BackgroundVideoProps {
     exclusionsScreen?: boolean;
@@ -43,17 +48,30 @@ export const BackgroundVideo = observer(({ exclusionsScreen }: BackgroundVideoPr
         ? videoSourcesMap[systemTheme]
         : videoSourcesMap[appearanceTheme];
 
+    const videoPosters = appearanceTheme === APPEARANCE_THEMES.SYSTEM
+        ? videoPostersMap[systemTheme]
+        : videoPostersMap[appearanceTheme];
+
     let backgroundVideoUrl = isConnected
         ? videoSources[Animation.Connected]
         : videoSources[Animation.Disconnected];
 
+    let backgroundVideoPoster = isConnected
+        ? videoPosters[Animation.Connected]
+        : videoPosters[Animation.Disconnected];
+
     if (exclusionsScreen) {
-        backgroundVideoUrl = videoSources.disconnected;
+        backgroundVideoUrl = videoSources[Animation.Disconnected];
+        backgroundVideoPoster = videoPosters[Animation.Disconnected];
     }
 
     const animationUrl = animation === Animation.SwitchOn
         ? videoSources[Animation.SwitchOn]
         : videoSources[Animation.SwitchOff];
+
+    const animationPoster = animation === Animation.SwitchOn
+        ? videoPosters[Animation.SwitchOn]
+        : videoPosters[Animation.SwitchOff];
 
     const handleAnimationEnded = (): void => {
         if (animation) {
@@ -63,6 +81,7 @@ export const BackgroundVideo = observer(({ exclusionsScreen }: BackgroundVideoPr
 
     const videoRef = useRef<HTMLVideoElement>(null);
     const sourceUrl = animation ? animationUrl : backgroundVideoUrl;
+    const poster = animation ? animationPoster : backgroundVideoPoster;
 
     useEffect(() => {
         videoRef.current?.load();
@@ -75,6 +94,7 @@ export const BackgroundVideo = observer(({ exclusionsScreen }: BackgroundVideoPr
             autoPlay
             loop={!animation}
             onEnded={handleAnimationEnded}
+            poster={poster}
         >
             <source src={sourceUrl} type="video/webm" />
             <track kind="captions" />

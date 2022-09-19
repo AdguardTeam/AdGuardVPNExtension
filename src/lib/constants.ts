@@ -120,6 +120,7 @@ export enum Animation {
 }
 
 const MOTION_FOLDER_PATH = '../../../assets/motion/';
+const POSTERS_FOLDER_PATH = '../../../assets/images/posters/';
 
 export const videoSourcesMap = {
     [APPEARANCE_THEMES.LIGHT]: {
@@ -133,5 +134,20 @@ export const videoSourcesMap = {
         [Animation.Disconnected]: `${MOTION_FOLDER_PATH}off-dark.webm`,
         [Animation.SwitchOn]: `${MOTION_FOLDER_PATH}switch-on-dark.webm`,
         [Animation.SwitchOff]: `${MOTION_FOLDER_PATH}switch-off-dark.webm`,
+    },
+};
+
+export const videoPostersMap = {
+    [APPEARANCE_THEMES.LIGHT]: {
+        [Animation.Connected]: `${POSTERS_FOLDER_PATH}on-light.jpg`,
+        [Animation.Disconnected]: `${POSTERS_FOLDER_PATH}off-light.jpg`,
+        [Animation.SwitchOn]: `${POSTERS_FOLDER_PATH}off-light.jpg`,
+        [Animation.SwitchOff]: `${POSTERS_FOLDER_PATH}on-light.jpg`,
+    },
+    [APPEARANCE_THEMES.DARK]: {
+        [Animation.Connected]: `${POSTERS_FOLDER_PATH}on-dark.jpg`,
+        [Animation.Disconnected]: `${POSTERS_FOLDER_PATH}off-dark.jpg`,
+        [Animation.SwitchOn]: `${POSTERS_FOLDER_PATH}off-dark.jpg`,
+        [Animation.SwitchOff]: `${POSTERS_FOLDER_PATH}on-dark.jpg`,
     },
 };
