@@ -1,9 +1,4 @@
-import React, {
-    useContext,
-    useEffect,
-    useRef,
-    useState,
-} from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
@@ -26,23 +21,8 @@ export const BackgroundVideo = observer(({ exclusionsScreen }: BackgroundVideoPr
         appearanceTheme,
         animation,
         setAnimation,
+        systemTheme,
     } = settingsStore;
-
-    const darkThemeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const currentTheme = darkThemeMediaQuery.matches
-        ? APPEARANCE_THEMES.DARK
-        : APPEARANCE_THEMES.LIGHT;
-
-    const [systemTheme, setSystemTheme] = useState(currentTheme);
-
-    const systemThemeChangeHandler = ((e: MediaQueryListEvent) => {
-        setSystemTheme(e.matches ? APPEARANCE_THEMES.DARK : APPEARANCE_THEMES.LIGHT);
-    });
-
-    useEffect(() => {
-        darkThemeMediaQuery.addEventListener('change', systemThemeChangeHandler);
-        return () => darkThemeMediaQuery.removeEventListener('change', systemThemeChangeHandler);
-    }, []);
 
     const videoSources = appearanceTheme === APPEARANCE_THEMES.SYSTEM
         ? videoSourcesMap[systemTheme]

@@ -8,7 +8,12 @@ import {
 import tabs from '../../background/tabs';
 import { log } from '../../lib/logger';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
-import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT, Animation } from '../../lib/constants';
+import {
+    SETTINGS_IDS,
+    APPEARANCE_THEME_DEFAULT,
+    Animation,
+    APPEARANCE_THEMES,
+} from '../../lib/constants';
 import { messenger } from '../../lib/messenger';
 import { STATE } from '../../background/connectivity/connectivityService/connectivityConstants';
 import { getHostname, getProtocol } from '../../common/url-utils';
@@ -45,6 +50,10 @@ export class SettingsStore {
     @observable appearanceTheme = APPEARANCE_THEME_DEFAULT;
 
     @observable animation = null;
+
+    @observable darkThemeMediaQuery;
+
+    @observable systemTheme;
 
     constructor(rootStore) {
         this.rootStore = rootStore;
@@ -289,5 +298,21 @@ export class SettingsStore {
 
     @action setIsExcluded = (value) => {
         this.isExcluded = value;
+    };
+
+    @action updateDarkThemeMediaQuery = () => {
+        this.darkThemeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    };
+
+    @action updateSystemTheme = () => {
+        this.systemTheme = this.darkThemeMediaQuery.matches
+            ? APPEARANCE_THEMES.DARK
+            : APPEARANCE_THEMES.LIGHT;
+    };
+
+    @action trackSystemTheme = () => {
+        this.updateDarkThemeMediaQuery();
+        this.updateSystemTheme();
+        this.darkThemeMediaQuery.addEventListener('change', this.updateSystemTheme);
     };
 }

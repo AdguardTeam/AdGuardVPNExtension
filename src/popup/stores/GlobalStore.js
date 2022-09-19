@@ -75,6 +75,7 @@ export class GlobalStore {
             settingsStore.setIsRoutable(isRoutable);
             settingsStore.setPromoNotification(promoNotification);
             settingsStore.setDesktopVpnEnabled(desktopVpnEnabled);
+            settingsStore.trackSystemTheme();
             vpnStore.setVpnInfo(vpnInfo);
             vpnStore.setLocations(locations);
             vpnStore.setSelectedLocation(selectedLocation);
