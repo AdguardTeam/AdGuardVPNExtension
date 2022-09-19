@@ -20,7 +20,7 @@ import CurrentEndpoint from '../Settings/CurrentEndpoint';
 import { ExclusionsScreen } from '../Settings/ExclusionsScreen';
 
 import { rootStore } from '../../stores';
-import { REQUEST_STATUSES } from '../../stores/consts';
+import { REQUEST_STATUSES, MAX_GET_POPUP_DATA_ATTEMPTS } from '../../stores/consts';
 import { log } from '../../../lib/logger';
 import { messenger } from '../../../lib/messenger';
 import notifier from '../../../lib/notifier';
@@ -115,6 +115,10 @@ export const App = observer(() => {
                     settingsStore.setDesktopVpnEnabled(data);
                     break;
                 }
+                case notifier.types.EXTENSION_IS_READY: {
+                    await globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
+                    break;
+                }
                 default: {
                     log.debug('there is no such message type: ', type);
                     break;
@@ -132,6 +136,7 @@ export const App = observer(() => {
             notifier.types.CONNECTIVITY_STATE_CHANGED,
             notifier.types.TOO_MANY_DEVICES_CONNECTED,
             notifier.types.CONNECTIVITY_DESKTOP_VPN_STATUS_CHANGED,
+            notifier.types.EXTENSION_IS_READY,
         ];
 
         const onUnload = messenger.createLongLivedConnection(events, messageHandler);
