@@ -6,7 +6,7 @@ import { ExclusionInterface, IndexedExclusionsInterface } from './exclusionsType
 import { getETld, getHostname } from '../../../common/url-utils';
 
 interface UpdateHandler {
-    (): Promise<void>;
+    (shouldNotify?: boolean): Promise<void>;
 }
 
 export interface AddExclusionArgs {
@@ -35,9 +35,9 @@ export class ExclusionsHandler {
         this.mode = mode;
     }
 
-    async onUpdate() {
+    async onUpdate(shouldNotify?: boolean) {
         this.exclusionsIndex = ExclusionsHandler.buildExclusionsIndex(this.exclusions);
-        await this.updateHandler();
+        await this.updateHandler(shouldNotify);
     }
 
     getExclusions(): ExclusionInterface[] {
@@ -46,7 +46,7 @@ export class ExclusionsHandler {
 
     async setExclusions(exclusions: ExclusionInterface[]) {
         this.exclusions = exclusions;
-        await this.onUpdate();
+        await this.onUpdate(false);
     }
 
     getIndexedExclusions(): IndexedExclusionsInterface {
@@ -83,8 +83,12 @@ export class ExclusionsHandler {
     /**
      * Adds prepared exclusions and returns amount of added
      * @param exclusionsToAdd
+     * @param shouldNotify
      */
-    async addExclusions(exclusionsToAdd: AddExclusionArgs[]): Promise<number> {
+    async addExclusions(
+        exclusionsToAdd: AddExclusionArgs[],
+        shouldNotify?: boolean,
+    ): Promise<number> {
         let addedCount = 0;
         exclusionsToAdd.forEach(({ value, enabled = true, overwriteState = false }) => {
             const state = enabled ? ExclusionState.Enabled : ExclusionState.Disabled;
@@ -99,7 +103,7 @@ export class ExclusionsHandler {
             }
         });
 
-        await this.onUpdate();
+        await this.onUpdate(shouldNotify);
         return addedCount;
     }
 
@@ -110,8 +114,9 @@ export class ExclusionsHandler {
     /**
      * Adds exclusion by provided url
      * @param url
+     * @param shouldNotify
      */
-    async addUrlToExclusions(url: string) {
+    async addUrlToExclusions(url: string, shouldNotify?: boolean) {
         const hostname = getHostname(url);
 
         if (!hostname) {
@@ -120,7 +125,7 @@ export class ExclusionsHandler {
 
         this.exclusions.push({ id: nanoid(), hostname, state: ExclusionState.Enabled });
 
-        await this.onUpdate();
+        await this.onUpdate(shouldNotify);
     }
 
     /**
@@ -135,8 +140,9 @@ export class ExclusionsHandler {
     /**
      * Enables exclusion by provided id
      * @param id
+     * @param shouldNotify
      */
-    async enableExclusion(id: string) {
+    async enableExclusion(id: string, shouldNotify?: boolean) {
         this.exclusions = this.exclusions.map((ex) => {
             if (ex.id === id) {
                 return {
@@ -147,7 +153,7 @@ export class ExclusionsHandler {
             return ex;
         });
 
-        await this.onUpdate();
+        await this.onUpdate(shouldNotify);
     }
 
     /**
@@ -159,7 +165,7 @@ export class ExclusionsHandler {
             return !ids.includes(exclusion.id);
         });
 
-        await this.onUpdate();
+        await this.onUpdate(false);
     }
 
     /**

@@ -184,8 +184,9 @@ export class ExclusionsService {
     /**
      * Adds url to exclusions and returns amount of added exclusions
      * @param url
+     * @param shouldNotify
      */
-    async addUrlToExclusions(url: string): Promise<number> {
+    async addUrlToExclusions(url: string, shouldNotify?: boolean): Promise<number> {
         this.savePreviousExclusions();
 
         const hostname = getHostname(url);
@@ -197,7 +198,7 @@ export class ExclusionsService {
         // if provided url is existing exclusion, enables it
         const existingExclusion = exclusionsManager.current.getExclusionByHostname(hostname);
         if (existingExclusion) {
-            await exclusionsManager.current.enableExclusion(existingExclusion.id);
+            await exclusionsManager.current.enableExclusion(existingExclusion.id, shouldNotify);
             this.updateTree();
             return 0;
         }
@@ -210,7 +211,10 @@ export class ExclusionsService {
             const existingExclusionsIds = this.exclusionsTree
                 .getPathExclusions(serviceData.serviceId);
 
-            const addedExclusionsCount = await this.addServices([serviceData.serviceId]);
+            const addedExclusionsCount = await this.addServices(
+                [serviceData.serviceId],
+                shouldNotify,
+            );
 
             // disable all exclusions in service except existing
             let exclusionsToDisable = this.exclusionsTree
@@ -243,7 +247,7 @@ export class ExclusionsService {
 
         // if provided url is IP-address, adds ip exclusion
         if (isIP(hostname)) {
-            await exclusionsManager.current.addUrlToExclusions(hostname);
+            await exclusionsManager.current.addUrlToExclusions(hostname, shouldNotify);
             this.updateTree();
             return 1;
         }
@@ -255,7 +259,7 @@ export class ExclusionsService {
         }
 
         if (exclusionsManager.current.hasETld(eTld)) {
-            await exclusionsManager.current.addExclusions([{ value: hostname }]);
+            await exclusionsManager.current.addExclusions([{ value: hostname }], shouldNotify);
             this.updateTree();
             return 1;
         }
@@ -266,30 +270,39 @@ export class ExclusionsService {
         if (subdomain) {
             if (isWildcard(subdomain)) {
                 const subdomainHostname = `${subdomain}.${eTld}`;
-                await exclusionsManager.current.addExclusions([
-                    { value: eTld, enabled: false },
-                    { value: subdomainHostname, enabled: true },
-                ]);
+                await exclusionsManager.current.addExclusions(
+                    [
+                        { value: eTld, enabled: false },
+                        { value: subdomainHostname, enabled: true },
+                    ],
+                    shouldNotify,
+                );
                 this.updateTree();
                 return 2;
             }
 
             const wildcardHostname = `*.${eTld}`;
             const subdomainHostname = `${subdomain}.${eTld}`;
-            await exclusionsManager.current.addExclusions([
-                { value: eTld, enabled: false },
-                { value: wildcardHostname, enabled: false },
-                { value: subdomainHostname, enabled: true },
-            ]);
+            await exclusionsManager.current.addExclusions(
+                [
+                    { value: eTld, enabled: false },
+                    { value: wildcardHostname, enabled: false },
+                    { value: subdomainHostname, enabled: true },
+                ],
+                shouldNotify,
+            );
             this.updateTree();
             return 3;
         }
 
         const wildcardHostname = `*.${hostname}`;
-        await exclusionsManager.current.addExclusions([
-            { value: hostname },
-            { value: wildcardHostname },
-        ]);
+        await exclusionsManager.current.addExclusions(
+            [
+                { value: hostname },
+                { value: wildcardHostname },
+            ],
+            shouldNotify,
+        );
         this.updateTree();
         return 2;
     }
@@ -297,8 +310,9 @@ export class ExclusionsService {
     /**
      * Adds services to exclusions and returns amount of added exclusions
      * @param serviceIds
+     * @param shouldNotify
      */
-    async addServices(serviceIds: string[]): Promise<number> {
+    async addServices(serviceIds: string[], shouldNotify?: boolean): Promise<number> {
         const servicesDomainsToAdd = serviceIds.map((id) => {
             const service = servicesManager.getService(id);
             if (!service) {
@@ -316,7 +330,7 @@ export class ExclusionsService {
             ];
         }).flat();
 
-        await exclusionsManager.current.addExclusions(servicesDomainsWithWildcards);
+        await exclusionsManager.current.addExclusions(servicesDomainsWithWildcards, shouldNotify);
 
         this.updateTree();
         return servicesDomainsWithWildcards.length;
@@ -534,7 +548,10 @@ export class ExclusionsService {
             return this.supplementExclusion(ex);
         });
 
-        const addedCount = await exclusionsManager.regular.addExclusions(exclusionsWithState);
+        const addedCount = await exclusionsManager.regular.addExclusions(
+            exclusionsWithState,
+            false,
+        );
 
         this.updateTree();
 
@@ -550,7 +567,10 @@ export class ExclusionsService {
         this.savePreviousExclusions();
 
         const exclusionsWithState = this.supplementExclusions(exclusions);
-        const addedCount = await exclusionsManager.selective.addExclusions(exclusionsWithState);
+        const addedCount = await exclusionsManager.selective.addExclusions(
+            exclusionsWithState,
+            false,
+        );
 
         this.updateTree();
 
@@ -571,9 +591,11 @@ export class ExclusionsService {
         );
         const addedRegularCount = await exclusionsManager.regular.addExclusions(
             regularExclusionsWithState,
+            false,
         );
         const addedSelectiveCount = await exclusionsManager.selective.addExclusions(
             selectiveExclusionsWithState,
+            false,
         );
 
         this.updateTree();
