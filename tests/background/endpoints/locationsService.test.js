@@ -53,7 +53,7 @@ describe('location service', () => {
             disabledDomains = disabledDomains.filter((d) => d !== endpoint.domainName);
         };
 
-        const measurePingMock = jest.spyOn(pingHelpers, 'measurePingToEndpointViaFetch')
+        const measurePingMock = jest.spyOn(pingHelpers, 'measurePingWithinLimits')
             .mockImplementation(async (domainName) => {
                 if (disabledDomains.includes(domainName)) {
                     return null;

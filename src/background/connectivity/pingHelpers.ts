@@ -2,6 +2,7 @@ import { nanoid } from 'nanoid';
 import { WsConnectivityMsg, WsPingMsg } from './protobufCompiled';
 import { stringToUint8Array } from '../../lib/string-utils';
 import { log } from '../../lib/logger';
+import { sleep } from '../../lib/helpers';
 
 /**
  * Prepares ping message before sending to the endpoint via websocket
@@ -10,7 +11,7 @@ import { log } from '../../lib/logger';
  * @param {string} appId
  * @returns {Uint8Array}
  */
-const preparePingMessage = (currentTime, vpnToken, appId) => {
+const preparePingMessage = (currentTime: number, vpnToken: string, appId: string) => {
     const pingMsg = WsPingMsg.create({
         requestTime: currentTime,
         token: stringToUint8Array(vpnToken),
@@ -21,7 +22,7 @@ const preparePingMessage = (currentTime, vpnToken, appId) => {
     return WsConnectivityMsg.encode(protocolMsg).finish();
 };
 
-const decodeMessage = (arrBufMessage) => {
+const decodeMessage = (arrBufMessage: ArrayBuffer) => {
     const message = WsConnectivityMsg.decode(new Uint8Array(arrBufMessage));
     return WsConnectivityMsg.toObject(message);
 };
@@ -33,7 +34,7 @@ const decodeMessage = (arrBufMessage) => {
  * @param {string} appId
  * @returns {Promise<number>}
  */
-export const sendPingMessage = (websocket, vpnToken, appId) => {
+export const sendPingMessage = (websocket: WebSocket, vpnToken: string, appId: string) => {
     const PING_TIMEOUT_MS = 3000;
     const arrBufMessage = preparePingMessage(Date.now(), vpnToken, appId);
 
@@ -49,7 +50,7 @@ export const sendPingMessage = (websocket, vpnToken, appId) => {
             reject(new Error('Ping poll timeout'));
         }, PING_TIMEOUT_MS);
 
-        const messageHandler = (event) => {
+        const messageHandler = (event: MessageEvent) => {
             const receivedTime = Date.now();
             const { pingMsg } = decodeMessage(event.data);
             if (pingMsg) {
@@ -72,10 +73,10 @@ export const sendPingMessage = (websocket, vpnToken, appId) => {
 
 /**
  * Makes fetch request with timeout and aborts it in the case of timeout
- * @param {string} requestUrl
- * @param {number} fetchTimeout
+ * @param requestUrl
+ * @param fetchTimeout
  */
-const fetchWithTimeout = (requestUrl, fetchTimeout) => {
+const fetchWithTimeout = (requestUrl: string, fetchTimeout: number) => {
     const RANDOM_PARAM_LENGTH = 6;
     // we add random search param to avoid caching
     const requestUrlWithRandomParams = `${requestUrl}?r=${nanoid(RANDOM_PARAM_LENGTH)}`;
@@ -84,7 +85,7 @@ const fetchWithTimeout = (requestUrl, fetchTimeout) => {
     const controller = new AbortController();
 
     // used in order to clear timeout
-    let timeoutId;
+    let timeoutId: number;
 
     const fetchHandler = async () => {
         try {
@@ -98,6 +99,7 @@ const fetchWithTimeout = (requestUrl, fetchTimeout) => {
                     headers,
                 },
             );
+
             const response = await fetch(request, { signal: controller.signal });
             if (timeoutId) {
                 clearTimeout(timeoutId);
@@ -120,7 +122,7 @@ const fetchWithTimeout = (requestUrl, fetchTimeout) => {
     return Promise.race([
         fetchHandler(),
         new Promise((_, reject) => {
-            timeoutId = setTimeout(() => {
+            timeoutId = window.setTimeout(() => {
                 controller.abort();
                 reject(new Error(`Request to ${requestUrlWithRandomParams} stopped by timeout`));
             }, fetchTimeout);
@@ -131,9 +133,8 @@ const fetchWithTimeout = (requestUrl, fetchTimeout) => {
 /**
  * Determines ping to the endpoint
  * @param domainName
- * @returns {Promise<number>}
  */
-export const measurePingToEndpointViaFetch = async (domainName) => {
+export const measurePingToEndpointViaFetch = async (domainName: string): Promise<number | null> => {
     const FETCH_TIMEOUT_MS = 3000;
     const requestUrl = `https://ping.${domainName}/`;
 
@@ -153,6 +154,36 @@ export const measurePingToEndpointViaFetch = async (domainName) => {
             log.error(`Was unable to get ping to ${requestUrl} due to ${e}`);
         }
     }
+
+    return ping;
+};
+
+/**
+ * Max simultaneous connections for determining ping
+ */
+const MAX_SIMULTANEOUS_CONNECTIONS = 10;
+
+/**
+ * Pool of available connections
+ */
+const connectionsPool: string[] = [];
+
+/**
+ * Determines ping to the endpoint using maximum of simultaneous connections
+ * It checks if there is space in the pool and if there is, it creates new connection
+ */
+export const measurePingWithinLimits = async (
+    domainName: string,
+    maxConnections = MAX_SIMULTANEOUS_CONNECTIONS,
+): Promise<number | null> => {
+    if (connectionsPool.length >= maxConnections) {
+        await sleep(10);
+        return measurePingWithinLimits(domainName, maxConnections);
+    }
+
+    connectionsPool.push(domainName);
+    const ping = await measurePingToEndpointViaFetch(domainName);
+    connectionsPool.shift();
 
     return ping;
 };
