@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import Modal from 'react-modal';
@@ -26,20 +26,18 @@ import './app.pcss';
 
 Modal.setAppElement('#root');
 
-const getContent = (authenticated, requestProcessState, isPremiumToken, sidebarNavRef) => {
+const getContent = (authenticated, requestProcessState, isPremiumToken) => {
     if (authenticated) {
         return (
             <div className="wrapper">
-                <Sidebar sidebarNavRef={sidebarNavRef} />
+                <Sidebar />
                 <div className="content">
                     <Switch>
                         <Route path="/" exact component={Settings} />
                         <Route path="/exclusions" exact component={Exclusions} />
                         <Route path="/account" component={Account} />
                         <Route path="/about" component={About} />
-                        <Route path="/support">
-                            <Support sidebarNavRef={sidebarNavRef} />
-                        </Route>
+                        <Route path="/support" component={Support} />
                         {!isPremiumToken && (
                             <Route path="/free-gbs" component={FreeGbs} />
                         )}
@@ -71,8 +69,6 @@ export const App = observer(() => {
     const { status } = globalStore;
 
     const { isPremiumToken } = settingsStore;
-
-    const wrapperRef = useRef(null);
 
     useEffect(() => {
         let removeListenerCallback = () => {};
@@ -136,7 +132,7 @@ export const App = observer(() => {
 
     return (
         <HashRouter hashType="noslash">
-            {getContent(authenticated, requestProcessState, isPremiumToken, wrapperRef)}
+            {getContent(authenticated, requestProcessState, isPremiumToken)}
             <Notifications />
             <Icons />
         </HashRouter>

@@ -10,7 +10,7 @@ import { reactTranslator } from '../../../common/reactTranslator';
 
 import './support.pcss';
 
-export const Support = observer(({ sidebarNavRef }) => {
+export const Support = observer(() => {
     const { settingsStore } = useContext(rootStore);
     const { showBugReporter, setShowBugReporter } = settingsStore;
 
@@ -67,7 +67,7 @@ export const Support = observer(({ sidebarNavRef }) => {
 
     if (showBugReporter) {
         return (
-            <BugReporter sidebarNavRef={sidebarNavRef} />
+            <BugReporter />
         );
     }
 

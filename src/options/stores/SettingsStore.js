@@ -54,6 +54,8 @@ export class SettingsStore {
 
     @observable showBugReporter = false;
 
+    @observable showDnsSettings = false;
+
     @action
     async requestIsPremiumToken() {
         const isPremiumToken = await messenger.checkIsPremiumToken();
@@ -171,5 +173,14 @@ export class SettingsStore {
 
     @action setShowBugReporter = (value) => {
         this.showBugReporter = value;
+    };
+
+    @action setShowDnsSettings = (value) => {
+        this.showDnsSettings = value;
+    };
+
+    @action closeSubComponents = () => {
+        this.setShowBugReporter(false);
+        this.setShowDnsSettings(false);
     };
 }

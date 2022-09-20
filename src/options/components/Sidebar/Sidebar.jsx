@@ -8,7 +8,7 @@ import { rootStore } from '../../stores';
 
 import './sidebar.pcss';
 
-export const Sidebar = observer(({ sidebarNavRef }) => {
+export const Sidebar = observer(() => {
     const { settingsStore } = useContext(rootStore);
     const { isPremiumToken } = settingsStore;
 
@@ -16,7 +16,7 @@ export const Sidebar = observer(({ sidebarNavRef }) => {
         <div className="sidebar">
             <div className="sidebar__in">
                 <svg className="logo sidebar__logo" />
-                <nav className="sidebar__nav" ref={sidebarNavRef}>
+                <nav className="sidebar__nav" onClick={settingsStore.closeSubComponents}>
                     <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/">
                         {reactTranslator.getMessage('settings_title')}
                     </NavLink>
