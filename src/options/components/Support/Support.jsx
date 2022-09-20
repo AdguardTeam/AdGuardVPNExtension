@@ -1,6 +1,7 @@
-import React from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { observer } from 'mobx-react';
 
+import { rootStore } from '../../stores';
 import { messenger } from '../../../lib/messenger';
 import { FEEDBACK_URL, FAQ_URL } from '../../../background/config';
 import { Title } from '../ui/Title';
@@ -9,22 +10,16 @@ import { reactTranslator } from '../../../common/reactTranslator';
 
 import './support.pcss';
 
-export const Support = () => {
-    const history = useHistory();
-    const query = new URLSearchParams(useLocation().search);
+export const Support = observer(({ sidebarNavRef }) => {
+    const { settingsStore } = useContext(rootStore);
+    const { showBugReporter, setShowBugReporter } = settingsStore;
 
     const createOpenUrlHandler = (url) => async () => {
         await messenger.openTab(url);
     };
 
-    const BUG_REPORT_QUERY = 'show_report';
-
     const handleReportClick = () => {
-        history.push(`/support?${BUG_REPORT_QUERY}`);
-    };
-
-    const closeHandler = () => {
-        history.push('/support');
+        setShowBugReporter(true);
     };
 
     const supportItemsData = [
@@ -70,11 +65,9 @@ export const Support = () => {
         );
     };
 
-    if (query.has('show_report')) {
+    if (showBugReporter) {
         return (
-            <BugReporter
-                closeHandler={closeHandler}
-            />
+            <BugReporter sidebarNavRef={sidebarNavRef} />
         );
     }
 
@@ -86,4 +79,4 @@ export const Support = () => {
             </ul>
         </>
     );
-};
+});

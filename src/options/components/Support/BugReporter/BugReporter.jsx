@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { useMachine } from '@xstate/react';
 import identity from 'lodash/identity';
@@ -14,7 +14,7 @@ import { REQUEST_EVENTS, REQUEST_STATES, requestMachine } from './requestMachine
 
 import './bug-report.pcss';
 
-export const BugReporter = observer(({ closeHandler }) => {
+export const BugReporter = observer(({ sidebarNavRef }) => {
     const { settingsStore } = useContext(rootStore);
 
     const MIN_DURATION_MS = 500;
@@ -142,6 +142,10 @@ export const BugReporter = observer(({ closeHandler }) => {
         isButtonDisabled = true;
     }
 
+    const closeHandler = () => {
+        settingsStore.setShowBugReporter(false);
+    };
+
     const bugReportTitle = (
         <div className="bug-report__title">
             <button className="bug-report__back" type="button" onClick={closeHandler}>
@@ -189,6 +193,17 @@ export const BugReporter = observer(({ closeHandler }) => {
     }
     const emailClassName = classnames('input', { 'input--error': formErrors[FIELDS.EMAIL] });
     const messageClassName = classnames('input', { 'input--error': formErrors[FIELDS.MESSAGE] });
+
+    const handleClickOutside = (event) => {
+        if (sidebarNavRef.current && sidebarNavRef.current.contains(event.target)) {
+            closeHandler();
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('click', handleClickOutside);
+        return () => window.removeEventListener('click', handleClickOutside);
+    }, []);
 
     return (
         <>

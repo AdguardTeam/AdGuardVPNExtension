@@ -52,6 +52,8 @@ export class SettingsStore {
 
     @observable subscriptionType = null;
 
+    @observable showBugReporter = false;
+
     @action
     async requestIsPremiumToken() {
         const isPremiumToken = await messenger.checkIsPremiumToken();
@@ -165,5 +167,9 @@ export class SettingsStore {
 
     @action resendConfirmationLink = async () => {
         await messenger.resendConfirmRegistrationLink(false);
+    };
+
+    @action setShowBugReporter = (value) => {
+        this.showBugReporter = value;
     };
 }
