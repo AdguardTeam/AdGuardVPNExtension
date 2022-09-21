@@ -6,7 +6,7 @@ import proxyApi from './abstractProxyApi';
 
 import { log } from '../../lib/logger';
 import browserApi from '../browserApi';
-import notifier from '../../lib/notifier';
+import { notifier } from '../../lib/notifier';
 import { DEFAULT_EXCLUSIONS, LEVELS_OF_CONTROL } from './proxyConsts';
 import { NON_ROUTABLE_CIDR_NETS } from '../routability/constants';
 import { fallbackApi } from '../api/fallbackApi';

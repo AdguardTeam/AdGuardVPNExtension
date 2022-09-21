@@ -4,7 +4,7 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 import Modal from 'react-modal';
 
 import { log } from '../../../lib/logger';
-import { REQUEST_STATUSES } from '../../stores/consts';
+import { RequestStatus } from '../../stores/consts';
 import { rootStore } from '../../stores';
 import { Sidebar } from '../Sidebar';
 import { Settings } from '../Settings';
@@ -15,7 +15,7 @@ import { SignedOut } from '../SignedOut';
 import { Preloader } from '../Preloader';
 import Icons from '../ui/Icons';
 import { messenger } from '../../../lib/messenger';
-import notifier from '../../../lib/notifier';
+import { notifier } from '../../../lib/notifier';
 import { Support } from '../Support';
 import { Notifications } from '../ui/Notifications';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
@@ -50,7 +50,7 @@ const getContent = (authenticated, requestProcessState, isPremiumToken) => {
 
     return (
         <>
-            {requestProcessState === REQUEST_STATUSES.PENDING && <Preloader />}
+            {requestProcessState === RequestStatus.Pending && <Preloader />}
             <SignedOut />
         </>
     );
@@ -124,7 +124,7 @@ export const App = observer(() => {
     }, []);
 
     // show nothing while data is loading
-    if (status === REQUEST_STATUSES.PENDING) {
+    if (status === RequestStatus.Pending) {
         return null;
     }
 

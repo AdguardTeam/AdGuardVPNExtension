@@ -23,7 +23,7 @@ import { rootStore } from '../../stores';
 import { REQUEST_STATUSES } from '../../stores/consts';
 import { log } from '../../../lib/logger';
 import { messenger } from '../../../lib/messenger';
-import notifier from '../../../lib/notifier';
+import { notifier } from '../../../lib/notifier';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
 import { TrafficLimitExceeded } from '../Settings/TrafficLimitExceeded';
 import { ConnectionsLimitError } from '../ConnectionsLimitError';
