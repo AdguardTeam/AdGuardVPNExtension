@@ -1,20 +1,16 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
-import { useHistory } from 'react-router-dom';
 
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { DNS_SETTINGS_QUERY } from '../../../stores/consts';
 
 export const DnsMenuItem = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
-    const { currentDnsServerName } = settingsStore;
-
-    const history = useHistory();
+    const { currentDnsServerName, setShowDnsSettings } = settingsStore;
 
     const handleClick = () => {
-        history.push(`?${DNS_SETTINGS_QUERY}`);
+        setShowDnsSettings(true);
     };
 
     return (

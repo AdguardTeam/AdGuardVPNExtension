@@ -1,5 +1,5 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { observer } from 'mobx-react';
 
 import WebRTC from './WebRTC';
 import { DnsMenuItem } from './DnsMenuItem';
@@ -9,11 +9,13 @@ import { Title } from '../ui/Title';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { AppearanceTheme } from './AppearanceTheme';
 import { DnsSettings } from './DnsSettings';
-import { DNS_SETTINGS_QUERY } from '../../stores/consts';
+import { rootStore } from '../../stores';
 
-export const Settings = () => {
-    const query = new URLSearchParams(useLocation().search);
-    if (query.has(DNS_SETTINGS_QUERY)) {
+export const Settings = observer(() => {
+    const { settingsStore } = useContext(rootStore);
+    const { showDnsSettings } = settingsStore;
+
+    if (showDnsSettings) {
         return (
             <DnsSettings />
         );
@@ -31,4 +33,4 @@ export const Settings = () => {
             </div>
         </>
     );
-};
+});

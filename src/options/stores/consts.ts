@@ -5,5 +5,3 @@ export enum RequestStatus {
 }
 
 export const COMPLETE_TASK_BONUS_GB = 1;
-
-export const DNS_SETTINGS_QUERY = 'dns_settings';
