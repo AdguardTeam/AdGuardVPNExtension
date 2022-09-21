@@ -192,7 +192,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         case MessageType.ADD_URL_TO_EXCLUSIONS: {
             const { url } = data;
             try {
-                return await exclusions.addUrlToExclusions(url, false);
+                return await exclusions.addUrlToExclusions(url);
             } catch (e: any) {
                 throw new Error(e.message);
             }

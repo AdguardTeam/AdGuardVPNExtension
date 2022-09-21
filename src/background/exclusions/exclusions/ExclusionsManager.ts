@@ -63,10 +63,8 @@ export class ExclusionsManager {
     /**
      * Applies enabled exclusions to proxy config and save them to local storage
      */
-    handleExclusionsUpdate = async (shouldNotify = true) => {
-        if (shouldNotify) {
-            notifier.notifyListeners(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE);
-        }
+    handleExclusionsUpdate = async () => {
+        notifier.notifyListeners(notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE);
 
         const enabledExclusionsList = this.currentHandler.getExclusions()
             .filter(({ state }) => state === ExclusionState.Enabled)
