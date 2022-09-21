@@ -6,12 +6,14 @@ export const SETTINGS_IDS = {
     EXCLUSIONS: 'exclusions.list',
     HANDLE_WEBRTC_ENABLED: 'webrtc.handle.enabled',
     SELECTED_DNS_SERVER: 'dns.handle.server',
+    SELECTED_CUSTOM_DNS_SERVER: 'custom.dns.handle.server',
     CONTEXT_MENU_ENABLED: 'context.menu.enabled',
     SELECTED_LOCATION_KEY: 'endpoints.selected.location',
     LOCATION_SELECTED_BY_USER_KEY: 'endpoints.location.selected.by.user',
     POLICY_AGREEMENT: 'policy.agreement',
     HELP_US_IMPROVE: 'help.us.improve',
     APPEARANCE_THEME: 'appearance.theme',
+    CUSTOM_DNS_SERVERS: 'custom.dns.servers',
 };
 
 export const APPEARANCE_THEMES = {
@@ -84,7 +86,11 @@ export enum MessageType {
     RESTORE_EXCLUSIONS = 'restore.exclusions',
     ADD_EXCLUSIONS_MAP = 'add.exclusions.map',
     SET_RATE_MODAL_VIEWED = 'set.rate.modal.viewed',
+    ADD_CUSTOM_DNS_SERVER = 'add.custom.dns.server',
+    EDIT_CUSTOM_DNS_SERVER = 'edit.custom.dns.server',
+    REMOVE_CUSTOM_DNS_SERVER = 'remove.custom.dns.server',
     RESEND_CONFIRM_REGISTRATION_LINK = 'resend.confirm.registration.link',
+    RESTORE_CUSTOM_DNS_SERVERS_DATA = 'restore.custom.dns.servers.data',
 }
 
 export const ERROR_STATUSES = {

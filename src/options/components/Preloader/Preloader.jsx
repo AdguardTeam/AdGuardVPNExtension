@@ -3,15 +3,15 @@ import { observer } from 'mobx-react';
 import Modal from 'react-modal';
 
 import { rootStore } from '../../stores';
-import { REQUEST_STATUSES } from '../../stores/consts';
+import { RequestStatus } from '../../stores/consts';
 
 import './preloader.pcss';
 
 export const Preloader = observer(() => {
     const { authStore, globalStore } = useContext(rootStore);
 
-    const isOpen = globalStore.status === REQUEST_STATUSES.PENDING
-        || authStore.requestProcessState === REQUEST_STATUSES.PENDING;
+    const isOpen = globalStore.status === RequestStatus.Pending
+        || authStore.requestProcessState === RequestStatus.Pending;
 
     return (
         <Modal

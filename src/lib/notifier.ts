@@ -147,6 +147,4 @@ export class Notifier {
     }
 }
 
-const notifier = new Notifier(NotifierType);
-
-export default notifier;
+export const notifier = new Notifier(NotifierType);

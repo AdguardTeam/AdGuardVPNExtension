@@ -7,7 +7,7 @@ import {
 } from 'mobx';
 import debounce from 'lodash/debounce';
 
-import { REQUEST_STATUSES } from './consts';
+import { RequestStatus } from './consts';
 import { messenger } from '../../lib/messenger';
 import { reactTranslator } from '../../common/reactTranslator';
 
@@ -46,7 +46,7 @@ export class AuthStore {
 
     @observable step = DEFAULTS.step;
 
-    @observable requestProcessState = REQUEST_STATUSES.DONE;
+    @observable requestProcessState = RequestStatus.Done;
 
     @observable maxDevicesCount = 0;
 
@@ -141,12 +141,12 @@ export class AuthStore {
     }
 
     @action authenticate = async () => {
-        this.requestProcessState = REQUEST_STATUSES.PENDING;
+        this.requestProcessState = RequestStatus.Pending;
         const response = await messenger.authenticateUser(toJS(this.credentials));
 
         if (response.error) {
             runInAction(() => {
-                this.requestProcessState = REQUEST_STATUSES.ERROR;
+                this.requestProcessState = RequestStatus.Error;
                 this.error = response.error;
             });
             return;
@@ -156,7 +156,7 @@ export class AuthStore {
             await messenger.clearAuthCache();
             await this.rootStore.globalStore.getOptionsData();
             runInAction(() => {
-                this.requestProcessState = REQUEST_STATUSES.DONE;
+                this.requestProcessState = RequestStatus.Done;
                 this.authenticated = true;
                 this.need2fa = false;
                 this.credentials = DEFAULTS.credentials;
@@ -166,7 +166,7 @@ export class AuthStore {
 
         if (response.status === '2fa_required') {
             runInAction(async () => {
-                this.requestProcessState = REQUEST_STATUSES.DONE;
+                this.requestProcessState = RequestStatus.Done;
                 this.need2fa = true;
                 await this.switchStep(this.STEPS.TWO_FACTOR);
             });
@@ -174,11 +174,11 @@ export class AuthStore {
     };
 
     @action register = async () => {
-        this.requestProcessState = REQUEST_STATUSES.PENDING;
+        this.requestProcessState = RequestStatus.Pending;
         const response = await messenger.registerUser(this.credentials);
         if (response.error) {
             runInAction(() => {
-                this.requestProcessState = REQUEST_STATUSES.ERROR;
+                this.requestProcessState = RequestStatus.Error;
                 this.error = response.error;
                 this.field = response.field;
             });
@@ -188,7 +188,7 @@ export class AuthStore {
             await messenger.clearAuthCache();
             await this.rootStore.globalStore.getOptionsData();
             runInAction(() => {
-                this.requestProcessState = REQUEST_STATUSES.DONE;
+                this.requestProcessState = RequestStatus.Done;
                 this.authenticated = true;
                 this.credentials = DEFAULTS.credentials;
             });

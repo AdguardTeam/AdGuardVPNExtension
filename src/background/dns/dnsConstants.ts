@@ -1,3 +1,5 @@
+import { DnsServerData } from '../../common/components/constants';
+
 /**
  * IMPORTANT
  * Do not import inside this file other dependencies,
@@ -6,55 +8,54 @@
  */
 import { translator } from '../../common/translator';
 
-export const DNS_DEFAULT = 'default';
+export const DEFAULT_DNS_SERVER: DnsServerData = {
+    id: 'default',
+    title: translator.getMessage('settings_dns_selector_default_title'),
+    desc: translator.getMessage('settings_dns_selector_default_desc'),
+    address: '',
+};
 
-export const DNS_SERVERS = {
-    [DNS_DEFAULT]: {
-        title: translator.getMessage('settings_dns_selector_default_title'),
-        desc: translator.getMessage('settings_dns_selector_default_desc'),
-        ip1: '',
-        ip2: '',
-    },
-    'adguard-dns': {
+export const POPULAR_DNS_SERVERS: DnsServerData[] = [
+    {
+        id: 'adguard-dns',
         title: translator.getMessage('settings_dns_selector_adguard_title'),
         desc: translator.getMessage('settings_dns_selector_adguard_desc'),
-        ip1: '94.140.14.14',
-        ip2: '94.140.15.15',
+        address: '94.140.14.14',
     },
-    'adguard-dns-non-filtering': {
+    {
+        id: 'adguard-dns-non-filtering',
         title: translator.getMessage('settings_dns_selector_adguard_nonfiltering_title'),
         desc: translator.getMessage('settings_dns_selector_adguard_nonfiltering_desc'),
-        ip1: '94.140.14.140',
-        ip2: '94.140.14.141',
+        address: '94.140.14.140',
     },
-    'adguard-dns-family': {
+    {
+        id: 'adguard-dns-family',
         title: translator.getMessage('settings_dns_selector_adguard_family_title'),
         desc: translator.getMessage('settings_dns_selector_adguard_family_desc'),
-        ip1: '94.140.14.15',
-        ip2: '94.140.15.16',
+        address: '94.140.14.15',
     },
-    'google-dns': {
+    {
+        id: 'google-dns',
         title: translator.getMessage('settings_dns_selector_google_title'),
         desc: translator.getMessage('settings_dns_selector_google_desc'),
-        ip1: '8.8.8.8',
-        ip2: '8.8.4.4',
+        address: '8.8.8.8',
     },
-    'cloudflare-dns': {
+    {
+        id: 'cloudflare-dns',
         title: translator.getMessage('settings_dns_selector_cloudflare_title'),
         desc: translator.getMessage('settings_dns_selector_cloudflare_desc'),
-        ip1: '1.1.1.1',
-        ip2: '1.0.0.1',
+        address: '1.1.1.1',
     },
-    'cisco-dns': {
+    {
+        id: 'cisco-dns',
         title: translator.getMessage('settings_dns_selector_cisco_title'),
         desc: translator.getMessage('settings_dns_selector_cisco_desc'),
-        ip1: '208.67.222.222',
-        ip2: '208.67.220.220',
+        address: '208.67.222.222',
     },
-    'quad9-dns': {
+    {
+        id: 'quad9-dns',
         title: translator.getMessage('settings_dns_selector_quad9_title'),
         desc: translator.getMessage('settings_dns_selector_quad9_desc'),
-        ip1: '9.9.9.9',
-        ip2: '149.112.112.112',
+        address: '9.9.9.9',
     },
-};
+];

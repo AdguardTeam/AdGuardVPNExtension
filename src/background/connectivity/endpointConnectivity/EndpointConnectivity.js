@@ -2,10 +2,10 @@ import { WsConnectivityMsg, WsSettingsMsg } from '../protobufCompiled';
 import websocketFactory from '../websocket/websocketFactory';
 import { WS_API_URL_TEMPLATE } from '../../config';
 import { renderTemplate } from '../../../lib/string-utils';
-import notifier from '../../../lib/notifier';
+import { notifier } from '../../../lib/notifier';
 import { proxy } from '../../proxy';
 import { log } from '../../../lib/logger';
-import dns from '../../dns/dns';
+import { dns } from '../../dns';
 import { sendPingMessage } from '../pingHelpers';
 import webrtc from '../../browserApi/webrtc';
 import { EVENT, MIN_CONNECTION_DURATION_MS } from '../connectivityService/connectivityConstants';
@@ -120,7 +120,7 @@ class EndpointConnectivity {
             return;
         }
 
-        this.sendDnsServerIp(dns.getDnsServerIp());
+        this.sendDnsServerIp(dns.getCurrentDnsServerAddress());
         this.startSendingPingMessages();
 
         try {

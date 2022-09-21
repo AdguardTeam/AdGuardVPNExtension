@@ -14,7 +14,7 @@ import management from './management';
 import permissionsError from './permissionsChecker/permissionsError';
 import permissionsChecker from './permissionsChecker';
 import { log } from '../lib/logger';
-import notifier from '../lib/notifier';
+import { notifier } from '../lib/notifier';
 import { locationsService } from './endpoints/locationsService';
 import { promoNotifications } from './promoNotifications';
 import tabs from './tabs';
@@ -25,6 +25,7 @@ import { setDesktopVpnEnabled } from './connectivity/connectivityService/connect
 import { flagsStorage } from './flagsStorage';
 import { ExclusionsData, ServiceDto } from '../common/exclusionsConstants';
 import { rateModal } from './rateModal';
+import { dns } from './dns';
 
 interface Message {
     type: MessageType,
@@ -50,6 +51,7 @@ const getOptionsData = async () => {
     const appearanceTheme = settings.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
     const vpnInfo = await endpoints.getVpnInfo();
     const maxDevicesCount = vpnInfo?.maxDevicesCount;
+    const customDnsServers = settings.getCustomDnsServers();
 
     const exclusionsData: ExclusionsData = {
         exclusions: exclusions.getExclusions(),
@@ -86,6 +88,7 @@ const getOptionsData = async () => {
         isAllExclusionsListsEmpty,
         maxDevicesCount,
         subscriptionType,
+        customDnsServers,
     };
 };
 
@@ -360,10 +363,23 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         case MessageType.RESTORE_EXCLUSIONS: {
             return exclusions.restoreExclusions();
         }
+        case MessageType.ADD_CUSTOM_DNS_SERVER: {
+            return dns.addCustomDnsServer(data.dnsServerData);
+        }
+        case MessageType.EDIT_CUSTOM_DNS_SERVER: {
+            dns.editCustomDnsServer(data.dnsServerData);
+            return settings.getCustomDnsServers();
+        }
+        case MessageType.REMOVE_CUSTOM_DNS_SERVER: {
+            return dns.removeCustomDnsServer(data.dnsServerId);
+        }
         case MessageType.RESEND_CONFIRM_REGISTRATION_LINK: {
             const { displayNotification } = data;
             const accessToken = await auth.getAccessToken();
             return accountProvider.resendConfirmRegistrationLink(accessToken, displayNotification);
+        }
+        case MessageType.RESTORE_CUSTOM_DNS_SERVERS_DATA: {
+            return dns.restoreCustomDnsServersData();
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

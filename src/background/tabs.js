@@ -1,6 +1,6 @@
 import browser from 'webextension-polyfill';
 import { PASSWORD_RECOVERY_URL } from './config';
-import notifier from '../lib/notifier';
+import { notifier } from '../lib/notifier';
 import { log } from '../lib/logger';
 
 class Tabs {

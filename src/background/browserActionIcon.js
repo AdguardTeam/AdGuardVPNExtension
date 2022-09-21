@@ -1,5 +1,5 @@
 import throttle from 'lodash/throttle';
-import notifier from '../lib/notifier';
+import { notifier } from '../lib/notifier';
 import actions from './actions';
 import { exclusions } from './exclusions';
 import tabs from './tabs';

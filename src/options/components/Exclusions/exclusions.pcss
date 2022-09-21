@@ -137,6 +137,24 @@
         align-items: center;
         justify-content: space-between;
         padding-right: 15px;
+
+        &--dns-server {
+            cursor: pointer;
+            padding: 16px;
+            margin: -12px 0 0 -16px;
+            transition: var(--t3) background-color;
+
+            &:hover {
+                background-color: var(--grayF3);
+                border-radius: 8px;
+            }
+
+            & .icon--button {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+            }
+        }
     }
 
     &__item-title {
@@ -154,6 +172,9 @@
         font-size: 1.4rem;
         line-height: 1.6rem;
         color: var(--gray88);
+        max-width: 450px;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     &__change-mode-actions {

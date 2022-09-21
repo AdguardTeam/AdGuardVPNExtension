@@ -21,7 +21,7 @@ import {
     getSubdomain,
     isWildcard,
 } from '../../common/url-utils';
-import notifier from '../../lib/notifier';
+import { notifier } from '../../lib/notifier';
 
 interface ToggleServicesResult {
     added: number,

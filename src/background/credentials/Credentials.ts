@@ -4,7 +4,7 @@ import lodashGet from 'lodash/get';
 
 import accountProvider from '../providers/accountProvider';
 import { log } from '../../lib/logger';
-import notifier from '../../lib/notifier';
+import { notifier } from '../../lib/notifier';
 import { CredentialsDataInterface, VpnProviderInterface } from '../providers/vpnProvider';
 import { ErrorData, PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import { StorageInterface } from '../browserApi/storage';

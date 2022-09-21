@@ -1,5 +1,5 @@
 import browserApi from './browserApi';
-import notifier from '../lib/notifier';
+import { notifier } from '../lib/notifier';
 
 const OPEN_RATE_MODAL_COUNTDOWN_KEY = 'open.rate.modal.countdown';
 
