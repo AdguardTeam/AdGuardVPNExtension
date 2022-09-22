@@ -55,6 +55,8 @@ export class SettingsStore {
 
     @observable systemTheme;
 
+    isSystemThemeTrackingSet = false;
+
     constructor(rootStore) {
         this.rootStore = rootStore;
     }
@@ -311,8 +313,12 @@ export class SettingsStore {
     };
 
     @action trackSystemTheme = () => {
+        if (this.isSystemThemeTrackingSet) {
+            return;
+        }
         this.updateDarkThemeMediaQuery();
         this.updateSystemTheme();
         this.darkThemeMediaQuery.addEventListener('change', this.updateSystemTheme);
+        this.isSystemThemeTrackingSet = true;
     };
 }
