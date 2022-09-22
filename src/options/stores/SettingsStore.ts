@@ -288,6 +288,10 @@ export class SettingsStore {
         this.showDnsSettings = value;
     };
 
+    /**
+     * Hides components rendered on separate screens without routing:
+     * DNS settings and Bug Reporter
+     */
     @action closeSubComponents = () => {
         this.setShowBugReporter(false);
         this.setShowDnsSettings(false);
