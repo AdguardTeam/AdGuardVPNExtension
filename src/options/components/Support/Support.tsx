@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { ReactNode, useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
@@ -10,19 +10,26 @@ import { reactTranslator } from '../../../common/reactTranslator';
 
 import './support.pcss';
 
+interface SupportItems {
+    title: ReactNode;
+    description: ReactNode;
+    iconXlink: string;
+    clickHandler: () => void;
+}
+
 export const Support = observer(() => {
     const { settingsStore } = useContext(rootStore);
     const { showBugReporter, setShowBugReporter } = settingsStore;
 
-    const createOpenUrlHandler = (url) => async () => {
+    const createOpenUrlHandler = (url: string) => async (): Promise<void> => {
         await messenger.openTab(url);
     };
 
-    const handleReportClick = () => {
+    const handleReportClick = (): void => {
         setShowBugReporter(true);
     };
 
-    const supportItemsData = [
+    const supportItemsData: SupportItems[] = [
         {
             title: reactTranslator.getMessage('options_support_faq_title'),
             description: reactTranslator.getMessage('options_support_faq_description'),
@@ -46,9 +53,9 @@ export const Support = observer(() => {
         description,
         iconXlink,
         clickHandler,
-    }) => {
+    }: SupportItems) => {
         return (
-            <li key={title} className="support-item" onClick={clickHandler}>
+            <li key={title as string} className="support-item" onClick={clickHandler}>
                 <div className="support-item__area">
                     <svg className="icon icon--support">
                         <use xlinkHref={iconXlink} />
