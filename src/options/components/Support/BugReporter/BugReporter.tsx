@@ -10,9 +10,31 @@ import { rootStore } from '../../../stores';
 import { messenger } from '../../../../lib/messenger';
 import { addMinDurationTime } from '../../../../lib/helpers';
 import { reactTranslator } from '../../../../common/reactTranslator';
+import { translator } from '../../../../common/translator';
 import { REQUEST_EVENTS, REQUEST_STATES, requestMachine } from './requestMachine';
 
 import './bug-report.pcss';
+
+enum FormField {
+    Email = 'email',
+    Message = 'message',
+    IncludeLog = 'includeLog',
+}
+
+interface Validators {
+    [key: string]: (value: string) => null | string;
+}
+
+interface FormState {
+    [FormField.Email]: string;
+    [FormField.Message]: string;
+    [FormField.IncludeLog]: boolean;
+}
+
+interface FormError {
+    [FormField.Email]?: string | null;
+    [FormField.Message]?: string | null;
+}
 
 export const BugReporter = observer(() => {
     const { settingsStore } = useContext(rootStore);
@@ -23,19 +45,13 @@ export const BugReporter = observer(() => {
         MIN_DURATION_MS,
     );
 
-    const FIELDS = {
-        EMAIL: 'email',
-        MESSAGE: 'message',
-        INCLUDE_LOG: 'includeLog',
-    };
-
     const [requestState, sendToRequestMachine] = useMachine(requestMachine, {
         services: {
             sendReport: async (_, e) => {
                 const response = await reportWithMinDuration(
-                    e[FIELDS.EMAIL],
-                    e[FIELDS.MESSAGE],
-                    e[FIELDS.INCLUDE_LOG],
+                    e[FormField.Email],
+                    e[FormField.Message],
+                    e[FormField.IncludeLog],
                 );
 
                 if (response.error) {
@@ -45,43 +61,43 @@ export const BugReporter = observer(() => {
         },
     });
 
-    const DEFAULT_FORM_STATE = {
-        [FIELDS.EMAIL]: settingsStore.currentUsername,
-        [FIELDS.MESSAGE]: '',
-        [FIELDS.INCLUDE_LOG]: false,
+    const DEFAULT_FORM_STATE: FormState = {
+        [FormField.Email]: settingsStore.currentUsername,
+        [FormField.Message]: '',
+        [FormField.IncludeLog]: false,
     };
 
-    const DEFAULT_ERROR_STATE = {};
+    const DEFAULT_ERROR_STATE: FormError = {};
 
     const [formErrors, setFormErrors] = useState(DEFAULT_ERROR_STATE);
     const [formState, setFormState] = useState(DEFAULT_FORM_STATE);
-    const [emailInput, setEmailInput] = useState(formState[FIELDS.EMAIL]);
+    const [emailInput, setEmailInput] = useState(formState[FormField.Email]);
 
-    const validators = {
-        [FIELDS.EMAIL]: (value) => {
+    const validators: Validators = {
+        [FormField.Email]: (value: string) => {
             const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-            return isValid ? null : reactTranslator.getMessage('options_bug_report_email_invalid');
+            return isValid ? null : translator.getMessage('options_bug_report_email_invalid');
         },
-        [FIELDS.MESSAGE]: (value) => {
+        [FormField.Message]: (value: string) => {
             const isValid = value && value.length >= 0;
-            return isValid ? null : reactTranslator.getMessage('options_bug_report_textarea_invalid');
+            return isValid ? null : translator.getMessage('options_bug_report_textarea_invalid');
         },
     };
 
-    const validateFields = () => {
-        return Object.keys(formState).reduce((acc, key) => {
-            const value = formState[key];
+    const validateFields = (): FormError => {
+        return Object.keys(formState).reduce((acc: FormError, key) => {
+            const value = formState[key as keyof FormState];
             const validator = validators[key];
             if (validator) {
-                acc[key] = validator(value);
+                acc[key as keyof FormError] = validator(value as FormField);
             } else {
-                acc[key] = null;
+                acc[key as keyof FormError] = null;
             }
             return acc;
         }, {});
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
 
         const errors = validateFields();
@@ -94,14 +110,14 @@ export const BugReporter = observer(() => {
         sendToRequestMachine(
             REQUEST_EVENTS.SEND_REPORT,
             {
-                [FIELDS.EMAIL]: formState[FIELDS.EMAIL].trim(),
-                [FIELDS.MESSAGE]: formState[FIELDS.MESSAGE].trim(),
-                [FIELDS.INCLUDE_LOG]: formState[FIELDS.INCLUDE_LOG],
+                [FormField.Email]: formState[FormField.Email].trim(),
+                [FormField.Message]: formState[FormField.Message].trim(),
+                [FormField.IncludeLog]: formState[FormField.IncludeLog],
             },
         );
     };
 
-    const formChangeHandler = (e) => {
+    const formChangeHandler = (e: React.ChangeEvent<HTMLFormElement>): void => {
         const { id, value, checked } = e.target;
 
         const resultValue = e.target.type === 'checkbox' ? checked : value;
@@ -125,24 +141,24 @@ export const BugReporter = observer(() => {
         });
     };
 
-    const emailChangeHandler = (e) => {
+    const emailChangeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const { target: { value } } = e;
         setEmailInput(value);
     };
 
-    const emailCleanHandler = () => {
+    const emailCleanHandler = (): void => {
         setEmailInput('');
     };
 
     let buttonText = reactTranslator.getMessage('options_bug_report_send_button');
-    let isButtonDisabled = !formState[FIELDS.EMAIL] || !formState[FIELDS.MESSAGE];
+    let isButtonDisabled = !formState[FormField.Email] || !formState[FormField.Message];
 
     if (requestState.matches(REQUEST_STATES.SENDING)) {
         buttonText = reactTranslator.getMessage('options_bug_report_sending_button');
         isButtonDisabled = true;
     }
 
-    const closeHandler = () => {
+    const closeHandler = (): void => {
         settingsStore.setShowBugReporter(false);
     };
 
@@ -161,7 +177,7 @@ export const BugReporter = observer(() => {
         const newReportClickHandler = () => {
             sendToRequestMachine(REQUEST_EVENTS.START_AGAIN);
             setFormState(DEFAULT_FORM_STATE);
-            setEmailInput(DEFAULT_FORM_STATE[FIELDS.EMAIL]);
+            setEmailInput(DEFAULT_FORM_STATE[FormField.Email]);
             setFormErrors(DEFAULT_ERROR_STATE);
         };
 
@@ -191,8 +207,8 @@ export const BugReporter = observer(() => {
             </>
         );
     }
-    const emailClassName = classnames('input', { 'input--error': formErrors[FIELDS.EMAIL] });
-    const messageClassName = classnames('input', { 'input--error': formErrors[FIELDS.MESSAGE] });
+    const emailClassName = classnames('input', { 'input--error': formErrors[FormField.Email] });
+    const messageClassName = classnames('input', { 'input--error': formErrors[FormField.Message] });
 
     return (
         <>
@@ -208,14 +224,14 @@ export const BugReporter = observer(() => {
                     <div className="bug-report__input">
                         <label
                             className="bug-report__label"
-                            htmlFor={FIELDS.EMAIL}
+                            htmlFor={FormField.Email}
                         >
                             {reactTranslator.getMessage('options_bug_report_email_label')}
                         </label>
                         <div className={emailClassName}>
                             <input
                                 className="input__in input__in--content input__in--close"
-                                id={FIELDS.EMAIL}
+                                id={FormField.Email}
                                 type="email"
                                 placeholder="example@mail.com"
                                 value={emailInput}
@@ -232,13 +248,13 @@ export const BugReporter = observer(() => {
                                     </svg>
                                 </button>
                             )}
-                            <div className="input__error">{formErrors[FIELDS.EMAIL]}</div>
+                            <div className="input__error">{formErrors[FormField.Email]}</div>
                         </div>
                     </div>
                     <div className="bug-report__input">
                         <label
                             className="bug-report__label"
-                            htmlFor={FIELDS.MESSAGE}
+                            htmlFor={FormField.Message}
                         >
                             {reactTranslator.getMessage('options_bug_report_textarea_label')}
                         </label>
@@ -246,12 +262,12 @@ export const BugReporter = observer(() => {
                             {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
                             <textarea
                                 className="input__in input__in--content input__in--textarea"
-                                id={FIELDS.MESSAGE}
-                                placeholder={reactTranslator.getMessage('options_bug_report_textarea_placeholder')}
-                                defaultValue={formState[FIELDS.MESSAGE]}
+                                id={FormField.Message}
+                                placeholder={translator.getMessage('options_bug_report_textarea_placeholder')}
+                                defaultValue={formState[FormField.Message]}
                             />
                             <div className="input__error">
-                                <span>{formErrors[FIELDS.MESSAGE]}</span>
+                                <span>{formErrors[FormField.Message]}</span>
                                 {requestState.matches(REQUEST_STATES.ERROR)
                                     && <span>{reactTranslator.getMessage('options_bug_report_request_error')}</span>}
                             </div>
@@ -259,8 +275,8 @@ export const BugReporter = observer(() => {
                     </div>
                     <div className="bug-report__checkbox">
                         <Checkbox
-                            id={FIELDS.INCLUDE_LOG}
-                            value={formState[FIELDS.INCLUDE_LOG]}
+                            id={FormField.IncludeLog}
+                            value={formState[FormField.IncludeLog]}
                         >
                             {reactTranslator.getMessage('options_bug_report_include_log_label')}
                         </Checkbox>
