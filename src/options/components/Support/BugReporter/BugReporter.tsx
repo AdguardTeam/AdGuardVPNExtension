@@ -11,7 +11,7 @@ import { messenger } from '../../../../lib/messenger';
 import { addMinDurationTime } from '../../../../lib/helpers';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { translator } from '../../../../common/translator';
-import { REQUEST_EVENTS, REQUEST_STATES, requestMachine } from './requestMachine';
+import { RequestEvent, RequestState, requestMachine } from './requestMachine';
 
 import './bug-report.pcss';
 
@@ -108,7 +108,7 @@ export const BugReporter = observer(() => {
         }
 
         sendToRequestMachine(
-            REQUEST_EVENTS.SEND_REPORT,
+            RequestEvent.SendReport,
             {
                 [FormField.Email]: formState[FormField.Email].trim(),
                 [FormField.Message]: formState[FormField.Message].trim(),
@@ -123,7 +123,7 @@ export const BugReporter = observer(() => {
         const resultValue = e.target.type === 'checkbox' ? checked : value;
 
         // clear request errors
-        sendToRequestMachine(REQUEST_EVENTS.CLEAR_ERRORS);
+        sendToRequestMachine(RequestEvent.ClearErrors);
 
         // clear form validation errors
         setFormErrors((prevState) => {
@@ -153,7 +153,7 @@ export const BugReporter = observer(() => {
     let buttonText = reactTranslator.getMessage('options_bug_report_send_button');
     let isButtonDisabled = !formState[FormField.Email] || !formState[FormField.Message];
 
-    if (requestState.matches(REQUEST_STATES.SENDING)) {
+    if (requestState.matches(RequestState.Sending)) {
         buttonText = reactTranslator.getMessage('options_bug_report_sending_button');
         isButtonDisabled = true;
     }
@@ -173,9 +173,9 @@ export const BugReporter = observer(() => {
         </div>
     );
 
-    if (requestState.matches(REQUEST_STATES.SUCCESS)) {
+    if (requestState.matches(RequestState.Success)) {
         const newReportClickHandler = () => {
-            sendToRequestMachine(REQUEST_EVENTS.START_AGAIN);
+            sendToRequestMachine(RequestEvent.StartAgain);
             setFormState(DEFAULT_FORM_STATE);
             setEmailInput(DEFAULT_FORM_STATE[FormField.Email]);
             setFormErrors(DEFAULT_ERROR_STATE);
@@ -268,7 +268,7 @@ export const BugReporter = observer(() => {
                             />
                             <div className="input__error">
                                 <span>{formErrors[FormField.Message]}</span>
-                                {requestState.matches(REQUEST_STATES.ERROR)
+                                {requestState.matches(RequestState.Error)
                                     && <span>{reactTranslator.getMessage('options_bug_report_request_error')}</span>}
                             </div>
                         </div>
