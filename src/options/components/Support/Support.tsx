@@ -1,6 +1,7 @@
-import React from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import React, { ReactNode, useContext } from 'react';
+import { observer } from 'mobx-react';
 
+import { rootStore } from '../../stores';
 import { messenger } from '../../../lib/messenger';
 import { FEEDBACK_URL, FAQ_URL } from '../../../background/config';
 import { Title } from '../ui/Title';
@@ -9,25 +10,26 @@ import { reactTranslator } from '../../../common/reactTranslator';
 
 import './support.pcss';
 
-export const Support = () => {
-    const history = useHistory();
-    const query = new URLSearchParams(useLocation().search);
+interface SupportItems {
+    title: ReactNode;
+    description: ReactNode;
+    iconXlink: string;
+    clickHandler: () => void;
+}
 
-    const createOpenUrlHandler = (url) => async () => {
+export const Support = observer(() => {
+    const { settingsStore } = useContext(rootStore);
+    const { showBugReporter, setShowBugReporter } = settingsStore;
+
+    const createOpenUrlHandler = (url: string) => async (): Promise<void> => {
         await messenger.openTab(url);
     };
 
-    const BUG_REPORT_QUERY = 'show_report';
-
-    const handleReportClick = () => {
-        history.push(`/support?${BUG_REPORT_QUERY}`);
+    const handleReportClick = (): void => {
+        setShowBugReporter(true);
     };
 
-    const closeHandler = () => {
-        history.push('/support');
-    };
-
-    const supportItemsData = [
+    const supportItemsData: SupportItems[] = [
         {
             title: reactTranslator.getMessage('options_support_faq_title'),
             description: reactTranslator.getMessage('options_support_faq_description'),
@@ -51,9 +53,9 @@ export const Support = () => {
         description,
         iconXlink,
         clickHandler,
-    }) => {
+    }: SupportItems) => {
         return (
-            <li key={title} className="support-item" onClick={clickHandler}>
+            <li key={title as string} className="support-item" onClick={clickHandler}>
                 <div className="support-item__area">
                     <svg className="icon icon--support">
                         <use xlinkHref={iconXlink} />
@@ -70,11 +72,9 @@ export const Support = () => {
         );
     };
 
-    if (query.has('show_report')) {
+    if (showBugReporter) {
         return (
-            <BugReporter
-                closeHandler={closeHandler}
-            />
+            <BugReporter />
         );
     }
 
@@ -86,4 +86,4 @@ export const Support = () => {
             </ul>
         </>
     );
-};
+});

@@ -77,6 +77,10 @@ export class SettingsStore {
 
     @observable subscriptionType: string | null = null;
 
+    @observable showBugReporter = false;
+
+    @observable showDnsSettings = false;
+
     @action
     async requestIsPremiumToken(): Promise<void> {
         const isPremiumToken = await messenger.checkIsPremiumToken();
@@ -274,5 +278,22 @@ export class SettingsStore {
 
     @action resendConfirmationLink = async (): Promise<void> => {
         await messenger.resendConfirmRegistrationLink(false);
+    };
+
+    @action setShowBugReporter = (value: boolean) => {
+        this.showBugReporter = value;
+    };
+
+    @action setShowDnsSettings = (value: boolean) => {
+        this.showDnsSettings = value;
+    };
+
+    /**
+     * Hides components rendered on separate screens without routing:
+     * DNS settings and Bug Reporter
+     */
+    @action closeSubComponents = () => {
+        this.setShowBugReporter(false);
+        this.setShowDnsSettings(false);
     };
 }

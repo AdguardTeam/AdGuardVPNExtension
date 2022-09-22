@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
-import { useHistory } from 'react-router-dom';
 import classnames from 'classnames';
 
 import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../../../background/dns/dnsConstants';
@@ -20,10 +19,8 @@ export const DnsSettings = observer(() => {
         await settingsStore.setDnsServer(dnsServerId);
     };
 
-    const history = useHistory();
-
     const goBackHandler = (): void => {
-        history.push('/');
+        settingsStore.setShowDnsSettings(false);
     };
 
     const openAddDnsServerModal = () => {
