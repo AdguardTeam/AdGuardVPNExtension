@@ -77,7 +77,7 @@ export const App = observer(() => {
 
             const events = [
                 notifier.types.AUTHENTICATE_SOCIAL_SUCCESS,
-                notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE,
+                notifier.types.EXCLUSIONS_DATA_UPDATED,
                 notifier.types.USER_AUTHENTICATED,
                 notifier.types.USER_DEAUTHENTICATED,
             ];
@@ -95,7 +95,7 @@ export const App = observer(() => {
                             authStore.setIsAuthenticated(true);
                             break;
                         }
-                        case notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE: {
+                        case notifier.types.EXCLUSIONS_DATA_UPDATED: {
                             await exclusionsStore.updateExclusionsData();
                             break;
                         }

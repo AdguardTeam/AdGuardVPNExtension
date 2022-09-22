@@ -192,6 +192,7 @@ export class ExclusionsStore {
     @action setCurrentMode = async (mode: ExclusionsModes) => {
         this.currentMode = mode;
         await messenger.setExclusionsMode(mode);
+        await this.updateExclusionsData();
     };
 
     @action openAddExclusionModal = () => {
@@ -300,6 +301,9 @@ export class ExclusionsStore {
         const domainToAdd = `${subdomain}.${domain}`;
 
         const addedExclusionsCount = await messenger.addUrlToExclusions(domainToAdd);
+        if (addedExclusionsCount) {
+            await this.updateExclusionsData();
+        }
         return addedExclusionsCount;
     };
 
@@ -332,12 +336,15 @@ export class ExclusionsStore {
         this.updateSelectedExclusionOnRemove(exclusion);
 
         const deletedExclusionsCount = await messenger.removeExclusion(exclusion.id);
-
+        if (deletedExclusionsCount) {
+            await this.updateExclusionsData();
+        }
         return deletedExclusionsCount;
     };
 
     @action toggleExclusionState = async (id: string) => {
         await messenger.toggleExclusionState(id);
+        await this.updateExclusionsData();
     };
 
     /**
@@ -345,6 +352,7 @@ export class ExclusionsStore {
      */
     restoreExclusions = async () => {
         await messenger.restoreExclusions();
+        await this.updateExclusionsData();
     };
 
     @action addToServicesToToggle = (id: string) => {
@@ -364,7 +372,9 @@ export class ExclusionsStore {
         runInAction(() => {
             this.servicesToToggle = [];
         });
-
+        if (toggleServicesResult) {
+            await this.updateExclusionsData();
+        }
         return toggleServicesResult;
     };
 
@@ -419,6 +429,7 @@ export class ExclusionsStore {
 
     @action clearExclusionsList = async () => {
         await messenger.clearExclusionsList();
+        await this.updateExclusionsData();
     };
 
     get sortedExclusions() {

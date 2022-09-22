@@ -52,13 +52,13 @@ const CONTEXT_MENU_ITEMS = {
         id: 'selective_mode',
         type: 'radio' as Menus.ItemType,
         title: translator.getMessage('context_menu_selective_mode'),
-        onclick: () => exclusions.setMode(ExclusionsModes.Selective),
+        onclick: () => exclusions.setMode(ExclusionsModes.Selective, true),
     },
     regular_mode: {
         id: 'regular_mode',
         type: 'radio' as Menus.ItemType,
         title: translator.getMessage('context_menu_general_mode'),
-        onclick: () => exclusions.setMode(ExclusionsModes.Regular),
+        onclick: () => exclusions.setMode(ExclusionsModes.Regular, true),
     },
     separator: {
         id: 'separator',

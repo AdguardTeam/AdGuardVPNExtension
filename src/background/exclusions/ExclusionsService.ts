@@ -69,11 +69,16 @@ export class ExclusionsService {
     /**
      * Sets exclusions mode
      * @param mode
+     * @param shouldNotifyOptionsPage
      */
-    async setMode(mode: ExclusionsModes) {
+    async setMode(mode: ExclusionsModes, shouldNotifyOptionsPage?: boolean) {
         await exclusionsManager.setCurrentMode(mode);
 
         this.updateTree();
+
+        if (shouldNotifyOptionsPage) {
+            notifier.notifyListeners(notifier.types.EXCLUSIONS_DATA_UPDATED);
+        }
     }
 
     /**
@@ -425,6 +430,7 @@ export class ExclusionsService {
         } else {
             await this.addUrlToExclusions(url);
         }
+        notifier.notifyListeners(notifier.types.EXCLUSIONS_DATA_UPDATED);
     }
 
     /**
@@ -438,6 +444,7 @@ export class ExclusionsService {
             await exclusionsManager.current.disableExclusionByUrl(url);
             this.updateTree();
         }
+        notifier.notifyListeners(notifier.types.EXCLUSIONS_DATA_UPDATED);
     }
 
     /**

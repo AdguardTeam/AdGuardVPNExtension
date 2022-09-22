@@ -9,6 +9,7 @@ enum NotifierType {
     TAB_UPDATED = 'event.tab.updated',
     TAB_ACTIVATED = 'event.tab.activated',
     EXCLUSIONS_UPDATED_BACK_MESSAGE = 'event.exclusions.updated.back.message',
+    EXCLUSIONS_DATA_UPDATED = 'event.exclusions.data.updated',
     SHOULD_REFRESH_TOKENS = 'event.should.refresh.tokens',
     DNS_SERVER_SET = 'event.dns.server.set',
     UPDATE_BROWSER_ACTION_ICON = 'event.update.browser.action.icon',
