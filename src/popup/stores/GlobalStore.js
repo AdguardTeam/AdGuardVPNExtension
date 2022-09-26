@@ -27,9 +27,6 @@ export class GlobalStore {
 
         try {
             const popupData = await messenger.getPopupData(tab.url, numberOfTries);
-            if (!popupData) {
-                return;
-            }
 
             const {
                 vpnInfo,

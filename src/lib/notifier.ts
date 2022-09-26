@@ -26,9 +26,6 @@ enum NotifierType {
 
     // Connectivity context
     CONNECTIVITY_DESKTOP_VPN_STATUS_CHANGED = 'event.connectivity.desktop.vpn.status.changed',
-
-    // Extension loaded all necessary modules
-    EXTENSION_IS_READY = 'extension.is.ready',
 }
 
 type NotifierTypeMap = {

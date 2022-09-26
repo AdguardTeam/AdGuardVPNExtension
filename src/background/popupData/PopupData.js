@@ -38,7 +38,19 @@ class PopupData {
         return desktopVpnEnabled;
     }
 
+    RETRY_DELAY = 500;
+
+    async waitForExtensionIsReady() {
+        const isExtensionReady = await flagsStorage.get(FLAGS_FIELDS.IS_EXTENSION_READY);
+        if (!isExtensionReady) {
+            await this.sleep(this.RETRY_DELAY);
+            await this.waitForExtensionIsReady();
+        }
+    }
+
     getPopupData = async (url) => {
+        await this.waitForExtensionIsReady();
+
         const isAuthenticated = await auth.isAuthenticated();
         const policyAgreement = settings.getSetting(SETTINGS_IDS.POLICY_AGREEMENT);
 
@@ -114,10 +126,6 @@ class PopupData {
     DEFAULT_RETRY_DELAY = 400;
 
     async getPopupDataRetry(url, retryNum = 1, retryDelay = this.DEFAULT_RETRY_DELAY) {
-        const isExtensionReady = await flagsStorage.get(FLAGS_FIELDS.IS_EXTENSION_READY);
-        if (!isExtensionReady) {
-            return null;
-        }
         const backoffIndex = 1.5;
         let data;
 
