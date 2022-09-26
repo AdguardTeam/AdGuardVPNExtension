@@ -11,7 +11,7 @@ import {
     AUTH_CLIENT_ID,
 } from './config';
 import { log } from '../lib/logger';
-import notifier from '../lib/notifier';
+import { notifier } from '../lib/notifier';
 import { translator } from '../common/translator';
 import { fallbackApi } from './api/fallbackApi';
 // eslint-disable-next-line import/no-cycle

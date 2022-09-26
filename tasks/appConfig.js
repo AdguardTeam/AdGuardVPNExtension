@@ -67,7 +67,7 @@ const COMMON = {
     WEBSITE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=adguard_site&from=options_screen&app=vpn_extension`,
     FAQ_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=faq&from=options_screen&app=vpn_extension`,
     SUGGEST_FEATURE: `https://${FORWARDER_DOMAIN}/forward.html?action=suggest_feature&from=options_screen&app=vpn_extension`,
-    THANK_YOU_PAGE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=thank_you_v2&from=background_page&app=vpn_extension`,
+    THANK_YOU_PAGE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=thank_you&from=background_page&app=vpn_extension`,
     PASSWORD_RECOVERY_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=recovery_password&from=popup&app=vpn_extension`,
     EDIT_ACCOUNT_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=account_settings&from=options_screen&app=vpn_extension`,
     // API
@@ -75,6 +75,8 @@ const COMMON = {
     AUTH_CLIENT_ID: 'adguard-vpn-extension',
     // Uninstall page
     UNINSTALL_PAGE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=adguard_uninstal_ext&from=background_page&app=vpn_extension`,
+    // AdGuard DNS Knowledge Base
+    ADGUARD_DNS_KB_LINK: `https://${FORWARDER_DOMAIN}/forward.html?action=adguard_dns_kb&from=options_screen&app=vpn_extension`,
 };
 
 const genAppConfig = (browser, stageEnv, buildingEnv) => {

@@ -31,8 +31,10 @@ Chrome WebStore:
           - |-
             set -x
             set -e
+
             # Fix mixed logs
             exec 2>&1
+
             ls -la
 
             ./bamboo-deploy-publisher/deploy.sh adguard-vpn-webstore-beta
@@ -73,6 +75,10 @@ static.adguardvpn.com:
           - |-
             set -x
             set -e
+
+            # Fix mixed logs
+            exec 2>&1
+
             ls -la
 
             ./bamboo-deploy-publisher/deploy.sh adguard-vpn-webext-beta
@@ -113,6 +119,10 @@ GitHub:
           - |-
             set -x
             set -e
+
+            # Fix mixed logs
+            exec 2>&1
+
             ls -la
 
             # publish to Github Releases

@@ -10,7 +10,7 @@ import {
 } from '../exclusions/exclusions-helpers';
 import { ExclusionState } from '../../common/exclusionsConstants';
 
-const SCHEME_VERSION = '9';
+const SCHEME_VERSION = '10';
 const THROTTLE_TIMEOUT = 100;
 
 export class SettingsService {
@@ -180,6 +180,14 @@ export class SettingsService {
         };
     };
 
+    migrateFrom9to10 = async (oldSettings) => {
+        return {
+            ...oldSettings,
+            VERSION: '10',
+            [SETTINGS_IDS.CUSTOM_DNS_SERVERS]: this.defaults[SETTINGS_IDS.CUSTOM_DNS_SERVERS],
+        };
+    };
+
     /**
      * In order to add migration, create new function which modifies old settings into new
      * And add this migration under related old settings scheme version
@@ -195,6 +203,7 @@ export class SettingsService {
         6: this.migrateFrom6to7,
         7: this.migrateFrom7to8,
         8: this.migrateFrom8to9,
+        9: this.migrateFrom9to10,
     };
 
     async applyMigrations(oldVersion, newVersion, oldSettings) {

@@ -1,7 +1,7 @@
 import isEmpty from 'lodash/isEmpty';
 import { log } from '../../lib/logger';
-import { measurePingToEndpointViaFetch } from '../connectivity/pingHelpers';
-import notifier from '../../lib/notifier';
+import { measurePingWithinLimits } from '../connectivity/pingHelpers';
+import { notifier } from '../../lib/notifier';
 import { LocationWithPing, LocationWithPingParameters } from './LocationWithPing';
 import { vpnProvider } from '../providers/vpnProvider';
 import { Location, LocationInterface, LocationData } from './Location';
@@ -175,7 +175,7 @@ const getEndpointAndPing = async (
 
     if (forcePrevEndpoint && location.endpoint) {
         const { endpoint } = location;
-        ping = await measurePingToEndpointViaFetch(endpoint.domainName);
+        ping = await measurePingWithinLimits(endpoint.domainName);
         return {
             ping,
             endpoint,
@@ -194,7 +194,7 @@ const getEndpointAndPing = async (
     while (!ping && endpoints[i]) {
         endpoint = endpoints[i];
         // eslint-disable-next-line no-await-in-loop
-        ping = await measurePingToEndpointViaFetch(endpoint.domainName);
+        ping = await measurePingWithinLimits(endpoint.domainName);
         i += 1;
     }
 

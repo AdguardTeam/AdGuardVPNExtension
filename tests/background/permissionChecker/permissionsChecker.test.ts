@@ -1,5 +1,5 @@
 import permissionsChecker from '../../../src/background/permissionsChecker';
-import notifier from '../../../src/lib/notifier';
+import { notifier } from '../../../src/lib/notifier';
 import {
     UPDATE_CREDENTIALS_INTERVAL_MS,
     UPDATE_VPN_INFO_INTERVAL_MS,

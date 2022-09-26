@@ -1,6 +1,6 @@
 import { ExclusionsModes, ExclusionState } from '../../../common/exclusionsConstants';
 import { ExclusionsHandler } from './ExclusionsHandler';
-import notifier from '../../../lib/notifier';
+import { notifier } from '../../../lib/notifier';
 import { log } from '../../../lib/logger';
 import { settings } from '../../settings';
 import { proxy } from '../../proxy';

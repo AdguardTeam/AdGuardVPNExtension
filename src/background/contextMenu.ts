@@ -1,7 +1,7 @@
 import browser, { Menus } from 'webextension-polyfill';
 import throttle from 'lodash/throttle';
 
-import notifier from '../lib/notifier';
+import { notifier } from '../lib/notifier';
 import { exclusions } from './exclusions';
 import tabs from './tabs';
 import { translator } from '../common/translator';
