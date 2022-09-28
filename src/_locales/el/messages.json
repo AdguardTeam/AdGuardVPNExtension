@@ -167,6 +167,12 @@
     "settings_title": {
         "message": "Ρυθμίσεις"
     },
+    "settings_free_gbs_add_device_products_button": {
+        "message": "Μεταβείτε στα Προϊόντα"
+    },
+    "settings_free_gbs_go_back": {
+        "message": "Πηγαίνετε πίσω"
+    },
     "settings_rate_us": {
         "message": "Βαθμολογήστε μας"
     },
@@ -192,16 +198,40 @@
         "message": "Γενική λειτουργία"
     },
     "settings_dns_label": {
-        "message": "Χρήση διακομιστή DNS"
+        "message": "Διακομιστής DNS"
+    },
+    "settings_dns_popular_servers": {
+        "message": "Δημοφιλείς διακομιστές DNS"
+    },
+    "settings_dns_custom_servers": {
+        "message": "Προσαρμοσμένοι διακομιστές DNS"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "Προσθήκη διακομιστή DNS χρήστη"
+    },
+    "settings_dns_edit_custom_server": {
+        "message": "Επεξεργασία προσαρμοσμένου διακομιστή DNS"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "Όνομα διακομιστή"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Όνομα διακομιστή"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "Διεύθυνση διακομιστή DNS"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "Αποθήκευση και επιλογή"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "Αποθήκευση"
     },
     "settings_dns_desc": {
         "message": "Το Domain Name System (DNS) είναι το αντίστοιχο του τηλεφωνικού καταλόγου για το Διαδίκτυο. Διατηρεί έναν κατάλογο ονομάτων τομέων και τους μεταφράζει σε διευθύνσεις Internet Protocol (IP)."
     },
     "settings_dns_selector_default_title": {
         "message": "Προεπιλογή"
-    },
-    "settings_dns_selector_default_desc": {
-        "message": "Αυτόματη χρήση προεπιλεγμένων διακομιστών DNS όταν είστε συνδεδεμένοι στο VPN"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -296,14 +326,8 @@
     "settings_exclusion_title": {
         "message": "Εξαιρέσεις"
     },
-    "settings_exclusion_general_title": {
-        "message": "Γενική λειτουργία"
-    },
-    "settings_exclusion_general_description": {
-        "message": "Το AdGuard VPN δεν θα λειτουργεί στους ιστότοπους από τη λίστα εξαιρέσεων"
-    },
-    "settings_exclusion_selective_title": {
-        "message": "Επιλεκτική λειτουργία"
+    "settings_exclusion_import_button": {
+        "message": "Εισαγωγή"
     },
     "global_error_title": {
         "message": "Προέκυψε σφάλμα"
@@ -416,9 +440,6 @@
     "offline_title": {
         "message": "Εκτός σύνδεσης"
     },
-    "popup_site_status_unaccessible": {
-        "message": "βρίσκεται στο τοπικό σας δίκτυο και δεν είναι προσβάσιμο μέσω VPN"
-    },
     "popup_site_status_vpn_disabled": {
         "message": "Το VPN είναι απενεργοποιημένο σε αυτόν τον ιστότοπο"
     },
@@ -436,21 +457,6 @@
     },
     "popup_newsletter_no_subscribe": {
         "message": "Όχι, ευχαριστώ"
-    },
-    "popup_onboarding_trusted_vpn": {
-        "message": "Αξιόπιστο VPN"
-    },
-    "popup_onboarding_numerous_locations": {
-        "message": "Πολλές τοποθεσίες"
-    },
-    "popup_onboarding_numerous_locations_info": {
-        "message": "Συνδεθείτε σε οποιονδήποτε από τους διακομιστές μας που βρίσκονται σε όλο τον κόσμο"
-    },
-    "popup_onboarding_fastest_servers": {
-        "message": "Ταχύτεροι διακομιστές"
-    },
-    "popup_onboarding_fastest_servers_info": {
-        "message": "Χρησιμοποιούμε τεχνολογίες αιχμής για να εγγυηθούμε την υψηλότερη ταχύτητα σύνδεσης"
     },
     "popup_onboarding_next": {
         "message": "Επόμενο"
@@ -476,15 +482,6 @@
     "popup_free_traffic_info": {
         "message": "<span>%value%%unit%</span> απομένουν αυτόν τον μήνα",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_exclusions_import_select_title": {
-        "message": "Εισαγωγή εξαιρέσεων σε:"
-    },
-    "options_exclusions_import_select_regular": {
-        "message": "Κανονική λίστα"
-    },
-    "options_exclusions_import_select_selective": {
-        "message": "Επιλεκτική λίστα"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Ακύρωση"
@@ -539,6 +536,9 @@
     },
     "options_signedout_page_title": {
         "message": "Έχετε αποσυνδεθεί από το AdGuard VPN"
+    },
+    "confirm_email_close_button": {
+        "message": "Κλείσιμο"
     },
     "name": {
         "message": "AdGuard VPN — free & secure proxy"

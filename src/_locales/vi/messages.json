@@ -1,4 +1,7 @@
 {
+    "name": {
+        "message": "AdGuard VPN - Quyền riêng tư & Bảo mật"
+    },
     "description": {
         "message": "Làm cho Internet mở và dữ liệu của bạn an toàn. VPN tốt nhất từ những người tạo ra trình chặn quảng cáo nổi tiếng."
     },
@@ -10,6 +13,12 @@
     },
     "registration_error_not_valid": {
         "message": "Giá trị này không hợp lệ"
+    },
+    "registration_error_min_length": {
+        "message": "Giá trị này quá ngắn. Nó phải có 8 ký tự trở lên."
+    },
+    "registration_error_confirm_password": {
+        "message": "Mật khẩu không khớp"
     },
     "registration_error_compromised_password": {
         "message": "Mật khẩu bạn đã nhập được tìm thấy trong <a>cơ sở dữ liệu công khai</a> gồm các mật khẩu bị xâm phạm. Vui lòng thử cái khác."
@@ -38,6 +47,9 @@
     "authentication_error_wrong_credentials": {
         "message": "Sai mật khẩu"
     },
+    "authentication_too_many_requests": {
+        "message": "Chúng tôi đã nhận quá nhiều yêu cầu thừ địa chỉ IP của bạn. Vui lòng thử lại sau."
+    },
     "authentication_error_default": {
         "message": "Đã xảy ra lỗi, hãy thử lại sau"
     },
@@ -58,6 +70,9 @@
     },
     "options_support_report_title": {
         "message": "Báo cáo lỗi"
+    },
+    "options_support_report_description": {
+        "message": "Nếu một cái gì đó không hoạt động chính xác trong chương trình"
     },
     "options_support_feedback_title": {
         "message": "Để lại phản hồi"
@@ -104,8 +119,41 @@
     "account_title": {
         "message": "Tài khoản"
     },
+    "account_edit": {
+        "message": "Chỉnh sửa"
+    },
     "account_version": {
         "message": "Phiên bản"
+    },
+    "account_free": {
+        "message": "Tài khoản miễn phí"
+    },
+    "account_unlimited": {
+        "message": "Đăng ký không giới hạn"
+    },
+    "account_monthly_paid": {
+        "message": "Đăng ký trả tiền hàng tháng"
+    },
+    "account_yearly_paid": {
+        "message": "Đăng ký trả tiền hàng năm"
+    },
+    "account_two_year_paid": {
+        "message": "Đăng ký trả tiền mỗi 2 năm"
+    },
+    "account_get_subscription": {
+        "message": "Đăng ký"
+    },
+    "account_max_devices_count": {
+        "message": "Cùng lúc tối đa %num% thiết bị"
+    },
+    "account_next_charge": {
+        "message": "(Thu phí tiếp theo vào %date%)"
+    },
+    "account_sign_out": {
+        "message": "Đăng xuất"
+    },
+    "account_unlimited_title": {
+        "message": "Tải ngay phiên bản Không giới hạn!"
     },
     "rate_description": {
         "message": "Xin chào, chúng tôi là một nhóm đến từ AdGuard và điều rất quan trọng là chúng tôi phải biết ý kiến ​​của bạn về sản phẩm của chúng tôi. Hãy đánh giá nó."
@@ -122,6 +170,9 @@
     "auth_password": {
         "message": "Mật khẩu"
     },
+    "auth_your_password": {
+        "message": "Nhập mật khẩu"
+    },
     "auth_password_confirm": {
         "message": "Xác nhận mật khẩu"
     },
@@ -131,11 +182,26 @@
     "auth_sign_up": {
         "message": "Đăng ký"
     },
+    "auth_sign_up_info": {
+        "message": "Tạo tài khoản AdGuard của bạn"
+    },
     "auth_sign_up_button": {
         "message": "Đăng ký"
     },
+    "auth_sign_in": {
+        "message": "Đăng nhập"
+    },
+    "auth_sign_in_button": {
+        "message": "Đăng nhập"
+    },
+    "auth_title": {
+        "message": "Đăng nhập hoặc tạo một tài khoản"
+    },
     "auth_sign_in_provider_adguard_label": {
         "message": "Email"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Tiếp tục với AdGuard của bạn"
     },
     "auth_sign_in_provider_apple": {
         "message": "Đăng nhập bằng Apple"
@@ -145,6 +211,9 @@
     },
     "auth_sign_in_provider_facebook": {
         "message": "Đăng nhập bằng Facebook"
+    },
+    "auth_header_sing_in_notice": {
+        "message": "Bạn đã có tài khoản <div>%username%</div>"
     },
     "auth_header_2fa_subtitle": {
         "message": "Xác minh 2 bước"
@@ -167,17 +236,77 @@
     "settings_title": {
         "message": "Cài đặt"
     },
+    "options_menu_free_traffic": {
+        "message": "Lưu lượng VPN miễn phí"
+    },
+    "referral_get_free_traffic": {
+        "message": "Nhận GB miễn phí!"
+    },
+    "settings_referral_info": {
+        "message": "Nhận %your_gb% GB lưu lượng truy cập VPN miễn phí trong một tháng cho mỗi người bạn đăng ký thông qua lời mời của bạn, tổng cộng lên đến %total_gb% GB. Bạn của bạn cũng nhận được thêm %friend_gb% GB miễn phí."
+    },
     "settings_referral_invited_friends": {
         "message": "Bạn đã mời %count%/%limit%"
     },
-    "settings_referral_limit_reached": {
-        "message": "Bạn đã nhận được %your_gb% GB lưu lượng VPN miễn phí. Nhưng những người bạn của bạn vẫn có thể nhận thêm %friend_gb% GB lưu lượng VPN miễn phí nếu bạn mời họ!"
+    "settings_referral_invite_link": {
+        "message": "Liên kết mời"
     },
     "settings_referral_copy_link": {
-        "message": "Chép liên kết"
+        "message": "Sao chép liên kết mời"
     },
     "settings_referral_link_copied": {
-        "message": "Đã chép liên kết"
+        "message": "Đã sao chép liên kết mời vào khay nhớ tạm"
+    },
+    "settings_free_gbs": {
+        "message": "GB miễn phí"
+    },
+    "settings_free_gbs_subtitle": {
+        "message": "Hoàn thành các nhiệm vụ để nhận được lưu lượng VPN miễn phí!"
+    },
+    "settings_free_gbs_confirm_email_title": {
+        "message": "Xác nhận email của bạn"
+    },
+    "settings_free_gbs_get_GB": {
+        "message": "Nhận %num% GB"
+    },
+    "settings_free_gbs_task_complete": {
+        "message": "Bạn có %num% GB"
+    },
+    "settings_free_gbs_confirm_email_info": {
+        "message": "Nhấp vào liên kết xác nhận email mà chúng tôi đã gửi cho bạn khi đăng ký và nhận %your_gb% GB lưu lượng truy cập VPN miễn phí. Nếu bạn không thể tìm thấy email của chúng tôi, hãy nhấp vào nút bên dưới."
+    },
+    "settings_free_gbs_confirm_email_resend_link_button": {
+        "message": "Gửi lại liên kết"
+    },
+    "settings_free_gbs_add_device_title": {
+        "message": "Thêm thiết bị khác"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "Cài đặt AdGuard VPN trên một thiết bị khác, đăng nhập vào tài khoản AdGuard của bạn trên thiết bị đó và nhận %your_gb% GB"
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "Đã thêm thiết bị"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "Chúc mừng bạn đã cài đặt AdGuard VPN trên nhiều thiết bị. Giữ an toàn!"
+    },
+    "settings_free_gbs_add_device_products_button": {
+        "message": "Đi đến Sản phẩm"
+    },
+    "settings_free_gbs_invite_friend": {
+        "message": "Mời một người bạn"
+    },
+    "settings_free_gbs_invite_friend_get_GB": {
+        "message": "Nhận lên đến %num% GB"
+    },
+    "settings_free_gbs_invite_friend_complete": {
+        "message": "Bạn có %num% GB"
+    },
+    "settings_free_gbs_invite_friend_completed_thank_you": {
+        "message": "Cảm ơn vì đã sử dụng tất cả lời mời của bạn!"
+    },
+    "settings_free_gbs_go_back": {
+        "message": "Quay lại"
     },
     "settings_rate_us": {
         "message": "Đánh giá chúng tôi"
@@ -204,7 +333,49 @@
         "message": "Chế độ thông thường"
     },
     "settings_dns_label": {
-        "message": "Sử dụng máy chủ DNS"
+        "message": "Máy chủ DNS"
+    },
+    "settings_dns_popular_servers": {
+        "message": "Các máy chủ DNS phổ biến"
+    },
+    "settings_dns_custom_servers": {
+        "message": "Máy chủ DNS tuỳ chỉnh"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "Thêm máy chủ DNS người dùng"
+    },
+    "settings_dns_edit_custom_server": {
+        "message": "Chỉnh sửa máy chủ DNS tuỳ chỉnh"
+    },
+    "settings_dns_add_custom_server_info": {
+        "message": "<a>Đọc thêm</a> về máy chủ DNS"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "Tên máy chủ"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Tên máy chủ"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "Địa chỉ máy chủ DNS"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP hoặc TLS"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "Địa chỉ máy chủ DNS không hợp lệ"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "Lưu và chọn"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "Lưu"
+    },
+    "settings_dns_add_custom_server_notification_success": {
+        "message": "Máy chủ DNS tùy chỉnh đã được thêm"
+    },
+    "settings_dns_delete_custom_server_notification": {
+        "message": "Đã xoá máy chủ DNS tuỳ chỉnh"
     },
     "settings_dns_desc": {
         "message": "Hệ thống tên miền (DNS) được xem là danh bạ của internet. Chúng duy trì danh mục tên miền và chuyển chúng sang địa chỉ giao thức Internet (IP)."
@@ -213,7 +384,7 @@
         "message": "Mặc định"
     },
     "settings_dns_selector_default_desc": {
-        "message": "Tự động sử dụng máy chủ DNS mặc định khi được kết nối với VPN"
+        "message": "Sử dụng máy chủ DNS do AdGuard VPN cung cấp"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -258,13 +429,19 @@
         "message": "Dịch vụ DNS thay thế miễn phí với sự bảo vệ khỏi lừa đảo và phần mềm gián điệp"
     },
     "settings_theme_label": {
-        "message": "Theme"
+        "message": "Chủ đề"
     },
     "settings_theme_system": {
-        "message": "Hệ thống"
+        "message": "Mặc định hệ thống"
+    },
+    "settings_theme_dark": {
+        "message": "Chế độ Tối"
+    },
+    "settings_theme_light": {
+        "message": "Chế độ Sáng"
     },
     "settings_exclusion_add": {
-        "message": "Thêm"
+        "message": "Thêm trang web"
     },
     "settings_exclusion_add_website": {
         "message": "Thêm trang web"
@@ -275,6 +452,18 @@
     "settings_exclusion_add_subdomain": {
         "message": "Thêm tên miền con"
     },
+    "settings_exclusion_invalid_subdomain": {
+        "message": "Tên miền phụ không hợp lệ"
+    },
+    "settings_exclusion_status_domain": {
+        "message": "tên miền"
+    },
+    "settings_exclusion_status_subdomain": {
+        "message": "tên miền phụ"
+    },
+    "settings_exclusion_status_all_subdomains": {
+        "message": "tất cả tên miền phụ"
+    },
     "settings_exclusion_group_settings_subtitle_regular_mode": {
         "message": "AdGuard VPN được tắt với những tên miền và tên miền con được chọn"
     },
@@ -284,11 +473,20 @@
     "settings_exclusion_domain_name": {
         "message": "Tên miền:"
     },
+    "settings_exclusion_subdomain_name": {
+        "message": "Tên miền phụ:"
+    },
     "settings_exclusion_add_from_list": {
         "message": "Từ danh sách"
     },
     "settings_exclusion_add_manually": {
         "message": "Thủ công"
+    },
+    "settings_exclusion_add_manually_add": {
+        "message": "Thêm thủ công"
+    },
+    "settings_exclusions_add_invalid_domain": {
+        "message": "\"%url%\" không phải là tên miền hợp lệ. Bạn có muốn thêm nó vào danh sách?"
     },
     "settings_exclusion_modal_cancel": {
         "message": "Huỷ"
@@ -308,8 +506,17 @@
     "settings_exclusions_undo": {
         "message": "Hoàn tác"
     },
+    "settings_exclusion_reset_service_confirmation_message": {
+        "message": "Khôi phục thiết lập mặc định cho %hostname%? Điều này sẽ đặt tất cả tên miền và các mục đánh dấu thành bật."
+    },
+    "settings_exclusion_search_website": {
+        "message": "Tìm trang web"
+    },
     "settings_exclusion_placeholder_search": {
         "message": "Tìm kiếm"
+    },
+    "settings_exclusion_nothing_found": {
+        "message": "Không có kết quả"
     },
     "settings_exclusion_connection_problem": {
         "message": "Vấn đề kết nối"
@@ -323,17 +530,35 @@
     "settings_exclusions_action_remove_all": {
         "message": "Xoá tất cả"
     },
+    "settings_exclusions_remove_all_exclusions": {
+        "message": "Xóa tất cả các loại trừ"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "Bạn có chắc muốn tiếp tục? Tất cả danh sách loại trừ sẽ bị xóa."
+    },
     "settings_exclusion_title": {
         "message": "Loại trừ"
     },
-    "settings_exclusion_general_title": {
-        "message": "Chế độ thông thường"
+    "settings_exclusion_change_mode_modal_title": {
+        "message": "VPN được bật ở đâu"
     },
-    "settings_exclusion_general_description": {
-        "message": "AdGuard không hoạt động trên trang này dựa theo danh sách này"
+    "settings_exclusion_general_title": {
+        "message": "Mọi nơi ngoại trừ các trang web bị loại trừ"
+    },
+    "settings_exclusion_general_mode_info": {
+        "message": "VPN có mặt trên <span>ở mọi nơi</span> ngoại trừ các trang web bên dưới"
     },
     "settings_exclusion_selective_title": {
-        "message": "Chế độ chọn lọc"
+        "message": "Chỉ trên các trang web được chọn"
+    },
+    "settings_exclusion_selective_mode_info": {
+        "message": "VPN <span></span>có chọn lọc: chỉ dành cho các trang web bên dưới"
+    },
+    "settings_exclusion_selective_mode_warning": {
+        "message": "Để trống danh sách này sẽ tắt VPN cho tất cả các trang web"
+    },
+    "settings_exclusion_import_button": {
+        "message": "Nhập"
     },
     "global_error_title": {
         "message": "Có lỗi xảy ra"
@@ -346,6 +571,12 @@
     },
     "global_error_try_again": {
         "message": "Hãy thử lại"
+    },
+    "authentication_successful_notification": {
+        "message": "Đã xác thực thành công! Bạn có thể mở AdGuard VPN và bắt đầu sử dụng nó."
+    },
+    "control_error_description": {
+        "message": "Có vẻ như một tiện ích mở rộng khác của Chrome đang cố gắng kiểm soát kết nối của bạn. Vui lòng tắt tiện ích mở rộng khác trong trình duyệt của bạn."
     },
     "control_error_disable": {
         "message": "Vô hiệu hóa nó"
@@ -392,6 +623,9 @@
     "endpoints_not_found": {
         "message": "Không tìm thấy máy chủ"
     },
+    "popup_traffic_limit_reached": {
+        "message": "Đã đạt đến giới hạn dữ liệu hàng tháng. Cần thêm?"
+    },
     "premium_upgrade": {
         "message": "Nâng cấp"
     },
@@ -425,6 +659,9 @@
     "popup_feedback_button": {
         "message": "Để lại phản hồi"
     },
+    "popup_rate_modal_title": {
+        "message": "AdGuard VPN tuyệt vời như thế nào?"
+    },
     "popup_rate_modal_subtitle": {
         "message": "Hãy đánh giá chúng tôi"
     },
@@ -437,8 +674,17 @@
     "popup_confirm_rate_modal_feedback_title": {
         "message": "Giúp chúng tôi cải thiện"
     },
+    "popup_confirm_rate_modal_feedback_subtitle": {
+        "message": "Hãy cho chúng tôi biết điều gì đã xảy ra"
+    },
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "Để lại phản hồi"
+    },
+    "popup_confirm_rate_modal_rate_title": {
+        "message": "Ồ! Bạn cũng có thể đánh giá chúng tôi trong Cửa hàng Chrome không?"
+    },
+    "popup_confirm_rate_modal_confirm_button": {
+        "message": "Truy cập Cửa hàng Chrome"
     },
     "options_title": {
         "message": "Tùy chọn AdGuard VPN"
@@ -452,11 +698,21 @@
     "popup_site_status_vpn_disabled": {
         "message": "VPN bị tắt trên trang web này"
     },
+    "popup_auth_policy_agreement": {
+        "message": "Chấp nhận <eula>EULA</eula> và <privacy>chính sách quyền riêng tư</privacy>",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "Cho phép AdGuard thu thập dữ <link>liệu ẩn danh</link> về việc sử dụng ứng dụng để cải thiện AdGuard VPN"
+    },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Tiếp tục"
     },
     "popup_newsletter_title": {
         "message": "Bản tin AdGuard"
+    },
+    "popup_newsletter_info": {
+        "message": "Gửi cho tôi email với các ưu đãi đặc biệt và tin tức từ AdGuard"
     },
     "popup_newsletter_subscribe": {
         "message": "Đăng ký"
@@ -464,20 +720,23 @@
     "popup_newsletter_no_subscribe": {
         "message": "Không, cảm ơn"
     },
-    "popup_onboarding_trusted_vpn": {
-        "message": "VPN đáng tin cậy"
+    "popup_onboarding_unique_protocol": {
+        "message": "Giao thức VPN duy nhất"
     },
-    "popup_onboarding_numerous_locations": {
-        "message": "Nhiều địa điểm"
+    "popup_onboarding_unique_protocol_info": {
+        "message": "Giao thức của AdGuard VPN hoạt động nhanh và giúp lưu lượng truy cập VPN của bạn không dễ thấy"
     },
-    "popup_onboarding_numerous_locations_info": {
-        "message": "Kết nối với bất kỳ máy chủ nào của chúng tôi đặt trên toàn thế giới"
+    "popup_onboarding_sites_apps_exclusions": {
+        "message": "Loại trừ các trang web và ứng dụng"
     },
-    "popup_onboarding_fastest_servers": {
-        "message": "Máy chủ nhanh nhất"
+    "popup_onboarding_sites_apps_exclusions_info": {
+        "message": "Loại trừ giúp bạn nhanh chóng chỉ định các trang web hoặc ứng dụng để bảo vệ AdGuard VPN"
     },
-    "popup_onboarding_fastest_servers_info": {
-        "message": "Chúng tôi sử dụng các công nghệ tiên tiến để đảm bảo tốc độ kết nối cao nhất"
+    "popup_onboarding_no_logging_policy": {
+        "message": "Chính sách không ghi chép nhật ký"
+    },
+    "popup_onboarding_no_logging_policy_info": {
+        "message": "AdGuard VPN giúp bạn ẩn danh. Nó không bao giờ thu thập hoặc chia sẻ dữ liệu của bạn với các bên thứ ba"
     },
     "popup_onboarding_next": {
         "message": "Tiếp theo"
@@ -488,30 +747,48 @@
     "popup_upgrade_screen_unlimited_data": {
         "message": "Dữ liệu không giới hạn"
     },
+    "popup_upgrade_screen_unlimited_data_desc": {
+        "message": "Giới hạn duy nhất đó là dữ liệu của bạn không bao giờ được chia sẻ. Cực kì thoải mái!"
+    },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "tất cả vị trí, hỗ trợ 24/7"
+    },
+    "popup_upgrade_screen_unlimited_speed_desc": {
+        "message": "Không giới hạn tốc độ. Tận dụng tối đa nhà cung cấp dịch vụ của bạn!"
     },
     "popup_upgrade_screen_all_locations": {
         "message": "Tất cả vị trí"
     },
+    "popup_upgrade_screen_all_locations_desc": {
+        "message": "6 châu lục và hàng chục quốc gia khác nhau. Lựa chọn một thành phố và lướt Web một cách an toàn!"
+    },
     "popup_upgrade_screen_connect_devices": {
         "message": "Lên đến 5 thiết bị"
     },
+    "popup_upgrade_screen_connect_devices_desc": {
+        "message": "Kết nối mọi thiết bị của bạn đến AdGuard VPN cùng lúc — hoặc bảo vệ cả gia đình!"
+    },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Cập nhật"
+    },
+    "popup_upgrade_screen_continue_free": {
+        "message": "Tiếp tục miễn phí"
     },
     "popup_free_traffic_info": {
         "message": "<span>%value%%unit%</span> còn lại trong tháng này",
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
-        "message": "Nhập loại trừ vào:"
+        "message": "Làm thế nào để sử dụng danh sách loại trừ này?"
+    },
+    "options_exclusions_import_select_subtitle": {
+        "message": "Các trang web từ danh sách đã nhập sẽ được thêm vào các loại trừ hiện có"
     },
     "options_exclusions_import_select_regular": {
-        "message": "Danh sách thông thường"
+        "message": "Tôi muốn tắt VPN cho các trang web này"
     },
     "options_exclusions_import_select_selective": {
-        "message": "Danh sách chọn lọc"
+        "message": "Tôi muốn bật VPN cho các trang web này"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Hủy"
@@ -530,6 +807,15 @@
     },
     "options_exclusions_import_successful": {
         "message": "Loại trừ đã nhập: %count%"
+    },
+    "options_exclusions_deleted_exclusions": {
+        "message": "Loại trừ đã xóa: %count%"
+    },
+    "options_exclusions_added_exclusions": {
+        "message": "Loại trừ đã nhập: %count%"
+    },
+    "options_exclusions_remove_all_success": {
+        "message": "Tất cả loại trừ ở chế độ hiện tại đã được xóa thành công."
     },
     "options_exclusions_import_error_wrong_extensions": {
         "message": "Tệp loại trừ phải có một trong các phần mở rộng sau: %extensions%"
@@ -555,10 +841,52 @@
     "popup_connections_limit_title": {
         "message": "Đã đạt đến giới hạn kết nối"
     },
+    "popup_desktop_vpn_enabled_title": {
+        "message": "AdGuard VPN đã ngắt kết nối"
+    },
+    "popup_desktop_vpn_enabled_description": {
+        "message": "AdGuard VPN đã được bật trên ứng dụng desktop nên tiện ứng mở rộng đã được tắt tự động"
+    },
     "popup_desktop_vpn_enabled_button": {
         "message": "Ok"
     },
-    "name": {
-        "message": "AdGuard VPN — free & secure proxy"
+    "options_signedout_page_title": {
+        "message": "Bạn đã đăng xuất khỏi AdGuard VPN"
+    },
+    "options_signedout_page_description": {
+        "message": "Xin lưu ý rằng kết nối của bạn không an toàn. Để tiếp tục lướt web ở chế độ riêng tư, hãy nhấp vào biểu tượng AdGuard VPN và đăng nhập lại."
+    },
+    "notification_data_limit_reached_title": {
+        "message": "Đã đạt đến giới hạn dữ liệu hàng tháng. Cần thêm?"
+    },
+    "notification_data_limit_reached_description": {
+        "message": "Tốc độ kết nối VPN đã bị giảm."
+    },
+    "notification_data_left_mb": {
+        "message": "Còn lại %num% MB."
+    },
+    "notification_data_left_description": {
+        "message": "Tốc độ kết nối VPN sẽ sớm bị giảm."
+    },
+    "confirm_email_title": {
+        "message": "Xác nhận email của bạn"
+    },
+    "confirm_email_info": {
+        "message": "Để nhận được lưu lượng truy cập VPN miễn phí, vui lòng xác nhận địa chỉ email của bạn. Chúng tôi đã gửi một liên kết xác nhận tới"
+    },
+    "confirm_email_done_title": {
+        "message": "Địa chỉ email đã được xác nhận"
+    },
+    "confirm_email_done_info": {
+        "message": "Cảm ơn bạn đã xác minh nó!"
+    },
+    "confirm_email_close_button": {
+        "message": "Đóng"
+    },
+    "confirm_email_resend_link_button": {
+        "message": "Gửi lại liên kết"
+    },
+    "resend_confirm_registration_link_notification": {
+        "message": "Liên kết xác nhận được gửi lại"
     }
 }

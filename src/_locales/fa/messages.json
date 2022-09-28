@@ -56,8 +56,59 @@
     "settings_title": {
         "message": "تنظیمات"
     },
+    "settings_free_gbs_add_device_products_button": {
+        "message": "برو به محصولات"
+    },
+    "settings_free_gbs_go_back": {
+        "message": "برگرد"
+    },
     "settings_webrtc_label": {
         "message": "مسدودسازی وب آر تی سی"
+    },
+    "settings_dns_label": {
+        "message": "سرور DNS"
+    },
+    "settings_dns_popular_servers": {
+        "message": "ارائه دهندگان معروف DNS:"
+    },
+    "settings_dns_custom_servers": {
+        "message": "سرورهای DNS سفارشی"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "افزودن سرور DNS دستی"
+    },
+    "settings_dns_edit_custom_server": {
+        "message": "افزودن سرور DNS دلخواه"
+    },
+    "settings_dns_add_custom_server_info": {
+        "message": "در مورد سرورهای DNS <a>بیشتر بخوانید</a>"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "نام سرور"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "نام سرور"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "آدرس DNS سرور"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP یا TLS"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "آدرس DNS نامعتبر"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "ذخیره و انتخاب"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "ذخیره"
+    },
+    "settings_dns_add_custom_server_notification_success": {
+        "message": "سرور DNS سفارشی اضافه شد"
+    },
+    "settings_dns_delete_custom_server_notification": {
+        "message": "سرور DNS سفارشی حذف شد"
     },
     "settings_dns_selector_default_title": {
         "message": "پيش فرض"
@@ -131,6 +182,9 @@
     "settings_exclusion_title": {
         "message": "مدیریت استثنائات..."
     },
+    "settings_exclusion_import_button": {
+        "message": "وارد کردن"
+    },
     "global_error_title": {
         "message": "خطا رخ داده"
     },
@@ -181,6 +235,9 @@
     },
     "popup_desktop_vpn_enabled_button": {
         "message": "تأیید"
+    },
+    "confirm_email_close_button": {
+        "message": "بستن"
     },
     "name": {
         "message": "AdGuard VPN — free & secure proxy"

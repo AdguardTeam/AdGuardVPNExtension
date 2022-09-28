@@ -17,6 +17,24 @@
     "auth_sign_in_provider_facebook": {
         "message": "Teruskan dengan Facebook"
     },
+    "settings_dns_label": {
+        "message": "Pelayan DNS"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "Tambahkan pelayan DNS tersuai"
+    },
+    "settings_dns_edit_custom_server": {
+        "message": "Sunting tetapan pelayan DNS tersuai"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "Nama pelayan"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Nama pelayan"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "Alamat pelayan DNS"
+    },
     "settings_dns_selector_cloudflare_desc": {
         "message": "Percuma servis DNS oleh Cloudfare"
     },
@@ -28,6 +46,9 @@
     },
     "settings_exclusions_action_remove_all": {
         "message": "Buang semua"
+    },
+    "settings_exclusion_import_button": {
+        "message": "Import"
     },
     "global_error_learn_more": {
         "message": "Ketahui lebih lanjut"

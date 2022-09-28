@@ -14,8 +14,29 @@
     "options_bug_report_send_button": {
         "message": "Envia"
     },
+    "settings_free_gbs_add_device_products_button": {
+        "message": "Vés als productes"
+    },
+    "settings_dns_label": {
+        "message": "Servidor DNS"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "Afegeix un servidor DNS personalitzat"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "Nom del servidor"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Nom del servidor"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "Adreça del servidor DNS"
+    },
     "settings_exclusion_domain_name": {
         "message": "Nom de domini:"
+    },
+    "settings_exclusion_import_button": {
+        "message": "Importeu"
     },
     "global_error_try_again": {
         "message": "Intenta-ho de nou"

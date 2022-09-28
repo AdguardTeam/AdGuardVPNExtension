@@ -1,4 +1,7 @@
 {
+    "name": {
+        "message": "AdGuard VPN — szybki vpn & bezpieczne prywatne proxy"
+    },
     "description": {
         "message": "Użyj AdGuard VPN, aby surfować po Internecie szybko, bezpiecznie i pewnie. Chroń swoją prywatność i pozostań anonimowy z naszym prywatnym vpn proxy."
     },
@@ -10,6 +13,12 @@
     },
     "registration_error_not_valid": {
         "message": "Ta wartość jest nieprawidłowa"
+    },
+    "registration_error_min_length": {
+        "message": "Hasło musi zawierać co najmniej 8 znaków"
+    },
+    "registration_error_confirm_password": {
+        "message": "Hasła się nie zgadzają"
     },
     "registration_error_compromised_password": {
         "message": "Wprowadzone hasło zostało znalezione w <a>publicznej bazie danych</a> haseł, które zostały naruszone. Spróbuj innego."
@@ -110,8 +119,38 @@
     "account_title": {
         "message": "Konto"
     },
+    "account_edit": {
+        "message": "Zarządzaj"
+    },
     "account_version": {
         "message": "Wersja"
+    },
+    "account_free": {
+        "message": "Darmowe konto"
+    },
+    "account_unlimited": {
+        "message": "Nieograniczona subskrypcja"
+    },
+    "account_monthly_paid": {
+        "message": "Subskrypcja miesięczna"
+    },
+    "account_yearly_paid": {
+        "message": "Subskrypcja roczna"
+    },
+    "account_two_year_paid": {
+        "message": "Subskrypcja dwuletnia"
+    },
+    "account_get_subscription": {
+        "message": "Uzyskaj subskrypcję"
+    },
+    "account_max_devices_count": {
+        "message": "Do %num% urządzeń jednocześnie"
+    },
+    "account_next_charge": {
+        "message": "(Następna opłata %date%)"
+    },
+    "account_sign_out": {
+        "message": "Wyloguj się"
     },
     "account_unlimited_title": {
         "message": "Pobierz wersję bez ograniczeń!"
@@ -131,6 +170,9 @@
     "auth_password": {
         "message": "Hasło"
     },
+    "auth_your_password": {
+        "message": "Wpisz hasło"
+    },
     "auth_password_confirm": {
         "message": "Potwierdź hasło"
     },
@@ -146,11 +188,20 @@
     "auth_sign_up_button": {
         "message": "Zapisz się"
     },
+    "auth_sign_in": {
+        "message": "Wpisz swoje hasło"
+    },
     "auth_sign_in_button": {
         "message": "Zaloguj się"
     },
+    "auth_title": {
+        "message": "Zaloguj się lub utwórz konto"
+    },
     "auth_sign_in_provider_adguard_label": {
         "message": "E-mail"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Kontynuuj przez email"
     },
     "auth_sign_in_provider_apple": {
         "message": "Kontynuuj z Apple"
@@ -160,6 +211,9 @@
     },
     "auth_sign_in_provider_facebook": {
         "message": "Kontynuuj z Facebookiem"
+    },
+    "auth_header_sing_in_notice": {
+        "message": "Masz już konto <div>%username%</div>"
     },
     "auth_header_2fa_subtitle": {
         "message": "Uwierzytelnianie dwuskładnikowe"
@@ -182,20 +236,77 @@
     "settings_title": {
         "message": "Ustawienia"
     },
+    "options_menu_free_traffic": {
+        "message": "Darmowy ruch VPN"
+    },
     "referral_get_free_traffic": {
-        "message": "Uzyskaj darmowy ruch VPN!"
+        "message": "Zdobądź darmowe GB!"
+    },
+    "settings_referral_info": {
+        "message": "Zaproś swoich znajomych do dołączenia do naszego klanu ninja i zdobądź więcej darmowego ruchu VPN na miesiąc. Otrzymaj %your_gb% GB za każdego znajomego, który się zapisze: oni również otrzymają %friend_gb% GB ekstra za darmo! W sumie możesz otrzymać %total_gb% GB za darmo."
     },
     "settings_referral_invited_friends": {
         "message": "Zaproszeni przyjaciele %count%/%limit%"
     },
-    "settings_referral_limit_reached": {
-        "message": "Otrzymaliście już swoje %your_gb% GB darmowego ruchu VPN. Ale Twoi znajomi wciąż mogą otrzymać %friend_gb% GB dodatkowego darmowego ruchu VPN, jeśli ich zaprosisz!"
+    "settings_referral_invite_link": {
+        "message": "Link z zaproszeniem"
     },
     "settings_referral_copy_link": {
         "message": "Skopiuj link"
     },
     "settings_referral_link_copied": {
         "message": "Link skopiowany"
+    },
+    "settings_free_gbs": {
+        "message": "Darmowe GB"
+    },
+    "settings_free_gbs_subtitle": {
+        "message": "Wykonaj zadania, aby uzyskać bezpłatny ruch VPN!"
+    },
+    "settings_free_gbs_confirm_email_title": {
+        "message": "Potwierdź swój adres e-mail"
+    },
+    "settings_free_gbs_get_GB": {
+        "message": "Zdobądź %num% GB"
+    },
+    "settings_free_gbs_task_complete": {
+        "message": "Masz %num% GB"
+    },
+    "settings_free_gbs_confirm_email_info": {
+        "message": "Kliknij link potwierdzający w wiadomości e-mail, którą wysłaliśmy Ci podczas rejestracji i uzyskaj %your_gb% GB bezpłatnego ruchu VPN. Jeśli nie możesz znaleźć naszego e-maila, kliknij przycisk poniżej."
+    },
+    "settings_free_gbs_confirm_email_resend_link_button": {
+        "message": "Wyślij link ponownie"
+    },
+    "settings_free_gbs_add_device_title": {
+        "message": "Dodaj kolejne urządzenie"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "Zainstaluj AdGuard VPN na jeszcze jednym urządzeniu, zaloguj się na swoje konto AdGuard i zdobądź %your_gb% GB"
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "Dodane urządzenia"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "Gratulujemy instalacji AdGuard VPN na wielu urządzeniach. Bądź bezpieczny!"
+    },
+    "settings_free_gbs_add_device_products_button": {
+        "message": "Idź do produktów"
+    },
+    "settings_free_gbs_invite_friend": {
+        "message": "Zaproś przyjaciela"
+    },
+    "settings_free_gbs_invite_friend_get_GB": {
+        "message": "Zyskaj do %num% GB"
+    },
+    "settings_free_gbs_invite_friend_complete": {
+        "message": "Masz %num% GB"
+    },
+    "settings_free_gbs_invite_friend_completed_thank_you": {
+        "message": "Dziękujemy za wykorzystanie wszystkich zaproszeń!"
+    },
+    "settings_free_gbs_go_back": {
+        "message": "Wróć"
     },
     "settings_rate_us": {
         "message": "Oceń nas"
@@ -222,7 +333,49 @@
         "message": "Protokół AdGuard VPN"
     },
     "settings_dns_label": {
-        "message": "Użyj serwera DNS"
+        "message": "Serwer DNS"
+    },
+    "settings_dns_popular_servers": {
+        "message": "Popularne serwery DNS"
+    },
+    "settings_dns_custom_servers": {
+        "message": "Niestandardowe serwery DNS"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "Dodaj serwer DNS użytkownika"
+    },
+    "settings_dns_edit_custom_server": {
+        "message": "Edytuj niestandardowy serwer DNS"
+    },
+    "settings_dns_add_custom_server_info": {
+        "message": "<a>Przeczytaj więcej</a> o serwerach DNS"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "Nazwa Serwera"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Nazwa Serwera"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "Adres serwera DNS"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP lub TLS"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "Nieprawidłowy adres serwera DNS"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "Zapisz i wybierz"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "Zapisz"
+    },
+    "settings_dns_add_custom_server_notification_success": {
+        "message": "Dodano niestandardowy serwer DNS"
+    },
+    "settings_dns_delete_custom_server_notification": {
+        "message": "Usunięto niestandardowy serwer DNS"
     },
     "settings_dns_desc": {
         "message": "Serwery DNS (Domain Name System) są internetowymi odpowiednikami książki telefonicznej. Zawierają one nazwy domen i tłumaczą je na adresy IP (Internet Protocol)."
@@ -231,7 +384,7 @@
         "message": "Domyślny"
     },
     "settings_dns_selector_default_desc": {
-        "message": "Automatycznie używaj domyślnych serwerów DNS podczas korzystania z VPN"
+        "message": "Korzysta z serwerów DNS dostarczonych przez AdGuard VPN"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -386,20 +539,26 @@
     "settings_exclusion_title": {
         "message": "Wyjątki"
     },
-    "settings_exclusion_change_mode": {
-        "message": "Zmień tryb"
+    "settings_exclusion_change_mode_modal_title": {
+        "message": "Gdzie VPN jest włączony"
     },
     "settings_exclusion_general_title": {
-        "message": "Protokół AdGuard VPN"
+        "message": "Wszędzie z wyjątkiem wykluczonych witryn"
     },
-    "settings_exclusion_general_description": {
-        "message": "AdGuard VPN jest dostępny wszędzie, z wyjątkiem witryn dodanych do wykluczeń"
+    "settings_exclusion_general_mode_info": {
+        "message": "VPN jest włączony <span>wszędzie</span> z wyjątkiem poniższych stron internetowych"
     },
     "settings_exclusion_selective_title": {
         "message": "Tryb selektywny"
     },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN jest włączony tylko dla witryn dodanych do wykluczeń"
+    "settings_exclusion_selective_mode_info": {
+        "message": "VPN jest włączony <span>selektywnie</span>: tylko dla stron internetowych poniżej"
+    },
+    "settings_exclusion_selective_mode_warning": {
+        "message": "Pozostawienie tej listy pustej wyłącza VPN dla wszystkich stron internetowych"
+    },
+    "settings_exclusion_import_button": {
+        "message": "Importuj"
     },
     "global_error_title": {
         "message": "Wystąpił błąd"
@@ -412,6 +571,12 @@
     },
     "global_error_try_again": {
         "message": "Spróbuj ponownie"
+    },
+    "authentication_successful_notification": {
+        "message": "Pomyślnie uwierzytelniono! Możesz otworzyć AdGuard VPN i zacząć go używać."
+    },
+    "control_error_description": {
+        "message": "Wygląda na to, że inne rozszerzenie Chrome próbuje kontrolować twoje połączenie. Wyłącz inne rozszerzenie w przeglądarce."
     },
     "control_error_disable": {
         "message": "Wyłącz"
@@ -458,6 +623,9 @@
     "endpoints_not_found": {
         "message": "Nie znaleziono lokalizacji"
     },
+    "popup_traffic_limit_reached": {
+        "message": "Miesięczny limit danych przekroczony. Potrzebujesz więcej?"
+    },
     "premium_upgrade": {
         "message": "Ulepsz"
     },
@@ -491,6 +659,9 @@
     "popup_feedback_button": {
         "message": "Zostaw opinię"
     },
+    "popup_rate_modal_title": {
+        "message": "Jak niesamowity jest AdGuard VPN?"
+    },
     "popup_rate_modal_subtitle": {
         "message": "Oceń nas"
     },
@@ -503,8 +674,17 @@
     "popup_confirm_rate_modal_feedback_title": {
         "message": "Pomóż nam ulepszyć"
     },
+    "popup_confirm_rate_modal_feedback_subtitle": {
+        "message": "Powiedz nam, co się stało"
+    },
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "Zostaw opinię"
+    },
+    "popup_confirm_rate_modal_rate_title": {
+        "message": "Wow! Czy możesz nas ocenić również w Chrome Store?"
+    },
+    "popup_confirm_rate_modal_confirm_button": {
+        "message": "Przejdź do Chrome Store"
     },
     "options_title": {
         "message": "Ustawienia AdGuard VPN"
@@ -517,6 +697,13 @@
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN jest wyłączony na tej stronie"
+    },
+    "popup_auth_policy_agreement": {
+        "message": "Zaakceptuj <eula>EULA</eula> i <privacy>Politykę prywatności</privacy>",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "Zezwalaj AdGuard na zbieranie <link>anonimowych danych</link> na temat korzystania z aplikacji, aby AdGuard VPN był lepszy"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Kontynuuj"
@@ -533,23 +720,23 @@
     "popup_newsletter_no_subscribe": {
         "message": "Nie, dziękuję"
     },
-    "popup_onboarding_trusted_vpn": {
-        "message": "Zaufany VPN"
+    "popup_onboarding_unique_protocol": {
+        "message": "Unikalny protokół VPN"
     },
-    "popup_onboarding_trusted_vpn_info": {
-        "message": "Twórca znanego na całym świecie blokera reklam"
+    "popup_onboarding_unique_protocol_info": {
+        "message": "Protokół AdGuard VPN działa szybko i sprawia, że ruch VPN jest niewidoczny"
     },
-    "popup_onboarding_numerous_locations": {
-        "message": "Liczne lokalizacje"
+    "popup_onboarding_sites_apps_exclusions": {
+        "message": "Wykluczenia witryn i aplikacji"
     },
-    "popup_onboarding_numerous_locations_info": {
-        "message": "Połącz się z dowolnym z naszych serwerów zlokalizowanych na całym świecie"
+    "popup_onboarding_sites_apps_exclusions_info": {
+        "message": "Wykluczenia pomagają szybko określić witryny lub aplikacje, które mają być objęte ochroną AdGuard VPN"
     },
-    "popup_onboarding_fastest_servers": {
-        "message": "Najszybsze serwery"
+    "popup_onboarding_no_logging_policy": {
+        "message": "Polityka braku rejestrowania"
     },
-    "popup_onboarding_fastest_servers_info": {
-        "message": "Korzystamy z najnowocześniejszych technologii, aby zagwarantować najwyższą prędkość połączenia"
+    "popup_onboarding_no_logging_policy_info": {
+        "message": "AdGuard VPN sprawia, że jesteś anonimowy. Nigdy nie gromadzi ani nie udostępnia Twoich danych stronom trzecim"
     },
     "popup_onboarding_next": {
         "message": "Dalej"
@@ -578,6 +765,9 @@
     "popup_upgrade_screen_connect_devices": {
         "message": "Do 5 urządzeń"
     },
+    "popup_upgrade_screen_connect_devices_desc": {
+        "message": "Połącz wszystkie urządzenia do AdGuard VPN w tym samym czasie — lub zabezpiecz całą rodzinę!"
+    },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Uaktualnij"
     },
@@ -591,11 +781,14 @@
     "options_exclusions_import_select_title": {
         "message": "Importuj wykluczenia do:"
     },
+    "options_exclusions_import_select_subtitle": {
+        "message": "Strony z importowanej listy zostaną dodane do istniejących wykluczeń"
+    },
     "options_exclusions_import_select_regular": {
-        "message": "Lista regularna"
+        "message": "Chcę, aby VPN był wyłączony dla tych stron internetowych"
     },
     "options_exclusions_import_select_selective": {
-        "message": "Lista selektywna"
+        "message": "Chcę, aby VPN był włączony dla tych stron internetowych"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Anuluj"
@@ -660,7 +853,40 @@
     "options_signedout_page_title": {
         "message": "Wylogowałeś się z AdGuard VPN"
     },
-    "name": {
-        "message": "AdGuard VPN — free & secure proxy"
+    "options_signedout_page_description": {
+        "message": "Uwaga: nie jesteś podłączony do VPN i Twój ruch nie jest chroniony! Aby kontynuować prywatne surfowanie, kliknij ikonę AdGuard VPN i zaloguj się ponownie."
+    },
+    "notification_data_limit_reached_title": {
+        "message": "Osiągnięty miesięczny limit danych"
+    },
+    "notification_data_limit_reached_description": {
+        "message": "Prędkość połączenia VPN uległa zmniejszeniu."
+    },
+    "notification_data_left_mb": {
+        "message": "Zostało %num% MB."
+    },
+    "notification_data_left_description": {
+        "message": "Prędkość połączenia VPN zostanie wkrótce zmniejszona."
+    },
+    "confirm_email_title": {
+        "message": "Potwierdź swój adres e-mail"
+    },
+    "confirm_email_info": {
+        "message": "Aby otrzymać darmowy ruch VPN, proszę potwierdzić swój adres e-mail. Link potwierdzający wysłaliśmy na adres"
+    },
+    "confirm_email_done_title": {
+        "message": "Adres e-mail potwierdzony"
+    },
+    "confirm_email_done_info": {
+        "message": "Dziękujemy za weryfikację!"
+    },
+    "confirm_email_close_button": {
+        "message": "Zamknij"
+    },
+    "confirm_email_resend_link_button": {
+        "message": "Wyślij link ponownie"
+    },
+    "resend_confirm_registration_link_notification": {
+        "message": "Link potwierdzający został wysłany na Twój e-mail"
     }
 }

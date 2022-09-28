@@ -273,16 +273,40 @@
         "message": "מצב כללי"
     },
     "settings_dns_label": {
-        "message": "השתמש בשרת DNS"
+        "message": "שרת DNS"
+    },
+    "settings_dns_custom_servers": {
+        "message": "שרתי DNS מותאמים אישית"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "הוסף שרת DNS של משתמש"
+    },
+    "settings_dns_edit_custom_server": {
+        "message": "ערוך שרת DNS מותאם אישית"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "שם שרת"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "שם שרת"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "כתובת שרת DNS"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "כתובת שרת DNS בלתי תקפה"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "שמור ובחר"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "שמור"
     },
     "settings_dns_desc": {
         "message": "מערכת שמות תחום (DNS) היא שוות הערך של האינטרנט לספר טלפונים. היא מתחזקת תיקייה של שמות תחום ומתרגמת אותם אל כתובות פרוטוקול אינטרנט (IP)."
     },
     "settings_dns_selector_default_title": {
         "message": "ברירת מחדל"
-    },
-    "settings_dns_selector_default_desc": {
-        "message": "השתמש באופן אוטומטי בשרתי DNS ברירת מחדל בעת חיבור אל VPN"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"

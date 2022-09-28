@@ -146,6 +146,12 @@
     "settings_title": {
         "message": "Innstillinger"
     },
+    "settings_free_gbs_add_device_products_button": {
+        "message": "Gå til Produkter"
+    },
+    "settings_free_gbs_go_back": {
+        "message": "Gå tilbake"
+    },
     "settings_rate_us": {
         "message": "Gi oss en rangering"
     },
@@ -168,16 +174,34 @@
         "message": "Generell modus"
     },
     "settings_dns_label": {
-        "message": "Bruk DNS-tjener"
+        "message": "DNS-tjener"
+    },
+    "settings_dns_custom_servers": {
+        "message": "Selvvalgte DNS-tjenere"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "Legg til en selvvalgt DNS-tjener"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "Tjenerens navn"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Tjenerens navn"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "DNS-tjeneradresse"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "Lagre og velg"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "Lagre"
     },
     "settings_dns_desc": {
         "message": "Domain Name System (DNS) er internettets svar på en telefonkatalog. Den vedlikeholder et arkiv over domenenavn og oversetter dem til Internet Protocol (IP)-adresser."
     },
     "settings_dns_selector_default_title": {
         "message": "Standardmodus"
-    },
-    "settings_dns_selector_default_desc": {
-        "message": "Bruk automatisk standard-DNS-tjenere når du er koblet til VPN-en"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -272,11 +296,8 @@
     "settings_exclusion_title": {
         "message": "Unntak"
     },
-    "settings_exclusion_general_title": {
-        "message": "Generell modus"
-    },
-    "settings_exclusion_selective_title": {
-        "message": "Selektiv modus"
+    "settings_exclusion_import_button": {
+        "message": "Importer"
     },
     "global_error_title": {
         "message": "En feil oppstod"
@@ -383,9 +404,6 @@
     "offline_title": {
         "message": "Frakoblet"
     },
-    "popup_site_status_unaccessible": {
-        "message": "er posisjonert i ditt lokale nettverk og er utilgjengelig via VPN"
-    },
     "popup_site_status_vpn_disabled": {
         "message": "VPN er skrudd av på dette nettstedet"
     },
@@ -397,9 +415,6 @@
     },
     "popup_newsletter_no_subscribe": {
         "message": "Nei takk"
-    },
-    "popup_onboarding_fastest_servers": {
-        "message": "Raskeste tjenere"
     },
     "popup_onboarding_next": {
         "message": "Neste"
@@ -423,15 +438,6 @@
         "message": "<span>%value% %unit%</span> gjenstår denne måneden",
         "description": "Respect spaces between text, tags and placeholders"
     },
-    "options_exclusions_import_select_title": {
-        "message": "Importer unntak til:"
-    },
-    "options_exclusions_import_select_regular": {
-        "message": "Vanlig liste"
-    },
-    "options_exclusions_import_select_selective": {
-        "message": "Selektiv liste"
-    },
     "options_exclusions_delete_cancel_button": {
         "message": "Avbryt"
     },
@@ -449,6 +455,9 @@
     },
     "popup_desktop_vpn_enabled_button": {
         "message": "OK"
+    },
+    "confirm_email_close_button": {
+        "message": "Lukk"
     },
     "name": {
         "message": "AdGuard VPN — free & secure proxy"

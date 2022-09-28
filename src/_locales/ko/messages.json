@@ -240,22 +240,73 @@
         "message": "무료 VPN 트래픽"
     },
     "referral_get_free_traffic": {
-        "message": "사용량 무료로 받기!"
+        "message": "무료 GB를 받으세요!"
     },
     "settings_referral_info": {
-        "message": "친구를 VPN 서비스에 초대해 매월 사용량을 늘려 보십시오. 친구가 가입하는 경우 %your_gb%GB를 늘릴 수 있으며 친구도 %friend_gb%GB를 무료로 받을 수 있습니다! 친구들을 초대하면 무료 사용량을 최대 %total_gb%GB까지 늘릴 수 있습니다."
+        "message": "친구를 VPN 서비스에 초대해 매월 사용량을 늘려 보십시오. 친구가 가입하는 경우, %your_gb%GB를 늘릴 수 있습니다 (사용량은 무료로 최대 %total_gb%GB까지 늘릴 수 있습니다). 친구도 %friend_gb%GB를 무료로 받을 수 있습니다."
     },
     "settings_referral_invited_friends": {
         "message": "초대한 친구 %count%/%limit%"
     },
-    "settings_referral_limit_reached": {
-        "message": "이미 %your_gb%GB의 무료 사용량을 추가로 받으셨습니다. 하지만 친구들을 초대한다면 친구들은 여전히 %friend_gb%GB 무료 사용량을 더 받을 수 있습니다!"
+    "settings_referral_invite_link": {
+        "message": "초대 링크"
     },
     "settings_referral_copy_link": {
-        "message": "링크 복사"
+        "message": "초대 링크 복사"
     },
     "settings_referral_link_copied": {
-        "message": "링크 복사됨"
+        "message": "초대 링크가 클립보드에 복사됨"
+    },
+    "settings_free_gbs": {
+        "message": "무료 GB"
+    },
+    "settings_free_gbs_subtitle": {
+        "message": "무료 VPN 트래픽을 얻으시라면 작업을 완료하세요!"
+    },
+    "settings_free_gbs_confirm_email_title": {
+        "message": "이메일 인증"
+    },
+    "settings_free_gbs_get_GB": {
+        "message": "%num%GB 가져오기"
+    },
+    "settings_free_gbs_task_complete": {
+        "message": "%num%GB를 얻었습니다"
+    },
+    "settings_free_gbs_confirm_email_info": {
+        "message": "가입 시 저희가 보내드린 이메일 확인 링크를 클릭하고 %your_gb%GB의 무료 VPN 트래픽을 얻으세요. 만약 저희의 이메일을 찾으실 수 없으시면, 아래 버튼을 클릭하세요."
+    },
+    "settings_free_gbs_confirm_email_resend_link_button": {
+        "message": "링크 재전송"
+    },
+    "settings_free_gbs_add_device_title": {
+        "message": "다른 기기 추가"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "AdGuard VPN을 하나 이상의 디바이스에 설치하시고, AdGuard 계정으로 로그인하여 %your_gb%GB 를 얻으세요."
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "기기가 추가됨"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "여러 디바이스에 AdGuard VPN을 설치하신 것을 축하드립니다. 안전하게 지내세요!"
+    },
+    "settings_free_gbs_add_device_products_button": {
+        "message": "제품들로"
+    },
+    "settings_free_gbs_invite_friend": {
+        "message": "친구 초대하기"
+    },
+    "settings_free_gbs_invite_friend_get_GB": {
+        "message": "최대 %num%GB 가지기"
+    },
+    "settings_free_gbs_invite_friend_complete": {
+        "message": "%num%GB를 얻었습니다"
+    },
+    "settings_free_gbs_invite_friend_completed_thank_you": {
+        "message": "모든 초대를 사용해 주셔서 감사합니다!"
+    },
+    "settings_free_gbs_go_back": {
+        "message": "뒤로가기"
     },
     "settings_rate_us": {
         "message": "평가"
@@ -282,7 +333,49 @@
         "message": "일반 모드"
     },
     "settings_dns_label": {
-        "message": "DNS 서버 사용하기"
+        "message": "DNS 서버"
+    },
+    "settings_dns_popular_servers": {
+        "message": "유명 DNS 제공자:"
+    },
+    "settings_dns_custom_servers": {
+        "message": "사용자 정의 DNS 서버"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "사용자 DNS 서버 추가"
+    },
+    "settings_dns_edit_custom_server": {
+        "message": "사용자 정의 DNS 서버 수정"
+    },
+    "settings_dns_add_custom_server_info": {
+        "message": "DNS 서버에 대해 <a>자세히 알아보기</a>"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "서버 이름"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "서버 이름"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "DNS 서버 주소"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP 또는 TLS"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "유효하지 않은 DNS 주소"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "선택하고 저장"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "저장"
+    },
+    "settings_dns_add_custom_server_notification_success": {
+        "message": "사용자 정의 DNS 서버가 추가됨"
+    },
+    "settings_dns_delete_custom_server_notification": {
+        "message": "사용자 정의 DNS 서버가 제거됨"
     },
     "settings_dns_desc": {
         "message": "도메인 네임 시스템(DNS) 서버는 인터넷의 전화번호부 같은 역할을 합니다. DNS는 도메인 이름들의 목록을 유지관리하고, 이를 인터넷 프로토콜(IP) 주소로 변환해줍니다."
@@ -291,7 +384,7 @@
         "message": "기본"
     },
     "settings_dns_selector_default_desc": {
-        "message": "VPN에 연결되면 자동으로 기본 DNS 서버를 사용합니다."
+        "message": "AdGuard VPN에서 제공하는 DNS 서버"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -446,20 +539,26 @@
     "settings_exclusion_title": {
         "message": "예외 목록"
     },
-    "settings_exclusion_change_mode": {
-        "message": "모드 변경"
+    "settings_exclusion_change_mode_modal_title": {
+        "message": "VPN이 켜져있는 곳"
     },
     "settings_exclusion_general_title": {
-        "message": "일반 모드"
+        "message": "제외된 웹 사이트를 제외한 모든 곳"
     },
-    "settings_exclusion_general_description": {
-        "message": "AdGuard VPN은 예외 목록에 있는 웹 사이트에서는 작동하지 않습니다"
+    "settings_exclusion_general_mode_info": {
+        "message": "VPN이 아래 웹 사이트를 제외하고 <span>모든 곳</span>에 켜져있습니다."
     },
     "settings_exclusion_selective_title": {
         "message": "선별 모드"
     },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN이 예외 목록에 있는 웹 사이트에서만 작동됩니다"
+    "settings_exclusion_selective_mode_info": {
+        "message": "VPN이 <span>선택적으로</span> 아래 웹 사이트만 켜져있습니다."
+    },
+    "settings_exclusion_selective_mode_warning": {
+        "message": "이 리스트를 비워두면 VPN이 모든 웹 사이트에 대해 비활성화됩니다."
+    },
+    "settings_exclusion_import_button": {
+        "message": "가져오기"
     },
     "global_error_title": {
         "message": "오류가 발생했습니다"
@@ -475,6 +574,9 @@
     },
     "authentication_successful_notification": {
         "message": "성공적으로 인증되었습니다! 이제 AdGuard VPN을 사용할 수 있습니다."
+    },
+    "control_error_description": {
+        "message": "다른 브라우저 확장 프로그램이 연결을 제어하려는 것 같습니다. 브라우저에서 다른 확장 프로그램을 비활성화하세요."
     },
     "control_error_disable": {
         "message": "비활성화"
@@ -578,6 +680,12 @@
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "피드백 남기기"
     },
+    "popup_confirm_rate_modal_rate_title": {
+        "message": "확장 프로그램 스토어에서도 평가해 주시겠어요?"
+    },
+    "popup_confirm_rate_modal_confirm_button": {
+        "message": "확장 프로그램 스토어로 이동"
+    },
     "options_title": {
         "message": "AdGuard VPN 옵션"
     },
@@ -585,7 +693,7 @@
         "message": "오프라인"
     },
     "popup_site_status_unaccessible": {
-        "message": "해당 주소는 로컬 네트워크에 위치해있어 VPN으로 접근할 수 없습니다"
+        "message": "해당 주소는 로컬 네트워크에 위치해 있어 VPN으로 접근할 수 없습니다."
     },
     "popup_site_status_vpn_disabled": {
         "message": "이 웹사이트에서 VPN이 비활성화됨"
@@ -612,23 +720,23 @@
     "popup_newsletter_no_subscribe": {
         "message": "아니요, 괜찮습니다"
     },
-    "popup_onboarding_trusted_vpn": {
-        "message": "신뢰할 수 있는 VPN"
+    "popup_onboarding_unique_protocol": {
+        "message": "특별한 VPN 프로토콜"
     },
-    "popup_onboarding_trusted_vpn_info": {
-        "message": "세계적으로 유명한 광고 차단기 개발사가 제작"
+    "popup_onboarding_unique_protocol_info": {
+        "message": "AdGuard VPN의 프로트콜은 빠르게 작동하고 당신의 VPN 트래픽을 눈에 잘 띄지 않게 해줍니다."
     },
-    "popup_onboarding_numerous_locations": {
-        "message": "수많은 위치 제공"
+    "popup_onboarding_sites_apps_exclusions": {
+        "message": "사이트 및 앱 예외 목록"
     },
-    "popup_onboarding_numerous_locations_info": {
-        "message": "전 세계에 위치한 당사의 어떤 서버로든 연결"
+    "popup_onboarding_sites_apps_exclusions_info": {
+        "message": "예외 목록은 AdGuard VPN 보호를 위한 사이트나 앱을 빠르게 지정할 수 있도록 도와줍니다."
     },
-    "popup_onboarding_fastest_servers": {
-        "message": "가장 빠른 서버"
+    "popup_onboarding_no_logging_policy": {
+        "message": "무로깅 정책"
     },
-    "popup_onboarding_fastest_servers_info": {
-        "message": "최첨단 기술을 통해 최고의 연결 속도를 보장"
+    "popup_onboarding_no_logging_policy_info": {
+        "message": "AdGuard VPN은 당신을 익명으로 만들어 줍니다. 이 것은 절대로 제3자와 당신의 데이터를 공유하거나 수집하지 않습니다."
     },
     "popup_onboarding_next": {
         "message": "다음"
@@ -671,13 +779,16 @@
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
-        "message": "예외 목록을 불러올 곳:"
+        "message": "예외 목록을 사용하는 방법"
+    },
+    "options_exclusions_import_select_subtitle": {
+        "message": "리스트로 가져온 웹 사이트들이 기존 예외 목록에 추가되어집니다."
     },
     "options_exclusions_import_select_regular": {
-        "message": "일반 목록"
+        "message": "이 웹 사이트에 대해 VPN 끄기"
     },
     "options_exclusions_import_select_selective": {
-        "message": "선별 목록"
+        "message": "이 웹 사이트에 대해 VPN 켜기"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "취소"
@@ -756,5 +867,26 @@
     },
     "notification_data_left_description": {
         "message": "곧 VPN 연결 속도가 느려집니다."
+    },
+    "confirm_email_title": {
+        "message": "이메일 인증"
+    },
+    "confirm_email_info": {
+        "message": "무료 VPN 트래픽을 받으시려면, 이메일을 확인해 주세요. 저희는 확인 링크를 보냈습니다."
+    },
+    "confirm_email_done_title": {
+        "message": "이메일 주소가 확인됨"
+    },
+    "confirm_email_done_info": {
+        "message": "검증해 주셔서 감사합니다!!"
+    },
+    "confirm_email_close_button": {
+        "message": "닫기"
+    },
+    "confirm_email_resend_link_button": {
+        "message": "링크 재전송"
+    },
+    "resend_confirm_registration_link_notification": {
+        "message": "확인 링크가 전송되었습니다"
     }
 }

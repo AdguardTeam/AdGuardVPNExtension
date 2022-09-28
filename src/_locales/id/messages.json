@@ -131,14 +131,11 @@
     "settings_referral_invited_friends": {
         "message": "Teman yang diundang %count%/%limit%"
     },
-    "settings_referral_limit_reached": {
-        "message": "Anda telah menerima %your_gb% GB gratis lalu lintas VPN. Namun, teman Anda masih bisa mendapatkan %friend_gb% GB tambahan lalu lintas VPN gratis jika Anda mengundang mereka!"
+    "settings_free_gbs_add_device_products_button": {
+        "message": "Ke Produk"
     },
-    "settings_referral_copy_link": {
-        "message": "Salin tautan"
-    },
-    "settings_referral_link_copied": {
-        "message": "Tautan disalin"
+    "settings_free_gbs_go_back": {
+        "message": "Kembali"
     },
     "settings_rate_us": {
         "message": "Nilai kami"
@@ -162,16 +159,34 @@
         "message": "Protokol VPN AdGuard"
     },
     "settings_dns_label": {
-        "message": "Pakai server DNS"
+        "message": "Server DNS"
+    },
+    "settings_dns_custom_servers": {
+        "message": "Server DNS buatan"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "Tambah server DNS buatan"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "Nama server"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Nama server"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "Alamat DNS server"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "Simpan dan pilih"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "Simpan"
     },
     "settings_dns_desc": {
         "message": "Server Sistem Nama Domain (DNS) adalah setara dengan buku telepon di internet. Mereka memelihara direktori nama domain dan menerjemahkan ke alamat Internet Protocol (IP)."
     },
     "settings_dns_selector_default_title": {
         "message": "Standar"
-    },
-    "settings_dns_selector_default_desc": {
-        "message": "Secara otomatis pakai server DNS standar saat terkoneksi ke VPN"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -220,6 +235,12 @@
     },
     "settings_theme_system": {
         "message": "Sistem standar"
+    },
+    "settings_theme_dark": {
+        "message": "Gelap"
+    },
+    "settings_theme_light": {
+        "message": "Terang"
     },
     "settings_exclusion_add_website": {
         "message": "Tambah situs"
@@ -275,14 +296,8 @@
     "settings_exclusion_title": {
         "message": "Pengecualian"
     },
-    "settings_exclusion_general_title": {
-        "message": "Protokol VPN AdGuard"
-    },
-    "settings_exclusion_general_description": {
-        "message": "AdGuard VPN ada di mana-mana kecuali situs web yang ditambahkan ke pengecualian"
-    },
-    "settings_exclusion_selective_title": {
-        "message": "Mode selektif"
+    "settings_exclusion_import_button": {
+        "message": "Impor"
     },
     "global_error_title": {
         "message": "Terjadi kesalahan"
@@ -392,9 +407,6 @@
     "offline_title": {
         "message": "Offline"
     },
-    "popup_site_status_unaccessible": {
-        "message": "terletak di jaringan lokal Anda dan tidak bisa diakses melalui VPN"
-    },
     "popup_site_status_vpn_disabled": {
         "message": "VPN tidak diaktifkan pada situs ini"
     },
@@ -412,21 +424,6 @@
     },
     "popup_newsletter_no_subscribe": {
         "message": "Tidak, terima kasih"
-    },
-    "popup_onboarding_trusted_vpn": {
-        "message": "VPN Terpercaya"
-    },
-    "popup_onboarding_numerous_locations": {
-        "message": "Banyak lokasi"
-    },
-    "popup_onboarding_numerous_locations_info": {
-        "message": "Hubungkan ke server kami mana pun yang terletak di seluruh dunia"
-    },
-    "popup_onboarding_fastest_servers": {
-        "message": "Server-server tercepat"
-    },
-    "popup_onboarding_fastest_servers_info": {
-        "message": "Kami menggunakan teknologi mutakhir untuk menjamin kecepatan koneksi tertinggi"
     },
     "popup_onboarding_next": {
         "message": "Lanjut"
@@ -464,6 +461,9 @@
     },
     "popup_desktop_vpn_enabled_button": {
         "message": "Ok"
+    },
+    "confirm_email_close_button": {
+        "message": "Tutup"
     },
     "name": {
         "message": "AdGuard VPN — free & secure proxy"

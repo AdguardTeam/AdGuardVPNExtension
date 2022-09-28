@@ -239,23 +239,20 @@
     "options_menu_free_traffic": {
         "message": "Бясплатны трафік VPN"
     },
-    "referral_get_free_traffic": {
-        "message": "Атрымаць дармовы трафік!"
-    },
-    "settings_referral_info": {
-        "message": "Запрасіце сваіх сяброў далучыцца да нашага клана ніндзя і атрымайце больш бясплатнага трафіку VPN на працягу месяца. Атрымлівайце %your_gb% ГБ за кожнага сябра, які падпісваецца: яны таксама атрымліваюць %friend_gb% ГБ дадаткова бясплатна! Вы (карыстальнік, які запрашае) можаце атрымаць максімум %total_gb% дадатковых ГБ бясплатна."
-    },
     "settings_referral_invited_friends": {
         "message": "Запрошаныя сябры %count%/%limit%"
     },
-    "settings_referral_limit_reached": {
-        "message": "Вы ўжо атрымалі %your_gb% ГБ дармовага трафіка. Але вашы сябры ўсё яшчэ могуць атрымаць %friend_gb% ГБ дадатковага трафіка ў падарунак, калі вы запросіце іх!"
+    "settings_free_gbs_confirm_email_title": {
+        "message": "Пацвердзіце сваю электронную пошту"
     },
-    "settings_referral_copy_link": {
-        "message": "Скапіяваць спасылку"
+    "settings_free_gbs_confirm_email_resend_link_button": {
+        "message": "Паўторна адправіць спасылку"
     },
-    "settings_referral_link_copied": {
-        "message": "Спасылка скапіявана"
+    "settings_free_gbs_add_device_products_button": {
+        "message": "Перайсці ў \"Прадукты\""
+    },
+    "settings_free_gbs_go_back": {
+        "message": "Назад"
     },
     "settings_rate_us": {
         "message": "Ацаніце дадатак"
@@ -282,16 +279,40 @@
         "message": "Асноўны рэжым"
     },
     "settings_dns_label": {
-        "message": "Абраны DNS-сервер"
+        "message": "DNS-сервер"
+    },
+    "settings_dns_popular_servers": {
+        "message": "Папулярныя DNS-серверы"
+    },
+    "settings_dns_custom_servers": {
+        "message": "Карыстацкія DNS-серверы"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "Дадаць карыстацкі DNS-сервер"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "Назва сервера"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Назва сервера"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "Адрас DNS-сервера"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "Некарэктны адрас DNS-сервера"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "Захаваць і выбраць"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "Захаваць"
     },
     "settings_dns_desc": {
         "message": "DNS-сервера (Domain Name Servers) - гэта адрасная кніга Інтэрнэту. Яны ўтрымваюць усе назвы даменаў, і ўмеюць іх трансляваць іх у рэальныя IP-адрасы."
     },
     "settings_dns_selector_default_title": {
         "message": "Прадвызначаны"
-    },
-    "settings_dns_selector_default_desc": {
-        "message": "Аўтаматычна выкарыстоўваць прадвызначаны DNS-сервер пры падлучэнні да VPN"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -446,20 +467,8 @@
     "settings_exclusion_title": {
         "message": "Выняткі"
     },
-    "settings_exclusion_change_mode": {
-        "message": "Змяніць рэжым"
-    },
-    "settings_exclusion_general_title": {
-        "message": "Асноўны рэжым"
-    },
-    "settings_exclusion_general_description": {
-        "message": "AdGuard VPN не будзе працаваць на сайтах са спіса выняткаў"
-    },
-    "settings_exclusion_selective_title": {
-        "message": "Выбарковы рэжым"
-    },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN працуе толькі на сайтах з гэтага спіса"
+    "settings_exclusion_import_button": {
+        "message": "Імпарт"
     },
     "global_error_title": {
         "message": "Адбылася памылка"
@@ -472,6 +481,12 @@
     },
     "global_error_try_again": {
         "message": "Паўтарыць спробу"
+    },
+    "authentication_successful_notification": {
+        "message": "Праверка сапраўднасці прайшла! Вы можаце адкрыць AdGuard VPN і пачаць выкарыстоўваць яго."
+    },
+    "control_error_description": {
+        "message": "Здаецца, што яшчэ адно пашырэнне Chrome спрабуе кантраляваць ваша злучэнне. Калі ласка, адключыце іншае пашырэнне ў вашым браўзары."
     },
     "control_error_disable": {
         "message": "Адключыць"
@@ -575,6 +590,12 @@
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "Пакінуць водгук"
     },
+    "popup_confirm_rate_modal_rate_title": {
+        "message": "Нічога сабе! Ці можаце вы таксама ацаніць нас у Краме Chrome?"
+    },
+    "popup_confirm_rate_modal_confirm_button": {
+        "message": "Перайдзіце ў краму Chrome"
+    },
     "options_title": {
         "message": "Налады AdGuard VPN"
     },
@@ -608,24 +629,6 @@
     },
     "popup_newsletter_no_subscribe": {
         "message": "Не, дзякуй"
-    },
-    "popup_onboarding_trusted_vpn": {
-        "message": "Надзейны VPN"
-    },
-    "popup_onboarding_trusted_vpn_info": {
-        "message": "Ад распрацоўшчыка знакамітага блакавальніка рэкламы"
-    },
-    "popup_onboarding_numerous_locations": {
-        "message": "Мноства лакацый"
-    },
-    "popup_onboarding_numerous_locations_info": {
-        "message": "Падлучайцеся да кожнага з сервераў, змесцаваных па ўсім свеце"
-    },
-    "popup_onboarding_fastest_servers": {
-        "message": "Самыя хуткія серверы"
-    },
-    "popup_onboarding_fastest_servers_info": {
-        "message": "Мы выкарыстоўваем перадавыя тэхналогіі, каб гарантаваць высокую хуткасць злучэння"
     },
     "popup_onboarding_next": {
         "message": "Далей"
@@ -666,15 +669,6 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> засталося ў гэтым месяцы",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_exclusions_import_select_title": {
-        "message": "Імпартаваць выняткі ў:"
-    },
-    "options_exclusions_import_select_regular": {
-        "message": "Звычайны спіс"
-    },
-    "options_exclusions_import_select_selective": {
-        "message": "Выбарковы спіс"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Скасаваць"
@@ -747,5 +741,23 @@
     },
     "notification_data_limit_reached_description": {
         "message": "Хуткасць злучэння VPN была зніжана."
+    },
+    "notification_data_left_mb": {
+        "message": "Засталося %num% МБ."
+    },
+    "notification_data_left_description": {
+        "message": "Хуткасць VPN-злучэння хутка знізіцца."
+    },
+    "confirm_email_title": {
+        "message": "Пацвердзіце сваю электронную пошту"
+    },
+    "confirm_email_info": {
+        "message": "Каб атрымаць бясплатны трафік VPN, пацвердзіце свой адрас электроннай пошты. Мы адправілі спасылку для пацверджання"
+    },
+    "confirm_email_close_button": {
+        "message": "Зачыніць"
+    },
+    "confirm_email_resend_link_button": {
+        "message": "Паўторна адправіць спасылку"
     }
 }
