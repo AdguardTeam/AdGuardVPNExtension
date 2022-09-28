@@ -5,7 +5,7 @@ plan:
   key: AVBSPECS
   name: vpn-extension - build beta
 variables:
-  dockerNode: node:15.14.0-buster-slim
+  dockerNode: adguard/node-ssh:16.17--1
 
 stages:
   - Build:
@@ -61,7 +61,7 @@ Build:
             yarn artifacts:beta
 
             # build source code for uploading to amo
-            zip -r source.zip build/beta HEAD
+            zip -r build/beta/source.zip . -x ./node_modules/\* ./build/\* ./.env ./.git/\*
 
             rm -rf node_modules
     - inject-variables:
