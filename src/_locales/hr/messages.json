@@ -240,22 +240,73 @@
         "message": "Besplatan VPN promet"
     },
     "referral_get_free_traffic": {
-        "message": "Dobite besplatni VPN promet!"
+        "message": "Dobijte besplatne GB!"
     },
     "settings_referral_info": {
-        "message": "Pozovite vaše prijatelje u naš Ninja klan i dobite više besplatnog VPN prometa mjesečno. Dobit ćete %your_gb% GB za svakog prijatelja koji se prijavi: oni također dobivaju dodatan %friend_gb% GB za prijavu! Ukupno možete dobiti %total_gb% GB besplatno."
+        "message": "Dobijte %your_gb% gigabajta besplatnog VPN prometa mjesec dana za svakog prijatelja koji se prijavi putem Vaše pozivnice, ukupno do %total_gb% gigabajta. Vaš prijatelj također dobiva dodatnih %friend_gb% gigabajta besplatno."
     },
     "settings_referral_invited_friends": {
         "message": "Pozvani prijatelji %count%/%limit%"
     },
-    "settings_referral_limit_reached": {
-        "message": "Već ste dobilo %your_gb% GB vašeg besplatnog VPN prometa, ali vaši prijatelji mogu dobiti dodatan %friend_gb% GB ako ih pozovete!"
+    "settings_referral_invite_link": {
+        "message": "Pozivni link"
     },
     "settings_referral_copy_link": {
-        "message": "Kopiraj link"
+        "message": "Kopiraj link za pozivnicu"
     },
     "settings_referral_link_copied": {
-        "message": "Link kopiran"
+        "message": "Link za poveznicu je kopiran"
+    },
+    "settings_free_gbs": {
+        "message": "Besplatni gigabajti"
+    },
+    "settings_free_gbs_subtitle": {
+        "message": "Izvršite zadatke kako bi dobili besplatan promet na VPN-u!"
+    },
+    "settings_free_gbs_confirm_email_title": {
+        "message": "Potvrdi svoj email"
+    },
+    "settings_free_gbs_get_GB": {
+        "message": "Dobijte %num% gigabajta"
+    },
+    "settings_free_gbs_task_complete": {
+        "message": "Imate %num% gigabajta"
+    },
+    "settings_free_gbs_confirm_email_info": {
+        "message": "Kliknite na link za potvrdu koji smo Vam poslali prilikom prijave i ostvarite %your_gb% gigabajta besplatnog VPN prometa. Ako ne možete pronaći naš email, kliknite na gumb ispod."
+    },
+    "settings_free_gbs_confirm_email_resend_link_button": {
+        "message": "Ponovno pošalji vezu"
+    },
+    "settings_free_gbs_add_device_title": {
+        "message": "Dodajte novi uređaj"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "Instalirajte AdGuard VPN na još jedan uređaj, prijavite se na svoj AdGuard račun i dobijte %your_gb% gigabajta"
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "Dodani uređaji"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "Čestitamo na instaliranju AdGuard VPN-a na više uređaja. Ostanite sigurni!"
+    },
+    "settings_free_gbs_add_device_products_button": {
+        "message": "Idi na Proizvode"
+    },
+    "settings_free_gbs_invite_friend": {
+        "message": "Pozovi prijatelja"
+    },
+    "settings_free_gbs_invite_friend_get_GB": {
+        "message": "Dobijte do %num% gigabajta"
+    },
+    "settings_free_gbs_invite_friend_complete": {
+        "message": "Imate %num% gigabajta"
+    },
+    "settings_free_gbs_invite_friend_completed_thank_you": {
+        "message": "Hvala što ste iskoristili sve pozivnice!"
+    },
+    "settings_free_gbs_go_back": {
+        "message": "Natrag"
     },
     "settings_rate_us": {
         "message": "Ocijenite nas"
@@ -282,7 +333,49 @@
         "message": "Općeniti način"
     },
     "settings_dns_label": {
-        "message": "Koristi DNS poslužitelj"
+        "message": "DNS poslužitelj"
+    },
+    "settings_dns_popular_servers": {
+        "message": "Popularni DNS poslužitelji"
+    },
+    "settings_dns_custom_servers": {
+        "message": "Prilagođeni DNS poslužitelji"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "Dodaj prilagođeni DNS poslužitelj"
+    },
+    "settings_dns_edit_custom_server": {
+        "message": "Uredi prilagođeni DNS poslužitelj"
+    },
+    "settings_dns_add_custom_server_info": {
+        "message": "<a>Pročitajte više</a> o DNS poslužiteljima"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "Naziv poslužitelja"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Naziv poslužitelja"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "Adresa DNS poslužitelja"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP ili TLS"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "Adresa DNS poslužitelja nije valjana"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "Spremi i odaberi"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "Spremi"
+    },
+    "settings_dns_add_custom_server_notification_success": {
+        "message": "Prilagođeni DNS poslužitelj je dodan"
+    },
+    "settings_dns_delete_custom_server_notification": {
+        "message": "Prilagođeni DNS poslužitelj je uklonjen"
     },
     "settings_dns_desc": {
         "message": "Domain Name Server (DNS) poslužitelji su internetski ekvivalent telefonskom imeniku. Oni održavaju direktorij naziva domena i prevode ih u Internet Protocol (IP) adrese."
@@ -291,7 +384,7 @@
         "message": "Zadano"
     },
     "settings_dns_selector_default_desc": {
-        "message": "Automatski koristi zadane DNS poslužitelje kada ste povezani putem VPN-a"
+        "message": "Koristi DNS poslužitelje koje pruža AdGuard VPN"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -446,20 +539,26 @@
     "settings_exclusion_title": {
         "message": "Iznimke"
     },
-    "settings_exclusion_change_mode": {
-        "message": "Promjena načina rada"
+    "settings_exclusion_change_mode_modal_title": {
+        "message": "Gdje je uključen VPN"
     },
     "settings_exclusion_general_title": {
-        "message": "Općeniti način"
+        "message": "Svugdje osim na iznimkama web stranica"
     },
-    "settings_exclusion_general_description": {
-        "message": "AdGuard VPN je uključen svugdje osim na web stranicama koje su dodane na crnu listu"
+    "settings_exclusion_general_mode_info": {
+        "message": "VPN je uključen <span>svugdje</span>, osim na stranicama ispod"
     },
     "settings_exclusion_selective_title": {
-        "message": "Selektivni način"
+        "message": "Samo na odabranim web stranicama"
     },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN će raditi samo na web stranicama s popisa ispod"
+    "settings_exclusion_selective_mode_info": {
+        "message": "VPN je uključen <span>djelomično</span>: samo na web stranicama ispod"
+    },
+    "settings_exclusion_selective_mode_warning": {
+        "message": "Ostavljanje ovog popisa praznim onemogućuje VPN za sve web stranice"
+    },
+    "settings_exclusion_import_button": {
+        "message": "Uvoz"
     },
     "global_error_title": {
         "message": "Došlo je do pogreške"
@@ -621,23 +720,23 @@
     "popup_newsletter_no_subscribe": {
         "message": "Ne, hvala"
     },
-    "popup_onboarding_trusted_vpn": {
-        "message": "Povjerljiv VPN"
+    "popup_onboarding_unique_protocol": {
+        "message": "Jedinstveni VPN protokol"
     },
-    "popup_onboarding_trusted_vpn_info": {
-        "message": "Razvija tvrtka koja razvija poznati blokator reklama"
+    "popup_onboarding_unique_protocol_info": {
+        "message": "AdGuard VPN protokol radi brzo i čini Vaš VPN promet neprimjetnim"
     },
-    "popup_onboarding_numerous_locations": {
-        "message": "Brojne lokacije"
+    "popup_onboarding_sites_apps_exclusions": {
+        "message": "Iznimke web stranica i aplikacija"
     },
-    "popup_onboarding_numerous_locations_info": {
-        "message": "Povežite se s bilo kojim od naših poslužitelja koji se nalaze diljem svijeta"
+    "popup_onboarding_sites_apps_exclusions_info": {
+        "message": "Iznimke Vam pomažu da brzo specificirate web stranice ili aplikacije za AdGuard VPN zaštitu"
     },
-    "popup_onboarding_fastest_servers": {
-        "message": "Najbrži poslužitelji"
+    "popup_onboarding_no_logging_policy": {
+        "message": "Nema zapisa aktivnosti"
     },
-    "popup_onboarding_fastest_servers_info": {
-        "message": "Koristimo najnovije tehnologije kako bismo osigurali najbolju brzinu"
+    "popup_onboarding_no_logging_policy_info": {
+        "message": "AdGuard VPN čini Vas anonimnim. Nikada ne prikuplja niti dijeli vaše podatke s trećim stranama"
     },
     "popup_onboarding_next": {
         "message": "Sljedeće"
@@ -680,13 +779,16 @@
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
-        "message": "Uvezi iznimke u:"
+        "message": "Kako koristiti ovaj popis iznimaka?"
+    },
+    "options_exclusions_import_select_subtitle": {
+        "message": "Web stranice s uvezenog popisa bit će dodane postojećim iznimkama"
     },
     "options_exclusions_import_select_regular": {
-        "message": "Zadani popis"
+        "message": "Želim da VPN bude isključen za ove web stranice"
     },
     "options_exclusions_import_select_selective": {
-        "message": "Selektivni popis"
+        "message": "Želim da VPN bude uključen za ove web stranice"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Poništi"
@@ -765,5 +867,26 @@
     },
     "notification_data_left_description": {
         "message": "Brzina VPN veze će se uskoro smanjiti."
+    },
+    "confirm_email_title": {
+        "message": "Potvrdi svoj email"
+    },
+    "confirm_email_info": {
+        "message": "Da biste dobili besplatan VPN promet, potvrdite svoju adresu e-pošte. Poslali smo vezu za potvrdu na"
+    },
+    "confirm_email_done_title": {
+        "message": "Email adresa potvrđena"
+    },
+    "confirm_email_done_info": {
+        "message": "Hvala Vam na verifikaciji!"
+    },
+    "confirm_email_close_button": {
+        "message": "Zatvori"
+    },
+    "confirm_email_resend_link_button": {
+        "message": "Ponovno pošalji vezu"
+    },
+    "resend_confirm_registration_link_notification": {
+        "message": "Poveznica za potvrdu je ponovno poslana"
     }
 }

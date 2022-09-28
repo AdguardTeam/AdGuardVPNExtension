@@ -240,22 +240,73 @@
         "message": "Gratis VPN-dataverkeer"
     },
     "referral_get_free_traffic": {
-        "message": "Gratis VPN-dataverkeer verkrijgen!"
+        "message": "Gratis GB's verkrijgen!"
     },
     "settings_referral_info": {
-        "message": "Nodig je vrienden uit om lid te worden van onze ninja-clan en ontvang een maand lang meer gratis VPN-dataverkeer. Ontvang %your_gb% GB voor elke vriend die zich aanmeldt: ze krijgen ook gratis %friend_gb% GB extra! Jij (als uitnodiger) kan in totaal %total_gb% GB gratis krijgen."
+        "message": "Ontvang een maand lang %your_gb% GB gratis VPN-verkeer voor elke vriend die zich via jouw uitnodiging aanmeldt, tot in totaal %total_gb% GB. Je vriend krijgt ook gratis %friend_gb% GB extra."
     },
     "settings_referral_invited_friends": {
         "message": "Uitgenodigde vrienden %count%/%limit%"
     },
-    "settings_referral_limit_reached": {
-        "message": "Je hebt al jouw %your_gb% GB gratis VPN-dataverkeer ontvangen. Maar je vrienden kunnen nog steeds %friend_gb% GB aanvullend gratis VPN-dataverkeer krijgen als je ze uitnodigt!"
+    "settings_referral_invite_link": {
+        "message": "Uitnodigingslink"
     },
     "settings_referral_copy_link": {
-        "message": "Koppeling kopiëren"
+        "message": "Uitnodigingslink kopiëren"
     },
     "settings_referral_link_copied": {
-        "message": "Koppeling gekopieerd"
+        "message": "Uitnodigingslink gekopieerd naar klembord"
+    },
+    "settings_free_gbs": {
+        "message": "Gratis GB's"
+    },
+    "settings_free_gbs_subtitle": {
+        "message": "Voltooi de taken om gratis VPN-verkeer te krijgen!"
+    },
+    "settings_free_gbs_confirm_email_title": {
+        "message": "Je e-mailadres bevestigen"
+    },
+    "settings_free_gbs_get_GB": {
+        "message": "Krijg %num% GB"
+    },
+    "settings_free_gbs_task_complete": {
+        "message": "Je hebt %num% GB"
+    },
+    "settings_free_gbs_confirm_email_info": {
+        "message": "Klik op de e-mailbevestigingslink die we je hebben gestuurd bij het aanmelden en ontvang %your_gb% GB gratis VPN-verkeer. Als je ons e-mailbericht niet kunt vinden, klik dan op de onderstaande knop."
+    },
+    "settings_free_gbs_confirm_email_resend_link_button": {
+        "message": "Link opnieuw verzenden"
+    },
+    "settings_free_gbs_add_device_title": {
+        "message": "Nog een apparaat toevoegen"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "Installeer AdGuard VPN op nog een apparaat, meld je aan bij je AdGuard-account en ontvang %your_gb% GB"
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "Apparaten toegevoegd"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "Gefeliciteerd met het installeren van AdGuard VPN op meerdere apparaten. Let op je veiligheid!"
+    },
+    "settings_free_gbs_add_device_products_button": {
+        "message": "Ga naar producten"
+    },
+    "settings_free_gbs_invite_friend": {
+        "message": "Een vriend uitnodigen"
+    },
+    "settings_free_gbs_invite_friend_get_GB": {
+        "message": "Krijg tot %num% GB"
+    },
+    "settings_free_gbs_invite_friend_complete": {
+        "message": "Je hebt %num% GB"
+    },
+    "settings_free_gbs_invite_friend_completed_thank_you": {
+        "message": "Bedankt voor het gebruiken van al je uitnodigingen!"
+    },
+    "settings_free_gbs_go_back": {
+        "message": "Ga terug"
     },
     "settings_rate_us": {
         "message": "Waardeer ons"
@@ -282,7 +333,49 @@
         "message": "Algemene modus"
     },
     "settings_dns_label": {
-        "message": "DNS-server gebruiken"
+        "message": "DNS-server"
+    },
+    "settings_dns_popular_servers": {
+        "message": "Populaire DNS-servers"
+    },
+    "settings_dns_custom_servers": {
+        "message": "Gebruiker DNS-servers"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "Gebruiker DNS-server toevoegen"
+    },
+    "settings_dns_edit_custom_server": {
+        "message": "Aangepaste DNS-server bewerken"
+    },
+    "settings_dns_add_custom_server_info": {
+        "message": "<a>Lees meer</a> over DNS-servers"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "Servernaam"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Servernaam"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "DNS-server adres"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP of TLS"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "Ongeldig DNS-serveradres"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "Opslaan en selecteren"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "Opslaan"
+    },
+    "settings_dns_add_custom_server_notification_success": {
+        "message": "Aangepaste DNS-server toegevoegd"
+    },
+    "settings_dns_delete_custom_server_notification": {
+        "message": "Aangepaste DNS-server verwijderd"
     },
     "settings_dns_desc": {
         "message": "Domein Naam Servers (DNS) zijn het internet-equivalent van een telefoonboek. Ze houden een adresboek bij van domeinnamen en vertalen die in Internet Protocol (IP) adressen."
@@ -291,7 +384,7 @@
         "message": "Standaard"
     },
     "settings_dns_selector_default_desc": {
-        "message": "Gebruik automatisch de standaard DNS-servers wanneer je verbonden bent via VPN"
+        "message": "Maakt gebruik van DNS-servers geleverd door AdGuard VPN"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -446,20 +539,26 @@
     "settings_exclusion_title": {
         "message": "Uitzonderingen"
     },
-    "settings_exclusion_change_mode": {
-        "message": "Modus wijzigen"
+    "settings_exclusion_change_mode_modal_title": {
+        "message": "Waar VPN is ingeschakeld"
     },
     "settings_exclusion_general_title": {
-        "message": "Algemene modus"
+        "message": "Overal behalve uitgesloten websites"
     },
-    "settings_exclusion_general_description": {
-        "message": "Adguard VPN staat overal aan, behalve op websites toegevoegd aan uitsluitingen"
+    "settings_exclusion_general_mode_info": {
+        "message": "VPN staat <span>overal</span> aan, behalve op onderstaande websites"
     },
     "settings_exclusion_selective_title": {
-        "message": "Selectieve modus"
+        "message": "Alleen op geselecteerde websites"
     },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN is alleen actief op de websites uit deze lijst"
+    "settings_exclusion_selective_mode_info": {
+        "message": "VPN staat <span>selectief</span> aan: alleen voor onderstaande websites"
+    },
+    "settings_exclusion_selective_mode_warning": {
+        "message": "Als u deze lijst leeg laat, wordt VPN voor alle websites uitgeschakeld"
+    },
+    "settings_exclusion_import_button": {
+        "message": "Importeren"
     },
     "global_error_title": {
         "message": "Er is een fout opgetreden"
@@ -594,7 +693,7 @@
         "message": "Offline"
     },
     "popup_site_status_unaccessible": {
-        "message": "bevindt zich in uw lokale netwerk en is niet toegankelijk via VPN"
+        "message": "bevindt zich in jouw lokale netwerk en is niet toegankelijk via VPN"
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN is uitgezet op deze website"
@@ -621,23 +720,23 @@
     "popup_newsletter_no_subscribe": {
         "message": "Nee, bedankt"
     },
-    "popup_onboarding_trusted_vpn": {
-        "message": "Vertrouwd VPN"
+    "popup_onboarding_unique_protocol": {
+        "message": "Uniek VPN-protocol"
     },
-    "popup_onboarding_trusted_vpn_info": {
-        "message": "Van de ontwikkelaar van de wereldbekende advertentieblokkeerder"
+    "popup_onboarding_unique_protocol_info": {
+        "message": "Het protocol van AdGuard VPN werkt snel en maakt je VPN-verkeer onopvallend"
     },
-    "popup_onboarding_numerous_locations": {
-        "message": "Talloze locaties"
+    "popup_onboarding_sites_apps_exclusions": {
+        "message": "Uitsluitingen voor sites en apps"
     },
-    "popup_onboarding_numerous_locations_info": {
-        "message": "Verbinden met onze servers overal ter wereld"
+    "popup_onboarding_sites_apps_exclusions_info": {
+        "message": "Met uitsluitingen kunt je snel de sites of apps voor AdGuard VPN-bescherming specificeren"
     },
-    "popup_onboarding_fastest_servers": {
-        "message": "Snelste servers"
+    "popup_onboarding_no_logging_policy": {
+        "message": "Geen logboekregistratie"
     },
-    "popup_onboarding_fastest_servers_info": {
-        "message": "We gebruiken de allernieuwste technologiën om je de hoogste snelheid te garanderen"
+    "popup_onboarding_no_logging_policy_info": {
+        "message": "AdGuard VPN maakt je anoniem. Het verzamelt of deelt jouw gegevens nooit met derden"
     },
     "popup_onboarding_next": {
         "message": "Volgende"
@@ -680,10 +779,13 @@
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
-        "message": "Uitzonderingen importeren naar:"
+        "message": "Hoe deze lijst met uitsluitingen gebruiken?"
+    },
+    "options_exclusions_import_select_subtitle": {
+        "message": "Websites uit de geïmporteerde lijst worden toegevoegd aan de bestaande uitsluitingen"
     },
     "options_exclusions_import_select_regular": {
-        "message": "Standaardlijst"
+        "message": "Ik wil dat VPN uit staat voor deze websites"
     },
     "options_exclusions_import_select_selective": {
         "message": "Selectieve lijst"
@@ -765,5 +867,26 @@
     },
     "notification_data_left_description": {
         "message": "De snelheid van de VPN-verbinding wordt binnenkort verlaagd."
+    },
+    "confirm_email_title": {
+        "message": "Je e-mailadres bevestigen"
+    },
+    "confirm_email_info": {
+        "message": "Bevestig je e-mailadres om gratis VPN-verkeer te krijgen. We hebben een bevestigingslink gestuurd naar"
+    },
+    "confirm_email_done_title": {
+        "message": "E-mailadres bevestigd"
+    },
+    "confirm_email_done_info": {
+        "message": "Bedankt voor het verifiëren!"
+    },
+    "confirm_email_close_button": {
+        "message": "Sluiten"
+    },
+    "confirm_email_resend_link_button": {
+        "message": "Link opnieuw verzenden"
+    },
+    "resend_confirm_registration_link_notification": {
+        "message": "Bevestigingslink opnieuw verzonden"
     }
 }

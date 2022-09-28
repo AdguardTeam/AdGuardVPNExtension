@@ -240,22 +240,73 @@
         "message": "免费 VPN 流量"
     },
     "referral_get_free_traffic": {
-        "message": "获取免费 VPN 流量！"
+        "message": "获取免费流量！"
     },
     "settings_referral_info": {
-        "message": "邀请您的朋友加入忍者家族并获得一个月内可用的 VPN 免费流量！每拉一个朋友来注册就能收到 %your_gb%GB 流量。同时也会给您的朋友赠送 %friend_gb%GB 的免费流量！（您至多可以收到 %total_gb%GB 的免费流量！）"
+        "message": "邀请您的朋友并获得一个月内可用的 %your_gb%GB 的免费流量。您至多可以收到 %total_gb%GB 的免费流量。同时也会给您的朋友赠送 %friend_gb%GB 的免费流量。"
     },
     "settings_referral_invited_friends": {
         "message": "已邀请的朋友 %count%/%limit%"
     },
-    "settings_referral_limit_reached": {
-        "message": "您已经总计收到了 %your_gb% GB 的 VPN 免费流量。但如您继续邀请其他朋友，您的朋友们还有机会收到 %friend_gb% GB 的 VPN 额外免费流量！"
+    "settings_referral_invite_link": {
+        "message": "邀请链接"
     },
     "settings_referral_copy_link": {
-        "message": "复制链接"
+        "message": "复制邀请链接"
     },
     "settings_referral_link_copied": {
-        "message": "链接复制成功"
+        "message": "邀请链接复制成功"
+    },
+    "settings_free_gbs": {
+        "message": "免费流量"
+    },
+    "settings_free_gbs_subtitle": {
+        "message": "完成任务以获得免费的 VPN 流量！"
+    },
+    "settings_free_gbs_confirm_email_title": {
+        "message": "确认您的电子邮件"
+    },
+    "settings_free_gbs_get_GB": {
+        "message": "获取 %num%GB"
+    },
+    "settings_free_gbs_task_complete": {
+        "message": "您已获得 %num%GB"
+    },
+    "settings_free_gbs_confirm_email_info": {
+        "message": "单击我们在注册时发送给您的电子邮件确认链接，即可获得 %your_gb%GB的免费 VPN 流量。如果您找不到我们的电子邮件，请单击下面的按钮。"
+    },
+    "settings_free_gbs_confirm_email_resend_link_button": {
+        "message": "重新发送链接"
+    },
+    "settings_free_gbs_add_device_title": {
+        "message": "添加其他设备"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "在另一台设备上安装 AdGuard VPN，在上面登录您的 AdGuard 账号，获得 %your_gb%GB"
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "设备添加成功"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "恭喜您在多台设备上安装 AdGuard VPN。注意安全！"
+    },
+    "settings_free_gbs_add_device_products_button": {
+        "message": "转到产品"
+    },
+    "settings_free_gbs_invite_friend": {
+        "message": "邀请朋友"
+    },
+    "settings_free_gbs_invite_friend_get_GB": {
+        "message": "获取高达 %num%GB"
+    },
+    "settings_free_gbs_invite_friend_complete": {
+        "message": "您已获得 %num%GB"
+    },
+    "settings_free_gbs_invite_friend_completed_thank_you": {
+        "message": "感谢您使用您的所有邀请函！"
+    },
+    "settings_free_gbs_go_back": {
+        "message": "返回上一页"
     },
     "settings_rate_us": {
         "message": "请给我们评分"
@@ -282,7 +333,49 @@
         "message": "通用模式"
     },
     "settings_dns_label": {
-        "message": "使用 DNS 服务器"
+        "message": "DNS 服务器"
+    },
+    "settings_dns_popular_servers": {
+        "message": "流行 DNS 服务器"
+    },
+    "settings_dns_custom_servers": {
+        "message": "自定义 DNS 服务器"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "添加用户 DNS 服务器"
+    },
+    "settings_dns_edit_custom_server": {
+        "message": "编辑自定义 DNS 服务器"
+    },
+    "settings_dns_add_custom_server_info": {
+        "message": "<a>阅读更多</a>有关 DNS 服务器的详细信息"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "服务器名称"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "服务器名称"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "DNS 服务器地址"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP 或 TLS"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "无效的 DNS 服务器地址"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "保存并选择"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "保存"
+    },
+    "settings_dns_add_custom_server_notification_success": {
+        "message": "自定义 DNS 服务器已添加"
+    },
+    "settings_dns_delete_custom_server_notification": {
+        "message": "自定义 DNS 服务器已删除"
     },
     "settings_dns_desc": {
         "message": "域名系统（DNS）是互联网上的“电话簿”。它保护域名目录并将其转换为互联网协议（IP）地址。"
@@ -291,7 +384,7 @@
         "message": "默认"
     },
     "settings_dns_selector_default_desc": {
-        "message": "连接到 VPN 时自动使用默认 DNS 服务器"
+        "message": "使用 AdGuard VPN 的 DNS 服务器"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -446,20 +539,26 @@
     "settings_exclusion_title": {
         "message": "排除项"
     },
-    "settings_exclusion_change_mode": {
-        "message": "切换模式"
+    "settings_exclusion_change_mode_modal_title": {
+        "message": "VPN 在什么网站上处于开启状态"
     },
     "settings_exclusion_general_title": {
-        "message": "通用模式"
+        "message": "除排除的网站外在所有网站上开启 VPN"
     },
-    "settings_exclusion_general_description": {
-        "message": "AdGuard VPN 不会在排除列表中的网站上运行"
+    "settings_exclusion_general_mode_info": {
+        "message": "除了下面的网站外，VPN <span>在所有网站上</span> 运作"
     },
     "settings_exclusion_selective_title": {
-        "message": "选择模式"
+        "message": "仅在添加到列表内的网站上开启 VPN"
     },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN 只会在排除项列表内的网站上运行"
+    "settings_exclusion_selective_mode_info": {
+        "message": "VPN <span>选择性</span>地启用：仅适用于以下网站"
+    },
+    "settings_exclusion_selective_mode_warning": {
+        "message": "将此列表留空将禁用 VPN 在所有网站运行"
+    },
+    "settings_exclusion_import_button": {
+        "message": "导入"
     },
     "global_error_title": {
         "message": "发生了错误"
@@ -594,7 +693,7 @@
         "message": "离线"
     },
     "popup_site_status_unaccessible": {
-        "message": "位于您的本地网络中。无法通过 VPN 访问"
+        "message": "位于您的本地网络中，无法通过 VPN 访问"
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN 在该网站上已被禁用"
@@ -621,23 +720,23 @@
     "popup_newsletter_no_subscribe": {
         "message": "否，谢谢"
     },
-    "popup_onboarding_trusted_vpn": {
-        "message": "靠谱的 VPN"
+    "popup_onboarding_unique_protocol": {
+        "message": "特有的 VPN 协议"
     },
-    "popup_onboarding_trusted_vpn_info": {
-        "message": "由世界知名的广告拦截器的开发人员"
+    "popup_onboarding_unique_protocol_info": {
+        "message": "AdGuard VPN 的协议运行速度很快，让您的 VPN 流量不显眼"
     },
-    "popup_onboarding_numerous_locations": {
-        "message": "海量位置"
+    "popup_onboarding_sites_apps_exclusions": {
+        "message": "网站和应用排除项"
     },
-    "popup_onboarding_numerous_locations_info": {
-        "message": "连接我们位于世界各地的服务器"
+    "popup_onboarding_sites_apps_exclusions_info": {
+        "message": "排除项可帮助您快速指定 AdGuard VPN 保护的站点或应用程序"
     },
-    "popup_onboarding_fastest_servers": {
-        "message": "最快服务器"
+    "popup_onboarding_no_logging_policy": {
+        "message": "无记录政策"
     },
-    "popup_onboarding_fastest_servers_info": {
-        "message": "我们使用尖端技术以保证最高连接速度"
+    "popup_onboarding_no_logging_policy_info": {
+        "message": "AdGuard VPN 让您匿名浏览网页。它从不收集或与第三方共享您的个人数据"
     },
     "popup_onboarding_next": {
         "message": "下一步"
@@ -680,13 +779,16 @@
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
-        "message": "将排除项导入至："
+        "message": "如何使用此排除项列表？"
+    },
+    "options_exclusions_import_select_subtitle": {
+        "message": "导入列表中的网站将添加到现有排除项中"
     },
     "options_exclusions_import_select_regular": {
-        "message": "常规列表"
+        "message": "我希望在这些网站上关闭 VPN"
     },
     "options_exclusions_import_select_selective": {
-        "message": "选择列表"
+        "message": "我希望在这些网站上启用 VPN"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "取消"
@@ -765,5 +867,26 @@
     },
     "notification_data_left_description": {
         "message": "VPN 连接速度即将要下降。"
+    },
+    "confirm_email_title": {
+        "message": "确认您的电子邮件"
+    },
+    "confirm_email_info": {
+        "message": "要获得免费的 VPN 流量，请确认您的电子邮件地址。我们已将确认链接发送至"
+    },
+    "confirm_email_done_title": {
+        "message": "电子邮件地址已确认"
+    },
+    "confirm_email_done_info": {
+        "message": "感谢您的验证！"
+    },
+    "confirm_email_close_button": {
+        "message": "关闭"
+    },
+    "confirm_email_resend_link_button": {
+        "message": "重新发送链接"
+    },
+    "resend_confirm_registration_link_notification": {
+        "message": "确认链接重新发送成功"
     }
 }

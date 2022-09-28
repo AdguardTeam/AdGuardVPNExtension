@@ -240,22 +240,73 @@
         "message": "免費 VPN 流量"
     },
     "referral_get_free_traffic": {
-        "message": "取得免費的 VPN 流量！"
+        "message": "取得免費的流量！"
     },
     "settings_referral_info": {
-        "message": "邀請您的朋友加入忍者家族並取得一個月內可用的 VPN 免費流量！每拉一個朋友來註冊就能收到 %your_gb%GB 流量。同時也會給您的朋友贈送 %friend_gb%GB 的免費流量！您至多可以收到 %total_gb%GB 的免費流量。"
+        "message": "邀請您的朋友並取得一個月內可用的 %your_gb%GB 的免費流量。您至多可以收到 %total_gb%GB 的免費流量。同時也會給您的朋友贈送 %friend_gb%GB 的免費流量。"
     },
     "settings_referral_invited_friends": {
         "message": "邀請了朋友 %count%/%limit%"
     },
-    "settings_referral_limit_reached": {
-        "message": "您已經總計收到了 %your_gb% GB 的 VPN 免費流量。但如您繼續邀請其他朋友，您的朋友們還有機會收到 %friend_gb% GB 的 VPN 額外免費流量！"
+    "settings_referral_invite_link": {
+        "message": "邀請連結"
     },
     "settings_referral_copy_link": {
-        "message": "複製連結"
+        "message": "複製邀請連結"
     },
     "settings_referral_link_copied": {
-        "message": "連結被複製了"
+        "message": "邀請連結被複製到剪貼簿了"
+    },
+    "settings_free_gbs": {
+        "message": "免費流量"
+    },
+    "settings_free_gbs_subtitle": {
+        "message": "完成任務以取得免費的 VPN 流量！"
+    },
+    "settings_free_gbs_confirm_email_title": {
+        "message": "確認您的電子郵件"
+    },
+    "settings_free_gbs_get_GB": {
+        "message": "取得 %num%GB"
+    },
+    "settings_free_gbs_task_complete": {
+        "message": "您已取得 %num%GB"
+    },
+    "settings_free_gbs_confirm_email_info": {
+        "message": "單擊我們在註冊時傳送給您的確認連結，即可取得 %your_gb%GB 的免費 VPN 流量。如果您找不到我們的電子郵件，請單擊下面的按鈕。"
+    },
+    "settings_free_gbs_confirm_email_resend_link_button": {
+        "message": "重新傳送連結"
+    },
+    "settings_free_gbs_add_device_title": {
+        "message": "新增其他裝置"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "在另一台裝置上安裝 AdGuard VPN，在上面登入您的 AdGuard 帳戶，取得 %your_gb%GB"
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "裝置新增成功"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "恭喜您在多台裝置上安裝 AdGuard VPN。注意安全！"
+    },
+    "settings_free_gbs_add_device_products_button": {
+        "message": "至產品"
+    },
+    "settings_free_gbs_invite_friend": {
+        "message": "邀請朋友"
+    },
+    "settings_free_gbs_invite_friend_get_GB": {
+        "message": "取得高達 %num%GB"
+    },
+    "settings_free_gbs_invite_friend_complete": {
+        "message": "您已取得 %num%GB"
+    },
+    "settings_free_gbs_invite_friend_completed_thank_you": {
+        "message": "感謝您使用您的所有邀請函！"
+    },
+    "settings_free_gbs_go_back": {
+        "message": "返回"
     },
     "settings_rate_us": {
         "message": "對我們評分"
@@ -282,7 +333,49 @@
         "message": "一般模式"
     },
     "settings_dns_label": {
-        "message": "使用 DNS 伺服器"
+        "message": "DNS 伺服器"
+    },
+    "settings_dns_popular_servers": {
+        "message": "主流的 DNS 伺服器"
+    },
+    "settings_dns_custom_servers": {
+        "message": "自訂的 DNS 伺服器"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "新增一個自訂的 DNS 伺服器"
+    },
+    "settings_dns_edit_custom_server": {
+        "message": "編輯自訂的 DNS 伺服器"
+    },
+    "settings_dns_add_custom_server_info": {
+        "message": "<a>閱讀更多</a>關於 DNS 伺服器"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "伺服器名稱"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "伺服器名稱"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "DNS 伺服器位址"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP 或 TLS"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "無效的 DNS 伺服器位址"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "儲存並選擇"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "儲存"
+    },
+    "settings_dns_add_custom_server_notification_success": {
+        "message": "自訂 DNS 伺服器已新增"
+    },
+    "settings_dns_delete_custom_server_notification": {
+        "message": "自訂 DNS 伺服器已刪除"
     },
     "settings_dns_desc": {
         "message": "網域名稱系統（DNS）是電話簿的網際網路相等物。它維護一個域名目錄並轉化它們為網際網路協定（IP）位址。"
@@ -291,7 +384,7 @@
         "message": "預設"
     },
     "settings_dns_selector_default_desc": {
-        "message": "當被連線到此 VPN 時，自動地使用預設 DNS 伺服器"
+        "message": "使用由 AdGuard VPN 提供的 DNS 伺服器"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -446,20 +539,26 @@
     "settings_exclusion_title": {
         "message": "例外"
     },
-    "settings_exclusion_change_mode": {
-        "message": "更改模式"
+    "settings_exclusion_change_mode_modal_title": {
+        "message": "VPN 在哪些網站上處於啟用狀態"
     },
     "settings_exclusion_general_title": {
-        "message": "一般模式"
+        "message": "除排除的網站外在所有網站上啟用 VPN"
     },
-    "settings_exclusion_general_description": {
-        "message": "AdGuard VPN 將不對來自該例外清單中之網站起作用"
+    "settings_exclusion_general_mode_info": {
+        "message": "除了下面的網站外，VPN <span>在所有網站上</span> 運作"
     },
     "settings_exclusion_selective_title": {
-        "message": "選擇性模式"
+        "message": "僅在新增到清單內的網站上啟用 VPN"
     },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN 僅對被加至例外中的網站為開著"
+    "settings_exclusion_selective_mode_info": {
+        "message": "VPN <span>選擇性</span>地啟用：僅用於以下網站"
+    },
+    "settings_exclusion_selective_mode_warning": {
+        "message": "將此清單留空將禁用 VPN 在所有網站上運作"
+    },
+    "settings_exclusion_import_button": {
+        "message": "匯入"
     },
     "global_error_title": {
         "message": "錯誤已發生"
@@ -621,23 +720,23 @@
     "popup_newsletter_no_subscribe": {
         "message": "不，謝謝"
     },
-    "popup_onboarding_trusted_vpn": {
-        "message": "受信任的 VPN"
+    "popup_onboarding_unique_protocol": {
+        "message": "獨一無二的 VPN 協定"
     },
-    "popup_onboarding_trusted_vpn_info": {
-        "message": "由世界知名的廣告封鎖器的開發者"
+    "popup_onboarding_unique_protocol_info": {
+        "message": "AdGuard VPN 協定運行速度很快，讓您的 VPN 流量不顯眼"
     },
-    "popup_onboarding_numerous_locations": {
-        "message": "各種不同的位置"
+    "popup_onboarding_sites_apps_exclusions": {
+        "message": "網站和應用程式例外"
     },
-    "popup_onboarding_numerous_locations_info": {
-        "message": "連接至我們設於世界各地的伺服器"
+    "popup_onboarding_sites_apps_exclusions_info": {
+        "message": "例外可幫助您快速指定 AdGuard VPN 保護的站點或應用程式"
     },
-    "popup_onboarding_fastest_servers": {
-        "message": "最快的伺服器"
+    "popup_onboarding_no_logging_policy": {
+        "message": "無記錄政策"
     },
-    "popup_onboarding_fastest_servers_info": {
-        "message": "我們使用尖端的技術以保證最高的連線速度"
+    "popup_onboarding_no_logging_policy_info": {
+        "message": "AdGuard VPN 讓您匿名瀏覽網頁。它從不收集或與第三方分享您的個人數據"
     },
     "popup_onboarding_next": {
         "message": "下一步"
@@ -680,13 +779,16 @@
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
-        "message": "匯入例外至："
+        "message": "如何使用例外清單？"
+    },
+    "options_exclusions_import_select_subtitle": {
+        "message": "匯入清單中的網站將新增到現有例外中"
     },
     "options_exclusions_import_select_regular": {
-        "message": "常規清單"
+        "message": "我希望在這些網站上禁用 VPN"
     },
     "options_exclusions_import_select_selective": {
-        "message": "選擇性清單"
+        "message": "我希望在這些網站上啟用 VPN"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "取消"
@@ -765,5 +867,26 @@
     },
     "notification_data_left_description": {
         "message": "VPN 即將降速。"
+    },
+    "confirm_email_title": {
+        "message": "確認您的電子郵件"
+    },
+    "confirm_email_info": {
+        "message": "想取得免費的 VPN 流量，請確認您的電子郵件地址。我們已將確認連結發送至"
+    },
+    "confirm_email_done_title": {
+        "message": "電子郵件地址已確認"
+    },
+    "confirm_email_done_info": {
+        "message": "感謝您的驗證！"
+    },
+    "confirm_email_close_button": {
+        "message": "關閉"
+    },
+    "confirm_email_resend_link_button": {
+        "message": "重新傳送連結"
+    },
+    "resend_confirm_registration_link_notification": {
+        "message": "確認連結重新傳送成功"
     }
 }

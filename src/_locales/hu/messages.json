@@ -239,23 +239,20 @@
     "options_menu_free_traffic": {
         "message": "Ingyenes VPN forgalom"
     },
-    "referral_get_free_traffic": {
-        "message": "Ingyenes VPN forgalom beszerzése!"
-    },
-    "settings_referral_info": {
-        "message": "Hívja meg barátait, hogy csatlakozzanak az AdGuard VPN-hez, és ezzel további ingyenes VPN adatforgalmat kap egy hónapig. Minden egyes regisztráló barátja után %your_gb% GB-ot kap: és ők is kapnak %friend_gb% GB extra adatforgalmat ingyen! Ön (a meghívó felhasználó) maximum %total_gb% extra GB-ot kaphat ingyen."
-    },
     "settings_referral_invited_friends": {
         "message": "Meghívott ismerősök %count%/%limit%"
     },
-    "settings_referral_limit_reached": {
-        "message": "Már megkapta az ingyenes %your_gb% GB adatforgalmat. Azonban ismerősei továbbra is kapnak %friend_gb% GB ajándék adatforgalmat, ha meghívja őket!"
+    "settings_free_gbs_confirm_email_title": {
+        "message": "Erősítse meg e-mail címét"
     },
-    "settings_referral_copy_link": {
-        "message": "Link másolása"
+    "settings_free_gbs_confirm_email_resend_link_button": {
+        "message": "Link újraküldése"
     },
-    "settings_referral_link_copied": {
-        "message": "Link másolva"
+    "settings_free_gbs_add_device_products_button": {
+        "message": "Ugrás a termékekhez"
+    },
+    "settings_free_gbs_go_back": {
+        "message": "Visszalépés"
     },
     "settings_rate_us": {
         "message": "Értékeljen minket"
@@ -282,16 +279,55 @@
         "message": "Általános mód"
     },
     "settings_dns_label": {
-        "message": "DNS szerver használata"
+        "message": "DNS szerver"
+    },
+    "settings_dns_popular_servers": {
+        "message": "Népszerű DNS szolgáltatók"
+    },
+    "settings_dns_custom_servers": {
+        "message": "Egyéni DNS szerverek"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "Egyéni DNS szerver hozzáadása"
+    },
+    "settings_dns_edit_custom_server": {
+        "message": "Egyéni DNS szerver módosítása"
+    },
+    "settings_dns_add_custom_server_info": {
+        "message": "<a>További információ</a> a DNS-kiszolgálókról"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "Szerver neve"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Szerver neve"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "DNS szerver címe"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP vagy TLS"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "Érvénytelen DNS szerver cím"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "Mentés és kiválasztás"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "Mentés"
+    },
+    "settings_dns_add_custom_server_notification_success": {
+        "message": "Egyéni DNS szerver hozzáadva"
+    },
+    "settings_dns_delete_custom_server_notification": {
+        "message": "Egyéni DNS szerver törölve"
     },
     "settings_dns_desc": {
         "message": "A Domain Name System (DNS) kiszolgálók kvázi az internet telefonkönyvei. Fenntartják a domain nevek könyvtárát, és lefordítják azokat Internet Protocol (IP) címekre."
     },
     "settings_dns_selector_default_title": {
         "message": "Alapértelmezett"
-    },
-    "settings_dns_selector_default_desc": {
-        "message": "Használja automatikusan az alapértelmezett DNS szervereket, amikor a VPN kapcsolódott"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -446,20 +482,8 @@
     "settings_exclusion_title": {
         "message": "Kivételek"
     },
-    "settings_exclusion_change_mode": {
-        "message": "Módváltás"
-    },
-    "settings_exclusion_general_title": {
-        "message": "Általános mód"
-    },
-    "settings_exclusion_general_description": {
-        "message": "Az AdGuard VPN nem működik a kivételek listáján szereplő webhelyeken"
-    },
-    "settings_exclusion_selective_title": {
-        "message": "Szelektív mód"
-    },
-    "settings_exclusion_selective_description": {
-        "message": "Az AdGuard VPN csak a listán szereplő webhelyeken működik"
+    "settings_exclusion_import_button": {
+        "message": "Importálás"
     },
     "global_error_title": {
         "message": "Hiba történt"
@@ -594,7 +618,7 @@
         "message": "Offline"
     },
     "popup_site_status_unaccessible": {
-        "message": "az Ön helyi hálózatán van, ezért nem elérhető VPN-en keresztül"
+        "message": "a helyi hálózatban található, és VPN-en keresztül nem érhető el"
     },
     "popup_site_status_vpn_disabled": {
         "message": "A VPN le van tiltva ezen a webhelyen"
@@ -620,24 +644,6 @@
     },
     "popup_newsletter_no_subscribe": {
         "message": "Nem, köszönöm"
-    },
-    "popup_onboarding_trusted_vpn": {
-        "message": "Megbízható VPN"
-    },
-    "popup_onboarding_trusted_vpn_info": {
-        "message": "A világhírű reklámblokkoló fejlesztőjétől"
-    },
-    "popup_onboarding_numerous_locations": {
-        "message": "Számos helyszín"
-    },
-    "popup_onboarding_numerous_locations_info": {
-        "message": "Csatlakozzon bármelyik szerverünkhöz, a világ bármelyik részén"
-    },
-    "popup_onboarding_fastest_servers": {
-        "message": "A leggyorsabb szerverek"
-    },
-    "popup_onboarding_fastest_servers_info": {
-        "message": "A legmagasabb szintű technológiákat alkalmazzuk a legnagyobb sebesség garantálásához"
     },
     "popup_onboarding_next": {
         "message": "Következő"
@@ -678,15 +684,6 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> maradt ebben a hónapban",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_exclusions_import_select_title": {
-        "message": "Kizárások importálása ide:"
-    },
-    "options_exclusions_import_select_regular": {
-        "message": "Hagyományos lista"
-    },
-    "options_exclusions_import_select_selective": {
-        "message": "Szelektív lista"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Mégsem"
@@ -765,5 +762,17 @@
     },
     "notification_data_left_description": {
         "message": "A VPN-kapcsolat sebessége hamarosan korlátozva lesz."
+    },
+    "confirm_email_title": {
+        "message": "Erősítse meg e-mail címét"
+    },
+    "confirm_email_info": {
+        "message": "Ahhoz, hogy ingyenes VPN adatforgalmat kapjon, kérjük, erősítse meg e-mail címét. Küldtünk egy megerősítő linket"
+    },
+    "confirm_email_close_button": {
+        "message": "Bezárás"
+    },
+    "confirm_email_resend_link_button": {
+        "message": "Link újraküldése"
     }
 }

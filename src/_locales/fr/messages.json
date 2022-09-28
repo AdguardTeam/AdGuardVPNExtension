@@ -240,22 +240,73 @@
         "message": "Trafic VPN gratuit"
     },
     "referral_get_free_traffic": {
-        "message": "Obtenez du trafic VPN gratuit !"
+        "message": "Obtenez des Go gratuits !"
     },
     "settings_referral_info": {
-        "message": "Invitez vos amis à rejoindre notre clan ninja et d'obtenir plus de trafic VPN par mois gratuit. Recevez %your_gb% Go pour chaque ami qui s'inscrit : eux aussi ils recevront %friend_gb% Go de plus gratuit ! Vous (utilisateur invitant) pouvez obtenir un maximum de %total_gb% Go gratuits."
+        "message": "Obtenez %your_gb% Go de trafic VPN gratuit pendant un mois pour chaque ami qui s'inscrit via votre invitation, jusqu'à %total_gb% Go au total. Votre ami recevra également %friend_gb% Go de plus gratuitement."
     },
     "settings_referral_invited_friends": {
         "message": "Amis invités %count%/%limit%"
     },
-    "settings_referral_limit_reached": {
-        "message": "Vous avez déjà bénéficié de vos %your_gb% Go de données gratuites. Mais vos amis peuvent toujours bénéficier de %friend_gb% Go de données gratuites supplémentaires si vous les invitez !"
+    "settings_referral_invite_link": {
+        "message": "Lien d'invitation"
     },
     "settings_referral_copy_link": {
-        "message": "Copier le lien"
+        "message": "Copier le lien d'invitation"
     },
     "settings_referral_link_copied": {
-        "message": "Lien copié"
+        "message": "Lien d'invitation copié dans le presse-papiers"
+    },
+    "settings_free_gbs": {
+        "message": "Go gratuits"
+    },
+    "settings_free_gbs_subtitle": {
+        "message": "Complétez les tâches pour obtenir du trafic VPN gratuit !"
+    },
+    "settings_free_gbs_confirm_email_title": {
+        "message": "Confirmez votre courriel"
+    },
+    "settings_free_gbs_get_GB": {
+        "message": "Obtenir %num% Go"
+    },
+    "settings_free_gbs_task_complete": {
+        "message": "Vous avez obtenu %num% Go"
+    },
+    "settings_free_gbs_confirm_email_info": {
+        "message": "Cliquez sur le lien de confirmation que nous vous avons envoyé par courriel lors de votre inscription et obtenez %your_gb% Go de trafic VPN gratuit. Si vous ne trouvez pas notre courriel, cliquez sur le bouton ci-dessous."
+    },
+    "settings_free_gbs_confirm_email_resend_link_button": {
+        "message": "Renvoyer le lien"
+    },
+    "settings_free_gbs_add_device_title": {
+        "message": "Ajouter un autre appareil"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "Installez AdGuard VPN sur un autre appareil, connectez-vous avec votre compte AdGuard sur celui-ci et obtenez %your_gb% Go"
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "Appareils ajoutés"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "Félicitations pour l'installation d'AdGuard VPN sur plusieurs appareils. Restez prudent !"
+    },
+    "settings_free_gbs_add_device_products_button": {
+        "message": "Aller vers Produits"
+    },
+    "settings_free_gbs_invite_friend": {
+        "message": "Inviter un ami"
+    },
+    "settings_free_gbs_invite_friend_get_GB": {
+        "message": "Obtenir jusqu'à %num% Go"
+    },
+    "settings_free_gbs_invite_friend_complete": {
+        "message": "Vous avez obtenu %num% Go"
+    },
+    "settings_free_gbs_invite_friend_completed_thank_you": {
+        "message": "Merci d'avoir utilisé toutes vos invitations !"
+    },
+    "settings_free_gbs_go_back": {
+        "message": "Retour"
     },
     "settings_rate_us": {
         "message": "Évaluez-nous"
@@ -282,7 +333,49 @@
         "message": "Mode général"
     },
     "settings_dns_label": {
-        "message": "Utiliser le serveur DNS"
+        "message": "Serveur DNS"
+    },
+    "settings_dns_popular_servers": {
+        "message": "Serveurs DNS populaires"
+    },
+    "settings_dns_custom_servers": {
+        "message": "Serveurs DNS personnalisés"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "Ajouter un serveur DNS de l’utilisateur"
+    },
+    "settings_dns_edit_custom_server": {
+        "message": "Modifier le serveur DNS personnalisé"
+    },
+    "settings_dns_add_custom_server_info": {
+        "message": "<a>En savoir plus</a> sur les serveurs DNS"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "Nom du serveur"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Nom du serveur"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "Adresse du serveur DNS"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP ou TLS"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "Adresse DNS non-valide"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "Sauvegarder et sélectionner"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "Sauvegarder"
+    },
+    "settings_dns_add_custom_server_notification_success": {
+        "message": "Un serveur DNS personnalisé a été ajouté"
+    },
+    "settings_dns_delete_custom_server_notification": {
+        "message": "Le serveur DNS personnalisé a été supprimé"
     },
     "settings_dns_desc": {
         "message": "Les serveurs Domain Name System (DNS) sont les équivalents pour Internet des annuaires téléphoniques. Ils maintiennent un répertoire des noms de domaines et les traduisent en adresses IP."
@@ -291,7 +384,7 @@
         "message": "Par défaut"
     },
     "settings_dns_selector_default_desc": {
-        "message": "Utiliser automatiquement les serveurs DNS par défaut lorsque vous utilisez le VPN"
+        "message": "Utilise les serveurs DNS fournis par AdGuard VPN"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -446,20 +539,26 @@
     "settings_exclusion_title": {
         "message": "Exclusions"
     },
-    "settings_exclusion_change_mode": {
-        "message": "Changer le mode"
+    "settings_exclusion_change_mode_modal_title": {
+        "message": "Où le VPN est activé"
     },
     "settings_exclusion_general_title": {
-        "message": "Mode général"
+        "message": "Partout sauf pour les sites web exclus"
     },
-    "settings_exclusion_general_description": {
-        "message": "AdGuard VPN est activé partout sauf sur les sites web ajoutés à la liste des exclusions"
+    "settings_exclusion_general_mode_info": {
+        "message": "Le VPN est activé <span>partout</span> sauf pour les sites web ci-dessous"
     },
     "settings_exclusion_selective_title": {
-        "message": "Mode sélectif"
+        "message": "Uniquement pour les sites web choisis"
     },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN fonctionnera uniquement sur les sites web ajoutés à la liste d'exclusions"
+    "settings_exclusion_selective_mode_info": {
+        "message": "Le VPN est activé <span>de manière sélective</span> : uniquement pour les sites web ci-dessous"
+    },
+    "settings_exclusion_selective_mode_warning": {
+        "message": "Laisser cette liste vide désactive le VPN pour tous les sites web"
+    },
+    "settings_exclusion_import_button": {
+        "message": "Importer"
     },
     "global_error_title": {
         "message": "Une erreur est survenue"
@@ -621,23 +720,23 @@
     "popup_newsletter_no_subscribe": {
         "message": "Non, merci"
     },
-    "popup_onboarding_trusted_vpn": {
-        "message": "VPN fiable"
+    "popup_onboarding_unique_protocol": {
+        "message": "Protocole VPN unique"
     },
-    "popup_onboarding_trusted_vpn_info": {
-        "message": "Par les développeurs du fameux bloqueur de pub"
+    "popup_onboarding_unique_protocol_info": {
+        "message": "Le protocole AdGuard VPN fonctionne rapidement et rend votre trafic VPN discret"
     },
-    "popup_onboarding_numerous_locations": {
-        "message": "Localisations nombreuses"
+    "popup_onboarding_sites_apps_exclusions": {
+        "message": "Applications et sites exclus"
     },
-    "popup_onboarding_numerous_locations_info": {
-        "message": "Connectez-vous à nos serveurs situés dans le monde entier"
+    "popup_onboarding_sites_apps_exclusions_info": {
+        "message": "Les exclusions vous aident à spécifier rapidement les sites ou les applications à protéger par AdGuard VPN"
     },
-    "popup_onboarding_fastest_servers": {
-        "message": "Serveurs ultra-rapides"
+    "popup_onboarding_no_logging_policy": {
+        "message": "Politique sans journalisation"
     },
-    "popup_onboarding_fastest_servers_info": {
-        "message": "Nous utilisons des technologies de pointe pour garantir la vitesse de connexion maximale"
+    "popup_onboarding_no_logging_policy_info": {
+        "message": "AdGuard VPN vous rend anonyme. Il ne collecte ni ne partage jamais vos données avec des tiers"
     },
     "popup_onboarding_next": {
         "message": "Suivant"
@@ -680,13 +779,16 @@
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
-        "message": "Exporter les exclusions vers :"
+        "message": "Comment utiliser cette liste d'exclusions ?"
+    },
+    "options_exclusions_import_select_subtitle": {
+        "message": "Les sites web de la liste importée seront ajoutés aux exclusions existantes"
     },
     "options_exclusions_import_select_regular": {
-        "message": "Liste régulière"
+        "message": "Je veux que le VPN soit désactivé pour ces sites web"
     },
     "options_exclusions_import_select_selective": {
-        "message": "Liste sélective"
+        "message": "Je veux que le VPN soit activé pour ces sites web"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Annuler"
@@ -765,5 +867,26 @@
     },
     "notification_data_left_description": {
         "message": "La vitesse de connexion VPN sera bientôt réduite."
+    },
+    "confirm_email_title": {
+        "message": "Confirmez votre courriel"
+    },
+    "confirm_email_info": {
+        "message": "Pour obtenir du trafic VPN gratuit, veuillez confirmer votre adresse courriel. Nous avons envoyé un lien de confirmation à"
+    },
+    "confirm_email_done_title": {
+        "message": "Adresse courriel confirmée"
+    },
+    "confirm_email_done_info": {
+        "message": "Merci de l'avoir vérifié !"
+    },
+    "confirm_email_close_button": {
+        "message": "Fermer"
+    },
+    "confirm_email_resend_link_button": {
+        "message": "Renvoyer le lien"
+    },
+    "resend_confirm_registration_link_notification": {
+        "message": "Lien de confirmation renvoyé"
     }
 }
