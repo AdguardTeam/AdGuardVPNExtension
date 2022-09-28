@@ -61,7 +61,7 @@ Build:
             yarn artifacts:beta
 
             # build source code for uploading to amo
-            zip -r source.zip build/beta/source.zip HEAD
+            zip -r source.zip build/beta HEAD
 
             rm -rf node_modules
     - inject-variables:
