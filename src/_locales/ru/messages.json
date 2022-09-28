@@ -297,10 +297,10 @@
         "message": "Пригласите друга"
     },
     "settings_free_gbs_invite_friend_get_GB": {
-        "message": "Получите до %num% ГБ"
+        "message": "Получите до %num% Гб"
     },
     "settings_free_gbs_invite_friend_complete": {
-        "message": "Вы получили %num% ГБ"
+        "message": "Вы получили %num% Гб"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
         "message": "Спасибо, что пригласили так много друзей!"
