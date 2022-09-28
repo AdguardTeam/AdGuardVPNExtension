@@ -48,7 +48,7 @@ Build:
             yarn release
 
             # build source code for uploading to amo
-            git archive --format=zip --output=build/release/source.zip HEAD
+            zip -r source.zip build/release/source.zip HEAD
 
             rm -rf node_modules
     - inject-variables:
