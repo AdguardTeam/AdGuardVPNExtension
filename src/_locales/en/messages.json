@@ -366,7 +366,7 @@
         "message": "Invalid DNS server address"
     },
     "settings_dns_add_custom_server_duplicate_address": {
-        "message": "DNS server already exist"
+        "message": "DNS server already exists"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Save and select"
