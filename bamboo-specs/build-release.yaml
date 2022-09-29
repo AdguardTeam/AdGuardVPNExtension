@@ -5,7 +5,7 @@ plan:
   key: AVRELEASESPECS
   name: vpn-extension - build release
 variables:
-  dockerNode: node:15.14.0-buster-slim
+  dockerNode: adguard/node-ssh:16.17--1
 
 stages:
   - Build:
@@ -48,7 +48,7 @@ Build:
             yarn release
 
             # build source code for uploading to amo
-            git archive --format=zip --output=build/release/source.zip HEAD
+            git ls-files | zip -@ build/release/source.zip
 
             rm -rf node_modules
     - inject-variables:
