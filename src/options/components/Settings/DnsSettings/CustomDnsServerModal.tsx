@@ -17,9 +17,9 @@ enum ModalType {
     EditDnsServer = 'editDnsServer',
 }
 
-const dnsServerError = {
-    invalid: translator.getMessage('settings_dns_add_custom_server_invalid_address'),
-    duplicate: translator.getMessage('settings_dns_add_custom_server_duplicate_address'),
+const DNS_SERVER_ERROR = {
+    INVALID: translator.getMessage('settings_dns_add_custom_server_invalid_address'),
+    DUPLICATE: translator.getMessage('settings_dns_add_custom_server_duplicate_address'),
 };
 
 export const CustomDnsServerModal = observer(() => {
@@ -57,7 +57,7 @@ export const CustomDnsServerModal = observer(() => {
 
     const handleDnsAddress = (address: string) => {
         if (settingsStore.customDnsServers.some((server) => server.address === dnsServerAddress)) {
-            setDnsServerAddressError(dnsServerError.duplicate);
+            setDnsServerAddressError(DNS_SERVER_ERROR.DUPLICATE);
             return null;
         }
         if (isIP(address) || address.startsWith(DOT_PREFIX)) {
@@ -66,7 +66,7 @@ export const CustomDnsServerModal = observer(() => {
         if (!address.startsWith(DOH_PREFIX) && address.includes('.')) {
             return `${DOT_PREFIX}${address}`;
         }
-        setDnsServerAddressError(dnsServerError.invalid);
+        setDnsServerAddressError(DNS_SERVER_ERROR.INVALID);
         return null;
     };
 
