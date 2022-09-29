@@ -1,6 +1,6 @@
 import browser from 'webextension-polyfill';
 
-import { Prefs, BROWSER_NAMES } from './prefs';
+import { Prefs } from './prefs';
 import { log } from '../lib/logger';
 import { promoNotifications } from './promoNotifications';
 import credentials from './credentials';
@@ -20,20 +20,13 @@ const openOptionsPage = async (anchorName = null) => {
     const anchor = anchorName ? `#${anchorName}` : '';
     const targetUrl = `${optionsUrl}?${THEME_URL_PARAMETER}=${theme}${anchor}`;
 
-    if (Prefs.browser === BROWSER_NAMES.FIREFOX) {
-        // runtime.openOptionsPage() sometimes causes issue with multiple
-        // options tabs in Firefox, so tabs.query() is used to find options tab by url
-        const optionsTab = await tabs.getTabByUrl(optionsUrl);
-        if (optionsTab) {
-            await tabs.update(optionsTab.id, targetUrl);
-        } else {
-            await tabs.openTab(targetUrl);
-        }
-    } else {
-        // runtime.openOptionsPage() could be used properly in other browsers
-        await browser.runtime.openOptionsPage();
-        const optionsTab = tabs.getActive();
+    // runtime.openOptionsPage() sometimes causes issue with multiple
+    // options tabs, so tabs.query() is used to find options tab by url
+    const optionsTab = await tabs.getTabByUrl(optionsUrl);
+    if (optionsTab) {
         await tabs.update(optionsTab.id, targetUrl);
+    } else {
+        await tabs.openTab(targetUrl);
     }
 };
 

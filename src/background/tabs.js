@@ -88,8 +88,9 @@ class Tabs {
     }
 
     async getTabByUrl(url) {
-        const tabs = await browser.tabs.query({ url });
-        return tabs[0];
+        const { id: windowId } = await browser.windows.getCurrent();
+        const tabs = await browser.tabs.query({ windowId });
+        return tabs.find((tab) => tab.url.includes(url));
     }
 
     async update(tabId, url) {
