@@ -55,27 +55,33 @@ export const CustomDnsServerModal = observer(() => {
         settingsStore.closeCustomDnsModalOpen();
     };
 
-    const handleDnsAddress = (address: string) => {
+    const isDnsAddressValid = (address: string): boolean => {
+        // check existing custom dns addresses
         if (settingsStore.customDnsServers.some((server) => server.address === dnsServerAddress)) {
             setDnsServerAddressError(DNS_SERVER_ERROR.DUPLICATE);
-            return null;
+            return false;
         }
+        // for the moment only plain dns and tls supported
+        if (address.startsWith(DOH_PREFIX) || !address.includes('.')) {
+            setDnsServerAddressError(DNS_SERVER_ERROR.INVALID);
+            return false;
+        }
+        return true;
+    };
+
+    const handleDnsAddress = (address: string) => {
         if (isIP(address) || address.startsWith(DOT_PREFIX)) {
             return address;
         }
-        if (!address.startsWith(DOH_PREFIX) && address.includes('.')) {
-            return `${DOT_PREFIX}${address}`;
-        }
-        setDnsServerAddressError(DNS_SERVER_ERROR.INVALID);
-        return null;
+        return `${DOT_PREFIX}${address}`;
     };
 
     const addDnsServer = async (): Promise<void> => {
-        const validDnsAddress = handleDnsAddress(dnsServerAddress);
-        if (!validDnsAddress) {
+        if (!isDnsAddressValid(dnsServerAddress)) {
             return;
         }
-        const dnsServer = await settingsStore.addCustomDnsServer(dnsServerName, validDnsAddress);
+        const dnsAddressToAdd = handleDnsAddress(dnsServerAddress);
+        const dnsServer = await settingsStore.addCustomDnsServer(dnsServerName, dnsAddressToAdd);
         notificationsStore.notifySuccess(
             reactTranslator.getMessage('settings_dns_add_custom_server_notification_success'),
             {
