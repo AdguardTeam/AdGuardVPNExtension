@@ -12,7 +12,7 @@ import {
 
 import { rootStore } from '../../../stores';
 
-enum ConnectionEvent {
+enum VideoStateEvent {
     Connected = 'connected',
     Disconnected = 'disconnected',
     SwitchedOn = 'switched-on',
@@ -25,28 +25,28 @@ const videoStateMachine = createMachine({
     states: {
         [Animation.Disconnected]: {
             on: {
-                [ConnectionEvent.Connected]: {
+                [VideoStateEvent.Connected]: {
                     target: Animation.SwitchOn,
                 },
             },
         },
         [Animation.Connected]: {
             on: {
-                [ConnectionEvent.Disconnected]: {
+                [VideoStateEvent.Disconnected]: {
                     target: Animation.SwitchOff,
                 },
             },
         },
         [Animation.SwitchOff]: {
             on: {
-                [ConnectionEvent.SwitchedOff]: {
+                [VideoStateEvent.SwitchedOff]: {
                     target: Animation.Disconnected,
                 },
             },
         },
         [Animation.SwitchOn]: {
             on: {
-                [ConnectionEvent.SwitchedOn]: {
+                [VideoStateEvent.SwitchedOn]: {
                     target: Animation.Connected,
                 },
             },
@@ -63,8 +63,8 @@ export const Canvas = observer(() => {
 
     sendToVideoStateMachine(
         isConnected
-            ? ConnectionEvent.Connected
-            : ConnectionEvent.Disconnected,
+            ? VideoStateEvent.Connected
+            : VideoStateEvent.Disconnected,
     );
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -108,10 +108,10 @@ export const Canvas = observer(() => {
 
     const handleVideoEnd = () => {
         if (videoState.value === Animation.SwitchOff) {
-            sendToVideoStateMachine(ConnectionEvent.SwitchedOff);
+            sendToVideoStateMachine(VideoStateEvent.SwitchedOff);
         }
         if (videoState.value === Animation.SwitchOn) {
-            sendToVideoStateMachine(ConnectionEvent.SwitchedOn);
+            sendToVideoStateMachine(VideoStateEvent.SwitchedOn);
         }
     };
 
