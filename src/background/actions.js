@@ -15,18 +15,27 @@ import { settings } from './settings';
  * @return {Promise<void>}
  */
 const openOptionsPage = async (anchorName = null) => {
-    const optionsUrl = browser.runtime.getURL('options.html');
+    const manifest = browser.runtime.getManifest();
+    let optionsUrl = manifest.options_ui?.page || manifest.options_page;
+    if (!optionsUrl.includes('://')) {
+        optionsUrl = browser.runtime.getURL(optionsUrl);
+    }
+
     const theme = settings.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
     const anchor = anchorName ? `#${anchorName}` : '';
     const targetUrl = `${optionsUrl}?${THEME_URL_PARAMETER}=${theme}${anchor}`;
 
-    // runtime.openOptionsPage() sometimes causes issue with multiple
-    // options tabs, so tabs.query() is used to find options tab by url
-    const optionsTab = await tabs.getTabByUrl(optionsUrl);
-    if (optionsTab) {
-        await tabs.update(optionsTab.id, targetUrl);
+    // there is the bug with chrome.runtime.openOptionsPage() method
+    // https://bugs.chromium.org/p/chromium/issues/detail?id=1369940
+    // we use temporary solution to open а single options page
+    const view = browser.extension.getViews()
+        .find((wnd) => wnd.location.href.startsWith(optionsUrl));
+    if (view) {
+        view.chrome.tabs.getCurrent((tab) => {
+            browser.tabs.update(tab.id, { active: true, url: targetUrl });
+        });
     } else {
-        await tabs.openTab(targetUrl);
+        await browser.tabs.create({ url: targetUrl });
     }
 };
 

@@ -37,7 +37,6 @@
     "permissions": [
         "<all_urls>",
         "contextMenus",
-        "tabs",
         "management",
         "notifications",
         "privacy",
