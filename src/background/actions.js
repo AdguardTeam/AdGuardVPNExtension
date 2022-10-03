@@ -32,8 +32,8 @@ const openOptionsPage = async (anchorName = null) => {
         .find((wnd) => wnd.location.href.startsWith(optionsUrl));
     if (view) {
         await new Promise((resolve) => {
-            view.chrome.tabs.getCurrent((tab) => {
-                browser.tabs.update(tab.id, { active: true, url: targetUrl });
+            view.chrome.tabs.getCurrent(async (tab) => {
+                await browser.tabs.update(tab.id, { active: true, url: targetUrl });
                 resolve();
             });
         });
