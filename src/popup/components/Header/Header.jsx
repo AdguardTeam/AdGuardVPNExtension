@@ -31,7 +31,7 @@ export const Header = observer(({ showMenuButton }) => {
             <div className="header__logo">
                 <div className="logo" />
             </div>
-            {!isPremiumToken && (
+            {!isPremiumToken && showMenuButton && (
                 <div className="header__referral">
                     <button
                         className="button header__referral__button"
