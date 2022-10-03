@@ -55,18 +55,16 @@ export const CustomDnsServerModal = observer(() => {
         settingsStore.closeCustomDnsModalOpen();
     };
 
-    const isDnsAddressValid = (address: string): boolean => {
+    const validateDnsAddress = (address: string): string | null => {
         // check existing custom dns addresses
         if (settingsStore.customDnsServers.some((server) => server.address === dnsServerAddress)) {
-            setDnsServerAddressError(DNS_SERVER_ERROR.DUPLICATE);
-            return false;
+            return DNS_SERVER_ERROR.DUPLICATE;
         }
         // for the moment only plain dns and tls supported
         if (address.startsWith(DOH_PREFIX) || !address.includes('.')) {
-            setDnsServerAddressError(DNS_SERVER_ERROR.INVALID);
-            return false;
+            return DNS_SERVER_ERROR.INVALID;
         }
-        return true;
+        return null;
     };
 
     const handleDnsAddress = (address: string) => {
@@ -77,7 +75,9 @@ export const CustomDnsServerModal = observer(() => {
     };
 
     const addDnsServer = async (): Promise<void> => {
-        if (!isDnsAddressValid(dnsServerAddress)) {
+        const dnsServerAddressError = validateDnsAddress(dnsServerAddress);
+        if (dnsServerAddressError) {
+            setDnsServerAddressError(dnsServerAddressError);
             return;
         }
         const dnsAddressToAdd = handleDnsAddress(dnsServerAddress);
