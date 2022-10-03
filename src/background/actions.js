@@ -31,8 +31,11 @@ const openOptionsPage = async (anchorName = null) => {
     const view = browser.extension.getViews()
         .find((wnd) => wnd.location.href.startsWith(optionsUrl));
     if (view) {
-        view.chrome.tabs.getCurrent((tab) => {
-            browser.tabs.update(tab.id, { active: true, url: targetUrl });
+        await new Promise((resolve) => {
+            view.chrome.tabs.getCurrent((tab) => {
+                browser.tabs.update(tab.id, { active: true, url: targetUrl });
+                resolve();
+            });
         });
     } else {
         await browser.tabs.create({ url: targetUrl });
