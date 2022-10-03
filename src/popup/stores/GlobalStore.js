@@ -61,6 +61,8 @@ export class GlobalStore {
                 settingsStore.setGlobalError(permissionsError);
             } else if (!hasRequiredData) {
                 settingsStore.setGlobalError(new Error('No required data'));
+                this.setInitStatus(REQUEST_STATUSES.ERROR);
+                return;
             } else {
                 settingsStore.setGlobalError(null);
             }
