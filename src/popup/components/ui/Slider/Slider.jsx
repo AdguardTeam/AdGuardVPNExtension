@@ -57,18 +57,20 @@ export const Slider = (props) => {
                     alt="slide"
                 />
             </div>
-            <div className="slider__title">
-                {title}
-            </div>
-            <div className="slider__info">
-                {info}
-            </div>
-            <div className="slider__indicator">
-                <DotsIndicator
-                    dotsAmount={slidesAmount}
-                    activeDot={slideIndex}
-                    navigationHandler={navigationHandler}
-                />
+            <div className="slider__content">
+                <div className="slider__title">
+                    {title}
+                </div>
+                <div className="slider__info">
+                    {info}
+                </div>
+                <div className="slider__indicator">
+                    <DotsIndicator
+                        dotsAmount={slidesAmount}
+                        activeDot={slideIndex}
+                        navigationHandler={navigationHandler}
+                    />
+                </div>
             </div>
             {button && (
                 <button

@@ -9,8 +9,9 @@ import { reactTranslator } from '../../../common/reactTranslator';
 import './header.pcss';
 
 export const Header = observer(({ showMenuButton }) => {
-    const { uiStore, vpnStore } = useContext(rootStore);
+    const { uiStore, vpnStore, settingsStore } = useContext(rootStore);
     const { isPremiumToken } = vpnStore;
+    const { hasGlobalError } = settingsStore;
 
     const handleOpenModal = () => {
         uiStore.openOptionsModal(true);
@@ -31,7 +32,7 @@ export const Header = observer(({ showMenuButton }) => {
             <div className="header__logo">
                 <div className="logo" />
             </div>
-            {!isPremiumToken && (
+            {!isPremiumToken && !hasGlobalError && (
                 <div className="header__referral">
                     <button
                         className="button header__referral__button"
