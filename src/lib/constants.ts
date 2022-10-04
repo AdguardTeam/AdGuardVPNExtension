@@ -101,11 +101,11 @@ export const ERROR_STATUSES = {
 // Error text thrown when connection is canceled by user. See issue - AG-2291
 export const FORCE_CANCELLED = 'Connection was cancelled by user';
 
-export const AUTH_PROVIDERS = {
-    APPLE: 'apple',
-    GOOGLE: 'google',
-    FACEBOOK: 'facebook',
-};
+export enum SocialAuthProvider {
+    Apple = 'apple',
+    Google = 'google',
+    Facebook = 'facebook',
+}
 
 export const FLAGS_FIELDS = {
     IS_NEW_USER: 'isNewUser',
