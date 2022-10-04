@@ -93,11 +93,13 @@ export const CustomDnsServerModal = observer(() => {
     };
 
     const editDnsServer = async (): Promise<void> => {
-        const validDnsAddress = handleDnsAddress(dnsServerAddress);
-        if (!validDnsAddress) {
+        const dnsServerAddressError = validateDnsAddress(dnsServerAddress);
+        if (dnsServerAddressError) {
+            setDnsServerAddressError(dnsServerAddressError);
             return;
         }
-        await settingsStore.editCustomDnsServer(dnsServerName, validDnsAddress);
+        const editedDnsAddress = handleDnsAddress(dnsServerAddress);
+        await settingsStore.editCustomDnsServer(dnsServerName, editedDnsAddress);
         closeModal();
     };
 
