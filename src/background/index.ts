@@ -9,7 +9,7 @@ import { endpoints } from './endpoints';
 import { exclusions } from './exclusions';
 import { log } from '../lib/logger';
 import management from './management';
-import messaging from './messagesHandler';
+import { messaging } from './messaging';
 import nonRoutable from './routability/nonRoutable';
 import permissionsChecker from './permissionsChecker';
 import permissionsError from './permissionsChecker/permissionsError';
@@ -29,6 +29,13 @@ import { flagsStorage } from './flagsStorage';
 import './rateModal';
 import './networkConnectionObserver';
 import './uninstall';
+
+declare global {
+    module globalThis {
+        // eslint-disable-next-line no-var,vars-on-top
+        var adguard: any;
+    }
+}
 
 global.adguard = {
     settings,
@@ -72,7 +79,7 @@ global.adguard = {
         contextMenu.init();
         browserActionIcon.init();
         log.info('Extension loaded all necessary modules');
-    } catch (e) {
+    } catch (e: any) {
         log.error('Unable to start extension because of error:', e && e.message);
     }
 })();
