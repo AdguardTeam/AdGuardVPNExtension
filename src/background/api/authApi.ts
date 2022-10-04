@@ -1,19 +1,36 @@
 import qs from 'qs';
+import { Method } from 'axios';
+
 import { Api } from './Api';
 import { AUTH_CLIENT_ID } from '../config';
 import { fallbackApi } from './fallbackApi';
+import { AuthCredentials } from './apiTypes';
+
+type ApiEndpoint = {
+    path: string;
+    method: Method;
+};
 
 // Documentation
 // projects/ADGUARD/repos/adguard-auth-service/browse/oauth.md
 class AuthApi extends Api {
     // API ENDPOINTS
-    GET_TOKEN = { path: 'oauth/token', method: 'POST' };
+    GET_TOKEN: ApiEndpoint = { path: 'oauth/token', method: 'POST' };
 
-    getAccessToken(credentials) {
+    getAccessToken(credentials: AuthCredentials) {
         const { username, password, twoFactor } = credentials;
         const { path, method } = this.GET_TOKEN;
 
-        const data = {
+        type Data = {
+            username: string;
+            password: string;
+            scope: string;
+            grant_type: string;
+            client_id: string;
+            '2fa_token'?: string;
+        };
+
+        const data: Data = {
             username,
             password,
             scope: 'trust',
@@ -32,15 +49,16 @@ class AuthApi extends Api {
         return this.makeRequest(path, config, method);
     }
 
-    REGISTER_USER = { path: 'api/1.0/registration', method: 'POST' };
+    REGISTER_USER: ApiEndpoint = { path: 'api/2.0/registration', method: 'POST' };
 
-    register(credentials) {
+    register(credentials: AuthCredentials) {
         const {
             username,
             password,
             marketingConsent,
             locale,
             clientId,
+            appId,
         } = credentials;
 
         const { path, method } = this.REGISTER_USER;
@@ -51,7 +69,8 @@ class AuthApi extends Api {
             marketingConsent: !!marketingConsent,
             locale,
             clientId,
-            source: 'EXTENSION',
+            applicationId: appId,
+            source: 'VPN_APPLICATION',
         };
 
         const config = {
@@ -61,9 +80,9 @@ class AuthApi extends Api {
         return this.makeRequest(path, config, method);
     }
 
-    USER_LOOKUP = { path: 'api/1.0/user_lookup', method: 'POST' };
+    USER_LOOKUP: ApiEndpoint = { path: 'api/1.0/user_lookup', method: 'POST' };
 
-    userLookup(email, appId) {
+    userLookup(email: string, appId: string) {
         const { path, method } = this.USER_LOOKUP;
         const config = {
             data: qs.stringify({
