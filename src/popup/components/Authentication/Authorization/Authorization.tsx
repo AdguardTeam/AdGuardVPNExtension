@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { AUTH_PROVIDERS } from '../../../../lib/constants';
+import { SocialAuthProvider } from '../../../../lib/constants';
 import { EmailAuth } from '../EmailAuth';
 import Icon from '../../ui/Icon';
 
@@ -11,14 +11,14 @@ import './authorization.pcss';
 export const Authorization = () => {
     const { authStore } = useContext(rootStore);
 
-    const authClickHandler = (provider: string) => async () => {
+    const authClickHandler = (provider: SocialAuthProvider) => async () => {
         await authStore.proceedAuthorization(provider);
     };
 
     const providersTranslations: { [key: string]: React.ReactNode } = {
-        [AUTH_PROVIDERS.APPLE]: reactTranslator.getMessage('auth_sign_in_provider_apple'),
-        [AUTH_PROVIDERS.GOOGLE]: reactTranslator.getMessage('auth_sign_in_provider_google'),
-        [AUTH_PROVIDERS.FACEBOOK]: reactTranslator.getMessage('auth_sign_in_provider_facebook'),
+        [SocialAuthProvider.Apple]: reactTranslator.getMessage('auth_sign_in_provider_apple'),
+        [SocialAuthProvider.Google]: reactTranslator.getMessage('auth_sign_in_provider_google'),
+        [SocialAuthProvider.Facebook]: reactTranslator.getMessage('auth_sign_in_provider_facebook'),
     };
 
     return (
@@ -29,7 +29,7 @@ export const Authorization = () => {
             <div className="authorization__container">
                 <EmailAuth />
                 <div className="authorization__bottom-row" />
-                {Object.values(AUTH_PROVIDERS).map((provider) => (
+                {Object.values(SocialAuthProvider).map((provider) => (
                     <button
                         key={provider}
                         type="button"

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import authProvider from '../../../src/background/providers/authProvider';
+import { authProvider } from '../../../src/background/providers/authProvider';
 
 jest.mock('axios');
 jest.mock('../../../src/lib/logger');
