@@ -158,6 +158,15 @@ export const App = observer(() => {
         return null;
     }
 
+    if (!authenticated && !hasGlobalError) {
+        return (
+            <>
+                <Authentication />
+                <Icons />
+            </>
+        );
+    }
+
     if ((hasGlobalError && !hasLimitExceededError) || !canControlProxy || desktopVpnEnabled) {
         const showMenuButton = authenticated && canControlProxy;
         return (
@@ -166,15 +175,6 @@ export const App = observer(() => {
                 <Header showMenuButton={showMenuButton} />
                 <Icons />
                 <GlobalError />
-            </>
-        );
-    }
-
-    if (!authenticated) {
-        return (
-            <>
-                <Authentication />
-                <Icons />
             </>
         );
     }
