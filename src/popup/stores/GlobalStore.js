@@ -60,7 +60,10 @@ export class GlobalStore {
             if (permissionsError) {
                 settingsStore.setGlobalError(permissionsError);
             } else if (!hasRequiredData) {
+                settingsStore.setCanControlProxy(canControlProxy);
                 settingsStore.setGlobalError(new Error('No required data'));
+                this.setInitStatus(REQUEST_STATUSES.ERROR);
+                return;
             } else {
                 settingsStore.setGlobalError(null);
             }

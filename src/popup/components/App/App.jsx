@@ -158,11 +158,23 @@ export const App = observer(() => {
         return null;
     }
 
-    if (!authenticated) {
+    if (!authenticated && !hasGlobalError) {
         return (
             <>
                 <Authentication />
                 <Icons />
+            </>
+        );
+    }
+
+    if ((hasGlobalError && !hasLimitExceededError) || !canControlProxy || desktopVpnEnabled) {
+        const showMenuButton = authenticated && canControlProxy;
+        return (
+            <>
+                {isOpenOptionsModal && <ExtraOptions />}
+                <Header showMenuButton={showMenuButton} />
+                <Icons />
+                <GlobalError />
             </>
         );
     }
@@ -185,18 +197,6 @@ export const App = observer(() => {
             <>
                 <UpgradeScreen />
                 <Icons />
-            </>
-        );
-    }
-
-    if ((hasGlobalError && !hasLimitExceededError) || !canControlProxy || desktopVpnEnabled) {
-        const showMenuButton = authenticated && canControlProxy;
-        return (
-            <>
-                {isOpenOptionsModal && <ExtraOptions />}
-                <Header showMenuButton={showMenuButton} />
-                <Icons />
-                <GlobalError />
             </>
         );
     }
