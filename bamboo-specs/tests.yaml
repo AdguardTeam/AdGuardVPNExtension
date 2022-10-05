@@ -43,6 +43,7 @@ Test:
             VPN_API_URL="${bamboo.devVpnApiUrl}" \
             AUTH_API_URL="${bamboo.devAuthApiUrl}" \
             FORWARDER_DOMAIN="${bamboo.devVpnForwarderDomain}" \
+            WHOAMI_URL="${bamboo.devVpnWhoamiUrl}" \
             yarn dev
 
             # build with prod API endpoints
@@ -50,6 +51,7 @@ Test:
             VPN_API_URL="${bamboo.prodVpnApiUrl}" \
             AUTH_API_URL="${bamboo.prodAuthApiUrl}" \
             FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}" \
+            WHOAMI_URL="${bamboo.prodVpnWhoamiUrl}" \
             yarn dev
             rm -rf node_modules
   artifacts:

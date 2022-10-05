@@ -40,4 +40,5 @@ export const {
     BROWSER,
     BUILD_ENV,
     STAGE_ENV,
+    WHOAMI_URL,
 } = CONFIG;

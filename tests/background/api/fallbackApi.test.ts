@@ -2,11 +2,11 @@ import axios from 'axios';
 
 import {
     FallbackApi,
-    WHOAMI_URL,
     GOOGLE_DOH_URL,
     CLOUDFLARE_DOH_URL,
     DEFAULT_CACHE_EXPIRE_TIME_MS,
 } from '../../../src/background/api/fallbackApi';
+import { WHOAMI_URL } from '../../../src/background/config';
 
 jest.mock('axios');
 jest.mock('../../../src/lib/logger');

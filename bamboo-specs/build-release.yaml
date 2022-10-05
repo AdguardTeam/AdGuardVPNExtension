@@ -40,11 +40,11 @@ Build:
             yarn test
             yarn locales:validate --min
 
-            # build with prod API endpoints
-            STAGE_ENV="prod" \
-            VPN_API_URL="${bamboo.prodVpnApiUrl}" \
-            AUTH_API_URL="${bamboo.prodAuthApiUrl}" \
-            FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}" \
+            export STAGE_ENV="prod"
+            export VPN_API_URL="${bamboo.prodVpnApiUrl}"
+            export AUTH_API_URL="${bamboo.prodAuthApiUrl}"
+            export FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}"
+            export WHOAMI_URL="${bamboo.prodVpnWhoamiUrl}"
             yarn release
 
             # build source code for uploading to amo

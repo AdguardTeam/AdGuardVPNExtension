@@ -1,6 +1,11 @@
 import axios from 'axios';
 
-import { AUTH_API_URL, VPN_API_URL, STAGE_ENV } from '../config';
+import {
+    AUTH_API_URL,
+    VPN_API_URL,
+    STAGE_ENV,
+    WHOAMI_URL,
+} from '../config';
 import { clearFromWrappingQuotes } from '../../lib/string-utils';
 import { log } from '../../lib/logger';
 
@@ -17,7 +22,6 @@ const ALIDNS_DOH_HOSTNAME = 'dns.alidns.com';
 export const ALIDNS_DOH_URL = `${ALIDNS_DOH_HOSTNAME}/resolve`;
 
 const stageSuffix = STAGE_ENV === 'test' ? '-dev' : '';
-export const WHOAMI_URL = `whoami${stageSuffix}.adguard-vpn.online`;
 const BKP_API_HOSTNAME_PART = `bkp-api${stageSuffix}.adguard-vpn.online`;
 const BKP_AUTH_HOSTNAME_PART = `bkp-auth${stageSuffix}.adguard-vpn.online`;
 
