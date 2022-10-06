@@ -365,6 +365,9 @@
     "settings_dns_add_custom_server_invalid_address": {
         "message": "Endereço de servidor DNS inválido"
     },
+    "settings_dns_add_custom_server_duplicate_address": {
+        "message": "Servidor DNS já adicionado"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Guardar e selecionar"
     },

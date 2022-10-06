@@ -365,6 +365,9 @@
     "settings_dns_add_custom_server_invalid_address": {
         "message": "Adresse DNS non-valide"
     },
+    "settings_dns_add_custom_server_duplicate_address": {
+        "message": "Serveur DNS déjà ajouté"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Sauvegarder et sélectionner"
     },

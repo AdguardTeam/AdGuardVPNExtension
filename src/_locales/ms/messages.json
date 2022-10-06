@@ -1,4 +1,7 @@
 {
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
     "options_support_report_title": {
         "message": "Laporkan pepijat"
     },
@@ -73,9 +76,6 @@
     },
     "name": {
         "message": "AdGuard VPN — free & secure proxy"
-    },
-    "short_name": {
-        "message": "AdGuard VPN"
     },
     "description": {
         "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
