@@ -103,6 +103,7 @@ export const Actions = observer(() => {
                 handler: exclusionsStore.restoreExclusions,
             },
         );
+        await exclusionsStore.updateExclusionsData();
         closeSelectListModal();
     };
 
@@ -118,6 +119,7 @@ export const Actions = observer(() => {
                 handler: exclusionsStore.restoreExclusions,
             },
         );
+        await exclusionsStore.updateExclusionsData();
         closeSelectListModal();
     };
 
@@ -170,8 +172,6 @@ export const Actions = observer(() => {
         }
 
         const addedExclusions = messenger.addExclusionsMap(exclusionsContentMap);
-        await exclusionsStore.updateExclusionsData();
-
         return addedExclusions;
     };
 
@@ -199,6 +199,7 @@ export const Actions = observer(() => {
                         handler: exclusionsStore.restoreExclusions,
                     },
                 );
+                await exclusionsStore.updateExclusionsData();
             }
             exclusionsStore.setImportingExclusions(false);
         } catch (e: any) {
