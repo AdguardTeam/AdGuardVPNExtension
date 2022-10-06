@@ -297,10 +297,10 @@
         "message": "Пригласите друга"
     },
     "settings_free_gbs_invite_friend_get_GB": {
-        "message": "Получите до %num% Гб"
+        "message": "Получите до %num% ГБ"
     },
     "settings_free_gbs_invite_friend_complete": {
-        "message": "Вы получили %num% Гб"
+        "message": "Вы получили %num% ГБ"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
         "message": "Спасибо, что пригласили так много друзей!"
@@ -364,6 +364,9 @@
     },
     "settings_dns_add_custom_server_invalid_address": {
         "message": "Некорректный адрес DNS-сервера"
+    },
+    "settings_dns_add_custom_server_duplicate_address": {
+        "message": "Такой DNS-сервер уже есть"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Сохранить и выбрать"

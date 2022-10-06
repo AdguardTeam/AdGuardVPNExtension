@@ -323,6 +323,9 @@
     "settings_dns_add_custom_server_invalid_address": {
         "message": "Неправильна адреса DNS-сервера"
     },
+    "settings_dns_add_custom_server_duplicate_address": {
+        "message": "DNS-сервер уже додано"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Зберегти та вибрати"
     },

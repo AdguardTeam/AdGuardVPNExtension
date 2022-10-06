@@ -365,6 +365,9 @@
     "settings_dns_add_custom_server_invalid_address": {
         "message": "無效的 DNS 伺服器位址"
     },
+    "settings_dns_add_custom_server_duplicate_address": {
+        "message": "DNS 伺服器新增成功"
+    },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "儲存並選擇"
     },
