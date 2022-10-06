@@ -15,8 +15,7 @@ import { rootStore } from '../../../stores';
 enum VideoStateEvent {
     Connected = 'connected',
     Disconnected = 'disconnected',
-    SwitchedOn = 'switched-on',
-    SwitchedOff = 'switched-off',
+    VideoEnded = 'video.ended',
 }
 
 const videoStateMachine = createMachine({
@@ -39,15 +38,21 @@ const videoStateMachine = createMachine({
         },
         [Animation.SwitchOff]: {
             on: {
-                [VideoStateEvent.SwitchedOff]: {
+                [VideoStateEvent.VideoEnded]: {
                     target: Animation.Disconnected,
+                },
+                [VideoStateEvent.Connected]: {
+                    target: Animation.SwitchOn,
                 },
             },
         },
         [Animation.SwitchOn]: {
             on: {
-                [VideoStateEvent.SwitchedOn]: {
+                [VideoStateEvent.VideoEnded]: {
                     target: Animation.Connected,
+                },
+                [VideoStateEvent.Disconnected]: {
+                    target: Animation.SwitchOff,
                 },
             },
         },
@@ -107,12 +112,7 @@ export const Canvas = observer(() => {
     });
 
     const handleVideoEnd = () => {
-        if (videoState.value === Animation.SwitchOff) {
-            sendToVideoStateMachine(VideoStateEvent.SwitchedOff);
-        }
-        if (videoState.value === Animation.SwitchOn) {
-            sendToVideoStateMachine(VideoStateEvent.SwitchedOn);
-        }
+        sendToVideoStateMachine(VideoStateEvent.VideoEnded);
     };
 
     return (
