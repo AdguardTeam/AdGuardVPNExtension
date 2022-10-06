@@ -1,63 +1,15 @@
 import React, { useContext, useRef, useEffect } from 'react';
 import { observer } from 'mobx-react';
-import { createMachine } from 'xstate';
 import { useMachine } from '@xstate/react';
 
+import { rootStore } from '../../../stores';
+import { VideoStateEvent, videoStateMachine } from './videoStateMachine';
 import {
     Animation,
     APPEARANCE_THEMES,
     videoPostersMap,
     videoSourcesMap,
 } from '../../../../lib/constants';
-
-import { rootStore } from '../../../stores';
-
-enum VideoStateEvent {
-    Connected = 'connected',
-    Disconnected = 'disconnected',
-    VideoEnded = 'video.ended',
-}
-
-const videoStateMachine = createMachine({
-    id: 'videoStateMachine',
-    initial: Animation.Disconnected,
-    states: {
-        [Animation.Disconnected]: {
-            on: {
-                [VideoStateEvent.Connected]: {
-                    target: Animation.SwitchOn,
-                },
-            },
-        },
-        [Animation.Connected]: {
-            on: {
-                [VideoStateEvent.Disconnected]: {
-                    target: Animation.SwitchOff,
-                },
-            },
-        },
-        [Animation.SwitchOff]: {
-            on: {
-                [VideoStateEvent.VideoEnded]: {
-                    target: Animation.Disconnected,
-                },
-                [VideoStateEvent.Connected]: {
-                    target: Animation.SwitchOn,
-                },
-            },
-        },
-        [Animation.SwitchOn]: {
-            on: {
-                [VideoStateEvent.VideoEnded]: {
-                    target: Animation.Connected,
-                },
-                [VideoStateEvent.Disconnected]: {
-                    target: Animation.SwitchOff,
-                },
-            },
-        },
-    },
-});
 
 export const Canvas = observer(() => {
     const { settingsStore } = useContext(rootStore);
