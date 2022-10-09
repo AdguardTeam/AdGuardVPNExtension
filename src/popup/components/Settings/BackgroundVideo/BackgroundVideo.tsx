@@ -1,12 +1,14 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useRef, useEffect } from 'react';
 import { observer } from 'mobx-react';
+import { useMachine } from '@xstate/react';
 
 import { rootStore } from '../../../stores';
+import { VideoStateEvent, videoStateMachine } from './videoStateMachine';
 import {
     Animation,
     APPEARANCE_THEMES,
-    videoSourcesMap,
     videoPostersMap,
+    videoSourcesMap,
 } from '../../../../lib/constants';
 
 interface BackgroundVideoProps {
@@ -16,13 +18,17 @@ interface BackgroundVideoProps {
 export const BackgroundVideo = observer(({ exclusionsScreen }: BackgroundVideoProps) => {
     const { settingsStore } = useContext(rootStore);
 
-    const {
-        isConnected,
-        appearanceTheme,
-        animation,
-        setAnimation,
-        systemTheme,
-    } = settingsStore;
+    const { isConnected, appearanceTheme, systemTheme } = settingsStore;
+
+    const [videoState, sendToVideoStateMachine] = useMachine(videoStateMachine);
+
+    sendToVideoStateMachine(
+        isConnected
+            ? VideoStateEvent.Connected
+            : VideoStateEvent.Disconnected,
+    );
+
+    const videoRef = useRef<HTMLVideoElement>(null);
 
     const videoSources = appearanceTheme === APPEARANCE_THEMES.SYSTEM
         ? videoSourcesMap[systemTheme]
@@ -32,49 +38,33 @@ export const BackgroundVideo = observer(({ exclusionsScreen }: BackgroundVideoPr
         ? videoPostersMap[systemTheme]
         : videoPostersMap[appearanceTheme];
 
-    let backgroundVideoUrl = isConnected
-        ? videoSources[Animation.Connected]
-        : videoSources[Animation.Disconnected];
-
-    let backgroundVideoPoster = isConnected
-        ? videoPosters[Animation.Connected]
-        : videoPosters[Animation.Disconnected];
+    let sourceUrl = videoSources[videoState.value as Animation];
+    let posterUrl = videoPosters[videoState.value as Animation];
 
     if (exclusionsScreen) {
-        backgroundVideoUrl = videoSources[Animation.Disconnected];
-        backgroundVideoPoster = videoPosters[Animation.Disconnected];
+        sourceUrl = videoSources[Animation.Disconnected];
+        posterUrl = videoPosters[Animation.Disconnected];
     }
 
-    const animationUrl = animation === Animation.SwitchOn
-        ? videoSources[Animation.SwitchOn]
-        : videoSources[Animation.SwitchOff];
-
-    const animationPoster = animation === Animation.SwitchOn
-        ? videoPosters[Animation.SwitchOn]
-        : videoPosters[Animation.SwitchOff];
-
-    const handleAnimationEnded = (): void => {
-        if (animation) {
-            setAnimation(null);
-        }
-    };
-
-    const videoRef = useRef<HTMLVideoElement>(null);
-    const sourceUrl = animation ? animationUrl : backgroundVideoUrl;
-    const poster = animation ? animationPoster : backgroundVideoPoster;
+    const loop = videoState.value === Animation.Connected
+        || videoState.value === Animation.Disconnected;
 
     useEffect(() => {
         videoRef.current?.load();
     });
 
+    const handleVideoEnd = () => {
+        sendToVideoStateMachine(VideoStateEvent.VideoEnded);
+    };
+
     return (
         <video
             ref={videoRef}
-            className="settings__video"
             autoPlay
-            loop={!animation}
-            onEnded={handleAnimationEnded}
-            poster={poster}
+            loop={loop}
+            className="settings__video"
+            poster={posterUrl}
+            onEnded={handleVideoEnd}
         >
             <source src={sourceUrl} type="video/webm" />
             <track kind="captions" />
