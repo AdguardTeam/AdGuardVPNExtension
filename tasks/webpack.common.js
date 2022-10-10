@@ -55,9 +55,9 @@ const config = {
     module: {
         rules: [
             /*
-                 * Prevent browser console warnings with source map issue
-                 * by deleting source map url comments in production build
-                 */
+             * Prevent browser console warnings with source map issue
+             * by deleting source map url comments in production build
+             */
             {
                 test: /\.(ts|js)x?$/,
                 enforce: 'pre',
