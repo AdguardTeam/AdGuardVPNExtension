@@ -104,6 +104,7 @@
         "postcss-svg": "^3.0.0",
         "schema-utils": "^3.0.0",
         "sinon-chrome": "^3.0.1",
+        "source-map-loader": "^4.0.1",
         "style-loader": "^2.0.0",
         "tmp-promise": "^3.0.2",
         "ts-node": "^10.4.0",
