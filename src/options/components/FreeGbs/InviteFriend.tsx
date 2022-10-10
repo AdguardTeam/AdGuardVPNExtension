@@ -5,7 +5,7 @@ import { reactTranslator } from '../../../common/reactTranslator';
 import { Title } from '../ui/Title';
 import { rootStore } from '../../stores';
 import { DotsLoader } from '../../../common/components/DotsLoader';
-import { REQUEST_STATUSES, COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
+import { RequestStatus, COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 
 export const InviteFriend = observer(({ goBackHandler }: { goBackHandler: () => void }) => {
     const { settingsStore, notificationsStore } = useContext(rootStore);
@@ -25,12 +25,12 @@ export const InviteFriend = observer(({ goBackHandler }: { goBackHandler: () => 
         notificationsStore.notifySuccess(reactTranslator.getMessage('settings_referral_link_copied'));
     };
 
-    if (bonusesDataRequestStatus !== REQUEST_STATUSES.DONE) {
+    if (bonusesDataRequestStatus !== RequestStatus.Done) {
         return <DotsLoader />;
     }
 
     switch (true) {
-        case bonusesDataRequestStatus !== REQUEST_STATUSES.DONE: {
+        case bonusesDataRequestStatus !== RequestStatus.Done: {
             return <DotsLoader />;
         }
         case invitesCount >= maxInvitesCount: {

@@ -239,23 +239,14 @@
     "options_menu_free_traffic": {
         "message": "حركة مرور VPN مجانية"
     },
-    "referral_get_free_traffic": {
-        "message": "احصل على حركة مرور مجانية!"
-    },
-    "settings_referral_info": {
-        "message": "قم بدعوة أصدقائك للانضمام إلى عشيرة النينجا لدينا والحصول على المزيد من حركة مرور VPN المجانية لمدة شهر. احصل على %your_gb% جيجابابت لكل صديق يسجل: وبالمقابل هم ايضاً سيحصلون على %friend_gb% إضافية مجانًا! انت ومن دعوتهم ستحصلون على إجمالي %total_gb% اضافية في المجموع مجانًا."
-    },
     "settings_referral_invited_friends": {
         "message": "%count%%limit% أصدقاء مدعوون"
     },
-    "settings_referral_limit_reached": {
-        "message": "لقد تلقيت بالفعل %your_gb% جيجابايت من حركة المرور VPN المجانية. لكن لا يزال بإمكان أصدقائك الحصول على %friend_gb% جيجابايت لحركة مرور VPN مجانية إضافية إذا قمت بدعوتهم!"
+    "settings_free_gbs_add_device_products_button": {
+        "message": "الذهاب إلى المنتجات"
     },
-    "settings_referral_copy_link": {
-        "message": "انسخ الرابط"
-    },
-    "settings_referral_link_copied": {
-        "message": "تم نسخ الرابط"
+    "settings_free_gbs_go_back": {
+        "message": "الرجوع للخلف"
     },
     "settings_rate_us": {
         "message": "قيّمنا"
@@ -282,16 +273,55 @@
         "message": "الوضع العام"
     },
     "settings_dns_label": {
-        "message": "استخدم خادم DNS"
+        "message": "خادم DNS"
+    },
+    "settings_dns_popular_servers": {
+        "message": "موفرو DNS الشائعة:"
+    },
+    "settings_dns_custom_servers": {
+        "message": "خوادم DNS مخصصة"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "إضافة خادم DNS للمستخدم"
+    },
+    "settings_dns_edit_custom_server": {
+        "message": "تحرير خادم DNS المخصص"
+    },
+    "settings_dns_add_custom_server_info": {
+        "message": "<a>اقرأ المزيد</a> حول خوادم DNS"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "اسم الخادم"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "اسم الخادم"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "عنوان خادم ال DNS "
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP أو TLS"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "عنوان خادم DNS غير صالح"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "تحديد وحفظ"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "حفظ"
+    },
+    "settings_dns_add_custom_server_notification_success": {
+        "message": "تمت إضافة خادم DNS المخصص"
+    },
+    "settings_dns_delete_custom_server_notification": {
+        "message": "تم حذف خادم DNS المخصص"
     },
     "settings_dns_desc": {
         "message": "نطاق اسم المجال (DNS) هو المكافئ على الإنترنت لدفتر الهاتف. يحتفظ بدليل لأسماء النطاقات ويترجمها إلى عناوين بروتوكول الإنترنت (IP)."
     },
     "settings_dns_selector_default_title": {
         "message": "افتراضي"
-    },
-    "settings_dns_selector_default_desc": {
-        "message": "استخدم خوادم DNS الافتراضية تلقائيًا عند الاتصال بشبكة VPN"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -446,20 +476,11 @@
     "settings_exclusion_title": {
         "message": "الاستثناءات"
     },
-    "settings_exclusion_change_mode": {
-        "message": "تغيير الوضع"
-    },
-    "settings_exclusion_general_title": {
-        "message": "الوضع العام"
-    },
-    "settings_exclusion_general_description": {
-        "message": "AdGuard VPN موجود في كل مكان باستثناء مواقع الويب المضافة إلى الاستثناءات"
-    },
     "settings_exclusion_selective_title": {
         "message": "الوضع الانتقائي"
     },
-    "settings_exclusion_selective_description": {
-        "message": "ستعمل AdGuard VPN فقط على مواقع الويب من القائمة أدناه"
+    "settings_exclusion_import_button": {
+        "message": "استيراد"
     },
     "global_error_title": {
         "message": "حدث خطأ"
@@ -584,9 +605,6 @@
     "offline_title": {
         "message": "غير متصل"
     },
-    "popup_site_status_unaccessible": {
-        "message": "موجود في شبكتك المحلية ولا يمكن الوصول إليه عبر VPN"
-    },
     "popup_site_status_vpn_disabled": {
         "message": "على هذا الموقع VPN تم تعطيل"
     },
@@ -611,24 +629,6 @@
     },
     "popup_newsletter_no_subscribe": {
         "message": "لا, شكراً"
-    },
-    "popup_onboarding_trusted_vpn": {
-        "message": "عناوين VPN الموثوقة"
-    },
-    "popup_onboarding_trusted_vpn_info": {
-        "message": "بواسطة مطور مانع الإعلانات المشهور عالميًا"
-    },
-    "popup_onboarding_numerous_locations": {
-        "message": "مواقع متعددة"
-    },
-    "popup_onboarding_numerous_locations_info": {
-        "message": "اتصل بأي خادم من خوادمنا الموجودة في أنحاء العالم"
-    },
-    "popup_onboarding_fastest_servers": {
-        "message": "الخوادم الأسرع"
-    },
-    "popup_onboarding_fastest_servers_info": {
-        "message": "نستخدم أحدث التقنيات لضمان أعلى سرعة اتصال"
     },
     "popup_onboarding_next": {
         "message": "التالي"
@@ -669,15 +669,6 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> المتبقية هذا الشهر",
         "description": "Respect spaces between text, tags and placeholders"
-    },
-    "options_exclusions_import_select_title": {
-        "message": "استيراد استثناءات إلى:"
-    },
-    "options_exclusions_import_select_regular": {
-        "message": "قائمة منتظمة"
-    },
-    "options_exclusions_import_select_selective": {
-        "message": "قائمة انتقائية"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "إلغاء"
@@ -750,5 +741,8 @@
     },
     "notification_data_limit_reached_description": {
         "message": "تم تقليل سرعة اتصال VPN."
+    },
+    "confirm_email_close_button": {
+        "message": "إغلاق"
     }
 }

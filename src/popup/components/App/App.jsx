@@ -23,7 +23,7 @@ import { rootStore } from '../../stores';
 import { REQUEST_STATUSES } from '../../stores/consts';
 import { log } from '../../../lib/logger';
 import { messenger } from '../../../lib/messenger';
-import notifier from '../../../lib/notifier';
+import { notifier } from '../../../lib/notifier';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
 import { TrafficLimitExceeded } from '../Settings/TrafficLimitExceeded';
 import { ConnectionsLimitError } from '../ConnectionsLimitError';
@@ -163,11 +163,23 @@ export const App = observer(() => {
         return null;
     }
 
-    if (!authenticated) {
+    if (!authenticated && !hasGlobalError) {
         return (
             <>
                 <Authentication />
                 <Icons />
+            </>
+        );
+    }
+
+    if ((hasGlobalError && !hasLimitExceededError) || !canControlProxy || desktopVpnEnabled) {
+        const showMenuButton = authenticated && canControlProxy;
+        return (
+            <>
+                {isOpenOptionsModal && <ExtraOptions />}
+                <Header showMenuButton={showMenuButton} />
+                <Icons />
+                <GlobalError />
             </>
         );
     }
@@ -190,18 +202,6 @@ export const App = observer(() => {
             <>
                 <UpgradeScreen />
                 <Icons />
-            </>
-        );
-    }
-
-    if ((hasGlobalError && !hasLimitExceededError) || !canControlProxy || desktopVpnEnabled) {
-        const showMenuButton = authenticated && canControlProxy;
-        return (
-            <>
-                {isOpenOptionsModal && <ExtraOptions />}
-                <Header showMenuButton={showMenuButton} />
-                <Icons />
-                <GlobalError />
             </>
         );
     }

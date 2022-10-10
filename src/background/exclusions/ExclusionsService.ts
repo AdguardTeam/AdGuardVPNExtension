@@ -21,7 +21,7 @@ import {
     getSubdomain,
     isWildcard,
 } from '../../common/url-utils';
-import notifier from '../../lib/notifier';
+import { notifier } from '../../lib/notifier';
 
 interface ToggleServicesResult {
     added: number,
@@ -69,11 +69,18 @@ export class ExclusionsService {
     /**
      * Sets exclusions mode
      * @param mode
+     * @param shouldNotifyOptionsPage
      */
-    async setMode(mode: ExclusionsModes) {
+    async setMode(mode: ExclusionsModes, shouldNotifyOptionsPage?: boolean) {
         await exclusionsManager.setCurrentMode(mode);
 
         this.updateTree();
+
+        // shouldNotifyOptionsPage flag is used to notify options page to update exclusions data,
+        // if exclusion mode was changed from context menu
+        if (shouldNotifyOptionsPage) {
+            notifier.notifyListeners(notifier.types.EXCLUSIONS_DATA_UPDATED);
+        }
     }
 
     /**
@@ -425,6 +432,7 @@ export class ExclusionsService {
         } else {
             await this.addUrlToExclusions(url);
         }
+        notifier.notifyListeners(notifier.types.EXCLUSIONS_DATA_UPDATED);
     }
 
     /**
@@ -438,6 +446,7 @@ export class ExclusionsService {
             await exclusionsManager.current.disableExclusionByUrl(url);
             this.updateTree();
         }
+        notifier.notifyListeners(notifier.types.EXCLUSIONS_DATA_UPDATED);
     }
 
     /**

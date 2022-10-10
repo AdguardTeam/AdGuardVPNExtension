@@ -1,0 +1,112 @@
+.dns-settings {
+    &__title {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    &__back {
+        padding: 5px;
+        margin-right: 15px;
+        cursor: pointer;
+        border: none;
+        background: transparent;
+    }
+
+    &__item {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-left: -9px;
+        padding: 16px 16px 20px;
+        cursor: pointer;
+        transition: var(--t3) background-color;
+        position: relative;
+
+        &:hover {
+            background-color: var(--grayF3);
+            border-radius: 8px;
+        }
+
+        &--actions {
+            position: absolute;
+            right: 15px;
+
+            &--button {
+                margin-left: 17px;
+
+                &:hover {
+                    opacity: .7;
+                }
+            }
+        }
+    }
+
+    &__label {
+        color: var(--gray88);
+        font-size: 14px;
+        margin: 25px 0 10px 5px;
+    }
+
+    &__add-button {
+        font-size: 16px;
+        line-height: 24px;
+        margin-top: 15px;
+        display: flex;
+
+        & .icon {
+            margin-right: 12px;
+        }
+    }
+
+    &__modal {
+        &--title {
+            font-size: 40px;
+            font-weight: 600;
+            line-height: 46px;
+            margin: 10px 0 15px;
+        }
+
+        &--content {
+            display: block;
+
+            & .form__actions .button {
+                min-width: 180px;
+                max-width: 220px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                padding: 12px 20px;
+
+                &:first-child {
+                    margin-right: 20px;
+                }
+            }
+        }
+
+        &--link {
+            text-decoration: none;
+            color: var(--green700);
+            cursor: pointer;
+
+            &:hover {
+                color: var(--green900);
+            }
+        }
+
+        &--clear-icon {
+            position: absolute;
+            top: 36px;
+            right: 15px;
+        }
+
+        &--input--error {
+            box-shadow: inset 0 0 0 1px var(--redDark);
+        }
+
+        &--error-message {
+            color: var(--redDark);
+            font-size: 13px;
+            margin-top: 8px;
+        }
+    }
+}

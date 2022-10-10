@@ -5,7 +5,7 @@ plan:
   key: AVBSPECS
   name: vpn-extension - build beta
 variables:
-  dockerNode: node:15.14.0-buster-slim
+  dockerNode: adguard/node-ssh:16.17--1
 
 stages:
   - Build:
@@ -37,8 +37,10 @@ Build:
           - |-
             set -x
             set -e
+
             # Fix mixed logs
             exec 2>&1
+
             ls -alt
 
             yarn install ${bamboo.varsYarn}
@@ -50,6 +52,7 @@ Build:
             export VPN_API_URL="${bamboo.prodVpnApiUrl}"
             export AUTH_API_URL="${bamboo.prodAuthApiUrl}"
             export FORWARDER_DOMAIN="${bamboo.prodVpnForwarderDomain}"
+            export WHOAMI_URL="${bamboo.prodVpnWhoamiUrl}"
             export CREDENTIALS_PASSWORD="${bamboo.extensionsPassphrase}"
 
             # build with prod API endpoints edge.zip, chrome.zip, firefox.zip, opera.zip
@@ -57,6 +60,10 @@ Build:
 
             # build artifacts chrome.crx, firefox.xpi
             yarn artifacts:beta
+
+            # build source code for uploading to amo
+            git ls-files | zip -@ build/beta/source.zip
+
             rm -rf node_modules
     - inject-variables:
         file: build/beta/build.txt
@@ -88,11 +95,6 @@ Build:
       pattern: firefox.zip
       shared: true
       required: true
-    - name: build.txt
-      location: build/beta
-      pattern: build.txt
-      shared: true
-      required: true
     - name: chrome.crx
       location: build/beta
       pattern: chrome.crx
@@ -111,6 +113,16 @@ Build:
     - name: update.json
       location: build/beta
       pattern: update.json
+      shared: true
+      required: true
+    - name: source.zip
+      location: build/beta
+      pattern: source.zip
+      shared: true
+      required: true
+    - name: build.txt
+      location: build/beta
+      pattern: build.txt
       shared: true
       required: true
   requirements:

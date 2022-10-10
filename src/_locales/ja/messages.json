@@ -240,22 +240,73 @@
         "message": "無料データ量"
     },
     "referral_get_free_traffic": {
-        "message": "無料データ量をGET！"
+        "message": "無料GBをGET！"
     },
     "settings_referral_info": {
-        "message": "お友だちをAdGuard VPN部に招待して、無料月間通信量を増やしましょう。お友だちが登録すると、1人につき%your_gb%GBが招待した方にプレゼントされ、さらに、招待されたお友だちにも%friend_gb%GBがプラスされます。※招待する方は最大%total_gb%GBの無料通信量を取得できます。"
+        "message": "お友だちをAdGuard VPN部に招待して、無料月間通信量を増やしましょう。お友だちが登録すると、1人につき%your_gb%GBが招待した方にプレゼントされ、さらに、招待されたお友だちにも%friend_gb%GBがプラスされます。"
     },
     "settings_referral_invited_friends": {
         "message": "招待済みお友だち数: %count%/%limit%"
     },
-    "settings_referral_limit_reached": {
-        "message": "お客様はすでに%your_gb%GBの無料通信量を受け取っています。しかし、これからさらにお友だちを招待いただく場合、お友だちはそのまま1人%friend_gb%GBの無料通信量を受け取ることができます。"
+    "settings_referral_invite_link": {
+        "message": "招待リンク"
     },
     "settings_referral_copy_link": {
-        "message": "リンクをコピー"
+        "message": "招待リンクをコピーする"
     },
     "settings_referral_link_copied": {
-        "message": "リンクコピー済み"
+        "message": "招待状リンクをクリップボードにコピー済み"
+    },
+    "settings_free_gbs": {
+        "message": "無料GB"
+    },
+    "settings_free_gbs_subtitle": {
+        "message": "簡単なタスクを完了して、無料のVPNトラフィックを手に入れよう！"
+    },
+    "settings_free_gbs_confirm_email_title": {
+        "message": "メールアドレスを認証する"
+    },
+    "settings_free_gbs_get_GB": {
+        "message": "%num%GBをGET"
+    },
+    "settings_free_gbs_task_complete": {
+        "message": "%num%GBを取得しました。"
+    },
+    "settings_free_gbs_confirm_email_info": {
+        "message": "登録時に送信された確認用メール内のリンクをクリックし、 %your_gb%GBの無料VPNトラフィックを取得できます。確認用メールを受信箱にて見つけることができない場合は、下のボタンをクリックしてください。"
+    },
+    "settings_free_gbs_confirm_email_resend_link_button": {
+        "message": "リンクを再送信する"
+    },
+    "settings_free_gbs_add_device_title": {
+        "message": "もう1台の端末を追加する"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "AdGuard VPNをもう1台のデバイスにインストールし、そのデバイスでAdGuardアカウントにログインしますと、%your_gb%GBを取得できます。"
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "デバイスが追加されました。"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "AdGuard VPNを複数のデバイスにインストールすることができ、おめでとうございます。安全にお過ごしください。"
+    },
+    "settings_free_gbs_add_device_products_button": {
+        "message": "製品一覧へ移動する"
+    },
+    "settings_free_gbs_invite_friend": {
+        "message": "友達を招待する"
+    },
+    "settings_free_gbs_invite_friend_get_GB": {
+        "message": "最大%num%GBをGET"
+    },
+    "settings_free_gbs_invite_friend_complete": {
+        "message": "%num%GBを取得しました。"
+    },
+    "settings_free_gbs_invite_friend_completed_thank_you": {
+        "message": "すべての招待券を使用していただき、ありがとうございます！"
+    },
+    "settings_free_gbs_go_back": {
+        "message": "戻る"
     },
     "settings_rate_us": {
         "message": "ご評価いただければ幸いです。"
@@ -282,7 +333,52 @@
         "message": "レギュラーモード"
     },
     "settings_dns_label": {
-        "message": "DNSサーバーを使用する"
+        "message": "DNSサーバー"
+    },
+    "settings_dns_popular_servers": {
+        "message": "人気なDNSサーバー"
+    },
+    "settings_dns_custom_servers": {
+        "message": "カスタムDNSサーバー"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "カスタムDNSサーバーを追加する"
+    },
+    "settings_dns_edit_custom_server": {
+        "message": "カスタムDNSサーバーを編集"
+    },
+    "settings_dns_add_custom_server_info": {
+        "message": "DNSサーバーについて、<a>詳しくはこちら</a>"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "サーバー名"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "サーバー名"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "DNSサーバアドレス"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IPまたはTLS"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "DNSサーバーアドレスが無効です"
+    },
+    "settings_dns_add_custom_server_duplicate_address": {
+        "message": "このDNSサーバーはすでに追加されています"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "保存して選択"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "保存"
+    },
+    "settings_dns_add_custom_server_notification_success": {
+        "message": "カスタムDNSサーバーが追加されました。"
+    },
+    "settings_dns_delete_custom_server_notification": {
+        "message": "カスタムDNSサーバーは削除されました。"
     },
     "settings_dns_desc": {
         "message": "ドメインネームシステム（DNS）とは、インターネットにおける電話帳のようなものです。DNSはドメイン名のディレクトリを維持しつつ、ドメイン名をインターネットプロトコル（IP）アドレスに変換します。"
@@ -291,7 +387,7 @@
         "message": "デフォルト"
     },
     "settings_dns_selector_default_desc": {
-        "message": "VPN接続時、デフォルトDNSサーバーを自動的に使用する"
+        "message": "AdGuard VPNが提供するDNSサーバーです。"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -446,20 +542,26 @@
     "settings_exclusion_title": {
         "message": "VPN対象からの除外"
     },
-    "settings_exclusion_change_mode": {
-        "message": "モードを変更する"
+    "settings_exclusion_change_mode_modal_title": {
+        "message": "VPNがオンになっている場所"
     },
     "settings_exclusion_general_title": {
-        "message": "レギュラーモード"
+        "message": "除外されたウェブサイト以外、どこでも機能"
     },
-    "settings_exclusion_general_description": {
-        "message": "対象外リストのウェブサイトに対してAdGuard VPNはオフになります。"
+    "settings_exclusion_general_mode_info": {
+        "message": "VPNは、以下のウェブサイト以外<span>どこでも</span>機能します。"
     },
     "settings_exclusion_selective_title": {
-        "message": "指定モード"
+        "message": "指定されているウェブサイトに対してのみ機能"
     },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPNは以下の除外リストのウェブサイトに対してのみオンになります。"
+    "settings_exclusion_selective_mode_info": {
+        "message": "VPNは、以下のウェブサイト<span>だけで</span>機能します。"
+    },
+    "settings_exclusion_selective_mode_warning": {
+        "message": "このリストを空にすると、すべてのWebサイトに対してVPNが無効になります。"
+    },
+    "settings_exclusion_import_button": {
+        "message": "インポート"
     },
     "global_error_title": {
         "message": "エラーが発生しました。"
@@ -594,7 +696,7 @@
         "message": "オフライン"
     },
     "popup_site_status_unaccessible": {
-        "message": "ローカルネットワークにあり、VPN経由ではアクセスできません。"
+        "message": "このサイトはローカルネットワークにあり、VPN経由ではアクセスできません。"
     },
     "popup_site_status_vpn_disabled": {
         "message": "このサイトに対してVPNは無効になっています。"
@@ -621,23 +723,23 @@
     "popup_newsletter_no_subscribe": {
         "message": "いいえ、結構"
     },
-    "popup_onboarding_trusted_vpn": {
-        "message": "信頼されているVPN"
+    "popup_onboarding_unique_protocol": {
+        "message": "独自開発のVPNプロトコル"
     },
-    "popup_onboarding_trusted_vpn_info": {
-        "message": "有名な広告ブロッカー『AdGuard』の開発者が開発したVPNサービス。"
+    "popup_onboarding_unique_protocol_info": {
+        "message": "AdGuard VPNプロトコルは高速に動作し、VPNトラフィックを目立たなくさせます。"
     },
-    "popup_onboarding_numerous_locations": {
-        "message": "多数のロケーション"
+    "popup_onboarding_sites_apps_exclusions": {
+        "message": "サイトとアプリの除外（VPN対象外リスト）"
     },
-    "popup_onboarding_numerous_locations_info": {
-        "message": "世界中にある数多くのサーバーに接続できます。"
+    "popup_onboarding_sites_apps_exclusions_info": {
+        "message": "AdGuard VPNの対象となるサイトやアプリを簡単に指定できる除外機能です。"
     },
-    "popup_onboarding_fastest_servers": {
-        "message": "最速サーバー"
+    "popup_onboarding_no_logging_policy": {
+        "message": "ログ一切なしポリシー"
     },
-    "popup_onboarding_fastest_servers_info": {
-        "message": "最高の接続速度を確保するために、常に最先端の技術を使用しています。"
+    "popup_onboarding_no_logging_policy_info": {
+        "message": "AdGuard VPNはあなたを匿名にします。データ・個人情報を収集したり、第三者と共有することは一切ありません。"
     },
     "popup_onboarding_next": {
         "message": "次へ"
@@ -680,13 +782,16 @@
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
-        "message": "除外のインポート先:"
+        "message": "この対象外リストの使い方は？"
+    },
+    "options_exclusions_import_select_subtitle": {
+        "message": "インポートされたリストのウェブサイトは、既存の対象外リストに追加されます。"
     },
     "options_exclusions_import_select_regular": {
-        "message": "レギュラーリスト"
+        "message": "これらのWebサイトに対してVPNをオフにしたい"
     },
     "options_exclusions_import_select_selective": {
-        "message": "指定リスト"
+        "message": "これらのWebサイトに対してVPNをオンにしたい"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "キャンセル"
@@ -765,5 +870,26 @@
     },
     "notification_data_left_description": {
         "message": "VPN接続速度はまもなく低速化します。"
+    },
+    "confirm_email_title": {
+        "message": "メールアドレスを認証する"
+    },
+    "confirm_email_info": {
+        "message": "無料のVPNトラフィックを取得するには、メールアドレスを認証してください。確認用リンクは次のメールアドレスに送信しました:"
+    },
+    "confirm_email_done_title": {
+        "message": "メールアドレス確認完了"
+    },
+    "confirm_email_done_info": {
+        "message": "認証いただきありがとうございます。"
+    },
+    "confirm_email_close_button": {
+        "message": "閉じる"
+    },
+    "confirm_email_resend_link_button": {
+        "message": "リンクを再送信する"
+    },
+    "resend_confirm_registration_link_notification": {
+        "message": "確認用リンクが再送信されました。"
     }
 }

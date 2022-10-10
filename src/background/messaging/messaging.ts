@@ -1,30 +1,32 @@
 import browser, { Runtime } from 'webextension-polyfill';
 
-import { MessageType, SETTINGS_IDS } from '../lib/constants';
-import auth from './auth';
-import popupData from './popupData';
-import { endpoints } from './endpoints';
-import actions from './actions';
-import credentials from './credentials';
-import authCache from './authentication/authCache';
-import appStatus from './appStatus';
-import { settings } from './settings';
-import { exclusions } from './exclusions';
-import management from './management';
-import permissionsError from './permissionsChecker/permissionsError';
-import permissionsChecker from './permissionsChecker';
-import { log } from '../lib/logger';
-import notifier from '../lib/notifier';
-import { locationsService } from './endpoints/locationsService';
-import { promoNotifications } from './promoNotifications';
-import tabs from './tabs';
-import { vpnProvider } from './providers/vpnProvider';
-import accountProvider from './providers/accountProvider';
-import { logStorage } from '../lib/log-storage';
-import { setDesktopVpnEnabled } from './connectivity/connectivityService/connectivityFSM';
-import { flagsStorage } from './flagsStorage';
-import { ExclusionsData, ServiceDto } from '../common/exclusionsConstants';
-import { rateModal } from './rateModal';
+import { MessageType, SETTINGS_IDS } from '../../lib/constants';
+import auth from '../auth';
+import popupData from '../popupData';
+import { endpoints } from '../endpoints';
+import actions from '../actions';
+import credentials from '../credentials';
+import authCache from '../authentication/authCache';
+import appStatus from '../appStatus';
+import { settings } from '../settings';
+import { exclusions } from '../exclusions';
+import management from '../management';
+import permissionsError from '../permissionsChecker/permissionsError';
+import permissionsChecker from '../permissionsChecker';
+import { log } from '../../lib/logger';
+import { notifier } from '../../lib/notifier';
+import { locationsService } from '../endpoints/locationsService';
+import { promoNotifications } from '../promoNotifications';
+import tabs from '../tabs';
+import { vpnProvider } from '../providers/vpnProvider';
+import accountProvider from '../providers/accountProvider';
+import { logStorage } from '../../lib/log-storage';
+import { setDesktopVpnEnabled } from '../connectivity/connectivityService/connectivityFSM';
+import { flagsStorage } from '../flagsStorage';
+import { ExclusionsData, ServiceDto } from '../../common/exclusionsConstants';
+import { rateModal } from '../rateModal';
+import { dns } from '../dns';
+import { StartSocialAuthData, UserLookupData } from './messagingTypes';
 
 interface Message {
     type: MessageType,
@@ -50,6 +52,7 @@ const getOptionsData = async () => {
     const appearanceTheme = settings.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
     const vpnInfo = await endpoints.getVpnInfo();
     const maxDevicesCount = vpnInfo?.maxDevicesCount;
+    const customDnsServers = settings.getCustomDnsServers();
 
     const exclusionsData: ExclusionsData = {
         exclusions: exclusions.getExclusions(),
@@ -86,6 +89,7 @@ const getOptionsData = async () => {
         isAllExclusionsListsEmpty,
         maxDevicesCount,
         subscriptionType,
+        customDnsServers,
     };
 };
 
@@ -225,7 +229,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             return exclusions.clearExclusionsData();
         }
         case MessageType.CHECK_EMAIL: {
-            const { email } = data;
+            const { email } = data as UserLookupData;
             const appId = await credentials.getAppId();
             return auth.userLookup(email, appId);
         }
@@ -234,15 +238,15 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             break;
         }
         case MessageType.REGISTER_USER: {
-            const { credentials } = data;
-            return auth.register(credentials);
+            const appId = await credentials.getAppId();
+            return auth.register({ ...data.credentials, appId });
         }
         case MessageType.IS_AUTHENTICATED: {
             return auth.isAuthenticated();
         }
         case MessageType.START_SOCIAL_AUTH: {
-            const { social, marketingConsent } = data;
-            return auth.startSocialAuth(social, marketingConsent);
+            const { provider, marketingConsent } = data as StartSocialAuthData;
+            return auth.startSocialAuth(provider, marketingConsent);
         }
         case MessageType.CLEAR_PERMISSIONS_ERROR: {
             permissionsError.clearError();
@@ -360,10 +364,23 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         case MessageType.RESTORE_EXCLUSIONS: {
             return exclusions.restoreExclusions();
         }
+        case MessageType.ADD_CUSTOM_DNS_SERVER: {
+            return dns.addCustomDnsServer(data.dnsServerData);
+        }
+        case MessageType.EDIT_CUSTOM_DNS_SERVER: {
+            dns.editCustomDnsServer(data.dnsServerData);
+            return settings.getCustomDnsServers();
+        }
+        case MessageType.REMOVE_CUSTOM_DNS_SERVER: {
+            return dns.removeCustomDnsServer(data.dnsServerId);
+        }
         case MessageType.RESEND_CONFIRM_REGISTRATION_LINK: {
             const { displayNotification } = data;
             const accessToken = await auth.getAccessToken();
             return accountProvider.resendConfirmRegistrationLink(accessToken, displayNotification);
+        }
+        case MessageType.RESTORE_CUSTOM_DNS_SERVERS_DATA: {
+            return dns.restoreCustomDnsServersData();
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);
@@ -407,6 +424,6 @@ const init = () => {
     browser.runtime.onConnect.addListener(longLivedMessageHandler);
 };
 
-export default {
+export const messaging = {
     init,
 };

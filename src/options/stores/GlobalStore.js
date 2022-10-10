@@ -4,12 +4,12 @@ import {
     observable,
 } from 'mobx';
 
-import { REQUEST_STATUSES } from './consts';
+import { RequestStatus } from './consts';
 import { log } from '../../lib/logger';
 import { messenger } from '../../lib/messenger';
 
 export class GlobalStore {
-    @observable initStatus = REQUEST_STATUSES.PENDING;
+    @observable initStatus = RequestStatus.Pending;
 
     constructor(rootStore) {
         this.rootStore = rootStore;
@@ -18,7 +18,7 @@ export class GlobalStore {
     @action
     async getOptionsData() {
         const { rootStore: { settingsStore, authStore, exclusionsStore } } = this;
-        this.setInitStatus(REQUEST_STATUSES.PENDING);
+        this.setInitStatus(RequestStatus.Pending);
 
         try {
             const optionsData = await messenger.getOptionsData();
@@ -29,10 +29,10 @@ export class GlobalStore {
             exclusionsStore.setServicesData(optionsData.servicesData);
             exclusionsStore.setExclusionsData(optionsData.exclusionsData);
             exclusionsStore.setIsAllExclusionsListsEmpty(optionsData.isAllExclusionsListsEmpty);
-            this.setInitStatus(REQUEST_STATUSES.DONE);
+            this.setInitStatus(RequestStatus.Done);
         } catch (e) {
             log.error(e.message);
-            this.setInitStatus(REQUEST_STATUSES.ERROR);
+            this.setInitStatus(RequestStatus.Error);
         }
     }
 

@@ -1,6 +1,6 @@
 import browser from 'webextension-polyfill';
 
-import { Prefs, BROWSER_NAMES } from './prefs';
+import { Prefs } from './prefs';
 import { log } from '../lib/logger';
 import { promoNotifications } from './promoNotifications';
 import credentials from './credentials';
@@ -15,25 +15,30 @@ import { settings } from './settings';
  * @return {Promise<void>}
  */
 const openOptionsPage = async (anchorName = null) => {
-    const optionsUrl = browser.runtime.getURL('options.html');
+    const manifest = browser.runtime.getManifest();
+    let optionsUrl = manifest.options_ui?.page || manifest.options_page;
+    if (!optionsUrl.includes('://')) {
+        optionsUrl = browser.runtime.getURL(optionsUrl);
+    }
+
     const theme = settings.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
     const anchor = anchorName ? `#${anchorName}` : '';
     const targetUrl = `${optionsUrl}?${THEME_URL_PARAMETER}=${theme}${anchor}`;
 
-    if (Prefs.browser === BROWSER_NAMES.FIREFOX) {
-        // runtime.openOptionsPage() sometimes causes issue with multiple
-        // options tabs in Firefox, so tabs.query() is used to find options tab by url
-        const optionsTab = await tabs.getTabByUrl(optionsUrl);
-        if (optionsTab) {
-            await tabs.update(optionsTab.id, targetUrl);
-        } else {
-            await tabs.openTab(targetUrl);
-        }
+    // there is the bug with chrome.runtime.openOptionsPage() method
+    // https://bugs.chromium.org/p/chromium/issues/detail?id=1369940
+    // we use temporary solution to open а single options page
+    const view = browser.extension.getViews()
+        .find((wnd) => wnd.location.href.startsWith(optionsUrl));
+    if (view) {
+        await new Promise((resolve) => {
+            view.chrome.tabs.getCurrent(async (tab) => {
+                await browser.tabs.update(tab.id, { active: true, url: targetUrl });
+                resolve();
+            });
+        });
     } else {
-        // runtime.openOptionsPage() could be used properly in other browsers
-        await browser.runtime.openOptionsPage();
-        const optionsTab = tabs.getActive();
-        await tabs.update(optionsTab.id, targetUrl);
+        await browser.tabs.create({ url: targetUrl });
     }
 };
 

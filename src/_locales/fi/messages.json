@@ -131,6 +131,15 @@
     "account_unlimited": {
         "message": "Rajaton tilaus"
     },
+    "account_monthly_paid": {
+        "message": "Kuukausittain maksettava tilaus"
+    },
+    "account_yearly_paid": {
+        "message": "Vuosittain maksettava tilaus"
+    },
+    "account_two_year_paid": {
+        "message": "Joka toinen vuosi maksettava tilaus"
+    },
     "account_get_subscription": {
         "message": "Hanki tilaus"
     },
@@ -231,22 +240,73 @@
         "message": "Ilmaista VPN-tiedonsiirtoa"
     },
     "referral_get_free_traffic": {
-        "message": "Hanki ilmaista VPN-tiedonsiirtoa!"
+        "message": "Ansaitse ilmaisia gigatavuja!"
     },
     "settings_referral_info": {
-        "message": "Kutsu kaverit mukaan ninjaklaaniimme ja saat lisää ilmaista kuukausittaista VPN-tiedonsiirtoa! Saat jokaisesta rekisteröityneestä kaverista %your_gb% Gt ja he saavat myös %friend_gb% Gt ilmaiseksi! Voit ansaita ilmaista tiedonsiirtoa kaikkiaan %total_gb% Gt."
+        "message": "Ansaitset jokaisesta kutsusi välityksellä rekisteröityvästä kaverista %your_gb% Gt kuukaudeksi ja voit ansaita kaikkiaan %total_gb% Gt. Kaverisi saa myös %friend_gb% Gt enemmän veloituksetta."
     },
     "settings_referral_invited_friends": {
         "message": "Kavereita kutsuttu %count%/%limit%"
     },
-    "settings_referral_limit_reached": {
-        "message": "Olet jo saanut kaikki %your_gb% Gt ilmaisesta VPN-tiedonsiirrostasi. Kaverisi voivat kuitenkin saada %friend_gb% Gt enemmän ilmaista VPN-tiedonsiirtoa, jos kutsut heidät!"
+    "settings_referral_invite_link": {
+        "message": "Kutsulinkki"
     },
     "settings_referral_copy_link": {
-        "message": "Kopioi linkki"
+        "message": "Kopioi kutsulinkki"
     },
     "settings_referral_link_copied": {
-        "message": "Linkki kopioitiin"
+        "message": "Kutsulinkki kopioitiin leikepöydälle"
+    },
+    "settings_free_gbs": {
+        "message": "Ilmaiset gigatavut"
+    },
+    "settings_free_gbs_subtitle": {
+        "message": "Suorita tehtävät ansaitaksesi ilmaista VPN-tietoliikennettä!"
+    },
+    "settings_free_gbs_confirm_email_title": {
+        "message": "Vahvista sähköpostiosoitteesi"
+    },
+    "settings_free_gbs_get_GB": {
+        "message": "Hanki %num% gigatavua"
+    },
+    "settings_free_gbs_task_complete": {
+        "message": "Sait %num% gigatavua"
+    },
+    "settings_free_gbs_confirm_email_info": {
+        "message": "Paina rekisteröitymisen yhteydessä sähköpostitse saamasi viestin vahvistuslinkkiä, saadaksesi %your_gb% Gt ilmaista VPN-tietoliikennettä. Jollet löydä viestiä, paina alla olevaa painiketta."
+    },
+    "settings_free_gbs_confirm_email_resend_link_button": {
+        "message": "Lähetä linkki uudelleen"
+    },
+    "settings_free_gbs_add_device_title": {
+        "message": "Lisää uusi laite"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "Asenna AdGuard VPN uudelle laitteelle ja kirjaudu AdGuard-tilillesi niin saat %your_gb% Gt"
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "Laitteita lisätty"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "Onnittelut AdGuard VPN:n asennuksesta useille laitteille. Pysy turvassa!"
+    },
+    "settings_free_gbs_add_device_products_button": {
+        "message": "Tutustu tuotteisiimme"
+    },
+    "settings_free_gbs_invite_friend": {
+        "message": "Kutsu kaveri"
+    },
+    "settings_free_gbs_invite_friend_get_GB": {
+        "message": "Hanki jopa %num% gigatavua"
+    },
+    "settings_free_gbs_invite_friend_complete": {
+        "message": "Sait %num% gigatavua"
+    },
+    "settings_free_gbs_invite_friend_completed_thank_you": {
+        "message": "Kiitos kaikkien kutsujesi käytöstä!"
+    },
+    "settings_free_gbs_go_back": {
+        "message": "Palaa takaisin"
     },
     "settings_rate_us": {
         "message": "Arvostele meidät"
@@ -275,6 +335,48 @@
     "settings_dns_label": {
         "message": "DNS-palvelin"
     },
+    "settings_dns_popular_servers": {
+        "message": "Suosittuja DNS-palvelimia"
+    },
+    "settings_dns_custom_servers": {
+        "message": "Omat DNS-palvelimet"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "Lisää oma DNS-palvelin"
+    },
+    "settings_dns_edit_custom_server": {
+        "message": "Muokkaa omaa DNS-palvelinta"
+    },
+    "settings_dns_add_custom_server_info": {
+        "message": "<a>Lue lisää</a> DNS-palvelimista"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "Palvelimen nimi"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Palvelimen nimi"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "DNS-palvelimen osoite"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP tai TLS"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "Virheellinen DNS-palvelimen osoite"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "Tallenna ja valitse"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "Tallenna"
+    },
+    "settings_dns_add_custom_server_notification_success": {
+        "message": "Oma DNS-palvelin lisättiin"
+    },
+    "settings_dns_delete_custom_server_notification": {
+        "message": "Oma DNS-palvelin poistettiin"
+    },
     "settings_dns_desc": {
         "message": "Verkkotunnusjärjestelmä (DNS) on Internetin vastine puhelinluettelolle. Se sisältää hakemiston verkkotunnuksista ja muuttaa ne IP-osoitteiksi."
     },
@@ -282,7 +384,7 @@
         "message": "Oletus"
     },
     "settings_dns_selector_default_desc": {
-        "message": "Käytä oletusarvoisia DNS-palvelimia automaattisesti kun VPN on yhdistetty"
+        "message": "Käytä AdGuard VPN:n DNS-palvelimia"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -437,20 +539,26 @@
     "settings_exclusion_title": {
         "message": "Poikkeukset"
     },
-    "settings_exclusion_change_mode": {
-        "message": "Vaihda tilaa"
+    "settings_exclusion_change_mode_modal_title": {
+        "message": "Missä VPN-yhteyttä käytetään"
     },
     "settings_exclusion_general_title": {
-        "message": "Tavallinen tila"
+        "message": "Kaikkialla paitsi poikkeuksiin lisätyillä verkkosivustoilla"
     },
-    "settings_exclusion_general_description": {
-        "message": "AdGuard VPN on käytössä kaikkialla, paitsi poikkeuksiin lisätyillä verkkosivustoilla."
+    "settings_exclusion_general_mode_info": {
+        "message": "VPN on käytössä <span>kaikkialla</span> paitsi alla olevilla verkkosivustoilla"
     },
     "settings_exclusion_selective_title": {
-        "message": "Valikoiva tila"
+        "message": "Vain valituilla verkkosivustoilla"
     },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN on käytössä vain poikkeuksiin lisätyillä verkkosivustoilla."
+    "settings_exclusion_selective_mode_info": {
+        "message": "VPN on käytössä <span>valikoivasti</span> vain alla olevilla verkkosivustoilla"
+    },
+    "settings_exclusion_selective_mode_warning": {
+        "message": "Tämän listauksen jättö tyhjäksi poistaa VPN:n käytöstä kaikilla verkkosivustoilla"
+    },
+    "settings_exclusion_import_button": {
+        "message": "Tuo"
     },
     "global_error_title": {
         "message": "Tapahtui virhe"
@@ -516,7 +624,7 @@
         "message": "Sijaintia ei löytynyt"
     },
     "popup_traffic_limit_reached": {
-        "message": "Kuukausittainen tiedonsiirtomäärä on saavutettu"
+        "message": "Kuukausittainen tiedonsiirtorajoitus on saavutettu"
     },
     "premium_upgrade": {
         "message": "Tilaa nyt"
@@ -585,13 +693,13 @@
         "message": "Ei yhteyttä"
     },
     "popup_site_status_unaccessible": {
-        "message": "sijaitsee paikallisessa lähiverkossa eikä siten ole tavoitettavissa VPN-yhteyden kautta"
+        "message": "sijaitsee paikallisessa lähiverkossa eikä siten ole tavoitettavissa VPN-yhteyden välityksellä"
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN ei ole käytössä tällä sivustolla"
     },
     "popup_auth_policy_agreement": {
-        "message": "Olen lukenut ja hyväksyn AdGuardin <eula>EULA</eula>n ja <privacy>tietosuojakäytännön</privacy>",
+        "message": "Olen lukenut ja hyväksyn AdGuardin <eula>EULA</eula>:n ja <privacy>tietosuojakäytännön</privacy>",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
@@ -612,23 +720,23 @@
     "popup_newsletter_no_subscribe": {
         "message": "Ei kiitos"
     },
-    "popup_onboarding_trusted_vpn": {
-        "message": "Luotettu VPN"
+    "popup_onboarding_unique_protocol": {
+        "message": "Ainutlaatuinen VPN-protokolla"
     },
-    "popup_onboarding_trusted_vpn_info": {
-        "message": "Maailmankuulun mainoseston kehittäjältä"
+    "popup_onboarding_unique_protocol_info": {
+        "message": "AdGuardin VPN-protokolla toimii nopeasti ja tekee VPN-tietoliikenteestäsi huomaamatonta"
     },
-    "popup_onboarding_numerous_locations": {
-        "message": "Lukuisia sijainteja"
+    "popup_onboarding_sites_apps_exclusions": {
+        "message": "Sivusto- ja sovelluspoikkeukset"
     },
-    "popup_onboarding_numerous_locations_info": {
-        "message": "Yhdistä mihin tahansa palvelimistamme maailmalla"
+    "popup_onboarding_sites_apps_exclusions_info": {
+        "message": "Poikkeussääntöjen avulla voidaan nopeasti määrittää AdGuard VPN:llä suojattavat sivustot ja sovellukset"
     },
-    "popup_onboarding_fastest_servers": {
-        "message": "Nopeimmat palvelimet"
+    "popup_onboarding_no_logging_policy": {
+        "message": "Ei lokitietoja"
     },
-    "popup_onboarding_fastest_servers_info": {
-        "message": "Käytämme huipputeknologiaa taataksemme korkeimman yhteysnopeuden"
+    "popup_onboarding_no_logging_policy_info": {
+        "message": "AdGuard VPN tekee sinusta anonyymin, eikä se koskaan kerää tietojasi tai jaa niitä ulkopuolisille"
     },
     "popup_onboarding_next": {
         "message": "Seuraava"
@@ -671,13 +779,16 @@
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
-        "message": "Poikkeusten tuotikohde:"
+        "message": "Miten tätä poikkeuslistaa käytetään?"
+    },
+    "options_exclusions_import_select_subtitle": {
+        "message": "Tuodon listauksen verkkosivustot lisätään olemassa oleviin poikkeuksiin"
     },
     "options_exclusions_import_select_regular": {
-        "message": "Tavallisen lista"
+        "message": "Haluan, ettei VPN-yhteyttä käytetä näillä verkkosivustoilla"
     },
     "options_exclusions_import_select_selective": {
-        "message": "Valikoivan lista"
+        "message": "Haluan, että VPN-yhteyttä käytetään näillä verkkosivustoilla"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Peruuta"
@@ -746,7 +857,7 @@
         "message": "Huomioi: Et ole yhteydessä VPN:ään, eikä tietoliikennettäsi ole suojattu! Jatkaaksesi selausta yksityisesti, paina AdGuard VPN -kuvaketta ja kirjaudu uudelleen."
     },
     "notification_data_limit_reached_title": {
-        "message": "Kkuukausittainen tiedonsiirtoraja on saavutettu"
+        "message": "Kuukausittainen tiedonsiirtorajoitus on saavutettu"
     },
     "notification_data_limit_reached_description": {
         "message": "VPN-yhteyden nopeutta on alennettu."
@@ -756,5 +867,26 @@
     },
     "notification_data_left_description": {
         "message": "VPN-yhteyden nopeus alennetaan pian."
+    },
+    "confirm_email_title": {
+        "message": "Vahvista sähköpostiosoitteesi"
+    },
+    "confirm_email_info": {
+        "message": "Vahvista sähköpostiosoitteesi saadaksesi ilmaista VPN-liikennettä. Olemme lähettäneet vahvistuslinkin osoitteeseen"
+    },
+    "confirm_email_done_title": {
+        "message": "Sähköpostiosoite on vahvistettu"
+    },
+    "confirm_email_done_info": {
+        "message": "Kiitos vahvistuksesta!"
+    },
+    "confirm_email_close_button": {
+        "message": "Sulje"
+    },
+    "confirm_email_resend_link_button": {
+        "message": "Lähetä linkki uudelleen"
+    },
+    "resend_confirm_registration_link_notification": {
+        "message": "Vahvistuslinkki lähetettiin uudelleen"
     }
 }

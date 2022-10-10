@@ -1,7 +1,7 @@
 import qs from 'qs';
 import { nanoid } from 'nanoid';
 
-import authProvider from './providers/authProvider';
+import { authProvider } from './providers/authProvider';
 import browserApi from './browserApi';
 import tabs from './tabs';
 import { proxy } from './proxy';
@@ -11,36 +11,25 @@ import {
     AUTH_CLIENT_ID,
 } from './config';
 import { log } from '../lib/logger';
-import notifier from '../lib/notifier';
+import { notifier } from '../lib/notifier';
 import { translator } from '../common/translator';
 import { fallbackApi } from './api/fallbackApi';
 // eslint-disable-next-line import/no-cycle
 import { settings } from './settings';
-import { AUTH_PROVIDERS } from '../lib/constants';
+import { SocialAuthProvider } from '../lib/constants';
 import { flagsStorage } from './flagsStorage';
-
-interface AccessTokenInterface {
-    accessToken: string;
-    expiresIn: string;
-    tokenType: string;
-}
-
-interface CredentialsInterface {
-    username: string;
-    password: string;
-    twoFactor: string;
-}
+import { AuthAccessToken, AuthCredentials } from './api/apiTypes';
 
 interface AuthInterface {
-    authenticate(credentials: CredentialsInterface): Promise<{ status: string }>;
+    authenticate(credentials: AuthCredentials): Promise<{ status: string }>;
     isAuthenticated(turnOffProxy?: boolean): Promise<string | boolean>;
     startSocialAuth(socialProvider: string, marketingConsent: boolean): Promise<void>;
     getImplicitAuthUrl(socialProvider: string, marketingConsent: boolean): Promise<string>;
     authenticateSocial(queryString: string, tabId: number): Promise<void>;
-    authenticateThankYouPage(credentials: AccessTokenInterface, isNewUser: boolean): Promise<void>;
+    authenticateThankYouPage(credentials: AuthAccessToken, isNewUser: boolean): Promise<void>;
     deauthenticate(): Promise<void>;
     register(
-        credentials: CredentialsInterface,
+        credentials: AuthCredentials,
     ): Promise<{ status: string } | { error: string, field?: string }>;
     userLookup(
         email: string,
@@ -53,9 +42,9 @@ interface AuthInterface {
 class Auth implements AuthInterface {
     socialAuthState: string | null = null;
 
-    accessTokenData: AccessTokenInterface | null = null;
+    accessTokenData: AuthAccessToken | null = null;
 
-    async authenticate(credentials: CredentialsInterface): Promise<{ status: string }> {
+    async authenticate(credentials: AuthCredentials): Promise<{ status: string }> {
         // turn off proxy to be sure it is not enabled before authentication
         try {
             await proxy.turnOff();
@@ -87,7 +76,10 @@ class Auth implements AuthInterface {
         return accessToken;
     }
 
-    async startSocialAuth(socialProvider: string, marketingConsent: boolean): Promise<void> {
+    async startSocialAuth(
+        socialProvider: SocialAuthProvider,
+        marketingConsent: boolean,
+    ): Promise<void> {
         // turn off proxy to be sure it is not enabled before authentication
         try {
             await proxy.turnOff();
@@ -113,16 +105,16 @@ class Auth implements AuthInterface {
         };
 
         switch (socialProvider) {
-            case AUTH_PROVIDERS.GOOGLE: {
-                params.social_provider = AUTH_PROVIDERS.GOOGLE;
+            case SocialAuthProvider.Google: {
+                params.social_provider = SocialAuthProvider.Google;
                 break;
             }
-            case AUTH_PROVIDERS.FACEBOOK: {
-                params.social_provider = AUTH_PROVIDERS.FACEBOOK;
+            case SocialAuthProvider.Facebook: {
+                params.social_provider = SocialAuthProvider.Facebook;
                 break;
             }
-            case AUTH_PROVIDERS.APPLE: {
-                params.social_provider = AUTH_PROVIDERS.APPLE;
+            case SocialAuthProvider.Apple: {
+                params.social_provider = SocialAuthProvider.Apple;
                 break;
             }
             default:
@@ -159,7 +151,7 @@ class Auth implements AuthInterface {
         if (state && state === this.socialAuthState) {
             await this.setAccessToken({
                 accessToken,
-                expiresIn,
+                expiresIn: Number(expiresIn),
                 tokenType,
             });
             await tabs.closeTab(tabId);
@@ -179,7 +171,7 @@ class Auth implements AuthInterface {
      * @returns {Promise<void>}
      */
     async authenticateThankYouPage(
-        credentials: AccessTokenInterface,
+        credentials: AuthAccessToken,
         isNewUser: boolean,
     ): Promise<void> {
         const isAuthenticated = await this.isAuthenticated();
@@ -213,7 +205,7 @@ class Auth implements AuthInterface {
     }
 
     async register(
-        credentials: CredentialsInterface,
+        credentials: AuthCredentials,
     ): Promise<{ status: string } | { error: string, field?: string }> {
         const locale = navigator.language;
         let accessToken;
@@ -265,7 +257,7 @@ class Auth implements AuthInterface {
         return response;
     }
 
-    async setAccessToken(accessToken: AccessTokenInterface): Promise<void> {
+    async setAccessToken(accessToken: AuthAccessToken): Promise<void> {
         this.accessTokenData = accessToken;
         await browserApi.storage.set(AUTH_ACCESS_TOKEN_KEY, accessToken);
         notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
@@ -279,7 +271,7 @@ class Auth implements AuthInterface {
     /**
      * Returns access token
      * If no token is available turns off, except of when turnOffProxy flag is false
-     * @param {boolean} [turnOffProxy=true] - if false do not turns off proxy
+     * @param {boolean} [turnOffProxy=true] - if false do not turn off proxy
      * @returns {Promise<string>}
      */
     async getAccessToken(turnOffProxy = true): Promise<string> {
@@ -287,7 +279,7 @@ class Auth implements AuthInterface {
             return this.accessTokenData.accessToken;
         }
 
-        // if no access token, than try to get it from storage
+        // if no access token, then try to get it from storage
         const accessTokenData = await browserApi.storage.get(AUTH_ACCESS_TOKEN_KEY);
         if (accessTokenData && accessTokenData.accessToken) {
             this.accessTokenData = accessTokenData;

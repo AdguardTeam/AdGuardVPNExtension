@@ -9,7 +9,7 @@ import isNil from 'lodash/isNil';
 
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
 import { messenger } from '../../lib/messenger';
-import { SETTINGS_IDS, FLAGS_FIELDS } from '../../lib/constants';
+import { SETTINGS_IDS, FLAGS_FIELDS, SocialAuthProvider } from '../../lib/constants';
 import { translator } from '../../common/translator';
 
 const AUTH_STEPS = {
@@ -344,12 +344,12 @@ export class AuthStore {
         await messenger.deauthenticateUser();
     };
 
-    @action proceedAuthorization = async (provider: string) => {
+    @action proceedAuthorization = async (provider: SocialAuthProvider) => {
         await this.openSocialAuth(provider);
     };
 
-    @action openSocialAuth = async (social: string) => {
-        await messenger.startSocialAuth(social, this.marketingConsent);
+    @action openSocialAuth = async (provider: SocialAuthProvider) => {
+        await messenger.startSocialAuth(provider, !!this.marketingConsent);
         window.close();
     };
 

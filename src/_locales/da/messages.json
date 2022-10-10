@@ -240,22 +240,73 @@
         "message": "Gratis VPN-trafik"
     },
     "referral_get_free_traffic": {
-        "message": "Få gratis VPN-trafik!"
+        "message": "Få gratis GB!"
     },
     "settings_referral_info": {
-        "message": "Invitér venner til at deltage i vores ninja-klan og få mere gratis VPN-trafik i én måned. Modtag %your_gb% GB for hver ven, der tilmelder sig. De får også %friend_gb% GB ekstra gratis! Du (inviterende bruger) kan få maks. %total_gb% GB ekstra gratis."
+        "message": "Få %your_gb% GB gratis VPN-trafik i én måned for hver ven, der tilmelder sig via din invitation (op til %total_gb% GB i alt). Din ven får også én ekstra %friend_gb% GB gratis."
     },
     "settings_referral_invited_friends": {
         "message": "Inviterede venner %count%/%limit%"
     },
-    "settings_referral_limit_reached": {
-        "message": "Du har allerede modtaget dine %your_gb% GB gratis VPN-trafik, men dine venner kan stadig få %friend_gb% GB ekstra VPN-trafik gratis, hvis du inviterer dem!"
+    "settings_referral_invite_link": {
+        "message": "Invitationslink"
     },
     "settings_referral_copy_link": {
-        "message": "Kopiér link"
+        "message": "Kopiér invitationslink"
     },
     "settings_referral_link_copied": {
-        "message": "Link kopieret"
+        "message": "Invitationslink kopieret"
+    },
+    "settings_free_gbs": {
+        "message": "Gratis GB"
+    },
+    "settings_free_gbs_subtitle": {
+        "message": "Fuldfør opgaverne for at få gratis VPN-trafik!"
+    },
+    "settings_free_gbs_confirm_email_title": {
+        "message": "Bekræft din e-mail"
+    },
+    "settings_free_gbs_get_GB": {
+        "message": "Få %num% GB"
+    },
+    "settings_free_gbs_task_complete": {
+        "message": "Du har fået %num% GB"
+    },
+    "settings_free_gbs_confirm_email_info": {
+        "message": "Klik på bekræftelseslinket i e-mailen, som blev tilsendt ved tilmeldingen, og få %your_gb% GB gratis VPN-trafik. Er e-mailen utilgængelig, så klik på knappen nedenfor."
+    },
+    "settings_free_gbs_confirm_email_resend_link_button": {
+        "message": "Gensend link"
+    },
+    "settings_free_gbs_add_device_title": {
+        "message": "Tilføj en ny enhed"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "Installér AdGuard VPN på en enhed mere, log ind på AdGuard-kontoen fra den, og få %your_gb% GB"
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "Enheder tilføjet"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "Tillykke med installationen af AdGuard VPN på flere enheder. Pas på dig selv!"
+    },
+    "settings_free_gbs_add_device_products_button": {
+        "message": "Gå til Produkter"
+    },
+    "settings_free_gbs_invite_friend": {
+        "message": "Invitér en ven"
+    },
+    "settings_free_gbs_invite_friend_get_GB": {
+        "message": "Få op til %num% GB"
+    },
+    "settings_free_gbs_invite_friend_complete": {
+        "message": "Du har fået %num% GB"
+    },
+    "settings_free_gbs_invite_friend_completed_thank_you": {
+        "message": "Tak fordi du brugte alle dine invitationer!"
+    },
+    "settings_free_gbs_go_back": {
+        "message": "Gå tilbage"
     },
     "settings_rate_us": {
         "message": "Bedøm os"
@@ -282,7 +333,49 @@
         "message": "Generel tilstand"
     },
     "settings_dns_label": {
-        "message": "Brug DNS-server"
+        "message": "DNS-server"
+    },
+    "settings_dns_popular_servers": {
+        "message": "Populære DNS-servere"
+    },
+    "settings_dns_custom_servers": {
+        "message": "Tilpassede DNS-servere"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "Tilføj en bruger-DNS-server"
+    },
+    "settings_dns_edit_custom_server": {
+        "message": "Redigere tilpasset DNS-server"
+    },
+    "settings_dns_add_custom_server_info": {
+        "message": "<a>Læs mere</a> om DNS-servere"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "Servernavn"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Servernavn"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "DNS-serveradresse"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP eller TLS"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "Ugyldig DNS-serveradresse"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "Gem og vælg"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "Gem"
+    },
+    "settings_dns_add_custom_server_notification_success": {
+        "message": "Tilpasset DNS-server tilføjet"
+    },
+    "settings_dns_delete_custom_server_notification": {
+        "message": "Tilpasset DNS-server slettet"
     },
     "settings_dns_desc": {
         "message": "Domæne Navn System (DNS) servere er Internettets svar på en telefonbog. De opretholder et bibliotek med domænenavne og oversætter dem til Internet Protokol (IP) adresser."
@@ -291,7 +384,7 @@
         "message": "Standard"
     },
     "settings_dns_selector_default_desc": {
-        "message": "Brug automatisk standard DNS-servere, når tilsluttet VPN'et"
+        "message": "Bruger DNS-servere leveret af AdGuard VPN"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -446,20 +539,26 @@
     "settings_exclusion_title": {
         "message": "Undtagelser"
     },
-    "settings_exclusion_change_mode": {
-        "message": "Skift tilstand"
+    "settings_exclusion_change_mode_modal_title": {
+        "message": "Hvor VPN er aktivt"
     },
     "settings_exclusion_general_title": {
-        "message": "Generel tilstand"
+        "message": "Overalt, undtagen for udelukkede websteder"
     },
-    "settings_exclusion_general_description": {
-        "message": "AdGuard VPN er slået til overalt undtagen for websteder tilføjet Undtagelser"
+    "settings_exclusion_general_mode_info": {
+        "message": "VPN er aktivt <span>overalt</span> undtagen for webstederne nedenfor"
     },
     "settings_exclusion_selective_title": {
-        "message": "Selektiv tilstand"
+        "message": "Kun for valgte websteder"
     },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN fungerer kun for de websteder, som er føjet til undtagelser"
+    "settings_exclusion_selective_mode_info": {
+        "message": "VPN er kun aktivt <span>selektivt</span> for webstederne nedenfor"
+    },
+    "settings_exclusion_selective_mode_warning": {
+        "message": "Er denne liste tom, deaktiveres VPN for alle websteder"
+    },
+    "settings_exclusion_import_button": {
+        "message": "Importér"
     },
     "global_error_title": {
         "message": "Fejl opstået"
@@ -594,7 +693,7 @@
         "message": "Offline"
     },
     "popup_site_status_unaccessible": {
-        "message": "er placeret i dit lokale netværk og ikke tilgængeligt via VPN"
+        "message": "er placeret på dit lokalnetværk og er utilgængelig via VPN"
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN er deaktiveret på dette websted"
@@ -621,23 +720,23 @@
     "popup_newsletter_no_subscribe": {
         "message": "Nej tak"
     },
-    "popup_onboarding_trusted_vpn": {
-        "message": "Betroet VPN"
+    "popup_onboarding_unique_protocol": {
+        "message": "Unik VPN-protokol"
     },
-    "popup_onboarding_trusted_vpn_info": {
-        "message": "Fra udvikleren af den verdensberømt adblocker"
+    "popup_onboarding_unique_protocol_info": {
+        "message": "AdGuard VPN-protokollen fungerer hurtigt og gør VPN-trafik upåfaldende"
     },
-    "popup_onboarding_numerous_locations": {
-        "message": "Adskillige placeringer"
+    "popup_onboarding_sites_apps_exclusions": {
+        "message": "Undtagelser for websteder og apps"
     },
-    "popup_onboarding_numerous_locations_info": {
-        "message": "Opret forbindelse til enhver af vores servere verden over"
+    "popup_onboarding_sites_apps_exclusions_info": {
+        "message": "Undtagelser gør det hurtigt at angive websteder eller apps til AdGuard VPN-beskyttelse"
     },
-    "popup_onboarding_fastest_servers": {
-        "message": "Hurtigste servere"
+    "popup_onboarding_no_logging_policy": {
+        "message": "Nul logning-politik"
     },
-    "popup_onboarding_fastest_servers_info": {
-        "message": "Vi bruger banebrydende teknologier for at garantere den højeste forbindelseshastighed"
+    "popup_onboarding_no_logging_policy_info": {
+        "message": "AdGuard VPN gør dig anonym og indsamler eller deler aldrig dine data med tredjeparter"
     },
     "popup_onboarding_next": {
         "message": "Næste"
@@ -680,13 +779,16 @@
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
-        "message": "Importere undtagelser til:"
+        "message": "Hvordan bruges denne undtagelsesliste?"
+    },
+    "options_exclusions_import_select_subtitle": {
+        "message": "Websteder fra den importerede liste vil blive føjet til de eksisterende udelukkelser"
     },
     "options_exclusions_import_select_regular": {
-        "message": "Almindelig liste"
+        "message": "VPN ønskes slået fra for disse websteder"
     },
     "options_exclusions_import_select_selective": {
-        "message": "Selektiv liste"
+        "message": "VPN ønskes slået til for disse websteder"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Afbryd"
@@ -765,5 +867,26 @@
     },
     "notification_data_left_description": {
         "message": "VPN-forbindelseshastigheden reduceres snart."
+    },
+    "confirm_email_title": {
+        "message": "Bekræft din e-mail"
+    },
+    "confirm_email_info": {
+        "message": "For at få gratis VPN-trafik, så bekræft din e-mailadresse. Et bekræftelseslink er e-mailet til"
+    },
+    "confirm_email_done_title": {
+        "message": "E-mailadresse bekræftet"
+    },
+    "confirm_email_done_info": {
+        "message": "Tak for bekræftelsen!"
+    },
+    "confirm_email_close_button": {
+        "message": "Luk"
+    },
+    "confirm_email_resend_link_button": {
+        "message": "Gensend link"
+    },
+    "resend_confirm_registration_link_notification": {
+        "message": "Link sendt igen-bekræftelse"
     }
 }

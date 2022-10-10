@@ -5,27 +5,18 @@ deployment:
   source-plan: ADGEXT-AVRELEASESPECS
 release-naming: ${bamboo.inject.version}
 environments:
-  - Addons Mozilla
   - Chrome WebStore
+  - Addons Mozilla
+  - Edge Addons
   - GitHub
 
 Addons Mozilla:
-  docker:
-    image: adguard/node-ssh:15.14--5
-    volumes:
-      ${system.YARN_DIR}: "${bamboo.cacheYarn}"
-    # we use dns to avoid etimedout error when AMO is validating extension
-    docker-run-arguments: [ '--dns', '94.140.14.140' ]
   triggers: []
   tasks:
     - clean
     - checkout:
         repository: bamboo-deploy-publisher
         path: bamboo-deploy-publisher
-        force-clean-build: 'true'
-    - checkout:
-        repository: extensions-private
-        path: private
         force-clean-build: 'true'
     - artifact-download:
         artifacts:
@@ -41,11 +32,13 @@ Addons Mozilla:
             #!/bin/bash
             set -x
             set -e
+
             # Fix mixed logs
             exec 2>&1
+
             ls -la
 
-            EXTENSIONS_PASSPHRASE="${bamboo.extensionsPassphrase}" ./bamboo-deploy-publisher/deploy.sh adguard-vpn-amo
+            ./bamboo-deploy-publisher/deploy.sh adguard-vpn-amo
   final-tasks: []
   variables: {}
   requirements:
@@ -76,9 +69,50 @@ Chrome WebStore:
             #!/bin/bash
             set -x
             set -e
+
+            # Fix mixed logs
+            exec 2>&1
+
             ls -la
 
             ./bamboo-deploy-publisher/deploy.sh adguard-vpn-webstore-release
+  final-tasks: []
+  variables: {}
+  requirements:
+    - adg-docker: 'true'
+  notifications:
+    - events:
+        - deployment-started-and-finished
+      recipients:
+        - webhook:
+            name: Deploy webhook
+            url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa
+
+Edge Addons:
+  triggers: []
+  tasks:
+    - clean
+    - checkout:
+        repository: bamboo-deploy-publisher
+        path: bamboo-deploy-publisher
+        force-clean-build: 'true'
+    - artifact-download:
+        artifacts:
+          - {}
+    - script:
+        interpreter: SHELL
+        scripts:
+          - |-
+            #!/bin/bash
+            set -x
+            set -e
+
+            # Fix mixed logs
+            exec 2>&1
+
+            ls -la
+
+            ./bamboo-deploy-publisher/deploy.sh adguard-vpn-edge
   final-tasks: []
   variables: {}
   requirements:
@@ -109,6 +143,10 @@ GitHub:
             #!/bin/bash
             set -x
             set -e
+
+            # Fix mixed logs
+            exec 2>&1
+
             ls -la
 
             # publish to Github Releases

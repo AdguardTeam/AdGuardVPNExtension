@@ -1,10 +1,10 @@
 import { SettingsService } from './SettingsService';
 import browserApi from '../browserApi';
 import { log } from '../../lib/logger';
-import notifier from '../../lib/notifier';
+import { notifier } from '../../lib/notifier';
 import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT } from '../../lib/constants';
-import dns from '../dns/dns';
-import { DNS_DEFAULT } from '../dns/dnsConstants';
+import { dns } from '../dns';
+import { DEFAULT_DNS_SERVER } from '../dns/dnsConstants';
 import webrtc from '../browserApi/webrtc';
 import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
 import { EVENT } from '../connectivity/connectivityService/connectivityConstants';
@@ -15,11 +15,12 @@ const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.PREMIUM_FEATURES_SHOW]: true,
     [SETTINGS_IDS.EXCLUSIONS]: {},
     [SETTINGS_IDS.HANDLE_WEBRTC_ENABLED]: true,
-    [SETTINGS_IDS.SELECTED_DNS_SERVER]: DNS_DEFAULT,
+    [SETTINGS_IDS.SELECTED_DNS_SERVER]: DEFAULT_DNS_SERVER.id,
     [SETTINGS_IDS.CONTEXT_MENU_ENABLED]: true,
     [SETTINGS_IDS.POLICY_AGREEMENT]: false,
     [SETTINGS_IDS.HELP_US_IMPROVE]: false,
     [SETTINGS_IDS.APPEARANCE_THEME]: APPEARANCE_THEME_DEFAULT,
+    [SETTINGS_IDS.CUSTOM_DNS_SERVERS]: [],
 };
 
 const settingsService = new SettingsService(browserApi.storage, DEFAULT_SETTINGS);
@@ -128,8 +129,21 @@ const isContextMenuEnabled = () => {
     return settingsService.getSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED);
 };
 
+const getCustomDnsServers = () => {
+    return settingsService.getSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS);
+};
+
+const setCustomDnsServers = (dnsServersData) => {
+    return settingsService.setSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS, dnsServersData);
+};
+
+const getSelectedDnsServer = () => {
+    return settingsService.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER);
+};
+
 const init = async () => {
     await settingsService.init();
+    dns.init();
     log.info('Settings module is ready');
 };
 
@@ -146,4 +160,7 @@ export const settings = {
     getExclusions,
     setExclusions,
     isContextMenuEnabled,
+    getCustomDnsServers,
+    setCustomDnsServers,
+    getSelectedDnsServer,
 };

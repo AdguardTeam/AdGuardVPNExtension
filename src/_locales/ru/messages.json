@@ -240,22 +240,73 @@
         "message": "Бесплатный VPN-трафик"
     },
     "referral_get_free_traffic": {
-        "message": "Получите бесплатный VPN-трафик!"
+        "message": "Получите бесплатные ГБ!"
     },
     "settings_referral_info": {
-        "message": "Пригласите друзей присоединиться к нашему клану ниндзя и получите больше бесплатного VPN-трафика на месяц. %your_gb% ГБ вам и %friend_gb% ГБ каждому вашему другу, который зарегистрируется! Приглашая друзей, можно получить в сумме до %total_gb% бонусных ГБ."
+        "message": "Приглашайте друзей попробовать AdGuard VPN и получайте %your_gb% ГБ на месяц бесплатно за каждого друга, всего до %total_gb% ГБ. Ваш друг также получит %friend_gb% ГБ бесплатно."
     },
     "settings_referral_invited_friends": {
-        "message": "Приглашённые друзья %count%/%limit%"
+        "message": "Вы пригласили %count% из %limit% друзей"
     },
-    "settings_referral_limit_reached": {
-        "message": "Вы уже получили %your_gb% ГБ бесплатного VPN-трафика. Но ваши друзья всё ещё могут получить %friend_gb% ГБ дополнительного VPN-трафика в подарок, если вы пригласите их!"
+    "settings_referral_invite_link": {
+        "message": "Ссылка для приглашения"
     },
     "settings_referral_copy_link": {
         "message": "Скопировать ссылку"
     },
     "settings_referral_link_copied": {
         "message": "Ссылка скопирована"
+    },
+    "settings_free_gbs": {
+        "message": "Бесплатные ГБ"
+    },
+    "settings_free_gbs_subtitle": {
+        "message": "Получайте бесплатный трафик за задания"
+    },
+    "settings_free_gbs_confirm_email_title": {
+        "message": "Подтвердите электронную почту"
+    },
+    "settings_free_gbs_get_GB": {
+        "message": "Получите %num% ГБ"
+    },
+    "settings_free_gbs_task_complete": {
+        "message": "Вы получили %num% ГБ"
+    },
+    "settings_free_gbs_confirm_email_info": {
+        "message": "При регистрации вам пришло письмо со ссылкой для подтверждения — нажмите на неё и получите %your_gb% ГБ бесплатно. Если вы не можете найти письмо, нажмите на кнопку ниже."
+    },
+    "settings_free_gbs_confirm_email_resend_link_button": {
+        "message": "Отправить ссылку ещё раз"
+    },
+    "settings_free_gbs_add_device_title": {
+        "message": "Добавьте ещё устройство"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "Установите AdGuard VPN ещё на одном устройстве, войдите на нём в свою учётную запись AdGuard и получите %your_gb% ГБ"
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "Устройства добавлены"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "Спасибо, что установили AdGuard VPN на нескольких устройствах. Оставайтесь в безопасности!"
+    },
+    "settings_free_gbs_add_device_products_button": {
+        "message": "Перейти в «Продукты»"
+    },
+    "settings_free_gbs_invite_friend": {
+        "message": "Пригласите друга"
+    },
+    "settings_free_gbs_invite_friend_get_GB": {
+        "message": "Получите до %num% ГБ"
+    },
+    "settings_free_gbs_invite_friend_complete": {
+        "message": "Вы получили %num% ГБ"
+    },
+    "settings_free_gbs_invite_friend_completed_thank_you": {
+        "message": "Спасибо, что пригласили так много друзей!"
+    },
+    "settings_free_gbs_go_back": {
+        "message": "Назад"
     },
     "settings_rate_us": {
         "message": "Оценить приложение"
@@ -282,7 +333,52 @@
         "message": "Основной режим"
     },
     "settings_dns_label": {
-        "message": "Использовать сервер DNS"
+        "message": "DNS-сервер"
+    },
+    "settings_dns_popular_servers": {
+        "message": "Популярные DNS-серверы"
+    },
+    "settings_dns_custom_servers": {
+        "message": "Пользовательские DNS-серверы"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "Добавить свой DNS-сервер"
+    },
+    "settings_dns_edit_custom_server": {
+        "message": "Изменить пользовательский DNS-сервер"
+    },
+    "settings_dns_add_custom_server_info": {
+        "message": "<a>Подробнее</a> о DNS-серверах"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "Имя сервера"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Имя сервера"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "Адрес сервера DNS"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP или TLS"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "Некорректный адрес DNS-сервера"
+    },
+    "settings_dns_add_custom_server_duplicate_address": {
+        "message": "Такой DNS-сервер уже есть"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "Сохранить и выбрать"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "Сохранить"
+    },
+    "settings_dns_add_custom_server_notification_success": {
+        "message": "Пользовательский DNS-сервер добавлен"
+    },
+    "settings_dns_delete_custom_server_notification": {
+        "message": "Пользовательский DNS-сервер удалён"
     },
     "settings_dns_desc": {
         "message": "Система доменных имен (DNS) – это эквивалент телефонной книги в интернете. Эта система ведёт регистр доменных имён и переводит их в IP-адреса."
@@ -291,7 +387,7 @@
         "message": "По умолчанию"
     },
     "settings_dns_selector_default_desc": {
-        "message": "Автоматически использовать DNS-сервер по умолчанию при подключении к VPN"
+        "message": "DNS-серверы от AdGuard VPN"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -446,20 +542,26 @@
     "settings_exclusion_title": {
         "message": "Исключения"
     },
-    "settings_exclusion_change_mode": {
-        "message": "Изменить режим"
+    "settings_exclusion_change_mode_modal_title": {
+        "message": "Где включён VPN"
     },
     "settings_exclusion_general_title": {
-        "message": "Основной режим"
+        "message": "Везде, кроме сайтов-исключений"
     },
-    "settings_exclusion_general_description": {
-        "message": "AdGuard VPN не будет работать на сайтах из списка исключений"
+    "settings_exclusion_general_mode_info": {
+        "message": "VPN включён <span>везде</span>, кроме сайтов ниже"
     },
     "settings_exclusion_selective_title": {
-        "message": "Выборочный режим"
+        "message": "Только на выбранных сайтах"
     },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN будет работать только на сайтах из списка исключений"
+    "settings_exclusion_selective_mode_info": {
+        "message": "VPN включён <span>выборочно</span>: только для сайтов ниже"
+    },
+    "settings_exclusion_selective_mode_warning": {
+        "message": "Если оставить этот список пустым, VPN нигде не будет работать"
+    },
+    "settings_exclusion_import_button": {
+        "message": "Импорт"
     },
     "global_error_title": {
         "message": "Произошла ошибка"
@@ -621,23 +723,23 @@
     "popup_newsletter_no_subscribe": {
         "message": "Нет, спасибо"
     },
-    "popup_onboarding_trusted_vpn": {
-        "message": "Надежный VPN "
+    "popup_onboarding_unique_protocol": {
+        "message": "Уникальный VPN-протокол"
     },
-    "popup_onboarding_trusted_vpn_info": {
-        "message": "От разработчика знаменитого блокировщика рекламы"
+    "popup_onboarding_unique_protocol_info": {
+        "message": "Благодаря протоколу AdGuard VPN работает быстро, а трафик трудно отследить"
     },
-    "popup_onboarding_numerous_locations": {
-        "message": "Множество локаций"
+    "popup_onboarding_sites_apps_exclusions": {
+        "message": "Исключения сайтов и приложений"
     },
-    "popup_onboarding_numerous_locations_info": {
-        "message": "Подключайтесь к любому из серверов, расположенных по всему миру"
+    "popup_onboarding_sites_apps_exclusions_info": {
+        "message": "С исключениями можно легко указать сайты или приложения, с которыми AdGuard VPN будет работать"
     },
-    "popup_onboarding_fastest_servers": {
-        "message": "Cамые быстрые серверы"
+    "popup_onboarding_no_logging_policy": {
+        "message": "Не собираем данные"
     },
-    "popup_onboarding_fastest_servers_info": {
-        "message": "Мы используем передовые технологии, чтобы гарантировать высокую скорость соединения"
+    "popup_onboarding_no_logging_policy_info": {
+        "message": "С AdGuard VPN ваши данные будут в безопасности: мы не собираем и не передаём данные третьим лицам"
     },
     "popup_onboarding_next": {
         "message": "Далее"
@@ -661,7 +763,7 @@
         "message": "Все локации"
     },
     "popup_upgrade_screen_all_locations_desc": {
-        "message": "5 континентов и десятки стран. Выберите город и пользуйтесь интернетом безопасно!"
+        "message": "6 континентов и десятки стран. Выберите город и пользуйтесь интернетом безопасно!"
     },
     "popup_upgrade_screen_connect_devices": {
         "message": "До 5 устройств"
@@ -680,13 +782,16 @@
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
-        "message": "Импортировать исключения в:"
+        "message": "Как использовать этот список исключений?"
+    },
+    "options_exclusions_import_select_subtitle": {
+        "message": "Сайты из списка добавятся к уже существующим исключениям"
     },
     "options_exclusions_import_select_regular": {
-        "message": "Обычный список"
+        "message": "Я хочу, чтобы VPN был отключён для этих сайтов"
     },
     "options_exclusions_import_select_selective": {
-        "message": "Выборочный список"
+        "message": "Я хочу, чтобы VPN был включён для этих сайтов"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Отмена"
@@ -743,7 +848,7 @@
         "message": "Вы уже подключены к AdGuard VPN"
     },
     "popup_desktop_vpn_enabled_description": {
-        "message": "AdGuard VPN работает в десктопном приложении, поэтому браузерное расширение было автоматически отключено"
+        "message": "Отключили расширение: AdGuard VPN уже включён в десктопном приложении"
     },
     "popup_desktop_vpn_enabled_button": {
         "message": "Ок"
@@ -765,5 +870,26 @@
     },
     "notification_data_left_description": {
         "message": "Скоро VPN будет работать медленнее."
+    },
+    "confirm_email_title": {
+        "message": "Подтвердите почту"
+    },
+    "confirm_email_info": {
+        "message": "Чтобы получить бесплатный трафик, подтвердите адрес почты. Отправили вам ссылку для подтверждения на"
+    },
+    "confirm_email_done_title": {
+        "message": "Вы подтвердили почту"
+    },
+    "confirm_email_done_info": {
+        "message": "Спасибо!"
+    },
+    "confirm_email_close_button": {
+        "message": "Закрыть"
+    },
+    "confirm_email_resend_link_button": {
+        "message": "Отправить ссылку ещё раз"
+    },
+    "resend_confirm_registration_link_notification": {
+        "message": "Отправили ссылку повторно"
     }
 }

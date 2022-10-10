@@ -1,6 +1,6 @@
 import browser from 'webextension-polyfill';
 import { PASSWORD_RECOVERY_URL } from './config';
-import notifier from '../lib/notifier';
+import { notifier } from '../lib/notifier';
 import { log } from '../lib/logger';
 
 class Tabs {
@@ -88,8 +88,8 @@ class Tabs {
     }
 
     async getTabByUrl(url) {
-        const tabs = await browser.tabs.query({ url });
-        return tabs[0];
+        const tabs = await browser.tabs.query({});
+        return tabs.find((tab) => tab.url?.includes(url));
     }
 
     async update(tabId, url) {

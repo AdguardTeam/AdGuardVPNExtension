@@ -170,6 +170,7 @@ export const Actions = observer(() => {
         }
 
         const addedExclusions = messenger.addExclusionsMap(exclusionsContentMap);
+        await exclusionsStore.updateExclusionsData();
 
         return addedExclusions;
     };

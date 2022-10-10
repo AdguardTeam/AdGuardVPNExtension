@@ -1,12 +1,13 @@
 import browser from 'webextension-polyfill';
 import { nanoid } from 'nanoid';
 
-import { MessageType } from './constants';
+import { MessageType, SocialAuthProvider } from './constants';
 import { log } from './logger';
 import { ExclusionsData, ExclusionsModes, ServiceDto } from '../common/exclusionsConstants';
+import { StartSocialAuthData, UserLookupData } from '../background/messaging/messagingTypes';
 
 class Messenger {
-    async sendMessage(type: string, data?: unknown) {
+    async sendMessage<T>(type: string, data?: T) {
         log.debug(`Request type: "${type}"`);
         if (data) {
             log.debug('Request data:', data);
@@ -222,7 +223,7 @@ class Messenger {
 
     async checkEmail(email: string) {
         const type = MessageType.CHECK_EMAIL;
-        return this.sendMessage(type, { email });
+        return this.sendMessage<UserLookupData>(type, { email });
     }
 
     async disableOtherExtensions() {
@@ -244,9 +245,9 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async startSocialAuth(social: string, marketingConsent: boolean | string) {
+    async startSocialAuth(provider: SocialAuthProvider, marketingConsent: boolean) {
         const type = MessageType.START_SOCIAL_AUTH;
-        return this.sendMessage(type, { social, marketingConsent });
+        return this.sendMessage<StartSocialAuthData>(type, { provider, marketingConsent });
     }
 
     async clearPermissionsError() {
@@ -369,6 +370,26 @@ class Messenger {
     }) {
         const type = MessageType.ADD_EXCLUSIONS_MAP;
         return this.sendMessage(type, { exclusionsMap });
+    }
+
+    addCustomDnsServer(dnsServerData: any) {
+        const type = MessageType.ADD_CUSTOM_DNS_SERVER;
+        return this.sendMessage(type, { dnsServerData });
+    }
+
+    editCustomDnsServer(dnsServerData: any) {
+        const type = MessageType.EDIT_CUSTOM_DNS_SERVER;
+        return this.sendMessage(type, { dnsServerData });
+    }
+
+    removeCustomDnsServer(dnsServerId: string) {
+        const type = MessageType.REMOVE_CUSTOM_DNS_SERVER;
+        return this.sendMessage(type, { dnsServerId });
+    }
+
+    restoreCustomDnsServersData() {
+        const type = MessageType.RESTORE_CUSTOM_DNS_SERVERS_DATA;
+        return this.sendMessage(type);
     }
 
     resendConfirmRegistrationLink(displayNotification: boolean) {

@@ -56,6 +56,33 @@
     "settings_title": {
         "message": "Nustatymai"
     },
+    "settings_free_gbs_add_device_products_button": {
+        "message": "Eiti į svetainę"
+    },
+    "settings_free_gbs_go_back": {
+        "message": "Grįžti"
+    },
+    "settings_dns_label": {
+        "message": "DNS serveris"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "Pridėti pasirinktinį DNS serverį"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "Serverio pavadinimas"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Serverio pavadinimas"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "DNS serverio adresas"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "Išsaugoti ir pasirinkti"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "Išsaugoti"
+    },
     "settings_dns_selector_default_title": {
         "message": "Pagal nutylėjimą"
     },
@@ -134,6 +161,9 @@
     "settings_exclusion_title": {
         "message": "Išimtys"
     },
+    "settings_exclusion_import_button": {
+        "message": "Importas"
+    },
     "global_error_learn_more": {
         "message": "Sužinoti daugiau"
     },
@@ -184,6 +214,9 @@
     },
     "popup_desktop_vpn_enabled_button": {
         "message": "Ok"
+    },
+    "confirm_email_close_button": {
+        "message": "Uždaryti"
     },
     "name": {
         "message": "AdGuard VPN — free & secure proxy"

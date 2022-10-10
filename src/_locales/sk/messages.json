@@ -1,4 +1,7 @@
 {
+    "name": {
+        "message": "AdGuard VPN — bezplatný a bezpečný proxy server"
+    },
     "description": {
         "message": "Použite AdGuard VPN na rýchle, bezpečné a bezpečné surfovanie po internete. Chráňte svoje súkromie a zostaňte v anonymite pomocou nášho súkromného vpn proxy."
     },
@@ -10,6 +13,9 @@
     },
     "registration_error_not_valid": {
         "message": "Táto hodnota nie je platná"
+    },
+    "registration_error_min_length": {
+        "message": "Táto hodnota je príliš krátka. Musí mať aspoň 8 znakov."
     },
     "registration_error_confirm_password": {
         "message": "Heslá sa nezhodujú"
@@ -113,8 +119,17 @@
     "account_title": {
         "message": "Účet"
     },
+    "account_edit": {
+        "message": "Správa účtu"
+    },
     "account_version": {
         "message": "Verzia"
+    },
+    "account_free": {
+        "message": "Bezplatný účet"
+    },
+    "account_unlimited": {
+        "message": "Neobmedzené predplatné"
     },
     "account_monthly_paid": {
         "message": "Mesačné predplatné"
@@ -130,6 +145,12 @@
     },
     "account_max_devices_count": {
         "message": "Až %num% súčasne pripojených zariadení"
+    },
+    "account_next_charge": {
+        "message": "Dátum nasledujúcej fakturácie %date%"
+    },
+    "account_sign_out": {
+        "message": "Odhlásenie"
     },
     "account_unlimited_title": {
         "message": "Získať Neobmedzenú verziu!"
@@ -167,11 +188,20 @@
     "auth_sign_up_button": {
         "message": "Zapísať sa"
     },
+    "auth_sign_in": {
+        "message": "Zadajte svoje heslo"
+    },
     "auth_sign_in_button": {
         "message": "Prihlásenie"
     },
+    "auth_title": {
+        "message": "Prihláste sa alebo si vytvorte účet"
+    },
     "auth_sign_in_provider_adguard_label": {
         "message": "E-mail"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "Prihlásiť sa pomocou e-mail adresy"
     },
     "auth_sign_in_provider_apple": {
         "message": "Prihlásiť sa pomocou Apple"
@@ -181,6 +211,9 @@
     },
     "auth_sign_in_provider_facebook": {
         "message": "Prihlásiť sa pomocou Facebook"
+    },
+    "auth_header_sing_in_notice": {
+        "message": "Prihlásenie ako <span>%username%</span>"
     },
     "auth_header_2fa_subtitle": {
         "message": "Dvojfaktorová autentifikácia"
@@ -207,19 +240,73 @@
         "message": "Bezplatná VPN komunikácia"
     },
     "referral_get_free_traffic": {
-        "message": "Získajte bezplatnú VPN komunikáciu!"
+        "message": "Získajte bezplatné GB!"
+    },
+    "settings_referral_info": {
+        "message": "Pozvite svojich priateľov, aby sa pripojili k nášmu klanu ninja a získajte bezplatnú VPN komunikáciu na mesiac. Získajte %your_gb% GB za každého priateľa, ktorý sa zaregistruje: získa tiež %friend_gb% GB navyše zadarmo! Celkovo môžete získať %total_gb% GB zadarmo."
     },
     "settings_referral_invited_friends": {
         "message": "Pozvaní priatelia %count%/%limit%"
     },
-    "settings_referral_limit_reached": {
-        "message": "Už ste dostali svojich %your_gb% GB bezplatných dát. Ale Vaši priatelia môžu stále získať %friend_gb% GB bezplatnej VPN komunikácie, ak ich pozvete!"
+    "settings_referral_invite_link": {
+        "message": "Odkaz na pozvánku"
     },
     "settings_referral_copy_link": {
-        "message": "Kopírovať odkaz"
+        "message": "Skopírujte odkaz na pozvánku"
     },
     "settings_referral_link_copied": {
         "message": "Odkaz bol skopírovaný"
+    },
+    "settings_free_gbs": {
+        "message": "Voľné GB"
+    },
+    "settings_free_gbs_subtitle": {
+        "message": "Dokončite úlohy a získajte bezplatnú VPN komunikáciu!"
+    },
+    "settings_free_gbs_confirm_email_title": {
+        "message": "Potvrďte svoju e-mail adresu"
+    },
+    "settings_free_gbs_get_GB": {
+        "message": "Získajte %num% GB"
+    },
+    "settings_free_gbs_task_complete": {
+        "message": "Dostali ste %num% GB"
+    },
+    "settings_free_gbs_confirm_email_info": {
+        "message": "Kliknite na odkaz na potvrdenie e-mail adresy, ktorý sme Vám poslali pri registrácii, a získajte %your_gb% GB bezplatnej VPN komunikácie. Ak nemôžete nájsť našu e-mail správu, kliknite na tlačidlo nižšie."
+    },
+    "settings_free_gbs_confirm_email_resend_link_button": {
+        "message": "Znovu poslať odkaz"
+    },
+    "settings_free_gbs_add_device_title": {
+        "message": "Pridajte ďalšie zariadenie"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "Nainštalujte AdGuard VPN na ďalšie zariadenie, prihláste sa na ňom do svojho účtu AdGuard a získajte %your_gb% GB"
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "Zariadenia boli pridané"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "Gratulujeme k inštalácii AdGuard VPN na viacerých zariadeniach. Zostaňte v bezpečí!"
+    },
+    "settings_free_gbs_add_device_products_button": {
+        "message": "Ísť na Produkty"
+    },
+    "settings_free_gbs_invite_friend": {
+        "message": "Pozvať priateľa"
+    },
+    "settings_free_gbs_invite_friend_get_GB": {
+        "message": "Získajte až %num% GB"
+    },
+    "settings_free_gbs_invite_friend_complete": {
+        "message": "Dostali ste %num% GB"
+    },
+    "settings_free_gbs_invite_friend_completed_thank_you": {
+        "message": "Ďakujeme, že ste použili všetky Vaše pozvánky!"
+    },
+    "settings_free_gbs_go_back": {
+        "message": "Naspäť"
     },
     "settings_rate_us": {
         "message": "Ohodnoťte nás"
@@ -246,7 +333,52 @@
         "message": "Všeobecný režim"
     },
     "settings_dns_label": {
-        "message": "Použiť DNS server"
+        "message": "DNS server"
+    },
+    "settings_dns_popular_servers": {
+        "message": "Populárne DNS servery"
+    },
+    "settings_dns_custom_servers": {
+        "message": "Vlastné DNS servery"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "Pridať vlastný DNS server"
+    },
+    "settings_dns_edit_custom_server": {
+        "message": "Upraviť vlastný DNS server"
+    },
+    "settings_dns_add_custom_server_info": {
+        "message": "<a>Prečítajte si viac</a> o DNS serveroch"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "Meno servera"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Meno servera"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "Adresa DNS servera"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP alebo TLS"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "Neplatná adresa DNS servera"
+    },
+    "settings_dns_add_custom_server_duplicate_address": {
+        "message": "Server DNS už bol pridaný"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "Uložiť a zvoliť"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "Uložiť"
+    },
+    "settings_dns_add_custom_server_notification_success": {
+        "message": "Vlastný DNS server bol pridaný"
+    },
+    "settings_dns_delete_custom_server_notification": {
+        "message": "Vlastný DNS server bol odstránený"
     },
     "settings_dns_desc": {
         "message": "Domain Name System (DNS) je internetový ekvivalent telefónneho zoznamu. Spravuje adresár doménových mien a prekladá ich na adresy internetového protokolu (IP)."
@@ -255,7 +387,7 @@
         "message": "Predvolené"
     },
     "settings_dns_selector_default_desc": {
-        "message": "Po pripojení k VPN sieti automaticky používať predvolené DNS servery"
+        "message": "Používa servery DNS poskytované službou AdGuard VPN"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -410,20 +542,11 @@
     "settings_exclusion_title": {
         "message": "Výnimky"
     },
-    "settings_exclusion_change_mode": {
-        "message": "Zmeniť režim"
-    },
-    "settings_exclusion_general_title": {
-        "message": "Všeobecný režim"
-    },
-    "settings_exclusion_general_description": {
-        "message": "AdGuard VPN je zapnutá všade okrem webových stránok pridaných do výnimiek"
-    },
     "settings_exclusion_selective_title": {
-        "message": "Výberový režim"
+        "message": "Len na vybraných webových stránkach"
     },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN je zapnutá iba pre webové stránky pridané do výnimiek"
+    "settings_exclusion_import_button": {
+        "message": "Import"
     },
     "global_error_title": {
         "message": "Vyskytla sa chyba"
@@ -439,6 +562,9 @@
     },
     "authentication_successful_notification": {
         "message": "Úspešne overené! Môžete otvoriť AdGuard VPN a začať ju používať."
+    },
+    "control_error_description": {
+        "message": "Vyzerá to, že sa vaše pripojenie snaží ovládať iné rozšírenie prehliadača. Zakážte prosím iné rozšírenie v prehliadači."
     },
     "control_error_disable": {
         "message": "Vypnúť"
@@ -484,6 +610,9 @@
     },
     "endpoints_not_found": {
         "message": "Lokalita sa nenašla"
+    },
+    "popup_traffic_limit_reached": {
+        "message": "Dosiahnutý mesačný dátový limit"
     },
     "premium_upgrade": {
         "message": "Upgradovať"
@@ -539,6 +668,12 @@
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "Zanechajte spätnú väzbu"
     },
+    "popup_confirm_rate_modal_rate_title": {
+        "message": "Wow! Môžete nás hodnotiť aj v obchode s rozšíreniami?"
+    },
+    "popup_confirm_rate_modal_confirm_button": {
+        "message": "Prejsť do obchodu s rozšíreniami"
+    },
     "options_title": {
         "message": "Predvoľby AdGuard VPN"
     },
@@ -550,6 +685,13 @@
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN je vypnuté na tejto stránke"
+    },
+    "popup_auth_policy_agreement": {
+        "message": "Akceptovať <eula>Zmluvu EULA</eula> a <privacy>Pravidlá ochrany súkromia</privacy>",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "Dovoľte nám zhromažďovať<link>anonymné údaje</link> o používaní aplikácie, aby sme vylepšili AdGuard VPN"
     },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Pokračovať"
@@ -565,24 +707,6 @@
     },
     "popup_newsletter_no_subscribe": {
         "message": "Nie, ďakujem"
-    },
-    "popup_onboarding_trusted_vpn": {
-        "message": "Dôveryhodná VPN"
-    },
-    "popup_onboarding_trusted_vpn_info": {
-        "message": "Od vývojára svetoznámeho blokovača reklám"
-    },
-    "popup_onboarding_numerous_locations": {
-        "message": "Početné lokality"
-    },
-    "popup_onboarding_numerous_locations_info": {
-        "message": "Pripojte sa ku ktorémukoľvek z našich serverov umiestnených po celom svete"
-    },
-    "popup_onboarding_fastest_servers": {
-        "message": "Najrýchlejšie servery"
-    },
-    "popup_onboarding_fastest_servers_info": {
-        "message": "Na zabezpečenie najvyššej rýchlosti pripojenia používame najmodernejšie technológie"
     },
     "popup_onboarding_next": {
         "message": "Ďalej"
@@ -628,10 +752,10 @@
         "message": "Importovať výnimky do:"
     },
     "options_exclusions_import_select_regular": {
-        "message": "Štandardný zoznam"
+        "message": "Chcem, aby bola VPN pre tieto webové stránky vypnutá"
     },
     "options_exclusions_import_select_selective": {
-        "message": "Výberový zoznam"
+        "message": "Chcem, aby bola pre tieto webové stránky zapnutá sieť VPN"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Zrušiť"
@@ -696,6 +820,12 @@
     "options_signedout_page_title": {
         "message": "Odhlásili ste sa z AdGuard VPN"
     },
+    "options_signedout_page_description": {
+        "message": "Upozornenie: nie ste pripojení k sieti VPN a vaša prevádzka nie je chránená! Ak chcete pokračovať v súkromnom surfovaní, kliknite na ikonu AdGuard VPN a znovu sa prihláste."
+    },
+    "notification_data_limit_reached_title": {
+        "message": "Dosiahnutý mesačný dátový limit"
+    },
     "notification_data_limit_reached_description": {
         "message": "Rýchlosť VPN pripojenia bola znížená."
     },
@@ -705,7 +835,25 @@
     "notification_data_left_description": {
         "message": "Rýchlosť pripojenia VPN sa čoskoro zníži."
     },
-    "name": {
-        "message": "AdGuard VPN — free & secure proxy"
+    "confirm_email_title": {
+        "message": "Potvrďte svoju e-mail adresu"
+    },
+    "confirm_email_info": {
+        "message": "Ak chcete získať bezplatnú VPN komunikáciu, potvrďte svoju e-mail adresu. Poslali sme odkaz na jej potvrdenie"
+    },
+    "confirm_email_done_title": {
+        "message": "E-mail adresa bola potvrdená"
+    },
+    "confirm_email_done_info": {
+        "message": "Ďakujeme za overenie!"
+    },
+    "confirm_email_close_button": {
+        "message": "Ukončiť"
+    },
+    "confirm_email_resend_link_button": {
+        "message": "Znovu poslať odkaz"
+    },
+    "resend_confirm_registration_link_notification": {
+        "message": "Opätovné odoslanie potvrdzujúceho odkazu"
     }
 }

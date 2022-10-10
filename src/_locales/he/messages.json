@@ -1,0 +1,736 @@
+{
+    "name": {
+        "message": "AdGuard VPN — ייפוי כוח חינמי ומאובטח"
+    },
+    "description": {
+        "message": "השתמש ב־AdGuard VPN כדי לגלוש באינטרנט באופן מהיר, בטוח, ומאובטח. הגן על הפרטיות שלך והישאר אלמוני עם ייפוי כוח VPN הפרטי שלנו."
+    },
+    "short_name": {
+        "message": "AdGuard VPN"
+    },
+    "registration_error_not_empty": {
+        "message": "חייב לא להיות ריק"
+    },
+    "registration_error_not_valid": {
+        "message": "ערך זה אינו תקף"
+    },
+    "registration_error_min_length": {
+        "message": "סיסמה חייבת להיות להכיל לפחות 8 תווים"
+    },
+    "registration_error_confirm_password": {
+        "message": "הסיסמאות אינן תואמות"
+    },
+    "registration_error_compromised_password": {
+        "message": "הסיסמה שהכנסת נמצאה ב<a>מסד נתונים ציבורי</a> של סיסמאות פריצות. אנא נסה אחת אחרת."
+    },
+    "registration_error_unique_constraint": {
+        "message": "ערך זה נמצא כבר בשימוש"
+    },
+    "registration_error_front_unique_validation": {
+        "message": "הסיסמאות אינן תואמות"
+    },
+    "registration_error_default": {
+        "message": "שגיאה התרחשה, נסה שוב מאוחר יותר"
+    },
+    "authentication_error_2fa_required": {
+        "message": "2FA דרוש"
+    },
+    "authentication_error_2fa_invalid": {
+        "message": "אסימון בלתי תקף"
+    },
+    "authentication_error_account_disabled": {
+        "message": "החשבון מושבת"
+    },
+    "authentication_error_account_locked": {
+        "message": "החשבון נעול למשך 15 דקות"
+    },
+    "authentication_error_wrong_credentials": {
+        "message": "סיסמה שגויה"
+    },
+    "authentication_too_many_requests": {
+        "message": "קיבלנו יותר מדי בקשות מכתובת ה־IP שלך. אנא נסה שוב מאוחר יותר."
+    },
+    "authentication_error_default": {
+        "message": "שגיאה התרחשה, נסה שוב מאוחר יותר"
+    },
+    "global_error_message": {
+        "message": "שגיאה התרחשה, אנא צור איתנו קשר דרך <a>support@adguard-vpn.com</a>"
+    },
+    "about_title": {
+        "message": "אודות"
+    },
+    "options_support_title": {
+        "message": "תמיכה"
+    },
+    "options_support_faq_title": {
+        "message": "שאלות נפוצות"
+    },
+    "options_support_faq_description": {
+        "message": "שאלות ותשובות"
+    },
+    "options_support_report_title": {
+        "message": "דווח על תקל"
+    },
+    "options_support_report_description": {
+        "message": "שלח לנו דוח על תקל פוטנציאלי"
+    },
+    "options_support_feedback_title": {
+        "message": "השאר משוב"
+    },
+    "options_support_feedback_description": {
+        "message": "הגש בקשות מאפיין והצעות"
+    },
+    "options_report_bug_title": {
+        "message": "דווח על תקל"
+    },
+    "options_bug_report_email_label": {
+        "message": "דוא״ל"
+    },
+    "options_bug_report_include_log_label": {
+        "message": "כלול את הדוח האבחוני בתוך ההודעה"
+    },
+    "options_bug_report_email_invalid": {
+        "message": "כתובת דוא״ל שגויה"
+    },
+    "options_bug_report_textarea_invalid": {
+        "message": "שדה זה הוא חובה"
+    },
+    "options_bug_report_request_error": {
+        "message": "שגיאה התרחשה. אנא נסה שוב מאוחר יותר."
+    },
+    "options_bug_report_send_button": {
+        "message": "הגש"
+    },
+    "options_bug_report_sending_button": {
+        "message": "מגיש…"
+    },
+    "options_bug_report_textarea_placeholder": {
+        "message": "תאר את הבעיה כאן…"
+    },
+    "options_bug_report_page_success": {
+        "message": "תודה, ההודעה שלך הוגשה בהצלחה!"
+    },
+    "options_bug_report_new_report_button": {
+        "message": "דוח חדש"
+    },
+    "options_bug_report_textarea_label": {
+        "message": "הודעה"
+    },
+    "account_title": {
+        "message": "חשבון"
+    },
+    "account_edit": {
+        "message": "נהל חשבון"
+    },
+    "account_version": {
+        "message": "גרסה"
+    },
+    "account_free": {
+        "message": "חשבון חינמי"
+    },
+    "account_unlimited": {
+        "message": "מינוי בלתי מוגבל"
+    },
+    "account_monthly_paid": {
+        "message": "מינוי חודשי"
+    },
+    "account_yearly_paid": {
+        "message": "מינוי שנתי"
+    },
+    "account_two_year_paid": {
+        "message": "מינוי דו־שנתי"
+    },
+    "account_get_subscription": {
+        "message": "השג מינוי"
+    },
+    "account_max_devices_count": {
+        "message": "עד %num% מכשירים"
+    },
+    "account_next_charge": {
+        "message": "התאריך של החיוב הבא %date%"
+    },
+    "account_sign_out": {
+        "message": "צא"
+    },
+    "account_unlimited_title": {
+        "message": "קבל את הגרסה הבלתי מוגבלת!"
+    },
+    "rate_description": {
+        "message": "היי, אנחנו צוות של AdGuard וזה חשוב מאוד עבורנו לדעת מה דעתך על המוצר שלנו. אנא דרג אותו."
+    },
+    "rate_hide": {
+        "message": "הסתר"
+    },
+    "auth_confirm": {
+        "message": "אשר"
+    },
+    "auth_email": {
+        "message": "כתובת דוא״ל"
+    },
+    "auth_password": {
+        "message": "סיסמה"
+    },
+    "auth_your_password": {
+        "message": "הסיסמה שלך"
+    },
+    "auth_password_confirm": {
+        "message": "אשר סיסמה"
+    },
+    "auth_recover": {
+        "message": "שכחת סיסמה?"
+    },
+    "auth_sign_up": {
+        "message": "הירשם"
+    },
+    "auth_sign_up_info": {
+        "message": "צור את חשבון AdGuard שלך"
+    },
+    "auth_sign_up_button": {
+        "message": "הירשם"
+    },
+    "auth_sign_in": {
+        "message": "הכנס את הסיסמה שלך"
+    },
+    "auth_sign_in_button": {
+        "message": "היכנס"
+    },
+    "auth_title": {
+        "message": "היכנס או צור חשבון"
+    },
+    "auth_sign_in_provider_adguard_label": {
+        "message": "דוא״ל"
+    },
+    "auth_sign_in_provider_adguard": {
+        "message": "המשך עם דוא״ל"
+    },
+    "auth_sign_in_provider_apple": {
+        "message": "המשך עם Apple"
+    },
+    "auth_sign_in_provider_google": {
+        "message": "המשך עם Google"
+    },
+    "auth_sign_in_provider_facebook": {
+        "message": "המשך עם Facebook"
+    },
+    "auth_header_sing_in_notice": {
+        "message": "מתחבר בתור <span>%username%</span>"
+    },
+    "auth_header_2fa_subtitle": {
+        "message": "אימות דו־שלבי"
+    },
+    "auth_header_2fa": {
+        "message": "הכנס את קוד האימות"
+    },
+    "auth_placeholder_2fa": {
+        "message": "קוד אימות"
+    },
+    "official_website": {
+        "message": "האתר הרשמי"
+    },
+    "eula": {
+        "message": "EULA"
+    },
+    "privacy_policy": {
+        "message": "מדיניות פרטיות"
+    },
+    "settings_title": {
+        "message": "הגדרות"
+    },
+    "options_menu_free_traffic": {
+        "message": "תעבורת VPN חינמית"
+    },
+    "settings_referral_invited_friends": {
+        "message": "חברים מוזמנים %count%/%limit%"
+    },
+    "settings_free_gbs_add_device_products_button": {
+        "message": "לך אל מוצרים"
+    },
+    "settings_free_gbs_go_back": {
+        "message": "חזור"
+    },
+    "settings_rate_us": {
+        "message": "דרג אותנו"
+    },
+    "settings_webrtc_label": {
+        "message": "חסום WebRTC"
+    },
+    "settings_webrtc_desc": {
+        "message": "WebRTC הוא תוכנית מיוחדת ברוב הדפדפנים אשר יכולה להתיר לאתר צד־שלישי לגלות את כתובת ה־IP האמיתית שלך ולהשתמש בה כדי לזהות אותך"
+    },
+    "settings_context_menus_title": {
+        "message": "הוסף פריט AdGuard VPN אל תפריט ההקשר של הדפדפן"
+    },
+    "settings_help_us_improve_title": {
+        "message": "עזור לנו להשתפר"
+    },
+    "settings_help_us_improve_description": {
+        "message": "התר אל AdGuard VPN לאסוף דוחות קריסה, נתונים טכנים ונתוני הידוד. המידע שנאסף אלמוני."
+    },
+    "context_menu_selective_mode": {
+        "message": "מצב בררני"
+    },
+    "context_menu_general_mode": {
+        "message": "מצב כללי"
+    },
+    "settings_dns_label": {
+        "message": "שרת DNS"
+    },
+    "settings_dns_custom_servers": {
+        "message": "שרתי DNS מותאמים אישית"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "הוסף שרת DNS של משתמש"
+    },
+    "settings_dns_edit_custom_server": {
+        "message": "ערוך שרת DNS מותאם אישית"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "שם שרת"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "שם שרת"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "כתובת שרת DNS"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "כתובת שרת DNS בלתי תקפה"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "שמור ובחר"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "שמור"
+    },
+    "settings_dns_desc": {
+        "message": "מערכת שמות תחום (DNS) היא שוות הערך של האינטרנט לספר טלפונים. היא מתחזקת תיקייה של שמות תחום ומתרגמת אותם אל כתובות פרוטוקול אינטרנט (IP)."
+    },
+    "settings_dns_selector_default_title": {
+        "message": "ברירת מחדל"
+    },
+    "settings_dns_selector_adguard_title": {
+        "message": "AdGuard DNS"
+    },
+    "settings_dns_selector_adguard_desc": {
+        "message": "מסיר פרסומות ועוקבנים מהמכשיר שלך"
+    },
+    "settings_dns_selector_adguard_nonfiltering_title": {
+        "message": "AdGuard DNS בלי סינון"
+    },
+    "settings_dns_selector_adguard_nonfiltering_desc": {
+        "message": "DNS מאובטח ללא רישום יומן (אינו מסנן פרסומות ועוקבנים)"
+    },
+    "settings_dns_selector_adguard_family_title": {
+        "message": "הגנה משפחתית של AdGuard DNS"
+    },
+    "settings_dns_selector_adguard_family_desc": {
+        "message": "AdGuard DNS + SafeSearch וחסימת תוכן למבוגרים"
+    },
+    "settings_dns_selector_google_title": {
+        "message": "Google DNS"
+    },
+    "settings_dns_selector_google_desc": {
+        "message": "שירות DNS חלופי חינמי מאת Google"
+    },
+    "settings_dns_selector_cloudflare_title": {
+        "message": "Cloudflare DNS"
+    },
+    "settings_dns_selector_cloudflare_desc": {
+        "message": "שירות DNS חינמי מאת Cloudflare"
+    },
+    "settings_dns_selector_cisco_title": {
+        "message": "Cisco OpenDNS"
+    },
+    "settings_dns_selector_cisco_desc": {
+        "message": "שרת DNS שמגן על המכשיר שלך מפני נוזקה"
+    },
+    "settings_dns_selector_quad9_title": {
+        "message": "Quad9"
+    },
+    "settings_dns_selector_quad9_desc": {
+        "message": "שירות DNS חלופי חינמי עם הגנה מפני דיוג ותוכנות ריגול"
+    },
+    "settings_theme_label": {
+        "message": "ערכת נושא"
+    },
+    "settings_theme_system": {
+        "message": "ברירת מחדל"
+    },
+    "settings_theme_dark": {
+        "message": "כהה"
+    },
+    "settings_theme_light": {
+        "message": "בהירה"
+    },
+    "settings_exclusion_add": {
+        "message": "הוסף"
+    },
+    "settings_exclusion_add_website": {
+        "message": "הוסף אתר"
+    },
+    "settings_exclusion_actions": {
+        "message": "פעולות"
+    },
+    "settings_exclusion_add_subdomain": {
+        "message": "הוסף תת־תחום"
+    },
+    "settings_exclusion_invalid_subdomain": {
+        "message": "תת־תחום בלתי תקף"
+    },
+    "settings_exclusion_status_domain": {
+        "message": "תחום"
+    },
+    "settings_exclusion_status_subdomain": {
+        "message": "תת־תחום"
+    },
+    "settings_exclusion_status_all_subdomains": {
+        "message": "כל התת־תחומים"
+    },
+    "settings_exclusion_group_settings_subtitle_regular_mode": {
+        "message": "AdGuard VPN כבוי עבור התחומים והתת־תחומים המסומנים"
+    },
+    "settings_exclusion_group_settings_subtitle_selective_mode": {
+        "message": "AdGuard VPN מופעל עבור התחומים והתת־תחומים המסומנים"
+    },
+    "settings_exclusion_domain_name": {
+        "message": "שם תחום:"
+    },
+    "settings_exclusion_subdomain_name": {
+        "message": "שם תת־תחום:"
+    },
+    "settings_exclusion_add_from_list": {
+        "message": "מתוך הרשימה"
+    },
+    "settings_exclusion_add_manually": {
+        "message": "באופן ידני"
+    },
+    "settings_exclusion_add_manually_add": {
+        "message": "הוסף באופן ידני"
+    },
+    "settings_exclusions_add_invalid_domain": {
+        "message": "\"%url%\" אינו תחום תקף. האם אתה רוצה להוסיף אותו אל הרשימה?"
+    },
+    "settings_exclusion_modal_cancel": {
+        "message": "בטל"
+    },
+    "settings_exclusion_modal_remove": {
+        "message": "הסר"
+    },
+    "settings_exclusion_modal_save": {
+        "message": "שמור"
+    },
+    "settings_exclusion_reset_to_default": {
+        "message": "אפס אל ברירת מחדל"
+    },
+    "settings_exclusion_reset_button": {
+        "message": "אפס"
+    },
+    "settings_exclusions_undo": {
+        "message": "בטל עשייה"
+    },
+    "settings_exclusion_reset_service_confirmation_message": {
+        "message": "לאפס את הגדרות ברירת המחדל עבור %hostname%? זה ישיב תחומים חסרים כלשהם ויגדיר את כל סימוני הוי אל מופעל."
+    },
+    "settings_exclusion_search_website": {
+        "message": "חפש אתר"
+    },
+    "settings_exclusion_placeholder_search": {
+        "message": "חפש"
+    },
+    "settings_exclusion_nothing_found": {
+        "message": "תוצאות לא נמצאו"
+    },
+    "settings_exclusion_connection_problem": {
+        "message": "בעית חיבור"
+    },
+    "settings_exclusions_action_export": {
+        "message": "ייצא החרגות"
+    },
+    "settings_exclusions_action_import": {
+        "message": "ייבא החרגות"
+    },
+    "settings_exclusions_action_remove_all": {
+        "message": "הסר הכול"
+    },
+    "settings_exclusions_remove_all_exclusions": {
+        "message": "הסר את כל ההחרגות"
+    },
+    "settings_exclusions_remove_all_exclusions_message": {
+        "message": "האם אתה בטוח שאתה רוצה להמשיך? רשימת ההחרגות תוסר."
+    },
+    "settings_exclusion_title": {
+        "message": "החרגות"
+    },
+    "settings_exclusion_import_button": {
+        "message": "ייבא"
+    },
+    "global_error_title": {
+        "message": "שגיאה התרחשה"
+    },
+    "global_error_description": {
+        "message": "אנא צור איתנו קשר אם אתה ממשיך לראות הודעה זו"
+    },
+    "global_error_learn_more": {
+        "message": "למד עוד"
+    },
+    "global_error_try_again": {
+        "message": "נסה שוב"
+    },
+    "authentication_successful_notification": {
+        "message": "אומת בהצלחה! אתה יכול לפתוח את AdGuard VPN ולהתחיל להשתמש בו."
+    },
+    "control_error_disable": {
+        "message": "השבת זאת"
+    },
+    "popup_settings_enable_vpn_short": {
+        "message": "אפשר באתר זה"
+    },
+    "popup_settings_disable_vpn": {
+        "message": "השבת VPN באתר זה"
+    },
+    "popup_settings_other_products": {
+        "message": "מוצרים אחרים"
+    },
+    "popup_settings_feedback": {
+        "message": "משוב"
+    },
+    "popup_settings_open_settings": {
+        "message": "הגדרות"
+    },
+    "popup_settings_sign_out": {
+        "message": "צא"
+    },
+    "context_menu_enable_vpn": {
+        "message": "אפשר VPN באתר זה"
+    },
+    "context_menu_disable_vpn": {
+        "message": "השבת VPN באתר זה"
+    },
+    "endpoints_countries": {
+        "message": "מיקומים"
+    },
+    "endpoints_fastest": {
+        "message": "הכי מהיר"
+    },
+    "endpoints_all": {
+        "message": "כל המיקומים"
+    },
+    "endpoints_search_results": {
+        "message": "תוצאת חיפוש"
+    },
+    "endpoints_search": {
+        "message": "חפש מיקום"
+    },
+    "endpoints_not_found": {
+        "message": "מיקום לא נמצא"
+    },
+    "popup_traffic_limit_reached": {
+        "message": "מגבלת נתונים חודשית הושגה"
+    },
+    "premium_upgrade": {
+        "message": "שדרג"
+    },
+    "settings_disconnect": {
+        "message": "התנתק"
+    },
+    "settings_vpn_connecting": {
+        "message": "מתחבר…"
+    },
+    "settings_connect": {
+        "message": "התחבר"
+    },
+    "settings_vpn_enabled": {
+        "message": "מחובר"
+    },
+    "settings_vpn_disabled": {
+        "message": "מנותק"
+    },
+    "popup_traffic_limit_exceeded_title": {
+        "message": "המהירות מופחתת"
+    },
+    "popup_traffic_limit_exceeded_description": {
+        "message": "הגעת אל מגבלת הנתונים החינמיים, ו־AdGuard VPN עובד באיטיות."
+    },
+    "popup_traffic_limit_exceeded_cta_btn": {
+        "message": "הגבר מהירות"
+    },
+    "popup_feedback_title": {
+        "message": "נשמח לקרוא את המשוב שלך"
+    },
+    "popup_feedback_button": {
+        "message": "השאר משוב"
+    },
+    "popup_rate_modal_title": {
+        "message": "כמה מדהים AdGuard VPN?"
+    },
+    "popup_rate_modal_subtitle": {
+        "message": "אנא דרג אותנו"
+    },
+    "popup_rate_modal_send_button": {
+        "message": "שלח"
+    },
+    "popup_rate_modal_cancel_button": {
+        "message": "בטל"
+    },
+    "popup_confirm_rate_modal_feedback_title": {
+        "message": "עזור לנו להשתפר"
+    },
+    "popup_confirm_rate_modal_feedback_subtitle": {
+        "message": "ספר לנו מה השתבש"
+    },
+    "popup_confirm_rate_modal_leave_feedback_button": {
+        "message": "השאר משוב"
+    },
+    "options_title": {
+        "message": "אפשרויות AdGuard VPN"
+    },
+    "offline_title": {
+        "message": "לא מקוון"
+    },
+    "popup_site_status_vpn_disabled": {
+        "message": "VPN מושבת באתר זה"
+    },
+    "popup_auth_policy_agreement": {
+        "message": "קראתי ואני מסכים אל <eula>EULA</eula> ו<privacy>מדיניות הפרטיות</privacy> של AdGuard",
+        "description": "WARNING! Respect spaces between tags"
+    },
+    "popup_auth_help_us_improve_agreement": {
+        "message": "אני מתיר אל AdGuard לאסוף <link>נתונים עלומי זהות קפדניים</link> על השימוש ביישום כדי לשפר את AdGuard VPN"
+    },
+    "popup_auth_policy_agreement_continue_button": {
+        "message": "המשך"
+    },
+    "popup_newsletter_title": {
+        "message": "עלון AdGuard"
+    },
+    "popup_newsletter_info": {
+        "message": "שלח לי דוא״לים עם הצעות מיוחדות וחדשות של AdGuard"
+    },
+    "popup_newsletter_subscribe": {
+        "message": "הירשם כמנוי"
+    },
+    "popup_newsletter_no_subscribe": {
+        "message": "לא, תודה"
+    },
+    "popup_onboarding_next": {
+        "message": "הבא"
+    },
+    "popup_upgrade_screen_title": {
+        "message": "VPN בלתי מוגבל"
+    },
+    "popup_upgrade_screen_unlimited_data": {
+        "message": "נתונים בלתי מוגבלים"
+    },
+    "popup_upgrade_screen_unlimited_data_desc": {
+        "message": "המגבלה היחידה היא שהנתונים שלך אף פעם לא משותפים. גלוש אל תוכן ליבך!"
+    },
+    "popup_upgrade_screen_unlimited_speed": {
+        "message": "מהירות בלתי מוגבלת"
+    },
+    "popup_upgrade_screen_unlimited_speed_desc": {
+        "message": "ללא הגבלות מהירות. הוצא את המירב מספק השירות שלך!"
+    },
+    "popup_upgrade_screen_all_locations": {
+        "message": "כל המיקומים"
+    },
+    "popup_upgrade_screen_all_locations_desc": {
+        "message": "6 יבשות ועשרות מדינות. בחר עיר וגלוש ברשת באופן בטוח!"
+    },
+    "popup_upgrade_screen_connect_devices": {
+        "message": "עד 5 מכשירים"
+    },
+    "popup_upgrade_screen_connect_devices_desc": {
+        "message": "חבר את כל החפיצים שלך אל AdGuard VPN באותו הזמן — או הגן על המשפחה כולה!"
+    },
+    "popup_upgrade_screen_upgrade_button": {
+        "message": "שדרג"
+    },
+    "popup_upgrade_screen_continue_free": {
+        "message": "המשך בחינם"
+    },
+    "popup_free_traffic_info": {
+        "message": "<span>%value% %unit%</span> נותרו החודש",
+        "description": "Respect spaces between text, tags and placeholders"
+    },
+    "options_exclusions_delete_cancel_button": {
+        "message": "בטל"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "מחק"
+    },
+    "options_exclusions_delete_title": {
+        "message": "הסר החרגות"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "כל ההחרגות מהמצב הרגיל יימחקו."
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "כל ההחרגות מהמצב הבררני יימחקו."
+    },
+    "options_exclusions_import_successful": {
+        "message": "החרגות מיובאות: %count%"
+    },
+    "options_exclusions_deleted_exclusions": {
+        "message": "החרגות מחוקות: %count%"
+    },
+    "options_exclusions_added_exclusions": {
+        "message": "החרגות מוספות: %count%"
+    },
+    "options_exclusions_remove_all_success": {
+        "message": "כל ההחרגות עבור המצב הנוכחי הוסרו בהצלחה."
+    },
+    "options_exclusions_import_error_wrong_extensions": {
+        "message": "לקובץ החרגות צריך להיות את אחת מהסיומות הבאות: %extensions%"
+    },
+    "options_exclusions_import_error_wrong_extensions_in_zip": {
+        "message": "ארכיון Zip: הקובץ \"%filename%\" אינו מכיל קבצים עם סיומות: %extensions%"
+    },
+    "popup_connections_limit_description_start": {
+        "message": "הגעת אל המספר המרבי של החיבורים: %maxDevicesAllowed%."
+    },
+    "popup_connections_limit_description_end_free": {
+        "message": "כדי להוסיף עוד מכשירים, שקול להירשם כמנוי אל AdGuard VPN בלתי מוגבל."
+    },
+    "popup_connections_limit_description_end_premium": {
+        "message": "כדי להוסיף מכשיר נוסף, השבת את AdGuard VPN בכל אחד מהחפיצים שלך."
+    },
+    "popup_connections_limit_description_cta_button_free": {
+        "message": "הירשם כמנוי"
+    },
+    "popup_connections_limit_description_cta_button_premium": {
+        "message": "למד עוד"
+    },
+    "popup_connections_limit_title": {
+        "message": "מגבלת חיבורים הושגה"
+    },
+    "popup_desktop_vpn_enabled_title": {
+        "message": "AdGuard VPN מחובר כבר"
+    },
+    "popup_desktop_vpn_enabled_description": {
+        "message": "AdGuard VPN מאופשר ביישום שולחן העבודה אז ההרחבה הושבתה באופן אוטומטי"
+    },
+    "popup_desktop_vpn_enabled_button": {
+        "message": "בסדר"
+    },
+    "options_signedout_page_title": {
+        "message": "יצאת מן AdGuard VPN"
+    },
+    "options_signedout_page_description": {
+        "message": "אנא שים לב: אתה לא מחובר אל VPN והתעבורה שלך לא מוגנת! כדי להמשיך לגלוש בפרטיות, לחץ על האיקון של AdGuard VPN והיכנס שוב."
+    },
+    "notification_data_limit_reached_title": {
+        "message": "מגבלת נתונים חודשית הושגה"
+    },
+    "notification_data_limit_reached_description": {
+        "message": "מהירות חיבור ה־VPN הואטה."
+    },
+    "notification_data_left_mb": {
+        "message": "יש %num% מ״ב נותרים."
+    },
+    "notification_data_left_description": {
+        "message": "מהירות חיבור ה־VPN תואט בקרוב."
+    },
+    "confirm_email_close_button": {
+        "message": "סגור"
+    }
+}

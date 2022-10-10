@@ -4,7 +4,7 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 import Modal from 'react-modal';
 
 import { log } from '../../../lib/logger';
-import { REQUEST_STATUSES } from '../../stores/consts';
+import { RequestStatus } from '../../stores/consts';
 import { rootStore } from '../../stores';
 import { Sidebar } from '../Sidebar';
 import { Settings } from '../Settings';
@@ -15,7 +15,7 @@ import { SignedOut } from '../SignedOut';
 import { Preloader } from '../Preloader';
 import Icons from '../ui/Icons';
 import { messenger } from '../../../lib/messenger';
-import notifier from '../../../lib/notifier';
+import { notifier } from '../../../lib/notifier';
 import { Support } from '../Support';
 import { Notifications } from '../ui/Notifications';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
@@ -50,7 +50,7 @@ const getContent = (authenticated, requestProcessState, isPremiumToken) => {
 
     return (
         <>
-            {requestProcessState === REQUEST_STATUSES.PENDING && <Preloader />}
+            {requestProcessState === RequestStatus.Pending && <Preloader />}
             <SignedOut />
         </>
     );
@@ -77,7 +77,7 @@ export const App = observer(() => {
 
             const events = [
                 notifier.types.AUTHENTICATE_SOCIAL_SUCCESS,
-                notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE,
+                notifier.types.EXCLUSIONS_DATA_UPDATED,
                 notifier.types.USER_AUTHENTICATED,
                 notifier.types.USER_DEAUTHENTICATED,
             ];
@@ -95,7 +95,7 @@ export const App = observer(() => {
                             authStore.setIsAuthenticated(true);
                             break;
                         }
-                        case notifier.types.EXCLUSIONS_UPDATED_BACK_MESSAGE: {
+                        case notifier.types.EXCLUSIONS_DATA_UPDATED: {
                             await exclusionsStore.updateExclusionsData();
                             break;
                         }
@@ -124,7 +124,7 @@ export const App = observer(() => {
     }, []);
 
     // show nothing while data is loading
-    if (status === REQUEST_STATUSES.PENDING) {
+    if (status === RequestStatus.Pending) {
         return null;
     }
 

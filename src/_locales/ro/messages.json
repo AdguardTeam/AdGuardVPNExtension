@@ -240,22 +240,73 @@
         "message": "Trafic VPN gratuit"
     },
     "referral_get_free_traffic": {
-        "message": "Obțineți date VPN gratuit!"
+        "message": "Obțineți GB gratuit!"
     },
     "settings_referral_info": {
-        "message": "Invitați-vă prietenii să se alăture clanului nostru ninja și obțineți mai mult trafic VPN gratuit pentru o lună. Primiți %your_gb% GB pentru fiecare prieten care se înscrie: aceștia primesc, de asemenea, %friend_gb% GB în plus gratuit! Dumneavoastră (utilizatorul care invită) puteți obține gratuit maximum %total_gb% GB în plus."
+        "message": "Obțineți %your_gb% GB de trafic VPN gratuit pentru o lună pentru fiecare prieten care se înregistrează prin invitația dvs., până la %total_gb% GB în total. Prietenul primește, de asemenea, %friend_gb% GB suplimentar gratuit."
     },
     "settings_referral_invited_friends": {
         "message": "Prieteni invitați %count%/%limit%"
     },
-    "settings_referral_limit_reached": {
-        "message": "Ați primit deja cei %your_gb% GB de date VPN gratuite. Dar prietenii pot obține în continuare %friend_gb% GB de date VPN gratuite suplimentare, dacă îi invitați!"
+    "settings_referral_invite_link": {
+        "message": "Link de invitație"
     },
     "settings_referral_copy_link": {
-        "message": "Copiere link"
+        "message": "Copiați linkul de invitație"
     },
     "settings_referral_link_copied": {
-        "message": "Link copiat"
+        "message": "Link de invitație copiat în clipboard"
+    },
+    "settings_free_gbs": {
+        "message": "GB gratuiți"
+    },
+    "settings_free_gbs_subtitle": {
+        "message": "Finalizați sarcinile pentru a obține trafic VPN gratuit!"
+    },
+    "settings_free_gbs_confirm_email_title": {
+        "message": "Confirmați-vă e-mailul"
+    },
+    "settings_free_gbs_get_GB": {
+        "message": "Obțineți %num% GB"
+    },
+    "settings_free_gbs_task_complete": {
+        "message": "Ați obținut %num% GB"
+    },
+    "settings_free_gbs_confirm_email_info": {
+        "message": "Faceți clic pe linkul de confirmare prin e-mail pe care vi l-am trimis la înregistrare și primiți %your_gb% GB de trafic VPN gratuit. Dacă nu găsiți e-mailul nostru, faceți clic pe butonul de mai jos."
+    },
+    "settings_free_gbs_confirm_email_resend_link_button": {
+        "message": "Trimiteți din nou linkul"
+    },
+    "settings_free_gbs_add_device_title": {
+        "message": "Adăugați alt dispozitiv"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "Instalați AdGuard VPN pe încă un dispozitiv, apoi conectați-vă de pe acesta la contul AdGuard și primiți %your_gb% GB"
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "Dispozitive adăugate"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "Felicitări pentru instalarea AdGuard VPN pe mai multe dispozitive. Rămâneți în siguranță!"
+    },
+    "settings_free_gbs_add_device_products_button": {
+        "message": "Mergi la Produse"
+    },
+    "settings_free_gbs_invite_friend": {
+        "message": "Invitați un prieten"
+    },
+    "settings_free_gbs_invite_friend_get_GB": {
+        "message": "Obțineți până la %num% GB"
+    },
+    "settings_free_gbs_invite_friend_complete": {
+        "message": "Ați obținut %num% GB"
+    },
+    "settings_free_gbs_invite_friend_completed_thank_you": {
+        "message": "Mulțumim pentru utilizarea tuturor invitațiilor!"
+    },
+    "settings_free_gbs_go_back": {
+        "message": "Înapoi"
     },
     "settings_rate_us": {
         "message": "Cotați-ne"
@@ -282,7 +333,52 @@
         "message": "Modul general"
     },
     "settings_dns_label": {
-        "message": "Folosiți server DNS"
+        "message": "Server DNS"
+    },
+    "settings_dns_popular_servers": {
+        "message": "Servere DNS populare"
+    },
+    "settings_dns_custom_servers": {
+        "message": "Servere DNS adaptate"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "Adăugare de server DNS personalizat"
+    },
+    "settings_dns_edit_custom_server": {
+        "message": "Editarea serverului DNS personalizat"
+    },
+    "settings_dns_add_custom_server_info": {
+        "message": "<a>Aflați mai multe</a> despre serverele DNS"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "Nume de server"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Nume de server"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "Adresă server DNS"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP sau TLS"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "Adresă DNS invalidă"
+    },
+    "settings_dns_add_custom_server_duplicate_address": {
+        "message": "Server DNS deja adăugat"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "Salvați și selectați"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "Salvați"
+    },
+    "settings_dns_add_custom_server_notification_success": {
+        "message": "Serverul DNS personalizat a fost adăugat"
+    },
+    "settings_dns_delete_custom_server_notification": {
+        "message": "Serverul DNS personalizat șters"
     },
     "settings_dns_desc": {
         "message": "Sistemul de Nume de Domeniu (DNS) este echivalentul Internet al unei cărți de telefon. El menține un director de nume de domenii și le traduce în adrese IP (Protocol Internet)."
@@ -291,7 +387,7 @@
         "message": "Implicit"
     },
     "settings_dns_selector_default_desc": {
-        "message": "Folosiți automat servere DNS implicite când vă conectați la VPN"
+        "message": "Folosește serverele DNS furnizate de AdGuard VPN"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -446,20 +542,26 @@
     "settings_exclusion_title": {
         "message": "Excluderi"
     },
-    "settings_exclusion_change_mode": {
-        "message": "Schimbați modul"
+    "settings_exclusion_change_mode_modal_title": {
+        "message": "Unde este activat VPN-ul"
     },
     "settings_exclusion_general_title": {
-        "message": "Modul general"
+        "message": "Peste tot, cu excepția website-urilor excluse"
     },
-    "settings_exclusion_general_description": {
-        "message": "AdGuard VPN este activat peste tot, cu excepția site-urilor web adăugate la excluderi"
+    "settings_exclusion_general_mode_info": {
+        "message": "VPN-ul este activat <span>peste tot</span>, cu excepția website-urilor de mai jos"
     },
     "settings_exclusion_selective_title": {
-        "message": "Modul selectiv"
+        "message": "Numai pe website-urile selectate"
     },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN este activat numai pentru site-urile web adăugate la excluderi"
+    "settings_exclusion_selective_mode_info": {
+        "message": "VPN-ul este activat <span>selectiv</span>: numai pe website-urile de mai jos"
+    },
+    "settings_exclusion_selective_mode_warning": {
+        "message": "Lăsarea acestei liste goale dezactivează VPN-ul pe toate website-urile"
+    },
+    "settings_exclusion_import_button": {
+        "message": "Import"
     },
     "global_error_title": {
         "message": "A apărut o eroare"
@@ -621,23 +723,23 @@
     "popup_newsletter_no_subscribe": {
         "message": "Nu, mulțumesc"
     },
-    "popup_onboarding_trusted_vpn": {
-        "message": "VPN de încredere"
+    "popup_onboarding_unique_protocol": {
+        "message": "Protocol VPN unic"
     },
-    "popup_onboarding_trusted_vpn_info": {
-        "message": "De către dezvoltatorul blocantului de anunțuri de renume mondial"
+    "popup_onboarding_unique_protocol_info": {
+        "message": "Protocolul AdGuard VPN funcționează rapid și vă face traficul VPN discret"
     },
-    "popup_onboarding_numerous_locations": {
-        "message": "Numeroase locații"
+    "popup_onboarding_sites_apps_exclusions": {
+        "message": "Excluderi de site-uri și app-uri"
     },
-    "popup_onboarding_numerous_locations_info": {
-        "message": "Conectați-vă la oricare dintre serverele noastre situate în întreaga lume"
+    "popup_onboarding_sites_apps_exclusions_info": {
+        "message": "Excluderile vă ajută să specificați rapid site-urile sau app-urile pentru protecția AdGuard VPN"
     },
-    "popup_onboarding_fastest_servers": {
-        "message": "Cele mai rapide servere"
+    "popup_onboarding_no_logging_policy": {
+        "message": "Politică fără jurnale"
     },
-    "popup_onboarding_fastest_servers_info": {
-        "message": "Utilizăm tehnologii de vârf pentru a garanta cea mai mare viteza de conectare"
+    "popup_onboarding_no_logging_policy_info": {
+        "message": "AdGuard VPN vă face anonim. Datele dvs. nu sunt niciodată colectate sau partajate cu terțe părți"
     },
     "popup_onboarding_next": {
         "message": "Următor"
@@ -680,13 +782,16 @@
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
-        "message": "Importați excluderi în:"
+        "message": "Cum se utilizează această listă de excluderi?"
+    },
+    "options_exclusions_import_select_subtitle": {
+        "message": "Website-urile din lista importată vor fi adăugate la excluderile existente"
     },
     "options_exclusions_import_select_regular": {
-        "message": "Listă obișnuită"
+        "message": "Vreau ca VPN-ul să fie dezactivat pentru aceste website-uri"
     },
     "options_exclusions_import_select_selective": {
-        "message": "Listă selectivă"
+        "message": "Vreau ca VPN-ul să fie activat pentru aceste website-uri"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Anulare"
@@ -765,5 +870,26 @@
     },
     "notification_data_left_description": {
         "message": "Viteza conexiunii VPN va fi redusă în curând."
+    },
+    "confirm_email_title": {
+        "message": "Confirmați-vă e-mailul"
+    },
+    "confirm_email_info": {
+        "message": "Pentru a obține trafic VPN gratuit, confirmați-vă e-mailul. Un link de confirmare a fost trimis la"
+    },
+    "confirm_email_done_title": {
+        "message": "Adresa de e-mail confirmată"
+    },
+    "confirm_email_done_info": {
+        "message": "Mulțumim pentru verificare!"
+    },
+    "confirm_email_close_button": {
+        "message": "Închideți"
+    },
+    "confirm_email_resend_link_button": {
+        "message": "Trimiteți din nou linkul"
+    },
+    "resend_confirm_registration_link_notification": {
+        "message": "Link de confirmare trimis din nou"
     }
 }

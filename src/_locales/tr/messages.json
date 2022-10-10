@@ -240,22 +240,73 @@
         "message": "Ücretsiz VPN verisi"
     },
     "referral_get_free_traffic": {
-        "message": "Ücretsiz VPN verisi edinin!"
+        "message": "Ücretsiz GB'ler edinin!"
     },
     "settings_referral_info": {
-        "message": "Arkadaşlarınızı ninja klanımıza katılmaya davet edin ve bir ay boyunca daha fazla ücretsiz VPN verisi alın. Kaydolan her arkadaşınız için %your_gb% GB alın: ayrıca ücretsiz olarak fazladan %friend_gb% GB alırlar! Siz (davet eden kullanıcı) ücretsiz olarak maksimum fazladan %total_gb% GB edinebilirsiniz."
+        "message": "Davetiniz aracılığıyla kaydolan her arkadaşınız için toplamda %total_gb% GB'a kadar ayda %your_gb% GB ücretsiz VPN verisi edinin. Arkadaşınız ayrıca ücretsiz olarak fazladan %friend_gb% GB edinir."
     },
     "settings_referral_invited_friends": {
         "message": "Davet edilen arkadaşlar %count%/%limit%"
     },
-    "settings_referral_limit_reached": {
-        "message": "%your_gb% GB ücretsiz VPN verinizi zaten aldınız. Ancak arkadaşlarınızı davet ederseniz, yine de %friend_gb% GB ek ücretsiz VPN verisi alabilirler!"
+    "settings_referral_invite_link": {
+        "message": "Davet bağlantısı"
     },
     "settings_referral_copy_link": {
-        "message": "Bağlantıyı kopyala"
+        "message": "Davet bağlantısını kopyala"
     },
     "settings_referral_link_copied": {
-        "message": "Bağlantı kopyalandı"
+        "message": "Davet bağlantısı panoya kopyalandı"
+    },
+    "settings_free_gbs": {
+        "message": "Ücretsiz GB'ler"
+    },
+    "settings_free_gbs_subtitle": {
+        "message": "Ücretsiz VPN verisi edinmek için görevleri tamamlayın!"
+    },
+    "settings_free_gbs_confirm_email_title": {
+        "message": "E-postanızı doğrulayın"
+    },
+    "settings_free_gbs_get_GB": {
+        "message": "%num% GB edinin"
+    },
+    "settings_free_gbs_task_complete": {
+        "message": "%num% GB'ınız var"
+    },
+    "settings_free_gbs_confirm_email_info": {
+        "message": "Kaydolurken size gönderdiğimiz e-posta doğrulama bağlantısına tıklayın ve %your_gb% GB ücretsiz VPN verisi edinin. E-postamızı bulamıyorsanız, aşağıdaki düğmeye tıklayın."
+    },
+    "settings_free_gbs_confirm_email_resend_link_button": {
+        "message": "Bağlantıyı yeniden gönder"
+    },
+    "settings_free_gbs_add_device_title": {
+        "message": "Başka bir cihaz ekleyin"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "AdGuard VPN'i bir cihaza daha yükleyin, AdGuard hesabınıza giriş yapın ve %your_gb% GB edinin"
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "Cihaz eklendi"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "AdGuard VPN'i birden fazla cihaza yüklediğiniz için tebrikler. Güvende kalın!"
+    },
+    "settings_free_gbs_add_device_products_button": {
+        "message": "Ürünlere git"
+    },
+    "settings_free_gbs_invite_friend": {
+        "message": "Bir arkadaş davet et"
+    },
+    "settings_free_gbs_invite_friend_get_GB": {
+        "message": "%num% GB'a kadar edinin"
+    },
+    "settings_free_gbs_invite_friend_complete": {
+        "message": "%num% GB'ınız var"
+    },
+    "settings_free_gbs_invite_friend_completed_thank_you": {
+        "message": "Tüm davetlerinizi kullandığınız için teşekkür ederiz!"
+    },
+    "settings_free_gbs_go_back": {
+        "message": "Geri dön"
     },
     "settings_rate_us": {
         "message": "Bizi değerlendirin"
@@ -282,7 +333,49 @@
         "message": "Genel mod"
     },
     "settings_dns_label": {
-        "message": "DNS sunucusu kullan"
+        "message": "DNS sunucusu"
+    },
+    "settings_dns_popular_servers": {
+        "message": "Popüler DNS sunucuları"
+    },
+    "settings_dns_custom_servers": {
+        "message": "Özel DNS sunucuları"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "Özel DNS sunucusu ekle"
+    },
+    "settings_dns_edit_custom_server": {
+        "message": "Özel DNS sunucusunu düzenle"
+    },
+    "settings_dns_add_custom_server_info": {
+        "message": "DNS sunucuları hakkında <a>daha fazla bilgi edinin</a>"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "Sunucu adı"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Sunucu adı"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "DNS sunucusu adresi"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP veya TLS"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "Geçersiz DNS sunucu adresi"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "Kaydet ve seç"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "Kaydet"
+    },
+    "settings_dns_add_custom_server_notification_success": {
+        "message": "Özel DNS sunucusu eklendi"
+    },
+    "settings_dns_delete_custom_server_notification": {
+        "message": "Özel DNS sunucusu silindi"
     },
     "settings_dns_desc": {
         "message": "Alan Adı Sistemi (DNS) internetin bir telefon rehberine eşdeğeridir. Alan adı adlarının bir dizinini korur ve bunları İnternet Protokolü (IP) adreslerine çevirir."
@@ -291,7 +384,7 @@
         "message": "Varsayılan"
     },
     "settings_dns_selector_default_desc": {
-        "message": "VPN'e bağlandığında varsayılan DNS sunucularını otomatik olarak kullanın"
+        "message": "AdGuard VPN tarafından sağlanan DNS sunucularını kullanır"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -446,20 +539,26 @@
     "settings_exclusion_title": {
         "message": "İstisnalar"
     },
-    "settings_exclusion_change_mode": {
-        "message": "Modu değiştir"
+    "settings_exclusion_change_mode_modal_title": {
+        "message": "VPN'nin açık olduğu yer"
     },
     "settings_exclusion_general_title": {
-        "message": "Genel mod"
+        "message": "Hariç tutulan siteler hariç her yerde"
     },
-    "settings_exclusion_general_description": {
-        "message": "AdGuard VPN, istisnalara eklenen siteler dışında her yerde açık"
+    "settings_exclusion_general_mode_info": {
+        "message": "VPN, aşağıdaki siteler dışında <span>her yerde</span> açık"
     },
     "settings_exclusion_selective_title": {
-        "message": "Seçici mod"
+        "message": "Yalnızca seçili sitelerde"
     },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN yalnızca istisnalara eklenen siteler için açık"
+    "settings_exclusion_selective_mode_info": {
+        "message": "VPN <span>seçici olarak</span> açık: yalnızca aşağıdaki siteler için"
+    },
+    "settings_exclusion_selective_mode_warning": {
+        "message": "Bu listeyi boş bırakmak tüm siteler için VPN'i devre dışı bırakır"
+    },
+    "settings_exclusion_import_button": {
+        "message": "İçe aktar"
     },
     "global_error_title": {
         "message": "Hata oluştu"
@@ -594,7 +693,7 @@
         "message": "Çevrimdışı"
     },
     "popup_site_status_unaccessible": {
-        "message": "yerel ağınızda bulunur ve VPN üzerinden erişilemez"
+        "message": "yerel ağınızda bulunur ve VPN aracılığıyla erişilemez"
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN bu sitede devre dışı bırakıldı"
@@ -621,23 +720,23 @@
     "popup_newsletter_no_subscribe": {
         "message": "Hayır, teşekkürler"
     },
-    "popup_onboarding_trusted_vpn": {
-        "message": "Güvenilir VPN"
+    "popup_onboarding_unique_protocol": {
+        "message": "Benzersiz VPN protokolü"
     },
-    "popup_onboarding_trusted_vpn_info": {
-        "message": "Dünyaca ünlü reklam engelleyicinin geliştiricisi tarafından"
+    "popup_onboarding_unique_protocol_info": {
+        "message": "AdGuard VPN protokolü hızlı çalışır ve VPN trafiğinizi görünmez kılar"
     },
-    "popup_onboarding_numerous_locations": {
-        "message": "Çok sayıda konum"
+    "popup_onboarding_sites_apps_exclusions": {
+        "message": "Siteler ve uygulamalar istisnaları"
     },
-    "popup_onboarding_numerous_locations_info": {
-        "message": "Dünyanın her yerinde bulunan sunucularımızdan herhangi birine bağlanın"
+    "popup_onboarding_sites_apps_exclusions_info": {
+        "message": "İstisnalar, AdGuard VPN koruması için siteleri veya uygulamaları hızlı bir şekilde belirlemenize yardımcı olur"
     },
-    "popup_onboarding_fastest_servers": {
-        "message": "En hızlı sunucular"
+    "popup_onboarding_no_logging_policy": {
+        "message": "Günlük kayıt politikası yok"
     },
-    "popup_onboarding_fastest_servers_info": {
-        "message": "En yüksek bağlantı hızını garanti etmek için en son teknolojileri kullanıyoruz"
+    "popup_onboarding_no_logging_policy_info": {
+        "message": "AdGuard VPN sizi anonim yapar. Verilerinizi asla toplamaz veya üçüncü şahıslarla paylaşmaz"
     },
     "popup_onboarding_next": {
         "message": "Sonraki"
@@ -680,13 +779,16 @@
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
-        "message": "İstisnaları içe aktar:"
+        "message": "Bu istisna listesi nasıl kullanılır?"
+    },
+    "options_exclusions_import_select_subtitle": {
+        "message": "İçe aktarılan listedeki siteler mevcut istisnalara eklenecektir"
     },
     "options_exclusions_import_select_regular": {
-        "message": "Normal liste"
+        "message": "Bu siteler için VPN'in kapalı olmasını istiyorum"
     },
     "options_exclusions_import_select_selective": {
-        "message": "Seçici liste"
+        "message": "Bu siteler için VPN'in açık olmasını istiyorum"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "İptal"
@@ -743,7 +845,7 @@
         "message": "AdGuard VPN zaten bağlı"
     },
     "popup_desktop_vpn_enabled_description": {
-        "message": "AdGuard VPN, masaüstü uygulamasında etkinleştirildiğinden eklenti otomatik olarak devre dışı bırakıldı"
+        "message": "AdGuard VPN, masaüstü uygulamasında etkinleştirildiğinden uzantı otomatik olarak devre dışı bırakıldı"
     },
     "popup_desktop_vpn_enabled_button": {
         "message": "Tamam"
@@ -765,5 +867,26 @@
     },
     "notification_data_left_description": {
         "message": "VPN bağlantı hızı yakında azaltılacaktır."
+    },
+    "confirm_email_title": {
+        "message": "E-postanızı doğrulayın"
+    },
+    "confirm_email_info": {
+        "message": "Ücretsiz VPN verisi almak için lütfen e-posta adresinizi doğrulayın. Şu adrese bir doğrulama bağlantısı gönderdik"
+    },
+    "confirm_email_done_title": {
+        "message": "E-posta adresi doğrulandı"
+    },
+    "confirm_email_done_info": {
+        "message": "Doğruladığınız için teşekkürler!"
+    },
+    "confirm_email_close_button": {
+        "message": "Kapat"
+    },
+    "confirm_email_resend_link_button": {
+        "message": "Bağlantıyı yeniden gönder"
+    },
+    "resend_confirm_registration_link_notification": {
+        "message": "Doğrulama bağlantısı yeniden gönderildi"
     }
 }

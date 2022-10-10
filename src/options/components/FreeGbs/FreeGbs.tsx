@@ -9,7 +9,7 @@ import { ConfirmEmail } from './ConfirmEmail';
 import { AddDevice } from './AddDevice';
 import { Title } from '../ui/Title';
 import { DotsLoader } from '../../../common/components/DotsLoader';
-import { REQUEST_STATUSES, COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
+import { RequestStatus, COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 
 import './free-gbs.pcss';
 
@@ -118,7 +118,7 @@ export const FreeGbs = observer(() => {
         case query.has(ADD_DEVICE): {
             return <AddDevice goBackHandler={goBackHandler} />;
         }
-        case bonusesDataRequestStatus !== REQUEST_STATUSES.DONE: {
+        case bonusesDataRequestStatus !== RequestStatus.Done: {
             return <DotsLoader />;
         }
         default: {

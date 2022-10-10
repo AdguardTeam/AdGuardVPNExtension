@@ -1,34 +1,32 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { DNS_SERVERS } from '../../../../background/dns/dnsConstants';
 import { rootStore } from '../../../stores';
-import { Select } from '../../ui/Select';
 import { reactTranslator } from '../../../../common/reactTranslator';
 
-export const Dns = observer(() => {
+export const DnsMenuItem = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
-    const handleDnsSelect = async (server) => {
-        await settingsStore.setDnsServer(server);
+    const { currentDnsServerName, setShowDnsSettings } = settingsStore;
+
+    const handleClick = () => {
+        setShowDnsSettings(true);
     };
 
     return (
         <div className="settings__group">
-            <div className="settings__item">
+            <div className="settings__item settings__item--dns-server" onClick={handleClick}>
                 <div className="settings__item-content">
                     <div className="settings__item-title">
                         {reactTranslator.getMessage('settings_dns_label')}
                     </div>
                     <div className="settings__item-desc">
-                        {reactTranslator.getMessage('settings_dns_desc')}
+                        {currentDnsServerName}
                     </div>
+                    <svg className="icon icon--button">
+                        <use xlinkHref="#arrow" />
+                    </svg>
                 </div>
-                <Select
-                    options={DNS_SERVERS}
-                    currentValue={settingsStore.dnsServer}
-                    optionChange={handleDnsSelect}
-                />
             </div>
         </div>
     );

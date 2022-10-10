@@ -243,19 +243,28 @@
         "message": "Отримайте безплатний VPN-трафік!"
     },
     "settings_referral_info": {
-        "message": "Запрошуйте своїх друзів приєднатись до нашого ніндзя-клану та отримуйте більше безплатного трафіку на місяць. %your_gb% ГБ вам та %friend_gb% ГБ другу, що зареєструється! За запрошення друзів ви безплатно можете отримати не більше ніж %total_gb% ГБ."
+        "message": "Отримайте %your_gb% ГБ безкоштовного трафіку VPN на місяць для кожного друга, який зареєструється за вашим запрошенням, загалом до %total_gb% ГБ. Ваш друг також отримує додаткові %friend_gb% ГБ безкоштовно."
     },
     "settings_referral_invited_friends": {
         "message": "Запрошені друзі %count%/%limit%"
     },
-    "settings_referral_limit_reached": {
-        "message": "Ви вже отримали усі %your_gb% ГБ безплатного трафіку. Але ваші друзі досі можуть отримати по %friend_gb% ГБ додаткового трафіку, якщо ви їх запросите!"
-    },
     "settings_referral_copy_link": {
-        "message": "Копіювати посилання"
+        "message": "Копіювати посилання для запрошення"
     },
     "settings_referral_link_copied": {
         "message": "Посилання скопійовано"
+    },
+    "settings_free_gbs_confirm_email_title": {
+        "message": "Підтвердьте свою електронну адресу"
+    },
+    "settings_free_gbs_confirm_email_resend_link_button": {
+        "message": "Надіслати повторно"
+    },
+    "settings_free_gbs_add_device_products_button": {
+        "message": "Перейти до продуктів"
+    },
+    "settings_free_gbs_go_back": {
+        "message": "Назад"
     },
     "settings_rate_us": {
         "message": "Оцініть нас"
@@ -282,7 +291,52 @@
         "message": "Загальний режим"
     },
     "settings_dns_label": {
-        "message": "Використовувати DNS-сервер"
+        "message": "DNS-сервер"
+    },
+    "settings_dns_popular_servers": {
+        "message": "Популярні DNS-сервери"
+    },
+    "settings_dns_custom_servers": {
+        "message": "Власні DNS-сервери"
+    },
+    "settings_dns_add_custom_server": {
+        "message": "Додати власний DNS-сервер"
+    },
+    "settings_dns_edit_custom_server": {
+        "message": "Змінити власний DNS-сервер"
+    },
+    "settings_dns_add_custom_server_info": {
+        "message": "<a>Докладніше</a> про DNS-сервери"
+    },
+    "settings_dns_add_custom_server_name": {
+        "message": "Назва сервера"
+    },
+    "settings_dns_add_custom_server_name_placeholder": {
+        "message": "Назва сервера"
+    },
+    "settings_dns_add_custom_server_address": {
+        "message": "Адреса DNS-сервера"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP або TLS"
+    },
+    "settings_dns_add_custom_server_invalid_address": {
+        "message": "Неправильна адреса DNS-сервера"
+    },
+    "settings_dns_add_custom_server_duplicate_address": {
+        "message": "DNS-сервер уже додано"
+    },
+    "settings_dns_add_custom_server_save_and_select": {
+        "message": "Зберегти та вибрати"
+    },
+    "settings_dns_add_custom_server_save": {
+        "message": "Зберегти"
+    },
+    "settings_dns_add_custom_server_notification_success": {
+        "message": "Власний DNS-сервер додано"
+    },
+    "settings_dns_delete_custom_server_notification": {
+        "message": "Власний DNS-сервер видалено"
     },
     "settings_dns_desc": {
         "message": "Система доменних імен (DNS) — це адресна книга інтернету. Вона містить каталог доменних імен та перетворює їх у реальні IP-адреси."
@@ -291,7 +345,7 @@
         "message": "Усталений"
     },
     "settings_dns_selector_default_desc": {
-        "message": "Автоматично використовувати усталений DNS-сервер під час під'єднання до VPN"
+        "message": "Використовує DNS-сервери, надані AdGuard VPN"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -446,20 +500,14 @@
     "settings_exclusion_title": {
         "message": "Винятки"
     },
-    "settings_exclusion_change_mode": {
-        "message": "Змінити режим"
-    },
     "settings_exclusion_general_title": {
-        "message": "Загальний режим"
-    },
-    "settings_exclusion_general_description": {
-        "message": "AdGuard VPN працюватиме всюди, окрім сайтів-винятків"
+        "message": "Скрізь, крім виключених веб-сайтів"
     },
     "settings_exclusion_selective_title": {
-        "message": "Вибірковий режим"
+        "message": "Лише на вибраних сайтах"
     },
-    "settings_exclusion_selective_description": {
-        "message": "AdGuard VPN працюватиме лише на сайтах, які додано до винятків"
+    "settings_exclusion_import_button": {
+        "message": "Імпорт"
     },
     "global_error_title": {
         "message": "Сталася помилка"
@@ -621,24 +669,6 @@
     "popup_newsletter_no_subscribe": {
         "message": "Ні, дякую"
     },
-    "popup_onboarding_trusted_vpn": {
-        "message": "Надійний VPN"
-    },
-    "popup_onboarding_trusted_vpn_info": {
-        "message": "Під творців відомого блокувальника реклами"
-    },
-    "popup_onboarding_numerous_locations": {
-        "message": "Численні місцезнаходження"
-    },
-    "popup_onboarding_numerous_locations_info": {
-        "message": "Під'єднуйтесь до будь-якого з наших серверів по всьому світу"
-    },
-    "popup_onboarding_fastest_servers": {
-        "message": "Найшвидші сервери"
-    },
-    "popup_onboarding_fastest_servers_info": {
-        "message": "Ми використовуємо новітні технології, щоб забезпечити високу швидкість з'єднання"
-    },
     "popup_onboarding_next": {
         "message": "Далі"
     },
@@ -680,13 +710,13 @@
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
-        "message": "Імпортувати винятки до:"
+        "message": "Як використовувати цей список виключень?"
     },
     "options_exclusions_import_select_regular": {
-        "message": "Звичайного списку"
+        "message": "Я хочу, щоб VPN був вимкнений для цих веб-сайтів"
     },
     "options_exclusions_import_select_selective": {
-        "message": "Вибіркового списку"
+        "message": "Я хочу, щоб VPN був увімкнений для цих веб-сайтів"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Скасувати"
@@ -765,5 +795,20 @@
     },
     "notification_data_left_description": {
         "message": "Швидкість VPN-з'єднання буде зменшено невдовзі."
+    },
+    "confirm_email_title": {
+        "message": "Підтвердьте свою електронну адресу"
+    },
+    "confirm_email_info": {
+        "message": "Щоб отримати безплатний VPN-трафік, необхідно підтвердити електронну адресу. Ми надіслали вам лист з посиланням для цього"
+    },
+    "confirm_email_close_button": {
+        "message": "Закрити"
+    },
+    "confirm_email_resend_link_button": {
+        "message": "Надіслати повторно"
+    },
+    "resend_confirm_registration_link_notification": {
+        "message": "Посилання для підтвердження надіслано повторно"
     }
 }
