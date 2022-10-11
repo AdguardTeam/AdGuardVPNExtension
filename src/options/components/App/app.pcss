@@ -1,14 +1,15 @@
 .wrapper {
     display: flex;
     min-height: 100%;
+    flex-direction: row;
 }
 
 .content {
     margin: 0 auto;
     width: 100%;
-    max-width: calc(var(--content-width) + var(--sidebar-width));
+    max-width: var(--content-width);
     min-height: 500px;
-    padding: 40px 50px 40px calc(50px + var(--sidebar-width));
+    padding: 40px 50px;
 
     &__title {
         display: inline-flex;

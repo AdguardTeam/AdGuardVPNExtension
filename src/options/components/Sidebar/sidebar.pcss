@@ -1,12 +1,14 @@
 .sidebar {
+    top: 0;
+    max-height: 100vh;
+    position: sticky;
+    display: flex;
     border-right: 1px solid var(--border-color);
     background-color: var(--white);
-    display: flex;
-    flex-direction: column;
     width: var(--sidebar-width);
     padding: 40px 0;
-    min-height: 100vh;
-    position: fixed;
+    flex-direction: column;
+    flex-shrink: 0;
 
     @media (prefers-color-scheme: dark) {
         border-right: 1px solid transparent;
@@ -14,6 +16,7 @@
 
     &__logo {
         margin: 0 0 33px 40px;
+        flex-shrink: 0;
     }
 
     &__nav {

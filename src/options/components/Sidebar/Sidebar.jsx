@@ -14,7 +14,7 @@ export const Sidebar = observer(() => {
 
     return (
         <div className="sidebar">
-            <svg className="logo sidebar__logo" />
+            <div className="logo sidebar__logo" />
             <nav className="sidebar__nav" onClick={settingsStore.closeSubComponents}>
                 <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/">
                     {reactTranslator.getMessage('settings_title')}
