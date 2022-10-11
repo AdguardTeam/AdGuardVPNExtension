@@ -38,7 +38,7 @@ export const Sidebar = observer(() => {
                     </NavLink>
                 )}
             </nav>
-            <Rate className="sidebar__rate" />
+            <Rate />
         </div>
     );
 });
