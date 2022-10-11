@@ -6,14 +6,9 @@ import { Title } from '../ui/Title';
 import { EDIT_ACCOUNT_URL } from '../../../background/config';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { Features } from './Features/Features';
+import { SubscriptionType } from '../../../lib/constants';
 
 import './account.pcss';
-
-enum SubscriptionType {
-    Monthly = 'MONTHLY',
-    Yearly = 'YEARLY',
-    TwoYears = 'TWO_YEARS',
-}
 
 export const Account = observer(() => {
     const { authStore, settingsStore } = useContext(rootStore);
@@ -68,7 +63,7 @@ export const Account = observer(() => {
         }
 
         if (subscriptionType) {
-            return subscriptionsMap[subscriptionType as SubscriptionType];
+            return subscriptionsMap[subscriptionType];
         }
 
         return reactTranslator.getMessage('account_unlimited');
