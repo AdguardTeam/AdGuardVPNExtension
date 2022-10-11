@@ -1,4 +1,5 @@
 import React, { Fragment, useContext } from 'react';
+import cn from 'classnames';
 import { observer } from 'mobx-react';
 
 import { OPTIONS_STORE_URL, FEEDBACK_URL } from '../../../../background/config';
@@ -9,7 +10,7 @@ import './rate.pcss';
 
 const RATING_STARS = [5, 4, 3, 2, 1];
 
-export const Rate = observer(() => {
+export const Rate = observer(({ className }) => {
     const { settingsStore } = useContext(rootStore);
     const {
         hideRate,
@@ -37,7 +38,7 @@ export const Rate = observer(() => {
     }
 
     return (
-        <div className="rate">
+        <div className={cn('rate', className)}>
             <div className="rate__text">
                 {reactTranslator.getMessage('rate_description')}
             </div>
