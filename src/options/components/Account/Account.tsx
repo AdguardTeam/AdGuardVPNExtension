@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { ReactNode, useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
@@ -8,6 +8,12 @@ import { reactTranslator } from '../../../common/reactTranslator';
 import { Features } from './Features/Features';
 
 import './account.pcss';
+
+enum SubscriptionType {
+    Monthly = 'MONTHLY',
+    Yearly = 'YEARLY',
+    TwoYears = 'TWO_YEARS',
+}
 
 export const Account = observer(() => {
     const { authStore, settingsStore } = useContext(rootStore);
@@ -22,15 +28,17 @@ export const Account = observer(() => {
         subscriptionType,
     } = settingsStore;
 
-    const signOut = async () => {
+    const { maxDevicesCount } = authStore;
+
+    const signOut = async (): Promise<void> => {
         await authStore.deauthenticate();
     };
 
-    const hideFeatures = async () => {
+    const hideFeatures = async (): Promise<void> => {
         await hidePremiumFeatures();
     };
 
-    const upgrade = async () => {
+    const upgrade = async (): Promise<void> => {
         await openPremiumPromoPage();
     };
 
@@ -39,7 +47,7 @@ export const Account = observer(() => {
     if (nextBillDate) {
         const dateObj = new Date(nextBillDate);
 
-        const formatOptions = {
+        const formatOptions: Intl.DateTimeFormatOptions = {
             year: 'numeric',
             month: 'numeric',
             day: 'numeric',
@@ -49,18 +57,18 @@ export const Account = observer(() => {
     }
 
     const subscriptionsMap = {
-        MONTHLY: reactTranslator.getMessage('account_monthly_paid'),
-        YEARLY: reactTranslator.getMessage('account_yearly_paid'),
-        TWO_YEARS: reactTranslator.getMessage('account_two_year_paid'),
+        [SubscriptionType.Monthly]: reactTranslator.getMessage('account_monthly_paid'),
+        [SubscriptionType.Yearly]: reactTranslator.getMessage('account_yearly_paid'),
+        [SubscriptionType.TwoYears]: reactTranslator.getMessage('account_two_year_paid'),
     };
 
-    const getAccountType = () => {
+    const getAccountType = (): ReactNode => {
         if (!isPremiumToken) {
             return reactTranslator.getMessage('account_free');
         }
 
         if (subscriptionType) {
-            return subscriptionsMap[subscriptionType];
+            return subscriptionsMap[subscriptionType as SubscriptionType];
         }
 
         return reactTranslator.getMessage('account_unlimited');
@@ -83,9 +91,11 @@ export const Account = observer(() => {
                             {reactTranslator.getMessage('account_next_charge', { date: billDate })}
                         </div>
                     )}
-                    <div className="account__max-devices">
-                        {reactTranslator.getMessage('account_max_devices_count', { num: authStore.maxDevicesCount })}
-                    </div>
+                    {maxDevicesCount !== undefined && (
+                        <div className="account__max-devices">
+                            {reactTranslator.getMessage('account_max_devices_count', { num: maxDevicesCount })}
+                        </div>
+                    )}
                 </div>
                 <div className="account__actions">
                     <a
