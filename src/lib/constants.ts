@@ -117,3 +117,9 @@ export const FLAGS_FIELDS = {
 };
 
 export const FREE_GBS_ANCHOR = 'free-gbs';
+
+export enum SubscriptionType {
+    Monthly = 'MONTHLY',
+    Yearly = 'YEARLY',
+    TwoYears = 'TWO_YEARS',
+}
