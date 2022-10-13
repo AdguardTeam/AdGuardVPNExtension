@@ -14,35 +14,31 @@ export const Sidebar = observer(() => {
 
     return (
         <div className="sidebar">
-            <div className="sidebar__in">
-                <svg className="logo sidebar__logo" />
-                <nav className="sidebar__nav" onClick={settingsStore.closeSubComponents}>
-                    <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/">
-                        {reactTranslator.getMessage('settings_title')}
+            <div className="logo sidebar__logo" />
+            <nav className="sidebar__nav" onClick={settingsStore.closeSubComponents}>
+                <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/">
+                    {reactTranslator.getMessage('settings_title')}
+                </NavLink>
+                <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/exclusions">
+                    {reactTranslator.getMessage('settings_exclusion_title')}
+                </NavLink>
+                <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/account">
+                    {reactTranslator.getMessage('account_title')}
+                </NavLink>
+                <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/support">
+                    {reactTranslator.getMessage('options_support_title')}
+                </NavLink>
+                <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/about">
+                    {reactTranslator.getMessage('about_title')}
+                </NavLink>
+                {!isPremiumToken && (
+                    <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/free-gbs">
+                        {reactTranslator.getMessage('settings_free_gbs')}
+                        <span className="sidebar__link--mark" />
                     </NavLink>
-                    <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/exclusions">
-                        {reactTranslator.getMessage('settings_exclusion_title')}
-                    </NavLink>
-                    <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/account">
-                        {reactTranslator.getMessage('account_title')}
-                    </NavLink>
-                    <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/support">
-                        {reactTranslator.getMessage('options_support_title')}
-                    </NavLink>
-                    <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/about">
-                        {reactTranslator.getMessage('about_title')}
-                    </NavLink>
-                    {!isPremiumToken && (
-                        <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/free-gbs">
-                            {reactTranslator.getMessage('settings_free_gbs')}
-                            <span className="sidebar__link--mark" />
-                        </NavLink>
-                    )}
-                </nav>
-                <div className="sidebar__rate">
-                    <Rate />
-                </div>
-            </div>
+                )}
+            </nav>
+            <Rate />
         </div>
     );
 });

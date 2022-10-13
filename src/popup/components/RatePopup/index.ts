@@ -1,0 +1,1 @@
+export { RatePopup } from './RatePopup';

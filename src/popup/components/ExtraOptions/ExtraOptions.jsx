@@ -8,7 +8,7 @@ import { POPUP_FEEDBACK_URL, OTHER_PRODUCTS_URL } from '../../../background/conf
 import { messenger } from '../../../lib/messenger';
 import Option from './Option';
 import { reactTranslator } from '../../../common/reactTranslator';
-import Rate from '../Rate';
+import { RatePopup } from '../RatePopup';
 
 import './extra-options.pcss';
 
@@ -77,7 +77,7 @@ export const ExtraOptions = observer(() => {
                 text={reactTranslator.getMessage('popup_settings_sign_out')}
             />
             {isRateVisible
-                ? <Rate />
+                ? <RatePopup />
                 : (
                     <Option
                         handler={handleFeedback}
