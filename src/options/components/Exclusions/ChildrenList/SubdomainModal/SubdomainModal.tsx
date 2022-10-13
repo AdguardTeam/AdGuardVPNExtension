@@ -71,7 +71,7 @@ export const SubdomainModal = observer(() => {
                 <div className="subdomain-modal__actions">
                     <button
                         type="button"
-                        className="button button--medium button--outline-secondary"
+                        className="button button--large button--outline-secondary"
                         onClick={closeModal}
                     >
                         {reactTranslator.getMessage('settings_exclusion_modal_cancel')}
