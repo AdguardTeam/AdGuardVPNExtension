@@ -5,6 +5,7 @@ import lodashGet from 'lodash/get';
 import accountProvider from '../providers/accountProvider';
 import { log } from '../../lib/logger';
 import { notifier } from '../../lib/notifier';
+import { SubscriptionType } from '../../lib/constants';
 import { CredentialsDataInterface, VpnProviderInterface } from '../providers/vpnProvider';
 import { ErrorData, PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import { StorageInterface } from '../browserApi/storage';
@@ -17,7 +18,7 @@ export interface VpnTokenData {
     licenseKey: string;
     vpnSubscription: {
         next_bill_date_iso: string,
-        duration_v2: string,
+        duration_v2: SubscriptionType,
     };
 }
 

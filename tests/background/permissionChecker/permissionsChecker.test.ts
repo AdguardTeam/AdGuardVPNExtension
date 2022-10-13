@@ -1,5 +1,6 @@
 import permissionsChecker from '../../../src/background/permissionsChecker';
 import { notifier } from '../../../src/lib/notifier';
+import { SubscriptionType } from '../../../src/lib/constants';
 import {
     UPDATE_CREDENTIALS_INTERVAL_MS,
     UPDATE_VPN_INFO_INTERVAL_MS,
@@ -31,7 +32,7 @@ const VPN_TOKEN_DATA = {
     subscription: false,
     vpnSubscription: {
         next_bill_date_iso: '2023-10-05T14:48:00.000Z',
-        duration_v2: 'MONTHLY',
+        duration_v2: SubscriptionType.Monthly,
     },
 };
 

@@ -6,7 +6,12 @@ import {
 } from 'mobx';
 import { nanoid } from 'nanoid';
 
-import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT, THEME_URL_PARAMETER } from '../../lib/constants';
+import {
+    SETTINGS_IDS,
+    APPEARANCE_THEME_DEFAULT,
+    THEME_URL_PARAMETER,
+    SubscriptionType,
+} from '../../lib/constants';
 import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../background/dns/dnsConstants';
 import { messenger } from '../../lib/messenger';
 import { RequestStatus } from './consts';
@@ -26,7 +31,7 @@ interface OptionsData {
     dnsServer: string;
     appearanceTheme: string;
     isPremiumToken: boolean;
-    subscriptionType: string;
+    subscriptionType: SubscriptionType;
     customDnsServers: DnsServerData[];
 }
 
@@ -75,7 +80,7 @@ export class SettingsStore {
 
     @observable bonusesDataRequestStatus: string;
 
-    @observable subscriptionType: string | null = null;
+    @observable subscriptionType: SubscriptionType | null = null;
 
     @observable showBugReporter = false;
 
