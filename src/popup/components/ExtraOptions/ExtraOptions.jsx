@@ -8,7 +8,7 @@ import { POPUP_FEEDBACK_URL, OTHER_PRODUCTS_URL } from '../../../background/conf
 import { messenger } from '../../../lib/messenger';
 import Option from './Option';
 import { reactTranslator } from '../../../common/reactTranslator';
-import RatePopup from '../RatePopup';
+import { RatePopup } from '../RatePopup';
 
 import './extra-options.pcss';
 
