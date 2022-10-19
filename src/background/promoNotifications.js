@@ -13,112 +13,181 @@ import { FORWARDER_DOMAIN } from './config';
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const backToSchool22Notification = {
-    id: 'backToSchool22',
+const halloweenPromo22Notification = {
+    id: 'halloweenPromo22',
     locales: {
         en: {
-            title: 'Back',
-            desc: 'to school',
+            title: 'Halloween promo',
             btn: 'Get 80% off',
         },
         ru: {
-            title: 'Снова',
-            desc: 'в школу',
+            title: 'Акция на Хэллоуин',
             btn: 'Скидка 75%',
         },
+        ja: {
+            title: 'ハロウィンキャンペーン',
+            btn: '80%OFFでGET',
+        },
+        ko: {
+            title: '할로윈 프로모션',
+            btn: '80% 할인 받기',
+        },
         es: {
-            title: 'Vuelta al',
-            desc: 'cole',
+            title: 'Rebajas de Halloween',
             btn: 'Obtén un 80% off',
         },
         de: {
-            title: 'Zurück zur',
-            desc: 'Schule',
-            btn: '80% Rabatt',
-        },
-        fr: {
-            title: 'La rentrée',
-            desc: 'scolaire',
-            btn: '80% de remise',
-        },
-        it: {
-            title: 'Ritorno a',
-            desc: 'scuola',
-            btn: '80% di sconto',
-        },
-        ko: {
-            title: '백 투 스쿨',
-            desc: '세일',
-            btn: '80% 할인',
-        },
-        zh_cn: {
-            title: '开学啦',
-            btn: '一律享受80%折扣',
-        },
-        zh_tw: {
-            title: '開學啦',
-            btn: '獲得80%的折扣',
-        },
-        uk: {
-            title: 'Знову до',
-            desc: 'школи',
-            btn: 'Знижка 80%',
+            title: 'Halloween-Sale',
+            btn: '80% Rabatt erhalten',
         },
         pt_pt: {
-            title: 'De volta à',
-            desc: 'escola',
-            btn: 'Obter 80% de desconto',
+            title: 'Promoção de Halloween',
+            btn: 'Garanta 80% off',
         },
         pt_br: {
-            title: 'De volta à',
-            desc: 'escola',
-            btn: 'Obtenha 80% de desconto',
+            title: 'Promoção de Halloween',
+            btn: 'Garanta 80% off',
+        },
+        zh_tw: {
+            title: '萬聖節折扣',
+            btn: '低至2折',
+        },
+        zh_cn: {
+            title: '万圣节特惠',
+            btn: '低至2折',
+        },
+        fr: {
+            title: 'Promo Halloween',
+            btn: 'Remise 80%',
+        },
+        it: {
+            title: 'Offerta Halloween',
+            btn: '80% di sconto',
+        },
+        uk: {
+            title: 'Акція на Хелловін',
+            btn: 'Знижка 80%',
         },
         ar: {
-            title: 'العودة',
-            desc: 'إلى المدرسة',
-            btn: '%احصل على خصم 80',
+            title: 'عرض عيد الهالوين',
+            btn: '٪احصل على خصم 80',
         },
         be: {
-            title: 'Назад у',
-            desc: 'школу',
-            btn: 'Атрымайце скідку 80%',
+            title: 'Прома на Хэлоўін',
+            btn: 'Зніжка 80%',
+        },
+        bg: {
+            title: 'Хелоуин промо',
+            btn: '80% отстъпка',
+        },
+        ca: {
+            title: 'Promoció de Halloween',
+            btn: '80% de descompte',
+        },
+        cs: {
+            title: 'Halloweenská promo akce',
+            btn: '80% sleva',
+        },
+        da: {
+            title: 'Halloween-kampagne',
+            btn: 'Få 80% rabat',
+        },
+        el: {
+            title: 'Απόκριες promo',
+            btn: 'Έκπτωση 80%',
+        },
+        fa: {
+            title: 'تبلیغاتی هالووین',
+            btn: 'دریافت 80٪ خاموش',
+        },
+        fi: {
+            title: 'Halloween-kampanja',
+            btn: 'Saat 80% alennuksen',
+        },
+        he: {
+            title: 'פרומו ליל כל הקדושים',
+            btn: 'קבל 80% הנחה',
+        },
+        hr: {
+            title: 'Promocija za Noć vještica',
+            btn: '80% popusta',
+        },
+        hu: {
+            title: 'Halloween promóció',
+            btn: '80% kedvezmény',
+        },
+        hy: {
+            title: 'Հելոուինի պրոմո',
+            btn: '80% զեղչ',
         },
         id: {
-            title: 'Kembali ke',
-            desc: 'sekolah',
+            title: 'Promosi Halloween',
             btn: 'Dapatkan diskon 80%',
         },
+        lt: {
+            title: 'Helovino akcija',
+            btn: '80% nuolaida',
+        },
+        ms: {
+            title: 'Promosi Halloween',
+            btn: 'Diskaun 80%',
+        },
+        nb: {
+            title: 'Halloween-kampanje',
+            btn: 'Få 80% avslag',
+        },
+        nl: {
+            title: 'Halloween promotie',
+            btn: 'Ontvang 80% korting',
+        },
         pl: {
-            title: 'Powrót do',
-            desc: 'szkoły',
-            btn: 'Zyskaj 80% zniżki',
+            title: 'Promocja Halloween',
+            btn: 'Uzyskaj 80% zniżki',
+        },
+        ro: {
+            title: 'Promoție de Halloween',
+            btn: '80% reducere',
+        },
+        sk: {
+            title: 'Propagácia Halloweenu',
+            btn: 'Získajte 80% zľavu',
+        },
+        sl: {
+            title: 'Promocija noči čarovnic',
+            btn: 'Dobi 80% popusta',
+        },
+        sr: {
+            title: 'Promocija za Noć veštica',
+            btn: 'Skini 80% popusta',
+        },
+        sv: {
+            title: 'Halloween-kampanj',
+            btn: 'Få 80% rabatt',
         },
         tr: {
-            title: 'Okula dönüş',
-            btn: '80 indirim kazanın',
+            title: 'Cadılar Bayramı promosyonu',
+            btn: '%80 indirim',
         },
         vi: {
-            title: 'Trở lại',
-            desc: 'trường học',
-            btn: 'Được GIẢM GIÁ 80%',
+            title: 'Khuyến mãi Halloween',
+            btn: 'Giảm giá 80%',
         },
     },
     // will be selected for locale, see usage of getNotificationText
     text: '',
-    url: `https://${FORWARDER_DOMAIN}/forward.html?action=back_to_school_22_vpn&from=popup&app=vpn_extension`,
-    from: '29 August 2022 12:00:00',
-    to: '4 September 2022 23:59:00',
+    url: `https://${FORWARDER_DOMAIN}/forward.html?action=halloween_promo_22_vpn&from=popup&app=vpn_extension`,
+    from: '27 October 2022 12:00:00',
+    to: '2 November 2022 23:59:00',
     type: 'animated',
     get icons() {
-        return lazyGet(backToSchool22Notification, 'icons', () => ({
+        return lazyGet(halloweenPromo22Notification, 'icons', () => ({
             ENABLED: {
-                19: getUrl('assets/images/icons/bts22-on-19.png'),
-                38: getUrl('assets/images/icons/bts22-on-38.png'),
+                19: getUrl('assets/images/icons/hlw22-on-19.png'),
+                38: getUrl('assets/images/icons/hlw22-on-38.png'),
             },
             DISABLED: {
-                19: getUrl('assets/images/icons/bts22-off-19.png'),
-                38: getUrl('assets/images/icons/bts22-off-38.png'),
+                19: getUrl('assets/images/icons/hlw22-off-19.png'),
+                38: getUrl('assets/images/icons/hlw22-off-38.png'),
             },
         }));
     },
@@ -141,7 +210,7 @@ const backToSchool22Notification = {
  */
 
 const notifications = {
-    backToSchool22: backToSchool22Notification,
+    halloweenPromo22: halloweenPromo22Notification,
 };
 
 /**
