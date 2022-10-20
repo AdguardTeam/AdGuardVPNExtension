@@ -143,21 +143,6 @@ export const videoSourcesMap = {
     },
 };
 
-export const videoPostersMap = {
-    [APPEARANCE_THEMES.LIGHT]: {
-        [Animation.Connected]: `${POSTERS_FOLDER_PATH}on-light.jpg`,
-        [Animation.Disconnected]: `${POSTERS_FOLDER_PATH}off-light.jpg`,
-        [Animation.SwitchOn]: `${POSTERS_FOLDER_PATH}off-light.jpg`,
-        [Animation.SwitchOff]: `${POSTERS_FOLDER_PATH}on-light.jpg`,
-    },
-    [APPEARANCE_THEMES.DARK]: {
-        [Animation.Connected]: `${POSTERS_FOLDER_PATH}on-dark.jpg`,
-        [Animation.Disconnected]: `${POSTERS_FOLDER_PATH}off-dark.jpg`,
-        [Animation.SwitchOn]: `${POSTERS_FOLDER_PATH}off-dark.jpg`,
-        [Animation.SwitchOff]: `${POSTERS_FOLDER_PATH}on-dark.jpg`,
-    },
-};
-
 export enum SubscriptionType {
     Monthly = 'MONTHLY',
     Yearly = 'YEARLY',
