@@ -72,6 +72,8 @@ export const App = observer(() => {
             await globalStore.init();
         })();
 
+        settingsStore.trackSystemTheme();
+
         const messageHandler = async (message) => {
             const { type, data } = message;
 
@@ -143,6 +145,7 @@ export const App = observer(() => {
 
         return () => {
             onUnload();
+            settingsStore.stopTrackSystemTheme();
         };
     }, []);
 

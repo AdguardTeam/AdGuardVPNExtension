@@ -22,13 +22,11 @@ export const BackgroundVideo = observer(({ exclusionsScreen }: BackgroundVideoPr
 
     const [videoState, sendToVideoStateMachine] = useMachine(videoStateMachine);
 
-    sendToVideoStateMachine(
-        isConnected
-            ? VideoStateEvent.Connected
-            : VideoStateEvent.Disconnected,
-    );
+    const initialState = isConnected ? VideoStateEvent.Connected : VideoStateEvent.Disconnected;
+    sendToVideoStateMachine(initialState);
 
     const videoRef = useRef<HTMLVideoElement>(null);
+    const canvasRef = useRef<HTMLCanvasElement>(null);
 
     const videoSources = appearanceTheme === APPEARANCE_THEMES.SYSTEM
         ? videoSourcesMap[systemTheme]
@@ -51,6 +49,25 @@ export const BackgroundVideo = observer(({ exclusionsScreen }: BackgroundVideoPr
 
     useEffect(() => {
         videoRef.current?.load();
+
+        const canvas = canvasRef.current;
+        const video = videoRef.current;
+        if (!canvas || !video) {
+            return;
+        }
+
+        const context = canvas.getContext('2d');
+        if (!context) {
+            return;
+        }
+
+        const step = () => {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
     });
 
     const handleVideoEnd = () => {
@@ -58,16 +75,21 @@ export const BackgroundVideo = observer(({ exclusionsScreen }: BackgroundVideoPr
     };
 
     return (
-        <video
-            ref={videoRef}
-            autoPlay
-            loop={loop}
-            className="settings__video"
-            poster={posterUrl}
-            onEnded={handleVideoEnd}
-        >
-            <source src={sourceUrl} type="video/webm" />
-            <track kind="captions" />
-        </video>
+        <>
+            <video
+                ref={videoRef}
+                autoPlay
+                loop={loop}
+                className="settings__no-display"
+                poster={posterUrl}
+                onEnded={handleVideoEnd}
+            >
+                <source src={sourceUrl} type="video/webm" />
+                <track kind="captions" />
+            </video>
+            <canvas ref={canvasRef} className="settings__video">
+                Background video
+            </canvas>
+        </>
     );
 });
