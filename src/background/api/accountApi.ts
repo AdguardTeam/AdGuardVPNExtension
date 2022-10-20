@@ -2,6 +2,7 @@ import { Method } from 'axios';
 
 import { Api } from './Api';
 import { fallbackApi } from './fallbackApi';
+import { SubscriptionType } from '../../lib/constants';
 
 interface TokensInterface {
     token: string;
@@ -14,7 +15,7 @@ interface TokensInterface {
         status: string;
         next_bill_date_sec: number;
         next_bill_date_iso: string;
-        duration_v2: string;
+        duration_v2: SubscriptionType;
     }
 }
 

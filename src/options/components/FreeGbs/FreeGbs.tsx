@@ -89,7 +89,11 @@ export const FreeGbs = observer(() => {
         completed,
     }: RenderItemArguments) => {
         return (
-            <div className="free-gbs__item" onClick={() => clickItemHandler(query)}>
+            <div
+                key={title as string}
+                className="free-gbs__item"
+                onClick={() => clickItemHandler(query)}
+            >
                 <svg className="icon icon--button free-gbs__item--check-mark">
                     {
                         completed

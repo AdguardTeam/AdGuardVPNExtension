@@ -9,7 +9,7 @@ import './rate.pcss';
 
 const RATING_STARS = [5, 4, 3, 2, 1];
 
-const RatePopup = observer(() => {
+export const RatePopup = observer(() => {
     const { settingsStore } = useContext(rootStore);
     const {
         hideRate,
@@ -20,7 +20,7 @@ const RatePopup = observer(() => {
         await hideRate();
     };
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
 
         if (value && parseInt(value, 10) >= 4) {
@@ -37,11 +37,11 @@ const RatePopup = observer(() => {
     }
 
     return (
-        <div className="rate rate--extra-option">
-            <div className="rate__text">
+        <div className="rate-popup rate-popup--extra-option">
+            <div className="rate-popup__text">
                 {reactTranslator.getMessage('settings_rate_us')}
             </div>
-            <div className="rate__stars">
+            <div className="rate-popup__stars">
                 {RATING_STARS.map((star) => (
                     <Fragment key={star}>
                         <input
@@ -49,12 +49,12 @@ const RatePopup = observer(() => {
                             value={star}
                             name="rating"
                             id={`rating-${star}`}
-                            className="rate__input"
+                            className="rate-popup__input"
                             onChange={handleChange}
                         />
                         <label
                             htmlFor={`rating-${star}`}
-                            className="rate__star"
+                            className="rate-popup__star"
                         />
                     </Fragment>
                 ))}
@@ -62,5 +62,3 @@ const RatePopup = observer(() => {
         </div>
     );
 });
-
-export default RatePopup;

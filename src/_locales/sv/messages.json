@@ -180,7 +180,7 @@
         "message": "Fortsätt med Facebook"
     },
     "auth_header_sing_in_notice": {
-        "message": "Du har redan ett konto <div>%username%</div>"
+        "message": "Du har redan ett konto <span>%username%</span>"
     },
     "auth_header_2fa_subtitle": {
         "message": "Tvåfaktorautentisering"

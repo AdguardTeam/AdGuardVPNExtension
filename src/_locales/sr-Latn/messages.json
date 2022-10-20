@@ -213,7 +213,7 @@
         "message": "Nastavi sa Facebook-om"
     },
     "auth_header_sing_in_notice": {
-        "message": "Već imate nalog <div>%username%</div>"
+        "message": "Već imate nalog <span>%username%</span>"
     },
     "auth_header_2fa_subtitle": {
         "message": "Potvrda u dva koraka"

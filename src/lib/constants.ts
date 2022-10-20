@@ -157,3 +157,9 @@ export const videoPostersMap = {
         [Animation.SwitchOff]: `${POSTERS_FOLDER_PATH}on-dark.jpg`,
     },
 };
+
+export enum SubscriptionType {
+    Monthly = 'MONTHLY',
+    Yearly = 'YEARLY',
+    TwoYears = 'TWO_YEARS',
+}

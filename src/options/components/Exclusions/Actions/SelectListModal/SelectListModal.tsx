@@ -74,7 +74,7 @@ export const SelectListModal = ({
                 <button
                     type="button"
                     onClick={closeModal}
-                    className="button button--outline-light-gray button--large modal__button--first"
+                    className="button button--outline-secondary button--large modal__button--first"
                 >
                     {reactTranslator.getMessage('options_exclusions_delete_cancel_button')}
                 </button>

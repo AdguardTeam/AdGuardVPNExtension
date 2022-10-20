@@ -3,6 +3,7 @@ import { accountApi } from '../api';
 import { FORWARDER_DOMAIN } from '../config';
 import { notifications } from '../notifications';
 import { translator } from '../../common/translator';
+import { SubscriptionType } from '../../lib/constants';
 
 interface VpnTokenData {
     token: string;
@@ -13,7 +14,7 @@ interface VpnTokenData {
         status: string;
         next_bill_date_sec: number;
         next_bill_date_iso: string;
-        duration_v2: string;
+        duration_v2: SubscriptionType;
     };
 }
 
