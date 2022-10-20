@@ -126,7 +126,6 @@ export enum Animation {
 }
 
 const MOTION_FOLDER_PATH = '../../../assets/motion/';
-const POSTERS_FOLDER_PATH = '../../../assets/images/posters/';
 
 export const videoSourcesMap = {
     [APPEARANCE_THEMES.LIGHT]: {
