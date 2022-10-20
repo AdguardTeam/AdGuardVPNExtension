@@ -1,48 +1,42 @@
 import { createMachine } from 'xstate';
 
-import { Animation } from '../../../../lib/constants';
+import { AnimationState, AnimationEvent } from '../../../../lib/constants';
 
-export enum VideoStateEvent {
-    Connected = 'connected',
-    Disconnected = 'disconnected',
-    VideoEnded = 'video.ended',
-}
-
-export const videoStateMachine = createMachine({
+export const getVideoStateMachine = (initialState: AnimationState) => createMachine({
     id: 'videoStateMachine',
-    initial: Animation.Disconnected,
+    initial: initialState,
     states: {
-        [Animation.Disconnected]: {
+        [AnimationState.Disconnected]: {
             on: {
-                [VideoStateEvent.Connected]: {
-                    target: Animation.SwitchOn,
+                [AnimationEvent.Connected]: {
+                    target: AnimationState.SwitchOn,
                 },
             },
         },
-        [Animation.Connected]: {
+        [AnimationState.Connected]: {
             on: {
-                [VideoStateEvent.Disconnected]: {
-                    target: Animation.SwitchOff,
+                [AnimationEvent.Disconnected]: {
+                    target: AnimationState.SwitchOff,
                 },
             },
         },
-        [Animation.SwitchOff]: {
+        [AnimationState.SwitchOff]: {
             on: {
-                [VideoStateEvent.VideoEnded]: {
-                    target: Animation.Disconnected,
+                [AnimationEvent.VideoEnded]: {
+                    target: AnimationState.Disconnected,
                 },
-                [VideoStateEvent.Connected]: {
-                    target: Animation.SwitchOn,
+                [AnimationEvent.Connected]: {
+                    target: AnimationState.SwitchOn,
                 },
             },
         },
-        [Animation.SwitchOn]: {
+        [AnimationState.SwitchOn]: {
             on: {
-                [VideoStateEvent.VideoEnded]: {
-                    target: Animation.Connected,
+                [AnimationEvent.VideoEnded]: {
+                    target: AnimationState.Connected,
                 },
-                [VideoStateEvent.Disconnected]: {
-                    target: Animation.SwitchOff,
+                [AnimationEvent.Disconnected]: {
+                    target: AnimationState.SwitchOff,
                 },
             },
         },

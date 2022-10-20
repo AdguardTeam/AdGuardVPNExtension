@@ -11,7 +11,7 @@ import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
 import {
     SETTINGS_IDS,
     APPEARANCE_THEME_DEFAULT,
-    Animation,
+    AnimationState,
     APPEARANCE_THEMES,
 } from '../../lib/constants';
 import { messenger } from '../../lib/messenger';
@@ -92,7 +92,7 @@ export class SettingsStore {
         if (value) {
             await this.enableProxy(true);
         } else {
-            this.setAnimation(Animation.SwitchOff);
+            this.setAnimation(AnimationState.SwitchOff);
             await this.disableProxy(true);
         }
     };
@@ -101,7 +101,7 @@ export class SettingsStore {
         try {
             await messenger.disableVpnByUrl(this.currentTabHostname);
             if (this.isConnected) {
-                this.setAnimation(Animation.SwitchOff);
+                this.setAnimation(AnimationState.SwitchOff);
             }
             this.setIsExcluded(true);
         } catch (e) {
@@ -114,7 +114,7 @@ export class SettingsStore {
             await messenger.enableVpnByUrl(this.currentTabHostname);
             this.setIsExcluded(false);
             if (this.isConnected) {
-                this.setAnimation(Animation.SwitchOn);
+                this.setAnimation(AnimationState.SwitchOn);
             }
         } catch (e) {
             log.error(e);
