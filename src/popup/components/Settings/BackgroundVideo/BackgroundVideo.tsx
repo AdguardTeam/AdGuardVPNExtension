@@ -70,7 +70,7 @@ export const BackgroundVideo = observer(({ exclusionsScreen }: BackgroundVideoPr
             await video.play();
             updateCanvas(video);
         });
-    });
+    }, [isConnected]);
 
     return (
         <canvas ref={canvasRef} className="settings__video">
