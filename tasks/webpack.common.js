@@ -11,6 +11,7 @@ const {
     IS_DEV,
     BUILD_ENV,
     BUILD_PATH,
+    BROWSERS,
 } = require('./consts');
 const { getOutputPathByEnv, updateLocalesMSGName, modifyExtensionName } = require('./helpers');
 
@@ -30,158 +31,160 @@ const packageJson = require('../package.json');
 // this options needed to exclude clean static files in the watch mode
 const cleanOptions = IS_DEV ? { cleanAfterEveryBuildPatterns: ['!**/*.json', '!assets/**/*'] } : {};
 
-const config = {
-    mode: IS_DEV ? 'development' : 'production',
-    devtool: IS_DEV ? 'eval-source-map' : false,
-    optimization: {
-        minimize: false,
-    },
-    entry: {
-        background: BACKGROUND_PATH,
-        options: OPTIONS_PATH,
-        popup: POPUP_PATH,
-        auth: AUTH_SCRIPT,
-        thankYouPageAuth: THANKYOU_PAGE_AUTH_SCRIPT,
-        preloadTheme: PRELOAD_THEME_SCRIPT,
-    },
-    output: {
-        path: path.resolve(__dirname, BUILD_PATH, OUTPUT_PATH),
-        filename: '[name].js',
-    },
-    resolve: {
-        extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],
-    },
+export const getCommonConfig = (browser) => {
+    return {
+        mode: IS_DEV ? 'development' : 'production',
+        devtool: IS_DEV ? 'eval-source-map' : false,
+        optimization: {
+            minimize: false,
+        },
+        entry: {
+            background: BACKGROUND_PATH,
+            options: OPTIONS_PATH,
+            popup: POPUP_PATH,
+            auth: AUTH_SCRIPT,
+            thankYouPageAuth: THANKYOU_PAGE_AUTH_SCRIPT,
+            preloadTheme: PRELOAD_THEME_SCRIPT,
+        },
+        output: {
+            path: path.resolve(__dirname, BUILD_PATH, OUTPUT_PATH),
+            filename: '[name].js',
+        },
+        resolve: {
+            extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],
+        },
 
-    module: {
-        rules: [
-            /*
-             * Prevent browser console warnings with source map issue
-             * by deleting source map url comments in production build
-             */
-            {
-                test: /\.(ts|js)x?$/,
-                enforce: 'pre',
-                use: [
-                    {
-                        loader: 'source-map-loader',
-                        options: {
-                            filterSourceMappingUrl: () => (IS_DEV ? 'skip' : 'remove'),
-                        },
-                    },
-                ],
-            },
-            {
-                test: /\.(ts|js)x?$/,
-                exclude: /node_modules/,
-                use: ['cache-loader', { loader: 'babel-loader', options: { babelrc: true } }],
-            },
-            {
-                test: /\.(css|pcss)$/,
-                exclude: /node_modules/,
-                use: [
-                    'style-loader',
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            importLoaders: 1,
-                            modules: {
-                                compileType: 'module',
-                                mode: 'local',
-                                auto: true,
-                                exportGlobals: false,
-                                localIdentName: IS_DEV ? '[path][name]__[local]--[hash:base64:5]' : '[hash:base64]',
-                                exportLocalsConvention: 'camelCaseOnly',
-                                exportOnlyLocals: false,
+        module: {
+            rules: [
+                /*
+                 * Prevent browser console warnings with source map issue
+                 * by deleting source map url comments in production build
+                 */
+                {
+                    test: /\.(ts|js)x?$/,
+                    enforce: 'pre',
+                    use: [
+                        {
+                            loader: 'source-map-loader',
+                            options: {
+                                filterSourceMappingUrl: () => (IS_DEV ? 'skip' : 'remove'),
                             },
                         },
-                    },
-                    'postcss-loader',
-                ],
-            },
-            {
-                test: /\.(woff|woff2|eot|ttf|otf)$/,
-                use: [
-                    { loader: 'file-loader', options: { outputPath: 'assets' } },
-                ],
-            },
-        ],
-    },
-    plugins: [
-        // Define environment for choosing appropriate api urls
-        new webpack.DefinePlugin({
-            __APP_CONFIG__: JSON.stringify(genAppConfig(
-                process.env.BROWSER,
-                process.env.STAGE_ENV,
-                process.env.BUILD_ENV,
-            )),
-        }),
-        new webpack.NormalModuleReplacementPlugin(/\.\/abstractProxyApi/, ((resource) => {
-            if (process.env.BROWSER === 'firefox') {
-                // eslint-disable-next-line no-param-reassign
-                resource.request = resource.request.replace(/\.\/abstractProxyApi/, './firefox/proxyApi');
-            } else if (process.env.BROWSER === 'chrome' || process.env.BROWSER === 'edge' || process.env.BROWSER === 'opera') {
-                // eslint-disable-next-line no-param-reassign
-                resource.request = resource.request.replace(/\.\/abstractProxyApi/, './chrome/proxyApi');
-            } else {
-                throw new Error(`There is no proxy api for browser: ${process.env.BROWSER}`);
-            }
-        })),
-        new CleanWebpackPlugin(cleanOptions),
-        new CopyWebpackPlugin({
-            patterns: [
-                {
-                    context: 'src',
-                    from: 'PERMISSIONS.md',
-                    to: 'PERMISSIONS.md',
+                    ],
                 },
                 {
-                    context: 'src',
-                    from: 'assets/',
-                    to: 'assets/',
+                    test: /\.(ts|js)x?$/,
+                    exclude: /node_modules/,
+                    use: ['cache-loader', { loader: 'babel-loader', options: { babelrc: true } }],
                 },
                 {
-                    context: 'src',
-                    from: '_locales/',
-                    to: '_locales/',
-                    transform: (content, path) => {
-                        const updateLocales = updateLocalesMSGName(
-                            content,
-                            process.env.BUILD_ENV,
-                        );
-                        return modifyExtensionName(
-                            updateLocales,
-                            process.env.BUILD_ENV,
-                            ' for Chrome',
-                            process.env.BROWSER === 'chrome' && path.includes(EN_MESSAGES_PATH),
-                        );
-                    },
+                    test: /\.(css|pcss)$/,
+                    exclude: /node_modules/,
+                    use: [
+                        'style-loader',
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                importLoaders: 1,
+                                modules: {
+                                    compileType: 'module',
+                                    mode: 'local',
+                                    auto: true,
+                                    exportGlobals: false,
+                                    localIdentName: IS_DEV ? '[path][name]__[local]--[hash:base64:5]' : '[hash:base64]',
+                                    exportLocalsConvention: 'camelCaseOnly',
+                                    exportOnlyLocals: false,
+                                },
+                            },
+                        },
+                        'postcss-loader',
+                    ],
+                },
+                {
+                    test: /\.(woff|woff2|eot|ttf|otf)$/,
+                    use: [
+                        { loader: 'file-loader', options: { outputPath: 'assets' } },
+                    ],
                 },
             ],
-        }),
-        new HtmlWebpackPlugin({
-            template: path.join(BACKGROUND_PATH, 'index.html'),
-            filename: 'background.html',
-            chunks: ['background'],
-            cache: false,
-        }),
-        new HtmlWebpackPlugin({
-            template: path.join(OPTIONS_PATH, 'index.html'),
-            filename: 'options.html',
-            chunks: ['options'],
-            cache: false,
-        }),
-        new HtmlWebpackPlugin({
-            template: path.join(POPUP_PATH, 'index.html'),
-            filename: 'popup.html',
-            chunks: ['popup'],
-            cache: false,
-        }),
-        new CreateFileWebpack({
-            path: path.resolve(__dirname, BUILD_PATH, OUTPUT_PATH),
-            fileName: 'build.txt',
-            content: `version=${packageJson.version}`,
-        }),
-    ],
+        },
+        plugins: [
+            // Define environment for choosing appropriate api urls
+            new webpack.DefinePlugin({
+                __APP_CONFIG__: JSON.stringify(genAppConfig(
+                    browser,
+                    process.env.STAGE_ENV,
+                    process.env.BUILD_ENV,
+                )),
+            }),
+            new webpack.NormalModuleReplacementPlugin(/\.\/abstractProxyApi/, ((resource) => {
+                if (browser === BROWSERS.FIREFOX) {
+                    // eslint-disable-next-line no-param-reassign
+                    resource.request = resource.request.replace(/\.\/abstractProxyApi/, './firefox/proxyApi');
+                } else if (browser === BROWSERS.CHROME
+                    || browser === BROWSERS.EDGE
+                    || browser === BROWSERS.OPERA) {
+                    // eslint-disable-next-line no-param-reassign
+                    resource.request = resource.request.replace(/\.\/abstractProxyApi/, './chrome/proxyApi');
+                } else {
+                    throw new Error(`There is no proxy api for browser: ${browser}`);
+                }
+            })),
+            new CleanWebpackPlugin(cleanOptions),
+            new CopyWebpackPlugin({
+                patterns: [
+                    {
+                        context: 'src',
+                        from: 'PERMISSIONS.md',
+                        to: 'PERMISSIONS.md',
+                    },
+                    {
+                        context: 'src',
+                        from: 'assets/',
+                        to: 'assets/',
+                    },
+                    {
+                        context: 'src',
+                        from: '_locales/',
+                        to: '_locales/',
+                        transform: (content, path) => {
+                            const updateLocales = updateLocalesMSGName(
+                                content,
+                                process.env.BUILD_ENV,
+                            );
+                            return modifyExtensionName(
+                                updateLocales,
+                                process.env.BUILD_ENV,
+                                ' for Chrome',
+                                browser === BROWSERS.CHROME && path.includes(EN_MESSAGES_PATH),
+                            );
+                        },
+                    },
+                ],
+            }),
+            new HtmlWebpackPlugin({
+                template: path.join(BACKGROUND_PATH, 'index.html'),
+                filename: 'background.html',
+                chunks: ['background'],
+                cache: false,
+            }),
+            new HtmlWebpackPlugin({
+                template: path.join(OPTIONS_PATH, 'index.html'),
+                filename: 'options.html',
+                chunks: ['options'],
+                cache: false,
+            }),
+            new HtmlWebpackPlugin({
+                template: path.join(POPUP_PATH, 'index.html'),
+                filename: 'popup.html',
+                chunks: ['popup'],
+                cache: false,
+            }),
+            new CreateFileWebpack({
+                path: path.resolve(__dirname, BUILD_PATH, OUTPUT_PATH),
+                fileName: 'build.txt',
+                content: `version=${packageJson.version}`,
+            }),
+        ],
+    };
 };
-
-module.exports = config;

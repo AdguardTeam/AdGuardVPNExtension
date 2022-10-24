@@ -2,10 +2,15 @@ const { merge } = require('webpack-merge');
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ZipWebpackPlugin = require('zip-webpack-plugin');
-const common = require('../webpack.common');
+const { getCommonConfig } = require('../webpack.common');
 const { updateManifest } = require('../helpers');
 const edgeManifestDiff = require('./manifest.edge');
-const { STAGE_ENV, IS_DEV, STAGE_ENVS } = require('../consts');
+const {
+    STAGE_ENV,
+    IS_DEV,
+    STAGE_ENVS,
+    BROWSERS,
+} = require('../consts');
 
 const EDGE_PATH = 'edge';
 
@@ -14,6 +19,8 @@ let zipFilename = 'edge.zip';
 if (IS_DEV && STAGE_ENV === STAGE_ENVS.PROD) {
     zipFilename = 'edge-prod.zip';
 }
+
+const commonConfig = getCommonConfig(BROWSERS.EDGE);
 
 const plugins = [
     new CopyWebpackPlugin({
@@ -33,9 +40,9 @@ const plugins = [
 
 const edgeConfig = {
     output: {
-        path: path.join(common.output.path, EDGE_PATH),
+        path: path.join(commonConfig.output.path, EDGE_PATH),
     },
     plugins,
 };
 
-module.exports = merge(common, edgeConfig);
+module.exports = merge(commonConfig, edgeConfig);
