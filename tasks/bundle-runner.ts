@@ -5,15 +5,18 @@ const {
     error: logError,
 } = console;
 
-export const bundleRunner = (webpackConfig, watch = false) => {
+export const bundleRunner = (
+    webpackConfig: webpack.Configuration,
+    watch = false,
+): Promise<void> => {
     const compiler = webpack(webpackConfig);
 
     const run = watch
-        ? (cb) => compiler.watch({}, cb)
-        : (cb) => compiler.run(cb);
+        ? (cb: (err: any, stats: any) => void) => compiler.watch({}, cb)
+        : (cb: (err: any, stats: any) => void) => compiler.run(cb);
 
     return new Promise((resolve, reject) => {
-        run((err, stats) => {
+        run((err: any, stats: webpack.Stats) => {
             if (err) {
                 logError(err.stack || err);
                 if (err.details) {
@@ -28,7 +31,6 @@ export const bundleRunner = (webpackConfig, watch = false) => {
                     all: false,
                     errors: true,
                     moduleTrace: true,
-                    logging: 'error',
                 }));
                 reject();
                 return;

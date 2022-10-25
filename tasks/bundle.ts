@@ -1,14 +1,15 @@
 /* eslint-disable no-console,no-restricted-syntax,no-await-in-loop */
 import { program } from 'commander';
+import webpack from 'webpack';
 
 import { bundleRunner } from './bundle-runner';
-import chromeConfig from './chrome/webpack.chrome';
-import firefoxConfig from './firefox/webpack.firefox';
-import operaConfig from './opera/webpack.opera';
-import edgeConfig from './edge/webpack.edge';
+import { chromeConfig } from './chrome/webpack.chrome';
+import { firefoxConfig } from './firefox/webpack.firefox';
+import { operaConfig } from './opera/webpack.opera';
+import { edgeConfig } from './edge/webpack.edge';
 import { BROWSERS } from './consts';
 
-const createBundle = async (config, watch) => {
+const createBundle = async (config: webpack.Configuration, watch: boolean): Promise<void> => {
     try {
         await bundleRunner(config, watch);
     } catch (e) {
@@ -17,7 +18,7 @@ const createBundle = async (config, watch) => {
     }
 };
 
-const buildAllBrowsers = async () => {
+const buildAllBrowsers = async (): Promise<void> => {
     await createBundle(chromeConfig, program.watch);
     await createBundle(firefoxConfig, program.watch);
     await createBundle(operaConfig, program.watch);

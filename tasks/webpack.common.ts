@@ -1,18 +1,20 @@
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CreateFileWebpack = require('create-file-webpack');
+import path from 'path';
+import webpack from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+// @ts-ignore
+import CreateFileWebpack from 'create-file-webpack';
 
-const { genAppConfig } = require('./appConfig');
-const {
+import { genAppConfig } from './appConfig';
+import {
     SRC_PATH,
     IS_DEV,
     BUILD_ENV,
     BUILD_PATH,
     BROWSERS,
-} = require('./consts');
+} from './consts';
+
 const { getOutputPathByEnv, updateLocalesMSGName, modifyExtensionName } = require('./helpers');
 
 const BACKGROUND_PATH = path.resolve(__dirname, SRC_PATH, 'background');
@@ -31,7 +33,7 @@ const packageJson = require('../package.json');
 // this options needed to exclude clean static files in the watch mode
 const cleanOptions = IS_DEV ? { cleanAfterEveryBuildPatterns: ['!**/*.json', '!assets/**/*'] } : {};
 
-export const getCommonConfig = (browser) => {
+export const getCommonConfig = (browser: string): webpack.Configuration => {
     return {
         mode: IS_DEV ? 'development' : 'production',
         devtool: IS_DEV ? 'eval-source-map' : false,
@@ -117,7 +119,7 @@ export const getCommonConfig = (browser) => {
                     process.env.BUILD_ENV,
                 )),
             }),
-            new webpack.NormalModuleReplacementPlugin(/\.\/abstractProxyApi/, ((resource) => {
+            new webpack.NormalModuleReplacementPlugin(/\.\/abstractProxyApi/, ((resource: any) => {
                 if (browser === BROWSERS.FIREFOX) {
                     // eslint-disable-next-line no-param-reassign
                     resource.request = resource.request.replace(/\.\/abstractProxyApi/, './firefox/proxyApi');
@@ -147,7 +149,7 @@ export const getCommonConfig = (browser) => {
                         context: 'src',
                         from: '_locales/',
                         to: '_locales/',
-                        transform: (content, path) => {
+                        transform: (content: Buffer, path: string) => {
                             const updateLocales = updateLocalesMSGName(
                                 content,
                                 process.env.BUILD_ENV,
