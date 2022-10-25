@@ -119,32 +119,32 @@ export const FLAGS_FIELDS = {
 export const FREE_GBS_ANCHOR = 'free-gbs';
 
 export enum AnimationState {
-    Connected = 'connected',
-    Disconnected = 'disconnected',
-    SwitchOn = 'switch-on',
-    SwitchOff = 'switch-off',
+    VpnEnabled = 'vpnEnabled',
+    VpnDisabled = 'vpnDisabled',
+    VpnConnecting = 'vpnConnecting',
+    VpnDisconnecting = 'vpnDisconnecting',
 }
 
 export enum AnimationEvent {
-    Connected = 'connected',
-    Disconnected = 'disconnected',
-    VideoEnded = 'video.ended',
+    VpnConnected = 'vpnConnected',
+    VpnDisconnected = 'vpnDisconnected',
+    AnimationEnded = 'animationEnded',
 }
 
 const MOTION_FOLDER_PATH = '../../../assets/motion/';
 
 export const videoSourcesMap = {
     [APPEARANCE_THEMES.LIGHT]: {
-        [AnimationState.Connected]: `${MOTION_FOLDER_PATH}on-light.webm`,
-        [AnimationState.Disconnected]: `${MOTION_FOLDER_PATH}off-light.webm`,
-        [AnimationState.SwitchOn]: `${MOTION_FOLDER_PATH}switch-on-light.webm`,
-        [AnimationState.SwitchOff]: `${MOTION_FOLDER_PATH}switch-off-light.webm`,
+        [AnimationState.VpnEnabled]: `${MOTION_FOLDER_PATH}on-light.webm`,
+        [AnimationState.VpnDisabled]: `${MOTION_FOLDER_PATH}off-light.webm`,
+        [AnimationState.VpnConnecting]: `${MOTION_FOLDER_PATH}switch-on-light.webm`,
+        [AnimationState.VpnDisconnecting]: `${MOTION_FOLDER_PATH}switch-off-light.webm`,
     },
     [APPEARANCE_THEMES.DARK]: {
-        [AnimationState.Connected]: `${MOTION_FOLDER_PATH}on-dark.webm`,
-        [AnimationState.Disconnected]: `${MOTION_FOLDER_PATH}off-dark.webm`,
-        [AnimationState.SwitchOn]: `${MOTION_FOLDER_PATH}switch-on-dark.webm`,
-        [AnimationState.SwitchOff]: `${MOTION_FOLDER_PATH}switch-off-dark.webm`,
+        [AnimationState.VpnEnabled]: `${MOTION_FOLDER_PATH}on-dark.webm`,
+        [AnimationState.VpnDisabled]: `${MOTION_FOLDER_PATH}off-dark.webm`,
+        [AnimationState.VpnConnecting]: `${MOTION_FOLDER_PATH}switch-on-dark.webm`,
+        [AnimationState.VpnDisconnecting]: `${MOTION_FOLDER_PATH}switch-off-dark.webm`,
     },
 };
 

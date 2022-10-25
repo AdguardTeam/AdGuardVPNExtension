@@ -109,7 +109,7 @@ export const App = observer(() => {
                 case notifier.types.CONNECTIVITY_STATE_CHANGED: {
                     settingsStore.setConnectivityState(data);
                     if (data.value === STATE.CONNECTED) {
-                        settingsStore.setAnimation(AnimationState.SwitchOn);
+                        settingsStore.setAnimation(AnimationState.VpnConnecting);
                     }
                     break;
                 }

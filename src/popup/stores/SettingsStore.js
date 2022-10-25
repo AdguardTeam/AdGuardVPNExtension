@@ -11,7 +11,6 @@ import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
 import {
     SETTINGS_IDS,
     APPEARANCE_THEME_DEFAULT,
-    AnimationState,
     APPEARANCE_THEMES,
 } from '../../lib/constants';
 import { messenger } from '../../lib/messenger';
@@ -48,8 +47,6 @@ export class SettingsStore {
     @observable promoNotification = null;
 
     @observable appearanceTheme = APPEARANCE_THEME_DEFAULT;
-
-    @observable animation = null;
 
     @observable darkThemeMediaQuery;
 
@@ -92,7 +89,6 @@ export class SettingsStore {
         if (value) {
             await this.enableProxy(true);
         } else {
-            this.setAnimation(AnimationState.SwitchOff);
             await this.disableProxy(true);
         }
     };
@@ -100,9 +96,6 @@ export class SettingsStore {
     @action disableVpnOnCurrentTab = async () => {
         try {
             await messenger.disableVpnByUrl(this.currentTabHostname);
-            if (this.isConnected) {
-                this.setAnimation(AnimationState.SwitchOff);
-            }
             this.setIsExcluded(true);
         } catch (e) {
             log.error(e);
@@ -113,16 +106,9 @@ export class SettingsStore {
         try {
             await messenger.enableVpnByUrl(this.currentTabHostname);
             this.setIsExcluded(false);
-            if (this.isConnected) {
-                this.setAnimation(AnimationState.SwitchOn);
-            }
         } catch (e) {
             log.error(e);
         }
-    };
-
-    @action setAnimation = (value) => {
-        this.animation = value;
     };
 
     @action getExclusionsInverted = async () => {

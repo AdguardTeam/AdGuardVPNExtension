@@ -6,38 +6,26 @@ export const getVideoStateMachine = (initialState: AnimationState) => createMach
     id: 'videoStateMachine',
     initial: initialState,
     states: {
-        [AnimationState.Disconnected]: {
+        [AnimationState.VpnDisabled]: {
             on: {
-                [AnimationEvent.Connected]: {
-                    target: AnimationState.SwitchOn,
-                },
+                [AnimationEvent.VpnConnected]: AnimationState.VpnConnecting,
             },
         },
-        [AnimationState.Connected]: {
+        [AnimationState.VpnEnabled]: {
             on: {
-                [AnimationEvent.Disconnected]: {
-                    target: AnimationState.SwitchOff,
-                },
+                [AnimationEvent.VpnDisconnected]: AnimationState.VpnDisconnecting,
             },
         },
-        [AnimationState.SwitchOff]: {
+        [AnimationState.VpnDisconnecting]: {
             on: {
-                [AnimationEvent.VideoEnded]: {
-                    target: AnimationState.Disconnected,
-                },
-                [AnimationEvent.Connected]: {
-                    target: AnimationState.SwitchOn,
-                },
+                [AnimationEvent.AnimationEnded]: AnimationState.VpnDisabled,
+                [AnimationEvent.VpnConnected]: AnimationState.VpnConnecting,
             },
         },
-        [AnimationState.SwitchOn]: {
+        [AnimationState.VpnConnecting]: {
             on: {
-                [AnimationEvent.VideoEnded]: {
-                    target: AnimationState.Connected,
-                },
-                [AnimationEvent.Disconnected]: {
-                    target: AnimationState.SwitchOff,
-                },
+                [AnimationEvent.AnimationEnded]: AnimationState.VpnEnabled,
+                [AnimationEvent.VpnDisconnected]: AnimationState.VpnDisconnecting,
             },
         },
     },
