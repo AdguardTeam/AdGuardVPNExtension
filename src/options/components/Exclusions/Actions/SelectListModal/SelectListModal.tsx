@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import classnames from 'classnames';
 
 import { reactTranslator } from '../../../../../common/reactTranslator';
 import { ExclusionsModal } from '../../ExclusionsModal/ExclusionsModal';
 import { Title } from '../../../ui/Title';
 import { ExclusionsModes } from '../../../../../common/exclusionsConstants';
+import { rootStore } from '../../../../stores';
 
 interface SelectListModalProps {
     isOpen: boolean;
@@ -19,7 +20,8 @@ export const SelectListModal = ({
     handleRegularClick,
     handleSelectiveClick,
 }: SelectListModalProps) => {
-    const [selectedList, setSelectedList] = useState(ExclusionsModes.Selective);
+    const { exclusionsStore } = useContext(rootStore);
+    const [selectedList, setSelectedList] = useState(exclusionsStore.currentMode);
 
     const modesInfo = {
         [ExclusionsModes.Regular]: reactTranslator.getMessage('options_exclusions_import_select_regular'),
