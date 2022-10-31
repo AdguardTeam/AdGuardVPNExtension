@@ -6,8 +6,8 @@
     "license": "LGPL-3.0",
     "scripts": {
         "dev": "BUILD_ENV=dev ts-node tasks/bundle.ts",
-        "beta": "BUILD_ENV=beta babel-node tasks/bundle.js",
-        "release": "BUILD_ENV=release babel-node tasks/bundle.js",
+        "beta": "BUILD_ENV=beta ts-node tasks/bundle.ts",
+        "release": "BUILD_ENV=release ts-node tasks/bundle.ts",
         "lint": "eslint . --ext .js,.jsx,.ts,.tsx; tsc --project tsconfig.eslint.json --noEmit ",
         "test": "jest",
         "test:watch": "jest --watch",
