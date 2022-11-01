@@ -95,6 +95,11 @@ export class FallbackApi {
         const localStorageBkp = this.getLocalStorageBkp();
 
         if (!countryInfo.bkp && !localStorageBkp) {
+            // if bkp is disabled, we use previous fallback info, only update expiration time
+            this.setFallbackInfo({
+                ...this.fallbackInfo,
+                expiresInMs: Date.now() + DEFAULT_CACHE_EXPIRE_TIME_MS,
+            });
             return;
         }
 
