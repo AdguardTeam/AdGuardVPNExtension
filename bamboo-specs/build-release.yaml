@@ -38,7 +38,7 @@ Build:
             yarn install ${bamboo.varsYarn}
             yarn lint
             yarn test
-            yarn locales:validate --min
+            yarn locales validate --min
 
             export STAGE_ENV="prod"
             export VPN_API_URL="${bamboo.prodVpnApiUrl}"
