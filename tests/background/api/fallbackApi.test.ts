@@ -207,4 +207,29 @@ describe('FallbackApi', () => {
         expect(vpnApiUrl).toBe(REMOTE_VPN_API_URL);
         expect(authApiUrl).toBe(REMOTE_AUTH_API_URL);
     });
+
+    it('doesnt sends redundant requests to country info url', async () => {
+        const DEFAULT_VPN_API_URL = 'vpn_api.com';
+        const DEFAULT_AUTH_API_URL = 'auth_api.com';
+
+        const fallbackApi = new FallbackApi(DEFAULT_VPN_API_URL, DEFAULT_AUTH_API_URL);
+        jest.spyOn(fallbackApi as any, 'getCountryInfo').mockResolvedValue({ country: 'none', bkp: false });
+
+        await fallbackApi.init();
+
+        const vpnApiUrl = await fallbackApi.getVpnApiUrl();
+        const authApiUrl = await fallbackApi.getAuthApiUrl();
+
+        expect(vpnApiUrl).toBe(DEFAULT_VPN_API_URL);
+        expect(authApiUrl).toBe(DEFAULT_AUTH_API_URL);
+
+        expect((fallbackApi as any).getCountryInfo).toHaveBeenCalledTimes(1);
+
+        jest.advanceTimersByTime(DEFAULT_CACHE_EXPIRE_TIME_MS + 100);
+
+        await fallbackApi.getVpnApiUrl();
+        await fallbackApi.getAuthApiUrl();
+
+        expect((fallbackApi as any).getCountryInfo).toHaveBeenCalledTimes(2);
+    });
 });
