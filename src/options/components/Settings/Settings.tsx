@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import WebRTC from './WebRTC';
+import { WebRtc } from './WebRtc';
 import { DnsMenuItem } from './DnsMenuItem';
 import { ContextMenus } from './ContextMenus';
 import { HelpUsImprove } from './HelpUsImprove';
@@ -28,7 +28,7 @@ export const Settings = observer(() => {
                 <AppearanceTheme />
                 <ContextMenus />
                 <HelpUsImprove />
-                <WebRTC />
+                <WebRtc />
                 <DnsMenuItem />
             </div>
         </>

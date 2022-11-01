@@ -1,14 +1,25 @@
 import React from 'react';
+import classnames from 'classnames';
 
 import './switch.pcss';
 
+interface SwitchProps {
+    title: string | React.ReactNode;
+    desc?: string | React.ReactNode;
+    checked: boolean;
+    handleToggle: any;
+}
+
 export const Switch = ({
-    id,
     title,
     desc,
     checked,
     handleToggle,
-}) => {
+}: SwitchProps) => {
+    const togglerClass = classnames('switch__toggler', {
+        'switch__toggler--active': checked,
+    });
+
     return (
         <div className="switch">
             <div className="switch__info">
@@ -21,14 +32,9 @@ export const Switch = ({
                     </div>
                 )}
             </div>
-            <label htmlFor={id} className={`switch__label ${checked && 'switch__label--active'}`} />
-            <input
-                id={id}
-                name={id}
-                type="checkbox"
-                className="switch__input"
-                checked={checked}
-                onChange={handleToggle}
+            <div
+                className={togglerClass}
+                onClick={handleToggle}
             />
         </div>
     );
