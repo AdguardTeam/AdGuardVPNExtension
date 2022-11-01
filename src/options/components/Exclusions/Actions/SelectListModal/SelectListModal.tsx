@@ -27,7 +27,7 @@ export const SelectListModal = ({
 
     useEffect(() => {
         setSelectedList(currentMode);
-    }, [currentMode]);
+    }, [currentMode, isOpen]);
 
     const modesInfo = {
         [ExclusionsModes.Regular]: reactTranslator.getMessage('options_exclusions_import_select_regular'),
