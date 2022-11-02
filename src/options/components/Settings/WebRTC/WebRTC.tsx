@@ -5,7 +5,7 @@ import { rootStore } from '../../../stores';
 import { Switch } from '../../ui/Switch';
 import { reactTranslator } from '../../../../common/reactTranslator';
 
-export const WebRtc = observer(() => {
+export const WebRTC = observer(() => {
     const { settingsStore } = useContext(rootStore);
     const { webRTCEnabled } = settingsStore;
 
