@@ -6,7 +6,7 @@ const envMap = {
     [ENVS.RELEASE]: 'adguard-vpn@adguard.com',
 };
 
-module.exports = {
+export const firefoxManifestDiff = {
     minimum_chrome_version: '66.0',
     browser_specific_settings: {
         gecko: {
