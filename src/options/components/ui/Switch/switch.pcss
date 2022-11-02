@@ -24,11 +24,11 @@
     &__toggler {
         position: absolute;
         right: 15px;
+        display: flex;
         width: 40px;
         height: 20px;
         border-radius: 10px;
         background-color: var(--gray88);
-        background-repeat: no-repeat;
         transition: var(--t3) background-color;
         cursor: pointer;
 
@@ -37,20 +37,18 @@
             width: 16px;
             height: 16px;
             display: block;
+            transform: translate(3px, 2px);
             border-radius: 100%;
             background-color: #fff;
             transition: var(--t3) transform;
             position: relative;
-            left: 3px;
-            top: 50%;
-            transform: translate(0, -50%);
         }
 
         &--active {
             background-color: var(--green700);
 
             &:before {
-                transform: translate(18px, -50%);
+                transform: translate(21px, 2px);
             }
         }
     }
