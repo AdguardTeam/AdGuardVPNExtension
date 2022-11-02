@@ -18,6 +18,7 @@ const Location = observer(({ location, handleClick }) => {
         ping,
         available,
         premiumOnly,
+        virtual,
     } = location;
 
     const locationFitsPremiumToken = vpnStore.isPremiumToken || !premiumOnly;
@@ -105,6 +106,7 @@ const Location = observer(({ location, handleClick }) => {
                 </div>
                 <div className="endpoints__city">
                     {cityName}
+                    {virtual && ` (${reactTranslator.getMessage('endpoints_location_virtual')})`}
                 </div>
             </div>
             {renderPings()}
