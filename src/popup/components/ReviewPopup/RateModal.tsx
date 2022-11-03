@@ -16,7 +16,7 @@ const DEFAULT_RATING_IMAGE = RATING_IMAGES_MAP[5];
 const DEFAULT_RATING_IMAGE_PATH = `${PATH_TO_RATING_IMAGES}${DEFAULT_RATING_IMAGE}`;
 
 export const RateModal = observer(() => {
-    const { authStore } = useContext(rootStore);
+    const { authStore, settingsStore } = useContext(rootStore);
 
     const { rating, setRating, showRateModal } = authStore;
 
@@ -54,6 +54,7 @@ export const RateModal = observer(() => {
 
     const confirmRate = () => {
         authStore.openConfirmRateModal();
+        settingsStore.hideRate();
         closeModal();
     };
 
