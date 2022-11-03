@@ -5,24 +5,22 @@ import { rootStore } from '../../../stores';
 import { Switch } from '../../ui/Switch';
 import { reactTranslator } from '../../../../common/reactTranslator';
 
-const Webrtc = observer(() => {
+export const WebRTC = observer(() => {
     const { settingsStore } = useContext(rootStore);
+    const { webRTCEnabled } = settingsStore;
 
-    const handleCheckboxChange = async (e) => {
-        await settingsStore.setWebRTCValue(e.currentTarget.checked);
+    const handleCheckboxChange = async (): Promise<void> => {
+        await settingsStore.setWebRTCValue(!webRTCEnabled);
     };
 
     return (
         <div className="settings__group">
             <Switch
-                id="webrtc"
                 title={reactTranslator.getMessage('settings_webrtc_label')}
                 desc={reactTranslator.getMessage('settings_webrtc_desc')}
                 handleToggle={handleCheckboxChange}
-                checked={settingsStore.webRTCEnabled}
+                checked={webRTCEnabled}
             />
         </div>
     );
 });
-
-export default Webrtc;
