@@ -61,6 +61,7 @@ interface LocationProviderData {
     premiumOnly: boolean;
     pingBonus: number;
     endpoints: EndpointProviderData[];
+    virtual: boolean;
 }
 
 export interface EndpointProviderData {
@@ -149,6 +150,7 @@ const getLocationsData = async (
             id,
             endpoints,
             ping_bonus: pingBonus,
+            virtual,
         } = location;
 
         return {
@@ -160,6 +162,7 @@ const getLocationsData = async (
             coordinates: [longitude, latitude],
             pingBonus,
             endpoints: endpoints.map(prepareEndpointData),
+            virtual,
         };
     };
 

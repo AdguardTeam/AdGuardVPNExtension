@@ -617,6 +617,9 @@
     "endpoints_all": {
         "message": "Все локации"
     },
+    "endpoints_location_virtual": {
+        "message": "Виртуальная"
+    },
     "endpoints_search_results": {
         "message": "Результаты поиска"
     },

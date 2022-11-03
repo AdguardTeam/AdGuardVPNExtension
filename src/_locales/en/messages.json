@@ -611,6 +611,9 @@
     "endpoints_countries": {
         "message": "Locations"
     },
+    "endpoints_location_virtual": {
+        "message": "Virtual"
+    },
     "endpoints_fastest": {
         "message": "Fastest"
     },

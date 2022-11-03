@@ -12,6 +12,7 @@ export interface LocationData {
     ];
     premiumOnly: boolean;
     pingBonus: number;
+    virtual: boolean;
 }
 
 export interface LocationInterface extends LocationData {
@@ -40,6 +41,8 @@ export class Location {
 
     pingBonus: number;
 
+    virtual: boolean;
+
     available: boolean;
 
     ping: number | null;
@@ -55,6 +58,7 @@ export class Location {
         this.coordinates = locationData.coordinates;
         this.premiumOnly = locationData.premiumOnly;
         this.pingBonus = locationData.pingBonus;
+        this.virtual = locationData.virtual;
         this.available = true;
         this.ping = null;
         this.endpoint = null;
