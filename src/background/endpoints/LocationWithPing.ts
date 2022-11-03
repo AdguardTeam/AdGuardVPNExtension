@@ -6,6 +6,7 @@ export interface LocationWithPingParameters {
     ping: number;
     available: boolean;
     premiumOnly: boolean;
+    virtual: boolean;
 }
 
 /**
@@ -26,6 +27,8 @@ export class LocationWithPing {
 
     premiumOnly: boolean;
 
+    virtual: boolean;
+
     constructor(location: LocationWithPingParameters) {
         this.id = location.id;
         this.cityName = location.cityName;
@@ -34,5 +37,6 @@ export class LocationWithPing {
         this.ping = location.ping;
         this.available = location.available;
         this.premiumOnly = location.premiumOnly;
+        this.virtual = location.virtual;
     }
 }

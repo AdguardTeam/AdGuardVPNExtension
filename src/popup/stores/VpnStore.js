@@ -7,6 +7,7 @@ import {
 } from 'mobx';
 
 import { messenger } from '../../lib/messenger';
+import { translator } from '../../common/translator';
 
 export class VpnStore {
     constructor(rootStore) {
@@ -162,6 +163,9 @@ export class VpnStore {
 
     @computed
     get cityNameToDisplay() {
+        if (this.selectedLocation?.virtual) {
+            return `${this.selectedLocation?.cityName} (${translator.getMessage('endpoints_location_virtual')})`;
+        }
         return this.selectedLocation?.cityName;
     }
 
