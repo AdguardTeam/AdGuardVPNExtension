@@ -30,9 +30,11 @@ export const BackgroundVideo = observer(({ exclusionsScreen }: BackgroundVideoPr
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
-    const videoSources = appearanceTheme === APPEARANCE_THEMES.SYSTEM
-        ? videoSourcesMap[systemTheme]
-        : videoSourcesMap[appearanceTheme];
+    let videoSources = videoSourcesMap[systemTheme];
+
+    if (appearanceTheme && appearanceTheme !== APPEARANCE_THEMES.SYSTEM) {
+        videoSources = videoSourcesMap[appearanceTheme];
+    }
 
     let sourceUrl = videoSources[videoState.value as AnimationState];
 
