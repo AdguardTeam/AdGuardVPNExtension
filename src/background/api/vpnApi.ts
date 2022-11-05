@@ -52,6 +52,7 @@ export interface LocationApiData {
     longitude: number;
     ping_bonus: number;
     endpoints: EndpointApiData[];
+    virtual: boolean;
 }
 
 interface LocationsData extends AxiosResponse {

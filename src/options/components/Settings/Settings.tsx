@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import WebRTC from './WebRTC';
+import { WebRTC } from './WebRTC';
 import { DnsMenuItem } from './DnsMenuItem';
 import { ContextMenus } from './ContextMenus';
 import { HelpUsImprove } from './HelpUsImprove';

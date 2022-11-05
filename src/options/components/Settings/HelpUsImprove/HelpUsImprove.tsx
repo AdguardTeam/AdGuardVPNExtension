@@ -5,20 +5,21 @@ import { rootStore } from '../../../stores';
 import { Switch } from '../../ui/Switch';
 import { reactTranslator } from '../../../../common/reactTranslator';
 
-export const ContextMenus = observer(() => {
+export const HelpUsImprove = observer(() => {
     const { settingsStore } = useContext(rootStore);
+    const { helpUsImprove } = settingsStore;
 
-    const handleToggle = async (e) => {
-        await settingsStore.setContextMenusValue(e.currentTarget.checked);
+    const handleToggle = async (): Promise<void> => {
+        await settingsStore.setHelpUsImproveValue(!helpUsImprove);
     };
 
     return (
         <div className="settings__group">
             <Switch
-                id="context-menus"
-                title={reactTranslator.getMessage('settings_context_menus_title')}
+                title={reactTranslator.getMessage('settings_help_us_improve_title')}
+                desc={reactTranslator.getMessage('settings_help_us_improve_description')}
                 handleToggle={handleToggle}
-                checked={settingsStore.contextMenusEnabled}
+                checked={helpUsImprove}
             />
         </div>
     );
