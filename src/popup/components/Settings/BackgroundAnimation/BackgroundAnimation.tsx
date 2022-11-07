@@ -2,62 +2,44 @@ import React, { useContext, useRef, useEffect } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
-import { videoService } from './videoStateMachine';
 import {
     AnimationState,
-    AnimationEvent,
     APPEARANCE_THEMES,
-    videoSourcesMap,
+    animationSourcesMap,
 } from '../../../../lib/constants';
 
-interface BackgroundVideoProps {
+interface BackgroundAnimationProps {
     exclusionsScreen?: boolean;
 }
 
-export const BackgroundVideo = observer(({ exclusionsScreen }: BackgroundVideoProps) => {
+export const BackgroundAnimation = observer(({ exclusionsScreen }: BackgroundAnimationProps) => {
     const { settingsStore } = useContext(rootStore);
 
     const {
-        isConnected,
         appearanceTheme,
         systemTheme,
-        setAnimationState,
         animationState,
     } = settingsStore;
 
-    // const initialState = isConnected ? AnimationState.VpnEnabled : AnimationState.VpnDisabled;
-    // const videoStateMachine = getVideoStateMachine(initialState);
-
-    // TODO: change elsewhere but not here
-    const initialEvent = isConnected ? AnimationEvent.VpnConnected : AnimationEvent.VpnDisconnected;
-    videoService.send(initialEvent);
-
-    useEffect(() => {
-        videoService.onTransition((state) => {
-            setAnimationState(state.value)
-        });
-    }, []);
-
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
-    let videoSources = videoSourcesMap[systemTheme];
+    let animationSources = animationSourcesMap[systemTheme];
 
     if (appearanceTheme && appearanceTheme !== APPEARANCE_THEMES.SYSTEM) {
-        videoSources = videoSourcesMap[appearanceTheme];
+        animationSources = animationSourcesMap[appearanceTheme];
     }
 
-    let sourceUrl = videoSources[animationState as AnimationState];
+    let sourceUrl = animationSources[animationState as AnimationState];
 
     if (exclusionsScreen) {
-        sourceUrl = videoSources[AnimationState.VpnDisabled];
+        sourceUrl = animationSources[AnimationState.VpnDisabled];
     }
 
     const loop = animationState === AnimationState.VpnEnabled
         || animationState === AnimationState.VpnDisabled;
 
-
-    const handleVideoEnd = () => {
-        videoService.send(AnimationEvent.AnimationEnded);
+    const handleAnimationEnd = () => {
+        settingsStore.handleAnimationEnd();
     };
 
     useEffect(() => {
@@ -78,7 +60,7 @@ export const BackgroundVideo = observer(({ exclusionsScreen }: BackgroundVideoPr
         video.src = sourceUrl;
         video.loop = loop;
         video.autoplay = true;
-        video.onended = handleVideoEnd;
+        video.onended = handleAnimationEnd;
         video.addEventListener('loadeddata', async () => {
             await video.play();
             updateCanvas(video);
@@ -86,8 +68,8 @@ export const BackgroundVideo = observer(({ exclusionsScreen }: BackgroundVideoPr
     });
 
     return (
-        <canvas ref={canvasRef} className="settings__video">
-            Background video
+        <canvas ref={canvasRef} className="settings__animation">
+            Background animation
         </canvas>
     );
 });

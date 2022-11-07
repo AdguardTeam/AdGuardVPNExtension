@@ -5,7 +5,7 @@ import { rootStore } from '../../../stores';
 import { Status } from '../Status';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import SiteInfo from '../SiteInfo';
-import { BackgroundVideo } from '../BackgroundVideo';
+import { BackgroundAnimation } from '../BackgroundAnimation';
 
 export const ExclusionsScreen = observer(() => {
     const { settingsStore } = useContext(rootStore);
@@ -27,7 +27,7 @@ export const ExclusionsScreen = observer(() => {
 
     return (
         <div className="settings">
-            <BackgroundVideo exclusionsScreen />
+            <BackgroundAnimation exclusionsScreen />
             <div className="settings__video-overlay" />
             <div className="settings__main">
                 <Status />

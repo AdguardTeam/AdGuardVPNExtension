@@ -1,0 +1,1 @@
+export { BackgroundAnimation } from './BackgroundAnimation';

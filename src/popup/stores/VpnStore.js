@@ -8,7 +8,7 @@ import {
 
 import { messenger } from '../../lib/messenger';
 import { translator } from '../../common/translator';
-import { videoService } from '../components/Settings/BackgroundVideo/videoStateMachine';
+import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
 import { AnimationEvent } from '../../lib/constants';
 
 export class VpnStore {
@@ -57,9 +57,7 @@ export class VpnStore {
     };
 
     @action selectLocation = async (id) => {
-        console.log(`STATE IN VPN STORE: ${videoService.getSnapshot().value}`);
-
-        videoService.send(AnimationEvent.VpnSelectLocation);
+        animationService.send(AnimationEvent.LocationSelected);
 
         const selectedLocation = this.locations.find((location) => {
             return location.id === id;

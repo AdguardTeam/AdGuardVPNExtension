@@ -2,22 +2,26 @@ import { createMachine, interpret } from 'xstate';
 
 import { AnimationState, AnimationEvent } from '../../../../lib/constants';
 
-const { log } = console;
-
-export const videoStateMachine = createMachine({
-    id: 'videoStateMachine',
+export const animationStateMachine = createMachine({
+    id: 'animationStateMachine',
     initial: AnimationState.VpnDisabled,
     predictableActionArguments: true,
     states: {
         [AnimationState.VpnDisabled]: {
             on: {
                 [AnimationEvent.VpnConnected]: AnimationState.VpnConnecting,
+                [AnimationEvent.LocationSelected]: AnimationState.VpnDisabled,
             },
         },
         [AnimationState.VpnEnabled]: {
             on: {
+                [AnimationEvent.LocationSelected]: AnimationState.VpnSwitchingLocation,
                 [AnimationEvent.VpnDisconnected]: AnimationState.VpnDisconnecting,
-                [AnimationEvent.VpnSelectLocation]: AnimationState.VpnEnabled,
+            },
+        },
+        [AnimationState.VpnSwitchingLocation]: {
+            on: {
+                [AnimationEvent.VpnConnected]: AnimationState.VpnEnabled,
             },
         },
         [AnimationState.VpnDisconnecting]: {
@@ -35,8 +39,4 @@ export const videoStateMachine = createMachine({
     },
 });
 
-export const videoService = interpret(videoStateMachine)
-    .start()
-    .onTransition((state) => {
-        log(`Background video state: ${state.value}`);
-    });
+export const animationService = interpret(animationStateMachine);

@@ -1,1 +1,0 @@
-export { BackgroundVideo } from './BackgroundVideo';

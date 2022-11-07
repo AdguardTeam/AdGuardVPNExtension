@@ -123,29 +123,32 @@ export enum AnimationState {
     VpnDisabled = 'vpnDisabled',
     VpnConnecting = 'vpnConnecting',
     VpnDisconnecting = 'vpnDisconnecting',
+    VpnSwitchingLocation = 'vpnSwitchingLocation',
 }
 
 export enum AnimationEvent {
     VpnConnected = 'vpnConnected',
     VpnDisconnected = 'vpnDisconnected',
     AnimationEnded = 'animationEnded',
-    VpnSelectLocation = 'VpnSelectLocation',
+    LocationSelected = 'locationSelected',
 }
 
 const MOTION_FOLDER_PATH = '../../../assets/motion/';
 
-export const videoSourcesMap = {
+export const animationSourcesMap = {
     [APPEARANCE_THEMES.LIGHT]: {
         [AnimationState.VpnEnabled]: `${MOTION_FOLDER_PATH}on-light.webm`,
         [AnimationState.VpnDisabled]: `${MOTION_FOLDER_PATH}off-light.webm`,
         [AnimationState.VpnConnecting]: `${MOTION_FOLDER_PATH}switch-on-light.webm`,
         [AnimationState.VpnDisconnecting]: `${MOTION_FOLDER_PATH}switch-off-light.webm`,
+        [AnimationState.VpnSwitchingLocation]: `${MOTION_FOLDER_PATH}on-light.webm`,
     },
     [APPEARANCE_THEMES.DARK]: {
         [AnimationState.VpnEnabled]: `${MOTION_FOLDER_PATH}on-dark.webm`,
         [AnimationState.VpnDisabled]: `${MOTION_FOLDER_PATH}off-dark.webm`,
         [AnimationState.VpnConnecting]: `${MOTION_FOLDER_PATH}switch-on-dark.webm`,
         [AnimationState.VpnDisconnecting]: `${MOTION_FOLDER_PATH}switch-off-dark.webm`,
+        [AnimationState.VpnSwitchingLocation]: `${MOTION_FOLDER_PATH}on-dark.webm`,
     },
 };
 

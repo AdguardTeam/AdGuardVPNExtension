@@ -12,11 +12,12 @@ import {
     SETTINGS_IDS,
     APPEARANCE_THEME_DEFAULT,
     APPEARANCE_THEMES,
-    AnimationState,
+    AnimationEvent,
 } from '../../lib/constants';
 import { messenger } from '../../lib/messenger';
 import { STATE } from '../../background/connectivity/connectivityService/connectivityConstants';
 import { getHostname, getProtocol } from '../../common/url-utils';
+import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
 
 export class SettingsStore {
     @observable canControlProxy = false;
@@ -53,7 +54,7 @@ export class SettingsStore {
 
     @observable systemTheme;
 
-    @observable animationState = AnimationState.VpnDisabled;
+    @observable animationState;
 
     constructor(rootStore) {
         this.rootStore = rootStore;
@@ -221,6 +222,7 @@ export class SettingsStore {
     @action
     setConnectivityState(state) {
         this.connectivityState = state;
+        this.updateAnimationState();
     }
 
     @computed
@@ -247,10 +249,6 @@ export class SettingsStore {
     get isConnectingRetrying() {
         return this.connectivityState.value === STATE.CONNECTING_RETRYING;
     }
-
-    @action setAnimationState = (value) => {
-        this.animationState = value;
-    };
 
     @action setDesktopVpnEnabled = (status) => {
         this.desktopVpnEnabled = status;
@@ -311,5 +309,30 @@ export class SettingsStore {
 
     @action stopTrackSystemTheme = () => {
         this.darkThemeMediaQuery.removeEventListener('change', this.updateSystemTheme);
+    };
+
+    @action setAnimationState = (value) => {
+        this.animationState = value;
+    };
+
+    @action updateAnimationState = () => {
+        const event = this.isConnected
+            ? AnimationEvent.VpnConnected
+            : AnimationEvent.VpnDisconnected;
+        animationService.send(event);
+        this.animationState = animationService.getSnapshot().value;
+    };
+
+    @action initAnimationState = () => {
+        animationService
+            .start()
+            .onTransition((state) => {
+                this.setAnimationState(state.value);
+            });
+        this.updateAnimationState();
+    };
+
+    handleAnimationEnd = () => {
+        animationService.send(AnimationEvent.AnimationEnded);
     };
 }

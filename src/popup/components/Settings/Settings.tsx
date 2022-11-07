@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import { rootStore } from '../../stores';
 import GlobalControl from './GlobalControl';
 import { Status } from './Status';
-import { BackgroundVideo } from './BackgroundVideo';
+import { BackgroundAnimation } from './BackgroundAnimation';
 
 import './settings.pcss';
 
@@ -25,8 +25,8 @@ export const Settings = observer(() => {
 
     return (
         <div className={settingsClass}>
-            <BackgroundVideo />
-            <div className="settings__video-overlay" />
+            <BackgroundAnimation />
+            <div className="settings__animation-overlay" />
             <div className="settings__main">
                 <Status />
                 <GlobalControl />
