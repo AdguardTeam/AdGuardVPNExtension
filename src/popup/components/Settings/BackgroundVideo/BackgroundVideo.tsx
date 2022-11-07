@@ -17,13 +17,25 @@ interface BackgroundVideoProps {
 export const BackgroundVideo = observer(({ exclusionsScreen }: BackgroundVideoProps) => {
     const { settingsStore } = useContext(rootStore);
 
-    const { isConnected, appearanceTheme, systemTheme } = settingsStore;
+    const {
+        isConnected,
+        appearanceTheme,
+        systemTheme,
+        setAnimationState,
+        animationState,
+    } = settingsStore;
 
     // const initialState = isConnected ? AnimationState.VpnEnabled : AnimationState.VpnDisabled;
     // const videoStateMachine = getVideoStateMachine(initialState);
 
     const initialEvent = isConnected ? AnimationEvent.VpnConnected : AnimationEvent.VpnDisconnected;
     videoService.send(initialEvent);
+
+    useEffect(() => {
+        videoService.onTransition((state) => {
+            setAnimationState(state.value)
+        });
+    }, []);
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -33,16 +45,15 @@ export const BackgroundVideo = observer(({ exclusionsScreen }: BackgroundVideoPr
         videoSources = videoSourcesMap[appearanceTheme];
     }
 
-    const currentStateValue = videoService.getSnapshot().value;
-
-    let sourceUrl = videoSources[currentStateValue as AnimationState];
+    let sourceUrl = videoSources[animationState as AnimationState];
 
     if (exclusionsScreen) {
         sourceUrl = videoSources[AnimationState.VpnDisabled];
     }
 
-    const loop = currentStateValue === AnimationState.VpnEnabled
-        || currentStateValue === AnimationState.VpnDisabled;
+    const loop = animationState === AnimationState.VpnEnabled
+        || animationState === AnimationState.VpnDisabled;
+
 
     const handleVideoEnd = () => {
         videoService.send(AnimationEvent.AnimationEnded);

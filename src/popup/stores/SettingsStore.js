@@ -12,6 +12,7 @@ import {
     SETTINGS_IDS,
     APPEARANCE_THEME_DEFAULT,
     APPEARANCE_THEMES,
+    AnimationState,
 } from '../../lib/constants';
 import { messenger } from '../../lib/messenger';
 import { STATE } from '../../background/connectivity/connectivityService/connectivityConstants';
@@ -51,6 +52,8 @@ export class SettingsStore {
     @observable darkThemeMediaQuery;
 
     @observable systemTheme;
+
+    @observable animationState = AnimationState.VpnDisabled;
 
     constructor(rootStore) {
         this.rootStore = rootStore;
@@ -244,6 +247,10 @@ export class SettingsStore {
     get isConnectingRetrying() {
         return this.connectivityState.value === STATE.CONNECTING_RETRYING;
     }
+
+    @action setAnimationState = (value) => {
+        this.animationState = value;
+    };
 
     @action setDesktopVpnEnabled = (status) => {
         this.desktopVpnEnabled = status;
