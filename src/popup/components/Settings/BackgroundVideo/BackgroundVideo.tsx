@@ -1,9 +1,8 @@
 import React, { useContext, useRef, useEffect } from 'react';
 import { observer } from 'mobx-react';
-import { useMachine } from '@xstate/react';
 
 import { rootStore } from '../../../stores';
-import { getVideoStateMachine } from './videoStateMachine';
+import { videoService } from './videoStateMachine';
 import {
     AnimationState,
     AnimationEvent,
@@ -20,13 +19,11 @@ export const BackgroundVideo = observer(({ exclusionsScreen }: BackgroundVideoPr
 
     const { isConnected, appearanceTheme, systemTheme } = settingsStore;
 
-    const initialState = isConnected ? AnimationState.VpnEnabled : AnimationState.VpnDisabled;
-    const videoStateMachine = getVideoStateMachine(initialState);
-
-    const [videoState, sendToVideoStateMachine] = useMachine(videoStateMachine);
+    // const initialState = isConnected ? AnimationState.VpnEnabled : AnimationState.VpnDisabled;
+    // const videoStateMachine = getVideoStateMachine(initialState);
 
     const initialEvent = isConnected ? AnimationEvent.VpnConnected : AnimationEvent.VpnDisconnected;
-    sendToVideoStateMachine(initialEvent);
+    videoService.send(initialEvent);
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -36,17 +33,19 @@ export const BackgroundVideo = observer(({ exclusionsScreen }: BackgroundVideoPr
         videoSources = videoSourcesMap[appearanceTheme];
     }
 
-    let sourceUrl = videoSources[videoState.value as AnimationState];
+    const currentStateValue = videoService.getSnapshot().value;
+
+    let sourceUrl = videoSources[currentStateValue as AnimationState];
 
     if (exclusionsScreen) {
         sourceUrl = videoSources[AnimationState.VpnDisabled];
     }
 
-    const loop = videoState.value === AnimationState.VpnEnabled
-        || videoState.value === AnimationState.VpnDisabled;
+    const loop = currentStateValue === AnimationState.VpnEnabled
+        || currentStateValue === AnimationState.VpnDisabled;
 
     const handleVideoEnd = () => {
-        sendToVideoStateMachine(AnimationEvent.AnimationEnded);
+        videoService.send(AnimationEvent.AnimationEnded);
     };
 
     useEffect(() => {
