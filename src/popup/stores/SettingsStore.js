@@ -320,7 +320,6 @@ export class SettingsStore {
             ? AnimationEvent.VpnConnected
             : AnimationEvent.VpnDisconnected;
         animationService.send(event);
-        this.animationState = animationService.getSnapshot().value;
     };
 
     @action initAnimationState = () => {
