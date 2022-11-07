@@ -28,7 +28,7 @@ export const ExclusionsScreen = observer(() => {
     return (
         <div className="settings">
             <BackgroundAnimation exclusionsScreen />
-            <div className="settings__video-overlay" />
+            <div className="settings__animation-overlay" />
             <div className="settings__main">
                 <Status />
                 <button
