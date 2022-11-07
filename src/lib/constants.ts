@@ -129,6 +129,7 @@ export enum AnimationEvent {
     VpnConnected = 'vpnConnected',
     VpnDisconnected = 'vpnDisconnected',
     AnimationEnded = 'animationEnded',
+    VpnSelectLocation = 'VpnSelectLocation',
 }
 
 const MOTION_FOLDER_PATH = '../../../assets/motion/';

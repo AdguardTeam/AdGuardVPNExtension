@@ -28,6 +28,7 @@ export const BackgroundVideo = observer(({ exclusionsScreen }: BackgroundVideoPr
     // const initialState = isConnected ? AnimationState.VpnEnabled : AnimationState.VpnDisabled;
     // const videoStateMachine = getVideoStateMachine(initialState);
 
+    // TODO: change elsewhere but not here
     const initialEvent = isConnected ? AnimationEvent.VpnConnected : AnimationEvent.VpnDisconnected;
     videoService.send(initialEvent);
 

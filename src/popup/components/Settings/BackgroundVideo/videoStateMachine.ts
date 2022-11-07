@@ -17,6 +17,7 @@ export const videoStateMachine = createMachine({
         [AnimationState.VpnEnabled]: {
             on: {
                 [AnimationEvent.VpnDisconnected]: AnimationState.VpnDisconnecting,
+                [AnimationEvent.VpnSelectLocation]: AnimationState.VpnEnabled,
             },
         },
         [AnimationState.VpnDisconnecting]: {
