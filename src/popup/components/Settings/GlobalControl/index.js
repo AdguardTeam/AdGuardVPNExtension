@@ -46,18 +46,27 @@ const GlobalControl = observer(() => {
             message: reactTranslator.getMessage('settings_connect'),
             handler: connectHandler,
         },
+        disconnecting: {
+            className: 'button--green button--disabled',
+            message: reactTranslator.getMessage('settings_connect'),
+        },
     };
 
     let buttonState;
 
     switch (true) {
-        case (settingsStore.isConnected): {
-            buttonState = buttonStates.disconnect;
+        case (settingsStore.isDisconnectingState): {
+            buttonState = buttonStates.disconnecting;
             break;
         }
         case (settingsStore.isConnectingIdle
-            || settingsStore.isConnectingRetrying): {
+            || settingsStore.isConnectingRetrying
+            || settingsStore.isConnectingState): {
             buttonState = buttonStates.connecting;
+            break;
+        }
+        case (settingsStore.isConnected): {
+            buttonState = buttonStates.disconnect;
             break;
         }
         case (settingsStore.isDisconnectedIdle

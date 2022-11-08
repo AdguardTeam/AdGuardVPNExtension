@@ -13,6 +13,7 @@ import {
     APPEARANCE_THEME_DEFAULT,
     APPEARANCE_THEMES,
     AnimationEvent,
+    AnimationState,
 } from '../../lib/constants';
 import { messenger } from '../../lib/messenger';
 import { STATE } from '../../background/connectivity/connectivityService/connectivityConstants';
@@ -334,4 +335,14 @@ export class SettingsStore {
     handleAnimationEnd = () => {
         animationService.send(AnimationEvent.AnimationEnded);
     };
+
+    @computed
+    get isConnectingState() {
+        return this.animationState === AnimationState.VpnConnecting;
+    }
+
+    @computed
+    get isDisconnectingState() {
+        return this.animationState === AnimationState.VpnDisconnecting;
+    }
 }
