@@ -1,4 +1,4 @@
-import { Machine, interpret, assign } from 'xstate';
+import { createMachine, interpret, assign } from 'xstate';
 import { notifier } from '../../../lib/notifier';
 import { STATE, EVENT } from './connectivityConstants';
 import { log } from '../../../lib/logger';
@@ -104,7 +104,7 @@ const delays = {
  * Finite state machine used to manage websocket connectivity states
  * Transitions react only to the described events, all other events are ignored
  */
-const connectivityFSM = new Machine({
+const connectivityFSM = createMachine({
     id: 'connectivity',
     context: {
         /**
