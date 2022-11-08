@@ -119,6 +119,7 @@ export const FLAGS_FIELDS = {
 export const FREE_GBS_ANCHOR = 'free-gbs';
 
 export enum AnimationState {
+    Initial = 'initial',
     VpnEnabled = 'vpnEnabled',
     VpnDisabled = 'vpnDisabled',
     VpnConnecting = 'vpnConnecting',
@@ -137,6 +138,7 @@ const MOTION_FOLDER_PATH = '../../../assets/motion/';
 
 export const animationSourcesMap = {
     [APPEARANCE_THEMES.LIGHT]: {
+        [AnimationState.Initial]: '',
         [AnimationState.VpnEnabled]: `${MOTION_FOLDER_PATH}on-light.webm`,
         [AnimationState.VpnDisabled]: `${MOTION_FOLDER_PATH}off-light.webm`,
         [AnimationState.VpnConnecting]: `${MOTION_FOLDER_PATH}switch-on-light.webm`,
@@ -144,6 +146,7 @@ export const animationSourcesMap = {
         [AnimationState.VpnSwitchingLocation]: `${MOTION_FOLDER_PATH}on-light.webm`,
     },
     [APPEARANCE_THEMES.DARK]: {
+        [AnimationState.Initial]: '',
         [AnimationState.VpnEnabled]: `${MOTION_FOLDER_PATH}on-dark.webm`,
         [AnimationState.VpnDisabled]: `${MOTION_FOLDER_PATH}off-dark.webm`,
         [AnimationState.VpnConnecting]: `${MOTION_FOLDER_PATH}switch-on-dark.webm`,

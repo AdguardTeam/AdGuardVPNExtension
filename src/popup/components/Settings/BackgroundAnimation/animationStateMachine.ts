@@ -2,11 +2,17 @@ import { createMachine, interpret } from 'xstate';
 
 import { AnimationState, AnimationEvent } from '../../../../lib/constants';
 
-export const animationStateMachine = createMachine({
+const animationStateMachine = createMachine({
     id: 'animationStateMachine',
-    initial: AnimationState.VpnDisabled,
+    initial: AnimationState.Initial,
     predictableActionArguments: true,
     states: {
+        [AnimationState.Initial]: {
+            on: {
+                [AnimationEvent.VpnConnected]: AnimationState.VpnEnabled,
+                [AnimationEvent.VpnDisconnected]: AnimationState.VpnDisabled,
+            },
+        },
         [AnimationState.VpnDisabled]: {
             on: {
                 [AnimationEvent.VpnConnected]: AnimationState.VpnConnecting,
