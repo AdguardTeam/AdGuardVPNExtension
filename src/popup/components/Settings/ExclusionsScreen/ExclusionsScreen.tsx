@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
-
 import { Status } from '../Status';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import SiteInfo from '../SiteInfo';
+import { BackgroundAnimation } from '../BackgroundAnimation';
 
 export const ExclusionsScreen = observer(() => {
     const { settingsStore } = useContext(rootStore);
@@ -26,8 +26,9 @@ export const ExclusionsScreen = observer(() => {
     const button = settingsStore.isExcluded ? buttonsInfo.remove : buttonsInfo.add;
 
     return (
-        <div className="settings settings--exclusions-disable">
-            <div className="settings__pic" />
+        <div className="settings">
+            <BackgroundAnimation exclusionsScreen />
+            <div className="settings__animation-overlay" />
             <div className="settings__main">
                 <Status />
                 <button

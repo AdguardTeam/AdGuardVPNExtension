@@ -8,10 +8,16 @@ import {
 import tabs from '../../background/tabs';
 import { log } from '../../lib/logger';
 import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
-import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT } from '../../lib/constants';
+import {
+    SETTINGS_IDS,
+    APPEARANCE_THEME_DEFAULT,
+    APPEARANCE_THEMES,
+    AnimationEvent,
+} from '../../lib/constants';
 import { messenger } from '../../lib/messenger';
 import { STATE } from '../../background/connectivity/connectivityService/connectivityConstants';
 import { getHostname, getProtocol } from '../../common/url-utils';
+import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
 
 export class SettingsStore {
     @observable canControlProxy = false;
@@ -43,6 +49,12 @@ export class SettingsStore {
     @observable promoNotification = null;
 
     @observable appearanceTheme = APPEARANCE_THEME_DEFAULT;
+
+    @observable darkThemeMediaQuery;
+
+    @observable systemTheme;
+
+    @observable animationState = animationService.initialState.value;
 
     constructor(rootStore) {
         this.rootStore = rootStore;
@@ -210,6 +222,7 @@ export class SettingsStore {
     @action
     setConnectivityState(state) {
         this.connectivityState = state;
+        this.updateAnimationState(state);
     }
 
     @computed
@@ -276,5 +289,47 @@ export class SettingsStore {
 
     @action setIsExcluded = (value) => {
         this.isExcluded = value;
+    };
+
+    @action updateDarkThemeMediaQuery = () => {
+        this.darkThemeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    };
+
+    @action updateSystemTheme = () => {
+        this.systemTheme = this.darkThemeMediaQuery.matches
+            ? APPEARANCE_THEMES.DARK
+            : APPEARANCE_THEMES.LIGHT;
+    };
+
+    @action trackSystemTheme = () => {
+        this.updateDarkThemeMediaQuery();
+        this.updateSystemTheme();
+        this.darkThemeMediaQuery.addEventListener('change', this.updateSystemTheme);
+    };
+
+    @action stopTrackSystemTheme = () => {
+        this.darkThemeMediaQuery.removeEventListener('change', this.updateSystemTheme);
+    };
+
+    @action setAnimationState = (value) => {
+        this.animationState = value;
+    };
+
+    @action updateAnimationState = (state) => {
+        if (state.value === STATE.CONNECTED) {
+            animationService.send(AnimationEvent.VpnConnected);
+            return;
+        }
+        if (state.value === STATE.DISCONNECTED_IDLE) {
+            animationService.send(AnimationEvent.VpnDisconnected);
+            return;
+        }
+        if (state.value === STATE.DISCONNECTED_RETRYING) {
+            animationService.send(AnimationEvent.VpnDisconnectedRetrying);
+        }
+    };
+
+    handleAnimationEnd = () => {
+        animationService.send(AnimationEvent.AnimationEnded);
     };
 }

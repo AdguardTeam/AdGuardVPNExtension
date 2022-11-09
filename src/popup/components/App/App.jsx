@@ -13,7 +13,7 @@ import Locations from '../Locations';
 import { Authentication } from '../Authentication';
 import { ExtraOptions } from '../ExtraOptions';
 import GlobalError from '../GlobalError';
-import Settings from '../Settings';
+import { Settings } from '../Settings';
 import { PromoNotificationModal } from '../PromoNotificationModal';
 import Icons from '../ui/Icons';
 import CurrentEndpoint from '../Settings/CurrentEndpoint';
@@ -69,6 +69,8 @@ export const App = observer(() => {
         (async () => {
             await globalStore.init();
         })();
+
+        settingsStore.trackSystemTheme();
 
         const messageHandler = async (message) => {
             const { type, data } = message;
@@ -138,6 +140,7 @@ export const App = observer(() => {
 
         return () => {
             onUnload();
+            settingsStore.stopTrackSystemTheme();
         };
     }, []);
 

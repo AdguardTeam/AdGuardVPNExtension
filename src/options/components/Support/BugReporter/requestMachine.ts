@@ -1,4 +1,4 @@
-import { Machine } from 'xstate';
+import { createMachine } from 'xstate';
 
 export enum RequestState {
     Idle = 'idle',
@@ -13,7 +13,7 @@ export enum RequestEvent {
     StartAgain = 'start.again',
 }
 
-export const requestMachine = Machine({
+export const requestMachine = createMachine({
     id: 'requestMachine',
     initial: RequestState.Idle,
     states: {

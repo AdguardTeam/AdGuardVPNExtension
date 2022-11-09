@@ -3,23 +3,17 @@ import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
 import { rootStore } from '../../stores';
-
 import GlobalControl from './GlobalControl';
 import { Status } from './Status';
+import { BackgroundAnimation } from './BackgroundAnimation';
 
 import './settings.pcss';
 
-const Settings = observer(() => {
+export const Settings = observer(() => {
     const { settingsStore, vpnStore } = useContext(rootStore);
 
-    const {
-        isConnected,
-    } = settingsStore;
-
-    const {
-        premiumPromoEnabled,
-        isPremiumToken,
-    } = vpnStore;
+    const { isConnected } = settingsStore;
+    const { premiumPromoEnabled, isPremiumToken } = vpnStore;
 
     const settingsClass = classnames(
         'settings',
@@ -31,7 +25,8 @@ const Settings = observer(() => {
 
     return (
         <div className={settingsClass}>
-            <div className="settings__pic" />
+            <BackgroundAnimation />
+            <div className="settings__animation-overlay" />
             <div className="settings__main">
                 <Status />
                 <GlobalControl />
@@ -39,5 +34,3 @@ const Settings = observer(() => {
         </div>
     );
 });
-
-export default Settings;

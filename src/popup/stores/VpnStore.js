@@ -8,6 +8,8 @@ import {
 
 import { messenger } from '../../lib/messenger';
 import { translator } from '../../common/translator';
+import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
+import { AnimationEvent } from '../../lib/constants';
 
 export class VpnStore {
     constructor(rootStore) {
@@ -55,6 +57,8 @@ export class VpnStore {
     };
 
     @action selectLocation = async (id) => {
+        animationService.send(AnimationEvent.LocationSelected);
+
         const selectedLocation = this.locations.find((location) => {
             return location.id === id;
         });
