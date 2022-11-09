@@ -237,11 +237,11 @@ export const connectivityService = interpret(connectivityFSM)
 connectivityService.start();
 
 export const isVPNConnected = () => {
-    return connectivityService.state.matches(STATE.CONNECTED);
+    return connectivityService.getSnapshot().matches(STATE.CONNECTED);
 };
 
 export const isVPNDisconnectedIdle = () => {
-    return connectivityService.state.matches(STATE.DISCONNECTED_IDLE);
+    return connectivityService.getSnapshot().matches(STATE.DISCONNECTED_IDLE);
 };
 
 export const setDesktopVpnEnabled = (data) => {
