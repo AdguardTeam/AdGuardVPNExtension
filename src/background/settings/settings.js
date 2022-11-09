@@ -1,5 +1,5 @@
 import { SettingsService } from './SettingsService';
-import browserApi from '../browserApi';
+import { browserApi } from '../browserApi';
 import { log } from '../../lib/logger';
 import { notifier } from '../../lib/notifier';
 import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT } from '../../lib/constants';

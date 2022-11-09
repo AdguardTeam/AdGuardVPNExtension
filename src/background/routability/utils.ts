@@ -6,15 +6,18 @@ import ipaddr from 'ipaddr.js';
  * @param pattern
  * @param mask
  */
-export const isInNet = (host, pattern, mask) => {
+export const isInNet = (host: string, pattern: string, mask: string) => {
     const addr = ipaddr.parse(host);
+
+    // TODO remove ts-ignore
+    // @ts-ignore
     return addr.match([
         ipaddr.IPv4.parse(pattern),
         ipaddr.IPv4.parse(mask).prefixLengthFromSubnetMask(),
     ]);
 };
 
-export const convertCidrToNet = (cidr) => {
+export const convertCidrToNet = (cidr: string): [string, string] => {
     const [ipAddress, subnetPrefix] = ipaddr.parseCIDR(cidr);
     return [
         ipAddress.toString(),

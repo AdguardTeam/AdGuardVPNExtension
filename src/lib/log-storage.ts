@@ -1,6 +1,6 @@
 import throttle from 'lodash/throttle';
 
-import browserApi from '../background/browserApi';
+import { browserApi } from '../background/browserApi';
 
 const MAX_LOG_SIZE_BYTES = 2 ** 20; // 1MB
 export const LOGS_STORAGE_KEY = 'logs.storage.key';

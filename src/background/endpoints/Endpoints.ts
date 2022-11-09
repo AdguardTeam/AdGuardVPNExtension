@@ -198,7 +198,7 @@ class Endpoints implements EndpointsInterface {
         return filteredLocations;
     };
 
-    updateEndpointsExclusions = (locations: LocationInterface[]): void => {
+    updateEndpointsExclusions = async (locations: LocationInterface[]): Promise<void> => {
         const endpoints = flattenDeep(locations.map((location) => {
             return location.endpoints;
         }));
@@ -206,10 +206,11 @@ class Endpoints implements EndpointsInterface {
         const domainNames = endpoints.map((endpoint) => endpoint.domainName);
         const topLevelDomains = domainNames.map((domainName) => getDomain(domainName));
         const uniqTopLevelDomains = uniq(topLevelDomains);
+        const nonNullTopLevelDomains = uniqTopLevelDomains.filter((domain): domain is string => {
+            return domain !== null;
+        });
 
-        // FIXME remove ts-ignore
-        // @ts-ignore
-        endpointsTldExclusions.addEndpointsTldExclusions(uniqTopLevelDomains);
+        await endpointsTldExclusions.addEndpointsTldExclusions(nonNullTopLevelDomains);
     };
 
     /**

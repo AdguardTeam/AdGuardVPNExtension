@@ -1,8 +1,7 @@
 import pac from 'pac-resolver';
-import { isInNet } from '../../src/background/routability/utils';
 
-import pacGenerator from '../../src/lib/pacGenerator';
-import { sleep } from '../../src/lib/helpers';
+import { isInNet } from '../../../src/background/routability/utils';
+import pacGenerator from '../../../src/background/proxy/chrome/pacGenerator';
 
 describe('Pac generator', () => {
     let isInNetMock;
@@ -142,20 +141,6 @@ describe('Pac generator', () => {
         expect(resultAdguardIo).toBe('DIRECT');
     });
 
-    it('pac file life time is reduced to 200ms', async () => {
-        const proxy = 'do-de-fra1-01.adguard.io:443';
-        const pacScript = pacGenerator.generate(proxy, [], false, []);
-        let FindProxyForUrl = pac(pacScript, options);
-
-        let result = await FindProxyForUrl('https://example.org/foo', 'example.org');
-        expect(result).toBe(`HTTPS ${proxy}`);
-
-        await sleep(300);
-        FindProxyForUrl = pac(pacScript, options);
-        result = await FindProxyForUrl('https://example.org/foo', 'example.org');
-        expect(result).toBe('DIRECT');
-    });
-
     it('supports non routable nets', async () => {
         const proxy = 'do-de-fra1-01.adguard.io:443';
         const pacScript = pacGenerator.generate(proxy, [], false, [], ['192.168.0.0/16']);
@@ -189,5 +174,36 @@ describe('Pac generator', () => {
         // wasn't called again, because it ignores non ip hosts
         expect(isInNetMock).toBeCalledTimes(2);
         expect(isInNetMock).toHaveBeenLastCalledWith('93.184.216.34', '192.168.0.0', '255.255.0.0');
+    });
+
+    describe('always sends requests to proxy if request was made to PAC_SCRIPT_CHECK_URL', () => {
+        it('sends check requests via proxy if it is not inverted', async () => {
+            const proxy = 'do-de-fra1-01.adguard.io:443';
+            const inverted = false;
+            const pacScript = pacGenerator.generate(proxy, [], inverted);
+            const FindProxyForUrl = pac(pacScript, options);
+            const result = await FindProxyForUrl('https://example.org', 'example.org');
+            expect(result).toBe(`HTTPS ${proxy}`);
+
+            const resultForCheckUrl = await FindProxyForUrl(
+                'http://random_id.check-pac.whoami.adguard-vpn.online',
+                'random_id.check-pac.adguard-vpn.online',
+            );
+            expect(resultForCheckUrl).toBe(`HTTPS ${proxy}`);
+        });
+
+        it('sends check requests via proxy if it is inverted', async () => {
+            const proxy = 'do-de-fra1-01.adguard.io:443';
+            const pacScript = pacGenerator.generate(proxy, [], true);
+            const FindProxyForUrl = pac(pacScript, options);
+            const result = await FindProxyForUrl('https://example.org', 'example.org');
+            expect(result).toBe('DIRECT');
+
+            const localhostResult = await FindProxyForUrl(
+                'http://random_id.check-pac.whoami.adguard-vpn.online',
+                'random_id.check-pac.adguard-vpn.online',
+            );
+            expect(localhostResult).toBe(`HTTPS ${proxy}`);
+        });
     });
 });

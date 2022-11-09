@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { Service } from './Service';
 import { vpnProvider, ServicesInterface } from '../../providers/vpnProvider';
-import browserApi from '../../browserApi';
+import { browserApi } from '../../browserApi';
 import { log } from '../../../lib/logger';
 import { ServiceDto } from '../../../common/exclusionsConstants';
 

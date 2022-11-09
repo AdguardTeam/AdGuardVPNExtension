@@ -4,7 +4,7 @@ import {
     LogStorageInterface,
     SAVE_STORAGE_LOGS_TIMEOUT,
 } from '../../src/lib/log-storage';
-import browserApi from '../../src/background/browserApi';
+import { browserApi } from '../../src/background/browserApi';
 
 interface StorageInterface {
     [key: string]: any;
@@ -13,7 +13,7 @@ interface StorageInterface {
     remove: jest.Mock<Promise<boolean>, [key: string]>;
 }
 
-jest.mock('../../src/background/browserApi', (): { storage: StorageInterface } => {
+jest.mock('../../src/background/browserApi', () => {
     const storage: StorageInterface = {
         set: jest.fn(async (key: string, data: any): Promise<void> => {
             storage[key] = data;
@@ -26,7 +26,10 @@ jest.mock('../../src/background/browserApi', (): { storage: StorageInterface } =
         }),
     };
     return {
-        storage,
+        __esModule: true,
+        browserApi: {
+            storage,
+        },
     };
 });
 

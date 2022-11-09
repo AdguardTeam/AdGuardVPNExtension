@@ -2,7 +2,7 @@ import throttle from 'lodash/throttle';
 
 import { log } from '../../lib/logger';
 import { SETTINGS_IDS } from '../../lib/constants';
-import browserApi from '../browserApi';
+import { browserApi } from '../browserApi';
 import { servicesManager } from '../exclusions/services/ServicesManager';
 import {
     complementedExclusionsWithServices,

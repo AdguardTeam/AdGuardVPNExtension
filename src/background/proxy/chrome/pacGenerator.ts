@@ -1,10 +1,9 @@
-import { convertCidrToNet } from '../background/routability/utils';
-import { IPV4_REGEX } from '../background/routability/constants';
+import { convertCidrToNet } from '../../routability/utils';
+import { IPV4_REGEX } from '../../routability/constants';
+import { PAC_SCRIPT_CHECK_URL } from '../proxyConsts';
 
 /**
- * Returns pac script text
- * We use pacScriptTimeToLiveMs in order to make pac script file inactive if
- * it remained in the proxy setting after browser restart
+ * Generates PAC script for proxy considering exclusions list
  * @param proxy
  * @param exclusionsList
  * @param inverted
@@ -12,31 +11,22 @@ import { IPV4_REGEX } from '../background/routability/constants';
  * @param nonRoutableNets
  * @returns {string}
  */
-function proxyPacScript(proxy, exclusionsList, inverted, defaultExclusions, nonRoutableNets) {
-    // Used to adjust pacscript after application or browser restart
-    const pacScriptTimeToLiveMs = 200;
-    // Used to adjust pacscript lifetime after internet reconnection
-    // After this period of time pacscript is always considered activated
-    const pacScriptActivationTimeoutMs = 2000;
+function proxyPacScript(
+    proxy: string,
+    exclusionsList: string[],
+    inverted: boolean,
+    defaultExclusions: string[],
+    nonRoutableNets: string[][],
+) {
     return `
-            let active = false;
-            const created = ${Date.now()};
-            const started = Date.now();
-
-            if (started < (created + ${pacScriptTimeToLiveMs})) {
-              active = true;
-            }
-
             function FindProxyForURL(url, host) {
                 const DIRECT = "DIRECT";
                 const PROXY = "HTTPS ${proxy}";
 
-                if (!active && (Date.now() > started + ${pacScriptActivationTimeoutMs})) {
-                    active = true;
-                }
-
-                if (!active) {
-                    return DIRECT;
+                // It is important for us that request to PAC_SCRIPT_CHECK_URL went through the proxy, because we need
+                // onAuthRequired event to be triggered
+                if (host.endsWith('.' + '${PAC_SCRIPT_CHECK_URL}')) {
+                    return PROXY;
                 }
 
                 const areHostnamesEqual = (hostnameA, hostnameB) => {
@@ -93,11 +83,11 @@ function directPacScript() {
  * @return {string}
  */
 const generate = (
-    proxy,
-    exclusionsList = [],
+    proxy: string,
+    exclusionsList: string[] = [],
     inverted = false,
-    defaultExclusions = [],
-    nonRoutableCidrNets = [],
+    defaultExclusions: string[] = [],
+    nonRoutableCidrNets: string[] = [],
 ) => {
     if (!proxy) {
         return directPacScript();

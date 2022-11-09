@@ -1,4 +1,4 @@
-import browserApi from './browserApi';
+import { browserApi } from './browserApi';
 
 const APP_VERSION_KEY = 'update.service.app.version';
 

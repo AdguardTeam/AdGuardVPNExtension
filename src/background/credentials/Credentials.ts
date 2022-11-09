@@ -9,7 +9,7 @@ import { SubscriptionType } from '../../lib/constants';
 import { CredentialsDataInterface, VpnProviderInterface } from '../providers/vpnProvider';
 import { ErrorData, PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import { StorageInterface } from '../browserApi/storage';
-import { ExtensionProxyInterface } from '../proxy';
+import { ExtensionProxyInterface } from '../proxy/proxy';
 
 export interface VpnTokenData {
     token: string;
@@ -378,8 +378,8 @@ class Credentials implements CredentialsInterface {
     }
 
     updateProxyCredentials = async (): Promise<void> => {
-        const { credentialsHash, credentials } = await this.getAccessCredentials();
-        await this.proxy.setAccessPrefix(credentialsHash, credentials);
+        const { credentials } = await this.getAccessCredentials();
+        await this.proxy.setAccessCredentials(credentials);
     };
 
     /**

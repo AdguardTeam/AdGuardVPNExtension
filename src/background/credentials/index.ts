@@ -1,4 +1,4 @@
-import browserApi from '../browserApi';
+import { browserApi } from '../browserApi';
 import permissionsError from '../permissionsChecker/permissionsError';
 import { proxy } from '../proxy';
 import { vpnProvider } from '../providers/vpnProvider';

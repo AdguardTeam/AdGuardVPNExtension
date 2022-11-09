@@ -2,7 +2,7 @@ import qs from 'qs';
 import { nanoid } from 'nanoid';
 
 import { authProvider } from './providers/authProvider';
-import browserApi from './browserApi';
+import { browserApi } from './browserApi';
 import tabs from './tabs';
 import { proxy } from './proxy';
 import { notifications } from './notifications';

@@ -3,7 +3,7 @@ import isEqual from 'lodash/isEqual';
 import sortBy from 'lodash/sortBy';
 
 import { log } from '../../lib/logger';
-import browserApi from '../browserApi';
+import { browserApi } from '../browserApi';
 import { proxy } from './index';
 
 /**
@@ -31,11 +31,10 @@ class EndpointsTldExclusions {
      * Endpoints top level domain exclusions list
      * @type {string[]}
      */
-    endpointsTldExclusionsList = [];
+    endpointsTldExclusionsList: string[] = [];
 
     /**
      * Updates storage in a throttled way
-     * @type {(function(): Promise<void>) & Cancelable}
      */
     updateStorage = throttle(async () => {
         try {
@@ -50,10 +49,10 @@ class EndpointsTldExclusions {
      * Adds endpoints tld exclusions
      * @param {string[]} endpointsTlds - list of second level domains parsed from the endpoints
      */
-    addEndpointsTldExclusions = (endpointsTlds) => {
+    addEndpointsTldExclusions = async (endpointsTlds: string[]) => {
         const endpointsTldExclusions = this.convertEndpointTldToExclusion(endpointsTlds);
 
-        this.handleEndpointsTldExclusionsListUpdate(endpointsTldExclusions);
+        await this.handleEndpointsTldExclusionsListUpdate(endpointsTldExclusions);
     };
 
     /**
@@ -61,7 +60,7 @@ class EndpointsTldExclusions {
      * @param {string[]} endpointsTlds - endpoints top level domains
      * @returns {string[]}
      */
-    convertEndpointTldToExclusion = (endpointsTlds) => {
+    convertEndpointTldToExclusion = (endpointsTlds: string[]) => {
         const endpointsTldExclusions = endpointsTlds.map((endpointTld) => {
             const endpointTldExclusion = `*.${endpointTld}`;
             return endpointTldExclusion;
@@ -73,7 +72,7 @@ class EndpointsTldExclusions {
      * Updates endpoints top level domains if necessary and notifies proxy to generate new pac file
      * @param endpointsTldExclusions
      */
-    handleEndpointsTldExclusionsListUpdate = (endpointsTldExclusions) => {
+    handleEndpointsTldExclusionsListUpdate = async (endpointsTldExclusions: string[]) => {
         // if lists have same values, do nothing
         if (isEqual(
             sortBy(this.endpointsTldExclusionsList),
@@ -85,7 +84,7 @@ class EndpointsTldExclusions {
         this.endpointsTldExclusionsList = endpointsTldExclusions;
 
         this.updateStorage();
-        proxy.setEndpointsTldExclusions(this.endpointsTldExclusionsList);
+        await proxy.setEndpointsTldExclusions(this.endpointsTldExclusionsList);
     };
 
     init = async () => {
@@ -93,7 +92,7 @@ class EndpointsTldExclusions {
             const storedList = await browserApi.storage.get(this.STORAGE_KEY);
             if (storedList) {
                 this.endpointsTldExclusionsList = storedList;
-                proxy.setEndpointsTldExclusions(this.endpointsTldExclusionsList);
+                await proxy.setEndpointsTldExclusions(this.endpointsTldExclusionsList);
             }
         } catch (e) {
             log.error(e);

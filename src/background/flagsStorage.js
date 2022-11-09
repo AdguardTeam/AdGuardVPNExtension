@@ -1,4 +1,4 @@
-import browserApi from './browserApi';
+import { browserApi } from './browserApi';
 import { FLAGS_FIELDS } from '../lib/constants';
 import { log } from '../lib/logger';
 import { updateService } from './updateService';

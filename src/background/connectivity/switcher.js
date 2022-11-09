@@ -49,10 +49,7 @@ function* turnOnProxy(forcePrevEndpoint = false) {
 
         const accessCredentials = yield credentials.getAccessCredentials();
 
-        const { domainName } = yield proxy.setAccessPrefix(
-            accessCredentials.credentialsHash,
-            accessCredentials.credentials,
-        );
+        const { domainName } = yield proxy.setAccessCredentials(accessCredentials.credentials);
 
         connectivity.endpointConnectivity.setCredentials(
             domainName,
