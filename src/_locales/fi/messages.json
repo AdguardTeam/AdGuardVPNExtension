@@ -117,7 +117,7 @@
         "message": "Viesti"
     },
     "account_title": {
-        "message": "Käyttäjätili"
+        "message": "Tili"
     },
     "account_edit": {
         "message": "Hallitse tiliä"
@@ -216,7 +216,7 @@
         "message": "Kirjaudutaan tunnuksella <span>%username%</span>"
     },
     "auth_header_2fa_subtitle": {
-        "message": "Kaksivaiheinen todennus (2FA)"
+        "message": "Kaksivaiheinen tunnistautuminen"
     },
     "auth_header_2fa": {
         "message": "Syötä todennuskoodi"
@@ -261,7 +261,7 @@
         "message": "Ilmaiset gigatavut"
     },
     "settings_free_gbs_subtitle": {
-        "message": "Suorita tehtävät ansaitaksesi ilmaista VPN-tietoliikennettä!"
+        "message": "Suorita tehtäviä ansaitaksesi ilmaista VPN-tietoliikennettä!"
     },
     "settings_free_gbs_confirm_email_title": {
         "message": "Vahvista sähköpostiosoitteesi"
@@ -273,7 +273,7 @@
         "message": "Sait %num% gigatavua"
     },
     "settings_free_gbs_confirm_email_info": {
-        "message": "Paina rekisteröitymisen yhteydessä sähköpostitse saamasi viestin vahvistuslinkkiä, saadaksesi %your_gb% Gt ilmaista VPN-tietoliikennettä. Jollet löydä viestiä, paina alla olevaa painiketta."
+        "message": "Paina rekisteröitymisen yhteydessä vastaanottamasi sähköpostiviestin vahvistuslinkkiä, saadaksesi %your_gb% Gt ilmaista VPN-tiedonsiirtoa. Jos et löydä viestiä, paina alla olevaa painiketta."
     },
     "settings_free_gbs_confirm_email_resend_link_button": {
         "message": "Lähetä linkki uudelleen"
@@ -360,10 +360,13 @@
         "message": "DNS-palvelimen osoite"
     },
     "settings_dns_add_custom_server_address_placeholder": {
-        "message": "IP tai TLS"
+        "message": "Palvelimen IP-osoite tai TLS-verkkotunnus"
     },
     "settings_dns_add_custom_server_invalid_address": {
         "message": "Virheellinen DNS-palvelimen osoite"
+    },
+    "settings_dns_add_custom_server_duplicate_address": {
+        "message": "DNS-palvelin on jo lisätty"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Tallenna ja valitse"
@@ -402,7 +405,7 @@
         "message": "AdGuard DNS Perhesuojaus"
     },
     "settings_dns_selector_adguard_family_desc": {
-        "message": "AdGuard DNS + Turvallinen haku ja aikuisille tarkoitetun sisällön esto"
+        "message": "AdGuard DNS + Turvallinen haku ja aikuisille tarkoitetun sisällön suodatus"
     },
     "settings_dns_selector_google_title": {
         "message": "Google DNS"
@@ -420,7 +423,7 @@
         "message": "Cisco OpenDNS"
     },
     "settings_dns_selector_cisco_desc": {
-        "message": "DNS-palvelu haittaohjelmien suodatuksella"
+        "message": "Ciscon OpenDNS-palvelu, joka suodattaa haittaohjelmia"
     },
     "settings_dns_selector_quad9_title": {
         "message": "Quad9"
@@ -432,7 +435,7 @@
         "message": "Teema"
     },
     "settings_theme_system": {
-        "message": "Seuraa järjestelmää"
+        "message": "Järjestelmän oletus"
     },
     "settings_theme_dark": {
         "message": "Tumma"
@@ -608,6 +611,9 @@
     "endpoints_countries": {
         "message": "Sijainnit"
     },
+    "endpoints_location_virtual": {
+        "message": "Virtuaaliset"
+    },
     "endpoints_fastest": {
         "message": "Nopeimmat"
     },
@@ -627,10 +633,10 @@
         "message": "Kuukausittainen tiedonsiirtorajoitus on saavutettu"
     },
     "premium_upgrade": {
-        "message": "Tilaa nyt"
+        "message": "Päivitä"
     },
     "settings_disconnect": {
-        "message": "Katkaise"
+        "message": "Katkaise yhteys"
     },
     "settings_vpn_connecting": {
         "message": "Yhdistetään..."
@@ -769,7 +775,7 @@
         "message": "Yhdistä kaikki laitteesi AdGuard VPN:ään samanaikaisesti — tai suojaa koko perhe!"
     },
     "popup_upgrade_screen_upgrade_button": {
-        "message": "Tilaa"
+        "message": "Päivitä"
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Jatka ilmaista käyttöä"

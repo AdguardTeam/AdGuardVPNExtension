@@ -195,7 +195,7 @@
         "message": "Giriş yap"
     },
     "auth_title": {
-        "message": "Giriş yap ya da bir hesap oluştur"
+        "message": "Giriş yapın veya bir hesap oluşturun"
     },
     "auth_sign_in_provider_adguard_label": {
         "message": "E-posta"
@@ -240,7 +240,7 @@
         "message": "Ücretsiz VPN verisi"
     },
     "referral_get_free_traffic": {
-        "message": "Ücretsiz GB'ler edinin!"
+        "message": "Ücretsiz GB'lar edinin!"
     },
     "settings_referral_info": {
         "message": "Davetiniz aracılığıyla kaydolan her arkadaşınız için toplamda %total_gb% GB'a kadar ayda %your_gb% GB ücretsiz VPN verisi edinin. Arkadaşınız ayrıca ücretsiz olarak fazladan %friend_gb% GB edinir."
@@ -258,13 +258,13 @@
         "message": "Davet bağlantısı panoya kopyalandı"
     },
     "settings_free_gbs": {
-        "message": "Ücretsiz GB'ler"
+        "message": "Ücretsiz GB'lar"
     },
     "settings_free_gbs_subtitle": {
         "message": "Ücretsiz VPN verisi edinmek için görevleri tamamlayın!"
     },
     "settings_free_gbs_confirm_email_title": {
-        "message": "E-postanızı doğrulayın"
+        "message": "E-postanı doğrula"
     },
     "settings_free_gbs_get_GB": {
         "message": "%num% GB edinin"
@@ -279,7 +279,7 @@
         "message": "Bağlantıyı yeniden gönder"
     },
     "settings_free_gbs_add_device_title": {
-        "message": "Başka bir cihaz ekleyin"
+        "message": "Başka bir cihaz ekle"
     },
     "settings_free_gbs_add_device_info": {
         "message": "AdGuard VPN'i bir cihaza daha yükleyin, AdGuard hesabınıza giriş yapın ve %your_gb% GB edinin"
@@ -294,7 +294,7 @@
         "message": "Ürünlere git"
     },
     "settings_free_gbs_invite_friend": {
-        "message": "Bir arkadaş davet et"
+        "message": "Arkadaşını davet et"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "%num% GB'a kadar edinin"
@@ -360,10 +360,13 @@
         "message": "DNS sunucusu adresi"
     },
     "settings_dns_add_custom_server_address_placeholder": {
-        "message": "IP veya TLS"
+        "message": "Sunucu IP'si veya TLS alan adı"
     },
     "settings_dns_add_custom_server_invalid_address": {
         "message": "Geçersiz DNS sunucu adresi"
+    },
+    "settings_dns_add_custom_server_duplicate_address": {
+        "message": "DNS sunucusu zaten eklendi"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Kaydet ve seç"
@@ -608,6 +611,9 @@
     "endpoints_countries": {
         "message": "Konumlar"
     },
+    "endpoints_location_virtual": {
+        "message": "Sanal"
+    },
     "endpoints_fastest": {
         "message": "En hızlı"
     },
@@ -733,7 +739,7 @@
         "message": "İstisnalar, AdGuard VPN koruması için siteleri veya uygulamaları hızlı bir şekilde belirlemenize yardımcı olur"
     },
     "popup_onboarding_no_logging_policy": {
-        "message": "Günlük kayıt politikası yok"
+        "message": "Günlük tutmama politikası"
     },
     "popup_onboarding_no_logging_policy_info": {
         "message": "AdGuard VPN sizi anonim yapar. Verilerinizi asla toplamaz veya üçüncü şahıslarla paylaşmaz"
@@ -869,7 +875,7 @@
         "message": "VPN bağlantı hızı yakında azaltılacaktır."
     },
     "confirm_email_title": {
-        "message": "E-postanızı doğrulayın"
+        "message": "E-postanı doğrula"
     },
     "confirm_email_info": {
         "message": "Ücretsiz VPN verisi almak için lütfen e-posta adresinizi doğrulayın. Şu adrese bir doğrulama bağlantısı gönderdik"

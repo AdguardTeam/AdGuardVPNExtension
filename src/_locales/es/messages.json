@@ -360,13 +360,13 @@
         "message": "Dirección del servidor DNS"
     },
     "settings_dns_add_custom_server_address_placeholder": {
-        "message": "IP o TLS"
+        "message": "IP del servidor o nombre de dominio TLS"
     },
     "settings_dns_add_custom_server_invalid_address": {
         "message": "Dirección de servidor DNS no válido"
     },
     "settings_dns_add_custom_server_duplicate_address": {
-        "message": "Servidor DNS ya agregado"
+        "message": "Servidor DNS ya añadido"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Guardar y seleccionar"
@@ -610,6 +610,9 @@
     },
     "endpoints_countries": {
         "message": "Ubicaciones"
+    },
+    "endpoints_location_virtual": {
+        "message": "Virtual"
     },
     "endpoints_fastest": {
         "message": "Más rápidos"

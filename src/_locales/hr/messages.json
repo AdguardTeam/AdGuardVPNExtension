@@ -213,7 +213,7 @@
         "message": "Nastavite koristeći Facebook"
     },
     "auth_header_sing_in_notice": {
-        "message": "Već imate račun <span>%username%</span>"
+        "message": "Već imate račun <div>%username%</div>"
     },
     "auth_header_2fa_subtitle": {
         "message": "Dvofaktorska autentikacija"
@@ -360,10 +360,13 @@
         "message": "Adresa DNS poslužitelja"
     },
     "settings_dns_add_custom_server_address_placeholder": {
-        "message": "IP ili TLS"
+        "message": "IP poslužitelja ili TLS naziv domene"
     },
     "settings_dns_add_custom_server_invalid_address": {
         "message": "Adresa DNS poslužitelja nije valjana"
+    },
+    "settings_dns_add_custom_server_duplicate_address": {
+        "message": "DNS poslužitelj je već dodan"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Spremi i odaberi"
@@ -607,6 +610,9 @@
     },
     "endpoints_countries": {
         "message": "Lokacije"
+    },
+    "endpoints_location_virtual": {
+        "message": "Virtualan"
     },
     "endpoints_fastest": {
         "message": "Najbrži"

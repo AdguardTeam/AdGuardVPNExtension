@@ -360,7 +360,7 @@
         "message": "Адрес сервера DNS"
     },
     "settings_dns_add_custom_server_address_placeholder": {
-        "message": "IP или TLS"
+        "message": "IP-адрес сервера или доменное имя TLS"
     },
     "settings_dns_add_custom_server_invalid_address": {
         "message": "Некорректный адрес DNS-сервера"
@@ -611,14 +611,14 @@
     "endpoints_countries": {
         "message": "Локации"
     },
+    "endpoints_location_virtual": {
+        "message": "Виртуальная"
+    },
     "endpoints_fastest": {
         "message": "Самые быстрые"
     },
     "endpoints_all": {
         "message": "Все локации"
-    },
-    "endpoints_location_virtual": {
-        "message": "Виртуальная"
     },
     "endpoints_search_results": {
         "message": "Результаты поиска"

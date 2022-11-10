@@ -360,13 +360,13 @@
         "message": "DNS 伺服器位址"
     },
     "settings_dns_add_custom_server_address_placeholder": {
-        "message": "IP 或 TLS"
+        "message": "伺服器 IP 或 TLS 域名"
     },
     "settings_dns_add_custom_server_invalid_address": {
         "message": "無效的 DNS 伺服器位址"
     },
     "settings_dns_add_custom_server_duplicate_address": {
-        "message": "DNS 伺服器新增成功"
+        "message": "已新增 DNS 伺服器"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "儲存並選擇"
@@ -610,6 +610,9 @@
     },
     "endpoints_countries": {
         "message": "位置"
+    },
+    "endpoints_location_virtual": {
+        "message": "虛擬的"
     },
     "endpoints_fastest": {
         "message": "最快的"

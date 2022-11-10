@@ -359,9 +359,6 @@
     "settings_dns_add_custom_server_address": {
         "message": "Adresa DNS servera"
     },
-    "settings_dns_add_custom_server_address_placeholder": {
-        "message": "IP alebo TLS"
-    },
     "settings_dns_add_custom_server_invalid_address": {
         "message": "Neplatná adresa DNS servera"
     },
@@ -595,6 +592,9 @@
     },
     "endpoints_countries": {
         "message": "Lokality"
+    },
+    "endpoints_location_virtual": {
+        "message": "Virtuálne"
     },
     "endpoints_fastest": {
         "message": "Najrýchlejší"

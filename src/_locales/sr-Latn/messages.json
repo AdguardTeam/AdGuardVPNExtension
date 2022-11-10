@@ -213,7 +213,7 @@
         "message": "Nastavi sa Facebook-om"
     },
     "auth_header_sing_in_notice": {
-        "message": "Već imate nalog <span>%username%</span>"
+        "message": "Već imate nalog <div>%username%</div>"
     },
     "auth_header_2fa_subtitle": {
         "message": "Potvrda u dva koraka"
@@ -248,14 +248,62 @@
     "settings_referral_invited_friends": {
         "message": "Pozvani prijatelji %count%/%limit%"
     },
+    "settings_referral_invite_link": {
+        "message": "Link pozivnice"
+    },
     "settings_referral_copy_link": {
         "message": "Kopiraj vezu za pozivanje"
     },
     "settings_referral_link_copied": {
         "message": "Veza kopirana"
     },
+    "settings_free_gbs": {
+        "message": "Besplatni gigabajti"
+    },
+    "settings_free_gbs_subtitle": {
+        "message": "Završite zadatke da biste dobili besplatan VPN saobraćaj!"
+    },
+    "settings_free_gbs_confirm_email_title": {
+        "message": "Potvrdite e-adresu"
+    },
+    "settings_free_gbs_get_GB": {
+        "message": "Dobijte %num% GB"
+    },
+    "settings_free_gbs_task_complete": {
+        "message": "Dobili ste %num% GB"
+    },
+    "settings_free_gbs_confirm_email_info": {
+        "message": "Kliknite na link za potvrdu e-pošte koji smo vam poslali i %your_gb% GB besplatnog VPN saobraćaja. Ako ne možete da pronađete naš email, kliknite na dugme ispod."
+    },
+    "settings_free_gbs_confirm_email_resend_link_button": {
+        "message": "Ponovo pošalji link"
+    },
+    "settings_free_gbs_add_device_title": {
+        "message": "Dodaj drugi uređaj"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "Instalirajte AdGuard VPN na još jedan uređaj, prijavite se na svoj AdGuard nalog na njemu i %your_gb% GB"
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "Dodati uređaji"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "Čestitam na instaliranju AdGuard VPN-a na više uređaja. Ostanite bezbedni!"
+    },
     "settings_free_gbs_add_device_products_button": {
         "message": "Idi na proizvode"
+    },
+    "settings_free_gbs_invite_friend": {
+        "message": "Pozovite prijatelja"
+    },
+    "settings_free_gbs_invite_friend_get_GB": {
+        "message": "Osvojite do %num% GB"
+    },
+    "settings_free_gbs_invite_friend_complete": {
+        "message": "Dobili ste %num% GB"
+    },
+    "settings_free_gbs_invite_friend_completed_thank_you": {
+        "message": "Hvala što ste koristili sve pozivnice!"
     },
     "settings_free_gbs_go_back": {
         "message": "Vrati se"
@@ -312,10 +360,13 @@
         "message": "Adresa DNS servera"
     },
     "settings_dns_add_custom_server_address_placeholder": {
-        "message": "IP ili TLS"
+        "message": "Ime IP ili TLS domena servera"
     },
     "settings_dns_add_custom_server_invalid_address": {
         "message": "Nevažeća adresa DNS servera"
+    },
+    "settings_dns_add_custom_server_duplicate_address": {
+        "message": "DNS server je već dodat"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Sačuvaj i izaberi"
@@ -491,8 +542,23 @@
     "settings_exclusion_title": {
         "message": "Izuzeci"
     },
+    "settings_exclusion_change_mode_modal_title": {
+        "message": "Gde je VPn uključen"
+    },
+    "settings_exclusion_general_title": {
+        "message": "Svuda osim za izuzete Web lokacije"
+    },
+    "settings_exclusion_general_mode_info": {
+        "message": "VPN je uključen <span>svuda</span> osim na sajtovima ispod"
+    },
     "settings_exclusion_selective_title": {
         "message": "Samo na izabranim Web lokacijama"
+    },
+    "settings_exclusion_selective_mode_info": {
+        "message": "VPN je uključen <span>selektivno</span>: samo za sajtove ispod"
+    },
+    "settings_exclusion_selective_mode_warning": {
+        "message": "Ako ovu listu ostavite praznom, to će isključiti VPN na svim sajtovima"
     },
     "settings_exclusion_import_button": {
         "message": "Uvezi"
@@ -657,6 +723,24 @@
     "popup_newsletter_no_subscribe": {
         "message": "Ne, hvala"
     },
+    "popup_onboarding_unique_protocol": {
+        "message": "Jedinstveni VPN protokol"
+    },
+    "popup_onboarding_unique_protocol_info": {
+        "message": "AdGuard VPN protokol radi brzo i čini vaš VPN saobraćaj neupadljivim"
+    },
+    "popup_onboarding_sites_apps_exclusions": {
+        "message": "Izuzeci sajtova i aplikacija"
+    },
+    "popup_onboarding_sites_apps_exclusions_info": {
+        "message": "Izuzeci vam pomažu da brzo navedete lokacije ili aplikacije za AdGuard VPN zaštitu"
+    },
+    "popup_onboarding_no_logging_policy": {
+        "message": "Smernice bez vođenja evidencije"
+    },
+    "popup_onboarding_no_logging_policy_info": {
+        "message": "AdGuard VPN vas čini anonimnim. Nikada ne prikuplja ili deli vaše podatke sa trećim licima"
+    },
     "popup_onboarding_next": {
         "message": "Dalje"
     },
@@ -699,6 +783,9 @@
     },
     "options_exclusions_import_select_title": {
         "message": "Kako koristiti ovu listu izuzetaka?"
+    },
+    "options_exclusions_import_select_subtitle": {
+        "message": "Veb lokacije sa uvezene liste biće dodate postojećim izuzecima"
     },
     "options_exclusions_import_select_regular": {
         "message": "Želim da VPN bude isključen za ove sajtove"
@@ -784,7 +871,25 @@
     "notification_data_left_description": {
         "message": "Brzina VPN veze će uskoro biti smanjena."
     },
+    "confirm_email_title": {
+        "message": "Potvrdite vašu e-adresu"
+    },
+    "confirm_email_info": {
+        "message": "Da biste dobili besplatan VPN saobraćaj, potvrdite svoju email adresu. Poslali smo potvrdu linka na"
+    },
+    "confirm_email_done_title": {
+        "message": "E-adresa je potvrđena"
+    },
+    "confirm_email_done_info": {
+        "message": "Hvala što ste potvrdili!"
+    },
     "confirm_email_close_button": {
         "message": "zatvori"
+    },
+    "confirm_email_resend_link_button": {
+        "message": "Ponovo pošalji vezu"
+    },
+    "resend_confirm_registration_link_notification": {
+        "message": "Veza za potvrdu je ponovo poslata"
     }
 }

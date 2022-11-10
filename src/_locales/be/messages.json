@@ -239,17 +239,71 @@
     "options_menu_free_traffic": {
         "message": "Бясплатны трафік VPN"
     },
+    "referral_get_free_traffic": {
+        "message": "Атрымаць дармовы трафік!"
+    },
+    "settings_referral_info": {
+        "message": "Атрымлівайце %your_gb% ГБ бясплатнага трафіку VPN на працягу месяца для кожнага сябра, які зарэгіструецца па вашым запрашэнні, у агульнай складанасці да %total_gb% ГБ. Ваш сябар таксама атрымлівае дадатковыя %friend_gb% ГБ бясплатна."
+    },
     "settings_referral_invited_friends": {
         "message": "Запрошаныя сябры %count%/%limit%"
+    },
+    "settings_referral_invite_link": {
+        "message": "Спасылка на запрашэнне"
+    },
+    "settings_referral_copy_link": {
+        "message": "Скапіяваць спасылку"
+    },
+    "settings_referral_link_copied": {
+        "message": "Спасылка скапіявана"
+    },
+    "settings_free_gbs": {
+        "message": "Бясплатныя ГБ"
+    },
+    "settings_free_gbs_subtitle": {
+        "message": "Выканайце заданні, каб атрымаць бясплатны трафік VPN!"
     },
     "settings_free_gbs_confirm_email_title": {
         "message": "Пацвердзіце сваю электронную пошту"
     },
+    "settings_free_gbs_get_GB": {
+        "message": "Атрымаць %num% ГБ"
+    },
+    "settings_free_gbs_task_complete": {
+        "message": "У вас %num% ГБ"
+    },
+    "settings_free_gbs_confirm_email_info": {
+        "message": "Пстрыкніце спасылку з пацверджаннем па электроннай пошце, якую мы адправілі вам пры рэгістрацыі, і атрымайце %your_gb% ГБ бясплатнага трафіку VPN. Калі вы не можаце знайсці нашу электронную пошту, націсніце кнопку ніжэй."
+    },
     "settings_free_gbs_confirm_email_resend_link_button": {
         "message": "Паўторна адправіць спасылку"
     },
+    "settings_free_gbs_add_device_title": {
+        "message": "Дадайце іншую прыладу"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "Усталюйце AdGuard VPN яшчэ на адну прыладу, увайдзіце на ёй у свой уліковы запіс AdGuard і атрымайце %your_gb% ГБ"
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "Прылады дададзены"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "Віншуем з устаноўкай AdGuard VPN на некалькіх платформах. Заставайцеся ў бяспецы!"
+    },
     "settings_free_gbs_add_device_products_button": {
         "message": "Перайсці ў \"Прадукты\""
+    },
+    "settings_free_gbs_invite_friend": {
+        "message": "Запрасіць сябра"
+    },
+    "settings_free_gbs_invite_friend_get_GB": {
+        "message": "Атрымайце да %num% ГБ"
+    },
+    "settings_free_gbs_invite_friend_complete": {
+        "message": "У вас %num% ГБ"
+    },
+    "settings_free_gbs_invite_friend_completed_thank_you": {
+        "message": "Дзякуй за выкарыстанне ўсіх вашых запрашэнняў!"
     },
     "settings_free_gbs_go_back": {
         "message": "Назад"
@@ -279,7 +333,7 @@
         "message": "Асноўны рэжым"
     },
     "settings_dns_label": {
-        "message": "DNS-сервер"
+        "message": "Абраны DNS-сервер"
     },
     "settings_dns_popular_servers": {
         "message": "Папулярныя DNS-серверы"
@@ -290,6 +344,12 @@
     "settings_dns_add_custom_server": {
         "message": "Дадаць карыстацкі DNS-сервер"
     },
+    "settings_dns_edit_custom_server": {
+        "message": "Рэдагаваць карыстальніцкі сервер DNS"
+    },
+    "settings_dns_add_custom_server_info": {
+        "message": "<a>Больш</a> пра DNS-серверы"
+    },
     "settings_dns_add_custom_server_name": {
         "message": "Назва сервера"
     },
@@ -299,8 +359,14 @@
     "settings_dns_add_custom_server_address": {
         "message": "Адрас DNS-сервера"
     },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP-адрас сервера або даменнае імя TLS"
+    },
     "settings_dns_add_custom_server_invalid_address": {
         "message": "Некарэктны адрас DNS-сервера"
+    },
+    "settings_dns_add_custom_server_duplicate_address": {
+        "message": "DNS-сервер ужо дададзены"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Захаваць і выбраць"
@@ -308,11 +374,20 @@
     "settings_dns_add_custom_server_save": {
         "message": "Захаваць"
     },
+    "settings_dns_add_custom_server_notification_success": {
+        "message": "Дададзены карыстальніцкі сервер DNS"
+    },
+    "settings_dns_delete_custom_server_notification": {
+        "message": "Карыстальніцкі сервер DNS выдалены"
+    },
     "settings_dns_desc": {
         "message": "DNS-сервера (Domain Name Servers) - гэта адрасная кніга Інтэрнэту. Яны ўтрымваюць усе назвы даменаў, і ўмеюць іх трансляваць іх у рэальныя IP-адрасы."
     },
     "settings_dns_selector_default_title": {
         "message": "Прадвызначаны"
+    },
+    "settings_dns_selector_default_desc": {
+        "message": "Аўтаматычна выкарыстоўваць прадвызначаны DNS-сервер пры падлучэнні да VPN"
     },
     "settings_dns_selector_adguard_title": {
         "message": "AdGuard DNS"
@@ -467,6 +542,24 @@
     "settings_exclusion_title": {
         "message": "Выняткі"
     },
+    "settings_exclusion_change_mode_modal_title": {
+        "message": "Дзе ўключаны VPN"
+    },
+    "settings_exclusion_general_title": {
+        "message": "Асноўны рэжым"
+    },
+    "settings_exclusion_general_mode_info": {
+        "message": "VPN уключаны <span>ўсюды</span>, за выключэннем вэб-сайтаў ніжэй"
+    },
+    "settings_exclusion_selective_title": {
+        "message": "Выбарковы рэжым"
+    },
+    "settings_exclusion_selective_mode_info": {
+        "message": "VPN уключаны <span>выбарачна</span>: толькі для вэб-сайтаў ніжэй"
+    },
+    "settings_exclusion_selective_mode_warning": {
+        "message": "Калі пакінуць гэты спіс пустым, VPN адключаецца для ўсіх вэб-сайтаў"
+    },
     "settings_exclusion_import_button": {
         "message": "Імпарт"
     },
@@ -517,6 +610,9 @@
     },
     "endpoints_countries": {
         "message": "Месцівы"
+    },
+    "endpoints_location_virtual": {
+        "message": "Віртуальны"
     },
     "endpoints_fastest": {
         "message": "Самы хуткі"
@@ -630,6 +726,24 @@
     "popup_newsletter_no_subscribe": {
         "message": "Не, дзякуй"
     },
+    "popup_onboarding_unique_protocol": {
+        "message": "Унікальны пратакол VPN"
+    },
+    "popup_onboarding_unique_protocol_info": {
+        "message": "Пратакол AdGuard VPN працуе хутка і робіць ваш трафік VPN незаўважным"
+    },
+    "popup_onboarding_sites_apps_exclusions": {
+        "message": "Выключэнні сайтаў і праграм"
+    },
+    "popup_onboarding_sites_apps_exclusions_info": {
+        "message": "Выключэнні дапамогуць вам хутка вызначыць сайты або праграмы для абароны AdGuard VPN"
+    },
+    "popup_onboarding_no_logging_policy": {
+        "message": "Палітыка \"Без логаў\""
+    },
+    "popup_onboarding_no_logging_policy_info": {
+        "message": "AdGuard VPN робіць вас ананімнымі. Ён ніколі не збірае і не перадае вашы даныя трэцім асобам"
+    },
     "popup_onboarding_next": {
         "message": "Далей"
     },
@@ -669,6 +783,18 @@
     "popup_free_traffic_info": {
         "message": "<span>%value% %unit%</span> засталося ў гэтым месяцы",
         "description": "Respect spaces between text, tags and placeholders"
+    },
+    "options_exclusions_import_select_title": {
+        "message": "Як выкарыстоўваць гэты спіс выключэнняў?"
+    },
+    "options_exclusions_import_select_subtitle": {
+        "message": "Вэб-сайты з імпартаванага спісу будуць дададзены ў існуючыя выключэнні"
+    },
+    "options_exclusions_import_select_regular": {
+        "message": "Звычайны спіс"
+    },
+    "options_exclusions_import_select_selective": {
+        "message": "Выбарковы спіс"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Скасаваць"
@@ -754,10 +880,19 @@
     "confirm_email_info": {
         "message": "Каб атрымаць бясплатны трафік VPN, пацвердзіце свой адрас электроннай пошты. Мы адправілі спасылку для пацверджання"
     },
+    "confirm_email_done_title": {
+        "message": "Адрас электроннай пошты пацверджаны"
+    },
+    "confirm_email_done_info": {
+        "message": "Дзякуй за праверку!"
+    },
     "confirm_email_close_button": {
         "message": "Зачыніць"
     },
     "confirm_email_resend_link_button": {
         "message": "Паўторна адправіць спасылку"
+    },
+    "resend_confirm_registration_link_notification": {
+        "message": "Спасылка для пацверджання была адпраўлена на вашу электронную пошту"
     }
 }

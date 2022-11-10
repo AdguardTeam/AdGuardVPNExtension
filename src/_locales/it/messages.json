@@ -360,7 +360,7 @@
         "message": "Indirizzo server DNS"
     },
     "settings_dns_add_custom_server_address_placeholder": {
-        "message": "IP o TLS"
+        "message": "IP del server o nome di dominio TLS"
     },
     "settings_dns_add_custom_server_invalid_address": {
         "message": "Indirizzo di server DNS non valido"
@@ -610,6 +610,9 @@
     },
     "endpoints_countries": {
         "message": "Località"
+    },
+    "endpoints_location_virtual": {
+        "message": "Virtuale"
     },
     "endpoints_fastest": {
         "message": "Ultraveloce"

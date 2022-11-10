@@ -213,7 +213,7 @@
         "message": "Đăng nhập bằng Facebook"
     },
     "auth_header_sing_in_notice": {
-        "message": "Bạn đã có tài khoản <span>%username%</span>"
+        "message": "Bạn đã có tài khoản <div>%username%</div>"
     },
     "auth_header_2fa_subtitle": {
         "message": "Xác minh 2 bước"
@@ -360,10 +360,13 @@
         "message": "Địa chỉ máy chủ DNS"
     },
     "settings_dns_add_custom_server_address_placeholder": {
-        "message": "IP hoặc TLS"
+        "message": "Tên miền IP hoặc TLS của máy chủ"
     },
     "settings_dns_add_custom_server_invalid_address": {
         "message": "Địa chỉ máy chủ DNS không hợp lệ"
+    },
+    "settings_dns_add_custom_server_duplicate_address": {
+        "message": "Máy chủ DNS đã được thêm vào"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Lưu và chọn"
@@ -607,6 +610,9 @@
     },
     "endpoints_countries": {
         "message": "Vị trí"
+    },
+    "endpoints_location_virtual": {
+        "message": "Ảo"
     },
     "endpoints_fastest": {
         "message": "Nhanh nhất"

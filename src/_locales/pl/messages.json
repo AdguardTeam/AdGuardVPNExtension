@@ -213,7 +213,7 @@
         "message": "Kontynuuj z Facebookiem"
     },
     "auth_header_sing_in_notice": {
-        "message": "Masz już konto <span>%username%</span>"
+        "message": "Masz już konto <div>%username%</div>"
     },
     "auth_header_2fa_subtitle": {
         "message": "Uwierzytelnianie dwuskładnikowe"
@@ -360,10 +360,13 @@
         "message": "Adres serwera DNS"
     },
     "settings_dns_add_custom_server_address_placeholder": {
-        "message": "IP lub TLS"
+        "message": "IP serwera lub nazwa domeny TLS"
     },
     "settings_dns_add_custom_server_invalid_address": {
         "message": "Nieprawidłowy adres serwera DNS"
+    },
+    "settings_dns_add_custom_server_duplicate_address": {
+        "message": "Serwer DNS już dodany"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Zapisz i wybierz"
@@ -607,6 +610,9 @@
     },
     "endpoints_countries": {
         "message": "Lokalizacja"
+    },
+    "endpoints_location_virtual": {
+        "message": "Wirtualny"
     },
     "endpoints_fastest": {
         "message": "Najszybsza"

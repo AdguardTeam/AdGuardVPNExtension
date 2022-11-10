@@ -360,7 +360,7 @@
         "message": "DNS 服务器地址"
     },
     "settings_dns_add_custom_server_address_placeholder": {
-        "message": "IP 或 TLS"
+        "message": "服务器 IP 或 TLS 域名"
     },
     "settings_dns_add_custom_server_invalid_address": {
         "message": "无效的 DNS 服务器地址"
@@ -610,6 +610,9 @@
     },
     "endpoints_countries": {
         "message": "位置"
+    },
+    "endpoints_location_virtual": {
+        "message": "虚拟的"
     },
     "endpoints_fastest": {
         "message": "最快"

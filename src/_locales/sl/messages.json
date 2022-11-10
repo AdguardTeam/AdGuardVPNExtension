@@ -17,6 +17,9 @@
     "registration_error_min_length": {
         "message": "Geslo je prekratko. Vsebovati mora vsaj 8 znakov."
     },
+    "registration_error_confirm_password": {
+        "message": "Gesli se ne ujemata"
+    },
     "registration_error_compromised_password": {
         "message": "Geslo, ki ste ga vnesli, je bilo najdeno v <a>javni zbirki podatkov</a> ogroženih gesel. Pposkusite z drugim."
     },
@@ -122,6 +125,27 @@
     "account_version": {
         "message": "Različica"
     },
+    "account_free": {
+        "message": "Brezplačen račun"
+    },
+    "account_unlimited": {
+        "message": "Neomejena naročnina"
+    },
+    "account_monthly_paid": {
+        "message": "Plačljiva mesečna naročnina"
+    },
+    "account_yearly_paid": {
+        "message": "Plačljiva letna naročnina"
+    },
+    "account_two_year_paid": {
+        "message": "Plačljiva dvoletna naročnina"
+    },
+    "account_get_subscription": {
+        "message": "Pridobite naročnino"
+    },
+    "account_max_devices_count": {
+        "message": "Do %num% sočasnih naprav"
+    },
     "account_next_charge": {
         "message": "Naslednji datum obračuna %date%"
     },
@@ -169,6 +193,9 @@
     },
     "auth_sign_in_button": {
         "message": "Prijava"
+    },
+    "auth_title": {
+        "message": "Prijavite se ali ustvarite račun"
     },
     "auth_sign_in_provider_adguard_label": {
         "message": "E-pošta"
@@ -245,11 +272,38 @@
     "settings_free_gbs_task_complete": {
         "message": "Dobili ste %num% GB"
     },
+    "settings_free_gbs_confirm_email_info": {
+        "message": "Kliknite potrditveno povezavo po e-pošti, ki smo vam jo poslali ob prijavi, in pridobite %your_gb% GB brezplačnega prometa VPN. Če ne najdete naše e-pošte, kliknite spodnji gumb."
+    },
+    "settings_free_gbs_confirm_email_resend_link_button": {
+        "message": "Znova pošlji povezavo"
+    },
+    "settings_free_gbs_add_device_title": {
+        "message": "Dodaj drugo napravo"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "Namestite AdGuard VPN še na eno napravo, na njej se prijavite v svoj račun AdGuard in pridobite %your_gb% GB"
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "Naprave so dodane"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "Čestitke za namestitev AdGuard VPN na več naprav. Ostanite varni!"
+    },
     "settings_free_gbs_add_device_products_button": {
         "message": "Pojdi na izdelke"
     },
+    "settings_free_gbs_invite_friend": {
+        "message": "Povabite prijatelja"
+    },
+    "settings_free_gbs_invite_friend_get_GB": {
+        "message": "Pridobite do %num% GB"
+    },
     "settings_free_gbs_invite_friend_complete": {
         "message": "Dobili ste %num% GB"
+    },
+    "settings_free_gbs_invite_friend_completed_thank_you": {
+        "message": "Hvala, ker ste uporabili vsa vaša povabila!"
     },
     "settings_free_gbs_go_back": {
         "message": "Pojdi nazaj"
@@ -306,10 +360,13 @@
         "message": "Naslov DNS strežnika"
     },
     "settings_dns_add_custom_server_address_placeholder": {
-        "message": "IP ali TLS"
+        "message": "IP strežnika ali ime domene TLS"
     },
     "settings_dns_add_custom_server_invalid_address": {
         "message": "Neveljaven naslov DNS"
+    },
+    "settings_dns_add_custom_server_duplicate_address": {
+        "message": "DNS strežnik je že dodan"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "Shrani in izberi"
@@ -485,6 +542,9 @@
     "settings_exclusion_title": {
         "message": "Izjeme"
     },
+    "settings_exclusion_change_mode_modal_title": {
+        "message": "Kjer je vklopljen VPN"
+    },
     "settings_exclusion_selective_title": {
         "message": "Samo na izbranih spletnih mestih"
     },
@@ -636,6 +696,12 @@
     "popup_newsletter_no_subscribe": {
         "message": "Ne, hvala"
     },
+    "popup_onboarding_sites_apps_exclusions": {
+        "message": "Izključitve spletnih strani in aplikacij"
+    },
+    "popup_onboarding_no_logging_policy": {
+        "message": "Politika ne vodenja dnevnika"
+    },
     "popup_onboarding_next": {
         "message": "Naprej"
     },
@@ -751,7 +817,22 @@
     "notification_data_limit_reached_title": {
         "message": "Mesečna omejitev podatkov je dosežena"
     },
+    "confirm_email_title": {
+        "message": "Potrdite svoj e-poštni naslov"
+    },
+    "confirm_email_done_title": {
+        "message": "E-poštni naslov je potrjen"
+    },
+    "confirm_email_done_info": {
+        "message": "Hvala za potrditev!"
+    },
     "confirm_email_close_button": {
         "message": "Zapri"
+    },
+    "confirm_email_resend_link_button": {
+        "message": "Znova pošlji povezavo"
+    },
+    "resend_confirm_registration_link_notification": {
+        "message": "Znova poslana potrditvena povezava"
     }
 }

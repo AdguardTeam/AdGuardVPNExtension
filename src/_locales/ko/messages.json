@@ -360,10 +360,13 @@
         "message": "DNS 서버 주소"
     },
     "settings_dns_add_custom_server_address_placeholder": {
-        "message": "IP 또는 TLS"
+        "message": "서버 IP 또는 TLS 도메인 이름"
     },
     "settings_dns_add_custom_server_invalid_address": {
         "message": "유효하지 않은 DNS 주소"
+    },
+    "settings_dns_add_custom_server_duplicate_address": {
+        "message": "DNS 서버가 이미 추가되었습니다"
     },
     "settings_dns_add_custom_server_save_and_select": {
         "message": "선택하고 저장"
@@ -607,6 +610,9 @@
     },
     "endpoints_countries": {
         "message": "위치"
+    },
+    "endpoints_location_virtual": {
+        "message": "가상"
     },
     "endpoints_fastest": {
         "message": "가장 빠름"

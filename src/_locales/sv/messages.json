@@ -180,7 +180,7 @@
         "message": "Fortsätt med Facebook"
     },
     "auth_header_sing_in_notice": {
-        "message": "Du har redan ett konto <span>%username%</span>"
+        "message": "Du har redan ett konto <div>%username%</div>"
     },
     "auth_header_2fa_subtitle": {
         "message": "Tvåfaktorautentisering"
@@ -208,6 +208,9 @@
     },
     "settings_referral_copy_link": {
         "message": "Kopiera inbjudningslänken"
+    },
+    "settings_free_gbs_confirm_email_title": {
+        "message": "Bekräfta din e-postadress"
     },
     "settings_free_gbs_add_device_products_button": {
         "message": "Gå till Produkter"
@@ -618,6 +621,9 @@
     },
     "options_signedout_page_description": {
         "message": "Observera att din anslutning inte är säker. För att fortsätta surfa privat, klicka på AdGuard VPN ikonen och logga in igen."
+    },
+    "confirm_email_title": {
+        "message": "Bekräfta din e-postadress"
     },
     "confirm_email_close_button": {
         "message": "Stäng"

@@ -240,10 +240,10 @@
         "message": "Kostenlose VPN-Datenmenge"
     },
     "referral_get_free_traffic": {
-        "message": "Erhalten Sie kostenlosen VPN-Traffic!"
+        "message": "Holen Sie sich kostenlosen VPN-Traffic!"
     },
     "settings_referral_info": {
-        "message": "Erhalten Sie %your_gb% GB kostenlosen VPN-Traffic für einen Monat für jeden Freund, der sich über Ihre Einladung anmeldet, insgesamt bis zu %total_gb% GB. Ihr/e Freund/in erhält außerdem ein zusätzliches %friend_gb% GB kostenlos."
+        "message": "Holen Sie sich %your_gb% GB kostenlosen VPN-Traffic für einen Monat für jeden Freund, der sich über Ihre Einladung anmeldet, insgesamt bis zu %total_gb% GB. Ihr/e Freund/in erhält außerdem ein zusätzliches %friend_gb% GB kostenlos."
     },
     "settings_referral_invited_friends": {
         "message": "Eingeladene Freunde %count%/%limit%"
@@ -288,7 +288,7 @@
         "message": "Geräte hinzugefügt"
     },
     "settings_free_gbs_devices_added_info": {
-        "message": "Sie haben AdGuard VPN auf mehreren Geräten installiert. Bleiben Sie sicher!"
+        "message": "Sie haben AdGuard VPN auf mehreren Geräten installiert. Bleiben Sie geschützt!"
     },
     "settings_free_gbs_add_device_products_button": {
         "message": "Zu den Produkten wechseln"
@@ -360,7 +360,7 @@
         "message": "Adresse des DNS-Servers"
     },
     "settings_dns_add_custom_server_address_placeholder": {
-        "message": "IP oder TLS"
+        "message": "Server-IP oder TLS-Domainname"
     },
     "settings_dns_add_custom_server_invalid_address": {
         "message": "Ungültige DNS-Adresse"
@@ -381,7 +381,7 @@
         "message": "Benutzerdefinierter DNS-Server entfernt"
     },
     "settings_dns_desc": {
-        "message": "Das „Domain Name System” (DNS) ist das Äquivalent des Internets zu einem Telefonbuch. Es führt ein Verzeichnis von Domain-Namen und übersetzt sie in Internet-Protokoll-Adressen (IP-Adressen)."
+        "message": "Das „Domain Name System“ (DNS) ist das Äquivalent des Internets zu einem Telefonbuch. Es führt ein Verzeichnis von Domain-Namen und übersetzt sie in Internet-Protokoll-Adressen (IP-Adressen)."
     },
     "settings_dns_selector_default_title": {
         "message": "Standard"
@@ -402,7 +402,7 @@
         "message": "Verschlüsseltes DNS ohne Aktivitätsprotokollierung (filtert keine Werbeanzeigen und Tracker)"
     },
     "settings_dns_selector_adguard_family_title": {
-        "message": "AdGuard DNS „Familienschutz”"
+        "message": "AdGuard DNS „Familienschutz“"
     },
     "settings_dns_selector_adguard_family_desc": {
         "message": "AdGuard DNS + SafeSearch und Sperren von jugendgefährdenden Inhalten"
@@ -510,7 +510,7 @@
         "message": "Widerrufen"
     },
     "settings_exclusion_reset_service_confirmation_message": {
-        "message": "Möchten Sie die Standardeinstellungen für %hostname%? zurücksetzen? Dadurch werden alle fehlenden Domains wiederhergestellt und alle Häkchen auf „Aktiviert” gesetzt."
+        "message": "Möchten Sie die Standardeinstellungen für %hostname%? zurücksetzen? Dadurch werden alle fehlenden Domains wiederhergestellt und alle Häkchen auf „Aktiviert“ gesetzt."
     },
     "settings_exclusion_search_website": {
         "message": "Website suchen"
@@ -611,6 +611,9 @@
     "endpoints_countries": {
         "message": "Standorte"
     },
+    "endpoints_location_virtual": {
+        "message": "Virtuell"
+    },
     "endpoints_fastest": {
         "message": "Schnellste"
     },
@@ -684,10 +687,10 @@
         "message": "Feedback senden"
     },
     "popup_confirm_rate_modal_rate_title": {
-        "message": "Super! Würden Sie uns bitte auch im Chrome Store bewerten?"
+        "message": "Super! Würden Sie uns bitte auch im Erweiterungen-Store bewerten?"
     },
     "popup_confirm_rate_modal_confirm_button": {
-        "message": "Chrome Store aufrufen"
+        "message": "Erweiterungen-Store aufrufen"
     },
     "options_title": {
         "message": "AdGuard VPN Einstellungen"
@@ -696,7 +699,7 @@
         "message": "Offline"
     },
     "popup_site_status_unaccessible": {
-        "message": "befindet sich in Ihrem lokalen Netzwerk und ist über VPN nicht erreichbar"
+        "message": "befindet sich in Ihrem lokalen Netzwerk und ist nicht über VPN erreichbar"
     },
     "popup_site_status_vpn_disabled": {
         "message": "VPN ist auf dieser Website deaktiviert"
@@ -782,7 +785,7 @@
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
-        "message": "Wie ist diese Liste der Ausschlüsse zu verwenden?"
+        "message": "Wie kann diese Liste der Ausschlüsse verwendet werden?"
     },
     "options_exclusions_import_select_subtitle": {
         "message": "Die Websites aus der importierten Liste werden zu den bestehenden Ausschlüssen hinzugefügt"
@@ -824,7 +827,7 @@
         "message": "Die Ausschlussliste muss eine der folgenden Dateiendungen erhalten: %extensions%"
     },
     "options_exclusions_import_error_wrong_extensions_in_zip": {
-        "message": "Das Zip-Archiv „%filename%” enthält keine Dateien mit den Dateiendung: %extensions%"
+        "message": "Das Zip-Archiv „%filename%“ enthält keine Dateien mit den Dateiendung: %extensions%"
     },
     "popup_connections_limit_description_start": {
         "message": "Sie haben die maximale Anzahl von Verbindungen erreicht: %maxDevicesAllowed%"
