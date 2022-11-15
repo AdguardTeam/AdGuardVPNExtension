@@ -2,8 +2,6 @@ import { nanoid } from 'nanoid';
 
 import pacGenerator from './pacGenerator';
 import { ProxyConfigInterface } from '../proxy';
-import { log } from '../../../lib/logger';
-import { getETld } from '../../../common/url-utils';
 import { PAC_SCRIPT_CHECK_URL } from '../proxyConsts';
 
 /**
@@ -56,8 +54,7 @@ let globalProxyConfig: ProxyConfigInterface | null = null;
 
 /**
  * Handles onAuthRequired events
- * @param details
- * @returns {{}|{authCredentials: {password: string, username: string}}}
+ * @param details - webrequest details
  */
 const onAuthRequiredHandler = (details: chrome.webRequest.WebAuthenticationChallengeDetails) => {
     const { challenger } = details;
@@ -91,7 +88,6 @@ const promisifiedClearProxy = (): Promise<void> => {
 
 /**
  * Clears proxy settings
- * @returns {Promise<void>}
  */
 const proxyClear = async (): Promise<void> => {
     await promisifiedClearProxy();
@@ -104,34 +100,6 @@ const promisifiedSetProxy = (config: chrome.types.ChromeSettingSetDetails): Prom
             resolve();
         });
     });
-};
-
-/**
- * Clears auth cache
- * There was an idea that this method should help with clearing proxy credentials,
- * it was taken from stackoverflow and its necessity is not fully proved yet.
- * @param config - proxy config
- */
-const clearAuthCache = async (config: ProxyConfigInterface | null) => {
-    if (!config?.host) {
-        return;
-    }
-
-    // Only top level domain should be cleared
-    const tld = getETld(config.host);
-    const options = {
-        origins: [
-            `http://${tld}`,
-            `https://${tld}`,
-        ],
-    };
-    const types = { cookies: true };
-
-    try {
-        await chrome.browsingData.remove(options, types);
-    } catch (e) {
-        log.debug('clearAuthCache error:', e);
-    }
 };
 
 /**
@@ -152,18 +120,15 @@ async function triggerOnAuthRequired() {
 }
 
 /**
- * proxySet makes proxy settings compatible with Chrome proxy api and sets them via
- * chrome.proxy.settings
- * It is important to note that we set proxy via pac script because our exclusions need more complex
- * logic than we can achieve with fixed_servers option.
+ * proxySet makes proxy settings compatible with Chrome proxy api and sets them via chrome.proxy.settings
+ * It is important to note that we set proxy via pac script because our exclusions need more complex logic than we can
+ * achieve with fixed_servers option.
  * @param config - proxy config
- * @returns {Promise<void>}
  */
 const proxySet = async (config: ProxyConfigInterface): Promise<void> => {
     removeOnAuthRequiredListener();
     const chromeConfig = convertToChromeConfig(config);
     await promisifiedSetProxy(chromeConfig);
-    await clearAuthCache(globalProxyConfig);
     globalProxyConfig = config;
     addOnAuthRequiredListener();
     await triggerOnAuthRequired();

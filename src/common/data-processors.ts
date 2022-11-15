@@ -55,7 +55,7 @@ interface ExclusionServicePreprocessed {
     modifiedTime: string;
 }
 
-interface ExclusionService extends Omit<ExclusionServicePreprocessed, 'categories'>{
+interface ExclusionService extends Omit<ExclusionServicePreprocessed, 'categories'> {
     categories: ExclusionCategory[];
     domains: string[];
 }

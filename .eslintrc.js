@@ -32,6 +32,13 @@ module.exports = {
         },
     },
     rules: {
+        'max-len': ['error', 120, 2, {
+            ignoreUrls: true,
+            ignoreComments: false,
+            ignoreRegExpLiterals: true,
+            ignoreStrings: true,
+            ignoreTemplateLiterals: true,
+        }],
         'no-shadow': 0,
         '@typescript-eslint/no-shadow': 0,
         'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
