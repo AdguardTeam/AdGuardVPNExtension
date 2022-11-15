@@ -6,6 +6,10 @@
 
 .content {
     margin-left: calc((100vw - (var(--sidebar-width) + var(--content-width))) / 2);
+    @media (max-width: 980px) {
+        margin-left: auto;
+    }
+
     width: 100%;
     max-width: var(--content-width);
     min-height: 500px;
