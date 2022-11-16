@@ -213,7 +213,7 @@
         "message": "Nastavite koristeći Facebook"
     },
     "auth_header_sing_in_notice": {
-        "message": "Već imate račun <div>%username%</div>"
+        "message": "Već imate račun <span>%username%</span>"
     },
     "auth_header_2fa_subtitle": {
         "message": "Dvofaktorska autentikacija"

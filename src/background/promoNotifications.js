@@ -13,181 +13,197 @@ import { FORWARDER_DOMAIN } from './config';
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const halloweenPromo22Notification = {
-    id: 'halloweenPromo22',
+const RUSSIAN_LOCALE = 'ru';
+
+const COMMON_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=black_friday_22_vpn&from=popup&app=vpn_extension`;
+const RUSSIAN_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=black_friday_22_vpn_ru&from=popup&app=vpn_extension`;
+
+const normalizeLanguage = (locale) => {
+    if (!locale) {
+        return null;
+    }
+
+    return locale.toLowerCase().replace('-', '_');
+};
+
+const currentLocale = normalizeLanguage(browser.i18n.getUILanguage());
+const promoLink = currentLocale === RUSSIAN_LOCALE ? RUSSIAN_PROMO_LINK : COMMON_PROMO_LINK;
+
+const blackFriday22Notification = {
+    id: 'blackFriday22',
     locales: {
         en: {
-            title: 'Halloween promo',
-            btn: 'Get 80% off',
+            title: 'Black Friday',
+            btn: 'Get 85% off',
         },
         ru: {
-            title: 'Акция на Хэллоуин',
-            btn: 'Скидка 75%',
+            title: 'Чёрная пятница',
+            btn: 'Скидка 80%',
         },
         ja: {
-            title: 'ハロウィンキャンペーン',
-            btn: '80%OFFでGET',
+            title: 'BLACK FRIDAY',
+            btn: '80%OFF割引をGETする',
         },
         ko: {
-            title: '할로윈 프로모션',
-            btn: '80% 할인 받기',
+            title: '블랙 프라이데이',
+            btn: '85% 할인',
         },
         es: {
-            title: 'Rebajas de Halloween',
-            btn: 'Obtén un 80% off',
+            title: 'Black Friday',
+            btn: 'Descuento de 85%',
         },
         de: {
-            title: 'Halloween-Sale',
-            btn: '80% Rabatt erhalten',
+            title: 'Black Friday',
+            btn: '85% Rabatt',
         },
         pt_pt: {
-            title: 'Promoção de Halloween',
-            btn: 'Garanta 80% off',
+            title: 'Black Friday',
+            btn: 'Desconto de 85%',
         },
         pt_br: {
-            title: 'Promoção de Halloween',
-            btn: 'Garanta 80% off',
+            title: 'Black Friday',
+            btn: 'Desconto de 85%',
         },
         zh_tw: {
-            title: '萬聖節折扣',
-            btn: '低至2折',
+            title: '黑五優惠',
+            btn: '享1.5折',
         },
         zh_cn: {
-            title: '万圣节特惠',
-            btn: '低至2折',
+            title: '黑五优惠',
+            btn: '享1.5折',
         },
         fr: {
-            title: 'Promo Halloween',
-            btn: 'Remise 80%',
+            title: 'Black Friday',
+            btn: '85% de remise',
         },
         it: {
-            title: 'Offerta Halloween',
-            btn: '80% di sconto',
+            title: 'Black Friday',
+            btn: '85% di sconto',
         },
         uk: {
-            title: 'Акція на Хелловін',
-            btn: 'Знижка 80%',
+            title: 'Чорна п\'ятниця',
+            btn: 'Знижка 85%',
         },
         ar: {
-            title: 'عرض عيد الهالوين',
-            btn: '٪احصل على خصم 80',
+            title: 'الجمعة السوداء',
+            btn: '%خصم 85',
         },
         be: {
-            title: 'Прома на Хэлоўін',
-            btn: 'Зніжка 80%',
+            title: 'Чорная пятніца',
+            btn: '85% зніжка',
         },
         bg: {
-            title: 'Хелоуин промо',
-            btn: '80% отстъпка',
+            title: 'Черен петък',
+            btn: '85% отстъпка',
         },
         ca: {
-            title: 'Promoció de Halloween',
-            btn: '80% de descompte',
+            title: 'Divendres Negre',
+            btn: '85% de descompte',
         },
         cs: {
-            title: 'Halloweenská promo akce',
-            btn: '80% sleva',
+            title: 'Černý pátek',
+            btn: '85% sleva',
         },
         da: {
-            title: 'Halloween-kampagne',
-            btn: 'Få 80% rabat',
+            title: 'Black Friday',
+            btn: '85% rabat',
         },
         el: {
-            title: 'Απόκριες promo',
-            btn: 'Έκπτωση 80%',
+            title: 'Μαύρη Παρασκευή',
+            btn: '85% έκπτωση',
         },
         fa: {
-            title: 'تبلیغاتی هالووین',
-            btn: 'دریافت 80٪ خاموش',
+            title: 'جمعه سیاه',
+            btn: '85٪ تخفیف',
         },
         fi: {
-            title: 'Halloween-kampanja',
-            btn: 'Saat 80% alennuksen',
+            title: 'Black Friday',
+            btn: '85% alennus',
         },
         he: {
-            title: 'פרומו ליל כל הקדושים',
-            btn: 'קבל 80% הנחה',
+            title: 'Black Friday',
+            btn: '85% הנחה',
         },
         hr: {
-            title: 'Promocija za Noć vještica',
-            btn: '80% popusta',
+            title: 'Crni petak',
+            btn: '85% popusta',
         },
         hu: {
-            title: 'Halloween promóció',
-            btn: '80% kedvezmény',
+            title: 'Fekete péntek',
+            btn: '85% kedvezmény',
         },
         hy: {
-            title: 'Հելոուինի պրոմո',
-            btn: '80% զեղչ',
+            title: 'Սեւ ուրբաթ',
+            btn: '85% զեղչ',
         },
         id: {
-            title: 'Promosi Halloween',
-            btn: 'Dapatkan diskon 80%',
+            title: 'Jumat Hitam',
+            btn: 'Diskon 85%',
         },
         lt: {
-            title: 'Helovino akcija',
-            btn: '80% nuolaida',
+            title: 'Juodasis penktadienis',
+            btn: '85% nuolaida',
         },
         ms: {
-            title: 'Promosi Halloween',
-            btn: 'Diskaun 80%',
+            title: 'Jumaat Hitam',
+            btn: 'Diskaun 85%',
         },
         nb: {
-            title: 'Halloween-kampanje',
-            btn: 'Få 80% avslag',
+            title: 'Svart fredag',
+            btn: '85% rabatt',
         },
         nl: {
-            title: 'Halloween promotie',
-            btn: 'Ontvang 80% korting',
+            title: 'Zwarte Vrijdag',
+            btn: '85% korting',
         },
         pl: {
-            title: 'Promocja Halloween',
-            btn: 'Uzyskaj 80% zniżki',
+            title: 'Czarny piątek',
+            btn: '85% zniżki',
         },
         ro: {
-            title: 'Promoție de Halloween',
-            btn: '80% reducere',
+            title: 'Black Friday',
+            btn: '85% reducere',
         },
         sk: {
-            title: 'Propagácia Halloweenu',
-            btn: 'Získajte 80% zľavu',
+            title: 'Čierny piatok',
+            btn: '85% zľava',
         },
         sl: {
-            title: 'Promocija noči čarovnic',
-            btn: 'Dobi 80% popusta',
+            title: 'Črni petek',
+            btn: '85% popust',
         },
         sr: {
-            title: 'Promocija za Noć veštica',
-            btn: 'Skini 80% popusta',
+            title: 'Crni petak',
+            btn: '85% popusta',
         },
         sv: {
-            title: 'Halloween-kampanj',
-            btn: 'Få 80% rabatt',
+            title: 'Black Friday',
+            btn: '85% rabatt',
         },
         tr: {
-            title: 'Cadılar Bayramı promosyonu',
-            btn: '%80 indirim',
+            title: 'Black Friday',
+            btn: '%85 indirim',
         },
         vi: {
-            title: 'Khuyến mãi Halloween',
-            btn: 'Giảm giá 80%',
+            title: 'Black Friday',
+            btn: 'Giảm giá 85%',
         },
     },
     // will be selected for locale, see usage of getNotificationText
     text: '',
-    url: `https://${FORWARDER_DOMAIN}/forward.html?action=halloween_promo_22_vpn&from=popup&app=vpn_extension`,
-    from: '27 October 2022 12:00:00',
-    to: '2 November 2022 23:59:00',
+    url: promoLink,
+    from: '22 November 2022 15:00:00',
+    to: '29 November 2022 23:59:00',
     type: 'animated',
     get icons() {
-        return lazyGet(halloweenPromo22Notification, 'icons', () => ({
+        return lazyGet(blackFriday22Notification, 'icons', () => ({
             ENABLED: {
-                19: getUrl('assets/images/icons/hlw22-on-19.png'),
-                38: getUrl('assets/images/icons/hlw22-on-38.png'),
+                19: getUrl('assets/images/icons/bf22-on-19.png'),
+                38: getUrl('assets/images/icons/bf22-on-38.png'),
             },
             DISABLED: {
-                19: getUrl('assets/images/icons/hlw22-off-19.png'),
-                38: getUrl('assets/images/icons/hlw22-off-38.png'),
+                19: getUrl('assets/images/icons/bf22-off-19.png'),
+                38: getUrl('assets/images/icons/bf22-off-38.png'),
             },
         }));
     },
@@ -210,7 +226,7 @@ const halloweenPromo22Notification = {
  */
 
 const notifications = {
-    halloweenPromo22: halloweenPromo22Notification,
+    blackFriday22: blackFriday22Notification,
 };
 
 /**
@@ -224,14 +240,6 @@ const getLastNotificationTime = async () => {
         await browserApi.storage.set(LAST_NOTIFICATION_TIME, lastTime);
     }
     return lastTime;
-};
-
-const normalizeLanguage = (locale) => {
-    if (!locale) {
-        return null;
-    }
-
-    return locale.toLowerCase().replace('-', '_');
 };
 
 /**

@@ -213,7 +213,7 @@
         "message": "Đăng nhập bằng Facebook"
     },
     "auth_header_sing_in_notice": {
-        "message": "Bạn đã có tài khoản <div>%username%</div>"
+        "message": "Bạn đã có tài khoản <span>%username%</span>"
     },
     "auth_header_2fa_subtitle": {
         "message": "Xác minh 2 bước"
