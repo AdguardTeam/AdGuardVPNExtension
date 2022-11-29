@@ -1,5 +1,4 @@
 import qs from 'qs';
-import { Method } from 'axios';
 
 import { Api } from './Api';
 import { AUTH_CLIENT_ID } from '../config';
@@ -8,7 +7,7 @@ import { AuthCredentials } from './apiTypes';
 
 type ApiEndpoint = {
     path: string;
-    method: Method;
+    method: string;
 };
 
 // Documentation
@@ -82,7 +81,7 @@ class AuthApi extends Api {
 
     USER_LOOKUP: ApiEndpoint = { path: 'api/1.0/user_lookup', method: 'POST' };
 
-    userLookup(email: string, appId: string) {
+    async userLookup(email: string, appId: string) {
         const { path, method } = this.USER_LOOKUP;
         const config = {
             data: qs.stringify({
@@ -90,7 +89,9 @@ class AuthApi extends Api {
                 request_id: appId,
             }),
         };
-        return this.makeRequest(path, config, method);
+
+        const response = await this.makeRequest(path, config, method);
+        return response;
     }
 }
 

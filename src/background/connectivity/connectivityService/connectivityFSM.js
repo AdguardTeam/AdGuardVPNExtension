@@ -106,6 +106,7 @@ const delays = {
  */
 const connectivityFSM = createMachine({
     id: 'connectivity',
+    predictableActionArguments: true,
     context: {
         /**
          * Count of connections retries

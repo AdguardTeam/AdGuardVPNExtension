@@ -1,5 +1,4 @@
 import browser from 'webextension-polyfill';
-import axios from 'axios';
 
 import { Service } from './Service';
 import { vpnProvider, ServicesInterface } from '../../providers/vpnProvider';
@@ -152,8 +151,8 @@ export class ServicesManager implements ServiceManagerInterface {
      */
     async getServicesFromAssets(): Promise<ServicesInterface> {
         const path = browser.runtime.getURL('assets/prebuild-data/exclusion-services.json');
-        const response = await axios.get(path);
-        return response.data;
+        const response = await fetch(path);
+        return response.json();
     }
 
     /**

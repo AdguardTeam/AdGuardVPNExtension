@@ -1,5 +1,5 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "__MSG_name__",
     "short_name": "__MSG_short_name__",
     "author": "Adguard Software Ltd",
@@ -10,7 +10,7 @@
         "16": "assets/images/icons/enabled-16.png",
         "128": "assets/images/icons/enabled-128.png"
     },
-    "browser_action": {
+    "action": {
         "default_icon": {
             "19": "assets/images/icons/disabled-19.png",
             "38": "assets/images/icons/disabled-38.png"
@@ -19,8 +19,10 @@
         "default_popup": "popup.html"
     },
     "background": {
-        "page": "background.html",
-        "persistent": true
+        "service_worker": "background.js"
+    },
+    "content_security_policy": {
+        "extension_pages": "script-src 'self'; object-src 'self'"
     },
     "content_scripts": [
         {
@@ -35,7 +37,6 @@
         }
     ],
     "permissions": [
-        "<all_urls>",
         "contextMenus",
         "management",
         "notifications",
@@ -43,7 +44,9 @@
         "proxy",
         "storage",
         "unlimitedStorage",
-        "webRequest",
-        "webRequestBlocking"
+        "declarativeNetRequest"
+    ],
+    "host_permissions": [
+        "<all_urls>"
     ]
 }

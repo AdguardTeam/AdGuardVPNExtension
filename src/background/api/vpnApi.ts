@@ -1,13 +1,12 @@
 import qs from 'qs';
 import browser from 'webextension-polyfill';
-import { AxiosResponse, Method } from 'axios';
 
 import { Api } from './Api';
 import { fallbackApi } from './fallbackApi';
 
 const API_PREFIX = '/api';
 
-interface VpnCredentials extends AxiosResponse {
+interface VpnCredentials {
     license_status: string;
     time_expires_sec: number;
     result: {
@@ -16,7 +15,7 @@ interface VpnCredentials extends AxiosResponse {
     };
 }
 
-export interface VpnExtensionInfo extends AxiosResponse {
+export interface VpnExtensionInfo {
     bandwidth_free_mbits: number;
     premium_promo_page: string;
     premium_promo_enabled: boolean;
@@ -55,11 +54,11 @@ export interface LocationApiData {
     virtual: boolean;
 }
 
-interface LocationsData extends AxiosResponse {
+interface LocationsData {
     locations: LocationApiData[];
 }
 
-interface CurrentLocationData extends AxiosResponse {
+interface CurrentLocationData {
     ip: string;
     country_code: string;
     country: {
@@ -80,15 +79,15 @@ interface CurrentLocationData extends AxiosResponse {
     };
 }
 
-interface PostExtensionInstalledData extends AxiosResponse {
+interface PostExtensionInstalledData {
     social_providers: string[];
 }
 
-interface VpnConnectionStatus extends AxiosResponse {
+interface VpnConnectionStatus {
     connected: boolean;
 }
 
-interface ExclusionsServicesData extends AxiosResponse {
+interface ExclusionsServicesData {
     services: [{
         service_id: string,
         service_name: string,
@@ -102,7 +101,7 @@ interface ExclusionsServicesData extends AxiosResponse {
     }];
 }
 
-interface ExclusionServiceDomainsData extends AxiosResponse {
+interface ExclusionServiceDomainsData {
     services: [{
         service_id: string,
         domains: string[],
@@ -111,7 +110,7 @@ interface ExclusionServiceDomainsData extends AxiosResponse {
 
 interface RequestParameters {
     path: string;
-    method: Method;
+    method: string;
 }
 
 interface VpnApiInterface {
@@ -120,7 +119,7 @@ interface VpnApiInterface {
     getCurrentLocation(): Promise<CurrentLocationData>;
     getVpnExtensionInfo(appId: string, vpnToken: string): Promise<VpnExtensionInfo>;
     postExtensionInstalled(appId: string): Promise<PostExtensionInstalledData>;
-    requestSupport(data: FormData): Promise<AxiosResponse>;
+    requestSupport(data: FormData): Promise<any>;
     getDesktopVpnConnectionStatus(): Promise<VpnConnectionStatus>;
     getExclusionsServices(): Promise<ExclusionsServicesData>;
     getExclusionServiceDomains(servicesIds: string[]): Promise<ExclusionServiceDomainsData>;
@@ -134,13 +133,17 @@ class VpnApi extends Api implements VpnApiInterface {
         const { path, method } = this.GET_LOCATIONS;
         const language = browser.i18n.getUILanguage();
 
-        const params = {
+        const data = {
             app_id: appId,
             token: vpnToken,
             language,
         };
 
-        return this.makeRequest(path, { params }, method as Method);
+        const config = {
+            data: qs.stringify(data),
+        };
+
+        return this.makeRequest(path, config, method);
     };
 
     GET_VPN_CREDENTIALS: RequestParameters = { path: 'v1/proxy_credentials', method: 'POST' };
@@ -175,16 +178,18 @@ class VpnApi extends Api implements VpnApiInterface {
     ): Promise<VpnExtensionInfo> => {
         const { path, method } = this.VPN_EXTENSION_INFO;
 
-        const params = {
-            app_id: appId,
-            token: vpnToken,
+        const config = {
+            data: qs.stringify({
+                app_id: appId,
+                token: vpnToken,
+            }),
         };
-        return this.makeRequest(path, { params }, method);
+        return this.makeRequest(path, config, method);
     };
 
     TRACK_EXTENSION_INSTALL: RequestParameters = { path: 'v1/init/extension', method: 'POST' };
 
-    postExtensionInstalled = (appId: string): Promise<PostExtensionInstalledData> => {
+    postExtensionInstalled = async (appId: string): Promise<PostExtensionInstalledData> => {
         const { path, method } = this.TRACK_EXTENSION_INSTALL;
 
         const config = {
@@ -193,16 +198,17 @@ class VpnApi extends Api implements VpnApiInterface {
             }),
         };
 
-        return this.makeRequest(path, config, method);
+        const response = await this.makeRequest(path, config, method);
+        return response;
     };
 
     SUPPORT_REQUEST: RequestParameters = { path: 'v1/support', method: 'POST' };
 
-    requestSupport = (data: FormData): Promise<AxiosResponse> => {
+    requestSupport = (data: FormData): Promise<any> => {
         const { path, method } = this.SUPPORT_REQUEST;
 
         const config = {
-            data,
+            data: qs.stringify(data),
         };
 
         return this.makeRequest(path, config, method);

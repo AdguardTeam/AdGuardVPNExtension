@@ -27,7 +27,8 @@ import { fallbackApi } from './api/fallbackApi';
 import { flagsStorage } from './flagsStorage';
 
 import './rateModal';
-import './networkConnectionObserver';
+// TODO: fix networkConnectionObserver
+// import './networkConnectionObserver';
 import './uninstall';
 
 declare global {

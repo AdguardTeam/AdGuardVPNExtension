@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
 import throttle from 'lodash/throttle';
 import ipaddr from 'ipaddr.js';
-import browser from 'webextension-polyfill';
 import { isIP } from 'is-ip';
 
 import { log } from '../../lib/logger';
@@ -57,16 +56,16 @@ class NonRoutableService {
             this.handleNonRoutableDomains,
         );
 
-        browser.webRequest.onHeadersReceived.addListener(
-            this.handleWebRequestErrors,
-            { urls: ['<all_urls>'] },
-            ['responseHeaders'],
-        );
-
-        browser.webRequest.onErrorOccurred.addListener(
-            this.handleWebRequestErrors,
-            { urls: ['<all_urls>'] },
-        );
+        // browser.webRequest.onHeadersReceived.addListener(
+        //     this.handleWebRequestErrors,
+        //     { urls: ['<all_urls>'] },
+        //     ['responseHeaders'],
+        // );
+        //
+        // browser.webRequest.onErrorOccurred.addListener(
+        //     this.handleWebRequestErrors,
+        //     { urls: ['<all_urls>'] },
+        // );
 
         log.info('NonRoutable module was initiated successfully');
     }

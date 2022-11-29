@@ -36,7 +36,7 @@ const cleanOptions = IS_DEV ? { cleanAfterEveryBuildPatterns: ['!**/*.json', '!a
 export const getCommonConfig = (browser: string): webpack.Configuration => {
     return {
         mode: IS_DEV ? 'development' : 'production',
-        devtool: IS_DEV ? 'eval-source-map' : false,
+        devtool: false,
         optimization: {
             minimize: false,
         },
@@ -163,12 +163,6 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                         },
                     },
                 ],
-            }),
-            new HtmlWebpackPlugin({
-                template: path.join(BACKGROUND_PATH, 'index.html'),
-                filename: 'background.html',
-                chunks: ['background'],
-                cache: false,
             }),
             new HtmlWebpackPlugin({
                 template: path.join(OPTIONS_PATH, 'index.html'),

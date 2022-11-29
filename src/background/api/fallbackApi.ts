@@ -1,4 +1,4 @@
-import axios from 'axios';
+import qs from 'qs';
 
 import {
     AUTH_API_URL,
@@ -25,13 +25,13 @@ const stageSuffix = STAGE_ENV === 'test' ? '-dev' : '';
 const BKP_API_HOSTNAME_PART = `bkp-api${stageSuffix}.adguard-vpn.online`;
 const BKP_AUTH_HOSTNAME_PART = `bkp-auth${stageSuffix}.adguard-vpn.online`;
 
-const BKP_KEY = 'bkp';
+// const BKP_KEY = 'bkp';
 
 const EMPTY_BKP_URL = 'none';
 
 const DEFAULT_COUNTRY_INFO = { country: 'none', bkp: true };
 
-const REQUEST_TIMEOUT_MS = 3 * 1000;
+// const REQUEST_TIMEOUT_MS = 3 * 1000;
 
 type CountryInfo = {
     country: string;
@@ -92,9 +92,10 @@ export class FallbackApi {
 
     private async updateFallbackInfo() {
         const countryInfo = await this.getCountryInfo();
-        const localStorageBkp = this.getLocalStorageBkp();
+        // TODO: handle localStorageBkp
+        // const localStorageBkp = this.getLocalStorageBkp();
 
-        if (!countryInfo.bkp && !localStorageBkp) {
+        if (!countryInfo.bkp) {
             // if bkp is disabled, we use previous fallback info, only update expiration time
             this.setFallbackInfo({
                 ...this.fallbackInfo,
@@ -165,21 +166,23 @@ export class FallbackApi {
     /**
      * Gets bkp flag value from local storage, used for testing purposes
      */
-    private getLocalStorageBkp = (): boolean => {
-        const storedBkp = localStorage.getItem(BKP_KEY);
-        let localStorageBkp = Number.parseInt(String(storedBkp), 10);
-
-        localStorageBkp = Number.isNaN(localStorageBkp) ? 0 : localStorageBkp;
-
-        return !!localStorageBkp;
-    };
+    // private getLocalStorageBkp = (): boolean => {
+    //     const storedBkp = localStorage.getItem(BKP_KEY);
+    //     let localStorageBkp = Number.parseInt(String(storedBkp), 10);
+    //
+    //     localStorageBkp = Number.isNaN(localStorageBkp) ? 0 : localStorageBkp;
+    //
+    //     return !!localStorageBkp;
+    // };
 
     private getCountryInfo = async (): Promise<CountryInfo> => {
         try {
-            const { data: { country, bkp } } = await axios.get(
+            const response = await fetch(
                 `https://${WHOAMI_URL}`,
-                { timeout: REQUEST_TIMEOUT_MS },
+                // { timeout: REQUEST_TIMEOUT_MS },
             );
+            const data = await response.json();
+            const { country, bkp } = data;
             return { country, bkp };
         } catch (e) {
             log.error(e);
@@ -188,18 +191,24 @@ export class FallbackApi {
     };
 
     private getBkpUrlByGoogleDoh = async (name: string): Promise<string> => {
-        const { data } = await axios.get(`https://${GOOGLE_DOH_URL}`, {
+        const params = qs.stringify({
+            name,
+            type: 'TXT',
+        });
+        const url = `https://${GOOGLE_DOH_URL}?${params}`;
+        const response = await fetch(url, {
             headers: {
                 'Cache-Control': 'no-cache',
                 Pragma: 'no-cache',
             },
-            params: {
-                name,
-                type: 'TXT',
-            },
-            timeout: REQUEST_TIMEOUT_MS,
+            // params: {
+            //     name,
+            //     type: 'TXT',
+            // },
+            // timeout: REQUEST_TIMEOUT_MS,
         });
 
+        const data = await response.json();
         const { Answer: [{ data: bkpUrl }] } = data;
 
         if (!FallbackApi.isString(bkpUrl)) {
@@ -210,19 +219,25 @@ export class FallbackApi {
     };
 
     private getBkpUrlByCloudFlareDoh = async (name: string): Promise<string> => {
-        const { data } = await axios.get(`https://${CLOUDFLARE_DOH_URL}`, {
+        const params = qs.stringify({
+            name,
+            type: 'TXT',
+        });
+        const url = `https://${CLOUDFLARE_DOH_URL}?${params}`;
+        const response = await fetch(url, {
             headers: {
                 'Cache-Control': 'no-cache',
                 Pragma: 'no-cache',
                 accept: 'application/dns-json',
             },
-            params: {
-                name,
-                type: 'TXT',
-            },
-            timeout: REQUEST_TIMEOUT_MS,
+            // params: {
+            //     name,
+            //     type: 'TXT',
+            // },
+            // timeout: REQUEST_TIMEOUT_MS,
         });
 
+        const data = await response.json();
         const { Answer: [{ data: bkpUrl }] } = data;
 
         if (!FallbackApi.isString(bkpUrl)) {
@@ -233,19 +248,25 @@ export class FallbackApi {
     };
 
     private getBkpUrlByAliDnsDoh = async (name: string): Promise<string> => {
-        const { data } = await axios.get(`https://${ALIDNS_DOH_URL}`, {
+        const params = qs.stringify({
+            name,
+            type: 'TXT',
+        });
+        const url = `https://${ALIDNS_DOH_URL}?${params}`;
+        const response = await fetch(url, {
             headers: {
                 'Cache-Control': 'no-cache',
                 Pragma: 'no-cache',
                 accept: 'application/dns-json',
             },
-            params: {
-                name,
-                type: 'TXT',
-            },
-            timeout: REQUEST_TIMEOUT_MS,
+            // params: {
+            //     name,
+            //     type: 'TXT',
+            // },
+            // timeout: REQUEST_TIMEOUT_MS,
         });
 
+        const data = await response.json();
         const { Answer: [{ data: bkpUrl }] } = data;
 
         if (!FallbackApi.isString(bkpUrl)) {

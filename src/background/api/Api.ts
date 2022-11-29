@@ -1,9 +1,7 @@
-import axios, { AxiosRequestConfig, Method } from 'axios';
-
 import { ERROR_STATUSES } from '../../lib/constants';
 import CustomError from '../../lib/CustomError';
 
-const REQUEST_TIMEOUT_MS = 1000 * 6; // 6 seconds
+// const REQUEST_TIMEOUT_MS = 1000 * 6; // 6 seconds
 
 interface ConfigInterface {
     params?: {
@@ -13,13 +11,14 @@ interface ConfigInterface {
         service_id?: string | null;
     };
     data?: string | FormData;
+    body?: string;
     headers?: {
         Authorization: string,
     };
 }
 
 interface ApiInterface {
-    makeRequest(path: string, config: ConfigInterface, method: Method): Promise<any>;
+    makeRequest(path: string, config: ConfigInterface, method: string): Promise<any>;
 }
 
 export class Api implements ApiInterface {
@@ -43,16 +42,17 @@ export class Api implements ApiInterface {
         return this.baseUrlStr;
     }
 
-    async makeRequest(path: string, config: ConfigInterface, method: Method = 'POST') {
-        const url = `https://${await this.getBaseUrl()}/${path}`;
+    async makeRequest(path: string, config: ConfigInterface, method: string = 'POST') {
+        const params = config.data ? `?${config.data}` : '';
+        const url = `https://${await this.getBaseUrl()}/${path}${params}`;
+
         try {
-            const response = await axios({
-                url,
+            const response = await fetch(url, {
                 method,
-                timeout: REQUEST_TIMEOUT_MS,
-                ...config,
-            } as AxiosRequestConfig);
-            return response.data;
+                headers: config.headers,
+            });
+            const responseData = await response.json();
+            return responseData;
         } catch (error: any) {
             if (error.response) {
                 throw new CustomError(error.response.status, JSON.stringify(error.response.data));

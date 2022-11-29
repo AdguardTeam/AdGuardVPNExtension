@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid';
+
 import { WsConnectivityMsg, WsPingMsg } from './protobufCompiled';
 import { stringToUint8Array } from '../../lib/string-utils';
 import { log } from '../../lib/logger';
@@ -85,7 +86,7 @@ const fetchWithTimeout = (requestUrl: string, fetchTimeout: number) => {
     const controller = new AbortController();
 
     // used in order to clear timeout
-    let timeoutId: number;
+    let timeoutId: NodeJS.Timeout;
 
     const fetchHandler = async () => {
         try {
@@ -122,7 +123,7 @@ const fetchWithTimeout = (requestUrl: string, fetchTimeout: number) => {
     return Promise.race([
         fetchHandler(),
         new Promise((_, reject) => {
-            timeoutId = window.setTimeout(() => {
+            timeoutId = setTimeout(() => {
                 controller.abort();
                 reject(new Error(`Request to ${requestUrlWithRandomParams} stopped by timeout`));
             }, fetchTimeout);

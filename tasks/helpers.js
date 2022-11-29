@@ -2,7 +2,6 @@
 const _ = require('lodash');
 const {
     ENV_MAP,
-    IS_DEV,
     ENVS,
 } = require('./consts');
 const pJson = require('../package.json');
@@ -14,7 +13,6 @@ const updateManifest = (manifestJson, browserManifestDiff) => {
     } catch (e) {
         throw new Error('unable to parse json from manifest');
     }
-    const devPolicy = IS_DEV ? { content_security_policy: "script-src 'self' 'unsafe-eval'; object-src 'self'" } : {};
     const permissions = _.uniq([
         ...(manifest.permissions || []),
         ...(browserManifestDiff.permissions || []),
@@ -22,7 +20,6 @@ const updateManifest = (manifestJson, browserManifestDiff) => {
     const updatedManifest = {
         ...manifest,
         ...browserManifestDiff,
-        ...devPolicy,
         permissions,
         version: pJson.version,
     };
