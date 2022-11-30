@@ -31,22 +31,38 @@ const renewContextMenuItems = async (
 ): Promise<void> => {
     await chrome.contextMenus.removeAll();
     await Promise.all(menuItems.map(async (itemOptions) => {
-        const { id, title, checked } = itemOptions;
+        const {
+            id,
+            title,
+            type,
+            checked,
+        } = itemOptions;
+
         try {
-            const createProperties = defaults({ id, title, checked }, { contexts });
+            const createProperties = defaults({
+                id,
+                title,
+                checked,
+                type,
+            }, { contexts });
+
             await chrome.contextMenus.create(createProperties, () => {
                 if (chrome.runtime.lastError) {
-                    log.debug(chrome.runtime.lastError.message);
+                    log.error(chrome.runtime.lastError.message);
                 }
             });
         } catch (e) {
-            log.debug(e);
+            log.error(e);
         }
     }));
 };
 
 const clearContextMenuItems = async (): Promise<void> => {
-    await chrome.contextMenus.removeAll();
+    await chrome.contextMenus.removeAll(() => {
+        if (chrome.runtime.lastError) {
+            log.error(chrome.runtime.lastError.message);
+        }
+    });
 };
 
 const CONTEXT_MENU_ITEMS: ContextMenuItems = {
@@ -70,19 +86,19 @@ const CONTEXT_MENU_ITEMS: ContextMenuItems = {
     },
     selective_mode: {
         id: 'selective_mode',
-        type: 'radio' as chrome.contextMenus.ContextItemType,
+        type: 'radio',
         title: translator.getMessage('context_menu_selective_mode'),
         action: () => exclusions.setMode(ExclusionsModes.Selective, true),
     },
     regular_mode: {
         id: 'regular_mode',
-        type: 'radio' as chrome.contextMenus.ContextItemType,
+        type: 'radio',
         title: translator.getMessage('context_menu_general_mode'),
         action: () => exclusions.setMode(ExclusionsModes.Regular, true),
     },
     separator: {
         id: nanoid(),
-        type: 'separator' as chrome.contextMenus.ContextItemType,
+        type: 'separator',
     },
 };
 
