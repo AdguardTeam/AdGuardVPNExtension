@@ -1,5 +1,3 @@
-import browser, { Manifest } from 'webextension-polyfill';
-
 interface SendMessageParameters {
     message: any;
     options?: {
@@ -14,16 +12,16 @@ interface SendMessageParameters {
  */
 const sendMessage = async (...args: [SendMessageParameters]): Promise<void> => {
     try {
-        await browser.runtime.sendMessage(...args);
+        await chrome.runtime.sendMessage(...args);
     } catch (e) {
         // ignore
     }
 };
 
-export const getUrl = (url: string): string => browser.runtime.getURL(url);
+export const getUrl = (url: string): string => chrome.runtime.getURL(url);
 
-const getManifest = (): Manifest.WebExtensionManifest => {
-    return browser.runtime.getManifest();
+const getManifest = (): chrome.runtime.ManifestV3 => {
+    return chrome.runtime.getManifest() as chrome.runtime.ManifestV3;
 };
 
 export default {

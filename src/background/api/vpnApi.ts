@@ -1,5 +1,4 @@
 import qs from 'qs';
-import browser from 'webextension-polyfill';
 
 import { Api } from './Api';
 import { fallbackApi } from './fallbackApi';
@@ -131,7 +130,7 @@ class VpnApi extends Api implements VpnApiInterface {
 
     getLocations = (appId: string, vpnToken: string): Promise<LocationsData> => {
         const { path, method } = this.GET_LOCATIONS;
-        const language = browser.i18n.getUILanguage();
+        const language = chrome.i18n.getUILanguage();
 
         const data = {
             app_id: appId,
@@ -225,7 +224,7 @@ class VpnApi extends Api implements VpnApiInterface {
 
     getExclusionsServices = (): Promise<ExclusionsServicesData> => {
         const { path, method } = this.EXCLUSION_SERVICES;
-        const language = browser.i18n.getUILanguage();
+        const language = chrome.i18n.getUILanguage();
 
         const params = {
             locale: language,

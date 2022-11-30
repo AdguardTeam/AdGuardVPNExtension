@@ -1,3 +1,5 @@
+/* global chrome */
+
 /* eslint-disable max-len */
 import throttle from 'lodash/throttle';
 import ipaddr from 'ipaddr.js';
@@ -56,16 +58,16 @@ class NonRoutableService {
             this.handleNonRoutableDomains,
         );
 
-        // browser.webRequest.onHeadersReceived.addListener(
-        //     this.handleWebRequestErrors,
-        //     { urls: ['<all_urls>'] },
-        //     ['responseHeaders'],
-        // );
-        //
-        // browser.webRequest.onErrorOccurred.addListener(
-        //     this.handleWebRequestErrors,
-        //     { urls: ['<all_urls>'] },
-        // );
+        chrome.webRequest.onHeadersReceived.addListener(
+            this.handleWebRequestErrors,
+            { urls: ['<all_urls>'] },
+            ['responseHeaders'],
+        );
+
+        chrome.webRequest.onErrorOccurred.addListener(
+            this.handleWebRequestErrors,
+            { urls: ['<all_urls>'] },
+        );
 
         log.info('NonRoutable module was initiated successfully');
     }

@@ -44,6 +44,8 @@
         "proxy",
         "storage",
         "unlimitedStorage",
+        "webRequest",
+        "tabs",
         "declarativeNetRequest"
     ],
     "host_permissions": [

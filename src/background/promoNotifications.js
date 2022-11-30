@@ -1,8 +1,8 @@
+/* global chrome */
+
 /**
  * This module manages promo notifications
  */
-import browser from 'webextension-polyfill';
-
 import { lazyGet } from '../lib/helpers';
 import { getUrl } from './browserApi/runtime';
 import { browserApi } from './browserApi';
@@ -26,7 +26,7 @@ const normalizeLanguage = (locale) => {
     return locale.toLowerCase().replace('-', '_');
 };
 
-const currentLocale = normalizeLanguage(browser.i18n.getUILanguage());
+const currentLocale = normalizeLanguage(chrome.i18n.getUILanguage());
 const promoLink = currentLocale === RUSSIAN_LOCALE ? RUSSIAN_PROMO_LINK : COMMON_PROMO_LINK;
 
 const blackFriday22Notification = {
@@ -248,7 +248,7 @@ const getLastNotificationTime = async () => {
  * @returns {string} matching text or null
  */
 const getNotificationText = (notification) => {
-    const language = normalizeLanguage(browser.i18n.getUILanguage());
+    const language = normalizeLanguage(chrome.i18n.getUILanguage());
 
     if (!language) {
         return null;

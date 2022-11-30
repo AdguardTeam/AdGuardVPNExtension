@@ -1,5 +1,3 @@
-import browser from 'webextension-polyfill';
-
 interface WebRTCInterface {
     blockWebRTC(): void;
     unblockWebRTC(force: boolean): void;
@@ -16,32 +14,32 @@ class WebRTC implements WebRTCInterface {
     handleBlockWebRTC = (webRTCDisabled: boolean): void => {
         // Edge doesn't support privacy api
         // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/privacy
-        if (!browser.privacy) {
+        if (!chrome.privacy) {
             return;
         }
 
         // Since chromium 48
-        if (typeof browser.privacy.network.webRTCIPHandlingPolicy === 'object') {
+        if (typeof chrome.privacy.network.webRTCIPHandlingPolicy === 'object') {
             if (webRTCDisabled) {
-                browser.privacy.network.webRTCIPHandlingPolicy.set({
+                chrome.privacy.network.webRTCIPHandlingPolicy.set({
                     value: 'disable_non_proxied_udp',
                     scope: 'regular',
                 });
             } else {
-                browser.privacy.network.webRTCIPHandlingPolicy.clear({
+                chrome.privacy.network.webRTCIPHandlingPolicy.clear({
                     scope: 'regular',
                 });
             }
         }
 
-        if (typeof browser.privacy.network.peerConnectionEnabled === 'object') {
+        if (typeof chrome.privacy.network.networkPredictionEnabled === 'object') {
             if (webRTCDisabled) {
-                browser.privacy.network.peerConnectionEnabled.set({
+                chrome.privacy.network.networkPredictionEnabled.set({
                     value: false,
                     scope: 'regular',
                 });
             } else {
-                browser.privacy.network.peerConnectionEnabled.clear({
+                chrome.privacy.network.networkPredictionEnabled.clear({
                     scope: 'regular',
                 });
             }

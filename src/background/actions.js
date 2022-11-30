@@ -15,34 +15,15 @@ import { FREE_GBS_ANCHOR } from '../lib/constants';
  * @return {Promise<void>}
  */
 const openOptionsPage = async (anchorName = null) => {
-    // TODO: switch to anchor name and remove redundant log.info
-    log.info(`Should open anchor: ${anchorName}`);
-    chrome.runtime.openOptionsPage();
-    // const manifest = browser.runtime.getManifest();
-    // let optionsUrl = manifest.options_ui?.page || manifest.options_page;
-    // if (!optionsUrl.includes('://')) {
-    //     optionsUrl = browser.runtime.getURL(optionsUrl);
-    // }
-    //
-    // const theme = settings.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
-    // const anchor = anchorName ? `#${anchorName}` : '';
-    // const targetUrl = `${optionsUrl}?${THEME_URL_PARAMETER}=${theme}${anchor}`;
-    //
-    // // there is the bug with chrome.runtime.openOptionsPage() method
-    // // https://bugs.chromium.org/p/chromium/issues/detail?id=1369940
-    // // we use temporary solution to open а single options page
-    // const view = browser.extension.getViews()
-    //     .find((wnd) => wnd.location.href.startsWith(optionsUrl));
-    // if (view) {
-    //     await new Promise((resolve) => {
-    //         view.chrome.tabs.getCurrent(async (tab) => {
-    //             await browser.tabs.update(tab.id, { active: true, url: targetUrl });
-    //             resolve();
-    //         });
-    //     });
-    // } else {
-    //     await browser.tabs.create({ url: targetUrl });
-    // }
+    chrome.runtime.openOptionsPage(async () => {
+        const { id, url } = await tabs.getCurrent();
+        if (anchorName && id) {
+            await tabs.update(id, `${url}#${anchorName}`);
+            if (url?.includes(chrome.runtime.id)) {
+                await tabs.reload(id);
+            }
+        }
+    });
 };
 
 const setIcon = async (details) => {

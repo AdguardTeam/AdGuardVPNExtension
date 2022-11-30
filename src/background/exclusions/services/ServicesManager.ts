@@ -1,5 +1,3 @@
-import browser from 'webextension-polyfill';
-
 import { Service } from './Service';
 import { vpnProvider, ServicesInterface } from '../../providers/vpnProvider';
 import { browserApi } from '../../browserApi';
@@ -150,7 +148,7 @@ export class ServicesManager implements ServiceManagerInterface {
      * used in migration in the cases when services server is not working
      */
     async getServicesFromAssets(): Promise<ServicesInterface> {
-        const path = browser.runtime.getURL('assets/prebuild-data/exclusion-services.json');
+        const path = chrome.runtime.getURL('assets/prebuild-data/exclusion-services.json');
         const response = await fetch(path);
         return response.json();
     }

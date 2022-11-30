@@ -175,12 +175,12 @@ class EndpointConnectivity {
 
         this.ws = websocketFactory.createWebsocket(websocketUrl);
 
-        this.ws.onclose(this.handleWebsocketClose);
-        // this.ws.addEventListener('close', this.handleWebsocketClose);
-        this.ws.onerror(this.handleWebsocketError);
-        // this.ws.addEventListener('error', this.handleWebsocketError);
-        this.ws.onopen(this.handleWebsocketOpen);
-        // this.ws.addEventListener('open', this.handleWebsocketOpen);
+        // this.ws.onclose(this.handleWebsocketClose);
+        this.ws.addEventListener('close', this.handleWebsocketClose);
+        // this.ws.onerror(this.handleWebsocketError);
+        this.ws.addEventListener('error', this.handleWebsocketError);
+        // this.ws.onopen(this.handleWebsocketOpen);
+        this.ws.addEventListener('open', this.handleWebsocketOpen);
 
         this.connectionTimeoutId = setTimeout(() => {
             log.debug(`WS did not connected in ${this.CONNECTION_TIMEOUT_MS}, closing it`);
@@ -297,19 +297,19 @@ class EndpointConnectivity {
     };
 
     startGettingConnectivityInfo = () => {
-        // const messageHandler = async (event) => {
-        //     const { connectivityInfoMsg, connectivityErrorMsg } = this.decodeMessage(event.data);
-        //
-        //     if (connectivityInfoMsg) {
-        //         await this.handleInfoMsg(connectivityInfoMsg);
-        //     }
-        //
-        //     if (connectivityErrorMsg) {
-        //         await this.handleErrorMsg(connectivityErrorMsg);
-        //     }
-        // };
+        const messageHandler = async (event) => {
+            const { connectivityInfoMsg, connectivityErrorMsg } = this.decodeMessage(event.data);
 
-        // this.ws.addEventListener('message', messageHandler);
+            if (connectivityInfoMsg) {
+                await this.handleInfoMsg(connectivityInfoMsg);
+            }
+
+            if (connectivityErrorMsg) {
+                await this.handleErrorMsg(connectivityErrorMsg);
+            }
+        };
+
+        this.ws.addEventListener('message', messageHandler);
     };
 }
 
