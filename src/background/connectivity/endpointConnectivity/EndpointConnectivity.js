@@ -175,11 +175,8 @@ class EndpointConnectivity {
 
         this.ws = websocketFactory.createWebsocket(websocketUrl);
 
-        // this.ws.onclose(this.handleWebsocketClose);
         this.ws.addEventListener('close', this.handleWebsocketClose);
-        // this.ws.onerror(this.handleWebsocketError);
         this.ws.addEventListener('error', this.handleWebsocketError);
-        // this.ws.onopen(this.handleWebsocketOpen);
         this.ws.addEventListener('open', this.handleWebsocketOpen);
 
         this.connectionTimeoutId = setTimeout(() => {
@@ -194,9 +191,9 @@ class EndpointConnectivity {
         }
 
         if (this.ws) {
-            // this.ws.removeEventListener('close', this.handleWebsocketClose);
-            // this.ws.removeEventListener('error', this.handleWebsocketError);
-            // this.ws.removeEventListener('open', this.handleWebsocketOpen);
+            this.ws.removeEventListener('close', this.handleWebsocketClose);
+            this.ws.removeEventListener('error', this.handleWebsocketError);
+            this.ws.removeEventListener('open', this.handleWebsocketOpen);
             this.ws.close();
         }
 

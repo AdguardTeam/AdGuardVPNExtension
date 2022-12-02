@@ -37,6 +37,7 @@
         }
     ],
     "permissions": [
+        "alarms",
         "contextMenus",
         "management",
         "notifications",
@@ -45,6 +46,7 @@
         "storage",
         "unlimitedStorage",
         "webRequest",
+        "webRequestAuthProvider",
         "tabs",
         "declarativeNetRequest"
     ],

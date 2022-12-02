@@ -8,10 +8,13 @@ import { getUrl } from './browserApi/runtime';
 import { browserApi } from './browserApi';
 import { Prefs } from './prefs';
 import { notifier } from '../lib/notifier';
+import { createAlarm, clearAlarm, onAlarmFires } from '../lib/helpers';
 import { FORWARDER_DOMAIN } from './config';
 
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
+
+const CLEAR_NOTIFICATION_ALARM_NAME = 'clearNotificationAlarm';
 
 const RUSSIAN_LOCALE = 'ru';
 
@@ -291,8 +294,7 @@ let currentNotification;
 let notificationCheckTime;
 const checkTimeoutMs = 10 * 60 * 1000; // 10 minutes
 const minPeriod = 30 * 60 * 1000; // 30 minutes
-const DELAY = 30 * 1000; // clear notification in 30 seconds
-let timeoutId;
+const NOTIFICATION_DELAY = 30 * 1000; // clear notification in 30 seconds
 
 /**
  * Marks current notification as viewed
@@ -300,10 +302,10 @@ let timeoutId;
  */
 const setNotificationViewed = async (withDelay) => {
     if (withDelay) {
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => {
-            setNotificationViewed(false);
-        }, DELAY);
+        // FIXME: decide alarm api or setTimeout
+        await clearAlarm(CLEAR_NOTIFICATION_ALARM_NAME);
+        createAlarm(CLEAR_NOTIFICATION_ALARM_NAME, NOTIFICATION_DELAY);
+        onAlarmFires(CLEAR_NOTIFICATION_ALARM_NAME, () => setNotificationViewed(false));
         return;
     }
 

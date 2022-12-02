@@ -7,6 +7,7 @@ import { promoNotifications } from '../promoNotifications';
 import auth from '../auth';
 import { settings } from '../settings';
 import { SETTINGS_IDS } from '../../lib/constants';
+import { sleep } from '../../lib/helpers';
 import { vpnApi } from '../api';
 import { updateService } from '../updateService';
 import { flagsStorage } from '../flagsStorage';
@@ -105,10 +106,6 @@ class PopupData {
         };
     };
 
-    sleep = (waitTime) => new Promise((resolve) => {
-        setTimeout(resolve, waitTime);
-    });
-
     retryCounter = 0;
 
     DEFAULT_RETRY_DELAY = 400;
@@ -144,7 +141,7 @@ class PopupData {
                 hasRequiredData = false;
                 return { ...data, hasRequiredData };
             }
-            await this.sleep(retryDelay);
+            await sleep(retryDelay);
             log.debug(`Retry get popup data again retry: ${this.retryCounter}`);
             return this.getPopupDataRetry(url, retryNum - 1, retryDelay * backoffIndex);
         }

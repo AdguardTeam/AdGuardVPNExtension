@@ -92,7 +92,7 @@ export class FallbackApi {
 
     private async updateFallbackInfo() {
         const countryInfo = await this.getCountryInfo();
-        // TODO: handle localStorageBkp
+        // FIXME: handle localStorageBkp
         // const localStorageBkp = this.getLocalStorageBkp();
 
         if (!countryInfo.bkp) {

@@ -1,3 +1,5 @@
+/* global chrome */
+
 import punycode from 'punycode';
 
 /**
@@ -182,3 +184,37 @@ export const runWithCancel = (fn, ...args) => {
 
     return { promise, cancel };
 };
+
+/**
+ * Creates alarm
+ * @param alarmName
+ * @param delay in ms
+ */
+export const createAlarm = (alarmName, delay) => {
+    chrome.alarms.create(alarmName, { when: Date.now() + delay });
+};
+
+/**
+ * Clears alarm timer by provided alarm name
+ * @param alarmName
+ */
+export const clearAlarm = async (alarmName) => {
+    await chrome.alarms.get(alarmName, async (alarm) => {
+        if (alarm) {
+            await chrome.alarms.clear(alarm.name);
+        }
+    });
+};
+
+/**
+ * Executes callback on alarm fires
+ * @param alarmName
+ * @param callback
+ */
+export const onAlarmFires = (alarmName, callback) => {
+    chrome.alarms.onAlarm.addListener((alarm) => {
+        if (alarm.name === alarmName) {
+            callback();
+        }
+    });
+}

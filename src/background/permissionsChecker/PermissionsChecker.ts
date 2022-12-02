@@ -1,3 +1,5 @@
+/* global chrome */
+
 import { log } from '../../lib/logger';
 import { ERROR_STATUSES } from '../../lib/constants';
 import { notifier } from '../../lib/notifier';
