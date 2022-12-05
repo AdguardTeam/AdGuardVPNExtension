@@ -203,6 +203,7 @@ export class FallbackApi {
                 type: 'TXT',
             },
             timeout: REQUEST_TIMEOUT_MS,
+            adapter: fetchAdapter,
         });
 
         const { Answer: [{ data: bkpUrl }] } = data;
@@ -226,6 +227,7 @@ export class FallbackApi {
                 type: 'TXT',
             },
             timeout: REQUEST_TIMEOUT_MS,
+            adapter: fetchAdapter,
         });
 
         const { Answer: [{ data: bkpUrl }] } = data;
@@ -249,6 +251,7 @@ export class FallbackApi {
                 type: 'TXT',
             },
             timeout: REQUEST_TIMEOUT_MS,
+            adapter: fetchAdapter,
         });
 
         const { Answer: [{ data: bkpUrl }] } = data;
