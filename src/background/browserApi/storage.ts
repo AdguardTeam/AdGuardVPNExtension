@@ -1,3 +1,5 @@
+import Browser from 'webextension-polyfill';
+
 export interface StorageInterface {
     set: (key: string, data: any) => Promise<any>;
     get: (key: string) => Promise<any>;
@@ -5,10 +7,10 @@ export interface StorageInterface {
 }
 
 export default class Storage implements StorageInterface {
-    private vault;
+    vault: Browser.Storage.LocalStorageArea;
 
-    constructor(storage: chrome.storage.LocalStorageArea) {
-        this.vault = storage;
+    constructor(browser: Browser.Browser) {
+        this.vault = browser.storage.local;
     }
 
     async set(key: string, data: any): Promise<any> {

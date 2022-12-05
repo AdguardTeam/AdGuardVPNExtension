@@ -1,5 +1,4 @@
-/* global chrome */
-
+import browser from 'webextension-polyfill';
 import punycode from 'punycode';
 
 /**
@@ -191,7 +190,16 @@ export const runWithCancel = (fn, ...args) => {
  * @param delay in ms
  */
 export const createAlarm = (alarmName, delay) => {
-    chrome.alarms.create(alarmName, { when: Date.now() + delay });
+    browser.alarms.create(alarmName, { when: Date.now() + delay });
+};
+
+/**
+ * Creates periodic alarm
+ * @param alarmName
+ * @param interval in minutes!
+ */
+export const createPeriodicAlarm = (alarmName, interval) => {
+    browser.alarms.create(alarmName, { periodInMinutes: interval });
 };
 
 /**
@@ -199,11 +207,8 @@ export const createAlarm = (alarmName, delay) => {
  * @param alarmName
  */
 export const clearAlarm = async (alarmName) => {
-    await chrome.alarms.get(alarmName, async (alarm) => {
-        if (alarm) {
-            await chrome.alarms.clear(alarm.name);
-        }
-    });
+    const alarm = await browser.alarms.get(alarmName);
+    await browser.alarms.clear(alarm?.name);
 };
 
 /**
@@ -212,9 +217,9 @@ export const clearAlarm = async (alarmName) => {
  * @param callback
  */
 export const onAlarmFires = (alarmName, callback) => {
-    chrome.alarms.onAlarm.addListener((alarm) => {
+    browser.alarms.onAlarm.addListener((alarm) => {
         if (alarm.name === alarmName) {
             callback();
         }
     });
-}
+};

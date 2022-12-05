@@ -7,7 +7,16 @@ const envMap = {
 };
 
 export const firefoxManifestDiff = {
+    manifest_version: 2,
     minimum_chrome_version: '66.0',
+    browser_action: {
+        default_icon: {
+            19: 'assets/images/icons/disabled-19.png',
+            38: 'assets/images/icons/disabled-38.png',
+        },
+        default_title: '__MSG_name__',
+        default_popup: 'popup.html',
+    },
     browser_specific_settings: {
         gecko: {
             id: envMap[BUILD_ENV],
@@ -16,12 +25,15 @@ export const firefoxManifestDiff = {
     },
     background: {
         page: 'background.html',
+        persistent: true,
     },
     options_ui: {
         page: 'options.html',
         open_in_tab: true,
     },
     permissions: [
+        '<all_urls>',
         'tabs',
+        'webRequestBlocking',
     ],
 };

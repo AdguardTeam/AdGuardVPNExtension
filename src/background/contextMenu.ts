@@ -1,3 +1,4 @@
+import browser from 'webextension-polyfill';
 import throttle from 'lodash/throttle';
 import { nanoid } from 'nanoid';
 import { defaults } from 'lodash';
@@ -11,8 +12,8 @@ import { isHttp } from '../lib/string-utils';
 import { log } from '../lib/logger';
 import { ExclusionsModes } from '../common/exclusionsConstants';
 
-interface ContextMenuItem extends chrome.contextMenus.CreateProperties {
-    action?: (tab?: chrome.tabs.Tab) => Promise<any> | void;
+interface ContextMenuItem extends browser.Menus.CreateCreatePropertiesType {
+    action?: (tab?: browser.Tabs.Tab) => Promise<any> | void;
 }
 
 interface ContextMenuItems {
@@ -24,12 +25,12 @@ interface ContextMenuInterface {
 }
 
 // All contexts except "browser_action", "page_action" and "launcher"
-const contexts: chrome.contextMenus.ContextType[] = ['page', 'frame', 'selection', 'link', 'editable', 'image', 'video', 'audio'];
+const contexts: browser.Menus.ContextType[] = ['page', 'frame', 'selection', 'link', 'editable', 'image', 'video', 'audio'];
 
 const renewContextMenuItems = async (
-    menuItems: chrome.contextMenus.CreateProperties[],
+    menuItems: browser.Menus.CreateCreatePropertiesType[],
 ): Promise<void> => {
-    await chrome.contextMenus.removeAll();
+    await browser.contextMenus.removeAll();
     await Promise.all(menuItems.map(async (itemOptions) => {
         const {
             id,
@@ -46,9 +47,9 @@ const renewContextMenuItems = async (
                 type,
             }, { contexts });
 
-            await chrome.contextMenus.create(createProperties, () => {
-                if (chrome.runtime.lastError) {
-                    log.error(chrome.runtime.lastError.message);
+            await browser.contextMenus.create(createProperties, () => {
+                if (browser.runtime.lastError) {
+                    log.error(browser.runtime.lastError.message);
                 }
             });
         } catch (e) {
@@ -58,18 +59,14 @@ const renewContextMenuItems = async (
 };
 
 const clearContextMenuItems = async (): Promise<void> => {
-    await chrome.contextMenus.removeAll(() => {
-        if (chrome.runtime.lastError) {
-            log.error(chrome.runtime.lastError.message);
-        }
-    });
+    await browser.contextMenus.removeAll();
 };
 
 const CONTEXT_MENU_ITEMS: ContextMenuItems = {
     enable_vpn: {
         id: 'enable_vpn',
         title: translator.getMessage('context_menu_enable_vpn'),
-        action: async (tab?: chrome.tabs.Tab) => {
+        action: async (tab?: browser.Tabs.Tab) => {
             if (tab?.url) {
                 await exclusions.enableVpnByUrl(tab.url);
             }
@@ -78,7 +75,7 @@ const CONTEXT_MENU_ITEMS: ContextMenuItems = {
     disable_vpn: {
         id: 'disable_vpn',
         title: translator.getMessage('context_menu_disable_vpn'),
-        action: async (tab?: chrome.tabs.Tab) => {
+        action: async (tab?: browser.Tabs.Tab) => {
             if (tab?.url) {
                 await exclusions.disableVpnByUrl(tab.url);
             }
@@ -103,8 +100,8 @@ const CONTEXT_MENU_ITEMS: ContextMenuItems = {
 };
 
 const contextMenuClickHandler = (
-    info: chrome.contextMenus.OnClickData,
-    tab: chrome.tabs.Tab | undefined,
+    info: browser.Menus.OnClickData,
+    tab: browser.Tabs.Tab | undefined,
 ) => {
     const contextMenu = CONTEXT_MENU_ITEMS[info?.menuItemId];
 
@@ -115,7 +112,7 @@ const contextMenuClickHandler = (
     contextMenu.action(tab);
 };
 
-const getContextMenuItems = (tabUrl: string | undefined): chrome.contextMenus.CreateProperties[] => {
+const getContextMenuItems = (tabUrl: string | undefined): browser.Menus.CreateCreatePropertiesType[] => {
     if (!tabUrl) {
         return [];
     }
@@ -133,11 +130,11 @@ const getContextMenuItems = (tabUrl: string | undefined): chrome.contextMenus.Cr
     const separator = { ...CONTEXT_MENU_ITEMS.separator };
     resultItems.push(separator);
 
-    const regularModeItem: chrome.contextMenus.CreateProperties = {
+    const regularModeItem: browser.Menus.CreateCreatePropertiesType = {
         ...CONTEXT_MENU_ITEMS.regular_mode,
     };
 
-    const selectiveModeItem: chrome.contextMenus.CreateProperties = {
+    const selectiveModeItem: browser.Menus.CreateCreatePropertiesType = {
         ...CONTEXT_MENU_ITEMS.selective_mode,
     };
 
@@ -165,7 +162,7 @@ const init = (): void => {
     const throttleTimeoutMs = 100;
     const throttledUpdater = throttle(updateContextMenu, throttleTimeoutMs);
 
-    chrome.contextMenus.onClicked.addListener(contextMenuClickHandler);
+    browser.contextMenus.onClicked.addListener(contextMenuClickHandler);
 
     notifier.addSpecifiedListener(notifier.types.TAB_UPDATED, throttledUpdater);
     notifier.addSpecifiedListener(notifier.types.TAB_ACTIVATED, throttledUpdater);

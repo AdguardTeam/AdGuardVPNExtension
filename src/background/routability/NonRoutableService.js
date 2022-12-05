@@ -1,8 +1,7 @@
-/* global chrome */
-
 /* eslint-disable max-len */
 import throttle from 'lodash/throttle';
 import ipaddr from 'ipaddr.js';
+import browser from 'webextension-polyfill';
 import { isIP } from 'is-ip';
 
 import { log } from '../../lib/logger';
@@ -58,13 +57,13 @@ class NonRoutableService {
             this.handleNonRoutableDomains,
         );
 
-        chrome.webRequest.onHeadersReceived.addListener(
+        browser.webRequest.onHeadersReceived.addListener(
             this.handleWebRequestErrors,
             { urls: ['<all_urls>'] },
             ['responseHeaders'],
         );
 
-        chrome.webRequest.onErrorOccurred.addListener(
+        browser.webRequest.onErrorOccurred.addListener(
             this.handleWebRequestErrors,
             { urls: ['<all_urls>'] },
         );

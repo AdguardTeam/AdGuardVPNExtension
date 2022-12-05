@@ -1,3 +1,5 @@
+import { Method } from 'axios';
+
 import { Api } from './Api';
 import { fallbackApi } from './fallbackApi';
 import { SubscriptionType } from '../../lib/constants';
@@ -51,7 +53,7 @@ interface AccountApiInterface {
 }
 
 class AccountApi extends Api implements AccountApiInterface {
-    GET_VPN_TOKEN = { path: 'products/licenses/vpn.json', method: 'GET' };
+    GET_VPN_TOKEN = { path: 'products/licenses/vpn.json', method: 'GET' as Method };
 
     getVpnToken(accessToken: string): Promise<VpnTokenData> {
         const { path, method } = this.GET_VPN_TOKEN;
@@ -61,7 +63,7 @@ class AccountApi extends Api implements AccountApiInterface {
         return this.makeRequest(path, config, method);
     }
 
-    GET_ACCOUNT_INFO = { path: 'account/info', method: 'GET' };
+    GET_ACCOUNT_INFO = { path: 'account/info', method: 'GET' as Method };
 
     getAccountInfo(accessToken: string): Promise<AccountInfo> {
         const { path, method } = this.GET_ACCOUNT_INFO;
@@ -71,7 +73,7 @@ class AccountApi extends Api implements AccountApiInterface {
         return this.makeRequest(path, config, method);
     }
 
-    RESEND_CONFIRM_REGISTRATION_LINK = { path: 'account/resend_confirm_registration_email', method: 'POST' };
+    RESEND_CONFIRM_REGISTRATION_LINK = { path: 'account/resend_confirm_registration_email', method: 'POST' as Method };
 
     resendConfirmRegistrationLink = async (accessToken: string): Promise<void> => {
         const { path, method } = this.RESEND_CONFIRM_REGISTRATION_LINK;
@@ -81,7 +83,7 @@ class AccountApi extends Api implements AccountApiInterface {
         return this.makeRequest(path, config, method);
     };
 
-    GET_AVAILABLE_BONUSES = { path: 'vpn/bonuses', method: 'GET' };
+    GET_AVAILABLE_BONUSES = { path: 'vpn/bonuses', method: 'GET' as Method };
 
     getAvailableBonuses = async (accessToken: string): Promise<BonusesData> => {
         const { path, method } = this.GET_AVAILABLE_BONUSES;

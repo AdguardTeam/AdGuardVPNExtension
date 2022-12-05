@@ -1,3 +1,4 @@
+import browser from 'webextension-polyfill';
 import JSZip from 'jszip';
 
 import { vpnApi } from '../api';
@@ -217,7 +218,7 @@ const getCurrentLocation = async (): Promise<CurrentLocationData> => {
         location: { latitude, longitude },
     } = currentLocation;
 
-    const locale = chrome.i18n.getUILanguage();
+    const locale = browser.i18n.getUILanguage();
     const localizedCityName = city ? getLocalizedName(city.names, locale) : null;
     const localizedCountryName = country ? getLocalizedName(country.names, locale) : null;
 

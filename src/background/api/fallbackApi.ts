@@ -1,4 +1,5 @@
-import qs from 'qs';
+import axios from 'axios';
+import fetchAdapter from '@vespaiach/axios-fetch-adapter';
 
 import {
     AUTH_API_URL,
@@ -31,7 +32,7 @@ const EMPTY_BKP_URL = 'none';
 
 const DEFAULT_COUNTRY_INFO = { country: 'none', bkp: true };
 
-// const REQUEST_TIMEOUT_MS = 3 * 1000;
+const REQUEST_TIMEOUT_MS = 3 * 1000;
 
 type CountryInfo = {
     country: string;
@@ -177,12 +178,13 @@ export class FallbackApi {
 
     private getCountryInfo = async (): Promise<CountryInfo> => {
         try {
-            const response = await fetch(
+            const { data: { country, bkp } } = await axios.get(
                 `https://${WHOAMI_URL}`,
-                // { timeout: REQUEST_TIMEOUT_MS },
+                {
+                    timeout: REQUEST_TIMEOUT_MS,
+                    adapter: fetchAdapter,
+                },
             );
-            const data = await response.json();
-            const { country, bkp } = data;
             return { country, bkp };
         } catch (e) {
             log.error(e);
@@ -191,24 +193,18 @@ export class FallbackApi {
     };
 
     private getBkpUrlByGoogleDoh = async (name: string): Promise<string> => {
-        const params = qs.stringify({
-            name,
-            type: 'TXT',
-        });
-        const url = `https://${GOOGLE_DOH_URL}?${params}`;
-        const response = await fetch(url, {
+        const { data } = await axios.get(`https://${GOOGLE_DOH_URL}`, {
             headers: {
                 'Cache-Control': 'no-cache',
                 Pragma: 'no-cache',
             },
-            // params: {
-            //     name,
-            //     type: 'TXT',
-            // },
-            // timeout: REQUEST_TIMEOUT_MS,
+            params: {
+                name,
+                type: 'TXT',
+            },
+            timeout: REQUEST_TIMEOUT_MS,
         });
 
-        const data = await response.json();
         const { Answer: [{ data: bkpUrl }] } = data;
 
         if (!FallbackApi.isString(bkpUrl)) {
@@ -219,25 +215,19 @@ export class FallbackApi {
     };
 
     private getBkpUrlByCloudFlareDoh = async (name: string): Promise<string> => {
-        const params = qs.stringify({
-            name,
-            type: 'TXT',
-        });
-        const url = `https://${CLOUDFLARE_DOH_URL}?${params}`;
-        const response = await fetch(url, {
+        const { data } = await axios.get(`https://${CLOUDFLARE_DOH_URL}`, {
             headers: {
                 'Cache-Control': 'no-cache',
                 Pragma: 'no-cache',
                 accept: 'application/dns-json',
             },
-            // params: {
-            //     name,
-            //     type: 'TXT',
-            // },
-            // timeout: REQUEST_TIMEOUT_MS,
+            params: {
+                name,
+                type: 'TXT',
+            },
+            timeout: REQUEST_TIMEOUT_MS,
         });
 
-        const data = await response.json();
         const { Answer: [{ data: bkpUrl }] } = data;
 
         if (!FallbackApi.isString(bkpUrl)) {
@@ -248,25 +238,19 @@ export class FallbackApi {
     };
 
     private getBkpUrlByAliDnsDoh = async (name: string): Promise<string> => {
-        const params = qs.stringify({
-            name,
-            type: 'TXT',
-        });
-        const url = `https://${ALIDNS_DOH_URL}?${params}`;
-        const response = await fetch(url, {
+        const { data } = await axios.get(`https://${ALIDNS_DOH_URL}`, {
             headers: {
                 'Cache-Control': 'no-cache',
                 Pragma: 'no-cache',
                 accept: 'application/dns-json',
             },
-            // params: {
-            //     name,
-            //     type: 'TXT',
-            // },
-            // timeout: REQUEST_TIMEOUT_MS,
+            params: {
+                name,
+                type: 'TXT',
+            },
+            timeout: REQUEST_TIMEOUT_MS,
         });
 
-        const data = await response.json();
         const { Answer: [{ data: bkpUrl }] } = data;
 
         if (!FallbackApi.isString(bkpUrl)) {

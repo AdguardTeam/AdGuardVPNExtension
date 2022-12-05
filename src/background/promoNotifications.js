@@ -1,14 +1,18 @@
-/* global chrome */
-
 /**
  * This module manages promo notifications
  */
-import { lazyGet } from '../lib/helpers';
+import browser from 'webextension-polyfill';
+
+import {
+    lazyGet,
+    createAlarm,
+    clearAlarm,
+    onAlarmFires,
+} from '../lib/helpers';
 import { getUrl } from './browserApi/runtime';
 import { browserApi } from './browserApi';
 import { Prefs } from './prefs';
 import { notifier } from '../lib/notifier';
-import { createAlarm, clearAlarm, onAlarmFires } from '../lib/helpers';
 import { FORWARDER_DOMAIN } from './config';
 
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
@@ -29,7 +33,7 @@ const normalizeLanguage = (locale) => {
     return locale.toLowerCase().replace('-', '_');
 };
 
-const currentLocale = normalizeLanguage(chrome.i18n.getUILanguage());
+const currentLocale = normalizeLanguage(browser.i18n.getUILanguage());
 const promoLink = currentLocale === RUSSIAN_LOCALE ? RUSSIAN_PROMO_LINK : COMMON_PROMO_LINK;
 
 const blackFriday22Notification = {
@@ -251,7 +255,7 @@ const getLastNotificationTime = async () => {
  * @returns {string} matching text or null
  */
 const getNotificationText = (notification) => {
-    const language = normalizeLanguage(chrome.i18n.getUILanguage());
+    const language = normalizeLanguage(browser.i18n.getUILanguage());
 
     if (!language) {
         return null;
@@ -302,7 +306,6 @@ const NOTIFICATION_DELAY = 30 * 1000; // clear notification in 30 seconds
  */
 const setNotificationViewed = async (withDelay) => {
     if (withDelay) {
-        // FIXME: decide alarm api or setTimeout
         await clearAlarm(CLEAR_NOTIFICATION_ALARM_NAME);
         createAlarm(CLEAR_NOTIFICATION_ALARM_NAME, NOTIFICATION_DELAY);
         onAlarmFires(CLEAR_NOTIFICATION_ALARM_NAME, () => setNotificationViewed(false));

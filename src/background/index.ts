@@ -1,3 +1,5 @@
+import browser from 'webextension-polyfill';
+
 import actions from './actions';
 import appStatus from './appStatus';
 import auth from './auth';
@@ -60,8 +62,9 @@ global.adguard = {
 };
 
 messaging.init(); // messaging is on the top-level, for popup be able to wake up the service worker
- // FIXME: handle context menu events
-chrome.contextMenus.onClicked.addListener(() => console.log('ADDED LISTENER FOR CONTEXT MENUS'));
+// FIXME: handle context menu events
+// eslint-disable-next-line no-console
+browser.contextMenus.onClicked.addListener(() => console.log('ADDED LISTENER FOR CONTEXT MENUS'));
 contextMenu.init();
 
 (async () => {

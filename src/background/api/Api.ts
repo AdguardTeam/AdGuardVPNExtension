@@ -1,7 +1,10 @@
+import axios, { AxiosRequestConfig, Method } from 'axios';
+import fetchAdapter from '@vespaiach/axios-fetch-adapter';
+
 import { ERROR_STATUSES } from '../../lib/constants';
 import CustomError from '../../lib/CustomError';
 
-// const REQUEST_TIMEOUT_MS = 1000 * 6; // 6 seconds
+const REQUEST_TIMEOUT_MS = 1000 * 6; // 6 seconds
 
 interface ConfigInterface {
     params?: {
@@ -18,7 +21,7 @@ interface ConfigInterface {
 }
 
 interface ApiInterface {
-    makeRequest(path: string, config: ConfigInterface, method: string): Promise<any>;
+    makeRequest(path: string, config: ConfigInterface, method: Method): Promise<any>;
 }
 
 export class Api implements ApiInterface {
@@ -42,17 +45,18 @@ export class Api implements ApiInterface {
         return this.baseUrlStr;
     }
 
-    async makeRequest(path: string, config: ConfigInterface, method: string = 'POST') {
-        const params = config.data ? `?${config.data}` : '';
-        const url = `https://${await this.getBaseUrl()}/${path}${params}`;
+    async makeRequest(path: string, config: ConfigInterface, method: Method = 'POST') {
+        const url = `https://${await this.getBaseUrl()}/${path}`;
 
         try {
-            const response = await fetch(url, {
+            const response = await axios({
+                url,
                 method,
-                headers: config.headers,
-            });
-            const responseData = await response.json();
-            return responseData;
+                timeout: REQUEST_TIMEOUT_MS,
+                adapter: fetchAdapter,
+                ...config,
+            } as AxiosRequestConfig);
+            return response.data;
         } catch (error: any) {
             if (error.response) {
                 throw new CustomError(error.response.status, JSON.stringify(error.response.data));

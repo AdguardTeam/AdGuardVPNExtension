@@ -1,3 +1,4 @@
+import browser from 'webextension-polyfill';
 import { nanoid } from 'nanoid';
 import { translator } from '../common/translator';
 import { Prefs } from './prefs';
@@ -15,14 +16,13 @@ class Notifications implements NotificationsInterface {
      * @param options
      */
     create = async (options: { title?: string, message: string }): Promise<void> => {
-        const notificationOptions: chrome.notifications.NotificationOptions = {
+        const notificationOptions: browser.Notifications.CreateNotificationOptions = {
             type: 'basic',
             iconUrl: DEFAULT_IMAGE_PATH,
             title: options.title || DEFAULT_TITLE,
             message: options.message,
         };
-        // @ts-ignore
-        chrome.notifications.create(nanoid(), notificationOptions);
+        await browser.notifications.create(nanoid(), notificationOptions);
     };
 }
 

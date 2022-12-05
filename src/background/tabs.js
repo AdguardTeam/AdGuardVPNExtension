@@ -1,4 +1,4 @@
-/* global chrome */
+import browser from 'webextension-polyfill';
 
 import { PASSWORD_RECOVERY_URL } from './config';
 import { notifier } from '../lib/notifier';
@@ -6,7 +6,7 @@ import { log } from '../lib/logger';
 
 class Tabs {
     constructor() {
-        chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+        browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
             if (changeInfo.status === 'complete' || changeInfo.status === 'loading') {
                 if (tab && tab.active) {
                     notifier.notifyListeners(notifier.types.TAB_UPDATED, this.prepareTab(tab));
@@ -14,10 +14,10 @@ class Tabs {
             }
         });
 
-        chrome.tabs.onActivated.addListener(async ({ tabId }) => {
+        browser.tabs.onActivated.addListener(async ({ tabId }) => {
             let tab;
             try {
-                tab = await chrome.tabs.get(tabId);
+                tab = await browser.tabs.get(tabId);
             } catch (e) {
                 return; // ignore errors happening when we try to get removed tabs
             }
@@ -27,11 +27,11 @@ class Tabs {
         });
 
         // notify listeners when tab activated from another window
-        chrome.windows.onFocusChanged.addListener(async (windowId) => {
-            if (windowId === chrome.windows.WINDOW_ID_NONE) {
+        browser.windows.onFocusChanged.addListener(async (windowId) => {
+            if (windowId === browser.windows.WINDOW_ID_NONE) {
                 return;
             }
-            const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+            const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
             if (tab) {
                 notifier.notifyListeners(notifier.types.TAB_ACTIVATED, this.prepareTab(tab));
             }
@@ -39,7 +39,7 @@ class Tabs {
     }
 
     /**
-     * Converts chrome tab info into simplified presentation of tab
+     * Converts browser tab info into simplified presentation of tab
      * @param tab
      * @returns {{id: number, url: string}}
      */
@@ -49,22 +49,22 @@ class Tabs {
     };
 
     async getCurrent() {
-        const { id: windowId } = await chrome.windows.getCurrent();
-        const tabs = await chrome.tabs.query({ active: true, windowId });
+        const { id: windowId } = await browser.windows.getCurrent();
+        const tabs = await browser.tabs.query({ active: true, windowId });
         return tabs[0];
     }
 
     async getActive() {
-        const tabs = await chrome.tabs.query({ active: true });
+        const tabs = await browser.tabs.query({ active: true });
         return tabs.map(this.prepareTab);
     }
 
     async openRecovery() {
-        return chrome.tabs.create({ url: PASSWORD_RECOVERY_URL });
+        return browser.tabs.create({ url: PASSWORD_RECOVERY_URL });
     }
 
     async openTab(url) {
-        await chrome.tabs.create({ url, active: true });
+        await browser.tabs.create({ url, active: true });
     }
 
     /**
@@ -73,7 +73,7 @@ class Tabs {
      * @returns {Promise<void>}
      */
     async closeTab(tabsIds) {
-        await chrome.tabs.remove(tabsIds);
+        await browser.tabs.remove(tabsIds);
     }
 
     async openSocialAuthTab(authUrl) {
@@ -82,20 +82,20 @@ class Tabs {
 
     async reload(tabId) {
         try {
-            await chrome.tabs.reload(tabId);
+            await browser.tabs.reload(tabId);
         } catch (e) {
             log.error(e.message);
         }
     }
 
     async getTabByUrl(url) {
-        const tabs = await chrome.tabs.query({});
+        const tabs = await browser.tabs.query({});
         return tabs.find((tab) => tab.url?.includes(url));
     }
 
     async update(tabId, url) {
         try {
-            await chrome.tabs.update(tabId, { url, active: true });
+            await browser.tabs.update(tabId, { url, active: true });
         } catch (e) {
             log.error(e.message);
         }

@@ -1,4 +1,4 @@
-/* global chrome */
+import browser from 'webextension-polyfill';
 
 import { Prefs } from './prefs';
 import { log } from '../lib/logger';
@@ -15,20 +15,45 @@ import { FREE_GBS_ANCHOR } from '../lib/constants';
  * @return {Promise<void>}
  */
 const openOptionsPage = async (anchorName = null) => {
-    chrome.runtime.openOptionsPage(async () => {
-        const { id, url } = await tabs.getCurrent();
-        if (anchorName && id) {
-            await tabs.update(id, `${url}#${anchorName}`);
-            if (url?.includes(chrome.runtime.id)) {
-                await tabs.reload(id);
-            }
+    await browser.runtime.openOptionsPage();
+    const { id, url } = await tabs.getCurrent();
+    if (anchorName && id) {
+        await tabs.update(id, `${url}#${anchorName}`);
+        if (url?.includes(browser.runtime.id)) {
+            await tabs.reload(id);
         }
-    });
+    }
+    // FIXME: test duplicate options page opening and remove redundants
+    // const manifest = browser.runtime.getManifest();
+    // let optionsUrl = manifest.options_ui?.page || manifest.options_page;
+    // if (!optionsUrl.includes('://')) {
+    //     optionsUrl = browser.runtime.getURL(optionsUrl);
+    // }
+    //
+    // const theme = settings.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
+    // const anchor = anchorName ? `#${anchorName}` : '';
+    // const targetUrl = `${optionsUrl}?${THEME_URL_PARAMETER}=${theme}${anchor}`;
+    //
+    // // there is the bug with chrome.runtime.openOptionsPage() method
+    // // https://bugs.chromium.org/p/chromium/issues/detail?id=1369940
+    // // we use temporary solution to open а single options page
+    // const view = browser.extension.getViews()
+    //     .find((wnd) => wnd.location.href.startsWith(optionsUrl));
+    // if (view) {
+    //     await new Promise((resolve) => {
+    //         view.chrome.tabs.getCurrent(async (tab) => {
+    //             await browser.tabs.update(tab.id, { active: true, url: targetUrl });
+    //             resolve();
+    //         });
+    //     });
+    // } else {
+    //     await browser.tabs.create({url: targetUrl});
+    // }
 };
 
 const setIcon = async (details) => {
     try {
-        await chrome.action.setIcon(details);
+        await browser.action.setIcon(details);
     } catch (e) {
         log.debug(e.message);
     }
@@ -38,10 +63,10 @@ const BADGE_COLOR = '#74a352';
 
 const setBadge = async (details) => {
     try {
-        await chrome.action.setBadgeText(details);
+        await browser.action.setBadgeText(details);
         const { tabId } = details;
 
-        await chrome.action.setBadgeBackgroundColor({ tabId, color: BADGE_COLOR });
+        await browser.action.setBadgeBackgroundColor({ tabId, color: BADGE_COLOR });
     } catch (e) {
         log.debug(e.message);
     }
