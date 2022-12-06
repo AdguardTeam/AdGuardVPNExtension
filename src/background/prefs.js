@@ -55,4 +55,6 @@ export const Prefs = {
             return browser;
         });
     },
+
+    // FIXME: add isFirefox()
 };

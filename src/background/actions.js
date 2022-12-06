@@ -1,6 +1,6 @@
 import browser from 'webextension-polyfill';
 
-import { Prefs } from './prefs';
+import { Prefs, BROWSER_NAMES } from './prefs';
 import { log } from '../lib/logger';
 import { promoNotifications } from './promoNotifications';
 import credentials from './credentials';
@@ -51,9 +51,15 @@ const openOptionsPage = async (anchorName = null) => {
     // }
 };
 
+// FIXME: describe
+let browserAction = browser.action;
+if (Prefs.browser === BROWSER_NAMES.FIREFOX) {
+    browserAction = browser.browserAction;
+}
+
 const setIcon = async (details) => {
     try {
-        await browser.action.setIcon(details);
+        await browserAction.setIcon(details);
     } catch (e) {
         log.debug(e.message);
     }
@@ -63,10 +69,10 @@ const BADGE_COLOR = '#74a352';
 
 const setBadge = async (details) => {
     try {
-        await browser.action.setBadgeText(details);
+        await browserAction.setBadgeText(details);
         const { tabId } = details;
 
-        await browser.action.setBadgeBackgroundColor({ tabId, color: BADGE_COLOR });
+        await browserAction.setBadgeBackgroundColor({ tabId, color: BADGE_COLOR });
     } catch (e) {
         log.debug(e.message);
     }
