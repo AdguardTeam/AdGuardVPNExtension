@@ -13,7 +13,7 @@ interface PermissionsCheckerParameters {
     permissionsError: PermissionsErrorInterface;
 }
 
-interface PermissionsCheckerInterface {
+export interface PermissionsCheckerInterface {
     checkPermissions(): Promise<void>;
     init(): void;
 }

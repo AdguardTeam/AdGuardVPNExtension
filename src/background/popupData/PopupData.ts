@@ -13,16 +13,40 @@ import { updateService } from '../updateService';
 import { flagsStorage } from '../flagsStorage';
 import { exclusions } from '../exclusions';
 import { rateModal } from '../rateModal';
-import credentials from '../credentials';
+import { credentials } from '../credentials';
+import { EndpointsInterface } from '../endpoints/Endpoints';
+import { PermissionsCheckerInterface } from '../permissionsChecker/PermissionsChecker';
+import { PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
+import { CredentialsInterface } from '../credentials/Credentials';
+import appStatus from '../appStatus';
 
-class PopupData {
+interface PopupDataArguments {
+    permissionsChecker: PermissionsCheckerInterface;
+    permissionsError: PermissionsErrorInterface;
+    nonRoutable: any;
+    endpoints: EndpointsInterface;
+    credentials: CredentialsInterface;
+}
+
+export class PopupData {
+    private permissionsChecker: PermissionsCheckerInterface;
+
+    private permissionsError: PermissionsErrorInterface;
+
+    // FIXME: nonRoutable to ts
+    private nonRoutable: any;
+
+    private endpoints: EndpointsInterface;
+
+    private credentials: CredentialsInterface;
+
     constructor({
         permissionsChecker,
         permissionsError,
         nonRoutable,
         endpoints,
         credentials,
-    }) {
+    }: PopupDataArguments) {
         this.permissionsChecker = permissionsChecker;
         this.permissionsError = permissionsError;
         this.nonRoutable = nonRoutable;
@@ -39,7 +63,7 @@ class PopupData {
         return desktopVpnEnabled;
     }
 
-    getPopupData = async (url) => {
+    getPopupData = async (url: string) => {
         const isAuthenticated = await auth.isAuthenticated();
         const policyAgreement = settings.getSetting(SETTINGS_IDS.POLICY_AGREEMENT);
 
@@ -60,8 +84,8 @@ class PopupData {
         const vpnInfo = await this.endpoints.getVpnInfo();
         const locations = this.endpoints.getLocations();
         const selectedLocation = await this.endpoints.getSelectedLocation();
-        const canControlProxy = await adguard.appStatus.canControlProxy();
-        const isProxyEnabled = adguard.settings.isProxyEnabled();
+        const canControlProxy = await appStatus.canControlProxy();
+        const isProxyEnabled = settings.isProxyEnabled();
         const isPremiumToken = await this.credentials.isPremiumToken();
         const connectivityState = { value: connectivityService.state.value };
         const desktopVpnEnabled = await this.getDesktopEnabled();
@@ -110,7 +134,7 @@ class PopupData {
 
     DEFAULT_RETRY_DELAY = 400;
 
-    async getPopupDataRetry(url, retryNum = 1, retryDelay = this.DEFAULT_RETRY_DELAY) {
+    async getPopupDataRetry(url: string, retryNum = 1, retryDelay = this.DEFAULT_RETRY_DELAY): Promise<any> {
         const backoffIndex = 1.5;
         let data;
 
@@ -122,7 +146,7 @@ class PopupData {
 
         this.retryCounter += 1;
 
-        if (!data.isAuthenticated || data.permissionsError) {
+        if (!data?.isAuthenticated || data.permissionsError) {
             this.retryCounter = 0;
             return data;
         }
@@ -134,8 +158,8 @@ class PopupData {
         if (!vpnInfo || isEmpty(locations) || !selectedLocation) {
             if (retryNum <= 1) {
                 // it may be useful to disconnect proxy if we can't get data
-                if (data.isProxyEnabled) {
-                    await adguard.settings.disableProxy();
+                if (data?.isProxyEnabled) {
+                    await settings.disableProxy();
                 }
                 this.retryCounter = 0;
                 hasRequiredData = false;
@@ -150,5 +174,3 @@ class PopupData {
         return { ...data, hasRequiredData };
     }
 }
-
-export default PopupData;

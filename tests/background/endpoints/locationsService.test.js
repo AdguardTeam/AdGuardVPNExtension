@@ -3,7 +3,7 @@ import { Location } from '../../../src/background/endpoints/Location';
 import * as pingHelpers from '../../../src/background/connectivity/pingHelpers';
 import { vpnProvider } from '../../../src/background/providers/vpnProvider';
 import { endpoints } from '../../../src/background/endpoints';
-import credentials from '../../../src/background/credentials';
+import { credentials } from '../../../src/background/credentials';
 
 jest.mock('../../../src/background/connectivity/pingHelpers');
 jest.mock('../../../src/lib/logger'); // hides redundant log messages during test run

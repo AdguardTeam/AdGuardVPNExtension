@@ -3,18 +3,30 @@ import browser from 'webextension-polyfill';
 import { Prefs, BROWSER_NAMES } from './prefs';
 import { log } from '../lib/logger';
 import { promoNotifications } from './promoNotifications';
-import credentials from './credentials';
+import { credentials } from './credentials';
 import { UPGRADE_LICENSE_URL } from './config';
 import tabs from './tabs';
 import { FREE_GBS_ANCHOR } from '../lib/constants';
 // import { settings } from './settings';
+
+interface ActionsInterface {
+    openOptionsPage(anchorName?: string): Promise<void>;
+    setIconEnabled(tabId?: number): Promise<void>;
+    setIconDisabled(tabId?: number): Promise<void>;
+    setIconTrafficOff(tabId?: number): Promise<void>;
+    setBadgeText(text: string, tabId?: number): Promise<void>;
+    clearBadgeText(tabId?: number): Promise<void>;
+    getPremiumPromoPageUrl(): Promise<string>;
+    openPremiumPromoPage(): Promise<void>;
+    openFreeGbsPage(): Promise<void>;
+}
 
 /**
  * Opens options tab with anchor if provided
  * @param {string | null} anchorName
  * @return {Promise<void>}
  */
-const openOptionsPage = async (anchorName = null) => {
+const openOptionsPage = async (anchorName?: string): Promise<void> => {
     await browser.runtime.openOptionsPage();
     const { id, url } = await tabs.getCurrent();
     if (anchorName && id) {
@@ -57,23 +69,23 @@ if (Prefs.browser === BROWSER_NAMES.FIREFOX) {
     browserAction = browser.browserAction;
 }
 
-const setIcon = async (details) => {
+const setIcon = async (details: browser.Action.SetIconDetailsType): Promise<void> => {
     try {
         await browserAction.setIcon(details);
-    } catch (e) {
+    } catch (e: any) {
         log.debug(e.message);
     }
 };
 
 const BADGE_COLOR = '#74a352';
 
-const setBadge = async (details) => {
+const setBadge = async (details: browser.Action.Details): Promise<void> => {
     try {
-        await browserAction.setBadgeText(details);
+        await browserAction.setBadgeText(details as browser.Action.SetBadgeTextDetailsType);
         const { tabId } = details;
 
         await browserAction.setBadgeBackgroundColor({ tabId, color: BADGE_COLOR });
-    } catch (e) {
+    } catch (e: any) {
         log.debug(e.message);
     }
 };
@@ -85,8 +97,8 @@ const setBadge = async (details) => {
  * @param tabId
  * @returns {Promise<void>}
  */
-const setIconEnabled = async (tabId) => {
-    const details = { path: Prefs.ICONS.ENABLED };
+const setIconEnabled = async (tabId?: number): Promise<void> => {
+    const details: browser.Action.SetIconDetailsType = { path: Prefs.ICONS.ENABLED };
     const promoNotification = await promoNotifications.getCurrentNotification();
 
     if (promoNotification) {
@@ -107,8 +119,8 @@ const setIconEnabled = async (tabId) => {
  * @param {number|null} tabId
  * @returns {Promise<void>}
  */
-const setIconDisabled = async (tabId) => {
-    const details = { path: Prefs.ICONS.DISABLED };
+const setIconDisabled = async (tabId?: number): Promise<void> => {
+    const details: browser.Action.SetIconDetailsType = { path: Prefs.ICONS.DISABLED };
 
     const promoNotification = await promoNotifications.getCurrentNotification();
 
@@ -128,8 +140,8 @@ const setIconDisabled = async (tabId) => {
  * @param tabId
  * @returns {Promise<void>}
  */
-const setIconTrafficOff = async (tabId) => {
-    const details = { path: Prefs.ICONS.TRAFFIC_OFF };
+const setIconTrafficOff = async (tabId?: number): Promise<void> => {
+    const details: browser.Action.SetIconDetailsType = { path: Prefs.ICONS.TRAFFIC_OFF };
     await setIcon(details);
     if (tabId) {
         details.tabId = tabId;
@@ -137,8 +149,8 @@ const setIconTrafficOff = async (tabId) => {
     }
 };
 
-const setBadgeText = async (tabId, text) => {
-    const details = { text };
+const setBadgeText = async (text: string, tabId?: number): Promise<void> => {
+    const details: browser.Action.SetBadgeTextDetailsType = { text };
 
     await setBadge(details);
     if (tabId) {
@@ -147,8 +159,8 @@ const setBadgeText = async (tabId, text) => {
     }
 };
 
-const clearBadgeText = async (tabId) => {
-    const details = { text: '' };
+const clearBadgeText = async (tabId?: number): Promise<void> => {
+    const details: browser.Action.SetBadgeTextDetailsType = { text: '' };
 
     await setBadge(details);
     if (tabId) {
@@ -161,7 +173,7 @@ const clearBadgeText = async (tabId) => {
  * Generates Premium Promo Page url with user email in parameter (if authenticated)
  * @returns {string}
  */
-const getPremiumPromoPageUrl = async () => {
+const getPremiumPromoPageUrl = async (): Promise<string> => {
     const username = await credentials.getUsername();
     return `${UPGRADE_LICENSE_URL}${username ? `&email=${encodeURIComponent(username)}` : ''}`;
 };
@@ -169,7 +181,7 @@ const getPremiumPromoPageUrl = async () => {
 /**
  * Opens Premium Promo Page in new tab
  */
-const openPremiumPromoPage = async () => {
+const openPremiumPromoPage = async (): Promise<void> => {
     const url = await getPremiumPromoPageUrl();
     await tabs.openTab(url);
 };
@@ -177,11 +189,11 @@ const openPremiumPromoPage = async () => {
 /**
  * Opens Options page on Referral Program section
  */
-const openFreeGbsPage = async () => {
+const openFreeGbsPage = async (): Promise<void> => {
     await openOptionsPage(FREE_GBS_ANCHOR);
 };
 
-const actions = {
+export const actions: ActionsInterface = {
     openOptionsPage,
     setIconEnabled,
     setIconDisabled,
@@ -192,5 +204,3 @@ const actions = {
     openPremiumPromoPage,
     openFreeGbsPage,
 };
-
-export default actions;

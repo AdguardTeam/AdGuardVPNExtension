@@ -11,6 +11,34 @@ import { notifier } from '../lib/notifier';
 import { FORWARDER_DOMAIN } from './config';
 import { alarmService } from './alarmService';
 
+interface PromoNotificationInterface {
+    getCurrentNotification(): Promise<PromoNotificationData | null>;
+    setNotificationViewed(withDelay: boolean): Promise<void>;
+}
+
+interface PromoNotificationData {
+    id: string;
+    locales: {
+        [key: string]: {
+            title: string,
+            btn: string,
+        }
+    }
+    text: null | {
+        title: string,
+        btn: string,
+    };
+    url: string;
+    from: string;
+    to: string;
+    type: string;
+    icons: {
+        [key: string]: {
+            [key: number]: string,
+        }
+    }
+}
+
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
@@ -21,7 +49,7 @@ const RUSSIAN_LOCALE = 'ru';
 const COMMON_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=black_friday_22_vpn&from=popup&app=vpn_extension`;
 const RUSSIAN_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=black_friday_22_vpn_ru&from=popup&app=vpn_extension`;
 
-const normalizeLanguage = (locale) => {
+const normalizeLanguage = (locale: string): string | null => {
     if (!locale) {
         return null;
     }
@@ -32,7 +60,7 @@ const normalizeLanguage = (locale) => {
 const currentLocale = normalizeLanguage(browser.i18n.getUILanguage());
 const promoLink = currentLocale === RUSSIAN_LOCALE ? RUSSIAN_PROMO_LINK : COMMON_PROMO_LINK;
 
-const blackFriday22Notification = {
+const blackFriday22Notification: PromoNotificationData = {
     id: 'blackFriday22',
     locales: {
         en: {
@@ -193,7 +221,7 @@ const blackFriday22Notification = {
         },
     },
     // will be selected for locale, see usage of getNotificationText
-    text: '',
+    text: null,
     url: promoLink,
     from: '22 November 2022 15:00:00',
     to: '29 November 2022 23:59:00',
@@ -228,7 +256,7 @@ const blackFriday22Notification = {
  * @property {string} type;
  */
 
-const notifications = {
+const notifications: { [key: string]: PromoNotificationData } = {
     blackFriday22: blackFriday22Notification,
 };
 
@@ -236,7 +264,7 @@ const notifications = {
  * Gets the last time a notification was shown.
  * If it was not shown yet, initialized with the current time.
  */
-const getLastNotificationTime = async () => {
+const getLastNotificationTime = async (): Promise<number> => {
     let lastTime = await browserApi.storage.get(LAST_NOTIFICATION_TIME) || 0;
     if (lastTime === 0) {
         lastTime = new Date().getTime();
@@ -250,7 +278,7 @@ const getLastNotificationTime = async () => {
  * @param {*} notification notification object
  * @returns {string} matching text or null
  */
-const getNotificationText = (notification) => {
+const getNotificationText = (notification: PromoNotificationData): { title: string, btn: string } | null => {
     const language = normalizeLanguage(browser.i18n.getUILanguage());
 
     if (!language) {
@@ -268,7 +296,7 @@ const getNotificationText = (notification) => {
 /**
  * Scans notifications list and prepares them to be used (or removes expired)
  */
-const initNotifications = () => {
+const initNotifications = (): void => {
     const notificationsKeys = Object.keys(notifications);
 
     for (let i = 0; i < notificationsKeys.length; i += 1) {
@@ -290,8 +318,8 @@ const initNotifications = () => {
 // Prepare the notifications
 initNotifications();
 
-let currentNotification;
-let notificationCheckTime;
+let currentNotification: PromoNotificationData | null;
+let notificationCheckTime: number;
 const checkTimeoutMs = 10 * 60 * 1000; // 10 minutes
 const minPeriod = 30 * 60 * 1000; // 30 minutes
 const NOTIFICATION_DELAY = 30 * 1000; // clear notification in 30 seconds
@@ -300,7 +328,7 @@ const NOTIFICATION_DELAY = 30 * 1000; // clear notification in 30 seconds
  * Marks current notification as viewed
  * @param {boolean} withDelay if true, do this after a 30 sec delay
  */
-const setNotificationViewed = async (withDelay) => {
+const setNotificationViewed = async (withDelay: boolean): Promise<void> => {
     if (withDelay) {
         await alarmService.clearAlarm(CLEAR_NOTIFICATION_ALARM_NAME);
         alarmService.createAlarm(CLEAR_NOTIFICATION_ALARM_NAME, NOTIFICATION_DELAY);
@@ -325,7 +353,7 @@ const setNotificationViewed = async (withDelay) => {
  *
  * @returns {null|Notification} - notification
  */
-const getCurrentNotification = async () => {
+const getCurrentNotification = async (): Promise<PromoNotificationData | null> => {
     // Do not display notification on Firefox
     if (Prefs.browser === 'Firefox') {
         return null;
@@ -368,7 +396,7 @@ const getCurrentNotification = async () => {
     return currentNotification;
 };
 
-export const promoNotifications = {
+export const promoNotifications: PromoNotificationInterface = {
     getCurrentNotification,
     setNotificationViewed,
 };

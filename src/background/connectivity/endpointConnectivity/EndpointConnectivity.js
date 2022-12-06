@@ -13,7 +13,7 @@ import { sleepIfNecessary } from '../../../lib/helpers';
 // eslint-disable-next-line import/no-cycle
 import { connectivityService } from '../connectivityService/connectivityFSM';
 // eslint-disable-next-line import/no-cycle
-import credentials from '../../credentials';
+import { credentials } from '../../credentials';
 import { notifications } from '../../notifications';
 import { translator } from '../../../common/translator';
 

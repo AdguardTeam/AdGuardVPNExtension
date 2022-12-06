@@ -1,6 +1,8 @@
+import browser from 'webextension-polyfill';
+
 import throttle from 'lodash/throttle';
 import { notifier } from '../lib/notifier';
-import actions from './actions';
+import { actions } from './actions';
 import { exclusions } from './exclusions';
 import tabs from './tabs';
 import { isHttp } from '../lib/string-utils';
@@ -9,11 +11,11 @@ import { locationsService } from './endpoints/locationsService';
 import { isVPNConnected } from './connectivity/connectivityService/connectivityFSM';
 
 class BrowserActionIcon {
-    isVpnEnabledForUrl = (id, url) => {
+    isVpnEnabledForUrl = (id?: number, url?: string) => {
         if (id && url && isHttp(url)) {
             return exclusions.isVpnEnabledByUrl(url);
         }
-        if (!isHttp(url)) {
+        if (url && !isHttp(url)) {
             // disable icon in tabs with no url only for selective mode
             return !exclusions.isInverted();
         }
@@ -21,8 +23,8 @@ class BrowserActionIcon {
         return true;
     };
 
-    async updateIcon(tab) {
-        const { id = null, url = null } = tab;
+    async updateIcon(tab: browser.Tabs.Tab) {
+        const { id, url } = tab;
 
         const isUserAuthenticated = await auth.isAuthenticated(false);
         if (!isUserAuthenticated) {
@@ -48,7 +50,7 @@ class BrowserActionIcon {
         const selectedLocation = await locationsService.getSelectedLocation();
         const countryCode = selectedLocation?.countryCode;
         if (countryCode) {
-            await actions.setBadgeText(id, countryCode);
+            await actions.setBadgeText(countryCode, id);
         } else {
             await actions.clearBadgeText(id);
         }
@@ -56,14 +58,14 @@ class BrowserActionIcon {
 
     init = () => {
         const throttleTimeoutMs = 100;
-        const throttledUpdateIcon = throttle(async (tab) => {
+        const throttledUpdateIcon = throttle(async (tab?: browser.Tabs.Tab) => {
             if (tab) {
-                this.updateIcon(tab);
+                await this.updateIcon(tab);
             } else {
                 // get all active tabs, because tabs api sometimes doesn't return right active tab
                 const activeTabs = await tabs.getActive();
                 activeTabs.forEach((tab) => {
-                    this.updateIcon(tab);
+                    this.updateIcon(tab as browser.Tabs.Tab);
                 });
             }
         }, throttleTimeoutMs, { leading: false });

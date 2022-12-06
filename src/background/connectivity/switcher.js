@@ -6,7 +6,7 @@ import { FORCE_CANCELLED } from '../../lib/constants';
 import { vpnApi } from '../api';
 
 // eslint-disable-next-line import/no-cycle
-import credentials from '../credentials';
+import { credentials } from '../credentials';
 // eslint-disable-next-line import/no-cycle
 import { locationsService } from '../endpoints/locationsService';
 // eslint-disable-next-line import/no-cycle

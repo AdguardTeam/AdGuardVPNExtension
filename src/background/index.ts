@@ -1,21 +1,21 @@
 import browser from 'webextension-polyfill';
 
-import actions from './actions';
+import { actions } from './actions';
 import appStatus from './appStatus';
 import auth from './auth';
 import authCache from './authentication/authCache';
 import connectivity from './connectivity';
 import { contextMenu } from './contextMenu';
-import credentials from './credentials';
+import { credentials } from './credentials';
 import { endpoints } from './endpoints';
 import { exclusions } from './exclusions';
 import { log } from '../lib/logger';
-import management from './management';
+import { management } from './management';
 import { messaging } from './messaging';
-import nonRoutable from './routability/nonRoutable';
-import permissionsChecker from './permissionsChecker';
-import permissionsError from './permissionsChecker/permissionsError';
-import popupData from './popupData';
+import { nonRoutable } from './routability/nonRoutable';
+import { permissionsChecker } from './permissionsChecker';
+import { permissionsError } from './permissionsChecker/permissionsError';
+import { popupData } from './popupData';
 import { proxy } from './proxy';
 import { settings } from './settings';
 import tabs from './tabs';

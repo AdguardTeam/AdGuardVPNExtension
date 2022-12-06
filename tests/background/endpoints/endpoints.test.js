@@ -1,7 +1,7 @@
 import { endpoints } from '../../../src/background/endpoints';
 import { settings } from '../../../src/background/settings';
 import { vpnProvider } from '../../../src/background/providers/vpnProvider';
-import credentials from '../../../src/background/credentials';
+import { credentials } from '../../../src/background/credentials';
 import { Location } from '../../../src/background/endpoints/Location';
 import { LocationWithPing } from '../../../src/background/endpoints/LocationWithPing';
 import { connectivityService } from '../../../src/background/connectivity/connectivityService/connectivityFSM';

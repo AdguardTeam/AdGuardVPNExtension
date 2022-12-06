@@ -15,7 +15,7 @@ import { endpointsTldExclusions } from '../proxy/endpointsTldExclusions';
 
 // eslint-disable-next-line import/no-cycle
 import connectivity from '../connectivity';
-import credentials from '../credentials';
+import { credentials } from '../credentials';
 import { locationsService, isMeasuringPingInProgress } from './locationsService';
 // eslint-disable-next-line import/no-cycle
 import { isVPNConnected, isVPNDisconnectedIdle } from '../connectivity/connectivityService/connectivityFSM';
@@ -45,9 +45,10 @@ import { VpnTokenData } from '../credentials/Credentials';
  * @property {boolean} premiumOnly
  */
 
-interface EndpointsInterface {
+export interface EndpointsInterface {
     refreshData(): Promise<void>;
     getVpnInfo(): Promise<VpnExtensionInfoInterface | null>;
+    getSelectedLocation(): Promise<any>;
     getLocations(): LocationWithPing[];
     getVpnFailurePage(): Promise<string>;
     init(): void;
@@ -356,7 +357,7 @@ class Endpoints implements EndpointsInterface {
         return locations;
     };
 
-    getSelectedLocation = async () => {
+    getSelectedLocation = async (): Promise<any> => {
         const selectedLocation = await locationsService.getSelectedLocation();
         const isLocationSelectedByUser = await locationsService.getIsLocationSelectedByUser();
         const isVPNDisabled = isVPNDisconnectedIdle();

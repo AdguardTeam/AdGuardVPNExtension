@@ -1,9 +1,13 @@
+import browser from 'webextension-polyfill';
+
 import { log } from '../../lib/logger';
 
 class Management {
     PROXY_PERMISSION = 'proxy';
 
-    constructor(browser) {
+    private browser: browser.Browser;
+
+    constructor(browser: browser.Browser) {
         this.browser = browser;
     }
 
@@ -33,7 +37,7 @@ class Management {
         const extensions = await this.browser.management.getAll();
         return extensions.filter((extension) => {
             const { permissions, enabled, id } = extension;
-            return permissions.includes(this.PROXY_PERMISSION)
+            return permissions?.includes(this.PROXY_PERMISSION)
                 && id !== this.browser.runtime.id
                 && enabled;
         });
