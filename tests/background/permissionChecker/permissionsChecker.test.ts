@@ -46,6 +46,7 @@
 // jest.spyOn(permissionsChecker, 'checkPermissions');
 // jest.spyOn(permissionsChecker, 'getVpnInfo');
 //
+// disable-eslint-next-line max-len
 // jest.spyOn(permissionsChecker.credentials, 'gainValidVpnCredentials').mockResolvedValue(getCredentialsData(99999999));
 // jest.spyOn(permissionsChecker.credentials, 'gainValidVpnToken').mockResolvedValue(VPN_TOKEN_DATA);
 //
@@ -54,7 +55,7 @@
 describe('PermissionsChecker tests', () => {
     it('temp test case', () => {
         expect(1).toBe(1);
-    })
+    });
 //     afterEach(() => {
 //         jest.clearAllTimers();
 //         jest.clearAllMocks();

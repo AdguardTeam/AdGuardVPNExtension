@@ -1,4 +1,3 @@
-import browser from 'webextension-polyfill';
 import punycode from 'punycode';
 
 /**

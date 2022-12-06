@@ -1,5 +1,5 @@
 import browser from 'webextension-polyfill';
-import axios, { AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 import fetchAdapter from '@vespaiach/axios-fetch-adapter';
 
 import { Service } from './Service';
