@@ -1,4 +1,6 @@
 import axios, { AxiosRequestConfig, Method } from 'axios';
+// TODO: use internal axios fetch adapter after they release it instead of @vespaiach/axios-fetch-adapter
+// https://github.com/axios/axios/pull/5146
 import fetchAdapter from '@vespaiach/axios-fetch-adapter';
 
 import { ERROR_STATUSES } from '../../lib/constants';
