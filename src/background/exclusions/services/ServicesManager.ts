@@ -153,7 +153,7 @@ export class ServicesManager implements ServiceManagerInterface {
      */
     async getServicesFromAssets(): Promise<ServicesInterface> {
         const path = browser.runtime.getURL('assets/prebuild-data/exclusion-services.json');
-        const response = await axios.get(path, { adapter: fetchAdapter } as AxiosRequestConfig);
+        const response = await axios.get(path, { adapter: fetchAdapter });
         return response.data;
     }
 

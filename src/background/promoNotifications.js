@@ -3,17 +3,13 @@
  */
 import browser from 'webextension-polyfill';
 
-import {
-    lazyGet,
-    createAlarm,
-    clearAlarm,
-    onAlarmFires,
-} from '../lib/helpers';
+import { lazyGet } from '../lib/helpers';
 import { getUrl } from './browserApi/runtime';
 import { browserApi } from './browserApi';
 import { Prefs } from './prefs';
 import { notifier } from '../lib/notifier';
 import { FORWARDER_DOMAIN } from './config';
+import { alarmService } from './alarmService';
 
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
@@ -306,9 +302,9 @@ const NOTIFICATION_DELAY = 30 * 1000; // clear notification in 30 seconds
  */
 const setNotificationViewed = async (withDelay) => {
     if (withDelay) {
-        await clearAlarm(CLEAR_NOTIFICATION_ALARM_NAME);
-        createAlarm(CLEAR_NOTIFICATION_ALARM_NAME, NOTIFICATION_DELAY);
-        onAlarmFires(CLEAR_NOTIFICATION_ALARM_NAME, () => setNotificationViewed(false));
+        await alarmService.clearAlarm(CLEAR_NOTIFICATION_ALARM_NAME);
+        alarmService.createAlarm(CLEAR_NOTIFICATION_ALARM_NAME, NOTIFICATION_DELAY);
+        alarmService.onAlarmFires(CLEAR_NOTIFICATION_ALARM_NAME, () => setNotificationViewed(false));
         return;
     }
 
