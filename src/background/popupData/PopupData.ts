@@ -1,9 +1,10 @@
 import throttle from 'lodash/throttle';
 import isEmpty from 'lodash/isEmpty';
+import { StateValue } from 'xstate/lib/types';
 
 import { log } from '../../lib/logger';
 import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
-import { promoNotifications } from '../promoNotifications';
+import { PromoNotificationData, promoNotifications } from '../promoNotifications';
 import auth from '../auth';
 import { settings } from '../settings';
 import { SETTINGS_IDS } from '../../lib/constants';
@@ -18,14 +19,53 @@ import { EndpointsInterface } from '../endpoints/Endpoints';
 import { PermissionsCheckerInterface } from '../permissionsChecker/PermissionsChecker';
 import { PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import { CredentialsInterface } from '../credentials/Credentials';
-import appStatus from '../appStatus';
+import { NonRoutableServiceInterface } from '../routability/NonRoutableService';
+import { VpnExtensionInfoInterface } from '../providers/vpnProvider';
+import { appStatus } from '../appStatus';
+import { LocationWithPing } from '../endpoints/LocationWithPing';
+import { CanControlProxy } from '../proxy/proxy';
 
 interface PopupDataArguments {
     permissionsChecker: PermissionsCheckerInterface;
     permissionsError: PermissionsErrorInterface;
-    nonRoutable: any;
+    nonRoutable: NonRoutableServiceInterface;
     endpoints: EndpointsInterface;
     credentials: CredentialsInterface;
+}
+
+interface PopupDataFull {
+    permissionsError: {
+        message: string,
+        status: string,
+    } | null;
+    vpnInfo: VpnExtensionInfoInterface | null;
+    locations: LocationWithPing[];
+    selectedLocation: LocationWithPing | null;
+    isAuthenticated: string | boolean;
+    policyAgreement: boolean;
+    canControlProxy: CanControlProxy;
+    isProxyEnabled: boolean;
+    isRoutable: boolean;
+    isPremiumToken: boolean;
+    connectivityState: StateValue;
+    promoNotification: PromoNotificationData | null;
+    desktopVpnEnabled: boolean;
+    isFirstRun?: boolean;
+    flagsStorageData: {
+        [key: string]: string | boolean;
+    }
+    isVpnEnabledByUrl: boolean;
+    shouldShowRateModal: boolean;
+    username: string | null;
+}
+
+interface PopupDataNotAuthenticated {
+    isAuthenticated: string | boolean;
+    policyAgreement: boolean;
+}
+
+interface PopupDataRetry extends PopupDataFull {
+    hasRequiredData: boolean;
 }
 
 export class PopupData {
@@ -33,8 +73,7 @@ export class PopupData {
 
     private permissionsError: PermissionsErrorInterface;
 
-    // FIXME: nonRoutable to ts
-    private nonRoutable: any;
+    private nonRoutable: NonRoutableServiceInterface;
 
     private endpoints: EndpointsInterface;
 
@@ -63,7 +102,7 @@ export class PopupData {
         return desktopVpnEnabled;
     }
 
-    getPopupData = async (url: string) => {
+    getPopupData = async (url: string): Promise<PopupDataFull | PopupDataNotAuthenticated> => {
         const isAuthenticated = await auth.isAuthenticated();
         const policyAgreement = settings.getSetting(SETTINGS_IDS.POLICY_AGREEMENT);
 
@@ -134,9 +173,9 @@ export class PopupData {
 
     DEFAULT_RETRY_DELAY = 400;
 
-    async getPopupDataRetry(url: string, retryNum = 1, retryDelay = this.DEFAULT_RETRY_DELAY): Promise<any> {
+    async getPopupDataRetry(url: string, retryNum = 1, retryDelay = this.DEFAULT_RETRY_DELAY): Promise<PopupDataRetry> {
         const backoffIndex = 1.5;
-        let data;
+        let data: PopupDataFull;
 
         try {
             data = await this.getPopupData(url);
@@ -148,7 +187,7 @@ export class PopupData {
 
         if (!data?.isAuthenticated || data.permissionsError) {
             this.retryCounter = 0;
-            return data;
+            return { ...data, hasRequiredData: true };
         }
 
         const { vpnInfo, locations, selectedLocation } = data;

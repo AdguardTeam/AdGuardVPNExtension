@@ -1,6 +1,6 @@
-/* global __APP_CONFIG__ */
 import { log } from '../lib/logger';
 
+// @ts-ignore
 const CONFIG = __APP_CONFIG__;
 
 log.debug(`Current browser: "${CONFIG.BROWSER}"`);

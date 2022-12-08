@@ -16,7 +16,7 @@ interface PromoNotificationInterface {
     setNotificationViewed(withDelay: boolean): Promise<void>;
 }
 
-interface PromoNotificationData {
+export interface PromoNotificationData {
     id: string;
     locales: {
         [key: string]: {

@@ -25,7 +25,7 @@ export interface AccessCredentials {
     password: string,
 }
 
-interface CanControlProxy {
+export interface CanControlProxy {
     canControlProxy: boolean;
     cause?: boolean;
 }

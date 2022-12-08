@@ -1,6 +1,6 @@
 import browser from 'webextension-polyfill';
 
-import { Prefs, BROWSER_NAMES } from './prefs';
+import { Prefs } from './prefs';
 import { log } from '../lib/logger';
 import { promoNotifications } from './promoNotifications';
 import { credentials } from './credentials';
@@ -64,10 +64,9 @@ const openOptionsPage = async (anchorName?: string): Promise<void> => {
 };
 
 // FIXME: describe
-let browserAction = browser.action;
-if (Prefs.browser === BROWSER_NAMES.FIREFOX) {
-    browserAction = browser.browserAction;
-}
+const browserAction = Prefs.isFirefox()
+    ? browser.browserAction
+    : browser.action;
 
 const setIcon = async (details: browser.Action.SetIconDetailsType): Promise<void> => {
     try {

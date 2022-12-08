@@ -2,8 +2,24 @@ import { browserApi } from './browserApi';
 
 const APP_VERSION_KEY = 'update.service.app.version';
 
-class UpdateService {
-    init = async () => {
+interface UpdateServiceInterface {
+    init(): Promise<void>;
+    getAppVersionFromStorage(): Promise<string>;
+    getAppVersionFromManifest(): Promise<string>;
+    setAppVersionInStorage(appVersion: string): Promise<void>;
+    setIsFirstRunFalse(): void;
+}
+
+class UpdateService implements UpdateServiceInterface {
+    prevVersion: string;
+
+    currentVersion: string;
+
+    isFirstRun: boolean;
+
+    isUpdate: boolean;
+
+    init = async (): Promise<void> => {
         this.prevVersion = await this.getAppVersionFromStorage();
         this.currentVersion = await this.getAppVersionFromManifest();
 
@@ -13,19 +29,19 @@ class UpdateService {
         await this.setAppVersionInStorage(this.currentVersion);
     };
 
-    getAppVersionFromStorage = async () => {
+    getAppVersionFromStorage = async (): Promise<string> => {
         return browserApi.storage.get(APP_VERSION_KEY);
     };
 
-    getAppVersionFromManifest = async () => {
+    getAppVersionFromManifest = async (): Promise<string> => {
         return browserApi.runtime.getManifest().version;
     };
 
-    setAppVersionInStorage = async (appVersion) => {
+    setAppVersionInStorage = async (appVersion: string): Promise<void> => {
         return browserApi.storage.set(APP_VERSION_KEY, appVersion);
     };
 
-    setIsFirstRunFalse = () => {
+    setIsFirstRunFalse = (): void => {
         this.isFirstRun = false;
     };
 }

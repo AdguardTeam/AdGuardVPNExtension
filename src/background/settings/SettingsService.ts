@@ -9,23 +9,45 @@ import {
     complementExclusions,
 } from '../exclusions/exclusions-helpers';
 import { ExclusionState } from '../../common/exclusionsConstants';
+import { StorageInterface } from '../browserApi/storage';
+import { ExclusionInterface } from '../exclusions/exclusions/exclusionsTypes';
 
 const SCHEME_VERSION = '10';
 const THROTTLE_TIMEOUT = 100;
 
+type Settings = {
+    [key: string]: any;
+};
+
+type MigrationFunctions = {
+    [key: number]: (oldSettings: Settings) => Settings;
+};
+
+type OldExclusion = {
+    id: string;
+    enabled: boolean;
+    hostname: string;
+};
+
 export class SettingsService {
-    constructor(storage, defaults) {
+    storage: StorageInterface;
+
+    defaults: Settings;
+
+    settings: Settings;
+
+    constructor(storage: StorageInterface, defaults: Settings) {
         this.storage = storage;
         this.defaults = defaults;
     }
 
     SETTINGS_KEY = 'settings.service.key';
 
-    async init() {
+    async init(): Promise<void> {
         let settings;
         try {
             settings = await this.storage.get(this.SETTINGS_KEY);
-        } catch (e) {
+        } catch (e: any) {
             log.error(`Was unable to get ${this.SETTINGS_KEY} from storage, due to: `, e.message);
         }
         if (!settings) {
@@ -39,7 +61,7 @@ export class SettingsService {
         this.settings = await this.checkSchemeMatch(settings);
     }
 
-    migrateFrom1to2 = (oldSettings) => {
+    migrateFrom1to2 = (oldSettings: Settings) => {
         const exclusions = oldSettings[SETTINGS_IDS.EXCLUSIONS];
 
         const newExclusions = {
@@ -55,7 +77,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom2to3 = (oldSettings) => {
+    migrateFrom2to3 = (oldSettings: Settings) => {
         return {
             ...oldSettings,
             VERSION: '3',
@@ -63,7 +85,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom3to4 = (oldSettings) => {
+    migrateFrom3to4 = (oldSettings: Settings) => {
         return {
             ...oldSettings,
             VERSION: '4',
@@ -72,7 +94,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom4to5 = (oldSettings) => {
+    migrateFrom4to5 = (oldSettings: Settings) => {
         const exclusions = oldSettings[SETTINGS_IDS.EXCLUSIONS];
 
         const newExclusions = {
@@ -88,7 +110,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom5to6 = async (oldSettings) => {
+    migrateFrom5to6 = async (oldSettings: Settings) => {
         let isSelectedByUser = false;
         // check if no location was saved earlier
         // this is necessary in order to skip already working extensions
@@ -107,7 +129,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom6to7 = (oldSettings) => {
+    migrateFrom6to7 = (oldSettings: Settings) => {
         return {
             ...oldSettings,
             VERSION: '7',
@@ -123,7 +145,7 @@ export class SettingsService {
      * to array of objects:
      * [{ enabled: true, hostname: 'example.org' id: '5idvOJ7fv23sY8aHbe' }]
      */
-    migrateFrom7to8 = (oldSettings) => {
+    migrateFrom7to8 = (oldSettings: Settings) => {
         return {
             ...oldSettings,
             VERSION: '8',
@@ -140,8 +162,8 @@ export class SettingsService {
      * Migration to new settings considering services
      * @param oldSettings
      */
-    migrateFrom8to9 = async (oldSettings) => {
-        const updateExclusionsState = (oldExclusions) => {
+    migrateFrom8to9 = async (oldSettings: Settings) => {
+        const updateExclusionsState = (oldExclusions: OldExclusion[]) => {
             return oldExclusions.map((exclusion) => {
                 return {
                     id: exclusion.id,
@@ -153,9 +175,9 @@ export class SettingsService {
 
         const services = await servicesManager.getServicesForMigration();
 
-        const migrateExclusions = (exclusions) => {
+        const migrateExclusions = (exclusions: OldExclusion[]) => {
             const exclusionsWithUpdatedState = updateExclusionsState(exclusions);
-            const complementedExclusions = complementExclusions(exclusionsWithUpdatedState);
+            const complementedExclusions = complementExclusions(exclusionsWithUpdatedState as ExclusionInterface[]);
             const exclusionsComplementedWithServices = complementedExclusionsWithServices(
                 complementedExclusions,
                 services,
@@ -180,7 +202,7 @@ export class SettingsService {
         };
     };
 
-    migrateFrom9to10 = async (oldSettings) => {
+    migrateFrom9to10 = async (oldSettings: Settings) => {
         return {
             ...oldSettings,
             VERSION: '10',
@@ -194,7 +216,7 @@ export class SettingsService {
      * For example if your migration function migrates your settings from scheme 4 to 5, then add
      * it under number 4
      */
-    migrationFunctions = {
+    migrationFunctions: MigrationFunctions = {
         1: this.migrateFrom1to2,
         2: this.migrateFrom2to3,
         3: this.migrateFrom3to4,
@@ -206,7 +228,7 @@ export class SettingsService {
         9: this.migrateFrom9to10,
     };
 
-    async applyMigrations(oldVersion, newVersion, oldSettings) {
+    async applyMigrations(oldVersion: number, newVersion: number, oldSettings: Settings): Promise<Settings> {
         let newSettings = { ...oldSettings };
         for (let i = oldVersion; i < newVersion; i += 1) {
             const migrationFunction = this.migrationFunctions[i];
@@ -226,7 +248,7 @@ export class SettingsService {
      * @param oldSettings
      * @returns {{VERSION: *}}
      */
-    async migrateSettings(oldSettings) {
+    async migrateSettings(oldSettings: Settings): Promise<Settings> {
         log.info(`Settings were converted from ${oldSettings.VERSION} to ${SCHEME_VERSION}`);
         let newSettings;
 
@@ -245,7 +267,7 @@ export class SettingsService {
         return newSettings;
     }
 
-    checkSchemeMatch(settings) {
+    checkSchemeMatch(settings: Settings): Settings | Promise<Settings> {
         const version = settings.VERSION;
         if (version === SCHEME_VERSION) {
             return settings;
@@ -258,20 +280,20 @@ export class SettingsService {
         await this.storage.set(this.SETTINGS_KEY, settings);
     }, THROTTLE_TIMEOUT, { leading: false });
 
-    setSetting(key, value) {
+    setSetting(key: string, value: any): void {
         this.settings[key] = value;
         this.persist();
     }
 
-    getSetting(key) {
+    getSetting(key: string): any {
         return this.settings && this.settings[key];
     }
 
-    getSettings() {
+    getSettings(): Settings {
         return this.settings;
     }
 
-    async clearSettings() {
+    async clearSettings(): Promise<void> {
         this.settings = {};
         await this.storage.remove(this.SETTINGS_KEY);
     }

@@ -34,6 +34,7 @@ describe('SettingsService', () => {
         };
 
         beforeEach(() => {
+            // @ts-ignore
             settingsService = new SettingsService(storage, defaults);
         });
 
@@ -79,6 +80,7 @@ describe('SettingsService', () => {
 
     describe('updates values', () => {
         beforeEach(() => {
+            // @ts-ignore
             settingsService = new SettingsService(storage, defaults);
             settingsService.init();
         });

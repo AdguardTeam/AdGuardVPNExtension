@@ -14,7 +14,7 @@ export class NetworkConnectionObserver {
         window.addEventListener('online', this.connectionHandler);
     }
 
-    connectionHandler = async () => {
+    connectionHandler = async (): Promise<void> => {
         log.debug('Browser switched to online mode');
 
         // always when connection is online we should check permissions

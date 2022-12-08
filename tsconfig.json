@@ -8,6 +8,7 @@
       "DOM",
       "DOM.Iterable"
     ],
+    "resolveJsonModule": true,
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "allowJs": true,

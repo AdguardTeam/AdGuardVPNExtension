@@ -9,6 +9,13 @@ import { notifier } from '../../lib/notifier';
 import { NON_ROUTABLE_CIDR_NETS } from './constants';
 import tabs from '../tabs';
 import { getHostname } from '../../common/url-utils';
+import { StorageInterface } from '../browserApi/storage';
+
+export interface NonRoutableServiceInterface {
+    init(): Promise<void>;
+    isUrlRoutable(url: string): boolean;
+    getNonRoutableList(): string[];
+}
 
 /**
  * This module notifies user about non routable domains
@@ -31,7 +38,7 @@ import { getHostname } from '../../common/url-utils';
  * Since these two events may occur in an indefinite order, we save them in the two storages with
  * timestamps and remove them after some time or if we find match.
  */
-class NonRoutableService {
+export class NonRoutableService implements NonRoutableServiceInterface {
     NON_ROUTABLE_KEY = 'non-routable.storage.key';
 
     NON_ROUTABLE_MAX_LENGTH = 1000;
@@ -42,14 +49,18 @@ class NonRoutableService {
 
     LOCALHOST = 'localhost';
 
-    nonRoutableList = [];
+    nonRoutableList: string[] = [];
 
-    constructor(storage) {
+    private storage: StorageInterface;
+
+    private parsedCIDRList: [(ipaddr.IPv4 | ipaddr.IPv6), number][];
+
+    constructor(storage: StorageInterface) {
         this.storage = storage;
         this.parsedCIDRList = NON_ROUTABLE_CIDR_NETS.map((net) => ipaddr.parseCIDR(net));
     }
 
-    async init() {
+    async init(): Promise<void> {
         this.nonRoutableList = (await this.storage.get(this.NON_ROUTABLE_KEY)) || [];
 
         notifier.addSpecifiedListener(
@@ -75,13 +86,13 @@ class NonRoutableService {
      * Storage for hostnames from request errors
      * @type {Map<string, {timeAdded: number, tabId: number, url: string}>}
      */
-    webRequestErrorHostnames = new Map();
+    webRequestErrorHostnames: Storage | Map<string, { [key: string]: any }> = new Map();
 
     /**
      * Storage for for hostnames from non-routable events
      * @type {Map<string, {timeAdded: number}>}
      */
-    nonRoutableHostnames = new Map();
+    nonRoutableHostnames: Storage | Map<string, { [key: string]: any }> = new Map();
 
     /**
      * Looks up for hostname in the storage, if found removes it from storage
@@ -89,7 +100,7 @@ class NonRoutableService {
      * @param {Map<string, {timeAdded: number, tabId: number, url: string}> | Map<string, {timeAdded: number}>} storage
      * @returns {null | {timeAdded: number, tabId: number, url: string} | {timeAdded: number}}
      */
-    getByHostname = (hostname, storage) => {
+    getByHostname = (hostname: string, storage: Storage | Map<string, { [key: string]: any }>) => {
         if (storage.has(hostname)) {
             const value = storage.get(hostname);
             storage.delete(hostname);
@@ -101,12 +112,13 @@ class NonRoutableService {
 
     /**
      * Clears values in the storage with timestamp older then VALUE_TTL_MS
-     * @param {Map<string, number>} storage
+     * @param storage
      */
-    clearStaleValues = (storage) => {
+    clearStaleValues = (storage: Storage | Map<string, { [key: string]: any }>): void => {
         const VALUE_TTL_MS = 1000;
         const currentTime = Date.now();
         // eslint-disable-next-line no-restricted-syntax
+        // @ts-ignore
         for (const [key, value] of storage) {
             if (value.timeAdded < (currentTime - VALUE_TTL_MS)) {
                 storage.delete(key);
@@ -119,11 +131,14 @@ class NonRoutableService {
      * else saves it in the storage with current time
      * @param nonRoutableDomain
      */
-    handleNonRoutableDomains = (nonRoutableDomain) => {
+    handleNonRoutableDomains = (nonRoutableDomain: string): void => {
         if (!nonRoutableDomain) {
             return;
         }
         const hostname = getHostname(nonRoutableDomain);
+        if (!hostname) {
+            return;
+        }
         const webRequestError = this.getByHostname(hostname, this.webRequestErrorHostnames);
         if (webRequestError) {
             this.addNewNonRoutableDomain(hostname);
@@ -140,7 +155,7 @@ class NonRoutableService {
      * non-routable hostnames, if founds same hostname then adds it to the list of
      * non-routable hostnames, otherwise saves it the storage
      */
-    handleWebRequestErrors = (details) => {
+    handleWebRequestErrors = (details: browser.WebRequest.OnErrorOccurredDetailsType | browser.WebRequest.OnHeadersReceivedDetailsType): void => {
         const MAIN_FRAME = 'main_frame';
         const ERROR = 'net::ERR_TUNNEL_CONNECTION_FAILED';
         const STATUS_CODE = 502;
@@ -175,9 +190,9 @@ class NonRoutableService {
 
     /**
      * Adds hostname in the storage and notifies exclusions, to add hostname in the list
-     * @param {string} hostname
+     * @param hostname
      */
-    addNewNonRoutableDomain(hostname) {
+    addNewNonRoutableDomain(hostname: string): void {
         this.addHostname(hostname);
         notifier.notifyListeners(notifier.types.NON_ROUTABLE_DOMAIN_ADDED, hostname);
     }
@@ -190,7 +205,7 @@ class NonRoutableService {
         await this.storage.set(this.NON_ROUTABLE_KEY, this.nonRoutableList);
     }, this.STORAGE_UPDATE_TIMEOUT_MS);
 
-    addHostname(hostname) {
+    addHostname(hostname: string): void {
         if (this.nonRoutableList.includes(hostname)) {
             return;
         }
@@ -198,7 +213,7 @@ class NonRoutableService {
         this.updateStorage();
     }
 
-    isUrlRoutable(url) {
+    isUrlRoutable(url: string): boolean {
         const hostname = getHostname(url);
         if (!hostname) {
             return true;
@@ -222,9 +237,7 @@ class NonRoutableService {
         return !this.parsedCIDRList.some((parsedCIDR) => addr.match(parsedCIDR));
     }
 
-    getNonRoutableList() {
+    getNonRoutableList(): string[] {
         return this.nonRoutableList;
     }
 }
-
-export default NonRoutableService;

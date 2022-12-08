@@ -1,5 +1,15 @@
-const AuthCache = () => {
-    const DEFAULTS = {
+interface AuthCacheData {
+    [key: string]: boolean | null | string;
+}
+
+interface AuthCacheInterface {
+    updateCache(field: string, value: boolean | null | string): void;
+    getCache(): AuthCacheData;
+    clearCache(): void;
+}
+
+const AuthCache = (): AuthCacheInterface => {
+    const DEFAULTS: AuthCacheData = {
         username: '',
         password: '',
         confirmPassword: '',
@@ -16,7 +26,7 @@ const AuthCache = () => {
     /**
      * Sets values to default
      */
-    const clearCache = () => {
+    const clearCache = (): void => {
         authCache = { ...DEFAULTS };
     };
 
@@ -25,7 +35,7 @@ const AuthCache = () => {
      * @param {string} field
      * @param {string|boolean} value
      */
-    const updateCache = (field, value) => {
+    const updateCache = (field: string, value: boolean | null | string): void => {
         authCache[field] = value;
     };
 
@@ -33,7 +43,7 @@ const AuthCache = () => {
      * Returns all values
      * @returns {{step, login, username}}
      */
-    const getCache = () => authCache;
+    const getCache = (): AuthCacheData => authCache;
 
     return {
         updateCache,
@@ -42,6 +52,4 @@ const AuthCache = () => {
     };
 };
 
-const authCache = AuthCache();
-
-export default authCache;
+export const authCache = AuthCache();

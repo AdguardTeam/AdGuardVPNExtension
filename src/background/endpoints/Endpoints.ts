@@ -48,7 +48,7 @@ import { VpnTokenData } from '../credentials/Credentials';
 export interface EndpointsInterface {
     refreshData(): Promise<void>;
     getVpnInfo(): Promise<VpnExtensionInfoInterface | null>;
-    getSelectedLocation(): Promise<any>;
+    getSelectedLocation(): Promise<LocationWithPing | null>;
     getLocations(): LocationWithPing[];
     getVpnFailurePage(): Promise<string>;
     init(): void;
@@ -357,7 +357,7 @@ class Endpoints implements EndpointsInterface {
         return locations;
     };
 
-    getSelectedLocation = async (): Promise<any> => {
+    getSelectedLocation = async (): Promise<LocationWithPing | null> => {
         const selectedLocation = await locationsService.getSelectedLocation();
         const isLocationSelectedByUser = await locationsService.getIsLocationSelectedByUser();
         const isVPNDisabled = isVPNDisconnectedIdle();

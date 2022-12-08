@@ -6,7 +6,7 @@ import { settings } from '../../settings';
 import { proxy } from '../../proxy';
 import { ExclusionInterface, IndexedExclusionsInterface } from './exclusionsTypes';
 
-interface PersistedExclusions {
+export interface PersistedExclusions {
     [ExclusionsModes.Regular]: ExclusionInterface[];
     [ExclusionsModes.Selective]: ExclusionInterface[];
     inverted: boolean;

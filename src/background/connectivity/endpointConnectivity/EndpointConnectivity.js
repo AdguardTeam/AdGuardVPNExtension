@@ -7,7 +7,7 @@ import { proxy } from '../../proxy';
 import { log } from '../../../lib/logger';
 import { dns } from '../../dns';
 import { sendPingMessage } from '../pingHelpers';
-import webrtc from '../../browserApi/webrtc';
+import { webrtc } from '../../browserApi/webrtc';
 import { EVENT, MIN_CONNECTION_DURATION_MS } from '../connectivityService/connectivityConstants';
 import { sleepIfNecessary } from '../../../lib/helpers';
 // eslint-disable-next-line import/no-cycle

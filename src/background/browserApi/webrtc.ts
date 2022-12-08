@@ -72,6 +72,4 @@ class WebRTC implements WebRTCInterface {
     };
 }
 
-const webrtc = new WebRTC();
-
-export default webrtc;
+export const webrtc = new WebRTC();

@@ -1,4 +1,4 @@
-import AppStatus from '../../../src/background/appStatus/AppStatus';
+import { AppStatus } from '../../../src/background/appStatus/AppStatus';
 import { LEVELS_OF_CONTROL } from '../../../src/background/proxy/proxyConsts';
 
 const buildProxy = (response) => {

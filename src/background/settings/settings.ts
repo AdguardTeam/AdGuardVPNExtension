@@ -5,9 +5,29 @@ import { notifier } from '../../lib/notifier';
 import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT } from '../../lib/constants';
 import { dns } from '../dns';
 import { DEFAULT_DNS_SERVER } from '../dns/dnsConstants';
-import webrtc from '../browserApi/webrtc';
+import { webrtc } from '../browserApi/webrtc';
 import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
 import { EVENT } from '../connectivity/connectivityService/connectivityConstants';
+import { DnsServerData } from '../../common/components/constants';
+import { PersistedExclusions } from '../exclusions/exclusions/ExclusionsManager';
+
+export interface SettingsInterface {
+    init(): Promise<void>;
+    getSetting(id: string): any;
+    setSetting(id: string, value: any, force?: boolean): Promise<boolean>;
+    disableProxy(force?: boolean): Promise<void>;
+    enableProxy(force?: boolean): Promise<void>;
+    isProxyEnabled(): boolean;
+    SETTINGS_IDS: { [key: string]: boolean | string };
+    settingsService: SettingsService;
+    applySettings(): void;
+    getExclusions (): PersistedExclusions;
+    setExclusions(exclusions: PersistedExclusions): void;
+    isContextMenuEnabled(): boolean;
+    getCustomDnsServers(): DnsServerData[];
+    setCustomDnsServers(dnsServersData: DnsServerData[]): void;
+    getSelectedDnsServer(): string;
+}
 
 const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.PROXY_ENABLED]: false,
@@ -29,12 +49,12 @@ const settingsService = new SettingsService(browserApi.storage, DEFAULT_SETTINGS
  * Returns proxy settings enabled status
  * @returns {boolean}
  */
-const isProxyEnabled = () => {
+const isProxyEnabled = (): boolean => {
     const setting = settingsService.getSetting(SETTINGS_IDS.PROXY_ENABLED);
     return setting === true;
 };
 
-const setSetting = async (id, value, force) => {
+const setSetting = async (id: string, value: any, force?: boolean): Promise<boolean> => {
     const setting = settingsService.getSetting(id);
 
     // No need to change same value unless is not force set
@@ -44,11 +64,11 @@ const setSetting = async (id, value, force) => {
 
     switch (id) {
         case SETTINGS_IDS.HANDLE_WEBRTC_ENABLED: {
-            webrtc.setWebRTCHandlingAllowed(value, isProxyEnabled());
+            webrtc.setWebRTCHandlingAllowed(value as boolean, isProxyEnabled());
             break;
         }
         case SETTINGS_IDS.SELECTED_DNS_SERVER: {
-            dns.setDnsServer(value);
+            dns.setDnsServer(value as string);
             break;
         }
         default: {
@@ -62,7 +82,7 @@ const setSetting = async (id, value, force) => {
     return true;
 };
 
-const disableProxy = async (force) => {
+const disableProxy = async (force?: boolean): Promise<void> => {
     const shouldApply = await setSetting(SETTINGS_IDS.PROXY_ENABLED, false, force);
 
     if (!shouldApply) {
@@ -72,7 +92,7 @@ const disableProxy = async (force) => {
     connectivityService.send(EVENT.DISCONNECT_BTN_PRESSED);
 };
 
-const enableProxy = async (force) => {
+const enableProxy = async (force?: boolean): Promise<void> => {
     const shouldApply = await setSetting(SETTINGS_IDS.PROXY_ENABLED, true, force);
 
     if (!shouldApply) {
@@ -87,13 +107,13 @@ const enableProxy = async (force) => {
  * @param settingId
  * @returns {boolean}
  */
-const isSettingEnabled = (settingId) => {
+const isSettingEnabled = (settingId: string): boolean => {
     const enabledSettingValue = true;
     const settingValue = settingsService.getSetting(settingId);
     return settingValue === enabledSettingValue;
 };
 
-const applySettings = () => {
+const applySettings = (): void => {
     const proxyEnabled = isProxyEnabled();
 
     // Set WebRTC
@@ -113,41 +133,41 @@ const applySettings = () => {
     log.info('Settings were applied');
 };
 
-const getSetting = (id) => {
+const getSetting = (id: string): any => {
     return settingsService.getSetting(id);
 };
 
-const getExclusions = () => {
+const getExclusions = (): PersistedExclusions => {
     return settingsService.getSetting(SETTINGS_IDS.EXCLUSIONS) || {};
 };
 
-const setExclusions = (exclusions) => {
+const setExclusions = (exclusions: PersistedExclusions): void => {
     settingsService.setSetting(SETTINGS_IDS.EXCLUSIONS, exclusions);
 };
 
-const isContextMenuEnabled = () => {
+const isContextMenuEnabled = (): boolean => {
     return settingsService.getSetting(SETTINGS_IDS.CONTEXT_MENU_ENABLED);
 };
 
-const getCustomDnsServers = () => {
+const getCustomDnsServers = (): DnsServerData[] => {
     return settingsService.getSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS);
 };
 
-const setCustomDnsServers = (dnsServersData) => {
+const setCustomDnsServers = (dnsServersData: DnsServerData[]): void => {
     return settingsService.setSetting(SETTINGS_IDS.CUSTOM_DNS_SERVERS, dnsServersData);
 };
 
-const getSelectedDnsServer = () => {
+const getSelectedDnsServer = (): string => {
     return settingsService.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER);
 };
 
-const init = async () => {
+const init = async (): Promise<void> => {
     await settingsService.init();
     dns.init();
     log.info('Settings module is ready');
 };
 
-export const settings = {
+export const settings: SettingsInterface = {
     init,
     getSetting,
     setSetting,

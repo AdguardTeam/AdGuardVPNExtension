@@ -12,7 +12,17 @@ export const BROWSER_NAMES = {
     YA_BROWSER: 'YaBrowser',
 };
 
-export const Prefs = {
+interface PrefsInterface {
+    ICONS: {
+        [key: string]: {
+            [key: number]: string,
+        },
+    };
+    browser: string;
+    isFirefox(): boolean;
+}
+
+export const Prefs: PrefsInterface = {
     get ICONS() {
         return lazyGet(Prefs, 'ICONS', () => ({
             ENABLED: {
@@ -33,7 +43,11 @@ export const Prefs = {
         }));
     },
 
-    get browser() {
+    isFirefox(): boolean {
+        return this.browser === BROWSER_NAMES.FIREFOX;
+    },
+
+    get browser(): string {
         return lazyGet(Prefs, 'browser', () => {
             let browser;
             let { userAgent } = navigator;
@@ -55,6 +69,4 @@ export const Prefs = {
             return browser;
         });
     },
-
-    // FIXME: add isFirefox()
 };
