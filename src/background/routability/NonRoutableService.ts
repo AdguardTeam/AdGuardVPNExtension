@@ -118,7 +118,6 @@ export class NonRoutableService implements NonRoutableServiceInterface {
         const VALUE_TTL_MS = 1000;
         const currentTime = Date.now();
         // eslint-disable-next-line no-restricted-syntax
-        // @ts-ignore
         for (const [key, value] of storage) {
             if (value.timeAdded < (currentTime - VALUE_TTL_MS)) {
                 storage.delete(key);

@@ -1,14 +1,14 @@
 import { log } from '../../../lib/logger';
 
-const websocketFactory = (() => {
-    let ws;
+export const websocketFactory = (() => {
+    let ws: WebSocket;
 
     /**
      * Creates new websocket and closes the old one if found
      * @param {string} url
      * @returns {WebSocket}
      */
-    const createWebsocket = (url) => {
+    const createWebsocket = (url: string): WebSocket => {
         if (!url) {
             throw new Error('Url expected to be provided');
         }
@@ -32,5 +32,3 @@ const websocketFactory = (() => {
         createWebsocket,
     };
 })();
-
-export default websocketFactory;

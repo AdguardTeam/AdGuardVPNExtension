@@ -4,7 +4,7 @@ import { actions } from './actions';
 import { appStatus } from './appStatus';
 import auth from './auth';
 import { authCache } from './authentication';
-import connectivity from './connectivity';
+import { connectivity } from './connectivity';
 import { contextMenu } from './contextMenu';
 import { credentials } from './credentials';
 import { endpoints } from './endpoints';

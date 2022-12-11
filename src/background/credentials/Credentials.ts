@@ -22,7 +22,7 @@ export interface VpnTokenData {
     };
 }
 
-interface AccessCredentialsData {
+export interface AccessCredentialsData {
     credentialsHash: string,
     credentials: {
         username: string | null,

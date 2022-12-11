@@ -35,7 +35,7 @@ const decodeMessage = (arrBufMessage: ArrayBuffer) => {
  * @param {string} appId
  * @returns {Promise<number>}
  */
-export const sendPingMessage = (websocket: WebSocket, vpnToken: string, appId: string) => {
+export const sendPingMessage = (websocket: WebSocket, vpnToken: string, appId: string): Promise<number> => {
     const PING_TIMEOUT_MS = 3000;
     const arrBufMessage = preparePingMessage(Date.now(), vpnToken, appId);
 

@@ -1,5 +1,5 @@
 import { WsConnectivityMsg, WsSettingsMsg } from '../protobufCompiled';
-import websocketFactory from '../websocket/websocketFactory';
+import { websocketFactory } from '../websocket';
 import { WS_API_URL_TEMPLATE } from '../../config';
 import { renderTemplate } from '../../../lib/string-utils';
 import { notifier } from '../../../lib/notifier';
@@ -17,28 +17,45 @@ import { credentials } from '../../credentials';
 import { notifications } from '../../notifications';
 import { translator } from '../../../common/translator';
 
-class EndpointConnectivity {
+interface EndpointConnectivityInterface {
+    setCredentials(domainName: string, vpnToken: string, credentialsHash: string): void;
+    isWebsocketConnectionOpen(): boolean;
+    start(entryTime?: number): void;
+    stop(): Promise<void>;
+}
+
+export class EndpointConnectivity implements EndpointConnectivityInterface {
     PING_SEND_INTERVAL_MS = 1000 * 60;
 
     /**
      * If WS didn't connect in this time, stop connection
-     * @type {number}
      */
     CONNECTION_TIMEOUT_MS = 4000;
 
     /**
      * Used to clear timeout function if WS connection succeeded
      * or failed faster than connection timeout fired
-     * @type {null|number}
      */
-    connectionTimeoutId = null;
+    connectionTimeoutId: NodeJS.Timeout | null = null;
+
+    private credentialsHash: any;
+
+    private domainName: string;
+
+    private vpnToken: string;
+
+    private ws: WebSocket;
+
+    private entryTime: number;
+
+    private pingSendIntervalId: NodeJS.Timeout;
 
     constructor() {
         notifier.addSpecifiedListener(notifier.types.CREDENTIALS_UPDATED, this.updateCredentials);
         notifier.addSpecifiedListener(notifier.types.DNS_SERVER_SET, this.sendDnsServerIp);
     }
 
-    updateCredentials = async () => {
+    updateCredentials = async (): Promise<void> => {
         let vpnToken;
         let credentialsHash;
         try {
@@ -65,7 +82,7 @@ class EndpointConnectivity {
         await this.setCredentials(domainName, vpnToken, credentialsHash);
     };
 
-    setCredentials(domainName, vpnToken, credentialsHash) {
+    setCredentials(domainName: string, vpnToken: string, credentialsHash: string): void {
         this.vpnToken = vpnToken;
         this.domainName = domainName;
         this.credentialsHash = credentialsHash;
@@ -88,7 +105,7 @@ class EndpointConnectivity {
      * @param closeEvent
      * @returns {Promise<void>}
      */
-    handleWebsocketClose = async (closeEvent) => {
+    handleWebsocketClose = async (closeEvent: WebSocketEventMap['close']): Promise<void> => {
         log.debug('WS closed:', closeEvent);
 
         if (this.connectionTimeoutId) {
@@ -103,7 +120,7 @@ class EndpointConnectivity {
         connectivityService.send(EVENT.WS_CLOSE);
     };
 
-    handleWebsocketOpen = async () => {
+    handleWebsocketOpen = async (): Promise<void> => {
         if (this.connectionTimeoutId) {
             clearTimeout(this.connectionTimeoutId);
         }
@@ -125,7 +142,7 @@ class EndpointConnectivity {
 
         try {
             await proxy.turnOn();
-        } catch (e) {
+        } catch (e: any) {
             // we can't connect to the proxy because other extensions are controlling it
             // stop trying to connect
             connectivityService.send(EVENT.PROXY_CONNECTION_ERROR);
@@ -140,7 +157,7 @@ class EndpointConnectivity {
     /**
      * Handles WS errors
      */
-    handleWebsocketError = async (errorEvent) => {
+    handleWebsocketError = async (errorEvent: WebSocketEventMap['error']): Promise<void> => {
         if (this.connectionTimeoutId) {
             clearTimeout(this.connectionTimeoutId);
         }
@@ -154,15 +171,17 @@ class EndpointConnectivity {
         connectivityService.send(EVENT.WS_ERROR);
     };
 
-    isWebsocketConnectionOpen = () => {
+    isWebsocketConnectionOpen = (): boolean => {
         if (this.ws) {
             return this.ws.readyState === this.ws.OPEN;
         }
         return false;
     };
 
-    start = (entryTime) => {
-        this.entryTime = entryTime;
+    start = (entryTime?: number): void => {
+        if (entryTime) {
+            this.entryTime = entryTime;
+        }
 
         if (this.connectionTimeoutId) {
             clearTimeout(this.connectionTimeoutId);
@@ -185,7 +204,7 @@ class EndpointConnectivity {
         }, this.CONNECTION_TIMEOUT_MS);
     };
 
-    stop = async () => {
+    stop = async (): Promise<void> => {
         if (this.pingSendIntervalId) {
             clearInterval(this.pingSendIntervalId);
         }
@@ -202,7 +221,7 @@ class EndpointConnectivity {
         webrtc.unblockWebRTC();
     };
 
-    decodeMessage = (arrBufMessage) => {
+    decodeMessage = (arrBufMessage: ArrayBuffer) => {
         const message = WsConnectivityMsg.decode(new Uint8Array(arrBufMessage));
         return WsConnectivityMsg.toObject(message);
     };
@@ -210,9 +229,8 @@ class EndpointConnectivity {
     /**
      * Ping messages are used in backend in order to determine sessions start,
      * getting stats and keeping ws alive
-     * @returns {Promise<null|number>}
      */
-    sendPingMessage = async () => {
+    sendPingMessage = async (): Promise<number | null> => {
         const appId = await credentials.getAppId();
         try {
             const ping = await sendPingMessage(this.ws, this.vpnToken, appId);
@@ -223,26 +241,26 @@ class EndpointConnectivity {
         }
     };
 
-    startSendingPingMessages = () => {
+    startSendingPingMessages = (): void => {
         if (this.pingSendIntervalId) {
             clearInterval(this.pingSendIntervalId);
         }
         this.pingSendIntervalId = setInterval(async () => {
             try {
                 await this.sendPingMessage();
-            } catch (e) {
+            } catch (e: any) {
                 log.debug(e.message);
             }
         }, this.PING_SEND_INTERVAL_MS);
     };
 
-    prepareDnsSettingsMessage = (dnsIp) => {
+    prepareDnsSettingsMessage = (dnsIp: string): ArrayBuffer => {
         const settingsMsg = WsSettingsMsg.create({ dnsServer: dnsIp });
         const protocolMsg = WsConnectivityMsg.create({ settingsMsg });
         return WsConnectivityMsg.encode(protocolMsg).finish();
     };
 
-    sendDnsServerIp = (dnsIp) => {
+    sendDnsServerIp = (dnsIp: string): void => {
         if (!this.ws) {
             return;
         }
@@ -256,7 +274,7 @@ class EndpointConnectivity {
      * @param infoMsg
      * @returns {Promise<void>}
      */
-    handleInfoMsg = async (infoMsg) => {
+    handleInfoMsg = async (infoMsg : { refreshTokens: boolean }): Promise<void> => {
         const { refreshTokens } = infoMsg;
 
         if (refreshTokens) {
@@ -264,7 +282,7 @@ class EndpointConnectivity {
         }
     };
 
-    handleErrorMsg = async (connectivityErrorMsg) => {
+    handleErrorMsg = async (connectivityErrorMsg: { code: string, payload: number }): Promise<void> => {
         const NON_ROUTABLE_CODE = 'NON_ROUTABLE';
         const TOO_MANY_DEVICES_CONNECTED = 'TOO_MANY_DEVICES_CONNECTED';
         const TRAFFIC_LIMIT_REACHED = 'TRAFFIC_LIMIT_REACHED';
@@ -293,8 +311,8 @@ class EndpointConnectivity {
         }
     };
 
-    startGettingConnectivityInfo = () => {
-        const messageHandler = async (event) => {
+    startGettingConnectivityInfo = (): void => {
+        const messageHandler = async (event: WebSocketEventMap['message']) => {
             const { connectivityInfoMsg, connectivityErrorMsg } = this.decodeMessage(event.data);
 
             if (connectivityInfoMsg) {
@@ -309,5 +327,3 @@ class EndpointConnectivity {
         this.ws.addEventListener('message', messageHandler);
     };
 }
-
-export default EndpointConnectivity;

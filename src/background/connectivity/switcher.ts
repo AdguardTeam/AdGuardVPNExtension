@@ -12,9 +12,14 @@ import { locationsService } from '../endpoints/locationsService';
 // eslint-disable-next-line import/no-cycle
 import { endpoints } from '../endpoints';
 // eslint-disable-next-line import/no-cycle
-import connectivity from './index';
+import { connectivity } from './index';
 // eslint-disable-next-line import/no-cycle
 import { connectivityService, setDesktopVpnEnabled } from './connectivityService/connectivityFSM';
+import { AccessCredentialsData } from '../credentials/Credentials';
+import { LocationInterface } from '../endpoints/Location';
+import { EndpointInterface } from '../endpoints/Endpoint';
+import { VpnConnectionStatus } from '../api/vpnApi';
+import { AccessCredentials } from '../proxy/proxy';
 
 /**
  * Turns on proxy after doing preparing steps
@@ -29,7 +34,7 @@ import { connectivityService, setDesktopVpnEnabled } from './connectivityService
 function* turnOnProxy(forcePrevEndpoint = false) {
     const entryTime = Date.now();
     try {
-        const desktopVpnConnection = yield vpnApi.getDesktopVpnConnectionStatus();
+        const desktopVpnConnection: VpnConnectionStatus = yield vpnApi.getDesktopVpnConnectionStatus();
 
         if (desktopVpnConnection?.connected) {
             setDesktopVpnEnabled(true);
@@ -37,28 +42,30 @@ function* turnOnProxy(forcePrevEndpoint = false) {
         }
 
         yield credentials.trackInstallation();
-        const selectedLocation = yield locationsService.getSelectedLocation();
-        const selectedEndpoint = yield locationsService.getEndpointByLocation(
-            selectedLocation,
-            forcePrevEndpoint,
-        );
+        const selectedLocation: LocationInterface | null = yield locationsService.getSelectedLocation();
+        if (selectedLocation) {
+            const selectedEndpoint: EndpointInterface | null = yield locationsService.getEndpointByLocation(
+                selectedLocation,
+                forcePrevEndpoint,
+            );
 
-        if (selectedEndpoint) {
-            yield proxy.setCurrentEndpoint(selectedEndpoint, selectedLocation);
+            if (selectedEndpoint) {
+                yield proxy.setCurrentEndpoint(selectedEndpoint, selectedLocation);
+            }
         }
 
-        const accessCredentials = yield credentials.getAccessCredentials();
+        const accessCredentials: AccessCredentialsData = yield credentials.getAccessCredentials();
 
-        const { domainName } = yield proxy.setAccessCredentials(accessCredentials.credentials);
+        const { domainName } = yield proxy.setAccessCredentials(accessCredentials.credentials as AccessCredentials);
 
         connectivity.endpointConnectivity.setCredentials(
             domainName,
-            accessCredentials.token,
+            accessCredentials.token as string,
             accessCredentials.credentialsHash,
         );
 
         connectivity.endpointConnectivity.start(entryTime);
-    } catch (e) {
+    } catch (e: any) {
         log.debug(e.message);
         yield sleepIfNecessary(entryTime, MIN_CONNECTION_DURATION_MS);
         connectivityService.send(EVENT.CONNECTION_FAIL);
@@ -74,7 +81,11 @@ function* turnOffProxy() {
 }
 
 class Switcher {
-    turnOn(forcePrevEndpoint) {
+    private cancel: Function;
+
+    private promise: Promise<unknown>;
+
+    turnOn(forcePrevEndpoint?: boolean) {
         if (this.cancel) {
             this.cancel(FORCE_CANCELLED);
         }
@@ -100,7 +111,7 @@ class Switcher {
      * @param refreshData
      * @returns {Promise<void>}
      */
-    async retryTurnOn(refreshData) {
+    async retryTurnOn(refreshData?: boolean): Promise<void> {
         try {
             await this.turnOff();
             if (refreshData) {

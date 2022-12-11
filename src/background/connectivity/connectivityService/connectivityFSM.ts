@@ -1,4 +1,6 @@
 import { createMachine, interpret, assign } from 'xstate';
+import { AnyEventObject } from 'xstate/lib/types';
+
 import { notifier } from '../../../lib/notifier';
 import { STATE, EVENT } from './connectivityConstants';
 import { log } from '../../../lib/logger';
@@ -11,14 +13,14 @@ const RECONNECTION_DELAY_GROW_FACTOR = 1.3;
 const RETRY_CONNECTION_TIME_MS = 70000; // 70 seconds
 
 const actions = {
-    turnOnProxy: async () => {
+    turnOnProxy: async (): Promise<void> => {
         try {
             await switcher.turnOn();
         } catch (e) {
             log.debug(e);
         }
     },
-    turnOffProxy: async () => {
+    turnOffProxy: async (): Promise<void> => {
         try {
             await switcher.turnOff();
         } catch (e) {
@@ -40,8 +42,9 @@ const actions = {
      * so we bring in 70 seconds threshold after which we treat the unavailability as (2)
      * and try find another one (backend probably has alternatives in this case).
      */
-    retryConnection: async (context) => {
-        if (context.timeSinceLastRetryWithRefreshMs > RETRY_CONNECTION_TIME_MS) {
+    retryConnection: async (context: { timeSinceLastRetryWithRefreshMs: number }): Promise<void> => {
+        if (context.timeSinceLastRetryWithRefreshMs
+            && context.timeSinceLastRetryWithRefreshMs > RETRY_CONNECTION_TIME_MS) {
             // eslint-disable-next-line no-param-reassign
             context.timeSinceLastRetryWithRefreshMs = 0;
             // retry to connect after tokens, VPN info and locations refresh
@@ -52,7 +55,7 @@ const actions = {
         }
     },
 
-    setDesktopVpnEnabled: assign((_ctx, event) => ({
+    setDesktopVpnEnabled: assign((_ctx, event: AnyEventObject) => ({
         desktopVpnEnabled: event.data,
     })),
 };
@@ -73,10 +76,14 @@ const resetOnSuccessfulConnection = assign({
  * Action, which increments count of connection retries and time passed since first retry
  */
 const incrementRetryCount = assign({
-    retryCount: (context) => {
+    retryCount: (context: { retryCount: number }): number => {
         return context.retryCount + 1;
     },
-    timeSinceLastRetryWithRefreshMs: (context) => {
+    // @ts-ignore
+    timeSinceLastRetryWithRefreshMs: (context: {
+        timeSinceLastRetryWithRefreshMs: number,
+        currentReconnectionDelayMs: number,
+    }): number => {
         return context.timeSinceLastRetryWithRefreshMs + context.currentReconnectionDelayMs;
     },
 });
@@ -85,17 +92,20 @@ const incrementRetryCount = assign({
  * Action, which increases delay between reconnection
  */
 const incrementDelay = assign({
-    currentReconnectionDelayMs: (context) => {
-        let delayMs = context.currentReconnectionDelayMs * RECONNECTION_DELAY_GROW_FACTOR;
-        if (delayMs > MAX_RECONNECTION_DELAY_MS) {
-            delayMs = MAX_RECONNECTION_DELAY_MS;
+    currentReconnectionDelayMs: (context: { currentReconnectionDelayMs?: number }): number | undefined => {
+        let delayMs;
+        if (context.currentReconnectionDelayMs) {
+            delayMs = context.currentReconnectionDelayMs * RECONNECTION_DELAY_GROW_FACTOR;
+            if (delayMs > MAX_RECONNECTION_DELAY_MS) {
+                delayMs = MAX_RECONNECTION_DELAY_MS;
+            }
         }
         return delayMs;
     },
 });
 
 const delays = {
-    RETRY_DELAY: (context) => {
+    RETRY_DELAY: (context: { currentReconnectionDelayMs: number }) => {
         return context.currentReconnectionDelayMs;
     },
 };
@@ -221,7 +231,7 @@ const connectivityFSM = createMachine({
 
 export const connectivityService = interpret(connectivityFSM)
     .start()
-    .onEvent((event) => {
+    .onEvent((event: AnyEventObject) => {
         log.debug(event);
         if (event.type === EVENT.DESKTOP_VPN_ENABLED) {
             notifier.notifyListeners(
@@ -237,14 +247,14 @@ export const connectivityService = interpret(connectivityFSM)
 
 connectivityService.start();
 
-export const isVPNConnected = () => {
+export const isVPNConnected = (): boolean => {
     return connectivityService.getSnapshot().matches(STATE.CONNECTED);
 };
 
-export const isVPNDisconnectedIdle = () => {
+export const isVPNDisconnectedIdle = (): boolean => {
     return connectivityService.getSnapshot().matches(STATE.DISCONNECTED_IDLE);
 };
 
-export const setDesktopVpnEnabled = (data) => {
+export const setDesktopVpnEnabled = (data: boolean): void => {
     connectivityService.send(EVENT.DESKTOP_VPN_ENABLED, { data });
 };

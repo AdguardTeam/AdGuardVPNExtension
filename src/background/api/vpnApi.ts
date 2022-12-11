@@ -84,7 +84,7 @@ interface PostExtensionInstalledData extends AxiosResponse {
     social_providers: string[];
 }
 
-interface VpnConnectionStatus extends AxiosResponse {
+export interface VpnConnectionStatus extends AxiosResponse {
     connected: boolean;
 }
 
