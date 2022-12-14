@@ -15,8 +15,8 @@ const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
 const RUSSIAN_LOCALE = 'ru';
 
-const COMMON_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=black_friday_22_vpn&from=popup&app=vpn_extension`;
-const RUSSIAN_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=black_friday_22_vpn_ru&from=popup&app=vpn_extension`;
+const COMMON_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=xmas_promo_23_vpn&from=popup&app=vpn_extension`;
+const RUSSIAN_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=xmas_promo_23_vpn_ru&from=popup&app=vpn_extension`;
 
 const normalizeLanguage = (locale) => {
     if (!locale) {
@@ -29,181 +29,181 @@ const normalizeLanguage = (locale) => {
 const currentLocale = normalizeLanguage(browser.i18n.getUILanguage());
 const promoLink = currentLocale === RUSSIAN_LOCALE ? RUSSIAN_PROMO_LINK : COMMON_PROMO_LINK;
 
-const blackFriday22Notification = {
-    id: 'blackFriday22',
+const xmasPromo23Notification = {
+    id: 'xmasPromo23',
     locales: {
         en: {
-            title: 'Black Friday',
-            btn: 'Get 85% off',
+            title: 'Ho-ho-holiday sale!',
+            btn: 'Get 80% off',
         },
         ru: {
-            title: 'Чёрная пятница',
-            btn: 'Скидка 80%',
+            title: 'Новогодние скидки',
+            btn: 'Вжух! И -75%',
         },
         ja: {
-            title: 'BLACK FRIDAY',
+            title: 'AdGuard Christmas SALE',
             btn: '80%OFF割引をGETする',
         },
         ko: {
-            title: '블랙 프라이데이',
-            btn: '85% 할인',
+            title: '크리스마스 세일',
+            btn: '80% 할인',
         },
         es: {
-            title: 'Black Friday',
-            btn: 'Descuento de 85%',
+            title: 'Promo navideña',
+            btn: 'Descuento de 80%',
         },
         de: {
-            title: 'Black Friday',
-            btn: '85% Rabatt',
+            title: 'AdGuards Weihnachtsangebot',
+            btn: '80% Rabatt',
         },
         pt_pt: {
-            title: 'Black Friday',
-            btn: 'Desconto de 85%',
+            title: 'Promo de Natal',
+            btn: 'Desconto de 80%',
         },
         pt_br: {
-            title: 'Black Friday',
-            btn: 'Desconto de 85%',
+            title: 'Promo de Natal',
+            btn: 'Desconto de 80%',
         },
         zh_tw: {
-            title: '黑五優惠',
-            btn: '享1.5折',
+            title: 'AdGuard 聖誕折扣',
+            btn: '低至2折',
         },
         zh_cn: {
-            title: '黑五优惠',
-            btn: '享1.5折',
+            title: 'AdGuard 圣诞优惠',
+            btn: '低至2折',
         },
         fr: {
-            title: 'Black Friday',
-            btn: '85% de remise',
+            title: 'Promo de Noël chez AdGuard',
+            btn: '80% de remise',
         },
         it: {
-            title: 'Black Friday',
-            btn: '85% di sconto',
+            title: 'Promo di Natale ad AdGuard',
+            btn: '80% di sconto',
         },
         uk: {
-            title: 'Чорна п\'ятниця',
-            btn: 'Знижка 85%',
+            title: 'Новорічний розпродаж',
+            btn: 'Знижка 80%',
         },
         ar: {
-            title: 'الجمعة السوداء',
-            btn: '%خصم 85',
+            title: 'تخفيضات العام الجديد',
+            btn: 'خصم 80٪',
         },
         be: {
-            title: 'Чорная пятніца',
-            btn: '85% зніжка',
+            title: 'Навагоднія скідкі',
+            btn: '80% зніжка',
         },
         bg: {
-            title: 'Черен петък',
-            btn: '85% отстъпка',
+            title: 'Новогодишни отстъпки',
+            btn: '80% отстъпка',
         },
         ca: {
-            title: 'Divendres Negre',
-            btn: '85% de descompte',
+            title: 'Venda de Cap d\'Any',
+            btn: '80% de descompte',
         },
         cs: {
-            title: 'Černý pátek',
-            btn: '85% sleva',
+            title: 'Novoroční výprodej',
+            btn: '80% sleva',
         },
         da: {
-            title: 'Black Friday',
-            btn: '85% rabat',
+            title: 'Nytårsudsalg',
+            btn: '80% rabat',
         },
         el: {
-            title: 'Μαύρη Παρασκευή',
-            btn: '85% έκπτωση',
+            title: 'Εκπτώσεις Πρωτοχρονιάς',
+            btn: '80% έκπτωση',
         },
         fa: {
-            title: 'جمعه سیاه',
-            btn: '85٪ تخفیف',
+            title: 'فروش سال نو',
+            btn: '80٪ تخفیف',
         },
         fi: {
-            title: 'Black Friday',
-            btn: '85% alennus',
+            title: 'Uudenvuoden alennus',
+            btn: '80% alennus',
         },
         he: {
-            title: 'Black Friday',
-            btn: '85% הנחה',
+            title: 'מבצע לשנה החדשה',
+            btn: '80% הנחה',
         },
         hr: {
-            title: 'Crni petak',
-            btn: '85% popusta',
+            title: 'Novogodišnji popusti',
+            btn: '80% popusta',
         },
         hu: {
-            title: 'Fekete péntek',
-            btn: '85% kedvezmény',
+            title: 'Újévi akció',
+            btn: '80% kedvezmény',
         },
         hy: {
-            title: 'Սեւ ուրբաթ',
-            btn: '85% զեղչ',
+            title: 'Ամանորյա զեղչեր',
+            btn: '80% զեղչ',
         },
         id: {
-            title: 'Jumat Hitam',
-            btn: 'Diskon 85%',
+            title: 'Obral Tahun Baru',
+            btn: 'Diskon 80%',
         },
         lt: {
-            title: 'Juodasis penktadienis',
-            btn: '85% nuolaida',
+            title: 'Naujųjų metų nuolaidos',
+            btn: '80% nuolaida',
         },
         ms: {
-            title: 'Jumaat Hitam',
-            btn: 'Diskaun 85%',
+            title: 'Jualan Tahun Baru',
+            btn: 'Diskaun 80%',
         },
         nb: {
-            title: 'Svart fredag',
-            btn: '85% rabatt',
+            title: 'Nyttårs salg',
+            btn: '80% rabatt',
         },
         nl: {
-            title: 'Zwarte Vrijdag',
-            btn: '85% korting',
+            title: 'Nieuwjaarsuitverkoop',
+            btn: '80% korting',
         },
         pl: {
-            title: 'Czarny piątek',
-            btn: '85% zniżki',
+            title: 'Zniżki noworoczne',
+            btn: '80% zniżki',
         },
         ro: {
-            title: 'Black Friday',
-            btn: '85% reducere',
+            title: 'Vânzarea de Anul Nou',
+            btn: '80% reducere',
         },
         sk: {
-            title: 'Čierny piatok',
-            btn: '85% zľava',
+            title: 'Novoročný výpredaj',
+            btn: '80% zľava',
         },
         sl: {
-            title: 'Črni petek',
-            btn: '85% popust',
+            title: 'Novoletni popusti',
+            btn: '80% popust',
         },
         sr: {
-            title: 'Crni petak',
-            btn: '85% popusta',
+            title: 'Novogodišnji popusti',
+            btn: '80% popusta',
         },
         sv: {
-            title: 'Black Friday',
-            btn: '85% rabatt',
+            title: 'Nyårsrabatter',
+            btn: '80% rabatt',
         },
         tr: {
-            title: 'Black Friday',
-            btn: '%85 indirim',
+            title: 'Yılbaşı indirimleri',
+            btn: '%80 indirim',
         },
         vi: {
-            title: 'Black Friday',
-            btn: 'Giảm giá 85%',
+            title: 'Giảm giá năm mới',
+            btn: 'Giảm giá 80%',
         },
     },
     // will be selected for locale, see usage of getNotificationText
     text: '',
     url: promoLink,
-    from: '22 November 2022 15:00:00',
-    to: '29 November 2022 23:59:00',
+    from: '22 December 2022 15:00:00',
+    to: '02 January 2023 23:59:00',
     type: 'animated',
     get icons() {
-        return lazyGet(blackFriday22Notification, 'icons', () => ({
+        return lazyGet(xmasPromo23Notification, 'icons', () => ({
             ENABLED: {
-                19: getUrl('assets/images/icons/bf22-on-19.png'),
-                38: getUrl('assets/images/icons/bf22-on-38.png'),
+                19: getUrl('assets/images/icons/xmas23-on-19.png'),
+                38: getUrl('assets/images/icons/xmas23-on-38.png'),
             },
             DISABLED: {
-                19: getUrl('assets/images/icons/bf22-off-19.png'),
-                38: getUrl('assets/images/icons/bf22-off-38.png'),
+                19: getUrl('assets/images/icons/xmas23-off-19.png'),
+                38: getUrl('assets/images/icons/xmas23-off-38.png'),
             },
         }));
     },
@@ -226,7 +226,7 @@ const blackFriday22Notification = {
  */
 
 const notifications = {
-    blackFriday22: blackFriday22Notification,
+    xmasPromo23: xmasPromo23Notification,
 };
 
 /**
