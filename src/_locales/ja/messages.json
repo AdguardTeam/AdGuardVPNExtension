@@ -332,6 +332,9 @@
     "context_menu_general_mode": {
         "message": "レギュラーモード"
     },
+    "context_menu_export_logs": {
+        "message": "ログをエクスポートする"
+    },
     "settings_dns_label": {
         "message": "DNSサーバー"
     },
@@ -360,7 +363,7 @@
         "message": "DNSサーバアドレス"
     },
     "settings_dns_add_custom_server_address_placeholder": {
-        "message": "IPまたはTLS"
+        "message": "サーバーIPまたはTLSドメイン名"
     },
     "settings_dns_add_custom_server_invalid_address": {
         "message": "DNSサーバーアドレスが無効です"
@@ -612,7 +615,7 @@
         "message": "ロケーション"
     },
     "endpoints_location_virtual": {
-        "message": "バーチャル"
+        "message": "仮想サーバ"
     },
     "endpoints_fastest": {
         "message": "最速ロケーション"

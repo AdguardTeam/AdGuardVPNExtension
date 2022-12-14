@@ -272,6 +272,9 @@
     "context_menu_general_mode": {
         "message": "الوضع العام"
     },
+    "context_menu_export_logs": {
+        "message": "تصدير السجل"
+    },
     "settings_dns_label": {
         "message": "خادم DNS"
     },

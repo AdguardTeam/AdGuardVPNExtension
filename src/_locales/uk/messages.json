@@ -248,20 +248,62 @@
     "settings_referral_invited_friends": {
         "message": "Запрошені друзі %count%/%limit%"
     },
+    "settings_referral_invite_link": {
+        "message": "Посилання-запрошення"
+    },
     "settings_referral_copy_link": {
         "message": "Копіювати посилання для запрошення"
     },
     "settings_referral_link_copied": {
         "message": "Посилання скопійовано"
     },
+    "settings_free_gbs": {
+        "message": "Безплатні гігабайти"
+    },
+    "settings_free_gbs_subtitle": {
+        "message": "Виконайте завдання — отримайте безплатний трафік!"
+    },
     "settings_free_gbs_confirm_email_title": {
         "message": "Підтвердьте свою електронну адресу"
+    },
+    "settings_free_gbs_get_GB": {
+        "message": "Отримайте %num% ГБ"
+    },
+    "settings_free_gbs_task_complete": {
+        "message": "Ви отримали %num% ГБ"
+    },
+    "settings_free_gbs_confirm_email_info": {
+        "message": "Ми надіслали вам листа з посиланням для підтвердження. Перейдіть за тим посиланням, щоб отримати %your_gb% ГБ безплатного трафіку. Якщо не можете знайти лист, натисніть на кнопку нижче."
     },
     "settings_free_gbs_confirm_email_resend_link_button": {
         "message": "Надіслати повторно"
     },
+    "settings_free_gbs_add_device_title": {
+        "message": "Додайте інший пристрій"
+    },
+    "settings_free_gbs_add_device_info": {
+        "message": "Встановіть AdGuard VPN на ще один пристрій, увійдіть до облікового запису AdGuard на ньому — отримайте %your_gb% ГБ"
+    },
+    "settings_free_gbs_devices_added_title": {
+        "message": "Пристрої додано"
+    },
+    "settings_free_gbs_devices_added_info": {
+        "message": "Вітаємо, тепер AdGuard VPN захищатиме декілька ваших пристроїв!"
+    },
     "settings_free_gbs_add_device_products_button": {
         "message": "Перейти до продуктів"
+    },
+    "settings_free_gbs_invite_friend": {
+        "message": "Запросіть друга"
+    },
+    "settings_free_gbs_invite_friend_get_GB": {
+        "message": "Отримайте до %num% ГБ"
+    },
+    "settings_free_gbs_invite_friend_complete": {
+        "message": "Ви отримали %num% ГБ"
+    },
+    "settings_free_gbs_invite_friend_completed_thank_you": {
+        "message": "Дякуємо, що запросили стількох друзів!"
     },
     "settings_free_gbs_go_back": {
         "message": "Назад"
@@ -290,6 +332,9 @@
     "context_menu_general_mode": {
         "message": "Загальний режим"
     },
+    "context_menu_export_logs": {
+        "message": "Експортувати журнали"
+    },
     "settings_dns_label": {
         "message": "DNS-сервер"
     },
@@ -316,6 +361,9 @@
     },
     "settings_dns_add_custom_server_address": {
         "message": "Адреса DNS-сервера"
+    },
+    "settings_dns_add_custom_server_address_placeholder": {
+        "message": "IP-адреса або TLS-домен сервера"
     },
     "settings_dns_add_custom_server_invalid_address": {
         "message": "Неправильна адреса DNS-сервера"
@@ -497,11 +545,23 @@
     "settings_exclusion_title": {
         "message": "Винятки"
     },
+    "settings_exclusion_change_mode_modal_title": {
+        "message": "Де увімкнено VPN"
+    },
     "settings_exclusion_general_title": {
-        "message": "Скрізь, крім виключених веб-сайтів"
+        "message": "Всюди, крім вебсайтів-винятків"
+    },
+    "settings_exclusion_general_mode_info": {
+        "message": "VPN увімкнено <span>всюди</span>, крім вебсайтів зі списку нижче"
     },
     "settings_exclusion_selective_title": {
         "message": "Лише на вибраних сайтах"
+    },
+    "settings_exclusion_selective_mode_info": {
+        "message": "VPN увімкнено <span>вибірково</span>: лише на вебсайтах зі списку нижче"
+    },
+    "settings_exclusion_selective_mode_warning": {
+        "message": "Якщо залишити цей список пустим, VPN буде вимкнено для всіх вебсайтів"
     },
     "settings_exclusion_import_button": {
         "message": "Імпорт"
@@ -553,6 +613,9 @@
     },
     "endpoints_countries": {
         "message": "Місцезнаходження"
+    },
+    "endpoints_location_virtual": {
+        "message": "Віртуальне"
     },
     "endpoints_fastest": {
         "message": "Найшвидші"
@@ -666,6 +729,24 @@
     "popup_newsletter_no_subscribe": {
         "message": "Ні, дякую"
     },
+    "popup_onboarding_unique_protocol": {
+        "message": "Унікальний VPN-протокол"
+    },
+    "popup_onboarding_unique_protocol_info": {
+        "message": "Протокол AdGuard VPN працює швидко та робить ваш VPN-трафік непомітним"
+    },
+    "popup_onboarding_sites_apps_exclusions": {
+        "message": "Винятки для сайтів та програм"
+    },
+    "popup_onboarding_sites_apps_exclusions_info": {
+        "message": "Винятки допомагають швидко і гнучко налаштувати сайти чи програми для захисту завдяки AdGuard VPN"
+    },
+    "popup_onboarding_no_logging_policy": {
+        "message": "Без журналювання"
+    },
+    "popup_onboarding_no_logging_policy_info": {
+        "message": "AdGuard VPN робить вас анонімними. Він ніколи не збирає та не передає ваші дані третім особам"
+    },
     "popup_onboarding_next": {
         "message": "Далі"
     },
@@ -709,11 +790,14 @@
     "options_exclusions_import_select_title": {
         "message": "Як використовувати цей список виключень?"
     },
+    "options_exclusions_import_select_subtitle": {
+        "message": "Вебсайти з імпортованого списку буде додано до наявних винятків"
+    },
     "options_exclusions_import_select_regular": {
-        "message": "Я хочу, щоб VPN був вимкнений для цих веб-сайтів"
+        "message": "Я хочу вимкнути VPN для цих вебсайтів"
     },
     "options_exclusions_import_select_selective": {
-        "message": "Я хочу, щоб VPN був увімкнений для цих веб-сайтів"
+        "message": "Я хочу увімкнути VPN для цих вебсайтів"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Скасувати"
@@ -798,6 +882,12 @@
     },
     "confirm_email_info": {
         "message": "Щоб отримати безплатний VPN-трафік, необхідно підтвердити електронну адресу. Ми надіслали вам лист з посиланням для цього"
+    },
+    "confirm_email_done_title": {
+        "message": "Електронну адресу підтверджено"
+    },
+    "confirm_email_done_info": {
+        "message": "Дякуємо за підтвердження реєстрації!"
     },
     "confirm_email_close_button": {
         "message": "Закрити"

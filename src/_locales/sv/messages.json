@@ -239,6 +239,9 @@
     "context_menu_selective_mode": {
         "message": "Selektivt läge"
     },
+    "context_menu_export_logs": {
+        "message": "Exportera loggar"
+    },
     "settings_dns_label": {
         "message": "DNS server"
     },

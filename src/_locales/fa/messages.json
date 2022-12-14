@@ -14,6 +14,15 @@
     "options_support_faq_title": {
         "message": "پرسش و پاسخ"
     },
+    "options_support_report_title": {
+        "message": "گزارش مشکل"
+    },
+    "options_support_feedback_description": {
+        "message": "ارائه پیشنهادات و درخواست برای امکانات برنامه"
+    },
+    "options_report_bug_title": {
+        "message": "گزارش مشکل"
+    },
     "options_bug_report_email_label": {
         "message": "ایمیل"
     },
@@ -64,6 +73,9 @@
     },
     "settings_webrtc_label": {
         "message": "مسدودسازی وب آر تی سی"
+    },
+    "context_menu_export_logs": {
+        "message": "خروجیگیری وقایع"
     },
     "settings_dns_label": {
         "message": "سرور DNS"

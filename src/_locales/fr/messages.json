@@ -332,6 +332,9 @@
     "context_menu_general_mode": {
         "message": "Mode général"
     },
+    "context_menu_export_logs": {
+        "message": "Exporter les journaux"
+    },
     "settings_dns_label": {
         "message": "Serveur DNS"
     },

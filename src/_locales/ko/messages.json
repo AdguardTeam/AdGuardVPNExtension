@@ -332,6 +332,9 @@
     "context_menu_general_mode": {
         "message": "일반 모드"
     },
+    "context_menu_export_logs": {
+        "message": "로그 내보내기"
+    },
     "settings_dns_label": {
         "message": "DNS 서버"
     },

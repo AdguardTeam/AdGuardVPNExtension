@@ -332,6 +332,9 @@
     "context_menu_general_mode": {
         "message": "Основной режим"
     },
+    "context_menu_export_logs": {
+        "message": "Экспортировать логи"
+    },
     "settings_dns_label": {
         "message": "DNS-сервер"
     },
