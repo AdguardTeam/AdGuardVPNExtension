@@ -1,21 +1,27 @@
 import browser from 'webextension-polyfill';
 
+import { tabs } from './tabs';
+// TODO convert to TS
+import credentials from './credentials';
 import { Prefs } from './prefs';
 import { log } from '../lib/logger';
-import { promoNotifications } from './promoNotifications';
-import credentials from './credentials';
-import { UPGRADE_LICENSE_URL } from './config';
-import tabs from './tabs';
-import { FREE_GBS_ANCHOR, SETTINGS_IDS, THEME_URL_PARAMETER } from '../lib/constants';
 import { settings } from './settings';
+import { UPGRADE_LICENSE_URL } from './config';
+import { promoNotifications } from './promoNotifications';
+import { FREE_GBS_ANCHOR, SETTINGS_IDS, THEME_URL_PARAMETER } from '../lib/constants';
+
+type SetIconDetailsType = browser.Action.SetIconDetailsType;
+type SetBadgeDetailsType = browser.Action.SetBadgeTextDetailsType;
 
 /**
  * Opens options tab with anchor if provided
  * @param {string | null} anchorName
  * @return {Promise<void>}
  */
-const openOptionsPage = async (anchorName = null) => {
+const openOptionsPage = async (anchorName: string | null = null): Promise<void> => {
     const manifest = browser.runtime.getManifest();
+    // TODO find way to remove ts-ignore
+    // @ts-ignore
     let optionsUrl = manifest.options_ui?.page || manifest.options_page;
     if (!optionsUrl.includes('://')) {
         optionsUrl = browser.runtime.getURL(optionsUrl);
@@ -31,10 +37,12 @@ const openOptionsPage = async (anchorName = null) => {
     const view = browser.extension.getViews()
         .find((wnd) => wnd.location.href.startsWith(optionsUrl));
     if (view) {
-        await new Promise((resolve) => {
+        await new Promise<void>((resolve) => {
             view.chrome.tabs.getCurrent(async (tab) => {
-                await browser.tabs.update(tab.id, { active: true, url: targetUrl });
-                resolve();
+                if (tab) {
+                    await browser.tabs.update(tab.id, { active: true, url: targetUrl });
+                    resolve();
+                }
             });
         });
     } else {
@@ -42,23 +50,23 @@ const openOptionsPage = async (anchorName = null) => {
     }
 };
 
-const setIcon = async (details) => {
+const setIcon = async (details: SetIconDetailsType) => {
     try {
         await browser.browserAction.setIcon(details);
-    } catch (e) {
+    } catch (e: any) {
         log.debug(e.message);
     }
 };
 
 const BADGE_COLOR = '#74a352';
 
-const setBadge = async (details) => {
+const setBadge = async (details: SetBadgeDetailsType) => {
     try {
         await browser.browserAction.setBadgeText(details);
         const { tabId } = details;
 
         await browser.browserAction.setBadgeBackgroundColor({ tabId, color: BADGE_COLOR });
-    } catch (e) {
+    } catch (e: any) {
         log.debug(e.message);
     }
 };
@@ -70,11 +78,13 @@ const setBadge = async (details) => {
  * @param tabId
  * @returns {Promise<void>}
  */
-const setIconEnabled = async (tabId) => {
-    const details = { path: Prefs.ICONS.ENABLED };
+const setIconEnabled = async (tabId: number) => {
+    const details: SetIconDetailsType = { path: Prefs.ICONS.ENABLED };
     const promoNotification = await promoNotifications.getCurrentNotification();
 
     if (promoNotification) {
+        // TODO fix after promo notifications converted to TS
+        // @ts-ignore
         details.path = promoNotification.icons.ENABLED;
     }
 
@@ -92,12 +102,14 @@ const setIconEnabled = async (tabId) => {
  * @param {number|null} tabId
  * @returns {Promise<void>}
  */
-const setIconDisabled = async (tabId) => {
-    const details = { path: Prefs.ICONS.DISABLED };
+const setIconDisabled = async (tabId: number) => {
+    const details: SetIconDetailsType = { path: Prefs.ICONS.DISABLED };
 
     const promoNotification = await promoNotifications.getCurrentNotification();
 
     if (promoNotification) {
+        // TODO fix after promo notifications converted to TS
+        // @ts-ignore
         details.path = promoNotification.icons.DISABLED;
     }
 
@@ -113,8 +125,8 @@ const setIconDisabled = async (tabId) => {
  * @param tabId
  * @returns {Promise<void>}
  */
-const setIconTrafficOff = async (tabId) => {
-    const details = { path: Prefs.ICONS.TRAFFIC_OFF };
+const setIconTrafficOff = async (tabId: number) => {
+    const details: SetIconDetailsType = { path: Prefs.ICONS.TRAFFIC_OFF };
     await setIcon(details);
     if (tabId) {
         details.tabId = tabId;
@@ -122,8 +134,8 @@ const setIconTrafficOff = async (tabId) => {
     }
 };
 
-const setBadgeText = async (tabId, text) => {
-    const details = { text };
+const setBadgeText = async (tabId: number, text: string) => {
+    const details: SetBadgeDetailsType = { text };
 
     await setBadge(details);
     if (tabId) {
@@ -132,8 +144,8 @@ const setBadgeText = async (tabId, text) => {
     }
 };
 
-const clearBadgeText = async (tabId) => {
-    const details = { text: '' };
+const clearBadgeText = async (tabId: number) => {
+    const details: SetBadgeDetailsType = { text: '' };
 
     await setBadge(details);
     if (tabId) {
@@ -166,7 +178,25 @@ const openFreeGbsPage = async () => {
     await openOptionsPage(FREE_GBS_ANCHOR);
 };
 
-const actions = {
+const openExportLogsPage = async () => {
+    const url = browser.runtime.getURL('export.html');
+    const currentTab = await tabs.getCurrent();
+    const exportTab = await tabs.openTab(url);
+
+    // this is a workaround for closing export tab and opening previous tab
+    setTimeout(() => {
+        if (exportTab?.id) {
+            browser.tabs.remove(exportTab.id);
+        }
+
+        if (currentTab?.id) {
+            browser.tabs.update(currentTab.id, { active: true });
+        }
+    }, 300);
+};
+
+export const actions = {
+    openExportLogsPage,
     openOptionsPage,
     setIconEnabled,
     setIconDisabled,
@@ -177,5 +207,3 @@ const actions = {
     openPremiumPromoPage,
     openFreeGbsPage,
 };
-
-export default actions;

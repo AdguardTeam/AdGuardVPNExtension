@@ -1,4 +1,4 @@
-import actions from '../../src/background/actions';
+import { actions } from '../../src/background/actions';
 import credentials from '../../src/background/credentials';
 
 jest.mock('../../src/background/credentials');

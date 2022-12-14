@@ -1,4 +1,4 @@
-import tabs from '../../../background/tabs';
+import { tabs } from '../../../background/tabs';
 import { messenger } from '../../../lib/messenger';
 
 class PopupActions {

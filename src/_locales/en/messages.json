@@ -332,6 +332,9 @@
     "context_menu_general_mode": {
         "message": "General mode"
     },
+    "context_menu_export_logs": {
+        "message": "Export logs"
+    },
     "settings_dns_label": {
         "message": "DNS server"
     },

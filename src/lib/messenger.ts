@@ -396,6 +396,22 @@ class Messenger {
         const type = MessageType.RESEND_CONFIRM_REGISTRATION_LINK;
         return this.sendMessage(type, { displayNotification });
     }
+
+    /**
+     * Returns logs from the background page
+     */
+    getLogs() {
+        const type = MessageType.GET_LOGS;
+        return this.sendMessage(type);
+    }
+
+    /**
+     * Returns app version from background page
+     */
+    getAppVersion() {
+        const type = MessageType.GET_APP_VERSION;
+        return this.sendMessage(type);
+    }
 }
 
 export const messenger = new Messenger();

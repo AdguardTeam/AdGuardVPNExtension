@@ -3,6 +3,9 @@ import { PASSWORD_RECOVERY_URL } from './config';
 import { notifier } from '../lib/notifier';
 import { log } from '../lib/logger';
 
+type Tab = browser.Tabs.Tab;
+type SimpleTab = Pick<Tab, 'id' | 'url'>;
+
 class Tabs {
     constructor() {
         browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
@@ -40,9 +43,8 @@ class Tabs {
     /**
      * Converts chrome tab info into simplified presentation of tab
      * @param tab
-     * @returns {{id: number, url: string}}
      */
-    prepareTab = (tab) => {
+    prepareTab = (tab: Tab): SimpleTab => {
         const { id, url } = tab;
         return { id, url };
     };
@@ -62,45 +64,42 @@ class Tabs {
         return browser.tabs.create({ url: PASSWORD_RECOVERY_URL });
     }
 
-    async openTab(url) {
-        await browser.tabs.create({ url, active: true });
+    async openTab(url: string) {
+        return browser.tabs.create({ url, active: true });
     }
 
     /**
      * Closes one or more tabs.
-     * @param {(number|number[])} tabsIds
-     * @returns {Promise<void>}
+     * @param tabsIds
      */
-    async closeTab(tabsIds) {
+    async closeTab(tabsIds: number | number[]): Promise<void> {
         await browser.tabs.remove(tabsIds);
     }
 
-    async openSocialAuthTab(authUrl) {
+    async openSocialAuthTab(authUrl: string) {
         await this.openTab(authUrl);
     }
 
-    async reload(tabId) {
+    async reload(tabId: number) {
         try {
             await browser.tabs.reload(tabId);
-        } catch (e) {
+        } catch (e: any) {
             log.error(e.message);
         }
     }
 
-    async getTabByUrl(url) {
+    async getTabByUrl(url: string) {
         const tabs = await browser.tabs.query({});
         return tabs.find((tab) => tab.url?.includes(url));
     }
 
-    async update(tabId, url) {
+    async update(tabId: number, url: string) {
         try {
             await browser.tabs.update(tabId, { url, active: true });
-        } catch (e) {
+        } catch (e: any) {
             log.error(e.message);
         }
     }
 }
 
-const tabs = new Tabs();
-
-export default tabs;
+export const tabs = new Tabs();

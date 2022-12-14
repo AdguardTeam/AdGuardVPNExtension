@@ -1,26 +1,84 @@
-import browser, { Menus } from 'webextension-polyfill';
+import browser from 'webextension-polyfill';
 import throttle from 'lodash/throttle';
 
 import { notifier } from '../lib/notifier';
 import { exclusions } from './exclusions';
-import tabs from './tabs';
+import { tabs } from './tabs';
 import { translator } from '../common/translator';
 import { settings } from './settings';
 import { isHttp } from '../lib/string-utils';
 import { log } from '../lib/logger';
 import { ExclusionsModes } from '../common/exclusionsConstants';
+import { actions } from './actions';
+
+type ItemType = browser.Menus.ItemType;
+type ContextType = browser.Menus.ContextType;
+type CreateCreatePropertiesType = browser.Menus.CreateCreatePropertiesType;
 
 interface ContextMenuInterface {
     init(): void;
 }
 
 // All contexts except "browser_action", "page_action" and "launcher"
-const contexts: Menus.ContextType[] = ['page', 'frame', 'selection', 'link', 'editable', 'image', 'video', 'audio'];
+const contexts: ContextType[] = ['page', 'frame', 'selection', 'link', 'editable', 'image', 'video', 'audio'];
 
-const renewContextMenuItems = async (
-    menuItems: Menus.CreateCreatePropertiesType[],
-): Promise<void> => {
-    await browser.contextMenus.removeAll();
+const CONTEXT_MENU_ITEMS = {
+    enable_vpn: {
+        id: 'enable_vpn',
+        title: translator.getMessage('context_menu_enable_vpn'),
+    },
+    disable_vpn: {
+        id: 'disable_vpn',
+        title: translator.getMessage('context_menu_disable_vpn'),
+    },
+    selective_mode: {
+        id: 'selective_mode',
+        type: 'radio' as ItemType,
+        title: translator.getMessage('context_menu_selective_mode'),
+        onclick: () => exclusions.setMode(ExclusionsModes.Selective, true),
+    },
+    regular_mode: {
+        id: 'regular_mode',
+        type: 'radio' as ItemType,
+        title: translator.getMessage('context_menu_general_mode'),
+        onclick: () => exclusions.setMode(ExclusionsModes.Regular, true),
+    },
+    separator: {
+        id: 'separator',
+        type: 'separator' as ItemType,
+    },
+};
+
+/**
+ * This item is used separately because we need it to be always visible, even if extension is not working
+ */
+const BROWSER_ACTION_ITEMS = {
+    export_logs: {
+        id: 'export_logs',
+        title: translator.getMessage('context_menu_export_logs'),
+        onclick: async () => {
+            try {
+                await actions.openExportLogsPage();
+            } catch (e: any) {
+                log.debug(e.message);
+            }
+        },
+    },
+};
+
+/**
+ * Clears all context menu items except browser action items
+ */
+const clearContextMenuItems = async (): Promise<void> => {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const item of Object.values(CONTEXT_MENU_ITEMS)) {
+        // eslint-disable-next-line no-await-in-loop
+        await browser.contextMenus.remove(item.id);
+    }
+};
+
+const renewContextMenuItems = async (menuItems: CreateCreatePropertiesType[]): Promise<void> => {
+    await clearContextMenuItems();
     await Promise.all(menuItems.map(async (itemOptions) => {
         try {
             const createProperties = { contexts, ...itemOptions };
@@ -35,38 +93,7 @@ const renewContextMenuItems = async (
     }));
 };
 
-const clearContextMenuItems = async (): Promise<void> => {
-    await browser.contextMenus.removeAll();
-};
-
-const CONTEXT_MENU_ITEMS = {
-    enable_vpn: {
-        id: 'enable_vpn',
-        title: translator.getMessage('context_menu_enable_vpn'),
-    },
-    disable_vpn: {
-        id: 'disable_vpn',
-        title: translator.getMessage('context_menu_disable_vpn'),
-    },
-    selective_mode: {
-        id: 'selective_mode',
-        type: 'radio' as Menus.ItemType,
-        title: translator.getMessage('context_menu_selective_mode'),
-        onclick: () => exclusions.setMode(ExclusionsModes.Selective, true),
-    },
-    regular_mode: {
-        id: 'regular_mode',
-        type: 'radio' as Menus.ItemType,
-        title: translator.getMessage('context_menu_general_mode'),
-        onclick: () => exclusions.setMode(ExclusionsModes.Regular, true),
-    },
-    separator: {
-        id: 'separator',
-        type: 'separator' as Menus.ItemType,
-    },
-};
-
-const getContextMenuItems = (tabUrl: string | undefined): Menus.CreateCreatePropertiesType[] => {
+const getContextMenuItems = (tabUrl: string | undefined): CreateCreatePropertiesType[] => {
     if (!tabUrl) {
         return [];
     }
@@ -74,7 +101,7 @@ const getContextMenuItems = (tabUrl: string | undefined): Menus.CreateCreateProp
     const resultItems = [];
 
     if (isHttp(tabUrl)) {
-        let vpnSwitcher: Menus.CreateCreatePropertiesType;
+        let vpnSwitcher: CreateCreatePropertiesType;
         if (exclusions.isVpnEnabledByUrl(tabUrl)) {
             vpnSwitcher = { ...CONTEXT_MENU_ITEMS.disable_vpn };
             vpnSwitcher.onclick = () => exclusions.disableVpnByUrl(tabUrl);
@@ -88,11 +115,11 @@ const getContextMenuItems = (tabUrl: string | undefined): Menus.CreateCreateProp
     const separator = { ...CONTEXT_MENU_ITEMS.separator };
     resultItems.push(separator);
 
-    const regularModeItem: Menus.CreateCreatePropertiesType = {
+    const regularModeItem: CreateCreatePropertiesType = {
         ...CONTEXT_MENU_ITEMS.regular_mode,
     };
 
-    const selectiveModeItem: Menus.CreateCreatePropertiesType = {
+    const selectiveModeItem: CreateCreatePropertiesType = {
         ...CONTEXT_MENU_ITEMS.selective_mode,
     };
 
@@ -116,9 +143,30 @@ const updateContextMenu = async (tab: { url?: string }): Promise<void> => {
     await renewContextMenuItems(menuItems);
 };
 
+/**
+ * Adds browser action items
+ */
+const addBrowserActionItems = async (): Promise<void> => {
+    try {
+        const createProperties: CreateCreatePropertiesType = {
+            contexts: ['browser_action'],
+            ...BROWSER_ACTION_ITEMS.export_logs,
+        };
+        await browser.contextMenus.create(createProperties, () => {
+            if (browser.runtime.lastError) {
+                log.debug(browser.runtime.lastError.message);
+            }
+        });
+    } catch (e) {
+        log.debug(e);
+    }
+};
+
 const init = (): void => {
     const throttleTimeoutMs = 100;
     const throttledUpdater = throttle(updateContextMenu, throttleTimeoutMs);
+
+    addBrowserActionItems();
 
     notifier.addSpecifiedListener(notifier.types.TAB_UPDATED, throttledUpdater);
     notifier.addSpecifiedListener(notifier.types.TAB_ACTIVATED, throttledUpdater);

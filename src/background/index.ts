@@ -1,4 +1,4 @@
-import actions from './actions';
+import { actions } from './actions';
 import appStatus from './appStatus';
 import auth from './auth';
 import authCache from './authentication/authCache';
@@ -16,7 +16,7 @@ import permissionsError from './permissionsChecker/permissionsError';
 import popupData from './popupData';
 import { proxy } from './proxy';
 import { settings } from './settings';
-import tabs from './tabs';
+import { tabs } from './tabs';
 import { updateService } from './updateService';
 import { vpnApi } from './api';
 import browserActionIcon from './browserActionIcon';

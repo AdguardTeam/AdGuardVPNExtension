@@ -91,6 +91,9 @@ export enum MessageType {
     REMOVE_CUSTOM_DNS_SERVER = 'remove.custom.dns.server',
     RESEND_CONFIRM_REGISTRATION_LINK = 'resend.confirm.registration.link',
     RESTORE_CUSTOM_DNS_SERVERS_DATA = 'restore.custom.dns.servers.data',
+
+    GET_LOGS = 'get.logs',
+    GET_APP_VERSION = 'get.app.version',
 }
 
 export const ERROR_STATUSES = {

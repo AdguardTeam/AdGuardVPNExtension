@@ -26,7 +26,11 @@ import './app.pcss';
 
 Modal.setAppElement('#root');
 
-const getContent = (authenticated, requestProcessState, isPremiumToken) => {
+const getContent = (
+    authenticated: boolean,
+    requestProcessState: RequestStatus,
+    isPremiumToken: boolean,
+) => {
     if (authenticated) {
         return (
             <div className="wrapper">
