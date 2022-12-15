@@ -66,6 +66,14 @@ const BROWSER_ACTION_ITEMS = {
     },
 };
 
+const removeContextMenuItem = async (id: string) => {
+    try {
+        await browser.contextMenus.remove(id);
+    } catch (e) {
+        // ignore, this error is not critical and can fire every time when we try to remove non-existing item
+    }
+};
+
 /**
  * Clears all context menu items except browser action items
  */
@@ -73,7 +81,7 @@ const clearContextMenuItems = async (): Promise<void> => {
     // eslint-disable-next-line no-restricted-syntax
     for (const item of Object.values(CONTEXT_MENU_ITEMS)) {
         // eslint-disable-next-line no-await-in-loop
-        await browser.contextMenus.remove(item.id);
+        await removeContextMenuItem(item.id);
     }
 };
 
@@ -147,12 +155,14 @@ const updateContextMenu = async (tab: { url?: string }): Promise<void> => {
  * Adds browser action items
  */
 const addBrowserActionItems = async (): Promise<void> => {
+    const exportLogsItem = BROWSER_ACTION_ITEMS.export_logs;
+
     try {
-        const createProperties: CreateCreatePropertiesType = {
+        await removeContextMenuItem(exportLogsItem.id);
+        await browser.contextMenus.create({
             contexts: ['browser_action'],
-            ...BROWSER_ACTION_ITEMS.export_logs,
-        };
-        await browser.contextMenus.create(createProperties, () => {
+            ...exportLogsItem,
+        }, () => {
             if (browser.runtime.lastError) {
                 log.debug(browser.runtime.lastError.message);
             }
