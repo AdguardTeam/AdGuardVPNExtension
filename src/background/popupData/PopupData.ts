@@ -175,7 +175,10 @@ export class PopupData {
 
     async getPopupDataRetry(url: string, retryNum = 1, retryDelay = this.DEFAULT_RETRY_DELAY): Promise<PopupDataRetry> {
         const backoffIndex = 1.5;
-        let data: PopupDataFull;
+        let data: PopupDataFull | PopupDataNotAuthenticated = {
+            isAuthenticated: false,
+            policyAgreement: false,
+        };
 
         try {
             data = await this.getPopupData(url);
@@ -185,24 +188,24 @@ export class PopupData {
 
         this.retryCounter += 1;
 
-        if (!data?.isAuthenticated || data.permissionsError) {
+        if (!data?.isAuthenticated || (data as PopupDataFull).permissionsError) {
             this.retryCounter = 0;
-            return { ...data, hasRequiredData: true };
+            return { ...data, hasRequiredData: true } as PopupDataRetry;
         }
 
-        const { vpnInfo, locations, selectedLocation } = data;
+        const { vpnInfo, locations, selectedLocation } = data as PopupDataFull;
 
         let hasRequiredData = true;
 
         if (!vpnInfo || isEmpty(locations) || !selectedLocation) {
             if (retryNum <= 1) {
                 // it may be useful to disconnect proxy if we can't get data
-                if (data?.isProxyEnabled) {
+                if ((data as PopupDataFull)?.isProxyEnabled) {
                     await settings.disableProxy();
                 }
                 this.retryCounter = 0;
                 hasRequiredData = false;
-                return { ...data, hasRequiredData };
+                return { ...data, hasRequiredData } as PopupDataRetry;
             }
             await sleep(retryDelay);
             log.debug(`Retry get popup data again retry: ${this.retryCounter}`);
@@ -210,6 +213,6 @@ export class PopupData {
         }
 
         this.retryCounter = 0;
-        return { ...data, hasRequiredData };
+        return { ...data as PopupDataFull, hasRequiredData };
     }
 }

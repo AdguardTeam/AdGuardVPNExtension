@@ -20,15 +20,12 @@ const buildSettings = (proxyEnabled) => {
 };
 
 const actualVersion = '0.5.0';
-const packageJson = {
-    version: actualVersion,
-};
 
 describe('app status', () => {
     it('returns correct version', () => {
         const proxy = buildProxy();
         const settings = buildSettings();
-        const appStatus = new AppStatus(proxy, settings, packageJson);
+        const appStatus = new AppStatus(proxy, settings, actualVersion);
         expect(appStatus.version).toBe(actualVersion);
     });
 
@@ -36,7 +33,7 @@ describe('app status', () => {
         const canControlResponse = { canControlProxy: true };
         const proxy = buildProxy(canControlResponse);
         const settings = buildSettings();
-        const appStatus = new AppStatus(proxy, settings, packageJson);
+        const appStatus = new AppStatus(proxy, settings, actualVersion);
         expect(await appStatus.canControlProxy()).toEqual(canControlResponse);
     });
 
@@ -47,7 +44,7 @@ describe('app status', () => {
         };
         const proxy = buildProxy(canControlResponse);
         const settings = buildSettings(true);
-        const appStatus = new AppStatus(proxy, settings, packageJson);
+        const appStatus = new AppStatus(proxy, settings, actualVersion);
         expect(await appStatus.canControlProxy()).toEqual(canControlResponse);
         expect(settings.disableProxy).toHaveBeenCalledTimes(1);
     });
@@ -59,7 +56,7 @@ describe('app status', () => {
         };
         const proxy = buildProxy(canControlResponse);
         const settings = buildSettings(false);
-        const appStatus = new AppStatus(proxy, settings, packageJson);
+        const appStatus = new AppStatus(proxy, settings, actualVersion);
         expect(await appStatus.canControlProxy()).toEqual(canControlResponse);
         expect(settings.disableProxy).toHaveBeenCalledTimes(0);
     });

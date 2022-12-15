@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import throttle from 'lodash/throttle';
-import ipaddr from 'ipaddr.js';
+import ipaddr, { IPv4 } from 'ipaddr.js';
 import browser from 'webextension-polyfill';
 import { isIP } from 'is-ip';
 
@@ -16,6 +16,12 @@ export interface NonRoutableServiceInterface {
     isUrlRoutable(url: string): boolean;
     getNonRoutableList(): string[];
 }
+
+type HostnameData = {
+    timeAdded: number,
+    tabId: number,
+    url: string,
+};
 
 /**
  * This module notifies user about non routable domains
@@ -84,23 +90,21 @@ export class NonRoutableService implements NonRoutableServiceInterface {
 
     /**
      * Storage for hostnames from request errors
-     * @type {Map<string, {timeAdded: number, tabId: number, url: string}>}
      */
-    webRequestErrorHostnames: Storage | Map<string, { [key: string]: any }> = new Map();
+    webRequestErrorHostnames: Storage | Map<string, HostnameData> = new Map();
 
     /**
      * Storage for for hostnames from non-routable events
-     * @type {Map<string, {timeAdded: number}>}
      */
-    nonRoutableHostnames: Storage | Map<string, { [key: string]: any }> = new Map();
+    nonRoutableHostnames: Storage | Map<string, HostnameData> = new Map();
 
     /**
      * Looks up for hostname in the storage, if found removes it from storage
-     * @param {string} hostname
-     * @param {Map<string, {timeAdded: number, tabId: number, url: string}> | Map<string, {timeAdded: number}>} storage
-     * @returns {null | {timeAdded: number, tabId: number, url: string} | {timeAdded: number}}
      */
-    getByHostname = (hostname: string, storage: Storage | Map<string, { [key: string]: any }>) => {
+    getByHostname = (
+        hostname: string,
+        storage: Storage | Map<string, HostnameData>,
+    ): null | HostnameData => {
         if (storage.has(hostname)) {
             const value = storage.get(hostname);
             storage.delete(hostname);
@@ -114,11 +118,11 @@ export class NonRoutableService implements NonRoutableServiceInterface {
      * Clears values in the storage with timestamp older then VALUE_TTL_MS
      * @param storage
      */
-    clearStaleValues = (storage: Storage | Map<string, { [key: string]: any }>): void => {
+    clearStaleValues = (storage: Storage | Map<string, HostnameData>): void => {
         const VALUE_TTL_MS = 1000;
         const currentTime = Date.now();
         // eslint-disable-next-line no-restricted-syntax
-        for (const [key, value] of storage) {
+        for (const [key, value] of storage as Map<string, HostnameData>) {
             if (value.timeAdded < (currentTime - VALUE_TTL_MS)) {
                 storage.delete(key);
             }
@@ -154,7 +158,9 @@ export class NonRoutableService implements NonRoutableServiceInterface {
      * non-routable hostnames, if founds same hostname then adds it to the list of
      * non-routable hostnames, otherwise saves it the storage
      */
-    handleWebRequestErrors = (details: browser.WebRequest.OnErrorOccurredDetailsType | browser.WebRequest.OnHeadersReceivedDetailsType): void => {
+    handleWebRequestErrors = (
+        details: browser.WebRequest.OnErrorOccurredDetailsType | browser.WebRequest.OnHeadersReceivedDetailsType,
+    ): void => {
         const MAIN_FRAME = 'main_frame';
         const ERROR = 'net::ERR_TUNNEL_CONNECTION_FAILED';
         const STATUS_CODE = 502;
@@ -162,10 +168,13 @@ export class NonRoutableService implements NonRoutableServiceInterface {
         const {
             url,
             type,
-            error,
             statusCode,
             tabId,
-        } = details;
+        } = details as browser.WebRequest.OnHeadersReceivedDetailsType;
+
+        const {
+            error,
+        } = details as browser.WebRequest.OnErrorOccurredDetailsType;
 
         if ((error === ERROR || statusCode === STATUS_CODE) && type === MAIN_FRAME) {
             const hostname = getHostname(url);
@@ -233,7 +242,9 @@ export class NonRoutableService implements NonRoutableServiceInterface {
             return true;
         }
 
-        return !this.parsedCIDRList.some((parsedCIDR) => addr.match(parsedCIDR));
+        return !this.parsedCIDRList.some((parsedCIDR) => {
+            return (addr as IPv4).match(parsedCIDR as [IPv4, number]);
+        });
     }
 
     getNonRoutableList(): string[] {
