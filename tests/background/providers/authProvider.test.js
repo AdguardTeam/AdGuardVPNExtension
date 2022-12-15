@@ -4,6 +4,7 @@ import { authProvider } from '../../../src/background/providers/authProvider';
 
 jest.mock('axios');
 jest.mock('../../../src/lib/logger');
+jest.mock('../../../src/background/browserApi');
 
 describe('authProvider', () => {
     afterAll(() => {

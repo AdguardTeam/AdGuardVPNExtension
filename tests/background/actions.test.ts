@@ -1,6 +1,7 @@
 import { actions } from '../../src/background/actions';
 import { credentials } from '../../src/background/credentials';
 
+jest.mock('../../src/background/browserApi');
 jest.mock('../../src/background/credentials');
 jest.mock('../../src/background/config', () => {
     return {
