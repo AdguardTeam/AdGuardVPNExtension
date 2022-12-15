@@ -2,6 +2,7 @@ import { permissionsChecker } from './permissionsChecker';
 import { log } from '../lib/logger';
 import { connectivityService } from './connectivity/connectivityService/connectivityFSM';
 import { EVENT } from './connectivity/connectivityService/connectivityConstants';
+import { browserApi } from './browserApi';
 
 /**
  * Module observes network state
@@ -11,7 +12,10 @@ import { EVENT } from './connectivity/connectivityService/connectivityConstants'
  */
 export class NetworkConnectionObserver {
     constructor() {
-        window.addEventListener('online', this.connectionHandler);
+        // FIXME: fix networkConnectionObserver for mv3
+        if (browserApi.runtime.isManifestVersion2()) {
+            window.addEventListener('online', this.connectionHandler);
+        }
     }
 
     connectionHandler = async (): Promise<void> => {

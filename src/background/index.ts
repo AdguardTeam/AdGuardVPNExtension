@@ -1,5 +1,3 @@
-import browser from 'webextension-polyfill';
-
 import { actions } from './actions';
 import { appStatus } from './appStatus';
 import auth from './auth';
@@ -29,8 +27,7 @@ import { fallbackApi } from './api/fallbackApi';
 import { flagsStorage } from './flagsStorage';
 
 import './rateModal';
-// FIXME: fix networkConnectionObserver
-// import './networkConnectionObserver';
+import './networkConnectionObserver';
 import './uninstall';
 
 declare global {
@@ -61,10 +58,9 @@ global.adguard = {
     logStorage,
 };
 
-messaging.init(); // messaging is on the top-level, for popup be able to wake up the service worker
-// FIXME: handle context menu events
-// eslint-disable-next-line no-console
-browser.contextMenus.onClicked.addListener(() => console.log('ADDED LISTENER FOR CONTEXT MENUS'));
+// messaging and context menu inits are on the top-level
+// because of popup should be able to wake up the service worker
+messaging.init();
 contextMenu.init();
 
 (async () => {
@@ -84,7 +80,6 @@ contextMenu.init();
         settings.applySettings(); // we have to apply settings when credentials are ready
         endpoints.init(); // update endpoints list on extension or browser restart
         await nonRoutable.init();
-        // contextMenu.init();
         browserActionIcon.init();
         log.info('Extension loaded all necessary modules');
     } catch (e: any) {

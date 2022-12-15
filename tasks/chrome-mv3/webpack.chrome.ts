@@ -3,7 +3,6 @@ import { merge } from 'webpack-merge';
 import path from 'path';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ZipWebpackPlugin from 'zip-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 import { getCommonConfig } from '../webpack.common';
 import { updateManifest } from '../helpers';
@@ -12,17 +11,15 @@ import {
     STAGE_ENV,
     IS_DEV,
     STAGE_ENVS,
-    BROWSERS, SRC_PATH,
+    BROWSERS,
 } from '../consts';
 
-const BACKGROUND_PATH = path.resolve(__dirname, '..', SRC_PATH, 'background');
+const CHROME_PATH = 'chrome-mv3';
 
-const CHROME_PATH = 'chrome';
-
-let zipFilename = 'chrome.zip';
+let zipFilename = 'chrome-mv3.zip';
 
 if (IS_DEV && STAGE_ENV === STAGE_ENVS.PROD) {
-    zipFilename = 'chrome-prod.zip';
+    zipFilename = 'chrome-mv3-prod.zip';
 }
 
 const commonConfig = getCommonConfig(BROWSERS.CHROME);
@@ -36,12 +33,6 @@ const plugins = [
                 transform: (content: Buffer) => updateManifest(content, chromeManifestDiff),
             },
         ],
-    }),
-    new HtmlWebpackPlugin({
-        template: path.join(BACKGROUND_PATH, 'index.html'),
-        filename: 'background.html',
-        chunks: ['background'],
-        cache: false,
     }),
     new ZipWebpackPlugin({
         path: '../',
@@ -62,4 +53,4 @@ const chromeDiffConfig = {
     plugins,
 };
 
-export const chromeConfig = merge(commonConfig, chromeDiffConfig);
+export const chromeConfigMV3 = merge(commonConfig, chromeDiffConfig);

@@ -102,7 +102,7 @@ const CONTEXT_MENU_ITEMS: ContextMenuItems = {
 const contextMenuClickHandler = (
     info: browser.Menus.OnClickData,
     tab: browser.Tabs.Tab | undefined,
-) => {
+): void => {
     const contextMenu = CONTEXT_MENU_ITEMS[info?.menuItemId];
 
     if (!contextMenu || !contextMenu.action) {

@@ -1,5 +1,7 @@
 import browser, { Manifest } from 'webextension-polyfill';
 
+const MANIFEST_VERSION_2 = 2;
+
 interface SendMessageParameters {
     message: any;
     options?: {
@@ -26,7 +28,10 @@ const getManifest = (): Manifest.WebExtensionManifest => {
     return browser.runtime.getManifest();
 };
 
+const isManifestVersion2 = () => getManifest().manifest_version === MANIFEST_VERSION_2;
+
 export default {
     sendMessage,
     getManifest,
+    isManifestVersion2,
 };

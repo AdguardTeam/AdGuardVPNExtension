@@ -6,8 +6,9 @@ import { promoNotifications } from './promoNotifications';
 import { credentials } from './credentials';
 import { UPGRADE_LICENSE_URL } from './config';
 import tabs from './tabs';
-import { FREE_GBS_ANCHOR } from '../lib/constants';
-// import { settings } from './settings';
+import { FREE_GBS_ANCHOR, SETTINGS_IDS, THEME_URL_PARAMETER } from '../lib/constants';
+import { browserApi } from './browserApi';
+import { settings } from './settings';
 
 interface ActionsInterface {
     openOptionsPage(anchorName?: string): Promise<void>;
@@ -27,46 +28,52 @@ interface ActionsInterface {
  * @return {Promise<void>}
  */
 const openOptionsPage = async (anchorName?: string): Promise<void> => {
-    await browser.runtime.openOptionsPage();
-    const { id, url } = await tabs.getCurrent();
-    if (anchorName && id) {
-        await tabs.update(id, `${url}#${anchorName}`);
-        if (url?.includes(browser.runtime.id)) {
-            await tabs.reload(id);
+    if (browserApi.runtime.isManifestVersion2()) {
+        const manifest = browser.runtime.getManifest();
+        // @ts-ignore
+        let optionsUrl = manifest.options_ui?.page || manifest.options_page;
+        if (!optionsUrl.includes('://')) {
+            optionsUrl = browser.runtime.getURL(optionsUrl);
+        }
+
+        const theme = settings.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
+        const anchor = anchorName ? `#${anchorName}` : '';
+        const targetUrl = `${optionsUrl}?${THEME_URL_PARAMETER}=${theme}${anchor}`;
+
+        // there is the bug with chrome.runtime.openOptionsPage() method
+        // https://bugs.chromium.org/p/chromium/issues/detail?id=1369940
+        // we use temporary solution to open а single options page
+        const view = browser.extension.getViews()
+            .find((wnd) => wnd.location.href.startsWith(optionsUrl));
+        if (view) {
+            await new Promise<void>((resolve) => {
+                view.chrome.tabs.getCurrent(async (tab) => {
+                    if (!tab?.id) {
+                        return;
+                    }
+                    await tabs.update(tab?.id, targetUrl);
+                    resolve();
+                });
+            });
+        } else {
+            await browser.tabs.create({ url: targetUrl });
+        }
+    } else {
+        await browser.runtime.openOptionsPage();
+        const { id, url } = await tabs.getCurrent();
+        if (anchorName && id) {
+            await tabs.update(id, `${url}#${anchorName}`);
+            if (url?.includes(browser.runtime.id)) {
+                await tabs.reload(id);
+            }
         }
     }
-    // FIXME: test duplicate options page opening and remove redundants
-    // const manifest = browser.runtime.getManifest();
-    // let optionsUrl = manifest.options_ui?.page || manifest.options_page;
-    // if (!optionsUrl.includes('://')) {
-    //     optionsUrl = browser.runtime.getURL(optionsUrl);
-    // }
-    //
-    // const theme = settings.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
-    // const anchor = anchorName ? `#${anchorName}` : '';
-    // const targetUrl = `${optionsUrl}?${THEME_URL_PARAMETER}=${theme}${anchor}`;
-    //
-    // // there is the bug with chrome.runtime.openOptionsPage() method
-    // // https://bugs.chromium.org/p/chromium/issues/detail?id=1369940
-    // // we use temporary solution to open а single options page
-    // const view = browser.extension.getViews()
-    //     .find((wnd) => wnd.location.href.startsWith(optionsUrl));
-    // if (view) {
-    //     await new Promise((resolve) => {
-    //         view.chrome.tabs.getCurrent(async (tab) => {
-    //             await browser.tabs.update(tab.id, { active: true, url: targetUrl });
-    //             resolve();
-    //         });
-    //     });
-    // } else {
-    //     await browser.tabs.create({url: targetUrl});
-    // }
 };
 
-// FIXME: describe
-const browserAction = Prefs.isFirefox()
-    ? browser.browserAction
-    : browser.action;
+// There are different browser actions implementation depending on manifest version:
+// old browserAction API for manifest version 2
+// Action API for manifest version 3
+const browserAction = browserApi.runtime.isManifestVersion2() ? browser.browserAction : browser.action;
 
 const setIcon = async (details: browser.Action.SetIconDetailsType): Promise<void> => {
     try {
