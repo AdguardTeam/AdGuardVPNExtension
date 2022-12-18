@@ -1,6 +1,5 @@
 import browser from 'webextension-polyfill';
 import throttle from 'lodash/throttle';
-import { nanoid } from 'nanoid';
 import { defaults } from 'lodash';
 
 import { notifier } from '../lib/notifier';
@@ -72,11 +71,11 @@ const CONTEXT_MENU_ITEMS: ContextMenuItems = {
 /**
  * This item is used separately because we need it to be always visible, even if extension is not working
  */
-const BROWSER_ACTION_ITEMS = {
+const BROWSER_ACTION_ITEMS: ContextMenuItems = {
     export_logs: {
         id: 'export_logs',
         title: translator.getMessage('context_menu_export_logs'),
-        onclick: async () => {
+        action: async () => {
             try {
                 await actions.openExportLogsPage();
             } catch (e: any) {
@@ -86,9 +85,25 @@ const BROWSER_ACTION_ITEMS = {
     },
 };
 
-const removeContextMenuItem = async (id: string) => {
+const contextMenuClickHandler = (
+    info: browser.Menus.OnClickData,
+    tab: browser.Tabs.Tab | undefined,
+): void => {
+    const contextMenu = CONTEXT_MENU_ITEMS[info?.menuItemId]
+        || BROWSER_ACTION_ITEMS[info?.menuItemId];
+
+    if (!contextMenu || !contextMenu.action) {
+        return;
+    }
+
+    contextMenu.action(tab);
+};
+
+const removeContextMenuItem = async (id?: string) => {
     try {
-        await browser.contextMenus.remove(id);
+        if (id) {
+            await browser.contextMenus.remove(id);
+        }
     } catch (e) {
         // ignore, this error is not critical and can fire every time when we try to remove non-existing item
     }
@@ -101,15 +116,26 @@ const clearContextMenuItems = async (): Promise<void> => {
     // eslint-disable-next-line no-restricted-syntax
     for (const item of Object.values(CONTEXT_MENU_ITEMS)) {
         // eslint-disable-next-line no-await-in-loop
-        await removeContextMenuItem(item.id);
+        await removeContextMenuItem(item.id as string);
     }
 };
 
 const renewContextMenuItems = async (menuItems: CreateCreatePropertiesType[]): Promise<void> => {
     await clearContextMenuItems();
     await Promise.all(menuItems.map(async (itemOptions) => {
+        const {
+            id,
+            title,
+            type,
+            checked,
+        } = itemOptions;
         try {
-            const createProperties = { contexts, ...itemOptions };
+            const createProperties = defaults({
+                id,
+                title,
+                checked,
+                type,
+            }, { contexts });
             await browser.contextMenus.create(createProperties, () => {
                 if (browser.runtime.lastError) {
                     log.debug(browser.runtime.lastError.message);
@@ -129,14 +155,10 @@ const getContextMenuItems = (tabUrl: string | undefined): CreateCreateProperties
     const resultItems = [];
 
     if (isHttp(tabUrl)) {
-        let vpnSwitcher: CreateCreatePropertiesType;
-        if (exclusions.isVpnEnabledByUrl(tabUrl)) {
-            vpnSwitcher = { ...CONTEXT_MENU_ITEMS.disable_vpn };
-            vpnSwitcher.onclick = () => exclusions.disableVpnByUrl(tabUrl);
-        } else {
-            vpnSwitcher = { ...CONTEXT_MENU_ITEMS.enable_vpn };
-            vpnSwitcher.onclick = () => exclusions.enableVpnByUrl(tabUrl);
-        }
+        const vpnSwitcher = exclusions.isVpnEnabledByUrl(tabUrl)
+            ? { ...CONTEXT_MENU_ITEMS.disable_vpn }
+            : { ...CONTEXT_MENU_ITEMS.enable_vpn };
+
         resultItems.push(vpnSwitcher);
     }
 
@@ -197,6 +219,8 @@ const init = (): void => {
     const throttledUpdater = throttle(updateContextMenu, throttleTimeoutMs);
 
     addBrowserActionItems();
+
+    browser.contextMenus.onClicked.addListener(contextMenuClickHandler);
 
     notifier.addSpecifiedListener(notifier.types.TAB_UPDATED, throttledUpdater);
     notifier.addSpecifiedListener(notifier.types.TAB_ACTIVATED, throttledUpdater);

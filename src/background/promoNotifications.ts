@@ -256,7 +256,7 @@ const xmasPromo23Notification = {
  * @property {string} type;
  */
 
-const notifications = {
+const notifications: { [key: string]: PromoNotificationData } = {
     xmasPromo23: xmasPromo23Notification,
 };
 

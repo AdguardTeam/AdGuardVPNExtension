@@ -9,6 +9,7 @@ import { isHttp } from '../lib/string-utils';
 import auth from './auth';
 import { locationsService } from './endpoints/locationsService';
 import { isVPNConnected } from './connectivity/connectivityService/connectivityFSM';
+import { log } from '../lib/logger';
 
 class BrowserActionIcon {
     isVpnEnabledForUrl = (id?: number, url?: string) => {
@@ -25,6 +26,11 @@ class BrowserActionIcon {
 
     async updateIcon(tab: browser.Tabs.Tab) {
         const { id, url } = tab;
+
+        if (!id) {
+            log.error('Unable to get tab id to update icon');
+            return;
+        }
 
         const isUserAuthenticated = await auth.isAuthenticated(false);
         if (!isUserAuthenticated) {

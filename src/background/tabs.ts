@@ -13,7 +13,7 @@ interface TabsInterface {
     getCurrent(): Promise<browser.Tabs.Tab>;
     getActive(): Promise<PreparedTabInterface[]>;
     openRecovery(): Promise<browser.Tabs.Tab>;
-    openTab(url: string): Promise<void>;
+    openTab(url: string): Promise<browser.Tabs.Tab>;
     closeTab(tabsIds: number[] | number): Promise<void>;
     openSocialAuthTab(authUrl: string): Promise<void>;
     reload(tabId: number): Promise<void>;
@@ -79,8 +79,8 @@ class Tabs implements TabsInterface {
         return browser.tabs.create({ url: PASSWORD_RECOVERY_URL });
     }
 
-    async openTab(url: string): Promise<void> {
-        await browser.tabs.create({ url, active: true });
+    async openTab(url: string): Promise<browser.Tabs.Tab> {
+        return browser.tabs.create({ url, active: true });
     }
 
     /**
