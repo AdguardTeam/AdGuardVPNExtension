@@ -197,13 +197,17 @@ const updateContextMenu = async (tab: { url?: string }): Promise<void> => {
  * Adds browser action items
  */
 const addBrowserActionItems = async (): Promise<void> => {
-    const exportLogsItem = BROWSER_ACTION_ITEMS.export_logs;
+    const {
+        id,
+        title,
+    } = BROWSER_ACTION_ITEMS.export_logs;
 
     try {
-        await removeContextMenuItem(exportLogsItem.id);
+        await removeContextMenuItem(id);
         await browser.contextMenus.create({
+            id,
+            title,
             contexts: ['browser_action'],
-            ...exportLogsItem,
         }, () => {
             if (browser.runtime.lastError) {
                 log.debug(browser.runtime.lastError.message);
