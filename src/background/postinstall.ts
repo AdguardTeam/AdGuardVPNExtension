@@ -1,4 +1,4 @@
-import tabs from './tabs';
+import { tabs } from './tabs';
 import { THANK_YOU_PAGE_URL } from './config';
 import { updateService } from './updateService';
 

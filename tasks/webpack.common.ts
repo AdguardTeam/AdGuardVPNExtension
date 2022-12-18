@@ -23,6 +23,7 @@ const POPUP_PATH = path.resolve(__dirname, SRC_PATH, 'popup');
 const AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/auth.js');
 const THANKYOU_PAGE_AUTH_SCRIPT = path.resolve(__dirname, SRC_PATH, 'content-scripts/thankYouPageAuth.js');
 const PRELOAD_THEME_SCRIPT = path.resolve(__dirname, SRC_PATH, 'options/preloadTheme.ts');
+const EXPORT_PATH = path.resolve(__dirname, SRC_PATH, 'export');
 
 const OUTPUT_PATH = getOutputPathByEnv(BUILD_ENV);
 
@@ -47,6 +48,7 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
             auth: AUTH_SCRIPT,
             thankYouPageAuth: THANKYOU_PAGE_AUTH_SCRIPT,
             preloadTheme: PRELOAD_THEME_SCRIPT,
+            export: EXPORT_PATH,
         },
         output: {
             path: path.resolve(__dirname, BUILD_PATH, OUTPUT_PATH),
@@ -174,6 +176,12 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                 template: path.join(POPUP_PATH, 'index.html'),
                 filename: 'popup.html',
                 chunks: ['popup'],
+                cache: false,
+            }),
+            new HtmlWebpackPlugin({
+                template: path.join(EXPORT_PATH, 'index.html'),
+                filename: 'export.html',
+                chunks: ['export'],
                 cache: false,
             }),
             new CreateFileWebpack({

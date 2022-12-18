@@ -197,6 +197,9 @@
     "context_menu_general_mode": {
         "message": "Γενική λειτουργία"
     },
+    "context_menu_export_logs": {
+        "message": "Εξαγωγή αρχείου καταγραφών"
+    },
     "settings_dns_label": {
         "message": "Διακομιστής DNS"
     },

@@ -1,83 +1,58 @@
 import browser from 'webextension-polyfill';
 
+import { tabs } from './tabs';
+// TODO convert to TS
+import credentials from './credentials';
 import { Prefs } from './prefs';
 import { log } from '../lib/logger';
-import { promoNotifications } from './promoNotifications';
-import { credentials } from './credentials';
-import { UPGRADE_LICENSE_URL } from './config';
-import tabs from './tabs';
-import { FREE_GBS_ANCHOR, SETTINGS_IDS, THEME_URL_PARAMETER } from '../lib/constants';
-import { browserApi } from './browserApi';
 import { settings } from './settings';
+import { UPGRADE_LICENSE_URL } from './config';
+import { promoNotifications } from './promoNotifications';
+import { FREE_GBS_ANCHOR, SETTINGS_IDS, THEME_URL_PARAMETER } from '../lib/constants';
 
-interface ActionsInterface {
-    openOptionsPage(anchorName?: string): Promise<void>;
-    setIconEnabled(tabId?: number): Promise<void>;
-    setIconDisabled(tabId?: number): Promise<void>;
-    setIconTrafficOff(tabId?: number): Promise<void>;
-    setBadgeText(text: string, tabId?: number): Promise<void>;
-    clearBadgeText(tabId?: number): Promise<void>;
-    getPremiumPromoPageUrl(): Promise<string>;
-    openPremiumPromoPage(): Promise<void>;
-    openFreeGbsPage(): Promise<void>;
-}
+type SetIconDetailsType = browser.Action.SetIconDetailsType;
+type SetBadgeDetailsType = browser.Action.SetBadgeTextDetailsType;
 
 /**
  * Opens options tab with anchor if provided
  * @param {string | null} anchorName
  * @return {Promise<void>}
  */
-const openOptionsPage = async (anchorName?: string): Promise<void> => {
-    if (browserApi.runtime.isManifestVersion2()) {
-        const manifest = browser.runtime.getManifest();
-        // @ts-ignore
-        let optionsUrl = manifest.options_ui?.page || manifest.options_page;
-        if (!optionsUrl.includes('://')) {
-            optionsUrl = browser.runtime.getURL(optionsUrl);
-        }
+const openOptionsPage = async (anchorName: string | null = null): Promise<void> => {
+    const manifest = browser.runtime.getManifest();
+    // TODO find way to remove ts-ignore
+    // @ts-ignore
+    let optionsUrl = manifest.options_ui?.page || manifest.options_page;
+    if (!optionsUrl.includes('://')) {
+        optionsUrl = browser.runtime.getURL(optionsUrl);
+    }
 
-        const theme = settings.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
-        const anchor = anchorName ? `#${anchorName}` : '';
-        const targetUrl = `${optionsUrl}?${THEME_URL_PARAMETER}=${theme}${anchor}`;
+    const theme = settings.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
+    const anchor = anchorName ? `#${anchorName}` : '';
+    const targetUrl = `${optionsUrl}?${THEME_URL_PARAMETER}=${theme}${anchor}`;
 
-        // there is the bug with chrome.runtime.openOptionsPage() method
-        // https://bugs.chromium.org/p/chromium/issues/detail?id=1369940
-        // we use temporary solution to open а single options page
-        const view = browser.extension.getViews()
-            .find((wnd) => wnd.location.href.startsWith(optionsUrl));
-        if (view) {
-            await new Promise<void>((resolve) => {
-                view.chrome.tabs.getCurrent(async (tab) => {
-                    if (!tab?.id) {
-                        return;
-                    }
-                    await tabs.update(tab?.id, targetUrl);
+    // there is the bug with chrome.runtime.openOptionsPage() method
+    // https://bugs.chromium.org/p/chromium/issues/detail?id=1369940
+    // we use temporary solution to open а single options page
+    const view = browser.extension.getViews()
+        .find((wnd) => wnd.location.href.startsWith(optionsUrl));
+    if (view) {
+        await new Promise<void>((resolve) => {
+            view.chrome.tabs.getCurrent(async (tab) => {
+                if (tab) {
+                    await browser.tabs.update(tab.id, { active: true, url: targetUrl });
                     resolve();
-                });
+                }
             });
-        } else {
-            await browser.tabs.create({ url: targetUrl });
-        }
+        });
     } else {
-        await browser.runtime.openOptionsPage();
-        const { id, url } = await tabs.getCurrent();
-        if (anchorName && id) {
-            await tabs.update(id, `${url}#${anchorName}`);
-            if (url?.includes(browser.runtime.id)) {
-                await tabs.reload(id);
-            }
-        }
+        await browser.tabs.create({ url: targetUrl });
     }
 };
 
-// There are different browser actions implementation depending on manifest version:
-// old browserAction API for manifest version 2
-// Action API for manifest version 3
-const browserAction = browserApi.runtime.isManifestVersion2() ? browser.browserAction : browser.action;
-
-const setIcon = async (details: browser.Action.SetIconDetailsType): Promise<void> => {
+const setIcon = async (details: SetIconDetailsType) => {
     try {
-        await browserAction.setIcon(details);
+        await browser.browserAction.setIcon(details);
     } catch (e: any) {
         log.debug(e.message);
     }
@@ -85,12 +60,12 @@ const setIcon = async (details: browser.Action.SetIconDetailsType): Promise<void
 
 const BADGE_COLOR = '#74a352';
 
-const setBadge = async (details: browser.Action.Details): Promise<void> => {
+const setBadge = async (details: SetBadgeDetailsType) => {
     try {
-        await browserAction.setBadgeText(details as browser.Action.SetBadgeTextDetailsType);
+        await browser.browserAction.setBadgeText(details);
         const { tabId } = details;
 
-        await browserAction.setBadgeBackgroundColor({ tabId, color: BADGE_COLOR });
+        await browser.browserAction.setBadgeBackgroundColor({ tabId, color: BADGE_COLOR });
     } catch (e: any) {
         log.debug(e.message);
     }
@@ -103,11 +78,13 @@ const setBadge = async (details: browser.Action.Details): Promise<void> => {
  * @param tabId
  * @returns {Promise<void>}
  */
-const setIconEnabled = async (tabId?: number): Promise<void> => {
-    const details: browser.Action.SetIconDetailsType = { path: Prefs.ICONS.ENABLED };
+const setIconEnabled = async (tabId: number) => {
+    const details: SetIconDetailsType = { path: Prefs.ICONS.ENABLED };
     const promoNotification = await promoNotifications.getCurrentNotification();
 
     if (promoNotification) {
+        // TODO fix after promo notifications converted to TS
+        // @ts-ignore
         details.path = promoNotification.icons.ENABLED;
     }
 
@@ -125,12 +102,14 @@ const setIconEnabled = async (tabId?: number): Promise<void> => {
  * @param {number|null} tabId
  * @returns {Promise<void>}
  */
-const setIconDisabled = async (tabId?: number): Promise<void> => {
-    const details: browser.Action.SetIconDetailsType = { path: Prefs.ICONS.DISABLED };
+const setIconDisabled = async (tabId: number) => {
+    const details: SetIconDetailsType = { path: Prefs.ICONS.DISABLED };
 
     const promoNotification = await promoNotifications.getCurrentNotification();
 
     if (promoNotification) {
+        // TODO fix after promo notifications converted to TS
+        // @ts-ignore
         details.path = promoNotification.icons.DISABLED;
     }
 
@@ -146,8 +125,8 @@ const setIconDisabled = async (tabId?: number): Promise<void> => {
  * @param tabId
  * @returns {Promise<void>}
  */
-const setIconTrafficOff = async (tabId?: number): Promise<void> => {
-    const details: browser.Action.SetIconDetailsType = { path: Prefs.ICONS.TRAFFIC_OFF };
+const setIconTrafficOff = async (tabId: number) => {
+    const details: SetIconDetailsType = { path: Prefs.ICONS.TRAFFIC_OFF };
     await setIcon(details);
     if (tabId) {
         details.tabId = tabId;
@@ -155,8 +134,8 @@ const setIconTrafficOff = async (tabId?: number): Promise<void> => {
     }
 };
 
-const setBadgeText = async (text: string, tabId?: number): Promise<void> => {
-    const details: browser.Action.SetBadgeTextDetailsType = { text };
+const setBadgeText = async (tabId: number, text: string) => {
+    const details: SetBadgeDetailsType = { text };
 
     await setBadge(details);
     if (tabId) {
@@ -165,8 +144,8 @@ const setBadgeText = async (text: string, tabId?: number): Promise<void> => {
     }
 };
 
-const clearBadgeText = async (tabId?: number): Promise<void> => {
-    const details: browser.Action.SetBadgeTextDetailsType = { text: '' };
+const clearBadgeText = async (tabId: number) => {
+    const details: SetBadgeDetailsType = { text: '' };
 
     await setBadge(details);
     if (tabId) {
@@ -179,7 +158,7 @@ const clearBadgeText = async (tabId?: number): Promise<void> => {
  * Generates Premium Promo Page url with user email in parameter (if authenticated)
  * @returns {string}
  */
-const getPremiumPromoPageUrl = async (): Promise<string> => {
+const getPremiumPromoPageUrl = async () => {
     const username = await credentials.getUsername();
     return `${UPGRADE_LICENSE_URL}${username ? `&email=${encodeURIComponent(username)}` : ''}`;
 };
@@ -187,7 +166,7 @@ const getPremiumPromoPageUrl = async (): Promise<string> => {
 /**
  * Opens Premium Promo Page in new tab
  */
-const openPremiumPromoPage = async (): Promise<void> => {
+const openPremiumPromoPage = async () => {
     const url = await getPremiumPromoPageUrl();
     await tabs.openTab(url);
 };
@@ -195,11 +174,29 @@ const openPremiumPromoPage = async (): Promise<void> => {
 /**
  * Opens Options page on Referral Program section
  */
-const openFreeGbsPage = async (): Promise<void> => {
+const openFreeGbsPage = async () => {
     await openOptionsPage(FREE_GBS_ANCHOR);
 };
 
-export const actions: ActionsInterface = {
+const openExportLogsPage = async () => {
+    const url = browser.runtime.getURL('export.html');
+    const currentTab = await tabs.getCurrent();
+    const exportTab = await tabs.openTab(url);
+
+    // this is a workaround for closing export tab and opening previous tab
+    setTimeout(() => {
+        if (exportTab?.id) {
+            browser.tabs.remove(exportTab.id);
+        }
+
+        if (currentTab?.id) {
+            browser.tabs.update(currentTab.id, { active: true });
+        }
+    }, 300);
+};
+
+export const actions = {
+    openExportLogsPage,
     openOptionsPage,
     setIconEnabled,
     setIconDisabled,

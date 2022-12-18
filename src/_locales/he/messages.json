@@ -272,6 +272,9 @@
     "context_menu_general_mode": {
         "message": "מצב כללי"
     },
+    "context_menu_export_logs": {
+        "message": "ייצא יומנים"
+    },
     "settings_dns_label": {
         "message": "שרת DNS"
     },

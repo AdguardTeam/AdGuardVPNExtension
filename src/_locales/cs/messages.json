@@ -332,6 +332,9 @@
     "context_menu_general_mode": {
         "message": "Obecný režim"
     },
+    "context_menu_export_logs": {
+        "message": "Exportovat protokoly"
+    },
     "settings_dns_label": {
         "message": "DNS server"
     },

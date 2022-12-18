@@ -332,6 +332,9 @@
     "context_menu_general_mode": {
         "message": "Općeniti način"
     },
+    "context_menu_export_logs": {
+        "message": "Izvoz zapisa"
+    },
     "settings_dns_label": {
         "message": "DNS poslužitelj"
     },

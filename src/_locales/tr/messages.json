@@ -332,6 +332,9 @@
     "context_menu_general_mode": {
         "message": "Genel mod"
     },
+    "context_menu_export_logs": {
+        "message": "Günlükleri dışa aktar"
+    },
     "settings_dns_label": {
         "message": "DNS sunucusu"
     },

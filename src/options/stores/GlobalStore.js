@@ -34,6 +34,7 @@ export class GlobalStore {
             log.error(e.message);
             this.setInitStatus(RequestStatus.Error);
         }
+        this.setInitStatus(RequestStatus.Error);
     }
 
     @action

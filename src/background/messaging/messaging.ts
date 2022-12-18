@@ -17,7 +17,7 @@ import { log } from '../../lib/logger';
 import { notifier } from '../../lib/notifier';
 import { locationsService } from '../endpoints/locationsService';
 import { promoNotifications } from '../promoNotifications';
-import tabs from '../tabs';
+import { tabs } from '../tabs';
 import { vpnProvider } from '../providers/vpnProvider';
 import accountProvider from '../providers/accountProvider';
 import { logStorage } from '../../lib/log-storage';
@@ -381,6 +381,12 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
         }
         case MessageType.RESTORE_CUSTOM_DNS_SERVERS_DATA: {
             return dns.restoreCustomDnsServersData();
+        }
+        case MessageType.GET_LOGS: {
+            return logStorage.getLogsString();
+        }
+        case MessageType.GET_APP_VERSION: {
+            return appStatus.version;
         }
         default:
             throw new Error(`Unknown message type received: ${type}`);

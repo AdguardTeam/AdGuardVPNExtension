@@ -7,7 +7,7 @@ import { isIP } from 'is-ip';
 import { log } from '../../lib/logger';
 import { notifier } from '../../lib/notifier';
 import { NON_ROUTABLE_CIDR_NETS } from './constants';
-import tabs from '../tabs';
+import { tabs } from '../tabs';
 import { getHostname } from '../../common/url-utils';
 import { StorageInterface } from '../browserApi/storage';
 

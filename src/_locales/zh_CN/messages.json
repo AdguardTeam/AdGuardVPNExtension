@@ -332,6 +332,9 @@
     "context_menu_general_mode": {
         "message": "通用模式"
     },
+    "context_menu_export_logs": {
+        "message": "导出日志"
+    },
     "settings_dns_label": {
         "message": "DNS 服务器"
     },

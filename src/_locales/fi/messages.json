@@ -66,19 +66,19 @@
         "message": "UKK"
     },
     "options_support_faq_description": {
-        "message": "Kysymyksiä ja vastauksia"
+        "message": "Kysymyksiä ja vastauksia."
     },
     "options_support_report_title": {
         "message": "Ilmoita viasta"
     },
     "options_support_report_description": {
-        "message": "Ilmoita meille mahdollisesta virheestä"
+        "message": "Ilmoita meille mahdollisesta virheestä."
     },
     "options_support_feedback_title": {
         "message": "Lähetä palautetta"
     },
     "options_support_feedback_description": {
-        "message": "Lähetä ominaisuus- ja kehitysehdotuksia"
+        "message": "Lähetä ominaisuus- ja kehitysehdotuksia."
     },
     "options_report_bug_title": {
         "message": "Ilmoita viasta"
@@ -243,10 +243,10 @@
         "message": "Ansaitse ilmaisia gigatavuja!"
     },
     "settings_referral_info": {
-        "message": "Ansaitset jokaisesta kutsusi välityksellä rekisteröityvästä kaverista %your_gb% Gt kuukaudeksi ja voit ansaita kaikkiaan %total_gb% Gt. Kaverisi saa myös %friend_gb% Gt enemmän veloituksetta."
+        "message": "Ansaitse jokaisesta kutsusi välityksellä rekisteröityvästä kaverista %your_gb% Gt kuukaudeksi. Voit ansaita kaikkiaan %total_gb% Gt. Myös kaverisi saa %friend_gb% Gt enemmän ilmaiseksi."
     },
     "settings_referral_invited_friends": {
-        "message": "Kavereita kutsuttu %count%/%limit%"
+        "message": "Kavereita on kutsuttu %count%/%limit%"
     },
     "settings_referral_invite_link": {
         "message": "Kutsulinkki"
@@ -258,10 +258,10 @@
         "message": "Kutsulinkki kopioitiin leikepöydälle"
     },
     "settings_free_gbs": {
-        "message": "Ilmaiset gigatavut"
+        "message": "Ilmaisia gigatavuja"
     },
     "settings_free_gbs_subtitle": {
-        "message": "Suorita tehtäviä ansaitaksesi ilmaista VPN-tietoliikennettä!"
+        "message": "Suorita tehtäviä ansaitaksesi ilmaista VPN-tiedonsiirtoa!"
     },
     "settings_free_gbs_confirm_email_title": {
         "message": "Vahvista sähköpostiosoitteesi"
@@ -270,7 +270,7 @@
         "message": "Hanki %num% gigatavua"
     },
     "settings_free_gbs_task_complete": {
-        "message": "Sait %num% gigatavua"
+        "message": "Ansaitsit %num% gigatavua"
     },
     "settings_free_gbs_confirm_email_info": {
         "message": "Paina rekisteröitymisen yhteydessä vastaanottamasi sähköpostiviestin vahvistuslinkkiä, saadaksesi %your_gb% Gt ilmaista VPN-tiedonsiirtoa. Jos et löydä viestiä, paina alla olevaa painiketta."
@@ -294,13 +294,13 @@
         "message": "Tutustu tuotteisiimme"
     },
     "settings_free_gbs_invite_friend": {
-        "message": "Kutsu kaveri"
+        "message": "Kutsu kavereita"
     },
     "settings_free_gbs_invite_friend_get_GB": {
         "message": "Hanki jopa %num% gigatavua"
     },
     "settings_free_gbs_invite_friend_complete": {
-        "message": "Sait %num% gigatavua"
+        "message": "Ansaitsit %num% gigatavua"
     },
     "settings_free_gbs_invite_friend_completed_thank_you": {
         "message": "Kiitos kaikkien kutsujesi käytöstä!"
@@ -331,6 +331,9 @@
     },
     "context_menu_general_mode": {
         "message": "Tavallinen tila"
+    },
+    "context_menu_export_logs": {
+        "message": "Vie lokitiedot"
     },
     "settings_dns_label": {
         "message": "DNS-palvelin"
@@ -435,7 +438,7 @@
         "message": "Teema"
     },
     "settings_theme_system": {
-        "message": "Järjestelmän oletus"
+        "message": "Järjestelmä"
     },
     "settings_theme_dark": {
         "message": "Tumma"
@@ -480,7 +483,7 @@
         "message": "Aliverkkotunnuksen nimi:"
     },
     "settings_exclusion_add_from_list": {
-        "message": "Listalta"
+        "message": "Hakemistosta"
     },
     "settings_exclusion_add_manually": {
         "message": "Manuaalisesti"
@@ -549,16 +552,16 @@
         "message": "Kaikkialla paitsi poikkeuksiin lisätyillä verkkosivustoilla"
     },
     "settings_exclusion_general_mode_info": {
-        "message": "VPN on käytössä <span>kaikkialla</span> paitsi alla olevilla verkkosivustoilla"
+        "message": "VPN on käytössä <span>kaikkialla</span> paitsi alla olevilla verkkosivustoilla."
     },
     "settings_exclusion_selective_title": {
         "message": "Vain valituilla verkkosivustoilla"
     },
     "settings_exclusion_selective_mode_info": {
-        "message": "VPN on käytössä <span>valikoivasti</span> vain alla olevilla verkkosivustoilla"
+        "message": "VPN on käytössä <span>valikoivasti</span> vain alla olevilla verkkosivustoilla."
     },
     "settings_exclusion_selective_mode_warning": {
-        "message": "Tämän listauksen jättö tyhjäksi poistaa VPN:n käytöstä kaikilla verkkosivustoilla"
+        "message": "Jos tämä lista on tyhjä, ei VPN-yhteyttä käytetä millään verkkosivustoilla."
     },
     "settings_exclusion_import_button": {
         "message": "Tuo"
@@ -612,7 +615,7 @@
         "message": "Sijainnit"
     },
     "endpoints_location_virtual": {
-        "message": "Virtuaaliset"
+        "message": "Virtuaalinen"
     },
     "endpoints_fastest": {
         "message": "Nopeimmat"
@@ -881,7 +884,7 @@
         "message": "Vahvista sähköpostiosoitteesi saadaksesi ilmaista VPN-liikennettä. Olemme lähettäneet vahvistuslinkin osoitteeseen"
     },
     "confirm_email_done_title": {
-        "message": "Sähköpostiosoite on vahvistettu"
+        "message": "Sähköpostiosoitteesi on vahvistettu"
     },
     "confirm_email_done_info": {
         "message": "Kiitos vahvistuksesta!"

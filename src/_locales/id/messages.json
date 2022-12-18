@@ -158,6 +158,9 @@
     "context_menu_general_mode": {
         "message": "Protokol VPN AdGuard"
     },
+    "context_menu_export_logs": {
+        "message": "Ekspor log"
+    },
     "settings_dns_label": {
         "message": "Server DNS"
     },

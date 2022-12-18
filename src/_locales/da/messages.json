@@ -332,6 +332,9 @@
     "context_menu_general_mode": {
         "message": "Generel tilstand"
     },
+    "context_menu_export_logs": {
+        "message": "Eksportér logger"
+    },
     "settings_dns_label": {
         "message": "DNS-server"
     },
@@ -612,7 +615,7 @@
         "message": "Placeringer"
     },
     "endpoints_location_virtual": {
-        "message": "Virtuelt"
+        "message": "Virtuel"
     },
     "endpoints_fastest": {
         "message": "Hurtigste"
