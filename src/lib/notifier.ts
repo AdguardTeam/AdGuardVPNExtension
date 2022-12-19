@@ -1,4 +1,4 @@
-enum NotifierType {
+export enum NotifierType {
     SETTING_UPDATED = 'event.update.setting.value',
     NON_ROUTABLE_DOMAIN_FOUND = 'event.found.non.routable.domain',
     TOO_MANY_DEVICES_CONNECTED = 'event.too.many.devices.connected',
@@ -29,7 +29,7 @@ enum NotifierType {
     CONNECTIVITY_DESKTOP_VPN_STATUS_CHANGED = 'event.connectivity.desktop.vpn.status.changed',
 }
 
-type NotifierTypeMap = {
+export type NotifierTypeMap = {
     [key in keyof typeof NotifierType]: NotifierType
 };
 

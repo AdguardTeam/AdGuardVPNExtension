@@ -1,14 +1,22 @@
-import { Notifier } from '../../src/lib/notifier';
+import { Notifier, NotifierType, NotifierTypeMap } from '../../src/lib/notifier';
+
+type ChangingType = {
+    first: any,
+    second: any,
+};
 
 describe('notifier', () => {
     const testNotifier = new Notifier({
-        SETTING_UPDATED: 'settings.updated',
-        PROXY_ENABLED: 'proxy.enabled',
-    });
+        SETTING_UPDATED: NotifierType.SETTING_UPDATED,
+        DNS_SERVER_SET: NotifierType.DNS_SERVER_SET,
+    } as NotifierTypeMap);
 
-    const changing = {};
+    const changing: ChangingType = {
+        first: '',
+        second: '',
+    };
 
-    const firstListener = (setting, value) => {
+    const firstListener = (setting: string, value: boolean) => {
         changing.first = {
             id: 'first',
             setting,
@@ -16,7 +24,7 @@ describe('notifier', () => {
         };
     };
 
-    const secondListener = (setting, value) => {
+    const secondListener = (setting: string, value: boolean) => {
         changing.second = {
             id: 'second',
             setting,
@@ -59,10 +67,10 @@ describe('notifier', () => {
 
 describe('notifies specified listeners', () => {
     const testNotifier = new Notifier({
-        SETTING_UPDATED: 'settings.updated',
-        PROXY_ENABLED: 'proxy.enabled',
-    });
-    const changing = {
+        SETTING_UPDATED: NotifierType.SETTING_UPDATED,
+        DNS_SERVER_SET: NotifierType.DNS_SERVER_SET,
+    } as NotifierTypeMap);
+    const changing: ChangingType = {
         second: {
             counter: 0,
         },
@@ -72,7 +80,7 @@ describe('notifies specified listeners', () => {
     };
 
     let firstCounter = 0;
-    const firstListener = (setting, value) => {
+    const firstListener = (setting: string, value: boolean) => {
         firstCounter += 1;
         changing.first = {
             id: 'first',
@@ -83,7 +91,7 @@ describe('notifies specified listeners', () => {
     };
 
     let secondCounter = 0;
-    const secondListener = (proxyStatus) => {
+    const secondListener = (proxyStatus: boolean) => {
         secondCounter += 1;
         changing.second = {
             id: 'second',
@@ -97,7 +105,7 @@ describe('notifies specified listeners', () => {
     const proxyStatus = true;
 
     testNotifier.addSpecifiedListener(testNotifier.types.SETTING_UPDATED, firstListener);
-    testNotifier.addSpecifiedListener(testNotifier.types.PROXY_ENABLED, secondListener);
+    testNotifier.addSpecifiedListener(testNotifier.types.DNS_SERVER_SET, secondListener);
     describe('notifies first listeners', () => {
         beforeAll(() => testNotifier.notifyListeners(
             testNotifier.types.SETTING_UPDATED,
@@ -117,7 +125,7 @@ describe('notifies specified listeners', () => {
     });
     describe('notifies second listeners', () => {
         beforeAll(() => testNotifier.notifyListeners(
-            testNotifier.types.PROXY_ENABLED,
+            testNotifier.types.DNS_SERVER_SET,
             proxyStatus,
         ));
         it('proxy status should remain unchanged', () => expect(changing.second.proxyStatus)

@@ -5,13 +5,19 @@ import {
     readExclusionsFile,
 } from '../../../../../src/options/components/Exclusions/Actions/fileHelpers';
 
-const createTxtFile = (content, filename) => {
-    const file = new Blob([content], { type: 'text/plain' });
-    file.name = filename;
-    return file;
+type CreateFileData = {
+    filename: string,
+    content: string,
 };
 
-const createZipFile = async (files) => {
+const createTxtFile = (content: BlobPart, filename: string): File => {
+    const file = new Blob([content], { type: 'text/plain' });
+    // @ts-ignore
+    file.name = filename;
+    return file as File;
+};
+
+const createZipFile = async (files: CreateFileData[]): Promise<File> => {
     const zip = new JSZip();
 
     files.forEach(({ content, filename }) => {
@@ -19,8 +25,9 @@ const createZipFile = async (files) => {
     });
 
     const file = await zip.generateAsync({ type: 'blob' });
+    // @ts-ignore
     file.name = 'exclusions.zip';
-    return file;
+    return file as File;
 };
 
 describe('fileHelpers', () => {
