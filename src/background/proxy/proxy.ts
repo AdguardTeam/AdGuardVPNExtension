@@ -27,7 +27,7 @@ export interface AccessCredentials {
 
 export interface CanControlProxy {
     canControlProxy: boolean;
-    cause?: boolean;
+    cause?: string;
 }
 
 export interface ProxyConfigInterface {

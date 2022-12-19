@@ -30,7 +30,7 @@ const getManifest = (): Manifest.WebExtensionManifest => {
 
 const isManifestVersion2 = () => getManifest().manifest_version === MANIFEST_VERSION_2;
 
-export default {
+export const runtime = {
     sendMessage,
     getManifest,
     isManifestVersion2,

@@ -6,6 +6,16 @@ jest.mock('axios');
 jest.mock('../../../src/lib/logger');
 jest.mock('../../../src/background/browserApi');
 
+const emptyCredentials = {
+    username: '',
+    password: '',
+    twoFactor: '',
+    marketingConsent: false,
+    locale: '',
+    clientId: '',
+    appId: '',
+};
+
 describe('authProvider', () => {
     afterAll(() => {
         jest.clearAllMocks();
@@ -19,6 +29,7 @@ describe('authProvider', () => {
     };
 
     it('makes requests to the server', async () => {
+        // @ts-ignore
         axios.mockResolvedValue({
             status: 200,
             data: {
@@ -29,20 +40,22 @@ describe('authProvider', () => {
             },
         });
 
-        const response = await authProvider.getAccessToken({});
+        const response = await authProvider.getAccessToken(emptyCredentials);
 
         expect(response).toEqual(sampleToken);
     });
 
     it('handles network errors', async () => {
+        // @ts-ignore
         axios.mockRejectedValue(new Error('Network Error'));
 
         const expectedError = new Error(JSON.stringify({ error: 'authentication_error_default' }));
 
-        await expect(authProvider.getAccessToken({})).rejects.toThrow(expectedError);
+        await expect(authProvider.getAccessToken(emptyCredentials)).rejects.toThrow(expectedError);
     });
 
     it('handles errors sent from server', async () => {
+        // @ts-ignore
         axios.mockRejectedValue({
             status: 401,
             response: {
@@ -56,6 +69,6 @@ describe('authProvider', () => {
 
         const expectedError = new Error(JSON.stringify({ error: 'authentication_error_wrong_credentials' }));
 
-        await expect(authProvider.getAccessToken({})).rejects.toThrow(expectedError);
+        await expect(authProvider.getAccessToken(emptyCredentials)).rejects.toThrow(expectedError);
     });
 });

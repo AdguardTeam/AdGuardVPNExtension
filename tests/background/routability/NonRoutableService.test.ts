@@ -1,12 +1,21 @@
 import { NonRoutableService } from '../../../src/background/routability/NonRoutableService';
+import { StorageInterface } from '../../../src/background/browserApi/storage';
 
-const storage = (() => {
-    const storage = {};
+type TestStorage = {
+    [key: string]: string;
+};
+
+// @ts-ignore
+const storage: StorageInterface = (() => {
+    const storage: TestStorage = {};
     return {
         set: jest.fn((key, data) => {
             storage[key] = data;
         }),
         get: jest.fn((key) => {
+            return storage[key];
+        }),
+        remove: jest.fn((key) => {
             return storage[key];
         }),
     };

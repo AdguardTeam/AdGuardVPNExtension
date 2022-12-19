@@ -6,7 +6,7 @@ export interface StorageInterface {
     remove: (key: string) => Promise<any>;
 }
 
-export default class Storage implements StorageInterface {
+export class Storage implements StorageInterface {
     vault: Browser.Storage.LocalStorageArea;
 
     constructor(browser: Browser.Browser) {

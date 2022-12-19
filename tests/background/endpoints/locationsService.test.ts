@@ -1,9 +1,11 @@
 import { locationsService } from '../../../src/background/endpoints/locationsService';
-import { Location } from '../../../src/background/endpoints/Location';
+import { Location, LocationData } from '../../../src/background/endpoints/Location';
 import * as pingHelpers from '../../../src/background/connectivity/pingHelpers';
 import { vpnProvider } from '../../../src/background/providers/vpnProvider';
 import { endpoints } from '../../../src/background/endpoints';
 import { credentials } from '../../../src/background/credentials';
+import { EndpointInterface } from '../../../src/background/endpoints/Endpoint';
+import { VpnTokenData } from '../../../src/background/credentials/Credentials';
 
 jest.mock('../../../src/background/connectivity/pingHelpers');
 jest.mock('../../../src/lib/logger'); // hides redundant log messages during test run
@@ -39,17 +41,17 @@ describe('location service', () => {
             endpoints: [firstEndpoint, secondEndpoint],
         };
 
-        let disabledDomains = [];
+        let disabledDomains: string[] = [];
 
         /**
          * Makes pingHelpers.measurePingToEndpointViaFetch for endpoint to return null
          * @param endpoint
          */
-        const disableEndpoint = (endpoint) => {
+        const disableEndpoint = (endpoint: EndpointInterface) => {
             disabledDomains.push(endpoint.domainName);
         };
 
-        const enableEndpoint = (endpoint) => {
+        const enableEndpoint = (endpoint: EndpointInterface) => {
             disabledDomains = disabledDomains.filter((d) => d !== endpoint.domainName);
         };
 
@@ -61,7 +63,7 @@ describe('location service', () => {
                 return 50;
             });
 
-        const location = new Location(locationData);
+        const location = new Location(locationData as LocationData);
         const firstSearchResult = await locationsService.getEndpointByLocation(location);
         expect(firstSearchResult).toEqual(firstEndpoint);
         expect(location.available).toBeTruthy();
@@ -126,24 +128,25 @@ describe('location service', () => {
             }],
         }];
 
-        jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: false });
-        vpnProvider.getLocationsData.mockImplementation(() => testLocationData1);
+        jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: '' } as VpnTokenData);
+        const getLocationsDataMock = vpnProvider.getLocationsData as jest.MockedFunction<() => any>;
+        getLocationsDataMock.mockImplementation(() => testLocationData1);
 
         let locations = await endpoints.getLocationsFromServer();
         expect(locations).toBeDefined();
         await locationsService.setSelectedLocation('test-location');
         let selectedLocation = await locationsService.getSelectedLocation();
         expect(selectedLocation).toBeDefined();
-        expect(selectedLocation.id).toBe('test-location');
-        expect(selectedLocation.endpoints[0].domainName).toBe('123.domain.org');
+        expect(selectedLocation?.id).toBe('test-location');
+        expect(selectedLocation?.endpoints[0].domainName).toBe('123.domain.org');
 
-        vpnProvider.getLocationsData.mockImplementation(() => testLocationData2);
+        getLocationsDataMock.mockImplementation(() => testLocationData2);
 
         locations = await endpoints.getLocationsFromServer();
         expect(locations).toBeDefined();
         selectedLocation = await locationsService.getSelectedLocation();
-        expect(selectedLocation.id).toBe('test-location');
+        expect(selectedLocation?.id).toBe('test-location');
         // endpoints of selected location should be updated
-        expect(selectedLocation.endpoints[0].domainName).toBe('123.new-domain.org');
+        expect(selectedLocation?.endpoints[0].domainName).toBe('123.new-domain.org');
     });
 });

@@ -20,7 +20,7 @@ import { SocialAuthProvider } from '../lib/constants';
 import { flagsStorage } from './flagsStorage';
 import { AuthAccessToken, AuthCredentials } from './api/apiTypes';
 
-interface AuthInterface {
+export interface AuthInterface {
     authenticate(credentials: AuthCredentials): Promise<{ status: string }>;
     isAuthenticated(turnOffProxy?: boolean): Promise<string | boolean>;
     startSocialAuth(socialProvider: string, marketingConsent: boolean): Promise<void>;

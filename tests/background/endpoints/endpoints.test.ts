@@ -1,12 +1,18 @@
 import { endpoints } from '../../../src/background/endpoints';
 import { settings } from '../../../src/background/settings';
-import { vpnProvider } from '../../../src/background/providers/vpnProvider';
+import {
+    CredentialsDataInterface,
+    VpnExtensionInfoInterface,
+    vpnProvider,
+} from '../../../src/background/providers/vpnProvider';
 import { credentials } from '../../../src/background/credentials';
-import { Location } from '../../../src/background/endpoints/Location';
-import { LocationWithPing } from '../../../src/background/endpoints/LocationWithPing';
+import { Location, LocationData, LocationInterface } from '../../../src/background/endpoints/Location';
+import { LocationWithPing, LocationWithPingParameters } from '../../../src/background/endpoints/LocationWithPing';
 import { connectivityService } from '../../../src/background/connectivity/connectivityService/connectivityFSM';
 import { locationsService } from '../../../src/background/endpoints/locationsService';
 import { proxy } from '../../../src/background/proxy';
+import { VpnTokenData } from '../../../src/background/credentials/Credentials';
+import { EndpointInterface } from '../../../src/background/endpoints/Endpoint';
 
 jest.mock('../../../src/background/settings');
 jest.mock('../../../src/background/connectivity/connectivityService/connectivityFSM');
@@ -48,11 +54,9 @@ describe('Endpoints', () => {
             premiumPromoEnabled: false,
             premiumPromoPage: 'https://adguard.io/premium.html',
             refreshTokens: false,
-            remainingTraffic: 240,
-            totalTraffic: 500,
             vpnFailurePage: 'https://kb.adguard.com/technical-support',
-        };
-        const locations = [
+        } as VpnExtensionInfoInterface;
+        const locations: LocationInterface[] = [
             {
                 id: 'VVNfTmV3IFlvcms=',
                 cityName: 'New York',
@@ -63,6 +67,7 @@ describe('Endpoints', () => {
                     40.73,
                 ],
                 premiumOnly: false,
+                ping: 999,
                 endpoints: [
                     {
                         id: 'do-us-nyc1-01-yhxvv1yn.adguard.io',
@@ -72,7 +77,7 @@ describe('Endpoints', () => {
                         publicKey: 'ZrBfo/3MhaCij20biQx+b/kb2iPKVsbZFb8x/XeI5io=',
                     },
                 ],
-            },
+            } as LocationInterface,
             {
                 id: 'SlBfVG9reW8=',
                 cityName: 'Tokyo',
@@ -83,6 +88,7 @@ describe('Endpoints', () => {
                     35.65,
                 ],
                 premiumOnly: true,
+                ping: 999,
                 endpoints: [
                     {
                         id: 'vultr-jp-nrt-01-0c73irq5.adguard.io',
@@ -99,21 +105,23 @@ describe('Endpoints', () => {
                         publicKey: 'Km7jSE/TBdD81IEXc+FrNAUjgz24BNQ8t1bQiz5w7GU=',
                     },
                 ],
-            },
+            } as LocationInterface,
         ];
 
         jest.spyOn(vpnProvider, 'getVpnExtensionInfo').mockResolvedValue(expectedVpnInfo);
         jest.spyOn(vpnProvider, 'getLocationsData').mockResolvedValue(locations);
-        jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue('token');
-        jest.spyOn(credentials, 'gainValidVpnCredentials').mockResolvedValue('vpn_credentials');
+        jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ token: 'token' } as VpnTokenData);
+        jest.spyOn(credentials, 'gainValidVpnCredentials').mockResolvedValue({ result: { credentials: 'vpn_credentials' } } as CredentialsDataInterface);
 
         const vpnInfo = await endpoints.getVpnInfo();
 
         expect(vpnInfo).toEqual(expectedVpnInfo);
 
-        const endpointsList = await endpoints.getLocations();
+        const endpointsList = endpoints.getLocations();
         expect(endpointsList)
-            .toEqual(locations.map((location) => new LocationWithPing(new Location(location))));
+            .toEqual(locations.map((location) => {
+                return new LocationWithPing(new Location(location) as LocationWithPingParameters);
+            }));
     });
 
     it('get vpn info remotely stops execution if unable to get valid token', async () => {
@@ -126,12 +134,12 @@ describe('Endpoints', () => {
     it('refreshes tokens if refreshTokens is true', async () => {
         const expectedVpnInfo = {
             refreshTokens: true,
-        };
+        } as VpnExtensionInfoInterface;
 
         jest.spyOn(vpnProvider, 'getLocationsData').mockResolvedValue([]);
         jest.spyOn(vpnProvider, 'getVpnExtensionInfo').mockResolvedValue(expectedVpnInfo);
-        jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue('vpn_token');
-        jest.spyOn(credentials, 'gainValidVpnCredentials').mockResolvedValue('vpn_credentials');
+        jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ token: 'vpn_token' } as VpnTokenData);
+        jest.spyOn(credentials, 'gainValidVpnCredentials').mockResolvedValue({ result: { credentials: 'vpn_credentials' } } as CredentialsDataInterface);
 
         await endpoints.getVpnInfoRemotely();
         expect(credentials.gainValidVpnToken).toBeCalledTimes(3);
@@ -141,7 +149,7 @@ describe('Endpoints', () => {
     });
 
     describe('returns closest endpoint', () => {
-        const rawLocations = [
+        const rawLocations: LocationData[] = [
             {
                 id: 'VVNfTmV3IFlvcms=',
                 cityName: 'New York',
@@ -160,7 +168,7 @@ describe('Endpoints', () => {
                         publicKey: 'ZrBfo/3MhaCij20biQx+b/kb2iPKVsbZFb8x/XeI5io=',
                     },
                 ],
-            },
+            } as LocationData,
             {
                 id: 'SlBfVG9reW8=',
                 cityName: 'Tokyo',
@@ -186,7 +194,7 @@ describe('Endpoints', () => {
                         publicKey: 'Km7jSE/TBdD81IEXc+FrNAUjgz24BNQ8t1bQiz5w7GU=',
                     },
                 ],
-            },
+            } as LocationData,
             {
                 id: 'VVNfTWlhbWk=',
                 cityName: 'Miami',
@@ -205,7 +213,7 @@ describe('Endpoints', () => {
                         publicKey: 'ivhrodHsK9ZDd6f7HU3VaywrwN61W5DOjRjpyBZa6RM=',
                     },
                 ],
-            },
+            } as LocationData,
         ];
 
         it('returns closest location when city name is the same', () => {
@@ -227,15 +235,15 @@ describe('Endpoints', () => {
                         publicKey: 'ivhrodHsK9ZDd6f7HU3VaywrwN61W5DOjRjpyBZa6RM=',
                     },
                 ],
-            };
+            } as LocationData;
 
             const targetLocation = new Location(targetRawLocation);
             const locations = rawLocations.map((rawLocation) => new Location(rawLocation));
 
             const closestLocation = endpoints.getClosestLocation(locations, targetLocation);
 
-            expect(new LocationWithPing(closestLocation))
-                .toEqual(new LocationWithPing(targetLocation));
+            expect(new LocationWithPing(closestLocation as LocationWithPingParameters))
+                .toEqual(new LocationWithPing(targetLocation as LocationWithPingParameters));
         });
 
         it('returns closest endpoint when endpoints do not have same location', () => {
@@ -257,7 +265,7 @@ describe('Endpoints', () => {
                         publicKey: '63cR1XNVgkP3Xp0iSE/dm18tGDj4BMcl6xHWDni77A0=',
                     },
                 ],
-            };
+            } as LocationData;
 
             const locations = rawLocations.map((rawLocation) => {
                 const location = new Location(rawLocation);
@@ -292,19 +300,19 @@ describe('Endpoints', () => {
                         publicKey: 'ZrBfo/3MhaCij20biQx+b/kb2iPKVsbZFb8x/XeI5io=',
                     },
                 ],
-            });
+            } as LocationData);
 
             expectedLocation.ping = 50;
 
-            expect(new LocationWithPing(closestLocation))
-                .toEqual(new LocationWithPing(expectedLocation));
+            expect(new LocationWithPing(closestLocation as LocationWithPingParameters))
+                .toEqual(new LocationWithPing(expectedLocation as LocationWithPingParameters));
         });
     });
 
     describe('handles refresh token event', () => {
-        jest.spyOn(vpnProvider, 'getLocationsData').mockResolvedValue(null);
-        jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue('vpn_token');
-        jest.spyOn(credentials, 'gainValidVpnCredentials').mockResolvedValue('vpn_credentials');
+        jest.spyOn(vpnProvider, 'getLocationsData').mockResolvedValue([]);
+        jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ token: 'vpn_token' } as VpnTokenData);
+        jest.spyOn(credentials, 'gainValidVpnCredentials').mockResolvedValue({ result: { credentials: 'vpn_credentials' } } as CredentialsDataInterface);
 
         it('refreshes tokens and doesnt disable proxy', async () => {
             await endpoints.refreshData();
@@ -359,7 +367,7 @@ describe('Endpoints', () => {
         }];
 
         it('updates locations from server', async () => {
-            jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: false });
+            jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: '' } as VpnTokenData);
             jest.spyOn(locationsService, 'getLocationsFromServer').mockResolvedValue([]);
 
             await endpoints.updateLocations();
@@ -368,9 +376,9 @@ describe('Endpoints', () => {
         });
 
         it('does not reconnect if selected location matches token premium value', async () => {
-            jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: true });
-            jest.spyOn(locationsService, 'getSelectedLocation').mockResolvedValue({ premiumOnly: false });
-            jest.spyOn(locationsService, 'getLocationsFromServer').mockResolvedValue(locations);
+            jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: '' } as VpnTokenData);
+            jest.spyOn(locationsService, 'getSelectedLocation').mockResolvedValue({ premiumOnly: false } as LocationInterface);
+            jest.spyOn(locationsService, 'getLocationsFromServer').mockResolvedValue(locations as Location[]);
             jest.spyOn(endpoints, 'reconnectEndpoint');
 
             await endpoints.updateLocations();
@@ -378,22 +386,22 @@ describe('Endpoints', () => {
         });
 
         it('reconnects if selected location is premiumOnly and token is not premium', async () => {
-            jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: false });
-            jest.spyOn(locationsService, 'getSelectedLocation').mockResolvedValue({ premiumOnly: true });
-            jest.spyOn(locationsService, 'getLocationsFromServer').mockResolvedValue(locations);
-            jest.spyOn(locationsService, 'getEndpointByLocation').mockResolvedValue({});
-            jest.spyOn(endpoints, 'reconnectEndpoint').mockResolvedValue('done');
+            jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: '' } as VpnTokenData);
+            jest.spyOn(locationsService, 'getSelectedLocation').mockResolvedValue({ premiumOnly: true } as LocationInterface);
+            jest.spyOn(locationsService, 'getLocationsFromServer').mockResolvedValue(locations as Location[]);
+            jest.spyOn(locationsService, 'getEndpointByLocation').mockResolvedValue({} as EndpointInterface);
+            jest.spyOn(endpoints, 'reconnectEndpoint').mockResolvedValue();
 
             await endpoints.updateLocations();
             expect(endpoints.reconnectEndpoint).toBeCalledTimes(1);
         });
 
         it('does not reconnect if selected location and token are not premium', async () => {
-            jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: false });
-            jest.spyOn(locationsService, 'getSelectedLocation').mockResolvedValue({ premiumOnly: false });
-            jest.spyOn(locationsService, 'getLocationsFromServer').mockResolvedValue(locations);
-            jest.spyOn(locationsService, 'getEndpointByLocation').mockResolvedValue({});
-            jest.spyOn(endpoints, 'reconnectEndpoint').mockResolvedValue('done');
+            jest.spyOn(credentials, 'gainValidVpnToken').mockResolvedValue({ licenseKey: '' } as VpnTokenData);
+            jest.spyOn(locationsService, 'getSelectedLocation').mockResolvedValue({ premiumOnly: false } as LocationInterface);
+            jest.spyOn(locationsService, 'getLocationsFromServer').mockResolvedValue(locations as Location[]);
+            jest.spyOn(locationsService, 'getEndpointByLocation').mockResolvedValue({} as EndpointInterface);
+            jest.spyOn(endpoints, 'reconnectEndpoint').mockResolvedValue();
 
             await endpoints.updateLocations();
             expect(endpoints.reconnectEndpoint).toBeCalledTimes(0);
@@ -415,7 +423,7 @@ describe('Endpoints', () => {
                     }],
                 }];
 
-            jest.spyOn(locationsService, 'getLocationsFromServer').mockResolvedValue(locations);
+            jest.spyOn(locationsService, 'getLocationsFromServer').mockResolvedValue(locations as Location[]);
             jest.spyOn(proxy, 'applyConfig');
 
             await endpoints.updateLocations();

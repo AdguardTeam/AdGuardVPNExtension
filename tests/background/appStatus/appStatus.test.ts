@@ -1,19 +1,22 @@
 import { AppStatus } from '../../../src/background/appStatus/AppStatus';
 import { LEVELS_OF_CONTROL } from '../../../src/background/proxy/proxyConsts';
+import { CanControlProxy, ExtensionProxyInterface } from '../../../src/background/proxy/proxy';
+import { SettingsInterface } from '../../../src/background/settings/settings';
 
-const buildProxy = (response) => {
+const buildProxy = (response: CanControlProxy): { canControlProxy: () => Promise<CanControlProxy> } => {
     return {
-        canControlProxy: () => {
+        canControlProxy: async () => {
             return response;
         },
     };
 };
 
-const buildSettings = (proxyEnabled) => {
+const buildSettings = (proxyEnabled: boolean): SettingsInterface => {
     return {
         isProxyEnabled: () => {
             return proxyEnabled;
         },
+        // @ts-ignore
         disableProxy: jest.fn(() => {
         }),
     };
@@ -23,17 +26,21 @@ const actualVersion = '0.5.0';
 
 describe('app status', () => {
     it('returns correct version', () => {
-        const proxy = buildProxy();
-        const settings = buildSettings();
-        const appStatus = new AppStatus(proxy, settings, actualVersion);
+        const canControlProxy = {
+            canControlProxy: false,
+            cause: LEVELS_OF_CONTROL.NOT_CONTROLLABLE,
+        };
+        const proxy = buildProxy(canControlProxy);
+        const settings = buildSettings(true);
+        const appStatus = new AppStatus(proxy as ExtensionProxyInterface, settings, actualVersion);
         expect(appStatus.version).toBe(actualVersion);
     });
 
     it('checks if extension can control proxy', async () => {
         const canControlResponse = { canControlProxy: true };
         const proxy = buildProxy(canControlResponse);
-        const settings = buildSettings();
-        const appStatus = new AppStatus(proxy, settings, actualVersion);
+        const settings = buildSettings(true);
+        const appStatus = new AppStatus(proxy as ExtensionProxyInterface, settings, actualVersion);
         expect(await appStatus.canControlProxy()).toEqual(canControlResponse);
     });
 
@@ -44,7 +51,7 @@ describe('app status', () => {
         };
         const proxy = buildProxy(canControlResponse);
         const settings = buildSettings(true);
-        const appStatus = new AppStatus(proxy, settings, actualVersion);
+        const appStatus = new AppStatus(proxy as ExtensionProxyInterface, settings, actualVersion);
         expect(await appStatus.canControlProxy()).toEqual(canControlResponse);
         expect(settings.disableProxy).toHaveBeenCalledTimes(1);
     });
@@ -56,7 +63,7 @@ describe('app status', () => {
         };
         const proxy = buildProxy(canControlResponse);
         const settings = buildSettings(false);
-        const appStatus = new AppStatus(proxy, settings, actualVersion);
+        const appStatus = new AppStatus(proxy as ExtensionProxyInterface, settings, actualVersion);
         expect(await appStatus.canControlProxy()).toEqual(canControlResponse);
         expect(settings.disableProxy).toHaveBeenCalledTimes(0);
     });

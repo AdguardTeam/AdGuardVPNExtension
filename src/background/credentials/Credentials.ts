@@ -36,7 +36,7 @@ interface AuthInterface {
     deauthenticate: () => void;
 }
 
-interface CredentialsParameters {
+export interface CredentialsParameters {
     browserApi: {
         storage: StorageInterface,
     };

@@ -1,12 +1,14 @@
+import browser from 'webextension-polyfill';
+
 import Management from '../../../src/background/management/Management';
 
-const generateBrowser = (extensions) => {
+const generateBrowser = (extensions: { id: string, permissions: string[], enabled: boolean }[]) => {
     return {
         management: {
             getAll: async () => {
                 return extensions;
             },
-            setEnabled: async (id, enabled) => {
+            setEnabled: async (id: string, enabled: boolean) => {
                 extensions.forEach((extension) => {
                     if (extension.id === id) {
                         // eslint-disable-next-line no-param-reassign
@@ -46,7 +48,7 @@ describe('management', () => {
             { ...extensionWithProxy },
         ]);
 
-        const management = new Management(browser);
+        const management = new Management(browser as browser.Browser);
         const extensions = await management.getEnabledProxyExtensions();
 
         expect(extensions).toContainEqual(extensionWithProxy);
@@ -68,7 +70,7 @@ describe('management', () => {
             extensionWithProxyClone,
         ]);
 
-        const management = new Management(browser);
+        const management = new Management(browser as browser.Browser);
         await management.turnOffProxyExtensions();
         const extensions = await management.getEnabledProxyExtensions();
         expect(extensions.length).toBe(0);

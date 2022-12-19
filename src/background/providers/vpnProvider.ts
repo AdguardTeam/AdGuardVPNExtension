@@ -49,7 +49,7 @@ interface CurrentLocationData {
     ],
 }
 
-interface LocationProviderData {
+export interface LocationProviderData {
     id: string;
     cityName: string | null;
     countryName: string | null;

@@ -4,8 +4,8 @@ import { isInNet } from '../../../src/background/routability/utils';
 import pacGenerator from '../../../src/background/proxy/chrome/pacGenerator';
 
 describe('Pac generator', () => {
-    let isInNetMock;
-    let options;
+    let isInNetMock: jest.Mock;
+    let options: { sandbox: { isInNet: jest.Mock } };
 
     beforeEach(() => {
         isInNetMock = jest.fn(isInNet);
@@ -13,7 +13,7 @@ describe('Pac generator', () => {
     });
 
     it('returns direct for all requests if proxy undefined', async () => {
-        const pacScript = pacGenerator.generate();
+        const pacScript = pacGenerator.generate('');
         const FindProxyForUrl = pac(pacScript);
         const result = await FindProxyForUrl('http://example.org', 'example.org');
         expect(result).toBe('DIRECT');

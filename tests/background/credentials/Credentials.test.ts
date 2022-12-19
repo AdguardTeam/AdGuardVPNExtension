@@ -1,19 +1,21 @@
-import Credentials from '../../../src/background/credentials/Credentials';
+import Credentials, { CredentialsParameters, VpnTokenData } from '../../../src/background/credentials/Credentials';
+import { CredentialsDataInterface } from '../../../src/background/providers/vpnProvider';
+import { SubscriptionType } from '../../../src/lib/constants';
 
 jest.mock('../../../src/lib/logger');
 
 const browserApi = {};
 
-const msToSec = (ms) => {
+const msToSec = (ms: number) => {
     return Math.floor(ms / 1000);
 };
 
 describe('Credentials', () => {
     describe('validates credentials', () => {
-        const credentials = new Credentials({ browserApi });
+        const credentials = new Credentials({ browserApi } as CredentialsParameters);
 
         it('returns false if empty or undefined credentials are provided', () => {
-            expect(credentials.areCredentialsValid()).toBeFalsy();
+            expect(credentials.areCredentialsValid(null)).toBeFalsy();
 
             expect(credentials.areCredentialsValid({
                 licenseStatus: 'VALID',
@@ -42,19 +44,19 @@ describe('Credentials', () => {
             expect(credentials.areCredentialsValid({
                 result: { credentials: 'fd7d2sh3wep5h5lm', expiresInSec: 69558 },
                 timeExpiresSec: msToSec(Date.now()) - 1,
-            })).toBeFalsy();
+            } as CredentialsDataInterface)).toBeFalsy();
 
             expect(credentials.areCredentialsValid({
                 licenseStatus: 'VALID',
                 result: { credentials: 'fd7d2sh3wep5h5lm', expiresInSec: 69558 },
-            })).toBeFalsy();
+            } as CredentialsDataInterface)).toBeFalsy();
         });
     });
 
     describe('validates vpn token', () => {
-        const credentials = new Credentials({ browserApi });
+        const credentials = new Credentials({ browserApi } as CredentialsParameters);
         it('returns false if no token provided', () => {
-            expect(credentials.isTokenValid()).toBeFalsy();
+            expect(credentials.isTokenValid(null)).toBeFalsy();
         });
 
         it('returns true for valid token', () => {
@@ -62,9 +64,9 @@ describe('Credentials', () => {
                 token: 'f0e92752-1f38-4f46-9edd-55176a99e4fe',
                 licenseStatus: 'VALID',
                 timeExpiresSec: msToSec(Date.now()) + 1,
-                licenseKey: null,
-                subscription: null,
-            })).toBeTruthy();
+                licenseKey: '',
+                vpnSubscription: {},
+            } as VpnTokenData)).toBeTruthy();
         });
 
         it('returns false if licenseStatus is not valid', () => {
@@ -72,24 +74,28 @@ describe('Credentials', () => {
                 token: 'f0e92752-1f38-4f46-9edd-55176a99e4fe',
                 licenseStatus: 'INVALID',
                 timeExpiresSec: msToSec(Date.now()) + 1,
-                licenseKey: null,
-                subscription: null,
-            })).toBeFalsy();
+                licenseKey: '',
+                vpnSubscription: {},
+            } as VpnTokenData)).toBeFalsy();
         });
 
         it('returns false if no licenseStatus or timeExpiresSec fields', () => {
             expect(credentials.isTokenValid({
                 token: 'f0e92752-1f38-4f46-9edd-55176a99e4fe',
                 timeExpiresSec: msToSec(Date.now()) + 1,
-                licenseKey: null,
-                subscription: null,
-            })).toBeFalsy();
+                licenseKey: '',
+                vpnSubscription: {},
+            } as VpnTokenData)).toBeFalsy();
 
             expect(credentials.isTokenValid({
                 token: 'f0e92752-1f38-4f46-9edd-55176a99e4fe',
                 licenseStatus: 'VALID',
-                licenseKey: null,
-                subscription: null,
+                licenseKey: '',
+                timeExpiresSec: 0,
+                vpnSubscription: {
+                    next_bill_date_iso: '',
+                    duration_v2: SubscriptionType.Monthly,
+                },
             })).toBeFalsy();
         });
 
@@ -98,16 +104,20 @@ describe('Credentials', () => {
                 token: 'f0e92752-1f38-4f46-9edd-55176a99e4fe',
                 licenseStatus: 'VALID',
                 timeExpiresSec: msToSec(Date.now()) - 1,
-                licenseKey: null,
-                subscription: null,
+                licenseKey: '',
+                vpnSubscription: {
+                    next_bill_date_iso: '',
+                    duration_v2: SubscriptionType.Monthly,
+                },
             })).toBeFalsy();
         });
     });
 
     describe('get vpn local', () => {
         const CREDENTIALS_KEY = 'credentials.token';
-        const buildBrowserApi = (vpnToken) => {
+        const buildBrowserApi = (vpnToken: VpnTokenData) => {
             return {
+                // @ts-ignore
                 storage: {
                     get: jest.fn(async (key) => {
                         if (key === CREDENTIALS_KEY) {
@@ -124,18 +134,21 @@ describe('Credentials', () => {
                 token: 'f0e92752-1f38-4f46-9edd-55176a99e4fe',
                 licenseStatus: 'VALID',
                 timeExpiresSec: 4728282135,
-                licenseKey: null,
-                subscription: null,
+                licenseKey: '',
+                vpnSubscription: {},
             };
 
-            const browserApi = buildBrowserApi(expectedVpnToken);
+            const browserApi = buildBrowserApi(expectedVpnToken as VpnTokenData);
+            // @ts-ignore
             const credentials = new Credentials({ browserApi });
             const vpnToken = await credentials.getVpnTokenLocal();
             expect(vpnToken).toEqual(expectedVpnToken);
         });
 
-        it('returns nothing if there is not token in the storage', async () => {
+        it('returns nothing if there is no token in the storage', async () => {
+            // @ts-ignore
             const browserApi = buildBrowserApi();
+            // @ts-ignore
             const credentials = new Credentials({ browserApi });
             const vpnToken = await credentials.getVpnTokenLocal();
             expect(vpnToken).toEqual(null);
@@ -146,10 +159,11 @@ describe('Credentials', () => {
                 token: 'f0e92752-1f38-4f46-9edd-55176a99e4fe',
                 licenseStatus: 'VALID',
                 timeExpiresSec: 4728282135,
-                licenseKey: null,
-                subscription: null,
+                licenseKey: '',
+                vpnSubscription: {},
             };
-            const browserApi = buildBrowserApi(expectedVpnToken);
+            const browserApi = buildBrowserApi(expectedVpnToken as VpnTokenData);
+            // @ts-ignore
             const credentials = new Credentials({ browserApi });
 
             let vpnToken = await credentials.getVpnTokenLocal();
