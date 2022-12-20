@@ -3,6 +3,7 @@ import {
     formatBytes,
     getLocationWithLowestPing,
 } from '../../src/lib/helpers';
+import { LocationInterface } from '../../src/background/endpoints/Location';
 
 describe('lazyGet callback', () => {
     const expectedColor = 'blue';
@@ -65,7 +66,7 @@ describe('getLocationWithLowestPing', () => {
         cityName: 'Warsaw',
     }];
 
-    const location = getLocationWithLowestPing(locations);
+    const location = getLocationWithLowestPing(locations as LocationInterface[]);
 
     expect(location).toEqual({
         ping: 60,

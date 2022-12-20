@@ -104,7 +104,7 @@ const removeContextMenuItem = async (id?: string) => {
         if (id) {
             await browser.contextMenus.remove(id);
         }
-    } catch (e) {
+    } catch (e: any) {
         // ignore, this error is not critical and can fire every time when we try to remove non-existing item
     }
 };
@@ -141,7 +141,7 @@ const renewContextMenuItems = async (menuItems: CreateCreatePropertiesType[]): P
                     log.debug(browser.runtime.lastError.message);
                 }
             });
-        } catch (e) {
+        } catch (e: any) {
             log.debug(e);
         }
     }));
@@ -213,7 +213,7 @@ const addBrowserActionItems = async (): Promise<void> => {
                 log.debug(browser.runtime.lastError.message);
             }
         });
-    } catch (e) {
+    } catch (e: any) {
         log.debug(e);
     }
 };

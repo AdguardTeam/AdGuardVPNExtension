@@ -320,7 +320,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             try {
                 const vpnToken = await credentials.gainVpnToken();
                 token = vpnToken?.token;
-            } catch (e) {
+            } catch (e: any) {
                 log.error('Was unable to get token');
             }
             const { version } = appStatus;

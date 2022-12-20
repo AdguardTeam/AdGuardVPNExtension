@@ -17,7 +17,7 @@ export const websocketFactory = (() => {
         if (ws) {
             try {
                 ws.close();
-            } catch (e) {
+            } catch (e: any) {
                 log.debug(e);
             }
         }

@@ -182,7 +182,7 @@ export class PopupData {
 
         try {
             data = await this.getPopupData(url);
-        } catch (e) {
+        } catch (e: any) {
             log.error(e);
         }
 

@@ -177,7 +177,7 @@ class Credentials implements CredentialsInterface {
         if (forceRemote) {
             try {
                 vpnToken = await this.getVpnTokenRemote();
-            } catch (e) {
+            } catch (e: any) {
                 if (!useLocalFallback) {
                     throw e;
                 }
@@ -354,7 +354,7 @@ class Credentials implements CredentialsInterface {
         if (forceRemote) {
             try {
                 vpnCredentials = await this.getVpnCredentialsRemote();
-            } catch (e) {
+            } catch (e: any) {
                 // Do not use local credentials if request to credentials
                 // returns limit exceeded error
                 if (!useLocalFallback) {
@@ -443,7 +443,7 @@ class Credentials implements CredentialsInterface {
         let vpnToken;
         try {
             vpnToken = await this.gainValidVpnToken();
-        } catch (e) {
+        } catch (e: any) {
             return false;
         }
 
@@ -469,7 +469,7 @@ class Credentials implements CredentialsInterface {
         let vpnToken;
         try {
             vpnToken = await this.gainValidVpnToken();
-        } catch (e) {
+        } catch (e: any) {
             return null;
         }
 
@@ -486,7 +486,7 @@ class Credentials implements CredentialsInterface {
         let time;
         try {
             time = new Date(nextBillDateIso);
-        } catch (e) {
+        } catch (e: any) {
             log.debug('Was unable to parse time from:', nextBillDateIso, e);
             return null;
         }
@@ -501,7 +501,7 @@ class Credentials implements CredentialsInterface {
 
         try {
             this.currentUsername = await this.fetchUsername();
-        } catch (e) {
+        } catch (e: any) {
             log.debug(e);
         }
 

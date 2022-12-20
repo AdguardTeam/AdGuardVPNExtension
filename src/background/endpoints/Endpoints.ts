@@ -10,7 +10,7 @@ import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
 import { notifier } from '../../lib/notifier';
 import { proxy } from '../proxy';
 import { vpnProvider, VpnExtensionInfoInterface, CredentialsDataInterface } from '../providers/vpnProvider';
-import { LocationWithPing } from './LocationWithPing';
+import { LocationWithPing, LocationWithPingParameters } from './LocationWithPing';
 import { endpointsTldExclusions } from '../proxy/endpointsTldExclusions';
 
 // eslint-disable-next-line import/no-cycle
@@ -244,7 +244,7 @@ class Endpoints implements EndpointsInterface {
                     return;
                 }
                 await this.reconnectEndpoint(closestEndpoint, closestLocation);
-            } catch (e) {
+            } catch (e: any) {
                 log.debug(e);
             }
             return;
@@ -299,7 +299,7 @@ class Endpoints implements EndpointsInterface {
 
             try {
                 ({ vpnToken: updatedVpnToken } = await this.refreshTokens());
-            } catch (e) {
+            } catch (e: any) {
                 log.debug('Unable to refresh tokens');
                 return null;
             }
@@ -339,7 +339,7 @@ class Endpoints implements EndpointsInterface {
         let vpnInfo;
         try {
             vpnInfo = await this.getVpnInfoRemotely();
-        } catch (e) {
+        } catch (e: any) {
             log.error(e);
         }
 
@@ -405,7 +405,7 @@ class Endpoints implements EndpointsInterface {
         }
 
         await locationsService.setSelectedLocation(fastestLocation.id);
-        return new LocationWithPing(fastestLocation);
+        return new LocationWithPing(fastestLocation as LocationWithPingParameters);
     };
 
     getVpnFailurePage = async (): Promise<string> => {
@@ -429,7 +429,7 @@ class Endpoints implements EndpointsInterface {
                     throw new Error('No token provided');
                 }
                 this.vpnInfo = await vpnProvider.getVpnExtensionInfo(appId, token);
-            } catch (e) {
+            } catch (e: any) {
                 this.vpnInfo = {
                     vpnFailurePage: POPUP_DEFAULT_SUPPORT_URL,
                     bandwidthFreeMbits: 0,

@@ -17,7 +17,7 @@ interface SendMessageParameters {
 const sendMessage = async (...args: [SendMessageParameters]): Promise<void> => {
     try {
         await browser.runtime.sendMessage(...args);
-    } catch (e) {
+    } catch (e: any) {
         // ignore
     }
 };

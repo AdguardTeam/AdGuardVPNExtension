@@ -69,7 +69,7 @@ class Auth implements AuthInterface {
 
         try {
             accessToken = await this.getAccessToken(turnOffProxy);
-        } catch (e) {
+        } catch (e: any) {
             return false;
         }
 

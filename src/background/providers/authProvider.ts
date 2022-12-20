@@ -50,7 +50,7 @@ const getAccessToken = async (credentials: AuthCredentials): Promise<AuthAccessT
 
         try {
             errorMessage = JSON.parse(e.message);
-        } catch (e) {
+        } catch (e: any) {
             // if was unable to parse error message, e.g. network is disabled
             throw new Error(JSON.stringify({ error: errorsMap.default }));
         }
@@ -92,7 +92,7 @@ const register = async (credentials: AuthCredentials) => {
         let errorMessage;
         try {
             errorMessage = JSON.parse(e.message);
-        } catch (e) {
+        } catch (e: any) {
             // if was unable to parse error message, e.g. network is disabled
             throw new Error(JSON.stringify({ error: errorsMap.default }));
         }

@@ -61,7 +61,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
         try {
             const accessCredentials = await credentials.getAccessCredentials();
             ({ credentialsHash, token: vpnToken } = accessCredentials);
-        } catch (e) {
+        } catch (e: any) {
             return; // do nothing;
         }
 
@@ -235,7 +235,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
         try {
             const ping = await sendPingMessage(this.ws, this.vpnToken, appId);
             return ping;
-        } catch (e) {
+        } catch (e: any) {
             log.debug(e);
             return null;
         }

@@ -16,14 +16,14 @@ const actions = {
     turnOnProxy: async (): Promise<void> => {
         try {
             await switcher.turnOn();
-        } catch (e) {
+        } catch (e: any) {
             log.debug(e);
         }
     },
     turnOffProxy: async (): Promise<void> => {
         try {
             await switcher.turnOff();
-        } catch (e) {
+        } catch (e: any) {
             log.debug(e);
         }
     },

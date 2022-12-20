@@ -58,7 +58,7 @@ export const isHttp = (str: string): boolean => {
     let url;
     try {
         url = new URL(str);
-    } catch (e) {
+    } catch (e: any) {
         return false;
     }
     return /^https?:/.test(url.protocol);

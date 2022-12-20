@@ -111,7 +111,7 @@ const fetchWithTimeout = (requestUrl: string, fetchTimeout: number) => {
                 throw new Error('Server response is not ok');
             }
             return response;
-        } catch (e) {
+        } catch (e: any) {
             if (timeoutId) {
                 clearTimeout(timeoutId);
             }
@@ -151,7 +151,7 @@ export const measurePingToEndpointViaFetch = async (domainName: string): Promise
             if (!ping || fetchPing < ping) {
                 ping = fetchPing;
             }
-        } catch (e) {
+        } catch (e: any) {
             log.error(`Was unable to get ping to ${requestUrl} due to ${e}`);
         }
     }

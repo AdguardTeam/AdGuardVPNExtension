@@ -3,7 +3,7 @@ import { useLayoutEffect } from 'react';
 
 import { APPEARANCE_THEMES } from '../lib/constants';
 
-export const useAppearanceTheme = (appearanceTheme) => {
+export const useAppearanceTheme = (appearanceTheme: string | null) => {
     useLayoutEffect(() => {
         const STORAGE_KEY = 'appearance_theme';
         const DARK_THEME_CLASS = 'dark-mode';

@@ -90,6 +90,7 @@ class Switcher {
             this.cancel(FORCE_CANCELLED);
         }
         const { promise, cancel } = runWithCancel(turnOnProxy, forcePrevEndpoint);
+        // @ts-ignore
         this.cancel = cancel;
         this.promise = promise;
         return promise;
@@ -100,6 +101,7 @@ class Switcher {
             this.cancel(FORCE_CANCELLED);
         }
         const { promise, cancel } = runWithCancel(turnOffProxy);
+        // @ts-ignore
         this.cancel = cancel;
         this.promise = promise;
         return promise;
@@ -118,7 +120,7 @@ class Switcher {
                 await endpoints.refreshData();
             }
             await this.turnOn(true);
-        } catch (e) {
+        } catch (e: any) {
             log.debug(e);
         }
     }

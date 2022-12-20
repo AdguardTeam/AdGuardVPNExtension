@@ -4,7 +4,7 @@ import { ExclusionsTree } from '../../../src/background/exclusions/ExclusionsTre
 import { ExclusionState, ExclusionsTypes } from '../../../src/common/exclusionsConstants';
 import { ExclusionInterface } from '../../../src/background/exclusions/exclusions/exclusionsTypes';
 
-jest.mock('../../../src/lib/logger.js');
+jest.mock('../../../src/lib/logger.ts');
 
 describe('ExclusionsTree', () => {
     afterEach(() => {

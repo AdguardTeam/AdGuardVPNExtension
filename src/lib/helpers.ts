@@ -1,4 +1,5 @@
 import punycode from 'punycode';
+import { LocationInterface } from '../background/endpoints/Location';
 
 /**
  * Returns the value of the property from the cache,
@@ -8,7 +9,7 @@ import punycode from 'punycode';
  * @param {function} func
  * @returns {any}
  */
-export const lazyGet = (obj, prop, func) => {
+export const lazyGet = (obj: any, prop: string, func: () => any) => {
     const cachedProp = `_${prop}`;
     if (cachedProp in obj) {
         return obj[cachedProp];
@@ -31,7 +32,7 @@ export const lazyGet = (obj, prop, func) => {
  * @param {string} rawUrl
  * @return {string | undefined}
  */
-export const prepareUrl = (rawUrl) => {
+export const prepareUrl = (rawUrl: string) => {
     const url = rawUrl
         ?.trim()
         ?.toLowerCase()
@@ -47,11 +48,11 @@ export const prepareUrl = (rawUrl) => {
  * @param locations
  * @returns {*}
  */
-export const getLocationWithLowestPing = (locations) => {
-    const locationsWithPings = locations.filter((location) => location.ping > 0);
+export const getLocationWithLowestPing = (locations: LocationInterface[]) => {
+    const locationsWithPings = locations.filter((location) => location.ping && location.ping > 0);
     const sortedByPing = locationsWithPings.sort((locationA, locationB) => {
-        const adjustedPingA = locationA.ping - locationA.pingBonus;
-        const adjustedPingB = locationB.ping - locationB.pingBonus;
+        const adjustedPingA = locationA.ping as number - locationA.pingBonus;
+        const adjustedPingB = locationB.ping as number - locationB.pingBonus;
         return adjustedPingA - adjustedPingB;
     });
     return sortedByPing[0];
@@ -63,7 +64,7 @@ export const getLocationWithLowestPing = (locations) => {
  * @param {number} decimals - number of digits after decimal point
  * @returns {{unit: string, value: string}}
  */
-export const formatBytes = (bytes, decimals = 1) => {
+export const formatBytes = (bytes: number, decimals: number = 1) => {
     if (!bytes || bytes <= 0) {
         return {
             value: '0.0',
@@ -77,7 +78,7 @@ export const formatBytes = (bytes, decimals = 1) => {
     const i = Math.floor(Math.log(bytes) / Math.log(k)) || 1;
 
     return {
-        value: parseFloat(bytes / (k ** i))
+        value: parseFloat(String(bytes / (k ** i)))
             .toFixed(decimals),
         unit: UNITS[i],
     };
@@ -88,7 +89,7 @@ export const formatBytes = (bytes, decimals = 1) => {
  * @param wait
  * @returns {Promise<unknown>}
  */
-export const sleep = (wait) => {
+export const sleep = (wait: number) => {
     return new Promise((resolve) => {
         setTimeout(resolve, wait);
     });
@@ -100,7 +101,7 @@ export const sleep = (wait) => {
  * @param {number} minDurationMs
  * @returns {Promise<void>}
  */
-export const sleepIfNecessary = async (entryTimeMs, minDurationMs) => {
+export const sleepIfNecessary = async (entryTimeMs: number, minDurationMs: number) => {
     if (Date.now() - entryTimeMs < minDurationMs) {
         await sleep(minDurationMs - (Date.now() - entryTimeMs));
     }
@@ -111,15 +112,15 @@ export const sleepIfNecessary = async (entryTimeMs, minDurationMs) => {
  * @param fn
  * @param minDurationMs
  */
-export const addMinDurationTime = (fn, minDurationMs) => {
-    return async (...args) => {
+export const addMinDurationTime = (fn: (...args: any) => any, minDurationMs: number) => {
+    return async (...args: string[]) => {
         const start = Date.now();
 
         try {
             const response = await fn(...args);
             await sleepIfNecessary(start, minDurationMs);
             return response;
-        } catch (e) {
+        } catch (e: any) {
             await sleepIfNecessary(start, minDurationMs);
             throw e;
         }
@@ -132,24 +133,24 @@ export const addMinDurationTime = (fn, minDurationMs) => {
  * @param args - args
  * @returns {{cancel: Function, promise: Promise<unknown>}}
  */
-export const runWithCancel = (fn, ...args) => {
+export const runWithCancel = (fn: (...args: any) => any, ...args: any) => {
     const gen = fn(...args);
-    let cancelled;
+    let cancelled: boolean;
     let cancel;
     const promise = new Promise((resolve, reject) => {
         // define cancel function to return it from our fn
-        cancel = (reason) => {
+        cancel = (reason: string) => {
             cancelled = true;
             reject(new Error(reason));
         };
 
         // eslint-disable-next-line consistent-return
-        function onFulfilled(res) {
+        function onFulfilled(res?: string) {
             if (!cancelled) {
                 let result;
                 try {
                     result = gen.next(res);
-                } catch (e) {
+                } catch (e: any) {
                     return reject(e);
                 }
                 // eslint-disable-next-line @typescript-eslint/no-use-before-define
@@ -158,18 +159,18 @@ export const runWithCancel = (fn, ...args) => {
         }
 
         // eslint-disable-next-line consistent-return
-        function onRejected(err) {
+        function onRejected(err: Error) {
             let result;
             try {
                 result = gen.throw(err);
-            } catch (e) {
+            } catch (e: any) {
                 return reject(e);
             }
             // eslint-disable-next-line @typescript-eslint/no-use-before-define
             next(result);
         }
 
-        function next({ done, value }) {
+        function next({ done, value }: { done: boolean, value: Promise<any> }) {
             if (done) {
                 return resolve(value);
             }

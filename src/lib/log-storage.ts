@@ -35,7 +35,7 @@ export class LogStorage implements LogStorageInterface {
         const logString = logStrings.map((arg) => {
             try {
                 return JSON.stringify(arg);
-            } catch (e) {
+            } catch (e: any) {
                 return arg;
             }
         }).join(' ');

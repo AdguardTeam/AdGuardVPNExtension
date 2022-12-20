@@ -35,7 +35,7 @@ class Tabs implements TabsInterface {
             let tab;
             try {
                 tab = await browser.tabs.get(tabId);
-            } catch (e) {
+            } catch (e: any) {
                 return; // ignore errors happening when we try to get removed tabs
             }
             if (tab && tab.active) {

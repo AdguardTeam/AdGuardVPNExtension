@@ -59,7 +59,7 @@ global.adguard = {
 };
 
 // messaging and context menu inits are on the top-level
-// because of popup should be able to wake up the service worker
+// because popup should be able to wake up the service worker
 messaging.init();
 contextMenu.init();
 
