@@ -19,7 +19,9 @@ const PromoNotificationModal = observer(() => {
 
     const { promoNotification } = settingsStore;
 
-    const btnClickHandler = async () => {
+    const btnClickHandler = async (): Promise<void> => {
+        // FIXME: settingsStore to ts and remove @ts-ignore on next line
+        // @ts-ignore
         const { url } = promoNotification;
 
         if (!url) {
@@ -30,7 +32,7 @@ const PromoNotificationModal = observer(() => {
         await popupActions.openTab(url);
     };
 
-    const onCloseHandler = async () => {
+    const onCloseHandler = async (): Promise<void> => {
         setShowModal(false);
         await messenger.setNotificationViewed(false);
     };
@@ -39,6 +41,8 @@ const PromoNotificationModal = observer(() => {
         return null;
     }
 
+    // FIXME: settingsStore to ts and remove @ts-ignore on next line
+    // @ts-ignore
     const { btn, title } = promoNotification.text;
 
     return (

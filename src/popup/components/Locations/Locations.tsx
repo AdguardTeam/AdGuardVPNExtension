@@ -2,17 +2,17 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
-import Location from './Location';
-import Search from './Search';
-import Skeleton from './Skeleton';
+import { Location } from './Location';
+import { Search } from './Search';
+import { Skeleton } from './Skeleton';
 import { reactTranslator } from '../../../common/reactTranslator';
 
 import './endpoints.pcss';
 
-const Locations = observer(() => {
+export const Locations = observer(() => {
     const { vpnStore, uiStore, settingsStore } = useContext(rootStore);
 
-    const handleLocationSelect = async (id) => {
+    const handleLocationSelect = async (id: string) => {
         const prevId = vpnStore.selectedLocation.id;
         await vpnStore.selectLocation(id);
         uiStore.closeEndpointsSearch();
@@ -34,7 +34,8 @@ const Locations = observer(() => {
         vpnStore.setSearchValue('');
     };
 
-    const renderLocations = (locations) => locations.map((location) => {
+    // FIXME: VpnStore to ts and replace any with proper type
+    const renderLocations = (locations: any) => locations.map((location: any) => {
         return (
             <Location
                 key={location.id}
@@ -44,7 +45,7 @@ const Locations = observer(() => {
         );
     });
 
-    const handleSearchInput = (e) => {
+    const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
         vpnStore.setSearchValue(value);
     };
@@ -133,5 +134,3 @@ const Locations = observer(() => {
         </div>
     );
 });
-
-export default Locations;

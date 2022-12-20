@@ -7,12 +7,11 @@ import Modal from 'react-modal';
 import { CSSTransition } from 'react-transition-group';
 
 import { Header } from '../Header';
-import InfoMessage from '../InfoMessage';
-import FeedbackMessage from '../InfoMessage/FeedbackMessage';
-import Locations from '../Locations';
+import { InfoMessage, FeedbackMessage } from '../InfoMessage';
+import { Locations } from '../Locations';
 import { Authentication } from '../Authentication';
 import { ExtraOptions } from '../ExtraOptions';
-import GlobalError from '../GlobalError';
+import { GlobalError } from '../GlobalError';
 import { Settings } from '../Settings';
 import { PromoNotificationModal } from '../PromoNotificationModal';
 import Icons from '../ui/Icons';
@@ -23,7 +22,7 @@ import { rootStore } from '../../stores';
 import { REQUEST_STATUSES } from '../../stores/consts';
 import { log } from '../../../lib/logger';
 import { messenger } from '../../../lib/messenger';
-import { notifier } from '../../../lib/notifier';
+import { notifier, NotifierType } from '../../../lib/notifier';
 import { useAppearanceTheme } from '../../../common/useAppearanceTheme';
 import { TrafficLimitExceeded } from '../Settings/TrafficLimitExceeded';
 import { ConnectionsLimitError } from '../ConnectionsLimitError';
@@ -33,6 +32,11 @@ import { UpgradeScreen } from '../Authentication/UpgradeScreen';
 import { DotsLoader } from '../../../common/components/DotsLoader';
 import { ReviewPopup } from '../ReviewPopup';
 import { ConfirmEmailModal, ConfirmEmailNotice } from '../ConfirmEmail';
+
+interface Message {
+    type: NotifierType,
+    data: any
+}
 
 // Set modal app element in the app module because we use multiple modal
 Modal.setAppElement('#root');
@@ -72,7 +76,7 @@ export const App = observer(() => {
 
         settingsStore.trackSystemTheme();
 
-        const messageHandler = async (message) => {
+        const messageHandler = async (message: Message) => {
             const { type, data } = message;
 
             switch (type) {

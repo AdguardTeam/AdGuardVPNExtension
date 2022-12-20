@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { reactTranslator } from '../../../../common/reactTranslator';
+import { translator } from '../../../../common/translator';
 import { popupActions } from '../../../actions/popupActions';
 import { EULA_URL, PRIVACY_URL } from '../../../../background/config';
 import { rootStore } from '../../../stores';
@@ -13,30 +13,30 @@ const HELP_US_IMPROVE_ID = 'help_us_improve';
 export const PolicyAgreement = observer(() => {
     const { authStore } = useContext(rootStore);
 
-    const handlePrivacyClick = async (e) => {
+    const handlePrivacyClick = async (e: React.MouseEvent<HTMLAnchorElement>): Promise<void> => {
         e.preventDefault();
         await popupActions.openTab(PRIVACY_URL);
     };
 
-    const handleEulaClick = async (e) => {
+    const handleEulaClick = async (e: React.MouseEvent<HTMLAnchorElement>): Promise<void> => {
         e.preventDefault();
         await popupActions.openTab(EULA_URL);
     };
 
-    const handleAnonymousDataLinkClick = async (e) => {
+    const handleAnonymousDataLinkClick = async (e: React.MouseEvent<HTMLAnchorElement>): Promise<void> => {
         e.preventDefault();
         await popupActions.openTab(PRIVACY_URL);
     };
 
-    const onPolicyAgreementChange = async (value) => {
+    const onPolicyAgreementChange = async (value: boolean): Promise<void> => {
         await authStore.setPolicyAgreement(value);
     };
 
-    const onHelpUsImproveChanged = async (value) => {
+    const onHelpUsImproveChanged = async (value: boolean): Promise<void> => {
         await authStore.setHelpUsImprove(value);
     };
 
-    const handleContinueClick = async () => {
+    const handleContinueClick = async (): Promise<void> => {
         await authStore.onPolicyAgreementReceived();
     };
 
@@ -48,8 +48,8 @@ export const PolicyAgreement = observer(() => {
                     id={POLICY_AGREEMENT_ID}
                     checked={authStore.policyAgreement}
                     onChange={onPolicyAgreementChange}
-                    label={reactTranslator.getMessage('popup_auth_policy_agreement', {
-                        eula: (chunks) => (
+                    label={translator.getMessage('popup_auth_policy_agreement', {
+                        eula: (chunks: string) => (
                             <a
                                 onClick={handleEulaClick}
                                 className="button button--link-green"
@@ -57,7 +57,7 @@ export const PolicyAgreement = observer(() => {
                                 {chunks}
                             </a>
                         ),
-                        privacy: (chunks) => (
+                        privacy: (chunks: string) => (
                             <a
                                 onClick={handlePrivacyClick}
                                 className="button button--link-green"
@@ -73,8 +73,8 @@ export const PolicyAgreement = observer(() => {
                     id={HELP_US_IMPROVE_ID}
                     checked={authStore.helpUsImprove}
                     onChange={onHelpUsImproveChanged}
-                    label={reactTranslator.getMessage('popup_auth_help_us_improve_agreement', {
-                        link: (chunks) => (
+                    label={translator.getMessage('popup_auth_help_us_improve_agreement', {
+                        link: (chunks: string) => (
                             <a
                                 onClick={handleAnonymousDataLinkClick}
                                 className="button button--link-green"
@@ -91,7 +91,7 @@ export const PolicyAgreement = observer(() => {
                 className="button button--medium button--green form__btn"
                 disabled={!authStore.policyAgreement}
             >
-                {reactTranslator.getMessage('popup_auth_policy_agreement_continue_button')}
+                {translator.getMessage('popup_auth_policy_agreement_continue_button')}
             </button>
         </>
     );

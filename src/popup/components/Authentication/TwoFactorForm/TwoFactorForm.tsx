@@ -9,14 +9,14 @@ import { Submit } from '../Submit';
 import { InputField } from '../InputField';
 import { reactTranslator } from '../../../../common/reactTranslator';
 
-const TwoFactorForm = observer(() => {
+export const TwoFactorForm = observer(() => {
     const { authStore } = useContext(rootStore);
-    const submitHandler = async (e) => {
+    const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await authStore.authenticate();
     };
 
-    const inputChangeHandler = async (e) => {
+    const inputChangeHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const { target: { name, value } } = e;
         await authStore.onCredentialsChange(name, value);
     };
@@ -42,7 +42,7 @@ const TwoFactorForm = observer(() => {
                     value={twoFactor}
                     inputChangeHandler={inputChangeHandler}
                     error={authStore.error}
-                    placeholder={reactTranslator.getMessage('auth_placeholder_2fa')}
+                    placeholder={reactTranslator.getMessage('auth_placeholder_2fa') as string}
                 />
                 {authStore.error && (
                     <div className="form__error">
@@ -53,7 +53,7 @@ const TwoFactorForm = observer(() => {
 
             <div className="form__btn-wrap">
                 <Submit
-                    text={reactTranslator.getMessage('auth_confirm')}
+                    text={reactTranslator.getMessage('auth_confirm') as string}
                     processing={requestProcessState === REQUEST_STATUSES.PENDING}
                     disabled={!twoFactor}
                 />
@@ -61,5 +61,3 @@ const TwoFactorForm = observer(() => {
         </form>
     );
 });
-
-export default TwoFactorForm;

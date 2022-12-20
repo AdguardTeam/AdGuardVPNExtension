@@ -2,7 +2,7 @@ import React from 'react';
 
 import './skeleton.pcss';
 
-const Skeleton = () => (
+export const Skeleton = () => (
     <>
         <div className="skeleton">
             <div className="skeleton__icon" />
@@ -18,5 +18,3 @@ const Skeleton = () => (
         </div>
     </>
 );
-
-export default Skeleton;

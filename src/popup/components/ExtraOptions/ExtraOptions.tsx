@@ -6,7 +6,7 @@ import { rootStore } from '../../stores';
 import { popupActions } from '../../actions/popupActions';
 import { POPUP_FEEDBACK_URL, OTHER_PRODUCTS_URL } from '../../../background/config';
 import { messenger } from '../../../lib/messenger';
-import Option from './Option';
+import { Option } from './Option';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { RatePopup } from '../RatePopup';
 
@@ -26,27 +26,27 @@ export const ExtraOptions = observer(() => {
 
     const { isPremiumToken } = vpnStore;
 
-    const openSettings = async () => {
+    const openSettings = async (): Promise<void> => {
         await messenger.openOptionsPage();
         window.close();
     };
 
-    const signOut = async () => {
+    const signOut = async (): Promise<void> => {
         await authStore.deauthenticate();
         await settingsStore.setProxyState(false);
         await settingsStore.clearPermissionError();
         uiStore.closeOptionsModal();
     };
 
-    const handleFeedback = async () => {
+    const handleFeedback = async (): Promise<void> => {
         await popupActions.openTab(POPUP_FEEDBACK_URL);
     };
 
-    const handleOtherProductsClick = async () => {
+    const handleOtherProductsClick = async (): Promise<void> => {
         await popupActions.openTab(OTHER_PRODUCTS_URL);
     };
 
-    const handleGetFreeTrafficClick = async () => {
+    const handleGetFreeTrafficClick = async (): Promise<void> => {
         await popupActions.openFreeGbsPage();
     };
 

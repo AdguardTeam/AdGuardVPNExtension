@@ -30,7 +30,7 @@ export const Onboarding = observer(() => {
         },
     ];
 
-    const nextSlideHandler = async () => {
+    const nextSlideHandler = async (): Promise<void> => {
         if (currentSlideIndex === slides.length - 1) {
             await authStore.setShowOnboarding(false);
             return;
@@ -38,11 +38,11 @@ export const Onboarding = observer(() => {
         setCurrentSlideIndex(currentSlideIndex + 1);
     };
 
-    const setCurrentSlide = (index) => {
+    const setCurrentSlide = (index: number): void => {
         setCurrentSlideIndex(index);
     };
 
-    const handleCloseClick = async () => {
+    const handleCloseClick = async (): Promise<void> => {
         await authStore.setShowOnboarding(false);
     };
 

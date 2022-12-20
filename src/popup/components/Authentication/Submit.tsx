@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 import { DotsLoader } from '../../../common/components/DotsLoader';
 
+type SubmitArguments = {
+    processing: boolean,
+    disabled?: boolean,
+    text: string | ReactNode,
+};
+
 export const Submit = ({
     processing, disabled, text,
-}) => {
+}: SubmitArguments) => {
     if (processing) {
         return <DotsLoader />;
     }

@@ -43,12 +43,12 @@ export const ConnectionsLimitError = observer(() => {
 
     const buttonData = isPremiumToken ? buttonsMap.premium : buttonsMap.free;
 
-    const handleCtaClick = (url) => async () => {
+    const handleCtaClick = (url: string) => async (): Promise<void> => {
         await messenger.openTab(url);
         window.close();
     };
 
-    const handleCloseClick = () => {
+    const handleCloseClick = (): void => {
         vpnStore.setTooManyDevicesConnected(false);
     };
 

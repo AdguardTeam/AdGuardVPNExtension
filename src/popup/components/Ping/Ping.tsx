@@ -6,7 +6,7 @@ import { PING_WITH_WARNING } from '../../stores/consts';
 
 import './ping.pcss';
 
-const Ping = ({ ping }) => {
+export const Ping = ({ ping }: { ping: number }) => {
     if (!ping) {
         return null;
     }
@@ -27,5 +27,3 @@ const Ping = ({ ping }) => {
 Ping.propTypes = {
     ping: PropTypes.number.isRequired,
 };
-
-export default Ping;

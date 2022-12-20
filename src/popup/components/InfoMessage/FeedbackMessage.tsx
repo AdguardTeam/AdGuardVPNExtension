@@ -7,8 +7,8 @@ import { reactTranslator } from '../../../common/reactTranslator';
 
 import './info-message.pcss';
 
-const InfoMessage = observer(() => {
-    const handleClick = () => {
+export const FeedbackMessage = observer(() => {
+    const handleClick = (): void => {
         popupActions.openTab(POPUP_FEEDBACK_URL);
     };
 
@@ -27,5 +27,3 @@ const InfoMessage = observer(() => {
         </div>
     );
 });
-
-export default InfoMessage;

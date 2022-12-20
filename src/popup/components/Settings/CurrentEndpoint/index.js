@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../../stores';
 
 import './endpoint.pcss';
-import Ping from '../../Ping';
+import { Ping } from '../../Ping';
 
 const CurrentEndpoint = observer(() => {
     const {

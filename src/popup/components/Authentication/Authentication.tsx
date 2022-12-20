@@ -5,7 +5,7 @@ import { rootStore } from '../../stores';
 import { SignInForm } from './SignInForm';
 import { Authorization } from './Authorization';
 import { RegistrationForm } from './RegistrationForm';
-import TwoFactorForm from './TwoFactorForm';
+import { TwoFactorForm } from './TwoFactorForm';
 import { BackButton } from './BackButton';
 import { PolicyAgreement } from './PolicyAgreement';
 

@@ -11,19 +11,19 @@ import './upgrade-screen.pcss';
 export const UpgradeScreen = () => {
     const { authStore, vpnStore } = useContext(rootStore);
 
-    const handleUpgradeClick = async () => {
+    const handleUpgradeClick = async (): Promise<void> => {
         await authStore.setShowUpgradeScreen(false);
         await vpnStore.openPremiumPromoPage();
         window.close();
     };
 
-    const handleSkipClick = async () => {
+    const handleSkipClick = async (): Promise<void> => {
         await authStore.setShowUpgradeScreen(false);
     };
 
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
-    const nextSlideHandler = async () => {
+    const nextSlideHandler = async (): Promise<void> => {
         if (currentSlideIndex !== UNLIMITED_FEATURES.length - 1) {
             return setCurrentSlideIndex(currentSlideIndex + 1);
         }
@@ -31,7 +31,7 @@ export const UpgradeScreen = () => {
         return setCurrentSlideIndex(0);
     };
 
-    const prevSlideHandler = async () => {
+    const prevSlideHandler = async (): Promise<void> => {
         if (currentSlideIndex !== 0) {
             return setCurrentSlideIndex(currentSlideIndex - 1);
         }
@@ -39,7 +39,7 @@ export const UpgradeScreen = () => {
         return setCurrentSlideIndex(UNLIMITED_FEATURES.length - 1);
     };
 
-    const setCurrentSlide = (index) => {
+    const setCurrentSlide = (index: number): void => {
         setCurrentSlideIndex(index);
     };
 

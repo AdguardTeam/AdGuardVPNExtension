@@ -8,7 +8,7 @@ import './newsletter.pcss';
 export const Newsletter = () => {
     const { authStore } = useContext(rootStore);
 
-    const handleClick = (value) => async () => {
+    const handleClick = (value: boolean) => async (): Promise<void> => {
         await authStore.setMarketingConsent(value);
     };
 

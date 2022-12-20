@@ -2,9 +2,15 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import { reactTranslator } from '../../../common/reactTranslator';
+import { translator } from '../../../common/translator';
 
-const Search = ({ value, handleChange, handleClear }) => {
+type SearchArguments = {
+    value: string,
+    handleChange: React.ChangeEventHandler<HTMLInputElement>,
+    handleClear: React.MouseEventHandler<HTMLButtonElement>,
+};
+
+export const Search = ({ value, handleChange, handleClear }: SearchArguments) => {
     const crossClassNames = classnames(
         'button button--close endpoints__cross',
         { 'endpoints__cross--active': value.length > 0 },
@@ -16,7 +22,7 @@ const Search = ({ value, handleChange, handleClear }) => {
                 autoFocus
                 className="endpoints__search-in"
                 type="text"
-                placeholder={reactTranslator.getMessage('endpoints_search')}
+                placeholder={translator.getMessage('endpoints_search')}
                 value={value}
                 onChange={handleChange}
             />
@@ -32,5 +38,3 @@ const Search = ({ value, handleChange, handleClear }) => {
         </div>
     );
 };
-
-export default Search;

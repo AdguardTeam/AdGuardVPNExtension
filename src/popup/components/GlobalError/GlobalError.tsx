@@ -7,7 +7,7 @@ import { reactTranslator } from '../../../common/reactTranslator';
 
 import './global-error.pcss';
 
-const GlobalError = observer(() => {
+export const GlobalError = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
     const ERROR_TYPES = {
@@ -21,20 +21,20 @@ const GlobalError = observer(() => {
         TROUBLE: 'trouble',
     };
 
-    const handleTryAgain = async () => {
+    const handleTryAgain = async (): Promise<void> => {
         await settingsStore.checkPermissions();
     };
 
-    const handleLearnMore = async () => {
+    const handleLearnMore = async (): Promise<void> => {
         await popupActions.openVpnFailurePage();
     };
 
-    const handleDisableExtensions = async (e) => {
+    const handleDisableExtensions = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
         e.preventDefault();
         await settingsStore.disableOtherProxyExtensions();
     };
 
-    const handleDisableDesktopVpnEnabled = (e) => {
+    const handleDisableDesktopVpnEnabled = (e: React.MouseEvent<HTMLButtonElement>): void => {
         e.preventDefault();
         settingsStore.setBackgroundDesktopVpnEnabled(false);
     };
@@ -150,5 +150,3 @@ const GlobalError = observer(() => {
         </div>
     );
 });
-
-export default GlobalError;

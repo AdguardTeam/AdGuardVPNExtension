@@ -3,10 +3,15 @@ import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
 import { reactTranslator } from '../../../common/reactTranslator';
-import Ping from '../Ping';
+import { Ping } from '../Ping';
 import { rootStore } from '../../stores';
 
-const Location = observer(({ location, handleClick }) => {
+type LocationArguments = {
+    location: any,
+    handleClick: Function,
+};
+
+export const Location = observer(({ location, handleClick }: LocationArguments) => {
     const { vpnStore, settingsStore } = useContext(rootStore);
 
     const {
@@ -23,7 +28,7 @@ const Location = observer(({ location, handleClick }) => {
 
     const locationFitsPremiumToken = vpnStore.isPremiumToken || !premiumOnly;
 
-    const handleLocationClick = (e) => {
+    const handleLocationClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         if (locationFitsPremiumToken) {
             handleClick(id);
@@ -32,7 +37,7 @@ const Location = observer(({ location, handleClick }) => {
         }
     };
 
-    const renderLocationIcon = (selected, countryCode) => {
+    const renderLocationIcon = (selected: boolean, countryCode: string) => {
         if (!locationFitsPremiumToken) {
             return (
                 <div className="lock">
@@ -46,7 +51,7 @@ const Location = observer(({ location, handleClick }) => {
             { 'flag--active': selected },
         );
 
-        const getFlagIconStyle = (countryCode) => {
+        const getFlagIconStyle = (countryCode: string) => {
             if (!countryCode) {
                 return {};
             }
@@ -113,5 +118,3 @@ const Location = observer(({ location, handleClick }) => {
         </button>
     );
 });
-
-export default Location;

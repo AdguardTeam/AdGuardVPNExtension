@@ -58,6 +58,7 @@
         "@types/react-html-parser": "^2.0.2",
         "@types/react-modal": "^3.13.1",
         "@types/react-router-dom": "^5.3.3",
+        "@types/react-transition-group": "^4.4.5",
         "@types/webextension-polyfill": "^0.9.1",
         "@types/zip-webpack-plugin": "^3.0.3",
         "@typescript-eslint/eslint-plugin": "^5.42.1",

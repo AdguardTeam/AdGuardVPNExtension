@@ -13,10 +13,10 @@ const TRAFFIC_PERCENT = {
     WARNING: 50,
 };
 
-const InfoMessage = observer(() => {
+export const InfoMessage = observer(() => {
     const { vpnStore, settingsStore } = useContext(rootStore);
 
-    const upgradeClickHandler = async (e) => {
+    const upgradeClickHandler = async (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
         await vpnStore.openPremiumPromoPage();
     };
@@ -62,7 +62,7 @@ const InfoMessage = observer(() => {
                             : reactTranslator.getMessage('popup_free_traffic_info', {
                                 value: formattedRemainingTraffic.value,
                                 unit: formattedRemainingTraffic.unit,
-                                span: (chunks) => (<span className={`info-message__value ${getInfoColor()}`}>{chunks}</span>),
+                                span: (chunks: string) => (<span className={`info-message__value ${getInfoColor()}`}>{chunks}</span>),
                             })
                     }
                 </div>
@@ -83,5 +83,3 @@ const InfoMessage = observer(() => {
         </div>
     );
 });
-
-export default InfoMessage;

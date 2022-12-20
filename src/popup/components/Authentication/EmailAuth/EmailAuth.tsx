@@ -34,7 +34,7 @@ export const EmailAuth = observer(() => {
             <Submit
                 text={translator.getMessage('auth_sign_in_provider_adguard')}
                 processing={requestProcessState === REQUEST_STATUSES.PENDING}
-                disabled={!username || authStore.error}
+                disabled={!username || !!authStore.error}
             />
         </div>
     );

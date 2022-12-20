@@ -8,16 +8,16 @@ import { reactTranslator } from '../../../common/reactTranslator';
 
 import './header.pcss';
 
-export const Header = observer(({ showMenuButton }) => {
+export const Header = observer(({ showMenuButton }: { showMenuButton: boolean }) => {
     const { uiStore, vpnStore, settingsStore } = useContext(rootStore);
     const { isPremiumToken } = vpnStore;
     const { hasGlobalError } = settingsStore;
 
     const handleOpenModal = () => {
-        uiStore.openOptionsModal(true);
+        uiStore.openOptionsModal();
     };
 
-    const handleOpenReferral = async (e) => {
+    const handleOpenReferral = async (e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
         await popupActions.openFreeGbsPage();
     };
@@ -26,6 +26,8 @@ export const Header = observer(({ showMenuButton }) => {
         header: true,
         'header--main': showMenuButton,
     });
+
+    const tabIndex = 0;
 
     return (
         <div className={headerClass}>
@@ -56,7 +58,7 @@ export const Header = observer(({ showMenuButton }) => {
                 <button
                     className="button header__setting"
                     type="button"
-                    tabIndex="0"
+                    tabIndex={tabIndex}
                     onClick={handleOpenModal}
                 >
                     <svg className="icon icon--button">
@@ -67,7 +69,3 @@ export const Header = observer(({ showMenuButton }) => {
         </div>
     );
 });
-
-Header.defaultProps = {
-    authenticated: false,
-};
