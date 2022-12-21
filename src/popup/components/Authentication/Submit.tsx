@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 
 import { DotsLoader } from '../../../common/components/DotsLoader';
 
-type SubmitArguments = {
+type SubmitProps = {
     processing: boolean,
     disabled?: boolean,
     text: string | ReactNode,
@@ -10,7 +10,7 @@ type SubmitArguments = {
 
 export const Submit = ({
     processing, disabled, text,
-}: SubmitArguments) => {
+}: SubmitProps) => {
     if (processing) {
         return <DotsLoader />;
     }

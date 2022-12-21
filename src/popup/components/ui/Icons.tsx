@@ -3,7 +3,7 @@ import React from 'react';
 
 import './icon.pcss';
 
-const Icons = () => (
+export const Icons = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="hidden">
         <symbol id="arrow" viewBox="0 0 36 18">
             <path d="M7 1L0.999999 7L7 13" fill="none" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -134,5 +134,3 @@ const Icons = () => (
         </svg>
     </svg>
 );
-
-export default Icons;

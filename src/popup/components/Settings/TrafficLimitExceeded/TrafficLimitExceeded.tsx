@@ -4,16 +4,16 @@ import { observer } from 'mobx-react';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { rootStore } from '../../../stores';
 
-const TrafficLimitExceeded = observer(() => {
+export const TrafficLimitExceeded = observer(() => {
     const { vpnStore, settingsStore } = useContext(rootStore);
 
-    const upgradeClickHandler = async (e) => {
+    const upgradeClickHandler = async (e: React.MouseEvent<HTMLAnchorElement>): Promise<void> => {
         e.preventDefault();
         await vpnStore.openPremiumPromoPage();
         window.close();
     };
 
-    const handleClose = (e) => {
+    const handleClose = (e: React.MouseEvent<HTMLDivElement>): void => {
         e.preventDefault();
         settingsStore.setHasLimitExceededDisplayed();
     };
@@ -48,5 +48,3 @@ const TrafficLimitExceeded = observer(() => {
         </div>
     );
 });
-
-export { TrafficLimitExceeded };

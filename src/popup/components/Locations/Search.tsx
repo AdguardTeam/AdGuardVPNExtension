@@ -4,13 +4,13 @@ import classnames from 'classnames';
 
 import { translator } from '../../../common/translator';
 
-type SearchArguments = {
+type SearchProps = {
     value: string,
     handleChange: React.ChangeEventHandler<HTMLInputElement>,
     handleClear: React.MouseEventHandler<HTMLButtonElement>,
 };
 
-export const Search = ({ value, handleChange, handleClear }: SearchArguments) => {
+export const Search = ({ value, handleChange, handleClear }: SearchProps) => {
     const crossClassNames = classnames(
         'button button--close endpoints__cross',
         { 'endpoints__cross--active': value.length > 0 },

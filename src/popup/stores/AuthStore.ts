@@ -11,6 +11,8 @@ import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
 import { messenger } from '../../lib/messenger';
 import { SETTINGS_IDS, FLAGS_FIELDS, SocialAuthProvider } from '../../lib/constants';
 import { translator } from '../../common/translator';
+// eslint-disable-next-line import/no-cycle
+import { RootStore } from './RootStore';
 
 const AUTH_STEPS = {
     POLICY_AGREEMENT: 'policyAgreement',
@@ -103,9 +105,9 @@ export class AuthStore {
 
     STEPS = AUTH_STEPS;
 
-    rootStore: any;
+    rootStore: RootStore;
 
-    constructor(rootStore: any) {
+    constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
     }
 

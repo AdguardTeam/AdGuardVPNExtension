@@ -10,21 +10,43 @@ import { messenger } from '../../lib/messenger';
 import { translator } from '../../common/translator';
 import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
 import { AnimationEvent } from '../../lib/constants';
+import { LocationWithPing } from '../../background/endpoints/LocationWithPing';
+import { PingData } from '../../background/endpoints/locationsService';
+// eslint-disable-next-line import/no-cycle
+import { RootStore } from './RootStore';
+
+type VpnInfo = {
+    bandwidthFreeMbits: number | null,
+    premiumPromoEnabled: boolean | null,
+    premiumPromoPage: string | null,
+    maxDownloadedBytes: number | null,
+    usedDownloadedBytes: number | null,
+};
+
+interface Pings {
+    [key: string]: PingData,
+}
+
+interface LocationState extends PingData {
+    locationId: string;
+}
 
 export class VpnStore {
-    constructor(rootStore) {
+    rootStore: RootStore;
+
+    constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
     }
 
-    @observable locations = [];
+    @observable locations: LocationWithPing[] = [];
 
-    @observable pings = {};
+    @observable pings: Pings = {};
 
-    @observable selectedLocation;
+    @observable selectedLocation: LocationWithPing;
 
     @observable searchValue = '';
 
-    @observable vpnInfo = {
+    @observable vpnInfo: VpnInfo = {
         bandwidthFreeMbits: null,
         premiumPromoEnabled: null,
         premiumPromoPage: null,
@@ -34,16 +56,16 @@ export class VpnStore {
 
     @observable tooManyDevicesConnected = false;
 
-    @observable maxDevicesAllowed = null;
+    @observable maxDevicesAllowed: number | null = null;
 
-    @observable isPremiumToken;
+    @observable isPremiumToken: boolean;
 
-    @action setSearchValue = (value) => {
+    @action setSearchValue = (value: string) => {
         // do not trim, or change logic see issue AG-2233
         this.searchValue = value;
     };
 
-    @action setLocations = (locations) => {
+    @action setLocations = (locations: LocationWithPing[]): void => {
         if (!locations) {
             return;
         }
@@ -51,12 +73,12 @@ export class VpnStore {
         this.locations = locations;
     };
 
-    @action updateLocationState = (state) => {
+    @action updateLocationState = (state: LocationState): void => {
         const id = state.locationId;
         this.pings[id] = state;
     };
 
-    @action selectLocation = async (id) => {
+    @action selectLocation = async (id: string): Promise<void> => {
         animationService.send(AnimationEvent.LocationSelected);
 
         const selectedLocation = this.locations.find((location) => {
@@ -73,7 +95,7 @@ export class VpnStore {
         });
     };
 
-    @action setSelectedLocation = (location) => {
+    @action setSelectedLocation = (location: LocationWithPing): void => {
         if (!location) {
             return;
         }
@@ -84,7 +106,7 @@ export class VpnStore {
     };
 
     @computed
-    get filteredLocations() {
+    get filteredLocations(): LocationWithPing[] {
         const locations = this.locations || [];
 
         return locations
@@ -120,17 +142,17 @@ export class VpnStore {
      * @param location
      * @returns {{ping, available}|*}
      */
-    enrichWithStateData = (location) => {
+    enrichWithStateData = (location: LocationWithPing): LocationWithPing => {
         const pingData = this.pings[location.id];
         if (pingData) {
             const { ping, available } = pingData;
-            return { ...location, ping, available };
+            return <LocationWithPing>{ ...location, ping, available };
         }
         return location;
     };
 
     @computed
-    get fastestLocations() {
+    get fastestLocations(): LocationWithPing[] {
         const FASTEST_LOCATIONS_COUNT = 3;
         const locations = this.locations || [];
         const sortedLocations = locations
@@ -156,24 +178,24 @@ export class VpnStore {
     }
 
     @computed
-    get countryNameToDisplay() {
+    get countryNameToDisplay(): string {
         return this.selectedLocation?.countryName;
     }
 
     @computed
-    get countryCodeToDisplay() {
+    get countryCodeToDisplay(): string {
         return this.selectedLocation?.countryCode;
     }
 
     @computed
-    get cityNameToDisplay() {
+    get cityNameToDisplay(): string {
         if (this.selectedLocation?.virtual) {
             return `${this.selectedLocation?.cityName} (${translator.getMessage('endpoints_location_virtual')})`;
         }
         return this.selectedLocation?.cityName;
     }
 
-    @action setVpnInfo = (vpnInfo) => {
+    @action setVpnInfo = (vpnInfo: VpnInfo): void => {
         if (!vpnInfo) {
             return;
         }
@@ -181,43 +203,50 @@ export class VpnStore {
     };
 
     @computed
-    get bandwidthFreeMbits() {
+    get bandwidthFreeMbits(): number | null {
         return this.vpnInfo.bandwidthFreeMbits;
     }
 
     @computed
-    get premiumPromoEnabled() {
+    get premiumPromoEnabled(): boolean | null {
         return this.vpnInfo.premiumPromoEnabled;
     }
 
     @computed
-    get premiumPromoPage() {
+    get premiumPromoPage(): string | null {
         return this.vpnInfo.premiumPromoPage;
     }
 
     @computed
-    get remainingTraffic() {
-        return this.vpnInfo.maxDownloadedBytes - this.vpnInfo.usedDownloadedBytes;
+    get remainingTraffic(): number {
+        if (this.vpnInfo.maxDownloadedBytes && this.vpnInfo.usedDownloadedBytes) {
+            return this.vpnInfo.maxDownloadedBytes - this.vpnInfo.usedDownloadedBytes;
+        }
+        return 0;
     }
 
     @computed
-    get trafficUsingProgress() {
+    get trafficUsingProgress(): number {
+        const HUNDRED_PERCENT = 100;
         const { maxDownloadedBytes } = this.vpnInfo;
-        return Math.floor((this.remainingTraffic / maxDownloadedBytes) * 100);
+        if (maxDownloadedBytes) {
+            return Math.floor((this.remainingTraffic / maxDownloadedBytes) * HUNDRED_PERCENT);
+        }
+        return HUNDRED_PERCENT;
     }
 
     @computed
-    get showSearchResults() {
+    get showSearchResults(): boolean {
         return this.searchValue.length > 0;
     }
 
     @action
-    setIsPremiumToken(isPremiumToken) {
+    setIsPremiumToken(isPremiumToken: boolean): void {
         this.isPremiumToken = isPremiumToken;
     }
 
     @action
-    async requestIsPremiumToken() {
+    async requestIsPremiumToken(): Promise<void> {
         const isPremiumToken = await messenger.checkIsPremiumToken();
         runInAction(() => {
             this.isPremiumToken = isPremiumToken;
@@ -225,7 +254,7 @@ export class VpnStore {
     }
 
     @computed
-    get selectedLocationPing() {
+    get selectedLocationPing(): number | null {
         if (!this.locations) {
             return null;
         }
@@ -243,21 +272,21 @@ export class VpnStore {
         let ping = currentLocation?.ping;
         // update with fresh values from pings storage
         if (this.pings[selectedLocationId]) {
-            ping = this.pings[selectedLocationId].ping;
+            ping = this.pings[selectedLocationId].ping as number;
         }
 
         return ping;
     }
 
-    @action openPremiumPromoPage = async () => {
+    @action openPremiumPromoPage = async (): Promise<void> => {
         await messenger.openPremiumPromoPage();
     };
 
-    @action setTooManyDevicesConnected = (state) => {
+    @action setTooManyDevicesConnected = (state: boolean): void => {
         this.tooManyDevicesConnected = state;
     };
 
-    @action setMaxDevicesAllowed = (maxDevicesAllowed) => {
+    @action setMaxDevicesAllowed = (maxDevicesAllowed: number): void => {
         this.maxDevicesAllowed = maxDevicesAllowed;
     };
 }

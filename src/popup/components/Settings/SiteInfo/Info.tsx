@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-const Info = ({ title, status, children }) => (
+type InfoProps = {
+    title: string,
+    status: string | ReactNode,
+    children?: ReactNode,
+};
+
+export const Info = ({ title, status, children }: InfoProps) => (
     <div className="site-info">
         <div className="site-info__title">
             {title}
@@ -11,5 +17,3 @@ const Info = ({ title, status, children }) => (
         {children}
     </div>
 );
-
-export default Info;

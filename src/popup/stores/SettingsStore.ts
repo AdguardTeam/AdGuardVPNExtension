@@ -4,6 +4,7 @@ import {
     observable,
     runInAction,
 } from 'mobx';
+import { StateValue } from 'xstate/lib/types';
 
 import { tabs } from '../../background/tabs';
 import { log } from '../../lib/logger';
@@ -18,45 +19,54 @@ import { messenger } from '../../lib/messenger';
 import { STATE } from '../../background/connectivity/connectivityService/connectivityConstants';
 import { getHostname, getProtocol } from '../../common/url-utils';
 import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
+import { PromoNotificationData } from '../../background/promoNotifications';
+// eslint-disable-next-line import/no-cycle
+import { RootStore } from './RootStore';
+
+type State = {
+    value: string,
+};
 
 export class SettingsStore {
-    @observable canControlProxy = false;
+    @observable canControlProxy: boolean = false;
 
-    @observable isExcluded;
+    @observable isExcluded: boolean;
 
-    @observable currentTabHostname;
+    @observable currentTabHostname: string;
 
-    @observable isRoutable = true;
+    @observable isRoutable: boolean = true;
 
-    @observable globalError;
+    @observable globalError: Error | null;
 
-    @observable canBeExcluded = true;
+    @observable canBeExcluded: boolean = true;
 
-    @observable exclusionsInverted;
+    @observable exclusionsInverted: boolean;
 
     @observable checkPermissionsState = REQUEST_STATUSES.DONE;
 
-    @observable connectivityState;
+    @observable connectivityState: State;
 
-    @observable desktopVpnEnabled;
+    @observable desktopVpnEnabled: boolean;
 
-    @observable isRateVisible;
+    @observable isRateVisible: boolean;
 
-    @observable freeUserClickedPremiumLocation = false;
+    @observable freeUserClickedPremiumLocation: boolean = false;
 
-    @observable hasLimitExceededDisplayed = false;
+    @observable hasLimitExceededDisplayed: boolean = false;
 
-    @observable promoNotification = null;
+    @observable promoNotification: PromoNotificationData | null = null;
 
     @observable appearanceTheme = APPEARANCE_THEME_DEFAULT;
 
-    @observable darkThemeMediaQuery;
+    @observable darkThemeMediaQuery: MediaQueryList;
 
-    @observable systemTheme;
+    @observable systemTheme: string;
 
     @observable animationState = animationService.initialState.value;
 
-    constructor(rootStore) {
+    rootStore: RootStore;
+
+    constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
     }
 
@@ -65,31 +75,31 @@ export class SettingsStore {
     };
 
     @action
-    async checkProxyControl() {
+    async checkProxyControl(): Promise<void> {
         const { canControlProxy } = await messenger.getCanControlProxy();
         runInAction(() => {
             this.canControlProxy = canControlProxy;
         });
     }
 
-    @action setCanControlProxy = ({ canControlProxy }) => {
+    @action setCanControlProxy = ({ canControlProxy }: { canControlProxy: boolean }): void => {
         this.canControlProxy = canControlProxy;
     };
 
-    @action enableProxy = async (force = false) => {
+    @action enableProxy = async (force = false): Promise<void> => {
         await messenger.enableProxy(force);
     };
 
-    @action disableProxy = async (force = false) => {
+    @action disableProxy = async (force = false): Promise<void> => {
         await messenger.disableProxy(force);
     };
 
-    @action reconnectProxy = async () => {
+    @action reconnectProxy = async (): Promise<void> => {
         await this.disableProxy(true);
         await this.enableProxy(true);
     };
 
-    @action setProxyState = async (value) => {
+    @action setProxyState = async (value: boolean): Promise<void> => {
         if (value) {
             await this.enableProxy(true);
         } else {
@@ -97,7 +107,7 @@ export class SettingsStore {
         }
     };
 
-    @action disableVpnOnCurrentTab = async () => {
+    @action disableVpnOnCurrentTab = async (): Promise<void> => {
         try {
             await messenger.disableVpnByUrl(this.currentTabHostname);
             this.setIsExcluded(true);
@@ -106,7 +116,7 @@ export class SettingsStore {
         }
     };
 
-    @action enableVpnOnCurrentTab = async () => {
+    @action enableVpnOnCurrentTab = async (): Promise<void> => {
         try {
             await messenger.enableVpnByUrl(this.currentTabHostname);
             this.setIsExcluded(false);
@@ -115,21 +125,23 @@ export class SettingsStore {
         }
     };
 
-    @action getExclusionsInverted = async () => {
+    @action getExclusionsInverted = async (): Promise<void> => {
         const exclusionsInverted = await messenger.getExclusionsInverted();
         runInAction(() => {
             this.exclusionsInverted = exclusionsInverted;
         });
     };
 
-    @action getCurrentTabHostname = async () => {
+    @action getCurrentTabHostname = async (): Promise<void> => {
         try {
             const result = await tabs.getCurrent();
             const { url } = result;
             runInAction(() => {
                 const hostname = getHostname(url);
                 const protocol = getProtocol(url);
-                this.currentTabHostname = hostname;
+                if (hostname) {
+                    this.currentTabHostname = hostname;
+                }
 
                 switch (protocol) {
                     case 'https:':
@@ -145,22 +157,20 @@ export class SettingsStore {
         }
     };
 
-    @action setIsRoutable = (value) => {
+    @action setIsRoutable = (value: boolean): void => {
         this.isRoutable = value;
     };
 
-    @action
-    setGlobalError(data) {
+    @action setGlobalError(data: Error | null) {
         this.globalError = data;
     }
 
-    @action
-    async checkPermissions() {
+    @action async checkPermissions(): Promise<void> {
         this.checkPermissionsState = REQUEST_STATUSES.PENDING;
         try {
             await messenger.checkPermissions();
             await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
-        } catch (e) {
+        } catch (e: any) {
             log.info(e.message);
         }
         runInAction(() => {
@@ -168,39 +178,43 @@ export class SettingsStore {
         });
     }
 
-    @action
-    async clearPermissionError() {
+    @action async clearPermissionError(): Promise<void> {
         this.globalError = null;
         await messenger.clearPermissionsError();
     }
 
     @computed
-    get displayNonRoutable() {
+    get displayNonRoutable(): boolean {
         if (this.exclusionsInverted) {
             return !this.isRoutable && this.isExcluded;
         }
         return !(this.isRoutable || this.isExcluded);
     }
 
-    @action
-    async disableOtherProxyExtensions() {
+    @action async disableOtherProxyExtensions(): Promise<void> {
         await messenger.disableOtherExtensions();
         await this.checkProxyControl();
     }
 
     @computed
-    get hasGlobalError() {
+    get hasGlobalError(): boolean {
         return !!this.globalError;
     }
 
     @computed
-    get hasLimitExceededError() {
+    get hasLimitExceededError(): boolean {
         const { vpnStore } = this.rootStore;
 
-        const {
-            maxDownloadedBytes = 0,
-            usedDownloadedBytes = 0,
-        } = vpnStore.vpnInfo;
+        let maxDownloadedBytes = 0;
+        let usedDownloadedBytes = 0;
+
+        if (vpnStore.vpnInfo.maxDownloadedBytes) {
+            maxDownloadedBytes = vpnStore.vpnInfo.maxDownloadedBytes;
+        }
+
+        if (vpnStore.vpnInfo.usedDownloadedBytes) {
+            usedDownloadedBytes = vpnStore.vpnInfo.usedDownloadedBytes;
+        }
 
         if (maxDownloadedBytes === 0) {
             return false;
@@ -210,112 +224,110 @@ export class SettingsStore {
     }
 
     @computed
-    get showLimitExceededScreen() {
+    get showLimitExceededScreen(): boolean {
         return this.hasLimitExceededError && !this.hasLimitExceededDisplayed;
     }
 
-    @action
-    setHasLimitExceededDisplayed() {
+    @action setHasLimitExceededDisplayed(): void {
         this.hasLimitExceededDisplayed = true;
     }
 
-    @action
-    setConnectivityState(state) {
+    @action setConnectivityState(state: State) {
         this.connectivityState = state;
         this.updateAnimationState(state);
     }
 
     @computed
-    get isConnected() {
+    get isConnected(): boolean {
         return this.connectivityState.value === STATE.CONNECTED;
     }
 
     @computed
-    get isDisconnectedIdle() {
+    get isDisconnectedIdle(): boolean {
         return this.connectivityState.value === STATE.DISCONNECTED_IDLE;
     }
 
     @computed
-    get isConnectingIdle() {
+    get isConnectingIdle(): boolean {
         return this.connectivityState.value === STATE.CONNECTING_IDLE;
     }
 
     @computed
-    get isDisconnectedRetrying() {
+    get isDisconnectedRetrying(): boolean {
         return this.connectivityState.value === STATE.DISCONNECTED_RETRYING;
     }
 
     @computed
-    get isConnectingRetrying() {
+    get isConnectingRetrying(): boolean {
         return this.connectivityState.value === STATE.CONNECTING_RETRYING;
     }
 
-    @action setDesktopVpnEnabled = (status) => {
+    @action setDesktopVpnEnabled = (status: boolean): void => {
         this.desktopVpnEnabled = status;
     };
 
-    @action setBackgroundDesktopVpnEnabled = (status) => {
+    @action setBackgroundDesktopVpnEnabled = (status: boolean): void => {
         messenger.setDesktopVpnEnabled(status);
     };
 
-    @action checkRateStatus = async () => {
+    @action checkRateStatus = async (): Promise<void> => {
         const value = await messenger.getSetting(SETTINGS_IDS.RATE_SHOW);
         runInAction(() => {
             this.isRateVisible = value;
         });
     };
 
-    @action hideRate = async () => {
+    @action hideRate = async (): Promise<void> => {
         await messenger.setSetting(SETTINGS_IDS.RATE_SHOW, false);
         runInAction(() => {
             this.isRateVisible = false;
         });
     };
 
-    @action setPremiumLocationClickedByFreeUser = (state) => {
+    @action setPremiumLocationClickedByFreeUser = (state: boolean): void => {
         this.freeUserClickedPremiumLocation = state;
     };
 
-    @action setPromoNotification = (promoNotification) => {
+    @action setPromoNotification = (promoNotification: PromoNotificationData): void => {
         this.promoNotification = promoNotification;
     };
 
-    @action getAppearanceTheme = async () => {
+    @action getAppearanceTheme = async (): Promise<void> => {
         const value = await messenger.getSetting(SETTINGS_IDS.APPEARANCE_THEME);
         runInAction(() => {
             this.appearanceTheme = value;
         });
     };
 
-    @action setIsExcluded = (value) => {
+    @action setIsExcluded = (value: boolean): void => {
         this.isExcluded = value;
     };
 
-    @action updateDarkThemeMediaQuery = () => {
+    @action updateDarkThemeMediaQuery = (): void => {
         this.darkThemeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     };
 
-    @action updateSystemTheme = () => {
+    @action updateSystemTheme = (): void => {
         this.systemTheme = this.darkThemeMediaQuery.matches
             ? APPEARANCE_THEMES.DARK
             : APPEARANCE_THEMES.LIGHT;
     };
 
-    @action trackSystemTheme = () => {
+    @action trackSystemTheme = (): void => {
         this.updateDarkThemeMediaQuery();
         this.updateSystemTheme();
         this.darkThemeMediaQuery.addEventListener('change', this.updateSystemTheme);
     };
 
-    @action stopTrackSystemTheme = () => {
+    @action stopTrackSystemTheme = (): void => {
         this.darkThemeMediaQuery.removeEventListener('change', this.updateSystemTheme);
     };
 
-    @action setAnimationState = (value) => {
+    @action setAnimationState = (value: StateValue): void => {
         this.animationState = value;
     };
 
-    @action updateAnimationState = (state) => {
+    @action updateAnimationState = (state: State): void => {
         if (state.value === STATE.CONNECTED) {
             animationService.send(AnimationEvent.VpnConnected);
             return;
@@ -329,7 +341,7 @@ export class SettingsStore {
         }
     };
 
-    handleAnimationEnd = () => {
+    handleAnimationEnd = (): void => {
         animationService.send(AnimationEvent.AnimationEnded);
     };
 }

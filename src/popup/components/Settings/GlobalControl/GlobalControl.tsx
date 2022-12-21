@@ -4,18 +4,18 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 
-const GlobalControl = observer(() => {
+export const GlobalControl = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
-    const connectHandler = async () => {
+    const connectHandler = async (): Promise<void> => {
         await settingsStore.setProxyState(true);
     };
 
-    const disconnectHandler = async () => {
+    const disconnectHandler = async (): Promise<void> => {
         await settingsStore.setProxyState(false);
     };
 
-    const disableVpnForCurrentSite = async () => {
+    const disableVpnForCurrentSite = async (): Promise<void> => {
         await settingsStore.disableVpnOnCurrentTab();
     };
 
@@ -40,6 +40,7 @@ const GlobalControl = observer(() => {
         connecting: {
             className: 'button--background-white button--disabled',
             message: reactTranslator.getMessage('settings_disconnect'),
+            handler: () => false,
         },
         connect: {
             className: 'button--green',
@@ -84,5 +85,3 @@ const GlobalControl = observer(() => {
         </>
     );
 });
-
-export default GlobalControl;

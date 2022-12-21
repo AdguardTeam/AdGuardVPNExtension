@@ -6,12 +6,13 @@ import { reactTranslator } from '../../../common/reactTranslator';
 import { Ping } from '../Ping';
 import { rootStore } from '../../stores';
 
-type LocationArguments = {
+type LocationProps = {
+    // FIXME: remove any
     location: any,
     handleClick: Function,
 };
 
-export const Location = observer(({ location, handleClick }: LocationArguments) => {
+export const Location = observer(({ location, handleClick }: LocationProps) => {
     const { vpnStore, settingsStore } = useContext(rootStore);
 
     const {

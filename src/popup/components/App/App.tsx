@@ -14,8 +14,8 @@ import { ExtraOptions } from '../ExtraOptions';
 import { GlobalError } from '../GlobalError';
 import { Settings } from '../Settings';
 import { PromoNotificationModal } from '../PromoNotificationModal';
-import Icons from '../ui/Icons';
-import CurrentEndpoint from '../Settings/CurrentEndpoint';
+import { Icons } from '../ui/Icons';
+import { CurrentEndpoint } from '../Settings/CurrentEndpoint';
 import { ExclusionsScreen } from '../Settings/ExclusionsScreen';
 
 import { rootStore } from '../../stores';

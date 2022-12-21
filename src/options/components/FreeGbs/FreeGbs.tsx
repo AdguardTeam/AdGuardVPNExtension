@@ -13,7 +13,7 @@ import { RequestStatus, COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 
 import './free-gbs.pcss';
 
-interface RenderItemArguments {
+interface RenderItemProps {
     title: string | React.ReactNode;
     status: string | React.ReactNode;
     query: string;
@@ -87,7 +87,7 @@ export const FreeGbs = observer(() => {
         query,
         statusDone,
         completed,
-    }: RenderItemArguments) => {
+    }: RenderItemProps) => {
         return (
             <div
                 key={title as string}

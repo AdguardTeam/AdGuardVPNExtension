@@ -5,9 +5,28 @@ import { DotsIndicator } from '../DotsIndicator';
 import { CloseButton } from '../CloseButton';
 
 import './slider.pcss';
-import Icon from '../Icon';
+import { Icon } from '../Icon';
 
-export const Slider = (props) => {
+type SlideData = {
+    image: string,
+    title: string | React.ReactNode,
+    info: string | React.ReactNode,
+};
+
+type SliderProps = {
+    slideIndex: number,
+    slideData: SlideData,
+    nextSlideHandler: () => Promise<void>,
+    prevSlideHandler?: () => Promise<void>,
+    navigationHandler: (index: number) => void,
+    slidesAmount: number,
+    handleCloseClick?: () => void,
+    button?: boolean,
+    arrows?: boolean,
+    sliderMod?: string,
+};
+
+export const Slider = (props: SliderProps) => {
     const {
         slideIndex,
         slideData,

@@ -3,7 +3,13 @@ import classnames from 'classnames';
 
 import './dots-indicator.pcss';
 
-export const DotsIndicator = (props) => {
+type DotsIndicatorProps = {
+    dotsAmount?: number,
+    activeDot: number,
+    navigationHandler: (dotId: number) => void,
+};
+
+export const DotsIndicator = (props: DotsIndicatorProps) => {
     const {
         dotsAmount,
         activeDot,
@@ -12,7 +18,7 @@ export const DotsIndicator = (props) => {
 
     const dots = [...Array(dotsAmount).keys()];
 
-    const clickHandler = (dotId) => () => {
+    const clickHandler = (dotId: number) => () => {
         navigationHandler(dotId);
     };
 

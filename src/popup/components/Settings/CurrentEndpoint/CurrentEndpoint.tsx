@@ -7,7 +7,7 @@ import { rootStore } from '../../../stores';
 import './endpoint.pcss';
 import { Ping } from '../../Ping';
 
-const CurrentEndpoint = observer(() => {
+export const CurrentEndpoint = observer(() => {
     const {
         vpnStore,
         settingsStore,
@@ -23,14 +23,14 @@ const CurrentEndpoint = observer(() => {
 
     const { isConnected } = settingsStore;
 
-    const clickHandler = (e) => {
+    const clickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
         e.preventDefault();
         uiStore.openEndpointsSearch();
     };
 
     const iconClass = classnames('flag', { 'flag--active': isConnected });
 
-    const getFlagIconStyle = (countryCode) => {
+    const getFlagIconStyle = (countryCode: string) => {
         if (!countryCode) {
             return {};
         }
@@ -68,5 +68,3 @@ const CurrentEndpoint = observer(() => {
         </div>
     );
 });
-
-export default CurrentEndpoint;

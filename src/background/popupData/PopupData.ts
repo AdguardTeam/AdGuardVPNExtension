@@ -25,7 +25,7 @@ import { appStatus } from '../appStatus';
 import { LocationWithPing } from '../endpoints/LocationWithPing';
 import { CanControlProxy } from '../proxy/proxy';
 
-interface PopupDataArguments {
+interface PopupDataProps {
     permissionsChecker: PermissionsCheckerInterface;
     permissionsError: PermissionsErrorInterface;
     nonRoutable: NonRoutableServiceInterface;
@@ -85,7 +85,7 @@ export class PopupData {
         nonRoutable,
         endpoints,
         credentials,
-    }: PopupDataArguments) {
+    }: PopupDataProps) {
         this.permissionsChecker = permissionsChecker;
         this.permissionsError = permissionsError;
         this.nonRoutable = nonRoutable;

@@ -8,16 +8,20 @@ import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
 import { log } from '../../lib/logger';
 import { tabs } from '../../background/tabs';
 import { messenger } from '../../lib/messenger';
+// eslint-disable-next-line import/no-cycle
+import { RootStore } from './RootStore';
 
 export class GlobalStore {
     @observable initStatus = REQUEST_STATUSES.PENDING;
 
-    constructor(rootStore) {
+    rootStore: RootStore;
+
+    constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
     }
 
     @action
-    async getPopupData(numberOfTries = 1) {
+    async getPopupData(numberOfTries = 1): Promise<void> {
         const { rootStore: { vpnStore, settingsStore, authStore } } = this;
 
         this.setInitStatus(REQUEST_STATUSES.PENDING);
@@ -26,7 +30,7 @@ export class GlobalStore {
         const tab = await tabs.getCurrent();
 
         try {
-            const popupData = await messenger.getPopupData(tab.url, numberOfTries);
+            const popupData = await messenger.getPopupData(tab.url as string, numberOfTries);
 
             const {
                 vpnInfo,
@@ -90,19 +94,19 @@ export class GlobalStore {
             await settingsStore.getCurrentTabHostname();
             settingsStore.setIsExcluded(!isVpnEnabledByUrl);
             this.setInitStatus(REQUEST_STATUSES.DONE);
-        } catch (e) {
+        } catch (e: any) {
             log.error(e.message);
             this.setInitStatus(REQUEST_STATUSES.ERROR);
         }
     }
 
     @action
-    async init() {
+    async init(): Promise<void> {
         await this.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
     }
 
     @action
-    setInitStatus(status) {
+    setInitStatus(status: string): void {
         this.initStatus = status;
     }
 

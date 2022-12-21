@@ -1,10 +1,10 @@
 import React from 'react';
 import cn from 'classnames';
 
-import Icon from '../../ui/Icon';
+import { Icon } from '../../ui/Icon';
 import './checkbox.pcss';
 
-type CheckboxArguments = {
+type CheckboxProps = {
     id: string,
     checked: boolean,
     onChange: (checked: boolean) => void,
@@ -18,7 +18,7 @@ export const Checkbox = ({
     onChange,
     label,
     labelSize,
-}: CheckboxArguments) => {
+}: CheckboxProps) => {
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         onChange(e.currentTarget.checked);
     };

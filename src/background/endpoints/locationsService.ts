@@ -10,7 +10,7 @@ import { SETTINGS_IDS } from '../../lib/constants';
 import { settings } from '../settings';
 import { EndpointInterface } from './Endpoint';
 
-interface PingData {
+export interface PingData {
     ping: number | null;
     available: boolean;
     lastMeasurementTime: number;
@@ -26,7 +26,7 @@ interface IncomingPingData {
     isMeasuring?: boolean;
 }
 
-interface PingsCacheInterface {
+export interface PingsCacheInterface {
     [id: string]: PingData;
 }
 
