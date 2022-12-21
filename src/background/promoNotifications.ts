@@ -323,6 +323,7 @@ let notificationCheckTime: number;
 const checkTimeoutMs = 10 * 60 * 1000; // 10 minutes
 const minPeriod = 30 * 60 * 1000; // 30 minutes
 const NOTIFICATION_DELAY = 30 * 1000; // clear notification in 30 seconds
+let timeoutId: NodeJS.Timeout;
 
 /**
  * Marks current notification as viewed
@@ -330,10 +331,18 @@ const NOTIFICATION_DELAY = 30 * 1000; // clear notification in 30 seconds
  */
 const setNotificationViewed = async (withDelay: boolean): Promise<void> => {
     if (withDelay) {
-        await alarmService.clearAlarm(CLEAR_NOTIFICATION_ALARM_NAME);
-        alarmService.createAlarm(CLEAR_NOTIFICATION_ALARM_NAME, NOTIFICATION_DELAY);
-        alarmService.onAlarmFires(CLEAR_NOTIFICATION_ALARM_NAME, () => setNotificationViewed(false));
-        return;
+        // in mv2 we use setTimeout, in mv3 we use Alarm API
+        if (browserApi.runtime.isManifestVersion2()) {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                setNotificationViewed(false);
+            }, NOTIFICATION_DELAY);
+        } else {
+            await alarmService.clearAlarm(CLEAR_NOTIFICATION_ALARM_NAME);
+            alarmService.createAlarm(CLEAR_NOTIFICATION_ALARM_NAME, NOTIFICATION_DELAY);
+            alarmService.onAlarmFires(CLEAR_NOTIFICATION_ALARM_NAME, () => setNotificationViewed(false));
+            return;
+        }
     }
 
     if (currentNotification) {
