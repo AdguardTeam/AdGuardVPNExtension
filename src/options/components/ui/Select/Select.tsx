@@ -1,7 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './select.pcss';
 
-export const Select = ((props) => {
+type SelectProps = {
+    currentValue: string,
+    options: {
+        [key: string]: {
+            title: React.ReactNode | string,
+            desc?: React.ReactNode | string,
+        },
+    },
+    optionChange: (id: string) => void,
+};
+
+export const Select = ((props: SelectProps) => {
     const {
         currentValue,
         options,
@@ -15,7 +26,7 @@ export const Select = ((props) => {
         setValue(currentValue);
     });
 
-    const closeOnClick = () => {
+    const closeOnClick = (): void => {
         document.addEventListener(
             'click',
             () => { setHidden(true); },
@@ -23,23 +34,24 @@ export const Select = ((props) => {
         );
     };
 
-    const handleSelectClick = () => {
+    const handleSelectClick = (): void => {
         if (hidden) {
             setHidden(false);
             closeOnClick();
         }
     };
 
-    const handleOptionClick = (id) => {
+    const handleOptionClick = (id: string): void => {
         setValue(id);
         optionChange(id);
     };
 
-    const isActiveOption = (id) => ((id === value) ? ' active' : '');
+    const isActiveOption = (id: string) => ((id === value) ? ' active' : '');
 
     const optionsList = useRef(null);
 
     useEffect(() => {
+        // @ts-ignore
         optionsList.current.scrollTop = 0;
     });
 

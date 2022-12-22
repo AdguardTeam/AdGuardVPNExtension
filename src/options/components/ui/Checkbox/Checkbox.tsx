@@ -2,7 +2,13 @@ import React from 'react';
 
 import './checkbox.pcss';
 
-export const Checkbox = ({ children, id, value }) => (
+type CheckboxProps = {
+    children: React.ReactNode,
+    id: string,
+    value: boolean,
+};
+
+export const Checkbox = ({ children, id, value }: CheckboxProps) => (
     <label
         htmlFor={id}
         className="checkbox"
@@ -10,7 +16,7 @@ export const Checkbox = ({ children, id, value }) => (
         <input
             id={id}
             type="checkbox"
-            defaultValue={value}
+            defaultChecked={value}
             className="checkbox__in"
         />
         <div className="checkbox__custom">

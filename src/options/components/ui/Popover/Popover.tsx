@@ -2,7 +2,7 @@ import React from 'react';
 
 import './popover.pcss';
 
-export const Popover = ({ children }) => (
+export const Popover = ({ children }: { children: React.ReactNode }) => (
     <div className="popover-wrap">
         <div className="popover__trigger">
             <svg className="popover__icon">

@@ -9,7 +9,7 @@ import { reactTranslator } from '../../../../common/reactTranslator';
 export const AppearanceTheme = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
-    const handleSetAppearanceTheme = async (server) => {
+    const handleSetAppearanceTheme = async (server: string): Promise<void> => {
         await settingsStore.setAppearanceTheme(server);
     };
 

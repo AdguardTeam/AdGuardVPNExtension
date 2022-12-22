@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
-const useOutsideClick = (ref, callback) => {
-    const handleClick = (e) => {
+export const useOutsideClick = (ref: React.RefObject<any>, callback: () => void) => {
+    const handleClick = (e: Event) => {
         if (ref.current && !ref.current.contains(e.target)) {
             callback();
         }
@@ -15,5 +15,3 @@ const useOutsideClick = (ref, callback) => {
         };
     });
 };
-
-export default useOutsideClick;

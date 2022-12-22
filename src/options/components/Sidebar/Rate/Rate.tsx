@@ -16,11 +16,11 @@ export const Rate = observer(() => {
         isRateVisible,
     } = settingsStore;
 
-    const handleHideRate = async () => {
+    const handleHideRate = async (): Promise<void> => {
         await hideRate();
     };
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const { value } = e.target;
 
         if (value && parseInt(value, 10) >= 4) {
