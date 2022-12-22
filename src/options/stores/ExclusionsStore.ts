@@ -20,6 +20,7 @@ import {
 } from '../../common/exclusionsConstants';
 import { messenger } from '../../lib/messenger';
 import { containsIgnoreCase } from '../components/Exclusions/Search/SearchHighlighter/helpers';
+import type { RootStore } from './RootStore';
 
 export interface PreparedServiceCategory extends ServiceCategory {
     services: string[]
@@ -114,6 +115,12 @@ export class ExclusionsStore {
     @observable importingExclusions: boolean = false;
 
     @observable isAllExclusionsListsEmpty: boolean;
+
+    rootStore: RootStore;
+
+    constructor(rootStore: RootStore) {
+        this.rootStore = rootStore;
+    }
 
     /**
      * Temp list used to keep state of services to be enabled or disabled

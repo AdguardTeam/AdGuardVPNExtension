@@ -1,7 +1,6 @@
 import { action, observable } from 'mobx';
 
-// eslint-disable-next-line import/no-cycle
-import { RootStore } from './RootStore';
+import type { RootStore } from './RootStore';
 
 export class UiStore {
     @observable isOpenEndpointsSearch: boolean = false;

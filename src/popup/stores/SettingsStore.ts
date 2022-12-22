@@ -20,8 +20,7 @@ import { STATE } from '../../background/connectivity/connectivityService/connect
 import { getHostname, getProtocol } from '../../common/url-utils';
 import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
 import { PromoNotificationData } from '../../background/promoNotifications';
-// eslint-disable-next-line import/no-cycle
-import { RootStore } from './RootStore';
+import type { RootStore } from './RootStore';
 
 type State = {
     value: string,

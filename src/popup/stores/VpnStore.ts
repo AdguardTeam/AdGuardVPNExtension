@@ -12,8 +12,7 @@ import { animationService } from '../components/Settings/BackgroundAnimation/ani
 import { AnimationEvent } from '../../lib/constants';
 import { LocationWithPing } from '../../background/endpoints/LocationWithPing';
 import { PingData } from '../../background/endpoints/locationsService';
-// eslint-disable-next-line import/no-cycle
-import { RootStore } from './RootStore';
+import type { RootStore } from './RootStore';
 
 type VpnInfo = {
     bandwidthFreeMbits: number | null,

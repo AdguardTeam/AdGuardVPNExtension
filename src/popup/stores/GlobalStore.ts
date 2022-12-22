@@ -8,8 +8,7 @@ import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
 import { log } from '../../lib/logger';
 import { tabs } from '../../background/tabs';
 import { messenger } from '../../lib/messenger';
-// eslint-disable-next-line import/no-cycle
-import { RootStore } from './RootStore';
+import type { RootStore } from './RootStore';
 
 export class GlobalStore {
     @observable initStatus = REQUEST_STATUSES.PENDING;

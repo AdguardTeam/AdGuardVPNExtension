@@ -7,16 +7,19 @@ import {
 import { RequestStatus } from './consts';
 import { log } from '../../lib/logger';
 import { messenger } from '../../lib/messenger';
+import type { RootStore } from './RootStore';
 
 export class GlobalStore {
     @observable initStatus = RequestStatus.Pending;
 
-    constructor(rootStore) {
+    rootStore: RootStore;
+
+    constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
     }
 
     @action
-    async getOptionsData() {
+    async getOptionsData(): Promise<void> {
         const { rootStore: { settingsStore, authStore, exclusionsStore } } = this;
         this.setInitStatus(RequestStatus.Pending);
 
@@ -30,7 +33,7 @@ export class GlobalStore {
             exclusionsStore.setExclusionsData(optionsData.exclusionsData);
             exclusionsStore.setIsAllExclusionsListsEmpty(optionsData.isAllExclusionsListsEmpty);
             this.setInitStatus(RequestStatus.Done);
-        } catch (e) {
+        } catch (e: any) {
             log.error(e.message);
             this.setInitStatus(RequestStatus.Error);
         }
@@ -38,17 +41,17 @@ export class GlobalStore {
     }
 
     @action
-    async init() {
+    async init(): Promise<void> {
         await this.getOptionsData();
     }
 
     @action
-    setInitStatus(status) {
+    setInitStatus(status: RequestStatus): void {
         this.initStatus = status;
     }
 
     @computed
-    get status() {
+    get status(): RequestStatus {
         return this.initStatus;
     }
 }

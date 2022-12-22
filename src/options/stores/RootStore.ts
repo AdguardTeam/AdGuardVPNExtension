@@ -5,6 +5,16 @@ import { ExclusionsStore } from './ExclusionsStore';
 import { NotificationsStore } from './NotificationsStore';
 
 export class RootStore {
+    globalStore: GlobalStore;
+
+    authStore: AuthStore;
+
+    settingsStore: SettingsStore;
+
+    exclusionsStore: ExclusionsStore;
+
+    notificationsStore: NotificationsStore;
+
     constructor() {
         this.globalStore = new GlobalStore(this);
         this.authStore = new AuthStore(this);
