@@ -5,7 +5,7 @@ import { StateValue } from 'xstate/lib/types';
 import { log } from '../../lib/logger';
 import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
 import { PromoNotificationData, promoNotifications } from '../promoNotifications';
-import auth from '../auth';
+import { auth } from '../auth';
 import { settings } from '../settings';
 import { SETTINGS_IDS } from '../../lib/constants';
 import { sleep } from '../../lib/helpers';

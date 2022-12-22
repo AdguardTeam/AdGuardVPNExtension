@@ -6,7 +6,7 @@ import { actions } from './actions';
 import { exclusions } from './exclusions';
 import { tabs } from './tabs';
 import { isHttp } from '../lib/string-utils';
-import auth from './auth';
+import { auth } from './auth';
 import { locationsService } from './endpoints/locationsService';
 import { isVPNConnected } from './connectivity/connectivityService/connectivityFSM';
 import { log } from '../lib/logger';
@@ -96,4 +96,4 @@ class BrowserActionIcon {
     };
 }
 
-export default new BrowserActionIcon();
+export const browserActionIcon = new BrowserActionIcon();

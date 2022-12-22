@@ -311,6 +311,4 @@ class Auth implements AuthInterface {
     }
 }
 
-const auth = new Auth();
-
-export default auth;
+export const auth = new Auth();
