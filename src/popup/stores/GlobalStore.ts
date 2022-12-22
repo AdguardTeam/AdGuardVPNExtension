@@ -4,14 +4,14 @@ import {
     observable,
 } from 'mobx';
 
-import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
+import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './consts';
 import { log } from '../../lib/logger';
 import { tabs } from '../../background/tabs';
 import { messenger } from '../../lib/messenger';
 import type { RootStore } from './RootStore';
 
 export class GlobalStore {
-    @observable initStatus = REQUEST_STATUSES.PENDING;
+    @observable initStatus = RequestStatus.Pending;
 
     rootStore: RootStore;
 
@@ -23,7 +23,7 @@ export class GlobalStore {
     async getPopupData(numberOfTries = 1): Promise<void> {
         const { rootStore: { vpnStore, settingsStore, authStore } } = this;
 
-        this.setInitStatus(REQUEST_STATUSES.PENDING);
+        this.setInitStatus(RequestStatus.Pending);
 
         // Used tab api because calling tab api from background returns wrong result
         const tab = await tabs.getCurrent();
@@ -56,7 +56,7 @@ export class GlobalStore {
                 authStore.setIsAuthenticated(isAuthenticated);
                 await authStore.handleInitPolicyAgreement(policyAgreement);
                 await authStore.getAuthCacheFromBackground();
-                this.setInitStatus(REQUEST_STATUSES.DONE);
+                this.setInitStatus(RequestStatus.Done);
                 return;
             }
 
@@ -65,7 +65,7 @@ export class GlobalStore {
             } else if (!hasRequiredData) {
                 settingsStore.setCanControlProxy(canControlProxy);
                 settingsStore.setGlobalError(new Error('No required data'));
-                this.setInitStatus(REQUEST_STATUSES.ERROR);
+                this.setInitStatus(RequestStatus.Error);
                 return;
             } else {
                 settingsStore.setGlobalError(null);
@@ -92,10 +92,10 @@ export class GlobalStore {
             await settingsStore.getExclusionsInverted();
             await settingsStore.getCurrentTabHostname();
             settingsStore.setIsExcluded(!isVpnEnabledByUrl);
-            this.setInitStatus(REQUEST_STATUSES.DONE);
+            this.setInitStatus(RequestStatus.Done);
         } catch (e: any) {
             log.error(e.message);
-            this.setInitStatus(REQUEST_STATUSES.ERROR);
+            this.setInitStatus(RequestStatus.Error);
         }
     }
 
@@ -105,7 +105,7 @@ export class GlobalStore {
     }
 
     @action
-    setInitStatus(status: string): void {
+    setInitStatus(status: RequestStatus): void {
         this.initStatus = status;
     }
 

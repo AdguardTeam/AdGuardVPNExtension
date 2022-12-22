@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 
 import ReactHtmlParser from 'react-html-parser';
 import { rootStore } from '../../../stores';
-import { REQUEST_STATUSES } from '../../../stores/consts';
+import { RequestStatus } from '../../../stores/consts';
 
 import { Submit } from '../Submit';
 import { InputField } from '../InputField';
@@ -54,7 +54,7 @@ export const TwoFactorForm = observer(() => {
             <div className="form__btn-wrap">
                 <Submit
                     text={reactTranslator.getMessage('auth_confirm') as string}
-                    processing={requestProcessState === REQUEST_STATUSES.PENDING}
+                    processing={requestProcessState === RequestStatus.Pending}
                     disabled={!twoFactor}
                 />
             </div>

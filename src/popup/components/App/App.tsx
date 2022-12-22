@@ -19,7 +19,7 @@ import { CurrentEndpoint } from '../Settings/CurrentEndpoint';
 import { ExclusionsScreen } from '../Settings/ExclusionsScreen';
 
 import { rootStore } from '../../stores';
-import { REQUEST_STATUSES } from '../../stores/consts';
+import { RequestStatus } from '../../stores/consts';
 import { log } from '../../../lib/logger';
 import { messenger } from '../../../lib/messenger';
 import { notifier, NotifierType } from '../../../lib/notifier';
@@ -151,7 +151,7 @@ export const App = observer(() => {
     useAppearanceTheme(settingsStore.appearanceTheme);
 
     // show dots-loader while data is loading
-    if (initStatus === REQUEST_STATUSES.PENDING) {
+    if (initStatus === RequestStatus.Pending) {
         return (
             <div className="data-loader">
                 <DotsLoader />
@@ -159,9 +159,9 @@ export const App = observer(() => {
         );
     }
 
-    if (authStore.requestProcessState !== REQUEST_STATUSES.PENDING
-        && settingsStore.checkPermissionsState !== REQUEST_STATUSES.PENDING
-        && globalStore.status === REQUEST_STATUSES.PENDING) {
+    if (authStore.requestProcessState !== RequestStatus.Pending
+        && settingsStore.checkPermissionsState !== RequestStatus.Pending
+        && globalStore.status === RequestStatus.Pending) {
         return null;
     }
 

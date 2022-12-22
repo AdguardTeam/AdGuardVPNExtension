@@ -8,7 +8,7 @@ import { StateValue } from 'xstate/lib/types';
 
 import { tabs } from '../../background/tabs';
 import { log } from '../../lib/logger';
-import { MAX_GET_POPUP_DATA_ATTEMPTS, REQUEST_STATUSES } from './consts';
+import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './consts';
 import {
     SETTINGS_IDS,
     APPEARANCE_THEME_DEFAULT,
@@ -41,7 +41,7 @@ export class SettingsStore {
 
     @observable exclusionsInverted: boolean;
 
-    @observable checkPermissionsState = REQUEST_STATUSES.DONE;
+    @observable checkPermissionsState = RequestStatus.Done;
 
     @observable connectivityState: State;
 
@@ -165,7 +165,7 @@ export class SettingsStore {
     }
 
     @action async checkPermissions(): Promise<void> {
-        this.checkPermissionsState = REQUEST_STATUSES.PENDING;
+        this.checkPermissionsState = RequestStatus.Pending;
         try {
             await messenger.checkPermissions();
             await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
@@ -173,7 +173,7 @@ export class SettingsStore {
             log.info(e.message);
         }
         runInAction(() => {
-            this.checkPermissionsState = REQUEST_STATUSES.DONE;
+            this.checkPermissionsState = RequestStatus.Done;
         });
     }
 

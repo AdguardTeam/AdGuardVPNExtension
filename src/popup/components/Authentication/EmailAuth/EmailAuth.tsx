@@ -4,7 +4,7 @@ import ReactHtmlParser from 'react-html-parser';
 import classnames from 'classnames';
 
 import { rootStore } from '../../../stores';
-import { REQUEST_STATUSES } from '../../../stores/consts';
+import { RequestStatus } from '../../../stores/consts';
 
 import { Submit } from '../Submit';
 import { InputField } from '../InputField';
@@ -33,7 +33,7 @@ export const EmailAuth = observer(() => {
         <div className="form__btn-wrap">
             <Submit
                 text={translator.getMessage('auth_sign_in_provider_adguard')}
-                processing={requestProcessState === REQUEST_STATUSES.PENDING}
+                processing={requestProcessState === RequestStatus.Pending}
                 disabled={!username || !!authStore.error}
             />
         </div>

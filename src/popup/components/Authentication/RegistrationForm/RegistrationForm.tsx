@@ -4,7 +4,7 @@ import ReactHtmlParser from 'react-html-parser';
 import classnames from 'classnames';
 
 import { rootStore } from '../../../stores';
-import { REQUEST_STATUSES, INPUT_TYPES } from '../../../stores/consts';
+import { RequestStatus, InputType } from '../../../stores/consts';
 import PasswordField from '../PasswordField';
 import { Submit } from '../Submit';
 import { reactTranslator } from '../../../../common/reactTranslator';
@@ -27,22 +27,22 @@ export const RegistrationForm = observer(() => {
     const { requestProcessState, credentials } = authStore;
     const { password, confirmPassword } = credentials;
 
-    const [passwordInputType, setPasswordInputType] = useState(INPUT_TYPES.PASSWORD);
-    const [confirmPasswordInputType, setConfirmPasswordInputType] = useState(INPUT_TYPES.PASSWORD);
+    const [passwordInputType, setPasswordInputType] = useState(InputType.Password);
+    const [confirmPasswordInputType, setConfirmPasswordInputType] = useState(InputType.Password);
 
     const handlePasswordInputTypeChange = () => {
         setPasswordInputType(
-            passwordInputType === INPUT_TYPES.PASSWORD
-                ? INPUT_TYPES.TEXT
-                : INPUT_TYPES.PASSWORD,
+            passwordInputType === InputType.Password
+                ? InputType.Text
+                : InputType.Password,
         );
     };
 
     const handleConfirmPasswordInputTypeChange = () => {
         setConfirmPasswordInputType(
-            confirmPasswordInputType === INPUT_TYPES.PASSWORD
-                ? INPUT_TYPES.TEXT
-                : INPUT_TYPES.PASSWORD,
+            confirmPasswordInputType === InputType.Password
+                ? InputType.Text
+                : InputType.Password,
         );
     };
 
@@ -51,8 +51,8 @@ export const RegistrationForm = observer(() => {
         { 'form--error': authStore.error },
     );
 
-    const passwordIcon = passwordInputType === INPUT_TYPES.PASSWORD ? '#closed_eye' : '#open_eye';
-    const confirmPasswordIcon = confirmPasswordInputType === INPUT_TYPES.PASSWORD ? '#closed_eye' : '#open_eye';
+    const passwordIcon = passwordInputType === InputType.Password ? '#closed_eye' : '#open_eye';
+    const confirmPasswordIcon = confirmPasswordInputType === InputType.Password ? '#closed_eye' : '#open_eye';
 
     return (
         <form
@@ -105,7 +105,7 @@ export const RegistrationForm = observer(() => {
             <div className="form__btn-wrap form__btn-wrap--register">
                 <Submit
                     text={reactTranslator.getMessage('auth_sign_up_button')}
-                    processing={requestProcessState === REQUEST_STATUSES.PENDING}
+                    processing={requestProcessState === RequestStatus.Pending}
                     disabled={authStore.disableRegister}
                 />
             </div>
