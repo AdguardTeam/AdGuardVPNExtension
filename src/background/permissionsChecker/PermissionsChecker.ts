@@ -7,7 +7,7 @@ import { PermissionsErrorInterface, ErrorData } from './permissionsError';
 import { CredentialsInterface } from '../credentials/Credentials';
 import { vpnProvider } from '../providers/vpnProvider';
 import { alarmService } from '../alarmService';
-import {browserApi} from "../browserApi";
+import { browserApi } from '../browserApi';
 
 interface PermissionsCheckerParameters {
     credentials: CredentialsInterface;
@@ -179,25 +179,32 @@ class PermissionsChecker implements PermissionsCheckerInterface {
     stopChecker = async (): Promise<void> => {
         if (this.credentialsCheckTimerId) {
             log.info('Credentials checker stopped');
-            isManifestVersion2
-                ? clearInterval(this.credentialsCheckTimerId)
-                : await alarmService.clearAlarm(CREDENTIALS_CHECK_ALARM);
+            if (isManifestVersion2) {
+                clearInterval(this.credentialsCheckTimerId);
+            } else {
+                await alarmService.clearAlarm(CREDENTIALS_CHECK_ALARM);
+            }
             this.credentialsCheckTimerId = null;
         }
 
         if (this.vpnInfoCheckTimerId) {
             log.info('VPN info checker stopped');
-            isManifestVersion2
-                ? clearInterval(this.vpnInfoCheckTimerId)
-                : await alarmService.clearAlarm(VPN_INFO_CHECK_ALARM);
+            if (isManifestVersion2) {
+                clearInterval(this.vpnInfoCheckTimerId);
+            } else {
+                await alarmService.clearAlarm(VPN_INFO_CHECK_ALARM);
+            }
             this.vpnInfoCheckTimerId = null;
         }
 
         if (this.expiredCredentialsCheckTimeoutId) {
             log.info('Checker before credentials expired stopped');
-            isManifestVersion2
-                ? clearTimeout(this.expiredCredentialsCheckTimeoutId)
-                : this.expiredCredentialsCheckTimeoutId = null;
+            if (isManifestVersion2) {
+                clearTimeout(this.expiredCredentialsCheckTimeoutId);
+            } else {
+                await alarmService.clearAlarm(EXPIRED_CREDENTIALS_CHECK_ALARM);
+            }
+            this.expiredCredentialsCheckTimeoutId = null;
         }
     };
 
