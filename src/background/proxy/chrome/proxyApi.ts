@@ -3,6 +3,8 @@ import { nanoid } from 'nanoid';
 import pacGenerator from './pacGenerator';
 import { ProxyConfigInterface } from '../proxy';
 import { PAC_SCRIPT_CHECK_URL } from '../proxyConsts';
+import { getETld } from '../../../common/url-utils';
+import { log } from '../../../lib/logger';
 
 /**
  * Returns proxy config
@@ -86,11 +88,55 @@ const promisifiedClearProxy = (): Promise<void> => {
     });
 };
 
+// FIXME remove ts-ignore
+// @ts-ignore
+const promisifiedBrowsingDataRemove = (options, types): Promise<void> => new Promise((resolve, reject) => {
+    chrome.browsingData.remove(options, types, () => {
+        if (chrome.runtime.lastError) {
+            reject(chrome.runtime.lastError);
+            return;
+        }
+        resolve();
+    });
+});
+
+/**
+ * Clears auth cache
+ * There was an idea that this method should help with clearing proxy credentials,
+ * it was taken from stackoverflow and its necessity is not fully proved yet.
+ * @param host
+ */
+const clearAuthCache = async (host: string | undefined) => {
+    if (!host) {
+        return;
+    }
+
+    // Only top level domain should be cleared
+    const tld = getETld(host);
+    const origins = [
+        `http://${tld}`,
+        `https://${tld}`,
+    ];
+
+    const options = {
+        origins,
+    };
+
+    const types = { cookies: true };
+
+    try {
+        await promisifiedBrowsingDataRemove(options, types);
+    } catch (e) {
+        log.debug('clearAuthCache error:', e);
+    }
+};
+
 /**
  * Clears proxy settings
  */
 const proxyClear = async (): Promise<void> => {
     await promisifiedClearProxy();
+    await clearAuthCache(globalProxyConfig?.host);
     globalProxyConfig = null;
 };
 
