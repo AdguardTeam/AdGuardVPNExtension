@@ -32,9 +32,16 @@ program
 
 program
     .command(BROWSERS.CHROME)
-    .description('Builds extension for chrome browser')
+    .description('Builds extension for chrome browser with manifest version 2')
     .action(() => {
         createBundle(chromeConfig, program.watch);
+    });
+
+program
+    .command(BROWSERS.CHROME_MV3)
+    .description('Builds extension for chrome browser with manifest version 3')
+    .action(() => {
+        createBundle(chromeConfigMV3, program.watch);
     });
 
 program

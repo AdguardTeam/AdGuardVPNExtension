@@ -1,8 +1,18 @@
-const { BROWSERS, ENVS } = require('./consts');
+import { BROWSERS, ENVS } from './consts';
+
+type UrlMap = {
+    [key: string]: {
+        [key: string]: string,
+    },
+};
+
+type UrlsMap = {
+    [key: string]: UrlMap,
+};
 
 const { FORWARDER_DOMAIN } = process.env;
 
-const URLS_MAP_RELEASE = {
+const URLS_MAP_RELEASE: UrlMap = {
     [BROWSERS.CHROME]: {
         POPUP_STORE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=chrome_store&from=popup&app=vpn_extension`,
         POPUP_FEEDBACK_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=feedback_chrome&from=popup&app=vpn_extension`,
@@ -38,7 +48,7 @@ const URLS_MAP_BETA = {
     },
 };
 
-const URLS_MAP = {
+const URLS_MAP: UrlsMap = {
     [ENVS.RELEASE]: URLS_MAP_RELEASE,
     [ENVS.BETA]: { ...URLS_MAP_RELEASE, ...URLS_MAP_BETA },
 };
@@ -80,7 +90,10 @@ const COMMON = {
     ADGUARD_DNS_KB_LINK: `https://${FORWARDER_DOMAIN}/forward.html?action=adguard_dns_kb&from=options_screen&app=vpn_extension`,
 };
 
-const genAppConfig = (browser, stageEnv, buildingEnv) => {
+export const genAppConfig = (browser: string, stageEnv?: string, buildingEnv?: string) => {
+    if (!buildingEnv) {
+        throw new Error('No building environment was provided');
+    }
     const urlsMapByBrowser = URLS_MAP[buildingEnv] || URLS_MAP[ENVS.RELEASE];
     const browserConf = urlsMapByBrowser[browser];
 
@@ -96,8 +109,4 @@ const genAppConfig = (browser, stageEnv, buildingEnv) => {
         ...STAGE_CONF,
         ...COMMON,
     };
-};
-
-module.exports = {
-    genAppConfig,
 };
