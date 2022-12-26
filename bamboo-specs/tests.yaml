@@ -95,7 +95,7 @@ Test:
       pattern: chrome-prod.zip
       shared: true
       required: true
-    - name: chrome-prod.zip
+    - name: chrome-mv3-prod.zip
       location: build/dev
       pattern: chrome-mv3-prod.zip
       shared: true
