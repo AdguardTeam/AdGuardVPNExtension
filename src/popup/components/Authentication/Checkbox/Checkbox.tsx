@@ -8,7 +8,7 @@ type CheckboxProps = {
     id: string,
     checked: boolean,
     onChange: (checked: boolean) => void,
-    label: string,
+    label: string | React.ReactNode,
     labelSize?: string,
 };
 

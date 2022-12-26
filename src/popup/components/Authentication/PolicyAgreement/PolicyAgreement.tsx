@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { translator } from '../../../../common/translator';
+import { reactTranslator } from '../../../../common/reactTranslator';
 import { popupActions } from '../../../actions/popupActions';
 import { EULA_URL, PRIVACY_URL } from '../../../../background/config';
 import { rootStore } from '../../../stores';
@@ -48,7 +48,7 @@ export const PolicyAgreement = observer(() => {
                     id={POLICY_AGREEMENT_ID}
                     checked={authStore.policyAgreement}
                     onChange={onPolicyAgreementChange}
-                    label={translator.getMessage('popup_auth_policy_agreement', {
+                    label={reactTranslator.getMessage('popup_auth_policy_agreement', {
                         eula: (chunks: string) => (
                             <a
                                 onClick={handleEulaClick}
@@ -73,7 +73,7 @@ export const PolicyAgreement = observer(() => {
                     id={HELP_US_IMPROVE_ID}
                     checked={authStore.helpUsImprove}
                     onChange={onHelpUsImproveChanged}
-                    label={translator.getMessage('popup_auth_help_us_improve_agreement', {
+                    label={reactTranslator.getMessage('popup_auth_help_us_improve_agreement', {
                         link: (chunks: string) => (
                             <a
                                 onClick={handleAnonymousDataLinkClick}
@@ -91,7 +91,7 @@ export const PolicyAgreement = observer(() => {
                 className="button button--medium button--green form__btn"
                 disabled={!authStore.policyAgreement}
             >
-                {translator.getMessage('popup_auth_policy_agreement_continue_button')}
+                {reactTranslator.getMessage('popup_auth_policy_agreement_continue_button')}
             </button>
         </>
     );
