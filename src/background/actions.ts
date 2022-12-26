@@ -20,14 +20,13 @@ const browserAction = browserApi.runtime.isManifestVersion2() ? browser.browserA
 
 /**
  * Opens options tab with anchor if provided
- * @param {string | null} anchorName
- * @return {Promise<void>}
  */
 const openOptionsPage = async (anchorName: string | null = null): Promise<void> => {
     if (browserApi.runtime.isManifestVersion2()) {
         const manifest = browser.runtime.getManifest();
         // @ts-ignore
-        let optionsUrl = manifest.options_ui?.page || manifest.options_page;
+        let optionsUrl = manifest.options_page || manifest.options_ui?.page;
+
         if (!optionsUrl.includes('://')) {
             optionsUrl = browser.runtime.getURL(optionsUrl);
         }

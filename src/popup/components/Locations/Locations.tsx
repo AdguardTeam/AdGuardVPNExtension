@@ -6,6 +6,7 @@ import { Location } from './Location';
 import { Search } from './Search';
 import { Skeleton } from './Skeleton';
 import { reactTranslator } from '../../../common/reactTranslator';
+import { LocationData } from '../../stores/VpnStore';
 
 import './endpoints.pcss';
 
@@ -34,8 +35,7 @@ export const Locations = observer(() => {
         vpnStore.setSearchValue('');
     };
 
-    // FIXME: VpnStore to ts and replace any with proper type
-    const renderLocations = (locations: any) => locations.map((location: any) => {
+    const renderLocations = (locations: LocationData[]) => locations.map((location) => {
         return (
             <Location
                 key={location.id}

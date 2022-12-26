@@ -14,12 +14,10 @@ const LEVELS: LevelsType = {
     DEBUG: 4,
 };
 
-const getLocalTimeString = (date: Date) => {
+export const getLocalTimeString = (date: Date) => {
     const ONE_MINUTE_MS = 60 * 1000;
     const timeZoneOffsetMs = date.getTimezoneOffset() * ONE_MINUTE_MS;
-    // FIXME: add tests
-    // @ts-ignore
-    const localTime = new Date(date - timeZoneOffsetMs);
+    const localTime = new Date(date.getTime() - timeZoneOffsetMs);
 
     const REDUNDANT_SYMBOL = 'Z';
     return localTime.toISOString().replace(REDUNDANT_SYMBOL, '');
@@ -41,7 +39,7 @@ const print = (level: string, method: string, args: any[]) => {
     console[method](formatted, ...args); // eslint-disable-line no-console
 };
 
-const log = {
+export const log = {
     debug(...args: any) {
         print('DEBUG', 'log', args);
     },
@@ -58,5 +56,3 @@ const log = {
         print('ERROR', 'error', args);
     },
 };
-
-export { log };

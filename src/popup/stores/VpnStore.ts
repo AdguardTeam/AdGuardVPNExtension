@@ -30,6 +30,10 @@ interface LocationState extends PingData {
     locationId: string;
 }
 
+export interface LocationData extends LocationWithPing {
+    selected: boolean;
+}
+
 export class VpnStore {
     rootStore: RootStore;
 
@@ -37,11 +41,11 @@ export class VpnStore {
         this.rootStore = rootStore;
     }
 
-    @observable locations: LocationWithPing[] = [];
+    @observable locations: LocationData[] = [];
 
     @observable pings: Pings = {};
 
-    @observable selectedLocation: LocationWithPing;
+    @observable selectedLocation: LocationData;
 
     @observable searchValue = '';
 
@@ -64,7 +68,7 @@ export class VpnStore {
         this.searchValue = value;
     };
 
-    @action setLocations = (locations: LocationWithPing[]): void => {
+    @action setLocations = (locations: LocationData[]): void => {
         if (!locations) {
             return;
         }
@@ -94,7 +98,7 @@ export class VpnStore {
         });
     };
 
-    @action setSelectedLocation = (location: LocationWithPing): void => {
+    @action setSelectedLocation = (location: LocationData): void => {
         if (!location) {
             return;
         }
@@ -105,7 +109,7 @@ export class VpnStore {
     };
 
     @computed
-    get filteredLocations(): LocationWithPing[] {
+    get filteredLocations(): LocationData[] {
         const locations = this.locations || [];
 
         return locations
@@ -141,17 +145,17 @@ export class VpnStore {
      * @param location
      * @returns {{ping, available}|*}
      */
-    enrichWithStateData = (location: LocationWithPing): LocationWithPing => {
+    enrichWithStateData = (location: LocationData): LocationData => {
         const pingData = this.pings[location.id];
         if (pingData) {
             const { ping, available } = pingData;
-            return <LocationWithPing>{ ...location, ping, available };
+            return <LocationData>{ ...location, ping, available };
         }
         return location;
     };
 
     @computed
-    get fastestLocations(): LocationWithPing[] {
+    get fastestLocations(): LocationData[] {
         const FASTEST_LOCATIONS_COUNT = 3;
         const locations = this.locations || [];
         const sortedLocations = locations

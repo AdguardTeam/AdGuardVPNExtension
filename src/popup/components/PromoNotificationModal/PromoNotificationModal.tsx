@@ -5,6 +5,7 @@ import { observer } from 'mobx-react';
 import { popupActions } from '../../actions/popupActions';
 import { messenger } from '../../../lib/messenger';
 import { rootStore } from '../../stores';
+import { PromoNotificationData } from '../../../background/promoNotifications';
 
 import './promo-notification-modal.pcss';
 
@@ -19,15 +20,19 @@ const PromoNotificationModal = observer(() => {
 
     const { promoNotification } = settingsStore;
 
+    if (!promoNotification) {
+        return null;
+    }
+
+    const { url, text } = promoNotification as PromoNotificationData;
+
+    if (!url || !text) {
+        return null;
+    }
+
+    const { btn, title } = text;
+
     const btnClickHandler = async (): Promise<void> => {
-        // FIXME: settingsStore to ts and remove @ts-ignore on next line
-        // @ts-ignore
-        const { url } = promoNotification;
-
-        if (!url) {
-            return;
-        }
-
         await messenger.setNotificationViewed(false);
         await popupActions.openTab(url);
     };
@@ -36,14 +41,6 @@ const PromoNotificationModal = observer(() => {
         setShowModal(false);
         await messenger.setNotificationViewed(false);
     };
-
-    if (!promoNotification) {
-        return null;
-    }
-
-    // FIXME: settingsStore to ts and remove @ts-ignore on next line
-    // @ts-ignore
-    const { btn, title } = promoNotification.text;
 
     return (
         <Modal

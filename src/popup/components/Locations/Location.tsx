@@ -5,10 +5,10 @@ import classnames from 'classnames';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { Ping } from '../Ping';
 import { rootStore } from '../../stores';
+import { LocationData } from '../../stores/VpnStore';
 
 type LocationProps = {
-    // FIXME: remove any
-    location: any,
+    location: LocationData,
     handleClick: Function,
 };
 

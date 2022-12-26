@@ -12,7 +12,7 @@ import { browserApi } from './browserApi';
  */
 export class NetworkConnectionObserver {
     constructor() {
-        // FIXME: fix networkConnectionObserver for mv3
+        // TODO: implement networkConnectionObserver for mv3
         if (browserApi.runtime.isManifestVersion2()) {
             window.addEventListener('online', this.connectionHandler);
         }

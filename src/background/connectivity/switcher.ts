@@ -81,7 +81,7 @@ function* turnOffProxy() {
 }
 
 class Switcher {
-    private cancel: Function;
+    private cancel?: Function;
 
     private promise: Promise<unknown>;
 
@@ -90,7 +90,6 @@ class Switcher {
             this.cancel(FORCE_CANCELLED);
         }
         const { promise, cancel } = runWithCancel(turnOnProxy, forcePrevEndpoint);
-        // @ts-ignore
         this.cancel = cancel;
         this.promise = promise;
         return promise;
@@ -101,7 +100,6 @@ class Switcher {
             this.cancel(FORCE_CANCELLED);
         }
         const { promise, cancel } = runWithCancel(turnOffProxy);
-        // @ts-ignore
         this.cancel = cancel;
         this.promise = promise;
         return promise;
