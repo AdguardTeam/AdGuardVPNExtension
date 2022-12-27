@@ -4,25 +4,26 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export const SRC_PATH = '../src';
-export const ENVS = {
-    DEV: 'dev',
-    BETA: 'beta',
-    RELEASE: 'release',
-};
 
-export const BROWSERS = {
-    CHROME: 'chrome',
-    CHROME_MV3: 'chrome-mv3',
-    FIREFOX: 'firefox',
-    EDGE: 'edge',
-    OPERA: 'opera',
-};
+export enum Envs {
+    Dev = 'dev',
+    Beta = 'beta',
+    Release = 'release',
+}
+
+export enum Browsers {
+    Chrome = 'chrome',
+    ChromeMV3 = 'chrome-mv3',
+    Firefox = 'firefox',
+    Edge = 'edge',
+    Opera = 'opera',
+}
 
 // Used only to change output filenames
-export const STAGE_ENVS = {
-    TEST: 'test',
-    PROD: 'prod',
-};
+export enum StageEnvs {
+    Test = 'test',
+    Prod = 'prod',
+}
 
 type EnvMap = {
     [key: string]: {
@@ -32,14 +33,14 @@ type EnvMap = {
 };
 
 export const ENV_MAP: EnvMap = {
-    [ENVS.DEV]: { outputPath: 'dev', name: 'Dev' },
-    [ENVS.BETA]: { outputPath: 'beta', name: 'Beta' },
-    [ENVS.RELEASE]: { outputPath: 'release', name: '' },
+    [Envs.Dev]: { outputPath: 'dev', name: 'Dev' },
+    [Envs.Beta]: { outputPath: 'beta', name: 'Beta' },
+    [Envs.Release]: { outputPath: 'release', name: '' },
 };
 
 export const { BUILD_ENV, STAGE_ENV } = process.env;
 
-export const IS_DEV = BUILD_ENV ? BUILD_ENV === ENVS.DEV : true;
+export const IS_DEV = BUILD_ENV ? BUILD_ENV === Envs.Dev : true;
 
 // Build output path
 export const BUILD_PATH = '../build';
@@ -58,7 +59,7 @@ export const CERTIFICATE_PATHS = {
     release: './private/AdguardVPN/certificate-release.pem',
 };
 
-export const deployPath = process.env.BUILD_ENV || ENVS.DEV;
+export const deployPath = process.env.BUILD_ENV || Envs.Dev;
 
 // Update manifest URL for the Chrome extension
 export const CHROME_UPDATE_URL = `https://static.adguardvpn.com/extensions/adguardvpn/${deployPath}/${CHROME_UPDATER_FILENAME}`;

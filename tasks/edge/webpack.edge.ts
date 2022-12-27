@@ -10,19 +10,19 @@ import { edgeManifestDiff } from './manifest.edge';
 import {
     STAGE_ENV,
     IS_DEV,
-    STAGE_ENVS,
-    BROWSERS,
+    StageEnvs,
+    Browsers,
 } from '../consts';
 
 const EDGE_PATH = 'edge';
 
 let zipFilename = 'edge.zip';
 
-if (IS_DEV && STAGE_ENV === STAGE_ENVS.PROD) {
+if (IS_DEV && STAGE_ENV === StageEnvs.Prod) {
     zipFilename = 'edge-prod.zip';
 }
 
-const commonConfig = getCommonConfig(BROWSERS.EDGE);
+const commonConfig = getCommonConfig(Browsers.Edge);
 
 const plugins = [
     new CopyWebpackPlugin({

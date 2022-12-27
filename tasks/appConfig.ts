@@ -1,4 +1,4 @@
-import { BROWSERS, ENVS } from './consts';
+import { Browsers, Envs } from './consts';
 
 type UrlMap = {
     [key: string]: {
@@ -13,25 +13,25 @@ type UrlsMap = {
 const { FORWARDER_DOMAIN } = process.env;
 
 const URLS_MAP_RELEASE: UrlMap = {
-    [BROWSERS.CHROME]: {
+    [Browsers.Chrome]: {
         POPUP_STORE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=chrome_store&from=popup&app=vpn_extension`,
         POPUP_FEEDBACK_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=feedback_chrome&from=popup&app=vpn_extension`,
         OPTIONS_STORE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=chrome_store&from=options_screen&app=vpn_extension`,
         FEEDBACK_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=feedback_chrome&from=options_screen&app=vpn_extension`,
     },
-    [BROWSERS.FIREFOX]: {
+    [Browsers.Firefox]: {
         POPUP_STORE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=firefox_store&from=popup&app=vpn_extension`,
         POPUP_FEEDBACK_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=feedback_firefox&from=popup&app=vpn_extension`,
         OPTIONS_STORE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=firefox_store&from=options_screen&app=vpn_extension`,
         FEEDBACK_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=feedback_firefox&from=options_screen&app=vpn_extension`,
     },
-    [BROWSERS.EDGE]: {
+    [Browsers.Edge]: {
         POPUP_STORE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=edge_store&from=popup&app=vpn_extension`,
         POPUP_FEEDBACK_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=feedback_edge&from=popup&app=vpn_extension`,
         OPTIONS_STORE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=edge_store&from=options_screen&app=vpn_extension`,
         FEEDBACK_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=feedback_edge&from=options_screen&app=vpn_extension`,
     },
-    [BROWSERS.OPERA]: {
+    [Browsers.Opera]: {
         POPUP_STORE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=opera_store&from=popup&app=vpn_extension`,
         POPUP_FEEDBACK_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=feedback_opera&from=popup&app=vpn_extension`,
         OPTIONS_STORE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=opera_store&from=options_screen&app=vpn_extension`,
@@ -40,7 +40,7 @@ const URLS_MAP_RELEASE: UrlMap = {
 };
 
 const URLS_MAP_BETA = {
-    [BROWSERS.CHROME]: {
+    [Browsers.Chrome]: {
         POPUP_STORE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=chrome_store_beta&from=popup&app=vpn_extension`,
         OPTIONS_STORE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=chrome_store_beta&from=options_screen&app=vpn_extension`,
         POPUP_FEEDBACK_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=feedback_chrome&from=popup&app=vpn_extension`,
@@ -49,8 +49,8 @@ const URLS_MAP_BETA = {
 };
 
 const URLS_MAP: UrlsMap = {
-    [ENVS.RELEASE]: URLS_MAP_RELEASE,
-    [ENVS.BETA]: { ...URLS_MAP_RELEASE, ...URLS_MAP_BETA },
+    [Envs.Release]: URLS_MAP_RELEASE,
+    [Envs.Beta]: { ...URLS_MAP_RELEASE, ...URLS_MAP_BETA },
 };
 
 // VPN section API description - projects/ADGUARD/repos/adguard-vpn-backend-service/browse
@@ -94,7 +94,7 @@ export const genAppConfig = (browser: string, stageEnv?: string, buildingEnv?: s
     if (!buildingEnv) {
         throw new Error('No building environment was provided');
     }
-    const urlsMapByBrowser = URLS_MAP[buildingEnv] || URLS_MAP[ENVS.RELEASE];
+    const urlsMapByBrowser = URLS_MAP[buildingEnv] || URLS_MAP[Envs.Release];
     const browserConf = urlsMapByBrowser[browser];
 
     if (!browserConf) {

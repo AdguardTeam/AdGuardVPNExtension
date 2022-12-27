@@ -11,8 +11,8 @@ import { firefoxManifestDiff } from './manifest.firefox';
 import {
     STAGE_ENV,
     IS_DEV,
-    STAGE_ENVS,
-    BROWSERS,
+    StageEnvs,
+    Browsers,
     SRC_PATH,
 } from '../consts';
 
@@ -22,11 +22,11 @@ let zipFilename = 'firefox.zip';
 
 const BACKGROUND_PATH = path.resolve(__dirname, '..', SRC_PATH, 'background');
 
-if (IS_DEV && STAGE_ENV === STAGE_ENVS.PROD) {
+if (IS_DEV && STAGE_ENV === StageEnvs.Prod) {
     zipFilename = 'firefox-prod.zip';
 }
 
-const commonConfig = getCommonConfig(BROWSERS.FIREFOX);
+const commonConfig = getCommonConfig(Browsers.Firefox);
 
 const plugins = [
     new CopyWebpackPlugin({

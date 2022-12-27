@@ -11,8 +11,8 @@ import { chromeManifestDiff } from './manifest.chrome';
 import {
     STAGE_ENV,
     IS_DEV,
-    STAGE_ENVS,
-    BROWSERS,
+    StageEnvs,
+    Browsers,
     SRC_PATH,
 } from '../consts';
 
@@ -22,11 +22,11 @@ const CHROME_PATH = 'chrome';
 
 let zipFilename = 'chrome.zip';
 
-if (IS_DEV && STAGE_ENV === STAGE_ENVS.PROD) {
+if (IS_DEV && STAGE_ENV === StageEnvs.Prod) {
     zipFilename = 'chrome-prod.zip';
 }
 
-const commonConfig = getCommonConfig(BROWSERS.CHROME);
+const commonConfig = getCommonConfig(Browsers.Chrome);
 
 const plugins = [
     new CopyWebpackPlugin({

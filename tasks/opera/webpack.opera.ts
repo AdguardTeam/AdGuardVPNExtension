@@ -10,19 +10,19 @@ import { operaManifestDiff } from './manifest.opera';
 import {
     STAGE_ENV,
     IS_DEV,
-    STAGE_ENVS,
-    BROWSERS,
+    StageEnvs,
+    Browsers,
 } from '../consts';
 
 const OPERA_PATH = 'opera';
 
 let zipFilename = 'opera.zip';
 
-if (IS_DEV && STAGE_ENV === STAGE_ENVS.PROD) {
+if (IS_DEV && STAGE_ENV === StageEnvs.Prod) {
     zipFilename = 'opera-prod.zip';
 }
 
-const commonConfig = getCommonConfig(BROWSERS.OPERA);
+const commonConfig = getCommonConfig(Browsers.Opera);
 
 const plugins = [
     new CopyWebpackPlugin({

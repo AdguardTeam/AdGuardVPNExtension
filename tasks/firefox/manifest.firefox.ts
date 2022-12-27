@@ -1,9 +1,9 @@
-const { ENVS, BUILD_ENV } = require('../consts');
+const { Envs, BUILD_ENV } = require('../consts');
 
 const envMap = {
-    [ENVS.DEV]: 'adguard-vpn-dev@adguard.com',
-    [ENVS.BETA]: 'adguard-vpn-beta@adguard.com',
-    [ENVS.RELEASE]: 'adguard-vpn@adguard.com',
+    [Envs.Dev]: 'adguard-vpn-dev@adguard.com',
+    [Envs.Beta]: 'adguard-vpn-beta@adguard.com',
+    [Envs.Release]: 'adguard-vpn@adguard.com',
 };
 
 export const firefoxManifestDiff = {

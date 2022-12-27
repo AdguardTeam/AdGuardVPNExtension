@@ -1,11 +1,12 @@
-/* eslint-disable no-console,no-unused-vars */
-const webExt = require('web-ext');
-const path = require('path');
-const { promises: fs } = require('fs');
-const chalk = require('chalk');
+// @ts-ignore there are no types for web-ext
+import webExt from 'web-ext';
+import path from 'path';
+import { promises as fs } from 'fs';
+import chalk from 'chalk';
+import { Manifest } from 'webextension-polyfill';
 
-const {
-    BROWSERS,
+import {
+    Browsers,
     ENV_MAP,
     FIREFOX_UPDATE_XPI,
     BUILD_PATH,
@@ -13,20 +14,22 @@ const {
     FIREFOX_UPDATER_FILENAME,
     XPI_NAME,
     FIREFOX_UPDATE_URL,
-} = require('./consts');
-const packageJson = require('../package.json');
+} from './consts';
+import packageJson from '../package.json';
 
-const { outputPath } = ENV_MAP[process.env.BUILD_ENV];
+const { log, error } = console;
+
+const { outputPath } = ENV_MAP[process.env.BUILD_ENV as string];
 
 const buildDir = path.resolve(__dirname, BUILD_PATH, outputPath);
 const fileDir = path.resolve(buildDir, FIREFOX_UPDATER_FILENAME);
 
-const getFirefoxManifest = async () => {
+const getFirefoxManifest = async (): Promise<Manifest.ManifestBase> => {
     const MANIFEST_PATH = path.resolve(
         __dirname,
         BUILD_PATH,
         outputPath,
-        BROWSERS.FIREFOX,
+        Browsers.Firefox,
         MANIFEST_NAME,
     );
     const manifestBuffer = await fs.readFile(MANIFEST_PATH);
@@ -34,8 +37,8 @@ const getFirefoxManifest = async () => {
     return manifest;
 };
 
-async function generateXpi() {
-    const sourceDir = path.resolve(__dirname, BUILD_PATH, outputPath, BROWSERS.FIREFOX);
+async function generateXpi(): Promise<void> {
+    const sourceDir = path.resolve(__dirname, BUILD_PATH, outputPath, Browsers.Firefox);
     const credentialsPath = path.resolve(__dirname, '../private/AdguardVPN/mozilla_credentials.json');
 
     // require called here in order to escape errors, until this module is really necessary
@@ -62,33 +65,37 @@ async function generateXpi() {
         const xpiPath = path.join(basePath, XPI_NAME);
         await fs.rename(downloadedXpi, xpiPath);
 
-        console.log(chalk.greenBright(`File saved to ${xpiPath}\n`));
+        log(chalk.greenBright(`File saved to ${xpiPath}\n`));
     }
 }
 
+type CreateUpdateJsonContentProps = {
+    id: string,
+    version: string,
+    updateLink: string,
+    strictMinVersion?: string,
+};
+
 /**
  * Creates object for update.json
- * @param {string} id
- * @param {string} version
- * @param {string} update_link
- * @param {string} strict_min_version
- * @returns {object}
  */
 const createUpdateJsonContent = (
     {
-        // eslint-disable-next-line camelcase
-        id, version, update_link, strict_min_version,
-    },
+        id,
+        version,
+        updateLink,
+        strictMinVersion,
+    }: CreateUpdateJsonContentProps,
 ) => ({
     addons: {
         [id]: {
             updates: [
                 {
                     version,
-                    update_link,
+                    updateLink,
                     browser_specific_settings: {
                         gecko: {
-                            strict_min_version,
+                            strictMinVersion,
                         },
                     },
                 },
@@ -97,36 +104,46 @@ const createUpdateJsonContent = (
     },
 });
 
-const createUpdateJson = async (manifest) => {
+const createUpdateJson = async (manifest: Manifest.ManifestBase): Promise<void> => {
     try {
-        // eslint-disable-next-line camelcase,@typescript-eslint/naming-convention
-        const { id, strict_min_version } = manifest.browser_specific_settings.gecko;
+        if (!manifest.browser_specific_settings?.gecko) {
+            return;
+        }
+
+        const {
+            id,
+            strict_min_version: strictMinVersion,
+        } = manifest.browser_specific_settings.gecko;
+
+        if (!id || !strictMinVersion) {
+            return;
+        }
 
         const fileContent = createUpdateJsonContent(
             {
                 id,
                 version: packageJson.version,
-                update_link: FIREFOX_UPDATE_XPI,
-                strict_min_version,
+                updateLink: FIREFOX_UPDATE_XPI,
+                strictMinVersion,
             },
         );
 
         const fileJson = JSON.stringify(fileContent, null, 4);
 
         await fs.writeFile(fileDir, fileJson);
-        console.log(chalk.greenBright(`${FIREFOX_UPDATER_FILENAME} saved in ${buildDir}\n`));
-    } catch (error) {
-        console.error(chalk.redBright(`Error: cannot create ${FIREFOX_UPDATER_FILENAME} - ${error.message}\n`));
-        throw error;
+        log(chalk.greenBright(`${FIREFOX_UPDATER_FILENAME} saved in ${buildDir}\n`));
+    } catch (e) {
+        error(chalk.redBright(`Error: cannot create ${FIREFOX_UPDATER_FILENAME} - ${e.message}\n`));
+        throw e;
     }
 };
 
-const updateFirefoxManifest = async () => {
+const updateFirefoxManifest = async (): Promise<void> => {
     const MANIFEST_PATH = path.resolve(
         __dirname,
         BUILD_PATH,
         outputPath,
-        BROWSERS.FIREFOX,
+        Browsers.Firefox,
         MANIFEST_NAME,
     );
     const manifest = JSON.parse(await fs.readFile(MANIFEST_PATH, 'utf-8'));
@@ -134,15 +151,15 @@ const updateFirefoxManifest = async () => {
     await fs.writeFile(MANIFEST_PATH, JSON.stringify(manifest, null, 4));
 };
 
-const generateFirefoxArtifacts = async () => {
+const generateFirefoxArtifacts = async (): Promise<void> => {
     try {
         await updateFirefoxManifest();
         await generateXpi();
         const manifest = await getFirefoxManifest();
         await createUpdateJson(manifest);
-    } catch (error) {
-        console.error(chalk.redBright(error.message));
-        console.error(error);
+    } catch (e) {
+        error(chalk.redBright(e.message));
+        error(e);
         // Fail the task execution
         process.exit(1);
     }

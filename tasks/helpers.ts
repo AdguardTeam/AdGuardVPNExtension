@@ -1,12 +1,14 @@
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const _ = require('lodash');
-const {
+import _ from 'lodash';
+
+import {
     ENV_MAP,
-    ENVS,
-} = require('./consts');
+    Envs,
+} from './consts';
+
 const pJson = require('../package.json');
 
-const updateManifest = (manifestJson, browserManifestDiff) => {
+export const updateManifest = (manifestJson: Buffer, browserManifestDiff: { [key: string]: unknown }): Buffer => {
     let manifest;
     try {
         manifest = JSON.parse(manifestJson.toString());
@@ -15,6 +17,7 @@ const updateManifest = (manifestJson, browserManifestDiff) => {
     }
     const permissions = _.uniq([
         ...(manifest.permissions || []),
+        // @ts-ignore
         ...(browserManifestDiff.permissions || []),
     ]).sort();
     const updatedManifest = {
@@ -33,8 +36,13 @@ const updateManifest = (manifestJson, browserManifestDiff) => {
  * @param suffix
  * @param isTarget
  */
-const modifyExtensionName = (manifestJson, env, suffix, isTarget = true) => {
-    if (env !== ENVS.RELEASE || !isTarget) {
+export const modifyExtensionName = (
+    manifestJson: Buffer,
+    env: string,
+    suffix: string,
+    isTarget: boolean = true,
+): Buffer => {
+    if (env !== Envs.Release || !isTarget) {
         return manifestJson;
     }
 
@@ -47,7 +55,7 @@ const modifyExtensionName = (manifestJson, env, suffix, isTarget = true) => {
     }
 };
 
-const getOutputPathByEnv = (env = ENVS.DEV) => {
+export const getOutputPathByEnv = (env = Envs.Dev): string => {
     const envData = ENV_MAP[env];
     if (!envData) {
         throw new Error(`Wrong environment: ${env}`);
@@ -55,7 +63,7 @@ const getOutputPathByEnv = (env = ENVS.DEV) => {
     return envData.outputPath;
 };
 
-const updateLocalesMSGName = (content, env) => {
+export const updateLocalesMSGName = (content: Buffer, env: string): string => {
     // Chrome Web Store allows only 45 symbol long names
     const NAME_MAX_LENGTH = 45;
     const envData = ENV_MAP[env];
@@ -70,7 +78,7 @@ const updateLocalesMSGName = (content, env) => {
     const messages = JSON.parse(content.toString());
 
     // for dev and beta builds use short name + environment
-    if (env !== ENVS.RELEASE) {
+    if (env !== Envs.Release) {
         messages.name.message = messages.short_name.message + envName;
         return JSON.stringify(messages, null, 4);
     }
@@ -88,11 +96,4 @@ const updateLocalesMSGName = (content, env) => {
     }
 
     return JSON.stringify(messages, null, 4);
-};
-
-module.exports = {
-    updateManifest,
-    modifyExtensionName,
-    getOutputPathByEnv,
-    updateLocalesMSGName,
 };

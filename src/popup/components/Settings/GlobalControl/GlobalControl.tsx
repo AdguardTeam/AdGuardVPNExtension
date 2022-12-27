@@ -4,6 +4,14 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 
+type ButtonStates = {
+    [key: string]: {
+        className: string,
+        message: React.ReactNode,
+        handler?: () => Promise<void>,
+    }
+};
+
 export const GlobalControl = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
@@ -31,7 +39,7 @@ export const GlobalControl = observer(() => {
         );
     };
 
-    const buttonStates = {
+    const buttonStates: ButtonStates = {
         disconnect: {
             className: 'button--background-white',
             message: reactTranslator.getMessage('settings_disconnect'),
@@ -40,7 +48,6 @@ export const GlobalControl = observer(() => {
         connecting: {
             className: 'button--background-white button--disabled',
             message: reactTranslator.getMessage('settings_disconnect'),
-            handler: () => false,
         },
         connect: {
             className: 'button--green',

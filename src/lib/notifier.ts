@@ -140,7 +140,7 @@ export class Notifier {
                     // otherwise, notify without event title
                     listener.apply(listener, args);
                 }
-            } catch (ex: any) {
+            } catch (ex) {
                 const message = `Error invoking listener for event: "${event}" cause: ${ex}`;
                 throw new Error(message);
             }
