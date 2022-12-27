@@ -275,7 +275,7 @@ const getVpnCredentials = async (
     let responseData;
     try {
         responseData = await vpnApi.getVpnCredentials(appId, vpnToken);
-    } catch (e: any) {
+    } catch (e) {
         if (e.status === 400) {
             let errorMessageData;
 
@@ -354,7 +354,7 @@ const requestSupport = async ({
     try {
         await vpnApi.requestSupport(formData);
         return { status: 'ok', error: null };
-    } catch (e: any) {
+    } catch (e) {
         log.error(e);
         return {
             status: e.status,

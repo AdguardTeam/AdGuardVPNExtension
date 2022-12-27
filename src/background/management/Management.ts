@@ -21,7 +21,7 @@ class Management {
         const promises = enabledProxyExtensions.map(async (extension) => {
             try {
                 await this.browser.management.setEnabled(extension.id, false);
-            } catch (e: any) {
+            } catch (e) {
                 log.error(e);
             }
         });

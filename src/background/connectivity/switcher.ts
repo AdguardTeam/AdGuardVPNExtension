@@ -65,7 +65,7 @@ function* turnOnProxy(forcePrevEndpoint = false) {
         );
 
         connectivity.endpointConnectivity.start(entryTime);
-    } catch (e: any) {
+    } catch (e) {
         log.debug(e.message);
         yield sleepIfNecessary(entryTime, MIN_CONNECTION_DURATION_MS);
         connectivityService.send(EVENT.CONNECTION_FAIL);
@@ -118,7 +118,7 @@ class Switcher {
                 await endpoints.refreshData();
             }
             await this.turnOn(true);
-        } catch (e: any) {
+        } catch (e) {
             log.debug(e);
         }
     }

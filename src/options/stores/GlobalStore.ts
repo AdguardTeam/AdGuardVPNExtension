@@ -33,7 +33,7 @@ export class GlobalStore {
             exclusionsStore.setExclusionsData(optionsData.exclusionsData);
             exclusionsStore.setIsAllExclusionsListsEmpty(optionsData.isAllExclusionsListsEmpty);
             this.setInitStatus(RequestStatus.Done);
-        } catch (e: any) {
+        } catch (e) {
             log.error(e.message);
             this.setInitStatus(RequestStatus.Error);
         }

@@ -190,7 +190,7 @@ export class FallbackApi {
                 },
             );
             return { country, bkp };
-        } catch (e: any) {
+        } catch (e) {
             log.error(e);
             return DEFAULT_COUNTRY_INFO;
         }
@@ -277,7 +277,7 @@ export class FallbackApi {
                 this.getBkpUrlByAliDnsDoh(hostname),
             ]);
             bkpUrl = clearFromWrappingQuotes(bkpUrl);
-        } catch (e: any) {
+        } catch (e) {
             log.error(e);
             bkpUrl = null;
         }

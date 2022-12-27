@@ -133,7 +133,7 @@ export class ServicesManager implements ServiceManagerInterface {
             this.setServices(services);
             this.lastUpdateTimeMs = Date.now();
             log.info('Services data updated successfully');
-        } catch (e: any) {
+        } catch (e) {
             log.error(new Error(`Was unable to get services due to: ${e.message}`));
         }
     }

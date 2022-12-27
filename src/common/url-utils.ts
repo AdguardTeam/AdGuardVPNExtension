@@ -82,7 +82,7 @@ const getUrlProperties = (url: string): string | URL => {
 
     try {
         urlObj = new URL(url);
-    } catch (e: any) {
+    } catch (e) {
         return url;
     }
 

@@ -48,14 +48,14 @@ class Auth implements AuthInterface {
         // turn off proxy to be sure it is not enabled before authentication
         try {
             await proxy.turnOff();
-        } catch (e: any) {
+        } catch (e) {
             log.error(e.message);
         }
 
         let accessToken;
         try {
             accessToken = await authProvider.getAccessToken(credentials);
-        } catch (e: any) {
+        } catch (e) {
             return JSON.parse(e.message);
         }
 
@@ -69,7 +69,7 @@ class Auth implements AuthInterface {
 
         try {
             accessToken = await this.getAccessToken(turnOffProxy);
-        } catch (e: any) {
+        } catch (e) {
             return false;
         }
 
@@ -83,7 +83,7 @@ class Auth implements AuthInterface {
         // turn off proxy to be sure it is not enabled before authentication
         try {
             await proxy.turnOff();
-        } catch (e: any) {
+        } catch (e) {
             log.error(e.message);
         }
 
@@ -192,7 +192,7 @@ class Auth implements AuthInterface {
     async deauthenticate(): Promise<void> {
         try {
             await this.removeAccessToken();
-        } catch (e: any) {
+        } catch (e) {
             log.error('Unable to remove access token. Error: ', e.message);
         }
 
@@ -215,7 +215,7 @@ class Auth implements AuthInterface {
                 locale,
                 clientId: AUTH_CLIENT_ID,
             });
-        } catch (e: any) {
+        } catch (e) {
             const { error, field } = JSON.parse(e.message);
             return { error, field };
         }
@@ -246,7 +246,7 @@ class Auth implements AuthInterface {
         let response;
         try {
             response = await authProvider.userLookup(email, appId);
-        } catch (e: any) {
+        } catch (e) {
             log.error(e.message);
             return {
                 error: translator.getMessage('global_error_message', {
@@ -291,7 +291,7 @@ class Auth implements AuthInterface {
         if (turnOffProxy) {
             try {
                 await proxy.turnOff();
-            } catch (e: any) {
+            } catch (e) {
                 log.error(e.message);
             }
         }

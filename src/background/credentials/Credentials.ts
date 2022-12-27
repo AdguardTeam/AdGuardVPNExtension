@@ -150,7 +150,7 @@ class Credentials implements CredentialsInterface {
 
         try {
             vpnToken = await accountProvider.getVpnToken(accessToken);
-        } catch (e: any) {
+        } catch (e) {
             if (e.status === 401) {
                 log.debug('Access token expired');
                 // deauthenticate user
@@ -177,7 +177,7 @@ class Credentials implements CredentialsInterface {
         if (forceRemote) {
             try {
                 vpnToken = await this.getVpnTokenRemote();
-            } catch (e: any) {
+            } catch (e) {
                 if (!useLocalFallback) {
                     throw e;
                 }
@@ -246,7 +246,7 @@ class Credentials implements CredentialsInterface {
         let vpnCredentials;
         try {
             vpnCredentials = await this.gainVpnCredentials(useLocalFallback, forceRemote);
-        } catch (e: any) {
+        } catch (e) {
             this.permissionsError.setError(e);
             throw e;
         }
@@ -354,7 +354,7 @@ class Credentials implements CredentialsInterface {
         if (forceRemote) {
             try {
                 vpnCredentials = await this.getVpnCredentialsRemote();
-            } catch (e: any) {
+            } catch (e) {
                 // Do not use local credentials if request to credentials
                 // returns limit exceeded error
                 if (!useLocalFallback) {
@@ -443,7 +443,7 @@ class Credentials implements CredentialsInterface {
         let vpnToken;
         try {
             vpnToken = await this.gainValidVpnToken();
-        } catch (e: any) {
+        } catch (e) {
             return false;
         }
 
@@ -469,7 +469,7 @@ class Credentials implements CredentialsInterface {
         let vpnToken;
         try {
             vpnToken = await this.gainValidVpnToken();
-        } catch (e: any) {
+        } catch (e) {
             return null;
         }
 
@@ -486,7 +486,7 @@ class Credentials implements CredentialsInterface {
         let time;
         try {
             time = new Date(nextBillDateIso);
-        } catch (e: any) {
+        } catch (e) {
             log.debug('Was unable to parse time from:', nextBillDateIso, e);
             return null;
         }
@@ -501,7 +501,7 @@ class Credentials implements CredentialsInterface {
 
         try {
             this.currentUsername = await this.fetchUsername();
-        } catch (e: any) {
+        } catch (e) {
             log.debug(e);
         }
 
@@ -524,7 +524,7 @@ class Credentials implements CredentialsInterface {
             await this.vpnProvider.postExtensionInstalled(appId);
             await this.storage.set(TRACKED_INSTALLATIONS_KEY, true);
             log.info('Installation successfully tracked');
-        } catch (e: any) {
+        } catch (e) {
             log.error('Error occurred during track request', e.message);
         }
     }
@@ -550,7 +550,7 @@ class Credentials implements CredentialsInterface {
             this.vpnToken = await this.gainValidVpnToken(forceRemote);
             this.vpnCredentials = await this.gainValidVpnCredentials(forceRemote);
             this.currentUsername = await this.fetchUsername();
-        } catch (e: any) {
+        } catch (e) {
             log.debug('Unable to init credentials module, due to error:', e.message);
         }
         log.info('Credentials module is ready');

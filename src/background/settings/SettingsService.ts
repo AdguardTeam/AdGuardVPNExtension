@@ -47,7 +47,7 @@ export class SettingsService {
         let settings;
         try {
             settings = await this.storage.get(this.SETTINGS_KEY);
-        } catch (e: any) {
+        } catch (e) {
             log.error(`Was unable to get ${this.SETTINGS_KEY} from storage, due to: `, e.message);
         }
         if (!settings) {

@@ -93,7 +93,7 @@ export class GlobalStore {
             await settingsStore.getCurrentTabHostname();
             settingsStore.setIsExcluded(!isVpnEnabledByUrl);
             this.setInitStatus(RequestStatus.Done);
-        } catch (e: any) {
+        } catch (e) {
             log.error(e.message);
             this.setInitStatus(RequestStatus.Error);
         }

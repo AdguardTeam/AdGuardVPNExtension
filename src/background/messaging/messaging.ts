@@ -109,7 +109,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
                         if (sender.tab?.id) {
                             await browser.tabs.sendMessage(sender.tab.id, { type, data });
                         }
-                    } catch (e: any) {
+                    } catch (e) {
                         log.error(e.message);
                     }
                 }
@@ -197,7 +197,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             const { url } = data;
             try {
                 return await exclusions.addUrlToExclusions(url);
-            } catch (e: any) {
+            } catch (e) {
                 throw new Error(e.message);
             }
         }
@@ -320,7 +320,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             try {
                 const vpnToken = await credentials.gainVpnToken();
                 token = vpnToken?.token;
-            } catch (e: any) {
+            } catch (e) {
                 log.error('Was unable to get token');
             }
             const { version } = appStatus;
@@ -412,7 +412,7 @@ const longLivedMessageHandler = (port: Runtime.Port) => {
                 const type = MessageType.NOTIFY_LISTENERS;
                 try {
                     port.postMessage({ type, data });
-                } catch (e: any) {
+                } catch (e) {
                     log.error(e.message);
                 }
             });

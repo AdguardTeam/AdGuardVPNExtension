@@ -120,7 +120,7 @@ export const addMinDurationTime = (fn: (...args: any) => any, minDurationMs: num
             const response = await fn(...args);
             await sleepIfNecessary(start, minDurationMs);
             return response;
-        } catch (e: any) {
+        } catch (e) {
             await sleepIfNecessary(start, minDurationMs);
             throw e;
         }
@@ -150,7 +150,7 @@ export const runWithCancel = (fn: (...args: any) => any, ...args: any) => {
                 let result;
                 try {
                     result = gen.next(res);
-                } catch (e: any) {
+                } catch (e) {
                     return reject(e);
                 }
                 // eslint-disable-next-line @typescript-eslint/no-use-before-define
@@ -163,7 +163,7 @@ export const runWithCancel = (fn: (...args: any) => any, ...args: any) => {
             let result;
             try {
                 result = gen.throw(err);
-            } catch (e: any) {
+            } catch (e) {
                 return reject(e);
             }
             // eslint-disable-next-line @typescript-eslint/no-use-before-define

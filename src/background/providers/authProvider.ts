@@ -44,13 +44,13 @@ const getAccessToken = async (credentials: AuthCredentials): Promise<AuthAccessT
 
     try {
         accessTokenData = await authApi.getAccessToken(credentials);
-    } catch (e: any) {
+    } catch (e) {
         const errorStatusCode = e.status as keyof typeof errorsMap;
         let errorMessage;
 
         try {
             errorMessage = JSON.parse(e.message);
-        } catch (e: any) {
+        } catch (e) {
             // if was unable to parse error message, e.g. network is disabled
             throw new Error(JSON.stringify({ error: errorsMap.default }));
         }
@@ -88,11 +88,11 @@ const register = async (credentials: AuthCredentials) => {
     let accessTokenData;
     try {
         accessTokenData = await authApi.register(credentials);
-    } catch (e: any) {
+    } catch (e) {
         let errorMessage;
         try {
             errorMessage = JSON.parse(e.message);
-        } catch (e: any) {
+        } catch (e) {
             // if was unable to parse error message, e.g. network is disabled
             throw new Error(JSON.stringify({ error: errorsMap.default }));
         }

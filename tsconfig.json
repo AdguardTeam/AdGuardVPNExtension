@@ -24,6 +24,7 @@
     // - strictPropertyInitialization
     // - noImplicitThis
     // - strictBindCallApply
-    "strict": true
+    "strict": true,
+    "useUnknownInCatchVariables": false
   }
 }

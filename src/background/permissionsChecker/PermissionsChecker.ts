@@ -61,7 +61,7 @@ class PermissionsChecker implements PermissionsCheckerInterface {
         // in order not to block connections with broken proxy
         try {
             await settings.disableProxy(true);
-        } catch (e: any) {
+        } catch (e) {
             log.error(e.message);
         }
     };
@@ -114,7 +114,7 @@ class PermissionsChecker implements PermissionsCheckerInterface {
             this.permissionsError.clearError();
             notifier.notifyListeners(notifier.types.UPDATE_BROWSER_ACTION_ICON);
             log.info('Permissions were checked successfully');
-        } catch (e: any) {
+        } catch (e) {
             // if got an error on token or credentials check,
             // stop credentials check before expired
             if (isManifestVersion2) {
@@ -142,7 +142,7 @@ class PermissionsChecker implements PermissionsCheckerInterface {
             // if no error, clear vpnInfoError
             this.permissionsError.clearError();
             log.info('VPN info was checked successfully');
-        } catch (e: any) {
+        } catch (e) {
             await this.updatePermissionsErrorHandler(e);
         }
     };

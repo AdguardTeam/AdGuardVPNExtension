@@ -169,7 +169,7 @@ export class SettingsStore {
         try {
             await messenger.checkPermissions();
             await this.rootStore.globalStore.getPopupData(MAX_GET_POPUP_DATA_ATTEMPTS);
-        } catch (e: any) {
+        } catch (e) {
             log.info(e.message);
         }
         runInAction(() => {

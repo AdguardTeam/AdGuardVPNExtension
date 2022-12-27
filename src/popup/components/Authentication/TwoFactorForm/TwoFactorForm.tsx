@@ -7,7 +7,7 @@ import { RequestStatus } from '../../../stores/consts';
 
 import { Submit } from '../Submit';
 import { InputField } from '../InputField';
-import { reactTranslator } from '../../../../common/reactTranslator';
+import { translator } from '../../../../common/translator';
 
 export const TwoFactorForm = observer(() => {
     const { authStore } = useContext(rootStore);
@@ -31,10 +31,10 @@ export const TwoFactorForm = observer(() => {
         >
             <div className="form__inputs">
                 <div className="form__subtitle">
-                    {reactTranslator.getMessage('auth_header_2fa_subtitle')}
+                    {translator.getMessage('auth_header_2fa_subtitle')}
                 </div>
                 <div className="form__info">
-                    {reactTranslator.getMessage('auth_header_2fa')}
+                    {translator.getMessage('auth_header_2fa')}
                 </div>
                 <InputField
                     id="twoFactor"
@@ -42,7 +42,7 @@ export const TwoFactorForm = observer(() => {
                     value={twoFactor}
                     inputChangeHandler={inputChangeHandler}
                     error={authStore.error}
-                    placeholder={reactTranslator.getMessage('auth_placeholder_2fa') as string}
+                    placeholder={translator.getMessage('auth_placeholder_2fa')}
                 />
                 {authStore.error && (
                     <div className="form__error">
@@ -53,7 +53,7 @@ export const TwoFactorForm = observer(() => {
 
             <div className="form__btn-wrap">
                 <Submit
-                    text={reactTranslator.getMessage('auth_confirm') as string}
+                    text={translator.getMessage('auth_confirm')}
                     processing={requestProcessState === RequestStatus.Pending}
                     disabled={!twoFactor}
                 />

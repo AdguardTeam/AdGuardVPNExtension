@@ -12,7 +12,8 @@ import {
     STAGE_ENV,
     IS_DEV,
     STAGE_ENVS,
-    BROWSERS, SRC_PATH,
+    BROWSERS,
+    SRC_PATH,
 } from '../consts';
 
 const BACKGROUND_PATH = path.resolve(__dirname, '..', SRC_PATH, 'background');

@@ -9,14 +9,10 @@ import { UPGRADE_LICENSE_URL } from './config';
 import { promoNotifications } from './promoNotifications';
 import { FREE_GBS_ANCHOR, SETTINGS_IDS, THEME_URL_PARAMETER } from '../lib/constants';
 import { browserApi } from './browserApi';
+import { browserAction } from './browserAction';
 
 type SetIconDetailsType = browser.Action.SetIconDetailsType;
 type SetBadgeDetailsType = browser.Action.SetBadgeTextDetailsType;
-
-// There are different browser actions implementation depending on manifest version:
-// old browserAction API for manifest version 2
-// Action API for manifest version 3
-const browserAction = browserApi.runtime.isManifestVersion2() ? browser.browserAction : browser.action;
 
 /**
  * Opens options tab with anchor if provided
@@ -68,7 +64,7 @@ const openOptionsPage = async (anchorName: string | null = null): Promise<void> 
 const setIcon = async (details: SetIconDetailsType): Promise<void> => {
     try {
         await browserAction.setIcon(details);
-    } catch (e: any) {
+    } catch (e) {
         log.debug(e.message);
     }
 };
@@ -81,7 +77,7 @@ const setBadge = async (details: SetBadgeDetailsType): Promise<void> => {
         const { tabId } = details;
 
         await browserAction.setBadgeBackgroundColor({ tabId, color: BADGE_COLOR });
-    } catch (e: any) {
+    } catch (e) {
         log.debug(e.message);
     }
 };

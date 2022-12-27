@@ -114,7 +114,7 @@ async function triggerOnAuthRequired() {
     try {
         // After setting proxy we need to send a random request, otherwise PAC script can be cached
         await fetch(`http://${nanoid()}.${PAC_SCRIPT_CHECK_URL}`, { cache: 'no-cache' });
-    } catch (e: any) {
+    } catch (e) {
         // ignore
     }
 }

@@ -40,7 +40,7 @@ class EndpointsTldExclusions {
         try {
             await browserApi.storage.set(this.STORAGE_KEY, this.endpointsTldExclusionsList);
             log.debug('Endpoints tld exclusions saved in the storage');
-        } catch (e: any) {
+        } catch (e) {
             log.error(e);
         }
     }, this.THROTTLE_TIMEOUT_MS);
@@ -94,7 +94,7 @@ class EndpointsTldExclusions {
                 this.endpointsTldExclusionsList = storedList;
                 await proxy.setEndpointsTldExclusions(this.endpointsTldExclusionsList);
             }
-        } catch (e: any) {
+        } catch (e) {
             log.error(e);
         }
         log.debug('Endpoints tld exclusions module initiated');

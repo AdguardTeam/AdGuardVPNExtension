@@ -101,7 +101,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
         try {
             await proxyApi.proxySet(this.currentConfig);
             this.isActive = true;
-        } catch (e: any) {
+        } catch (e) {
             throw new Error(`Failed to turn on proxy with config: ${JSON.stringify(this.currentConfig)} because of error, ${e.message}`);
         }
 
@@ -123,7 +123,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
         try {
             await proxyApi.proxyClear();
             this.isActive = false;
-        } catch (e: any) {
+        } catch (e) {
             log.error(`Failed to turn off proxy due to error: ${e.message}`);
         }
 

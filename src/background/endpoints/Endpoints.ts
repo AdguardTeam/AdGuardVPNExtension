@@ -126,7 +126,7 @@ class Endpoints implements EndpointsInterface {
 
         try {
             vpnToken = await credentials.gainValidVpnToken();
-        } catch (e: any) {
+        } catch (e) {
             log.debug('Unable to get endpoints token because: ', e.message);
             return null;
         }
@@ -174,7 +174,7 @@ class Endpoints implements EndpointsInterface {
             const vpnInfo = await vpnProvider.getVpnExtensionInfo(appId, vpnToken.token);
             await this.updateLocations(true);
             this.vpnInfo = vpnInfo;
-        } catch (e: any) {
+        } catch (e) {
             log.debug(e.message);
         }
     };
@@ -244,7 +244,7 @@ class Endpoints implements EndpointsInterface {
                     return;
                 }
                 await this.reconnectEndpoint(closestEndpoint, closestLocation);
-            } catch (e: any) {
+            } catch (e) {
                 log.debug(e);
             }
             return;
@@ -286,7 +286,7 @@ class Endpoints implements EndpointsInterface {
 
         try {
             vpnToken = await credentials.gainValidVpnToken();
-        } catch (e: any) {
+        } catch (e) {
             log.debug('Unable to get endpoints info because: ', e.message);
             return null;
         }
@@ -299,7 +299,7 @@ class Endpoints implements EndpointsInterface {
 
             try {
                 ({ vpnToken: updatedVpnToken } = await this.refreshTokens());
-            } catch (e: any) {
+            } catch (e) {
                 log.debug('Unable to refresh tokens');
                 return null;
             }
@@ -339,7 +339,7 @@ class Endpoints implements EndpointsInterface {
         let vpnInfo;
         try {
             vpnInfo = await this.getVpnInfoRemotely();
-        } catch (e: any) {
+        } catch (e) {
             log.error(e);
         }
 
@@ -412,7 +412,7 @@ class Endpoints implements EndpointsInterface {
         let vpnToken;
         try {
             vpnToken = await credentials.gainValidVpnToken();
-        } catch (e: any) {
+        } catch (e) {
             log.error('Unable to get valid endpoints token. Error: ', e.message);
         }
 
@@ -429,7 +429,7 @@ class Endpoints implements EndpointsInterface {
                     throw new Error('No token provided');
                 }
                 this.vpnInfo = await vpnProvider.getVpnExtensionInfo(appId, token);
-            } catch (e: any) {
+            } catch (e) {
                 this.vpnInfo = {
                     vpnFailurePage: POPUP_DEFAULT_SUPPORT_URL,
                     bandwidthFreeMbits: 0,

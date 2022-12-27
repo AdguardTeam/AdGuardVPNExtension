@@ -35,7 +35,7 @@ class Tabs implements TabsInterface {
             let tab;
             try {
                 tab = await browser.tabs.get(tabId);
-            } catch (e: any) {
+            } catch (e) {
                 return; // ignore errors happening when we try to get removed tabs
             }
             if (tab && tab.active) {
@@ -99,7 +99,7 @@ class Tabs implements TabsInterface {
     async reload(tabId: number): Promise<void> {
         try {
             await browser.tabs.reload(tabId);
-        } catch (e: any) {
+        } catch (e) {
             log.error(e.message);
         }
     }
@@ -112,7 +112,7 @@ class Tabs implements TabsInterface {
     async update(tabId: number, url: string): Promise<void> {
         try {
             await browser.tabs.update(tabId, { url, active: true });
-        } catch (e: any) {
+        } catch (e) {
             log.error(e.message);
         }
     }

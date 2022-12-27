@@ -202,7 +202,7 @@ export const Actions = observer(() => {
                 await exclusionsStore.updateExclusionsData();
             }
             exclusionsStore.setImportingExclusions(false);
-        } catch (e: any) {
+        } catch (e) {
             notificationsStore.notifyError(e.message);
             exclusionsStore.setImportingExclusions(false);
         }

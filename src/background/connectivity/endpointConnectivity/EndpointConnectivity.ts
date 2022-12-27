@@ -61,7 +61,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
         try {
             const accessCredentials = await credentials.getAccessCredentials();
             ({ credentialsHash, token: vpnToken } = accessCredentials);
-        } catch (e: any) {
+        } catch (e) {
             return; // do nothing;
         }
 
@@ -142,7 +142,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
 
         try {
             await proxy.turnOn();
-        } catch (e: any) {
+        } catch (e) {
             // we can't connect to the proxy because other extensions are controlling it
             // stop trying to connect
             connectivityService.send(EVENT.PROXY_CONNECTION_ERROR);
@@ -235,7 +235,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
         try {
             const ping = await sendPingMessage(this.ws, this.vpnToken, appId);
             return ping;
-        } catch (e: any) {
+        } catch (e) {
             log.debug(e);
             return null;
         }
@@ -248,7 +248,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
         this.pingSendIntervalId = setInterval(async () => {
             try {
                 await this.sendPingMessage();
-            } catch (e: any) {
+            } catch (e) {
                 log.debug(e.message);
             }
         }, this.PING_SEND_INTERVAL_MS);

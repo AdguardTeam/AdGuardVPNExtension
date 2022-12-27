@@ -91,7 +91,7 @@ if (!browserApi.runtime.isManifestVersion2()) {
         }
         browserActionIcon.init();
         log.info('Extension loaded all necessary modules');
-    } catch (e: any) {
+    } catch (e) {
         log.error('Unable to start extension because of error:', e && e.message);
     }
 })();
