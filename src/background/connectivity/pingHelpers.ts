@@ -86,7 +86,7 @@ const fetchWithTimeout = (requestUrl: string, fetchTimeout: number) => {
     const controller = new AbortController();
 
     // used in order to clear timeout
-    let timeoutId: ReturnType<typeof setTimeout>;
+    let timeoutId: number;
 
     const fetchHandler = async () => {
         try {
@@ -123,7 +123,7 @@ const fetchWithTimeout = (requestUrl: string, fetchTimeout: number) => {
     return Promise.race([
         fetchHandler(),
         new Promise((_, reject) => {
-            timeoutId = setTimeout(() => {
+            timeoutId = window.setTimeout(() => {
                 controller.abort();
                 reject(new Error(`Request to ${requestUrlWithRandomParams} stopped by timeout`));
             }, fetchTimeout);
@@ -152,7 +152,7 @@ export const measurePingToEndpointViaFetch = async (domainName: string): Promise
                 ping = fetchPing;
             }
         } catch (e) {
-            log.error(`Was unable to get ping to ${requestUrl} due to ${e}`);
+            log.error(`Was unable to get ping to ${requestUrl} due to ${e.message}`);
         }
     }
 

@@ -19,7 +19,6 @@ import { AccessCredentialsData } from '../credentials/Credentials';
 import { LocationInterface } from '../endpoints/Location';
 import { EndpointInterface } from '../endpoints/Endpoint';
 import { VpnConnectionStatus } from '../api/vpnApi';
-import { AccessCredentials } from '../proxy/proxy';
 
 /**
  * Turns on proxy after doing preparing steps
@@ -56,11 +55,11 @@ function* turnOnProxy(forcePrevEndpoint = false) {
 
         const accessCredentials: AccessCredentialsData = yield credentials.getAccessCredentials();
 
-        const { domainName } = yield proxy.setAccessCredentials(accessCredentials.credentials as AccessCredentials);
+        const { domainName } = yield proxy.setAccessCredentials(accessCredentials.credentials);
 
         connectivity.endpointConnectivity.setCredentials(
             domainName,
-            accessCredentials.token as string,
+            accessCredentials.token,
             accessCredentials.credentialsHash,
         );
 

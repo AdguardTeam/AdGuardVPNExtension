@@ -4,6 +4,8 @@
     "target": "esnext",
     "jsx": "react",
     "lib": [
+      "es5",
+      "es6",
       "esnext",
       "DOM",
       "DOM.Iterable"

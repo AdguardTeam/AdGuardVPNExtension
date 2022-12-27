@@ -79,7 +79,7 @@ class Endpoints implements EndpointsInterface {
     ): Promise<void> => {
         const { domainName } = await proxy.setCurrentEndpoint(endpoint, location);
         const { credentialsHash, token } = await credentials.getAccessCredentials();
-        await connectivity.endpointConnectivity.setCredentials(domainName, token || '', credentialsHash);
+        await connectivity.endpointConnectivity.setCredentials(domainName, token, credentialsHash);
         await locationsService.setSelectedLocation(location.id);
         log.debug(`Reconnecting endpoint to ${endpoint.id}`);
     };

@@ -9,7 +9,7 @@ import { SubscriptionType } from '../../lib/constants';
 import { CredentialsDataInterface, VpnProviderInterface } from '../providers/vpnProvider';
 import { ErrorData, PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import { StorageInterface } from '../browserApi/storage';
-import { ExtensionProxyInterface } from '../proxy/proxy';
+import { AccessCredentials, ExtensionProxyInterface } from '../proxy/proxy';
 
 export interface VpnTokenData {
     token: string;
@@ -24,11 +24,8 @@ export interface VpnTokenData {
 
 export interface AccessCredentialsData {
     credentialsHash: string,
-    credentials: {
-        username: string | null,
-        password: string,
-    },
-    token: string | null,
+    credentials: AccessCredentials,
+    token: string,
 }
 
 interface AuthInterface {
@@ -398,7 +395,7 @@ class Credentials implements CredentialsInterface {
         return {
             credentialsHash: md5(`${appId}:${token}:${credentials}`).toString(),
             credentials: { username: token, password: credentials },
-            token,
+            token: token || '',
         };
     }
 

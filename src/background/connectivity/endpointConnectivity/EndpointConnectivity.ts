@@ -36,9 +36,9 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
      * Used to clear timeout function if WS connection succeeded
      * or failed faster than connection timeout fired
      */
-    connectionTimeoutId: NodeJS.Timeout | null = null;
+    connectionTimeoutId: ReturnType<typeof setInterval> | null = null;
 
-    private credentialsHash: any;
+    private credentialsHash: string;
 
     private domainName: string;
 
@@ -48,7 +48,7 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
 
     private entryTime: number;
 
-    private pingSendIntervalId: NodeJS.Timeout;
+    private pingSendIntervalId: ReturnType<typeof setInterval>;
 
     constructor() {
         notifier.addSpecifiedListener(notifier.types.CREDENTIALS_UPDATED, this.updateCredentials);
