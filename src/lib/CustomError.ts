@@ -1,4 +1,4 @@
-class CustomError extends Error {
+export class CustomError extends Error {
     private status: string;
 
     constructor(status: string, ...params: any) {
@@ -12,5 +12,3 @@ class CustomError extends Error {
         this.status = status;
     }
 }
-
-export default CustomError;

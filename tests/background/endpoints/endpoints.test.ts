@@ -7,7 +7,7 @@ import {
 } from '../../../src/background/providers/vpnProvider';
 import { credentials } from '../../../src/background/credentials';
 import { Location, LocationData, LocationInterface } from '../../../src/background/endpoints/Location';
-import { LocationWithPing, LocationWithPingParameters } from '../../../src/background/endpoints/LocationWithPing';
+import { LocationWithPing, LocationWithPingProps } from '../../../src/background/endpoints/LocationWithPing';
 import { connectivityService } from '../../../src/background/connectivity/connectivityService/connectivityFSM';
 import { locationsService } from '../../../src/background/endpoints/locationsService';
 import { proxy } from '../../../src/background/proxy';
@@ -120,7 +120,7 @@ describe('Endpoints', () => {
         const endpointsList = endpoints.getLocations();
         expect(endpointsList)
             .toEqual(locations.map((location) => {
-                return new LocationWithPing(new Location(location) as LocationWithPingParameters);
+                return new LocationWithPing(new Location(location) as LocationWithPingProps);
             }));
     });
 
@@ -242,8 +242,8 @@ describe('Endpoints', () => {
 
             const closestLocation = endpoints.getClosestLocation(locations, targetLocation);
 
-            expect(new LocationWithPing(closestLocation as LocationWithPingParameters))
-                .toEqual(new LocationWithPing(targetLocation as LocationWithPingParameters));
+            expect(new LocationWithPing(closestLocation as LocationWithPingProps))
+                .toEqual(new LocationWithPing(targetLocation as LocationWithPingProps));
         });
 
         it('returns closest endpoint when endpoints do not have same location', () => {
@@ -304,8 +304,8 @@ describe('Endpoints', () => {
 
             expectedLocation.ping = 50;
 
-            expect(new LocationWithPing(closestLocation as LocationWithPingParameters))
-                .toEqual(new LocationWithPing(expectedLocation as LocationWithPingParameters));
+            expect(new LocationWithPing(closestLocation as LocationWithPingProps))
+                .toEqual(new LocationWithPing(expectedLocation as LocationWithPingProps));
         });
     });
 

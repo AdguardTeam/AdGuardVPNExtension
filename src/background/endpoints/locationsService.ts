@@ -2,7 +2,7 @@ import isEmpty from 'lodash/isEmpty';
 import { log } from '../../lib/logger';
 import { measurePingWithinLimits } from '../connectivity/pingHelpers';
 import { notifier } from '../../lib/notifier';
-import { LocationWithPing, LocationWithPingParameters } from './LocationWithPing';
+import { LocationWithPing, LocationWithPingProps } from './LocationWithPing';
 import { vpnProvider } from '../providers/vpnProvider';
 import { Location, LocationInterface, LocationData } from './Location';
 import { SETTINGS_IDS } from '../../lib/constants';
@@ -112,13 +112,14 @@ const setLocationEndpoint = (
  * @returns {*}
  */
 const getLocationsWithPing = (): LocationWithPing[] => {
-    return locations.map((location) => {
+    return locations.map((location: LocationInterface) => {
         const cachedPingData = getPingFromCache(location.id);
         if (cachedPingData) {
             setLocationPing(location, cachedPingData.ping);
             setLocationAvailableState(location, cachedPingData.available);
         }
-        return new LocationWithPing(location as LocationWithPingParameters);
+        // after setting ping to location, it's type turns from LocationInterface to LocationWithPing
+        return new LocationWithPing(location as LocationWithPingProps);
     });
 };
 
@@ -342,8 +343,8 @@ const setLocations = (newLocations: LocationInterface[]) => {
 const getLocationsFromServer = async (appId: string, vpnToken: string): Promise<Location[]> => {
     const locationsData = await vpnProvider.getLocationsData(appId, vpnToken);
 
-    const locations = locationsData.map((locationData) => {
-        return new Location(locationData as LocationData);
+    const locations = locationsData.map((locationData: LocationData) => {
+        return new Location(locationData);
     });
 
     // During endpoint deployments, api can return empty list of locations

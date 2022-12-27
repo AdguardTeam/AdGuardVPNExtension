@@ -51,8 +51,8 @@ interface CurrentLocationData {
 
 export interface LocationProviderData {
     id: string;
-    cityName: string | null;
-    countryName: string | null;
+    cityName: string;
+    countryName: string;
     countryCode: string;
     coordinates: [
         longitude: number,

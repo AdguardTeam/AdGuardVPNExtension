@@ -21,7 +21,13 @@ export interface LocationInterface extends LocationData {
     endpoint: EndpointInterface | null;
 }
 
-export class Location {
+export interface LocationInterfaceWithPing extends LocationData {
+    available: boolean;
+    ping: number;
+    endpoint: EndpointInterface | null;
+}
+
+export class Location implements LocationInterface {
     id: string;
 
     countryName: string;

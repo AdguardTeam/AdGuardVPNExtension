@@ -1,4 +1,4 @@
-export interface LocationWithPingParameters {
+export interface LocationWithPingProps {
     id: string;
     cityName: string;
     countryName: string;
@@ -29,7 +29,7 @@ export class LocationWithPing {
 
     virtual: boolean;
 
-    constructor(location: LocationWithPingParameters) {
+    constructor(location: LocationWithPingProps) {
         this.id = location.id;
         this.cityName = location.cityName;
         this.countryName = location.countryName;

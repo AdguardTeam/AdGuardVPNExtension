@@ -10,7 +10,7 @@ import { POPUP_DEFAULT_SUPPORT_URL } from '../config';
 import { notifier } from '../../lib/notifier';
 import { proxy } from '../proxy';
 import { vpnProvider, VpnExtensionInfoInterface, CredentialsDataInterface } from '../providers/vpnProvider';
-import { LocationWithPing, LocationWithPingParameters } from './LocationWithPing';
+import { LocationWithPing } from './LocationWithPing';
 import { endpointsTldExclusions } from '../proxy/endpointsTldExclusions';
 
 // eslint-disable-next-line import/no-cycle
@@ -405,7 +405,7 @@ class Endpoints implements EndpointsInterface {
         }
 
         await locationsService.setSelectedLocation(fastestLocation.id);
-        return new LocationWithPing(fastestLocation as LocationWithPingParameters);
+        return new LocationWithPing(fastestLocation);
     };
 
     getVpnFailurePage = async (): Promise<string> => {

@@ -1,5 +1,6 @@
 import punycode from 'punycode';
-import { LocationInterface } from '../background/endpoints/Location';
+
+import { LocationInterface, LocationInterfaceWithPing } from '../background/endpoints/Location';
 
 /**
  * Returns the value of the property from the cache,
@@ -45,14 +46,16 @@ export const prepareUrl = (rawUrl: string) => {
  * Selects location with lowest ping taking in consideration pingBonus
  * pingBonus is an number which comes from backend and it is used to
  * adjust default location selection
- * @param locations
- * @returns {*}
  */
 export const getLocationWithLowestPing = (locations: LocationInterface[]) => {
-    const locationsWithPings = locations.filter((location) => location.ping && location.ping > 0);
+    // filter locations by ping,
+    // so array of filtered locations will be LocationInterfaceWithPing[] instead of LocationInterface[]
+    // @ts-ignore
+    const locationsWithPings: LocationInterfaceWithPing[] = locations
+        .filter((location) => location.ping && location.ping > 0);
     const sortedByPing = locationsWithPings.sort((locationA, locationB) => {
-        const adjustedPingA = locationA.ping as number - locationA.pingBonus;
-        const adjustedPingB = locationB.ping as number - locationB.pingBonus;
+        const adjustedPingA = locationA.ping - locationA.pingBonus;
+        const adjustedPingB = locationB.ping - locationB.pingBonus;
         return adjustedPingA - adjustedPingB;
     });
     return sortedByPing[0];

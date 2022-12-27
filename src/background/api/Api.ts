@@ -4,8 +4,7 @@ import axios, { AxiosRequestConfig, Method } from 'axios';
 import fetchAdapter from '@vespaiach/axios-fetch-adapter';
 
 import { ERROR_STATUSES } from '../../lib/constants';
-import CustomError from '../../lib/CustomError';
-import { browserApi } from '../browserApi';
+import { CustomError } from '../../lib/CustomError';
 
 const REQUEST_TIMEOUT_MS = 1000 * 6; // 6 seconds
 
@@ -54,22 +53,18 @@ export class Api implements ApiInterface {
             url,
             method,
             timeout: REQUEST_TIMEOUT_MS,
+            adapter: fetchAdapter,
             ...config,
         };
-
-        // in manifest version 3 fetch adapter is used for axios requests
-        if (!browserApi.runtime.isManifestVersion2()) {
-            axiosConfig.adapter = fetchAdapter;
-        }
 
         try {
             const response = await axios(axiosConfig);
             return response.data;
-        } catch (error: any) {
-            if (error.response) {
-                throw new CustomError(error.response.status, JSON.stringify(error.response.data));
+        } catch (e) {
+            if (e.response) {
+                throw new CustomError(e.response.status, JSON.stringify(e.response.data));
             }
-            throw new CustomError(ERROR_STATUSES.NETWORK_ERROR, `${url} | ${error.message || JSON.stringify(error)}`);
+            throw new CustomError(ERROR_STATUSES.NETWORK_ERROR, `${url} | ${e.message || JSON.stringify(e)}`);
         }
     }
 }
