@@ -86,7 +86,7 @@ const fetchWithTimeout = (requestUrl: string, fetchTimeout: number) => {
     const controller = new AbortController();
 
     // used in order to clear timeout
-    let timeoutId: NodeJS.Timeout;
+    let timeoutId: ReturnType<typeof setTimeout>;
 
     const fetchHandler = async () => {
         try {

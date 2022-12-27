@@ -323,7 +323,7 @@ let notificationCheckTime: number;
 const checkTimeoutMs = 10 * 60 * 1000; // 10 minutes
 const minPeriod = 30 * 60 * 1000; // 30 minutes
 const NOTIFICATION_DELAY = 30 * 1000; // clear notification in 30 seconds
-let timeoutId: NodeJS.Timeout;
+let timeoutId: ReturnType<typeof setTimeout>;
 
 /**
  * Marks current notification as viewed
