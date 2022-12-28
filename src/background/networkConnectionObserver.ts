@@ -1,7 +1,7 @@
 import { permissionsChecker } from './permissionsChecker';
 import { log } from '../lib/logger';
 import { connectivityService } from './connectivity/connectivityService/connectivityFSM';
-import { EVENT } from './connectivity/connectivityService/connectivityConstants';
+import { Event } from './connectivity/connectivityService/connectivityConstants';
 import { browserApi } from './browserApi';
 
 /**
@@ -25,7 +25,7 @@ export class NetworkConnectionObserver {
         await permissionsChecker.checkPermissions();
 
         // send event to WS connectivity service
-        connectivityService.send(EVENT.NETWORK_ONLINE);
+        connectivityService.send(Event.NetworkOnline);
     };
 }
 

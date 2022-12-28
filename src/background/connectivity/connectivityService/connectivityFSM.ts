@@ -1,11 +1,27 @@
-import { createMachine, interpret, assign } from 'xstate';
-import { AnyEventObject } from 'xstate/lib/types';
+import {
+    createMachine,
+    interpret,
+    assign,
+    EventObject,
+} from 'xstate';
 
 import { notifier } from '../../../lib/notifier';
-import { STATE, EVENT } from './connectivityConstants';
+import { State, Event } from './connectivityConstants';
 import { log } from '../../../lib/logger';
 // eslint-disable-next-line import/no-cycle
 import { switcher } from '../switcher';
+
+interface ConnectivityEvent extends EventObject {
+    data?: unknown;
+}
+
+type ContextType = {
+    retryCount: number,
+    timeSinceLastRetryWithRefreshMs: number,
+    currentReconnectionDelayMs: number,
+    retriedConnectToOtherEndpoint: boolean,
+    desktopVpnEnabled: boolean,
+};
 
 const MIN_RECONNECTION_DELAY_MS = 1000; // 1 second
 const MAX_RECONNECTION_DELAY_MS = 1000 * 60 * 3; // 3 minutes
@@ -42,7 +58,7 @@ const actions = {
      * so we bring in 70 seconds threshold after which we treat the unavailability as (2)
      * and try find another one (backend probably has alternatives in this case).
      */
-    retryConnection: async (context: { timeSinceLastRetryWithRefreshMs: number }): Promise<void> => {
+    retryConnection: async (context: ContextType): Promise<void> => {
         if (context.timeSinceLastRetryWithRefreshMs
             && context.timeSinceLastRetryWithRefreshMs > RETRY_CONNECTION_TIME_MS) {
             // eslint-disable-next-line no-param-reassign
@@ -55,7 +71,7 @@ const actions = {
         }
     },
 
-    setDesktopVpnEnabled: assign((_ctx, event: AnyEventObject) => ({
+    setDesktopVpnEnabled: assign((_ctx, event: ConnectivityEvent) => ({
         desktopVpnEnabled: event.data,
     })),
 };
@@ -76,14 +92,15 @@ const resetOnSuccessfulConnection = assign({
  * Action, which increments count of connection retries and time passed since first retry
  */
 const incrementRetryCount = assign({
-    retryCount: (context: { retryCount: number }): number => {
+    // FIXME: remove @ts-ignore
+    // @ts-ignore
+    retryCount: (context: ContextType): number => {
         return context.retryCount + 1;
     },
+
+    // FIXME: remove @ts-ignore
     // @ts-ignore
-    timeSinceLastRetryWithRefreshMs: (context: {
-        timeSinceLastRetryWithRefreshMs: number,
-        currentReconnectionDelayMs: number,
-    }): number => {
+    timeSinceLastRetryWithRefreshMs: (context: ContextType): number => {
         return context.timeSinceLastRetryWithRefreshMs + context.currentReconnectionDelayMs;
     },
 });
@@ -92,20 +109,19 @@ const incrementRetryCount = assign({
  * Action, which increases delay between reconnection
  */
 const incrementDelay = assign({
-    currentReconnectionDelayMs: (context: { currentReconnectionDelayMs?: number }): number | undefined => {
-        let delayMs;
-        if (context.currentReconnectionDelayMs) {
-            delayMs = context.currentReconnectionDelayMs * RECONNECTION_DELAY_GROW_FACTOR;
-            if (delayMs > MAX_RECONNECTION_DELAY_MS) {
-                delayMs = MAX_RECONNECTION_DELAY_MS;
-            }
+    // FIXME: remove @ts-ignore
+    // @ts-ignore
+    currentReconnectionDelayMs: (context: ContextType): number => {
+        let delayMs = context.currentReconnectionDelayMs * RECONNECTION_DELAY_GROW_FACTOR;
+        if (delayMs > MAX_RECONNECTION_DELAY_MS) {
+            delayMs = MAX_RECONNECTION_DELAY_MS;
         }
         return delayMs;
     },
 });
 
 const delays = {
-    RETRY_DELAY: (context: { currentReconnectionDelayMs: number }) => {
+    RETRY_DELAY: (context: ContextType): number => {
         return context.currentReconnectionDelayMs;
     },
 };
@@ -140,87 +156,87 @@ const connectivityFSM = createMachine({
         desktopVpnEnabled: false,
 
     },
-    initial: STATE.DISCONNECTED_IDLE,
+    initial: State.DisconnectedIdle,
     states: {
-        [STATE.DISCONNECTED_IDLE]: {
+        [State.DisconnectedIdle]: {
             entry: ['turnOffProxy'],
             on: {
-                [EVENT.CONNECT_BTN_PRESSED]: STATE.CONNECTING_IDLE,
-                [EVENT.EXTENSION_LAUNCHED]: STATE.CONNECTING_IDLE,
-                [EVENT.DESKTOP_VPN_ENABLED]: {
+                [Event.ConnectBtnPressed]: State.ConnectingIdle,
+                [Event.ExtensionLaunched]: State.ConnectingIdle,
+                [Event.DesktopVpnEnabled]: {
                     actions: ['setDesktopVpnEnabled'],
                 },
             },
         },
-        [STATE.DISCONNECTED_RETRYING]: {
+        [State.DisconnectedRetrying]: {
             on: {
-                [EVENT.CONNECT_BTN_PRESSED]: STATE.CONNECTING_RETRYING,
-                [EVENT.NETWORK_ONLINE]: STATE.CONNECTING_RETRYING,
+                [Event.ConnectBtnPressed]: State.ConnectingRetrying,
+                [Event.NetworkOnline]: State.ConnectingRetrying,
                 // this event can occur when user signs out,
                 // so we have to stop trying to connect to WS
-                [EVENT.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTED_IDLE,
+                [Event.DisconnectBtnPressed]: State.DisconnectedIdle,
                 // this event fires when user has too many devises connected
-                [EVENT.TOO_MANY_DEVICES_CONNECTED]: STATE.DISCONNECTED_IDLE,
+                [Event.TooManyDevicesConnected]: State.DisconnectedIdle,
                 // if vpn enabled in desktop app
-                [EVENT.DESKTOP_VPN_ENABLED]: {
-                    target: STATE.DISCONNECTED_IDLE,
+                [Event.DesktopVpnEnabled]: {
+                    target: State.DisconnectedIdle,
                     actions: ['setDesktopVpnEnabled'],
                 },
             },
             after: {
-                RETRY_DELAY: STATE.CONNECTING_RETRYING,
+                RETRY_DELAY: State.ConnectingRetrying,
             },
             entry: [incrementDelay],
         },
-        [STATE.CONNECTING_IDLE]: {
+        [State.ConnectingIdle]: {
             entry: ['turnOnProxy'],
             on: {
-                [EVENT.CONNECTION_SUCCESS]: STATE.CONNECTED,
-                [EVENT.CONNECTION_FAIL]: STATE.DISCONNECTED_RETRYING,
+                [Event.ConnectionSuccess]: State.Connected,
+                [Event.ConnectionFail]: State.DisconnectedRetrying,
                 // If ws connection didn't get handshake response
-                [EVENT.WS_CLOSE]: STATE.DISCONNECTED_RETRYING,
-                [EVENT.WS_ERROR]: STATE.DISCONNECTED_RETRYING,
-                [EVENT.PROXY_CONNECTION_ERROR]: STATE.DISCONNECTED_IDLE,
+                [Event.WsClose]: State.DisconnectedRetrying,
+                [Event.WsError]: State.DisconnectedRetrying,
+                [Event.ProxyConnectionError]: State.DisconnectedIdle,
                 // if user decided to connect to another location
-                [EVENT.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTED_IDLE,
+                [Event.DisconnectBtnPressed]: State.DisconnectedIdle,
                 // if user has too many devises connected
-                [EVENT.TOO_MANY_DEVICES_CONNECTED]: STATE.DISCONNECTED_IDLE,
+                [Event.TooManyDevicesConnected]: State.DisconnectedIdle,
                 // if vpn enabled in desktop app
-                [EVENT.DESKTOP_VPN_ENABLED]: {
-                    target: STATE.DISCONNECTED_IDLE,
+                [Event.DesktopVpnEnabled]: {
+                    target: State.DisconnectedIdle,
                     actions: ['setDesktopVpnEnabled'],
                 },
             },
         },
-        [STATE.CONNECTING_RETRYING]: {
+        [State.ConnectingRetrying]: {
             entry: [incrementRetryCount, 'retryConnection'],
             on: {
-                [EVENT.CONNECTION_SUCCESS]: STATE.CONNECTED,
-                [EVENT.CONNECTION_FAIL]: STATE.DISCONNECTED_RETRYING,
-                [EVENT.WS_CLOSE]: STATE.DISCONNECTED_RETRYING,
-                [EVENT.WS_ERROR]: STATE.DISCONNECTED_RETRYING,
-                [EVENT.PROXY_CONNECTION_ERROR]: STATE.DISCONNECTED_IDLE,
+                [Event.ConnectionSuccess]: State.Connected,
+                [Event.ConnectionFail]: State.DisconnectedRetrying,
+                [Event.WsClose]: State.DisconnectedRetrying,
+                [Event.WsError]: State.DisconnectedRetrying,
+                [Event.ProxyConnectionError]: State.DisconnectedIdle,
                 // if user decided to connect to another location
-                [EVENT.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTED_IDLE,
+                [Event.DisconnectBtnPressed]: State.DisconnectedIdle,
                 // this event fires when user has too many devises connected
-                [EVENT.TOO_MANY_DEVICES_CONNECTED]: STATE.DISCONNECTED_IDLE,
+                [Event.TooManyDevicesConnected]: State.DisconnectedIdle,
                 // if vpn enabled in desktop app
-                [EVENT.DESKTOP_VPN_ENABLED]: {
-                    target: STATE.DISCONNECTED_IDLE,
+                [Event.DesktopVpnEnabled]: {
+                    target: State.DisconnectedIdle,
                     actions: ['setDesktopVpnEnabled'],
                 },
             },
         },
-        [STATE.CONNECTED]: {
+        [State.Connected]: {
             on: {
-                [EVENT.WS_ERROR]: STATE.DISCONNECTED_RETRYING,
-                [EVENT.WS_CLOSE]: STATE.DISCONNECTED_RETRYING,
-                [EVENT.DISCONNECT_BTN_PRESSED]: STATE.DISCONNECTED_IDLE,
+                [Event.WsError]: State.DisconnectedRetrying,
+                [Event.WsClose]: State.DisconnectedRetrying,
+                [Event.DisconnectBtnPressed]: State.DisconnectedIdle,
                 // this event fires when user has too many devises connected
-                [EVENT.TOO_MANY_DEVICES_CONNECTED]: STATE.DISCONNECTED_IDLE,
+                [Event.TooManyDevicesConnected]: State.DisconnectedIdle,
                 // if vpn enabled in desktop app
-                [EVENT.DESKTOP_VPN_ENABLED]: {
-                    target: STATE.DISCONNECTED_IDLE,
+                [Event.DesktopVpnEnabled]: {
+                    target: State.DisconnectedIdle,
                     actions: ['setDesktopVpnEnabled'],
                 },
             },
@@ -231,9 +247,9 @@ const connectivityFSM = createMachine({
 
 export const connectivityService = interpret(connectivityFSM)
     .start()
-    .onEvent((event: AnyEventObject) => {
+    .onEvent((event: ConnectivityEvent) => {
         log.debug(event);
-        if (event.type === EVENT.DESKTOP_VPN_ENABLED) {
+        if (event.type === Event.DesktopVpnEnabled) {
             notifier.notifyListeners(
                 notifier.types.CONNECTIVITY_DESKTOP_VPN_STATUS_CHANGED,
                 event.data,
@@ -248,13 +264,13 @@ export const connectivityService = interpret(connectivityFSM)
 connectivityService.start();
 
 export const isVPNConnected = (): boolean => {
-    return connectivityService.getSnapshot().matches(STATE.CONNECTED);
+    return connectivityService.getSnapshot().matches(State.Connected);
 };
 
 export const isVPNDisconnectedIdle = (): boolean => {
-    return connectivityService.getSnapshot().matches(STATE.DISCONNECTED_IDLE);
+    return connectivityService.getSnapshot().matches(State.DisconnectedIdle);
 };
 
 export const setDesktopVpnEnabled = (data: boolean): void => {
-    connectivityService.send(EVENT.DESKTOP_VPN_ENABLED, { data });
+    connectivityService.send(Event.DesktopVpnEnabled, { data });
 };

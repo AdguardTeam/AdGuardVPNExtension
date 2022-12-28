@@ -16,13 +16,13 @@ import {
     AnimationEvent,
 } from '../../lib/constants';
 import { messenger } from '../../lib/messenger';
-import { STATE } from '../../background/connectivity/connectivityService/connectivityConstants';
+import { State } from '../../background/connectivity/connectivityService/connectivityConstants';
 import { getHostname, getProtocol } from '../../common/url-utils';
 import { animationService } from '../components/Settings/BackgroundAnimation/animationStateMachine';
 import { PromoNotificationData } from '../../background/promoNotifications';
 import type { RootStore } from './RootStore';
 
-type State = {
+type StateType = {
     value: string,
 };
 
@@ -43,7 +43,7 @@ export class SettingsStore {
 
     @observable checkPermissionsState = RequestStatus.Done;
 
-    @observable connectivityState: State;
+    @observable connectivityState: StateType;
 
     @observable desktopVpnEnabled: boolean;
 
@@ -231,34 +231,34 @@ export class SettingsStore {
         this.hasLimitExceededDisplayed = true;
     }
 
-    @action setConnectivityState(state: State) {
+    @action setConnectivityState(state: StateType) {
         this.connectivityState = state;
         this.updateAnimationState(state);
     }
 
     @computed
     get isConnected(): boolean {
-        return this.connectivityState.value === STATE.CONNECTED;
+        return this.connectivityState.value === State.Connected;
     }
 
     @computed
     get isDisconnectedIdle(): boolean {
-        return this.connectivityState.value === STATE.DISCONNECTED_IDLE;
+        return this.connectivityState.value === State.DisconnectedIdle;
     }
 
     @computed
     get isConnectingIdle(): boolean {
-        return this.connectivityState.value === STATE.CONNECTING_IDLE;
+        return this.connectivityState.value === State.ConnectingIdle;
     }
 
     @computed
     get isDisconnectedRetrying(): boolean {
-        return this.connectivityState.value === STATE.DISCONNECTED_RETRYING;
+        return this.connectivityState.value === State.DisconnectedRetrying;
     }
 
     @computed
     get isConnectingRetrying(): boolean {
-        return this.connectivityState.value === STATE.CONNECTING_RETRYING;
+        return this.connectivityState.value === State.ConnectingRetrying;
     }
 
     @action setDesktopVpnEnabled = (status: boolean): void => {
@@ -326,16 +326,16 @@ export class SettingsStore {
         this.animationState = value;
     };
 
-    @action updateAnimationState = (state: State): void => {
-        if (state.value === STATE.CONNECTED) {
+    @action updateAnimationState = (state: StateType): void => {
+        if (state.value === State.Connected) {
             animationService.send(AnimationEvent.VpnConnected);
             return;
         }
-        if (state.value === STATE.DISCONNECTED_IDLE) {
+        if (state.value === State.DisconnectedIdle) {
             animationService.send(AnimationEvent.VpnDisconnected);
             return;
         }
-        if (state.value === STATE.DISCONNECTED_RETRYING) {
+        if (state.value === State.DisconnectedRetrying) {
             animationService.send(AnimationEvent.VpnDisconnectedRetrying);
         }
     };

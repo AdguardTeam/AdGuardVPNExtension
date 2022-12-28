@@ -1,5 +1,5 @@
 import { proxy } from '../proxy';
-import { EVENT, MIN_CONNECTION_DURATION_MS } from './connectivityService/connectivityConstants';
+import { Event, MIN_CONNECTION_DURATION_MS } from './connectivityService/connectivityConstants';
 import { log } from '../../lib/logger';
 import { runWithCancel, sleepIfNecessary } from '../../lib/helpers';
 import { FORCE_CANCELLED } from '../../lib/constants';
@@ -67,7 +67,7 @@ function* turnOnProxy(forcePrevEndpoint = false) {
     } catch (e) {
         log.debug(e.message);
         yield sleepIfNecessary(entryTime, MIN_CONNECTION_DURATION_MS);
-        connectivityService.send(EVENT.CONNECTION_FAIL);
+        connectivityService.send(Event.ConnectionFail);
     }
 }
 

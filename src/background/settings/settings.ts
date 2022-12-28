@@ -7,7 +7,7 @@ import { dns } from '../dns';
 import { DEFAULT_DNS_SERVER } from '../dns/dnsConstants';
 import { webrtc } from '../browserApi/webrtc';
 import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
-import { EVENT } from '../connectivity/connectivityService/connectivityConstants';
+import { Event } from '../connectivity/connectivityService/connectivityConstants';
 import { DnsServerData } from '../../common/components/constants';
 import { PersistedExclusions } from '../exclusions/exclusions/ExclusionsManager';
 
@@ -89,7 +89,7 @@ const disableProxy = async (force?: boolean): Promise<void> => {
         return;
     }
 
-    connectivityService.send(EVENT.DISCONNECT_BTN_PRESSED);
+    connectivityService.send(Event.DisconnectBtnPressed);
 };
 
 const enableProxy = async (force?: boolean): Promise<void> => {
@@ -99,7 +99,7 @@ const enableProxy = async (force?: boolean): Promise<void> => {
         return;
     }
 
-    connectivityService.send(EVENT.CONNECT_BTN_PRESSED);
+    connectivityService.send(Event.ConnectBtnPressed);
 };
 
 /**
@@ -127,7 +127,7 @@ const applySettings = (): void => {
 
     // Connect proxy
     if (proxyEnabled) {
-        connectivityService.send(EVENT.EXTENSION_LAUNCHED);
+        connectivityService.send(Event.ExtensionLaunched);
     }
 
     log.info('Settings were applied');

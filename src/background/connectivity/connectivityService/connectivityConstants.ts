@@ -5,114 +5,114 @@
 /**
  * Possible events for connectivity finite state machine
  */
-export const EVENT = {
+export enum Event {
     /**
      * Fires when user presses connect button, or when user connects to another location
      */
-    CONNECT_BTN_PRESSED: 'CONNECT_BTN_PRESSED',
+    ConnectBtnPressed = 'connect_btn_pressed',
 
     /**
      * Fires when user presses disconnect button, or when user connects to another location
      */
-    DISCONNECT_BTN_PRESSED: 'DISCONNECT_BTN_PRESSED',
+    DisconnectBtnPressed = 'disconnect_btn_pressed',
 
     /**
      *  Fires when extension applies settings after browser launched or extension updated.
      *  If earlier the extension was connected to some endpoint - the event forces extension
      *  to reconnect to that endpoint.
      */
-    EXTENSION_LAUNCHED: 'EXTENSION_LAUNCHED',
+    ExtensionLaunched = 'extension_launched',
 
     /**
      * Fires when WS successfully connects to endpoint and applies proxy settings in browser api
      */
-    CONNECTION_SUCCESS: 'CONNECTION_SUCCESS',
+    ConnectionSuccess = 'connection_success',
 
     /**
      * Fires when proxy can't
      * 1. measure ping to endpoint,
      * 2. send first ping message to WS after connection
      */
-    CONNECTION_FAIL: 'CONNECTION_FAIL',
+    ConnectionFail = 'connection_fail',
 
     /**
      * Fires on WS error event
      */
-    WS_ERROR: 'WS_ERROR',
+    WsError = 'ws_error',
 
     /**
      * Fires on WS close event. This event can fire when WS connection was closed externally,
      * or by extension on connection timeout
      */
-    WS_CLOSE: 'WS_CLOSE',
+    WsClose = 'ws_close',
 
     /**
      * Fires when browser is getting online, then we retry to connect to WS immediately
      */
-    NETWORK_ONLINE: 'NETWORK_ONLINE',
+    NetworkOnline = 'network_online',
 
     /**
      * Fires when browser is getting offline, then we stop trying to connect
      * Notice this is not used in the extension, but do not delete it
      */
-    NETWORK_OFFLINE: 'NETWORK_OFFLINE',
+    NetworkOffline = 'network_offline',
 
     /**
      * Fires when we can't set proxy setting in the browser api,
      * because other extension is controlling proxy settings
      */
-    PROXY_CONNECTION_ERROR: 'PROXY_CONNECTION_ERROR',
+    ProxyConnectionError = 'proxy_connection_error',
 
     /**
      * Fires when too many devices are connected and we should disable connection
      */
-    TOO_MANY_DEVICES_CONNECTED: 'TOO_MANY_DEVICES_CONNECTED',
+    TooManyDevicesConnected = 'too_many_devices_connected',
 
     /**
      * Fires when vpn enabled in desktop app
      */
-    DESKTOP_VPN_ENABLED: 'DESKTOP_VPN_ENABLED',
-};
+    DesktopVpnEnabled = 'DESKTOP_VPN_ENABLED',
+}
 
 /**
  * States of connectivity finite state machine
  */
-export const STATE = {
+export enum State {
     /**
      * This is the initial state
      * In this state WS is disconnected and waiting for user to press connect button or
      * extension applies enabled state saved in storage after browser or extension restart
      */
-    DISCONNECTED_IDLE: 'disconnectedIdle',
+    DisconnectedIdle = 'disconnectedIdle',
 
     /**
      * In this state extension waits delays between reconnection retries
      * Here user can force WS reconnection to selected location by pressing CONNECT
      * button in UI or choose another location to connect
      */
-    DISCONNECTED_RETRYING: 'disconnectedRetrying',
+    DisconnectedRetrying = 'disconnectedRetrying',
 
     /**
      * In this state WS is trying to connect after idle state
      * if connection fails state changes to "DISCONNECTED_RETRYING",
      * otherwise to "CONNECTED" state
      */
-    CONNECTING_IDLE: 'connectingIdle',
+    ConnectingIdle = 'connectingIdle',
 
     /**
      * In this state WS is trying to connect after disconnected retrying state
      * if connection fails it returns back to "DISCONNECTED_RETRYING",
      * otherwise to "CONNECTED" state
      */
-    CONNECTING_RETRYING: 'connectingRetrying',
+    ConnectingRetrying = 'connectingRetrying',
 
     /**
      * In this state WS is connected and proxy enabled
      * If an WS error or close event fires, state changes to DISCONNECTED_RETRYING state
      * If user presses disconnect button, state changes to DISCONNECTED_IDLE state
      */
-    CONNECTED: 'connected',
-};
+    Connected = 'connected',
+}
 
 /**
  * Connection shouldn't be faster than specified time, because it causes ugly UI experience
