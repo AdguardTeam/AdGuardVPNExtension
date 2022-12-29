@@ -12,7 +12,6 @@ import { log } from '../lib/logger';
 import { ExclusionsModes } from '../common/exclusionsConstants';
 import { actions } from './actions';
 
-type ItemType = browser.Menus.ItemType;
 type ContextType = browser.Menus.ContextType;
 type CreateCreatePropertiesType = browser.Menus.CreateCreatePropertiesType;
 
@@ -52,19 +51,19 @@ const CONTEXT_MENU_ITEMS: ContextMenuItems = {
     },
     selective_mode: {
         id: 'selective_mode',
-        type: 'radio' as ItemType,
+        type: 'radio',
         title: translator.getMessage('context_menu_selective_mode'),
         action: () => exclusions.setMode(ExclusionsModes.Selective, true),
     },
     regular_mode: {
         id: 'regular_mode',
-        type: 'radio' as ItemType,
+        type: 'radio',
         title: translator.getMessage('context_menu_general_mode'),
         action: () => exclusions.setMode(ExclusionsModes.Regular, true),
     },
     separator: {
         id: 'separator',
-        type: 'separator' as ItemType,
+        type: 'separator',
     },
 };
 
@@ -116,7 +115,7 @@ const clearContextMenuItems = async (): Promise<void> => {
     // eslint-disable-next-line no-restricted-syntax
     for (const item of Object.values(CONTEXT_MENU_ITEMS)) {
         // eslint-disable-next-line no-await-in-loop
-        await removeContextMenuItem(item.id as string);
+        await removeContextMenuItem(item.id);
     }
 };
 

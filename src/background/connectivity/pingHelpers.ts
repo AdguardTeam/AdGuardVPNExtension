@@ -123,7 +123,9 @@ const fetchWithTimeout = (requestUrl: string, fetchTimeout: number) => {
     return Promise.race([
         fetchHandler(),
         new Promise((_, reject) => {
-            timeoutId = window.setTimeout(() => {
+            // FIXME: abstract window.setTimeout and remove @ts-ignore
+            // @ts-ignore
+            timeoutId = setTimeout(() => {
                 controller.abort();
                 reject(new Error(`Request to ${requestUrlWithRandomParams} stopped by timeout`));
             }, fetchTimeout);

@@ -7,7 +7,7 @@ import { log } from '../../lib/logger';
 import { notifier } from '../../lib/notifier';
 import { SubscriptionType } from '../../lib/constants';
 import { CredentialsDataInterface, VpnProviderInterface } from '../providers/vpnProvider';
-import { ErrorData, PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
+import { PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
 import { StorageInterface } from '../browserApi/storage';
 import { AccessCredentials, ExtensionProxyInterface } from '../proxy/proxy';
 
@@ -71,7 +71,7 @@ export interface CredentialsInterface {
     init(): Promise<void>;
 }
 
-class Credentials implements CredentialsInterface {
+export class Credentials implements CredentialsInterface {
     VPN_TOKEN_KEY = 'credentials.token';
 
     APP_ID_KEY = 'credentials.app.id';
@@ -223,7 +223,7 @@ class Credentials implements CredentialsInterface {
 
         if (!vpnToken || !this.isTokenValid(vpnToken)) {
             const error = Error(`Vpn token is not valid. Token: ${JSON.stringify(vpnToken)}`);
-            this.permissionsError.setError(error as ErrorData);
+            this.permissionsError.setError({ ...error, status: '' });
             throw error;
         }
 
@@ -250,7 +250,7 @@ class Credentials implements CredentialsInterface {
 
         if (!vpnCredentials || !this.areCredentialsValid(vpnCredentials)) {
             const error = Error(`Vpn credentials are not valid: Credentials: ${JSON.stringify(vpnCredentials)}`);
-            this.permissionsError.setError(error as ErrorData);
+            this.permissionsError.setError({ ...error, status: '' });
             throw error;
         }
 
@@ -553,5 +553,3 @@ class Credentials implements CredentialsInterface {
         log.info('Credentials module is ready');
     }
 }
-
-export default Credentials;

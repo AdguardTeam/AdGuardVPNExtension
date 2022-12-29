@@ -4,7 +4,7 @@ import throttle from 'lodash/throttle';
 import { notifier } from '../lib/notifier';
 import { actions } from './actions';
 import { exclusions } from './exclusions';
-import { tabs } from './tabs';
+import { PreparedTab, tabs } from './tabs';
 import { isHttp } from '../lib/string-utils';
 import { auth } from './auth';
 import { locationsService } from './endpoints/locationsService';
@@ -24,7 +24,7 @@ class BrowserActionIcon {
         return true;
     };
 
-    async updateIcon(tab: browser.Tabs.Tab) {
+    async updateIcon(tab: PreparedTab) {
         const { id, url } = tab;
 
         if (!id) {
@@ -71,7 +71,7 @@ class BrowserActionIcon {
                 // get all active tabs, because tabs api sometimes doesn't return right active tab
                 const activeTabs = await tabs.getActive();
                 activeTabs.forEach((tab) => {
-                    this.updateIcon(tab as browser.Tabs.Tab);
+                    this.updateIcon(tab);
                 });
             }
         }, throttleTimeoutMs, { leading: false });

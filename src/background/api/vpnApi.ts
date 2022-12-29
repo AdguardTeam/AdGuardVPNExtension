@@ -1,9 +1,10 @@
 import qs from 'qs';
 import browser from 'webextension-polyfill';
-import { AxiosResponse, Method } from 'axios';
+import { AxiosResponse } from 'axios';
 
 import { Api } from './Api';
 import { fallbackApi } from './fallbackApi';
+import { RequestProps } from './apiTypes';
 
 const API_PREFIX = '/api';
 
@@ -109,11 +110,6 @@ interface ExclusionServiceDomainsData extends AxiosResponse {
     }];
 }
 
-interface RequestParameters {
-    path: string;
-    method: Method;
-}
-
 interface VpnApiInterface {
     getLocations(appId: string, vpnToken: string): Promise<LocationsData>;
     getVpnCredentials(appId: string, vpnToken: string): Promise<VpnCredentials>;
@@ -128,7 +124,7 @@ interface VpnApiInterface {
 
 // projects/ADGUARD/repos/adguard-vpn-backend-service/browse
 class VpnApi extends Api implements VpnApiInterface {
-    GET_LOCATIONS = { path: 'v2/locations/extension', method: 'GET' };
+    GET_LOCATIONS: RequestProps = { path: 'v2/locations/extension', method: 'GET' };
 
     getLocations = (appId: string, vpnToken: string): Promise<LocationsData> => {
         const { path, method } = this.GET_LOCATIONS;
@@ -140,10 +136,10 @@ class VpnApi extends Api implements VpnApiInterface {
             language,
         };
 
-        return this.makeRequest(path, { params }, method as Method);
+        return this.makeRequest(path, { params }, method);
     };
 
-    GET_VPN_CREDENTIALS: RequestParameters = { path: 'v1/proxy_credentials', method: 'POST' };
+    GET_VPN_CREDENTIALS: RequestProps = { path: 'v1/proxy_credentials', method: 'POST' };
 
     getVpnCredentials = (appId: string, vpnToken: string): Promise<VpnCredentials> => {
         const { path, method } = this.GET_VPN_CREDENTIALS;
@@ -160,14 +156,14 @@ class VpnApi extends Api implements VpnApiInterface {
         return this.makeRequest(path, config, method);
     };
 
-    GET_CURRENT_LOCATION: RequestParameters = { path: 'v1/geo_location', method: 'GET' };
+    GET_CURRENT_LOCATION: RequestProps = { path: 'v1/geo_location', method: 'GET' };
 
     getCurrentLocation = (): Promise<CurrentLocationData> => {
         const { path, method } = this.GET_CURRENT_LOCATION;
         return this.makeRequest(path, {}, method);
     };
 
-    VPN_EXTENSION_INFO: RequestParameters = { path: 'v1/info/extension', method: 'GET' };
+    VPN_EXTENSION_INFO: RequestProps = { path: 'v1/info/extension', method: 'GET' };
 
     getVpnExtensionInfo = (
         appId: string,
@@ -182,7 +178,7 @@ class VpnApi extends Api implements VpnApiInterface {
         return this.makeRequest(path, { params }, method);
     };
 
-    TRACK_EXTENSION_INSTALL: RequestParameters = { path: 'v1/init/extension', method: 'POST' };
+    TRACK_EXTENSION_INSTALL: RequestProps = { path: 'v1/init/extension', method: 'POST' };
 
     postExtensionInstalled = (appId: string): Promise<PostExtensionInstalledData> => {
         const { path, method } = this.TRACK_EXTENSION_INSTALL;
@@ -196,7 +192,7 @@ class VpnApi extends Api implements VpnApiInterface {
         return this.makeRequest(path, config, method);
     };
 
-    SUPPORT_REQUEST: RequestParameters = { path: 'v1/support', method: 'POST' };
+    SUPPORT_REQUEST: RequestProps = { path: 'v1/support', method: 'POST' };
 
     requestSupport = (data: FormData): Promise<AxiosResponse> => {
         const { path, method } = this.SUPPORT_REQUEST;
@@ -208,14 +204,14 @@ class VpnApi extends Api implements VpnApiInterface {
         return this.makeRequest(path, config, method);
     };
 
-    GET_DESKTOP_VPN_CONNECTION_STATUS: RequestParameters = { path: 'v1/vpn_connected', method: 'GET' };
+    GET_DESKTOP_VPN_CONNECTION_STATUS: RequestProps = { path: 'v1/vpn_connected', method: 'GET' };
 
     getDesktopVpnConnectionStatus = (): Promise<VpnConnectionStatus> => {
         const { path, method } = this.GET_DESKTOP_VPN_CONNECTION_STATUS;
         return this.makeRequest(path, {}, method);
     };
 
-    EXCLUSION_SERVICES: RequestParameters = { path: 'v2/exclusion_services', method: 'GET' };
+    EXCLUSION_SERVICES: RequestProps = { path: 'v2/exclusion_services', method: 'GET' };
 
     getExclusionsServices = (): Promise<ExclusionsServicesData> => {
         const { path, method } = this.EXCLUSION_SERVICES;
@@ -228,7 +224,7 @@ class VpnApi extends Api implements VpnApiInterface {
         return this.makeRequest(path, { params }, method);
     };
 
-    EXCLUSION_SERVICE_DOMAINS: RequestParameters = { path: 'v1/exclusion_services/domains', method: 'GET' };
+    EXCLUSION_SERVICE_DOMAINS: RequestProps = { path: 'v1/exclusion_services/domains', method: 'GET' };
 
     getExclusionServiceDomains = (servicesIds: string[]): Promise<ExclusionServiceDomainsData> => {
         const { path, method } = this.EXCLUSION_SERVICE_DOMAINS;

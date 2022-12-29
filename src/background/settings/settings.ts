@@ -64,11 +64,11 @@ const setSetting = async (id: string, value: any, force?: boolean): Promise<bool
 
     switch (id) {
         case SETTINGS_IDS.HANDLE_WEBRTC_ENABLED: {
-            webrtc.setWebRTCHandlingAllowed(value as boolean, isProxyEnabled());
+            webrtc.setWebRTCHandlingAllowed(value, isProxyEnabled());
             break;
         }
         case SETTINGS_IDS.SELECTED_DNS_SERVER: {
-            dns.setDnsServer(value as string);
+            dns.setDnsServer(value);
             break;
         }
         default: {

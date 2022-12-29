@@ -34,14 +34,14 @@ class WebRTC implements WebRTCInterface {
             }
         }
 
-        if (typeof browser.privacy.network.networkPredictionEnabled === 'object') {
+        if (typeof browser.privacy.network.peerConnectionEnabled === 'object') {
             if (webRTCDisabled) {
-                browser.privacy.network.networkPredictionEnabled.set({
+                browser.privacy.network.peerConnectionEnabled.set({
                     value: false,
                     scope: 'regular',
                 });
             } else {
-                browser.privacy.network.networkPredictionEnabled.clear({
+                browser.privacy.network.peerConnectionEnabled.clear({
                     scope: 'regular',
                 });
             }

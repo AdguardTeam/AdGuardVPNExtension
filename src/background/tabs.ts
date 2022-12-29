@@ -4,14 +4,14 @@ import { PASSWORD_RECOVERY_URL } from './config';
 import { notifier } from '../lib/notifier';
 import { log } from '../lib/logger';
 
-interface PreparedTabInterface {
-    id?: number;
-    url?: string;
-}
+export type PreparedTab = {
+    id?: number,
+    url?: string,
+};
 
 interface TabsInterface {
     getCurrent(): Promise<browser.Tabs.Tab>;
-    getActive(): Promise<PreparedTabInterface[]>;
+    getActive(): Promise<PreparedTab[]>;
     openRecovery(): Promise<browser.Tabs.Tab>;
     openTab(url: string): Promise<browser.Tabs.Tab>;
     closeTab(tabsIds: number[] | number): Promise<void>;
@@ -59,7 +59,7 @@ class Tabs implements TabsInterface {
      * Converts browser tab info into simplified presentation of tab
      * @param tab
      */
-    prepareTab = (tab: browser.Tabs.Tab): PreparedTabInterface => {
+    prepareTab = (tab: browser.Tabs.Tab): PreparedTab => {
         const { id, url } = tab;
         return { id, url };
     };
@@ -70,7 +70,7 @@ class Tabs implements TabsInterface {
         return tabs[0];
     }
 
-    async getActive(): Promise<PreparedTabInterface[]> {
+    async getActive(): Promise<PreparedTab[]> {
         const tabs = await browser.tabs.query({ active: true });
         return tabs.map(this.prepareTab);
     }
