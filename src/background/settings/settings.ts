@@ -54,7 +54,7 @@ const isProxyEnabled = (): boolean => {
     return setting === true;
 };
 
-const setSetting = async (id: string, value: any, force?: boolean): Promise<boolean> => {
+const setSetting = async (id: string, value: boolean | string, force?: boolean): Promise<boolean> => {
     const setting = settingsService.getSetting(id);
 
     // No need to change same value unless is not force set
@@ -64,11 +64,15 @@ const setSetting = async (id: string, value: any, force?: boolean): Promise<bool
 
     switch (id) {
         case SETTINGS_IDS.HANDLE_WEBRTC_ENABLED: {
-            webrtc.setWebRTCHandlingAllowed(value, isProxyEnabled());
+            if (typeof value === 'boolean') {
+                webrtc.setWebRTCHandlingAllowed(value, isProxyEnabled());
+            }
             break;
         }
         case SETTINGS_IDS.SELECTED_DNS_SERVER: {
-            dns.setDnsServer(value);
+            if (typeof value === 'string') {
+                dns.setDnsServer(value);
+            }
             break;
         }
         default: {
@@ -133,7 +137,7 @@ const applySettings = (): void => {
     log.info('Settings were applied');
 };
 
-const getSetting = (id: string): any => {
+const getSetting = (id: string) => {
     return settingsService.getSetting(id);
 };
 

@@ -4,6 +4,7 @@ import { WsConnectivityMsg, WsPingMsg } from './protobufCompiled';
 import { stringToUint8Array } from '../../lib/string-utils';
 import { log } from '../../lib/logger';
 import { sleep } from '../../lib/helpers';
+import { setTimeout } from '../setTimeout';
 
 /**
  * Prepares ping message before sending to the endpoint via websocket
@@ -123,8 +124,6 @@ const fetchWithTimeout = (requestUrl: string, fetchTimeout: number) => {
     return Promise.race([
         fetchHandler(),
         new Promise((_, reject) => {
-            // FIXME: abstract window.setTimeout and remove @ts-ignore
-            // @ts-ignore
             timeoutId = setTimeout(() => {
                 controller.abort();
                 reject(new Error(`Request to ${requestUrlWithRandomParams} stopped by timeout`));

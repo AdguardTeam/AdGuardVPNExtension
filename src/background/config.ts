@@ -1,5 +1,6 @@
 import { log } from '../lib/logger';
 
+// global data
 // @ts-ignore
 const CONFIG = __APP_CONFIG__;
 

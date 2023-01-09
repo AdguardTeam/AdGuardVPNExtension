@@ -23,6 +23,10 @@ export const getLocalTimeString = (date: Date) => {
     return localTime.toISOString().replace(REDUNDANT_SYMBOL, '');
 };
 
+interface ConsoleInterface extends Console {
+    [key: string]: any;
+}
+
 const print = (level: string, method: string, args: any[]) => {
     // check log level
     if (LEVELS[CURRENT_LEVEL] < LEVELS[level]) {
@@ -35,8 +39,9 @@ const print = (level: string, method: string, args: any[]) => {
 
     const formatted = getLocalTimeString(new Date());
     logStorage.addLog(formatted, ...args);
-    // @ts-ignore
-    console[method](formatted, ...args); // eslint-disable-line no-console
+
+    const browserConsole: ConsoleInterface = console;
+    browserConsole[method](formatted, ...args);
 };
 
 export const log = {
