@@ -121,12 +121,12 @@ export class NonRoutableService implements NonRoutableServiceInterface {
     clearStaleValues = (storage: Storage | Map<string, HostnameData>): void => {
         const VALUE_TTL_MS = 1000;
         const currentTime = Date.now();
-        // eslint-disable-next-line no-restricted-syntax
-        for (const [key, value] of storage as Map<string, HostnameData>) {
-            if (value.timeAdded < (currentTime - VALUE_TTL_MS)) {
-                storage.delete(key);
+
+        storage.forEach((entry: { key: string, value: HostnameData }) => {
+            if (entry.value.timeAdded < (currentTime - VALUE_TTL_MS)) {
+                storage.delete(entry.key);
             }
-        }
+        });
     };
 
     /**
@@ -168,13 +168,13 @@ export class NonRoutableService implements NonRoutableServiceInterface {
         const {
             url,
             type,
-            statusCode,
             tabId,
-        } = details as browser.WebRequest.OnHeadersReceivedDetailsType;
+            statusCode,
+        } = <browser.WebRequest.OnHeadersReceivedDetailsType>details;
 
         const {
             error,
-        } = details as browser.WebRequest.OnErrorOccurredDetailsType;
+        } = <browser.WebRequest.OnErrorOccurredDetailsType>details;
 
         if ((error === ERROR || statusCode === STATUS_CODE) && type === MAIN_FRAME) {
             const hostname = getHostname(url);
@@ -243,7 +243,7 @@ export class NonRoutableService implements NonRoutableServiceInterface {
         }
 
         return !this.parsedCIDRList.some((parsedCIDR) => {
-            return (addr as IPv4).match(parsedCIDR as [IPv4, number]);
+            return (addr).match(<[IPv4, number]>parsedCIDR);
         });
     }
 
