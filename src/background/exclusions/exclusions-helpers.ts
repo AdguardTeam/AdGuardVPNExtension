@@ -15,6 +15,10 @@ interface IndexedExclusionsMap {
     [key: string]: ExclusionGroup;
 }
 
+interface ServicesIndex {
+    [domain: string]: string;
+}
+
 const generateExclusions = (exclusion: ExclusionInterface): ExclusionInterface[] => {
     const { hostname } = exclusion;
 
@@ -77,7 +81,7 @@ const complementExclusionsGroup = (
  * if founds subdomain exclusion, adds disabled wildcard and eTLD exclusions
  */
 export const complementExclusions = (exclusions: ExclusionInterface[]) => {
-    const complementedExclusions = exclusions.reduce((acc, exclusion) => {
+    const complementedExclusions = exclusions.reduce((acc: IndexedExclusionsMap, exclusion) => {
         const eTld = getETld(exclusion.hostname);
 
         if (!eTld) {
@@ -94,19 +98,19 @@ export const complementExclusions = (exclusions: ExclusionInterface[]) => {
         }
 
         return acc;
-    }, {} as IndexedExclusionsMap);
+    }, {});
 
     return Object.values(complementedExclusions).flatMap((group) => Object.values(group));
 };
 
-const createServicesIndex = (services: ServicesInterface) => {
-    return Object.values(services).reduce((acc, service) => {
+const createServicesIndex = (services: ServicesInterface): ServicesIndex => {
+    return Object.values(services).reduce((acc: ServicesIndex, service) => {
         service.domains.forEach((domain) => {
             acc[domain] = service.serviceId;
         });
 
         return acc;
-    }, {} as { [domain: string]: string });
+    }, {});
 };
 
 const generateExclusionsFromDomains = (domains: string[]): ExclusionInterface[] => {
@@ -176,7 +180,7 @@ export const complementedExclusionsWithServices = (
 ) => {
     const servicesIndex = createServicesIndex(services);
 
-    const complementedExclusions = exclusions.reduce((acc, exclusion) => {
+    const complementedExclusions = exclusions.reduce((acc: IndexedExclusionsMap, exclusion) => {
         const eTld = getETld(exclusion.hostname);
 
         if (!eTld) {
@@ -199,7 +203,7 @@ export const complementedExclusionsWithServices = (
         }
 
         return acc;
-    }, {} as IndexedExclusionsMap);
+    }, {});
 
     return Object.values(complementedExclusions).flatMap((group) => Object.values(group));
 };
