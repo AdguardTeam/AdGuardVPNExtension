@@ -5,7 +5,6 @@ import { observer } from 'mobx-react';
 import { popupActions } from '../../actions/popupActions';
 import { messenger } from '../../../lib/messenger';
 import { rootStore } from '../../stores';
-import { PromoNotificationData } from '../../../background/promoNotifications';
 
 import './promo-notification-modal.pcss';
 
@@ -24,7 +23,7 @@ const PromoNotificationModal = observer(() => {
         return null;
     }
 
-    const { url, text } = promoNotification as PromoNotificationData;
+    const { url, text } = promoNotification;
 
     if (!url || !text) {
         return null;

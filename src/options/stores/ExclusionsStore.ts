@@ -236,7 +236,7 @@ export class ExclusionsStore {
 
     @computed
     get preparedServicesData() {
-        const categories = this.servicesData.reduce((acc, serviceData) => {
+        const categories = this.servicesData.reduce((acc: PreparedServiceCategories, serviceData) => {
             const { categories, serviceId } = serviceData;
 
             categories.forEach((category) => {
@@ -252,13 +252,13 @@ export class ExclusionsStore {
                 }
             });
             return acc;
-        }, {} as PreparedServiceCategories);
+        }, {});
 
-        const services = this.servicesData.reduce((acc, serviceData) => {
+        const services = this.servicesData.reduce((acc: PreparedServices, serviceData) => {
             const { serviceId } = serviceData;
             acc[serviceId] = serviceData;
             return acc;
-        }, {} as PreparedServices);
+        }, {});
 
         return {
             categories,

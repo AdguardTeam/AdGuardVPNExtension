@@ -128,7 +128,7 @@ export class AuthStore {
         const key = <CredentialsKeys>field;
 
         runInAction(() => {
-            this.credentials[key as keyof CredentialsInterface] = value;
+            this.credentials[key] = value;
         });
         await messenger.updateAuthCache(field, value);
     };

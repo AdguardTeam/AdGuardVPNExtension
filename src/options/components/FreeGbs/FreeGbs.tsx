@@ -4,6 +4,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 import { rootStore } from '../../stores';
 import { reactTranslator } from '../../../common/reactTranslator';
+import { translator } from '../../../common/translator';
 import { InviteFriend } from './InviteFriend';
 import { ConfirmEmail } from './ConfirmEmail';
 import { AddDevice } from './AddDevice';
@@ -14,7 +15,7 @@ import { RequestStatus, COMPLETE_TASK_BONUS_GB } from '../../stores/consts';
 import './free-gbs.pcss';
 
 interface RenderItemProps {
-    title: string | React.ReactNode;
+    title: string;
     status: string | React.ReactNode;
     query: string;
     statusDone: string | React.ReactNode;
@@ -55,7 +56,7 @@ export const FreeGbs = observer(() => {
         history.push(`/${FREE_GBS}?${query}`);
     };
 
-    const inviteFriendTitle = `${reactTranslator.getMessage('settings_free_gbs_invite_friend')} (${invitesCount}/${maxInvitesCount})`;
+    const inviteFriendTitle = `${translator.getMessage('settings_free_gbs_invite_friend')} (${invitesCount}/${maxInvitesCount})`;
 
     const itemsData = [
         {
@@ -66,14 +67,14 @@ export const FreeGbs = observer(() => {
             completed: invitesCount >= maxInvitesCount,
         },
         {
-            title: reactTranslator.getMessage('settings_free_gbs_confirm_email_title'),
+            title: translator.getMessage('settings_free_gbs_confirm_email_title'),
             status: reactTranslator.getMessage('settings_free_gbs_get_GB', { num: COMPLETE_TASK_BONUS_GB }),
             statusDone: reactTranslator.getMessage('settings_free_gbs_task_complete', { num: COMPLETE_TASK_BONUS_GB }),
             query: CONFIRM_EMAIL,
             completed: !confirmBonus.available,
         },
         {
-            title: reactTranslator.getMessage('settings_free_gbs_add_device_title'),
+            title: translator.getMessage('settings_free_gbs_add_device_title'),
             status: reactTranslator.getMessage('settings_free_gbs_get_GB', { num: COMPLETE_TASK_BONUS_GB }),
             statusDone: reactTranslator.getMessage('settings_free_gbs_task_complete', { num: COMPLETE_TASK_BONUS_GB }),
             query: ADD_DEVICE,
@@ -90,7 +91,7 @@ export const FreeGbs = observer(() => {
     }: RenderItemProps) => {
         return (
             <div
-                key={title as string}
+                key={title}
                 className="free-gbs__item"
                 onClick={() => clickItemHandler(query)}
             >

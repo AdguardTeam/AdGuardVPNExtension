@@ -99,7 +99,7 @@ export const getProtocol = (url: unknown): string | null => {
         return null;
     }
 
-    const urlObj = getUrlProperties(url as string);
+    const urlObj = getUrlProperties(<string>url);
 
     if (typeof urlObj === 'string') {
         return null;

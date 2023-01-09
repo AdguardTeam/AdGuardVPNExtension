@@ -36,7 +36,9 @@ export const BackgroundAnimation = observer(({ exclusionsScreen }: BackgroundAni
         animationSources = animationSourcesMap[appearanceTheme];
     }
 
-    let sourceUrl = animationSources[animationState as AnimationState];
+    // it is not complex state node,
+    // for a child atomic state node animationState is a string
+    let sourceUrl = animationSources[animationState as string];
 
     if (exclusionsScreen) {
         sourceUrl = animationSources[AnimationState.VpnDisabled];

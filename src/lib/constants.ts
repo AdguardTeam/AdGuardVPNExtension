@@ -142,7 +142,17 @@ export enum AnimationEvent {
 
 const MOTION_FOLDER_PATH = '../../../assets/motion/';
 
-export const animationSourcesMap = {
+type AnimationSourcesMap = {
+    [key: string]: {
+        [key: string]: string;
+    }
+};
+
+export type ExclusionsContentMap = {
+    [key: string]: string[];
+};
+
+export const animationSourcesMap: AnimationSourcesMap = {
     [APPEARANCE_THEMES.LIGHT]: {
         [AnimationState.VpnEnabled]: `${MOTION_FOLDER_PATH}on-light.webm`,
         // Added this state for the case when switching location

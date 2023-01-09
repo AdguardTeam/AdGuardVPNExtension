@@ -88,7 +88,7 @@ export const RegistrationForm = observer(() => {
                 />
                 {authStore.error && (
                     <div className="form__error">
-                        {ReactHtmlParser(authStore.error as unknown as string)}
+                        {ReactHtmlParser(authStore.error)}
                     </div>
                 )}
                 <PasswordField

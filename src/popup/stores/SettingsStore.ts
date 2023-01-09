@@ -61,7 +61,7 @@ export class SettingsStore {
 
     @observable systemTheme: string;
 
-    @observable animationState = animationService.initialState.value;
+    @observable animationState: StateValue = animationService.initialState.value;
 
     rootStore: RootStore;
 

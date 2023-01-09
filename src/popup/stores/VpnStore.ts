@@ -272,10 +272,10 @@ export class VpnStore {
             return this.selectedLocation?.ping;
         }
 
-        let ping = currentLocation?.ping;
+        let ping: number | null = currentLocation?.ping;
         // update with fresh values from pings storage
         if (this.pings[selectedLocationId]) {
-            ping = this.pings[selectedLocationId].ping as number;
+            ping = this.pings[selectedLocationId].ping;
         }
 
         return ping;

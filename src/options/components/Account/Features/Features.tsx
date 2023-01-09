@@ -14,7 +14,7 @@ export const Features = () => {
                     const { image, title, info } = feature;
 
                     return (
-                        <div key={title as string} className="features__item">
+                        <div key={title} className="features__item">
                             <img
                                 src={`../../../../assets/images/${image}`}
                                 className="features__image"

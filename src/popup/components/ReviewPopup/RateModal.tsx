@@ -38,8 +38,8 @@ export const RateModal = observer(() => {
         authStore.closeRateModal();
     };
 
-    const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-        const { id } = e.target as HTMLDivElement;
+    const handleMouseEnter = (e: React.BaseSyntheticEvent) => {
+        const { id } = e.target;
         setRatingHovered(parseInt(id, 10));
     };
 
@@ -47,8 +47,8 @@ export const RateModal = observer(() => {
         setRatingHovered(null);
     };
 
-    const saveRating = (e: React.MouseEvent<HTMLDivElement>) => {
-        const { id } = e.target as HTMLDivElement;
+    const saveRating = (e: React.BaseSyntheticEvent) => {
+        const { id } = e.target;
         setRating(parseInt(id, 10));
     };
 

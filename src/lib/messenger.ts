@@ -1,7 +1,7 @@
 import browser from 'webextension-polyfill';
 import { nanoid } from 'nanoid';
 
-import { MessageType, SocialAuthProvider } from './constants';
+import { MessageType, SocialAuthProvider, ExclusionsContentMap } from './constants';
 import { log } from './logger';
 import { ExclusionsData, ExclusionsModes, ServiceDto } from '../common/exclusionsConstants';
 import { StartSocialAuthData, UserLookupData } from '../background/messaging/messagingTypes';
@@ -364,10 +364,7 @@ class Messenger {
         return this.sendMessage(type, { exclusions });
     }
 
-    addExclusionsMap(exclusionsMap: {
-        [ExclusionsModes.Regular]: string[],
-        [ExclusionsModes.Selective]: string[],
-    }) {
+    addExclusionsMap(exclusionsMap: ExclusionsContentMap) {
         const type = MessageType.ADD_EXCLUSIONS_MAP;
         return this.sendMessage(type, { exclusionsMap });
     }
