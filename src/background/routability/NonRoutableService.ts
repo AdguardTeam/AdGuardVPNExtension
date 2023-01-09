@@ -23,6 +23,8 @@ type HostnameData = {
     url: string,
 };
 
+const IPV6 = 'ipv6';
+
 /**
  * This module notifies user about non routable domains
  * There are two sources of non-routable domains:
@@ -238,12 +240,12 @@ export class NonRoutableService implements NonRoutableServiceInterface {
 
         const addr = ipaddr.parse(hostname);
 
-        if (addr.kind() === 'ipv6') {
+        if (addr.kind() === IPV6) {
             return true;
         }
 
         return !this.parsedCIDRList.some((parsedCIDR) => {
-            return (addr).match(<[IPv4, number]>parsedCIDR);
+            return (<IPv4>addr).match(<[IPv4, number]>parsedCIDR);
         });
     }
 
