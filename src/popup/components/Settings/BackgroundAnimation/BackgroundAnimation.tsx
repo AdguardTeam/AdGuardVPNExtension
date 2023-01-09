@@ -24,7 +24,8 @@ export const BackgroundAnimation = observer(({ exclusionsScreen }: BackgroundAni
 
     useEffect(() => {
         animationService.onTransition((state) => {
-            settingsStore.setAnimationState(state.value);
+            // new state value on transition is string, but it's actually AnimationState
+            settingsStore.setAnimationState(state.value as AnimationState);
         });
     });
 
@@ -36,9 +37,7 @@ export const BackgroundAnimation = observer(({ exclusionsScreen }: BackgroundAni
         animationSources = animationSourcesMap[appearanceTheme];
     }
 
-    // it is not complex state node,
-    // for a child atomic state node animationState is a string
-    let sourceUrl = animationSources[animationState as string];
+    let sourceUrl = animationSources[animationState];
 
     if (exclusionsScreen) {
         sourceUrl = animationSources[AnimationState.VpnDisabled];

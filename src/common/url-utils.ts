@@ -94,12 +94,12 @@ const getUrlProperties = (url: string): string | URL => {
  * @param {string} url
  * @returns {string}
  */
-export const getProtocol = (url: unknown): string | null => {
+export const getProtocol = (url?: string): string | null => {
     if (!url) {
         return null;
     }
 
-    const urlObj = getUrlProperties(<string>url);
+    const urlObj = getUrlProperties(url);
 
     if (typeof urlObj === 'string') {
         return null;

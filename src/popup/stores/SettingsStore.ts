@@ -4,7 +4,6 @@ import {
     observable,
     runInAction,
 } from 'mobx';
-import { StateValue } from 'xstate/lib/types';
 
 import { tabs } from '../../background/tabs';
 import { log } from '../../lib/logger';
@@ -13,7 +12,7 @@ import {
     SETTINGS_IDS,
     APPEARANCE_THEME_DEFAULT,
     APPEARANCE_THEMES,
-    AnimationEvent,
+    AnimationEvent, AnimationState,
 } from '../../lib/constants';
 import { messenger } from '../../lib/messenger';
 import { State } from '../../background/connectivity/connectivityService/connectivityConstants';
@@ -61,7 +60,7 @@ export class SettingsStore {
 
     @observable systemTheme: string;
 
-    @observable animationState: StateValue = animationService.initialState.value;
+    @observable animationState: AnimationState = <AnimationState>animationService.initialState.value;
 
     rootStore: RootStore;
 
@@ -322,7 +321,7 @@ export class SettingsStore {
         this.darkThemeMediaQuery.removeEventListener('change', this.updateSystemTheme);
     };
 
-    @action setAnimationState = (value: StateValue): void => {
+    @action setAnimationState = (value: AnimationState): void => {
         this.animationState = value;
     };
 
