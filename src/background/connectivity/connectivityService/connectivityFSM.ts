@@ -16,11 +16,11 @@ interface ConnectivityEvent extends EventObject {
 }
 
 type ContextType = {
-    retryCount: number,
-    timeSinceLastRetryWithRefreshMs: number,
-    currentReconnectionDelayMs: number,
-    retriedConnectToOtherEndpoint: boolean,
-    desktopVpnEnabled: boolean,
+    retryCount: number;
+    timeSinceLastRetryWithRefreshMs: number;
+    currentReconnectionDelayMs: number;
+    retriedConnectToOtherEndpoint: boolean;
+    desktopVpnEnabled: boolean;
 };
 
 const MIN_RECONNECTION_DELAY_MS = 1000; // 1 second
@@ -91,15 +91,11 @@ const resetOnSuccessfulConnection = assign({
 /**
  * Action, which increments count of connection retries and time passed since first retry
  */
-const incrementRetryCount = assign({
-    // FIXME: remove @ts-ignore
-    // @ts-ignore
+const incrementRetryCount = assign<ContextType>({
     retryCount: (context: ContextType): number => {
         return context.retryCount + 1;
     },
 
-    // FIXME: remove @ts-ignore
-    // @ts-ignore
     timeSinceLastRetryWithRefreshMs: (context: ContextType): number => {
         return context.timeSinceLastRetryWithRefreshMs + context.currentReconnectionDelayMs;
     },
@@ -108,9 +104,7 @@ const incrementRetryCount = assign({
 /**
  * Action, which increases delay between reconnection
  */
-const incrementDelay = assign({
-    // FIXME: remove @ts-ignore
-    // @ts-ignore
+const incrementDelay = assign<ContextType>({
     currentReconnectionDelayMs: (context: ContextType): number => {
         let delayMs = context.currentReconnectionDelayMs * RECONNECTION_DELAY_GROW_FACTOR;
         if (delayMs > MAX_RECONNECTION_DELAY_MS) {

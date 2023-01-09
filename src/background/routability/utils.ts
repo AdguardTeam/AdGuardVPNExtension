@@ -1,4 +1,4 @@
-import ipaddr from 'ipaddr.js';
+import ipaddr, { IPv4 } from 'ipaddr.js';
 
 /**
  * Checks if host is in net
@@ -9,11 +9,9 @@ import ipaddr from 'ipaddr.js';
 export const isInNet = (host: string, pattern: string, mask: string) => {
     const addr = ipaddr.parse(host);
 
-    // TODO remove ts-ignore
-    // @ts-ignore
-    return addr.match([
+    return (<IPv4>addr).match([
         ipaddr.IPv4.parse(pattern),
-        ipaddr.IPv4.parse(mask).prefixLengthFromSubnetMask(),
+        <number>ipaddr.IPv4.parse(mask).prefixLengthFromSubnetMask(),
     ]);
 };
 

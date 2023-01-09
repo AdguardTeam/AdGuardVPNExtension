@@ -48,11 +48,12 @@ export const Select = ((props: SelectProps) => {
 
     const isActiveOption = (id: string) => ((id === value) ? ' active' : '');
 
-    const optionsList = useRef(null);
+    const optionsList: React.RefObject<HTMLUListElement> = useRef(null);
 
     useEffect(() => {
-        // @ts-ignore
-        optionsList.current.scrollTop = 0;
+        if (optionsList.current) {
+            optionsList.current.scrollTop = 0;
+        }
     });
 
     return (
