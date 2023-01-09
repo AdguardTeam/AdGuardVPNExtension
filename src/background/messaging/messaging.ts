@@ -23,10 +23,9 @@ import accountProvider from '../providers/accountProvider';
 import { logStorage } from '../../lib/log-storage';
 import { setDesktopVpnEnabled } from '../connectivity/connectivityService/connectivityFSM';
 import { flagsStorage } from '../flagsStorage';
-import { ExclusionsData, ServiceDto } from '../../common/exclusionsConstants';
+import { ExclusionsData } from '../../common/exclusionsConstants';
 import { rateModal } from '../rateModal';
 import { dns } from '../dns';
-import { StartSocialAuthData, UserLookupData } from './messagingTypes';
 
 interface Message {
     type: MessageType,
@@ -229,7 +228,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             return exclusions.clearExclusionsData();
         }
         case MessageType.CHECK_EMAIL: {
-            const { email } = data as UserLookupData;
+            const { email } = data;
             const appId = await credentials.getAppId();
             return auth.userLookup(email, appId);
         }
@@ -245,7 +244,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             return auth.isAuthenticated();
         }
         case MessageType.START_SOCIAL_AUTH: {
-            const { provider, marketingConsent } = data as StartSocialAuthData;
+            const { provider, marketingConsent } = data;
             return auth.startSocialAuth(provider, marketingConsent);
         }
         case MessageType.CLEAR_PERMISSIONS_ERROR: {
@@ -265,10 +264,6 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
                 services: exclusions.getServices(),
                 isAllExclusionsListsEmpty: !(exclusions.getRegularExclusions().length
                     || exclusions.getSelectiveExclusions().length),
-            } as {
-                exclusionsData: ExclusionsData,
-                services: ServiceDto[],
-                isAllExclusionsListsEmpty: boolean,
             };
         }
         case MessageType.SET_EXCLUSIONS_MODE: {

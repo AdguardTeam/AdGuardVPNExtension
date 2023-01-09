@@ -32,7 +32,7 @@ export class ExclusionsManager {
     currentHandler: ExclusionsHandler;
 
     init = async () => {
-        this.exclusions = settings.getExclusions() as PersistedExclusions;
+        this.exclusions = settings.getExclusions();
 
         const regular = this.exclusions[ExclusionsModes.Regular] ?? [];
 

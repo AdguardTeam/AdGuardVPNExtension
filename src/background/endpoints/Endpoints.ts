@@ -368,7 +368,7 @@ class Endpoints implements EndpointsInterface {
             || (!isLocationSelectedByUser && isVPNDisabled);
 
         if (!shouldSelectFasterLocation) {
-            return new LocationWithPing(selectedLocation as LocationWithPing);
+            return new LocationWithPing(<LocationWithPing>selectedLocation);
         }
 
         const locations = locationsService.getLocations();

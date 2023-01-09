@@ -141,8 +141,8 @@ export class ServicesManager implements ServiceManagerInterface {
     /**
      * Gets exclusions services from server
      */
-    async getServicesFromServer() {
-        const services = await vpnProvider.getExclusionsServices() as ServicesInterface;
+    async getServicesFromServer(): Promise<ServicesInterface> {
+        const services = await vpnProvider.getExclusionsServices();
 
         return services;
     }
@@ -200,7 +200,7 @@ export class ServicesManager implements ServiceManagerInterface {
     async getServicesFromStorage(): Promise<ServicesInterface> {
         const services = await browserApi.storage.get(
             this.EXCLUSION_SERVICES_STORAGE_KEY,
-        ) as ServicesInterface;
+        );
 
         return services ?? null;
     }

@@ -119,7 +119,7 @@ const getLocationsWithPing = (): LocationWithPing[] => {
             setLocationAvailableState(location, cachedPingData.available);
         }
         // after setting ping to location, it's type turns from LocationInterface to LocationWithPing
-        return new LocationWithPing(location as LocationWithPingProps);
+        return new LocationWithPing(<LocationWithPingProps>location);
     });
 };
 

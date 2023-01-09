@@ -177,7 +177,7 @@ export class SettingsService {
 
         const migrateExclusions = (exclusions: OldExclusion[]) => {
             const exclusionsWithUpdatedState = updateExclusionsState(exclusions);
-            const complementedExclusions = complementExclusions(exclusionsWithUpdatedState as ExclusionInterface[]);
+            const complementedExclusions = complementExclusions(<ExclusionInterface[]>exclusionsWithUpdatedState);
             const exclusionsComplementedWithServices = complementedExclusionsWithServices(
                 complementedExclusions,
                 services,
