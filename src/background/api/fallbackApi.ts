@@ -9,7 +9,7 @@ import {
 } from '../config';
 import { clearFromWrappingQuotes } from '../../lib/string-utils';
 import { log } from '../../lib/logger';
-import { browserApi } from '../browserApi';
+import { browserLocalStorage } from '../localStorage';
 
 export const DEFAULT_CACHE_EXPIRE_TIME_MS = 1000 * 60 * 5; // 5 minutes
 
@@ -94,11 +94,7 @@ export class FallbackApi {
 
     private async updateFallbackInfo() {
         const countryInfo = await this.getCountryInfo();
-        let localStorageBkp = false;
-        // localstorage could be used only for manifest version 2
-        if (browserApi.runtime.isManifestVersion2()) {
-            localStorageBkp = this.getLocalStorageBkp();
-        }
+        const localStorageBkp = await this.getLocalStorageBkp();
 
         if (!countryInfo.bkp && !localStorageBkp) {
             // if bkp is disabled, we use previous fallback info, only update expiration time
@@ -171,8 +167,8 @@ export class FallbackApi {
     /**
      * Gets bkp flag value from local storage, used for testing purposes
      */
-    private getLocalStorageBkp = (): boolean => {
-        const storedBkp = localStorage.getItem(BKP_KEY);
+    private getLocalStorageBkp = async (): Promise<boolean> => {
+        const storedBkp = browserLocalStorage.getItem(BKP_KEY);
         let localStorageBkp = Number.parseInt(String(storedBkp), 10);
 
         localStorageBkp = Number.isNaN(localStorageBkp) ? 0 : localStorageBkp;
