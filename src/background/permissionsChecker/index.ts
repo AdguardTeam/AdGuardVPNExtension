@@ -1,4 +1,4 @@
-import PermissionsChecker from './PermissionsChecker';
+import { PermissionsChecker } from './PermissionsChecker';
 import { permissionsError } from './permissionsError';
 import { credentials } from '../credentials';
 

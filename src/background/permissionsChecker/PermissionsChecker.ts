@@ -8,6 +8,7 @@ import { CredentialsInterface } from '../credentials/Credentials';
 import { vpnProvider } from '../providers/vpnProvider';
 import { alarmService } from '../alarmService';
 import { browserApi } from '../browserApi';
+import { timers } from './timers';
 
 interface PermissionsCheckerParameters {
     credentials: CredentialsInterface;
@@ -31,16 +32,16 @@ const VPN_INFO_CHECK_ALARM = 'vpnInfoCheckAlarm';
 
 const isManifestVersion2 = browserApi.runtime.isManifestVersion2();
 
-class PermissionsChecker implements PermissionsCheckerInterface {
+export class PermissionsChecker implements PermissionsCheckerInterface {
     permissionsError: PermissionsErrorInterface;
 
     credentials: CredentialsInterface;
 
-    credentialsCheckTimerId: NodeJS.Timer | null = null;
+    credentialsCheckTimerId: number | null = null;
 
-    vpnInfoCheckTimerId: NodeJS.Timer | null = null;
+    vpnInfoCheckTimerId: number | null = null;
 
-    expiredCredentialsCheckTimeoutId: NodeJS.Timeout | null = null;
+    expiredCredentialsCheckTimeoutId: number | null = null;
 
     constructor({ credentials, permissionsError }: PermissionsCheckerParameters) {
         this.credentials = credentials;
@@ -76,24 +77,13 @@ class PermissionsChecker implements PermissionsCheckerInterface {
         }
         if (this.credentials.vpnCredentials?.result?.expiresInSec
             && this.credentials.vpnCredentials.result.expiresInSec > EXPIRE_CHECK_TIME_SEC) {
-            // for mv2 we use timers module (setTimeout and clearTimeout)
-            // for mv3 we use Alarm API
-            if (isManifestVersion2) {
-                if (this.expiredCredentialsCheckTimeoutId) {
-                    clearTimeout(this.expiredCredentialsCheckTimeoutId);
-                }
-                this.expiredCredentialsCheckTimeoutId = setTimeout(async () => {
-                    await this.checkPermissions();
-                    // eslint-disable-next-line max-len
-                }, (this.credentials.vpnCredentials.result.expiresInSec - EXPIRE_CHECK_TIME_SEC) * 1000);
-            } else {
-                await alarmService.clearAlarm(EXPIRED_CREDENTIALS_CHECK_ALARM);
-                alarmService.createAlarm(
-                    EXPIRED_CREDENTIALS_CHECK_ALARM,
-                    (this.credentials.vpnCredentials.result.expiresInSec - EXPIRE_CHECK_TIME_SEC) * 1000,
-                );
-                alarmService.onAlarmFires(EXPIRED_CREDENTIALS_CHECK_ALARM, () => this.checkPermissions());
+            if (this.expiredCredentialsCheckTimeoutId) {
+                timers.clearTimeout(this.expiredCredentialsCheckTimeoutId);
             }
+            this.expiredCredentialsCheckTimeoutId = timers.setTimeout(async () => {
+                await this.checkPermissions();
+                // eslint-disable-next-line max-len
+            }, (this.credentials.vpnCredentials.result.expiresInSec - EXPIRE_CHECK_TIME_SEC) * 1000);
         }
     };
 
@@ -155,14 +145,14 @@ class PermissionsChecker implements PermissionsCheckerInterface {
                 clearInterval(this.credentialsCheckTimerId);
             }
 
-            this.credentialsCheckTimerId = setInterval(async () => {
+            this.credentialsCheckTimerId = timers.setInterval(async () => {
                 await this.checkPermissions();
             }, UPDATE_CREDENTIALS_INTERVAL_MS);
 
             if (this.vpnInfoCheckTimerId) {
                 clearInterval(this.vpnInfoCheckTimerId);
             }
-            this.vpnInfoCheckTimerId = setInterval(async () => {
+            this.vpnInfoCheckTimerId = timers.setInterval(async () => {
                 await this.getVpnInfo();
             }, UPDATE_VPN_INFO_INTERVAL_MS);
         } else {
@@ -231,5 +221,3 @@ class PermissionsChecker implements PermissionsCheckerInterface {
         log.info('Permissions checker module initiated');
     };
 }
-
-export default PermissionsChecker;
