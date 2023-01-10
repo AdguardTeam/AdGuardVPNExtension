@@ -16,7 +16,7 @@ type ContextType = browser.Menus.ContextType;
 type CreateCreatePropertiesType = browser.Menus.CreateCreatePropertiesType;
 
 interface ContextMenuItem extends browser.Menus.CreateCreatePropertiesType {
-    action?: (tab?: browser.Tabs.Tab) => Promise<any> | void;
+    action?: (tab?: browser.Tabs.Tab) => Promise<void> | void;
 }
 
 interface ContextMenuItems {

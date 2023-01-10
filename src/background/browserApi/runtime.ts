@@ -3,7 +3,7 @@ import browser, { Manifest } from 'webextension-polyfill';
 const MANIFEST_VERSION_2 = 2;
 
 interface SendMessageParameters {
-    message: any;
+    message: string;
     options?: {
         [s: string]: unknown,
     };

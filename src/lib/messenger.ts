@@ -5,6 +5,7 @@ import { MessageType, SocialAuthProvider, ExclusionsContentMap } from './constan
 import { log } from './logger';
 import { ExclusionsData, ExclusionsModes, ServiceDto } from '../common/exclusionsConstants';
 import { StartSocialAuthData, UserLookupData } from '../background/messaging/messagingTypes';
+import { DnsServerData } from '../common/components/constants';
 
 class Messenger {
     async sendMessage<T>(type: string, data?: T) {
@@ -369,12 +370,12 @@ class Messenger {
         return this.sendMessage(type, { exclusionsMap });
     }
 
-    addCustomDnsServer(dnsServerData: any) {
+    addCustomDnsServer(dnsServerData: DnsServerData) {
         const type = MessageType.ADD_CUSTOM_DNS_SERVER;
         return this.sendMessage(type, { dnsServerData });
     }
 
-    editCustomDnsServer(dnsServerData: any) {
+    editCustomDnsServer(dnsServerData: DnsServerData) {
         const type = MessageType.EDIT_CUSTOM_DNS_SERVER;
         return this.sendMessage(type, { dnsServerData });
     }

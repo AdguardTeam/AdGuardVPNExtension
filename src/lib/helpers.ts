@@ -5,10 +5,6 @@ import { LocationInterface, LocationWithPingInterface } from '../background/endp
 /**
  * Returns the value of the property from the cache,
  * otherwise, calculates it using the callback, memoizes it, and returns the value
- * @param {object} obj
- * @param {string} prop
- * @param {function} func
- * @returns {any}
  */
 export const lazyGet = (obj: any, prop: string, func: () => any) => {
     const cachedProp = `_${prop}`;

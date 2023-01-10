@@ -20,7 +20,7 @@ interface ConfigInterface {
 }
 
 interface ApiInterface {
-    makeRequest(path: string, config: ConfigInterface, method: Method): Promise<any>;
+    makeRequest(path: string, config: ConfigInterface, method: Method): Promise<unknown>;
 }
 
 export class Api implements ApiInterface {

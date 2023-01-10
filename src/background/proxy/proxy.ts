@@ -46,7 +46,7 @@ export interface ExtensionProxyInterface {
     turnOn(): Promise<void>;
     turnOff(): Promise<void>;
     canControlProxy(): Promise<CanControlProxy>
-    setEndpointsTldExclusions(endpointsTldExclusions: any): Promise<void>;
+    setEndpointsTldExclusions(endpointsTldExclusions: string[]): Promise<void>;
     setBypassList(exclusions: string[], inverted: boolean): Promise<void>;
     setAccessCredentials(
         credentials: {
@@ -67,7 +67,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
 
     bypassList: string[];
 
-    endpointsTldExclusions: any[];
+    endpointsTldExclusions: string[];
 
     currentEndpoint: EndpointInterface | null;
 
