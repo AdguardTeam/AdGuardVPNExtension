@@ -3,6 +3,16 @@ import { CredentialsDataInterface } from '../../../src/background/providers/vpnP
 import { SubscriptionType } from '../../../src/lib/constants';
 
 jest.mock('../../../src/lib/logger');
+jest.mock('../../../src/background/browserApi', () => {
+    return {
+        browserApi: {
+            runtime: {
+                // TODO: test mv3 after official switch to mv3
+                isManifestVersion2: () => true,
+            },
+        },
+    };
+});
 
 const browserApi = {};
 

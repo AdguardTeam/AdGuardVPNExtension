@@ -6,6 +6,17 @@ import { ExclusionInterface } from '../../../src/background/exclusions/exclusion
 
 jest.mock('../../../src/lib/logger.ts');
 
+jest.mock('../../../src/background/browserApi', () => {
+    return {
+        browserApi: {
+            runtime: {
+                // TODO: test mv3 after official switch to mv3
+                isManifestVersion2: () => true,
+            },
+        },
+    };
+});
+
 describe('ExclusionsTree', () => {
     afterEach(() => {
         jest.clearAllMocks();
