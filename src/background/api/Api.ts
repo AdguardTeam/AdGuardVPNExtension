@@ -1,9 +1,6 @@
 import axios, { AxiosRequestConfig, Method } from 'axios';
-// TODO: use internal axios fetch adapter after they release it instead of @vespaiach/axios-fetch-adapter
-// https://github.com/axios/axios/pull/5146
-import fetchAdapter from '@vespaiach/axios-fetch-adapter';
 
-import { ERROR_STATUSES } from '../../lib/constants';
+import { ERROR_STATUSES, fetchConfig } from '../../lib/constants';
 import { CustomError } from '../../lib/CustomError';
 
 const REQUEST_TIMEOUT_MS = 1000 * 6; // 6 seconds
@@ -53,7 +50,7 @@ export class Api implements ApiInterface {
             url,
             method,
             timeout: REQUEST_TIMEOUT_MS,
-            adapter: fetchAdapter,
+            ...fetchConfig,
             ...config,
         };
 

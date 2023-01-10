@@ -1,3 +1,7 @@
+// TODO: use internal axios fetch adapter after they release it instead of @vespaiach/axios-fetch-adapter
+// https://github.com/axios/axios/pull/5146
+import fetchAdapter from '@vespaiach/axios-fetch-adapter';
+
 export const SETTINGS_IDS = {
     PROXY_ENABLED: 'proxy.enabled',
     RATE_SHOW: 'rate.show',
@@ -178,3 +182,7 @@ export enum SubscriptionType {
     Yearly = 'YEARLY',
     TwoYears = 'TWO_YEARS',
 }
+
+export const fetchConfig = {
+    adapter: fetchAdapter,
+};

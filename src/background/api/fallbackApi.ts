@@ -1,5 +1,4 @@
 import axios from 'axios';
-import fetchAdapter from '@vespaiach/axios-fetch-adapter';
 
 import {
     AUTH_API_URL,
@@ -10,6 +9,7 @@ import {
 import { clearFromWrappingQuotes } from '../../lib/string-utils';
 import { log } from '../../lib/logger';
 import { browserLocalStorage } from '../localStorage';
+import { fetchConfig } from '../../lib/constants';
 
 export const DEFAULT_CACHE_EXPIRE_TIME_MS = 1000 * 60 * 5; // 5 minutes
 
@@ -182,7 +182,7 @@ export class FallbackApi {
                 `https://${WHOAMI_URL}`,
                 {
                     timeout: REQUEST_TIMEOUT_MS,
-                    adapter: fetchAdapter,
+                    ...fetchConfig,
                 },
             );
             return { country, bkp };
@@ -203,7 +203,7 @@ export class FallbackApi {
                 type: 'TXT',
             },
             timeout: REQUEST_TIMEOUT_MS,
-            adapter: fetchAdapter,
+            ...fetchConfig,
         });
 
         const { Answer: [{ data: bkpUrl }] } = data;
@@ -227,7 +227,7 @@ export class FallbackApi {
                 type: 'TXT',
             },
             timeout: REQUEST_TIMEOUT_MS,
-            adapter: fetchAdapter,
+            ...fetchConfig,
         });
 
         const { Answer: [{ data: bkpUrl }] } = data;
@@ -251,7 +251,7 @@ export class FallbackApi {
                 type: 'TXT',
             },
             timeout: REQUEST_TIMEOUT_MS,
-            adapter: fetchAdapter,
+            ...fetchConfig,
         });
 
         const { Answer: [{ data: bkpUrl }] } = data;
