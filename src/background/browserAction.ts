@@ -1,6 +1,6 @@
 import browser from 'webextension-polyfill';
 
-import { browserApi } from '../browserApi';
+import { browserApi } from './browserApi';
 
 // There are different browser actions implementation depending on manifest version:
 // old browserAction API for manifest version 2

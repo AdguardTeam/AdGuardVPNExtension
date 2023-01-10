@@ -4,7 +4,7 @@ import { WsConnectivityMsg, WsPingMsg } from './protobufCompiled';
 import { stringToUint8Array } from '../../lib/string-utils';
 import { log } from '../../lib/logger';
 import { sleep } from '../../lib/helpers';
-import { setTimeout } from '../setTimeout';
+import { setTimeoutImplemented, clearTimeoutImplemented } from '../setTimeout';
 
 /**
  * Prepares ping message before sending to the endpoint via websocket
@@ -48,7 +48,7 @@ export const sendPingMessage = (websocket: WebSocket, vpnToken: string, appId: s
 
         websocket.send(arrBufMessage);
 
-        const timeoutId = setTimeout(() => {
+        const timeoutId = setTimeoutImplemented(() => {
             reject(new Error('Ping poll timeout'));
         }, PING_TIMEOUT_MS);
 
@@ -64,7 +64,7 @@ export const sendPingMessage = (websocket: WebSocket, vpnToken: string, appId: s
                     reject(new Error('Ping is too long'));
                 }
                 websocket.removeEventListener('message', messageHandler);
-                clearTimeout(timeoutId);
+                clearTimeoutImplemented(timeoutId);
                 resolve(ping);
             }
         };
@@ -104,7 +104,7 @@ const fetchWithTimeout = (requestUrl: string, fetchTimeout: number) => {
 
             const response = await fetch(request, { signal: controller.signal });
             if (timeoutId) {
-                clearTimeout(timeoutId);
+                clearTimeoutImplemented(timeoutId);
             }
             // if request is blocked with adblocker, it returns 500 error for the first request,
             // so we additionally check if response status is ok
@@ -114,7 +114,7 @@ const fetchWithTimeout = (requestUrl: string, fetchTimeout: number) => {
             return response;
         } catch (e) {
             if (timeoutId) {
-                clearTimeout(timeoutId);
+                clearTimeoutImplemented(timeoutId);
             }
             throw e;
         }
@@ -124,7 +124,7 @@ const fetchWithTimeout = (requestUrl: string, fetchTimeout: number) => {
     return Promise.race([
         fetchHandler(),
         new Promise((_, reject) => {
-            timeoutId = setTimeout(() => {
+            timeoutId = setTimeoutImplemented(() => {
                 controller.abort();
                 reject(new Error(`Request to ${requestUrlWithRandomParams} stopped by timeout`));
             }, fetchTimeout);

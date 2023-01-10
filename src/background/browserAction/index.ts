@@ -1,1 +1,0 @@
-export { browserAction } from './browserAction';
