@@ -9,7 +9,7 @@ import { browserApi } from './browserApi';
 import { Prefs } from './prefs';
 import { notifier } from '../lib/notifier';
 import { FORWARDER_DOMAIN } from './config';
-import { alarmService } from './alarmService';
+import { timers } from './timers';
 
 interface PromoNotificationInterface {
     getCurrentNotification(): Promise<PromoNotificationData | null>;
@@ -42,8 +42,6 @@ export interface PromoNotificationData {
 const VIEWED_NOTIFICATIONS = 'viewed-notifications';
 const LAST_NOTIFICATION_TIME = 'viewed-notification-time';
 
-const CLEAR_NOTIFICATION_ALARM_NAME = 'clearNotificationAlarm';
-
 const RUSSIAN_LOCALE = 'ru';
 
 const COMMON_PROMO_LINK = `https://${FORWARDER_DOMAIN}/forward.html?action=xmas_promo_23_vpn&from=popup&app=vpn_extension`;
@@ -61,7 +59,7 @@ const currentLocale = normalizeLanguage(browser.i18n.getUILanguage());
 const promoLink = currentLocale === RUSSIAN_LOCALE ? RUSSIAN_PROMO_LINK : COMMON_PROMO_LINK;
 
 const xmasPromo23Notification = {
-    id: 'xmasPromo23',
+    id: 'xmasPromo23_qwqwqw000012',
     locales: {
         en: {
             title: 'Ho-ho-holiday sale!',
@@ -224,7 +222,7 @@ const xmasPromo23Notification = {
     text: null,
     url: promoLink,
     from: '22 December 2022 15:00:00',
-    to: '02 January 2023 23:59:00',
+    to: '22 January 2023 23:59:00',
     type: 'animated',
     get icons() {
         return lazyGet(xmasPromo23Notification, 'icons', () => ({
@@ -322,8 +320,8 @@ let currentNotification: PromoNotificationData | null;
 let notificationCheckTime: number;
 const checkTimeoutMs = 10 * 60 * 1000; // 10 minutes
 const minPeriod = 30 * 60 * 1000; // 30 minutes
-const NOTIFICATION_DELAY = 30 * 1000; // clear notification in 30 seconds
-let timeoutId: ReturnType<typeof setTimeout>;
+const NOTIFICATION_DELAY = 5 * 1000; // clear notification in 30 seconds
+let timeoutId: number;
 
 /**
  * Marks current notification as viewed
@@ -331,18 +329,10 @@ let timeoutId: ReturnType<typeof setTimeout>;
  */
 const setNotificationViewed = async (withDelay: boolean): Promise<void> => {
     if (withDelay) {
-        // in mv2 we use setTimeout, in mv3 we use Alarm API
-        if (browserApi.runtime.isManifestVersion2()) {
-            clearTimeout(timeoutId);
-            timeoutId = setTimeout(() => {
-                setNotificationViewed(false);
-            }, NOTIFICATION_DELAY);
-        } else {
-            await alarmService.clearAlarm(CLEAR_NOTIFICATION_ALARM_NAME);
-            alarmService.createAlarm(CLEAR_NOTIFICATION_ALARM_NAME, NOTIFICATION_DELAY);
-            alarmService.onAlarmFires(CLEAR_NOTIFICATION_ALARM_NAME, () => setNotificationViewed(false));
-            return;
-        }
+        timers.clearTimeout(timeoutId);
+        timeoutId = timers.setTimeout(() => {
+            setNotificationViewed(false);
+        }, NOTIFICATION_DELAY);
     }
 
     if (currentNotification) {

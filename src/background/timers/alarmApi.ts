@@ -40,7 +40,7 @@ const onAlarmFires = (alarmName: string, callback: () => void) => {
     });
 };
 
-export const alarmService = {
+export const alarmApi = {
     createAlarm,
     createPeriodicAlarm,
     clearAlarm,

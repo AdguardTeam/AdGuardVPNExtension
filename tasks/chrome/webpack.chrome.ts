@@ -1,4 +1,4 @@
-import { Plugin } from 'webpack';
+import webpack, { Plugin } from 'webpack';
 import { merge } from 'webpack-merge';
 import path from 'path';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
@@ -29,6 +29,10 @@ if (IS_DEV && STAGE_ENV === StageEnvs.Prod) {
 const commonConfig = getCommonConfig(Browsers.Chrome);
 
 const plugins = [
+    new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {
+        // eslint-disable-next-line no-param-reassign
+        resource.request = resource.request.replace(/\.\/AbstractTimers/, './MV2Timers');
+    })),
     new CopyWebpackPlugin({
         patterns: [
             {

@@ -6,7 +6,7 @@ import { endpointConnectivity } from '../connectivity/endpointConnectivity';
 import { PermissionsErrorInterface, ErrorData } from './permissionsError';
 import { CredentialsInterface } from '../credentials/Credentials';
 import { vpnProvider } from '../providers/vpnProvider';
-import { timers } from './timers';
+import { timers } from '../timers';
 
 interface PermissionsCheckerParameters {
     credentials: CredentialsInterface;
