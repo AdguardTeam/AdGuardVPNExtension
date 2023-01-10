@@ -36,6 +36,7 @@ jest.mock('../../../src/lib/logger');
 jest.mock('../../../src/background/settings');
 jest.mock('../../../src/background/connectivity/connectivityService/connectivityFSM');
 jest.mock('../../../src/background/browserApi');
+jest.mock('../../../src/background/timers');
 
 jest.spyOn(permissionsChecker, 'startChecker');
 jest.spyOn(permissionsChecker, 'checkPermissions');

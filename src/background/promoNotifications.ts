@@ -59,7 +59,7 @@ const currentLocale = normalizeLanguage(browser.i18n.getUILanguage());
 const promoLink = currentLocale === RUSSIAN_LOCALE ? RUSSIAN_PROMO_LINK : COMMON_PROMO_LINK;
 
 const xmasPromo23Notification = {
-    id: 'xmasPromo23_qwqwqw000012',
+    id: 'xmasPromo23',
     locales: {
         en: {
             title: 'Ho-ho-holiday sale!',
@@ -320,7 +320,7 @@ let currentNotification: PromoNotificationData | null;
 let notificationCheckTime: number;
 const checkTimeoutMs = 10 * 60 * 1000; // 10 minutes
 const minPeriod = 30 * 60 * 1000; // 30 minutes
-const NOTIFICATION_DELAY = 5 * 1000; // clear notification in 30 seconds
+const NOTIFICATION_DELAY = 30 * 1000; // clear notification in 30 seconds
 let timeoutId: number;
 
 /**
