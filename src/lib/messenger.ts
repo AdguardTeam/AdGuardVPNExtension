@@ -7,6 +7,8 @@ import { ExclusionsData, ExclusionsModes, ServiceDto } from '../common/exclusion
 import { StartSocialAuthData, UserLookupData } from '../background/messaging/messagingTypes';
 import { DnsServerData } from '../common/components/constants';
 import type { LocationData } from '../popup/stores/VpnStore';
+import type { Message } from '../popup/components/App/App';
+import { NotifierType } from './notifier';
 
 class Messenger {
     async sendMessage<T>(type: string, data?: T) {
@@ -30,8 +32,8 @@ class Messenger {
      * @param events Events for listening
      * @param callback Event listener callback
      */
-    createEventListener = async (events: any, callback: (...args: any[]) => void) => {
-        const eventListener = (...args: any[]) => {
+    createEventListener = async (events: any, callback: (...args: Message[]) => void) => {
+        const eventListener = (...args: Message[]) => {
             callback(...args);
         };
 
@@ -66,8 +68,8 @@ class Messenger {
      * @param callback
      * @returns {function}
      */
-    createLongLivedConnection = (events: any, callback: (...args: any[]) => void) => {
-        const eventListener = (...args: { type: any; data: any; }[]) => {
+    createLongLivedConnection = (events: any, callback: (...args: Message[]) => void) => {
+        const eventListener = (...args: { type: NotifierType; data: any; }[]) => {
             callback(...args);
         };
 

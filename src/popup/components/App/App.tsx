@@ -33,7 +33,7 @@ import { DotsLoader } from '../../../common/components/DotsLoader';
 import { ReviewPopup } from '../ReviewPopup';
 import { ConfirmEmailModal, ConfirmEmailNotice } from '../ConfirmEmail';
 
-interface Message {
+export interface Message {
     type: NotifierType,
     data: any
 }

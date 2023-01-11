@@ -121,7 +121,7 @@ export class Notifier {
     /**
      * Notifies listeners about the events passed as arguments of this function.
      */
-    notifyListeners(event: NotifierType, ...args: any) {
+    notifyListeners(event: NotifierType, ...args: unknown[]) {
         if (!event || !(event in this.events)) {
             throw new Error(`Illegal event: ${event}`);
         }

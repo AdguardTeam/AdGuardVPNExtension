@@ -1,5 +1,3 @@
-import { LocationWithPing } from '../../background/endpoints/LocationWithPing';
-
 export enum RequestStatus {
     Done = 'done',
     Pending = 'pending',
