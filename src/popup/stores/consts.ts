@@ -14,7 +14,3 @@ export enum InputType {
 }
 
 export const PING_WITH_WARNING = 150;
-
-export interface LocationData extends LocationWithPing {
-    selected: boolean;
-}
