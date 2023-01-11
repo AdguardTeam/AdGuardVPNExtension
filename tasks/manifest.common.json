@@ -22,7 +22,6 @@
         }
     ],
     "permissions": [
-        "alarms",
         "contextMenus",
         "management",
         "notifications",

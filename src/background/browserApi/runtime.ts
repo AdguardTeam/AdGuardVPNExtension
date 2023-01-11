@@ -11,8 +11,6 @@ interface SendMessageParameters {
 
 /**
  * This function moved into separate api file, in order to hide unhandled promise errors
- * @param args
- * @returns {Promise<void>}
  */
 const sendMessage = async (...args: [SendMessageParameters]): Promise<void> => {
     try {

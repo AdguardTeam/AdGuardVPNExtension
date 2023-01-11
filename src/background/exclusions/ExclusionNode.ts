@@ -42,7 +42,6 @@ export const coveredBy = (current: string, target: string) => {
  * Selects nodes which effect on the state of the parent
  * e.g. for the list [*.example.org, test.example.org] will be returned only [*.example.org],
  * as test.example.org is covered by *.example.org
- * @param nodes
  */
 export const selectEffective = <T extends { hostname: string }>(nodes: T[]): T[] => {
     let result = [...nodes];
@@ -93,7 +92,6 @@ export class ExclusionNode {
 
     /**
      * Adds child to exclusion node
-     * @param child
      */
     addChild(child: ExclusionNode) {
         // eslint-disable-next-line no-param-reassign
@@ -170,7 +168,6 @@ export class ExclusionNode {
 
     /**
      * Returns the list of exclusion's children ids
-     * @param id
      */
     getPathExclusions(id: string): string[] {
         if (this.id === id) {
@@ -189,7 +186,6 @@ export class ExclusionNode {
 
     /**
      * Returns exclusion node by provided id
-     * @param id
      */
     getExclusionNode(id: string): ExclusionNode | null {
         if (this.id === id) {
@@ -214,7 +210,6 @@ export class ExclusionNode {
 
     /**
      * Returns parent exclusion node by provided id
-     * @param id
      */
     getParentExclusionNode(id: string): ExclusionNode | null {
         const node = this.getExclusionNode(id);
@@ -226,7 +221,6 @@ export class ExclusionNode {
 
     /**
      * Returns state of exclusion node
-     * @param id
      */
     getExclusionNodeState(id: string): ExclusionState | null {
         const foundNode = this.getExclusionNode(id);

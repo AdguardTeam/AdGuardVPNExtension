@@ -73,8 +73,6 @@ const getPingFromCache = (id: string) => {
 
 /**
  * Sets location available state
- * @param location
- * @param state
  */
 const setLocationAvailableState = (location: LocationInterface, state: boolean): void => {
     // eslint-disable-next-line no-param-reassign
@@ -83,8 +81,6 @@ const setLocationAvailableState = (location: LocationInterface, state: boolean):
 
 /**
  * Sets location ping
- * @param location
- * @param ping
  */
 const setLocationPing = (location: LocationInterface, ping: number | null): void => {
     // eslint-disable-next-line no-param-reassign
@@ -93,8 +89,6 @@ const setLocationPing = (location: LocationInterface, ping: number | null): void
 
 /**
  * Sets location endpoint
- * @param {Location} location
- * @param {Endpoint} endpoint
  */
 const setLocationEndpoint = (
     location: LocationInterface,
@@ -141,9 +135,6 @@ const updatePingsCache = (id: string, newData: IncomingPingData): void => {
 
 /**
  * Moves endpoint to the start of endpoints if found, or returns the save endpoints list
- * @param endpoints
- * @param endpoint
- * @returns {*}
  */
 const moveToTheStart = (
     endpoints: EndpointInterface[],
@@ -161,10 +152,7 @@ const moveToTheStart = (
 /**
  * Measures pings to endpoints one by one, and returns first one available
  * If was unable to measure ping to all endpoints, returns first endpoint from the list
- * @param location
- * @param {boolean} forcePrevEndpoint - boolean flag to measure ping of previously
- *  selected endpoint only
- * @returns {Promise<{endpoint: <Endpoint>, ping: (number|null)}>}
+ * forcePrevEndpoint - boolean flag to measure ping of previously selected endpoint only
  */
 const getEndpointAndPing = async (
     location: LocationInterface,
@@ -214,8 +202,6 @@ const getEndpointAndPing = async (
 
 /**
  * Determines ping for location and saves it in the pings cache
- * @param location
- * @returns {Promise<void>}
  */
 const measurePing = async (location: LocationInterface): Promise<void> => {
     const { id } = location;
@@ -336,9 +322,6 @@ const setLocations = (newLocations: LocationInterface[]) => {
 
 /**
  * Retrieves locations from server
- * @param appId
- * @param vpnToken
- * @returns {Promise<Location[]>}
  */
 const getLocationsFromServer = async (appId: string, vpnToken: string): Promise<Location[]> => {
     const locationsData = await vpnProvider.getLocationsData(appId, vpnToken);
@@ -360,9 +343,6 @@ const getLocationsFromServer = async (appId: string, vpnToken: string): Promise<
 
 /**
  * Returns available endpoint if found, or the first one
- * @param {Location} location
- * @param {boolean} forcePrevEndpoint
- * @returns {Promise<*>}
  */
 const getEndpoint = async (
     location: LocationInterface,
@@ -403,9 +383,6 @@ const getEndpoint = async (
 
 /**
  * Returns endpoint by location id
- * @param location
- * @param {boolean} forcePrevEndpoint
- * @returns {Promise<*>}
  */
 const getEndpointByLocation = async (
     location: LocationInterface,
@@ -429,7 +406,6 @@ const getEndpointByLocation = async (
 
 /**
  * Returns location by endpoint id
- * @param endpointId
  */
 const getLocationByEndpoint = (endpointId: string): LocationInterface | null => {
     if (!endpointId) {
@@ -445,9 +421,7 @@ const getLocationByEndpoint = (endpointId: string): LocationInterface | null => 
 
 /**
  * Persists selected location in the memory and storage
- * @param {string} id - Location id
- * @param {boolean} isLocationSelectedByUser - Flag indicating that location was selected by user
- * @returns {Promise<void>}
+ * isLocationSelectedByUser - Flag indicating that location was selected by user
  */
 const setSelectedLocation = async (id: string, isLocationSelectedByUser = false): Promise<void> => {
     selectedLocation = locations.find((location) => location.id === id) || null;

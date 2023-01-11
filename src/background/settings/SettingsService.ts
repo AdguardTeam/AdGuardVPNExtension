@@ -160,7 +160,6 @@ export class SettingsService {
 
     /**
      * Migration to new settings considering services
-     * @param oldSettings
      */
     migrateFrom8to9 = async (oldSettings: Settings) => {
         const updateExclusionsState = (oldExclusions: OldExclusion[]) => {
@@ -245,8 +244,6 @@ export class SettingsService {
     /**
      * Currently this method doesn't contain logic of migration,
      * because we never have changed the scheme yet
-     * @param oldSettings
-     * @returns {{VERSION: *}}
      */
     async migrateSettings(oldSettings: Settings): Promise<Settings> {
         log.info(`Settings were converted from ${oldSettings.VERSION} to ${SCHEME_VERSION}`);

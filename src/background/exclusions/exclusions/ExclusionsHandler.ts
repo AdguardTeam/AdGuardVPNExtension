@@ -55,7 +55,6 @@ export class ExclusionsHandler {
 
     /**
      * Creates exclusions index for provided exclusions
-     * @param exclusions
      */
     public static buildExclusionsIndex(exclusions: ExclusionInterface[])
         : IndexedExclusionsInterface {
@@ -82,7 +81,6 @@ export class ExclusionsHandler {
 
     /**
      * Adds prepared exclusions and returns amount of added
-     * @param exclusionsToAdd
      */
     async addExclusions(exclusionsToAdd: AddExclusionArgs[]): Promise<number> {
         let addedCount = 0;
@@ -109,7 +107,6 @@ export class ExclusionsHandler {
 
     /**
      * Adds exclusion by provided url
-     * @param url
      */
     async addUrlToExclusions(url: string) {
         const hostname = getHostname(url);
@@ -125,7 +122,6 @@ export class ExclusionsHandler {
 
     /**
      * Returns exclusions by provided hostname
-     * @param hostname
      */
     getExclusionByHostname(hostname: string): ExclusionInterface | undefined {
         return this.exclusions
@@ -134,7 +130,6 @@ export class ExclusionsHandler {
 
     /**
      * Enables exclusion by provided id
-     * @param id
      */
     async enableExclusion(id: string) {
         this.exclusions = this.exclusions.map((ex) => {
@@ -152,7 +147,6 @@ export class ExclusionsHandler {
 
     /**
      * Removes exclusions by provided ids
-     * @param ids
      */
     async removeExclusions(ids: string[]) {
         this.exclusions = this.exclusions.filter((exclusion) => {
@@ -164,8 +158,6 @@ export class ExclusionsHandler {
 
     /**
      * Sets provided state for exclusions with ids
-     * @param ids
-     * @param state
      */
     async setExclusionsState(
         ids: string[],
@@ -186,7 +178,6 @@ export class ExclusionsHandler {
 
     /**
      * Disables exclusion by url
-     * @param url
      */
     async disableExclusionByUrl(url: string) {
         const hostname = getHostname(url);
@@ -214,8 +205,6 @@ export class ExclusionsHandler {
 
     /**
      * Returns exclusion by url
-     * @param url
-     * @param includeWildcards
      */
     getExclusionsByUrl = (url: string, includeWildcards = true) => {
         const hostname = getHostname(url);
@@ -229,7 +218,6 @@ export class ExclusionsHandler {
 
     /**
      * Checks provided url is excluded
-     * @param url
      */
     isExcluded = (url: string): boolean => {
         if (!url) {

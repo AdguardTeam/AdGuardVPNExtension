@@ -26,8 +26,6 @@ export const lazyGet = (obj: any, prop: string, func: () => any) => {
  * 4. converts to ASCII
  * save hostnames as ASCII because 'pacScript.url' supports only ASCII URLs
  * https://chromium.googlesource.com/chromium/src/+/3a46e0bf9308a42642689c4b73b6b8622aeecbe5/chrome/browser/extensions/api/proxy/proxy_api_helpers.cc#115
- * @param {string} rawUrl
- * @return {string | undefined}
  */
 export const prepareUrl = (rawUrl: string) => {
     const url = rawUrl
@@ -59,9 +57,7 @@ export const getLocationWithLowestPing = (locations: LocationInterface[]): Locat
 
 /**
  * Formats bytes into units
- * @param {number} bytes
- * @param {number} decimals - number of digits after decimal point
- * @returns {{unit: string, value: string}}
+ * decimals - number of digits after decimal point
  */
 export const formatBytes = (bytes: number, decimals: number = 1) => {
     if (!bytes || bytes <= 0) {
@@ -85,8 +81,6 @@ export const formatBytes = (bytes: number, decimals: number = 1) => {
 
 /**
  * Sleeps given period of time
- * @param wait
- * @returns {Promise<unknown>}
  */
 export const sleep = (wait: number) => {
     return new Promise((resolve) => {
@@ -96,9 +90,6 @@ export const sleep = (wait: number) => {
 
 /**
  * Sleeps necessary period of time if minimum duration didn't pass since entry time
- * @param {number} entryTimeMs
- * @param {number} minDurationMs
- * @returns {Promise<void>}
  */
 export const sleepIfNecessary = async (entryTimeMs: number, minDurationMs: number) => {
     if (Date.now() - entryTimeMs < minDurationMs) {
@@ -108,8 +99,6 @@ export const sleepIfNecessary = async (entryTimeMs: number, minDurationMs: numbe
 
 /**
  * Executes async function with at least required time
- * @param fn
- * @param minDurationMs
  */
 export const addMinDurationTime = (fn: (...args: any) => any, minDurationMs: number) => {
     return async (...args: string[]) => {
@@ -128,9 +117,6 @@ export const addMinDurationTime = (fn: (...args: any) => any, minDurationMs: num
 
 /**
  * Runs generator with possibility to cancel
- * @param fn - generator to run
- * @param args - args
- * @returns {{cancel: Function, promise: Promise<unknown>}}
  */
 export const runWithCancel = (fn: (...args: any) => any, ...args: any) => {
     const gen = fn(...args);

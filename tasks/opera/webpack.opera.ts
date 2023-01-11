@@ -25,10 +25,10 @@ if (IS_DEV && STAGE_ENV === StageEnvs.Prod) {
 const commonConfig = getCommonConfig(Browsers.Opera);
 
 const plugins = [
-    // TODO: on move to MV3 inject MV3Timers
+    // TODO: on move to MV3 inject Mv3Timers
     new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {
         // eslint-disable-next-line no-param-reassign
-        resource.request = resource.request.replace(/\.\/AbstractTimers/, './MV2Timers');
+        resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv2Timers');
     })),
     new CopyWebpackPlugin({
         patterns: [

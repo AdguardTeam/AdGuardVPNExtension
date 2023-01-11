@@ -49,7 +49,6 @@ export class Dns implements DnsInterface {
 
     /**
      * Sets selected dns server
-     * @param dnsServerId
      */
     setDnsServer = (dnsServerId: string): void => {
         if (this.selectedDnsServer === dnsServerId) {
@@ -61,7 +60,6 @@ export class Dns implements DnsInterface {
 
     /**
      * Adds custom dns server
-     * @param dnsServerData
      */
     addCustomDnsServer = (dnsServerData: DnsServerData): void => {
         this.customDnsServers.push(dnsServerData);
@@ -70,7 +68,6 @@ export class Dns implements DnsInterface {
 
     /**
      * Edit custom dns server
-     * @param dnsServerData
      */
     editCustomDnsServer = (dnsServerData: DnsServerData): void => {
         this.customDnsServers = this.customDnsServers.map((server) => {
@@ -88,7 +85,6 @@ export class Dns implements DnsInterface {
 
     /**
      * Removes custom dns server
-     * @param dnsServerId
      */
     removeCustomDnsServer = (dnsServerId: string): void => {
         this.backupDnsServersData = this.customDnsServers;

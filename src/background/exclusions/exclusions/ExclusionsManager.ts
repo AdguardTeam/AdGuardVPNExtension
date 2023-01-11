@@ -95,7 +95,6 @@ export class ExclusionsManager {
 
     /**
      * Sets current exclusion mode
-     * @param mode
      */
     async setCurrentMode(mode: ExclusionsModes) {
         switch (mode) {
@@ -134,7 +133,6 @@ export class ExclusionsManager {
 
     /**
      * Sets exclusions to both mode handlers
-     * @param allExclusions
      */
     async setAllExclusions(allExclusions: AllExclusions) {
         const { regular, selective } = allExclusions;

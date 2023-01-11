@@ -1,6 +1,10 @@
 import { permissionsChecker } from '../../../src/background/permissionsChecker';
 import { notifier } from '../../../src/lib/notifier';
 import { SubscriptionType } from '../../../src/lib/constants';
+// import {
+//     UPDATE_CREDENTIALS_INTERVAL_MS,
+//     // UPDATE_VPN_INFO_INTERVAL_MS,
+// } from '../../../src/background/permissionsChecker/PermissionsChecker';
 
 const TEST_PERIOD_SEC = 60 * 60 * 5; // 5 hours
 
@@ -35,8 +39,27 @@ const VPN_TOKEN_DATA = {
 jest.mock('../../../src/lib/logger');
 jest.mock('../../../src/background/settings');
 jest.mock('../../../src/background/connectivity/connectivityService/connectivityFSM');
-jest.mock('../../../src/background/browserApi');
-jest.mock('../../../src/background/timers');
+jest.mock('../../../src/background/timers', () => {
+    return {
+        timers: {
+            setTimeout,
+            clearTimeout,
+            setInterval,
+            clearInterval,
+        },
+    };
+});
+
+jest.mock('../../../src/background/browserApi', () => {
+    return {
+        browserApi: {
+            runtime: {
+                // TODO: test mv3 after official switch to mv3
+                isManifestVersion2: () => true,
+            },
+        },
+    };
+});
 
 jest.spyOn(permissionsChecker, 'startChecker');
 jest.spyOn(permissionsChecker, 'checkPermissions');

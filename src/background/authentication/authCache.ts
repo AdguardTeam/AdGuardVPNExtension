@@ -1,9 +1,11 @@
+type CacheValue = boolean | null | string;
+
 interface AuthCacheData {
-    [key: string]: boolean | null | string;
+    [key: string]: CacheValue;
 }
 
 interface AuthCacheInterface {
-    updateCache(field: string, value: boolean | null | string): void;
+    updateCache(field: string, value: CacheValue): void;
     getCache(): AuthCacheData;
     clearCache(): void;
 }
@@ -32,10 +34,8 @@ const AuthCache = (): AuthCacheInterface => {
 
     /**
      * Sets values to the storage
-     * @param {string} field
-     * @param {string|boolean} value
      */
-    const updateCache = (field: string, value: boolean | null | string): void => {
+    const updateCache = (field: string, value: CacheValue): void => {
         authCache[field] = value;
     };
 

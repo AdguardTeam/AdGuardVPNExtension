@@ -75,7 +75,6 @@ export class ServicesManager implements ServiceManagerInterface {
 
     /**
      * Returns map with services index by domain
-     * @param services
      */
     public static getServicesIndex(services: ServicesInterface): IndexedServicesInterface {
         return Object.values(services).reduce((acc: IndexedServicesInterface, service) => {
@@ -188,7 +187,6 @@ export class ServicesManager implements ServiceManagerInterface {
 
     /**
      * Saves provided services in storage
-     * @param services
      */
     async saveServicesInStorage(services: ServicesInterface): Promise<void> {
         await browserApi.storage.set(this.EXCLUSION_SERVICES_STORAGE_KEY, services);

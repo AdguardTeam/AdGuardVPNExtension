@@ -31,7 +31,7 @@ const commonConfig = getCommonConfig(Browsers.Chrome);
 const plugins = [
     new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {
         // eslint-disable-next-line no-param-reassign
-        resource.request = resource.request.replace(/\.\/AbstractTimers/, './MV2Timers');
+        resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv2Timers');
     })),
     new CopyWebpackPlugin({
         patterns: [

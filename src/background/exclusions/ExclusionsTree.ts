@@ -97,8 +97,6 @@ export class ExclusionsTree {
 
     /**
      * Adding child nodes through this method in order to increase speed of search of nodes
-     * @param targetNode
-     * @param childNode
      */
     addChild(targetNode: ExclusionNode, childNode: ExclusionNode) {
         this.exclusionsNodesIndex.set(childNode.id, childNode);
@@ -122,7 +120,6 @@ export class ExclusionsTree {
 
     /**
      * Returns state of exclusion node by id
-     * @param id
      */
     getExclusionState(id: string) {
         return this.exclusionsTree.getExclusionNodeState(id);
@@ -130,7 +127,6 @@ export class ExclusionsTree {
 
     /**
      * Returns exclusion node
-     * @param id
      */
     getExclusionNode(id: string) {
         if (this.exclusionsNodesIndex.has(id)) {
@@ -142,7 +138,6 @@ export class ExclusionsTree {
 
     /**
      * Returns parent exclusion node
-     * @param id
      */
     getParentExclusionNode(id: string) {
         return this.exclusionsTree.getParentExclusionNode(id);

@@ -118,7 +118,6 @@ export class NonRoutableService implements NonRoutableServiceInterface {
 
     /**
      * Clears values in the storage with timestamp older then VALUE_TTL_MS
-     * @param storage
      */
     clearStaleValues = (storage: Storage | Map<string, HostnameData>): void => {
         const VALUE_TTL_MS = 1000;
@@ -134,7 +133,6 @@ export class NonRoutableService implements NonRoutableServiceInterface {
     /**
      * Adds non-routable domain only if founds it in the map with domains from web request errors,
      * else saves it in the storage with current time
-     * @param nonRoutableDomain
      */
     handleNonRoutableDomains = (nonRoutableDomain: string): void => {
         if (!nonRoutableDomain) {
@@ -200,7 +198,6 @@ export class NonRoutableService implements NonRoutableServiceInterface {
 
     /**
      * Adds hostname in the storage and notifies exclusions, to add hostname in the list
-     * @param hostname
      */
     addNewNonRoutableDomain(hostname: string): void {
         this.addHostname(hostname);

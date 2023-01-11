@@ -76,9 +76,6 @@ export class Notifier {
     /**
      * Subscribes listener to the specified events
      *
-     * @param {string|string[]} events - List of event types listener will be notified of
-     * @param {function} listener - Listener object
-     * @returns {number} Index of the listener
      */
     addSpecifiedListener(events: string | string[], listener: ListenerHandler) {
         if (typeof listener !== 'function') {
@@ -96,9 +93,6 @@ export class Notifier {
 
     /**
      * Subscribe specified listener to all events
-     *
-     * @param {function} listener Listener
-     * @returns {number} Index of the listener
      */
     addListener(listener: ListenerHandler) {
         if (typeof listener !== 'function') {
@@ -111,7 +105,7 @@ export class Notifier {
 
     /**
      * Unsubscribe listener
-     * @param listenerId Index of listener to unsubscribe
+     * listenerId - Index of listener to unsubscribe
      */
     removeListener(listenerId: string) {
         delete this.listeners[listenerId];

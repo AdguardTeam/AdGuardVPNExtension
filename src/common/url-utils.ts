@@ -5,7 +5,6 @@ const HTTPS_PROTOCOL = 'https://';
 
 /**
  * Removes wildcard mark from the beginning of hostname
- * @param hostname
  */
 export const cleanHostname = (hostname: string) => {
     const hostnameWithoutWildcard = hostname.replace(/^\*./, '');
@@ -14,7 +13,6 @@ export const cleanHostname = (hostname: string) => {
 
 /**
  * Checks if provided hostname is top level domain
- * @param hostname
  */
 export const isTopLevel = (hostname: string) => {
     const hostnameWithoutWildcard = cleanHostname(hostname);
@@ -74,8 +72,6 @@ export const getSubdomain = (hostname: string, eTld: string) => {
 
 /**
  * Returns hostname of url if it was correct, otherwise return input url
- * @param {string} url
- * @returns {string}
  */
 const getUrlProperties = (url: string): string | URL => {
     let urlObj;
@@ -91,8 +87,6 @@ const getUrlProperties = (url: string): string | URL => {
 
 /**
  * Returns protocol of url if it was correct, otherwise return null
- * @param {string} url
- * @returns {string}
  */
 export const getProtocol = (url?: string): string | null => {
     if (!url) {
@@ -110,8 +104,6 @@ export const getProtocol = (url?: string): string | null => {
 
 /**
  * Returns hostname of url if it was correct, otherwise return input url
- * @param {string | undefined | null } url
- * @returns {string | null}
  */
 export const getHostname = (url: string | undefined | null) => {
     if (!url) {
@@ -145,7 +137,6 @@ export const getHostname = (url: string | undefined | null) => {
 
 /**
  * Checks if string is wildcard
- * @param targetString
  */
 export const isWildcard = (targetString: string) => {
     return targetString === '*';
@@ -153,8 +144,6 @@ export const isWildcard = (targetString: string) => {
 
 /**
  *  Sets query parameter with provided value without reloading page
- * @param parameter
- * @param value
  */
 export const setQueryParameter = (parameter: string, value: string): void => {
     const url = new URL(window.location.href);

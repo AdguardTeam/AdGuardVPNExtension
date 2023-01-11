@@ -124,8 +124,6 @@ export class Credentials implements CredentialsInterface {
 
     /**
      * Saves vpn token in the storage
-     * @param token
-     * @returns {Promise<void>}
      */
     async persistVpnToken(token: VpnTokenData | null): Promise<void> {
         this.vpnToken = token;
@@ -196,8 +194,6 @@ export class Credentials implements CredentialsInterface {
 
     /**
      * Checks if vpn token is valid or not
-     * @param vpnToken
-     * @returns {boolean}
      */
     isTokenValid(vpnToken: VpnTokenData | null): boolean {
         const VALID_VPN_TOKEN_STATUS = 'VALID';
@@ -232,9 +228,6 @@ export class Credentials implements CredentialsInterface {
 
     /**
      * Returns valid vpn credentials or throws an error and sets permissionsError
-     * @param forceRemote
-     * @param useLocalFallback
-     * @returns {Promise<*>}
      */
     async gainValidVpnCredentials(
         forceRemote = false,
@@ -287,8 +280,6 @@ export class Credentials implements CredentialsInterface {
 
     /**
      * Checks if credentials are valid or not
-     * @param vpnCredentials
-     * @returns {boolean}
      */
     areCredentialsValid(vpnCredentials: CredentialsDataInterface | null): boolean {
         const VALID_CREDENTIALS_STATUS = 'VALID';
@@ -321,9 +312,6 @@ export class Credentials implements CredentialsInterface {
      *       },
      *       timeExpiresSec: 4728282135
      *   }
-     * @param newCred
-     * @param oldCred
-     * @returns {boolean}
      */
     areCredentialsEqual = (
         newCred: CredentialsDataInterface,
