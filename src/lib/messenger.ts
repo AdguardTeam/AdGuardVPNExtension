@@ -6,6 +6,7 @@ import { log } from './logger';
 import { ExclusionsData, ExclusionsModes, ServiceDto } from '../common/exclusionsConstants';
 import { StartSocialAuthData, UserLookupData } from '../background/messaging/messagingTypes';
 import { DnsServerData } from '../common/components/constants';
+import type { LocationData } from '../popup/stores/VpnStore';
 
 class Messenger {
     async sendMessage<T>(type: string, data?: T) {
@@ -126,7 +127,7 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async setCurrentLocation(location: any, isSelectedByUser: boolean) {
+    async setCurrentLocation(location: LocationData, isSelectedByUser: boolean) {
         const type = MessageType.SET_SELECTED_LOCATION;
         return this.sendMessage(type, { location, isSelectedByUser });
     }

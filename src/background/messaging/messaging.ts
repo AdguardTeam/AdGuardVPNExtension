@@ -18,7 +18,7 @@ import { notifier } from '../../lib/notifier';
 import { locationsService } from '../endpoints/locationsService';
 import { promoNotifications } from '../promoNotifications';
 import { tabs } from '../tabs';
-import { vpnProvider } from '../providers/vpnProvider';
+import { RequestSupportParameters, vpnProvider } from '../providers/vpnProvider';
 import accountProvider from '../providers/accountProvider';
 import { logStorage } from '../../lib/log-storage';
 import { setDesktopVpnEnabled } from '../connectivity/connectivityService/connectivityFSM';
@@ -320,7 +320,12 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             }
             const { version } = appStatus;
 
-            const reportData: any = {
+            if (!token) {
+                log.error('Was unable to get token');
+                break;
+            }
+
+            const reportData: RequestSupportParameters = {
                 appId,
                 token,
                 email,

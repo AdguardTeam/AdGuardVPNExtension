@@ -72,13 +72,13 @@ export interface EndpointProviderData {
     publicKey: string;
 }
 
-interface RequestSupportParameters {
+export interface RequestSupportParameters {
     appId: string;
     token: string;
     email: string;
     message: string;
     version: string;
-    appLogs: string;
+    appLogs?: string;
 }
 
 export interface ServicesInterface {
@@ -104,7 +104,7 @@ export interface VpnProviderInterface {
         message,
         version,
         appLogs,
-    }: RequestSupportParameters): Promise<{ status: string, error: any }>;
+    }: RequestSupportParameters): Promise<{ status: string, error: string | null }>;
     getExclusionsServices(): Promise<ServicesInterface>;
 }
 
@@ -333,7 +333,7 @@ const requestSupport = async ({
     message,
     version,
     appLogs,
-}: RequestSupportParameters): Promise<{ status: string, error: any }> => {
+}: RequestSupportParameters): Promise<{ status: string, error: string | null }> => {
     const BUG_REPORT_SUBJECT = '[VPN Browser extension] Bug report';
     const LOGS_ZIP_FILENAME = 'logs.zip';
 
