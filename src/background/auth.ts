@@ -280,7 +280,7 @@ class Auth implements AuthInterface {
         }
 
         // if no access token, then try to get it from storage
-        const accessTokenData = await browserApi.storage.get(AUTH_ACCESS_TOKEN_KEY);
+        const accessTokenData = await browserApi.storage.get<AuthAccessToken>(AUTH_ACCESS_TOKEN_KEY);
         if (accessTokenData && accessTokenData.accessToken) {
             this.accessTokenData = accessTokenData;
             return accessTokenData.accessToken;
@@ -301,7 +301,7 @@ class Auth implements AuthInterface {
     }
 
     async init(): Promise<void> {
-        const accessTokenData = await browserApi.storage.get(AUTH_ACCESS_TOKEN_KEY);
+        const accessTokenData = await browserApi.storage.get<AuthAccessToken>(AUTH_ACCESS_TOKEN_KEY);
         if (!accessTokenData || !accessTokenData.accessToken) {
             return;
         }

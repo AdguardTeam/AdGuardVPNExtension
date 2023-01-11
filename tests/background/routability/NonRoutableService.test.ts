@@ -2,7 +2,7 @@ import { NonRoutableService } from '../../../src/background/routability/NonRouta
 import { StorageInterface } from '../../../src/background/browserApi/storage';
 
 type TestStorage = {
-    [key: string]: string;
+    [key: string]: unknown;
 };
 
 // @ts-ignore

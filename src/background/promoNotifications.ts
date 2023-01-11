@@ -263,7 +263,7 @@ const notifications: { [key: string]: PromoNotificationData } = {
  * If it was not shown yet, initialized with the current time.
  */
 const getLastNotificationTime = async (): Promise<number> => {
-    let lastTime = await browserApi.storage.get(LAST_NOTIFICATION_TIME) || 0;
+    let lastTime = await browserApi.storage.get<number>(LAST_NOTIFICATION_TIME) || 0;
     if (lastTime === 0) {
         lastTime = new Date().getTime();
         await browserApi.storage.set(LAST_NOTIFICATION_TIME, lastTime);
@@ -336,7 +336,7 @@ const setNotificationViewed = async (withDelay: boolean): Promise<void> => {
     }
 
     if (currentNotification) {
-        const viewedNotifications = (await browserApi.storage.get(VIEWED_NOTIFICATIONS)) || [];
+        const viewedNotifications = (await browserApi.storage.get<string[]>(VIEWED_NOTIFICATIONS)) || [];
         const { id } = currentNotification;
         if (!viewedNotifications.includes(id)) {
             viewedNotifications.push(id);
@@ -376,7 +376,7 @@ const getCurrentNotification = async (): Promise<PromoNotificationData | null> =
     notificationCheckTime = currentTime;
 
     const notificationsKeys = Object.keys(notifications);
-    const viewedNotifications = (await browserApi.storage.get(VIEWED_NOTIFICATIONS)) || [];
+    const viewedNotifications = (await browserApi.storage.get<string[]>(VIEWED_NOTIFICATIONS)) || [];
 
     for (let i = 0; i < notificationsKeys.length; i += 1) {
         const notificationKey = notificationsKeys[i];

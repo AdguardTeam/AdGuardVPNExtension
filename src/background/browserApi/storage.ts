@@ -1,9 +1,9 @@
 import Browser from 'webextension-polyfill';
 
 export interface StorageInterface {
-    set: (key: string, data: any) => Promise<any>;
-    get: (key: string) => Promise<any>;
-    remove: (key: string) => Promise<any>;
+    set: <T>(key: string, data: T) => Promise<void>;
+    get: <T>(key: string) => Promise<T>;
+    remove: (key: string) => Promise<void>;
 }
 
 export class Storage implements StorageInterface {
@@ -13,16 +13,16 @@ export class Storage implements StorageInterface {
         this.vault = browser.storage.local;
     }
 
-    async set(key: string, data: any): Promise<any> {
-        return this.vault.set({ [key]: data });
+    async set<T>(key: string, data: T): Promise<void> {
+        await this.vault.set({ [key]: data });
     }
 
-    async get(key: string): Promise<any> {
+    async get<T>(key: string): Promise<T> {
         const value = await this.vault.get([key]);
         return value[key];
     }
 
-    async remove(key: string): Promise<any> {
-        return this.vault.remove([key]);
+    async remove(key: string): Promise<void> {
+        await this.vault.remove([key]);
     }
 }

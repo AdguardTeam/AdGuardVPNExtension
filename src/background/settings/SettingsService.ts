@@ -46,7 +46,7 @@ export class SettingsService {
     async init(): Promise<void> {
         let settings;
         try {
-            settings = await this.storage.get(this.SETTINGS_KEY);
+            settings = await this.storage.get<Settings>(this.SETTINGS_KEY);
         } catch (e) {
             log.error(`Was unable to get ${this.SETTINGS_KEY} from storage, due to: `, e.message);
         }

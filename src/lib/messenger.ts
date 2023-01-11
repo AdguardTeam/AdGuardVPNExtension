@@ -32,7 +32,7 @@ class Messenger {
      * @param events Events for listening
      * @param callback Event listener callback
      */
-    createEventListener = async (events: any, callback: (...args: Message[]) => void) => {
+    createEventListener = async (events: NotifierType[], callback: (...args: Message[]) => void) => {
         const eventListener = (...args: Message[]) => {
             callback(...args);
         };
@@ -68,8 +68,8 @@ class Messenger {
      * @param callback
      * @returns {function}
      */
-    createLongLivedConnection = (events: any, callback: (...args: Message[]) => void) => {
-        const eventListener = (...args: { type: NotifierType; data: any; }[]) => {
+    createLongLivedConnection = (events: NotifierType[], callback: (...args: Message[]) => void) => {
+        const eventListener = (...args: { type: NotifierType; data: string; }[]) => {
             callback(...args);
         };
 
@@ -274,7 +274,7 @@ class Messenger {
         return this.sendMessage(type, { settingId });
     }
 
-    async setSetting(settingId: string, value: any) {
+    async setSetting<T>(settingId: string, value: T) {
         const type = MessageType.SET_SETTING_VALUE;
         return this.sendMessage(type, { settingId, value });
     }

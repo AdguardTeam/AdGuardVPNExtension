@@ -198,7 +198,7 @@ export class ServicesManager implements ServiceManagerInterface {
      * Returns services data from storage
      */
     async getServicesFromStorage(): Promise<ServicesInterface> {
-        const services = await browserApi.storage.get(
+        const services = await browserApi.storage.get<ServicesInterface>(
             this.EXCLUSION_SERVICES_STORAGE_KEY,
         );
 

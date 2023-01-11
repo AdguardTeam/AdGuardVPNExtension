@@ -89,7 +89,7 @@ class EndpointsTldExclusions {
 
     init = async () => {
         try {
-            const storedList = await browserApi.storage.get(this.STORAGE_KEY);
+            const storedList = await browserApi.storage.get<string[]>(this.STORAGE_KEY);
             if (storedList) {
                 this.endpointsTldExclusionsList = storedList;
                 await proxy.setEndpointsTldExclusions(this.endpointsTldExclusionsList);

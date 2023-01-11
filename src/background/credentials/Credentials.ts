@@ -337,7 +337,7 @@ export class Credentials implements CredentialsInterface {
         if (this.vpnCredentials) {
             return this.vpnCredentials;
         }
-        const vpnCredentials = await this.storage.get(this.VPN_CREDENTIALS_KEY);
+        const vpnCredentials = await this.storage.get<CredentialsDataInterface>(this.VPN_CREDENTIALS_KEY);
         this.vpnCredentials = vpnCredentials;
         return vpnCredentials;
     };
@@ -404,7 +404,7 @@ export class Credentials implements CredentialsInterface {
      * @return {Promise<*>}
      */
     gainAppId = async (): Promise<string> => {
-        let appId = await this.storage.get(this.APP_ID_KEY);
+        let appId = await this.storage.get<string>(this.APP_ID_KEY);
 
         if (!appId) {
             log.debug('Generating new app id');
