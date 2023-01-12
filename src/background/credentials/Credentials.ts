@@ -220,7 +220,7 @@ export class Credentials implements CredentialsInterface {
 
         if (!vpnToken || !this.isTokenValid(vpnToken)) {
             const error = Error(`Vpn token is not valid. Token: ${JSON.stringify(vpnToken)}`);
-            this.permissionsError.setError({ ...error, status: '' });
+            this.permissionsError.setError(error);
             throw error;
         }
 

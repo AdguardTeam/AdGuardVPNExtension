@@ -2,6 +2,11 @@ import { permissionsChecker } from '../../../src/background/permissionsChecker';
 import { notifier } from '../../../src/lib/notifier';
 import { SubscriptionType } from '../../../src/lib/constants';
 
+import {
+    UPDATE_CREDENTIALS_INTERVAL_MS,
+    UPDATE_VPN_INFO_INTERVAL_MS,
+} from '../../../src/background/permissionsChecker/PermissionsChecker';
+
 const TEST_PERIOD_SEC = 60 * 60 * 5; // 5 hours
 
 const getCredentialsData = (expiresInSec: number) => {
@@ -36,7 +41,19 @@ jest.mock('../../../src/lib/logger');
 jest.mock('../../../src/background/settings');
 jest.mock('../../../src/background/connectivity/connectivityService/connectivityFSM');
 jest.mock('../../../src/background/browserApi');
-jest.mock('../../../src/background/timers');
+
+// testing timers for MV2
+// TODO: change timers implementation on official switch to MV3 and find out how to move time for Alarm API
+jest.mock('../../../src/background/timers', () => {
+    return {
+        timers: {
+            setTimeout: (callback: () => void, timeout: number) => setTimeout(callback, timeout),
+            clearTimeout: (timerId: number): void => clearTimeout(timerId),
+            setInterval: (callback: () => void, interval: number) => setInterval(callback, interval),
+            clearInterval: (intervalId: number): void => clearInterval(intervalId),
+        },
+    };
+});
 
 jest.spyOn(permissionsChecker, 'startChecker');
 jest.spyOn(permissionsChecker, 'checkPermissions');
@@ -60,28 +77,26 @@ describe('PermissionsChecker tests', () => {
         expect(permissionsChecker.startChecker).toBeCalledTimes(1);
         expect(permissionsChecker.checkPermissions).toBeCalledTimes(0);
 
-        // TODO: find out how to move time for alarm api and fix commented cases
-        // // advance timers for 24 hours + 100 ms
-        // jest.advanceTimersByTime(UPDATE_CREDENTIALS_INTERVAL_MS + 100);
-        // expect(permissionsChecker.checkPermissions).toBeCalledTimes(1);
-        //
-        // // advance timers for 24 hours + 100 ms
-        // jest.advanceTimersByTime(UPDATE_CREDENTIALS_INTERVAL_MS + 100);
-        // expect(permissionsChecker.checkPermissions).toBeCalledTimes(2);
+        // advance timers for 24 hours + 100 ms
+        jest.advanceTimersByTime(UPDATE_CREDENTIALS_INTERVAL_MS + 100);
+        expect(permissionsChecker.checkPermissions).toBeCalledTimes(1);
+
+        // advance timers for 24 hours + 100 ms
+        jest.advanceTimersByTime(UPDATE_CREDENTIALS_INTERVAL_MS + 100);
+        expect(permissionsChecker.checkPermissions).toBeCalledTimes(2);
     });
 
-    // TODO: find out how to move time for alarm api and fix commented cases
-    // it('Check vpn info every hour', () => {
-    //     permissionsChecker.init();
-    //     notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
-    //     // advance timers for 1 hour + 100 ms
-    //     jest.advanceTimersByTime(UPDATE_VPN_INFO_INTERVAL_MS + 100);
-    //     expect(permissionsChecker.getVpnInfo).toBeCalledTimes(1);
-    //
-    //     // advance timers for 1 hour + 100 ms
-    //     jest.advanceTimersByTime(UPDATE_VPN_INFO_INTERVAL_MS + 100);
-    //     expect(permissionsChecker.getVpnInfo).toBeCalledTimes(2);
-    // });
+    it('Check vpn info every hour', () => {
+        permissionsChecker.init();
+        notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
+        // advance timers for 1 hour + 100 ms
+        jest.advanceTimersByTime(UPDATE_VPN_INFO_INTERVAL_MS + 100);
+        expect(permissionsChecker.getVpnInfo).toBeCalledTimes(1);
+
+        // advance timers for 1 hour + 100 ms
+        jest.advanceTimersByTime(UPDATE_VPN_INFO_INTERVAL_MS + 100);
+        expect(permissionsChecker.getVpnInfo).toBeCalledTimes(2);
+    });
 
     it('Check permissions in half an hour before credentials expired', () => {
         permissionsChecker.credentials.vpnCredentials = getCredentialsData(TEST_PERIOD_SEC);
@@ -89,10 +104,9 @@ describe('PermissionsChecker tests', () => {
         notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
         expect(permissionsChecker.checkPermissions).toBeCalledTimes(0);
 
-        // TODO: find out how to move time for alarm api and fix commented cases
         // advance timers for 5 hours
-        // jest.advanceTimersByTime(TEST_PERIOD_SEC * 1000);
-        // expect(permissionsChecker.checkPermissions).toBeCalledTimes(1);
+        jest.advanceTimersByTime(TEST_PERIOD_SEC * 1000);
+        expect(permissionsChecker.checkPermissions).toBeCalledTimes(1);
     });
 
     it('Check permissions in half an hour before ACTUAL credentials expired', () => {
@@ -110,9 +124,8 @@ describe('PermissionsChecker tests', () => {
         notifier.notifyListeners(notifier.types.USER_DEAUTHENTICATED);
         notifier.notifyListeners(notifier.types.USER_AUTHENTICATED);
 
-        // TODO: find out how to move time for alarm api and fix commented cases
         // advance timers for 12 hours
-        // jest.advanceTimersByTime(TEST_PERIOD_SEC * 1000 * 2 + 100);
-        // expect(permissionsChecker.checkPermissions).toBeCalledTimes(1);
+        jest.advanceTimersByTime(TEST_PERIOD_SEC * 1000 * 2 + 100);
+        expect(permissionsChecker.checkPermissions).toBeCalledTimes(1);
     });
 });

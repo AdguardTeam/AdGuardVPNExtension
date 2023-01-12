@@ -1,7 +1,7 @@
 import { notifier } from '../../lib/notifier';
 
 export interface ErrorData extends Error {
-    status: string;
+    status?: string;
 }
 
 export interface PermissionsErrorInterface {

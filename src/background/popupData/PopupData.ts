@@ -36,7 +36,7 @@ interface PopupDataProps {
 interface PopupDataInterface {
     permissionsError?: {
         message: string,
-        status: string,
+        status?: string,
     } | null;
     vpnInfo?: VpnExtensionInfoInterface | null;
     locations?: LocationWithPing[];
