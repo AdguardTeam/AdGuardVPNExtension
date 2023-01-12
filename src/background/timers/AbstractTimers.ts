@@ -7,6 +7,12 @@ export interface TimersInterface {
     clearInterval(intervalId: number): void;
 }
 
+/**
+ * This class used only to show timers interface
+ * export './AbstractTimers' is replaced during webpack compilation
+ * with NormalModuleReplacementPlugin to proper implementation
+ * from './Mv2Timers' or './Mv3Timers'
+ */
 class AbstractTimers implements TimersInterface {
     throwError() {
         throw new Error('Seems like webpack didn\'t inject proper timers');

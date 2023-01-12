@@ -10,5 +10,3 @@ export enum InputType {
     Text = 'text',
     Password = 'password',
 }
-
-export const PING_WITH_WARNING = 150;

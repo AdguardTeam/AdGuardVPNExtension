@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import { PING_WITH_WARNING } from '../../stores/consts';
-
 import './ping.pcss';
+
+const PING_WITH_WARNING = 150;
 
 export const Ping = ({ ping }: { ping: number }) => {
     if (!ping) {

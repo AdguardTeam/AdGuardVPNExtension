@@ -1,6 +1,9 @@
 import { TimersInterface } from './AbstractTimers';
 
-class MV2Timers implements TimersInterface {
+/**
+ * Implements timers interface for MV2.
+ */
+class Mv2Timers implements TimersInterface {
     setTimeout = (callback: () => void, timeout: number): number => {
         return window.setTimeout(callback, timeout);
     };
@@ -18,4 +21,4 @@ class MV2Timers implements TimersInterface {
     };
 }
 
-export const timers = new MV2Timers();
+export const timers = new Mv2Timers();

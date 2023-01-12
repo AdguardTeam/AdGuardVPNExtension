@@ -31,23 +31,23 @@ export const updateManifest = (manifestJson: Buffer, browserManifestDiff: { [key
 
 /**
  * Adds provided suffix for release build
- * @param manifestJson
+ * @param locales
  * @param env
  * @param suffix
  * @param isTarget
  */
 export const modifyExtensionName = (
-    manifestJson: Buffer,
+    locales: Buffer,
     env: string,
     suffix: string,
     isTarget: boolean = true,
 ): Buffer => {
     if (env !== Envs.Release || !isTarget) {
-        return manifestJson;
+        return locales;
     }
 
     try {
-        const manifest = JSON.parse(manifestJson.toString());
+        const manifest = JSON.parse(locales.toString());
         manifest.name.message += suffix;
         return Buffer.from(JSON.stringify(manifest, null, 4));
     } catch (e) {

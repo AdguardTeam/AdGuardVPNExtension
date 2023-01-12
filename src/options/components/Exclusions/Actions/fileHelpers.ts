@@ -33,9 +33,7 @@ const readFile = (file: Blob): Promise<string> => {
         const reader = new FileReader();
 
         reader.onload = () => {
-            if (typeof reader.result === 'string') {
-                resolve(reader.result);
-            }
+            resolve(<string>reader.result!);
         };
 
         reader.onerror = reject;
