@@ -8,10 +8,9 @@ import { setTimeoutImplemented, clearTimeoutImplemented } from '../setTimeout';
 
 /**
  * Prepares ping message before sending to the endpoint via websocket
- * @param {number} currentTime
- * @param {string} vpnToken
- * @param {string} appId
- * @returns {Uint8Array}
+ * @param currentTime
+ * @param vpnToken
+ * @param appId
  */
 const preparePingMessage = (currentTime: number, vpnToken: string, appId: string) => {
     const pingMsg = WsPingMsg.create({
@@ -32,9 +31,8 @@ const decodeMessage = (arrBufMessage: ArrayBuffer) => {
 /**
  * Sends ping message and returns latency
  * @param websocket
- * @param {string} vpnToken
- * @param {string} appId
- * @returns {Promise<number>}
+ * @param vpnToken
+ * @param appId
  */
 export const sendPingMessage = (websocket: WebSocket, vpnToken: string, appId: string): Promise<number> => {
     const PING_TIMEOUT_MS = 3000;

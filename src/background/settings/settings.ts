@@ -47,7 +47,6 @@ const settingsService = new SettingsService(browserApi.storage, DEFAULT_SETTINGS
 
 /**
  * Returns proxy settings enabled status
- * @returns {boolean}
  */
 const isProxyEnabled = (): boolean => {
     const setting = settingsService.getSetting(SETTINGS_IDS.PROXY_ENABLED);
@@ -109,7 +108,6 @@ const enableProxy = async (force?: boolean): Promise<void> => {
 /**
  * Checks if setting is enabled
  * @param settingId
- * @returns {boolean}
  */
 const isSettingEnabled = (settingId: string): boolean => {
     const enabledSettingValue = true;

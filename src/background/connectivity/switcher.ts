@@ -27,8 +27,7 @@ import { VpnConnectionStatus } from '../api/vpnApi';
  * 3. Gets credentials
  * 4. Sets credentials to proxy and WS connection
  * 5. Starts WS connection, when it is open it connects proxy in browser API
- * @param {boolean} forcePrevEndpoint - flag used to not always determine all endpoints pings
- * @returns {Promise<void>}
+ * @param forcePrevEndpoint - flag used to not always determine all endpoints pings
  */
 function* turnOnProxy(forcePrevEndpoint = false) {
     const entryTime = Date.now();
@@ -73,9 +72,8 @@ function* turnOnProxy(forcePrevEndpoint = false) {
 
 /**
  * Turns off websocket
- * @returns {Promise<void>}
  */
-function* turnOffProxy() {
+function* turnOffProxy(): Generator {
     yield connectivity.endpointConnectivity.stop();
 }
 
@@ -108,7 +106,6 @@ class Switcher {
      * Retries to connect to proxy
      * If refresh data is true, before connecting, refreshes tokens, vpnInfo and locations
      * @param refreshData
-     * @returns {Promise<void>}
      */
     async retryTurnOn(refreshData?: boolean): Promise<void> {
         try {

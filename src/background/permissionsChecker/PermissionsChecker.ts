@@ -61,7 +61,6 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
 
     /**
      * Request credentials in half an hour before expired
-     * @returns Promise<void>
      */
     planCredentialsCheckBeforeExpired = async (): Promise<void> => {
         if (!this.credentials.vpnCredentials) {

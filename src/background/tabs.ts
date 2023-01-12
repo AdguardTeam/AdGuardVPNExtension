@@ -85,8 +85,7 @@ class Tabs implements TabsInterface {
 
     /**
      * Closes one or more tabs.
-     * @param {(number|number[])} tabsIds
-     * @returns {Promise<void>}
+     * @param tabsIds
      */
     async closeTab(tabsIds: number[] | number): Promise<void> {
         await browser.tabs.remove(tabsIds);

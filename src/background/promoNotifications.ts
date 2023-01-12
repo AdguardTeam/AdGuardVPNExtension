@@ -273,8 +273,8 @@ const getLastNotificationTime = async (): Promise<number> => {
 
 /**
  * Scans notification locales and returns the one matching navigator.language
- * @param {*} notification notification object
- * @returns {string} matching text or null
+ * @param notification notification object
+ * returns matching text or null
  */
 const getNotificationText = (notification: PromoNotificationData): { title: string, btn: string } | null => {
     const language = normalizeLanguage(browser.i18n.getUILanguage());
@@ -325,7 +325,7 @@ let timeoutId: number;
 
 /**
  * Marks current notification as viewed
- * @param {boolean} withDelay if true, do this after a 30 sec delay
+ * @param withDelay if true, do this after a 30 sec delay
  */
 const setNotificationViewed = async (withDelay: boolean): Promise<void> => {
     if (withDelay) {
@@ -349,8 +349,7 @@ const setNotificationViewed = async (withDelay: boolean): Promise<void> => {
 
 /**
  * Finds out notification for current time and checks if notification wasn't shown yet
- *
- * @returns {null|Notification} - notification
+ * returns notification
  */
 const getCurrentNotification = async (): Promise<PromoNotificationData | null> => {
     // Do not display notification on Firefox

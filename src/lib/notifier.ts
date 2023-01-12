@@ -76,11 +76,11 @@ export class Notifier {
     /**
      * Subscribes listener to the specified events
      *
-     * @param {string|string[]} events - List of event types listener will be notified of
-     * @param {function} listener - Listener object
-     * @returns {number} Index of the listener
+     * @param events - List of event types listener will be notified of
+     * @param listener - Listener object
+     * returns Index of the listener
      */
-    addSpecifiedListener(events: string | string[], listener: ListenerHandler) {
+    addSpecifiedListener(events: string | string[], listener: ListenerHandler): string {
         if (typeof listener !== 'function') {
             throw new Error('Illegal listener');
         }
@@ -97,10 +97,10 @@ export class Notifier {
     /**
      * Subscribe specified listener to all events
      *
-     * @param {function} listener Listener
-     * @returns {number} Index of the listener
+     * @param listener Listener
+     * returns Index of the listener
      */
-    addListener(listener: ListenerHandler) {
+    addListener(listener: ListenerHandler): string {
         if (typeof listener !== 'function') {
             throw new Error('Illegal listener');
         }

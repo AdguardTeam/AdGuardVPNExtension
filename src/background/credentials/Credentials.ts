@@ -112,7 +112,6 @@ export class Credentials implements CredentialsInterface {
 
     /**
      * Returns token from memory or retrieves it from storage
-     * @returns {Promise<*>}
      */
     async getVpnTokenLocal(): Promise<VpnTokenData | null> {
         if (this.vpnToken) {
@@ -125,7 +124,6 @@ export class Credentials implements CredentialsInterface {
     /**
      * Saves vpn token in the storage
      * @param token
-     * @returns {Promise<void>}
      */
     async persistVpnToken(token: VpnTokenData | null): Promise<void> {
         this.vpnToken = token;
@@ -197,7 +195,6 @@ export class Credentials implements CredentialsInterface {
     /**
      * Checks if vpn token is valid or not
      * @param vpnToken
-     * @returns {boolean}
      */
     isTokenValid(vpnToken: VpnTokenData | null): boolean {
         const VALID_VPN_TOKEN_STATUS = 'VALID';
@@ -234,7 +231,6 @@ export class Credentials implements CredentialsInterface {
      * Returns valid vpn credentials or throws an error and sets permissionsError
      * @param forceRemote
      * @param useLocalFallback
-     * @returns {Promise<*>}
      */
     async gainValidVpnCredentials(
         forceRemote = false,
@@ -259,7 +255,6 @@ export class Credentials implements CredentialsInterface {
 
     /**
      * Returns valid vpn credentials or null
-     * @returns {Promise}
      */
     async getVpnCredentialsRemote(): Promise<CredentialsDataInterface | null> {
         const appId = await this.getAppId();
@@ -288,7 +283,6 @@ export class Credentials implements CredentialsInterface {
     /**
      * Checks if credentials are valid or not
      * @param vpnCredentials
-     * @returns {boolean}
      */
     areCredentialsValid(vpnCredentials: CredentialsDataInterface | null): boolean {
         const VALID_CREDENTIALS_STATUS = 'VALID';
@@ -323,7 +317,6 @@ export class Credentials implements CredentialsInterface {
      *   }
      * @param newCred
      * @param oldCred
-     * @returns {boolean}
      */
     areCredentialsEqual = (
         newCred: CredentialsDataInterface,
@@ -381,11 +374,6 @@ export class Credentials implements CredentialsInterface {
 
     /**
      * Returns credentialsHash, vpn token and credentials
-     * @returns {Promise<{
-     *                      credentialsHash: string,
-     *                      token: string,
-     *                      credentials: {password: string, username: string}
-     *                  }>}
      */
     async getAccessCredentials(): Promise<AccessCredentialsData> {
         const vpnToken = await this.gainValidVpnToken();
@@ -434,7 +422,6 @@ export class Credentials implements CredentialsInterface {
 
     /**
      * Checks if token has license key, then this token is considered premium
-     * @returns {Promise<boolean>}
      */
     isPremiumToken = async (): Promise<boolean> => {
         let vpnToken;
@@ -459,8 +446,7 @@ export class Credentials implements CredentialsInterface {
     };
 
     /**
-     * Returns next bill date in the numeric representation
-     * @returns {Promise<number|null>} next bill date in ms
+     * Returns next bill date in the numeric representation (ms)
      */
     nextBillDate = async (): Promise<number | null> => {
         let vpnToken;
@@ -508,7 +494,6 @@ export class Credentials implements CredentialsInterface {
     /**
      * Method used to track installations
      * It will be called on every extension launch or attempt to connect to proxy
-     * @returns {Promise<void>}
      */
     async trackInstallation(): Promise<void> {
         const TRACKED_INSTALLATIONS_KEY = 'credentials.tracked.installations';

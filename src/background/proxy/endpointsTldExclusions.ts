@@ -47,7 +47,7 @@ class EndpointsTldExclusions {
 
     /**
      * Adds endpoints tld exclusions
-     * @param {string[]} endpointsTlds - list of second level domains parsed from the endpoints
+     * @param endpointsTlds - list of second level domains parsed from the endpoints
      */
     addEndpointsTldExclusions = async (endpointsTlds: string[]) => {
         const endpointsTldExclusions = this.convertEndpointTldToExclusion(endpointsTlds);
@@ -57,8 +57,7 @@ class EndpointsTldExclusions {
 
     /**
      * Converts endpoints tld to exclusion
-     * @param {string[]} endpointsTlds - endpoints top level domains
-     * @returns {string[]}
+     * @param endpointsTlds - endpoints top level domains
      */
     convertEndpointTldToExclusion = (endpointsTlds: string[]) => {
         const endpointsTldExclusions = endpointsTlds.map((endpointTld) => {

@@ -13,9 +13,8 @@ class Management {
 
     /**
      * Gets list of proxy extension and turns them off
-     * @returns {Promise<void>}
      */
-    turnOffProxyExtensions = async () => {
+    turnOffProxyExtensions = async (): Promise<void> => {
         const enabledProxyExtensions = await this.getEnabledProxyExtensions();
 
         const promises = enabledProxyExtensions.map(async (extension) => {
@@ -31,7 +30,6 @@ class Management {
 
     /**
      * Returns list of enabled extensions with proxy permission, except extension itself
-     * @returns {Promise<*>}
      */
     getEnabledProxyExtensions = async () => {
         const extensions = await this.browser.management.getAll();

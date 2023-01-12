@@ -34,8 +34,8 @@ const AuthCache = (): AuthCacheInterface => {
 
     /**
      * Sets values to the storage
-     * @param {string} field
-     * @param {string|boolean} value
+     * @param field
+     * @param value
      */
     const updateCache = (field: string, value: CacheValue): void => {
         authCache[field] = value;
@@ -43,7 +43,6 @@ const AuthCache = (): AuthCacheInterface => {
 
     /**
      * Returns all values
-     * @returns {{step, login, username}}
      */
     const getCache = (): AuthCacheData => authCache;
 

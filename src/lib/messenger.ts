@@ -66,9 +66,8 @@ class Messenger {
      * Creates long lived connections between popup and background page
      * @param events
      * @param callback
-     * @returns {function}
      */
-    createLongLivedConnection = (events: NotifierType[], callback: (...args: Message[]) => void) => {
+    createLongLivedConnection = (events: NotifierType[], callback: (...args: Message[]) => void): Function => {
         const eventListener = (...args: { type: NotifierType; data: string; }[]) => {
             callback(...args);
         };

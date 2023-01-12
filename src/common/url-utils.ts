@@ -74,8 +74,7 @@ export const getSubdomain = (hostname: string, eTld: string) => {
 
 /**
  * Returns hostname of url if it was correct, otherwise return input url
- * @param {string} url
- * @returns {string}
+ * @param url
  */
 const getUrlProperties = (url: string): string | URL => {
     let urlObj;
@@ -91,8 +90,7 @@ const getUrlProperties = (url: string): string | URL => {
 
 /**
  * Returns protocol of url if it was correct, otherwise return null
- * @param {string} url
- * @returns {string}
+ * @param url
  */
 export const getProtocol = (url?: string): string | null => {
     if (!url) {
@@ -110,8 +108,7 @@ export const getProtocol = (url?: string): string | null => {
 
 /**
  * Returns hostname of url if it was correct, otherwise return input url
- * @param {string | undefined | null } url
- * @returns {string | null}
+ * @param url
  */
 export const getHostname = (url: string | undefined | null) => {
     if (!url) {

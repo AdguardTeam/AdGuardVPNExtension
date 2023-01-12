@@ -143,7 +143,6 @@ export class VpnStore {
     /**
      * Adds ping data to locations list
      * @param location
-     * @returns {{ping, available}|*}
      */
     enrichWithStateData = (location: LocationData): LocationData => {
         const pingData = this.pings[location.id];

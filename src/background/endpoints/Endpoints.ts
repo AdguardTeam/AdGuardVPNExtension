@@ -69,9 +69,8 @@ class Endpoints implements EndpointsInterface {
 
     /**
      * Reconnects to the new endpoint
-     * @param {Endpoint} endpoint
-     * @param {Location} location
-     * @returns {Promise<void>}
+     * @param endpoint
+     * @param location
      */
     reconnectEndpoint = async (
         endpoint: EndpointInterface,
@@ -87,9 +86,8 @@ class Endpoints implements EndpointsInterface {
     /**
      * Returns closest endpoint, firstly checking if locations object includes
      * endpoint with same city name
-     * @param {Location[]} locations - locations list
-     * @param {Location} targetLocation
-     * @returns {Location}
+     * @param locations - locations list
+     * @param targetLocation
      */
     getClosestLocation = (
         locations: LocationInterface[],
@@ -119,7 +117,6 @@ class Endpoints implements EndpointsInterface {
 
     /**
      * Gets endpoints remotely and updates them if there were no errors
-     * @returns {Promise<null|*>}
      */
     getLocationsFromServer = async (): Promise<LocationInterface[] | null> => {
         let vpnToken;
@@ -146,7 +143,6 @@ class Endpoints implements EndpointsInterface {
 
     /**
      * Updates vpn tokens and credentials
-     * @returns {Promise<{vpnToken: *, vpnCredentials: *}>}
      */
     refreshTokens = async (): Promise<{
         vpnToken: VpnTokenData,
@@ -165,7 +161,6 @@ class Endpoints implements EndpointsInterface {
      * 2. Update vpnCredentials
      * 3. Update vpnInfo
      * 4. Check if user didn't get over traffic limits
-     * @returns {Promise<void>}
      */
     refreshData = async (): Promise<void> => {
         try {
@@ -183,7 +178,6 @@ class Endpoints implements EndpointsInterface {
      * Returns list of locations which fit to token
      * @param locations
      * @param isPremiumToken
-     * @returns {*}
      */
     filterLocationsMatchingToken = (
         locations: LocationInterface[],
@@ -217,7 +211,6 @@ class Endpoints implements EndpointsInterface {
     /**
      * Updates locations list
      * @param shouldReconnect
-     * @returns {Promise<void>}
      */
     updateLocations = async (shouldReconnect = false): Promise<void> => {
         const locations = await this.getLocationsFromServer();
@@ -324,7 +317,6 @@ class Endpoints implements EndpointsInterface {
 
     /**
      * Returns vpn info cached value and launches remote vpn info getting
-     * @returns vpnInfo or null
      */
     getVpnInfo = async (): Promise<VpnExtensionInfoInterface | null> => {
         if (this.vpnInfo) {
