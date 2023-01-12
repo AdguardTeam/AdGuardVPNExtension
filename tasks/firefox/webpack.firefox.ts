@@ -29,10 +29,10 @@ if (IS_DEV && STAGE_ENV === StageEnvs.Prod) {
 const commonConfig = getCommonConfig(Browsers.Firefox);
 
 const plugins = [
-    // TODO: on move to MV3 inject Mv3Timers
+    // TODO: on move to MV3 inject MV3Timers
     new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {
         // eslint-disable-next-line no-param-reassign
-        resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv2Timers');
+        resource.request = resource.request.replace(/\.\/AbstractTimers/, './MV2Timers');
     })),
     new CopyWebpackPlugin({
         patterns: [

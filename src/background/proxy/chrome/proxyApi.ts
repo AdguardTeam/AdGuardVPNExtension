@@ -6,6 +6,7 @@ import { PAC_SCRIPT_CHECK_URL } from '../proxyConsts';
 
 /**
  * Returns proxy config
+ * @param config
  */
 const proxyGet = (config = {}) => new Promise((resolve) => {
     chrome.proxy.settings.get(config, (details) => {
@@ -15,6 +16,7 @@ const proxyGet = (config = {}) => new Promise((resolve) => {
 
 /**
  * Converts proxyConfig to chromeConfig
+ * @param proxyConfig
  */
 const convertToChromeConfig = (
     proxyConfig: ProxyConfigInterface,
@@ -52,7 +54,7 @@ let globalProxyConfig: ProxyConfigInterface | null = null;
 
 /**
  * Handles onAuthRequired events
- * details - webrequest details
+ * @param details - webrequest details
  */
 const onAuthRequiredHandler = (details: chrome.webRequest.WebAuthenticationChallengeDetails) => {
     const { challenger } = details;
@@ -121,6 +123,7 @@ async function triggerOnAuthRequired() {
  * proxySet makes proxy settings compatible with Chrome proxy api and sets them via chrome.proxy.settings
  * It is important to note that we set proxy via pac script because our exclusions need more complex logic than we can
  * achieve with fixed_servers option.
+ * @param config - proxy config
  */
 const proxySet = async (config: ProxyConfigInterface): Promise<void> => {
     removeOnAuthRequiredListener();
@@ -138,6 +141,7 @@ interface ProxyErrorCallback {
 /**
  * Adds proxy error listener, which is called when proxy fails to resolve host
  * Used only for logging purposes
+ * @param callback
  */
 const onProxyError = (() => {
     return {

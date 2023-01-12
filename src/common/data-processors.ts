@@ -70,6 +70,7 @@ export interface ExclusionServices {
 
 /**
  * Transforms raw exclusion service domains to the map
+ * @param exclusionServiceDomains
  */
 export const processExclusionServicesDomains = (
     exclusionServiceDomains: RawExclusionServicesDomains,
@@ -94,6 +95,8 @@ export const processExclusionServicesDomains = (
 
 /**
  * Transforms services to the map adding categories and domains
+ * @param exclusionServices
+ * @param servicesDomains
  */
 export const processExclusionServices = (
     exclusionServices: RawExclusionServicesData,

@@ -115,7 +115,7 @@ const incrementDelay = assign<ContextType>({
 });
 
 const delays = {
-    retryDelay: (context: ContextType): number => {
+    RETRY_DELAY: (context: ContextType): number => {
         return context.currentReconnectionDelayMs;
     },
 };
@@ -178,7 +178,7 @@ const connectivityFSM = createMachine({
                 },
             },
             after: {
-                retryDelay: State.ConnectingRetrying,
+                RETRY_DELAY: State.ConnectingRetrying,
             },
             entry: [incrementDelay],
         },

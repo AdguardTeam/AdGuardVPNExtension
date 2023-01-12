@@ -166,6 +166,9 @@ class Auth implements AuthInterface {
 
     /**
      * Authenticate user after registration on thank you page
+     * @param credentials
+     * @param isNewUser
+     * @returns {Promise<void>}
      */
     async authenticateThankYouPage(
         credentials: AuthAccessToken,
@@ -232,6 +235,9 @@ class Auth implements AuthInterface {
 
     /**
      * Checks if user had such email registered
+     * @param {string} email
+     * @param {string} appId
+     * @returns {Promise<{canRegister: string}|{error: string}>}
      */
     async userLookup(
         email: string,
@@ -265,7 +271,8 @@ class Auth implements AuthInterface {
     /**
      * Returns access token
      * If no token is available turns off, except of when turnOffProxy flag is false
-     * [turnOffProxy=true] - if false do not turn off proxy
+     * @param {boolean} [turnOffProxy=true] - if false do not turn off proxy
+     * @returns {Promise<string>}
      */
     async getAccessToken(turnOffProxy = true): Promise<string> {
         if (this.accessTokenData && this.accessTokenData.accessToken) {

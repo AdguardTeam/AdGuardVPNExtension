@@ -1,5 +1,4 @@
 export const chromeManifestDiff = {
-    name: '__MSG_name__ MV3',
     manifest_version: 3,
     minimum_chrome_version: '66.0',
     options_page: 'options.html',
@@ -18,7 +17,6 @@ export const chromeManifestDiff = {
         extension_pages: 'script-src \'self\'; object-src \'self\'',
     },
     permissions: [
-        'alarms',
         'webRequestAuthProvider',
     ],
     host_permissions: [

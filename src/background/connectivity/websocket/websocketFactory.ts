@@ -5,6 +5,8 @@ export const websocketFactory = (() => {
 
     /**
      * Creates new websocket and closes the old one if found
+     * @param {string} url
+     * @returns {WebSocket}
      */
     const createWebsocket = (url: string): WebSocket => {
         if (!url) {

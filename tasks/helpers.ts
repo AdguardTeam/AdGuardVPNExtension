@@ -31,23 +31,27 @@ export const updateManifest = (manifestJson: Buffer, browserManifestDiff: { [key
 
 /**
  * Adds provided suffix for release build
+ * @param manifestJson
+ * @param env
+ * @param suffix
+ * @param isTarget
  */
 export const modifyExtensionName = (
-    locales: Buffer,
+    manifestJson: Buffer,
     env: string,
     suffix: string,
     isTarget: boolean = true,
 ): Buffer => {
     if (env !== Envs.Release || !isTarget) {
-        return locales;
+        return manifestJson;
     }
 
     try {
-        const localesJson = JSON.parse(locales.toString());
-        localesJson.name.message += suffix;
-        return Buffer.from(JSON.stringify(localesJson, null, 4));
+        const manifest = JSON.parse(manifestJson.toString());
+        manifest.name.message += suffix;
+        return Buffer.from(JSON.stringify(manifest, null, 4));
     } catch (e) {
-        throw new Error('Unable to parse json from locales');
+        throw new Error('Unable to parse json from manifest');
     }
 };
 

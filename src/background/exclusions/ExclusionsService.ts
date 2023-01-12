@@ -68,6 +68,8 @@ export class ExclusionsService {
 
     /**
      * Sets exclusions mode
+     * @param mode
+     * @param shouldNotifyOptionsPage
      */
     async setMode(mode: ExclusionsModes, shouldNotifyOptionsPage?: boolean) {
         await exclusionsManager.setCurrentMode(mode);
@@ -118,6 +120,7 @@ export class ExclusionsService {
 
     /**
      * Creates data prepared for adding exclusion from provided url
+     * @param url
      */
     supplementExclusion(url: string): AddExclusionArgs[] {
         const hostname = getHostname(url);
@@ -177,6 +180,7 @@ export class ExclusionsService {
 
     /**
      * Creates data necessary for exclusions to add
+     * @param exclusions
      */
     supplementExclusions(exclusions: string[]) {
         return exclusions.flatMap((ex) => {
@@ -186,6 +190,7 @@ export class ExclusionsService {
 
     /**
      * Adds url to exclusions and returns amount of added exclusions
+     * @param url
      */
     async addUrlToExclusions(url: string): Promise<number> {
         this.savePreviousExclusions();
@@ -298,6 +303,7 @@ export class ExclusionsService {
 
     /**
      * Adds services to exclusions and returns amount of added exclusions
+     * @param serviceIds
      */
     async addServices(serviceIds: string[]): Promise<number> {
         const servicesDomainsToAdd = serviceIds.map((id) => {
@@ -325,6 +331,7 @@ export class ExclusionsService {
 
     /**
      * Checks provided exclusion is main domain exclusion
+     * @param exclusionNode
      */
     isBasicExclusion(exclusionNode: ExclusionNode | null): boolean {
         return !exclusionNode?.hostname.match(/.+\..+\./);
@@ -332,6 +339,7 @@ export class ExclusionsService {
 
     /**
      * Removes exclusion by id and returns amount of removed exclusions
+     * @param id
      */
     async removeExclusion(id: string): Promise<number> {
         this.savePreviousExclusions();
@@ -353,6 +361,7 @@ export class ExclusionsService {
 
     /**
      * Toggles exclusion state
+     * @param id
      */
     async toggleExclusionState(id: string) {
         const targetExclusionState = this.exclusionsTree.getExclusionState(id);
@@ -383,6 +392,7 @@ export class ExclusionsService {
 
     /**
      * Adds/removes services by provided ids:
+     * @param servicesIds
      */
     async toggleServices(servicesIds: string[]): Promise<ToggleServicesResult> {
         this.savePreviousExclusions();
@@ -413,6 +423,7 @@ export class ExclusionsService {
 
     /**
      * Disables vpn for provided url
+     * @param url
      */
     async disableVpnByUrl(url: string) {
         if (this.isInverted()) {
@@ -426,6 +437,7 @@ export class ExclusionsService {
 
     /**
      * Enables vpn for provided url
+     * @param url
      */
     async enableVpnByUrl(url: string) {
         if (this.isInverted()) {
@@ -440,6 +452,7 @@ export class ExclusionsService {
     /**
      * Checks if vpn is enabled for url
      * If this function is called when currentHandler is not set yet, it returns true
+     * @param url
      */
     isVpnEnabledByUrl(url: string) {
         if (!url || !exclusionsManager.currentHandler) {
@@ -459,6 +472,7 @@ export class ExclusionsService {
      * restores exclusions groups for service domains
      * enables main domain exclusions and all subdomains exclusions
      * doesn't affect for manually added subdomains
+     * @param id
      */
     async resetServiceData(id: string) {
         const defaultServiceData = servicesManager.getService(id);
@@ -488,6 +502,7 @@ export class ExclusionsService {
 
     /**
      * Returns the string with the list of exclusions hostnames
+     * @param exclusions
      */
     prepareExclusionsForExport(exclusions: ExclusionInterface[]): string {
         return exclusions.map((ex) => {
@@ -519,6 +534,7 @@ export class ExclusionsService {
     /**
      * Adds provided exclusions to the general list
      * and returns amount of added exclusions
+     * @param exclusions
      */
     async addGeneralExclusions(exclusions: string[]) {
         this.savePreviousExclusions();
@@ -537,6 +553,7 @@ export class ExclusionsService {
     /**
      * Adds provided exclusions to the selective list
      * and returns amount of added exclusions
+     * @param exclusions
      */
     async addSelectiveExclusions(exclusions: string[]) {
         this.savePreviousExclusions();

@@ -57,6 +57,7 @@ class Tabs implements TabsInterface {
 
     /**
      * Converts browser tab info into simplified presentation of tab
+     * @param tab
      */
     prepareTab = (tab: browser.Tabs.Tab): PreparedTab => {
         const { id, url } = tab;
@@ -84,6 +85,8 @@ class Tabs implements TabsInterface {
 
     /**
      * Closes one or more tabs.
+     * @param {(number|number[])} tabsIds
+     * @returns {Promise<void>}
      */
     async closeTab(tabsIds: number[] | number): Promise<void> {
         await browser.tabs.remove(tabsIds);

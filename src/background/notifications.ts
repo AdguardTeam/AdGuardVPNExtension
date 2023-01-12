@@ -13,6 +13,7 @@ interface NotificationsInterface {
 class Notifications implements NotificationsInterface {
     /**
      * Creates notification with provided message
+     * @param options
      */
     create = async (options: { title?: string, message: string }): Promise<void> => {
         const notificationOptions: browser.Notifications.CreateNotificationOptions = {

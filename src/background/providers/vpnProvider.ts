@@ -110,6 +110,9 @@ export interface VpnProviderInterface {
 
 /**
  * Prepares locations data
+ * @param appId
+ * @param vpnToken
+ * @returns {Promise<*>}
  */
 const getLocationsData = async (
     appId: string,

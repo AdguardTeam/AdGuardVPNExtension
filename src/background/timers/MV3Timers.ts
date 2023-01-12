@@ -1,21 +1,9 @@
-import { customAlphabet } from 'nanoid';
-
 import { alarmApi } from './alarmApi';
 import { TimersInterface } from './AbstractTimers';
 
-/**
- * Implements timers interface via Alarm API to be used in MV3.
- * Alarm API used in MV3 for long timers, that could be interrupted by the service worker's death.
- */
-class Mv3Timers implements TimersInterface {
-    generateId() {
-        const nanoid = customAlphabet('1234567890', 10);
-        const id = nanoid();
-        return parseInt(id, 10);
-    }
-
+class MV3Timers implements TimersInterface {
     setTimeout = (callback: () => void, timeout: number): number => {
-        const timerId = this.generateId();
+        const timerId = Math.random();
         alarmApi.createAlarm(`${timerId}`, timeout);
         alarmApi.onAlarmFires(`${timerId}`, callback);
         return timerId;
@@ -26,7 +14,7 @@ class Mv3Timers implements TimersInterface {
     };
 
     setInterval = (callback: () => void, interval: number): number => {
-        const timerId = this.generateId();
+        const timerId = Math.random();
         alarmApi.createPeriodicAlarm(`${timerId}`, interval);
         alarmApi.onAlarmFires(`${timerId}`, callback);
         return timerId;
@@ -37,4 +25,4 @@ class Mv3Timers implements TimersInterface {
     };
 }
 
-export const timers = new Mv3Timers();
+export const timers = new MV3Timers();

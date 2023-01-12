@@ -69,6 +69,9 @@ class Endpoints implements EndpointsInterface {
 
     /**
      * Reconnects to the new endpoint
+     * @param {Endpoint} endpoint
+     * @param {Location} location
+     * @returns {Promise<void>}
      */
     reconnectEndpoint = async (
         endpoint: EndpointInterface,
@@ -84,7 +87,9 @@ class Endpoints implements EndpointsInterface {
     /**
      * Returns closest endpoint, firstly checking if locations object includes
      * endpoint with same city name
-     * locations - locations list
+     * @param {Location[]} locations - locations list
+     * @param {Location} targetLocation
+     * @returns {Location}
      */
     getClosestLocation = (
         locations: LocationInterface[],
@@ -176,6 +181,9 @@ class Endpoints implements EndpointsInterface {
 
     /**
      * Returns list of locations which fit to token
+     * @param locations
+     * @param isPremiumToken
+     * @returns {*}
      */
     filterLocationsMatchingToken = (
         locations: LocationInterface[],
@@ -208,6 +216,8 @@ class Endpoints implements EndpointsInterface {
 
     /**
      * Updates locations list
+     * @param shouldReconnect
+     * @returns {Promise<void>}
      */
     updateLocations = async (shouldReconnect = false): Promise<void> => {
         const locations = await this.getLocationsFromServer();

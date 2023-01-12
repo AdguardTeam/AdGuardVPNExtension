@@ -27,7 +27,6 @@
     // - noImplicitThis
     // - strictBindCallApply
     "strict": true,
-    // TODO: remove useUnknownInCatchVariables from config
     "useUnknownInCatchVariables": false
   }
 }

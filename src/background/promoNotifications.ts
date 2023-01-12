@@ -273,6 +273,8 @@ const getLastNotificationTime = async (): Promise<number> => {
 
 /**
  * Scans notification locales and returns the one matching navigator.language
+ * @param {*} notification notification object
+ * @returns {string} matching text or null
  */
 const getNotificationText = (notification: PromoNotificationData): { title: string, btn: string } | null => {
     const language = normalizeLanguage(browser.i18n.getUILanguage());
@@ -323,7 +325,7 @@ let timeoutId: number;
 
 /**
  * Marks current notification as viewed
- * if withDelay is true, do this after a 30 sec delay
+ * @param {boolean} withDelay if true, do this after a 30 sec delay
  */
 const setNotificationViewed = async (withDelay: boolean): Promise<void> => {
     if (withDelay) {
@@ -331,7 +333,6 @@ const setNotificationViewed = async (withDelay: boolean): Promise<void> => {
         timeoutId = timers.setTimeout(() => {
             setNotificationViewed(false);
         }, NOTIFICATION_DELAY);
-        return;
     }
 
     if (currentNotification) {

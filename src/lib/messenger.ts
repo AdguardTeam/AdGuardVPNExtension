@@ -29,8 +29,8 @@ class Messenger {
 
     /**
      * Used to receive notifications from background page
-     * events - Events for listening
-     * callback - Event listener callback
+     * @param events Events for listening
+     * @param callback Event listener callback
      */
     createEventListener = async (events: NotifierType[], callback: (...args: Message[]) => void) => {
         const eventListener = (...args: Message[]) => {
@@ -64,6 +64,9 @@ class Messenger {
 
     /**
      * Creates long lived connections between popup and background page
+     * @param events
+     * @param callback
+     * @returns {function}
      */
     createLongLivedConnection = (events: NotifierType[], callback: (...args: Message[]) => void) => {
         const eventListener = (...args: { type: NotifierType; data: string; }[]) => {
@@ -337,6 +340,8 @@ class Messenger {
 
     /**
      * Sets value for key in flags storage
+     * @param key
+     * @param value
      */
     async setFlag(key: string, value: string | boolean) {
         const type = MessageType.SET_FLAG;

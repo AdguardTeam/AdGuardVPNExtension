@@ -108,6 +108,8 @@ const enableProxy = async (force?: boolean): Promise<void> => {
 
 /**
  * Checks if setting is enabled
+ * @param settingId
+ * @returns {boolean}
  */
 const isSettingEnabled = (settingId: string): boolean => {
     const enabledSettingValue = true;

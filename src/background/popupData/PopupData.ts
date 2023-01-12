@@ -1,7 +1,6 @@
 import throttle from 'lodash/throttle';
 import isEmpty from 'lodash/isEmpty';
-
-import { State as ConnectivityState } from '../connectivity/connectivityService/connectivityConstants';
+import { StateValue } from 'xstate/lib/types';
 
 import { log } from '../../lib/logger';
 import { connectivityService } from '../connectivity/connectivityService/connectivityFSM';
@@ -48,9 +47,7 @@ interface PopupDataInterface {
     isProxyEnabled?: boolean;
     isRoutable?: boolean;
     isPremiumToken?: boolean;
-    connectivityState?: {
-        value: ConnectivityState,
-    };
+    connectivityState?: StateValue;
     promoNotification?: PromoNotificationData | null;
     desktopVpnEnabled?: boolean;
     isFirstRun?: boolean;
@@ -61,6 +58,11 @@ interface PopupDataInterface {
     shouldShowRateModal?: boolean;
     username?: string | null;
 }
+
+// interface PopupDataNotAuthenticated {
+//     isAuthenticated: string | boolean;
+//     policyAgreement: boolean;
+// }
 
 interface PopupDataRetry extends PopupDataInterface {
     hasRequiredData: boolean;
@@ -124,7 +126,7 @@ export class PopupData {
         const canControlProxy = await appStatus.canControlProxy();
         const isProxyEnabled = settings.isProxyEnabled();
         const isPremiumToken = await this.credentials.isPremiumToken();
-        const connectivityState = { value: <ConnectivityState>connectivityService.state.value };
+        const connectivityState = { value: connectivityService.state.value };
         const desktopVpnEnabled = await this.getDesktopEnabled();
         const promoNotification = await promoNotifications.getCurrentNotification();
         const { isFirstRun } = updateService;

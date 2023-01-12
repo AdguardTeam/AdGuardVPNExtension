@@ -47,7 +47,7 @@ class EndpointsTldExclusions {
 
     /**
      * Adds endpoints tld exclusions
-     * endpointsTlds - list of second level domains parsed from the endpoints
+     * @param {string[]} endpointsTlds - list of second level domains parsed from the endpoints
      */
     addEndpointsTldExclusions = async (endpointsTlds: string[]) => {
         const endpointsTldExclusions = this.convertEndpointTldToExclusion(endpointsTlds);
@@ -57,7 +57,8 @@ class EndpointsTldExclusions {
 
     /**
      * Converts endpoints tld to exclusion
-     * endpointsTlds - endpoints top level domains
+     * @param {string[]} endpointsTlds - endpoints top level domains
+     * @returns {string[]}
      */
     convertEndpointTldToExclusion = (endpointsTlds: string[]) => {
         const endpointsTldExclusions = endpointsTlds.map((endpointTld) => {
@@ -69,6 +70,7 @@ class EndpointsTldExclusions {
 
     /**
      * Updates endpoints top level domains if necessary and notifies proxy to generate new pac file
+     * @param endpointsTldExclusions
      */
     handleEndpointsTldExclusionsListUpdate = async (endpointsTldExclusions: string[]) => {
         // if lists have same values, do nothing

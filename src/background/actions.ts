@@ -87,6 +87,8 @@ const setBadge = async (details: SetBadgeDetailsType): Promise<void> => {
  * Sets icon enabled. In order to remove blinking we set icon twice:
  * 1. for general browser action
  * 2. for tab browser action if tabId is provided
+ * @param tabId
+ * @returns {Promise<void>}
  */
 const setIconEnabled = async (tabId: number): Promise<void> => {
     const details: SetIconDetailsType = { path: Prefs.ICONS.ENABLED };
@@ -107,6 +109,8 @@ const setIconEnabled = async (tabId: number): Promise<void> => {
  * Sets browser cation icon disabled. In order to remove blinking we set icon twice:
  * 1. for general browser action
  * 2. for tab browser action if tabId is provided
+ * @param {number|null} tabId
+ * @returns {Promise<void>}
  */
 const setIconDisabled = async (tabId: number): Promise<void> => {
     const details: SetIconDetailsType = { path: Prefs.ICONS.DISABLED };
@@ -126,6 +130,8 @@ const setIconDisabled = async (tabId: number): Promise<void> => {
 
 /**
  * Sets browser action icon when traffic is off
+ * @param tabId
+ * @returns {Promise<void>}
  */
 const setIconTrafficOff = async (tabId: number): Promise<void> => {
     const details: SetIconDetailsType = { path: Prefs.ICONS.TRAFFIC_OFF };

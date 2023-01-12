@@ -32,6 +32,7 @@ class RateModal implements RateModalInterface {
 
     /**
      * Sets login time from browser storage
+     * @param value
      */
     setLoginTime = async (value: number | null): Promise<void> => {
         await browserApi.storage.set(OPEN_RATE_MODAL_COUNTDOWN_KEY, value);

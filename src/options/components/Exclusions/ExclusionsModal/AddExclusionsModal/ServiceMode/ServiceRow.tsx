@@ -10,6 +10,8 @@ import './service-mode.pcss';
 
 /**
  * Returns true if service can be added, and returns false if service can be removed
+ * @param service
+ * @param servicesToToggle
  */
 export const canAddService = (service: ServiceDto, servicesToToggle: string[]) => {
     const isInToggle = servicesToToggle.some((serviceId) => serviceId === service.serviceId);

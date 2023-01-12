@@ -30,6 +30,7 @@ interface ProxyErrorCallback {
 
 /**
  * Converts proxyConfig to firefoxConfig
+ * @param proxyConfig
  */
 const convertToFirefoxConfig = (proxyConfig: ProxyConfigInterface): FirefoxProxyConfig => {
     const {
@@ -121,6 +122,8 @@ const proxyHandler = (details: browser.Proxy.OnRequestDetailsType) => {
 
 /**
  * Updates proxy config
+ * @param proxyConfig
+ * @returns {Promise<void>}
  */
 const proxySet = async (proxyConfig: ProxyConfigInterface) => {
     globalFirefoxConfig = convertToFirefoxConfig(proxyConfig);

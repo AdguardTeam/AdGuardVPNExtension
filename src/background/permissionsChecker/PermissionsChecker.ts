@@ -166,7 +166,7 @@ export class PermissionsChecker implements PermissionsCheckerInterface {
 
     handleUserAuthentication = async (): Promise<void> => {
         this.permissionsError.clearError();
-        this.startChecker();
+        await this.startChecker();
         await this.planCredentialsCheckBeforeExpired();
     };
 

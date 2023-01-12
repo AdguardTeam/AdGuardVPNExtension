@@ -317,6 +317,7 @@ export class ExclusionsStore {
     /**
      * Goes one level up if selected exclusion doesn't have more exclusions
      * or if it was exclusion with base domain
+     * @param exclusion
      */
     updateSelectedExclusionOnRemove(exclusion: ExclusionDtoInterface) {
         if (!exclusion.parentId) {
@@ -463,6 +464,7 @@ export class ExclusionsStore {
      * Checks is services is in default state:
      * 1. all exclusions groups are presented in service
      * 2. domain and subdomain pattern exclusions are presented and enabled
+     * @param id
      */
     isServiceDefaultState = (id: string) => {
         const defaultServiceData = this.preparedServicesData.services[id];
@@ -488,6 +490,7 @@ export class ExclusionsStore {
 
     /**
      * Checks if provided url is valid domain
+     * @param url
      */
     validateUrl = (url: string): boolean => {
         const isValidDomain = !!getDomain(url);

@@ -4,6 +4,12 @@ import { PAC_SCRIPT_CHECK_URL } from '../proxyConsts';
 
 /**
  * Generates PAC script for proxy considering exclusions list
+ * @param proxy
+ * @param exclusionsList
+ * @param inverted
+ * @param defaultExclusions
+ * @param nonRoutableNets
+ * @returns {string}
  */
 function proxyPacScript(
     proxy: string,
@@ -67,6 +73,15 @@ function directPacScript() {
     }`;
 }
 
+/**
+ *
+ * @param {string} proxy
+ * @param {string[]} exclusionsList
+ * @param {boolean} inverted
+ * @param {string[]} defaultExclusions
+ * @param {string[]} nonRoutableCidrNets
+ * @return {string}
+ */
 const generate = (
     proxy: string,
     exclusionsList: string[] = [],

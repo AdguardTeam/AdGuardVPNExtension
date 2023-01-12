@@ -102,6 +102,8 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
 
     /**
      * Handles WebSocket close events
+     * @param closeEvent
+     * @returns {Promise<void>}
      */
     handleWebsocketClose = async (closeEvent: WebSocketEventMap['close']): Promise<void> => {
         log.debug('WS closed:', closeEvent);
@@ -269,6 +271,8 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
 
     /**
      * Handles info message, updates stats or sends message to update tokens
+     * @param infoMsg
+     * @returns {Promise<void>}
      */
     handleInfoMsg = async (infoMsg : { refreshTokens: boolean }): Promise<void> => {
         const { refreshTokens } = infoMsg;
