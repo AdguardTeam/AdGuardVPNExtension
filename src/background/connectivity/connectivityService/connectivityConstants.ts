@@ -9,69 +9,69 @@ export enum Event {
     /**
      * Fires when user presses connect button, or when user connects to another location
      */
-    ConnectBtnPressed = 'connect_btn_pressed',
+    ConnectBtnPressed = 'connectBtnPressed',
 
     /**
      * Fires when user presses disconnect button, or when user connects to another location
      */
-    DisconnectBtnPressed = 'disconnect_btn_pressed',
+    DisconnectBtnPressed = 'disconnectBtnPressed',
 
     /**
      *  Fires when extension applies settings after browser launched or extension updated.
      *  If earlier the extension was connected to some endpoint - the event forces extension
      *  to reconnect to that endpoint.
      */
-    ExtensionLaunched = 'extension_launched',
+    ExtensionLaunched = 'extensionLaunched',
 
     /**
      * Fires when WS successfully connects to endpoint and applies proxy settings in browser api
      */
-    ConnectionSuccess = 'connection_success',
+    ConnectionSuccess = 'connectionSuccess',
 
     /**
      * Fires when proxy can't
      * 1. measure ping to endpoint,
      * 2. send first ping message to WS after connection
      */
-    ConnectionFail = 'connection_fail',
+    ConnectionFail = 'connectionFail',
 
     /**
      * Fires on WS error event
      */
-    WsError = 'ws_error',
+    WsError = 'wsError',
 
     /**
      * Fires on WS close event. This event can fire when WS connection was closed externally,
      * or by extension on connection timeout
      */
-    WsClose = 'ws_close',
+    WsClose = 'wsClose',
 
     /**
      * Fires when browser is getting online, then we retry to connect to WS immediately
      */
-    NetworkOnline = 'network_online',
+    NetworkOnline = 'networkOnline',
 
     /**
      * Fires when browser is getting offline, then we stop trying to connect
      * Notice this is not used in the extension, but do not delete it
      */
-    NetworkOffline = 'network_offline',
+    NetworkOffline = 'networkOffline',
 
     /**
      * Fires when we can't set proxy setting in the browser api,
      * because other extension is controlling proxy settings
      */
-    ProxyConnectionError = 'proxy_connection_error',
+    ProxyConnectionError = 'proxyConnectionError',
 
     /**
      * Fires when too many devices are connected and we should disable connection
      */
-    TooManyDevicesConnected = 'too_many_devices_connected',
+    TooManyDevicesConnected = 'tooManyDevicesConnected',
 
     /**
      * Fires when vpn enabled in desktop app
      */
-    DesktopVpnEnabled = 'DESKTOP_VPN_ENABLED',
+    DesktopVpnEnabled = 'desktopVpnEnabled',
 }
 
 /**

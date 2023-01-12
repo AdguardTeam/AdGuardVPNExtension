@@ -24,6 +24,16 @@ interface EndpointConnectivityInterface {
     stop(): Promise<void>;
 }
 
+/**
+ * Error codes from backend
+ */
+enum ErrorCode {
+    NonRoutableCode = 'NON_ROUTABLE',
+    TooManyDevicesConnected = 'TOO_MANY_DEVICES_CONNECTED',
+    TrafficLimitReached = 'TRAFFIC_LIMIT_REACHED',
+    FreeTrafficLeftMegabytes = 'FREE_TRAFFIC_LEFT_MEGABYTES',
+}
+
 export class EndpointConnectivity implements EndpointConnectivityInterface {
     PING_SEND_INTERVAL_MS = 1000 * 60;
 
@@ -281,27 +291,22 @@ export class EndpointConnectivity implements EndpointConnectivityInterface {
     };
 
     handleErrorMsg = async (connectivityErrorMsg: { code: string, payload: number }): Promise<void> => {
-        const NON_ROUTABLE_CODE = 'NON_ROUTABLE';
-        const TOO_MANY_DEVICES_CONNECTED = 'TOO_MANY_DEVICES_CONNECTED';
-        const TRAFFIC_LIMIT_REACHED = 'TRAFFIC_LIMIT_REACHED';
-        const FREE_TRAFFIC_LEFT_MEGABYTES = 'FREE_TRAFFIC_LEFT_MEGABYTES';
-
         const { code, payload } = connectivityErrorMsg;
 
-        if (code === NON_ROUTABLE_CODE) {
+        if (code === ErrorCode.NonRoutableCode) {
             notifier.notifyListeners(notifier.types.NON_ROUTABLE_DOMAIN_FOUND, payload);
         }
-        if (code === TOO_MANY_DEVICES_CONNECTED) {
+        if (code === ErrorCode.TooManyDevicesConnected) {
             notifier.notifyListeners(notifier.types.TOO_MANY_DEVICES_CONNECTED, payload);
             connectivityService.send(Event.TooManyDevicesConnected);
         }
-        if (code === TRAFFIC_LIMIT_REACHED) {
+        if (code === ErrorCode.TrafficLimitReached) {
             await notifications.create({
                 title: translator.getMessage('notification_data_limit_reached_title'),
                 message: translator.getMessage('notification_data_limit_reached_description'),
             });
         }
-        if (code === FREE_TRAFFIC_LEFT_MEGABYTES) {
+        if (code === ErrorCode.FreeTrafficLeftMegabytes) {
             await notifications.create({
                 title: translator.getMessage('notification_data_left_mb', { num: payload }),
                 message: translator.getMessage('notification_data_left_description'),

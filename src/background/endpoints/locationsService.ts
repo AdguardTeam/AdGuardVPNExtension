@@ -2,7 +2,7 @@ import isEmpty from 'lodash/isEmpty';
 import { log } from '../../lib/logger';
 import { measurePingWithinLimits } from '../connectivity/pingHelpers';
 import { notifier } from '../../lib/notifier';
-import { LocationWithPing, LocationWithPingProps } from './LocationWithPing';
+import { LocationWithPing, LocationWithPingInterface } from './LocationWithPing';
 import { vpnProvider } from '../providers/vpnProvider';
 import { Location, LocationInterface, LocationData } from './Location';
 import { SETTINGS_IDS } from '../../lib/constants';
@@ -118,7 +118,7 @@ const getLocationsWithPing = (): LocationWithPing[] => {
             setLocationAvailableState(location, cachedPingData.available);
         }
         // after setting ping to location, it's type turns from LocationInterface to LocationWithPing
-        return new LocationWithPing(<LocationWithPingProps>location);
+        return new LocationWithPing(<LocationWithPingInterface>location);
     });
 };
 
