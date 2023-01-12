@@ -33,7 +33,7 @@ const readFile = (file: Blob): Promise<string> => {
         const reader = new FileReader();
 
         reader.onload = () => {
-            resolve(<string>reader.result!);
+            resolve(<string>reader.result);
         };
 
         reader.onerror = reject;

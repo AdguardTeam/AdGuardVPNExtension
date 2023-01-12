@@ -23,6 +23,8 @@ type HostnameData = {
     url: string,
 };
 
+type HostnameMap = Map<string, HostnameData>;
+
 const IPV6 = 'ipv6';
 
 /**
@@ -93,19 +95,19 @@ export class NonRoutableService implements NonRoutableServiceInterface {
     /**
      * Storage for hostnames from request errors
      */
-    webRequestErrorHostnames: Storage | Map<string, HostnameData> = new Map();
+    webRequestErrorHostnames: Storage | HostnameMap = new Map();
 
     /**
      * Storage for for hostnames from non-routable events
      */
-    nonRoutableHostnames: Storage | Map<string, HostnameData> = new Map();
+    nonRoutableHostnames: Storage | HostnameMap = new Map();
 
     /**
      * Looks up for hostname in the storage, if found removes it from storage
      */
     getByHostname = (
         hostname: string,
-        storage: Storage | Map<string, HostnameData>,
+        storage: Storage | HostnameMap,
     ): null | HostnameData => {
         if (storage.has(hostname)) {
             const value = storage.get(hostname);
@@ -120,13 +122,15 @@ export class NonRoutableService implements NonRoutableServiceInterface {
      * Clears values in the storage with timestamp older then VALUE_TTL_MS
      * @param storage
      */
-    clearStaleValues = (storage: Storage | Map<string, HostnameData>): void => {
+    clearStaleValues = (storage: Storage | HostnameMap): void => {
         const VALUE_TTL_MS = 1000;
         const currentTime = Date.now();
 
-        storage.forEach((entry: { key: string, value: HostnameData }) => {
-            if (entry.value.timeAdded < (currentTime - VALUE_TTL_MS)) {
-                storage.delete(entry.key);
+        const storageKeys = Object.keys(storage);
+        storageKeys.forEach((key: string) => {
+            const value = storage[key as keyof (HostnameMap | Storage)];
+            if (value.timeAdded < (currentTime - VALUE_TTL_MS)) {
+                storage.delete(key);
             }
         });
     };

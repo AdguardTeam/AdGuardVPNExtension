@@ -74,11 +74,10 @@ export class Notifier {
     }
 
     /**
-     * Subscribes listener to the specified events
+     * Subscribes listener to the specified events and returns index of the listener
      *
      * @param events - List of event types listener will be notified of
      * @param listener - Listener object
-     * returns Index of the listener
      */
     addSpecifiedListener(events: string | string[], listener: ListenerHandler): string {
         if (typeof listener !== 'function') {
@@ -95,10 +94,8 @@ export class Notifier {
     }
 
     /**
-     * Subscribe specified listener to all events
-     *
+     * Subscribes specified listener to all events and returns index of the listener
      * @param listener Listener
-     * returns Index of the listener
      */
     addListener(listener: ListenerHandler): string {
         if (typeof listener !== 'function') {
