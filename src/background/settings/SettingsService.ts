@@ -214,7 +214,9 @@ export class SettingsService {
     migrateFrom10to11 = (oldSettings: Settings) => {
         if (browserApi.runtime.isManifestVersion2()) {
             const appearanceTheme = localStorage.getItem(THEME_STORAGE_KEY);
-            browserApi.storage.set(THEME_STORAGE_KEY, appearanceTheme);
+            if (appearanceTheme) {
+                browserApi.storage.set(THEME_STORAGE_KEY, appearanceTheme);
+            }
         }
         return oldSettings;
     };
