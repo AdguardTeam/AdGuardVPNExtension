@@ -9,6 +9,7 @@ import { notifier } from '../../lib/notifier';
 import { NON_ROUTABLE_CIDR_NETS } from './constants';
 import { tabs } from '../tabs';
 import { getHostname } from '../../common/url-utils';
+import type { Storage } from '../browserApi/storage';
 
 export interface NonRoutableServiceInterface {
     init(): Promise<void>;
@@ -60,11 +61,11 @@ export class NonRoutableService implements NonRoutableServiceInterface {
 
     nonRoutableList: string[] = [];
 
-    private storage: HostnameMap;
+    private storage: Storage;
 
     private parsedCIDRList: [(ipaddr.IPv4 | ipaddr.IPv6), number][];
 
-    constructor(storage: HostnameMap) {
+    constructor(storage: Storage) {
         this.storage = storage;
         this.parsedCIDRList = NON_ROUTABLE_CIDR_NETS.map((net) => ipaddr.parseCIDR(net));
     }
@@ -106,7 +107,7 @@ export class NonRoutableService implements NonRoutableServiceInterface {
      */
     getByHostname = (
         hostname: string,
-        storage: HostnameMap | Map<string, string[]>,
+        storage: HostnameMap,
     ): HostnameData | string [] | null => {
         if (storage.has(hostname)) {
             const value = storage.get(hostname);
@@ -130,7 +131,7 @@ export class NonRoutableService implements NonRoutableServiceInterface {
         const storageKeys = Object.keys(storage);
         storageKeys.forEach((key: string) => {
             const value = <HostnameData>storage.get(key);
-            if (value && value.timeAdded < (currentTime - VALUE_TTL_MS)) {
+            if ((value).timeAdded < (currentTime - VALUE_TTL_MS)) {
                 storage.delete(key);
             }
         });
