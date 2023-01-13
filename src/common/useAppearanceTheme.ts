@@ -1,24 +1,25 @@
 import throttle from 'lodash/throttle';
 import { useLayoutEffect } from 'react';
+import { browserApi } from '../background/browserApi';
 
 import { APPEARANCE_THEMES } from '../lib/constants';
-import { browserLocalStorage } from '../background/localStorage';
+
+export const THEME_STORAGE_KEY = 'appearance_theme';
 
 export const useAppearanceTheme = (appearanceTheme: string | null) => {
     useLayoutEffect(() => {
-        const STORAGE_KEY = 'appearance_theme';
         const DARK_THEME_CLASS = 'dark-mode';
         const LIGHT_THEME_CLASS = 'light-mode';
         const SET_TO_STORAGE_TIMEOUT = 500;
 
         const throttledSetToStorage = throttle(async (mode: string) => {
-            await browserLocalStorage.setItem(STORAGE_KEY, mode);
+            await browserApi.storage.set(THEME_STORAGE_KEY, mode);
         }, SET_TO_STORAGE_TIMEOUT);
 
         let theme = appearanceTheme;
 
         const getThemeFromLocalStorage = async () => {
-            return browserLocalStorage.getItem(STORAGE_KEY);
+            return browserApi.storage.get(THEME_STORAGE_KEY);
         };
 
         (async () => {

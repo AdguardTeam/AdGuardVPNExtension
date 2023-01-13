@@ -11,8 +11,9 @@ import {
 import { ExclusionState } from '../../common/exclusionsConstants';
 import { StorageInterface } from '../browserApi/storage';
 import { ExclusionInterface } from '../exclusions/exclusions/exclusionsTypes';
+import { THEME_STORAGE_KEY } from '../../common/useAppearanceTheme';
 
-const SCHEME_VERSION = '10';
+const SCHEME_VERSION = '11';
 const THROTTLE_TIMEOUT = 100;
 
 type Settings = {
@@ -210,6 +211,14 @@ export class SettingsService {
         };
     };
 
+    migrateFrom10to11 = (oldSettings: Settings) => {
+        if (browserApi.runtime.isManifestVersion2()) {
+            const appearanceTheme = localStorage.getItem(THEME_STORAGE_KEY);
+            browserApi.storage.set(THEME_STORAGE_KEY, appearanceTheme);
+        }
+        return oldSettings;
+    };
+
     /**
      * In order to add migration, create new function which modifies old settings into new
      * And add this migration under related old settings scheme version
@@ -226,6 +235,7 @@ export class SettingsService {
         7: this.migrateFrom7to8,
         8: this.migrateFrom8to9,
         9: this.migrateFrom9to10,
+        10: this.migrateFrom10to11,
     };
 
     async applyMigrations(oldVersion: number, newVersion: number, oldSettings: Settings): Promise<Settings> {

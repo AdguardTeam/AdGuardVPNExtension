@@ -9,7 +9,6 @@ import { notifier } from '../../lib/notifier';
 import { NON_ROUTABLE_CIDR_NETS } from './constants';
 import { tabs } from '../tabs';
 import { getHostname } from '../../common/url-utils';
-import { StorageInterface } from '../browserApi/storage';
 
 export interface NonRoutableServiceInterface {
     init(): Promise<void>;
@@ -19,11 +18,11 @@ export interface NonRoutableServiceInterface {
 
 type HostnameData = {
     timeAdded: number,
-    tabId: number,
-    url: string,
+    tabId?: number,
+    url?: string,
 };
 
-type HostnameMap = Map<string, HostnameData>;
+export type HostnameMap = Map<string, HostnameData | string[]>;
 
 const IPV6 = 'ipv6';
 
@@ -61,17 +60,17 @@ export class NonRoutableService implements NonRoutableServiceInterface {
 
     nonRoutableList: string[] = [];
 
-    private storage: StorageInterface;
+    private storage: HostnameMap;
 
     private parsedCIDRList: [(ipaddr.IPv4 | ipaddr.IPv6), number][];
 
-    constructor(storage: StorageInterface) {
+    constructor(storage: HostnameMap) {
         this.storage = storage;
         this.parsedCIDRList = NON_ROUTABLE_CIDR_NETS.map((net) => ipaddr.parseCIDR(net));
     }
 
     async init(): Promise<void> {
-        this.nonRoutableList = (await this.storage.get(this.NON_ROUTABLE_KEY)) || [];
+        this.nonRoutableList = <string[]>(await this.storage.get(this.NON_ROUTABLE_KEY)) || [];
 
         notifier.addSpecifiedListener(
             notifier.types.NON_ROUTABLE_DOMAIN_FOUND,
@@ -95,24 +94,26 @@ export class NonRoutableService implements NonRoutableServiceInterface {
     /**
      * Storage for hostnames from request errors
      */
-    webRequestErrorHostnames: Storage | HostnameMap = new Map();
+    webRequestErrorHostnames: HostnameMap = new Map();
 
     /**
      * Storage for for hostnames from non-routable events
      */
-    nonRoutableHostnames: Storage | HostnameMap = new Map();
+    nonRoutableHostnames: HostnameMap = new Map();
 
     /**
      * Looks up for hostname in the storage, if found removes it from storage
      */
     getByHostname = (
         hostname: string,
-        storage: Storage | HostnameMap,
-    ): null | HostnameData => {
+        storage: HostnameMap | Map<string, string[]>,
+    ): HostnameData | string [] | null => {
         if (storage.has(hostname)) {
             const value = storage.get(hostname);
             storage.delete(hostname);
-            return value;
+            if (value) {
+                return value;
+            }
         }
 
         return null;
@@ -122,14 +123,14 @@ export class NonRoutableService implements NonRoutableServiceInterface {
      * Clears values in the storage with timestamp older then VALUE_TTL_MS
      * @param storage
      */
-    clearStaleValues = (storage: Storage | HostnameMap): void => {
+    clearStaleValues = (storage: HostnameMap): void => {
         const VALUE_TTL_MS = 1000;
         const currentTime = Date.now();
 
         const storageKeys = Object.keys(storage);
         storageKeys.forEach((key: string) => {
-            const value = storage[key as keyof (HostnameMap | Storage)];
-            if (value.timeAdded < (currentTime - VALUE_TTL_MS)) {
+            const value = <HostnameData>storage.get(key);
+            if (value && value.timeAdded < (currentTime - VALUE_TTL_MS)) {
                 storage.delete(key);
             }
         });
@@ -148,12 +149,12 @@ export class NonRoutableService implements NonRoutableServiceInterface {
         if (!hostname) {
             return;
         }
-        const webRequestError = this.getByHostname(hostname, this.webRequestErrorHostnames);
-        if (webRequestError) {
+        const webRequestError = <HostnameData> this.getByHostname(hostname, this.webRequestErrorHostnames);
+        if (webRequestError && webRequestError.tabId && webRequestError.url) {
             this.addNewNonRoutableDomain(hostname);
             tabs.update(webRequestError.tabId, webRequestError.url);
         } else {
-            this.nonRoutableHostnames.set(hostname, Date.now());
+            this.nonRoutableHostnames.set(hostname, { timeAdded: Date.now() });
         }
         this.clearStaleValues(this.nonRoutableHostnames);
     };

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { browserApi } from '../browserApi';
 
 import {
     AUTH_API_URL,
@@ -8,7 +9,6 @@ import {
 } from '../config';
 import { clearFromWrappingQuotes } from '../../lib/string-utils';
 import { log } from '../../lib/logger';
-import { browserLocalStorage } from '../localStorage';
 import { fetchConfig } from '../../lib/constants';
 
 export const DEFAULT_CACHE_EXPIRE_TIME_MS = 1000 * 60 * 5; // 5 minutes
@@ -168,7 +168,7 @@ export class FallbackApi {
      * Gets bkp flag value from local storage, used for testing purposes
      */
     private getLocalStorageBkp = async (): Promise<boolean> => {
-        const storedBkp = browserLocalStorage.getItem(BKP_KEY);
+        const storedBkp = await browserApi.storage.get(BKP_KEY);
         let localStorageBkp = Number.parseInt(String(storedBkp), 10);
 
         localStorageBkp = Number.isNaN(localStorageBkp) ? 0 : localStorageBkp;

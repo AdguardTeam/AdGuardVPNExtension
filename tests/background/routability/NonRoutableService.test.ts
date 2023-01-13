@@ -1,12 +1,11 @@
-import { NonRoutableService } from '../../../src/background/routability/NonRoutableService';
-import { StorageInterface } from '../../../src/background/browserApi/storage';
+import { HostnameMap, NonRoutableService } from '../../../src/background/routability/NonRoutableService';
 
 type TestStorage = {
     [key: string]: unknown;
 };
 
 // @ts-ignore
-const storage: StorageInterface = (() => {
+const storage: HostnameMap = (() => {
     const storage: TestStorage = {};
     return {
         set: jest.fn((key, data) => {
