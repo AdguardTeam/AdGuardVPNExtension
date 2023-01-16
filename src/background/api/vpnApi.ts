@@ -148,9 +148,13 @@ class VpnApi extends Api implements VpnApiInterface {
     getVpnCredentials = (appId: string, vpnToken: string): Promise<VpnCredentials> => {
         const { path, method } = this.GET_VPN_CREDENTIALS;
 
+        const language = browser.i18n.getUILanguage();
+
         const data = {
             app_id: appId,
             token: vpnToken,
+            language,
+            system_language: language,
         };
 
         const config = {
@@ -187,9 +191,13 @@ class VpnApi extends Api implements VpnApiInterface {
     postExtensionInstalled = (appId: string): Promise<PostExtensionInstalledData> => {
         const { path, method } = this.TRACK_EXTENSION_INSTALL;
 
+        const language = browser.i18n.getUILanguage();
+
         const config = {
             data: qs.stringify({
                 app_id: appId,
+                language,
+                system_language: language,
             }),
         };
 
