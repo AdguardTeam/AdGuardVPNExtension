@@ -6,6 +6,12 @@ describe('getETld', () => {
         expect(eTld).toEqual('example.org');
     });
 
+    it('returns eTld + 1 for domains longer then 63 symbols', () => {
+        const hostname = 'test-test-test-test-test-test-test-test-test-test-test-test-test-test.com';
+        const eTld = getETld(hostname);
+        expect(eTld).toEqual(hostname);
+    });
+
     it('returns eTld + 1 for wildcard', () => {
         const eTld = getETld('*.example.org');
         expect(eTld).toEqual('example.org');
