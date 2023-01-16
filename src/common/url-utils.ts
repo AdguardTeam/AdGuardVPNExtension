@@ -45,7 +45,8 @@ export const getETld = (hostname: string) => {
 
     const parts = hostnameWithoutWildcard.split(SEPARATOR);
     let domainParts = parts.splice(parts.length - 2, 2);
-    const domain = getDomain(domainParts.join(SEPARATOR));
+    // don't validate hostname to be able to add domain longer then 63 symbols
+    const domain = getDomain(domainParts.join(SEPARATOR), { validateHostname: false });
     if (domain) {
         return domain;
     }
