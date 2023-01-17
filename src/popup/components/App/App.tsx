@@ -32,6 +32,7 @@ import { UpgradeScreen } from '../Authentication/UpgradeScreen';
 import { DotsLoader } from '../../../common/components/DotsLoader';
 import { ReviewPopup } from '../ReviewPopup';
 import { ConfirmEmailModal, ConfirmEmailNotice } from '../ConfirmEmail';
+import { ServerErrorPopup } from '../ServerErrorPopup';
 
 export interface Message {
     type: NotifierType,
@@ -250,6 +251,7 @@ export const App = observer(() => {
             <Icons />
             <ConfirmEmailModal />
             <ReviewPopup />
+            <ServerErrorPopup />
         </>
     );
 });
