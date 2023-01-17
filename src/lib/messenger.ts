@@ -98,7 +98,7 @@ class Messenger {
         return onUnload;
     };
 
-    async getPopupData(url: string, numberOfTries: number) {
+    async getPopupData(url: string | null, numberOfTries: number) {
         const type = MessageType.GET_POPUP_DATA;
         return this.sendMessage(type, { url, numberOfTries });
     }

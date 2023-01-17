@@ -29,7 +29,6 @@
         "proxy",
         "storage",
         "unlimitedStorage",
-        "webRequest",
-        "tabs"
+        "webRequest"
     ]
 }
