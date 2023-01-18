@@ -222,7 +222,7 @@ const xmasPromo23Notification = {
     text: null,
     url: promoLink,
     from: '22 December 2022 15:00:00',
-    to: '22 January 2023 23:59:00',
+    to: '02 January 2023 23:59:00',
     type: 'animated',
     get icons() {
         return lazyGet(xmasPromo23Notification, 'icons', () => ({
