@@ -3,6 +3,7 @@ import { merge } from 'webpack-merge';
 import path from 'path';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ZipWebpackPlugin from 'zip-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 import { getCommonConfig } from '../webpack.common';
 import { updateManifest } from '../helpers';
@@ -12,7 +13,10 @@ import {
     IS_DEV,
     StageEnvs,
     Browsers,
+    SRC_PATH,
 } from '../consts';
+
+const BACKGROUND_PATH = path.resolve(__dirname, '..', SRC_PATH, 'background');
 
 const OPERA_PATH = 'opera';
 
@@ -38,6 +42,12 @@ const plugins = [
                 transform: (content: Buffer) => updateManifest(content, operaManifestDiff),
             },
         ],
+    }),
+    new HtmlWebpackPlugin({
+        template: path.join(BACKGROUND_PATH, 'index.html'),
+        filename: 'background.html',
+        chunks: ['background'],
+        cache: false,
     }),
     new ZipWebpackPlugin({
         path: '../',

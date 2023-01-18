@@ -27,13 +27,14 @@ export class GlobalStore {
 
         // Used tab api because calling tab api from background returns wrong result
         const tab = await tabs.getCurrent();
+        const url = tab.url || null;
 
         if (!tab.url) {
             return;
         }
 
         try {
-            const popupData = await messenger.getPopupData(tab.url, numberOfTries);
+            const popupData = await messenger.getPopupData(url, numberOfTries);
 
             const {
                 vpnInfo,

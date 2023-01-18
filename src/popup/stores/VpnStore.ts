@@ -221,7 +221,7 @@ export class VpnStore {
 
     @computed
     get remainingTraffic(): number {
-        if (this.vpnInfo.maxDownloadedBytes && this.vpnInfo.usedDownloadedBytes) {
+        if (this.vpnInfo.maxDownloadedBytes !== null && this.vpnInfo.usedDownloadedBytes !== null) {
             return this.vpnInfo.maxDownloadedBytes - this.vpnInfo.usedDownloadedBytes;
         }
         return 0;
