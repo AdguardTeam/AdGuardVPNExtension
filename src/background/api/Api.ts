@@ -2,6 +2,8 @@ import axios, { AxiosRequestConfig, Method } from 'axios';
 
 import { ERROR_STATUSES, fetchConfig } from '../../lib/constants';
 import { CustomError } from '../../lib/CustomError';
+import { notifier } from '../../lib/notifier';
+import { log } from '../../lib/logger';
 
 const REQUEST_TIMEOUT_MS = 1000 * 6; // 6 seconds
 
@@ -39,6 +41,10 @@ export class Api implements ApiInterface {
     async getBaseUrl(): Promise<string> {
         if (this.baseUrlFn) {
             const baseUrlStr = await this.baseUrlFn();
+            if (!baseUrlStr) {
+                log.error('Unable to get API url');
+                notifier.notifyListeners(notifier.types.SERVER_ERROR);
+            }
             return baseUrlStr;
         }
         return this.baseUrlStr;

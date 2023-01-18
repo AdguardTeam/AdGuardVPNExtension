@@ -122,6 +122,10 @@ export const App = observer(() => {
                     settingsStore.setDesktopVpnEnabled(data);
                     break;
                 }
+                case notifier.types.SERVER_ERROR: {
+                    settingsStore.openServerErrorPopup();
+                    break;
+                }
                 default: {
                     log.debug('there is no such message type: ', type);
                     break;
@@ -139,6 +143,7 @@ export const App = observer(() => {
             notifier.types.CONNECTIVITY_STATE_CHANGED,
             notifier.types.TOO_MANY_DEVICES_CONNECTED,
             notifier.types.CONNECTIVITY_DESKTOP_VPN_STATUS_CHANGED,
+            notifier.types.SERVER_ERROR,
         ];
 
         const onUnload = messenger.createLongLivedConnection(events, messageHandler);

@@ -707,6 +707,15 @@
     "popup_server_error_popup_cancel": {
         "message": "Cancel"
     },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Working on it"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Thanks for letting us know!"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Close"
+    },
     "options_title": {
         "message": "AdGuard VPN Options"
     },

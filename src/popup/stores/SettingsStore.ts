@@ -62,7 +62,7 @@ export class SettingsStore {
 
     @observable animationState: AnimationState = <AnimationState>animationService.initialState.value;
 
-    @observable showServerErrorPopup: boolean = true;
+    @observable showServerErrorPopup: boolean = false;
 
     rootStore: RootStore;
 
@@ -343,6 +343,10 @@ export class SettingsStore {
 
     handleAnimationEnd = (): void => {
         animationService.send(AnimationEvent.AnimationEnded);
+    };
+
+    @action openServerErrorPopup = (): void => {
+        this.showServerErrorPopup = true;
     };
 
     @action closeServerErrorPopup = (): void => {
