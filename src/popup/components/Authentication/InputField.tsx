@@ -9,7 +9,7 @@ interface InputFieldParameters {
     error?: string | null;
     className?: string;
     placeholder?: string;
-    label: string;
+    label?: string;
     disabled?: boolean;
 }
 

@@ -24,7 +24,8 @@ export const BackgroundAnimation = observer(({ exclusionsScreen }: BackgroundAni
 
     useEffect(() => {
         animationService.onTransition((state) => {
-            settingsStore.setAnimationState(state.value);
+            // new state value on transition is string, but it's actually AnimationState
+            settingsStore.setAnimationState(state.value as AnimationState);
         });
     });
 
@@ -36,7 +37,7 @@ export const BackgroundAnimation = observer(({ exclusionsScreen }: BackgroundAni
         animationSources = animationSourcesMap[appearanceTheme];
     }
 
-    let sourceUrl = animationSources[animationState as AnimationState];
+    let sourceUrl = animationSources[animationState];
 
     if (exclusionsScreen) {
         sourceUrl = animationSources[AnimationState.VpnDisabled];

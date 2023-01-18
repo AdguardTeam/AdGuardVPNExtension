@@ -1,21 +1,15 @@
 import qs from 'qs';
-import { Method } from 'axios';
 
 import { Api } from './Api';
 import { AUTH_CLIENT_ID } from '../config';
 import { fallbackApi } from './fallbackApi';
-import { AuthCredentials } from './apiTypes';
-
-type ApiEndpoint = {
-    path: string;
-    method: Method;
-};
+import { AuthCredentials, RequestProps } from './apiTypes';
 
 // Documentation
 // projects/ADGUARD/repos/adguard-auth-service/browse/oauth.md
 class AuthApi extends Api {
     // API ENDPOINTS
-    GET_TOKEN: ApiEndpoint = { path: 'oauth/token', method: 'POST' };
+    GET_TOKEN: RequestProps = { path: 'oauth/token', method: 'POST' };
 
     getAccessToken(credentials: AuthCredentials) {
         const { username, password, twoFactor } = credentials;
@@ -49,7 +43,7 @@ class AuthApi extends Api {
         return this.makeRequest(path, config, method);
     }
 
-    REGISTER_USER: ApiEndpoint = { path: 'api/2.0/registration', method: 'POST' };
+    REGISTER_USER: RequestProps = { path: 'api/2.0/registration', method: 'POST' };
 
     register(credentials: AuthCredentials) {
         const {
@@ -80,7 +74,7 @@ class AuthApi extends Api {
         return this.makeRequest(path, config, method);
     }
 
-    USER_LOOKUP: ApiEndpoint = { path: 'api/1.0/user_lookup', method: 'POST' };
+    USER_LOOKUP: RequestProps = { path: 'api/1.0/user_lookup', method: 'POST' };
 
     userLookup(email: string, appId: string) {
         const { path, method } = this.USER_LOOKUP;

@@ -87,10 +87,10 @@ export const processExclusionServicesDomains = (
                 domains,
             };
         })
-        .reduce((acc, service) => {
+        .reduce((acc: ExclusionServicesDomains, service) => {
             acc[service.serviceId] = service;
             return acc;
-        }, {} as ExclusionServicesDomains);
+        }, {});
 };
 
 /**
@@ -104,10 +104,10 @@ export const processExclusionServices = (
 ) => {
     const { categories = [], services = [] } = exclusionServices;
 
-    const processedCategories = categories.reduce((acc, category) => {
+    const processedCategories = categories.reduce((acc: ExclusionCategories, category) => {
         acc[category.id] = category;
         return acc;
-    }, {} as ExclusionCategories);
+    }, {});
 
     const processedServices = services
         .map((exclusionService) => {
@@ -127,10 +127,10 @@ export const processExclusionServices = (
                 modifiedTime,
             };
         })
-        .reduce((acc, service) => {
+        .reduce((acc: ExclusionServicesExceptDomains, service) => {
             acc[service.serviceId] = service;
             return acc;
-        }, {} as ExclusionServicesExceptDomains);
+        }, {});
 
     const servicesResult: ExclusionServices = {};
 

@@ -4,10 +4,11 @@ import webpack from 'webpack';
 
 import { bundleRunner } from './bundle-runner';
 import { chromeConfig } from './chrome/webpack.chrome';
+import { chromeConfigMV3 } from './chrome-mv3/webpack.chrome';
 import { firefoxConfig } from './firefox/webpack.firefox';
 import { operaConfig } from './opera/webpack.opera';
 import { edgeConfig } from './edge/webpack.edge';
-import { BROWSERS } from './consts';
+import { Browsers } from './consts';
 
 const createBundle = async (config: webpack.Configuration, watch: boolean): Promise<void> => {
     try {
@@ -20,6 +21,7 @@ const createBundle = async (config: webpack.Configuration, watch: boolean): Prom
 
 const buildAllBrowsers = async (): Promise<void> => {
     await createBundle(chromeConfig, program.watch);
+    await createBundle(chromeConfigMV3, program.watch);
     await createBundle(firefoxConfig, program.watch);
     await createBundle(operaConfig, program.watch);
     await createBundle(edgeConfig, program.watch);
@@ -29,28 +31,35 @@ program
     .option('--watch', 'Builds in watch mode', false);
 
 program
-    .command(BROWSERS.CHROME)
-    .description('Builds extension for chrome browser')
+    .command(Browsers.Chrome)
+    .description('Builds extension for chrome browser with manifest version 2')
     .action(() => {
         createBundle(chromeConfig, program.watch);
     });
 
 program
-    .command(BROWSERS.FIREFOX)
+    .command(Browsers.ChromeMV3)
+    .description('Builds extension for chrome browser with manifest version 3')
+    .action(() => {
+        createBundle(chromeConfigMV3, program.watch);
+    });
+
+program
+    .command(Browsers.Firefox)
     .description('Builds extension for firefox browser')
     .action(() => {
         createBundle(firefoxConfig, program.watch);
     });
 
 program
-    .command(BROWSERS.OPERA)
+    .command(Browsers.Opera)
     .description('Builds extension for firefox browser')
     .action(() => {
         createBundle(operaConfig, program.watch);
     });
 
 program
-    .command(BROWSERS.EDGE)
+    .command(Browsers.Edge)
     .description('Builds extension for firefox browser')
     .action(() => {
         createBundle(edgeConfig, program.watch);

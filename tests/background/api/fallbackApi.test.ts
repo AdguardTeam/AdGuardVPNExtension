@@ -10,6 +10,7 @@ import { WHOAMI_URL } from '../../../src/background/config';
 
 jest.mock('axios');
 jest.mock('../../../src/lib/logger');
+jest.mock('../../../src/background/browserApi');
 
 jest.useFakeTimers('modern');
 

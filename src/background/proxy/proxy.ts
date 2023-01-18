@@ -25,9 +25,9 @@ export interface AccessCredentials {
     password: string,
 }
 
-interface CanControlProxy {
+export interface CanControlProxy {
     canControlProxy: boolean;
-    cause?: boolean;
+    cause?: string;
 }
 
 export interface ProxyConfigInterface {
@@ -46,7 +46,7 @@ export interface ExtensionProxyInterface {
     turnOn(): Promise<void>;
     turnOff(): Promise<void>;
     canControlProxy(): Promise<CanControlProxy>
-    setEndpointsTldExclusions(endpointsTldExclusions: any): Promise<void>;
+    setEndpointsTldExclusions(endpointsTldExclusions: string[]): Promise<void>;
     setBypassList(exclusions: string[], inverted: boolean): Promise<void>;
     setAccessCredentials(
         credentials: {
@@ -67,7 +67,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
 
     bypassList: string[];
 
-    endpointsTldExclusions: any[];
+    endpointsTldExclusions: string[];
 
     currentEndpoint: EndpointInterface | null;
 
@@ -101,7 +101,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
         try {
             await proxyApi.proxySet(this.currentConfig);
             this.isActive = true;
-        } catch (e: any) {
+        } catch (e) {
             throw new Error(`Failed to turn on proxy with config: ${JSON.stringify(this.currentConfig)} because of error, ${e.message}`);
         }
 
@@ -123,7 +123,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
         try {
             await proxyApi.proxyClear();
             this.isActive = false;
-        } catch (e: any) {
+        } catch (e) {
             log.error(`Failed to turn off proxy due to error: ${e.message}`);
         }
 

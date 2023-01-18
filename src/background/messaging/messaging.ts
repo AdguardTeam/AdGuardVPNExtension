@@ -1,32 +1,31 @@
 import browser, { Runtime } from 'webextension-polyfill';
 
 import { MessageType, SETTINGS_IDS } from '../../lib/constants';
-import auth from '../auth';
-import popupData from '../popupData';
+import { auth } from '../auth';
+import { popupData } from '../popupData';
 import { endpoints } from '../endpoints';
 import { actions } from '../actions';
-import credentials from '../credentials';
-import authCache from '../authentication/authCache';
-import appStatus from '../appStatus';
+import { credentials } from '../credentials';
+import { authCache } from '../authentication';
+import { appStatus } from '../appStatus';
 import { settings } from '../settings';
 import { exclusions } from '../exclusions';
-import management from '../management';
-import permissionsError from '../permissionsChecker/permissionsError';
-import permissionsChecker from '../permissionsChecker';
+import { management } from '../management';
+import { permissionsError } from '../permissionsChecker/permissionsError';
+import { permissionsChecker } from '../permissionsChecker';
 import { log } from '../../lib/logger';
 import { notifier } from '../../lib/notifier';
 import { locationsService } from '../endpoints/locationsService';
 import { promoNotifications } from '../promoNotifications';
 import { tabs } from '../tabs';
-import { vpnProvider } from '../providers/vpnProvider';
+import { RequestSupportParameters, vpnProvider } from '../providers/vpnProvider';
 import accountProvider from '../providers/accountProvider';
 import { logStorage } from '../../lib/log-storage';
 import { setDesktopVpnEnabled } from '../connectivity/connectivityService/connectivityFSM';
 import { flagsStorage } from '../flagsStorage';
-import { ExclusionsData, ServiceDto } from '../../common/exclusionsConstants';
+import { ExclusionsData } from '../../common/exclusionsConstants';
 import { rateModal } from '../rateModal';
 import { dns } from '../dns';
-import { StartSocialAuthData, UserLookupData } from './messagingTypes';
 
 interface Message {
     type: MessageType,
@@ -109,7 +108,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
                         if (sender.tab?.id) {
                             await browser.tabs.sendMessage(sender.tab.id, { type, data });
                         }
-                    } catch (e: any) {
+                    } catch (e) {
                         log.error(e.message);
                     }
                 }
@@ -197,7 +196,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             const { url } = data;
             try {
                 return await exclusions.addUrlToExclusions(url);
-            } catch (e: any) {
+            } catch (e) {
                 throw new Error(e.message);
             }
         }
@@ -229,7 +228,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             return exclusions.clearExclusionsData();
         }
         case MessageType.CHECK_EMAIL: {
-            const { email } = data as UserLookupData;
+            const { email } = data;
             const appId = await credentials.getAppId();
             return auth.userLookup(email, appId);
         }
@@ -245,7 +244,7 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             return auth.isAuthenticated();
         }
         case MessageType.START_SOCIAL_AUTH: {
-            const { provider, marketingConsent } = data as StartSocialAuthData;
+            const { provider, marketingConsent } = data;
             return auth.startSocialAuth(provider, marketingConsent);
         }
         case MessageType.CLEAR_PERMISSIONS_ERROR: {
@@ -265,10 +264,6 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
                 services: exclusions.getServices(),
                 isAllExclusionsListsEmpty: !(exclusions.getRegularExclusions().length
                     || exclusions.getSelectiveExclusions().length),
-            } as {
-                exclusionsData: ExclusionsData,
-                services: ServiceDto[],
-                isAllExclusionsListsEmpty: boolean,
             };
         }
         case MessageType.SET_EXCLUSIONS_MODE: {
@@ -325,7 +320,12 @@ const messagesHandler = async (message: Message, sender: Runtime.MessageSender) 
             }
             const { version } = appStatus;
 
-            const reportData: any = {
+            if (!token) {
+                log.error('Was unable to get token');
+                break;
+            }
+
+            const reportData: RequestSupportParameters = {
                 appId,
                 token,
                 email,
@@ -412,7 +412,7 @@ const longLivedMessageHandler = (port: Runtime.Port) => {
                 const type = MessageType.NOTIFY_LISTENERS;
                 try {
                     port.postMessage({ type, data });
-                } catch (e: any) {
+                } catch (e) {
                     log.error(e.message);
                 }
             });

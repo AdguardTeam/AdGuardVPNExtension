@@ -1,6 +1,7 @@
-import permissionsChecker from '../../../src/background/permissionsChecker';
+import { permissionsChecker } from '../../../src/background/permissionsChecker';
 import { notifier } from '../../../src/lib/notifier';
 import { SubscriptionType } from '../../../src/lib/constants';
+
 import {
     UPDATE_CREDENTIALS_INTERVAL_MS,
     UPDATE_VPN_INFO_INTERVAL_MS,
@@ -39,6 +40,20 @@ const VPN_TOKEN_DATA = {
 jest.mock('../../../src/lib/logger');
 jest.mock('../../../src/background/settings');
 jest.mock('../../../src/background/connectivity/connectivityService/connectivityFSM');
+jest.mock('../../../src/background/browserApi');
+
+// testing timers for MV2
+// TODO: change timers implementation on official switch to MV3 and find out how to move time for Alarm API
+jest.mock('../../../src/background/timers', () => {
+    return {
+        timers: {
+            setTimeout: (callback: () => void, timeout: number) => setTimeout(callback, timeout),
+            clearTimeout: (timerId: number): void => clearTimeout(timerId),
+            setInterval: (callback: () => void, interval: number) => setInterval(callback, interval),
+            clearInterval: (intervalId: number): void => clearInterval(intervalId),
+        },
+    };
+});
 
 jest.spyOn(permissionsChecker, 'startChecker');
 jest.spyOn(permissionsChecker, 'checkPermissions');

@@ -4,7 +4,18 @@ import { ExclusionsTree } from '../../../src/background/exclusions/ExclusionsTre
 import { ExclusionState, ExclusionsTypes } from '../../../src/common/exclusionsConstants';
 import { ExclusionInterface } from '../../../src/background/exclusions/exclusions/exclusionsTypes';
 
-jest.mock('../../../src/lib/logger.js');
+jest.mock('../../../src/lib/logger.ts');
+
+jest.mock('../../../src/background/browserApi', () => {
+    return {
+        browserApi: {
+            runtime: {
+                // TODO: test mv3 after official switch to mv3
+                isManifestVersion2: () => true,
+            },
+        },
+    };
+});
 
 describe('ExclusionsTree', () => {
     afterEach(() => {

@@ -49,10 +49,10 @@ interface CurrentLocationData {
     ],
 }
 
-interface LocationProviderData {
+export interface LocationProviderData {
     id: string;
-    cityName: string | null;
-    countryName: string | null;
+    cityName: string;
+    countryName: string;
     countryCode: string;
     coordinates: [
         longitude: number,
@@ -72,13 +72,13 @@ export interface EndpointProviderData {
     publicKey: string;
 }
 
-interface RequestSupportParameters {
+export interface RequestSupportParameters {
     appId: string;
     token: string;
     email: string;
     message: string;
     version: string;
-    appLogs: string;
+    appLogs?: string;
 }
 
 export interface ServicesInterface {
@@ -104,7 +104,7 @@ export interface VpnProviderInterface {
         message,
         version,
         appLogs,
-    }: RequestSupportParameters): Promise<{ status: string, error: any }>;
+    }: RequestSupportParameters): Promise<{ status: string, error: string | null }>;
     getExclusionsServices(): Promise<ServicesInterface>;
 }
 
@@ -112,7 +112,6 @@ export interface VpnProviderInterface {
  * Prepares locations data
  * @param appId
  * @param vpnToken
- * @returns {Promise<*>}
  */
 const getLocationsData = async (
     appId: string,
@@ -275,7 +274,7 @@ const getVpnCredentials = async (
     let responseData;
     try {
         responseData = await vpnApi.getVpnCredentials(appId, vpnToken);
-    } catch (e: any) {
+    } catch (e) {
         if (e.status === 400) {
             let errorMessageData;
 
@@ -333,7 +332,7 @@ const requestSupport = async ({
     message,
     version,
     appLogs,
-}: RequestSupportParameters): Promise<{ status: string, error: any }> => {
+}: RequestSupportParameters): Promise<{ status: string, error: string | null }> => {
     const BUG_REPORT_SUBJECT = '[VPN Browser extension] Bug report';
     const LOGS_ZIP_FILENAME = 'logs.zip';
 
@@ -354,7 +353,7 @@ const requestSupport = async ({
     try {
         await vpnApi.requestSupport(formData);
         return { status: 'ok', error: null };
-    } catch (e: any) {
+    } catch (e) {
         log.error(e);
         return {
             status: e.status,

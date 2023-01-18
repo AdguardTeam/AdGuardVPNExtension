@@ -9,7 +9,6 @@ import { PAC_SCRIPT_CHECK_URL } from '../proxyConsts';
  * @param inverted
  * @param defaultExclusions
  * @param nonRoutableNets
- * @returns {string}
  */
 function proxyPacScript(
     proxy: string,
@@ -17,7 +16,7 @@ function proxyPacScript(
     inverted: boolean,
     defaultExclusions: string[],
     nonRoutableNets: string[][],
-) {
+): string {
     return `
             function FindProxyForURL(url, host) {
                 const DIRECT = "DIRECT";
@@ -75,12 +74,11 @@ function directPacScript() {
 
 /**
  *
- * @param {string} proxy
- * @param {string[]} exclusionsList
- * @param {boolean} inverted
- * @param {string[]} defaultExclusions
- * @param {string[]} nonRoutableCidrNets
- * @return {string}
+ * @param proxy
+ * @param exclusionsList
+ * @param inverted
+ * @param defaultExclusions
+ * @param nonRoutableCidrNets
  */
 const generate = (
     proxy: string,
