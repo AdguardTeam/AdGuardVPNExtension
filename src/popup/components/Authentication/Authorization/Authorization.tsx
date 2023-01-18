@@ -4,7 +4,7 @@ import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { SocialAuthProvider } from '../../../../lib/constants';
 import { EmailAuth } from '../EmailAuth';
-import Icon from '../../ui/Icon';
+import { Icon } from '../../ui/Icon';
 
 import './authorization.pcss';
 

@@ -6,6 +6,7 @@ import { vpnProvider, ServicesInterface } from '../../providers/vpnProvider';
 import { browserApi } from '../../browserApi';
 import { log } from '../../../lib/logger';
 import { ServiceDto } from '../../../common/exclusionsConstants';
+import { fetchConfig } from '../../../lib/constants';
 
 export interface IndexedServicesInterface {
     [id: string]: string
@@ -132,7 +133,7 @@ export class ServicesManager implements ServiceManagerInterface {
             this.setServices(services);
             this.lastUpdateTimeMs = Date.now();
             log.info('Services data updated successfully');
-        } catch (e: any) {
+        } catch (e) {
             log.error(new Error(`Was unable to get services due to: ${e.message}`));
         }
     }
@@ -140,8 +141,8 @@ export class ServicesManager implements ServiceManagerInterface {
     /**
      * Gets exclusions services from server
      */
-    async getServicesFromServer() {
-        const services = await vpnProvider.getExclusionsServices() as ServicesInterface;
+    async getServicesFromServer(): Promise<ServicesInterface> {
+        const services = await vpnProvider.getExclusionsServices();
 
         return services;
     }
@@ -152,7 +153,7 @@ export class ServicesManager implements ServiceManagerInterface {
      */
     async getServicesFromAssets(): Promise<ServicesInterface> {
         const path = browser.runtime.getURL('assets/prebuild-data/exclusion-services.json');
-        const response = await axios.get(path);
+        const response = await axios.get(path, { ...fetchConfig });
         return response.data;
     }
 
@@ -197,9 +198,9 @@ export class ServicesManager implements ServiceManagerInterface {
      * Returns services data from storage
      */
     async getServicesFromStorage(): Promise<ServicesInterface> {
-        const services = await browserApi.storage.get(
+        const services = await browserApi.storage.get<ServicesInterface>(
             this.EXCLUSION_SERVICES_STORAGE_KEY,
-        ) as ServicesInterface;
+        );
 
         return services ?? null;
     }

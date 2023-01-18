@@ -1,7 +1,20 @@
 import { SettingsService } from '../../../src/background/settings/SettingsService';
 import { sleep } from '../../../src/lib/helpers';
 
+const SCHEME_VERSION = '11';
+
 jest.mock('../../../src/lib/logger');
+
+jest.mock('../../../src/background/browserApi', () => {
+    return {
+        browserApi: {
+            runtime: {
+                // TODO: test mv3 after official switch to mv3
+                isManifestVersion2: () => true,
+            },
+        },
+    };
+});
 
 const storage = (() => {
     const settingsStorage: { [key: string]: any } = {};
@@ -28,12 +41,13 @@ let settingsService: SettingsService;
 describe('SettingsService', () => {
     describe('init', () => {
         const expectedSettings = {
-            VERSION: '10',
+            VERSION: SCHEME_VERSION,
             enabled: true,
             showPromo: true,
         };
 
         beforeEach(() => {
+            // @ts-ignore
             settingsService = new SettingsService(storage, defaults);
         });
 
@@ -61,7 +75,7 @@ describe('SettingsService', () => {
         });
 
         it('inits correctly if versions do not match', async () => {
-            const unmatchedVersion = '11';
+            const unmatchedVersion = parseInt(SCHEME_VERSION, 10) + 1;
             storage.set(settingsService.SETTINGS_KEY, {
                 ...expectedSettings,
                 VERSION: unmatchedVersion,
@@ -69,7 +83,7 @@ describe('SettingsService', () => {
             await settingsService.init();
             const settings = settingsService.getSettings();
             expect(settings.VERSION)
-                .toBe('10');
+                .toBe(SCHEME_VERSION);
             expect(settings.enabled)
                 .toBe(defaults.enabled);
             expect(settings.showPromo)
@@ -79,6 +93,7 @@ describe('SettingsService', () => {
 
     describe('updates values', () => {
         beforeEach(() => {
+            // @ts-ignore
             settingsService = new SettingsService(storage, defaults);
             settingsService.init();
         });

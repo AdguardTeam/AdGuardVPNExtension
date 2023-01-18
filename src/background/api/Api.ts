@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, Method } from 'axios';
 
-import { ERROR_STATUSES } from '../../lib/constants';
-import CustomError from '../../lib/CustomError';
+import { ERROR_STATUSES, fetchConfig } from '../../lib/constants';
+import { CustomError } from '../../lib/CustomError';
 
 const REQUEST_TIMEOUT_MS = 1000 * 6; // 6 seconds
 
@@ -13,13 +13,14 @@ interface ConfigInterface {
         service_id?: string | null;
     };
     data?: string | FormData;
+    body?: string;
     headers?: {
         Authorization: string,
     };
 }
 
 interface ApiInterface {
-    makeRequest(path: string, config: ConfigInterface, method: Method): Promise<any>;
+    makeRequest(path: string, config: ConfigInterface, method: Method): Promise<unknown>;
 }
 
 export class Api implements ApiInterface {
@@ -45,19 +46,22 @@ export class Api implements ApiInterface {
 
     async makeRequest(path: string, config: ConfigInterface, method: Method = 'POST') {
         const url = `https://${await this.getBaseUrl()}/${path}`;
+        const axiosConfig: AxiosRequestConfig = {
+            url,
+            method,
+            timeout: REQUEST_TIMEOUT_MS,
+            ...fetchConfig,
+            ...config,
+        };
+
         try {
-            const response = await axios({
-                url,
-                method,
-                timeout: REQUEST_TIMEOUT_MS,
-                ...config,
-            } as AxiosRequestConfig);
+            const response = await axios(axiosConfig);
             return response.data;
-        } catch (error: any) {
-            if (error.response) {
-                throw new CustomError(error.response.status, JSON.stringify(error.response.data));
+        } catch (e) {
+            if (e.response) {
+                throw new CustomError(e.response.status, JSON.stringify(e.response.data));
             }
-            throw new CustomError(ERROR_STATUSES.NETWORK_ERROR, `${url} | ${error.message || JSON.stringify(error)}`);
+            throw new CustomError(ERROR_STATUSES.NETWORK_ERROR, `${url} | ${e.message || JSON.stringify(e)}`);
         }
     }
 }

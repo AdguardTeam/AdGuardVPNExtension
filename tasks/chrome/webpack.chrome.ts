@@ -1,8 +1,9 @@
-import { Plugin } from 'webpack';
+import webpack, { Plugin } from 'webpack';
 import { merge } from 'webpack-merge';
 import path from 'path';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ZipWebpackPlugin from 'zip-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 import { getCommonConfig } from '../webpack.common';
 import { updateManifest } from '../helpers';
@@ -10,21 +11,28 @@ import { chromeManifestDiff } from './manifest.chrome';
 import {
     STAGE_ENV,
     IS_DEV,
-    STAGE_ENVS,
-    BROWSERS,
+    StageEnvs,
+    Browsers,
+    SRC_PATH,
 } from '../consts';
+
+const BACKGROUND_PATH = path.resolve(__dirname, '..', SRC_PATH, 'background');
 
 const CHROME_PATH = 'chrome';
 
 let zipFilename = 'chrome.zip';
 
-if (IS_DEV && STAGE_ENV === STAGE_ENVS.PROD) {
+if (IS_DEV && STAGE_ENV === StageEnvs.Prod) {
     zipFilename = 'chrome-prod.zip';
 }
 
-const commonConfig = getCommonConfig(BROWSERS.CHROME);
+const commonConfig = getCommonConfig(Browsers.Chrome);
 
 const plugins = [
+    new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {
+        // eslint-disable-next-line no-param-reassign
+        resource.request = resource.request.replace(/\.\/AbstractTimers/, './Mv2Timers');
+    })),
     new CopyWebpackPlugin({
         patterns: [
             {
@@ -33,6 +41,12 @@ const plugins = [
                 transform: (content: Buffer) => updateManifest(content, chromeManifestDiff),
             },
         ],
+    }),
+    new HtmlWebpackPlugin({
+        template: path.join(BACKGROUND_PATH, 'index.html'),
+        filename: 'background.html',
+        chunks: ['background'],
+        cache: false,
     }),
     new ZipWebpackPlugin({
         path: '../',

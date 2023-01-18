@@ -1,6 +1,4 @@
 // eslint-disable-next-line import/no-cycle
-import EndpointConnectivity from './EndpointConnectivity';
+import { EndpointConnectivity } from './EndpointConnectivity';
 
-const endpointConnectivity = new EndpointConnectivity();
-
-export default endpointConnectivity;
+export const endpointConnectivity = new EndpointConnectivity();

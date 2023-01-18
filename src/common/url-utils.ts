@@ -45,7 +45,8 @@ export const getETld = (hostname: string) => {
 
     const parts = hostnameWithoutWildcard.split(SEPARATOR);
     let domainParts = parts.splice(parts.length - 2, 2);
-    const domain = getDomain(domainParts.join(SEPARATOR));
+    // don't validate hostname to be able to add domain longer then 63 symbols
+    const domain = getDomain(domainParts.join(SEPARATOR), { validateHostname: false });
     if (domain) {
         return domain;
     }
@@ -74,8 +75,7 @@ export const getSubdomain = (hostname: string, eTld: string) => {
 
 /**
  * Returns hostname of url if it was correct, otherwise return input url
- * @param {string} url
- * @returns {string}
+ * @param url
  */
 const getUrlProperties = (url: string): string | URL => {
     let urlObj;
@@ -91,15 +91,14 @@ const getUrlProperties = (url: string): string | URL => {
 
 /**
  * Returns protocol of url if it was correct, otherwise return null
- * @param {string} url
- * @returns {string}
+ * @param url
  */
-export const getProtocol = (url: unknown): string | null => {
+export const getProtocol = (url?: string): string | null => {
     if (!url) {
         return null;
     }
 
-    const urlObj = getUrlProperties(url as string);
+    const urlObj = getUrlProperties(url);
 
     if (typeof urlObj === 'string') {
         return null;
@@ -110,8 +109,7 @@ export const getProtocol = (url: unknown): string | null => {
 
 /**
  * Returns hostname of url if it was correct, otherwise return input url
- * @param {string | undefined | null } url
- * @returns {string | null}
+ * @param url
  */
 export const getHostname = (url: string | undefined | null) => {
     if (!url) {

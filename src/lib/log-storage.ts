@@ -58,7 +58,7 @@ export class LogStorage implements LogStorageInterface {
      * Returns logs from storage merged with current logs
      */
     async getLogs(): Promise<string[]> {
-        const storageLogs = await browserApi.storage.get(LOGS_STORAGE_KEY);
+        const storageLogs = await browserApi.storage.get<string[]>(LOGS_STORAGE_KEY);
         if (!storageLogs) {
             return this.logs;
         }

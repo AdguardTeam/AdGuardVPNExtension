@@ -21,11 +21,11 @@ export class AuthStore {
         this.rootStore = rootStore;
     }
 
-    @action setIsAuthenticated = (value: boolean) => {
+    @action setIsAuthenticated = (value: boolean): void => {
         this.authenticated = value;
     };
 
-    @action deauthenticate = async () => {
+    @action deauthenticate = async (): Promise<void> => {
         await messenger.deauthenticateUser();
         await this.rootStore.settingsStore.disableProxy();
         runInAction(() => {
@@ -33,7 +33,7 @@ export class AuthStore {
         });
     };
 
-    @action setMaxDevicesCount = (value: number) => {
+    @action setMaxDevicesCount = (value: number): void => {
         this.maxDevicesCount = value;
     };
 }
