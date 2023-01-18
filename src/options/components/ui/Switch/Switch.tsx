@@ -7,7 +7,7 @@ interface SwitchProps {
     title: string | React.ReactNode;
     desc?: string | React.ReactNode;
     checked: boolean;
-    handleToggle: any;
+    handleToggle: () => void;
 }
 
 export const Switch = ({

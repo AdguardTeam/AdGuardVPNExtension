@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../../stores';
 import { Status } from '../Status';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import SiteInfo from '../SiteInfo';
+import { SiteInfo } from '../SiteInfo';
 import { BackgroundAnimation } from '../BackgroundAnimation';
 
 export const ExclusionsScreen = observer(() => {

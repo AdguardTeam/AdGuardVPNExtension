@@ -15,6 +15,7 @@ export enum RequestEvent {
 
 export const requestMachine = createMachine({
     id: 'requestMachine',
+    predictableActionArguments: true,
     initial: RequestState.Idle,
     states: {
         [RequestState.Idle]: {

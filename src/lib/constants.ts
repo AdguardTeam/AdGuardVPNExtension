@@ -1,3 +1,7 @@
+// TODO: use internal axios fetch adapter after they release it instead of @vespaiach/axios-fetch-adapter
+// https://github.com/axios/axios/pull/5146
+import fetchAdapter from '@vespaiach/axios-fetch-adapter';
+
 export const SETTINGS_IDS = {
     PROXY_ENABLED: 'proxy.enabled',
     RATE_SHOW: 'rate.show',
@@ -142,7 +146,17 @@ export enum AnimationEvent {
 
 const MOTION_FOLDER_PATH = '../../../assets/motion/';
 
-export const animationSourcesMap = {
+type AnimationSourcesMap = {
+    [key: string]: {
+        [key: string]: string;
+    }
+};
+
+export type ExclusionsContentMap = {
+    [key: string]: string[];
+};
+
+export const animationSourcesMap: AnimationSourcesMap = {
     [APPEARANCE_THEMES.LIGHT]: {
         [AnimationState.VpnEnabled]: `${MOTION_FOLDER_PATH}on-light.webm`,
         // Added this state for the case when switching location
@@ -168,3 +182,7 @@ export enum SubscriptionType {
     Yearly = 'YEARLY',
     TwoYears = 'TWO_YEARS',
 }
+
+export const fetchConfig = {
+    adapter: fetchAdapter,
+};

@@ -47,7 +47,7 @@ class EndpointsTldExclusions {
 
     /**
      * Adds endpoints tld exclusions
-     * @param {string[]} endpointsTlds - list of second level domains parsed from the endpoints
+     * @param endpointsTlds - list of second level domains parsed from the endpoints
      */
     addEndpointsTldExclusions = async (endpointsTlds: string[]) => {
         const endpointsTldExclusions = this.convertEndpointTldToExclusion(endpointsTlds);
@@ -57,8 +57,7 @@ class EndpointsTldExclusions {
 
     /**
      * Converts endpoints tld to exclusion
-     * @param {string[]} endpointsTlds - endpoints top level domains
-     * @returns {string[]}
+     * @param endpointsTlds - endpoints top level domains
      */
     convertEndpointTldToExclusion = (endpointsTlds: string[]) => {
         const endpointsTldExclusions = endpointsTlds.map((endpointTld) => {
@@ -89,7 +88,7 @@ class EndpointsTldExclusions {
 
     init = async () => {
         try {
-            const storedList = await browserApi.storage.get(this.STORAGE_KEY);
+            const storedList = await browserApi.storage.get<string[]>(this.STORAGE_KEY);
             if (storedList) {
                 this.endpointsTldExclusionsList = storedList;
                 await proxy.setEndpointsTldExclusions(this.endpointsTldExclusionsList);

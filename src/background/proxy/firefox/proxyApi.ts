@@ -123,9 +123,8 @@ const proxyHandler = (details: browser.Proxy.OnRequestDetailsType) => {
 /**
  * Updates proxy config
  * @param proxyConfig
- * @returns {Promise<void>}
  */
-const proxySet = async (proxyConfig: ProxyConfigInterface) => {
+const proxySet = async (proxyConfig: ProxyConfigInterface): Promise<void> => {
     globalFirefoxConfig = convertToFirefoxConfig(proxyConfig);
 
     if (browser.proxy.onRequest.hasListener(proxyHandler)) {

@@ -4,10 +4,13 @@
     "target": "esnext",
     "jsx": "react",
     "lib": [
+      "es5",
+      "es6",
       "esnext",
       "DOM",
       "DOM.Iterable"
     ],
+    "resolveJsonModule": true,
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "allowJs": true,
@@ -23,6 +26,8 @@
     // - strictPropertyInitialization
     // - noImplicitThis
     // - strictBindCallApply
-    "strict": true
+    "strict": true,
+    // TODO: remove useUnknownInCatchVariables from config
+    "useUnknownInCatchVariables": false
   }
 }

@@ -7,13 +7,11 @@ import ipaddr from 'ipaddr.js';
  * @param mask
  */
 export const isInNet = (host: string, pattern: string, mask: string) => {
-    const addr = ipaddr.parse(host);
+    const addr = ipaddr.IPv4.parse(host);
 
-    // TODO remove ts-ignore
-    // @ts-ignore
     return addr.match([
         ipaddr.IPv4.parse(pattern),
-        ipaddr.IPv4.parse(mask).prefixLengthFromSubnetMask(),
+        <number>ipaddr.IPv4.parse(mask).prefixLengthFromSubnetMask(),
     ]);
 };
 

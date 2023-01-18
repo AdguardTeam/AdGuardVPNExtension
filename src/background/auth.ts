@@ -20,7 +20,7 @@ import { SocialAuthProvider } from '../lib/constants';
 import { flagsStorage } from './flagsStorage';
 import { AuthAccessToken, AuthCredentials } from './api/apiTypes';
 
-interface AuthInterface {
+export interface AuthInterface {
     authenticate(credentials: AuthCredentials): Promise<{ status: string }>;
     isAuthenticated(turnOffProxy?: boolean): Promise<string | boolean>;
     startSocialAuth(socialProvider: string, marketingConsent: boolean): Promise<void>;
@@ -48,14 +48,14 @@ class Auth implements AuthInterface {
         // turn off proxy to be sure it is not enabled before authentication
         try {
             await proxy.turnOff();
-        } catch (e: any) {
+        } catch (e) {
             log.error(e.message);
         }
 
         let accessToken;
         try {
             accessToken = await authProvider.getAccessToken(credentials);
-        } catch (e: any) {
+        } catch (e) {
             return JSON.parse(e.message);
         }
 
@@ -83,7 +83,7 @@ class Auth implements AuthInterface {
         // turn off proxy to be sure it is not enabled before authentication
         try {
             await proxy.turnOff();
-        } catch (e: any) {
+        } catch (e) {
             log.error(e.message);
         }
 
@@ -168,7 +168,6 @@ class Auth implements AuthInterface {
      * Authenticate user after registration on thank you page
      * @param credentials
      * @param isNewUser
-     * @returns {Promise<void>}
      */
     async authenticateThankYouPage(
         credentials: AuthAccessToken,
@@ -192,7 +191,7 @@ class Auth implements AuthInterface {
     async deauthenticate(): Promise<void> {
         try {
             await this.removeAccessToken();
-        } catch (e: any) {
+        } catch (e) {
             log.error('Unable to remove access token. Error: ', e.message);
         }
 
@@ -215,7 +214,7 @@ class Auth implements AuthInterface {
                 locale,
                 clientId: AUTH_CLIENT_ID,
             });
-        } catch (e: any) {
+        } catch (e) {
             const { error, field } = JSON.parse(e.message);
             return { error, field };
         }
@@ -235,9 +234,8 @@ class Auth implements AuthInterface {
 
     /**
      * Checks if user had such email registered
-     * @param {string} email
-     * @param {string} appId
-     * @returns {Promise<{canRegister: string}|{error: string}>}
+     * @param email
+     * @param appId
      */
     async userLookup(
         email: string,
@@ -246,7 +244,7 @@ class Auth implements AuthInterface {
         let response;
         try {
             response = await authProvider.userLookup(email, appId);
-        } catch (e: any) {
+        } catch (e) {
             log.error(e.message);
             return {
                 error: translator.getMessage('global_error_message', {
@@ -271,8 +269,7 @@ class Auth implements AuthInterface {
     /**
      * Returns access token
      * If no token is available turns off, except of when turnOffProxy flag is false
-     * @param {boolean} [turnOffProxy=true] - if false do not turn off proxy
-     * @returns {Promise<string>}
+     * @param [turnOffProxy=true] - if false do not turn off proxy
      */
     async getAccessToken(turnOffProxy = true): Promise<string> {
         if (this.accessTokenData && this.accessTokenData.accessToken) {
@@ -280,7 +277,7 @@ class Auth implements AuthInterface {
         }
 
         // if no access token, then try to get it from storage
-        const accessTokenData = await browserApi.storage.get(AUTH_ACCESS_TOKEN_KEY);
+        const accessTokenData = await browserApi.storage.get<AuthAccessToken>(AUTH_ACCESS_TOKEN_KEY);
         if (accessTokenData && accessTokenData.accessToken) {
             this.accessTokenData = accessTokenData;
             return accessTokenData.accessToken;
@@ -291,7 +288,7 @@ class Auth implements AuthInterface {
         if (turnOffProxy) {
             try {
                 await proxy.turnOff();
-            } catch (e: any) {
+            } catch (e) {
                 log.error(e.message);
             }
         }
@@ -301,7 +298,7 @@ class Auth implements AuthInterface {
     }
 
     async init(): Promise<void> {
-        const accessTokenData = await browserApi.storage.get(AUTH_ACCESS_TOKEN_KEY);
+        const accessTokenData = await browserApi.storage.get<AuthAccessToken>(AUTH_ACCESS_TOKEN_KEY);
         if (!accessTokenData || !accessTokenData.accessToken) {
             return;
         }
@@ -311,6 +308,4 @@ class Auth implements AuthInterface {
     }
 }
 
-const auth = new Auth();
-
-export default auth;
+export const auth = new Auth();

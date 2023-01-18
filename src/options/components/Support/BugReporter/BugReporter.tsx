@@ -25,13 +25,21 @@ interface Validators {
     [key: string]: (value: string) => null | string;
 }
 
-interface FormState {
+type FormStateType = {
+    [key: string]: string | boolean;
+};
+
+interface FormState extends FormStateType {
     [FormField.Email]: string;
     [FormField.Message]: string;
     [FormField.IncludeLog]: boolean;
 }
 
-interface FormError {
+type FormErrorType = {
+    [key: string]: string | undefined | null;
+};
+
+interface FormError extends FormErrorType {
     [FormField.Email]?: string | null;
     [FormField.Message]?: string | null;
 }
@@ -86,12 +94,14 @@ export const BugReporter = observer(() => {
 
     const validateFields = (): FormError => {
         return Object.keys(formState).reduce((acc: FormError, key) => {
-            const value = formState[key as keyof FormState];
+            const value = formState[key];
             const validator = validators[key];
             if (validator) {
-                acc[key as keyof FormError] = validator(value as FormField);
+                if (typeof value === 'string') {
+                    acc[key] = validator(value);
+                }
             } else {
-                acc[key as keyof FormError] = null;
+                acc[key] = null;
             }
             return acc;
         }, {});
