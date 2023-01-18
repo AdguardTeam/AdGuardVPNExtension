@@ -100,6 +100,20 @@ You can use GitHub to report a bug or to submit a feature request. To do so, go 
 
 **Builds will be located in the `build` directory**
 
+By default, you will have builds for all browsers:
+ * Chrome (manifest version 2)
+ * Chrome (manifest version 3)
+ * Firefox (manifest version 2)
+ * Opera (manifest version 2)
+ * Edge (manifest version 2)
+
+You can specify browser in arguments. See examples below:
+```
+yarn dev chrome
+yarn beta chrome-mv3
+yarn release opera
+```
+
 ### Update resources
 Before releasing new versions do not forget to update exclusions-services data, which will be used for migration if remote data was not received from the servers.
 

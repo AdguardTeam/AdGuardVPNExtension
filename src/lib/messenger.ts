@@ -1,10 +1,14 @@
 import browser from 'webextension-polyfill';
 import { nanoid } from 'nanoid';
 
-import { MessageType, SocialAuthProvider } from './constants';
+import { MessageType, SocialAuthProvider, ExclusionsContentMap } from './constants';
 import { log } from './logger';
 import { ExclusionsData, ExclusionsModes, ServiceDto } from '../common/exclusionsConstants';
 import { StartSocialAuthData, UserLookupData } from '../background/messaging/messagingTypes';
+import { DnsServerData } from '../common/components/constants';
+import type { LocationData } from '../popup/stores/VpnStore';
+import type { Message } from '../popup/components/App/App';
+import { NotifierType } from './notifier';
 
 class Messenger {
     async sendMessage<T>(type: string, data?: T) {
@@ -28,8 +32,8 @@ class Messenger {
      * @param events Events for listening
      * @param callback Event listener callback
      */
-    createEventListener = async (events: any, callback: (...args: any[]) => void) => {
-        const eventListener = (...args: any[]) => {
+    createEventListener = async (events: NotifierType[], callback: (...args: Message[]) => void) => {
+        const eventListener = (...args: Message[]) => {
             callback(...args);
         };
 
@@ -62,10 +66,9 @@ class Messenger {
      * Creates long lived connections between popup and background page
      * @param events
      * @param callback
-     * @returns {function}
      */
-    createLongLivedConnection = (events: any, callback: (...args: any[]) => void) => {
-        const eventListener = (...args: { type: any; data: any; }[]) => {
+    createLongLivedConnection = (events: NotifierType[], callback: (...args: Message[]) => void): Function => {
+        const eventListener = (...args: { type: NotifierType; data: string; }[]) => {
             callback(...args);
         };
 
@@ -95,7 +98,7 @@ class Messenger {
         return onUnload;
     };
 
-    async getPopupData(url: string, numberOfTries: number) {
+    async getPopupData(url: string | null, numberOfTries: number) {
         const type = MessageType.GET_POPUP_DATA;
         return this.sendMessage(type, { url, numberOfTries });
     }
@@ -125,7 +128,7 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async setCurrentLocation(location: any, isSelectedByUser: boolean) {
+    async setCurrentLocation(location: LocationData, isSelectedByUser: boolean) {
         const type = MessageType.SET_SELECTED_LOCATION;
         return this.sendMessage(type, { location, isSelectedByUser });
     }
@@ -270,7 +273,7 @@ class Messenger {
         return this.sendMessage(type, { settingId });
     }
 
-    async setSetting(settingId: string, value: any) {
+    async setSetting<T>(settingId: string, value: T) {
         const type = MessageType.SET_SETTING_VALUE;
         return this.sendMessage(type, { settingId, value });
     }
@@ -364,20 +367,17 @@ class Messenger {
         return this.sendMessage(type, { exclusions });
     }
 
-    addExclusionsMap(exclusionsMap: {
-        [ExclusionsModes.Regular]: string[],
-        [ExclusionsModes.Selective]: string[],
-    }) {
+    addExclusionsMap(exclusionsMap: ExclusionsContentMap) {
         const type = MessageType.ADD_EXCLUSIONS_MAP;
         return this.sendMessage(type, { exclusionsMap });
     }
 
-    addCustomDnsServer(dnsServerData: any) {
+    addCustomDnsServer(dnsServerData: DnsServerData) {
         const type = MessageType.ADD_CUSTOM_DNS_SERVER;
         return this.sendMessage(type, { dnsServerData });
     }
 
-    editCustomDnsServer(dnsServerData: any) {
+    editCustomDnsServer(dnsServerData: DnsServerData) {
         const type = MessageType.EDIT_CUSTOM_DNS_SERVER;
         return this.sendMessage(type, { dnsServerData });
     }

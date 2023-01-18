@@ -68,6 +68,8 @@ describe('getProtocol', () => {
     });
 
     it('should return the argument if it is incorrect URL - null', () => {
+        // url can not be null, but we test it anyway
+        // @ts-ignore
         expect(getProtocol(null)).toBeNull();
     });
 

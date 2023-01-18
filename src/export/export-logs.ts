@@ -38,7 +38,7 @@ export const exportLogs = async () => {
         const logs = await getLogs();
         const appVersion = await getAppVersion();
         await exportData(logs, FileExtension.Txt, appVersion);
-    } catch (e: any) {
+    } catch (e) {
         log.error(e.message);
     }
 };

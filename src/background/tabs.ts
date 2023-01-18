@@ -1,12 +1,27 @@
 import browser from 'webextension-polyfill';
+
 import { PASSWORD_RECOVERY_URL } from './config';
 import { notifier } from '../lib/notifier';
 import { log } from '../lib/logger';
 
-type Tab = browser.Tabs.Tab;
-type SimpleTab = Pick<Tab, 'id' | 'url'>;
+export type PreparedTab = {
+    id?: number,
+    url?: string,
+};
 
-class Tabs {
+interface TabsInterface {
+    getCurrent(): Promise<browser.Tabs.Tab>;
+    getActive(): Promise<PreparedTab[]>;
+    openRecovery(): Promise<browser.Tabs.Tab>;
+    openTab(url: string): Promise<browser.Tabs.Tab>;
+    closeTab(tabsIds: number[] | number): Promise<void>;
+    openSocialAuthTab(authUrl: string): Promise<void>;
+    reload(tabId: number): Promise<void>;
+    getTabByUrl(url: string): Promise<browser.Tabs.Tab | undefined>;
+    update(tabId: number, url: string): Promise<void>;
+}
+
+class Tabs implements TabsInterface {
     constructor() {
         browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
             if (changeInfo.status === 'complete' || changeInfo.status === 'loading') {
@@ -41,30 +56,30 @@ class Tabs {
     }
 
     /**
-     * Converts chrome tab info into simplified presentation of tab
+     * Converts browser tab info into simplified presentation of tab
      * @param tab
      */
-    prepareTab = (tab: Tab): SimpleTab => {
+    prepareTab = (tab: browser.Tabs.Tab): PreparedTab => {
         const { id, url } = tab;
         return { id, url };
     };
 
-    async getCurrent() {
+    async getCurrent(): Promise<browser.Tabs.Tab> {
         const { id: windowId } = await browser.windows.getCurrent();
         const tabs = await browser.tabs.query({ active: true, windowId });
         return tabs[0];
     }
 
-    async getActive() {
+    async getActive(): Promise<PreparedTab[]> {
         const tabs = await browser.tabs.query({ active: true });
         return tabs.map(this.prepareTab);
     }
 
-    async openRecovery() {
+    async openRecovery(): Promise<browser.Tabs.Tab> {
         return browser.tabs.create({ url: PASSWORD_RECOVERY_URL });
     }
 
-    async openTab(url: string) {
+    async openTab(url: string): Promise<browser.Tabs.Tab> {
         return browser.tabs.create({ url, active: true });
     }
 
@@ -72,31 +87,31 @@ class Tabs {
      * Closes one or more tabs.
      * @param tabsIds
      */
-    async closeTab(tabsIds: number | number[]): Promise<void> {
+    async closeTab(tabsIds: number[] | number): Promise<void> {
         await browser.tabs.remove(tabsIds);
     }
 
-    async openSocialAuthTab(authUrl: string) {
+    async openSocialAuthTab(authUrl: string): Promise<void> {
         await this.openTab(authUrl);
     }
 
-    async reload(tabId: number) {
+    async reload(tabId: number): Promise<void> {
         try {
             await browser.tabs.reload(tabId);
-        } catch (e: any) {
+        } catch (e) {
             log.error(e.message);
         }
     }
 
-    async getTabByUrl(url: string) {
+    async getTabByUrl(url: string): Promise<browser.Tabs.Tab | undefined> {
         const tabs = await browser.tabs.query({});
         return tabs.find((tab) => tab.url?.includes(url));
     }
 
-    async update(tabId: number, url: string) {
+    async update(tabId: number, url: string): Promise<void> {
         try {
             await browser.tabs.update(tabId, { url, active: true });
-        } catch (e: any) {
+        } catch (e) {
             log.error(e.message);
         }
     }

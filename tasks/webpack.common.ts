@@ -12,7 +12,7 @@ import {
     IS_DEV,
     BUILD_ENV,
     BUILD_PATH,
-    BROWSERS,
+    Browsers,
 } from './consts';
 
 const { getOutputPathByEnv, updateLocalesMSGName, modifyExtensionName } = require('./helpers');
@@ -37,7 +37,7 @@ const cleanOptions = IS_DEV ? { cleanAfterEveryBuildPatterns: ['!**/*.json', '!a
 export const getCommonConfig = (browser: string): webpack.Configuration => {
     return {
         mode: IS_DEV ? 'development' : 'production',
-        devtool: IS_DEV ? 'eval-source-map' : false,
+        devtool: false,
         optimization: {
             minimize: false,
         },
@@ -122,12 +122,12 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                 )),
             }),
             new webpack.NormalModuleReplacementPlugin(/\.\/abstractProxyApi/, ((resource: any) => {
-                if (browser === BROWSERS.FIREFOX) {
+                if (browser === Browsers.Firefox) {
                     // eslint-disable-next-line no-param-reassign
                     resource.request = resource.request.replace(/\.\/abstractProxyApi/, './firefox/proxyApi');
-                } else if (browser === BROWSERS.CHROME
-                    || browser === BROWSERS.EDGE
-                    || browser === BROWSERS.OPERA) {
+                } else if (browser === Browsers.Chrome
+                    || browser === Browsers.Edge
+                    || browser === Browsers.Opera) {
                     // eslint-disable-next-line no-param-reassign
                     resource.request = resource.request.replace(/\.\/abstractProxyApi/, './chrome/proxyApi');
                 } else {
@@ -160,17 +160,11 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                                 updateLocales,
                                 process.env.BUILD_ENV,
                                 ' for Chrome',
-                                browser === BROWSERS.CHROME && path.includes(EN_MESSAGES_PATH),
+                                browser === Browsers.Chrome && path.includes(EN_MESSAGES_PATH),
                             );
                         },
                     },
                 ],
-            }),
-            new HtmlWebpackPlugin({
-                template: path.join(BACKGROUND_PATH, 'index.html'),
-                filename: 'background.html',
-                chunks: ['background'],
-                cache: false,
             }),
             new HtmlWebpackPlugin({
                 template: path.join(OPTIONS_PATH, 'index.html'),

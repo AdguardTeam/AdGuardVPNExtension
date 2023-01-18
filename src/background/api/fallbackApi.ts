@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { browserApi } from '../browserApi';
 
 import {
     AUTH_API_URL,
@@ -8,6 +9,7 @@ import {
 } from '../config';
 import { clearFromWrappingQuotes } from '../../lib/string-utils';
 import { log } from '../../lib/logger';
+import { fetchConfig } from '../../lib/constants';
 
 export const DEFAULT_CACHE_EXPIRE_TIME_MS = 1000 * 60 * 5; // 5 minutes
 
@@ -92,7 +94,7 @@ export class FallbackApi {
 
     private async updateFallbackInfo() {
         const countryInfo = await this.getCountryInfo();
-        const localStorageBkp = this.getLocalStorageBkp();
+        const localStorageBkp = await this.getLocalStorageBkp();
 
         if (!countryInfo.bkp && !localStorageBkp) {
             // if bkp is disabled, we use previous fallback info, only update expiration time
@@ -165,8 +167,8 @@ export class FallbackApi {
     /**
      * Gets bkp flag value from local storage, used for testing purposes
      */
-    private getLocalStorageBkp = (): boolean => {
-        const storedBkp = localStorage.getItem(BKP_KEY);
+    private getLocalStorageBkp = async (): Promise<boolean> => {
+        const storedBkp = await browserApi.storage.get(BKP_KEY);
         let localStorageBkp = Number.parseInt(String(storedBkp), 10);
 
         localStorageBkp = Number.isNaN(localStorageBkp) ? 0 : localStorageBkp;
@@ -178,7 +180,10 @@ export class FallbackApi {
         try {
             const { data: { country, bkp } } = await axios.get(
                 `https://${WHOAMI_URL}`,
-                { timeout: REQUEST_TIMEOUT_MS },
+                {
+                    timeout: REQUEST_TIMEOUT_MS,
+                    ...fetchConfig,
+                },
             );
             return { country, bkp };
         } catch (e) {
@@ -198,6 +203,7 @@ export class FallbackApi {
                 type: 'TXT',
             },
             timeout: REQUEST_TIMEOUT_MS,
+            ...fetchConfig,
         });
 
         const { Answer: [{ data: bkpUrl }] } = data;
@@ -221,6 +227,7 @@ export class FallbackApi {
                 type: 'TXT',
             },
             timeout: REQUEST_TIMEOUT_MS,
+            ...fetchConfig,
         });
 
         const { Answer: [{ data: bkpUrl }] } = data;
@@ -244,6 +251,7 @@ export class FallbackApi {
                 type: 'TXT',
             },
             timeout: REQUEST_TIMEOUT_MS,
+            ...fetchConfig,
         });
 
         const { Answer: [{ data: bkpUrl }] } = data;

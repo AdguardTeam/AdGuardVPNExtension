@@ -1,3 +1,5 @@
+import { Method } from 'axios';
+
 export type AuthCredentials = {
     username: string;
     password: string;
@@ -23,4 +25,9 @@ export type AuthAccessToken = {
     expiresIn: number;
     tokenType: string;
     scope?: string;
+};
+
+export type RequestProps = {
+    path: string;
+    method: Method;
 };

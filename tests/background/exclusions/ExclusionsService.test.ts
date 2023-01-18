@@ -4,7 +4,7 @@ import { servicesManager } from '../../../src/background/exclusions/services/Ser
 
 jest.mock('../../../src/background/browserApi');
 
-jest.mock('../../../src/lib/logger.js');
+jest.mock('../../../src/lib/logger.ts');
 
 jest.mock('../../../src/background/settings', () => {
     return {

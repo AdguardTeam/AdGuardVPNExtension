@@ -1,13 +1,12 @@
 import { notifier } from '../../lib/notifier';
 
 export interface ErrorData extends Error {
-    status: string;
-    message: string;
+    status?: string;
 }
 
 export interface PermissionsErrorInterface {
     setError(error: ErrorData): void;
-    getError(): Error | null;
+    getError(): ErrorData | null;
     clearError(): void;
 }
 
@@ -48,6 +47,4 @@ class PermissionsError implements PermissionsErrorInterface {
     };
 }
 
-const permissionsError = new PermissionsError();
-
-export default permissionsError;
+export const permissionsError = new PermissionsError();

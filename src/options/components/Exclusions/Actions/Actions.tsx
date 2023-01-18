@@ -18,12 +18,13 @@ import { RemoveAllModal } from './RemoveAllModal';
 import { ExclusionDataTypes, ExclusionsImportData, readExclusionsFile } from './fileHelpers';
 import { translator } from '../../../../common/translator';
 import { isValidExclusion } from '../../../../lib/string-utils';
+import { ExclusionsContentMap } from '../../../../lib/constants';
 import { log } from '../../../../lib/logger';
 import { messenger } from '../../../../lib/messenger';
 import { SelectListModal } from './SelectListModal/SelectListModal';
+import { ExclusionsModes } from '../../../../common/exclusionsConstants';
 
 import './actions.pcss';
-import { ExclusionsModes } from '../../../../common/exclusionsConstants';
 
 const prepareExclusionsAfterImport = (exclusionsString: string) => {
     return exclusionsString
@@ -155,9 +156,9 @@ export const Actions = observer(() => {
             return handleTxtExclusionsData(txtExclusionsData.content);
         }
 
-        const exclusionsContentMap = {
-            [ExclusionsModes.Regular]: [] as string[],
-            [ExclusionsModes.Selective]: [] as string[],
+        const exclusionsContentMap: ExclusionsContentMap = {
+            [ExclusionsModes.Regular]: [],
+            [ExclusionsModes.Selective]: [],
         };
 
         for (let i = 0; i < exclusionsData.length; i += 1) {
@@ -202,7 +203,7 @@ export const Actions = observer(() => {
                 await exclusionsStore.updateExclusionsData();
             }
             exclusionsStore.setImportingExclusions(false);
-        } catch (e: any) {
+        } catch (e) {
             notificationsStore.notifyError(e.message);
             exclusionsStore.setImportingExclusions(false);
         }

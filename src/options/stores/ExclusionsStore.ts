@@ -20,6 +20,7 @@ import {
 } from '../../common/exclusionsConstants';
 import { messenger } from '../../lib/messenger';
 import { containsIgnoreCase } from '../components/Exclusions/Search/SearchHighlighter/helpers';
+import type { RootStore } from './RootStore';
 
 export interface PreparedServiceCategory extends ServiceCategory {
     services: string[]
@@ -114,6 +115,12 @@ export class ExclusionsStore {
     @observable importingExclusions: boolean = false;
 
     @observable isAllExclusionsListsEmpty: boolean;
+
+    rootStore: RootStore;
+
+    constructor(rootStore: RootStore) {
+        this.rootStore = rootStore;
+    }
 
     /**
      * Temp list used to keep state of services to be enabled or disabled
@@ -229,7 +236,7 @@ export class ExclusionsStore {
 
     @computed
     get preparedServicesData() {
-        const categories = this.servicesData.reduce((acc, serviceData) => {
+        const categories = this.servicesData.reduce((acc: PreparedServiceCategories, serviceData) => {
             const { categories, serviceId } = serviceData;
 
             categories.forEach((category) => {
@@ -245,13 +252,13 @@ export class ExclusionsStore {
                 }
             });
             return acc;
-        }, {} as PreparedServiceCategories);
+        }, {});
 
-        const services = this.servicesData.reduce((acc, serviceData) => {
+        const services = this.servicesData.reduce((acc: PreparedServices, serviceData) => {
             const { serviceId } = serviceData;
             acc[serviceId] = serviceData;
             return acc;
-        }, {} as PreparedServices);
+        }, {});
 
         return {
             categories,

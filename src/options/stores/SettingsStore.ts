@@ -18,6 +18,7 @@ import { RequestStatus } from './consts';
 import { log } from '../../lib/logger';
 import { setQueryParameter } from '../../common/url-utils';
 import { DnsServerData } from '../../common/components/constants';
+import type { RootStore } from './RootStore';
 
 interface OptionsData {
     appVersion: string;
@@ -85,6 +86,12 @@ export class SettingsStore {
     @observable showBugReporter = false;
 
     @observable showDnsSettings = false;
+
+    rootStore: RootStore;
+
+    constructor(rootStore: RootStore) {
+        this.rootStore = rootStore;
+    }
 
     @action
     async requestIsPremiumToken(): Promise<void> {

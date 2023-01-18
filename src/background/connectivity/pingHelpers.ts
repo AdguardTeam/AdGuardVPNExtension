@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid';
+
 import { WsConnectivityMsg, WsPingMsg } from './protobufCompiled';
 import { stringToUint8Array } from '../../lib/string-utils';
 import { log } from '../../lib/logger';
@@ -6,10 +7,9 @@ import { sleep } from '../../lib/helpers';
 
 /**
  * Prepares ping message before sending to the endpoint via websocket
- * @param {number} currentTime
- * @param {string} vpnToken
- * @param {string} appId
- * @returns {Uint8Array}
+ * @param currentTime
+ * @param vpnToken
+ * @param appId
  */
 const preparePingMessage = (currentTime: number, vpnToken: string, appId: string) => {
     const pingMsg = WsPingMsg.create({
@@ -30,11 +30,10 @@ const decodeMessage = (arrBufMessage: ArrayBuffer) => {
 /**
  * Sends ping message and returns latency
  * @param websocket
- * @param {string} vpnToken
- * @param {string} appId
- * @returns {Promise<number>}
+ * @param vpnToken
+ * @param appId
  */
-export const sendPingMessage = (websocket: WebSocket, vpnToken: string, appId: string) => {
+export const sendPingMessage = (websocket: WebSocket, vpnToken: string, appId: string): Promise<number> => {
     const PING_TIMEOUT_MS = 3000;
     const arrBufMessage = preparePingMessage(Date.now(), vpnToken, appId);
 
@@ -85,7 +84,7 @@ const fetchWithTimeout = (requestUrl: string, fetchTimeout: number) => {
     const controller = new AbortController();
 
     // used in order to clear timeout
-    let timeoutId: number;
+    let timeoutId: ReturnType<typeof setTimeout>;
 
     const fetchHandler = async () => {
         try {
@@ -122,7 +121,7 @@ const fetchWithTimeout = (requestUrl: string, fetchTimeout: number) => {
     return Promise.race([
         fetchHandler(),
         new Promise((_, reject) => {
-            timeoutId = window.setTimeout(() => {
+            timeoutId = setTimeout(() => {
                 controller.abort();
                 reject(new Error(`Request to ${requestUrlWithRandomParams} stopped by timeout`));
             }, fetchTimeout);
@@ -151,7 +150,7 @@ export const measurePingToEndpointViaFetch = async (domainName: string): Promise
                 ping = fetchPing;
             }
         } catch (e) {
-            log.error(`Was unable to get ping to ${requestUrl} due to ${e}`);
+            log.error(`Was unable to get ping to ${requestUrl} due to ${e.message}`);
         }
     }
 
