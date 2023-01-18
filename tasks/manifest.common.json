@@ -16,7 +16,7 @@
             "run_at":"document_start"
         },
         {
-            "matches": ["https://*/*/thankyou-auth.html?new_user=*"],
+            "matches": ["https://*/*/other-products.html?new_user=*"],
             "js": ["thankYouPageAuth.js"],
             "run_at": "document_start"
         }
