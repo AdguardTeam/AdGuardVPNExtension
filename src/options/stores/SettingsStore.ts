@@ -11,6 +11,7 @@ import {
     APPEARANCE_THEME_DEFAULT,
     THEME_URL_PARAMETER,
     SubscriptionType,
+    QuickConnectSetting,
 } from '../../lib/constants';
 import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../background/dns/dnsConstants';
 import { messenger } from '../../lib/messenger';
@@ -34,6 +35,7 @@ interface OptionsData {
     isPremiumToken: boolean;
     subscriptionType: SubscriptionType;
     customDnsServers: DnsServerData[];
+    quickConnectSetting: QuickConnectSetting;
 }
 
 export class SettingsStore {
@@ -86,6 +88,8 @@ export class SettingsStore {
     @observable showBugReporter = false;
 
     @observable showDnsSettings = false;
+
+    @observable quickConnect = QuickConnectSetting.LastUsedLocation;
 
     rootStore: RootStore;
 
@@ -174,6 +178,7 @@ export class SettingsStore {
         this.appearanceTheme = data.appearanceTheme;
         this.subscriptionType = data.subscriptionType;
         this.customDnsServers = data.customDnsServers;
+        this.quickConnect = data.quickConnectSetting;
     };
 
     @action updateCurrentUsername = async (): Promise<void> => {
@@ -307,5 +312,12 @@ export class SettingsStore {
     @action closeSubComponents = () => {
         this.setShowBugReporter(false);
         this.setShowDnsSettings(false);
+    };
+
+    @action setQuickConnectSetting = async (value: QuickConnectSetting): Promise<void> => {
+        await messenger.setSetting(SETTINGS_IDS.QUICK_CONNECT, value);
+        runInAction(() => {
+            this.quickConnect = value;
+        });
     };
 }

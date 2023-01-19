@@ -18,6 +18,7 @@ export const SETTINGS_IDS = {
     HELP_US_IMPROVE: 'help.us.improve',
     APPEARANCE_THEME: 'appearance.theme',
     CUSTOM_DNS_SERVERS: 'custom.dns.servers',
+    QUICK_CONNECT: 'quick.connect',
 };
 
 export const APPEARANCE_THEMES = {
@@ -25,6 +26,11 @@ export const APPEARANCE_THEMES = {
     DARK: 'DARK',
     LIGHT: 'LIGHT',
 };
+
+export enum QuickConnectSetting {
+    LastUsedLocation = 'lastUsedLocation',
+    FastestLocation = 'fastestLocation',
+}
 
 export const THEME_URL_PARAMETER = 'theme';
 

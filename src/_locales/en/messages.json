@@ -446,6 +446,18 @@
     "settings_theme_light": {
         "message": "Light"
     },
+    "settings_quick_connect_title": {
+        "message": "Quick connect"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "VPN location selected when you click Connect"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Last used location"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Fastest location"
+    },
     "settings_exclusion_add": {
         "message": "Add"
     },

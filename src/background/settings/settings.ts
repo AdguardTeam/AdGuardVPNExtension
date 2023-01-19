@@ -2,7 +2,7 @@ import { SettingsService } from './SettingsService';
 import { browserApi } from '../browserApi';
 import { log } from '../../lib/logger';
 import { notifier } from '../../lib/notifier';
-import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT } from '../../lib/constants';
+import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT, QuickConnectSetting } from '../../lib/constants';
 import { dns } from '../dns';
 import { DEFAULT_DNS_SERVER } from '../dns/dnsConstants';
 import { webrtc } from '../browserApi/webrtc';
@@ -27,6 +27,7 @@ export interface SettingsInterface {
     getCustomDnsServers(): DnsServerData[];
     setCustomDnsServers(dnsServersData: DnsServerData[]): void;
     getSelectedDnsServer(): string;
+    getQuickConnectSetting(): QuickConnectSetting;
 }
 
 const DEFAULT_SETTINGS = {
@@ -41,6 +42,7 @@ const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.HELP_US_IMPROVE]: false,
     [SETTINGS_IDS.APPEARANCE_THEME]: APPEARANCE_THEME_DEFAULT,
     [SETTINGS_IDS.CUSTOM_DNS_SERVERS]: [],
+    [SETTINGS_IDS.QUICK_CONNECT]: QuickConnectSetting.LastUsedLocation,
 };
 
 const settingsService = new SettingsService(browserApi.storage, DEFAULT_SETTINGS);
@@ -163,6 +165,10 @@ const getSelectedDnsServer = (): string => {
     return settingsService.getSetting(SETTINGS_IDS.SELECTED_DNS_SERVER);
 };
 
+const getQuickConnectSetting = (): QuickConnectSetting => {
+    return settingsService.getSetting(SETTINGS_IDS.QUICK_CONNECT);
+};
+
 const init = async (): Promise<void> => {
     await settingsService.init();
     dns.init();
@@ -185,4 +191,5 @@ export const settings: SettingsInterface = {
     getCustomDnsServers,
     setCustomDnsServers,
     getSelectedDnsServer,
+    getQuickConnectSetting,
 };
