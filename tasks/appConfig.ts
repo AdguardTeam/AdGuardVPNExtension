@@ -1,4 +1,4 @@
-import { Browser, Envs } from './consts';
+import { Browser, Env } from './consts';
 
 type UrlMap = {
     [key: string]: {
@@ -49,8 +49,8 @@ const URLS_MAP_BETA = {
 };
 
 const URLS_MAP: UrlsMap = {
-    [Envs.Release]: URLS_MAP_RELEASE,
-    [Envs.Beta]: { ...URLS_MAP_RELEASE, ...URLS_MAP_BETA },
+    [Env.Release]: URLS_MAP_RELEASE,
+    [Env.Beta]: { ...URLS_MAP_RELEASE, ...URLS_MAP_BETA },
 };
 
 // VPN section API description - projects/ADGUARD/repos/adguard-vpn-backend-service/browse
@@ -94,7 +94,7 @@ export const genAppConfig = (browser: string, stageEnv?: string, buildingEnv?: s
     if (!buildingEnv) {
         throw new Error('No building environment was provided');
     }
-    const urlsMapByBrowser = URLS_MAP[buildingEnv] || URLS_MAP[Envs.Release];
+    const urlsMapByBrowser = URLS_MAP[buildingEnv] || URLS_MAP[Env.Release];
     const browserConf = urlsMapByBrowser[browser];
 
     if (!browserConf) {

@@ -5,7 +5,7 @@ dotenv.config();
 
 export const SRC_PATH = '../src';
 
-export enum Envs {
+export enum Env {
     Dev = 'dev',
     Beta = 'beta',
     Release = 'release',
@@ -33,14 +33,14 @@ type EnvMap = {
 };
 
 export const ENV_MAP: EnvMap = {
-    [Envs.Dev]: { outputPath: 'dev', name: 'Dev' },
-    [Envs.Beta]: { outputPath: 'beta', name: 'Beta' },
-    [Envs.Release]: { outputPath: 'release', name: '' },
+    [Env.Dev]: { outputPath: 'dev', name: 'Dev' },
+    [Env.Beta]: { outputPath: 'beta', name: 'Beta' },
+    [Env.Release]: { outputPath: 'release', name: '' },
 };
 
 export const { BUILD_ENV, STAGE_ENV } = process.env;
 
-export const IS_DEV = BUILD_ENV ? BUILD_ENV === Envs.Dev : true;
+export const IS_DEV = BUILD_ENV ? BUILD_ENV === Env.Dev : true;
 
 // Build output path
 export const BUILD_PATH = '../build';
@@ -59,7 +59,7 @@ export const CERTIFICATE_PATHS = {
     release: './private/AdguardVPN/certificate-release.pem',
 };
 
-export const deployPath = process.env.BUILD_ENV || Envs.Dev;
+export const deployPath = process.env.BUILD_ENV || Env.Dev;
 
 // Update manifest URL for the Chrome extension
 export const CHROME_UPDATE_URL = `https://static.adguardvpn.com/extensions/adguardvpn/${deployPath}/${CHROME_UPDATER_FILENAME}`;
