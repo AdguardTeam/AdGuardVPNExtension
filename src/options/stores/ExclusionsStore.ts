@@ -35,11 +35,11 @@ interface PreparedServices {
 }
 
 export enum AddExclusionMode {
-    SERVICE = 'SERVICE',
-    MANUAL = 'MANUAL',
+    Service = 'Service',
+    Manual = 'Manual',
 }
 
-const DEFAULT_ADD_EXCLUSION_MODE = AddExclusionMode.MANUAL;
+const DEFAULT_ADD_EXCLUSION_MODE = AddExclusionMode.Manual;
 
 const findExclusionById = (
     exclusionsTree: ExclusionDtoInterface,
@@ -211,7 +211,7 @@ export class ExclusionsStore {
         this.setServicesSearchValue('');
         this.servicesToToggle = [];
         this.unfoldedServiceCategories = [];
-        this.setAddExclusionMode(AddExclusionMode.MANUAL);
+        this.setAddExclusionMode(AddExclusionMode.Manual);
     };
 
     @action setAddExclusionMode = (mode: AddExclusionMode) => {
