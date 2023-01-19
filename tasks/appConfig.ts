@@ -1,4 +1,4 @@
-import { Browsers, Envs } from './consts';
+import { Browser, Envs } from './consts';
 
 type UrlMap = {
     [key: string]: {
@@ -13,25 +13,25 @@ type UrlsMap = {
 const { FORWARDER_DOMAIN } = process.env;
 
 const URLS_MAP_RELEASE: UrlMap = {
-    [Browsers.Chrome]: {
+    [Browser.Chrome]: {
         POPUP_STORE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=chrome_store&from=popup&app=vpn_extension`,
         POPUP_FEEDBACK_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=feedback_chrome&from=popup&app=vpn_extension`,
         OPTIONS_STORE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=chrome_store&from=options_screen&app=vpn_extension`,
         FEEDBACK_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=feedback_chrome&from=options_screen&app=vpn_extension`,
     },
-    [Browsers.Firefox]: {
+    [Browser.Firefox]: {
         POPUP_STORE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=firefox_store&from=popup&app=vpn_extension`,
         POPUP_FEEDBACK_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=feedback_firefox&from=popup&app=vpn_extension`,
         OPTIONS_STORE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=firefox_store&from=options_screen&app=vpn_extension`,
         FEEDBACK_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=feedback_firefox&from=options_screen&app=vpn_extension`,
     },
-    [Browsers.Edge]: {
+    [Browser.Edge]: {
         POPUP_STORE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=edge_store&from=popup&app=vpn_extension`,
         POPUP_FEEDBACK_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=feedback_edge&from=popup&app=vpn_extension`,
         OPTIONS_STORE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=edge_store&from=options_screen&app=vpn_extension`,
         FEEDBACK_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=feedback_edge&from=options_screen&app=vpn_extension`,
     },
-    [Browsers.Opera]: {
+    [Browser.Opera]: {
         POPUP_STORE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=opera_store&from=popup&app=vpn_extension`,
         POPUP_FEEDBACK_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=feedback_opera&from=popup&app=vpn_extension`,
         OPTIONS_STORE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=opera_store&from=options_screen&app=vpn_extension`,
@@ -40,7 +40,7 @@ const URLS_MAP_RELEASE: UrlMap = {
 };
 
 const URLS_MAP_BETA = {
-    [Browsers.Chrome]: {
+    [Browser.Chrome]: {
         POPUP_STORE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=chrome_store_beta&from=popup&app=vpn_extension`,
         OPTIONS_STORE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=chrome_store_beta&from=options_screen&app=vpn_extension`,
         POPUP_FEEDBACK_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=feedback_chrome&from=popup&app=vpn_extension`,

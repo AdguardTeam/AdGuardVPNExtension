@@ -11,7 +11,7 @@ export enum Envs {
     Release = 'release',
 }
 
-export enum Browsers {
+export enum Browser {
     Chrome = 'chrome',
     ChromeMV3 = 'chrome-mv3',
     Firefox = 'firefox',

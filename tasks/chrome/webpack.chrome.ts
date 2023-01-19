@@ -12,7 +12,7 @@ import {
     STAGE_ENV,
     IS_DEV,
     StageEnvs,
-    Browsers,
+    Browser,
     SRC_PATH,
 } from '../consts';
 
@@ -26,7 +26,7 @@ if (IS_DEV && STAGE_ENV === StageEnvs.Prod) {
     zipFilename = 'chrome-prod.zip';
 }
 
-const commonConfig = getCommonConfig(Browsers.Chrome);
+const commonConfig = getCommonConfig(Browser.Chrome);
 
 const plugins = [
     new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {

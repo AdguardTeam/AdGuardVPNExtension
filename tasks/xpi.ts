@@ -6,7 +6,7 @@ import chalk from 'chalk';
 import { Manifest } from 'webextension-polyfill';
 
 import {
-    Browsers,
+    Browser,
     ENV_MAP,
     FIREFOX_UPDATE_XPI,
     BUILD_PATH,
@@ -29,7 +29,7 @@ const getFirefoxManifest = async (): Promise<Manifest.ManifestBase> => {
         __dirname,
         BUILD_PATH,
         outputPath,
-        Browsers.Firefox,
+        Browser.Firefox,
         MANIFEST_NAME,
     );
     const manifestBuffer = await fs.readFile(MANIFEST_PATH);
@@ -38,7 +38,7 @@ const getFirefoxManifest = async (): Promise<Manifest.ManifestBase> => {
 };
 
 async function generateXpi(): Promise<void> {
-    const sourceDir = path.resolve(__dirname, BUILD_PATH, outputPath, Browsers.Firefox);
+    const sourceDir = path.resolve(__dirname, BUILD_PATH, outputPath, Browser.Firefox);
     const credentialsPath = path.resolve(__dirname, '../private/AdguardVPN/mozilla_credentials.json');
 
     // require called here in order to escape errors, until this module is really necessary
@@ -143,7 +143,7 @@ const updateFirefoxManifest = async (): Promise<void> => {
         __dirname,
         BUILD_PATH,
         outputPath,
-        Browsers.Firefox,
+        Browser.Firefox,
         MANIFEST_NAME,
     );
     const manifest = JSON.parse(await fs.readFile(MANIFEST_PATH, 'utf-8'));

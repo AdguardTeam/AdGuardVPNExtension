@@ -10,7 +10,7 @@ const { log, error } = console;
 const {
     CHROME_UPDATE_URL,
     MANIFEST_NAME,
-    Browsers,
+    Browser,
     BUILD_PATH,
     ENV_MAP,
     CERTIFICATE_PATHS,
@@ -62,7 +62,7 @@ const createXml = async (crx: any) => {
 };
 
 const generateChromeFiles = async (isMV3: boolean) => {
-    const loadPath = path.resolve(WRITE_PATH, isMV3 ? Browsers.ChromeMV3 : Browsers.Chrome);
+    const loadPath = path.resolve(WRITE_PATH, isMV3 ? Browser.ChromeMV3 : Browser.Chrome);
     const crxName = isMV3 ? CRX_MV3_NAME : CRX_NAME;
     const manifestPath = path.resolve(loadPath, MANIFEST_NAME);
 

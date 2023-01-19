@@ -8,7 +8,7 @@ import { chromeConfigMV3 } from './chrome-mv3/webpack.chrome';
 import { firefoxConfig } from './firefox/webpack.firefox';
 import { operaConfig } from './opera/webpack.opera';
 import { edgeConfig } from './edge/webpack.edge';
-import { Browsers } from './consts';
+import { Browser } from './consts';
 
 const createBundle = async (config: webpack.Configuration, watch: boolean): Promise<void> => {
     try {
@@ -31,35 +31,35 @@ program
     .option('--watch', 'Builds in watch mode', false);
 
 program
-    .command(Browsers.Chrome)
+    .command(Browser.Chrome)
     .description('Builds extension for chrome browser with manifest version 2')
     .action(() => {
         createBundle(chromeConfig, program.watch);
     });
 
 program
-    .command(Browsers.ChromeMV3)
+    .command(Browser.ChromeMV3)
     .description('Builds extension for chrome browser with manifest version 3')
     .action(() => {
         createBundle(chromeConfigMV3, program.watch);
     });
 
 program
-    .command(Browsers.Firefox)
+    .command(Browser.Firefox)
     .description('Builds extension for firefox browser')
     .action(() => {
         createBundle(firefoxConfig, program.watch);
     });
 
 program
-    .command(Browsers.Opera)
+    .command(Browser.Opera)
     .description('Builds extension for firefox browser')
     .action(() => {
         createBundle(operaConfig, program.watch);
     });
 
 program
-    .command(Browsers.Edge)
+    .command(Browser.Edge)
     .description('Builds extension for firefox browser')
     .action(() => {
         createBundle(edgeConfig, program.watch);

@@ -12,7 +12,7 @@ import {
     STAGE_ENV,
     IS_DEV,
     StageEnvs,
-    Browsers,
+    Browser,
     SRC_PATH,
 } from '../consts';
 
@@ -26,7 +26,7 @@ if (IS_DEV && STAGE_ENV === StageEnvs.Prod) {
     zipFilename = 'edge-prod.zip';
 }
 
-const commonConfig = getCommonConfig(Browsers.Edge);
+const commonConfig = getCommonConfig(Browser.Edge);
 
 const plugins = [
     // TODO: on move to MV3 inject Mv3Timers
