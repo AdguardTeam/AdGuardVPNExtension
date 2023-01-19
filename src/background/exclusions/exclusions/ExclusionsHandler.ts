@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 
-import { ExclusionsModes, ExclusionState } from '../../../common/exclusionsConstants';
+import { ExclusionsMode, ExclusionState } from '../../../common/exclusionsConstants';
 import { areHostnamesEqual, shExpMatch } from '../../../lib/string-utils';
 import { ExclusionInterface, IndexedExclusionsInterface } from './exclusionsTypes';
 import { getETld, getHostname } from '../../../common/url-utils';
@@ -22,12 +22,12 @@ export class ExclusionsHandler {
 
     updateHandler: UpdateHandler;
 
-    public mode: ExclusionsModes;
+    public mode: ExclusionsMode;
 
     constructor(
         updateHandler: UpdateHandler,
         exclusions: ExclusionInterface[],
-        mode: ExclusionsModes,
+        mode: ExclusionsMode,
     ) {
         this.updateHandler = updateHandler;
         this.exclusions = exclusions;

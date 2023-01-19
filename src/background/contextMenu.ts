@@ -9,7 +9,7 @@ import { translator } from '../common/translator';
 import { settings } from './settings';
 import { isHttp } from '../lib/string-utils';
 import { log } from '../lib/logger';
-import { ExclusionsModes } from '../common/exclusionsConstants';
+import { ExclusionsMode } from '../common/exclusionsConstants';
 import { actions } from './actions';
 
 type ContextType = browser.Menus.ContextType;
@@ -53,13 +53,13 @@ const CONTEXT_MENU_ITEMS: ContextMenuItems = {
         id: 'selective_mode',
         type: 'radio',
         title: translator.getMessage('context_menu_selective_mode'),
-        action: () => exclusions.setMode(ExclusionsModes.Selective, true),
+        action: () => exclusions.setMode(ExclusionsMode.Selective, true),
     },
     regular_mode: {
         id: 'regular_mode',
         type: 'radio',
         title: translator.getMessage('context_menu_general_mode'),
-        action: () => exclusions.setMode(ExclusionsModes.Regular, true),
+        action: () => exclusions.setMode(ExclusionsMode.Regular, true),
     },
     separator: {
         id: 'separator',

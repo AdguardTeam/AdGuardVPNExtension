@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 
 import { MessageType, SocialAuthProvider, ExclusionsContentMap } from './constants';
 import { log } from './logger';
-import { ExclusionsData, ExclusionsModes, ServiceDto } from '../common/exclusionsConstants';
+import { ExclusionsData, ExclusionsMode, ServiceDto } from '../common/exclusionsConstants';
 import { StartSocialAuthData, UserLookupData } from '../background/messaging/messagingTypes';
 import { DnsServerData } from '../common/components/constants';
 import type { LocationData } from '../popup/stores/VpnStore';
@@ -292,7 +292,7 @@ class Messenger {
         return this.sendMessage(type);
     }
 
-    async setExclusionsMode(mode: ExclusionsModes) {
+    async setExclusionsMode(mode: ExclusionsMode) {
         const type = MessageType.SET_EXCLUSIONS_MODE;
         return this.sendMessage(type, { mode });
     }

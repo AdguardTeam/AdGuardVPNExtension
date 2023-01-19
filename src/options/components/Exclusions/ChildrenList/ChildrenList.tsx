@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../../stores';
 import { Title } from '../../ui/Title';
 import { reactTranslator } from '../../../../common/reactTranslator';
-import { ExclusionsModes, ExclusionsTypes } from '../../../../common/exclusionsConstants';
+import { ExclusionsMode, ExclusionsType } from '../../../../common/exclusionsConstants';
 import { ChildrenListItem } from './ChildrenListItem';
 import { SubdomainModal } from './SubdomainModal';
 import { ResetServiceModal } from './ResetServiceModal';
@@ -20,7 +20,7 @@ export const ChildrenList = observer(() => {
         return null;
     }
 
-    const subtitle = exclusionsStore.currentMode === ExclusionsModes.Regular
+    const subtitle = exclusionsStore.currentMode === ExclusionsMode.Regular
         ? reactTranslator.getMessage('settings_exclusion_group_settings_subtitle_regular_mode')
         : reactTranslator.getMessage('settings_exclusion_group_settings_subtitle_selective_mode');
 
@@ -36,10 +36,10 @@ export const ChildrenList = observer(() => {
         exclusionsStore.openAddSubdomainModal();
     };
 
-    const isModifiedService = selectedExclusion.type === ExclusionsTypes.Service
+    const isModifiedService = selectedExclusion.type === ExclusionsType.Service
         && !exclusionsStore.isServiceDefaultState(selectedExclusion.id);
 
-    const isExclusionsGroup = selectedExclusion.type === ExclusionsTypes.Group
+    const isExclusionsGroup = selectedExclusion.type === ExclusionsType.Group
         && !isTopLevel(selectedExclusion.hostname);
 
     const renderResetButton = () => {

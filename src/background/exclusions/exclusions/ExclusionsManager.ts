@@ -1,4 +1,4 @@
-import { ExclusionsModes, ExclusionState } from '../../../common/exclusionsConstants';
+import { ExclusionsMode, ExclusionState } from '../../../common/exclusionsConstants';
 import { ExclusionsHandler } from './ExclusionsHandler';
 import { notifier } from '../../../lib/notifier';
 import { log } from '../../../lib/logger';
@@ -7,16 +7,16 @@ import { proxy } from '../../proxy';
 import { ExclusionInterface, IndexedExclusionsInterface } from './exclusionsTypes';
 
 export interface PersistedExclusions {
-    [ExclusionsModes.Regular]: ExclusionInterface[];
-    [ExclusionsModes.Selective]: ExclusionInterface[];
+    [ExclusionsMode.Regular]: ExclusionInterface[];
+    [ExclusionsMode.Selective]: ExclusionInterface[];
     inverted: boolean;
 }
 
 export type AllExclusions = Omit<PersistedExclusions, 'inverted'>;
 
 const DefaultExclusions: PersistedExclusions = {
-    [ExclusionsModes.Regular]: [],
-    [ExclusionsModes.Selective]: [],
+    [ExclusionsMode.Regular]: [],
+    [ExclusionsMode.Selective]: [],
     inverted: false,
 };
 
@@ -34,22 +34,22 @@ export class ExclusionsManager {
     init = async () => {
         this.exclusions = settings.getExclusions();
 
-        const regular = this.exclusions[ExclusionsModes.Regular] ?? [];
+        const regular = this.exclusions[ExclusionsMode.Regular] ?? [];
 
-        const selective = this.exclusions[ExclusionsModes.Selective] ?? [];
+        const selective = this.exclusions[ExclusionsMode.Selective] ?? [];
 
         this.inverted = this.exclusions.inverted ?? false;
 
         this.selectiveModeHandler = new ExclusionsHandler(
             this.handleExclusionsUpdate,
             selective,
-            ExclusionsModes.Selective,
+            ExclusionsMode.Selective,
         );
 
         this.regularModeHandler = new ExclusionsHandler(
             this.handleExclusionsUpdate,
             regular,
-            ExclusionsModes.Regular,
+            ExclusionsMode.Regular,
         );
 
         this.currentHandler = this.inverted ? this.selectiveModeHandler : this.regularModeHandler;
@@ -74,8 +74,8 @@ export class ExclusionsManager {
 
         const exclusionsRepository = {
             inverted: this.inverted,
-            [ExclusionsModes.Selective]: this.selective.exclusions,
-            [ExclusionsModes.Regular]: this.regular.exclusions,
+            [ExclusionsMode.Selective]: this.selective.exclusions,
+            [ExclusionsMode.Regular]: this.regular.exclusions,
         };
 
         settings.setExclusions(exclusionsRepository);
@@ -97,14 +97,14 @@ export class ExclusionsManager {
      * Sets current exclusion mode
      * @param mode
      */
-    async setCurrentMode(mode: ExclusionsModes) {
+    async setCurrentMode(mode: ExclusionsMode) {
         switch (mode) {
-            case ExclusionsModes.Selective: {
+            case ExclusionsMode.Selective: {
                 this.currentHandler = this.selectiveModeHandler;
                 this.inverted = true;
                 break;
             }
-            case ExclusionsModes.Regular: {
+            case ExclusionsMode.Regular: {
                 this.currentHandler = this.regularModeHandler;
                 this.inverted = false;
                 break;
