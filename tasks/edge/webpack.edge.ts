@@ -11,7 +11,7 @@ import { edgeManifestDiff } from './manifest.edge';
 import {
     STAGE_ENV,
     IS_DEV,
-    StageEnvs,
+    StageEnv,
     Browser,
     SRC_PATH,
 } from '../consts';
@@ -22,7 +22,7 @@ const EDGE_PATH = 'edge';
 
 let zipFilename = 'edge.zip';
 
-if (IS_DEV && STAGE_ENV === StageEnvs.Prod) {
+if (IS_DEV && STAGE_ENV === StageEnv.Prod) {
     zipFilename = 'edge-prod.zip';
 }
 

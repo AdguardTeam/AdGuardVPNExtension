@@ -20,7 +20,7 @@ export enum Browser {
 }
 
 // Used only to change output filenames
-export enum StageEnvs {
+export enum StageEnv {
     Test = 'test',
     Prod = 'prod',
 }

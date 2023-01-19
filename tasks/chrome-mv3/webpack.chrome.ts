@@ -10,7 +10,7 @@ import { chromeManifestDiff } from './manifest.chrome';
 import {
     STAGE_ENV,
     IS_DEV,
-    StageEnvs,
+    StageEnv,
     Browser,
 } from '../consts';
 
@@ -18,7 +18,7 @@ const CHROME_PATH = 'chrome-mv3';
 
 let zipFilename = 'chrome-mv3.zip';
 
-if (IS_DEV && STAGE_ENV === StageEnvs.Prod) {
+if (IS_DEV && STAGE_ENV === StageEnv.Prod) {
     zipFilename = 'chrome-mv3-prod.zip';
 }
 
