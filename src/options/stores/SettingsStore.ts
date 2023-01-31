@@ -12,6 +12,7 @@ import {
     THEME_URL_PARAMETER,
     SubscriptionType,
     QuickConnectSetting,
+    QUICK_CONNECT_SETTING_DEFAULT,
 } from '../../lib/constants';
 import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../background/dns/dnsConstants';
 import { messenger } from '../../lib/messenger';
@@ -89,7 +90,7 @@ export class SettingsStore {
 
     @observable showDnsSettings = false;
 
-    @observable quickConnect = QuickConnectSetting.LastUsedLocation;
+    @observable quickConnect = QUICK_CONNECT_SETTING_DEFAULT;
 
     rootStore: RootStore;
 

@@ -2,7 +2,12 @@ import { SettingsService } from './SettingsService';
 import { browserApi } from '../browserApi';
 import { log } from '../../lib/logger';
 import { notifier } from '../../lib/notifier';
-import { SETTINGS_IDS, APPEARANCE_THEME_DEFAULT, QuickConnectSetting } from '../../lib/constants';
+import {
+    SETTINGS_IDS,
+    APPEARANCE_THEME_DEFAULT,
+    QuickConnectSetting,
+    QUICK_CONNECT_SETTING_DEFAULT,
+} from '../../lib/constants';
 import { dns } from '../dns';
 import { DEFAULT_DNS_SERVER } from '../dns/dnsConstants';
 import { webrtc } from '../browserApi/webrtc';
@@ -42,7 +47,7 @@ const DEFAULT_SETTINGS = {
     [SETTINGS_IDS.HELP_US_IMPROVE]: false,
     [SETTINGS_IDS.APPEARANCE_THEME]: APPEARANCE_THEME_DEFAULT,
     [SETTINGS_IDS.CUSTOM_DNS_SERVERS]: [],
-    [SETTINGS_IDS.QUICK_CONNECT]: QuickConnectSetting.LastUsedLocation,
+    [SETTINGS_IDS.QUICK_CONNECT]: QUICK_CONNECT_SETTING_DEFAULT,
 };
 
 const settingsService = new SettingsService(browserApi.storage, DEFAULT_SETTINGS);

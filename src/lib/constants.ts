@@ -32,6 +32,8 @@ export enum QuickConnectSetting {
     FastestLocation = 'fastestLocation',
 }
 
+export const QUICK_CONNECT_SETTING_DEFAULT = QuickConnectSetting.LastUsedLocation;
+
 export const THEME_URL_PARAMETER = 'theme';
 
 export const APPEARANCE_THEME_DEFAULT = APPEARANCE_THEMES.SYSTEM;
