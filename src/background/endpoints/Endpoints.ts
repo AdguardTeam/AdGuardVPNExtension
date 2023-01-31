@@ -22,6 +22,8 @@ import { isVPNConnected, isVPNDisconnectedIdle } from '../connectivity/connectiv
 import { EndpointInterface } from './Endpoint';
 import { LocationInterface } from './Location';
 import { VpnTokenData } from '../credentials/Credentials';
+import { settings } from '../settings';
+import { QuickConnectSetting } from '../../lib/constants';
 
 /**
  * Endpoint properties
@@ -353,11 +355,13 @@ class Endpoints implements EndpointsInterface {
         const selectedLocation = await locationsService.getSelectedLocation();
         const isLocationSelectedByUser = await locationsService.getIsLocationSelectedByUser();
         const isVPNDisabled = isVPNDisconnectedIdle();
+        const isUserPrefersFastestLocation = settings.getQuickConnectSetting() === QuickConnectSetting.FastestLocation;
 
-        // If no selected location of location is not selected by user and vpn is disabled we
-        // find better location again
-        const shouldSelectFasterLocation = !selectedLocation
-            || (!isLocationSelectedByUser && isVPNDisabled);
+        // If vpn is disabled and there is no selected location
+        // or location is not selected by user or user prefers the fastest location
+        // we find the fastest location
+        const shouldSelectFasterLocation = isVPNDisabled
+            && (!selectedLocation || !isLocationSelectedByUser || isUserPrefersFastestLocation);
 
         if (!shouldSelectFasterLocation) {
             return new LocationWithPing(<LocationWithPing>selectedLocation);
