@@ -15,7 +15,7 @@ import FileSaver from 'file-saver';
 import { rootStore } from '../../../stores';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { RemoveAllModal } from './RemoveAllModal';
-import { ExclusionDataTypes, ExclusionsImportData, readExclusionsFile } from './fileHelpers';
+import { ExclusionDataType, ExclusionsImportData, readExclusionsFile } from './fileHelpers';
 import { translator } from '../../../../common/translator';
 import { isValidExclusion } from '../../../../lib/string-utils';
 import { ExclusionsContentMap } from '../../../../lib/constants';
@@ -150,7 +150,7 @@ export const Actions = observer(() => {
     };
 
     const handleExclusionsData = async (exclusionsData: ExclusionsImportData[]) => {
-        const txtExclusionsData = exclusionsData.find((d) => d.type === ExclusionDataTypes.Txt);
+        const txtExclusionsData = exclusionsData.find((d) => d.type === ExclusionDataType.Txt);
 
         if (txtExclusionsData) {
             return handleTxtExclusionsData(txtExclusionsData.content);
@@ -163,10 +163,10 @@ export const Actions = observer(() => {
 
         for (let i = 0; i < exclusionsData.length; i += 1) {
             const { type, content } = exclusionsData[i];
-            if (type === ExclusionDataTypes.General) {
+            if (type === ExclusionDataType.General) {
                 // eslint-disable-next-line max-len
                 exclusionsContentMap[ExclusionsMode.Regular] = prepareExclusionsAfterImport(content);
-            } else if (type === ExclusionDataTypes.Selective) {
+            } else if (type === ExclusionDataType.Selective) {
                 // eslint-disable-next-line max-len
                 exclusionsContentMap[ExclusionsMode.Selective] = prepareExclusionsAfterImport(content);
             }
