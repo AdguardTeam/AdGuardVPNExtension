@@ -22,7 +22,7 @@ const AUTH_STEPS = {
     TWO_FACTOR: 'twoFactor',
 };
 
-enum CredentialsKeys {
+enum CredentialsKey {
     Username = 'username',
     Password = 'password',
     ConfirmPassword = 'confirmPassword',
@@ -31,20 +31,20 @@ enum CredentialsKeys {
 }
 
 interface CredentialsInterface {
-    [CredentialsKeys.Username]: string;
-    [CredentialsKeys.Password]: string;
-    [CredentialsKeys.ConfirmPassword]: string;
-    [CredentialsKeys.TwoFactor]: string;
-    [CredentialsKeys.MarketingConsent]: boolean | string;
+    [CredentialsKey.Username]: string;
+    [CredentialsKey.Password]: string;
+    [CredentialsKey.ConfirmPassword]: string;
+    [CredentialsKey.TwoFactor]: string;
+    [CredentialsKey.MarketingConsent]: boolean | string;
 }
 
 const DEFAULTS = {
     credentials: {
-        [CredentialsKeys.Username]: '',
-        [CredentialsKeys.Password]: '',
-        [CredentialsKeys.ConfirmPassword]: '',
-        [CredentialsKeys.TwoFactor]: '',
-        [CredentialsKeys.MarketingConsent]: '',
+        [CredentialsKey.Username]: '',
+        [CredentialsKey.Password]: '',
+        [CredentialsKey.ConfirmPassword]: '',
+        [CredentialsKey.TwoFactor]: '',
+        [CredentialsKey.MarketingConsent]: '',
     },
     authenticated: false,
     need2fa: false,
@@ -125,7 +125,7 @@ export class AuthStore {
 
     @action onCredentialsChange = async (field: string, value: string) => {
         await this.resetError();
-        const key = <CredentialsKeys>field;
+        const key = <CredentialsKey>field;
 
         runInAction(() => {
             this.credentials[key] = value;

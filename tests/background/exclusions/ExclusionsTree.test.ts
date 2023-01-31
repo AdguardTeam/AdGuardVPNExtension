@@ -1,7 +1,7 @@
 import { ExclusionsHandler } from '../../../src/background/exclusions/exclusions/ExclusionsHandler';
 import { ServicesManager } from '../../../src/background/exclusions/services/ServicesManager';
 import { ExclusionsTree } from '../../../src/background/exclusions/ExclusionsTree';
-import { ExclusionState, ExclusionsTypes } from '../../../src/common/exclusionsConstants';
+import { ExclusionState, ExclusionsType } from '../../../src/common/exclusionsConstants';
 import { ExclusionInterface } from '../../../src/background/exclusions/exclusions/exclusionsTypes';
 
 jest.mock('../../../src/lib/logger.ts');
@@ -50,14 +50,14 @@ describe('ExclusionsTree', () => {
                 id: 'example.org',
                 hostname: 'example.org',
                 state: ExclusionState.Enabled,
-                type: ExclusionsTypes.Group,
+                type: ExclusionsType.Group,
                 parentId: 'root',
                 children: [
                     {
                         id: '1',
                         hostname: 'example.org',
                         state: ExclusionState.Enabled,
-                        type: ExclusionsTypes.Exclusion,
+                        type: ExclusionsType.Exclusion,
                         parentId: 'example.org',
                         children: [],
                     },
@@ -65,7 +65,7 @@ describe('ExclusionsTree', () => {
                         id: '2',
                         hostname: '*.example.org',
                         state: ExclusionState.Enabled,
-                        type: ExclusionsTypes.Exclusion,
+                        type: ExclusionsType.Exclusion,
                         parentId: 'example.org',
                         children: [],
                     },
@@ -121,21 +121,21 @@ describe('ExclusionsTree', () => {
                 id: 'aliexpress',
                 hostname: 'Aliexpress',
                 state: ExclusionState.Enabled,
-                type: ExclusionsTypes.Service,
+                type: ExclusionsType.Service,
                 iconUrl: 'https://icons.adguard.org/icon?domain=aliexpress.com',
                 parentId: 'root',
                 children: [{
                     id: 'aliexpress.com',
                     hostname: 'aliexpress.com',
                     state: ExclusionState.Enabled,
-                    type: ExclusionsTypes.Group,
+                    type: ExclusionsType.Group,
                     parentId: 'aliexpress',
                     children: [
                         {
                             id: '0',
                             hostname: 'aliexpress.com',
                             state: ExclusionState.Enabled,
-                            type: ExclusionsTypes.Exclusion,
+                            type: ExclusionsType.Exclusion,
                             parentId: 'aliexpress.com',
                             children: [],
                         },
@@ -143,7 +143,7 @@ describe('ExclusionsTree', () => {
                             id: '1',
                             hostname: '*.aliexpress.com',
                             state: ExclusionState.Enabled,
-                            type: ExclusionsTypes.Exclusion,
+                            type: ExclusionsType.Exclusion,
                             parentId: 'aliexpress.com',
                             children: [],
                         },
@@ -153,14 +153,14 @@ describe('ExclusionsTree', () => {
                     id: 'aliexpress.ru',
                     hostname: 'aliexpress.ru',
                     state: ExclusionState.Enabled,
-                    type: ExclusionsTypes.Group,
+                    type: ExclusionsType.Group,
                     parentId: 'aliexpress',
                     children: [
                         {
                             id: '2',
                             hostname: 'aliexpress.ru',
                             state: ExclusionState.Enabled,
-                            type: ExclusionsTypes.Exclusion,
+                            type: ExclusionsType.Exclusion,
                             parentId: 'aliexpress.ru',
                             children: [],
                         },
@@ -168,7 +168,7 @@ describe('ExclusionsTree', () => {
                             id: '3',
                             hostname: '*.aliexpress.ru',
                             state: ExclusionState.Enabled,
-                            type: ExclusionsTypes.Exclusion,
+                            type: ExclusionsType.Exclusion,
                             parentId: 'aliexpress.ru',
                             children: [],
                         },

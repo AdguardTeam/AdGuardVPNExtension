@@ -21,31 +21,31 @@ export const AddExclusionModal = observer(() => {
     };
 
     const onServiceModeClick = () => {
-        exclusionsStore.setAddExclusionMode(AddExclusionMode.SERVICE);
+        exclusionsStore.setAddExclusionMode(AddExclusionMode.Service);
     };
 
     const onManualModeClick = () => {
-        exclusionsStore.setAddExclusionMode(AddExclusionMode.MANUAL);
+        exclusionsStore.setAddExclusionMode(AddExclusionMode.Manual);
     };
 
     const ModeSelectButtons = {
         service: {
             classname: classnames(
                 'mode-select-button',
-                { enabled: exclusionsStore.addExclusionMode === AddExclusionMode.SERVICE },
+                { enabled: exclusionsStore.addExclusionMode === AddExclusionMode.Service },
             ),
         },
         manual: {
             classname: classnames(
                 'mode-select-button',
-                { enabled: exclusionsStore.addExclusionMode === AddExclusionMode.MANUAL },
+                { enabled: exclusionsStore.addExclusionMode === AddExclusionMode.Manual },
             ),
         },
     };
 
     const MODE_MAP = {
-        [AddExclusionMode.SERVICE]: () => <ServiceMode />,
-        [AddExclusionMode.MANUAL]: () => <ManualMode />,
+        [AddExclusionMode.Service]: () => <ServiceMode />,
+        [AddExclusionMode.Manual]: () => <ManualMode />,
     };
 
     const mode = MODE_MAP[exclusionsStore.addExclusionMode];

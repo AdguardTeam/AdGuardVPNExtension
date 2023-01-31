@@ -11,7 +11,7 @@ import { ConfirmAddModal } from './ExclusionsModal/ConfirmAddModal';
 import { ChildrenList } from './ChildrenList';
 import { ExclusionsSearch } from './Search/ExclusionsSearch';
 import { translator } from '../../../common/translator';
-import { ExclusionsModes } from '../../../common/exclusionsConstants';
+import { ExclusionsMode } from '../../../common/exclusionsConstants';
 import { reactTranslator } from '../../../common/reactTranslator';
 
 import './exclusions.pcss';
@@ -45,7 +45,7 @@ export const Exclusions = observer(() => {
     const generalModeInfo = reactTranslator.getMessage('settings_exclusion_general_mode_info', modeInfoParams);
     const selectiveModeInfo = reactTranslator.getMessage('settings_exclusion_selective_mode_info', modeInfoParams);
 
-    const modeInfo = exclusionsStore.currentMode === ExclusionsModes.Regular
+    const modeInfo = exclusionsStore.currentMode === ExclusionsMode.Regular
         ? generalModeInfo
         : selectiveModeInfo;
 
@@ -54,7 +54,7 @@ export const Exclusions = observer(() => {
     };
 
     const renderSelectiveModeWarning = () => {
-        if (exclusionsStore.currentMode === ExclusionsModes.Selective
+        if (exclusionsStore.currentMode === ExclusionsMode.Selective
             && !exclusionsStore.exclusionsTree.children.length) {
             return (
                 <div className="exclusions__mode--warning">

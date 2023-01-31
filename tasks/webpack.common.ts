@@ -12,7 +12,7 @@ import {
     IS_DEV,
     BUILD_ENV,
     BUILD_PATH,
-    Browsers,
+    Browser,
 } from './consts';
 
 const { getOutputPathByEnv, updateLocalesMSGName, modifyExtensionName } = require('./helpers');
@@ -122,12 +122,12 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                 )),
             }),
             new webpack.NormalModuleReplacementPlugin(/\.\/abstractProxyApi/, ((resource: any) => {
-                if (browser === Browsers.Firefox) {
+                if (browser === Browser.Firefox) {
                     // eslint-disable-next-line no-param-reassign
                     resource.request = resource.request.replace(/\.\/abstractProxyApi/, './firefox/proxyApi');
-                } else if (browser === Browsers.Chrome
-                    || browser === Browsers.Edge
-                    || browser === Browsers.Opera) {
+                } else if (browser === Browser.Chrome
+                    || browser === Browser.Edge
+                    || browser === Browser.Opera) {
                     // eslint-disable-next-line no-param-reassign
                     resource.request = resource.request.replace(/\.\/abstractProxyApi/, './chrome/proxyApi');
                 } else {
@@ -160,7 +160,7 @@ export const getCommonConfig = (browser: string): webpack.Configuration => {
                                 updateLocales,
                                 process.env.BUILD_ENV,
                                 ' for Chrome',
-                                browser === Browsers.Chrome && path.includes(EN_MESSAGES_PATH),
+                                browser === Browser.Chrome && path.includes(EN_MESSAGES_PATH),
                             );
                         },
                     },

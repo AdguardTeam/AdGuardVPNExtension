@@ -7,7 +7,7 @@ import { StateCheckbox } from '../../StateCheckbox';
 import {
     ExclusionDtoInterface,
     ExclusionState,
-    ExclusionsTypes,
+    ExclusionsType,
 } from '../../../../../common/exclusionsConstants';
 import { reactTranslator } from '../../../../../common/reactTranslator';
 
@@ -56,7 +56,7 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
     const wildcardExclusion = `*.${selectedExclusion?.hostname}`;
 
     const exclusionClassNames = (hostname: string) => classnames('children-list-item', {
-        'service-exclusion': selectedExclusion?.type === ExclusionsTypes.Service,
+        'service-exclusion': selectedExclusion?.type === ExclusionsType.Service,
         useless: hostname !== selectedExclusion?.hostname
             && !hostname.startsWith(wildcardExclusion)
             && selectedExclusion?.children.some((exclusion) => {
@@ -91,7 +91,7 @@ export const ChildrenListItem = observer(({ exclusion }: ChildrenListItemProps) 
     };
 
     const renderExclusion = () => {
-        return selectedExclusion?.type === ExclusionsTypes.Service
+        return selectedExclusion?.type === ExclusionsType.Service
             ? renderServiceExclusionItem()
             : renderGroupExclusionItem();
     };

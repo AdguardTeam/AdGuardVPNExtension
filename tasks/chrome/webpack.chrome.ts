@@ -11,8 +11,8 @@ import { chromeManifestDiff } from './manifest.chrome';
 import {
     STAGE_ENV,
     IS_DEV,
-    StageEnvs,
-    Browsers,
+    StageEnv,
+    Browser,
     SRC_PATH,
 } from '../consts';
 
@@ -22,11 +22,11 @@ const CHROME_PATH = 'chrome';
 
 let zipFilename = 'chrome.zip';
 
-if (IS_DEV && STAGE_ENV === StageEnvs.Prod) {
+if (IS_DEV && STAGE_ENV === StageEnv.Prod) {
     zipFilename = 'chrome-prod.zip';
 }
 
-const commonConfig = getCommonConfig(Browsers.Chrome);
+const commonConfig = getCommonConfig(Browser.Chrome);
 
 const plugins = [
     new webpack.NormalModuleReplacementPlugin(/\.\/AbstractTimers/, ((resource: any) => {
