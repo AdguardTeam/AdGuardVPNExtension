@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { rootStore } from '../../../stores';
 import {
     AnimationState,
-    APPEARANCE_THEMES,
+    AppearanceTheme,
     animationSourcesMap,
 } from '../../../../lib/constants';
 import { animationService } from './animationStateMachine';
@@ -33,7 +33,7 @@ export const BackgroundAnimation = observer(({ exclusionsScreen }: BackgroundAni
 
     let animationSources = animationSourcesMap[systemTheme];
 
-    if (appearanceTheme && appearanceTheme !== APPEARANCE_THEMES.SYSTEM) {
+    if (appearanceTheme && appearanceTheme !== AppearanceTheme.System) {
         animationSources = animationSourcesMap[appearanceTheme];
     }
 

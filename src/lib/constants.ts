@@ -21,11 +21,11 @@ export const SETTINGS_IDS = {
     QUICK_CONNECT: 'quick.connect',
 };
 
-export const APPEARANCE_THEMES = {
-    SYSTEM: 'SYSTEM',
-    DARK: 'DARK',
-    LIGHT: 'LIGHT',
-};
+export enum AppearanceTheme {
+    System = 'System',
+    Dark = 'Dark',
+    Light = 'Light',
+}
 
 export enum QuickConnectSetting {
     LastUsedLocation = 'lastUsedLocation',
@@ -36,7 +36,7 @@ export const QUICK_CONNECT_SETTING_DEFAULT = QuickConnectSetting.LastUsedLocatio
 
 export const THEME_URL_PARAMETER = 'theme';
 
-export const APPEARANCE_THEME_DEFAULT = APPEARANCE_THEMES.SYSTEM;
+export const APPEARANCE_THEME_DEFAULT = AppearanceTheme.System;
 
 export enum MessageType {
     ADD_EVENT_LISTENER = 'add.event.listener',
@@ -165,7 +165,7 @@ export type ExclusionsContentMap = {
 };
 
 export const animationSourcesMap: AnimationSourcesMap = {
-    [APPEARANCE_THEMES.LIGHT]: {
+    [AppearanceTheme.Light]: {
         [AnimationState.VpnEnabled]: `${MOTION_FOLDER_PATH}on-light.webm`,
         // Added this state for the case when switching location
         [AnimationState.VpnSwitchingLocation]: '',
@@ -174,7 +174,7 @@ export const animationSourcesMap: AnimationSourcesMap = {
         [AnimationState.VpnConnecting]: `${MOTION_FOLDER_PATH}switch-on-light.webm`,
         [AnimationState.VpnDisconnecting]: `${MOTION_FOLDER_PATH}switch-off-light.webm`,
     },
-    [APPEARANCE_THEMES.DARK]: {
+    [AppearanceTheme.Dark]: {
         [AnimationState.VpnEnabled]: `${MOTION_FOLDER_PATH}on-dark.webm`,
         // Added this state for the case when switching location
         [AnimationState.VpnSwitchingLocation]: '',

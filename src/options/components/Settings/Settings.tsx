@@ -7,7 +7,7 @@ import { ContextMenus } from './ContextMenus';
 import { HelpUsImprove } from './HelpUsImprove';
 import { Title } from '../ui/Title';
 import { reactTranslator } from '../../../common/reactTranslator';
-import { AppearanceTheme } from './AppearanceTheme';
+import { AppearanceThemeSetting } from './AppearanceTheme';
 import { QuickConnect } from './QuickConnect';
 import { DnsSettings } from './DnsSettings';
 import { rootStore } from '../../stores';
@@ -27,7 +27,7 @@ export const Settings = observer(() => {
             <Title title={reactTranslator.getMessage('settings_title')} />
             <div className="general-settings">
                 <QuickConnect />
-                <AppearanceTheme />
+                <AppearanceThemeSetting />
                 <ContextMenus />
                 <HelpUsImprove />
                 <WebRTC />

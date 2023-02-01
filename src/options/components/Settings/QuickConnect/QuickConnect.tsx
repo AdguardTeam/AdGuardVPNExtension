@@ -9,18 +9,20 @@ import { reactTranslator } from '../../../../common/reactTranslator';
 export const QuickConnect = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
-    const handleChangeSetting = async (value: QuickConnectSetting | string): Promise<void> => {
-        await settingsStore.setQuickConnectSetting(value as QuickConnectSetting);
+    const handleChangeSetting = async (value: QuickConnectSetting): Promise<void> => {
+        await settingsStore.setQuickConnectSetting(value);
     };
 
-    const options = {
-        [QuickConnectSetting.LastUsedLocation]: {
+    const options = [
+        {
+            id: QuickConnectSetting.LastUsedLocation,
             title: reactTranslator.getMessage('settings_quick_connect_last_used'),
         },
-        [QuickConnectSetting.FastestLocation]: {
+        {
+            id: QuickConnectSetting.FastestLocation,
             title: reactTranslator.getMessage('settings_quick_connect_fastest'),
         },
-    };
+    ];
 
     return (
         <div className="settings__group">

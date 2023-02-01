@@ -2,18 +2,17 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import './select.pcss';
 
-type SelectProps = {
-    currentValue: string,
+type SelectProps<T> = {
+    currentValue: T,
     options: {
-        [key: string]: {
-            title: React.ReactNode | string,
-            desc?: React.ReactNode | string,
-        },
-    },
-    optionChange: (id: string) => void,
+        id: T,
+        title: React.ReactNode | string,
+        desc?: React.ReactNode | string,
+    }[],
+    optionChange: (id: T) => void,
 };
 
-export const Select = ((props: SelectProps) => {
+export const Select = <T extends string>(props: SelectProps<T>) => {
     const {
         currentValue,
         options,
@@ -42,12 +41,12 @@ export const Select = ((props: SelectProps) => {
         }
     };
 
-    const handleOptionClick = (id: string): void => {
+    const handleOptionClick = (id: T): void => {
         setValue(id);
         optionChange(id);
     };
 
-    const isActiveOption = (id: string) => ((id === value) ? ' active' : '');
+    const isActiveOption = (id: T) => ((id === value) ? ' active' : '');
 
     const optionsList: React.RefObject<HTMLUListElement> = useRef(null);
 
@@ -57,31 +56,36 @@ export const Select = ((props: SelectProps) => {
         }
     });
 
+    const getTitle = (value: T) => {
+        const option = options.find((op) => op.id === value);
+        return option?.title;
+    };
+
     return (
         <div className="selector">
             <div
                 className="selector__value"
                 onClick={handleSelectClick}
             >
-                <div className="selector__value-title">{options[value].title}</div>
+                <div className="selector__value-title">{getTitle(value)}</div>
             </div>
             <ul
                 className="selector__options-list"
                 hidden={hidden}
                 ref={optionsList}
             >
-                {Object.keys(options).map((id) => (
+                {options.map(({ id, title, desc }) => (
                     <li
                         key={id}
                         className={`selector__option-item${isActiveOption(id)}`}
                         onClick={() => handleOptionClick(id)}
                     >
-                        <div className="selector__option-item-title">{options[id].title}</div>
-                        {options[id].desc && (
-                            <div className="selector__option-item-desc">{options[id].desc}</div>)}
+                        <div className="selector__option-item-title">{title}</div>
+                        {desc && (
+                            <div className="selector__option-item-desc">{desc}</div>)}
                     </li>
                 ))}
             </ul>
         </div>
     );
-});
+};

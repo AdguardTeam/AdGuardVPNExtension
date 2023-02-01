@@ -8,6 +8,7 @@ import { nanoid } from 'nanoid';
 
 import {
     SETTINGS_IDS,
+    AppearanceTheme,
     APPEARANCE_THEME_DEFAULT,
     THEME_URL_PARAMETER,
     SubscriptionType,
@@ -32,7 +33,7 @@ interface OptionsData {
     contextMenusEnabled: boolean;
     helpUsImprove: boolean;
     dnsServer: string;
-    appearanceTheme: string;
+    appearanceTheme: AppearanceTheme;
     isPremiumToken: boolean;
     subscriptionType: SubscriptionType;
     customDnsServers: DnsServerData[];
@@ -52,7 +53,7 @@ export class SettingsStore {
 
     @observable webRTCEnabled = false;
 
-    @observable appearanceTheme = APPEARANCE_THEME_DEFAULT;
+    @observable appearanceTheme: AppearanceTheme = APPEARANCE_THEME_DEFAULT;
 
     @observable contextMenusEnabled = false;
 
@@ -131,7 +132,7 @@ export class SettingsStore {
         });
     };
 
-    @action setAppearanceTheme = async (value: string): Promise<void> => {
+    @action setAppearanceTheme = async (value: AppearanceTheme): Promise<void> => {
         setQueryParameter(THEME_URL_PARAMETER, value);
         await messenger.setSetting(SETTINGS_IDS.APPEARANCE_THEME, value);
         runInAction(() => {

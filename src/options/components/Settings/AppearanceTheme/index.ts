@@ -1,1 +1,1 @@
-export { AppearanceTheme } from './AppearanceTheme';
+export { AppearanceThemeSetting } from './AppearanceTheme';
