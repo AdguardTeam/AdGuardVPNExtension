@@ -52,7 +52,7 @@ export class Api implements ApiInterface {
             method,
             timeout: REQUEST_TIMEOUT_MS,
             ...fetchConfig,
-            // ...config,
+            ...config,
         };
 
         try {
@@ -60,10 +60,10 @@ export class Api implements ApiInterface {
             return response.data;
         } catch (e) {
             if (e.response) {
-                if (e.response.status) {
-                    notifier.notifyListeners(notifier.types.SERVER_ERROR);
-                }
                 throw new CustomError(e.response.status, JSON.stringify(e.response.data));
+            }
+            if (navigator.onLine) {
+                notifier.notifyListeners(notifier.types.SERVER_ERROR);
             }
             throw new CustomError(ERROR_STATUSES.NETWORK_ERROR, `${url} | ${e.message || JSON.stringify(e)}`);
         }
