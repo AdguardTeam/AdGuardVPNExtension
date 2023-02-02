@@ -62,6 +62,8 @@ export class Api implements ApiInterface {
             if (e.response) {
                 throw new CustomError(e.response.status, JSON.stringify(e.response.data));
             }
+            // if there is no response from backend and network is online,
+            // notify about server error
             if (navigator.onLine) {
                 notifier.notifyListeners(notifier.types.SERVER_ERROR);
             }
