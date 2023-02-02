@@ -3,7 +3,6 @@ import axios, { AxiosRequestConfig, Method } from 'axios';
 import { ERROR_STATUSES, fetchConfig } from '../../lib/constants';
 import { CustomError } from '../../lib/CustomError';
 import { notifier } from '../../lib/notifier';
-import { log } from '../../lib/logger';
 
 const REQUEST_TIMEOUT_MS = 1000 * 6; // 6 seconds
 
