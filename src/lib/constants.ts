@@ -21,13 +21,13 @@ export const SETTINGS_IDS = {
     QUICK_CONNECT: 'quick.connect',
 };
 
-export enum AppearanceTheme {
+export const enum AppearanceTheme {
     System = 'System',
     Dark = 'Dark',
     Light = 'Light',
 }
 
-export enum QuickConnectSetting {
+export const enum QuickConnectSetting {
     LastUsedLocation = 'lastUsedLocation',
     FastestLocation = 'fastestLocation',
 }
@@ -133,7 +133,7 @@ export const FLAGS_FIELDS = {
 
 export const FREE_GBS_ANCHOR = 'free-gbs';
 
-export enum AnimationState {
+export const enum AnimationState {
     // Initial state
     VpnDisabledIdle = 'vpnDisabledIdle',
     VpnEnabled = 'vpnEnabled',
@@ -144,7 +144,7 @@ export enum AnimationState {
     VpnSwitchingLocation = 'vpnSwitchingLocation',
 }
 
-export enum AnimationEvent {
+export const enum AnimationEvent {
     VpnConnected = 'vpnConnected',
     VpnDisconnected = 'vpnDisconnected',
     AnimationEnded = 'animationEnded',
@@ -185,7 +185,7 @@ export const animationSourcesMap: AnimationSourcesMap = {
     },
 };
 
-export enum SubscriptionType {
+export const enum SubscriptionType {
     Monthly = 'MONTHLY',
     Yearly = 'YEARLY',
     TwoYears = 'TWO_YEARS',
