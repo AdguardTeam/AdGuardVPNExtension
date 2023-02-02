@@ -353,15 +353,12 @@ class Endpoints implements EndpointsInterface {
 
     getSelectedLocation = async (): Promise<LocationWithPing | null> => {
         const selectedLocation = await locationsService.getSelectedLocation();
-        const isLocationSelectedByUser = await locationsService.getIsLocationSelectedByUser();
         const isVPNDisabled = isVPNDisconnectedIdle();
         const doesUserPreferFastestLocation = settings.getQuickConnectSetting() === QuickConnectSetting.FastestLocation;
 
-        // If there is no selected location or location is not selected by user and vpn is disabled
-        // or user prefers the fastest location and vpn is disabled
+        // If there is no selected location or user prefers the fastest location and vpn is disabled
         // we find the fastest location
         const shouldSelectFasterLocation = !selectedLocation
-            || (!isLocationSelectedByUser && isVPNDisabled)
             || (doesUserPreferFastestLocation && isVPNDisabled);
 
         if (!shouldSelectFasterLocation) {
