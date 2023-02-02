@@ -58,7 +58,7 @@ export class SettingsStore {
 
     @observable darkThemeMediaQuery: MediaQueryList;
 
-    @observable systemTheme: string;
+    @observable systemTheme: AppearanceTheme;
 
     @observable animationState: AnimationState = <AnimationState>animationService.initialState.value;
 
