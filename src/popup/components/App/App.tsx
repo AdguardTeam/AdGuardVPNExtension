@@ -32,6 +32,7 @@ import { UpgradeScreen } from '../Authentication/UpgradeScreen';
 import { DotsLoader } from '../../../common/components/DotsLoader';
 import { ReviewPopup } from '../ReviewPopup';
 import { ConfirmEmailModal, ConfirmEmailNotice } from '../ConfirmEmail';
+import { ServerErrorPopup } from '../ServerErrorPopup';
 
 export interface Message {
     type: NotifierType,
@@ -121,6 +122,10 @@ export const App = observer(() => {
                     settingsStore.setDesktopVpnEnabled(data);
                     break;
                 }
+                case notifier.types.SERVER_ERROR: {
+                    settingsStore.openServerErrorPopup();
+                    break;
+                }
                 default: {
                     log.debug('there is no such message type: ', type);
                     break;
@@ -138,6 +143,7 @@ export const App = observer(() => {
             notifier.types.CONNECTIVITY_STATE_CHANGED,
             notifier.types.TOO_MANY_DEVICES_CONNECTED,
             notifier.types.CONNECTIVITY_DESKTOP_VPN_STATUS_CHANGED,
+            notifier.types.SERVER_ERROR,
         ];
 
         const onUnload = messenger.createLongLivedConnection(events, messageHandler);
@@ -170,6 +176,7 @@ export const App = observer(() => {
             <>
                 <Authentication />
                 <Icons />
+                <ServerErrorPopup />
             </>
         );
     }
@@ -250,6 +257,7 @@ export const App = observer(() => {
             <Icons />
             <ConfirmEmailModal />
             <ReviewPopup />
+            <ServerErrorPopup />
         </>
     );
 });

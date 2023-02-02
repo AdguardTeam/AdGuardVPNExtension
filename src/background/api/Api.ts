@@ -2,6 +2,8 @@ import axios, { AxiosRequestConfig, Method } from 'axios';
 
 import { ERROR_STATUSES, fetchConfig } from '../../lib/constants';
 import { CustomError } from '../../lib/CustomError';
+import { notifier } from '../../lib/notifier';
+import { log } from '../../lib/logger';
 
 const REQUEST_TIMEOUT_MS = 1000 * 6; // 6 seconds
 
@@ -51,7 +53,7 @@ export class Api implements ApiInterface {
             method,
             timeout: REQUEST_TIMEOUT_MS,
             ...fetchConfig,
-            ...config,
+            // ...config,
         };
 
         try {
@@ -59,6 +61,9 @@ export class Api implements ApiInterface {
             return response.data;
         } catch (e) {
             if (e.response) {
+                if (e.response.status) {
+                    notifier.notifyListeners(notifier.types.SERVER_ERROR);
+                }
                 throw new CustomError(e.response.status, JSON.stringify(e.response.data));
             }
             throw new CustomError(ERROR_STATUSES.NETWORK_ERROR, `${url} | ${e.message || JSON.stringify(e)}`);
