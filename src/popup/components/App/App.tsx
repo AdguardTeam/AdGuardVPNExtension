@@ -189,6 +189,7 @@ export const App = observer(() => {
                 <Header showMenuButton={showMenuButton} />
                 <Icons />
                 <GlobalError />
+                <ServerErrorPopup />
             </>
         );
     }
