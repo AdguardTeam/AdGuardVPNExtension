@@ -12,7 +12,8 @@ import {
     SETTINGS_IDS,
     APPEARANCE_THEME_DEFAULT,
     AppearanceTheme,
-    AnimationEvent, AnimationState,
+    AnimationEvent,
+    AnimationState,
 } from '../../lib/constants';
 import { messenger } from '../../lib/messenger';
 import { State } from '../../background/connectivity/connectivityService/connectivityConstants';
@@ -109,6 +110,9 @@ export class SettingsStore {
         try {
             await messenger.disableVpnByUrl(this.currentTabHostname);
             this.setIsExcluded(true);
+            if (this.isConnected) {
+                animationService.send(AnimationEvent.VpnDisconnected);
+            }
         } catch (e) {
             log.error(e);
         }
@@ -118,6 +122,9 @@ export class SettingsStore {
         try {
             await messenger.enableVpnByUrl(this.currentTabHostname);
             this.setIsExcluded(false);
+            if (this.isConnected) {
+                animationService.send(AnimationEvent.VpnConnected);
+            }
         } catch (e) {
             log.error(e);
         }
