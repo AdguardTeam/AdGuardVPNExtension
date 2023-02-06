@@ -31,7 +31,7 @@ export const CurrentEndpoint = observer(() => {
 
     const titleClass = classnames('endpoint__title', { 'endpoint__title--connected': isConnected });
 
-    const iconClass = classnames('endpoint__flag--small', { 'endpoint__flag--active': isConnected });
+    const flagClass = classnames('endpoint__flag', { 'endpoint__flag--active': isConnected });
 
     const getFlagIconStyle = (countryCode: string) => {
         if (!countryCode) {
@@ -55,9 +55,7 @@ export const CurrentEndpoint = observer(() => {
             onClick={clickHandler}
         >
             <div className="endpoint__info">
-                <div className="endpoint__flag">
-                    <span className={iconClass} style={getFlagIconStyle(countryCodeToDisplay)} />
-                </div>
+                <div className={flagClass} style={getFlagIconStyle(countryCodeToDisplay)} />
                 <div>
                     <div className={titleClass}>
                         {countryNameToDisplay}

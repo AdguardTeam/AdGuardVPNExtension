@@ -8,9 +8,13 @@
     }
 
     &--extra-option {
-        border-top: 1px solid var(--grayd8);
-        padding: 20px 25px 0;
-        margin-top: 5px;
+        border-top: 1px solid var(--grayf3);
+        border-bottom: 1px solid var(--grayf3);
+        padding: 20px 25px;
+
+        &:hover {
+            background-color: var(--grayf3);
+        }
 
         & .rate-popup__text {
             font-weight: 500;
@@ -33,7 +37,7 @@
     &__star {
         flex-shrink: 0;
         display: block;
-        width: 35px;
+        width: 30px;
         height: 25px;
         padding-right: 5px;
         font-size: 0;

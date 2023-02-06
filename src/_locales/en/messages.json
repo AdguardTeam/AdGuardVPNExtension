@@ -591,7 +591,10 @@
         "message": "Enable on this site"
     },
     "popup_settings_disable_vpn": {
-        "message": "Disable VPN on this website"
+        "message": "Disable VPN for this website"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Enable VPN for this website"
     },
     "popup_settings_other_products": {
         "message": "Other products"
@@ -602,8 +605,11 @@
     "popup_settings_open_settings": {
         "message": "Settings"
     },
+    "popup_settings_stats": {
+        "message": "Stats"
+    },
     "popup_settings_sign_out": {
-        "message": "Sign out"
+        "message": "Log out"
     },
     "context_menu_enable_vpn": {
         "message": "Enable VPN on this website"
@@ -630,7 +636,7 @@
         "message": "Search location"
     },
     "endpoints_not_found": {
-        "message": "Location not found"
+        "message": "Locations not found"
     },
     "popup_traffic_limit_reached": {
         "message": "Monthly data limit reached"

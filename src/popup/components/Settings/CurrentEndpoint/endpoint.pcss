@@ -18,7 +18,7 @@
         font-weight: 400;
         text-align: right;
 
-        &--connected {
+        & .ping--connected {
             font-weight: 700;
         }
     }
@@ -32,13 +32,16 @@
     }
 
     &__flag {
-        margin-right: 15px;
-        box-shadow: 0 0 0 1px var(--white), 0 0 0 3px var(--gray-base);
+        width: 16px;
+        height: 16px;
+        margin: 5px 15px 0 0;
+        box-shadow: 0 0 0 1px var(--gray-base);
+        background-color: white;
+        background-position: center;
         border-radius: 50%;
 
-        &--small {
-            width: 16px;
-            height: 16px;
+        &--active {
+            box-shadow: 0 0 0 1px var(--white), 0 0 0 3px var(--gray-base);
         }
     }
 

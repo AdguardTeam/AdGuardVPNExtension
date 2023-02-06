@@ -17,14 +17,15 @@ export const ExtraOptions = observer(() => {
         uiStore,
         settingsStore,
         authStore,
-        vpnStore,
+        // vpnStore,
     } = useContext(rootStore);
 
     const {
         isRateVisible,
+        isExcluded,
     } = settingsStore;
 
-    const { isPremiumToken } = vpnStore;
+    // const { isPremiumToken } = vpnStore;
 
     const openSettings = async (): Promise<void> => {
         await messenger.openOptionsPage();
@@ -46,8 +47,14 @@ export const ExtraOptions = observer(() => {
         await popupActions.openTab(OTHER_PRODUCTS_URL);
     };
 
-    const handleGetFreeTrafficClick = async (): Promise<void> => {
-        await popupActions.openFreeGbsPage();
+    const removeFromExclusions = async (): Promise<void> => {
+        await settingsStore.enableVpnOnCurrentTab();
+        uiStore.closeOptionsModal();
+    };
+
+    const addToExclusions = async (): Promise<void> => {
+        await settingsStore.disableVpnOnCurrentTab();
+        uiStore.closeOptionsModal();
     };
 
     return (
@@ -58,12 +65,19 @@ export const ExtraOptions = observer(() => {
             className="extra-options"
             overlayClassName="modal__overlay extra-options__overlay"
         >
-            {!isPremiumToken && (
-                <Option
-                    handler={handleGetFreeTrafficClick}
-                    text={reactTranslator.getMessage('referral_get_free_traffic')}
-                />
-            )}
+            {!isExcluded
+                ? (
+                    <Option
+                        handler={addToExclusions}
+                        text={reactTranslator.getMessage('popup_settings_disable_vpn')}
+                    />
+                )
+                : (
+                    <Option
+                        handler={removeFromExclusions}
+                        text={reactTranslator.getMessage('popup_settings_enable_vpn')}
+                    />
+                )}
             <Option
                 handler={handleOtherProductsClick}
                 text={reactTranslator.getMessage('popup_settings_other_products')}
@@ -72,10 +86,12 @@ export const ExtraOptions = observer(() => {
                 handler={openSettings}
                 text={reactTranslator.getMessage('popup_settings_open_settings')}
             />
-            <Option
-                handler={signOut}
-                text={reactTranslator.getMessage('popup_settings_sign_out')}
-            />
+            {/* FIXME: Add stats */}
+            {/* {!isPremiumToken && ( */}
+            {/*    <Option */}
+            {/*        text={reactTranslator.getMessage('popup_settings_stats')} */}
+            {/*    /> */}
+            {/* )} */}
             {isRateVisible
                 ? <RatePopup />
                 : (
@@ -84,6 +100,10 @@ export const ExtraOptions = observer(() => {
                         text={reactTranslator.getMessage('popup_settings_feedback')}
                     />
                 )}
+            <Option
+                handler={signOut}
+                text={reactTranslator.getMessage('popup_settings_sign_out')}
+            />
         </Modal>
     );
 });
