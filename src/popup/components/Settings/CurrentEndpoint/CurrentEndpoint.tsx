@@ -3,9 +3,10 @@ import classnames from 'classnames';
 import { observer } from 'mobx-react';
 
 import { rootStore } from '../../../stores';
+import { Ping } from '../../Ping';
+import { reactTranslator } from '../../../../common/reactTranslator';
 
 import './endpoint.pcss';
-import { Ping } from '../../Ping';
 
 export const CurrentEndpoint = observer(() => {
     const {
@@ -28,7 +29,9 @@ export const CurrentEndpoint = observer(() => {
         uiStore.openEndpointsSearch();
     };
 
-    const iconClass = classnames('flag', { 'flag--active': isConnected });
+    const titleClass = classnames('endpoint__title', { 'endpoint__title--connected': isConnected });
+
+    const iconClass = classnames('endpoint__flag--small', { 'endpoint__flag--active': isConnected });
 
     const getFlagIconStyle = (countryCode: string) => {
         if (!countryCode) {
@@ -51,20 +54,27 @@ export const CurrentEndpoint = observer(() => {
             className="endpoint"
             onClick={clickHandler}
         >
-            <div className="endpoint__country">
-                <div className={iconClass}>
-                    <span className="flag__icon" style={getFlagIconStyle(countryCodeToDisplay)} />
-                </div>
-            </div>
             <div className="endpoint__info">
-                <div className="endpoint__title">
-                    {countryNameToDisplay}
+                <div className="endpoint__flag">
+                    <span className={iconClass} style={getFlagIconStyle(countryCodeToDisplay)} />
                 </div>
-                <div className="endpoint__desc">
-                    {cityNameToDisplay}
+                <div>
+                    <div className={titleClass}>
+                        {countryNameToDisplay}
+                    </div>
+                    <div className="endpoint__desc">
+                        {cityNameToDisplay}
+                    </div>
                 </div>
             </div>
-            {renderPing()}
+            <div className="endpoint__ping">
+                {renderPing()}
+                {settingsStore.hasLimitExceededError && (
+                    <div className="endpoint__limited-speed">
+                        {reactTranslator.getMessage('popup_traffic_limited_speed')}
+                    </div>
+                )}
+            </div>
         </div>
     );
 });

@@ -635,6 +635,9 @@
     "popup_traffic_limit_reached": {
         "message": "Monthly data limit reached"
     },
+    "popup_traffic_limited_speed": {
+        "message": "Limited speed"
+    },
     "premium_upgrade": {
         "message": "Upgrade"
     },
@@ -784,7 +787,7 @@
         "message": "Continue for free"
     },
     "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> remaining this month",
+        "message": "<span>%value% %unit%</span> left this month",
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
