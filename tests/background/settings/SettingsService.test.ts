@@ -1,7 +1,7 @@
 import { SettingsService } from '../../../src/background/settings/SettingsService';
 import { sleep } from '../../../src/lib/helpers';
 
-const SCHEME_VERSION = '11';
+const SCHEME_VERSION = '12';
 
 jest.mock('../../../src/lib/logger');
 

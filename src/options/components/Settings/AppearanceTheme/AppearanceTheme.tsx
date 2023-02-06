@@ -1,29 +1,32 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 
-import { APPEARANCE_THEMES } from '../../../../lib/constants';
+import { AppearanceTheme } from '../../../../lib/constants';
 import { rootStore } from '../../../stores';
 import { Select } from '../../ui/Select';
 import { reactTranslator } from '../../../../common/reactTranslator';
 
-export const AppearanceTheme = observer(() => {
+export const AppearanceThemeSetting = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
-    const handleSetAppearanceTheme = async (server: string): Promise<void> => {
-        await settingsStore.setAppearanceTheme(server);
+    const handleSetAppearanceTheme = async (value: AppearanceTheme): Promise<void> => {
+        await settingsStore.setAppearanceTheme(value);
     };
 
-    const THEMES = {
-        [APPEARANCE_THEMES.SYSTEM]: {
+    const THEMES = [
+        {
+            id: AppearanceTheme.System,
             title: reactTranslator.getMessage('settings_theme_system'),
         },
-        [APPEARANCE_THEMES.DARK]: {
+        {
+            id: AppearanceTheme.Dark,
             title: reactTranslator.getMessage('settings_theme_dark'),
         },
-        [APPEARANCE_THEMES.LIGHT]: {
+        {
+            id: AppearanceTheme.Light,
             title: reactTranslator.getMessage('settings_theme_light'),
         },
-    };
+    ];
 
     return (
         <div className="settings__group">

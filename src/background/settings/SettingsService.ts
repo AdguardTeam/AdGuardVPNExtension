@@ -13,7 +13,7 @@ import { StorageInterface } from '../browserApi/storage';
 import { ExclusionInterface } from '../exclusions/exclusions/exclusionsTypes';
 import { THEME_STORAGE_KEY } from '../../common/useAppearanceTheme';
 
-const SCHEME_VERSION = '11';
+const SCHEME_VERSION = '12';
 const THROTTLE_TIMEOUT = 100;
 
 type Settings = {
@@ -221,6 +221,15 @@ export class SettingsService {
         return oldSettings;
     };
 
+    migrateFrom11to12 = async (oldSettings: Settings) => {
+        return {
+            ...oldSettings,
+            VERSION: '12',
+            [SETTINGS_IDS.QUICK_CONNECT]: this.defaults[SETTINGS_IDS.QUICK_CONNECT],
+            [SETTINGS_IDS.APPEARANCE_THEME]: this.defaults[SETTINGS_IDS.APPEARANCE_THEME],
+        };
+    };
+
     /**
      * In order to add migration, create new function which modifies old settings into new
      * And add this migration under related old settings scheme version
@@ -238,6 +247,7 @@ export class SettingsService {
         8: this.migrateFrom8to9,
         9: this.migrateFrom9to10,
         10: this.migrateFrom10to11,
+        11: this.migrateFrom11to12,
     };
 
     async applyMigrations(oldVersion: number, newVersion: number, oldSettings: Settings): Promise<Settings> {
