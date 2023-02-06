@@ -18,17 +18,25 @@ export const SETTINGS_IDS = {
     HELP_US_IMPROVE: 'help.us.improve',
     APPEARANCE_THEME: 'appearance.theme',
     CUSTOM_DNS_SERVERS: 'custom.dns.servers',
+    QUICK_CONNECT: 'quick.connect',
 };
 
-export const APPEARANCE_THEMES = {
-    SYSTEM: 'SYSTEM',
-    DARK: 'DARK',
-    LIGHT: 'LIGHT',
-};
+export const enum AppearanceTheme {
+    System = 'System',
+    Dark = 'Dark',
+    Light = 'Light',
+}
+
+export const enum QuickConnectSetting {
+    LastUsedLocation = 'lastUsedLocation',
+    FastestLocation = 'fastestLocation',
+}
+
+export const QUICK_CONNECT_SETTING_DEFAULT = QuickConnectSetting.LastUsedLocation;
 
 export const THEME_URL_PARAMETER = 'theme';
 
-export const APPEARANCE_THEME_DEFAULT = APPEARANCE_THEMES.SYSTEM;
+export const APPEARANCE_THEME_DEFAULT = AppearanceTheme.System;
 
 export enum MessageType {
     ADD_EVENT_LISTENER = 'add.event.listener',
@@ -125,7 +133,7 @@ export const FLAGS_FIELDS = {
 
 export const FREE_GBS_ANCHOR = 'free-gbs';
 
-export enum AnimationState {
+export const enum AnimationState {
     // Initial state
     VpnDisabledIdle = 'vpnDisabledIdle',
     VpnEnabled = 'vpnEnabled',
@@ -136,7 +144,7 @@ export enum AnimationState {
     VpnSwitchingLocation = 'vpnSwitchingLocation',
 }
 
-export enum AnimationEvent {
+export const enum AnimationEvent {
     VpnConnected = 'vpnConnected',
     VpnDisconnected = 'vpnDisconnected',
     AnimationEnded = 'animationEnded',
@@ -157,7 +165,7 @@ export type ExclusionsContentMap = {
 };
 
 export const animationSourcesMap: AnimationSourcesMap = {
-    [APPEARANCE_THEMES.LIGHT]: {
+    [AppearanceTheme.Light]: {
         [AnimationState.VpnEnabled]: `${MOTION_FOLDER_PATH}on-light.webm`,
         // Added this state for the case when switching location
         [AnimationState.VpnSwitchingLocation]: '',
@@ -166,7 +174,7 @@ export const animationSourcesMap: AnimationSourcesMap = {
         [AnimationState.VpnConnecting]: `${MOTION_FOLDER_PATH}switch-on-light.webm`,
         [AnimationState.VpnDisconnecting]: `${MOTION_FOLDER_PATH}switch-off-light.webm`,
     },
-    [APPEARANCE_THEMES.DARK]: {
+    [AppearanceTheme.Dark]: {
         [AnimationState.VpnEnabled]: `${MOTION_FOLDER_PATH}on-dark.webm`,
         // Added this state for the case when switching location
         [AnimationState.VpnSwitchingLocation]: '',
@@ -177,7 +185,7 @@ export const animationSourcesMap: AnimationSourcesMap = {
     },
 };
 
-export enum SubscriptionType {
+export const enum SubscriptionType {
     Monthly = 'MONTHLY',
     Yearly = 'YEARLY',
     TwoYears = 'TWO_YEARS',
