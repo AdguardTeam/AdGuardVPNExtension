@@ -11,8 +11,8 @@ import { operaManifestDiff } from './manifest.opera';
 import {
     STAGE_ENV,
     IS_DEV,
-    StageEnvs,
-    Browsers,
+    StageEnv,
+    Browser,
     SRC_PATH,
 } from '../consts';
 
@@ -22,11 +22,11 @@ const OPERA_PATH = 'opera';
 
 let zipFilename = 'opera.zip';
 
-if (IS_DEV && STAGE_ENV === StageEnvs.Prod) {
+if (IS_DEV && STAGE_ENV === StageEnv.Prod) {
     zipFilename = 'opera-prod.zip';
 }
 
-const commonConfig = getCommonConfig(Browsers.Opera);
+const commonConfig = getCommonConfig(Browser.Opera);
 
 const plugins = [
     // TODO: on move to MV3 inject Mv3Timers

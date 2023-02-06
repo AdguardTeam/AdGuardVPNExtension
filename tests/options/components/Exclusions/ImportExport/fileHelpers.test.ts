@@ -1,7 +1,7 @@
 import JSZip from 'jszip';
 
 import {
-    ExclusionDataTypes,
+    ExclusionDataType,
     readExclusionsFile,
 } from '../../../../../src/options/components/Exclusions/Actions/fileHelpers';
 
@@ -39,7 +39,7 @@ describe('fileHelpers', () => {
                 const generalFile = createTxtFile(expectedContent, 'general.txt');
                 const regularResult = await readExclusionsFile(generalFile);
                 const [{ type, content }] = regularResult;
-                expect(type).toBe(ExclusionDataTypes.General);
+                expect(type).toBe(ExclusionDataType.General);
                 expect(content).toBe(expectedContent);
             });
 
@@ -47,7 +47,7 @@ describe('fileHelpers', () => {
                 const regularFile = createTxtFile(expectedContent, 'regular.txt');
                 const regularResult = await readExclusionsFile(regularFile);
                 const [{ type, content }] = regularResult;
-                expect(type).toBe(ExclusionDataTypes.General);
+                expect(type).toBe(ExclusionDataType.General);
                 expect(content).toBe(expectedContent);
             });
 
@@ -55,7 +55,7 @@ describe('fileHelpers', () => {
                 const selectiveFile = createTxtFile(expectedContent, 'selective.txt');
                 const selectiveResult = await readExclusionsFile(selectiveFile);
                 const [{ type, content }] = selectiveResult;
-                expect(type).toBe(ExclusionDataTypes.Selective);
+                expect(type).toBe(ExclusionDataType.Selective);
                 expect(content).toBe(expectedContent);
             });
         });
@@ -68,7 +68,7 @@ describe('fileHelpers', () => {
 
                 const result = await readExclusionsFile(file);
                 const [{ type, content }] = result;
-                expect(type).toBe(ExclusionDataTypes.General);
+                expect(type).toBe(ExclusionDataType.General);
                 expect(content).toBe(expectedContent);
             });
 
@@ -77,7 +77,7 @@ describe('fileHelpers', () => {
 
                 const result = await readExclusionsFile(file);
                 const [{ type, content }] = result;
-                expect(type).toBe(ExclusionDataTypes.General);
+                expect(type).toBe(ExclusionDataType.General);
                 expect(content).toBe(expectedContent);
             });
 
@@ -86,7 +86,7 @@ describe('fileHelpers', () => {
 
                 const result = await readExclusionsFile(file);
                 const [{ type, content }] = result;
-                expect(type).toBe(ExclusionDataTypes.Selective);
+                expect(type).toBe(ExclusionDataType.Selective);
                 expect(content).toBe(expectedContent);
             });
         });
@@ -96,7 +96,7 @@ describe('fileHelpers', () => {
             const file = createTxtFile(expectedContent, 'text-file.txt');
             const result = await readExclusionsFile(file);
             const [{ type, content }] = result;
-            expect(type).toBe(ExclusionDataTypes.Txt);
+            expect(type).toBe(ExclusionDataType.Txt);
             expect(content).toBe(expectedContent);
         });
 
@@ -113,11 +113,11 @@ describe('fileHelpers', () => {
             const result = await readExclusionsFile(zipFile);
             expect(result.length).toBe(3);
 
-            expect(result.some((r) => r.type === ExclusionDataTypes.General)).toBeTruthy();
+            expect(result.some((r) => r.type === ExclusionDataType.General)).toBeTruthy();
             expect(result.some((r) => r.content === expectedGeneralContent)).toBeTruthy();
-            expect(result.some((r) => r.type === ExclusionDataTypes.Regular)).toBeFalsy();
+            expect(result.some((r) => r.type === ExclusionDataType.Regular)).toBeFalsy();
             expect(result.some((r) => r.content === expectedRegularContent)).toBeTruthy();
-            expect(result.some((r) => r.type === ExclusionDataTypes.Selective)).toBeTruthy();
+            expect(result.some((r) => r.type === ExclusionDataType.Selective)).toBeTruthy();
             expect(result.some((r) => r.content === expectedSelectiveContent)).toBeTruthy();
         });
 
@@ -134,11 +134,11 @@ describe('fileHelpers', () => {
             const result = await readExclusionsFile(zipFile);
             expect(result.length).toBe(3);
 
-            expect(result.some((r) => r.type === ExclusionDataTypes.General)).toBeTruthy();
+            expect(result.some((r) => r.type === ExclusionDataType.General)).toBeTruthy();
             expect(result.some((r) => r.content === expectedGeneralContent)).toBeTruthy();
-            expect(result.some((r) => r.type === ExclusionDataTypes.Regular)).toBeFalsy();
+            expect(result.some((r) => r.type === ExclusionDataType.Regular)).toBeFalsy();
             expect(result.some((r) => r.content === expectedRegularContent)).toBeTruthy();
-            expect(result.some((r) => r.type === ExclusionDataTypes.Selective)).toBeTruthy();
+            expect(result.some((r) => r.type === ExclusionDataType.Selective)).toBeTruthy();
             expect(result.some((r) => r.content === expectedSelectiveContent)).toBeTruthy();
         });
     });

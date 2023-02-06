@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import {
     ENV_MAP,
-    Envs,
+    Env,
 } from './consts';
 
 const pJson = require('../package.json');
@@ -42,7 +42,7 @@ export const modifyExtensionName = (
     suffix: string,
     isTarget: boolean = true,
 ): Buffer => {
-    if (env !== Envs.Release || !isTarget) {
+    if (env !== Env.Release || !isTarget) {
         return locales;
     }
 
@@ -55,7 +55,7 @@ export const modifyExtensionName = (
     }
 };
 
-export const getOutputPathByEnv = (env = Envs.Dev): string => {
+export const getOutputPathByEnv = (env = Env.Dev): string => {
     const envData = ENV_MAP[env];
     if (!envData) {
         throw new Error(`Wrong environment: ${env}`);
@@ -78,7 +78,7 @@ export const updateLocalesMSGName = (content: Buffer, env: string): string => {
     const messages = JSON.parse(content.toString());
 
     // for dev and beta builds use short name + environment
-    if (env !== Envs.Release) {
+    if (env !== Env.Release) {
         messages.name.message = messages.short_name.message + envName;
         return JSON.stringify(messages, null, 4);
     }

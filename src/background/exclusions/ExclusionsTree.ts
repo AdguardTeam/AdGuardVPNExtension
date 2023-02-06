@@ -1,7 +1,7 @@
 /* eslint-disable no-continue */
 import { isIP } from 'is-ip';
 
-import { ExclusionDtoInterface, ExclusionsTypes } from '../../common/exclusionsConstants';
+import { ExclusionDtoInterface, ExclusionsType } from '../../common/exclusionsConstants';
 import { IndexedServicesInterface } from './services/ServicesManager';
 import { ServicesInterface } from '../providers/vpnProvider';
 import { ExclusionNode } from './ExclusionNode';
@@ -56,7 +56,7 @@ export class ExclusionsTree {
                     ?? new ExclusionNode({
                         id: service.serviceId,
                         hostname: service.serviceName,
-                        type: ExclusionsTypes.Service,
+                        type: ExclusionsType.Service,
                         meta: {
                             domains: service.domains,
                             iconUrl: service.iconUrl,
@@ -67,7 +67,7 @@ export class ExclusionsTree {
                     ?? new ExclusionNode({
                         id: hostnameTld,
                         hostname: hostnameTld,
-                        type: ExclusionsTypes.Group,
+                        type: ExclusionsType.Group,
                     });
 
                 this.addChild(groupNode, exclusionNode);
@@ -82,7 +82,7 @@ export class ExclusionsTree {
                     ?? new ExclusionNode({
                         id: hostnameTld,
                         hostname: hostnameTld,
-                        type: ExclusionsTypes.Group,
+                        type: ExclusionsType.Group,
                     });
 
                 this.addChild(groupNode, exclusionNode);

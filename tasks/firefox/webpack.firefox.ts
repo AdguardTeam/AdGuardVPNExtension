@@ -11,8 +11,8 @@ import { firefoxManifestDiff } from './manifest.firefox';
 import {
     STAGE_ENV,
     IS_DEV,
-    StageEnvs,
-    Browsers,
+    StageEnv,
+    Browser,
     SRC_PATH,
 } from '../consts';
 
@@ -22,11 +22,11 @@ let zipFilename = 'firefox.zip';
 
 const BACKGROUND_PATH = path.resolve(__dirname, '..', SRC_PATH, 'background');
 
-if (IS_DEV && STAGE_ENV === StageEnvs.Prod) {
+if (IS_DEV && STAGE_ENV === StageEnv.Prod) {
     zipFilename = 'firefox-prod.zip';
 }
 
-const commonConfig = getCommonConfig(Browsers.Firefox);
+const commonConfig = getCommonConfig(Browser.Firefox);
 
 const plugins = [
     // TODO: on move to MV3 inject Mv3Timers

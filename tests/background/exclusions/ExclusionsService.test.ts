@@ -1,5 +1,5 @@
 import { ExclusionsService } from '../../../src/background/exclusions/ExclusionsService';
-import { ExclusionsModes, ExclusionState, ExclusionsTypes } from '../../../src/common/exclusionsConstants';
+import { ExclusionsMode, ExclusionState, ExclusionsType } from '../../../src/common/exclusionsConstants';
 import { servicesManager } from '../../../src/background/exclusions/services/ServicesManager';
 
 jest.mock('../../../src/background/browserApi');
@@ -198,7 +198,7 @@ describe('ExclusionsService', () => {
     it('punycode test', async () => {
         const exclusionsService = new ExclusionsService();
         await exclusionsService.init();
-        await exclusionsService.setMode(ExclusionsModes.Regular);
+        await exclusionsService.setMode(ExclusionsMode.Regular);
         expect(exclusionsService.getMode()).toBeTruthy();
 
         await exclusionsService.addUrlToExclusions('https://сайт.рф/');
@@ -220,7 +220,7 @@ describe('ExclusionsService', () => {
 
         // the only added domain group should be enabled and rest are disabled
         expect(exclusions.children).toHaveLength(1);
-        expect(exclusions.children[0].type).toEqual(ExclusionsTypes.Service);
+        expect(exclusions.children[0].type).toEqual(ExclusionsType.Service);
         expect(exclusions.children[0].id).toEqual('aliexpress');
         expect(exclusions.children[0].state).toEqual(ExclusionState.PartlyEnabled);
         expect(exclusions.children[0].children).toHaveLength(2);
@@ -252,7 +252,7 @@ describe('ExclusionsService', () => {
         exclusions = exclusionsService.getExclusions();
 
         expect(exclusions.children).toHaveLength(1);
-        expect(exclusions.children[0].type).toEqual(ExclusionsTypes.Service);
+        expect(exclusions.children[0].type).toEqual(ExclusionsType.Service);
         expect(exclusions.children[0].id).toEqual('aliexpress');
         expect(exclusions.children[0].state).toEqual(ExclusionState.Enabled);
         expect(exclusions.children[0].children).toHaveLength(2);
@@ -329,7 +329,7 @@ describe('ExclusionsService', () => {
 
         expect(exclusions.children).toHaveLength(1);
         expect(exclusions.children[0].hostname).toEqual('example.org');
-        expect(exclusions.children[0].type).toEqual(ExclusionsTypes.Group);
+        expect(exclusions.children[0].type).toEqual(ExclusionsType.Group);
         expect(exclusions.children[0].children[1].hostname).toEqual('*.example.org');
 
         const allSubdomainsExclusionId = exclusions.children[0].children[1].id;
@@ -338,7 +338,7 @@ describe('ExclusionsService', () => {
 
         expect(exclusions.children).toHaveLength(1);
         expect(exclusions.children[0].hostname).toEqual('example.org');
-        expect(exclusions.children[0].type).toEqual(ExclusionsTypes.Group);
+        expect(exclusions.children[0].type).toEqual(ExclusionsType.Group);
         expect(exclusions.children[0].children).toHaveLength(1);
         expect(exclusions.children[0].children[0].hostname).toEqual('example.org');
     });
@@ -350,7 +350,7 @@ describe('ExclusionsService', () => {
         const exclusions = exclusionsService.getExclusions();
 
         expect(exclusions.children).toHaveLength(1);
-        expect(exclusions.children[0].type).toEqual(ExclusionsTypes.Exclusion);
+        expect(exclusions.children[0].type).toEqual(ExclusionsType.Exclusion);
         expect(exclusions.children[0].hostname).toEqual('192.168.11.1');
     });
 

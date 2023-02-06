@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { reactTranslator } from '../../../../../common/reactTranslator';
 import { ExclusionsModal } from '../../ExclusionsModal/ExclusionsModal';
 import { Title } from '../../../ui/Title';
-import { ExclusionsModes } from '../../../../../common/exclusionsConstants';
+import { ExclusionsMode } from '../../../../../common/exclusionsConstants';
 import { rootStore } from '../../../../stores';
 
 interface SelectListModalProps {
@@ -30,19 +30,19 @@ export const SelectListModal = ({
     }, [currentMode, isOpen]);
 
     const modesInfo = {
-        [ExclusionsModes.Regular]: reactTranslator.getMessage('options_exclusions_import_select_regular'),
-        [ExclusionsModes.Selective]: reactTranslator.getMessage('options_exclusions_import_select_selective'),
+        [ExclusionsMode.Regular]: reactTranslator.getMessage('options_exclusions_import_select_regular'),
+        [ExclusionsMode.Selective]: reactTranslator.getMessage('options_exclusions_import_select_selective'),
     };
 
     const handleImportClick = async () => {
-        if (selectedList === ExclusionsModes.Regular) {
+        if (selectedList === ExclusionsMode.Regular) {
             await handleRegularClick();
         } else {
             await handleSelectiveClick();
         }
     };
 
-    const renderRadioButton = (exclusionsType: ExclusionsModes) => {
+    const renderRadioButton = (exclusionsType: ExclusionsMode) => {
         const enabled = exclusionsType === selectedList;
         const titleClass = classnames('radio__title', { 'radio__title--active': enabled });
         const xlinkHref = classnames({
@@ -76,8 +76,8 @@ export const SelectListModal = ({
                 title={reactTranslator.getMessage('options_exclusions_import_select_title')}
                 subtitle={reactTranslator.getMessage('options_exclusions_import_select_subtitle')}
             />
-            {renderRadioButton(ExclusionsModes.Selective)}
-            {renderRadioButton(ExclusionsModes.Regular)}
+            {renderRadioButton(ExclusionsMode.Selective)}
+            {renderRadioButton(ExclusionsMode.Regular)}
             <div>
                 <button
                     type="button"

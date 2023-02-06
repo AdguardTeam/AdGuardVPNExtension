@@ -11,8 +11,8 @@ import { edgeManifestDiff } from './manifest.edge';
 import {
     STAGE_ENV,
     IS_DEV,
-    StageEnvs,
-    Browsers,
+    StageEnv,
+    Browser,
     SRC_PATH,
 } from '../consts';
 
@@ -22,11 +22,11 @@ const EDGE_PATH = 'edge';
 
 let zipFilename = 'edge.zip';
 
-if (IS_DEV && STAGE_ENV === StageEnvs.Prod) {
+if (IS_DEV && STAGE_ENV === StageEnv.Prod) {
     zipFilename = 'edge-prod.zip';
 }
 
-const commonConfig = getCommonConfig(Browsers.Edge);
+const commonConfig = getCommonConfig(Browser.Edge);
 
 const plugins = [
     // TODO: on move to MV3 inject Mv3Timers

@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import classnames from 'classnames';
 
 import { rootStore } from '../../../stores';
-import { ExclusionsModes } from '../../../../common/exclusionsConstants';
+import { ExclusionsMode } from '../../../../common/exclusionsConstants';
 import { reactTranslator } from '../../../../common/reactTranslator';
 import { Title } from '../../ui/Title';
 
@@ -26,11 +26,11 @@ export const ModeSelectorModal = observer(() => {
     };
 
     const titles = {
-        [ExclusionsModes.Regular]: reactTranslator.getMessage('settings_exclusion_general_title'),
-        [ExclusionsModes.Selective]: reactTranslator.getMessage('settings_exclusion_selective_title'),
+        [ExclusionsMode.Regular]: reactTranslator.getMessage('settings_exclusion_general_title'),
+        [ExclusionsMode.Selective]: reactTranslator.getMessage('settings_exclusion_selective_title'),
     };
 
-    const renderRadioButton = (exclusionsType: ExclusionsModes) => {
+    const renderRadioButton = (exclusionsType: ExclusionsMode) => {
         const enabled = exclusionsType === mode;
         const titleClass = classnames('radio__title', { 'radio__title--active': enabled });
 
@@ -76,8 +76,8 @@ export const ModeSelectorModal = observer(() => {
                 title={reactTranslator.getMessage('settings_exclusion_change_mode_modal_title')}
             />
             <div className="settings__group">
-                {renderRadioButton(ExclusionsModes.Regular)}
-                {renderRadioButton(ExclusionsModes.Selective)}
+                {renderRadioButton(ExclusionsMode.Regular)}
+                {renderRadioButton(ExclusionsMode.Selective)}
             </div>
             <div className="settings__change-mode-actions">
                 <button

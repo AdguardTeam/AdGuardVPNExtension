@@ -12,9 +12,9 @@ import { getDomain } from 'tldts';
 import {
     ExclusionDtoInterface,
     ExclusionsData,
-    ExclusionsModes,
+    ExclusionsMode,
     ExclusionState,
-    ExclusionsTypes,
+    ExclusionsType,
     ServiceCategory,
     ServiceDto,
 } from '../../common/exclusionsConstants';
@@ -35,11 +35,11 @@ interface PreparedServices {
 }
 
 export enum AddExclusionMode {
-    SERVICE = 'SERVICE',
-    MANUAL = 'MANUAL',
+    Service = 'Service',
+    Manual = 'Manual',
 }
 
-const DEFAULT_ADD_EXCLUSION_MODE = AddExclusionMode.MANUAL;
+const DEFAULT_ADD_EXCLUSION_MODE = AddExclusionMode.Manual;
 
 const findExclusionById = (
     exclusionsTree: ExclusionDtoInterface,
@@ -80,7 +80,7 @@ const convertExclusionsValuesToUnicode = (exclusionsTree: ExclusionDtoInterface)
 export class ExclusionsStore {
     @observable exclusionsTree: ExclusionDtoInterface;
 
-    @observable currentMode = ExclusionsModes.Regular;
+    @observable currentMode = ExclusionsMode.Regular;
 
     @observable servicesData: ServiceDto[] = [];
 
@@ -196,7 +196,7 @@ export class ExclusionsStore {
         this.setConfirmAddModalOpen(true);
     };
 
-    @action setCurrentMode = async (mode: ExclusionsModes) => {
+    @action setCurrentMode = async (mode: ExclusionsMode) => {
         this.currentMode = mode;
         await messenger.setExclusionsMode(mode);
         await this.updateExclusionsData();
@@ -211,7 +211,7 @@ export class ExclusionsStore {
         this.setServicesSearchValue('');
         this.servicesToToggle = [];
         this.unfoldedServiceCategories = [];
-        this.setAddExclusionMode(AddExclusionMode.MANUAL);
+        this.setAddExclusionMode(AddExclusionMode.Manual);
     };
 
     @action setAddExclusionMode = (mode: AddExclusionMode) => {
@@ -390,7 +390,7 @@ export class ExclusionsStore {
     };
 
     getParentExclusion(exclusion: ExclusionDtoInterface): ExclusionDtoInterface | undefined {
-        if (exclusion.type === ExclusionsTypes.Service) {
+        if (exclusion.type === ExclusionsType.Service) {
             return undefined;
         }
 
@@ -446,7 +446,7 @@ export class ExclusionsStore {
             return null;
         }
 
-        if (selectedExclusion.type === ExclusionsTypes.Group) {
+        if (selectedExclusion.type === ExclusionsType.Group) {
             return selectedExclusion.children
                 .sort((a, b) => {
                     return a.hostname === selectedExclusion.hostname

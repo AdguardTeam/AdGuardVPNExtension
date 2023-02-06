@@ -1,6 +1,6 @@
 // Extracted in the separate file because these entities are also used in the options page
 
-export enum ExclusionsModes {
+export enum ExclusionsMode {
     Selective = 'selective',
     Regular = 'regular',
 }
@@ -11,7 +11,7 @@ export enum ExclusionState {
     Disabled = 'Disabled',
 }
 
-export enum ExclusionsTypes {
+export enum ExclusionsType {
     Service = 'Service',
     Group = 'Group',
     Exclusion = 'Exclusion',
@@ -28,14 +28,14 @@ export interface ExclusionDtoInterface {
 
     iconUrl?: string;
 
-    type: ExclusionsTypes;
+    type: ExclusionsType;
 
     children: ExclusionDtoInterface[];
 }
 
 export interface ExclusionsData {
     exclusions: ExclusionDtoInterface;
-    currentMode: ExclusionsModes;
+    currentMode: ExclusionsMode;
 }
 
 export interface ServiceCategory {
