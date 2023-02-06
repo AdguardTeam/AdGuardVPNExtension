@@ -451,9 +451,6 @@ const setSelectedLocation = async (id: string, isLocationSelectedByUser = false)
     }
 };
 
-/**
- * Returns if current location was selected by user
- */
 const getIsLocationSelectedByUser = async (): Promise<boolean> => {
     const isLocationSelectedByUser = await settings.getSetting(
         SETTINGS_IDS.LOCATION_SELECTED_BY_USER_KEY,
