@@ -2,7 +2,7 @@ import throttle from 'lodash/throttle';
 import { useLayoutEffect } from 'react';
 import { browserApi } from '../background/browserApi';
 
-import { APPEARANCE_THEMES } from '../lib/constants';
+import { AppearanceTheme } from '../lib/constants';
 
 export const THEME_STORAGE_KEY = 'appearance_theme';
 
@@ -33,12 +33,12 @@ export const useAppearanceTheme = (appearanceTheme: string | null) => {
             }
 
             switch (theme) {
-                case APPEARANCE_THEMES.DARK: {
+                case AppearanceTheme.Dark: {
                     document.documentElement.classList.add(DARK_THEME_CLASS);
                     document.documentElement.classList.remove(LIGHT_THEME_CLASS);
                     break;
                 }
-                case APPEARANCE_THEMES.LIGHT: {
+                case AppearanceTheme.Light: {
                     document.documentElement.classList.add(LIGHT_THEME_CLASS);
                     document.documentElement.classList.remove(DARK_THEME_CLASS);
                     break;

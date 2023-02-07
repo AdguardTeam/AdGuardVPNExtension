@@ -11,7 +11,7 @@ import { MAX_GET_POPUP_DATA_ATTEMPTS, RequestStatus } from './consts';
 import {
     SETTINGS_IDS,
     APPEARANCE_THEME_DEFAULT,
-    APPEARANCE_THEMES,
+    AppearanceTheme,
     AnimationEvent, AnimationState,
 } from '../../lib/constants';
 import { messenger } from '../../lib/messenger';
@@ -58,7 +58,7 @@ export class SettingsStore {
 
     @observable darkThemeMediaQuery: MediaQueryList;
 
-    @observable systemTheme: string;
+    @observable systemTheme: AppearanceTheme;
 
     @observable animationState: AnimationState = <AnimationState>animationService.initialState.value;
 
@@ -309,8 +309,8 @@ export class SettingsStore {
 
     @action updateSystemTheme = (): void => {
         this.systemTheme = this.darkThemeMediaQuery.matches
-            ? APPEARANCE_THEMES.DARK
-            : APPEARANCE_THEMES.LIGHT;
+            ? AppearanceTheme.Dark
+            : AppearanceTheme.Light;
     };
 
     @action trackSystemTheme = (): void => {

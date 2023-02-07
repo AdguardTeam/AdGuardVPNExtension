@@ -8,9 +8,12 @@ import { nanoid } from 'nanoid';
 
 import {
     SETTINGS_IDS,
+    AppearanceTheme,
     APPEARANCE_THEME_DEFAULT,
     THEME_URL_PARAMETER,
     SubscriptionType,
+    QuickConnectSetting,
+    QUICK_CONNECT_SETTING_DEFAULT,
 } from '../../lib/constants';
 import { DEFAULT_DNS_SERVER, POPULAR_DNS_SERVERS } from '../../background/dns/dnsConstants';
 import { messenger } from '../../lib/messenger';
@@ -30,10 +33,11 @@ interface OptionsData {
     contextMenusEnabled: boolean;
     helpUsImprove: boolean;
     dnsServer: string;
-    appearanceTheme: string;
+    appearanceTheme: AppearanceTheme;
     isPremiumToken: boolean;
     subscriptionType: SubscriptionType;
     customDnsServers: DnsServerData[];
+    quickConnectSetting: QuickConnectSetting;
 }
 
 export class SettingsStore {
@@ -49,7 +53,7 @@ export class SettingsStore {
 
     @observable webRTCEnabled = false;
 
-    @observable appearanceTheme = APPEARANCE_THEME_DEFAULT;
+    @observable appearanceTheme: AppearanceTheme = APPEARANCE_THEME_DEFAULT;
 
     @observable contextMenusEnabled = false;
 
@@ -86,6 +90,8 @@ export class SettingsStore {
     @observable showBugReporter = false;
 
     @observable showDnsSettings = false;
+
+    @observable quickConnect = QUICK_CONNECT_SETTING_DEFAULT;
 
     rootStore: RootStore;
 
@@ -126,7 +132,7 @@ export class SettingsStore {
         });
     };
 
-    @action setAppearanceTheme = async (value: string): Promise<void> => {
+    @action setAppearanceTheme = async (value: AppearanceTheme): Promise<void> => {
         setQueryParameter(THEME_URL_PARAMETER, value);
         await messenger.setSetting(SETTINGS_IDS.APPEARANCE_THEME, value);
         runInAction(() => {
@@ -174,6 +180,7 @@ export class SettingsStore {
         this.appearanceTheme = data.appearanceTheme;
         this.subscriptionType = data.subscriptionType;
         this.customDnsServers = data.customDnsServers;
+        this.quickConnect = data.quickConnectSetting;
     };
 
     @action updateCurrentUsername = async (): Promise<void> => {
@@ -307,5 +314,12 @@ export class SettingsStore {
     @action closeSubComponents = () => {
         this.setShowBugReporter(false);
         this.setShowDnsSettings(false);
+    };
+
+    @action setQuickConnectSetting = async (value: QuickConnectSetting): Promise<void> => {
+        await messenger.setSetting(SETTINGS_IDS.QUICK_CONNECT, value);
+        runInAction(() => {
+            this.quickConnect = value;
+        });
     };
 }

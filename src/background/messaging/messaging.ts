@@ -52,6 +52,7 @@ const getOptionsData = async () => {
     const vpnInfo = await endpoints.getVpnInfo();
     const maxDevicesCount = vpnInfo?.maxDevicesCount;
     const customDnsServers = settings.getCustomDnsServers();
+    const quickConnectSetting = settings.getQuickConnectSetting();
 
     const exclusionsData: ExclusionsData = {
         exclusions: exclusions.getExclusions(),
@@ -89,6 +90,7 @@ const getOptionsData = async () => {
         maxDevicesCount,
         subscriptionType,
         customDnsServers,
+        quickConnectSetting,
     };
 };
 
