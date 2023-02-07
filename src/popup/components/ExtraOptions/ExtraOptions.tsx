@@ -9,6 +9,7 @@ import { messenger } from '../../../lib/messenger';
 import { Option } from './Option';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { RatePopup } from '../RatePopup';
+import { Stats } from './Stats';
 
 import './extra-options.pcss';
 
@@ -86,14 +87,7 @@ export const ExtraOptions = observer(() => {
                 handler={openSettings}
                 text={reactTranslator.getMessage('popup_settings_open_settings')}
             />
-            {!isPremiumToken && (
-                <>
-                    <Option
-                        text={reactTranslator.getMessage('popup_settings_stats')}
-                    />
-                    zxcvbnm
-                </>
-            )}
+            {!isPremiumToken && <Stats />}
             {isRateVisible
                 ? <RatePopup />
                 : (
