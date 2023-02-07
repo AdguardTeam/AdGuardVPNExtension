@@ -707,6 +707,27 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Go to the Extension Store"
     },
+    "popup_server_error_popup_title": {
+        "message": "Can’t connect to server"
+    },
+    "popup_server_error_popup_info": {
+        "message": "We’re already trying to fix it, but you can send us an extra alert — just in case."
+    },
+    "popup_server_error_popup_action": {
+        "message": "Nudge AdGuard team"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "Cancel"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Working on it"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Thanks for letting us know!"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Close"
+    },
     "options_title": {
         "message": "AdGuard VPN Options"
     },
