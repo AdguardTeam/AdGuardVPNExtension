@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig, Method } from 'axios';
 
 import { ERROR_STATUSES, fetchConfig } from '../../lib/constants';
 import { CustomError } from '../../lib/CustomError';
+import { notifier } from '../../lib/notifier';
 
 const REQUEST_TIMEOUT_MS = 1000 * 6; // 6 seconds
 
@@ -60,6 +61,11 @@ export class Api implements ApiInterface {
         } catch (e) {
             if (e.response) {
                 throw new CustomError(e.response.status, JSON.stringify(e.response.data));
+            }
+            // if there is no response from backend and network is online,
+            // notify about server error
+            if (navigator.onLine) {
+                notifier.notifyListeners(notifier.types.SERVER_ERROR);
             }
             throw new CustomError(ERROR_STATUSES.NETWORK_ERROR, `${url} | ${e.message || JSON.stringify(e)}`);
         }
