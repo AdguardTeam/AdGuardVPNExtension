@@ -3,7 +3,7 @@
         "message": "AdGuard VPN — ücretsiz ve güvenli proxy"
     },
     "description": {
-        "message": "İnternette hızlı, güvenli ve güvenilir bir şekilde gezinmek için AdGuard VPN kullanın. Özel vpn proxy'mizle gizliliğinizi koruyun ve anonim kalın."
+        "message": "İnternette hızlı, güvenli ve güvenilir bir şekilde gezinmek için AdGuard VPN kullanın. Özel VPN proxy'mizle gizliliğinizi koruyun ve anonim kalın."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -309,13 +309,13 @@
         "message": "Geri dön"
     },
     "settings_rate_us": {
-        "message": "Bizi değerlendirin"
+        "message": "Bizi derecelendirin"
     },
     "settings_webrtc_label": {
         "message": "WebRTC'i engelle"
     },
     "settings_webrtc_desc": {
-        "message": "WebRTC çoğu İnternet tarayıcısında, üçüncü taraf bir sitenin gerçek IP adresinizi algılamasına ve sizi tanımlamak için kullanmasına izin veren özel bir programdır"
+        "message": "WebRTC çoğu internet tarayıcısında, üçüncü taraf bir sitenin gerçek IP adresinizi tespit etmesine ve sizi tanımlamak için kullanmasına izin veren özel bir programdır"
     },
     "settings_context_menus_title": {
         "message": "Tarayıcının sağ tık menüsüne AdGuard VPN öğesini ekle"
@@ -597,7 +597,7 @@
         "message": "Diğer ürünler"
     },
     "popup_settings_feedback": {
-        "message": "Geri Bildirim"
+        "message": "Geri bildirim"
     },
     "popup_settings_open_settings": {
         "message": "Ayarlar"
@@ -660,7 +660,7 @@
         "message": "Ücretsiz veri sınırına ulaştınız, ve AdGuard VPN yavaş çalışıyor."
     },
     "popup_traffic_limit_exceeded_cta_btn": {
-        "message": "Hızı artırın"
+        "message": "Hızı artır"
     },
     "popup_feedback_title": {
         "message": "Geri bildiriminizi duymak isteriz"
@@ -672,7 +672,7 @@
         "message": "AdGuard VPN ne kadar harika?"
     },
     "popup_rate_modal_subtitle": {
-        "message": "Lütfen bizi değerlendirin"
+        "message": "Lütfen bizi derecelendirin"
     },
     "popup_rate_modal_send_button": {
         "message": "Gönder"
@@ -690,7 +690,7 @@
         "message": "Geri bildirimde bulun"
     },
     "popup_confirm_rate_modal_rate_title": {
-        "message": "Vay! Bizi Uzantı Store'da da değerlendirebilir misiniz?"
+        "message": "Vay! Bizi Uzantı Store'da da derecelendirebilir misiniz?"
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Uzantı Mağazası'na Git"
@@ -733,7 +733,7 @@
         "message": "Benzersiz VPN protokolü"
     },
     "popup_onboarding_unique_protocol_info": {
-        "message": "AdGuard VPN protokolü hızlı çalışır ve VPN trafiğinizi görünmez kılar"
+        "message": "AdGuard VPN protokolü hızlı çalışır ve VPN trafiğinizi farkedilmez hâle getirir"
     },
     "popup_onboarding_sites_apps_exclusions": {
         "message": "Siteler ve uygulamalar istisnaları"

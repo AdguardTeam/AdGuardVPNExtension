@@ -330,7 +330,7 @@
         "message": "指定モード"
     },
     "context_menu_general_mode": {
-        "message": "レギュラーモード"
+        "message": "一般モード"
     },
     "context_menu_export_logs": {
         "message": "ログをエクスポートする"
@@ -809,7 +809,7 @@
         "message": "除外リストを削除"
     },
     "options_exclusions_delete_regular_description": {
-        "message": "レギュラーモードの除外項目がすべて削除されます"
+        "message": "一般モードの除外項目がすべて削除されます"
     },
     "options_exclusions_delete_selective_description": {
         "message": "指定モードの除外項目がすべて削除されます"

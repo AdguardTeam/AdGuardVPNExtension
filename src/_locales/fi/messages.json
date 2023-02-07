@@ -153,7 +153,7 @@
         "message": "Kirjaudu ulos"
     },
     "account_unlimited_title": {
-        "message": "Hanki rajoittamaton versio!"
+        "message": "Hanki Rajaton-versio!"
     },
     "rate_description": {
         "message": "Hei, olemme AdGuardin tiimi ja meille on erittäin tärkeää, että kerrot meille mielipiteesi tuotteesta. Arvioi se, kiitos."
@@ -696,7 +696,7 @@
         "message": "Avaa laajennuskauppa"
     },
     "options_title": {
-        "message": "AdGuard VPN asetukset"
+        "message": "AdGuard VPN -asetukset"
     },
     "offline_title": {
         "message": "Ei yhteyttä"
@@ -757,7 +757,7 @@
         "message": "Rajaton tiedonsiirto"
     },
     "popup_upgrade_screen_unlimited_data_desc": {
-        "message": "Ainoa rajoitus on, ettei tietojasi jaeta koskaan. Surffaa sydämesi kyllyydestä!"
+        "message": "Ainoa rajoitus on se, ettei tietojasi jaeta koskaan. Surffaa sydämesi kyllyydestä!"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "Rajaton nopeus"

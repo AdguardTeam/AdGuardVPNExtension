@@ -330,7 +330,7 @@
         "message": "Selektiver Modus"
     },
     "context_menu_general_mode": {
-        "message": "Allgemeiner Modus"
+        "message": "Standardmodus"
     },
     "context_menu_export_logs": {
         "message": "Protokolle exportieren"
