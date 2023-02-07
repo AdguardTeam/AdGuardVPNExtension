@@ -17,7 +17,7 @@ export const ExtraOptions = observer(() => {
         uiStore,
         settingsStore,
         authStore,
-        // vpnStore,
+        vpnStore,
     } = useContext(rootStore);
 
     const {
@@ -25,7 +25,7 @@ export const ExtraOptions = observer(() => {
         isExcluded,
     } = settingsStore;
 
-    // const { isPremiumToken } = vpnStore;
+    const { isPremiumToken } = vpnStore;
 
     const openSettings = async (): Promise<void> => {
         await messenger.openOptionsPage();
@@ -86,12 +86,14 @@ export const ExtraOptions = observer(() => {
                 handler={openSettings}
                 text={reactTranslator.getMessage('popup_settings_open_settings')}
             />
-            {/* FIXME: Add stats */}
-            {/* {!isPremiumToken && ( */}
-            {/*    <Option */}
-            {/*        text={reactTranslator.getMessage('popup_settings_stats')} */}
-            {/*    /> */}
-            {/* )} */}
+            {!isPremiumToken && (
+                <>
+                    <Option
+                        text={reactTranslator.getMessage('popup_settings_stats')}
+                    />
+                    zxcvbnm
+                </>
+            )}
             {isRateVisible
                 ? <RatePopup />
                 : (

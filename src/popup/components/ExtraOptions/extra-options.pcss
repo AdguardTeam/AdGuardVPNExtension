@@ -22,14 +22,20 @@
         font-size: 1.6rem;
         line-height: 26px;
         text-align: left;
+        border-radius: 0;
 
         &:hover {
             background-color: var(--grayf3);
             text-decoration: none;
         }
 
+        &:first-child {
+            border-radius: 8px 8px 0 0;
+        }
+
         &:last-child {
             color: var(--red);
+            border-radius: 0 0 8px 8px;
         }
     }
 }
