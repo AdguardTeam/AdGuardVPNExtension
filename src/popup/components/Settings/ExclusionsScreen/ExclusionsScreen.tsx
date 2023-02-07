@@ -13,7 +13,7 @@ export const ExclusionsScreen = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
     useEffect(() => {
-        animationService.send(AnimationEvent.ExclusionScreen);
+        animationService.send(AnimationEvent.ExclusionScreenDisplayed);
     });
 
     const removeFromExclusions = async () => {
