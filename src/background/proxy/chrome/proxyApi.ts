@@ -52,26 +52,32 @@ const convertToChromeConfig = (
 
 let globalProxyConfig: ProxyConfigInterface | null = null;
 
+type CallbackType = (response: chrome.webRequest.BlockingResponse) => void;
+
 /**
  * Handles onAuthRequired events
  * @param details - webrequest details
+ * @param callback
  */
-const onAuthRequiredHandler = (details: chrome.webRequest.WebAuthenticationChallengeDetails) => {
+const onAuthRequiredHandler = (
+    details: chrome.webRequest.WebAuthenticationChallengeDetails,
+    callback?: CallbackType,
+) => {
     const { challenger } = details;
 
     if (challenger && challenger.host !== globalProxyConfig?.host) {
         return {};
     }
 
-    if (globalProxyConfig?.credentials) {
-        return { authCredentials: globalProxyConfig.credentials };
+    if (globalProxyConfig?.credentials && callback) {
+        callback({ authCredentials: globalProxyConfig.credentials });
     }
 
     return {};
 };
 
 const addOnAuthRequiredListener = () => {
-    chrome.webRequest.onAuthRequired.addListener(onAuthRequiredHandler, { urls: ['<all_urls>'] }, ['blocking']);
+    chrome.webRequest.onAuthRequired.addListener(onAuthRequiredHandler, { urls: ['<all_urls>'] }, ['asyncBlocking']);
 };
 
 const removeOnAuthRequiredListener = () => {
