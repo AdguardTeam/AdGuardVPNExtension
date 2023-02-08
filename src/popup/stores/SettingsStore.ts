@@ -112,6 +112,8 @@ export class SettingsStore {
         try {
             await messenger.disableVpnByUrl(this.currentTabHostname);
             this.setIsExcluded(true);
+            // play disconnection animation,
+            // if user connected to any location and added website to exclusions
             if (this.isConnected) {
                 animationService.send(AnimationEvent.VpnDisconnected);
             }
@@ -124,6 +126,8 @@ export class SettingsStore {
         try {
             await messenger.enableVpnByUrl(this.currentTabHostname);
             this.setIsExcluded(false);
+            // play connection animation,
+            // if user connected to any location and removed website from exclusions
             if (this.isConnected) {
                 animationService.send(AnimationEvent.VpnConnected);
             }
