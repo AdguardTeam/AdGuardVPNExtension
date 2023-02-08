@@ -6,9 +6,13 @@ import { rootStore } from '../../stores';
 
 import './ping.pcss';
 
+type PingProps = {
+    ping: number;
+};
+
 const PING_WITH_WARNING = 150;
 
-export const Ping = observer(({ ping }: { ping: number }) => {
+export const Ping = observer(({ ping }: PingProps) => {
     const { settingsStore } = useContext(rootStore);
     const { isConnected } = settingsStore;
 

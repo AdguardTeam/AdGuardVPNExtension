@@ -9,7 +9,6 @@ import { messenger } from '../../../lib/messenger';
 import { Option } from './Option';
 import { reactTranslator } from '../../../common/reactTranslator';
 import { RatePopup } from '../RatePopup';
-import { Stats } from './Stats';
 
 import './extra-options.pcss';
 
@@ -18,15 +17,12 @@ export const ExtraOptions = observer(() => {
         uiStore,
         settingsStore,
         authStore,
-        vpnStore,
     } = useContext(rootStore);
 
     const {
         isRateVisible,
-        isExcluded,
+        isCurrentTabExcluded,
     } = settingsStore;
-
-    const { isPremiumToken } = vpnStore;
 
     const openSettings = async (): Promise<void> => {
         await messenger.openOptionsPage();
@@ -66,7 +62,7 @@ export const ExtraOptions = observer(() => {
             className="extra-options"
             overlayClassName="modal__overlay extra-options__overlay"
         >
-            {!isExcluded
+            {!isCurrentTabExcluded
                 ? (
                     <Option
                         handler={addToExclusions}
@@ -87,7 +83,6 @@ export const ExtraOptions = observer(() => {
                 handler={openSettings}
                 text={reactTranslator.getMessage('popup_settings_open_settings')}
             />
-            {!isPremiumToken && <Stats />}
             {isRateVisible
                 ? <RatePopup />
                 : (

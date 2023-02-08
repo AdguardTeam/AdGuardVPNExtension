@@ -13,7 +13,7 @@ export const Status = observer(() => {
         isConnected,
         isConnectingIdle,
         isConnectingRetrying,
-        isExcluded,
+        isCurrentTabExcluded,
         canBeExcluded,
     } = settingsStore;
 
@@ -22,7 +22,7 @@ export const Status = observer(() => {
             return reactTranslator.getMessage('settings_vpn_connecting');
         }
 
-        if (isConnected && !isExcluded) {
+        if (isConnected && !isCurrentTabExcluded) {
             return reactTranslator.getMessage('settings_vpn_enabled');
         }
 

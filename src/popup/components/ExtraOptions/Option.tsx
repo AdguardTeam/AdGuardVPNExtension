@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 
 type OptionProps = {
-    handler?: () => void,
+    handler: () => void,
     text: string | ReactNode,
 };
 

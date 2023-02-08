@@ -55,7 +55,7 @@ export const App = observer(() => {
         canControlProxy,
         hasGlobalError,
         hasLimitExceededError,
-        isExcluded,
+        isCurrentTabExcluded,
         canBeExcluded,
         showLimitExceededScreen,
     } = settingsStore;
@@ -231,7 +231,7 @@ export const App = observer(() => {
             >
                 <Locations />
             </CSSTransition>
-            {isExcluded && canBeExcluded
+            {isCurrentTabExcluded && canBeExcluded
                 ? <ExclusionsScreen />
                 : (
                     <>
