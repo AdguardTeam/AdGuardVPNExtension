@@ -9,11 +9,7 @@ import {
 } from '../../../../lib/constants';
 import { animationService } from './animationStateMachine';
 
-interface BackgroundAnimationProps {
-    exclusionsScreen?: boolean;
-}
-
-export const BackgroundAnimation = observer(({ exclusionsScreen }: BackgroundAnimationProps) => {
+export const BackgroundAnimation = observer(() => {
     const { settingsStore } = useContext(rootStore);
 
     const {
@@ -37,11 +33,7 @@ export const BackgroundAnimation = observer(({ exclusionsScreen }: BackgroundAni
         animationSources = animationSourcesMap[appearanceTheme];
     }
 
-    let sourceUrl = animationSources[animationState];
-
-    if (exclusionsScreen) {
-        sourceUrl = animationSources[AnimationState.VpnDisabled];
-    }
+    const sourceUrl = animationSources[animationState];
 
     const loop = animationState === AnimationState.VpnEnabled
         || animationState === AnimationState.VpnDisabled;
