@@ -446,6 +446,15 @@
     "settings_theme_light": {
         "message": "Vaalea"
     },
+    "settings_quick_connect_subtitle": {
+        "message": "VPN-sijainti, johon Yhdistä-painike muodostaa yhteyden"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Viimeksi käytetty sijainti"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Nopein sijainti"
+    },
     "settings_exclusion_add": {
         "message": "Lisää"
     },

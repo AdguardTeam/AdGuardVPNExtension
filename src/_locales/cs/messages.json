@@ -446,6 +446,18 @@
     "settings_theme_light": {
         "message": "Světlý"
     },
+    "settings_quick_connect_title": {
+        "message": "Rychlé připojení"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "Umístění VPN vybrané po kliknutí na tlačítko Připojit"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Naposledy použité umístění"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Nejrychlejší umístění"
+    },
     "settings_exclusion_add": {
         "message": "Přidat"
     },

@@ -446,6 +446,18 @@
     "settings_theme_light": {
         "message": "ライト"
     },
+    "settings_quick_connect_title": {
+        "message": "クイック接続"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "「接続する」をクリックしたときに選択されるVPNロケーション"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "最後に使用したロケーション"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "一番速いロケーション"
+    },
     "settings_exclusion_add": {
         "message": "ウェブサイトを追加する"
     },

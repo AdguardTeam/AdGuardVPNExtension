@@ -443,6 +443,18 @@
     "settings_theme_light": {
         "message": "Svetlá"
     },
+    "settings_quick_connect_title": {
+        "message": "Rýchle pripojenie"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "Lokalita VPN vybratá po kliknutí na tlačidlo Pripojiť"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Naposledy použitá lokalita"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Najrýchlejšia lokalita"
+    },
     "settings_exclusion_add": {
         "message": "Pridať"
     },

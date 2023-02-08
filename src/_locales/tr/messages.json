@@ -446,6 +446,18 @@
     "settings_theme_light": {
         "message": "Açık"
     },
+    "settings_quick_connect_title": {
+        "message": "Hızlı bağlantı"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "Bağlan'a tıkladığınızda seçilen VPN konumu"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Son kullanılan konum"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "En hızlı konum"
+    },
     "settings_exclusion_add": {
         "message": "Ekle"
     },

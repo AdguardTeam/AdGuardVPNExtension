@@ -446,6 +446,18 @@
     "settings_theme_light": {
         "message": "Hell"
     },
+    "settings_quick_connect_title": {
+        "message": "Schnellverbindung"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "VPN-Standort, der ausgewählt wird, wenn Sie auf „Verbinden“ klicken"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Zuletzt genutzter Standort"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Schnellster Standort"
+    },
     "settings_exclusion_add": {
         "message": "Hinzufügen"
     },

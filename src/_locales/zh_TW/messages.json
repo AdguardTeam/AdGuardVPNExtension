@@ -446,6 +446,18 @@
     "settings_theme_light": {
         "message": "淺色"
     },
+    "settings_quick_connect_title": {
+        "message": "快速連線"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "當您點擊「連線」後選擇的 VPN 位置"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "最後連線的位置"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "最快的位置"
+    },
     "settings_exclusion_add": {
         "message": "新增"
     },

@@ -446,6 +446,18 @@
     "settings_theme_light": {
         "message": "Licht"
     },
+    "settings_quick_connect_title": {
+        "message": "Snel verbinding maken"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "VPN-locatie geselecteerd wanneer je op Verbinden klikt"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Laatst gebruikte locatie"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Snelste locatie"
+    },
     "settings_exclusion_add": {
         "message": "Toevoegen"
     },

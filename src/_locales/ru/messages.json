@@ -446,6 +446,18 @@
     "settings_theme_light": {
         "message": "Светлая"
     },
+    "settings_quick_connect_title": {
+        "message": "Локация по кнопке «Подключить»"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "К чему подключаться автоматически?"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Последняя использованная"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Самая быстрая"
+    },
     "settings_exclusion_add": {
         "message": "Добавить"
     },

@@ -446,6 +446,18 @@
     "settings_theme_light": {
         "message": "Svetla"
     },
+    "settings_quick_connect_title": {
+        "message": "Hitro poveži"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "Lokacija VPN izbrana, ko kliknete Poveži"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Zadnja uporabljena lokacija"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Najhitrejša lokacija"
+    },
     "settings_exclusion_add": {
         "message": "Dodaj"
     },
