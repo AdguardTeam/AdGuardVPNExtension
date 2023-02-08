@@ -322,4 +322,16 @@ export class SettingsStore {
             this.quickConnect = value;
         });
     };
+
+    @computed get invitesQuestCompleted() {
+        return this.invitesBonuses.invitesCount >= this.invitesBonuses.maxInvitesCount;
+    }
+
+    @computed get confirmEmailQuestCompleted() {
+        return !this.confirmBonus.available;
+    }
+
+    @computed get addDeviceQuestCompleted() {
+        return !this.multiplatformBonus.available;
+    }
 }

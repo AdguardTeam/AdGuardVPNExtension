@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { NavLink } from 'react-router-dom';
 
@@ -10,7 +10,20 @@ import './sidebar.pcss';
 
 export const Sidebar = observer(() => {
     const { settingsStore } = useContext(rootStore);
-    const { isPremiumToken } = settingsStore;
+    const {
+        isPremiumToken,
+        invitesQuestCompleted,
+        confirmEmailQuestCompleted,
+        addDeviceQuestCompleted,
+    } = settingsStore;
+
+    useEffect(() => {
+        (async () => {
+            await settingsStore.updateBonusesData();
+        })();
+    }, []);
+
+    const allQuestsCompleted = invitesQuestCompleted && confirmEmailQuestCompleted && addDeviceQuestCompleted;
 
     return (
         <div className="sidebar">
@@ -34,7 +47,7 @@ export const Sidebar = observer(() => {
                 {!isPremiumToken && (
                     <NavLink className="sidebar__link" exact activeClassName="sidebar__link--active" to="/free-gbs" replace>
                         {reactTranslator.getMessage('settings_free_gbs')}
-                        <span className="sidebar__link--mark" />
+                        {!allQuestsCompleted && <span className="sidebar__link--mark" />}
                     </NavLink>
                 )}
             </nav>
