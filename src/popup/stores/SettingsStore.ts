@@ -12,7 +12,8 @@ import {
     SETTINGS_IDS,
     APPEARANCE_THEME_DEFAULT,
     AppearanceTheme,
-    AnimationEvent, AnimationState,
+    AnimationEvent,
+    AnimationState,
 } from '../../lib/constants';
 import { messenger } from '../../lib/messenger';
 import { State } from '../../background/connectivity/connectivityService/connectivityConstants';
@@ -62,6 +63,8 @@ export class SettingsStore {
 
     @observable animationState: AnimationState = <AnimationState>animationService.initialState.value;
 
+    @observable showServerErrorPopup: boolean = false;
+
     rootStore: RootStore;
 
     constructor(rootStore: RootStore) {
@@ -109,6 +112,11 @@ export class SettingsStore {
         try {
             await messenger.disableVpnByUrl(this.currentTabHostname);
             this.setIsExcluded(true);
+            // play disconnection animation,
+            // if user connected to any location and added website to exclusions
+            if (this.isConnected) {
+                animationService.send(AnimationEvent.VpnDisconnected);
+            }
         } catch (e) {
             log.error(e);
         }
@@ -118,6 +126,11 @@ export class SettingsStore {
         try {
             await messenger.enableVpnByUrl(this.currentTabHostname);
             this.setIsExcluded(false);
+            // play connection animation,
+            // if user connected to any location and removed website from exclusions
+            if (this.isConnected) {
+                animationService.send(AnimationEvent.VpnConnected);
+            }
         } catch (e) {
             log.error(e);
         }
@@ -341,5 +354,13 @@ export class SettingsStore {
 
     handleAnimationEnd = (): void => {
         animationService.send(AnimationEvent.AnimationEnded);
+    };
+
+    @action openServerErrorPopup = (): void => {
+        this.showServerErrorPopup = true;
+    };
+
+    @action closeServerErrorPopup = (): void => {
+        this.showServerErrorPopup = false;
     };
 }

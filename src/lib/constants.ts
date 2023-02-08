@@ -150,6 +150,7 @@ export const enum AnimationEvent {
     AnimationEnded = 'animationEnded',
     LocationSelected = 'locationSelected',
     VpnDisconnectedRetrying = 'vpnDisconnectedRetrying',
+    ExclusionScreenDisplayed = 'exclusionScreenDisplayed',
 }
 
 const MOTION_FOLDER_PATH = '../../../assets/motion/';
