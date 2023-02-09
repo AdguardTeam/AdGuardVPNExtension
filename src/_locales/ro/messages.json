@@ -695,6 +695,12 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Mergeți la Chrome Web Store"
     },
+    "popup_server_error_popup_cancel": {
+        "message": "Anulare"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Închideți"
+    },
     "options_title": {
         "message": "Opțiuni AdGuard VPN"
     },

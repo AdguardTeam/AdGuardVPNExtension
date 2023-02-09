@@ -446,6 +446,18 @@
     "settings_theme_light": {
         "message": "Licht"
     },
+    "settings_quick_connect_title": {
+        "message": "Snel verbinding maken"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "VPN-locatie geselecteerd wanneer je op Verbinden klikt"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Laatst gebruikte locatie"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Snelste locatie"
+    },
     "settings_exclusion_add": {
         "message": "Toevoegen"
     },
@@ -694,6 +706,27 @@
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Naar de Extension Store gaan"
+    },
+    "popup_server_error_popup_title": {
+        "message": "Kan geen verbinding maken met server"
+    },
+    "popup_server_error_popup_info": {
+        "message": "We proberen het al op te lossen, maar je kunt ons een extra waarschuwing sturen - voor het geval dat."
+    },
+    "popup_server_error_popup_action": {
+        "message": "Nudge AdGuard-team"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "Annuleren"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "We werken eraan"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Bedankt voor het laten weten!"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Sluiten"
     },
     "options_title": {
         "message": "AdGuard VPN Opties"

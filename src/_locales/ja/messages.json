@@ -330,7 +330,7 @@
         "message": "指定モード"
     },
     "context_menu_general_mode": {
-        "message": "レギュラーモード"
+        "message": "一般モード"
     },
     "context_menu_export_logs": {
         "message": "ログをエクスポートする"
@@ -445,6 +445,18 @@
     },
     "settings_theme_light": {
         "message": "ライト"
+    },
+    "settings_quick_connect_title": {
+        "message": "クイック接続"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "「接続する」をクリックしたときに選択されるVPNロケーション"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "最後に使用したロケーション"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "一番速いロケーション"
     },
     "settings_exclusion_add": {
         "message": "ウェブサイトを追加する"
@@ -695,6 +707,27 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "拡張機能ストアへ移動する"
     },
+    "popup_server_error_popup_title": {
+        "message": "サーバーに接続できません"
+    },
+    "popup_server_error_popup_info": {
+        "message": "すでに対処中すが、念のため追加の通知を送っていただくことも可能です。"
+    },
+    "popup_server_error_popup_action": {
+        "message": "AdGuardチームに通知する"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "キャンセル"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "取り組んでまいります。"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "お知らせいただきありがとうございます。"
+    },
+    "popup_server_error_popup_close": {
+        "message": "閉じる"
+    },
     "options_title": {
         "message": "AdGuard VPNオプション"
     },
@@ -809,7 +842,7 @@
         "message": "除外リストを削除"
     },
     "options_exclusions_delete_regular_description": {
-        "message": "レギュラーモードの除外項目がすべて削除されます"
+        "message": "一般モードの除外項目がすべて削除されます"
     },
     "options_exclusions_delete_selective_description": {
         "message": "指定モードの除外項目がすべて削除されます"

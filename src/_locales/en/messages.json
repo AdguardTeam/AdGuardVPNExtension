@@ -3,7 +3,7 @@
         "message": "AdGuard VPN — free & secure proxy"
     },
     "description": {
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -834,6 +834,18 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Cancel"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Delete"
+    },
+    "options_exclusions_delete_title": {
+        "message": "Remove exclusions"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "All exclusions from the Regular mode will be deleted."
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "All exclusions from the Selective mode will be deleted."
     },
     "options_exclusions_import_successful": {
         "message": "Imported exclusions: %count%"

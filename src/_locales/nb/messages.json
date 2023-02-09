@@ -398,6 +398,12 @@
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "Gi tilbakemelding"
     },
+    "popup_server_error_popup_cancel": {
+        "message": "Avbryt"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Lukk"
+    },
     "options_title": {
         "message": "AdGuard VPN-innstillinger"
     },
@@ -463,6 +469,6 @@
         "message": "AdGuard VPN — free & secure proxy"
     },
     "description": {
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
     }
 }
