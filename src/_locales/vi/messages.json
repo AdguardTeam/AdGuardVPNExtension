@@ -695,6 +695,12 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Truy cập Cửa hàng Chrome"
     },
+    "popup_server_error_popup_cancel": {
+        "message": "Huỷ"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Đóng"
+    },
     "options_title": {
         "message": "Tùy chọn AdGuard VPN"
     },

@@ -695,6 +695,12 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Przejdź do Chrome Store"
     },
+    "popup_server_error_popup_cancel": {
+        "message": "Anuluj"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Zamknij"
+    },
     "options_title": {
         "message": "Ustawienia AdGuard VPN"
     },

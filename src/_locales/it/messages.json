@@ -446,6 +446,18 @@
     "settings_theme_light": {
         "message": "Chiaro"
     },
+    "settings_quick_connect_title": {
+        "message": "Connessione rapida"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "Posizione VPN selezionata quando fai clic su Connetti"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Ultima posizione utilizzata"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Connessione ultraveloce"
+    },
     "settings_exclusion_add": {
         "message": "Aggiungi"
     },
@@ -694,6 +706,27 @@
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Vai all'Extension Store"
+    },
+    "popup_server_error_popup_title": {
+        "message": "Impossibile connettersi al server"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Stiamo già cercando di risolvere il problema, ma potete inviarci un'ulteriore segnalazione, per sicurezza."
+    },
+    "popup_server_error_popup_action": {
+        "message": "Dare una spinta al team AdGuard"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "Annulla"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Lavorare su di esso"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Grazie per avercelo fatto sapere!"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Chiudi"
     },
     "options_title": {
         "message": "Opzioni di AdGuard VPN"

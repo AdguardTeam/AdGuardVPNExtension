@@ -446,6 +446,18 @@
     "settings_theme_light": {
         "message": "Lyst"
     },
+    "settings_quick_connect_title": {
+        "message": "Hurtig tilslutning"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "VPN-placering vælges, når der klikkes på Forbind"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Senest brugte placering"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Hurtigste placeringer"
+    },
     "settings_exclusion_add": {
         "message": "Tilføj"
     },
@@ -694,6 +706,27 @@
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Gå til Extension Store"
+    },
+    "popup_server_error_popup_title": {
+        "message": "Kan ikke oprette forbindelse til server"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Udbedring er allerede i gang, men der kan indsendes en ekstra advarsel — for en sikkerheds skyld."
+    },
+    "popup_server_error_popup_action": {
+        "message": "Puf til AdGuard-teamet"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "Afbryd"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Arbejder på det"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Tak for at fortælle os det!"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Luk"
     },
     "options_title": {
         "message": "AdGuard VPN Indstillinger"

@@ -153,7 +153,7 @@
         "message": "Kirjaudu ulos"
     },
     "account_unlimited_title": {
-        "message": "Hanki rajoittamaton versio!"
+        "message": "Hanki Rajaton-versio!"
     },
     "rate_description": {
         "message": "Hei, olemme AdGuardin tiimi ja meille on erittäin tärkeää, että kerrot meille mielipiteesi tuotteesta. Arvioi se, kiitos."
@@ -446,6 +446,18 @@
     "settings_theme_light": {
         "message": "Vaalea"
     },
+    "settings_quick_connect_title": {
+        "message": "Pikayhteys"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "VPN-sijainti, johon Yhdistä-painike muodostaa yhteyden"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Viimeksi käytetty sijainti"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Nopein sijainti"
+    },
     "settings_exclusion_add": {
         "message": "Lisää"
     },
@@ -695,8 +707,29 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Avaa laajennuskauppa"
     },
+    "popup_server_error_popup_title": {
+        "message": "Palvelimeen ei saada yhteyttä"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Olemme jo korjaamassa sitä, mutta voit lähettää meille ylimääräisen hälytyksen — varmuuden vuoksi."
+    },
+    "popup_server_error_popup_action": {
+        "message": "Tönäise AdGuardin tiimiä"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "Peruuta"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Työn alla"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Kiitos, kun kerroit meille!"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Sulje"
+    },
     "options_title": {
-        "message": "AdGuard VPN asetukset"
+        "message": "AdGuard VPN -asetukset"
     },
     "offline_title": {
         "message": "Ei yhteyttä"
@@ -757,7 +790,7 @@
         "message": "Rajaton tiedonsiirto"
     },
     "popup_upgrade_screen_unlimited_data_desc": {
-        "message": "Ainoa rajoitus on, ettei tietojasi jaeta koskaan. Surffaa sydämesi kyllyydestä!"
+        "message": "Ainoa rajoitus on se, ettei tietojasi jaeta koskaan. Surffaa sydämesi kyllyydestä!"
     },
     "popup_upgrade_screen_unlimited_speed": {
         "message": "Rajaton nopeus"

@@ -695,6 +695,12 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Перайдзіце ў краму Chrome"
     },
+    "popup_server_error_popup_cancel": {
+        "message": "Скасаванне"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Зачыніць"
+    },
     "options_title": {
         "message": "Налады AdGuard VPN"
     },

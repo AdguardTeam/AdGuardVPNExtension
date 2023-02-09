@@ -446,6 +446,18 @@
     "settings_theme_light": {
         "message": "亮色主题"
     },
+    "settings_quick_connect_title": {
+        "message": "快速连接"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "当您点击「连接」后选择的 VPN 位置"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "最后连接的位置"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "最快的位置"
+    },
     "settings_exclusion_add": {
         "message": "添加"
     },
@@ -694,6 +706,27 @@
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "转到插件商店"
+    },
+    "popup_server_error_popup_title": {
+        "message": "无法连接到服务器"
+    },
+    "popup_server_error_popup_info": {
+        "message": "我们已经在尝试修复错误，但您也可以向我们发送一个额外的警报。"
+    },
+    "popup_server_error_popup_action": {
+        "message": "催 AdGuard 团队解决问题"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "取消"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "现在正在修复"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "感谢您让我们知道！"
+    },
+    "popup_server_error_popup_close": {
+        "message": "关闭"
     },
     "options_title": {
         "message": "AdGuard VPN 选项"
