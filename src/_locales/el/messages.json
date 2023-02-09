@@ -437,6 +437,12 @@
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "Αφήστε τα σχόλιά σας"
     },
+    "popup_server_error_popup_cancel": {
+        "message": "Ακύρωση"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Κλείσιμο"
+    },
     "options_title": {
         "message": "Επιλογές AdGuard VPN"
     },
@@ -547,6 +553,6 @@
         "message": "AdGuard VPN — free & secure proxy"
     },
     "description": {
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
     }
 }

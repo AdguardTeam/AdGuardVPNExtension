@@ -695,6 +695,12 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Ugrás a kiegészítők áruházába"
     },
+    "popup_server_error_popup_cancel": {
+        "message": "Mégsem"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Bezárás"
+    },
     "options_title": {
         "message": "AdGuard VPN Beállítások"
     },

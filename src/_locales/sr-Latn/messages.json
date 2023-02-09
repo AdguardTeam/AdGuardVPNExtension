@@ -692,6 +692,12 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Idite u Chrome prodavnicu"
     },
+    "popup_server_error_popup_cancel": {
+        "message": "Otkaži"
+    },
+    "popup_server_error_popup_close": {
+        "message": "zatvori"
+    },
     "options_title": {
         "message": "AdGuard VPN opcije"
     },

@@ -446,6 +446,18 @@
     "settings_theme_light": {
         "message": "Светлая"
     },
+    "settings_quick_connect_title": {
+        "message": "Локация по кнопке «Подключить»"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "К чему подключаться автоматически?"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Последняя использованная"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Самая быстрая"
+    },
     "settings_exclusion_add": {
         "message": "Добавить"
     },
@@ -694,6 +706,27 @@
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Перейти в магазин"
+    },
+    "popup_server_error_popup_title": {
+        "message": "Не удаётся подключиться к серверу"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Мы уже работаем рад этим, но можете дать нам знать, что ждёте — на всякий случай."
+    },
+    "popup_server_error_popup_action": {
+        "message": "Поторопить"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "Отмена"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Торопимся"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Спасибо, что сообщили!"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Закрыть"
     },
     "options_title": {
         "message": "Опции AdGuard VPN"

@@ -101,6 +101,12 @@
     "popup_rate_modal_cancel_button": {
         "message": "Չեղարկել"
     },
+    "popup_server_error_popup_cancel": {
+        "message": "Չեղարկել"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Փակել"
+    },
     "popup_onboarding_next": {
         "message": "Հաջորդը"
     },
@@ -126,6 +132,6 @@
         "message": "AdGuard VPN"
     },
     "description": {
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
     }
 }

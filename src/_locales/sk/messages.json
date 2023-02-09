@@ -443,6 +443,18 @@
     "settings_theme_light": {
         "message": "Svetlá"
     },
+    "settings_quick_connect_title": {
+        "message": "Rýchle pripojenie"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "Lokalita VPN vybratá po kliknutí na tlačidlo Pripojiť"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Naposledy použitá lokalita"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Najrýchlejšia lokalita"
+    },
     "settings_exclusion_add": {
         "message": "Pridať"
     },
@@ -676,6 +688,27 @@
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Prejsť do obchodu s rozšíreniami"
+    },
+    "popup_server_error_popup_title": {
+        "message": "Nemožno sa pripojiť k serveru"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Už sa to snažíme napraviť, ale pre každý prípad nám môžete poslať ďalšie upozornenie."
+    },
+    "popup_server_error_popup_action": {
+        "message": "Tím Nudge AdGuard"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "Zrušiť"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Pracujeme na tom"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Ďakujeme, že ste nám dali vedieť!"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Ukončiť"
     },
     "options_title": {
         "message": "Predvoľby AdGuard VPN"
