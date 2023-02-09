@@ -19,8 +19,7 @@ export const Sidebar = observer(() => {
 
     useEffect(() => {
         (async () => {
-            // update bonuses data to have actual value for allQuestsCompleted
-            // to display dot marker for Free BGs menu item
+            // request bonuses data on opening this screen to display actual information to user
             await settingsStore.updateBonusesData();
         })();
     }, []);
