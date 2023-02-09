@@ -695,6 +695,12 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Перейти до Вебмагазину браузера"
     },
+    "popup_server_error_popup_cancel": {
+        "message": "Скасувати"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Закрити"
+    },
     "options_title": {
         "message": "AdGuard VPN Параметри"
     },

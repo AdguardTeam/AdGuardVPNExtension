@@ -101,6 +101,12 @@
     "popup_rate_modal_cancel_button": {
         "message": "Չեղարկել"
     },
+    "popup_server_error_popup_cancel": {
+        "message": "Չեղարկել"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Փակել"
+    },
     "popup_onboarding_next": {
         "message": "Հաջորդը"
     },

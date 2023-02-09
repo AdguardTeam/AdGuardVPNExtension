@@ -707,6 +707,27 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Accédez au magasin d'extensions"
     },
+    "popup_server_error_popup_title": {
+        "message": "Impossible de se connecter au serveur"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Nous essayons déjà de résoudre ce problème, mais vous pouvez nous envoyer une alerte supplémentaire, au cas où."
+    },
+    "popup_server_error_popup_action": {
+        "message": "Alertez l'équipe d'AdGuard"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "Annuler"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Nous y travaillons déjà"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Merci de nous avoir avertis !"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Fermer"
+    },
     "options_title": {
         "message": "Options AdGuard VPN"
     },

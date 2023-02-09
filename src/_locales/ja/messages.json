@@ -707,6 +707,27 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "拡張機能ストアへ移動する"
     },
+    "popup_server_error_popup_title": {
+        "message": "サーバーに接続できません"
+    },
+    "popup_server_error_popup_info": {
+        "message": "すでに対処中すが、念のため追加の通知を送っていただくことも可能です。"
+    },
+    "popup_server_error_popup_action": {
+        "message": "AdGuardチームに通知する"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "キャンセル"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "取り組んでまいります。"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "お知らせいただきありがとうございます。"
+    },
+    "popup_server_error_popup_close": {
+        "message": "閉じる"
+    },
     "options_title": {
         "message": "AdGuard VPNオプション"
     },

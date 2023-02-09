@@ -707,6 +707,12 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "확장 프로그램 스토어로 이동"
     },
+    "popup_server_error_popup_cancel": {
+        "message": "취소"
+    },
+    "popup_server_error_popup_close": {
+        "message": "닫기"
+    },
     "options_title": {
         "message": "AdGuard VPN 옵션"
     },

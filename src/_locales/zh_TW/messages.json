@@ -707,6 +707,27 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "前往擴充功能商店"
     },
+    "popup_server_error_popup_title": {
+        "message": "無法連線到伺服器"
+    },
+    "popup_server_error_popup_info": {
+        "message": "我們已經在嘗試修復錯誤，但您也可以向我們傳送一個額外的警報。"
+    },
+    "popup_server_error_popup_action": {
+        "message": "催 AdGuard 團隊解決問題"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "取消"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "現在正在修復"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "感謝您讓我們知道！"
+    },
+    "popup_server_error_popup_close": {
+        "message": "關閉"
+    },
     "options_title": {
         "message": "AdGuard VPN 選項"
     },

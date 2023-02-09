@@ -224,6 +224,12 @@
     "popup_rate_modal_cancel_button": {
         "message": "لغو"
     },
+    "popup_server_error_popup_cancel": {
+        "message": "لغو"
+    },
+    "popup_server_error_popup_close": {
+        "message": "بستن"
+    },
     "popup_auth_policy_agreement_continue_button": {
         "message": "ادامه"
     },

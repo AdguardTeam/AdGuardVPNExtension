@@ -188,6 +188,12 @@
     "popup_rate_modal_cancel_button": {
         "message": "Atšaukti"
     },
+    "popup_server_error_popup_cancel": {
+        "message": "Atšaukti"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Uždaryti"
+    },
     "popup_auth_policy_agreement_continue_button": {
         "message": "Tęsti"
     },

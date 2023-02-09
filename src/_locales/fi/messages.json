@@ -446,6 +446,9 @@
     "settings_theme_light": {
         "message": "Vaalea"
     },
+    "settings_quick_connect_title": {
+        "message": "Pikayhteys"
+    },
     "settings_quick_connect_subtitle": {
         "message": "VPN-sijainti, johon Yhdistä-painike muodostaa yhteyden"
     },
@@ -703,6 +706,27 @@
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Avaa laajennuskauppa"
+    },
+    "popup_server_error_popup_title": {
+        "message": "Palvelimeen ei saada yhteyttä"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Olemme jo korjaamassa sitä, mutta voit lähettää meille ylimääräisen hälytyksen — varmuuden vuoksi."
+    },
+    "popup_server_error_popup_action": {
+        "message": "Tönäise AdGuardin tiimiä"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "Peruuta"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Työn alla"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Kiitos, kun kerroit meille!"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Sulje"
     },
     "options_title": {
         "message": "AdGuard VPN -asetukset"

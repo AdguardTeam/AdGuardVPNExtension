@@ -707,6 +707,27 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Erweiterungen-Store aufrufen"
     },
+    "popup_server_error_popup_title": {
+        "message": "Verbindung zum Server konnte nicht hergestellt werden"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Wir versuchen bereits, das Problem zu beheben. Aber Sie können uns eine zusätzliche Meldung schicken — nur für den Fall."
+    },
+    "popup_server_error_popup_action": {
+        "message": "AdGuard-Team anstupsen"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "Abbrechen"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Wir arbeiten daran"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Danke, dass Sie uns das mitgeteilt haben!"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Schließen"
+    },
     "options_title": {
         "message": "AdGuard VPN Einstellungen"
     },

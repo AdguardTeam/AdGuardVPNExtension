@@ -707,6 +707,12 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Pojdi v trgovino z razširitvami"
     },
+    "popup_server_error_popup_cancel": {
+        "message": "Prekliči"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Zapri"
+    },
     "options_title": {
         "message": "Možnosti AdGuard VPN"
     },

@@ -707,6 +707,21 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Uzantı Mağazası'na Git"
     },
+    "popup_server_error_popup_title": {
+        "message": "Sunucuya bağlanılamıyor"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Zaten düzeltmeye çalışıyoruz, ancak her ihtimale karşı bize fazladan bir uyarı gönderebilirsiniz."
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "İptal"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Bize bildirdiğiniz için teşekkür ederiz!"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Kapat"
+    },
     "options_title": {
         "message": "AdGuard VPN Ayarları"
     },

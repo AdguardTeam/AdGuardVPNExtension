@@ -500,6 +500,12 @@
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "Lämna feedback"
     },
+    "popup_server_error_popup_cancel": {
+        "message": "Avbryt"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Stäng"
+    },
     "options_title": {
         "message": "AdGuard VPN Alternativ"
     },

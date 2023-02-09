@@ -404,6 +404,12 @@
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "Umpan balik"
     },
+    "popup_server_error_popup_cancel": {
+        "message": "Batal"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Tutup"
+    },
     "options_title": {
         "message": "Opsi AdGuard VPN"
     },

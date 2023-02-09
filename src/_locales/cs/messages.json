@@ -707,6 +707,27 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Přejděte do obchodu s rozšířeními"
     },
+    "popup_server_error_popup_title": {
+        "message": "Nelze se připojit k serveru"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Už se to snažíme opravit, ale můžete nám poslat další upozornění — pro jistotu."
+    },
+    "popup_server_error_popup_action": {
+        "message": "Popostrčit AdGuard tým"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "Zrušit"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Děláme na tom"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Děkujeme, že jste nám dali vědět!"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Zavřít"
+    },
     "options_title": {
         "message": "Možnosti AdGuard VPN"
     },
