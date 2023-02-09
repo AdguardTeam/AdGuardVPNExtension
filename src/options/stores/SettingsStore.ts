@@ -76,11 +76,11 @@ export class SettingsStore {
     };
 
     @observable confirmBonus = {
-        available: true,
+        available: false,
     };
 
     @observable multiplatformBonus = {
-        available: true,
+        available: false,
     };
 
     @observable bonusesDataRequestStatus: string;
