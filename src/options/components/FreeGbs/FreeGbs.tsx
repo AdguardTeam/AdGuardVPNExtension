@@ -39,8 +39,9 @@ export const FreeGbs = observer(() => {
     const {
         invitesBonuses,
         bonusesDataRequestStatus,
-        confirmBonus,
-        multiplatformBonus,
+        invitesQuestCompleted,
+        confirmEmailQuestCompleted,
+        addDeviceQuestCompleted,
     } = settingsStore;
 
     const { invitesCount, maxInvitesCount } = invitesBonuses;
@@ -64,21 +65,21 @@ export const FreeGbs = observer(() => {
             status: reactTranslator.getMessage('settings_free_gbs_invite_friend_get_GB', { num: maxInvitesCount }),
             statusDone: reactTranslator.getMessage('settings_free_gbs_invite_friend_complete', { num: maxInvitesCount }),
             query: INVITE_FRIEND,
-            completed: invitesCount >= maxInvitesCount,
+            completed: invitesQuestCompleted,
         },
         {
             title: translator.getMessage('settings_free_gbs_confirm_email_title'),
             status: reactTranslator.getMessage('settings_free_gbs_get_GB', { num: COMPLETE_TASK_BONUS_GB }),
             statusDone: reactTranslator.getMessage('settings_free_gbs_task_complete', { num: COMPLETE_TASK_BONUS_GB }),
             query: CONFIRM_EMAIL,
-            completed: !confirmBonus.available,
+            completed: confirmEmailQuestCompleted,
         },
         {
             title: translator.getMessage('settings_free_gbs_add_device_title'),
             status: reactTranslator.getMessage('settings_free_gbs_get_GB', { num: COMPLETE_TASK_BONUS_GB }),
             statusDone: reactTranslator.getMessage('settings_free_gbs_task_complete', { num: COMPLETE_TASK_BONUS_GB }),
             query: ADD_DEVICE,
-            completed: !multiplatformBonus.available,
+            completed: addDeviceQuestCompleted,
         },
     ];
 
