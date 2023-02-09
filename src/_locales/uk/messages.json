@@ -446,6 +446,18 @@
     "settings_theme_light": {
         "message": "Світла"
     },
+    "settings_quick_connect_title": {
+        "message": "Швидке під'єднання"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "Яке місцезнаходження вибирати під час натискання «Під'єднатися»"
+    },
+    "settings_quick_connect_last_used": {
+        "message": "Останнє використовуване"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "Найшвидше"
+    },
     "settings_exclusion_add": {
         "message": "Додати"
     },
@@ -695,8 +707,23 @@
     "popup_confirm_rate_modal_confirm_button": {
         "message": "Перейти до Вебмагазину браузера"
     },
+    "popup_server_error_popup_title": {
+        "message": "Не вдається під'єднатися до сервера"
+    },
+    "popup_server_error_popup_info": {
+        "message": "Ми вже намагаємося це виправити, але ви додатково можете сповістити нас про всяк випадок."
+    },
+    "popup_server_error_popup_action": {
+        "message": "Повідомити команду AdGuard"
+    },
     "popup_server_error_popup_cancel": {
         "message": "Скасувати"
+    },
+    "popup_server_error_popup_thankyou_title": {
+        "message": "Працюємо над цим"
+    },
+    "popup_server_error_popup_thankyou_message": {
+        "message": "Дякуємо, що повідомили нам!"
     },
     "popup_server_error_popup_close": {
         "message": "Закрити"
