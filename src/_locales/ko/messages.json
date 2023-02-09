@@ -446,6 +446,18 @@
     "settings_theme_light": {
         "message": "라이트 테마"
     },
+    "settings_quick_connect_title": {
+        "message": "빠른 연결"
+    },
+    "settings_quick_connect_subtitle": {
+        "message": "연결 버튼을 클릭하면 VPN 위치가 선택됩니다."
+    },
+    "settings_quick_connect_last_used": {
+        "message": "마지막으로 사용한 위치"
+    },
+    "settings_quick_connect_fastest": {
+        "message": "가장 빠른 위치"
+    },
     "settings_exclusion_add": {
         "message": "추가"
     },
@@ -694,6 +706,12 @@
     },
     "popup_confirm_rate_modal_confirm_button": {
         "message": "확장 프로그램 스토어로 이동"
+    },
+    "popup_server_error_popup_cancel": {
+        "message": "취소"
+    },
+    "popup_server_error_popup_close": {
+        "message": "닫기"
     },
     "options_title": {
         "message": "AdGuard VPN 옵션"

@@ -3,7 +3,7 @@
         "message": "AdGuard VPN — free & secure proxy"
     },
     "description": {
-        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private vpn proxy."
+        "message": "Use AdGuard VPN to surf the Internet fast, safely, and securely. Protect your privacy and stay anonymous with our private VPN proxy."
     },
     "short_name": {
         "message": "AdGuard VPN"
@@ -593,6 +593,9 @@
     "authentication_successful_notification": {
         "message": "Successfully authenticated! You can open AdGuard VPN and start using it."
     },
+    "control_error_title": {
+        "message": "Extension conflict"
+    },
     "control_error_description": {
         "message": "It looks like another browser extension is trying to control your connection. Please disable the other extension in your browser."
     },
@@ -603,7 +606,10 @@
         "message": "Enable on this site"
     },
     "popup_settings_disable_vpn": {
-        "message": "Disable VPN on this website"
+        "message": "Disable VPN for this website"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Enable VPN for this website"
     },
     "popup_settings_other_products": {
         "message": "Other products"
@@ -614,8 +620,11 @@
     "popup_settings_open_settings": {
         "message": "Settings"
     },
+    "popup_settings_stats": {
+        "message": "Stats"
+    },
     "popup_settings_sign_out": {
-        "message": "Sign out"
+        "message": "Log out"
     },
     "context_menu_enable_vpn": {
         "message": "Enable VPN on this website"
@@ -642,10 +651,13 @@
         "message": "Search location"
     },
     "endpoints_not_found": {
-        "message": "Location not found"
+        "message": "Locations not found"
     },
     "popup_traffic_limit_reached": {
         "message": "Monthly data limit reached"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Limited speed"
     },
     "premium_upgrade": {
         "message": "Upgrade"
@@ -817,7 +829,7 @@
         "message": "Continue for free"
     },
     "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> remaining this month",
+        "message": "<span>%value% %unit%</span> left this month",
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
@@ -834,6 +846,18 @@
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Cancel"
+    },
+    "options_exclusions_delete_approve_button": {
+        "message": "Delete"
+    },
+    "options_exclusions_delete_title": {
+        "message": "Remove exclusions"
+    },
+    "options_exclusions_delete_regular_description": {
+        "message": "All exclusions from the Regular mode will be deleted."
+    },
+    "options_exclusions_delete_selective_description": {
+        "message": "All exclusions from the Selective mode will be deleted."
     },
     "options_exclusions_import_successful": {
         "message": "Imported exclusions: %count%"

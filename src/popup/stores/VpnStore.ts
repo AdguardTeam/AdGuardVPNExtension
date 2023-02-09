@@ -20,6 +20,7 @@ type VpnInfo = {
     premiumPromoPage: string | null,
     maxDownloadedBytes: number | null,
     usedDownloadedBytes: number | null,
+    usedUploadedBytes: number | null,
 };
 
 interface Pings {
@@ -55,6 +56,7 @@ export class VpnStore {
         premiumPromoPage: null,
         maxDownloadedBytes: null,
         usedDownloadedBytes: null,
+        usedUploadedBytes: null,
     };
 
     @observable tooManyDevicesConnected = false;

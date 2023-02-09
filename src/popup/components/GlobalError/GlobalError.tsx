@@ -57,6 +57,7 @@ export const GlobalError = observer(() => {
 
     const errorsMap = {
         [ERROR_TYPES.CONTROL]: {
+            title: reactTranslator.getMessage('control_error_title'),
             description: reactTranslator.getMessage('control_error_description'),
             icon: ICON_TYPES.TROUBLE,
             buttons: [

@@ -584,6 +584,12 @@
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "השאר משוב"
     },
+    "popup_server_error_popup_cancel": {
+        "message": "בטל"
+    },
+    "popup_server_error_popup_close": {
+        "message": "סגור"
+    },
     "options_title": {
         "message": "אפשרויות AdGuard VPN"
     },

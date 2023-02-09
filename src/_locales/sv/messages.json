@@ -164,6 +164,9 @@
     "auth_sign_in_button": {
         "message": "Logga in"
     },
+    "auth_title": {
+        "message": "Logga in eller skapa ett konto"
+    },
     "auth_sign_in_provider_adguard_label": {
         "message": "Mejl"
     },
@@ -497,6 +500,12 @@
     "popup_confirm_rate_modal_leave_feedback_button": {
         "message": "Lämna feedback"
     },
+    "popup_server_error_popup_cancel": {
+        "message": "Avbryt"
+    },
+    "popup_server_error_popup_close": {
+        "message": "Stäng"
+    },
     "options_title": {
         "message": "AdGuard VPN Alternativ"
     },
@@ -510,7 +519,7 @@
         "message": "VPN är inaktiverat på denna webbplats"
     },
     "popup_auth_policy_agreement": {
-        "message": "Acceptera <eula>EULA</eula> och <privacy>Integritetspolicy</privacy>",
+        "message": "Jag har läst och godkänner AdGuards <eula>EULA</eula> och <privacy>Integritetspolicy</privacy>",
         "description": "WARNING! Respect spaces between tags"
     },
     "popup_auth_help_us_improve_agreement": {
