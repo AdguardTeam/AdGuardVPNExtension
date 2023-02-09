@@ -29,7 +29,7 @@ type StateType = {
 export class SettingsStore {
     @observable canControlProxy: boolean = false;
 
-    @observable isExcluded: boolean;
+    @observable isCurrentTabExcluded: boolean;
 
     @observable currentTabHostname: string;
 
@@ -197,9 +197,9 @@ export class SettingsStore {
     @computed
     get displayNonRoutable(): boolean {
         if (this.exclusionsInverted) {
-            return !this.isRoutable && this.isExcluded;
+            return !this.isRoutable && this.isCurrentTabExcluded;
         }
-        return !(this.isRoutable || this.isExcluded);
+        return !(this.isRoutable || this.isCurrentTabExcluded);
     }
 
     @action async disableOtherProxyExtensions(): Promise<void> {
@@ -311,7 +311,7 @@ export class SettingsStore {
     };
 
     @action setIsExcluded = (value: boolean): void => {
-        this.isExcluded = value;
+        this.isCurrentTabExcluded = value;
     };
 
     @action updateDarkThemeMediaQuery = (): void => {

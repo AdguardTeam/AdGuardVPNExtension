@@ -1,20 +1,32 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import classnames from 'classnames';
+import { observer } from 'mobx-react';
+
+import { rootStore } from '../../stores';
 
 import './ping.pcss';
 
+type PingProps = {
+    ping: number;
+};
+
 const PING_WITH_WARNING = 150;
 
-export const Ping = ({ ping }: { ping: number }) => {
+export const Ping = observer(({ ping }: PingProps) => {
+    const { settingsStore } = useContext(rootStore);
+    const { isConnected } = settingsStore;
+
     if (!ping) {
         return null;
     }
 
     const pingClassName = classnames(
         'ping',
-        { 'ping--warning': ping >= PING_WITH_WARNING },
-        { 'ping--success': ping < PING_WITH_WARNING },
+        {
+            'ping--warning': ping >= PING_WITH_WARNING,
+            'ping--success': ping < PING_WITH_WARNING,
+            'ping--connected': isConnected,
+        },
     );
 
     return (
@@ -22,8 +34,4 @@ export const Ping = ({ ping }: { ping: number }) => {
             {`${ping} ms`}
         </div>
     );
-};
-
-Ping.propTypes = {
-    ping: PropTypes.number.isRequired,
-};
+});

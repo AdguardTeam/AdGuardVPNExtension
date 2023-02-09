@@ -1,5 +1,5 @@
 .info-message {
-    position: relative;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -36,15 +36,15 @@
 
     &__text-wr {
         display: flex;
+        justify-content: space-between;
         width: 100%;
         align-items: center;
-        padding: 15px 16px;
+        padding: 10px 15px;
     }
 
     &__text {
         color: #fff;
-        font-size: 1.4rem;
-        font-weight: 500;
+        font-size: 14px;
         line-height: 16px;
         margin-right: 10px;
     }
@@ -60,13 +60,10 @@
     }
 
     &__btn {
-        flex: 1;
-        min-width: 130px;
-        padding: 8px 12px;
-        font-weight: 500;
-        letter-spacing: 0.06rem;
-        border-radius: 5px;
-        font-size: 1.4rem;
+        min-width: 100px;
+        padding: 7px 12px;
+        border-radius: 8px;
+        font-size: 16px;
         white-space: nowrap;
 
         &--feedback {
