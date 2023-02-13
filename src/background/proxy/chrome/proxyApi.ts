@@ -1,8 +1,9 @@
 import { nanoid } from 'nanoid';
 
 import pacGenerator from './pacGenerator';
-import { ProxyConfigInterface } from '../proxy';
-import { PAC_SCRIPT_CHECK_URL } from '../proxyConsts';
+import { AccessCredentials, ProxyConfigInterface } from '../proxy';
+import { BKP_CREDENTIALS_KEY, PAC_SCRIPT_CHECK_URL } from '../proxyConsts';
+import { browserApi } from '../../browserApi';
 
 /**
  * Returns proxy config
@@ -59,21 +60,25 @@ type CallbackType = (response: chrome.webRequest.BlockingResponse) => void;
  * @param details - webrequest details
  * @param callback
  */
-const onAuthRequiredHandler = (
+const onAuthRequiredHandler = async (
     details: chrome.webRequest.WebAuthenticationChallengeDetails,
     callback?: CallbackType,
 ) => {
     const { challenger } = details;
 
     if (challenger && challenger.host !== globalProxyConfig?.host) {
-        return {};
+        return;
     }
 
     if (globalProxyConfig?.credentials && callback) {
         callback({ authCredentials: globalProxyConfig.credentials });
+        return;
     }
 
-    return {};
+    if (callback) {
+        const backupCredentials: AccessCredentials = await browserApi.storage.get(BKP_CREDENTIALS_KEY);
+        callback({ authCredentials: backupCredentials });
+    }
 };
 
 const addOnAuthRequiredListener = () => {

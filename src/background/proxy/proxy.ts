@@ -7,7 +7,7 @@ import proxyApi from './abstractProxyApi';
 import { log } from '../../lib/logger';
 import { browserApi } from '../browserApi';
 import { notifier } from '../../lib/notifier';
-import { DEFAULT_EXCLUSIONS, LEVELS_OF_CONTROL } from './proxyConsts';
+import { DEFAULT_EXCLUSIONS, LEVELS_OF_CONTROL, BKP_CREDENTIALS_KEY } from './proxyConsts';
 import { NON_ROUTABLE_CIDR_NETS } from '../routability/constants';
 import { fallbackApi } from '../api/fallbackApi';
 import { LocationInterface } from '../endpoints/Location';
@@ -217,6 +217,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
         }
         const { domainName } = endpoint;
         this.credentials = credentials;
+        await browserApi.storage.set(BKP_CREDENTIALS_KEY, credentials);
         await this.setHost(domainName);
         return { domainName };
     };

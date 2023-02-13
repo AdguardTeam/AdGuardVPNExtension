@@ -18,3 +18,5 @@ export const DEFAULT_EXCLUSIONS = [
  * When this bug is fixed, this constant can be removed.
  */
 export const PAC_SCRIPT_CHECK_URL = 'check-pac.adguard-vpn.online';
+
+export const BKP_CREDENTIALS_KEY = 'backupCredentialsKey';
