@@ -88,6 +88,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
     }
 
     async init(): Promise<void> {
+        await proxyApi.proxyClear();
         this.currentConfig = await this.getConfig();
     }
 
