@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid';
 
 import pacGenerator from './pacGenerator';
 import { AccessCredentials, ProxyConfigInterface } from '../proxy';
-import { BKP_CREDENTIALS_KEY, PAC_SCRIPT_CHECK_URL } from '../proxyConsts';
+import { PROXY_AUTH_CREDENTIALS_KEY, PAC_SCRIPT_CHECK_URL } from '../proxyConsts';
 import { browserApi } from '../../browserApi';
 
 /**
@@ -76,7 +76,9 @@ const onAuthRequiredHandler = async (
     }
 
     if (callback) {
-        const backupCredentials: AccessCredentials = await browserApi.storage.get(BKP_CREDENTIALS_KEY);
+        // if there is no credentials in globalProxyConfig or there is no globalProxyConfig,
+        // we use persisted auth credentials for authorisation
+        const backupCredentials: AccessCredentials = await browserApi.storage.get(PROXY_AUTH_CREDENTIALS_KEY);
         callback({ authCredentials: backupCredentials });
     }
 };

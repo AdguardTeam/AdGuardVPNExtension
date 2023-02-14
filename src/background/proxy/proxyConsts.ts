@@ -19,4 +19,4 @@ export const DEFAULT_EXCLUSIONS = [
  */
 export const PAC_SCRIPT_CHECK_URL = 'check-pac.adguard-vpn.online';
 
-export const BKP_CREDENTIALS_KEY = 'backupCredentialsKey';
+export const PROXY_AUTH_CREDENTIALS_KEY = 'proxy.auth.credentials.key';
