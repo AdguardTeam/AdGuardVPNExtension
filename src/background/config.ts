@@ -42,4 +42,5 @@ export const {
     BUILD_ENV,
     STAGE_ENV,
     WHOAMI_URL,
+    COMPARE_PAGE,
 } = CONFIG;
