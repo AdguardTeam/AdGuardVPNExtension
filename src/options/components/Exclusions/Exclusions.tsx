@@ -53,8 +53,17 @@ export const Exclusions = observer(() => {
         exclusionsStore.openAddExclusionModal();
     };
 
-    const isSelectiveModeWarning = exclusionsStore.currentMode === ExclusionsMode.Selective
-        && !exclusionsStore.exclusionsTree.children.length;
+    const renderSelectiveModeWarning = () => {
+        if (exclusionsStore.currentMode === ExclusionsMode.Selective
+            && !exclusionsStore.exclusionsTree.children.length) {
+            return (
+                <div className="exclusions__mode--warning">
+                    {reactTranslator.getMessage('settings_exclusion_selective_mode_warning')}
+                </div>
+            );
+        }
+        return null;
+    };
 
     return (
         <div className="settings">
@@ -65,11 +74,7 @@ export const Exclusions = observer(() => {
                 <div className="exclusions__mode--info">
                     {modeInfo}
                 </div>
-                {isSelectiveModeWarning && (
-                    <div className="exclusions__mode--warning">
-                        {reactTranslator.getMessage('settings_exclusion_selective_mode_warning')}
-                    </div>
-                )}
+                {renderSelectiveModeWarning()}
                 <Actions />
             </div>
             <div>
