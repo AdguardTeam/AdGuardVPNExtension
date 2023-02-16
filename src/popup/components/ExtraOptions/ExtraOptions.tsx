@@ -89,7 +89,7 @@ export const ExtraOptions = observer(() => {
             />
             <Option
                 handler={openComparePage}
-                text={reactTranslator.getMessage('popup_compare_link')}
+                text={reactTranslator.getMessage('popup_compare_button')}
             />
             {isRateVisible
                 ? <RatePopup />
