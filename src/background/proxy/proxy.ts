@@ -7,7 +7,7 @@ import proxyApi from './abstractProxyApi';
 import { log } from '../../lib/logger';
 import { browserApi } from '../browserApi';
 import { notifier } from '../../lib/notifier';
-import { DEFAULT_EXCLUSIONS, LEVELS_OF_CONTROL } from './proxyConsts';
+import { DEFAULT_EXCLUSIONS, LEVELS_OF_CONTROL, PROXY_AUTH_CREDENTIALS_KEY } from './proxyConsts';
 import { NON_ROUTABLE_CIDR_NETS } from '../routability/constants';
 import { fallbackApi } from '../api/fallbackApi';
 import { LocationInterface } from '../endpoints/Location';
@@ -88,6 +88,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
     }
 
     async init(): Promise<void> {
+        await proxyApi.proxyClear();
         this.currentConfig = await this.getConfig();
     }
 
@@ -217,6 +218,9 @@ class ExtensionProxy implements ExtensionProxyInterface {
         }
         const { domainName } = endpoint;
         this.credentials = credentials;
+        // persist auth credentials to use them in onAuthRequiredHandler on browser restart
+        // https://github.com/AdguardTeam/AdGuardVPNExtension/issues/73
+        await browserApi.storage.set(PROXY_AUTH_CREDENTIALS_KEY, credentials);
         await this.setHost(domainName);
         return { domainName };
     };
