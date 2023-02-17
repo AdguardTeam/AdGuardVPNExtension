@@ -419,9 +419,6 @@
     "popup_settings_enable_vpn_short": {
         "message": "Aktivera"
     },
-    "popup_settings_disable_vpn": {
-        "message": "Inaktivera VPN på denna webbplats"
-    },
     "popup_settings_other_products": {
         "message": "Andra produkter"
     },
@@ -455,8 +452,8 @@
     "endpoints_search": {
         "message": "Sök plats"
     },
-    "endpoints_not_found": {
-        "message": "Plats hittades inte"
+    "popup_traffic_limited_speed": {
+        "message": "Begränsad hastighet"
     },
     "premium_upgrade": {
         "message": "Uppgradera"
@@ -563,10 +560,6 @@
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Uppgradera"
-    },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> återstående denna månad",
-        "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
         "message": "Hur använder man denna lista över undantag?"

@@ -350,9 +350,6 @@
     "popup_settings_enable_vpn_short": {
         "message": "Ενεργοποίηση"
     },
-    "popup_settings_disable_vpn": {
-        "message": "Απενεργοποίηση VPN σε αυτόν τον ιστότοπο"
-    },
     "popup_settings_other_products": {
         "message": "Άλλα προϊόντα"
     },
@@ -361,9 +358,6 @@
     },
     "popup_settings_open_settings": {
         "message": "Ρυθμίσεις"
-    },
-    "popup_settings_sign_out": {
-        "message": "Αποσύνδεση"
     },
     "context_menu_enable_vpn": {
         "message": "Ενεργοποίηση VPN σε αυτόν τον ιστότοπο"
@@ -385,9 +379,6 @@
     },
     "endpoints_search": {
         "message": "Αναζήτηση τοποθεσίας"
-    },
-    "endpoints_not_found": {
-        "message": "Ο διακομιστής δεν βρέθηκε"
     },
     "premium_upgrade": {
         "message": "Αναβάθμιση"
@@ -487,10 +478,6 @@
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Αναβάθμιση"
-    },
-    "popup_free_traffic_info": {
-        "message": "<span>%value%%unit%</span> απομένουν αυτόν τον μήνα",
-        "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Ακύρωση"

@@ -593,6 +593,9 @@
     "authentication_successful_notification": {
         "message": "Erfolgreich authentifiziert! Sie können AdGuard VPN jetzt öffnen und sofort verwenden."
     },
+    "control_error_title": {
+        "message": "Konflikt mit der Erweiterung"
+    },
     "control_error_description": {
         "message": "Es sieht so aus, als ob eine andere Chrome-Erweiterung versucht, Ihre Verbindung zu kontrollieren. Bitte deaktivieren Sie die andere Erweiterung in Ihrem Browser."
     },
@@ -603,7 +606,10 @@
         "message": "Aktivieren"
     },
     "popup_settings_disable_vpn": {
-        "message": "VPN auf dieser Website deaktivieren"
+        "message": "VPN für diese Website deaktivieren"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "VPN für diese Website aktivieren"
     },
     "popup_settings_other_products": {
         "message": "Weitere Produkte"
@@ -642,10 +648,13 @@
         "message": "Standort suchen"
     },
     "endpoints_not_found": {
-        "message": "Standort nicht gefunden"
+        "message": "Standorte nicht gefunden"
     },
     "popup_traffic_limit_reached": {
         "message": "Monatliches Datenlimit erreicht"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Begrenzte Geschwindigkeit"
     },
     "premium_upgrade": {
         "message": "Erweitern"
@@ -679,6 +688,9 @@
     },
     "popup_feedback_button": {
         "message": "Feedback senden"
+    },
+    "popup_compare_button": {
+        "message": "Warum die App besser ist"
     },
     "popup_rate_modal_title": {
         "message": "Wie toll ist AdGuard VPN?"

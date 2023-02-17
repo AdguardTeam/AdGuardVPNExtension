@@ -320,9 +320,6 @@
     "popup_settings_enable_vpn_short": {
         "message": "Aktifkan"
     },
-    "popup_settings_disable_vpn": {
-        "message": "Matikan VPN pada situs ini"
-    },
     "popup_settings_other_products": {
         "message": "Produk lain"
     },
@@ -331,9 +328,6 @@
     },
     "popup_settings_open_settings": {
         "message": "Pengaturan"
-    },
-    "popup_settings_sign_out": {
-        "message": "Keluar"
     },
     "context_menu_enable_vpn": {
         "message": "Aktifkan VPN pada situs ini"
@@ -355,9 +349,6 @@
     },
     "endpoints_search": {
         "message": "Cari lokasi"
-    },
-    "endpoints_not_found": {
-        "message": "Lokasi tidak ditemukan"
     },
     "premium_upgrade": {
         "message": "Tingkatkan"
@@ -448,10 +439,6 @@
     },
     "popup_upgrade_screen_upgrade_button": {
         "message": "Tingkatkan"
-    },
-    "popup_free_traffic_info": {
-        "message": "<span>%value%%unit%</span> sisa bulan ini",
-        "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_delete_cancel_button": {
         "message": "Batal"

@@ -593,6 +593,9 @@
     "authentication_successful_notification": {
         "message": "验证成功！您可以开始使用 AdGuard VPN。"
     },
+    "control_error_title": {
+        "message": "扩展冲突"
+    },
     "control_error_description": {
         "message": "似乎是另外一个浏览器扩展正在控制您的连接。请禁用安装在您的浏览器里的其他扩展。"
     },
@@ -603,7 +606,10 @@
         "message": "在此网站上启用"
     },
     "popup_settings_disable_vpn": {
-        "message": "在此网站上禁用 VPN"
+        "message": "为此网站禁用 VPN"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "为此网站开启 VPN"
     },
     "popup_settings_other_products": {
         "message": "其它产品"
@@ -647,6 +653,9 @@
     "popup_traffic_limit_reached": {
         "message": "已达到每月流量限制"
     },
+    "popup_traffic_limited_speed": {
+        "message": "速度受限"
+    },
     "premium_upgrade": {
         "message": "升级"
     },
@@ -679,6 +688,9 @@
     },
     "popup_feedback_button": {
         "message": "留下反馈"
+    },
+    "popup_compare_button": {
+        "message": "为什么应用程序更好"
     },
     "popup_rate_modal_title": {
         "message": "AdGuard VPN 有多棒？"

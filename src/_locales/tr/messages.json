@@ -593,6 +593,9 @@
     "authentication_successful_notification": {
         "message": "Başarıyla doğrulandı! AdGuard VPN'i açabilir ve kullanmaya başlayabilirsiniz."
     },
+    "control_error_title": {
+        "message": "Uzantı çakışması"
+    },
     "control_error_description": {
         "message": "Başka bir Tarayıcı uzantısı bağlantınızı kontrol etmeye çalışıyor gibi görünüyor. Lütfen tarayıcınızdaki diğer eklentiyi devre dışı bırakın."
     },
@@ -602,8 +605,8 @@
     "popup_settings_enable_vpn_short": {
         "message": "Etkinleştir"
     },
-    "popup_settings_disable_vpn": {
-        "message": "Bu sitede VPN'i devre dışı bırak"
+    "popup_settings_enable_vpn": {
+        "message": "Bu site için VPN'i etkinleştir"
     },
     "popup_settings_other_products": {
         "message": "Diğer ürünler"
@@ -641,11 +644,11 @@
     "endpoints_search": {
         "message": "Konum ara"
     },
-    "endpoints_not_found": {
-        "message": "Konum bulunamadı"
-    },
     "popup_traffic_limit_reached": {
         "message": "Aylık veri sınırına ulaşıldı"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Sınırlı hız"
     },
     "premium_upgrade": {
         "message": "Yükselt"
@@ -679,6 +682,9 @@
     },
     "popup_feedback_button": {
         "message": "Geri bildirimde bulun"
+    },
+    "popup_compare_button": {
+        "message": "Uygulama neden daha iyi"
     },
     "popup_rate_modal_title": {
         "message": "AdGuard VPN ne kadar harika?"
@@ -809,10 +815,6 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Ücretsiz devam et"
-    },
-    "popup_free_traffic_info": {
-        "message": "Bu ay <span>%value% %unit%</span> kaldı",
-        "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
         "message": "Bu istisna listesi nasıl kullanılır?"

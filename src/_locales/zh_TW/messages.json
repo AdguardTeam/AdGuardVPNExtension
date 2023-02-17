@@ -593,6 +593,9 @@
     "authentication_successful_notification": {
         "message": "驗證成功！您可開啟 AdGuard VPN 並開始使用它。"
     },
+    "control_error_title": {
+        "message": "延伸功能衝突"
+    },
     "control_error_description": {
         "message": "看似另一款瀏覽器擴充功能正在嘗試控制您的連線。請在您的瀏覽器中禁用其它的擴充功能。"
     },
@@ -603,7 +606,10 @@
         "message": "對此網站啟用"
     },
     "popup_settings_disable_vpn": {
-        "message": "對此網站禁用 VPN"
+        "message": "為此網站禁用 VPN"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "為此網站啟用 VPN"
     },
     "popup_settings_other_products": {
         "message": "其它的產品"
@@ -642,10 +648,13 @@
         "message": "搜尋位置"
     },
     "endpoints_not_found": {
-        "message": "位置未被找到"
+        "message": "找不到位置"
     },
     "popup_traffic_limit_reached": {
         "message": "已達到每月的流量限制"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "有限速"
     },
     "premium_upgrade": {
         "message": "升級"
@@ -679,6 +688,9 @@
     },
     "popup_feedback_button": {
         "message": "留下回饋意見"
+    },
+    "popup_compare_button": {
+        "message": "為什麼應用程式更好"
     },
     "popup_rate_modal_title": {
         "message": "AdGuard VPN 有多棒？"

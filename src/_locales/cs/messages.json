@@ -602,9 +602,6 @@
     "popup_settings_enable_vpn_short": {
         "message": "Zapnout"
     },
-    "popup_settings_disable_vpn": {
-        "message": "Vypnout VPN na této stránce"
-    },
     "popup_settings_other_products": {
         "message": "Další produkty"
     },
@@ -641,11 +638,11 @@
     "endpoints_search": {
         "message": "Hledat umístění"
     },
-    "endpoints_not_found": {
-        "message": "Umístění nenalezeno"
-    },
     "popup_traffic_limit_reached": {
         "message": "Měsíční datový limit je dosažen"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Omezená rychlost"
     },
     "premium_upgrade": {
         "message": "Upgradovat"
@@ -815,10 +812,6 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Pokračovat bezplatně"
-    },
-    "popup_free_traffic_info": {
-        "message": "Tento měsíc zbývá <span>%value% %unit%</span>",
-        "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
         "message": "Jak používat tento seznam výjimek?"

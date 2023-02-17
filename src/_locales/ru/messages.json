@@ -593,6 +593,9 @@
     "authentication_successful_notification": {
         "message": "Вы вошли в аккаунт. Можно начинать пользоваться AdGuard VPN."
     },
+    "control_error_title": {
+        "message": "Конфликт расширений"
+    },
     "control_error_description": {
         "message": "Похоже, что ещё одно расширение пытается контролировать ваше соединение. Пожалуйста, отключите другое расширение в браузере."
     },
@@ -604,6 +607,9 @@
     },
     "popup_settings_disable_vpn": {
         "message": "Не использовать VPN на этом сайте"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Включить VPN на этом сайте"
     },
     "popup_settings_other_products": {
         "message": "Другие продукты"
@@ -642,10 +648,13 @@
         "message": "Поиск локации"
     },
     "endpoints_not_found": {
-        "message": "Локация не найдена"
+        "message": "Ничего не нашлось"
     },
     "popup_traffic_limit_reached": {
         "message": "Лимит трафика в этом месяце исчерпан"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Ограниченная скорость"
     },
     "premium_upgrade": {
         "message": "Улучшить"
@@ -679,6 +688,9 @@
     },
     "popup_feedback_button": {
         "message": "Оставить отзыв"
+    },
+    "popup_compare_button": {
+        "message": "Почему с приложением удобнее"
     },
     "popup_rate_modal_title": {
         "message": "Как вам AdGuard VPN?"
@@ -817,7 +829,7 @@
         "message": "Продолжить бесплатно"
     },
     "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> осталось в этом месяце",
+        "message": "<span>%value% %unit%</span> осталось в этом месяце",
         "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
