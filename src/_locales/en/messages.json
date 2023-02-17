@@ -620,9 +620,6 @@
     "popup_settings_open_settings": {
         "message": "Settings"
     },
-    "popup_settings_stats": {
-        "message": "Stats"
-    },
     "popup_settings_sign_out": {
         "message": "Log out"
     },
@@ -691,6 +688,9 @@
     },
     "popup_feedback_button": {
         "message": "Leave feedback"
+    },
+    "popup_compare_button": {
+        "message": "Why the app is better"
     },
     "popup_rate_modal_title": {
         "message": "How awesome is AdGuard VPN?"

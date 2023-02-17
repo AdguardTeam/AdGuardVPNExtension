@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 
 import { rootStore } from '../../stores';
 import { popupActions } from '../../actions/popupActions';
-import { POPUP_FEEDBACK_URL, OTHER_PRODUCTS_URL } from '../../../background/config';
+import { POPUP_FEEDBACK_URL, OTHER_PRODUCTS_URL, COMPARE_PAGE } from '../../../background/config';
 import { messenger } from '../../../lib/messenger';
 import { Option } from './Option';
 import { reactTranslator } from '../../../common/reactTranslator';
@@ -54,6 +54,10 @@ export const ExtraOptions = observer(() => {
         uiStore.closeOptionsModal();
     };
 
+    const openComparePage = () => {
+        popupActions.openTab(COMPARE_PAGE);
+    };
+
     return (
         <Modal
             isOpen={uiStore.isOpenOptionsModal}
@@ -82,6 +86,10 @@ export const ExtraOptions = observer(() => {
             <Option
                 handler={openSettings}
                 text={reactTranslator.getMessage('popup_settings_open_settings')}
+            />
+            <Option
+                handler={openComparePage}
+                text={reactTranslator.getMessage('popup_compare_button')}
             />
             {isRateVisible
                 ? <RatePopup />

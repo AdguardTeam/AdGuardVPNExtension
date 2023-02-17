@@ -88,6 +88,7 @@ const COMMON = {
     UNINSTALL_PAGE_URL: `https://${FORWARDER_DOMAIN}/forward.html?action=adguard_uninstal_ext&from=background_page&app=vpn_extension`,
     // AdGuard DNS Knowledge Base
     ADGUARD_DNS_KB_LINK: `https://${FORWARDER_DOMAIN}/forward.html?action=adguard_dns_kb&from=options_screen&app=vpn_extension`,
+    COMPARE_PAGE: `https://${FORWARDER_DOMAIN}/forward.html?action=compare&from=popup&app=vpn_extension`,
 };
 
 export const genAppConfig = (browser: string, stageEnv?: string, buildingEnv?: string) => {

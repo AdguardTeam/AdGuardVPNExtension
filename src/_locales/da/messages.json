@@ -593,6 +593,9 @@
     "authentication_successful_notification": {
         "message": "Godkendt! Du kan åbne AdGuard VPN og begynde at bruge den."
     },
+    "control_error_title": {
+        "message": "Udvidelseskonflikt"
+    },
     "control_error_description": {
         "message": "Det ser ud til, at en anden browserudvidelse forsøger at kontrollere forbindelsen. Deaktivér den pågældende udvidelse i browseren."
     },
@@ -604,6 +607,9 @@
     },
     "popup_settings_disable_vpn": {
         "message": "Deaktivér VPN på dette websted"
+    },
+    "popup_settings_enable_vpn": {
+        "message": "Aktivér VPN på dette websted"
     },
     "popup_settings_other_products": {
         "message": "Andre produkter"
@@ -642,10 +648,13 @@
         "message": "Søg placering"
     },
     "endpoints_not_found": {
-        "message": "Placering ikke fundet"
+        "message": "Placeringer ikke fundet"
     },
     "popup_traffic_limit_reached": {
         "message": "Månedlig datakvote opbrugt"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Begrænset hastighed"
     },
     "premium_upgrade": {
         "message": "Opgradere"
@@ -679,6 +688,9 @@
     },
     "popup_feedback_button": {
         "message": "Giv feedback"
+    },
+    "popup_compare_button": {
+        "message": "Hvorfor appen er bedre"
     },
     "popup_rate_modal_title": {
         "message": "Hvor fantastisk er AdGuard VPN?"

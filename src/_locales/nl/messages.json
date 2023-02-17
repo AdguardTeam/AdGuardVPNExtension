@@ -593,6 +593,9 @@
     "authentication_successful_notification": {
         "message": "Succesvol geauthenticeerd! Je kunt AdGuard VPN openen en gaan gebruiken."
     },
+    "control_error_title": {
+        "message": "Uitbreidingsconflict"
+    },
     "control_error_description": {
         "message": "Het lijkt erop dat een andere browseruitbreiding je verbinding probeert te beheren. Schakel de andere uitbreiding in je browser uit."
     },
@@ -602,8 +605,8 @@
     "popup_settings_enable_vpn_short": {
         "message": "Inschakelen"
     },
-    "popup_settings_disable_vpn": {
-        "message": "VPN uitschakelen op deze website"
+    "popup_settings_enable_vpn": {
+        "message": "VPN inschakelen voor deze website"
     },
     "popup_settings_other_products": {
         "message": "Andere Producten"
@@ -641,11 +644,11 @@
     "endpoints_search": {
         "message": "Locatie zoeken"
     },
-    "endpoints_not_found": {
-        "message": "Locatie niet gevonden"
-    },
     "popup_traffic_limit_reached": {
         "message": "Maandelijkse datalimiet bereikt"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Beperkte snelheid"
     },
     "premium_upgrade": {
         "message": "Upgraden"
@@ -679,6 +682,9 @@
     },
     "popup_feedback_button": {
         "message": "Feedback geven"
+    },
+    "popup_compare_button": {
+        "message": "Waarom de app beter is"
     },
     "popup_rate_modal_title": {
         "message": "Hoe geweldig is AdGuard VPN?"
@@ -815,10 +821,6 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Doorgaan zonder kosten"
-    },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> nog over deze maand",
-        "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
         "message": "Hoe deze lijst met uitsluitingen gebruiken?"

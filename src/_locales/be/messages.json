@@ -590,9 +590,6 @@
     "popup_settings_enable_vpn_short": {
         "message": "Уключыць"
     },
-    "popup_settings_disable_vpn": {
-        "message": "Адключыць VPN на гэтым сайце"
-    },
     "popup_settings_other_products": {
         "message": "Іншыя прадукты"
     },
@@ -629,11 +626,11 @@
     "endpoints_search": {
         "message": "Пошук месціва"
     },
-    "endpoints_not_found": {
-        "message": "Сервер не знойдзены"
-    },
     "popup_traffic_limit_reached": {
         "message": "Дасягнуты месячны ліміт дадзеных"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Абмежаваная хуткасць"
     },
     "premium_upgrade": {
         "message": "Палепшыць"
@@ -788,10 +785,6 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Працягнуць дарма"
-    },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> засталося ў гэтым месяцы",
-        "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
         "message": "Як выкарыстоўваць гэты спіс выключэнняў?"

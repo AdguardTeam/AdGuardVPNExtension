@@ -590,9 +590,6 @@
     "popup_settings_enable_vpn_short": {
         "message": "Włącz"
     },
-    "popup_settings_disable_vpn": {
-        "message": "Wyłącz VPN na tej stronie"
-    },
     "popup_settings_other_products": {
         "message": "Inne produkty"
     },
@@ -629,11 +626,11 @@
     "endpoints_search": {
         "message": "Wyszukaj lokalizację"
     },
-    "endpoints_not_found": {
-        "message": "Nie znaleziono lokalizacji"
-    },
     "popup_traffic_limit_reached": {
         "message": "Miesięczny limit danych przekroczony. Potrzebujesz więcej?"
+    },
+    "popup_traffic_limited_speed": {
+        "message": "Ograniczona prędkość"
     },
     "premium_upgrade": {
         "message": "Ulepsz"
@@ -788,10 +785,6 @@
     },
     "popup_upgrade_screen_continue_free": {
         "message": "Kontynuuj za darmo"
-    },
-    "popup_free_traffic_info": {
-        "message": "<span>%value% %unit%</span> pozostało w tym miesiącu",
-        "description": "Respect spaces between text, tags and placeholders"
     },
     "options_exclusions_import_select_title": {
         "message": "Importuj wykluczenia do:"
