@@ -26,6 +26,7 @@ import { logStorage } from '../lib/log-storage';
 import { fallbackApi } from './api/fallbackApi';
 import { flagsStorage } from './flagsStorage';
 import { browserApi } from './browserApi';
+import { extensionState } from './extension-state-service';
 
 import './rateModal';
 import './networkConnectionObserver';
@@ -69,15 +70,18 @@ if (!browserApi.runtime.isManifestVersion2()) {
 (async () => {
     log.info(`Starting AdGuard VPN ${appStatus.appVersion}`);
     try {
+        const extensionStateBackup = await extensionState.getState();
+        const { fallbackInfo, proxyConfig, credentialsBackup } = extensionStateBackup ?? {};
+
         if (browserApi.runtime.isManifestVersion2()) {
             messaging.init(); // messaging is on the top, for popup be able to communicate with back
         }
-        await fallbackApi.init();
-        await proxy.init();
+        await fallbackApi.init(fallbackInfo);
+        await proxy.init(proxyConfig);
         await updateService.init();
         await openThankYouPage();
         await flagsStorage.init();
-        await credentials.init();
+        await credentials.init(credentialsBackup);
         permissionsChecker.init(); // should be initiated before auth module
         await auth.init();
         await settings.init();

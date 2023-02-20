@@ -5,11 +5,12 @@ import lodashGet from 'lodash/get';
 import accountProvider from '../providers/accountProvider';
 import { log } from '../../lib/logger';
 import { notifier } from '../../lib/notifier';
-import { SubscriptionType } from '../../lib/constants';
-import { CredentialsDataInterface, VpnProviderInterface } from '../providers/vpnProvider';
-import { PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
-import { StorageInterface } from '../browserApi/storage';
-import { AccessCredentials, ExtensionProxyInterface } from '../proxy/proxy';
+import type { SubscriptionType } from '../../lib/constants';
+import type { CredentialsDataInterface, VpnProviderInterface } from '../providers/vpnProvider';
+import type { PermissionsErrorInterface } from '../permissionsChecker/permissionsError';
+import type { StorageInterface } from '../browserApi/storage';
+import type { AccessCredentials, ExtensionProxyInterface } from '../proxy/proxy';
+import type { CredentialsBackup } from '../extension-state-service';
 
 export interface VpnTokenData {
     token: string;
@@ -68,7 +69,7 @@ export interface CredentialsInterface {
     nextBillDate(): Promise<number | null>;
     getUsername(): Promise<string | null>;
     trackInstallation(): Promise<void>;
-    init(): Promise<void>;
+    init(credentialsBkp: CredentialsBackup): Promise<void>;
 }
 
 export class Credentials implements CredentialsInterface {
@@ -518,7 +519,7 @@ export class Credentials implements CredentialsInterface {
         this.currentUsername = null;
     }
 
-    async init(): Promise<void> {
+    async init(credentialsBackup?: CredentialsBackup): Promise<void> {
         try {
             notifier.addSpecifiedListener(
                 notifier.types.USER_DEAUTHENTICATED,
@@ -526,12 +527,17 @@ export class Credentials implements CredentialsInterface {
             );
 
             await this.trackInstallation();
-            // On extension initialisation use local fallback if was unable to get data remotely
-            // it might be useful on browser restart
+
+            const { vpnToken, vpnCredentials, currentUsername } = credentialsBackup ?? {};
+
             const forceRemote = true;
-            this.vpnToken = await this.gainValidVpnToken(forceRemote);
-            this.vpnCredentials = await this.gainValidVpnCredentials(forceRemote);
-            this.currentUsername = await this.fetchUsername();
+
+            // On extension initialisation use credentials backup.
+            // If it's not available, get data remotely
+            this.vpnToken = vpnToken || await this.gainValidVpnToken(forceRemote);
+            this.vpnCredentials = vpnCredentials || await this.gainValidVpnCredentials(forceRemote);
+            this.currentUsername = currentUsername || await this.fetchUsername();
+            // TODO: backup credentials
         } catch (e) {
             log.debug('Unable to init credentials module, due to error:', e.message);
         }

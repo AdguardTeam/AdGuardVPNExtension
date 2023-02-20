@@ -10,6 +10,7 @@ import {
 import { clearFromWrappingQuotes } from '../../lib/string-utils';
 import { log } from '../../lib/logger';
 import { fetchConfig } from '../../lib/constants';
+import { extensionState } from '../extension-state-service';
 
 export const DEFAULT_CACHE_EXPIRE_TIME_MS = 1000 * 60 * 5; // 5 minutes
 
@@ -40,7 +41,7 @@ type CountryInfo = {
     bkp: boolean;
 };
 
-type FallbackInfo = {
+export type FallbackInfo = {
     vpnApiUrl: string;
     authApiUrl: string;
     countryInfo: CountryInfo;
@@ -71,21 +72,25 @@ export class FallbackApi {
     constructor(vpnApiUrl: string, authApiUrl: string) {
         this.defaultVpnApiUrl = vpnApiUrl;
         this.defaultAuthApiUrl = authApiUrl;
-
-        this.setFallbackInfo({
+        this.fallbackInfo = {
             vpnApiUrl,
             authApiUrl,
             countryInfo: DEFAULT_COUNTRY_INFO,
             expiresInMs: Date.now() - 1,
-        });
+        };
     }
 
-    public async init(): Promise<void> {
-        await this.updateFallbackInfo();
+    public async init(fallbackInfo?: FallbackInfo): Promise<void> {
+        if (fallbackInfo) {
+            this.fallbackInfo = fallbackInfo;
+        } else {
+            await this.updateFallbackInfo();
+        }
     }
 
-    private setFallbackInfo(fallbackInfo: FallbackInfo) {
-        this.fallbackInfo = fallbackInfo;
+    private async setFallbackInfo(value: FallbackInfo): Promise<void> {
+        this.fallbackInfo = value;
+        await extensionState.updateFallbackInfo(value);
     }
 
     private static needsUpdate(fallbackInfo: FallbackInfo): boolean {
@@ -98,7 +103,7 @@ export class FallbackApi {
 
         if (!countryInfo.bkp && !localStorageBkp) {
             // if bkp is disabled, we use previous fallback info, only update expiration time
-            this.setFallbackInfo({
+            await this.setFallbackInfo({
                 ...this.fallbackInfo,
                 expiresInMs: Date.now() + DEFAULT_CACHE_EXPIRE_TIME_MS,
             });
@@ -111,7 +116,7 @@ export class FallbackApi {
         ]);
 
         if (bkpVpnApiUrl && bkpAuthApiUrl) {
-            this.setFallbackInfo({
+            await this.setFallbackInfo({
                 vpnApiUrl: bkpVpnApiUrl,
                 authApiUrl: bkpAuthApiUrl,
                 countryInfo,

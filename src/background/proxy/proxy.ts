@@ -12,6 +12,7 @@ import { NON_ROUTABLE_CIDR_NETS } from '../routability/constants';
 import { fallbackApi } from '../api/fallbackApi';
 import { LocationInterface } from '../endpoints/Location';
 import { EndpointInterface } from '../endpoints/Endpoint';
+import { extensionState } from '../extension-state-service';
 
 const CURRENT_ENDPOINT_KEY = 'proxyCurrentEndpoint';
 
@@ -42,7 +43,7 @@ export interface ProxyConfigInterface {
 }
 
 export interface ExtensionProxyInterface {
-    init(): Promise<void>;
+    init(proxyConfig: ProxyConfigInterface): Promise<void>;
     turnOn(): Promise<void>;
     turnOff(): Promise<void>;
     canControlProxy(): Promise<CanControlProxy>
@@ -87,9 +88,14 @@ class ExtensionProxy implements ExtensionProxyInterface {
         this.currentHost = DEFAULTS.currentHost;
     }
 
-    async init(): Promise<void> {
+    async init(proxyConfig?: ProxyConfigInterface): Promise<void> {
         await proxyApi.proxyClear();
-        this.currentConfig = await this.getConfig();
+
+        if (proxyConfig) {
+            this.currentConfig = proxyConfig;
+        } else {
+            this.currentConfig = await this.getConfig();
+        }
     }
 
     async turnOn(): Promise<void> {
@@ -167,6 +173,7 @@ class ExtensionProxy implements ExtensionProxyInterface {
 
     async updateConfig(): Promise<void> {
         this.currentConfig = await this.getConfig();
+        await extensionState.updateProxyConfig(this.currentConfig);
     }
 
     async applyConfig(): Promise<void> {
