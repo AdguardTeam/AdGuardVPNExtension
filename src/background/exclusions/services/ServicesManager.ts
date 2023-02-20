@@ -31,13 +31,15 @@ export class ServicesManager implements ServiceManagerInterface {
     private EXCLUSION_SERVICES_STORAGE_KEY = 'exclusions_services';
 
     public init = async () => {
-        await this.updateServices();
+        const services = await this.getServicesFromStorage();
+        if (services) {
+            this.setServices(services);
+            return;
+        }
 
-        if (!this.services) {
-            const services = await this.getServicesFromStorage();
-            if (services) {
-                this.setServices(services);
-            }
+        await this.updateServices();
+        if (this.services) {
+            this.setServices(this.services);
         }
     };
 

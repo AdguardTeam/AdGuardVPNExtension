@@ -11,6 +11,7 @@ import type { PermissionsErrorInterface } from '../permissionsChecker/permission
 import type { StorageInterface } from '../browserApi/storage';
 import type { AccessCredentials, ExtensionProxyInterface } from '../proxy/proxy';
 import type { CredentialsBackup } from '../extension-state-service';
+import { extensionState } from '../extension-state-service';
 
 export interface VpnTokenData {
     token: string;
@@ -225,6 +226,7 @@ export class Credentials implements CredentialsInterface {
             throw error;
         }
 
+        await extensionState.updateVpnToken(vpnToken);
         return vpnToken;
     }
 
@@ -251,6 +253,7 @@ export class Credentials implements CredentialsInterface {
             throw error;
         }
 
+        await extensionState.updateVpnCredentials(vpnCredentials);
         return vpnCredentials;
     }
 
@@ -418,7 +421,10 @@ export class Credentials implements CredentialsInterface {
 
     async fetchUsername() {
         const accessToken = await this.auth.getAccessToken();
-        return accountProvider.getAccountInfo(accessToken);
+        const username = await accountProvider.getAccountInfo(accessToken);
+        await extensionState.updateCurrentUsername(username);
+
+        return username;
     }
 
     /**
@@ -537,7 +543,6 @@ export class Credentials implements CredentialsInterface {
             this.vpnToken = vpnToken || await this.gainValidVpnToken(forceRemote);
             this.vpnCredentials = vpnCredentials || await this.gainValidVpnCredentials(forceRemote);
             this.currentUsername = currentUsername || await this.fetchUsername();
-            // TODO: backup credentials
         } catch (e) {
             log.debug('Unable to init credentials module, due to error:', e.message);
         }

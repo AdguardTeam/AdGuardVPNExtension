@@ -8,9 +8,9 @@ import type { CredentialsDataInterface } from './providers/vpnProvider';
 const EXTENSION_STATE_KEY = 'extensionState';
 
 export type CredentialsBackup = {
-    vpnToken: VpnTokenData,
-    vpnCredentials: CredentialsDataInterface,
-    currentUsername: string | null,
+    vpnToken?: VpnTokenData,
+    vpnCredentials?: CredentialsDataInterface,
+    currentUsername?: string | null,
 };
 
 export type ExtensionState = {
@@ -39,8 +39,47 @@ const updateProxyConfig = async (value: ProxyConfigInterface) => {
     await setState(state);
 };
 
+const updateVpnToken = async (value: VpnTokenData) => {
+    const state = await getState();
+    if (state.credentialsBackup) {
+        state.credentialsBackup.vpnToken = value;
+    } else {
+        state.credentialsBackup = {
+            vpnToken: value,
+        };
+    }
+    await setState(state);
+};
+
+const updateVpnCredentials = async (value: CredentialsDataInterface) => {
+    const state = await getState();
+    if (state.credentialsBackup) {
+        state.credentialsBackup.vpnCredentials = value;
+    } else {
+        state.credentialsBackup = {
+            vpnCredentials: value,
+        };
+    }
+    await setState(state);
+};
+
+const updateCurrentUsername = async (value: string) => {
+    const state = await getState();
+    if (state.credentialsBackup) {
+        state.credentialsBackup.currentUsername = value;
+    } else {
+        state.credentialsBackup = {
+            currentUsername: value,
+        };
+    }
+    await setState(state);
+};
+
 export const extensionState = {
     getState,
     updateFallbackInfo,
     updateProxyConfig,
+    updateVpnToken,
+    updateVpnCredentials,
+    updateCurrentUsername,
 };
